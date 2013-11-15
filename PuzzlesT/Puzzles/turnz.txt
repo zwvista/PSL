@@ -1,0 +1,138 @@
+Level 001
+Sequence of moves: )
+Number of moves: 1
+Number of vertices examined: 2
+0.0148747 [s]
+
+Level 002
+Sequence of moves: )))))
+Number of moves: 5
+Number of vertices examined: 9
+0.00655907 [s]
+
+Level 003
+Sequence of moves: ((((((
+Number of moves: 6
+Number of vertices examined: 19
+0.0058385 [s]
+
+Level 004
+Sequence of moves: )))))))))
+Number of moves: 9
+Number of vertices examined: 31
+0.0239434 [s]
+
+Level 005
+Sequence of moves: )()(((()))))
+Number of moves: 12
+Number of vertices examined: 128
+0.0167056 [s]
+
+Level 006
+Sequence of moves: ))))
+Number of moves: 4
+Number of vertices examined: 8
+0.00504271 [s]
+
+Level 007
+Sequence of moves: )((
+Number of moves: 3
+Number of vertices examined: 5
+0.00888361 [s]
+
+Level 008
+Sequence of moves: (((()())))(
+Number of moves: 11
+Number of vertices examined: 37
+0.00451361 [s]
+
+Level 009
+Sequence of moves: ))))()))
+Number of moves: 8
+Number of vertices examined: 12
+0.00756898 [s]
+
+Level 010
+Sequence of moves: ()((((()
+Number of moves: 8
+Number of vertices examined: 38
+0.00572909 [s]
+
+Level 011
+Sequence of moves: (()))))(((()
+Number of moves: 12
+Number of vertices examined: 31
+0.00626033 [s]
+
+Level 012
+Sequence of moves: ))()()))(((
+Number of moves: 11
+Number of vertices examined: 98
+0.0152807 [s]
+
+Level 013
+Sequence of moves: (()))
+Number of moves: 5
+Number of vertices examined: 12
+0.00871693 [s]
+
+Level 014
+Sequence of moves: )(()))((()(
+Number of moves: 11
+Number of vertices examined: 35
+0.00978454 [s]
+
+Level 015
+Sequence of moves: (((())))())
+Number of moves: 11
+Number of vertices examined: 63
+0.00857419 [s]
+
+Level 016
+Sequence of moves: ))))))))(((()))))(
+Number of moves: 18
+Number of vertices examined: 94
+0.024931 [s]
+
+Level 017
+Sequence of moves: ))))
+Number of moves: 4
+Number of vertices examined: 6
+0.0036114 [s]
+
+Level 018
+Sequence of moves: ()())(())()(((((()(
+Number of moves: 19
+Number of vertices examined: 97
+0.0102183 [s]
+
+Level 019
+Sequence of moves: ())())((())
+Number of moves: 11
+Number of vertices examined: 53
+0.00809252 [s]
+
+Level 020
+Sequence of moves: ))(())))())
+Number of moves: 11
+Number of vertices examined: 209
+0.0239852 [s]
+
+Level 021
+Sequence of moves: )()))
+Number of moves: 5
+Number of vertices examined: 18
+0.00324342 [s]
+
+Level 022
+Sequence of moves: (((())(())((((((((
+Number of moves: 18
+Number of vertices examined: 74
+0.0162808 [s]
+
+Level 023
+Sequence of moves: ()((((((()
+Number of moves: 10
+Number of vertices examined: 96
+0.00805705 [s]
+

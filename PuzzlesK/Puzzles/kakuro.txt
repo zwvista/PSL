@@ -1,0 +1,12 @@
+Level 01
+Sequence of moves: 
+ ^ ^ ^ < - 2
+ 5 | 7 - - >
+ | | | 3 > ^
+ | | | | ^ 2
+ | | v v | v
+ v 7 - > 3 >
+Number of moves: 7
+Number of vertices examined: 20
+0.0549638 [s]
+

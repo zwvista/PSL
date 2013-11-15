@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="7X5 1">
+    <![CDATA[
+C    FA\
+  G  E \
+  H D  \
+     B \
+       \
+    ]]>
+  </level>
+  <level id="7X5 2">
+    <![CDATA[
+    G  \
+     F \
+    H E\
+  DC   \
+AB     \
+    ]]>
+  </level>
+  <level id="7X5 3">
+    <![CDATA[
+       \
+      C\
+FDE A  \
+    B  \
+ GH    \
+    ]]>
+  </level>
+  <level id="7X5 4">
+    <![CDATA[
+   H  G\
+     F \
+AC  I E\
+    D  \
+ B     \
+    ]]>
+  </level>
+  <level id="7X5 5">
+    <![CDATA[
+   B  A\
+ C    F\
+E  DH  \
+     G \
+       \
+    ]]>
+  </level>
+  <level id="7X5 6">
+    <![CDATA[
+     E \
+ H G   \
+     DF\
+ A     \
+C B    \
+    ]]>
+  </level>
+  <level id="7X5 7">
+    <![CDATA[
+       \
+      B\
+FDE    \
+   C   \
+G H   A\
+    ]]>
+  </level>
+  <level id="7X5 8">
+    <![CDATA[
+B      \
+   FGDE\
+  A    \
+ H     \
+   C   \
+    ]]>
+  </level>
+  <level id="8X6 1">
+    <![CDATA[
+I HG    \
+        \
+      B \
+   F    \
+  LK DCE\
+ J  A   \
+    ]]>
+  </level>
+  <level id="8X6 2">
+    <![CDATA[
+        \
+ H    GF\
+L   IE  \
+ MK J   \
+     B D\
+A     C \
+    ]]>
+  </level>
+  <level id="8X6 3">
+    <![CDATA[
+        \
+      F \
+H  E  G \
+ J      \
+KI   DCA\
+ L    B \
+    ]]>
+  </level>
+  <level id="8X6 4">
+    <![CDATA[
+ J      \
+ K      \
+ I A FG \
+CD  H   \
+  E     \
+   B    \
+    ]]>
+  </level>
+</levels>

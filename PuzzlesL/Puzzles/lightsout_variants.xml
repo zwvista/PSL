@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<levels>
+  <level id="001">
+    <![CDATA[
+100\
+000\
+000\
+    ]]>
+  </level>
+  <level id="002" on="2">
+    <![CDATA[
+100\
+000\
+000\
+    ]]>
+  </level>
+  <level id="101" movetype="h">
+    <![CDATA[
+#0#0#0#\
+1#0#0#0\
+#1#0#0#\
+    ]]>
+  </level>
+  <level id="102" movetype="h">
+    <![CDATA[
+#0#0#0#\
+0#1#0#0\
+#1#0#0#\
+    ]]>
+  </level>
+  <level id="103" movetype="h">
+    <![CDATA[
+#0#0#0#\
+0#0#0#0\
+#1#1#0#\
+    ]]>
+  </level>
+  <level id="104" movetype="h">
+    <![CDATA[
+#0#0#0#\
+0#0#0#0\
+#1#0#1#\
+    ]]>
+  </level>
+  <level id="105" movetype="h">
+    <![CDATA[
+#0#0#0#\
+0#0#0#0\
+#1#0#0#\
+    ]]>
+  </level>
+  <level id="106" movetype="h">
+    <![CDATA[
+#0#0#0#\
+0#0#0#0\
+#1#1#1#\
+    ]]>
+  </level>
+  <level id="107" movetype="h">
+    <![CDATA[
+#0#0#0#\
+0#1#0#0\
+#0#0#0#\
+    ]]>
+  </level>
+  <level id="108" movetype="h">
+    <![CDATA[
+#0#0#0#\
+0#1#0#0\
+#0#1#0#\
+    ]]>
+  </level>
+</levels>

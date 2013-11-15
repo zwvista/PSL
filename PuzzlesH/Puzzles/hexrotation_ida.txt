@@ -1,0 +1,54 @@
+Level 000
+Sequence of moves: 
+Number of moves: 0
+Number of vertices examined: 1
+0.00338916 [s]
+
+Level 001
+Sequence of moves: (2,4)(2,4)
+Number of moves: 2
+Number of vertices examined: 19
+0.00714971 [s]
+
+Level 002
+Sequence of moves: (2,6)(2,6)(4,4)(4,4)(3,5)
+Number of moves: 5
+Number of vertices examined: 1044
+0.0200277 [s]
+
+Level 003
+Sequence of moves: (2,4)(2,6)(2,6)(2,4)(2,6)
+Number of moves: 5
+Number of vertices examined: 18167
+0.101412 [s]
+
+Level 004
+Sequence of moves: (2,6)(3,7)(4,6)
+Number of moves: 3
+Number of vertices examined: 757
+0.0145161 [s]
+
+Level 005
+Sequence of moves: (2,6)(3,5)(3,3)(4,6)(3,7)(3,3)
+Number of moves: 6
+Number of vertices examined: 175271
+0.900501 [s]
+
+Level 006
+Sequence of moves: (3,3)(3,3)(3,3)(3,7)(4,6)(4,4)(4,4)(4,6)
+Number of moves: 8
+Number of vertices examined: 2545286
+15.4246 [s]
+
+Level 007
+Sequence of moves: (4,4)(3,7)(4,4)(3,7)(3,7)(4,6)
+Number of moves: 6
+Number of vertices examined: 270897
+1.59985 [s]
+
+Level 008
+Sequence of moves: (3,7)(2,6)(4,4)(3,7)(4,6)(4,4)(3,7)(3,5)(3,3)(2,6)
+Number of moves: 10
+Number of vertices examined: 158290850
+1343.82 [s]
+

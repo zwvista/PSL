@@ -1,0 +1,302 @@
+<?xml version="1.0" ?>
+<levels>
+  <!--<level id="001">
+    <![CDATA[
+aabcd\
+aabbd\
+eabdd\
+eeedd\
+eeeee\
+    ]]>
+  </level>
+  <level id="002">
+    <![CDATA[
+aaaaa\
+baaac\
+aaadc\
+aeddc\
+aeddd\
+    ]]>
+  </level>
+  <level id="003">
+    <![CDATA[
+aabbb\
+aabbb\
+cbbbb\
+cddee\
+cceee\
+    ]]>
+  </level>
+  <level id="004">
+    <![CDATA[
+aabbb\
+aacbb\
+cccdb\
+ceedb\
+ceddb\
+    ]]>
+  </level>
+  <level id="005">
+    <![CDATA[
+aaabb\
+abbbc\
+addcc\
+ddcce\
+deeee\
+    ]]>
+  </level>
+  <level id="006">
+    <![CDATA[
+aaabb\
+acbbb\
+ccbbb\
+ddbee\
+deeee\
+    ]]>
+  </level>
+  <level id="007">
+    <![CDATA[
+aabbbb\
+aabbbb\
+aaccbb\
+acccdb\
+ecccdb\
+eeefff\
+    ]]>
+  </level>
+  <level id="008">
+    <![CDATA[
+aabccc\
+aacccc\
+aaddce\
+aeeeee\
+aeeefe\
+eeeeee\
+    ]]>
+  </level>
+  <level id="009">
+    <![CDATA[
+abbbcc\
+abbbcc\
+aaaccc\
+adeccc\
+ddeccf\
+ddccff\
+    ]]>
+  </level>
+  <level id="010">
+    <![CDATA[
+aabbbb\
+abbcdb\
+abbcdd\
+eeccfd\
+eccffd\
+eeefff\
+    ]]>
+  </level>
+  <level id="011">
+    <![CDATA[
+aaabbb\
+aaabbb\
+accdbb\
+dddddd\
+ddeedd\
+eeeffd\
+    ]]>
+  </level>
+  <level id="012">
+    <![CDATA[
+aaaabb\
+aacbbb\
+aadddb\
+addeef\
+ddddee\
+dddeee\
+    ]]>
+  </level>
+  <level id="013">
+    <![CDATA[
+abbbcd\
+abdbcd\
+addddd\
+dddddd\
+effdff\
+eeffff\
+    ]]>
+  </level>
+  <level id="014">
+    <![CDATA[
+aaaabbb\
+aacaddb\
+aecffdb\
+aeccfdd\
+aeecfgg\
+aaggggg\
+ggggggg\
+    ]]>
+  </level>
+  <level id="015" numTreesInEachArea="2">
+    <![CDATA[
+aaaaaaaaa\
+bbaacaccd\
+bbbccccdD\
+bBbeefddd\
+bbbbeffFd\
+bgeEehffd\
+ggghhhffd\
+Ggiiihhff\
+ggiiiihff\
+    ]]>
+  </level>
+  <level id="016" numTreesInEachArea="2">
+    <![CDATA[
+abbbbccc\
+abbccccc\
+abbcdccc\
+aadddeee\
+adddfege\
+ahdffege\
+hhhfffgg\
+hhgggggg\
+    ]]>
+  </level>
+  <level id="017" numTreesInEachArea="2">
+    <![CDATA[
+aabbbbbcc\
+adddbbbcc\
+adeeecccc\
+adddefgcc\
+hhhdifggg\
+hdddifffg\
+hhhiifffg\
+hihiifffg\
+iiiiiiggg\
+    ]]>
+  </level>
+  <level id="018" numTreesInEachArea="2">
+    <![CDATA[
+aaaabcccd\
+aaabbbccd\
+aaaabeeed\
+fabbbbedd\
+ffbbgheed\
+fffgghhhh\
+ggfghhhii\
+gggghhiii\
+gggghiiii\
+    ]]>
+  </level>
+  <level id="019" numTreesInEachArea="2">
+    <![CDATA[
+aaaabcccc\
+aaaabcccc\
+addabbbcc\
+adeaefccc\
+adeeefcgg\
+ddhfefcgg\
+ddhfffccg\
+dhhiiiggg\
+hhhhhiiig\
+    ]]>
+  </level>
+  <level id="020" numTreesInEachArea="2">
+    <![CDATA[
+aaabbcddd\
+aabbbccdd\
+aabbbccdd\
+accccccee\
+fggcggcee\
+fgggggcee\
+ffhggiiii\
+ffhhiiiii\
+ffhhiiiii\
+    ]]>
+  </level>
+  <level id="021" numTreesInEachArea="2">
+    <![CDATA[
+aabbbbbbb\
+aaabcccbc\
+dabbecccc\
+ddffeeegg\
+ddffeeggg\
+dfffhhhgg\
+dffhhhhhg\
+dffhhhhig\
+dfffhiiii\
+    ]]>
+  </level>
+  <level id="022" numTreesInEachArea="2">
+    <![CDATA[
+abbbaaaac\
+aaabaaacc\
+daaaaaacc\
+dddaeaacc\
+ggdheaafc\
+gghheefff\
+gggheeeee\
+ghhheiiee\
+hhhiiiiii\
+    ]]>
+  </level>
+  <level id="023" numTreesInEachArea="2">
+    <![CDATA[
+abbbbcccc\
+aabbccdcc\
+abbbbddcc\
+aabeddfcc\
+gaeeedfff\
+geeeeeeff\
+gggeeeeff\
+hghhiieif\
+hhhiiiiii\
+    ]]>
+  </level>-->
+  <level id="024" numTreesInEachArea="2">
+    <![CDATA[
+aaaabbccc\
+daabbbeec\
+dddfbbecc\
+dddffgeec\
+ddddfgeec\
+ddddfgicc\
+ddhhfgiii\
+hhhhggggi\
+hhgggggii\
+    ]]>
+  </level>
+  <level id="025" numTreesInEachArea="2">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="026" numTreesInEachArea="2">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="027" numTreesInEachArea="2">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="028" numTreesInEachArea="2">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="029" numTreesInEachArea="2">
+    <![CDATA[
+    ]]>
+  </level>
+  <!--<level id="036" numTreesInEachArea="2">
+    <![CDATA[
+aaaaaabbccc\
+aaaaaabbccc\
+addaabbbccc\
+eedddbbbbbf\
+eeeegbbbbhf\
+eeeegggghhf\
+eeieggggghh\
+eeiiiijghhh\
+iiiiikjjjjj\
+kikiikkjjjj\
+kkkkkkkjjjj\
+    ]]>
+  </level>-->
+</levels>

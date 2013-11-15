@@ -1,0 +1,76 @@
+Level 001
+Sequence of moves: 
+#####
+#@  #
+#TTT#
+#   #
+#MMM#
+#S  #
+# I #
+#. S#
+#####
+move: rD
+#####
+#   #
+#T@T#
+# T #
+#MMM#
+#S  #
+# I #
+#. S#
+#####
+move: ulD
+#####
+#   #
+#@ T#
+#   #
+#MMM#
+#S  #
+# I #
+#. S#
+#####
+move: rdrD
+#####
+#   #
+#  T#
+#   #
+#MM@#
+#S M#
+# I #
+#. S#
+#####
+move: D
+#####
+#   #
+#  T#
+#   #
+#MM #
+#S @#
+# IS#
+#. S#
+#####
+move: lD
+#####
+#   #
+#  T#
+#   #
+#MM #
+#S  #
+# @S#
+#.SS#
+#####
+move: ld
+#####
+#   #
+#  T#
+#   #
+#MM #
+#S  #
+#  S#
+#@SS#
+#####
+Number of moves: 6
+Number of vertices examined: 15
+0.00567783 [s]
+
+Level 002

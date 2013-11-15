@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<levels>
+  <level id="001"><![CDATA[
+@  \
+TTT\
+   \
+MMM\
+S  \
+ I \
+. S\
+  ]]></level>
+  <level id="002"><![CDATA[
+@  S  TM      \
+TTTT ITM  TTTS\
+   S  TM  S   \
+MMMM  TM  MMMS\
+   S  TM  S   \
+IIII  TM  IIIS\
+      TM  S   \
+    IIIIIIS  .\
+  ]]></level>
+</levels>

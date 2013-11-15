@@ -1,0 +1,72 @@
+Level 7X5 1
+Sequence of moves: vvvv<^<v<<<<^^^^>vvv>>^>>^^<v<^<vv
+Number of moves: 34
+Number of vertices examined: 1402
+0.0311507 [s]
+
+Level 7X5 2
+Sequence of moves: >^<^^^>vv>^^>vvv<v>>^>v>^^<^>^<<vv
+Number of moves: 34
+Number of vertices examined: 6063
+0.0831243 [s]
+
+Level 7X5 3
+Sequence of moves: v>^^^>vvvv<<<^<<^^>v>^>^<<<<vvvv>>
+Number of moves: 34
+Number of vertices examined: 15093
+0.194947 [s]
+
+Level 7X5 4
+Sequence of moves: vv>^^^<^>>vv>v<v>>^>v>^^<^>^<<<v>v
+Number of moves: 34
+Number of vertices examined: 3072
+0.0406191 [s]
+
+Level 7X5 5
+Sequence of moves: <<v<^<<<v>>v>v<<^<vv>>>>>>^^^<vv<^
+Number of moves: 34
+Number of vertices examined: 1880
+0.0260789 [s]
+
+Level 7X5 6
+Sequence of moves: ^>vv<<^^^^>>>>vvv>^^^>vvvv<<<^^^<<
+Number of moves: 34
+Number of vertices examined: 3465
+0.04625 [s]
+
+Level 7X5 7
+Sequence of moves: ^^^^<vv<v>v<<^<<^^>v>^>^<<<<vvvv>>
+Number of moves: 34
+Number of vertices examined: 4040
+0.0523933 [s]
+
+Level 7X5 8
+Sequence of moves: <^>^<<vvvv>>>>^>v>^^<^>^<<<v>v<v<<
+Number of moves: 34
+Number of vertices examined: 553
+0.00901963 [s]
+
+Level 8X6 1
+Sequence of moves: ^^>^^>vvv<v>>^^^^^<<<vv<v<^^>^<<<v>v<v>v<v>>>^<
+Number of moves: 47
+Number of vertices examined: 24899
+0.334738 [s]
+
+Level 8X6 2
+Sequence of moves: ^>v>>>>^>v>^^<<^>>^^<v<^<<<<<v>>>>vvv<<^>^<<<v>
+Number of moves: 47
+Number of vertices examined: 25706
+0.346699 [s]
+
+Level 8X6 3
+Sequence of moves: v<^<v<^^^<^>>>v<v>>^^^<<<<<v<^<vv>>v>vv<^<^<vv>
+Number of moves: 47
+Number of vertices examined: 453796
+8.1992 [s]
+
+Level 8X6 4
+Sequence of moves: ^^>>>>vvvvv<<<<<<<^^>v>>>>>^<^>^<<vv<<^<<^^>>v<
+Number of moves: 47
+Number of vertices examined: 124671
+2.36058 [s]
+

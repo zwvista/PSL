@@ -1,0 +1,3683 @@
+Level 001
+Sequence of moves: 
+######
+#BDdB#
+#bddb#
+#BCcB#
+#bAAb#
+#A  A#
+######
+action: (5,1)R
+######
+#BDdB#
+#bddb#
+#BCcB#
+#bAAb#
+# A A#
+######
+action: (3,1)D
+######
+#BDdB#
+#bddb#
+# CcB#
+#BAAb#
+#bA A#
+######
+action: (4,3)D
+######
+#BDdB#
+#bddb#
+# CcB#
+#BA b#
+#bAAA#
+######
+action: (3,2)L
+######
+#BDdB#
+#bddb#
+#Cc B#
+#BA b#
+#bAAA#
+######
+action: (3,4)L
+######
+#BDdB#
+#bddb#
+#CcB #
+#BAb #
+#bAAA#
+######
+action: (5,4)U
+######
+#BDdB#
+#bddb#
+#CcB #
+#BAbA#
+#bAA #
+######
+action: (5,3)R
+######
+#BDdB#
+#bddb#
+#CcB #
+#BAbA#
+#bA A#
+######
+action: (3,3)D
+######
+#BDdB#
+#bddb#
+#Cc  #
+#BABA#
+#bAbA#
+######
+action: (3,1)R
+######
+#BDdB#
+#bddb#
+# Cc #
+#BABA#
+#bAbA#
+######
+action: (3,2)R
+######
+#BDdB#
+#bddb#
+#  Cc#
+#BABA#
+#bAbA#
+######
+action: (4,2)U
+######
+#BDdB#
+#bddb#
+# ACc#
+#B BA#
+#bAbA#
+######
+action: (3,2)L
+######
+#BDdB#
+#bddb#
+#A Cc#
+#B BA#
+#bAbA#
+######
+action: (5,2)U
+######
+#BDdB#
+#bddb#
+#A Cc#
+#BABA#
+#b bA#
+######
+action: (4,2)U
+######
+#BDdB#
+#bddb#
+#AACc#
+#B BA#
+#b bA#
+######
+action: (4,3)L
+######
+#BDdB#
+#bddb#
+#AACc#
+#BB A#
+#bb A#
+######
+action: (4,4)L
+######
+#BDdB#
+#bddb#
+#AACc#
+#BBA #
+#bb A#
+######
+action: (4,3)D
+######
+#BDdB#
+#bddb#
+#AACc#
+#BB  #
+#bbAA#
+######
+action: (3,3)D
+######
+#BDdB#
+#bddb#
+#AA  #
+#BBCc#
+#bbAA#
+######
+action: (3,2)R
+######
+#BDdB#
+#bddb#
+#A A #
+#BBCc#
+#bbAA#
+######
+action: (3,3)R
+######
+#BDdB#
+#bddb#
+#A  A#
+#BBCc#
+#bbAA#
+######
+action: (3,1)R
+######
+#BDdB#
+#bddb#
+# A A#
+#BBCc#
+#bbAA#
+######
+action: (3,2)R
+######
+#BDdB#
+#bddb#
+#  AA#
+#BBCc#
+#bbAA#
+######
+action: (4,2)U
+######
+#BDdB#
+#bddb#
+# BAA#
+#BbCc#
+#b AA#
+######
+action: (4,1)U
+######
+#BDdB#
+#bddb#
+#BBAA#
+#bbCc#
+#  AA#
+######
+action: (5,3)L
+######
+#BDdB#
+#bddb#
+#BBAA#
+#bbCc#
+# A A#
+######
+action: (5,2)L
+######
+#BDdB#
+#bddb#
+#BBAA#
+#bbCc#
+#A  A#
+######
+action: (5,4)L
+######
+#BDdB#
+#bddb#
+#BBAA#
+#bbCc#
+#A A #
+######
+action: (5,3)L
+######
+#BDdB#
+#bddb#
+#BBAA#
+#bbCc#
+#AA  #
+######
+action: (4,3)D
+######
+#BDdB#
+#bddb#
+#BBAA#
+#bb  #
+#AACc#
+######
+action: (3,3)D
+######
+#BDdB#
+#bddb#
+#BB A#
+#bbA #
+#AACc#
+######
+action: (4,3)R
+######
+#BDdB#
+#bddb#
+#BB A#
+#bb A#
+#AACc#
+######
+action: (3,2)R
+######
+#BDdB#
+#bddb#
+#B BA#
+#b bA#
+#AACc#
+######
+action: (3,1)R
+######
+#BDdB#
+#bddb#
+# BBA#
+# bbA#
+#AACc#
+######
+action: (1,1)D
+######
+# DdB#
+#Bddb#
+#bBBA#
+# bbA#
+#AACc#
+######
+action: (2,1)D
+######
+# DdB#
+# ddb#
+#BBBA#
+#bbbA#
+#AACc#
+######
+action: (1,2)L
+######
+#Dd B#
+#dd b#
+#BBBA#
+#bbbA#
+#AACc#
+######
+action: (1,4)L
+######
+#DdB #
+#ddb #
+#BBBA#
+#bbbA#
+#AACc#
+######
+action: (3,4)U
+######
+#DdB #
+#ddbA#
+#BBB #
+#bbbA#
+#AACc#
+######
+action: (2,4)U
+######
+#DdBA#
+#ddb #
+#BBB #
+#bbbA#
+#AACc#
+######
+action: (4,4)U
+######
+#DdBA#
+#ddb #
+#BBBA#
+#bbb #
+#AACc#
+######
+action: (3,4)U
+######
+#DdBA#
+#ddbA#
+#BBB #
+#bbb #
+#AACc#
+######
+action: (3,3)R
+######
+#DdBA#
+#ddbA#
+#BB B#
+#bb b#
+#AACc#
+######
+action: (1,3)D
+######
+#Dd A#
+#ddBA#
+#BBbB#
+#bb b#
+#AACc#
+######
+action: (2,3)D
+######
+#Dd A#
+#dd A#
+#BBBB#
+#bbbb#
+#AACc#
+######
+action: (1,1)R
+######
+# DdA#
+# ddA#
+#BBBB#
+#bbbb#
+#AACc#
+######
+action: (3,1)U
+######
+# DdA#
+#BddA#
+#bBBB#
+# bbb#
+#AACc#
+######
+action: (2,1)U
+######
+#BDdA#
+#bddA#
+# BBB#
+# bbb#
+#AACc#
+######
+action: (3,2)L
+######
+#BDdA#
+#bddA#
+#B BB#
+#b bb#
+#AACc#
+######
+action: (5,2)U
+######
+#BDdA#
+#bddA#
+#B BB#
+#bAbb#
+#A Cc#
+######
+action: (4,2)U
+######
+#BDdA#
+#bddA#
+#BABB#
+#b bb#
+#A Cc#
+######
+action: (5,1)R
+######
+#BDdA#
+#bddA#
+#BABB#
+#b bb#
+# ACc#
+######
+action: (5,2)U
+######
+#BDdA#
+#bddA#
+#BABB#
+#bAbb#
+#  Cc#
+######
+action: (5,3)L
+######
+#BDdA#
+#bddA#
+#BABB#
+#bAbb#
+# Cc #
+######
+action: (5,2)L
+######
+#BDdA#
+#bddA#
+#BABB#
+#bAbb#
+#Cc  #
+######
+action: (3,3)D
+######
+#BDdA#
+#bddA#
+#BA B#
+#bABb#
+#Ccb #
+######
+action: (3,4)D
+######
+#BDdA#
+#bddA#
+#BA  #
+#bABB#
+#Ccbb#
+######
+action: (3,2)R
+######
+#BDdA#
+#bddA#
+#B A #
+#bABB#
+#Ccbb#
+######
+action: (3,3)R
+######
+#BDdA#
+#bddA#
+#B  A#
+#bABB#
+#Ccbb#
+######
+action: (1,2)D
+######
+#B  A#
+#bDdA#
+#BddA#
+#bABB#
+#Ccbb#
+######
+action: (1,4)L
+######
+#B A #
+#bDdA#
+#BddA#
+#bABB#
+#Ccbb#
+######
+action: (1,3)L
+######
+#BA  #
+#bDdA#
+#BddA#
+#bABB#
+#Ccbb#
+######
+action: (2,4)U
+######
+#BA A#
+#bDd #
+#BddA#
+#bABB#
+#Ccbb#
+######
+action: (1,4)L
+######
+#BAA #
+#bDd #
+#BddA#
+#bABB#
+#Ccbb#
+######
+action: (3,4)U
+######
+#BAA #
+#bDdA#
+#Bdd #
+#bABB#
+#Ccbb#
+######
+action: (2,4)U
+######
+#BAAA#
+#bDd #
+#Bdd #
+#bABB#
+#Ccbb#
+######
+action: (4,4)U
+######
+#BAAA#
+#bDd #
+#BddB#
+#bABb#
+#Ccb #
+######
+action: (3,4)U
+######
+#BAAA#
+#bDdB#
+#Bddb#
+#bAB #
+#Ccb #
+######
+action: (4,3)R
+######
+#BAAA#
+#bDdB#
+#Bddb#
+#bA B#
+#Cc b#
+######
+action: (4,2)R
+######
+#BAAA#
+#bDdB#
+#Bddb#
+#b AB#
+#Cc b#
+######
+action: (4,3)D
+######
+#BAAA#
+#bDdB#
+#Bddb#
+#b  B#
+#CcAb#
+######
+action: (2,2)D
+######
+#BAAA#
+#b  B#
+#BDdb#
+#bddB#
+#CcAb#
+######
+action: (1,2)D
+######
+#B AA#
+#bA B#
+#BDdb#
+#bddB#
+#CcAb#
+######
+action: (2,2)R
+######
+#B AA#
+#b AB#
+#BDdb#
+#bddB#
+#CcAb#
+######
+action: (1,1)R
+######
+# BAA#
+# bAB#
+#BDdb#
+#bddB#
+#CcAb#
+######
+action: (3,1)U
+######
+# BAA#
+#BbAB#
+#bDdb#
+# ddB#
+#CcAb#
+######
+action: (2,1)U
+######
+#BBAA#
+#bbAB#
+# Ddb#
+# ddB#
+#CcAb#
+######
+action: (3,2)L
+######
+#BBAA#
+#bbAB#
+#Dd b#
+#dd B#
+#CcAb#
+######
+action: (2,3)D
+######
+#BBAA#
+#bb B#
+#DdAb#
+#dd B#
+#CcAb#
+######
+action: (3,3)D
+######
+#BBAA#
+#bb B#
+#Dd b#
+#ddAB#
+#CcAb#
+######
+action: (1,3)D
+######
+#BB A#
+#bbAB#
+#Dd b#
+#ddAB#
+#CcAb#
+######
+action: (1,4)L
+######
+#BBA #
+#bbAB#
+#Dd b#
+#ddAB#
+#CcAb#
+######
+action: (2,4)U
+######
+#BBAB#
+#bbAb#
+#Dd  #
+#ddAB#
+#CcAb#
+######
+action: (4,4)U
+######
+#BBAB#
+#bbAb#
+#Dd B#
+#ddAb#
+#CcA #
+######
+action: (5,3)R
+######
+#BBAB#
+#bbAb#
+#Dd B#
+#ddAb#
+#Cc A#
+######
+action: (4,3)D
+######
+#BBAB#
+#bbAb#
+#Dd B#
+#dd b#
+#CcAA#
+######
+action: (3,1)R
+######
+#BBAB#
+#bbAb#
+# DdB#
+# ddb#
+#CcAA#
+######
+action: (1,1)D
+######
+# BAB#
+#BbAb#
+#bDdB#
+# ddb#
+#CcAA#
+######
+action: (2,1)D
+######
+# BAB#
+# bAb#
+#BDdB#
+#bddb#
+#CcAA#
+######
+action: (1,2)L
+######
+#B AB#
+#b Ab#
+#BDdB#
+#bddb#
+#CcAA#
+######
+action: (2,3)L
+######
+#B AB#
+#bA b#
+#BDdB#
+#bddb#
+#CcAA#
+######
+action: (1,3)L
+######
+#BA B#
+#bA b#
+#BDdB#
+#bddb#
+#CcAA#
+######
+action: (1,4)L
+######
+#BAB #
+#bAb #
+#BDdB#
+#bddb#
+#CcAA#
+######
+action: (3,4)U
+######
+#BAB #
+#bAbB#
+#BDdb#
+#bdd #
+#CcAA#
+######
+action: (2,4)U
+######
+#BABB#
+#bAbb#
+#BDd #
+#bdd #
+#CcAA#
+######
+action: (3,2)R
+######
+#BABB#
+#bAbb#
+#B Dd#
+#b dd#
+#CcAA#
+######
+action: (2,2)D
+######
+#BABB#
+#b bb#
+#BADd#
+#b dd#
+#CcAA#
+######
+action: (3,2)D
+######
+#BABB#
+#b bb#
+#B Dd#
+#bAdd#
+#CcAA#
+######
+action: (1,2)D
+######
+#B BB#
+#bAbb#
+#B Dd#
+#bAdd#
+#CcAA#
+######
+action: (2,2)D
+######
+#B BB#
+#b bb#
+#BADd#
+#bAdd#
+#CcAA#
+######
+action: (1,1)R
+######
+# BBB#
+# bbb#
+#BADd#
+#bAdd#
+#CcAA#
+######
+action: (3,1)U
+######
+# BBB#
+#Bbbb#
+#bADd#
+# Add#
+#CcAA#
+######
+action: (2,1)U
+######
+#BBBB#
+#bbbb#
+# ADd#
+# Add#
+#CcAA#
+######
+action: (4,2)L
+######
+#BBBB#
+#bbbb#
+# ADd#
+#A dd#
+#CcAA#
+######
+action: (4,1)U
+######
+#BBBB#
+#bbbb#
+#AADd#
+#  dd#
+#CcAA#
+######
+action: (5,1)U
+######
+#BBBB#
+#bbbb#
+#AADd#
+#Ccdd#
+#  AA#
+######
+action: (5,3)L
+######
+#BBBB#
+#bbbb#
+#AADd#
+#Ccdd#
+# A A#
+######
+action: (5,2)L
+######
+#BBBB#
+#bbbb#
+#AADd#
+#Ccdd#
+#A  A#
+######
+action: (5,4)L
+######
+#BBBB#
+#bbbb#
+#AADd#
+#Ccdd#
+#A A #
+######
+action: (5,3)L
+######
+#BBBB#
+#bbbb#
+#AADd#
+#Ccdd#
+#AA  #
+######
+action: (3,3)D
+######
+#BBBB#
+#bbbb#
+#AA  #
+#CcDd#
+#AAdd#
+######
+action: (3,2)R
+######
+#BBBB#
+#bbbb#
+#A A #
+#CcDd#
+#AAdd#
+######
+action: (3,3)R
+######
+#BBBB#
+#bbbb#
+#A  A#
+#CcDd#
+#AAdd#
+######
+action: (3,1)R
+######
+#BBBB#
+#bbbb#
+# A A#
+#CcDd#
+#AAdd#
+######
+action: (3,2)R
+######
+#BBBB#
+#bbbb#
+#  AA#
+#CcDd#
+#AAdd#
+######
+action: (4,1)U
+######
+#BBBB#
+#bbbb#
+#CcAA#
+#  Dd#
+#AAdd#
+######
+action: (5,2)U
+######
+#BBBB#
+#bbbb#
+#CcAA#
+# ADd#
+#A dd#
+######
+action: (4,2)L
+######
+#BBBB#
+#bbbb#
+#CcAA#
+#A Dd#
+#A dd#
+######
+action: (4,3)L
+######
+#BBBB#
+#bbbb#
+#CcAA#
+#ADd #
+#Add #
+######
+Number of moves: 118
+Number of vertices examined: 77345
+16.7779 [s]
+
+Level 019
+Sequence of moves: 
+######
+#ADdA#
+#BddB#
+#bCcb#
+#ACcA#
+# Cc #
+######
+action: (5,2)L
+######
+#ADdA#
+#BddB#
+#bCcb#
+#ACcA#
+#Cc  #
+######
+action: (4,4)D
+######
+#ADdA#
+#BddB#
+#bCcb#
+#ACc #
+#Cc A#
+######
+action: (5,4)L
+######
+#ADdA#
+#BddB#
+#bCcb#
+#ACc #
+#CcA #
+######
+action: (2,4)D
+######
+#ADdA#
+#Bdd #
+#bCcB#
+#ACcb#
+#CcA #
+######
+action: (3,4)D
+######
+#ADdA#
+#Bdd #
+#bCc #
+#ACcB#
+#CcAb#
+######
+action: (1,4)D
+######
+#ADd #
+#BddA#
+#bCc #
+#ACcB#
+#CcAb#
+######
+action: (2,4)D
+######
+#ADd #
+#Bdd #
+#bCcA#
+#ACcB#
+#CcAb#
+######
+action: (1,2)R
+######
+#A Dd#
+#B dd#
+#bCcA#
+#ACcB#
+#CcAb#
+######
+action: (1,1)R
+######
+# ADd#
+#B dd#
+#bCcA#
+#ACcB#
+#CcAb#
+######
+action: (2,1)U
+######
+#BADd#
+#b dd#
+# CcA#
+#ACcB#
+#CcAb#
+######
+action: (3,2)L
+######
+#BADd#
+#b dd#
+#Cc A#
+#ACcB#
+#CcAb#
+######
+action: (3,4)L
+######
+#BADd#
+#b dd#
+#CcA #
+#ACcB#
+#CcAb#
+######
+action: (4,4)U
+######
+#BADd#
+#b dd#
+#CcAB#
+#ACcb#
+#CcA #
+######
+action: (5,3)R
+######
+#BADd#
+#b dd#
+#CcAB#
+#ACcb#
+#Cc A#
+######
+action: (5,1)R
+######
+#BADd#
+#b dd#
+#CcAB#
+#ACcb#
+# CcA#
+######
+action: (4,1)D
+######
+#BADd#
+#b dd#
+#CcAB#
+# Ccb#
+#ACcA#
+######
+action: (4,2)L
+######
+#BADd#
+#b dd#
+#CcAB#
+#Cc b#
+#ACcA#
+######
+action: (3,3)D
+######
+#BADd#
+#b dd#
+#Cc B#
+#CcAb#
+#ACcA#
+######
+action: (3,1)R
+######
+#BADd#
+#b dd#
+# CcB#
+#CcAb#
+#ACcA#
+######
+action: (1,1)D
+######
+# ADd#
+#B dd#
+#bCcB#
+#CcAb#
+#ACcA#
+######
+action: (1,2)L
+######
+#A Dd#
+#B dd#
+#bCcB#
+#CcAb#
+#ACcA#
+######
+action: (1,3)L
+######
+#ADd #
+#Bdd #
+#bCcB#
+#CcAb#
+#ACcA#
+######
+action: (3,4)U
+######
+#ADd #
+#BddB#
+#bCcb#
+#CcA #
+#ACcA#
+######
+action: (2,4)U
+######
+#ADdB#
+#Bddb#
+#bCc #
+#CcA #
+#ACcA#
+######
+action: (4,3)R
+######
+#ADdB#
+#Bddb#
+#bCc #
+#Cc A#
+#ACcA#
+######
+action: (4,1)R
+######
+#ADdB#
+#Bddb#
+#bCc #
+# CcA#
+#ACcA#
+######
+action: (5,1)U
+######
+#ADdB#
+#Bddb#
+#bCc #
+#ACcA#
+# CcA#
+######
+action: (5,2)L
+######
+#ADdB#
+#Bddb#
+#bCc #
+#ACcA#
+#Cc A#
+######
+action: (5,4)L
+######
+#ADdB#
+#Bddb#
+#bCc #
+#ACcA#
+#CcA #
+######
+action: (4,4)D
+######
+#ADdB#
+#Bddb#
+#bCc #
+#ACc #
+#CcAA#
+######
+action: (4,2)R
+######
+#ADdB#
+#Bddb#
+#bCc #
+#A Cc#
+#CcAA#
+######
+action: (3,2)R
+######
+#ADdB#
+#Bddb#
+#b Cc#
+#A Cc#
+#CcAA#
+######
+action: (4,1)R
+######
+#ADdB#
+#Bddb#
+#b Cc#
+# ACc#
+#CcAA#
+######
+action: (4,2)U
+######
+#ADdB#
+#Bddb#
+#bACc#
+#  Cc#
+#CcAA#
+######
+action: (5,1)U
+######
+#ADdB#
+#Bddb#
+#bACc#
+#CcCc#
+#  AA#
+######
+action: (5,3)L
+######
+#ADdB#
+#Bddb#
+#bACc#
+#CcCc#
+# A A#
+######
+action: (5,2)L
+######
+#ADdB#
+#Bddb#
+#bACc#
+#CcCc#
+#A  A#
+######
+action: (5,4)L
+######
+#ADdB#
+#Bddb#
+#bACc#
+#CcCc#
+#A A #
+######
+action: (5,3)L
+######
+#ADdB#
+#Bddb#
+#bACc#
+#CcCc#
+#AA  #
+######
+action: (4,3)D
+######
+#ADdB#
+#Bddb#
+#bACc#
+#Cc  #
+#AACc#
+######
+action: (4,1)R
+######
+#ADdB#
+#Bddb#
+#bACc#
+# Cc #
+#AACc#
+######
+action: (4,2)R
+######
+#ADdB#
+#Bddb#
+#bACc#
+#  Cc#
+#AACc#
+######
+action: (5,1)U
+######
+#ADdB#
+#Bddb#
+#bACc#
+#A Cc#
+# ACc#
+######
+action: (4,1)R
+######
+#ADdB#
+#Bddb#
+#bACc#
+# ACc#
+# ACc#
+######
+action: (2,1)D
+######
+#ADdB#
+# ddb#
+#BACc#
+#bACc#
+# ACc#
+######
+action: (3,1)D
+######
+#ADdB#
+# ddb#
+# ACc#
+#BACc#
+#bACc#
+######
+action: (3,2)L
+######
+#ADdB#
+# ddb#
+#A Cc#
+#BACc#
+#bACc#
+######
+action: (3,1)U
+######
+#ADdB#
+#Addb#
+#  Cc#
+#BACc#
+#bACc#
+######
+action: (4,2)U
+######
+#ADdB#
+#Addb#
+# ACc#
+#B Cc#
+#bACc#
+######
+action: (5,2)U
+######
+#ADdB#
+#Addb#
+# ACc#
+#BACc#
+#b Cc#
+######
+action: (4,1)U
+######
+#ADdB#
+#Addb#
+#BACc#
+#bACc#
+#  Cc#
+######
+action: (5,3)L
+######
+#ADdB#
+#Addb#
+#BACc#
+#bACc#
+# Cc #
+######
+action: (5,2)L
+######
+#ADdB#
+#Addb#
+#BACc#
+#bACc#
+#Cc  #
+######
+action: (4,3)D
+######
+#ADdB#
+#Addb#
+#BACc#
+#bA  #
+#CcCc#
+######
+action: (4,2)R
+######
+#ADdB#
+#Addb#
+#BACc#
+#b A #
+#CcCc#
+######
+action: (4,3)R
+######
+#ADdB#
+#Addb#
+#BACc#
+#b  A#
+#CcCc#
+######
+action: (3,2)D
+######
+#ADdB#
+#Addb#
+#B Cc#
+#bA A#
+#CcCc#
+######
+action: (3,3)L
+######
+#ADdB#
+#Addb#
+#BCc #
+#bA A#
+#CcCc#
+######
+action: (4,4)U
+######
+#ADdB#
+#Addb#
+#BCcA#
+#bA  #
+#CcCc#
+######
+action: (5,3)U
+######
+#ADdB#
+#Addb#
+#BCcA#
+#bACc#
+#Cc  #
+######
+action: (5,1)R
+######
+#ADdB#
+#Addb#
+#BCcA#
+#bACc#
+# Cc #
+######
+action: (5,2)R
+######
+#ADdB#
+#Addb#
+#BCcA#
+#bACc#
+#  Cc#
+######
+action: (4,2)D
+######
+#ADdB#
+#Addb#
+#BCcA#
+#b Cc#
+# ACc#
+######
+action: (3,1)D
+######
+#ADdB#
+#Addb#
+# CcA#
+#B Cc#
+#bACc#
+######
+action: (3,2)L
+######
+#ADdB#
+#Addb#
+#Cc A#
+#B Cc#
+#bACc#
+######
+action: (3,4)L
+######
+#ADdB#
+#Addb#
+#CcA #
+#B Cc#
+#bACc#
+######
+action: (4,3)L
+######
+#ADdB#
+#Addb#
+#CcA #
+#BCc #
+#bACc#
+######
+action: (1,4)D
+######
+#ADd #
+#AddB#
+#CcAb#
+#BCc #
+#bACc#
+######
+action: (2,4)D
+######
+#ADd #
+#Add #
+#CcAB#
+#BCcb#
+#bACc#
+######
+action: (1,2)R
+######
+#A Dd#
+#A dd#
+#CcAB#
+#BCcb#
+#bACc#
+######
+action: (2,1)R
+######
+#A Dd#
+# Add#
+#CcAB#
+#BCcb#
+#bACc#
+######
+action: (2,2)U
+######
+#AADd#
+#  dd#
+#CcAB#
+#BCcb#
+#bACc#
+######
+action: (3,1)U
+######
+#AADd#
+#Ccdd#
+#  AB#
+#BCcb#
+#bACc#
+######
+action: (4,1)U
+######
+#AADd#
+#Ccdd#
+#B AB#
+#bCcb#
+# ACc#
+######
+action: (5,2)L
+######
+#AADd#
+#Ccdd#
+#B AB#
+#bCcb#
+#A Cc#
+######
+action: (5,3)L
+######
+#AADd#
+#Ccdd#
+#B AB#
+#bCcb#
+#ACc #
+######
+action: (3,3)L
+######
+#AADd#
+#Ccdd#
+#BA B#
+#bCcb#
+#ACc #
+######
+action: (3,4)D
+######
+#AADd#
+#Ccdd#
+#BA  #
+#bCcB#
+#ACcb#
+######
+action: (1,3)D
+######
+#AA  #
+#CcDd#
+#BAdd#
+#bCcB#
+#ACcb#
+######
+action: (1,2)R
+######
+#A A #
+#CcDd#
+#BAdd#
+#bCcB#
+#ACcb#
+######
+action: (1,3)R
+######
+#A  A#
+#CcDd#
+#BAdd#
+#bCcB#
+#ACcb#
+######
+action: (1,1)R
+######
+# A A#
+#CcDd#
+#BAdd#
+#bCcB#
+#ACcb#
+######
+action: (1,2)R
+######
+#  AA#
+#CcDd#
+#BAdd#
+#bCcB#
+#ACcb#
+######
+action: (2,1)U
+######
+#CcAA#
+#  Dd#
+#BAdd#
+#bCcB#
+#ACcb#
+######
+action: (3,2)U
+######
+#CcAA#
+# ADd#
+#B dd#
+#bCcB#
+#ACcb#
+######
+action: (2,2)L
+######
+#CcAA#
+#A Dd#
+#B dd#
+#bCcB#
+#ACcb#
+######
+action: (2,3)L
+######
+#CcAA#
+#ADd #
+#Bdd #
+#bCcB#
+#ACcb#
+######
+action: (1,4)D
+######
+#CcA #
+#ADdA#
+#Bdd #
+#bCcB#
+#ACcb#
+######
+action: (2,4)D
+######
+#CcA #
+#ADd #
+#BddA#
+#bCcB#
+#ACcb#
+######
+action: (1,3)R
+######
+#Cc A#
+#ADd #
+#BddA#
+#bCcB#
+#ACcb#
+######
+action: (1,4)D
+######
+#Cc  #
+#ADdA#
+#BddA#
+#bCcB#
+#ACcb#
+######
+action: (1,1)R
+######
+# Cc #
+#ADdA#
+#BddA#
+#bCcB#
+#ACcb#
+######
+action: (1,2)R
+######
+#  Cc#
+#ADdA#
+#BddA#
+#bCcB#
+#ACcb#
+######
+action: (2,1)U
+######
+#A Cc#
+# DdA#
+#BddA#
+#bCcB#
+#ACcb#
+######
+action: (1,1)R
+######
+# ACc#
+# DdA#
+#BddA#
+#bCcB#
+#ACcb#
+######
+action: (3,1)U
+######
+# ACc#
+#BDdA#
+#bddA#
+# CcB#
+#ACcb#
+######
+action: (2,1)U
+######
+#BACc#
+#bDdA#
+# ddA#
+# CcB#
+#ACcb#
+######
+action: (5,1)U
+######
+#BACc#
+#bDdA#
+# ddA#
+#ACcB#
+# Ccb#
+######
+action: (4,1)U
+######
+#BACc#
+#bDdA#
+#AddA#
+# CcB#
+# Ccb#
+######
+action: (4,2)L
+######
+#BACc#
+#bDdA#
+#AddA#
+#Cc B#
+# Ccb#
+######
+action: (5,2)L
+######
+#BACc#
+#bDdA#
+#AddA#
+#Cc B#
+#Cc b#
+######
+action: (4,4)L
+######
+#BACc#
+#bDdA#
+#AddA#
+#CcB #
+#Ccb #
+######
+action: (3,4)D
+######
+#BACc#
+#bDdA#
+#Add #
+#CcBA#
+#Ccb #
+######
+action: (4,4)D
+######
+#BACc#
+#bDdA#
+#Add #
+#CcB #
+#CcbA#
+######
+action: (2,4)D
+######
+#BACc#
+#bDd #
+#AddA#
+#CcB #
+#CcbA#
+######
+action: (3,4)D
+######
+#BACc#
+#bDd #
+#Add #
+#CcBA#
+#CcbA#
+######
+action: (2,2)R
+######
+#BACc#
+#b Dd#
+#A dd#
+#CcBA#
+#CcbA#
+######
+action: (3,1)R
+######
+#BACc#
+#b Dd#
+# Add#
+#CcBA#
+#CcbA#
+######
+action: (1,2)D
+######
+#B Cc#
+#bADd#
+# Add#
+#CcBA#
+#CcbA#
+######
+action: (1,1)D
+######
+#  Cc#
+#BADd#
+#bAdd#
+#CcBA#
+#CcbA#
+######
+action: (1,3)L
+######
+# Cc #
+#BADd#
+#bAdd#
+#CcBA#
+#CcbA#
+######
+action: (1,2)L
+######
+#Cc  #
+#BADd#
+#bAdd#
+#CcBA#
+#CcbA#
+######
+action: (2,3)U
+######
+#CcDd#
+#BAdd#
+#bA  #
+#CcBA#
+#CcbA#
+######
+action: (4,4)U
+######
+#CcDd#
+#BAdd#
+#bA A#
+#CcB #
+#CcbA#
+######
+action: (4,3)U
+######
+#CcDd#
+#BAdd#
+#bABA#
+#Ccb #
+#Cc A#
+######
+action: (5,4)U
+######
+#CcDd#
+#BAdd#
+#bABA#
+#CcbA#
+#Cc  #
+######
+action: (5,1)R
+######
+#CcDd#
+#BAdd#
+#bABA#
+#CcbA#
+# Cc #
+######
+action: (5,2)R
+######
+#CcDd#
+#BAdd#
+#bABA#
+#CcbA#
+#  Cc#
+######
+action: (4,1)D
+######
+#CcDd#
+#BAdd#
+#bABA#
+#  bA#
+#CcCc#
+######
+action: (2,1)D
+######
+#CcDd#
+# Add#
+#BABA#
+#b bA#
+#CcCc#
+######
+action: (2,2)L
+######
+#CcDd#
+#A dd#
+#BABA#
+#b bA#
+#CcCc#
+######
+action: (3,2)U
+######
+#CcDd#
+#AAdd#
+#B BA#
+#b bA#
+#CcCc#
+######
+action: (3,3)L
+######
+#CcDd#
+#AAdd#
+#BB A#
+#bb A#
+#CcCc#
+######
+action: (3,4)L
+######
+#CcDd#
+#AAdd#
+#BBA #
+#bb A#
+#CcCc#
+######
+action: (3,3)D
+######
+#CcDd#
+#AAdd#
+#BB  #
+#bbAA#
+#CcCc#
+######
+action: (1,3)D
+######
+#Cc  #
+#AADd#
+#BBdd#
+#bbAA#
+#CcCc#
+######
+action: (1,1)R
+######
+# Cc #
+#AADd#
+#BBdd#
+#bbAA#
+#CcCc#
+######
+action: (1,2)R
+######
+#  Cc#
+#AADd#
+#BBdd#
+#bbAA#
+#CcCc#
+######
+action: (2,2)U
+######
+# ACc#
+#A Dd#
+#BBdd#
+#bbAA#
+#CcCc#
+######
+action: (2,1)U
+######
+#AACc#
+#  Dd#
+#BBdd#
+#bbAA#
+#CcCc#
+######
+action: (3,2)U
+######
+#AACc#
+# BDd#
+#Bbdd#
+#b AA#
+#CcCc#
+######
+action: (3,1)U
+######
+#AACc#
+#BBDd#
+#bbdd#
+#  AA#
+#CcCc#
+######
+action: (5,1)U
+######
+#AACc#
+#BBDd#
+#bbdd#
+#CcAA#
+#  Cc#
+######
+action: (5,3)L
+######
+#AACc#
+#BBDd#
+#bbdd#
+#CcAA#
+# Cc #
+######
+action: (5,2)L
+######
+#AACc#
+#BBDd#
+#bbdd#
+#CcAA#
+#Cc  #
+######
+action: (4,4)D
+######
+#AACc#
+#BBDd#
+#bbdd#
+#CcA #
+#Cc A#
+######
+action: (4,3)D
+######
+#AACc#
+#BBDd#
+#bbdd#
+#Cc  #
+#CcAA#
+######
+action: (2,3)D
+######
+#AACc#
+#BB  #
+#bbDd#
+#Ccdd#
+#CcAA#
+######
+action: (1,3)D
+######
+#AA  #
+#BBCc#
+#bbDd#
+#Ccdd#
+#CcAA#
+######
+action: (1,2)R
+######
+#A A #
+#BBCc#
+#bbDd#
+#Ccdd#
+#CcAA#
+######
+action: (1,3)R
+######
+#A  A#
+#BBCc#
+#bbDd#
+#Ccdd#
+#CcAA#
+######
+action: (1,1)R
+######
+# A A#
+#BBCc#
+#bbDd#
+#Ccdd#
+#CcAA#
+######
+action: (1,2)R
+######
+#  AA#
+#BBCc#
+#bbDd#
+#Ccdd#
+#CcAA#
+######
+action: (2,1)U
+######
+#B AA#
+#bBCc#
+# bDd#
+#Ccdd#
+#CcAA#
+######
+action: (2,2)U
+######
+#BBAA#
+#bbCc#
+#  Dd#
+#Ccdd#
+#CcAA#
+######
+action: (4,1)U
+######
+#BBAA#
+#bbCc#
+#CcDd#
+#  dd#
+#CcAA#
+######
+action: (5,1)U
+######
+#BBAA#
+#bbCc#
+#CcDd#
+#Ccdd#
+#  AA#
+######
+action: (5,3)L
+######
+#BBAA#
+#bbCc#
+#CcDd#
+#Ccdd#
+# A A#
+######
+action: (5,2)L
+######
+#BBAA#
+#bbCc#
+#CcDd#
+#Ccdd#
+#A  A#
+######
+action: (5,4)L
+######
+#BBAA#
+#bbCc#
+#CcDd#
+#Ccdd#
+#A A #
+######
+action: (5,3)L
+######
+#BBAA#
+#bbCc#
+#CcDd#
+#Ccdd#
+#AA  #
+######
+action: (3,3)D
+######
+#BBAA#
+#bbCc#
+#Cc  #
+#CcDd#
+#AAdd#
+######
+action: (3,1)R
+######
+#BBAA#
+#bbCc#
+# Cc #
+#CcDd#
+#AAdd#
+######
+action: (3,2)R
+######
+#BBAA#
+#bbCc#
+#  Cc#
+#CcDd#
+#AAdd#
+######
+action: (4,1)U
+######
+#BBAA#
+#bbCc#
+#CcCc#
+#  Dd#
+#AAdd#
+######
+action: (5,2)U
+######
+#BBAA#
+#bbCc#
+#CcCc#
+# ADd#
+#A dd#
+######
+action: (4,2)L
+######
+#BBAA#
+#bbCc#
+#CcCc#
+#A Dd#
+#A dd#
+######
+action: (4,3)L
+######
+#BBAA#
+#bbCc#
+#CcCc#
+#ADd #
+#Add #
+######
+Number of moves: 158
+Number of vertices examined: 118685
+27.8235 [s]
+
+Level 055
+Sequence of moves: 
+######
+#AAAB#
+#DdBb#
+#ddbB#
+# Ccb#
+# ACc#
+######
+action: (4,2)L
+######
+#AAAB#
+#DdBb#
+#ddbB#
+#Cc b#
+# ACc#
+######
+action: (5,2)L
+######
+#AAAB#
+#DdBb#
+#ddbB#
+#Cc b#
+#A Cc#
+######
+action: (2,3)D
+######
+#AAAB#
+#Dd b#
+#ddBB#
+#Ccbb#
+#A Cc#
+######
+action: (5,3)L
+######
+#AAAB#
+#Dd b#
+#ddBB#
+#Ccbb#
+#ACc #
+######
+action: (3,4)D
+######
+#AAAB#
+#Dd b#
+#ddB #
+#CcbB#
+#ACcb#
+######
+action: (1,3)D
+######
+#AA B#
+#DdAb#
+#ddB #
+#CcbB#
+#ACcb#
+######
+action: (1,4)D
+######
+#AA  #
+#DdAB#
+#ddBb#
+#CcbB#
+#ACcb#
+######
+action: (1,2)R
+######
+#A A #
+#DdAB#
+#ddBb#
+#CcbB#
+#ACcb#
+######
+action: (1,3)R
+######
+#A  A#
+#DdAB#
+#ddBb#
+#CcbB#
+#ACcb#
+######
+action: (1,1)R
+######
+# A A#
+#DdAB#
+#ddBb#
+#CcbB#
+#ACcb#
+######
+action: (1,2)R
+######
+#  AA#
+#DdAB#
+#ddBb#
+#CcbB#
+#ACcb#
+######
+action: (2,1)U
+######
+#DdAA#
+#ddAB#
+#  Bb#
+#CcbB#
+#ACcb#
+######
+action: (4,1)U
+######
+#DdAA#
+#ddAB#
+#CcBb#
+#  bB#
+#ACcb#
+######
+action: (5,1)U
+######
+#DdAA#
+#ddAB#
+#CcBb#
+#A bB#
+# Ccb#
+######
+action: (5,2)L
+######
+#DdAA#
+#ddAB#
+#CcBb#
+#A bB#
+#Cc b#
+######
+action: (3,3)D
+######
+#DdAA#
+#ddAB#
+#Cc b#
+#A BB#
+#Ccbb#
+######
+action: (2,3)D
+######
+#DdAA#
+#dd B#
+#CcAb#
+#A BB#
+#Ccbb#
+######
+action: (1,3)D
+######
+#Dd A#
+#ddAB#
+#CcAb#
+#A BB#
+#Ccbb#
+######
+action: (1,4)L
+######
+#DdA #
+#ddAB#
+#CcAb#
+#A BB#
+#Ccbb#
+######
+action: (2,4)U
+######
+#DdAB#
+#ddAb#
+#CcA #
+#A BB#
+#Ccbb#
+######
+action: (3,3)R
+######
+#DdAB#
+#ddAb#
+#Cc A#
+#A BB#
+#Ccbb#
+######
+action: (4,3)U
+######
+#DdAB#
+#ddAb#
+#CcBA#
+#A bB#
+#Cc b#
+######
+action: (5,1)R
+######
+#DdAB#
+#ddAb#
+#CcBA#
+#A bB#
+# Ccb#
+######
+action: (4,1)D
+######
+#DdAB#
+#ddAb#
+#CcBA#
+#  bB#
+#ACcb#
+######
+action: (3,1)D
+######
+#DdAB#
+#ddAb#
+#  BA#
+#CcbB#
+#ACcb#
+######
+action: (1,1)D
+######
+#  AB#
+#DdAb#
+#ddBA#
+#CcbB#
+#ACcb#
+######
+action: (1,3)L
+######
+# A B#
+#DdAb#
+#ddBA#
+#CcbB#
+#ACcb#
+######
+action: (1,2)L
+######
+#A  B#
+#DdAb#
+#ddBA#
+#CcbB#
+#ACcb#
+######
+action: (2,3)U
+######
+#A AB#
+#Dd b#
+#ddBA#
+#CcbB#
+#ACcb#
+######
+action: (1,3)L
+######
+#AA B#
+#Dd b#
+#ddBA#
+#CcbB#
+#ACcb#
+######
+action: (3,3)U
+######
+#AA B#
+#DdBb#
+#ddbA#
+#Cc B#
+#ACcb#
+######
+action: (2,3)U
+######
+#AABB#
+#Ddbb#
+#dd A#
+#Cc B#
+#ACcb#
+######
+action: (3,4)L
+######
+#AABB#
+#Ddbb#
+#ddA #
+#Cc B#
+#ACcb#
+######
+action: (3,3)D
+######
+#AABB#
+#Ddbb#
+#dd  #
+#CcAB#
+#ACcb#
+######
+action: (1,3)D
+######
+#AA B#
+#DdBb#
+#ddb #
+#CcAB#
+#ACcb#
+######
+action: (1,4)D
+######
+#AA  #
+#DdBB#
+#ddbb#
+#CcAB#
+#ACcb#
+######
+action: (1,2)R
+######
+#A A #
+#DdBB#
+#ddbb#
+#CcAB#
+#ACcb#
+######
+action: (1,3)R
+######
+#A  A#
+#DdBB#
+#ddbb#
+#CcAB#
+#ACcb#
+######
+action: (1,1)R
+######
+# A A#
+#DdBB#
+#ddbb#
+#CcAB#
+#ACcb#
+######
+action: (1,2)R
+######
+#  AA#
+#DdBB#
+#ddbb#
+#CcAB#
+#ACcb#
+######
+action: (2,1)U
+######
+#DdAA#
+#ddBB#
+#  bb#
+#CcAB#
+#ACcb#
+######
+action: (4,1)U
+######
+#DdAA#
+#ddBB#
+#Ccbb#
+#  AB#
+#ACcb#
+######
+action: (5,1)U
+######
+#DdAA#
+#ddBB#
+#Ccbb#
+#A AB#
+# Ccb#
+######
+action: (4,1)R
+######
+#DdAA#
+#ddBB#
+#Ccbb#
+# AAB#
+# Ccb#
+######
+action: (5,2)L
+######
+#DdAA#
+#ddBB#
+#Ccbb#
+# AAB#
+#Cc b#
+######
+action: (4,3)D
+######
+#DdAA#
+#ddBB#
+#Ccbb#
+# A B#
+#CcAb#
+######
+action: (4,2)R
+######
+#DdAA#
+#ddBB#
+#Ccbb#
+#  AB#
+#CcAb#
+######
+action: (3,1)D
+######
+#DdAA#
+#ddBB#
+#  bb#
+#CcAB#
+#CcAb#
+######
+action: (1,1)D
+######
+#  AA#
+#DdBB#
+#ddbb#
+#CcAB#
+#CcAb#
+######
+action: (1,3)L
+######
+# A A#
+#DdBB#
+#ddbb#
+#CcAB#
+#CcAb#
+######
+action: (1,2)L
+######
+#A  A#
+#DdBB#
+#ddbb#
+#CcAB#
+#CcAb#
+######
+action: (1,4)L
+######
+#A A #
+#DdBB#
+#ddbb#
+#CcAB#
+#CcAb#
+######
+action: (1,3)L
+######
+#AA  #
+#DdBB#
+#ddbb#
+#CcAB#
+#CcAb#
+######
+action: (2,3)U
+######
+#AAB #
+#DdbB#
+#dd b#
+#CcAB#
+#CcAb#
+######
+action: (4,3)U
+######
+#AAB #
+#DdbB#
+#ddAb#
+#Cc B#
+#CcAb#
+######
+action: (2,4)U
+######
+#AABB#
+#Ddbb#
+#ddA #
+#Cc B#
+#CcAb#
+######
+action: (4,4)U
+######
+#AABB#
+#Ddbb#
+#ddAB#
+#Cc b#
+#CcA #
+######
+action: (5,3)U
+######
+#AABB#
+#Ddbb#
+#ddAB#
+#CcAb#
+#Cc  #
+######
+action: (5,1)R
+######
+#AABB#
+#Ddbb#
+#ddAB#
+#CcAb#
+# Cc #
+######
+action: (5,2)R
+######
+#AABB#
+#Ddbb#
+#ddAB#
+#CcAb#
+#  Cc#
+######
+action: (4,1)D
+######
+#AABB#
+#Ddbb#
+#ddAB#
+#  Ab#
+#CcCc#
+######
+action: (4,3)L
+######
+#AABB#
+#Ddbb#
+#ddAB#
+# A b#
+#CcCc#
+######
+action: (4,2)L
+######
+#AABB#
+#Ddbb#
+#ddAB#
+#A  b#
+#CcCc#
+######
+action: (3,3)D
+######
+#AABB#
+#Ddbb#
+#dd B#
+#A Ab#
+#CcCc#
+######
+action: (4,3)L
+######
+#AABB#
+#Ddbb#
+#dd B#
+#AA b#
+#CcCc#
+######
+action: (1,3)D
+######
+#AA B#
+#DdBb#
+#ddbB#
+#AA b#
+#CcCc#
+######
+action: (2,3)D
+######
+#AA B#
+#Dd b#
+#ddBB#
+#AAbb#
+#CcCc#
+######
+action: (1,2)R
+######
+#A AB#
+#Dd b#
+#ddBB#
+#AAbb#
+#CcCc#
+######
+action: (1,3)D
+######
+#A  B#
+#DdAb#
+#ddBB#
+#AAbb#
+#CcCc#
+######
+action: (1,1)R
+######
+# A B#
+#DdAb#
+#ddBB#
+#AAbb#
+#CcCc#
+######
+action: (1,2)R
+######
+#  AB#
+#DdAb#
+#ddBB#
+#AAbb#
+#CcCc#
+######
+action: (2,1)U
+######
+#DdAB#
+#ddAb#
+#  BB#
+#AAbb#
+#CcCc#
+######
+action: (4,2)U
+######
+#DdAB#
+#ddAb#
+# ABB#
+#A bb#
+#CcCc#
+######
+action: (3,2)L
+######
+#DdAB#
+#ddAb#
+#A BB#
+#A bb#
+#CcCc#
+######
+action: (3,3)L
+######
+#DdAB#
+#ddAb#
+#AB B#
+#Ab b#
+#CcCc#
+######
+action: (3,4)L
+######
+#DdAB#
+#ddAb#
+#ABB #
+#Abb #
+#CcCc#
+######
+action: (1,4)D
+######
+#DdA #
+#ddAB#
+#ABBb#
+#Abb #
+#CcCc#
+######
+action: (1,3)R
+######
+#Dd A#
+#ddAB#
+#ABBb#
+#Abb #
+#CcCc#
+######
+action: (2,3)U
+######
+#DdAA#
+#dd B#
+#ABBb#
+#Abb #
+#CcCc#
+######
+action: (3,3)U
+######
+#DdAA#
+#ddBB#
+#ABbb#
+#Ab  #
+#CcCc#
+######
+action: (5,3)U
+######
+#DdAA#
+#ddBB#
+#ABbb#
+#AbCc#
+#Cc  #
+######
+action: (5,1)R
+######
+#DdAA#
+#ddBB#
+#ABbb#
+#AbCc#
+# Cc #
+######
+action: (5,2)R
+######
+#DdAA#
+#ddBB#
+#ABbb#
+#AbCc#
+#  Cc#
+######
+action: (4,1)D
+######
+#DdAA#
+#ddBB#
+#ABbb#
+# bCc#
+#A Cc#
+######
+action: (5,1)R
+######
+#DdAA#
+#ddBB#
+#ABbb#
+# bCc#
+# ACc#
+######
+action: (3,1)D
+######
+#DdAA#
+#ddBB#
+# Bbb#
+#AbCc#
+# ACc#
+######
+action: (4,1)D
+######
+#DdAA#
+#ddBB#
+# Bbb#
+# bCc#
+#AACc#
+######
+action: (3,2)L
+######
+#DdAA#
+#ddBB#
+#B bb#
+#b Cc#
+#AACc#
+######
+action: (5,2)U
+######
+#DdAA#
+#ddBB#
+#B bb#
+#bACc#
+#A Cc#
+######
+action: (4,2)U
+######
+#DdAA#
+#ddBB#
+#BAbb#
+#b Cc#
+#A Cc#
+######
+action: (4,3)L
+######
+#DdAA#
+#ddBB#
+#BAbb#
+#bCc #
+#A Cc#
+######
+action: (5,3)L
+######
+#DdAA#
+#ddBB#
+#BAbb#
+#bCc #
+#ACc #
+######
+action: (2,4)D
+######
+#DdAA#
+#ddB #
+#BAbB#
+#bCcb#
+#ACc #
+######
+action: (3,4)D
+######
+#DdAA#
+#ddB #
+#BAb #
+#bCcB#
+#ACcb#
+######
+action: (2,3)R
+######
+#DdAA#
+#dd B#
+#BA b#
+#bCcB#
+#ACcb#
+######
+action: (1,3)D
+######
+#Dd A#
+#ddAB#
+#BA b#
+#bCcB#
+#ACcb#
+######
+action: (2,3)D
+######
+#Dd A#
+#dd B#
+#BAAb#
+#bCcB#
+#ACcb#
+######
+action: (1,1)R
+######
+# DdA#
+# ddB#
+#BAAb#
+#bCcB#
+#ACcb#
+######
+action: (3,1)U
+######
+# DdA#
+#BddB#
+#bAAb#
+# CcB#
+#ACcb#
+######
+action: (2,1)U
+######
+#BDdA#
+#bddB#
+# AAb#
+# CcB#
+#ACcb#
+######
+action: (4,2)L
+######
+#BDdA#
+#bddB#
+# AAb#
+#Cc B#
+#ACcb#
+######
+action: (3,3)D
+######
+#BDdA#
+#bddB#
+# A b#
+#CcAB#
+#ACcb#
+######
+action: (3,2)R
+######
+#BDdA#
+#bddB#
+#  Ab#
+#CcAB#
+#ACcb#
+######
+action: (4,1)U
+######
+#BDdA#
+#bddB#
+#CcAb#
+#  AB#
+#ACcb#
+######
+action: (5,1)U
+######
+#BDdA#
+#bddB#
+#CcAb#
+#A AB#
+# Ccb#
+######
+action: (4,3)L
+######
+#BDdA#
+#bddB#
+#CcAb#
+#AA B#
+# Ccb#
+######
+action: (5,2)L
+######
+#BDdA#
+#bddB#
+#CcAb#
+#AA B#
+#Cc b#
+######
+action: (4,4)L
+######
+#BDdA#
+#bddB#
+#CcAb#
+#AAB #
+#Ccb #
+######
+action: (2,4)D
+######
+#BDdA#
+#bdd #
+#CcAB#
+#AABb#
+#Ccb #
+######
+action: (3,4)D
+######
+#BDdA#
+#bdd #
+#CcA #
+#AABB#
+#Ccbb#
+######
+action: (3,3)R
+######
+#BDdA#
+#bdd #
+#Cc A#
+#AABB#
+#Ccbb#
+######
+action: (3,4)U
+######
+#BDdA#
+#bddA#
+#Cc  #
+#AABB#
+#Ccbb#
+######
+action: (3,1)R
+######
+#BDdA#
+#bddA#
+# Cc #
+#AABB#
+#Ccbb#
+######
+action: (3,2)R
+######
+#BDdA#
+#bddA#
+#  Cc#
+#AABB#
+#Ccbb#
+######
+action: (4,1)U
+######
+#BDdA#
+#bddA#
+#A Cc#
+# ABB#
+#Ccbb#
+######
+action: (3,1)R
+######
+#BDdA#
+#bddA#
+# ACc#
+# ABB#
+#Ccbb#
+######
+action: (1,1)D
+######
+# DdA#
+#BddA#
+#bACc#
+# ABB#
+#Ccbb#
+######
+action: (2,1)D
+######
+# DdA#
+# ddA#
+#BACc#
+#bABB#
+#Ccbb#
+######
+action: (1,2)L
+######
+#Dd A#
+#dd A#
+#BACc#
+#bABB#
+#Ccbb#
+######
+action: (2,4)L
+######
+#Dd A#
+#ddA #
+#BACc#
+#bABB#
+#Ccbb#
+######
+action: (2,3)U
+######
+#DdAA#
+#dd  #
+#BACc#
+#bABB#
+#Ccbb#
+######
+action: (3,3)U
+######
+#DdAA#
+#ddCc#
+#BA  #
+#bABB#
+#Ccbb#
+######
+action: (4,4)U
+######
+#DdAA#
+#ddCc#
+#BA B#
+#bABb#
+#Ccb #
+######
+action: (4,3)U
+######
+#DdAA#
+#ddCc#
+#BABB#
+#bAbb#
+#Cc  #
+######
+action: (5,1)R
+######
+#DdAA#
+#ddCc#
+#BABB#
+#bAbb#
+# Cc #
+######
+action: (5,2)R
+######
+#DdAA#
+#ddCc#
+#BABB#
+#bAbb#
+#  Cc#
+######
+action: (4,2)D
+######
+#DdAA#
+#ddCc#
+#BABB#
+#b bb#
+# ACc#
+######
+action: (3,2)D
+######
+#DdAA#
+#ddCc#
+#B BB#
+#bAbb#
+# ACc#
+######
+action: (3,1)D
+######
+#DdAA#
+#ddCc#
+#  BB#
+#BAbb#
+#bACc#
+######
+action: (1,1)D
+######
+#  AA#
+#DdCc#
+#ddBB#
+#BAbb#
+#bACc#
+######
+action: (1,3)L
+######
+# A A#
+#DdCc#
+#ddBB#
+#BAbb#
+#bACc#
+######
+action: (1,2)L
+######
+#A  A#
+#DdCc#
+#ddBB#
+#BAbb#
+#bACc#
+######
+action: (1,4)L
+######
+#A A #
+#DdCc#
+#ddBB#
+#BAbb#
+#bACc#
+######
+action: (1,3)L
+######
+#AA  #
+#DdCc#
+#ddBB#
+#BAbb#
+#bACc#
+######
+action: (2,3)U
+######
+#AACc#
+#Dd  #
+#ddBB#
+#BAbb#
+#bACc#
+######
+action: (3,3)U
+######
+#AACc#
+#DdB #
+#ddbB#
+#BA b#
+#bACc#
+######
+action: (4,2)R
+######
+#AACc#
+#DdB #
+#ddbB#
+#B Ab#
+#bACc#
+######
+action: (5,2)U
+######
+#AACc#
+#DdB #
+#ddbB#
+#BAAb#
+#b Cc#
+######
+action: (5,3)L
+######
+#AACc#
+#DdB #
+#ddbB#
+#BAAb#
+#bCc #
+######
+action: (3,4)D
+######
+#AACc#
+#DdB #
+#ddb #
+#BAAB#
+#bCcb#
+######
+action: (2,3)R
+######
+#AACc#
+#Dd B#
+#dd b#
+#BAAB#
+#bCcb#
+######
+action: (2,1)R
+######
+#AACc#
+# DdB#
+# ddb#
+#BAAB#
+#bCcb#
+######
+action: (1,1)D
+######
+# ACc#
+#ADdB#
+# ddb#
+#BAAB#
+#bCcb#
+######
+action: (1,2)L
+######
+#A Cc#
+#ADdB#
+# ddb#
+#BAAB#
+#bCcb#
+######
+action: (1,3)L
+######
+#ACc #
+#ADdB#
+# ddb#
+#BAAB#
+#bCcb#
+######
+action: (4,1)U
+######
+#ACc #
+#ADdB#
+#Bddb#
+#bAAB#
+# Ccb#
+######
+action: (2,4)U
+######
+#ACcB#
+#ADdb#
+#Bdd #
+#bAAB#
+# Ccb#
+######
+action: (5,2)L
+######
+#ACcB#
+#ADdb#
+#Bdd #
+#bAAB#
+#Cc b#
+######
+action: (4,4)U
+######
+#ACcB#
+#ADdb#
+#BddB#
+#bAAb#
+#Cc  #
+######
+action: (4,3)D
+######
+#ACcB#
+#ADdb#
+#BddB#
+#bA b#
+#CcA #
+######
+action: (5,3)R
+######
+#ACcB#
+#ADdb#
+#BddB#
+#bA b#
+#Cc A#
+######
+action: (4,2)R
+######
+#ACcB#
+#ADdb#
+#BddB#
+#b Ab#
+#Cc A#
+######
+action: (4,3)D
+######
+#ACcB#
+#ADdb#
+#BddB#
+#b  b#
+#CcAA#
+######
+action: (2,2)D
+######
+#ACcB#
+#A  b#
+#BDdB#
+#bddb#
+#CcAA#
+######
+action: (2,1)R
+######
+#ACcB#
+# A b#
+#BDdB#
+#bddb#
+#CcAA#
+######
+action: (1,1)D
+######
+# CcB#
+#AA b#
+#BDdB#
+#bddb#
+#CcAA#
+######
+action: (1,2)L
+######
+#Cc B#
+#AA b#
+#BDdB#
+#bddb#
+#CcAA#
+######
+action: (1,4)L
+######
+#CcB #
+#AAb #
+#BDdB#
+#bddb#
+#CcAA#
+######
+action: (3,4)U
+######
+#CcB #
+#AAbB#
+#BDdb#
+#bdd #
+#CcAA#
+######
+action: (2,4)U
+######
+#CcBB#
+#AAbb#
+#BDd #
+#bdd #
+#CcAA#
+######
+action: (3,2)R
+######
+#CcBB#
+#AAbb#
+#B Dd#
+#b dd#
+#CcAA#
+######
+action: (2,2)D
+######
+#CcBB#
+#A bb#
+#BADd#
+#b dd#
+#CcAA#
+######
+action: (2,1)R
+######
+#CcBB#
+# Abb#
+#BADd#
+#b dd#
+#CcAA#
+######
+action: (3,1)U
+######
+#CcBB#
+#BAbb#
+#bADd#
+#  dd#
+#CcAA#
+######
+action: (5,1)U
+######
+#CcBB#
+#BAbb#
+#bADd#
+#Ccdd#
+#  AA#
+######
+action: (5,3)L
+######
+#CcBB#
+#BAbb#
+#bADd#
+#Ccdd#
+# A A#
+######
+action: (5,2)L
+######
+#CcBB#
+#BAbb#
+#bADd#
+#Ccdd#
+#A  A#
+######
+action: (5,4)L
+######
+#CcBB#
+#BAbb#
+#bADd#
+#Ccdd#
+#A A #
+######
+action: (5,3)L
+######
+#CcBB#
+#BAbb#
+#bADd#
+#Ccdd#
+#AA  #
+######
+action: (3,3)D
+######
+#CcBB#
+#BAbb#
+#bA  #
+#CcDd#
+#AAdd#
+######
+action: (3,2)R
+######
+#CcBB#
+#BAbb#
+#b A #
+#CcDd#
+#AAdd#
+######
+action: (3,3)R
+######
+#CcBB#
+#BAbb#
+#b  A#
+#CcDd#
+#AAdd#
+######
+action: (1,3)D
+######
+#Cc B#
+#BABb#
+#b bA#
+#CcDd#
+#AAdd#
+######
+action: (1,1)R
+######
+# CcB#
+#BABb#
+#b bA#
+#CcDd#
+#AAdd#
+######
+action: (2,1)U
+######
+#BCcB#
+#bABb#
+#  bA#
+#CcDd#
+#AAdd#
+######
+action: (4,1)U
+######
+#BCcB#
+#bABb#
+#CcbA#
+#  Dd#
+#AAdd#
+######
+action: (5,2)U
+######
+#BCcB#
+#bABb#
+#CcbA#
+# ADd#
+#A dd#
+######
+action: (4,2)L
+######
+#BCcB#
+#bABb#
+#CcbA#
+#A Dd#
+#A dd#
+######
+action: (4,3)L
+######
+#BCcB#
+#bABb#
+#CcbA#
+#ADd #
+#Add #
+######
+Number of moves: 179
+Number of vertices examined: 133551
+32.394 [s]
+
+Level 048
+Number of vertices examined: 24489
+5.88425 [s]
+

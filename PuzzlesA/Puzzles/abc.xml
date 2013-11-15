@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+ CBCA \
+C    A\
+A    B\
+A    B\
+B    C\
+ BCAC \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+ CAABB \
+C     B\
+A     C\
+B     A\
+B     A\
+B     A\
+ BBBCA \
+    ]]>
+  </level>
+</levels>

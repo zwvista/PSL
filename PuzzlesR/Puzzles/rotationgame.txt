@@ -1,0 +1,12 @@
+Level 001
+Sequence of moves: AC
+Number of moves: 2
+Number of vertices examined: 4
+0.0504675 [s]
+
+Level 002
+Sequence of moves: HHDD
+Number of moves: 4
+Number of vertices examined: 8
+0.0438131 [s]
+

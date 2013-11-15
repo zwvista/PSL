@@ -1,0 +1,44 @@
+Level 001
+Sequence of moves: 
+123231
+312123
+231312
+312123
+123231
+231312
+aaabcd
+eeebcd
+fghbcd
+fghiii
+fghjjj
+kkklll
+Number of moves: 30
+Number of vertices examined: 31
+8.99576 [s]
+
+Level 013
+Sequence of moves: 
+5421314235
+1243542513
+5421354231
+4135421352
+2543213514
+3132542145
+1514235423
+4352151342
+3215423154
+2354135421
+aaaaabbbbb
+cccccddddd
+efffffghij
+ekkkkkghij
+elllllghij
+emmmmmghij
+ennnnnghij
+oooooppppp
+qqqqqrrrrr
+sssssttttt
+Number of moves: 67
+Number of vertices examined: 1388
+26.5627 [s]
+

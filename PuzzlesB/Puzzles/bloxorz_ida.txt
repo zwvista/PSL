@@ -1,0 +1,55 @@
+Level 001
+Sequence of moves: rrdrrrd
+Number of moves: 7
+Number of vertices examined: 17
+0.00380165 [s]
+
+Level 002
+Sequence of moves: ur..drrrruu..drdrruru
+Number of moves: 17
+Number of vertices examined: 2196
+0.017194 [s]
+
+Level 003
+Sequence of moves: rurrruldruurrrdddru
+Number of moves: 19
+Number of vertices examined: 422
+0.0150972 [s]
+
+Level 004
+Sequence of moves: ulurrurrrrrrdrdddddrulllllld
+Number of moves: 28
+Number of vertices examined: 10015
+0.0565477 [s]
+
+Level 005
+Sequence of moves: lll..lr..lllldrddr..rrrdrrrr..lllldllllll
+Number of moves: 33
+Number of vertices examined: 206267
+1.92544 [s]
+
+Level 006
+Sequence of moves: rrrdrddrddrullluuluuurrrddlurrdrddr
+Number of moves: 35
+Number of vertices examined: 3712
+0.0415083 [s]
+
+Level 007
+Sequence of moves: dlurrrrrdr..lullllldrdrdrrruurdluruurrrdrdrdlu
+Number of moves: 44
+Number of vertices examined: 30045
+0.189365 [s]
+
+Level 008
+Sequence of moves: rr..0r1r1u1u1r1u0d0d0dr
+Number of moves: 12
+Number of vertices examined: 804734
+1.19401 [s]
+
+Level 009
+Sequence of moves: rdrrrrrrur..1l0d1r1r1r1r1u1d1l1l1l1ld
+Number of moves: 23
+Number of vertices examined: 48278015
+101.611 [s]
+
+Level 010

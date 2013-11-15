@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="001" sizeOfTatami="3">
+    <![CDATA[
+1     \
+  2   \
+   3  \
+  2   \
+   2  \
+     2\
+H  VVV\
+H     \
+VVV   \
+   H  \
+   H  \
+H  H  \
+    ]]>
+  </level>
+  <level id="013" sizeOfTatami="5">
+    <![CDATA[
+5  1   23 \
+ 2    2 1 \
+5 2  5    \
+    4    2\
+25    3   \
+  3 5  14 \
+   42  4  \
+ 3     342\
+3  5 2   4\
+   4  5 2 \
+H    H    \
+H    H    \
+VH    VVVV\
+ H        \
+ H        \
+ H        \
+ H        \
+H    H    \
+H    H    \
+H    H    \
+    ]]>
+  </level>
+</levels>

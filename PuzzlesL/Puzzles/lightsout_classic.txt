@@ -1,0 +1,1675 @@
+Level 101
+Sequence of moves: 
+click (4,1)
+click (5,1)
+click (4,3)
+click (5,3)
+click (4,5)
+click (5,5)
+Number of moves: 6
+Number of vertices examined: 95
+0.0349923 [s]
+
+Level 102
+Sequence of moves: 
+click (1,1)
+click (1,3)
+click (1,5)
+click (5,1)
+click (5,3)
+click (5,5)
+Number of moves: 6
+Number of vertices examined: 7
+0.00543386 [s]
+
+Level 103
+Sequence of moves: 
+click (3,1)
+click (3,5)
+click (5,3)
+click (4,3)
+click (2,3)
+click (1,3)
+Number of moves: 6
+Number of vertices examined: 100
+0.038205 [s]
+
+Level 104
+Sequence of moves: 
+click (5,1)
+click (5,5)
+click (1,1)
+click (1,2)
+click (1,4)
+click (1,5)
+Number of moves: 6
+Number of vertices examined: 12
+0.00671902 [s]
+
+Level 105
+Sequence of moves: 
+click (2,2)
+click (5,5)
+click (3,4)
+click (2,4)
+click (1,2)
+click (2,2)
+click (3,1)
+click (5,1)
+Number of moves: 8
+Number of vertices examined: 47
+0.0508998 [s]
+
+Level 106
+Sequence of moves: 
+click (5,3)
+click (3,5)
+click (2,4)
+click (2,3)
+click (1,3)
+click (2,2)
+click (3,1)
+Number of moves: 7
+Number of vertices examined: 536
+0.176708 [s]
+
+Level 107
+Sequence of moves: 
+click (1,1)
+click (3,5)
+click (4,1)
+click (5,3)
+click (1,3)
+click (3,3)
+click (3,2)
+click (2,1)
+click (1,1)
+Number of moves: 9
+Number of vertices examined: 184
+0.0658786 [s]
+
+Level 108
+Sequence of moves: 
+click (3,3)
+click (5,1)
+click (5,2)
+click (5,3)
+click (4,3)
+click (5,4)
+click (5,5)
+Number of moves: 7
+Number of vertices examined: 76
+0.0266363 [s]
+
+Level 109
+Sequence of moves: 
+click (2,2)
+click (2,4)
+click (5,3)
+click (4,4)
+click (3,3)
+click (4,2)
+click (5,1)
+Number of moves: 7
+Number of vertices examined: 217
+0.125828 [s]
+
+Level 110
+Sequence of moves: 
+click (2,4)
+click (1,2)
+click (1,1)
+click (2,2)
+click (2,3)
+click (1,4)
+click (1,5)
+Number of moves: 7
+Number of vertices examined: 131
+0.0499296 [s]
+
+Level 111
+Sequence of moves: 
+click (5,3)
+click (2,1)
+click (2,3)
+click (3,5)
+click (1,5)
+click (2,4)
+click (3,1)
+click (2,2)
+click (2,1)
+click (1,1)
+Number of moves: 10
+Number of vertices examined: 315
+0.12473 [s]
+
+Level 112
+Sequence of moves: 
+click (1,2)
+click (4,2)
+click (1,5)
+click (3,5)
+click (4,4)
+click (3,1)
+click (3,3)
+click (2,3)
+click (1,2)
+click (1,1)
+Number of moves: 10
+Number of vertices examined: 1051
+0.352603 [s]
+
+Level 113
+Sequence of moves: 
+click (3,1)
+click (1,3)
+click (1,2)
+click (2,1)
+click (3,5)
+click (4,5)
+click (5,3)
+click (5,4)
+Number of moves: 8
+Number of vertices examined: 1539
+0.479072 [s]
+
+Level 114
+Sequence of moves: 
+click (5,3)
+click (4,3)
+click (3,3)
+click (4,4)
+click (3,5)
+click (2,4)
+click (2,5)
+click (1,5)
+Number of moves: 8
+Number of vertices examined: 639
+0.205043 [s]
+
+Level 115
+Sequence of moves: 
+click (4,3)
+click (5,4)
+click (4,4)
+click (4,5)
+click (2,3)
+click (2,4)
+click (1,4)
+click (2,5)
+Number of moves: 8
+Number of vertices examined: 3109
+1.10572 [s]
+
+Level 116
+Sequence of moves: 
+click (5,1)
+click (4,5)
+click (4,4)
+click (3,4)
+click (4,3)
+click (3,2)
+click (2,3)
+click (2,2)
+click (1,2)
+Number of moves: 9
+Number of vertices examined: 4674
+1.71841 [s]
+
+Level 117
+Sequence of moves: 
+click (5,3)
+click (4,1)
+click (3,1)
+click (2,2)
+click (2,3)
+click (1,3)
+click (2,4)
+click (3,5)
+click (4,5)
+Number of moves: 9
+Number of vertices examined: 3992
+1.92035 [s]
+
+Level 118
+Sequence of moves: 
+click (3,1)
+click (2,2)
+click (1,3)
+click (2,4)
+click (3,3)
+click (4,2)
+click (3,5)
+click (4,4)
+click (5,3)
+Number of moves: 9
+Number of vertices examined: 14488
+5.19985 [s]
+
+Level 119
+Sequence of moves: 
+click (2,1)
+click (2,3)
+click (2,5)
+click (3,1)
+click (4,1)
+click (3,3)
+click (4,3)
+click (3,5)
+click (4,5)
+Number of moves: 9
+Number of vertices examined: 3732
+1.51254 [s]
+
+Level 120
+Sequence of moves: 
+click (5,1)
+click (5,2)
+click (4,3)
+click (3,4)
+click (3,1)
+click (3,3)
+click (2,3)
+click (1,2)
+click (1,1)
+Number of moves: 9
+Number of vertices examined: 2804
+1.24863 [s]
+
+Level 121
+Sequence of moves: 
+click (1,4)
+click (2,3)
+click (1,3)
+click (4,2)
+click (5,1)
+click (5,2)
+click (4,3)
+click (3,4)
+click (2,5)
+click (1,5)
+Number of moves: 10
+Number of vertices examined: 1955
+0.678249 [s]
+
+Level 122
+Sequence of moves: 
+click (5,3)
+click (3,1)
+click (2,5)
+click (1,4)
+click (1,1)
+click (2,1)
+click (3,2)
+click (4,3)
+click (5,4)
+click (5,5)
+Number of moves: 10
+Number of vertices examined: 504
+0.203155 [s]
+
+Level 123
+Sequence of moves: 
+click (4,4)
+click (5,3)
+click (3,5)
+click (3,3)
+click (5,1)
+click (4,1)
+click (3,2)
+click (2,3)
+click (1,4)
+click (1,5)
+Number of moves: 10
+Number of vertices examined: 4052
+1.56516 [s]
+
+Level 124
+Sequence of moves: 
+click (4,2)
+click (5,5)
+click (4,4)
+click (3,5)
+click (3,3)
+click (2,4)
+click (2,3)
+click (1,3)
+click (2,1)
+click (1,1)
+Number of moves: 10
+Number of vertices examined: 5299
+1.81069 [s]
+
+Level 125
+Sequence of moves: 
+click (3,2)
+click (1,1)
+click (4,3)
+click (4,2)
+click (3,3)
+click (1,3)
+click (1,4)
+click (2,5)
+click (3,5)
+click (5,5)
+Number of moves: 10
+Number of vertices examined: 10602
+3.91013 [s]
+
+Level 201
+Sequence of moves: 
+click (4,1)
+click (4,5)
+click (1,1)
+click (3,4)
+click (1,4)
+click (1,3)
+click (3,5)
+click (3,3)
+click (4,3)
+click (5,4)
+click (5,5)
+Number of moves: 11
+Number of vertices examined: 2964
+1.15205 [s]
+
+Level 202
+Sequence of moves: 
+click (2,3)
+click (3,3)
+click (2,2)
+click (3,2)
+click (3,1)
+click (5,2)
+click (5,1)
+click (1,3)
+click (2,4)
+click (1,4)
+click (1,5)
+Number of moves: 11
+Number of vertices examined: 8394
+2.93944 [s]
+
+Level 203
+Sequence of moves: 
+click (4,4)
+click (4,5)
+click (4,3)
+click (3,5)
+click (2,5)
+click (1,4)
+click (1,3)
+click (3,3)
+click (3,2)
+click (2,1)
+click (1,1)
+Number of moves: 11
+Number of vertices examined: 7654
+3.5223 [s]
+
+Level 204
+Sequence of moves: 
+click (2,2)
+click (2,3)
+click (3,2)
+click (1,3)
+click (2,4)
+click (3,1)
+click (4,2)
+click (3,5)
+click (4,5)
+click (5,3)
+click (5,4)
+Number of moves: 11
+Number of vertices examined: 28534
+9.64506 [s]
+
+Level 205
+Sequence of moves: 
+click (2,1)
+click (1,2)
+click (3,1)
+click (1,3)
+click (3,3)
+click (1,5)
+click (2,5)
+click (3,4)
+click (4,3)
+click (5,2)
+click (5,1)
+Number of moves: 11
+Number of vertices examined: 12071
+4.27081 [s]
+
+Level 206
+Sequence of moves: 
+click (4,5)
+click (3,2)
+click (4,2)
+click (5,2)
+click (4,3)
+click (2,5)
+click (3,4)
+click (1,1)
+click (1,3)
+click (2,4)
+click (1,4)
+click (1,5)
+Number of moves: 12
+Number of vertices examined: 13293
+4.95103 [s]
+
+Level 207
+Sequence of moves: 
+click (5,3)
+click (1,2)
+click (3,4)
+click (4,4)
+click (5,5)
+click (4,1)
+click (3,1)
+click (2,2)
+click (1,3)
+click (1,4)
+click (2,5)
+click (1,5)
+Number of moves: 12
+Number of vertices examined: 11355
+4.20379 [s]
+
+Level 208
+Sequence of moves: 
+click (4,1)
+click (2,5)
+click (1,5)
+click (5,4)
+click (4,4)
+click (5,3)
+click (3,3)
+click (4,2)
+click (3,1)
+click (2,2)
+click (2,1)
+click (1,1)
+Number of moves: 12
+Number of vertices examined: 22023
+8.58819 [s]
+
+Level 209
+Sequence of moves: 
+click (3,5)
+click (4,4)
+click (4,5)
+click (3,2)
+click (2,2)
+click (1,3)
+click (2,5)
+click (2,4)
+click (3,3)
+click (4,2)
+click (5,2)
+click (5,1)
+Number of moves: 12
+Number of vertices examined: 16273
+6.4669 [s]
+
+Level 210
+Sequence of moves: 
+click (3,2)
+click (4,2)
+click (4,5)
+click (5,4)
+click (5,3)
+click (3,3)
+click (2,4)
+click (1,5)
+click (1,3)
+click (2,2)
+click (1,2)
+click (1,1)
+Number of moves: 12
+Number of vertices examined: 29632
+10.589 [s]
+
+Level 211
+Sequence of moves: 
+click (4,3)
+click (5,2)
+click (4,2)
+click (3,4)
+click (4,4)
+click (1,2)
+click (2,1)
+click (2,2)
+click (5,5)
+click (3,5)
+click (2,4)
+click (2,5)
+click (1,5)
+Number of moves: 13
+Number of vertices examined: 53982
+19.7112 [s]
+
+Level 212
+Sequence of moves: 
+click (2,4)
+click (2,5)
+click (1,4)
+click (4,2)
+click (5,2)
+click (4,1)
+click (1,2)
+click (2,1)
+click (2,2)
+click (3,3)
+click (4,4)
+click (5,4)
+click (4,5)
+Number of moves: 13
+Number of vertices examined: 199390
+66.3563 [s]
+
+Level 213
+Sequence of moves: 
+click (3,4)
+click (4,3)
+click (4,4)
+click (5,5)
+click (1,1)
+click (2,2)
+click (2,3)
+click (3,2)
+click (1,5)
+click (2,4)
+click (3,3)
+click (4,2)
+click (5,1)
+Number of moves: 13
+Number of vertices examined: 50194
+19.5582 [s]
+
+Level 214
+Sequence of moves: 
+click (4,2)
+click (3,2)
+click (2,2)
+click (3,3)
+click (4,4)
+click (3,1)
+click (2,1)
+click (1,2)
+click (1,3)
+click (3,5)
+click (2,4)
+click (2,5)
+click (1,5)
+Number of moves: 13
+Number of vertices examined: 52418
+20.2679 [s]
+
+Level 215
+Sequence of moves: 
+click (3,3)
+click (2,4)
+click (3,4)
+click (3,5)
+click (4,4)
+click (1,3)
+click (1,2)
+click (1,1)
+click (2,2)
+click (5,3)
+click (4,2)
+click (5,2)
+click (5,1)
+Number of moves: 13
+Number of vertices examined: 53952
+19.0915 [s]
+
+Level 216
+Sequence of moves: 
+click (3,3)
+click (2,4)
+click (1,5)
+click (1,2)
+click (2,2)
+click (2,3)
+click (3,4)
+click (4,5)
+click (5,4)
+click (4,4)
+click (3,1)
+click (4,2)
+click (4,1)
+click (5,1)
+Number of moves: 14
+Number of vertices examined: 160997
+51.1703 [s]
+
+Level 217
+Sequence of moves: 
+click (4,1)
+click (4,3)
+click (1,3)
+click (2,4)
+click (3,3)
+click (2,2)
+click (3,2)
+click (1,1)
+click (3,1)
+click (4,2)
+click (3,5)
+click (4,4)
+click (4,5)
+click (5,5)
+Number of moves: 14
+Number of vertices examined: 178823
+61.0946 [s]
+
+Level 218
+Sequence of moves: 
+click (2,1)
+click (4,3)
+click (4,4)
+click (3,5)
+click (2,4)
+click (3,3)
+click (4,2)
+click (3,2)
+click (3,1)
+click (2,2)
+click (1,3)
+click (1,4)
+click (2,5)
+click (1,5)
+Number of moves: 14
+Number of vertices examined: 166610
+56.9942 [s]
+
+Level 219
+Sequence of moves: 
+click (2,3)
+click (2,4)
+click (1,4)
+click (4,2)
+click (5,2)
+click (5,1)
+click (3,5)
+click (4,4)
+click (2,5)
+click (3,4)
+click (3,3)
+click (2,2)
+click (2,1)
+click (1,1)
+Number of moves: 14
+Number of vertices examined: 184215
+61.7192 [s]
+
+Level 220
+Sequence of moves: 
+click (4,3)
+click (4,5)
+click (4,4)
+click (5,3)
+click (5,2)
+click (2,2)
+click (3,2)
+click (1,4)
+click (1,5)
+click (2,4)
+click (3,3)
+click (4,2)
+click (4,1)
+click (5,1)
+Number of moves: 14
+Number of vertices examined: 161413
+55.8174 [s]
+
+Level 221
+Sequence of moves: 
+click (3,4)
+click (2,2)
+click (1,2)
+click (2,1)
+click (4,3)
+click (3,3)
+click (4,4)
+click (3,5)
+click (2,4)
+click (2,5)
+click (1,5)
+click (5,3)
+click (4,2)
+click (5,2)
+click (5,1)
+Number of moves: 15
+Number of vertices examined: 270964
+83.2125 [s]
+
+Level 222
+Sequence of moves: 
+click (2,4)
+click (1,4)
+click (2,5)
+click (3,5)
+click (4,1)
+click (5,2)
+click (4,2)
+click (2,2)
+click (3,3)
+click (5,5)
+click (4,4)
+click (4,3)
+click (3,2)
+click (2,1)
+click (1,1)
+Number of moves: 15
+Number of vertices examined: 245722
+68.6758 [s]
+
+Level 223
+Sequence of moves: 
+click (2,4)
+click (3,3)
+click (2,2)
+click (1,3)
+click (1,2)
+click (1,1)
+click (3,1)
+click (4,2)
+click (4,1)
+click (5,2)
+click (4,3)
+click (3,4)
+click (4,4)
+click (4,5)
+click (5,5)
+Number of moves: 15
+Number of vertices examined: 240488
+69.1629 [s]
+
+Level 224
+Sequence of moves: 
+click (5,5)
+click (4,4)
+click (3,3)
+click (1,2)
+click (1,3)
+click (5,2)
+click (4,2)
+click (4,3)
+click (3,4)
+click (2,5)
+click (2,4)
+click (3,1)
+click (2,2)
+click (2,1)
+click (1,1)
+Number of moves: 15
+Number of vertices examined: 228017
+69.6725 [s]
+
+Level 225
+Sequence of moves: 
+click (2,2)
+click (3,4)
+click (4,1)
+click (1,5)
+click (4,4)
+click (4,5)
+click (3,5)
+click (1,3)
+click (2,4)
+click (1,2)
+click (2,3)
+click (3,3)
+click (4,2)
+click (5,2)
+click (5,1)
+Number of moves: 15
+Number of vertices examined: 34416
+12.5432 [s]
+
+Level 301
+Sequence of moves: 
+click (1,1)
+click (3,1)
+click (5,1)
+click (1,5)
+click (3,5)
+click (5,5)
+Number of moves: 6
+Number of vertices examined: 7
+0.00817344 [s]
+
+Level 302
+Sequence of moves: 
+click (5,3)
+click (1,2)
+click (1,4)
+click (2,3)
+click (5,2)
+click (4,3)
+click (5,3)
+click (5,4)
+Number of moves: 8
+Number of vertices examined: 159
+0.0478627 [s]
+
+Level 303
+Sequence of moves: 
+click (1,2)
+click (5,2)
+click (1,5)
+click (3,4)
+click (3,5)
+click (5,5)
+Number of moves: 6
+Number of vertices examined: 22
+0.0102326 [s]
+
+Level 304
+Sequence of moves: 
+click (4,1)
+click (4,5)
+click (2,1)
+click (1,2)
+click (2,5)
+click (1,4)
+Number of moves: 6
+Number of vertices examined: 34
+0.0183607 [s]
+
+Level 305
+Sequence of moves: 
+click (2,2)
+click (1,2)
+click (2,1)
+click (4,4)
+click (4,5)
+click (5,4)
+Number of moves: 6
+Number of vertices examined: 726
+0.251959 [s]
+
+Level 306
+Sequence of moves: 
+click (2,2)
+click (4,3)
+click (3,1)
+click (3,5)
+click (5,3)
+click (3,3)
+click (2,3)
+click (2,2)
+click (1,3)
+Number of moves: 9
+Number of vertices examined: 2986
+1.01684 [s]
+
+Level 307
+Sequence of moves: 
+click (3,5)
+click (2,1)
+click (2,3)
+click (3,3)
+click (5,1)
+click (5,3)
+click (2,5)
+click (3,5)
+click (5,5)
+Number of moves: 9
+Number of vertices examined: 345
+0.142932 [s]
+
+Level 308
+Sequence of moves: 
+click (3,2)
+click (2,1)
+click (1,1)
+click (1,3)
+click (2,4)
+click (1,4)
+click (1,5)
+Number of moves: 7
+Number of vertices examined: 167
+0.0593903 [s]
+
+Level 309
+Sequence of moves: 
+click (5,2)
+click (4,2)
+click (3,2)
+click (1,4)
+click (1,3)
+click (2,2)
+click (3,1)
+Number of moves: 7
+Number of vertices examined: 578
+0.218857 [s]
+
+Level 310
+Sequence of moves: 
+click (3,1)
+click (3,5)
+click (3,3)
+click (5,2)
+click (4,3)
+click (5,3)
+click (5,4)
+Number of moves: 7
+Number of vertices examined: 107
+0.0370818 [s]
+
+Level 311
+Sequence of moves: 
+click (2,3)
+click (5,3)
+click (1,1)
+click (3,1)
+click (4,1)
+click (4,5)
+click (3,5)
+click (1,5)
+Number of moves: 8
+Number of vertices examined: 652
+0.245168 [s]
+
+Level 312
+Sequence of moves: 
+click (5,5)
+click (4,4)
+click (1,5)
+click (2,4)
+click (1,1)
+click (2,2)
+click (4,2)
+click (5,1)
+Number of moves: 8
+Number of vertices examined: 2719
+0.989953 [s]
+
+Level 313
+Sequence of moves: 
+click (2,3)
+click (5,3)
+click (3,3)
+click (3,4)
+click (2,4)
+click (1,3)
+click (1,4)
+click (2,5)
+Number of moves: 8
+Number of vertices examined: 616
+0.214922 [s]
+
+Level 314
+Sequence of moves: 
+click (3,1)
+click (1,2)
+click (2,3)
+click (1,3)
+click (5,2)
+click (5,3)
+click (1,3)
+click (2,4)
+click (1,4)
+click (1,5)
+Number of moves: 10
+Number of vertices examined: 692
+0.244881 [s]
+
+Level 315
+Sequence of moves: 
+click (5,3)
+click (2,1)
+click (2,3)
+click (3,5)
+click (1,5)
+click (2,4)
+click (3,1)
+click (2,2)
+click (2,1)
+click (1,1)
+Number of moves: 10
+Number of vertices examined: 315
+0.106663 [s]
+
+Level 316
+Sequence of moves: 
+click (2,2)
+click (3,3)
+click (3,1)
+click (4,1)
+click (5,2)
+click (4,4)
+click (1,4)
+click (2,5)
+click (3,5)
+Number of moves: 9
+Number of vertices examined: 5531
+1.83942 [s]
+
+Level 317
+Sequence of moves: 
+click (1,1)
+click (1,5)
+click (5,5)
+click (5,2)
+click (3,2)
+click (2,3)
+click (3,3)
+click (3,4)
+click (4,3)
+click (5,2)
+click (5,1)
+Number of moves: 11
+Number of vertices examined: 381
+0.120367 [s]
+
+Level 318
+Sequence of moves: 
+click (2,1)
+click (2,3)
+click (2,5)
+click (3,1)
+click (4,1)
+click (3,3)
+click (4,3)
+click (3,5)
+click (4,5)
+Number of moves: 9
+Number of vertices examined: 3732
+1.42156 [s]
+
+Level 319
+Sequence of moves: 
+click (3,3)
+click (4,5)
+click (5,4)
+click (2,5)
+click (1,4)
+click (5,2)
+click (4,1)
+click (1,2)
+click (2,1)
+Number of moves: 9
+Number of vertices examined: 1619
+0.607216 [s]
+
+Level 320
+Sequence of moves: 
+click (2,5)
+click (3,5)
+click (2,3)
+click (3,3)
+click (5,5)
+click (5,3)
+click (2,1)
+click (3,1)
+click (5,1)
+Number of moves: 9
+Number of vertices examined: 1537
+0.516594 [s]
+
+Level 321
+Sequence of moves: 
+click (2,4)
+click (4,2)
+click (1,1)
+click (5,5)
+click (2,5)
+click (1,4)
+click (1,5)
+click (4,1)
+click (5,2)
+click (5,1)
+Number of moves: 10
+Number of vertices examined: 58
+0.0226505 [s]
+
+Level 322
+Sequence of moves: 
+click (3,3)
+click (1,2)
+click (1,5)
+click (3,5)
+click (3,2)
+click (4,2)
+click (5,2)
+click (4,3)
+click (4,4)
+click (5,5)
+Number of moves: 10
+Number of vertices examined: 2813
+0.982564 [s]
+
+Level 323
+Sequence of moves: 
+click (3,2)
+click (2,5)
+click (1,1)
+click (2,4)
+click (3,4)
+click (4,5)
+click (4,4)
+click (2,2)
+click (4,2)
+click (4,1)
+click (2,1)
+click (1,1)
+Number of moves: 12
+Number of vertices examined: 6428
+2.36063 [s]
+
+Level 324
+Sequence of moves: 
+click (3,4)
+click (5,4)
+click (5,1)
+click (1,2)
+click (2,1)
+click (2,2)
+click (3,5)
+click (2,4)
+click (2,5)
+click (1,5)
+Number of moves: 10
+Number of vertices examined: 2912
+1.01437 [s]
+
+Level 325
+Sequence of moves: 
+click (2,1)
+click (4,2)
+click (5,2)
+click (5,5)
+click (3,3)
+click (3,2)
+click (2,3)
+click (4,3)
+click (4,4)
+click (3,5)
+click (1,4)
+click (2,5)
+click (1,5)
+Number of moves: 13
+Number of vertices examined: 37054
+12.3958 [s]
+
+Level 401
+Sequence of moves: 
+click (3,3)
+click (1,1)
+click (1,4)
+click (3,5)
+click (4,1)
+click (5,4)
+click (3,4)
+click (4,3)
+click (5,3)
+click (4,5)
+click (5,5)
+Number of moves: 11
+Number of vertices examined: 1854
+0.60813 [s]
+
+Level 402
+Sequence of moves: 
+click (3,3)
+click (1,4)
+click (2,5)
+click (3,5)
+click (5,5)
+click (5,4)
+click (5,3)
+click (4,3)
+click (3,2)
+click (2,1)
+click (1,1)
+Number of moves: 11
+Number of vertices examined: 16372
+5.34344 [s]
+
+Level 403
+Sequence of moves: 
+click (3,4)
+click (4,2)
+click (2,1)
+click (1,1)
+click (5,1)
+click (1,4)
+click (2,5)
+click (3,5)
+click (4,4)
+click (5,4)
+click (5,3)
+Number of moves: 11
+Number of vertices examined: 11936
+4.01446 [s]
+
+Level 404
+Sequence of moves: 
+click (2,1)
+click (1,2)
+click (3,1)
+click (1,3)
+click (3,3)
+click (1,5)
+click (2,5)
+click (3,4)
+click (4,3)
+click (5,2)
+click (5,1)
+Number of moves: 11
+Number of vertices examined: 12071
+3.88089 [s]
+
+Level 405
+Sequence of moves: 
+click (4,1)
+click (3,2)
+click (1,2)
+click (1,3)
+click (1,5)
+click (3,3)
+click (3,5)
+click (4,5)
+click (4,3)
+click (5,2)
+click (5,1)
+Number of moves: 11
+Number of vertices examined: 10595
+3.56411 [s]
+
+Level 406
+Sequence of moves: 
+click (2,1)
+click (4,1)
+click (4,4)
+click (2,4)
+click (4,2)
+click (2,2)
+click (3,1)
+click (3,2)
+click (2,5)
+click (3,4)
+click (3,5)
+click (4,5)
+Number of moves: 12
+Number of vertices examined: 34764
+11.0311 [s]
+
+Level 407
+Sequence of moves: 
+click (5,2)
+click (4,1)
+click (4,2)
+click (3,4)
+click (3,3)
+click (1,3)
+click (1,4)
+click (1,5)
+click (3,5)
+click (4,4)
+click (4,5)
+click (5,5)
+Number of moves: 12
+Number of vertices examined: 20058
+7.25565 [s]
+
+Level 408
+Sequence of moves: 
+click (3,2)
+click (4,3)
+click (2,4)
+click (1,5)
+click (5,1)
+click (4,2)
+click (5,5)
+click (4,4)
+click (3,4)
+click (2,3)
+click (2,2)
+click (1,1)
+Number of moves: 12
+Number of vertices examined: 10999
+3.92551 [s]
+
+Level 409
+Sequence of moves: 
+click (4,5)
+click (3,2)
+click (4,2)
+click (5,2)
+click (4,3)
+click (2,5)
+click (3,4)
+click (1,1)
+click (1,3)
+click (2,4)
+click (1,4)
+click (1,5)
+Number of moves: 12
+Number of vertices examined: 13293
+4.50588 [s]
+
+Level 410
+Sequence of moves: 
+click (3,5)
+click (2,1)
+click (4,2)
+click (4,1)
+click (3,1)
+click (2,2)
+click (1,3)
+click (2,4)
+click (2,5)
+click (4,5)
+click (4,4)
+click (5,3)
+Number of moves: 12
+Number of vertices examined: 38287
+14.2688 [s]
+
+Level 411
+Sequence of moves: 
+click (5,5)
+click (4,1)
+click (3,2)
+click (5,4)
+click (4,5)
+click (3,5)
+click (2,3)
+click (2,4)
+click (3,3)
+click (1,3)
+click (2,2)
+click (1,2)
+click (1,1)
+Number of moves: 13
+Number of vertices examined: 53153
+19.5181 [s]
+
+Level 412
+Sequence of moves: 
+click (5,3)
+click (4,1)
+click (3,5)
+click (2,4)
+click (1,5)
+click (4,3)
+click (5,4)
+click (1,2)
+click (2,2)
+click (3,3)
+click (3,4)
+click (4,5)
+click (5,5)
+Number of moves: 13
+Number of vertices examined: 10347
+4.33876 [s]
+
+Level 413
+Sequence of moves: 
+click (2,4)
+click (2,5)
+click (1,4)
+click (4,2)
+click (5,2)
+click (4,1)
+click (1,2)
+click (2,1)
+click (2,2)
+click (3,3)
+click (4,4)
+click (5,4)
+click (4,5)
+Number of moves: 13
+Number of vertices examined: 199390
+64.0375 [s]
+
+Level 414
+Sequence of moves: 
+click (4,3)
+click (5,2)
+click (4,2)
+click (3,4)
+click (4,4)
+click (1,2)
+click (2,1)
+click (2,2)
+click (5,5)
+click (3,5)
+click (2,4)
+click (2,5)
+click (1,5)
+Number of moves: 13
+Number of vertices examined: 53982
+17.076 [s]
+
+Level 415
+Sequence of moves: 
+click (3,4)
+click (4,3)
+click (4,4)
+click (5,5)
+click (1,1)
+click (2,2)
+click (2,3)
+click (3,2)
+click (1,5)
+click (2,4)
+click (3,3)
+click (4,2)
+click (5,1)
+Number of moves: 13
+Number of vertices examined: 50194
+17.0202 [s]
+
+Level 416
+Sequence of moves: 
+click (4,2)
+click (5,1)
+click (2,4)
+click (1,3)
+click (2,2)
+click (2,1)
+click (3,2)
+click (4,3)
+click (5,4)
+click (4,4)
+click (3,5)
+click (1,4)
+click (2,5)
+click (1,5)
+Number of moves: 14
+Number of vertices examined: 157516
+46.7953 [s]
+
+Level 417
+Sequence of moves: 
+click (3,4)
+click (4,3)
+click (1,2)
+click (2,1)
+click (2,2)
+click (4,4)
+click (3,5)
+click (2,4)
+click (2,5)
+click (1,5)
+click (5,3)
+click (4,2)
+click (5,2)
+click (5,1)
+Number of moves: 14
+Number of vertices examined: 176119
+68.0646 [s]
+
+Level 418
+Sequence of moves: 
+click (1,1)
+click (2,2)
+click (1,4)
+click (2,4)
+click (3,5)
+click (4,4)
+click (4,3)
+click (3,2)
+click (4,1)
+click (4,2)
+click (5,3)
+click (4,5)
+click (5,4)
+click (5,5)
+Number of moves: 14
+Number of vertices examined: 138500
+43.484 [s]
+
+Level 419
+Sequence of moves: 
+click (4,4)
+click (1,3)
+click (3,1)
+click (1,2)
+click (2,1)
+click (2,2)
+click (2,4)
+click (1,5)
+click (2,5)
+click (3,4)
+click (4,3)
+click (4,2)
+click (5,2)
+click (5,1)
+Number of moves: 14
+Number of vertices examined: 168906
+58.3489 [s]
+
+Level 420
+Sequence of moves: 
+click (3,3)
+click (4,5)
+click (3,1)
+click (1,4)
+click (5,4)
+click (5,5)
+click (4,4)
+click (4,2)
+click (4,1)
+click (2,4)
+click (1,3)
+click (1,2)
+click (2,1)
+click (1,1)
+Number of moves: 14
+Number of vertices examined: 56231
+19.2196 [s]
+
+Level 421
+Sequence of moves: 
+click (5,5)
+click (4,4)
+click (3,3)
+click (1,2)
+click (1,3)
+click (5,2)
+click (4,2)
+click (4,3)
+click (3,4)
+click (2,5)
+click (2,4)
+click (3,1)
+click (2,2)
+click (2,1)
+click (1,1)
+Number of moves: 15
+Number of vertices examined: 228017
+74.8723 [s]
+
+Level 422
+Sequence of moves: 
+click (5,3)
+click (1,4)
+click (3,4)
+click (2,2)
+click (2,1)
+click (5,1)
+click (4,2)
+click (4,3)
+click (5,4)
+click (3,3)
+click (4,4)
+click (3,5)
+click (2,4)
+click (2,5)
+click (1,5)
+Number of moves: 15
+Number of vertices examined: 208941
+62.1674 [s]
+
+Level 423
+Sequence of moves: 
+click (2,3)
+click (5,4)
+click (1,3)
+click (1,4)
+click (2,4)
+click (4,2)
+click (4,1)
+click (3,2)
+click (3,3)
+click (2,2)
+click (1,1)
+click (3,5)
+click (4,4)
+click (4,5)
+click (5,5)
+Number of moves: 15
+Number of vertices examined: 214196
+67.4612 [s]
+
+Level 424
+Sequence of moves: 
+click (3,3)
+click (3,2)
+click (4,2)
+click (2,3)
+click (2,4)
+click (4,4)
+click (4,5)
+click (5,5)
+click (5,2)
+click (4,1)
+click (3,1)
+click (1,3)
+click (2,2)
+click (1,2)
+click (1,1)
+Number of moves: 15
+Number of vertices examined: 253606
+72.0808 [s]
+
+Level 425
+Sequence of moves: 
+click (2,2)
+click (3,4)
+click (4,1)
+click (1,5)
+click (4,4)
+click (4,5)
+click (3,5)
+click (1,3)
+click (2,4)
+click (1,2)
+click (2,3)
+click (3,3)
+click (4,2)
+click (5,2)
+click (5,1)
+Number of moves: 15
+Number of vertices examined: 34416
+11.7281 [s]
+

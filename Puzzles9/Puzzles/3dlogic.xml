@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<levels>
+  <level id="abc">
+    <![CDATA[
+ a  \
+  b \
+   c\
+   #\
+   #\
+   c\
+  b \
+ a  \
+####\
+####\
+####\
+####\
+    ]]>
+  </level>
+  <level id="001">
+    <![CDATA[
+a  \
+###\
+b  \
+###\
+c #\
+#c#\
+ # \
+ # \
+b#a\
+    ]]>
+  </level>
+  <level id="002">
+    <![CDATA[
+a##\
+  a\
+###\
+b c\
+# #\
+#b#\
+ d \
+ # \
+c#d\
+    ]]>
+  </level>
+  <level id="003">
+    <![CDATA[
+#a \
+ab \
+ c#\
+  #\
+  c\
+   \
+#  \
+b  \
+   \
+    ]]>
+  </level>
+  <level id="004">
+    <![CDATA[
+   \
+ ##\
+  a\
+ bc\
+ c \
+  b\
+d# \
+ a \
+  d\
+    ]]>
+  </level>
+  <level id="005">
+    <![CDATA[
+a b\
+c  \
+   \
+   \
+   \
+#c \
+ ##\
+ ba\
+   \
+    ]]>
+  </level>
+  <level id="006">
+    <![CDATA[
+a  \
+b  \
+###\
+   \
+ b \
+   \
+a  \
+   \
+   \
+    ]]>
+  </level>
+  <level id="007">
+    <![CDATA[
+    \
+    \
+    \
+   #\
+   #\
+   #\
+ a #\
+   #\
+b   \
+    \
+a   \
+b ##\
+    ]]>
+  </level>
+  <level id="008">
+    <![CDATA[
+    \
+ ab#\
+   #\
+   #\
+   #\
+    \
+   a\
+    \
+### \
+ c  \
+  ##\
+c  b\
+    ]]>
+  </level>
+  <level id="009">
+    <![CDATA[
+  ab\
+ cd \
+    \
+    \
+e fb\
+  # \
+   f\
+   e\
+a   \
+    \
+ cd \
+    \
+    ]]>
+  </level>
+  <level id="010">
+    <![CDATA[
+   a\
+ b  \
+    \
+    \
+    \
+c c \
+##  \
+d  b\
+   #\
+   #\
+   a\
+   d\
+    ]]>
+  </level>
+  <level id="011">
+    <![CDATA[
+   a\
+ b  \
+    \
+    \
+#c  \
+  d \
+dc  \
+e   \
+    \
+    \
+    \
+ bea\
+    ]]>
+  </level>
+  <level id="012">
+    <![CDATA[
+    \
+ a  \
+ bc \
+    \
+   #\
+ d# \
+ cd \
+    \
+    \
+  a \
+  b \
+    \
+    ]]>
+  </level>
+  <level id="013">
+    <![CDATA[
+    \
+ a  \
+ #b \
+ #  \
+ # a\
+ #  \
+ c  \
+    \
+b   \
+ d c\
+   e\
+de  \
+    ]]>
+  </level>
+  <level id="014">
+    <![CDATA[
+   #\
+ a  \
+    \
+   #\
+b  b\
+    \
+ c  \
+    \
+d  d\
+   c\
+  a \
+####\
+    ]]>
+  </level>
+  <level id="015">
+    <![CDATA[
+##   \
+#    \
+ab   \
+    c\
+    #\
+ ####\
+   b#\
+c a #\
+#    \
+##   \
+###  \
+#    \
+#    \
+    #\
+   ##\
+    ]]>
+  </level>
+  <level id="016">
+    <![CDATA[
+a    \
+    b\
+  c  \
+  d  \
+     \
+     \
+     \
+   e \
+ f   \
+   a \
+ c f \
+  d  \
+b    \
+  e  \
+     \
+    ]]>
+  </level>
+  <level id="017">
+    <![CDATA[
+a    \
+    b\
+  c  \
+  d  \
+     \
+     \
+     \
+   e \
+ f   \
+   a \
+ c f \
+  d  \
+b    \
+  e  \
+     \
+    ]]>
+  </level>
+  <level id="018">
+    <![CDATA[
+    #\
+ a  #\
+    #\
+b   #\
+    c\
+ c   \
+ d   \
+     \
+###  \
+b    \
+     \
+   d \
+     \
+#####\
+    a\
+    ]]>
+  </level>
+  <level id="019">
+    <![CDATA[
+   ab\
+     \
+  cd \
+  e  \
+     \
+     \
+    b\
+     \
+     \
+     \
+de c \
+     \
+  a  \
+     \
+     \
+    ]]>
+  </level>
+</levels>

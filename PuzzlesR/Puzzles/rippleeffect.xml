@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+2 1 4\
+4 213\
+5   1\
+15342\
+    1\
+aabbb\
+aaccb\
+addce\
+fddde\
+ggghh\
+    ]]>
+  </level>
+  <level id="17">
+    <![CDATA[
+2 1 4\
+4 213\
+5   1\
+15342\
+    1\
+aabbb\
+aaccb\
+addce\
+fddde\
+ggghh\
+    ]]>
+  </level>
+</levels>

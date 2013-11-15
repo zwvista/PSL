@@ -1,0 +1,19 @@
+Level 36
+Sequence of moves: 
+(6,4)u
+(2,4)l
+(6,0)u
+(4,2)l
+(4,1)u
+(5,1)u
+(6,1)u
+(5,3)l
+(5,4)l
+(5,3)d
+(6,3)u
+(1,5)l
+(1,6)l
+Number of moves: 13
+Number of vertices examined: 28074
+1.29932 [s]
+

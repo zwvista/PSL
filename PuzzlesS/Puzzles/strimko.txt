@@ -1,0 +1,46 @@
+Level sample
+Sequence of moves: 
+321
+132
+213
+aab
+abc
+bcc
+Number of moves: 7
+Number of vertices examined: 11
+0.0015071 [s]
+
+Level core 1 easy
+Sequence of moves: 
+2413
+3241
+4132
+1324
+aaab
+acdb
+cdcb
+cddb
+Number of moves: 12
+Number of vertices examined: 24
+0.00112405 [s]
+
+Level core 100 master
+Sequence of moves: 
+7526431
+4765312
+2143657
+3457126
+1374265
+6231574
+5612743
+aaaabbb
+acdcccb
+eacdcbb
+aeeedcb
+eeddfff
+edgfggg
+dgggfff
+Number of moves: 42
+Number of vertices examined: 55678
+0.778475 [s]
+

@@ -1,0 +1,45 @@
+Level 024
+Sequence of moves: 
+_ _ _ T _ T _ _ _ 
+_ T _ _ _ _ _ T _ 
+_ _ _ T _ T _ _ _ 
+_ T _ _ _ _ _ _ T 
+_ _ _ _ T _ T _ _ 
+T _ _ _ _ _ _ _ T 
+_ _ T _ _ _ T _ _ 
+T _ _ _ T _ _ _ _ 
+_ _ T _ _ _ _ T _ 
+Number of moves: 18
+Number of vertices examined: 128
+0.312874 [s]
+
+Level 025
+Sequence of moves: 
+Number of moves: 0
+Number of vertices examined: 1
+0.000586759 [s]
+
+Level 026
+Sequence of moves: 
+Number of moves: 0
+Number of vertices examined: 1
+0.000510498 [s]
+
+Level 027
+Sequence of moves: 
+Number of moves: 0
+Number of vertices examined: 1
+0.000685655 [s]
+
+Level 028
+Sequence of moves: 
+Number of moves: 0
+Number of vertices examined: 1
+0.000513283 [s]
+
+Level 029
+Sequence of moves: 
+Number of moves: 0
+Number of vertices examined: 1
+0.000619144 [s]
+

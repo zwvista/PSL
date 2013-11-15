@@ -1,0 +1,18 @@
+Level 001
+Sequence of moves: Mr2Mu2Mr4Md3
+Number of moves: 4
+Number of vertices examined: 27
+0.0224284 [s]
+
+Level 002
+Sequence of moves: Ml1Md1Mr1Md1Mr1
+Number of moves: 5
+Number of vertices examined: 11
+0.00561543 [s]
+
+Level 003
+Sequence of moves: Fd2Ml7Md2Mr2Ml1Fd2Fl5Fu2Ml1
+Number of moves: 9
+Number of vertices examined: 179
+0.140905 [s]
+

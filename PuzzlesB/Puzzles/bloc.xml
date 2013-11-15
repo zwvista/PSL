@@ -1,0 +1,473 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="101" code="523200">
+    <![CDATA[
+2        #\
+##  #### #\
+##  #### #\
+######   #\
+######  . \
+#######   \
+    ]]>
+  </level>
+  <level id="102" code="506164">
+    <![CDATA[
+###2  #\
+###   #\
+    ###\
+  # ###\
+  #    \
+# # ## \
+# # ## \
+  #!   \
+ .    #\
+  #####\
+    ]]>
+  </level>
+  <level id="103" code="929761">
+    <![CDATA[
+######       ##\
+2   ##   ##  ##\
+         ##    \
+    #######  . \
+    #######    \
+############   \
+    ]]>
+  </level>
+  <level id="104" code="1612505">
+    <![CDATA[
+2 #############\
+   ############\
+   ############\
+   ############\
+  #########!!!#\
+          !!!!!\
+          !! .!\
+          !!!!!\
+  #########!!!#\
+   ############\
+   ############\
+   ############\
+  #############\
+    ]]>
+  </level>
+  <level id="105" code="3615516">
+    <![CDATA[
+!!2#######\
+!!!#######\
+ !!! !!!!!\
+!!!!!!!! !\
+!!!! ! !!!\
+!! !!!!!!!\
+!!!!!!.!!!\
+#####! !##\
+    ]]>
+    <teleporter position="(4,6)" location="(3,8)"/>
+  </level>
+  <level id="106" code="4318909">
+    <![CDATA[
+  2## # !!#\
+   ## # !.!\
+## !! # ! #\
+###   # ###\
+####### ###\
+##  !!#####\
+###!!!  !##\
+###!!## !##\
+### #!  !##\
+    ]]>
+    <switch type="heavy" position="(1,2)" action="0 swap"/>
+    <switch type="heavy" position="(0,5)" action="1 swap"/>
+    <switch type="heavy" position="(5,3)" action="2 swap"/>
+    <switch type="heavy" position="(6,6)" action="3 swap"/>
+    <switch type="heavy" position="(7,7)" action="4 swap"/>
+    <bridge position="(3,2)" state ="off"/>
+    <bridge position="(4,2)" state ="off"/>
+    <bridge position="(7,5)" state ="off"/>
+    <bridge position="(7,6)" state ="off"/>
+    <bridge position="(5,7)" state ="off"/>
+    <teleporter position="(5,2)" location="(8,3)"/>
+  </level>
+  <level id="107" code="2021888">
+    <![CDATA[
+ 2 ##!!!!!!!!\
+   ##!!!!!!!!\
+     #!!!!! !\
+###!!!!!!!!!#\
+### #!!!!!! #\
+#####!!!!!!##\
+##### ##### #\
+###### ### . \
+#####    #   \
+#####    ####\
+#####    ####\
+    ]]>
+    <switch type="heavy" position="(2,1)" action="0 swap"/>
+    <switch type="heavy" position="(2,11)" action="1 swap"/>
+    <switch type="heavy" position="(4,11)" action="2 swap"/>
+    <switch type="heavy" position="(4,3)" action="3 swap"/>
+    <switch type="heavy" position="(9,7)" action="4 swap"/>
+    <bridge position="(2,5)" state ="off"/>
+    <bridge position="(6,6)" state ="off"/>
+    <bridge position="(6,7)" state ="off"/>
+    <bridge position="(4,4)" state ="off"/>
+    <bridge position="(5,11)" state ="off"/>
+  </level>
+  <level id="108" code="5324345">
+    <![CDATA[
+########!!###!! ###\
+##2!!# !! ## !! ###\
+##!!!!!#!!####!!## \
+###!!!!!!!###!!!#!!\
+###!! !# !###!! !!!\
+#####!!!!!!#!!!#!! \
+###!#!! !!!# !! ###\
+#!!!## !!! ##!#####\
+#!! ###!!! #!!#####\
+# #  !! #####!!####\
+ !!!##### !!!.!####\
+#!!!#####!!!!!!####\
+#!! !####!!! !!####\
+    ]]>
+    <switch type="heavy" position="(1,6)" action="0 swap"/>
+    <switch type="heavy" position="(1,9)" action="1 swap"/>
+    <switch type="heavy" position="(7,6)" action="1 swap"/>
+    <switch type="heavy" position="(8,10)" action="2 swap"/>
+    <switch type="heavy" position="(2,18)" action="3 swap"/>
+    <switch type="heavy" position="(6,15)" action="4 swap"/>
+    <bridge position="(2,7)" state ="off"/>
+    <bridge position="(4,7)" state ="off"/>
+    <bridge position="(9,2)" state ="off"/>
+    <bridge position="(9,12)" state ="off"/>
+    <bridge position="(7,12)" state ="off"/>
+    <teleporter position="(10,0)" location="(0,15)"/>
+  </level>
+  <level id="109" code="2727757">
+    <![CDATA[
+#!##########\
+   ###   ###\
+ 2       ###\
+   ###.  ###\
+############\
+### ########\
+###!########\
+###!#####  #\
+ !! !! ##   \
+###!########\
+###!########\
+### ####!.!#\
+#########!##\
+    ]]>
+    <switch type="heavy" position="(2,7)" action="0 swap"/>
+    <switch type="heavy" position="(8,0)" action="1 swap"/>
+    <switch type="heavy" position="(8,6)" action="2 swap"/>
+    <switch type="heavy" position="(8,9)" action="3 swap"/>
+    <bridge position="(0,0)" state ="off"/>
+    <bridge position="(7,11)" state ="off"/>
+    <bridge position="(9,9)" state ="off"/>
+    <bridge position="(10,9)" state ="off"/>
+    <teleporter position="(3,6)" location="(8,3)"/>
+    <teleporter position="(11,3)" location="(7,9)"/>
+    <teleporter position="(5,3)" location="(0,0)"/>
+  </level>
+  <level id="110" code="9330999">
+    <![CDATA[
+2 ############\
+   #####!!!!##\
+   ####!####!#\
+  ####!#!!##!!\
+     ! !!!!#!!\
+     ! !  !#. \
+     ! !!!!#!!\
+  ####!#!!##!!\
+   ####!####!#\
+   #####!!!!##\
+  ############\
+    ]]>
+    <teleporter position="(5,8)" location="(5,13)"/>
+  </level>
+  <level id="111" code="1133494">
+    <![CDATA[
+#!!!!!!!!!!!!!#\
+!!!!!!!!!!! !!!\
+!!!!!! !!!!!!!!\
+!!!!!!!!!!!!!!!\
+#!!!2!!!!!!!!!!\
+##!!!!!!!!!#!!!\
+!!!!!!!!!!!!!!!\
+!!!!!!!!!!!!!!!\
+#!!!!!!!!!!!!!!\
+.!!!!!!! !!!!!!\
+!!!!#!!!!#!!!!!\
+    ]]>
+    <switch type="heavy" position="(1,11)" action="0 swap"/>
+    <switch type="heavy" position="(9,8)" action="1 swap"/>
+    <switch type="heavy" position="(2,6)" action="2 swap"/>
+    <bridge position="(8,0)" state ="off"/>
+    <bridge position="(5,11)" state ="off"/>
+    <bridge position="(5,1)" state ="off"/>
+  </level>
+  <level id="112" code="8636500">
+    <![CDATA[
+#####  #   ####\
+#####      ####\
+   ###  #     #\
+ 2       ##  ##\
+#####  #  #   #\
+#####      #  #\
+   ##      #   \
+ .    # ##   # \
+   ##   ###    \
+   #########   \
+    ]]>
+    <switch type="heavy" position="(7,14)" action="0 swap"/>
+    <bridge position="(1,11)" state ="off"/>
+  </level>
+  <level id="113" code="8039815">
+    <![CDATA[
+## ###########\
+   ##         \
+ 2           !\
+# # ########!!\
+#### ! ! #####\
+#### . ! !####\
+#### ! ! #####\
+    ]]>
+    <switch type="heavy" position="(3,1)" action="0 swap"/>
+    <switch type="heavy" position="(0,2)" action="1 swap"/>
+    <bridge position="(3,2)" state ="off"/>
+    <bridge position="(3,4)" state ="off"/>
+    <teleporter position="(2,12)" location="(3,1)"/>
+  </level>
+  <level id="114" code="6542163">
+    <![CDATA[
+   ##! ! ! ! !\
+ 2   ! ! ! ! !\
+      ! ! ! ! \
+##############\
+#### ! ! #####\
+#### . ! #####\
+#### ! ! #####\
+##### ########\
+    ]]>
+    <switch type="heavy" position="(2,13)" action="0 swap"/>
+    <bridge position="(3,6)" state ="off"/>
+  </level>
+  <level id="115" code="4945756">
+    <![CDATA[
+2  ###########\
+#      #######\
+#      !!#####\
+# #### !!#####\
+# ############\
+# #  !########\
+#    ! ! ! ###\
+#    ! ! ! !##\
+########## . !\
+##########   !\
+    ]]>
+    <switch type="heavy" position="(3,6)" action="0 swap"/>
+    <bridge position="(0,3)" state ="off"/>
+  </level>
+  <level id="116" code="5148691">
+    <![CDATA[
+ !! ##########\
+!#!!##!!######\
+!##!##!!######\
+#2 ! !  ! ####\
+!#!#!!###!####\
+!#!###!##!!.##\
+ !  ##!!!  !##\
+###!!! ###!!##\
+### !!!###! ##\
+######!#!! !!#\
+###!##  !!#!! \
+###!###!!#####\
+### !! !!##!##\
+######## !!!##\
+#########!! ##\
+    ]]>
+    <switch type="heavy" position="(6,9)" action="0 swap"/>
+    <switch type="heavy" position="(8,3)" action="1 swap"/>
+    <switch type="heavy" position="(6,0)" action="2 swap"/>
+    <switch type="heavy" position="(0,3)" action="3 swap"/>
+    <switch type="heavy" position="(10,13)" action="4 swap"/>
+    <bridge position="(4,6)" state ="off"/>
+    <bridge position="(9,3)" state ="off"/>
+    <bridge position="(3,0)" state ="off"/>
+    <bridge position="(2,2)" state ="off"/>
+    <bridge position="(11,11)" state ="off"/>
+    <teleporter position="(6,2)" location="(6,10)"/>
+  </level>
+  <level id="201" code="553908">
+    <![CDATA[
+####  !!######\
+####!!!!######\
+####!!!!######\
+####2!!!###!! \
+######!!###!!!\
+ !! ##!! !!!!!\
+!!!! !!!#!! !!\
+!!!!!!!!###!!!\
+ # #!#!!#  !!!\
+ !!# !!!#!!! #\
+####!!!.#!!!##\
+#### !!!######\
+    ]]>
+    <switch type="heavy" position="(0,4)" action="0 swap"/>
+    <switch type="heavy" position="(9,12)" action="1 swap"/>
+    <switch type="heavy" position="(8,9)" action="2 swap"/>
+    <switch type="heavy" position="(5,3)" action="3 swap"/>
+    <switch type="heavy" position="(9,0)" action="3 swap"/>
+    <bridge position="(5,4)" state ="off"/>
+    <bridge position="(7,8)" state ="off"/>
+    <bridge position="(6,8)" state ="off"/>
+    <bridge position="(8,1)" state ="off"/>
+    <bridge position="(4,4)" state ="off"/>
+  </level>
+  <level id="202" code="936993">
+    <![CDATA[
+####  ! # ### ## \
+   2     #   ### \
+  #####!  #   # #\
+# # #   ### #  # \
+#####       #    \
+ ##     #    #   \
+#   ## #######   \
+#      ##  # ## #\
+ ####!   ### # # \
+  ###  #  #### ##\
+# ###  ##    #  #\
+ # #    # .   # #\
+#  #!! # !!!!  ##\
+##  # #  ##   ###\
+##  # # #  # ##  \
+    ]]>
+    <switch type="heavy" position="(1,0)" action="0 swap"/>
+    <switch type="heavy" position="(3,6)" action="1 swap"/>
+    <switch type="heavy" position="(4,13)" action="2 swap"/>
+    <switch type="heavy" position="(7,15)" action="3 swap"/>
+    <bridge position="(3,0)" state ="off"/>
+    <bridge position="(5,1)" state ="off"/>
+    <bridge position="(5,2)" state ="off"/>
+    <bridge position="(8,9)" state ="off"/>
+    <teleporter position="(4,7)" location="(1,10)"/>
+    <teleporter position="(4,16)" location="(5,0)"/>
+  </level>
+  <level id="203" code="419275">
+    <![CDATA[
+#2    #   #\
+#   !# #  #\
+  ###     #\
+  !  !! # #\
+    #   #. \
+#######   #\
+    ]]>
+    <switch type="heavy" position="(3,0)" action="0 swap"/>
+    <bridge position="(1,7)" state ="off"/>
+  </level>
+  <level id="204" code="6412266">
+    <![CDATA[
+###.#!#############\
+2                  \
+################## \
+################## \
+                ## \
+ ############## ## \
+ ############## ## \
+ ##             ## \
+ ################# \
+ ################# \
+                   \
+    ]]>
+    <switch type="heavy" position="(7,3)" action="0 swap"/>
+    <bridge position="(0,4)" state ="off"/>
+  </level>
+  <level id="205" code="4315876">
+    <![CDATA[
+2    #########\
+.##  #########\
+  #     !!!!! \
+ ##   ! !!!!!#\
+####### ## !!!\
+####### ######\
+    ]]>
+    <switch type="heavy" position="(5,7)" action="0 swap"/>
+    <switch type="heavy" position="(4,10)" action="1 swap"/>
+    <switch type="heavy" position="(2,13)" action="2 swap"/>
+    <bridge position="(1,5)" state ="off"/>
+    <bridge position="(1,2)" state ="off"/>
+    <bridge position="(1,1)" state ="off"/>
+  </level>
+  <level id="206" code="5618790">
+    <![CDATA[
+##2  #### !!!!.\
+     # ##!!!!! \
+   #   ##!!!!!!\
+####   ##!!! !!\
+### ##### !!!!!\
+##   ! ########\
+##  !   #######\
+##   # ########\
+##     ########\
+    ]]>
+    <switch type="heavy" position="(0,4)" action="0 swap"/>
+    <switch type="heavy" position="(1,6)" action="1 swap"/>
+    <bridge position="(2,3)" state ="off"/>
+    <bridge position="(3,3)" state ="off"/>
+    <teleporter position="(6,7)" location="(4,9)"/>
+  </level>
+  <level id="207" code="2221706">
+    <![CDATA[
+2     ######\
+###   ######\
+#   # ######\
+#   #!!!!!!!\
+#####!!!!!  \
+#####!!! !!!\
+#####!!!!!.!\
+##### !!!!!!\
+    ]]>
+  </level>
+  <level id="208" code="7224414">
+    <![CDATA[
+2  ##########\
+#      #     \
+# # #   ##   \
+        ##   \
+        ###.#\
+ #########   \
+    ]]>
+    <switch type="heavy" position="(5,0)" action="0 swap"/>
+    <bridge position="(1,7)" state ="off"/>
+  </level>
+  <level id="209" code="7827855">
+    <![CDATA[
+2 #######\
+     ####\
+       ##\
+# ##   ##\
+# #######\
+#   !!!!!\
+##  !!!!!\
+##   #!.!\
+###  #!!!\
+###  ####\
+    ]]>
+  </level>
+  <level id="210" code="303992">
+    <![CDATA[
+2       ######\
+#       ######\
+#   ###   ####\
+#######   ####\
+####### ######\
+####### ###   \
+###  !! #   . \
+###!!! ####   \
+###! ! ####   \
+    ]]>
+    <switch type="heavy" position="(6,3)" action="0 swap"/>
+    <bridge position="(6,8)" state ="off"/>
+  </level>
+</levels>

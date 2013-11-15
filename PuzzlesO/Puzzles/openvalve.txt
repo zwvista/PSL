@@ -1,0 +1,550 @@
+Level 001
+Sequence of moves: 
+ .................. 
+ ...LseLsw......... 
+-IweLnwInsLseLsw... 
+ ......LneLnwInsLse-
+ ............LneLnw 
+Number of moves: 14
+Number of vertices examined: 141
+0.00395613 [s]
+
+Level 002
+Sequence of moves: 
+ ...LseLsw...LseLsw 
+-IweLnwLneLswInsLne-
+ .........InsIns... 
+ .........LneLnw... 
+ .................. 
+Number of moves: 15
+Number of vertices examined: 160
+0.00612693 [s]
+
+Level 003
+Sequence of moves: 
+-LswLseIweLsw...... 
+ LneLnw...Ins...... 
+ ......LseLnw...... 
+ ......LneIweLsw... 
+ ............LneIwe-
+Number of moves: 15
+Number of vertices examined: 66
+0.00160251 [s]
+
+Level 004
+Sequence of moves: 
+ ............LseLsw 
+ ......LseIweLnwIns 
+-IweLswIns......Lne-
+ ...LneLnw......... 
+ .................. 
+Number of moves: 13
+Number of vertices examined: 108
+0.00224915 [s]
+
+Level 005
+Sequence of moves: 
+ .................. 
+ .................. 
+-Lsw............... 
+ Ins......LseLswLse-
+ LneIweIweLnwLneLnw 
+Number of moves: 12
+Number of vertices examined: 63
+0.00374545 [s]
+
+Level 006
+Sequence of moves: 
+ ......LseIweLsw... 
+ ......Ins...3-wIwe-
+ LseLsw3-wIweLnw... 
+ InsLneLnw......... 
+-Lnw............... 
+Number of moves: 17
+Number of vertices examined: 268
+0.00596953 [s]
+
+Level 007
+Sequence of moves: 
+ .........LseLsw... 
+-LswLseIwe3-eLneLsw 
+ LneLnw...Ins...3-w-
+ .........LneIweLnw 
+ .................. 
+Number of moves: 17
+Number of vertices examined: 347
+0.00647271 [s]
+
+Level 008
+Sequence of moves: 
+ ......LseIweIweLsw 
+ ...LseLnw...LseLnw 
+-LswIns...Lse3-e... 
+ Lne3-sIweLnwInsLse-
+ ............LneLnw 
+Number of moves: 22
+Number of vertices examined: 949
+0.0166282 [s]
+
+Level 009
+Sequence of moves: 
+-Lsw............... 
+ LneIwe3-nIweLsw... 
+ ......LneLswIns... 
+ .........Lne3-sLsw 
+ ...............Lne-
+Number of moves: 15
+Number of vertices examined: 145
+0.00411596 [s]
+
+Level 010
+Sequence of moves: 
+ ......LseIweLswLse-
+ ......InsLseLnwIns 
+ LseIweLnw3-wIweLnw 
+-3-e...LseLnw...... 
+ LneIweLnw......... 
+Number of moves: 22
+Number of vertices examined: 500
+0.0101384 [s]
+
+Level 011
+Sequence of moves: 
+ .........LseIweLsw 
+ ......Lse4--LswIns 
+-IweLswLne3-eLne3-s-
+ ...InsLseLnw...... 
+ ...LneLnw......... 
+Number of moves: 21
+Number of vertices examined: 705
+0.0134632 [s]
+
+Level 012
+Sequence of moves: 
+ ...LseIweIweLswLse-
+ LseLnw...LseLnwIns 
+-Lnw......3-w3-nLnw 
+ .........LneLnw... 
+ .................. 
+Number of moves: 18
+Number of vertices examined: 664
+0.0147287 [s]
+
+Level 013
+Sequence of moves: 
+ LseIweIweLsw...... 
+ Ins...Lse4--IweLsw 
+ Lne3-nLnwIns...Ins 
+-IweLnw...Lne3-nLnw 
+ ............LneIwe-
+Number of moves: 24
+Number of vertices examined: 1472
+0.0241024 [s]
+
+Level 014
+Sequence of moves: 
+ ...LseIweLsw...... 
+-Iwe3-sIweLnwLseLsw 
+ ............InsIns 
+ ............Lne3-s-
+ .................. 
+Number of moves: 15
+Number of vertices examined: 210
+0.00529468 [s]
+
+Level 015
+Sequence of moves: 
+-IweLswLse3-nLsw... 
+ Lse4--LnwInsInsLse-
+ InsLneIweLnw3-wLnw 
+ LneLswLseIweLnw... 
+ ...LneLnw......... 
+Number of moves: 27
+Number of vertices examined: 787
+0.0139775 [s]
+
+Level 016
+Sequence of moves: 
+ ...LseIweIweIweLsw 
+ ...Ins...LseIwe4---
+ LseLnw...3-w3-nLnw 
+ 3-wLsw...3-wLnw... 
+-LnwLneIweLnw...... 
+Number of moves: 26
+Number of vertices examined: 663
+0.0134124 [s]
+
+Level 017
+Sequence of moves: 
+-IweIweLsw......... 
+ LseLsw3-wIweLsw... 
+ InsLne4--Iwe3-e... 
+ LneIwe3-e...3-wIwe-
+ ......LneIweLnw... 
+Number of moves: 25
+Number of vertices examined: 1424
+0.0258651 [s]
+
+Level 018
+Sequence of moves: 
+ .................. 
+ ......LseIwe3-nLsw 
+ ...LseLnw...Lne3-s-
+-3-n3-sLsw......... 
+ LneIweLnw......... 
+Number of moves: 17
+Number of vertices examined: 1619
+0.0391208 [s]
+
+Level 019
+Sequence of moves: 
+ ...LseIweLsw...... 
+-Iwe3-sIwe4--IweLsw 
+ LseIwe3-nLnw...Ins 
+ Ins...3-wIwe3-nLnw 
+ LneIweLnw...LneIwe-
+Number of moves: 28
+Number of vertices examined: 2595
+0.0440732 [s]
+
+Level 020
+Sequence of moves: 
+ ......LseLswLseIwe-
+ Lse3-n3-eInsIns... 
+-LnwInsLne4--3-sLsw 
+ Lse3-sIwe3-e...Ins 
+ LneIweIwe3-sIweLnw 
+Number of moves: 31
+Number of vertices examined: 9982
+0.17965 [s]
+
+Level 021
+Sequence of moves: 
+ LseIweLsw......... 
+-3-e...LneLsw...... 
+ InsLseIwe3-sLswLse-
+ Lne4--Iwe3-n4--Lnw 
+ ...LneIwe3-sLnw... 
+Number of moves: 27
+Number of vertices examined: 3793
+0.0721665 [s]
+
+Level 022
+Sequence of moves: 
+-IweLsw...LseLsw... 
+ Lse3-sLsw3-w4--Lsw 
+ InsLseLnwInsLne3-e 
+ Lne4--Iwe3-e...Lne-
+ ...LneIweLnw...... 
+Number of moves: 29
+Number of vertices examined: 3129
+0.0509425 [s]
+
+Level 023
+Sequence of moves: 
+ LseLswLseIweIwe3-n-
+ Lne3-s4--LswLseLnw 
+-3-nLswInsLne3-e... 
+ Lne4--Lnw...Ins... 
+ ...LneIweIweLnw... 
+Number of moves: 30
+Number of vertices examined: 2727
+0.0469801 [s]
+
+Level 024
+Sequence of moves: 
+ LseIwe3-nLsw...... 
+ InsLseLnwLneIwe3-n-
+ Lne4--Iwe3-nLswIns 
+ ...LneLswLne4--Lnw 
+-IweIwe3-sIweLnw... 
+Number of moves: 31
+Number of vertices examined: 795
+0.013552 [s]
+
+Level 025
+Sequence of moves: 
+ LseIweIwe3-nIweLsw 
+ Lne3-nIwe4--Iwe3-e 
+ ...InsLseLnwLseLnw 
+-LswLne4--Iwe3-e... 
+ LneIweLnw...LneIwe-
+Number of moves: 32
+Number of vertices examined: 529
+0.00893881 [s]
+
+Level 026
+Sequence of moves: 
+-LswLseIweLsw...... 
+ Lne4--LswLneLsw... 
+ LseLnw3-wIwe4--Lsw 
+ LneIwe3-eLse3-s3-s-
+ ......LneLnw...... 
+Number of moves: 28
+Number of vertices examined: 3593
+0.066526 [s]
+
+Level 027
+Sequence of moves: 
+ LseLsw......LseLsw 
+ Ins3-w3-nLswInsLne-
+-LnwInsInsLne4--Lsw 
+ ...Lne4--LswLne3-e 
+ ......Lne3-sIweLnw 
+Number of moves: 30
+Number of vertices examined: 2489
+0.0409423 [s]
+
+Level 028
+Sequence of moves: 
+ LseIweIweIwe3-nIwe-
+ LneLswLse3-n3-sLsw 
+ ...Lne4--4--LswIns 
+ ...LseLnwIns3-wLnw 
+-IweLnw...LneLnw... 
+Number of moves: 31
+Number of vertices examined: 1329
+0.0222196 [s]
+
+Level 029
+Sequence of moves: 
+ ...LseIweLsw...... 
+ Lse4--LswLne3-nLsw 
+ 3-wLnwIns...Ins3-w-
+-LnwLse3-sIwe4--Lnw 
+ ...LneIweIweLnw... 
+Number of moves: 29
+Number of vertices examined: 2541
+0.0467043 [s]
+
+Level 030
+Sequence of moves: 
+ ...LseIweLswLseLsw 
+-Iwe4--LswLne3-eIns 
+ Lse3-eLneLsw3-wLnw 
+ Lne4--Iwe3-eLneLsw 
+ ...LneIweLnw...Lne-
+Number of moves: 32
+Number of vertices examined: 6535
+0.109738 [s]
+
+Level 031
+Sequence of moves: 
+ ......LseLsw...... 
+ ...LseLnwIns...Lse-
+ ...LneLswLneLswIns 
+-LswLse3-e...3-wLnw 
+ LneLnwLneIweLnw... 
+Number of moves: 23
+Number of vertices examined: 1996
+0.0339159 [s]
+
+Level 032
+Sequence of moves: 
+ .................. 
+ ............LseLsw 
+ ............Lne3-s-
+ Lse3-nLsw......... 
+-LnwLneLnw......... 
+Number of moves: 12
+Number of vertices examined: 96
+0.00297798 [s]
+
+Level 033
+Sequence of moves: 
+ .................. 
+ LseLsw......LseLsw 
+-LnwLne3-nLswLne3-e 
+ ......LneLnw...Lne-
+ .................. 
+Number of moves: 15
+Number of vertices examined: 323
+0.0071796 [s]
+
+Level 034
+Sequence of moves: 
+-Lsw......LseIweIwe-
+ InsLseIwe3-e...... 
+ Lne3-sLswIns...... 
+ ......LneLnw...... 
+ .................. 
+Number of moves: 16
+Number of vertices examined: 151
+0.00353896 [s]
+
+Level 035
+Sequence of moves: 
+ LseLsw...LseLsw... 
+-LnwLne3-nLnwLneLsw 
+ LseIweLnw...Lse3-e 
+ LneIweLswLse3-eIns 
+ ......LneLnwLne3-s-
+Number of moves: 28
+Number of vertices examined: 1175
+0.0210464 [s]
+
+Level 036
+Sequence of moves: 
+-Lsw...LseIweLsw... 
+ 3-wLswLneLswLneLsw 
+ InsLneLswInsLseLnw 
+ Lne3-nLnwIns3-wIwe-
+ ...LneIwe3-sLnw... 
+Number of moves: 29
+Number of vertices examined: 2564
+0.0423533 [s]
+
+Level 037
+Sequence of moves: 
+ LseIweLswLseLsw... 
+-4--LswLne3-eLneLsw 
+ Lne4--Iwe3-sLswLne-
+ ...LneLswLseLnw... 
+ ......LneLnw...... 
+Number of moves: 27
+Number of vertices examined: 2441
+0.0478256 [s]
+
+Level 038
+Sequence of moves: 
+ LseIwe3-nLsw...... 
+ Lne3-nLnwLneLsw... 
+ Lse3-eLseIwe3-e... 
+-LnwLne3-eLse3-sLsw 
+ ......LneLnw...Lne-
+Number of moves: 27
+Number of vertices examined: 16274
+0.281007 [s]
+
+Level 039
+Sequence of moves: 
+ LseIweLsw......Lse-
+ LneIwe3-sLswLseLnw 
+ ...LseIwe4--3-e... 
+ Lse3-e...3-wLnw... 
+-LnwLneIweLnw...... 
+Number of moves: 26
+Number of vertices examined: 2493
+0.0441748 [s]
+
+Level 040
+Sequence of moves: 
+ LseLsw......LseLsw 
+ Lne3-e...LseLnwLne-
+-LswLne3-n3-eLseLsw 
+ LneLswInsLne3-sLnw 
+ ...LneLnw......... 
+Number of moves: 26
+Number of vertices examined: 19040
+0.333876 [s]
+
+Level 041
+Sequence of moves: 
+ ...LseIweLsw...... 
+ LseLnwLse3-sLsw... 
+ LneLswLneLswLne3-n-
+ Lse4--Lsw3-wIweLnw 
+-LnwLne3-sLnw...... 
+Number of moves: 28
+Number of vertices examined: 6783
+0.106735 [s]
+
+Level 042
+Sequence of moves: 
+ ......LseLsw...... 
+ ...LseLnwLneIweLsw 
+-LswLneLswLse3-nLnw 
+ 3-w3-nLnwIns3-wLsw 
+ Lne3-sIwe3-sLnwLne-
+Number of moves: 29
+Number of vertices examined: 2910
+0.0452477 [s]
+
+Level 043
+Sequence of moves: 
+-Lsw.........LseLsw 
+ 3-wIwe3-n3-nLnwLne-
+ LneIwe4--Lnw...... 
+ ......LneIwe3-nLsw 
+ ............LneLnw 
+Number of moves: 23
+Number of vertices examined: 764
+0.0154624 [s]
+
+Level 044
+Sequence of moves: 
+ .........LseIweLsw 
+-Lsw......Lne3-n3-e 
+ LneLsw...Lse3-s3-e 
+ Lse3-sIwe4--LswLne-
+ LneIweIwe3-sLnw... 
+Number of moves: 28
+Number of vertices examined: 3114
+0.0493379 [s]
+
+Level 045
+Sequence of moves: 
+ ......Lse3-n3-nIwe-
+ LseIwe4--LnwLneLsw 
+ LneLswLneLswLseLnw 
+-Iwe3-eLse3-sLnw... 
+ ...LneLnw......... 
+Number of moves: 27
+Number of vertices examined: 2946
+0.0474941 [s]
+
+Level 046
+Sequence of moves: 
+ .................. 
+ ...............Lse-
+ ............LseLnw 
+-LswLse3-n3-nLnw... 
+ LneLnwLneLnw...... 
+Number of moves: 14
+Number of vertices examined: 222
+0.00602943 [s]
+
+Level 047
+Sequence of moves: 
+ .................. 
+ LseLsw............ 
+-Lnw3-wLsw......... 
+ ...3-w3-e......Lse-
+ ...Lne3-sIweIweLnw 
+Number of moves: 16
+Number of vertices examined: 775
+0.0177944 [s]
+
+Level 048
+Sequence of moves: 
+ .........LseIweLsw 
+-LswLseIwe3-s3-nLnw 
+ Lne3-sLsw...InsLse-
+ ...LseLnwLse3-eIns 
+ ...LneIweLnwLneLnw 
+Number of moves: 27
+Number of vertices examined: 3642
+0.0584362 [s]
+
+Level 049
+Sequence of moves: 
+ Lse3-nIweLswLseLsw 
+ Ins3-wLswLne4--Lnw 
+ 3-wLnw3-wLswIns... 
+-3-sLsw3-w3-s3-eLse-
+ ...LneLnw...LneLnw 
+Number of moves: 33
+Number of vertices examined: 7215
+0.125771 [s]
+
+Level 050
+Sequence of moves: 
+ ......LseLsw...... 
+ LseLswInsLneLsw... 
+-Lnw3-w4--LswLneLsw 
+ ...3-wLnw3-w3-n3-e 
+ ...LneIweLnwLne3-s-
+Number of moves: 28
+Number of vertices examined: 4296
+0.0761244 [s]
+
