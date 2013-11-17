@@ -9,10 +9,10 @@ enum EBrickDir {mvLeft, mvRight, mvUp, mvDown};
 enum EBrickType {btRed, btBlue, btYellow};
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 typedef map<Position, EBrickType> brick_map;
@@ -190,6 +190,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 void solve_puz_Pharaoh()
 {
 	using namespace puzzles::Pharaoh;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("testP\\Pharaoh.xml", "testP\\Pharaoh_a.txt");
-	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state> >("testP\\Pharaoh.xml", "testP\\Pharaoh_ida.txt");
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\Pharaoh.xml", "Puzzles\\Pharaoh_a.txt");
+	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>(
+		"Puzzles\\Pharaoh.xml", "Puzzles\\Pharaoh_ida.txt");
 }

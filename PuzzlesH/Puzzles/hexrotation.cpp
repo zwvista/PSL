@@ -8,12 +8,12 @@ namespace puzzles{ namespace hexrotation{
 #define PUZ_NOENTRY		'#'
 
 Position offset[] = {
-	Position(0, 2),
-	Position(-1, 1),
-	Position(-1, -1),
-	Position(0, -2),
-	Position(1, -1),
-	Position(1, 1),
+	{0, 2},
+	{-1, 1},
+	{-1, -1},
+	{0, -2},
+	{1, -1},
+	{1, 1},
 };
 
 struct puz_game

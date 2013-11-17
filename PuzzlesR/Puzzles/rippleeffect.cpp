@@ -18,10 +18,10 @@
 namespace puzzles{ namespace rippleeffect{
 
 Position offset[] = {
-	Position(-1, 0),
-	Position(0, 1),
-	Position(1, 0),
-	Position(0, -1),
+	{-1, 0},
+	{0, 1},
+	{1, 0},
+	{0, -1},
 };
 
 // first: the remaining positions in the room that should be filled

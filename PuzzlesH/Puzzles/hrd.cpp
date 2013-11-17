@@ -8,10 +8,10 @@ namespace puzzles{ namespace hrd{
 enum EBrickType {bt1X1, bt2X1, bt1X2, bt2X2};
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 typedef map<Position, EBrickType> brick_map;

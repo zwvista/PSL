@@ -8,11 +8,11 @@
 namespace puzzles{ namespace lightsout_int{
 
 Position offset[] = {
-	Position(0, 0),
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, 0},
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 struct puz_game

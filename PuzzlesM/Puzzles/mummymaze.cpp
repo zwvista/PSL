@@ -8,11 +8,11 @@ enum EMazeDir {mvNone, mvLeft, mvRight, mvUp, mvDown};
 enum EMazeObject {moExplorer, moHorzCrab, moVertCrab, moHorzMummy, moVertMummy};
 
 Position offset[] = {
-	Position(0, 0),
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, 0},
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 typedef map<Position, EMazeObject> mm_obj_map;
@@ -275,5 +275,5 @@ void solve_puz_mummymaze()
 {
 	using namespace puzzles::mummymaze;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"testM\\mummymaze.xml", "testM\\mummymaze.txt");
+		"Puzzles\\mummymaze.xml", "Puzzles\\mummymaze.txt");
 }

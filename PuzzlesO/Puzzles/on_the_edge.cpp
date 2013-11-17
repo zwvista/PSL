@@ -13,10 +13,10 @@ namespace puzzles{ namespace on_the_edge{
 #define PUZ_GOAL		'.'
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 struct puz_game
@@ -195,6 +195,8 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_on_the_edge()
 {
 	using namespace puzzles::on_the_edge;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("test3\\on_the_edge.xml", "test3\\on_the_edge.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
-	solve_puzzle<puz_game, puz_state, puz_solver_dfs<puz_state> >("test3\\on_the_edge.xml", "test3\\on_the_edge_dfs.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\on_the_edge.xml", "Puzzles\\on_the_edge.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_dfs<puz_state>>(
+		"Puzzles\\on_the_edge.xml", "Puzzles\\on_the_edge_dfs.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

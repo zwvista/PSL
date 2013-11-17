@@ -20,10 +20,10 @@ namespace puzzles{ namespace icedin{
 enum EDir {mvLeft, mvRight, mvUp, mvDown};
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 struct puz_game
@@ -260,5 +260,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_icedin()
 {
 	using namespace puzzles::icedin;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("test2\\icedin.xml", "test2\\icedin.txt");
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\icedin.xml", "Puzzles\\icedin.txt");
 }

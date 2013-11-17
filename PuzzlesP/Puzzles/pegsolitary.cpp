@@ -9,14 +9,14 @@ namespace puzzles{ namespace pegsolitary{
 #define PUZ_NONE	'#'
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
-	Position(-1, -1),
-	Position(1, 1),
-	Position(-1, 1),
-	Position(1, -1),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
+	{-1, -1},
+	{1, 1},
+	{-1, 1},
+	{1, -1},
 };
 
 struct puz_game
@@ -129,5 +129,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_pegsolitary()
 {
 	using namespace puzzles::pegsolitary;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("testP\\pegsolitary.xml", "testP\\pegsolitary.txt");
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\pegsolitary.xml", "Puzzles\\pegsolitary.txt");
 }

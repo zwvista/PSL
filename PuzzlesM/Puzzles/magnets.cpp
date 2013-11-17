@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	iphone game: Logic Games/Puzzle Set 2/Magnets
+	ios game: Logic Games/Puzzle Set 2/Magnets
 
 	Summary
 	Place Magnets on the board, respecting the orientation of poles
@@ -27,10 +27,10 @@ namespace puzzles{ namespace magnets{
 #define PUZ_EMPTY		'.'
 
 Position offset[] = {
-	Position(0, 1),
-	Position(1, 0),
-	Position(0, -1),
-	Position(-1, 0),
+	{0, 1},
+	{1, 0},
+	{0, -1},
+	{-1, 0},
 };
 
 typedef set<char> puz_chars;
@@ -250,5 +250,5 @@ void solve_puz_magnets()
 {
 	using namespace puzzles::magnets;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>
-		("testM\\magnets.xml", "testM\\magnets.txt", solution_format::GOAL_STATE_ONLY);
+		("Puzzles\\magnets.xml", "Puzzles\\magnets.txt", solution_format::GOAL_STATE_ONLY);
 }

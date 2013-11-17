@@ -17,10 +17,10 @@ namespace puzzles{ namespace turnz{
 #define PUZ_DEATH		'x'
 
 Position offset[] = {
-	Position(1, 0),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(0, -1),
+	{1, 0},
+	{0, 1},
+	{-1, 0},
+	{0, -1},
 };
 
 struct puz_game
@@ -223,5 +223,5 @@ void solve_puz_turnz()
 {
 	using namespace puzzles::turnz;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>
-		("testT\\turnz.xml", "testT\\turnz.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+		("Puzzles\\turnz.xml", "Puzzles\\turnz.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

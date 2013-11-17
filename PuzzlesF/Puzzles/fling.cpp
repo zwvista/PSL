@@ -8,10 +8,10 @@ namespace puzzles{ namespace fling{
 #define PUZ_BALL		'@'
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 struct puz_game
@@ -135,5 +135,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_fling()
 {
 	using namespace puzzles::fling;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("test\\fling3.xml", "test\\fling.txt", solution_format::MOVES_ONLY);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\fling3.xml", "Puzzles\\fling.txt", solution_format::MOVES_ONLY);
 }

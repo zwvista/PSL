@@ -21,9 +21,8 @@
 
 namespace puzzles{ namespace parks{
 
-#define PUZ_PARK1		'a'
 #define PUZ_TREE		'T'
-#define PUZ_SPACE		'_'
+#define PUZ_SPACE		'.'
 
 Position offset[] = {
 	{-1, 0},		// n
@@ -63,35 +62,37 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				ch = tolower(ch);
 				m_trees.push_back(p);
 			}
-			int n = ch - PUZ_PARK1;
+			int n = ch - 'a';
 			m_pos2park[p] = n;
 		}
 	}
 }
 
 // first : all the remaining positions in the area where a tree can be planted
-// second : the number of the trees already planted in the area
+// second : the number of trees that need to be planted in the area
 struct puz_area : pair<set<Position>, int>
 {
+	puz_area() {}
+	puz_area(int num_trees_area)
+		: pair<set<Position>, int>({}, num_trees_area)
+	{}
 	void add_cell(const Position& p){ first.insert(p); }
 	void remove_cell(const Position& p){ first.erase(p); }
-	void plant_tree(const Position& p){ first.erase(p); ++second; }
-	bool is_valid(int num_trees_area) const {
-		return second <= num_trees_area
-			&& first.size() + second >= num_trees_area;
+	void plant_tree(const Position& p){ first.erase(p); --second; }
+	bool is_valid() const {
+		return second >= 0 && first.size() >= second;
 	}
 };
 
-// first : all of the areas in the group
-// second : the number of trees that must be planted in each area of the group
-struct puz_group : pair<vector<puz_area>, int>
+// all of the areas in the group
+struct puz_group : vector<puz_area>
 {
 	puz_group() {}
 	puz_group(int num_cells, int num_trees_area)
-		: pair<vector<puz_area>, int>(vector<puz_area>(num_cells), num_trees_area) {}
+		: vector<puz_area>(num_cells, puz_area(num_trees_area)) {}
 	bool is_valid() const {
-		return boost::algorithm::all_of(first, [this](const puz_area& a) {
-			return a.is_valid(second);
+		return boost::algorithm::all_of(*this, [this](const puz_area& a) {
+			return a.is_valid();
 		});
 	}
 };
@@ -107,11 +108,11 @@ struct puz_groups
 		, m_cols(g->m_sidelen, g->m_num_trees_area)
 	{}
 
-	vector<puz_area*> get_areas(const Position& p){
+	array<puz_area*, 3> get_areas(const Position& p){
 		return {
-			&m_parks.first[m_game->m_pos2park.at(p)],
-			&m_rows.first[p.first],
-			&m_cols.first[p.second]
+			&m_parks[m_game->m_pos2park.at(p)],
+			&m_rows[p.first],
+			&m_cols[p.second]
 		};
 	}
 	void add_cell(const Position& p){
@@ -182,10 +183,9 @@ const puz_area& puz_groups::get_best_candidate_area() const
 	const puz_group* grps[] = {&m_parks, &m_rows, &m_cols};
 	vector<const puz_area*> areas;
 	for(const puz_group* grp : grps)
-		for(const puz_area& a : grp->first){
-			if(!a.first.empty() && a.second < grp->second)
+		for(const puz_area& a : *grp)
+			if(a.second > 0)
 				areas.push_back(&a);
-		}
 
 	return **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
 		return a1->first.size() < a2->first.size();
@@ -221,7 +221,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << cell(Position(r, c)) << " ";
+			out << cell(Position(r, c)) << ' ';
 		out << endl;
 	}
 	return out;
@@ -233,5 +233,5 @@ void solve_puz_parks()
 {
 	using namespace puzzles::parks;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"testP\\parks.xml", "testP\\parks.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\parks.xml", "Puzzles\\parks.txt", solution_format::GOAL_STATE_ONLY);
 }

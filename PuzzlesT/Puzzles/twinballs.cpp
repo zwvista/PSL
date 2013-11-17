@@ -8,10 +8,10 @@ namespace puzzles{ namespace twinballs{
 enum EDir {mvLeft, mvRight, mvUp, mvDown};
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 struct puz_game
@@ -169,7 +169,7 @@ void solve_puz_twinballs()
 {
 	using namespace puzzles::twinballs;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>
-		("testT\\twinballs.xml", "testT\\twinballs_a.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+		("Puzzles\\twinballs.xml", "Puzzles\\twinballs_a.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>
-		("testT\\twinballs.xml", "testT\\twinballs_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+		("Puzzles\\twinballs.xml", "Puzzles\\twinballs_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

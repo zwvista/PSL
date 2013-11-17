@@ -103,5 +103,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_rotationgame()
 {
 	using namespace puzzles::rotationgame;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false> >("test3\\rotationgame.xml", "test3\\rotationgame.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
+		"Puzzles\\rotationgame.xml", "Puzzles\\rotationgame.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

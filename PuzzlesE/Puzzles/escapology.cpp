@@ -11,10 +11,10 @@ namespace puzzles{ namespace escapology{
 #define PUZ_BLUE		'!'
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 struct puz_game
@@ -167,5 +167,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_escapology()
 {
 	using namespace puzzles::escapology;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("test\\escapology.xml", "test\\escapology.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\escapology.xml", "Puzzles\\escapology.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

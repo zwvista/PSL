@@ -10,10 +10,10 @@ namespace puzzles{ namespace openvalve{
 #define PUZ_PIPE_4		'4'		// "©à"
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 const string dirs = "wensewsn";
 const string pipes = "LI34";
@@ -189,5 +189,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_openvalve()
 {
 	using namespace puzzles::openvalve;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("test3\\openvalve.xml", "test3\\openvalve.txt", solution_format::GOAL_STATE_ONLY);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\openvalve.xml", "Puzzles\\openvalve.txt", solution_format::GOAL_STATE_ONLY);
 }

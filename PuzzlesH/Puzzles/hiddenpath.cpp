@@ -20,14 +20,14 @@
 namespace puzzles{ namespace hiddenpath{
 
 Position offset[] = {
-	Position(-1, 0),
-	Position(-1, 1),
-	Position(0, 1),
-	Position(1, 1),
-	Position(1, 0),
-	Position(1, -1),
-	Position(0, -1),
-	Position(-1, -1),
+	{-1, 0},
+	{-1, 1},
+	{0, 1},
+	{1, 1},
+	{1, 0},
+	{1, -1},
+	{0, -1},
+	{-1, -1},
 };
 
 struct puz_game	
@@ -63,7 +63,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 struct puz_state : pair<vector<int>, Position>
 {
-	puz_state() = default;
+	puz_state() {}
 	puz_state(const puz_game& g) 
 		: pair<vector<int>, Position>(g.m_nums, g.m_start)
 		, m_game(&g) {}

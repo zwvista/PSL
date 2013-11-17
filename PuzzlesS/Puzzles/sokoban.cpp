@@ -13,10 +13,10 @@ namespace puzzles{ namespace sokoban{
 #define PUZ_BOX_GOAL	'*'
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 typedef unordered_map<char, vector<int> > group_map;

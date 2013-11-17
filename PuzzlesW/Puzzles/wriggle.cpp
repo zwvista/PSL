@@ -9,10 +9,10 @@ namespace puzzles{ namespace wriggle{
 #define PUZ_GOAL		'.'
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 struct puz_game
@@ -252,5 +252,5 @@ void solve_puz_wriggle()
 {
 	using namespace puzzles::wriggle;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >(
-		"test4\\wriggle.xml", "test4\\wriggle.txt", solution_format::CUSTOM, dump_all);
+		"Puzzles\\wriggle.xml", "Puzzles\\wriggle.txt", solution_format::CUSTOM, dump_all);
 }

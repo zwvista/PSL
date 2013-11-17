@@ -15,10 +15,10 @@ namespace puzzles{ namespace zgj{
 #define PUZ_SPACE		' '
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 struct puz_game
@@ -207,5 +207,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_zgj()
 {
 	using namespace puzzles::zgj;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("test4\\zgj.xml", "test4\\zgj.txt");
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\zgj.xml", "Puzzles\\zgj.txt");
 }

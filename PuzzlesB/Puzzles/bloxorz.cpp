@@ -23,10 +23,10 @@ typedef pair<vector<Position>,
 typedef vector<Position> puz_splitter;
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 struct puz_game
@@ -320,7 +320,10 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_bloxorz()
 {
 	using namespace puzzles::bloxorz;
-	//solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("test\\bloxorz.xml", "test\\bloxorz_a.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
-	//solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state> >("test\\bloxorz.xml", "test\\bloxorz_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("test\\bloc.xml", "test\\bloc.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\bloxorz.xml", "Puzzles\\bloxorz_a.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>(
+		"Puzzles\\bloxorz.xml", "Puzzles\\bloxorz_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\bloc.xml", "Puzzles\\bloc.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

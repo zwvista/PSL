@@ -12,10 +12,10 @@ namespace puzzles{ namespace _3dlogic{
 #define PUZ_FOUND		'!'
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 typedef pair<int, Position> Position3d;
@@ -319,7 +319,10 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_3dlogic()
 {
 	using namespace puzzles::_3dlogic;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false> >("test\\3dlogic.xml", "test\\3dlogic.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
-	//solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state, false> >("test\\3dlogic.xml", "test\\3dlogic_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
-	//solve_puzzle<puz_game, puz_state, puz_solver_dfs<puz_state, false> >("test\\3dlogic.xml", "test\\3dlogic_dfs.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
+		"Puzzles\\3dlogic.xml", "Puzzles\\3dlogic.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state, false>>(
+		"Puzzles\\3dlogic.xml", "Puzzles\\3dlogic_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_dfs<puz_state, false>>(
+		"Puzzles\\3dlogic.xml", "Puzzles\\3dlogic_dfs.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

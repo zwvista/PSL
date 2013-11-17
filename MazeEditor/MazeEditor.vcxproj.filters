@@ -52,8 +52,6 @@
     <None Include="res\Toolbar256.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\Puzzles0\Puzzles0.vcxproj" />
-    <None Include="C:\Users\zhaowei\Downloads\boost_1_55_0.zip" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MazeEditor.h">

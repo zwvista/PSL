@@ -11,10 +11,10 @@ namespace puzzles{ namespace mazecat{
 #define PUZ_SPACE		' '
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 struct puz_game
@@ -138,5 +138,5 @@ void solve_puz_mazecat()
 {
 	using namespace puzzles::mazecat;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"testM\\mazecat.xml", "testM\\mazecat.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+		"Puzzles\\mazecat.xml", "Puzzles\\mazecat.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

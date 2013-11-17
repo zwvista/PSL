@@ -183,8 +183,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\Puzzles0\Puzzles0.vcxproj" />
-    <None Include="C:\Users\zhaowei\Downloads\boost_1_55_0.zip" />
     <None Include="ReadMe.txt" />
     <None Include="res\buttons.bmp" />
     <None Include="res\filelarge.bmp" />

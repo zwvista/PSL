@@ -7,10 +7,10 @@
 namespace puzzles{ namespace _8puzzle{
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
 };
 
 typedef unordered_map<char, pair<vector<int>, vector<int> > > group_map;
@@ -140,6 +140,8 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_8puzzle()
 {
 	using namespace puzzles::_8puzzle;
-	//solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false> >("test\\8puzzle.xml", "test\\8puzzle.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
-	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state> >("test\\8puzzle.xml", "test\\8puzzle.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
+		"Puzzles\\8puzzle.xml", "Puzzles\\8puzzle.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>(
+		"Puzzles\\8puzzle.xml", "Puzzles\\8puzzle.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

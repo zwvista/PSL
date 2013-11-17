@@ -33,12 +33,12 @@ namespace puzzles{ namespace _15pegs{
 #define PUZ_SPACE	'0'
 
 Position offset[] = {
-	Position(0, -1),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(1, 0),
-	Position(-1, -1),
-	Position(1, 1),
+	{0, -1},
+	{0, 1},
+	{-1, 0},
+	{1, 0},
+	{-1, -1},
+	{1, 1},
 };
 
 struct puz_game
@@ -144,6 +144,8 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_15pegs()
 {
 	using namespace puzzles::_15pegs;
-	//solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >("test\\15pegs.xml", "test\\15pegs.txt");
-	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state> >("test\\15pegs.xml", "test\\15pegs.txt");
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\15pegs.xml", "Puzzles\\15pegs.txt");
+	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>(
+		"Puzzles\\15pegs.xml", "Puzzles\\15pegs.txt");
 }

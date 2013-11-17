@@ -13,10 +13,10 @@ namespace puzzles{ namespace zafiro{
 #define PUZ_SPACE		' '
 
 Position offset[] = {
-	Position(1, 0),
-	Position(0, 1),
-	Position(-1, 0),
-	Position(0, -1),
+	{1, 0},
+	{0, 1},
+	{-1, 0},
+	{0, -1},
 };
 
 struct puz_game
@@ -229,5 +229,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_zafiro()
 {
 	using namespace puzzles::zafiro;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false> >("test4\\zafiro.xml", "test4\\zafiro.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
+		"Puzzles\\zafiro.xml", "Puzzles\\zafiro.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

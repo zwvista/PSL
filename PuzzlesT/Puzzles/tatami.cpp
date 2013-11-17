@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	iphone game: Logic Games/Puzzle Set 2/Tatami
+	ios game: Logic Games/Puzzle Set 2/Tatami
 
 	Summary
 	1,2,3... 1,2,3... Fill the mats
@@ -23,15 +23,15 @@ namespace puzzles{ namespace tatami{
 #define PUZ_SPACE		' '
 
 Position offset[] = {
-	Position(0, 1),
-	Position(1, 0),
-	Position(0, -1),
-	Position(-1, 0),
+	{0, 1},
+	{1, 0},
+	{0, -1},
+	{-1, 0},
 };
 
 struct puz_numbers : set<char>
 {
-	puz_numbers() = default;
+	puz_numbers() {}
 	puz_numbers(int num){
 		for(int i = 0; i < num; ++i)
 			insert(i + '1');
@@ -98,7 +98,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 // second.value : the number of remaining times that the key char number can be used in the area
 struct puz_area : pair<int, map<char, int>>
 {
-	puz_area() = default;
+	puz_area() {}
 	puz_area(int index, const puz_numbers& numbers, int num_times_appear)
 		: pair<int, map<char, int>>(index, map<char, int>()){
 		for(char ch : numbers)
@@ -109,7 +109,7 @@ struct puz_area : pair<int, map<char, int>>
 
 struct puz_group : vector<puz_area>
 {
-	puz_group() = default;
+	puz_group() {}
 	puz_group(int index, int sz, const puz_numbers& numbers, int num_times_appear){
 		for(int i = 0; i < sz; i++)
 			emplace_back(index++, numbers, num_times_appear);
@@ -230,5 +230,5 @@ void solve_puz_tatami()
 {
 	using namespace puzzles::tatami;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>
-		("testT\\tatami.xml", "testT\\tatami.txt", solution_format::GOAL_STATE_ONLY);
+		("Puzzles\\tatami.xml", "Puzzles\\tatami.txt", solution_format::GOAL_STATE_ONLY);
 }

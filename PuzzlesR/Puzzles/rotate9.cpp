@@ -132,5 +132,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_rotate9()
 {
 	using namespace puzzles::rotate9;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false> >("test3\\rotate9.xml", "test3\\rotate9.txt");
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
+		"Puzzles\\rotate9.xml", "Puzzles\\rotate9.txt");
 }

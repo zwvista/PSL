@@ -2,19 +2,19 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
-// iphone game: pattern puzzle
+// ios game: pattern puzzle
 
 namespace puzzles{ namespace patternpuzzle{
 
 Position offset[] = {
-	Position(0, 1),
-	Position(1, 1),
-	Position(1, 0),
-	Position(1, -1),
-	Position(0, -1),
-	Position(-1, -1),
-	Position(-1, 0),
-	Position(-1, 1),
+	{0, 1},
+	{1, 1},
+	{1, 0},
+	{1, -1},
+	{0, -1},
+	{-1, -1},
+	{-1, 0},
+	{-1, 1},
 };
 
 string dir_strs[] = {
@@ -168,5 +168,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_patternpuzzle()
 {
 	using namespace puzzles::patternpuzzle;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false> >("testP\\patternpuzzle.xml", "testP\\patternpuzzle.txt", solution_format::MOVES_ONLY);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
+		"Puzzles\\patternpuzzle.xml", "Puzzles\\patternpuzzle.txt", solution_format::MOVES_ONLY);
 }
