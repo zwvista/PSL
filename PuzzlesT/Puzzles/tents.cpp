@@ -3,26 +3,30 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Parks
+	ios game: Logic Games/Puzzle Set 1/Tents
 
 	Summary
-	Put one Tree in each Park, row and column.(two in bigger levels)
+	Each camper wants to put his Tent under the shade of a Tree. But he also
+	wants his privacy!
 
 	Description
-	In Parks, you have many differently coloured areas(Parks) on the board.
-	The goal is to plant Trees, following these rules:
-	1. A Tree can't touch another Tree, not even diagonally.
-	2. Each park must have exactly ONE Tree.
-	3. There must be exactly ONE Tree in each row and each column.
-	4. Remember a Tree CANNOT touch another Tree diagonally,
-	   but it CAN be on the same diagonal line.
-	5. Larger puzzles have TWO Trees in each park, each row and each column.
+	1. The board represents a camping field with many Trees. Campers want to set
+	   their Tent in the shade, horizontally or vertically adjacent to a Tree(not
+	   diagonally).
+	2. At the same time they need their privacy, so a Tent can't have any other
+	   Tents near them, not even diagonally.
+	3. The numbers on the borders tell you how many Tents there are in that row
+	   or column.
+	4. Finally, each Tree has at least one Tent touching it, horizontally or
+	   vertically.
 */
 
-namespace puzzles{ namespace parks{
+namespace puzzles{ namespace tents{
 
+#define PUZ_SPACE		' '
 #define PUZ_TREE		'T'
-#define PUZ_SPACE		'.'
+#define PUZ_EMPTY		'.'
+#define PUZ_TENT		'E'
 
 Position offset[] = {
 	{-1, 0},	// n
@@ -39,42 +43,49 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	int m_tree_count_area;
-	int m_tree_total_count;
-	map<Position, int> m_pos2park;
 	vector<Position> m_trees;
+	vector<int> m_tent_counts_rows, m_tent_counts_cols;
+	int m_tent_total_count;
+	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-	: m_id(attrs.get<string>("id"))
-	, m_sidelen(strs.size())
-	, m_tree_count_area(attrs.get<int>("numTreesInEachArea", 1))
-	, m_tree_total_count(m_tree_count_area * m_sidelen)
+	: m_id{attrs.get<string>("id")}
+	, m_sidelen{strs.size() - 1}
+	, m_tent_counts_rows(m_sidelen)
+	, m_tent_counts_cols(m_sidelen)
 {
-	for(int r = 0; r < m_sidelen; ++r){
+	for(int r = 0; r < m_sidelen + 1; ++r){
 		const string& str = strs[r];
-		for(int c = 0; c < m_sidelen; ++c){
-			Position p(r, c);
-			char ch = str[c];
-			if(isupper(ch)){
-				ch = tolower(ch);
-				m_trees.push_back(p);
+		for(int c = 0; c < m_sidelen + 1; ++c)
+			switch(char ch = str[c]){
+			case PUZ_SPACE:
+				m_start.push_back(PUZ_EMPTY);
+				break;
+			case PUZ_TREE:
+				m_start.push_back(PUZ_TREE);
+				m_trees.emplace_back(r, c);
+				break;
+			default:
+				if(c == m_sidelen)
+					m_tent_counts_rows[r] = ch - '0';
+				else if(r == m_sidelen)
+					m_tent_counts_cols[c] = ch - '0';
+				break;
 			}
-			int n = ch - 'a';
-			m_pos2park[p] = n;
-		}
 	}
+	m_tent_total_count = boost::accumulate(m_tent_counts_rows, 0);
 }
 
-// first : all the remaining positions in the area where a tree can be planted
-// second : the number of trees that need to be planted in the area
+// first : all the remaining positions in the area where a tent can be placed
+// second : the number of tents that need to be placed in the area
 struct puz_area : pair<set<Position>, int>
 {
 	puz_area() {}
-	puz_area(int tree_count_area)
-		: pair<set<Position>, int>({}, tree_count_area)
+	puz_area(int tent_count)
+		: pair<set<Position>, int>({}, tent_count)
 	{}
 	void add_cell(const Position& p){ first.insert(p); }
 	void remove_cell(const Position& p){ first.erase(p); }
@@ -88,8 +99,10 @@ struct puz_area : pair<set<Position>, int>
 struct puz_group : vector<puz_area>
 {
 	puz_group() {}
-	puz_group(int cell_count, int tree_count_area)
-		: vector<puz_area>(cell_count, puz_area(tree_count_area)) {}
+	puz_group(const vector<int>& tent_counts){
+		for(int cnt : tent_counts)
+			emplace_back(cnt);
+	}
 	bool is_valid() const {
 		return boost::algorithm::all_of(*this, [](const puz_area& a) {
 			return a.is_valid();
@@ -101,15 +114,13 @@ struct puz_groups
 {
 	puz_groups() {}
 	puz_groups(const puz_game* g)
-		: m_game(g)
-		, m_parks(g->m_sidelen, g->m_tree_count_area)
-		, m_rows(g->m_sidelen, g->m_tree_count_area)
-		, m_cols(g->m_sidelen, g->m_tree_count_area)
+		: m_game{g}
+		, m_rows(g->m_tent_counts_rows)
+		, m_cols(g->m_tent_counts_cols)
 	{}
 
-	array<puz_area*, 3> get_areas(const Position& p){
+	vector<puz_area*> get_areas(const Position& p){
 		return {
-			&m_parks[m_game->m_pos2park.at(p)],
 			&m_rows[p.first],
 			&m_cols[p.second]
 		};
@@ -127,12 +138,11 @@ struct puz_groups
 			a->plant_tree(p);
 	}
 	bool is_valid() const {
-		return m_parks.is_valid() && m_rows.is_valid() && m_cols.is_valid();
+		return m_rows.is_valid() && m_cols.is_valid();
 	}
 	const puz_area& get_best_candidate_area() const;
 
 	const puz_game* m_game;
-	puz_group m_parks;
 	puz_group m_rows;
 	puz_group m_cols;
 };
@@ -153,7 +163,7 @@ struct puz_state : string
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return m_groups.m_game->m_tree_total_count - boost::count(*this, PUZ_TREE);
+		return m_groups.m_game->m_tent_total_count - boost::count(*this, PUZ_TENT);
 	}
 	unsigned int get_distance(const puz_state& child) const {return 1;}
 	void dump_move(ostream& out) const {}
@@ -166,20 +176,20 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+: string(g.m_start)
 , m_groups(&g)
 {
-	for(int r = 0; r < g.m_sidelen; ++r)
-		for(int c = 0; c < g.m_sidelen; ++c)
-			m_groups.add_cell(Position(r, c));
-
 	for(const auto& p : g.m_trees)
-		make_move(p);
+		for(int i = 0; i < 8; i += 2){
+			auto p2 = p + offset[i];
+			if(is_valid(p2))
+				m_groups.add_cell(p2);
+		}
 }
 
 const puz_area& puz_groups::get_best_candidate_area() const
 {
-	const puz_group* grps[] = {&m_parks, &m_rows, &m_cols};
+	const puz_group* grps[] = {&m_rows, &m_cols};
 	vector<const puz_area*> areas;
 	for(const puz_group* grp : grps)
 		for(const puz_area& a : *grp)
@@ -193,7 +203,7 @@ const puz_area& puz_groups::get_best_candidate_area() const
 
 bool puz_state::make_move(const Position& p)
 {
-	cell(p) = PUZ_TREE;
+	cell(p) = PUZ_TENT;
 	m_groups.plant_tree(p);
 
 	// no touch
@@ -220,7 +230,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << cell(Position(r, c)) << ' ';
+			out << cell(Position(r, c)) << " ";
 		out << endl;
 	}
 	return out;
@@ -228,9 +238,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_parks()
+void solve_puz_tents()
 {
-	using namespace puzzles::parks;
+	using namespace puzzles::tents;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\parks.xml", "Puzzles\\parks.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\tents.xml", "Puzzles\\tents.txt", solution_format::GOAL_STATE_ONLY);
 }

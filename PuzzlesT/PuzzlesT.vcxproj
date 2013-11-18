@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\tatami.txt" />
+    <Text Include="Puzzles\tents.txt" />
     <Text Include="Puzzles\turnz.txt" />
     <Text Include="Puzzles\twinballs_a.txt" />
     <Text Include="Puzzles\twinballs_ida.txt" />
@@ -164,6 +165,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\tatami.cpp" />
+    <ClCompile Include="Puzzles\tents.cpp" />
     <ClCompile Include="Puzzles\turnz.cpp" />
     <ClCompile Include="Puzzles\twinballs.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -175,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\tatami.xml" />
+    <Xml Include="Puzzles\tents.xml" />
     <Xml Include="Puzzles\turnz.xml" />
     <Xml Include="Puzzles\twinballs.xml" />
   </ItemGroup>

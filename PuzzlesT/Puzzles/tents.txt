@@ -1,0 +1,14 @@
+Level 001
+Sequence of moves: 
+. E . E T E . E 
+. T . . . T . T 
+. . T E . T E . 
+T . . . . . T . 
+E . . . . . E . 
+. . T E . . . . 
+. E . . . . . . 
+. T T E . T E . 
+Number of moves: 12
+Number of vertices examined: 23
+0.0207162 [s]
+
