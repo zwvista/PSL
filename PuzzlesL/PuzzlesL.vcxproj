@@ -69,11 +69,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(SolutionDir)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(SolutionDir)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -174,7 +172,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\lightenup.xml" />
+    <Xml Include="Puzzles\lightenup.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="Puzzles\lightsout-int.xml" />
     <Xml Include="Puzzles\lightsout_2000.xml" />
     <Xml Include="Puzzles\lightsout_classic.xml" />

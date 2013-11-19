@@ -119,7 +119,7 @@ struct puz_groups
 		, m_cols(g->m_tent_counts_cols)
 	{}
 
-	vector<puz_area*> get_areas(const Position& p){
+	array<puz_area*, 2> get_areas(const Position& p){
 		return {
 			&m_rows[p.first],
 			&m_cols[p.second]
