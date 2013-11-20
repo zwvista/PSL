@@ -40,6 +40,7 @@
     <Text Include="Puzzles\hidoku.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\hiddenstars.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -74,6 +75,9 @@
     <ClCompile Include="Puzzles\hidoku.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\hiddenstars.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\hexrotation.xml">
@@ -91,5 +95,6 @@
     <Xml Include="Puzzles\hidoku.xml">
       <Filter>Puzzles</Filter>
     </Xml>
+    <Xml Include="Puzzles\hiddenstars.xml" />
   </ItemGroup>
 </Project>

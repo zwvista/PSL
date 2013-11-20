@@ -1,0 +1,234 @@
+#include "stdafx.h"
+#include "astar_solver.h"
+#include "solve_puzzle.h"
+
+/*
+	ios game: Logic Games/Puzzle Set 2/Hidden Stars
+
+	Summary
+	Each Arrow points to a Star and every Star has an arrow pointing at it
+
+	Description
+	1. In the board you have to find hidden stars.
+	2. Each star is pointed at by at least one Arrow and each Arrow points
+	   to at least one star.
+	3. The number on the borders tell you how many Stars there on that row
+	   or column.
+
+	Variant
+	4. Some levels have a variation of these rules: Stars must be pointed
+	   by one and only one Star.
+*/
+
+namespace puzzles{ namespace hiddenstars{
+
+#define PUZ_SPACE		' '
+#define PUZ_ARROW		'A'
+#define PUZ_STAR		'S'
+
+Position offset[] = {
+	{-1, 0},	// n
+	{-1, 1},	// ne
+	{0, 1},		// e
+	{1, 1},		// se
+	{1, 0},		// s
+	{1, -1},	// sw
+	{0, -1},	// w
+	{-1, -1},	// nw
+};
+
+struct puz_game	
+{
+	string m_id;
+	int m_sidelen;
+	map<Position, int> m_arrows;
+	vector<int> m_star_counts_rows, m_star_counts_cols;
+	int m_star_total_count;
+	string m_start;
+
+	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+};
+
+puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
+	: m_id(attrs.get<string>("id"))
+	, m_sidelen(strs.size() - 1)
+	, m_star_counts_rows(m_sidelen)
+	, m_star_counts_cols(m_sidelen)
+{
+	int n = 0;
+	for(int r = 0; r < m_sidelen + 1; ++r){
+		const string& str = strs[r];
+		for(int c = 0; c < m_sidelen + 1; c++){
+			Position p(r, c);
+			switch(char ch = str[c]){
+			case PUZ_SPACE:
+				m_start.push_back(PUZ_SPACE);
+				break;
+			default:
+				n = ch - '0';
+				if(c == m_sidelen)
+					m_star_counts_rows[r] = n;
+				else if(r == m_sidelen)
+					m_star_counts_cols[c] = n;
+				else{
+					m_arrows[p] = n;
+					m_start.push_back(PUZ_ARROW);
+				}
+				break;
+			}
+		}
+	}
+	m_star_total_count = boost::accumulate(m_star_counts_rows, 0);
+}
+
+// first : all the remaining positions in the area where a star can be hidden
+// second : the number of stars that need to be found in the area
+struct puz_area : pair<set<Position>, int>
+{
+	puz_area() {}
+	puz_area(int star_count)
+		: pair<set<Position>, int>({}, star_count)
+	{}
+	void add_cell(const Position& p){ first.insert(p); }
+	void remove_cell(const Position& p){ first.erase(p); }
+	void place_star(const Position& p, bool is_arrow){
+		first.erase(p);
+		if(!is_arrow || is_arrow && second == 1)
+			--second;
+	}
+	bool is_valid() const {
+		return second >= 0 && first.size() >= second;
+	}
+};
+
+// all of the areas in the group
+struct puz_group : vector<puz_area>
+{
+	puz_group() {}
+	puz_group(const vector<int>& star_counts){
+		for(int cnt : star_counts)
+			emplace_back(cnt);
+	}
+	bool is_valid() const {
+		return boost::algorithm::all_of(*this, [](const puz_area& a) {
+			return a.is_valid();
+		});
+	}
+};
+
+struct puz_state : string
+{
+	puz_state() {}
+	puz_state(const puz_game& g);
+	int sidelen() const { return m_game->m_sidelen; }
+	bool is_valid(const Position& p) const {
+		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+	}
+	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	bool make_move(const Position& p);
+
+	// solve_puzzle interface
+	bool is_goal_state() const {return get_heuristic() == 0;}
+	void gen_children(list<puz_state>& children) const;
+	unsigned int get_heuristic() const { 
+		return m_game->m_star_total_count - boost::count(*this, PUZ_STAR);
+	}
+	unsigned int get_distance(const puz_state& child) const {return 1;}
+	void dump_move(ostream& out) const {}
+	ostream& dump(ostream& out) const;
+	friend ostream& operator<<(ostream& out, const puz_state& state) {
+		return state.dump(out);
+	}
+
+	const puz_game* m_game;
+	puz_group m_grp_arrows;
+	puz_group m_grp_rows;
+	puz_group m_grp_cols;
+};
+
+puz_state::puz_state(const puz_game& g)
+: string(g.m_start), m_game(&g)
+, m_grp_arrows(vector<int>(g.m_arrows.size(), 1))
+, m_grp_rows(g.m_star_counts_rows)
+, m_grp_cols(g.m_star_counts_cols)
+{
+	set<Position> ps;
+	for(int r = 0; r < sidelen(); ++r)
+		for(int c = 0; c < sidelen(); ++c){
+			Position p(r, c);
+			if(cell(p) == PUZ_SPACE){
+				m_grp_rows[r].add_cell(p);
+				m_grp_cols[c].add_cell(p);
+				ps.insert(p);
+			}
+		}
+
+	int n = 0;
+	for(const auto& kv : g.m_arrows){
+		const auto& p = kv.first;
+		const auto& os = offset[kv.second];
+		for(auto p2 = p + os; is_valid(p2); p2 += os)
+		if(cell(p2) == PUZ_SPACE){
+			m_grp_arrows[n].add_cell(p2);
+			ps.erase(p2);
+		}
+		++n;
+	}
+
+	// Each Star is pointed at by at least one Arrow,
+	// So a Star cannot be hidden at a position with no Arrow pointing to it
+	for(const auto& p : ps){
+		m_grp_rows[p.first].remove_cell(p);
+		m_grp_cols[p.second].remove_cell(p);
+	}
+}
+
+bool puz_state::make_move(const Position& p)
+{
+	cell(p) = PUZ_STAR;
+
+	for(auto& a : m_grp_arrows)
+		a.place_star(p, true);
+	m_grp_rows[p.first].place_star(p, false);
+	m_grp_cols[p.second].place_star(p, false);
+
+	return m_grp_rows.is_valid() && m_grp_cols.is_valid();
+}
+
+void puz_state::gen_children(list<puz_state> &children) const
+{
+	vector<const puz_area*> areas;
+	for(const puz_group* grp : {&m_grp_arrows, &m_grp_rows, &m_grp_cols})
+		for(const puz_area& a : *grp)
+			if(a.second > 0)
+				areas.push_back(&a);
+
+	const auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
+		return a1->first.size() < a2->first.size();
+	});
+	for(const auto& p : a.first){
+		children.push_back(*this);
+		if(!children.back().make_move(p))
+			children.pop_back();
+	}
+}
+
+ostream& puz_state::dump(ostream& out) const
+{
+	for(int r = 0; r < sidelen(); ++r) {
+		for(int c = 0; c < sidelen(); ++c)
+			out << cell(Position(r, c)) << " ";
+		out << endl;
+	}
+	return out;
+}
+
+}}
+
+void solve_puz_hiddenstars()
+{
+	using namespace puzzles::hiddenstars;
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\hiddenstars.xml", "Puzzles\\hiddenstars.txt", solution_format::GOAL_STATE_ONLY);
+}

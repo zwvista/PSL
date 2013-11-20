@@ -189,9 +189,8 @@ puz_state::puz_state(const puz_game& g)
 
 const puz_area& puz_groups::get_best_candidate_area() const
 {
-	const puz_group* grps[] = {&m_rows, &m_cols};
 	vector<const puz_area*> areas;
-	for(const puz_group* grp : grps)
+	for(const puz_group* grp : {&m_rows, &m_cols})
 		for(const puz_area& a : *grp)
 			if(a.second > 0)
 				areas.push_back(&a);
