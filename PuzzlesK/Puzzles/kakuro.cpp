@@ -83,7 +83,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		int cnt = kv.first.second;
 		auto& combs = kv.second;
 
-		vector<int> comb(cnt, 1);	
+		vector<int> comb(cnt, 1);
 		for(int i = 0; i < cnt;){
 			if(boost::accumulate(comb, 0) == sum &&
 				boost::range::adjacent_find(comb) == comb.end())
@@ -144,7 +144,7 @@ void puz_state::find_matches()
 		const auto& area = (kv.first.second ? m_game->m_pos2area_cols : m_game->m_pos2area_rows).at(kv.first.first);
 		for(const auto& p : area.first)
 			nums.push_back(at(p));
-		if(boost::algorithm::none_of(nums, [](int n){return n == 0; })){
+		if(boost::algorithm::none_of(nums, [](int n){return n == 0;})){
 			filled.push_back(kv.first);
 			continue;
 		}
