@@ -108,17 +108,17 @@ void puz_state::find_matches()
 	vector<int> filled;
 
 	for(auto& kv : m_matches){
-		vector<int> area;
+		vector<int> nums;
 		for(const auto& p : m_game->m_area_pos.at(kv.first))
-			area.push_back(cell(p));
-		if(boost::algorithm::none_of(area, [](int n){return n == 0;})){
+			nums.push_back(cell(p));
+		if(boost::algorithm::none_of(nums, [](int n){return n == 0;})){
 			filled.push_back(kv.first);
 			continue;
 		}
 
 		kv.second.clear();
-		for(int i = 0; i < m_game->m_perms.size(); i++)
-			if(boost::equal(area, m_game->m_perms.at(i), [](int n1, int n2){
+		for(int i = 0; i < m_game->m_perms.size(); ++i)
+			if(boost::equal(nums, m_game->m_perms.at(i), [](int n1, int n2){
 				return n1 == 0 || n1 == n2; }))
 				kv.second.push_back(i);
 	}

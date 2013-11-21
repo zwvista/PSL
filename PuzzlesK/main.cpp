@@ -1,13 +1,13 @@
 #include "stdafx.h"
 
-extern void solve_puz_abc();
+extern void solve_puz_kakuro();
 
 int main(int argc, char **argv)
 {
-	cout << "b: abc" << endl;
+	cout << "a: kakuro" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "b") solve_puz_abc();
+	if(str == "a") solve_puz_kakuro();
 
 	return 0;
 }
