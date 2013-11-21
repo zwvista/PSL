@@ -29,6 +29,7 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\sumscrapers.txt" />
+    <Text Include="Puzzles\square100.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -60,6 +61,9 @@
     <ClCompile Include="Puzzles\sumscrapers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\square100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\sokoban.xml">
@@ -72,5 +76,6 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\sumscrapers.xml" />
+    <Xml Include="Puzzles\square100.xml" />
   </ItemGroup>
 </Project>

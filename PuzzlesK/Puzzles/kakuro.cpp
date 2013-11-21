@@ -83,7 +83,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		int cnt = kv.first.second;
 		auto& combs = kv.second;
 
-		vector<int> comb(cnt, 1);		
+		vector<int> comb(cnt, 1);	
 		for(int i = 0; i < cnt;){
 			if(boost::accumulate(comb, 0) == sum &&
 				boost::range::adjacent_find(comb) == comb.end())
