@@ -17,12 +17,13 @@
 
 	Variant
 	4. Some levels have a variation of these rules: Stars must be pointed
-	   by one and only one Star.
+	   by one and only one Arrow.
 */
 
 namespace puzzles{ namespace hiddenstars{
 
 #define PUZ_SPACE		' '
+#define PUZ_EMPTY		'.'
 #define PUZ_ARROW		'A'
 #define PUZ_STAR		'S'
 
@@ -41,6 +42,7 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
+	bool m_only_one_arrow;
 	map<Position, int> m_arrows;
 	vector<int> m_star_counts_rows, m_star_counts_cols;
 	int m_star_total_count;
@@ -52,6 +54,7 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id(attrs.get<string>("id"))
 	, m_sidelen(strs.size() - 1)
+	, m_only_one_arrow(attrs.get<int>("OnlyOneArrow", 0) != 0)
 	, m_star_counts_rows(m_sidelen)
 	, m_star_counts_cols(m_sidelen)
 {
@@ -62,7 +65,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			Position p(r, c);
 			switch(char ch = str[c]){
 			case PUZ_SPACE:
-				m_start.push_back(PUZ_SPACE);
+				m_start.push_back(PUZ_EMPTY);
 				break;
 			default:
 				n = ch - '0';
@@ -91,9 +94,10 @@ struct puz_area : pair<set<Position>, int>
 	{}
 	void add_cell(const Position& p){ first.insert(p); }
 	void remove_cell(const Position& p){ first.erase(p); }
-	void place_star(const Position& p, bool is_arrow){
+	void place_star(const Position& p, bool at_least_one){
+		if(first.count(p) == 0) return;
 		first.erase(p);
-		if(!is_arrow || is_arrow && second == 1)
+		if(!at_least_one || at_least_one && second == 1)
 			--second;
 	}
 	bool is_valid() const {
@@ -157,7 +161,7 @@ puz_state::puz_state(const puz_game& g)
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
-			if(cell(p) == PUZ_SPACE){
+			if(cell(p) == PUZ_EMPTY){
 				m_grp_rows[r].add_cell(p);
 				m_grp_cols[c].add_cell(p);
 				ps.insert(p);
@@ -169,15 +173,15 @@ puz_state::puz_state(const puz_game& g)
 		const auto& p = kv.first;
 		const auto& os = offset[kv.second];
 		for(auto p2 = p + os; is_valid(p2); p2 += os)
-		if(cell(p2) == PUZ_SPACE){
-			m_grp_arrows[n].add_cell(p2);
-			ps.erase(p2);
-		}
+			if(cell(p2) == PUZ_EMPTY){
+				m_grp_arrows[n].add_cell(p2);
+				ps.erase(p2);
+			}
 		++n;
 	}
 
 	// Each Star is pointed at by at least one Arrow,
-	// So a Star cannot be hidden at a position with no Arrow pointing to it
+	// so a Star cannot be hidden at a position with no Arrow pointing to it
 	for(const auto& p : ps){
 		m_grp_rows[p.first].remove_cell(p);
 		m_grp_cols[p.second].remove_cell(p);
@@ -189,11 +193,12 @@ bool puz_state::make_move(const Position& p)
 	cell(p) = PUZ_STAR;
 
 	for(auto& a : m_grp_arrows)
-		a.place_star(p, true);
+		a.place_star(p, !m_game->m_only_one_arrow);
 	m_grp_rows[p.first].place_star(p, false);
 	m_grp_cols[p.second].place_star(p, false);
 
-	return m_grp_rows.is_valid() && m_grp_cols.is_valid();
+	return m_grp_rows.is_valid() && m_grp_cols.is_valid() &&
+		(!m_game->m_only_one_arrow || m_grp_arrows.is_valid());
 }
 
 void puz_state::gen_children(list<puz_state> &children) const
@@ -216,9 +221,27 @@ void puz_state::gen_children(list<puz_state> &children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
-		for(int c = 0; c < sidelen(); ++c)
-			out << cell(Position(r, c)) << " ";
+	auto f = [&](int n){ out << format("%-2d") % n; };
+
+	for(int r = 0; r <= sidelen(); ++r) {
+		for(int c = 0; c <= sidelen(); ++c)
+			if(r == sidelen() && c == sidelen())
+				;
+			else if(c == sidelen())
+				f(m_game->m_star_counts_rows.at(r));
+			else if(r == sidelen())
+				f(m_game->m_star_counts_cols.at(c));
+			else{
+				Position p(r, c);
+				switch(char ch = cell(p)){
+				case PUZ_ARROW:
+					f(m_game->m_arrows.at(p));
+					break;
+				default:
+					out << cell(Position(r, c)) << " ";
+					break;
+				}
+			}
 		out << endl;
 	}
 	return out;
