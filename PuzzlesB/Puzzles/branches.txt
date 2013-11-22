@@ -7,6 +7,6 @@ Sequence of moves:
  | | v v | v
  v 7 - > 3 >
 Number of moves: 7
-Number of vertices examined: 20
-0.0549638 [s]
+Number of vertices examined: 13
+0.022144 [s]
 

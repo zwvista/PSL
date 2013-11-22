@@ -3,27 +3,28 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 3/Branches
+	ios game: Logic Games/Puzzle Set 5/Walls
 
 	Summary
-	Fill the board with Branches departing from the numbers
+	Find the maze of Bricks
 
 	Description
-	1. In Branches you must fill the board with straight horizontal and
-	   vertical lines(Branches) that stem from each number.
-	2. The number itself tells you how many tiles its Branches fill up.
-	   The tile with the number doesn't count.
-	3. There can't be blank tiles and Branches can't overlap, nor run over
-	   the numbers. Moreover Branches must be in a single straight line
-	   and can't make corners.
+	1. In Walls you must fill the board with straight horizontal and
+	   vertical lines (walls) that stem from each number.
+	2. The number itself tells you the total length of Wall segments
+	   connected to it.
+	3. Wall pieces have two ways to be put, horizontally or vertically.
+	4. Not every wall piece must be connected with a number, but the
+	   board must be filled with wall pieces.
 */
 
-namespace puzzles{ namespace branches{
+namespace puzzles{ namespace walls{
 
-#define PUZ_SPACE		' '
-#define PUZ_NUMBER		'N'
-#define PUZ_BRANCH		'B'
-#define PUZ_WALL		'W'
+#define PUZ_SPACE			' '
+#define PUZ_NUMBER			'N'
+#define PUZ_HORZ			'-'
+#define PUZ_VERT			'|'
+#define PUZ_BOUNDARY		'B'
 
 Position offset[] = {
 	{-1, 0},		// n
@@ -31,8 +32,6 @@ Position offset[] = {
 	{1, 0},		// s
 	{0, -1},		// w
 };
-
-const string str_branch = "|-|-^>v<";
 
 struct puz_game
 {
@@ -48,10 +47,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 2)
 {
-	m_start.append(string(m_sidelen, PUZ_WALL));
+	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
 	for(int r = 0; r < m_sidelen - 2; ++r){
 		const string& str = strs[r];
-		m_start.push_back(PUZ_WALL);
+		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 0; c < m_sidelen - 2; ++c)
 			switch(char ch = str[c]){
 			case PUZ_SPACE:
@@ -62,9 +61,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				m_pos2num[Position(r + 1, c + 1)] = ch - '0';
 				break;
 			}
-		m_start.push_back(PUZ_WALL);
+		m_start.push_back(PUZ_BOUNDARY);
 	}
-	m_start.append(string(m_sidelen, PUZ_WALL));
+	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
 }
 
 struct puz_state : string
@@ -80,7 +79,7 @@ struct puz_state : string
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_pos2branches.size(); }
+	unsigned int get_heuristic() const { return m_pos2walls.size(); }
 	unsigned int get_distance(const puz_state& child) const { return 1; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -89,7 +88,7 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
-	map<Position, vector<vector<int>>> m_pos2branches;
+	map<Position, vector<vector<int>>> m_pos2walls;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -97,14 +96,14 @@ puz_state::puz_state(const puz_game& g)
 , m_game(&g)
 {
 	for(const auto& kv : g.m_pos2num)
-		m_pos2branches[kv.first];
+		m_pos2walls[kv.first];
 	
 	find_matches();
 }
 
 void puz_state::find_matches()
 {
-	for(auto& kv : m_pos2branches){
+	for(auto& kv : m_pos2walls){
 		const auto& p = kv.first;
 		auto& combs = kv.second;
 		combs.clear();
@@ -112,16 +111,21 @@ void puz_state::find_matches()
 		int sum = m_game->m_pos2num.at(p);
 		vector<vector<int>> dir_nums(4);
 		for(int i = 0; i < 4; ++i){
+			bool is_horz = i % 2 == 1;
 			const auto& os = offset[i];
 			int n = 0;
 			auto& nums = dir_nums[i];
-			for(auto p2 = p + os; n <= sum; p2 += os)
-				if(cell(p2) == PUZ_SPACE)
+			for(auto p2 = p + os; n <= sum; p2 += os){
+				char ch = cell(p2);
+				if(ch == PUZ_SPACE ||
+					is_horz && ch == PUZ_HORZ ||
+					!is_horz && ch == PUZ_VERT)
 					nums.push_back(n++);
 				else{
 					nums.push_back(n);
 					break;
 				}
+			}
 		}
 
 		for(int n0 : dir_nums[0])
@@ -136,24 +140,27 @@ void puz_state::find_matches()
 bool puz_state::make_move(const Position& p, const vector<int>& comb)
 {
 	for(int i = 0; i < 4; ++i){
+		bool is_horz = i % 2 == 1;
 		const auto& os = offset[i];
 		int n = comb[i];
 		auto p2 = p + os;
 		for(int j = 0; j < n; ++j){
-			cell(p2) = str_branch[i + (j == n - 1 ? 4 : 0)];
+			cell(p2) = is_horz ? PUZ_HORZ : PUZ_VERT;
 			p2 += os;
 		}
+		if(cell(p2) == PUZ_SPACE)
+			cell(p2) = is_horz ? PUZ_VERT : PUZ_HORZ;
 	}
-	m_pos2branches.erase(p);
+	m_pos2walls.erase(p);
 	find_matches();
-	return boost::algorithm::none_of(m_pos2branches, [](const pair<const Position, vector<vector<int>>>& kv){
+	return boost::algorithm::none_of(m_pos2walls, [](const pair<const Position, vector<vector<int>>>& kv){
 		return kv.second.empty();
 	});
 }
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	const auto& kv = *boost::min_element(m_pos2branches,
+	const auto& kv = *boost::min_element(m_pos2walls,
 		[](const pair<const Position, vector<vector<int>>>& kv1,
 		const pair<const Position, vector<vector<int>>>& kv2){
 		return kv1.second.size() < kv2.second.size();
@@ -187,9 +194,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_branches()
+void solve_puz_walls()
 {
-	using namespace puzzles::branches;
+	using namespace puzzles::walls;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\branches.xml", "Puzzles\\branches.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\walls.xml", "Puzzles\\walls.txt", solution_format::GOAL_STATE_ONLY);
 }
