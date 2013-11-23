@@ -150,6 +150,7 @@
   <ItemGroup>
     <Text Include="Puzzles\kakurasu.txt" />
     <Text Include="Puzzles\kakuro.txt" />
+    <Text Include="Puzzles\kropki.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\kakurasu.cpp" />
     <ClCompile Include="Puzzles\kakuro.cpp" />
+    <ClCompile Include="Puzzles\kropki.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -171,6 +173,7 @@
   <ItemGroup>
     <Xml Include="Puzzles\kakurasu.xml" />
     <Xml Include="Puzzles\kakuro.xml" />
+    <Xml Include="Puzzles\kropki.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

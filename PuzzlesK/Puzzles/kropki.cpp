@@ -3,35 +3,33 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 2/Futoshiki
+	ios game: Logic Games/Puzzle Set 6/Kropki
 
 	Summary
 	Fill the rows and columns with numbers, respecting the relations
 
 	Description
-	1. You have to put in each row and column numbers ranging from 1 to N,
-	   where N is the puzzle board size.
-	2. The hints you have are the less than/greater than signs between tiles.
-	3. Remember you can't repeat the same number in a row or column.
+	1. The Goal is to enter numbers 1 to board size once in every row and
+	   column.
+	2. A Dot between two tiles give you hints about the two numbers:
+	3. Black Dot - one number is twice the other.
+	4. White Dot - the numbers are consecutive.
+	5. Where the numbers are 1 and 2, there can be either a Black Dot(2 is
+	   1*2) or a White Dot(1 and 2 are consecutive).
+	6. Please note that when two numbers are either consecutive or doubles,
+	   there MUST be a Dot between them!
 
-	Variation
-	4. Some boards, instead of having less/greater signs, have just a line
-	   separating the tiles.
-	5. That separator hints at two tiles with consecutive numbers.
-	6. Please note that in this variation consecutive numbers MUST have a
-	   line separating the tiles. Otherwise they're not consecutive.
+	Variant
+	7. In later 9*9 levels you will also have bordere and coloured areas,
+	   which must also contain all the numbers 1 to 9.
 */
 
-namespace puzzles{ namespace futoshiki{
+namespace puzzles{ namespace kropki{
 
 #define PUZ_SPACE		' '
-#define PUZ_ROW_LT		'<'
-#define PUZ_ROW_GT		'>'
-#define PUZ_ROW_CS		'|'
-#define PUZ_COL_LT		'^'
-#define PUZ_COL_GT		'v'
-#define PUZ_COL_CS		'-'
-#define PUZ_NOT_CS		'.'
+#define PUZ_BLACK		'B'
+#define PUZ_WHITE		'W'
+#define PUZ_NOT_BH		'.'
 
 struct puz_game
 {
@@ -50,10 +48,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_area_pos(m_sidelen * 2)
 {
 	m_start = boost::accumulate(strs, string());
-	boost::replace(m_start, PUZ_COL_LT, PUZ_ROW_LT);
-	boost::replace(m_start, PUZ_COL_GT, PUZ_ROW_GT);
-	boost::replace(m_start, PUZ_COL_CS, PUZ_ROW_CS);
-	bool ltgt_mode = m_start.find(PUZ_ROW_CS) == -1;
 
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
@@ -64,19 +58,27 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	string comb(m_sidelen / 2 + 1, PUZ_SPACE);
+	vector<int> comb(m_sidelen / 2 + 1);
 	string comb2(m_sidelen, PUZ_SPACE);
 
-	boost::iota(comb, '1');
+	boost::iota(comb, 1);
 	do{
+		int i01 = 0;
 		for(int i = m_sidelen - 1, j = i / 2;; i -= 2, --j){
-			comb2[i] = comb[j];
+			comb2[i] = comb[j] + '0';
 			if(i == 0) break;
-			comb2[i - 1] = ltgt_mode ? 
-				comb[j - 1] < comb[j] ? PUZ_ROW_LT : PUZ_ROW_GT :
-				myabs(comb[j - 1] - comb[j]) == 1 ? PUZ_ROW_CS : PUZ_NOT_CS;
+			int n1 = comb[j - 1], n2 = comb[j];
+			if(n1 > n2) ::swap(n1, n2);
+			comb2[i - 1] = n2 - n1 == 1 ? PUZ_WHITE :
+				n2 == n1 * 2 ? PUZ_BLACK : PUZ_NOT_BH;
+			if(n1 == 1 && n2 == 2)
+				i01 = i - 1;
 		}
 		m_combs.push_back(comb2);
+		if(i01 > 0){
+			comb2[i01] = PUZ_BLACK;
+			m_combs.push_back(comb2);
+		}
 	}while(boost::next_permutation(comb));
 }
 
@@ -126,7 +128,7 @@ int puz_state::find_matches(bool init)
 		kv.second.clear();
 		for(int i = 0; i < m_game->m_combs.size(); i++)
 			if(boost::equal(nums, m_game->m_combs.at(i), [](char ch1, char ch2){
-				return ch1 == PUZ_SPACE && ch2 != PUZ_ROW_CS || ch1 == ch2;
+				return ch1 == PUZ_SPACE && ch2 != PUZ_BLACK && ch2 != PUZ_WHITE || ch1 == ch2;
 			}))
 				kv.second.push_back(i);
 
@@ -164,7 +166,7 @@ bool puz_state::make_move(int i, int j)
 			return false;
 		case 2:
 			return true;
-	}
+		}
 }
 
 void puz_state::gen_children(list<puz_state> &children) const
@@ -184,10 +186,6 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c){
 			char ch = cell(Position(r, c));
-			if(r % 2 == 1)
-				ch = ch == PUZ_ROW_LT ? PUZ_COL_LT :
-					ch == PUZ_ROW_GT ? PUZ_COL_GT :
-					ch == PUZ_ROW_CS ? PUZ_COL_CS : ch;
 			out << ch << ' ';
 		}
 		out << endl;
@@ -197,9 +195,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_futoshiki()
+void solve_puz_kropki()
 {
-	using namespace puzzles::futoshiki;
+	using namespace puzzles::kropki;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\futoshiki.xml", "Puzzles\\futoshiki.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\kropki.xml", "Puzzles\\kropki.txt", solution_format::GOAL_STATE_ONLY);
 }

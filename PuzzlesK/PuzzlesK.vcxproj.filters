@@ -25,6 +25,9 @@
     <Text Include="Puzzles\kakurasu.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\kropki.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -50,12 +53,18 @@
     <ClCompile Include="Puzzles\kakurasu.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\kropki.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\kakuro.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\kakurasu.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\kropki.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
