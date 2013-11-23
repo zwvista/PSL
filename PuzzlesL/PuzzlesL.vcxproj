@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\landscaper.txt" />
     <Text Include="Puzzles\lightenup.txt" />
     <Text Include="Puzzles\lightsout-int.txt" />
     <Text Include="Puzzles\lightsout_classic.txt" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\landscaper.cpp" />
     <ClCompile Include="Puzzles\lightenup.cpp" />
     <ClCompile Include="Puzzles\lightsout-int.cpp" />
     <ClCompile Include="Puzzles\lightsout.cpp" />
@@ -172,6 +174,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\landscaper.xml" />
     <Xml Include="Puzzles\lightenup.xml">
       <SubType>Designer</SubType>
     </Xml>

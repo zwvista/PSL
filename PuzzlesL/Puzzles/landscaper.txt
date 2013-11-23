@@ -1,0 +1,52 @@
+Level 01
+Sequence of moves: 
+F F T T 
+T F T F 
+F T F T 
+T T F F 
+Number of moves: 1
+Number of vertices examined: 2
+0.00690982 [s]
+
+Level 02
+Sequence of moves: 
+F F T T 
+T T F F 
+T F F T 
+F T T F 
+Number of moves: 1
+Number of vertices examined: 2
+0.0049434 [s]
+
+Level 03
+Sequence of moves: 
+T F T F 
+F T F T 
+F F T T 
+T T F F 
+Number of moves: 1
+Number of vertices examined: 2
+0.00612632 [s]
+
+Level 04
+Sequence of moves: 
+T T F F 
+F F T T 
+F T T F 
+T F F T 
+Number of moves: 1
+Number of vertices examined: 2
+0.00561164 [s]
+
+Level 05
+Sequence of moves: 
+T F T F F T 
+F T F T T F 
+F F T F T T 
+T F T T F F 
+F T F F T T 
+T T F T F F 
+Number of moves: 1
+Number of vertices examined: 2
+0.0102361 [s]
+

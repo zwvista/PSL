@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+  T \
+ FTF\
+F  T\
+   F\
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+  TT\
+TT  \
+T   \
+  T \
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+  T \
+ T  \
+  TT\
+   F\
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+   F\
+ F  \
+F  F\
+T   \
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+ F  F \
+F FT F\
+F T T \
+T  T F\
+F  FT \
+  F FF\
+    ]]>
+  </level>
+</levels>
