@@ -50,9 +50,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size() + 2)
 {
 	for(int r = 0; r < m_sidelen - 2; ++r){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen - 2; ++c){
-			string s = str.substr(c * 2, 2);
+			auto s = str.substr(c * 2, 2);
 			if(s != "  ")
 				m_start[Position(r + 1, c + 1)] = atoi(s.c_str());
 		}
@@ -66,14 +66,15 @@ struct puz_state : map<Position, vector<vector<int>>>
 	int sidelen() const {return m_game->m_sidelen;}
 	char cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
 	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-	void find_matches();
 	bool make_move(const Position& p, const vector<int>& comb);
+	void make_move2(const Position& p, const vector<int>& comb);
+	int find_matches(bool init);
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const { return size();}
-	unsigned int get_distance(const puz_state& child) const { return 1; }
+	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
 	friend ostream& operator<<(ostream& out, const puz_state& state) {
@@ -82,6 +83,7 @@ struct puz_state : map<Position, vector<vector<int>>>
 
 	const puz_game* m_game = nullptr;
 	string m_cells;
+	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -96,11 +98,11 @@ puz_state::puz_state(const puz_game& g)
 
 	for(const auto& kv : g.m_start)
 		cell(kv.first) = PUZ_SENTINEL, (*this)[kv.first];
-	
-	find_matches();
+
+	find_matches(true);
 }
 
-void puz_state::find_matches()
+int puz_state::find_matches(bool init)
 {
 	for(auto& kv : *this){
 		const auto& p = kv.first;
@@ -135,10 +137,20 @@ blocked:
 					for(int n3 : dir_nums[3])
 						if(n0 + n1 + n2 + n3 == sum)
 							combs.push_back({n0, n1, n2, n3});
+
+		if(!init)
+			switch(combs.size()){
+			case 0:
+				return 0;
+			case 1:
+				make_move2(p, combs.front());
+				return 1;
+			}
 	}
+	return 2;
 }
 
-bool puz_state::make_move(const Position& p, const vector<int>& comb)
+void puz_state::make_move2(const Position& p, const vector<int>& comb)
 {
 	for(int i = 0; i < 4; ++i){
 		const auto& os = offset[i];
@@ -152,9 +164,22 @@ bool puz_state::make_move(const Position& p, const vector<int>& comb)
 		}
 		cell(p2) = PUZ_TOWER;
 	}
+
+	++m_distance;
 	erase(p);
-	find_matches();
-	return true;
+}
+
+bool puz_state::make_move(const Position& p, const vector<int>& comb)
+{
+	m_distance = 0;
+	make_move2(p, comb);
+	for(;;)
+		switch(find_matches(false)){
+		case 0:
+			return false;
+		case 2:
+			return true;
+		}
 }
 
 void puz_state::gen_children(list<puz_state> &children) const

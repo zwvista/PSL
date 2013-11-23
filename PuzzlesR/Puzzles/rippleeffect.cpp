@@ -44,7 +44,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size() / 2)
 {
 	for(int r = 0; r < m_sidelen; ++r){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
 			char ch = str[c];
 			if(ch != ' ')

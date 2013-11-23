@@ -50,7 +50,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 {
 	m_start.append(string(m_sidelen, PUZ_WALL));
 	for(int r = 0; r < m_sidelen - 2; ++r){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		m_start.push_back(PUZ_WALL);
 		for(int c = 0; c < m_sidelen - 2; ++c)
 			switch(char ch = str[c]){
@@ -67,21 +67,22 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	m_start.append(string(m_sidelen, PUZ_WALL));
 }
 
-struct puz_state : string
+struct puz_state : map<Position, vector<vector<int>>>
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	void find_matches();
+	char cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
+	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, const vector<int>& comb);
+	void make_move2(const Position& p, const vector<int>& comb);
+	int find_matches(bool init);
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_pos2branches.size(); }
-	unsigned int get_distance(const puz_state& child) const { return 1; }
+	unsigned int get_heuristic() const { return size(); }
+	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
 	friend ostream& operator<<(ostream& out, const puz_state& state) {
@@ -89,22 +90,23 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
-	map<Position, vector<vector<int>>> m_pos2branches;
+	string m_cells;
+	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start)
-, m_game(&g)
+: map<Position, vector<vector<int>>>()
+, m_cells(g.m_start), m_game(&g)
 {
 	for(const auto& kv : g.m_pos2num)
-		m_pos2branches[kv.first];
+		(*this)[kv.first];
 	
-	find_matches();
+	find_matches(true);
 }
 
-void puz_state::find_matches()
+int puz_state::find_matches(bool init)
 {
-	for(auto& kv : m_pos2branches){
+	for(auto& kv : *this){
 		const auto& p = kv.first;
 		auto& combs = kv.second;
 		combs.clear();
@@ -130,10 +132,20 @@ void puz_state::find_matches()
 					for(int n3 : dir_nums[3])
 						if(n0 + n1 + n2 + n3 == sum)
 							combs.push_back({n0, n1, n2, n3});
+
+		if(!init)
+			switch(combs.size()){
+			case 0:
+				return 0;
+			case 1:
+				make_move2(p, combs.front());
+				return 1;
+			}
 	}
+	return 2;
 }
 
-bool puz_state::make_move(const Position& p, const vector<int>& comb)
+void puz_state::make_move2(const Position& p, const vector<int>& comb)
 {
 	for(int i = 0; i < 4; ++i){
 		const auto& os = offset[i];
@@ -144,16 +156,27 @@ bool puz_state::make_move(const Position& p, const vector<int>& comb)
 			p2 += os;
 		}
 	}
-	m_pos2branches.erase(p);
-	find_matches();
-	return boost::algorithm::none_of(m_pos2branches, [](const pair<const Position, vector<vector<int>>>& kv){
-		return kv.second.empty();
-	});
+
+	++m_distance;
+	erase(p);
+}
+
+bool puz_state::make_move(const Position& p, const vector<int>& comb)
+{
+	m_distance = 0;
+	make_move2(p, comb);
+	for(;;)
+		switch(find_matches(false)){
+		case 0:
+			return false;
+		case 2:
+			return true;
+		}
 }
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	const auto& kv = *boost::min_element(m_pos2branches,
+	const auto& kv = *boost::min_element(*this,
 		[](const pair<const Position, vector<vector<int>>>& kv1,
 		const pair<const Position, vector<vector<int>>>& kv2){
 		return kv1.second.size() < kv2.second.size();

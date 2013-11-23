@@ -30,7 +30,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_size(Position(strs.size(), strs[0].length()))
 {
 	for(int r = 0; r < rows(); r++){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		for(int c = 0; c < cols(); c++)
 			if(str[c] == PUZ_BALL)
 				m_balls.insert(Position(r, c));

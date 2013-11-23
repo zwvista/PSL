@@ -35,7 +35,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_areas(m_sidelen * 2)
 {
 	for(int r = 0; r < m_sidelen; ++r){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
 			int n = str[c] - '0';
@@ -50,15 +50,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		const auto& nums = a.second;
 		auto& combs = m_nums2combs[nums];
 		int cnt = nums.size();
-
-		//vector<vector<int>> v(cnt);
-		//for(int i = 0; i < cnt; ++i){
-		//	int n = nums[i];
-		//	for(int j = 0; j < 10; ++j){
-		//		v[i].push_back(j * 10 + n);
-		//		v[i].push_back(n * 10 + j);
-		//	}
-		//}
 
 		vector<int> indexes(cnt);
 		vector<int> comb(cnt);
@@ -76,20 +67,21 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-struct puz_state : vector<int>
+struct puz_state : map<int, vector<int>>
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	int cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	int& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	int cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
+	int& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool make_move(int i, int j);
-	void find_matches();
+	void make_move2(int i, int j);
+	int find_matches(bool init);
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return boost::count(*this, 0);}
+	unsigned int get_heuristic() const { return size();}
 	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -98,66 +90,75 @@ struct puz_state : vector<int>
 	}
 
 	const puz_game* m_game = nullptr;
-	map<int, vector<int>> m_matches;
+	vector<int> m_cells;
 	int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<int>(g.m_sidelen * g.m_sidelen), m_game(&g)
+: m_cells(g.m_sidelen * g.m_sidelen), m_game(&g)
 {
 	for(int i = 0; i < sidelen(); ++i)
-		m_matches[i], m_matches[sidelen() + i];
+		(*this)[i], (*this)[sidelen() + i];
 
-	find_matches();
+	find_matches(true);
 }
 
-void puz_state::find_matches()
+int puz_state::find_matches(bool init)
 {
-	vector<int> filled;
-
-	for(auto& kv : m_matches){
-		const auto& a = m_game->m_areas.at(kv.first);
+	for(auto& kv : *this){
+		const auto& area = m_game->m_areas.at(kv.first);
 		vector<int> nums;
-		for(const auto& p : a.first)
+		for(const auto& p : area.first)
 			nums.push_back(cell(p));
-		if(boost::algorithm::none_of(nums, [](int n){return n == 0;})){
-			filled.push_back(kv.first);
-			continue;
-		}
 
-		const auto& combs = m_game->m_nums2combs.at(a.second);
+		auto& combs = m_game->m_nums2combs.at(area.second);
 		kv.second.clear();
 		for(int i = 0; i < combs.size(); ++i)
-			if(boost::equal(nums, combs.at(i), [](int n1, int n2){
-				return n1 == 0 || n1 == n2; }))
+			if(boost::equal(nums, combs[i], [](int n1, int n2){
+				return n1 == 0 || n1 == n2;
+			}))
 				kv.second.push_back(i);
-	}
 
-	for(int n : filled)
-		m_matches.erase(n);
+		if(!init)
+			switch(kv.second.size()){
+			case 0:
+				return 0;
+			case 1:
+				make_move2(kv.first, kv.second.front());
+				return 1;
+			}
+	}
+	return 2;
+}
+
+void puz_state::make_move2(int i, int j)
+{
+	auto& area = m_game->m_areas[i];
+	auto& comb = m_game->m_nums2combs.at(area.second)[j];
+
+	for(int k = 0; k < comb.size(); ++k)
+		cell(area.first[k]) = comb[k];
+
+	++m_distance;
+	erase(i);
 }
 
 bool puz_state::make_move(int i, int j)
 {
 	m_distance = 0;
-	const auto& area = m_game->m_areas.at(i);
-	const auto& comb = m_game->m_nums2combs.at(area.second).at(j);
-
-	for(int k = 0; k < sidelen(); ++k){
-		int& n = cell(area.first[k]);
-		if(n == 0)
-			n = comb[k], ++m_distance;
+	make_move2(i, j);
+	for(;;)
+		switch(find_matches(false)){
+		case 0:
+			return false;
+		case 2:
+			return true;
 	}
-
-	find_matches();
-	return boost::algorithm::none_of(m_matches, [](const pair<const int, vector<int>>& kv){
-		return kv.second.empty();
-	});
 }
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	const auto& kv = *boost::min_element(m_matches, [](const pair<const int, vector<int>>& kv1, const pair<const int, vector<int>>& kv2){
+	const auto& kv = *boost::min_element(*this, [](const pair<const int, vector<int>>& kv1, const pair<const int, vector<int>>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
 	for(int n : kv.second){

@@ -47,7 +47,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 {
 	m_start.resize(rows() * cols());
 	for(int r = 0, n = 0; r < rows(); ++r){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		for(int c = 0; c < cols(); ++c, ++n){
 			Position p(r, c);
 			switch(char ch = str[c]){

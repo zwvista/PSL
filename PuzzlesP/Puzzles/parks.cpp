@@ -54,7 +54,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_tree_total_count(m_tree_count_area * m_sidelen)
 {
 	for(int r = 0; r < m_sidelen; ++r){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
 			char ch = str[c];

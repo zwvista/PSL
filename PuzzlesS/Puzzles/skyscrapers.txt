@@ -9,7 +9,7 @@ Sequence of moves:
 4 2 4 6 1 5 7 3 2 
 2 5 3 1 2 7 6 4 3 
   2 4 3 2 1 2 3   
-Number of moves: 14
-Number of vertices examined: 2488
-5.86693 [s]
+Number of moves: 11
+Number of vertices examined: 2910
+4.89305 [s]
 

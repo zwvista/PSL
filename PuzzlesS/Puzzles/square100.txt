@@ -3,7 +3,7 @@ Sequence of moves:
  36 23 41
  60  8 32
   4 69 27
-Number of moves: 5
-Number of vertices examined: 11
-0.0198265 [s]
+Number of moves: 2
+Number of vertices examined: 5
+0.0139245 [s]
 

@@ -53,7 +53,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	brick_infos.push_back(bi2);
 
 	for(int r = 0; r < rows(); ++r){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		for(int c = 0; c < cols(); ++c){
 			Position p(r, c);
 			m_cells.push_back(str[c]);

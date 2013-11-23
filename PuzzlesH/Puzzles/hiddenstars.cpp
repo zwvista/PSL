@@ -60,7 +60,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 {
 	int n = 0;
 	for(int r = 0; r < m_sidelen + 1; ++r){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen + 1; c++){
 			Position p(r, c);
 			switch(char ch = str[c]){

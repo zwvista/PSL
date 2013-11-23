@@ -61,7 +61,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_numbers(m_size_of_tatami)
 {
 	for(int r = 0, n = 0; r < m_sidelen; ++r){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c)
 			switch(char ch = str[c]){
 			case PUZ_SPACE:

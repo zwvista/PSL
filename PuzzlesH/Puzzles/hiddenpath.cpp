@@ -46,7 +46,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_sidelen(strs.size())
 {
 	for(int r = 0; r < m_sidelen; ++r){
-		const string& str = strs[r];
+		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen * 3; c += 3){
 			Position p(r, c / 3);
 			auto s = str.substr(c, 2);
