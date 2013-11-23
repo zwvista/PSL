@@ -38,12 +38,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 {
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen * 2; c += 2){
-			string s = str.substr(c, 2);
-			m_start.push_back(s == "  " ? 0 : atoi(s.c_str()));
-			Position p(r, c / 2);
+		for(int c = 0; c < m_sidelen; ++c){
+			string s = str.substr(c * 2, 2);
+			m_start.push_back(atoi(s.c_str()));
+			Position p(r, c);
 			m_area_pos[r].push_back(p);
-			m_area_pos[m_sidelen + c / 2].push_back(p);
+			m_area_pos[m_sidelen + c].push_back(p);
 		}
 	}
 
@@ -95,7 +95,7 @@ struct puz_state : map<int, vector<int>>
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-	for(int i = 1; i <= sidelen() - 2; ++i)
+	for(int i = 1; i < sidelen() - 1; ++i)
 		(*this)[i], (*this)[sidelen() + i];
 
 	find_matches(true);

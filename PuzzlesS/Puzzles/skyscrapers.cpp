@@ -95,7 +95,7 @@ struct puz_state : map<int, vector<int>>
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-	for(int i = 1; i <= sidelen() - 2; ++i)
+	for(int i = 1; i < sidelen() - 1; ++i)
 		(*this)[i], (*this)[sidelen() + i];
 
 	find_matches(true);

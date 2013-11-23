@@ -94,8 +94,7 @@ struct puz_state : map<Position, vector<vector<int>>>
 };
 
 puz_state::puz_state(const puz_game& g)
-: map<Position, vector<vector<int>>>()
-, m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_start), m_game(&g)
 {
 	for(const auto& kv : g.m_pos2num)
 		(*this)[kv.first];

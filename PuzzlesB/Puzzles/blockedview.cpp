@@ -87,8 +87,7 @@ struct puz_state : map<Position, vector<vector<int>>>
 };
 
 puz_state::puz_state(const puz_game& g)
-: map<Position, vector<vector<int>>>()
-, m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
