@@ -29,7 +29,7 @@ namespace puzzles{ namespace blockedview{
 #define PUZ_SENTINEL	'S'
 #define PUZ_TOWER		'T'
 
-Position offset[] = {
+const Position offset[] = {
 	{-1, 0},		// n
 	{0, 1},		// e
 	{1, 0},		// s

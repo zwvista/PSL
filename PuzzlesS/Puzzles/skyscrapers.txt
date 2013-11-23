@@ -11,5 +11,5 @@ Sequence of moves:
   2 4 3 2 1 2 3   
 Number of moves: 14
 Number of vertices examined: 2488
-5.81183 [s]
+5.86693 [s]
 

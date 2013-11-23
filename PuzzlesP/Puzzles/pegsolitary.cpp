@@ -8,7 +8,7 @@ namespace puzzles{ namespace pegsolitary{
 #define PUZ_HOLE	' '
 #define PUZ_NONE	'#'
 
-Position offset[] = {
+const Position offset[] = {
 	{0, -1},
 	{0, 1},
 	{-1, 0},

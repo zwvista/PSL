@@ -7,7 +7,7 @@ namespace puzzles{ namespace mummymaze{
 enum EMazeDir {mvNone, mvLeft, mvRight, mvUp, mvDown};
 enum EMazeObject {moExplorer, moHorzCrab, moVertCrab, moHorzMummy, moVertMummy};
 
-Position offset[] = {
+const Position offset[] = {
 	{0, 0},
 	{0, -1},
 	{0, 1},

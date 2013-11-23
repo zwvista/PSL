@@ -17,7 +17,7 @@
 
 namespace puzzles{ namespace hidoku{
 
-Position offset[] = {
+const Position offset[] = {
 	{-1, 0},
 	{-1, 1},
 	{0, 1},

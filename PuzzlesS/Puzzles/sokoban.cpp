@@ -12,7 +12,7 @@ namespace puzzles{ namespace sokoban{
 #define PUZ_BOX			'$'
 #define PUZ_BOX_GOAL	'*'
 
-Position offset[] = {
+const Position offset[] = {
 	{0, -1},
 	{0, 1},
 	{-1, 0},

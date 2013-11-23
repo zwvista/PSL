@@ -9,18 +9,16 @@
 	Guess skyscrapers heights, judging from the skyline
 
 	Description
-	The grid in the center represents a city from above.
-	Each cell contain a skyscraper, of different height.
-	The goal is to guess the height of each Skyscraper.
-	1. Each row and column can't have two Skyscrapers of the same height.
-	2. The numbers on the boarders tell you how many skyscrapers you see from
-	   there, keeping mind that a higher skyscraper hides a lower one.
-	3. Skyscrapers are numbered from 1(lowest) to the grid size(height).
+	1. The grid in the center represents a city from above. Each cell contain
+	   a skyscraper, of different height.
+	2. The goal is to guess the height of each Skyscraper.
+	3. Each row and column can't have two Skyscrapers of the same height.
+	4. The numbers on the boarders tell you how many skyscrapers you see from
+	   there, keeping mind that a higher skyscraper hides a lower one. 
+	   Skyscrapers are numbered from 1(lowest) to the grid size(height).
 */
 
 namespace puzzles{ namespace skyscrapers{
-
-#define PUZ_SPACE		' '
 
 struct puz_game
 {
@@ -36,14 +34,13 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size())
-, m_start(m_sidelen * m_sidelen)
 , m_area_pos(m_sidelen * 2)
 {
-	for(int r = 0, i = 0; r < m_sidelen; ++r){
+	for(int r = 0; r < m_sidelen; ++r){
 		const string& str = strs[r];
-		for(int c = 0; c < m_sidelen; ++c, ++i){
+		for(int c = 0; c < m_sidelen; ++c){
 			char ch = str[c];
-			m_start[i] = ch == ' ' ? 0 : ch - '0';
+			m_start.push_back(ch == ' ' ? 0 : ch - '0');
 			Position p(r, c);
 			m_area_pos[r].push_back(p);
 			m_area_pos[m_sidelen + c].push_back(p);
@@ -81,7 +78,7 @@ struct puz_state : vector<int>
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return boost::count(*this, 0) - 4;}
+	unsigned int get_heuristic() const { return m_matches.size(); }
 	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -125,18 +122,18 @@ void puz_state::find_matches()
 
 	for(int n : filled)
 		m_matches.erase(n);
+	m_distance = filled.size();
 }
 
 bool puz_state::make_move(int i, int j)
 {
-	m_distance = 0;
 	const auto& area = m_game->m_area_pos.at(i);
 	const auto& perm = m_game->m_perms.at(j);
 
 	for(int k = 0; k < sidelen(); ++k){
 		int& n = cell(area[k]);
 		if(n == 0)
-			n = perm[k], ++m_distance;
+			n = perm[k];
 	}
 
 	find_matches();

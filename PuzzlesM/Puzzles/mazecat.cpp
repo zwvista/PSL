@@ -10,7 +10,7 @@ namespace puzzles{ namespace mazecat{
 #define PUZ_THORN		'!'
 #define PUZ_SPACE		' '
 
-Position offset[] = {
+const Position offset[] = {
 	{0, -1},
 	{0, 1},
 	{-1, 0},

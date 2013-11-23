@@ -22,7 +22,7 @@ namespace puzzles{ namespace tatami{
 #define PUZ_VERT		'V'
 #define PUZ_SPACE		' '
 
-Position offset[] = {
+const Position offset[] = {
 	{0, 1},
 	{1, 0},
 	{0, -1},

@@ -10,7 +10,7 @@ namespace puzzles{ namespace escapology{
 #define PUZ_GOAL		'.'
 #define PUZ_BLUE		'!'
 
-Position offset[] = {
+const Position offset[] = {
 	{0, -1},
 	{0, 1},
 	{-1, 0},

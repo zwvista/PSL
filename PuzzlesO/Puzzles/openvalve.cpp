@@ -9,7 +9,7 @@ namespace puzzles{ namespace openvalve{
 #define PUZ_PIPE_3		'3'		// "©À","©È","©Ð","©Ø"
 #define PUZ_PIPE_4		'4'		// "©à"
 
-Position offset[] = {
+const Position offset[] = {
 	{0, -1},
 	{0, 1},
 	{-1, 0},

@@ -28,7 +28,7 @@ namespace puzzles{ namespace tents{
 #define PUZ_EMPTY		'.'
 #define PUZ_TENT		'E'
 
-Position offset[] = {
+const Position offset[] = {
 	{-1, 0},	// n
 	{-1, 1},	// ne
 	{0, 1},		// e

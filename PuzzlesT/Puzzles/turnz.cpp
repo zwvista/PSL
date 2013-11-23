@@ -16,7 +16,7 @@ namespace puzzles{ namespace turnz{
 #define PUZ_BREAK1		'1'
 #define PUZ_DEATH		'x'
 
-Position offset[] = {
+const Position offset[] = {
 	{1, 0},
 	{0, 1},
 	{-1, 0},

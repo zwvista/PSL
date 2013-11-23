@@ -24,7 +24,7 @@ namespace puzzles{ namespace parks{
 #define PUZ_TREE		'T'
 #define PUZ_SPACE		'.'
 
-Position offset[] = {
+const Position offset[] = {
 	{-1, 0},	// n
 	{-1, 1},	// ne
 	{0, 1},		// e

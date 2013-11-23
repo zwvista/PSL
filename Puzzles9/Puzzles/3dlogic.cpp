@@ -11,7 +11,7 @@ namespace puzzles{ namespace _3dlogic{
 #define PUZ_SPACE		' '
 #define PUZ_FOUND		'!'
 
-Position offset[] = {
+const Position offset[] = {
 	{0, -1},
 	{0, 1},
 	{-1, 0},

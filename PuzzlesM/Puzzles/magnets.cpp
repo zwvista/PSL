@@ -26,7 +26,7 @@ namespace puzzles{ namespace magnets{
 #define PUZ_NEGATIVE	'-'
 #define PUZ_EMPTY		'.'
 
-Position offset[] = {
+const Position offset[] = {
 	{0, 1},
 	{1, 0},
 	{0, -1},

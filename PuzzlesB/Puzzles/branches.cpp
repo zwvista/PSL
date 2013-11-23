@@ -25,7 +25,7 @@ namespace puzzles{ namespace branches{
 #define PUZ_BRANCH		'B'
 #define PUZ_WALL		'W'
 
-Position offset[] = {
+const Position offset[] = {
 	{-1, 0},		// n
 	{0, 1},		// e
 	{1, 0},		// s

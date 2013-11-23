@@ -8,7 +8,7 @@ namespace puzzles{ namespace wriggle{
 #define PUZ_SPACE		' '
 #define PUZ_GOAL		'.'
 
-Position offset[] = {
+const Position offset[] = {
 	{0, -1},
 	{0, 1},
 	{-1, 0},

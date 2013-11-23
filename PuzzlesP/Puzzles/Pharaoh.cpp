@@ -8,7 +8,7 @@ namespace puzzles{ namespace Pharaoh{
 enum EBrickDir {mvLeft, mvRight, mvUp, mvDown};
 enum EBrickType {btRed, btBlue, btYellow};
 
-Position offset[] = {
+const Position offset[] = {
 	{0, -1},
 	{0, 1},
 	{-1, 0},

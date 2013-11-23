@@ -12,7 +12,7 @@ namespace puzzles{ namespace zafiro{
 #define PUZ_COLORED		'o'
 #define PUZ_SPACE		' '
 
-Position offset[] = {
+const Position offset[] = {
 	{1, 0},
 	{0, 1},
 	{-1, 0},

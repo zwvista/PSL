@@ -26,7 +26,7 @@ namespace puzzles{ namespace walls{
 #define PUZ_VERT			'|'
 #define PUZ_BOUNDARY		'B'
 
-Position offset[] = {
+const Position offset[] = {
 	{-1, 0},		// n
 	{0, 1},		// e
 	{1, 0},		// s

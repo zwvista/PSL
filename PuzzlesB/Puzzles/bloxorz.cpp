@@ -22,7 +22,7 @@ typedef pair<vector<Position>,
 	> puz_bridge;
 typedef vector<Position> puz_splitter;
 
-Position offset[] = {
+const Position offset[] = {
 	{0, -1},
 	{0, 1},
 	{-1, 0},

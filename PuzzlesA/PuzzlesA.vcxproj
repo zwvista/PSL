@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\abc.txt" />
+    <Text Include="Puzzles\arrows.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +160,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\abc.cpp" />
+    <ClCompile Include="Puzzles\arrows.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -168,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\abc.xml" />
+    <Xml Include="Puzzles\arrows.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
