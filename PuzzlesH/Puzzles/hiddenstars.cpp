@@ -100,9 +100,7 @@ struct puz_area : pair<set<Position>, int>
 		if(!at_least_one || at_least_one && second == 1)
 			--second;
 	}
-	bool is_valid() const {
-		return second >= 0 && first.size() >= second;
-	}
+	bool is_valid() const { return second >= 0 && first.size() >= second; }
 };
 
 // all of the areas in the group
@@ -157,34 +155,17 @@ puz_state::puz_state(const puz_game& g)
 , m_grp_rows(g.m_star_counts_rows)
 , m_grp_cols(g.m_star_counts_cols)
 {
-	set<Position> ps;
-	for(int r = 0; r < sidelen(); ++r)
-		for(int c = 0; c < sidelen(); ++c){
-			Position p(r, c);
-			if(cell(p) == PUZ_EMPTY){
-				m_grp_rows[r].add_cell(p);
-				m_grp_cols[c].add_cell(p);
-				ps.insert(p);
-			}
-		}
-
-	int n = 0;
-	for(const auto& kv : g.m_arrows){
-		const auto& p = kv.first;
-		const auto& os = offset[kv.second];
+	int i = 0;
+	for(auto& kv : g.m_arrows){
+		auto& p = kv.first;
+		auto& os = offset[kv.second];
 		for(auto p2 = p + os; is_valid(p2); p2 += os)
 			if(cell(p2) == PUZ_EMPTY){
-				m_grp_arrows[n].add_cell(p2);
-				ps.erase(p2);
+				m_grp_rows[p2.first].add_cell(p2);
+				m_grp_cols[p2.second].add_cell(p2);
+				m_grp_arrows[i].add_cell(p2);
 			}
-		++n;
-	}
-
-	// Each Star is pointed at by at least one Arrow,
-	// so a Star cannot be hidden at a position with no Arrow pointing to it
-	for(const auto& p : ps){
-		m_grp_rows[p.first].remove_cell(p);
-		m_grp_cols[p.second].remove_cell(p);
+		++i;
 	}
 }
 
@@ -204,15 +185,15 @@ bool puz_state::make_move(const Position& p)
 void puz_state::gen_children(list<puz_state> &children) const
 {
 	vector<const puz_area*> areas;
-	for(const puz_group* grp : {&m_grp_arrows, &m_grp_rows, &m_grp_cols})
-		for(const puz_area& a : *grp)
+	for(auto grp : {&m_grp_arrows, &m_grp_rows, &m_grp_cols})
+		for(auto& a : *grp)
 			if(a.second > 0)
 				areas.push_back(&a);
 
-	const auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
+	auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
 		return a1->first.size() < a2->first.size();
 	});
-	for(const auto& p : a.first){
+	for(auto& p : a.first){
 		children.push_back(*this);
 		if(!children.back().make_move(p))
 			children.pop_back();
