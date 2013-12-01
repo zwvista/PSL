@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -26,8 +27,8 @@
 namespace puzzles{ namespace nurikabe{
 
 #define PUZ_SPACE		' '
-#define PUZ_GARDEN		'G'
 #define PUZ_WALL		'W'
+#define PUZ_CONNECTED	'C'
 #define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
@@ -36,8 +37,6 @@ const Position offset[] = {
 	{1, 0},		// s
 	{0, -1},		// w
 };
-
-using puz_area = pair<vector<Position>, int>;
 
 struct puz_game
 {
@@ -51,19 +50,19 @@ struct puz_game
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size())
+, m_sidelen(strs.size() + 2)
 {
 	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
-	for(int r = 0; r < m_sidelen; ++r){
+	for(int r = 0, n = 0; r < m_sidelen - 2; ++r){
 		auto& str = strs[r];
 		m_start.push_back(PUZ_BOUNDARY);
-		for(int c = 0; c < m_sidelen; ++c){
+		for(int c = 0; c < m_sidelen - 2; ++c){
 			switch(char ch = str[c]){
 			case PUZ_SPACE:
 				m_start.push_back(PUZ_WALL);
 				break;
 			default:
-				m_start.push_back(PUZ_GARDEN);
+				m_start.push_back('a' + n++);
 				m_pos2garden[Position(r + 1, c + 1)] = ch - '0';
 				break;
 			}
@@ -73,22 +72,26 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
 }
 
-using puz_key = pair<Position, bool>;
+typedef pair<vector<Position>, int> puz_garden;
 
-struct puz_state : map<puz_key, vector<int>>
+struct puz_state : string
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	bool make_move(const puz_key& kv, int j);
-	void make_move2(const puz_key& kv, int j);
-	int find_matches(bool init);
+	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	bool make_move(const Position& p);
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return size(); }
-	unsigned int get_distance(const puz_state& child) const { return m_distance; }
+	unsigned int get_heuristic() const {
+		return boost::accumulate(m_gardens, 0, [](int acc, const puz_garden& g){
+			return acc + g.second;
+		});
+	}
+	unsigned int get_distance(const puz_state& child) const { return 1; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
 	friend ostream& operator<<(ostream& out, const puz_state& state) {
@@ -96,94 +99,128 @@ struct puz_state : map<puz_key, vector<int>>
 	}
 
 	const puz_game* m_game = nullptr;
-	string m_cells;
-	int m_distance = 0;
+	vector<puz_garden> m_gardens;
+	vector<set<Position>> m_2by2walls;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: string(g.m_start), m_game(&g)
 {
-	//for(const auto& kv : g.m_pos2area_cols)
-	//	(*this)[make_pair(kv.first, true)];
-	//for(const auto& kv : g.m_pos2area_rows)
-	//	(*this)[make_pair(kv.first, false)];
+	for(auto& kv : g.m_pos2garden)
+		if(kv.second > 1)
+			m_gardens.emplace_back(vector<Position>{kv.first}, kv.second - 1);
 
-	//find_matches(true);
+	boost::sort(m_gardens, [](const puz_garden& kv1, const puz_garden& kv2){
+		return kv1.second > kv2.second;
+	});
+
+	for(int r = 1; r < g.m_sidelen - 2; ++r)
+		for(int c = 1; c < g.m_sidelen - 2; ++c){
+			Position p1(r, c), p2(r, c + 1), p3(r + 1, c), p4(r + 1, c + 1);
+			if(cell(p1) == PUZ_WALL && cell(p2) == PUZ_WALL &&
+				cell(p3) == PUZ_WALL && cell(p4) == PUZ_WALL)
+				m_2by2walls.push_back({p1, p2, p3, p4});
+		}
 }
 
-int puz_state::find_matches(bool init)
+struct puz_state2 : string
 {
-	//for(auto& kv : *this){
-	//	vector<int> nums;
-	//	auto& area = (kv.first.second ? m_game->m_pos2area_cols : m_game->m_pos2area_rows).at(kv.first.first);
-	//	for(auto& p : area.first)
-	//		nums.push_back(m_cells.at(p));
+	puz_state2(const puz_state& s);
 
-	//	kv.second.clear();
-	//	auto& combs = m_game->m_sum2combs.at(make_pair(area.second, area.first.size()));
-	//	for(int i = 0; i < combs.size(); ++i)
-	//		if(boost::equal(nums, combs[i], [](int n1, int n2){
-	//			return n1 == 0 || n1 == n2;
-	//		}))
-	//			kv.second.push_back(i);
+	int sidelen() const { return m_game->m_sidelen; }
+	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	void make_move(int i){ (*this)[i] = PUZ_CONNECTED; }
+	void gen_children(list<puz_state2>& children) const;
 
-	//	if(!init)
-	//		switch(kv.second.size()){
-	//		case 0:
-	//			return 0;
-	//		case 1:
-	//			make_move2(kv.first, kv.second.front());
-	//			return 1;
-	//		}
-	//}
-	return 2;
+	const puz_game* m_game;
+};
+
+puz_state2::puz_state2(const puz_state& s)
+: string(s), m_game(s.m_game)
+{
+	int i = find(PUZ_WALL);
+	make_move(i);
 }
 
-void puz_state::make_move2(const puz_key& kv, int j)
+void puz_state2::gen_children(list<puz_state2> &children) const
 {
-	//auto& area = (kv.second ? m_game->m_pos2area_cols : m_game->m_pos2area_rows).at(kv.first);
-	//auto& comb = m_game->m_sum2combs.at(make_pair(area.second, area.first.size()))[j];
-
-	//for(int k = 0; k < comb.size(); ++k)
-	//	m_cells.at(area.first[k]) = comb[k];
-
-	//++m_distance;
-	//erase(kv);
+	for(int i = 0; i < length(); ++i)
+		if(at(i) == PUZ_WALL){
+			Position p(i / sidelen(), i % sidelen());
+			for(auto& os : offset){
+				auto p2 = p + os;
+				if(cell(p2) == PUZ_CONNECTED){
+					children.push_back(*this);
+					children.back().make_move(i);
+					return;
+				}
+			}
+		}
 }
 
-bool puz_state::make_move(const puz_key& kv, int j)
+bool puz_state::make_move(const Position& p)
 {
-	m_distance = 0;
-	make_move2(kv, j);
-	for(;;)
-		switch(find_matches(false)){
-		case 0:
+	auto& g = m_gardens.back();
+	char ch = cell(g.first.front());
+	cell(p) = ch;
+	g.first.push_back(p);
+	if(--g.second == 0)
+		m_gardens.pop_back();
+
+	for(auto& os : offset){
+		char ch2 = cell(p + os);
+		if(ch2 != PUZ_BOUNDARY && ch2 != PUZ_WALL && ch2 != ch)
 			return false;
-		case 2:
-			return true;
 	}
+
+	boost::remove_erase_if(m_2by2walls, [&](const set<Position>& ps){
+		return ps.count(p) != 0;
+	});
+
+	if(boost::algorithm::any_of(m_2by2walls, [&](const set<Position>& ps){
+		return boost::algorithm::none_of(ps, [&](const Position& p2){
+			return boost::algorithm::any_of(m_gardens, [&](const puz_garden& g){
+				return boost::algorithm::any_of(g.first, [&](const Position& p3){
+					return manhattan_distance(p2, p3) <= g.second;
+				});
+			});
+		});
+	}))
+		return false;
+
+	list<puz_state2> smoves;
+	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+	return smoves.back().find(PUZ_WALL) == -1;
 }
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	const auto& kv = *boost::min_element(*this, [](
-		const pair<const puz_key, vector<int>>& kv1,
-		const pair<const puz_key, vector<int>>& kv2){
-		return kv1.second.size() < kv2.second.size();
-	});
-	for(int n : kv.second){
-		children.push_back(*this);
-		if(!children.back().make_move(kv.first, n))
-			children.pop_back();
-	}
+	for(auto& p : m_gardens.back().first)
+		for(auto& os : offset){
+			auto p2 = p + os;
+			if(cell(p2) == PUZ_WALL){
+				children.push_back(*this);
+				if(!children.back().make_move(p2))
+					children.pop_back();
+			}
+		}
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
-		for(int c = 0; c < sidelen(); ++c){
+	for(int r = 1; r < sidelen() - 1; ++r) {
+		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			//out << (m_game->m_blanks.count(p) != 0 ? char(m_cells.at(p) + '0') : '.') << ' ';
+			char ch = cell(p);
+			if(ch == PUZ_WALL)
+				out << ch << ' ';
+			else{
+				auto it = m_game->m_pos2garden.find(p);
+				if(it == m_game->m_pos2garden.end())
+					out << ". ";
+				else
+					out << format("%-2d") % it->second;
+			}
 		}
 		out << endl;
 	}

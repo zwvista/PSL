@@ -1,11 +1,11 @@
 Level 01
 Sequence of moves: 
-. . . . . 
-. 3 1 . . 
-. 1 2 4 . 
-. . 6 8 9 
-. . . 9 7 
-Number of moves: 3
-Number of vertices examined: 4
-0.0141198 [s]
+W W . . . 
+3 W 6 . . 
+. W W W W 
+. W 1 W 2 
+W W W W . 
+Number of moves: 8
+Number of vertices examined: 18
+0.899572 [s]
 
