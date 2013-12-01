@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <!--<level id="001">
+  <level id="001">
     <![CDATA[
 aabcd\
 aabbd\
@@ -250,7 +250,7 @@ gggeeeeff\
 hghhiieif\
 hhhiiiiii\
     ]]>
-  </level>-->
+  </level>
   <level id="024" numTreesInEachArea="2">
     <![CDATA[
 aaaabbccc\
