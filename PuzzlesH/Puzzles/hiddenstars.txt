@@ -7,7 +7,7 @@ S S . 6 2
 1 2 1 1 
 Number of moves: 5
 Number of vertices examined: 8
-0.0247964 [s]
+0.0268997 [s]
 
 Level 07
 Sequence of moves: 
@@ -21,5 +21,5 @@ S 2 S . . . . 2
 1 1 1 2 2 1 1 
 Number of moves: 9
 Number of vertices examined: 58
-0.0961633 [s]
+0.181714 [s]
 

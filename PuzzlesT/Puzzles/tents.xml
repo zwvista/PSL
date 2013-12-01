@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="001">
+  <level id="01">
     <![CDATA[
     T   4\
  T   T T0\
@@ -11,6 +11,19 @@ T     T 0\
         1\
  TT  T  2\
 12040131 \
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+   T    1\
+T       2\
+       T0\
+    T T 3\
+       T1\
+T     T 1\
+       T1\
+ T TT   3\
+21112104 \
     ]]>
   </level>
 </levels>

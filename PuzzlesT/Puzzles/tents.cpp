@@ -89,10 +89,13 @@ struct puz_area : pair<set<Position>, int>
 	{}
 	void add_cell(const Position& p){ first.insert(p); }
 	void remove_cell(const Position& p){ first.erase(p); }
-	void plant_tree(const Position& p){ first.erase(p); --second; }
-	bool is_valid() const {
-		return second >= 0 && first.size() >= second;
+	void plant_tree(const Position& p, bool at_least_one){
+		if(first.count(p) == 0) return;
+		first.erase(p);
+		if(!at_least_one || at_least_one && second == 1)
+			--second;
 	}
+	bool is_valid() const { return second >= 0 && first.size() >= second; }
 };
 
 // all of the areas in the group
@@ -110,48 +113,11 @@ struct puz_group : vector<puz_area>
 	}
 };
 
-struct puz_groups
-{
-	puz_groups() {}
-	puz_groups(const puz_game* g)
-		: m_game{g}
-		, m_rows(g->m_tent_counts_rows)
-		, m_cols(g->m_tent_counts_cols)
-	{}
-
-	array<puz_area*, 2> get_areas(const Position& p){
-		return {
-			&m_rows[p.first],
-			&m_cols[p.second]
-		};
-	}
-	void add_cell(const Position& p){
-		for(puz_area* a : get_areas(p))
-			a->add_cell(p);
-	}
-	void remove_cell(const Position& p){
-		for(puz_area* a : get_areas(p))
-			a->remove_cell(p);
-	}
-	void plant_tree(const Position& p){
-		for(puz_area* a : get_areas(p))
-			a->plant_tree(p);
-	}
-	bool is_valid() const {
-		return m_rows.is_valid() && m_cols.is_valid();
-	}
-	const puz_area& get_best_candidate_area() const;
-
-	const puz_game* m_game;
-	puz_group m_rows;
-	puz_group m_cols;
-};
-
 struct puz_state : string
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
-	int sidelen() const { return m_groups.m_game->m_sidelen; }
+	int sidelen() const { return m_game->m_sidelen; }
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
@@ -163,7 +129,7 @@ struct puz_state : string
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return m_groups.m_game->m_tent_total_count - boost::count(*this, PUZ_TENT);
+		return m_game->m_tent_total_count - boost::count(*this, PUZ_TENT);
 	}
 	unsigned int get_distance(const puz_state& child) const {return 1;}
 	void dump_move(ostream& out) const {}
@@ -172,53 +138,66 @@ struct puz_state : string
 		return state.dump(out);
 	}
 
-	puz_groups m_groups;
+	const puz_game* m_game;
+	puz_group m_grp_trees;
+	puz_group m_grp_rows;
+	puz_group m_grp_cols;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start)
-, m_groups(&g)
+: string(g.m_start), m_game(&g)
+, m_grp_trees(vector<int>(g.m_trees.size(), 1))
+, m_grp_rows(g.m_tent_counts_rows)
+, m_grp_cols(g.m_tent_counts_cols)
 {
-	for(const auto& p : g.m_trees)
-		for(int i = 0; i < 8; i += 2){
-			auto p2 = p + offset[i];
-			if(is_valid(p2))
-				m_groups.add_cell(p2);
+	for(int i = 0; i < g.m_trees.size(); ++i){
+		auto& p = g.m_trees[i];
+		for(int j = 0; j < 8; j += 2){
+			auto p2 = p + offset[j];
+			if(is_valid(p2) && cell(p2) == PUZ_EMPTY){
+				m_grp_rows[p2.first].add_cell(p2);
+				m_grp_cols[p2.second].add_cell(p2);
+				m_grp_trees[i].add_cell(p2);
+			}
 		}
-}
-
-const puz_area& puz_groups::get_best_candidate_area() const
-{
-	vector<const puz_area*> areas;
-	for(const puz_group* grp : {&m_rows, &m_cols})
-		for(const puz_area& a : *grp)
-			if(a.second > 0)
-				areas.push_back(&a);
-
-	return **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
-		return a1->first.size() < a2->first.size();
-	});
+	}
 }
 
 bool puz_state::make_move(const Position& p)
 {
 	cell(p) = PUZ_TENT;
-	m_groups.plant_tree(p);
+
+	for(auto& a : m_grp_trees)
+		a.plant_tree(p, true);
+	m_grp_rows[p.first].plant_tree(p, false);
+	m_grp_cols[p.second].plant_tree(p, false);
 
 	// no touch
 	for(const auto& os : offset){
 		const auto& p2 = p + os;
-		if(is_valid(p2))
-			m_groups.remove_cell(p2);
+		if(is_valid(p2)){
+			for(auto& a : m_grp_trees)
+				a.remove_cell(p2);
+			m_grp_rows[p.first].remove_cell(p2);
+			m_grp_cols[p.second].remove_cell(p2);
+		}
 	}
 
-	return m_groups.is_valid();
+	return m_grp_rows.is_valid() && m_grp_cols.is_valid();
 }
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	const auto& a = m_groups.get_best_candidate_area();
-	for(const auto& p : a.first){
+	vector<const puz_area*> areas;
+	for(auto grp : {&m_grp_trees, &m_grp_rows, &m_grp_cols})
+		for(auto& a : *grp)
+			if(a.second > 0)
+				areas.push_back(&a);
+
+	auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
+		return a1->first.size() < a2->first.size();
+	});
+	for(auto& p : a.first){
 		children.push_back(*this);
 		if(!children.back().make_move(p))
 			children.pop_back();
