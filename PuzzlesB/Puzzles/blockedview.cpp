@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -28,6 +29,8 @@ namespace puzzles{ namespace blockedview{
 #define PUZ_EMPTY		'.'
 #define PUZ_SENTINEL	'S'
 #define PUZ_TOWER		'T'
+#define PUZ_CONNECTED	'C'
+#define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -67,7 +70,7 @@ struct puz_state : map<Position, vector<vector<int>>>
 	char cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
 	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, const vector<int>& comb);
-	void make_move2(const Position& p, const vector<int>& comb);
+	bool make_move2(const Position& p, const vector<int>& comb);
 	int find_matches(bool init);
 
 	//solve_puzzle interface
@@ -91,9 +94,9 @@ puz_state::puz_state(const puz_game& g)
 , m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
-		cell(Position(r, 0)) = cell(Position(r, sidelen() - 1)) = PUZ_TOWER;
+		cell(Position(r, 0)) = cell(Position(r, sidelen() - 1)) = PUZ_BOUNDARY;
 	for(int c = 0; c < sidelen(); ++c)
-		cell(Position(0, c)) = cell(Position(sidelen() - 1, c)) = PUZ_TOWER;
+		cell(Position(0, c)) = cell(Position(sidelen() - 1, c)) = PUZ_BOUNDARY;
 
 	for(const auto& kv : g.m_start)
 		cell(kv.first) = PUZ_SENTINEL, (*this)[kv.first];
@@ -124,6 +127,7 @@ int puz_state::find_matches(bool init)
 					++n;
 					break;
 				case PUZ_TOWER:
+				case PUZ_BOUNDARY:
 					goto blocked;
 				}
 blocked:
@@ -142,14 +146,56 @@ blocked:
 			case 0:
 				return 0;
 			case 1:
-				make_move2(p, combs.front());
-				return 1;
+				return make_move2(p, combs.front()) ? 1 : 0;
 			}
 	}
 	return 2;
 }
 
-void puz_state::make_move2(const Position& p, const vector<int>& comb)
+struct puz_state2 : string
+{
+	puz_state2(const puz_state& s);
+
+	int sidelen() const { return m_game->m_sidelen; }
+	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	void make_move(int i){ (*this)[i] = PUZ_CONNECTED; }
+	void gen_children(list<puz_state2>& children) const;
+
+	const puz_game* m_game;
+};
+
+puz_state2::puz_state2(const puz_state& s)
+: string(s.m_cells), m_game(s.m_game)
+{
+	int i = boost::find_if(*this, [](int n){
+		return n != PUZ_BOUNDARY && n != PUZ_TOWER;
+	}) - begin();
+	make_move(i);
+}
+
+void puz_state2::gen_children(list<puz_state2> &children) const
+{
+	for(int i = 0; i < length(); ++i){
+		Position p(i / sidelen(), i % sidelen());
+		switch(at(i)){
+		case PUZ_BOUNDARY:
+		case PUZ_CONNECTED:
+		case PUZ_TOWER:
+			break;
+		default:
+			for(auto& os : offset){
+				auto p2 = p + os;
+				if(cell(p2) == PUZ_CONNECTED){
+					children.push_back(*this);
+					children.back().make_move(i);
+					return;
+				}
+			}
+		}
+	}
+}
+
+bool puz_state::make_move2(const Position& p, const vector<int>& comb)
 {
 	for(int i = 0; i < 4; ++i){
 		const auto& os = offset[i];
@@ -161,17 +207,33 @@ void puz_state::make_move2(const Position& p, const vector<int>& comb)
 				ch = PUZ_EMPTY;
 			p2 += os;
 		}
-		cell(p2) = PUZ_TOWER;
+		char& ch = cell(p2);
+		if(ch == PUZ_SPACE){
+			for(const auto& os2 : offset){
+				auto p3 = p2 + os2;
+				if(cell(p3) == PUZ_TOWER)
+					return false;
+			}
+			ch = PUZ_TOWER;
+		}
 	}
 
 	++m_distance;
 	erase(p);
+
+	list<puz_state2> smoves;
+	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+	const auto& state = smoves.back();
+	return boost::range::find_if(state, [](int n){
+		return n != PUZ_BOUNDARY && n != PUZ_CONNECTED && n != PUZ_TOWER;
+	}) == state.end();
 }
 
 bool puz_state::make_move(const Position& p, const vector<int>& comb)
 {
 	m_distance = 0;
-	make_move2(p, comb);
+	if(!make_move2(p, comb))
+		return false;
 	for(;;)
 		switch(find_matches(false)){
 		case 0:
