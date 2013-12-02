@@ -43,6 +43,9 @@
     <Text Include="Puzzles\hiddenstars.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\hitori.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -80,6 +83,9 @@
     <ClCompile Include="Puzzles\hiddenstars.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\hitori.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\hexrotation.xml">
@@ -98,6 +104,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\hiddenstars.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\hitori.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

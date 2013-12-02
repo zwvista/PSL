@@ -4,6 +4,7 @@ extern void solve_puz_hexrotation();
 extern void solve_puz_hiddenpath();
 extern void solve_puz_hiddenstars();
 extern void solve_puz_hidoku();
+extern void solve_puz_hitori();
 extern void solve_puz_hopover();
 extern void solve_puz_hrd();
 
@@ -13,6 +14,7 @@ int main(int argc, char **argv)
 	cout << "i1: hiddenpath" << endl;
 	cout << "i2: hiddenstars" << endl;
 	cout << "i3: hidoku" << endl;
+	cout << "i4: hitori" << endl;
 	cout << "o: hopover" << endl;
 	cout << "r: hrd" << endl;
 	string str;
@@ -21,6 +23,7 @@ int main(int argc, char **argv)
 	else if(str == "i1") solve_puz_hiddenpath();
 	else if(str == "i2") solve_puz_hiddenstars();
 	else if(str == "i3") solve_puz_hidoku();
+	else if(str == "i4") solve_puz_hitori();
 	else if(str == "o") solve_puz_hopover();
 	else if(str == "r") solve_puz_hrd();
 

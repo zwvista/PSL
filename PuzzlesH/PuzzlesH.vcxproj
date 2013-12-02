@@ -153,6 +153,7 @@
     <Text Include="Puzzles\hiddenpath.txt" />
     <Text Include="Puzzles\hiddenstars.txt" />
     <Text Include="Puzzles\hidoku.txt" />
+    <Text Include="Puzzles\hitori.txt" />
     <Text Include="Puzzles\hopover.txt" />
     <Text Include="Puzzles\hrd.txt" />
     <Text Include="Puzzles\hrd_ida.txt" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Puzzles\hiddenpath.cpp" />
     <ClCompile Include="Puzzles\hiddenstars.cpp" />
     <ClCompile Include="Puzzles\hidoku.cpp" />
+    <ClCompile Include="Puzzles\hitori.cpp" />
     <ClCompile Include="Puzzles\hopover.cpp" />
     <ClCompile Include="Puzzles\hrd.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -183,6 +185,7 @@
     <Xml Include="Puzzles\hiddenpath.xml" />
     <Xml Include="Puzzles\hiddenstars.xml" />
     <Xml Include="Puzzles\hidoku.xml" />
+    <Xml Include="Puzzles\hitori.xml" />
     <Xml Include="Puzzles\hopover.xml" />
     <Xml Include="Puzzles\hrd.xml" />
   </ItemGroup>
