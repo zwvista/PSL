@@ -1,13 +1,13 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
 namespace puzzles{ namespace openvalve{
 
-#define PUZ_PIPE_L		'L'		// "©∞","©¥","©∏","©º"
-#define PUZ_PIPE_I		'I'		// "©§","©¶"
-#define PUZ_PIPE_3		'3'		// "©¿","©»","©–","©ÿ"
-#define PUZ_PIPE_4		'4'		// "©‡"
+#define PUZ_PIPE_L		'L'		// "‚îå","‚îê","‚îî","‚îò"
+#define PUZ_PIPE_I		'I'		// "‚îÄ","‚îÇ"
+#define PUZ_PIPE_3		'3'		// "‚îú","‚î§","‚î¨","‚î¥"
+#define PUZ_PIPE_4		'4'		// "‚îº"
 
 const Position offset[] = {
 	{0, -1},

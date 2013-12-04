@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\skyscrapers.txt" />
+    <Text Include="Puzzles\snail.txt" />
     <Text Include="Puzzles\sokoban.txt" />
     <Text Include="Puzzles\square100.txt" />
     <Text Include="Puzzles\strimko.txt" />
@@ -163,6 +164,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\skyscrapers.cpp" />
+    <ClCompile Include="Puzzles\snail.cpp" />
     <ClCompile Include="Puzzles\sokoban.cpp" />
     <ClCompile Include="Puzzles\square100.cpp" />
     <ClCompile Include="Puzzles\strimko.cpp" />
@@ -176,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\skyscrapers.xml" />
+    <Xml Include="Puzzles\snail.xml" />
     <Xml Include="Puzzles\sokoban.xml" />
     <Xml Include="Puzzles\square100.xml" />
     <Xml Include="Puzzles\strimko.xml" />
