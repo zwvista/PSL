@@ -9,4 +9,169 @@
  2 3 \
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+     \
+     \
+1    \
+  2  \
+  3  \
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+  1  \
+ 2   \
+     \
+     \
+   3 \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+     \
+     \
+  3  \
+1    \
+     \
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+     \
+     \
+     \
+  2  \
+    2\
+    ]]>
+  </level>
+  <level id="06">
+    <![CDATA[
+ 1   \
+ 2   \
+     \
+     \
+     \
+    ]]>
+  </level>
+  <level id="07">
+    <![CDATA[
+     \
+  2  \
+    2\
+     \
+     \
+    ]]>
+  </level>
+  <level id="08">
+    <![CDATA[
+ 1  3\
+ 23  \
+     \
+3    \
+     \
+    ]]>
+  </level>
+  <level id="09">
+    <![CDATA[
+  1  \
+     \
+     \
+ 2   \
+     \
+    ]]>
+  </level>
+  <level id="10">
+    <![CDATA[
+   1  \
+1  3  \
+ 12   \
+     1\
+   2  \
+    3 \
+    ]]>
+  </level>
+  <level id="11">
+    <![CDATA[
+1     \
+      \
+   13 \
+   2  \
+ 32  1\
+ 1    \
+    ]]>
+  </level>
+  <level id="12">
+    <![CDATA[
+      \
+  3   \
+   2 1\
+      \
+      \
+   1 2\
+    ]]>
+  </level>
+  <level id="13">
+    <![CDATA[
+      \
+ 3 1  \
+      \
+  3   \
+     3\
+    1 \
+    ]]>
+  </level>
+  <level id="14">
+    <![CDATA[
+      \
+    2 \
+      \
+  3   \
+  2   \
+   1  \
+    ]]>
+  </level>
+  <level id="15">
+    <![CDATA[
+      \
+ 3    \
+      \
+      \
+1     \
+  1   \
+    ]]>
+  </level>
+  <level id="16">
+    <![CDATA[
+  1    \
+   2   \
+       \
+12     \
+    13 \
+       \
+  3    \
+    ]]>
+  </level>
+  <level id="17">
+    <![CDATA[
+   23  \
+  3    \
+       \
+     1 \
+ 1  2  \
+       \
+   1   \
+    ]]>
+  </level>
+  <level id="18">
+    <![CDATA[
+       \
+       \
+  3  2 \
+1      \
+  1    \
+   2 1 \
+ 2  3  \
+    ]]>
+  </level>
 </levels>

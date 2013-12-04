@@ -66,7 +66,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	auto comb = string(m_sidelen - 3, PUZ_SPACE).append("123");
+	auto comb = string(m_sidelen - 3, PUZ_EMPTY).append("123");
 	do{
 		m_combs.push_back(comb);
 	} while(boost::next_permutation(comb));
@@ -169,7 +169,7 @@ int puz_state::check_snail()
 		char ch = i == sz ? '1' : cell(m_game->m_snail_path[i]);
 		if(ch == PUZ_SPACE)
 			path.push_back(m_game->m_snail_path[i]);
-		else
+		else if(ch != PUZ_EMPTY)
 		{
 			string mid;
 			for(int j = start - '1'; (j = (j + 1) % 3) != ch - '1';)
@@ -180,8 +180,6 @@ int puz_state::check_snail()
 			if(sz1 == sz2 && sz1 > 0){
 				for(int k = 0; k < sz1; ++k){
 					const auto& p = path[k];
-					if(count(p.first) == 0 || count(sidelen() + p.second) == 0)
-						return 0;
 					cell(p) = mid[k];
 				}
 				n = 1;
@@ -200,7 +198,8 @@ bool puz_state::make_move(int i, int j)
 	for(;;){
 		int n;
 		while((n = find_matches(false)) == 1);
-		if(n == 0) return false;
+		if(n == 0)
+			return false;
 		switch(check_snail()){
 		case 0:
 			return false;
@@ -226,11 +225,9 @@ void puz_state::gen_children(list<puz_state> &children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
-		for(int c = 0; c < sidelen(); ++c) {
-			char ch = cell(Position(r, c));
-			out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << " ";
-		}
+	for(int r = 0; r < sidelen(); ++r){
+		for(int c = 0; c < sidelen(); ++c)
+			out << cell(Position(r, c)) << " ";
 		out << endl;
 	}
 	return out;
