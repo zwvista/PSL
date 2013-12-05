@@ -198,7 +198,7 @@ bool puz_state::make_move2(const Position& p, char ch)
 
 	// respect the rule of poles
 	if(ch != PUZ_EMPTY)
-		for(const auto& os : offset){
+		for(auto& os : offset){
 			const auto& p2 = p + os;
 			if(is_valid(p2))
 				remove_pair(p2, ch);

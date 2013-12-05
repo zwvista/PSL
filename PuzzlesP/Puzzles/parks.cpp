@@ -197,7 +197,7 @@ bool puz_state::make_move(const Position& p)
 	m_groups.plant_tree(p);
 
 	// no touch
-	for(const auto& os : offset){
+	for(auto& os : offset){
 		const auto& p2 = p + os;
 		if(is_valid(p2))
 			m_groups.remove_cell(p2);

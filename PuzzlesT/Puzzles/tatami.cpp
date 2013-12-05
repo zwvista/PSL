@@ -182,7 +182,7 @@ bool puz_state::make_move(const Position& p, char ch)
 				remove_pair(p2, ch);
 
 	// no touch
-	for(const auto& os : offset){
+	for(auto& os : offset){
 		const auto& p2 = p + os;
 		if(is_valid(p2))
 			remove_pair(p2, ch);

@@ -138,7 +138,7 @@ puz_state::puz_state(const puz_game& g)
 
 void puz_state::apply_ripple_effect(const Position& p, int n)
 {
-	for(const auto& os : offset){
+	for(auto& os : offset){
 		auto p2 = p;
 		for(int k = 0; k < n; ++k){
 			p2 += os;

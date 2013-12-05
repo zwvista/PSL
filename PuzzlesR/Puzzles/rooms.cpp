@@ -4,39 +4,44 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 3/Blocked View
+	ios game: Logic Games/Puzzle Set 5/Rooms
 
 	Summary
-	This time it's one Garden and many Towers
+	Close the doors between Rooms
 
 	Description
-	1. On the Board there are a few sentinels. These sentinels are marked with
-	   a number.
-	2. The number tells you how many tiles that Sentinel can control (see) from
-	   there vertically and horizontally. This includes the tile where he is
-	   located.
-	3. You must put Towers on the Boards in accordance with these hints, keeping
-	   in mind that a Tower blocks the Sentinel View.
-	4. The restrictions are that there must be a single continuous Garden, and
-	   two Towers can't touch horizontally or vertically.
-	5. Towers can't go over numbered squares. But numbered squares don't block
-	   Sentinel View.
+	1. The view of the board is a castle with every tile identifying a Room.
+	   Between Rooms there are doors that can be open or closed. At the start
+	   of the game all doors are open.
+	2. Each number inside a Room tells you how many other Rooms you see from
+	   there, in a straight line horizontally or vertically when the appropriate
+	   doors are closed.
+	3. At the end of the solution, each Room must be reachable from the others.
+	   That means no single Room or group of Rooms can be divided by the others.
+	4. In harder levels some tiles won't tell you how many Rooms are visible
+	   at all.
 */
 
-namespace puzzles{ namespace blockedview{
+namespace puzzles{ namespace rooms{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
 #define PUZ_SENTINEL	'S'
 #define PUZ_TOWER		'T'
 #define PUZ_CONNECTED	'C'
-#define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
 	{-1, 0},		// n
 	{0, 1},		// e
 	{1, 0},		// s
 	{0, -1},		// w
+};
+
+const Position door_offset[] = {
+	{0, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, 0},		// w
 };
 
 struct puz_game
@@ -50,14 +55,14 @@ struct puz_game
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size() + 2)
+, m_sidelen(strs.size())
 {
-	for(int r = 0; r < m_sidelen - 2; ++r){
+	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			auto s = str.substr(c * 2, 2);
-			if(s != "  ")
-				m_start[Position(r + 1, c + 1)] = atoi(s.c_str());
+		for(int c = 0; c < m_sidelen; ++c){
+			char ch = str[c];
+			if(ch != ' ')
+				m_start[Position(r, c)] = ch - '0';
 		}
 	}
 }
@@ -67,8 +72,14 @@ struct puz_state : map<Position, vector<vector<int>>>
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	bool is_door_open(const Position& p, int i) const {
+		auto& doors = i % 2 == 0 ? m_horz_doors : m_vert_doors;
+		return doors.count(p + door_offset[i]) == 0;
+	}
+	void close_door(const Position& p, int i){
+		auto& doors = i % 2 == 0 ? m_horz_doors : m_vert_doors;
+		doors.insert(p + door_offset[i]);
+	}
 	bool make_move(const Position& p, const vector<int>& comb);
 	bool make_move2(const Position& p, const vector<int>& comb);
 	int find_matches(bool init);
@@ -85,21 +96,25 @@ struct puz_state : map<Position, vector<vector<int>>>
 	}
 
 	const puz_game* m_game = nullptr;
-	string m_cells;
 	unsigned int m_distance = 0;
+	set<Position> m_horz_doors;
+	set<Position> m_vert_doors;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
-, m_game(&g)
+: m_game(&g)
 {
-	for(int r = 0; r < sidelen(); ++r)
-		cell(Position(r, 0)) = cell(Position(r, sidelen() - 1)) = PUZ_BOUNDARY;
-	for(int c = 0; c < sidelen(); ++c)
-		cell(Position(0, c)) = cell(Position(sidelen() - 1, c)) = PUZ_BOUNDARY;
+	for(int r = 0; r < sidelen(); ++r){
+		m_vert_doors.emplace(r, 0);
+		m_vert_doors.emplace(r, sidelen());
+	}
+	for(int c = 0; c < sidelen(); ++c){
+		m_horz_doors.emplace(0, c);
+		m_horz_doors.emplace(sidelen(), c);
+	}
 
 	for(const auto& kv : g.m_start)
-		cell(kv.first) = PUZ_SENTINEL, (*this)[kv.first];
+		(*this)[kv.first];
 
 	find_matches(true);
 }
@@ -111,27 +126,19 @@ int puz_state::find_matches(bool init)
 		auto& combs = kv.second;
 		combs.clear();
 
-		int sum = m_game->m_start.at(p) - 1;
+		int sum = m_game->m_start.at(p);
 		vector<vector<int>> dir_nums(4);
 		for(int i = 0; i < 4; ++i){
 			auto& os = offset[i];
 			int n = 0;
 			auto& nums = dir_nums[i];
-			for(auto p2 = p + os; n <= sum; p2 += os)
-				switch(cell(p2)){
-				case PUZ_SPACE:
+			for(auto p2 = p; n <= sum; p2 += os)
+				if(is_door_open(p2, i))
 					nums.push_back(n++);
+				else{
+					nums.push_back(n);
 					break;
-				case PUZ_EMPTY:
-				case PUZ_SENTINEL:
-					++n;
-					break;
-				case PUZ_TOWER:
-				case PUZ_BOUNDARY:
-					goto blocked;
 				}
-blocked:
-			nums.push_back(n);
 		}
 
 		for(int n0 : dir_nums[0])
@@ -162,36 +169,28 @@ struct puz_state2 : string
 	void gen_children(list<puz_state2>& children) const;
 
 	const puz_game* m_game;
+	const puz_state& m_state;
 };
 
 puz_state2::puz_state2(const puz_state& s)
-: string(s.m_cells), m_game(s.m_game)
+: m_game(s.m_game)
+, m_state(s)
 {
-	int i = boost::find_if(*this, [](int n){
-		return n != PUZ_BOUNDARY && n != PUZ_TOWER;
-	}) - begin();
-	make_move(i);
+	append(sidelen() * sidelen(), PUZ_SPACE);
+	make_move(0);
 }
 
 void puz_state2::gen_children(list<puz_state2> &children) const
 {
 	for(int i = 0; i < length(); ++i){
+		if(at(i) == PUZ_CONNECTED) continue;
 		Position p(i / sidelen(), i % sidelen());
-		switch(at(i)){
-		case PUZ_BOUNDARY:
-		case PUZ_CONNECTED:
-		case PUZ_TOWER:
-			break;
-		default:
-			for(auto& os : offset){
-				auto p2 = p + os;
-				if(cell(p2) == PUZ_CONNECTED){
-					children.push_back(*this);
-					children.back().make_move(i);
-					return;
-				}
+		for(int j = 0; j < 4; ++j)
+			if(m_state.is_door_open(p, j) && cell(p + offset[j]) == PUZ_CONNECTED){
+				children.push_back(*this);
+				children.back().make_move(i);
+				return;
 			}
-		}
 	}
 }
 
@@ -200,22 +199,10 @@ bool puz_state::make_move2(const Position& p, const vector<int>& comb)
 	for(int i = 0; i < 4; ++i){
 		auto& os = offset[i];
 		int n = comb[i];
-		auto p2 = p + os;
-		for(int j = 0; j < n; ++j){
-			char& ch = cell(p2);
-			if(ch == PUZ_SPACE)
-				ch = PUZ_EMPTY;
+		auto p2 = p;
+		for(int j = 0; j < n; ++j)
 			p2 += os;
-		}
-		char& ch = cell(p2);
-		if(ch == PUZ_SPACE){
-			for(auto& os2 : offset){
-				auto p3 = p2 + os2;
-				if(cell(p3) == PUZ_TOWER)
-					return false;
-			}
-			ch = PUZ_TOWER;
-		}
+		close_door(p2, i);
 	}
 
 	++m_distance;
@@ -223,10 +210,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& comb)
 
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	const auto& state = smoves.back();
-	return boost::algorithm::all_of(state, [](int n){
-		return n == PUZ_BOUNDARY || n == PUZ_CONNECTED || n == PUZ_TOWER;
-	});
+	return smoves.back().find(PUZ_SPACE) == -1;
 }
 
 bool puz_state::make_move(const Position& p, const vector<int>& comb)
@@ -245,8 +229,8 @@ bool puz_state::make_move(const Position& p, const vector<int>& comb)
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	const auto& kv = *boost::min_element(*this,
-		[](const pair<const Position, vector<vector<int>>>& kv1,
+	const auto& kv = *boost::min_element(*this, [](
+		const pair<const Position, vector<vector<int>>>& kv1,
 		const pair<const Position, vector<vector<int>>>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
@@ -260,17 +244,19 @@ void puz_state::gen_children(list<puz_state> &children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r) {
-		for(int c = 1; c < sidelen() - 1; ++c){
+	for(int r = 0;; ++r){
+		// draw horz-doors
+		for(int c = 0; c < sidelen(); ++c)
+			out << (m_horz_doors.count(Position(r, c)) != 0 ? " -" : "  ");
+		out << endl;
+		if(r == sidelen()) break;
+		for(int c = 0;; ++c){
 			Position p(r, c);
-			switch(char ch = cell(Position(r, c))){
-			case PUZ_SENTINEL:
-				out << format("%2d") % m_game->m_start.at(p);
-				break;
-			default:
-				out << ' ' << (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
-				break;
-			};
+			// draw vert-doors
+			out << (m_vert_doors.count(p) != 0 ? '|' : ' ');
+			if(c == sidelen()) break;
+			auto it = m_game->m_start.find(p);
+			out << (it != m_game->m_start.end() ? char(it->second + '0') : ' ');
 		}
 		out << endl;
 	}
@@ -279,9 +265,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_blockedview()
+void solve_puz_rooms()
 {
-	using namespace puzzles::blockedview;
+	using namespace puzzles::rooms;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\blockedview.xml", "Puzzles\\blockedview.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\rooms.xml", "Puzzles\\rooms.txt", solution_format::GOAL_STATE_ONLY);
 }

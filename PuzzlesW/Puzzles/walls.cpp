@@ -113,7 +113,7 @@ int puz_state::find_matches(bool init)
 		vector<vector<int>> dir_nums(4);
 		for(int i = 0; i < 4; ++i){
 			bool is_horz = i % 2 == 1;
-			const auto& os = offset[i];
+			auto& os = offset[i];
 			int n = 0;
 			auto& nums = dir_nums[i];
 			for(auto p2 = p + os; n <= sum; p2 += os){
@@ -152,7 +152,7 @@ void puz_state::make_move2(const Position& p, const vector<int>& comb)
 {
 	for(int i = 0; i < 4; ++i){
 		bool is_horz = i % 2 == 1;
-		const auto& os = offset[i];
+		auto& os = offset[i];
 		int n = comb[i];
 		auto p2 = p + os;
 		for(int j = 0; j < n; ++j){

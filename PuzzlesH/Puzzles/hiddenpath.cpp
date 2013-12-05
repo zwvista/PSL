@@ -95,7 +95,7 @@ void puz_state::gen_children(list<puz_state> &children) const
 {
 	int n = cell(second) + 1;
 	auto i = m_game->m_num2pos.find(n);
-	const auto& os = offset[dir(second)];
+	auto& os = offset[dir(second)];
 	bool found = i != m_game->m_num2pos.end();
 	for(auto p = second + os; is_valid(p); p += os)
 		if(found && p == i->second || !found && cell(p) == 0){

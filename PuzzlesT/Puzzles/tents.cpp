@@ -173,7 +173,7 @@ bool puz_state::make_move(const Position& p)
 	m_grp_cols[p.second].plant_tree(p, false);
 
 	// no touch
-	for(const auto& os : offset){
+	for(auto& os : offset){
 		const auto& p2 = p + os;
 		if(is_valid(p2)){
 			for(auto& a : m_grp_trees)

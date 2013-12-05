@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\rippleeffect.txt" />
+    <Text Include="Puzzles\rooms.txt" />
     <Text Include="Puzzles\rotate9.txt" />
     <Text Include="Puzzles\rotationgame.txt" />
     <Text Include="ReadMe.txt" />
@@ -161,6 +162,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\rippleeffect.cpp" />
+    <ClCompile Include="Puzzles\rooms.cpp" />
     <ClCompile Include="Puzzles\rotate9.cpp" />
     <ClCompile Include="Puzzles\rotationgame.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -174,6 +176,7 @@
     <Xml Include="Puzzles\rippleeffect.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Puzzles\rooms.xml" />
     <Xml Include="Puzzles\rotate9.xml" />
     <Xml Include="Puzzles\rotationgame.xml" />
   </ItemGroup>

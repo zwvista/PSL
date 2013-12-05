@@ -172,9 +172,9 @@ bool puz_state::make_move(const pair<int, int>& key, const Position& p)
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
 	const auto& state = smoves.back();
-	return boost::range::find_if(state, [](int n){
-		return n != PUZ_BOUNDARY && n != PUZ_CONNECTED && n != PUZ_SHADED;
-	}) == state.end();
+	return boost::algorithm::all_of(state, [](int n){
+		return n == PUZ_BOUNDARY || n == PUZ_CONNECTED || n == PUZ_SHADED;
+	});
 }
 
 void puz_state::gen_children(list<puz_state> &children) const

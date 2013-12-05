@@ -111,7 +111,7 @@ puz_state::puz_state(const puz_game& g)
 		const auto& p = kv.first;
 		int n = kv.second;
 		vector<Position> ps;
-		for(const auto& os : offset){
+		for(auto& os : offset){
 			auto p2 = p + os;
 			if(is_valid(p2) && cell(p2) != PUZ_WALL)
 				ps.push_back(p2);
@@ -164,7 +164,7 @@ bool puz_state::make_move(const Position& p, char ch_p)
 			return ch == ch_p;
 		ch = ch_p;
 		++m_distance;
-		for(const auto& os : offset){
+		for(auto& os : offset){
 			for(auto p2 = p + os; is_valid(p2); p2 += os)
 				switch(char& ch2 = cell(p2))
 			{
