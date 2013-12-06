@@ -1,0 +1,14 @@
+Level 01
+Sequence of moves: 
+bbbbbaaa
+cffffaaa
+cffffaaa
+ceeeeeee
+ceeeeeee
+ceeeeeee
+cddddddd
+cddddddd
+Number of moves: 3
+Number of vertices examined: 4
+0.0130396 [s]
+

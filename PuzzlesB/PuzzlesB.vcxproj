@@ -152,6 +152,7 @@
     <Text Include="Puzzles\blockedview.txt" />
     <Text Include="Puzzles\bloxorz_a.txt" />
     <Text Include="Puzzles\bloxorz_ida.txt" />
+    <Text Include="Puzzles\boxitup.txt" />
     <Text Include="Puzzles\branches.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -164,6 +165,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\blockedview.cpp" />
     <ClCompile Include="Puzzles\bloxorz.cpp" />
+    <ClCompile Include="Puzzles\boxitup.cpp" />
     <ClCompile Include="Puzzles\branches.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -176,6 +178,7 @@
     <Xml Include="Puzzles\bloc.xml" />
     <Xml Include="Puzzles\blockedview.xml" />
     <Xml Include="Puzzles\bloxorz.xml" />
+    <Xml Include="Puzzles\boxitup.xml" />
     <Xml Include="Puzzles\branches.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

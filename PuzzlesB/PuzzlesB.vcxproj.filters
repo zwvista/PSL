@@ -34,6 +34,9 @@
     <Text Include="Puzzles\branches.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\boxitup.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -62,6 +65,9 @@
     <ClCompile Include="Puzzles\branches.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\boxitup.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\bloc.xml">
@@ -74,6 +80,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\branches.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\boxitup.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
