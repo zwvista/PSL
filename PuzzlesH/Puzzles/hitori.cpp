@@ -47,7 +47,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size() + 2)
 {
 	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
-	for(int r = 0, n = 0; r < m_sidelen - 2; ++r){
+	for(int r = 0; r < m_sidelen - 2; ++r){
 		auto& str = strs[r];
 		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 0; c < m_sidelen - 2; ++c){

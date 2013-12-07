@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\bloc.txt" />
+    <Text Include="Puzzles\blockedproduct.txt" />
     <Text Include="Puzzles\blockedview.txt" />
     <Text Include="Puzzles\bloxorz_a.txt" />
     <Text Include="Puzzles\bloxorz_ida.txt" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\blockedproduct.cpp" />
     <ClCompile Include="Puzzles\blockedview.cpp" />
     <ClCompile Include="Puzzles\bloxorz.cpp" />
     <ClCompile Include="Puzzles\boxitup.cpp" />
@@ -176,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\bloc.xml" />
+    <Xml Include="Puzzles\blockedproduct.xml" />
     <Xml Include="Puzzles\blockedview.xml" />
     <Xml Include="Puzzles\bloxorz.xml" />
     <Xml Include="Puzzles\boxitup.xml" />

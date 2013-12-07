@@ -4,17 +4,17 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 3/Blocked View
+	ios game: Logic Games/Puzzle Set 11/Blocked Product
 
 	Summary
-	This time it's one Garden and many Towers
+	Multiplicative Towers
 
 	Description
 	1. On the Board there are a few sentinels. These sentinels are marked with
 	   a number.
-	2. The number tells you how many tiles that Sentinel can control (see) from
-	   there vertically and horizontally. This includes the tile where he is
-	   located.
+	2. The number tells you the product of the tiles that Sentinel can control
+	   (see) from there vertically and horizontally. This includes the tile 
+	   where he is located.
 	3. You must put Towers on the Boards in accordance with these hints, keeping
 	   in mind that a Tower blocks the Sentinel View.
 	4. The restrictions are that there must be a single continuous Garden, and
@@ -23,7 +23,7 @@
 	   Sentinel View.
 */
 
-namespace puzzles{ namespace blockedview{
+namespace puzzles{ namespace blockedproduct{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
@@ -111,14 +111,13 @@ int puz_state::find_matches(bool init)
 		auto& combs = kv.second;
 		combs.clear();
 
-		int sum = m_game->m_start.at(p) - 1;
 		vector<vector<int>> dir_nums(4);
 		for(int i = 0; i < 4; ++i){
 			auto& os = offset[i];
 			int n = 0;
 			auto& nums = dir_nums[i];
 			[&](){
-				for(auto p2 = p + os; n <= sum; p2 += os)
+				for(auto p2 = p + os; ; p2 += os)
 					switch(cell(p2)){
 					case PUZ_SPACE:
 						nums.push_back(n++);
@@ -135,11 +134,12 @@ int puz_state::find_matches(bool init)
 			}();
 		}
 
+		int product = m_game->m_start.at(p);
 		for(int n0 : dir_nums[0])
 			for(int n1 : dir_nums[1])
 				for(int n2 : dir_nums[2])
 					for(int n3 : dir_nums[3])
-						if(n0 + n1 + n2 + n3 == sum)
+						if((n0 + n2 + 1) * (n1 + n3 + 1) == product)
 							combs.push_back({n0, n1, n2, n3});
 
 		if(!init)
@@ -246,8 +246,8 @@ bool puz_state::make_move(const Position& p, const vector<int>& comb)
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	const auto& kv = *boost::min_element(*this,
-		[](const pair<const Position, vector<vector<int>>>& kv1,
+	const auto& kv = *boost::min_element(*this, [](
+		const pair<const Position, vector<vector<int>>>& kv1,
 		const pair<const Position, vector<vector<int>>>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
@@ -280,9 +280,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_blockedview()
+void solve_puz_blockedproduct()
 {
-	using namespace puzzles::blockedview;
+	using namespace puzzles::blockedproduct;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\blockedview.xml", "Puzzles\\blockedview.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\blockedproduct.xml", "Puzzles\\blockedproduct.txt", solution_format::GOAL_STATE_ONLY);
 }

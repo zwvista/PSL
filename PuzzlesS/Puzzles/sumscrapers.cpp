@@ -70,7 +70,7 @@ struct puz_state : map<int, vector<int>>
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	int cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
+	int cell(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
 	int& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool make_move(int i, int j);
 	void make_move2(int i, int j);
@@ -172,7 +172,7 @@ ostream& puz_state::dump(ostream& out) const
 			if(n == 0)
 				out << "   ";
 			else
-				out << format("%3d") % cell(Position(r, c));
+				out << format("%3d") % n;
 		}
 		out << endl;
 	}

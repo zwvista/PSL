@@ -37,6 +37,9 @@
     <Text Include="Puzzles\boxitup.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\blockedproduct.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -68,6 +71,9 @@
     <ClCompile Include="Puzzles\boxitup.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\blockedproduct.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\bloc.xml">
@@ -83,6 +89,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\boxitup.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\blockedproduct.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

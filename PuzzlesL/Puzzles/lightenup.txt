@@ -7,7 +7,7 @@ B + W B W
 + 0 + + + 
 Number of moves: 4
 Number of vertices examined: 5
-0.00739246 [s]
+0.00253021 [s]
 
 Level 002
 Sequence of moves: 
@@ -18,5 +18,5 @@ B 3 + + B
 + + B W B 
 Number of moves: 3
 Number of vertices examined: 4
-0.00371416 [s]
+0.00131351 [s]
 

@@ -135,19 +135,20 @@ int puz_state::find_matches(bool init)
 			auto& os = offset[i];
 			int n = 0;
 			auto& nums = dir_nums[i];
-			for(auto p2 = p; n <= sum; p2 += os)
-				switch(get_door_status(p2, i)){
-				case PUZ_DOOR_UNKNOWN:
-					nums.push_back(n++);
-					break;
-				case PUZ_DOOR_OPEN:
-					++n;
-					break;
-				case PUZ_DOOR_CLOSED:
-					nums.push_back(n);
-					goto blocked;
-				}
-blocked:	;
+			[&](){
+				for(auto p2 = p; n <= sum; p2 += os)
+					switch(get_door_status(p2, i)){
+					case PUZ_DOOR_UNKNOWN:
+						nums.push_back(n++);
+						break;
+					case PUZ_DOOR_OPEN:
+						++n;
+						break;
+					case PUZ_DOOR_CLOSED:
+						nums.push_back(n);
+						return;
+					}
+			}();
 		}
 
 		for(int n0 : dir_nums[0])

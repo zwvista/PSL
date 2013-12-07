@@ -46,13 +46,15 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-	: m_id(attrs.get<string>("id"))
-	, m_sidelen(strs.size())
+: m_id(attrs.get<string>("id"))
+, m_sidelen(strs.size() + 2)
 {
-	for(int r = 0; r < m_sidelen; ++r){
+	m_start.insert(m_start.end(), m_sidelen, PUZ_WALL);
+	for(int r = 0; r < m_sidelen - 2; ++r){
 		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen; ++c){
-			Position p(r, c);
+		m_start.push_back(PUZ_WALL);
+		for(int c = 0; c < m_sidelen - 2; ++c){
+			Position p(r + 1, c + 1);
 			switch(char ch = str[c]){
 			case PUZ_SPACE:
 			case PUZ_WALL:
@@ -64,7 +66,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				break;
 			}
 		}
+		m_start.push_back(PUZ_WALL);
 	}
+	m_start.insert(m_start.end(), m_sidelen, PUZ_WALL);
 }
 
 using puz_area = pair<vector<Position>, vector<string>>;
@@ -74,9 +78,6 @@ struct puz_state : pair<string, vector<puz_area>>
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const { return m_game->m_sidelen; }
-	bool is_valid(const Position& p) const {
-		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
-	}
 	char cell(const Position& p) const { return first.at(p.first * sidelen() + p.second); }
 	char& cell(const Position& p) { return first[p.first * sidelen() + p.second]; }
 	void check_areas();
@@ -113,7 +114,7 @@ puz_state::puz_state(const puz_game& g)
 		vector<Position> ps;
 		for(auto& os : offset){
 			auto p2 = p + os;
-			if(is_valid(p2) && cell(p2) != PUZ_WALL)
+			if(cell(p2) != PUZ_WALL)
 				ps.push_back(p2);
 		}
 
@@ -164,23 +165,22 @@ bool puz_state::make_move(const Position& p, char ch_p)
 			return ch == ch_p;
 		ch = ch_p;
 		++m_distance;
-		for(auto& os : offset){
-			for(auto p2 = p + os; is_valid(p2); p2 += os)
-				switch(char& ch2 = cell(p2))
-			{
-				case PUZ_BULB:
-					return false;
-				case PUZ_WALL:
-					goto blocked;
-				case PUZ_UNLIT:
-				case PUZ_SPACE:
-					ch2 = PUZ_LIT;
-					++m_distance;
-					break;
-			};
-		blocked:
-			;
-		}
+		for(auto& os : offset)
+			if(![&](){
+				for(auto p2 = p + os; ; p2 += os)
+					switch(char& ch2 = cell(p2)){
+					case PUZ_BULB:
+						return false;
+					case PUZ_WALL:
+						return true;
+					case PUZ_UNLIT:
+					case PUZ_SPACE:
+						ch2 = PUZ_LIT;
+						++m_distance;
+						break;
+					}
+			}())
+				return false;
 	}
 	return true;
 }
@@ -189,8 +189,8 @@ void puz_state::gen_children(list<puz_state> &children) const
 {
 	if(second.empty()){
 		vector<Position> ps;
-		for(int r = 0; r < sidelen(); ++r)
-			for(int c = 0; c < sidelen(); ++c){
+		for(int r = 1; r < sidelen() - 1; ++r)
+			for(int c = 1; c < sidelen() - 1; ++c){
 				Position p(r, c);
 				if(cell(p) == PUZ_SPACE)
 					ps.push_back(p);
@@ -215,8 +215,8 @@ void puz_state::gen_children(list<puz_state> &children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
-		for(int c = 0; c < sidelen(); ++c){
+	for(int r = 1; r < sidelen() - 1; ++r) {
+		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
 			auto i = m_game->m_walls.find(p);
 			out << (i == m_game->m_walls.end() ? cell(p) : char(i->second + '0')) << ' ';

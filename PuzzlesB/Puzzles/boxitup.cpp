@@ -18,6 +18,7 @@ namespace puzzles{ namespace boxitup{
 
 #define PUZ_SPACE		' '
 
+// top-left and bottom-right
 typedef pair<Position, Position> puz_box;
 
 struct puz_game
@@ -56,24 +57,19 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			auto p2 = pn - box_sz;
 			for(int r = p2.first; r <= pn.first; ++r)
 				for(int c = p2.second; c <= pn.second; ++c){
-					Position tl(r, c);
-					Position br = tl + box_sz;
-
-					auto f = [&](){
-						if(tl.first < 0 || tl.second < 0 ||
-							br.first >= m_sidelen || br.second >= m_sidelen)
-							return false;
-						for(const auto& kv : m_start){
-							auto& p = kv.first;
-							if(p == pn) continue;
-							if(p.first >= tl.first && p.second >= tl.second &&
-								p.first <= br.first && p.second <= br.second)
-								return false;
-						}
-						return true;
-					};
-
-					if(f())
+					Position tl(r, c), br = tl + box_sz;
+					if(tl.first >= 0 && tl.second >= 0 &&
+						br.first < m_sidelen && br.second < m_sidelen &&
+						[&](){
+							for(const auto& kv : m_start){
+								auto& p = kv.first;
+								if(p != pn &&
+									p.first >= tl.first && p.second >= tl.second &&
+									p.first <= br.first && p.second <= br.second)
+									return false;
+							}
+							return true;
+						}())
 						boxes.emplace_back(tl, br);
 				}
 		}
@@ -85,8 +81,8 @@ struct puz_state : map<Position, vector<int>>
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	char cell(int r, int c) const { return m_cells[r * sidelen() + c]; }
+	char& cell(int r, int c) { return m_cells[r * sidelen() + c]; }
 	bool make_move(const Position& p, int n);
 	void make_move2(const Position& p, int n);
 	int find_matches(bool init);
@@ -124,13 +120,15 @@ int puz_state::find_matches(bool init)
 
 		kv.second.clear();
 		for(int i = 0; i < boxes.size(); ++i){
-			auto box = boxes[i];
-			for(int r = box.first.first; r <= box.second.first; ++r)
-				for(int c = box.first.second; c <= box.second.second; ++c)
-					if(cell(Position(r, c)) != PUZ_SPACE)
-						goto occupied;
-			kv.second.push_back(i);
-occupied:	;
+			auto& box = boxes[i];
+			if([&](){
+				for(int r = box.first.first; r <= box.second.first; ++r)
+					for(int c = box.first.second; c <= box.second.second; ++c)
+						if(cell(r, c) != PUZ_SPACE)
+							return false;
+				return true;
+			}())
+				kv.second.push_back(i);
 		}
 
 		if(!init)
@@ -140,7 +138,7 @@ occupied:	;
 			case 1:
 				make_move2(kv.first, kv.second.front());
 				return 1;
-		}
+			}
 	}
 	return 2;
 }
@@ -151,7 +149,7 @@ void puz_state::make_move2(const Position& p, int n)
 
 	for(int r = box.first.first; r <= box.second.first; ++r)
 		for(int c = box.first.second; c <= box.second.second; ++c)
-			cell(Position(r, c)) = m_ch;
+			cell(r, c) = m_ch;
 
 	++m_distance, ++m_ch;
 	erase(p);
@@ -167,13 +165,13 @@ bool puz_state::make_move(const Position& p, int n)
 			return false;
 		case 2:
 			return true;
-	}
+		}
 	return true;
 }
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	const auto& kv = *boost::min_element(*this, [](
+	auto& kv = *boost::min_element(*this, [](
 		const pair<const Position, vector<int>>& kv1,
 		const pair<const Position, vector<int>>& kv2){
 		return kv1.second.size() < kv2.second.size();
@@ -189,7 +187,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r){
 		for(int c = 0; c < sidelen(); ++c)
-			out << cell(Position(r, c));
+			out << cell(r, c);
 		out << endl;
 	}
 	return out;
