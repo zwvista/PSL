@@ -125,8 +125,7 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				make_move2(kv.first, kv.second.front());
-				return 1;
+				return make_move2(kv.first, kv.second.front()), 1;
 			}
 	}
 	return 2;

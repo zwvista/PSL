@@ -1,0 +1,24 @@
+Level 01
+Sequence of moves: 
+aaabb
+ccdde
+.cffe
+hh.gg
+.hiig
+Number of moves: 2
+Number of vertices examined: 3
+0.0127861 [s]
+
+Level 12
+Sequence of moves: 
+aaabbbc
+aaddd.c
+.ee.ffg
+iiehhfg
+kijjhh.
+kkklnnn
+mmmlnoo
+Number of moves: 6
+Number of vertices examined: 8
+0.0430142 [s]
+

@@ -25,6 +25,9 @@
     <Text Include="Puzzles\fling.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\fenceitup.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -50,6 +53,9 @@
     <ClCompile Include="Puzzles\fling.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\fenceitup.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\futoshiki.xml">
@@ -62,6 +68,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\fling3.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\fenceitup.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

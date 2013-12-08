@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\fenceitup.txt" />
     <Text Include="Puzzles\fling.txt" />
     <Text Include="Puzzles\futoshiki.txt" />
     <Text Include="ReadMe.txt" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\fenceitup.cpp" />
     <ClCompile Include="Puzzles\fling.cpp" />
     <ClCompile Include="Puzzles\futoshiki.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -169,6 +171,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\fenceitup.xml" />
     <Xml Include="Puzzles\fling.xml" />
     <Xml Include="Puzzles\fling2.xml" />
     <Xml Include="Puzzles\fling3.xml" />
