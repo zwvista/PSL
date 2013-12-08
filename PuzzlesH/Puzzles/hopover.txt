@@ -51,5 +51,5 @@ move: 5 -> 4
 < < < <   > > > > 
 Number of moves: 24
 Number of vertices examined: 189
-0.0073054 [s]
+0.0648813 [s]
 
