@@ -1,0 +1,21 @@
+Level 01
+Sequence of moves: 
+bbbc
+bbbc
+bbbc
+aaaa
+Number of moves: 2
+Number of vertices examined: 3
+0.0056315 [s]
+
+Level 02
+Sequence of moves: 
+bcccc
+bcccc
+bdddd
+aaaaa
+aaaaa
+Number of moves: 1
+Number of vertices examined: 2
+0.00208587 [s]
+
