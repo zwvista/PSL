@@ -20,7 +20,6 @@
 namespace puzzles{ namespace hitori{
 
 #define PUZ_SHADED		100
-#define PUZ_CONNECTED	99
 #define PUZ_BOUNDARY	0
 
 const Position offset[] = {
@@ -75,7 +74,7 @@ struct puz_state : vector<int>
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	int cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	int cell(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	int& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const pair<int, int>& key, const Position& p);
 
@@ -104,45 +103,39 @@ puz_state::puz_state(const puz_game& g)
 {
 }
 
-struct puz_state2 : vector<int>
+struct puz_state2 : Position
 {
 	puz_state2(const puz_state& s);
 
-	int sidelen() const { return m_game->m_sidelen; }
-	int cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	void make_move(int i){ (*this)[i] = PUZ_CONNECTED; }
+	int sidelen() const { return m_state->sidelen(); }
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const puz_game* m_game;
+	const puz_state* m_state;
 };
 
 puz_state2::puz_state2(const puz_state& s)
-: vector<int>(s), m_game(s.m_game)
+: m_state(&s)
 {
-	int i = boost::find_if(*this, [](int n){
+	int i = boost::find_if(s, [](int n){
 		return n != PUZ_BOUNDARY && n != PUZ_SHADED;
-	}) - begin();
-	make_move(i);
+	}) - s.begin();
+
+	make_move({i / sidelen(), i % sidelen()});
 }
 
 void puz_state2::gen_children(list<puz_state2> &children) const
 {
-	for(int i = 0; i < size(); ++i){
-		Position p(i / sidelen(), i % sidelen());
-		switch(at(i)){
+	for(auto& os : offset){
+		auto p2 = *this + os;
+		switch(m_state->cell(p2)){
 		case PUZ_BOUNDARY:
-		case PUZ_CONNECTED:
 		case PUZ_SHADED:
 			break;
 		default:
-			for(auto& os : offset){
-				auto p2 = p + os;
-				if(cell(p2) == PUZ_CONNECTED){
-					children.push_back(*this);
-					children.back().make_move(i);
-					return;
-				}
-			}
+			children.push_back(*this);
+			children.back().make_move(p2);
+			break;
 		}
 	}
 }
@@ -171,9 +164,8 @@ bool puz_state::make_move(const pair<int, int>& key, const Position& p)
 
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	const auto& state = smoves.back();
-	return boost::algorithm::all_of(state, [](int n){
-		return n == PUZ_BOUNDARY || n == PUZ_CONNECTED || n == PUZ_SHADED;
+	return smoves.size() == boost::count_if(*this, [](int n){
+		return n != PUZ_BOUNDARY && n != PUZ_SHADED;
 	});
 }
 

@@ -28,7 +28,6 @@ namespace puzzles{ namespace nurikabe{
 
 #define PUZ_SPACE		' '
 #define PUZ_WALL		'W'
-#define PUZ_CONNECTED	'C'
 #define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
@@ -123,39 +122,33 @@ puz_state::puz_state(const puz_game& g)
 		}
 }
 
-struct puz_state2 : string
+struct puz_state2 : Position
 {
 	puz_state2(const puz_state& s);
 
-	int sidelen() const { return m_game->m_sidelen; }
-	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	void make_move(int i){ (*this)[i] = PUZ_CONNECTED; }
+	int sidelen() const { return m_state->sidelen(); }
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const puz_game* m_game;
+	const puz_state* m_state;
 };
 
 puz_state2::puz_state2(const puz_state& s)
-: string(s), m_game(s.m_game)
+: m_state(&s)
 {
-	int i = find(PUZ_WALL);
-	make_move(i);
+	int i = s.find(PUZ_WALL);
+	make_move({i / sidelen(), i % sidelen()});
 }
 
 void puz_state2::gen_children(list<puz_state2> &children) const
 {
-	for(int i = 0; i < length(); ++i)
-		if(at(i) == PUZ_WALL){
-			Position p(i / sidelen(), i % sidelen());
-			for(auto& os : offset){
-				auto p2 = p + os;
-				if(cell(p2) == PUZ_CONNECTED){
-					children.push_back(*this);
-					children.back().make_move(i);
-					return;
-				}
-			}
+	for(auto& os : offset){
+		auto p2 = *this + os;
+		if(m_state->cell(p2) == PUZ_WALL){
+			children.push_back(*this);
+			children.back().make_move(p2);
 		}
+	}
 }
 
 bool puz_state::make_move(const Position& p)
@@ -190,7 +183,7 @@ bool puz_state::make_move(const Position& p)
 
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	return smoves.back().find(PUZ_WALL) == -1;
+	return smoves.size() == boost::count(*this, PUZ_WALL);
 }
 
 void puz_state::gen_children(list<puz_state> &children) const

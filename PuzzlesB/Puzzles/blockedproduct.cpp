@@ -29,7 +29,6 @@ namespace puzzles{ namespace blockedproduct{
 #define PUZ_EMPTY		'.'
 #define PUZ_SENTINEL	'S'
 #define PUZ_TOWER		'T'
-#define PUZ_CONNECTED	'C'
 #define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
@@ -93,10 +92,9 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_game(&g)
 {
-	for(int r = 0; r < sidelen(); ++r)
-		cell(Position(r, 0)) = cell(Position(r, sidelen() - 1)) = PUZ_BOUNDARY;
-	for(int c = 0; c < sidelen(); ++c)
-		cell(Position(0, c)) = cell(Position(sidelen() - 1, c)) = PUZ_BOUNDARY;
+	for(int i = 0; i < sidelen(); ++i)
+		cell(Position(i, 0)) = cell(Position(i, sidelen() - 1)) =
+		cell(Position(0, i)) = cell(Position(sidelen() - 1, i)) = PUZ_BOUNDARY;
 
 	for(const auto& kv : g.m_start)
 		cell(kv.first) = PUZ_SENTINEL, (*this)[kv.first];
@@ -153,45 +151,37 @@ int puz_state::find_matches(bool init)
 	return 2;
 }
 
-struct puz_state2 : string
+struct puz_state2 : Position
 {
 	puz_state2(const puz_state& s);
 
-	int sidelen() const { return m_game->m_sidelen; }
-	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	void make_move(int i){ (*this)[i] = PUZ_CONNECTED; }
+	int sidelen() const { return m_state->sidelen(); }
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const puz_game* m_game;
+	const puz_state* m_state;
 };
 
 puz_state2::puz_state2(const puz_state& s)
-: string(s.m_cells), m_game(s.m_game)
+: m_state(&s)
 {
-	int i = boost::find_if(*this, [](int n){
-		return n != PUZ_BOUNDARY && n != PUZ_TOWER;
-	}) - begin();
-	make_move(i);
+	int i = boost::find_if(s.m_cells, [](char ch){
+		return ch != PUZ_BOUNDARY && ch != PUZ_TOWER;
+	}) - s.m_cells.begin();
+	make_move({i / sidelen(), i % sidelen()});
 }
 
 void puz_state2::gen_children(list<puz_state2> &children) const
 {
-	for(int i = 0; i < length(); ++i){
-		Position p(i / sidelen(), i % sidelen());
-		switch(at(i)){
+	for(auto& os : offset){
+		auto p2 = *this + os;
+		switch(m_state->cell(p2)){
 		case PUZ_BOUNDARY:
-		case PUZ_CONNECTED:
 		case PUZ_TOWER:
 			break;
 		default:
-			for(auto& os : offset){
-				auto p2 = p + os;
-				if(cell(p2) == PUZ_CONNECTED){
-					children.push_back(*this);
-					children.back().make_move(i);
-					return;
-				}
-			}
+			children.push_back(*this);
+			children.back().make_move(p2);
 		}
 	}
 }
@@ -224,9 +214,8 @@ bool puz_state::make_move2(const Position& p, const vector<int>& comb)
 
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	const auto& state = smoves.back();
-	return boost::algorithm::all_of(state, [](int n){
-		return n == PUZ_BOUNDARY || n == PUZ_CONNECTED || n == PUZ_TOWER;
+	return smoves.size() == boost::count_if(m_cells, [](char ch){
+		return ch != PUZ_BOUNDARY && ch != PUZ_TOWER;
 	});
 }
 

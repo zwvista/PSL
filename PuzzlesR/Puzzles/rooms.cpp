@@ -25,7 +25,6 @@
 namespace puzzles{ namespace rooms{
 
 #define PUZ_SPACE			' '
-#define PUZ_CONNECTED		'C'
 #define PUZ_DOOR_UNKNOWN	'0'
 #define PUZ_DOOR_OPEN		'1'
 #define PUZ_DOOR_CLOSED		'2'
@@ -169,40 +168,29 @@ int puz_state::find_matches(bool init)
 	return 2;
 }
 
-struct puz_state2 : string
+struct puz_state2 : Position
 {
 	puz_state2(const puz_state& s);
 
-	int sidelen() const { return m_game->m_sidelen; }
-	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	void make_move(int i){ (*this)[i] = PUZ_CONNECTED; }
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const puz_game* m_game;
-	const puz_state& m_state;
+	const puz_state* m_state;
 };
 
 puz_state2::puz_state2(const puz_state& s)
-: m_game(s.m_game)
-, m_state(s)
+: m_state(&s)
 {
-	append(sidelen() * sidelen(), PUZ_SPACE);
-	make_move(0);
+	make_move({});
 }
 
 void puz_state2::gen_children(list<puz_state2> &children) const
 {
-	for(int i = 0; i < length(); ++i){
-		if(at(i) == PUZ_CONNECTED) continue;
-		Position p(i / sidelen(), i % sidelen());
-		for(int j = 0; j < 4; ++j)
-			if(m_state.get_door_status(p, j) != PUZ_DOOR_CLOSED &&
-				cell(p + offset[j]) == PUZ_CONNECTED){
-				children.push_back(*this);
-				children.back().make_move(i);
-				return;
-			}
-	}
+	for(int i = 0; i < 4; ++i)
+		if(m_state->get_door_status(*this, i) != PUZ_DOOR_CLOSED){
+			children.push_back(*this);
+			children.back().make_move(*this + offset[i]);
+		}
 }
 
 bool puz_state::make_move2(const Position& p, const vector<int>& comb)
@@ -223,7 +211,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& comb)
 
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	return smoves.back().find(PUZ_SPACE) == -1;
+	return smoves.size() == sidelen() * sidelen();
 }
 
 bool puz_state::make_move(const Position& p, const vector<int>& comb)
