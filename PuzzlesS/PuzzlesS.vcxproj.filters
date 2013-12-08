@@ -37,6 +37,9 @@
     <Text Include="Puzzles\snail.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\slantedmaze.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -74,6 +77,9 @@
     <ClCompile Include="Puzzles\snail.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\slantedmaze.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\sokoban.xml">
@@ -92,6 +98,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\snail.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\slantedmaze.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

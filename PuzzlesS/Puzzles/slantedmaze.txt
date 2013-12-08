@@ -1,0 +1,11 @@
+Level 01
+Sequence of moves: 
+\/\//
+\\\/\
+//\\\
+//\/\
+\\\/\
+Number of moves: 15
+Number of vertices examined: 19
+0.153705 [s]
+
