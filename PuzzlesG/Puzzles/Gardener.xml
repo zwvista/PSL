@@ -14,4 +14,18 @@ ffhhh\
   2  \
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+aabcc\
+ddbcc\
+efbgg\
+efbhh\
+iijjj\
+0 11 \
+1    \
+10 1 \
+   1 \
+1 0  \
+    ]]>
+  </level>
 </levels>
