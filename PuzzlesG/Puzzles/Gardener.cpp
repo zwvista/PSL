@@ -33,6 +33,8 @@ namespace puzzles{ namespace Gardener{
 #define PUZ_FLOWER		'F'
 #define PUZ_BOUNDARY	'B'
 
+#define PUZ_FLOWER_COUNT_UNKOWN		-1
+
 bool is_empty(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY; }
 
 const Position offset[] = {
@@ -45,10 +47,8 @@ const Position offset[] = {
 struct puz_fb_info
 {
 	vector<Position> m_ps;
-	int m_flower_count;
-	pair<int, int> key() const {
-		return {static_cast<int>(m_ps.size()), m_flower_count};
-	}
+	int m_flower_count = PUZ_FLOWER_COUNT_UNKOWN;
+	vector<string> m_combs;
 };
 
 struct puz_game
@@ -57,8 +57,6 @@ struct puz_game
 	int m_sidelen;
 	map<Position, int> m_pos2fb;
 	vector<puz_fb_info> m_fb_info;
-	map<pair<int, int>, vector<string>> m_pair2combs;
-
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
 
@@ -85,15 +83,40 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				m_fb_info[m_pos2fb.at(Position(r + 1, c + 1))].m_flower_count = ch - '0';
 		}
 	}
-	for(const auto& info : m_fb_info){
-		auto key = info.key();
-		auto& combs = m_pair2combs[key];
-		if(!combs.empty()) continue;
-		auto comb = string(key.first - key.second, PUZ_EMPTY) + string(key.second, PUZ_FLOWER);
-		do
-			combs.push_back(comb);
-		while(boost::next_permutation(comb));
+
+	map<pair<int, int>, vector<string>> pair2combs;
+	for(auto& info : m_fb_info){
+		int ps_cnt = info.m_ps.size();
+		int flower_cnt = info.m_flower_count;
+		auto& combs = pair2combs[make_pair(ps_cnt, flower_cnt)];
+		if(combs.empty())
+			for(int i = 0; i < ps_cnt; ++i){
+				if(flower_cnt != PUZ_FLOWER_COUNT_UNKOWN && flower_cnt != i) continue;
+				auto comb = string(ps_cnt - i, PUZ_EMPTY) + string(i, PUZ_FLOWER);
+				do
+					combs.push_back(comb);
+				while(boost::next_permutation(comb));
+			}
+		for(const auto& comb : combs){
+			vector<Position> ps_flower;
+			for(int i = 0; i < comb.size(); ++i)
+				if(comb[i] == PUZ_FLOWER)
+					ps_flower.push_back(info.m_ps[i]);
+
+			if([&](){
+				for(const auto& ps1 : ps_flower)
+					for(const auto& ps2 : ps_flower)
+						if(boost::algorithm::any_of_equal(offset, ps1 - ps2))
+							return false;
+				return true;
+			}())
+				info.m_combs.push_back(comb);
+		}
 	}
+
+	boost::sort(m_fb_info, [this](const puz_fb_info& info1, const puz_fb_info& info2){
+		return info1.m_combs.size() < info2.m_combs.size();
+	});
 }
 
 struct puz_state : string
@@ -103,15 +126,15 @@ struct puz_state : string
 	int sidelen() const {return m_game->m_sidelen;}
 	char cell(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	bool make_move(int i, int j);
-	bool make_move2(int i, int j);
-	int find_matches(bool init);
+	bool make_move(int i);
 	void count_unbalanced();
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_matches.size() + m_unbalanced; }
+	unsigned int get_heuristic() const {
+		return m_game->m_fb_info.size() - m_fb_index + m_unbalanced; 
+	}
 	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -120,7 +143,7 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
-	map<int, vector<int>> m_matches;
+	int m_fb_index = 0;
 	unsigned int m_distance = 0;
 	unsigned int m_unbalanced = 0;
 };
@@ -132,38 +155,8 @@ puz_state::puz_state(const puz_game& g)
 	for(int i = 0; i < sidelen(); ++i)
 		cell(Position(i, 0)) = cell(Position(i, sidelen() - 1)) =
 		cell(Position(0, i)) = cell(Position(sidelen() - 1, i)) = PUZ_BOUNDARY;
-	for(int i = 0; i < g.m_fb_info.size(); ++i)
-		m_matches[i];
 
-	find_matches(true);
 	count_unbalanced();
-}
-
-int puz_state::find_matches(bool init)
-{
-	for(auto& kv : m_matches){
-		auto& info = m_game->m_fb_info[kv.first];
-		string area;
-		for(auto& p : info.m_ps)
-			area.push_back(cell(p));
-
-		auto& combs = m_game->m_pair2combs.at(info.key());
-		kv.second.clear();
-		for(int i = 0; i < combs.size(); i++)
-			if(boost::equal(area, combs[i], [](char ch1, char ch2){
-				return ch1 == PUZ_SPACE || ch1 == ch2;
-			}))
-				kv.second.push_back(i);
-
-		if(!init)
-			switch(kv.second.size()){
-			case 0:
-				return 0;
-			case 1:
-				return make_move2(kv.first, kv.second.front()), 1;
-			}
-	}
-	return 2;
 }
 
 void puz_state::count_unbalanced()
@@ -228,11 +221,12 @@ void puz_state2::gen_children(list<puz_state2> &children) const
 	}
 }
 
-bool puz_state::make_move2(int i, int j)
+bool puz_state::make_move(int i)
 {
-	auto& info = m_game->m_fb_info[i];
+	m_distance = 0;
+	auto& info = m_game->m_fb_info[m_fb_index];
 	auto& area = info.m_ps;
-	auto& comb = m_game->m_pair2combs.at(info.key())[j];
+	auto& comb = info.m_combs[i];
 
 	auto ub = m_unbalanced;
 	for(int k = 0; k < comb.size(); ++k){
@@ -240,8 +234,8 @@ bool puz_state::make_move2(int i, int j)
 		if((cell(p) = comb[k]) != PUZ_FLOWER) continue;
 
 		for(auto& os : offset)
-			if(cell(p + os) == PUZ_FLOWER)
-				return false;
+		if(cell(p + os) == PUZ_FLOWER)
+			return false;
 	}
 
 	list<puz_state2> smoves;
@@ -253,41 +247,22 @@ bool puz_state::make_move2(int i, int j)
 
 	count_unbalanced();
 	m_distance += ub - m_unbalanced + 1;
-	m_matches.erase(i);
-	return !m_matches.empty() || m_unbalanced == 0;
-}
-
-bool puz_state::make_move(int i, int j)
-{
-	m_distance = 0;
-	if(!make_move2(i, j))
-		return false;
-	for(;;)
-		switch(find_matches(false)){
-		case 0:
-			return false;
-		case 2:
-			return true;
-		}
+	return ++m_fb_index != m_game->m_fb_info.size() || m_unbalanced == 0;
 }
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	const auto& kv = *boost::min_element(m_matches, [](
-		const pair<const int, vector<int>>& kv1,
-		const pair<const int, vector<int>>& kv2){
-		return kv1.second.size() < kv2.second.size();
-	});
-	for(int n : kv.second){
+	int sz = m_game->m_fb_info[m_fb_index].m_combs.size();
+	for(int i = 0; i < sz; ++i){
 		children.push_back(*this);
-		if(!children.back().make_move(kv.first, n))
+		if(!children.back().make_move(i))
 			children.pop_back();
 	}
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r) {
+	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c)
 			out << cell(Position(r, c)) << ' ';
 		out << endl;
