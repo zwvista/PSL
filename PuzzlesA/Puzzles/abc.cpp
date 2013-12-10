@@ -155,7 +155,7 @@ bool puz_state::make_move(int i, int j)
 			return false;
 		case 2:
 			return true;
-	}
+		}
 }
 
 void puz_state::gen_children(list<puz_state> &children) const

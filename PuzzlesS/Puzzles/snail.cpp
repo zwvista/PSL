@@ -67,9 +67,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 
 	auto comb = string(m_sidelen - 3, PUZ_EMPTY).append("123");
-	do{
+	do
 		m_combs.push_back(comb);
-	} while(boost::next_permutation(comb));
+	while(boost::next_permutation(comb));
 
 	Position p(0, 0);
 	m_snail_path.push_back(p);

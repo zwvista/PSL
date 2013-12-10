@@ -104,6 +104,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 					ps_flower.push_back(info.m_ps[i]);
 
 			if([&](){
+				// no touching
 				for(const auto& ps1 : ps_flower)
 					for(const auto& ps2 : ps_flower)
 						if(boost::algorithm::any_of_equal(offset, ps1 - ps2))
@@ -233,11 +234,13 @@ bool puz_state::make_move(int i)
 		auto& p = area[k];
 		if((cell(p) = comb[k]) != PUZ_FLOWER) continue;
 
+		// no touching
 		for(auto& os : offset)
-		if(cell(p + os) == PUZ_FLOWER)
-			return false;
+			if(cell(p + os) == PUZ_FLOWER)
+				return false;
 	}
 
+	// interconnected spaces
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
 	if(smoves.size() != boost::count_if(*this, [](char ch){

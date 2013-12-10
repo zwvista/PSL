@@ -55,6 +55,9 @@
     <Text Include="Puzzles\Pharaoh_ida.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Parks2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -87,6 +90,9 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\Pharaoh.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Parks2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
