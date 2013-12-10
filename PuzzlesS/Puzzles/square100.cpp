@@ -67,13 +67,14 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-struct puz_state : map<int, vector<int>>
+struct puz_state
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
 	int cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
 	int& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(int i, int j);
 	void make_move2(int i, int j);
 	int find_matches(bool init);
@@ -81,7 +82,7 @@ struct puz_state : map<int, vector<int>>
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return size();}
+	unsigned int get_heuristic() const { return m_matches.size(); }
 	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -91,6 +92,7 @@ struct puz_state : map<int, vector<int>>
 
 	const puz_game* m_game = nullptr;
 	vector<int> m_cells;
+	map<int, vector<int>> m_matches;
 	int m_distance = 0;
 };
 
@@ -98,14 +100,14 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen), m_game(&g)
 {
 	for(int i = 0; i < sidelen(); ++i)
-		(*this)[i], (*this)[sidelen() + i];
+		m_matches[i], m_matches[sidelen() + i];
 
 	find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-	for(auto& kv : *this){
+	for(auto& kv : m_matches){
 		const auto& area = m_game->m_areas.at(kv.first);
 		vector<int> nums;
 		for(const auto& p : area.first)
@@ -139,7 +141,7 @@ void puz_state::make_move2(int i, int j)
 		cell(area.first[k]) = comb[k];
 
 	++m_distance;
-	erase(i);
+	m_matches.erase(i);
 }
 
 bool puz_state::make_move(int i, int j)
@@ -157,7 +159,9 @@ bool puz_state::make_move(int i, int j)
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	const auto& kv = *boost::min_element(*this, [](const pair<const int, vector<int>>& kv1, const pair<const int, vector<int>>& kv2){
+	const auto& kv = *boost::min_element(m_matches, [](
+		const pair<const int, vector<int>>& kv1, 
+		const pair<const int, vector<int>>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
 	for(int n : kv.second){

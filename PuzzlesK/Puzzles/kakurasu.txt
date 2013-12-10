@@ -8,7 +8,7 @@ Sequence of moves:
      1  2  3  4   
 Number of moves: 1
 Number of vertices examined: 2
-0.0210735 [s]
+0.0100244 [s]
 
 Level 27
 Sequence of moves: 
@@ -25,5 +25,5 @@ Sequence of moves:
      1  2  3  4  5  6  7  8  9   
 Number of moves: 6
 Number of vertices examined: 155
-6.74764 [s]
+6.40169 [s]
 

@@ -69,18 +69,21 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-struct puz_state : pair<map<Position, char>, map<Position, char>>
+struct puz_state
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
 	char get_door_status(const Position& p, int i) const {
-		auto& doors = i % 2 == 0 ? first : second;
+		auto& doors = i % 2 == 0 ? m_horz_doors : m_vert_doors;
 		return doors.at(p + door_offset[i]);
 	}
 	void set_door_status(const Position& p, int i, char status){
-		auto& doors = i % 2 == 0 ? first : second;
+		auto& doors = i % 2 == 0 ? m_horz_doors : m_vert_doors;
 		doors.at(p + door_offset[i]) = status;
+	}
+	bool operator<(const puz_state& x) const { 
+		return std::tie(m_horz_doors, m_vert_doors) < std::tie(x.m_horz_doors, x.m_vert_doors);
 	}
 	bool make_move(const Position& p, const vector<int>& comb);
 	bool make_move2(const Position& p, const vector<int>& comb);
@@ -100,6 +103,7 @@ struct puz_state : pair<map<Position, char>, map<Position, char>>
 	const puz_game* m_game = nullptr;
 	unsigned int m_distance = 0;
 	map<Position, vector<vector<int>>> m_matches;
+	map<Position, char> m_horz_doors, m_vert_doors;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -107,11 +111,11 @@ puz_state::puz_state(const puz_game& g)
 {
 	for(int r = 0; r <= sidelen(); ++r)
 		for(int c = 0; c <= sidelen(); ++c){
-			if(r < sidelen())
-				second[Position(r, c)] = c == 0 || c == sidelen() ?
-					PUZ_DOOR_CLOSED : PUZ_DOOR_UNKNOWN;
 			if(c < sidelen())
-				first[Position(r, c)] = r == 0 || r == sidelen() ?
+				m_horz_doors[Position(r, c)] = r == 0 || r == sidelen() ?
+					PUZ_DOOR_CLOSED : PUZ_DOOR_UNKNOWN;
+			if(r < sidelen())
+				m_vert_doors[Position(r, c)] = c == 0 || c == sidelen() ?
 					PUZ_DOOR_CLOSED : PUZ_DOOR_UNKNOWN;
 		}
 
@@ -248,13 +252,13 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0;; ++r){
 		// draw horz-doors
 		for(int c = 0; c < sidelen(); ++c)
-			out << (first.at(Position(r, c)) == PUZ_DOOR_CLOSED ? " -" : "  ");
+			out << (m_horz_doors.at(Position(r, c)) == PUZ_DOOR_CLOSED ? " -" : "  ");
 		out << endl;
 		if(r == sidelen()) break;
 		for(int c = 0;; ++c){
 			Position p(r, c);
 			// draw vert-doors
-			out << (second.at(p) == PUZ_DOOR_CLOSED ? '|' : ' ');
+			out << (m_vert_doors.at(p) == PUZ_DOOR_CLOSED ? '|' : ' ');
 			if(c == sidelen()) break;
 			out << m_game->cell(p);
 		}

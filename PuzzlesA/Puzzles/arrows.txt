@@ -7,5 +7,5 @@ Sequence of moves:
   1 7 7   
 Number of moves: 2
 Number of vertices examined: 5
-0.154233 [s]
+0.152256 [s]
 

@@ -6,7 +6,7 @@ bbbc
 aaaa
 Number of moves: 2
 Number of vertices examined: 3
-0.0056315 [s]
+0.00587491 [s]
 
 Level 02
 Sequence of moves: 
@@ -17,5 +17,5 @@ aaaaa
 aaaaa
 Number of moves: 1
 Number of vertices examined: 2
-0.00208587 [s]
+0.0030804 [s]
 

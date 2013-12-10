@@ -8,5 +8,5 @@ Sequence of moves:
  8 - - - - 5
 Number of moves: 1
 Number of vertices examined: 2
-0.00387609 [s]
+0.0113887 [s]
 
