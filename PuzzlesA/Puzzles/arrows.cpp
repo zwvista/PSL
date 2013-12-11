@@ -33,7 +33,7 @@ const Position offset[] = {
 
 struct puz_arrow
 {
-	vector<Position> m_ps;
+	vector<Position> m_range;
 	vector<int> m_dirs;
 	vector<vector<int>> m_combs;
 };
@@ -78,7 +78,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				for(auto p2 = p + os;; p2 += os){
 					int n2 = cell(p2);
 					if(n2 == PUZ_BORDER){
-						arrow.m_ps.push_back(p2);
+						arrow.m_range.push_back(p2);
 						arrow.m_dirs.push_back((i + 4) % 8);
 						break;
 					}
@@ -87,7 +87,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				}
 			}
 
-			int sz = arrow.m_ps.size();
+			int sz = arrow.m_range.size();
 			vector<int> comb(sz);
 
 			vector<int> indicators;

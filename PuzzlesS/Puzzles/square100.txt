@@ -5,5 +5,24 @@ Sequence of moves:
   4 69 27
 Number of moves: 2
 Number of vertices examined: 5
-0.0141171 [s]
+0.0104941 [s]
+
+Level 02
+Sequence of moves: 
+ 51 19 30
+ 43 36 21
+  6 45 49
+Number of moves: 2
+Number of vertices examined: 5
+0.0221308 [s]
+
+Level 36
+Sequence of moves: 
+ 80  5  1 14
+  9 57  5 29
+  5  9 49 37
+  6 29 45 20
+Number of moves: 3
+Number of vertices examined: 5
+0.0302228 [s]
 

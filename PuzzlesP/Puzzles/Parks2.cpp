@@ -38,7 +38,7 @@ const Position offset[] = {
 
 struct puz_area_info
 {
-	vector<Position> m_ps;
+	vector<Position> m_range;
 	vector<string> m_combs;
 };
 
@@ -77,15 +77,15 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				m_start.push_back(PUZ_SPACE);
 			int n = ch - 'a';
 			m_pos2park[p] = n;
-			m_area_info[r].m_ps.push_back(p);
-			m_area_info[c + m_sidelen].m_ps.push_back(p);
-			m_area_info[n + m_sidelen * 2].m_ps.push_back(p);
+			m_area_info[r].m_range.push_back(p);
+			m_area_info[c + m_sidelen].m_range.push_back(p);
+			m_area_info[n + m_sidelen * 2].m_range.push_back(p);
 		}
 	}
 
 	map<int, vector<string>> sz2combs;
 	for(auto& info : m_area_info){
-		int ps_cnt = info.m_ps.size();
+		int ps_cnt = info.m_range.size();
 		auto& combs = sz2combs[ps_cnt];
 		if(combs.empty()){
 			auto comb = string(ps_cnt - m_tree_count_area, PUZ_EMPTY)
@@ -98,7 +98,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			vector<Position> ps_tree;
 			for(int i = 0; i < comb.size(); ++i)
 				if(comb[i] == PUZ_TREE)
-					ps_tree.push_back(info.m_ps[i]);
+					ps_tree.push_back(info.m_range[i]);
 
 			if([&](){
 				// no touching
@@ -159,7 +159,7 @@ int puz_state::find_matches(bool init)
 	for(auto& kv : m_matches){
 		auto& info = m_game->m_area_info[kv.first];
 		string area;
-		for(auto& p : info.m_ps)
+		for(auto& p : info.m_range)
 			area.push_back(cell(p));
 
 		kv.second.clear();
@@ -183,7 +183,7 @@ int puz_state::find_matches(bool init)
 bool puz_state::make_move2(int i, int j)
 {
 	auto& info = m_game->m_area_info[i];
-	auto& area = info.m_ps;
+	auto& area = info.m_range;
 	auto& comb = info.m_combs[j];
 
 	for(int k = 0; k < comb.size(); ++k){

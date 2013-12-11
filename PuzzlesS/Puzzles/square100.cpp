@@ -19,12 +19,18 @@ namespace puzzles{ namespace square100{
 
 #define PUZ_SPACE		' '
 
+struct puz_area
+{
+	vector<Position> m_range;
+	vector<int> m_nums;
+	vector<vector<int>> m_combs;
+};
+
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	vector<pair<vector<Position>, vector<int>>> m_areas;
-	map<vector<int>, vector<vector<int>>> m_nums2combs;
+	vector<puz_area> m_areas;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -39,16 +45,18 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
 			int n = str[c] - '0';
-			m_areas[r].first.push_back(p);
-			m_areas[r].second.push_back(n);
-			m_areas[m_sidelen + c].first.push_back(p);
-			m_areas[m_sidelen + c].second.push_back(n);
+			auto& area1 = m_areas[r];
+			area1.m_range.push_back(p);
+			area1.m_nums.push_back(n);
+			auto& area2 = m_areas[m_sidelen + c];
+			area2.m_range.push_back(p);
+			area2.m_nums.push_back(n);
 		}
 	}
 
-	for(const auto& a : m_areas){
-		const auto& nums = a.second;
-		auto& combs = m_nums2combs[nums];
+	for(auto& area : m_areas){
+		const auto& nums = area.m_nums;
+		auto& combs = area.m_combs;
 		int cnt = nums.size();
 
 		vector<int> indexes(cnt);
@@ -110,10 +118,10 @@ int puz_state::find_matches(bool init)
 	for(auto& kv : m_matches){
 		const auto& area = m_game->m_areas.at(kv.first);
 		vector<int> nums;
-		for(const auto& p : area.first)
+		for(const auto& p : area.m_range)
 			nums.push_back(cell(p));
 
-		auto& combs = m_game->m_nums2combs.at(area.second);
+		auto& combs = area.m_combs;
 		kv.second.clear();
 		for(int i = 0; i < combs.size(); ++i)
 			if(boost::equal(nums, combs[i], [](int n1, int n2){
@@ -135,10 +143,11 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int i, int j)
 {
 	auto& area = m_game->m_areas[i];
-	auto& comb = m_game->m_nums2combs.at(area.second)[j];
+	auto& range = area.m_range;
+	auto& comb = area.m_combs[j];
 
 	for(int k = 0; k < comb.size(); ++k)
-		cell(area.first[k]) = comb[k];
+		cell(range[k]) = comb[k];
 
 	++m_distance;
 	m_matches.erase(i);

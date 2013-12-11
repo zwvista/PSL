@@ -25,7 +25,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	vector<int> m_start;
-	vector<vector<Position>> m_area_pos;
+	vector<vector<Position>> m_area2range;
 	vector<vector<int>> m_combs_rows, m_combs_cols;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -34,7 +34,7 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size())
-, m_area_pos(m_sidelen * 2)
+, m_area2range(m_sidelen * 2)
 {
 	vector<int> values(m_sidelen * 2);
 	for(int r = 0; r < m_sidelen; ++r){
@@ -51,8 +51,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			}
 			else{
 				Position p(r, c);
-				m_area_pos[r].push_back(p);
-				m_area_pos[m_sidelen + c].push_back(p);
+				m_area2range[r].push_back(p);
+				m_area2range[m_sidelen + c].push_back(p);
 			}
 		}
 	}
@@ -117,7 +117,7 @@ int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
 		vector<int> nums;
-		for(auto& p : m_game->m_area_pos[kv.first])
+		for(auto& p : m_game->m_area2range[kv.first])
 			nums.push_back(cell(p));
 
 		auto& combs = kv.first < sidelen() ? m_game->m_combs_rows : m_game->m_combs_cols;
@@ -141,7 +141,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int i, int j)
 {
-	auto& area = m_game->m_area_pos[i];
+	auto& area = m_game->m_area2range[i];
 	auto& comb = (i < sidelen() ? m_game->m_combs_rows : m_game->m_combs_cols)[j];
 
 	for(int k = 0; k < comb.size(); ++k)

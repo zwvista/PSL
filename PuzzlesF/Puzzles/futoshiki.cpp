@@ -38,7 +38,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	string m_start;
-	vector<vector<Position>> m_area_pos;
+	vector<vector<Position>> m_area2range;
 	vector<string> m_combs;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -47,7 +47,7 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size())
-, m_area_pos(m_sidelen * 2)
+, m_area2range(m_sidelen * 2)
 {
 	m_start = boost::accumulate(strs, string());
 	boost::replace(m_start, PUZ_COL_LT, PUZ_ROW_LT);
@@ -59,8 +59,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
-			m_area_pos[r].push_back(p);
-			m_area_pos[m_sidelen + c].push_back(p);
+			m_area2range[r].push_back(p);
+			m_area2range[m_sidelen + c].push_back(p);
 		}
 	}
 
@@ -122,7 +122,7 @@ int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
 		string nums;
-		for(const auto& p : m_game->m_area_pos[kv.first])
+		for(const auto& p : m_game->m_area2range[kv.first])
 			nums.push_back(cell(p));
 
 		kv.second.clear();
@@ -145,7 +145,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int i, int j)
 {
-	auto& area = m_game->m_area_pos[i];
+	auto& area = m_game->m_area2range[i];
 	auto& comb = m_game->m_combs[j];
 
 	for(int k = 0; k < comb.size(); ++k)
