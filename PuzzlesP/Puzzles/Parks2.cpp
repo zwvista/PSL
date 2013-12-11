@@ -24,7 +24,6 @@ namespace puzzles{ namespace Parks2{
 #define PUZ_TREE		'T'
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
-#define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
 	{-1, 0},	// n
@@ -59,17 +58,15 @@ struct puz_game
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size() + 2)
+, m_sidelen(strs.size())
 , m_tree_count_area(attrs.get<int>("numTreesInEachArea", 1))
 , m_tree_total_count(m_tree_count_area * m_sidelen)
-, m_area_info((m_sidelen - 2) * 3)
+, m_area_info(m_sidelen * 3)
 {
-	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
-	for(int r = 0; r < m_sidelen - 2; ++r){
+	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
-		m_start.push_back(PUZ_BOUNDARY);
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			Position p(r + 1, c + 1);
+		for(int c = 0; c < m_sidelen; ++c){
+			Position p(r, c);
 			char ch = str[c];
 			if(isupper(ch)){
 				ch = tolower(ch);
@@ -81,12 +78,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			int n = ch - 'a';
 			m_pos2park[p] = n;
 			m_area_info[r].m_ps.push_back(p);
-			m_area_info[c + m_sidelen - 2].m_ps.push_back(p);
-			m_area_info[n + (m_sidelen - 2) * 2].m_ps.push_back(p);
+			m_area_info[c + m_sidelen].m_ps.push_back(p);
+			m_area_info[n + m_sidelen * 2].m_ps.push_back(p);
 		}
-		m_start.push_back(PUZ_BOUNDARY);
 	}
-	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
 
 	map<int, vector<string>> sz2combs;
 	for(auto& info : m_area_info){
@@ -123,6 +118,9 @@ struct puz_state
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const { return m_game->m_sidelen; }
+	bool is_valid(const Position& p) const {
+		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+	}
 	char cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
 	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
@@ -150,7 +148,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-	for(int i = 0; i < (sidelen() - 2) * 3; ++i)
+	for(int i = 0; i < sidelen() * 3; ++i)
 		m_matches[i];
 
 	find_matches(true);
@@ -193,9 +191,11 @@ bool puz_state::make_move2(int i, int j)
 		if((cell(p) = comb[k]) != PUZ_TREE) continue;
 
 		// no touching
-		for(auto& os : offset)
-			if(cell(p + os) == PUZ_TREE)
+		for(auto& os : offset){
+			auto p2 = p + os;
+			if(is_valid(p2) && cell(p2) == PUZ_TREE)
 				return false;
+		}
 	}
 
 	++m_distance;
@@ -233,8 +233,8 @@ void puz_state::gen_children(list<puz_state> &children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r){
-		for(int c = 1; c < sidelen() - 1; ++c)
+	for(int r = 0; r < sidelen(); ++r){
+		for(int c = 0; c < sidelen(); ++c)
 			out << cell(Position(r, c)) << ' ';
 		out << endl;
 	}
