@@ -39,7 +39,7 @@ struct puz_game
 	int m_sidelen;
 	string m_start;
 	vector<vector<Position>> m_area2range;
-	vector<string> m_combs;
+	vector<string> m_disps;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -64,20 +64,20 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	string comb(m_sidelen / 2 + 1, PUZ_SPACE);
-	string comb2(m_sidelen, PUZ_SPACE);
+	string disp(m_sidelen / 2 + 1, PUZ_SPACE);
+	string disp2(m_sidelen, PUZ_SPACE);
 
-	boost::iota(comb, '1');
+	boost::iota(disp, '1');
 	do{
 		for(int i = m_sidelen - 1, j = i / 2;; i -= 2, --j){
-			comb2[i] = comb[j];
+			disp2[i] = disp[j];
 			if(i == 0) break;
-			comb2[i - 1] = ltgt_mode ? 
-				comb[j - 1] < comb[j] ? PUZ_ROW_LT : PUZ_ROW_GT :
-				myabs(comb[j - 1] - comb[j]) == 1 ? PUZ_ROW_CS : PUZ_NOT_CS;
+			disp2[i - 1] = ltgt_mode ? 
+				disp[j - 1] < disp[j] ? PUZ_ROW_LT : PUZ_ROW_GT :
+				myabs(disp[j - 1] - disp[j]) == 1 ? PUZ_ROW_CS : PUZ_NOT_CS;
 		}
-		m_combs.push_back(comb2);
-	}while(boost::next_permutation(comb));
+		m_disps.push_back(disp2);
+	}while(boost::next_permutation(disp));
 }
 
 struct puz_state
@@ -126,8 +126,8 @@ int puz_state::find_matches(bool init)
 			nums.push_back(cell(p));
 
 		kv.second.clear();
-		for(int i = 0; i < m_game->m_combs.size(); i++)
-			if(boost::equal(nums, m_game->m_combs.at(i), [](char ch1, char ch2){
+		for(int i = 0; i < m_game->m_disps.size(); i++)
+			if(boost::equal(nums, m_game->m_disps.at(i), [](char ch1, char ch2){
 				return ch1 == PUZ_SPACE && ch2 != PUZ_ROW_CS || ch1 == ch2;
 			}))
 				kv.second.push_back(i);
@@ -145,11 +145,11 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int i, int j)
 {
-	auto& area = m_game->m_area2range[i];
-	auto& comb = m_game->m_combs[j];
+	auto& range = m_game->m_area2range[i];
+	auto& disp = m_game->m_disps[j];
 
-	for(int k = 0; k < comb.size(); ++k)
-		cell(area[k]) = comb[k];
+	for(int k = 0; k < disp.size(); ++k)
+		cell(range[k]) = disp[k];
 
 	++m_distance;
 	m_matches.erase(i);

@@ -23,7 +23,7 @@ struct puz_area
 {
 	vector<Position> m_range;
 	vector<int> m_nums;
-	vector<vector<int>> m_combs;
+	vector<vector<int>> m_disps;
 };
 
 struct puz_game
@@ -56,19 +56,19 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 	for(auto& area : m_areas){
 		const auto& nums = area.m_nums;
-		auto& combs = area.m_combs;
+		auto& disps = area.m_disps;
 		int cnt = nums.size();
 
 		vector<int> indexes(cnt);
-		vector<int> comb(cnt);
+		vector<int> disp(cnt);
 		for(int i = 0; i < cnt;){
 			for(int j = 0; j < cnt; ++j){
 				int index = indexes[j];
-				comb[j] = index < 10 ? index * 10 + nums[j]
+				disp[j] = index < 10 ? index * 10 + nums[j]
 					: nums[j] * 10 + index - 10;
 			}
-			if(boost::accumulate(comb, 0) == 100)
-				combs.push_back(comb);
+			if(boost::accumulate(disp, 0) == 100)
+				disps.push_back(disp);
 			for(i = 0; i < cnt && ++indexes[i] == 20; ++i)
 				indexes[i] = 0;
 		}
@@ -121,10 +121,10 @@ int puz_state::find_matches(bool init)
 		for(const auto& p : area.m_range)
 			nums.push_back(cell(p));
 
-		auto& combs = area.m_combs;
+		auto& disps = area.m_disps;
 		kv.second.clear();
-		for(int i = 0; i < combs.size(); ++i)
-			if(boost::equal(nums, combs[i], [](int n1, int n2){
+		for(int i = 0; i < disps.size(); ++i)
+			if(boost::equal(nums, disps[i], [](int n1, int n2){
 				return n1 == 0 || n1 == n2;
 			}))
 				kv.second.push_back(i);
@@ -144,10 +144,10 @@ void puz_state::make_move2(int i, int j)
 {
 	auto& area = m_game->m_areas[i];
 	auto& range = area.m_range;
-	auto& comb = area.m_combs[j];
+	auto& disp = area.m_disps[j];
 
-	for(int k = 0; k < comb.size(); ++k)
-		cell(range[k]) = comb[k];
+	for(int k = 0; k < disp.size(); ++k)
+		cell(range[k]) = disp[k];
 
 	++m_distance;
 	m_matches.erase(i);

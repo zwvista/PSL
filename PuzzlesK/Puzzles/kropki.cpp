@@ -37,7 +37,7 @@ struct puz_game
 	int m_sidelen;
 	string m_start;
 	vector<vector<Position>> m_area2range;
-	vector<string> m_combs;
+	vector<string> m_disps;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -58,28 +58,28 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	vector<int> comb(m_sidelen / 2 + 1);
-	string comb2(m_sidelen, PUZ_SPACE);
+	vector<int> disp(m_sidelen / 2 + 1);
+	string disp2(m_sidelen, PUZ_SPACE);
 
-	boost::iota(comb, 1);
+	boost::iota(disp, 1);
 	do{
 		int i01 = 0;
 		for(int i = m_sidelen - 1, j = i / 2;; i -= 2, --j){
-			comb2[i] = comb[j] + '0';
+			disp2[i] = disp[j] + '0';
 			if(i == 0) break;
-			int n1 = comb[j - 1], n2 = comb[j];
+			int n1 = disp[j - 1], n2 = disp[j];
 			if(n1 > n2) ::swap(n1, n2);
-			comb2[i - 1] = n2 - n1 == 1 ? PUZ_WHITE :
+			disp2[i - 1] = n2 - n1 == 1 ? PUZ_WHITE :
 				n2 == n1 * 2 ? PUZ_BLACK : PUZ_NOT_BH;
 			if(n1 == 1 && n2 == 2)
 				i01 = i - 1;
 		}
-		m_combs.push_back(comb2);
+		m_disps.push_back(disp2);
 		if(i01 > 0){
-			comb2[i01] = PUZ_BLACK;
-			m_combs.push_back(comb2);
+			disp2[i01] = PUZ_BLACK;
+			m_disps.push_back(disp2);
 		}
-	}while(boost::next_permutation(comb));
+	}while(boost::next_permutation(disp));
 }
 
 struct puz_state
@@ -128,8 +128,8 @@ int puz_state::find_matches(bool init)
 			nums.push_back(cell(p));
 
 		kv.second.clear();
-		for(int i = 0; i < m_game->m_combs.size(); i++)
-			if(boost::equal(nums, m_game->m_combs.at(i), [](char ch1, char ch2){
+		for(int i = 0; i < m_game->m_disps.size(); i++)
+			if(boost::equal(nums, m_game->m_disps.at(i), [](char ch1, char ch2){
 				return ch1 == PUZ_SPACE && ch2 != PUZ_BLACK && ch2 != PUZ_WHITE || ch1 == ch2;
 			}))
 				kv.second.push_back(i);
@@ -148,10 +148,10 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int i, int j)
 {
 	auto& area = m_game->m_area2range[i];
-	auto& comb = m_game->m_combs[j];
+	auto& disp = m_game->m_disps[j];
 
-	for(int k = 0; k < comb.size(); ++k)
-		cell(area[k]) = comb[k];
+	for(int k = 0; k < disp.size(); ++k)
+		cell(area[k]) = disp[k];
 
 	++m_distance;
 	m_matches.erase(i);

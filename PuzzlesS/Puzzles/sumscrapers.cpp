@@ -25,8 +25,15 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	vector<int> m_start;
-	vector<vector<Position>> m_area_pos;
-	vector<vector<int>> m_combs;
+	// 1st dimension : the index of the area(rows and columns)
+	// 2nd dimension : all the positions that the area is composed of
+	vector<vector<Position>> m_area2range;
+	// all dispositions
+	// 10 1 2 3 4 4
+	// 7 1 2 4 3 7
+	// ...
+	// 4 4 3 2 1 10
+	vector<vector<int>> m_disps;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -34,7 +41,7 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size())
-, m_area_pos(m_sidelen * 2)
+, m_area2range(m_sidelen * 2)
 {
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
@@ -42,26 +49,26 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			string s = str.substr(c * 2, 2);
 			m_start.push_back(atoi(s.c_str()));
 			Position p(r, c);
-			m_area_pos[r].push_back(p);
-			m_area_pos[m_sidelen + c].push_back(p);
+			m_area2range[r].push_back(p);
+			m_area2range[m_sidelen + c].push_back(p);
 		}
 	}
 
-	vector<int> comb(m_sidelen);
+	vector<int> disp(m_sidelen);
 	auto f = [&](int border, int start, int end, int step){
 		int h = 0;
-		comb[border] = 0;
+		disp[border] = 0;
 		for(int i = start; i != end; i += step)
-			if(comb[i] > h)
-				comb[border] += h = comb[i];
+			if(disp[i] > h)
+				disp[border] += h = disp[i];
 	};
 
-	auto begin = next(comb.begin()), end = prev(comb.end());
+	auto begin = next(disp.begin()), end = prev(disp.end());
 	iota(begin, end, 1);
 	do{
 		f(0, 1, m_sidelen - 1, 1);
 		f(m_sidelen - 1, m_sidelen - 2, 0, -1);
-		m_combs.push_back(comb);
+		m_disps.push_back(disp);
 	}while(next_permutation(begin, end));
 }
 
@@ -107,12 +114,12 @@ int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
 		vector<int> nums;
-		for(auto& p : m_game->m_area_pos[kv.first])
+		for(auto& p : m_game->m_area2range[kv.first])
 			nums.push_back(cell(p));
 
 		kv.second.clear();
-		for(int i = 0; i < m_game->m_combs.size(); ++i)
-			if(boost::equal(nums, m_game->m_combs[i], [](int n1, int n2){
+		for(int i = 0; i < m_game->m_disps.size(); ++i)
+			if(boost::equal(nums, m_game->m_disps[i], [](int n1, int n2){
 				return n1 == 0 || n1 == n2;
 			}))
 				kv.second.push_back(i);
@@ -130,11 +137,11 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int i, int j)
 {
-	auto& area = m_game->m_area_pos[i];
-	auto& comb = m_game->m_combs[j];
+	auto& range = m_game->m_area2range[i];
+	auto& disp = m_game->m_disps[j];
 
-	for(int k = 0; k < comb.size(); ++k)
-		cell(area[k]) = comb[k];
+	for(int k = 0; k < disp.size(); ++k)
+		cell(range[k]) = disp[k];
 
 	++m_distance;
 	m_matches.erase(i);

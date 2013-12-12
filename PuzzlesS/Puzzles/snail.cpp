@@ -42,8 +42,15 @@ struct puz_game
 	int m_sidelen;
 	string m_start;
 	vector<Position> m_snail_path;
-	vector<vector<Position>> m_area_range;
-	vector<string> m_combs;
+	// 1st dimension : the index of the area(rows and columns)
+	// 2nd dimension : all the positions that the area is composed of
+	vector<vector<Position>> m_area2range;
+	// all dispositions
+	// space space 1 2 3
+	// space space 1 3 2
+	// ...
+	// 3 2 1 space space
+	vector<string> m_disps;
 
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
@@ -55,21 +62,21 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size())
-, m_area_range(m_sidelen * 2)
+, m_area2range(m_sidelen * 2)
 {
 	m_start = boost::accumulate(strs, string());
 	for(int r = 0; r < m_sidelen; ++r){
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
-			m_area_range[r].push_back(p);
-			m_area_range[m_sidelen + c].push_back(p);
+			m_area2range[r].push_back(p);
+			m_area2range[m_sidelen + c].push_back(p);
 		}
 	}
 
-	auto comb = string(m_sidelen - 3, PUZ_EMPTY).append("123");
+	auto disp = string(m_sidelen - 3, PUZ_EMPTY).append("123");
 	do
-		m_combs.push_back(comb);
-	while(boost::next_permutation(comb));
+		m_disps.push_back(disp);
+	while(boost::next_permutation(disp));
 
 	Position p(0, 0);
 	m_snail_path.push_back(p);
@@ -127,12 +134,12 @@ int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
 		string area;
-		for(auto& p : m_game->m_area_range[kv.first])
+		for(auto& p : m_game->m_area2range[kv.first])
 			area.push_back(cell(p));
 
 		kv.second.clear();
-		for(int i = 0; i < m_game->m_combs.size(); ++i)
-			if(boost::equal(area, m_game->m_combs[i], [](char ch1, char ch2){
+		for(int i = 0; i < m_game->m_disps.size(); ++i)
+			if(boost::equal(area, m_game->m_disps[i], [](char ch1, char ch2){
 				return ch1 == PUZ_SPACE || ch1 == ch2;
 			}))
 				kv.second.push_back(i);
@@ -150,11 +157,11 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int i, int j)
 {
-	auto& area = m_game->m_area_range[i];
-	auto& comb = m_game->m_combs[j];
+	auto& range = m_game->m_area2range[i];
+	auto& disp = m_game->m_disps[j];
 
-	for(int k = 0; k < comb.size(); ++k)
-		cell(area[k]) = comb[k];
+	for(int k = 0; k < disp.size(); ++k)
+		cell(range[k]) = disp[k];
 
 	++m_distance;
 	m_matches.erase(i);

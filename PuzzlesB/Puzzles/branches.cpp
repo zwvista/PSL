@@ -75,8 +75,8 @@ struct puz_state
 	char cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
 	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-	bool make_move(const Position& p, const vector<int>& comb);
-	void make_move2(const Position& p, const vector<int>& comb);
+	bool make_move(const Position& p, const vector<int>& disp);
+	void make_move2(const Position& p, const vector<int>& disp);
 	int find_matches(bool init);
 
 	//solve_puzzle interface
@@ -109,8 +109,8 @@ int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
 		const auto& p = kv.first;
-		auto& combs = kv.second;
-		combs.clear();
+		auto& disps = kv.second;
+		disps.clear();
 
 		int sum = m_game->m_pos2num.at(p);
 		vector<vector<int>> dir_nums(4);
@@ -132,24 +132,24 @@ int puz_state::find_matches(bool init)
 				for(int n2 : dir_nums[2])
 					for(int n3 : dir_nums[3])
 						if(n0 + n1 + n2 + n3 == sum)
-							combs.push_back({n0, n1, n2, n3});
+							disps.push_back({n0, n1, n2, n3});
 
 		if(!init)
-			switch(combs.size()){
+			switch(disps.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, combs.front()), 1;
+				return make_move2(p, disps.front()), 1;
 			}
 	}
 	return 2;
 }
 
-void puz_state::make_move2(const Position& p, const vector<int>& comb)
+void puz_state::make_move2(const Position& p, const vector<int>& disp)
 {
 	for(int i = 0; i < 4; ++i){
 		auto& os = offset[i];
-		int n = comb[i];
+		int n = disp[i];
 		auto p2 = p + os;
 		for(int j = 0; j < n; ++j){
 			cell(p2) = str_branch[i + (j == n - 1 ? 4 : 0)];
@@ -161,10 +161,10 @@ void puz_state::make_move2(const Position& p, const vector<int>& comb)
 	m_matches.erase(p);
 }
 
-bool puz_state::make_move(const Position& p, const vector<int>& comb)
+bool puz_state::make_move(const Position& p, const vector<int>& disp)
 {
 	m_distance = 0;
-	make_move2(p, comb);
+	make_move2(p, disp);
 	for(;;)
 		switch(find_matches(false)){
 		case 0:
@@ -182,9 +182,9 @@ void puz_state::gen_children(list<puz_state> &children) const
 		return kv1.second.size() < kv2.second.size();
 	});
 
-	for(const auto& comb : kv.second){
+	for(const auto& disp : kv.second){
 		children.push_back(*this);
-		if(!children.back().make_move(kv.first, comb))
+		if(!children.back().make_move(kv.first, disp))
 			children.pop_back();
 	}
 }

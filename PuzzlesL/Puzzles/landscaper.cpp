@@ -37,7 +37,7 @@ struct puz_game
 	int m_sidelen;
 	string m_start;
 	vector<vector<Position>> m_area2range;
-	vector<string> m_combs;
+	vector<string> m_disps;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -58,24 +58,24 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	string comb(m_sidelen, PUZ_SPACE);
+	string disp(m_sidelen, PUZ_SPACE);
 	auto f = [&](int n1, int n2){
 		for(int i = 0; i < n1; ++i)
-			comb[i] = PUZ_FLOWER;
+			disp[i] = PUZ_FLOWER;
 		for(int i = 0; i < n2; ++i)
-			comb[i + n1] = PUZ_TREE;
+			disp[i + n1] = PUZ_TREE;
 		do{
 			bool no_more_than_two = true;
 			for(int i = 1, n = 1; i < m_sidelen; ++i){
-				n = comb[i] == comb[i - 1] ? n + 1 : 1;
+				n = disp[i] == disp[i - 1] ? n + 1 : 1;
 				if(n > 2){
 					no_more_than_two = false;
 					break;
 				}
 			}
 			if(no_more_than_two)
-				m_combs.push_back(comb);
-		}while(boost::next_permutation(comb));
+				m_disps.push_back(disp);
+		}while(boost::next_permutation(disp));
 	};
 	if(m_sidelen % 2 == 0)
 		f(m_sidelen / 2, m_sidelen / 2);
@@ -133,8 +133,8 @@ int puz_state::find_matches(bool init)
 
 		auto& disp = kv.first < sidelen() ? m_disp_rows : m_disp_cols;
 		kv.second.clear();
-		for(int i = 0; i < m_game->m_combs.size(); i++)
-			if(boost::equal(nums, m_game->m_combs.at(i), [](char ch1, char ch2){
+		for(int i = 0; i < m_game->m_disps.size(); i++)
+			if(boost::equal(nums, m_game->m_disps.at(i), [](char ch1, char ch2){
 				return ch1 == PUZ_SPACE || ch1 == ch2;
 			}) && disp.count(i) == 0)
 				kv.second.push_back(i);
@@ -153,10 +153,10 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int i, int j)
 {
 	auto& area = m_game->m_area2range[i];
-	auto& comb = m_game->m_combs[j];
+	auto& disp = m_game->m_disps[j];
 
-	for(int k = 0; k < comb.size(); ++k)
-		cell(area[k]) = comb[k];
+	for(int k = 0; k < disp.size(); ++k)
+		cell(area[k]) = disp[k];
 
 	auto& disp = i < sidelen() ? m_disp_rows : m_disp_cols;
 	disp.insert(j);

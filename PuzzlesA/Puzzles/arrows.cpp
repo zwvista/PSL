@@ -35,7 +35,7 @@ struct puz_arrow
 {
 	vector<Position> m_range;
 	vector<int> m_dirs;
-	vector<vector<int>> m_combs;
+	vector<vector<int>> m_disps;
 };
 
 struct puz_game
@@ -44,9 +44,9 @@ struct puz_game
 	int m_sidelen;
 	vector<int> m_start;
 	map<Position, puz_arrow> m_pos2arrows;
-	int cell(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+	int cell(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
@@ -88,7 +88,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			}
 
 			int sz = arrow.m_range.size();
-			vector<int> comb(sz);
+			vector<int> disp(sz);
 
 			vector<int> indicators;
 			indicators.insert(indicators.end(), sz - n, 0);
@@ -96,10 +96,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			do{
 				for(int i = 0; i < sz; ++i){
 					int n = arrow.m_dirs[i];
-					comb[i] = indicators[i] == 1 ? n : ~n;
+					disp[i] = indicators[i] == 1 ? n : ~n;
 				}
 					
-				arrow.m_combs.push_back(comb);
+				arrow.m_disps.push_back(disp);
 			}while(boost::next_permutation(indicators));
 		}
 }
@@ -169,12 +169,12 @@ int puz_state::find_matches(bool init)
 	for(auto& kv : m_matches){
 		auto& arrow = m_game->m_pos2arrows.at(kv.first);
 		vector<set<int>> arrow_dirs;
-		for(auto& p : arrow.m_ps)
+		for(auto& p : arrow.m_range)
 			arrow_dirs.push_back(m_arrow_dirs.at(p));
 
 		kv.second.clear();
-		for(int i = 0; i < arrow.m_combs.size(); ++i)
-			if(boost::equal(arrow_dirs, arrow.m_combs[i], [](const set<int>& dirs, int n2){
+		for(int i = 0; i < arrow.m_disps.size(); ++i)
+			if(boost::equal(arrow_dirs, arrow.m_disps[i], [](const set<int>& dirs, int n2){
 				return n2 >= 0 && dirs.count(n2) != 0
 					|| n2 < 0 && (dirs.size() > 1 || dirs.count(~n2) == 0);
 			}))
@@ -194,12 +194,12 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(const Position& p, int j)
 {
 	auto& arrow = m_game->m_pos2arrows.at(p);
-	auto& comb = arrow.m_combs[j];
+	auto& disp = arrow.m_disps[j];
 
-	for(int k = 0; k < comb.size(); ++k){
-		const auto& p = arrow.m_ps[k];
+	for(int k = 0; k < disp.size(); ++k){
+		const auto& p = arrow.m_range[k];
 		int& n1 = cell(p);
-		int n2 = comb[k];
+		int n2 = disp[k];
 		if(n2 >= 0)
 			m_arrow_dirs[p] = {n1 = n2};
 		else

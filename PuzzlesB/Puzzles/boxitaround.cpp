@@ -18,15 +18,18 @@ namespace puzzles{ namespace boxitaround{
 
 #define PUZ_SPACE		' '
 
-// top-left and bottom-right
-typedef pair<Position, Position> puz_box;
+struct puz_box_info
+{
+	int m_sum;
+	// top-left and bottom-right
+	vector<pair<Position, Position>> m_boxes;
+};
 
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	map<Position, int> m_start;
-	map<Position, vector<puz_box>> m_combs;
+	map<Position, puz_box_info> m_pos2boxinfo;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -41,14 +44,15 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			auto s = str.substr(c * 2, 2);
 			int n = atoi(s.c_str());
 			if(n != 0)
-				m_start[Position(r, c)] = n;
+				m_pos2boxinfo[Position(r, c)].m_sum = n;
 		}
 	}
 
-	for(const auto& kv : m_start){
-		auto& pn = kv.first;
-		int box_sum = kv.second;
-		auto& boxes = m_combs[pn];
+	for(auto& kv : m_pos2boxinfo){
+		const auto& pn = kv.first;
+		auto& info = kv.second;
+		int box_sum = info.m_sum;
+		auto& boxes = info.m_boxes;
 
 		for(int i = 1; i < min(box_sum, m_sidelen); ++i){
 			int j = box_sum - i;
@@ -59,16 +63,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 					Position tl(r, c), br = tl + box_sz;
 					if(tl.first >= 0 && tl.second >= 0 &&
 						br.first < m_sidelen && br.second < m_sidelen &&
-						[&](){
-							for(const auto& kv : m_start){
-								auto& p = kv.first;
-								if(p != pn &&
-									p.first >= tl.first && p.second >= tl.second &&
-									p.first <= br.first && p.second <= br.second)
-									return false;
-							}
-							return true;
-						}())
+						boost::algorithm::none_of(m_pos2boxinfo, [&](
+						const pair<const Position, puz_box_info>& kv){
+						auto& p = kv.first;
+						return p != pn &&
+							p.first >= tl.first && p.second >= tl.second &&
+							p.first <= br.first && p.second <= br.second;
+					}))
 						boxes.emplace_back(tl, br);
 				}
 		}
@@ -108,7 +109,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(sidelen() * sidelen(), PUZ_SPACE)
 {
-	for(auto& kv : g.m_start)
+	for(auto& kv : g.m_pos2boxinfo)
 		m_matches[kv.first];
 
 	find_matches(true);
@@ -117,7 +118,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
-		auto& boxes = m_game->m_combs.at(kv.first);
+		auto& boxes = m_game->m_pos2boxinfo.at(kv.first).m_boxes;
 
 		kv.second.clear();
 		for(int i = 0; i < boxes.size(); ++i){
@@ -145,7 +146,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, int n)
 {
-	auto& box = m_game->m_combs.at(p)[n];
+	auto& box = m_game->m_pos2boxinfo.at(p).m_boxes[n];
 
 	for(int r = box.first.first; r <= box.second.first; ++r)
 		for(int c = box.first.second; c <= box.second.second; ++c)

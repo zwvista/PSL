@@ -42,7 +42,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	map<Position, int> m_pos2num;
-	vector<vector<string>> m_num2combs;
+	vector<vector<string>> m_num2disps;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -50,7 +50,7 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 1)
-, m_num2combs(PUZ_UNKNOWN + 1)
+, m_num2disps(PUZ_UNKNOWN + 1)
 {
 	for(int r = 0; r < m_sidelen - 1; ++r){
 		auto& str = strs[r];
@@ -61,22 +61,22 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	auto comb = slants;
-	auto& combs_unknown = m_num2combs[PUZ_UNKNOWN];
+	auto disp = slants;
+	auto& disps_unknown = m_num2disps[PUZ_UNKNOWN];
 	for(int i = 0; i <= 4; ++i){
-		auto& combs = m_num2combs[i];
+		auto& disps = m_num2disps[i];
 		vector<int> indexes(4, 0);
 		fill(indexes.begin() + 4 - i, indexes.end(), 1);
 		do{
 			for(int i = 0; i < 4; ++i){
 				int index = indexes[i];
 				char ch = slants[i];
-				comb[i] = index == 1 ? ch :
+				disp[i] = index == 1 ? ch :
 						ch == PUZ_SLASH ? PUZ_BACKSLASH :
 						PUZ_SLASH;
 			}
-			combs.push_back(comb);
-			combs_unknown.push_back(comb);
+			disps.push_back(disp);
+			disps_unknown.push_back(disp);
 		}while(boost::next_permutation(indexes));
 	}
 }
@@ -133,9 +133,9 @@ int puz_state::find_matches(bool init)
 			area.push_back(cell(p + os));
 
 		kv.second.clear();
-		auto& combs = m_game->m_num2combs[m_game->m_pos2num.at(p)];
-		for(int i = 0; i < combs.size(); ++i)
-			if(boost::equal(area, combs[i], [](char ch1, char ch2){
+		auto& disps = m_game->m_num2disps[m_game->m_pos2num.at(p)];
+		for(int i = 0; i < disps.size(); ++i)
+			if(boost::equal(area, disps[i], [](char ch1, char ch2){
 				return ch1 == PUZ_SPACE || ch1 == PUZ_BOUNDARY || ch1 == ch2;
 			}))
 				kv.second.push_back(i);
@@ -153,11 +153,11 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::make_move2(const Position& p, int n)
 {
-	auto& comb = m_game->m_num2combs[m_game->m_pos2num.at(p)][n];
-	for(int k = 0; k < comb.size(); ++k){
+	auto& disp = m_game->m_num2disps[m_game->m_pos2num.at(p)][n];
+	for(int k = 0; k < disp.size(); ++k){
 		char& ch = cell(p + offset[k]);
 		if(ch == PUZ_SPACE)
-			ch = comb[k];
+			ch = disp[k];
 	}
 
 	++m_distance;

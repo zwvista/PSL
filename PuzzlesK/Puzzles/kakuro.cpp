@@ -37,7 +37,7 @@ struct puz_game
 	int m_sidelen;
 	map<Position, puz_area> m_pos2area_rows, m_pos2area_cols;
 	map<Position, int> m_blanks;
-	map<pair<int, int>, vector<vector<int>>> m_sum2combs;
+	map<pair<int, int>, vector<vector<int>>> m_sum2disps;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -72,24 +72,24 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			int cnt = 0;
 			for(auto p2 = p + os; m_blanks.count(p2) != 0; p2 += os)
 				++cnt, ps.push_back(p2);
-			m_sum2combs[make_pair(kv.second.second, cnt)];
+			m_sum2disps[make_pair(kv.second.second, cnt)];
 		}
 	};
 	f(m_pos2area_cols, offset[2]); // e
 	f(m_pos2area_rows, offset[1]); // s
 
-	for(auto& kv : m_sum2combs){
+	for(auto& kv : m_sum2disps){
 		int sum = kv.first.first;
 		int cnt = kv.first.second;
-		auto& combs = kv.second;
+		auto& disps = kv.second;
 
-		vector<int> comb(cnt, 1);
+		vector<int> disp(cnt, 1);
 		for(int i = 0; i < cnt;){
-			if(boost::accumulate(comb, 0) == sum &&
-				boost::range::adjacent_find(comb) == comb.end())
-				combs.push_back(comb);
-			for(i = 0; i < cnt && ++comb[i] == 10; ++i)
-				comb[i] = 1;
+			if(boost::accumulate(disp, 0) == sum &&
+				boost::range::adjacent_find(disp) == disp.end())
+				disps.push_back(disp);
+			for(i = 0; i < cnt && ++disp[i] == 10; ++i)
+				disp[i] = 1;
 		}
 	};
 }
@@ -143,9 +143,9 @@ int puz_state::find_matches(bool init)
 			nums.push_back(m_cells.at(p));
 
 		kv.second.clear();
-		auto& combs = m_game->m_sum2combs.at(make_pair(area.second, area.first.size()));
-		for(int i = 0; i < combs.size(); ++i)
-			if(boost::equal(nums, combs[i], [](int n1, int n2){
+		auto& disps = m_game->m_sum2disps.at(make_pair(area.second, area.first.size()));
+		for(int i = 0; i < disps.size(); ++i)
+			if(boost::equal(nums, disps[i], [](int n1, int n2){
 				return n1 == 0 || n1 == n2;
 			}))
 				kv.second.push_back(i);
@@ -164,10 +164,10 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(const puz_key& kv, int j)
 {
 	auto& area = (kv.second ? m_game->m_pos2area_cols : m_game->m_pos2area_rows).at(kv.first);
-	auto& comb = m_game->m_sum2combs.at(make_pair(area.second, area.first.size()))[j];
+	auto& disp = m_game->m_sum2disps.at(make_pair(area.second, area.first.size()))[j];
 
-	for(int k = 0; k < comb.size(); ++k)
-		m_cells.at(area.first[k]) = comb[k];
+	for(int k = 0; k < disp.size(); ++k)
+		m_cells.at(area.first[k]) = disp[k];
 
 	++m_distance;
 	m_matches.erase(kv);
