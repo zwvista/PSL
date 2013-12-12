@@ -176,6 +176,8 @@ bool puz_state::make_move(const Position& pnum, const Position& p)
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
+	if(m_pos2area.empty()) return;
+
 	const auto& kv = *boost::min_element(m_pos2area, [](
 		const pair<const Position, puz_area>& kv1,
 		const pair<const Position, puz_area>& kv2){

@@ -6,5 +6,10 @@ Sequence of moves:
  17 17 10 10 22 10 14 15 13  7
 Number of moves: 3
 Number of vertices examined: 4
-0.0107901 [s]
+0.0045896 [s]
 
+Level 02
+Number of vertices examined: 1
+0.000711075 [s]
+
+Level 24
