@@ -4,38 +4,35 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 7/Gardener
+	ios game: Logic Games/Puzzle Set 4/Calcudoku
 
 	Summary
-	Hitori Flower Planting
+	Mathematical Sudoku
 
 	Description
-	1. The Board represents a Garden, divided in many rectangular Flowerbeds.
-	2. The owner of the Garden wants you to plant Flowers according to these
-	   rules.
-	3. A number tells you how many Flowers you must plant in that Flowerbed.
-	   A Flowerbed without number can have any quantity of Flowers.
-	4. Flowers can't be horizontally or vertically touching.
-	5. All the remaining Garden space where there are no Flowers must be
-	   interconnected (horizontally or vertically), as he wants to be able
-	   to reach every part of the Garden without treading over Flowers.
-	6. Lastly, there must be enough balance in the Garden, so a straight
-	   line (horizontally or vertically) of non-planted tiles can't span
-	   for more than two Flowerbeds.
-	7. In other words, a straight path of empty space can't pass through
-	   three or more Flowerbeds.
+	1. Write numbers ranging from 1 to board size respecting the calculation
+	   hint.
+	2. The tiny numbers and math signs in the corner of an area give you the
+	   hint about what's happening inside that area.
+	3. For example a '3+' means that the sum of the numbers inside that area
+	   equals 3. In that case you would have to write the numbers 1 and 2
+	   there.
+	4. Another example: '12*' means that the multiplication of the numbers
+	   in that area gives 12, so it could be 3 and 4 or even 3, 4 and 1,
+	   depending on the area size.
+	5. Even where the order of the operands matter (in subtraction and division)
+	   they can appear in any order inside the area (ie.e. 2/ could be done
+	   with 4 and 2 or 2 and 4.
+	6. All the numbers appear just one time in each row and column, but they
+	   could be repeated in non-straight areas, like the L-shaped one.
 */
 
-namespace puzzles{ namespace Gardener{
+namespace puzzles{ namespace Calcudoku{
 
-#define PUZ_SPACE		' '
-#define PUZ_EMPTY		'.'
-#define PUZ_FLOWER		'F'
-#define PUZ_BOUNDARY	'B'
-
-#define PUZ_FLOWER_COUNT_UNKOWN		-1
-
-bool is_empty(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY; }
+#define PUZ_ADD		'+'
+#define PUZ_SUB		'-'
+#define PUZ_MUL		'*'
+#define PUZ_DIV		'/'
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -44,10 +41,11 @@ const Position offset[] = {
 	{0, -1},		// w
 };
 
-struct puz_fb_info
+struct puz_area_info
 {
 	vector<Position> m_range;
-	int m_flower_count = PUZ_FLOWER_COUNT_UNKOWN;
+	char m_operator;
+	int m_result;
 	vector<string> m_combs;
 };
 
@@ -55,37 +53,37 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	map<Position, int> m_pos2fb;
-	vector<puz_fb_info> m_fb_info;
+	map<Position, int> m_pos2area;
+	vector<puz_area_info> m_area_info;
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size() / 2 + 2)
+, m_sidelen(strs[0].size())
 {
-	for(int r = 0; r < m_sidelen - 2; ++r){
+	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen - 2; ++c){
+		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r + 1, c + 1);
 			int n = str[c] - 'a';
-			m_pos2fb[p] = n;
-			if(n >= m_fb_info.size())
-				m_fb_info.resize(n + 1);
-			m_fb_info[n].m_range.push_back(p);
+			m_pos2area[p] = n;
+			if(n >= m_area_info.size())
+				m_area_info.resize(n + 1);
+			m_area_info[n].m_range.push_back(p);
 		}
 	}
-	for(int r = 0; r < m_sidelen - 2; ++r){
-		auto& str = strs[r + m_sidelen - 2];
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			char ch = str[c];
-			if(ch != ' ')
-				m_fb_info[m_pos2fb.at(Position(r + 1, c + 1))].m_flower_count = ch - '0';
-		}
+	for(int r = 0; r < m_area_info.size(); ++r){
+		auto& str = strs[r + m_sidelen];
+		auto& info = m_area_info[r];
+		int len = str.length();
+		info.m_operator = str[len - 1];
+		info.m_result = atoi(str.substr(0, len - 1).c_str());
+		auto& combs = info.m_combs;
 	}
 
 	map<pair<int, int>, vector<string>> pair2combs;
-	for(auto& info : m_fb_info){
+	for(auto& info : m_area_info){
 		int ps_cnt = info.m_range.size();
 		int flower_cnt = info.m_flower_count;
 		auto& combs = pair2combs[make_pair(ps_cnt, flower_cnt)];
@@ -115,7 +113,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	boost::sort(m_fb_info, [this](const puz_fb_info& info1, const puz_fb_info& info2){
+	boost::sort(m_area_info, [this](const puz_area_info& info1, const puz_area_info& info2){
 		return info1.m_combs.size() < info2.m_combs.size();
 	});
 }
@@ -134,7 +132,7 @@ struct puz_state : string
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return m_game->m_fb_info.size() - m_fb_index + m_unbalanced; 
+		return m_game->m_area_info.size() - m_fb_index + m_unbalanced; 
 	}
 	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
@@ -225,13 +223,13 @@ void puz_state2::gen_children(list<puz_state2> &children) const
 bool puz_state::make_move(int i)
 {
 	m_distance = 0;
-	auto& info = m_game->m_fb_info[m_fb_index];
-	auto& range = info.m_range;
+	auto& info = m_game->m_area_info[m_fb_index];
+	auto& area = info.m_range;
 	auto& comb = info.m_combs[i];
 
 	auto ub = m_unbalanced;
 	for(int k = 0; k < comb.size(); ++k){
-		auto& p = range[k];
+		auto& p = area[k];
 		if((cell(p) = comb[k]) != PUZ_FLOWER) continue;
 
 		// no touching
@@ -250,12 +248,12 @@ bool puz_state::make_move(int i)
 
 	count_unbalanced();
 	m_distance += ub - m_unbalanced + 1;
-	return ++m_fb_index != m_game->m_fb_info.size() || m_unbalanced == 0;
+	return ++m_fb_index != m_game->m_area_info.size() || m_unbalanced == 0;
 }
 
 void puz_state::gen_children(list<puz_state> &children) const
 {
-	int sz = m_game->m_fb_info[m_fb_index].m_combs.size();
+	int sz = m_game->m_area_info[m_fb_index].m_combs.size();
 	for(int i = 0; i < sz; ++i){
 		children.push_back(*this);
 		if(!children.back().make_move(i))
@@ -275,9 +273,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_Gardener()
+void solve_puz_Calcudoku()
 {
-	using namespace puzzles::Gardener;
+	using namespace puzzles::Calcudoku;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\Gardener.xml", "Puzzles\\Gardener.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Calcudoku.xml", "Puzzles\\Calcudoku.txt", solution_format::GOAL_STATE_ONLY);
 }
