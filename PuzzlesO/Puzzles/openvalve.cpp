@@ -118,7 +118,7 @@ bool puz_state::can_move(const Position& p, char dir, vector<int>& offset_vec) c
 
 	char dir2 = dirs[n + 4];
 	if(get_cells(p2) != "...")
-		return boost::range::find(m_frontier, make_pair(p2, dir2)) != m_frontier.end();
+		return boost::algorithm::any_of_equal(m_frontier, make_pair(p2, dir2));
 
 	n = pipes.find(m_game->pipe(p2));
 	for(int i = pipe_offset[n]; i < pipe_offset[n + 1]; ++i)

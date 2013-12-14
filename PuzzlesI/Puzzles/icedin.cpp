@@ -37,7 +37,7 @@ struct puz_game
 	int rows() const {return m_size.first;}
 	int cols() const {return m_size.second;}
 	bool is_switch(const Position& p) const {
-		return boost::range::find(m_switches, p) != m_switches.end();
+		return boost::algorithm::any_of_equal(m_switches, p);
 	}
 };
 

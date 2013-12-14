@@ -105,9 +105,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 			if([&](){
 				// no touching
-				for(const auto& ps1 : ps_flower)
-					for(const auto& ps2 : ps_flower)
-						if(boost::algorithm::any_of_equal(offset, ps1 - ps2))
+				for(const auto& p1 : ps_flower)
+					for(const auto& p2 : ps_flower)
+						if(boost::algorithm::any_of_equal(offset, p1 - p2))
 							return false;
 				return true;
 			}())

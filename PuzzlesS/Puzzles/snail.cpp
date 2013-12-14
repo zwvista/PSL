@@ -83,7 +83,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	for(int i = 1, n = 1; i < m_sidelen * m_sidelen; ++i){
 		auto p2 = p + offset[n];
 		m_snail_path.push_back(
-			is_valid(p2) && boost::range::find(m_snail_path, p2) == m_snail_path.end() ?
+			is_valid(p2) && boost::algorithm::none_of_equal(m_snail_path, p2) ?
 			(p = p2) :
 			(p += offset[n = (n + 1) % 4])
 		);
