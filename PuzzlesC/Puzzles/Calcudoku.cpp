@@ -83,7 +83,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 	auto f = [](const vector<Position>& rng){
 		vector<vector<int>> groups;
-
 		map<int, vector<int>> grp_rows, grp_cols;
 		for(int i = 0; i < rng.size(); ++i){
 			auto& p = rng[i];
@@ -94,14 +93,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			for(auto& kv : m)
 				if(kv.second.size() > 1)
 					groups.push_back(kv.second);
-
-		for(int i = 0; i < rng.size() - 1; ++i)
-			for(int j = 1; j < rng.size(); ++j){
-				auto &p1 = rng[i], &p2 = rng[j];
-				if(boost::algorithm::any_of_equal(offset, p1 - p2))
-					groups.push_back({i, j});
-			}
-
 		return groups;
 	};
 
@@ -111,39 +102,37 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		vector<vector<int>> disps;
 		vector<int> disp(cnt, 1);
 		for(int i = 0; i < cnt;){
-			if([&](){
-				auto nums = disp;
-				boost::sort(nums, greater<>());
-				return accumulate(next(nums.begin()), nums.end(),
-					nums.front(), [&](int acc, int v){
-					switch(info.m_operator){
-					case PUZ_ADD:
-						return acc + v;
-					case PUZ_SUB:
-						return acc - v;
-					case PUZ_MUL:
-						return acc * v;
-					case PUZ_DIV:
-						return acc % v == 0 ? acc / v : 0;
-					default:
-						return 0;
-					}
-				}) == info.m_result;
-			}())
+			auto nums = disp;
+			boost::sort(nums, greater<>());
+			if(accumulate(next(nums.begin()), nums.end(),
+				nums.front(), [&](int acc, int v){
+				switch(info.m_operator){
+				case PUZ_ADD:
+					return acc + v;
+				case PUZ_SUB:
+					return acc - v;
+				case PUZ_MUL:
+					return acc * v;
+				case PUZ_DIV:
+					return acc % v == 0 ? acc / v : 0;
+				default:
+					return 0;
+				}
+			}) == info.m_result)
 				disps.push_back(disp);
-			for(i = 0; i < cnt && ++disp[i] == m_sidelen; ++i)
+			for(i = 0; i < cnt && ++disp[i] == m_sidelen + 1; ++i)
 				disp[i] = 1;
 		}
 
 		auto groups = f(info.m_range);
 		for(const auto& disp : disps)
-			for(const auto& grp : groups){
+			if(boost::algorithm::all_of(groups, [&](const vector<int>& grp){
 				set<int> nums;
-				for(auto& i : grp)
+				for(int i : grp)
 					nums.insert(disp[i]);
-				if(nums.size() == disp.size())
-					info.m_disps.push_back(disp);
-			}
+				return nums.size() == grp.size();
+			}))
+				info.m_disps.push_back(disp);
 	}
 
 	boost::sort(m_area_info, [this](const puz_area_info& info1, const puz_area_info& info2){
@@ -167,9 +156,9 @@ struct puz_state : vector<int>
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return m_game->m_area_info.size() - m_fb_index + m_unbalanced; 
+		return m_game->m_area_info.size() - m_area_index; 
 	}
-	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
+	unsigned int get_distance(const puz_state& child) const { return 1; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
 	friend ostream& operator<<(ostream& out, const puz_state& state) {
@@ -177,57 +166,51 @@ struct puz_state : vector<int>
 	}
 
 	const puz_game* m_game = nullptr;
-	int m_fb_index = 0;
-	unsigned int m_distance = 0;
-	unsigned int m_unbalanced = 0;
+	int m_area_index = 0;
 };
 
 bool puz_state::make_move(int i)
 {
-	//m_distance = 0;
-	//auto& info = m_game->m_area_info[m_fb_index];
-	//auto& area = info.m_range;
-	//auto& disp = info.m_disps[i];
+	auto& info = m_game->m_area_info[m_area_index++];
+	auto& area = info.m_range;
+	auto& disp = info.m_disps[i];
 
-	//auto ub = m_unbalanced;
-	//for(int k = 0; k < disp.size(); ++k){
-	//	auto& p = area[k];
-	//	if((cells(p) = disp[k]) != PUZ_FLOWER) continue;
+	for(int k = 0; k < disp.size(); ++k)
+		cells(area[k]) = disp[k];
 
-	//	// no touching
-	//	for(auto& os : offset)
-	//		if(cells(p + os) == PUZ_FLOWER)
-	//			return false;
-	//}
+	auto f = [&](Position p, const Position& os){
+		set<int> nums;
+		for(int cr = 0; cr < sidelen(); ++cr){
+			int n = cells(p);
+			if(n == PUZ_SPACE)
+				return true;
+			nums.insert(n);
+			p += os;
+		}
+		return nums.size() == sidelen();
+	};
 
-	//// interconnected spaces
-	//list<puz_state2> smoves;
-	//puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	//if(smoves.size() != boost::count_if(*this, [](char ch){
-	//	return is_empty(ch);
-	//}))
-	//	return false;
-
-	//count_unbalanced();
-	//m_distance += ub - m_unbalanced + 1;
-	//return ++m_fb_index != m_game->m_area_info.size() || m_unbalanced == 0;
+	for(int rc = 0; rc < sidelen(); ++rc)
+		if(!f(Position(rc, 0), offset[1]) ||
+			!f(Position(0, rc), offset[2]))
+			return false;
 	return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	//int sz = m_game->m_area_info[m_fb_index].m_disps.size();
-	//for(int i = 0; i < sz; ++i){
-	//	children.push_back(*this);
-	//	if(!children.back().make_move(i))
-	//		children.pop_back();
-	//}
+	int sz = m_game->m_area_info[m_area_index].m_disps.size();
+	for(int i = 0; i < sz; ++i){
+		children.push_back(*this);
+		if(!children.back().make_move(i))
+			children.pop_back();
+	}
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r){
-		for(int c = 1; c < sidelen() - 1; ++c)
+	for(int r = 0; r < sidelen(); ++r){
+		for(int c = 0; c < sidelen(); ++c)
 			out << cells(Position(r, c)) << ' ';
 		out << endl;
 	}
