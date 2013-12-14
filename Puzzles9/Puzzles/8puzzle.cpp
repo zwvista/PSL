@@ -53,14 +53,14 @@ struct puz_state : string
 		: string(g.m_start), m_game(&g), m_space(g.m_space), m_move(0) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(const Position& p) const {return at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return (*this)[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
 	}
 	void make_move(const Position& p, char dir){
-		cell(m_space) = cell(p);
-		cell(m_space = p) = ' ';
+		cells(m_space) = cells(p);
+		cells(m_space = p) = ' ';
 		m_move = dir;
 	}
 
@@ -80,7 +80,7 @@ struct puz_state : string
 	char m_move;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	char* dirs = "wens";
 	for(int i = 0; i < 4; ++i){
@@ -129,7 +129,7 @@ ostream& puz_state::dump(ostream& out) const
 		out << "move: " << m_move << endl;
 	for(int r = 0; r < rows(); ++r) {
 		for(int c = 0; c < cols(); ++c)
-			out << cell(Position(r, c)) << ' ';
+			out << cells(Position(r, c)) << ' ';
 		out << endl;
 	}
 	return out;

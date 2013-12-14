@@ -50,7 +50,7 @@ struct puz_game
 	map<Position, int> m_pos2num;
 	string m_cells;
 
-	char cell(const Position& p) const { return m_cells.at(p.first * m_sidelen + p.second); }
+	char cells(const Position& p) const { return m_cells.at(p.first * m_sidelen + p.second); }
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
 
@@ -188,7 +188,7 @@ puz_state2::puz_state2(const puz_state& s)
 	make_move({});
 }
 
-void puz_state2::gen_children(list<puz_state2> &children) const
+void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(int i = 0; i < 4; ++i)
 		if(m_state->get_door_status(*this, i) != PUZ_DOOR_CLOSED){
@@ -232,7 +232,7 @@ bool puz_state::make_move(const Position& p, const vector<int>& disp)
 		}
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_matches, [](
 		const pair<const Position, vector<vector<int>>>& kv1,
@@ -260,7 +260,7 @@ ostream& puz_state::dump(ostream& out) const
 			// draw vert-doors
 			out << (m_vert_doors.at(p) == PUZ_DOOR_CLOSED ? '|' : ' ');
 			if(c == sidelen()) break;
-			out << m_game->cell(p);
+			out << m_game->cells(p);
 		}
 		out << endl;
 	}

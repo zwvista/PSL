@@ -44,7 +44,7 @@ struct puz_game
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 	int rows() const {return m_size.first;}
 	int cols() const {return m_size.second;}
-	char cell(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
@@ -143,8 +143,8 @@ struct puz_state
 	bool operator==(const puz_state& x) const {
 		return m_blocks == x.m_blocks && m_bridges == x.m_bridges;
 	}
-	bool is_hole(const Position& p) const {return m_game->cell(p) == PUZ_HOLE && m_bridges.count(p) == 0;}
-	bool is_orange(const Position& p) const {return m_game->cell(p) == PUZ_ORANGE;}
+	bool is_hole(const Position& p) const {return m_game->cells(p) == PUZ_HOLE && m_bridges.count(p) == 0;}
+	bool is_orange(const Position& p) const {return m_game->cells(p) == PUZ_ORANGE;}
 	bool make_move(int n, int dir);
 	bool check_switch(const Position& p, bool heavy_included = false);
 	bool check_splitter(const Position& p);
@@ -308,7 +308,7 @@ ostream& puz_state::dump(ostream& out) const
 			Position p(r, c);
 			out << (p == m_blocks[0] && p == m_blocks[1] ? PUZ_TWO :
 				p == m_blocks[0] || p == m_blocks[1] ? PUZ_ONE :
-				p == goal() ? PUZ_GOAL : m_game->cell(p));
+				p == goal() ? PUZ_GOAL : m_game->cells(p));
 		}
 		out << endl;
 	}

@@ -126,8 +126,8 @@ struct puz_state : puz_state_base
 	{
 		m_game = &g;
 	}
-	char cell(const Position3d& p) const {return m_cells.at(p2i(p));}
-	char& cell(const Position3d& p) {return m_cells[p2i(p)];}
+	char cells(const Position3d& p) const {return m_cells.at(p2i(p));}
+	char& cells(const Position3d& p) {return m_cells[p2i(p)];}
 	bool operator<(const puz_state& x) const {return m_cells < x.m_cells;}
 	void make_move(int i, bool is_link1, const Position3d& p);
 
@@ -159,7 +159,7 @@ struct puz_state2 : puz_state_base
 		: m_cells(x.m_cells), m_links(x.m_links), m_connects(connects) {
 		m_game = x.m_game; make_move(p);
 	}
-	char cell(const Position3d& p) const {return m_cells.at(p2i(p));}
+	char cells(const Position3d& p) const {return m_cells.at(p2i(p));}
 	bool operator<(const puz_state2& x) const {return m_curpos < x.m_curpos;}
 	void make_move(const Position3d& p){m_curpos = p;}
 
@@ -171,12 +171,12 @@ struct puz_state2 : puz_state_base
 	Position3d m_curpos;
 };
 
-void puz_state2::gen_children(list<puz_state2> &children) const
+void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(const Position& os : offset){
 		Position3d p(m_curpos.first, m_curpos.second + os);
 		if(!is_valid(p)) continue;
-		char ch = cell(p);
+		char ch = cells(p);
 		if(ch == PUZ_SPACE){
 			children.push_back(*this);
 			children.back().make_move(p);
@@ -201,7 +201,7 @@ void puz_state::make_move(int i, bool is_link1, const Position3d& p)
 	const Position3d& link2 = is_link1 ? pr.second : pr.first;
 	int cnt = marker_count();
 	m_index = ((is_link1 ? 0 : cnt) + i + 1) % (cnt * 2);
-	cell(link1 = p) = ch;
+	cells(link1 = p) = ch;
 	m_move = puz_step(ch, p);
 
 	for(const Position& os : offset){
@@ -213,7 +213,7 @@ void puz_state::make_move(int i, bool is_link1, const Position3d& p)
 	}
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	vector<int> connects_indexes(sidelen() * sidelen() * 3, -1);
 	vector<vector<int> > connects_all;
@@ -224,7 +224,7 @@ void puz_state::gen_children(list<puz_state> &children) const
 			for(int r = 0; r < sidelen(); ++r)
 				for(int c = 0; c < sidelen(); ++c){
 					Position3d p(face, Position(r, c));
-					if(connects_indexes[p2i(p)] == -1 && cell(p) == PUZ_SPACE){
+					if(connects_indexes[p2i(p)] == -1 && cells(p) == PUZ_SPACE){
 						found = true;
 						list<puz_state2> smoves;
 						vector<int> connects(marker_count());
@@ -254,7 +254,7 @@ for_break:
 		bool found = false;
 		for(const Position& os : offset){
 			Position3d p(link1.first, link1.second + os);
-			if(is_valid(p) && cell(p) == PUZ_SPACE &&
+			if(is_valid(p) && cells(p) == PUZ_SPACE &&
 				connects_all[connects_indexes[p2i(p)]][i] == 3){
 				found = true;
 				break;
@@ -272,7 +272,7 @@ for_break:
 		if(link1 == link2) continue;
 		for(const Position& os : offset){
 			Position3d p(link1.first, link1.second + os);
-			if(is_valid(p) && cell(p) == PUZ_SPACE &&
+			if(is_valid(p) && cells(p) == PUZ_SPACE &&
 				connects_all[connects_indexes[p2i(p)]][i] == 3){
 				children.push_back(*this);
 				children.back().make_move(i, is_link1, p);
@@ -288,7 +288,7 @@ for_break:
 	//	if(link1 == link2) continue;
 	//	for(const Position& os : offset){
 	//		Position3d p(link1.first, link1.second + os);
-	//		if(is_valid(p) && cell(p) == PUZ_SPACE &&
+	//		if(is_valid(p) && cells(p) == PUZ_SPACE &&
 	//			connects_all[connects_indexes[p2i(p)]][i] == 3){
 	//				children.push_back(*this);
 	//				children.back().make_move(i, true, p);

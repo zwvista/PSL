@@ -29,7 +29,7 @@ struct puz_game
 	int rows() const {return m_size.first;}
 	int cols() const {return m_size.second;}
 	bool is_goal(const Position& p) const {return m_goals.count(p) != 0;}
-	char cell(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
@@ -64,7 +64,7 @@ struct puz_state
 	puz_state(const puz_game& g)
 		: m_game(&g), m_balls(g.m_balls), m_move(0) {}
 	bool operator<(const puz_state& x) const {return m_balls < x.m_balls;}
-	char cell(const Position& p) const {return m_game->cell(p);}
+	char cells(const Position& p) const {return m_game->cells(p);}
 
 	// solve_puzzle interface
 	bool is_goal_state() const {return m_balls == m_game->m_goals;}
@@ -103,7 +103,7 @@ bool puz_state::make_move(int i)
 		for(;;n++){
 			m_balls.erase(b);
 			Position p1 = b - os, p2 = b + os;
-			char ch1 = cell(p1), ch2 = cell(p2), chb = cell(b);
+			char ch1 = cells(p1), ch2 = cells(p2), chb = cells(b);
 			if(ch1 == PUZ_BLUE || ch2 == PUZ_BLUE || ch2 == PUZ_STONE ||
 				dirs.find(chb) != -1 && chb != dir ||
 				dirs.find(ch2) != -1 && ch2 != dir)
@@ -155,7 +155,7 @@ ostream& puz_state::dump(ostream& out) const
 		for(int c = 1; ; ++c){
 			Position pos(r, c);
 			out << (is_ball(pos) ? '@' : 
-				m_game->is_goal(pos) ? '.' : m_game->cell(pos));
+				m_game->is_goal(pos) ? '.' : m_game->cells(pos));
 		}
 		out << endl;
 	}

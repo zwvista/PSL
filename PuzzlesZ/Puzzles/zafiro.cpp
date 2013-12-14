@@ -91,8 +91,8 @@ struct puz_state : string
 		, m_grav(0) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(const Position& p) const {return at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return (*this)[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	bool make_move(int i);
 	void click(const Position& p);
 
@@ -128,16 +128,16 @@ bool puz_state::make_move(int i)
 				j == 2 ? Position(rs - 1 - r, cs - 1 - c) :
 				j == 3 ? Position(c, rs - 1 - r) :
 				Position(r, c);
-			char ch = cell(p);
+			char ch = cells(p);
 			if(ch != PUZ_ZAFIRO && ch != PUZ_COLORED)
 				continue;
 			Position p2 = p;
-			while(cell(p2 + os) == PUZ_SPACE)
+			while(cells(p2 + os) == PUZ_SPACE)
 				p2 += os;
 			if(p2 != p){
 				moved = true;
-				cell(p) = PUZ_SPACE;
-				cell(p2) = ch;
+				cells(p) = PUZ_SPACE;
+				cells(p2) = ch;
 				if(ch == PUZ_ZAFIRO)
 					m_zafiro = p2;
 			}
@@ -152,7 +152,7 @@ bool puz_state::make_move(int i)
 
 void puz_state::click(const Position& p)
 {
-	cell(p) = PUZ_SPACE;
+	cells(p) = PUZ_SPACE;
 	Position p2 =
 		m_grav == 1 ? Position(p.second, rows() - 1 - p.first) :
 		m_grav == 2 ? Position(rows() - 1 - p.first, cols() - 1 - p.second) :
@@ -170,7 +170,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 			children.pop_back();
 	}
 	for(const Position& p : m_game->m_glasses){
-		if(cell(p) != PUZ_GLASS) continue;
+		if(cells(p) != PUZ_GLASS) continue;
 		children.push_back(*this);
 		children.back().click(p);
 	}
@@ -186,9 +186,9 @@ unsigned int puz_state::get_heuristic() const
 	//int num_glass = 0;
 	//if(ir == jr){
 	//	int d = ic < jc ? 1 : -1;
-	//	if(cell(Position(jr, jc + d)) != PUZ_SPACE) return 3;
+	//	if(cells(Position(jr, jc + d)) != PUZ_SPACE) return 3;
 	//	for(int c = ic + d; c != jc; c += d)
-	//		switch(cell(Position(ir, c))){
+	//		switch(cells(Position(ir, c))){
 	//		case PUZ_FIXED:
 	//			return 3;
 	//		case PUZ_GLASS:
@@ -198,9 +198,9 @@ unsigned int puz_state::get_heuristic() const
 	//}
 	//else{
 	//	int d = ir < jr ? 1 : -1;
-	//	if(cell(Position(jr + d, jc)) != PUZ_SPACE) return 3;
+	//	if(cells(Position(jr + d, jc)) != PUZ_SPACE) return 3;
 	//	for(int r = ir + d; r != jr; r += d)
-	//		switch(cell(Position(r, ic))){
+	//		switch(cells(Position(r, ic))){
 	//		case PUZ_FIXED:
 	//			return 3;
 	//		case PUZ_GLASS:
@@ -218,7 +218,7 @@ ostream& puz_state::dump(ostream& out) const
 		out << "move: " << m_move << endl;
 	for(int r = 1; r < rows() - 1; ++r) {
 		for(int c = 1; c < cols() - 1; ++c)
-			out << cell(Position(r, c)) << ' ';
+			out << cells(Position(r, c)) << ' ';
 		out << endl;
 	}
 	return out;

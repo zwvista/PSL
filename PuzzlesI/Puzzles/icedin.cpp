@@ -89,8 +89,8 @@ public:
 		: string(g.m_start), m_game(&g), m_blocks(g.m_blocks) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(const Position& p) const {return at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return (*this)[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	bool make_move(size_t n, EDir dir);
 private:
 	unsigned int slide_distance(int r1, int c1, int r2, int c2) const;
@@ -117,13 +117,13 @@ bool puz_state::make_move(size_t n, EDir dir)
 	static char* moves = "lrud";
 	Position& p = m_blocks[n];
 	Position os = offset[dir];
-	char& ch_push = cell(p - os);
+	char& ch_push = cells(p - os);
 	if(ch_push != PUZ_GROUND && ch_push != PUZ_SPACE &&
 		ch_push != PUZ_ICE3 && ch_push != PUZ_ICE2)
 		return false;
 	Position p2 = p;
 	for(;;){
-		char& ch = cell(p2 + os);
+		char& ch = cells(p2 + os);
 		if(ch == PUZ_SPACE)
 			p2 += os;
 		else if(ch == PUZ_ICE3 || ch == PUZ_ICE2)
@@ -140,9 +140,9 @@ bool puz_state::make_move(size_t n, EDir dir)
 	if(ch_push == PUZ_ICE3 || ch_push == PUZ_ICE2)
 		ch_push--;
 	m_move = puz_step(p - os, moves[dir]);
-	char& chSrc = cell(p);
+	char& chSrc = cells(p);
 	chSrc = chSrc == PUZ_BLOCK ? PUZ_SPACE : chSrc - PUZ_BLOCK + '0';
-	char& chDest = cell(p = p2);
+	char& chDest = cells(p = p2);
 	if(chDest == PUZ_SPACE)
 		chDest = PUZ_BLOCK;
 	else if(chDest == PUZ_ICE2 || chDest == PUZ_ICE1)
@@ -156,7 +156,7 @@ bool puz_state::make_move(size_t n, EDir dir)
 	return true;
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(int i = 0; i < 4; ++i)
 		for(size_t n = 0; n < m_blocks.size(); ++n){
@@ -170,7 +170,7 @@ unsigned int puz_state::slide_distance2(int i, int j1, int j2, bool i_is_r) cons
 {
 	unsigned int d = 2;
 	int j_push = j1 < j2 ? j1 - 1 : j1 + 1;
-	switch(cell(i_is_r ? Position(i, j_push) : Position(j_push, i)))
+	switch(cells(i_is_r ? Position(i, j_push) : Position(j_push, i)))
 	{
 	case PUZ_BLOCK:
 	case PUZ_BLOCK_ON_ICE1:
@@ -181,7 +181,7 @@ unsigned int puz_state::slide_distance2(int i, int j1, int j2, bool i_is_r) cons
 		return 3;
 	}
 	int j_stop = j1 < j2 ? j2 + 1 : j2 - 1;
-	switch(cell(i_is_r ? Position(i, j_stop) : Position(j_stop, i)))
+	switch(cells(i_is_r ? Position(i, j_stop) : Position(j_stop, i)))
 	{
 	case PUZ_BLOCK:
 	case PUZ_BLOCK_ON_ICE1:
@@ -193,7 +193,7 @@ unsigned int puz_state::slide_distance2(int i, int j1, int j2, bool i_is_r) cons
 	}
 	int jmin = min(j1, j2), jmax = max(j1, j2);
 	for(int j = jmin + 1; j < jmax; ++j){
-		switch(cell(i_is_r ? Position(i, j) : Position(j, i))){
+		switch(cells(i_is_r ? Position(i, j) : Position(j, i))){
 		case PUZ_BLOCK:
 		case PUZ_BLOCK_ON_ICE1:
 		case PUZ_BLOCK_ON_ICE2:
@@ -243,7 +243,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0; r < rows(); ++r) {
 		for(int c = 0; c < cols(); ++c){
 			Position p(r, c);
-			char ch = cell(p);
+			char ch = cells(p);
 			out << (
 				!m_game->is_switch(p) ? ch :
 				ch == PUZ_BLOCK ? PUZ_BLOCK_ON_SWITCH :

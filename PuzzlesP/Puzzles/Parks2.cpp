@@ -121,8 +121,8 @@ struct puz_state
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	char cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
+	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(int i, int j);
 	bool make_move2(int i, int j);
@@ -160,7 +160,7 @@ int puz_state::find_matches(bool init)
 		auto& info = m_game->m_area_info[kv.first];
 		string area;
 		for(auto& p : info.m_range)
-			area.push_back(cell(p));
+			area.push_back(cells(p));
 
 		kv.second.clear();
 		for(int i = 0; i < info.m_disps.size(); ++i)
@@ -188,12 +188,12 @@ bool puz_state::make_move2(int i, int j)
 
 	for(int k = 0; k < disp.size(); ++k){
 		auto& p = area[k];
-		if((cell(p) = disp[k]) != PUZ_TREE) continue;
+		if((cells(p) = disp[k]) != PUZ_TREE) continue;
 
 		// no touching
 		for(auto& os : offset){
 			auto p2 = p + os;
-			if(is_valid(p2) && cell(p2) == PUZ_TREE)
+			if(is_valid(p2) && cells(p2) == PUZ_TREE)
 				return false;
 		}
 	}
@@ -217,7 +217,7 @@ bool puz_state::make_move(int i, int j)
 		}
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_matches, [](
 		const pair<const int, vector<int>>& kv1,
@@ -235,7 +235,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r){
 		for(int c = 0; c < sidelen(); ++c)
-			out << cell(Position(r, c)) << ' ';
+			out << cells(Position(r, c)) << ' ';
 		out << endl;
 	}
 	return out;

@@ -2,17 +2,10 @@
 <levels>
   <level id="01">
     <![CDATA[
-abbc\
-adec\
-ddef\
-ggef\
-2/\
-5+\
-3/\
-4+\
-12*\
-2/\
-1-\
+a 2/b 5+b   c 3/\
+a   d 4+e12*c   \
+d   d   e   f 2/\
+g 1-g   e   f   \
     ]]>
   </level>
 </levels>

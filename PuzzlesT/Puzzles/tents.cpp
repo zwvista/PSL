@@ -87,8 +87,8 @@ struct puz_area : pair<set<Position>, int>
 	puz_area(int tent_count)
 		: pair<set<Position>, int>({}, tent_count)
 	{}
-	void add_cell(const Position& p){ first.insert(p); }
-	void remove_cell(const Position& p){ first.erase(p); }
+	void add_cells(const Position& p){ first.insert(p); }
+	void remove_cells(const Position& p){ first.erase(p); }
 	void plant_tree(const Position& p, bool at_least_one){
 		if(first.count(p) == 0) return;
 		first.erase(p);
@@ -121,8 +121,8 @@ struct puz_state : string
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p);
 
 	// solve_puzzle interface
@@ -154,10 +154,10 @@ puz_state::puz_state(const puz_game& g)
 		auto& p = g.m_trees[i];
 		for(int j = 0; j < 8; j += 2){
 			auto p2 = p + offset[j];
-			if(is_valid(p2) && cell(p2) == PUZ_EMPTY){
-				m_grp_rows[p2.first].add_cell(p2);
-				m_grp_cols[p2.second].add_cell(p2);
-				m_grp_trees[i].add_cell(p2);
+			if(is_valid(p2) && cells(p2) == PUZ_EMPTY){
+				m_grp_rows[p2.first].add_cells(p2);
+				m_grp_cols[p2.second].add_cells(p2);
+				m_grp_trees[i].add_cells(p2);
 			}
 		}
 	}
@@ -165,7 +165,7 @@ puz_state::puz_state(const puz_game& g)
 
 bool puz_state::make_move(const Position& p)
 {
-	cell(p) = PUZ_TENT;
+	cells(p) = PUZ_TENT;
 
 	for(auto& a : m_grp_trees)
 		a.plant_tree(p, true);
@@ -177,16 +177,16 @@ bool puz_state::make_move(const Position& p)
 		const auto& p2 = p + os;
 		if(is_valid(p2)){
 			for(auto& a : m_grp_trees)
-				a.remove_cell(p2);
-			m_grp_rows[p.first].remove_cell(p2);
-			m_grp_cols[p.second].remove_cell(p2);
+				a.remove_cells(p2);
+			m_grp_rows[p.first].remove_cells(p2);
+			m_grp_cols[p.second].remove_cells(p2);
 		}
 	}
 
 	return m_grp_rows.is_valid() && m_grp_cols.is_valid();
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	vector<const puz_area*> areas;
 	for(auto grp : {&m_grp_trees, &m_grp_rows, &m_grp_cols})
@@ -208,7 +208,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << cell(Position(r, c)) << " ";
+			out << cells(Position(r, c)) << " ";
 		out << endl;
 	}
 	return out;

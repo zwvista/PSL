@@ -80,8 +80,8 @@ struct puz_state
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	int cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
-	int& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	int cells(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
+	int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(int i, int j);
 	void make_move2(int i, int j);
@@ -118,7 +118,7 @@ int puz_state::find_matches(bool init)
 	for(auto& kv : m_matches){
 		vector<int> nums;
 		for(auto& p : m_game->m_area2range[kv.first])
-			nums.push_back(cell(p));
+			nums.push_back(cells(p));
 
 		auto& disps = kv.first < sidelen() ? m_game->m_disps_rows : m_game->m_disps_cols;
 		kv.second.clear();
@@ -145,7 +145,7 @@ void puz_state::make_move2(int i, int j)
 	auto& disp = (i < sidelen() ? m_game->m_disps_rows : m_game->m_disps_cols)[j];
 
 	for(int k = 0; k < disp.size(); ++k)
-		cell(area[k]) = disp[k];
+		cells(area[k]) = disp[k];
 
 	++m_distance;
 	m_matches.erase(i);
@@ -165,7 +165,7 @@ bool puz_state::make_move(int i, int j)
 	return true;
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_matches, [](
 		const pair<const int, vector<int>>& kv1,
@@ -183,11 +183,11 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c){
-			int n = cell(Position(r, c));
+			int n = cells(Position(r, c));
 			if(n == PUZ_SPACE || n == 0)
 				out << "   ";
 			else
-				out << format("%3d") % cell(Position(r, c));
+				out << format("%3d") % cells(Position(r, c));
 		}
 		out << endl;
 	}

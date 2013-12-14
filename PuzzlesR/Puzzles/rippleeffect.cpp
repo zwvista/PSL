@@ -104,8 +104,8 @@ struct puz_state : vector<int>
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	int cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	int& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	int cells(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(int i, const vector<int>& nums);
 	void apply_ripple_effect(const Position& p, int n);
 
@@ -130,7 +130,7 @@ puz_state::puz_state(const puz_game& g)
 , m_game(&g), m_room2info(g.m_room2info)
 {
 	for(const auto& kv : g.m_start)
-		cell(kv.first) = kv.second;
+		cells(kv.first) = kv.second;
 
 	for(const auto& kv : g.m_start)
 		apply_ripple_effect(kv.first, kv.second);
@@ -143,7 +143,7 @@ void puz_state::apply_ripple_effect(const Position& p, int n)
 		for(int k = 0; k < n; ++k){
 			p2 += os;
 			if(!is_valid(p2)) break;
-			if(cell(p2) != 0) continue;
+			if(cells(p2) != 0) continue;
 			int i, j;
 			tie(i, j) = m_game->m_pos2info.at(p2);
 			boost::range::remove_erase_if(m_room2info.at(i).second, [=](const vector<int>& nums){
@@ -160,7 +160,7 @@ bool puz_state::make_move(int i, const vector<int>& nums)
 	for(int j = 0; j < m_distance; ++j){
 		const auto& p = info.first[j];
 		int n = nums[j];
-		cell(p) = n;
+		cells(p) = n;
 		apply_ripple_effect(p, n);
 	}
 	m_room2info.erase(i);
@@ -169,7 +169,7 @@ bool puz_state::make_move(int i, const vector<int>& nums)
 	});
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_room2info, [](
 		const pair<const int, puz_room_info>& kv1,
@@ -187,7 +187,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << cell(Position(r, c)) << ' ';
+			out << cells(Position(r, c)) << ' ';
 		out << endl;
 	}
 	return out;

@@ -86,8 +86,8 @@ struct puz_state
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(const Position& p, int n);
 	bool make_move2(const Position& p, int n);
@@ -114,8 +114,8 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(sidelen() * sidelen(), PUZ_SPACE)
 {
 	for(int i = 0; i < sidelen(); ++i)
-		cell(Position(i, 0)) = cell(Position(i, sidelen() - 1)) =
-		cell(Position(0, i)) = cell(Position(sidelen() - 1, i)) =
+		cells(Position(i, 0)) = cells(Position(i, sidelen() - 1)) =
+		cells(Position(0, i)) = cells(Position(sidelen() - 1, i)) =
 		PUZ_BOUNDARY;
 
 	for(auto& kv : g.m_pos2num)
@@ -130,7 +130,7 @@ int puz_state::find_matches(bool init)
 		string area;
 		auto& p = kv.first;
 		for(auto& os : offset)
-			area.push_back(cell(p + os));
+			area.push_back(cells(p + os));
 
 		kv.second.clear();
 		auto& disps = m_game->m_num2disps[m_game->m_pos2num.at(p)];
@@ -155,7 +155,7 @@ bool puz_state::make_move2(const Position& p, int n)
 {
 	auto& disp = m_game->m_num2disps[m_game->m_pos2num.at(p)][n];
 	for(int k = 0; k < disp.size(); ++k){
-		char& ch = cell(p + offset[k]);
+		char& ch = cells(p + offset[k]);
 		if(ch == PUZ_SPACE)
 			ch = disp[k];
 	}
@@ -180,7 +180,7 @@ bool puz_state::make_move(const Position& p, int n)
 		}
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_matches, [](
 		const pair<const Position, vector<int>>& kv1,
@@ -198,7 +198,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c)
-			out << cell(Position(r, c));
+			out << cells(Position(r, c));
 		out << endl;
 	}
 	return out;

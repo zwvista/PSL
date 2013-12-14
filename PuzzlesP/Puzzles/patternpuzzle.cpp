@@ -68,8 +68,8 @@ struct puz_state
 		: m_cells(g.m_start), m_dirs(g.m_dirs), m_game(&g), m_index(-1) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return m_cells[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
 	int dir(const Position& p) const {return m_dirs.at(p.first * cols() + p.second);}
 	int& dir(const Position& p) {return m_dirs[p.first * cols() + p.second];}
 	bool operator<(const puz_state& x) const {
@@ -104,11 +104,11 @@ struct puz_state
 bool puz_state::make_move(const Position& p, int i)
 {
 	if(first_move())
-		--cell(p);
+		--cells(p);
 	dir(p) ^= 1 << i;
 
 	Position p2 = p + offset[i];
-	--cell(p2);
+	--cells(p2);
 
 	m_curpos = p;
 	m_index = i;
@@ -117,10 +117,10 @@ bool puz_state::make_move(const Position& p, int i)
 	//for(int r = 0; r < rows(); ++r)
 	//	for(int c = 0; c < cols(); ++c){
 	//		Position p(r, c);
-	//		if(cell(p) == '0') continue;
+	//		if(cells(p) == '0') continue;
 	//		bool connected = false;
 	//		for(int i = 0; i < 8; ++i)
-	//			if((dir(p) & (1 << i)) && cell(p + offset[i]) != '0'){
+	//			if((dir(p) & (1 << i)) && cells(p + offset[i]) != '0'){
 	//				connected = true;
 	//				break;
 	//			}
@@ -130,14 +130,14 @@ bool puz_state::make_move(const Position& p, int i)
 	return true;
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	vector<Position> curs;
 	if(first_move())
 		for(int r = 0; r < rows(); ++r)
 			for(int c = 0; c < cols(); ++c){
 				Position p(r, c);
-				if(cell(p) != '0')
+				if(cells(p) != '0')
 					curs.push_back(p);
 			}
 	else
@@ -145,7 +145,7 @@ void puz_state::gen_children(list<puz_state> &children) const
 
 	for(const Position& p : curs)
 		for(int i = 0; i < 8; ++i)
-			if((dir(p) & (1 << i)) && cell(p + offset[i]) != '0'){
+			if((dir(p) & (1 << i)) && cells(p + offset[i]) != '0'){
 				children.push_back(*this);
 				if(!children.back().make_move(p, i))
 					children.pop_back();
@@ -157,7 +157,7 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 0; r < rows(); ++r) {
 		for(int c = 0; c < cols(); ++c)
-			out << cell(Position(r, c)) << " ";
+			out << cells(Position(r, c)) << " ";
 		out << endl;
 	}
 	return out;

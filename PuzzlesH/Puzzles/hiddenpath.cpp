@@ -73,14 +73,14 @@ struct puz_state : pair<vector<int>, Position>
 	}
 	int index(const Position& p) const { return p.first * sidelen() + p.second; }
 	int dir(const Position& p) const { return m_game->m_dirs.at(index(p)); }
-	int cell(const Position& p) const { return first.at(index(p)); }
-	int& cell(const Position& p) { return first[index(p)]; }
-	void make_move(const Position& p, int n) { cell(second = p) = n; }
+	int cells(const Position& p) const { return first.at(index(p)); }
+	int& cells(const Position& p) { return first[index(p)]; }
+	void make_move(const Position& p, int n) { cells(second = p) = n; }
 
 	// solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return first.size() - cell(second); }
+	unsigned int get_heuristic() const { return first.size() - cells(second); }
 	unsigned int get_distance(const puz_state& child) const {return 1;}
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -91,14 +91,14 @@ struct puz_state : pair<vector<int>, Position>
 	const puz_game* m_game = nullptr;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
-	int n = cell(second) + 1;
+	int n = cells(second) + 1;
 	auto i = m_game->m_num2pos.find(n);
 	auto& os = offset[dir(second)];
 	bool found = i != m_game->m_num2pos.end();
 	for(auto p = second + os; is_valid(p); p += os)
-		if(found && p == i->second || !found && cell(p) == 0){
+		if(found && p == i->second || !found && cells(p) == 0){
 			children.push_back(*this);
 			children.back().make_move(p, n);
 			if(found) break;
@@ -109,7 +109,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << format("%02d") % cell(Position(r, c)) << " ";
+			out << format("%02d") % cells(Position(r, c)) << " ";
 		out << endl;
 	}
 	return out;

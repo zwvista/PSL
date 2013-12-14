@@ -62,15 +62,15 @@ struct puz_state : puz_state_base
 		m_game = &g, m_man = g.m_man;
 	}
 	puz_state(const puz_state2& x2);
-	char cell(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return m_cells[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
 	bool operator<(const puz_state& x) const {
 		return m_cells < x.m_cells || m_cells == x.m_cells && m_man < x.m_man ||
 			m_cells == x.m_cells && m_man == x.m_man && m_move < x.m_move;
 	}
 	void make_move(const Position& p1, const Position& p2, char dir){
-		cell(p1) = cell(p1) == PUZ_BOX ? PUZ_FLOOR : PUZ_GOAL;
-		cell(p2) = cell(p2) == PUZ_FLOOR ? PUZ_BOX : PUZ_BOX_GOAL;
+		cells(p1) = cells(p1) == PUZ_BOX ? PUZ_FLOOR : PUZ_GOAL;
+		cells(p2) = cells(p2) == PUZ_FLOOR ? PUZ_BOX : PUZ_BOX_GOAL;
 		m_man = p1;
 		m_move += dir;
 	}
@@ -94,7 +94,7 @@ struct puz_state2 : puz_state_base
 	puz_state2(const puz_state& s) : m_cells(s.m_cells){
 		m_game = s.m_game, m_man = s.m_man;
 	}
-	char cell(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
 	bool operator<(const puz_state2& x) const {
 		return m_man < x.m_man;
 	}
@@ -106,12 +106,12 @@ struct puz_state2 : puz_state_base
 	const string& m_cells;
 };
 
-void puz_state2::gen_children(list<puz_state2> &children) const
+void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	static char* dirs = "lrud";
 	for(int i = 0; i < 4; ++i){
 		Position p = m_man + offset[i];
-		char ch = cell(p);
+		char ch = cells(p);
 		if(ch == PUZ_FLOOR || ch == PUZ_GOAL){
 			children.push_back(*this);
 			children.back().make_move(p, dirs[i]);
@@ -125,7 +125,7 @@ puz_state::puz_state(const puz_state2& x2)
 	m_game = x2.m_game, m_man = x2.m_man, m_move = x2.m_move;
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	static char* dirs = "LRUD";
 	list<puz_state2> smoves;
@@ -133,10 +133,10 @@ void puz_state::gen_children(list<puz_state> &children) const
 	for(const puz_state2& s : smoves)
 		for(int i = 0; i < 4; ++i){
 			Position p1 = s.m_man + offset[i];
-			char ch = cell(p1);
+			char ch = cells(p1);
 			if(ch != PUZ_BOX && ch != PUZ_BOX_GOAL) continue;
 			Position p2 = p1 + offset[i];
-			ch = cell(p2);
+			ch = cells(p2);
 			if(ch != PUZ_FLOOR && ch != PUZ_GOAL) continue;
 			children.push_back(s);
 			children.back().make_move(p1, p2, dirs[i]);
@@ -163,7 +163,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0; r < rows(); ++r) {
 		for(int c = 0; c < cols(); ++c){
 			Position p(r, c);
-			char ch = cell(Position(r, c));
+			char ch = cells(Position(r, c));
 			out << (p == m_man ? 
 				ch == PUZ_FLOOR ? PUZ_MAN : PUZ_MAN_GOAL : ch);
 		}

@@ -41,7 +41,7 @@ struct puz_state : string
 	char m_move;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	static const char* moves = "AFBEHCGD";
 	for(int i = 0; i < 8; ++i){

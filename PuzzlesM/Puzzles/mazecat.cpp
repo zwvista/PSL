@@ -27,7 +27,7 @@ struct puz_game
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 	int rows() const {return m_size.first;}
 	int cols() const {return m_size.second;}
-	char cell(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
@@ -64,7 +64,7 @@ struct puz_state
 	puz_state() {}
 	puz_state(const puz_game& g)
 		: m_game(&g), m_cats(g.m_cats) {}
-	char cell(const Position& p) const {return m_game->cell(p);}
+	char cells(const Position& p) const {return m_game->cells(p);}
 	bool operator<(const puz_state& x) const {
 		return m_cats < x.m_cats ||
 			m_cats == x.m_cats && m_move < x.m_move;
@@ -92,13 +92,13 @@ bool puz_state::make_move(int n, int dir, int step)
 	static char* moves = "lrud";
 	const Position& os = offset[dir];
 	Position p = m_cats[n] + os;
-	if(p == m_cats[1 - n] || cell(p) != PUZ_SPACE)
+	if(p == m_cats[1 - n] || cells(p) != PUZ_SPACE)
 		return false;
 	m_cats[n] = p;
  	p = m_cats[1 - n] - os;
-	if(cell(p) == PUZ_THORN) 
+	if(cells(p) == PUZ_THORN) 
 		return false;
-	if(cell(p) == PUZ_SPACE && p != m_cats[n])
+	if(cells(p) == PUZ_SPACE && p != m_cats[n])
 		m_cats[1 - n] = p;
 	m_move = (format("%1%%2%%3%") % (n == 0 ? PUZ_MALE : PUZ_FEMALE) % moves[dir] % step).str();
 	return true;
@@ -125,7 +125,7 @@ ostream& puz_state::dump(ostream& out) const
 		for(int c = 1; c < m_game->cols() - 1; ++c){
 			Position p(r, c);
 			out << (p == m_cats[0] ? PUZ_MALE:
-				p == m_cats[1] ? PUZ_FEMALE : cell(p));
+				p == m_cats[1] ? PUZ_FEMALE : cells(p));
 		}
 		out << endl;
 	}

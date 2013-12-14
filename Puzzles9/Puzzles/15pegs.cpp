@@ -80,14 +80,14 @@ public:
 		: string(g.m_start), m_game(&g) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(const Position& p) const {return at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return (*this)[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second <= p.first;
 	}
 	void make_move(const Position& p1, const Position& p2, const Position& p3) {
-		cell(p1) = cell(p2) = PUZ_SPACE;
-		cell(p3) = PUZ_PEG;
+		cells(p1) = cells(p2) = PUZ_SPACE;
+		cells(p3) = PUZ_PEG;
 		m_move = puz_step(p1, p3);
 	}
 
@@ -108,17 +108,17 @@ public:
 	boost::optional<puz_step> m_move;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(int r = 0; r < rows(); ++r)
 		for(int c = 0; c <= r; ++c){
 			Position p1(r, c);
-			if(cell(p1) == PUZ_SPACE) continue;
+			if(cells(p1) == PUZ_SPACE) continue;
 			for(int i = 0; i < 6; ++i){
 				Position p2 = p1 + offset[i];
 				Position p3 = p2 + offset[i];
-				if(is_valid(p2) && cell(p2) == PUZ_PEG &&
-					is_valid(p3) && cell(p3) == PUZ_SPACE){
+				if(is_valid(p2) && cells(p2) == PUZ_PEG &&
+					is_valid(p3) && cells(p3) == PUZ_SPACE){
 						children.push_back(*this);
 						children.back().make_move(p1, p2, p3);
 				}
@@ -133,7 +133,7 @@ ostream& puz_state::dump(ostream& out) const
 		for(int i = 0; i < cols()- r - 1; ++i)
 			out << " ";
 		for(int c = 0; c <= r; ++c)
-			out << cell(Position(r, c)) << " ";
+			out << cells(Position(r, c)) << " ";
 		out << endl;
 	}
 	return out;

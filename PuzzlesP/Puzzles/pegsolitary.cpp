@@ -67,11 +67,11 @@ struct puz_state : public string
 		: string(g.m_start), m_game(&g) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(const Position& p) const {return at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return (*this)[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	void make_move(const Position& p1, const Position& p2, const Position& p3) {
-		cell(p1) = cell(p2) = PUZ_HOLE;
-		cell(p3) = PUZ_PEG;
+		cells(p1) = cells(p2) = PUZ_HOLE;
+		cells(p3) = PUZ_PEG;
 		m_move = puz_step(p1, p3);
 	}
 
@@ -96,16 +96,16 @@ struct puz_state : public string
 	boost::optional<puz_step> m_move;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(int r = 1; r < rows() - 1; ++r)
 		for(int c = 1; c < cols() - 1; ++c){
 			Position p1(r, c);
-			if(cell(p1) != PUZ_PEG) continue;
+			if(cells(p1) != PUZ_PEG) continue;
 			for(int i = 0; i < 8; ++i){
 				Position p2 = p1 + offset[i];
 				Position p3 = p2 + offset[i];
-				if(cell(p2) == PUZ_PEG && cell(p3) == PUZ_HOLE){
+				if(cells(p2) == PUZ_PEG && cells(p3) == PUZ_HOLE){
 						children.push_back(*this);
 						children.back().make_move(p1, p2, p3);
 				}
@@ -118,7 +118,7 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 1; r < rows() -1 ; ++r) {
 		for(int c = 0; c < cols() - 1; ++c)
-			out << cell(Position(r, c)) << " ";
+			out << cells(Position(r, c)) << " ";
 		out << endl;
 	}
 	return out;

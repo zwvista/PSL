@@ -85,8 +85,8 @@ struct puz_state
 		m_brick_map(g.m_brick_map) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(int r, int c) const {return m_cells[r * cols() + c];}
-	char& cell(const Position& p) {return m_cells[p.first * cols() + p.second];}
+	char cells(int r, int c) const {return m_cells[r * cols() + c];}
+	char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
 	bool operator<(const puz_state& x) const {
 		return m_cells < x.m_cells || m_cells == x.m_cells && m_move < x.m_move;
 	}
@@ -124,18 +124,18 @@ bool puz_state::make_move(const Position& p, EBrickType bt, const brick_info& bi
 {
 	vector<char> vch;
 	for(const Position& u : bi){
-		char& ch = cell(p + u);
+		char& ch = cells(p + u);
 		vch.push_back(ch);
 		ch = ' ';
 	}
 
 	Position p2 = p + offset[i];
 	for(const Position& u : bi)
-		if(cell(p2 + u) != ' ')
+		if(cells(p2 + u) != ' ')
 			return false;
 
 	for(size_t j = 0; j < vch.size(); ++j)
-		cell(p2 + bi[j]) = vch[j];
+		cells(p2 + bi[j]) = vch[j];
 	m_brick_map.erase(p);
 	m_move = puz_step(p, i);
 	m_brick_map[p2] = bt;
@@ -165,7 +165,7 @@ ostream& puz_state::dump(ostream& out) const
 		out << "move: " << *m_move << endl;
 	for(int r = 0; r < rows(); ++r) {
 		for(int c = 0; c < cols(); ++c)
-			out << cell(r, c);
+			out << cells(r, c);
 		out << endl;
 	}
 	return out;

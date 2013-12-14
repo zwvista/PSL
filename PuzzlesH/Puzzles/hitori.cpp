@@ -74,8 +74,8 @@ struct puz_state : vector<int>
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	int cell(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-	int& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+	int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const pair<int, int>& key, const Position& p);
 
 	//solve_puzzle interface
@@ -124,11 +124,11 @@ puz_state2::puz_state2(const puz_state& s)
 	make_move({i / sidelen(), i % sidelen()});
 }
 
-void puz_state2::gen_children(list<puz_state2> &children) const
+void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		switch(m_state->cell(p2)){
+		switch(m_state->cells(p2)){
 		case PUZ_BOUNDARY:
 		case PUZ_SHADED:
 			break;
@@ -142,7 +142,7 @@ void puz_state2::gen_children(list<puz_state2> &children) const
 
 bool puz_state::make_move(const pair<int, int>& key, const Position& p)
 {
-	cell(p) = PUZ_SHADED;
+	cells(p) = PUZ_SHADED;
 
 	m_distance = 0;
 	auto f = [&](const pair<int, int>& k){
@@ -158,7 +158,7 @@ bool puz_state::make_move(const pair<int, int>& key, const Position& p)
 
 	for(auto& os : offset){
 		auto p2 = p + os;
-		if(cell(p2) == PUZ_SHADED)
+		if(cells(p2) == PUZ_SHADED)
 			return false;
 	}
 
@@ -169,7 +169,7 @@ bool puz_state::make_move(const pair<int, int>& key, const Position& p)
 	});
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_shaded, [](
 		const puz_shaded::value_type& kv1,
@@ -188,7 +188,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1; r < sidelen() - 1; ++r) {
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			int n = cell(p);
+			int n = cells(p);
 			if(n == PUZ_SHADED)
 				out << " .";
 			else

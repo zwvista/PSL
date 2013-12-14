@@ -45,10 +45,10 @@ struct puz_state : vector<int>
 	puz_state(const puz_game& g)
 		: vector<int>(g.m_start), m_game(&g) {}
 	int sidelen() const {return m_game->sidelen();}
-	int cell(int r, int c) const {return at(r * sidelen() + c);}
-	int& cell(int r, int c) {return (*this)[r * sidelen() + c];}
+	int cells(int r, int c) const {return at(r * sidelen() + c);}
+	int& cells(int r, int c) {return (*this)[r * sidelen() + c];}
 	void make_move(int r1, int c1, int r2, int c2){
-		std::swap(cell(r1, c1), cell(r2, c2));
+		std::swap(cells(r1, c1), cells(r2, c2));
 		m_move = puz_step(Position(r1, c1), Position(r2, c2));
 	}
 
@@ -67,7 +67,7 @@ struct puz_state : vector<int>
 	boost::optional<puz_step> m_move;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	int rcmax = sidelen() - 1;
 	for(int r1 = 0; r1 < rcmax; ++r1)
@@ -86,22 +86,22 @@ unsigned int puz_state::get_heuristic() const
 	for(int r = 0; r < rcmax; ++r){
 		int sum = 0;
 		for(int c = 0; c < rcmax; ++c)
-			sum += cell(r, c);
-		if(sum != cell(r, rcmax))
+			sum += cells(r, c);
+		if(sum != cells(r, rcmax))
 			d++;
 	}
 	for(int c = 0; c < rcmax; ++c){
 		int sum = 0;
 		for(int r = 0; r < rcmax; ++r)
-			sum += cell(r, c);
-		if(sum != cell(rcmax, c))
+			sum += cells(r, c);
+		if(sum != cells(rcmax, c))
 			d++;
 	}
 	{
 		int sum = 0;
 		for(int i = 0; i < rcmax; ++i)
-			sum += cell(i, i);
-		if(sum != cell(rcmax, rcmax))
+			sum += cells(i, i);
+		if(sum != cells(rcmax, rcmax))
 			d++;
 	}
 	return (d + 3) / 4;
@@ -112,7 +112,7 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << format("%2d") % cell(r, c);
+			out << format("%2d") % cells(r, c);
 		out << endl;
 	}
 	return out;

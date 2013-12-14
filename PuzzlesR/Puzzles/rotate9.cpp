@@ -54,24 +54,24 @@ struct puz_state : string
 		: string(g.m_start), m_game(&g) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(int r, int c) const {return at(r * cols() + c);}
-	char& cell(int r, int c) {return (*this)[r * cols() + c];}
+	char cells(int r, int c) const {return at(r * cols() + c);}
+	char& cells(int r, int c) {return (*this)[r * cols() + c];}
 	void rotate_row(int r, int n) {
 		vector<int> v(cols());
 		for(int c = 0; c < cols(); ++c)
-			v[c] = cell(r, c);
+			v[c] = cells(r, c);
 		rotate(v.begin(), v.end() - n, v.end());
 		for(int c = 0; c < cols(); ++c)
-			cell(r, c) = v[c];
+			cells(r, c) = v[c];
 		m_move = puz_step(true, r, n);
 	}
 	void rotate_col(int c, int n) {
 		vector<int> v(rows());
 		for(int r = 0; r < rows(); ++r)
-			v[r] = cell(r, c);
+			v[r] = cells(r, c);
 		rotate(v.begin(), v.end() - n, v.end());
 		for(int r = 0; r < rows(); ++r)
-			cell(r, c) = v[r];
+			cells(r, c) = v[r];
 		m_move = puz_step(false, c, n);
 	}
 
@@ -90,7 +90,7 @@ struct puz_state : string
 	boost::optional<puz_step> m_move;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	// rotate rows
 	for(int r = 0; r < rows(); ++r)
@@ -121,7 +121,7 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 0; r < rows(); ++r) {
 		for(int c = 0; c < cols(); ++c)
-			out << cell(r, c) << " ";
+			out << cells(r, c) << " ";
 		out << endl;
 	}
 	return out;

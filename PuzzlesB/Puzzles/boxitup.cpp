@@ -82,8 +82,8 @@ struct puz_state
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(int r, int c) const { return m_cells[r * sidelen() + c]; }
-	char& cell(int r, int c) { return m_cells[r * sidelen() + c]; }
+	char cells(int r, int c) const { return m_cells[r * sidelen() + c]; }
+	char& cells(int r, int c) { return m_cells[r * sidelen() + c]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(const Position& p, int n);
 	void make_move2(const Position& p, int n);
@@ -127,7 +127,7 @@ int puz_state::find_matches(bool init)
 			if([&](){
 				for(int r = box.first.first; r <= box.second.first; ++r)
 					for(int c = box.first.second; c <= box.second.second; ++c)
-						if(cell(r, c) != PUZ_SPACE)
+						if(cells(r, c) != PUZ_SPACE)
 							return false;
 				return true;
 			}())
@@ -151,7 +151,7 @@ void puz_state::make_move2(const Position& p, int n)
 
 	for(int r = box.first.first; r <= box.second.first; ++r)
 		for(int c = box.first.second; c <= box.second.second; ++c)
-			cell(r, c) = m_ch;
+			cells(r, c) = m_ch;
 
 	++m_distance, ++m_ch;
 	m_matches.erase(p);
@@ -171,7 +171,7 @@ bool puz_state::make_move(const Position& p, int n)
 	return true;
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_matches, [](
 		const pair<const Position, vector<int>>& kv1,
@@ -189,7 +189,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r){
 		for(int c = 0; c < sidelen(); ++c)
-			out << cell(r, c);
+			out << cells(r, c);
 		out << endl;
 	}
 	return out;

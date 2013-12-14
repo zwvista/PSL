@@ -43,10 +43,10 @@ struct puz_state : string
 	puz_state(const puz_game& g) 
 		: string(g.m_start), m_game(&g) {}
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(const Position& p) const {return at(p.first * sidelen() + p.second);}
-	char& cell(const Position& p) {return (*this)[p.first * sidelen() + p.second];}
+	char cells(const Position& p) const {return at(p.first * sidelen() + p.second);}
+	char& cells(const Position& p) {return (*this)[p.first * sidelen() + p.second];}
 	int pos2group(const Position& p) const {return m_game->m_pos2group.at(p);}
-	void make_move(const Position& p, char n) {cell(p) = n;}
+	void make_move(const Position& p, char n) {cells(p) = n;}
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -62,19 +62,19 @@ struct puz_state : string
 	const puz_game* m_game;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	int sp = find(PUZ_SPACE);
 	int r = sp / sidelen(), c = sp % sidelen();
 	Position p(r, c);
 	set<char> numbers = m_game->m_numbers;
 	for(int c2 = 0; c2 < sidelen(); ++c2)
-		numbers.erase(cell(Position(r, c2)));
+		numbers.erase(cells(Position(r, c2)));
 	for(int r2 = 0; r2 < sidelen(); ++r2)
-		numbers.erase(cell(Position(r2, c)));
+		numbers.erase(cells(Position(r2, c)));
 	const vector<Position>& g = m_game->m_groups[pos2group(p)];
 	for(int i = 0; i < sidelen(); ++i)
-		numbers.erase(cell(g[i]));
+		numbers.erase(cells(g[i]));
 	for(char n : numbers){
 		children.push_back(*this);
 		children.back().make_move(p, n);
@@ -86,7 +86,7 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << cell(Position(r, c));
+			out << cells(Position(r, c));
 		out << endl;
 	}
 	for(int r = 0; r < sidelen(); ++r) {

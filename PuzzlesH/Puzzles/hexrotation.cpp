@@ -65,8 +65,8 @@ struct puz_state : string
 		: string(g.m_start), m_game(&g) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(const Position& p) const {return at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return (*this)[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	void click(const Position& p);
 
 	// solve_puzzle interface
@@ -84,7 +84,7 @@ struct puz_state : string
 	boost::optional<puz_step> m_move;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(const Position& p : m_game->m_clickable){
 		children.push_back(*this);
@@ -96,10 +96,10 @@ void puz_state::click(const Position& p)
 {
 	static vector<char> v(6);
 	for(int i = 0; i < 6; ++i)
-		v[i] = cell(p + offset[i]);
+		v[i] = cells(p + offset[i]);
 	rotate(v.begin(), v.end() - 1, v.end());
 	for(int i = 0; i < 6; ++i)
-		cell(p + offset[i]) = v[i];
+		cells(p + offset[i]) = v[i];
 	m_move = puz_step(p);
 }
 

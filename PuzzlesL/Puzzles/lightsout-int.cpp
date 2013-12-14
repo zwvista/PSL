@@ -59,7 +59,7 @@ struct puz_state
 		: m_data(g.m_start), m_game(&g) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(int r, int c) const {return m_data & (1 << (r * cols() + c)) ? PUZ_ON : PUZ_OFF;}
+	char cells(int r, int c) const {return m_data & (1 << (r * cols() + c)) ? PUZ_ON : PUZ_OFF;}
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
 	}
@@ -98,7 +98,7 @@ struct puz_state
 	boost::optional<puz_step> m_move;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(int r = 0; r < rows(); ++r)
 		for(int c = 0; c < cols(); ++c){
@@ -112,7 +112,7 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 0; r < rows(); ++r) {
 		for(int c = 0; c < cols(); ++c)
-			out << cell(r, c) << " ";
+			out << cells(r, c) << " ";
 		out << endl;
 	}
 	return out;

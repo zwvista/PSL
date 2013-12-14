@@ -73,8 +73,8 @@ struct puz_state
 		, m_grav(0), m_move(0) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cell(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return m_cells[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
 	bool operator<(const puz_state& x) const {
 		return m_cells < x.m_cells || m_cells == x.m_cells && m_grav < x.m_grav;
 	}
@@ -118,7 +118,7 @@ bool puz_state::make_move(int i)
 					m_grav == 2 ? Position(rs - 1 - r, cs - 1 - c) :
 					m_grav == 3 ? Position(c, rs - 1 - r) :
 					Position(r, c);
-				char ch = cell(p);
+				char ch = cells(p);
 				if(ch != PUZ_BLOB && ch != PUZ_BLUB)
 					continue;
 				Position p2 = p;
@@ -128,31 +128,31 @@ bool puz_state::make_move(int i)
 						ch2 = PUZ_FINISH;
 						break;
 					}
-					ch2 = cell(p2 + os);
+					ch2 = cells(p2 + os);
 					if(ch2 == PUZ_SPACE)
 						p2 += os;
 					else if(ch2 == PUZ_KEY_Y){
 						boost::replace(m_cells, PUZ_LOCK_Y, PUZ_SPACE);
-						cell(p2 += os) = PUZ_SPACE;
+						cells(p2 += os) = PUZ_SPACE;
 						keep_moving = true;
 					}
 					else if(ch2 == PUZ_BREAK2){
-						cell(p2 + os) = PUZ_BREAK1;
+						cells(p2 + os) = PUZ_BREAK1;
 						break;
 					}
 					else if(ch2 == PUZ_BREAK1)
-						cell(p2 += os) = PUZ_SPACE;
+						cells(p2 += os) = PUZ_SPACE;
 					else if(ch2 == PUZ_DEATH)
 						return false;
 					else
 						break;
 				}
 				if(p2 != p){
-					cell(p) = PUZ_SPACE;
+					cells(p) = PUZ_SPACE;
 					if(ch == PUZ_BLOB)
 						m_blobs.erase(p);
 					if(ch2 != PUZ_FINISH){
-						cell(p2) = ch;
+						cells(p2) = ch;
 						if(ch == PUZ_BLOB)
 							m_blobs.insert(p2);
 					}
@@ -211,7 +211,7 @@ ostream& puz_state::dump(ostream& out) const
 		out << "move: " << m_move << endl;
 	for(int r = 1; r < rows() - 1; ++r) {
 		for(int c = 1; c < cols() - 1; ++c)
-			out << cell(Position(r, c)) << ' ';
+			out << cells(Position(r, c)) << ' ';
 		out << endl;
 	}
 	return out;

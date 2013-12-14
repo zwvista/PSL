@@ -101,7 +101,7 @@ struct puz_area : pair<int, map<char, int>>
 		second.emplace(PUZ_NEGATIVE, num_negative);
 		second.emplace(PUZ_EMPTY, num_empty);
 	}
-	void fill_cell(const Position& p, char ch){ --second.at(ch); }
+	void fill_cells(const Position& p, char ch){ --second.at(ch); }
 	int cant_use(char ch) const { return second.at(ch) == 0; }
 };
 
@@ -115,8 +115,8 @@ struct puz_state : string
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, char ch);
 	bool make_move2(const Position& p, char ch);
 	void check_area(const puz_area& a, char ch){
@@ -188,11 +188,11 @@ bool puz_state::make_move(const Position& p, char ch)
 
 bool puz_state::make_move2(const Position& p, char ch)
 {
-	cell(p) = ch;
+	cells(p) = ch;
 	m_pos2chars.erase(p);
 
 	for(auto a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}){
-		a->fill_cell(p, ch);
+		a->fill_cells(p, ch);
 		check_area(*a, ch);
 	}
 
@@ -209,7 +209,7 @@ bool puz_state::make_move2(const Position& p, char ch)
 	});
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_pos2chars,
 		[](const pair<const Position, puz_chars>& kv1, const pair<const Position, puz_chars>& kv2){
@@ -230,7 +230,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0; r < sidelen() + 2; ++r) {
 		for(int c = 0; c < sidelen() + 2; ++c)
 			out << (r < sidelen() && c < sidelen() ?
-				cell(Position(r, c)) :
+				cells(Position(r, c)) :
 				m_game->m_start[r * (sidelen() + 2) + c]);
 		out << endl;
 	}

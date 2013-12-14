@@ -29,9 +29,9 @@ struct puz_game
 	int cols() const {return m_size.second;}
 	bool is_horz_wall(const Position& p) const {return m_horz_wall.count(p) != 0;}
 	bool is_vert_wall(const Position& p) const {return m_vert_wall.count(p) != 0;}
-	bool is_hole(const Position& p) const {return cell(p) == '#';}
+	bool is_hole(const Position& p) const {return cells(p) == '#';}
 	bool is_goal(const Position& p) const {return p == m_goals[0] || p == m_goals[1];}
-	char cell(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
@@ -156,7 +156,7 @@ ostream& puz_state::dump(ostream& out) const
 			if(c == m_game->cols() - 1) break;
 			// draw balls and goals
 			out << (is_ball(pos) ? '@' : 
-				m_game->is_goal(pos) ? '.' : m_game->cell(pos));
+				m_game->is_goal(pos) ? '.' : m_game->cells(pos));
 		}
 		out << endl;
 	}

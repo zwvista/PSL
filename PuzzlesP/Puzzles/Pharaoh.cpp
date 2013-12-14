@@ -88,7 +88,7 @@ struct puz_state
 		: m_game(&g), m_cells(g.m_cells), m_brick_map(g.m_brick_map) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char& cell(const Position& p) {return m_cells[p.first * cols() + p.second];}
+	char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
 	bool operator<(const puz_state& x) const {
 		return m_cells < x.m_cells || m_cells == x.m_cells && m_move < x.m_move;
 	}
@@ -130,18 +130,18 @@ bool puz_state::make_move(const Position& pos, EBrickType bt, const vector<Posit
 	bool can_move = true;
 	vector<char> vch;
 	for(const Position& p : units)
-		vch.push_back(cell(pos + p));
+		vch.push_back(cells(pos + p));
 	for(const Position& p : units)
-		cell(pos + p) = ' ';
+		cells(pos + p) = ' ';
 	Position pos2 = pos + offset[dir];
 	for(const Position& p : units)
-		if(cell(pos2 + p) != ' '){
+		if(cells(pos2 + p) != ' '){
 			pos2 = pos;
 			can_move = false;
 			break;
 		}
 	for(size_t i = 0; i < vch.size(); i++)
-		cell(pos2 + units[i]) = vch[i];
+		cells(pos2 + units[i]) = vch[i];
 	if(can_move){
 		m_brick_map.erase(pos);
 		m_move = puz_step(pos, dir);

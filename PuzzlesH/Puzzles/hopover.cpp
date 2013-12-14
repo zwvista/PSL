@@ -60,7 +60,7 @@ struct puz_state : string
 	boost::optional<puz_step> m_move;
 };
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(size_t i = 1; i < length() - 1; ++i){
 		char n = at(i);

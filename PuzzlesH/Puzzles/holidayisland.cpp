@@ -84,8 +84,8 @@ struct puz_state : string
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p);
 	bool make_move2(const Position& p);
 	int adjust_area(bool init);
@@ -135,7 +135,7 @@ int puz_state::adjust_area(bool init)
 		for(auto& p : area.m_inner)
 			for(auto& os : offset){
 				auto p2 = p + os;
-				char ch = cell(p2);
+				char ch = cells(p2);
 				if(ch == PUZ_WATER)
 					outer.insert(p2);
 			}
@@ -167,13 +167,13 @@ puz_state2::puz_state2(const puz_state& s)
 	make_move(s.m_starting);
 }
 
-void puz_state2::gen_children(list<puz_state2> &children) const
+void puz_state2::gen_children(list<puz_state2>& children) const
 {
-	if(m_state->cell(*this) == PUZ_TENT) return;
+	if(m_state->cells(*this) == PUZ_TENT) return;
 
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		switch(m_state->cell(p2)){
+		switch(m_state->cells(p2)){
 		case PUZ_BOUNDARY:
 		case PUZ_WATER:
 			break;
@@ -201,11 +201,11 @@ puz_state3::puz_state3(const puz_state& s)
 	make_move(s.m_starting);
 }
 
-void puz_state3::gen_children(list<puz_state3> &children) const
+void puz_state3::gen_children(list<puz_state3>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		switch(m_state->cell(p2)){
+		switch(m_state->cells(p2)){
 		case PUZ_BOUNDARY:
 		case PUZ_WATER:
 			break;
@@ -219,12 +219,12 @@ void puz_state3::gen_children(list<puz_state3> &children) const
 
 bool puz_state::make_move2(const Position& p)
 {
-	cell(m_starting = p) = PUZ_EMPTY;
+	cells(m_starting = p) = PUZ_EMPTY;
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
 	vector<Position> ps_tent, ps_empty;
 	for(const auto& p2 : smoves)
-		(cell(p2) == PUZ_TENT ? ps_tent : ps_empty).push_back(p2);
+		(cells(p2) == PUZ_TENT ? ps_tent : ps_empty).push_back(p2);
 
 	for(const auto& p2 : ps_tent){
 		auto& area = m_pos2area.at(p2);
@@ -267,7 +267,7 @@ bool puz_state::make_move(const Position& p)
 		}
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_pos2area, [](
 		const pair<const Position, puz_area>& kv1,
@@ -286,7 +286,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			char ch = cell(p);
+			char ch = cells(p);
 			if(ch == PUZ_TENT)
 				out << format("%-2d") % m_game->m_pos2num.at(p);
 			else

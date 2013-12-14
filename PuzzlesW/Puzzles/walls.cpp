@@ -71,8 +71,8 @@ struct puz_state
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
+	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(const Position& p, const vector<int>& disp);
 	void make_move2(const Position& p, const vector<int>& disp);
@@ -119,7 +119,7 @@ int puz_state::find_matches(bool init)
 			int n = 0;
 			auto& nums = dir_nums[i];
 			for(auto p2 = p + os; n <= sum; p2 += os){
-				char ch = cell(p2);
+				char ch = cells(p2);
 				if(ch == PUZ_SPACE ||
 					is_horz && ch == PUZ_HORZ ||
 					!is_horz && ch == PUZ_VERT)
@@ -157,11 +157,11 @@ void puz_state::make_move2(const Position& p, const vector<int>& disp)
 		int n = disp[i];
 		auto p2 = p + os;
 		for(int j = 0; j < n; ++j){
-			cell(p2) = is_horz ? PUZ_HORZ : PUZ_VERT;
+			cells(p2) = is_horz ? PUZ_HORZ : PUZ_VERT;
 			p2 += os;
 		}
-		if(cell(p2) == PUZ_SPACE)
-			cell(p2) = is_horz ? PUZ_VERT : PUZ_HORZ;
+		if(cells(p2) == PUZ_SPACE)
+			cells(p2) = is_horz ? PUZ_VERT : PUZ_HORZ;
 	}
 
 	++m_distance;
@@ -181,7 +181,7 @@ bool puz_state::make_move(const Position& p, const vector<int>& disp)
 		}
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_matches, [](
 		const pair<const Position, vector<vector<int>>>& kv1,
@@ -201,7 +201,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1; r < sidelen() - 1; ++r) {
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			switch(char ch = cell(Position(r, c))){
+			switch(char ch = cells(Position(r, c))){
 			case PUZ_NUMBER:
 				out << format("%2d") % m_game->m_pos2num.at(p);
 				break;

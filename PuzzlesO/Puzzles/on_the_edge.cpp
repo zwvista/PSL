@@ -78,8 +78,8 @@ struct puz_state : puz_state_base
 	puz_state(const puz_game& g) : m_cells(g.m_cells), m_move(0) {
 		m_game = &g, m_block = g.m_block;
 	}
-	char cell(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return m_cells[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
 	bool operator<(const puz_state& x) const {
 		return m_cells < x.m_cells ||
 			m_cells == x.m_cells && m_block < x.m_block;
@@ -116,7 +116,7 @@ struct puz_state2 : puz_state_base
 	puz_state2(const puz_state& s) : m_cells(s.m_cells) {
 		m_game = s.m_game, m_block = s.m_block;
 	}
-	char cell(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
 	bool operator<(const puz_state2& x) const {
 		return m_block < x.m_block;
 	}
@@ -125,16 +125,16 @@ struct puz_state2 : puz_state_base
 	const string& m_cells;
 };
 
-void puz_state2::gen_children(list<puz_state2> &children) const
+void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	map<Position, Position>::const_iterator it = m_game->m_teleporters.find(m_block);
-	if(it != m_game->m_teleporters.end() && cell(it->second) != PUZ_HOLE){
+	if(it != m_game->m_teleporters.end() && cells(it->second) != PUZ_HOLE){
 		children.push_back(*this);
 		children.back().m_block = it->second;
 	}
 	for(int i = 0; i < 4; ++i){
 		Position p = m_block + offset[i];
-		if(is_valid(p) && cell(p) != PUZ_HOLE){
+		if(is_valid(p) && cells(p) != PUZ_HOLE){
 			children.push_back(*this);
 			children.back().m_block = p;
 		}
@@ -146,14 +146,14 @@ bool puz_state::make_move(int i)
 	char* dirs = "lrud";
 
 	if(m_block != m_game->m_goal)
-		cell(m_block) = cell(m_block) == PUZ_BLACK ? PUZ_WHITE : PUZ_HOLE;
+		cells(m_block) = cells(m_block) == PUZ_BLACK ? PUZ_WHITE : PUZ_HOLE;
 
 	if(!is_valid(m_block += offset[i]) ||
-		cell(m_block) == PUZ_HOLE) return false;
+		cells(m_block) == PUZ_HOLE) return false;
 
 	map<Position, Position>::const_iterator it = m_game->m_teleporters.find(m_block);
 	if(it != m_game->m_teleporters.end()){
-		cell(m_block) = PUZ_HOLE;
+		cells(m_block) = PUZ_HOLE;
 		m_block = it->second;
 	}
 
@@ -165,7 +165,7 @@ bool puz_state::make_move(int i)
 	return true;
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(int i = 0; i < 4; ++i){
 		children.push_back(*this);
@@ -183,7 +183,7 @@ ostream& puz_state::dump(ostream& out) const
 			Position p(r, c);
 			out << (p == m_block ? PUZ_BLOCK :
 			p == m_game->m_goal ? PUZ_GOAL :
-			cell(p)) << ' ';
+			cells(p)) << ' ';
 		}
 		out << endl;
 	}

@@ -92,8 +92,8 @@ struct puz_area : pair<set<Position>, int>
 	puz_area(int star_count)
 		: pair<set<Position>, int>({}, star_count)
 	{}
-	void add_cell(const Position& p){ first.insert(p); }
-	void remove_cell(const Position& p){ first.erase(p); }
+	void add_cells(const Position& p){ first.insert(p); }
+	void remove_cells(const Position& p){ first.erase(p); }
 	void place_star(const Position& p, bool at_least_one){
 		if(first.count(p) == 0) return;
 		first.erase(p);
@@ -126,8 +126,8 @@ struct puz_state : string
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p);
 
 	// solve_puzzle interface
@@ -160,10 +160,10 @@ puz_state::puz_state(const puz_game& g)
 		auto& p = kv.first;
 		auto& os = offset[kv.second];
 		for(auto p2 = p + os; is_valid(p2); p2 += os)
-			if(cell(p2) == PUZ_EMPTY){
-				m_grp_rows[p2.first].add_cell(p2);
-				m_grp_cols[p2.second].add_cell(p2);
-				m_grp_arrows[i].add_cell(p2);
+			if(cells(p2) == PUZ_EMPTY){
+				m_grp_rows[p2.first].add_cells(p2);
+				m_grp_cols[p2.second].add_cells(p2);
+				m_grp_arrows[i].add_cells(p2);
 			}
 		++i;
 	}
@@ -171,7 +171,7 @@ puz_state::puz_state(const puz_game& g)
 
 bool puz_state::make_move(const Position& p)
 {
-	cell(p) = PUZ_STAR;
+	cells(p) = PUZ_STAR;
 
 	for(auto& a : m_grp_arrows)
 		a.place_star(p, !m_game->m_only_one_arrow);
@@ -182,7 +182,7 @@ bool puz_state::make_move(const Position& p)
 		(!m_game->m_only_one_arrow || m_grp_arrows.is_valid());
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	vector<const puz_area*> areas;
 	for(auto grp : {&m_grp_arrows, &m_grp_rows, &m_grp_cols})
@@ -214,12 +214,12 @@ ostream& puz_state::dump(ostream& out) const
 				f(m_game->m_star_counts_cols.at(c));
 			else{
 				Position p(r, c);
-				switch(char ch = cell(p)){
+				switch(char ch = cells(p)){
 				case PUZ_ARROW:
 					f(m_game->m_arrows.at(p));
 					break;
 				default:
-					out << cell(Position(r, c)) << " ";
+					out << cells(Position(r, c)) << " ";
 					break;
 				}
 			}

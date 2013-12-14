@@ -46,7 +46,7 @@ struct puz_game
 	map<Position, puz_arrow> m_pos2arrows;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
-	int cell(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+	int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
@@ -70,13 +70,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	for(int r = 1; r < m_sidelen - 1; ++r)
 		for(int c = 1; c < m_sidelen - 1; ++c){
 			Position p(r, c);
-			int n = cell(p);
+			int n = cells(p);
 			auto& arrow = m_pos2arrows[p];
 
 			for(int i = 0; i < 8; ++i){
 				auto& os = offset[i];
 				for(auto p2 = p + os;; p2 += os){
-					int n2 = cell(p2);
+					int n2 = cells(p2);
 					if(n2 == PUZ_BORDER){
 						arrow.m_range.push_back(p2);
 						arrow.m_dirs.push_back((i + 4) % 8);
@@ -109,8 +109,8 @@ struct puz_state
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	int cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
-	int& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	int cells(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
+	int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(const Position& p, int j);
 	void make_move2(const Position& p, int j);
@@ -198,7 +198,7 @@ void puz_state::make_move2(const Position& p, int j)
 
 	for(int k = 0; k < disp.size(); ++k){
 		const auto& p = arrow.m_range[k];
-		int& n1 = cell(p);
+		int& n1 = cells(p);
 		int n2 = disp[k];
 		if(n2 >= 0)
 			m_arrow_dirs[p] = {n1 = n2};
@@ -223,7 +223,7 @@ bool puz_state::make_move(const Position& p, int j)
 		}
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_matches, [](
 		const pair<const Position, vector<int>>& kv1,
@@ -241,7 +241,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c){
-			int n = cell(Position(r, c));
+			int n = cells(Position(r, c));
 			if(n == PUZ_CORNER)
 				out << "  ";
 			else

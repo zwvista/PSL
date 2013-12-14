@@ -78,8 +78,8 @@ struct puz_state : string
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p);
 
 	//solve_puzzle interface
@@ -116,8 +116,8 @@ puz_state::puz_state(const puz_game& g)
 	for(int r = 1; r < g.m_sidelen - 2; ++r)
 		for(int c = 1; c < g.m_sidelen - 2; ++c){
 			Position p1(r, c), p2(r, c + 1), p3(r + 1, c), p4(r + 1, c + 1);
-			if(cell(p1) == PUZ_WALL && cell(p2) == PUZ_WALL &&
-				cell(p3) == PUZ_WALL && cell(p4) == PUZ_WALL)
+			if(cells(p1) == PUZ_WALL && cells(p2) == PUZ_WALL &&
+				cells(p3) == PUZ_WALL && cells(p4) == PUZ_WALL)
 				m_2by2walls.push_back({p1, p2, p3, p4});
 		}
 }
@@ -140,11 +140,11 @@ puz_state2::puz_state2(const puz_state& s)
 	make_move({i / sidelen(), i % sidelen()});
 }
 
-void puz_state2::gen_children(list<puz_state2> &children) const
+void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		if(m_state->cell(p2) == PUZ_WALL){
+		if(m_state->cells(p2) == PUZ_WALL){
 			children.push_back(*this);
 			children.back().make_move(p2);
 		}
@@ -154,14 +154,14 @@ void puz_state2::gen_children(list<puz_state2> &children) const
 bool puz_state::make_move(const Position& p)
 {
 	auto& g = m_gardens.back();
-	char ch = cell(g.first.front());
-	cell(p) = ch;
+	char ch = cells(g.first.front());
+	cells(p) = ch;
 	g.first.push_back(p);
 	if(--g.second == 0)
 		m_gardens.pop_back();
 
 	for(auto& os : offset){
-		char ch2 = cell(p + os);
+		char ch2 = cells(p + os);
 		if(ch2 != PUZ_BOUNDARY && ch2 != PUZ_WALL && ch2 != ch)
 			return false;
 	}
@@ -186,12 +186,12 @@ bool puz_state::make_move(const Position& p)
 	return smoves.size() == boost::count(*this, PUZ_WALL);
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(auto& p : m_gardens.back().first)
 		for(auto& os : offset){
 			auto p2 = p + os;
-			if(cell(p2) == PUZ_WALL){
+			if(cells(p2) == PUZ_WALL){
 				children.push_back(*this);
 				if(!children.back().make_move(p2))
 					children.pop_back();
@@ -204,7 +204,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1; r < sidelen() - 1; ++r) {
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			char ch = cell(p);
+			char ch = cells(p);
 			if(ch == PUZ_WALL)
 				out << ch << ' ';
 			else{

@@ -23,7 +23,7 @@ public:
 	pstate_t(int rows, int cols, I beg, I end)
 		: vector<int>(beg, end), m_r(rows), m_c(cols) {}
 	inline int get(int r, int c) const {
-		return operator[](cell(r, c));
+		return operator[](cells(r, c));
 	}
 	inline void move(int i, int j, char dir) {
 		int tmp = operator[](i);
@@ -32,7 +32,7 @@ public:
 		m_mi = dir;
 	}
 	// find offset of coordinates
-	inline int cell(int r, int c) const {
+	inline int cells(int r, int c) const {
 		return r * m_c + c;
 	}
 	// find coordinates of an offset
@@ -57,26 +57,26 @@ ostream & operator<<(ostream &out, const pstate_t &p)
 	return out;
 }
 
-void gen_children(const pstate_t &p, list<pstate_t> &children)
+void gen_children(const pstate_t &p, list<pstate_t>& children)
 {
 	pstate_t::const_iterator i = find(p.begin(), p.end(), 0);
 	int sr, sc, soff = i - p.begin();
 	p.coords(soff, sr, sc);
 	if(sc > 0) { // move tile to left of space
 		children.push_back(p);
-		children.back().move(soff, p.cell(sr, sc - 1), 'w');
+		children.back().move(soff, p.cells(sr, sc - 1), 'w');
 	}
 	if(sc < p.m_c - 1) { // move tile to right of space
 		children.push_back(p);
-		children.back().move(soff, p.cell(sr, sc + 1), 'e');
+		children.back().move(soff, p.cells(sr, sc + 1), 'e');
 	}
 	if(sr > 0) { // move tile above space
 		children.push_back(p);
-		children.back().move(soff, p.cell(sr - 1, sc), 'n');
+		children.back().move(soff, p.cells(sr - 1, sc), 'n');
 	}
 	if(sr < p.m_r - 1) { // move tile below space
 		children.push_back(p);
-		children.back().move(soff, p.cell(sr + 1, sc), 's');
+		children.back().move(soff, p.cells(sr + 1, sc), 's');
 	}
 }
 

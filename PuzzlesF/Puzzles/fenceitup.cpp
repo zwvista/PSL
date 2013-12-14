@@ -80,8 +80,8 @@ struct puz_state : string
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& pnum, const Position& p);
 	void make_move2(const Position& pnum, const Position& p);
 	int adjust_area(bool init);
@@ -131,7 +131,7 @@ int puz_state::adjust_area(bool init)
 		for(auto& p : area.m_inner)
 			for(auto& os : offset){
 				auto p2 = p + os;
-				if(cell(p2) == PUZ_SPACE &&
+				if(cells(p2) == PUZ_SPACE &&
 					get_perimeter_len(area, p2) <= info.second)
 					outer.insert(p2);
 			}
@@ -151,7 +151,7 @@ int puz_state::adjust_area(bool init)
 void puz_state::make_move2(const Position& pnum, const Position& p)
 {
 	auto& info = m_game->m_pos2info.at(pnum);
-	cell(p) = info.first;
+	cells(p) = info.first;
 
 	auto& area = m_pos2area.at(pnum);
 	area.m_inner.insert(p);
@@ -174,16 +174,16 @@ bool puz_state::make_move(const Position& pnum, const Position& p)
 		}
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	if(m_pos2area.empty()) return;
 
-	const auto& kv = *boost::min_element(m_pos2area, [](
+	auto& kv = *boost::min_element(m_pos2area, [](
 		const pair<const Position, puz_area>& kv1,
 		const pair<const Position, puz_area>& kv2){
 		return kv1.second < kv2.second;
 	});
-	for(const auto& p : kv.second.m_outer){
+	for(auto& p : kv.second.m_outer){
 		children.push_back(*this);
 		if(!children.back().make_move(kv.first, p))
 			children.pop_back();
@@ -194,7 +194,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c)
-			out << cell(Position(r, c));
+			out << cells(Position(r, c));
 		out << endl;
 	}
 	return out;

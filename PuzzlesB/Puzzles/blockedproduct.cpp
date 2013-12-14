@@ -66,8 +66,8 @@ struct puz_state
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cell(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
+	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(const Position& p, const vector<int>& disp);
 	bool make_move2(const Position& p, const vector<int>& disp);
@@ -95,11 +95,11 @@ puz_state::puz_state(const puz_game& g)
 , m_game(&g)
 {
 	for(int i = 0; i < sidelen(); ++i)
-		cell(Position(i, 0)) = cell(Position(i, sidelen() - 1)) =
-		cell(Position(0, i)) = cell(Position(sidelen() - 1, i)) = PUZ_BOUNDARY;
+		cells(Position(i, 0)) = cells(Position(i, sidelen() - 1)) =
+		cells(Position(0, i)) = cells(Position(sidelen() - 1, i)) = PUZ_BOUNDARY;
 
 	for(const auto& kv : g.m_start)
-		cell(kv.first) = PUZ_SENTINEL, m_matches[kv.first];
+		cells(kv.first) = PUZ_SENTINEL, m_matches[kv.first];
 
 	find_matches(true);
 }
@@ -118,7 +118,7 @@ int puz_state::find_matches(bool init)
 			auto& nums = dir_nums[i];
 			[&](){
 				for(auto p2 = p + os; ; p2 += os)
-					switch(cell(p2)){
+					switch(cells(p2)){
 					case PUZ_SPACE:
 						nums.push_back(n++);
 						break;
@@ -173,11 +173,11 @@ puz_state2::puz_state2(const puz_state& s)
 	make_move({i / sidelen(), i % sidelen()});
 }
 
-void puz_state2::gen_children(list<puz_state2> &children) const
+void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		switch(m_state->cell(p2)){
+		switch(m_state->cells(p2)){
 		case PUZ_BOUNDARY:
 		case PUZ_TOWER:
 			break;
@@ -195,16 +195,16 @@ bool puz_state::make_move2(const Position& p, const vector<int>& disp)
 		int n = disp[i];
 		auto p2 = p + os;
 		for(int j = 0; j < n; ++j){
-			char& ch = cell(p2);
+			char& ch = cells(p2);
 			if(ch == PUZ_SPACE)
 				ch = PUZ_EMPTY;
 			p2 += os;
 		}
-		char& ch = cell(p2);
+		char& ch = cells(p2);
 		if(ch == PUZ_SPACE){
 			for(auto& os2 : offset){
 				auto p3 = p2 + os2;
-				if(cell(p3) == PUZ_TOWER)
+				if(cells(p3) == PUZ_TOWER)
 					return false;
 			}
 			ch = PUZ_TOWER;
@@ -235,7 +235,7 @@ bool puz_state::make_move(const Position& p, const vector<int>& disp)
 		}
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_matches, [](
 		const pair<const Position, vector<vector<int>>>& kv1,
@@ -255,7 +255,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1; r < sidelen() - 1; ++r) {
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			switch(char ch = cell(Position(r, c))){
+			switch(char ch = cells(Position(r, c))){
 			case PUZ_SENTINEL:
 				out << format("%2d") % m_game->m_start.at(p);
 				break;

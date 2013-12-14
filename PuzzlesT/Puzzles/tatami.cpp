@@ -104,7 +104,7 @@ struct puz_area : pair<int, map<char, int>>
 		for(char ch : numbers)
 			second.emplace(ch, num_times_appear);
 	}
-	bool fill_cell(const Position& p, char ch){ return --second.at(ch); }
+	bool fill_cells(const Position& p, char ch){ return --second.at(ch); }
 };
 
 struct puz_group : vector<puz_area>
@@ -124,8 +124,8 @@ struct puz_state : string
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	char cell(const Position& p) const { return at(p.first * sidelen() + p.second); }
-	char& cell(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, char ch);
 	void remove_pair(const Position& p, char ch){
 		auto i = m_pos2nums.find(p);
@@ -168,7 +168,7 @@ puz_state::puz_state(const puz_game& g)
 
 bool puz_state::make_move(const Position& p, char ch)
 {
-	cell(p) = ch;
+	cells(p) = ch;
 	m_pos2nums.erase(p);
 
 	auto areas = {
@@ -177,7 +177,7 @@ bool puz_state::make_move(const Position& p, char ch)
 		&m_grp_cols[p.second]
 	};
 	for(puz_area* a : areas)
-		if(a->fill_cell(p, ch) == 0)
+		if(a->fill_cells(p, ch) == 0)
 			for(const auto& p2 : m_game->m_area_pos[a->first])
 				remove_pair(p2, ch);
 
@@ -193,7 +193,7 @@ bool puz_state::make_move(const Position& p, char ch)
 	});
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	const auto& kv = *boost::min_element(m_pos2nums, 
 		[](const pair<const Position, puz_numbers>& kv1, const pair<const Position, puz_numbers>& kv2){
@@ -213,7 +213,7 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << cell(Position(r, c));
+			out << cells(Position(r, c));
 		out << endl;
 	}
 	for(int r = 0; r < sidelen(); ++r) {

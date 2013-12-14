@@ -81,8 +81,8 @@ struct puz_state : puz_state_base
 		m_game = &g, m_monkey = g.m_monkey;
 	}
 	puz_state(const puz_state2& x2);
-	char cell(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
-	char& cell(const Position& p) {return m_cells[p.first * cols() + p.second];}
+	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
 	bool operator<(const puz_state& x) const {
 		return m_cells < x.m_cells || m_cells == x.m_cells && m_monkey < x.m_monkey ||
 			m_cells == x.m_cells && m_monkey == x.m_monkey && m_move < x.m_move;
@@ -108,7 +108,7 @@ struct puz_state2 : puz_state_base
 	puz_state2(const puz_state& s) : m_cells(s.m_cells){
 		m_game = s.m_game, m_monkey = s.m_monkey;
 	}
-	char cell(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
 	bool operator<(const puz_state2& x) const {
 		return m_monkey < x.m_monkey;
 	}
@@ -120,12 +120,12 @@ struct puz_state2 : puz_state_base
 	const string& m_cells;
 };
 
-void puz_state2::gen_children(list<puz_state2> &children) const
+void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	static char* dirs = "lrud";
 	for(int i = 0; i < 4; ++i){
 		Position p = m_monkey + offset[i];
-		if(cell(p) == PUZ_SPACE){
+		if(cells(p) == PUZ_SPACE){
 			children.push_back(*this);
 			children.back().make_move(p, dirs[i]);
 		}
@@ -138,7 +138,7 @@ puz_state::puz_state(const puz_state2& x2)
 	m_game = x2.m_game, m_monkey = x2.m_monkey, m_move = x2.m_move;
 }
 
-void puz_state::gen_children(list<puz_state> &children) const
+void puz_state::gen_children(list<puz_state>& children) const
 {
 	static char* dirs = "LRUD";
 	list<puz_state2> smoves;
@@ -149,10 +149,10 @@ void puz_state::gen_children(list<puz_state> &children) const
 		else
 			for(int i = 0; i < 4; ++i){
 				Position p1 = s.m_monkey + offset[i];
-				char ch = cell(p1);
+				char ch = cells(p1);
 				if(ch != PUZ_TRUNK && ch != PUZ_MUD && ch != PUZ_ICE) continue;
 				Position p2 = p1 + offset[i];
-				ch = cell(p2);
+				ch = cells(p2);
 				if(ch != PUZ_SPACE) continue;
 				children.push_back(s);
 				children.back().make_move(p1, p2, dirs[i]);
@@ -161,13 +161,13 @@ void puz_state::gen_children(list<puz_state> &children) const
 
 void puz_state::make_move(const Position& p1, const Position& p2, char dir)
 {
-	char& ch = cell(p2) = cell(p1);
-	cell(p1) = PUZ_SPACE;
+	char& ch = cells(p2) = cells(p1);
+	cells(p1) = PUZ_SPACE;
 
 	vector<Position> vp;
 	for(int i = 0; i < 4; ++i){
 		Position p = p2 + offset[i];
-		char ch2 = cell(p);
+		char ch2 = cells(p);
 		if(ch2 == PUZ_STONE){
 			ch = PUZ_STONE;
 			break;
@@ -178,7 +178,7 @@ void puz_state::make_move(const Position& p1, const Position& p2, char dir)
 	if(ch != PUZ_STONE && !vp.empty()){
 		ch = PUZ_SPACE;
 		for(const Position& p : vp)
-			cell(p) = PUZ_SPACE;
+			cells(p) = PUZ_SPACE;
 	}
 
 	m_monkey = p1;
@@ -192,7 +192,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0; r < rows(); ++r) {
 		for(int c = 0; c < cols(); ++c){
 			Position p(r, c);
-			char ch = cell(Position(r, c));
+			char ch = cells(Position(r, c));
 			out << (p == m_monkey ? PUZ_MONKEY :
 				ch == PUZ_SPACE && p == m_game->m_goal ? PUZ_GOAL :
 				ch);
