@@ -185,8 +185,8 @@ void puz_state::count_unbalanced()
 
 	m_unbalanced = 0;
 	for(int i = 1; i < sidelen() - 1; ++i){
-		f(Position(i, 1), offset[1]);
-		f(Position(1, i), offset[2]);
+		f(Position(i, 1), {0, 1});		// e
+		f(Position(1, i), {1, 0});		// s
 	}
 }
 

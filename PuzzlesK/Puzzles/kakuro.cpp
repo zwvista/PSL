@@ -22,13 +22,6 @@ namespace puzzles{ namespace kakuro{
 
 #define PUZ_SPACE		' '
 
-const Position offset[] = {
-	{-1, 0},		// n
-	{0, 1},		// e
-	{1, 0},		// s
-	{0, -1},		// w
-};
-
 using puz_area = pair<vector<Position>, int>;
 
 struct puz_game
@@ -75,8 +68,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			m_sum2disps[make_pair(kv.second.second, cnt)];
 		}
 	};
-	f(m_pos2area_cols, offset[2]); // e
-	f(m_pos2area_rows, offset[1]); // s
+	f(m_pos2area_rows, {0, 1});		// e
+	f(m_pos2area_cols, {1, 0});		// s
 
 	for(auto& kv : m_sum2disps){
 		int sum = kv.first.first;

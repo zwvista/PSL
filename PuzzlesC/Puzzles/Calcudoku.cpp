@@ -35,13 +35,6 @@ namespace puzzles{ namespace Calcudoku{
 #define PUZ_MUL		'*'
 #define PUZ_DIV		'/'
 
-const Position offset[] = {
-	{-1, 0},		// n
-	{0, 1},		// e
-	{1, 0},		// s
-	{0, -1},		// w
-};
-
 struct puz_area_info
 {
 	vector<Position> m_range;
@@ -54,7 +47,6 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	map<Position, int> m_pos2area;
 	vector<puz_area_info> m_area_info;
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -69,7 +61,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			Position p(r, c);
 			auto s = str.substr(c * 4, 4);
 			int n = s[0] - 'a';
-			m_pos2area[p] = n;
 
 			if(n >= m_area_info.size())
 				m_area_info.resize(n + 1);
@@ -191,8 +182,8 @@ bool puz_state::make_move(int i)
 	};
 
 	for(int rc = 0; rc < sidelen(); ++rc)
-		if(!f(Position(rc, 0), offset[1]) ||
-			!f(Position(0, rc), offset[2]))
+		if(!f(Position(rc, 0), {0, 1}) ||	// e
+			!f(Position(0, rc), {1, 0}))	// s
 			return false;
 	return true;
 }

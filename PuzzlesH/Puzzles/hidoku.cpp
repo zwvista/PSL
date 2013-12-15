@@ -91,7 +91,7 @@ bool puz_state::make_move(const Position& p, int n)
 	int& m = cells(second = p);
 	if(m == 0){
 		m = n;
-		const auto& kv = *boost::find_if(m_game->m_num2pos, [=](const pair<const int, Position>& kv){
+		const auto& kv = *boost::find_if(m_game->m_num2pos, [=](const pair<int, Position>& kv){
 			return kv.first > n;
 		});
 		int n2;
