@@ -110,8 +110,11 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(sidelen() * sidelen(), PUZ_SPACE)
 {
-	for(auto& kv : g.m_pos2boxinfo)
-		m_matches[kv.first];
+	for(auto& kv : g.m_pos2boxinfo){
+		auto& box_ids = m_matches[kv.first];
+		box_ids.resize(kv.second.m_boxes.size());
+		boost::iota(box_ids, 0);
+	}
 
 	find_matches(true);
 }
@@ -119,27 +122,25 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
-		auto& boxes = m_game->m_pos2boxinfo.at(kv.first).m_boxes;
+		auto& p = kv.first;
+		auto& box_ids = kv.second;
 
-		kv.second.clear();
-		for(int i = 0; i < boxes.size(); ++i){
-			auto& box = boxes[i];
-			if([&](){
-				for(int r = box.first.first; r <= box.second.first; ++r)
-					for(int c = box.first.second; c <= box.second.second; ++c)
-						if(cells(r, c) != PUZ_SPACE)
-							return false;
-				return true;
-			}())
-				kv.second.push_back(i);
-		}
+		auto& boxes = m_game->m_pos2boxinfo.at(p).m_boxes;
+		boost::remove_erase_if(box_ids, [&](int id){
+			auto& box = boxes[id];
+			for(int r = box.first.first; r <= box.second.first; ++r)
+				for(int c = box.first.second; c <= box.second.second; ++c)
+					if(this->cells(r, c) != PUZ_SPACE)
+						return true;
+			return false;
+		});
 
 		if(!init)
-			switch(kv.second.size()){
+			switch(box_ids.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(kv.first, kv.second.front()), 1;
+				return make_move2(p, box_ids.front()), 1;
 			}
 	}
 	return 2;

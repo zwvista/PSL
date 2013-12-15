@@ -10,5 +10,5 @@ cddddddd
 cddddddd
 Number of moves: 3
 Number of vertices examined: 4
-0.0863462 [s]
+0.00197894 [s]
 
