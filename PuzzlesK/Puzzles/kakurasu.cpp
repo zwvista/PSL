@@ -107,8 +107,15 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-	for(int i = 1; i < sidelen() - 1; ++i)
-		m_matches[i], m_matches[sidelen() + i];
+	vector<int> disp_id_rows(g.m_disps_rows.size());
+	boost::iota(disp_id_rows, 0);
+	vector<int> disp_id_cols(g.m_disps_cols.size());
+	boost::iota(disp_id_cols, 0);
+
+	for(int i = 1; i < sidelen() - 1; ++i){
+		m_matches[i] = disp_id_rows;
+		m_matches[sidelen() + i] = disp_id_cols;
+	}
 
 	find_matches(true);
 }
@@ -116,36 +123,38 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
+		int area_id = kv.first;
+		auto& disp_ids = kv.second;
+
 		vector<int> nums;
-		for(auto& p : m_game->m_area2range[kv.first])
+		for(auto& p : m_game->m_area2range[area_id])
 			nums.push_back(cells(p));
 
-		auto& disps = kv.first < sidelen() ? m_game->m_disps_rows : m_game->m_disps_cols;
-		kv.second.clear();
-		for(int i = 0; i < disps.size(); ++i)
-			if(boost::equal(nums, disps[i], [](int n1, int n2){
+		auto& disps = area_id < sidelen() ? m_game->m_disps_rows : m_game->m_disps_cols;
+		boost::remove_erase_if(disp_ids, [&](int id){
+			return !boost::equal(nums, disps[id], [](int n1, int n2){
 				return n1 == PUZ_SPACE || n1 == n2;
-			}))
-				kv.second.push_back(i);
+			});
+		});
 
 		if(!init)
-			switch(kv.second.size()){
+			switch(disp_ids.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(kv.first, kv.second.front()), 1;
-		}
+				return make_move2(area_id, disp_ids.front()), 1;
+			}
 	}
 	return 2;
 }
 
 void puz_state::make_move2(int i, int j)
 {
-	auto& area = m_game->m_area2range[i];
+	auto& range = m_game->m_area2range[i];
 	auto& disp = (i < sidelen() ? m_game->m_disps_rows : m_game->m_disps_cols)[j];
 
 	for(int k = 0; k < disp.size(); ++k)
-		cells(area[k]) = disp[k];
+		cells(range[k]) = disp[k];
 
 	++m_distance;
 	m_matches.erase(i);

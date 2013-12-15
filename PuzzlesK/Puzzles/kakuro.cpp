@@ -22,13 +22,19 @@ namespace puzzles{ namespace kakuro{
 
 #define PUZ_SPACE		' '
 
-using puz_area = pair<vector<Position>, int>;
+struct puz_area
+{
+	vector<Position> m_range;
+	int m_sum;
+};
+
+typedef pair<Position, bool> puz_key;
 
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	map<Position, puz_area> m_pos2area_rows, m_pos2area_cols;
+	map<puz_key, puz_area> m_pos2area;
 	map<Position, int> m_blanks;
 	map<pair<int, int>, vector<vector<int>>> m_sum2disps;
 
@@ -50,26 +56,23 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			else{
 				int n1 = atoi(s1.c_str());
 				if(n1 != 0)
-					m_pos2area_cols[p].second = n1;
+					m_pos2area[make_pair(p, true)].m_sum = n1;
 				int n2 = atoi(s2.c_str());
 				if(n2 != 0)
-					m_pos2area_rows[p].second = n2;
+					m_pos2area[make_pair(p, false)].m_sum = n2;
 			}
 		}
 	}
 
-	auto f = [this](map<Position, puz_area>& m, const Position& os){
-		for(auto& kv : m){
-			const auto& p = kv.first;
-			auto& ps = kv.second.first;
-			int cnt = 0;
-			for(auto p2 = p + os; m_blanks.count(p2) != 0; p2 += os)
-				++cnt, ps.push_back(p2);
-			m_sum2disps[make_pair(kv.second.second, cnt)];
-		}
-	};
-	f(m_pos2area_rows, {0, 1});		// e
-	f(m_pos2area_cols, {1, 0});		// s
+	for(auto& kv : m_pos2area){
+		const auto& p = kv.first.first;
+		auto os = kv.first.second ? Position(1, 0) : Position(0, 1);
+		auto& ps = kv.second.m_range;
+		int cnt = 0;
+		for(auto p2 = p + os; m_blanks.count(p2) != 0; p2 += os)
+			++cnt, ps.push_back(p2);
+		m_sum2disps[make_pair(kv.second.m_sum, cnt)];
+	}
 
 	for(auto& kv : m_sum2disps){
 		int sum = kv.first.first;
@@ -87,16 +90,14 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	};
 }
 
-using puz_key = pair<Position, bool>;
-
 struct puz_state
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-	bool make_move(const puz_key& kv, int j);
-	void make_move2(const puz_key& kv, int j);
+	bool make_move(const puz_key& key, int j);
+	void make_move2(const puz_key& key, int j);
 	int find_matches(bool init);
 
 	//solve_puzzle interface
@@ -119,10 +120,12 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_blanks), m_game(&g)
 {
-	for(const auto& kv : g.m_pos2area_cols)
-		m_matches[make_pair(kv.first, true)];
-	for(const auto& kv : g.m_pos2area_rows)
-		m_matches[make_pair(kv.first, false)];
+	for(auto& kv : g.m_pos2area){
+		auto& disp_ids = m_matches[kv.first];
+		auto& area = kv.second;
+		disp_ids.resize(g.m_sum2disps.at(make_pair(area.m_sum, area.m_range.size())).size());
+		boost::iota(disp_ids, 0);
+	}
 
 	find_matches(true);
 }
@@ -130,46 +133,48 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
+		const auto& key = kv.first;
+		auto& disp_ids = kv.second;
+
 		vector<int> nums;
-		auto& area = (kv.first.second ? m_game->m_pos2area_cols : m_game->m_pos2area_rows).at(kv.first.first);
-		for(auto& p : area.first)
+		auto& area = m_game->m_pos2area.at(key);
+		for(auto& p : area.m_range)
 			nums.push_back(m_cells.at(p));
 
-		kv.second.clear();
-		auto& disps = m_game->m_sum2disps.at(make_pair(area.second, area.first.size()));
-		for(int i = 0; i < disps.size(); ++i)
-			if(boost::equal(nums, disps[i], [](int n1, int n2){
+		auto& disps = m_game->m_sum2disps.at(make_pair(area.m_sum, area.m_range.size()));
+		boost::remove_erase_if(disp_ids, [&](int id){
+			return !boost::equal(nums, disps[id], [](int n1, int n2){
 				return n1 == 0 || n1 == n2;
-			}))
-				kv.second.push_back(i);
+			});
+		});
 
 		if(!init)
-			switch(kv.second.size()){
+			switch(disp_ids.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(kv.first, kv.second.front()), 1;
+				return make_move2(key, disp_ids.front()), 1;
 			}
 	}
 	return 2;
 }
 
-void puz_state::make_move2(const puz_key& kv, int j)
+void puz_state::make_move2(const puz_key& key, int j)
 {
-	auto& area = (kv.second ? m_game->m_pos2area_cols : m_game->m_pos2area_rows).at(kv.first);
-	auto& disp = m_game->m_sum2disps.at(make_pair(area.second, area.first.size()))[j];
+	auto& area = m_game->m_pos2area.at(key);
+	auto& disp = m_game->m_sum2disps.at(make_pair(area.m_sum, area.m_range.size()))[j];
 
 	for(int k = 0; k < disp.size(); ++k)
-		m_cells.at(area.first[k]) = disp[k];
+		m_cells.at(area.m_range[k]) = disp[k];
 
 	++m_distance;
-	m_matches.erase(kv);
+	m_matches.erase(key);
 }
 
-bool puz_state::make_move(const puz_key& kv, int j)
+bool puz_state::make_move(const puz_key& key, int j)
 {
 	m_distance = 0;
-	make_move2(kv, j);
+	make_move2(key, j);
 	for(;;)
 		switch(find_matches(false)){
 		case 0:
