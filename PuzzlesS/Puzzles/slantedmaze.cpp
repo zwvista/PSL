@@ -118,8 +118,11 @@ puz_state::puz_state(const puz_game& g)
 		cells(Position(0, i)) = cells(Position(sidelen() - 1, i)) =
 		PUZ_BOUNDARY;
 
-	for(auto& kv : g.m_pos2num)
-		m_matches[kv.first];
+	for(auto& kv : g.m_pos2num){
+		auto& disp_ids = m_matches[kv.first];
+		disp_ids.resize(g.m_num2disps[kv.second].size());
+		boost::iota(disp_ids, 0);
+	}
 
 	find_matches(true);
 }
@@ -127,25 +130,26 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
-		string area;
 		auto& p = kv.first;
-		for(auto& os : offset)
-			area.push_back(cells(p + os));
+		auto& disp_ids = kv.second;
 
-		kv.second.clear();
+		string chars;
+		for(auto& os : offset)
+			chars.push_back(cells(p + os));
+
 		auto& disps = m_game->m_num2disps[m_game->m_pos2num.at(p)];
-		for(int i = 0; i < disps.size(); ++i)
-			if(boost::equal(area, disps[i], [](char ch1, char ch2){
+		boost::remove_erase_if(disp_ids, [&](int id){
+			return !boost::equal(chars, disps[id], [](char ch1, char ch2){
 				return ch1 == PUZ_SPACE || ch1 == PUZ_BOUNDARY || ch1 == ch2;
-			}))
-				kv.second.push_back(i);
+			});
+		});
 
 		if(!init)
-			switch(kv.second.size()){
+			switch(disp_ids.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(kv.first, kv.second.front()) ? 1 : 0;
+				return make_move2(p, disp_ids.front()) ? 1 : 0;
 			}
 	}
 	return 2;
@@ -182,7 +186,7 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	const auto& kv = *boost::min_element(m_matches, [](
+	auto& kv = *boost::min_element(m_matches, [](
 		const pair<const Position, vector<int>>& kv1,
 		const pair<const Position, vector<int>>& kv2){
 		return kv1.second.size() < kv2.second.size();

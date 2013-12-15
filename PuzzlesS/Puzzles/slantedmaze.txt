@@ -7,5 +7,5 @@ Sequence of moves:
 \\\/\
 Number of moves: 15
 Number of vertices examined: 19
-0.148249 [s]
+0.0617061 [s]
 

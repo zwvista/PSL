@@ -17,7 +17,7 @@
 
 namespace puzzles{ namespace square100{
 
-#define PUZ_SPACE		' '
+#define PUZ_SPACE		0
 
 struct puz_area
 {
@@ -107,8 +107,14 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen), m_game(&g)
 {
+	auto f = [&](int area_id){
+		auto& disp_ids = m_matches[area_id];
+		disp_ids.resize(g.m_areas.at(area_id).m_disps.size());
+		boost::iota(disp_ids, 0);
+	};
+
 	for(int i = 0; i < sidelen(); ++i)
-		m_matches[i], m_matches[sidelen() + i];
+		f(i), f(sidelen() + i);
 
 	find_matches(true);
 }
@@ -116,25 +122,27 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
-		const auto& area = m_game->m_areas.at(kv.first);
+		int area_id = kv.first;
+		auto& disp_ids = kv.second;
+
+		auto& area = m_game->m_areas.at(area_id);
 		vector<int> nums;
-		for(const auto& p : area.m_range)
+		for(auto& p : area.m_range)
 			nums.push_back(cells(p));
 
 		auto& disps = area.m_disps;
-		kv.second.clear();
-		for(int i = 0; i < disps.size(); ++i)
-			if(boost::equal(nums, disps[i], [](int n1, int n2){
-				return n1 == 0 || n1 == n2;
-			}))
-				kv.second.push_back(i);
+		boost::remove_erase_if(disp_ids, [&](int id){
+			return !boost::equal(nums, disps[id], [](int n1, int n2){
+				return n1 == PUZ_SPACE || n1 == n2;
+			});
+		});
 
 		if(!init)
-			switch(kv.second.size()){
+			switch(disp_ids.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(kv.first, kv.second.front()), 1;
+				return make_move2(area_id, disp_ids.front()), 1;
 			}
 	}
 	return 2;
@@ -168,7 +176,7 @@ bool puz_state::make_move(int i, int j)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	const auto& kv = *boost::min_element(m_matches, [](
+	auto& kv = *boost::min_element(m_matches, [](
 		const pair<int, vector<int>>& kv1, 
 		const pair<int, vector<int>>& kv2){
 		return kv1.second.size() < kv2.second.size();

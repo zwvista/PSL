@@ -137,8 +137,11 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-	for(auto& kv : g.m_pos2arrows)
-		m_matches[kv.first];
+	for(auto& kv : g.m_pos2arrows){
+		auto& disp_ids = m_matches[kv.first];
+		disp_ids.resize(kv.second.m_disps.size());
+		boost::iota(disp_ids, 0);
+	}
 
 	for(int r = 1; r < sidelen() - 1; ++r){
 		auto& s1 = m_arrow_dirs[Position(r, 0)];
@@ -167,25 +170,27 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
-		auto& arrow = m_game->m_pos2arrows.at(kv.first);
-		vector<set<int>> arrow_dirs;
-		for(auto& p : arrow.m_range)
-			arrow_dirs.push_back(m_arrow_dirs.at(p));
+		auto& p = kv.first;
+		auto& disp_ids = kv.second;
 
-		kv.second.clear();
-		for(int i = 0; i < arrow.m_disps.size(); ++i)
-			if(boost::equal(arrow_dirs, arrow.m_disps[i], [](const set<int>& dirs, int n2){
+		auto& arrow = m_game->m_pos2arrows.at(p);
+		vector<set<int>> arrow_dirs;
+		for(auto& p2 : arrow.m_range)
+			arrow_dirs.push_back(m_arrow_dirs.at(p2));
+
+		boost::remove_erase_if(disp_ids, [&](int id){
+			return !boost::equal(arrow_dirs, arrow.m_disps[id], [](const set<int>& dirs, int n2){
 				return n2 >= 0 && dirs.count(n2) != 0
 					|| n2 < 0 && (dirs.size() > 1 || dirs.count(~n2) == 0);
-			}))
-				kv.second.push_back(i);
+			});
+		});
 
 		if(!init)
-			switch(kv.second.size()){
+			switch(disp_ids.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(kv.first, kv.second.front()), 1;
+				return make_move2(p, disp_ids.front()), 1;
 			}
 	}
 	return 2;
@@ -225,7 +230,7 @@ bool puz_state::make_move(const Position& p, int j)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	const auto& kv = *boost::min_element(m_matches, [](
+	auto& kv = *boost::min_element(m_matches, [](
 		const pair<const Position, vector<int>>& kv1,
 		const pair<const Position, vector<int>>& kv2){
 		return kv1.second.size() < kv2.second.size();

@@ -11,12 +11,10 @@ enum class solution_format
 	CUSTOM,
 };
 
-template<class puz_state> using dumper_type = function<void(ostream&, const list<puz_state>&)>;
-
 template<class puz_game, class puz_state, class puz_solver>
 void solve_puzzle(const string& fn_in, const string& fn_out,
 				  solution_format fmt = solution_format::ALL_STATES,
-				  dumper_type<puz_state> dumper = dumper_type<puz_state>())
+				  function<void(ostream&, const list<puz_state>&)> dumper = {})
 {
 	list<puz_game> games;
 

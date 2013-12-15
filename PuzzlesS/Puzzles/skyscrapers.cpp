@@ -20,6 +20,8 @@
 
 namespace puzzles{ namespace skyscrapers{
 
+#define PUZ_SPACE		0
+
 struct puz_game
 {
 	string m_id;
@@ -47,7 +49,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
 			char ch = str[c];
-			m_start.push_back(ch == ' ' ? 0 : ch - '0');
+			m_start.push_back(ch == ' ' ? PUZ_SPACE : ch - '0');
 			Position p(r, c);
 			m_area2range[r].push_back(p);
 			m_area2range[m_sidelen + c].push_back(p);
@@ -104,32 +106,38 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
+	vector<int> disp_ids(g.m_disps.size());
+	boost::iota(disp_ids, 0);
+
 	for(int i = 1; i < sidelen() - 1; ++i)
-		m_matches[i], m_matches[sidelen() + i];
+		m_matches[i] = m_matches[sidelen() + i] = disp_ids;
 
 	find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
+	auto& disps = m_game->m_disps;
 	for(auto& kv : m_matches){
+		int area_id = kv.first;
+		auto& disp_ids = kv.second;
+
 		vector<int> nums;
-		for(auto& p : m_game->m_area2range[kv.first])
+		for(auto& p : m_game->m_area2range[area_id])
 			nums.push_back(cells(p));
 
-		kv.second.clear();
-		for(int i = 0; i < m_game->m_disps.size(); ++i)
-			if(boost::equal(nums, m_game->m_disps[i], [](int n1, int n2){
-				return n1 == 0 || n1 == n2;
-			}))
-				kv.second.push_back(i);
+		boost::remove_erase_if(disp_ids, [&](int id){
+			return !boost::equal(nums, disps[id], [](int n1, int n2){
+				return n1 == PUZ_SPACE || n1 == n2;
+			});
+		});
 
 		if(!init)
-			switch(kv.second.size()){
+			switch(disp_ids.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(kv.first, kv.second.front()), 1;
+				return make_move2(area_id, disp_ids.front()), 1;
 			}
 	}
 	return 2;
@@ -162,7 +170,7 @@ bool puz_state::make_move(int i, int j)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	const auto& kv = *boost::min_element(m_matches, [](
+	auto& kv = *boost::min_element(m_matches, [](
 		const pair<int, vector<int>>& kv1, 
 		const pair<int, vector<int>>& kv2){
 		return kv1.second.size() < kv2.second.size();
@@ -179,7 +187,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0; r < sidelen(); ++r){
 		for(int c = 0; c < sidelen(); ++c){
 			int n = cells(Position(r, c));
-			out << (n == 0 ? ' ' : char(n + '0')) << ' ';
+			out << (n == PUZ_SPACE ? ' ' : char(n + '0')) << ' ';
 		}
 		out << endl;
 	}

@@ -8,7 +8,7 @@ B B . A C C
   B C A C   
 Number of moves: 1
 Number of vertices examined: 2
-0.0131967 [s]
+0.00944594 [s]
 
 Level 04
 Sequence of moves: 
@@ -21,5 +21,5 @@ B . . B C A A
   B B B C A   
 Number of moves: 2
 Number of vertices examined: 11
-0.108686 [s]
+0.0552643 [s]
 
