@@ -8,4 +8,12 @@ d   d   e   f 2/\
 g 1-g   e   f   \
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+a 2/a   b 3+c 7+\
+d 3*d   b   c   \
+e 2/f12*g 3/g   \
+e   f   h 2/h   \
+    ]]>
+  </level>
 </levels>
