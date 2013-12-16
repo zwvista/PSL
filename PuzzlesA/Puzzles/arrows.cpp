@@ -112,8 +112,8 @@ struct puz_state
 	int cells(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
 	int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-	bool make_move(const Position& p, int j);
-	void make_move2(const Position& p, int j);
+	bool make_move(const Position& p, int n);
+	void make_move2(const Position& p, int n);
 	int find_matches(bool init);
 
 	//solve_puzzle interface
@@ -196,10 +196,10 @@ int puz_state::find_matches(bool init)
 	return 2;
 }
 
-void puz_state::make_move2(const Position& p, int j)
+void puz_state::make_move2(const Position& p, int n)
 {
 	auto& arrow = m_game->m_pos2arrows.at(p);
-	auto& disp = arrow.m_disps[j];
+	auto& disp = arrow.m_disps[n];
 
 	for(int k = 0; k < disp.size(); ++k){
 		const auto& p = arrow.m_range[k];
@@ -215,10 +215,10 @@ void puz_state::make_move2(const Position& p, int j)
 	m_matches.erase(p);
 }
 
-bool puz_state::make_move(const Position& p, int j)
+bool puz_state::make_move(const Position& p, int n)
 {
 	m_distance = 0;
-	make_move2(p, j);
+	make_move2(p, n);
 	for(;;)
 		switch(find_matches(false)){
 		case 0:
