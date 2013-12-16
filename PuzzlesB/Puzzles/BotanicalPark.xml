@@ -9,4 +9,25 @@
      \
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+     \
+  1  \
+     \
+  7  \
+     \
+    ]]>
+  </level>
+  <level id="12">
+    <![CDATA[
+  3     \
+ 6      \
+3       \
+    4   \
+        \
+ 1  0   \
+        \
+  0     \
+    ]]>
+  </level>
 </levels>

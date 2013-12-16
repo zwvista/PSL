@@ -7,5 +7,30 @@ P . . . .
 . P . . . 
 Number of moves: 5
 Number of vertices examined: 6
-0.00988791 [s]
+0.00943723 [s]
+
+Level 02
+Sequence of moves: 
+. . . P . 
+P . 1 . . 
+. . P . . 
+. . 7 . P 
+. P . . . 
+Number of moves: 5
+Number of vertices examined: 6
+0.00740604 [s]
+
+Level 12
+Sequence of moves: 
+. . 3 . . . P . 
+P 6 . . . . . . 
+3 . . P . . . . 
+. P . . 4 . . . 
+. . . . P . . . 
+. 1 . . 0 . . P 
+. . P . . . . . 
+. . 0 . . P . . 
+Number of moves: 8
+Number of vertices examined: 13
+0.042873 [s]
 
