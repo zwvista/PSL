@@ -194,7 +194,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1; r < sidelen() - 1; ++r) {
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			switch(char ch = cells(Position(r, c))){
+			switch(char ch = cells({r, c})){
 			case PUZ_NUMBER:
 				out << format("%2d") % m_game->m_pos2num.at(p);
 				break;

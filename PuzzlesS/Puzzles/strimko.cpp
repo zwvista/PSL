@@ -69,9 +69,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 	Position p(r, c);
 	set<char> numbers = m_game->m_numbers;
 	for(int c2 = 0; c2 < sidelen(); ++c2)
-		numbers.erase(cells(Position(r, c2)));
+		numbers.erase(cells({r, c2}));
 	for(int r2 = 0; r2 < sidelen(); ++r2)
-		numbers.erase(cells(Position(r2, c)));
+		numbers.erase(cells({r2, c}));
 	const vector<Position>& g = m_game->m_groups[pos2group(p)];
 	for(int i = 0; i < sidelen(); ++i)
 		numbers.erase(cells(g[i]));
@@ -86,7 +86,7 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << cells(Position(r, c));
+			out << cells({r, c});
 		out << endl;
 	}
 	for(int r = 0; r < sidelen(); ++r) {

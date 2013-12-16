@@ -219,7 +219,7 @@ ostream& puz_state::dump(ostream& out) const
 					f(m_game->m_arrows.at(p));
 					break;
 				default:
-					out << cells(Position(r, c)) << " ";
+					out << cells({r, c}) << " ";
 					break;
 				}
 			}

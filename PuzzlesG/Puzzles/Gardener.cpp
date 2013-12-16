@@ -154,8 +154,8 @@ puz_state::puz_state(const puz_game& g)
 , m_game(&g)
 {
 	for(int i = 0; i < sidelen(); ++i)
-		cells(Position(i, 0)) = cells(Position(i, sidelen() - 1)) =
-		cells(Position(0, i)) = cells(Position(sidelen() - 1, i)) = PUZ_BOUNDARY;
+		cells({i, 0}) = cells({i, sidelen() - 1}) =
+		cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
 
 	count_unbalanced();
 }
@@ -185,8 +185,8 @@ void puz_state::count_unbalanced()
 
 	m_unbalanced = 0;
 	for(int i = 1; i < sidelen() - 1; ++i){
-		f(Position(i, 1), {0, 1});		// e
-		f(Position(1, i), {1, 0});		// s
+		f({i, 1}, {0, 1});		// e
+		f({1, i}, {1, 0});		// s
 	}
 }
 
@@ -267,7 +267,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c)
-			out << cells(Position(r, c)) << ' ';
+			out << cells({r, c}) << ' ';
 		out << endl;
 	}
 	return out;

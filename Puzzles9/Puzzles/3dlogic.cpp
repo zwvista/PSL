@@ -321,7 +321,7 @@ void solve_puz_3dlogic()
 	using namespace puzzles::_3dlogic;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
 		"Puzzles\\3dlogic.xml", "Puzzles\\3dlogic.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
-	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state, false>>(
+	solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>(
 		"Puzzles\\3dlogic.xml", "Puzzles\\3dlogic_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 	solve_puzzle<puz_game, puz_state, puz_solver_dfs<puz_state, false>>(
 		"Puzzles\\3dlogic.xml", "Puzzles\\3dlogic_dfs.txt", solution_format::MOVES_ONLY_SINGLE_LINE);

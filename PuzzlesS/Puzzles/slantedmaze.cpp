@@ -114,8 +114,8 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(sidelen() * sidelen(), PUZ_SPACE)
 {
 	for(int i = 0; i < sidelen(); ++i)
-		cells(Position(i, 0)) = cells(Position(i, sidelen() - 1)) =
-		cells(Position(0, i)) = cells(Position(sidelen() - 1, i)) =
+		cells({i, 0}) = cells({i, sidelen() - 1}) =
+		cells({0, i}) = cells({sidelen() - 1, i}) =
 		PUZ_BOUNDARY;
 
 	for(auto& kv : g.m_pos2num){
@@ -202,7 +202,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c)
-			out << cells(Position(r, c));
+			out << cells({r, c});
 		out << endl;
 	}
 	return out;

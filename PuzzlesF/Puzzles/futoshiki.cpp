@@ -192,7 +192,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c){
-			char ch = cells(Position(r, c));
+			char ch = cells({r, c});
 			if(r % 2 == 1)
 				ch = ch == PUZ_ROW_LT ? PUZ_COL_LT :
 					ch == PUZ_ROW_GT ? PUZ_COL_GT :

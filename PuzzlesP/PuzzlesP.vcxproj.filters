@@ -58,6 +58,9 @@
     <Text Include="Puzzles\Parks2.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\ParkingLot.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -95,6 +98,9 @@
     <ClCompile Include="Puzzles\Parks2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\ParkingLot.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\parks.xml">
@@ -110,6 +116,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Pharaoh.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\ParkingLot.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

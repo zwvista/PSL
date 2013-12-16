@@ -178,7 +178,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0; r < rows(); ++r) {
 		out << (r == m_game->m_entrance.first ? '-' : ' ');
 		for(int c = 0; c < cols(); ++c)
-			out << get_cells(Position(r, c));
+			out << get_cells({r, c});
 		out << (r == m_game->m_exit.first ? '-' : ' ') << endl;
 	}
 	return out;

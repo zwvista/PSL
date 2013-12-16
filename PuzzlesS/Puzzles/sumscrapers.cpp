@@ -186,7 +186,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c){
-			int n = cells(Position(r, c));
+			int n = cells({r, c});
 			if(n == PUZ_SPACE)
 				out << "   ";
 			else

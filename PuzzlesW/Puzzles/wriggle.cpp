@@ -216,7 +216,7 @@ ostream& puz_state::dump(ostream& out, bool move_only) const
 			string& str = vstrs[r - 1];
 			str = string((cols() - 2) * 2, PUZ_SPACE);
 			for(int c = 1; c < cols() - 1; ++c)
-				str[c * 2 - 2] = str[c * 2 - 1] = cells(Position(r, c));
+				str[c * 2 - 2] = str[c * 2 - 1] = cells({r, c});
 		}
 		for(size_t i = 0; i < m_worms.size(); i++){
 			const vector<Position>& w = m_worms[i];

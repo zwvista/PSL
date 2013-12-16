@@ -192,11 +192,11 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c){
-			int n = cells(Position(r, c));
+			int n = cells({r, c});
 			if(n == PUZ_SPACE || n == 0)
 				out << "   ";
 			else
-				out << format("%3d") % cells(Position(r, c));
+				out << format("%3d") % cells({r, c});
 		}
 		out << endl;
 	}

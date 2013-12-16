@@ -87,11 +87,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		vector<int> disp(cnt);
 		for(int i = 0; i < cnt;){
 			for(int r = 0, j = 0; r < rows(); ++r){
-				int n = cells(Position(r, c));
+				int n = cells({r, c});
 				nums[r] = n == PUZ_SPACE ? disp[j++] : n;
 			}
 			if(boost::range::adjacent_find(nums) == nums.end() &&
-				boost::accumulate(nums, 0) == cells(Position(rows(), c)))
+				boost::accumulate(nums, 0) == cells({rows(), c}))
 				disps.push_back(disp);
 			for(i = 0; i < cnt && ++disp[i] == cols(); ++i)
 				disp[i] = 0;
@@ -238,7 +238,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r <= rows(); ++r){
 		for(int c = 0; c < cols(); ++c)
-			out << format("%3d") % cells(Position(r, c));
+			out << format("%3d") % cells({r, c});
 		out << endl;
 	}
 	return out;

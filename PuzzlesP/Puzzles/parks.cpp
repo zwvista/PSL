@@ -171,7 +171,7 @@ puz_state::puz_state(const puz_game& g)
 {
 	for(int r = 0; r < g.m_sidelen; ++r)
 		for(int c = 0; c < g.m_sidelen; ++c)
-			m_groups.add_cells(Position(r, c));
+			m_groups.add_cells({r, c});
 
 	for(const auto& p : g.m_trees)
 		make_move(p);
@@ -220,7 +220,7 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r){
 		for(int c = 0; c < sidelen(); ++c)
-			out << cells(Position(r, c)) << ' ';
+			out << cells({r, c}) << ' ';
 		out << endl;
 	}
 	return out;

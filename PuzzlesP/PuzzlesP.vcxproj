@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\ParkingLot.txt" />
     <Text Include="Puzzles\parks.txt" />
     <Text Include="Puzzles\Parks2.txt" />
     <Text Include="Puzzles\pathfind_astar.txt" />
@@ -170,6 +171,7 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\ParkingLot.cpp" />
     <ClCompile Include="Puzzles\parks.cpp" />
     <ClCompile Include="Puzzles\Parks2.cpp" />
     <ClCompile Include="Puzzles\pathfind.cpp" />
@@ -184,6 +186,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\ParkingLot.xml" />
     <Xml Include="Puzzles\parks.xml" />
     <Xml Include="Puzzles\pathfind.xml" />
     <Xml Include="Puzzles\patternpuzzle.xml" />

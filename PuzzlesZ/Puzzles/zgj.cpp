@@ -192,7 +192,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0; r < rows(); ++r) {
 		for(int c = 0; c < cols(); ++c){
 			Position p(r, c);
-			char ch = cells(Position(r, c));
+			char ch = cells({r, c});
 			out << (p == m_monkey ? PUZ_MONKEY :
 				ch == PUZ_SPACE && p == m_game->m_goal ? PUZ_GOAL :
 				ch);

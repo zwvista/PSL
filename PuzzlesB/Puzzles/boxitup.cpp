@@ -20,6 +20,7 @@ namespace puzzles{ namespace boxitup{
 
 struct puz_box_info
 {
+	// the area of the box
 	int m_area;
 	// top-left and bottom-right
 	vector<pair<Position, Position>> m_boxes;

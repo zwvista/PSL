@@ -213,7 +213,7 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << cells(Position(r, c));
+			out << cells({r, c});
 		out << endl;
 	}
 	for(int r = 0; r < sidelen(); ++r) {

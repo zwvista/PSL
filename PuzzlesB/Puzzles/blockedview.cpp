@@ -95,9 +95,9 @@ puz_state::puz_state(const puz_game& g)
 , m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
-		cells(Position(r, 0)) = cells(Position(r, sidelen() - 1)) = PUZ_BOUNDARY;
+		cells({r, 0}) = cells({r, sidelen() - 1}) = PUZ_BOUNDARY;
 	for(int c = 0; c < sidelen(); ++c)
-		cells(Position(0, c)) = cells(Position(sidelen() - 1, c)) = PUZ_BOUNDARY;
+		cells({0, c}) = cells({sidelen() - 1, c}) = PUZ_BOUNDARY;
 
 	for(const auto& kv : g.m_start)
 		cells(kv.first) = PUZ_SENTINEL, m_matches[kv.first];
@@ -256,7 +256,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1; r < sidelen() - 1; ++r) {
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			switch(char ch = cells(Position(r, c))){
+			switch(char ch = cells({r, c})){
 			case PUZ_SENTINEL:
 				out << format("%2d") % m_game->m_start.at(p);
 				break;

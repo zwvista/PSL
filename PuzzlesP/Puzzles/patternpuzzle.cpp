@@ -157,7 +157,7 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 0; r < rows(); ++r) {
 		for(int c = 0; c < cols(); ++c)
-			out << cells(Position(r, c)) << " ";
+			out << cells({r, c}) << " ";
 		out << endl;
 	}
 	return out;

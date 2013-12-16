@@ -230,7 +230,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0; r < sidelen() + 2; ++r) {
 		for(int c = 0; c < sidelen() + 2; ++c)
 			out << (r < sidelen() && c < sidelen() ?
-				cells(Position(r, c)) :
+				cells({r, c}) :
 				m_game->m_start[r * (sidelen() + 2) + c]);
 		out << endl;
 	}

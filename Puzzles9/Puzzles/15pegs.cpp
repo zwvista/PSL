@@ -133,7 +133,7 @@ ostream& puz_state::dump(ostream& out) const
 		for(int i = 0; i < cols()- r - 1; ++i)
 			out << " ";
 		for(int c = 0; c <= r; ++c)
-			out << cells(Position(r, c)) << " ";
+			out << cells({r, c}) << " ";
 		out << endl;
 	}
 	return out;
