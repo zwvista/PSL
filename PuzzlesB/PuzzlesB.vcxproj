@@ -153,6 +153,7 @@
     <Text Include="Puzzles\blockedview.txt" />
     <Text Include="Puzzles\bloxorz_a.txt" />
     <Text Include="Puzzles\bloxorz_ida.txt" />
+    <Text Include="Puzzles\BotanicalPark.txt" />
     <Text Include="Puzzles\boxitaround.txt" />
     <Text Include="Puzzles\boxitup.txt" />
     <Text Include="Puzzles\branches.txt" />
@@ -168,6 +169,7 @@
     <ClCompile Include="Puzzles\blockedproduct.cpp" />
     <ClCompile Include="Puzzles\blockedview.cpp" />
     <ClCompile Include="Puzzles\bloxorz.cpp" />
+    <ClCompile Include="Puzzles\BotanicalPark.cpp" />
     <ClCompile Include="Puzzles\boxitaround.cpp" />
     <ClCompile Include="Puzzles\boxitup.cpp" />
     <ClCompile Include="Puzzles\branches.cpp" />
@@ -183,6 +185,7 @@
     <Xml Include="Puzzles\blockedproduct.xml" />
     <Xml Include="Puzzles\blockedview.xml" />
     <Xml Include="Puzzles\bloxorz.xml" />
+    <Xml Include="Puzzles\BotanicalPark.xml" />
     <Xml Include="Puzzles\boxitaround.xml" />
     <Xml Include="Puzzles\boxitup.xml" />
     <Xml Include="Puzzles\branches.xml" />

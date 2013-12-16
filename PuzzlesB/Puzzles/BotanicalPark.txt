@@ -1,0 +1,11 @@
+Level 01
+Sequence of moves: 
+. . . . P 
+. . P . 0 
+P . . . . 
+. . 2 P . 
+. P . . . 
+Number of moves: 5
+Number of vertices examined: 6
+0.00988791 [s]
+

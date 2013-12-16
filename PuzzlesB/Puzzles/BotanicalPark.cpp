@@ -3,29 +3,28 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 2/Hidden Stars
+	ios game: Logic Games/Puzzle Set 12/Botanical Park
 
 	Summary
-	Each Arrow points to a Star and every Star has an arrow pointing at it
+	Excuse me sir ? Do you know where the Harpagophytum Procumbens is ?
 
 	Description
-	1. In the board you have to find hidden stars.
-	2. Each star is pointed at by at least one Arrow and each Arrow points
-	   to at least one star.
-	3. The number on the borders tell you how many Stars there on that row
-	   or column.
+	1. The board represents a Botanical Park, with arrows pointing to the
+	   different plants.
+	2. Each arrow points to at least one plant and there is exactly one
+	   plant in every row and in every column.
+	3. Plants cannot touch, not even diagonally.
 
 	Variant
-	4. Some levels have a variation of these rules: Stars must be pointed
-	   by one and only one Arrow.
+	4. Puzzle with side 9 or bigger have TWO plants in every row and column.
 */
 
-namespace puzzles{ namespace hiddenstars{
+namespace puzzles{ namespace BotanicalPark{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
 #define PUZ_ARROW		'A'
-#define PUZ_STAR		'S'
+#define PUZ_PLANT		'P'
 
 const Position offset[] = {
 	{-1, 0},	// n
@@ -42,10 +41,9 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	bool m_only_one_arrow;
+	int m_plant_count_area;
+	int m_plant_total_count;
 	map<Position, int> m_pos2arrow;
-	vector<int> m_star_counts_rows, m_star_counts_cols;
-	int m_star_total_count;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -53,48 +51,32 @@ struct puz_game
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id(attrs.get<string>("id"))
-	, m_sidelen(strs.size() - 1)
-	, m_only_one_arrow(attrs.get<int>("OnlyOneArrow", 0) != 0)
-	, m_star_counts_rows(m_sidelen)
-	, m_star_counts_cols(m_sidelen)
+	, m_sidelen(strs.size())
+	, m_plant_count_area(attrs.get<int>("PlantsInEachArea", 1))
+	, m_plant_total_count(m_plant_count_area * m_sidelen)
 {
-	int n = 0;
-	for(int r = 0; r < m_sidelen + 1; ++r){
+	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen + 1; c++){
-			Position p(r, c);
-			switch(char ch = str[c]){
-			case PUZ_SPACE:
-				m_start.push_back(PUZ_EMPTY);
-				break;
-			default:
-				n = ch - '0';
-				if(c == m_sidelen)
-					m_star_counts_rows[r] = n;
-				else if(r == m_sidelen)
-					m_star_counts_cols[c] = n;
-				else{
-					m_pos2arrow[p] = n;
-					m_start.push_back(PUZ_ARROW);
-				}
-				break;
-			}
+		for(int c = 0; c < m_sidelen; c++){
+			char ch = str[c];
+			if(ch != PUZ_SPACE)
+				m_pos2arrow[Position(r, c)] = ch - '0';
+			m_start.push_back(ch == PUZ_SPACE ? PUZ_EMPTY : PUZ_ARROW);
 		}
 	}
-	m_star_total_count = boost::accumulate(m_star_counts_rows, 0);
 }
 
-// first : all the remaining positions in the area where a star can be hidden
-// second : the number of stars that need to be found in the area
+// first : all the remaining positions in the area where a plant can be hidden
+// second : the number of plants that need to be found in the area
 struct puz_area : pair<set<Position>, int>
 {
 	puz_area() {}
-	puz_area(int star_count)
-		: pair<set<Position>, int>({}, star_count)
+	puz_area(int plant_count)
+		: pair<set<Position>, int>({}, plant_count)
 	{}
 	void add_cells(const Position& p){ first.insert(p); }
 	void remove_cells(const Position& p){ first.erase(p); }
-	void place_star(const Position& p, bool at_least_one){
+	void place_plant(const Position& p, bool at_least_one){
 		if(first.count(p) == 0) return;
 		first.erase(p);
 		if(!at_least_one || at_least_one && second == 1)
@@ -107,10 +89,8 @@ struct puz_area : pair<set<Position>, int>
 struct puz_group : vector<puz_area>
 {
 	puz_group() {}
-	puz_group(const vector<int>& star_counts){
-		for(int cnt : star_counts)
-			emplace_back(cnt);
-	}
+	puz_group(int cell_count, int plant_count_area)
+		: vector<puz_area>(cell_count, puz_area(plant_count_area)) {}
 	bool is_valid() const {
 		return boost::algorithm::all_of(*this, [](const puz_area& a) {
 			return a.is_valid();
@@ -134,7 +114,7 @@ struct puz_state : string
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const { 
-		return m_game->m_star_total_count - boost::count(*this, PUZ_STAR);
+		return m_game->m_plant_total_count - boost::count(*this, PUZ_PLANT);
 	}
 	unsigned int get_distance(const puz_state& child) const {return 1;}
 	void dump_move(ostream& out) const {}
@@ -151,35 +131,48 @@ struct puz_state : string
 
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
-, m_grp_arrows(vector<int>(g.m_pos2arrow.size(), 1))
-, m_grp_rows(g.m_star_counts_rows)
-, m_grp_cols(g.m_star_counts_cols)
+, m_grp_arrows(g.m_pos2arrow.size(), 1)
+, m_grp_rows(g.m_sidelen, g.m_plant_count_area)
+, m_grp_cols(g.m_sidelen, g.m_plant_count_area)
 {
+	for(int r = 0; r < sidelen(); ++r)
+		for(int c = 0; c < sidelen(); ++c){
+			Position p(r, c);
+			m_grp_rows[r].add_cells(p);
+			m_grp_cols[c].add_cells(p);
+		}
+
 	int i = 0;
 	for(auto& kv : g.m_pos2arrow){
 		auto& p = kv.first;
 		auto& os = offset[kv.second];
-		for(auto p2 = p + os; is_valid(p2); p2 += os)
-			if(cells(p2) == PUZ_EMPTY){
-				m_grp_rows[p2.first].add_cells(p2);
-				m_grp_cols[p2.second].add_cells(p2);
-				m_grp_arrows[i].add_cells(p2);
-			}
+		for(auto p2 = p + os; is_valid(p2) && cells(p2) == PUZ_EMPTY; p2 += os)
+			m_grp_arrows[i].add_cells(p2);
 		++i;
 	}
 }
 
 bool puz_state::make_move(const Position& p)
 {
-	cells(p) = PUZ_STAR;
+	cells(p) = PUZ_PLANT;
 
 	for(auto& a : m_grp_arrows)
-		a.place_star(p, !m_game->m_only_one_arrow);
-	m_grp_rows[p.first].place_star(p, false);
-	m_grp_cols[p.second].place_star(p, false);
+		a.place_plant(p, true);
+	m_grp_rows[p.first].place_plant(p, false);
+	m_grp_cols[p.second].place_plant(p, false);
 
-	return m_grp_rows.is_valid() && m_grp_cols.is_valid() &&
-		(!m_game->m_only_one_arrow || m_grp_arrows.is_valid());
+	// no touch
+	for(auto& os : offset){
+		auto p2 = p + os;
+		if(is_valid(p2)){
+			for(auto& a : m_grp_arrows)
+				a.remove_cells(p2);
+			m_grp_rows[p2.first].remove_cells(p2);
+			m_grp_cols[p2.second].remove_cells(p2);
+		}
+	}
+
+	return m_grp_rows.is_valid() && m_grp_cols.is_valid();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -202,24 +195,15 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	auto f = [&](int n){ out << format("%-2d") % n; };
-
-	for(int r = 0; r <= sidelen(); ++r) {
-		for(int c = 0; c <= sidelen(); ++c)
-			if(r == sidelen() && c == sidelen())
-				;
-			else if(c == sidelen())
-				f(m_game->m_star_counts_rows.at(r));
-			else if(r == sidelen())
-				f(m_game->m_star_counts_cols.at(c));
-			else{
-				Position p(r, c);
-				char ch = cells(p);
-				if(ch == PUZ_ARROW)
-					f(m_game->m_pos2arrow.at(p));
-				else
-					out << ch << " ";
-			}
+	for(int r = 0; r < sidelen(); ++r){
+		for(int c = 0; c < sidelen(); ++c){
+			Position p(r, c);
+			char ch = cells(p);
+			if(ch == PUZ_ARROW)
+				out << format("%-2d") % m_game->m_pos2arrow.at(p);
+			else
+				out << ch << " ";
+		}
 		out << endl;
 	}
 	return out;
@@ -227,9 +211,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_hiddenstars()
+void solve_puz_BotanicalPark()
 {
-	using namespace puzzles::hiddenstars;
+	using namespace puzzles::BotanicalPark;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\hiddenstars.xml", "Puzzles\\hiddenstars.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\BotanicalPark.xml", "Puzzles\\BotanicalPark.txt", solution_format::GOAL_STATE_ONLY);
 }
