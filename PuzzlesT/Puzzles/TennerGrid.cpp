@@ -107,7 +107,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-struct puz_state
+struct puz_state : vector<int>
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
@@ -117,8 +117,8 @@ struct puz_state
 		return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
 	}
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-	int cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
-	int& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
+	int cells(const Position& p) const { return (*this)[p.first * cols() + p.second]; }
+	int& cells(const Position& p) { return (*this)[p.first * cols() + p.second]; }
 	bool make_move(int i, int j);
 	bool make_move2(int i, int j);
 	int find_matches(bool init);
@@ -135,13 +135,12 @@ struct puz_state
 	}
 
 	const puz_game* m_game = nullptr;
-	vector<int> m_cells;
 	map<int, vector<int>> m_matches;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: vector<int>(g.m_start), m_game(&g)
 {
 	for(int i = 0; i < g.m_area_info.size(); ++i){
 		auto& info = g.m_area_info[i];
