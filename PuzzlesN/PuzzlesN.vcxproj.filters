@@ -25,6 +25,9 @@
     <Text Include="Puzzles\nurikabe.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Neighbours.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -50,12 +53,18 @@
     <ClCompile Include="Puzzles\nurikabe.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Neighbours.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\numeric_paranoia.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\nurikabe.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Neighbours.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
