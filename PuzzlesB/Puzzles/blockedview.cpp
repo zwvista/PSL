@@ -94,10 +94,9 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_game(&g)
 {
-	for(int r = 0; r < sidelen(); ++r)
-		cells({r, 0}) = cells({r, sidelen() - 1}) = PUZ_BOUNDARY;
-	for(int c = 0; c < sidelen(); ++c)
-		cells({0, c}) = cells({sidelen() - 1, c}) = PUZ_BOUNDARY;
+	for(int i = 0; i < sidelen(); ++i)
+		cells({i, 0}) = cells({i, sidelen() - 1}) =
+		cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
 
 	for(const auto& kv : g.m_start)
 		cells(kv.first) = PUZ_SENTINEL, m_matches[kv.first];
