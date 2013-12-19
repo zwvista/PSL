@@ -47,6 +47,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	map<char, puz_area_info> m_id2info;
+	int m_cell_count_area;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -65,6 +66,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			m_id2info.emplace(id, puz_area_info({r + 1, c + 1}, cnt));
 		}
 	}
+	m_cell_count_area = (m_sidelen - 2) * (m_sidelen - 2) / m_id2info.size();
 }
 
 struct puz_area
@@ -73,9 +75,14 @@ struct puz_area
 	set<char> m_neighbours;
 	bool m_ready = false;
 
-	void add_neighbour(char id, int cnt){
+	void add_cell(const Position& p, int cnt){
+		m_inner.insert(p);
+		if(m_ready = m_inner.size() == cnt)
+			m_outer.clear();
+	}
+	bool add_neighbour(char id, int cnt){
 		m_neighbours.insert(id);
-		m_ready = m_neighbours.size() == cnt;
+		return m_neighbours.size() <= cnt;
 	}
 
 	bool operator<(const puz_area& x) const {
@@ -92,11 +99,15 @@ struct puz_state : string
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(char id, const Position& p);
-	bool make_move2(char id, const Position& p);
+	bool make_move2(char id, Position p);
 	int adjust_area(bool init);
 
 	//solve_puzzle interface
-	bool is_goal_state() const { return get_heuristic() == 0; }
+	bool is_goal_state() const { return get_heuristic() == 0 &&
+		boost::algorithm::all_of(m_id2area, [&](const pair<char, puz_area>& kv){
+			return kv.second.m_neighbours.size() == m_game->m_id2info.at(kv.first).m_neighbour_count;
+		});
+	}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
 	unsigned int get_distance(const puz_state& child) const { return m_distance; }
@@ -152,13 +163,10 @@ int puz_state::adjust_area(bool init)
 	return 2;
 }
 
-bool puz_state::make_move2(char id, const Position& p)
+bool puz_state::make_move2(char id, Position p)
 {
 	auto& area = m_id2area[id];
-	area.m_inner.insert(p);
 	cells(p) = id;
-	int cnt = m_game->m_id2info.at(id).m_neighbour_count;
-	++m_distance;
 
 	for(auto& os : offset){
 		auto p2 = p + os;
@@ -167,14 +175,15 @@ bool puz_state::make_move2(char id, const Position& p)
 			ch == id || area.m_neighbours.count(ch) != 0)
 			continue;
 
-		auto& area2 = m_id2area.at(ch);
-		int cnt2 = m_game->m_id2info.at(ch).m_neighbour_count;
-		if(area.m_ready || area2.m_ready)
+		char id2 = ch;
+		auto& area2 = m_id2area.at(id2);
+		if(!area.add_neighbour(id2, m_game->m_id2info.at(id).m_neighbour_count) ||
+			!area2.add_neighbour(id, m_game->m_id2info.at(id2).m_neighbour_count))
 			return false;
-
-		area.add_neighbour(ch, cnt);
-		area2.add_neighbour(id, cnt2);
 	}
+
+	area.add_cell(p, m_game->m_cell_count_area);
+	++m_distance;
 	return true;
 }
 

@@ -1,4 +1,32 @@
 Level 01
-Number of vertices examined: 3
-0.458459 [s]
+Sequence of moves: 
+c d a b 
+c d a b 
+e e g h 
+f f g h 
+Number of moves: 4
+Number of vertices examined: 5
+0.00994077 [s]
+
+Level 02
+Sequence of moves: 
+b b b a a 
+c b b a a 
+c c e d a 
+c c e d d 
+e e e d d 
+Number of moves: 19
+Number of vertices examined: 2900
+2.97647 [s]
+
+Level 03
+Sequence of moves: 
+a a c c c 
+a a b b c 
+d a e b c 
+d d e b b 
+d d e e e 
+Number of moves: 18
+Number of vertices examined: 24697
+24.3185 [s]
 

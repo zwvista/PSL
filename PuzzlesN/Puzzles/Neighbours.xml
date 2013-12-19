@@ -8,4 +8,22 @@
  242\
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+   2 \
+ 3   \
+ 2 2 \
+     \
+3    \
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+     \
+4  3 \
+    2\
+     \
+ 2  3\
+    ]]>
+  </level>
 </levels>
