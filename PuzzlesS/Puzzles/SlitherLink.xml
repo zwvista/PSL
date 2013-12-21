@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+3 32 \
+ 2  2\
+ 3 30\
+  12 \
+ 222 \
+    ]]>
+  </level>
+</levels>
