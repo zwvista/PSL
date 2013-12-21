@@ -139,6 +139,7 @@ int puz_state::adjust_area(bool init)
 		char id = kv.first;
 		auto& area = kv.second;
 		auto& outer = area.m_outer;
+		int nb_cnt = m_game->neighbour_count(id);
 
 		outer.clear();
 		for(auto& p : area.m_inner)
@@ -152,11 +153,13 @@ int puz_state::adjust_area(bool init)
 		if(!init)
 			switch(outer.size()){
 			case 0:
-				if(area.m_neighbours.size() < m_game->neighbour_count(id))
-					return 0;
-				break;
+				return !area.m_ready ||
+					nb_cnt != PUZ_UNKNOWN && area.m_neighbours.size() < nb_cnt ? 0 :
+					(m_id2area.erase(id), 1);
 			case 1:
-				return make_move2(id, *outer.begin()) ? 1 : 0;
+				if(!area.m_ready)
+					return make_move2(id, *outer.begin()) ? 1 : 0;
+				break;
 			}
 	}
 	return 2;

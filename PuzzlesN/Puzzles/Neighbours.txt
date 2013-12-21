@@ -1,1 +1,92 @@
 Level 01
+Sequence of moves: 
+c d a b 
+c d a b 
+e e g h 
+f f g h 
+Number of moves: 4
+Number of vertices examined: 5
+0.00428456 [s]
+
+Level 02
+Sequence of moves: 
+b b b a a 
+c b b a a 
+c c e d a 
+c c e d d 
+e e e d d 
+Number of moves: 17
+Number of vertices examined: 226
+0.0391206 [s]
+
+Level 03
+Sequence of moves: 
+a a c c c 
+a a b b c 
+d a e b c 
+d d e b b 
+d d e e e 
+Number of moves: 18
+Number of vertices examined: 23294
+1.43936 [s]
+
+Level 04
+Sequence of moves: 
+a a a a c 
+a b b b c 
+b b d c c 
+d d d c e 
+d e e e e 
+Number of moves: 9
+Number of vertices examined: 16
+0.00140961 [s]
+
+Level 05
+Sequence of moves: 
+a b b c c d 
+a a b c d d 
+g e e f f f 
+g g e h i i 
+l j j h k i 
+l l j h k k 
+Number of moves: 13
+Number of vertices examined: 29
+0.00362258 [s]
+
+Level 06
+Sequence of moves: 
+d b c c a a 
+d b e c f a 
+d b e e f i 
+g h h h f i 
+g k j j j i 
+g k k l l l 
+Number of moves: 20
+Number of vertices examined: 484
+0.0506876 [s]
+
+Level 07
+Sequence of moves: 
+d b b c a a 
+d e b c c a 
+d e e f f f 
+g h h h i l 
+g j j k i l 
+g j k k i l 
+Number of moves: 20
+Number of vertices examined: 127
+0.0103155 [s]
+
+Level 08
+Sequence of moves: 
+b a a a a c 
+b b b c c c 
+d d d f f g 
+e e d f f g 
+e h h h g g 
+e h i i i i 
+Number of moves: 25
+Number of vertices examined: 11054
+0.94877 [s]
+
+Level 09
