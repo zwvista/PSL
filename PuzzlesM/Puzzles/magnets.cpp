@@ -154,7 +154,7 @@ puz_state::puz_state(const puz_game& g)
 	puz_chars all_chars = { PUZ_POSITIVE, PUZ_NEGATIVE, PUZ_EMPTY };
 	for(int r = 0; r < g.m_sidelen; ++r)
 		for(int c = 0; c < g.m_sidelen; ++c)
-			m_pos2chars[Position(r, c)] = all_chars;
+			m_pos2chars[{r, c}] = all_chars;
 
 	for(int i = 0; i < g.m_sidelen; i++){
 		const auto& np = g.m_num_poles_rows[i];

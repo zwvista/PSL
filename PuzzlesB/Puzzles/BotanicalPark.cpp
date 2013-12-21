@@ -60,7 +60,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < m_sidelen; c++){
 			char ch = str[c];
 			if(ch != PUZ_SPACE)
-				m_pos2arrow[Position(r, c)] = ch - '0';
+				m_pos2arrow[{r, c}] = ch - '0';
 			m_start.push_back(ch == PUZ_SPACE ? PUZ_EMPTY : PUZ_ARROW);
 		}
 	}

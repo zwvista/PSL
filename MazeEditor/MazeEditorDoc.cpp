@@ -221,18 +221,18 @@ void CMazeEditorDoc::FillAll( char ch )
 {
 	for(int r = 0; r < MazeHeight(); ++r)
 		for(int c = 0; c < MazeWidth(); ++c)
-			m_mapObjects[Position(r, c)] = ch;
+			m_mapObjects[{r, c}] = ch;
 	m_sigMazeChanged();
 }
 
 void CMazeEditorDoc::FillBorder( char ch )
 {
 	for(int r = 0; r < MazeHeight(); ++r)
-		m_mapObjects[Position(r, 0)] =
-		m_mapObjects[Position(r, MazeWidth() - 1)] = ch;
+		m_mapObjects[{r, 0}] =
+		m_mapObjects[{r, MazeWidth() - 1}] = ch;
 	for(int c = 0; c < MazeWidth(); ++c)
-		m_mapObjects[Position(0, c)] =
-		m_mapObjects[Position(MazeHeight() - 1, c)] = ch;
+		m_mapObjects[{0, c}] =
+		m_mapObjects[{MazeHeight() - 1, c}] = ch;
 	m_sigMazeChanged();
 }
 

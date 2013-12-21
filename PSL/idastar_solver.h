@@ -20,7 +20,7 @@ class puz_solver_idastar
 		cur.gen_children(children);
 		for(const puz_state& child : children){
 			// full cycle checking
-			if(boost::range::find(spath, child) != spath.end())
+			if(boost::algorithm::any_of_equal(spath, child))
 				continue;
 			unsigned int new_start_cost = start_cost + cur.get_distance(child);
 			spath.push_back(child);

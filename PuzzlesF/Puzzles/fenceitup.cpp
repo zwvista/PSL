@@ -55,7 +55,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			auto s = str.substr(c * 2, 2);
 			int n = atoi(s.c_str());
 			if(n > 4)
-				m_pos2info[Position(r + 1, c + 1)] = {ch, n};
+				m_pos2info[{r + 1, c + 1}] = {ch, n};
 			m_start.push_back(n == 0 ? PUZ_SPACE :
 				n == 4 ? PUZ_SINGLE : ch++);
 		}

@@ -80,7 +80,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < m_sidelen - 2; ++c){
 			char ch = str[c];
 			if(ch != ' ')
-				m_fb_info[m_pos2fb.at(Position(r + 1, c + 1))].m_flower_count = ch - '0';
+				m_fb_info[m_pos2fb.at({r + 1, c + 1})].m_flower_count = ch - '0';
 		}
 	}
 

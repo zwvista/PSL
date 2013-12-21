@@ -57,7 +57,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			char ch = str[c];
 			m_start.push_back(ch == PUZ_SPACE ? PUZ_SPACE : PUZ_EMPTY);
 			if(ch != PUZ_SPACE)
-				m_pos2num[Position(r + 1, c + 1)] = ch - '0';
+				m_pos2num[{r + 1, c + 1}] = ch - '0';
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}

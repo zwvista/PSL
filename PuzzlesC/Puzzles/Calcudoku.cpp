@@ -182,8 +182,8 @@ bool puz_state::make_move(int i)
 	};
 
 	for(int rc = 0; rc < sidelen(); ++rc)
-		if(!f(Position(rc, 0), {0, 1}) ||	// e
-			!f(Position(0, rc), {1, 0}))	// s
+		if(!f({rc, 0}, {0, 1}) ||	// e
+			!f({0, rc}, {1, 0}))	// s
 			return false;
 	return true;
 }

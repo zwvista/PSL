@@ -77,7 +77,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < m_sidelen; ++c){
 			char ch = str[c];
 			if(ch != PUZ_SPACE)
-				m_pos2carinfo[Position(r, c)].m_move_count = ch - '0';
+				m_pos2carinfo[{r, c}].m_move_count = ch - '0';
 		}
 	}
 

@@ -48,7 +48,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < m_sidelen; ++c){
 			char ch = str[c];
 			if(ch != ' ')
-				m_start[Position(r, c)] = ch - '0';
+				m_start[{r, c}] = ch - '0';
 		}
 	}
 

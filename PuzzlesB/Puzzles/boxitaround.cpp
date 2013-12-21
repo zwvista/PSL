@@ -44,7 +44,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			auto s = str.substr(c * 2, 2);
 			int n = atoi(s.c_str());
 			if(n != 0)
-				m_pos2boxinfo[Position(r, c)].m_sum = n;
+				m_pos2boxinfo[{r, c}].m_sum = n;
 		}
 	}
 

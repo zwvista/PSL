@@ -64,7 +64,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < m_sidelen; ++c){
 			char ch = str[c];
 			if(ch != ' ')
-				m_pos2num[Position(r, c)] = ch - '0';
+				m_pos2num[{r, c}] = ch - '0';
 		}
 	}
 }
@@ -112,10 +112,10 @@ puz_state::puz_state(const puz_game& g)
 	for(int r = 0; r <= sidelen(); ++r)
 		for(int c = 0; c <= sidelen(); ++c){
 			if(c < sidelen())
-				m_horz_doors[Position(r, c)] = r == 0 || r == sidelen() ?
+				m_horz_doors[{r, c}] = r == 0 || r == sidelen() ?
 					PUZ_DOOR_CLOSED : PUZ_DOOR_UNKNOWN;
 			if(r < sidelen())
-				m_vert_doors[Position(r, c)] = c == 0 || c == sidelen() ?
+				m_vert_doors[{r, c}] = c == 0 || c == sidelen() ?
 					PUZ_DOOR_CLOSED : PUZ_DOOR_UNKNOWN;
 		}
 
@@ -252,7 +252,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0;; ++r){
 		// draw horz-doors
 		for(int c = 0; c < sidelen(); ++c)
-			out << (m_horz_doors.at(Position(r, c)) == PUZ_DOOR_CLOSED ? " -" : "  ");
+			out << (m_horz_doors.at({r, c}) == PUZ_DOOR_CLOSED ? " -" : "  ");
 		out << endl;
 		if(r == sidelen()) break;
 		for(int c = 0;; ++c){

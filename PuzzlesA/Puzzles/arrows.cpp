@@ -144,21 +144,21 @@ puz_state::puz_state(const puz_game& g)
 	}
 
 	for(int r = 1; r < sidelen() - 1; ++r){
-		auto& s1 = m_arrow_dirs[Position(r, 0)];
+		auto& s1 = m_arrow_dirs[{r, 0}];
 		s1 = {1, 2, 3};
 		if(r == 1) s1.erase(1);
 		else if(r == sidelen() - 2) s1.erase(3);
-		auto& s2 = m_arrow_dirs[Position(r, sidelen() - 1)];
+		auto& s2 = m_arrow_dirs[{r, sidelen() - 1}];
 		s2 = {5, 6, 7};
 		if(r == 1) s2.erase(7);
 		else if(r == sidelen() - 2) s2.erase(5);
 	}
 	for(int c = 1; c < sidelen() - 1; ++c){
-		auto& s1 = m_arrow_dirs[Position(0, c)];
+		auto& s1 = m_arrow_dirs[{0, c}];
 		s1 = {3, 4, 5};
 		if(c == 1) s1.erase(5);
 		else if(c == sidelen() - 2) s1.erase(3);
-		auto& s2 = m_arrow_dirs[Position(sidelen() - 1, c)];
+		auto& s2 = m_arrow_dirs[{sidelen() - 1, c}];
 		s2 = {0, 1, 7};
 		if(c == 1) s2.erase(7);
 		else if(c == sidelen() - 2) s2.erase(1);

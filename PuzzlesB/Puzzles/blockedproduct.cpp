@@ -56,7 +56,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < m_sidelen - 2; ++c){
 			auto s = str.substr(c * 2, 2);
 			if(s != "  ")
-				m_start[Position(r + 1, c + 1)] = atoi(s.c_str());
+				m_start[{r + 1, c + 1}] = atoi(s.c_str());
 		}
 	}
 }

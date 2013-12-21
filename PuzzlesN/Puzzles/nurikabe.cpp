@@ -62,7 +62,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				break;
 			default:
 				m_start.push_back('a' + n++);
-				m_pos2garden[Position(r + 1, c + 1)] = ch - '0';
+				m_pos2garden[{r + 1, c + 1}] = ch - '0';
 				break;
 			}
 		}

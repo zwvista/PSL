@@ -67,19 +67,18 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			case PUZ_SPACE:
 				break;
 			default:
-				m_start[Position(r, c)] = ch;
+				m_start[{r, c}] = ch;
 				break;
 			}
 	}
 	for(int r = 0, n = 0; r < m_sidelen; ++r){
 		const string& str = strs[r + m_sidelen];
-		for(int c = 0; c < m_sidelen; ++c){
-			Position p(r, c);
+		for(int c = 0; c < m_sidelen; ++c)
 			switch(char ch = str[c]){
 			case PUZ_HORZ:
 			case PUZ_VERT:
 				for(int d = 0; d < m_size_of_tatami; ++d){
-					Position p = 
+					auto p = 
 						ch == PUZ_HORZ ? Position(r, c + d)
 						: Position(r + d, c);
 					m_pos2tatami[p] = n;
@@ -90,7 +89,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				++n;
 				break;
 			}
-		}
 	}
 }
 
@@ -160,7 +158,7 @@ puz_state::puz_state(const puz_game& g)
 {
 	for(int r = 0; r < g.m_sidelen; ++r)
 		for(int c = 0; c < g.m_sidelen; ++c)
-			m_pos2nums[Position(r, c)] = g.m_numbers;
+			m_pos2nums[{r, c}] = g.m_numbers;
 
 	for(const auto& kv : g.m_start)
 		make_move(kv.first, kv.second);
@@ -218,7 +216,7 @@ ostream& puz_state::dump(ostream& out) const
 	}
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << char(m_game->m_pos2tatami.at(Position(r, c)) + 'a');
+			out << char(m_game->m_pos2tatami.at({r, c}) + 'a');
 		out << endl;
 	}
 	return out;

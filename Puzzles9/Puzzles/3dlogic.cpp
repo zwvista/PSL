@@ -129,6 +129,7 @@ struct puz_state : puz_state_base
 	char cells(const Position3d& p) const {return m_cells.at(p2i(p));}
 	char& cells(const Position3d& p) {return m_cells[p2i(p)];}
 	bool operator<(const puz_state& x) const {return m_cells < x.m_cells;}
+	bool operator==(const puz_state& x) const { return m_cells == x.m_cells; }
 	void make_move(int i, bool is_link1, const Position3d& p);
 
 	// solve_puzzle interface

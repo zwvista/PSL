@@ -60,7 +60,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			if(ch != PUZ_SPACE){
 				int n = ch - '0';
 				m_reachable += n;
-				m_pos2num[Position(r + 1, c + 1)] = n;
+				m_pos2num[{r + 1, c + 1}] = n;
 			}
 			m_start.push_back(ch == PUZ_SPACE ? PUZ_WATER : PUZ_TENT);
 		}

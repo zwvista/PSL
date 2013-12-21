@@ -59,7 +59,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				break;
 			default:
 				m_start.push_back(PUZ_NUMBER);
-				m_pos2num[Position(r + 1, c + 1)] = ch - '0';
+				m_pos2num[{r + 1, c + 1}] = ch - '0';
 				break;
 			}
 		m_start.push_back(PUZ_WALL);
