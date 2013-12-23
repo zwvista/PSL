@@ -48,7 +48,7 @@ struct puz_fb_info
 {
 	vector<Position> m_range;
 	int m_flower_count = PUZ_FLOWER_COUNT_UNKOWN;
-	vector<string> m_disps;
+	vector<string> m_perms;
 };
 
 struct puz_game
@@ -84,23 +84,23 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	map<pair<int, int>, vector<string>> pair2disps;
+	map<pair<int, int>, vector<string>> pair2perms;
 	for(auto& info : m_fb_info){
 		int pos_cnt = info.m_range.size();
 		int flower_cnt = info.m_flower_count;
-		auto& disps = pair2disps[make_pair(pos_cnt, flower_cnt)];
-		if(disps.empty())
+		auto& perms = pair2perms[make_pair(pos_cnt, flower_cnt)];
+		if(perms.empty())
 			for(int i = 0; i < pos_cnt; ++i){
 				if(flower_cnt != PUZ_FLOWER_COUNT_UNKOWN && flower_cnt != i) continue;
-				auto disp = string(pos_cnt - i, PUZ_EMPTY) + string(i, PUZ_FLOWER);
+				auto perm = string(pos_cnt - i, PUZ_EMPTY) + string(i, PUZ_FLOWER);
 				do
-					disps.push_back(disp);
-				while(boost::next_permutation(disp));
+					perms.push_back(perm);
+				while(boost::next_permutation(perm));
 			}
-		for(const auto& disp : disps){
+		for(const auto& perm : perms){
 			vector<Position> ps_flower;
-			for(int i = 0; i < disp.size(); ++i)
-				if(disp[i] == PUZ_FLOWER)
+			for(int i = 0; i < perm.size(); ++i)
+				if(perm[i] == PUZ_FLOWER)
 					ps_flower.push_back(info.m_range[i]);
 
 			if([&](){
@@ -111,12 +111,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 							return false;
 				return true;
 			}())
-				info.m_disps.push_back(disp);
+				info.m_perms.push_back(perm);
 		}
 	}
 
 	boost::sort(m_fb_info, [this](const puz_fb_info& info1, const puz_fb_info& info2){
-		return info1.m_disps.size() < info2.m_disps.size();
+		return info1.m_perms.size() < info2.m_perms.size();
 	});
 }
 
@@ -227,12 +227,12 @@ bool puz_state::make_move(int i)
 	m_distance = 0;
 	auto& info = m_game->m_fb_info[m_fb_index];
 	auto& range = info.m_range;
-	auto& disp = info.m_disps[i];
+	auto& perm = info.m_perms[i];
 
 	auto ub = m_unbalanced;
-	for(int k = 0; k < disp.size(); ++k){
+	for(int k = 0; k < perm.size(); ++k){
 		auto& p = range[k];
-		if((cells(p) = disp[k]) != PUZ_FLOWER) continue;
+		if((cells(p) = perm[k]) != PUZ_FLOWER) continue;
 
 		// no touching
 		for(auto& os : offset)
@@ -255,7 +255,7 @@ bool puz_state::make_move(int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	int sz = m_game->m_fb_info[m_fb_index].m_disps.size();
+	int sz = m_game->m_fb_info[m_fb_index].m_perms.size();
 	for(int i = 0; i < sz; ++i){
 		children.push_back(*this);
 		if(!children.back().make_move(i))

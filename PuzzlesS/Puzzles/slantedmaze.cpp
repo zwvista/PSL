@@ -42,7 +42,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	map<Position, int> m_pos2num;
-	vector<vector<string>> m_num2disps;
+	vector<vector<string>> m_num2perms;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -50,7 +50,7 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 1)
-, m_num2disps(PUZ_UNKNOWN + 1)
+, m_num2perms(PUZ_UNKNOWN + 1)
 {
 	for(int r = 0; r < m_sidelen - 1; ++r){
 		auto& str = strs[r];
@@ -61,22 +61,22 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	auto disp = slants;
-	auto& disps_unknown = m_num2disps[PUZ_UNKNOWN];
+	auto perm = slants;
+	auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
 	for(int i = 0; i <= 4; ++i){
-		auto& disps = m_num2disps[i];
+		auto& perms = m_num2perms[i];
 		vector<int> indexes(4, 0);
 		fill(indexes.begin() + 4 - i, indexes.end(), 1);
 		do{
 			for(int i = 0; i < 4; ++i){
 				int index = indexes[i];
 				char ch = slants[i];
-				disp[i] = index == 1 ? ch :
+				perm[i] = index == 1 ? ch :
 						ch == PUZ_SLASH ? PUZ_BACKSLASH :
 						PUZ_SLASH;
 			}
-			disps.push_back(disp);
-			disps_unknown.push_back(disp);
+			perms.push_back(perm);
+			perms_unknown.push_back(perm);
 		}while(boost::next_permutation(indexes));
 	}
 }
@@ -119,9 +119,9 @@ puz_state::puz_state(const puz_game& g)
 		PUZ_BOUNDARY;
 
 	for(auto& kv : g.m_pos2num){
-		auto& disp_ids = m_matches[kv.first];
-		disp_ids.resize(g.m_num2disps[kv.second].size());
-		boost::iota(disp_ids, 0);
+		auto& perm_ids = m_matches[kv.first];
+		perm_ids.resize(g.m_num2perms[kv.second].size());
+		boost::iota(perm_ids, 0);
 	}
 
 	find_matches(true);
@@ -131,25 +131,25 @@ int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
 		auto& p = kv.first;
-		auto& disp_ids = kv.second;
+		auto& perm_ids = kv.second;
 
 		string chars;
 		for(auto& os : offset)
 			chars.push_back(cells(p + os));
 
-		auto& disps = m_game->m_num2disps[m_game->m_pos2num.at(p)];
-		boost::remove_erase_if(disp_ids, [&](int id){
-			return !boost::equal(chars, disps[id], [](char ch1, char ch2){
+		auto& perms = m_game->m_num2perms[m_game->m_pos2num.at(p)];
+		boost::remove_erase_if(perm_ids, [&](int id){
+			return !boost::equal(chars, perms[id], [](char ch1, char ch2){
 				return ch1 == PUZ_SPACE || ch1 == PUZ_BOUNDARY || ch1 == ch2;
 			});
 		});
 
 		if(!init)
-			switch(disp_ids.size()){
+			switch(perm_ids.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, disp_ids.front()) ? 1 : 0;
+				return make_move2(p, perm_ids.front()) ? 1 : 0;
 			}
 	}
 	return 2;
@@ -157,11 +157,11 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::make_move2(const Position& p, int n)
 {
-	auto& disp = m_game->m_num2disps[m_game->m_pos2num.at(p)][n];
-	for(int k = 0; k < disp.size(); ++k){
+	auto& perm = m_game->m_num2perms[m_game->m_pos2num.at(p)][n];
+	for(int k = 0; k < perm.size(); ++k){
 		char& ch = cells(p + offset[k]);
 		if(ch == PUZ_SPACE)
-			ch = disp[k];
+			ch = perm[k];
 	}
 
 	++m_distance;

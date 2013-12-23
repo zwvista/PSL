@@ -43,7 +43,7 @@ struct puz_area_diag_info
 	vector<Position> m_range;
 	char m_operator;
 	int m_result;
-	vector<vector<int>> m_disps;
+	vector<vector<int>> m_perms;
 };
 
 struct puz_game
@@ -54,7 +54,7 @@ struct puz_game
 	// 1st dimension : the index of the area(rows and columns)
 	// 2nd dimension : all the positions that the area is composed of
 	vector<vector<Position>> m_area_rc2range;
-	vector<vector<int>> m_disps_rc;
+	vector<vector<int>> m_perms_rc;
 	vector<puz_area_diag_info> m_area_diag_info;
 	int m_area_count;
 
@@ -77,11 +77,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	vector<int> disp(m_sidelen);
-	boost::iota(disp, 1);
+	vector<int> perm(m_sidelen);
+	boost::iota(perm, 1);
 	do
-		m_disps_rc.push_back(disp);
-	while(boost::next_permutation(disp));
+		m_perms_rc.push_back(perm);
+	while(boost::next_permutation(perm));
 
 	for(int r = 0; r < m_sidelen - 1; ++r){
 		auto& str = strs[r + m_sidelen];
@@ -132,7 +132,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 					if(n0 != n3 && n2 != n3 &&
 						f(info.m_operator, n0, n2) == info.m_result &&
 						f(info.m_operator, n1, n3) == info.m_result)
-						info.m_disps.push_back({n0, n1, n2, n3});
+						info.m_perms.push_back({n0, n1, n2, n3});
 				}
 			}
 	}
@@ -179,14 +179,14 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
-		auto f = [&](const vector<Position>& rng, const vector<vector<int>>& disps){
+		auto f = [&](const vector<Position>& rng, const vector<vector<int>>& perms){
 			vector<int> nums;
 			for(auto& p : rng)
 				nums.push_back(cells(p));
 
 			kv.second.clear();
-			for(int i = 0; i < disps.size(); ++i)
-				if(boost::equal(nums, disps[i], [](int n1, int n2){
+			for(int i = 0; i < perms.size(); ++i)
+				if(boost::equal(nums, perms[i], [](int n1, int n2){
 					return n1 == PUZ_SPACE || n1 == n2;
 				}))
 					kv.second.push_back(i);
@@ -194,10 +194,10 @@ int puz_state::find_matches(bool init)
 
 		int index = kv.first;
 		if(index < sidelen() * 2)
-			f(m_game->m_area_rc2range[index], m_game->m_disps_rc);
+			f(m_game->m_area_rc2range[index], m_game->m_perms_rc);
 		else{
 			auto& info = m_game->m_area_diag_info[index - sidelen() * 2];
-			f(info.m_range, info.m_disps);
+			f(info.m_range, info.m_perms);
 		}
 
 		if(!init)
@@ -213,16 +213,16 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int i, int j)
 {
-	auto f = [&](const vector<Position>& rng, const vector<int>& disp){
-		for(int k = 0; k < disp.size(); ++k)
-			cells(rng[k]) = disp[k];
+	auto f = [&](const vector<Position>& rng, const vector<int>& perm){
+		for(int k = 0; k < perm.size(); ++k)
+			cells(rng[k]) = perm[k];
 	};
 
 	if(i < sidelen() * 2)
-		f(m_game->m_area_rc2range[i], m_game->m_disps_rc[j]);
+		f(m_game->m_area_rc2range[i], m_game->m_perms_rc[j]);
 	else{
 		auto& info = m_game->m_area_diag_info[i - sidelen() * 2];
-		f(info.m_range, info.m_disps[j]);
+		f(info.m_range, info.m_perms[j]);
 	}
 	++m_distance;
 	m_matches.erase(i);

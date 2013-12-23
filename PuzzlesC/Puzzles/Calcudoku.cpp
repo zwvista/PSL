@@ -40,7 +40,7 @@ struct puz_area_info
 	vector<Position> m_range;
 	char m_operator;
 	int m_result;
-	vector<vector<int>> m_disps;
+	vector<vector<int>> m_perms;
 };
 
 struct puz_game
@@ -90,10 +90,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	for(auto& info : m_area_info){
 		int cnt = info.m_range.size();
 
-		vector<vector<int>> disps;
-		vector<int> disp(cnt, 1);
+		vector<vector<int>> perms;
+		vector<int> perm(cnt, 1);
 		for(int i = 0; i < cnt;){
-			auto nums = disp;
+			auto nums = perm;
 			boost::sort(nums, greater<>());
 			if(accumulate(next(nums.begin()), nums.end(),
 				nums.front(), [&](int acc, int v){
@@ -110,24 +110,24 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 					return 0;
 				}
 			}) == info.m_result)
-				disps.push_back(disp);
-			for(i = 0; i < cnt && ++disp[i] == m_sidelen + 1; ++i)
-				disp[i] = 1;
+				perms.push_back(perm);
+			for(i = 0; i < cnt && ++perm[i] == m_sidelen + 1; ++i)
+				perm[i] = 1;
 		}
 
 		auto groups = f(info.m_range);
-		for(const auto& disp : disps)
+		for(const auto& perm : perms)
 			if(boost::algorithm::all_of(groups, [&](const vector<int>& grp){
 				set<int> nums;
 				for(int i : grp)
-					nums.insert(disp[i]);
+					nums.insert(perm[i]);
 				return nums.size() == grp.size();
 			}))
-				info.m_disps.push_back(disp);
+				info.m_perms.push_back(perm);
 	}
 
 	boost::sort(m_area_info, [this](const puz_area_info& info1, const puz_area_info& info2){
-		return info1.m_disps.size() < info2.m_disps.size();
+		return info1.m_perms.size() < info2.m_perms.size();
 	});
 }
 
@@ -164,10 +164,10 @@ bool puz_state::make_move(int i)
 {
 	auto& info = m_game->m_area_info[m_area_index++];
 	auto& area = info.m_range;
-	auto& disp = info.m_disps[i];
+	auto& perm = info.m_perms[i];
 
-	for(int k = 0; k < disp.size(); ++k)
-		cells(area[k]) = disp[k];
+	for(int k = 0; k < perm.size(); ++k)
+		cells(area[k]) = perm[k];
 
 	auto f = [&](Position p, const Position& os){
 		set<int> nums;
@@ -190,7 +190,7 @@ bool puz_state::make_move(int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	int sz = m_game->m_area_info[m_area_index].m_disps.size();
+	int sz = m_game->m_area_info[m_area_index].m_perms.size();
 	for(int i = 0; i < sz; ++i){
 		children.push_back(*this);
 		if(!children.back().make_move(i))

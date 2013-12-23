@@ -55,7 +55,7 @@ struct puz_car_info
 {
 	// how far the car can move forward or backward
 	int m_move_count;
-	// all dispositions
+	// all permutations
 	vector<puz_car> m_cars;
 };
 

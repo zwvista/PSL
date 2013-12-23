@@ -39,7 +39,7 @@ const Position offset[] = {
 struct puz_area_info
 {
 	vector<Position> m_range;
-	vector<string> m_disps;
+	vector<string> m_perms;
 };
 
 struct puz_game	
@@ -83,21 +83,21 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	map<int, vector<string>> sz2disps;
+	map<int, vector<string>> sz2perms;
 	for(auto& info : m_area_info){
 		int ps_cnt = info.m_range.size();
-		auto& disps = sz2disps[ps_cnt];
-		if(disps.empty()){
-			auto disp = string(ps_cnt - m_tree_count_area, PUZ_EMPTY)
+		auto& perms = sz2perms[ps_cnt];
+		if(perms.empty()){
+			auto perm = string(ps_cnt - m_tree_count_area, PUZ_EMPTY)
 				+ string(m_tree_count_area, PUZ_TREE);
 			do
-				disps.push_back(disp);
-			while(boost::next_permutation(disp));
+				perms.push_back(perm);
+			while(boost::next_permutation(perm));
 		}
-		for(const auto& disp : disps){
+		for(const auto& perm : perms){
 			vector<Position> ps_tree;
-			for(int i = 0; i < disp.size(); ++i)
-				if(disp[i] == PUZ_TREE)
+			for(int i = 0; i < perm.size(); ++i)
+				if(perm[i] == PUZ_TREE)
 					ps_tree.push_back(info.m_range[i]);
 
 			if([&](){
@@ -108,7 +108,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 							return false;
 				return true;
 			}())
-				info.m_disps.push_back(disp);
+				info.m_perms.push_back(perm);
 		}
 	}
 }
@@ -163,8 +163,8 @@ int puz_state::find_matches(bool init)
 			area.push_back(cells(p));
 
 		kv.second.clear();
-		for(int i = 0; i < info.m_disps.size(); ++i)
-			if(boost::equal(area, info.m_disps[i], [](char ch1, char ch2){
+		for(int i = 0; i < info.m_perms.size(); ++i)
+			if(boost::equal(area, info.m_perms[i], [](char ch1, char ch2){
 				return ch1 == PUZ_SPACE || ch1 == ch2;
 			}))
 				kv.second.push_back(i);
@@ -184,11 +184,11 @@ bool puz_state::make_move2(int i, int j)
 {
 	auto& info = m_game->m_area_info[i];
 	auto& area = info.m_range;
-	auto& disp = info.m_disps[j];
+	auto& perm = info.m_perms[j];
 
-	for(int k = 0; k < disp.size(); ++k){
+	for(int k = 0; k < perm.size(); ++k){
 		auto& p = area[k];
-		if((cells(p) = disp[k]) != PUZ_TREE) continue;
+		if((cells(p) = perm[k]) != PUZ_TREE) continue;
 
 		// no touching
 		for(auto& os : offset){

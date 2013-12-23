@@ -82,7 +82,7 @@ struct puz_state : pair<string, vector<puz_area>>
 	char& cells(const Position& p) { return first[p.first * sidelen() + p.second]; }
 	void check_areas();
 	bool make_move_space(const Position& p);
-	bool make_move_area(int i, const string& disp);
+	bool make_move_area(int i, const string& perm);
 	bool make_move(const Position& p, char ch_p);
 
 	// solve_puzzle interface
@@ -118,16 +118,16 @@ puz_state::puz_state(const puz_game& g)
 				ps.push_back(p2);
 		}
 
-		vector<string> disps;
-		string disp;
+		vector<string> perms;
+		string perm;
 		for(int i = 0; i < ps.size() - n; ++i)
-			disp.push_back(PUZ_UNLIT);
+			perm.push_back(PUZ_UNLIT);
 		for(int i = 0; i < n; ++i)
-			disp.push_back(PUZ_BULB);
+			perm.push_back(PUZ_BULB);
 		do
-			disps.push_back(disp);
-		while(boost::next_permutation(disp));
-		second.emplace_back(ps, disps);
+			perms.push_back(perm);
+		while(boost::next_permutation(perm));
+		second.emplace_back(ps, perms);
 	}
 }
 
@@ -137,13 +137,13 @@ bool puz_state::make_move_space(const Position& p)
 	return make_move(p, PUZ_BULB);
 }
 
-bool puz_state::make_move_area(int i, const string& disp)
+bool puz_state::make_move_area(int i, const string& perm)
 {
 	m_distance = 0;
 
 	const auto& ps = second[i].first;
 	for(int j = 0; j < ps.size(); ++j)
-		if(!make_move(ps[j], disp[j]))
+		if(!make_move(ps[j], perm[j]))
 			return false;
 
 	second.erase(second.begin() + i);
@@ -205,9 +205,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 		int i = boost::min_element(second, [](const puz_area& a1, const puz_area& a2){
 			return a1.second.size() < a2.second.size();
 		}) - second.begin();
-		for(const auto& disp : second[i].second){
+		for(const auto& perm : second[i].second){
 			children.push_back(*this);
-			if(!children.back().make_move_area(i, disp))
+			if(!children.back().make_move_area(i, perm))
 				children.pop_back();
 		}
 	}

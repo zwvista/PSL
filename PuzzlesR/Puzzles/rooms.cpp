@@ -85,8 +85,8 @@ struct puz_state
 	bool operator<(const puz_state& x) const { 
 		return std::tie(m_horz_doors, m_vert_doors) < std::tie(x.m_horz_doors, x.m_vert_doors);
 	}
-	bool make_move(const Position& p, const vector<int>& disp);
-	bool make_move2(const Position& p, const vector<int>& disp);
+	bool make_move(const Position& p, const vector<int>& perm);
+	bool make_move2(const Position& p, const vector<int>& perm);
 	int find_matches(bool init);
 
 	//solve_puzzle interface
@@ -129,8 +129,8 @@ int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
 		const auto& p = kv.first;
-		auto& disps = kv.second;
-		disps.clear();
+		auto& perms = kv.second;
+		perms.clear();
 
 		int sum = m_game->m_pos2num.at(p);
 		vector<vector<int>> dir_nums(4);
@@ -159,14 +159,14 @@ int puz_state::find_matches(bool init)
 				for(int n2 : dir_nums[2])
 					for(int n3 : dir_nums[3])
 						if(n0 + n1 + n2 + n3 == sum)
-							disps.push_back({n0, n1, n2, n3});
+							perms.push_back({n0, n1, n2, n3});
 
 		if(!init)
-			switch(disps.size()){
+			switch(perms.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, disps.front()) ? 1 : 0;
+				return make_move2(p, perms.front()) ? 1 : 0;
 			}
 	}
 	return 2;
@@ -197,11 +197,11 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 		}
 }
 
-bool puz_state::make_move2(const Position& p, const vector<int>& disp)
+bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 {
 	for(int i = 0; i < 4; ++i){
 		auto& os = offset[i];
-		int n = disp[i];
+		int n = perm[i];
 		auto p2 = p;
 		for(int j = 0; j < n; ++j){
 			set_door_status(p2, i, PUZ_DOOR_OPEN);
@@ -218,10 +218,10 @@ bool puz_state::make_move2(const Position& p, const vector<int>& disp)
 	return smoves.size() == sidelen() * sidelen();
 }
 
-bool puz_state::make_move(const Position& p, const vector<int>& disp)
+bool puz_state::make_move(const Position& p, const vector<int>& perm)
 {
 	m_distance = 0;
-	if(!make_move2(p, disp))
+	if(!make_move2(p, perm))
 		return false;
 	for(;;)
 		switch(find_matches(false)){
@@ -240,9 +240,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 		return kv1.second.size() < kv2.second.size();
 	});
 
-	for(const auto& disp : kv.second){
+	for(const auto& perm : kv.second){
 		children.push_back(*this);
-		if(!children.back().make_move(kv.first, disp))
+		if(!children.back().make_move(kv.first, perm))
 			children.pop_back();
 	}
 }

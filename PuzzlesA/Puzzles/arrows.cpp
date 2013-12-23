@@ -35,7 +35,7 @@ struct puz_arrow
 {
 	vector<Position> m_range;
 	vector<int> m_dirs;
-	vector<vector<int>> m_disps;
+	vector<vector<int>> m_perms;
 };
 
 struct puz_game
@@ -88,7 +88,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			}
 
 			int sz = arrow.m_range.size();
-			vector<int> disp(sz);
+			vector<int> perm(sz);
 
 			vector<int> indicators;
 			indicators.insert(indicators.end(), sz - n, 0);
@@ -96,10 +96,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			do{
 				for(int i = 0; i < sz; ++i){
 					int n = arrow.m_dirs[i];
-					disp[i] = indicators[i] == 1 ? n : ~n;
+					perm[i] = indicators[i] == 1 ? n : ~n;
 				}
 					
-				arrow.m_disps.push_back(disp);
+				arrow.m_perms.push_back(perm);
 			}while(boost::next_permutation(indicators));
 		}
 }
@@ -138,9 +138,9 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
 	for(auto& kv : g.m_pos2arrows){
-		auto& disp_ids = m_matches[kv.first];
-		disp_ids.resize(kv.second.m_disps.size());
-		boost::iota(disp_ids, 0);
+		auto& perm_ids = m_matches[kv.first];
+		perm_ids.resize(kv.second.m_perms.size());
+		boost::iota(perm_ids, 0);
 	}
 
 	for(int r = 1; r < sidelen() - 1; ++r){
@@ -171,26 +171,26 @@ int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
 		auto& p = kv.first;
-		auto& disp_ids = kv.second;
+		auto& perm_ids = kv.second;
 
 		auto& arrow = m_game->m_pos2arrows.at(p);
 		vector<set<int>> arrow_dirs;
 		for(auto& p2 : arrow.m_range)
 			arrow_dirs.push_back(m_arrow_dirs.at(p2));
 
-		boost::remove_erase_if(disp_ids, [&](int id){
-			return !boost::equal(arrow_dirs, arrow.m_disps[id], [](const set<int>& dirs, int n2){
+		boost::remove_erase_if(perm_ids, [&](int id){
+			return !boost::equal(arrow_dirs, arrow.m_perms[id], [](const set<int>& dirs, int n2){
 				return n2 >= 0 && dirs.count(n2) != 0
 					|| n2 < 0 && (dirs.size() > 1 || dirs.count(~n2) == 0);
 			});
 		});
 
 		if(!init)
-			switch(disp_ids.size()){
+			switch(perm_ids.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, disp_ids.front()), 1;
+				return make_move2(p, perm_ids.front()), 1;
 			}
 	}
 	return 2;
@@ -199,12 +199,12 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(const Position& p, int n)
 {
 	auto& arrow = m_game->m_pos2arrows.at(p);
-	auto& disp = arrow.m_disps[n];
+	auto& perm = arrow.m_perms[n];
 
-	for(int k = 0; k < disp.size(); ++k){
+	for(int k = 0; k < perm.size(); ++k){
 		const auto& p = arrow.m_range[k];
 		int& n1 = cells(p);
-		int n2 = disp[k];
+		int n2 = perm[k];
 		if(n2 >= 0)
 			m_arrow_dirs[p] = {n1 = n2};
 		else
