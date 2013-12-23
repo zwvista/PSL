@@ -8,5 +8,29 @@ Sequence of moves:
  v 7 - > 3 >
 Number of moves: 3
 Number of vertices examined: 6
-0.0397395 [s]
+0.0342991 [s]
+
+Level 02
+Sequence of moves: 
+ ^ < - 4 - >
+ | ^ < 3 ^ ^
+ | 2 > | 2 3
+ 6 - > v v |
+ v ^ < - 2 v
+ < 2 < - 3 >
+Number of moves: 6
+Number of vertices examined: 19
+0.111007 [s]
+
+Level 03
+Sequence of moves: 
+ ^ ^ < - 3 >
+ 2 4 - - > 2
+ v < - 3 > |
+ < - - 4 > v
+ < - - 5 - >
+ 2 - > < 2 >
+Number of moves: 5
+Number of vertices examined: 9
+0.0267402 [s]
 

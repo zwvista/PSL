@@ -101,6 +101,7 @@ struct puz_area : pair<set<Position>, int>
 			--second;
 	}
 	bool is_valid() const { return second >= 0 && first.size() >= second; }
+	bool is_goal() const { return second == 0; }
 };
 
 // all of the areas in the group
@@ -114,6 +115,11 @@ struct puz_group : vector<puz_area>
 	bool is_valid() const {
 		return boost::algorithm::all_of(*this, [](const puz_area& a) {
 			return a.is_valid();
+		});
+	}
+	bool is_goal() const {
+		return boost::algorithm::all_of(*this, [](const puz_area& a) {
+			return a.is_goal();
 		});
 	}
 };
@@ -131,7 +137,7 @@ struct puz_state : string
 	bool make_move(const Position& p);
 
 	// solve_puzzle interface
-	bool is_goal_state() const {return get_heuristic() == 0;}
+	bool is_goal_state() const { return get_heuristic() == 0; }
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const { 
 		return m_game->m_star_total_count - boost::count(*this, PUZ_STAR);
@@ -179,7 +185,9 @@ bool puz_state::make_move(const Position& p)
 	m_grp_cols[p.second].place_star(p, false);
 
 	return m_grp_rows.is_valid() && m_grp_cols.is_valid() &&
-		(!m_game->m_only_one_arrow || m_grp_arrows.is_valid());
+		(!m_game->m_only_one_arrow || m_grp_arrows.is_valid()) &&
+		(!is_goal_state() || (m_grp_rows.is_goal() &&
+		m_grp_cols.is_goal() && m_grp_arrows.is_goal()));
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

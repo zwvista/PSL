@@ -8,5 +8,54 @@ Sequence of moves:
  8 - - - - 5
 Number of moves: 1
 Number of vertices examined: 2
-0.0113887 [s]
+0.0114855 [s]
+
+Level 02
+Sequence of moves: 
+ 6 - - - - |
+ | - - - - 6
+ | - - 3 | |
+ 5 - - | | 2
+ | - - 3 | |
+ 4 - - - 7 -
+Number of moves: 2
+Number of vertices examined: 3
+0.0178392 [s]
+
+Level 03
+Sequence of moves: 
+ 3 - | - - 3
+ | - 4 - - |
+ | - - - - 6
+ 6 - - - | |
+ | - - - 5 -
+ 6 - - - - -
+Number of moves: 3
+Number of vertices examined: 4
+0.0162579 [s]
+
+Level 04
+Sequence of moves: 
+ - 5 - 7 - |
+ 3 | | | - 3
+ | | | | | |
+ | | | | 4 -
+ | - 5 | | |
+ 4 - | | | 1
+Number of moves: 3
+Number of vertices examined: 7
+0.0503248 [s]
+
+Level 05
+Sequence of moves: 
+ - 7 - - - 4 |
+ | | | | | | |
+ | | | 4 3 - |
+ | | 2 | | - 5
+ | 6 - | 3 - |
+ | | | | | - 3
+ 5 | 2 - 3 - |
+Number of moves: 5
+Number of vertices examined: 6
+0.0209402 [s]
 
