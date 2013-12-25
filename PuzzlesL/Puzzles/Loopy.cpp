@@ -16,6 +16,7 @@
 
 namespace puzzles{ namespace Loopy{
 
+#define PUZ_LINE_UNKNOWN	"01"
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
 
@@ -24,6 +25,12 @@ const Position offset[] = {
 	{0, 1},		// e
 	{1, 0},		// s
 	{0, -1},		// w
+};
+
+typedef pair<Position, int> puz_line_info;
+const puz_line_info lines_info[] = {
+	{{0, 0}, 1}, {{0, 1}, 3}, 		// horz-line
+	{{0, 0}, 2}, {{1, 0}, 0}, 		// vert-line
 };
 
 struct puz_game
@@ -37,18 +44,18 @@ struct puz_game
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size() / 2)
+, m_sidelen(strs.size() / 2 + 1)
 {
 	for(int r = 0;; ++r){
 		auto& str_horz = strs[2 * r];
 		// horz-lines
-		for(int c = 0; c < m_sidelen; ++c)
+		for(int c = 0; c < m_sidelen - 1; ++c)
 			if(str_horz[2 * c + 1] == '-')
 				m_horz_lines.emplace(r, c);
-		if(r == m_sidelen) break;
+		if(r == m_sidelen - 1) break;
 		auto& str_vert = strs[2 * r + 1];
 		// vert-lines
-		for(int c = 0; c <= m_sidelen; ++c)
+		for(int c = 0; c <= m_sidelen - 1; ++c)
 			if(str_vert[2 * c] == '|')
 				m_vert_lines.emplace(r, c);
 	}
@@ -56,7 +63,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 typedef vector<string> puz_dot;
 
-struct puz_state : vector<puz_dot>
+struct puz_state
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
@@ -64,10 +71,11 @@ struct puz_state : vector<puz_dot>
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-	puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	bool make_move(const Position& p, int n);
-	bool make_move2(const Position& p, int n);
+	const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
+	puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
+	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
+	bool make_move(const Position& p, bool is_vert, char ch);
+	bool make_move2(const Position& p, bool is_vert, char ch);
 	int find_matches(bool init);
 
 	//solve_puzzle interface
@@ -82,12 +90,13 @@ struct puz_state : vector<puz_dot>
 	}
 
 	const puz_game* m_game = nullptr;
+	vector<puz_dot> m_dots;
 	map<pair<Position, bool>, string> m_matches;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_sidelen * g.m_sidelen), m_game(&g)
+: m_game(&g), m_dots(g.m_sidelen * g.m_sidelen)
 {
 	auto lines_off = string(4, PUZ_LINE_OFF);
 	for(int r = 0; r < sidelen(); ++r)
@@ -108,10 +117,19 @@ puz_state::puz_state(const puz_game& g)
 				}
 		}
 
-	for(int r = 0; r <= sidelen(); ++r)
-	for(int c = 0; c <= sidelen(); ++c){
-		m_matches[{Position(r, c), true}];
-	}
+	for(int r = 0; r < sidelen(); ++r)
+		for(int c = 0; c < sidelen(); ++c){
+			Position p(r, c);
+			if(c < sidelen() - 1)
+				m_matches[{p, false}] = PUZ_LINE_UNKNOWN;
+			if(r < sidelen() - 1)
+				m_matches[{p, true}] =  PUZ_LINE_UNKNOWN;
+		}
+
+	for(auto& p : g.m_horz_lines)
+		make_move2(p, false, PUZ_LINE_ON);
+	for(auto& p : g.m_vert_lines)
+		make_move2(p, true, PUZ_LINE_ON);
 
 	find_matches(true);
 }
@@ -119,61 +137,54 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
-		const auto& p = kv.first;
-		auto& perm_ids = kv.second;
+		const auto& p = kv.first.first;
+		bool is_vert = kv.first.second;
+		auto& str = kv.second;
 
-		auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
-		boost::remove_erase_if(perm_ids, [&](int id){
-			auto& perm = perms[id];
-			for(int i = 0; i < 8; ++i){
-				auto& info = lines_info[i];
-				const auto& dt = dots(p + info.first);
-				char line = perm[i / 2];
-				int j = info.second;
-				if(boost::algorithm::none_of(dt, [=](const string& s){
-					return s[j] == line;
-				}))
-					return true;
-			}
-			return false;
-		});
-
+		int index = is_vert ? 2 : 0;
+		auto &info1 = lines_info[index], &info2 = lines_info[index + 1];
+		auto f = [&](const puz_line_info& info, char ch){
+			return boost::algorithm::any_of(dots(p + info.first),
+				[&](const string& s) { return s[info.second] == ch; });
+		};
+		str.clear();
+		if(f(info1, PUZ_LINE_ON) && f(info2, PUZ_LINE_ON))
+			str.push_back(PUZ_LINE_ON);
+		if(f(info1, PUZ_LINE_OFF) && f(info2, PUZ_LINE_OFF))
+			str.push_back(PUZ_LINE_OFF);
 
 		if(!init)
-			switch(perm_ids.size()){
+			switch(str.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, perm_ids.front()) ? 1 : 0;
+				return make_move2(p, is_vert, str[0]) ? 1 : 0;
 		}
 	}
 	return 2;
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+bool puz_state::make_move2(const Position& p, bool is_vert, char ch)
 {
-	auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
-	for(int i = 0; i < 8; ++i){
-		auto& info = lines_info[i];
-		auto& dt = dots(p + info.first);
-		char line = perm[i / 2];
-		int j = info.second;
-		boost::remove_erase_if(dt, [=](const string& s){
-			return s[j] != line;
-		});
-	}
+	int index = is_vert ? 2 : 0;
+	auto &info1 = lines_info[index], &info2 = lines_info[index + 1];
+	auto f = [&, ch](const puz_line_info& info){
+		boost::remove_erase_if(dots(p + info.first),
+			[&](const string& s) { return s[info.second] != ch; });
+	};
+	f(info1), f(info2);
 
 	++m_distance;
-	m_matches.erase(p);
+	m_matches.erase({p, is_vert});
 
 	// TODO: check the loop
 	return true;
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move(const Position& p, bool is_vert, char ch)
 {
 	m_distance = 0;
-	if(!make_move2(p, n))
+	if(!make_move2(p, is_vert, ch))
 		return false;
 	for(;;)
 		switch(find_matches(false)){
@@ -187,14 +198,14 @@ bool puz_state::make_move(const Position& p, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_matches, [](
-		const pair<const Position, vector<int>>& kv1,
-		const pair<const Position, vector<int>>& kv2){
+		const pair<const pair<Position, bool>, string>& kv1,
+		const pair<const pair<Position, bool>, string>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
 
-	for(int n : kv.second){
+	for(char ch : kv.second){
 		children.push_back(*this);
-		if(!children.back().make_move(kv.first, n))
+		if(!children.back().make_move(kv.first.first, kv.first.second, ch))
 			children.pop_back();
 	}
 }
@@ -203,20 +214,14 @@ ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0;; ++r){
 		// draw horz-lines
-		for(int c = 0; c < sidelen(); ++c)
+		for(int c = 0; c < sidelen() - 1; ++c)
 			out << (dots({r, c})[0][1] == PUZ_LINE_ON ? " -" : "  ");
 		out << endl;
 		if(r == sidelen() - 1) break;
-		for(int c = 0;; ++c){
+		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			// draw vert-lines
-			out << (dots(p)[0][2] == PUZ_LINE_ON ? '|' : ' ');
-			if(c == sidelen() - 1) break;
-			int n = m_game->m_pos2num.at(p);
-			if(n == PUZ_UNKNOWN)
-				out << ' ';
-			else
-				out << n;
+			out << (dots(p)[0][2] == PUZ_LINE_ON ? "| " : "  ");
 		}
 		out << endl;
 	}

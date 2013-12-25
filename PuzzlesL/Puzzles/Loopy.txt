@@ -1,17 +1,17 @@
 Level 01
 Sequence of moves: 
- - -   - -  
-|3  |3|2  |
- -   -   -  
-  |2    |2 
-   -   -    
-   3| |3 0 
- - -   -    
-|    1 2|  
-   - -   -  
-| |2 2|2  |
- -     - -  
-Number of moves: 2
-Number of vertices examined: 3
-0.0393393 [s]
+ -   -   -
+| | | | | | 
+          
+| | | | | | 
+          
+| | | | | | 
+       -  
+| | |     | 
+       -  
+| | | | | | 
+ -   -   -
+Number of moves: 3
+Number of vertices examined: 4
+0.0133415 [s]
 
