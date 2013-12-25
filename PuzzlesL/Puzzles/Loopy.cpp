@@ -63,7 +63,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 typedef vector<string> puz_dot;
 
-struct puz_state
+struct puz_state : vector<puz_dot>
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
@@ -71,12 +71,12 @@ struct puz_state
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
-	puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
-	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
+	const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+	puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, bool is_vert, char ch);
 	bool make_move2(const Position& p, bool is_vert, char ch);
 	int find_matches(bool init);
+	bool check_loop();
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -90,13 +90,12 @@ struct puz_state
 	}
 
 	const puz_game* m_game = nullptr;
-	vector<puz_dot> m_dots;
 	map<pair<Position, bool>, string> m_matches;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_dots(g.m_sidelen * g.m_sidelen)
+: vector<puz_dot>(g.m_sidelen * g.m_sidelen), m_game(&g)
 {
 	auto lines_off = string(4, PUZ_LINE_OFF);
 	for(int r = 0; r < sidelen(); ++r)
@@ -177,7 +176,35 @@ bool puz_state::make_move2(const Position& p, bool is_vert, char ch)
 	++m_distance;
 	m_matches.erase({p, is_vert});
 
-	// TODO: check the loop
+	return check_loop();
+}
+
+bool puz_state::check_loop()
+{
+	set<Position> rng;
+	for(int r = 0; r < sidelen(); ++r)
+		for(int c = 0; c < sidelen(); ++c){
+			Position p(r, c);
+			if(dots(p).size() == 1)
+				rng.insert(p);
+		}
+
+	while(!rng.empty()){
+		auto p = *rng.begin(), p2 = p;
+		for(int cnt = 1, n = -1;; ++cnt){
+			rng.erase(p2);
+			auto& str = dots(p2)[0];
+			for(int i = 0; i < 4; ++i)
+				if(str[i] == PUZ_LINE_ON && (i + 2) % 4 != n){
+					p2 += offset[n = i];
+					break;
+				}
+			if(p2 == p)
+				return cnt == sidelen() * sidelen();
+			if(rng.count(p2) == 0)
+				break;
+		}
+	}
 	return true;
 }
 
