@@ -211,12 +211,12 @@ ostream& puz_state::dump(ostream& out) const
 	dump_move(out);
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << cells({r, c});
+			out << cells({r, c}) << ' ';
 		out << endl;
 	}
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
-			out << char(m_game->m_pos2tatami.at({r, c}) + 'a');
+			out << char(m_game->m_pos2tatami.at({r, c}) + 'a') << ' ';
 		out << endl;
 	}
 	return out;

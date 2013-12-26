@@ -167,7 +167,6 @@ int puz_state::find_matches(bool init)
 			return false;
 		});
 
-
 		if(!init)
 			switch(perm_ids.size()){
 			case 0:
