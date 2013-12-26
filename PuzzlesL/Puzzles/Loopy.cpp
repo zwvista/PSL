@@ -37,6 +37,7 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
+	int m_dot_count;
 	set<Position> m_horz_lines, m_vert_lines;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -45,6 +46,7 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() / 2 + 1)
+, m_dot_count(m_sidelen * m_sidelen)
 {
 	for(int r = 0;; ++r){
 		auto& str_horz = strs[2 * r];
@@ -76,7 +78,7 @@ struct puz_state : vector<puz_dot>
 	bool make_move(const Position& p, bool is_vert, char ch);
 	bool make_move2(const Position& p, bool is_vert, char ch);
 	int find_matches(bool init);
-	bool check_loop();
+	bool check_loop() const;
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -95,7 +97,7 @@ struct puz_state : vector<puz_dot>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_sidelen * g.m_sidelen), m_game(&g)
+: vector<puz_dot>(g.m_dot_count), m_game(&g)
 {
 	auto lines_off = string(4, PUZ_LINE_OFF);
 	for(int r = 0; r < sidelen(); ++r)
@@ -179,7 +181,7 @@ bool puz_state::make_move2(const Position& p, bool is_vert, char ch)
 	return check_loop();
 }
 
-bool puz_state::check_loop()
+bool puz_state::check_loop() const
 {
 	set<Position> rng;
 	for(int r = 0; r < sidelen(); ++r)
@@ -188,6 +190,8 @@ bool puz_state::check_loop()
 			if(dots(p).size() == 1)
 				rng.insert(p);
 		}
+	if(m_matches.empty() && rng.size() != m_game->m_dot_count)
+		return false;
 
 	while(!rng.empty()){
 		auto p = *rng.begin(), p2 = p;
@@ -200,7 +204,7 @@ bool puz_state::check_loop()
 					break;
 				}
 			if(p2 == p)
-				return cnt == sidelen() * sidelen();
+				return cnt == m_game->m_dot_count;
 			if(rng.count(p2) == 0)
 				break;
 		}
