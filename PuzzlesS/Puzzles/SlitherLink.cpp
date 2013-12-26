@@ -29,6 +29,8 @@ namespace puzzles{ namespace SlitherLink{
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
 
+const string lines_off = string(4, PUZ_LINE_OFF);
+
 const Position offset[] = {
 	{-1, 0},		// n
 	{0, 1},		// e
@@ -115,7 +117,6 @@ struct puz_state : vector<puz_dot>
 puz_state::puz_state(const puz_game& g)
 : vector<puz_dot>(g.m_dot_count), m_game(&g)
 {
-	auto lines_off = string(4, PUZ_LINE_OFF);
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
@@ -203,11 +204,12 @@ bool puz_state::check_loop() const
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
-			if(dots(p).size() == 1)
+			auto& dt = dots(p);
+			if(dt.size() != 1 && m_matches.empty())
+				return false;
+			if(dt.size() == 1 && dt[0] != lines_off)
 				rng.insert(p);
 		}
-	if(m_matches.empty() && rng.size() != m_game->m_dot_count)
-		return false;
 
 	bool has_loop = false;
 	while(!rng.empty()){
@@ -223,8 +225,10 @@ bool puz_state::check_loop() const
 			if(p2 == p)
 				if(has_loop)
 					return false;
-				else
+				else{
+					has_loop = true;
 					break;
+				}
 			if(rng.count(p2) == 0)
 				break;
 		}
