@@ -1,0 +1,23 @@
+Level 01
+Sequence of moves: 
+..MM.
+..MMM
+..M..
+MMMMM
+MMMMM
+Number of moves: 1
+Number of vertices examined: 2
+0.0417313 [s]
+
+Level 02
+Sequence of moves: 
+.MMM..
+....M.
+.MMMM.
+M...M.
+M...M.
+.MMMMM
+Number of moves: 3
+Number of vertices examined: 7
+0.18246 [s]
+

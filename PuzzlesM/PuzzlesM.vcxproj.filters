@@ -37,6 +37,9 @@
     <Text Include="Puzzles\Minesweeper.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Mosaic.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -74,6 +77,9 @@
     <ClCompile Include="Puzzles\Minesweeper.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Mosaic.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
@@ -95,6 +101,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Minesweeper.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Mosaic.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

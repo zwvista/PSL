@@ -5,6 +5,7 @@ extern void solve_puz_magnets();
 extern void solve_puz_Mathrax();
 extern void solve_puz_mazecat();
 extern void solve_puz_Minesweeper();
+extern void solve_puz_Mosaic();
 extern void solve_puz_mummymaze();
 
 int main(int argc, char **argv)
@@ -14,6 +15,7 @@ int main(int argc, char **argv)
 	cout << "a3: Mathrax" << endl;
 	cout << "a4: mazecat" << endl;
 	cout << "i: Minesweeper" << endl;
+	cout << "o: Mosaic" << endl;
 	cout << "u: mummymaze" << endl;
 	string str;
 	getline(cin, str);
@@ -22,6 +24,7 @@ int main(int argc, char **argv)
 	else if(str == "a3") solve_puz_Mathrax();
 	else if(str == "a4") solve_puz_mazecat();
 	else if(str == "i") solve_puz_Minesweeper();
+	else if(str == "o") solve_puz_Mosaic();
 	else if(str == "u") solve_puz_mummymaze();
 
 	return 0;
