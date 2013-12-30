@@ -7,7 +7,7 @@ MMMMM
 MMMMM
 Number of moves: 1
 Number of vertices examined: 2
-0.0417313 [s]
+0.0479001 [s]
 
 Level 02
 Sequence of moves: 
@@ -19,5 +19,105 @@ M...M.
 .MMMMM
 Number of moves: 3
 Number of vertices examined: 7
-0.18246 [s]
+0.21776 [s]
+
+Level 03
+Sequence of moves: 
+MMM.....
+MMM.....
+..M.....
+..M.....
+..MMM...
+..MMMM..
+..MMMM..
+...MM...
+Number of moves: 1
+Number of vertices examined: 2
+0.090755 [s]
+
+Level 04
+Sequence of moves: 
+..MM..
+MMMM.M
+M.MMMM
+..MM..
+MMMMM.
+M..MMM
+Number of moves: 4
+Number of vertices examined: 10
+0.320952 [s]
+
+Level 05
+Sequence of moves: 
+..MM..MM..
+..MM..MM..
+MMMMMMMMMM
+MMMMMMMMMM
+..MM..MM..
+..MM..MM..
+MMMMMMMMMM
+MMMMMMMMMM
+..MM..MM..
+..MM..MM..
+Number of moves: 2
+Number of vertices examined: 3
+0.387 [s]
+
+Level 06
+Sequence of moves: 
+...MMM....
+...M.M...M
+.MMMMMMMMM
+MMMMMMMMM.
+M..MMM....
+...MMM...M
+...MMMMMMM
+..MMMMMMM.
+.MMMM.....
+MMM.......
+Number of moves: 1
+Number of vertices examined: 2
+0.22041 [s]
+
+Level 07
+Sequence of moves: 
+..........
+..M....M..
+.M.M..M.M.
+..M....M..
+....MM....
+....MM....
+.M......M.
+..M....M..
+...MMMM...
+..........
+Number of moves: 6
+Number of vertices examined: 12
+0.575541 [s]
+
+Level 08
+Sequence of moves: 
+MMMMMMMMMMMMMMMMMMMM
+MM................MM
+MM.M..M.MMMMMM.M..MM
+MM.M..M.M......M..MM
+MM.M..M.M......M..MM
+MM.M..M.M......M..MM
+MM.MMMM.MMMM...M...M
+MM.M..M.M......M...M
+MM.M..M.M......M....
+M..M..M.MMMMMM.MMMM.
+....................
+.M.MMMM.M.....MMMMMM
+.M.M..M.M....MMMMMMM
+.M.M..M.M...MMMM....
+.M.M..M.M..MMMM.....
+.M.MMMM.M.MMM...MMMM
+.M........MM...MMMMM
+.MMMM...M.MM..MMM...
+..........MM..MM....
+MMMMMMMMMMMM..MM....
+Number of moves: 34
+Number of vertices examined: 89
+22.6891 [s]
 
