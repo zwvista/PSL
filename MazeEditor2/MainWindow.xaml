@@ -1,0 +1,44 @@
+﻿<RibbonWindow x:Class="MazeEditor2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PSEditor" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Ribbon VerticalAlignment="Top">
+            <!-- Help Pane, located at the right-hand side -->
+            <Ribbon.HelpPaneContent>
+                <RibbonButton SmallImageSource="Images\help.png" />
+            </Ribbon.HelpPaneContent>
+            <Ribbon.QuickAccessToolBar>
+                <RibbonQuickAccessToolBar>
+                    <RibbonButton x:Name ="Copy" SmallImageSource="Images\copy.png" />
+                    <RibbonButton x:Name ="Paste" SmallImageSource="Images\paste.png" />
+                </RibbonQuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>
+            <!-- Application Menu, located at the left-hand side (down arrow) -->
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu KeyTip="F">
+                    <RibbonApplicationMenuItem Header="Options" ImageSource="Images\options.png" />
+                    <RibbonApplicationMenuItem Header="Exit" ImageSource="Images\quit.png" />
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+            <RibbonTab Header="Home" KeyTip="H">
+                <RibbonGroup Header="Clipboard">
+                    <RibbonButton x:Name="PasteButton" Label="Paste" LargeImageSource="Images\paste.png" />
+                    <RibbonButton x:Name="CopyButton" Label="Copy" SmallImageSource="Images\copy.png" />
+                </RibbonGroup>
+                <RibbonGroup Header="Grid">
+                    <RibbonTextBox Text="" Label="Rows:     " />
+                    <RibbonTextBox Text="" Label="Columns:"/>
+                </RibbonGroup>
+                <RibbonGroup Header="Walls">
+                    <RibbonCheckBox Label="Has Walls"/>
+                    <RibbonButton Content="ClearButton" Label="Clear"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+    </Grid>
+</RibbonWindow>
