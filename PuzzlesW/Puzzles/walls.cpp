@@ -120,10 +120,11 @@ int puz_state::find_matches(bool init)
 			auto& nums = dir_nums[i];
 			for(auto p2 = p + os; n <= sum; p2 += os){
 				char ch = cells(p2);
-				if(ch == PUZ_SPACE ||
-					is_horz && ch == PUZ_HORZ ||
-					!is_horz && ch == PUZ_VERT)
+				if(ch == PUZ_SPACE)
 					nums.push_back(n++);
+				else if(is_horz && ch == PUZ_HORZ ||
+					!is_horz && ch == PUZ_VERT)
+					++n;
 				else{
 					nums.push_back(n);
 					break;

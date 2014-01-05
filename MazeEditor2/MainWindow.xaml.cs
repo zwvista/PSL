@@ -25,5 +25,10 @@ namespace MazeEditor2
         {
             InitializeComponent();
         }
+
+        private void Canvas_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

@@ -27,18 +27,19 @@
             </Ribbon.ApplicationMenu>
             <RibbonTab Header="Home" KeyTip="H">
                 <RibbonGroup Header="Clipboard">
-                    <RibbonButton x:Name="PasteButton" Label="Paste" LargeImageSource="Images\paste.png" />
-                    <RibbonButton x:Name="CopyButton" Label="Copy" SmallImageSource="Images\copy.png" />
+                    <RibbonButton x:Name="PasteButton" Label="Paste" LargeImageSource="Images\paste.png" Command="Paste" />
+                    <RibbonButton x:Name="CopyButton" Label="Copy" SmallImageSource="Images\copy.png" Command="Copy" />
                 </RibbonGroup>
-                <RibbonGroup Header="Grid">
+                <RibbonGroup Header="Grid" KeyTip="G">
                     <RibbonTextBox Text="" Label="Rows:     " />
                     <RibbonTextBox Text="" Label="Columns:"/>
                 </RibbonGroup>
-                <RibbonGroup Header="Walls">
+                <RibbonGroup Header="Walls" KeyTip="W">
                     <RibbonCheckBox Label="Has Walls"/>
                     <RibbonButton Content="ClearButton" Label="Clear"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
+        <Canvas Grid.Row="1" KeyDown="Canvas_KeyDown"/>
     </Grid>
 </RibbonWindow>
