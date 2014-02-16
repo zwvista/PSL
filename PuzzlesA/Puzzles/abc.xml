@@ -10,6 +10,27 @@ B    C\
  BCAC \
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+ BBAC \
+B    C\
+B    C\
+C    A\
+A    B\
+ ACBB \
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+ ACBCB \
+A     B\
+A     C\
+B     A\
+A     C\
+C     A\
+ CBABA \
+    ]]>
+  </level>
   <level id="04">
     <![CDATA[
  CAABB \
@@ -19,6 +40,72 @@ B     A\
 B     A\
 B     A\
  BBBCA \
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+   BB  \
+       \
+B     A\
+B      \
+       \
+       \
+  A C  \
+    ]]>
+  </level>
+  <level id="06">
+    <![CDATA[
+       \
+A      \
+      C\
+       \
+B      \
+B      \
+  AC C \
+    ]]>
+  </level>
+  <level id="07">
+    <![CDATA[
+ ACDBA \
+C     A\
+A     C\
+C     D\
+B     C\
+D     B\
+ DDCAB \
+    ]]>
+  </level>
+  <level id="08">
+    <![CDATA[
+   B   \
+D     C\
+B     C\
+D      \
+C     D\
+       \
+   D   \
+    ]]>
+  </level>
+  <level id="09">
+    <![CDATA[
+ CAAAB \
+C     B\
+A     C\
+B     A\
+A     C\
+C     A\
+ ACCBA \
+    ]]>
+  </level>
+  <level id="10">
+    <![CDATA[
+ BA C  \
+A      \
+      A\
+C     B\
+A     C\
+C     B\
+ CBCA  \
     ]]>
   </level>
 </levels>

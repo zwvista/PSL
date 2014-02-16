@@ -53,8 +53,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			Position p(r + 1, c + 1);
 			int n = atoi(str.substr(c * 2, 2).c_str());
 			m_start.push_back(n);
-			m_shaded[make_pair(r + 1, n)].insert(p);
-			m_shaded[make_pair(m_sidelen + c + 1, n)].insert(p);
+			m_shaded[{r + 1, n}].insert(p);
+			m_shaded[{m_sidelen + c + 1, n}].insert(p);
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
@@ -128,14 +128,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		switch(m_state->cells(p2)){
-		case PUZ_BOUNDARY:
-		case PUZ_SHADED:
-			break;
-		default:
+		int n = m_state->cells(p2);
+		if(n != PUZ_BOUNDARY && n != PUZ_SHADED){
 			children.push_back(*this);
 			children.back().make_move(p2);
-			break;
 		}
 	}
 }

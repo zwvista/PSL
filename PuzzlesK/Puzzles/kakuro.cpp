@@ -56,10 +56,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			else{
 				int n1 = atoi(s1.c_str());
 				if(n1 != 0)
-					m_pos2area[make_pair(p, true)].m_sum = n1;
+					m_pos2area[{p, true}].m_sum = n1;
 				int n2 = atoi(s2.c_str());
 				if(n2 != 0)
-					m_pos2area[make_pair(p, false)].m_sum = n2;
+					m_pos2area[{p, false}].m_sum = n2;
 			}
 		}
 	}
@@ -71,7 +71,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		int cnt = 0;
 		for(auto p2 = p + os; m_blanks.count(p2) != 0; p2 += os)
 			++cnt, ps.push_back(p2);
-		m_sum2perms[make_pair(kv.second.m_sum, cnt)];
+		m_sum2perms[{kv.second.m_sum, cnt}];
 	}
 
 	for(auto& kv : m_sum2perms){
@@ -82,7 +82,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		vector<int> perm(cnt, 1);
 		for(int i = 0; i < cnt;){
 			if(boost::accumulate(perm, 0) == sum &&
-				boost::range::adjacent_find(perm) == perm.end())
+				set<int>(perm.begin(), perm.end()).size() == perm.size())
 				perms.push_back(perm);
 			for(i = 0; i < cnt && ++perm[i] == 10; ++i)
 				perm[i] = 1;
@@ -123,7 +123,7 @@ puz_state::puz_state(const puz_game& g)
 	for(auto& kv : g.m_pos2area){
 		auto& perm_ids = m_matches[kv.first];
 		auto& area = kv.second;
-		perm_ids.resize(g.m_sum2perms.at(make_pair(area.m_sum, area.m_range.size())).size());
+		perm_ids.resize(g.m_sum2perms.at({area.m_sum, area.m_range.size()}).size());
 		boost::iota(perm_ids, 0);
 	}
 
@@ -141,7 +141,7 @@ int puz_state::find_matches(bool init)
 		for(auto& p : area.m_range)
 			nums.push_back(m_cells.at(p));
 
-		auto& perms = m_game->m_sum2perms.at(make_pair(area.m_sum, area.m_range.size()));
+		auto& perms = m_game->m_sum2perms.at({area.m_sum, area.m_range.size()});
 		boost::remove_erase_if(perm_ids, [&](int id){
 			return !boost::equal(nums, perms[id], [](int n1, int n2){
 				return n1 == 0 || n1 == n2;
@@ -162,7 +162,7 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(const puz_key& key, int j)
 {
 	auto& area = m_game->m_pos2area.at(key);
-	auto& perm = m_game->m_sum2perms.at(make_pair(area.m_sum, area.m_range.size()))[j];
+	auto& perm = m_game->m_sum2perms.at({area.m_sum, area.m_range.size()})[j];
 
 	for(int k = 0; k < perm.size(); ++k)
 		m_cells.at(area.m_range[k]) = perm[k];

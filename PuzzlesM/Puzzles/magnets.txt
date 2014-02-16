@@ -1,4 +1,4 @@
-Level 001
+Level 01
 Sequence of moves: 
 +-+-22
 -+..11
@@ -14,5 +14,49 @@ ehhg12
 1202 -
 Number of moves: 8
 Number of vertices examined: 9
-0.0299404 [s]
+0.00409652 [s]
+
+Level 02
+Sequence of moves: 
+-+..+.21
++.-+-.22
+-....+11
++-.-+-23
+...+-+21
+.+-..-12
+220222+ 
+212122 -
+aabbcd21
+efggcd22
+efhiij11
+kkhlmj23
+noolmp21
+nqqrrp12
+220222+ 
+212122 -
+Number of moves: 18
+Number of vertices examined: 84
+0.0186589 [s]
+
+Level 03
+Sequence of moves: 
+-+-.+-23
++-+...21
+....+-11
+-+-+-.23
++-+...21
+-+..+-22
+232130  
+322013  
+abbcdd23
+aeecff21
+gghhii11
+jkkllm23
+jnnoom21
+ppqqrr22
+232130  
+322013  
+Number of moves: 18
+Number of vertices examined: 35
+0.00964513 [s]
 

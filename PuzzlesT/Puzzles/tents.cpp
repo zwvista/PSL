@@ -29,13 +29,13 @@ namespace puzzles{ namespace tents{
 #define PUZ_TENT		'E'
 
 const Position offset[] = {
-	{-1, 0},	// n
-	{-1, 1},	// ne
+	{-1, 0},		// n
+	{-1, 1},		// ne
 	{0, 1},		// e
 	{1, 1},		// se
 	{1, 0},		// s
-	{1, -1},	// sw
-	{0, -1},	// w
+	{1, -1},		// sw
+	{0, -1},		// w
 	{-1, -1},	// nw
 };
 
@@ -174,12 +174,12 @@ bool puz_state::make_move(const Position& p)
 
 	// no touch
 	for(auto& os : offset){
-		const auto& p2 = p + os;
+		auto p2 = p + os;
 		if(is_valid(p2)){
 			for(auto& a : m_grp_trees)
 				a.remove_cells(p2);
-			m_grp_rows[p.first].remove_cells(p2);
-			m_grp_cols[p.second].remove_cells(p2);
+			m_grp_rows[p2.first].remove_cells(p2);
+			m_grp_cols[p2.second].remove_cells(p2);
 		}
 	}
 

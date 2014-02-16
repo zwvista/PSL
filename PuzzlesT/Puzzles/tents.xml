@@ -26,4 +26,110 @@ T     T 1\
 21112104 \
     ]]>
   </level>
+  <level id="03">
+    <![CDATA[
+        1\
+     TTT2\
+ T T    2\
+    T T 0\
+   T    3\
+ T      1\
+       T1\
+  T T   2\
+12121131 \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+  T   T 2\
+    T T 1\
+        2\
+T     T 1\
+   T  TT2\
+        1\
+ T     T1\
+     T  2\
+12101304 \
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+   TT   3\
+T       0\
+    T   2\
+    T  T1\
+ T   T  2\
+        1\
+  T T   1\
+T T     2\
+21220311 \
+    ]]>
+  </level>
+  <level id="06">
+    <![CDATA[
+  T     2\
+ T    T 1\
+    T   2\
+T    T  1\
+    T T 2\
+T   T   1\
+   T   T2\
+        1\
+21131022 \
+    ]]>
+  </level>
+  <level id="07">
+    <![CDATA[
+   T TT 2\
+        1\
+        2\
+  TTT TT1\
+        2\
+  T   T 0\
+T       2\
+     T  2\
+11212122 \
+    ]]>
+  </level>
+  <level id="08">
+    <![CDATA[
+ T  T   2\
+   T    1\
+T T     0\
+        2\
+T T    T1\
+     T  3\
+T  T    1\
+       T2\
+31211211 \
+    ]]>
+  </level>
+  <level id="09">
+    <![CDATA[
+       T 1\
+  T      2\
+        T0\
+  T T T T3\
+         1\
+ T    T  2\
+        T1\
+ T       3\
+T   T   T1\
+112212122 \
+    ]]>
+  </level>
+  <level id="10">
+    <![CDATA[
+ T  T T  2\
+        T1\
+   T T   3\
+T  T     1\
+       T 3\
+ T  T T  1\
+         1\
+       T 2\
+ T T T  T3\
+221231303 \
+    ]]>
+  </level>
 </levels>

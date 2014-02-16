@@ -8,6 +8,88 @@
     \
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+10  \
+ 0  \
+    \
+0 1 \
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+  0 \
+ 0 0\
+0   \
+    \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+1 2  \
+ 0   \
+     \
+0 102\
+   0 \
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+0   2\
+  1 0\
+     \
+  0  \
+   0 \
+    ]]>
+  </level>
+  <level id="06">
+    <![CDATA[
+ 0   \
+01 0 \
+  1 1\
+   1 \
+ 0   \
+    ]]>
+  </level>
+  <level id="07">
+    <![CDATA[
+1   2\
+ 2   \
+ 1  0\
+ 1 0 \
+ 0  0\
+    ]]>
+  </level>
+  <level id="08">
+    <![CDATA[
+2   1 \
+ 0 012\
+ 1 0  \
+      \
+ 00 02\
+ 01   \
+    ]]>
+  </level>
+  <level id="09">
+    <![CDATA[
+      \
+ 1  00\
+ 11 11\
+   2  \
+      \
+   0  \
+    ]]>
+  </level>
+  <level id="10">
+    <![CDATA[
+    3 \
+1 0   \
+      \
+1 11  \
+ 0   0\
+ 2    \
+    ]]>
+  </level>
   <level id="36">
     <![CDATA[
 0 4     \
