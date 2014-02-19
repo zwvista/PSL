@@ -47,7 +47,18 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size())
 , m_area2range(m_sidelen * 2)
 {
-	m_start = boost::accumulate(strs, string());
+	for(int r = 0; r < m_sidelen; ++r){
+		auto& str = strs[r];
+		bool is_horz = r % 2 == 0;
+		for(int c = 0; c < m_sidelen / 2; ++c){
+			if(is_horz)
+				m_start.push_back(PUZ_SPACE);
+			m_start.push_back(str[c]);
+			if(!is_horz)
+				m_start.push_back(PUZ_SPACE);
+		}
+		m_start.push_back(str[m_sidelen / 2]);
+	}
 
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
@@ -192,11 +203,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
-		for(int c = 0; c < sidelen(); ++c){
-			char ch = cells({r, c});
-			out << ch << ' ';
-		}
+	for(int r = 0; r < sidelen(); r += 2){
+		for(int c = 0; c < sidelen(); c += 2)
+			out << cells({r, c});
 		out << endl;
 	}
 	return out;

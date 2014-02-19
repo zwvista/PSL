@@ -2,11 +2,43 @@
 <levels>
   <level id="01">
     <![CDATA[
- W B \
-W W  \
- W   \
-W   W\
-   W \
+WB \
+WW \
+W  \
+W W\
+ W \
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+ B WW \
+BWBWWB\
+ BBWW \
+  BBWW\
+ WB W \
+BBWBBW\
+ W  W \
+BWW  B\
+WWB B \
+WWBBBB\
+WWB B \
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+BWW B  \
+B  WBB \
+   WBW \
+W  WBWW\
+  BBWB \
+  BBWBB\
+ BB WB \
+ WB WW \
+WWWWW  \
+B   B B\
+WWW  B \
+  BW  B\
+BWBW W \
     ]]>
   </level>
 </levels>
