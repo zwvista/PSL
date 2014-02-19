@@ -42,6 +42,56 @@
   </level>
   <level id="05">
     <![CDATA[
+    5 \
+ 5 3  \
+      \
+2  2 4\
+      \
+  6 4 \
+    ]]>
+  </level>
+  <level id="06">
+    <![CDATA[
+  3   \
+ 4   4\
+     4\
+8     \
+  4   \
+2    4\
+    ]]>
+  </level>
+  <level id="07">
+    <![CDATA[
+ 5    \
+1  3 2\
+      \
+    7 \
+  5  1\
+ 3    \
+    ]]>
+  </level>
+  <level id="08">
+    <![CDATA[
+4    4\
+   4  \
+ 2   2\
+      \
+    5 \
+  7  2\
+    ]]>
+  </level>
+  <level id="09">
+    <![CDATA[
+  3 1 \
+    5 \
+ 2    \
+   4 5\
+6     \
+     5\
+    ]]>
+  </level>
+  <level id="10">
+    <![CDATA[
  7   4 \
        \
    43  \
@@ -51,7 +101,7 @@
 5 2 3  \
     ]]>
   </level>
-  <level id="06">
+  <level id="11">
     <![CDATA[
  6  3  \
       5\
@@ -62,7 +112,7 @@
   3  2 \
     ]]>
   </level>
-  <level id="07">
+  <level id="12">
     <![CDATA[
  3  34 \
   4    \
@@ -73,7 +123,7 @@
 7  4   \
     ]]>
   </level>
-  <level id="08">
+  <level id="13">
     <![CDATA[
     2 1\
 5 6    \
@@ -84,7 +134,7 @@
 5  2  3\
     ]]>
   </level>
-  <level id="09">
+  <level id="14">
     <![CDATA[
 5    4 \
   2    \
@@ -95,7 +145,7 @@
  5 4   \
     ]]>
   </level>
-  <level id="10">
+  <level id="15">
     <![CDATA[
  2     \
     4 2\
@@ -106,7 +156,7 @@
 2   12 \
     ]]>
   </level>
-  <level id="11">
+  <level id="16">
     <![CDATA[
      8 \
 4   1  \
@@ -117,7 +167,7 @@
  5    5\
     ]]>
   </level>
-  <level id="12">
+  <level id="17">
     <![CDATA[
  3  5  \
  2    3\
@@ -128,7 +178,7 @@
   1 1 2\
     ]]>
   </level>
-  <level id="13">
+  <level id="18">
     <![CDATA[
 5 5 5 4\
        \
