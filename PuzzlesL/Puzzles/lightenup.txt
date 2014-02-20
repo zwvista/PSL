@@ -7,7 +7,7 @@ B + W B W
 + 0 + + + 
 Number of moves: 4
 Number of vertices examined: 5
-0.00290837 [s]
+0.00602637 [s]
 
 Level 02
 Sequence of moves: 
@@ -18,7 +18,7 @@ B 3 + + B
 + + B W B 
 Number of moves: 3
 Number of vertices examined: 4
-0.00167949 [s]
+0.00122262 [s]
 
 Level 03
 Sequence of moves: 
@@ -29,7 +29,7 @@ B + + 2 B
 + + B W B 
 Number of moves: 5
 Number of vertices examined: 7
-0.00186683 [s]
+0.00156666 [s]
 
 Level 04
 Sequence of moves: 
@@ -40,7 +40,7 @@ B 3 B + 1
 B + + + + 
 Number of moves: 6
 Number of vertices examined: 8
-0.0012846 [s]
+0.00120799 [s]
 
 Level 05
 Sequence of moves: 
@@ -51,7 +51,7 @@ W + B + +
 + + B W B 
 Number of moves: 3
 Number of vertices examined: 4
-0.00117073 [s]
+0.00163561 [s]
 
 Level 06
 Sequence of moves: 
@@ -62,7 +62,7 @@ Sequence of moves:
 B + + + 1 
 Number of moves: 4
 Number of vertices examined: 16
-0.00158651 [s]
+0.00174878 [s]
 
 Level 07
 Sequence of moves: 
@@ -73,7 +73,7 @@ B + + + +
 + 0 0 + B 
 Number of moves: 9
 Number of vertices examined: 105
-0.0043152 [s]
+0.00469372 [s]
 
 Level 08
 Sequence of moves: 
@@ -84,7 +84,7 @@ B 2 + + B
 B + + + + 
 Number of moves: 6
 Number of vertices examined: 15
-0.00144061 [s]
+0.00170143 [s]
 
 Level 09
 Sequence of moves: 
@@ -95,7 +95,7 @@ B 2 + + B
 + W B 2 B 
 Number of moves: 4
 Number of vertices examined: 7
-0.00119441 [s]
+0.00148762 [s]
 
 Level 10
 Sequence of moves: 
@@ -106,7 +106,7 @@ Sequence of moves:
 B 1 + 1 B 
 Number of moves: 7
 Number of vertices examined: 20
-0.00201553 [s]
+0.00270222 [s]
 
 Level 11
 Sequence of moves: 
@@ -117,7 +117,7 @@ B 1 + B +
 B + W 1 B 
 Number of moves: 7
 Number of vertices examined: 31
-0.00502941 [s]
+0.00228261 [s]
 
 Level 12
 Sequence of moves: 
@@ -128,7 +128,7 @@ B + + 0 +
 + + + + B 
 Number of moves: 6
 Number of vertices examined: 26
-0.00201936 [s]
+0.00203189 [s]
 
 Level 13
 Sequence of moves: 
@@ -139,7 +139,7 @@ B + + + +
 + + B 2 B 
 Number of moves: 4
 Number of vertices examined: 10
-0.00260472 [s]
+0.00256398 [s]
 
 Level 14
 Sequence of moves: 
@@ -150,7 +150,7 @@ B + + 0 0
 0 + + B + 
 Number of moves: 8
 Number of vertices examined: 31
-0.00220287 [s]
+0.00300065 [s]
 
 Level 15
 Sequence of moves: 
@@ -161,7 +161,7 @@ B + 2 B 2
 + B W + B 
 Number of moves: 6
 Number of vertices examined: 13
-0.00182226 [s]
+0.00200194 [s]
 
 Level 16
 Sequence of moves: 
@@ -173,7 +173,7 @@ B + 3 B + +
 + + + + + B 
 Number of moves: 9
 Number of vertices examined: 18
-0.00249259 [s]
+0.00198941 [s]
 
 Level 17
 Sequence of moves: 
@@ -185,7 +185,7 @@ B + + + + 2
 B 1 + + + B 
 Number of moves: 6
 Number of vertices examined: 13
-0.00289793 [s]
+0.00431032 [s]
 
 Level 18
 Sequence of moves: 
@@ -197,7 +197,7 @@ B + + + + W
 + 0 + + B + 
 Number of moves: 8
 Number of vertices examined: 20
-0.00219869 [s]
+0.00225475 [s]
 
 Level 19
 Sequence of moves: 
@@ -209,7 +209,7 @@ B 2 B + 2 B
 + + + B + 0 
 Number of moves: 8
 Number of vertices examined: 18
-0.00208343 [s]
+0.00201552 [s]
 
 Level 20
 Sequence of moves: 
@@ -221,7 +221,7 @@ Sequence of moves:
 B 1 + + B + 
 Number of moves: 6
 Number of vertices examined: 12
-0.00346937 [s]
+0.0020493 [s]
 
 Level 21
 Sequence of moves: 
@@ -233,7 +233,7 @@ B + 0 + 3 B
 + + B 1 + 1 
 Number of moves: 6
 Number of vertices examined: 12
-0.00179545 [s]
+0.00235469 [s]
 
 Level 22
 Sequence of moves: 
@@ -245,7 +245,7 @@ B 2 B + + W
 + + + B + 1 
 Number of moves: 8
 Number of vertices examined: 13
-0.00260995 [s]
+0.00232614 [s]
 
 Level 23
 Sequence of moves: 
@@ -257,5 +257,135 @@ B + + + + +
 0 + + 1 B + 
 Number of moves: 9
 Number of vertices examined: 23
-0.00308179 [s]
+0.00224709 [s]
+
+Level 24
+Sequence of moves: 
+W + W + B + + 
++ + B + + 1 B 
++ + 2 B + + W 
++ B + + + + W 
+B 2 + 0 W + W 
++ + B + 2 B + 
++ 0 + + B + + 
+Number of moves: 8
+Number of vertices examined: 28
+0.00225301 [s]
+
+Level 25
+Sequence of moves: 
+W + + + + B + 
+B 1 2 B 2 + B 
++ + B 4 B W W 
+1 W + B + + + 
+B + + + + + 1 
+1 + + + + + B 
++ B W + + B + 
+Number of moves: 11
+Number of vertices examined: 38
+0.00240658 [s]
+
+Level 26
+Sequence of moves: 
+B 1 + + B + + 
++ + B 2 + + B 
++ + + B 2 + 1 
++ B W W B + + 
+0 W B 2 + B 1 
++ + + B + + + 
+1 B + + + 1 B 
+Number of moves: 11
+Number of vertices examined: 60
+0.00384719 [s]
+
+Level 27
+Sequence of moves: 
++ + B W + B + 
+0 + 2 + B + + 
++ + B + W 0 + 
+W + + + + + B 
+W + 1 B + + + 
+2 B + + + W W 
+B + + 1 B + + 
+Number of moves: 9
+Number of vertices examined: 30
+0.00319322 [s]
+
+Level 28
+Sequence of moves: 
+W + + 1 + B W 
++ + + B + W B 
++ + + + + B 3 
+B + + + W + B 
+3 B + + + + + 
+B + + + + + W 
++ + B 2 B + + 
+Number of moves: 5
+Number of vertices examined: 9
+0.00123272 [s]
+
+Level 29
+Sequence of moves: 
+B + + + 0 + 1 
++ + B + 0 + B 
+1 + + B 1 + + 
+B + + W + B + 
+1 + + + W + + 
+1 B 2 B 2 + + 
++ + + + B + W 
+Number of moves: 12
+Number of vertices examined: 88
+0.00190444 [s]
+
+Level 30
+Sequence of moves: 
++ W + + + B 1 
++ B 1 + B + W 
+B + + + + + + 
++ 0 0 0 1 + + 
++ + + + B + + 
++ B W + + + B 
++ W + B 1 + 1 
+Number of moves: 11
+Number of vertices examined: 46
+0.00142772 [s]
+
+Level 31
+Sequence of moves: 
+0 + B W B 1 + 
++ + + + + + B 
+B 2 + B 2 + + 
+W B 2 + B + + 
++ + B + + + W 
+B + + 1 + B 1 
++ 0 1 B + + + 
+Number of moves: 12
+Number of vertices examined: 158
+0.00308945 [s]
+
+Level 32
+Sequence of moves: 
++ + + + + B 1 
+W + B + W 2 + 
++ B + 0 + B + 
++ + 0 W + + + 
+B 2 + B + 1 B 
++ B + + + + + 
+W W B 2 B + + 
+Number of moves: 10
+Number of vertices examined: 27
+0.00112059 [s]
+
+Level 33
+Sequence of moves: 
+W 0 + B + 0 + 
++ + + + + + B 
++ + 0 0 + B + 
++ B + + + 1 0 
+B + + + + + + 
++ 1 B 1 + B 1 
+0 W + + B + + 
+Number of moves: 15
+Number of vertices examined: 269
+0.00458716 [s]
 

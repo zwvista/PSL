@@ -51,7 +51,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 0; c < m_sidelen - 2; ++c){
 			Position p(r + 1, c + 1);
-			int n = atoi(str.substr(c * 2, 2).c_str());
+			char ch = str[c];
+			int n = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
 			m_start.push_back(n);
 			m_shaded[{r + 1, n}].insert(p);
 			m_shaded[{m_sidelen + c + 1, n}].insert(p);
