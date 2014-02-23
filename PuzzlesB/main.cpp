@@ -1,31 +1,34 @@
 #include "stdafx.h"
 
-extern void solve_puz_blockedproduct();
-extern void solve_puz_blockedview();
+extern void solve_puz_BattleShips();
+extern void solve_puz_BlockedProduct();
+extern void solve_puz_BlockedView();
 extern void solve_puz_bloxorz();
 extern void solve_puz_BotanicalPark();
-extern void solve_puz_boxitaround();
-extern void solve_puz_boxitup();
-extern void solve_puz_branches();
+extern void solve_puz_BoxItAround();
+extern void solve_puz_BoxItUp();
+extern void solve_puz_Branches();
 
 int main(int argc, char **argv)
 {
-	cout << "l1: blocked product" << endl;
-	cout << "l2: blocked view" << endl;
+	cout << "a: Battle Ships" << endl;
+	cout << "l1: Blocked Product" << endl;
+	cout << "l2: Blocked View" << endl;
 	cout << "l3: bloxorz" << endl;
 	cout << "o1: Botanical Park" << endl;
-	cout << "o2: box it around" << endl;
-	cout << "o3: box it up" << endl;
-	cout << "r: branches" << endl;
+	cout << "o2: Box It Around" << endl;
+	cout << "o3: Box It Up" << endl;
+	cout << "r: Branches" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "l1") solve_puz_blockedproduct();
-	else if(str == "l2") solve_puz_blockedview();
+	if(str == "a") solve_puz_BattleShips();
+	else if(str == "l1") solve_puz_BlockedProduct();
+	else if(str == "l2") solve_puz_BlockedView();
 	else if(str == "l3") solve_puz_bloxorz();
 	else if(str == "o1") solve_puz_BotanicalPark();
-	else if(str == "o2") solve_puz_boxitaround();
-	else if(str == "o3") solve_puz_boxitup();
-	else if(str == "r") solve_puz_branches();
+	else if(str == "o2") solve_puz_BoxItAround();
+	else if(str == "o3") solve_puz_BoxItUp();
+	else if(str == "r") solve_puz_Branches();
 
 	return 0;
 }

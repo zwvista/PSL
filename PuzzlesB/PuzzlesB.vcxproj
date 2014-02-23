@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\BattleShips.txt" />
     <Text Include="Puzzles\bloc.txt" />
     <Text Include="Puzzles\blockedproduct.txt" />
     <Text Include="Puzzles\blockedview.txt" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\BattleShips.cpp" />
     <ClCompile Include="Puzzles\blockedproduct.cpp" />
     <ClCompile Include="Puzzles\blockedview.cpp" />
     <ClCompile Include="Puzzles\bloxorz.cpp" />
@@ -181,6 +183,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\BattleShips.xml" />
     <Xml Include="Puzzles\bloc.xml" />
     <Xml Include="Puzzles\blockedproduct.xml" />
     <Xml Include="Puzzles\blockedview.xml" />

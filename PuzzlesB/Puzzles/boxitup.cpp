@@ -14,7 +14,7 @@
 	   that Box.
 */
 
-namespace puzzles{ namespace boxitup{
+namespace puzzles{ namespace BoxItUp{
 
 #define PUZ_SPACE		' '
 
@@ -199,9 +199,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_boxitup()
+void solve_puz_BoxItUp()
 {
-	using namespace puzzles::boxitup;
+	using namespace puzzles::BoxItUp;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\boxitup.xml", "Puzzles\\boxitup.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\BoxItUp.xml", "Puzzles\\BoxItUp.txt", solution_format::GOAL_STATE_ONLY);
 }

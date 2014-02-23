@@ -14,7 +14,7 @@
 	   of the width and the height of that Box.
 */
 
-namespace puzzles{ namespace boxitaround{
+namespace puzzles{ namespace BoxItAround{
 
 #define PUZ_SPACE		' '
 
@@ -197,9 +197,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_boxitaround()
+void solve_puz_BoxItAround()
 {
-	using namespace puzzles::boxitaround;
+	using namespace puzzles::BoxItAround;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\boxitaround.xml", "Puzzles\\boxitaround.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\BoxItAround.xml", "Puzzles\\BoxItAround.txt", solution_format::GOAL_STATE_ONLY);
 }

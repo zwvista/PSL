@@ -9,11 +9,11 @@
 	1,2,3... 1,2,3... Fill the mats
 
 	Description
-	Each rectangle represents a mat(Tatami) which is of the same size.
-	Each Tatami must be filled with a number ranging from 1 to size, following these rules.
-	1. Each number can appear only once in each Tatami.
-	2. In one row or column, each number must appear the same number of times.
-	3. Two identical numbers cannot touch each other horizontally or vertically.
+	1. Each rectangle represents a mat(Tatami) which is of the same size.
+	   You must fill each Tatami with a number ranging from 1 to size.
+	2. Each number can appear only once in each Tatami.
+	3. In one row or column, each number must appear the same number of times.
+	4. You can't have two identical numbers touching horizontally or vertically.
 */
 
 namespace puzzles{ namespace tatami{
@@ -55,7 +55,7 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id(attrs.get<string>("id"))
 	, m_sidelen(strs.size() / 2)
-	, m_size_of_tatami(attrs.get<int>("sizeOfTatami"))
+	, m_size_of_tatami(attrs.get<int>("TatamiSize"))
 	, m_num_tatamis(m_sidelen * m_sidelen / m_size_of_tatami)
 	, m_area_pos(m_num_tatamis + m_sidelen + m_sidelen)
 	, m_numbers(m_size_of_tatami)
@@ -212,11 +212,6 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0; r < sidelen(); ++r) {
 		for(int c = 0; c < sidelen(); ++c)
 			out << cells({r, c}) << ' ';
-		out << endl;
-	}
-	for(int r = 0; r < sidelen(); ++r) {
-		for(int c = 0; c < sidelen(); ++c)
-			out << char(m_game->m_pos2tatami.at({r, c}) + 'a') << ' ';
 		out << endl;
 	}
 	return out;

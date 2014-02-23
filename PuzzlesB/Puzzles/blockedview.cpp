@@ -23,7 +23,7 @@
 	   Sentinel View.
 */
 
-namespace puzzles{ namespace blockedview{
+namespace puzzles{ namespace BlockedView{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
@@ -271,9 +271,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_blockedview()
+void solve_puz_BlockedView()
 {
-	using namespace puzzles::blockedview;
+	using namespace puzzles::BlockedView;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\blockedview.xml", "Puzzles\\blockedview.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\BlockedView.xml", "Puzzles\\BlockedView.txt", solution_format::GOAL_STATE_ONLY);
 }
