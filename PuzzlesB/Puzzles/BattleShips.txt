@@ -1,4 +1,49 @@
 Level 01
-Number of vertices examined: 1
-0.00380993 [s]
+Sequence of moves: 
+........o.1
+..^.......1
+..v...^.o.3
+......+...1
+.o....v.<>4
+..........0
+..........0
+^.<++>.<+>8
+v.........1
+........o.1
+2131113152
+Number of moves: 10
+Number of vertices examined: 27
+0.00362293 [s]
+
+Level 02
+Sequence of moves: 
+..o.......1
+o......o..2
+..<+>.....3
+......<>..2
+.^.<>.....3
+.+......<>3
+.+..o.....2
+.v........1
+.......<+>3
+..........0
+1422301322
+Number of moves: 10
+Number of vertices examined: 20
+0.00244802 [s]
+
+Level 23
+Sequence of moves: 
+o...^.<>4
+..^.+...2
+o.+.+.<>5
+..v.v...2
+.......^1
+.<+++>.+6
+.......v1
+o.<>.o..4
+31525225
+Number of moves: 11
+Number of vertices examined: 25432
+0.709599 [s]
 
