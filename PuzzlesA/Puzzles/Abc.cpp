@@ -19,7 +19,7 @@
 	   'F' etc.
 */
 
-namespace puzzles{ namespace abc{
+namespace puzzles{ namespace Abc{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
@@ -197,9 +197,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_abc()
+void solve_puz_Abc()
 {
-	using namespace puzzles::abc;
+	using namespace puzzles::Abc;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\abc.xml", "Puzzles\\abc.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Abc.xml", "Puzzles\\Abc.txt", solution_format::GOAL_STATE_ONLY);
 }

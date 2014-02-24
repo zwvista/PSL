@@ -19,10 +19,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\abc.txt">
+    <Text Include="Puzzles\Abc.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\arrows.txt">
+    <Text Include="Puzzles\Arrows.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -44,18 +44,18 @@
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\abc.cpp">
+    <ClCompile Include="Puzzles\Abc.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\arrows.cpp">
+    <ClCompile Include="Puzzles\Arrows.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\abc.xml">
+    <Xml Include="Puzzles\Abc.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\arrows.xml">
+    <Xml Include="Puzzles\Arrows.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

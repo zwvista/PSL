@@ -15,7 +15,7 @@
 	4. There is one arrow for each tile outside the board.
 */
 
-namespace puzzles{ namespace arrows{
+namespace puzzles{ namespace Arrows{
 
 #define PUZ_CORNER	100
 #define PUZ_BORDER	99
@@ -259,9 +259,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_arrows()
+void solve_puz_Arrows()
 {
-	using namespace puzzles::arrows;
+	using namespace puzzles::Arrows;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\arrows.xml", "Puzzles\\arrows.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Arrows.xml", "Puzzles\\Arrows.txt", solution_format::GOAL_STATE_ONLY);
 }
