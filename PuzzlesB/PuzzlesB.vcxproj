@@ -150,14 +150,15 @@
   <ItemGroup>
     <Text Include="Puzzles\BattleShips.txt" />
     <Text Include="Puzzles\bloc.txt" />
-    <Text Include="Puzzles\blockedproduct.txt" />
-    <Text Include="Puzzles\blockedview.txt" />
+    <Text Include="Puzzles\BlockedProduct.txt" />
+    <Text Include="Puzzles\BlockedView.txt" />
     <Text Include="Puzzles\bloxorz_a.txt" />
     <Text Include="Puzzles\bloxorz_ida.txt" />
     <Text Include="Puzzles\BotanicalPark.txt" />
-    <Text Include="Puzzles\boxitaround.txt" />
-    <Text Include="Puzzles\boxitup.txt" />
-    <Text Include="Puzzles\branches.txt" />
+    <Text Include="Puzzles\BoxItAround.txt" />
+    <Text Include="Puzzles\BoxItUp.txt" />
+    <Text Include="Puzzles\Branches.txt" />
+    <Text Include="Puzzles\Bridges.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -168,13 +169,14 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\BattleShips.cpp" />
-    <ClCompile Include="Puzzles\blockedproduct.cpp" />
-    <ClCompile Include="Puzzles\blockedview.cpp" />
+    <ClCompile Include="Puzzles\BlockedProduct.cpp" />
+    <ClCompile Include="Puzzles\BlockedView.cpp" />
     <ClCompile Include="Puzzles\bloxorz.cpp" />
     <ClCompile Include="Puzzles\BotanicalPark.cpp" />
-    <ClCompile Include="Puzzles\boxitaround.cpp" />
-    <ClCompile Include="Puzzles\boxitup.cpp" />
-    <ClCompile Include="Puzzles\branches.cpp" />
+    <ClCompile Include="Puzzles\BoxItAround.cpp" />
+    <ClCompile Include="Puzzles\BoxItUp.cpp" />
+    <ClCompile Include="Puzzles\Branches.cpp" />
+    <ClCompile Include="Puzzles\Bridges.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -185,13 +187,14 @@
   <ItemGroup>
     <Xml Include="Puzzles\BattleShips.xml" />
     <Xml Include="Puzzles\bloc.xml" />
-    <Xml Include="Puzzles\blockedproduct.xml" />
-    <Xml Include="Puzzles\blockedview.xml" />
+    <Xml Include="Puzzles\BlockedProduct.xml" />
+    <Xml Include="Puzzles\BlockedView.xml" />
     <Xml Include="Puzzles\bloxorz.xml" />
     <Xml Include="Puzzles\BotanicalPark.xml" />
-    <Xml Include="Puzzles\boxitaround.xml" />
-    <Xml Include="Puzzles\boxitup.xml" />
-    <Xml Include="Puzzles\branches.xml" />
+    <Xml Include="Puzzles\BoxItAround.xml" />
+    <Xml Include="Puzzles\BoxItUp.xml" />
+    <Xml Include="Puzzles\Branches.xml" />
+    <Xml Include="Puzzles\Bridges.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

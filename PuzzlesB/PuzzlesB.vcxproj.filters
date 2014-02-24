@@ -19,7 +19,16 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="Puzzles\BattleShips.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
     <Text Include="Puzzles\bloc.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\BlockedProduct.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\BlockedView.txt">
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\bloxorz_a.txt">
@@ -28,25 +37,19 @@
     <Text Include="Puzzles\bloxorz_ida.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\blockedview.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\branches.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\boxitup.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\blockedproduct.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\boxitaround.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\BotanicalPark.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\BattleShips.txt">
+    <Text Include="Puzzles\BoxItAround.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\BoxItUp.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Branches.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Bridges.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -68,57 +71,63 @@
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\BattleShips.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\BlockedProduct.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\BlockedView.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
     <ClCompile Include="Puzzles\bloxorz.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\blockedview.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\branches.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\boxitup.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\blockedproduct.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\boxitaround.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\BotanicalPark.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\BattleShips.cpp">
+    <ClCompile Include="Puzzles\BoxItAround.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\BoxItUp.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Branches.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Bridges.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\BattleShips.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
     <Xml Include="Puzzles\bloc.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\BlockedProduct.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\BlockedView.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\bloxorz.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\blockedview.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\branches.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\boxitup.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\blockedproduct.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\boxitaround.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\BotanicalPark.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\BattleShips.xml">
+    <Xml Include="Puzzles\BoxItAround.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\BoxItUp.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Branches.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Bridges.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
