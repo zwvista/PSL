@@ -1,0 +1,6368 @@
+Level 41
+Sequence of moves: 
+    2e    
+  ##2d##3d
+    2c##3c
+####2b##3b
+1a1b2a##3a
+########..
+move: 2 tail (1,3) L
+move: 2 tail (1,2) L
+move: 2 tail (1,1) D
+move: 2 tail (2,1) D
+move: 2 tail (3,1) R
+2b2a      
+2c##  ##3d
+2d2e  ##3c
+####  ##3b
+1a1b  ##3a
+########..
+move: 3 tail (2,5) U
+move: 3 tail (1,5) L
+move: 3 tail (1,4) L
+move: 3 tail (1,3) D
+move: 3 tail (2,3) D
+move: 3 tail (3,3) D
+move: 3 tail (4,3) D
+2b2a      
+2c##3a##  
+2d2e3b##  
+####3c##  
+1a1b3d##  
+########..
+move: 2 head (1,2) R
+move: 2 head (1,3) R
+move: 2 head (1,4) R
+move: 2 head (1,5) D
+move: 2 head (2,5) D
+move: 2 head (3,5) D
+      2e2d
+  ##3a##2c
+    3b##2b
+####3c##2a
+1a1b3d##  
+########..
+move: 3 head (2,3) U
+move: 3 head (1,3) L
+move: 3 head (1,2) L
+3a3b3c2e2d
+  ##3d##2c
+      ##2b
+####  ##2a
+1a1b  ##  
+########..
+move: 1 tail (5,2) R
+move: 1 tail (5,3) U
+move: 1 tail (4,3) U
+move: 1 tail (3,3) L
+move: 1 tail (3,2) L
+3a3b3c2e2d
+  ##3d##2c
+1b1a  ##2b
+####  ##2a
+      ##  
+########..
+move: 3 tail (2,3) D
+move: 3 tail (3,3) D
+move: 3 tail (4,3) D
+move: 3 tail (5,3) L
+move: 3 tail (5,2) L
+      2e2d
+  ##  ##2c
+1b1a  ##2b
+####3a##2a
+3d3c3b##  
+########..
+move: 1 head (3,2) R
+move: 1 head (3,3) U
+      2e2d
+  ##1a##2c
+    1b##2b
+####3a##2a
+3d3c3b##  
+########..
+move: 2 tail (1,4) L
+move: 2 tail (1,3) L
+move: 2 tail (1,2) L
+move: 2 tail (1,1) D
+move: 2 tail (2,1) D
+move: 2 tail (3,1) R
+2b2a      
+2c##1a##  
+2d2e1b##  
+####3a##  
+3d3c3b##  
+########..
+move: 1 head (2,3) U
+move: 1 head (1,3) R
+move: 1 head (1,4) R
+move: 1 head (1,5) D
+move: 1 head (2,5) D
+move: 1 head (3,5) D
+move: 1 head (4,5) D
+move: 1 head (5,5) D
+2b2a      
+2c##  ##  
+2d2e  ##  
+####3a##  
+3d3c3b##1b
+########1a
+Number of moves: 47
+Number of vertices examined: 3069
+0.0548158 [s]
+
+Level 42
+Sequence of moves: 
+##########
+####2f##  
+  1a2e2d2c
+##1b####2b
+1d1c    2a
+########..
+move: 2 head (5,5) L
+move: 2 head (5,4) L
+##########
+####  ##  
+  1a  2f2e
+##1b####2d
+1d1c2a2b2c
+########..
+move: 1 head (3,2) R
+move: 1 head (3,3) U
+##########
+####1a##  
+  1c1b2f2e
+##1d####2d
+    2a2b2c
+########..
+move: 2 head (5,3) L
+##########
+####1a##  
+  1c1b  2f
+##1d####2e
+  2a2b2c2d
+########..
+move: 2 tail (3,5) U
+##########
+####1a##2f
+  1c1b  2e
+##1d####2d
+    2a2b2c
+########..
+move: 1 tail (4,2) D
+##########
+####  ##2f
+  1b1a  2e
+##1c####2d
+  1d2a2b2c
+########..
+move: 1 head (3,3) R
+##########
+####  ##2f
+  1c1b1a2e
+##1d####2d
+    2a2b2c
+########..
+move: 2 head (5,3) L
+move: 2 head (5,2) L
+##########
+####  ##  
+  1c1b1a  
+##1d####2f
+2a2b2c2d2e
+########..
+move: 1 head (3,4) R
+##########
+####  ##  
+  1d1c1b1a
+##  ####2f
+2a2b2c2d2e
+########..
+move: 1 tail (3,2) L
+##########
+####  ##  
+1d1c1b1a  
+##  ####2f
+2a2b2c2d2e
+########..
+move: 2 tail (4,5) U
+##########
+####  ##  
+1d1c1b1a2f
+##  ####2e
+  2a2b2c2d
+########..
+move: 2 head (5,2) U
+##########
+####  ##  
+1d1c1b1a  
+##2a####2f
+  2b2c2d2e
+########..
+move: 1 head (3,4) R
+move: 1 head (3,5) U
+##########
+####  ##1a
+    1d1c1b
+##2a####2f
+  2b2c2d2e
+########..
+move: 2 head (4,2) U
+move: 2 head (3,2) L
+##########
+####  ##1a
+2a2b1d1c1b
+##2c####  
+  2d2e2f  
+########..
+move: 1 tail (3,3) U
+##########
+####1d##  
+2a2b1c1b1a
+##2c####  
+  2d2e2f  
+########..
+move: 1 head (3,5) D
+move: 1 head (4,5) D
+move: 1 head (5,5) D
+##########
+####  ##  
+2a2b    1d
+##2c####1c
+  2d2e2f1b
+########1a
+Number of moves: 22
+Number of vertices examined: 66
+0.00193508 [s]
+
+Level 43
+Sequence of moves: 
+1a1b  2c2b
+1d1c  2d2a
+3a3b3c3d3o
+3h3g3f3e3n
+3i3j3k3l3m
+########..
+move: 2 tail (2,4) L
+move: 2 tail (2,3) U
+1a1b2d2a  
+1d1c2c2b  
+3a3b3c3d3o
+3h3g3f3e3n
+3i3j3k3l3m
+########..
+move: 3 tail (3,5) U
+move: 3 tail (2,5) U
+1a1b2d2a3o
+1d1c2c2b3n
+    3a3b3m
+3f3e3d3c3l
+3g3h3i3j3k
+########..
+move: 1 tail (2,1) D
+move: 1 tail (3,1) R
+    2d2a3o
+1b1a2c2b3n
+1c1d3a3b3m
+3f3e3d3c3l
+3g3h3i3j3k
+########..
+move: 2 tail (1,3) L
+move: 2 tail (1,2) L
+2d2c2b  3o
+1b1a2a  3n
+1c1d3a3b3m
+3f3e3d3c3l
+3g3h3i3j3k
+########..
+move: 3 tail (1,5) L
+move: 3 tail (1,4) D
+move: 3 tail (2,4) D
+move: 3 tail (3,4) D
+move: 3 tail (4,4) L
+move: 3 tail (4,3) U
+2d2c2b3j3i
+1b1a2a3k3h
+1c1d3o3l3g
+    3n3m3f
+3a3b3c3d3e
+########..
+move: 1 tail (3,2) D
+move: 1 tail (4,2) L
+2d2c2b3j3i
+    2a3k3h
+1a1b3o3l3g
+1d1c3n3m3f
+3a3b3c3d3e
+########..
+move: 2 tail (1,1) D
+2c2b2a3j3i
+2d    3k3h
+1a1b3o3l3g
+1d1c3n3m3f
+3a3b3c3d3e
+########..
+move: 3 tail (3,3) U
+move: 3 tail (2,3) L
+2c2b2a3h3g
+2d3o3n3i3f
+1a1b3m3j3e
+1d1c3l3k3d
+    3a3b3c
+########..
+move: 1 tail (4,1) D
+move: 1 tail (5,1) R
+2c2b2a3h3g
+2d3o3n3i3f
+    3m3j3e
+1b1a3l3k3d
+1c1d3a3b3c
+########..
+move: 3 tail (2,2) D
+move: 3 tail (3,2) L
+2c2b2a3f3e
+2d3m3l3g3d
+3o3n3k3h3c
+1b1a3j3i3b
+1c1d    3a
+########..
+move: 1 tail (5,2) R
+move: 1 tail (5,3) R
+2c2b2a3f3e
+2d3m3l3g3d
+3o3n3k3h3c
+    3j3i3b
+1a1b1c1d3a
+########..
+move: 3 tail (3,1) D
+2c2b2a3e3d
+2d3l3k3f3c
+3n3m3j3g3b
+3o  3i3h3a
+1a1b1c1d  
+########..
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+2c2b2a3e3d
+2d3l3k3f3c
+3n3m3j3g3b
+3o  3i3h3a
+    1a1b1c
+########1d
+Number of moves: 28
+Number of vertices examined: 1951
+0.0364055 [s]
+
+Level 44
+Sequence of moves: 
+3c3b3a##  
+3d##1c##  
+3e##1b    
+3f##1a####
+2a2b2c2d  
+########..
+move: 2 tail (5,4) R
+3c3b3a##  
+3d##1c##  
+3e##1b    
+3f##1a####
+  2a2b2c2d
+########..
+move: 3 tail (4,1) D
+3b3a  ##  
+3c##1c##  
+3d##1b    
+3e##1a####
+3f2a2b2c2d
+########..
+move: 1 tail (2,3) U
+3b3a1c##  
+3c##1b##  
+3d##1a    
+3e##  ####
+3f2a2b2c2d
+########..
+move: 1 head (3,3) R
+move: 1 head (3,4) R
+move: 1 head (3,5) U
+move: 1 head (2,5) U
+3b3a  ##1a
+3c##  ##1b
+3d##    1c
+3e##  ####
+3f2a2b2c2d
+########..
+move: 3 head (1,2) R
+move: 3 head (1,3) D
+3d3c3b##1a
+3e##3a##1b
+3f##    1c
+  ##  ####
+  2a2b2c2d
+########..
+move: 2 head (5,2) L
+move: 2 head (5,1) U
+3d3c3b##1a
+3e##3a##1b
+3f##    1c
+2a##  ####
+2b2c2d    
+########..
+move: 2 tail (5,3) U
+move: 2 tail (4,3) U
+move: 2 tail (3,3) R
+3d3c3b##1a
+3e##3a##1b
+3f##2c2d1c
+  ##2b####
+    2a    
+########..
+move: 3 tail (3,1) D
+move: 3 tail (4,1) D
+move: 3 tail (5,1) R
+3a    ##1a
+3b##  ##1b
+3c##2c2d1c
+3d##2b####
+3e3f2a    
+########..
+move: 2 head (5,3) R
+move: 2 head (5,4) R
+3a    ##1a
+3b##  ##1b
+3c##    1c
+3d##2d####
+3e3f2c2b2a
+########..
+move: 1 tail (3,5) L
+move: 1 tail (3,4) L
+move: 1 tail (3,3) U
+move: 1 tail (2,3) U
+move: 1 tail (1,3) L
+3a1c1b##  
+3b##1a##  
+3c##      
+3d##2d####
+3e3f2c2b2a
+########..
+move: 2 tail (4,3) U
+move: 2 tail (3,3) R
+move: 2 tail (3,4) R
+move: 2 tail (3,5) U
+move: 2 tail (2,5) U
+3a1c1b##2d
+3b##1a##2c
+3c##  2a2b
+3d##  ####
+3e3f      
+########..
+move: 1 head (2,3) D
+move: 1 head (3,3) D
+move: 1 head (4,3) D
+move: 1 head (5,3) R
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+3a    ##2d
+3b##  ##2c
+3c##  2a2b
+3d##  ####
+3e3f  1c1b
+########1a
+Number of moves: 35
+Number of vertices examined: 634
+0.0120977 [s]
+
+Level 45
+Sequence of moves: 
+2c2b2a##3c
+2d##  ##3b
+    4b4a3a
+  ######  
+  1a1b##  
+########..
+move: 4 tail (3,3) L
+move: 4 tail (3,2) L
+move: 4 tail (3,1) D
+move: 4 tail (4,1) D
+2c2b2a##3c
+2d##  ##3b
+        3a
+4a######  
+4b1a1b##  
+########..
+move: 2 tail (2,1) D
+move: 2 tail (3,1) R
+2a    ##3c
+2b##  ##3b
+2c2d    3a
+4a######  
+4b1a1b##  
+########..
+move: 3 head (3,5) L
+move: 3 head (3,4) L
+move: 3 head (3,3) U
+move: 3 head (2,3) U
+move: 3 head (1,3) L
+2a3a3b##  
+2b##3c##  
+2c2d      
+4a######  
+4b1a1b##  
+########..
+move: 2 tail (3,2) R
+move: 2 tail (3,3) R
+move: 2 tail (3,4) R
+move: 2 tail (3,5) D
+move: 2 tail (4,5) D
+  3a3b##  
+  ##3c##  
+      2a2b
+4a######2c
+4b1a1b##2d
+########..
+move: 4 head (4,1) U
+move: 4 head (3,1) U
+move: 4 head (2,1) U
+4a3a3b##  
+4b##3c##  
+      2a2b
+  ######2c
+  1a1b##2d
+########..
+move: 1 head (5,2) L
+move: 1 head (5,1) U
+move: 1 head (4,1) U
+move: 1 head (3,1) R
+move: 1 head (3,2) R
+4a3a3b##  
+4b##3c##  
+  1b1a2a2b
+  ######2c
+      ##2d
+########..
+move: 4 tail (2,1) D
+move: 4 tail (3,1) D
+move: 4 tail (4,1) D
+move: 4 tail (5,1) R
+move: 4 tail (5,2) R
+  3a3b##  
+  ##3c##  
+  1b1a2a2b
+  ######2c
+  4a4b##2d
+########..
+move: 3 head (1,2) L
+move: 3 head (1,1) D
+3b3c  ##  
+3a##  ##  
+  1b1a2a2b
+  ######2c
+  4a4b##2d
+########..
+move: 1 head (3,3) U
+move: 1 head (2,3) U
+3b3c1a##  
+3a##1b##  
+      2a2b
+  ######2c
+  4a4b##2d
+########..
+move: 2 head (3,4) L
+move: 2 head (3,3) L
+move: 2 head (3,2) L
+move: 2 head (3,1) D
+move: 2 head (4,1) D
+3b3c1a##  
+3a##1b##  
+2c2d      
+2b######  
+2a4a4b##  
+########..
+move: 1 tail (2,3) D
+move: 1 tail (3,3) R
+move: 1 tail (3,4) R
+move: 1 tail (3,5) D
+move: 1 tail (4,5) D
+move: 1 tail (5,5) D
+3b3c  ##  
+3a##  ##  
+2c2d      
+2b######  
+2a4a4b##1a
+########1b
+Number of moves: 44
+Number of vertices examined: 9471
+0.222229 [s]
+
+Level 46
+Sequence of moves: 
+  ######  
+  ##  ##  
+1c2i2h2g2f
+1b######2e
+1a2a2b2c2d
+########..
+move: 1 tail (3,1) U
+move: 1 tail (2,1) U
+1c######  
+1b##  ##  
+1a2i2h2g2f
+  ######2e
+  2a2b2c2d
+########..
+move: 2 head (5,2) L
+move: 2 head (5,1) U
+1c######  
+1b##  ##  
+1a    2i2h
+2a######2g
+2b2c2d2e2f
+########..
+move: 1 head (3,1) R
+move: 1 head (3,2) R
+move: 1 head (3,3) U
+  ######  
+  ##1a##  
+  1c1b2i2h
+2a######2g
+2b2c2d2e2f
+########..
+move: 2 head (4,1) U
+  ######  
+  ##1a##  
+2a1c1b  2i
+2b######2h
+2c2d2e2f2g
+########..
+move: 2 tail (3,5) U
+  ######  
+  ##1a##2i
+  1c1b  2h
+2a######2g
+2b2c2d2e2f
+########..
+move: 1 tail (3,2) L
+  ######  
+  ##  ##2i
+1c1b1a  2h
+2a######2g
+2b2c2d2e2f
+########..
+move: 1 head (3,3) R
+  ######  
+  ##  ##2i
+  1c1b1a2h
+2a######2g
+2b2c2d2e2f
+########..
+move: 2 head (4,1) U
+move: 2 head (3,1) U
+  ######  
+2a##  ##  
+2b1c1b1a  
+2c######2i
+2d2e2f2g2h
+########..
+move: 1 head (3,4) R
+  ######  
+2a##  ##  
+2b  1c1b1a
+2c######2i
+2d2e2f2g2h
+########..
+move: 1 tail (3,3) U
+  ######  
+2a##1c##  
+2b  1b1a  
+2c######2i
+2d2e2f2g2h
+########..
+move: 2 tail (4,5) U
+  ######  
+  ##1c##  
+2a  1b1a2i
+2b######2h
+2c2d2e2f2g
+########..
+move: 2 head (3,1) R
+  ######  
+  ##1c##  
+2b2a1b1a  
+2c######2i
+2d2e2f2g2h
+########..
+move: 1 head (3,4) R
+move: 1 head (3,5) U
+move: 1 head (2,5) U
+  ######1a
+  ##  ##1b
+2b2a    1c
+2c######2i
+2d2e2f2g2h
+########..
+move: 2 head (3,2) R
+move: 2 head (3,3) R
+  ######1a
+  ##  ##1b
+2d2c2b2a1c
+2e######  
+2f2g2h2i  
+########..
+move: 1 tail (3,5) D
+move: 1 tail (4,5) D
+move: 1 tail (5,5) D
+  ######  
+  ##  ##  
+2d2c2b2a  
+2e######1a
+2f2g2h2i1b
+########1c
+Number of moves: 25
+Number of vertices examined: 108
+0.00236061 [s]
+
+Level 47
+Sequence of moves: 
+##########
+  ##2e2d##
+  1b1a2c##
+##1c2a2b##
+##3c3b3a  
+########..
+move: 3 head (5,4) R
+##########
+  ##2e2d##
+  1b1a2c##
+##1c2a2b##
+##  3c3b3a
+########..
+move: 1 tail (4,2) D
+##########
+  ##2e2d##
+  1a  2c##
+##1b2a2b##
+##1c3c3b3a
+########..
+move: 1 head (3,2) L
+move: 1 head (3,1) U
+##########
+1a##2e2d##
+1b1c  2c##
+##  2a2b##
+##  3c3b3a
+########..
+move: 2 tail (2,3) D
+move: 2 tail (3,3) D
+move: 2 tail (4,3) L
+##########
+1a##2b2a##
+1b1c2c  ##
+##2e2d  ##
+##  3c3b3a
+########..
+move: 3 tail (5,3) L
+##########
+1a##2b2a##
+1b1c2c  ##
+##2e2d  ##
+##3c3b3a  
+########..
+move: 3 head (5,4) U
+move: 3 head (4,4) U
+##########
+1a##2b2a##
+1b1c2c3a##
+##2e2d3b##
+##    3c  
+########..
+move: 2 tail (4,2) D
+move: 2 tail (5,2) R
+##########
+1a##    ##
+1b1c2a3a##
+##2c2b3b##
+##2d2e3c  
+########..
+move: 3 head (3,4) U
+move: 3 head (2,4) L
+##########
+1a##3a3b##
+1b1c2a3c##
+##2c2b  ##
+##2d2e    
+########..
+move: 2 tail (5,3) R
+move: 2 tail (5,4) R
+##########
+1a##3a3b##
+1b1c  3c##
+##2a    ##
+##2b2c2d2e
+########..
+move: 1 tail (3,2) R
+move: 1 tail (3,3) D
+move: 1 tail (4,3) R
+##########
+  ##3a3b##
+    1a3c##
+##2a1b1c##
+##2b2c2d2e
+########..
+move: 2 head (4,2) U
+move: 2 head (3,2) L
+##########
+  ##3a3b##
+2a2b1a3c##
+##2c1b1c##
+##2d2e    
+########..
+move: 1 tail (4,4) D
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+##########
+  ##3a3b##
+2a2b  3c##
+##2c    ##
+##2d2e1a1b
+########1c
+Number of moves: 24
+Number of vertices examined: 739
+0.0135599 [s]
+
+Level 48
+Sequence of moves: 
+4d4c3a3b  
+1a4b2b3c##
+1b4a2a3d3e
+1c##  ####
+####      
+########..
+move: 2 head (3,3) D
+move: 2 head (4,3) D
+move: 2 head (5,3) R
+move: 2 head (5,4) R
+4d4c3a3b  
+1a4b  3c##
+1b4a  3d3e
+1c##  ####
+####  2b2a
+########..
+move: 4 head (3,2) R
+move: 4 head (3,3) D
+move: 4 head (4,3) D
+    3a3b  
+1a    3c##
+1b4d4c3d3e
+1c##4b####
+####4a2b2a
+########..
+move: 1 head (2,1) R
+move: 1 head (2,2) U
+move: 1 head (1,2) L
+1a1b3a3b  
+  1c  3c##
+  4d4c3d3e
+  ##4b####
+####4a2b2a
+########..
+move: 1 tail (2,2) R
+  1a3a3b  
+  1b1c3c##
+  4d4c3d3e
+  ##4b####
+####4a2b2a
+########..
+move: 4 tail (3,2) L
+move: 4 tail (3,1) U
+move: 4 tail (2,1) U
+4d1a3a3b  
+4c1b1c3c##
+4b4a  3d3e
+  ##  ####
+####  2b2a
+########..
+move: 1 tail (2,3) D
+move: 1 tail (3,3) D
+move: 1 tail (4,3) D
+4d  3a3b  
+4c    3c##
+4b4a1a3d3e
+  ##1b####
+####1c2b2a
+########..
+move: 3 head (1,3) L
+move: 3 head (1,2) D
+move: 3 head (2,2) R
+move: 3 head (2,3) R
+move: 3 head (2,4) U
+move: 3 head (1,4) R
+4d    3b3a
+4c3e3d3c##
+4b4a1a    
+  ##1b####
+####1c2b2a
+########..
+move: 4 tail (1,1) R
+move: 4 tail (1,2) R
+4b4c4d3b3a
+4a3e3d3c##
+    1a    
+  ##1b####
+####1c2b2a
+########..
+move: 1 head (3,3) L
+move: 1 head (3,2) L
+move: 1 head (3,1) D
+4b4c4d3b3a
+4a3e3d3c##
+1b1c      
+1a##  ####
+####  2b2a
+########..
+move: 2 tail (5,4) L
+move: 2 tail (5,3) U
+move: 2 tail (4,3) U
+move: 2 tail (3,3) R
+move: 2 tail (3,4) R
+4b4c4d3b3a
+4a3e3d3c##
+1b1c  2a2b
+1a##  ####
+####      
+########..
+move: 1 tail (3,2) R
+move: 1 tail (3,3) D
+move: 1 tail (4,3) D
+move: 1 tail (5,3) R
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+4b4c4d3b3a
+4a3e3d3c##
+      2a2b
+  ##  ####
+####  1a1b
+########1c
+Number of moves: 39
+Number of vertices examined: 13165
+0.360678 [s]
+
+Level 49
+Sequence of moves: 
+  1a1b####
+  ######  
+2e2f2g##  
+2d3c3b3a  
+2c2b2a##  
+########..
+move: 3 head (4,4) R
+move: 3 head (4,5) D
+  1a1b####
+  ######  
+2e2f2g##  
+2d    3c3b
+2c2b2a##3a
+########..
+move: 2 head (5,3) U
+move: 2 head (4,3) U
+move: 2 head (3,3) L
+move: 2 head (3,2) D
+move: 2 head (4,2) L
+move: 2 head (4,1) U
+move: 2 head (3,1) U
+move: 2 head (2,1) U
+2a1a1b####
+2b######  
+2c2f2g##  
+2d2e  3c3b
+      ##3a
+########..
+move: 3 tail (4,4) L
+move: 3 tail (4,3) D
+move: 3 tail (5,3) L
+move: 3 tail (5,2) L
+2a1a1b####
+2b######  
+2c2f2g##  
+2d2e      
+3c3b3a##  
+########..
+move: 2 tail (3,3) D
+move: 2 tail (4,3) R
+move: 2 tail (4,4) R
+move: 2 tail (4,5) U
+move: 2 tail (3,5) U
+  1a1b####
+  ######2g
+  2a2b##2f
+    2c2d2e
+3c3b3a##  
+########..
+move: 1 head (1,2) L
+move: 1 head (1,1) D
+move: 1 head (2,1) D
+move: 1 head (3,1) D
+move: 1 head (4,1) R
+      ####
+  ######2g
+  2a2b##2f
+1b1a2c2d2e
+3c3b3a##  
+########..
+move: 2 head (3,2) L
+move: 2 head (3,1) U
+move: 2 head (2,1) U
+move: 2 head (1,1) R
+move: 2 head (1,2) R
+2c2b2a####
+2d######  
+2e2f2g##  
+1b1a      
+3c3b3a##  
+########..
+move: 1 head (4,2) R
+move: 1 head (4,3) R
+move: 1 head (4,4) R
+move: 1 head (4,5) D
+move: 1 head (5,5) D
+2c2b2a####
+2d######  
+2e2f2g##  
+          
+3c3b3a##1b
+########1a
+Number of moves: 34
+Number of vertices examined: 4044
+0.079312 [s]
+
+Level 50
+Sequence of moves: 
+  1c1b####
+##1d1a3e  
+2d1e##3d  
+2c2b2a3c##
+####3a3b  
+########..
+move: 3 tail (2,4) R
+move: 3 tail (2,5) D
+  1c1b####
+##1d1a3c3d
+2d1e##3b3e
+2c2b2a3a##
+####      
+########..
+move: 2 head (4,3) D
+move: 2 head (5,3) R
+  1c1b####
+##1d1a3c3d
+  1e##3b3e
+  2d2c3a##
+####2b2a  
+########..
+move: 1 tail (3,2) L
+move: 1 tail (3,1) D
+  1a  ####
+##1b  3c3d
+1d1c##3b3e
+1e2d2c3a##
+####2b2a  
+########..
+move: 1 head (1,2) L
+1a1b  ####
+##1c  3c3d
+1e1d##3b3e
+  2d2c3a##
+####2b2a  
+########..
+move: 2 tail (4,2) L
+1a1b  ####
+##1c  3c3d
+1e1d##3b3e
+2d2c2b3a##
+####2a    
+########..
+move: 3 head (4,4) D
+move: 3 head (5,4) R
+1a1b  ####
+##1c  3e  
+1e1d##3d  
+2d2c2b3c##
+####2a3b3a
+########..
+move: 3 tail (2,4) L
+move: 3 tail (2,3) U
+1a1b3e####
+##1c3d3c  
+1e1d##3b  
+2d2c2b3a##
+####2a    
+########..
+move: 2 head (5,3) R
+move: 2 head (5,4) R
+1a1b3e####
+##1c3d3c  
+1e1d##3b  
+    2d3a##
+####2c2b2a
+########..
+move: 1 tail (3,1) D
+move: 1 tail (4,1) R
+    3e####
+##1a3d3c  
+1c1b##3b  
+1d1e2d3a##
+####2c2b2a
+########..
+move: 3 tail (1,3) L
+move: 3 tail (1,2) L
+3e3d3c####
+##1a3b3a  
+1c1b##    
+1d1e2d  ##
+####2c2b2a
+########..
+move: 2 tail (4,3) R
+move: 2 tail (4,4) U
+move: 2 tail (3,4) R
+move: 2 tail (3,5) U
+3e3d3c####
+##1a3b3a2d
+1c1b##2b2c
+1d1e  2a##
+####      
+########..
+move: 1 tail (4,2) R
+move: 1 tail (4,3) D
+move: 1 tail (5,3) R
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+3e3d3c####
+##  3b3a2d
+    ##2b2c
+    1a2a##
+####1b1c1d
+########1e
+Number of moves: 27
+Number of vertices examined: 409
+0.00842982 [s]
+
+Level 51
+Sequence of moves: 
+##2a3b3a1c
+  2b####1b
+##2c4a4b1a
+##  ######
+##        
+########..
+move: 2 tail (3,2) D
+move: 2 tail (4,2) D
+##  3b3a1c
+    ####1b
+##2a4a4b1a
+##2b######
+##2c      
+########..
+move: 3 tail (1,3) L
+move: 3 tail (1,2) D
+move: 3 tail (2,2) L
+##      1c
+3b3a####1b
+##2a4a4b1a
+##2b######
+##2c      
+########..
+move: 1 tail (1,5) L
+move: 1 tail (1,4) L
+move: 1 tail (1,3) L
+##1c1b1a  
+3b3a####  
+##2a4a4b  
+##2b######
+##2c      
+########..
+move: 4 tail (3,4) R
+move: 4 tail (3,5) U
+move: 4 tail (2,5) U
+##1c1b1a4b
+3b3a####4a
+##2a      
+##2b######
+##2c      
+########..
+move: 2 head (3,2) R
+move: 2 head (3,3) R
+move: 2 head (3,4) R
+##1c1b1a4b
+3b3a####4a
+##  2c2b2a
+##  ######
+##        
+########..
+move: 3 head (2,2) D
+move: 3 head (3,2) D
+move: 3 head (4,2) D
+move: 3 head (5,2) R
+move: 3 head (5,3) R
+move: 3 head (5,4) R
+##1c1b1a4b
+    ####4a
+##  2c2b2a
+##  ######
+##    3b3a
+########..
+move: 1 tail (1,2) D
+move: 1 tail (2,2) D
+move: 1 tail (3,2) D
+move: 1 tail (4,2) D
+move: 1 tail (5,2) R
+##      4b
+    ####4a
+##  2c2b2a
+##1a######
+##1b1c3b3a
+########..
+move: 2 tail (3,3) L
+move: 2 tail (3,2) U
+move: 2 tail (2,2) U
+move: 2 tail (1,2) R
+move: 2 tail (1,3) R
+##2a2b2c4b
+    ####4a
+##        
+##1a######
+##1b1c3b3a
+########..
+move: 1 head (4,2) U
+move: 1 head (3,2) R
+move: 1 head (3,3) R
+move: 1 head (3,4) R
+##2a2b2c4b
+    ####4a
+##  1c1b1a
+##  ######
+##    3b3a
+########..
+move: 3 tail (5,4) L
+move: 3 tail (5,3) L
+move: 3 tail (5,2) U
+move: 3 tail (4,2) U
+move: 3 tail (3,2) U
+move: 3 tail (2,2) L
+##2a2b2c4b
+3b3a####4a
+##  1c1b1a
+##  ######
+##        
+########..
+move: 1 tail (3,3) L
+move: 1 tail (3,2) D
+move: 1 tail (4,2) D
+move: 1 tail (5,2) R
+move: 1 tail (5,3) R
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+##2a2b2c4b
+3b3a####4a
+##        
+##  ######
+##    1a1b
+########1c
+Number of moves: 47
+Number of vertices examined: 8626
+0.195332 [s]
+
+Level 52
+Sequence of moves: 
+##########
+##########
+3a3b3c3d3e
+1b1a##    
+2a2b2c2d2e
+########..
+move: 2 tail (5,5) U
+move: 2 tail (4,5) L
+##########
+##########
+3a3b3c3d3e
+1b1a##2e2d
+    2a2b2c
+########..
+move: 1 head (4,2) D
+##########
+##########
+3a3b3c3d3e
+  1b##2e2d
+  1a2a2b2c
+########..
+move: 3 head (3,1) D
+move: 3 head (4,1) D
+##########
+##########
+3c3d3e    
+3b1b##2e2d
+3a1a2a2b2c
+########..
+move: 2 tail (4,4) U
+move: 2 tail (3,4) R
+##########
+##########
+3c3d3e2d2e
+3b1b##2c2b
+3a1a    2a
+########..
+move: 1 head (5,2) R
+move: 1 head (5,3) R
+##########
+##########
+3c3d3e2d2e
+3b  ##2c2b
+3a  1b1a2a
+########..
+move: 3 head (5,1) R
+move: 3 head (5,2) U
+move: 3 head (4,2) U
+move: 3 head (3,2) L
+move: 3 head (3,1) D
+move: 3 head (4,1) D
+##########
+##########
+3c3d  2d2e
+3b3e##2c2b
+3a  1b1a2a
+########..
+move: 1 tail (5,3) L
+##########
+##########
+3c3d  2d2e
+3b3e##2c2b
+3a1b1a  2a
+########..
+move: 2 head (5,5) L
+##########
+##########
+3c3d  2e  
+3b3e##2d2c
+3a1b1a2a2b
+########..
+move: 2 tail (3,4) L
+##########
+##########
+3c3d2e2d  
+3b3e##2c2b
+3a1b1a  2a
+########..
+move: 1 head (5,3) R
+##########
+##########
+3c3d2e2d  
+3b3e##2c2b
+3a  1b1a2a
+########..
+move: 3 head (5,1) R
+move: 3 head (5,2) U
+##########
+##########
+3e  2e2d  
+3d3a##2c2b
+3c3b1b1a2a
+########..
+move: 2 tail (3,3) L
+##########
+##########
+3e2e2d2c  
+3d3a##2b2a
+3c3b1b1a  
+########..
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+##########
+##########
+3e2e2d2c  
+3d3a##2b2a
+3c3b    1b
+########1a
+Number of moves: 24
+Number of vertices examined: 262
+0.00448548 [s]
+
+Level 53
+Sequence of moves: 
+1c4a2e####
+1b4b2d3a##
+1a4c2c3b  
+##4d2b3c  
+####2a3d  
+########..
+move: 3 tail (5,4) R
+move: 3 tail (5,5) U
+move: 3 tail (4,5) U
+move: 3 tail (3,5) L
+1c4a2e####
+1b4b2d  ##
+1a4c2c3d3c
+##4d2b  3b
+####2a  3a
+########..
+move: 2 head (5,3) R
+move: 2 head (5,4) U
+1c4a  ####
+1b4b    ##
+1a4c2e3d3c
+##4d2d2a3b
+####2c2b3a
+########..
+move: 4 head (1,2) R
+move: 4 head (1,3) D
+1c4c4b####
+1b4d4a  ##
+1a  2e3d3c
+##  2d2a3b
+####2c2b3a
+########..
+move: 1 head (3,1) R
+move: 1 head (3,2) D
+  4c4b####
+  4d4a  ##
+1c1b2e3d3c
+##1a2d2a3b
+####2c2b3a
+########..
+move: 4 tail (2,2) L
+  4b4a####
+4d4c    ##
+1c1b2e3d3c
+##1a2d2a3b
+####2c2b3a
+########..
+move: 2 tail (3,3) U
+move: 2 tail (2,3) R
+  4b4a####
+4d4c2d2e##
+1c1b2c3d3c
+##1a2b  3b
+####2a  3a
+########..
+move: 3 head (5,5) L
+  4b4a####
+4d4c2d2e##
+1c1b2c  3d
+##1a2b  3c
+####2a3a3b
+########..
+move: 2 tail (2,4) D
+move: 2 tail (3,4) D
+  4b4a####
+4d4c2b2c##
+1c1b2a2d3d
+##1a  2e3c
+####  3a3b
+########..
+move: 1 head (4,2) R
+move: 1 head (4,3) D
+  4b4a####
+4d4c2b2c##
+    2a2d3d
+##1c1b2e3c
+####1a3a3b
+########..
+move: 2 head (3,3) L
+move: 2 head (3,2) L
+  4b4a####
+4d4c2d2e##
+2a2b2c  3d
+##1c1b  3c
+####1a3a3b
+########..
+move: 3 tail (3,5) L
+move: 3 tail (3,4) D
+  4b4a####
+4d4c2d2e##
+2a2b2c3c3b
+##1c1b3d3a
+####1a    
+########..
+move: 1 head (5,3) R
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+  4b4a####
+4d4c2d2e##
+2a2b2c3c3b
+##    3d3a
+####  1c1b
+########1a
+Number of moves: 25
+Number of vertices examined: 23188
+0.602773 [s]
+
+Level 54
+Sequence of moves: 
+2e##2a3a3b
+2d2c2b##3c
+##1d##    
+##1c    ##
+1a1b##    
+########..
+move: 3 tail (2,5) D
+move: 3 tail (3,5) L
+move: 3 tail (3,4) D
+move: 3 tail (4,4) D
+move: 3 tail (5,4) R
+2e##2a    
+2d2c2b##  
+##1d##    
+##1c  3a##
+1a1b##3b3c
+########..
+move: 2 head (1,3) R
+move: 2 head (1,4) R
+move: 2 head (1,5) D
+move: 2 head (2,5) D
+move: 2 head (3,5) L
+  ##  2e2d
+      ##2c
+##1d##2a2b
+##1c  3a##
+1a1b##3b3c
+########..
+move: 1 tail (3,2) U
+move: 1 tail (2,2) R
+move: 1 tail (2,3) U
+  ##1d2e2d
+  1b1c##2c
+##1a##2a2b
+##    3a##
+    ##3b3c
+########..
+move: 3 head (4,4) L
+move: 3 head (4,3) L
+move: 3 head (4,2) D
+move: 3 head (5,2) L
+  ##1d2e2d
+  1b1c##2c
+##1a##2a2b
+##3c    ##
+3a3b##    
+########..
+move: 2 head (3,4) D
+move: 2 head (4,4) L
+  ##1d    
+  1b1c##2e
+##1a##2c2d
+##3c2a2b##
+3a3b##    
+########..
+move: 1 tail (1,3) R
+move: 1 tail (1,4) R
+  ##1b1c1d
+    1a##2e
+##  ##2c2d
+##3c2a2b##
+3a3b##    
+########..
+move: 3 tail (4,2) U
+move: 3 tail (3,2) U
+move: 3 tail (2,2) L
+move: 3 tail (2,1) U
+3c##1b1c1d
+3b3a1a##2e
+##  ##2c2d
+##  2a2b##
+    ##    
+########..
+move: 2 head (4,3) L
+move: 2 head (4,2) D
+move: 2 head (5,2) L
+3c##1b1c1d
+3b3a1a##  
+##  ##    
+##2c2d2e##
+2a2b##    
+########..
+move: 1 tail (1,5) D
+move: 1 tail (2,5) D
+move: 1 tail (3,5) L
+3c##    1a
+3b3a  ##1b
+##  ##1d1c
+##2c2d2e##
+2a2b##    
+########..
+move: 3 head (2,2) R
+move: 3 head (2,3) U
+move: 3 head (1,3) R
+  ##3b3a1a
+    3c##1b
+##  ##1d1c
+##2c2d2e##
+2a2b##    
+########..
+move: 2 tail (4,4) D
+move: 2 tail (5,4) R
+  ##3b3a1a
+    3c##1b
+##  ##1d1c
+##2a2b2c##
+    ##2d2e
+########..
+move: 2 head (4,2) U
+move: 2 head (3,2) U
+move: 2 head (2,2) L
+  ##3b3a1a
+2a2b3c##1b
+##2c##1d1c
+##2d2e  ##
+    ##    
+########..
+move: 1 tail (3,4) D
+move: 1 tail (4,4) D
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+  ##3b3a  
+2a2b3c##  
+##2c##    
+##2d2e1a##
+    ##1b1c
+########1d
+Number of moves: 43
+Number of vertices examined: 882
+0.0157613 [s]
+
+Level 55
+Sequence of moves: 
+2g##1e####
+2f##1d##  
+2e  1c    
+2d1a1b  ##
+2c2b2a3b3a
+########..
+move: 3 tail (5,4) U
+move: 3 tail (4,4) U
+move: 3 tail (3,4) R
+move: 3 tail (3,5) U
+2g##1e####
+2f##1d##3b
+2e  1c  3a
+2d1a1b  ##
+2c2b2a    
+########..
+move: 2 head (5,3) R
+move: 2 head (5,4) U
+move: 2 head (4,4) U
+  ##1e####
+  ##1d##3b
+    1c2a3a
+2g1a1b2b##
+2f2e2d2c  
+########..
+move: 1 head (4,2) U
+move: 1 head (3,2) L
+move: 1 head (3,1) U
+move: 1 head (2,1) U
+1a##  ####
+1b##  ##3b
+1c1d  2a3a
+2g1e  2b##
+2f2e2d2c  
+########..
+move: 2 head (3,4) L
+move: 2 head (3,3) U
+move: 2 head (2,3) U
+1a##2a####
+1b##2b##3b
+1c1d2c2d3a
+  1e  2e##
+    2g2f  
+########..
+move: 1 tail (4,2) D
+move: 1 tail (5,2) L
+move: 1 tail (5,1) U
+move: 1 tail (4,1) U
+move: 1 tail (3,1) U
+move: 1 tail (2,1) U
+1e##2a####
+1d##2b##3b
+1c  2c2d3a
+1b    2e##
+1a  2g2f  
+########..
+move: 2 tail (5,3) L
+move: 2 tail (5,2) U
+move: 2 tail (4,2) U
+move: 2 tail (3,2) R
+move: 2 tail (3,3) D
+move: 2 tail (4,3) R
+move: 2 tail (4,4) D
+move: 2 tail (5,4) L
+move: 2 tail (5,3) L
+move: 2 tail (5,2) U
+move: 2 tail (4,2) U
+1e##  ####
+1d##  ##3b
+1c2g    3a
+1b2f2a2b##
+1a2e2d2c  
+########..
+move: 3 head (3,5) L
+move: 3 head (3,4) L
+move: 3 head (3,3) U
+move: 3 head (2,3) U
+1e##3a####
+1d##3b##  
+1c2g      
+1b2f2a2b##
+1a2e2d2c  
+########..
+move: 2 tail (3,2) R
+move: 2 tail (3,3) D
+move: 2 tail (4,3) R
+move: 2 tail (4,4) U
+move: 2 tail (3,4) R
+1e##3a####
+1d##3b##  
+1c2b2c2f2g
+1b2a2d2e##
+1a        
+########..
+move: 1 head (5,1) R
+move: 1 head (5,2) R
+move: 1 head (5,3) R
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+  ##3a####
+  ##3b##  
+  2b2c2f2g
+  2a2d2e##
+  1e1d1c1b
+########1a
+Number of moves: 45
+Number of vertices examined: 812
+0.0162266 [s]
+
+Level 56
+Sequence of moves: 
+  3a3b1a1b
+####3c##2e
+####3d##2d
+    3e##2c
+  ##3f2a2b
+########..
+move: 3 head (1,2) L
+3a3b3c1a1b
+####3d##2e
+####3e##2d
+    3f##2c
+  ##  2a2b
+########..
+move: 2 head (5,4) L
+3a3b3c1a1b
+####3d##  
+####3e##2e
+    3f##2d
+  ##2a2b2c
+########..
+move: 3 tail (4,3) L
+move: 3 tail (4,2) L
+move: 3 tail (4,1) D
+      1a1b
+####3a##  
+####3b##2e
+3e3d3c##2d
+3f##2a2b2c
+########..
+move: 1 head (1,4) L
+move: 1 head (1,3) L
+move: 1 head (1,2) L
+1a1b      
+####3a##  
+####3b##2e
+3e3d3c##2d
+3f##2a2b2c
+########..
+move: 3 head (2,3) U
+move: 3 head (1,3) R
+move: 3 head (1,4) R
+move: 3 head (1,5) D
+1a1b3d3c3b
+####3e##3a
+####3f##2e
+      ##2d
+  ##2a2b2c
+########..
+move: 2 head (5,3) U
+move: 2 head (4,3) L
+move: 2 head (4,2) L
+1a1b3d3c3b
+####3e##3a
+####3f##  
+2a2b2c##  
+  ##2d2e  
+########..
+move: 3 head (2,5) D
+move: 3 head (3,5) D
+move: 3 head (4,5) D
+1a1b  3f3e
+####  ##3d
+####  ##3c
+2a2b2c##3b
+  ##2d2e3a
+########..
+move: 1 tail (1,2) R
+move: 1 tail (1,3) D
+move: 1 tail (2,3) D
+      3f3e
+####1a##3d
+####1b##3c
+2a2b2c##3b
+  ##2d2e3a
+########..
+move: 3 tail (1,4) L
+move: 3 tail (1,3) L
+move: 3 tail (1,2) L
+3f3e3d3c3b
+####1a##3a
+####1b##  
+2a2b2c##  
+  ##2d2e  
+########..
+move: 2 tail (5,4) R
+move: 2 tail (5,5) U
+move: 2 tail (4,5) U
+3f3e3d3c3b
+####1a##3a
+####1b##2e
+      ##2d
+  ##2a2b2c
+########..
+move: 1 tail (3,3) D
+move: 1 tail (4,3) L
+move: 1 tail (4,2) L
+3f3e3d3c3b
+####  ##3a
+####  ##2e
+1b1a  ##2d
+  ##2a2b2c
+########..
+move: 2 head (5,3) U
+move: 2 head (4,3) U
+move: 2 head (3,3) U
+3f3e3d3c3b
+####2a##3a
+####2b##  
+1b1a2c##  
+  ##2d2e  
+########..
+move: 3 head (2,5) D
+move: 3 head (3,5) D
+move: 3 head (4,5) D
+      3f3e
+####2a##3d
+####2b##3c
+1b1a2c##3b
+  ##2d2e3a
+########..
+move: 2 head (2,3) U
+move: 2 head (1,3) L
+move: 2 head (1,2) L
+2a2b2c3f3e
+####2d##3d
+####2e##3c
+1b1a  ##3b
+  ##    3a
+########..
+move: 1 head (4,2) R
+move: 1 head (4,3) D
+move: 1 head (5,3) R
+2a2b2c3f3e
+####2d##3d
+####2e##3c
+      ##3b
+  ##1b1a3a
+########..
+move: 2 tail (3,3) D
+move: 2 tail (4,3) L
+move: 2 tail (4,2) L
+      3f3e
+####2a##3d
+####2b##3c
+2e2d2c##3b
+  ##1b1a3a
+########..
+move: 3 tail (1,4) L
+    3f3e3d
+####2a##3c
+####2b##3b
+2e2d2c##3a
+  ##1b1a  
+########..
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+    3f3e3d
+####2a##3c
+####2b##3b
+2e2d2c##3a
+  ##    1b
+########1a
+Number of moves: 48
+Number of vertices examined: 635
+0.0118341 [s]
+
+Level 57
+Sequence of moves: 
+  3c3b3a1b
+  ##4a##1a
+  4c4b2a##
+##2f##2b##
+  2e2d2c  
+########..
+move: 4 tail (3,2) L
+move: 4 tail (3,1) U
+move: 4 tail (2,1) U
+4c3c3b3a1b
+4b##  ##1a
+4a    2a##
+##2f##2b##
+  2e2d2c  
+########..
+move: 2 tail (4,2) U
+move: 2 tail (3,2) R
+move: 2 tail (3,3) R
+move: 2 tail (3,4) D
+move: 2 tail (4,4) D
+move: 2 tail (5,4) L
+move: 2 tail (5,3) L
+move: 2 tail (5,2) L
+4c3c3b3a1b
+4b##  ##1a
+4a    2a##
+##  ##2b##
+2f2e2d2c  
+########..
+move: 4 head (3,1) R
+move: 4 head (3,2) D
+  3c3b3a1b
+  ##  ##1a
+4c4b  2a##
+##4a##2b##
+2f2e2d2c  
+########..
+move: 3 tail (1,2) L
+move: 3 tail (1,1) D
+3b3a    1b
+3c##  ##1a
+4c4b  2a##
+##4a##2b##
+2f2e2d2c  
+########..
+move: 1 tail (1,5) L
+move: 1 tail (1,4) L
+move: 1 tail (1,3) D
+move: 1 tail (2,3) D
+3b3a      
+3c##1a##  
+4c4b1b2a##
+##4a##2b##
+2f2e2d2c  
+########..
+move: 3 head (1,2) R
+move: 3 head (1,3) R
+move: 3 head (1,4) R
+move: 3 head (1,5) D
+      3c3b
+  ##1a##3a
+4c4b1b2a##
+##4a##2b##
+2f2e2d2c  
+########..
+move: 4 tail (3,1) U
+move: 4 tail (2,1) U
+4c    3c3b
+4b##1a##3a
+4a  1b2a##
+##  ##2b##
+2f2e2d2c  
+########..
+move: 1 tail (3,3) L
+move: 1 tail (3,2) D
+4c    3c3b
+4b##  ##3a
+4a1a  2a##
+##1b##2b##
+2f2e2d2c  
+########..
+move: 2 head (3,4) L
+move: 2 head (3,3) U
+move: 2 head (2,3) U
+move: 2 head (1,3) L
+4c2a2b3c3b
+4b##2c##3a
+4a1a2d2e##
+##1b##2f##
+          
+########..
+move: 1 tail (4,2) D
+move: 1 tail (5,2) R
+move: 1 tail (5,3) R
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+4c2a2b3c3b
+4b##2c##3a
+4a  2d2e##
+##  ##2f##
+        1a
+########1b
+Number of moves: 36
+Number of vertices examined: 1999
+0.0412249 [s]
+
+Level 58
+Sequence of moves: 
+3c3b3a1d1c
+3d##  ##1b
+4a4b  2d1a
+##4c##2c##
+##4d2a2b  
+########..
+move: 2 tail (3,4) L
+3c3b3a1d1c
+3d##  ##1b
+4a4b2d2c1a
+##4c##2b##
+##4d  2a  
+########..
+move: 4 tail (5,2) R
+3c3b3a1d1c
+3d##  ##1b
+  4a2d2c1a
+##4b##2b##
+##4c4d2a  
+########..
+move: 2 head (5,4) R
+3c3b3a1d1c
+3d##  ##1b
+  4a  2d1a
+##4b##2c##
+##4c4d2b2a
+########..
+move: 3 tail (2,1) D
+3b3a  1d1c
+3c##  ##1b
+3d4a  2d1a
+##4b##2c##
+##4c4d2b2a
+########..
+move: 4 head (3,2) R
+move: 4 head (3,3) U
+3b3a  1d1c
+3c##4a##1b
+3d4c4b2d1a
+##4d##2c##
+##    2b2a
+########..
+move: 1 tail (1,4) L
+3b3a1d1c1b
+3c##4a##1a
+3d4c4b2d  
+##4d##2c##
+##    2b2a
+########..
+move: 2 tail (3,4) R
+3b3a1d1c1b
+3c##4a##1a
+3d4c4b2c2d
+##4d##2b##
+##    2a  
+########..
+move: 2 head (5,4) L
+move: 2 head (5,3) L
+3b3a1d1c1b
+3c##4a##1a
+3d4c4b    
+##4d##2d##
+##2a2b2c  
+########..
+move: 1 head (2,5) D
+move: 1 head (3,5) L
+3b3a    1d
+3c##4a##1c
+3d4c4b1a1b
+##4d##2d##
+##2a2b2c  
+########..
+move: 4 head (2,3) U
+move: 4 head (1,3) R
+3b3a4b4a1d
+3c##4c##1c
+3d  4d1a1b
+##  ##2d##
+##2a2b2c  
+########..
+move: 2 head (5,2) U
+move: 2 head (4,2) U
+3b3a4b4a1d
+3c##4c##1c
+3d2a4d1a1b
+##2b##  ##
+##2c2d    
+########..
+move: 1 head (3,4) D
+move: 1 head (4,4) D
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+3b3a4b4a  
+3c##4c##  
+3d2a4d    
+##2b##1d##
+##2c2d1c1b
+########1a
+Number of moves: 20
+Number of vertices examined: 519
+0.00996062 [s]
+
+Level 59
+Sequence of moves: 
+####  ####
+1c1b1a2d  
+1d3a3b2c##
+####3c2b##
+    3d2a  
+########..
+move: 1 head (2,3) U
+####1a####
+1d1c1b2d  
+  3a3b2c##
+####3c2b##
+    3d2a  
+########..
+move: 3 head (3,2) L
+####1a####
+1d1c1b2d  
+3a3b3c2c##
+####3d2b##
+      2a  
+########..
+move: 2 head (5,4) L
+move: 2 head (5,3) L
+move: 2 head (5,2) L
+####1a####
+1d1c1b    
+3a3b3c  ##
+####3d  ##
+2a2b2c2d  
+########..
+move: 3 tail (4,3) R
+####1a####
+1d1c1b    
+  3a3b  ##
+####3c3d##
+2a2b2c2d  
+########..
+move: 1 tail (2,1) D
+####  ####
+1c1b1a    
+1d3a3b  ##
+####3c3d##
+2a2b2c2d  
+########..
+move: 1 head (2,3) R
+move: 1 head (2,4) D
+####  ####
+  1d1c1b  
+  3a3b1a##
+####3c3d##
+2a2b2c2d  
+########..
+move: 3 head (3,2) L
+move: 3 head (3,1) U
+####  ####
+3a1d1c1b  
+3b3c3d1a##
+####    ##
+2a2b2c2d  
+########..
+move: 1 head (3,4) D
+####  ####
+3a  1d1c  
+3b3c3d1b##
+####  1a##
+2a2b2c2d  
+########..
+move: 3 head (2,1) R
+####  ####
+3b3a1d1c  
+3c3d  1b##
+####  1a##
+2a2b2c2d  
+########..
+move: 1 head (4,4) L
+move: 1 head (4,3) U
+move: 1 head (3,3) U
+move: 1 head (2,3) U
+####1a####
+3b3a1b    
+3c3d1c  ##
+####1d  ##
+2a2b2c2d  
+########..
+move: 2 tail (5,4) U
+move: 2 tail (4,4) U
+move: 2 tail (3,4) U
+move: 2 tail (2,4) R
+####1a####
+3b3a1b2c2d
+3c3d1c2b##
+####1d2a##
+          
+########..
+move: 1 tail (4,3) D
+move: 1 tail (5,3) R
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+####  ####
+3b3a  2c2d
+3c3d  2b##
+####  2a##
+    1a1b1c
+########1d
+Number of moves: 25
+Number of vertices examined: 2727
+0.0472165 [s]
+
+Level 60
+Sequence of moves: 
+1h    ####
+1g2g2f2e2d
+1f2h##1a2c
+1e1d1c1b2b
+####    2a
+########..
+move: 1 tail (1,1) R
+move: 1 tail (1,2) R
+1f1g1h####
+1e2g2f2e2d
+1d2h##  2c
+1c1b1a  2b
+####    2a
+########..
+move: 2 head (5,5) L
+move: 2 head (5,4) U
+move: 2 head (4,4) U
+1f1g1h####
+1e    2h2g
+1d  ##2a2f
+1c1b1a2b2e
+####  2c2d
+########..
+move: 1 tail (1,3) D
+move: 1 tail (2,3) L
+move: 1 tail (2,2) D
+move: 1 tail (3,2) D
+move: 1 tail (4,2) L
+move: 1 tail (4,1) U
+move: 1 tail (3,1) U
+move: 1 tail (2,1) U
+move: 1 tail (1,1) R
+move: 1 tail (1,2) R
+1f1g1h####
+1e    2h2g
+1d1a##2a2f
+1c1b  2b2e
+####  2c2d
+########..
+move: 2 tail (2,4) L
+move: 2 tail (2,3) L
+1f1g1h####
+1e2h2g2f2e
+1d1a##  2d
+1c1b    2c
+####  2a2b
+########..
+move: 2 head (5,4) L
+move: 2 head (5,3) U
+move: 2 head (4,3) R
+move: 2 head (4,4) U
+1f1g1h####
+1e        
+1d1a##2a2h
+1c1b2c2b2g
+####2d2e2f
+########..
+move: 1 tail (1,3) D
+move: 1 tail (2,3) R
+move: 1 tail (2,4) R
+1c1d1e####
+1b  1f1g1h
+1a  ##2a2h
+    2c2b2g
+####2d2e2f
+########..
+move: 1 head (3,1) R
+move: 1 head (3,2) U
+1e1f1g####
+1d1a1h    
+1c1b##2a2h
+    2c2b2g
+####2d2e2f
+########..
+move: 2 head (3,4) U
+move: 2 head (2,4) R
+move: 2 head (2,5) D
+move: 2 head (3,5) D
+move: 2 head (4,5) D
+move: 2 head (5,5) L
+move: 2 head (5,4) L
+move: 2 head (5,3) U
+move: 2 head (4,3) L
+move: 2 head (4,2) L
+1e1f1g####
+1d1a1h    
+1c1b##  2h
+2a2b2c  2g
+####2d2e2f
+########..
+move: 1 tail (2,3) R
+move: 1 tail (2,4) D
+move: 1 tail (3,4) D
+1b1c1d####
+1a  1e1f  
+    ##1g2h
+2a2b2c1h2g
+####2d2e2f
+########..
+move: 2 head (4,1) U
+move: 2 head (3,1) R
+move: 2 head (3,2) U
+1b1c1d####
+1a2a1e1f  
+2c2b##1g  
+2d2e2f1h  
+####2g2h  
+########..
+move: 1 tail (4,4) R
+move: 1 tail (4,5) D
+move: 1 tail (5,5) D
+    1a####
+  2a1b1c  
+2c2b##1d  
+2d2e2f1e1f
+####2g2h1g
+########1h
+Number of moves: 45
+Number of vertices examined: 1742
+0.0297589 [s]
+
+Level 61
+Sequence of moves: 
+  ##1a1b##
+2a    ####
+2b##    3c
+2c##  ##3b
+##4b4a##3a
+########..
+move: 4 head (5,3) U
+move: 4 head (4,3) U
+move: 4 head (3,3) U
+move: 4 head (2,3) L
+  ##1a1b##
+2a4a4b####
+2b##    3c
+2c##  ##3b
+##    ##3a
+########..
+move: 3 tail (3,5) L
+move: 3 tail (3,4) L
+move: 3 tail (3,3) D
+move: 3 tail (4,3) D
+move: 3 tail (5,3) L
+  ##1a1b##
+2a4a4b####
+2b##      
+2c##3a##  
+##3c3b##  
+########..
+move: 4 tail (2,3) D
+move: 4 tail (3,3) R
+move: 4 tail (3,4) R
+move: 4 tail (3,5) D
+move: 4 tail (4,5) D
+  ##1a1b##
+2a    ####
+2b##      
+2c##3a##4a
+##3c3b##4b
+########..
+move: 2 head (2,1) R
+move: 2 head (2,2) R
+move: 2 head (2,3) D
+move: 2 head (3,3) R
+move: 2 head (3,4) R
+  ##1a1b##
+      ####
+  ##2c2b2a
+  ##3a##4a
+##3c3b##4b
+########..
+move: 1 head (1,3) D
+move: 1 head (2,3) L
+move: 1 head (2,2) L
+move: 1 head (2,1) D
+move: 1 head (3,1) D
+  ##    ##
+      ####
+1b##2c2b2a
+1a##3a##4a
+##3c3b##4b
+########..
+move: 2 tail (3,3) U
+move: 2 tail (2,3) L
+move: 2 tail (2,2) L
+move: 2 tail (2,1) U
+2c##    ##
+2b2a  ####
+1b##      
+1a##3a##4a
+##3c3b##4b
+########..
+move: 4 head (4,5) U
+move: 4 head (3,5) L
+move: 4 head (3,4) L
+move: 4 head (3,3) U
+move: 4 head (2,3) U
+move: 4 head (1,3) R
+2c##4b4a##
+2b2a  ####
+1b##      
+1a##3a##  
+##3c3b##  
+########..
+move: 2 head (2,2) R
+move: 2 head (2,3) D
+move: 2 head (3,3) R
+move: 2 head (3,4) R
+move: 2 head (3,5) D
+move: 2 head (4,5) D
+  ##4b4a##
+      ####
+1b##    2c
+1a##3a##2b
+##3c3b##2a
+########..
+move: 1 tail (3,1) U
+move: 1 tail (2,1) R
+move: 1 tail (2,2) R
+move: 1 tail (2,3) D
+move: 1 tail (3,3) R
+  ##4b4a##
+      ####
+  ##1a1b2c
+  ##3a##2b
+##3c3b##2a
+########..
+move: 4 tail (1,3) D
+move: 4 tail (2,3) L
+move: 4 tail (2,2) L
+move: 4 tail (2,1) D
+move: 4 tail (3,1) D
+  ##    ##
+      ####
+4a##1a1b2c
+4b##3a##2b
+##3c3b##2a
+########..
+move: 1 head (3,3) U
+move: 1 head (2,3) U
+move: 1 head (1,3) R
+  ##1b1a##
+      ####
+4a##    2c
+4b##3a##2b
+##3c3b##2a
+########..
+move: 2 tail (3,5) L
+move: 2 tail (3,4) L
+move: 2 tail (3,3) U
+move: 2 tail (2,3) L
+move: 2 tail (2,2) L
+move: 2 tail (2,1) U
+2c##1b1a##
+2b2a  ####
+4a##      
+4b##3a##  
+##3c3b##  
+########..
+move: 1 tail (1,3) D
+move: 1 tail (2,3) D
+move: 1 tail (3,3) R
+move: 1 tail (3,4) R
+move: 1 tail (3,5) D
+move: 1 tail (4,5) D
+move: 1 tail (5,5) D
+2c##    ##
+2b2a  ####
+4a##      
+4b##3a##  
+##3c3b##1a
+########1b
+Number of moves: 66
+Number of vertices examined: 4028
+0.0772087 [s]
+
+Level 62
+Sequence of moves: 
+3f3e3d3c3b
+  ######3a
+  2e2d1e1d
+####2c##1c
+##2a2b1a1b
+########..
+move: 2 tail (3,2) L
+move: 2 tail (3,1) U
+3f3e3d3c3b
+2e######3a
+2d2c2b1e1d
+####2a##1c
+##    1a1b
+########..
+move: 1 head (5,4) L
+move: 1 head (5,3) L
+3f3e3d3c3b
+2e######3a
+2d2c2b    
+####2a##1e
+##1a1b1c1d
+########..
+move: 3 head (2,5) D
+  3f3e3d3c
+2e######3b
+2d2c2b  3a
+####2a##1e
+##1a1b1c1d
+########..
+move: 2 tail (2,1) U
+2e3f3e3d3c
+2d######3b
+2c2b2a  3a
+####  ##1e
+##1a1b1c1d
+########..
+move: 2 head (3,3) R
+  3f3e3d3c
+2e######3b
+2d2c2b2a3a
+####  ##1e
+##1a1b1c1d
+########..
+move: 3 tail (1,2) L
+3f3e3d3c3b
+2e######3a
+2d2c2b2a  
+####  ##1e
+##1a1b1c1d
+########..
+move: 1 tail (4,5) U
+3f3e3d3c3b
+2e######3a
+2d2c2b2a1e
+####  ##1d
+##  1a1b1c
+########..
+move: 1 head (5,3) U
+3f3e3d3c3b
+2e######3a
+2d2c2b2a  
+####1a##1e
+##  1b1c1d
+########..
+move: 3 head (2,5) D
+  3f3e3d3c
+2e######3b
+2d2c2b2a3a
+####1a##1e
+##  1b1c1d
+########..
+move: 2 tail (2,1) U
+2e3f3e3d3c
+2d######3b
+2c2b2a  3a
+####1a##1e
+##  1b1c1d
+########..
+move: 3 head (3,5) L
+2e  3f3e3d
+2d######3c
+2c2b2a3a3b
+####1a##1e
+##  1b1c1d
+########..
+move: 2 tail (1,1) R
+2d2e3f3e3d
+2c######3c
+2b2a  3a3b
+####1a##1e
+##  1b1c1d
+########..
+move: 1 head (4,3) U
+2d2e3f3e3d
+2c######3c
+2b2a1a3a3b
+####1b##  
+##  1c1d1e
+########..
+move: 1 tail (5,5) D
+2d2e3f3e3d
+2c######3c
+2b2a  3a3b
+####1a##  
+##  1b1c1d
+########1e
+Number of moves: 16
+Number of vertices examined: 85
+0.0026082 [s]
+
+Level 63
+Sequence of moves: 
+3a1d1c1b1a
+3b1e  ##2h
+3c1f    2g
+3d3e3f3g2f
+2a2b2c2d2e
+########..
+move: 3 tail (4,4) U
+move: 3 tail (3,4) L
+move: 3 tail (3,3) U
+  1d1c1b1a
+  1e3g##2h
+  1f3f3e2g
+3a3b3c3d2f
+2a2b2c2d2e
+########..
+move: 1 tail (3,2) L
+move: 1 tail (3,1) U
+move: 1 tail (2,1) U
+1f1a      
+1e1b3g##2h
+1d1c3f3e2g
+3a3b3c3d2f
+2a2b2c2d2e
+########..
+move: 3 tail (2,3) U
+1f1a3g    
+1e1b3f##2h
+1d1c3e3d2g
+  3a3b3c2f
+2a2b2c2d2e
+########..
+move: 2 tail (2,5) U
+move: 2 tail (1,5) L
+1f1a3g2h2g
+1e1b3f##2f
+1d1c3e3d2e
+  3a3b3c2d
+    2a2b2c
+########..
+move: 3 head (4,2) D
+move: 3 head (5,2) L
+move: 3 head (5,1) U
+1f1a  2h2g
+1e1b  ##2f
+1d1c  3g2e
+3a3d3e3f2d
+3b3c2a2b2c
+########..
+move: 1 head (1,2) R
+move: 1 head (1,3) D
+move: 1 head (2,3) D
+  1d1c2h2g
+  1e1b##2f
+  1f1a3g2e
+3a3d3e3f2d
+3b3c2a2b2c
+########..
+move: 3 head (4,1) U
+move: 3 head (3,1) U
+move: 3 head (2,1) U
+3a1d1c2h2g
+3b1e1b##2f
+3c1f1a  2e
+3d3g    2d
+3e3f2a2b2c
+########..
+move: 1 head (3,3) R
+move: 1 head (3,4) D
+move: 1 head (4,4) L
+3a  1f2h2g
+3b  1e##2f
+3c  1d1c2e
+3d3g1a1b2d
+3e3f2a2b2c
+########..
+move: 3 head (1,1) R
+3b3a1f2h2g
+3c  1e##2f
+3d  1d1c2e
+3e  1a1b2d
+3f3g2a2b2c
+########..
+move: 1 head (4,3) L
+move: 1 head (4,2) U
+move: 1 head (3,2) U
+move: 1 head (2,2) R
+move: 1 head (2,3) U
+3b3a1a2h2g
+3c1c1b##2f
+3d1d    2e
+3e1e1f  2d
+3f3g2a2b2c
+########..
+move: 1 tail (4,3) U
+move: 1 tail (3,3) R
+move: 1 tail (3,4) D
+3b3a  2h2g
+3c    ##2f
+3d1a1d1e2e
+3e1b1c1f2d
+3f3g2a2b2c
+########..
+move: 2 tail (1,4) L
+move: 2 tail (1,3) D
+move: 2 tail (2,3) L
+3b3a2f2e2d
+3c2h2g##2c
+3d1a1d1e2b
+3e1b1c1f2a
+3f3g      
+########..
+move: 1 tail (4,4) D
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+3b3a2f2e2d
+3c2h2g##2c
+3d  1a1b2b
+3e    1c2a
+3f3g  1d1e
+########1f
+Number of moves: 36
+Number of vertices examined: 5465
+0.108592 [s]
+
+Level 64
+Sequence of moves: 
+1h1g1d1c  
+1i1f1e1b3b
+1j1k2c1a3a
+##1l2b####
+##1m2a    
+########..
+move: 2 head (5,3) R
+move: 2 head (5,4) R
+1h1g1d1c  
+1i1f1e1b3b
+1j1k  1a3a
+##1l  ####
+##1m2c2b2a
+########..
+move: 1 head (3,4) L
+move: 1 head (3,3) D
+move: 1 head (4,3) L
+move: 1 head (4,2) U
+move: 1 head (3,2) L
+move: 1 head (3,1) U
+move: 1 head (2,1) U
+move: 1 head (1,1) R
+move: 1 head (1,2) D
+move: 1 head (2,2) R
+move: 1 head (2,3) U
+move: 1 head (1,3) R
+move: 1 head (1,4) R
+1g1f1c1b1a
+1h1e1d  3b
+1i1j1m  3a
+##1k1l####
+##  2c2b2a
+########..
+move: 3 head (3,5) L
+1g1f1c1b1a
+1h1e1d    
+1i1j1m3a3b
+##1k1l####
+##  2c2b2a
+########..
+move: 1 head (1,5) D
+move: 1 head (2,5) L
+1i1h1e1d1c
+1j1g1f1a1b
+1k1l  3a3b
+##1m  ####
+##  2c2b2a
+########..
+move: 3 head (3,4) L
+move: 3 head (3,3) D
+1i1h1e1d1c
+1j1g1f1a1b
+1k1l3b    
+##1m3a####
+##  2c2b2a
+########..
+move: 1 head (2,4) D
+move: 1 head (3,4) R
+1k1j1g1f1e
+1l1i1h1c1d
+1m  3b1b1a
+##  3a####
+##  2c2b2a
+########..
+move: 2 tail (5,3) L
+move: 2 tail (5,2) U
+move: 2 tail (4,2) U
+1k1j1g1f1e
+1l1i1h1c1d
+1m2c3b1b1a
+##2b3a####
+##2a      
+########..
+move: 3 head (4,3) D
+move: 3 head (5,3) R
+move: 3 head (5,4) R
+1k1j1g1f1e
+1l1i1h1c1d
+1m2c  1b1a
+##2b  ####
+##2a  3b3a
+########..
+move: 2 tail (3,2) R
+move: 2 tail (3,3) D
+move: 2 tail (4,3) D
+1k1j1g1f1e
+1l1i1h1c1d
+1m  2a1b1a
+##  2b####
+##  2c3b3a
+########..
+move: 1 tail (3,1) R
+move: 1 tail (3,2) D
+1i1h1e1d1c
+1j1g1f1a1b
+1k1l2a    
+##1m2b####
+##  2c3b3a
+########..
+move: 2 head (3,3) R
+move: 2 head (3,4) R
+1i1h1e1d1c
+1j1g1f1a1b
+1k1l2c2b2a
+##1m  ####
+##    3b3a
+########..
+move: 1 tail (4,2) D
+move: 1 tail (5,2) R
+move: 1 tail (5,3) U
+1f1e1b1a  
+1g1d1c    
+1h1i2c2b2a
+##1j1m####
+##1k1l3b3a
+########..
+move: 2 head (3,5) U
+move: 2 head (2,5) U
+1f1e1b1a2a
+1g1d1c  2b
+1h1i    2c
+##1j1m####
+##1k1l3b3a
+########..
+move: 1 head (1,4) D
+move: 1 head (2,4) D
+1h1g1d1c2a
+1i1f1e1b2b
+1j1k  1a2c
+##1l  ####
+##1m  3b3a
+########..
+move: 3 tail (5,4) L
+move: 3 tail (5,3) U
+move: 3 tail (4,3) U
+1h1g1d1c2a
+1i1f1e1b2b
+1j1k3b1a2c
+##1l3a####
+##1m      
+########..
+move: 1 tail (5,2) R
+move: 1 tail (5,3) R
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+1d1c    2a
+1e1b1a  2b
+1f1g3b  2c
+##1h3a####
+##1i1j1k1l
+########1m
+Number of moves: 49
+Number of vertices examined: 13498
+0.256759 [s]
+
+Level 65
+Sequence of moves: 
+1c1b1a  ##
+1d2a2b2c##
+1e1f1g2d##
+  2g2f2e3b
+  ######3a
+########..
+move: 2 tail (4,2) L
+move: 2 tail (4,1) D
+1c1b1a  ##
+1d    2a##
+1e1f1g2b##
+2f2e2d2c3b
+2g######3a
+########..
+move: 1 tail (3,3) U
+move: 1 tail (2,3) L
+move: 1 tail (2,2) U
+move: 1 tail (1,2) L
+1g1f    ##
+  1e1d2a##
+1a1b1c2b##
+2f2e2d2c3b
+2g######3a
+########..
+move: 2 head (2,4) U
+move: 2 head (1,4) L
+1g1f2a2b##
+  1e1d2c##
+1a1b1c2d##
+  2g2f2e3b
+  ######3a
+########..
+move: 1 head (3,1) D
+move: 1 head (4,1) D
+    2a2b##
+  1g1f2c##
+1c1d1e2d##
+1b2g2f2e3b
+1a######3a
+########..
+move: 2 head (1,3) L
+move: 2 head (1,2) L
+2a2b2c2d##
+  1g1f2e##
+1c1d1e2f##
+1b    2g3b
+1a######3a
+########..
+move: 1 tail (2,2) L
+2a2b2c2d##
+1g1f1e2e##
+1b1c1d2f##
+1a    2g3b
+  ######3a
+########..
+move: 1 head (4,1) R
+move: 1 head (4,2) R
+2a2b2c2d##
+    1g2e##
+1d1e1f2f##
+1c1b1a2g3b
+  ######3a
+########..
+move: 2 head (1,1) D
+move: 2 head (2,1) R
+2c2d2e2f##
+2b2a1g2g##
+1d1e1f  ##
+1c1b1a  3b
+  ######3a
+########..
+move: 1 head (4,3) R
+move: 1 head (4,4) U
+move: 1 head (3,4) L
+move: 1 head (3,3) U
+2c2d2e2f##
+2b2a1a2g##
+    1b1c##
+1g1f1e1d3b
+  ######3a
+########..
+move: 2 head (2,2) D
+move: 2 head (3,2) L
+2e2f2g  ##
+2d2c1a  ##
+2a2b1b1c##
+1g1f1e1d3b
+  ######3a
+########..
+move: 1 head (2,3) R
+move: 1 head (2,4) U
+2e2f2g1a##
+2d2c1c1b##
+2a2b1d1e##
+    1g1f3b
+  ######3a
+########..
+move: 2 head (3,1) D
+move: 2 head (4,1) D
+2g    1a##
+2f2e1c1b##
+2c2d1d1e##
+2b  1g1f3b
+2a######3a
+########..
+move: 1 head (1,4) L
+move: 1 head (1,3) L
+2g1a1b1c##
+2f2e1e1d##
+2c2d1f1g##
+2b      3b
+2a######3a
+########..
+move: 3 tail (4,5) L
+move: 3 tail (4,4) L
+move: 3 tail (4,3) L
+2g1a1b1c##
+2f2e1e1d##
+2c2d1f1g##
+2b3b3a    
+2a######  
+########..
+move: 1 tail (3,4) D
+move: 1 tail (4,4) R
+move: 1 tail (4,5) D
+move: 1 tail (5,5) D
+2g      ##
+2f2e1a  ##
+2c2d1b1c##
+2b3b3a1d1e
+2a######1f
+########1g
+Number of moves: 36
+Number of vertices examined: 5601
+0.100912 [s]
+
+Level 66
+Sequence of moves: 
+####  ##1b
+2c3a3b3c1a
+2b####  ##
+2a4a4b4c  
+####  ##  
+########..
+move: 4 tail (4,4) R
+move: 4 tail (4,5) D
+####  ##1b
+2c3a3b3c1a
+2b####  ##
+2a    4a4b
+####  ##4c
+########..
+move: 2 head (4,1) R
+move: 2 head (4,2) R
+####  ##1b
+  3a3b3c1a
+  ####  ##
+2c2b2a4a4b
+####  ##4c
+########..
+move: 3 head (2,2) L
+move: 3 head (2,1) D
+####  ##1b
+3b3c    1a
+3a####  ##
+2c2b2a4a4b
+####  ##4c
+########..
+move: 1 head (2,5) L
+move: 1 head (2,4) L
+move: 1 head (2,3) U
+####1a##  
+3b3c1b    
+3a####  ##
+2c2b2a4a4b
+####  ##4c
+########..
+move: 4 head (4,4) U
+move: 4 head (3,4) U
+move: 4 head (2,4) R
+move: 4 head (2,5) U
+####1a##4a
+3b3c1b4c4b
+3a####  ##
+2c2b2a    
+####  ##  
+########..
+move: 2 head (4,3) R
+move: 2 head (4,4) R
+move: 2 head (4,5) D
+####1a##4a
+3b3c1b4c4b
+3a####  ##
+      2c2b
+####  ##2a
+########..
+move: 3 head (3,1) D
+move: 3 head (4,1) R
+move: 3 head (4,2) R
+move: 3 head (4,3) D
+####1a##4a
+    1b4c4b
+  ####  ##
+  3c3b2c2b
+####3a##2a
+########..
+move: 1 tail (2,3) L
+move: 1 tail (2,2) L
+move: 1 tail (2,1) D
+move: 1 tail (3,1) D
+####  ##4a
+      4c4b
+1a####  ##
+1b3c3b2c2b
+####3a##2a
+########..
+move: 4 tail (2,4) L
+move: 4 tail (2,3) L
+move: 4 tail (2,2) L
+####  ##  
+4c4b4a    
+1a####  ##
+1b3c3b2c2b
+####3a##2a
+########..
+move: 2 tail (4,4) U
+move: 2 tail (3,4) U
+move: 2 tail (2,4) R
+move: 2 tail (2,5) U
+####  ##2c
+4c4b4a2a2b
+1a####  ##
+1b3c3b    
+####3a##  
+########..
+move: 4 head (2,3) U
+####4a##2c
+  4c4b2a2b
+1a####  ##
+1b3c3b    
+####3a##  
+########..
+move: 1 head (3,1) U
+####4a##2c
+1a4c4b2a2b
+1b####  ##
+  3c3b    
+####3a##  
+########..
+move: 3 tail (4,2) L
+####4a##2c
+1a4c4b2a2b
+1b####  ##
+3c3b3a    
+####  ##  
+########..
+move: 3 head (4,3) R
+move: 3 head (4,4) R
+move: 3 head (4,5) D
+####4a##2c
+1a4c4b2a2b
+1b####  ##
+      3c3b
+####  ##3a
+########..
+move: 1 tail (3,1) D
+move: 1 tail (4,1) R
+move: 1 tail (4,2) R
+move: 1 tail (4,3) D
+####4a##2c
+  4c4b2a2b
+  ####  ##
+    1a3c3b
+####1b##3a
+########..
+move: 4 tail (2,2) L
+move: 4 tail (2,1) D
+move: 4 tail (3,1) D
+move: 4 tail (4,1) R
+####  ##2c
+      2a2b
+4a####  ##
+4b4c1a3c3b
+####1b##3a
+########..
+move: 2 head (2,4) L
+move: 2 head (2,3) L
+move: 2 head (2,2) L
+####  ##  
+2a2b2c    
+4a####  ##
+4b4c1a3c3b
+####1b##3a
+########..
+move: 3 tail (4,4) U
+move: 3 tail (3,4) U
+move: 3 tail (2,4) R
+####  ##  
+2a2b2c3b3c
+4a####3a##
+4b4c1a    
+####1b##  
+########..
+move: 1 head (4,3) R
+move: 1 head (4,4) R
+move: 1 head (4,5) D
+move: 1 head (5,5) D
+####  ##  
+2a2b2c3b3c
+4a####3a##
+4b4c      
+####  ##1b
+########1a
+Number of moves: 55
+Number of vertices examined: 1466
+0.0274464 [s]
+
+Level 67
+Sequence of moves: 
+1f1e1d1c1b
+1g2c2d2e1a
+##2b  2f##
+##2a##2g##
+  3c3b3a  
+########..
+move: 3 head (5,4) R
+1f1e1d1c1b
+1g2c2d2e1a
+##2b  2f##
+##2a##2g##
+    3c3b3a
+########..
+move: 2 head (4,2) D
+1f1e1d1c1b
+1g2d2e2f1a
+##2c  2g##
+##2b##  ##
+  2a3c3b3a
+########..
+move: 2 tail (3,4) L
+1f1e1d1c1b
+1g2c2d2e1a
+##2b2g2f##
+##2a##  ##
+    3c3b3a
+########..
+move: 3 tail (5,3) L
+1f1e1d1c1b
+1g2c2d2e1a
+##2b2g2f##
+##2a##  ##
+  3c3b3a  
+########..
+move: 3 head (5,4) U
+1f1e1d1c1b
+1g2c2d2e1a
+##2b2g2f##
+##2a##3a##
+    3c3b  
+########..
+move: 2 head (4,2) D
+move: 2 head (5,2) L
+1f1e1d1c1b
+1g2e2f2g1a
+##2d    ##
+##2c##3a##
+2a2b3c3b  
+########..
+move: 3 head (4,4) U
+1f1e1d1c1b
+1g2e2f2g1a
+##2d  3a##
+##2c##3b##
+2a2b  3c  
+########..
+move: 3 tail (5,4) R
+1f1e1d1c1b
+1g2e2f2g1a
+##2d    ##
+##2c##3a##
+2a2b  3b3c
+########..
+move: 2 tail (2,4) D
+1f1e1d1c1b
+1g2d2e2f1a
+##2c  2g##
+##2b##3a##
+  2a  3b3c
+########..
+move: 2 head (5,2) R
+1f1e1d1c1b
+1g2e2f2g1a
+##2d    ##
+##2c##3a##
+  2b2a3b3c
+########..
+move: 3 head (4,4) U
+move: 3 head (3,4) L
+1f1e1d1c1b
+1g2e2f2g1a
+##2d3a3b##
+##2c##3c##
+  2b2a    
+########..
+move: 2 head (5,3) R
+move: 2 head (5,4) R
+1f1e1d1c1b
+1g2g    1a
+##2f3a3b##
+##2e##3c##
+  2d2c2b2a
+########..
+move: 1 head (2,5) L
+move: 1 head (2,4) L
+  1g1f1e1d
+  2g1a1b1c
+##2f3a3b##
+##2e##3c##
+  2d2c2b2a
+########..
+move: 2 tail (2,2) L
+move: 2 tail (2,1) U
+2g1g1f1e1d
+2f2e1a1b1c
+##2d3a3b##
+##2c##3c##
+  2b2a    
+########..
+move: 3 tail (4,4) D
+2g1g1f1e1d
+2f2e1a1b1c
+##2d  3a##
+##2c##3b##
+  2b2a3c  
+########..
+move: 1 head (2,3) D
+2g  1g1f1e
+2f2e1b1c1d
+##2d1a3a##
+##2c##3b##
+  2b2a3c  
+########..
+move: 2 tail (1,1) R
+2f2g1g1f1e
+2e2d1b1c1d
+##2c1a3a##
+##2b##3b##
+  2a  3c  
+########..
+move: 3 tail (5,4) L
+2f2g1g1f1e
+2e2d1b1c1d
+##2c1a  ##
+##2b##3a##
+  2a3c3b  
+########..
+move: 1 head (3,3) R
+2f2g  1g1f
+2e2d1c1d1e
+##2c1b1a##
+##2b##3a##
+  2a3c3b  
+########..
+move: 2 tail (1,2) R
+2e2f2g1g1f
+2d2c1c1d1e
+##2b1b1a##
+##2a##3a##
+    3c3b  
+########..
+move: 3 tail (5,3) L
+move: 3 tail (5,2) L
+2e2f2g1g1f
+2d2c1c1d1e
+##2b1b1a##
+##2a##  ##
+3c3b3a    
+########..
+move: 1 head (3,4) D
+move: 1 head (4,4) D
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+2e2f2g    
+2d2c1g    
+##2b1f1e##
+##2a##1d##
+3c3b3a1c1b
+########1a
+Number of moves: 31
+Number of vertices examined: 397
+0.00733013 [s]
+
+Level 68
+Sequence of moves: 
+  2c2b2a##
+##2d##4a##
+1d1c1b4b  
+1e##1a####
+3c3b3a    
+########..
+move: 3 head (5,3) R
+move: 3 head (5,4) R
+  2c2b2a##
+##2d##4a##
+1d1c1b4b  
+1e##1a####
+    3c3b3a
+########..
+move: 1 tail (4,1) D
+move: 1 tail (5,1) R
+  2c2b2a##
+##2d##4a##
+1b1a  4b  
+1c##  ####
+1d1e3c3b3a
+########..
+move: 4 tail (3,4) L
+move: 4 tail (3,3) D
+  2c2b2a##
+##2d##  ##
+1b1a4a    
+1c##4b####
+1d1e3c3b3a
+########..
+move: 2 head (1,4) D
+move: 2 head (2,4) D
+    2d2c##
+##  ##2b##
+1b1a4a2a  
+1c##4b####
+1d1e3c3b3a
+########..
+move: 1 head (3,2) U
+move: 1 head (2,2) U
+move: 1 head (1,2) L
+1a1b2d2c##
+##1c##2b##
+1e1d4a2a  
+  ##4b####
+    3c3b3a
+########..
+move: 3 tail (5,3) L
+move: 3 tail (5,2) L
+move: 3 tail (5,1) U
+1a1b2d2c##
+##1c##2b##
+1e1d4a2a  
+3c##4b####
+3b3a      
+########..
+move: 4 tail (4,3) D
+move: 4 tail (5,3) R
+move: 4 tail (5,4) R
+1a1b2d2c##
+##1c##2b##
+1e1d  2a  
+3c##  ####
+3b3a  4a4b
+########..
+move: 3 head (5,2) R
+move: 3 head (5,3) U
+move: 3 head (4,3) U
+1a1b2d2c##
+##1c##2b##
+1e1d3a2a  
+  ##3b####
+    3c4a4b
+########..
+move: 1 tail (3,1) D
+move: 1 tail (4,1) D
+move: 1 tail (5,1) R
+    2d2c##
+##  ##2b##
+1b1a3a2a  
+1c##3b####
+1d1e3c4a4b
+########..
+move: 2 tail (1,3) L
+  2d2c2b##
+##  ##2a##
+1b1a3a    
+1c##3b####
+1d1e3c4a4b
+########..
+move: 3 head (3,3) R
+move: 3 head (3,4) R
+  2d2c2b##
+##  ##2a##
+1b1a3c3b3a
+1c##  ####
+1d1e  4a4b
+########..
+move: 1 tail (5,2) R
+  2d2c2b##
+##  ##2a##
+1a  3c3b3a
+1b##  ####
+1c1d1e4a4b
+########..
+move: 3 tail (3,3) L
+move: 3 tail (3,2) U
+  2d2c2b##
+##3c##2a##
+1a3b3a    
+1b##  ####
+1c1d1e4a4b
+########..
+move: 2 head (2,4) D
+    2d2c##
+##3c##2b##
+1a3b3a2a  
+1b##  ####
+1c1d1e4a4b
+########..
+move: 3 tail (2,2) U
+move: 3 tail (1,2) L
+3c3b2d2c##
+##3a##2b##
+1a    2a  
+1b##  ####
+1c1d1e4a4b
+########..
+move: 1 head (3,1) R
+3c3b2d2c##
+##3a##2b##
+1b1a  2a  
+1c##  ####
+1d1e  4a4b
+########..
+move: 4 head (5,4) L
+move: 4 head (5,3) U
+move: 4 head (4,3) U
+3c3b2d2c##
+##3a##2b##
+1b1a4a2a  
+1c##4b####
+1d1e      
+########..
+move: 1 tail (5,2) R
+move: 1 tail (5,3) R
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+3c3b2d2c##
+##3a##2b##
+    4a2a  
+  ##4b####
+  1a1b1c1d
+########1e
+Number of moves: 40
+Number of vertices examined: 1567
+0.0311755 [s]
+
+Level 69
+Sequence of moves: 
+1c1b1a##  
+##  3e3d3c
+##2b2a3a3b
+##2c##  ##
+  2d2e2f  
+########..
+move: 2 tail (5,4) U
+1c1b1a##  
+##  3e3d3c
+##2a  3a3b
+##2b##2f##
+  2c2d2e  
+########..
+move: 3 head (3,4) L
+move: 3 head (3,3) U
+move: 3 head (2,3) R
+move: 3 head (2,4) R
+move: 3 head (2,5) U
+1c1b1a##3a
+##  3d3c3b
+##2a3e    
+##2b##2f##
+  2c2d2e  
+########..
+move: 2 tail (4,4) U
+move: 2 tail (3,4) R
+1c1b1a##3a
+##  3d3c3b
+##  3e2e2f
+##  ##2d##
+  2a2b2c  
+########..
+move: 3 tail (3,3) L
+move: 3 tail (3,2) D
+1c1b1a##  
+##  3b3a  
+##3d3c2e2f
+##3e##2d##
+  2a2b2c  
+########..
+move: 2 tail (3,5) U
+move: 2 tail (2,5) U
+1c1b1a##2f
+##  3b3a2e
+##3d3c2c2d
+##3e##2b##
+      2a  
+########..
+move: 2 head (5,4) R
+1c1b1a##  
+##  3b3a2f
+##3d3c2d2e
+##3e##2c##
+      2b2a
+########..
+move: 3 tail (4,2) D
+move: 3 tail (5,2) R
+1c1b1a##  
+##      2f
+##3b3a2d2e
+##3c##2c##
+  3d3e2b2a
+########..
+move: 1 head (1,3) D
+move: 1 head (2,3) L
+move: 1 head (2,2) U
+move: 1 head (1,2) L
+1a1b  ##  
+##1c    2f
+##3b3a2d2e
+##3c##2c##
+  3d3e2b2a
+########..
+move: 2 tail (2,5) L
+move: 2 tail (2,4) L
+move: 2 tail (2,3) U
+1a1b2f##  
+##1c2e2d2c
+##3b3a2a2b
+##3c##  ##
+  3d3e    
+########..
+move: 3 tail (5,3) R
+move: 3 tail (5,4) R
+1a1b2f##  
+##1c2e2d2c
+##    2a2b
+##3a##  ##
+  3b3c3d3e
+########..
+move: 1 tail (2,2) D
+move: 1 tail (3,2) R
+    2f##  
+##1a2e2d2c
+##1b1c2a2b
+##3a##  ##
+  3b3c3d3e
+########..
+move: 2 tail (1,3) L
+  2f2e##  
+##1a2d2c2b
+##1b1c  2a
+##3a##  ##
+  3b3c3d3e
+########..
+move: 1 tail (3,3) R
+move: 1 tail (3,4) D
+  2f2e##  
+##  2d2c2b
+##  1a1b2a
+##3a##1c##
+  3b3c3d3e
+########..
+move: 3 head (4,2) U
+move: 3 head (3,2) U
+  2f2e##  
+##3a2d2c2b
+##3b1a1b2a
+##3c##1c##
+  3d3e    
+########..
+move: 1 tail (4,4) D
+move: 1 tail (5,4) R
+move: 1 tail (5,5) D
+  2f2e##  
+##3a2d2c2b
+##3b    2a
+##3c##  ##
+  3d3e1a1b
+########1c
+Number of moves: 34
+Number of vertices examined: 2557
+0.0433425 [s]
+
+Level 70
+Sequence of moves: 
+1c1b  6b6c
+##1a##6a4c
+2b2a####4b
+2c##5a5b4a
+3c3b3a5c  
+########..
+move: 5 tail (5,4) R
+1c1b  6b6c
+##1a##6a4c
+2b2a####4b
+2c##  5a4a
+3c3b3a5b5c
+########..
+move: 3 head (5,3) U
+1c1b  6b6c
+##1a##6a4c
+2b2a####4b
+2c##3a5a4a
+  3c3b5b5c
+########..
+move: 2 tail (4,1) D
+1c1b  6b6c
+##1a##6a4c
+2a  ####4b
+2b##3a5a4a
+2c3c3b5b5c
+########..
+move: 1 head (2,2) D
+  1c  6b6c
+##1b##6a4c
+2a1a####4b
+2b##3a5a4a
+2c3c3b5b5c
+########..
+move: 1 tail (1,2) R
+  1b1c6b6c
+##1a##6a4c
+2a  ####4b
+2b##3a5a4a
+2c3c3b5b5c
+########..
+move: 2 head (3,1) R
+  1b1c6b6c
+##1a##6a4c
+2b2a####4b
+2c##3a5a4a
+  3c3b5b5c
+########..
+move: 3 tail (5,2) L
+  1b1c6b6c
+##1a##6a4c
+2b2a####4b
+2c##  5a4a
+3c3b3a5b5c
+########..
+move: 5 head (4,4) L
+  1b1c6b6c
+##1a##6a4c
+2b2a####4b
+2c##5a5b4a
+3c3b3a5c  
+########..
+move: 4 head (4,5) D
+  1b1c6b6c
+##1a##6a  
+2b2a####4c
+2c##5a5b4b
+3c3b3a5c4a
+########..
+move: 6 head (2,4) R
+move: 6 head (2,5) U
+  1b1c  6a
+##1a##6c6b
+2b2a####4c
+2c##5a5b4b
+3c3b3a5c4a
+########..
+move: 1 tail (1,3) R
+  1a1b1c6a
+##  ##6c6b
+2b2a####4c
+2c##5a5b4b
+3c3b3a5c4a
+########..
+move: 2 head (3,2) U
+  1a1b1c6a
+##2a##6c6b
+2c2b####4c
+  ##5a5b4b
+3c3b3a5c4a
+########..
+move: 3 tail (5,1) U
+  1a1b1c6a
+##2a##6c6b
+2c2b####4c
+3c##5a5b4b
+3b3a  5c4a
+########..
+move: 5 head (4,3) D
+  1a1b1c6a
+##2a##6c6b
+2c2b####4c
+3c##5b5c4b
+3b3a5a  4a
+########..
+move: 4 head (5,5) L
+  1a1b1c6a
+##2a##6c6b
+2c2b####  
+3c##5b5c4c
+3b3a5a4a4b
+########..
+move: 1 head (1,2) L
+1a1b1c  6a
+##2a##6c6b
+2c2b####  
+3c##5b5c4c
+3b3a5a4a4b
+########..
+move: 6 tail (2,4) U
+1a1b1c6c  
+##2a##6b6a
+2c2b####  
+3c##5b5c4c
+3b3a5a4a4b
+########..
+move: 6 head (2,5) D
+1a1b1c    
+##2a##6c6b
+2c2b####6a
+3c##5b5c4c
+3b3a5a4a4b
+########..
+move: 1 tail (1,3) R
+move: 1 tail (1,4) R
+    1a1b1c
+##2a##6c6b
+2c2b####6a
+3c##5b5c4c
+3b3a5a4a4b
+########..
+move: 2 head (2,2) U
+move: 2 head (1,2) L
+2a2b1a1b1c
+##2c##6c6b
+    ####6a
+3c##5b5c4c
+3b3a5a4a4b
+########..
+move: 3 tail (4,1) U
+move: 3 tail (3,1) R
+2a2b1a1b1c
+##2c##6c6b
+3b3c####6a
+3a##5b5c4c
+    5a4a4b
+########..
+move: 5 head (5,3) L
+move: 5 head (5,2) L
+2a2b1a1b1c
+##2c##6c6b
+3b3c####6a
+3a##    4c
+5a5b5c4a4b
+########..
+move: 4 head (5,4) U
+move: 4 head (4,4) L
+2a2b1a1b1c
+##2c##6c6b
+3b3c####6a
+3a##4a4b  
+5a5b5c4c  
+########..
+move: 6 head (3,5) D
+move: 6 head (4,5) D
+2a2b1a1b1c
+##2c##    
+3b3c####6c
+3a##4a4b6b
+5a5b5c4c6a
+########..
+move: 1 tail (1,5) D
+2a2b  1a1b
+##2c##  1c
+3b3c####6c
+3a##4a4b6b
+5a5b5c4c6a
+########..
+move: 1 head (1,4) D
+2a2b  1b1c
+##2c##1a  
+3b3c####6c
+3a##4a4b6b
+5a5b5c4c6a
+########..
+move: 6 tail (3,5) U
+2a2b  1b1c
+##2c##1a6c
+3b3c####6b
+3a##4a4b6a
+5a5b5c4c  
+########..
+move: 4 tail (5,4) R
+2a2b  1b1c
+##2c##1a6c
+3b3c####6b
+3a##  4a6a
+5a5b5c4b4c
+########..
+move: 5 tail (5,3) U
+2a2b  1b1c
+##2c##1a6c
+3b3c####6b
+3a##5c4a6a
+  5a5b4b4c
+########..
+move: 3 head (4,1) D
+2a2b  1b1c
+##2c##1a6c
+3c  ####6b
+3b##5c4a6a
+3a5a5b4b4c
+########..
+move: 2 tail (2,2) D
+  2a  1b1c
+##2b##1a6c
+3c2c####6b
+3b##5c4a6a
+3a5a5b4b4c
+########..
+move: 2 head (1,2) R
+  2b2a1b1c
+##2c##1a6c
+3c  ####6b
+3b##5c4a6a
+3a5a5b4b4c
+########..
+move: 3 tail (3,1) R
+  2b2a1b1c
+##2c##1a6c
+3b3c####6b
+3a##5c4a6a
+  5a5b4b4c
+########..
+move: 5 head (5,2) L
+  2b2a1b1c
+##2c##1a6c
+3b3c####6b
+3a##  4a6a
+5a5b5c4b4c
+########..
+move: 4 head (4,4) L
+  2b2a1b1c
+##2c##1a6c
+3b3c####6b
+3a##4a4b6a
+5a5b5c4c  
+########..
+move: 6 head (4,5) D
+  2b2a1b1c
+##2c##1a  
+3b3c####6c
+3a##4a4b6b
+5a5b5c4c6a
+########..
+move: 1 tail (1,5) D
+move: 1 tail (2,5) L
+  2b2a  1a
+##2c##1c1b
+3b3c####6c
+3a##4a4b6b
+5a5b5c4c6a
+########..
+move: 2 head (1,3) R
+  2c2b2a1a
+##  ##1c1b
+3b3c####6c
+3a##4a4b6b
+5a5b5c4c6a
+########..
+move: 3 tail (3,2) U
+  2c2b2a1a
+##3c##1c1b
+3a3b####6c
+  ##4a4b6b
+5a5b5c4c6a
+########..
+move: 5 head (5,1) U
+  2c2b2a1a
+##3c##1c1b
+3a3b####6c
+5a##4a4b6b
+5b5c  4c6a
+########..
+move: 4 head (4,3) D
+  2c2b2a1a
+##3c##1c1b
+3a3b####6c
+5a##4b4c6b
+5b5c4a  6a
+########..
+move: 2 tail (1,2) L
+2c2b2a  1a
+##3c##1c1b
+3a3b####6c
+5a##4b4c6b
+5b5c4a  6a
+########..
+move: 6 head (5,5) L
+2c2b2a  1a
+##3c##1c1b
+3a3b####  
+5a##4b4c6c
+5b5c4a6a6b
+########..
+move: 1 head (1,5) L
+2c2b2a1a1b
+##3c##  1c
+3a3b####  
+5a##4b4c6c
+5b5c4a6a6b
+########..
+move: 1 tail (2,5) D
+2c2b2a  1a
+##3c##  1b
+3a3b####1c
+5a##4b4c6c
+5b5c4a6a6b
+########..
+move: 2 head (1,3) R
+move: 2 head (1,4) D
+    2c2b1a
+##3c##2a1b
+3a3b####1c
+5a##4b4c6c
+5b5c4a6a6b
+########..
+move: 3 tail (2,2) U
+move: 3 tail (1,2) L
+3c3b2c2b1a
+##3a##2a1b
+    ####1c
+5a##4b4c6c
+5b5c4a6a6b
+########..
+move: 5 head (4,1) U
+move: 5 head (3,1) R
+3c3b2c2b1a
+##3a##2a1b
+5b5a####1c
+5c##4b4c6c
+    4a6a6b
+########..
+move: 4 head (5,3) L
+move: 4 head (5,2) L
+3c3b2c2b1a
+##3a##2a1b
+5b5a####1c
+5c##    6c
+4a4b4c6a6b
+########..
+move: 6 head (5,4) U
+move: 6 head (4,4) L
+3c3b2c2b1a
+##3a##2a1b
+5b5a####1c
+5c##6a6b  
+4a4b4c6c  
+########..
+move: 1 tail (3,5) D
+move: 1 tail (4,5) D
+move: 1 tail (5,5) D
+3c3b2c2b  
+##3a##2a  
+5b5a####  
+5c##6a6b1a
+4a4b4c6c1b
+########1c
+Number of moves: 66
+Number of vertices examined: 1573
+0.0322212 [s]
+
+Level 71
+Sequence of moves: 
+3a  4b  1c
+3b##4a##1b
+3c##2a  1a
+3d  2b####
+####2c2d2e
+########..
+move: 1 head (3,5) L
+3a  4b    
+3b##4a##1c
+3c##2a1a1b
+3d  2b####
+####2c2d2e
+########..
+move: 4 tail (1,3) R
+move: 4 tail (1,4) R
+3a    4a4b
+3b##  ##1c
+3c##2a1a1b
+3d  2b####
+####2c2d2e
+########..
+move: 3 tail (4,1) R
+      4a4b
+3a##  ##1c
+3b##2a1a1b
+3c3d2b####
+####2c2d2e
+########..
+move: 2 head (3,3) U
+move: 2 head (2,3) U
+move: 2 head (1,3) L
+move: 2 head (1,2) L
+2a2b2c4a4b
+3a##2d##1c
+3b##2e1a1b
+3c3d  ####
+####      
+########..
+move: 3 tail (4,2) R
+move: 3 tail (4,3) D
+move: 3 tail (5,3) R
+2a2b2c4a4b
+  ##2d##1c
+  ##2e1a1b
+  3a3b####
+####3c3d  
+########..
+move: 2 head (1,1) D
+move: 2 head (2,1) D
+move: 2 head (3,1) D
+2d2e  4a4b
+2c##  ##1c
+2b##  1a1b
+2a3a3b####
+####3c3d  
+########..
+move: 4 head (1,4) L
+move: 4 head (1,3) D
+move: 4 head (2,3) D
+2d2e      
+2c##4b##1c
+2b##4a1a1b
+2a3a3b####
+####3c3d  
+########..
+move: 2 tail (1,2) R
+move: 2 tail (1,3) R
+move: 2 tail (1,4) R
+2a2b2c2d2e
+  ##4b##1c
+  ##4a1a1b
+  3a3b####
+####3c3d  
+########..
+move: 3 head (4,2) L
+move: 3 head (4,1) U
+move: 3 head (3,1) U
+2a2b2c2d2e
+3a##4b##1c
+3b##4a1a1b
+3c3d  ####
+####      
+########..
+move: 4 head (3,3) D
+move: 4 head (4,3) D
+move: 4 head (5,3) R
+move: 4 head (5,4) R
+2a2b2c2d2e
+3a##  ##1c
+3b##  1a1b
+3c3d  ####
+####  4b4a
+########..
+move: 1 head (3,4) L
+move: 1 head (3,3) D
+move: 1 head (4,3) D
+2a2b2c2d2e
+3a##  ##  
+3b##1c    
+3c3d1b####
+####1a4b4a
+########..
+move: 2 tail (1,5) D
+move: 2 tail (2,5) D
+move: 2 tail (3,5) L
+      2a2b
+3a##  ##2c
+3b##1c2e2d
+3c3d1b####
+####1a4b4a
+########..
+move: 3 head (2,1) U
+move: 3 head (1,1) R
+3b3a  2a2b
+3c##  ##2c
+3d##1c2e2d
+    1b####
+####1a4b4a
+########..
+move: 1 tail (3,3) U
+move: 1 tail (2,3) U
+3b3a1c2a2b
+3c##1b##2c
+3d##1a2e2d
+      ####
+####  4b4a
+########..
+move: 4 tail (5,4) L
+move: 4 tail (5,3) U
+move: 4 tail (4,3) L
+move: 4 tail (4,2) L
+3b3a1c2a2b
+3c##1b##2c
+3d##1a2e2d
+4b4a  ####
+####      
+########..
+move: 1 head (3,3) D
+move: 1 head (4,3) D
+move: 1 head (5,3) R
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+3b3a  2a2b
+3c##  ##2c
+3d##  2e2d
+4b4a  ####
+####  1c1b
+########1a
+Number of moves: 46
+Number of vertices examined: 4991
+0.106846 [s]
+
+Level 72
+Sequence of moves: 
+      ####
+1a##    3a
+1b  2c##3b
+1c##2b##3c
+1d##2a##3d
+########..
+move: 1 head (2,1) U
+move: 1 head (1,1) R
+1b1a  ####
+1c##    3a
+1d  2c##3b
+  ##2b##3c
+  ##2a##3d
+########..
+move: 1 tail (3,1) R
+1a    ####
+1b##    3a
+1c1d2c##3b
+  ##2b##3c
+  ##2a##3d
+########..
+move: 2 tail (3,3) U
+move: 2 tail (2,3) U
+move: 2 tail (1,3) L
+1a2c2b####
+1b##2a  3a
+1c1d  ##3b
+  ##  ##3c
+  ##  ##3d
+########..
+move: 1 tail (3,2) R
+move: 1 tail (3,3) D
+  2c2b####
+  ##2a  3a
+1a1b1c##3b
+  ##1d##3c
+  ##  ##3d
+########..
+move: 1 head (3,1) D
+move: 1 head (4,1) D
+  2c2b####
+  ##2a  3a
+1c1d  ##3b
+1b##  ##3c
+1a##  ##3d
+########..
+move: 2 head (2,3) D
+move: 2 head (3,3) D
+move: 2 head (4,3) D
+      ####
+  ##    3a
+1c1d2c##3b
+1b##2b##3c
+1a##2a##3d
+########..
+move: 3 head (2,5) L
+move: 3 head (2,4) L
+move: 3 head (2,3) U
+move: 3 head (1,3) L
+move: 3 head (1,2) L
+move: 3 head (1,1) D
+3b3c3d####
+3a##      
+1c1d2c##  
+1b##2b##  
+1a##2a##  
+########..
+move: 2 tail (3,3) U
+move: 2 tail (2,3) R
+move: 2 tail (2,4) R
+move: 2 tail (2,5) D
+move: 2 tail (3,5) D
+move: 2 tail (4,5) D
+3b3c3d####
+3a##      
+1c1d  ##2a
+1b##  ##2b
+1a##  ##2c
+########..
+move: 1 tail (3,2) R
+move: 1 tail (3,3) U
+move: 1 tail (2,3) R
+move: 1 tail (2,4) R
+3b3c3d####
+3a##1b1c1d
+    1a##2a
+  ##  ##2b
+  ##  ##2c
+########..
+move: 3 head (2,1) D
+move: 3 head (3,1) D
+move: 3 head (4,1) D
+      ####
+3d##1b1c1d
+3c  1a##2a
+3b##  ##2b
+3a##  ##2c
+########..
+move: 1 head (3,3) D
+move: 1 head (4,3) D
+      ####
+3d##1d    
+3c  1c##2a
+3b##1b##2b
+3a##1a##2c
+########..
+move: 1 tail (2,3) U
+move: 1 tail (1,3) L
+move: 1 tail (1,2) L
+1d1c1b####
+3d##1a    
+3c    ##2a
+3b##  ##2b
+3a##  ##2c
+########..
+move: 1 head (2,3) R
+move: 1 head (2,4) R
+    1d####
+3d##1c1b1a
+3c    ##2a
+3b##  ##2b
+3a##  ##2c
+########..
+move: 3 tail (2,1) U
+move: 3 tail (1,1) R
+3c3d1d####
+3b##1c1b1a
+3a    ##2a
+  ##  ##2b
+  ##  ##2c
+########..
+move: 3 head (3,1) R
+move: 3 head (3,2) R
+move: 3 head (3,3) D
+    1d####
+  ##1c1b1a
+3d3c3b##2a
+  ##3a##2b
+  ##  ##2c
+########..
+move: 3 tail (3,1) D
+move: 3 tail (4,1) D
+    1d####
+  ##1c1b1a
+3b3a  ##2a
+3c##  ##2b
+3d##  ##2c
+########..
+move: 1 tail (1,3) L
+move: 1 tail (1,2) L
+move: 1 tail (1,1) D
+1c1b1a####
+1d##      
+3b3a  ##2a
+3c##  ##2b
+3d##  ##2c
+########..
+move: 2 head (3,5) U
+move: 2 head (2,5) L
+move: 2 head (2,4) L
+move: 2 head (2,3) D
+move: 2 head (3,3) D
+move: 2 head (4,3) D
+1c1b1a####
+1d##      
+3b3a2c##  
+3c##2b##  
+3d##2a##  
+########..
+move: 1 head (1,3) D
+move: 1 head (2,3) R
+move: 1 head (2,4) R
+move: 1 head (2,5) D
+move: 1 head (3,5) D
+move: 1 head (4,5) D
+move: 1 head (5,5) D
+      ####
+  ##      
+3b3a2c##1d
+3c##2b##1c
+3d##2a##1b
+########1a
+Number of moves: 62
+Number of vertices examined: 1839
+0.0313653 [s]
+
+Level 73
+Sequence of moves: 
+    ##3g3f
+##2f2g2h3e
+2d2e  2i3d
+2c##1b##3c
+2b2a1a3a3b
+########..
+move: 1 tail (4,3) U
+    ##3g3f
+##2f2g2h3e
+2d2e1b2i3d
+2c##1a##3c
+2b2a  3a3b
+########..
+move: 2 head (5,2) R
+    ##3g3f
+##2g2h2i3e
+2e2f1b  3d
+2d##1a##3c
+2c2b2a3a3b
+########..
+move: 1 tail (3,3) R
+    ##3g3f
+##2g2h2i3e
+2e2f1a1b3d
+2d##  ##3c
+2c2b2a3a3b
+########..
+move: 2 head (5,3) U
+    ##3g3f
+##2h2i  3e
+2f2g1a1b3d
+2e##2a##3c
+2d2c2b3a3b
+########..
+move: 1 tail (3,4) U
+    ##3g3f
+##2h2i1b3e
+2f2g  1a3d
+2e##2a##3c
+2d2c2b3a3b
+########..
+move: 2 head (4,3) U
+    ##3g3f
+##2i  1b3e
+2g2h2a1a3d
+2f##2b##3c
+2e2d2c3a3b
+########..
+move: 1 tail (2,4) L
+    ##3g3f
+##2i1b1a3e
+2g2h2a  3d
+2f##2b##3c
+2e2d2c3a3b
+########..
+move: 2 head (3,3) R
+    ##3g3f
+##  1b1a3e
+2h2i2b2a3d
+2g##2c##3c
+2f2e2d3a3b
+########..
+move: 1 tail (2,3) L
+move: 1 tail (2,2) U
+move: 1 tail (1,2) L
+1b1a##3g3f
+##      3e
+2h2i2b2a3d
+2g##2c##3c
+2f2e2d3a3b
+########..
+move: 2 tail (3,2) U
+move: 2 tail (2,2) R
+move: 2 tail (2,3) D
+move: 2 tail (3,3) R
+move: 2 tail (3,4) U
+1b1a##3g3f
+##2e2f2i3e
+2c2d2g2h3d
+2b##  ##3c
+2a    3a3b
+########..
+move: 3 head (5,4) L
+move: 3 head (5,3) L
+1b1a##    
+##2e2f2i3g
+2c2d2g2h3f
+2b##  ##3e
+2a3a3b3c3d
+########..
+move: 2 tail (2,4) U
+move: 2 tail (1,4) R
+1b1a##2h2i
+##2c2d2g3g
+2a2b2e2f3f
+  ##  ##3e
+  3a3b3c3d
+########..
+move: 3 head (5,2) L
+move: 3 head (5,1) U
+1b1a##2h2i
+##2c2d2g  
+2a2b2e2f  
+3a##  ##3g
+3b3c3d3e3f
+########..
+move: 2 tail (1,5) D
+move: 2 tail (2,5) D
+1b1a##2f2g
+##2a2b2e2h
+    2c2d2i
+3a##  ##3g
+3b3c3d3e3f
+########..
+move: 3 head (4,1) U
+move: 3 head (3,1) R
+1b1a##2f2g
+##2a2b2e2h
+3b3a2c2d2i
+3c##  ##  
+3d3e3f3g  
+########..
+move: 2 tail (3,5) D
+move: 2 tail (4,5) D
+1b1a##2d2e
+##    2c2f
+3b3a2a2b2g
+3c##  ##2h
+3d3e3f3g2i
+########..
+move: 3 head (3,2) U
+1b1a##2d2e
+##3a  2c2f
+3c3b2a2b2g
+3d##  ##2h
+3e3f3g  2i
+########..
+move: 2 tail (5,5) L
+1b1a##2c2d
+##3a  2b2e
+3c3b  2a2f
+3d##  ##2g
+3e3f3g2i2h
+########..
+move: 3 tail (5,3) U
+1b1a##2c2d
+##    2b2e
+3b3a  2a2f
+3c##3g##2g
+3d3e3f2i2h
+########..
+move: 1 head (1,2) D
+move: 1 head (2,2) R
+move: 1 head (2,3) D
+    ##2c2d
+##  1b2b2e
+3b3a1a2a2f
+3c##3g##2g
+3d3e3f2i2h
+########..
+move: 3 head (3,2) U
+move: 3 head (2,2) U
+  3a##2c2d
+##3b1b2b2e
+3d3c1a2a2f
+3e##  ##2g
+3f3g  2i2h
+########..
+move: 1 head (3,3) D
+move: 1 head (4,3) D
+  3a##2c2d
+##3b  2b2e
+3d3c  2a2f
+3e##1b##2g
+3f3g1a2i2h
+########..
+move: 2 head (3,4) L
+move: 2 head (3,3) U
+  3a##2e2f
+##3b2a2d2g
+3d3c2b2c2h
+3e##1b##2i
+3f3g1a    
+########..
+move: 1 head (5,3) R
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+  3a##2e2f
+##3b2a2d2g
+3d3c2b2c2h
+3e##  ##2i
+3f3g    1b
+########1a
+Number of moves: 43
+Number of vertices examined: 1199
+0.0212974 [s]
+
+Level 74
+Sequence of moves: 
+2b2c4b4a5a
+2a6d##5c5b
+3a6c6b6a##
+3b1c1b    
+3c##1a##  
+########..
+move: 6 head (3,4) D
+move: 6 head (4,4) R
+move: 6 head (4,5) D
+2b2c4b4a5a
+2a  ##5c5b
+3a    6d##
+3b1c1b6c6b
+3c##1a##6a
+########..
+move: 2 head (2,1) R
+move: 2 head (2,2) D
+move: 2 head (3,2) R
+    4b4a5a
+  2c##5c5b
+3a2b2a6d##
+3b1c1b6c6b
+3c##1a##6a
+########..
+move: 4 tail (1,3) L
+move: 4 tail (1,2) L
+move: 4 tail (1,1) D
+4a      5a
+4b2c##5c5b
+3a2b2a6d##
+3b1c1b6c6b
+3c##1a##6a
+########..
+move: 2 tail (2,2) U
+move: 2 tail (1,2) R
+move: 2 tail (1,3) R
+4a2a2b2c5a
+4b  ##5c5b
+3a    6d##
+3b1c1b6c6b
+3c##1a##6a
+########..
+move: 4 tail (2,1) R
+move: 4 tail (2,2) D
+move: 4 tail (3,2) R
+  2a2b2c5a
+    ##5c5b
+3a4a4b6d##
+3b1c1b6c6b
+3c##1a##6a
+########..
+move: 3 head (3,1) U
+move: 3 head (2,1) U
+3a2a2b2c5a
+3b  ##5c5b
+3c4a4b6d##
+  1c1b6c6b
+  ##1a##6a
+########..
+move: 1 tail (4,2) L
+move: 1 tail (4,1) D
+3a2a2b2c5a
+3b  ##5c5b
+3c4a4b6d##
+1b1a  6c6b
+1c##  ##6a
+########..
+move: 4 tail (3,3) D
+move: 4 tail (4,3) D
+3a2a2b2c5a
+3b  ##5c5b
+3c    6d##
+1b1a4a6c6b
+1c##4b##6a
+########..
+move: 6 tail (3,4) L
+move: 6 tail (3,3) L
+move: 6 tail (3,2) U
+3a2a2b2c5a
+3b6d##5c5b
+3c6c6b6a##
+1b1a4a    
+1c##4b##  
+########..
+move: 4 head (4,3) R
+move: 4 head (4,4) R
+move: 4 head (4,5) D
+3a2a2b2c5a
+3b6d##5c5b
+3c6c6b6a##
+1b1a    4b
+1c##  ##4a
+########..
+move: 1 head (4,2) R
+move: 1 head (4,3) R
+3a2a2b2c5a
+3b6d##5c5b
+3c6c6b6a##
+  1c1b1a4b
+  ##  ##4a
+########..
+move: 3 tail (3,1) D
+move: 3 tail (4,1) D
+  2a2b2c5a
+  6d##5c5b
+3a6c6b6a##
+3b1c1b1a4b
+3c##  ##4a
+########..
+move: 6 tail (2,2) L
+move: 6 tail (2,1) U
+6d2a2b2c5a
+6c6b##5c5b
+3a6a    ##
+3b1c1b1a4b
+3c##  ##4a
+########..
+move: 1 head (4,4) U
+6d2a2b2c5a
+6c6b##5c5b
+3a6a  1a##
+3b  1c1b4b
+3c##  ##4a
+########..
+move: 1 tail (4,3) D
+6d2a2b2c5a
+6c6b##5c5b
+3a6a    ##
+3b  1b1a4b
+3c##1c##4a
+########..
+move: 5 tail (2,4) D
+move: 5 tail (3,4) L
+6d2a2b2c  
+6c6b##5a  
+3a6a5c5b##
+3b  1b1a4b
+3c##1c##4a
+########..
+move: 2 tail (1,4) R
+6d  2a2b2c
+6c6b##5a  
+3a6a5c5b##
+3b  1b1a4b
+3c##1c##4a
+########..
+move: 6 tail (1,1) R
+6c6d2a2b2c
+6b6a##5a  
+3a  5c5b##
+3b  1b1a4b
+3c##1c##4a
+########..
+move: 5 tail (3,3) L
+move: 5 tail (3,2) D
+6c6d2a2b2c
+6b6a##    
+3a5b5a  ##
+3b5c1b1a4b
+3c##1c##4a
+########..
+move: 1 head (4,4) U
+move: 1 head (3,4) U
+move: 1 head (2,4) R
+6c6d2a2b2c
+6b6a##1b1a
+3a5b5a1c##
+3b5c    4b
+3c##  ##4a
+########..
+move: 4 tail (4,5) L
+move: 4 tail (4,4) L
+move: 4 tail (4,3) D
+6c6d2a2b2c
+6b6a##1b1a
+3a5b5a1c##
+3b5c4a    
+3c##4b##  
+########..
+move: 1 tail (3,4) D
+move: 1 tail (4,4) R
+move: 1 tail (4,5) D
+move: 1 tail (5,5) D
+6c6d2a2b2c
+6b6a##    
+3a5b5a  ##
+3b5c4a  1a
+3c##4b##1b
+########1c
+Number of moves: 51
+Number of vertices examined: 48269
+1.32848 [s]
+
+Level 75
+Sequence of moves: 
+3d3c3b1b  
+3e##3a1a  
+3f2a4a##  
+##2b4b4c##
+  2c##4d4e
+########..
+move: 2 tail (5,2) L
+3d3c3b1b  
+3e##3a1a  
+3f  4a##  
+##2a4b4c##
+2c2b##4d4e
+########..
+move: 3 tail (3,1) R
+3c3b3a1b  
+3d##  1a  
+3e3f4a##  
+##2a4b4c##
+2c2b##4d4e
+########..
+move: 1 head (2,4) R
+move: 1 head (2,5) D
+3c3b3a    
+3d##    1b
+3e3f4a##1a
+##2a4b4c##
+2c2b##4d4e
+########..
+move: 4 head (3,3) U
+move: 4 head (2,3) R
+move: 4 head (2,4) U
+move: 4 head (1,4) R
+3c3b3a4b4a
+3d##4d4c1b
+3e3f4e##1a
+##2a    ##
+2c2b##    
+########..
+move: 2 head (4,2) R
+move: 2 head (4,3) R
+move: 2 head (4,4) D
+move: 2 head (5,4) R
+3c3b3a4b4a
+3d##4d4c1b
+3e3f4e##1a
+##    2c##
+    ##2b2a
+########..
+move: 4 tail (3,3) D
+move: 4 tail (4,3) L
+3c3b3a    
+3d##4b4a1b
+3e3f4c##1a
+##4e4d2c##
+    ##2b2a
+########..
+move: 3 head (1,3) R
+move: 3 head (1,4) R
+3e3d3c3b3a
+3f##4b4a1b
+    4c##1a
+##4e4d2c##
+    ##2b2a
+########..
+move: 4 tail (4,2) U
+move: 4 tail (3,2) L
+3e3d3c3b3a
+3f##    1b
+4e4d4a##1a
+##4c4b2c##
+    ##2b2a
+########..
+move: 1 tail (2,5) L
+move: 1 tail (2,4) L
+3e3d3c3b3a
+3f##1b1a  
+4e4d4a##  
+##4c4b2c##
+    ##2b2a
+########..
+move: 3 head (1,5) D
+move: 3 head (2,5) D
+  3f3e3d3c
+  ##1b1a3b
+4e4d4a##3a
+##4c4b2c##
+    ##2b2a
+########..
+move: 4 tail (3,1) U
+move: 4 tail (2,1) U
+4e3f3e3d3c
+4d##1b1a3b
+4c4b  ##3a
+##4a  2c##
+    ##2b2a
+########..
+move: 4 head (4,2) D
+  3f3e3d3c
+4e##1b1a3b
+4d4c  ##3a
+##4b  2c##
+  4a##2b2a
+########..
+move: 3 tail (1,2) L
+3f3e3d3c3b
+4e##1b1a3a
+4d4c  ##  
+##4b  2c##
+  4a##2b2a
+########..
+move: 1 tail (2,3) D
+move: 1 tail (3,3) D
+3f3e3d3c3b
+4e##    3a
+4d4c1a##  
+##4b1b2c##
+  4a##2b2a
+########..
+move: 3 head (2,5) L
+move: 3 head (2,4) L
+    3f3e3d
+4e##3a3b3c
+4d4c1a##  
+##4b1b2c##
+  4a##2b2a
+########..
+move: 4 tail (2,1) U
+move: 4 tail (1,1) R
+4d4e3f3e3d
+4c##3a3b3c
+4b4a1a##  
+##  1b2c##
+    ##2b2a
+########..
+move: 1 tail (4,3) L
+move: 1 tail (4,2) D
+move: 1 tail (5,2) L
+4d4e3f3e3d
+4c##3a3b3c
+4b4a  ##  
+##    2c##
+1b1a##2b2a
+########..
+move: 3 head (2,3) D
+4d4e  3f3e
+4c##3b3c3d
+4b4a3a##  
+##    2c##
+1b1a##2b2a
+########..
+move: 4 tail (1,2) R
+4c4d4e3f3e
+4b##3b3c3d
+4a  3a##  
+##    2c##
+1b1a##2b2a
+########..
+move: 3 head (3,3) L
+move: 3 head (3,2) D
+move: 3 head (4,2) R
+4c4d4e    
+4b##3e3f  
+4a3c3d##  
+##3b3a2c##
+1b1a##2b2a
+########..
+move: 3 tail (2,4) U
+move: 3 tail (1,4) R
+move: 3 tail (1,5) D
+move: 3 tail (2,5) D
+4c4d4e3c3d
+4b##3a3b3e
+4a    ##3f
+##    2c##
+1b1a##2b2a
+########..
+move: 1 head (5,2) U
+move: 1 head (4,2) U
+move: 1 head (3,2) R
+4c4d4e3c3d
+4b##3a3b3e
+4a1b1a##3f
+##    2c##
+    ##2b2a
+########..
+move: 2 tail (4,4) L
+move: 2 tail (4,3) L
+move: 2 tail (4,2) D
+move: 2 tail (5,2) L
+4c4d4e3c3d
+4b##3a3b3e
+4a1b1a##3f
+##2a    ##
+2c2b##    
+########..
+move: 1 head (3,3) D
+move: 1 head (4,3) R
+move: 1 head (4,4) D
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+4c4d4e3c3d
+4b##3a3b3e
+4a    ##3f
+##2a    ##
+2c2b##  1b
+########1a
+Number of moves: 56
+Number of vertices examined: 4222
+0.0840534 [s]
+
+Level 76
+Sequence of moves: 
+    ##3b3a
+2d2c4d4c4b
+##2b##5c4a
+  2a##5b##
+1c1b1a5a  
+########..
+move: 2 tail (2,1) U
+move: 2 tail (1,1) R
+2c2d##3b3a
+2b2a4d4c4b
+##  ##5c4a
+    ##5b##
+1c1b1a5a  
+########..
+move: 1 tail (5,1) U
+move: 1 tail (4,1) R
+move: 1 tail (4,2) U
+2c2d##3b3a
+2b2a4d4c4b
+##1c##5c4a
+1a1b##5b##
+      5a  
+########..
+move: 5 head (5,4) L
+move: 5 head (5,3) L
+move: 5 head (5,2) L
+2c2d##3b3a
+2b2a4d4c4b
+##1c##  4a
+1a1b##  ##
+5a5b5c    
+########..
+move: 4 head (3,5) L
+move: 4 head (3,4) D
+move: 4 head (4,4) D
+move: 4 head (5,4) R
+2c2d##3b3a
+2b2a      
+##1c##4d  
+1a1b##4c##
+5a5b5c4b4a
+########..
+move: 2 head (2,2) R
+move: 2 head (2,3) R
+move: 2 head (2,4) R
+move: 2 head (2,5) D
+    ##3b3a
+    2d2c2b
+##1c##4d2a
+1a1b##4c##
+5a5b5c4b4a
+########..
+move: 1 tail (3,2) U
+move: 1 tail (2,2) L
+move: 1 tail (2,1) U
+move: 1 tail (1,1) R
+1b1c##3b3a
+1a  2d2c2b
+##  ##4d2a
+    ##4c##
+5a5b5c4b4a
+########..
+move: 2 tail (2,3) L
+move: 2 tail (2,2) D
+move: 2 tail (3,2) D
+move: 2 tail (4,2) L
+1b1c##3b3a
+1a2a      
+##2b##4d  
+2d2c##4c##
+5a5b5c4b4a
+########..
+move: 3 tail (1,4) D
+move: 3 tail (2,4) L
+1b1c##    
+1a2a3b3a  
+##2b##4d  
+2d2c##4c##
+5a5b5c4b4a
+########..
+move: 4 tail (3,4) R
+move: 4 tail (3,5) U
+move: 4 tail (2,5) U
+move: 4 tail (1,5) L
+1b1c##4d4c
+1a2a3b3a4b
+##2b##  4a
+2d2c##  ##
+5a5b5c    
+########..
+move: 5 tail (5,3) R
+move: 5 tail (5,4) U
+move: 5 tail (4,4) U
+1b1c##4d4c
+1a2a3b3a4b
+##2b##5c4a
+2d2c##5b##
+      5a  
+########..
+move: 2 tail (4,1) D
+move: 2 tail (5,1) R
+move: 2 tail (5,2) R
+1b1c##4d4c
+1a  3b3a4b
+##  ##5c4a
+2a  ##5b##
+2b2c2d5a  
+########..
+move: 3 tail (2,3) L
+move: 3 tail (2,2) D
+move: 3 tail (3,2) D
+1b1c##4d4c
+1a      4b
+##3a##5c4a
+2a3b##5b##
+2b2c2d5a  
+########..
+move: 5 head (5,4) R
+1b1c##4d4c
+1a      4b
+##3a##  4a
+2a3b##5c##
+2b2c2d5b5a
+########..
+move: 1 head (2,1) R
+move: 1 head (2,2) R
+move: 1 head (2,3) R
+move: 1 head (2,4) D
+    ##4d4c
+    1c1b4b
+##3a##1a4a
+2a3b##5c##
+2b2c2d5b5a
+########..
+move: 3 head (3,2) U
+move: 3 head (2,2) U
+move: 3 head (1,2) L
+3a3b##4d4c
+    1c1b4b
+##  ##1a4a
+2a  ##5c##
+2b2c2d5b5a
+########..
+move: 1 tail (2,3) L
+3a3b##4d4c
+  1c1b1a4b
+##  ##  4a
+2a  ##5c##
+2b2c2d5b5a
+########..
+move: 5 tail (4,4) U
+3a3b##4d4c
+  1c1b1a4b
+##  ##5c4a
+2a  ##5b##
+2b2c2d5a  
+########..
+move: 2 head (4,1) R
+move: 2 head (4,2) U
+3a3b##4d4c
+  1c1b1a4b
+##2a##5c4a
+2c2b##5b##
+2d    5a  
+########..
+move: 5 head (5,4) L
+move: 5 head (5,3) L
+3a3b##4d4c
+  1c1b1a4b
+##2a##  4a
+2c2b##  ##
+2d5a5b5c  
+########..
+move: 1 head (2,4) D
+3a3b##4d4c
+    1c1b4b
+##2a##1a4a
+2c2b##  ##
+2d5a5b5c  
+########..
+move: 2 head (3,2) U
+3a3b##4d4c
+  2a1c1b4b
+##2b##1a4a
+2d2c##  ##
+  5a5b5c  
+########..
+move: 5 head (5,2) L
+3a3b##4d4c
+  2a1c1b4b
+##2b##1a4a
+2d2c##  ##
+5a5b5c    
+########..
+move: 1 head (3,4) D
+move: 1 head (4,4) D
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+3a3b##4d4c
+  2a    4b
+##2b##  4a
+2d2c##  ##
+5a5b5c1c1b
+########1a
+Number of moves: 60
+Number of vertices examined: 63681
+1.70626 [s]
+
+Level 77
+Sequence of moves: 
+3b3a  1a1b
+3c##  ##1c
+3d3e3f2a2b
+  ##2g##2c
+4b4a2f2e2d
+########..
+move: 4 tail (5,1) U
+3b3a  1a1b
+3c##  ##1c
+3d3e3f2a2b
+4b##2g##2c
+4a  2f2e2d
+########..
+move: 3 head (1,2) R
+move: 3 head (1,3) D
+3d3c3b1a1b
+3e##3a##1c
+3f    2a2b
+4b##2g##2c
+4a  2f2e2d
+########..
+move: 2 tail (4,3) U
+move: 2 tail (3,3) R
+move: 2 tail (3,4) R
+move: 2 tail (3,5) D
+move: 2 tail (4,5) D
+move: 2 tail (5,5) L
+move: 2 tail (5,4) L
+move: 2 tail (5,3) L
+3d3c3b1a1b
+3e##3a##1c
+3f    2a2b
+4b##  ##2c
+4a2g2f2e2d
+########..
+move: 3 head (2,3) D
+3e3d3c1a1b
+3f##3b##1c
+    3a2a2b
+4b##  ##2c
+4a2g2f2e2d
+########..
+move: 4 tail (4,1) U
+move: 4 tail (3,1) R
+3e3d3c1a1b
+3f##3b##1c
+4a4b3a2a2b
+  ##  ##2c
+  2g2f2e2d
+########..
+move: 2 tail (5,2) L
+move: 2 tail (5,1) U
+3e3d3c1a1b
+3f##3b##1c
+4a4b3a    
+2g##  ##2a
+2f2e2d2c2b
+########..
+move: 3 head (3,3) R
+move: 3 head (3,4) R
+  3f3e1a1b
+  ##3d##1c
+4a4b3c3b3a
+2g##  ##2a
+2f2e2d2c2b
+########..
+move: 4 head (3,1) U
+move: 4 head (2,1) U
+4a3f3e1a1b
+4b##3d##1c
+    3c3b3a
+2g##  ##2a
+2f2e2d2c2b
+########..
+move: 2 tail (4,1) U
+4a3f3e1a1b
+4b##3d##1c
+2g  3c3b3a
+2f##  ##  
+2e2d2c2b2a
+########..
+move: 3 head (3,5) D
+4a  3f1a1b
+4b##3e##1c
+2g  3d3c3b
+2f##  ##3a
+2e2d2c2b2a
+########..
+move: 4 head (1,1) R
+4b4a3f1a1b
+  ##3e##1c
+2g  3d3c3b
+2f##  ##3a
+2e2d2c2b2a
+########..
+move: 2 tail (3,1) U
+4b4a3f1a1b
+2g##3e##1c
+2f  3d3c3b
+2e##  ##3a
+2d2c2b2a  
+########..
+move: 3 head (4,5) D
+4b4a  1a1b
+2g##3f##1c
+2f  3e3d3c
+2e##  ##3b
+2d2c2b2a3a
+########..
+move: 4 head (1,2) R
+  4b4a1a1b
+2g##3f##1c
+2f  3e3d3c
+2e##  ##3b
+2d2c2b2a3a
+########..
+move: 2 tail (2,1) U
+2g4b4a1a1b
+2f##3f##1c
+2e  3e3d3c
+2d##  ##3b
+2c2b2a  3a
+########..
+move: 3 head (5,5) L
+2g4b4a1a1b
+2f##  ##1c
+2e  3f3e3d
+2d##  ##3c
+2c2b2a3a3b
+########..
+move: 4 head (1,3) D
+2g  4b1a1b
+2f##4a##1c
+2e  3f3e3d
+2d##  ##3c
+2c2b2a3a3b
+########..
+move: 2 tail (1,1) R
+2f2g4b1a1b
+2e##4a##1c
+2d  3f3e3d
+2c##  ##3c
+2b2a  3a3b
+########..
+move: 3 head (5,4) L
+move: 3 head (5,3) U
+move: 3 head (4,3) U
+2f2g4b1a1b
+2e##4a##1c
+2d  3a    
+2c##3b##3f
+2b2a3c3d3e
+########..
+move: 1 tail (2,5) D
+2f2g4b  1a
+2e##4a##1b
+2d  3a  1c
+2c##3b##3f
+2b2a3c3d3e
+########..
+move: 4 tail (1,3) R
+2f2g4a4b1a
+2e##  ##1b
+2d  3a  1c
+2c##3b##3f
+2b2a3c3d3e
+########..
+move: 3 head (3,3) U
+2f2g4a4b1a
+2e##3a##1b
+2d  3b  1c
+2c##3c##  
+2b2a3d3e3f
+########..
+move: 1 tail (3,5) D
+2f2g4a4b  
+2e##3a##1a
+2d  3b  1b
+2c##3c##1c
+2b2a3d3e3f
+########..
+move: 4 tail (1,4) R
+2f2g  4a4b
+2e##3a##1a
+2d  3b  1b
+2c##3c##1c
+2b2a3d3e3f
+########..
+move: 3 head (2,3) U
+2f2g3a4a4b
+2e##3b##1a
+2d  3c  1b
+2c##3d##1c
+2b2a3e3f  
+########..
+move: 1 tail (4,5) D
+move: 1 tail (5,5) D
+2f2g3a4a4b
+2e##3b##  
+2d  3c    
+2c##3d##1a
+2b2a3e3f1b
+########1c
+Number of moves: 41
+Number of vertices examined: 1375
+0.0245589 [s]
+
+Level 78
+Sequence of moves: 
+1b1a  2e2d
+1c##  ##2c
+1d3f3g2a2b
+##3e##3a##
+  3d3c3b  
+########..
+move: 2 tail (1,4) L
+move: 2 tail (1,3) D
+1b1a2d2c2b
+1c##2e##2a
+1d3f3g    
+##3e##3a##
+  3d3c3b  
+########..
+move: 3 head (4,4) U
+move: 3 head (3,4) R
+1b1a2d2c2b
+1c##2e##2a
+1d    3b3a
+##3g##3c##
+  3f3e3d  
+########..
+move: 2 tail (2,3) D
+move: 2 tail (3,3) L
+1b1a2b2a  
+1c##2c##  
+1d2e2d3b3a
+##3g##3c##
+  3f3e3d  
+########..
+move: 3 head (3,5) U
+move: 3 head (2,5) U
+1b1a2b2a3a
+1c##2c##3b
+1d2e2d3d3c
+##  ##3e##
+    3g3f  
+########..
+move: 2 tail (3,2) D
+move: 2 tail (4,2) D
+1b1a    3a
+1c##2a##3b
+1d2c2b3d3c
+##2d##3e##
+  2e3g3f  
+########..
+move: 3 head (1,5) L
+move: 3 head (1,4) L
+1b1a3a3b3c
+1c##2a##3d
+1d2c2b3f3e
+##2d##3g##
+  2e      
+########..
+move: 2 tail (5,2) R
+move: 2 tail (5,3) R
+move: 2 tail (5,4) R
+1b1a3a3b3c
+1c##  ##3d
+1d    3f3e
+##2a##3g##
+  2b2c2d2e
+########..
+move: 1 tail (3,1) R
+move: 1 tail (3,2) R
+    3a3b3c
+1a##  ##3d
+1b1c1d3f3e
+##2a##3g##
+  2b2c2d2e
+########..
+move: 3 head (1,3) L
+move: 3 head (1,2) L
+3a3b3c3d3e
+1a##  ##3f
+1b1c1d  3g
+##2a##  ##
+  2b2c2d2e
+########..
+move: 1 tail (3,3) R
+3a3b3c3d3e
+  ##  ##3f
+1a1b1c1d3g
+##2a##  ##
+  2b2c2d2e
+########..
+move: 3 head (1,1) D
+3b3c3d3e3f
+3a##  ##3g
+1a1b1c1d  
+##2a##  ##
+  2b2c2d2e
+########..
+move: 1 tail (3,4) R
+3b3c3d3e3f
+3a##  ##3g
+  1a1b1c1d
+##2a##  ##
+  2b2c2d2e
+########..
+move: 3 head (2,1) D
+3c3d3e3f3g
+3b##  ##  
+3a1a1b1c1d
+##2a##  ##
+  2b2c2d2e
+########..
+move: 1 tail (3,5) U
+3c3d3e3f3g
+3b##  ##1d
+3a  1a1b1c
+##2a##  ##
+  2b2c2d2e
+########..
+move: 3 head (3,1) R
+3d3e3f3g  
+3c##  ##1d
+3b3a1a1b1c
+##2a##  ##
+  2b2c2d2e
+########..
+move: 1 tail (2,5) U
+3d3e3f3g1d
+3c##  ##1c
+3b3a  1a1b
+##2a##  ##
+  2b2c2d2e
+########..
+move: 1 head (3,4) D
+3d3e3f3g  
+3c##  ##1d
+3b3a  1b1c
+##2a##1a##
+  2b2c2d2e
+########..
+move: 3 tail (1,4) R
+3c3d3e3f3g
+3b##  ##1d
+3a    1b1c
+##2a##1a##
+  2b2c2d2e
+########..
+move: 2 head (4,2) U
+move: 2 head (3,2) R
+3c3d3e3f3g
+3b##  ##1d
+3a2b2a1b1c
+##2c##1a##
+  2d2e    
+########..
+move: 1 head (4,4) D
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+3c3d3e3f3g
+3b##  ##  
+3a2b2a    
+##2c##1d##
+  2d2e1c1b
+########1a
+Number of moves: 33
+Number of vertices examined: 1336
+0.0225277 [s]
+
+Level 79
+Sequence of moves: 
+2b2a##    
+3c3b3a5a5b
+##4b4a##6a
+1c1b1a##6b
+    ##  6c
+########..
+move: 1 tail (4,1) D
+move: 1 tail (5,1) R
+2b2a##    
+3c3b3a5a5b
+##4b4a##6a
+1a    ##6b
+1b1c##  6c
+########..
+move: 4 head (3,3) D
+move: 4 head (4,3) L
+2b2a##    
+3c3b3a5a5b
+##    ##6a
+1a4a4b##6b
+1b1c##  6c
+########..
+move: 5 tail (2,5) U
+move: 5 tail (1,5) L
+2b2a##5b5a
+3c3b3a    
+##    ##6a
+1a4a4b##6b
+1b1c##  6c
+########..
+move: 3 head (2,3) D
+move: 3 head (3,3) L
+move: 3 head (3,2) U
+move: 3 head (2,2) L
+2b2a##5b5a
+3a3b      
+##3c  ##6a
+1a4a4b##6b
+1b1c##  6c
+########..
+move: 6 head (3,5) U
+move: 6 head (2,5) L
+move: 6 head (2,4) L
+move: 6 head (2,3) D
+2b2a##5b5a
+3a3b6b6c  
+##3c6a##  
+1a4a4b##  
+1b1c##    
+########..
+move: 5 head (1,5) D
+move: 5 head (2,5) D
+move: 5 head (3,5) D
+move: 5 head (4,5) D
+move: 5 head (5,5) L
+2b2a##    
+3a3b6b6c  
+##3c6a##  
+1a4a4b##  
+1b1c##5a5b
+########..
+move: 6 tail (2,4) R
+move: 6 tail (2,5) D
+move: 6 tail (3,5) D
+2b2a##    
+3a3b    6a
+##3c  ##6b
+1a4a4b##6c
+1b1c##5a5b
+########..
+move: 4 tail (4,3) U
+move: 4 tail (3,3) U
+move: 4 tail (2,3) R
+move: 4 tail (2,4) U
+move: 4 tail (1,4) R
+2b2a##4a4b
+3a3b    6a
+##3c  ##6b
+1a    ##6c
+1b1c##5a5b
+########..
+move: 1 head (4,1) R
+move: 1 head (4,2) R
+move: 1 head (4,3) U
+move: 1 head (3,3) U
+2b2a##4a4b
+3a3b1a  6a
+##3c1b##6b
+    1c##6c
+    ##5a5b
+########..
+move: 3 tail (3,2) D
+move: 3 tail (4,2) D
+move: 3 tail (5,2) L
+move: 3 tail (5,1) U
+2b2a##4a4b
+    1a  6a
+##  1b##6b
+3c  1c##6c
+3b3a##5a5b
+########..
+move: 2 head (1,2) D
+move: 2 head (2,2) D
+move: 2 head (3,2) D
+    ##4a4b
+    1a  6a
+##2b1b##6b
+3c2a1c##6c
+3b3a##5a5b
+########..
+move: 1 head (2,3) L
+move: 1 head (2,2) L
+move: 1 head (2,1) U
+move: 1 head (1,1) R
+1b1a##4a4b
+1c      6a
+##2b  ##6b
+3c2a  ##6c
+3b3a##5a5b
+########..
+move: 2 tail (3,2) U
+1b1a##4a4b
+1c2b    6a
+##2a  ##6b
+3c    ##6c
+3b3a##5a5b
+########..
+move: 6 head (2,5) L
+move: 6 head (2,4) L
+move: 6 head (2,3) D
+move: 6 head (3,3) D
+move: 6 head (4,3) L
+1b1a##4a4b
+1c2b      
+##2a6c##  
+3c6a6b##  
+3b3a##5a5b
+########..
+move: 2 tail (2,2) R
+move: 2 tail (2,3) R
+move: 2 tail (2,4) R
+move: 2 tail (2,5) D
+move: 2 tail (3,5) D
+1b1a##4a4b
+1c        
+##  6c##2a
+3c6a6b##2b
+3b3a##5a5b
+########..
+move: 1 head (1,2) D
+move: 1 head (2,2) R
+move: 1 head (2,3) R
+move: 1 head (2,4) R
+    ##4a4b
+    1c1b1a
+##  6c##2a
+3c6a6b##2b
+3b3a##5a5b
+########..
+move: 6 tail (3,3) L
+move: 6 tail (3,2) U
+move: 6 tail (2,2) L
+move: 6 tail (2,1) U
+move: 6 tail (1,1) R
+6b6c##4a4b
+6a  1c1b1a
+##    ##2a
+3c    ##2b
+3b3a##5a5b
+########..
+move: 1 tail (2,3) L
+move: 1 tail (2,2) D
+move: 1 tail (3,2) D
+6b6c##4a4b
+6a1a      
+##1b  ##2a
+3c1c  ##2b
+3b3a##5a5b
+########..
+move: 2 head (3,5) U
+move: 2 head (2,5) L
+move: 2 head (2,4) L
+move: 2 head (2,3) D
+move: 2 head (3,3) D
+6b6c##4a4b
+6a1a      
+##1b2b##  
+3c1c2a##  
+3b3a##5a5b
+########..
+move: 1 head (2,2) R
+move: 1 head (2,3) R
+move: 1 head (2,4) R
+move: 1 head (2,5) D
+move: 1 head (3,5) D
+6b6c##4a4b
+6a      1c
+##  2b##1b
+3c  2a##1a
+3b3a##5a5b
+########..
+move: 4 head (1,4) D
+move: 4 head (2,4) L
+move: 4 head (2,3) L
+move: 4 head (2,2) D
+move: 4 head (3,2) D
+6b6c##    
+6a      1c
+##4b2b##1b
+3c4a2a##1a
+3b3a##5a5b
+########..
+move: 1 tail (2,5) L
+move: 1 tail (2,4) L
+move: 1 tail (2,3) L
+6b6c##    
+6a1c1b1a  
+##4b2b##  
+3c4a2a##  
+3b3a##5a5b
+########..
+move: 5 tail (5,5) U
+move: 5 tail (4,5) U
+move: 5 tail (3,5) U
+move: 5 tail (2,5) U
+move: 5 tail (1,5) L
+6b6c##5b5a
+6a1c1b1a  
+##4b2b##  
+3c4a2a##  
+3b3a##    
+########..
+move: 1 head (2,4) R
+move: 1 head (2,5) D
+move: 1 head (3,5) D
+move: 1 head (4,5) D
+move: 1 head (5,5) D
+6b6c##5b5a
+6a        
+##4b2b##  
+3c4a2a##1c
+3b3a##  1b
+########1a
+Number of moves: 93
+Number of vertices examined: 423668
+16 [s]
+
+Level 80
+Sequence of moves: 
+1c1d  ##3e
+1b##3b3c3d
+1a4a3a##2a
+##4b####2b
+  4c4d  2c
+########..
+move: 4 tail (5,3) R
+1c1d  ##3e
+1b##3b3c3d
+1a  3a##2a
+##4a####2b
+  4b4c4d2c
+########..
+move: 1 tail (1,2) R
+1b1c1d##3e
+1a##3b3c3d
+    3a##2a
+##4a####2b
+  4b4c4d2c
+########..
+move: 3 head (3,3) L
+move: 3 head (3,2) L
+1b1c1d##  
+1a##3d3e  
+3a3b3c##2a
+##4a####2b
+  4b4c4d2c
+########..
+move: 2 head (3,5) U
+1b1c1d##  
+1a##3d3e2a
+3a3b3c##2b
+##4a####2c
+  4b4c4d  
+########..
+move: 4 tail (5,4) R
+1b1c1d##  
+1a##3d3e2a
+3a3b3c##2b
+##  ####2c
+  4a4b4c4d
+########..
+move: 4 head (5,2) L
+1b1c1d##  
+1a##3d3e2a
+3a3b3c##2b
+##  ####2c
+4a4b4c4d  
+########..
+move: 2 tail (4,5) D
+1b1c1d##  
+1a##3d3e  
+3a3b3c##2a
+##  ####2b
+4a4b4c4d2c
+########..
+move: 3 tail (2,4) R
+1b1c1d##  
+1a##3c3d3e
+  3a3b##2a
+##  ####2b
+4a4b4c4d2c
+########..
+move: 3 head (3,2) D
+1b1c1d##  
+1a##3d3e  
+  3b3c##2a
+##3a####2b
+4a4b4c4d2c
+########..
+move: 2 head (3,5) U
+move: 2 head (2,5) U
+1b1c1d##2a
+1a##3d3e2b
+  3b3c##2c
+##3a####  
+4a4b4c4d  
+########..
+move: 4 tail (5,4) R
+move: 4 tail (5,5) U
+1b1c1d##2a
+1a##3d3e2b
+  3b3c##2c
+##3a####4d
+    4a4b4c
+########..
+move: 3 head (4,2) D
+1b1c1d##2a
+1a##3e  2b
+  3c3d##2c
+##3b####4d
+  3a4a4b4c
+########..
+move: 1 head (2,1) D
+1c1d  ##2a
+1b##3e  2b
+1a3c3d##2c
+##3b####4d
+  3a4a4b4c
+########..
+move: 3 tail (2,3) U
+1c1d3e##2a
+1b##3d  2b
+1a3b3c##2c
+##3a####4d
+    4a4b4c
+########..
+move: 4 head (5,3) L
+1c1d3e##2a
+1b##3d  2b
+1a3b3c##2c
+##3a####  
+  4a4b4c4d
+########..
+move: 2 tail (3,5) D
+1c1d3e##  
+1b##3d  2a
+1a3b3c##2b
+##3a####2c
+  4a4b4c4d
+########..
+move: 2 head (2,5) L
+1c1d3e##  
+1b##3d2a2b
+1a3b3c##2c
+##3a####  
+  4a4b4c4d
+########..
+move: 4 tail (5,5) U
+1c1d3e##  
+1b##3d2a2b
+1a3b3c##2c
+##3a####4d
+    4a4b4c
+########..
+move: 3 head (4,2) D
+move: 3 head (5,2) L
+1c1d  ##  
+1b##  2a2b
+1a3d3e##2c
+##3c####4d
+3a3b4a4b4c
+########..
+move: 2 head (2,4) L
+1c1d  ##  
+1b##2a2b2c
+1a3d3e##  
+##3c####4d
+3a3b4a4b4c
+########..
+move: 2 tail (2,5) U
+1c1d  ##2c
+1b##  2a2b
+1a3d3e##  
+##3c####4d
+3a3b4a4b4c
+########..
+move: 4 tail (4,5) U
+1c1d  ##2c
+1b##  2a2b
+1a3d3e##4d
+##3c####4c
+3a3b  4a4b
+########..
+move: 3 tail (3,3) U
+1c1d  ##2c
+1b##3e2a2b
+1a3c3d##4d
+##3b####4c
+  3a  4a4b
+########..
+move: 3 head (5,2) R
+1c1d  ##2c
+1b##  2a2b
+1a3d3e##4d
+##3c####4c
+  3b3a4a4b
+########..
+move: 2 head (2,4) L
+move: 2 head (2,3) U
+1c1d2a##  
+1b##2b2c  
+1a3d3e##4d
+##3c####4c
+  3b3a4a4b
+########..
+move: 4 tail (3,5) U
+move: 4 tail (2,5) U
+1c1d2a##4d
+1b##2b2c4c
+1a3d3e##4b
+##3c####4a
+  3b3a    
+########..
+move: 3 head (5,3) R
+move: 3 head (5,4) R
+1c1d2a##4d
+1b##2b2c4c
+1a    ##4b
+##3e####4a
+  3d3c3b3a
+########..
+move: 1 head (3,1) R
+1d  2a##4d
+1c##2b2c4c
+1b1a  ##4b
+##3e####4a
+  3d3c3b3a
+########..
+move: 2 head (1,3) L
+1d2a2b##4d
+1c##2c  4c
+1b1a  ##4b
+##3e####4a
+  3d3c3b3a
+########..
+move: 2 tail (2,3) D
+1d  2a##4d
+1c##2b  4c
+1b1a2c##4b
+##3e####4a
+  3d3c3b3a
+########..
+move: 1 tail (1,1) R
+1c1d2a##4d
+1b##2b  4c
+1a  2c##4b
+##3e####4a
+  3d3c3b3a
+########..
+move: 2 tail (3,3) L
+1c1d  ##4d
+1b##2a  4c
+1a2c2b##4b
+##3e####4a
+  3d3c3b3a
+########..
+move: 2 head (2,3) R
+1c1d  ##4d
+1b##2b2a4c
+1a  2c##4b
+##3e####4a
+  3d3c3b3a
+########..
+move: 1 tail (1,2) R
+1b1c1d##4d
+1a##2b2a4c
+    2c##4b
+##3e####4a
+  3d3c3b3a
+########..
+move: 3 tail (4,2) U
+move: 3 tail (3,2) L
+1b1c1d##4d
+1a##2b2a4c
+3e3d2c##4b
+##3c####4a
+  3b3a    
+########..
+move: 4 head (4,5) D
+move: 4 head (5,5) L
+1b1c1d##  
+1a##2b2a  
+3e3d2c##4d
+##3c####4c
+  3b3a4a4b
+########..
+move: 2 head (2,4) R
+move: 2 head (2,5) U
+1b1c1d##2a
+1a##  2c2b
+3e3d  ##4d
+##3c####4c
+  3b3a4a4b
+########..
+move: 1 tail (1,3) D
+1a1b1c##2a
+  ##1d2c2b
+3e3d  ##4d
+##3c####4c
+  3b3a4a4b
+########..
+move: 3 tail (3,1) U
+1a1b1c##2a
+3e##1d2c2b
+3d3c  ##4d
+##3b####4c
+  3a  4a4b
+########..
+move: 3 head (5,2) L
+1a1b1c##2a
+  ##1d2c2b
+3e3d  ##4d
+##3c####4c
+3a3b  4a4b
+########..
+move: 4 head (5,4) L
+1a1b1c##2a
+  ##1d2c2b
+3e3d  ##  
+##3c####4d
+3a3b4a4b4c
+########..
+move: 1 head (1,1) D
+1b1c1d##2a
+1a##  2c2b
+3e3d  ##  
+##3c####4d
+3a3b4a4b4c
+########..
+move: 2 tail (2,4) L
+1b1c1d##  
+1a##2c2b2a
+3e3d  ##  
+##3c####4d
+3a3b4a4b4c
+########..
+move: 2 head (2,5) D
+1b1c1d##  
+1a##  2c2b
+3e3d  ##2a
+##3c####4d
+3a3b4a4b4c
+########..
+move: 1 tail (1,3) D
+move: 1 tail (2,3) D
+  1a1b##  
+  ##1c2c2b
+3e3d1d##2a
+##3c####4d
+3a3b4a4b4c
+########..
+move: 3 tail (3,1) U
+move: 3 tail (2,1) U
+3e1a1b##  
+3d##1c2c2b
+3c3b1d##2a
+##3a####4d
+    4a4b4c
+########..
+move: 4 head (5,3) L
+3e1a1b##  
+3d##1c2c2b
+3c3b1d##2a
+##3a####  
+  4a4b4c4d
+########..
+move: 2 head (3,5) D
+3e1a1b##  
+3d##1c  2c
+3c3b1d##2b
+##3a####2a
+  4a4b4c4d
+########..
+move: 2 tail (2,5) U
+3e1a1b##2c
+3d##1c  2b
+3c3b1d##2a
+##3a####  
+  4a4b4c4d
+########..
+move: 4 tail (5,5) U
+3e1a1b##2c
+3d##1c  2b
+3c3b1d##2a
+##3a####4d
+    4a4b4c
+########..
+move: 3 head (4,2) D
+  1a1b##2c
+3e##1c  2b
+3d3c1d##2a
+##3b####4d
+  3a4a4b4c
+########..
+move: 1 head (1,2) L
+1a1b1c##2c
+3e##1d  2b
+3d3c  ##2a
+##3b####4d
+  3a4a4b4c
+########..
+move: 1 tail (2,3) R
+  1a1b##2c
+3e##1c1d2b
+3d3c  ##2a
+##3b####4d
+  3a4a4b4c
+########..
+move: 3 tail (2,1) U
+3e1a1b##2c
+3d##1c1d2b
+3c3b  ##2a
+##3a####4d
+    4a4b4c
+########..
+move: 4 head (5,3) L
+move: 4 head (5,2) L
+3e1a1b##2c
+3d##1c1d2b
+3c3b  ##2a
+##3a####  
+4a4b4c4d  
+########..
+move: 2 head (3,5) D
+move: 2 head (4,5) D
+3e1a1b##  
+3d##1c1d  
+3c3b  ##2c
+##3a####2b
+4a4b4c4d2a
+########..
+move: 1 tail (2,4) R
+move: 1 tail (2,5) U
+3e    ##1d
+3d##1a1b1c
+3c3b  ##2c
+##3a####2b
+4a4b4c4d2a
+########..
+move: 3 tail (1,1) R
+move: 3 tail (1,2) R
+3c3d3e##1d
+3b##1a1b1c
+3a    ##2c
+##  ####2b
+4a4b4c4d2a
+########..
+move: 1 head (2,3) D
+move: 1 head (3,3) L
+move: 1 head (3,2) D
+3c3d3e##  
+3b##1d    
+3a1b1c##2c
+##1a####2b
+4a4b4c4d2a
+########..
+move: 2 tail (3,5) U
+move: 2 tail (2,5) L
+3c3d3e##  
+3b##1d2c2b
+3a1b1c##2a
+##1a####  
+4a4b4c4d  
+########..
+move: 4 tail (5,4) R
+move: 4 tail (5,5) U
+3c3d3e##  
+3b##1d2c2b
+3a1b1c##2a
+##1a####4d
+    4a4b4c
+########..
+move: 1 head (4,2) D
+3c3d3e##  
+3b##  2c2b
+3a1c1d##2a
+##1b####4d
+  1a4a4b4c
+########..
+move: 2 tail (2,4) L
+3c3d3e##  
+3b##2c2b2a
+3a1c1d##  
+##1b####4d
+  1a4a4b4c
+########..
+move: 4 tail (4,5) U
+3c3d3e##  
+3b##2c2b2a
+3a1c1d##4d
+##1b####4c
+  1a  4a4b
+########..
+move: 1 head (5,2) R
+3c3d3e##  
+3b##2c2b2a
+3a1d  ##4d
+##1c####4c
+  1b1a4a4b
+########..
+move: 2 tail (2,3) D
+3c3d3e##  
+3b##2b2a  
+3a1d2c##4d
+##1c####4c
+  1b1a4a4b
+########..
+move: 4 tail (3,5) U
+move: 4 tail (2,5) U
+3c3d3e##4d
+3b##2b2a4c
+3a1d2c##4b
+##1c####4a
+  1b1a    
+########..
+move: 1 head (5,3) R
+move: 1 head (5,4) R
+move: 1 head (5,5) D
+3c3d3e##4d
+3b##2b2a4c
+3a  2c##4b
+##  ####4a
+    1d1c1b
+########1a
+Number of moves: 91
+Number of vertices examined: 1373
+0.0255562 [s]
+

@@ -148,8 +148,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="Puzzles\walls.txt" />
-    <Text Include="Puzzles\wriggle.txt" />
+    <Text Include="Puzzles\Walls.txt" />
+    <Text Include="Puzzles\Wriggle.txt" />
+    <Text Include="Puzzles\Wriggle2.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -159,8 +160,8 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Puzzles\walls.cpp" />
-    <ClCompile Include="Puzzles\wriggle.cpp" />
+    <ClCompile Include="Puzzles\Walls.cpp" />
+    <ClCompile Include="Puzzles\Wriggle.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -169,8 +170,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\walls.xml" />
-    <Xml Include="Puzzles\wriggle.xml" />
+    <Xml Include="Puzzles\Walls.xml" />
+    <Xml Include="Puzzles\Wriggle.xml" />
+    <Xml Include="Puzzles\Wriggle2.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

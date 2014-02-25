@@ -124,9 +124,8 @@ int puz_state::find_matches(bool init)
 			nums = {0};
 			for(auto p2 = p + os; ; p2 += os){
 				char ch = cells(p2);
-				if(ch == PUZ_NUMBER){
+				if(ch == PUZ_NUMBER)
 					nums = {0, 1, 2};
-				}
 				else if(ch == PUZ_HORZ_1 || ch == PUZ_HORZ_2){
 					if(is_horz)
 						nums = {ch == PUZ_HORZ_1 ? 1 : 2};

@@ -1,16 +1,16 @@
 #include "stdafx.h"
 
-extern void solve_puz_walls();
-extern void solve_puz_wriggle();
+extern void solve_puz_Walls();
+extern void solve_puz_Wriggle();
 
 int main(int argc, char **argv)
 {
-	cout << "a: walls" << endl;
-	cout << "r: wriggle" << endl;
+	cout << "a: Walls" << endl;
+	cout << "r: Wriggle" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "a") solve_puz_walls();
-	else if(str == "r") solve_puz_wriggle();
+	if(str == "a") solve_puz_Walls();
+	else if(str == "r") solve_puz_Wriggle();
 
 	return 0;
 }

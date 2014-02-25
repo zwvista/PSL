@@ -2,7 +2,7 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace wriggle{
+namespace puzzles{ namespace Wriggle{
 
 #define PUZ_BOX			'#'
 #define PUZ_SPACE		' '
@@ -248,9 +248,11 @@ void dump_all(ostream& out, const list<puz_state>& spath)
 
 }}
 
-void solve_puz_wriggle()
+void solve_puz_Wriggle()
 {
-	using namespace puzzles::wriggle;
+	using namespace puzzles::Wriggle;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >(
-		"Puzzles\\wriggle.xml", "Puzzles\\wriggle.txt", solution_format::CUSTOM, dump_all);
+		"Puzzles\\Wriggle.xml", "Puzzles\\Wriggle.txt", solution_format::CUSTOM, dump_all);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >(
+		"Puzzles\\Wriggle2.xml", "Puzzles\\Wriggle2.txt", solution_format::CUSTOM, dump_all);
 }

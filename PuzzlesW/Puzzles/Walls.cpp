@@ -18,7 +18,7 @@
 	   board must be filled with wall pieces.
 */
 
-namespace puzzles{ namespace walls{
+namespace puzzles{ namespace Walls{
 
 #define PUZ_SPACE			' '
 #define PUZ_NUMBER			'N'
@@ -217,9 +217,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_walls()
+void solve_puz_Walls()
 {
-	using namespace puzzles::walls;
+	using namespace puzzles::Walls;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\walls.xml", "Puzzles\\walls.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Walls.xml", "Puzzles\\Walls.txt", solution_format::GOAL_STATE_ONLY);
 }
