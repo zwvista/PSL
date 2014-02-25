@@ -28,13 +28,16 @@
     <Text Include="Puzzles\lightsout-int.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\lightenup.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\landscaper.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\Loopy.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Landscaper.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Lighthouses.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\LightenUp.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -62,13 +65,16 @@
     <ClCompile Include="Puzzles\lightsout-int.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\lightenup.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\landscaper.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\Loopy.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Landscaper.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Lighthouses.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\LightenUp.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,13 +91,16 @@
     <Xml Include="Puzzles\lightsout-int.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\lightenup.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\landscaper.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\Loopy.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Landscaper.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Lighthouses.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\LightenUp.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

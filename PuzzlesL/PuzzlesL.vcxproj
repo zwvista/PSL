@@ -148,8 +148,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="Puzzles\landscaper.txt" />
-    <Text Include="Puzzles\lightenup.txt" />
+    <Text Include="Puzzles\Landscaper.txt" />
+    <Text Include="Puzzles\LightenUp.txt" />
+    <Text Include="Puzzles\Lighthouses.txt" />
     <Text Include="Puzzles\lightsout-int.txt" />
     <Text Include="Puzzles\lightsout_classic.txt" />
     <Text Include="Puzzles\lightsout_variants.txt" />
@@ -163,8 +164,9 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Puzzles\landscaper.cpp" />
-    <ClCompile Include="Puzzles\lightenup.cpp" />
+    <ClCompile Include="Puzzles\Landscaper.cpp" />
+    <ClCompile Include="Puzzles\LightenUp.cpp" />
+    <ClCompile Include="Puzzles\Lighthouses.cpp" />
     <ClCompile Include="Puzzles\lightsout-int.cpp" />
     <ClCompile Include="Puzzles\lightsout.cpp" />
     <ClCompile Include="Puzzles\Loopy.cpp" />
@@ -176,10 +178,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\landscaper.xml" />
-    <Xml Include="Puzzles\lightenup.xml">
-      <SubType>Designer</SubType>
-    </Xml>
+    <Xml Include="Puzzles\Landscaper.xml" />
+    <Xml Include="Puzzles\LightenUp.xml" />
+    <Xml Include="Puzzles\Lighthouses.xml" />
     <Xml Include="Puzzles\lightsout-int.xml" />
     <Xml Include="Puzzles\lightsout_2000.xml" />
     <Xml Include="Puzzles\lightsout_classic.xml" />

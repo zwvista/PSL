@@ -25,7 +25,7 @@
 	   number of Trees and Flowers.
 */
 
-namespace puzzles{ namespace landscaper{
+namespace puzzles{ namespace Landscaper{
 
 #define PUZ_SPACE		' '
 #define PUZ_TREE		'T'
@@ -212,9 +212,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_landscaper()
+void solve_puz_Landscaper()
 {
-	using namespace puzzles::landscaper;
+	using namespace puzzles::Landscaper;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\landscaper.xml", "Puzzles\\landscaper.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Landscaper.xml", "Puzzles\\Landscaper.txt", solution_format::GOAL_STATE_ONLY);
 }
