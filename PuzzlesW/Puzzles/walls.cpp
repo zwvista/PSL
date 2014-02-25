@@ -51,16 +51,15 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	for(int r = 0; r < m_sidelen - 2; ++r){
 		auto& str = strs[r];
 		m_start.push_back(PUZ_BOUNDARY);
-		for(int c = 0; c < m_sidelen - 2; ++c)
-			switch(char ch = str[c]){
-			case PUZ_SPACE:
+		for(int c = 0; c < m_sidelen - 2; ++c){
+			char ch = str[c];
+			if(ch == PUZ_SPACE)
 				m_start.push_back(ch);
-				break;
-			default:
+			else{
 				m_start.push_back(PUZ_NUMBER);
 				m_pos2num[{r + 1, c + 1}] = ch - '0';
-				break;
 			}
+		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
 	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
@@ -202,7 +201,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1; r < sidelen() - 1; ++r) {
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			switch(char ch = cells({r, c})){
+			switch(char ch = cells(p)){
 			case PUZ_NUMBER:
 				out << format("%2d") % m_game->m_pos2num.at(p);
 				break;

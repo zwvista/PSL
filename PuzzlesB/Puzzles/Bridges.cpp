@@ -22,10 +22,13 @@
 
 namespace puzzles{ namespace Bridges{
 
-#define PUZ_SPACE		' '
-#define PUZ_NUMBER		'N'
-#define PUZ_BRANCH		'B'
-#define PUZ_WALL		'W'
+#define PUZ_SPACE			' '
+#define PUZ_NUMBER			'N'
+#define PUZ_HORZ_1			'-'
+#define PUZ_VERT_1			'|'
+#define PUZ_HORZ_2			'='
+#define PUZ_VERT_2			'H'
+#define PUZ_BOUNDARY		'B'
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -33,8 +36,6 @@ const Position offset[] = {
 	{1, 0},		// s
 	{0, -1},		// w
 };
-
-const string str_branch = "|-|-^>v<";
 
 struct puz_game
 {
@@ -50,23 +51,22 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 2)
 {
-	m_start.append(string(m_sidelen, PUZ_WALL));
+	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
 	for(int r = 0; r < m_sidelen - 2; ++r){
 		auto& str = strs[r];
-		m_start.push_back(PUZ_WALL);
+		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 0; c < m_sidelen - 2; ++c){
 			char ch = str[c];
 			if(ch == PUZ_SPACE)
 				m_start.push_back(ch);
 			else{
 				m_start.push_back(PUZ_NUMBER);
-				int n = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
-				m_pos2num[{r + 1, c + 1}] = n;
+				m_pos2num[{r + 1, c + 1}] = ch - '0';
 			}
 		}
-		m_start.push_back(PUZ_WALL);
+		m_start.push_back(PUZ_BOUNDARY);
 	}
-	m_start.append(string(m_sidelen, PUZ_WALL));
+	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
 }
 
 struct puz_state
@@ -117,16 +117,27 @@ int puz_state::find_matches(bool init)
 		int sum = m_game->m_pos2num.at(p);
 		vector<vector<int>> dir_nums(4);
 		for(int i = 0; i < 4; ++i){
+			bool is_horz = i % 2 == 1;
 			auto& os = offset[i];
 			int n = 0;
 			auto& nums = dir_nums[i];
-			for(auto p2 = p + os; n <= sum; p2 += os)
-				if(cells(p2) == PUZ_SPACE)
-					nums.push_back(n++);
-				else{
-					nums.push_back(n);
-					break;
+			nums = {0};
+			for(auto p2 = p + os; ; p2 += os){
+				char ch = cells(p2);
+				if(ch == PUZ_NUMBER){
+					nums = {0, 1, 2};
 				}
+				else if(ch == PUZ_HORZ_1 || ch == PUZ_HORZ_2){
+					if(is_horz)
+						nums = {ch == PUZ_HORZ_1 ? 1 : 2};
+				}
+				else if(ch == PUZ_VERT_1 || ch == PUZ_VERT_2){
+					if(!is_horz)
+						nums = {ch == PUZ_VERT_1 ? 1 : 2};
+				}
+				if(ch != PUZ_SPACE)
+					break;
+			}
 		}
 
 		for(int n0 : dir_nums[0])
@@ -150,12 +161,17 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(const Position& p, const vector<int>& perm)
 {
 	for(int i = 0; i < 4; ++i){
+		bool is_horz = i % 2 == 1;
 		auto& os = offset[i];
 		int n = perm[i];
-		auto p2 = p + os;
-		for(int j = 0; j < n; ++j){
-			cells(p2) = str_branch[i + (j == n - 1 ? 4 : 0)];
-			p2 += os;
+		if(n == 0)
+			continue;
+		for(auto p2 = p + os; ; p2 += os){
+			char& ch = cells(p2);
+			if(ch != PUZ_SPACE)
+				break;
+			ch = is_horz ? n == 1 ? PUZ_HORZ_1 : PUZ_HORZ_2
+				: n == 1 ? PUZ_VERT_1 : PUZ_VERT_2;
 		}
 	}
 
@@ -196,7 +212,7 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1; r < sidelen() - 1; ++r) {
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			switch(char ch = cells({r, c})){
+			switch(char ch = cells(p)){
 			case PUZ_NUMBER:
 				out << format("%2d") % m_game->m_pos2num.at(p);
 				break;
