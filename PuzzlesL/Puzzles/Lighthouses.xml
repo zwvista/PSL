@@ -9,4 +9,22 @@
     1\
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+2    \
+     \
+  0 1\
+     \
+  0 1\
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+    2\
+     \
+  0  \
+     \
+2 1  \
+    ]]>
+  </level>
 </levels>
