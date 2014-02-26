@@ -27,9 +27,13 @@ namespace puzzles{ namespace Lighthouses{
 
 const Position offset[] = {
 	{-1, 0},		// n
+	{-1, 1},		// ne
 	{0, 1},		// e
+	{1, 1},		// se
 	{1, 0},		// s
+	{1, -1},		// sw
 	{0, -1},		// w
+	{-1, -1},	// nw
 };
 
 struct puz_game
@@ -89,7 +93,7 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	string m_cells;
-	map<Position, vector<vector<int>>> m_matches;
+	map<Position, vector<vector<Position>>> m_matches;
 	unsigned int m_distance = 0;
 };
 
@@ -122,9 +126,8 @@ int puz_state::find_matches(bool init)
 		for(int i = 0; i < 4; ++i){
 			bool is_horz = i % 2 == 1;
 			auto& os = offset[i];
-			int n = 0;
 			auto& nums = dir_nums[i];
-			for(auto p2 = p + os; n <= sum; p2 += os){
+			for(auto p2 = p + os; ; p2 += os){
 				char ch = cells(p2);
 				if(ch == PUZ_SPACE)
 					nums.push_back(n++);
