@@ -40,6 +40,9 @@
     <Text Include="Puzzles\LightenUp.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\LineSweeper.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -77,6 +80,9 @@
     <ClCompile Include="Puzzles\LightenUp.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\LineSweeper.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\lightsout_2000.xml">
@@ -101,6 +107,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\LightenUp.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\LineSweeper.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
