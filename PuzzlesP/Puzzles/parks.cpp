@@ -48,7 +48,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-	: m_id(attrs.get<string>("id"))
+	: m_id{attrs.get<string>("id")}
 	, m_sidelen(strs.size())
 	, m_tree_count_area(attrs.get<int>("numTreesInEachArea", 1))
 	, m_tree_total_count(m_tree_count_area * m_sidelen)

@@ -47,7 +47,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+: m_id{attrs.get<string>("id")}
 , m_sidelen(strs.size() + 2)
 {
 	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
@@ -147,7 +147,7 @@ int puz_state::find_matches(bool init)
 				for(int i = 0, j = 0; i < perm.length(); ++i)
 					if(perm[i] == PUZ_LIGHTHOUSE)
 						rng[j++] = rng_s[i];
-				if([&](){
+				if([&]{
 					// no touching
 					for(const auto& p1 : rng)
 						for(const auto& p2 : rng)

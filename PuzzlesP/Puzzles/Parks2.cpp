@@ -57,7 +57,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+: m_id{attrs.get<string>("id")}
 , m_sidelen(strs.size())
 , m_tree_count_area(attrs.get<int>("numTreesInEachArea", 1))
 , m_tree_total_count(m_tree_count_area * m_sidelen)
@@ -100,7 +100,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				if(perm[i] == PUZ_TREE)
 					ps_tree.push_back(info.m_range[i]);
 
-			if([&](){
+			if([&]{
 				// no touching
 				for(const auto& ps1 : ps_tree)
 					for(const auto& ps2 : ps_tree)

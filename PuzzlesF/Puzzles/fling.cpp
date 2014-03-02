@@ -26,7 +26,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-	: m_id(attrs.get<string>("id"))
+	: m_id{attrs.get<string>("id")}
 	, m_size(Position(strs.size(), strs[0].length()))
 {
 	for(int r = 0; r < rows(); r++){

@@ -61,7 +61,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+: m_id{attrs.get<string>("id")}
 , m_sidelen(strs.size() / 2 + 2)
 {
 	for(int r = 0; r < m_sidelen - 2; ++r){
@@ -103,7 +103,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				if(perm[i] == PUZ_FLOWER)
 					ps_flower.push_back(info.m_range[i]);
 
-			if([&](){
+			if([&]{
 				// no touching
 				for(const auto& p1 : ps_flower)
 					for(const auto& p2 : ps_flower)

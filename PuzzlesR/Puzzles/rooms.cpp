@@ -55,7 +55,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+: m_id{attrs.get<string>("id")}
 , m_sidelen(strs.size())
 {
 	m_cells = boost::accumulate(strs, string());
@@ -138,7 +138,7 @@ int puz_state::find_matches(bool init)
 			auto& os = offset[i];
 			int n = 0;
 			auto& nums = dir_nums[i];
-			[&](){
+			[&]{
 				for(auto p2 = p; n <= sum; p2 += os)
 					switch(get_door_status(p2, i)){
 					case PUZ_DOOR_UNKNOWN:

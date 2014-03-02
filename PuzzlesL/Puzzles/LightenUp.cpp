@@ -46,7 +46,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+: m_id{attrs.get<string>("id")}
 , m_sidelen(strs.size() + 2)
 {
 	m_start.insert(m_start.end(), m_sidelen, PUZ_WALL);
@@ -166,7 +166,7 @@ bool puz_state::make_move(const Position& p, char ch_p)
 		ch = ch_p;
 		++m_distance;
 		for(auto& os : offset)
-			if(![&](){
+			if(![&]{
 				for(auto p2 = p + os; ; p2 += os)
 					switch(char& ch2 = cells(p2)){
 					case PUZ_BULB:

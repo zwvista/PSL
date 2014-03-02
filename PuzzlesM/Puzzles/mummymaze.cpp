@@ -76,7 +76,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-	: m_id(attrs.get<string>("id"))
+	: m_id{attrs.get<string>("id")}
 	, m_size(atoi(attrs.get<string>("rows").c_str()), atoi(attrs.get<string>("cols").c_str()))
 {
 	if(attrs.count("goal"))

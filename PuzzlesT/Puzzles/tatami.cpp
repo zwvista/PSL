@@ -53,7 +53,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-	: m_id(attrs.get<string>("id"))
+	: m_id{attrs.get<string>("id")}
 	, m_sidelen(strs.size() / 2)
 	, m_size_of_tatami(attrs.get<int>("TatamiSize"))
 	, m_num_tatamis(m_sidelen * m_sidelen / m_size_of_tatami)
