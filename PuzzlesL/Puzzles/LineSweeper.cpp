@@ -173,19 +173,22 @@ struct puz_state : vector<puz_dot>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count), m_game(&g)
+: vector<puz_dot>(g.m_dot_count, {lines_off}), m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
-			auto& dt = dots(p);
-			dt.push_back(lines_off);
+			if(g.m_pos2num.count(p) != 0)
+				continue;
 
 			vector<int> dirs;
-			for(int i = 0; i < 4; ++i)
-				if(is_valid(p + offset[i]))
+			for(int i = 0; i < 4; ++i){
+				auto p2 = p + offset[i * 2];
+				if(is_valid(p2) && g.m_pos2num.count(p2) == 0)
 					dirs.push_back(i);
+			}
 
+			auto& dt = dots(p);
 			for(int i = 0; i < dirs.size() - 1; ++i)
 				for(int j = i + 1; j < dirs.size(); ++j){
 					auto lines = lines_off;
