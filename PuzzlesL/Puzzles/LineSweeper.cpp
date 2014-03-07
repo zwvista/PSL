@@ -39,14 +39,6 @@ const Position offset[] = {
 	{-1, -1},	// nw
 };
 
-typedef pair<Position, int> puz_line_info;
-const puz_line_info lines_info[] = {
-	{{0, 0}, 1}, {{0, 1}, 3}, 		// n
-	{{0, 1}, 2}, {{1, 1}, 0}, 		// e
-	{{1, 1}, 3}, {{1, 0}, 1}, 		// s
-	{{1, 0}, 0}, {{0, 0}, 2}, 		// w
-};
-
 struct puz_game
 {
 	string m_id;
@@ -154,6 +146,7 @@ struct puz_state : vector<puz_dot>
 	bool make_move(const Position& p, int n);
 	bool make_move2(const Position& p, int n);
 	int find_matches(bool init);
+	int check_dots(bool init);
 	bool check_loop() const;
 
 	//solve_puzzle interface
@@ -169,22 +162,30 @@ struct puz_state : vector<puz_dot>
 
 	const puz_game* m_game = nullptr;
 	map<Position, vector<int>> m_matches;
+	set<Position> m_finished;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : vector<puz_dot>(g.m_dot_count, {lines_off}), m_game(&g)
 {
+	for(const auto& kv : g.m_pos2num){
+		m_finished.insert(kv.first);
+		auto& perm_ids = m_matches[kv.first];
+		perm_ids.resize(g.m_num2perms.at(kv.second).size());
+		boost::iota(perm_ids, 0);
+	}
+
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
-			if(g.m_pos2num.count(p) != 0)
+			if(m_finished.count(p) != 0)
 				continue;
 
 			vector<int> dirs;
 			for(int i = 0; i < 4; ++i){
 				auto p2 = p + offset[i * 2];
-				if(is_valid(p2) && g.m_pos2num.count(p2) == 0)
+				if(is_valid(p2) && m_finished.count(p2) == 0)
 					dirs.push_back(i);
 			}
 
@@ -197,13 +198,8 @@ puz_state::puz_state(const puz_game& g)
 				}
 		}
 
-	for(const auto& kv : g.m_pos2num){
-		auto& perm_ids = m_matches[kv.first];
-		perm_ids.resize(g.m_num2perms.at(kv.second).size());
-		boost::iota(perm_ids, 0);
-	}
-
 	find_matches(true);
+	check_dots(true);
 }
 
 int puz_state::find_matches(bool init)
@@ -212,21 +208,21 @@ int puz_state::find_matches(bool init)
 		const auto& p = kv.first;
 		auto& perm_ids = kv.second;
 
-		//auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
-		//boost::remove_erase_if(perm_ids, [&](int id){
-		//	auto& perm = perms[id];
-		//	for(int i = 0; i < 8; ++i){
-		//		auto& info = lines_info[i];
-		//		const auto& dt = dots(p + info.first);
-		//		char line = perm[i / 2];
-		//		int j = info.second;
-		//		if(boost::algorithm::none_of(dt, [=](const string& s){
-		//			return s[j] == line;
-		//		}))
-		//			return true;
-		//	}
-		//	return false;
-		//});
+		auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
+		boost::remove_erase_if(perm_ids, [&](int id){
+			auto& perm = perms[id];
+			for(int i = 0; i < 8; ++i){
+				auto p2 = p + offset[i];
+				auto& lines = perm[i];
+				if(!is_valid(p2)){
+					if(lines != lines_off)
+						return true;
+				}
+				else if(boost::algorithm::none_of_equal(dots(p2), lines))
+					return true;
+			}
+			return false;
+		});
 
 		if(!init)
 			switch(perm_ids.size()){
@@ -234,9 +230,21 @@ int puz_state::find_matches(bool init)
 				return 0;
 			case 1:
 				return make_move2(p, perm_ids.front()) ? 1 : 0;
-		}
+			}
 	}
 	return 2;
+}
+
+int puz_state::check_dots(bool init)
+{
+	set<Position> newly_finished;
+	for(int r = 0; r < sidelen(); ++r)
+		for(int c = 0; c < sidelen(); ++c){
+			Position p(r, c);
+			const auto& dt = dots(p);
+			if(dt.size() == 1 && m_finished.count(p) == 0)
+				newly_finished.insert(p);
+		}
 }
 
 bool puz_state::make_move2(const Position& p, int n)
@@ -265,8 +273,6 @@ bool puz_state::check_loop() const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			if(dt.size() != 1 && m_matches.empty())
-				return false;
 			if(dt.size() == 1 && dt[0] != lines_off)
 				rng.insert(p);
 		}
