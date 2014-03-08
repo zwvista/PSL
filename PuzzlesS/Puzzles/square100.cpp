@@ -165,13 +165,9 @@ bool puz_state::make_move(int i, int j)
 {
 	m_distance = 0;
 	make_move2(i, j);
-	for(;;)
-		switch(find_matches(false)){
-		case 0:
-			return false;
-		case 2:
-			return true;
-	}
+	int m;
+	while((m = find_matches(false)) == 1);
+	return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

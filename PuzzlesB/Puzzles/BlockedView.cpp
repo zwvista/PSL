@@ -226,13 +226,9 @@ bool puz_state::make_move(const Position& p, const vector<int>& perm)
 	m_distance = 0;
 	if(!make_move2(p, perm))
 		return false;
-	for(;;)
-		switch(find_matches(false)){
-		case 0:
-			return false;
-		case 2:
-			return true;
-		}
+	int m;
+	while((m = find_matches(false)) == 1);
+	return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

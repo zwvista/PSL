@@ -210,16 +210,13 @@ bool puz_state::make_move(int i, int j)
 	m_distance = 0;
 	make_move2(i, j);
 	for(;;){
-		int n;
-		while((n = find_matches(false)) == 1);
-		if(n == 0)
+		int m;
+		while((m = find_matches(false)) == 1);
+		if(m == 0)
 			return false;
-		switch(check_snail()){
-		case 0:
-			return false;
-		case 2:
-			return true;
-		}
+		m = check_snail();
+		if(m != 1)
+			return m == 2;
 	}
 }
 
