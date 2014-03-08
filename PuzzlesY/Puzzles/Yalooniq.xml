@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+            \
+      0>    \
+1>          \
+    0^    0<\
+    0>      \
+0^          \
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+0>          \
+    0v      \
+  1v    0v0^\
+            \
+            \
+      0>    \
+    ]]>
+  </level>
+</levels>

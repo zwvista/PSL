@@ -4,39 +4,46 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 4/LineSweeper
+	ios game: Logic Games/Puzzle Set 6/Yalooniq
 
 	Summary
-	Draw a single loop, minesweeper style
+	Loops, Arrows and Squares
 
 	Description
-	1. Draw a single closed looping path that never crosses itself or branches off.
-	2. A number in a cell denotes how many of the 8 adjacent cells are passed
-	   by the loop.
-	3. The loop can only go horizontally or vertically between cells, but
-	   not over the numbers.
-	4. The loop doesn't need to cover all the board.
+	1. The goal is to draw a single Loop on the board.
+	2. The Loop must go through All the available tiles on the board.
+	3. The available tiles on which the Loop must go are the ones without
+	   and also not containing Squares.
+	4. It is up to you to find the Squares, which are pointed at by the Arrows!
+	5. The numbers beside the Arrows tell you how many Squares are present
+	   in that direction, from that point.
+	6. Lastly, please keep in mind that if there aren't Arrows pointing to 
+	   a tile, that tile can contain a Square too!
 */
 
-namespace puzzles{ namespace LineSweeper{
+namespace puzzles{ namespace Yalooniq{
 
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
+#define PUZ_SQUARE_OFF		'0'
+#define PUZ_SQUARE_ON		'1'
 
 const string lines_off = string(4, PUZ_LINE_OFF);
-const string lines_all[] = {
-	"0011", "0101", "0110", "1001", "1010", "1100",
-};
+const string square_dirs = "^>v<";
 
 const Position offset[] = {
 	{-1, 0},		// n
-	{-1, 1},		// ne
 	{0, 1},		// e
-	{1, 1},		// se
 	{1, 0},		// s
-	{1, -1},		// sw
 	{0, -1},		// w
-	{-1, -1},	// nw
+};
+
+struct puz_square_info
+{
+	int m_num;
+	char m_dir;
+	vector<Position> m_rng;
+	vector<string> m_perms;
 };
 
 struct puz_game
@@ -44,10 +51,12 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	int m_dot_count;
-	map<Position, int> m_pos2num;
-	map<int, vector<vector<string>>> m_num2perms;
+	map<Position, puz_square_info> m_pos2info;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+	bool is_valid(const Position& p) const {
+		return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+	}
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
@@ -58,75 +67,28 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
-			char ch = str[c];
-			if(ch != ' '){
-				int n = ch - '0';
-				m_num2perms[n];
-				m_pos2num[{r, c}] = n;
+			auto s = str.substr(2 * c, 2);
+			if(s != "  "){
+				auto& info = m_pos2info[{r, c}];
+				info.m_num = s[0] - '0';
+				info.m_dir = s[1];
 			}
 		}
 	}
 
-	for(auto& kv : m_num2perms){
-		int n = kv.first;
-		auto& perms = kv.second;
-		auto indicator = string(8 - n, PUZ_LINE_OFF) + string(n, PUZ_LINE_ON);
+	for(auto& kv : m_pos2info){
+		auto& p = kv.first;
+		auto& info = kv.second;
+
+		auto& os = offset[square_dirs.find(info.m_dir)];
+		for(auto p2 = p + os; is_valid(p2); p2 += os)
+			if(m_pos2info.count(p2) == 0)
+				info.m_rng.push_back(p2);
+
+		auto perm = string(info.m_rng.size() - info.m_num, PUZ_SQUARE_OFF) + string(info.m_num, PUZ_SQUARE_ON);
 		do{
-			set<Position> rng;
-			for(int i = 0; i < 8; ++i)
-				if(indicator[i] == PUZ_LINE_ON)
-					rng.insert(offset[i]);
-
-			vector<vector<string>> dir_lines(8);
-			for(int i = 0; i < 8; ++i)
-				if(indicator[i] == PUZ_LINE_OFF)
-					dir_lines[i] = {lines_off};
-				else
-					for(auto& lines : lines_all)
-						if([&]{
-							for(int j = 0; j < 4; ++j){
-								if(lines[j] == PUZ_LINE_OFF)
-									continue;
-								auto p = offset[i] + offset[2 * j];
-								if(p == Position{} ||
-									boost::algorithm::any_of_equal(offset, p) &&
-									rng.count(p) == 0)
-									return false;
-							}
-							return true;
-						}())
-							dir_lines[i].push_back(lines);
-
-			if(boost::algorithm::any_of(dir_lines, [](const vector<string>& lines){
-				return lines.empty();
-			}))
-				continue;
-
-			vector<int> indexes(8);
-			vector<string> perm(8);
-			for(int i = 0; i < 8;){
-				for(int j = 0; j < 8; ++j)
-					perm[j] = dir_lines[j][indexes[j]];
-				if([&]{
-					for(int j = 0; j < 8; ++j){
-						auto& lines = perm[j];
-						for(int k = 0; k < 4; ++k){
-							if(lines[k] == PUZ_LINE_OFF)
-								continue;
-							auto p = offset[j] + offset[2 * k];
-							int n = boost::find(offset, p) - offset;
-							if(n < 8 && perm[n][(k + 2) % 4] == PUZ_LINE_OFF)
-								return false;
-						}
-					}
-					return true;
-				}())
-					perms.push_back(perm);
-				for(i = 0; i < 8 && ++indexes[i] == dir_lines[i].size(); ++i)
-					indexes[i] = 0;
-			}
-
-		}while(boost::next_permutation(indicator));
+			info.m_perms.push_back(perm);
+		} while(boost::next_permutation(perm));
 	}
 }
 
@@ -142,8 +104,9 @@ struct puz_state : vector<puz_dot>
 	}
 	const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	bool make_move(const Position& p, int n);
-	void make_move2(const Position& p, int n);
+	bool make_move_square(const Position& p, int n);
+	void make_move_square2(const Position& p, int n);
+	bool make_move_line(const Position& p, int n);
 	int find_matches(bool init);
 	int check_dots(bool init);
 	bool check_loop() const;
@@ -171,13 +134,13 @@ puz_state::puz_state(const puz_game& g)
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
-			if(g.m_pos2num.count(p) != 0)
+			if(g.m_pos2info.count(p) != 0)
 				continue;
 
 			vector<int> dirs;
 			for(int i = 0; i < 4; ++i){
-				auto p2 = p + offset[i * 2];
-				if(is_valid(p2) && g.m_pos2num.count(p2) == 0)
+				auto p2 = p + offset[i];
+				if(is_valid(p2) && g.m_pos2info.count(p2) == 0)
 					dirs.push_back(i);
 			}
 
@@ -190,16 +153,16 @@ puz_state::puz_state(const puz_game& g)
 				}
 		}
 
-	for(auto& kv : g.m_pos2num){
+	for(const auto& kv : g.m_pos2info){
 		auto& p = kv.first;
+		auto& info = kv.second;
 		m_finished.insert(p);
 		auto& perm_ids = m_matches[p];
-		perm_ids.resize(g.m_num2perms.at(kv.second).size());
+		perm_ids.resize(info.m_perms.size());
 		boost::iota(perm_ids, 0);
 	}
 
 	find_matches(true);
-	check_dots(true);
 }
 
 int puz_state::find_matches(bool init)
@@ -208,17 +171,15 @@ int puz_state::find_matches(bool init)
 		const auto& p = kv.first;
 		auto& perm_ids = kv.second;
 
-		auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
+		auto& info = m_game->m_pos2info.at(p);
+		auto& rng = info.m_rng;
 		boost::remove_erase_if(perm_ids, [&](int id){
-			auto& perm = perms[id];
-			for(int i = 0; i < 8; ++i){
-				auto p2 = p + offset[i];
-				auto& lines = perm[i];
-				if(!is_valid(p2)){
-					if(lines != lines_off)
-						return true;
-				}
-				else if(boost::algorithm::none_of_equal(dots(p2), lines))
+			auto& perm = info.m_perms[id];
+			for(int i = 0; i < rng.size(); ++i){
+				char ch = perm[i];
+				const auto& dt = dots(rng[i]);
+				if(ch == PUZ_SQUARE_OFF && dt.size() == 1 && dt[0] == lines_off ||
+					ch == PUZ_SQUARE_ON && dt[0] != lines_off)
 					return true;
 			}
 			return false;
@@ -229,7 +190,7 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, perm_ids.front()), 1;
+				return make_move_square2(p, perm_ids.front()), 1;
 			}
 	}
 	return 2;
@@ -255,7 +216,7 @@ int puz_state::check_dots(bool init)
 		for(const auto& p : newly_finished){
 			const auto& lines = dots(p)[0];
 			for(int i = 0; i < 4; ++i){
-				auto p2 = p + offset[i * 2];
+				auto p2 = p + offset[i];
 				if(!is_valid(p2))
 					continue;
 				auto& dt = dots(p2);
@@ -271,15 +232,45 @@ int puz_state::check_dots(bool init)
 	}
 }
 
-void puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move_square2(const Position& p, int n)
 {
-	auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
-	for(int i = 0; i < 8; ++i){
-		auto p2 = p + offset[i];
-		if(is_valid(p2))
-			dots(p2) = {perm[i]};
+	auto& info = m_game->m_pos2info.at(p);
+	auto& rng = info.m_rng;
+	auto& perm = info.m_perms[n];
+	for(int i = 0; i < rng.size(); ++i){
+		const auto& p2 = rng[i];
+		auto& dt = dots(p2);
+		if(perm[i] == PUZ_SQUARE_OFF){
+			if(dt[0] == lines_off)
+				dt.erase(dt.begin());
+		}
+		else
+			dt = {lines_off};
 	}
 	m_matches.erase(p);
+}
+
+bool puz_state::make_move_square(const Position& p, int n)
+{
+	m_distance = 0;
+	make_move_square2(p, n);
+	for(;;){
+		int m;
+		while((m = find_matches(false)) == 1);
+		if(m == 0)
+			return false;
+		m = check_dots(false);
+		if(m != 1)
+			return m == 2;
+	}
+}
+
+bool puz_state::make_move_line(const Position& p, int n)
+{
+	m_distance = 0;
+	auto& dt = dots(p);
+	dt = {dt[n]};
+	return check_dots(false) != 0 && check_loop();
 }
 
 bool puz_state::check_loop() const
@@ -301,7 +292,7 @@ bool puz_state::check_loop() const
 			auto& str = dots(p2)[0];
 			for(int i = 0; i < 4; ++i)
 				if(str[i] == PUZ_LINE_ON && (i + 2) % 4 != n){
-					p2 += offset[(n = i) * 2];
+					p2 += offset[n = i];
 					break;
 				}
 			if(p2 == p)
@@ -318,23 +309,6 @@ bool puz_state::check_loop() const
 	return true;
 }
 
-bool puz_state::make_move(const Position& p, int n)
-{
-	m_distance = 0;
-	make_move2(p, n);
-	for(;;){
-		int m;
-		while((m = find_matches(false)) == 1);
-		if(m == 0)
-			return false;
-		m = check_dots(false);
-		if(m != 1)
-			return m == 2;
-		if(!check_loop())
-			return false;
-	}
-}
-
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	if(!m_matches.empty()){
@@ -346,12 +320,22 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 		for(int n : kv.second){
 			children.push_back(*this);
-			if(!children.back().make_move(kv.first, n))
+			if(!children.back().make_move_square(kv.first, n))
 				children.pop_back();
 		}
 	}
 	else{
-		// TODO: What shall we do if we reach here?
+		int n = boost::min_element(*this, [](const puz_dot& dt1, const puz_dot& dt2){
+			auto f = [](int sz){return sz == 1 ? 1000 : sz;};
+			return f(dt1.size()) < f(dt2.size());
+		}) - begin();
+		Position p(n / sidelen(), n % sidelen());
+		auto& dt = dots(p);
+		for(int i = 0; i < dt.size(); ++i){
+			children.push_back(*this);
+			if(!children.back().make_move_line(p, i))
+				children.pop_back();
+		}
 	}
 }
 
@@ -361,9 +345,16 @@ ostream& puz_state::dump(ostream& out) const
 		// draw horz-lines
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
-			auto it = m_game->m_pos2num.find(p);
-			out << char(it == m_game->m_pos2num.end() ? ' ' : it->second + '0')
-				<< (dots(p)[0][1] == PUZ_LINE_ON ? '-' : ' ');
+			auto& dt = dots(p);
+			auto it = m_game->m_pos2info.find(p);
+			if(it != m_game->m_pos2info.end()){
+				auto& info = it->second;
+				out << info.m_num << info.m_dir;
+			}
+			else if(dt[0] == lines_off)
+				out << "S ";
+			else
+				out << ' ' << (dt[0][1] == PUZ_LINE_ON ? '-' : ' ');
 		}
 		out << endl;
 		if(r == sidelen() - 1) break;
@@ -377,9 +368,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_LineSweeper()
+void solve_puz_Yalooniq()
 {
-	using namespace puzzles::LineSweeper;
+	using namespace puzzles::Yalooniq;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\LineSweeper.xml", "Puzzles\\LineSweeper.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Yalooniq.xml", "Puzzles\\Yalooniq.txt", solution_format::GOAL_STATE_ONLY);
 }
