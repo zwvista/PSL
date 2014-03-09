@@ -23,7 +23,7 @@ namespace puzzles{ namespace LineSweeper{
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
 
-const string lines_off = string(4, PUZ_LINE_OFF);
+const string lines_off = "0000";
 const string lines_all[] = {
 	"0011", "0101", "0110", "1001", "1010", "1100",
 };
@@ -174,20 +174,19 @@ puz_state::puz_state(const puz_game& g)
 			if(g.m_pos2num.count(p) != 0)
 				continue;
 
-			vector<int> dirs;
-			for(int i = 0; i < 4; ++i){
-				auto p2 = p + offset[i * 2];
-				if(is_valid(p2) && g.m_pos2num.count(p2) == 0)
-					dirs.push_back(i);
-			}
-
 			auto& dt = dots(p);
-			for(int i = 0; i < dirs.size() - 1; ++i)
-				for(int j = i + 1; j < dirs.size(); ++j){
-					auto lines = lines_off;
-					lines[dirs[i]] = lines[dirs[j]] = PUZ_LINE_ON;
+			for(auto& lines : lines_all)
+				if([&]{
+					for(int i = 0; i < 4; ++i){
+						if(lines[i] == PUZ_LINE_OFF)
+							continue;
+						auto p2 = p + offset[i * 2];
+						if(!is_valid(p2) || g.m_pos2num.count(p2) != 0)
+							return false;
+					}
+					return true;
+				}())
 					dt.push_back(lines);
-				}
 		}
 
 	for(auto& kv : g.m_pos2num){

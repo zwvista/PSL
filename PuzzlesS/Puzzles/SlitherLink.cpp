@@ -29,7 +29,10 @@ namespace puzzles{ namespace SlitherLink{
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
 
-const string lines_off = string(4, PUZ_LINE_OFF);
+const string lines_off = "0000";
+const string lines_all[] = {
+	"0011", "0101", "0110", "1001", "1010", "1100",
+};
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -115,25 +118,20 @@ struct puz_state : vector<puz_dot>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count), m_game(&g)
+: vector<puz_dot>(g.m_dot_count, {lines_off}), m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			dt.push_back(lines_off);
-
-			vector<int> dirs;
-			for(int i = 0; i < 4; ++i)
-				if(is_valid(p + offset[i]))
-					dirs.push_back(i);
-
-			for(int i = 0; i < dirs.size() - 1; ++i)
-				for(int j = i + 1; j < dirs.size(); ++j){
-					auto lines = lines_off;
-					lines[dirs[i]] = lines[dirs[j]] = PUZ_LINE_ON;
+			for(auto& lines : lines_all)
+				if([&]{
+					for(int i = 0; i < 4; ++i)
+						if(lines[i] == PUZ_LINE_ON && !is_valid(p + offset[i]))
+							return false;
+					return true;
+				}())
 					dt.push_back(lines);
-				}
 		}
 
 	for(const auto& kv : g.m_pos2num){

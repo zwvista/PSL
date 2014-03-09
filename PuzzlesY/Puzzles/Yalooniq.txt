@@ -13,7 +13,7 @@ Sequence of moves:
 0^ - - - -  
 Number of moves: 6
 Number of vertices examined: 18
-0.121243 [s]
+0.00600409 [s]
 
 Level 02
 Sequence of moves: 
@@ -30,5 +30,5 @@ Sequence of moves:
 S  -  0> -  
 Number of moves: 6
 Number of vertices examined: 11
-0.0539417 [s]
+0.00408398 [s]
 

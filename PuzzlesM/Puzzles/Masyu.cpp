@@ -4,35 +4,40 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 6/Yalooniq
+	ios game: Logic Games/Puzzle Set 3/Masyu
 
 	Summary
-	Loops, Arrows and Squares
+	Draw a Necklace that goes through every Pearl
 
 	Description
-	1. The goal is to draw a single Loop on the board.
-	2. The Loop must go through All the available tiles on the board.
-	3. The available tiles on which the Loop must go are the ones without
-	   and also not containing Squares.
-	4. It is up to you to find the Squares, which are pointed at by the Arrows!
-	5. The numbers beside the Arrows tell you how many Squares are present
-	   in that direction, from that point.
-	6. Lastly, please keep in mind that if there aren't Arrows pointing to 
-	   a tile, that tile can contain a Square too!
+	1. The goal is to draw a single Loop(Necklace) through every circle(Pearl)
+	   that never branches-off or crosses itself.
+	2. The rules to pass Pears are:
+	3. Lines passing through White Pearls must go straight through them.
+	   However, at least at one side of the White Pearl(or both), they must
+	   do a 90 degree turn.
+	4. Lines passing through Black Pearls must do a 90 degree turn in them.
+	   Then they must go straight in the next tile in both directions.
+	5. Lines passing where there are no Pearls can do what they want.
 */
 
-namespace puzzles{ namespace Yalooniq{
+namespace puzzles{ namespace Masyu{
 
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
-#define PUZ_SQUARE_OFF		'0'
-#define PUZ_SQUARE_ON		'1'
+#define PUZ_BLACK_PEARL		'B'
+#define PUZ_WHITE_PEARL		'W'
 
 const string lines_off = "0000";
-const string lines_all[] = {
+const vector<string> lines_all = {
 	"0011", "0101", "0110", "1001", "1010", "1100",
 };
-const string square_dirs = "^>v<";
+const vector<string> lines_all_black = {
+	"1100", "0110", "0011", "1001",
+};
+const vector<string> lines_all_white = {
+	"1010", "0101",
+};
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -41,12 +46,31 @@ const Position offset[] = {
 	{0, -1},		// w
 };
 
-struct puz_square_info
-{
-	int m_num;
-	char m_dir;
-	vector<Position> m_rng;
-	vector<string> m_perms;
+typedef pair<Position, string> puz_dot_info;
+const puz_dot_info dot_info_black[][3] = {
+	{{{0, 0}, "1100"}, {{-1, 0}, "1010"}, {{0, 1}, "0101"}},		// n & e
+	{{{0, 0}, "0110"}, {{0, 1}, "0101"}, {{1, 0}, "1010"}},		// e & s
+	{{{0, 0}, "0011"}, {{1, 0}, "1010"}, {{0, -1}, "0101"}},		// s & w
+	{{{0, 0}, "1001"}, {{0, -1}, "0101"}, {{-1, 0}, "1010"}},	// w & n
+};
+const puz_dot_info dot_info_white[][3] = {
+	{{{0, 0}, "1010"}, {{-1, 0}, "1010"}, {{1, 0}, "1100"}},		// n & s
+	{{{0, 0}, "1010"}, {{-1, 0}, "1010"}, {{1, 0}, "1001"}},		// n & s
+	{{{0, 0}, "1010"}, {{-1, 0}, "0110"}, {{1, 0}, "1100"}},		// n & s
+	{{{0, 0}, "1010"}, {{-1, 0}, "0110"}, {{1, 0}, "1010"}},		// n & s
+	{{{0, 0}, "1010"}, {{-1, 0}, "0110"}, {{1, 0}, "1001"}},		// n & s
+	{{{0, 0}, "1010"}, {{-1, 0}, "0011"}, {{1, 0}, "1100"}},		// n & s
+	{{{0, 0}, "1010"}, {{-1, 0}, "0011"}, {{1, 0}, "1010"}},		// n & s
+	{{{0, 0}, "1010"}, {{-1, 0}, "0011"}, {{1, 0}, "1001"}},		// n & s
+
+	{{{0, 0}, "0101"}, {{0, 1}, "1001"}, {{0, -1}, "1100"}},		// e & w
+	{{{0, 0}, "0101"}, {{0, 1}, "1001"}, {{0, -1}, "0110"}},		// e & w
+	{{{0, 0}, "0101"}, {{0, 1}, "1001"}, {{0, -1}, "0101"}},		// e & w
+	{{{0, 0}, "0101"}, {{0, 1}, "0101"}, {{0, -1}, "1100"}},		// e & w
+	{{{0, 0}, "0101"}, {{0, 1}, "0101"}, {{0, -1}, "0110"}},		// e & w
+	{{{0, 0}, "0101"}, {{0, 1}, "0011"}, {{0, -1}, "1100"}},		// e & w
+	{{{0, 0}, "0101"}, {{0, 1}, "0011"}, {{0, -1}, "0110"}},		// e & w
+	{{{0, 0}, "0101"}, {{0, 1}, "0011"}, {{0, -1}, "0101"}},		// e & w
 };
 
 struct puz_game
@@ -54,7 +78,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	int m_dot_count;
-	map<Position, puz_square_info> m_pos2info;
+	map<Position, char> m_pos2circle;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 	bool is_valid(const Position& p) const {
@@ -70,28 +94,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
-			auto s = str.substr(2 * c, 2);
-			if(s != "  "){
-				auto& info = m_pos2info[{r, c}];
-				info.m_num = s[0] - '0';
-				info.m_dir = s[1];
-			}
+			char ch = str[c];
+			if(ch != ' ')
+				m_pos2circle[{r, c}] = ch;
 		}
-	}
-
-	for(auto& kv : m_pos2info){
-		auto& p = kv.first;
-		auto& info = kv.second;
-
-		auto& os = offset[square_dirs.find(info.m_dir)];
-		for(auto p2 = p + os; is_valid(p2); p2 += os)
-			if(m_pos2info.count(p2) == 0)
-				info.m_rng.push_back(p2);
-
-		auto perm = string(info.m_rng.size() - info.m_num, PUZ_SQUARE_OFF) + string(info.m_num, PUZ_SQUARE_ON);
-		do{
-			info.m_perms.push_back(perm);
-		} while(boost::next_permutation(perm));
 	}
 }
 
@@ -107,8 +113,8 @@ struct puz_state : vector<puz_dot>
 	}
 	const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	bool make_move_square(const Position& p, int n);
-	void make_move_square2(const Position& p, int n);
+	bool make_move_pearl(const Position& p, int n);
+	bool make_move_pearl2(const Position& p, int n);
 	bool make_move_line(const Position& p, int n);
 	int find_matches(bool init);
 	int check_dots(bool init);
@@ -132,35 +138,33 @@ struct puz_state : vector<puz_dot>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count, {lines_off}), m_game(&g)
+: vector<puz_dot>(g.m_dot_count), m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
-			if(g.m_pos2info.count(p) != 0)
-				continue;
-
 			auto& dt = dots(p);
-			for(auto& lines : lines_all)
+			auto it = g.m_pos2circle.find(p);
+			if(it == g.m_pos2circle.end())
+				dt.push_back(lines_off);
+
+			auto& lines_all2 = 
+				it == g.m_pos2circle.end() ? lines_all :
+				it->second == PUZ_BLACK_PEARL ? lines_all_black :
+				lines_all_white;
+			for(auto& lines : lines_all2)
 				if([&]{
-					for(int i = 0; i < 4; ++i){
-						if(lines[i] == PUZ_LINE_OFF)
-							continue;
-						auto p2 = p + offset[i];
-						if(!is_valid(p2) || g.m_pos2info.count(p2) != 0)
+					for(int i = 0; i < 4; ++i)
+						if(lines[i] == PUZ_LINE_ON && !is_valid(p + offset[i]))
 							return false;
-					}
 					return true;
 				}())
 					dt.push_back(lines);
 		}
 
-	for(const auto& kv : g.m_pos2info){
-		auto& p = kv.first;
-		auto& info = kv.second;
-		m_finished.insert(p);
-		auto& perm_ids = m_matches[p];
-		perm_ids.resize(info.m_perms.size());
+	for(const auto& kv : g.m_pos2circle){
+		auto& perm_ids = m_matches[kv.first];
+		perm_ids.resize(kv.second == PUZ_BLACK_PEARL ? 4 : 16);
 		boost::iota(perm_ids, 0);
 	}
 
@@ -174,15 +178,13 @@ int puz_state::find_matches(bool init)
 		const auto& p = kv.first;
 		auto& perm_ids = kv.second;
 
-		auto& info = m_game->m_pos2info.at(p);
-		auto& rng = info.m_rng;
+		auto info = m_game->m_pos2circle.at(p) == PUZ_BLACK_PEARL ?
+			dot_info_black : dot_info_white;
 		boost::remove_erase_if(perm_ids, [&](int id){
-			auto& perm = info.m_perms[id];
-			for(int i = 0; i < rng.size(); ++i){
-				char ch = perm[i];
-				const auto& dt = dots(rng[i]);
-				if(ch == PUZ_SQUARE_OFF && dt.size() == 1 && dt[0] == lines_off ||
-					ch == PUZ_SQUARE_ON && dt[0] != lines_off)
+			auto info2 = info[id];
+			for(int i = 0; i < 3; ++i){
+				auto& info3 = info2[i];
+				if(boost::algorithm::none_of_equal(dots(p + info3.first), info3.second))
 					return true;
 			}
 			return false;
@@ -193,7 +195,7 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move_square2(p, perm_ids.front()), 1;
+				return make_move_pearl2(p, perm_ids.front()), 1;
 			}
 	}
 	return 2;
@@ -235,28 +237,24 @@ int puz_state::check_dots(bool init)
 	}
 }
 
-void puz_state::make_move_square2(const Position& p, int n)
+bool puz_state::make_move_pearl2(const Position& p, int n)
 {
-	auto& info = m_game->m_pos2info.at(p);
-	auto& rng = info.m_rng;
-	auto& perm = info.m_perms[n];
-	for(int i = 0; i < rng.size(); ++i){
-		const auto& p2 = rng[i];
-		auto& dt = dots(p2);
-		if(perm[i] == PUZ_SQUARE_OFF){
-			if(dt[0] == lines_off)
-				dt.erase(dt.begin());
-		}
-		else
-			dt = {lines_off};
+	auto info = m_game->m_pos2circle.at(p) == PUZ_BLACK_PEARL ?
+		dot_info_black : dot_info_white;
+	auto info2 = info[n];
+	for(int i = 0; i < 3; ++i){
+		auto& info3 = info2[i];
+		dots(p + info3.first) = {info3.second};
 	}
 	m_matches.erase(p);
+	return check_loop();
 }
 
-bool puz_state::make_move_square(const Position& p, int n)
+bool puz_state::make_move_pearl(const Position& p, int n)
 {
 	m_distance = 0;
-	make_move_square2(p, n);
+	if(!make_move_pearl2(p, n))
+		return false;
 	for(;;){
 		int m;
 		while((m = find_matches(false)) == 1);
@@ -323,7 +321,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 		for(int n : kv.second){
 			children.push_back(*this);
-			if(!children.back().make_move_square(kv.first, n))
+			if(!children.back().make_move_pearl(kv.first, n))
 				children.pop_back();
 		}
 	}
@@ -349,14 +347,9 @@ ostream& puz_state::dump(ostream& out) const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			auto it = m_game->m_pos2info.find(p);
-			if(it != m_game->m_pos2info.end()){
-				auto& info = it->second;
-				out << info.m_num << info.m_dir;
-			}
-			else
-				out << (dt[0] == lines_off ? "S " :
-					dt[0][1] == PUZ_LINE_ON ? " -" : "  ");
+			auto it = m_game->m_pos2circle.find(p);
+			out << (it != m_game->m_pos2circle.end() ? it->second : ' ')
+				<< (dt[0][1] == PUZ_LINE_ON ? '-' : ' ');
 		}
 		out << endl;
 		if(r == sidelen() - 1) break;
@@ -370,9 +363,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_Yalooniq()
+void solve_puz_Masyu()
 {
-	using namespace puzzles::Yalooniq;
+	using namespace puzzles::Masyu;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\Yalooniq.xml", "Puzzles\\Yalooniq.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Masyu.xml", "Puzzles\\Masyu.txt", solution_format::GOAL_STATE_ONLY);
 }

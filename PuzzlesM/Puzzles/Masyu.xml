@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+BW W  \
+W     \
+BW   W\
+BW BWB\
+W  W  \
+BWWB  \
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+BW    \
+W WWB \
+  WBWW\
+W  W  \
+BW BW \
+   WW \
+    ]]>
+  </level>
+</levels>

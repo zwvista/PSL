@@ -150,6 +150,7 @@
   <ItemGroup>
     <Text Include="Puzzles\magic_square.txt" />
     <Text Include="Puzzles\magnets.txt" />
+    <Text Include="Puzzles\Masyu.txt" />
     <Text Include="Puzzles\Mathrax.txt" />
     <Text Include="Puzzles\mazecat.txt" />
     <Text Include="Puzzles\Minesweeper.txt" />
@@ -166,6 +167,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\magic_square.cpp" />
     <ClCompile Include="Puzzles\magnets.cpp" />
+    <ClCompile Include="Puzzles\Masyu.cpp" />
     <ClCompile Include="Puzzles\Mathrax.cpp" />
     <ClCompile Include="Puzzles\mazecat.cpp" />
     <ClCompile Include="Puzzles\Minesweeper.cpp" />
@@ -182,6 +184,7 @@
     <Xml Include="Puzzles\magic_square.xml" />
     <Xml Include="Puzzles\magic_square2.xml" />
     <Xml Include="Puzzles\magnets.xml" />
+    <Xml Include="Puzzles\Masyu.xml" />
     <Xml Include="Puzzles\Mathrax.xml" />
     <Xml Include="Puzzles\mazecat.xml" />
     <Xml Include="Puzzles\Minesweeper.xml" />
