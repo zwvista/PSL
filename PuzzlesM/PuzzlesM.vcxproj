@@ -154,6 +154,7 @@
     <Text Include="Puzzles\Mathrax.txt" />
     <Text Include="Puzzles\mazecat.txt" />
     <Text Include="Puzzles\Minesweeper.txt" />
+    <Text Include="Puzzles\Mirrors.txt" />
     <Text Include="Puzzles\Mosaic.txt" />
     <Text Include="Puzzles\mummymaze.txt" />
     <Text Include="ReadMe.txt" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Puzzles\Mathrax.cpp" />
     <ClCompile Include="Puzzles\mazecat.cpp" />
     <ClCompile Include="Puzzles\Minesweeper.cpp" />
+    <ClCompile Include="Puzzles\Mirrors.cpp" />
     <ClCompile Include="Puzzles\Mosaic.cpp" />
     <ClCompile Include="Puzzles\mummymaze.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -188,6 +190,7 @@
     <Xml Include="Puzzles\Mathrax.xml" />
     <Xml Include="Puzzles\mazecat.xml" />
     <Xml Include="Puzzles\Minesweeper.xml" />
+    <Xml Include="Puzzles\Mirrors.xml" />
     <Xml Include="Puzzles\Mosaic.xml" />
     <Xml Include="Puzzles\mummymaze.xml" />
   </ItemGroup>

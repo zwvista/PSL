@@ -78,7 +78,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	int m_dot_count;
-	map<Position, char> m_pos2circle;
+	map<Position, char> m_pos2pearl;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 	bool is_valid(const Position& p) const {
@@ -96,7 +96,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < m_sidelen; ++c){
 			char ch = str[c];
 			if(ch != ' ')
-				m_pos2circle[{r, c}] = ch;
+				m_pos2pearl[{r, c}] = ch;
 		}
 	}
 }
@@ -144,12 +144,12 @@ puz_state::puz_state(const puz_game& g)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			auto it = g.m_pos2circle.find(p);
-			if(it == g.m_pos2circle.end())
+			auto it = g.m_pos2pearl.find(p);
+			if(it == g.m_pos2pearl.end())
 				dt.push_back(lines_off);
 
 			auto& lines_all2 = 
-				it == g.m_pos2circle.end() ? lines_all :
+				it == g.m_pos2pearl.end() ? lines_all :
 				it->second == PUZ_BLACK_PEARL ? lines_all_black :
 				lines_all_white;
 			for(auto& lines : lines_all2)
@@ -162,7 +162,7 @@ puz_state::puz_state(const puz_game& g)
 					dt.push_back(lines);
 		}
 
-	for(const auto& kv : g.m_pos2circle){
+	for(const auto& kv : g.m_pos2pearl){
 		auto& perm_ids = m_matches[kv.first];
 		perm_ids.resize(kv.second == PUZ_BLACK_PEARL ? 4 : 16);
 		boost::iota(perm_ids, 0);
@@ -178,7 +178,7 @@ int puz_state::find_matches(bool init)
 		const auto& p = kv.first;
 		auto& perm_ids = kv.second;
 
-		auto info = m_game->m_pos2circle.at(p) == PUZ_BLACK_PEARL ?
+		auto info = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
 			dot_info_black : dot_info_white;
 		boost::remove_erase_if(perm_ids, [&](int id){
 			auto info2 = info[id];
@@ -239,7 +239,7 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::make_move_pearl2(const Position& p, int n)
 {
-	auto info = m_game->m_pos2circle.at(p) == PUZ_BLACK_PEARL ?
+	auto info = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
 		dot_info_black : dot_info_white;
 	auto info2 = info[n];
 	for(int i = 0; i < 3; ++i){
@@ -347,8 +347,8 @@ ostream& puz_state::dump(ostream& out) const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			auto it = m_game->m_pos2circle.find(p);
-			out << (it != m_game->m_pos2circle.end() ? it->second : ' ')
+			auto it = m_game->m_pos2pearl.find(p);
+			out << (it != m_game->m_pos2pearl.end() ? it->second : ' ')
 				<< (dt[0][1] == PUZ_LINE_ON ? '-' : ' ');
 		}
 		out << endl;

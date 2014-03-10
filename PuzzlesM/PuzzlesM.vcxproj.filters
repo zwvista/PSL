@@ -43,6 +43,9 @@
     <Text Include="Puzzles\Masyu.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Mirrors.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -86,6 +89,9 @@
     <ClCompile Include="Puzzles\Masyu.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Mirrors.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
@@ -113,6 +119,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Masyu.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Mirrors.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

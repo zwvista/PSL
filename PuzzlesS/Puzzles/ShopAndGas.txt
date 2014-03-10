@@ -1,0 +1,30 @@
+Level 01
+Sequence of moves: 
+G-   -S-G 
+| | |   | 
+S  -   -  
+|     |   
+G-    H   
+  |   |   
+  S   G-  
+  |     | 
+  G- -S-  
+Number of moves: 5
+Number of vertices examined: 10
+0.0781466 [s]
+
+Level 02
+Sequence of moves: 
+G- -S-G   
+|     |   
+ -S-G S   
+    | |   
+G-H-   -G 
+|       | 
+S G-S-  S 
+| |   | | 
+ -     -G 
+Number of moves: 1
+Number of vertices examined: 2
+0.0121435 [s]
+
