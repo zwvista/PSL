@@ -3,45 +3,58 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 6/Slanted Maze
+	ios game: Logic Games/Puzzle Set 8/Mine Ships
 
 	Summary
-	Maze of Slants!
+	Warning! Naval Mines in the water!
 
 	Description
-	1. Fill the board with diagonal lines (Slants), following the hints at
-	   the intersections.
-	2. Every number tells you how many Slants (diagonal lines) touch that
-	   point. So, for example, a 4 designates an X pattern around it.
-	3. The Mazes or paths the Slants will form will usually branch off many
-	   times, but can also end abruptly. Also all the Slants don't need to
-	   be all connected.
-	4. However, you must ensure that they don't form a closed loop anywhere.
-	   This also means very big loops, not just 2*2.
+	1. There are actually no mines in the water, but this is a mix between
+	   Minesweeper and Battle Ships.
+	2. You must find the same set of ships like 'Battle Ships'
+	   (1*4, 2*3, 3*2, 4*1).
+	3. However this time the hints are given in the same form as 'Minesweeper',
+	   where a number tells you how many pieces of ship are around it.
+	4. Usual Battle Ships rules apply!
 */
 
-namespace puzzles{ namespace slantedmaze{
+namespace puzzles{ namespace MineShips{
 
-#define PUZ_UNKNOWN		5
 #define PUZ_SPACE		' '
-#define PUZ_SLASH		'/'
-#define PUZ_BACKSLASH	'\\'
+#define PUZ_EMPTY		'.'
+#define PUZ_TOP			'^'
+#define PUZ_BOTTOM		'v'
+#define PUZ_LEFT		'<'
+#define PUZ_RIGHT		'>'
+#define PUZ_MIDDLE		'+'
+#define PUZ_BOAT		'o'
 #define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
-	{0, 0},	// nw
-	{0, 1},	// ne
-	{1, 1},	// se
-	{1, 0},	// sw
+	{-1, 0},		// n
+	{-1, 1},		// ne
+	{0, 1},		// e
+	{1, 1},		// se
+	{1, 0},		// s
+	{1, -1},		// sw
+	{0, -1},		// w
+	{-1, -1},	// nw
 };
 
-const string slants = "\\/\\/";
+const string ship_pieces[][2] = {
+	{"o", "o"},
+	{"<>", "^v"},
+	{"<+>", "^+v"},
+	{"<++>", "^++v"},
+};
 
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
+	string m_start;
 	map<Position, int> m_pos2num;
+	// all permutations
 	vector<vector<string>> m_num2perms;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -49,35 +62,28 @@ struct puz_game
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id{attrs.get<string>("id")}
-, m_sidelen(strs.size() + 1)
-, m_num2perms(PUZ_UNKNOWN + 1)
+, m_sidelen(strs.size() + 2)
+, m_num2perms(9)
 {
-	for(int r = 0; r < m_sidelen - 1; ++r){
+	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
+	for(int r = 0; r < m_sidelen - 2; ++r){
 		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen - 1; ++c){
-			Position p(r, c);
+		m_start.push_back(PUZ_BOUNDARY);
+		for(int c = 0; c < m_sidelen - 2; ++c){
 			char ch = str[c];
-			m_pos2num[p] = ch == ' ' ? PUZ_UNKNOWN : ch - '0';
+			m_start.push_back(ch == PUZ_SPACE ? PUZ_SPACE : PUZ_EMPTY);
+			if(ch != PUZ_SPACE)
+				m_pos2num[{r + 1, c + 1}] = ch - '0';
 		}
+		m_start.push_back(PUZ_BOUNDARY);
 	}
+	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
 
-	auto perm = slants;
-	auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
-	for(int i = 0; i <= 4; ++i){
-		auto& perms = m_num2perms[i];
-		vector<int> indexes(4, 0);
-		fill(indexes.begin() + 4 - i, indexes.end(), 1);
-		do{
-			for(int i = 0; i < 4; ++i){
-				int index = indexes[i];
-				char ch = slants[i];
-				perm[i] = index == 1 ? ch :
-						ch == PUZ_SLASH ? PUZ_BACKSLASH :
-						PUZ_SLASH;
-			}
-			perms.push_back(perm);
-			perms_unknown.push_back(perm);
-		}while(boost::next_permutation(indexes));
+	for(int i = 0; i <= 8; ++i){
+		auto perm = string(8 - i, PUZ_EMPTY) + string(i, PUZ_MINE);
+		do
+			m_num2perms[i].push_back(perm);
+		while(boost::next_permutation(perm));
 	}
 }
 
@@ -90,9 +96,8 @@ struct puz_state
 	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(const Position& p, int n);
-	bool make_move2(const Position& p, int n);
+	void make_move2(const Position& p, int n);
 	int find_matches(bool init);
-	bool check_loop() const;
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -112,13 +117,8 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(sidelen() * sidelen(), PUZ_SPACE)
+: m_cells(g.m_start), m_game(&g)
 {
-	for(int i = 0; i < sidelen(); ++i)
-		cells({i, 0}) = cells({i, sidelen() - 1}) =
-		cells({0, i}) = cells({sidelen() - 1, i}) =
-		PUZ_BOUNDARY;
-
 	for(auto& kv : g.m_pos2num){
 		auto& perm_ids = m_matches[kv.first];
 		perm_ids.resize(g.m_num2perms[kv.second].size());
@@ -141,7 +141,8 @@ int puz_state::find_matches(bool init)
 		auto& perms = m_game->m_num2perms[m_game->m_pos2num.at(p)];
 		boost::remove_erase_if(perm_ids, [&](int id){
 			return !boost::equal(chars, perms[id], [](char ch1, char ch2){
-				return ch1 == PUZ_SPACE || ch1 == PUZ_BOUNDARY || ch1 == ch2;
+				return ch1 == PUZ_SPACE || ch1 == ch2 ||
+					ch1 == PUZ_BOUNDARY && ch2 == PUZ_EMPTY;
 			});
 		});
 
@@ -150,15 +151,16 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, perm_ids.front()) ? 1 : 0;
+				return make_move2(p, perm_ids.front()), 1;
 			}
 	}
 	return 2;
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(const Position& p, int n)
 {
 	auto& perm = m_game->m_num2perms[m_game->m_pos2num.at(p)][n];
+
 	for(int k = 0; k < perm.size(); ++k){
 		char& ch = cells(p + offset[k]);
 		if(ch == PUZ_SPACE)
@@ -167,33 +169,6 @@ bool puz_state::make_move2(const Position& p, int n)
 
 	++m_distance;
 	m_matches.erase(p);
-
-	return check_loop();
-}
-
-struct puz_state2 : Position
-{
-	puz_state2(const puz_state& s);
-
-	int sidelen() const { return m_state->sidelen(); }
-	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
-	void gen_children(list<puz_state2>& children) const;
-
-	const puz_state* m_state;
-};
-
-puz_state2::puz_state2(const puz_state& s)
-: m_state(&s)
-{
-}
-
-void puz_state2::gen_children(list<puz_state2>& children) const
-{
-}
-
-bool puz_state::check_loop() const
-{
-	return true;
 }
 
 bool puz_state::make_move(const Position& p, int n)
@@ -208,7 +183,7 @@ bool puz_state::make_move(const Position& p, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_matches, [](
-		const pair<const Position, vector<int>>& kv1,
+		const pair<const Position, vector<int>>& kv1, 
 		const pair<const Position, vector<int>>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
@@ -222,8 +197,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 1; r < sidelen() - 1; ++r){
-		for(int c = 1; c < sidelen() - 1; ++c)
-			out << cells({r, c});
+		for(int c = 1; c < sidelen() - 1; ++c){
+			Position p(r, c);
+			auto it = m_game->m_pos2num.find(p);
+			if(it == m_game->m_pos2num.end())
+				out << format("%-2s") % cells(p);
+			else
+				out << format("%-2d") % it->second;
+		}
 		out << endl;
 	}
 	return out;
@@ -231,9 +212,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_slantedmaze()
+void solve_puz_MineShips()
 {
-	using namespace puzzles::slantedmaze;
+	using namespace puzzles::MineShips;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\slantedmaze.xml", "Puzzles\\slantedmaze.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\MineShips.xml", "Puzzles\\MineShips.txt", solution_format::GOAL_STATE_ONLY);
 }
