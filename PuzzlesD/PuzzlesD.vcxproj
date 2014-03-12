@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\DigitalBattleShips.txt" />
     <Text Include="Puzzles\Domino.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\DigitalBattleShips.cpp" />
     <ClCompile Include="Puzzles\Domino.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -167,6 +169,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\DigitalBattleShips.xml" />
     <Xml Include="Puzzles\Domino.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

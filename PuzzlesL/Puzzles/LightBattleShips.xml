@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+   > 5   7\
+1         \
+  84      \
+o         \
+       3  \
+3   o     \
+2         \
+          \
+          \
+      2 v \
+    ]]>
+  </level>
+</levels>

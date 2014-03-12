@@ -104,8 +104,7 @@ puz_state::puz_state(const puz_game& g)
 {
 	for(auto& kv : g.m_pos2num)
 		for(auto& os : offset){
-			auto p = kv.first + os;
-			char& ch = cells(p);
+			char& ch = cells(kv.first + os);
 			if(ch == PUZ_SPACE)
 				ch = PUZ_EMPTY;
 		}
