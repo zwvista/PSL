@@ -71,7 +71,7 @@ struct puz_game
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id{attrs.get<string>("id")}
-	, m_sidelen(strs.size() - 1)
+	, m_sidelen(strs.size())
 	, m_has_supertank(attrs.get<int>("SuperTank", 0) == 1)
 {
 	m_ships = {1, 1, 1, 1, 2, 2, 2, 3, 3, 4};
@@ -79,9 +79,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		m_ships.push_back(5);
 
 	int n = 0;
-	for(int r = 0; r <= m_sidelen; ++r){
+	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
-		for(int c = 0; c <= m_sidelen; ++c){
+		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
 			switch(char ch = str[c]){
 			case PUZ_SPACE:
@@ -185,7 +185,7 @@ void puz_state::find_matches()
 			if(i == 1 && vert)
 				continue;
 
-			const auto& s = ship_pieces[i - 1][j];
+			auto& s = ship_pieces[i - 1][j];
 			int len = s.length();
 
 			auto f = [&](Position p){
@@ -273,15 +273,16 @@ bool puz_state::make_move(const Position& p, int n, bool vert)
 			f({0, 2, 4, 6});
 			break;
 		}
-		for(auto& kv : m_pos2light){
-			if(kv.first.first == p2.first)
-				kv.second -= !vert ? len : 1;
-			if(kv.first.second == p2.second)
-				kv.second -= vert ? len : 1;
-		}
 
 		m_pos2piece.erase(p2);
 		p2 += os;
+	}
+
+	for(auto& kv : m_pos2light){
+		if(kv.first.first == p.first)
+			kv.second -= !vert ? len : 1;
+		if(kv.first.second == p.second)
+			kv.second -= vert ? len : 1;
 	}
 
 	m_ships.erase(boost::range::find(m_ships, n));

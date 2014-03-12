@@ -162,7 +162,7 @@ void puz_state::find_matches()
 			if(i == 1 && vert)
 				continue;
 
-			const auto& s = ship_pieces[i - 1][j];
+			auto& s = ship_pieces[i - 1][j];
 			int len = s.length();
 			for(int r = 0; r < sidelen() - (!vert ? 0 : len - 1); ++r){
 				for(int c = 0; c < sidelen() - (vert ? 0 : len - 1); ++c){

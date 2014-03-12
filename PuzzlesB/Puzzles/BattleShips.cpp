@@ -175,7 +175,7 @@ void puz_state::find_matches()
 			if(i == 1 && vert)
 				continue;
 
-			const auto& s = ship_pieces[i - 1][j];
+			auto& s = ship_pieces[i - 1][j];
 			int len = s.length();
 
 			auto f = [&](Position p){
