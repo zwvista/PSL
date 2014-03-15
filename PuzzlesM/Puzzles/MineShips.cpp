@@ -25,20 +25,9 @@ namespace puzzles{ namespace MineShips{
 #define PUZ_NUMBER		'N'
 #define PUZ_BOUNDARY	'B'
 
-const Position offset[] = {
-	{-1, 0},		// n
-	{-1, 1},		// ne
-	{0, 1},		// e
-	{1, 1},		// se
-	{1, 0},		// s
-	{1, -1},		// sw
-	{0, -1},		// w
-	{-1, -1},	// nw
-};
-
 struct puz_ship_info {
 	string m_pieces[2];
-	string m_nums[3];
+	string m_area[3];
 };
 
 const puz_ship_info ship_info[] = {
@@ -53,7 +42,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	string m_start;
-	vector<int> m_ships;
+	map<int, int> m_ship2num;
 	map<Position, int> m_pos2num;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -63,7 +52,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id{attrs.get<string>("id")}
 , m_sidelen(strs.size() + 2)
 {
-	m_ships = {1, 1, 1, 1, 2, 2, 2, 3, 3, 4};
+	m_ship2num = map<int, int>{{1, 4}, {2, 3}, {3, 2}, {4, 1}};
 
 	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
 	for(int r = 0; r < m_sidelen - 2; ++r){
@@ -93,7 +82,11 @@ struct puz_state : string
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_ships.size(); }
+	unsigned int get_heuristic() const {
+		return boost::accumulate(m_ship2num, 0, [](int acc, const pair<int, int>& kv){
+			return acc + kv.second;
+		});
+	}
 	unsigned int get_distance(const puz_state& child) const { return 1; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -102,14 +95,14 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
-	vector<int> m_ships;
+	map<int, int> m_ship2num;
 	map<Position, int> m_pos2num;
 	map<int, vector<pair<Position, bool>>> m_matches;
 };
 
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
-, m_ships(g.m_ships), m_pos2num(g.m_pos2num)
+, m_ship2num(g.m_ship2num), m_pos2num(g.m_pos2num)
 {
 	find_matches();
 }
@@ -117,8 +110,8 @@ puz_state::puz_state(const puz_game& g)
 void puz_state::find_matches()
 {
 	m_matches.clear();
-	set<int> ships(m_ships.begin(), m_ships.end());
-	for(int i : ships)
+	for(const auto& kv : m_ship2num){
+		int i = kv.first;
 		for(int j = 0; j < 2; ++j){
 			bool vert = j == 1;
 			if(i == 1 && vert)
@@ -133,7 +126,7 @@ void puz_state::find_matches()
 							for(int c2 = 0; c2 < len + 2; ++c2){
 								Position p2(r + (!vert ? r2 : c2), c + (!vert ? c2 : r2));
 								char ch = cells(p2);
-								char ch2 = info.m_nums[r2][c2];
+								char ch2 = info.m_area[r2][c2];
 								if(ch2 == ' ')
 									if(ch == PUZ_SPACE)
 										continue;
@@ -149,6 +142,7 @@ void puz_state::find_matches()
 					}())
 						m_matches[i].push_back({{r, c}, vert});
 		}
+	}
 }
 
 bool puz_state::make_move(const Position& p, int n, bool vert)
@@ -159,7 +153,7 @@ bool puz_state::make_move(const Position& p, int n, bool vert)
 		for(int c2 = 0; c2 < len + 2; ++c2){
 			auto p2 = p + Position(!vert ? r2 : c2, !vert ? c2 : r2);
 			char& ch = cells(p2);
-			char ch2 = info.m_nums[r2][c2];
+			char ch2 = info.m_area[r2][c2];
 			if(ch2 == ' ')
 				ch = info.m_pieces[!vert ? 0 : 1][c2 - 1];
 			else if(ch == PUZ_NUMBER)
@@ -168,14 +162,18 @@ bool puz_state::make_move(const Position& p, int n, bool vert)
 				ch = PUZ_EMPTY;
 		}
 
-	m_ships.erase(boost::range::find(m_ships, n));
+	if(--m_ship2num[n] == 0)
+		m_ship2num.erase(n);
 	find_matches();
-	return !is_goal_state() && boost::algorithm::all_of(m_ships, [&](int i){
-		return m_matches.count(i) != 0;
-	}) || is_goal_state() && boost::algorithm::all_of(m_pos2num,
-		[&](const pair<const Position, int>& kv){
-		return kv.second == 0;
-	});
+
+	if(!is_goal_state())
+		return boost::algorithm::all_of(m_ship2num, [&](const pair<int, int>& kv){
+			return m_matches[kv.first].size() >= kv.second;
+		});
+	else
+		return boost::algorithm::all_of(m_pos2num, [&](const pair<const Position, int>& kv){
+			return kv.second == 0;
+		});
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

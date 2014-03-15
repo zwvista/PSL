@@ -11,6 +11,6 @@ Sequence of moves:
 0 1 o 3 v . . 4 + . 
 . . . 2 . 2 o 3 v 2 
 Number of moves: 10
-Number of vertices examined: 51
-0.19103 [s]
+Number of vertices examined: 38
+0.00945951 [s]
 

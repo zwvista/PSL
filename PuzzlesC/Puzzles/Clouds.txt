@@ -9,7 +9,7 @@ Sequence of moves:
 022233
 Number of moves: 2
 Number of vertices examined: 4
-0.00215238 [s]
+0.00526446 [s]
 
 Level 02
 Sequence of moves: 
@@ -22,7 +22,7 @@ CC..CC4
 222242
 Number of moves: 3
 Number of vertices examined: 9
-0.000635858 [s]
+0.00211268 [s]
 
 Level 03
 Sequence of moves: 
@@ -36,7 +36,7 @@ CCC....3
 5520550
 Number of moves: 4
 Number of vertices examined: 118
-0.00328898 [s]
+0.00887972 [s]
 
 Level 04
 Sequence of moves: 
@@ -51,7 +51,7 @@ CC......2
 24233322
 Number of moves: 4
 Number of vertices examined: 93
-0.00291847 [s]
+0.00720685 [s]
 
 Level 05
 Sequence of moves: 
@@ -66,7 +66,7 @@ CC.CC.CC6
 37433244
 Number of moves: 5
 Number of vertices examined: 854
-0.0399936 [s]
+0.105723 [s]
 
 Level 06
 Sequence of moves: 
@@ -83,7 +83,7 @@ CCC...CC..5
 2253338500
 Number of moves: 3
 Number of vertices examined: 97
-0.0122091 [s]
+0.0121109 [s]
 
 Level 07
 Sequence of moves: 
@@ -100,7 +100,7 @@ Sequence of moves:
 0583630477
 Number of moves: 5
 Number of vertices examined: 105
-0.0367429 [s]
+0.0418399 [s]
 
 Level 08
 Sequence of moves: 
@@ -117,7 +117,7 @@ CC.CC.CCCC8
 6633632588
 Number of moves: 7
 Number of vertices examined: 8726
-0.933371 [s]
+0.868091 [s]
 
 Level 09
 Sequence of moves: 
@@ -134,7 +134,7 @@ CC.CCC.CC.7
 2237462264
 Number of moves: 8
 Number of vertices examined: 2316
-0.172028 [s]
+0.14278 [s]
 
 Level 10
 Sequence of moves: 
@@ -151,7 +151,7 @@ CC..CC....4
 5504626600
 Number of moves: 7
 Number of vertices examined: 435
-0.0350453 [s]
+0.023758 [s]
 
 Level 11
 Sequence of moves: 
@@ -168,7 +168,7 @@ CC.CC.....4
 7732644753
 Number of moves: 7
 Number of vertices examined: 28534
-2.1422 [s]
+1.87451 [s]
 
 Level 12
 Sequence of moves: 
@@ -185,7 +185,7 @@ CC.CC.....4
 4758347355
 Number of moves: 7
 Number of vertices examined: 4532
-0.746422 [s]
+0.707206 [s]
 
 Level 13
 Sequence of moves: 
@@ -202,7 +202,7 @@ CCCC......4
 3666005572
 Number of moves: 5
 Number of vertices examined: 380
-0.0380697 [s]
+0.0402481 [s]
 
 Level 14
 Sequence of moves: 
@@ -219,5 +219,5 @@ CCC.CC....5
 3550572055
 Number of moves: 6
 Number of vertices examined: 78814
-2.921 [s]
+2.88649 [s]
 

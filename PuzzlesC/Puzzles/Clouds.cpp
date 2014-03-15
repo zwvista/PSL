@@ -22,6 +22,7 @@ namespace puzzles{ namespace Clouds{
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
 #define PUZ_CLOUD		'C'
+#define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -36,30 +37,24 @@ struct puz_game
 	int m_sidelen;
 	vector<int> m_piece_counts_rows, m_piece_counts_cols;
 	Position m_cloud_max_size;
-	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-	: m_id{attrs.get<string>("id")}
-	, m_sidelen(strs.size() - 1)
+: m_id{attrs.get<string>("id")}
+, m_sidelen{strs.size() + 1}
+, m_piece_counts_rows(m_sidelen)
+, m_piece_counts_cols(m_sidelen)
 {
-	for(int r = 0; r <= m_sidelen; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c <= m_sidelen; c++)
-			switch(char ch = str[c]){
-			case PUZ_SPACE:
-				if(r != m_sidelen || c != m_sidelen)
-					m_start.push_back(ch);
-				break;
-			default:
-				if(c == m_sidelen)
-					m_piece_counts_rows.push_back(ch - '0');
-				else
-					m_piece_counts_cols.push_back(ch - '0');
-				break;
-			};
+	for(int r = 1; r < m_sidelen; ++r){
+		auto& str = strs[r - 1];
+		for(int c = 1; c < m_sidelen; c++){
+			char ch = str[c - 1];
+			if(ch != PUZ_SPACE)
+				(c == m_sidelen - 1 ? m_piece_counts_rows[r] : m_piece_counts_cols[c])
+				= ch - '0';
+		}
 	}
 	m_cloud_max_size = {
 		*boost::max_element(m_piece_counts_cols),
@@ -72,9 +67,6 @@ struct puz_state : string
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const { return m_game->m_sidelen; }
-	bool is_valid(const Position& p) const {
-		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
-	}
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, int h, int w);
@@ -101,10 +93,14 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
+: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 , m_piece_counts_rows(g.m_piece_counts_rows)
 , m_piece_counts_cols(g.m_piece_counts_cols)
 {
+	for(int i = 0; i < sidelen(); ++i)
+		cells({i, 0}) = cells({i, sidelen() - 1}) =
+		cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
+
 	check_area();
 	find_matches();
 }
@@ -116,12 +112,12 @@ void puz_state::check_area()
 			ch = PUZ_EMPTY;
 	};
 
-	for(int i = 0; i < sidelen(); ++i){
+	for(int i = 1; i < sidelen() - 1; ++i){
 		if(m_piece_counts_rows[i] == 0)
-			for(int j = 0; j < sidelen(); ++j)
+			for(int j = 1; j < sidelen() - 1; ++j)
 				f(cells({i, j}));
 		if(m_piece_counts_cols[i] == 0)
-			for(int j = 0; j < sidelen(); ++j)
+			for(int j = 1; j < sidelen() - 1; ++j)
 				f(cells({j, i}));
 	}
 }
@@ -130,9 +126,9 @@ void puz_state::find_matches()
 {
 	m_matches.clear();
 	for(int h = 2; h <= m_game->m_cloud_max_size.first; ++h)
-		for(int r = 0; r <= sidelen() - h; ++r)
+		for(int r = 1; r < sidelen() - h; ++r)
 			for(int w = 2; w <= m_game->m_cloud_max_size.second; ++w)
-				for(int c = 0; c <= sidelen() - w; ++c)
+				for(int c = 1; c < sidelen() - w; ++c)
 					if([=](){
 						for(int dr = 0; dr < h; ++dr)
 							for(int dc = 0; dc < w; ++dc){
@@ -158,8 +154,9 @@ bool puz_state::make_move(const Position& p, int h, int w)
 		}
 
 	auto f = [this](const Position& p){
-		if(is_valid(p))
-			cells(p) = PUZ_EMPTY;
+		char& ch = cells(p);
+		if(ch == PUZ_SPACE)
+			ch = PUZ_EMPTY;
 	};
 	for(int dr = -1; dr <= h; ++dr)
 		f(p + Position(dr, -1)), f(p + Position(dr, w));
@@ -170,14 +167,12 @@ bool puz_state::make_move(const Position& p, int h, int w)
 	check_area();
 
 	// pruning
-	for(int r = 0; r < sidelen(); ++r)
-		for(int c = 0; c < sidelen(); ++c){
+	for(int r = 1; r < sidelen() - 1; ++r)
+		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p2(r, c);
 			auto g = [&](int i, int j){
-				auto p3 = p2 + offset[i];
-				auto p4 = p2 + offset[j];
-				return is_valid(p3) && cells(p3) == PUZ_SPACE ||
-					is_valid(p4) && cells(p4) == PUZ_SPACE;
+				return cells(p2 + offset[i]) == PUZ_SPACE ||
+					cells(p2 + offset[j]) == PUZ_SPACE;
 			};
 			if(cells(p2) == PUZ_SPACE && (!g(0, 2) || !g(1, 3)))
 				return false;
@@ -198,13 +193,13 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r <= sidelen(); ++r){
-		for(int c = 0; c <= sidelen(); ++c)
-			if(r == sidelen() && c == sidelen())
+	for(int r = 1; r < sidelen(); ++r){
+		for(int c = 1; c < sidelen(); ++c)
+			if(r == sidelen() - 1 && c == sidelen() - 1)
 				break;
-			else if(c == sidelen())
+			else if(c == sidelen() - 1)
 				out << m_game->m_piece_counts_rows[r];
-			else if(r == sidelen())
+			else if(r == sidelen() - 1)
 				out << m_game->m_piece_counts_cols[c];
 			else
 				out << cells({r, c});
