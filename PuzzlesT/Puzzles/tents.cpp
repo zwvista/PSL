@@ -87,8 +87,8 @@ struct puz_area : pair<set<Position>, int>
 	puz_area(int tent_count)
 		: pair<set<Position>, int>({}, tent_count)
 	{}
-	void add_cells(const Position& p){ first.insert(p); }
-	void remove_cells(const Position& p){ first.erase(p); }
+	void add_cell(const Position& p){ first.insert(p); }
+	void remove_cell(const Position& p){ first.erase(p); }
 	void plant_tree(const Position& p, bool at_least_one){
 		if(first.count(p) == 0) return;
 		first.erase(p);
@@ -155,9 +155,9 @@ puz_state::puz_state(const puz_game& g)
 		for(int j = 0; j < 8; j += 2){
 			auto p2 = p + offset[j];
 			if(is_valid(p2) && cells(p2) == PUZ_EMPTY){
-				m_grp_rows[p2.first].add_cells(p2);
-				m_grp_cols[p2.second].add_cells(p2);
-				m_grp_trees[i].add_cells(p2);
+				m_grp_rows[p2.first].add_cell(p2);
+				m_grp_cols[p2.second].add_cell(p2);
+				m_grp_trees[i].add_cell(p2);
 			}
 		}
 	}
@@ -177,9 +177,9 @@ bool puz_state::make_move(const Position& p)
 		auto p2 = p + os;
 		if(is_valid(p2)){
 			for(auto& a : m_grp_trees)
-				a.remove_cells(p2);
-			m_grp_rows[p2.first].remove_cells(p2);
-			m_grp_cols[p2.second].remove_cells(p2);
+				a.remove_cell(p2);
+			m_grp_rows[p2.first].remove_cell(p2);
+			m_grp_cols[p2.second].remove_cell(p2);
 		}
 	}
 

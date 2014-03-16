@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 extern void solve_puz_ParkingLot();
-extern void solve_puz_parks();
+extern void solve_puz_Parks();
 extern void solve_puz_Parks2();
 extern void solve_puz_pathfind();
 extern void solve_puz_patternpuzzle();
@@ -11,7 +11,7 @@ extern void solve_puz_Pharaoh();
 int main(int argc, char **argv)
 {
 	cout << "a1: Parking Lot" << endl;
-	cout << "a2: parks" << endl;
+	cout << "a2: Parks" << endl;
 	cout << "a3: Parks2" << endl;
 	cout << "a4: pathfind" << endl;
 	cout << "a5: patternpuzzle" << endl;
@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 	string str;
 	getline(cin, str);
 	if(str == "a1") solve_puz_ParkingLot();
-	else if(str == "a2") solve_puz_parks();
+	else if(str == "a2") solve_puz_Parks();
 	else if(str == "a3") solve_puz_Parks2();
 	else if(str == "a4") solve_puz_pathfind();
 	else if(str == "a5") solve_puz_patternpuzzle();

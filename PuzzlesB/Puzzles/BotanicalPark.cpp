@@ -74,8 +74,8 @@ struct puz_area : pair<set<Position>, int>
 	puz_area(int plant_count)
 		: pair<set<Position>, int>({}, plant_count)
 	{}
-	void add_cells(const Position& p){ first.insert(p); }
-	void remove_cells(const Position& p){ first.erase(p); }
+	void add_cell(const Position& p){ first.insert(p); }
+	void remove_cell(const Position& p){ first.erase(p); }
 	void place_plant(const Position& p, bool at_least_one){
 		if(first.count(p) == 0) return;
 		first.erase(p);
@@ -138,8 +138,8 @@ puz_state::puz_state(const puz_game& g)
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
-			m_grp_rows[r].add_cells(p);
-			m_grp_cols[c].add_cells(p);
+			m_grp_rows[r].add_cell(p);
+			m_grp_cols[c].add_cell(p);
 		}
 
 	int i = 0;
@@ -147,7 +147,7 @@ puz_state::puz_state(const puz_game& g)
 		auto& p = kv.first;
 		auto& os = offset[kv.second];
 		for(auto p2 = p + os; is_valid(p2) && cells(p2) == PUZ_EMPTY; p2 += os)
-			m_grp_arrows[i].add_cells(p2);
+			m_grp_arrows[i].add_cell(p2);
 		++i;
 	}
 }
@@ -166,9 +166,9 @@ bool puz_state::make_move(const Position& p)
 		auto p2 = p + os;
 		if(is_valid(p2)){
 			for(auto& a : m_grp_arrows)
-				a.remove_cells(p2);
-			m_grp_rows[p2.first].remove_cells(p2);
-			m_grp_cols[p2.second].remove_cells(p2);
+				a.remove_cell(p2);
+			m_grp_rows[p2.first].remove_cell(p2);
+			m_grp_cols[p2.second].remove_cell(p2);
 		}
 	}
 

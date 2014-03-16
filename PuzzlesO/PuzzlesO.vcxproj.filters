@@ -28,6 +28,9 @@
     <Text Include="Puzzles\openvalve.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Orchards.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -53,12 +56,18 @@
     <ClCompile Include="Puzzles\openvalve.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Orchards.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\on_the_edge.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\openvalve.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Orchards.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

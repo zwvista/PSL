@@ -92,8 +92,8 @@ struct puz_area : pair<set<Position>, int>
 	puz_area(int star_count)
 		: pair<set<Position>, int>({}, star_count)
 	{}
-	void add_cells(const Position& p){ first.insert(p); }
-	void remove_cells(const Position& p){ first.erase(p); }
+	void add_cell(const Position& p){ first.insert(p); }
+	void remove_cell(const Position& p){ first.erase(p); }
 	void place_star(const Position& p, bool at_least_one){
 		if(first.count(p) == 0) return;
 		first.erase(p);
@@ -167,9 +167,9 @@ puz_state::puz_state(const puz_game& g)
 		auto& os = offset[kv.second];
 		for(auto p2 = p + os; is_valid(p2); p2 += os)
 			if(cells(p2) == PUZ_EMPTY){
-				m_grp_rows[p2.first].add_cells(p2);
-				m_grp_cols[p2.second].add_cells(p2);
-				m_grp_arrows[i].add_cells(p2);
+				m_grp_rows[p2.first].add_cell(p2);
+				m_grp_cols[p2.second].add_cell(p2);
+				m_grp_arrows[i].add_cell(p2);
 			}
 		++i;
 	}

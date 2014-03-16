@@ -19,7 +19,7 @@
 	5. Larger puzzles have TWO Trees in each park, each row and each column.
 */
 
-namespace puzzles{ namespace parks{
+namespace puzzles{ namespace Parks{
 
 #define PUZ_TREE		'T'
 #define PUZ_SPACE		'.'
@@ -76,8 +76,8 @@ struct puz_area : pair<set<Position>, int>
 	puz_area(int tree_count_area)
 		: pair<set<Position>, int>({}, tree_count_area)
 	{}
-	void add_cells(const Position& p){ first.insert(p); }
-	void remove_cells(const Position& p){ first.erase(p); }
+	void add_cell(const Position& p){ first.insert(p); }
+	void remove_cell(const Position& p){ first.erase(p); }
 	void plant_tree(const Position& p){ first.erase(p); --second; }
 	bool is_valid() const {
 		return second >= 0 && first.size() >= second;
@@ -114,13 +114,13 @@ struct puz_groups
 			&m_cols[p.second]
 		};
 	}
-	void add_cells(const Position& p){
+	void add_cell(const Position& p){
 		for(puz_area* a : get_areas(p))
-			a->add_cells(p);
+			a->add_cell(p);
 	}
-	void remove_cells(const Position& p){
+	void remove_cell(const Position& p){
 		for(puz_area* a : get_areas(p))
-			a->remove_cells(p);
+			a->remove_cell(p);
 	}
 	void plant_tree(const Position& p){
 		for(puz_area* a : get_areas(p))
@@ -171,7 +171,7 @@ puz_state::puz_state(const puz_game& g)
 {
 	for(int r = 0; r < g.m_sidelen; ++r)
 		for(int c = 0; c < g.m_sidelen; ++c)
-			m_groups.add_cells({r, c});
+			m_groups.add_cell({r, c});
 
 	for(const auto& p : g.m_trees)
 		make_move(p);
@@ -200,7 +200,7 @@ bool puz_state::make_move(const Position& p)
 	for(auto& os : offset){
 		const auto& p2 = p + os;
 		if(is_valid(p2))
-			m_groups.remove_cells(p2);
+			m_groups.remove_cell(p2);
 	}
 
 	return m_groups.is_valid();
@@ -228,9 +228,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_parks()
+void solve_puz_Parks()
 {
-	using namespace puzzles::parks;
+	using namespace puzzles::Parks;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\parks.xml", "Puzzles\\parks.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Parks.xml", "Puzzles\\Parks.txt", solution_format::GOAL_STATE_ONLY);
 }
