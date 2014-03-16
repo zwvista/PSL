@@ -19,9 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\parks.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\pathfind_astar.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -61,6 +58,9 @@
     <Text Include="Puzzles\ParkingLot.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Parks.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -80,9 +80,6 @@
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\parks.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\pathfind.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -101,11 +98,11 @@
     <ClCompile Include="Puzzles\ParkingLot.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Parks.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\parks.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\pathfind.xml">
       <Filter>Puzzles</Filter>
     </Xml>
@@ -119,6 +116,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\ParkingLot.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Parks.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

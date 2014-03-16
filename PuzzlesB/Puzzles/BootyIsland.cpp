@@ -3,37 +3,43 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 12/Botanical Park
+	ios game: Logic Games/Puzzle Set 13/Booty Island
 
 	Summary
-	Excuse me sir ? Do you know where the Harpagophytum Procumbens is ?
+	Overcrowded Piracy
 
 	Description
-	1. The board represents a Botanical Park, with arrows pointing to the
-	   different plants.
-	2. Each arrow points to at least one plant and there is exactly one
-	   plant in every row and in every column.
-	3. Plants cannot touch, not even diagonally.
+	1. Overcrowded by Greedy Pirates (tm), this land has Treasures buried
+	   almost everywhere and the relative maps scattered around.
+	2. In fact there's only one Treasure for each row and for each column.
+	3. On the island you can see maps with a number: these tell you how
+	   many steps are required, horizontally or vertically, to reach a
+	   Treasure.
+	4. For how stupid the Pirates are, they don't bury their Treasures
+	   touching each other, even diagonally, however at times they are so
+	   stupid that two or more maps point to the same Treasure!
 
-	Variant
-	4. Puzzle with side 9 or bigger have TWO plants in every row and column.
+	Bigger Islands
+	5. On bigger islands, there will be two Treasures per row and column.
+	6. In this case, the number on the map doesn't necessarily point to the
+	   closest Treasure on that row or column.
 */
 
-namespace puzzles{ namespace BotanicalPark{
+namespace puzzles{ namespace BootyIsland{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
-#define PUZ_ARROW		'A'
-#define PUZ_PLANT		'P'
+#define PUZ_MAP			'M'
+#define PUZ_TREASURE	'X'
 
 const Position offset[] = {
-	{-1, 0},	// n
-	{-1, 1},	// ne
+	{-1, 0},		// n
+	{-1, 1},		// ne
 	{0, 1},		// e
 	{1, 1},		// se
 	{1, 0},		// s
-	{1, -1},	// sw
-	{0, -1},	// w
+	{1, -1},		// sw
+	{0, -1},		// w
 	{-1, -1},	// nw
 };
 
@@ -41,9 +47,9 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	int m_plant_count_area;
-	int m_plant_total_count;
-	map<Position, int> m_pos2arrow;
+	int m_treasure_count_area;
+	int m_treasure_total_count;
+	map<Position, int> m_pos2map;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -52,31 +58,31 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id{attrs.get<string>("id")}
 	, m_sidelen(strs.size())
-	, m_plant_count_area(attrs.get<int>("PlantsInEachArea", 1))
-	, m_plant_total_count(m_plant_count_area * m_sidelen)
+	, m_treasure_count_area(attrs.get<int>("TreasuresInEachArea", 1))
+	, m_treasure_total_count(m_treasure_count_area * m_sidelen)
 {
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen; c++){
+		for(int c = 0; c < m_sidelen; ++c){
 			char ch = str[c];
 			if(ch != PUZ_SPACE)
-				m_pos2arrow[{r, c}] = ch - '0';
-			m_start.push_back(ch == PUZ_SPACE ? PUZ_EMPTY : PUZ_ARROW);
+				m_pos2map[{r, c}] = ch - '0';
+			m_start.push_back(ch == PUZ_SPACE ? PUZ_EMPTY : PUZ_MAP);
 		}
 	}
 }
 
-// first : all the remaining positions in the area where a plant can be hidden
-// second : the number of plants that need to be found in the area
+// first : all the remaining positions in the area where a treasure can be found
+// second : the number of treasures that need to be found in the area
 struct puz_area : pair<set<Position>, int>
 {
 	puz_area() {}
-	puz_area(int plant_count)
-		: pair<set<Position>, int>({}, plant_count)
+	puz_area(int treasure_count_area)
+		: pair<set<Position>, int>({}, treasure_count_area)
 	{}
 	void add_cell(const Position& p){ first.insert(p); }
 	void remove_cell(const Position& p){ first.erase(p); }
-	void place_plant(const Position& p, bool at_least_one){
+	void find_treasure(const Position& p, bool at_least_one){
 		if(first.count(p) == 0) return;
 		first.erase(p);
 		if(!at_least_one || at_least_one && second == 1)
@@ -89,8 +95,8 @@ struct puz_area : pair<set<Position>, int>
 struct puz_group : vector<puz_area>
 {
 	puz_group() {}
-	puz_group(int cell_count, int plant_count_area)
-		: vector<puz_area>(cell_count, puz_area(plant_count_area)) {}
+	puz_group(int cell_count, int treasure_count_area)
+		: vector<puz_area>(cell_count, puz_area(treasure_count_area)) {}
 	bool is_valid() const {
 		return boost::algorithm::all_of(*this, [](const puz_area& a) {
 			return a.is_valid();
@@ -113,8 +119,8 @@ struct puz_state : string
 	// solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { 
-		return m_game->m_plant_total_count - boost::count(*this, PUZ_PLANT);
+	unsigned int get_heuristic() const {
+		return m_game->m_treasure_total_count - boost::count(*this, PUZ_TREASURE);
 	}
 	unsigned int get_distance(const puz_state& child) const {return 1;}
 	void dump_move(ostream& out) const {}
@@ -124,24 +130,33 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game;
-	puz_group m_grp_arrows;
+	puz_group m_grp_maps;
 	puz_group m_grp_rows;
 	puz_group m_grp_cols;
 };
 
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
-, m_grp_arrows(g.m_pos2arrow.size(), 1)
-, m_grp_rows(g.m_sidelen, g.m_plant_count_area)
-, m_grp_cols(g.m_sidelen, g.m_plant_count_area)
+, m_grp_maps(g.m_pos2map.size(), 1)
+, m_grp_rows(g.m_sidelen, g.m_treasure_count_area)
+, m_grp_cols(g.m_sidelen, g.m_treasure_count_area)
 {
 	for(int r = 0, i = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
-			if(cells(p) == PUZ_ARROW){
-				auto& os = offset[g.m_pos2arrow.at(p)];
-				for(auto p2 = p + os; is_valid(p2) && cells(p2) == PUZ_EMPTY; p2 += os)
-					m_grp_arrows[i].add_cell(p2);
+			if(cells(p) == PUZ_MAP){
+				for(int j = 0; j < 4; ++j){
+					auto& os = offset[j * 2];
+					int n = g.m_pos2map.at(p);
+					auto p2 = p;
+					if([&, n]{
+						for(int k = 0; k < n; ++k)
+							if(!is_valid(p2 += os))
+								return false;
+						return cells(p2) == PUZ_EMPTY;
+					}())
+						m_grp_maps[i].add_cell(p2);
+				}
 				++i;
 			}
 			else{
@@ -153,18 +168,18 @@ puz_state::puz_state(const puz_game& g)
 
 bool puz_state::make_move(const Position& p)
 {
-	cells(p) = PUZ_PLANT;
+	cells(p) = PUZ_TREASURE;
 
-	for(auto& a : m_grp_arrows)
-		a.place_plant(p, true);
-	m_grp_rows[p.first].place_plant(p, false);
-	m_grp_cols[p.second].place_plant(p, false);
+	for(auto& a : m_grp_maps)
+		a.find_treasure(p, true);
+	m_grp_rows[p.first].find_treasure(p, false);
+	m_grp_cols[p.second].find_treasure(p, false);
 
 	// no touch
 	for(auto& os : offset){
 		auto p2 = p + os;
 		if(is_valid(p2)){
-			for(auto& a : m_grp_arrows)
+			for(auto& a : m_grp_maps)
 				a.remove_cell(p2);
 			m_grp_rows[p2.first].remove_cell(p2);
 			m_grp_cols[p2.second].remove_cell(p2);
@@ -176,16 +191,17 @@ bool puz_state::make_move(const Position& p)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
+	const puz_group* grps[] = {&m_grp_maps, &m_grp_rows, &m_grp_cols};
 	vector<const puz_area*> areas;
-	for(auto grp : {&m_grp_arrows, &m_grp_rows, &m_grp_cols})
-		for(auto& a : *grp)
+	for(const puz_group* grp : grps)
+		for(const puz_area& a : *grp)
 			if(a.second > 0)
 				areas.push_back(&a);
 
-	auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
+	const auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
 		return a1->first.size() < a2->first.size();
 	});
-	for(auto& p : a.first){
+	for(const auto& p : a.first){
 		children.push_back(*this);
 		if(!children.back().make_move(p))
 			children.pop_back();
@@ -198,8 +214,8 @@ ostream& puz_state::dump(ostream& out) const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			char ch = cells(p);
-			if(ch == PUZ_ARROW)
-				out << format("%-2d") % m_game->m_pos2arrow.at(p);
+			if(ch == PUZ_MAP)
+				out << format("%-2d") % m_game->m_pos2map.at(p);
 			else
 				out << ch << " ";
 		}
@@ -210,9 +226,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_BotanicalPark()
+void solve_puz_BootyIsland()
 {
-	using namespace puzzles::BotanicalPark;
+	using namespace puzzles::BootyIsland;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\BotanicalPark.xml", "Puzzles\\BotanicalPark.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\BootyIsland.xml", "Puzzles\\BootyIsland.txt", solution_format::GOAL_STATE_ONLY);
 }

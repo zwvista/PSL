@@ -25,13 +25,13 @@ namespace puzzles{ namespace Parks{
 #define PUZ_SPACE		'.'
 
 const Position offset[] = {
-	{-1, 0},	// n
-	{-1, 1},	// ne
+	{-1, 0},		// n
+	{-1, 1},		// ne
 	{0, 1},		// e
 	{1, 1},		// se
 	{1, 0},		// s
-	{1, -1},	// sw
-	{0, -1},	// w
+	{1, -1},		// sw
+	{0, -1},		// w
 	{-1, -1},	// nw
 };
 
@@ -50,7 +50,7 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id{attrs.get<string>("id")}
 	, m_sidelen(strs.size())
-	, m_tree_count_area(attrs.get<int>("numTreesInEachArea", 1))
+	, m_tree_count_area(attrs.get<int>("TreesInEachArea", 1))
 	, m_tree_total_count(m_tree_count_area * m_sidelen)
 {
 	for(int r = 0; r < m_sidelen; ++r){

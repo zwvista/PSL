@@ -58,26 +58,22 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_star_counts_rows(m_sidelen)
 	, m_star_counts_cols(m_sidelen)
 {
-	int n = 0;
-	for(int r = 0; r < m_sidelen + 1; ++r){
+	for(int r = 0, n = 0; r < m_sidelen + 1; ++r){
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen + 1; c++){
-			Position p(r, c);
-			switch(char ch = str[c]){
-			case PUZ_SPACE:
+			char ch = str[c];
+			if(ch == PUZ_SPACE)
 				m_start.push_back(PUZ_EMPTY);
-				break;
-			default:
+			else{
 				n = ch - '0';
 				if(c == m_sidelen)
 					m_star_counts_rows[r] = n;
 				else if(r == m_sidelen)
 					m_star_counts_cols[c] = n;
 				else{
-					m_pos2arrow[p] = n;
+					m_pos2arrow[{r, c}] = n;
 					m_start.push_back(PUZ_ARROW);
 				}
-				break;
 			}
 		}
 	}

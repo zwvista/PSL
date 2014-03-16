@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+3    \
+     \
+     \
+4    \
+     \
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+     \
+  1  \
+4    \
+     \
+3    \
+    ]]>
+  </level>
+  <level id="13" TreasuresInEachArea="2">
+    <![CDATA[
+2        \
+         \
+7        \
+         \
+         \
+         \
+        4\
+         \
+        4\
+    ]]>
+  </level>
+</levels>

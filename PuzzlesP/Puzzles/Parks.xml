@@ -135,7 +135,7 @@ aaggggg\
 ggggggg\
     ]]>
   </level>
-  <level id="015" numTreesInEachArea="2">
+  <level id="015" TreesInEachArea="2">
     <![CDATA[
 aaaaaaaaa\
 bbaacaccd\
@@ -148,7 +148,7 @@ Ggiiihhff\
 ggiiiihff\
     ]]>
   </level>
-  <level id="016" numTreesInEachArea="2">
+  <level id="016" TreesInEachArea="2">
     <![CDATA[
 abbbbccc\
 abbccccc\
@@ -160,7 +160,7 @@ hhhfffgg\
 hhgggggg\
     ]]>
   </level>
-  <level id="017" numTreesInEachArea="2">
+  <level id="017" TreesInEachArea="2">
     <![CDATA[
 aabbbbbcc\
 adddbbbcc\
@@ -173,7 +173,7 @@ hihiifffg\
 iiiiiiggg\
     ]]>
   </level>
-  <level id="018" numTreesInEachArea="2">
+  <level id="018" TreesInEachArea="2">
     <![CDATA[
 aaaabcccd\
 aaabbbccd\
@@ -186,7 +186,7 @@ gggghhiii\
 gggghiiii\
     ]]>
   </level>
-  <level id="019" numTreesInEachArea="2">
+  <level id="019" TreesInEachArea="2">
     <![CDATA[
 aaaabcccc\
 aaaabcccc\
@@ -199,7 +199,7 @@ dhhiiiggg\
 hhhhhiiig\
     ]]>
   </level>
-  <level id="020" numTreesInEachArea="2">
+  <level id="020" TreesInEachArea="2">
     <![CDATA[
 aaabbcddd\
 aabbbccdd\
@@ -212,7 +212,7 @@ ffhhiiiii\
 ffhhiiiii\
     ]]>
   </level>
-  <level id="021" numTreesInEachArea="2">
+  <level id="021" TreesInEachArea="2">
     <![CDATA[
 aabbbbbbb\
 aaabcccbc\
@@ -225,7 +225,7 @@ dffhhhhig\
 dfffhiiii\
     ]]>
   </level>
-  <level id="022" numTreesInEachArea="2">
+  <level id="022" TreesInEachArea="2">
     <![CDATA[
 abbbaaaac\
 aaabaaacc\
@@ -238,7 +238,7 @@ ghhheiiee\
 hhhiiiiii\
     ]]>
   </level>
-  <level id="023" numTreesInEachArea="2">
+  <level id="023" TreesInEachArea="2">
     <![CDATA[
 abbbbcccc\
 aabbccdcc\
@@ -251,7 +251,7 @@ hghhiieif\
 hhhiiiiii\
     ]]>
   </level>
-  <level id="024" numTreesInEachArea="2">
+  <level id="024" TreesInEachArea="2">
     <![CDATA[
 aaaabbccc\
 daabbbeec\
@@ -264,27 +264,27 @@ hhhhggggi\
 hhgggggii\
     ]]>
   </level>
-  <level id="025" numTreesInEachArea="2">
+  <level id="025" TreesInEachArea="2">
     <![CDATA[
     ]]>
   </level>
-  <level id="026" numTreesInEachArea="2">
+  <level id="026" TreesInEachArea="2">
     <![CDATA[
     ]]>
   </level>
-  <level id="027" numTreesInEachArea="2">
+  <level id="027" TreesInEachArea="2">
     <![CDATA[
     ]]>
   </level>
-  <level id="028" numTreesInEachArea="2">
+  <level id="028" TreesInEachArea="2">
     <![CDATA[
     ]]>
   </level>
-  <level id="029" numTreesInEachArea="2">
+  <level id="029" TreesInEachArea="2">
     <![CDATA[
     ]]>
   </level>
-  <!--<level id="036" numTreesInEachArea="2">
+  <!--<level id="036" TreesInEachArea="2">
     <![CDATA[
 aaaaaabbccc\
 aaaaaabbccc\
