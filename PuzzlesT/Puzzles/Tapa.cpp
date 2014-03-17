@@ -4,30 +4,39 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Nurikabe
+	ios game: Logic Games/Puzzle Set 9/Tapa
 
 	Summary
-	Draw a continuous wall that divides gardens as big as the numbers
+	Turkish art of PAint(TAPA)
 
 	Description
-	1. Each number on the grid indicates a garden, occupying as many tiles
-	   as the number itself.
-	2. Gardens can have any form, extending horizontally and vertically, but
-	   can't extend diagonally.
-	3. The garden is separated by a single continuous wall. This means all
-	   wall tiles on the board must be connected horizontally or vertically.
-	   There can't be isolated walls.
-	4. You must find and mark the wall following these rules:
-	5. All the gardens in the puzzle are numbered at the start, there are no
-	   hidden gardens.
-	6. A wall can't go over numbered squares.
-	7. The wall can't form 2*2 squares.
+	1. The goal is to fill some tiles forming a single orthogonally continuous
+	   path. Just like Tapa.
+	2. A number indicates how many of the surrounding tiles are filled. If a
+	   tile has more than one number, it hints at multiple separated groups
+	   of filled tiles.
+	3. For example, a cell with a 1 and 3 means there is a  continuous group
+	   of 3 filled cells around it and one more single filled cell, separated
+	   from the other 3. The order of the numbers in this case is irrelevant.
+	4. Filled tiles can't cover an area of 2*2 or larger (just like Tapa).
+	   Tiles with numbers can be considered 'empty'.
+
+	Variations
+	5. Tapa has plenty of variations. Some are available in the levels of this
+	   game. Stronger variations are B-W Tapa, Island Tapa and Pata and have
+	   their own game.
+	6. Equal Tapa - The board contains an equal number of white and black tiles.
+	   Tiles with numbers or question marks are NOT counted as empty or filled
+	   for this rule (i.e. they're left out of the count).
+	7. Four-Me-Tapa - Four-Me-Not rule apply: you can't have more than three
+	   filled tiles in line.
+	8. No-Square Tapa - No 2*2 area of the board can be left empty.
 */
 
-namespace puzzles{ namespace nurikabe{
+namespace puzzles{ namespace Tapa{
 
 #define PUZ_SPACE		' '
-#define PUZ_WALL		'W'
+#define PUZ_FILLED		'F'
 #define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
@@ -56,9 +65,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& str = strs[r];
 		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 0; c < m_sidelen - 2; ++c){
+			auto s = str.substr(c * 2, 2);
 			switch(char ch = str[c]){
 			case PUZ_SPACE:
-				m_start.push_back(PUZ_WALL);
+				m_start.push_back(PUZ_FILLED);
 				break;
 			default:
 				m_start.push_back('a' + n++);
@@ -116,8 +126,8 @@ puz_state::puz_state(const puz_game& g)
 	for(int r = 1; r < g.m_sidelen - 2; ++r)
 		for(int c = 1; c < g.m_sidelen - 2; ++c){
 			Position p1(r, c), p2(r, c + 1), p3(r + 1, c), p4(r + 1, c + 1);
-			if(cells(p1) == PUZ_WALL && cells(p2) == PUZ_WALL &&
-				cells(p3) == PUZ_WALL && cells(p4) == PUZ_WALL)
+			if(cells(p1) == PUZ_FILLED && cells(p2) == PUZ_FILLED &&
+				cells(p3) == PUZ_FILLED && cells(p4) == PUZ_FILLED)
 				m_2by2walls.push_back({p1, p2, p3, p4});
 		}
 }
@@ -136,7 +146,7 @@ struct puz_state2 : Position
 puz_state2::puz_state2(const puz_state& s)
 : m_state(&s)
 {
-	int i = s.find(PUZ_WALL);
+	int i = s.find(PUZ_FILLED);
 	make_move({i / sidelen(), i % sidelen()});
 }
 
@@ -144,7 +154,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		if(m_state->cells(p2) == PUZ_WALL){
+		if(m_state->cells(p2) == PUZ_FILLED){
 			children.push_back(*this);
 			children.back().make_move(p2);
 		}
@@ -162,7 +172,7 @@ bool puz_state::make_move(const Position& p)
 
 	for(auto& os : offset){
 		char ch2 = cells(p + os);
-		if(ch2 != PUZ_BOUNDARY && ch2 != PUZ_WALL && ch2 != ch)
+		if(ch2 != PUZ_BOUNDARY && ch2 != PUZ_FILLED && ch2 != ch)
 			return false;
 	}
 
@@ -183,7 +193,7 @@ bool puz_state::make_move(const Position& p)
 
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	return smoves.size() == boost::count(*this, PUZ_WALL);
+	return smoves.size() == boost::count(*this, PUZ_FILLED);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -191,7 +201,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 	for(auto& p : m_gardens.back().first)
 		for(auto& os : offset){
 			auto p2 = p + os;
-			if(cells(p2) == PUZ_WALL){
+			if(cells(p2) == PUZ_FILLED){
 				children.push_back(*this);
 				if(!children.back().make_move(p2))
 					children.pop_back();
@@ -205,7 +215,7 @@ ostream& puz_state::dump(ostream& out) const
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
 			char ch = cells(p);
-			if(ch == PUZ_WALL)
+			if(ch == PUZ_FILLED)
 				out << ch << ' ';
 			else{
 				auto it = m_game->m_pos2garden.find(p);
@@ -222,9 +232,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_nurikabe()
+void solve_puz_Tapa()
 {
-	using namespace puzzles::nurikabe;
+	using namespace puzzles::Tapa;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\nurikabe.xml", "Puzzles\\nurikabe.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Tapa.xml", "Puzzles\\Tapa.txt", solution_format::GOAL_STATE_ONLY);
 }

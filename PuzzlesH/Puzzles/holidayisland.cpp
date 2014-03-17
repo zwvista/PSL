@@ -51,7 +51,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id{attrs.get<string>("id")}
 , m_sidelen(strs.size() + 2)
 {
-	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
 	for(int r = 0; r < m_sidelen - 2; ++r){
 		auto& str = strs[r];
 		m_start.push_back(PUZ_BOUNDARY);
@@ -66,7 +66,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
-	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
 }
 
 struct puz_area

@@ -37,6 +37,9 @@
     <Text Include="Puzzles\TennerGrid.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Tapa.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -71,6 +74,9 @@
     <ClCompile Include="Puzzles\TennerGrid.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Tapa.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\tatami.xml">
@@ -86,6 +92,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\TennerGrid.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Tapa.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\Tapa.txt" />
     <Text Include="Puzzles\tatami.txt" />
     <Text Include="Puzzles\TennerGrid.txt" />
     <Text Include="Puzzles\tents.txt" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\Tapa.cpp" />
     <ClCompile Include="Puzzles\tatami.cpp" />
     <ClCompile Include="Puzzles\TennerGrid.cpp" />
     <ClCompile Include="Puzzles\tents.cpp" />
@@ -176,6 +178,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\Tapa.xml" />
     <Xml Include="Puzzles\tatami.xml" />
     <Xml Include="Puzzles\TennerGrid.xml" />
     <Xml Include="Puzzles\tents.xml" />

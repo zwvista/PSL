@@ -49,7 +49,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size() + 2)
 , m_num2perms(9)
 {
-	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
 	for(int r = 0; r < m_sidelen - 2; ++r){
 		auto& str = strs[r];
 		m_start.push_back(PUZ_BOUNDARY);
@@ -61,7 +61,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
-	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
 
 	for(int i = 0; i <= 8; ++i){
 		auto perm = string(8 - i, PUZ_EMPTY) + string(i, PUZ_MINE);

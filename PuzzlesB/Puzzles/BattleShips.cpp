@@ -75,7 +75,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	if(m_has_supertank)
 		m_ship2num[5] = 1;
 
-	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
 	for(int r = 1; r < m_sidelen; ++r){
 		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_BOUNDARY);
@@ -100,7 +100,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			};
 		m_start.push_back(PUZ_BOUNDARY);
 	}
-	m_start.insert(m_start.end(), m_sidelen - 2, PUZ_BOUNDARY);
+	m_start.append(m_sidelen - 2, PUZ_BOUNDARY);
 }
 
 typedef map<Position, vector<tuple<int, Position, bool>>> puz_pos_match;
