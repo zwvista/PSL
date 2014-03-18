@@ -56,14 +56,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& str = strs[r];
 		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 0; c < m_sidelen - 2; ++c){
-			switch(char ch = str[c]){
-			case PUZ_SPACE:
+			char ch = str[c];
+			if(ch == PUZ_SPACE)
 				m_start.push_back(PUZ_WALL);
-				break;
-			default:
+			else{
 				m_start.push_back('a' + n++);
 				m_pos2garden[{r + 1, c + 1}] = ch - '0';
-				break;
 			}
 		}
 		m_start.push_back(PUZ_BOUNDARY);
@@ -78,7 +76,7 @@ struct puz_state : string
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cells(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p);
 

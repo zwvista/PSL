@@ -80,7 +80,7 @@ public:
 		: string(g.m_start), m_game(&g) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
 	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second <= p.first;

@@ -65,7 +65,7 @@ struct puz_state : string
 		: string(g.m_start), m_game(&g) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
 	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	void click(const Position& p);
 

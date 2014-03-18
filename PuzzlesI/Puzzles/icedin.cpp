@@ -89,7 +89,7 @@ public:
 		: string(g.m_start), m_game(&g), m_blocks(g.m_blocks) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
 	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	bool make_move(size_t n, EDir dir);
 private:

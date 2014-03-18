@@ -54,7 +54,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size() + 2)
 {
 	m_start.push_back(PUZ_CORNER);
-	m_start.append(m_sidelen - 2, PUZ_BORDER);
+	m_start.insert(m_start.end(), m_sidelen - 2, PUZ_BORDER);
 	m_start.push_back(PUZ_CORNER);
 	for(int r = 0; r < m_sidelen - 2; ++r){
 		auto& str = strs[r];
@@ -64,7 +64,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		m_start.push_back(PUZ_BORDER);
 	}
 	m_start.push_back(PUZ_CORNER);
-	m_start.append(m_sidelen - 2, PUZ_BORDER);
+	m_start.insert(m_start.end(), m_sidelen - 2, PUZ_BORDER);
 	m_start.push_back(PUZ_CORNER);
 
 	for(int r = 1; r < m_sidelen - 1; ++r)

@@ -43,7 +43,7 @@ struct puz_state : string
 	puz_state(const puz_game& g) 
 		: string(g.m_start), m_game(&g) {}
 	int sidelen() const {return m_game->m_sidelen;}
-	char cells(const Position& p) const {return at(p.first * sidelen() + p.second);}
+	char cells(const Position& p) const {return (*this)[p.first * sidelen() + p.second];}
 	char& cells(const Position& p) {return (*this)[p.first * sidelen() + p.second];}
 	int pos2group(const Position& p) const {return m_game->m_pos2group.at(p);}
 	void make_move(const Position& p, char n) {cells(p) = n;}

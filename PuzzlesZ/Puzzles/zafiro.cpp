@@ -91,7 +91,7 @@ struct puz_state : string
 		, m_grav(0) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
 	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	bool make_move(int i);
 	void click(const Position& p);

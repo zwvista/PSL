@@ -54,7 +54,7 @@ struct puz_state : string
 		: string(g.m_start), m_game(&g) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cells(int r, int c) const {return at(r * cols() + c);}
+	char cells(int r, int c) const {return (*this)[r * cols() + c];}
 	char& cells(int r, int c) {return (*this)[r * cols() + c];}
 	void rotate_row(int r, int n) {
 		vector<int> v(cols());

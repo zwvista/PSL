@@ -67,7 +67,7 @@ struct puz_state : public string
 		: string(g.m_start), m_game(&g) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cells(const Position& p) const {return at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
 	char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
 	void make_move(const Position& p1, const Position& p2, const Position& p3) {
 		cells(p1) = cells(p2) = PUZ_HOLE;

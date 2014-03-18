@@ -45,7 +45,7 @@ struct puz_state : vector<int>
 	puz_state(const puz_game& g)
 		: vector<int>(g.m_start), m_game(&g) {}
 	int sidelen() const {return m_game->sidelen();}
-	int cells(int r, int c) const {return at(r * sidelen() + c);}
+	int cells(int r, int c) const {return (*this)[r * sidelen() + c];}
 	int& cells(int r, int c) {return (*this)[r * sidelen() + c];}
 	void make_move(int r1, int c1, int r2, int c2){
 		std::swap(cells(r1, c1), cells(r2, c2));

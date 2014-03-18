@@ -104,7 +104,7 @@ struct puz_state : vector<int>
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	int cells(const Position& p) const { return at(p.first * sidelen() + p.second); }
+	int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(int i, const vector<int>& nums);
 	void apply_ripple_effect(const Position& p, int n);
