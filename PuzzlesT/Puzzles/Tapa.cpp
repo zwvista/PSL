@@ -36,7 +36,10 @@
 namespace puzzles{ namespace Tapa{
 
 #define PUZ_SPACE		' '
+#define PUZ_QM			'?'
 #define PUZ_FILLED		'F'
+#define PUZ_EMPTY		'.'
+#define PUZ_HINT		'H'
 #define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
@@ -46,11 +49,14 @@ const Position offset[] = {
 	{0, -1},		// w
 };
 
+typedef pair<int, int> puz_hint;
+
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	map<Position, int> m_pos2garden;
+	map<Position, puz_hint> m_pos2hint;
+	map<puz_hint, vector<string>> m_hint2perms;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -60,25 +66,59 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id{attrs.get<string>("id")}
 , m_sidelen(strs.size() + 2)
 {
+	auto f = [](char ch) {
+		return ch == PUZ_QM ? -1 : ch == PUZ_SPACE ? 0 : ch - '0';
+	};
+
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
-	for(int r = 0, n = 0; r < m_sidelen - 2; ++r){
-		auto& str = strs[r];
+	for(int r = 1; r < m_sidelen - 1; ++r){
+		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_BOUNDARY);
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			auto s = str.substr(c * 2, 2);
-			switch(char ch = str[c]){
-			case PUZ_SPACE:
+		for(int c = 1; c < m_sidelen - 1; ++c){
+			auto s = str.substr(c * 2 - 2, 2);
+			if(s == "  ")
 				m_start.push_back(PUZ_FILLED);
-				break;
-			default:
-				m_start.push_back('a' + n++);
-				m_pos2garden[{r + 1, c + 1}] = ch - '0';
-				break;
+			else{
+				m_start.push_back(PUZ_HINT);
+				int n1 = f(s[0]), n2 = f(s[1]);
+				if(n1 != -1 && n1 < n2)
+					std::swap(n1, n2);
+				m_pos2hint[{r, c}] = {n1, n2};
 			}
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
+
+	// A tile is surrounded by at most 8 tiles, each of which has two states:
+	// filled or empty. So all combinations of the states of the
+	// surrounding tiles can be coded into an 8-bit number(0 -- 255).
+	for(int i = 1; i < 256; ++i){
+		vector<int> filled;
+		for(int j = 0; j < 8; ++j)
+			if(i & (1 << j))
+				filled.push_back(j);
+
+		vector<int> hint;
+		for(int j = 0; j < filled.size(); ++j)
+			if(j == 0 || filled[j] - filled[j - 1] != 1)
+				hint.push_back(1);
+			else
+				++hint.back();
+		if(filled.size() > 1 && hint.size() > 1 && filled.front() == 0 && filled.back() == 7)
+			hint.front() += hint.back(), hint.pop_back();
+		if(hint.size() > 2)
+			continue;
+
+		string perm(8, PUZ_EMPTY);
+		for(int j : filled)
+			perm[j] = PUZ_FILLED;
+		int n1 = hint[0], n2 = hint.size() == 1 ? 0 : hint[1];
+		if(n1 < n2)
+			std::swap(n1, n2);
+		m_hint2perms[{n1, n2}].push_back(perm);
+		m_hint2perms[{-1, n2 == 0 ? 0 : -1}].push_back(perm);
+	}
 }
 
 typedef pair<vector<Position>, int> puz_garden;
@@ -115,21 +155,6 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-	for(auto& kv : g.m_pos2garden)
-		if(kv.second > 1)
-			m_gardens.emplace_back(vector<Position>{kv.first}, kv.second - 1);
-
-	boost::sort(m_gardens, [](const puz_garden& kv1, const puz_garden& kv2){
-		return kv1.second > kv2.second;
-	});
-
-	for(int r = 1; r < g.m_sidelen - 2; ++r)
-		for(int c = 1; c < g.m_sidelen - 2; ++c){
-			Position p1(r, c), p2(r, c + 1), p3(r + 1, c), p4(r + 1, c + 1);
-			if(cells(p1) == PUZ_FILLED && cells(p2) == PUZ_FILLED &&
-				cells(p3) == PUZ_FILLED && cells(p4) == PUZ_FILLED)
-				m_2by2walls.push_back({p1, p2, p3, p4});
-		}
 }
 
 struct puz_state2 : Position
@@ -211,22 +236,22 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r) {
-		for(int c = 1; c < sidelen() - 1; ++c){
-			Position p(r, c);
-			char ch = cells(p);
-			if(ch == PUZ_FILLED)
-				out << ch << ' ';
-			else{
-				auto it = m_game->m_pos2garden.find(p);
-				if(it == m_game->m_pos2garden.end())
-					out << ". ";
-				else
-					out << format("%-2d") % it->second;
-			}
-		}
-		out << endl;
-	}
+	//for(int r = 1; r < sidelen() - 1; ++r) {
+	//	for(int c = 1; c < sidelen() - 1; ++c){
+	//		Position p(r, c);
+	//		char ch = cells(p);
+	//		if(ch == PUZ_FILLED)
+	//			out << ch << ' ';
+	//		else{
+	//			auto it = m_game->m_pos2garden.find(p);
+	//			if(it == m_game->m_pos2garden.end())
+	//				out << ". ";
+	//			else
+	//				out << format("%-2d") % it->second;
+	//		}
+	//	}
+	//	out << endl;
+	//}
 	return out;
 }
 

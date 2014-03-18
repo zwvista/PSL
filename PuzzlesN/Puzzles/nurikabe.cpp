@@ -107,7 +107,7 @@ puz_state::puz_state(const puz_game& g)
 {
 	for(auto& kv : g.m_pos2garden)
 		if(kv.second > 1)
-			m_gardens.emplace_back(vector<Position>{kv.first}, kv.second - 1);
+			m_gardens.push_back({{kv.first}, kv.second - 1});
 
 	boost::sort(m_gardens, [](const puz_garden& kv1, const puz_garden& kv2){
 		return kv1.second > kv2.second;
