@@ -11,14 +11,14 @@
 
 	Description
 	1. The goal is to fill some tiles forming a single orthogonally continuous
-	   path. Just like Tapa.
+	   path. Just like Nurikabe.
 	2. A number indicates how many of the surrounding tiles are filled. If a
 	   tile has more than one number, it hints at multiple separated groups
 	   of filled tiles.
-	3. For example, a cell with a 1 and 3 means there is a  continuous group
+	3. For example, a cell with a 1 and 3 means there is a continuous group
 	   of 3 filled cells around it and one more single filled cell, separated
 	   from the other 3. The order of the numbers in this case is irrelevant.
-	4. Filled tiles can't cover an area of 2*2 or larger (just like Tapa).
+	4. Filled tiles can't cover an area of 2*2 or larger (just like Nurikabe).
 	   Tiles with numbers can be considered 'empty'.
 
 	Variations
@@ -30,7 +30,7 @@
 	   for this rule (i.e. they're left out of the count).
 	7. Four-Me-Tapa - Four-Me-Not rule apply: you can't have more than three
 	   filled tiles in line.
-	8. No-Square Tapa - No 2*2 area of the board can be left empty.
+	8. No Square Tapa - No 2*2 area of the board can be left empty.
 */
 
 namespace puzzles{ namespace Tapa{
@@ -56,12 +56,22 @@ const Position offset[] = {
 
 typedef vector<int> puz_hint;
 
+enum puz_game_type
+{
+	TAPA,
+	EQUAL_TAPA,
+	FOUR_ME_TAPA,
+	NO_SQUARE_TAPA,
+};
+
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
+	puz_game_type m_game_type;
 	map<Position, puz_hint> m_pos2hint;
 	map<puz_hint, vector<string>> m_hint2perms;
+	int m_space_count;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -71,9 +81,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id{attrs.get<string>("id")}
 , m_sidelen(strs.size() + 2)
 {
-	auto f = [](char ch) {
-		return ch == PUZ_QM ? PUZ_UNKNOWN : ch == PUZ_SPACE ? 0 : ch - '0';
-	};
+	auto game_type = attrs.get<string>("GameType", "Tapa");
+	m_game_type =
+		game_type == "Equal Tapa" ? EQUAL_TAPA :
+		game_type == "Four-Me-Tapa" ? FOUR_ME_TAPA :
+		game_type == "No Square Tapa" ? NO_SQUARE_TAPA :
+		TAPA;
 
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
 	for(int r = 1; r < m_sidelen - 1; ++r){
@@ -86,14 +99,19 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			else{
 				m_start.push_back(PUZ_HINT);
 				auto& hint = m_pos2hint[{r, c}];
-				for(int i = 0, n = 0; i < 4; ++i)
-					if((n = f(s[i])) != 0)
-						hint.push_back(n);
+				for(int i = 0, n = 0; i < 4; ++i){
+					char ch = s[i];
+					if(ch != PUZ_SPACE)
+						hint.push_back(ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0');
+				}
+				m_hint2perms[hint];
 			}
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
+
+	m_space_count = boost::count(m_start, PUZ_SPACE);
 
 	// A tile is surrounded by at most 8 tiles, each of which has two states:
 	// filled or empty. So all combinations of the states of the
@@ -104,6 +122,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			if(i & (1 << j))
 				filled.push_back(j);
 
+		string perm(8, PUZ_EMPTY);
+		for(int j : filled)
+			perm[j] = PUZ_FILLED;
+
 		vector<int> hint;
 		for(int j = 0; j < filled.size(); ++j)
 			if(j == 0 || filled[j] - filled[j - 1] != 1)
@@ -112,20 +134,28 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				++hint.back();
 		if(filled.size() > 1 && hint.size() > 1 && filled.back() - filled.front() == 7)
 			hint.front() += hint.back(), hint.pop_back();
-
-		string perm(8, PUZ_EMPTY);
-		for(int j : filled)
-			perm[j] = PUZ_FILLED;
-
 		boost::sort(hint);
-		m_hint2perms[hint].push_back(perm);
-
-		boost::fill(hint, PUZ_UNKNOWN);
-		m_hint2perms[hint].push_back(perm);
+		
+		for(auto& kv : m_hint2perms){
+			auto& hint2 = kv.first;
+			if(hint2 == hint)
+				kv.second.push_back(perm);
+			else if(boost::algorithm::any_of_equal(hint2, PUZ_UNKNOWN) && hint2.size() == hint.size()){
+				auto hint3 = hint2;
+				boost::remove_erase(hint3, PUZ_UNKNOWN);
+				if(boost::includes(hint, hint3))
+					kv.second.push_back(perm);
+			}
+		}
 	}
+
+	// A cell with a 0 means all its surrounding cells are empty.
+	auto it = m_hint2perms.find({0});
+	if(it != m_hint2perms.end())
+		it->second = {string(8, PUZ_EMPTY)};
 }
 
-typedef pair<vector<Position>, int> puz_garden;
+typedef pair<vector<Position>, int> puz_path;
 
 struct puz_state : string
 {
@@ -134,14 +164,17 @@ struct puz_state : string
 	int sidelen() const {return m_game->m_sidelen;}
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	bool make_move(const Position& p, int n);
-	bool make_move2(const Position& p, int n);
+	bool make_move_hint(const Position& p, int n);
+	bool make_move_hint2(const Position& p, int n);
+	bool make_move_space(const Position& p, char ch);
 	int find_matches(bool init);
+	vector<puz_path> find_paths() const;
+	bool is_valid_move() const;
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_matches.size(); }
+	unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
 	unsigned int get_distance(const puz_state& child) const { return m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -177,7 +210,7 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, perm_ids.front()) ? 1 : 0;
+				return make_move_hint2(p, perm_ids.front()) ? 1 : 0;
 			}
 	}
 	return 2;
@@ -197,65 +230,147 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-	puz_state2(const puz_state& s);
+	puz_state2(const set<Position>& a);
 
-	int sidelen() const { return m_state->sidelen(); }
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const puz_state* m_state;
+	const set<Position>* m_area;
 };
 
-puz_state2::puz_state2(const puz_state& s)
-: m_state(&s)
+puz_state2::puz_state2(const set<Position>& a)
+: m_area(&a)
 {
-	int i = boost::find_if(s, [](char ch){
-		return ch == PUZ_SPACE || ch == PUZ_FILLED;
-	}) - s.begin();
-
-	make_move({i / sidelen(), i % sidelen()});
+	make_move(*a.begin());
 }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-	for(auto& os : offset){
-		auto p2 = *this + os;
-		char ch = m_state->cells(p2);
-		if(ch == PUZ_SPACE || ch == PUZ_FILLED){
+	for(int i = 0; i < 4; ++i){
+		auto p2 = *this + offset[i * 2];
+		if(m_area->count(p2) != 0){
 			children.push_back(*this);
 			children.back().make_move(p2);
 		}
 	}
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+vector<puz_path> puz_state::find_paths() const
+{
+	set<Position> a;
+	for(int i = 0; i < length(); ++i){
+		char ch = (*this)[i];
+		if(ch == PUZ_SPACE || ch == PUZ_FILLED)
+			a.insert({i / sidelen(), i % sidelen()});
+	}
+
+	vector<puz_path> paths;
+	while(!a.empty()){
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves(a, smoves);
+		paths.emplace_back();
+		auto& path = paths.back();
+		for(auto& p : smoves){
+			a.erase(p);
+			path.first.push_back(p);
+			if(cells(p) == PUZ_FILLED)
+				path.second++;
+		}
+	}
+
+	boost::sort(paths, [&](const puz_path& path1, const puz_path& path2){
+		return path1.second > path2.second;
+	});
+
+	return paths;
+}
+
+bool puz_state::make_move_hint2(const Position& p, int n)
 {
 	auto& perm = m_game->m_hint2perms.at(m_game->m_pos2hint.at(p))[n];
 	for(int i = 0; i < 8; ++i){
 		auto p2 = p + offset[i];
 		char& ch = cells(p2);
 		if(ch == PUZ_SPACE)
-			ch = perm[i];
+			ch = perm[i], ++m_distance;
 	}
 
-	++m_distance;
 	m_matches.erase(p);
+	if(m_matches.empty()){
+		auto paths = find_paths();
+		while(paths.size() > 1){
+			auto& path = paths.back();
+			if(path.second != 0)
+				return false;
 
-	list<puz_state2> smoves;
-	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	return smoves.size() == boost::count_if(*this, [](char ch){
-		return ch == PUZ_SPACE || ch == PUZ_FILLED;
-	});
+			for(auto& p2 : path.first)
+				cells(p2) = PUZ_EMPTY, ++m_distance;
+			paths.pop_back();
+		}
+	}
+
+	return is_valid_move();
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move_hint(const Position& p, int n)
 {
 	m_distance = 0;
-	if(!make_move2(p, n))
+	if(!make_move_hint2(p, n))
 		return false;
 	int m;
 	while((m = find_matches(false)) == 1);
 	return m == 2;
+}
+
+bool puz_state::make_move_space(const Position& p, char ch)
+{
+	cells(p) = ch;
+	m_distance = 1;
+
+	return find_paths().size() == 1 && is_valid_move();
+}
+
+bool puz_state::is_valid_move() const
+{
+	auto four_cells = [&](const Position& p1, const Position& p2, const Position& p3, const Position& p4, char ch){
+		return cells(p1) == ch && cells(p2) == ch && cells(p3) == ch && cells(p4) == ch;
+	};
+
+	auto is_valid_square = [&](char ch){
+		for(int r = 1; r < sidelen() - 2; ++r)
+			for(int c = 1; c < sidelen() - 2; ++c)
+				if(four_cells({r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}, ch))
+					return false;
+		return true;
+	};
+
+	auto is_valid_tapa = [&]{ return is_valid_square(PUZ_FILLED); };
+
+	auto is_no_square_tapa = [&]{ return is_valid_square(PUZ_EMPTY); };
+
+	auto is_equal_tapa = [&]{
+		int n1 = boost::count(*this, PUZ_FILLED), n2 = boost::count(*this, PUZ_EMPTY);
+		int n = m_game->m_space_count / 2;
+		return !is_goal_state() ? n1 <= n && n2 <= n : n1 == n && n2 == n;
+	};
+
+	auto is_four_me_tapa = [&]{
+		for(int i = 1; i < sidelen() - 4; ++i)
+			for(int j = 1; j < sidelen() - 1; ++j){
+				if(four_cells({i, j}, {i + 1, j}, {i + 2, j}, {i + 3, j}, PUZ_FILLED))
+					return false;
+				if(four_cells({j, i}, {j, i + 1}, {j, i + 2}, {j, i + 3}, PUZ_FILLED))
+					return false;
+			}
+		return true;
+	};
+
+	return is_valid_tapa() && (
+		m_game->m_game_type == TAPA ||
+		m_game->m_game_type == EQUAL_TAPA && is_equal_tapa() ||
+		m_game->m_game_type == FOUR_ME_TAPA && is_four_me_tapa() ||
+		m_game->m_game_type == NO_SQUARE_TAPA && is_no_square_tapa()
+	);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -269,32 +384,37 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 		for(int n : kv.second){
 			children.push_back(*this);
-			if(!children.back().make_move(kv.first, n))
+			if(!children.back().make_move_hint(kv.first, n))
 				children.pop_back();
 		}
 	}
 	else{
+		int n = find(PUZ_SPACE);
+		if(n == -1)
+			return;
+		Position p(n / sidelen(), n % sidelen());
+		for(int i = 0; i < 2; ++i){
+			children.push_back(*this);
+			if(!children.back().make_move_space(p, i == 0 ? PUZ_FILLED : PUZ_EMPTY))
+				children.pop_back();
+		}
 	}
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-	auto f = [&](int n)->char{
-		return n == PUZ_UNKNOWN ? PUZ_QM : n == 0 ? PUZ_SPACE : n + '0';
-	};
-
 	for(int r = 1; r < sidelen() - 1; ++r) {
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
 			char ch = cells(p);
 			if(ch == PUZ_HINT){
 				auto& hint = m_game->m_pos2hint.at(p);
-				for(int i : hint)
-					out << f(i);
+				for(int n : hint)
+					out << char(n == PUZ_UNKNOWN ? PUZ_QM : n + '0');
 				out << string(4 - hint.size(), ' ');
 			}
 			else
-				out << (ch == PUZ_SPACE ? PUZ_FILLED : ch) << "   ";
+				out << ch << "   ";
 		}
 		out << endl;
 	}
