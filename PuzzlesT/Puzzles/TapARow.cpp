@@ -4,18 +4,19 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 10/Balanced Tapas
+	ios game: Logic Games/Puzzle Set 10/Tap-A-Row
 
 	Summary
-	Healthy Spanish diet
+	Tap me a row, please
 
 	Description
-	1. Plays with the same rules as Tapa with these variations.
-	2. The board is divided in two vertical parts.
-	3. The filled cell count in both parts must be equal.
+	1. Plays with the same rules as Tapa with these variations:
+	2. The number also tells you the filled cell count for that row.
+	3. In other words, the sum of the digits in that row equals the number
+	   of that row.
 */
 
-namespace puzzles{ namespace BalancedTapas{
+namespace puzzles{ namespace TapARow{
 
 #define PUZ_SPACE		' '
 #define PUZ_QM			'?'
@@ -44,7 +45,6 @@ struct puz_game
 	int m_sidelen;
 	map<Position, puz_hint> m_pos2hint;
 	map<puz_hint, vector<string>> m_hint2perms;
-	int m_left, m_right;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -76,11 +76,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		m_start.push_back(PUZ_BOUNDARY);
 	}
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
-
-	auto str = attrs.get<string>("LeftPart");
-	m_left = str[0] - '0', m_right = m_left + 1;
-	if(str.length() > 1)
-		++m_left;
 
 	// A tile is surrounded by at most 8 tiles, each of which has two states:
 	// filled or empty. So all combinations of the states of the
@@ -313,17 +308,28 @@ bool puz_state::is_valid_move() const
 		return true;
 	};
 
-	auto filled_in_part = [&](int c1, int c2){
-		int n = 0;
-		for(int r = 1; r < sidelen() - 1; ++r)
-			for(int c = c1; c <= c2; ++c)
-				if(cells({r, c}) == PUZ_FILLED)
-					++n;
-		return n;
+	auto is_valid_row = [&]{
+		bool b = is_goal_state();
+		for(int r = 1; r < sidelen() - 1; ++r){
+			bool has_hint = false;
+			int n_hint = 0, n_filled = 0;
+			for(int c = 1; c < sidelen() - 1; ++c){
+				Position p(r, c);
+				char ch = cells(p);
+				if(ch == PUZ_HINT){
+					has_hint = true;
+					n_hint += boost::accumulate(m_game->m_pos2hint.at(p), 0);
+				}
+				else if(ch == PUZ_FILLED)
+					n_filled++;
+			}
+			if(has_hint && (!b && n_filled > n_hint || b && n_filled != n_hint))
+				return false;
+		}
+		return true;
 	};
 
-	return is_valid_square(PUZ_FILLED) && (!is_goal_state() ||
-		filled_in_part(1, m_game->m_left) == filled_in_part(m_game->m_right, sidelen() - 2));
+	return is_valid_square(PUZ_FILLED) && is_valid_row();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -376,9 +382,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_BalancedTapas()
+void solve_puz_TapARow()
 {
-	using namespace puzzles::BalancedTapas;
+	using namespace puzzles::TapARow;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\BalancedTapas.xml", "Puzzles\\BalancedTapas.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\TapARow.xml", "Puzzles\\TapARow.txt", solution_format::GOAL_STATE_ONLY);
 }

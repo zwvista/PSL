@@ -4,18 +4,18 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 10/Balanced Tapas
+	ios game: Logic Games/Puzzle Set 10/Tap Differently
 
 	Summary
-	Healthy Spanish diet
+	Tapa Landscaper
 
 	Description
-	1. Plays with the same rules as Tapa with these variations.
-	2. The board is divided in two vertical parts.
-	3. The filled cell count in both parts must be equal.
+	1. Plays with the same rules as Tapa with these variations:
+	2. Each row must have a different number of filled cells.
+	3. Each column must have a different number of filled cells.
 */
 
-namespace puzzles{ namespace BalancedTapas{
+namespace puzzles{ namespace TapDifferently{
 
 #define PUZ_SPACE		' '
 #define PUZ_QM			'?'
@@ -44,7 +44,6 @@ struct puz_game
 	int m_sidelen;
 	map<Position, puz_hint> m_pos2hint;
 	map<puz_hint, vector<string>> m_hint2perms;
-	int m_left, m_right;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -76,11 +75,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		m_start.push_back(PUZ_BOUNDARY);
 	}
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
-
-	auto str = attrs.get<string>("LeftPart");
-	m_left = str[0] - '0', m_right = m_left + 1;
-	if(str.length() > 1)
-		++m_left;
 
 	// A tile is surrounded by at most 8 tiles, each of which has two states:
 	// filled or empty. So all combinations of the states of the
@@ -313,17 +307,24 @@ bool puz_state::is_valid_move() const
 		return true;
 	};
 
-	auto filled_in_part = [&](int c1, int c2){
-		int n = 0;
-		for(int r = 1; r < sidelen() - 1; ++r)
-			for(int c = c1; c <= c2; ++c)
-				if(cells({r, c}) == PUZ_FILLED)
-					++n;
-		return n;
+	auto is_tap_differently = [&]{
+		set<int> rs, cs;
+		for(int i = 1; i < sidelen() - 1; ++i){
+			int nr = 0, nc = 0;
+			for(int j = 1; j < sidelen() - 1; ++j){
+				if(cells({i, j}) == PUZ_FILLED)
+					nr++;
+				if(cells({j, i}) == PUZ_FILLED)
+					nc++;
+			}
+			if(rs.count(nr) != 0 || cs.count(nc) != 0)
+				return false;
+			rs.insert(nr), cs.insert(nc);
+		}
+		return true;
 	};
 
-	return is_valid_square(PUZ_FILLED) && (!is_goal_state() ||
-		filled_in_part(1, m_game->m_left) == filled_in_part(m_game->m_right, sidelen() - 2));
+	return is_valid_square(PUZ_FILLED) && (!is_goal_state() || is_tap_differently());
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -376,9 +377,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_BalancedTapas()
+void solve_puz_TapDifferently()
 {
-	using namespace puzzles::BalancedTapas;
+	using namespace puzzles::TapDifferently;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\BalancedTapas.xml", "Puzzles\\BalancedTapas.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\TapDifferently.xml", "Puzzles\\TapDifferently.txt", solution_format::GOAL_STATE_ONLY);
 }
