@@ -151,6 +151,7 @@
     <Text Include="Puzzles\ParkingLot.txt" />
     <Text Include="Puzzles\Parks.txt" />
     <Text Include="Puzzles\Parks2.txt" />
+    <Text Include="Puzzles\Pata.txt" />
     <Text Include="Puzzles\pathfind_astar.txt" />
     <Text Include="Puzzles\pathfind_bfs.txt" />
     <Text Include="Puzzles\pathfind_dfs.txt" />
@@ -174,6 +175,7 @@
     <ClCompile Include="Puzzles\ParkingLot.cpp" />
     <ClCompile Include="Puzzles\Parks.cpp" />
     <ClCompile Include="Puzzles\Parks2.cpp" />
+    <ClCompile Include="Puzzles\Pata.cpp" />
     <ClCompile Include="Puzzles\pathfind.cpp" />
     <ClCompile Include="Puzzles\patternpuzzle.cpp" />
     <ClCompile Include="Puzzles\pegsolitary.cpp" />
@@ -190,6 +192,7 @@
     <Xml Include="Puzzles\Parks.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Puzzles\Pata.xml" />
     <Xml Include="Puzzles\pathfind.xml" />
     <Xml Include="Puzzles\patternpuzzle.xml" />
     <Xml Include="Puzzles\pegsolitary.xml" />
