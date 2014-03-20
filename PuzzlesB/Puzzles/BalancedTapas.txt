@@ -1,0 +1,22 @@
+Level 01
+Sequence of moves: 
+F   F   .   2   .   
+.   F   F   F   2   
+2   F   .   F   .   
+12  .   F   F   2   
+F   F   F   .   1   
+Number of moves: 7
+Number of vertices examined: 12
+0.00367899 [s]
+
+Level 05
+Sequence of moves: 
+F   .   12  F   F   
+F   F   F   .   F   
+.   ?   F   .   F   
+?   F   F   F   F   
+F   F   .   3   .   
+Number of moves: 9
+Number of vertices examined: 96
+0.0240616 [s]
+

@@ -393,9 +393,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 		if(n == -1)
 			return;
 		Position p(n / sidelen(), n % sidelen());
-		for(int i = 0; i < 2; ++i){
+		for(char ch : {PUZ_FILLED, PUZ_EMPTY}){
 			children.push_back(*this);
-			if(!children.back().make_move_space(p, i == 0 ? PUZ_FILLED : PUZ_EMPTY))
+			if(!children.back().make_move_space(p, ch))
 				children.pop_back();
 		}
 	}

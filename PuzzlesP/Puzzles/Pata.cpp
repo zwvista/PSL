@@ -48,7 +48,6 @@ struct puz_game
 	int m_sidelen;
 	map<Position, puz_hint> m_pos2hint;
 	map<puz_hint, vector<string>> m_hint2perms;
-	int m_space_count;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -80,8 +79,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		m_start.push_back(PUZ_BOUNDARY);
 	}
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
-
-	m_space_count = boost::count(m_start, PUZ_SPACE);
 
 	// A tile is surrounded by at most 8 tiles, each of which has two states:
 	// filled or empty. So all combinations of the states of the
@@ -338,9 +335,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 		if(n == -1)
 			return;
 		Position p(n / sidelen(), n % sidelen());
-		for(int i = 0; i < 2; ++i){
+		for(char ch : {PUZ_FILLED, PUZ_EMPTY}){
 			children.push_back(*this);
-			if(!children.back().make_move_space(p, i == 0 ? PUZ_FILLED : PUZ_EMPTY))
+			if(!children.back().make_move_space(p, ch))
 				children.pop_back();
 		}
 	}

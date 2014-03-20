@@ -4,18 +4,18 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 9/B&W Tapa
+	ios game: Logic Games/Puzzle Set 10/Balanced Tapas
 
 	Summary
-	Black and white Tapas
+	Healthy Spanish diet
 
 	Description
-	1. Play with the same rules as Tapa with these variations:
-	2. Both Black and White cells must form a single continuous region.
-	3. There can't be any 2*2 of white or black cells.
+	1. Plays with the same rules as Tapa with these variations.
+	2. The board is divided in two vertical parts.
+	3. The filled cell count in both parts must be equal.
 */
 
-namespace puzzles{ namespace BWTapa{
+namespace puzzles{ namespace BalancedTapas{
 
 #define PUZ_SPACE		' '
 #define PUZ_QM			'?'
@@ -38,12 +38,21 @@ const Position offset[] = {
 
 typedef vector<int> puz_hint;
 
+enum puz_game_type
+{
+	TAPA,
+	EQUAL_TAPA,
+	FOUR_ME_TAPA,
+	NO_SQUARE_TAPA,
+};
+
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
 	map<Position, puz_hint> m_pos2hint;
 	map<puz_hint, vector<string>> m_hint2perms;
+	int m_left, m_right;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -75,6 +84,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		m_start.push_back(PUZ_BOUNDARY);
 	}
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
+
+	auto str = attrs.get<string>("LeftPart");
+	m_left = str[0] - '0', m_right = m_left + 1;
+	if(str.length() > 1)
+		++m_left;
 
 	// A tile is surrounded by at most 8 tiles, each of which has two states:
 	// filled or empty. So all combinations of the states of the
@@ -131,7 +145,7 @@ struct puz_state : string
 	bool make_move_hint2(const Position& p, int n);
 	bool make_move_space(const Position& p, char ch);
 	int find_matches(bool init);
-	vector<puz_path> find_paths(bool empty_path) const;
+	vector<puz_path> find_paths() const;
 	bool is_valid_move() const;
 
 	//solve_puzzle interface
@@ -218,13 +232,12 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 	}
 }
 
-vector<puz_path> puz_state::find_paths(bool empty_path) const
+vector<puz_path> puz_state::find_paths() const
 {
 	set<Position> a;
 	for(int i = 0; i < length(); ++i){
 		char ch = (*this)[i];
-		if(ch == PUZ_SPACE || !empty_path && ch == PUZ_FILLED ||
-			empty_path && (ch == PUZ_HINT || ch == PUZ_EMPTY))
+		if(ch == PUZ_SPACE || ch == PUZ_FILLED)
 			a.insert({i / sidelen(), i % sidelen()});
 	}
 
@@ -232,20 +245,12 @@ vector<puz_path> puz_state::find_paths(bool empty_path) const
 	while(!a.empty()){
 		list<puz_state2> smoves;
 		puz_move_generator<puz_state2>::gen_moves(a, smoves);
-
-		if(empty_path && boost::algorithm::all_of(smoves, [&](const puz_state2& p){
-			return cells(p) == PUZ_HINT;
-		}))
-			continue;
-
 		paths.emplace_back();
 		auto& path = paths.back();
 		for(auto& p : smoves){
 			a.erase(p);
 			path.first.push_back(p);
-			char ch = cells(p);
-			if(!empty_path && ch == PUZ_FILLED ||
-				empty_path && ch == PUZ_EMPTY)
+			if(cells(p) == PUZ_FILLED)
 				path.second++;
 		}
 	}
@@ -268,22 +273,18 @@ bool puz_state::make_move_hint2(const Position& p, int n)
 	}
 
 	m_matches.erase(p);
-	if(m_matches.empty())
-		for(bool empty_path : {false, true}){
-			auto paths = find_paths(empty_path);
-			while(paths.size() > 1){
-				auto& path = paths.back();
-				if(path.second != 0)
-					return false;
+	if(m_matches.empty()){
+		auto paths = find_paths();
+		while(paths.size() > 1){
+			auto& path = paths.back();
+			if(path.second != 0)
+				return false;
 
-				for(auto& p2 : path.first){
-					char& ch = cells(p2);
-					if(ch == PUZ_SPACE)
-						ch = !empty_path ? PUZ_EMPTY : PUZ_FILLED, ++m_distance;
-				}
-				paths.pop_back();
-			}
+			for(auto& p2 : path.first)
+				cells(p2) = PUZ_EMPTY, ++m_distance;
+			paths.pop_back();
 		}
+	}
 
 	return is_valid_move();
 }
@@ -303,7 +304,7 @@ bool puz_state::make_move_space(const Position& p, char ch)
 	cells(p) = ch;
 	m_distance = 1;
 
-	return is_valid_move();
+	return find_paths().size() == 1 && is_valid_move();
 }
 
 bool puz_state::is_valid_move() const
@@ -320,8 +321,17 @@ bool puz_state::is_valid_move() const
 		return true;
 	};
 
-	return find_paths(PUZ_FILLED).size() == 1 && find_paths(PUZ_EMPTY).size() == 1 &&
-		is_valid_square(PUZ_FILLED) && is_valid_square(PUZ_EMPTY);
+	auto filled_in_part = [&](int c1, int c2){
+		int n = 0;
+		for(int r = 1; r < sidelen() - 1; ++r)
+			for(int c = c1; c <= c2; ++c)
+				if(cells({r, c}) == PUZ_FILLED)
+					++n;
+		return n;
+	};
+
+	return is_valid_square(PUZ_FILLED) && (!is_goal_state() ||
+		filled_in_part(1, m_game->m_left) == filled_in_part(m_game->m_right, sidelen() - 2));
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -374,9 +384,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_BWTapa()
+void solve_puz_BalancedTapas()
 {
-	using namespace puzzles::BWTapa;
+	using namespace puzzles::BalancedTapas;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\BWTapa.xml", "Puzzles\\BWTapa.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\BalancedTapas.xml", "Puzzles\\BalancedTapas.txt", solution_format::GOAL_STATE_ONLY);
 }

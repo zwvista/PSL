@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+extern void solve_puz_BalancedTapas();
 extern void solve_puz_BattleShips();
 extern void solve_puz_BlockedProduct();
 extern void solve_puz_BlockedView();
@@ -14,7 +15,8 @@ extern void solve_puz_BWTapa();
 
 int main(int argc, char **argv)
 {
-	cout << "a: Battle Ships" << endl;
+	cout << "a1: Balanced Tapas" << endl;
+	cout << "a2: Battle Ships" << endl;
 	cout << "l1: Blocked Product" << endl;
 	cout << "l2: Blocked View" << endl;
 	cout << "l3: bloxorz" << endl;
@@ -27,7 +29,8 @@ int main(int argc, char **argv)
 	cout << "w: B&W Tapa" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "a") solve_puz_BattleShips();
+	if(str == "a1") solve_puz_BalancedTapas();
+	else if(str == "a2") solve_puz_BattleShips();
 	else if(str == "l1") solve_puz_BlockedProduct();
 	else if(str == "l2") solve_puz_BlockedView();
 	else if(str == "l3") solve_puz_bloxorz();
