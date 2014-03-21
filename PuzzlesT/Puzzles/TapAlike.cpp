@@ -329,23 +329,20 @@ bool puz_state::is_valid_move() const
 	};
 
 	auto is_tap_alike = [&]{
-		set<Position> filled, emptied;
 		for(int r = 1; r < sidelen() - 1; ++r)
 			for(int c = 1; c < sidelen() - 1; ++c){
-				Position p(r, c);
-				(cells(p) == PUZ_FILLED ? filled : emptied).insert(p);
+				char ch1 = cells({r, c});
+				// rotated and reversed
+				char ch2 = cells({sidelen() - 1 - r, sidelen() - 1 - c});
+				if(ch1 == PUZ_SPACE || ch2 == PUZ_SPACE)
+					continue;
+				if((ch1 == PUZ_FILLED) == (ch2 == PUZ_FILLED))
+					return false;
 			}
-		if(filled.size() != emptied.size())
-			return false;
-
-		// rotated and reversed
-		Position pRR(sidelen() - 1, sidelen() - 1);
-		return boost::algorithm::all_of(filled, [&](const Position& p){
-			return emptied.count(pRR - p) != 0;
-		});
+		return true;
 	};
 
-	return is_valid_square({PUZ_FILLED}) && (!is_goal_state() || is_tap_alike());
+	return is_valid_square({PUZ_FILLED}) && is_tap_alike();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
