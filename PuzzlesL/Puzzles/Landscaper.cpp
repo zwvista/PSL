@@ -19,10 +19,12 @@
 	   and Flowers can't appear on two rows.
 	6. Each column disposition must be unique as well.
 
-	Note on odd-size level
-	7. In odd-size levels, the number of Trees and Flowers obviously won't be
-	   equal on a row or column. However each row and column will have the same
-	   number of Trees and Flowers.
+	Odd-size levels
+	7. Please note that in odd-size levels, the number of Trees and Flowers
+	   obviously won't be equal on a row or column. However each row and
+	   column will have the same number of Flowers and Trees.
+	8. Also, the number of Trees will always be greater than that of Flowers
+	   (i.e. 3 Flowers and 4 Trees, 4 Flowers and 5 Trees, etc).
 */
 
 namespace puzzles{ namespace Landscaper{
@@ -79,10 +81,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	};
 	if(m_sidelen % 2 == 0)
 		f(m_sidelen / 2, m_sidelen / 2);
-	else{
+	else
 		f(m_sidelen / 2, m_sidelen / 2 + 1);
-		f(m_sidelen / 2 + 1, m_sidelen / 2);
-	}
 }
 
 struct puz_state

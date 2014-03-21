@@ -6,7 +6,7 @@ F T F T
 T T F F 
 Number of moves: 1
 Number of vertices examined: 2
-0.00744365 [s]
+0.00309676 [s]
 
 Level 02
 Sequence of moves: 
@@ -16,7 +16,7 @@ T F F T
 F T T F 
 Number of moves: 1
 Number of vertices examined: 2
-0.00671934 [s]
+0.000644911 [s]
 
 Level 03
 Sequence of moves: 
@@ -26,7 +26,7 @@ F F T T
 T T F F 
 Number of moves: 1
 Number of vertices examined: 2
-0.0053846 [s]
+0.000583276 [s]
 
 Level 04
 Sequence of moves: 
@@ -36,7 +36,7 @@ F T T F
 T F F T 
 Number of moves: 1
 Number of vertices examined: 2
-0.00607199 [s]
+0.0010485 [s]
 
 Level 05
 Sequence of moves: 
@@ -48,5 +48,33 @@ F T F F T T
 T T F T F F 
 Number of moves: 1
 Number of vertices examined: 2
-0.0109311 [s]
+0.000466272 [s]
+
+Level 13
+Sequence of moves: 
+F F T T F T T 
+T T F F T F T 
+F T T F T T F 
+T F T T F F T 
+F T F T T F T 
+T F T F T T F 
+T T F T F T F 
+Number of moves: 4
+Number of vertices examined: 6
+0.000667198 [s]
+
+Level 28
+Sequence of moves: 
+F F T F T T F T T 
+T F T F F T T F T 
+F T F T T F T T F 
+T F T T F T F F T 
+F T T F T F F T T 
+T T F T F T T F F 
+T F T F T F T T F 
+F T F T F T F T T 
+T T F T T F T F F 
+Number of moves: 6
+Number of vertices examined: 12
+0.00122018 [s]
 

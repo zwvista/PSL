@@ -42,4 +42,28 @@ F  FT \
   F FF\
     ]]>
   </level>
+  <level id="13">
+    <![CDATA[
+F T  TT\
+TT  T  \
+   F   \
+ F T F \
+       \
+TF F  F\
+     T \
+    ]]>
+  </level>
+  <level id="28">
+    <![CDATA[
+    TT TT\
+  T      \
+F     TT \
+   T  F T\
+F    F   \
+    F    \
+T  F F  F\
+  F F  T \
+         \
+    ]]>
+  </level>
 </levels>
