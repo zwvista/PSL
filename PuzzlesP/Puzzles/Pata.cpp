@@ -42,6 +42,20 @@ const Position offset[] = {
 
 typedef vector<int> puz_hint;
 
+puz_hint compute_hint(const vector<int>& emptied)
+{
+	vector<int> hint;
+	for(int j = 0; j < emptied.size(); ++j)
+		if(j == 0 || emptied[j] - emptied[j - 1] != 1)
+			hint.push_back(1);
+		else
+			++hint.back();
+	if(emptied.size() > 1 && hint.size() > 1 && emptied.back() - emptied.front() == 7)
+		hint.front() += hint.back(), hint.pop_back();
+	boost::sort(hint);
+	return hint;
+}
+
 struct puz_game
 {
 	string m_id;
@@ -93,16 +107,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int j : emptied)
 			perm[j] = PUZ_EMPTY;
 
-		vector<int> hint;
-		for(int j = 0; j < emptied.size(); ++j)
-			if(j == 0 || emptied[j] - emptied[j - 1] != 1)
-				hint.push_back(1);
-			else
-				++hint.back();
-		if(emptied.size() > 1 && hint.size() > 1 && emptied.back() - emptied.front() == 7)
-			hint.front() += hint.back(), hint.pop_back();
-		boost::sort(hint);
-		
+		auto hint = compute_hint(emptied);
+
 		for(auto& kv : m_hint2perms){
 			auto& hint2 = kv.first;
 			if(hint2 == hint)
@@ -136,6 +142,7 @@ struct puz_state : string
 	bool make_move_space(const Position& p, char ch);
 	int find_matches(bool init);
 	vector<puz_path> find_paths() const;
+	puz_hint compute_hint(const Position& p) const;
 	bool is_valid_move() const;
 
 	//solve_puzzle interface
@@ -298,21 +305,35 @@ bool puz_state::make_move_space(const Position& p, char ch)
 	return find_paths().size() == 1 && is_valid_move();
 }
 
+puz_hint puz_state::compute_hint(const Position& p) const
+{
+	vector<int> emptied;
+	for(int j = 0; j < 8; ++j){
+		char ch = cells(p + offset[j]);
+		if(ch == PUZ_HINT || ch == PUZ_EMPTY)
+			emptied.push_back(j);
+	}
+
+	return puzzles::Pata::compute_hint(emptied);
+}
+
 bool puz_state::is_valid_move() const
 {
-	auto four_cells = [&](const Position& p1, const Position& p2, const Position& p3, const Position& p4, char ch){
-		return cells(p1) == ch && cells(p2) == ch && cells(p3) == ch && cells(p4) == ch;
+	auto is_same_color = [&](const vector<Position>& rng, const vector<char>& color){
+		return boost::algorithm::all_of(rng, [&](const Position& p){
+			return boost::algorithm::any_of_equal(color, this->cells(p));
+		});
 	};
 
-	auto is_valid_square = [&](char ch){
+	auto is_valid_square = [&](const vector<char>& color){
 		for(int r = 1; r < sidelen() - 2; ++r)
 			for(int c = 1; c < sidelen() - 2; ++c)
-				if(four_cells({r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}, ch))
+				if(is_same_color({{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}}, color))
 					return false;
 		return true;
 	};
 
-	return is_valid_square(PUZ_FILLED);
+	return is_valid_square({PUZ_FILLED});
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -350,9 +371,11 @@ ostream& puz_state::dump(ostream& out) const
 			Position p(r, c);
 			char ch = cells(p);
 			if(ch == PUZ_HINT){
-				auto& hint = m_game->m_pos2hint.at(p);
+				auto hint = m_game->m_pos2hint.at(p);
+				if(boost::algorithm::any_of_equal(hint, PUZ_UNKNOWN))
+					hint = compute_hint(p);
 				for(int n : hint)
-					out << char(n == PUZ_UNKNOWN ? PUZ_QM : n + '0');
+					out << char(n + '0');
 				out << string(4 - hint.size(), ' ');
 			}
 			else

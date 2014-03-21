@@ -7,16 +7,16 @@ F   F   .   2   .
 F   F   F   .   1   
 Number of moves: 7
 Number of vertices examined: 12
-0.00367899 [s]
+0.00414735 [s]
 
 Level 05
 Sequence of moves: 
 F   .   12  F   F   
 F   F   F   .   F   
-.   ?   F   .   F   
-?   F   F   F   F   
+.   6   F   .   F   
+3   F   F   F   F   
 F   F   .   3   .   
 Number of moves: 9
 Number of vertices examined: 96
-0.0240616 [s]
+0.0280662 [s]
 
