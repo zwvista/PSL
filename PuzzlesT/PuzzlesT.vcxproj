@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\Tapa.txt" />
+    <Text Include="Puzzles\TapAlike.txt" />
     <Text Include="Puzzles\TapDifferently.txt" />
     <Text Include="Puzzles\TapARow.txt" />
     <Text Include="Puzzles\tatami.txt" />
@@ -167,6 +168,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Tapa.cpp" />
+    <ClCompile Include="Puzzles\TapAlike.cpp" />
     <ClCompile Include="Puzzles\TapDifferently.cpp" />
     <ClCompile Include="Puzzles\TapARow.cpp" />
     <ClCompile Include="Puzzles\tatami.cpp" />
@@ -183,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Tapa.xml" />
+    <Xml Include="Puzzles\TapAlike.xml" />
     <Xml Include="Puzzles\TapDifferently.xml" />
     <Xml Include="Puzzles\TapARow.xml" />
     <Xml Include="Puzzles\tatami.xml" />
