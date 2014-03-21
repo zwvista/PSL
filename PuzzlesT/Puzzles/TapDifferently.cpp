@@ -326,24 +326,33 @@ bool puz_state::is_valid_move() const
 		return true;
 	};
 
-	auto is_tap_differently = [&]{
-		set<int> rs, cs;
+	auto is_tap_differently = [&](const std::function<Position(int, int)>& g){
+		set<int> nums;
 		for(int i = 1; i < sidelen() - 1; ++i){
-			int nr = 0, nc = 0;
+			int n = 0;
+			bool has_space = false;
 			for(int j = 1; j < sidelen() - 1; ++j){
-				if(cells({i, j}) == PUZ_FILLED)
-					nr++;
-				if(cells({j, i}) == PUZ_FILLED)
-					nc++;
+				char ch = cells(g(i, j));
+				if(ch == PUZ_SPACE){
+					has_space = true;
+					break;
+				}
+				if(ch == PUZ_FILLED)
+					n++;
 			}
-			if(rs.count(nr) != 0 || cs.count(nc) != 0)
+			if(has_space)
+				continue;
+			if(nums.count(n) != 0)
 				return false;
-			rs.insert(nr), cs.insert(nc);
+			else
+				nums.insert(n);
 		}
 		return true;
 	};
 
-	return is_valid_square({PUZ_FILLED}) && (!is_goal_state() || is_tap_differently());
+	return is_valid_square({PUZ_FILLED}) && 
+		is_tap_differently([](int i, int j){ return Position(i, j); }) &&
+		is_tap_differently([](int i, int j){ return Position(j, i); });
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
