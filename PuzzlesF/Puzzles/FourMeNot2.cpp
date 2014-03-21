@@ -23,10 +23,12 @@
 namespace puzzles{ namespace FourMeNot2{
 
 #define PUZ_EMPTY		'.'
-#define PUZ_FIXED		'X'
-#define PUZ_FLOWER		'F'
+#define PUZ_FIXED		'F'
+#define PUZ_ADDED		'f'
 #define PUZ_BLOCK		'B'
 #define PUZ_BOUNDARY	'+'
+
+bool is_flower(char ch) { return ch == PUZ_FIXED || ch == PUZ_ADDED; }
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -54,7 +56,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 1; c < m_sidelen - 1; ++c){
 			char ch = str[c - 1];
-			m_start.push_back(ch == ' ' ? PUZ_FLOWER : ch);
+			m_start.push_back(ch == ' ' ? PUZ_ADDED : ch);
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
@@ -91,8 +93,7 @@ puz_state::puz_state(const puz_game& g)
 {
 	auto f = [&](set<Position>&& rng){
 		if(boost::algorithm::all_of(rng, [&](const Position& p){
-			char ch = this->cells(p);
-			return ch == PUZ_FIXED || ch == PUZ_FLOWER;
+			return is_flower(this->cells(p));
 		}))
 			m_4flowers.push_back(std::move(rng));
 	};
@@ -118,9 +119,7 @@ struct puz_state2 : Position
 puz_state2::puz_state2(const puz_state& s)
 : m_state(&s)
 {
-	int i = boost::find_if(s, [](char ch){
-		return ch == PUZ_FIXED || ch == PUZ_FLOWER;
-	}) - s.begin();
+	int i = boost::find_if(s, is_flower) - s.begin();
 	make_move({i / sidelen(), i % sidelen()});
 }
 
@@ -128,8 +127,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		char ch = m_state->cells(p2);
-		if(ch == PUZ_FIXED || ch == PUZ_FLOWER){
+		if(is_flower(m_state->cells(p2))){
 			children.push_back(*this);
 			children.back().make_move(p2);
 		}
@@ -147,15 +145,13 @@ bool puz_state::make_move(const Position& p)
 
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	return smoves.size() == boost::count_if(*this, [](char ch){
-		return ch == PUZ_FIXED || ch == PUZ_FLOWER;
-	});
+	return smoves.size() == boost::count_if(*this, is_flower);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(int i = 0; i < length(); ++i)
-		if((*this)[i] == PUZ_FLOWER){
+		if((*this)[i] == PUZ_ADDED){
 			children.push_back(*this);
 			if(!children.back().make_move({i / sidelen(), i % sidelen()}))
 				children.pop_back();

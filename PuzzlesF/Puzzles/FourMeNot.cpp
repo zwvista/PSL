@@ -23,10 +23,12 @@
 namespace puzzles{ namespace FourMeNot{
 
 #define PUZ_EMPTY		'.'
-#define PUZ_FIXED		'X'
-#define PUZ_FLOWER		'F'
+#define PUZ_FIXED		'F'
+#define PUZ_ADDED		'f'
 #define PUZ_BLOCK		'B'
 #define PUZ_BOUNDARY	'+'
+
+bool is_flower(char ch) { return ch == PUZ_FIXED || ch == PUZ_ADDED; }
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -123,11 +125,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 void puz_state::find_paths()
 {
 	set<Position> a;
-	for(int i = 0; i < length(); ++i){
-		char ch = (*this)[i];
-		if(ch == PUZ_FIXED || ch == PUZ_FLOWER)
+	for(int i = 0; i < length(); ++i)
+		if(is_flower(at(i)))
 			a.insert({i / sidelen(), i % sidelen()});
-	}
 
 	m_path_count = 0;
 	while(!a.empty()){
@@ -142,40 +142,30 @@ void puz_state::find_paths()
 bool puz_state::make_move(const Position& p)
 {
 	int cnt = m_path_count;
-	cells(p) = PUZ_FLOWER;
+	cells(p) = PUZ_ADDED;
 	find_paths();
 	m_distance = cnt - m_path_count;
 	
-	auto is_flower = [&](const vector<Position>& rng){
-		return boost::algorithm::all_of(rng, [&](const Position& p){
-			char ch = this->cells(p);
-			return ch == PUZ_FIXED || ch == PUZ_FLOWER;
-		});
-	};
-
-	for(int i = 1; i < sidelen() - 4; ++i)
-		for(int j = 1; j < sidelen() - 1; ++j){
-			if(is_flower({{i, j}, {i + 1, j}, {i + 2, j}, {i + 3, j}}))
-				return false;
-			if(is_flower({{j, i}, {j, i + 1}, {j, i + 2}, {j, i + 3}}))
-				return false;
-		}
-	return true;
+	vector<int> counts;
+	for(auto& os : offset){
+		int n = 0;
+		for(auto p2 = p + os; is_flower(cells(p2)); p2 += os)
+			++n;
+		counts.push_back(n);
+	}
+	return counts[0] + counts[2] < 3 && counts[1] + counts[3] < 3;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(int i = 0; i < length(); ++i){
-		char ch = (*this)[i];
-		if(ch != PUZ_EMPTY)
+		if((*this)[i] != PUZ_EMPTY)
 			continue;
 		Position p(i / sidelen(), i % sidelen());
 		if([&]{
-			for(auto& os : offset){
-				char ch = cells(p + os);
-				if(ch == PUZ_FIXED || ch == PUZ_FLOWER)
+			for(auto& os : offset)
+				if(is_flower(cells(p + os)))
 					return true;
-			}
 			return false;
 		}()){
 			children.push_back(*this);

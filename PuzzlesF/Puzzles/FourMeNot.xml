@@ -2,27 +2,27 @@
 <levels>
   <level id="01">
     <![CDATA[
-X X \
- XXX\
+F F \
+ FFF\
     \
- X X\
+ F F\
     ]]>
   </level>
   <level id="02">
     <![CDATA[
-X   \
-XX X\
-XX  \
-   X\
+F   \
+FF F\
+FF  \
+   F\
     ]]>
   </level>
   <level id="05">
     <![CDATA[
-X   X\
-  X X\
-BX  B\
-  X X\
-X   X\
+F   F\
+  F F\
+BF  B\
+  F F\
+F   F\
     ]]>
   </level>
 </levels>

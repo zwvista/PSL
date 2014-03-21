@@ -1,31 +1,31 @@
 Level 01
 Sequence of moves: 
-XFX.
-.XXX
-...F
-.XFX
+FfF.
+.FFF
+...f
+.FfF
 Number of moves: 6
 Number of vertices examined: 173
-0.0789811 [s]
+0.0852986 [s]
 
 Level 02
 Sequence of moves: 
-X...
-XX.X
-XX.F
-.FFX
+F...
+FF.F
+FF.f
+.ffF
 Number of moves: 6
 Number of vertices examined: 130
-0.0579891 [s]
+0.061713 [s]
 
 Level 05
 Sequence of moves: 
-X.FFX
-FFX.X
-BX..B
-FFX.X
-X.FFX
+F.ffF
+ffF.F
+BF..B
+ffF.F
+F.ffF
 Number of moves: 6
 Number of vertices examined: 576
-0.627848 [s]
+0.652752 [s]
 
