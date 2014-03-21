@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+X X \
+ XXX\
+    \
+ X X\
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+X   \
+XX X\
+XX  \
+   X\
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+X   X\
+  X X\
+BX  B\
+  X X\
+X   X\
+    ]]>
+  </level>
+</levels>

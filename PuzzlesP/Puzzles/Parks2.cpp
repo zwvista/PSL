@@ -121,7 +121,7 @@ struct puz_state
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	char cells(const Position& p) const { return m_cells.at(p.first * sidelen() + p.second); }
+	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(int i, int j);

@@ -73,7 +73,7 @@ struct puz_state
 		, m_grav(0), m_move(0) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
 	char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
 	bool operator<(const puz_state& x) const {
 		return m_cells < x.m_cells || m_cells == x.m_cells && m_grav < x.m_grav;

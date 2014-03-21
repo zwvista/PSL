@@ -28,6 +28,12 @@
     <Text Include="Puzzles\fenceitup.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\FourMeNot.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\FourMeNot2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -56,6 +62,12 @@
     <ClCompile Include="Puzzles\fenceitup.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\FourMeNot.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\FourMeNot2.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\futoshiki.xml">
@@ -71,6 +83,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\fenceitup.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\FourMeNot.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

@@ -78,7 +78,7 @@ struct puz_state : puz_state_base
 	puz_state(const puz_game& g) : m_cells(g.m_cells), m_move(0) {
 		m_game = &g, m_block = g.m_block;
 	}
-	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
 	char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
 	bool operator<(const puz_state& x) const {
 		return m_cells < x.m_cells ||
@@ -116,7 +116,7 @@ struct puz_state2 : puz_state_base
 	puz_state2(const puz_state& s) : m_cells(s.m_cells) {
 		m_game = s.m_game, m_block = s.m_block;
 	}
-	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
 	bool operator<(const puz_state2& x) const {
 		return m_block < x.m_block;
 	}

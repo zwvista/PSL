@@ -68,7 +68,7 @@ struct puz_state
 		: m_cells(g.m_start), m_dirs(g.m_dirs), m_game(&g), m_index(-1) {}
 	int rows() const {return m_game->rows();}
 	int cols() const {return m_game->cols();}
-	char cells(const Position& p) const {return m_cells.at(p.first * cols() + p.second);}
+	char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
 	char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
 	int dir(const Position& p) const {return m_dirs.at(p.first * cols() + p.second);}
 	int& dir(const Position& p) {return m_dirs[p.first * cols() + p.second];}
