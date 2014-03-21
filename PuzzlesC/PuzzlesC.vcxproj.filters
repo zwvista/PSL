@@ -25,6 +25,9 @@
     <Text Include="Puzzles\Clouds.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\CastleBailey.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -50,12 +53,18 @@
     <ClCompile Include="Puzzles\Clouds.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\CastleBailey.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Calcudoku.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Clouds.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\CastleBailey.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

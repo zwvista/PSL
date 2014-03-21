@@ -177,11 +177,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		switch(m_state->cells(p2)){
-		case PUZ_BOUNDARY:
-		case PUZ_TOWER:
-			break;
-		default:
+		char ch = m_state->cells(p2);
+		if(ch != PUZ_BOUNDARY && ch != PUZ_TOWER){
 			children.push_back(*this);
 			children.back().make_move(p2);
 		}

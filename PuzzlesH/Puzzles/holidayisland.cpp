@@ -173,14 +173,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		switch(m_state->cells(p2)){
-		case PUZ_BOUNDARY:
-		case PUZ_WATER:
-			break;
-		default:
+		char ch = m_state->cells(p2);
+		if(ch != PUZ_BOUNDARY && ch != PUZ_WATER){
 			children.push_back(*this);
 			children.back().make_move(p2);
-			break;
 		}
 	}
 }
@@ -205,14 +201,10 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		switch(m_state->cells(p2)){
-		case PUZ_BOUNDARY:
-		case PUZ_WATER:
-			break;
-		default:
+		char ch = m_state->cells(p2);
+		if(ch != PUZ_BOUNDARY && ch != PUZ_WATER){
 			children.push_back(*this);
 			children.back().make_move(p2);
-			break;
 		}
 	}
 }
@@ -258,13 +250,9 @@ bool puz_state::make_move(const Position& p)
 	m_distance = 0;
 	if(!make_move2(p))
 		return false;
-	for(;;)
-		switch(adjust_area(false)){
-		case 0:
-			return false;
-		case 2:
-			return true;
-		}
+	int m;
+	while((m = adjust_area(false)) == 1);
+	return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
