@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+YYY \
+ R R\
+ RRR\
+YY  \
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+R YR\
+YRRR\
+RR Y\
+YRRR\
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+RRYYR\
+RY YY\
+YR R \
+R    \
+YRYRY\
+    ]]>
+  </level>
+  <level id="36">
+    <![CDATA[
+ R   R Y\
+ Y Y Y Y\
+YR YY  Y\
+  Y  Y  \
+ YR  YRY\
+    R YY\
+ YYY    \
+YYY R Y \
+    ]]>
+  </level>
+</levels>

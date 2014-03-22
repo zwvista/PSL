@@ -25,6 +25,9 @@
     <Text Include="Puzzles\DigitalBattleShips.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\DisconnectFour.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -50,12 +53,18 @@
     <ClCompile Include="Puzzles\DigitalBattleShips.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\DisconnectFour.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Domino.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\DigitalBattleShips.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\DisconnectFour.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

@@ -1,0 +1,45 @@
+Level 01
+Sequence of moves: 
+YYYr
+rRyR
+yRRR
+YYry
+Number of moves: 1
+Number of vertices examined: 2
+0.00305671 [s]
+
+Level 02
+Sequence of moves: 
+RyYR
+YRRR
+RRyY
+YRRR
+Number of moves: 1
+Number of vertices examined: 2
+0.000620884 [s]
+
+Level 03
+Sequence of moves: 
+RRYYR
+RYrYY
+YRyRr
+Rryry
+YRYRY
+Number of moves: 1
+Number of vertices examined: 2
+0.000801264 [s]
+
+Level 36
+Sequence of moves: 
+yRrryRrY
+rYyYrYyY
+YRrYYrrY
+ryYyrYyr
+yYRryYRY
+rryrRyYY
+rYYYrrry
+YYYrRyYr
+Number of moves: 1
+Number of vertices examined: 2
+0.00113695 [s]
+
