@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\Walls.txt" />
+    <Text Include="Puzzles\WallSentinels.txt" />
     <Text Include="Puzzles\Wriggle.txt" />
     <Text Include="Puzzles\Wriggle2.txt" />
     <Text Include="ReadMe.txt" />
@@ -161,6 +162,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Walls.cpp" />
+    <ClCompile Include="Puzzles\WallSentinels.cpp" />
     <ClCompile Include="Puzzles\Wriggle.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -171,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Walls.xml" />
+    <Xml Include="Puzzles\WallSentinels.xml" />
     <Xml Include="Puzzles\Wriggle.xml" />
     <Xml Include="Puzzles\Wriggle2.xml" />
   </ItemGroup>

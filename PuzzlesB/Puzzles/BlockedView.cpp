@@ -29,7 +29,7 @@ namespace puzzles{ namespace BlockedView{
 #define PUZ_EMPTY		'.'
 #define PUZ_SENTINEL	'S'
 #define PUZ_TOWER		'T'
-#define PUZ_BOUNDARY	'B'
+#define PUZ_BOUNDARY	'+'
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -42,7 +42,8 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	map<Position, int> m_start;
+	map<Position, int> m_pos2num;
+	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -51,14 +52,22 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id{attrs.get<string>("id")}
 , m_sidelen(strs.size() + 2)
 {
-	for(int r = 0; r < m_sidelen - 2; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			auto s = str.substr(c * 2, 2);
-			if(s != "  ")
-				m_start[{r + 1, c + 1}] = atoi(s.c_str());
+	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
+	for(int r = 1; r < m_sidelen - 1; ++r){
+		auto& str = strs[r - 1];
+		m_start.push_back(PUZ_BOUNDARY);
+		for(int c = 1; c < m_sidelen - 1; ++c){
+			auto s = str.substr(c * 2 - 2, 2);
+			if(s == "  ")
+				m_start.push_back(PUZ_SPACE);
+			else{
+				m_start.push_back(PUZ_SENTINEL);
+				m_pos2num[{r, c}] = atoi(s.c_str());
+			}
 		}
+		m_start.push_back(PUZ_BOUNDARY);
 	}
+	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
 }
 
 struct puz_state
@@ -91,15 +100,10 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
-, m_game(&g)
+: m_cells(g.m_start), m_game(&g)
 {
-	for(int i = 0; i < sidelen(); ++i)
-		cells({i, 0}) = cells({i, sidelen() - 1}) =
-		cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
-
-	for(const auto& kv : g.m_start)
-		cells(kv.first) = PUZ_SENTINEL, m_matches[kv.first];
+	for(const auto& kv : g.m_pos2num)
+		m_matches[kv.first];
 
 	find_matches(true);
 }
@@ -111,28 +115,23 @@ int puz_state::find_matches(bool init)
 		auto& perms = kv.second;
 		perms.clear();
 
-		int sum = m_game->m_start.at(p) - 1;
+		int sum = m_game->m_pos2num.at(p) - 1;
 		vector<vector<int>> dir_nums(4);
 		for(int i = 0; i < 4; ++i){
 			auto& os = offset[i];
 			int n = 0;
 			auto& nums = dir_nums[i];
-			[&]{
-				for(auto p2 = p + os; n <= sum; p2 += os)
-					switch(cells(p2)){
-					case PUZ_SPACE:
-						nums.push_back(n++);
-						break;
-					case PUZ_EMPTY:
-					case PUZ_SENTINEL:
-						++n;
-						break;
-					case PUZ_TOWER:
-					case PUZ_BOUNDARY:
-						nums.push_back(n);
-						return;
-					}
-			}();
+			for(auto p2 = p + os; n <= sum; p2 += os){
+				char ch = cells(p2);
+				if(ch == PUZ_SPACE)
+					nums.push_back(n++);
+				else if(ch == PUZ_EMPTY || ch == PUZ_SENTINEL)
+					++n;
+				else{
+					nums.push_back(n);
+					break;
+				}
+			}
 		}
 
 		for(int n0 : dir_nums[0])
@@ -248,14 +247,11 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1; r < sidelen() - 1; ++r) {
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			switch(char ch = cells({r, c})){
-			case PUZ_SENTINEL:
-				out << format("%2d") % m_game->m_start.at(p);
-				break;
-			default:
+			char ch = cells(p);
+			if(ch == PUZ_SENTINEL)
+				out << format("%2d") % m_game->m_pos2num.at(p);
+			else
 				out << ' ' << (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
-				break;
-			};
 		}
 		out << endl;
 	}
