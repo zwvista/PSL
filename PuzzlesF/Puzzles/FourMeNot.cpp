@@ -22,6 +22,7 @@
 
 namespace puzzles{ namespace FourMeNot{
 
+#define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
 #define PUZ_FIXED		'F'
 #define PUZ_ADDED		'f'
@@ -54,10 +55,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	for(int r = 1; r < m_sidelen - 1; ++r){
 		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_BOUNDARY);
-		for(int c = 1; c < m_sidelen - 1; ++c){
-			char ch = str[c - 1];
-			m_start.push_back(ch == ' ' ? PUZ_EMPTY : ch);
-		}
+		for(int c = 1; c < m_sidelen - 1; ++c)
+			m_start.push_back(str[c - 1]);
 		m_start.push_back(PUZ_BOUNDARY);
 	}
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
@@ -70,13 +69,13 @@ struct puz_state : string
 	int sidelen() const {return m_game->m_sidelen;}
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	bool make_move(const Position& p);
-	void find_paths();
+	bool make_move(Position p);
+	void check_field();
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_path_count - 1; }
+	unsigned int get_heuristic() const { return m_num2outer.size() - 1; }
 	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -85,15 +84,9 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
-	int m_path_count = 0;
+	map<int, set<Position>> m_num2outer;
 	unsigned int m_distance = 0;
 };
-
-puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
-{
-	find_paths();
-}
 
 struct puz_state2 : Position
 {
@@ -122,56 +115,101 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 	}
 }
 
-void puz_state::find_paths()
+puz_state::puz_state(const puz_game& g)
+: string(g.m_start), m_game(&g)
 {
 	set<Position> a;
-	for(int i = 0; i < length(); ++i)
-		if(is_flower(at(i)))
-			a.insert({i / sidelen(), i % sidelen()});
+	for(int r = 1; r < g.m_sidelen - 1; ++r)
+		for(int c = 1; c < g.m_sidelen - 1; ++c){
+			Position p(r, c);
+			if(is_flower(cells(p)))
+				a.insert(p);
+		}
 
-	m_path_count = 0;
+	int n = 0;
 	while(!a.empty()){
 		list<puz_state2> smoves;
 		puz_move_generator<puz_state2>::gen_moves(a, smoves);
-		for(auto& p : smoves)
+
+		auto& outer = m_num2outer[n++];
+		for(auto& p : smoves){
 			a.erase(p);
-		++m_path_count;
+			for(auto& os : offset){
+				auto p2 = p + os;
+				if(cells(p2) == PUZ_SPACE)
+					outer.insert(p2);
+			}
+		}
 	}
+
+	check_field();
 }
 
-bool puz_state::make_move(const Position& p)
+void puz_state::check_field()
 {
-	int cnt = m_path_count;
-	cells(p) = PUZ_ADDED;
-	find_paths();
-	m_distance = cnt - m_path_count;
-	
-	vector<int> counts;
-	for(auto& os : offset){
-		int n = 0;
-		for(auto p2 = p + os; is_flower(cells(p2)); p2 += os)
-			++n;
-		counts.push_back(n);
+	for(int r = 1; r < sidelen() - 1; ++r)
+		for(int c = 1; c < sidelen() - 1; ++c){
+			Position p(r, c);
+			if(cells(p) != PUZ_SPACE)
+				continue;
+
+			vector<int> counts;
+			for(auto& os : offset){
+				int n = 0;
+				for(auto p2 = p + os; is_flower(cells(p2)); p2 += os)
+					++n;
+				counts.push_back(n);
+			}
+			if(counts[0] + counts[2] < 3 && counts[1] + counts[3] < 3)
+				continue;
+
+			cells(p) = PUZ_EMPTY;
+			for(auto& kv : m_num2outer)
+				kv.second.erase(p);
+		}
+}
+
+bool puz_state::make_move(Position p)
+{
+	vector<int> nums;
+	for(auto& kv : m_num2outer)
+		if(kv.second.count(p) != 0)
+			nums.push_back(kv.first);
+
+	m_distance = 0;
+	while(nums.size() > 1){
+		int n2 = nums.back(), n1 = nums.rbegin()[1];
+		auto &outer2 = m_num2outer.at(n2), &outer1 = m_num2outer.at(n1);
+		outer1.insert(outer2.begin(), outer2.end());
+		m_num2outer.erase(n2);
+		++m_distance;
+		nums.pop_back();
 	}
-	return counts[0] + counts[2] < 3 && counts[1] + counts[3] < 3;
+
+	cells(p) = PUZ_ADDED;
+	auto& outer = m_num2outer.at(nums[0]);
+	outer.erase(p);
+	for(auto& os : offset){
+		auto p2 = p + os;
+		if(cells(p2) == PUZ_SPACE)
+			outer.insert(p2);
+	}
+
+	return is_goal_state() ||(
+		check_field(),
+		boost::algorithm::all_of(m_num2outer, [](const pair<int, set<Position>>& kv){
+			return kv.second.size() > 0;
+		})
+	);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	for(int i = 0; i < length(); ++i){
-		if((*this)[i] != PUZ_EMPTY)
-			continue;
-		Position p(i / sidelen(), i % sidelen());
-		if([&]{
-			for(auto& os : offset)
-				if(is_flower(cells(p + os)))
-					return true;
-			return false;
-		}()){
-			children.push_back(*this);
-			if(!children.back().make_move(p))
-				children.pop_back();
-		}
+	auto& kv = *boost::min_element(m_num2outer);
+	for(auto& p : kv.second){
+		children.push_back(*this);
+		if(!children.back().make_move(p))
+			children.pop_back();
 	}
 }
 

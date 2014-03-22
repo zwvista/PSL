@@ -16,6 +16,24 @@ FF  \
    F\
     ]]>
   </level>
+  <level id="03">
+    <![CDATA[
+ F   \
+B   F\
+FF  F\
+F FFB\
+ FFF \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+F   B\
+F  FF\
+ FF F\
+FF FF\
+BFFF \
+    ]]>
+  </level>
   <level id="05">
     <![CDATA[
 F   F\
@@ -23,6 +41,20 @@ F   F\
 BF  B\
   F F\
 F   F\
+    ]]>
+  </level>
+  <level id="36">
+    <![CDATA[
+F F FF F F\
+FF    B   \
+F  B  F  B\
+B        F\
+F     BF  \
+ F B      \
+F        B\
+BF    B   \
+F FB      \
+FF  F F FF\
     ]]>
   </level>
 </levels>
