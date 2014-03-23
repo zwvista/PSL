@@ -63,7 +63,7 @@ protected:
 		return CRect(c * m_nSideLen, r * m_nSideLen, c * m_nSideLen + m_nSideLen, r * m_nSideLen + m_nSideLen);
 	}
 	CRect GetPosRect(const Position& p) {return GetPosRect(p.first, p.second);}
-	void SetCurPos(const Position& p);
+	void SetCurPos(Position p);
 	void OnMazeChanged() {Invalidate();}
 	void OnMazeCleared();
 	void OnMazeResized();

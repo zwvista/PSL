@@ -346,10 +346,15 @@ void CMazeEditorView::OnMazeChar()
 	m_chLast = m_pEditChar->GetEditText()[0];
 }
 
-void CMazeEditorView::SetCurPos( const Position& p )
+void CMazeEditorView::SetCurPos( Position p )
 {
-	if(p.first < 0 || p.first >= m_pDoc->MazeHeight() ||
-		p.second < 0 || p.second >= m_pDoc->MazeWidth()) return;
+	//if(p.first < 0 || p.first >= m_pDoc->MazeHeight() ||
+	//	p.second < 0 || p.second >= m_pDoc->MazeWidth()) return;
+
+	int nArea = m_pDoc->MazeHeight() * m_pDoc->MazeWidth();
+	int n = (p.first * m_pDoc->MazeHeight() + p.second + nArea) % nArea;
+	p = {n / m_pDoc->MazeHeight(), n % m_pDoc->MazeHeight()};
+
 	m_posCur = p;
 	CString strCurPos;
 	strCurPos.Format(_T("%d,%d"), p.first, p.second);

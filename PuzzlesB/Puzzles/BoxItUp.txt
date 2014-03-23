@@ -10,5 +10,33 @@ cddddddd
 cddddddd
 Number of moves: 3
 Number of vertices examined: 4
-0.00197894 [s]
+0.00680674 [s]
+
+Level 02
+Sequence of moves: 
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+dddddccc
+bbbbbbbe
+bbbbbbbe
+fffffffe
+fffffffe
+Number of moves: 1
+Number of vertices examined: 2
+0.00103214 [s]
+
+Level 03
+Sequence of moves: 
+gggdddde
+fffdddde
+fffdddde
+bbbdddde
+bbbccccc
+bbbccccc
+aaaaaaaa
+aaaaaaaa
+Number of moves: 2
+Number of vertices examined: 3
+0.00137653 [s]
 
