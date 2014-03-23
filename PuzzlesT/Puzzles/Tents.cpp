@@ -21,7 +21,7 @@
 	   vertically.
 */
 
-namespace puzzles{ namespace tents{
+namespace puzzles{ namespace Tents{
 
 #define PUZ_SPACE		' '
 #define PUZ_TREE		'T'
@@ -206,9 +206,17 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
-		for(int c = 0; c < sidelen(); ++c)
-			out << cells({r, c}) << " ";
+	for(int r = 0; r <= sidelen(); ++r){
+		for(int c = 0; c <= sidelen(); ++c){
+			if(r == sidelen() && c == sidelen())
+				break;
+			if(c == sidelen())
+				out << format("%-2d") % m_game->m_tent_counts_rows[r];
+			else if(r == sidelen())
+				out << format("%-2d") % m_game->m_tent_counts_rows[c];
+			else
+				out << cells({r, c}) << ' ';
+		}
 		out << endl;
 	}
 	return out;
@@ -216,9 +224,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_tents()
+void solve_puz_Tents()
 {
-	using namespace puzzles::tents;
+	using namespace puzzles::Tents;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\tents.xml", "Puzzles\\tents.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Tents.xml", "Puzzles\\Tents.txt", solution_format::GOAL_STATE_ONLY);
 }

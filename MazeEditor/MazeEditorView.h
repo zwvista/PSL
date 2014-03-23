@@ -54,10 +54,10 @@ protected:
 	int m_nSideLen;
 	CMFCRibbonEdit* m_pEditRows;
 	CMFCRibbonEdit* m_pEditCols;
-	CMFCRibbonCheckBox * m_pChkHasWall;
 	char m_chLast;
 	CMFCRibbonEdit* m_pEditChar;
 	CMFCRibbonEdit* m_pEditCurPos;
+	CMFCRibbonComboBox* m_pComboMovement;
 
 	CRect GetPosRect(int r, int c) {
 		return CRect(c * m_nSideLen, r * m_nSideLen, c * m_nSideLen + m_nSideLen, r * m_nSideLen + m_nSideLen);
@@ -67,6 +67,11 @@ protected:
 	void OnMazeChanged() {Invalidate();}
 	void OnMazeCleared();
 	void OnMazeResized();
+
+	void MoveUp();
+	void MoveDown();
+	void MoveLeft();
+	void MoveRight();
 
 // Generated message map functions
 protected:
@@ -85,7 +90,7 @@ protected:
 	afx_msg void OnMazeFillBorder();
 	afx_msg void OnEditCopy();
 	afx_msg void OnEditPaste();
-	afx_msg void OnUpdateCurPos(CCmdUI* pCmdUI) {}
+	afx_msg void OnUpdateMovement(CCmdUI* pCmdUI) {pCmdUI->Enable();}
 	DECLARE_MESSAGE_MAP()
 };
 

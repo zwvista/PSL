@@ -49,10 +49,10 @@ BEGIN_MESSAGE_MAP(CMazeEditorView, CView)
 	ON_UPDATE_COMMAND_UI(ID_MAZE_HAS_WALL, &CMazeEditorView::OnUpdateMazeHasWall)
 	ON_COMMAND(ID_MAZE_CHAR, &CMazeEditorView::OnMazeChar)
 	ON_COMMAND(ID_MAZE_FILL_ALL, &CMazeEditorView::OnMazeFillAll)
-	ON_COMMAND(ID_MAZE_FILL_BORDER, &CMazeEditorView::OnMazeFillBorder)
+	ON_COMMAND(ID_MAZE_FILL_BORDER_CELLS, &CMazeEditorView::OnMazeFillBorder)
 	ON_COMMAND(ID_EDIT_COPY, &CMazeEditorView::OnEditCopy)
 	ON_COMMAND(ID_EDIT_PASTE, &CMazeEditorView::OnEditPaste)
-	ON_UPDATE_COMMAND_UI(ID_MAZE_CURPOS, &CMazeEditorView::OnUpdateCurPos)
+	ON_UPDATE_COMMAND_UI(ID_MAZE_MOVEMENT, &CMazeEditorView::OnUpdateMovement)
 END_MESSAGE_MAP()
 
 // CMazeEditorView construction/destruction
@@ -64,7 +64,6 @@ CMazeEditorView::CMazeEditorView()
 	, m_pBar(NULL)
 	, m_pEditRows(NULL)
 	, m_pEditCols(NULL)
-	, m_pChkHasWall(NULL)
 	, m_chLast(' ')
 {
 }
@@ -209,13 +208,36 @@ void CMazeEditorView::OnInitialUpdate()
 	m_pEditCurPos = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_CURPOS);
 	OnMazeResized();
 	SetCurPos(Position(0, 0));
+	m_pComboMovement = (CMFCRibbonComboBox*)m_pBar->FindByID(ID_MAZE_MOVEMENT);
 
-	m_pChkHasWall = (CMFCRibbonCheckBox *)m_pBar->FindByID(ID_MAZE_HAS_WALL);
+	for(auto str : {_T("None"), _T("Up"), _T("Down"), _T("Left"), _T("Right")})
+		m_pComboMovement->AddItem(str);
+	m_pComboMovement->SelectItem(4);
 }
 
 void CMazeEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	SetCurPos(Position(point.y / m_nSideLen, point.x / m_nSideLen));
+}
+
+void CMazeEditorView::MoveUp()
+{
+	SetCurPos(m_posCur + Position(-1, 0)); 
+}
+
+void CMazeEditorView::MoveDown()
+{
+	SetCurPos(m_posCur + Position(1, 0));
+}
+
+void CMazeEditorView::MoveLeft()
+{
+	SetCurPos(m_posCur + Position(0, -1));
+}
+
+void CMazeEditorView::MoveRight()
+{
+	SetCurPos(m_posCur + Position(0, 1));
 }
 
 void CMazeEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -227,25 +249,25 @@ void CMazeEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		if(bCtrl)
 			m_pDoc->SetHorzWall(m_posCur, bShift);
 		else
-			SetCurPos(m_posCur + Position(-1, 0));
+			MoveUp();
 		break;
 	case VK_DOWN:
 		if(bCtrl)
 			m_pDoc->SetHorzWall(m_posCur + Position(1, 0), bShift);
 		else
-			SetCurPos(m_posCur + Position(1, 0));
+			MoveDown();
 		break;
 	case VK_LEFT:
 		if(bCtrl)
 			m_pDoc->SetVertWall(m_posCur, bShift);
 		else
-			SetCurPos(m_posCur + Position(0, -1));
+			MoveLeft();
 		break;
 	case VK_RIGHT:
 		if(bCtrl)
 			m_pDoc->SetVertWall(m_posCur + Position(0, 1), bShift);
 		else
-			SetCurPos(m_posCur + Position(0, 1));
+			MoveRight();
 		break;
 	case VK_RETURN:
 		m_pDoc->SetObject(m_posCur, m_chLast);
@@ -257,8 +279,23 @@ void CMazeEditorView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	if(isprint(nChar))
 		m_pDoc->SetObject(m_posCur, nChar);
-	if(nChar != ' ')
+	if(nChar != ' ' && nChar != VK_RETURN)
 		m_chLast = nChar;
+
+	switch(m_pComboMovement->GetCurSel()){
+	case 1:
+		MoveUp();
+		break;
+	case 2:
+		MoveDown();
+		break;
+	case 3:
+		MoveLeft();
+		break;
+	case 4:
+		MoveRight();
+		break;
+	}
 }
 
 void CMazeEditorView::OnResizeMaze()

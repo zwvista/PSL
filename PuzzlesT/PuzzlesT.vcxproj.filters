@@ -31,9 +31,6 @@
     <Text Include="Puzzles\twinballs_ida.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\tents.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\TennerGrid.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -47,6 +44,9 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\TapAlike.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Tents.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -77,9 +77,6 @@
     <ClCompile Include="Puzzles\twinballs.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\tents.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\TennerGrid.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -95,6 +92,9 @@
     <ClCompile Include="Puzzles\TapAlike.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Tents.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\tatami.xml">
@@ -104,9 +104,6 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\twinballs.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\tents.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\TennerGrid.xml">
@@ -122,6 +119,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\TapAlike.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Tents.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
