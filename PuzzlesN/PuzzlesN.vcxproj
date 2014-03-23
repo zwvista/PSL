@@ -149,6 +149,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\Neighbours.txt" />
+    <Text Include="Puzzles\Neighbours2.txt" />
+    <Text Include="Puzzles\Neighbours3.txt" />
     <Text Include="Puzzles\NumberLink.txt" />
     <Text Include="Puzzles\numeric_paranoia.txt" />
     <Text Include="Puzzles\nurikabe.txt" />
@@ -174,6 +176,8 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Neighbours.xml" />
+    <Xml Include="Puzzles\Neighbours2.xml" />
+    <Xml Include="Puzzles\Neighbours3.xml" />
     <Xml Include="Puzzles\NumberLink.xml" />
     <Xml Include="Puzzles\numeric_paranoia.xml" />
     <Xml Include="Puzzles\nurikabe.xml" />

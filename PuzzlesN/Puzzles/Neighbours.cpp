@@ -230,4 +230,8 @@ void solve_puz_Neighbours()
 	using namespace puzzles::Neighbours;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
 		"Puzzles\\Neighbours.xml", "Puzzles\\Neighbours.txt", solution_format::GOAL_STATE_ONLY);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\Neighbours2.xml", "Puzzles\\Neighbours2.txt", solution_format::GOAL_STATE_ONLY);
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\Neighbours3.xml", "Puzzles\\Neighbours3.txt", solution_format::GOAL_STATE_ONLY);
 }

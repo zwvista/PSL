@@ -12,5 +12,21 @@ Sequence of moves:
 . . . 2 . 2 o 3 v 2 
 Number of moves: 10
 Number of vertices examined: 38
-0.00945951 [s]
+0.0213542 [s]
+
+Level 02
+Sequence of moves: 
+. 1 1 0 . 0 1 o . 1 
+1 o 1 . . . 1 1 . o 
+. 1 1 . . 0 . 1 . 1 
+0 . 0 . 1 . 2 ^ 2 . 
+. 2 2 3 ^ . 3 + . 0 
+1 < > 3 v . . + 4 . 
+1 2 3 . 4 3 3 v . ^ 
+. 1 . < + > 2 . 4 + 
+^ 3 . 3 3 2 . . . v 
+v 3 o 1 0 . 0 0 . 1 
+Number of moves: 10
+Number of vertices examined: 21
+0.00832047 [s]
 
