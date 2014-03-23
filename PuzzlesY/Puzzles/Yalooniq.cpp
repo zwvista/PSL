@@ -10,14 +10,15 @@
 	Loops, Arrows and Squares
 
 	Description
-	1. The goal is to draw a single Loop on the board.
-	2. The Loop must go through All the available tiles on the board.
+	1. The goal is to draw a single Loop on the board, similarly to LineSweeper.
+	2. The Loop must go through ALL the available tiles on the board.
 	3. The available tiles on which the Loop must go are the ones without
-	   and also not containing Squares.
+	   Arrows and also not containing Squares.
 	4. It is up to you to find the Squares, which are pointed at by the Arrows!
 	5. The numbers beside the Arrows tell you how many Squares are present
 	   in that direction, from that point.
-	6. Lastly, please keep in mind that if there aren't Arrows pointing to 
+	6. The Squares can't touch horizontally or vertically.
+	7. Lastly, please keep in mind that if there aren't Arrows pointing to 
 	   a tile, that tile can contain a Square too!
 */
 
