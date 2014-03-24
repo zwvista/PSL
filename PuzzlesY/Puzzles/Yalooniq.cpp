@@ -90,9 +90,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				info.m_rng.push_back(p2);
 
 		auto perm = string(info.m_rng.size() - info.m_num, PUZ_SQUARE_OFF) + string(info.m_num, PUZ_SQUARE_ON);
-		do{
+		do
 			info.m_perms.push_back(perm);
-		} while(boost::next_permutation(perm));
+		while(boost::next_permutation(perm));
 	}
 }
 
@@ -219,6 +219,7 @@ int puz_state::check_dots(bool init)
 		n = 1;
 		for(const auto& p : newly_finished){
 			const auto& lines = dots(p)[0];
+			bool is_square = lines == lines_off && m_game->m_pos2info.count(p) == 0;
 			for(int i = 0; i < 4; ++i){
 				auto p2 = p + offset[i];
 				if(!is_valid(p2))
@@ -227,6 +228,8 @@ int puz_state::check_dots(bool init)
 				boost::remove_erase_if(dt, [&, i](const string& s){
 					return s[(i + 2) % 4] != lines[i];
 				});
+				if(is_square && m_game->m_pos2info.count(p2) == 0)
+					boost::remove_erase(dt, lines_off);
 				if(!init && dt.empty())
 					return 0;
 			}

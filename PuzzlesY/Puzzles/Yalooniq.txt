@@ -12,8 +12,8 @@ Sequence of moves:
   |       | 
 0^ - - - -  
 Number of moves: 6
-Number of vertices examined: 18
-0.00283629 [s]
+Number of vertices examined: 12
+0.00458408 [s]
 
 Level 02
 Sequence of moves: 
@@ -30,7 +30,7 @@ Sequence of moves:
 S  -  0> -  
 Number of moves: 6
 Number of vertices examined: 11
-0.00268168 [s]
+0.00187411 [s]
 
 Level 03
 Sequence of moves: 
@@ -38,37 +38,37 @@ Sequence of moves:
 |   |   |   | 
   S  - -   -  
 |         |   
- - - -  S   1<
-      |   |   
-S S 0> -   -  
+   - -  S   1<
+| |   |   |   
+ -  0> -   -  
         |   | 
 0v - - -  0<  
   |         | 
- -  0v - - -  
-|     |       
- - - -  1^S S 
+ -  0v - -    
+|     |   | | 
+ - - -  1^ -  
 Number of moves: 9
 Number of vertices examined: 18
-0.00367411 [s]
+0.00333372 [s]
 
 Level 04
 Sequence of moves: 
  - - - - -  0v
 |         |   
- - - -  0> -  
-      |     | 
-S S S  -  S   
+   - -  0> -  
+| |   |     | 
+ -  S  -  S   
         |   | 
 S 0> - -   -  
     |     |   
  - -  0^S   1<
 |         |   
- - - -  0v -  
-      |     | 
-S S 1^ - - -  
-Number of moves: 9
-Number of vertices examined: 18
-0.00575336 [s]
+   - -  0v -  
+| |   |     | 
+ -  1^ - - -  
+Number of moves: 8
+Number of vertices examined: 15
+0.00356977 [s]
 
 Level 05
 Sequence of moves: 
@@ -85,9 +85,9 @@ Sequence of moves:
  -   -  S  -  
   | | |   |   
 S  -   - -  1<
-Number of moves: 8
-Number of vertices examined: 28
-0.0052164 [s]
+Number of moves: 6
+Number of vertices examined: 15
+0.00449171 [s]
 
 Level 06
 Sequence of moves: 
@@ -95,20 +95,20 @@ S  -   - - - -
   | | |       | 
  -      0<1v -  
 |   | |     |   
-  1v -  S S   0^
-|           |   
-  S 0> -  0> -  
-|     | |     | 
- -   -   -  S   
-  | |     |   | 
- -    S S   2<  
-|   |     |   | 
-   -   - -  0>  
-| |   |       | 
- -  0^ - - - -  
-Number of moves: 11
-Number of vertices examined: 48
-0.014108 [s]
+  1v -   - -  0^
+|       |       
+ -  0> -  0> -  
+  |   |     | | 
+ -   -   - -    
+|   |   |     | 
+  S  - -  S 2<  
+|             | 
+   - -   -  0>  
+| |   | | |   | 
+ -  0^ -   - -  
+Number of moves: 8
+Number of vertices examined: 19
+0.0072644 [s]
 
 Level 07
 Sequence of moves: 
@@ -118,26 +118,26 @@ Sequence of moves:
 |   |     |   | 
   S   1<S   0v  
 |   |     |   | 
-  0> - - -   -  
-|           |   
- - - -  S  -  0^
-      |   |     
-S 0v -  0> - -  
-    |         | 
-S  -  0> -   -  
+  0>   - -   -  
+|   | |     |   
+  S     S  -  0^
+|   | |   |     
+  0v -  0> - -  
+|             | 
+ -  S 0> -   -  
   |     | | |   
 S  - - -   -  1<
-Number of moves: 8
-Number of vertices examined: 14
-0.00329037 [s]
+Number of moves: 5
+Number of vertices examined: 8
+0.0028297 [s]
 
 Level 08
 Sequence of moves: 
  - -  0> - - - -  
 |   |   |       | 
-  S  - -   - - -  
-|         |       
- -  S 1< -  S S 1v
+  S  - -  S  - -  
+|           |     
+ -  S 1< - -  S 1v
   |     |         
  -   - -  0< - -  
 |   |       |   | 
@@ -147,83 +147,83 @@ Sequence of moves:
   |             | 
  -   -  0^ -  S   
 |   | |   | |   | 
- - -   - -     -  
-            | |   
-S S 1^S S 1> -  S 
-Number of moves: 16
-Number of vertices examined: 467
-0.131841 [s]
+   -     -     -  
+| |   | |   | |   
+ -  1^ -  1> -  S 
+Number of moves: 13
+Number of vertices examined: 23
+0.00581962 [s]
 
 Level 09
 Sequence of moves: 
  -  1> - - - -  S 
 | |   |       |   
-   - -  S 0^ -  S 
-|           |     
- -   -  S  -  S S 
-  | | |   |       
-0v -    0v  S 1<S 
-      |   |       
- -   -   -  S 1<S 
-| | |   |         
-   -   -  0<0v -  
-|     |       | | 
-  0^S  - - - -    
+   - -  S 0^S  -  
 |               | 
-   -  0^ - -  0>  
+ -  S  - - -  S   
+  |   |     |   | 
+0v - -  0vS   1<  
+            |   | 
+ -  S  - - -  1<  
+| |   |         | 
+   -   -  0<0v -  
+|   |   |     |   
+  0^ - -   -   -  
+|         | |   | 
+   -  0^ -    0>  
 | | |   |   |   | 
  -   - -  S  - -  
-Number of moves: 12
-Number of vertices examined: 711
-0.20309 [s]
+Number of moves: 8
+Number of vertices examined: 13
+0.00366897 [s]
 
 Level 10
 Sequence of moves: 
- - - - - - - - -  0<
-|               |   
+ - - - - -   - -  0<
+|         | |   |   
   0< -  0> -  1v -  
-|   | |   | |     | 
-  S    - -   -   -  
-|   |         | |   
-  1v   - - -   -  0^
-|   | |     |       
-  S  -   - -  0> -  
-|       |       | | 
- -  1>S  - -   -    
-  |         | |   | 
- -  S S S  -    0^  
-|         |   |   | 
-   -  2^S  - -  0v  
-| | |             | 
-       - -  1>S  -  
+|   | |           | 
+  S    -  S  -   -  
+|   |   |   | | |   
+  1v  S  -     -  0^
+|   |     | |       
+  S  -  S  -  0> -  
+|     |         | | 
+ -  1> -  S  - -    
+  |     |   |     | 
+S  -  S  -   -  0^  
+    |     |   |   | 
+ - -  2^S  - -  0v  
+|                 | 
+   -   - -  1>S  -  
 | | | |   |     |   
  -   -  2^ - - -  0<
-Number of moves: 22
-Number of vertices examined: 31608
-10.5944 [s]
+Number of moves: 10
+Number of vertices examined: 68
+0.0329461 [s]
 
 Level 11
 Sequence of moves: 
- - - - - - - - -  S 
-|               |   
- - - - - -  0<0> -  
-          |       | 
- - - - -    S S 2<  
-|       | |       | 
-   - -   -  0v -    
-| |   |       | | | 
- -  0v  S 0> -   -  
-      |     |       
-3> - -  S S   S  -  
-  |         |   | | 
- -  0^0> -   - -    
-|       | |       | 
-  S  -     -  S  -  
-|   | | |   |   |   
- -     -  1^  0> -  
-  | |       |     | 
-0^ -  0^S S  - - -  
-Number of moves: 23
-Number of vertices examined: 1367
-0.371594 [s]
+ -   -  S  - - -  S 
+| | | |   |     |   
+   -   - -  0<0> -  
+|                 | 
+  S  -  S  - -  2<  
+|   | |   |   |   | 
+   -     -  0v  S   
+| |   | |     |   | 
+ -  0v    0> -   -  
+      | |   |   |   
+3> - -    S   S   S 
+  |     |   |   |   
+ -  0^0> -   -   -  
+|         |   |   | 
+  S  -  S  -   -    
+|   | |     |   | | 
+ -     -  1^  0>    
+  | |   |   |   | | 
+0^ -  0^ - -  S  -  
+Number of moves: 9
+Number of vertices examined: 17
+0.00954047 [s]
 
