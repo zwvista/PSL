@@ -29,8 +29,9 @@
 
 namespace puzzles{ namespace NumberLink{
 
-#define PUZ_SPACE			' '
-#define PUZ_BOUNDARY		'+'
+#define PUZ_SPACE		' '
+#define PUZ_NUMBER		'N'
+#define PUZ_BOUNDARY	'+'
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -59,9 +60,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 1; c < m_sidelen - 1; ++c){
 			char ch = str[c - 1];
-			if(ch != PUZ_SPACE)
+			if(ch == PUZ_SPACE)
+				m_start.push_back(ch);
+			else{
+				m_start.push_back(PUZ_NUMBER);
 				m_ch2path[ch].push_back({r, c});
-			m_start.push_back(ch);
+			}
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
