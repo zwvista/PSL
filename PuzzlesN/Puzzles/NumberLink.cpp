@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -44,7 +45,7 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	map<char, vector<Position>> m_ch2path;
+	map<char, vector<Position>> m_num2targets;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -64,7 +65,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				m_start.push_back(ch);
 			else{
 				m_start.push_back(PUZ_NUMBER);
-				m_ch2path[ch].push_back({r, c});
+				m_num2targets[ch].push_back({r, c});
 			}
 		}
 		m_start.push_back(PUZ_BOUNDARY);
@@ -84,8 +85,8 @@ struct puz_state : string
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return 1; }
-	unsigned int get_distance(const puz_state& child) const { return 1; }
+	unsigned int get_heuristic() const { return m_nums.size(); }
+	unsigned int get_distance(const puz_state& child) const { return m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
 	friend ostream& operator<<(ostream& out, const puz_state& state) {
@@ -93,11 +94,20 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
+	Position m_head, m_tail;
+	vector<Position> m_targets;
+	vector<char> m_nums;
+	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
+	for(auto& kv : g.m_num2targets)
+		m_nums.push_back(kv.first);
+	m_targets = g.m_num2targets.at(m_nums.back());
+	m_head = m_tail = m_targets.back();
+	m_targets.pop_back();
 }
 
 bool puz_state::make_move(const Position& p, char ch)
