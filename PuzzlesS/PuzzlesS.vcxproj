@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\SheepAndWolves.txt" />
     <Text Include="Puzzles\ShopAndGas.txt" />
     <Text Include="Puzzles\skyscrapers.txt" />
     <Text Include="Puzzles\slantedmaze.txt" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\SheepAndWolves.cpp" />
     <ClCompile Include="Puzzles\ShopAndGas.cpp" />
     <ClCompile Include="Puzzles\skyscrapers.cpp" />
     <ClCompile Include="Puzzles\slantedmaze.cpp" />
@@ -183,6 +185,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\SheepAndWolves.xml" />
     <Xml Include="Puzzles\ShopAndGas.xml" />
     <Xml Include="Puzzles\skyscrapers.xml" />
     <Xml Include="Puzzles\slantedmaze.xml" />

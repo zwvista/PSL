@@ -4,30 +4,30 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 3/SlitherLink
+	ios game: Logic Games/Puzzle Set 12/Sheep & Wolves
 
 	Summary
-	Draw a loop a-la-minesweeper!
+	Where's a dog when you need one?
 
 	Description
-	1. Draw a single looping path with the aid of the numbered hints. The path
-	   cannot have branches or cross itself.
-	2. Each number in a tile tells you on how many of its four sides are touched
-	   by the path.
-	3. For example:
-	4. A 0 tells you that the path doesn't touch that square at all.
-	5. A 1 tells you that the path touches that square ONLY one-side.
-	6. A 3 tells you that the path does a U-turn around that square.
-	7. There can't be tiles marked with 4 because that would form a single
-	   closed loop in it.
-	8. Empty tiles can have any number of sides touched by that path.
+	1. Plays like SlitherLink:
+	2. Draw a single looping path with the aid of the numbered hints. The
+	   path cannot have branches or cross itself.
+	3. Each number tells you on how many of its four sides are touched by
+	   the path.
+	4. With this added rule:
+	5. In the end all the sheep must be corralled inside the loop, while
+	   all the wolves must be outside.
 */
 
-namespace puzzles{ namespace SlitherLink{
+namespace puzzles{ namespace SheepAndWolves{
 
 #define PUZ_UNKNOWN			-1
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
+#define PUZ_SPACE			' '
+#define PUZ_SHEEP			'S'
+#define PUZ_WOLF			'W'
 
 const string lines_off = "0000";
 const string lines_all[] = {
@@ -43,10 +43,10 @@ const Position offset[] = {
 
 typedef pair<Position, int> puz_line_info;
 const puz_line_info lines_info[] = {
-	{{0, 0}, 1}, {{0, 1}, 3}, 		// n
-	{{0, 1}, 2}, {{1, 1}, 0}, 		// e
-	{{1, 1}, 3}, {{1, 0}, 1}, 		// s
-	{{1, 0}, 0}, {{0, 0}, 2}, 		// w
+	{{-1, -1}, 1}, {{-1, 0}, 3}, 		// n
+	{{-1, 0}, 2}, {{0, 0}, 0}, 		// e
+	{{0, 0}, 3}, {{0, -1}, 1}, 		// s
+	{{0, -1}, 0}, {{-1, -1}, 2}, 		// w
 };
 
 struct puz_game
@@ -56,6 +56,7 @@ struct puz_game
 	int m_dot_count;
 	map<Position, int> m_pos2num;
 	map<int, vector<string>> m_num2perms;
+	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -65,13 +66,19 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size() + 1)
 , m_dot_count(m_sidelen * m_sidelen)
 {
-	for(int r = 0; r < m_sidelen - 1; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen - 1; ++c){
-			char ch = str[c];
-			m_pos2num[{r, c}] = ch != ' ' ? ch - '0' : PUZ_UNKNOWN;
+	m_start.append(string(m_sidelen + 1, PUZ_WOLF));
+	for(int r = 1; r < m_sidelen; ++r){
+		auto& str = strs[r - 1];
+		m_start.push_back(PUZ_WOLF);
+		for(int c = 1; c < m_sidelen; ++c){
+			char ch = str[c - 1];
+			bool b = isdigit(ch);
+			m_start.push_back(b ? PUZ_SPACE : ch);
+			m_pos2num[{r, c}] = b ? ch - '0' : PUZ_UNKNOWN;
 		}
+		m_start.push_back(PUZ_WOLF);
 	}
+	m_start.append(string(m_sidelen + 1, PUZ_WOLF));
 
 	auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
 	for(int i = 0; i < 4; ++i){
@@ -96,10 +103,11 @@ struct puz_state : vector<puz_dot>
 	}
 	const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return m_cells[p.first * (sidelen() + 1) + p.second]; }
+	char& cells(const Position& p) { return m_cells[p.first * (sidelen() + 1) + p.second]; }
 	bool make_move(const Position& p, int n);
 	bool make_move2(const Position& p, int n);
 	int find_matches(bool init);
-	int check_dots(bool init);
 	bool check_loop() const;
 
 	//solve_puzzle interface
@@ -114,8 +122,8 @@ struct puz_state : vector<puz_dot>
 	}
 
 	const puz_game* m_game = nullptr;
+	string m_cells;
 	map<Position, vector<int>> m_matches;
-	set<Position> m_finished;
 	unsigned int m_distance = 0;
 };
 
@@ -143,7 +151,6 @@ puz_state::puz_state(const puz_game& g)
 	}
 
 	find_matches(true);
-	check_dots(true);
 }
 
 int puz_state::find_matches(bool init)
@@ -177,42 +184,6 @@ int puz_state::find_matches(bool init)
 			}
 	}
 	return 2;
-}
-
-int puz_state::check_dots(bool init)
-{
-	int n = 2;
-	for(;;){
-		set<Position> newly_finished;
-		for(int r = 0; r < sidelen(); ++r)
-			for(int c = 0; c < sidelen(); ++c){
-				Position p(r, c);
-				const auto& dt = dots(p);
-				if(dt.size() == 1 && m_finished.count(p) == 0)
-					newly_finished.insert(p);
-			}
-
-		if(newly_finished.empty())
-			return n;
-
-		n = 1;
-		for(const auto& p : newly_finished){
-			const auto& lines = dots(p)[0];
-			for(int i = 0; i < 4; ++i){
-				auto p2 = p + offset[i];
-				if(!is_valid(p2))
-					continue;
-				auto& dt = dots(p2);
-				boost::remove_erase_if(dt, [&, i](const string& s){
-					return s[(i + 2) % 4] != lines[i];
-				});
-				if(!init && dt.empty())
-					return 0;
-			}
-			m_finished.insert(p);
-		}
-		//m_distance += newly_finished.size();
-	}
 }
 
 bool puz_state::make_move2(const Position& p, int n)
@@ -277,17 +248,9 @@ bool puz_state::make_move(const Position& p, int n)
 	m_distance = 0;
 	if(!make_move2(p, n))
 		return false;
-	for(;;){
-		int m;
-		while((m = find_matches(false)) == 1);
-		if(m == 0)
-			return false;
-		m = check_dots(false);
-		if(m != 1)
-			return m == 2;
-		if(!check_loop())
-			return false;
-	}
+	int m;
+	while((m = find_matches(false)) == 1);
+	return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -331,9 +294,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_SlitherLink()
+void solve_puz_SheepAndWolves()
 {
-	using namespace puzzles::SlitherLink;
+	using namespace puzzles::SheepAndWolves;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\SlitherLink.xml", "Puzzles\\SlitherLink.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\SheepAndWolves.xml", "Puzzles\\SheepAndWolves.txt", solution_format::GOAL_STATE_ONLY);
 }
