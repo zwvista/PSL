@@ -45,7 +45,7 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	map<char, vector<Position>> m_num2targets;
+	map<char, set<Position>> m_num2targets;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -65,7 +65,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				m_start.push_back(ch);
 			else{
 				m_start.push_back(PUZ_NUMBER);
-				m_num2targets[ch].push_back({r, c});
+				m_num2targets[ch].insert({r, c});
 			}
 		}
 		m_start.push_back(PUZ_BOUNDARY);
@@ -80,12 +80,14 @@ struct puz_state : string
 	int sidelen() const {return m_game->m_sidelen;}
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	bool make_move(const Position& p, char ch);
+	set<Position>& targets() { return m_num2targets.begin()->second; }
+	void next_target();
+	bool make_move(int n, bool opposite);
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_nums.size(); }
+	unsigned int get_heuristic() const { return m_num2targets.size(); }
 	unsigned int get_distance(const puz_state& child) const { return m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -95,28 +97,59 @@ struct puz_state : string
 
 	const puz_game* m_game = nullptr;
 	Position m_head, m_tail;
-	vector<Position> m_targets;
-	vector<char> m_nums;
+	map<char, set<Position>> m_num2targets;
+	bool m_new_target = true;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
+, m_num2targets(g.m_num2targets)
 {
-	for(auto& kv : g.m_num2targets)
-		m_nums.push_back(kv.first);
-	m_targets = g.m_num2targets.at(m_nums.back());
-	m_head = m_tail = m_targets.back();
-	m_targets.pop_back();
+	next_target();
 }
 
-bool puz_state::make_move(const Position& p, char ch)
+void puz_state::next_target()
 {
+	auto& tg = targets();
+	auto it = tg.begin();
+	m_head = m_tail = *it;
+	tg.erase(it);
+	m_new_target = true;
+}
+
+bool puz_state::make_move(int n, bool opposite)
+{
+	m_new_target = false;
+	if(opposite)
+		::swap(m_head, m_tail);
+	auto p = m_head + offset[n];
+	char ch = cells(p);
+	auto& tg = targets();
+	if(ch != PUZ_SPACE && tg.count(p) == 0)
+		return false;
+
+	cells(m_head) = n + '0';
+	m_head = p;
+	if(ch != PUZ_SPACE){
+		tg.erase(p);
+		if(tg.empty())
+			m_num2targets.erase(m_num2targets.begin());
+		next_target();
+	}
+
 	return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
+	for(bool opposite : {false, true})
+		if(!opposite || (m_new_target && m_head != m_tail))
+			for(int i = 0; i < 4; ++i){
+				children.push_back(*this);
+				if(!children.back().make_move(i, opposite))
+					children.pop_back();
+			}
 }
 
 ostream& puz_state::dump(ostream& out) const
