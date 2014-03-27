@@ -108,6 +108,7 @@ struct puz_state : vector<puz_dot>
 	bool make_move(const Position& p, int n);
 	bool make_move2(const Position& p, int n);
 	int find_matches(bool init);
+	int check_dots(bool init);
 	bool check_loop() const;
 
 	//solve_puzzle interface
@@ -124,6 +125,7 @@ struct puz_state : vector<puz_dot>
 	const puz_game* m_game = nullptr;
 	string m_cells;
 	map<Position, vector<int>> m_matches;
+	set<Position> m_finished;
 	unsigned int m_distance = 0;
 };
 
@@ -184,6 +186,42 @@ int puz_state::find_matches(bool init)
 			}
 	}
 	return 2;
+}
+
+int puz_state::check_dots(bool init)
+{
+	int n = 2;
+	for(;;){
+		set<Position> newly_finished;
+		for(int r = 0; r < sidelen(); ++r)
+			for(int c = 0; c < sidelen(); ++c){
+				Position p(r, c);
+				const auto& dt = dots(p);
+				if(dt.size() == 1 && m_finished.count(p) == 0)
+					newly_finished.insert(p);
+			}
+
+		if(newly_finished.empty())
+			return n;
+
+		n = 1;
+		for(const auto& p : newly_finished){
+			const auto& lines = dots(p)[0];
+			for(int i = 0; i < 4; ++i){
+				auto p2 = p + offset[i];
+				if(!is_valid(p2))
+					continue;
+				auto& dt = dots(p2);
+				boost::remove_erase_if(dt, [&, i](const string& s){
+					return s[(i + 2) % 4] != lines[i];
+				});
+				if(!init && dt.empty())
+					return 0;
+			}
+			m_finished.insert(p);
+		}
+		//m_distance += newly_finished.size();
+	}
 }
 
 bool puz_state::make_move2(const Position& p, int n)
@@ -248,9 +286,17 @@ bool puz_state::make_move(const Position& p, int n)
 	m_distance = 0;
 	if(!make_move2(p, n))
 		return false;
-	int m;
-	while((m = find_matches(false)) == 1);
-	return m == 2;
+	for(;;){
+		int m;
+		while((m = find_matches(false)) == 1);
+		if(m == 0)
+			return false;
+		m = check_dots(false);
+		if(m != 1)
+			return m == 2;
+		if(!check_loop())
+			return false;
+	}
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
