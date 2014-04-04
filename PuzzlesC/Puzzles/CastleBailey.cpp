@@ -90,6 +90,7 @@ struct puz_state
 	bool make_move(const Position& p, int n);
 	bool make_move2(const Position& p, int n);
 	int find_matches(bool init);
+	bool is_continuous() const;
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -155,34 +156,39 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-	puz_state2(const puz_state& s);
+	puz_state2(const set<Position>& a) : m_area(a) { make_move(*a.begin()); }
 
-	int sidelen() const { return m_state->sidelen(); }
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const puz_state* m_state;
+	const set<Position>& m_area;
 };
-
-puz_state2::puz_state2(const puz_state& s)
-: m_state(&s)
-{
-	int i = boost::find_if(s.m_cells, [](char ch){
-		return ch == PUZ_EMPTY || ch == PUZ_SPACE;
-	}) - s.m_cells.begin();
-	make_move({i / sidelen(), i % sidelen()});
-}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset2){
-		auto p2 = *this + os;
-		char ch = m_state->cells(p2);
-		if(ch == PUZ_EMPTY || ch == PUZ_SPACE){
+		auto p = *this + os;
+		if(m_area.count(p) != 0){
 			children.push_back(*this);
-			children.back().make_move(p2);
+			children.back().make_move(p);
 		}
 	}
+}
+
+bool puz_state::is_continuous() const
+{
+	set<Position> area;
+	for(int r = 1; r < sidelen() - 1; ++r)
+		for(int c = 1; c < sidelen() - 1; ++c){
+			Position p(r, c);
+			char ch = cells(p);
+			if(ch == PUZ_EMPTY || ch == PUZ_SPACE)
+				area.insert(p);
+		}
+
+	list<puz_state2> smoves;
+	puz_move_generator<puz_state2>::gen_moves(area, smoves);
+	return smoves.size() == area.size();
 }
 
 bool puz_state::make_move2(const Position& p, int n)
@@ -198,11 +204,7 @@ bool puz_state::make_move2(const Position& p, int n)
 	++m_distance;
 	m_matches.erase(p);
 
-	list<puz_state2> smoves;
-	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	return smoves.size() == boost::count_if(m_cells, [](char ch){
-		return ch == PUZ_EMPTY || ch == PUZ_SPACE;
-	});
+	return is_continuous();
 }
 
 bool puz_state::make_move(const Position& p, int n)

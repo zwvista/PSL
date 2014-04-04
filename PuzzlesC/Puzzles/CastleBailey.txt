@@ -6,7 +6,7 @@ W . . .
 W W . . 
 Number of moves: 1
 Number of vertices examined: 2
-0.00467665 [s]
+0.00871327 [s]
 
 Level 36
 Sequence of moves: 
@@ -18,5 +18,5 @@ Sequence of moves:
 . W W W . . 
 Number of moves: 1
 Number of vertices examined: 2
-0.0123233 [s]
+0.0281278 [s]
 

@@ -78,6 +78,7 @@ struct puz_state : vector<int>
 	int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const pair<int, int>& key, const Position& p);
+	bool is_continuous() const;
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -106,35 +107,38 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-	puz_state2(const puz_state& s);
+	puz_state2(const set<Position>& a): m_area(a) { make_move(*a.begin()); }
 
-	int sidelen() const { return m_state->sidelen(); }
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const puz_state* m_state;
+	const set<Position>& m_area;
 };
-
-puz_state2::puz_state2(const puz_state& s)
-: m_state(&s)
-{
-	int i = boost::find_if(s, [](int n){
-		return n != PUZ_BOUNDARY && n != PUZ_SHADED;
-	}) - s.begin();
-
-	make_move({i / sidelen(), i % sidelen()});
-}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset){
-		auto p2 = *this + os;
-		int n = m_state->cells(p2);
-		if(n != PUZ_BOUNDARY && n != PUZ_SHADED){
+		auto p = *this + os;
+		if(m_area.count(p) != 0){
 			children.push_back(*this);
-			children.back().make_move(p2);
+			children.back().make_move(p);
 		}
 	}
+}
+
+bool puz_state::is_continuous() const
+{
+	set<Position> area;
+	for(int r = 1; r < sidelen() - 1; ++r)
+		for(int c = 1; c < sidelen() - 1; ++c){
+			Position p(r, c);
+			if(cells(p) != PUZ_SHADED)
+				area.insert(p);
+		}
+
+	list<puz_state2> smoves;
+	puz_move_generator<puz_state2>::gen_moves(area, smoves);
+	return smoves.size() == area.size();
 }
 
 bool puz_state::make_move(const pair<int, int>& key, const Position& p)
@@ -159,11 +163,7 @@ bool puz_state::make_move(const pair<int, int>& key, const Position& p)
 			return false;
 	}
 
-	list<puz_state2> smoves;
-	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	return smoves.size() == boost::count_if(*this, [](int n){
-		return n != PUZ_BOUNDARY && n != PUZ_SHADED;
-	});
+	return is_continuous();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

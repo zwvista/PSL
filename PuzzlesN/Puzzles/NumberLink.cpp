@@ -30,9 +30,13 @@
 
 namespace puzzles{ namespace NumberLink{
 
-#define PUZ_SPACE		' '
-#define PUZ_NUMBER		'N'
-#define PUZ_BOUNDARY	'+'
+#define PUZ_SPACE			' '
+#define PUZ_NUMBER			'N'
+#define PUZ_BOUNDARY		'+'
+#define PUZ_LINE_OFF		'0'
+#define PUZ_LINE_ON			'1'
+
+const string lines_off = "0000";
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -45,6 +49,7 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
+	map<Position, char> m_pos2num;
 	map<char, set<Position>> m_num2targets;
 	string m_start;
 
@@ -61,11 +66,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 1; c < m_sidelen - 1; ++c){
 			char ch = str[c - 1];
-			if(ch == PUZ_SPACE)
-				m_start.push_back(ch);
-			else{
-				m_start.push_back(PUZ_NUMBER);
-				m_num2targets[ch].insert({r, c});
+			m_start.push_back(ch);
+			if(ch != PUZ_SPACE){
+				Position p(r, c);
+				m_pos2num[p] = ch;
+				m_num2targets[ch].insert(p);
 			}
 		}
 		m_start.push_back(PUZ_BOUNDARY);
@@ -73,22 +78,42 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
 }
 
-struct puz_state : string
+struct puz_link
+{
+	Position m_head, m_tail;
+	set<Position> m_targets;
+	bool m_new_target = true;
+	vector<pair<int, bool>> m_moves;
+
+	void init(const set<Position>& targets){
+		m_targets = targets;
+		m_new_target = true;
+		m_head = m_tail = *m_targets.begin();
+		m_targets.erase(m_head);
+	}
+
+	void advance(struct puz_state& s);
+};
+
+struct puz_state : vector<string>
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	set<Position>& targets() { return m_num2targets.begin()->second; }
-	void next_target();
-	bool make_move(int n, bool opposite);
+	string cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+	string& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	bool make_move(char num, int n, bool opposite);
+	bool check_board() const;
 
 	//solve_puzzle interface
-	bool is_goal_state() const {return get_heuristic() == 0;}
+	bool is_goal_state() const {return m_num2link.empty();}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_num2targets.size(); }
-	unsigned int get_distance(const puz_state& child) const { return m_distance; }
+	unsigned int get_heuristic() const { 
+		return boost::accumulate(m_num2link, 0, [](int acc, const pair<char, puz_link>& kv){
+			return acc + kv.second.m_targets.size();
+		});
+	}
+	unsigned int get_distance(const puz_state& child) const { return 1; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
 	friend ostream& operator<<(ostream& out, const puz_state& state) {
@@ -96,67 +121,154 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
-	Position m_head, m_tail;
-	map<char, set<Position>> m_num2targets;
-	bool m_new_target = true;
-	unsigned int m_distance = 0;
+	map<char, puz_link> m_num2link;
 };
 
+void puz_link::advance(struct puz_state& s)
+{
+	m_moves.clear();
+	for(bool opposite : {false, true})
+		if(!opposite || (m_new_target && m_head != m_tail))
+			for(int i = 0; i < 4; ++i){
+				auto p = m_head + offset[i];
+				if(s.cells(p)[0] == PUZ_SPACE || m_targets.count(p) != 0)
+					m_moves.emplace_back(i, opposite);
+			}
+}
+
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
-, m_num2targets(g.m_num2targets)
+: vector<string>(g.m_start.size()), m_game(&g)
 {
-	next_target();
+	for(int i = 0; i < size(); ++i){
+		auto& str = (*this)[i];
+		str.push_back(g.m_start[i]);
+		str.append(lines_off);
+	}
+	
+	for(auto& kv : g.m_num2targets){
+		auto& link = m_num2link[kv.first];
+		link.init(kv.second);
+		link.advance(*this);
+	}
 }
 
-void puz_state::next_target()
+struct puz_state2 : Position
 {
-	auto& tg = targets();
-	auto it = tg.begin();
-	m_head = m_tail = *it;
-	tg.erase(it);
-	m_new_target = true;
+	puz_state2(const set<Position>& a, const Position& p_start)
+		: m_area(a) { make_move(p_start); }
+
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+	void gen_children(list<puz_state2>& children) const;
+
+	const set<Position>& m_area;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	for(auto& os : offset){
+		auto p = *this + os;
+		if(m_area.count(p) != 0){
+			children.push_back(*this);
+			children.back().make_move(p);
+		}
+	}
 }
 
-bool puz_state::make_move(int n, bool opposite)
+bool puz_state::check_board() const
 {
-	m_new_target = false;
-	if(opposite)
-		::swap(m_head, m_tail);
-	auto p = m_head + offset[n];
-	char ch = cells(p);
-	auto& tg = targets();
-	if(ch != PUZ_SPACE && tg.count(p) == 0)
-		return false;
+	set<Position> area, area2;
+	for(int r = 1; r < sidelen() - 1; ++r)
+		for(int c = 1; c < sidelen() - 1; ++c){
+			Position p(r, c);
+			if(cells(p)[0] == PUZ_SPACE)
+				area.insert(p);
+		}
 
-	cells(m_head) = n + '0';
-	m_head = p;
+	for(auto& kv : m_num2link){
+		auto& link = kv.second;
+		auto& tg = link.m_targets;
+		auto area3 = area;
+		area3.insert(tg.begin(), tg.end());
+
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves({area3, link.m_head}, smoves);
+		set<Position> area4(smoves.begin(), smoves.end());
+		if(boost::algorithm::any_of(tg, [&](const Position& p){
+			return area4.count(p) == 0;
+		}))
+			return false;
+
+		area4.erase(link.m_head);
+		for(auto& p : tg)
+			area4.erase(p);
+		area2.insert(area4.begin(), area4.end());
+	}
+
+	return area.size() == area2.size();
+}
+
+bool puz_state::make_move(char num, int n, bool opposite)
+{
+	auto& link = m_num2link.at(num);
+
+	link.m_new_target = false;
+	if(opposite){
+		::swap(link.m_head, link.m_tail);
+	}
+	auto p = link.m_head + offset[n];
+	auto &str = cells(link.m_head), &str2 = cells(p);
+	char ch = str2[0];
+	auto& tg = link.m_targets;
+
+	str2[0] = str[0];
+	str2[(2 + n) % 4 + 1] = str[n + 1] = PUZ_LINE_ON;
+	link.m_head = p;
+
 	if(ch != PUZ_SPACE){
 		tg.erase(p);
 		if(tg.empty())
-			m_num2targets.erase(m_num2targets.begin());
-		next_target();
+			m_num2link.erase(num);
+		else{
+			link.m_new_target = true;
+			link.advance(*this);
+		}
 	}
+	else
+		link.advance(*this);
 
-	return true;
+	return check_board();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	for(bool opposite : {false, true})
-		if(!opposite || (m_new_target && m_head != m_tail))
-			for(int i = 0; i < 4; ++i){
-				children.push_back(*this);
-				if(!children.back().make_move(i, opposite))
-					children.pop_back();
-			}
+	auto& kv = *boost::min_element(m_num2link, [&](
+		const pair<char, puz_link>& kv1,
+		const pair<char, puz_link>& kv2){
+		return kv1.second.m_moves.size() < kv2.second.m_moves.size();
+	});
+	for(auto& kv2 : kv.second.m_moves){
+		children.push_back(*this);
+		if(!children.back().make_move(kv.first, kv2.first, kv2.second))
+			children.pop_back();
+	}
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r){
+	for(int r = 1;; ++r){
+		// draw horz-lines
+		for(int c = 1; c < sidelen() - 1; ++c){
+			Position p(r, c);
+			auto& str = cells(p);
+			auto it = m_game->m_pos2num.find(p);
+			out << (it != m_game->m_pos2num.end() ? it->second : ' ')
+				<< (str[2] == PUZ_LINE_ON ? '-' : ' ');
+		}
+		out << endl;
+		if(r == sidelen() - 2) break;
 		for(int c = 1; c < sidelen() - 1; ++c)
-			out << cells({r, c}) << ' ';
+			// draw vert-lines
+			out << (cells({r, c})[3] == PUZ_LINE_ON ? "| " : "  ");
 		out << endl;
 	}
 	return out;
