@@ -15,26 +15,25 @@
 	2. The goal is to jump on every tile, only once and reach the last tile.
 */
 
-namespace puzzles{ namespace hidoku{
+namespace puzzles{ namespace Hidoku{
 
 const Position offset[] = {
-	{-1, 0},
-	{-1, 1},
-	{0, 1},
-	{1, 1},
-	{1, 0},
-	{1, -1},
-	{0, -1},
-	{-1, -1},
+	{-1, 0},		// n
+	{-1, 1},		// ne
+	{0, 1},		// e
+	{1, 1},		// se
+	{1, 0},		// s
+	{1, -1},		// sw
+	{0, -1},		// w
+	{-1, -1},	// nw
 };
 
 struct puz_game	
 {
 	string m_id;
 	int m_sidelen;
-	vector<int> m_nums;
 	map<int, Position> m_num2pos;
-	Position m_start;
+	vector<int> m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -45,37 +44,42 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 {
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen * 3; c += 3){
-			Position p(r, c / 3);
-			auto s = str.substr(c, 3);
-			int n = s == "   " ? 0 : atoi(s.c_str());
-			if(n == 1)
-				m_start = p;
-			m_nums.push_back(n);
+		for(int c = 0; c < m_sidelen; ++c){
+			Position p(r, c);
+			int n = atoi(str.substr(c * 3, 3).c_str());
+			m_start.push_back(n);
 			if(n != 0)
 				m_num2pos[n] = p;
 		}
 	}
 }
 
-struct puz_state : pair<vector<int>, Position>
+struct puz_segment
 {
-	puz_state() {}
-	puz_state(const puz_game& g) 
-		: pair<vector<int>, Position>(g.m_nums, g.m_start)
-		, m_game(&g) {}
+	pair<Position, int> m_cur, m_dest;
+	vector<Position> m_next;
+};
+
+struct puz_state : vector<int>
+{
+	puz_state(const puz_game& g);
 	int sidelen() const { return m_game->m_sidelen; }
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	int cells(const Position& p) const { return first.at(p.first * sidelen() + p.second); }
-	int& cells(const Position& p) { return first[p.first * sidelen() + p.second]; }
-	bool make_move(const Position& p, int n);
+	int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+	int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	void segment_next(puz_segment& o) const;
+	bool make_move(int i, int j);
 
 	// solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return first.size() - cells(second); }
+	unsigned int get_heuristic() const {
+		return boost::accumulate(m_segments, 0, [&](int acc, const puz_segment& o){
+			return acc + o.m_dest.second - o.m_cur.second - 1;
+		});
+	}
 	unsigned int get_distance(const puz_state& child) const {return 1;}
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -84,44 +88,72 @@ struct puz_state : pair<vector<int>, Position>
 	}
 
 	const puz_game* m_game = nullptr;
+	vector<puz_segment> m_segments;
 };
 
-bool puz_state::make_move(const Position& p, int n)
+puz_state::puz_state(const puz_game& g)
+: vector<int>(g.m_start), m_game(&g)
 {
-	int& m = cells(second = p);
-	if(m == 0){
-		m = n;
-		const auto& kv = *boost::find_if(m_game->m_num2pos, [=](const pair<int, Position>& kv){
-			return kv.first > n;
-		});
-		int n2;
-		Position p2;
-		tie(n2, p2) = kv;
-		if(max(myabs(p.first - p2.first), myabs(p.second - p2.second)) > n2 - n)
-			return false;
+	for(auto prev = m_game->m_num2pos.begin(), first = std::next(prev),
+		last = m_game->m_num2pos.end(); first != last; ++prev, ++first)
+		if(first->first - prev->first > 1){
+			m_segments.emplace_back();
+			auto& o = m_segments.back();
+			o.m_cur = {prev->second, prev->first};
+			o.m_dest = {first->second, first->first};
+			segment_next(o);
+		}
+}
+
+void puz_state::segment_next(puz_segment& o) const
+{
+	int n = o.m_cur.second + 1, n2 = o.m_dest.second;
+	auto& p2 = o.m_dest.first;
+	o.m_next.clear();
+	for(auto& os : offset){
+		auto p = o.m_cur.first + os;
+		if(is_valid(p) && cells(p) == 0 &&
+			// pruning : should not be too far to jump to
+			max(myabs(p.first - p2.first), myabs(p.second - p2.second)) <= n2 - n)
+			o.m_next.push_back(p);
 	}
-	return true;
+}
+
+bool puz_state::make_move(int i, int j)
+{
+	auto& o = m_segments[i];
+	auto p = o.m_next[j];
+	cells(o.m_cur.first = p) = ++o.m_cur.second;
+	if(o.m_dest.second - o.m_cur.second == 1)
+		m_segments.erase(m_segments.begin() + i);
+	else
+		segment_next(o);
+	for(auto& o2 : m_segments)
+		boost::remove_erase(o2.m_next, p);
+
+	return boost::algorithm::none_of(m_segments, [](const puz_segment& o2){
+		return o2.m_next.empty();
+	});
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	int n = cells(second) + 1;
-	auto i = m_game->m_num2pos.find(n);
-	bool found = i != m_game->m_num2pos.end();
-	for(auto& os : offset){
-		auto p = second + os;
-		if(found && p == i->second || !found && is_valid(p) && cells(p) == 0){
-			children.push_back(*this);
-			if(!children.back().make_move(p, n))
-				children.pop_back();
-			if(found) break;
-		}
+	auto it = boost::min_element(m_segments, [](
+		const puz_segment& o1, const puz_segment& o2){
+		return o1.m_next.size() < o2.m_next.size();
+	});
+	int i = it - m_segments.begin();
+
+	for(int j = 0; j < it->m_next.size(); ++j){
+		children.push_back(*this);
+		if(!children.back().make_move(i, j))
+			children.pop_back();
 	}
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
+	for(int r = 0; r < sidelen(); ++r){
 		for(int c = 0; c < sidelen(); ++c)
 			out << format("%3d") % cells({r, c});
 		out << endl;
@@ -131,9 +163,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_hidoku()
+void solve_puz_Hidoku()
 {
-	using namespace puzzles::hidoku;
+	using namespace puzzles::Hidoku;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\hidoku.xml", "Puzzles\\hidoku.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Hidoku.xml", "Puzzles\\Hidoku.txt", solution_format::GOAL_STATE_ONLY);
 }
