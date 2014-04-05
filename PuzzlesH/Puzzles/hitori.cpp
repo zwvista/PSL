@@ -17,7 +17,7 @@
 	3. In the end all the un-shaded squares must form a single continuous area.
 */
 
-namespace puzzles{ namespace hitori{
+namespace puzzles{ namespace Hitori{
 
 #define PUZ_SHADED		100
 #define PUZ_BOUNDARY	0
@@ -29,7 +29,11 @@ const Position offset[] = {
 	{0, -1},		// w
 };
 
-typedef map<pair<int, int>, set<Position>> puz_shaded;
+// key.first: the index of a row or column where a number appears on the board
+//            The index will be added by the side length of the board 
+//            if it represents a column.
+// key.second: a number that appears on the board
+typedef map<pair<int, int>, vector<Position>> puz_shaded;
 
 struct puz_game
 {
@@ -46,24 +50,25 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size() + 2)
 {
 	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
-	for(int r = 0; r < m_sidelen - 2; ++r){
-		auto& str = strs[r];
+	for(int r = 1; r < m_sidelen - 1; ++r){
+		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_BOUNDARY);
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			Position p(r + 1, c + 1);
-			char ch = str[c];
+		for(int c = 1; c < m_sidelen - 1; ++c){
+			Position p(r, c);
+			char ch = str[c - 1];
 			int n = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
 			m_start.push_back(n);
-			m_shaded[{r + 1, n}].insert(p);
-			m_shaded[{m_sidelen + c + 1, n}].insert(p);
+			m_shaded[{r, n}].push_back(p);
+			m_shaded[{m_sidelen + c, n}].push_back(p);
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
 	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
 
+	// All numbers that appear only once in a row or column will be removed
 	auto it = m_shaded.begin();
 	while((it = find_if(it, m_shaded.end(), [](const puz_shaded::value_type& kv){
-		return kv.second.size() <= 1;
+		return kv.second.size() == 1;
 	})) != m_shaded.end())
 		it = m_shaded.erase(it);
 }
@@ -72,8 +77,10 @@ typedef pair<vector<Position>, int> puz_garden;
 
 struct puz_state : vector<int>
 {
-	puz_state() {}
-	puz_state(const puz_game& g);
+	puz_state(const puz_game& g)
+		: vector<int>(g.m_start), m_game(&g), m_shaded(g.m_shaded)
+	{}
+
 	int sidelen() const {return m_game->m_sidelen;}
 	int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
@@ -100,11 +107,6 @@ struct puz_state : vector<int>
 	int m_distance = 0;
 };
 
-puz_state::puz_state(const puz_game& g)
-: vector<int>(g.m_start), m_game(&g), m_shaded(g.m_shaded)
-{
-}
-
 struct puz_state2 : Position
 {
 	puz_state2(const set<Position>& a): m_area(a) { make_move(*a.begin()); }
@@ -126,6 +128,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 	}
 }
 
+// 3. All the un-shaded squares must form a single continuous area.
 bool puz_state::is_continuous() const
 {
 	set<Position> area;
@@ -148,22 +151,20 @@ bool puz_state::make_move(const pair<int, int>& key, const Position& p)
 	m_distance = 0;
 	auto f = [&](const pair<int, int>& k){
 		auto it = m_shaded.find(k);
-		if(it == m_shaded.end()) return;
-		++m_distance;
-		it->second.erase(p);
-		if(it->second.size() == 1)
-			m_shaded.erase(it);
+		if(it != m_shaded.end()){
+			++m_distance;
+			boost::remove_erase(it->second, p);
+			if(it->second.size() == 1)
+				m_shaded.erase(it);
+		}
 	};
 	f(key);
 	f({key.first < sidelen() ? sidelen() + p.second : p.first, key.second});
 
-	for(auto& os : offset){
-		auto p2 = p + os;
-		if(cells(p2) == PUZ_SHADED)
-			return false;
-	}
-
-	return is_continuous();
+	// 2. Shaded squares don't touch horizontally or vertically between them.
+	return (boost::algorithm::none_of(offset, [&](const Position& os){
+		return cells(p + os) == PUZ_SHADED;
+	})) && is_continuous();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -182,7 +183,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r) {
+	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
 			int n = cells(p);
@@ -198,9 +199,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_hitori()
+void solve_puz_Hitori()
 {
-	using namespace puzzles::hitori;
+	using namespace puzzles::Hitori;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\hitori.xml", "Puzzles\\hitori.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Hitori.xml", "Puzzles\\Hitori.txt", solution_format::GOAL_STATE_ONLY);
 }
