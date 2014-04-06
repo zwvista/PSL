@@ -3,7 +3,7 @@
 extern void solve_puz_SheepAndWolves();
 extern void solve_puz_ShopAndGas();
 extern void solve_puz_skyscrapers();
-extern void solve_puz_slantedmaze();
+extern void solve_puz_SlantedMaze();
 extern void solve_puz_SlitherLink();
 extern void solve_puz_snail();
 extern void solve_puz_sokoban();
@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 	cout << "h1: Sheep & Wolves" << endl;
 	cout << "h2: Shop & Gas" << endl;
 	cout << "k: skyscrapers" << endl;
-	cout << "l1: slanted maze" << endl;
+	cout << "l1: Slanted Maze" << endl;
 	cout << "l2: SlitherLink" << endl;
 	cout << "n: snail" << endl;
 	cout << "o: sokoban" << endl;
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	if(str == "h1") solve_puz_SheepAndWolves();
 	else if(str == "h2") solve_puz_ShopAndGas();
 	else if(str == "k") solve_puz_skyscrapers();
-	else if(str == "l1") solve_puz_slantedmaze();
+	else if(str == "l1") solve_puz_SlantedMaze();
 	else if(str == "l2") solve_puz_SlitherLink();
 	else if(str == "n") solve_puz_snail();
 	else if(str == "o") solve_puz_sokoban();

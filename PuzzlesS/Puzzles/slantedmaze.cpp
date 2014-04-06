@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -20,19 +21,28 @@
 	   This also means very big loops, not just 2*2.
 */
 
-namespace puzzles{ namespace slantedmaze{
+namespace puzzles{ namespace SlantedMaze{
 
 #define PUZ_UNKNOWN		5
 #define PUZ_SPACE		' '
 #define PUZ_SLASH		'/'
 #define PUZ_BACKSLASH	'\\'
 #define PUZ_BOUNDARY	'B'
+#define PUZ_TOUCHED		1
+#define PUZ_UNTOUCHED	0
 
 const Position offset[] = {
 	{0, 0},	// nw
 	{0, 1},	// ne
 	{1, 1},	// se
 	{1, 0},	// sw
+};
+
+const Position offset2[] = {
+	{-1, -1},	// nw
+	{-1, 1},		// ne
+	{1, 1},		// se
+	{1, -1},		// sw
 };
 
 const string slants = "\\/\\/";
@@ -65,13 +75,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
 	for(int i = 0; i <= 4; ++i){
 		auto& perms = m_num2perms[i];
-		vector<int> indexes(4, 0);
-		fill(indexes.begin() + 4 - i, indexes.end(), 1);
+		vector<int> indexes(4, PUZ_UNTOUCHED);
+		fill(indexes.begin() + 4 - i, indexes.end(), PUZ_TOUCHED);
 		do{
-			for(int i = 0; i < 4; ++i){
-				int index = indexes[i];
-				char ch = slants[i];
-				perm[i] = index == 1 ? ch :
+			for(int j = 0; j < 4; ++j){
+				char ch = slants[j];
+				perm[j] = indexes[j] == PUZ_TOUCHED ? ch :
 						ch == PUZ_SLASH ? PUZ_BACKSLASH :
 						PUZ_SLASH;
 			}
@@ -81,14 +90,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-struct puz_state
+struct puz_state : string
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
+	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, int n);
 	bool make_move2(const Position& p, int n);
 	int find_matches(bool init);
@@ -106,13 +114,12 @@ struct puz_state
 	}
 
 	const puz_game* m_game = nullptr;
-	string m_cells;
 	map<Position, vector<int>> m_matches;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(sidelen() * sidelen(), PUZ_SPACE)
+: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
 	for(int i = 0; i < sidelen(); ++i)
 		cells({i, 0}) = cells({i, sidelen() - 1}) =
@@ -135,13 +142,17 @@ int puz_state::find_matches(bool init)
 		auto& perm_ids = kv.second;
 
 		string chars;
-		for(auto& os : offset)
-			chars.push_back(cells(p + os));
+		for(int i = 0; i < 4; ++i){
+			char ch = cells(p + offset[i]);
+			if(ch == PUZ_BOUNDARY)
+				ch = slants[i] == PUZ_SLASH ? PUZ_BACKSLASH : PUZ_SLASH;
+			chars.push_back(ch);
+		}
 
 		auto& perms = m_game->m_num2perms[m_game->m_pos2num.at(p)];
 		boost::remove_erase_if(perm_ids, [&](int id){
 			return !boost::equal(chars, perms[id], [](char ch1, char ch2){
-				return ch1 == PUZ_SPACE || ch1 == PUZ_BOUNDARY || ch1 == ch2;
+				return ch1 == PUZ_SPACE || ch1 == ch2;
 			});
 		});
 
@@ -173,26 +184,57 @@ bool puz_state::make_move2(const Position& p, int n)
 
 struct puz_state2 : Position
 {
-	puz_state2(const puz_state& s);
+	puz_state2(const puz_state& s, set<Position>& dots, set<Position>& path, bool& has_loop)
+		: m_state(s), m_dots(dots), m_path(path), m_has_loop(has_loop) {
+		make_move(-1, *dots.begin());
+	}
 
-	int sidelen() const { return m_state->sidelen(); }
-	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+	int sidelen() const { return m_state.sidelen(); }
+	void make_move(int n, const Position& p);
 	void gen_children(list<puz_state2>& children) const;
 
-	const puz_state* m_state;
+	const puz_state& m_state;
+	set<Position> &m_dots, &m_path;
+	bool& m_has_loop;
+	int m_last_dir;
 };
 
-puz_state2::puz_state2(const puz_state& s)
-: m_state(&s)
+void puz_state2::make_move(int n, const Position& p)
 {
+	m_last_dir = n;
+	static_cast<Position&>(*this) = p;
+	if(m_path.count(p) == 0)
+		m_path.insert(p);
+	else
+		m_has_loop = true;
+	m_dots.erase(p);
 }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
+	for(int i = 0; i < 4; ++i)
+		if((i + 2) % 4 != m_last_dir &&
+			m_state.cells(*this + offset[i]) == slants[i]){
+			children.push_back(*this);
+			children.back().make_move(i, *this + offset2[i]);
+		}
 }
 
 bool puz_state::check_loop() const
 {
+	set<Position> dots;
+	for(int r = 0; r < sidelen() - 1; ++r)
+		for(int c = 0; c < sidelen() - 1; ++c)
+			dots.emplace(r, c);
+
+	while(!dots.empty()){
+		bool has_loop = false;
+		set<Position> path;
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves({*this, dots, path, has_loop}, smoves);
+		if(has_loop)
+			return false;
+	}
 	return true;
 }
 
@@ -231,9 +273,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_slantedmaze()
+void solve_puz_SlantedMaze()
 {
-	using namespace puzzles::slantedmaze;
+	using namespace puzzles::SlantedMaze;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\slantedmaze.xml", "Puzzles\\slantedmaze.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\SlantedMaze.xml", "Puzzles\\SlantedMaze.txt", solution_format::GOAL_STATE_ONLY);
 }

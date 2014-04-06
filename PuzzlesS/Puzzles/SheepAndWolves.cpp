@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "astar_solver.h"
-#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
