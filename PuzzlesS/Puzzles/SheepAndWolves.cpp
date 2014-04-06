@@ -41,6 +41,13 @@ const Position offset[] = {
 	{0, -1},		// w
 };
 
+const Position offset2[] = {
+	{0, 0}, {0, 1},	// n
+	{0, 1}, {1, 1},		// e
+	{1, 1}, {1, 0},		// s
+	{1, 0}, {0, 0},	// w
+};
+
 typedef pair<Position, int> puz_line_info;
 const puz_line_info lines_info[] = {
 	{{-1, -1}, 1}, {{-1, 0}, 3}, 		// n
@@ -59,6 +66,7 @@ struct puz_game
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+	char cells(const Position& p) const { return m_start[p.first * (m_sidelen + 1) + p.second]; }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
@@ -108,6 +116,7 @@ struct puz_state : vector<puz_dot>
 	bool make_move(const Position& p, int n);
 	bool make_move2(const Position& p, int n);
 	int find_matches(bool init);
+	int check_cells(bool init);
 	int check_dots(bool init);
 	bool check_loop() const;
 
@@ -125,12 +134,13 @@ struct puz_state : vector<puz_dot>
 	const puz_game* m_game = nullptr;
 	string m_cells;
 	map<Position, vector<int>> m_matches;
-	set<Position> m_finished;
+	set<Position> m_finished_dots, m_finished_cells;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : vector<puz_dot>(g.m_dot_count, {lines_off}), m_game(&g)
+, m_cells(g.m_start)
 {
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
@@ -153,6 +163,7 @@ puz_state::puz_state(const puz_game& g)
 	}
 
 	find_matches(true);
+	while((check_cells(true), check_dots(true)) == 1);
 }
 
 int puz_state::find_matches(bool init)
@@ -188,6 +199,36 @@ int puz_state::find_matches(bool init)
 	return 2;
 }
 
+int puz_state::check_cells(bool init)
+{
+	int n = 2;
+	for(int r = 1; r < sidelen(); ++r)
+		for(int c = 1; c < sidelen(); ++c){
+			Position p(r, c);
+			char ch = cells(p);
+			if(ch == PUZ_SPACE || m_finished_cells.count(p) != 0)
+				continue;
+			m_finished_cells.insert(p);
+			for(int i = 0; i < 4; ++i){
+				char ch2 = cells(p + offset[i]);
+				if(ch2 == PUZ_SPACE)
+					continue;
+				n = 1;
+				char line = ch == ch2 ? PUZ_LINE_OFF : PUZ_LINE_ON;
+				for(int j = 0; j < 2; ++j){
+					auto& info = lines_info[i * 2 + j];
+					auto& dt = dots(p + info.first);
+					boost::remove_erase_if(dt, [&, line](const string& s){
+						return s[info.second] != line;
+					});
+					if(!init && dt.empty())
+						return 0;
+				}
+			}
+		}
+	return n;
+}
+
 int puz_state::check_dots(bool init)
 {
 	int n = 2;
@@ -197,7 +238,7 @@ int puz_state::check_dots(bool init)
 			for(int c = 0; c < sidelen(); ++c){
 				Position p(r, c);
 				const auto& dt = dots(p);
-				if(dt.size() == 1 && m_finished.count(p) == 0)
+				if(dt.size() == 1 && m_finished_dots.count(p) == 0)
 					newly_finished.insert(p);
 			}
 
@@ -218,7 +259,19 @@ int puz_state::check_dots(bool init)
 				if(!init && dt.empty())
 					return 0;
 			}
-			m_finished.insert(p);
+			m_finished_dots.insert(p);
+
+			for(int i = 0; i < 4; ++i){
+				char& ch1 = cells(p + offset2[i * 2]);
+				char& ch2 = cells(p + offset2[i * 2 + 1]);
+				char line = lines[i];
+				auto f = [=](char& ch1, char& ch2){
+					ch1 = line == PUZ_LINE_OFF ? ch2 :
+						ch2 == PUZ_SHEEP ? PUZ_WOLF : PUZ_SHEEP;
+				};
+				if((ch1 == PUZ_SPACE) != (ch2 == PUZ_SPACE))
+					ch1 == PUZ_SPACE ? f(ch1, ch2) : f(ch2, ch1);
+			}
 		}
 		//m_distance += newly_finished.size();
 	}
@@ -291,6 +344,9 @@ bool puz_state::make_move(const Position& p, int n)
 		while((m = find_matches(false)) == 1);
 		if(m == 0)
 			return false;
+		m = check_cells(false);
+		if(m == 0)
+			return false;
 		m = check_dots(false);
 		if(m != 1)
 			return m == 2;
@@ -327,9 +383,10 @@ ostream& puz_state::dump(ostream& out) const
 			// draw vert-lines
 			out << (dots(p)[0][2] == PUZ_LINE_ON ? '|' : ' ');
 			if(c == sidelen() - 1) break;
-			int n = m_game->m_pos2num.at(p);
+			auto p2 = p + Position(1, 1);
+			int n = m_game->m_pos2num.at(p2);
 			if(n == PUZ_UNKNOWN)
-				out << ' ';
+				out << m_game->cells(p2);
 			else
 				out << n;
 		}

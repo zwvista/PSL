@@ -9,4 +9,25 @@ W2S2S\
  222S\
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+3 12S\
+ 2S 1\
+3W1S \
+ 2 03\
+S2W3 \
+    ]]>
+  </level>
+  <level id="36">
+    <![CDATA[
+2 12 S  \
+ W2 S W \
+21 2 2  \
+ 2SS 2S2\
+W2 21S 2\
+ 1SSW WW\
+S1 SW1 S\
+3 W   1 \
+    ]]>
+  </level>
 </levels>
