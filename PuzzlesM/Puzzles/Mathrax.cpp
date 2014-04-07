@@ -120,7 +120,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	};
 
-	for(auto& info : m_area_diag_info){
+	for(auto& info : m_area_diag_info)
 		// n0 n1
 		// n3 n2
 		for(int n0 = 1; n0 <= m_sidelen; ++n0)
@@ -135,12 +135,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 						info.m_perms.push_back({n0, n1, n2, n3});
 				}
 			}
-	}
 }
 
 struct puz_state
 {
-	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const { return m_game->m_sidelen; }
 	int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }

@@ -156,6 +156,7 @@
     <Text Include="Puzzles\lightsout_classic.txt" />
     <Text Include="Puzzles\lightsout_variants.txt" />
     <Text Include="Puzzles\LineSweeper.txt" />
+    <Text Include="Puzzles\Lits.txt" />
     <Text Include="Puzzles\Loopy.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -173,6 +174,7 @@
     <ClCompile Include="Puzzles\lightsout-int.cpp" />
     <ClCompile Include="Puzzles\lightsout.cpp" />
     <ClCompile Include="Puzzles\LineSweeper.cpp" />
+    <ClCompile Include="Puzzles\Lits.cpp" />
     <ClCompile Include="Puzzles\Loopy.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -191,6 +193,7 @@
     <Xml Include="Puzzles\lightsout_classic.xml" />
     <Xml Include="Puzzles\lightsout_variants.xml" />
     <Xml Include="Puzzles\LineSweeper.xml" />
+    <Xml Include="Puzzles\Lits.xml" />
     <Xml Include="Puzzles\Loopy.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
