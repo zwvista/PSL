@@ -24,7 +24,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-	: m_id{attrs.get<string>("id")}
+	: m_id(attrs.get<string>("id"))
 	, m_size(strs.size(), strs[0].length())
 {
 	m_cells = boost::accumulate(strs, string());

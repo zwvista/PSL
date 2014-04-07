@@ -16,9 +16,10 @@
 	   into each area respecting these rules:
 	4. No two adjacent (touching horizontally / vertically) tetromino should
 	   be of equal shape, even counting rotations or reflections.
+	5. All the shaded cells should form a valid Nurikabe (hence no fat guy).
 */
 
-namespace puzzles{ namespace skyscrapers{
+namespace puzzles{ namespace Lits{
 
 #define PUZ_SPACE		0
 
@@ -41,7 +42,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id{attrs.get<string>("id")}
+: m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size())
 , m_area2range(m_sidelen * 2)
 {
@@ -192,9 +193,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_skyscrapers()
+void solve_puz_Lits()
 {
-	using namespace puzzles::skyscrapers;
+	using namespace puzzles::Lits;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\skyscrapers.xml", "Puzzles\\skyscrapers.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Lits.xml", "Puzzles\\Lits.txt", solution_format::GOAL_STATE_ONLY);
 }

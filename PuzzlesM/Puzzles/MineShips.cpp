@@ -49,7 +49,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id{attrs.get<string>("id")}
+: m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 2)
 {
 	m_ship2num = map<int, int>{{1, 4}, {2, 3}, {3, 2}, {4, 1}};

@@ -60,7 +60,7 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id{attrs.get<string>("id")}
+: m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size())
 , m_area2range(m_sidelen * 2)
 {
@@ -176,29 +176,32 @@ void puz_state::make_move2(int i, int j)
 int puz_state::check_snail()
 {
 	int n = 2;
-	char start = '3';
+	// The first number to write after entering in the top left is a 1
+	char last_ch = '3';
 	vector<Position> path;
 	int sz = sidelen() * sidelen();
 	for(int i = 0; i <= sz; ++i){
+		// The last number before ending in the center is a 3
 		char ch = i == sz ? '1' : cells(m_game->m_snail_path[i]);
 		if(ch == PUZ_SPACE)
+			// Find all vacant positions between last_ch and ch
 			path.push_back(m_game->m_snail_path[i]);
-		else if(ch != PUZ_EMPTY)
-		{
+		else if(ch != PUZ_EMPTY){
+			// Find possible numbers between last_ch and ch
 			string mid;
-			for(int j = start - '1'; (j = (j + 1) % 3) != ch - '1';)
+			for(int j = last_ch - '1'; (j = (j + 1) % 3) != ch - '1';)
 				mid.push_back(j + '1');
+
+			// pruning
 			int sz1 = path.size(), sz2 = mid.size();
 			if(sz1 < sz2)
 				return 0;
 			if(sz1 == sz2 && sz1 > 0){
-				for(int k = 0; k < sz1; ++k){
-					const auto& p = path[k];
-					cells(p) = mid[k];
-				}
+				for(int k = 0; k < sz1; ++k)
+					cells(path[k]) = mid[k];
 				n = 1;
 			}
-			start = ch;
+			last_ch = ch;
 			path.clear();
 		}
 	}

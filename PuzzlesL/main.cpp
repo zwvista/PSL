@@ -7,6 +7,7 @@ extern void solve_puz_Lighthouses();
 extern void solve_puz_lightsout();
 extern void solve_puz_lightsout_int();
 extern void solve_puz_LineSweeper();
+extern void solve_puz_Lits();
 extern void solve_puz_Loopy();
 
 int main(int argc, char **argv)
@@ -18,6 +19,7 @@ int main(int argc, char **argv)
 	cout << "i4: lightsout" << endl;
 	cout << "i5: lightsout_int" << endl;
 	cout << "i6: LineSweeper" << endl;
+	cout << "i7: Lits" << endl;
 	cout << "o: Loopy" << endl;
 	string str;
 	getline(cin, str);
@@ -28,6 +30,7 @@ int main(int argc, char **argv)
 	else if(str == "i4") solve_puz_lightsout();
 	else if(str == "i5") solve_puz_lightsout_int();
 	else if(str == "i6") solve_puz_LineSweeper();
+	else if(str == "i7") solve_puz_Lits();
 	else if(str == "o") solve_puz_Loopy();
 
 	return 0;
