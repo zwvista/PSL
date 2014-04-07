@@ -170,8 +170,12 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-	for(int i = 0; i < g.m_area_count; ++i)
-		m_matches[i];
+	for(int i = 0; i < g.m_area_count; ++i){
+		auto& perm_ids = m_matches[i];
+		perm_ids.resize(i < sidelen() * 2 ? g.m_perms_rc.size() :
+			g.m_area_diag_info[i - sidelen() * 2].m_perms.size());
+		boost::iota(perm_ids, 0);
+	}
 
 	find_matches(true);
 }
@@ -179,20 +183,21 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
+		int index = kv.first;
+		auto& perm_ids = kv.second;
+
 		auto f = [&](const vector<Position>& rng, const vector<vector<int>>& perms){
 			vector<int> nums;
 			for(auto& p : rng)
 				nums.push_back(cells(p));
 
-			kv.second.clear();
-			for(int i = 0; i < perms.size(); ++i)
-				if(boost::equal(nums, perms[i], [](int n1, int n2){
+			boost::remove_erase_if(perm_ids, [&](int id){
+				return !boost::equal(nums, perms[id], [](int n1, int n2){
 					return n1 == PUZ_SPACE || n1 == n2;
-				}))
-					kv.second.push_back(i);
+				});
+			});
 		};
 
-		int index = kv.first;
 		if(index < sidelen() * 2)
 			f(m_game->m_area_rc2range[index], m_game->m_perms_rc);
 		else{
@@ -201,11 +206,11 @@ int puz_state::find_matches(bool init)
 		}
 
 		if(!init)
-			switch(kv.second.size()){
+			switch(perm_ids.size()){
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(kv.first, kv.second.front()), 1;
+				return make_move2(index, perm_ids.front()), 1;
 			}
 	}
 	return 2;

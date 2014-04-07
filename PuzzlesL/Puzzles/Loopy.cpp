@@ -160,7 +160,7 @@ int puz_state::find_matches(bool init)
 				return 0;
 			case 1:
 				return make_move2(p, is_vert, str[0]) ? 1 : 0;
-		}
+			}
 	}
 	return 2;
 }
