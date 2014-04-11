@@ -163,16 +163,16 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-	puz_state2(const set<Position>& a, const Position& p_start);
+	puz_state2(const set<Position>& rng, const Position& p_start);
 
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const set<Position>* m_area;
+	const set<Position>* m_rng;
 };
 
-puz_state2::puz_state2(const set<Position>& a, const Position& p_start)
-: m_area(&a)
+puz_state2::puz_state2(const set<Position>& rng, const Position& p_start)
+: m_rng(&rng)
 {
 	make_move(p_start);
 }
@@ -181,7 +181,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		if(m_area->count(p2) != 0){
+		if(m_rng->count(p2) != 0){
 			children.push_back(*this);
 			children.back().make_move(p2);
 		}
@@ -190,25 +190,25 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::is_continuous() const
 {
-	set<Position> a;
+	set<Position> rng;
 	for(int r = 1; r < sidelen(); ++r)
 		for(int c = 1; c < sidelen(); ++c){
 			Position p(r, c);
 			char ch = cells(p);
 			if(ch == PUZ_SPACE || ch == PUZ_WALL || ch == PUZ_WALL_S)
-				a.insert(p);
+				rng.insert(p);
 		}
 	
-	Position p_start = *boost::find_if(a, [&](const Position& p){
+	Position p_start = *boost::find_if(rng, [&](const Position& p){
 		return cells(p) != PUZ_SPACE;
 	});
 
 	list<puz_state2> smoves;
-	puz_move_generator<puz_state2>::gen_moves({a, p_start}, smoves);
+	puz_move_generator<puz_state2>::gen_moves({rng, p_start}, smoves);
 	for(auto& p : smoves)
-		a.erase(p);
+		rng.erase(p);
 
-	return boost::algorithm::all_of(a, [&](const Position& p){
+	return boost::algorithm::all_of(rng, [&](const Position& p){
 		return cells(p) == PUZ_SPACE;
 	});
 }

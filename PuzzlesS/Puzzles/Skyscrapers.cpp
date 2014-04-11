@@ -18,7 +18,7 @@
 	   Skyscrapers are numbered from 1(lowest) to the grid size(height).
 */
 
-namespace puzzles{ namespace skyscrapers{
+namespace puzzles{ namespace Skyscrapers{
 
 #define PUZ_SPACE		0
 
@@ -192,9 +192,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_skyscrapers()
+void solve_puz_Skyscrapers()
 {
-	using namespace puzzles::skyscrapers;
+	using namespace puzzles::Skyscrapers;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\skyscrapers.xml", "Puzzles\\skyscrapers.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Skyscrapers.xml", "Puzzles\\Skyscrapers.txt", solution_format::GOAL_STATE_ONLY);
 }
