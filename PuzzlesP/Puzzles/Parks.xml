@@ -1,302 +1,486 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="001">
+  <level id="01">
     <![CDATA[
-aabcd\
-aabbd\
-eabdd\
-eeedd\
-eeeee\
+ - - - - - \
+|   | | | |\
+       -   \
+|   |   | |\
+ -     -   \
+| | | |   |\
+   - -     \
+|     |   |\
+       - - \
+|         |\
+ - - - - - \
     ]]>
   </level>
-  <level id="002">
+  <level id="02">
     <![CDATA[
-aaaaa\
-baaac\
-aaadc\
-aeddc\
-aeddd\
+ - - - - - \
+|         |\
+ -       - \
+| |     | |\
+ -     -   \
+|     | | |\
+   - -     \
+| | |   | |\
+         - \
+| | |     |\
+ - - - - - \
     ]]>
   </level>
-  <level id="003">
+  <level id="03">
     <![CDATA[
-aabbb\
-aabbb\
-cbbbb\
-cddee\
-cceee\
+ - - - - - \
+|   |     |\
+           \
+|   |     |\
+ - -       \
+| |       |\
+   - - - - \
+| |   |   |\
+   - -     \
+|   |     |\
+ - - - - - \
     ]]>
   </level>
-  <level id="004">
+  <level id="04">
     <![CDATA[
-aabbb\
-aacbb\
-cccdb\
-ceedb\
-ceddb\
+ - - - - - \
+|   |     |\
+     -     \
+|   | |   |\
+ - -   -   \
+|     | | |\
+   - -     \
+| |   | | |\
+     -     \
+| | |   | |\
+ - - - - - \
     ]]>
   </level>
-  <level id="005">
+  <level id="05">
     <![CDATA[
-aaabb\
-abbbc\
-addcc\
-ddcce\
-deeee\
+ - - - - - \
+|     |   |\
+   - -   - \
+| |     | |\
+   - - -   \
+| |   |   |\
+ -   -   - \
+|   |   | |\
+   - - -   \
+| |       |\
+ - - - - - \
     ]]>
   </level>
-  <level id="006">
+  <level id="06">
     <![CDATA[
-aaabb\
-acbbb\
-ccbbb\
-ddbee\
-deeee\
+ - - - - - \
+|     |   |\
+   - -     \
+| | |     |\
+ -         \
+|   |     |\
+ - -   - - \
+|   | |   |\
+   - -     \
+| |       |\
+ - - - - - \
     ]]>
   </level>
-  <level id="007">
+  <level id="07">
     <![CDATA[
-aabbbb\
-aabbbb\
-aaccbb\
-acccdb\
-ecccdb\
-eeefff\
+ - - - - - - \
+|   |       |\
+             \
+|   |       |\
+     - -     \
+|   |   |   |\
+   -     -   \
+| |     | | |\
+ -           \
+| |     | | |\
+   - - - - - \
+|     |     |\
+ - - - - - - \
     ]]>
   </level>
-  <level id="008">
+  <level id="08">
     <![CDATA[
-aabccc\
-aacccc\
-aaddce\
-aeeeee\
-aeeefe\
-eeeeee\
+ - - - - - - \
+|   | |     |\
+     -       \
+|   |       |\
+     - -   - \
+|   |   | | |\
+   - - - -   \
+| |         |\
+         -   \
+| |     | | |\
+ -       -   \
+|           |\
+ - - - - - - \
     ]]>
   </level>
-  <level id="009">
+  <level id="09">
     <![CDATA[
-abbbcc\
-abbbcc\
-aaaccc\
-adeccc\
-ddeccf\
-ddccff\
+ - - - - - - \
+| |     |   |\
+             \
+| |     |   |\
+   - - -     \
+|     |     |\
+   - -       \
+| | | |     |\
+ -         - \
+|   | |   | |\
+     -   -   \
+|   |   |   |\
+ - - - - - - \
     ]]>
   </level>
-  <level id="010">
+  <level id="10">
     <![CDATA[
-aabbbb\
-abbcdb\
-abbcdd\
-eeccfd\
-eccffd\
-eeefff\
+ - - - - - - \
+|   |       |\
+   -   - -   \
+| |   | | | |\
+           - \
+| |   | |   |\
+ - - -   -   \
+|   |   | | |\
+   -   -     \
+| |   |   | |\
+   - -     - \
+|     |     |\
+ - - - - - - \
     ]]>
   </level>
-  <level id="011">
+  <level id="11">
     <![CDATA[
-aaabbb\
-aaabbb\
-accdbb\
-dddddd\
-ddeedd\
-eeeffd\
+ - - - - - - \
+|     |     |\
+             \
+|     |     |\
+   - - -     \
+| |   | |   |\
+ - - -   - - \
+|           |\
+     - -     \
+|   |   |   |\
+ - -   - -   \
+|     |   | |\
+ - - - - - - \
     ]]>
   </level>
-  <level id="012">
+  <level id="12">
     <![CDATA[
-aaaabb\
-aacbbb\
-aadddb\
-addeef\
-ddddee\
-dddeee\
+ - - - - - - \
+|       |   |\
+     - -     \
+|   | |     |\
+     - - -   \
+|   |     | |\
+   -   - - - \
+| |   |   | |\
+ -     -   - \
+|       |   |\
+       -     \
+|     |     |\
+ - - - - - - \
     ]]>
   </level>
-  <level id="013">
+  <level id="13">
     <![CDATA[
-abbbcd\
-abdbcd\
-addddd\
-dddddd\
-effdff\
-eeffff\
+ - - - - - - \
+| |     | | |\
+     -       \
+| | | | | | |\
+   -   - -   \
+| |         |\
+ -           \
+|           |\
+ - - -   - - \
+| |   | |   |\
+   -   -     \
+|   |       |\
+ - - - - - - \
     ]]>
   </level>
-  <level id="014">
+  <level id="14">
     <![CDATA[
-aaaabbb\
-aacaddb\
-aecffdb\
-aeccfdd\
-aeecfgg\
-aaggggg\
-ggggggg\
+ - - - - - - - \
+|       |     |\
+     -   - -   \
+|   | | |   | |\
+   -   - -     \
+| | | |   | | |\
+       -     - \
+| | |   | |   |\
+     -     - - \
+| |   | | |   |\
+   - - - -     \
+|   |         |\
+ - -           \
+|             |\
+ - - - - - - - \
     ]]>
   </level>
-  <level id="015" TreesInEachArea="2">
+  <level id="15" TreesInEachArea="2">
     <![CDATA[
-aaaaaaaaa\
-bbaacaccd\
-bbbccccdD\
-bBbeefddd\
-bbbbeffFd\
-bgeEehffd\
-ggghhhffd\
-Ggiiihhff\
-ggiiiihff\
+ - - - - - - - - - \
+|                 |\
+ - -     -   - - - \
+|   |   | | |   | |\
+     - -   -   -   \
+|     |       |  T|\
+       - - - -     \
+|  T  |   | |     |\
+       -     - -   \
+|       | |    T| |\
+   - - -   -       \
+| | |  T  | |   | |\
+ -   - - -         \
+|     |     |   | |\
+     - - -   -   - \
+|T  |     |   |   |\
+           -       \
+|   |       | |   |\
+ - - - - - - - - - \
     ]]>
   </level>
-  <level id="016" TreesInEachArea="2">
+  <level id="16" TreesInEachArea="2">
     <![CDATA[
-abbbbccc\
-abbccccc\
-abbcdccc\
-aadddeee\
-adddfege\
-ahdffege\
-hhhfffgg\
-hhgggggg\
+ - - - - - - - - \
+| |       |     |\
+       - -       \
+| |   |         |\
+         -       \
+| |   | | |     |\
+   - - -   - - - \
+|   |     |     |\
+   -     -   -   \
+| |     | | | | |\
+   -   -         \
+| | | |   | | | |\
+ -   -     -   - \
+|     |     |   |\
+     - - - -     \
+|   |           |\
+ - - - - - - - - \
     ]]>
   </level>
-  <level id="017" TreesInEachArea="2">
+  <level id="17" TreesInEachArea="2">
     <![CDATA[
-aabbbbbcc\
-adddbbbcc\
-adeeecccc\
-adddefgcc\
-hhhdifggg\
-hdddifffg\
-hhhiifffg\
-hihiifffg\
-iiiiiiggg\
+ - - - - - - - - - \
+|   |         |   |\
+   - - -           \
+| |     |     |   |\
+     - - - - -     \
+| | |     |       |\
+     - -   - -     \
+| |     | | | |   |\
+ - - -   -     - - \
+|     | | | |     |\
+   - -       - -   \
+| |     | |     | |\
+   - - -           \
+|     |   |     | |\
+   -               \
+| | | |   |     | |\
+ -   -     - - -   \
+|           |     |\
+ - - - - - - - - - \
     ]]>
   </level>
-  <level id="018" TreesInEachArea="2">
+  <level id="18" TreesInEachArea="2">
     <![CDATA[
-aaaabcccd\
-aaabbbccd\
-aaaabeeed\
-fabbbbedd\
-ffbbgheed\
-fffgghhhh\
-ggfghhhii\
-gggghhiii\
-gggghiiii\
+ - - - - - - - - - \
+|       | |     | |\
+       -   -       \
+|     |     |   | |\
+       -   - - -   \
+|       | |     | |\
+ -   - -   -   -   \
+| | |       | |   |\
+   -     - -   -   \
+|   |   | | |   | |\
+     - -     - - - \
+|     |   |       |\
+ - -     -     - - \
+|   | | |     |   |\
+     -       -     \
+|       |   |     |\
+           -       \
+|       | |       |\
+ - - - - - - - - - \
     ]]>
   </level>
-  <level id="019" TreesInEachArea="2">
+  <level id="19" TreesInEachArea="2">
     <![CDATA[
-aaaabcccc\
-aaaabcccc\
-addabbbcc\
-adeaefccc\
-adeeefcgg\
-ddhfefcgg\
-ddhfffccg\
-dhhiiiggg\
-hhhhhiiig\
+ - - - - - - - - - \
+|       | |       |\
+                   \
+|       | |       |\
+   - -     - -     \
+| |   | |     |   |\
+     -   - - -     \
+| | | | | | |     |\
+       -       - - \
+| | |     | | |   |\
+ -   - -           \
+|   | | | | | |   |\
+         -     -   \
+|   | |     |   | |\
+   -   - - - - -   \
+| |   |     |     |\
+ -     - -   - -   \
+|         |     | |\
+ - - - - - - - - - \
     ]]>
   </level>
-  <level id="020" TreesInEachArea="2">
+  <level id="20" TreesInEachArea="2">
     <![CDATA[
-aaabbcddd\
-aabbbccdd\
-aabbbccdd\
-accccccee\
-fggcggcee\
-fgggggcee\
-ffhggiiii\
-ffhhiiiii\
-ffhhiiiii\
+ - - - - - - - - - \
+|     |   | |     |\
+     -       -     \
+|   |     |   |   |\
+                   \
+|   |     |   |   |\
+   - - - -     - - \
+| |           |   |\
+ - - -   - -       \
+| |   | |   | |   |\
+       -           \
+| |         | |   |\
+   - -     - - - - \
+|   | |   |       |\
+       - -         \
+|   |   |         |\
+                   \
+|   |   |         |\
+ - - - - - - - - - \
     ]]>
   </level>
-  <level id="021" TreesInEachArea="2">
+  <level id="21" TreesInEachArea="2">
     <![CDATA[
-aabbbbbbb\
-aaabcccbc\
-dabbecccc\
-ddffeeegg\
-ddffeeggg\
-dfffhhhgg\
-dffhhhhhg\
-dffhhhhig\
-dfffhiiii\
+ - - - - - - - - - \
+|   |             |\
+     -   - - -   - \
+|     | |     | | |\
+ -   -   -     -   \
+| | |   | |       |\
+   - - -   - - - - \
+|   |   |     |   |\
+             -     \
+|   |   |   |     |\
+   -     - - -     \
+| |     |     |   |\
+       -       -   \
+| |   |         | |\
+               -   \
+| |   |       | | |\
+       -   - -   - \
+| |     | |       |\
+ - - - - - - - - - \
     ]]>
   </level>
-  <level id="022" TreesInEachArea="2">
+  <level id="22" TreesInEachArea="2">
     <![CDATA[
-abbbaaaac\
-aaabaaacc\
-daaaaaacc\
-dddaeaacc\
-ggdheaafc\
-gghheefff\
-gggheeeee\
-ghhheiiee\
-hhhiiiiii\
+ - - - - - - - - - \
+| |     |       | |\
+   - -         -   \
+|     | |     |   |\
+ -     -           \
+| |           |   |\
+   - -   -         \
+|     | | |   |   |\
+ - -   -       -   \
+|   | | | |   | | |\
+     -     - -   - \
+|   |   |   |     |\
+     -       - - - \
+|     | |         |\
+   - -     - -     \
+| |     | |   |   |\
+ -     - -     - - \
+|     |           |\
+ - - - - - - - - - \
     ]]>
   </level>
-  <level id="023" TreesInEachArea="2">
+  <level id="23" TreesInEachArea="2">
     <![CDATA[
-abbbbcccc\
-aabbccdcc\
-abbbbddcc\
-aabeddfcc\
-gaeeedfff\
-geeeeeeff\
-gggeeeeff\
-hghhiieif\
-hhhiiiiii\
+ - - - - - - - - - \
+| |       |       |\
+   -     -   -     \
+|   |   |   | |   |\
+   -     - -       \
+| |       |   |   |\
+   -   - -   -     \
+|   | | |   | |   |\
+ -   -   -     - - \
+| | |     | |     |\
+   -       - -     \
+| |           |   |\
+   - -             \
+|     |       |   |\
+ -   - - - -   -   \
+| | |   |   | | | |\
+   -   -     -   - \
+|     |           |\
+ - - - - - - - - - \
     ]]>
   </level>
-  <level id="024" TreesInEachArea="2">
+  <level id="24" TreesInEachArea="2">
     <![CDATA[
-aaaabbccc\
-daabbbeec\
-dddfbbecc\
-dddffgeec\
-ddddfgeec\
-ddddfgicc\
-ddhhfgiii\
-hhhhggggi\
-hhgggggii\
+ - - - - - - - - - \
+|       |   |     |\
+ -     -     - -   \
+| |   |     |   | |\
+   - - -       -   \
+|     | |   | |   |\
+         - -   -   \
+|     |   | |   | |\
+       -           \
+|       | | |   | |\
+             - -   \
+|       | | | |   |\
+     - -       - - \
+|   |   | | |     |\
+ - -     -   - -   \
+|       |       | |\
+     - -       -   \
+|   |         |   |\
+ - - - - - - - - - \
     ]]>
   </level>
-  <level id="025" TreesInEachArea="2">
+  <level id="36" TreesInEachArea="2">
     <![CDATA[
+ - - - - - - - - - - - \
+|           |   |     |\
+                       \
+|           |   |     |\
+   - -     -           \
+| |   |   |     |     |\
+ - -   - -       - - - \
+|   |     |         | |\
+     - - -         -   \
+|       | |       | | |\
+           - - - -     \
+|       |       |   | |\
+     -           -   - \
+|   | | |         |   |\
+       - - - -   -     \
+|   |       | | |     |\
+ - -       -   - - - - \
+|         | |         |\
+ -   -       -         \
+| | | |   |   |       |\
+   -   - -             \
+|             |       |\
+ - - - - - - - - - - - \
     ]]>
   </level>
-  <level id="026" TreesInEachArea="2">
-    <![CDATA[
-    ]]>
-  </level>
-  <level id="027" TreesInEachArea="2">
-    <![CDATA[
-    ]]>
-  </level>
-  <level id="028" TreesInEachArea="2">
-    <![CDATA[
-    ]]>
-  </level>
-  <level id="029" TreesInEachArea="2">
-    <![CDATA[
-    ]]>
-  </level>
-  <!--<level id="036" TreesInEachArea="2">
-    <![CDATA[
-aaaaaabbccc\
-aaaaaabbccc\
-addaabbbccc\
-eedddbbbbbf\
-eeeegbbbbhf\
-eeeegggghhf\
-eeieggggghh\
-eeiiiijghhh\
-iiiiikjjjjj\
-kikiikkjjjj\
-kkkkkkkjjjj\
-    ]]>
-  </level>-->
 </levels>
