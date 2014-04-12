@@ -225,7 +225,7 @@ void CMazeEditorDoc::FillAll( char ch )
 	m_sigMazeChanged();
 }
 
-void CMazeEditorDoc::FillBorder( char ch )
+void CMazeEditorDoc::FillBorderCells( char ch )
 {
 	for(int r = 0; r < MazeHeight(); ++r)
 		m_mapObjects[{r, 0}] =
@@ -233,6 +233,17 @@ void CMazeEditorDoc::FillBorder( char ch )
 	for(int c = 0; c < MazeWidth(); ++c)
 		m_mapObjects[{0, c}] =
 		m_mapObjects[{MazeHeight() - 1, c}] = ch;
+	m_sigMazeChanged();
+}
+
+void CMazeEditorDoc::FillBorderLines()
+{
+	for(int r = 0; r < MazeHeight(); ++r)
+		m_setVertWall.insert({r, 0}),
+		m_setVertWall.insert({r, MazeWidth()});
+	for(int c = 0; c < MazeWidth(); ++c)
+		m_setHorzWall.insert({0, c}),
+		m_setHorzWall.insert({MazeHeight(), c});
 	m_sigMazeChanged();
 }
 

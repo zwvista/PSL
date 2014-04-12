@@ -49,7 +49,9 @@ BEGIN_MESSAGE_MAP(CMazeEditorView, CView)
 	ON_UPDATE_COMMAND_UI(ID_MAZE_HAS_WALL, &CMazeEditorView::OnUpdateMazeHasWall)
 	ON_COMMAND(ID_MAZE_CHAR, &CMazeEditorView::OnMazeChar)
 	ON_COMMAND(ID_MAZE_FILL_ALL, &CMazeEditorView::OnMazeFillAll)
-	ON_COMMAND(ID_MAZE_FILL_BORDER_CELLS, &CMazeEditorView::OnMazeFillBorder)
+	ON_COMMAND(ID_MAZE_FILL_BORDER_CELLS, &CMazeEditorView::OnMazeFillBorderCells)
+	ON_COMMAND(ID_MAZE_FILL_BORDER_LINES, &CMazeEditorView::OnMazeFillBorderLines)
+	ON_UPDATE_COMMAND_UI(ID_MAZE_FILL_BORDER_LINES, &CMazeEditorView::OnUpdateMazeFillBorderLines)
 	ON_COMMAND(ID_EDIT_COPY, &CMazeEditorView::OnEditCopy)
 	ON_COMMAND(ID_EDIT_PASTE, &CMazeEditorView::OnEditPaste)
 	ON_UPDATE_COMMAND_UI(ID_MAZE_MOVEMENT, &CMazeEditorView::OnUpdateMovement)
@@ -320,11 +322,6 @@ void CMazeEditorView::OnMazeHasWallChanged()
 	m_pDoc->SetHasWall(!m_pDoc->HasWall());
 }
 
-void CMazeEditorView::OnUpdateMazeHasWall( CCmdUI* pCmdUI )
-{
-	pCmdUI->SetCheck(m_pDoc->HasWall());
-}
-
 void CMazeEditorView::OnMazeCleared()
 {
 	m_chLast = ' ';
@@ -336,9 +333,14 @@ void CMazeEditorView::OnMazeFillAll()
 	m_pDoc->FillAll(m_chLast);
 }
 
-void CMazeEditorView::OnMazeFillBorder()
+void CMazeEditorView::OnMazeFillBorderCells()
 {
-	m_pDoc->FillBorder(m_chLast);
+	m_pDoc->FillBorderCells(m_chLast);
+}
+
+void CMazeEditorView::OnMazeFillBorderLines()
+{
+	m_pDoc->FillBorderLines();
 }
 
 void CMazeEditorView::OnMazeChar()

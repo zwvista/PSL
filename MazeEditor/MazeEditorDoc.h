@@ -47,7 +47,8 @@ public:
 	CString GetData();
 	void SetData(const CString& strData);
 	void FillAll(char ch);
-	void FillBorder(char ch);
+	void FillBorderCells(char ch);
+	void FillBorderLines();
 
 // Overrides
 public:

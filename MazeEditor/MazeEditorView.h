@@ -83,11 +83,13 @@ protected:
 	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnResizeMaze();
 	afx_msg void OnClearMaze();
-	afx_msg void OnUpdateMazeHasWall(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateMazeHasWall(CCmdUI* pCmdUI) { pCmdUI->SetCheck(m_pDoc->HasWall()); }
 	afx_msg void OnMazeHasWallChanged();
 	afx_msg void OnMazeChar();
 	afx_msg void OnMazeFillAll();
-	afx_msg void OnMazeFillBorder();
+	afx_msg void OnMazeFillBorderCells();
+	afx_msg void OnMazeFillBorderLines();
+	afx_msg void OnUpdateMazeFillBorderLines(CCmdUI* pCmdUI) { pCmdUI->Enable(m_pDoc->HasWall()); }
 	afx_msg void OnEditCopy();
 	afx_msg void OnEditPaste();
 	afx_msg void OnUpdateMovement(CCmdUI* pCmdUI) {pCmdUI->Enable();}
