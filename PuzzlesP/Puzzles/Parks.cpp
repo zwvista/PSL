@@ -10,14 +10,14 @@
 	Put one Tree in each Park, row and column.(two in bigger levels)
 
 	Description
-	In Parks, you have many differently coloured areas(Parks) on the board.
-	The goal is to plant Trees, following these rules:
-	1. A Tree can't touch another Tree, not even diagonally.
-	2. Each park must have exactly ONE Tree.
-	3. There must be exactly ONE Tree in each row and each column.
-	4. Remember a Tree CANNOT touch another Tree diagonally,
+	1. In Parks, you have many differently coloured areas(Parks) on the board.
+	2. The goal is to plant Trees, following these rules:
+	3. A Tree can't touch another Tree, not even diagonally.
+	4. Each park must have exactly ONE Tree.
+	5. There must be exactly ONE Tree in each row and each column.
+	6. Remember a Tree CANNOT touch another Tree diagonally,
 	   but it CAN be on the same diagonal line.
-	5. Larger puzzles have TWO Trees in each park, each row and each column.
+	7. Larger puzzles have TWO Trees in each park, each row and each column.
 */
 
 namespace puzzles{ namespace Parks{
