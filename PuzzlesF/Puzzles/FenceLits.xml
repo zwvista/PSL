@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+3 33\
+3331\
+2323\
+ 323\
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+22 2\
+ 222\
+2222\
+2222\
+    ]]>
+  </level>
+</levels>

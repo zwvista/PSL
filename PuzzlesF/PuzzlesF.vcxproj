@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\fenceitup.txt" />
+    <Text Include="Puzzles\FenceLits.txt" />
     <Text Include="Puzzles\fling.txt" />
     <Text Include="Puzzles\FourMeNot.txt" />
     <Text Include="Puzzles\FourMeNot2.txt" />
@@ -163,6 +164,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\fenceitup.cpp" />
+    <ClCompile Include="Puzzles\FenceLits.cpp" />
     <ClCompile Include="Puzzles\fling.cpp" />
     <ClCompile Include="Puzzles\FourMeNot.cpp" />
     <ClCompile Include="Puzzles\FourMeNot2.cpp" />
@@ -176,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\fenceitup.xml" />
+    <Xml Include="Puzzles\FenceLits.xml" />
     <Xml Include="Puzzles\fling.xml" />
     <Xml Include="Puzzles\fling2.xml" />
     <Xml Include="Puzzles\fling3.xml" />

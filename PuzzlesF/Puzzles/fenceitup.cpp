@@ -15,7 +15,7 @@
 	   of the perimeter of the area.
 */
 
-namespace puzzles{ namespace fenceitup{
+namespace puzzles{ namespace FenceItUp{
 
 #define PUZ_SPACE		' '
 #define PUZ_SINGLE		'.'
@@ -198,9 +198,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_fenceitup()
+void solve_puz_FenceItUp()
 {
-	using namespace puzzles::fenceitup;
+	using namespace puzzles::FenceItUp;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\fenceitup.xml", "Puzzles\\fenceitup.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\FenceItUp.xml", "Puzzles\\FenceItUp.txt", solution_format::GOAL_STATE_ONLY);
 }
