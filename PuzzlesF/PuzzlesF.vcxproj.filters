@@ -25,9 +25,6 @@
     <Text Include="Puzzles\fling.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\fenceitup.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\FourMeNot.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -35,6 +32,12 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\FenceLits.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\FenceItUp.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Fillomino.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -62,9 +65,6 @@
     <ClCompile Include="Puzzles\fling.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\fenceitup.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\FourMeNot.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -72,6 +72,12 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\FenceLits.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\FenceItUp.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Fillomino.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -88,13 +94,16 @@
     <Xml Include="Puzzles\fling3.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\fenceitup.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\FourMeNot.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\FenceLits.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\FenceItUp.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Fillomino.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
