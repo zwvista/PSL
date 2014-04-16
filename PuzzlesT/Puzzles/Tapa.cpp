@@ -72,7 +72,7 @@ puz_hint compute_hint(const vector<int>& filled)
 
 enum puz_game_type
 {
-	TAPA,
+	NORMAL_TAPA,
 	EQUAL_TAPA,
 	FOUR_ME_TAPA,
 	NO_SQUARE_TAPA,
@@ -100,7 +100,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		game_type == "Equal Tapa" ? EQUAL_TAPA :
 		game_type == "Four-Me-Tapa" ? FOUR_ME_TAPA :
 		game_type == "No Square Tapa" ? NO_SQUARE_TAPA :
-		TAPA;
+		NORMAL_TAPA;
 
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
 	for(int r = 1; r < m_sidelen - 1; ++r){
@@ -385,7 +385,7 @@ bool puz_state::is_valid_move() const
 	};
 
 	return is_valid_tapa() && (
-		m_game->m_game_type == TAPA ||
+		m_game->m_game_type == NORMAL_TAPA ||
 		m_game->m_game_type == EQUAL_TAPA && is_equal_tapa() ||
 		m_game->m_game_type == FOUR_ME_TAPA && is_four_me_tapa() ||
 		m_game->m_game_type == NO_SQUARE_TAPA && is_no_square_tapa()
