@@ -24,7 +24,7 @@
 	7. The wall can't form 2*2 squares.
 */
 
-namespace puzzles{ namespace nurikabe{
+namespace puzzles{ namespace Nurikabe{
 
 #define PUZ_SPACE		' '
 #define PUZ_WALL		'W'
@@ -113,10 +113,11 @@ puz_state::puz_state(const puz_game& g)
 
 	for(int r = 1; r < g.m_sidelen - 2; ++r)
 		for(int c = 1; c < g.m_sidelen - 2; ++c){
-			Position p1(r, c), p2(r, c + 1), p3(r + 1, c), p4(r + 1, c + 1);
-			if(cells(p1) == PUZ_WALL && cells(p2) == PUZ_WALL &&
-				cells(p3) == PUZ_WALL && cells(p4) == PUZ_WALL)
-				m_2by2walls.push_back({p1, p2, p3, p4});
+			set<Position> rng{{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}};
+			if(boost::algorithm::all_of(rng, [&](const Position& p){
+				return cells(p) == PUZ_WALL;
+			}))
+				m_2by2walls.push_back(rng);
 		}
 }
 
@@ -164,12 +165,12 @@ bool puz_state::make_move(const Position& p)
 			return false;
 	}
 
-	boost::remove_erase_if(m_2by2walls, [&](const set<Position>& ps){
-		return ps.count(p) != 0;
+	boost::remove_erase_if(m_2by2walls, [&](const set<Position>& rng){
+		return rng.count(p) != 0;
 	});
 
-	if(boost::algorithm::any_of(m_2by2walls, [&](const set<Position>& ps){
-		return boost::algorithm::none_of(ps, [&](const Position& p2){
+	if(boost::algorithm::any_of(m_2by2walls, [&](const set<Position>& rng){
+		return boost::algorithm::none_of(rng, [&](const Position& p2){
 			return boost::algorithm::any_of(m_gardens, [&](const puz_garden& g){
 				return boost::algorithm::any_of(g.first, [&](const Position& p3){
 					return manhattan_distance(p2, p3) <= g.second;
@@ -220,9 +221,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_nurikabe()
+void solve_puz_Nurikabe()
 {
-	using namespace puzzles::nurikabe;
+	using namespace puzzles::Nurikabe;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\nurikabe.xml", "Puzzles\\nurikabe.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Nurikabe.xml", "Puzzles\\Nurikabe.txt", solution_format::GOAL_STATE_ONLY);
 }
