@@ -51,6 +51,7 @@ struct puz_game
 	int m_tree_total_count;
 	map<Position, int> m_pos2park;
 	vector<Position> m_trees;
+	set<Position> m_horz_walls, m_vert_walls;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -85,20 +86,20 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_tree_count_area(attrs.get<int>("TreesInEachArea", 1))
 	, m_tree_total_count(m_tree_count_area * m_sidelen)
 {
-	set<Position> horz_walls, vert_walls, rng;
+	set<Position> rng;
 	for(int r = 0;; ++r){
 		// horz-walls
 		auto& str_h = strs[r * 2];
 		for(int c = 0; c < m_sidelen; ++c)
 			if(str_h[c * 2 + 1] == '-')
-				horz_walls.insert({r, c});
+				m_horz_walls.insert({r, c});
 		if(r == m_sidelen) break;
 		auto& str_v = strs[r * 2 + 1];
 		for(int c = 0;; ++c){
 			Position p(r, c);
 			// vert-walls
 			if(str_v[c * 2] == '|')
-				vert_walls.insert(p);
+				m_vert_walls.insert(p);
 			if(c == m_sidelen) break;
 			if(str_v[c * 2 + 1] == PUZ_TREE)
 				m_trees.push_back(p);
@@ -108,7 +109,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 	for(int n = 0; !rng.empty(); ++n){
 		list<puz_state2> smoves;
-		puz_move_generator<puz_state2>::gen_moves({horz_walls, vert_walls, *rng.begin()}, smoves);
+		puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
 		for(auto& p : smoves){
 			m_pos2park[p] = n;
 			rng.erase(p);
@@ -306,9 +307,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r){
+	for(int r = 0;; ++r){
+		// draw horz-walls
 		for(int c = 0; c < sidelen(); ++c)
-			out << cells({r, c}) << ' ';
+			out << (m_groups.m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+		out << endl;
+		if(r == sidelen()) break;
+		for(int c = 0;; ++c){
+			Position p(r, c);
+			// draw vert-walls
+			out << (m_groups.m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+			if(c == sidelen()) break;
+			out << cells(p);
+		}
 		out << endl;
 	}
 	return out;
