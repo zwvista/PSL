@@ -19,9 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\rippleeffect.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\rotate9.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -29,6 +26,9 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\rooms.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\RippleEffect.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -50,9 +50,6 @@
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\rippleeffect.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\rotate9.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -62,11 +59,11 @@
     <ClCompile Include="Puzzles\rooms.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\RippleEffect.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\rippleeffect.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\rotate9.xml">
       <Filter>Puzzles</Filter>
     </Xml>
@@ -74,6 +71,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\rooms.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\RippleEffect.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

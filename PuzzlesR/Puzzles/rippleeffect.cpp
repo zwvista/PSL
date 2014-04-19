@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -15,13 +16,20 @@
 	   itself.
 */
 
-namespace puzzles{ namespace rippleeffect{
+namespace puzzles{ namespace RippleEffect{
 
 const Position offset[] = {
-	{-1, 0},
-	{0, 1},
-	{1, 0},
-	{0, -1},
+	{-1, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, -1},		// w
+};
+
+const Position offset2[] = {
+	{0, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, 0},		// w
 };
 
 // first: the remaining positions in the room that should be filled
@@ -35,33 +43,93 @@ struct puz_game
 	map<Position, int> m_start;
 	map<Position, pair<int, int>> m_pos2info;
 	map<int, puz_room_info> m_room2info;
+	set<Position> m_horz_walls, m_vert_walls;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
+
+struct puz_state2 : Position
+{
+	puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
+		: m_horz_walls(horz_walls), m_vert_walls(vert_walls) {
+		make_move(p_start);
+	}
+
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+	void gen_children(list<puz_state2>& children) const;
+
+	const set<Position> &m_horz_walls, &m_vert_walls;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	for(int i = 0; i < 4; ++i){
+		auto p = *this + offset[i];
+		auto p_wall = *this + offset2[i];
+		auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
+		if(walls.count(p_wall) == 0){
+			children.push_back(*this);
+			children.back().make_move(p);
+		}
+	}
+}
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() / 2)
 {
-	for(int r = 0; r < m_sidelen; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen; ++c){
-			char ch = str[c];
+	//for(int r = 0; r < m_sidelen; ++r){
+	//	auto& str = strs[r];
+	//	for(int c = 0; c < m_sidelen; ++c){
+	//		char ch = str[c];
+	//		if(ch != ' ')
+	//			m_start[{r, c}] = ch - '0';
+	//	}
+	//}
+
+	//vector<vector<Position>> rooms;
+	//for(int r = 0; r < m_sidelen; ++r){
+	//	const string& str = strs[r + m_sidelen];
+	//	for(int c = 0; c < m_sidelen; ++c){
+	//		Position p(r, c);
+	//		int n = str[c] - 'a';
+	//		m_pos2info[p].first = n;
+	//		if(n >= rooms.size())
+	//			rooms.resize(n + 1);
+	//		rooms[n].push_back(p);
+	//	}
+	//}
+	set<Position> rng;
+	for(int r = 0;; ++r){
+		// horz-walls
+		auto& str_h = strs[r * 2];
+		for(int c = 0; c < m_sidelen; ++c)
+			if(str_h[c * 2 + 1] == '-')
+				m_horz_walls.insert({r, c});
+		if(r == m_sidelen) break;
+		auto& str_v = strs[r * 2 + 1];
+		for(int c = 0;; ++c){
+			Position p(r, c);
+			// vert-walls
+			if(str_v[c * 2] == '|')
+				m_vert_walls.insert(p);
+			if(c == m_sidelen) break;
+			char ch = str_v[c * 2 + 1];
 			if(ch != ' ')
 				m_start[{r, c}] = ch - '0';
+			rng.insert(p);
 		}
 	}
 
 	vector<vector<Position>> rooms;
-	for(int r = 0; r < m_sidelen; ++r){
-		const string& str = strs[r + m_sidelen];
-		for(int c = 0; c < m_sidelen; ++c){
-			Position p(r, c);
-			int n = str[c] - 'a';
+	for(int n = 0; !rng.empty(); ++n){
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+		rooms.resize(n + 1);
+		for(auto& p : smoves){
 			m_pos2info[p].first = n;
-			if(n >= rooms.size())
-				rooms.resize(n + 1);
 			rooms[n].push_back(p);
+			rng.erase(p);
 		}
 	}
 
@@ -185,9 +253,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
+	for(int r = 0;; ++r){
+		// draw horz-walls
 		for(int c = 0; c < sidelen(); ++c)
-			out << cells({r, c}) << ' ';
+			out << (m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+		out << endl;
+		if(r == sidelen()) break;
+		for(int c = 0;; ++c){
+			Position p(r, c);
+			// draw vert-walls
+			out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+			if(c == sidelen()) break;
+			out << cells(p);
+		}
 		out << endl;
 	}
 	return out;
@@ -195,9 +273,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_rippleeffect()
+void solve_puz_RippleEffect()
 {
-	using namespace puzzles::rippleeffect;
+	using namespace puzzles::RippleEffect;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\rippleeffect.xml", "Puzzles\\rippleeffect.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\RippleEffect.xml", "Puzzles\\RippleEffect.txt", solution_format::GOAL_STATE_ONLY);
 }
