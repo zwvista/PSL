@@ -28,6 +28,20 @@ namespace puzzles{ namespace Domino{
 
 #define PUZ_SPACE		' '
 
+const Position offset[] = {
+	{-1, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, -1},		// w
+};
+
+const Position offset2[] = {
+	{0, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, 0},		// w
+};
+
 struct puz_domino_kind
 {
 	string m_str;
@@ -122,6 +136,7 @@ struct puz_state : string
 
 	const puz_game* m_game = nullptr;
 	map<int, vector<int>> m_matches;
+	set<Position> m_horz_walls, m_vert_walls;
 	unsigned int m_distance = 0;
 };
 
@@ -156,7 +171,7 @@ int puz_state::find_matches(bool init)
 				return 0;
 			case 1:
 				return make_move2(comb_id, domino_ids.front()), 1;
-		}
+			}
 	}
 	return 2;
 }
@@ -167,6 +182,17 @@ void puz_state::make_move2(int i, int j)
 	auto& str = d.str();
 	cells(d.m_p1) = str[0];
 	cells(d.p2()) = str[1];
+
+	set<Position> rng{d.m_p1, d.p2()};
+	for(auto& p : rng)
+		for(int i = 0; i < 4; ++i){
+			auto p3 = p + offset[i];
+			auto p_wall = p + offset2[i];
+			auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
+			if(rng.count(p3) == 0)
+				walls.insert(p_wall);
+		}
+
 	++m_distance;
 	m_matches.erase(i);
 }
@@ -196,9 +222,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < rows(); ++r){
+	for(int r = 0;; ++r){
+		// draw horz-walls
 		for(int c = 0; c < cols(); ++c)
-			out << format("%-2c") % cells({r, c});
+			out << (m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+		out << endl;
+		if(r == rows()) break;
+		for(int c = 0;; ++c){
+			Position p(r, c);
+			// draw vert-walls
+			out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
+			if(c == cols()) break;
+			out << m_game->cells(p);
+		}
 		out << endl;
 	}
 	return out;
