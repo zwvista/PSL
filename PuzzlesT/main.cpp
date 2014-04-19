@@ -5,6 +5,7 @@ extern void solve_puz_TapAlike();
 extern void solve_puz_TapARow();
 extern void solve_puz_TapDifferently();
 extern void solve_puz_tatami();
+extern void solve_puz_Tatamino();
 extern void solve_puz_TennerGrid();
 extern void solve_puz_Tents();
 extern void solve_puz_turnz();
@@ -17,6 +18,7 @@ int main(int argc, char **argv)
 	cout << "a3: Tap-A-Row" << endl;
 	cout << "a4: Tap Differently" << endl;
 	cout << "a5: tatami" << endl;
+	cout << "a6: Tatamino" << endl;
 	cout << "e1: Tenner Grid" << endl;
 	cout << "e2: Tents" << endl;
 	cout << "u: turnz" << endl;
@@ -28,6 +30,7 @@ int main(int argc, char **argv)
 	else if(str == "a3") solve_puz_TapARow();
 	else if(str == "a4") solve_puz_TapDifferently();
 	else if(str == "a5") solve_puz_tatami();
+	else if(str == "a6") solve_puz_Tatamino();
 	else if(str == "e1") solve_puz_TennerGrid();
 	else if(str == "e2") solve_puz_Tents();
 	else if(str == "u") solve_puz_turnz();

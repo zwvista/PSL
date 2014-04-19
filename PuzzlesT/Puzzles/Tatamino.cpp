@@ -4,33 +4,19 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 3/Fillomino
+	ios game: Logic Games/Puzzle Set 13/Tatamino
 
 	Summary
-	Detect areas marked by their extension
+	Which is a little Tatami
 
 	Description
-	1. The goal is to detect areas marked with the tile count of the area
-	   itself.
-	2. So for example, areas marked '1', will always consist of one single
-	   tile. Areas marked with '2' will consist of two (horizontally or
-	   vertically) adjacent tiles. Tiles numbered '3' will appear in a group
-	   of three and so on.
-	3. Two areas with the same areas can also be totally hidden at the start.
-	
-	Variation
-	4. Fillomino has several variants.
-	5. No Rectangles: Areas can't form Rectangles.
-	6. Only Rectangles: Areas can ONLY form Rectangles.
-	7. Non Consecutive: Areas can't touch another area which has +1 or -1
-	   as number (orthogonally).
-	8. Consecutive: Areas MUST touch another area which has +1 or -1
-	   as number (orthogonally).
-	9. All Odds: There are only odd numbers on the board.
-	10.All Evens: There are only even numbers on the board.
+	1. Plays like Fillomino, in which you have to guess areas on the board
+	   marked by their number.
+	2. In Tatamino, however, you only have areas 1, 2 and 3 tiles big.
+	3. Please remember two areas of the same number size can't be touching.
 */
 
-namespace puzzles{ namespace Fillomino{
+namespace puzzles{ namespace Tatamino{
 
 #define PUZ_UNKNOWN			-1
 #define PUZ_WALL_UNKNOWN	'0'
@@ -51,22 +37,10 @@ const Position offset2[] = {
 	{0, 0},		// w
 };
 
-enum puz_game_type
-{
-	NORMAL_FILLOMINO,
-	NO_RECTANGLES_FILLOMINO,
-	ONLY_RECTANGLES_FILLOMINO,
-	NON_CONSECUTIVE_FILLOMINO,
-	CONSECUTIVE_FILLOMINO,
-	ALL_ODDS_FILLOMINO,
-	ALL_EVENS_FILLOMINO,
-};
-
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	puz_game_type m_game_type;
 	map<Position, int> m_pos2num;
 	vector<int> m_start;
 	map<Position, char> m_horz_walls, m_vert_walls;
@@ -78,16 +52,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() / 2)
 {
-	auto game_type = attrs.get<string>("GameType", "Fillomino");
-	m_game_type =
-		game_type == "No Rectangles" ? NO_RECTANGLES_FILLOMINO :
-		game_type == "Only Rectangles" ? ONLY_RECTANGLES_FILLOMINO :
-		game_type == "Non Consecutive" ? NON_CONSECUTIVE_FILLOMINO :
-		game_type == "Consecutive" ? CONSECUTIVE_FILLOMINO :
-		game_type == "All Odds" ? ALL_ODDS_FILLOMINO :
-		game_type == "All Evens" ? ALL_EVENS_FILLOMINO :
-		NORMAL_FILLOMINO;
-
 	for(int r = 0;; ++r){
 		// horz-walls
 		auto& str_h = strs[r * 2];
@@ -288,49 +252,8 @@ bool puz_state::make_move2(const Position& p, int n)
 				walls2.at(p_wall2) = PUZ_WALL_ON;
 		}
 
-	if(area.m_ready)
-		if(m_game->m_game_type == ALL_ODDS_FILLOMINO ||
-			m_game->m_game_type == ALL_EVENS_FILLOMINO){
-			if((m_game->m_game_type == ALL_EVENS_FILLOMINO) != (sz % 2 == 0))
-				return false;
-		}
-		else if(m_game->m_game_type == NO_RECTANGLES_FILLOMINO ||
-			m_game->m_game_type == ONLY_RECTANGLES_FILLOMINO){
-			auto mm1 = std::minmax_element(area.m_inner.begin(), area.m_inner.end(),
-				[](const Position& p1, const Position& p2){
-				return p1.first < p2.first;
-			});
-			auto mm2 = std::minmax_element(area.m_inner.begin(), area.m_inner.end(),
-				[](const Position& p1, const Position& p2){
-				return p1.second < p2.second;
-			});
-			int sz2 = (mm1.second->first - mm1.first->first + 1) *
-				(mm2.second->second - mm2.first->second + 1);
-			if((m_game->m_game_type == ONLY_RECTANGLES_FILLOMINO) != (sz == sz2))
-				return false;
-		}
-
 	++m_distance;
-
-	auto f = [&](const Position& p2, int cnt){
-		return check_cell_count(p2, [&](int cnt2){
-			return myabs(cnt2 - cnt) == 1;
-		});
-	};
-	return m_game->m_game_type != NON_CONSECUTIVE_FILLOMINO &&
-		m_game->m_game_type != CONSECUTIVE_FILLOMINO ||
-		!is_goal_state() ||
-		m_game->m_game_type == NON_CONSECUTIVE_FILLOMINO &&
-		boost::algorithm::all_of(m_id2area, [&](const pair<int, puz_area>& kv){
-			return boost::algorithm::none_of(kv.second.m_inner, [&](const Position& p2){
-				return f(p2, kv.second.m_cell_count);
-			});
-		}) || m_game->m_game_type == CONSECUTIVE_FILLOMINO &&
-		boost::algorithm::all_of(m_id2area, [&](const pair<int, puz_area>& kv){
-			return boost::algorithm::any_of(kv.second.m_inner, [&](const Position& p2){
-				return f(p2, kv.second.m_cell_count);
-			});
-		});
+	return true;
 }
 
 bool puz_state::make_move(const Position& p, int n)
@@ -379,7 +302,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 		Position p(i / sidelen(), i % sidelen());
 		list<puz_state2> smoves;
 		puz_move_generator<puz_state2>::gen_moves({*this, p}, smoves);
-		for(int n = 1; n <= smoves.size(); ++n){
+		int sz = min(3, static_cast<int>(smoves.size()));
+		for(int n = 1; n <= sz; ++n){
 			children.push_back(*this);
 			if(!children.back().make_move_hidden(p, n))
 				children.pop_back();
@@ -409,9 +333,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_Fillomino()
+void solve_puz_Tatamino()
 {
-	using namespace puzzles::Fillomino;
+	using namespace puzzles::Tatamino;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\Fillomino.xml", "Puzzles\\Fillomino.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Tatamino.xml", "Puzzles\\Tatamino.txt", solution_format::GOAL_STATE_ONLY);
 }

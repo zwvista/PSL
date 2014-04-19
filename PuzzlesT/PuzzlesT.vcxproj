@@ -153,6 +153,7 @@
     <Text Include="Puzzles\TapDifferently.txt" />
     <Text Include="Puzzles\TapARow.txt" />
     <Text Include="Puzzles\tatami.txt" />
+    <Text Include="Puzzles\Tatamino.txt" />
     <Text Include="Puzzles\TennerGrid.txt" />
     <Text Include="Puzzles\Tents.txt" />
     <Text Include="Puzzles\turnz.txt" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Puzzles\TapDifferently.cpp" />
     <ClCompile Include="Puzzles\TapARow.cpp" />
     <ClCompile Include="Puzzles\tatami.cpp" />
+    <ClCompile Include="Puzzles\Tatamino.cpp" />
     <ClCompile Include="Puzzles\TennerGrid.cpp" />
     <ClCompile Include="Puzzles\Tents.cpp" />
     <ClCompile Include="Puzzles\turnz.cpp" />
@@ -189,6 +191,7 @@
     <Xml Include="Puzzles\TapDifferently.xml" />
     <Xml Include="Puzzles\TapARow.xml" />
     <Xml Include="Puzzles\tatami.xml" />
+    <Xml Include="Puzzles\Tatamino.xml" />
     <Xml Include="Puzzles\TennerGrid.xml" />
     <Xml Include="Puzzles\Tents.xml" />
     <Xml Include="Puzzles\turnz.xml" />
