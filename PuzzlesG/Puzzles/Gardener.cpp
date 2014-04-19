@@ -44,6 +44,13 @@ const Position offset[] = {
 	{0, -1},		// w
 };
 
+const Position offset2[] = {
+	{0, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, 0},		// w
+};
+
 struct puz_fb_info
 {
 	vector<Position> m_range;
@@ -57,30 +64,76 @@ struct puz_game
 	int m_sidelen;
 	map<Position, int> m_pos2fb;
 	vector<puz_fb_info> m_fb_info;
+	map<Position, int> m_pos2num;
+	set<Position> m_horz_walls, m_vert_walls;
+
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
+
+struct puz_state2 : Position
+{
+	puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
+		: m_horz_walls(horz_walls), m_vert_walls(vert_walls) {
+		make_move(p_start);
+	}
+
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+	void gen_children(list<puz_state2>& children) const;
+
+	const set<Position> &m_horz_walls, &m_vert_walls;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	for(int i = 0; i < 4; ++i){
+		auto p = *this + offset[i];
+		auto p_wall = *this + offset2[i];
+		auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
+		if(walls.count(p_wall) == 0){
+			children.push_back(*this);
+			children.back().make_move(p);
+		}
+	}
+}
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() / 2 + 2)
 {
-	for(int r = 0; r < m_sidelen - 2; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			Position p(r + 1, c + 1);
-			int n = str[c] - 'a';
-			m_pos2fb[p] = n;
-			if(n >= m_fb_info.size())
-				m_fb_info.resize(n + 1);
-			m_fb_info[n].m_range.push_back(p);
+	set<Position> rng;
+	for(int r = 1;; ++r){
+		// horz-walls
+		auto& str_h = strs[r * 2 - 2];
+		for(int c = 1; c < m_sidelen - 1; ++c)
+			if(str_h[c * 2 - 1] == '-')
+				m_horz_walls.insert({r, c});
+		if(r == m_sidelen - 1) break;
+		auto& str_v = strs[r * 2 - 1];
+		for(int c = 1;; ++c){
+			Position p(r, c);
+			// vert-walls
+			if(str_v[c * 2 - 2] == '|')
+				m_vert_walls.insert(p);
+			if(c == m_sidelen - 1) break;
+			char ch = str_v[c * 2 - 1];
+			if(ch != ' ')
+				m_pos2num[p] = ch - '0';
+			rng.insert(p);
 		}
 	}
-	for(int r = 0; r < m_sidelen - 2; ++r){
-		auto& str = strs[r + m_sidelen - 2];
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			char ch = str[c];
-			if(ch != ' ')
-				m_fb_info[m_pos2fb.at({r + 1, c + 1})].m_flower_count = ch - '0';
+
+	for(int n = 0; !rng.empty(); ++n){
+		list<puz_state2> smoves;
+		auto& p_start = *rng.begin();
+		puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p_start}, smoves);
+		m_fb_info.resize(n + 1);
+		auto it = m_pos2num.find(p_start);
+		if(it != m_pos2num.end())
+			m_fb_info[n].m_flower_count = it->second;
+		for(auto& p : smoves){
+			m_fb_info[n].m_range.push_back(p);
+			m_pos2fb[p] = n;
+			rng.erase(p);
 		}
 	}
 
@@ -190,18 +243,18 @@ void puz_state::count_unbalanced()
 	}
 }
 
-struct puz_state2 : Position
+struct puz_state3 : Position
 {
-	puz_state2(const puz_state& s);
+	puz_state3(const puz_state& s);
 
 	int sidelen() const { return m_state->sidelen(); }
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
-	void gen_children(list<puz_state2>& children) const;
+	void gen_children(list<puz_state3>& children) const;
 
 	const puz_state* m_state;
 };
 
-puz_state2::puz_state2(const puz_state& s)
+puz_state3::puz_state3(const puz_state& s)
 : m_state(&s)
 {
 	int i = boost::find_if(s, [](char ch){
@@ -211,7 +264,7 @@ puz_state2::puz_state2(const puz_state& s)
 	make_move({i / sidelen(), i % sidelen()});
 }
 
-void puz_state2::gen_children(list<puz_state2>& children) const
+void puz_state3::gen_children(list<puz_state3>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
@@ -241,8 +294,8 @@ bool puz_state::make_move(int i)
 	}
 
 	// interconnected spaces
-	list<puz_state2> smoves;
-	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+	list<puz_state3> smoves;
+	puz_move_generator<puz_state3>::gen_moves(*this, smoves);
 	if(smoves.size() != boost::count_if(*this, [](char ch){
 		return is_empty(ch);
 	}))
@@ -265,9 +318,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r){
+	for(int r = 1;; ++r){
+		// draw horz-walls
 		for(int c = 1; c < sidelen() - 1; ++c)
-			out << cells({r, c}) << ' ';
+			out << (m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+		out << endl;
+		if(r == sidelen() - 1) break;
+		for(int c = 1;; ++c){
+			Position p(r, c);
+			// draw vert-walls
+			out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+			if(c == sidelen() - 1) break;
+			out << cells(p);
+		}
 		out << endl;
 	}
 	return out;
