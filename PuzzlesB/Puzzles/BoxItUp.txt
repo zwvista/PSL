@@ -1,42 +1,69 @@
 Level 01
 Sequence of moves: 
-bbbbbaaa
-cffffaaa
-cffffaaa
-ceeeeeee
-ceeeeeee
-ceeeeeee
-cddddddd
-cddddddd
+ -- -- -- -- -- -- -- --
+| .  .  .  .  5| .  9  .|
+ -- -- -- -- --         
+| .| .  .  8  .| .  .  .|
+                        
+| .| .  .  .  .| .  .  .|
+    -- -- -- -- -- -- --
+| .| .  .  .  .  .  .  .|
+                        
+| 7| .  .  .  .  .  .  .|
+                        
+| .| .  .  . 21  .  .  .|
+    -- -- -- -- -- -- --
+| .| .  .  .  .  .  .  .|
+                        
+| .| .  .  .  .  . 14  .|
+ -- -- -- -- -- -- -- --
 Number of moves: 3
 Number of vertices examined: 4
-0.00680674 [s]
+0.00279241 [s]
 
 Level 02
 Sequence of moves: 
-aaaaaaaa
-aaaaaaaa
-aaaaaaaa
-dddddccc
-bbbbbbbe
-bbbbbbbe
-fffffffe
-fffffffe
+ -- -- -- -- -- -- -- --
+| .  .  .  .  .  .  .  .|
+                        
+| .  .  .  .  . 24  .  .|
+                        
+| .  .  .  .  .  .  .  .|
+ -- -- -- -- -- -- -- --
+| .  .  .  .  5| .  3  .|
+ -- -- -- -- -- -- -- --
+| .  .  . 14  .  .  .| 4|
+                        
+| .  .  .  .  .  .  .| .|
+ -- -- -- -- -- -- --   
+|14  .  .  .  .  .  .| .|
+                        
+| .  .  .  .  .  .  .| .|
+ -- -- -- -- -- -- -- --
 Number of moves: 1
 Number of vertices examined: 2
-0.00103214 [s]
+0.00182992 [s]
 
 Level 03
 Sequence of moves: 
-gggdddde
-fffdddde
-fffdddde
-bbbdddde
-bbbccccc
-bbbccccc
-aaaaaaaa
-aaaaaaaa
+ -- -- -- -- -- -- -- --
+| .  3  .| .  .  .  .| 4|
+ -- -- --               
+| .  .  .| .  . 16  .| .|
+                        
+| .  .  6| .  .  .  .| .|
+ -- -- --               
+| .  .  .| .  .  .  .| .|
+          -- -- -- -- --
+| .  .  9| .  .  .  .  .|
+                        
+| .  .  .|10  .  .  .  .|
+ -- -- -- -- -- -- -- --
+| .  .  .  .  .  .  .  .|
+                        
+|16  .  .  .  .  .  .  .|
+ -- -- -- -- -- -- -- --
 Number of moves: 2
 Number of vertices examined: 3
-0.00137653 [s]
+0.00189051 [s]
 

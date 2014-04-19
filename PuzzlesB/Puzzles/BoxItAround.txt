@@ -1,21 +1,32 @@
 Level 01
 Sequence of moves: 
-bbbc
-bbbc
-bbbc
-aaaa
+ -- -- -- --
+| .  .  .| 4|
+            
+| .  .  .| .|
+            
+| 6  .  .| .|
+ -- -- -- --
+| 5  .  .  .|
+ -- -- -- --
 Number of moves: 2
 Number of vertices examined: 3
-0.00416938 [s]
+0.00342792 [s]
 
 Level 02
 Sequence of moves: 
-bcccc
-bcccc
-bdddd
-aaaaa
-aaaaa
+ -- -- -- -- --
+| .| .  .  .  .|
+               
+| .| 6  .  .  .|
+    -- -- -- --
+| 4| 5  .  .  .|
+ -- -- -- -- --
+| .  .  .  .  .|
+               
+| .  7  .  .  .|
+ -- -- -- -- --
 Number of moves: 1
 Number of vertices examined: 2
-0.000720181 [s]
+0.00144235 [s]
 

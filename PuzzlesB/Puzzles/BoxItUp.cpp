@@ -78,22 +78,21 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-struct puz_state
+struct puz_state : string
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cells(int r, int c) const { return m_cells[r * sidelen() + c]; }
-	char& cells(int r, int c) { return m_cells[r * sidelen() + c]; }
-	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
+	char cells(int r, int c) const { return (*this)[r * sidelen() + c]; }
+	char& cells(int r, int c) { return (*this)[r * sidelen() + c]; }
 	bool make_move(const Position& p, int n);
-	void make_move2(const Position& p, int n);
+	bool make_move2(const Position& p, int n);
 	int find_matches(bool init);
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_matches.size(); }
+	unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
 	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -102,14 +101,14 @@ struct puz_state
 	}
 
 	const puz_game* m_game = nullptr;
-	string m_cells;
 	map<Position, vector<int>> m_matches;
+	set<Position> m_horz_walls, m_vert_walls;
 	unsigned int m_distance = 0;
 	char m_ch = 'a';
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(sidelen() * sidelen(), PUZ_SPACE)
+: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
 	for(auto& kv : g.m_pos2boxinfo){
 		auto& box_ids = m_matches[kv.first];
@@ -141,28 +140,37 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, box_ids.front()), 1;
+				return make_move2(p, box_ids.front()) ? 1 : 0;
 			}
 	}
 	return 2;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+bool puz_state::make_move2(const Position& p, int n)
 {
 	auto& box = m_game->m_pos2boxinfo.at(p).m_boxes[n];
 
-	for(int r = box.first.first; r <= box.second.first; ++r)
-		for(int c = box.first.second; c <= box.second.second; ++c)
-			cells(r, c) = m_ch;
+	auto &tl = box.first, &br = box.second;
+	for(int r = tl.first; r <= br.first; ++r)
+		for(int c = tl.second; c <= br.second; ++c)
+			cells(r, c) = m_ch, ++m_distance;
+	for(int r = tl.first; r <= br.first; ++r)
+		m_vert_walls.emplace(r, tl.second),
+		m_vert_walls.emplace(r, br.second + 1);
+	for(int c = tl.second; c <= br.second; ++c)
+		m_horz_walls.emplace(tl.first, c),
+		m_horz_walls.emplace(br.first + 1, c);
 
-	++m_distance, ++m_ch;
+	++m_ch;
 	m_matches.erase(p);
+	return is_goal_state() || !m_matches.empty();
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
 	m_distance = 0;
-	make_move2(p, n);
+	if(!make_move2(p, n))
+		return false;
 	int m;
 	while((m = find_matches(false)) == 1);
 	return m == 2;
@@ -184,9 +192,23 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r){
+	for(int r = 0;; ++r){
+		// draw horz-walls
 		for(int c = 0; c < sidelen(); ++c)
-			out << cells(r, c);
+			out << (m_horz_walls.count({r, c}) == 1 ? " --" : "   ");
+		out << endl;
+		if(r == sidelen()) break;
+		for(int c = 0;; ++c){
+			Position p(r, c);
+			// draw vert-walls
+			out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
+			if(c == sidelen()) break;
+			auto it = m_game->m_pos2boxinfo.find(p);
+			if(it == m_game->m_pos2boxinfo.end())
+				out << " .";
+			else
+				out << format("%2d") % it->second.m_area;
+		}
 		out << endl;
 	}
 	return out;
