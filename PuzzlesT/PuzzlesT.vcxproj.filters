@@ -19,9 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\tatami.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\turnz.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -52,6 +49,9 @@
     <Text Include="Puzzles\Tatamino.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Tatami.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -70,9 +70,6 @@
     </ClCompile>
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\tatami.cpp">
-      <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\turnz.cpp">
       <Filter>Puzzles</Filter>
@@ -101,11 +98,11 @@
     <ClCompile Include="Puzzles\Tatamino.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Tatami.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\tatami.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\turnz.xml">
       <Filter>Puzzles</Filter>
     </Xml>
@@ -131,6 +128,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Tatamino.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Tatami.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

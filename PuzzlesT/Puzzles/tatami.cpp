@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -16,17 +17,22 @@
 	4. You can't have two identical numbers touching horizontally or vertically.
 */
 
-namespace puzzles{ namespace tatami{
+namespace puzzles{ namespace Tatami{
 
-#define PUZ_HORZ		'H'
-#define PUZ_VERT		'V'
 #define PUZ_SPACE		' '
 
 const Position offset[] = {
-	{0, 1},
-	{1, 0},
-	{0, -1},
-	{-1, 0},
+	{-1, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, -1},		// w
+};
+
+const Position offset2[] = {
+	{0, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, 0},		// w
 };
 
 struct puz_numbers : set<char>
@@ -46,11 +52,38 @@ struct puz_game
 	int m_num_tatamis;
 	vector<vector<Position>> m_area_pos;
 	puz_numbers m_numbers;
-	map<Position, char> m_start;
+	map<Position, char> m_pos2num;
 	map<Position, int> m_pos2tatami;
+	set<Position> m_horz_walls, m_vert_walls;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
+
+struct puz_state2 : Position
+{
+	puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
+		: m_horz_walls(horz_walls), m_vert_walls(vert_walls) {
+		make_move(p_start);
+	}
+
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+	void gen_children(list<puz_state2>& children) const;
+
+	const set<Position> &m_horz_walls, &m_vert_walls;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	for(int i = 0; i < 4; ++i){
+		auto p = *this + offset[i];
+		auto p_wall = *this + offset2[i];
+		auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
+		if(walls.count(p_wall) == 0){
+			children.push_back(*this);
+			children.back().make_move(p);
+		}
+	}
+}
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id(attrs.get<string>("id"))
@@ -60,35 +93,38 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_area_pos(m_num_tatamis + m_sidelen + m_sidelen)
 	, m_numbers(m_size_of_tatami)
 {
-	for(int r = 0, n = 0; r < m_sidelen; ++r){
-		auto& str = strs[r];
+	set<Position> rng;
+	for(int r = 0;; ++r){
+		// horz-walls
+		auto& str_h = strs[r * 2];
 		for(int c = 0; c < m_sidelen; ++c)
-			switch(char ch = str[c]){
-			case PUZ_SPACE:
-				break;
-			default:
-				m_start[{r, c}] = ch;
-				break;
-			}
+			if(str_h[c * 2 + 1] == '-')
+				m_horz_walls.insert({r, c});
+		if(r == m_sidelen) break;
+		auto& str_v = strs[r * 2 + 1];
+		for(int c = 0;; ++c){
+			Position p(r, c);
+			// vert-walls
+			if(str_v[c * 2] == '|')
+				m_vert_walls.insert(p);
+			if(c == m_sidelen) break;
+			char ch = str_v[c * 2 + 1];
+			if(ch != PUZ_SPACE)
+				m_pos2num[p] = ch;
+			rng.insert(p);
+		}
 	}
-	for(int r = 0, n = 0; r < m_sidelen; ++r){
-		const string& str = strs[r + m_sidelen];
-		for(int c = 0; c < m_sidelen; ++c)
-			switch(char ch = str[c]){
-			case PUZ_HORZ:
-			case PUZ_VERT:
-				for(int d = 0; d < m_size_of_tatami; ++d){
-					auto p = 
-						ch == PUZ_HORZ ? Position(r, c + d)
-						: Position(r + d, c);
-					m_pos2tatami[p] = n;
-					m_area_pos[n].push_back(p);
-					m_area_pos[m_num_tatamis + p.first].push_back(p);
-					m_area_pos[m_num_tatamis + m_sidelen + p.second].push_back(p);
-				}
-				++n;
-				break;
-			}
+
+	for(int n = 0; !rng.empty(); ++n){
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+		for(auto& p : smoves){
+			m_pos2tatami[p] = n;
+			m_area_pos[n].push_back(p);
+			m_area_pos[m_num_tatamis + p.first].push_back(p);
+			m_area_pos[m_num_tatamis + m_sidelen + p.second].push_back(p);
+			rng.erase(p);
+		}
 	}
 }
 
@@ -160,7 +196,7 @@ puz_state::puz_state(const puz_game& g)
 		for(int c = 0; c < g.m_sidelen; ++c)
 			m_pos2nums[{r, c}] = g.m_numbers;
 
-	for(const auto& kv : g.m_start)
+	for(const auto& kv : g.m_pos2num)
 		make_move(kv.first, kv.second);
 }
 
@@ -193,8 +229,9 @@ bool puz_state::make_move(const Position& p, char ch)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	const auto& kv = *boost::min_element(m_pos2nums, 
-		[](const pair<const Position, puz_numbers>& kv1, const pair<const Position, puz_numbers>& kv2){
+	const auto& kv = *boost::min_element(m_pos2nums, [](
+		const pair<const Position, puz_numbers>& kv1,
+		const pair<const Position, puz_numbers>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
 
@@ -208,10 +245,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	dump_move(out);
-	for(int r = 0; r < sidelen(); ++r) {
+	for(int r = 0;; ++r){
+		// draw horz-walls
 		for(int c = 0; c < sidelen(); ++c)
-			out << cells({r, c}) << ' ';
+			out << (m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+		out << endl;
+		if(r == sidelen()) break;
+		for(int c = 0;; ++c){
+			Position p(r, c);
+			// draw vert-walls
+			out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+			if(c == sidelen()) break;
+			out << cells(p);
+		}
 		out << endl;
 	}
 	return out;
@@ -219,9 +265,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_tatami()
+void solve_puz_Tatami()
 {
-	using namespace puzzles::tatami;
+	using namespace puzzles::Tatami;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>
-		("Puzzles\\tatami.xml", "Puzzles\\tatami.txt", solution_format::GOAL_STATE_ONLY);
+		("Puzzles\\Tatami.xml", "Puzzles\\Tatami.txt", solution_format::GOAL_STATE_ONLY);
 }
