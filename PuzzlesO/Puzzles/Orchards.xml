@@ -2,11 +2,17 @@
 <levels>
   <level id="01">
     <![CDATA[
-aabbb\
-ccccc\
-cdeee\
-ddfee\
-ddfff\
+ - - - - - \
+|   |     |\
+ - - - - - \
+|         |\
+   - - - - \
+| | |     |\
+ -   -     \
+|   | |   |\
+       - - \
+|   |     |\
+ - - - - - \
     ]]>
   </level>
 </levels>

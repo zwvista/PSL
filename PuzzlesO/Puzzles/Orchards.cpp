@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -24,6 +25,20 @@ namespace puzzles{ namespace Orchards{
 #define PUZ_TREE		'T'
 #define PUZ_SPACE		'.'
 
+const Position offset[] = {
+	{-1, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, -1},		// w
+};
+
+const Position offset2[] = {
+	{0, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, 0},		// w
+};
+
 struct puz_tree_info
 {
 	Position m_trees[2];
@@ -41,24 +56,68 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	int m_area_count = 0;
+	int m_area_count;
 	map<Position, int> m_pos2area;
-	vector<Position> m_trees;
+	set<Position> m_horz_walls, m_vert_walls;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
 
+struct puz_state2 : Position
+{
+	puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
+		: m_horz_walls(horz_walls), m_vert_walls(vert_walls) {
+		make_move(p_start);
+	}
+
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+	void gen_children(list<puz_state2>& children) const;
+
+	const set<Position> &m_horz_walls, &m_vert_walls;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	for(int i = 0; i < 4; ++i){
+		auto p = *this + offset[i];
+		auto p_wall = *this + offset2[i];
+		auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
+		if(walls.count(p_wall) == 0){
+			children.push_back(*this);
+			children.back().make_move(p);
+		}
+	}
+}
+
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
-, m_sidelen{strs.size()}
+, m_sidelen(strs.size() / 2)
 {
-	for(int r = 0; r < m_sidelen; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen; ++c){
+	set<Position> rng;
+	for(int r = 0;; ++r){
+		// horz-walls
+		auto& str_h = strs[r * 2];
+		for(int c = 0; c < m_sidelen; ++c)
+			if(str_h[c * 2 + 1] == '-')
+				m_horz_walls.insert({r, c});
+		if(r == m_sidelen) break;
+		auto& str_v = strs[r * 2 + 1];
+		for(int c = 0;; ++c){
 			Position p(r, c);
-			int n = str[c] - 'a';
-			m_pos2area[p] = n;
-			m_area_count = max(m_area_count, n + 1);
+			// vert-walls
+			if(str_v[c * 2] == '|')
+				m_vert_walls.insert(p);
+			if(c == m_sidelen) break;
+			rng.insert(p);
+		}
+	}
+
+	for(m_area_count = 0; !rng.empty(); ++m_area_count){
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+		for(auto& p : smoves){
+			m_pos2area[p] = m_area_count;
+			rng.erase(p);
 		}
 	}
 }
@@ -165,9 +224,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r){
+	for(int r = 0;; ++r){
+		// draw horz-walls
 		for(int c = 0; c < sidelen(); ++c)
-			out << cells({r, c}) << ' ';
+			out << (m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+		out << endl;
+		if(r == sidelen()) break;
+		for(int c = 0;; ++c){
+			Position p(r, c);
+			// draw vert-walls
+			out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+			if(c == sidelen()) break;
+			out << cells(p);
+		}
 		out << endl;
 	}
 	return out;
