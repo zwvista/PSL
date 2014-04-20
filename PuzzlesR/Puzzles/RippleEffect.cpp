@@ -14,6 +14,8 @@
 	2. While doing this, you must consider the Ripple Effect. The same number
 	   can only appear on the same row or column at the distance of the number
 	   itself.
+	3. For example a 2 must be separated by another 2 on the same row or
+	   column by at least two tiles.
 */
 
 namespace puzzles{ namespace RippleEffect{
@@ -78,27 +80,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() / 2)
 {
-	//for(int r = 0; r < m_sidelen; ++r){
-	//	auto& str = strs[r];
-	//	for(int c = 0; c < m_sidelen; ++c){
-	//		char ch = str[c];
-	//		if(ch != ' ')
-	//			m_start[{r, c}] = ch - '0';
-	//	}
-	//}
-
-	//vector<vector<Position>> rooms;
-	//for(int r = 0; r < m_sidelen; ++r){
-	//	const string& str = strs[r + m_sidelen];
-	//	for(int c = 0; c < m_sidelen; ++c){
-	//		Position p(r, c);
-	//		int n = str[c] - 'a';
-	//		m_pos2info[p].first = n;
-	//		if(n >= rooms.size())
-	//			rooms.resize(n + 1);
-	//		rooms[n].push_back(p);
-	//	}
-	//}
 	set<Position> rng;
 	for(int r = 0;; ++r){
 		// horz-walls
