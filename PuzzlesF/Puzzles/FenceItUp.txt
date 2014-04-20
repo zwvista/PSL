@@ -1,147 +1,234 @@
 Level 01
 Sequence of moves: 
-aaabb
-ccdde
-.cffe
-hh.gg
-.hiig
+ -- -- -- -- --
+| 8  .  .| .  6|
+ -- -- -- -- --
+| .  8| .  6| 6|
+ --    -- --   
+| 4| .| .  6| .|
+ -- -- -- -- --
+| .  .| 4| 8  .|
+ --    -- --   
+| 4| 8| 6  .| .|
+ -- -- -- -- --
 Number of moves: 2
 Number of vertices examined: 3
-0.0135487 [s]
+0.00628057 [s]
 
 Level 02
 Sequence of moves: 
-abbcc
-adeee
-addff
-ghiij
-ghh.j
+ -- -- -- -- --
+| 8| .  6| 6  .|
+    -- -- -- --
+| .| 8| .  .  8|
+       -- -- --
+| .| .  .| .  6|
+ -- -- -- -- --
+| 6| 8| 6  .| .|
+       -- --   
+| .| .  .| 4| 6|
+ -- -- -- -- --
 Number of moves: 3
 Number of vertices examined: 5
-0.0191057 [s]
+0.00185708 [s]
 
 Level 03
 Sequence of moves: 
-caabbb
-ccddde
-ghhffe
-gghijj
-kkkino
-llmmno
+ -- -- -- -- -- --
+| .| .  6| 8  .  .|
+    -- -- -- -- --
+| .  8| .  8  .| 6|
+ -- -- -- -- --   
+| .| .  .| 6  .| .|
+    --    -- -- --
+| .  8| 8| 6| 6  .|
+ -- -- --    -- --
+| .  .  8| .| .| .|
+ -- -- -- --      
+| .  6| 6  .| 6| 6|
+ -- -- -- -- -- --
 Number of moves: 3
 Number of vertices examined: 4
-0.0375828 [s]
+0.00202388 [s]
 
 Level 04
 Sequence of moves: 
-bcca.d
-bccagd
-efffgg
-e.ii.j
-hhiijj
-hhkk.j
+ -- -- -- -- -- --
+| .| .  .| 6| 4| .|
+             --   
+| 6| .  8| .| .| 6|
+ -- -- -- --    --
+| 6| .  8  .| .  8|
+    -- -- -- -- --
+| .| 4| .  .| 4| .|
+ -- --       --   
+| .  8| 8  .|10  .|
+       -- -- --   
+| .  .| .  6| 4| .|
+ -- -- -- -- -- --
 Number of moves: 15
 Number of vertices examined: 336
-0.375441 [s]
+0.0607934 [s]
 
 Level 05
 Sequence of moves: 
-baaaef
-bccdef
-g.cddj
-ghcijj
-ghhikk
-llmmnn
+ -- -- -- -- -- --
+| .| .  .  8| .| .|
+    -- -- --      
+| 6|10  .| 8| 6| 6|
+ -- --       -- --
+| 8| 4| .| .  .| .|
+    --    -- --   
+| .| 8| .| 6| 8  .|
+       --    -- --
+| .| .  .| .| .  6|
+ -- -- -- -- -- --
+| .  6| 6  .| .  6|
+ -- -- -- -- -- --
 Number of moves: 5
 Number of vertices examined: 16
-0.0189145 [s]
+0.0041968 [s]
 
 Level 06
 Sequence of moves: 
-ccabbb
-.caabb
-.c.a..
-eddaii
-effghi
-eegghi
+ -- -- -- -- -- --
+| .  .|12|10  .  .|
+ --       --      
+| 4|10| .  .| .  .|
+ --    --    -- --
+| 4| .| 4| .| 4| 4|
+ -- -- --    -- --
+| .| 6  .| .| .  .|
+    -- -- -- --   
+|10| 6  .| .| .| .|
+    -- --         
+| .  .| 8  .| 6|10|
+ -- -- -- -- -- --
 Number of moves: 7
 Number of vertices examined: 11
-0.0145359 [s]
+0.00328062 [s]
 
 Level 07
 Sequence of moves: 
-eaa.bb
-ecabbd
-ecgghd
-efjghi
-efjghi
-jjjkkk
+ -- -- -- -- -- --
+| .| 8  .| 4| .  .|
+    --    --    --
+| .| .| .|10  .| .|
+       -- -- --   
+| .| 6| .  .| .| 6|
+    -- --       --
+| .| .| .| .| .| .|
+                  
+|12| 6| .|10| 8| 6|
+ -- --    -- -- --
+| .  . 12| .  8  .|
+ -- -- -- -- -- --
 Number of moves: 15
 Number of vertices examined: 957
-1.97846 [s]
+0.174881 [s]
 
 Level 08
 Sequence of moves: 
-aabbbcc
-e.ffd.c
-eeffddd
-jhggggl
-jh.iiil
-jkkknol
-jmm.noo
+ -- -- -- -- -- -- --
+| .  6| 8  .  .| 8  .|
+ -- -- -- -- -- --   
+| .| 4| .  .|10| 4| .|
+    --          -- --
+| .  8| .  8| .  .  .|
+ -- -- -- -- -- -- --
+| .| .| . 10  .  .| .|
+       -- -- -- --   
+| .| 6| 4| 8  .  .| .|
+    -- -- -- -- --   
+|10| 8  .  .| .| .| 8|
+    -- -- --       --
+| .| 6  .| 4| 6| 8  .|
+ -- -- -- -- -- -- --
 Number of moves: 16
 Number of vertices examined: 139
-0.22315 [s]
+0.0179134 [s]
 
 Level 09
 Sequence of moves: 
-aacbbbd
-aacfddd
-ee.ffg.
-heiijgg
-hl..jkk
-hlommnn
-h.ooppn
+ -- -- -- -- -- -- --
+| 8  .| .| .  .  8| .|
+          -- -- --   
+| .  .| 6| .| .  . 10|
+ -- -- --    -- -- --
+| .  8| 4| .  8| 8| 4|
+ --    -- -- --    --
+|10| .| .  6| .| .  .|
+    -- -- --    -- --
+| .| .| 4| 4| 6| 6  .|
+       -- -- -- -- --
+| .| 6| .| .  6| 8  .|
+    --    -- -- --   
+| .| 4| .  8| .  6| .|
+ -- -- -- -- -- -- --
 Number of moves: 11
 Number of vertices examined: 71
-0.106539 [s]
+0.0105178 [s]
 
 Level 10
 Sequence of moves: 
-aaaa.eh
-bbcaeeh
-dbceefh
-dbcggfh
-diggk..
-.iijkkk
-ll.jjjk
+ -- -- -- -- -- -- --
+| . 12  .  .| 4| .| .|
+ -- -- --    --      
+|10  .| 8| .| .  .| .|
+ --       --    --   
+| 8| .| .|12  .| 6| .|
+          -- --      
+| .| .| .| . 10| .|10|
+    -- --    -- -- --
+| .| .| .  .| .| 4| 4|
+ --    -- --    -- --
+| 4| .  8|10|12  .  .|
+ -- -- --    -- --   
+| .  6| 4| .  .  .| .|
+ -- -- -- -- -- -- --
 Number of moves: 7
 Number of vertices examined: 15
-0.0263919 [s]
+0.00396662 [s]
 
 Level 11
 Sequence of moves: 
-bbbfcdd
-aabfccd
-ehffggg
-ehiijjk
-ellmmkk
-eelnnno
-ppppqqo
+ -- -- -- -- -- -- --
+| .  .  .| .| .| .  .|
+ -- --          --   
+| .  6|10| .| .  8| 8|
+ -- -- --    -- -- --
+|12| .|10  .| .  .  8|
+       -- -- -- -- --
+| .| 6| 6  .| .  6| 8|
+    -- -- -- -- --   
+| .| 8  .| 6  .| .  .|
+    --    -- -- -- --
+| .  .| .| 8  .  .| 6|
+ -- -- -- -- -- --   
+|10  .  .  .| 6  .| .|
+ -- -- -- -- -- -- --
 Number of moves: 3
 Number of vertices examined: 8
-0.0207336 [s]
+0.0029324 [s]
 
 Level 12
 Sequence of moves: 
-aaabbbc
-aaddd.c
-.ee.ffg
-iiehhfg
-kijjhh.
-kkklnnn
-mmmlnoo
+ -- -- -- -- -- -- --
+| .  . 10| .  .  8| 6|
+       -- -- -- --   
+| .  .| .  .  8| 4| .|
+ -- -- -- -- -- -- --
+| 4| .  8| 4| 8  .| 6|
+ -- --    -- --      
+| .  .| .|10  .| .| .|
+ --    -- --    -- --
+| .| 8| .  6| .  .| 4|
+    -- -- -- -- -- --
+| .  . 10| 6| .  .  .|
+ -- -- --       -- --
+| .  .  8| .|10| 6  .|
+ -- -- -- -- -- -- --
 Number of moves: 6
 Number of vertices examined: 8
-0.0141021 [s]
+0.00246195 [s]
 
