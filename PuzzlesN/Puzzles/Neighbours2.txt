@@ -1,12 +1,19 @@
 Level 051
 Sequence of moves: 
-a a a b b c 
-d e e f b c 
-d d e f f c 
-j i i g h h 
-j k i g g h 
-j k k l l l 
+ - - - - - -
+|    3|  3|3|
+ - - - -    
+|4|   | | | |
+   -     -  
+|   |4|5  | |
+ - - - - - -
+| |   |4|  4|
+   -     -  
+| | |5|   | |
+     - - - -
+|3|3  |    3|
+ - - - - - -
 Number of moves: 18
 Number of vertices examined: 210
-0.037142 [s]
+0.0295789 [s]
 

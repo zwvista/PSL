@@ -55,14 +55,14 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	m_ship2num = map<int, int>{{1, 4}, {2, 3}, {3, 2}, {4, 1}};
 
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
-	for(int r = 0; r < m_sidelen - 2; ++r){
-		auto& str = strs[r];
+	for(int r = 1; r < m_sidelen - 1; ++r){
+		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_BOUNDARY);
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			char ch = str[c];
+		for(int c = 1; c < m_sidelen - 1; ++c){
+			char ch = str[c - 1];
 			m_start.push_back(ch == PUZ_SPACE ? PUZ_SPACE : PUZ_NUMBER);
 			if(ch != PUZ_SPACE)
-				m_pos2num[{r + 1, c + 1}] = ch - '0';
+				m_pos2num[{r, c}] = ch - '0';
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}

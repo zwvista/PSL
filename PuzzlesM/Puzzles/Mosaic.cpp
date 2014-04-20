@@ -56,11 +56,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size() + 2)
 , m_num2perms(11)
 {
-	for(int r = 0; r < m_sidelen - 2; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			char ch = str[c];
-			m_pos2num[{r + 1, c + 1}] = ch != ' ' ? ch - '0' : PUZ_UNKNOWN;
+	for(int r = 1; r < m_sidelen - 1; ++r){
+		auto& str = strs[r - 1];
+		for(int c = 1; c < m_sidelen - 1; ++c){
+			char ch = str[c - 1];
+			m_pos2num[{r, c}] = ch != ' ' ? ch - '0' : PUZ_UNKNOWN;
 		}
 	}
 

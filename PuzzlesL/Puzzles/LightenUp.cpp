@@ -50,12 +50,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size() + 2)
 {
 	m_start.append(m_sidelen, PUZ_WALL);
-	for(int r = 0; r < m_sidelen - 2; ++r){
-		auto& str = strs[r];
+	for(int r = 1; r < m_sidelen - 1; ++r){
+		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_WALL);
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			Position p(r + 1, c + 1);
-			switch(char ch = str[c]){
+		for(int c = 1; c < m_sidelen - 1; ++c){
+			Position p(r, c);
+			switch(char ch = str[c - 1]){
 			case PUZ_SPACE:
 			case PUZ_WALL:
 				m_start.push_back(ch);

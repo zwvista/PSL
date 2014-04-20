@@ -1,48 +1,76 @@
 Level 119
 Sequence of moves: 
-a b b c c d 
-a a b c d d 
-g e e f f f 
-g g e h i i 
-l j j h k i 
-l l j h k k 
+ - - - - - -
+|3|3  |   | |
+   -     -  
+|   | |3|2  |
+ - - - - - -
+| |6  |  5  |
+   -   - - -
+|  4| |5|3  |
+ - - -   -  
+| |4  | |2| |
+   -       -
+|  2| | |   |
+ - - - - - -
 Number of moves: 13
 Number of vertices examined: 29
-0.00373888 [s]
+0.00497125 [s]
 
 Level 120
 Sequence of moves: 
-d b c c a a 
-d b e c f a 
-d b e e f i 
-g h h h f i 
-g k j j j i 
-g k k l l l 
+ - - - - - -
+| | |   |  3|
+     -   -  
+| |4| |4| | |
+       -   -
+|2| |4  |6| |
+ - - - -    
+|3|  6  | |4|
+   - - - -  
+| | |    5| |
+     - - - -
+| |  4|3    |
+ - - - - - -
 Number of moves: 20
 Number of vertices examined: 484
-0.0669367 [s]
+0.0633072 [s]
 
 Level 121
 Sequence of moves: 
-d b b c a a 
-d e b c c a 
-d e e f f f 
-g h h h i l 
-g j j k i l 
-g j k k i l 
+ - - - - - -
+| |   | |2  |
+   -     -  
+| | |3|  3| |
+     - - - -
+|3|  4|6    |
+ - - - - - -
+|3|  6  |4| |
+   - - -    
+| |  3|3| | |
+     -      
+| | |   | |2|
+ - - - - - -
 Number of moves: 20
 Number of vertices examined: 127
-0.0123487 [s]
+0.0146066 [s]
 
 Level 122
 Sequence of moves: 
-b a a a a c 
-b b b c c c 
-d d d f f g 
-e e d f f g 
-e h h h g g 
-e h i i i i 
+ - - - - - -
+| |  2    | |
+   - - - -  
+|3    |  4  |
+ - - - - - -
+|    4|   | |
+ - -        
+|2  | |  4|4|
+   - - - -  
+| |  5  |   |
+     - - - -
+| | |      2|
+ - - - - - -
 Number of moves: 25
 Number of vertices examined: 11054
-1.13689 [s]
+1.09637 [s]
 

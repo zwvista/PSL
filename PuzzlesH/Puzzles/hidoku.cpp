@@ -9,10 +9,11 @@
 	Jump from one neighboring tile to another and fill the board
 
 	Description
-	Starting at the tile number 1, reach the last tile by jumping from tile to tile.
-	1. When jumping from a tile, you can land on any tile around it, horizontally, 
-	   vertically or diagonally touching.
-	2. The goal is to jump on every tile, only once and reach the last tile.
+	1. Starting at the tile number 1, reach the last tile by jumping from
+	   tile to tile.
+	2. When jumping from a tile, you can land on any tile around it, 
+	   horizontally, vertically or diagonally touching.
+	3. The goal is to jump on every tile, only once and reach the last tile.
 */
 
 namespace puzzles{ namespace Hidoku{

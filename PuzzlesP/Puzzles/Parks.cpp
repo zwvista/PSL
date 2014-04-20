@@ -226,7 +226,7 @@ puz_state::puz_state(const puz_game& g)
 		make_move(p);
 
 	//ofstream out("Puzzles\\Parks2.xml", std::ios_base::app);
-	//out << format(R"(  <level id = "%s" TreesInEachArea="%d">)")
+	//out << format(R"(  <level id="%s" TreesInEachArea="%d">)")
 	//	% g.m_id % g.m_tree_count_area << endl;
 	//out << "    <![CDATA[" << endl;
 	//set<Position> horz_walls, vert_walls;

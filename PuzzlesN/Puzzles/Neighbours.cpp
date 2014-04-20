@@ -36,6 +36,13 @@ const Position offset[] = {
 	{0, -1},		// w
 };
 
+const Position offset2[] = {
+	{0, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, 0},		// w
+};
+
 struct puz_area_info
 {
 	puz_area_info(const Position& p, int cnt)
@@ -48,6 +55,7 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
+	map<Position, int> m_pos2num;
 	map<char, puz_area_info> m_id2info;
 	int m_cell_count_area;
 
@@ -59,14 +67,16 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 2)
 {
-	for(int r = 0, n = 0; r < m_sidelen - 2; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen - 2; ++c){
-			char ch = str[c];
+	for(int r = 1, n = 0; r < m_sidelen - 1; ++r){
+		auto& str = strs[r - 1];
+		for(int c = 1; c < m_sidelen - 1; ++c){
+			char ch = str[c - 1];
 			if(ch == PUZ_SPACE) continue;
 			char id = n++ + 'a';
 			int cnt = ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0';
-			m_id2info.emplace(id, puz_area_info({r + 1, c + 1}, cnt));
+			Position p(r, c);
+			m_pos2num[p] = cnt;
+			m_id2info.emplace(id, puz_area_info(p, cnt));
 		}
 	}
 	m_cell_count_area = (m_sidelen - 2) * (m_sidelen - 2) / m_id2info.size();
@@ -116,8 +126,8 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
-	unsigned int m_distance = 0;
 	map<char, puz_area> m_id2area;
+	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -140,6 +150,7 @@ int puz_state::adjust_area(bool init)
 		auto& area = kv.second;
 		auto& outer = area.m_outer;
 		int nb_cnt = m_game->neighbour_count(id);
+		if(area.m_ready && outer.empty()) continue;
 
 		outer.clear();
 		for(auto& p : area.m_inner)
@@ -155,7 +166,7 @@ int puz_state::adjust_area(bool init)
 			case 0:
 				return !area.m_ready ||
 					nb_cnt != PUZ_UNKNOWN && area.m_neighbours.size() < nb_cnt ? 0 :
-					(m_id2area.erase(id), 1);
+					1;
 			case 1:
 				if(!area.m_ready)
 					return make_move2(id, *outer.begin()) ? 1 : 0;
@@ -215,9 +226,37 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r){
+	set<Position> horz_walls, vert_walls;
+	for(auto& kv : m_id2area){
+		auto& area = kv.second;
+		for(auto& p : area.m_inner)
+			for(int i = 0; i < 4; ++i){
+				auto p2 = p + offset[i];
+				auto p_wall = p + offset2[i];
+				auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
+				if(area.m_inner.count(p2) == 0)
+					walls.insert(p_wall);
+			}
+	}
+
+	for(int r = 1;; ++r){
+		// draw horz-walls
 		for(int c = 1; c < sidelen() - 1; ++c)
-			out << format("%-2c") % cells({r, c});
+			out << (horz_walls.count({r, c}) == 1 ? " -" : "  ");
+		out << endl;
+		if(r == sidelen() - 1) break;
+		for(int c = 1;; ++c){
+			Position p(r, c);
+			// draw vert-walls
+			out << (vert_walls.count(p) == 1 ? '|' : ' ');
+			if(c == sidelen() - 1) break;
+			char id = cells(p);
+			auto& info = m_game->m_id2info.at(id);
+			if(info.m_pHouse != p)
+				out << ' ';
+			else
+				out << m_id2area.at(id).m_neighbours.size();
+		}
 		out << endl;
 	}
 	return out;
