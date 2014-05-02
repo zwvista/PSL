@@ -169,6 +169,159 @@
     2\
     ]]>
   </level>
+  <level id="020">
+    <![CDATA[
+     \
+2    \
+2  ? \
+   2 \
+  4  \
+    ]]>
+  </level>
+  <level id="021">
+    <![CDATA[
+     \
+2 2  \
+    ?\
+2  3 \
+     \
+    ]]>
+  </level>
+  <level id="022">
+    <![CDATA[
+     \
+ 4   \
+ ?   \
+ 2  ?\
+    ?\
+    ]]>
+  </level>
+  <level id="023">
+    <![CDATA[
+     \
+2  3 \
+     \
+  ?? \
+    4\
+    ]]>
+  </level>
+  <level id="024">
+    <![CDATA[
+   2?\
+  4  \
+     \
+ 2   \
+3    \
+    ]]>
+  </level>
+  <level id="025">
+    <![CDATA[
+     \
+ 3   \
+  43 \
+  3  \
+  ?  \
+    ]]>
+  </level>
+  <level id="026">
+    <![CDATA[
+ 4  ?\
+ 3   \
+ 3   \
+     \
+2    \
+    ]]>
+  </level>
+  <level id="027">
+    <![CDATA[
+     \
+ 2   \
+ ?   \
+   2 \
+  4 2\
+    ]]>
+  </level>
+  <level id="028">
+    <![CDATA[
+     \
+?    \
+ 2  2\
+    3\
+ 3   \
+    ]]>
+  </level>
+  <level id="029">
+    <![CDATA[
+3    \
+    2\
+     \
+   3 \
+  ?3 \
+    ]]>
+  </level>
+  <level id="030">
+    <![CDATA[
+     \
+   ? \
+2 ?  \
+3    \
+2    \
+    ]]>
+  </level>
+  <level id="031">
+    <![CDATA[
+   3 \
+ 2   \
+ 3   \
+  4  \
+?    \
+    ]]>
+  </level>
+  <level id="032">
+    <![CDATA[
+     \
+4    \
+     \
+ ?  ?\
+ 3 3 \
+    ]]>
+  </level>
+  <level id="033">
+    <![CDATA[
+   1 \
+    2\
+?    \
+     \
+ ?2  \
+    ]]>
+  </level>
+  <level id="034">
+    <![CDATA[
+ ?   \
+   2 \
+   4 \
+2  3 \
+     \
+    ]]>
+  </level>
+  <level id="035">
+    <![CDATA[
+    2\
+  4  \
+3   ?\
+ 2   \
+     \
+    ]]>
+  </level>
+  <level id="036">
+    <![CDATA[
+     \
+4  ? \
+    2\
+     \
+ ?  ?\
+    ]]>
+  </level>
   <level id="037">
     <![CDATA[
      \

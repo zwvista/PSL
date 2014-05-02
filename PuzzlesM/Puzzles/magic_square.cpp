@@ -19,7 +19,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_size(strs.size(), strs.size())
 	, m_start(sidelen() * sidelen())
 {
-	for(int r = 0, n = 0; r < sidelen(); ++r) {
+	for(int r = 0, n = 0; r < sidelen(); ++r){
 		auto& str = strs[r];
 		for(int c = 0; c < sidelen(); ++c)
 			m_start[n++] = atoi(str.substr(c * 2, 2).c_str());

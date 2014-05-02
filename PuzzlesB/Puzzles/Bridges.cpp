@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -69,17 +70,17 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
 }
 
-struct puz_state
+struct puz_state : string
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
+	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, const vector<int>& perm);
-	void make_move2(const Position& p, const vector<int>& perm);
+	bool make_move2(const Position& p, const vector<int>& perm);
 	int find_matches(bool init);
+	bool is_connected() const;
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -93,13 +94,12 @@ struct puz_state
 	}
 
 	const puz_game* m_game = nullptr;
-	string m_cells;
 	map<Position, vector<vector<int>>> m_matches;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: string(g.m_start), m_game(&g)
 {
 	for(const auto& kv : g.m_pos2num)
 		m_matches[kv.first];
@@ -153,13 +153,55 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, perms.front()), 1;
+				return make_move2(p, perms.front()) ? 1 : 0;
 			}
 	}
 	return 2;
 }
 
-void puz_state::make_move2(const Position& p, const vector<int>& perm)
+struct puz_state2 : Position
+{
+	puz_state2(const puz_state& s);
+
+	int sidelen() const { return m_state->sidelen(); }
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+	void gen_children(list<puz_state2>& children) const;
+
+	const puz_state* m_state;
+};
+
+puz_state2::puz_state2(const puz_state& s)
+: m_state(&s)
+{
+	int i = s.find(PUZ_NUMBER);
+	make_move({i / sidelen(), i % sidelen()});
+}
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	for(int i = 0; i < 4; ++i){
+		auto& os = offset[i];
+		bool is_horz = i % 2 == 1;
+		auto p2 = *this + os;
+		char ch = m_state->cells(p2);
+		if(is_horz && (ch == PUZ_HORZ_1 || ch == PUZ_HORZ_2) ||
+			!is_horz && (ch == PUZ_VERT_1 || ch == PUZ_VERT_2)){
+			while(m_state->cells(p2) != PUZ_NUMBER)
+				p2 += os;
+			children.push_back(*this);
+			children.back().make_move(p2);
+		}
+	}
+}
+
+bool puz_state::is_connected() const
+{
+	list<puz_state2> smoves;
+	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+	return smoves.size() == boost::count(*this, PUZ_NUMBER);
+}
+
+bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 {
 	for(int i = 0; i < 4; ++i){
 		bool is_horz = i % 2 == 1;
@@ -178,12 +220,15 @@ void puz_state::make_move2(const Position& p, const vector<int>& perm)
 
 	++m_distance;
 	m_matches.erase(p);
+
+	return !is_goal_state() || is_connected();
 }
 
 bool puz_state::make_move(const Position& p, const vector<int>& perm)
 {
 	m_distance = 0;
-	make_move2(p, perm);
+	if(!make_move2(p, perm))
+		return false;
 	int m;
 	while((m = find_matches(false)) == 1);
 	return m == 2;
@@ -197,7 +242,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 		return kv1.second.size() < kv2.second.size();
 	});
 
-	for(const auto& perm : kv.second){
+	for(auto& perm : kv.second){
 		children.push_back(*this);
 		if(!children.back().make_move(kv.first, perm))
 			children.pop_back();
@@ -206,17 +251,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r) {
+	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			switch(char ch = cells(p)){
-			case PUZ_NUMBER:
+			char ch = cells(p);
+			if(ch == PUZ_NUMBER)
 				out << format("%2d") % m_game->m_pos2num.at(p);
-				break;
-			default:
+			else
 				out << ' ' << ch;
-				break;
-			};
 		}
 		out << endl;
 	}
