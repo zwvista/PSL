@@ -114,7 +114,11 @@ struct puz_state : string
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, int n);
-	bool make_move2(const Position& p, int n);
+	bool make_move2(const Position& p, int n){
+		auto& island = m_game->m_pos2islandinfo.at(p).m_islands[n];
+		return make_move3(p, island);
+	}
+	bool make_move3(const Position& p, const pair<Position, Position>& island);
 	int find_matches(bool init);
 
 	//solve_puzzle interface
@@ -178,10 +182,8 @@ int puz_state::find_matches(bool init)
 	return 2;
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+bool puz_state::make_move3(const Position& p, const pair<Position, Position>& island)
 {
-	auto& island = m_game->m_pos2islandinfo.at(p).m_islands[n];
-
 	int cnt = m_2by2waters.size();
 	auto &tl = island.first, &br = island.second;
 	for(int r = tl.first; r <= br.first; ++r)
@@ -231,15 +233,35 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	auto& kv = *boost::min_element(m_matches, [](
-		const pair<const Position, vector<int>>& kv1,
-		const pair<const Position, vector<int>>& kv2){
-		return kv1.second.size() < kv2.second.size();
-	});
-	for(int n : kv.second){
-		children.push_back(*this);
-		if(!children.back().make_move(kv.first, n))
-			children.pop_back();
+	if(!m_matches.empty()){
+		auto& kv = *boost::min_element(m_matches, [](
+			const pair<const Position, vector<int>>& kv1,
+			const pair<const Position, vector<int>>& kv2){
+			return kv1.second.size() < kv2.second.size();
+		});
+		for(int n : kv.second){
+			children.push_back(*this);
+			if(!children.back().make_move(kv.first, n))
+				children.pop_back();
+		}
+	}
+	else{
+		for(int i = 0; i < length(); ++i){
+			if((*this)[i] != PUZ_SPACE) continue;
+			Position p(i / sidelen(), i % sidelen());
+			[&]{
+				for(int r = p.first; r < sidelen(); ++r)
+					for(int c = p.second; c < sidelen(); ++c){
+						for(int r2 = p.first; r2 <= r; ++r2)
+							for(int c2 = p.second; c2 <= c; ++c2)
+								if(cells({r2, c2}) != PUZ_SPACE)
+									return;
+						children.push_back(*this);
+						if(!children.back().make_move3(p, {p, {r, c}}))
+							children.pop_back();
+					}
+			}();
+		}
 	}
 }
 
