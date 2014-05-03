@@ -22,7 +22,7 @@
 	   at all.
 */
 
-namespace puzzles{ namespace rooms{
+namespace puzzles{ namespace Rooms{
 
 #define PUZ_SPACE			' '
 #define PUZ_DOOR_UNKNOWN	'0'
@@ -265,9 +265,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_rooms()
+void solve_puz_Rooms()
 {
-	using namespace puzzles::rooms;
+	using namespace puzzles::Rooms;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\rooms.xml", "Puzzles\\rooms.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Rooms.xml", "Puzzles\\Rooms.txt", solution_format::GOAL_STATE_ONLY);
 }

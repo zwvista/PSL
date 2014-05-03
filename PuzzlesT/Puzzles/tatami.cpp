@@ -49,7 +49,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	int m_size_of_tatami;
-	int m_num_tatamis;
+	int m_tatami_count;
 	vector<vector<Position>> m_area_pos;
 	puz_numbers m_numbers;
 	map<Position, char> m_pos2num;
@@ -89,8 +89,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	: m_id(attrs.get<string>("id"))
 	, m_sidelen(strs.size() / 2)
 	, m_size_of_tatami(attrs.get<int>("TatamiSize"))
-	, m_num_tatamis(m_sidelen * m_sidelen / m_size_of_tatami)
-	, m_area_pos(m_num_tatamis + m_sidelen + m_sidelen)
+	, m_tatami_count(m_sidelen * m_sidelen / m_size_of_tatami)
+	, m_area_pos(m_tatami_count + m_sidelen + m_sidelen)
 	, m_numbers(m_size_of_tatami)
 {
 	set<Position> rng;
@@ -121,8 +121,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(auto& p : smoves){
 			m_pos2tatami[p] = n;
 			m_area_pos[n].push_back(p);
-			m_area_pos[m_num_tatamis + p.first].push_back(p);
-			m_area_pos[m_num_tatamis + m_sidelen + p.second].push_back(p);
+			m_area_pos[m_tatami_count + p.first].push_back(p);
+			m_area_pos[m_tatami_count + m_sidelen + p.second].push_back(p);
 			rng.erase(p);
 		}
 	}
@@ -188,15 +188,15 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_game(&g)
-, m_grp_tatamis(0, g.m_num_tatamis, g.m_numbers, 1)
-, m_grp_rows(g.m_num_tatamis, g.m_sidelen, g.m_numbers, g.m_sidelen / g.m_size_of_tatami)
-, m_grp_cols(g.m_num_tatamis + g.m_sidelen, g.m_sidelen, g.m_numbers, g.m_sidelen / g.m_size_of_tatami)
+, m_grp_tatamis(0, g.m_tatami_count, g.m_numbers, 1)
+, m_grp_rows(g.m_tatami_count, g.m_sidelen, g.m_numbers, g.m_sidelen / g.m_size_of_tatami)
+, m_grp_cols(g.m_tatami_count + g.m_sidelen, g.m_sidelen, g.m_numbers, g.m_sidelen / g.m_size_of_tatami)
 {
 	for(int r = 0; r < g.m_sidelen; ++r)
 		for(int c = 0; c < g.m_sidelen; ++c)
 			m_pos2nums[{r, c}] = g.m_numbers;
 
-	for(const auto& kv : g.m_pos2num)
+	for(auto& kv : g.m_pos2num)
 		make_move(kv.first, kv.second);
 }
 
@@ -229,13 +229,13 @@ bool puz_state::make_move(const Position& p, char ch)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	const auto& kv = *boost::min_element(m_pos2nums, [](
+	auto& kv = *boost::min_element(m_pos2nums, [](
 		const pair<const Position, puz_numbers>& kv1,
 		const pair<const Position, puz_numbers>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
 
-	const auto& p = kv.first;
+	auto& p = kv.first;
 	for(char ch : kv.second){
 		children.push_back(*this);
 		if(!children.back().make_move(p, ch))

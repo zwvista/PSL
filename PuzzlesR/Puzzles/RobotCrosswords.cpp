@@ -53,14 +53,14 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				n1 = max(n1, nums.back() - '0' - sz + 1);
 				n2 = min(n2, nums.front() - '0');
 			}
-			string nums2(sz, PUZ_SPACE);
+			string nums_all(sz, PUZ_SPACE);
 			string perm(rng.size(), PUZ_SPACE);
 			puz_area area;
 			area.m_range = rng;
 			auto& perms = area.m_perms;
 			for(int i = n1; i <= n2; ++i){
-				boost::iota(nums2, i + '0');
-				boost::set_difference(nums2, nums, perm.begin());
+				boost::iota(nums_all, i + '0');
+				boost::set_difference(nums_all, nums, perm.begin());
 				do
 					perms.push_back(perm);
 				while(boost::next_permutation(perm));
