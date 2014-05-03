@@ -25,9 +25,6 @@
     <Text Include="Puzzles\rotationgame.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\rooms.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\RippleEffect.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -35,6 +32,9 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\RobotFences.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Rooms.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -62,9 +62,6 @@
     <ClCompile Include="Puzzles\rotationgame.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\rooms.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\RippleEffect.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -72,6 +69,9 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\RobotFences.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Rooms.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -82,9 +82,6 @@
     <Xml Include="Puzzles\rotationgame.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\rooms.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\RippleEffect.xml">
       <Filter>Puzzles</Filter>
     </Xml>
@@ -92,6 +89,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\RobotFences.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Rooms.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
