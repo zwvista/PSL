@@ -30,4 +30,17 @@
   0     \
     ]]>
   </level>
+  <level id="13" PlantsInEachArea="2">
+    <![CDATA[
+         \
+  7      \
+2        \
+14       \
+         \
+         \
+         \
+         \
+         \
+    ]]>
+  </level>
 </levels>

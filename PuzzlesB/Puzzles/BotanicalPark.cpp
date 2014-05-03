@@ -140,8 +140,9 @@ puz_state::puz_state(const puz_game& g)
 			Position p(r, c);
 			if(cells(p) == PUZ_ARROW){
 				auto& os = offset[g.m_pos2arrow.at(p)];
-				for(auto p2 = p + os; is_valid(p2) && cells(p2) == PUZ_EMPTY; p2 += os)
-					m_grp_arrows[i].add_cell(p2);
+				for(auto p2 = p + os; is_valid(p2); p2 += os)
+					if(cells(p2) == PUZ_EMPTY)
+						m_grp_arrows[i].add_cell(p2);
 				++i;
 			}
 			else{
