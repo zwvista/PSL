@@ -52,6 +52,9 @@
     <Text Include="Puzzles\Tatami.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\TierraDelFuego.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -101,6 +104,9 @@
     <ClCompile Include="Puzzles\Tatami.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\TierraDelFuego.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\turnz.xml">
@@ -131,6 +137,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Tatami.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\TierraDelFuego.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

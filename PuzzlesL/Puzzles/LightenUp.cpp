@@ -80,7 +80,6 @@ struct puz_state : pair<string, vector<puz_area>>
 	int sidelen() const { return m_game->m_sidelen; }
 	char cells(const Position& p) const { return first.at(p.first * sidelen() + p.second); }
 	char& cells(const Position& p) { return first[p.first * sidelen() + p.second]; }
-	void check_areas();
 	bool make_move_space(const Position& p);
 	bool make_move_area(int i, const string& perm);
 	bool make_move(const Position& p, char ch_p);

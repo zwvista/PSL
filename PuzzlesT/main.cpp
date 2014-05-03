@@ -8,6 +8,7 @@ extern void solve_puz_Tatami();
 extern void solve_puz_Tatamino();
 extern void solve_puz_TennerGrid();
 extern void solve_puz_Tents();
+extern void solve_puz_TierraDelFuego();
 extern void solve_puz_turnz();
 extern void solve_puz_twinballs();
 
@@ -21,6 +22,7 @@ int main(int argc, char **argv)
 	cout << "a6: Tatamino" << endl;
 	cout << "e1: Tenner Grid" << endl;
 	cout << "e2: Tents" << endl;
+	cout << "i: Tierra Del Fuego" << endl;
 	cout << "u: turnz" << endl;
 	cout << "w: twinballs" << endl;
 	string str;
@@ -33,6 +35,7 @@ int main(int argc, char **argv)
 	else if(str == "a6") solve_puz_Tatamino();
 	else if(str == "e1") solve_puz_TennerGrid();
 	else if(str == "e2") solve_puz_Tents();
+	else if(str == "i") solve_puz_TierraDelFuego();
 	else if(str == "u") solve_puz_turnz();
 	else if(str == "w") solve_puz_twinballs();
 

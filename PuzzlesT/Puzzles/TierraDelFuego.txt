@@ -1,0 +1,33 @@
+Level 01
+Sequence of moves: 
+. W . . W 
+C W D . W 
+. C W W . 
+W W A . . 
+B . W W A 
+Number of moves: 5
+Number of vertices examined: 140
+0.242719 [s]
+
+Level 02
+Sequence of moves: 
+C W . . A 
+. W A W W 
+W D W . B 
+W . W B . 
+D . D W W 
+Number of moves: 5
+Number of vertices examined: 25
+0.0345672 [s]
+
+Level 03
+Sequence of moves: 
+A A . W C 
+W W A W C 
+B . W C . 
+. B W . C 
+B . B W W 
+Number of moves: 4
+Number of vertices examined: 17
+0.010773 [s]
+

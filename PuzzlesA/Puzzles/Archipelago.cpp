@@ -245,7 +245,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 				children.pop_back();
 		}
 	}
-	else{
+	else
 		for(int i = 0; i < length(); ++i){
 			if((*this)[i] != PUZ_SPACE) continue;
 			Position p(i / sidelen(), i % sidelen());
@@ -262,7 +262,6 @@ void puz_state::gen_children(list<puz_state>& children) const
 					}
 			}();
 		}
-	}
 }
 
 ostream& puz_state::dump(ostream& out) const
