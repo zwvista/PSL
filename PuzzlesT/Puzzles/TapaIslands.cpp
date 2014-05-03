@@ -4,22 +4,21 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 9/Pata
+	ios game: Logic Games/Puzzle Set 9/Tapa Islands
 
 	Summary
-	Yes, it's the opposite of Tapa
+	Tap-Archipelago
 
 	Description
-	1. Plays the opposite of Tapa, regarding the hints:
-	2. A number indicates the groups of connected empty tiles that are around
-	   it, instead of filled ones.
-	3. Different groups of empty tiles are separated by at least one filled cell.
-	4. Same as Tapa:
-	5. The filled tiles are continuous.
-	6. You can't have a 2*2 space of filled tiles.
+	1. Plays with the same rules as Tapa with these variations.
+	2. Empty tiles from 'islands', or separated areas, are surrounded by the
+	   filled tiles.
+	3. Each separated area may contain at most one clue tile.
+	4. If there is a clue tile in an area, at least one digit should give the
+	   size of that area in unit squares.
 */
 
-namespace puzzles{ namespace Pata{
+namespace puzzles{ namespace TapaIslands{
 
 #define PUZ_SPACE		' '
 #define PUZ_QM			'?'
@@ -42,15 +41,15 @@ const Position offset[] = {
 
 typedef vector<int> puz_hint;
 
-puz_hint compute_hint(const vector<int>& emptied)
+puz_hint compute_hint(const vector<int>& filled)
 {
 	vector<int> hint;
-	for(int j = 0; j < emptied.size(); ++j)
-		if(j == 0 || emptied[j] - emptied[j - 1] != 1)
+	for(int j = 0; j < filled.size(); ++j)
+		if(j == 0 || filled[j] - filled[j - 1] != 1)
 			hint.push_back(1);
 		else
 			++hint.back();
-	if(emptied.size() > 1 && hint.size() > 1 && emptied.back() - emptied.front() == 7)
+	if(filled.size() > 1 && hint.size() > 1 && filled.back() - filled.front() == 7)
 		hint.front() += hint.back(), hint.pop_back();
 	boost::sort(hint);
 	return hint;
@@ -62,6 +61,7 @@ struct puz_game
 	int m_sidelen;
 	map<Position, puz_hint> m_pos2hint;
 	map<puz_hint, vector<string>> m_hint2perms;
+	int m_space_count;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -94,20 +94,22 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 	m_start.append(m_sidelen, PUZ_BOUNDARY);
 
+	m_space_count = boost::count(m_start, PUZ_SPACE);
+
 	// A tile is surrounded by at most 8 tiles, each of which has two states:
 	// filled or empty. So all combinations of the states of the
 	// surrounding tiles can be coded into an 8-bit number(0 -- 255).
 	for(int i = 1; i < 256; ++i){
-		vector<int> emptied;
+		vector<int> filled;
 		for(int j = 0; j < 8; ++j)
 			if(i & (1 << j))
-				emptied.push_back(j);
+				filled.push_back(j);
 
-		string perm(8, PUZ_FILLED);
-		for(int j : emptied)
-			perm[j] = PUZ_EMPTY;
+		string perm(8, PUZ_EMPTY);
+		for(int j : filled)
+			perm[j] = PUZ_FILLED;
 
-		auto hint = compute_hint(emptied);
+		auto hint = compute_hint(filled);
 
 		for(auto& kv : m_hint2perms){
 			auto& hint2 = kv.first;
@@ -122,10 +124,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
-	// A cell with a 0 means all its surrounding cells are filled.
+	// A cell with a 0 means all its surrounding cells are empty.
 	auto it = m_hint2perms.find({0});
 	if(it != m_hint2perms.end())
-		it->second = {string(8, PUZ_FILLED)};
+		it->second = {string(8, PUZ_EMPTY)};
 }
 
 typedef pair<vector<Position>, int> puz_path;
@@ -174,8 +176,7 @@ int puz_state::find_matches(bool init)
 		auto& perms = m_game->m_hint2perms.at(m_game->m_pos2hint.at(p));
 		boost::remove_erase_if(perm_ids, [&](int id){
 			return !boost::equal(chars, perms[id], [](char ch1, char ch2){
-				return ch1 == PUZ_BOUNDARY && ch2 == PUZ_FILLED ||
-					ch1 == PUZ_HINT && ch2 == PUZ_EMPTY ||
+				return (ch1 == PUZ_BOUNDARY || ch1 == PUZ_HINT) && ch2 == PUZ_EMPTY ||
 					ch1 == PUZ_SPACE || ch1 == ch2;
 			});
 		});
@@ -301,14 +302,12 @@ bool puz_state::make_move_space(const Position& p, char ch)
 
 puz_hint puz_state::compute_hint(const Position& p) const
 {
-	vector<int> emptied;
-	for(int j = 0; j < 8; ++j){
-		char ch = cells(p + offset[j]);
-		if(ch == PUZ_HINT || ch == PUZ_EMPTY)
-			emptied.push_back(j);
-	}
+	vector<int> filled;
+	for(int j = 0; j < 8; ++j)
+		if(cells(p + offset[j]) == PUZ_FILLED)
+			filled.push_back(j);
 
-	return puzzles::Pata::compute_hint(emptied);
+	return puzzles::TapaIslands::compute_hint(filled);
 }
 
 bool puz_state::is_valid_move() const
@@ -327,7 +326,38 @@ bool puz_state::is_valid_move() const
 		return true;
 	};
 
-	return is_valid_square({PUZ_FILLED});
+	auto is_valid_tapa = [&]{ return is_valid_square({PUZ_FILLED}); };
+
+	auto is_tapa_islands = [&]{
+		set<Position> a;
+		for(int i = 0; i < length(); ++i){
+			char ch = (*this)[i];
+			if(ch == PUZ_EMPTY || ch == PUZ_HINT)
+				a.insert({i / sidelen(), i % sidelen()});
+		}
+
+		while(!a.empty()){
+			list<puz_state2> smoves;
+			puz_move_generator<puz_state2>::gen_moves(a, smoves);
+			vector<puz_hint> hints;
+			for(auto& p : smoves){
+				if(cells(p) == PUZ_HINT){
+					auto hint = m_game->m_pos2hint.at(p);
+					if(boost::algorithm::any_of_equal(hint, PUZ_UNKNOWN))
+						hint = compute_hint(p);
+					hints.push_back(hint);
+				}
+				a.erase(p);
+			}
+			if(hints.empty()) continue;
+			if(hints.size() > 1 ||
+				boost::algorithm::none_of_equal(hints[0], smoves.size()))
+				return false;
+		}
+		return true;
+	};
+
+	return is_valid_tapa() && (!is_goal_state() || is_tapa_islands());
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -382,9 +412,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_Pata()
+void solve_puz_TapaIslands()
 {
-	using namespace puzzles::Pata;
+	using namespace puzzles::TapaIslands;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\Pata.xml", "Puzzles\\Pata.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\TapaIslands.xml", "Puzzles\\TapaIslands.txt", solution_format::GOAL_STATE_ONLY);
 }

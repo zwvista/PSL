@@ -206,19 +206,13 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-	puz_state2(const set<Position>& rng);
+	puz_state2(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
 
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
 	const set<Position>* m_rng;
 };
-
-puz_state2::puz_state2(const set<Position>& rng)
-: m_rng(&rng)
-{
-	make_move(*rng.begin());
-}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
