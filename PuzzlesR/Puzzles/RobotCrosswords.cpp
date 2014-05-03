@@ -18,13 +18,11 @@ namespace puzzles{ namespace RobotCrosswords{
 
 #define PUZ_SPACE		' '
 #define PUZ_SQUARE		'.'
-#define PUZ_UNKNOWN		-1
-#define PUZ_WALL		0
 
 struct puz_area
 {
 	vector<Position> m_range;
-	vector<vector<int>> m_perms;
+	vector<string> m_perms;
 };
 
 struct puz_game
@@ -32,48 +30,39 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	vector<puz_area> m_areas;
-	vector<int> m_start;
+	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
-	int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+	char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size())
 {
-	for(int r = 0; r < m_sidelen; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen; ++c){
-			Position p(r, c);
-			char ch = str[c];
-			int n = ch == PUZ_SPACE ? PUZ_UNKNOWN :
-				ch == PUZ_SQUARE ? PUZ_WALL : ch - '0';
-			m_start.push_back(n);
-		}
-	}
+	m_start = boost::accumulate(strs, string());
 
 	vector<Position> rng;
-	vector<int> nums;
+	string nums;
 	auto g = [&]{
 		if(!rng.empty()){
 			int sz = rng.size() + nums.size();
 			int n1 = 1, n2 = 10 - sz;
 			if(!nums.empty()){
 				boost::sort(nums);
-				n1 = max(n1, nums.back() - sz + 1);
-				n2 = min(n2, nums.front());
+				n1 = max(n1, nums.back() - '0' - sz + 1);
+				n2 = min(n2, nums.front() - '0');
 			}
-			vector<int> nums2(sz);
-			vector<int> perm(rng.size());
+			string nums2(sz, PUZ_SPACE);
+			string perm(rng.size(), PUZ_SPACE);
 			puz_area area;
 			area.m_range = rng;
 			auto& perms = area.m_perms;
 			for(int i = n1; i <= n2; ++i){
-				boost::iota(nums2, i);
+				boost::iota(nums2, i + '0');
 				boost::set_difference(nums2, nums, perm.begin());
 				do
-				perms.push_back(perm);
+					perms.push_back(perm);
 				while(boost::next_permutation(perm));
 			}
 			m_areas.push_back(area);
@@ -82,13 +71,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	};
 	auto f = [&](Position p, const Position& os){
 		for(int i = 0; i < m_sidelen; ++i, p += os){
-			int n = cells(p);
-			if(n == PUZ_WALL)
+			char ch = cells(p);
+			if(ch == PUZ_SQUARE)
 				g();
-			else if(n == PUZ_UNKNOWN)
+			else if(ch == PUZ_SPACE)
 				rng.push_back(p);
 			else
-				nums.push_back(n);
+				nums.push_back(ch);
 		}
 		g();
 	};
@@ -103,8 +92,8 @@ struct puz_state
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-	int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(int i, int j);
 	void make_move2(int i, int j);
@@ -122,7 +111,7 @@ struct puz_state
 	}
 
 	const puz_game* m_game = nullptr;
-	vector<int> m_cells;
+	string m_cells;
 	map<int, vector<int>> m_matches;
 	int m_distance = 0;
 };
@@ -146,15 +135,15 @@ int puz_state::find_matches(bool init)
 		int n = kv.first;
 		auto& perm_ids = kv.second;
 
-		vector<int> nums;
+		string nums;
 		auto& area = m_game->m_areas[n];
 		for(auto& p : area.m_range)
 			nums.push_back(cells(p));
 
 		auto& perms = area.m_perms;
 		boost::remove_erase_if(perm_ids, [&](int id){
-			return !boost::equal(nums, perms[id], [](int n1, int n2){
-				return n1 == PUZ_UNKNOWN || n1 == n2;
+			return !boost::equal(nums, perms[id], [](char ch1, char ch2){
+				return ch1 == PUZ_SPACE || ch1 == ch2;
 			});
 		});
 
@@ -193,8 +182,8 @@ bool puz_state::make_move(int i, int j)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_matches, [](
-		const pair<const int, vector<int>>& kv1,
-		const pair<const int, vector<int>>& kv2){
+		const pair<int, vector<int>>& kv1,
+		const pair<int, vector<int>>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
 	for(int n : kv.second){
@@ -207,13 +196,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r){
-		for(int c = 0; c < sidelen(); ++c){
-			int n = cells({r, c});
-			if(n == PUZ_WALL)
-				out << PUZ_SQUARE << ' ';
-			else
-				out << n << ' ';
-		}
+		for(int c = 0; c < sidelen(); ++c)
+			out << cells({r, c}) << ' ';
 		out << endl;
 	}
 	return out;

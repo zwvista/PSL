@@ -34,6 +34,9 @@
     <Text Include="Puzzles\RobotCrosswords.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\RobotFences.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -68,6 +71,9 @@
     <ClCompile Include="Puzzles\RobotCrosswords.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\RobotFences.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\rotate9.xml">
@@ -83,6 +89,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\RobotCrosswords.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\RobotFences.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
