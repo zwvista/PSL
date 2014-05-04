@@ -17,7 +17,7 @@
 	3. The goal is to jump on every tile, only once and reach the last tile.
 */
 
-namespace puzzles{ namespace hiddenpath{
+namespace puzzles{ namespace HiddenPath{
 
 const Position offset[] = {
 	{-1, 0},
@@ -117,9 +117,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_hiddenpath()
+void solve_puz_HiddenPath()
 {
-	using namespace puzzles::hiddenpath;
+	using namespace puzzles::HiddenPath;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\hiddenpath.xml", "Puzzles\\hiddenpath.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\HiddenPath.xml", "Puzzles\\HiddenPath.txt", solution_format::GOAL_STATE_ONLY);
 }

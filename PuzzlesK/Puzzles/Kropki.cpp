@@ -24,7 +24,7 @@
 	   which must also contain all the numbers 1 to 9.
 */
 
-namespace puzzles{ namespace kropki{
+namespace puzzles{ namespace Kropki{
 
 #define PUZ_SPACE		' '
 #define PUZ_BLACK		'B'
@@ -209,9 +209,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_kropki()
+void solve_puz_Kropki()
 {
-	using namespace puzzles::kropki;
+	using namespace puzzles::Kropki;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\kropki.xml", "Puzzles\\kropki.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Kropki.xml", "Puzzles\\Kropki.txt", solution_format::GOAL_STATE_ONLY);
 }

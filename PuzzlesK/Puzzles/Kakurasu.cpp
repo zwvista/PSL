@@ -16,7 +16,7 @@
 	   sum of the values mentioned above.
 */
 
-namespace puzzles{ namespace kakurasu{
+namespace puzzles{ namespace Kakurasu{
 
 #define PUZ_SPACE	-1
 
@@ -200,9 +200,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_kakurasu()
+void solve_puz_Kakurasu()
 {
-	using namespace puzzles::kakurasu;
+	using namespace puzzles::Kakurasu;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\kakurasu.xml", "Puzzles\\kakurasu.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Kakurasu.xml", "Puzzles\\Kakurasu.txt", solution_format::GOAL_STATE_ONLY);
 }

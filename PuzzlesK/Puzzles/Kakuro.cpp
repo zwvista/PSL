@@ -18,7 +18,7 @@
 	4. Tiles which only have a diagonal line aren't used in the game.
 */
 
-namespace puzzles{ namespace kakuro{
+namespace puzzles{ namespace Kakuro{
 
 #define PUZ_SPACE		' '
 
@@ -208,9 +208,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_kakuro()
+void solve_puz_Kakuro()
 {
-	using namespace puzzles::kakuro;
+	using namespace puzzles::Kakuro;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\kakuro.xml", "Puzzles\\kakuro.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Kakuro.xml", "Puzzles\\Kakuro.txt", solution_format::GOAL_STATE_ONLY);
 }

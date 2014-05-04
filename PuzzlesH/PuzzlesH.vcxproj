@@ -150,11 +150,11 @@
   <ItemGroup>
     <Text Include="Puzzles\hexrotation.txt" />
     <Text Include="Puzzles\hexrotation_ida.txt" />
-    <Text Include="Puzzles\hiddenpath.txt" />
-    <Text Include="Puzzles\hiddenstars.txt" />
-    <Text Include="Puzzles\hidoku.txt" />
-    <Text Include="Puzzles\hitori.txt" />
-    <Text Include="Puzzles\holidayisland.txt" />
+    <Text Include="Puzzles\HiddenPath.txt" />
+    <Text Include="Puzzles\HiddenStars.txt" />
+    <Text Include="Puzzles\Hidoku.txt" />
+    <Text Include="Puzzles\Hitori.txt" />
+    <Text Include="Puzzles\HolidayIsland.txt" />
     <Text Include="Puzzles\hopover.txt" />
     <Text Include="Puzzles\hrd.txt" />
     <Text Include="Puzzles\hrd_ida.txt" />
@@ -168,11 +168,11 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\hexrotation.cpp" />
-    <ClCompile Include="Puzzles\hiddenpath.cpp" />
-    <ClCompile Include="Puzzles\hiddenstars.cpp" />
-    <ClCompile Include="Puzzles\hidoku.cpp" />
-    <ClCompile Include="Puzzles\hitori.cpp" />
-    <ClCompile Include="Puzzles\holidayisland.cpp" />
+    <ClCompile Include="Puzzles\HiddenPath.cpp" />
+    <ClCompile Include="Puzzles\HiddenStars.cpp" />
+    <ClCompile Include="Puzzles\Hidoku.cpp" />
+    <ClCompile Include="Puzzles\Hitori.cpp" />
+    <ClCompile Include="Puzzles\HolidayIsland.cpp" />
     <ClCompile Include="Puzzles\hopover.cpp" />
     <ClCompile Include="Puzzles\hrd.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -184,11 +184,11 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\hexrotation.xml" />
-    <Xml Include="Puzzles\hiddenpath.xml" />
-    <Xml Include="Puzzles\hiddenstars.xml" />
-    <Xml Include="Puzzles\hidoku.xml" />
-    <Xml Include="Puzzles\hitori.xml" />
-    <Xml Include="Puzzles\holidayisland.xml" />
+    <Xml Include="Puzzles\HiddenPath.xml" />
+    <Xml Include="Puzzles\HiddenStars.xml" />
+    <Xml Include="Puzzles\Hidoku.xml" />
+    <Xml Include="Puzzles\Hitori.xml" />
+    <Xml Include="Puzzles\HolidayIsland.xml" />
     <Xml Include="Puzzles\hopover.xml" />
     <Xml Include="Puzzles\hrd.xml" />
   </ItemGroup>

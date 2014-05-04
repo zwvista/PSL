@@ -21,7 +21,7 @@
 	   other Tents.
 */
 
-namespace puzzles{ namespace holidayisland{
+namespace puzzles{ namespace HolidayIsland{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
@@ -287,9 +287,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_holidayisland()
+void solve_puz_HolidayIsland()
 {
-	using namespace puzzles::holidayisland;
+	using namespace puzzles::HolidayIsland;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\holidayisland.xml", "Puzzles\\holidayisland.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\HolidayIsland.xml", "Puzzles\\HolidayIsland.txt", solution_format::GOAL_STATE_ONLY);
 }

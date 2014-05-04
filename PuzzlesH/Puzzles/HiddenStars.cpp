@@ -20,7 +20,7 @@
 	   by one and only one Arrow.
 */
 
-namespace puzzles{ namespace hiddenstars{
+namespace puzzles{ namespace HiddenStar{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
@@ -231,9 +231,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_hiddenstars()
+void solve_puz_HiddenStar()
 {
-	using namespace puzzles::hiddenstars;
+	using namespace puzzles::HiddenStar;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\hiddenstars.xml", "Puzzles\\hiddenstars.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\HiddenStar.xml", "Puzzles\\HiddenStar.txt", solution_format::GOAL_STATE_ONLY);
 }

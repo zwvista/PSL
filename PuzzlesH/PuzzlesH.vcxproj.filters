@@ -25,9 +25,6 @@
     <Text Include="Puzzles\hexrotation_ida.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\hiddenpath.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\hopover.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -37,16 +34,19 @@
     <Text Include="Puzzles\hrd_ida.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\hidoku.txt">
+    <Text Include="Puzzles\HiddenPath.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\hiddenstars.txt">
+    <Text Include="Puzzles\HiddenStars.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\hitori.txt">
+    <Text Include="Puzzles\Hidoku.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\holidayisland.txt">
+    <Text Include="Puzzles\Hitori.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\HolidayIsland.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -68,9 +68,6 @@
     <ClCompile Include="Puzzles\hexrotation.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\hiddenpath.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\hopover.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -80,24 +77,24 @@
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\hidoku.cpp">
+    <ClCompile Include="Puzzles\HiddenPath.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\hiddenstars.cpp">
+    <ClCompile Include="Puzzles\HiddenStars.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\hitori.cpp">
+    <ClCompile Include="Puzzles\Hidoku.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\holidayisland.cpp">
+    <ClCompile Include="Puzzles\Hitori.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\HolidayIsland.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\hexrotation.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\hiddenpath.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\hopover.xml">
@@ -106,16 +103,19 @@
     <Xml Include="Puzzles\hrd.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\hidoku.xml">
+    <Xml Include="Puzzles\HiddenPath.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\hiddenstars.xml">
+    <Xml Include="Puzzles\HiddenStars.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\hitori.xml">
+    <Xml Include="Puzzles\Hidoku.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\holidayisland.xml">
+    <Xml Include="Puzzles\Hitori.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\HolidayIsland.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

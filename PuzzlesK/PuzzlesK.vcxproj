@@ -148,9 +148,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="Puzzles\kakurasu.txt" />
-    <Text Include="Puzzles\kakuro.txt" />
-    <Text Include="Puzzles\kropki.txt" />
+    <Text Include="Puzzles\Kakurasu.txt" />
+    <Text Include="Puzzles\Kakuro.txt" />
+    <Text Include="Puzzles\Kropki.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -160,9 +160,9 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Puzzles\kakurasu.cpp" />
-    <ClCompile Include="Puzzles\kakuro.cpp" />
-    <ClCompile Include="Puzzles\kropki.cpp" />
+    <ClCompile Include="Puzzles\Kakurasu.cpp" />
+    <ClCompile Include="Puzzles\Kakuro.cpp" />
+    <ClCompile Include="Puzzles\Kropki.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -171,9 +171,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\kakurasu.xml" />
-    <Xml Include="Puzzles\kakuro.xml" />
-    <Xml Include="Puzzles\kropki.xml" />
+    <Xml Include="Puzzles\Kakurasu.xml" />
+    <Xml Include="Puzzles\Kakuro.xml" />
+    <Xml Include="Puzzles\Kropki.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

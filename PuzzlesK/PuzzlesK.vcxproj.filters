@@ -19,13 +19,13 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\kakuro.txt">
+    <Text Include="Puzzles\Kakurasu.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\kakurasu.txt">
+    <Text Include="Puzzles\Kakuro.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\kropki.txt">
+    <Text Include="Puzzles\Kropki.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -47,24 +47,24 @@
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\kakuro.cpp">
+    <ClCompile Include="Puzzles\Kakurasu.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\kakurasu.cpp">
+    <ClCompile Include="Puzzles\Kakuro.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\kropki.cpp">
+    <ClCompile Include="Puzzles\Kropki.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\kakuro.xml">
+    <Xml Include="Puzzles\Kakurasu.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\kakurasu.xml">
+    <Xml Include="Puzzles\Kakuro.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\kropki.xml">
+    <Xml Include="Puzzles\Kropki.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
