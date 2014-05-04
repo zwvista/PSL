@@ -13,7 +13,7 @@ Sequence of moves:
  - - - - -
 Number of moves: 8
 Number of vertices examined: 13
-0.00871884 [s]
+0.00398613 [s]
 
 Level 02
 Sequence of moves: 
@@ -30,7 +30,140 @@ Sequence of moves:
  - - - - -
 Number of moves: 10
 Number of vertices examined: 17
-0.0120339 [s]
+0.00371869 [s]
+
+Level 03
+Sequence of moves: 
+ - - - - - -
+|F .|. .|F .|
+ - -        
+|.|.|F .|. .|
+     - - - -
+|.|F|.|.|F|.|
+ -          
+|.|.|F|.|.|F|
+     - -   -
+|F|.|. F|.|.|
+ - -        
+|. .|F .|.|F|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 401
+0.102303 [s]
+
+Level 04
+Sequence of moves: 
+ - - - - - -
+|F .|. . . .|
+     - - - -
+|. F|. .|F .|
+ - -        
+|. .|. F|. F|
+     - - - -
+|F .|F .|. .|
+ - -     - -
+|. .|. .|F .|
+     - - - -
+|. F|. .|. F|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 29
+0.011691 [s]
+
+Level 05
+Sequence of moves: 
+ - - - - - -
+|F . . .|. .|
+ - - - -    
+|. .|F .|. F|
+ - - - - - -
+|. F .|F .|.|
+ - - -      
+|F|. .|. F|.|
+       - -  
+|.|. F|. .|.|
+   - - - - -
+|F|. . F|. .|
+ - - - - - -
+Number of moves: 12
+Number of vertices examined: 42
+0.0157822 [s]
+
+Level 06
+Sequence of moves: 
+ - - - - - -
+|F .|. F|. F|
+            
+|. F|. .|. .|
+ - - - - - -
+|.|. .|F|. F|
+            
+|F|. F|.|F .|
+   - - - - -
+|.|. . . . .|
+   - - - - -
+|.|F . F . F|
+ - - - - - -
+Number of moves: 9
+Number of vertices examined: 16
+0.00556045 [s]
+
+Level 07
+Sequence of moves: 
+ - - - - - -
+|F . F .|. .|
+ - - - - - -
+|. .|. .|F .|
+ - - - -    
+|. F|. F|. .|
+         - -
+|F .|F .|.|F|
+ - - - - -  
+|. .|. . F|.|
+            
+|F .|F . .|.|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 18
+0.00839918 [s]
+
+Level 08
+Sequence of moves: 
+ - - - - - -
+|. .|. F|. F|
+            
+|F .|F .|. .|
+ - - - - - -
+|.|. . .|F .|
+   - - -    
+|.|F . F|. .|
+ - - - -    
+|. .|F .|. F|
+         - -
+|F .|. F|. .|
+ - - - - - -
+Number of moves: 10
+Number of vertices examined: 67
+0.0347051 [s]
+
+Level 09
+Sequence of moves: 
+ - - - - - -
+|F .|.|F . .|
+       - - -
+|. F|.|.|F .|
+ - -        
+|. .|.|F|. .|
+     - - - -
+|. F|. .|. F|
+            
+|F .|. .|F .|
+ - - - - - -
+|. .|F . . .|
+ - - - - - -
+Number of moves: 10
+Number of vertices examined: 16
+0.00998361 [s]
 
 Level 10
 Sequence of moves: 
@@ -49,5 +182,24 @@ Sequence of moves:
  - - - - - -
 Number of moves: 9
 Number of vertices examined: 27
-0.0279676 [s]
+0.0128561 [s]
+
+Level 11
+Sequence of moves: 
+ - - - - - -
+|F|. . .|. .|
+         - -
+|.|. . F|. F|
+   - - -    
+|.|F .|.|F .|
+       - - -
+|.|. F|. .|.|
+ -     - -  
+|.|F .|F .|.|
+   - -      
+|F|. .|. .|F|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 31
+0.0145429 [s]
 

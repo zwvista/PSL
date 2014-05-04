@@ -103,7 +103,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 typedef vector<string> puz_dot;
 
-struct puz_state : vector<puz_dot>
+struct puz_state
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
@@ -111,8 +111,11 @@ struct puz_state : vector<puz_dot>
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-	puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
+	puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
+	bool operator<(const puz_state& x) const {
+		return make_pair(m_dots, m_matches) < make_pair(x.m_dots, x.m_matches); 
+	}
 	bool make_move_pearl(const Position& p, int n);
 	bool make_move_pearl2(const Position& p, int n);
 	bool make_move_line(const Position& p, int n);
@@ -132,13 +135,14 @@ struct puz_state : vector<puz_dot>
 	}
 
 	const puz_game* m_game = nullptr;
+	vector<puz_dot> m_dots;
 	map<Position, vector<int>> m_matches;
 	set<Position> m_finished;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count), m_game(&g)
+: m_dots(g.m_dot_count), m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
@@ -195,7 +199,7 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move_pearl2(p, perm_ids.front()), 1;
+				return make_move_pearl2(p, perm_ids.front()) ? 1 : 0;
 			}
 	}
 	return 2;
@@ -263,6 +267,8 @@ bool puz_state::make_move_pearl(const Position& p, int n)
 		m = check_dots(false);
 		if(m != 1)
 			return m == 2;
+		if(!check_loop())
+			return false;
 	}
 }
 
@@ -326,10 +332,10 @@ void puz_state::gen_children(list<puz_state>& children) const
 		}
 	}
 	else{
-		int n = boost::min_element(*this, [](const puz_dot& dt1, const puz_dot& dt2){
+		int n = boost::min_element(m_dots, [](const puz_dot& dt1, const puz_dot& dt2){
 			auto f = [](int sz){return sz == 1 ? 1000 : sz;};
 			return f(dt1.size()) < f(dt2.size());
-		}) - begin();
+		}) - m_dots.begin();
 		Position p(n / sidelen(), n % sidelen());
 		auto& dt = dots(p);
 		for(int i = 0; i < dt.size(); ++i){

@@ -18,7 +18,7 @@
 
 namespace puzzles{ namespace Kakurasu{
 
-#define PUZ_SPACE	-1
+#define PUZ_UNKNOWN	-1
 
 struct puz_game
 {
@@ -36,13 +36,16 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size())
 , m_area2range(m_sidelen * 2)
 {
+	// value of the rows and columns
+	// values[n] (n == 0..m_sidelen - 1): value of the rows
+	// values[n] (n == m_sidelen..m_sidelen * 2 - 1): value of the columns
 	vector<int> values(m_sidelen * 2);
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
 			auto s = str.substr(c * 2, 2);
 			int n = atoi(s.c_str());
-			m_start.push_back(n == 0 ? PUZ_SPACE : n);
+			m_start.push_back(n == 0 ? PUZ_UNKNOWN : n);
 			if(r == m_sidelen - 1 || c == m_sidelen - 1){
 				if(r == m_sidelen - 1)
 					values[m_sidelen + c] = n;
@@ -59,8 +62,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 	auto f = [&](vector<vector<int>>& perms, int n){
 		int cnt = m_sidelen - 1;
-		vector<int> perm(cnt);
 
+		// The sum of the values will be saved in perm[0].
+		// For perm[n] (n >= 1),
+		// 1 represents a filled tile, 0 an empty tile.
+		vector<int> perm(cnt);
 		for(int i = 1; i < cnt;){
 			perm[0] = 0;
 			for(int j = 1; j < cnt; ++j)
@@ -133,7 +139,7 @@ int puz_state::find_matches(bool init)
 		auto& perms = area_id < sidelen() ? m_game->m_perms_rows : m_game->m_perms_cols;
 		boost::remove_erase_if(perm_ids, [&](int id){
 			return !boost::equal(nums, perms[id], [](int n1, int n2){
-				return n1 == PUZ_SPACE || n1 == n2;
+				return n1 == PUZ_UNKNOWN || n1 == n2;
 			});
 		});
 
@@ -185,10 +191,10 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
+	for(int r = 0; r < sidelen(); ++r){
 		for(int c = 0; c < sidelen(); ++c){
 			int n = cells({r, c});
-			if(n == PUZ_SPACE || n == 0)
+			if(n == PUZ_UNKNOWN || n == 0)
 				out << "   ";
 			else
 				out << format("%3d") % cells({r, c});

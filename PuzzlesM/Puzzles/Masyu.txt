@@ -13,7 +13,7 @@ W     W
 B-W-W-B     
 Number of moves: 2
 Number of vertices examined: 3
-0.0460684 [s]
+0.00167218 [s]
 
 Level 02
 Sequence of moves: 
@@ -30,5 +30,124 @@ B-W-  B-W-
      -W-W-  
 Number of moves: 0
 Number of vertices examined: 1
-0.0124852 [s]
+0.000769925 [s]
+
+Level 03
+Sequence of moves: 
+B-W-W-   -  
+|     | | | 
+W      -  W 
+|         | 
+   -   -    
+| | | | | | 
+    W W W   
+| | | | | | 
+W W W W W W 
+| | | | | | 
+ -   -   -  
+Number of moves: 2
+Number of vertices examined: 3
+0.00120486 [s]
+
+Level 04
+Sequence of moves: 
+ -W- - - -B 
+|         | 
+ -W- -W-B   
+        | | 
+        W   
+        | | 
+B-W-W-  W   
+|     | | | 
+W      -    
+|         | 
+ -W- - - -B 
+Number of moves: 1
+Number of vertices examined: 2
+0.000888322 [s]
+
+Level 05
+Sequence of moves: 
+B- - -W-B   
+|       |   
+   -W-B W   
+| |   | |   
+  W   W  -  
+| |   |   | 
+   -  B-W-  
+|   |       
+     -W-W-  
+|         | 
+B- - - -W-  
+Number of moves: 1
+Number of vertices examined: 2
+0.000930805 [s]
+
+Level 06
+Sequence of moves: 
+ -  B-W-W-B 
+| | |     | 
+W W W  -  W 
+| | | | | | 
+   -    W   
+|     | | | 
+     -  W   
+|   |   | | 
+    W  -    
+|   | |   | 
+B- -B  - -B 
+Number of moves: 4
+Number of vertices examined: 6
+0.00164989 [s]
+
+Level 07
+Sequence of moves: 
+ -W-B B-W-B 
+|   | |   | 
+ -  W W   W 
+  | | |   | 
+  W  -   -  
+  |     |   
+ -   -  W   
+|   | | |   
+W   W W  -  
+|   | |   | 
+B-W-B B-W-  
+Number of moves: 4
+Number of vertices examined: 7
+0.00188285 [s]
+
+Level 08
+Sequence of moves: 
+ -  B-W-W-  
+| | |     | 
+W   W B-W-  
+| | | |     
+      W  -  
+| | | | | | 
+  W W W W W 
+| | | | | | 
+   -   -  W 
+|         | 
+B- - - -W-B 
+Number of moves: 1
+Number of vertices examined: 2
+0.00144618 [s]
+
+Level 09
+Sequence of moves: 
+ -W- - -W-  
+|         | 
+W B-W-   -  
+| |   | |   
+  W   W W   
+| |   | |   
+   -     -  
+|   | |   | 
+    W W   W 
+|   | |   | 
+B- -B B- -B 
+Number of moves: 1
+Number of vertices examined: 2
+0.00144583 [s]
 

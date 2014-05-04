@@ -20,4 +20,74 @@ BW BW \
    WW \
     ]]>
   </level>
+  <level id="03">
+    <![CDATA[
+BWW   \
+W    W\
+      \
+  WWW \
+WWWWWW\
+      \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+ W   B\
+ W WB \
+    W \
+BWW W \
+W     \
+ W   B\
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+B  WB \
+  WBW \
+ W W  \
+   BW \
+   WW \
+B   W \
+    ]]>
+  </level>
+  <level id="06">
+    <![CDATA[
+  BWWB\
+WWW  W\
+    W \
+    W \
+  W   \
+B B  B\
+    ]]>
+  </level>
+  <level id="07">
+    <![CDATA[
+ WBBWB\
+  WW W\
+ W    \
+    W \
+W WW  \
+BWBBW \
+    ]]>
+  </level>
+  <level id="08">
+    <![CDATA[
+  BWW \
+W WBW \
+   W  \
+ WWWWW\
+     W\
+B   WB\
+    ]]>
+  </level>
+  <level id="09">
+    <![CDATA[
+ W  W \
+WBW   \
+ W WW \
+      \
+  WW W\
+B BB B\
+    ]]>
+  </level>
 </levels>
