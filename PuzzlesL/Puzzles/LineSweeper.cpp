@@ -142,8 +142,9 @@ struct puz_state : vector<puz_dot>
 	}
 	const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	bool make_move(const Position& p, int n);
-	void make_move2(const Position& p, int n);
+	bool make_move_hint(const Position& p, int n);
+	void make_move_hint2(const Position& p, int n);
+	bool make_move_dot(const Position& p, int n);
 	int find_matches(bool init);
 	int check_dots(bool init);
 	bool check_loop() const;
@@ -228,7 +229,7 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, perm_ids.front()), 1;
+				return make_move_hint2(p, perm_ids.front()), 1;
 			}
 	}
 	return 2;
@@ -270,7 +271,7 @@ int puz_state::check_dots(bool init)
 	}
 }
 
-void puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move_hint2(const Position& p, int n)
 {
 	auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
 	for(int i = 0; i < 8; ++i){
@@ -317,10 +318,10 @@ bool puz_state::check_loop() const
 	return true;
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move_hint(const Position& p, int n)
 {
 	m_distance = 0;
-	make_move2(p, n);
+	make_move_hint2(p, n);
 	for(;;){
 		int m;
 		while((m = find_matches(false)) == 1);
@@ -334,6 +335,15 @@ bool puz_state::make_move(const Position& p, int n)
 	}
 }
 
+bool puz_state::make_move_dot(const Position& p, int n)
+{
+	m_distance = 0;
+	auto& dt = dots(p);
+	dt = {dt[n]};
+	int m = check_dots(false);
+	return m == 1 ? check_loop() : m == 2;
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	if(!m_matches.empty()){
@@ -345,12 +355,26 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 		for(int n : kv.second){
 			children.push_back(*this);
-			if(!children.back().make_move(kv.first, n))
+			if(!children.back().make_move_hint(kv.first, n))
 				children.pop_back();
 		}
 	}
 	else{
-		// TODO: What shall we do if we reach here?
+		auto f = [](const puz_dot& dt){
+			int sz = dt.size();
+			return sz == 1 ? 100 : sz;
+		};
+		int i = boost::min_element(*this, [&](
+			const puz_dot& dt1, const puz_dot& dt2){
+			return f(dt1) < f(dt2);
+		}) - begin();
+		auto& dt = (*this)[i];
+		Position p(i / sidelen(), i % sidelen());
+		for(int n = 0; n < dt.size(); ++n){
+			children.push_back(*this);
+			if(!children.back().make_move_dot(p, n))
+				children.pop_back();
+		}
 	}
 }
 
