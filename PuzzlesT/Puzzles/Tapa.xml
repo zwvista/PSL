@@ -37,6 +37,16 @@
     3   4       22      \
     ]]>
   </level>
+  <level id="05">
+    <![CDATA[
+                        \
+22                  4   \
+            22          \
+4       4       22      \
+3       5               \
+                    3   \
+    ]]>
+  </level>
   <level id="06" GameType="Four-Me-Tapa">
     <![CDATA[
             3           \
@@ -45,6 +55,16 @@
                 22      \
             2           \
 2               0       \
+    ]]>
+  </level>
+  <level id="07" GameType="Four-Me-Tapa">
+    <![CDATA[
+3           1           \
+            4           \
+                    1   \
+        15      5       \
+22                  3   \
+            5           \
     ]]>
   </level>
   <level id="08" GameType="No Square Tapa">
@@ -74,6 +94,16 @@
                         \
     5           22      \
     3           11  1   \
+                        \
+    ]]>
+  </level>
+  <level id="11" GameType="Equal Tapa">
+    <![CDATA[
+        2               \
+1                   12  \
+    4                   \
+                6       \
+            12          \
                         \
     ]]>
   </level>

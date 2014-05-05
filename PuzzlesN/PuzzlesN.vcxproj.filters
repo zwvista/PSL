@@ -22,9 +22,6 @@
     <Text Include="Puzzles\numeric_paranoia.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\nurikabe.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\Neighbours.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -35,6 +32,9 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\Neighbours3.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Nurikabe.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -59,21 +59,18 @@
     <ClCompile Include="Puzzles\numeric_paranoia.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\nurikabe.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\Neighbours.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\NumberLink.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Nurikabe.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\numeric_paranoia.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\nurikabe.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Neighbours.xml">
@@ -86,6 +83,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Neighbours3.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Nurikabe.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

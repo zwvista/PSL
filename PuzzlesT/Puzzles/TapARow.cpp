@@ -292,7 +292,7 @@ bool puz_state::make_move_space(const Position& p, char ch)
 	cells(p) = ch;
 	m_distance = 1;
 
-	return find_paths().size() == 1 && is_valid_move();
+	return (!is_goal_state() || find_paths().size() == 1) && is_valid_move();
 }
 
 puz_hint puz_state::compute_hint(const Position& p) const
