@@ -246,7 +246,7 @@ vector<puz_path> puz_state::find_paths(bool empty_path) const
 			path.first.push_back(p);
 			char ch = cells(p);
 			if(!empty_path && ch == PUZ_FILLED ||
-				empty_path && ch == PUZ_EMPTY)
+				empty_path && (ch == PUZ_HINT || ch == PUZ_EMPTY))
 				path.second++;
 		}
 	}
@@ -279,8 +279,7 @@ bool puz_state::make_move_hint2(const Position& p, int n)
 
 				for(auto& p2 : path.first){
 					char& ch = cells(p2);
-					if(ch == PUZ_SPACE)
-						ch = !empty_path ? PUZ_EMPTY : PUZ_FILLED, ++m_distance;
+					ch = !empty_path ? PUZ_EMPTY : PUZ_FILLED, ++m_distance;
 				}
 				paths.pop_back();
 			}
@@ -333,7 +332,13 @@ bool puz_state::is_valid_move() const
 		return true;
 	};
 
-	return find_paths(PUZ_FILLED).size() == 1 && find_paths(PUZ_EMPTY).size() == 1 &&
+	auto check_path = [](const vector<puz_path>& paths){
+		for(int i = 1; i < paths.size(); ++i)
+			if(paths[i].second != 0)
+				return false;
+		return true;
+	};
+	return check_path(find_paths(false)) && check_path(find_paths(true)) &&
 		is_valid_square({PUZ_FILLED}) && is_valid_square({PUZ_HINT, PUZ_EMPTY});
 }
 
