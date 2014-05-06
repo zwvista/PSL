@@ -6,9 +6,9 @@ Sequence of moves:
 aab
 abc
 bcc
-Number of moves: 7
-Number of vertices examined: 11
-0.0015071 [s]
+Number of moves: 2
+Number of vertices examined: 3
+0.00271615 [s]
 
 Level core 1 easy
 Sequence of moves: 
@@ -20,9 +20,9 @@ aaab
 acdb
 cdcb
 cddb
-Number of moves: 12
-Number of vertices examined: 24
-0.00112405 [s]
+Number of moves: 3
+Number of vertices examined: 6
+0.00101508 [s]
 
 Level core 100 master
 Sequence of moves: 
@@ -40,7 +40,7 @@ aeeedcb
 eeddfff
 edgfggg
 dgggfff
-Number of moves: 42
-Number of vertices examined: 55678
-0.778475 [s]
+Number of moves: 12
+Number of vertices examined: 2178
+0.363372 [s]
 
