@@ -18,6 +18,24 @@ W2S2S\
 S2W3 \
     ]]>
   </level>
+  <level id="03">
+    <![CDATA[
+ 13W \
+S2 32\
+S S S\
+SW 2 \
+ SS 1\
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+ 2 S \
+S W 0\
+W12S \
+S1 SS\
+ 32 W\
+    ]]>
+  </level>
   <level id="36">
     <![CDATA[
 2 12 S  \

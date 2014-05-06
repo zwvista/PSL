@@ -18,4 +18,22 @@ SGS S\
     G\
     ]]>
   </level>
+  <level id="03">
+    <![CDATA[
+G  G \
+ S SS\
+SGSG \
+  GHG\
+GS   \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+G GS \
+ SS G\
+SG HG\
+    S\
+GS  G\
+    ]]>
+  </level>
 </levels>

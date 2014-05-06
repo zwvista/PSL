@@ -59,6 +59,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& perms = area.m_perms;
 		int cnt = nums.size();
 
+		// indexes: 0--19  0--19  0--19
+		// An index less than 10 means a digit(=index) should be added
+		// before the given one.
+		// An index greater than or equal to 10 means a digit(=index - 10)
+		// should be added after the given one.
 		vector<int> indexes(cnt);
 		vector<int> perm(cnt);
 		for(int i = 0; i < cnt;){
@@ -116,7 +121,7 @@ puz_state::puz_state(const puz_game& g)
 	for(int i = 0; i < sidelen(); ++i)
 		f(i), f(sidelen() + i);
 
-	find_matches(true);
+	//find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
@@ -186,7 +191,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
+	for(int r = 0; r < sidelen(); ++r){
 		for(int c = 0; c < sidelen(); ++c){
 			out << format("%3d") % cells({r, c});
 		}

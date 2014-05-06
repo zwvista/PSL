@@ -7,7 +7,7 @@
 	ios game: Logic Games/Puzzle Set 10/Shop & Gas
 
 	Summary
-	Zip, swish, zoom! Lasers on mirrors!
+	A Hard day at shopping!
 
 	Description
 	1. In Shop & Gas you take the typical day at shopping. By the way:
