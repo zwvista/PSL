@@ -70,6 +70,7 @@ struct puz_state : string
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p);
+	bool is_continuous() const;
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -114,31 +115,35 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-	puz_state2(const puz_state& s);
+	puz_state2(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
 
-	int sidelen() const { return m_state->sidelen(); }
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const puz_state* m_state;
+	const set<Position>* m_rng;
 };
-
-puz_state2::puz_state2(const puz_state& s)
-: m_state(&s)
-{
-	int i = s.find(PUZ_WALL);
-	make_move({i / sidelen(), i % sidelen()});
-}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
-		if(m_state->cells(p2) == PUZ_WALL){
+		if(m_rng->count(p2) != 0){
 			children.push_back(*this);
 			children.back().make_move(p2);
 		}
 	}
+}
+
+bool puz_state::is_continuous() const
+{
+	set<Position> a;
+	for(int i = 0; i < length(); ++i)
+		if((*this)[i] == PUZ_WALL)
+			a.insert({i / sidelen(), i % sidelen()});
+
+	list<puz_state2> smoves;
+	puz_move_generator<puz_state2>::gen_moves(a, smoves);
+	return smoves.size() == a.size();
 }
 
 bool puz_state::make_move(const Position& p)
@@ -171,9 +176,7 @@ bool puz_state::make_move(const Position& p)
 	}))
 		return false;
 
-	list<puz_state2> smoves;
-	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	return smoves.size() == boost::count(*this, PUZ_WALL);
+	return is_continuous();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -191,7 +194,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r) {
+	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
 			char ch = cells(p);

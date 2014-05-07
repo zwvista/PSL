@@ -45,12 +45,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
 			int n = str[c] - '0';
-			auto& area1 = m_areas[r];
-			area1.m_range.push_back(p);
-			area1.m_nums.push_back(n);
-			auto& area2 = m_areas[m_sidelen + c];
-			area2.m_range.push_back(p);
-			area2.m_nums.push_back(n);
+			for(int i : {r, m_sidelen + c}){
+				auto& a = m_areas[i];
+				a.m_range.push_back(p);
+				a.m_nums.push_back(n);
+			}
 		}
 	}
 

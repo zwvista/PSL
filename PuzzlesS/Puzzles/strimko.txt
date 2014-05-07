@@ -8,7 +8,7 @@ abc
 bcc
 Number of moves: 2
 Number of vertices examined: 3
-0.00271615 [s]
+0.00205 [s]
 
 Level core 1 easy
 Sequence of moves: 
@@ -22,7 +22,7 @@ cdcb
 cddb
 Number of moves: 3
 Number of vertices examined: 6
-0.00101508 [s]
+0.00136574 [s]
 
 Level core 100 master
 Sequence of moves: 
@@ -42,5 +42,5 @@ edgfggg
 dgggfff
 Number of moves: 12
 Number of vertices examined: 2178
-0.363372 [s]
+0.330701 [s]
 

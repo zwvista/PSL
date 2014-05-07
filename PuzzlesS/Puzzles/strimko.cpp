@@ -25,14 +25,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	m_start = accumulate(strs.begin(), strs.begin() + m_sidelen, string());
 	m_areas.resize(m_sidelen * 3);
 	for(int r = 0; r < m_sidelen; ++r){
-		const string& str = strs[r + m_sidelen];
+		auto& str = strs[r + m_sidelen];
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
 			int n = str[c] - 'a';
 			m_pos2area[p] = n;
-			m_areas[n].push_back(p);
-			m_areas[m_sidelen + p.first].push_back(p);
-			m_areas[m_sidelen * 2 + p.second].push_back(p);
+			for(int i : {n, m_sidelen + p.first, m_sidelen * 2 + p.second})
+				m_areas[i].push_back(p);
 		}
 	}
 
