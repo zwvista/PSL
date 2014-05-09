@@ -87,6 +87,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 	m_start.append(string(m_sidelen + 1, PUZ_WOLF));
 
+	// 3. Each number tells you on how many of its four sides are touched
+	// by the path.
 	auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
 	for(int i = 0; i < 4; ++i){
 		auto& perms = m_num2perms[i];
@@ -155,7 +157,7 @@ puz_state::puz_state(const puz_game& g)
 					dt.push_back(lines);
 		}
 
-	for(const auto& kv : g.m_pos2num){
+	for(auto& kv : g.m_pos2num){
 		auto& perm_ids = m_matches[kv.first];
 		perm_ids.resize(g.m_num2perms.at(kv.second).size());
 		boost::iota(perm_ids, 0);

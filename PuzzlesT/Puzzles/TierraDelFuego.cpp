@@ -84,8 +84,8 @@ struct puz_state : string
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_game->m_tribes.size() - m_island_count; }
-	unsigned int get_distance(const puz_state& child) const { return 1; }
+	unsigned int get_heuristic() const { return m_tribes_index - m_game->m_tribes.size(); }
+	unsigned int get_distance(const puz_state& child) const { return m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
 	friend ostream& operator<<(ostream& out, const puz_state& state) {
@@ -94,7 +94,8 @@ struct puz_state : string
 
 	const puz_game* m_game = nullptr;
 	vector<int> m_waters;
-	int m_island_count = 0;
+	int m_tribes_index = 0;
+	int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -149,13 +150,31 @@ bool puz_state::make_move(int n)
 	});
 
 	set<Position> a;
-	for(int r = 0; r < sidelen(); ++r)
-		for(int c = 0; c < sidelen(); ++c){
-			Position p(r, c);
-			if(cells(p) != PUZ_WATER)
-				a.insert(p);
+	for(int i = 0; i < length(); ++i){
+		char ch = (*this)[i];
+		if(ch != PUZ_WATER && ch != PUZ_SPACE)
+			a.insert({i / sidelen(), i % sidelen()});
+	}
+	while(!a.empty()){
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves(a, smoves);
+		set<char> tribes;
+		for(auto& p : smoves){
+			a.erase(p);
+			char ch = cells(p);
+			if(isalpha(ch))
+				tribes.insert(ch);
 		}
-	m_island_count = 0;
+		if(tribes.size() > 1)
+			return false;
+	}
+
+	for(int i = 0; i < length(); ++i){
+		char ch = (*this)[i];
+		if(ch != PUZ_WATER)
+			a.insert({i / sidelen(), i % sidelen()});
+	}
+	int tribes_index = 0;
 	set<char> all_tribes;
 	while(!a.empty()){
 		list<puz_state2> smoves;
@@ -173,9 +192,11 @@ bool puz_state::make_move(int n)
 		all_tribes.insert(tribes.begin(), tribes.end());
 		if(tribes.empty())
 			return false;
-		if(tribes.size() == 1)
-			++m_island_count;
+		int n = tribes.size();
+		tribes_index += n * n;
 	}
+	m_distance = m_tribes_index - tribes_index;
+	m_tribes_index = tribes_index;
 
 	return is_goal_state() || !m_waters.empty();
 }
