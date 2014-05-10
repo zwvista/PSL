@@ -18,7 +18,7 @@
 
 namespace puzzles{ namespace TennerGrid{
 
-#define PUZ_SPACE		-1
+#define PUZ_UNKNOWN		-1
 	
 const Position offset[] = {
 	{-1, 0},	// n
@@ -63,15 +63,15 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < cols(); ++c){
 			Position p(r, c);
 			auto s = str.substr(c * 2, 2);
-			int n = s == "  " ? PUZ_SPACE : atoi(s.c_str());
+			int n = s == "  " ? PUZ_UNKNOWN : atoi(s.c_str());
 			m_start.push_back(n);
 
-			if(n == PUZ_SPACE)
+			if(n == PUZ_UNKNOWN)
 				m_area_info[c].m_range.push_back(p);
 
 			if(r == rows()) continue;
 			auto& info_r = m_area_info[r + cols()];
-			if(n == PUZ_SPACE)
+			if(n == PUZ_UNKNOWN)
 				info_r.m_range.push_back(p);
 			else
 				boost::remove_erase(info_r.m_nums, n);
@@ -88,7 +88,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int i = 0; i < cnt;){
 			for(int r = 0, j = 0; r < rows(); ++r){
 				int n = cells({r, c});
-				nums[r] = n == PUZ_SPACE ? perm[j++] : n;
+				nums[r] = n == PUZ_UNKNOWN ? perm[j++] : n;
 			}
 			if(boost::range::adjacent_find(nums) == nums.end() &&
 				boost::accumulate(nums, 0) == cells({rows(), c}))
@@ -167,7 +167,7 @@ int puz_state::find_matches(bool init)
 		auto& perms = info.m_perms;
 		boost::remove_erase_if(perm_ids, [&](int id){
 			return !boost::equal(nums, perms[id], [](int n1, int n2){
-				return n1 == PUZ_SPACE || n1 == n2;
+				return n1 == PUZ_UNKNOWN || n1 == n2;
 			});
 		});
 

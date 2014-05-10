@@ -18,17 +18,25 @@
 	3. Your task is to fill the remaining board tiles with straight or 90 degree
 	   path lines, in the end connecting a single, continuous line.
 	4. Please note you can make 90 degree turn even there are no mirrors.
+
+	Variant
+	5. In the Maze variant, the path isn't closed. You have two spots on the
+	   board which represent the start and end of the path.
 */
 
 namespace puzzles{ namespace Mirrors{
 
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
-#define PUZ_BLOCK			'B'
+#define PUZ_BLOCK			"B "
+#define PUZ_SPOT			"S "
 
 const string lines_off = "0000";
-const string lines_all[] = {
+const vector<string> lines_all = {
 	"0011", "0101", "0110", "1001", "1010", "1100",
+};
+const vector<string> lines_spot = {
+	"1000", "0100", "0010", "0001",
 };
 
 const Position offset[] = {
@@ -44,6 +52,7 @@ struct puz_game
 	int m_sidelen;
 	int m_dot_count;
 	map<Position, string> m_pos2lines;
+	set<Position> m_spots;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 	bool is_valid(const Position& p) const {
@@ -60,9 +69,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
 			auto s = str.substr(2 * c, 2);
-			if(s != "  "){
+			Position p(r, c);
+			if(s == PUZ_SPOT)
+				m_spots.insert(p);
+			else if(s != "  "){
 				auto lines = lines_off;
-				if(s != "B ")
+				if(s != PUZ_BLOCK)
 					lines[s[0] - '0'] = lines[s[1] - '0'] = PUZ_LINE_ON;
 				m_pos2lines[{r, c}] = lines;
 			}
@@ -112,8 +124,9 @@ puz_state::puz_state(const puz_game& g)
 			auto it = g.m_pos2lines.find(p);
 			if(it != g.m_pos2lines.end())
 				dt = {it->second};
-			else
-				for(auto& lines : lines_all)
+			else{
+				auto& lines_all2 = g.m_spots.count(p) != 0 ? lines_spot : lines_all;
+				for(auto& lines : lines_all2)
 					if([&]{
 						for(int i = 0; i < 4; ++i)
 							if(lines[i] == PUZ_LINE_ON && !is_valid(p + offset[i]))
@@ -121,6 +134,7 @@ puz_state::puz_state(const puz_game& g)
 						return true;
 					}())
 						dt.push_back(lines);
+			}
 		}
 
 	check_dots(true);
@@ -228,7 +242,8 @@ ostream& puz_state::dump(ostream& out) const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			out << (dt[0] == lines_off ? "B " :
+			out << (m_game->m_spots.count(p) != 0 ? PUZ_SPOT :
+				dt[0] == lines_off ? PUZ_BLOCK :
 				dt[0][1] == PUZ_LINE_ON ? " -" : "  ");
 		}
 		out << endl;
