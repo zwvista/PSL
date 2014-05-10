@@ -22,9 +22,6 @@
     <Text Include="Puzzles\magic_square.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\magnets.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\mazecat.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -49,6 +46,9 @@
     <Text Include="Puzzles\MineShips.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Magnets.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -69,9 +69,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\magic_square.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\magnets.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\mazecat.cpp">
@@ -98,15 +95,15 @@
     <ClCompile Include="Puzzles\MineShips.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Magnets.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\magic_square2.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\magnets.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\mazecat.xml">
@@ -131,6 +128,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\MineShips.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Magnets.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

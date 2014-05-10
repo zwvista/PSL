@@ -9,15 +9,16 @@
 	Place Magnets on the board, respecting the orientation of poles
 
 	Description
-	Each Magnet has a positive(+) and a negative(-) pole.
-	1. Every rectangle can either contain a Magnet or be empty.
-	2. The numbers on the board tells you how many positive and negative poles
+	1. Each Magnet has a positive(+) and a negative(-) pole.
+	2. Every rectangle can either contain a Magnet or be empty.
+	3. The number on the board tells you how many positive and negative poles
 	   you can see from there in a straight line.
-	3. When placing a Magnet, you have to respect the rule that the same pole
-	   (+ and + / - and -)can't be adjacent horizontally or vertically.
+	4. When placing a Magnet, you have to respect the rule that the same pole
+	   (+ and + / - and -) can't be adjacent horizontally or vertically.
+	5. In some levels, a few numbers on the border can be hidden.
 */
 
-namespace puzzles{ namespace magnets{
+namespace puzzles{ namespace Magnets{
 
 #define PUZ_HORZ		'H'
 #define PUZ_VERT		'V'
@@ -25,6 +26,7 @@ namespace puzzles{ namespace magnets{
 #define PUZ_POSITIVE	'+'
 #define PUZ_NEGATIVE	'-'
 #define PUZ_EMPTY		'.'
+#define PUZ_UNKNOWN		9999
 
 const Position offset[] = {
 	{0, 1},
@@ -39,20 +41,21 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	int m_num_recs;
-	vector<set<Position>> m_area_pos;
-	map<Position, int> m_pos2rec;
+	int m_rect_count;
+	vector<vector<Position>> m_area_info;
+	map<Position, int> m_pos2rect;
 	vector<array<int, 2>> m_num_poles_rows, m_num_poles_cols;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+	char cells(const Position& p) const { return m_start[p.first * (m_sidelen + 2) + p.second]; }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id(attrs.get<string>("id"))
 	, m_sidelen(strs.size() - 2)
-	, m_num_recs(m_sidelen * m_sidelen / 2)
-	, m_area_pos(m_num_recs + m_sidelen + m_sidelen)
+	, m_rect_count(m_sidelen * m_sidelen / 2)
+	, m_area_info(m_rect_count + m_sidelen + m_sidelen)
 	, m_num_poles_rows(m_sidelen)
 	, m_num_poles_cols(m_sidelen)
 {
@@ -62,9 +65,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 0; c < m_sidelen + 2; ++c){
 			Position p(r, c);
 			switch(char ch = str[c]){
-			case PUZ_SPACE:
 			case PUZ_POSITIVE:
 			case PUZ_NEGATIVE:
+			case PUZ_EMPTY:
 				break;
 			case PUZ_HORZ:
 			case PUZ_VERT:
@@ -72,18 +75,17 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 					Position p = 
 						ch == PUZ_HORZ ? Position(r, c + d)
 						: Position(r + d, c);
-					m_pos2rec[p] = n;
-					m_area_pos[n].insert(p);
-					m_area_pos[m_num_recs + p.first].insert(p);
-					m_area_pos[m_num_recs + m_sidelen + p.second].insert(p);
+					m_pos2rect[p] = n;
+					for(int i : {n, m_rect_count + p.first, m_rect_count + m_sidelen + p.second})
+						m_area_info[i].push_back(p);
 				}
 				++n;
 				break;
 			default:
-				if(c >= m_sidelen)
-					m_num_poles_rows[r][c - m_sidelen] = ch - '0';
-				else if(r >= m_sidelen)
-					m_num_poles_cols[c][r - m_sidelen] = ch - '0';
+				if((c >= m_sidelen) != (r >= m_sidelen))
+					(c >= m_sidelen ? m_num_poles_rows[r][c - m_sidelen] :
+					m_num_poles_cols[c][r - m_sidelen]) =
+					ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
 				break;
 			}
 		}
@@ -91,21 +93,36 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 }
 
 // second.key : all chars used to fill a position
-// second.value : the number of remaining times that the key char can be used in the area
-struct puz_area : pair<int, map<char, int>>
+// second.first : the number of remaining times that the key char can be used in the area
+// second.second : the number of times that the key char has been used in the area
+struct puz_area : pair<int, map<char, pair<int, int>>>
 {
 	puz_area() {}
-	puz_area(int index, int num_positive, int num_negative, int num_empty)
-	: pair<int, map<char, int>>(index, map<char, int>()){
-		second.emplace(PUZ_POSITIVE, num_positive);
-		second.emplace(PUZ_NEGATIVE, num_negative);
-		second.emplace(PUZ_EMPTY, num_empty);
+	puz_area(int index, int num_positive, int num_negative, int num_all){
+		first = index;
+		second[PUZ_POSITIVE] = {num_positive, 0};
+		second[PUZ_NEGATIVE] = {num_negative, 0};
+		second[PUZ_EMPTY] = {
+			num_positive == PUZ_UNKNOWN ||
+			num_negative == PUZ_UNKNOWN ? PUZ_UNKNOWN :
+			num_all - num_positive - num_negative, 0};
 	}
-	void fill_cells(const Position& p, char ch){ --second.at(ch); }
-	int cant_use(char ch) const { return second.at(ch) == 0; }
+	bool fill_cells(const Position& p, char ch){
+		auto& kv = second.at(ch);
+		if(kv.first != PUZ_UNKNOWN)
+			--kv.first;
+		++kv.second;
+		return kv.first >= 0;
+	}
+	int cant_use(char ch) const { return second.at(ch).first == 0; }
+	bool is_ready() const {
+		auto f = [](int n){ return n == 0 || n == PUZ_UNKNOWN; };
+		auto g = [&](char ch) { return f(second.at(ch).first); };
+		return g(PUZ_POSITIVE) && g(PUZ_NEGATIVE);
+	}
 };
 
-using puz_group = vector<puz_area>;
+typedef vector<puz_area> puz_group;
 
 struct puz_state : string
 {
@@ -121,7 +138,7 @@ struct puz_state : string
 	bool make_move2(const Position& p, char ch);
 	void check_area(const puz_area& a, char ch){
 		if(a.cant_use(ch))
-			for(const auto& p : m_game->m_area_pos[a.first])
+			for(auto& p : m_game->m_area_info[a.first])
 				remove_pair(p, ch);
 	}
 	void remove_pair(const Position& p, char ch){
@@ -151,20 +168,25 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_game(&g)
 {
-	puz_chars all_chars = { PUZ_POSITIVE, PUZ_NEGATIVE, PUZ_EMPTY };
+	puz_chars all_chars = {PUZ_POSITIVE, PUZ_NEGATIVE, PUZ_EMPTY};
 	for(int r = 0; r < g.m_sidelen; ++r)
-		for(int c = 0; c < g.m_sidelen; ++c)
-			m_pos2chars[{r, c}] = all_chars;
+		for(int c = 0; c < g.m_sidelen; ++c){
+			Position p(r, c);
+			if(g.cells(p) == PUZ_EMPTY)
+				cells(p) = PUZ_EMPTY;
+			else
+				m_pos2chars[p] = all_chars;
+		}
 
 	for(int i = 0; i < g.m_sidelen; i++){
-		const auto& np = g.m_num_poles_rows[i];
-		m_grp_rows.emplace_back(i + g.m_num_recs, np[0], np[1], g.m_sidelen - np[0] - np[1]);
+		auto& np = g.m_num_poles_rows[i];
+		m_grp_rows.emplace_back(i + g.m_rect_count, np[0], np[1], g.m_sidelen);
 		for(char ch : all_chars)
 			check_area(m_grp_rows.back(), ch);
 	}
 	for(int i = 0; i < g.m_sidelen; i++){
-		const auto& np = g.m_num_poles_cols[i];
-		m_grp_cols.emplace_back(i + g.m_num_recs + g.m_sidelen, np[0], np[1], g.m_sidelen - np[0] - np[1]);
+		auto& np = g.m_num_poles_cols[i];
+		m_grp_cols.emplace_back(i + g.m_rect_count + g.m_sidelen, np[0], np[1], g.m_sidelen);
 		for(char ch : all_chars)
 			check_area(m_grp_cols.back(), ch);
 	}
@@ -175,9 +197,9 @@ bool puz_state::make_move(const Position& p, char ch)
 	if(!make_move2(p, ch))
 		return false;
 
-	auto ps = m_game->m_area_pos.at(m_game->m_pos2rec.at(p));
-	ps.erase(p);
-	const auto& p2 = *ps.cbegin();
+	auto rng = m_game->m_area_info.at(m_game->m_pos2rect.at(p));
+	boost::remove_erase(rng, p);
+	auto& p2 = rng[0];
 
 	char ch2 =
 		ch == PUZ_EMPTY ? PUZ_EMPTY :
@@ -192,53 +214,63 @@ bool puz_state::make_move2(const Position& p, char ch)
 	m_pos2chars.erase(p);
 
 	for(auto a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}){
-		a->fill_cells(p, ch);
+		if(!a->fill_cells(p, ch))
+			return false;
 		check_area(*a, ch);
 	}
 
 	// respect the rule of poles
 	if(ch != PUZ_EMPTY)
 		for(auto& os : offset){
-			const auto& p2 = p + os;
+			auto p2 = p + os;
 			if(is_valid(p2))
 				remove_pair(p2, ch);
 		}
 
+	auto f = [](const puz_group& grp){
+		return boost::algorithm::all_of(grp, [](const puz_area& a){
+			return a.is_ready();
+		});
+	};
 	return boost::algorithm::none_of(m_pos2chars, [](const pair<const Position, puz_chars>& kv){
 		return kv.second.empty();
-	});
+	}) && (!is_goal_state() || f(m_grp_rows) && f(m_grp_cols));
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	const auto& kv = *boost::min_element(m_pos2chars,
-		[](const pair<const Position, puz_chars>& kv1, const pair<const Position, puz_chars>& kv2){
+	auto& kv = *boost::min_element(m_pos2chars, [](
+		const pair<const Position, puz_chars>& kv1,
+		const pair<const Position, puz_chars>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
 
-	const auto& p = kv.first;
 	for(char ch : kv.second){
 		children.push_back(*this);
-		if(!children.back().make_move(p, ch))
+		if(!children.back().make_move(kv.first, ch))
 			children.pop_back();
 	}
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-	dump_move(out);
-	for(int r = 0; r < sidelen() + 2; ++r) {
-		for(int c = 0; c < sidelen() + 2; ++c)
-			out << (r < sidelen() && c < sidelen() ?
-				cells({r, c}) :
-				m_game->m_start[r * (sidelen() + 2) + c]);
-		out << endl;
-	}
-	for(int r = 0; r < sidelen() + 2; ++r) {
-		for(int c = 0; c < sidelen() + 2; ++c)
-			out << (r < sidelen() && c < sidelen() ? 
-				char(m_game->m_pos2rec.at(Position(r, c)) + 'a') :
-				m_game->m_start[r * (sidelen() + 2) + c]);
+	for(int r = 0; r < sidelen() + 2; ++r){
+		for(int c = 0; c < sidelen() + 2; ++c){
+			Position p(r, c);
+			if(r < sidelen() && c < sidelen())
+				out << cells(p);
+			else if(r >= sidelen() && c >= sidelen())
+				out << m_game->cells(p);
+			else{
+				bool is_row = c >= sidelen();
+				out <<
+					(is_row ? m_grp_rows : m_grp_cols)
+					[is_row ? r : c].second.at
+					((is_row ? c : r) == sidelen() ?
+					PUZ_POSITIVE : PUZ_NEGATIVE).second;
+			}
+			out << ' ';
+		}
 		out << endl;
 	}
 	return out;
@@ -246,9 +278,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_magnets()
+void solve_puz_Magnets()
 {
-	using namespace puzzles::magnets;
+	using namespace puzzles::Magnets;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>
-		("Puzzles\\magnets.xml", "Puzzles\\magnets.txt", solution_format::GOAL_STATE_ONLY);
+		("Puzzles\\Magnets.xml", "Puzzles\\Magnets.txt", solution_format::GOAL_STATE_ONLY);
 }

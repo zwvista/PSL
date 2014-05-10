@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="01">
+    <![CDATA[
+VVH 22\
+  H 11\
+VH V10\
+ H  12\
+1121+ \
+1202 -\
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+H VV11\
+H   22\
+H VV22\
+H   22\
+2122+ \
+1222 -\
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+H H V23\
+VH . 21\
+ VVH 00\
+V  VV12\
+ H   32\
+11222+ \
+22112 -\
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+.VH V22\
+V H  32\
+ H H 23\
+VH VV22\
+ H   11\
+12232+ \
+12223 -\
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+VVH .  \
+  VVV 0\
+VV     \
+  VVV  \
+H    2 \
+212 2+ \
+   22 -\
+    ]]>
+  </level>
+  <level id="06">
+    <![CDATA[
+.VH V  \
+V H   3\
+ H VV 2\
+VH     \
+ H H 2 \
+  3  + \
+ 2222 -\
+    ]]>
+  </level>
+  <level id="07">
+    <![CDATA[
+H VVV11\
+VV   12\
+  H .21\
+VVH V21\
+  H  12\
+21112+ \
+21202 -\
+    ]]>
+  </level>
+  <level id="08">
+    <![CDATA[
+H H .22\
+H H V12\
+H VV 21\
+VV  V22\
+  H  11\
+21122+ \
+21212 -\
+    ]]>
+  </level>
+  <level id="09">
+    <![CDATA[
+.H VV  \
+H V    \
+H  H 1 \
+H H V 1\
+H H  22\
+1    + \
+2  22 -\
+    ]]>
+  </level>
+  <level id="10">
+    <![CDATA[
+VVH V  \
+  H   1\
+VH H 22\
+ .H V 2\
+H H    \
+     + \
+2 22  -\
+    ]]>
+  </level>
+  <level id="17">
+    <![CDATA[
+H H VV21\
+VVH   22\
+  VH V11\
+H  VV 23\
+VH   V21\
+ H H  12\
+220222+ \
+212122 -\
+    ]]>
+  </level>
+  <level id="18">
+    <![CDATA[
+VH VH 23\
+ H  H 21\
+H H H 11\
+VH H V23\
+ H H  21\
+H H H 22\
+232130+ \
+322013 -\
+    ]]>
+  </level>
+</levels>

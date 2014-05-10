@@ -149,7 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\magic_square.txt" />
-    <Text Include="Puzzles\magnets.txt" />
+    <Text Include="Puzzles\Magnets.txt" />
     <Text Include="Puzzles\Masyu.txt" />
     <Text Include="Puzzles\Mathrax.txt" />
     <Text Include="Puzzles\mazecat.txt" />
@@ -168,7 +168,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\magic_square.cpp" />
-    <ClCompile Include="Puzzles\magnets.cpp" />
+    <ClCompile Include="Puzzles\Magnets.cpp" />
     <ClCompile Include="Puzzles\Masyu.cpp" />
     <ClCompile Include="Puzzles\Mathrax.cpp" />
     <ClCompile Include="Puzzles\mazecat.cpp" />
@@ -187,7 +187,7 @@
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml" />
     <Xml Include="Puzzles\magic_square2.xml" />
-    <Xml Include="Puzzles\magnets.xml" />
+    <Xml Include="Puzzles\Magnets.xml" />
     <Xml Include="Puzzles\Masyu.xml" />
     <Xml Include="Puzzles\Mathrax.xml" />
     <Xml Include="Puzzles\mazecat.xml" />
