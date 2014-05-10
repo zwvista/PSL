@@ -204,7 +204,7 @@ bool puz_state::make_move2(const Position& p, int n)
 	++m_distance;
 	m_matches.erase(p);
 
-	return is_continuous();
+	return !is_goal_state() || is_continuous();
 }
 
 bool puz_state::make_move(const Position& p, int n)
