@@ -37,13 +37,14 @@ struct puz_game
 	int m_sidelen;
 	vector<int> m_piece_counts_rows, m_piece_counts_cols;
 	Position m_cloud_max_size;
+	set<Position> m_pieces;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
-, m_sidelen{strs.size() + 1}
+, m_sidelen(strs.size() + 1)
 , m_piece_counts_rows(m_sidelen)
 , m_piece_counts_cols(m_sidelen)
 {
@@ -51,7 +52,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& str = strs[r - 1];
 		for(int c = 1; c < m_sidelen; c++){
 			char ch = str[c - 1];
-			if(ch != PUZ_SPACE)
+			if(ch == PUZ_CLOUD)
+				m_pieces.emplace(r, c);
+			else if(ch != PUZ_SPACE)
 				(c == m_sidelen - 1 ? m_piece_counts_rows[r] : m_piece_counts_cols[c])
 				= ch - '0';
 		}
@@ -88,6 +91,7 @@ struct puz_state : string
 
 	const puz_game* m_game;
 	vector<int> m_piece_counts_rows, m_piece_counts_cols;
+	set<Position> m_pieces;
 	vector<pair<Position, Position>> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -96,6 +100,7 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 , m_piece_counts_rows(g.m_piece_counts_rows)
 , m_piece_counts_cols(g.m_piece_counts_cols)
+, m_pieces(g.m_pieces)
 {
 	for(int i = 0; i < sidelen(); ++i)
 		cells({i, 0}) = cells({i, sidelen() - 1}) =
@@ -129,16 +134,19 @@ void puz_state::find_matches()
 		for(int r = 1; r < sidelen() - h; ++r)
 			for(int w = 2; w <= m_game->m_cloud_max_size.second; ++w)
 				for(int c = 1; c < sidelen() - w; ++c)
-					if([=](){
+					if([=]{
+						bool is_piece = false;
 						for(int dr = 0; dr < h; ++dr)
 							for(int dc = 0; dc < w; ++dc){
 								Position p(r + dr, c + dc);
+								if(m_pieces.count(p) != 0)
+									is_piece = true;
 								if(m_piece_counts_cols[p.second] < h ||
 									m_piece_counts_rows[p.first] < w ||
 									cells(p) != PUZ_SPACE)
 									return false;
 							}
-						return true;
+						return m_pieces.empty() || is_piece;
 					}())
 						m_matches.push_back({{r, c}, {h, w}});
 }
@@ -151,6 +159,7 @@ bool puz_state::make_move(const Position& p, int h, int w)
 			cells(p2) = PUZ_CLOUD;
 			--m_piece_counts_rows[p2.first];
 			--m_piece_counts_cols[p2.second];
+			m_pieces.erase(p2);
 		}
 
 	auto f = [this](const Position& p){
