@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -114,15 +115,16 @@ struct puz_state : string
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, int n);
-	bool make_move2(const Position& p, int n){
+	void make_move2(const Position& p, int n){
 		auto& island = m_game->m_pos2islandinfo.at(p).m_islands[n];
-		return make_move3(p, island);
+		make_move3(p, island);
 	}
-	bool make_move3(const Position& p, const pair<Position, Position>& island);
+	void make_move3(const Position& p, const pair<Position, Position>& island);
 	int find_matches(bool init);
+	bool is_connected() const;
 
 	//solve_puzzle interface
-	bool is_goal_state() const {return get_heuristic() == 0;}
+	bool is_goal_state() const { return get_heuristic() == 0 && is_connected(); }
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const { return m_matches.size() + m_2by2waters.size(); }
 	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
@@ -176,13 +178,49 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, island_ids.front()) ? 1 : 0;
+				return make_move2(p, island_ids.front()), 1;
 			}
 	}
 	return 2;
 }
 
-bool puz_state::make_move3(const Position& p, const pair<Position, Position>& island)
+struct puz_state2 : Position
+{
+	puz_state2(const set<Position>& a) : m_area(a) { make_move(*a.begin()); }
+
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+	void gen_children(list<puz_state2>& children) const;
+
+	const set<Position>& m_area;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	for(auto& os : offset){
+		auto p = *this + os;
+		if(m_area.count(p) != 0){
+			children.push_back(*this);
+			children.back().make_move(p);
+		}
+	}
+}
+
+bool puz_state::is_connected() const
+{
+	set<Position> area;
+	for(int r = 0; r < sidelen(); ++r)
+		for(int c = 0; c < sidelen(); ++c){
+			Position p(r, c);
+			if(cells(p) == PUZ_ISLAND)
+				area.insert(p);
+		}
+
+	list<puz_state2> smoves;
+	puz_move_generator<puz_state2>::gen_moves(area, smoves);
+	return smoves.size() == area.size();
+}
+
+void puz_state::make_move3(const Position& p, const pair<Position, Position>& island)
 {
 	int cnt = m_2by2waters.size();
 	auto &tl = island.first, &br = island.second;
@@ -207,25 +245,12 @@ bool puz_state::make_move3(const Position& p, const pair<Position, Position>& is
 	m_distance += cnt - m_2by2waters.size() + 1;
 	m_matches.erase(p);
 	m_islands.push_back(island);
-
-	if(!is_goal_state())
-		return true;
-	boost::replace(*this, PUZ_SPACE, PUZ_WATER);
-	return boost::algorithm::all_of(m_islands, [&](const pair<Position, Position>& island){
-		auto tl = island.first + Position(-1, -1);
-		auto br = island.second + Position(1, 1);
-		vector<Position> rng{tl, {tl.first, br.second}, {br.first, tl.second}, br};
-		return boost::algorithm::any_of(rng, [&](const Position& p2){
-			return is_valid(p2) && this->cells(p2) == PUZ_ISLAND;
-		});
-	});
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
 	m_distance = 0;
-	if(!make_move2(p, n))
-		return false;
+	make_move2(p, n);
 	int m;
 	while((m = find_matches(false)) == 1);
 	return m == 2;
@@ -249,18 +274,18 @@ void puz_state::gen_children(list<puz_state>& children) const
 		for(int i = 0; i < length(); ++i){
 			if((*this)[i] != PUZ_SPACE) continue;
 			Position p(i / sidelen(), i % sidelen());
-			[&]{
-				for(int r = p.first; r < sidelen(); ++r)
-					for(int c = p.second; c < sidelen(); ++c){
+			for(int r = p.first; r < sidelen(); ++r)
+				for(int c = p.second; c < sidelen(); ++c)
+					if([&]{
 						for(int r2 = p.first; r2 <= r; ++r2)
 							for(int c2 = p.second; c2 <= c; ++c2)
 								if(cells({r2, c2}) != PUZ_SPACE)
-									return;
+									return false;
+						return true;
+					}()){
 						children.push_back(*this);
-						if(!children.back().make_move3(p, {p, {r, c}}))
-							children.pop_back();
+						children.back().make_move3(p, {p, {r, c}});
 					}
-			}();
 		}
 }
 
