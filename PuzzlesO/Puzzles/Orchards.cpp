@@ -46,7 +46,7 @@ struct puz_tree_info
 };
 
 const puz_tree_info tree_info[4] = {
-	{{{0, 0}, {-1, 0}}, {{-2, 0}, {-1, 1}, {0, 1}, {1, 0}, {0, -1}, {0, -2}}},
+	{{{0, 0}, {-1, 0}}, {{-2, 0}, {-1, 1}, {0, 1}, {1, 0}, {0, -1}, {-1, -1}}},
 	{{{0, 0}, {0, 1}}, {{-1, 0}, {-1, 1}, {0, 2}, {1, 1}, {1, 0}, {0, -1}}},
 	{{{0, 0}, {1, 0}}, {{-1, 0}, {0, 1}, {1, 1}, {2, 0}, {1, -1}, {0, -1}}},
 	{{{0, 0}, {0, -1}}, {{-1, 0}, {0, 1}, {1, 0}, {1, -1}, {0, -2}, {-1, -1}}},
@@ -207,14 +207,14 @@ bool puz_state::make_move(const Position& p, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	vector<const puz_area*> areas;
-	for(const puz_area& a : m_areas)
+	for(auto& a : m_areas)
 		if(a.second > 0)
 			areas.push_back(&a);
 
-	const auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
+	auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
 		return a1->first.size() < a2->first.size();
 	});
-	for(const auto& p : a.first)
+	for(auto& p : a.first)
 		for(int i = 0; i < 4; ++i){
 			children.push_back(*this);
 			if(!children.back().make_move(p, i))
