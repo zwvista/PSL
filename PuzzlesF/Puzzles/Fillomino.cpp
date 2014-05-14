@@ -72,11 +72,12 @@ struct puz_game
 	map<Position, char> m_horz_walls, m_vert_walls;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+	int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size() / 2)
+, m_sidelen(strs.size())
 {
 	auto game_type = attrs.get<string>("GameType", "Fillomino");
 	m_game_type =
@@ -88,23 +89,29 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		game_type == "All Evens" ? ALL_EVENS_FILLOMINO :
 		NORMAL_FILLOMINO;
 
-	for(int r = 0;; ++r){
-		// horz-walls
-		auto& str_h = strs[r * 2];
-		for(int c = 0; c < m_sidelen; ++c)
-			m_horz_walls[{r, c}] = str_h[c * 2 + 1] == '-' ? PUZ_WALL_ON : PUZ_WALL_UNKNOWN;
-		if(r == m_sidelen) break;
-		auto& str_v = strs[r * 2 + 1];
-		for(int c = 0;; ++c){
-			Position p(r, c);
-			// vert-walls
-			m_vert_walls[p] = str_v[c * 2] == '|' ? PUZ_WALL_ON : PUZ_WALL_UNKNOWN;
-			if(c == m_sidelen) break;
-			char ch = str_v[c * 2 + 1];
+	for(int r = 0; r < m_sidelen; ++r){
+		auto& str = strs[r];
+		for(int c = 0; c < m_sidelen; ++c){
+			char ch = str[c];
 			int n = ch == ' ' ? PUZ_UNKNOWN : ch - '0';
 			m_start.push_back(n);
 			if(n != PUZ_UNKNOWN)
-				m_pos2num[p] = n;
+				m_pos2num[{r, c}] = n;
+		}
+	}
+	auto f = [&](const Position& p1, const Position& p2){
+		int n1 = cells(p1), n2 = cells(p2);
+		return n1 == 1 || n2 == 1 ? PUZ_WALL_ON : 
+			n1 == PUZ_UNKNOWN || n2 == PUZ_UNKNOWN ? PUZ_WALL_UNKNOWN :
+			n1 == n2 ? PUZ_WALL_OFF : PUZ_WALL_ON;
+	};
+	for(int i = 0; i < m_sidelen; ++i){
+		m_vert_walls[{i, 0}] = m_vert_walls[{i, m_sidelen}] =
+		m_horz_walls[{0, i}] = m_horz_walls[{m_sidelen, i}] =
+		PUZ_WALL_ON;
+		for(int j = 1; j < m_sidelen; ++j){
+			m_vert_walls[{i, j}] = f({i, j - 1}, {i, j});
+			m_horz_walls[{j, i}] = f({j - 1, i}, {j, i});
 		}
 	}
 }
