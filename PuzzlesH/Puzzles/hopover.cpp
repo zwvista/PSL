@@ -39,6 +39,10 @@ struct puz_state : string
 	puz_state() {}
 	puz_state(const puz_game& g)
 		: string(g.m_start), m_game(&g) {}
+	void make_move(int i, int j){
+		::swap((*this)[i], (*this)[j]);
+		m_move = puz_step(i, j);
+	}
 
 	// solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -78,10 +82,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 					can_move = true;
 			}
 			if(can_move){
-				puz_state state = *this;
-				::swap(state[i], state[j]);
-				state.m_move = puz_step(i, j);
-				children.push_back(state);
+				children.push_back(*this);
+				children.back().make_move(i, j);
 			}
 		}
 	}
