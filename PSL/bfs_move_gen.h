@@ -26,7 +26,7 @@ class puz_move_generator
 					vertex_t v = m_smap.right.at(child);
 				} catch(out_of_range&) {
 					vertex_t v = add_vertex(vert_prop(boost::white_color), g);
-					m_smap.insert(StateMap::relation(v, child));
+					m_smap.insert(typename StateMap::relation(v, child));
 					add_edge(u, v, g);
 				}
 			}
@@ -43,7 +43,7 @@ public:
 		list<vertex_t> examine_seq;
 		StateMap smap;
 		vertex_t start = add_vertex(vert_prop(boost::white_color), g);
-		smap.insert(StateMap::relation(start, sstart));
+		smap.insert(typename StateMap::relation(start, sstart));
 
 		boost::breadth_first_search(g, start,
 			visitor(puz_visitor(examine_seq, smap)).

@@ -49,7 +49,7 @@ class puz_solver_astar
 					}
 				} catch(out_of_range&) {
 					vertex_t v = add_vertex(vert_prop(boost::white_color), g);
-					m_smap.insert(StateMap::relation(v, child));
+					m_smap.insert(typename StateMap::relation(v, child));
 					dmap[v] = numeric_limits<unsigned int>::max();
 					add_edge(u, v, edge_prop(dist), g);
 				}
@@ -79,7 +79,7 @@ public:
 		StateMap smap;
 		vertex_t start = add_vertex(vert_prop(boost::white_color), g);
 		pair<size_t, vertex_t> examine_seq = make_pair(0, start);
-		smap.insert(StateMap::relation(start, sstart));
+		smap.insert(typename StateMap::relation(start, sstart));
 		try {
 			boost::astar_search(g, start, puz_heuristic(smap),
 				visitor(puz_visitor(examine_seq, smap)).

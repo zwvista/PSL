@@ -163,13 +163,13 @@ struct puz_state : vector<int>
 struct puz_state2 : Position
 {
 	puz_state2(const puz_state& s, const Position& p_start)
-		: m_state(s), m_num(s.cells(p_start)) { make_move(p_start); }
+		: m_state(&s), m_num(s.cells(p_start)) { make_move(p_start); }
 
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const puz_state& m_state;
-	const int m_num;
+	const puz_state* m_state = nullptr;
+	int m_num = 0;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -177,8 +177,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 	for(int i = 0; i < 4; ++i){
 		auto p = *this + offset[i];
 		auto p_wall = *this + offset2[i];
-		auto& walls = i % 2 == 0 ? m_state.m_horz_walls : m_state.m_vert_walls;
-		if(walls.at(p_wall) != PUZ_WALL_ON && m_state.cells(p) == m_num){
+		auto& walls = i % 2 == 0 ? m_state->m_horz_walls : m_state->m_vert_walls;
+		if(walls.at(p_wall) != PUZ_WALL_ON && m_state->cells(p) == m_num){
 			children.push_back(*this);
 			children.back().make_move(p);
 		}
