@@ -176,16 +176,7 @@ bool puz_state::make_move(const Position& p, int h, int w)
 	check_area();
 
 	// pruning
-	for(int r = 1; r < sidelen() - 1; ++r)
-		for(int c = 1; c < sidelen() - 1; ++c){
-			Position p2(r, c);
-			auto g = [&](int i, int j){
-				return cells(p2 + offset[i]) == PUZ_SPACE ||
-					cells(p2 + offset[j]) == PUZ_SPACE;
-			};
-			if(cells(p2) == PUZ_SPACE && (!g(0, 2) || !g(1, 3)))
-				return false;
-		}
+	// What shall we do here for pruning?
 
 	find_matches();
 	return is_goal_state() || !m_matches.empty();

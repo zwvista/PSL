@@ -65,8 +65,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 	auto f = [&](const Position& p1, const Position& p2){
 		int n1 = cells(p1), n2 = cells(p2);
-		return n1 == 1 || n2 == 1 ? PUZ_WALL_ON : 
-			n1 == PUZ_UNKNOWN || n2 == PUZ_UNKNOWN ? PUZ_WALL_UNKNOWN :
+		return n1 == PUZ_UNKNOWN || n2 == PUZ_UNKNOWN ? PUZ_WALL_UNKNOWN :
 			n1 == n2 ? PUZ_WALL_OFF : PUZ_WALL_ON;
 	};
 	for(int i = 0; i < m_sidelen; ++i){
@@ -169,7 +168,15 @@ puz_state::puz_state(const puz_game& g)
 			area.m_inner.insert(p);
 			rng.erase(p);
 		}
-		area.m_ready = area.m_inner.size() == area.m_cell_count;
+		if(area.m_ready = area.m_inner.size() == area.m_cell_count)
+			for(auto& p : smoves)
+				for(int i = 0; i < 4; ++i){
+					auto p2 = p + offset[i];
+					auto p_wall = p + offset2[i];
+					auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
+					walls.at(p_wall) = area.m_inner.count(p2) == 1 ?
+						PUZ_WALL_OFF : PUZ_WALL_ON;
+				}
 	}
 
 	adjust_area(true);
