@@ -156,6 +156,7 @@
     <Text Include="Puzzles\MineShips.txt" />
     <Text Include="Puzzles\Minesweeper.txt" />
     <Text Include="Puzzles\Mirrors.txt" />
+    <Text Include="Puzzles\MoreOrLess.txt" />
     <Text Include="Puzzles\Mosaic.txt" />
     <Text Include="Puzzles\mummymaze.txt" />
     <Text Include="ReadMe.txt" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Puzzles\MineShips.cpp" />
     <ClCompile Include="Puzzles\Minesweeper.cpp" />
     <ClCompile Include="Puzzles\Mirrors.cpp" />
+    <ClCompile Include="Puzzles\MoreOrLess.cpp" />
     <ClCompile Include="Puzzles\Mosaic.cpp" />
     <ClCompile Include="Puzzles\mummymaze.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -194,6 +196,7 @@
     <Xml Include="Puzzles\MineShips.xml" />
     <Xml Include="Puzzles\Minesweeper.xml" />
     <Xml Include="Puzzles\Mirrors.xml" />
+    <Xml Include="Puzzles\MoreOrLess.xml" />
     <Xml Include="Puzzles\Mosaic.xml" />
     <Xml Include="Puzzles\mummymaze.xml" />
   </ItemGroup>

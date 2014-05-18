@@ -49,6 +49,9 @@
     <Text Include="Puzzles\Magnets.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\MoreOrLess.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -98,6 +101,9 @@
     <ClCompile Include="Puzzles\Magnets.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\MoreOrLess.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
@@ -131,6 +137,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Magnets.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\MoreOrLess.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

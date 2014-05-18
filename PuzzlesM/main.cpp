@@ -8,6 +8,7 @@ extern void solve_puz_mazecat();
 extern void solve_puz_MineShips();
 extern void solve_puz_Minesweeper();
 extern void solve_puz_Mirrors();
+extern void solve_puz_MoreOrLess();
 extern void solve_puz_Mosaic();
 extern void solve_puz_mummymaze();
 
@@ -21,7 +22,8 @@ int main(int argc, char **argv)
 	cout << "i1: Mine Ships" << endl;
 	cout << "i2: Minesweeper" << endl;
 	cout << "i3: Mirrors" << endl;
-	cout << "o: Mosaic" << endl;
+	cout << "o1: More Or Less" << endl;
+	cout << "o2: Mosaic" << endl;
 	cout << "u: mummymaze" << endl;
 	string str;
 	getline(cin, str);
@@ -33,7 +35,8 @@ int main(int argc, char **argv)
 	else if(str == "i1") solve_puz_MineShips();
 	else if(str == "i2") solve_puz_Minesweeper();
 	else if(str == "i3") solve_puz_Mirrors();
-	else if(str == "o") solve_puz_Mosaic();
+	else if(str == "o1") solve_puz_MoreOrLess();
+	else if(str == "o2") solve_puz_Mosaic();
 	else if(str == "u") solve_puz_mummymaze();
 
 	return 0;
