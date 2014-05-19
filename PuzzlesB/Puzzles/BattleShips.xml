@@ -270,7 +270,7 @@ v         1\
 5221211600 \
     ]]>
   </level>
-  <level id="19">
+  <level id="19" SuperTank="1">
     <![CDATA[
           5\
           1\
@@ -298,6 +298,19 @@ v         1\
           0\
           3\
 1123171202 \
+    ]]>
+  </level>
+  <level id="21" SuperTank="1">
+    <![CDATA[
+        3\
+        2\
+        3\
+        5\
+        3\
+        3\
+        0\
+        6\
+51252316 \
     ]]>
   </level>
   <level id="22" SuperTank="1">
