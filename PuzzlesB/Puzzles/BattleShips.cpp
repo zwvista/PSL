@@ -251,10 +251,13 @@ bool puz_state::make_move(const Position& p_piece, const Position& p, int n, boo
 		return boost::algorithm::all_of(m_pos2piece, [&](const pair<const Position, char>& kv){
 			return m_pos_matches.count(kv.first) != 0;
 		});
-	else
+	else if(!is_goal_state())
 		return boost::algorithm::all_of(m_ship2num, [&](const pair<int, int>& kv){
 			return m_ship_matches[kv.first].size() >= kv.second;
 		});
+	else
+		return boost::algorithm::all_of_equal(m_piece_counts_rows, 0) &&
+			boost::algorithm::all_of_equal(m_piece_counts_cols, 0);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
