@@ -57,12 +57,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 1; c < m_sidelen - 1; ++c){
-			auto s = str.substr(c * 2 - 2, 2);
-			if(s == "  ")
+			char ch = str[c - 1];
+			if(ch == PUZ_SPACE)
 				m_start.push_back(PUZ_SPACE);
 			else{
 				m_start.push_back(PUZ_SENTINEL);
-				m_pos2num[{r, c}] = atoi(s.c_str());
+				m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
 			}
 		}
 		m_start.push_back(PUZ_BOUNDARY);
