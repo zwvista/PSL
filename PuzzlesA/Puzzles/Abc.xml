@@ -163,4 +163,64 @@ B      \
  BCBA  \
     ]]>
   </level>
+  <level id="16">
+    <![CDATA[
+ CCABAA \
+C      A\
+B      C\
+B      C\
+A      B\
+B      C\
+A      B\
+ AACABB \
+    ]]>
+  </level>
+  <level id="17">
+    <![CDATA[
+ B  B   \
+A       \
+        \
+        \
+B       \
+A       \
+       C\
+  A A A \
+    ]]>
+  </level>
+  <level id="18">
+    <![CDATA[
+ BBACAA \
+B      C\
+B      A\
+A      B\
+B      A\
+C      B\
+A      C\
+ AABACC \
+    ]]>
+  </level>
+  <level id="19">
+    <![CDATA[
+ AC  C  \
+       C\
+A       \
+C       \
+B       \
+A       \
+        \
+   AB B \
+    ]]>
+  </level>
+  <level id="20">
+    <![CDATA[
+ CABADD \
+C      D\
+A      B\
+A      C\
+D      B\
+B      A\
+D      A\
+ DCABCA \
+    ]]>
+  </level>
 </levels>
