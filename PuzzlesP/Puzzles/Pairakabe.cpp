@@ -246,16 +246,7 @@ bool puz_state::make_move2(char ch, const Position& p)
 	});
 
 	// pruning
-	if(boost::algorithm::any_of(m_2by2walls, [&](const set<Position>& rng){
-		return boost::algorithm::none_of(rng, [&](const Position& p2){
-			return boost::algorithm::any_of(m_ch2garden, [&](const pair<char, puz_garden>& kv){
-				auto& g = kv.second;
-				return boost::algorithm::any_of(g.m_inner, [&](const Position& p3){
-					return manhattan_distance(p2, p3) <= g.m_remaining;
-				});
-			});
-		});
-	}) || boost::algorithm::any_of(m_ch2garden, [&](const pair<char, puz_garden>& kv){
+	if(boost::algorithm::any_of(m_ch2garden, [&](const pair<char, puz_garden>& kv){
 		auto& g = kv.second;
 		return !g.m_paired && boost::algorithm::none_of(kv.second.m_inner, [&](const Position& p2){
 			return boost::algorithm::any_of(m_ch2garden, [&](const pair<char, puz_garden>& kv2){
@@ -270,7 +261,7 @@ bool puz_state::make_move2(char ch, const Position& p)
 		return false;
 
 	adjust_area(true);
-	return !is_goal_state() || is_continuous();
+	return !is_goal_state() || m_2by2walls.empty() && is_continuous();
 }
 
 bool puz_state::make_move(char ch, const Position& p)
