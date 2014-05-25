@@ -252,4 +252,36 @@ T  T      0\
 2322113204 \
     ]]>
   </level>
+  <level id="19">
+    <![CDATA[
+ T   T    T4\
+    T      0\
+  T        2\
+   TT   T  2\
+           1\
+       T TT4\
+ T  T      0\
+   T  T    3\
+  T      T 1\
+ T  T  T  T2\
+           2\
+04123123131 \
+    ]]>
+  </level>
+  <level id="20">
+    <![CDATA[
+        T T3\
+  T        0\
+ T  T      2\
+          T1\
+T    T     1\
+     T T   4\
+  TT      T1\
+T        T 2\
+    T      2\
+           1\
+T  T   T T 3\
+31223012222 \
+    ]]>
+  </level>
 </levels>

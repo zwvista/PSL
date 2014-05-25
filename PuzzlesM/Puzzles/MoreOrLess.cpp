@@ -30,7 +30,10 @@ namespace puzzles{ namespace MoreOrLess{
 #define PUZ_COL_LT		'^'
 #define PUZ_COL_GT		'v'
 #define PUZ_COL_LINE	'-'
-	
+
+const string op_walls_lt = "^>v<";
+const string op_walls_gt = "v<^>";
+
 const Position offset[] = {
 	{-1, 0},		// n
 	{0, 1},		// e
@@ -48,9 +51,8 @@ const Position offset2[] = {
 struct puz_area_info
 {
 	vector<Position> m_range;
-	vector<pair<int, int>> m_pairs;
-	string m_hints;
-	vector<string> m_perms;
+	vector<vector<int>> m_smallers;
+	vector<vector<int>> m_greaters;
 };
 
 struct puz_game
@@ -65,8 +67,9 @@ struct puz_game
 
 struct puz_state2 : Position
 {
-	puz_state2(const map<Position, char>& horz_walls, const map<Position, char>& vert_walls, const Position& p_start)
-		: m_horz_walls(horz_walls), m_vert_walls(vert_walls) {
+	puz_state2(const map<Position, char>& horz_walls, const map<Position, char>& vert_walls,
+		const Position& p_start, const string& op_walls)
+		: m_horz_walls(horz_walls), m_vert_walls(vert_walls), m_op_walls(op_walls) {
 		make_move(p_start);
 	}
 
@@ -74,6 +77,7 @@ struct puz_state2 : Position
 	void gen_children(list<puz_state2>& children) const;
 
 	const map<Position, char> &m_horz_walls, &m_vert_walls;
+	const string& m_op_walls;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -83,7 +87,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 		auto p_wall = *this + offset2[i];
 		auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
 		char ch = walls.at(p_wall);
-		if(ch != PUZ_ROW_LINE && ch != PUZ_COL_LINE){
+		if(m_op_walls.find(ch) != -1){
 			children.push_back(*this);
 			children.back().make_move(p);
 		}
@@ -126,39 +130,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	for(int i = 0; i < m_area_info.size(); ++i){
 		auto& info = m_area_info[i];
 		auto& rng = info.m_range;
-		auto f = [&](const Position& p){
-			return boost::range::find(rng, p) - rng.begin();
-		};
 		for(auto& p : rng){
-			if(i < m_sidelen || i >= m_sidelen * 2){
-				char ch = m_vert_walls.at(p);
-				if(ch != PUZ_ROW_LINE){
-					info.m_pairs.emplace_back(f(p + Position(0, -1)), f(p));
-					info.m_hints.push_back(ch);
-				}
-			}
-			if(i >= m_sidelen){
-				char ch = m_horz_walls.at(p);
-				if(ch != PUZ_COL_LINE){
-					info.m_pairs.emplace_back(f(p + Position(-1, 0)), f(p));
-					info.m_hints.push_back(ch == PUZ_COL_GT ? PUZ_ROW_GT : PUZ_ROW_LT);
-				}
-			}
 		}
 	}
-	string perm = "123456789";
-	do
-		for(auto& info : m_area_info)
-			if([&]{
-				for(int i = 0; i < info.m_pairs.size(); ++i){
-					auto& kv = info.m_pairs[i];
-					if(info.m_hints[i] != (perm[kv.first] < perm[kv.second] ? PUZ_ROW_LT : PUZ_ROW_GT))
-						return false;
-				}
-				return true;
-			}())
-				info.m_perms.push_back(perm);
-	while(boost::next_permutation(perm));
 }
 
 struct puz_state
@@ -193,56 +167,17 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-	for(int i = 0; i < g.m_area_info.size(); ++i){
-		auto& info = g.m_area_info[i];
-		auto& perm_ids = m_matches[i];
-		perm_ids.resize(info.m_perms.size());
-		boost::iota(perm_ids, 0);
-	}
 
 	find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-	for(auto& kv : m_matches){
-		int area_id = kv.first;
-		auto& info = m_game->m_area_info[area_id];
-		auto& perms = info.m_perms;
-		auto& perm_ids = kv.second;
-
-		string chars;
-		for(auto& p : info.m_range)
-			chars.push_back(cells(p));
-
-		boost::remove_erase_if(perm_ids, [&](int id){
-			return !boost::equal(chars, perms[id], [](char ch1, char ch2){
-				return ch1 == PUZ_SPACE || ch1 == ch2;
-			});
-		});
-
-		if(!init)
-			switch(perm_ids.size()){
-			case 0:
-				return 0;
-			case 1:
-				return make_move2(area_id, perm_ids.front()), 1;
-		}
-	}
 	return 2;
 }
 
 void puz_state::make_move2(int i, int j)
 {
-	auto& info = m_game->m_area_info[i];
-	auto& rng = info.m_range;
-	auto& perm = info.m_perms[j];
-
-	for(int k = 0; k < perm.size(); ++k)
-		cells(rng[k]) = perm[k];
-
-	++m_distance;
-	m_matches.erase(i);
 }
 
 bool puz_state::make_move(int i, int j)
