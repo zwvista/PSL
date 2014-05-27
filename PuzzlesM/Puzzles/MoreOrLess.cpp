@@ -24,19 +24,15 @@
 namespace puzzles{ namespace MoreOrLess{
 
 #define PUZ_SPACE		' '
-#define PUZ_ROW_LT		'<'
-#define PUZ_ROW_GT		'>'
-#define PUZ_ROW_LINE	'|'
-#define PUZ_COL_LT		'^'
-#define PUZ_COL_GT		'v'
-#define PUZ_COL_LINE	'-'
 
 const string op_walls_gt = "^>v<";
 const string op_walls_lt = "v<^>";
+const string op_walls_gt2 = "GGLL";
+const string op_walls_lt2 = "LLGG";
 
 enum class OP_WALLS_TYPE
 {
-	ALL,
+	NOT_LINE,
 	LT,
 	GT,
 };
@@ -97,7 +93,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 		auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
 		char ch = walls.at(p_wall);
 		if(m_op_walls_type != OP_WALLS_TYPE::LT && ch == op_walls_gt[i] ||
-			m_op_walls_type != OP_WALLS_TYPE::GT && ch == op_walls_lt[i]){
+			m_op_walls_type != OP_WALLS_TYPE::GT && ch == op_walls_lt[i] ||
+			m_op_walls_type == OP_WALLS_TYPE::GT && ch == op_walls_gt2[i] ||
+			m_op_walls_type == OP_WALLS_TYPE::LT && ch == op_walls_lt2[i] ||
+			m_op_walls_type == OP_WALLS_TYPE::NOT_LINE && ch == PUZ_SPACE){
 			children.push_back(*this);
 			children.back().make_move(p);
 		}
@@ -130,7 +129,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	for(int n = 0; !rng.empty(); ++n){
 		list<puz_state2> smoves;
 		puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls,
-			*rng.begin(), OP_WALLS_TYPE::ALL}, smoves);
+			*rng.begin(), OP_WALLS_TYPE::NOT_LINE}, smoves);
 		int id = m_sidelen * 2 + n;
 		auto& area = m_areas[id];
 		for(auto& p : smoves){
@@ -154,7 +153,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 						v.push_back(p2);
 				boost::sort(v);
 			}
-			int sz1 = info.m_smallers.size(), sz2 = info.m_greaters.size();
+			auto& area = m_areas[info.m_area_id];
+			auto f = [&](const vector<Position>& rng){
+				return boost::count_if(rng, [&](const Position& p){
+					return boost::algorithm::any_of_equal(area, p);
+				});
+			};
+			int sz1 = f(info.m_smallers), sz2 = f(info.m_greaters);
 			info.m_nums = info.m_nums.substr(sz1, 9 - sz1 - sz2);
 		}
 }
@@ -212,6 +217,17 @@ bool puz_state::make_move(const Position& p, char ch)
 	m_pos2nums.erase(p);
 	return boost::algorithm::none_of(m_pos2nums, [](const pair<const Position, string>& kv){
 		return kv.second.empty();
+	}) && boost::algorithm::all_of(areas, [&](const vector<Position>& area){
+		set<char> nums;
+		for(auto& p2 : area){
+			char ch2 = cells(p2);
+			if(ch2 == PUZ_SPACE)
+				for(char ch3 : m_pos2nums.at(p2))
+					nums.insert(ch3);
+			else
+				nums.insert(ch2);
+		}
+		return nums.size() == 9;
 	});
 }
 

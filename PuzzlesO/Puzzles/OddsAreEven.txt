@@ -11,7 +11,7 @@ Sequence of moves:
 6 7 1 3 2 9 4 8 5 
 Number of moves: 46
 Number of vertices examined: 47
-0.0020912 [s]
+0.00791585 [s]
 
 Level 02
 Sequence of moves: 
@@ -26,5 +26,5 @@ Sequence of moves:
 2 6 9 8 4 3 1 7 5 
 Number of moves: 45
 Number of vertices examined: 46
-0.00176702 [s]
+0.00602778 [s]
 

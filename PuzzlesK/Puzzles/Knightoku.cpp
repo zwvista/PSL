@@ -212,6 +212,17 @@ bool puz_state::make_move(const Position& p, char ch)
 	m_pos2nums.erase(p);
 	return boost::algorithm::none_of(m_pos2nums, [](const pair<const Position, string>& kv){
 		return kv.second.empty();
+	}) && boost::algorithm::all_of(areas, [&](const vector<Position>& area){
+		set<char> nums;
+		for(auto& p2 : area){
+			char ch2 = cells(p2);
+			if(ch2 == PUZ_SPACE)
+				for(char ch3 : m_pos2nums.at(p2))
+					nums.insert(ch3);
+			else
+				nums.insert(ch2);
+		}
+		return nums.size() == 9;
 	});
 }
 
