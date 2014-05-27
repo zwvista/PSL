@@ -150,6 +150,7 @@
   <ItemGroup>
     <Text Include="Puzzles\SheepAndWolves.txt" />
     <Text Include="Puzzles\ShopAndGas.txt" />
+    <Text Include="Puzzles\Skydoku.txt" />
     <Text Include="Puzzles\skyscrapers.txt" />
     <Text Include="Puzzles\slantedmaze.txt" />
     <Text Include="Puzzles\SlitherLink.txt" />
@@ -169,6 +170,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\SheepAndWolves.cpp" />
     <ClCompile Include="Puzzles\ShopAndGas.cpp" />
+    <ClCompile Include="Puzzles\Skydoku.cpp" />
     <ClCompile Include="Puzzles\skyscrapers.cpp" />
     <ClCompile Include="Puzzles\slantedmaze.cpp" />
     <ClCompile Include="Puzzles\SlitherLink.cpp" />
@@ -187,6 +189,7 @@
   <ItemGroup>
     <Xml Include="Puzzles\SheepAndWolves.xml" />
     <Xml Include="Puzzles\ShopAndGas.xml" />
+    <Xml Include="Puzzles\Skydoku.xml" />
     <Xml Include="Puzzles\skyscrapers.xml" />
     <Xml Include="Puzzles\slantedmaze.xml" />
     <Xml Include="Puzzles\SlitherLink.xml" />
