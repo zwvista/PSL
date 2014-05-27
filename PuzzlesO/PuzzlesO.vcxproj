@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\OddsAreEven.txt" />
     <Text Include="Puzzles\on_the_edge.txt" />
     <Text Include="Puzzles\on_the_edge_dfs.txt" />
     <Text Include="Puzzles\openvalve.txt" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\OddsAreEven.cpp" />
     <ClCompile Include="Puzzles\on_the_edge.cpp" />
     <ClCompile Include="Puzzles\openvalve.cpp" />
     <ClCompile Include="Puzzles\Orchards.cpp" />
@@ -172,6 +174,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\OddsAreEven.xml" />
     <Xml Include="Puzzles\on_the_edge.xml" />
     <Xml Include="Puzzles\openvalve.xml" />
     <Xml Include="Puzzles\Orchards.xml" />

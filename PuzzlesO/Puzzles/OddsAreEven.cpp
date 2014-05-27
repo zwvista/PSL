@@ -4,42 +4,32 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 7/More Or Less
+	ios game: Logic Games/Puzzle Set 7/Odds Are Even
 
 	Summary
-	Mr. Futoshiki, meet Mr. Sudoku
+	This ... looks familiar ... I thought you didi't like Sudokus?
 
 	Description
-	1. More or Less can be seen as a mix between Sudoku and Futoshiki.
+	1. Odds Are Even is a Sudoku variant where the hints are given by
+	   differently shaded tiles.
 	2. Standard Sudoku rules apply, i.e. you need to fill the board with
 	   numbers 1 to 9 in every row, column and area, without repetitions.
-	3. The hints however, are given by the Greater Than or Less Than symbols
-	   between tiles.
+	3. The brighter coloured tiles contain odd numbers (1,3,5,7,9) and
+	   the dim ones contain even numbers (2,4,6,8).
 
 	Variation
 	4. Further levels have irregular areas, instead of the classic 3*3 Sudoku.
 	   All the other rules are the same.
+	5. Even further, you will find levels that have NO areas.
 */
 
-namespace puzzles{ namespace MoreOrLess{
+namespace puzzles{ namespace OddsAreEven{
 
 #define PUZ_SPACE		' '
-#define PUZ_ROW_LT		'<'
-#define PUZ_ROW_GT		'>'
 #define PUZ_ROW_LINE	'|'
-#define PUZ_COL_LT		'^'
-#define PUZ_COL_GT		'v'
 #define PUZ_COL_LINE	'-'
-
-const string op_walls_gt = "^>v<";
-const string op_walls_lt = "v<^>";
-
-enum class OP_WALLS_TYPE
-{
-	ALL,
-	LT,
-	GT,
-};
+#define PUZ_ODD			'O'
+#define PUZ_EVEN		'E'
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -58,9 +48,7 @@ const Position offset2[] = {
 struct puz_pos_info
 {
 	int m_area_id;
-	vector<Position> m_smallers;
-	vector<Position> m_greaters;
-	string m_nums = "123456789";
+	string m_nums;
 };
 
 struct puz_game
@@ -70,15 +58,17 @@ struct puz_game
 	map<Position, char> m_horz_walls, m_vert_walls;
 	vector<vector<Position>> m_areas;
 	map<Position, puz_pos_info> m_pos2info;
+	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+	char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
 {
 	puz_state2(const map<Position, char>& horz_walls, const map<Position, char>& vert_walls,
-		const Position& p_start, OP_WALLS_TYPE op_walls_type)
-		: m_horz_walls(horz_walls), m_vert_walls(vert_walls), m_op_walls_type(op_walls_type) {
+		const Position& p_start)
+		: m_horz_walls(horz_walls), m_vert_walls(vert_walls) {
 		make_move(p_start);
 	}
 
@@ -86,7 +76,6 @@ struct puz_state2 : Position
 	void gen_children(list<puz_state2>& children) const;
 
 	const map<Position, char> &m_horz_walls, &m_vert_walls;
-	const OP_WALLS_TYPE m_op_walls_type;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -96,8 +85,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 		auto p_wall = *this + offset2[i];
 		auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
 		char ch = walls.at(p_wall);
-		if(m_op_walls_type != OP_WALLS_TYPE::LT && ch == op_walls_gt[i] ||
-			m_op_walls_type != OP_WALLS_TYPE::GT && ch == op_walls_lt[i]){
+		if(ch == PUZ_SPACE){
 			children.push_back(*this);
 			children.back().make_move(p);
 		}
@@ -125,12 +113,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			rng.insert(p);
 			m_areas[p.first].push_back(p);
 			m_areas[m_sidelen + p.second].push_back(p);
+			m_start.push_back(str_v[c * 2 + 1]);
 		}
 	}
 	for(int n = 0; !rng.empty(); ++n){
 		list<puz_state2> smoves;
 		puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls,
-			*rng.begin(), OP_WALLS_TYPE::ALL}, smoves);
+			*rng.begin()}, smoves);
 		int id = m_sidelen * 2 + n;
 		auto& area = m_areas[id];
 		for(auto& p : smoves){
@@ -141,21 +130,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		boost::sort(area);
 	}
 	for(int r = 0; r < m_sidelen; ++r)
-		for (int c = 0; c < m_sidelen; ++c){
+		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
-			auto& info = m_pos2info[p];
-			for(int i = 0; i < 2; ++i){
-				auto& v = i == 0 ? info.m_smallers : info.m_greaters;
-				list<puz_state2> smoves;
-				puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls,
-					p, i == 0 ? OP_WALLS_TYPE::GT : OP_WALLS_TYPE::LT}, smoves);
-				for(auto& p2 : smoves)
-					if(p2 != p)
-						v.push_back(p2);
-				boost::sort(v);
-			}
-			int sz1 = info.m_smallers.size(), sz2 = info.m_greaters.size();
-			info.m_nums = info.m_nums.substr(sz1, 9 - sz1 - sz2);
+			char ch = cells(p);
+			if(isdigit(ch))
+				m_pos2info[p].m_nums.push_back(ch);
+			else
+				m_pos2info[p].m_nums = ch == PUZ_ODD ? "13579" : "2468";
 		}
 }
 
@@ -188,6 +169,14 @@ puz_state::puz_state(const puz_game& g)
 {
 	for(auto& kv : g.m_pos2info)
 		m_pos2nums[kv.first] = kv.second.m_nums;
+
+	for(int r = 0; r < g.m_sidelen; ++r)
+		for(int c = 0; c < g.m_sidelen; ++c){
+			Position p(r, c);
+			char ch = g.cells(p);
+			if(isdigit(ch))
+				make_move(p, ch);
+		}
 }
 
 bool puz_state::make_move(const Position& p, char ch)
@@ -205,10 +194,6 @@ bool puz_state::make_move(const Position& p, char ch)
 		for(auto& p2 : area)
 			if(p2 != p)
 				f(p2, [ch](char ch2){ return ch2 == ch; });
-	for(auto& p2 : info.m_smallers)
-		f(p2, [ch](char ch2){ return ch2 > ch; });
-	for(auto& p2 : info.m_greaters)
-		f(p2, [ch](char ch2){ return ch2 < ch; });
 	m_pos2nums.erase(p);
 	return boost::algorithm::none_of(m_pos2nums, [](const pair<const Position, string>& kv){
 		return kv.second.empty();
@@ -241,9 +226,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_MoreOrLess()
+void solve_puz_OddsAreEven()
 {
-	using namespace puzzles::MoreOrLess;
+	using namespace puzzles::OddsAreEven;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\MoreOrLess.xml", "Puzzles\\MoreOrLess.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\OddsAreEven.xml", "Puzzles\\OddsAreEven.txt", solution_format::GOAL_STATE_ONLY);
 }

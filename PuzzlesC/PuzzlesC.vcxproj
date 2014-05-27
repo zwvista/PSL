@@ -151,6 +151,7 @@
     <Text Include="Puzzles\Calcudoku.txt" />
     <Text Include="Puzzles\CastleBailey.txt" />
     <Text Include="Puzzles\Clouds.txt" />
+    <Text Include="Puzzles\Consecutives.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +164,7 @@
     <ClCompile Include="Puzzles\Calcudoku.cpp" />
     <ClCompile Include="Puzzles\CastleBailey.cpp" />
     <ClCompile Include="Puzzles\Clouds.cpp" />
+    <ClCompile Include="Puzzles\Consecutives.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -176,6 +178,9 @@
     </Xml>
     <Xml Include="Puzzles\CastleBailey.xml" />
     <Xml Include="Puzzles\Clouds.xml" />
+    <Xml Include="Puzzles\Consecutives.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
