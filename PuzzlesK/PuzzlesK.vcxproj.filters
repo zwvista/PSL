@@ -28,6 +28,9 @@
     <Text Include="Puzzles\Kropki.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Knightoku.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -56,6 +59,9 @@
     <ClCompile Include="Puzzles\Kropki.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Knightoku.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Kakurasu.xml">
@@ -65,6 +71,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Kropki.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Knightoku.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
