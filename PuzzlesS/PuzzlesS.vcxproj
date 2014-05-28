@@ -151,8 +151,8 @@
     <Text Include="Puzzles\SheepAndWolves.txt" />
     <Text Include="Puzzles\ShopAndGas.txt" />
     <Text Include="Puzzles\Skydoku.txt" />
-    <Text Include="Puzzles\skyscrapers.txt" />
-    <Text Include="Puzzles\slantedmaze.txt" />
+    <Text Include="Puzzles\Skyscrapers.txt" />
+    <Text Include="Puzzles\SlantedMaze.txt" />
     <Text Include="Puzzles\SlitherLink.txt" />
     <Text Include="Puzzles\snail.txt" />
     <Text Include="Puzzles\sokoban.txt" />
@@ -171,8 +171,8 @@
     <ClCompile Include="Puzzles\SheepAndWolves.cpp" />
     <ClCompile Include="Puzzles\ShopAndGas.cpp" />
     <ClCompile Include="Puzzles\Skydoku.cpp" />
-    <ClCompile Include="Puzzles\skyscrapers.cpp" />
-    <ClCompile Include="Puzzles\slantedmaze.cpp" />
+    <ClCompile Include="Puzzles\Skyscrapers.cpp" />
+    <ClCompile Include="Puzzles\SlantedMaze.cpp" />
     <ClCompile Include="Puzzles\SlitherLink.cpp" />
     <ClCompile Include="Puzzles\snail.cpp" />
     <ClCompile Include="Puzzles\sokoban.cpp" />
@@ -190,8 +190,8 @@
     <Xml Include="Puzzles\SheepAndWolves.xml" />
     <Xml Include="Puzzles\ShopAndGas.xml" />
     <Xml Include="Puzzles\Skydoku.xml" />
-    <Xml Include="Puzzles\skyscrapers.xml" />
-    <Xml Include="Puzzles\slantedmaze.xml" />
+    <Xml Include="Puzzles\Skyscrapers.xml" />
+    <Xml Include="Puzzles\SlantedMaze.xml" />
     <Xml Include="Puzzles\SlitherLink.xml" />
     <Xml Include="Puzzles\snail.xml" />
     <Xml Include="Puzzles\sokoban.xml" />
