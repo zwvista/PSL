@@ -20,13 +20,13 @@
 
 namespace puzzles{ namespace Skyscrapers{
 
-#define PUZ_SPACE		0
+#define PUZ_SPACE		' '
 
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	vector<int> m_start;
+	string m_start;
 	// 1st dimension : the index of the area(rows and columns)
 	// 2nd dimension : all the positions that the area is composed of
 	vector<vector<Position>> m_area2range;
@@ -35,7 +35,7 @@ struct puz_game
 	// 3 1 2 4 3 2
 	// ...
 	// 1 4 3 2 1 4
-	vector<vector<int>> m_perms;
+	vector<string> m_perms;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -49,24 +49,24 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
 			char ch = str[c];
-			m_start.push_back(ch == ' ' ? PUZ_SPACE : ch - '0');
+			m_start.push_back(ch);
 			Position p(r, c);
 			m_area2range[r].push_back(p);
 			m_area2range[m_sidelen + c].push_back(p);
 		}
 	}
 
-	vector<int> perm(m_sidelen);
+	string perm(m_sidelen, ' ');
 	auto f = [&](int border, int start, int end, int step){
 		int h = 0;
-		perm[border] = 0;
+		perm[border] = '0';
 		for(int i = start; i != end; i += step)
 			if(perm[i] > h)
 				h = perm[i], ++perm[border];
 	};
 
 	auto begin = next(perm.begin()), end = prev(perm.end());
-	iota(begin, end, 1);
+	iota(begin, end, '1');
 	do{
 		f(0, 1, m_sidelen - 1, 1);
 		f(m_sidelen - 1, m_sidelen - 2, 0, -1);
@@ -79,8 +79,8 @@ struct puz_state
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-	int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(int i, int j);
 	void make_move2(int i, int j);
@@ -98,7 +98,7 @@ struct puz_state
 	}
 
 	const puz_game* m_game = nullptr;
-	vector<int> m_cells;
+	string m_cells;
 	map<int, vector<int>> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -122,13 +122,13 @@ int puz_state::find_matches(bool init)
 		int area_id = kv.first;
 		auto& perm_ids = kv.second;
 
-		vector<int> nums;
+		string nums;
 		for(auto& p : m_game->m_area2range[area_id])
 			nums.push_back(cells(p));
 
 		boost::remove_erase_if(perm_ids, [&](int id){
-			return !boost::equal(nums, perms[id], [](int n1, int n2){
-				return n1 == PUZ_SPACE || n1 == n2;
+			return !boost::equal(nums, perms[id], [](char ch1, char ch2){
+				return ch1 == PUZ_SPACE || ch1 == ch2;
 			});
 		});
 
@@ -181,10 +181,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r){
-		for(int c = 0; c < sidelen(); ++c){
-			int n = cells({r, c});
-			out << (n == PUZ_SPACE ? ' ' : char(n + '0')) << ' ';
-		}
+		for(int c = 0; c < sidelen(); ++c)
+			out << cells({r, c}) << ' ';
 		out << endl;
 	}
 	return out;
