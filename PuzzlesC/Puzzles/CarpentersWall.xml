@@ -9,4 +9,31 @@
      \
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+ O   \
+     \
+     \
+     \
+   7 \
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+     \
+    v\
+  <  \
+     \
+     \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+5    \
+     \
+     \
+    ^\
+     \
+    ]]>
+  </level>
 </levels>

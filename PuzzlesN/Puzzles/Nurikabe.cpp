@@ -102,6 +102,7 @@ struct puz_state : string
 	bool make_move(char ch, const Position& p);
 	bool make_move2(char ch, const Position& p);
 	int adjust_area(bool init);
+	void check_board();
 	bool is_continuous() const;
 
 	//solve_puzzle interface
@@ -146,10 +147,11 @@ puz_state::puz_state(const puz_game& g)
 					ch = PUZ_WALL;
 			}
 
-	adjust_area(false);
+	check_board();
+	adjust_area(true);
 }
 
-int puz_state::adjust_area(bool init)
+void puz_state::check_board()
 {
 	for(int r = 1; r < sidelen() - 1; ++r)
 		for(int c = 1; c < sidelen() - 1; ++c){
@@ -164,7 +166,10 @@ int puz_state::adjust_area(bool init)
 			if(chars.size() > 1)
 				cells(p) = PUZ_WALL;
 		}
+}
 
+int puz_state::adjust_area(bool init)
+{
 	for(auto& kv : m_ch2garden){
 		char ch = kv.first;
 		auto& g = kv.second;
@@ -259,7 +264,7 @@ bool puz_state::make_move2(char ch, const Position& p)
 	}))
 		return false;
 
-	adjust_area(true);
+	check_board();
 	return is_continuous();
 }
 
