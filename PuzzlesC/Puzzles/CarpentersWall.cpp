@@ -28,7 +28,7 @@ namespace puzzles{ namespace CarpentersWall{
 #define PUZ_SPACE		' '
 #define PUZ_WALL		'W'
 #define PUZ_BOUNDARY	'+'
-#define PUZ_CORNER		'O'
+#define PUZ_CORNER		'o'
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -57,8 +57,10 @@ struct puz_tool
 	puz_tool(const Position& p, char ch) : m_hint_pos(p), m_hint(ch) {}
 	tool_hint_type hint_type() const {
 		return m_hint == PUZ_CORNER ? tool_hint_type::CORNER :
-			isdigit(m_hint) ? tool_hint_type::NUMBER : tool_hint_type::ARM_END;
+			dir() != -1 ? tool_hint_type::ARM_END : tool_hint_type::NUMBER;
 	}
+	int len() const { return isdigit(m_hint) ? m_hint - '0' : m_hint - 'A' + 10; }
+	int dir() const { return tool_dirs.find(m_hint); }
 };
 
 struct puz_game
@@ -108,7 +110,6 @@ struct puz_state : string
 	bool make_move2(char ch, int n);
 	bool make_move_hidden(char ch, int n);
 	int adjust_area(bool init);
-	void check_board();
 	bool is_continuous() const;
 	const puz_tool& get_tool(char ch) const {
 		auto it = m_game->m_ch2tool.find(ch);
@@ -155,25 +156,7 @@ puz_state::puz_state(const puz_game& g)
 	for(auto& kv : g.m_ch2tool)
 		m_matches[kv.first];
 
-	check_board();
 	adjust_area(true);
-}
-
-void puz_state::check_board()
-{
-	for(int r = 1; r < sidelen() - 1; ++r)
-		for(int c = 1; c < sidelen() - 1; ++c){
-			Position p(r, c);
-			if(cells(p) != PUZ_SPACE) continue;
-			set<char> chars;
-			for(auto& os : offset){
-				char ch = cells(p + os);
-				if(ch != PUZ_BOUNDARY && ch != PUZ_SPACE && ch != PUZ_WALL)
-					chars.insert(ch);
-			}
-			if(chars.size() > 1)
-				cells(p) = PUZ_WALL;
-		}
 }
 
 int puz_state::adjust_area(bool init)
@@ -185,62 +168,125 @@ int puz_state::adjust_area(bool init)
 		auto& t = get_tool(ch);
 		auto& p = t.m_hint_pos;
 
-		auto f = [&](const Position& p2){
-			return cells(p2) == PUZ_SPACE &&
-				boost::algorithm::none_of(offset, [&](const Position& os2){
-				char ch2 = this->cells(p2 + os2);
-				return ch2 != PUZ_BOUNDARY && ch2 != PUZ_SPACE &&
-					ch2 != PUZ_WALL && ch2 != ch;
-			});
+		auto f1 = [&](const Position& p2){
+			if(cells(p2) != PUZ_SPACE)
+				return 0;
+			for(int i = 0; i < 4; ++i){
+				char ch2 = this->cells(p2 + offset[i]);
+				if(ch2 != PUZ_BOUNDARY && ch2 != PUZ_SPACE &&
+					ch2 != PUZ_WALL && ch2 != ch)
+					return ~i;
+			}
+			return 1;
 		};
 
-		auto g1 = [&](int cnt){
+		auto f2 = [&](const vector<Position>& a0, const vector<Position>& a1, int i, int j){
+			vector<Position> rng;
+			for(int k = 0; k < i; ++k)
+				rng.push_back(a0[k]);
+			for(int k = 0; k < j; ++k)
+				rng.push_back(a1[k]);
+			rng.push_back(p);
+			boost::sort(rng);
+			ranges.push_back(rng);
+		};
+
+		auto g1 = [&](int len){
 			vector<vector<Position>> arms(4);
+			vector<vector<int>> indexes(4);
+			Position p2;
+			int n;
 			for(int i = 0; i < 4; ++i){
 				auto& os = offset[i];
-				for(auto p2 = p + os; f(p2); p2 += os)
+				int j = 1;
+				for(p2 = p + os; (n = f1(p2)) == 1; p2 += os){
 					arms[i].push_back(p2);
+					indexes[i].push_back(j++);
+				}
+				if(~n != i) continue;
+				auto p3 = p2 + os;
+				auto& t = get_tool(this->cells(p3));
+				if(t.hint_type() == tool_hint_type::ARM_END &&
+					(t.dir() + 2) % 4 == i){
+					arms[i].push_back(p2);
+					arms[i].push_back(p3);
+					indexes[i].push_back(++j);
+				}
 			}
 			for(auto& dirs : tool_dirs2){
 				auto &a0 = arms[dirs[0]], &a1 = arms[dirs[1]];
+				auto &ids0 = indexes[dirs[0]], &ids1 = indexes[dirs[1]];
 				if(a0.empty() || a1.empty()) continue;
-				for(int i = 1; i <= a0.size(); ++i)
-					for(int j = 1; j <= a1.size(); ++j){
-						if(cnt != -1 && i + j + 1 != cnt) continue;
-						vector<Position> rng;
-						for(int k = 0; k < i; ++k)
-							rng.push_back(a0[k]);
-						for(int k = 0; k < j; ++k)
-							rng.push_back(a1[k]);
-						rng.push_back(p);
-						boost::sort(rng);
-						ranges.push_back(rng);
-					}
+				for(int i : ids0)
+					for(int j : ids1)
+						if(len == -1 || i + j + 1 == len)
+							f2(a0, a1, i, j);
 			}
 		};
 
-		auto g2 = [&](int n){
+		auto g2 = [&](int d){
 			vector<Position> a0, a1;
-			auto& os = offset[n];
-			int n21 = (n + 3) % 4, n22 = (n + 1) % 4;
-			for(auto p2 = p + os; f(p2); p2 += os){
-				a0.push_back(p2);
-				for(int n2 : {n21, n22}){
-					auto& os2 = offset[n2];
+			auto& os = offset[d];
+			int d21 = (d + 3) % 4, d22 = (d + 1) % 4;
+			Position p2;
+			int n, len = -1;
+			for(p2 = p + os; ; p2 += os){
+				n = f1(p2);
+				if(n != 1 && ~n != d) break;
+				if(n == 1)
+					a0.push_back(p2);
+				else{
+					auto p3 = p2 + os;
+					auto& t = get_tool(this->cells(p3));
+					auto ht = t.hint_type();
+					if(ht == tool_hint_type::ARM_END) break;
+					if(ht == tool_hint_type::NUMBER)
+						len = t.len();
+					a0.push_back(p2);
+					a0.push_back(p2 = p3);
+				}
+				char ch_corner = cells(p2);
+				int i = a0.size();
+				for(int d2 : {d21, d22}){
+					auto& os2 = offset[d2];
 					a1.clear();
-					for(auto p3 = p2 + os2; f(p3); p3 += os2)
+					Position p3;
+					cells(p2) = ch;
+					for(p3 = p2 + os2; (n = f1(p3)) == 1; p3 += os2)
 						a1.push_back(p3);
-					if(a1.empty()) continue;
-					for(int j = 1; j <= a1.size(); ++j){
-						vector<Position> rng;
-						for(int k = 0; k < a0.size(); ++k)
-							rng.push_back(a0[k]);
-						for(int k = 0; k < j; ++k)
-							rng.push_back(a1[k]);
-						rng.push_back(p);
-						boost::sort(rng);
-						ranges.push_back(rng);
+					cells(p2) = ch_corner;
+					vector<int> indexes;
+					int j;
+					for(j = 1; j <= a1.size(); ++j)
+						indexes.push_back(j);
+					if(~n == d2){
+						auto p4 = p3 + offset[d2];
+						char ch2 = this->cells(p4);
+						auto& t = get_tool(ch2);
+						if(t.hint_type() == tool_hint_type::ARM_END &&
+							(t.dir() + 2) % 4 == d2){
+							a1.push_back(p3);
+							a1.push_back(p4);
+							indexes.push_back(++j);
+						}
 					}
+					if(a1.empty()) continue;
+					for(int j : indexes)
+						if(len == -1 || i + j + 1 == len)
+							f2(a0, a1, i, j);
+				}
+				if(ch_corner != PUZ_SPACE && ch_corner != ch) break;
+			}
+			if(n == 0) return;
+			n = ~n;
+			if(n == d21 || n == d22){
+				auto p3 = p2 + offset[n];
+				auto& t = get_tool(this->cells(p3));
+				if(t.hint_type() == tool_hint_type::ARM_END &&
+					(t.dir() + 2) % 4 == n){
+					a0.push_back(p2);
+					a1 = {p3};
+					f2(a0, a1, a0.size(), 1);
 				}
 			}
 		};
@@ -250,10 +296,10 @@ int puz_state::adjust_area(bool init)
 			g1(-1);
 			break;
 		case tool_hint_type::NUMBER:
-			g1(t.m_hint - '0');
+			g1(t.len());
 			break;
 		case tool_hint_type::ARM_END:
-			g2(tool_dirs.find(t.m_hint));
+			g2(t.dir());
 			break;
 		}
 
@@ -309,6 +355,14 @@ bool puz_state::make_move2(char ch, int n)
 {
 	auto& t = get_tool(ch);
 	auto& rng = m_matches.at(ch)[n];
+
+	set<char> chars;
+	for(auto& p : rng)
+		chars.insert(cells(p));
+	chars.erase(PUZ_SPACE);
+	if(chars.empty())
+		chars.insert(ch);
+
 	for(auto& p : rng){
 		cells(p) = ch;
 		for(auto& os : offset){
@@ -320,10 +374,11 @@ bool puz_state::make_move2(char ch, int n)
 			return rng2.count(p) != 0;
 		});
 	}
-	m_matches.erase(ch);
-	++m_distance;
+	for(char ch2 : chars){
+		m_matches.erase(ch2);
+		++m_distance;
+	}
 
-	check_board();
 	return is_continuous();
 }
 
@@ -359,7 +414,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 				children.pop_back();
 		}
 	}
-	else
+	else{
+		set<Position> rng;
 		for(int r = 1; r < sidelen() - 1; ++r)
 			for(int c = 1; c < sidelen() - 1; ++c){
 				Position p(r, c);
@@ -368,12 +424,23 @@ void puz_state::gen_children(list<puz_state>& children) const
 				auto s = *this;
 				s.add_tool(p);
 				auto& kv = *s.m_matches.begin();
+				for(auto& rng2 : kv.second)
+					rng.insert(rng2.begin(), rng2.end());
 				for(int i = 0; i < kv.second.size(); ++i){
 					children.push_back(s);
 					if(!children.back().make_move_hidden(kv.first, i))
 						children.pop_back();
 				}
 			}
+
+		// pruning
+		if(boost::algorithm::any_of(m_2by2walls, [&](const set<Position>& rng2){
+			return boost::algorithm::none_of(rng2, [&](const Position& p){
+				return rng.count(p) != 0;
+			});
+		}))
+			children.clear();
+	}
 }
 
 ostream& puz_state::dump(ostream& out) const
@@ -388,10 +455,14 @@ ostream& puz_state::dump(ostream& out) const
 				auto it = m_game->m_pos2ch.find(p);
 				if(it == m_game->m_pos2ch.end())
 					out << ". ";
-				else
-					out << it->second << ' ';
+				else{
+					char ch = it->second;
+					if(isupper(ch))
+						out << ch - 'A' + 10;
+					else
+						out << ch << ' ';
+				}
 			}
-
 		}
 		out << endl;
 	}
