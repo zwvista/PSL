@@ -9,6 +9,81 @@
 2       22          \
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+    4               \
+                    \
+            33      \
+3                   \
+            3       \
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+                    \
+3       33      3   \
+                    \
+                    \
+    4               \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+    3           2   \
+                    \
+    14              \
+                3   \
+                    \
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+        4       2   \
+                    \
+    24              \
+                    \
+    3           2   \
+    ]]>
+  </level>
+  <level id="06">
+    <![CDATA[
+    4               \
+                    \
+            5       \
+    33              \
+                    \
+    ]]>
+  </level>
+  <level id="07">
+    <![CDATA[
+    3                   \
+                        \
+    24                  \
+                5       \
+3                       \
+                4       \
+    ]]>
+  </level>
+  <level id="08">
+    <![CDATA[
+                        \
+        24      24      \
+                        \
+        24              \
+            122         \
+    3                   \
+    ]]>
+  </level>
+  <level id="09">
+    <![CDATA[
+                        \
+            15          \
+    5                   \
+                        \
+            5           \
+                    2   \
+    ]]>
+  </level>
   <level id="10">
     <![CDATA[
                     ?   \
@@ -17,6 +92,26 @@
                         \
 3                       \
                         \
+    ]]>
+  </level>
+  <level id="11">
+    <![CDATA[
+?                       \
+            3?      3   \
+                        \
+    3?                  \
+                5       \
+                        \
+    ]]>
+  </level>
+  <level id="12">
+    <![CDATA[
+    ?               2   \
+                        \
+    14      ??          \
+        122             \
+                        \
+                ??      \
     ]]>
   </level>
 </levels>

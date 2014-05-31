@@ -152,6 +152,7 @@
     <Text Include="Puzzles\CarpentersWall.txt" />
     <Text Include="Puzzles\CastleBailey.txt" />
     <Text Include="Puzzles\Clouds.txt" />
+    <Text Include="Puzzles\Clouds2.txt" />
     <Text Include="Puzzles\Consecutives.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>

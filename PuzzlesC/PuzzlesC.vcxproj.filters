@@ -34,6 +34,9 @@
     <Text Include="Puzzles\CarpentersWall.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Clouds2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
