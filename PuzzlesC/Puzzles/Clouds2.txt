@@ -1,0 +1,47 @@
+Level 61
+Sequence of moves: 
+.CC...CC4
+.CC...CC4
+........0
+...CCC..3
+...CCC..3
+...CCC..3
+CC......2
+CC......2
+24233322
+Number of moves: 4
+Number of vertices examined: 579
+0.021396 [s]
+
+Level 62
+Sequence of moves: 
+CC.CC...4
+CC.CC.CC6
+CC.CC.CC6
+........0
+.CC.....2
+.CC..CCC5
+.CC..CCC5
+.CC.....2
+37433244
+Number of moves: 5
+Number of vertices examined: 670
+0.0940761 [s]
+
+Level 88
+Sequence of moves: 
+..........0
+......CC..2
+......CC..2
+......CC..2
+CCC...CC..5
+CCC...CC..5
+..........0
+..CCCCC...5
+..CCCCC...5
+..CCCCC...5
+2253338500
+Number of moves: 3
+Number of vertices examined: 476
+0.139586 [s]
+

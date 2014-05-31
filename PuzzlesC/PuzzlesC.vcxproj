@@ -181,6 +181,7 @@
     <Xml Include="Puzzles\CarpentersWall.xml" />
     <Xml Include="Puzzles\CastleBailey.xml" />
     <Xml Include="Puzzles\Clouds.xml" />
+    <Xml Include="Puzzles\Clouds2.xml" />
     <Xml Include="Puzzles\Consecutives.xml">
       <SubType>Designer</SubType>
     </Xml>
