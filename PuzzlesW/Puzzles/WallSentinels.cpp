@@ -64,7 +64,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				m_start.push_back(PUZ_SPACE);
 			else{
 				m_start.push_back(s[0] == PUZ_LAND ? PUZ_LAND_S : PUZ_WALL_S);
-				m_pos2num[{r, c}] = s[1] - '0';
+				m_pos2num[{r, c}] = isdigit(s[1]) ? s[1] - '0' : s[1] - 'A' + 10;
 			}
 		}
 		m_start.push_back(PUZ_BOUNDARY);
@@ -312,7 +312,7 @@ ostream& puz_state::dump(ostream& out) const
 			char ch = cells(p);
 			if(ch == PUZ_LAND_S || ch == PUZ_WALL_S)
 				out  << (ch == PUZ_LAND_S ? PUZ_LAND : PUZ_WALL)
-				<< m_game->m_pos2num.at(p) << ' ';
+				<< format("%-2d") % m_game->m_pos2num.at(p);
 			else
 				out << ch << "  ";
 		}
