@@ -189,7 +189,7 @@ int puz_state::find_matches(bool init)
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-	for(const auto& kv : g.m_pos2hint){
+	for(auto& kv : g.m_pos2hint){
 		auto& perm_ids = m_matches[kv.first];
 		perm_ids.resize(g.m_hint2perms.at(kv.second).size());
 		boost::iota(perm_ids, 0);
@@ -237,18 +237,21 @@ vector<puz_path> puz_state::find_paths(bool empty_path) const
 		if(empty_path && boost::algorithm::all_of(smoves, [&](const puz_state2& p){
 			return cells(p) == PUZ_HINT;
 		}))
-			continue;
-
-		paths.emplace_back();
-		auto& path = paths.back();
-		for(auto& p : smoves){
-			a.erase(p);
-			path.first.push_back(p);
-			char ch = cells(p);
-			if(!empty_path && ch == PUZ_FILLED ||
-				empty_path && (ch == PUZ_HINT || ch == PUZ_EMPTY))
-				path.second++;
+			for(auto& p : smoves)
+				a.erase(p);
+		else{
+			paths.emplace_back();
+			auto& path = paths.back();
+			for(auto& p : smoves){
+				a.erase(p);
+				path.first.push_back(p);
+				char ch = cells(p);
+				if(!empty_path && ch == PUZ_FILLED ||
+					empty_path && (ch == PUZ_HINT || ch == PUZ_EMPTY))
+					path.second++;
+			}
 		}
+
 	}
 
 	boost::sort(paths, [&](const puz_path& path1, const puz_path& path2){

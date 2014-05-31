@@ -189,7 +189,7 @@ int puz_state::find_matches(bool init)
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-	for(const auto& kv : g.m_pos2hint){
+	for(auto& kv : g.m_pos2hint){
 		auto& perm_ids = m_matches[kv.first];
 		perm_ids.resize(g.m_hint2perms.at(kv.second).size());
 		boost::iota(perm_ids, 0);
