@@ -58,7 +58,6 @@ struct puz_game
 	int m_tree_total_count;
 	string m_start;
 	map<Position, int> m_pos2park;
-	vector<Position> m_trees;
 	vector<puz_area_info> m_area_info;
 	set<Position> m_horz_walls, m_vert_walls;
 
@@ -115,11 +114,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			if(c == m_sidelen) break;
 			char ch = str_v[c * 2 + 1];
 			m_start.push_back(ch);
-			if(ch == PUZ_TREE)
-				m_trees.push_back(p);
-			rng.insert(p);
-			m_area_info[r].m_range.push_back(p);
-			m_area_info[c + m_sidelen].m_range.push_back(p);
+			if(ch != PUZ_EMPTY){
+				rng.insert(p);
+				m_area_info[r].m_range.push_back(p);
+				m_area_info[c + m_sidelen].m_range.push_back(p);
+			}
 		}
 	}
 

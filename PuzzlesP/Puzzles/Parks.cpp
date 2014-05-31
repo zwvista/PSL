@@ -51,6 +51,7 @@ struct puz_game
 	int m_tree_total_count;
 	map<Position, int> m_pos2park;
 	vector<Position> m_trees;
+	vector<Position> m_spaces;
 	set<Position> m_horz_walls, m_vert_walls;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -101,9 +102,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			if(str_v[c * 2] == '|')
 				m_vert_walls.insert(p);
 			if(c == m_sidelen) break;
-			if(str_v[c * 2 + 1] == PUZ_TREE)
+			char ch = str_v[c * 2 + 1];
+			if(ch == PUZ_TREE)
 				m_trees.push_back(p);
-			rng.insert(p);
+			else if(ch == PUZ_SPACE)
+				m_spaces.push_back(p);
+			if(ch != PUZ_SPACE)
+				rng.insert(p);
 		}
 	}
 
@@ -115,6 +120,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			rng.erase(p);
 		}
 	}
+	for(auto& p : m_spaces)
+		m_pos2park[p] = 0;
 }
 
 // first : all the remaining positions in the area where a tree can be planted
@@ -222,48 +229,11 @@ puz_state::puz_state(const puz_game& g)
 		for(int c = 0; c < g.m_sidelen; ++c)
 			m_groups.add_cell({r, c});
 
-	for(const auto& p : g.m_trees)
-		make_move(p);
+	for(auto& p : g.m_spaces)
+		m_groups.remove_cell(p);
 
-	//ofstream out("Puzzles\\Parks2.xml", std::ios_base::app);
-	//out << format(R"(  <level id="%s" TreesInEachArea="%d">)")
-	//	% g.m_id % g.m_tree_count_area << endl;
-	//out << "    <![CDATA[" << endl;
-	//set<Position> horz_walls, vert_walls;
-	//for(int i = 0; i <= sidelen(); ++i){
-	//	vert_walls.emplace(i, 0);
-	//	vert_walls.emplace(i, sidelen());
-	//	horz_walls.emplace(0, i);
-	//	horz_walls.emplace(sidelen(), i);
-	//}
-	//for(int r = 0; r < sidelen(); ++r)
-	//	for(int c = 0; c < sidelen(); ++c){
-	//		Position p(r, c);
-	//		int n = g.m_pos2park.at(p);
-	//		auto p2 = p + offset[2];
-	//		if(is_valid(p2) && g.m_pos2park.at(p2) != n)
-	//			vert_walls.insert(p2);
-	//		p2 = p + offset[4];
-	//		if(is_valid(p2) && g.m_pos2park.at(p2) != n)
-	//			horz_walls.insert(p2);
-	//	}
-	//for(int r = 0;; ++r){
-	//	// draw horz-walls
-	//	for(int c = 0; c < sidelen(); ++c)
-	//		out << (horz_walls.count({r, c}) == 1 ? " -" : "  ");
-	//	out << " \\" << endl;
-	//	if(r == sidelen()) break;
-	//	for(int c = 0;; ++c){
-	//		Position p(r, c);
-	//		// draw vert-walls
-	//		out << (vert_walls.count(p) == 1 ? '|' : ' ');
-	//		if(c == sidelen()) break;
-	//		out << ' ';
-	//	}
-	//	out << '\\' << endl;
-	//}
-	//out << "    ]]>" << endl;
-	//out << "  </level>" << endl;
+	for(auto& p : g.m_trees)
+		make_move(p);
 }
 
 const puz_area& puz_groups::get_best_candidate_area() const
