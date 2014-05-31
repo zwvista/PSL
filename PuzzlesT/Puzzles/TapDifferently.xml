@@ -18,6 +18,120 @@
                     \
     ]]>
   </level>
+  <level id="03">
+    <![CDATA[
+                    \
+            6       \
+        12          \
+                    \
+1           4       \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+2   3               \
+                    \
+    8               \
+                    \
+    4       5       \
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+                    \
+12  23          5   \
+                    \
+3       8           \
+                    \
+    ]]>
+  </level>
+  <level id="06">
+    <![CDATA[
+            1       \
+            12  1   \
+            23      \
+    8               \
+                    \
+    ]]>
+  </level>
+  <level id="07">
+    <![CDATA[
+            5       \
+                    \
+    7           22  \
+                    \
+        2           \
+    ]]>
+  </level>
+  <level id="08">
+    <![CDATA[
+1                   \
+            8       \
+    3               \
+            7       \
+                    \
+    ]]>
+  </level>
+  <level id="09">
+    <![CDATA[
+        2           1   \
+            22          \
+    8       7       4   \
+                        \
+                        \
+                    1   \
+    ]]>
+  </level>
+  <level id="10">
+    <![CDATA[
+                        \
+4       8       8       \
+3                       \
+        7           22  \
+                        \
+                3       \
+    ]]>
+  </level>
+  <level id="11">
+    <![CDATA[
+    12      4   2   1   \
+                        \
+                    11  \
+                    2   \
+            8           \
+                        \
+    ]]>
+  </level>
+  <level id="12">
+    <![CDATA[
+2                   1   \
+                        \
+22  7       33          \
+                        \
+    8                   \
+                        \
+    ]]>
+  </level>
+  <level id="13">
+    <![CDATA[
+    4   3           1   \
+                    1   \
+    8           12      \
+                        \
+                        \
+                        \
+    ]]>
+  </level>
+  <level id="14">
+    <![CDATA[
+1               4       \
+                        \
+    4                   \
+        12              \
+        15      8       \
+                        \
+    ]]>
+  </level>
   <level id="15">
     <![CDATA[
 3                       \

@@ -9,6 +9,33 @@
                 1   \
     ]]>
   </level>
+  <level id="02" LeftPart="2">
+    <![CDATA[
+    3               \
+        12          \
+        14      4   \
+                    \
+            3   1   \
+    ]]>
+  </level>
+  <level id="03" LeftPart="2">
+    <![CDATA[
+2           1       \
+        6   13      \
+                    \
+            14      \
+2           11      \
+    ]]>
+  </level>
+  <level id="04" LeftPart="2">
+    <![CDATA[
+                    \
+        14          \
+    23      22      \
+            3       \
+            2   0   \
+    ]]>
+  </level>
   <level id="05" LeftPart="2.5">
     <![CDATA[
         12          \
@@ -16,6 +43,55 @@
     ?               \
 ?                   \
             3       \
+    ]]>
+  </level>
+  <level id="06" LeftPart="2.5">
+    <![CDATA[
+                    \
+        7       3?  \
+                    \
+    ?       7       \
+    22              \
+    ]]>
+  </level>
+  <level id="07" LeftPart="2.5">
+    <![CDATA[
+                    3   \
+                        \
+4       3   11          \
+        2   2       2   \
+                        \
+                    2   \
+    ]]>
+  </level>
+  <level id="08" LeftPart="3.5">
+    <![CDATA[
+2               22      \
+                        \
+    14                  \
+    11          15      \
+1               6       \
+                        \
+    ]]>
+  </level>
+  <level id="09" LeftPart="3.5">
+    <![CDATA[
+        3               \
+1                       \
+3               24      \
+                    12  \
+        3           3   \
+    2                   \
+    ]]>
+  </level>
+  <level id="10" LeftPart="3.5">
+    <![CDATA[
+    2               3   \
+    5       5           \
+                        \
+4                       \
+2               24  22  \
+1                       \
     ]]>
   </level>
 </levels>
