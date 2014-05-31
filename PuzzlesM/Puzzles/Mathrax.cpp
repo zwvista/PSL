@@ -110,7 +110,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		case PUZ_MUL:
 			return n1 * n2;
 		case PUZ_DIV:
-			return n1 / n2;
+			return n1 % n2 == 0 ? n1 / n2 : PUZ_WRONG;
 		case PUZ_EVEN:
 			return n1 % 2 == 0 && n2 % 2 == 0 ? PUZ_SPACE : PUZ_WRONG;
 		case PUZ_ODD:
