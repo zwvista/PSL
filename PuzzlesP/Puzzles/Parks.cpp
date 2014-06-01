@@ -126,15 +126,15 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 // first : all the remaining positions in the area where a tree can be planted
 // second : the number of trees that need to be planted in the area
-struct puz_area : pair<set<Position>, int>
+struct puz_area : pair<vector<Position>, int>
 {
 	puz_area() {}
 	puz_area(int tree_count_area)
-		: pair<set<Position>, int>({}, tree_count_area)
+		: pair<vector<Position>, int>({}, tree_count_area)
 	{}
-	void add_cell(const Position& p){ first.insert(p); }
-	void remove_cell(const Position& p){ first.erase(p); }
-	void plant_tree(const Position& p){ first.erase(p); --second; }
+	void add_cell(const Position& p){ first.push_back(p); }
+	void remove_cell(const Position& p){ boost::remove_erase(first, p); }
+	void plant_tree(const Position& p){ remove_cell(p); --second; }
 	bool is_valid() const {
 		return second >= 0 && first.size() >= second;
 	}
@@ -179,8 +179,14 @@ struct puz_groups
 			a->remove_cell(p);
 	}
 	void plant_tree(const Position& p){
-		for(puz_area* a : get_areas(p))
+		for(puz_area* a : get_areas(p)){
 			a->plant_tree(p);
+			if(a->second == 0){
+				auto rng = a->first;
+				for(auto& p2 : rng)
+					remove_cell(p2);
+			}
+		}
 	}
 	bool is_valid() const {
 		return m_parks.is_valid() && m_rows.is_valid() && m_cols.is_valid();
