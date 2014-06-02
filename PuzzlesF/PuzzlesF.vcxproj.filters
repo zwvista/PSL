@@ -19,9 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\futoshiki.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\fling.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -38,6 +35,9 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\Fillomino.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Futoshiki.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -59,9 +59,6 @@
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\futoshiki.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\fling.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -80,11 +77,11 @@
     <ClCompile Include="Puzzles\Fillomino.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Futoshiki.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\futoshiki.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\fling.xml">
       <Filter>Puzzles</Filter>
     </Xml>
@@ -104,6 +101,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Fillomino.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Futoshiki.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

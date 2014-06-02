@@ -9,20 +9,22 @@
 	Fill the rows and columns with numbers, respecting the relations
 
 	Description
-	1. You have to put in each row and column numbers ranging from 1 to N,
-	   where N is the puzzle board size.
-	2. The hints you have are the less than/greater than signs between tiles.
+	1. In a manner similar to Sudoku, you have to put in each row and column
+	   numbers ranging from 1 to N, where N is the puzzle board size.
+	2. The hints you have are the 'less than'/'greater than' signs between tiles.
 	3. Remember you can't repeat the same number in a row or column.
 
 	Variation
 	4. Some boards, instead of having less/greater signs, have just a line
 	   separating the tiles.
-	5. That separator hints at two tiles with consecutive numbers.
+	5. That separator hints at two tiles with consecutive numbers, i.e. 1-2
+	   or 3-4..
 	6. Please note that in this variation consecutive numbers MUST have a
 	   line separating the tiles. Otherwise they're not consecutive.
+	7. This Variation is a taste of a similar game: 'Consecutives'.
 */
 
-namespace puzzles{ namespace futoshiki{
+namespace puzzles{ namespace Futoshiki{
 
 #define PUZ_SPACE		' '
 #define PUZ_ROW_LT		'<'
@@ -202,9 +204,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_futoshiki()
+void solve_puz_Futoshiki()
 {
-	using namespace puzzles::futoshiki;
+	using namespace puzzles::Futoshiki;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\futoshiki.xml", "Puzzles\\futoshiki.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Futoshiki.xml", "Puzzles\\Futoshiki.txt", solution_format::GOAL_STATE_ONLY);
 }

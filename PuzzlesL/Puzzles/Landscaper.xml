@@ -42,6 +42,76 @@ F  FT \
   F FF\
     ]]>
   </level>
+  <level id="06">
+    <![CDATA[
+  F  T\
+    TT\
+ T  T \
+T TF  \
+  T   \
+T     \
+    ]]>
+  </level>
+  <level id="07">
+    <![CDATA[
+    T \
+      \
+ F   F\
+ F    \
+T  T  \
+T TT F\
+    ]]>
+  </level>
+  <level id="08">
+    <![CDATA[
+    F \
+ TT   \
+FF T T\
+T F   \
+      \
+ TFT  \
+    ]]>
+  </level>
+  <level id="09">
+    <![CDATA[
+    TT\
+     T\
+ F  F \
+  T F \
+   F  \
+      \
+    ]]>
+  </level>
+  <level id="10">
+    <![CDATA[
+ F    \
+   T T\
+ T    \
+ T   F\
+T  T T\
+   T  \
+    ]]>
+  </level>
+  <level id="11">
+    <![CDATA[
+   T T\
+    F \
+  T  T\
+F    T\
+      \
+F     \
+    ]]>
+  </level>
+  <level id="12">
+    <![CDATA[
+      \
+FF    \
+T  F  \
+ TT T \
+      \
+    FF\
+    ]]>
+  </level>
   <level id="13">
     <![CDATA[
 F T  TT\

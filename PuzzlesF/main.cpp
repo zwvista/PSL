@@ -6,7 +6,7 @@ extern void solve_puz_Fillomino();
 extern void solve_puz_fling();
 extern void solve_puz_FourMeNot();
 extern void solve_puz_FourMeNot2();
-extern void solve_puz_futoshiki();
+extern void solve_puz_Futoshiki();
 
 int main(int argc, char **argv)
 {
@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 	cout << "l: fling" << endl;
 	cout << "o1: Four-Me-Not" << endl;
 	cout << "o2: Four-Me-Not2" << endl;
-	cout << "u: futoshiki" << endl;
+	cout << "u: Futoshiki" << endl;
 	string str;
 	getline(cin, str);
 	if(str == "e1") solve_puz_FenceItUp();
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	else if(str == "l") solve_puz_fling();
 	else if(str == "o1") solve_puz_FourMeNot();
 	else if(str == "o2") solve_puz_FourMeNot2();
-	else if(str == "u") solve_puz_futoshiki();
+	else if(str == "u") solve_puz_Futoshiki();
 
 	return 0;
 }

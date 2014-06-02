@@ -223,4 +223,124 @@ D      A\
  DCABCA \
     ]]>
   </level>
+  <level id="21">
+    <![CDATA[
+  BD B  \
+       D\
+C      D\
+        \
+       C\
+C       \
+        \
+   CBC  \
+    ]]>
+  </level>
+  <level id="22">
+    <![CDATA[
+  D D D \
+        \
+       A\
+C       \
+C      A\
+        \
+       A\
+     B  \
+    ]]>
+  </level>
+  <level id="23">
+    <![CDATA[
+ C C BD \
+A       \
+B      C\
+       D\
+A       \
+       C\
+        \
+ D BD   \
+    ]]>
+  </level>
+  <level id="24">
+    <![CDATA[
+ BA  A  \
+       B\
+        \
+       C\
+       A\
+       C\
+        \
+  DC DD \
+    ]]>
+  </level>
+  <level id="25">
+    <![CDATA[
+ EB AB  \
+E       \
+A      D\
+A       \
+C      B\
+D      C\
+        \
+   B  A \
+    ]]>
+  </level>
+  <level id="26">
+    <![CDATA[
+ D  ED  \
+        \
+A      D\
+E       \
+       A\
+E      B\
+       E\
+ CEDBA  \
+    ]]>
+  </level>
+  <level id="27">
+    <![CDATA[
+  D CEE \
+B       \
+A      B\
+D       \
+B      D\
+        \
+E      A\
+ E B CA \
+    ]]>
+  </level>
+  <level id="28">
+    <![CDATA[
+ EBC  A \
+        \
+       E\
+E      B\
+B      C\
+       B\
+       D\
+  D  A  \
+    ]]>
+  </level>
+  <level id="29">
+    <![CDATA[
+ B D  A \
+C       \
+A      B\
+       C\
+        \
+D      B\
+       A\
+ CD B   \
+    ]]>
+  </level>
+  <level id="30">
+    <![CDATA[
+ C  D A \
+        \
+        \
+D      A\
+D       \
+D      B\
+A      C\
+  ADB C \
+    ]]>
+  </level>
 </levels>
