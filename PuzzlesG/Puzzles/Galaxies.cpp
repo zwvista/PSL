@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Galaxies
+	ios game: Logic Games/Puzzle Set 4/Galaxies
 
 	Summary
 	Fill the Symmetric Spiral Galaxies
@@ -22,78 +22,86 @@
 namespace puzzles{ namespace Galaxies{
 
 #define PUZ_SPACE		' '
-#define PUZ_EMPTY		'.'
+#define PUZ_BOUNDARY	'+'
+#define PUZ_GALAXY		'o'
+#define PUZ_GALAXY_R	'>'
+#define PUZ_GALAXY_C	'v'
+#define PUZ_GALAXY_RC	'x'
+
+const Position offset[] = {
+	{-1, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, -1},		// w
+};
 
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	string m_start;
-	char m_letter_max;
-	// 1st dimension : the index of the area(rows and columns)
-	// 2nd dimension : all the positions that the area is composed of
-	vector<vector<Position>> m_area2range;
-	// all permutations
-	// A space A B C C
-	// A space A C B B
-	// ...
-	// C C B A space A
-	vector<string> m_perms;
+	vector<Position> m_galaxies;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size())
-, m_area2range(m_sidelen * 2)
+, m_sidelen(strs.size() + 2)
 {
-	m_start = boost::accumulate(strs, string());
-	m_letter_max = *boost::max_element(m_start);
-	for(int r = 0; r < m_sidelen; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen; ++c){
-			Position p(r, c);
-			m_area2range[r].push_back(p);
-			m_area2range[m_sidelen + c].push_back(p);
-		}
-	}
-
-	string perm(m_sidelen, PUZ_EMPTY);
-	auto f = [&](int border, int start, int end, int step){
-		for(int i = start; i != end; i += step)
-			if(perm[i] != PUZ_EMPTY){
-				perm[border] = perm[i];
-				return;
+	for(int r = 1; r < m_sidelen - 1; ++r){
+		auto& str = strs[r - 1];
+		for(int c = 1; c < m_sidelen - 1; ++c)
+			switch(str[c - 1]){
+			case PUZ_GALAXY:
+				m_galaxies.emplace_back(r * 2, c * 2);
+				break;
+			case PUZ_GALAXY_R:
+				m_galaxies.emplace_back(r * 2, c * 2 + 1);
+				break;
+			case PUZ_GALAXY_C:
+				m_galaxies.emplace_back(r * 2 + 1, c * 2);
+				break;
+			case PUZ_GALAXY_RC:
+				m_galaxies.emplace_back(r * 2 + 1, c * 2 + 1);
+				break;
 			}
-	};
-
-	auto begin = next(perm.begin()), end = prev(perm.end());
-	iota(next(begin, m_sidelen - 2 - (m_letter_max - 'A' + 1)), end, 'A');
-	do{
-		f(0, 1, m_sidelen - 1, 1);
-		f(m_sidelen - 1, m_sidelen - 2, 0, -1);
-		m_perms.push_back(perm);
-	}while(next_permutation(begin, end));
+	}
 }
 
-struct puz_state
+struct puz_galaxy
+{
+	set<Position> m_inner, m_outer;
+	Position m_center;
+	char m_ch;
+	bool m_ready = false;
+	bool m_center_in_cell = false;
+
+	puz_galaxy() {}
+	puz_galaxy(const Position& p, char ch) : m_center(p), m_ch(ch) {
+		Position p2(m_center.first / 2, m_center.second / 2);
+		m_inner.insert(p2);
+		if(p.first % 2 == 1 && p.second % 2 == 1)
+			m_inner.insert(p2 + Position(0, 1));
+		else if(p.first % 2 == 0 && p.second % 2 == 0)
+			m_center_in_cell = true;
+	}
+};
+
+struct puz_state : string
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-	bool make_move(int i, int j);
-	void make_move2(int i, int j);
-	int find_matches(bool init);
+	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	bool make_move(int n, const Position& p);
+	void adjust_galaxies();
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_matches.size(); }
-	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
+	unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
+	unsigned int get_distance(const puz_state& child) const { return 2; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
 	friend ostream& operator<<(ostream& out, const puz_state& state) {
@@ -101,91 +109,86 @@ struct puz_state
 	}
 
 	const puz_game* m_game = nullptr;
-	string m_cells;
-	map<int, vector<int>> m_matches;
-	unsigned int m_distance = 0;
+	vector<puz_galaxy> m_galaxies;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-	vector<int> perm_ids(g.m_perms.size());
-	boost::iota(perm_ids, 0);
+	for(int i = 0; i < sidelen(); ++i)
+		cells({i, 0}) = cells({i, sidelen() - 1}) =
+		cells({0, i}) = cells({sidelen() - 1, i}) =
+		PUZ_BOUNDARY;
 
-	for(int i = 1; i < sidelen() - 1; ++i)
-		m_matches[i] = m_matches[sidelen() + i] = perm_ids;
-
-	find_matches(true);
-}
-
-int puz_state::find_matches(bool init)
-{
-	auto& perms = m_game->m_perms;
-	for(auto& kv : m_matches){
-		int area_id = kv.first;
-		auto& perm_ids = kv.second;
-
-		string chars;
-		for(auto& p : m_game->m_area2range[kv.first])
-			chars.push_back(cells(p));
-
-		boost::remove_erase_if(perm_ids, [&](int id){
-			return !boost::equal(chars, perms[id], [](char ch1, char ch2){
-				return ch1 == PUZ_SPACE || ch1 == ch2;
-			});
-		});
-
-		if(!init)
-			switch(perm_ids.size()){
-			case 0:
-				return 0;
-			case 1:
-				return make_move2(area_id, perm_ids.front()), 1;
-			}
+	char ch = 'a';
+	for(auto& p : g.m_galaxies){
+		puz_galaxy g(p, ch++);
+		for(auto& p2 : g.m_inner)
+			cells(p2) = cells(g.m_center - p2) = g.m_ch;
+		m_galaxies.push_back(g);
 	}
-	return 2;
+
+	adjust_galaxies();
 }
 
-void puz_state::make_move2(int i, int j)
+void puz_state::adjust_galaxies()
 {
-	auto& range = m_game->m_area2range[i];
-	auto& perm = m_game->m_perms[j];
-
-	for(int k = 0; k < perm.size(); ++k)
-		cells(range[k]) = perm[k];
-
-	++m_distance;
-	m_matches.erase(i);
+	for(auto& g : m_galaxies){
+		g.m_outer.clear();
+		if(g.m_ready) continue;
+		for(auto& p : g.m_inner)
+			for(int i = 0; i < 4; ++i){
+				if(g.m_center_in_cell && g.m_inner.size() == 1 && i > 1) continue;
+				auto p2 = p + offset[i];
+				auto p3 = g.m_center - p2;
+				if(cells(p2) == PUZ_SPACE && cells(p3) == PUZ_SPACE)
+					g.m_outer.insert(p2);
+			}
+		if(g.m_outer.empty())
+			g.m_ready = true;
+	}
 }
 
-bool puz_state::make_move(int i, int j)
+bool puz_state::make_move(int n, const Position& p)
 {
-	m_distance = 0;
-	make_move2(i, j);
-	int m;
-	while((m = find_matches(false)) == 1);
-	return m == 2;
+	auto& g = m_galaxies[n];
+	for(auto&& p2 : {p, g.m_center - p}){
+		g.m_inner.insert(p2);
+		cells(p2) = g.m_ch;
+	}
+	adjust_galaxies();
+	return is_goal_state() || boost::algorithm::any_of(m_galaxies, [](const puz_galaxy& g){
+		return !g.m_outer.empty();
+	});
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	auto& kv = *boost::min_element(m_matches, [](
-		const pair<int, vector<int>>& kv1, 
-		const pair<int, vector<int>>& kv2){
-		return kv1.second.size() < kv2.second.size();
-	});
-	for(int n : kv.second){
-		children.push_back(*this);
-		if(!children.back().make_move(kv.first, n))
-			children.pop_back();
+	for(int i = 0; i < m_galaxies.size(); ++i){
+		auto& g = m_galaxies[i];
+		for(auto& p : g.m_outer){
+			children.push_back(*this);
+			if(!children.back().make_move(i, p))
+				children.pop_back();
+		}
 	}
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r) {
-		for(int c = 0; c < sidelen(); ++c)
-			out << cells({r, c}) << ' ';
+	for(int r = 1;; ++r){
+		// draw horz-walls
+		for(int c = 1; c < sidelen() - 1; ++c)
+			out << (cells({r - 1, c}) != cells({r, c}) ? " -" : "  ");
+		out << endl;
+		if(r == sidelen() - 1) break;
+		for(int c = 1;; ++c){
+			Position p(r, c);
+			// draw vert-walls
+			out << (cells({r, c - 1}) != cells({r, c}) ? '|' : ' ');
+			if(c == sidelen() - 1) break;
+			out << '.';
+		}
 		out << endl;
 	}
 	return out;
@@ -193,7 +196,7 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_Abc()
+void solve_puz_Galaxies()
 {
 	using namespace puzzles::Galaxies;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(

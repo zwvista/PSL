@@ -2,15 +2,46 @@
 <levels>
   <level id="01">
     <![CDATA[
-         \
-  o      \
-      o  \
-         \
-         \
-   o     \
-       o \
- o       \
-         \
+> x \
+    \
+ o v\
+o   \
+    ]]>
+  </level>
+  <level id="02">
+    <![CDATA[
+ o o\
+x x \
+    \
+ o o\
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+ o x \
+     \
+v >  \
+ >   \
+ o o \
+    ]]>
+  </level>
+  <level id="04">
+    <![CDATA[
+v v v\
+     \
+ >  v\
+> v  \
+o  > \
+    ]]>
+  </level>
+  <level id="05">
+    <![CDATA[
+ o o o\
+    v \
+> o   \
+ o    \
+o o  o\
+ > >  \
     ]]>
   </level>
 </levels>
