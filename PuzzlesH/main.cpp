@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+extern void solve_puz_Hedgehog();
 extern void solve_puz_hexrotation();
 extern void solve_puz_HiddenPath();
 extern void solve_puz_HiddenStar();
@@ -11,7 +12,8 @@ extern void solve_puz_hrd();
 
 int main(int argc, char **argv)
 {
-	cout << "e: hexrotation" << endl;
+	cout << "e1: Hedgehog" << endl;
+	cout << "e2: hexrotation" << endl;
 	cout << "i1: HiddenPath" << endl;
 	cout << "i2: HiddenStar" << endl;
 	cout << "i3: Hidoku" << endl;
@@ -21,7 +23,8 @@ int main(int argc, char **argv)
 	cout << "r: hrd" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "e") solve_puz_hexrotation();
+	if(str == "e1") solve_puz_Hedgehog();
+	else if(str == "e2") solve_puz_hexrotation();
 	else if(str == "i1") solve_puz_HiddenPath();
 	else if(str == "i2") solve_puz_HiddenStar();
 	else if(str == "i3") solve_puz_Hidoku();

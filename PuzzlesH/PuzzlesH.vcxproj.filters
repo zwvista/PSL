@@ -49,6 +49,9 @@
     <Text Include="Puzzles\HolidayIsland.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Hedgehog.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -92,6 +95,9 @@
     <ClCompile Include="Puzzles\HolidayIsland.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Hedgehog.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\hexrotation.xml">
@@ -116,6 +122,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\HolidayIsland.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Hedgehog.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
