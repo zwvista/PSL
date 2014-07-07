@@ -36,11 +36,51 @@
 	   Counterclockwise.
 	5. On the last day the Hedgehog needs to be able to correctly reach n.1,
 	   closing the trip.
+
+	ios game: Logic Games/Puzzle Set 1/Hedgehog Forest
+
+	What's up?
+	Lost in the Woods
+
+	Description
+	1. After eating all the fruit, the Hedgehog wanders in the Forest.
+	2. In the middle, he finds Acorns, which he loves particularly.
+	3. In order to get Acorns, he can move in and out of the central section
+	   (like Orchards).
+	4. At the margins of the Forest there are a few boulders, with no fruit
+	   on them.
+	5. He can dig under the boulders, but not stop on them (disregard them).
+	6. The highest number in the Forest is 73. After 73, you don't need to
+	   reach n.1, like the Back Garden and Orchard.
+
+	Variants
+	7. He can move in and out the middle section, horizontally or vertically
+	   (not diagonally).
+	8. Numbers go from 1 to 73 and there's no need to loop back to n.1.
+	   Boulders can be ignored.
+
+	ios game: Logic Games/Puzzle Set 1/Hedgehog City
+
+	What's up?
+	Mr. Hedgehog goes to Washington
+
+	Description
+	1. In the end, Mr. Hedgehog gets lost in the City after hearing about
+	   a 'Big apple'.
+	2. Having found no such big fruit, he adapts to the City, taking the
+	   Tube and eating Junk Food (and Pizza)!
+	3. The Tube can take Mr. H. across town to the opposite District, in
+	   the same exact spot where he was in the starting District.
+	4. Junk Food has the same effect as Cider on the Hedgehog. Same as in
+	   Orchard, he moves Clockwise and Counterclockwise.
+	5. He also needs to close the trip.
 */
 
 namespace puzzles{ namespace Hedgehog{
 
 #define PUZ_SPACE		0
+#define PUZ_BOULDER		-1
+#define PUZ_BOULDER_STR	" OO"
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -87,9 +127,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
-			int n = atoi(str.substr(c * 3, 3).c_str());
+			auto s = str.substr(c * 3, 3);
+			int n = s == PUZ_BOULDER_STR ? PUZ_BOULDER : atoi(s.c_str());
 			m_start.push_back(n);
-			if(n != 0)
+			if(n > 0)
 				m_num2pos[n] = p;
 		}
 	}
@@ -136,15 +177,24 @@ struct puz_state : vector<int>
 puz_state::puz_state(const puz_game& g)
 : vector<int>(g.m_start), m_game(&g)
 {
-	for(auto prev = m_game->m_num2pos.begin(), first = std::next(prev),
-		last = m_game->m_num2pos.end(); first != last; ++prev, ++first)
-		if(first->first - prev->first > 1){
+	auto f = [&](const pair<int, Position>& kv_cur, const pair<int, Position>& kv_next){
+		if(kv_next.first - kv_cur.first != 1){
 			m_segments.emplace_back();
 			auto& o = m_segments.back();
-			o.m_cur = {prev->second, prev->first};
-			o.m_dest = {first->second, first->first};
+			o.m_cur = {kv_cur.second, kv_cur.first};
+			o.m_dest = {kv_next.second, kv_next.first};
 			segment_next(o);
 		}
+	};
+	for(auto prev = m_game->m_num2pos.begin(), first = std::next(prev),
+		last = m_game->m_num2pos.end(); first != last; ++prev, ++first)
+		f(*prev, *first);
+
+	// close the trip
+	auto &kv1 = *m_game->m_num2pos.rbegin(), &kv2 = *m_game->m_num2pos.begin();
+	int n = m_game->m_game_type == puz_game_type::FOREST ? -1 :
+		sidelen() * sidelen() + 1;
+	f(kv1, {n, kv2.second});
 }
 
 vector<int> puz_state::get_dirs(const Position& p) const
@@ -156,7 +206,7 @@ vector<int> puz_state::get_dirs(const Position& p) const
 		// 02 | 0246| 46
 		// -  -     -
 		// 0  | 06  | 6
-		switch(int n = p.first / 3 * 2 + p.second / 3){
+		switch(int n = p.first / 3 * 3 + p.second / 3){
 		case 0: dirs = {2}; break;
 		case 1: dirs = {2, 4}; break;
 		case 2: dirs = {4}; break;
@@ -218,7 +268,7 @@ void puz_state::segment_next(puz_segment& o) const
 							return true;
 					}
 					return false;
-				}()))
+				}()) && !boost::algorithm::any_of_equal(o.m_next, p3))
 					o.m_next.push_back(p3);
 			}
 		}
@@ -230,7 +280,8 @@ bool puz_state::make_move(int i, int j)
 	auto& o = m_segments[i];
 	auto p = o.m_next[j];
 	cells(o.m_cur.first = p) = ++o.m_cur.second;
-	if(o.m_dest.second - o.m_cur.second == 1)
+	if(o.m_dest.second - o.m_cur.second == 1 ||
+		o.m_dest.second == -1 && o.m_cur.second == 73)
 		m_segments.erase(m_segments.begin() + i);
 	else
 		segment_next(o);
@@ -260,8 +311,13 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
 	for(int r = 0; r < sidelen(); ++r){
-		for(int c = 0; c < sidelen(); ++c)
-			out << format("%3d") % cells({r, c});
+		for(int c = 0; c < sidelen(); ++c){
+			int n = cells({r, c});
+			if(n == PUZ_BOULDER)
+				out << PUZ_BOULDER_STR;
+			else
+				out << format("%3d") % n;
+		}
 		out << endl;
 	}
 	return out;

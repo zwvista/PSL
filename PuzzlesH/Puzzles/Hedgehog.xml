@@ -40,6 +40,19 @@
  33 25 19 26 34   \
     ]]>
   </level>
+  <level id="25" GameType="Forest">
+    <![CDATA[
+    29    54    46       OO\
+ OO          38 72       39\
+ OO    63 56  8 64        9\
+    28 36 19    33 32 34   \
+    70 44    69 13 66      \
+     6    55  1    24 48 40\
+  3 OO OO 20    12 OO OO 11\
+ 51          26 50 25      \
+    OO    16 68    67 59 15\
+    ]]>
+  </level>
   <level id="31" GameType="City">
     <![CDATA[
     23 18 36 15 22\
