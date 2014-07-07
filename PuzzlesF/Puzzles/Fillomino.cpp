@@ -51,15 +51,15 @@ const Position offset2[] = {
 	{0, 0},		// w
 };
 
-enum puz_game_type
+enum class puz_game_type
 {
-	NORMAL_FILLOMINO,
-	NO_RECTANGLES_FILLOMINO,
-	ONLY_RECTANGLES_FILLOMINO,
-	NON_CONSECUTIVE_FILLOMINO,
-	CONSECUTIVE_FILLOMINO,
-	ALL_ODDS_FILLOMINO,
-	ALL_EVENS_FILLOMINO,
+	NORMAL,
+	NO_RECTANGLES,
+	ONLY_RECTANGLES,
+	NON_CONSECUTIVE,
+	CONSECUTIVE,
+	ALL_ODDS,
+	ALL_EVENS,
 };
 
 struct puz_game
@@ -81,13 +81,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 {
 	auto game_type = attrs.get<string>("GameType", "Fillomino");
 	m_game_type =
-		game_type == "No Rectangles" ? NO_RECTANGLES_FILLOMINO :
-		game_type == "Only Rectangles" ? ONLY_RECTANGLES_FILLOMINO :
-		game_type == "Non Consecutive" ? NON_CONSECUTIVE_FILLOMINO :
-		game_type == "Consecutive" ? CONSECUTIVE_FILLOMINO :
-		game_type == "All Odds" ? ALL_ODDS_FILLOMINO :
-		game_type == "All Evens" ? ALL_EVENS_FILLOMINO :
-		NORMAL_FILLOMINO;
+		game_type == "No Rectangles" ? puz_game_type::NO_RECTANGLES :
+		game_type == "Only Rectangles" ? puz_game_type::ONLY_RECTANGLES :
+		game_type == "Non Consecutive" ? puz_game_type::NON_CONSECUTIVE :
+		game_type == "Consecutive" ? puz_game_type::CONSECUTIVE :
+		game_type == "All Odds" ? puz_game_type::ALL_ODDS :
+		game_type == "All Evens" ? puz_game_type::ALL_EVENS :
+		puz_game_type::NORMAL;
 
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
@@ -303,13 +303,13 @@ bool puz_state::make_move2(const Position& p, int n)
 		}
 
 	if(area.m_ready)
-		if(m_game->m_game_type == ALL_ODDS_FILLOMINO ||
-			m_game->m_game_type == ALL_EVENS_FILLOMINO){
-			if((m_game->m_game_type == ALL_EVENS_FILLOMINO) != (sz % 2 == 0))
+		if(m_game->m_game_type == puz_game_type::ALL_ODDS ||
+			m_game->m_game_type == puz_game_type::ALL_EVENS){
+			if((m_game->m_game_type == puz_game_type::ALL_EVENS) != (sz % 2 == 0))
 				return false;
 		}
-		else if(m_game->m_game_type == NO_RECTANGLES_FILLOMINO ||
-			m_game->m_game_type == ONLY_RECTANGLES_FILLOMINO){
+		else if(m_game->m_game_type == puz_game_type::NO_RECTANGLES ||
+			m_game->m_game_type == puz_game_type::ONLY_RECTANGLES){
 			auto mm1 = std::minmax_element(area.m_inner.begin(), area.m_inner.end(),
 				[](const Position& p1, const Position& p2){
 				return p1.first < p2.first;
@@ -320,7 +320,7 @@ bool puz_state::make_move2(const Position& p, int n)
 			});
 			int sz2 = (mm1.second->first - mm1.first->first + 1) *
 				(mm2.second->second - mm2.first->second + 1);
-			if((m_game->m_game_type == ONLY_RECTANGLES_FILLOMINO) != (sz == sz2))
+			if((m_game->m_game_type == puz_game_type::ONLY_RECTANGLES) != (sz == sz2))
 				return false;
 		}
 
@@ -331,15 +331,15 @@ bool puz_state::make_move2(const Position& p, int n)
 			return myabs(cnt2 - cnt) == 1;
 		});
 	};
-	return m_game->m_game_type != NON_CONSECUTIVE_FILLOMINO &&
-		m_game->m_game_type != CONSECUTIVE_FILLOMINO ||
+	return m_game->m_game_type != puz_game_type::NON_CONSECUTIVE &&
+		m_game->m_game_type != puz_game_type::CONSECUTIVE ||
 		!is_goal_state() ||
-		m_game->m_game_type == NON_CONSECUTIVE_FILLOMINO &&
+		m_game->m_game_type == puz_game_type::NON_CONSECUTIVE &&
 		boost::algorithm::all_of(m_id2area, [&](const pair<int, puz_area>& kv){
 			return boost::algorithm::none_of(kv.second.m_inner, [&](const Position& p2){
 				return f(p2, kv.second.m_cell_count);
 			});
-		}) || m_game->m_game_type == CONSECUTIVE_FILLOMINO &&
+		}) || m_game->m_game_type == puz_game_type::CONSECUTIVE &&
 		boost::algorithm::all_of(m_id2area, [&](const pair<int, puz_area>& kv){
 			return boost::algorithm::any_of(kv.second.m_inner, [&](const Position& p2){
 				return f(p2, kv.second.m_cell_count);

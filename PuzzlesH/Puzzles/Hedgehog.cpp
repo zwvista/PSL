@@ -3,13 +3,13 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Hedgehog
+	ios game: Logic Games/Puzzle Set 1/Hedgehog Back Garden
 
 	Summary
 	Vegetable Assault!
 
 	Description
-	1. A pretty neat hedgehog lives in a black Garden, which is divided in
+	1. A pretty neat hedgehog lives in a Back Garden, which is divided in
 	   four smaller Vegetable fields.
 	2. Hedgehogs are semi-omnivorous, but this one has a peculiar balanced
 	   diet.
@@ -18,6 +18,24 @@
 	4. So, each day, he digs under the garden in a straight line and pops
 	   up in next field.
 	5. He never pops up in the same tile twice (nothing left to eat!)
+	6. On the last day the Hedgehog needs to be able to correctly reach n.1,
+	   closing the trip.
+
+	ios game: Logic Games/Puzzle Set 1/Hedgehog Orchard
+
+	What's up?
+	Cider Party!
+
+	Description
+	1. Having eating a fair amount of vegetables, the Hedgehog switches to
+	   fruit and moves to the Orchard.
+	2. Here a few old apples have become Cider with time!
+	3. Cider makes the Hedgehog particularly merry, in fact in the Orchard
+	   he can move in both directions.
+	4. Orchard plays like Back Garden, but each move can be Clockwise or
+	   Counterclockwise.
+	5. On the last day the Hedgehog needs to be able to correctly reach n.1,
+	   closing the trip.
 */
 
 namespace puzzles{ namespace Hedgehog{
@@ -31,10 +49,19 @@ const Position offset[] = {
 	{0, -1},		// w
 };
 
+enum class puz_game_type
+{
+	BACK_GARDEN,
+	ORCHARD,
+	FOREST,
+	CITY,
+};
+
 struct puz_game	
 {
 	string m_id;
 	int m_sidelen;
+	puz_game_type m_game_type;
 	map<int, Position> m_num2pos;
 	vector<int> m_start;
 
@@ -45,11 +72,18 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	: m_id(attrs.get<string>("id"))
 	, m_sidelen(strs.size())
 {
+	auto game_type = attrs.get<string>("GameType", "Back Garden");
+	m_game_type =
+		game_type == "Orchard" ? puz_game_type::ORCHARD :
+		game_type == "Forest" ? puz_game_type::FOREST :
+		game_type == "City" ? puz_game_type::CITY :
+		puz_game_type::BACK_GARDEN;
+
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
-			int n = atoi(str.substr(c * 2, 2).c_str());
+			int n = atoi(str.substr(c * 3, 3).c_str());
 			m_start.push_back(n);
 			if(n != 0)
 				m_num2pos[n] = p;
@@ -74,14 +108,7 @@ struct puz_state : vector<int>
 	int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	void segment_next(puz_segment& o) const;
 	bool make_move(int i, int j);
-	int get_dir(const Position& p) const {
-		// 1 | 2
-		// - - -
-		// 0 | 3
-		int half = sidelen() / 2;
-		int n = p.first / half * 2 + p.second / half;
-		return n < 2 ? n + 1 : n == 2 ? 0 : 3;
-	};
+	vector<int> get_dirs(const Position& p) const;
 
 	// solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -116,27 +143,45 @@ puz_state::puz_state(const puz_game& g)
 		}
 }
 
+vector<int> puz_state::get_dirs(const Position& p) const
+{
+	// 1 2 | 2 3
+	// - - - - -
+	// 0 1 | 3 0
+	int half = sidelen() / 2;
+	int n = p.first / half * 2 + p.second / half;
+	n = n < 2 ? n + 1 : n == 2 ? 0 : 3;
+	vector<int> dirs = {n};
+	if(m_game->m_game_type == puz_game_type::ORCHARD)
+		dirs.push_back((n + 1) % 4);
+	return dirs;
+};
+
 void puz_state::segment_next(puz_segment& o) const
 {
 	int n1 = o.m_cur.second + 1, n2 = o.m_dest.second;
 	auto &p1 = o.m_cur.first, &p2 = o.m_dest.first;
-	int d1 = get_dir(p1);
 	o.m_next.clear();
-	auto os = offset[d1];
-	for(auto p3 = p1 + os; is_valid(p3); p3 += os){
-		int d3 = get_dir(p3);
-		if(d3 != (d1 + 1) % 4) continue;
-		if(cells(p3) == PUZ_SPACE && (n1 + 1 != n2 || [&]{
-			auto os2 = offset[d3];
-			for(auto p4 = p3 + os2; is_valid(p4); p4 += os2){
-				int d4 = get_dir(p4);
-				if(d4 != (d3 + 1) % 4) continue;
-				if(p4 == p2)
-					return true;
+	auto ds1 = get_dirs(p1);
+	for(int d1 : ds1){
+		auto os = offset[d1];
+		for(auto p3 = p1 + os; is_valid(p3); p3 += os){
+			auto ds3 = get_dirs(p3);
+			if(ds3 == ds1) continue;
+			for(int d3 : ds3){
+				if(cells(p3) == PUZ_SPACE && (n1 + 1 != n2 || [&]{
+					auto os2 = offset[d3];
+					for(auto p4 = p3 + os2; is_valid(p4); p4 += os2){
+						auto ds4 = get_dirs(p4);
+						if(ds4 == ds3) continue;
+						if(p4 == p2)
+							return true;
+					}
+					return false;
+				}()))
+					o.m_next.push_back(p3);
 			}
-			return false;
-		}()))
-			o.m_next.push_back(p3);
+		}
 	}
 }
 
