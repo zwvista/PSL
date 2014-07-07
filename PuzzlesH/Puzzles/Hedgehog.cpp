@@ -44,9 +44,13 @@ namespace puzzles{ namespace Hedgehog{
 
 const Position offset[] = {
 	{-1, 0},		// n
+	{-1, 1},		// ne
 	{0, 1},		// e
+	{1, 1},		// se
 	{1, 0},		// s
+	{1, -1},		// sw
 	{0, -1},		// w
+	{-1, -1},	// nw
 };
 
 enum class puz_game_type
@@ -145,32 +149,68 @@ puz_state::puz_state(const puz_game& g)
 
 vector<int> puz_state::get_dirs(const Position& p) const
 {
-	// 1 2 | 2 3
-	// - - - - -
-	// 0 1 | 3 0
-	int half = sidelen() / 2;
-	int n = p.first / half * 2 + p.second / half;
-	n = n < 2 ? n + 1 : n == 2 ? 0 : 3;
-	vector<int> dirs = {n};
-	if(m_game->m_game_type == puz_game_type::ORCHARD)
-		dirs.push_back((n + 1) % 4);
+	vector<int> dirs;
+	if(m_game->m_game_type == puz_game_type::FOREST){
+		// 2  | 24  | 4
+		// -  -     -
+		// 02 | 0246| 46
+		// -  -     -
+		// 0  | 06  | 6
+		switch(int n = p.first / 3 * 2 + p.second / 3){
+		case 0: dirs = {2}; break;
+		case 1: dirs = {2, 4}; break;
+		case 2: dirs = {4}; break;
+		case 3: dirs = {0, 2}; break;
+		case 4: dirs = {0, 2, 4, 6}; break;
+		case 5: dirs = {4, 6}; break;
+		case 6: dirs = {0}; break;
+		case 7: dirs = {0, 6}; break;
+		case 8: dirs = {6}; break;
+		}
+	}
+	else{
+		// 234 | 456
+		// - - - - -
+		// 012 | 670
+		int half = sidelen() / 2;
+		int n = p.first / half * 2 + p.second / half;
+		switch(n){
+		case 0: n = 2; break;
+		case 1: n = 4; break;
+		case 2: n = 0; break;
+		case 3: n = 6; break;
+		}
+		dirs.push_back(n);
+		if(m_game->m_game_type == puz_game_type::CITY)
+			dirs.push_back(n + 1);
+		if(m_game->m_game_type != puz_game_type::BACK_GARDEN)
+			dirs.push_back((n + 2) % 8);
+	}
 	return dirs;
 };
 
 void puz_state::segment_next(puz_segment& o) const
 {
+	auto f = [&](int d){
+		int half = sidelen() / 2;
+		auto os = offset[d];
+		if(d % 2 == 1)
+			os = {os.first * half, os.second * half};
+		return os;
+	};
+
 	int n1 = o.m_cur.second + 1, n2 = o.m_dest.second;
 	auto &p1 = o.m_cur.first, &p2 = o.m_dest.first;
 	o.m_next.clear();
 	auto ds1 = get_dirs(p1);
 	for(int d1 : ds1){
-		auto os = offset[d1];
+		auto os = f(d1);
 		for(auto p3 = p1 + os; is_valid(p3); p3 += os){
 			auto ds3 = get_dirs(p3);
 			if(ds3 == ds1) continue;
 			for(int d3 : ds3){
 				if(cells(p3) == PUZ_SPACE && (n1 + 1 != n2 || [&]{
-					auto os2 = offset[d3];
+					auto os2 = f(d3);
 					for(auto p4 = p3 + os2; is_valid(p4); p4 += os2){
 						auto ds4 = get_dirs(p4);
 						if(ds4 == ds3) continue;
