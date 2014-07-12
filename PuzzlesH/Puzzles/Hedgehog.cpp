@@ -74,13 +74,30 @@
 	4. Junk Food has the same effect as Cider on the Hedgehog. Same as in
 	   Orchard, he moves Clockwise and Counterclockwise.
 	5. He also needs to close the trip.
+
+	ios game: Logic Games/Puzzle Set 1/Hedgehog Enchanted Forest
+
+	What's up?
+	Back to Nature!
+
+	Description
+	1. All Forest rules are valid.
+	2. In addition, the Hedgehog can be magically teleported, just like the
+	   Tube in the City.
+	3. Teleportation happens ONLY in the four quardants (3*3 areas) in the
+	   corners.
+	4. Teleportation takes the Hedgehog to the opposite quadrant, in the
+	   same relative position.
+	5. For example from the South-East quadrant he can be teleported to the
+	   North-West one.
 */
 
 namespace puzzles{ namespace Hedgehog{
 
-#define PUZ_SPACE		0
-#define PUZ_BOULDER		-1
-#define PUZ_BOULDER_STR	" OO"
+#define PUZ_SPACE			0
+#define PUZ_BOULDER			-1
+#define PUZ_BOULDER_STR		" OO"
+#define PUZ_FOREST_DEST		-1
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -99,6 +116,7 @@ enum class puz_game_type
 	ORCHARD,
 	FOREST,
 	CITY,
+	ENCHANTED_FOREST,
 };
 
 struct puz_game	
@@ -107,9 +125,15 @@ struct puz_game
 	int m_sidelen;
 	puz_game_type m_game_type;
 	map<int, Position> m_num2pos;
+	int m_boulder_count = 0;
 	vector<int> m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+	bool is_forest_game() const {
+		return m_game_type == puz_game_type::FOREST ||
+			m_game_type == puz_game_type::ENCHANTED_FOREST;
+	}
+	int max_num_forest() const { return 81 - m_boulder_count; }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
@@ -121,6 +145,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		game_type == "Orchard" ? puz_game_type::ORCHARD :
 		game_type == "Forest" ? puz_game_type::FOREST :
 		game_type == "City" ? puz_game_type::CITY :
+		game_type == "Enchanted Forest" ? puz_game_type::ENCHANTED_FOREST :
 		puz_game_type::BACK_GARDEN;
 
 	for(int r = 0; r < m_sidelen; ++r){
@@ -130,7 +155,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			auto s = str.substr(c * 3, 3);
 			int n = s == PUZ_BOULDER_STR ? PUZ_BOULDER : atoi(s.c_str());
 			m_start.push_back(n);
-			if(n > 0)
+			if(n == PUZ_BOULDER)
+				++m_boulder_count;
+			else if(n != PUZ_SPACE)
 				m_num2pos[n] = p;
 		}
 	}
@@ -178,7 +205,8 @@ puz_state::puz_state(const puz_game& g)
 : vector<int>(g.m_start), m_game(&g)
 {
 	auto f = [&](const pair<int, Position>& kv_cur, const pair<int, Position>& kv_next){
-		if(kv_next.first - kv_cur.first != 1){
+		if(kv_next.first != PUZ_FOREST_DEST && kv_next.first - kv_cur.first != 1 ||
+			kv_next.first == PUZ_FOREST_DEST && kv_cur.first != m_game->max_num_forest()){
 			m_segments.emplace_back();
 			auto& o = m_segments.back();
 			o.m_cur = {kv_cur.second, kv_cur.first};
@@ -192,30 +220,30 @@ puz_state::puz_state(const puz_game& g)
 
 	// close the trip
 	auto &kv1 = *m_game->m_num2pos.rbegin(), &kv2 = *m_game->m_num2pos.begin();
-	int n = m_game->m_game_type == puz_game_type::FOREST ? -1 :
-		sidelen() * sidelen() + 1;
+	int n = m_game->is_forest_game() ? PUZ_FOREST_DEST : sidelen() * sidelen() + 1;
 	f(kv1, {n, kv2.second});
 }
 
 vector<int> puz_state::get_dirs(const Position& p) const
 {
 	vector<int> dirs;
-	if(m_game->m_game_type == puz_game_type::FOREST){
-		// 2  | 24  | 4
-		// -  -     -
+	if(m_game->is_forest_game()){
+		bool enchanted = m_game->m_game_type == puz_game_type::ENCHANTED_FOREST;
+		// 23 | 24  | 45
+		// -  -  -  -  -
 		// 02 | 0246| 46
-		// -  -     -
-		// 0  | 06  | 6
+		// -  -  -  -  -
+		// 01 | 06  | 67
 		switch(int n = p.first / 3 * 3 + p.second / 3){
-		case 0: dirs = {2}; break;
+		case 0: dirs = {2}; if(enchanted) dirs.push_back(3); break;
 		case 1: dirs = {2, 4}; break;
-		case 2: dirs = {4}; break;
+		case 2: dirs = {4}; if(enchanted) dirs.push_back(5); break;
 		case 3: dirs = {0, 2}; break;
 		case 4: dirs = {0, 2, 4, 6}; break;
 		case 5: dirs = {4, 6}; break;
-		case 6: dirs = {0}; break;
+		case 6: dirs = {0}; if(enchanted) dirs.push_back(1); break;
 		case 7: dirs = {0, 6}; break;
-		case 8: dirs = {6}; break;
+		case 8: dirs = {6}; if(enchanted) dirs.push_back(7); break;
 		}
 	}
 	else{
@@ -242,10 +270,13 @@ vector<int> puz_state::get_dirs(const Position& p) const
 void puz_state::segment_next(puz_segment& o) const
 {
 	auto f = [&](int d){
-		int half = sidelen() / 2;
 		auto os = offset[d];
-		if(d % 2 == 1)
-			os = {os.first * half, os.second * half};
+		if(d % 2 == 1){
+			int stride = 
+				m_game->m_game_type == puz_game_type::ENCHANTED_FOREST ?
+				6 : sidelen() / 2;
+			os = {os.first * stride, os.second * stride};
+		}
 		return os;
 	};
 
@@ -281,7 +312,7 @@ bool puz_state::make_move(int i, int j)
 	auto p = o.m_next[j];
 	cells(o.m_cur.first = p) = ++o.m_cur.second;
 	if(o.m_dest.second - o.m_cur.second == 1 ||
-		o.m_dest.second == -1 && o.m_cur.second == 73)
+		o.m_dest.second == PUZ_FOREST_DEST && o.m_cur.second == m_game->max_num_forest())
 		m_segments.erase(m_segments.begin() + i);
 	else
 		segment_next(o);
