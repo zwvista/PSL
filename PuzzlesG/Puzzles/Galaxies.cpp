@@ -39,15 +39,18 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
+	string m_start;
 	vector<Position> m_galaxies;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+	char cells(const Position& p) const { return m_start[p.first * (m_sidelen - 2) + p.second]; }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 2)
 {
+	m_start = boost::accumulate(strs, string());
 	for(int r = 1; r < m_sidelen - 1; ++r){
 		auto& str = strs[r - 1];
 		for(int c = 1; c < m_sidelen - 1; ++c)
@@ -179,15 +182,18 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 1;; ++r){
 		// draw horz-walls
 		for(int c = 1; c < sidelen() - 1; ++c)
-			out << (cells({r - 1, c}) != cells({r, c}) ? " -" : "  ");
+			out << (r > 1 && c > 1 && m_game->cells({r - 2, c - 2}) == PUZ_GALAXY_RC ? PUZ_GALAXY : ' ')
+			<< (cells({r - 1, c}) != cells({r, c}) ? '-' :
+			r > 1 && m_game->cells({r - 2, c - 1}) == PUZ_GALAXY_C ? PUZ_GALAXY : ' ');
 		out << endl;
 		if(r == sidelen() - 1) break;
 		for(int c = 1;; ++c){
 			Position p(r, c);
 			// draw vert-walls
-			out << (cells({r, c - 1}) != cells({r, c}) ? '|' : ' ');
+			out << (cells({r, c - 1}) != cells({r, c}) ? '|' :
+				c > 1 && m_game->cells({r - 1, c - 2}) == PUZ_GALAXY_R ? PUZ_GALAXY : ' ');
 			if(c == sidelen() - 1) break;
-			out << '.';
+			out << (m_game->cells({r - 1, c - 1}) == PUZ_GALAXY ? PUZ_GALAXY : '.');
 		}
 		out << endl;
 	}
