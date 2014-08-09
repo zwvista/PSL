@@ -45,7 +45,7 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/karma.hpp>
 #include <boost/spirit/include/phoenix.hpp>
-#include <libs/spirit/optimization/high_resolution_timer.hpp>
+#include <libs/spirit/workbench/high_resolution_timer.hpp>
 using namespace std;
 namespace qi = boost::spirit::qi;
 namespace karma = boost::spirit::karma;
