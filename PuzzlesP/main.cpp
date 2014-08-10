@@ -9,6 +9,7 @@ extern void solve_puz_pathfind();
 extern void solve_puz_patternpuzzle();
 extern void solve_puz_pegsolitary();
 extern void solve_puz_Pharaoh();
+extern void solve_puz_PuzzleRetreat();
 
 int main(int argc, char **argv)
 {
@@ -21,6 +22,7 @@ int main(int argc, char **argv)
 	cout << "a7: patternpuzzle" << endl;
 	cout << "e: pegsolitary" << endl;
 	cout << "h: Pharaoh" << endl;
+	cout << "u: Puzzle Retreat" << endl;
 	string str;
 	getline(cin, str);
 	if(str == "a1") solve_puz_Pairakabe();
@@ -32,6 +34,7 @@ int main(int argc, char **argv)
 	else if(str == "a7") solve_puz_patternpuzzle();
 	else if(str == "e") solve_puz_pegsolitary();
 	else if(str == "h") solve_puz_Pharaoh();
+	else if(str == "u") solve_puz_PuzzleRetreat();
 
 	return 0;
 }

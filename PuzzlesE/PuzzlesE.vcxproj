@@ -121,7 +121,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm213 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,7 +137,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalOptions>-Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm213 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

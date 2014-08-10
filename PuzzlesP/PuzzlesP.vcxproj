@@ -121,7 +121,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm213 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,7 +137,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalOptions>-Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm213 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -164,6 +164,7 @@
     <Text Include="Puzzles\Pharaoh.txt" />
     <Text Include="Puzzles\Pharaoh_a.txt" />
     <Text Include="Puzzles\Pharaoh_ida.txt" />
+    <Text Include="Puzzles\PuzzleRetreat.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +183,7 @@
     <ClCompile Include="Puzzles\patternpuzzle.cpp" />
     <ClCompile Include="Puzzles\pegsolitary.cpp" />
     <ClCompile Include="Puzzles\Pharaoh.cpp" />
+    <ClCompile Include="Puzzles\PuzzleRetreat.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -200,6 +202,9 @@
     <Xml Include="Puzzles\patternpuzzle.xml" />
     <Xml Include="Puzzles\pegsolitary.xml" />
     <Xml Include="Puzzles\Pharaoh.xml" />
+    <Xml Include="Puzzles\PuzzleRetreat.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

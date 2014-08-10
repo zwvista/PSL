@@ -354,8 +354,8 @@ void CMazeEditorView::SetCurPos( Position p )
 	//	p.second < 0 || p.second >= m_pDoc->MazeWidth()) return;
 
 	int nArea = m_pDoc->MazeHeight() * m_pDoc->MazeWidth();
-	int n = (p.first * m_pDoc->MazeHeight() + p.second + nArea) % nArea;
-	p = {n / m_pDoc->MazeHeight(), n % m_pDoc->MazeHeight()};
+	int n = (p.first * m_pDoc->MazeWidth() + p.second + nArea) % nArea;
+	p = {n / m_pDoc->MazeWidth(), n % m_pDoc->MazeWidth()};
 
 	m_posCur = p;
 	CString strCurPos;

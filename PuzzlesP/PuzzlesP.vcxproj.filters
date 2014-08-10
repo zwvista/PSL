@@ -67,6 +67,9 @@
     <Text Include="Puzzles\Pairakabe.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\PuzzleRetreat.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -113,6 +116,9 @@
     <ClCompile Include="Puzzles\Pairakabe.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\PuzzleRetreat.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\pathfind.xml">
@@ -137,6 +143,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Pairakabe.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\PuzzleRetreat.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
