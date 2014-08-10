@@ -8,4 +8,184 @@
 1   1\
     ]]>
   </level>
+  <level id="Morning 2">
+    <![CDATA[
+##S1#\
+#v  2\
+#   #\
+2  ^#\
+##1##\
+    ]]>
+  </level>
+  <level id="Morning 3">
+    <![CDATA[
+#2##\
+# ##\
+1 2 \
+2   \
+ 1  \
+  22\
+ 2  \
+    ]]>
+  </level>
+  <level id="Morning 4">
+    <![CDATA[
+2   \
+ 2 #\
+   2\
+2 2 \
+2   \
+###1\
+    ]]>
+  </level>
+  <level id="Morning 5">
+    <![CDATA[
+## ##\
+#   3\
+3    \
+   3 \
+#2   \
+##3#1\
+    ]]>
+  </level>
+  <level id="Morning 6">
+    <![CDATA[
+1#22#\
+    S\
+    2\
+2    \
+#1#1#\
+    ]]>
+  </level>
+  <level id="Morning 7">
+    <![CDATA[
+#1S2##\
+1    S\
+     3\
+#2  1#\
+## ###\
+    ]]>
+  </level>
+  <level id="Morning 8">
+    <![CDATA[
+#2# \
+2   \
+  2 \
+2  2\
+ 2  \
+   2\
+ #2#\
+    ]]>
+  </level>
+  <level id="Morning 9">
+    <![CDATA[
+#22##\
+2 v2#\
+2    \
+#  <#\
+#>  #\
+## ##\
+    ]]>
+  </level>
+  <level id="Morning 10">
+    <![CDATA[
+#2   2\
+#   2#\
+2    #\
+#2   #\
+##22 #\
+    ]]>
+  </level>
+  <level id="Morning 11">
+    <![CDATA[
+#11#\
+F   \
+#11#\
+    ]]>
+  </level>
+  <level id="Morning 12">
+    <![CDATA[
+#5555#\
+F     \
+#    #\
+#    #\
+#    #\
+#    #\
+#SSSS#\
+    ]]>
+  </level>
+  <level id="Morning 13">
+    <![CDATA[
+###F#\
+##F F\
+#F  F\
+F   2\
+##22#\
+    ]]>
+  </level>
+  <level id="Morning 14">
+    <![CDATA[
+#FF#\
+#  2\
+2  1\
+#  2\
+#12#\
+    ]]>
+  </level>
+  <level id="Morning 15">
+    <![CDATA[
+## 2#\
+S   2\
+#   S\
+#   1\
+#S2##\
+    ]]>
+  </level>
+  <level id="Morning 16">
+    <![CDATA[
+# 3#\
+#  2\
+2   \
+ 2 #\
+   #\
+   2\
+21##\
+    ]]>
+  </level>
+  <level id="Morning 17">
+    <![CDATA[
+#bb#\
+#  2\
+#bb#\
+2  #\
+#bb#\
+#33#\
+    ]]>
+  </level>
+  <level id="Morning 18">
+    <![CDATA[
+  b2\
+#  1\
+#bb#\
+#  #\
+#33#\
+    ]]>
+  </level>
+  <level id="Morning 19">
+    <![CDATA[
+#1v<\
+#bb2\
+ b <\
+##2^\
+    ]]>
+  </level>
+  <level id="Morning 20">
+    <![CDATA[
+##2 ##\
+#2  2#\
+#    2\
+2    #\
+## 2##\
+    ]]>
+  </level>
 </levels>

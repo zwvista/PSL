@@ -41,5 +41,1040 @@ move: (3,5) l
 * o o o * 
 Number of moves: 7
 Number of vertices examined: 37
-0.00308632 [s]
+0.00354284 [s]
+
+Level Morning 2
+Sequence of moves: 
+# # S 1 # 
+# v . . 2 
+# . . . # 
+2 . . ^ # 
+# # 1 # # 
+move: (1,4) d
+# # S * # 
+# v . o 2 
+# . . . # 
+2 . . ^ # 
+# # 1 # # 
+move: (5,3) u
+# # S * # 
+# v . o 2 
+# . . . # 
+2 . o ^ # 
+# # * # # 
+move: (4,1) r
+# # S * # 
+# v . o 2 
+# . . o # 
+* o o ^ # 
+# # * # # 
+move: (2,5) l
+# # S * # 
+# v o o * 
+# o . o # 
+* o o ^ # 
+# # * # # 
+move: (1,3) d
+# # * * # 
+# v o o * 
+# o s o # 
+* o o ^ # 
+# # * # # 
+Number of moves: 5
+Number of vertices examined: 10
+0.00144444 [s]
+
+Level Morning 3
+Sequence of moves: 
+# 2 # # 
+# . # # 
+1 . 2 . 
+2 . . . 
+. 1 . . 
+. . 2 2 
+. 2 . . 
+move: (3,1) r
+# 2 # # 
+# . # # 
+* o 2 . 
+2 . . . 
+. 1 . . 
+. . 2 2 
+. 2 . . 
+move: (7,2) r
+# 2 # # 
+# . # # 
+* o 2 . 
+2 . . . 
+. 1 . . 
+. . 2 2 
+. * o o 
+move: (6,3) l
+# 2 # # 
+# . # # 
+* o 2 . 
+2 . . . 
+. 1 . . 
+o o * 2 
+. * o o 
+move: (4,1) d
+# 2 # # 
+# . # # 
+* o 2 . 
+* . . . 
+o 1 . . 
+o o * 2 
+o * o o 
+move: (3,3) d
+# 2 # # 
+# . # # 
+* o * . 
+* . o . 
+o 1 o . 
+o o * 2 
+o * o o 
+move: (5,2) r
+# 2 # # 
+# . # # 
+* o * . 
+* . o . 
+o * o o 
+o o * 2 
+o * o o 
+move: (6,4) u
+# 2 # # 
+# . # # 
+* o * o 
+* . o o 
+o * o o 
+o o * * 
+o * o o 
+move: (1,2) d
+# * # # 
+# o # # 
+* o * o 
+* o o o 
+o * o o 
+o o * * 
+o * o o 
+Number of moves: 8
+Number of vertices examined: 67
+0.00342201 [s]
+
+Level Morning 4
+Sequence of moves: 
+2 . . . 
+. 2 . # 
+. . . 2 
+2 . 2 . 
+2 . . . 
+# # # 1 
+move: (4,1) u
+2 . . . 
+o 2 . # 
+o . . 2 
+* . 2 . 
+2 . . . 
+# # # 1 
+move: (3,4) l
+2 . . . 
+o 2 . # 
+o o o * 
+* . 2 . 
+2 . . . 
+# # # 1 
+move: (4,3) u
+2 . o . 
+o 2 o # 
+o o o * 
+* . * . 
+2 . . . 
+# # # 1 
+move: (2,2) d
+2 . o . 
+o * o # 
+o o o * 
+* o * . 
+2 o . . 
+# # # 1 
+move: (5,1) r
+2 . o . 
+o * o # 
+o o o * 
+* o * . 
+* o o o 
+# # # 1 
+move: (6,4) u
+2 . o . 
+o * o # 
+o o o * 
+* o * o 
+* o o o 
+# # # * 
+move: (1,1) r
+* o o o 
+o * o # 
+o o o * 
+* o * o 
+* o o o 
+# # # * 
+Number of moves: 7
+Number of vertices examined: 64
+0.00324755 [s]
+
+Level Morning 5
+Sequence of moves: 
+# # . # # 
+# . . . 3 
+3 . . . . 
+. . . 3 . 
+# 2 . . . 
+# # 3 # 1 
+move: (2,5) l
+# # . # # 
+# o o o * 
+3 . . . . 
+. . . 3 . 
+# 2 . . . 
+# # 3 # 1 
+move: (4,4) l
+# # . # # 
+# o o o * 
+3 . . . . 
+o o o * . 
+# 2 . . . 
+# # 3 # 1 
+move: (6,3) u
+# # o # # 
+# o o o * 
+3 . o . . 
+o o o * . 
+# 2 o . . 
+# # * # 1 
+move: (5,2) r
+# # o # # 
+# o o o * 
+3 . o . . 
+o o o * . 
+# * o o o 
+# # * # 1 
+move: (6,5) u
+# # o # # 
+# o o o * 
+3 . o . . 
+o o o * o 
+# * o o o 
+# # * # * 
+move: (3,1) r
+# # o # # 
+# o o o * 
+* o o o o 
+o o o * o 
+# * o o o 
+# # * # * 
+Number of moves: 6
+Number of vertices examined: 23
+0.00195111 [s]
+
+Level Morning 6
+Sequence of moves: 
+1 # 2 2 # 
+. . . . S 
+. . . . 2 
+2 . . . . 
+# 1 # 1 # 
+move: (1,1) d
+* # 2 2 # 
+o . . . S 
+. . . . 2 
+2 . . . . 
+# 1 # 1 # 
+move: (5,4) u
+* # 2 2 # 
+o . . . S 
+. . . . 2 
+2 . . o . 
+# 1 # * # 
+move: (5,2) u
+* # 2 2 # 
+o . . . S 
+. . . . 2 
+2 o . o . 
+# * # * # 
+move: (4,1) r
+* # 2 2 # 
+o . . . S 
+. . . . 2 
+* o o o o 
+# * # * # 
+move: (1,4) d
+* # 2 * # 
+o . . o S 
+. . . o 2 
+* o o o o 
+# * # * # 
+move: (1,3) d
+* # * * # 
+o . o o S 
+. . o o 2 
+* o o o o 
+# * # * # 
+move: (3,5) l
+* # * * # 
+o . o o S 
+o o o o * 
+* o o o o 
+# * # * # 
+move: (2,5) l
+* # * * # 
+o s o o * 
+o o o o * 
+* o o o o 
+# * # * # 
+Number of moves: 8
+Number of vertices examined: 16
+0.00169516 [s]
+
+Level Morning 7
+Sequence of moves: 
+# 1 S 2 # # 
+1 . . . . S 
+. . . . . 3 
+# 2 . . 1 # 
+# # . # # # 
+move: (1,2) d
+# * S 2 # # 
+1 o . . . S 
+. . . . . 3 
+# 2 . . 1 # 
+# # . # # # 
+move: (4,5) u
+# * S 2 # # 
+1 o . . . S 
+. . . . o 3 
+# 2 . . * # 
+# # . # # # 
+move: (4,2) r
+# * S 2 # # 
+1 o . . . S 
+. . . . o 3 
+# * o o * # 
+# # . # # # 
+move: (2,6) l
+# * S 2 # # 
+1 o . . s * 
+. . . . o 3 
+# * o o * # 
+# # . # # # 
+move: (2,1) r
+# * S 2 # # 
+* o o . s * 
+. . . . o 3 
+# * o o * # 
+# # . # # # 
+move: (1,4) d
+# * S * # # 
+* o o o s * 
+. . . o o 3 
+# * o o * # 
+# # . # # # 
+move: (3,6) l
+# * S * # # 
+* o o o s * 
+o o o o o * 
+# * o o * # 
+# # . # # # 
+move: (1,3) d
+# * * * # # 
+* o o o s * 
+o o o o o * 
+# * o o * # 
+# # s # # # 
+Number of moves: 8
+Number of vertices examined: 19
+0.00198001 [s]
+
+Level Morning 8
+Sequence of moves: 
+# 2 # . 
+2 . . . 
+. . 2 . 
+2 . . 2 
+. 2 . . 
+. . . 2 
+. # 2 # 
+move: (5,2) r
+# 2 # . 
+2 . . . 
+. . 2 . 
+2 . . 2 
+. * o o 
+. . . 2 
+. # 2 # 
+move: (7,3) u
+# 2 # . 
+2 . . . 
+. . 2 . 
+2 . o 2 
+. * o o 
+. . o 2 
+. # * # 
+move: (6,4) l
+# 2 # . 
+2 . . . 
+. . 2 . 
+2 . o 2 
+. * o o 
+o o o * 
+. # * # 
+move: (4,1) d
+# 2 # . 
+2 . . . 
+. . 2 . 
+* . o 2 
+o * o o 
+o o o * 
+o # * # 
+move: (3,3) l
+# 2 # . 
+2 . . . 
+o o * . 
+* . o 2 
+o * o o 
+o o o * 
+o # * # 
+move: (1,2) d
+# * # . 
+2 o . . 
+o o * . 
+* o o 2 
+o * o o 
+o o o * 
+o # * # 
+move: (2,1) r
+# * # . 
+* o o o 
+o o * . 
+* o o 2 
+o * o o 
+o o o * 
+o # * # 
+move: (4,4) u
+# * # o 
+* o o o 
+o o * o 
+* o o * 
+o * o o 
+o o o * 
+o # * # 
+Number of moves: 8
+Number of vertices examined: 75
+0.00350837 [s]
+
+Level Morning 9
+Sequence of moves: 
+# 2 2 # # 
+2 . v 2 # 
+2 . . . . 
+# . . < # 
+# > . . # 
+# # . # # 
+move: (2,4) d
+# 2 2 # # 
+2 . v * # 
+2 . . o . 
+# . o < # 
+# > . . # 
+# # . # # 
+move: (2,1) r
+# 2 2 # # 
+* o v * # 
+2 . o o . 
+# . o < # 
+# > . . # 
+# # . # # 
+move: (3,1) r
+# 2 2 # # 
+* o v * # 
+* o o o o 
+# . o < # 
+# > . . # 
+# # . # # 
+move: (1,3) d
+# 2 * # # 
+* o v * # 
+* o o o o 
+# . o < # 
+# > o . # 
+# # o # # 
+move: (1,2) d
+# * * # # 
+* o v * # 
+* o o o o 
+# o o < # 
+# > o o # 
+# # o # # 
+Number of moves: 5
+Number of vertices examined: 30
+0.0016001 [s]
+
+Level Morning 10
+Sequence of moves: 
+# 2 . . . 2 
+# . . . 2 # 
+2 . . . . # 
+# 2 . . . # 
+# # 2 2 . # 
+move: (1,2) d
+# * . . . 2 
+# o . . 2 # 
+2 o . . . # 
+# 2 . . . # 
+# # 2 2 . # 
+move: (4,2) r
+# * . . . 2 
+# o . . 2 # 
+2 o . . . # 
+# * o o . # 
+# # 2 2 . # 
+move: (5,4) u
+# * . . . 2 
+# o . o 2 # 
+2 o . o . # 
+# * o o . # 
+# # 2 * . # 
+move: (3,1) r
+# * . . . 2 
+# o . o 2 # 
+* o o o o # 
+# * o o . # 
+# # 2 * . # 
+move: (5,3) u
+# * o . . 2 
+# o o o 2 # 
+* o o o o # 
+# * o o . # 
+# # * * . # 
+move: (2,5) d
+# * o . . 2 
+# o o o * # 
+* o o o o # 
+# * o o o # 
+# # * * o # 
+move: (1,6) l
+# * o o o * 
+# o o o * # 
+* o o o o # 
+# * o o o # 
+# # * * o # 
+Number of moves: 7
+Number of vertices examined: 67
+0.00333182 [s]
+
+Level Morning 11
+Sequence of moves: 
+# 1 1 # 
+F . . . 
+# 1 1 # 
+move: (1,2) d
+# * 1 # 
+F o . . 
+# 1 1 # 
+move: (3,3) u
+# * 1 # 
+F o o . 
+# 1 * # 
+move: (2,1) r
+# * 1 # 
+* . . f 
+# 1 * # 
+move: (3,2) u
+# * 1 # 
+* o . f 
+# * * # 
+move: (1,3) d
+# * * # 
+* o o f 
+# * * # 
+Number of moves: 5
+Number of vertices examined: 10
+0.00168123 [s]
+
+Level Morning 12
+Sequence of moves: 
+# 5 5 5 5 # 
+F . . . . . 
+# . . . . # 
+# . . . . # 
+# . . . . # 
+# . . . . # 
+# S S S S # 
+move: (1,2) d
+# * 5 5 5 # 
+F o . . . . 
+# o . . . # 
+# o . . . # 
+# o . . . # 
+# o . . . # 
+# S S S S # 
+move: (1,5) d
+# * 5 5 * # 
+F o . . o . 
+# o . . o # 
+# o . . o # 
+# o . . o # 
+# o . . o # 
+# S S S S # 
+move: (1,4) d
+# * 5 * * # 
+F o . o o . 
+# o . o o # 
+# o . o o # 
+# o . o o # 
+# o . o o # 
+# S S S S # 
+move: (1,3) d
+# * * * * # 
+F o o o o . 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# S S S S # 
+move: (2,1) r
+# * * * * # 
+* . . . . f 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# S S S S # 
+move: (7,5) u
+# * * * * # 
+* . . . s f 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# S S S * # 
+move: (7,4) u
+# * * * * # 
+* . . s s f 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# S S * * # 
+move: (7,3) u
+# * * * * # 
+* . s s s f 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# S * * * # 
+move: (7,2) u
+# * * * * # 
+* s s s s f 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# o o o o # 
+# * * * * # 
+Number of moves: 9
+Number of vertices examined: 54
+0.00306961 [s]
+
+Level Morning 13
+Sequence of moves: 
+# # # F # 
+# # F . F 
+# F . . F 
+F . . . 2 
+# # 2 2 # 
+move: (5,3) u
+# # # F # 
+# # F . F 
+# F o . F 
+F . o . 2 
+# # * 2 # 
+move: (4,5) l
+# # # F # 
+# # F . F 
+# F o . F 
+F o o o * 
+# # * 2 # 
+move: (5,4) u
+# # # F # 
+# # F o F 
+# F o o F 
+F o o o * 
+# # * * # 
+move: (4,1) r
+# # # F # 
+# # F o F 
+# F o o F 
+* . . f * 
+# # * * # 
+move: (3,2) d
+# # # F # 
+# # F o F 
+# * o o F 
+* f . f * 
+# # * * # 
+move: (2,3) d
+# # # F # 
+# # * o F 
+# * . o F 
+* f f f * 
+# # * * # 
+move: (3,5) l
+# # # F # 
+# # * o F 
+# * f . * 
+* f f f * 
+# # * * # 
+move: (1,4) d
+# # # * # 
+# # * . F 
+# * f f * 
+* f f f * 
+# # * * # 
+move: (2,5) l
+# # # * # 
+# # * f * 
+# * f f * 
+* f f f * 
+# # * * # 
+Number of moves: 9
+Number of vertices examined: 357
+0.0113762 [s]
+
+Level Morning 14
+Sequence of moves: 
+# F F # 
+# . . 2 
+2 . . 1 
+# . . 2 
+# 1 2 # 
+move: (4,4) l
+# F F # 
+# . . 2 
+2 . . 1 
+# o o * 
+# 1 2 # 
+move: (5,3) u
+# F F # 
+# . o 2 
+2 . o 1 
+# o o * 
+# 1 * # 
+move: (3,4) l
+# F F # 
+# . o 2 
+2 o o * 
+# o o * 
+# 1 * # 
+move: (5,2) u
+# F F # 
+# o o 2 
+2 o o * 
+# o o * 
+# * * # 
+move: (1,3) d
+# F * # 
+# o . 2 
+2 o . * 
+# o f * 
+# * * # 
+move: (1,2) d
+# * * # 
+# . . 2 
+2 . . * 
+# f f * 
+# * * # 
+move: (3,1) r
+# * * # 
+# . . 2 
+* o o * 
+# f f * 
+# * * # 
+move: (2,4) l
+# * * # 
+# o o * 
+* o o * 
+# f f * 
+# * * # 
+Number of moves: 8
+Number of vertices examined: 97
+0.00421213 [s]
+
+Level Morning 15
+Sequence of moves: 
+# # . 2 # 
+S . . . 2 
+# . . . S 
+# . . . 1 
+# S 2 # # 
+move: (5,2) u
+# # . 2 # 
+S . . . 2 
+# . . . S 
+# s . . 1 
+# * 2 # # 
+move: (2,5) l
+# # . 2 # 
+S . o o * 
+# . . . S 
+# s . . 1 
+# * 2 # # 
+move: (2,1) r
+# # . 2 # 
+* s o o * 
+# . . . S 
+# s . . 1 
+# * 2 # # 
+move: (1,4) d
+# # . * # 
+* s o o * 
+# . . o S 
+# s . o 1 
+# * 2 # # 
+move: (4,5) l
+# # . * # 
+* s o o * 
+# . . o S 
+# s o o * 
+# * 2 # # 
+move: (5,3) u
+# # o * # 
+* s o o * 
+# . o o S 
+# s o o * 
+# * * # # 
+move: (3,5) l
+# # o * # 
+* s o o * 
+# s o o * 
+# s o o * 
+# * * # # 
+Number of moves: 7
+Number of vertices examined: 47
+0.0026493 [s]
+
+Level Morning 16
+Sequence of moves: 
+# . 3 # 
+# . . 2 
+2 . . . 
+. 2 . # 
+. . . # 
+. . . 2 
+2 1 # # 
+move: (2,4) l
+# . 3 # 
+# o o * 
+2 . . . 
+. 2 . # 
+. . . # 
+. . . 2 
+2 1 # # 
+move: (4,2) u
+# o 3 # 
+# o o * 
+2 o . . 
+. * . # 
+. . . # 
+. . . 2 
+2 1 # # 
+move: (3,1) r
+# o 3 # 
+# o o * 
+* o o o 
+. * . # 
+. . . # 
+. . . 2 
+2 1 # # 
+move: (1,3) d
+# o * # 
+# o o * 
+* o o o 
+. * o # 
+. . o # 
+. . o 2 
+2 1 # # 
+move: (6,4) l
+# o * # 
+# o o * 
+* o o o 
+. * o # 
+. . o # 
+o o o * 
+2 1 # # 
+move: (7,2) u
+# o * # 
+# o o * 
+* o o o 
+. * o # 
+. o o # 
+o o o * 
+2 * # # 
+move: (7,1) u
+# o * # 
+# o o * 
+* o o o 
+o * o # 
+o o o # 
+o o o * 
+* * # # 
+Number of moves: 7
+Number of vertices examined: 50
+0.00261796 [s]
+
+Level Morning 17
+Sequence of moves: 
+# b b # 
+# . . 2 
+# b b # 
+2 . . # 
+# b b # 
+# 3 3 # 
+move: (2,4) l
+# b b # 
+# o o * 
+# b b # 
+2 . . # 
+# b b # 
+# 3 3 # 
+move: (4,1) r
+# b b # 
+# o o * 
+# b b # 
+* o o # 
+# b b # 
+# 3 3 # 
+move: (6,2) u
+# t b # 
+# o o * 
+# t b # 
+* o o # 
+# t b # 
+# * 3 # 
+move: (6,3) u
+# t t # 
+# o o * 
+# t t # 
+* o o # 
+# t t # 
+# * * # 
+Number of moves: 4
+Number of vertices examined: 7
+0.00133266 [s]
+
+Level Morning 18
+Sequence of moves: 
+. . b 2 
+# . . 1 
+# b b # 
+# . . # 
+# 3 3 # 
+move: (5,3) u
+. . b 2 
+# . o 1 
+# b t # 
+# . o # 
+# 3 * # 
+move: (2,4) l
+. . b 2 
+# o o * 
+# b t # 
+# . o # 
+# 3 * # 
+move: (5,2) u
+. o b 2 
+# o o * 
+# t t # 
+# o o # 
+# * * # 
+move: (1,4) l
+o o t * 
+# o o * 
+# t t # 
+# o o # 
+# * * # 
+Number of moves: 4
+Number of vertices examined: 9
+0.00125535 [s]
+
+Level Morning 19
+Sequence of moves: 
+# 1 v < 
+# b b 2 
+. b . < 
+# # 2 ^ 
+move: (4,3) u
+# 1 v < 
+# b t 2 
+. b o < 
+# # * ^ 
+move: (2,4) d
+# 1 v < 
+# b t * 
+o t o < 
+# # * ^ 
+move: (1,2) d
+# * v < 
+# t t * 
+o t o < 
+# # * ^ 
+Number of moves: 3
+Number of vertices examined: 8
+0.00116377 [s]
+
+Level Morning 20
+Sequence of moves: 
+# # 2 . # # 
+# 2 . . 2 # 
+# . . . . 2 
+2 . . . . # 
+# # . 2 # # 
+move: (4,1) r
+# # 2 . # # 
+# 2 . . 2 # 
+# . . . . 2 
+* o o . . # 
+# # . 2 # # 
+move: (2,2) r
+# # 2 . # # 
+# * o o 2 # 
+# . . . . 2 
+* o o . . # 
+# # . 2 # # 
+move: (1,3) d
+# # * . # # 
+# * o o 2 # 
+# . o . . 2 
+* o o . . # 
+# # o 2 # # 
+move: (2,5) d
+# # * . # # 
+# * o o * # 
+# . o . o 2 
+* o o . o # 
+# # o 2 # # 
+move: (3,6) l
+# # * . # # 
+# * o o * # 
+# o o o o * 
+* o o . o # 
+# # o 2 # # 
+move: (5,4) u
+# # * o # # 
+# * o o * # 
+# o o o o * 
+* o o o o # 
+# # o * # # 
+Number of moves: 6
+Number of vertices examined: 44
+0.00283421 [s]
 

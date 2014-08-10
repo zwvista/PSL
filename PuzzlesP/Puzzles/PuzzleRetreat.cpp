@@ -9,15 +9,19 @@
 
 namespace puzzles{ namespace PuzzleRetreat{
 
-#define PUZ_HOLE		' '
-#define PUZ_BLOCK_STOP	'S'
-#define PUZ_BOUNDARY	'#'
+#define PUZ_HOLE_EMPTY		' '
+#define PUZ_BLOCK_STOP		'S'
+#define PUZ_BLOCK_FIRE		'F'
+#define PUZ_BLOCK_FIXED		'#'
+#define PUZ_HOLE_BONSAI		'b'
 
-#define PUZ_BLOCK_ICE	'N'
-#define PUZ_ICE			'o'
-#define PUZ_STOP		's'
-#define PUZ_ARROW		'A'
-#define PUZ_USED		'*'
+#define PUZ_BLOCK_ICE		'O'
+#define PUZ_HOLE_ICE		'o'
+#define PUZ_HOLE_STOP		's'
+#define PUZ_HOLE_FIRE		'f'
+#define PUZ_HOLE_TREE		't'
+#define PUZ_BLOCK_ARROW		'A'
+#define PUZ_BLOCK_USED		'*'
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -60,20 +64,25 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	: m_id(attrs.get<string>("id"))
 	, m_size(strs.size() + 2, strs[0].length() + 2)
 {
-	m_start.append(string(cols(), PUZ_BOUNDARY));
+	m_start.append(string(cols(), PUZ_BLOCK_FIXED));
 	for(int r = 1; r < rows() - 1; ++r){
 		auto& str = strs[r - 1];
-		m_start.push_back(PUZ_BOUNDARY);
+		m_start.push_back(PUZ_BLOCK_FIXED);
 		for(int c = 1; c < cols() - 1; ++c){
 			Position p(r, c);
 			switch(char ch = str[c - 1]){
-			case PUZ_HOLE:
-			case PUZ_BOUNDARY:
+			case PUZ_HOLE_EMPTY:
+			case PUZ_HOLE_BONSAI:
+			case PUZ_BLOCK_FIXED:
 				m_start.push_back(ch);
 				break;
 			case PUZ_BLOCK_STOP:
 				m_start.push_back(ch);
 				m_pos2block[p] = {puz_block_type::STOP, 1};
+				break;
+			case PUZ_BLOCK_FIRE:
+				m_start.push_back(ch);
+				m_pos2block[p] = {puz_block_type::FIRE, 1};
 				break;
 			default:
 				if(isdigit(ch)){
@@ -84,14 +93,14 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 					int n = arrows.find(ch);
 					if(n != -1){
 						m_pos2dir[p] = n;
-						m_start.push_back(PUZ_ARROW);
+						m_start.push_back(PUZ_BLOCK_ARROW);
 					}
 				}
 			}
 		}
-		m_start.push_back(PUZ_BOUNDARY);
+		m_start.push_back(PUZ_BLOCK_FIXED);
 	}
-	m_start.append(string(cols(), PUZ_BOUNDARY));
+	m_start.append(string(cols(), PUZ_BLOCK_FIXED));
 }
 
 struct puz_step : pair<Position, int>
@@ -118,7 +127,9 @@ struct puz_state : string
 
 	//solve_puzzle interface
 	bool is_goal_state() const {
-		return get_heuristic() == 0 && boost::count(*this, PUZ_HOLE) == 0;
+		return get_heuristic() == 0 && boost::count_if(*this, [](char ch){
+			return ch == PUZ_HOLE_EMPTY || ch == PUZ_HOLE_BONSAI;
+		}) == 0;
 	}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const { return m_pos2block.size(); }
@@ -147,7 +158,9 @@ bool puz_state::make_move(const Position& p, int n)
 	m_move = puz_step(p, n);
 	m_pos2block.erase(p);
 
-	return boost::algorithm::all_of(m_pos2block, [&](const pair<const Position, puz_block>& kv){
+	return boost::algorithm::any_of(m_pos2block, [&](const pair<const Position, puz_block>& kv){
+		return kv.second.m_type == puz_block_type::FIRE;
+	}) || boost::algorithm::all_of(m_pos2block, [&](const pair<const Position, puz_block>& kv){
 		return boost::algorithm::any_of(offset, [&](const Position& os){
 			return make_move2(kv.first, os, true);
 		});
@@ -158,29 +171,50 @@ bool puz_state::make_move2(const Position& p, Position os, bool is_test)
 {
 	auto& blk = m_pos2block.at(p);
 	int n = blk.m_num;
+	auto t = blk.m_type;
 	if(!is_test)
-		cells(p) = PUZ_USED;
+		cells(p) = PUZ_BLOCK_USED;
 	set<Position> p_arrows;
 	for(auto p2 = p + os;; p2 += os)
 		switch(char& ch = cells(p2)){
-		case PUZ_ARROW:
+		case PUZ_BLOCK_ARROW:
 			if(p_arrows.count(p2) != 0)
 				return false;
 			os = offset[m_game->m_pos2dir.at(p2)];
 			p_arrows.insert(p2);
 			break;
-		case PUZ_HOLE:
+		case PUZ_HOLE_EMPTY:
 			if(!is_test)
-				ch = blk.m_type == puz_block_type::ICE ? PUZ_ICE :
-					PUZ_STOP;
+				ch = t == puz_block_type::STOP ? PUZ_HOLE_STOP :
+					t == puz_block_type::FIRE ? PUZ_HOLE_FIRE :
+					PUZ_HOLE_ICE;
 			if(--n == 0)
 				return true;
 			break;
-		case PUZ_ICE:
+		case PUZ_HOLE_BONSAI:
+			if(t != puz_block_type::ICE)
+				return false;
+			if(!is_test)
+				ch = PUZ_HOLE_TREE;
+			if(--n == 0)
+				return true;
+			break;
+		case PUZ_HOLE_ICE:
+			if(!is_test && t == puz_block_type::FIRE)
+				ch = PUZ_HOLE_EMPTY;
 			break;
 		default:
+			if(t == puz_block_type::FIRE){
+				char& ch2 = cells(p2 - os);
+				if(is_test && ch2 == PUZ_HOLE_ICE ||
+					!is_test && ch2 == PUZ_HOLE_EMPTY){
+					if(!is_test)
+						ch2 = PUZ_HOLE_FIRE;
+					return true;
+				}
+			}
 			return false;
-	}
+		}
 
 	// should not reach here
 	return false;
@@ -204,8 +238,8 @@ ostream& puz_state::dump(ostream& out) const
 			Position p(r, c);
 			char ch = cells(p);
 			out << (ch == PUZ_BLOCK_ICE ? char(m_game->m_pos2block.at(p).m_num + '0') :
-				ch == PUZ_ARROW ? arrows[m_game->m_pos2dir.at(p)] :
-				ch == PUZ_HOLE ? '.' : ch) << ' ';
+				ch == PUZ_BLOCK_ARROW ? arrows[m_game->m_pos2dir.at(p)] :
+				ch == PUZ_HOLE_EMPTY ? '.' : ch) << ' ';
 		}
 		out << endl;
 	}
@@ -217,8 +251,8 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_PuzzleRetreat()
 {
 	using namespace puzzles::PuzzleRetreat;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\PuzzleRetreat_Welcome.xml", "Puzzles\\PuzzleRetreat_Welcome.txt");
+	//solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+	//	"Puzzles\\PuzzleRetreat_Welcome.xml", "Puzzles\\PuzzleRetreat_Welcome.txt");
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
 		"Puzzles\\PuzzleRetreat_Morning.xml", "Puzzles\\PuzzleRetreat_Morning.txt");
 }
