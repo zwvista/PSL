@@ -1,0 +1,210 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="Welcome 1">
+    <![CDATA[
+##1#\
+1  #\
+#  1\
+#1##\
+    ]]>
+  </level>
+  <level id="Welcome 2">
+    <![CDATA[
+ 1 \
+1 1\
+    ]]>
+  </level>
+  <level id="Welcome 3">
+    <![CDATA[
+# #\
+# 1\
+1 #\
+#1#\
+    ]]>
+  </level>
+  <level id="Welcome 4">
+    <![CDATA[
+#1##\
+1  #\
+#  1\
+##1#\
+    ]]>
+  </level>
+  <level id="Welcome 5">
+    <![CDATA[
+### #\
+1   1\
+#1#1#\
+    ]]>
+  </level>
+  <level id="Welcome 6">
+    <![CDATA[
+##  1\
+### 1\
+1   #\
+#111#\
+    ]]>
+  </level>
+  <level id="Welcome 7">
+    <![CDATA[
+#11#\
+1  #\
+1   \
+1  #\
+#11#\
+    ]]>
+  </level>
+  <level id="Welcome 8">
+    <![CDATA[
+#11#\
+1  1\
+  1#\
+ 1##\
+ ###\
+    ]]>
+  </level>
+  <level id="Welcome 9">
+    <![CDATA[
+32\
+  \
+  \
+  \
+  \
+12\
+    ]]>
+  </level>
+  <level id="Welcome 10">
+    <![CDATA[
+# #\
+# #\
+# 1\
+1 #\
+# #\
+#3#\
+    ]]>
+  </level>
+  <level id="Welcome 11">
+    <![CDATA[
+#11#\
+#  2\
+1   \
+    ]]>
+  </level>
+  <level id="Welcome 12">
+    <![CDATA[
+#1# #\
+1 1 #\
+2   #\
+#2   \
+###2#\
+    ]]>
+  </level>
+  <level id="Welcome 13">
+    <![CDATA[
+# 2#\
+   2\
+#  1\
+1  #\
+#2##\
+    ]]>
+  </level>
+  <level id="Welcome 14">
+    <![CDATA[
+## ##\
+   2#\
+   1#\
+2    \
+#33##\
+    ]]>
+  </level>
+  <level id="Welcome 15">
+    <![CDATA[
+  3\
+   \
+  <\
+22#\
+    ]]>
+  </level>
+  <level id="Welcome 16">
+    <![CDATA[
+   <2#\
+##1  #\
+#2 ^ 2\
+    ]]>
+  </level>
+  <level id="Welcome 17">
+    <![CDATA[
+### 1\
+#11  \
+2  ^ \
+###1#\
+    ]]>
+  </level>
+  <level id="Welcome 18">
+    <![CDATA[
+3 v 3\
+>   <\
+#2   \
+## 2#\
+## ##\
+    ]]>
+  </level>
+  <level id="Welcome 19">
+    <![CDATA[
+#14##\
+   1#\
+#  1#\
+#   2\
+#1 1#\
+   1#\
+    ]]>
+  </level>
+  <level id="Welcome 20">
+    <![CDATA[
+#12345\
+1     \
+1     \
+2     \
+3     \
+4     \
+4     \
+    ]]>
+  </level>
+  <level id="Welcome 21">
+    <![CDATA[
+###1#\
+1    \
+# 1##\
+1 #1#\
+# 1 1\
+1 1 #\
+#   1\
+#21##\
+    ]]>
+  </level>
+  <level id="Welcome 22">
+    <![CDATA[
+#1#\
+S  \
+# 1\
+    ]]>
+  </level>
+  <level id="Welcome 23">
+    <![CDATA[
+##1##\
+S   1\
+#   S\
+###2#\
+    ]]>
+  </level>
+  <level id="Welcome 24">
+    <![CDATA[
+#1 2#\
+2   1\
+  S  \
+1   2\
+#2 1#\
+## ##\
+    ]]>
+  </level>
+</levels>

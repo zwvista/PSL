@@ -1,0 +1,1036 @@
+Level Welcome 1
+Sequence of moves: 
+# # 1 # 
+1 . . # 
+# . . 1 
+# 1 # # 
+move: (1,3) d
+# # * # 
+1 . o # 
+# . . 1 
+# 1 # # 
+move: (4,2) u
+# # * # 
+1 . o # 
+# o . 1 
+# * # # 
+move: (3,4) l
+# # * # 
+1 . o # 
+# o o * 
+# * # # 
+move: (2,1) r
+# # * # 
+* o o # 
+# o o * 
+# * # # 
+Number of moves: 4
+Number of vertices examined: 8
+0.00154856 [s]
+
+Level Welcome 2
+Sequence of moves: 
+. 1 . 
+1 . 1 
+move: (1,2) r
+. * o 
+1 . 1 
+move: (2,3) l
+. * o 
+1 o * 
+move: (2,1) u
+o * o 
+* o * 
+Number of moves: 3
+Number of vertices examined: 6
+0.0011185 [s]
+
+Level Welcome 3
+Sequence of moves: 
+# . # 
+# . 1 
+1 . # 
+# 1 # 
+move: (2,3) l
+# . # 
+# o * 
+1 . # 
+# 1 # 
+move: (3,1) r
+# . # 
+# o * 
+* o # 
+# 1 # 
+move: (4,2) u
+# o # 
+# o * 
+* o # 
+# * # 
+Number of moves: 3
+Number of vertices examined: 5
+0.000645958 [s]
+
+Level Welcome 4
+Sequence of moves: 
+# 1 # # 
+1 . . # 
+# . . 1 
+# # 1 # 
+move: (1,2) d
+# * # # 
+1 o . # 
+# . . 1 
+# # 1 # 
+move: (4,3) u
+# * # # 
+1 o . # 
+# . o 1 
+# # * # 
+move: (3,4) l
+# * # # 
+1 o . # 
+# o o * 
+# # * # 
+move: (2,1) r
+# * # # 
+* o o # 
+# o o * 
+# # * # 
+Number of moves: 4
+Number of vertices examined: 8
+0.000753211 [s]
+
+Level Welcome 5
+Sequence of moves: 
+# # # . # 
+1 . . . 1 
+# 1 # 1 # 
+move: (2,5) l
+# # # . # 
+1 . . o * 
+# 1 # 1 # 
+move: (3,4) u
+# # # o # 
+1 . . o * 
+# 1 # * # 
+move: (3,2) u
+# # # o # 
+1 o . o * 
+# * # * # 
+move: (2,1) r
+# # # o # 
+* o o o * 
+# * # * # 
+Number of moves: 4
+Number of vertices examined: 8
+0.000773757 [s]
+
+Level Welcome 6
+Sequence of moves: 
+# # . . 1 
+# # # . 1 
+1 . . . # 
+# 1 1 1 # 
+move: (4,3) u
+# # . . 1 
+# # # . 1 
+1 . o . # 
+# 1 * 1 # 
+move: (4,2) u
+# # . . 1 
+# # # . 1 
+1 o o . # 
+# * * 1 # 
+move: (3,1) r
+# # . . 1 
+# # # . 1 
+* o o o # 
+# * * 1 # 
+move: (2,5) l
+# # . . 1 
+# # # o * 
+* o o o # 
+# * * 1 # 
+move: (4,4) u
+# # . o 1 
+# # # o * 
+* o o o # 
+# * * * # 
+move: (1,5) l
+# # o o * 
+# # # o * 
+* o o o # 
+# * * * # 
+Number of moves: 6
+Number of vertices examined: 33
+0.00138002 [s]
+
+Level Welcome 7
+Sequence of moves: 
+# 1 1 # 
+1 . . # 
+1 . . . 
+1 . . # 
+# 1 1 # 
+move: (1,2) d
+# * 1 # 
+1 o . # 
+1 . . . 
+1 . . # 
+# 1 1 # 
+move: (5,3) u
+# * 1 # 
+1 o . # 
+1 . . . 
+1 . o # 
+# 1 * # 
+move: (4,1) r
+# * 1 # 
+1 o . # 
+1 . . . 
+* o o # 
+# 1 * # 
+move: (5,2) u
+# * 1 # 
+1 o . # 
+1 o . . 
+* o o # 
+# * * # 
+move: (2,1) r
+# * 1 # 
+* o o # 
+1 o . . 
+* o o # 
+# * * # 
+move: (1,3) d
+# * * # 
+* o o # 
+1 o o . 
+* o o # 
+# * * # 
+move: (3,1) r
+# * * # 
+* o o # 
+* o o o 
+* o o # 
+# * * # 
+Number of moves: 7
+Number of vertices examined: 16
+0.00146951 [s]
+
+Level Welcome 8
+Sequence of moves: 
+# 1 1 # 
+1 . . 1 
+. . 1 # 
+. 1 # # 
+. # # # 
+move: (4,2) l
+# 1 1 # 
+1 . . 1 
+. . 1 # 
+o * # # 
+. # # # 
+move: (1,3) d
+# 1 * # 
+1 . o 1 
+. . 1 # 
+o * # # 
+. # # # 
+move: (2,4) l
+# 1 * # 
+1 o o * 
+. . 1 # 
+o * # # 
+. # # # 
+move: (1,2) d
+# * * # 
+1 o o * 
+. o 1 # 
+o * # # 
+. # # # 
+move: (3,3) l
+# * * # 
+1 o o * 
+o o * # 
+o * # # 
+. # # # 
+move: (2,1) d
+# * * # 
+* o o * 
+o o * # 
+o * # # 
+o # # # 
+Number of moves: 6
+Number of vertices examined: 25
+0.00167218 [s]
+
+Level Welcome 9
+Sequence of moves: 
+3 2 
+. . 
+. . 
+. . 
+. . 
+1 2 
+move: (1,1) d
+* 2 
+o . 
+o . 
+o . 
+. . 
+1 2 
+move: (6,2) u
+* 2 
+o . 
+o . 
+o o 
+. o 
+1 * 
+move: (6,1) u
+* 2 
+o . 
+o . 
+o o 
+o o 
+* * 
+move: (1,2) d
+* * 
+o o 
+o o 
+o o 
+o o 
+* * 
+Number of moves: 4
+Number of vertices examined: 8
+0.000959361 [s]
+
+Level Welcome 10
+Sequence of moves: 
+# . # 
+# . # 
+# . 1 
+1 . # 
+# . # 
+# 3 # 
+move: (3,3) l
+# . # 
+# . # 
+# o * 
+1 . # 
+# . # 
+# 3 # 
+move: (4,1) r
+# . # 
+# . # 
+# o * 
+* o # 
+# . # 
+# 3 # 
+move: (6,2) u
+# o # 
+# o # 
+# o * 
+* o # 
+# o # 
+# * # 
+Number of moves: 3
+Number of vertices examined: 5
+0.00116621 [s]
+
+Level Welcome 11
+Sequence of moves: 
+# 1 1 # 
+# . . 2 
+1 . . . 
+move: (2,4) l
+# 1 1 # 
+# o o * 
+1 . . . 
+move: (1,3) d
+# 1 * # 
+# o o * 
+1 . o . 
+move: (1,2) d
+# * * # 
+# o o * 
+1 o o . 
+move: (3,1) r
+# * * # 
+# o o * 
+* o o o 
+Number of moves: 4
+Number of vertices examined: 7
+0.00107497 [s]
+
+Level Welcome 12
+Sequence of moves: 
+# 1 # . # 
+1 . 1 . # 
+2 . . . # 
+# 2 . . . 
+# # # 2 # 
+move: (2,1) r
+# 1 # . # 
+* o 1 . # 
+2 . . . # 
+# 2 . . . 
+# # # 2 # 
+move: (2,3) r
+# 1 # . # 
+* o * o # 
+2 . . . # 
+# 2 . . . 
+# # # 2 # 
+move: (1,2) d
+# * # . # 
+* o * o # 
+2 o . . # 
+# 2 . . . 
+# # # 2 # 
+move: (3,1) r
+# * # . # 
+* o * o # 
+* o o o # 
+# 2 . . . 
+# # # 2 # 
+move: (5,4) u
+# * # o # 
+* o * o # 
+* o o o # 
+# 2 . o . 
+# # # * # 
+move: (4,2) r
+# * # o # 
+* o * o # 
+* o o o # 
+# * o o o 
+# # # * # 
+Number of moves: 6
+Number of vertices examined: 32
+0.00225859 [s]
+
+Level Welcome 13
+Sequence of moves: 
+# . 2 # 
+. . . 2 
+# . . 1 
+1 . . # 
+# 2 # # 
+move: (1,3) d
+# . * # 
+. . o 2 
+# . o 1 
+1 . . # 
+# 2 # # 
+move: (3,4) l
+# . * # 
+. . o 2 
+# o o * 
+1 . . # 
+# 2 # # 
+move: (2,4) l
+# . * # 
+o o o * 
+# o o * 
+1 . . # 
+# 2 # # 
+move: (5,2) u
+# o * # 
+o o o * 
+# o o * 
+1 o . # 
+# * # # 
+move: (4,1) r
+# o * # 
+o o o * 
+# o o * 
+* o o # 
+# * # # 
+Number of moves: 5
+Number of vertices examined: 16
+0.0011683 [s]
+
+Level Welcome 14
+Sequence of moves: 
+# # . # # 
+. . . 2 # 
+. . . 1 # 
+2 . . . . 
+# 3 3 # # 
+move: (5,2) u
+# # . # # 
+. o . 2 # 
+. o . 1 # 
+2 o . . . 
+# * 3 # # 
+move: (2,4) l
+# # . # # 
+o o o * # 
+. o . 1 # 
+2 o . . . 
+# * 3 # # 
+move: (5,3) u
+# # o # # 
+o o o * # 
+. o o 1 # 
+2 o o . . 
+# * * # # 
+move: (4,1) r
+# # o # # 
+o o o * # 
+. o o 1 # 
+* o o o o 
+# * * # # 
+move: (3,4) l
+# # o # # 
+o o o * # 
+o o o * # 
+* o o o o 
+# * * # # 
+Number of moves: 5
+Number of vertices examined: 20
+0.00129714 [s]
+
+Level Welcome 15
+Sequence of moves: 
+. . 3 
+. . . 
+. . < 
+2 2 # 
+move: (1,3) d
+. . * 
+. . o 
+o o < 
+2 2 # 
+move: (4,1) u
+o . * 
+o . o 
+o o < 
+* 2 # 
+move: (4,2) u
+o o * 
+o o o 
+o o < 
+* * # 
+Number of moves: 3
+Number of vertices examined: 5
+0.000923494 [s]
+
+Level Welcome 16
+Sequence of moves: 
+. . . < 2 # 
+# # 1 . . # 
+# 2 . ^ . 2 
+move: (1,5) d
+. . . < * # 
+# # 1 . o # 
+# 2 . ^ o 2 
+move: (3,6) l
+. . o < * # 
+# # 1 o o # 
+# 2 . ^ o * 
+move: (2,3) d
+. . o < * # 
+# # * o o # 
+# 2 o ^ o * 
+move: (3,2) r
+o o o < * # 
+# # * o o # 
+# * o ^ o * 
+Number of moves: 4
+Number of vertices examined: 8
+0.0012564 [s]
+
+Level Welcome 17
+Sequence of moves: 
+# # # . 1 
+# 1 1 . . 
+2 . . ^ . 
+# # # 1 # 
+move: (4,4) u
+# # # . 1 
+# 1 1 o . 
+2 . . ^ . 
+# # # * # 
+move: (2,3) r
+# # # . 1 
+# 1 * o o 
+2 . . ^ . 
+# # # * # 
+move: (2,2) d
+# # # . 1 
+# * * o o 
+2 o . ^ . 
+# # # * # 
+move: (3,1) r
+# # # o 1 
+# * * o o 
+* o o ^ . 
+# # # * # 
+move: (1,5) d
+# # # o * 
+# * * o o 
+* o o ^ o 
+# # # * # 
+Number of moves: 5
+Number of vertices examined: 14
+0.00171118 [s]
+
+Level Welcome 18
+Sequence of moves: 
+3 . v . 3 
+> . . . < 
+# 2 . . . 
+# # . 2 # 
+# # . # # 
+move: (1,5) d
+3 . v . * 
+> o o o < 
+# 2 . . . 
+# # . 2 # 
+# # . # # 
+move: (4,4) u
+3 . v o * 
+> o o o < 
+# 2 . o . 
+# # . * # 
+# # . # # 
+move: (3,2) r
+3 . v o * 
+> o o o < 
+# * o o o 
+# # . * # 
+# # . # # 
+move: (1,1) r
+* o v o * 
+> o o o < 
+# * o o o 
+# # o * # 
+# # o # # 
+Number of moves: 4
+Number of vertices examined: 20
+0.00168437 [s]
+
+Level Welcome 19
+Sequence of moves: 
+# 1 4 # # 
+. . . 1 # 
+# . . 1 # 
+# . . . 2 
+# 1 . 1 # 
+. . . 1 # 
+move: (1,2) d
+# * 4 # # 
+. o . 1 # 
+# . . 1 # 
+# . . . 2 
+# 1 . 1 # 
+. . . 1 # 
+move: (5,4) l
+# * 4 # # 
+. o . 1 # 
+# . . 1 # 
+# . . . 2 
+# 1 o * # 
+. . . 1 # 
+move: (5,2) d
+# * 4 # # 
+. o . 1 # 
+# . . 1 # 
+# . . . 2 
+# * o * # 
+. o . 1 # 
+move: (1,3) d
+# * * # # 
+. o o 1 # 
+# . o 1 # 
+# . o . 2 
+# * o * # 
+. o o 1 # 
+move: (6,4) l
+# * * # # 
+. o o 1 # 
+# . o 1 # 
+# . o . 2 
+# * o * # 
+o o o * # 
+move: (4,5) l
+# * * # # 
+. o o 1 # 
+# . o 1 # 
+# o o o * 
+# * o * # 
+o o o * # 
+move: (3,4) l
+# * * # # 
+. o o 1 # 
+# o o * # 
+# o o o * 
+# * o * # 
+o o o * # 
+move: (2,4) l
+# * * # # 
+o o o * # 
+# o o * # 
+# o o o * 
+# * o * # 
+o o o * # 
+Number of moves: 8
+Number of vertices examined: 44
+0.00270606 [s]
+
+Level Welcome 20
+Sequence of moves: 
+# 1 2 3 4 5 
+1 . . . . . 
+1 . . . . . 
+2 . . . . . 
+3 . . . . . 
+4 . . . . . 
+4 . . . . . 
+move: (1,2) d
+# * 2 3 4 5 
+1 o . . . . 
+1 . . . . . 
+2 . . . . . 
+3 . . . . . 
+4 . . . . . 
+4 . . . . . 
+move: (7,1) r
+# * 2 3 4 5 
+1 o . . . . 
+1 . . . . . 
+2 . . . . . 
+3 . . . . . 
+4 . . . . . 
+* o o o o . 
+move: (6,1) r
+# * 2 3 4 5 
+1 o . . . . 
+1 . . . . . 
+2 . . . . . 
+3 . . . . . 
+* o o o o . 
+* o o o o . 
+move: (5,1) r
+# * 2 3 4 5 
+1 o . . . . 
+1 . . . . . 
+2 . . . . . 
+* o o o . . 
+* o o o o . 
+* o o o o . 
+move: (4,1) r
+# * 2 3 4 5 
+1 o . . . . 
+1 . . . . . 
+* o o . . . 
+* o o o . . 
+* o o o o . 
+* o o o o . 
+move: (3,1) r
+# * 2 3 4 5 
+1 o . . . . 
+* o . . . . 
+* o o . . . 
+* o o o . . 
+* o o o o . 
+* o o o o . 
+move: (1,5) d
+# * 2 3 * 5 
+1 o . . o . 
+* o . . o . 
+* o o . o . 
+* o o o o . 
+* o o o o . 
+* o o o o . 
+move: (1,4) d
+# * 2 * * 5 
+1 o . o o . 
+* o . o o . 
+* o o o o . 
+* o o o o . 
+* o o o o . 
+* o o o o . 
+move: (1,3) d
+# * * * * 5 
+1 o o o o . 
+* o o o o . 
+* o o o o . 
+* o o o o . 
+* o o o o . 
+* o o o o . 
+move: (2,1) r
+# * * * * 5 
+* o o o o o 
+* o o o o . 
+* o o o o . 
+* o o o o . 
+* o o o o . 
+* o o o o . 
+move: (1,6) d
+# * * * * * 
+* o o o o o 
+* o o o o o 
+* o o o o o 
+* o o o o o 
+* o o o o o 
+* o o o o o 
+Number of moves: 11
+Number of vertices examined: 36
+0.00362398 [s]
+
+Level Welcome 21
+Sequence of moves: 
+# # # 1 # 
+1 . . . . 
+# . 1 # # 
+1 . # 1 # 
+# . 1 . 1 
+1 . 1 . # 
+# . . . 1 
+# 2 1 # # 
+move: (1,4) d
+# # # * # 
+1 . . o . 
+# . 1 # # 
+1 . # 1 # 
+# . 1 . 1 
+1 . 1 . # 
+# . . . 1 
+# 2 1 # # 
+move: (8,3) u
+# # # * # 
+1 . . o . 
+# . 1 # # 
+1 . # 1 # 
+# . 1 . 1 
+1 . 1 . # 
+# . o . 1 
+# 2 * # # 
+move: (6,3) r
+# # # * # 
+1 . . o . 
+# . 1 # # 
+1 . # 1 # 
+# . 1 . 1 
+1 . * o # 
+# . o . 1 
+# 2 * # # 
+move: (6,1) r
+# # # * # 
+1 . . o . 
+# . 1 # # 
+1 . # 1 # 
+# . 1 . 1 
+* o * o # 
+# . o . 1 
+# 2 * # # 
+move: (5,5) l
+# # # * # 
+1 . . o . 
+# . 1 # # 
+1 . # 1 # 
+# . 1 o * 
+* o * o # 
+# . o . 1 
+# 2 * # # 
+move: (5,3) l
+# # # * # 
+1 . . o . 
+# . 1 # # 
+1 . # 1 # 
+# o * o * 
+* o * o # 
+# . o . 1 
+# 2 * # # 
+move: (4,4) d
+# # # * # 
+1 . . o . 
+# . 1 # # 
+1 . # * # 
+# o * o * 
+* o * o # 
+# . o o 1 
+# 2 * # # 
+move: (7,5) l
+# # # * # 
+1 . . o . 
+# . 1 # # 
+1 . # * # 
+# o * o * 
+* o * o # 
+# o o o * 
+# 2 * # # 
+move: (4,1) r
+# # # * # 
+1 . . o . 
+# . 1 # # 
+* o # * # 
+# o * o * 
+* o * o # 
+# o o o * 
+# 2 * # # 
+move: (8,2) u
+# # # * # 
+1 o . o . 
+# o 1 # # 
+* o # * # 
+# o * o * 
+* o * o # 
+# o o o * 
+# * * # # 
+move: (3,3) u
+# # # * # 
+1 o o o . 
+# o * # # 
+* o # * # 
+# o * o * 
+* o * o # 
+# o o o * 
+# * * # # 
+move: (2,1) r
+# # # * # 
+* o o o o 
+# o * # # 
+* o # * # 
+# o * o * 
+* o * o # 
+# o o o * 
+# * * # # 
+Number of moves: 12
+Number of vertices examined: 454
+0.0214702 [s]
+
+Level Welcome 22
+Sequence of moves: 
+# 1 # 
+S . . 
+# . 1 
+move: (1,2) d
+# * # 
+S o . 
+# . 1 
+move: (3,3) l
+# * # 
+S o . 
+# o * 
+move: (2,1) r
+# * # 
+* o s 
+# o * 
+Number of moves: 3
+Number of vertices examined: 6
+0.001403 [s]
+
+Level Welcome 23
+Sequence of moves: 
+# # 1 # # 
+S . . . 1 
+# . . . S 
+# # # 2 # 
+move: (4,4) u
+# # 1 # # 
+S . . o 1 
+# . . o S 
+# # # * # 
+move: (2,5) l
+# # 1 # # 
+S . o o * 
+# . . o S 
+# # # * # 
+move: (2,1) r
+# # 1 # # 
+* s o o * 
+# . . o S 
+# # # * # 
+move: (1,3) d
+# # * # # 
+* s o o * 
+# . o o S 
+# # # * # 
+move: (3,5) l
+# # * # # 
+* s o o * 
+# s o o * 
+# # # * # 
+Number of moves: 5
+Number of vertices examined: 14
+0.0011387 [s]
+
+Level Welcome 24
+Sequence of moves: 
+# 1 . 2 # 
+2 . . . 1 
+. . S . . 
+1 . . . 2 
+# 2 . 1 # 
+# # . # # 
+move: (1,2) r
+# * o 2 # 
+2 . . . 1 
+. . S . . 
+1 . . . 2 
+# 2 . 1 # 
+# # . # # 
+move: (5,4) l
+# * o 2 # 
+2 . . . 1 
+. . S . . 
+1 . . . 2 
+# 2 o * # 
+# # . # # 
+move: (5,2) u
+# * o 2 # 
+2 . . . 1 
+. o S . . 
+1 o . . 2 
+# * o * # 
+# # . # # 
+move: (4,5) l
+# * o 2 # 
+2 . . . 1 
+. o S . . 
+1 o o o * 
+# * o * # 
+# # . # # 
+move: (4,1) u
+# * o 2 # 
+2 . . . 1 
+o o S . . 
+* o o o * 
+# * o * # 
+# # . # # 
+move: (3,3) d
+# * o 2 # 
+2 . . . 1 
+o o * . . 
+* o o o * 
+# * o * # 
+# # s # # 
+move: (2,5) d
+# * o 2 # 
+2 . . . * 
+o o * . o 
+* o o o * 
+# * o * # 
+# # s # # 
+move: (2,1) r
+# * o 2 # 
+* o o . * 
+o o * . o 
+* o o o * 
+# * o * # 
+# # s # # 
+move: (1,4) d
+# * o * # 
+* o o o * 
+o o * o o 
+* o o o * 
+# * o * # 
+# # s # # 
+Number of moves: 9
+Number of vertices examined: 18
+0.00263815 [s]
+

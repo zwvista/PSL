@@ -164,7 +164,8 @@
     <Text Include="Puzzles\Pharaoh.txt" />
     <Text Include="Puzzles\Pharaoh_a.txt" />
     <Text Include="Puzzles\Pharaoh_ida.txt" />
-    <Text Include="Puzzles\PuzzleRetreat.txt" />
+    <Text Include="Puzzles\PuzzleRetreat_Morning.txt" />
+    <Text Include="Puzzles\PuzzleRetreat_Welcome.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -202,7 +203,8 @@
     <Xml Include="Puzzles\patternpuzzle.xml" />
     <Xml Include="Puzzles\pegsolitary.xml" />
     <Xml Include="Puzzles\Pharaoh.xml" />
-    <Xml Include="Puzzles\PuzzleRetreat.xml">
+    <Xml Include="Puzzles\PuzzleRetreat_Morning.xml" />
+    <Xml Include="Puzzles\PuzzleRetreat_Welcome.xml">
       <SubType>Designer</SubType>
     </Xml>
   </ItemGroup>

@@ -67,7 +67,10 @@
     <Text Include="Puzzles\Pairakabe.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\PuzzleRetreat.txt">
+    <Text Include="Puzzles\PuzzleRetreat_Welcome.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\PuzzleRetreat_Morning.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -145,7 +148,10 @@
     <Xml Include="Puzzles\Pairakabe.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\PuzzleRetreat.xml">
+    <Xml Include="Puzzles\PuzzleRetreat_Welcome.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\PuzzleRetreat_Morning.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
