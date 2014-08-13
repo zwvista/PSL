@@ -1,0 +1,3619 @@
+Level Everest 1
+Sequence of moves: 
+# # # # 1 # 
+# # # 1 . . 
+2 2 3 . . . 
+. . . 2 . b 
+> . b b 2 b 
+# . . 2 . 3 
+# # 2 . . . 
+# 3 b b . ^ 
+move: (8,2) r
+# # # # 1 # 
+# # # 1 . . 
+2 2 3 . . . 
+. . . 2 . b 
+> . b b 2 b 
+# . . 2 . 3 
+# # 2 . . . 
+# * t t o ^ 
+move: (6,4) l
+# # # # 1 # 
+# # # 1 . . 
+2 2 3 . . . 
+. . . 2 . b 
+> . b b 2 b 
+# o o * . 3 
+# # 2 . . . 
+# * t t o ^ 
+move: (5,5) d
+# # # # 1 # 
+# # # 1 . . 
+2 2 3 . . . 
+. . . 2 . b 
+> . b b * b 
+# o o * o 3 
+# # 2 . o . 
+# * t t o ^ 
+move: (7,3) r
+# # # # 1 # 
+# # # 1 . . 
+2 2 3 . . . 
+. . . 2 . b 
+> . b b * b 
+# o o * o 3 
+# # * o o o 
+# * t t o ^ 
+move: (3,3) r
+# # # # 1 # 
+# # # 1 . . 
+2 2 * o o o 
+. . . 2 . b 
+> . b b * b 
+# o o * o 3 
+# # * o o o 
+# * t t o ^ 
+move: (6,6) u
+# # # # 1 # 
+# # # 1 . o 
+2 2 * o o o 
+. . . 2 . t 
+> . b b * t 
+# o o * o * 
+# # * o o o 
+# * t t o ^ 
+move: (3,2) d
+# # # # 1 # 
+# # # 1 . o 
+2 * * o o o 
+. o . 2 . t 
+> o b b * t 
+# o o * o * 
+# # * o o o 
+# * t t o ^ 
+move: (4,4) l
+# # # # 1 # 
+# # # 1 . o 
+2 * * o o o 
+o o o * . t 
+> o b b * t 
+# o o * o * 
+# # * o o o 
+# * t t o ^ 
+move: (3,1) d
+# # # # 1 # 
+# # # 1 . o 
+* * * o o o 
+o o o * . t 
+> o t t * t 
+# o o * o * 
+# # * o o o 
+# * t t o ^ 
+move: (2,4) r
+# # # # 1 # 
+# # # * o o 
+* * * o o o 
+o o o * . t 
+> o t t * t 
+# o o * o * 
+# # * o o o 
+# * t t o ^ 
+move: (1,5) d
+# # # # * # 
+# # # * o o 
+* * * o o o 
+o o o * o t 
+> o t t * t 
+# o o * o * 
+# # * o o o 
+# * t t o ^ 
+Number of moves: 11
+Number of vertices examined: 464
+0.0261959 [s]
+
+Level Everest 2
+Sequence of moves: 
+# # 2 5 # 3 
+. 3 . . . . 
+. . . . 3 . 
+. . b . . < 
+b b 1 b b # 
+b b . . . 2 
+. 3 . b 2 # 
+4 3 . . . . 
+move: (1,3) d
+# # * 5 # 3 
+. 3 o . . . 
+. . o . 3 . 
+. . b . . < 
+b b 1 b b # 
+b b . . . 2 
+. 3 . b 2 # 
+4 3 . . . . 
+move: (7,2) u
+# # * 5 # 3 
+. 3 o . . . 
+. . o . 3 . 
+. o b . . < 
+b t 1 b b # 
+b t . . . 2 
+. * . b 2 # 
+4 3 . . . . 
+move: (3,5) l
+# # * 5 # 3 
+. 3 o . . . 
+o o o o * . 
+. o b . . < 
+b t 1 b b # 
+b t . . . 2 
+. * . b 2 # 
+4 3 . . . . 
+move: (2,2) r
+# # * 5 # 3 
+. * o o o o 
+o o o o * . 
+. o b . . < 
+b t 1 b b # 
+b t . . . 2 
+. * . b 2 # 
+4 3 . . . . 
+move: (1,4) d
+# # * * # 3 
+. * o o o o 
+o o o o * . 
+. o b o . < 
+b t 1 t b # 
+b t . o . 2 
+. * . t 2 # 
+4 3 . o . . 
+move: (8,2) r
+# # * * # 3 
+. * o o o o 
+o o o o * . 
+. o b o . < 
+b t 1 t b # 
+b t . o . 2 
+. * . t 2 # 
+4 * o o o o 
+move: (6,6) l
+# # * * # 3 
+. * o o o o 
+o o o o * . 
+. o b o . < 
+b t 1 t b # 
+b t o o o * 
+. * . t 2 # 
+4 * o o o o 
+move: (7,5) u
+# # * * # 3 
+. * o o o o 
+o o o o * . 
+. o b o o < 
+b t 1 t t # 
+b t o o o * 
+. * . t * # 
+4 * o o o o 
+move: (5,3) d
+# # * * # 3 
+. * o o o o 
+o o o o * . 
+. o b o o < 
+b t * t t # 
+b t o o o * 
+. * o t * # 
+4 * o o o o 
+move: (1,6) d
+# # * * # * 
+. * o o o o 
+o o o o * o 
+o o t o o < 
+b t * t t # 
+b t o o o * 
+. * o t * # 
+4 * o o o o 
+move: (8,1) u
+# # * * # * 
+o * o o o o 
+o o o o * o 
+o o t o o < 
+t t * t t # 
+t t o o o * 
+o * o t * # 
+* * o o o o 
+Number of moves: 11
+Number of vertices examined: 1387
+0.0602785 [s]
+
+Level Everest 3
+Sequence of moves: 
+# F 2 2 # 
+2 . . v S 
+2 . . . F 
+. . < . S 
+. . . < # 
+# 3 S 2 # 
+move: (6,4) u
+# F 2 2 # 
+2 . . v S 
+2 . . . F 
+. . < . S 
+. o o < # 
+# 3 S * # 
+move: (6,2) u
+# F 2 2 # 
+2 o . v S 
+2 o . . F 
+. o < . S 
+. o o < # 
+# * S * # 
+move: (6,3) u
+# F 2 2 # 
+2 o . v S 
+2 o . . F 
+s o < . S 
+. o o < # 
+# * * * # 
+move: (1,4) d
+# F 2 * # 
+2 o . v S 
+2 o . o F 
+s o < o S 
+. o o < # 
+# * * * # 
+move: (2,5) l
+# F 2 * # 
+2 o . v * 
+2 o . o F 
+s o < o S 
+s o o < # 
+# * * * # 
+move: (1,2) d
+# * 2 * # 
+2 . . v * 
+2 . . o F 
+s . < o S 
+s f o < # 
+# * * * # 
+move: (4,5) l
+# * 2 * # 
+2 . . v * 
+2 . . o F 
+s s < o * 
+s f o < # 
+# * * * # 
+move: (3,1) r
+# * 2 * # 
+2 . . v * 
+* o o o F 
+s s < o * 
+s f o < # 
+# * * * # 
+move: (3,5) l
+# * 2 * # 
+2 . . v * 
+* f . . * 
+s s < o * 
+s f o < # 
+# * * * # 
+move: (1,3) d
+# * * * # 
+2 . o v * 
+* f o . * 
+s s < o * 
+s f o < # 
+# * * * # 
+move: (2,1) r
+# * * * # 
+* o o v * 
+* f o o * 
+s s < o * 
+s f o < # 
+# * * * # 
+Number of moves: 11
+Number of vertices examined: 374
+0.0118069 [s]
+
+Level Everest 4
+Sequence of moves: 
+# # # 2 # # 
+# b b b # # 
+# . b v b 2 
+1 ^ . . b 2 
+2 b . . b # 
+# 1 ^ b b 4 
+# # 1 # # # 
+move: (1,4) d
+# # # * # # 
+# b b t # # 
+# . b v b 2 
+1 ^ . o b 2 
+2 b . . b # 
+# 1 ^ b b 4 
+# # 1 # # # 
+move: (7,3) u
+# # # * # # 
+# b b t # # 
+# . b v b 2 
+1 ^ . o b 2 
+2 b o . b # 
+# 1 ^ b b 4 
+# # * # # # 
+move: (6,2) r
+# # # * # # 
+# b b t # # 
+# . b v b 2 
+1 ^ o o b 2 
+2 b o . b # 
+# * ^ b b 4 
+# # * # # # 
+move: (6,6) l
+# # # * # # 
+# b t t # # 
+# . t v b 2 
+1 ^ o o b 2 
+2 b o . b # 
+# * ^ t t * 
+# # * # # # 
+move: (4,6) l
+# # # * # # 
+# b t t # # 
+# o t v b 2 
+1 ^ o o t * 
+2 b o . b # 
+# * ^ t t * 
+# # * # # # 
+move: (4,1) r
+# # # * # # 
+# t t t # # 
+# o t v b 2 
+* ^ o o t * 
+2 b o . b # 
+# * ^ t t * 
+# # * # # # 
+move: (3,6) l
+# # # * # # 
+# t t t # # 
+# o t v t * 
+* ^ o o t * 
+2 b o o b # 
+# * ^ t t * 
+# # * # # # 
+move: (5,1) r
+# # # * # # 
+# t t t # # 
+# o t v t * 
+* ^ o o t * 
+* t o o t # 
+# * ^ t t * 
+# # * # # # 
+Number of moves: 8
+Number of vertices examined: 31
+0.00199951 [s]
+
+Level Everest 5
+Sequence of moves: 
+# # > . # # 
+> . . v . 3 
+. . . . . 3 
+3 . . . . 3 
+3 . ^ . . < 
+# 3 . . ^ # 
+move: (2,6) l
+# # > . # # 
+> . . v o * 
+. . . o . 3 
+3 . . o . 3 
+3 . ^ . . < 
+# 3 . . ^ # 
+move: (6,2) r
+# # > . # # 
+> . . v o * 
+. . . o . 3 
+3 . . o . 3 
+3 . ^ . o < 
+# * o o ^ # 
+move: (4,6) l
+# # > . # # 
+> . . v o * 
+. . . o . 3 
+3 o o o o * 
+3 . ^ . o < 
+# * o o ^ # 
+move: (3,6) l
+# # > . # # 
+> . . v o * 
+. o o o o * 
+3 o o o o * 
+3 . ^ . o < 
+# * o o ^ # 
+move: (5,1) r
+# # > o # # 
+> . o v o * 
+. o o o o * 
+3 o o o o * 
+* o ^ . o < 
+# * o o ^ # 
+move: (4,1) u
+# # > o # # 
+> o o v o * 
+o o o o o * 
+* o o o o * 
+* o ^ o o < 
+# * o o ^ # 
+Number of moves: 6
+Number of vertices examined: 24
+0.00231988 [s]
+
+Level Everest 6
+Sequence of moves: 
+# # 4 1 # # 
+# F . . 1 # 
+2 . . v 1 # 
+2 . . > . v 
+# 1 . . . < 
+# 1 . 4 F # 
+# # F # # # 
+move: (6,4) u
+# # 4 1 # # 
+# F . . 1 # 
+2 . . v 1 # 
+2 . . > o v 
+# 1 o o o < 
+# 1 . * F # 
+# # F # # # 
+move: (1,4) d
+# # 4 * # # 
+# F . o 1 # 
+2 . . v 1 # 
+2 . . > o v 
+# 1 o o o < 
+# 1 . * F # 
+# # F # # # 
+move: (2,5) l
+# # 4 * # # 
+# F o o * # 
+2 . . v 1 # 
+2 . . > o v 
+# 1 o o o < 
+# 1 . * F # 
+# # F # # # 
+move: (2,2) r
+# # 4 * # # 
+# * . f * # 
+2 . . v 1 # 
+2 . . > o v 
+# 1 o o o < 
+# 1 . * F # 
+# # F # # # 
+move: (1,3) d
+# # * * # # 
+# * o f * # 
+2 . o v 1 # 
+2 . o > o v 
+# 1 o o o < 
+# 1 o * F # 
+# # F # # # 
+move: (7,3) u
+# # * * # # 
+# * f f * # 
+2 . . v 1 # 
+2 . . > o v 
+# 1 . o o < 
+# 1 . * F # 
+# # * # # # 
+move: (6,2) r
+# # * * # # 
+# * f f * # 
+2 . . v 1 # 
+2 . . > o v 
+# 1 . o o < 
+# * o * F # 
+# # * # # # 
+move: (3,5) l
+# # * * # # 
+# * f f * # 
+2 . . v * # 
+2 . . > o v 
+# 1 o o o < 
+# * o * F # 
+# # * # # # 
+move: (6,5) u
+# # * * # # 
+# * f f * # 
+2 . . v * # 
+2 . . > f v 
+# 1 o o . < 
+# * o * * # 
+# # * # # # 
+move: (5,2) r
+# # * * # # 
+# * f f * # 
+2 . . v * # 
+2 . . > f v 
+# * o o o < 
+# * o * * # 
+# # * # # # 
+move: (4,1) r
+# # * * # # 
+# * f f * # 
+2 . . v * # 
+* o o > f v 
+# * o o o < 
+# * o * * # 
+# # * # # # 
+move: (3,1) r
+# # * * # # 
+# * f f * # 
+* o o v * # 
+* o o > f v 
+# * o o o < 
+# * o * * # 
+# # * # # # 
+Number of moves: 12
+Number of vertices examined: 6932
+0.239009 [s]
+
+Level Everest 7
+Sequence of moves: 
+# # 3 3 # # 
+# 2 . . 2 # 
+S . . . . S 
+S . . . . 2 
+# 3 . . ^ # 
+# # F F # # 
+move: (2,5) l
+# # 3 3 # # 
+# 2 o o * # 
+S . . . . S 
+S . . . . 2 
+# 3 . . ^ # 
+# # F F # # 
+move: (2,2) d
+# # 3 3 # # 
+# * o o * # 
+S o . . . S 
+S o . . . 2 
+# 3 . . ^ # 
+# # F F # # 
+move: (1,3) d
+# # * 3 # # 
+# * o o * # 
+S o o . . S 
+S o o . . 2 
+# 3 o . ^ # 
+# # F F # # 
+move: (6,3) u
+# # * 3 # # 
+# * f o * # 
+S o . . . S 
+S o . . . 2 
+# 3 . . ^ # 
+# # * F # # 
+move: (4,1) r
+# # * 3 # # 
+# * f o * # 
+S o . . . S 
+* o s . . 2 
+# 3 . . ^ # 
+# # * F # # 
+move: (3,1) r
+# # * 3 # # 
+# * f o * # 
+* o s . . S 
+* o s . . 2 
+# 3 . . ^ # 
+# # * F # # 
+move: (1,4) d
+# # * * # # 
+# * f o * # 
+* o s o . S 
+* o s o . 2 
+# 3 . o ^ # 
+# # * F # # 
+move: (6,4) u
+# # * * # # 
+# * f f * # 
+* o s . . S 
+* o s . . 2 
+# 3 . . ^ # 
+# # * * # # 
+move: (4,6) l
+# # * * # # 
+# * f f * # 
+* o s . . S 
+* o s o o * 
+# 3 . . ^ # 
+# # * * # # 
+move: (5,2) r
+# # * * # # 
+# * f f * # 
+* o s . o S 
+* o s o o * 
+# * o o ^ # 
+# # * * # # 
+move: (3,6) l
+# # * * # # 
+# * f f * # 
+* o s s o * 
+* o s o o * 
+# * o o ^ # 
+# # * * # # 
+Number of moves: 11
+Number of vertices examined: 2542
+0.0811038 [s]
+
+Level Everest 8
+Sequence of moves: 
+2 3 # 3 1 2 
+. . 3 . . . 
+v . 2 . . v 
+. . 3 . v . 
+. v 2 v . . 
+b b 3 . . v 
+v . 2 . b b 
+. . 2 . b b 
+move: (1,1) d
+* 3 # 3 1 2 
+o . 3 . . . 
+v . 2 . . v 
+o . 3 . v . 
+. v 2 v . . 
+b b 3 . . v 
+v . 2 . b b 
+. . 2 . b b 
+move: (7,3) l
+* 3 # 3 1 2 
+o . 3 . . . 
+v . 2 . . v 
+o . 3 . v . 
+. v 2 v . . 
+b b 3 . . v 
+v o * . b b 
+o . 2 . b b 
+move: (6,3) r
+* 3 # 3 1 2 
+o . 3 . . . 
+v . 2 . . v 
+o . 3 . v . 
+. v 2 v . . 
+b b * o o v 
+v o * . b t 
+o . 2 . b b 
+move: (5,3) l
+* 3 # 3 1 2 
+o . 3 . . . 
+v . 2 . . v 
+o . 3 . v . 
+. v * v . . 
+b t * o o v 
+v o * . b t 
+o o 2 . b b 
+move: (4,3) r
+* 3 # 3 1 2 
+o . 3 . . . 
+v . 2 . . v 
+o . * o v . 
+. v * v o . 
+b t * o o v 
+v o * . t t 
+o o 2 . b b 
+move: (2,3) r
+* 3 # 3 1 2 
+o . * o o o 
+v . 2 . . v 
+o . * o v . 
+. v * v o . 
+b t * o o v 
+v o * . t t 
+o o 2 . b b 
+move: (1,6) d
+* 3 # 3 1 * 
+o . * o o o 
+v . 2 . . v 
+o . * o v o 
+. v * v o o 
+b t * o o v 
+v o * . t t 
+o o 2 . b b 
+move: (1,5) d
+* 3 # 3 * * 
+o . * o o o 
+v . 2 . o v 
+o . * o v o 
+. v * v o o 
+b t * o o v 
+v o * . t t 
+o o 2 . b b 
+move: (1,4) d
+* 3 # * * * 
+o . * o o o 
+v . 2 o o v 
+o . * o v o 
+. v * v o o 
+b t * o o v 
+v o * o t t 
+o o 2 o b b 
+move: (8,3) r
+* 3 # * * * 
+o . * o o o 
+v . 2 o o v 
+o . * o v o 
+. v * v o o 
+b t * o o v 
+v o * o t t 
+o o * o t t 
+move: (1,2) d
+* * # * * * 
+o o * o o o 
+v o 2 o o v 
+o o * o v o 
+. v * v o o 
+b t * o o v 
+v o * o t t 
+o o * o t t 
+move: (3,3) l
+* * # * * * 
+o o * o o o 
+v o * o o v 
+o o * o v o 
+o v * v o o 
+t t * o o v 
+v o * o t t 
+o o * o t t 
+Number of moves: 12
+Number of vertices examined: 1478
+0.0696499 [s]
+
+Level Everest 9
+Sequence of moves: 
+# 4 . . . v 
+4 . . 2 2 v 
+. . 3 . . < 
+. . . . . 4 
+b . . . . 3 
+b ^ . . 3 # 
+b 3 . . . . 
+b b . . . 4 
+move: (5,6) l
+# 4 . . . v 
+4 . . 2 2 v 
+. . 3 . . < 
+. . . . . 4 
+b . o o o * 
+b ^ . . 3 # 
+b 3 . . . . 
+b b . . . 4 
+move: (2,5) d
+# 4 . . . v 
+4 . . 2 * v 
+. . 3 . o < 
+. . . . o 4 
+b . o o o * 
+b ^ . . 3 # 
+b 3 . . . . 
+b b . . . 4 
+move: (4,6) l
+# 4 . . . v 
+4 . . 2 * v 
+. . 3 . o < 
+o o o o o * 
+b . o o o * 
+b ^ . . 3 # 
+b 3 . . . . 
+b b . . . 4 
+move: (3,3) d
+# 4 . . . v 
+4 . . 2 * v 
+. . * . o < 
+o o o o o * 
+b . o o o * 
+b ^ o . 3 # 
+b 3 o . . . 
+b b o . . 4 
+move: (8,6) l
+# 4 . . . v 
+4 . . 2 * v 
+. . * . o < 
+o o o o o * 
+b . o o o * 
+b ^ o . 3 # 
+b 3 o . . . 
+t t o o o * 
+move: (7,2) r
+# 4 . . . v 
+4 . . 2 * v 
+. . * . o < 
+o o o o o * 
+b . o o o * 
+b ^ o . 3 # 
+b * o o o o 
+t t o o o * 
+move: (6,5) l
+# 4 . . . v 
+4 . . 2 * v 
+. o * . o < 
+o o o o o * 
+b o o o o * 
+b ^ o o * # 
+b * o o o o 
+t t o o o * 
+move: (2,4) l
+# 4 . . . v 
+4 o o * * v 
+. o * . o < 
+o o o o o * 
+b o o o o * 
+b ^ o o * # 
+b * o o o o 
+t t o o o * 
+move: (2,1) d
+# 4 . . . v 
+* o o * * v 
+o o * . o < 
+o o o o o * 
+t o o o o * 
+t ^ o o * # 
+t * o o o o 
+t t o o o * 
+move: (1,2) r
+# * o o o v 
+* o o * * v 
+o o * o o < 
+o o o o o * 
+t o o o o * 
+t ^ o o * # 
+t * o o o o 
+t t o o o * 
+Number of moves: 10
+Number of vertices examined: 903
+0.0381958 [s]
+
+Level Everest 10
+Sequence of moves: 
+# # # 3 # # 
+# # # . # # 
+# # 1 b # b 
+# 2 b . 2 . 
+2 . . b . b 
+# b 1 > > . 
+3 . b . b . 
+# # # 1 # 3 
+move: (1,4) d
+# # # * # # 
+# # # o # # 
+# # 1 t # b 
+# 2 b o 2 . 
+2 . . b . b 
+# b 1 > > . 
+3 . b . b . 
+# # # 1 # 3 
+move: (8,4) u
+# # # * # # 
+# # # o # # 
+# # 1 t # b 
+# 2 b o 2 . 
+2 . . b . b 
+# b 1 > > . 
+3 . b o b . 
+# # # * # 3 
+move: (6,3) u
+# # # * # # 
+# # # o # # 
+# # 1 t # b 
+# 2 b o 2 . 
+2 . o b . b 
+# b * > > . 
+3 . b o b . 
+# # # * # 3 
+move: (5,1) r
+# # # * # # 
+# # # o # # 
+# # 1 t # b 
+# 2 b o 2 . 
+* o o t . b 
+# b * > > . 
+3 . b o b . 
+# # # * # 3 
+move: (4,5) d
+# # # * # # 
+# # # o # # 
+# # 1 t # b 
+# 2 b o * . 
+* o o t o b 
+# b * > > o 
+3 . b o b . 
+# # # * # 3 
+move: (4,2) d
+# # # * # # 
+# # # o # # 
+# # 1 t # b 
+# * b o * . 
+* o o t o b 
+# t * > > o 
+3 o b o b . 
+# # # * # 3 
+move: (7,1) r
+# # # * # # 
+# # # o # # 
+# # 1 t # b 
+# * b o * . 
+* o o t o b 
+# t * > > o 
+* o t o t o 
+# # # * # 3 
+move: (8,6) u
+# # # * # # 
+# # # o # # 
+# # 1 t # t 
+# * b o * o 
+* o o t o t 
+# t * > > o 
+* o t o t o 
+# # # * # * 
+move: (3,3) d
+# # # * # # 
+# # # o # # 
+# # * t # t 
+# * t o * o 
+* o o t o t 
+# t * > > o 
+* o t o t o 
+# # # * # * 
+Number of moves: 9
+Number of vertices examined: 74
+0.00417696 [s]
+
+Level Everest 11
+Sequence of moves: 
+# # # 3 # # 
+# # # . # # 
+v 1 1 . F # 
+v 1 F . . 2 
+v 1 F . . 2 
+> . . . . . 
+3 # . 1 F # 
+move: (7,4) l
+# # # 3 # # 
+# # # . # # 
+v 1 1 . F # 
+v 1 F . . 2 
+v 1 F . . 2 
+> . . . . . 
+3 # o * F # 
+move: (5,6) l
+# # # 3 # # 
+# # # . # # 
+v 1 1 . F # 
+v 1 F . . 2 
+v 1 F o o * 
+> . . . . . 
+3 # o * F # 
+move: (5,2) l
+# # # 3 # # 
+# # # . # # 
+v 1 1 . F # 
+v 1 F . . 2 
+v * F o o * 
+> o . . . . 
+3 # o * F # 
+move: (4,6) l
+# # # 3 # # 
+# # # . # # 
+v 1 1 . F # 
+v 1 F o o * 
+v * F o o * 
+> o . . . . 
+3 # o * F # 
+move: (4,3) r
+# # # 3 # # 
+# # # . # # 
+v 1 1 . F # 
+v 1 * . f * 
+v * F o o * 
+> o . . . . 
+3 # o * F # 
+move: (4,2) l
+# # # 3 # # 
+# # # . # # 
+v 1 1 . F # 
+v * * . f * 
+v * F o o * 
+> o o . . . 
+3 # o * F # 
+move: (5,3) d
+# # # 3 # # 
+# # # . # # 
+v 1 1 . F # 
+v * * . f * 
+v * * o o * 
+> o . . . . 
+3 # f * F # 
+move: (3,3) r
+# # # 3 # # 
+# # # . # # 
+v 1 * o F # 
+v * * . f * 
+v * * o o * 
+> o . . . . 
+3 # f * F # 
+move: (1,4) d
+# # # * # # 
+# # # o # # 
+v 1 * o F # 
+v * * o f * 
+v * * o o * 
+> o . o . . 
+3 # f * F # 
+move: (7,1) u
+# # # * # # 
+# # # o # # 
+v 1 * o F # 
+v * * o f * 
+v * * o o * 
+> o o o o o 
+* # f * F # 
+move: (7,5) u
+# # # * # # 
+# # # o # # 
+v 1 * o F # 
+v * * o f * 
+v * * o f * 
+> o o o . o 
+* # f * * # 
+move: (3,5) l
+# # # * # # 
+# # # o # # 
+v 1 * f * # 
+v * * o f * 
+v * * o f * 
+> o o o . o 
+* # f * * # 
+move: (3,2) l
+# # # * # # 
+# # # o # # 
+v * * f * # 
+v * * o f * 
+v * * o f * 
+> o o o o o 
+* # f * * # 
+Number of moves: 13
+Number of vertices examined: 20484
+0.731989 [s]
+
+Level Everest 12
+Sequence of moves: 
+# # # # 2 # 
+# 2 . b . # 
+# # b 4 b # 
+# 3 b v b # 
+F . . . . 4 
+3 . . . F # 
+# . . < # # 
+# F 5 # # # 
+move: (5,6) l
+# # # # 2 # 
+# 2 . b . # 
+# # b 4 b # 
+# 3 b v b # 
+F o o o o * 
+3 . . . F # 
+# . . < # # 
+# F 5 # # # 
+move: (5,1) r
+# # # # 2 # 
+# 2 . b . # 
+# # b 4 b # 
+# 3 b v b # 
+* . . . f * 
+3 . . . F # 
+# . . < # # 
+# F 5 # # # 
+move: (4,2) d
+# # # # 2 # 
+# 2 . b . # 
+# # b 4 b # 
+# * b v b # 
+* o . . f * 
+3 o . . F # 
+# o . < # # 
+# F 5 # # # 
+move: (8,2) u
+# # # # 2 # 
+# 2 . b . # 
+# # b 4 b # 
+# * b v b # 
+* f . . f * 
+3 . . . F # 
+# . . < # # 
+# * 5 # # # 
+move: (6,1) r
+# # # # 2 # 
+# 2 . b . # 
+# # b 4 b # 
+# * b v b # 
+* f . . f * 
+* o o o F # 
+# . . < # # 
+# * 5 # # # 
+move: (6,5) l
+# # # # 2 # 
+# 2 . b . # 
+# # b 4 b # 
+# * b v b # 
+* f . . f * 
+* f . . * # 
+# . . < # # 
+# * 5 # # # 
+move: (3,4) d
+# # # # 2 # 
+# 2 . b . # 
+# # b * b # 
+# * b v b # 
+* f . o f * 
+* f . o * # 
+# o o < # # 
+# * 5 # # # 
+move: (8,3) u
+# # # # 2 # 
+# 2 o b . # 
+# # t * b # 
+# * t v b # 
+* f o o f * 
+* f o o * # 
+# o o < # # 
+# * * # # # 
+move: (2,2) r
+# # # # 2 # 
+# * o t o # 
+# # t * b # 
+# * t v b # 
+* f o o f * 
+* f o o * # 
+# o o < # # 
+# * * # # # 
+move: (1,5) d
+# # # # * # 
+# * o t o # 
+# # t * t # 
+# * t v t # 
+* f o o f * 
+* f o o * # 
+# o o < # # 
+# * * # # # 
+Number of moves: 10
+Number of vertices examined: 751
+0.0244057 [s]
+
+Level Everest 13
+Sequence of moves: 
+# F 1 # # # 
+2 . . . 1 # 
+. . . 3 . 1 
+1 . 3 . . . 
+# 2 . . . F 
+# # 1 . S # 
+# # 2 ^ S # 
+move: (7,3) r
+# F 1 # # # 
+2 . . . 1 # 
+. . . 3 . 1 
+1 . 3 . . . 
+# 2 . o . F 
+# # 1 o S # 
+# # * ^ S # 
+move: (6,3) u
+# F 1 # # # 
+2 . . . 1 # 
+. . . 3 . 1 
+1 . 3 . . . 
+# 2 o o . F 
+# # * o S # 
+# # * ^ S # 
+move: (4,3) r
+# F 1 # # # 
+2 . . . 1 # 
+. . . 3 . 1 
+1 . * o o o 
+# 2 o o . F 
+# # * o S # 
+# # * ^ S # 
+move: (4,1) r
+# F 1 # # # 
+2 . . . 1 # 
+. . . 3 . 1 
+* o * o o o 
+# 2 o o . F 
+# # * o S # 
+# # * ^ S # 
+move: (5,2) u
+# F 1 # # # 
+2 o . . 1 # 
+. o . 3 . 1 
+* o * o o o 
+# * o o . F 
+# # * o S # 
+# # * ^ S # 
+move: (3,6) l
+# F 1 # # # 
+2 o . . 1 # 
+. o . 3 o * 
+* o * o o o 
+# * o o . F 
+# # * o S # 
+# # * ^ S # 
+move: (2,5) d
+# F 1 # # # 
+2 o . . * # 
+. o . 3 o * 
+* o * o o o 
+# * o o o F 
+# # * o S # 
+# # * ^ S # 
+move: (5,6) l
+# F 1 # # # 
+2 o . . * # 
+. o . 3 o * 
+* o * o o o 
+# * f . . * 
+# # * o S # 
+# # * ^ S # 
+move: (7,5) l
+# F 1 # # # 
+2 o . . * # 
+. o . 3 o * 
+* o * o o o 
+# * f s . * 
+# # * o S # 
+# # * ^ * # 
+move: (6,5) u
+# F 1 # # # 
+2 o . . * # 
+. o . 3 o * 
+* o * o o o 
+# * f s s * 
+# # * o * # 
+# # * ^ * # 
+move: (1,3) d
+# F * # # # 
+2 o o . * # 
+. o . 3 o * 
+* o * o o o 
+# * f s s * 
+# # * o * # 
+# # * ^ * # 
+move: (1,2) d
+# * * # # # 
+2 . o . * # 
+. . . 3 o * 
+* f * o o o 
+# * f s s * 
+# # * o * # 
+# # * ^ * # 
+move: (3,4) l
+# * * # # # 
+2 . o . * # 
+o o o * o * 
+* f * o o o 
+# * f s s * 
+# # * o * # 
+# # * ^ * # 
+move: (2,1) r
+# * * # # # 
+* o o o * # 
+o o o * o * 
+* f * o o o 
+# * f s s * 
+# # * o * # 
+# # * ^ * # 
+Number of moves: 14
+Number of vertices examined: 35939
+1.56381 [s]
+
+Level Everest 14
+Sequence of moves: 
+# # F # # # 
+# 1 . S 2 # 
+F . . . . 2 
+# 1 S ^ . 1 
+# # # 1 . S 
+# # # # F # 
+move: (5,4) r
+# # F # # # 
+# 1 . S 2 # 
+F . . . . 2 
+# 1 S ^ . 1 
+# # # * o S 
+# # # # F # 
+move: (2,5) d
+# # F # # # 
+# 1 . S * # 
+F . . . o 2 
+# 1 S ^ o 1 
+# # # * o S 
+# # # # F # 
+move: (4,6) l
+# # F # # # 
+# 1 . S * # 
+F . . o o 2 
+# 1 S ^ o * 
+# # # * o S 
+# # # # F # 
+move: (3,6) l
+# # F # # # 
+# 1 . S * # 
+F o o o o * 
+# 1 S ^ o * 
+# # # * o S 
+# # # # F # 
+move: (3,1) r
+# # F # # # 
+# 1 . S * # 
+* . . . f * 
+# 1 S ^ o * 
+# # # * o S 
+# # # # F # 
+move: (6,5) u
+# # F # # # 
+# 1 . S * # 
+* . . . f * 
+# 1 S ^ f * 
+# # # * . S 
+# # # # * # 
+move: (5,6) l
+# # F # # # 
+# 1 . S * # 
+* . . . f * 
+# 1 S ^ f * 
+# # # * s * 
+# # # # * # 
+move: (4,3) r
+# # F # # # 
+# 1 . S * # 
+* . . s f * 
+# 1 * ^ f * 
+# # # * s * 
+# # # # * # 
+move: (4,2) u
+# # F # # # 
+# 1 . S * # 
+* o . s f * 
+# * * ^ f * 
+# # # * s * 
+# # # # * # 
+move: (2,2) r
+# # F # # # 
+# * o S * # 
+* o . s f * 
+# * * ^ f * 
+# # # * s * 
+# # # # * # 
+move: (1,3) d
+# # * # # # 
+# * . S * # 
+* o f s f * 
+# * * ^ f * 
+# # # * s * 
+# # # # * # 
+move: (2,4) l
+# # * # # # 
+# * s * * # 
+* o f s f * 
+# * * ^ f * 
+# # # * s * 
+# # # # * # 
+Number of moves: 12
+Number of vertices examined: 4612
+0.161475 [s]
+
+Level Everest 15
+Sequence of moves: 
+# # 3 3 # # 
+# 1 . . . 2 
+3 b . . b v 
+# . . . S . 
+# S . . S . 
+# S . . . < 
+2 b . b . # 
+# # 3 # # # 
+move: (1,3) d
+# # * 3 # # 
+# 1 o . . 2 
+3 b o . b v 
+# . o . S . 
+# S . . S . 
+# S . . . < 
+2 b . b . # 
+# # 3 # # # 
+move: (8,3) u
+# # * 3 # # 
+# 1 o . . 2 
+3 b o . b v 
+# . o . S . 
+# S o . S . 
+# S o . . < 
+2 b o b . # 
+# # * # # # 
+move: (7,1) r
+# # * 3 # # 
+# 1 o . . 2 
+3 b o . b v 
+# . o . S . 
+# S o . S . 
+# S o . . < 
+* t o t . # 
+# # * # # # 
+move: (6,2) r
+# # * 3 # # 
+# 1 o . . 2 
+3 b o . b v 
+# . o . S . 
+# S o . S . 
+# * o s . < 
+* t o t . # 
+# # * # # # 
+move: (5,2) r
+# # * 3 # # 
+# 1 o . . 2 
+3 b o . b v 
+# . o . S . 
+# * o s S . 
+# * o s . < 
+* t o t . # 
+# # * # # # 
+move: (2,6) d
+# # * 3 # # 
+# 1 o . . * 
+3 b o . b v 
+# . o . S o 
+# * o s S o 
+# * o s . < 
+* t o t . # 
+# # * # # # 
+move: (1,4) d
+# # * * # # 
+# 1 o o . * 
+3 b o o b v 
+# . o o S o 
+# * o s S o 
+# * o s . < 
+* t o t . # 
+# # * # # # 
+move: (4,5) l
+# # * * # # 
+# 1 o o . * 
+3 b o o b v 
+# s o o * o 
+# * o s S o 
+# * o s . < 
+* t o t . # 
+# # * # # # 
+move: (3,1) r
+# # * * # # 
+# 1 o o . * 
+* t o o t v 
+# s o o * o 
+# * o s S o 
+# * o s o < 
+* t o t . # 
+# # * # # # 
+move: (5,5) d
+# # * * # # 
+# 1 o o . * 
+* t o o t v 
+# s o o * o 
+# * o s * o 
+# * o s o < 
+* t o t s # 
+# # * # # # 
+move: (2,2) r
+# # * * # # 
+# * o o o * 
+* t o o t v 
+# s o o * o 
+# * o s * o 
+# * o s o < 
+* t o t s # 
+# # * # # # 
+Number of moves: 11
+Number of vertices examined: 124
+0.00567781 [s]
+
+Level Everest 16
+Sequence of moves: 
+# F 2 # # # 
+2 . . 2 # # 
+. . < . 3 # 
+# . 2 . . F 
+# 3 . . . 2 
+# # # 2 . v 
+# # # # F . 
+move: (5,2) u
+# F 2 # # # 
+2 o . 2 # # 
+. o < . 3 # 
+# o 2 . . F 
+# * . . . 2 
+# # # 2 . v 
+# # # # F . 
+move: (4,3) r
+# F 2 # # # 
+2 o . 2 # # 
+. o < . 3 # 
+# o * o o F 
+# * . . . 2 
+# # # 2 . v 
+# # # # F . 
+move: (2,4) d
+# F 2 # # # 
+2 o . * # # 
+. o < o 3 # 
+# o * o o F 
+# * . o . 2 
+# # # 2 . v 
+# # # # F . 
+move: (4,6) l
+# F 2 # # # 
+2 o . * # # 
+. o < o 3 # 
+# o * f . * 
+# * . o . 2 
+# # # 2 . v 
+# # # # F . 
+move: (3,5) d
+# F 2 # # # 
+2 o . * # # 
+. o < o * # 
+# o * f o * 
+# * . o o 2 
+# # # 2 o v 
+# # # # F . 
+move: (7,5) u
+# F 2 # # # 
+2 o . * # # 
+. o < o * # 
+# o * f f * 
+# * . o . 2 
+# # # 2 . v 
+# # # # * . 
+move: (6,4) r
+# F 2 # # # 
+2 o . * # # 
+. o < o * # 
+# o * f f * 
+# * . o . 2 
+# # # * o v 
+# # # # * o 
+move: (5,6) l
+# F 2 # # # 
+2 o . * # # 
+. o < o * # 
+# o * f f * 
+# * o o o * 
+# # # * o v 
+# # # # * o 
+move: (1,2) d
+# * 2 # # # 
+2 . . * # # 
+. . < o * # 
+# f * f f * 
+# * o o o * 
+# # # * o v 
+# # # # * o 
+move: (2,1) r
+# * 2 # # # 
+* o o * # # 
+. . < o * # 
+# f * f f * 
+# * o o o * 
+# # # * o v 
+# # # # * o 
+move: (1,3) d
+# * * # # # 
+* o o * # # 
+o o < o * # 
+# f * f f * 
+# * o o o * 
+# # # * o v 
+# # # # * o 
+Number of moves: 11
+Number of vertices examined: 4016
+0.13355 [s]
+
+Level Everest 17
+Sequence of moves: 
+# # 2 # # 
+. . . . 4 
+# 2 . . S 
+F . . 2 # 
+. . . . 3 
+# . F . # 
+2 . . 2 # 
+# 2 # # # 
+move: (7,4) u
+# # 2 # # 
+. . . . 4 
+# 2 . . S 
+F . . 2 # 
+. . . o 3 
+# . F o # 
+2 . . * # 
+# 2 # # # 
+move: (7,1) r
+# # 2 # # 
+. . . . 4 
+# 2 . . S 
+F . . 2 # 
+. . . o 3 
+# . F o # 
+* o o * # 
+# 2 # # # 
+move: (3,2) r
+# # 2 # # 
+. . . . 4 
+# * o o S 
+F . . 2 # 
+. . . o 3 
+# . F o # 
+* o o * # 
+# 2 # # # 
+move: (2,5) l
+# # 2 # # 
+o o o o * 
+# * o o S 
+F . . 2 # 
+. . . o 3 
+# . F o # 
+* o o * # 
+# 2 # # # 
+move: (1,3) d
+# # * # # 
+o o o o * 
+# * o o S 
+F . o 2 # 
+. . o o 3 
+# . F o # 
+* o o * # 
+# 2 # # # 
+move: (6,3) u
+# # * # # 
+o o f o * 
+# * . o S 
+F . . 2 # 
+. . . o 3 
+# . * o # 
+* o o * # 
+# 2 # # # 
+move: (4,4) l
+# # * # # 
+o o f o * 
+# * . o S 
+F o o * # 
+. . . o 3 
+# . * o # 
+* o o * # 
+# 2 # # # 
+move: (4,1) r
+# # * # # 
+o o f o * 
+# * . o S 
+* . f * # 
+. . . o 3 
+# . * o # 
+* o o * # 
+# 2 # # # 
+move: (5,5) l
+# # * # # 
+o o f o * 
+# * . o S 
+* . f * # 
+o o o o * 
+# . * o # 
+* o o * # 
+# 2 # # # 
+move: (8,2) u
+# # * # # 
+o o f o * 
+# * . o S 
+* o f * # 
+o o o o * 
+# o * o # 
+* o o * # 
+# * # # # 
+move: (3,5) l
+# # * # # 
+o o f o * 
+# * s o * 
+* o f * # 
+o o o o * 
+# o * o # 
+* o o * # 
+# * # # # 
+Number of moves: 11
+Number of vertices examined: 3309
+0.130829 [s]
+
+Level Everest 18
+Sequence of moves: 
+# # 3 1 2 # 
+# v . . . 3 
+# b v b b # 
+2 . . v . 2 
+3 . . . v # 
+# b b b b # 
+move: (4,6) l
+# # 3 1 2 # 
+# v . . . 3 
+# b v b b # 
+2 . . v o * 
+3 . . o v # 
+# b b b b # 
+move: (5,1) r
+# # 3 1 2 # 
+# v . . . 3 
+# b v b b # 
+2 . . v o * 
+* o o o v # 
+# b b b t # 
+move: (1,5) d
+# # 3 1 * # 
+# v . . o 3 
+# b v b t # 
+2 . . v o * 
+* o o o v # 
+# b b b t # 
+move: (1,3) d
+# # * 1 * # 
+# v o . o 3 
+# b v b t # 
+2 . o v o * 
+* o o o v # 
+# b t b t # 
+move: (4,1) r
+# # * 1 * # 
+# v o . o 3 
+# b v b t # 
+* o o v o * 
+* o o o v # 
+# b t t t # 
+move: (2,6) l
+# # * 1 * # 
+# v o o o * 
+# t v b t # 
+* o o v o * 
+* o o o v # 
+# t t t t # 
+move: (1,4) d
+# # * * * # 
+# v o o o * 
+# t v t t # 
+* o o v o * 
+* o o o v # 
+# t t t t # 
+Number of moves: 7
+Number of vertices examined: 49
+0.00421422 [s]
+
+Level Everest 19
+Sequence of moves: 
+# # F # 2 # 
+2 > . . . v 
+# 5 F F . . 
+v b . . . < 
+b # F # . 3 
+> b . . . 2 
+# # . 1 3 # 
+move: (7,4) l
+# # F # 2 # 
+2 > . . . v 
+# 5 F F . . 
+v b . . . < 
+b # F # . 3 
+> b . . . 2 
+# # o * 3 # 
+move: (5,6) u
+# # F # 2 # 
+2 > . . . v 
+# 5 F F . . 
+v b o o o < 
+b # F # . * 
+> b . . . 2 
+# # o * 3 # 
+move: (2,1) r
+# # F # 2 # 
+* > o o . v 
+# 5 F F . . 
+v b o o o < 
+b # F # . * 
+> b . . . 2 
+# # o * 3 # 
+move: (1,5) d
+# # F # * # 
+* > o o o v 
+# 5 F F o . 
+v b o o o < 
+b # F # . * 
+> b . . . 2 
+# # o * 3 # 
+move: (3,2) u
+# # F # * # 
+* > o o o v 
+# * F F o o 
+v t o o o < 
+t # F # . * 
+> t o . . 2 
+# # o * 3 # 
+move: (5,3) d
+# # F # * # 
+* > o o o v 
+# * F F o o 
+v t o o o < 
+t # * # . * 
+> t . . . 2 
+# # f * 3 # 
+move: (3,4) r
+# # F # * # 
+* > o o o v 
+# * F * . f 
+v t o o o < 
+t # * # . * 
+> t . . . 2 
+# # f * 3 # 
+move: (7,5) u
+# # F # * # 
+* > o o o v 
+# * F * o f 
+v t o o o < 
+t # * # o * 
+> t . . o 2 
+# # f * * # 
+move: (6,6) l
+# # F # * # 
+* > o o o v 
+# * F * o f 
+v t o o o < 
+t # * # o * 
+> t o o o * 
+# # f * * # 
+move: (3,3) d
+# # F # * # 
+* > o o o v 
+# * * * o f 
+v t f o o < 
+t # * # o * 
+> t o o o * 
+# # f * * # 
+move: (1,3) d
+# # * # * # 
+* > f o o v 
+# * * * o f 
+v t f o o < 
+t # * # o * 
+> t o o o * 
+# # f * * # 
+Number of moves: 11
+Number of vertices examined: 6436
+0.182832 [s]
+
+Level Everest 20
+Sequence of moves: 
+3 v < < < 
+> . b b 1 
+1 b 2 v < 
+> b . b 2 
+2 b > v v 
+v b < b < 
+> ^ 1 . b 
+move: (1,1) r
+* v < < < 
+> o b b 1 
+1 t 2 v < 
+> t . b 2 
+2 b > v v 
+v b < b < 
+> ^ 1 . b 
+move: (5,1) d
+* v < < < 
+> o b b 1 
+1 t 2 v < 
+> t . b 2 
+* t > v v 
+v t < b < 
+> ^ 1 . b 
+move: (4,5) l
+* v < < < 
+> o b b 1 
+1 t 2 v < 
+> t o t * 
+* t > v v 
+v t < b < 
+> ^ 1 . b 
+move: (3,3) d
+* v < < < 
+> o b b 1 
+1 t * v < 
+> t o t * 
+* t > v v 
+v t < t < 
+> ^ 1 o b 
+move: (7,3) r
+* v < < < 
+> o b b 1 
+1 t * v < 
+> t o t * 
+* t > v v 
+v t < t < 
+> ^ * o t 
+move: (3,1) u
+* v < < < 
+> o t b 1 
+* t * v < 
+> t o t * 
+* t > v v 
+v t < t < 
+> ^ * o t 
+move: (2,5) l
+* v < < < 
+> o t t * 
+* t * v < 
+> t o t * 
+* t > v v 
+v t < t < 
+> ^ * o t 
+Number of moves: 7
+Number of vertices examined: 89
+0.00456872 [s]
+
+Level Everest 21
+Sequence of moves: 
+# # # 1 4 # 
+# # 4 . . 1 
+# . . . . 1 
+. . . . . < 
+# ^ . . . 4 
+1 . . 1 . . 
+1 . . 1 1 # 
+# 1 . # # # 
+move: (7,5) u
+# # # 1 4 # 
+# # 4 . . 1 
+# . . . . 1 
+. . . . . < 
+# ^ . . . 4 
+1 . . 1 o . 
+1 . . 1 * # 
+# 1 . # # # 
+move: (7,4) l
+# # # 1 4 # 
+# # 4 . . 1 
+# . . . . 1 
+. . . . . < 
+# ^ . . . 4 
+1 . . 1 o . 
+1 . o * * # 
+# 1 . # # # 
+move: (7,1) r
+# # # 1 4 # 
+# # 4 . . 1 
+# . . . . 1 
+. . . . . < 
+# ^ . . . 4 
+1 . . 1 o . 
+* o o * * # 
+# 1 . # # # 
+move: (6,4) r
+# # # 1 4 # 
+# # 4 . . 1 
+# . . . . 1 
+. . . . . < 
+# ^ . . . 4 
+1 . . * o o 
+* o o * * # 
+# 1 . # # # 
+move: (1,5) d
+# # # 1 * # 
+# # 4 . o 1 
+# . . . o 1 
+. . . . o < 
+# ^ . . o 4 
+1 . . * o o 
+* o o * * # 
+# 1 . # # # 
+move: (5,6) u
+# # # 1 * # 
+# # 4 . o 1 
+# . . . o 1 
+o o o o o < 
+# ^ . . o * 
+1 . . * o o 
+* o o * * # 
+# 1 . # # # 
+move: (3,6) l
+# # # 1 * # 
+# # 4 . o 1 
+# . . o o * 
+o o o o o < 
+# ^ . . o * 
+1 . . * o o 
+* o o * * # 
+# 1 . # # # 
+move: (6,1) r
+# # # 1 * # 
+# # 4 . o 1 
+# . . o o * 
+o o o o o < 
+# ^ . . o * 
+* o . * o o 
+* o o * * # 
+# 1 . # # # 
+move: (8,2) u
+# # # 1 * # 
+# # 4 . o 1 
+# o . o o * 
+o o o o o < 
+# ^ . . o * 
+* o . * o o 
+* o o * * # 
+# * . # # # 
+move: (2,6) l
+# # # 1 * # 
+# # 4 o o * 
+# o . o o * 
+o o o o o < 
+# ^ . . o * 
+* o . * o o 
+* o o * * # 
+# * . # # # 
+move: (2,3) d
+# # # 1 * # 
+# # * o o * 
+# o o o o * 
+o o o o o < 
+# ^ o . o * 
+* o o * o o 
+* o o * * # 
+# * o # # # 
+move: (1,4) d
+# # # * * # 
+# # * o o * 
+# o o o o * 
+o o o o o < 
+# ^ o o o * 
+* o o * o o 
+* o o * * # 
+# * o # # # 
+Number of moves: 12
+Number of vertices examined: 2105
+0.101853 [s]
+
+Level Everest 22
+Sequence of moves: 
+# # b # 2 # 
+# S b 3 . # 
+# > . . . 2 
+2 . . . . # 
+# 2 2 b F # 
+# # # b # # 
+move: (5,2) u
+# # b # 2 # 
+# S b 3 . # 
+# > o . . 2 
+2 o . . . # 
+# * 2 b F # 
+# # # b # # 
+move: (3,6) l
+# # b # 2 # 
+# S b 3 . # 
+# > o o o * 
+2 o . . . # 
+# * 2 b F # 
+# # # b # # 
+move: (2,4) d
+# # b # 2 # 
+# S b * . # 
+# > o o o * 
+2 o . o . # 
+# * 2 t F # 
+# # # t # # 
+move: (1,5) d
+# # b # * # 
+# S b * o # 
+# > o o o * 
+2 o . o o # 
+# * 2 t F # 
+# # # t # # 
+move: (5,5) u
+# # b # * # 
+# S b * f # 
+# > o o . * 
+2 o . o . # 
+# * 2 t * # 
+# # # t # # 
+move: (4,1) r
+# # b # * # 
+# S b * f # 
+# > o o . * 
+* o o o o # 
+# * 2 t * # 
+# # # t # # 
+move: (5,3) u
+# # t # * # 
+# S t * f # 
+# > o o . * 
+* o o o o # 
+# * * t * # 
+# # # t # # 
+move: (2,2) d
+# # t # * # 
+# * t * f # 
+# > o o s * 
+* o o o o # 
+# * * t * # 
+# # # t # # 
+Number of moves: 8
+Number of vertices examined: 116
+0.00384789 [s]
+
+Level Everest 23
+Sequence of moves: 
+# # # 2 # # 
+# v b . 3 # 
+2 v b . . 2 
+. . 1 b b # 
+b . b . . 4 
+b b # ^ ^ # 
+# . 1 . . # 
+# . # 2 3 # 
+move: (1,4) d
+# # # * # # 
+# v b o 3 # 
+2 v b o . 2 
+. . 1 b b # 
+b . b . . 4 
+b b # ^ ^ # 
+# . 1 . . # 
+# . # 2 3 # 
+move: (7,3) l
+# # # * # # 
+# v b o 3 # 
+2 v b o . 2 
+. . 1 b b # 
+b . b . . 4 
+b b # ^ ^ # 
+# o * . . # 
+# . # 2 3 # 
+move: (5,6) l
+# # # * # # 
+# v b o 3 # 
+2 v b o . 2 
+. . 1 b b # 
+b o t o o * 
+b b # ^ ^ # 
+# o * . . # 
+# . # 2 3 # 
+move: (8,5) u
+# # # * # # 
+# v b o 3 # 
+2 v b o o 2 
+. . 1 b t # 
+b o t o o * 
+b b # ^ ^ # 
+# o * . o # 
+# . # 2 * # 
+move: (8,4) u
+# # # * # # 
+# v b o 3 # 
+2 v b o o 2 
+. . 1 t t # 
+b o t o o * 
+b b # ^ ^ # 
+# o * o o # 
+# . # * * # 
+move: (3,6) l
+# # # * # # 
+# v b o 3 # 
+2 v t o o * 
+. o 1 t t # 
+b o t o o * 
+b b # ^ ^ # 
+# o * o o # 
+# . # * * # 
+move: (4,3) l
+# # # * # # 
+# v b o 3 # 
+2 v t o o * 
+o o * t t # 
+b o t o o * 
+b b # ^ ^ # 
+# o * o o # 
+# . # * * # 
+move: (3,1) d
+# # # * # # 
+# v b o 3 # 
+* v t o o * 
+o o * t t # 
+t o t o o * 
+t b # ^ ^ # 
+# o * o o # 
+# . # * * # 
+move: (2,5) l
+# # # * # # 
+# v t o * # 
+* v t o o * 
+o o * t t # 
+t o t o o * 
+t t # ^ ^ # 
+# o * o o # 
+# o # * * # 
+Number of moves: 9
+Number of vertices examined: 155
+0.00707211 [s]
+
+Level Everest 24
+Sequence of moves: 
+# # 3 1 1 # 
+1 . b . . 1 
+# v v b b # 
+3 . . b . # 
+2 . . b . 1 
+# b b ^ ^ # 
+1 . . . . 1 
+# 1 . 2 3 # 
+move: (8,4) u
+# # 3 1 1 # 
+1 . b . . 1 
+# v v b b # 
+3 . . b . # 
+2 . . t . 1 
+# b b ^ ^ # 
+1 . . o . 1 
+# 1 . * 3 # 
+move: (7,1) r
+# # 3 1 1 # 
+1 . b . . 1 
+# v v b b # 
+3 . . b . # 
+2 . . t . 1 
+# b b ^ ^ # 
+* o . o . 1 
+# 1 . * 3 # 
+move: (8,2) u
+# # 3 1 1 # 
+1 . b . . 1 
+# v v b b # 
+3 . . b . # 
+2 . . t . 1 
+# t b ^ ^ # 
+* o . o . 1 
+# * . * 3 # 
+move: (5,6) l
+# # 3 1 1 # 
+1 . b . . 1 
+# v v b b # 
+3 . . b . # 
+2 . . t o * 
+# t b ^ ^ # 
+* o . o . 1 
+# * . * 3 # 
+move: (8,5) u
+# # 3 1 1 # 
+1 . b . . 1 
+# v v b t # 
+3 . . b o # 
+2 . . t o * 
+# t b ^ ^ # 
+* o . o o 1 
+# * . * * # 
+move: (7,6) l
+# # 3 1 1 # 
+1 . b . . 1 
+# v v b t # 
+3 . . b o # 
+2 . . t o * 
+# t b ^ ^ # 
+* o o o o * 
+# * . * * # 
+move: (5,1) r
+# # 3 1 1 # 
+1 . b . . 1 
+# v v b t # 
+3 . . b o # 
+* o o t o * 
+# t b ^ ^ # 
+* o o o o * 
+# * . * * # 
+move: (4,1) r
+# # 3 1 1 # 
+1 . b . . 1 
+# v v b t # 
+* o o t o # 
+* o o t o * 
+# t b ^ ^ # 
+* o o o o * 
+# * . * * # 
+move: (2,1) r
+# # 3 1 1 # 
+* o b . . 1 
+# v v b t # 
+* o o t o # 
+* o o t o * 
+# t b ^ ^ # 
+* o o o o * 
+# * . * * # 
+move: (1,5) d
+# # 3 1 * # 
+* o b . o 1 
+# v v b t # 
+* o o t o # 
+* o o t o * 
+# t b ^ ^ # 
+* o o o o * 
+# * . * * # 
+move: (2,6) l
+# # 3 1 * # 
+* o b o o * 
+# v v b t # 
+* o o t o # 
+* o o t o * 
+# t b ^ ^ # 
+* o o o o * 
+# * . * * # 
+move: (1,4) d
+# # 3 * * # 
+* o b o o * 
+# v v t t # 
+* o o t o # 
+* o o t o * 
+# t b ^ ^ # 
+* o o o o * 
+# * . * * # 
+move: (1,3) d
+# # * * * # 
+* o t o o * 
+# v v t t # 
+* o o t o # 
+* o o t o * 
+# t t ^ ^ # 
+* o o o o * 
+# * o * * # 
+Number of moves: 13
+Number of vertices examined: 4707
+0.248427 [s]
+
+Level Everest 25
+Sequence of moves: 
+# # 3 # . 3 
+3 . . . . . 
+. . . 3 . . 
+. 3 . . . . 
+. . . . 3 . 
+2 . . . . . 
+2 . . . . # 
+# 2 2 2 2 # 
+move: (8,5) u
+# # 3 # . 3 
+3 . . . . . 
+. . . 3 . . 
+. 3 . . . . 
+. . . . 3 . 
+2 . . . o . 
+2 . . . o # 
+# 2 2 2 * # 
+move: (8,3) u
+# # 3 # . 3 
+3 . . . . . 
+. . . 3 . . 
+. 3 . . . . 
+. . . . 3 . 
+2 . o . o . 
+2 . o . o # 
+# 2 * 2 * # 
+move: (7,1) r
+# # 3 # . 3 
+3 . . . . . 
+. . . 3 . . 
+. 3 . . . . 
+. . . . 3 . 
+2 . o . o . 
+* o o o o # 
+# 2 * 2 * # 
+move: (8,4) u
+# # 3 # . 3 
+3 . . . . . 
+. . . 3 . . 
+. 3 . . . . 
+. . . o 3 . 
+2 . o o o . 
+* o o o o # 
+# 2 * * * # 
+move: (8,2) u
+# # 3 # . 3 
+3 . . . . . 
+. . . 3 . . 
+. 3 . . . . 
+. o . o 3 . 
+2 o o o o . 
+* o o o o # 
+# * * * * # 
+move: (6,1) u
+# # 3 # . 3 
+3 . . . . . 
+. . . 3 . . 
+o 3 . . . . 
+o o . o 3 . 
+* o o o o . 
+* o o o o # 
+# * * * * # 
+move: (3,4) l
+# # 3 # . 3 
+3 . . . . . 
+o o o * . . 
+o 3 . . . . 
+o o . o 3 . 
+* o o o o . 
+* o o o o # 
+# * * * * # 
+move: (1,3) d
+# # * # . 3 
+3 . o . . . 
+o o o * . . 
+o 3 o . . . 
+o o o o 3 . 
+* o o o o . 
+* o o o o # 
+# * * * * # 
+move: (4,2) r
+# # * # . 3 
+3 . o . . . 
+o o o * . . 
+o * o o o o 
+o o o o 3 . 
+* o o o o . 
+* o o o o # 
+# * * * * # 
+move: (5,5) u
+# # * # o 3 
+3 . o . o . 
+o o o * o . 
+o * o o o o 
+o o o o * . 
+* o o o o . 
+* o o o o # 
+# * * * * # 
+move: (2,1) r
+# # * # o 3 
+* o o o o o 
+o o o * o . 
+o * o o o o 
+o o o o * . 
+* o o o o . 
+* o o o o # 
+# * * * * # 
+move: (1,6) d
+# # * # o * 
+* o o o o o 
+o o o * o o 
+o * o o o o 
+o o o o * o 
+* o o o o o 
+* o o o o # 
+# * * * * # 
+Number of moves: 12
+Number of vertices examined: 650
+0.0314378 [s]
+
+Level Everest 26
+Sequence of moves: 
+# 5 5 5 5 # 
+3 v . . . # 
+# . . . . 2 
+F . . . . 1 
+F . . . . 3 
+F . . . . # 
+# . . . . # 
+# # 2 1 # # 
+move: (1,2) d
+# * 5 5 5 # 
+3 v . . . # 
+# o . . . 2 
+F o . . . 1 
+F o . . . 3 
+F o . . . # 
+# o . . . # 
+# # 2 1 # # 
+move: (5,6) l
+# * 5 5 5 # 
+3 v . . . # 
+# o . . . 2 
+F o . . . 1 
+F o o o o * 
+F o . . . # 
+# o . . . # 
+# # 2 1 # # 
+move: (1,5) d
+# * 5 5 * # 
+3 v . . o # 
+# o . . o 2 
+F o . . o 1 
+F o o o o * 
+F o . . o # 
+# o . . o # 
+# # 2 1 # # 
+move: (5,1) r
+# * 5 5 * # 
+3 v . . o # 
+# o . . o 2 
+F o . . o 1 
+* . . . f * 
+F o . . o # 
+# o . . o # 
+# # 2 1 # # 
+move: (4,6) l
+# * 5 5 * # 
+3 v . . o # 
+# o . . o 2 
+F o . o o * 
+* . . . f * 
+F o . . o # 
+# o . . o # 
+# # 2 1 # # 
+move: (3,6) l
+# * 5 5 * # 
+3 v . . o # 
+# o o o o * 
+F o . o o * 
+* . . . f * 
+F o . . o # 
+# o . . o # 
+# # 2 1 # # 
+move: (1,3) d
+# * * 5 * # 
+3 v o . o # 
+# o o o o * 
+F o o o o * 
+* . o . f * 
+F o o . o # 
+# o o . o # 
+# # 2 1 # # 
+move: (4,1) r
+# * * 5 * # 
+3 v o . o # 
+# o o o o * 
+* . . . f * 
+* . o . f * 
+F o o . o # 
+# o o . o # 
+# # 2 1 # # 
+move: (1,4) d
+# * * * * # 
+3 v o o o # 
+# o o o o * 
+* . . o f * 
+* . o o f * 
+F o o o o # 
+# o o o o # 
+# # 2 1 # # 
+move: (6,1) r
+# * * * * # 
+3 v o o o # 
+# o o o o * 
+* . . o f * 
+* . o o f * 
+* . . . f # 
+# o o o o # 
+# # 2 1 # # 
+move: (8,4) u
+# * * * * # 
+3 v o o o # 
+# o o o o * 
+* . . o f * 
+* . o o f * 
+* . . o f # 
+# o o o o # 
+# # 2 * # # 
+move: (8,3) u
+# * * * * # 
+3 v o o o # 
+# o o o o * 
+* . o o f * 
+* . o o f * 
+* . o o f # 
+# o o o o # 
+# # * * # # 
+move: (2,1) r
+# * * * * # 
+* v o o o # 
+# o o o o * 
+* o o o f * 
+* o o o f * 
+* o o o f # 
+# o o o o # 
+# # * * # # 
+Number of moves: 13
+Number of vertices examined: 5277
+0.185156 [s]
+
+Level Everest 27
+Sequence of moves: 
+# # S S S # 
+# 1 . . . 2 
+2 > . . . 3 
+1 S . . . < 
+> > . . . # 
+S 3 . . . 1 
+# # F F F # 
+move: (1,3) d
+# # * S S # 
+# 1 s . . 2 
+2 > . . . 3 
+1 S . . . < 
+> > . . . # 
+S 3 . . . 1 
+# # F F F # 
+move: (6,2) r
+# # * S S # 
+# 1 s . . 2 
+2 > . . . 3 
+1 S . . . < 
+> > . . . # 
+S * o o o 1 
+# # F F F # 
+move: (4,1) d
+# # * S S # 
+# 1 s . . 2 
+2 > . . . 3 
+* S . . . < 
+> > o . . # 
+S * o o o 1 
+# # F F F # 
+move: (3,1) r
+# # * S S # 
+# 1 s . . 2 
+* > o o . 3 
+* S . . . < 
+> > o . . # 
+S * o o o 1 
+# # F F F # 
+move: (2,2) d
+# # * S S # 
+# * s . . 2 
+* > o o o 3 
+* S . . . < 
+> > o . . # 
+S * o o o 1 
+# # F F F # 
+move: (3,6) d
+# # * S S # 
+# * s . . 2 
+* > o o o * 
+* S o o o < 
+> > o . . # 
+S * o o o 1 
+# # F F F # 
+move: (7,3) u
+# # * S S # 
+# * s . . 2 
+* > f o o * 
+* S . o o < 
+> > . . . # 
+S * . o o 1 
+# # * F F # 
+move: (6,6) l
+# # * S S # 
+# * s . . 2 
+* > f o o * 
+* S . o o < 
+> > . . . # 
+S * o o o * 
+# # * F F # 
+move: (6,1) u
+# # * S S # 
+# * s . . 2 
+* > f o o * 
+* S . o o < 
+> > s . . # 
+* * o o o * 
+# # * F F # 
+move: (4,2) r
+# # * S S # 
+# * s . . 2 
+* > f o o * 
+* * s o o < 
+> > s . . # 
+* * o o o * 
+# # * F F # 
+move: (2,6) l
+# # * S S # 
+# * s o o * 
+* > f o o * 
+* * s o o < 
+> > s . . # 
+* * o o o * 
+# # * F F # 
+move: (1,5) d
+# # * S * # 
+# * s o o * 
+* > f o o * 
+* * s o o < 
+> > s . s # 
+* * o o o * 
+# # * F F # 
+move: (7,5) u
+# # * S * # 
+# * s o o * 
+* > f o o * 
+* * s o o < 
+> > s . s # 
+* * o o f * 
+# # * F * # 
+move: (1,4) d
+# # * * * # 
+# * s o o * 
+* > f o o * 
+* * s o o < 
+> > s s s # 
+* * o o f * 
+# # * F * # 
+move: (7,4) u
+# # * * * # 
+# * s o o * 
+* > f o o * 
+* * s o o < 
+> > s s s # 
+* * o f f * 
+# # * * * # 
+Number of moves: 15
+Number of vertices examined: 29246
+1.39177 [s]
+
+Level Everest 28
+Sequence of moves: 
+# # F # # 
+2 v . < 2 
+3 . . . . 
+2 . . . F 
+# . 3 2 # 
+# > . . # 
+move: (5,3) u
+# # F # # 
+2 v o < 2 
+3 . o . . 
+2 . o . F 
+# . * 2 # 
+# > . . # 
+move: (4,1) r
+# # F # # 
+2 v o < 2 
+3 . o . . 
+* o o o F 
+# . * 2 # 
+# > . . # 
+move: (2,5) l
+# # F # # 
+2 v o < * 
+3 o o . . 
+* o o o F 
+# o * 2 # 
+# > . . # 
+move: (2,1) r
+# # F # # 
+* v o < * 
+3 o o . . 
+* o o o F 
+# o * 2 # 
+# > o o # 
+move: (4,5) l
+# # F # # 
+* v o < * 
+3 o o . . 
+* f . . * 
+# o * 2 # 
+# > o o # 
+move: (1,3) d
+# # * # # 
+* v . < * 
+3 o . . . 
+* f f . * 
+# o * 2 # 
+# > o o # 
+move: (3,1) r
+# # * # # 
+* v . < * 
+* o o o o 
+* f f . * 
+# o * 2 # 
+# > o o # 
+move: (5,4) u
+# # * # # 
+* v o < * 
+* o o o o 
+* f f o * 
+# o * * # 
+# > o o # 
+Number of moves: 8
+Number of vertices examined: 205
+0.00633248 [s]
+
+Level Everest 29
+Sequence of moves: 
+# 2 > v 2 # 
+3 > . . v # 
+F . . . . F 
+# . ^ . < # 
+# ^ . < 3 # 
+move: (1,2) r
+# * > v 2 # 
+3 > . o v # 
+F . . o . F 
+# . ^ . < # 
+# ^ . < 3 # 
+move: (5,5) l
+# * > v 2 # 
+3 > . o v # 
+F o . o . F 
+# o ^ . < # 
+# ^ o < * # 
+move: (2,1) r
+# * > v 2 # 
+* > o o v # 
+F o . o o F 
+# o ^ o < # 
+# ^ o < * # 
+move: (3,6) l
+# * > v 2 # 
+* > o o v # 
+F o f . . * 
+# o ^ o < # 
+# ^ o < * # 
+move: (1,5) l
+# * > v * # 
+* > o o v # 
+F o f o o * 
+# o ^ o < # 
+# ^ o < * # 
+move: (3,1) r
+# * > v * # 
+* > o o v # 
+* f f o o * 
+# o ^ o < # 
+# ^ o < * # 
+Number of moves: 6
+Number of vertices examined: 17
+0.00147822 [s]
+
+Level Everest 30
+Sequence of moves: 
+# 4 3 3 3 # 
+# . . . . # 
+F . . . . 4 
+4 . . . . F 
+F . # # . # 
+3 . . . . F 
+# . . . . # 
+# # 2 2 3 # 
+move: (6,1) r
+# 4 3 3 3 # 
+# . . . . # 
+F . . . . 4 
+4 . . . . F 
+F . # # . # 
+* o o o . F 
+# . . . . # 
+# # 2 2 3 # 
+move: (4,1) r
+# 4 3 3 3 # 
+# . . . . # 
+F . . . . 4 
+* o o o o F 
+F . # # . # 
+* o o o . F 
+# . . . . # 
+# # 2 2 3 # 
+move: (3,6) l
+# 4 3 3 3 # 
+# . . . . # 
+F o o o o * 
+* o o o o F 
+F . # # . # 
+* o o o . F 
+# . . . . # 
+# # 2 2 3 # 
+move: (1,5) d
+# 4 3 3 * # 
+# . . . o # 
+F o o o o * 
+* o o o o F 
+F . # # o # 
+* o o o o F 
+# . . . . # 
+# # 2 2 3 # 
+move: (3,1) r
+# 4 3 3 * # 
+# . . . o # 
+* . . . f * 
+* o o o o F 
+F . # # o # 
+* o o o o F 
+# . . . . # 
+# # 2 2 3 # 
+move: (1,2) d
+# * 3 3 * # 
+# o . . o # 
+* o . . f * 
+* o o o o F 
+F o # # o # 
+* o o o o F 
+# o . . . # 
+# # 2 2 3 # 
+move: (6,6) l
+# * 3 3 * # 
+# o . . o # 
+* o . . f * 
+* o o o o F 
+F o # # o # 
+* f . . . * 
+# o . . . # 
+# # 2 2 3 # 
+move: (8,4) u
+# * 3 3 * # 
+# o . . o # 
+* o . . f * 
+* o o o o F 
+F o # # o # 
+* f . o . * 
+# o . o . # 
+# # 2 * 3 # 
+move: (8,3) u
+# * 3 3 * # 
+# o . . o # 
+* o . . f * 
+* o o o o F 
+F o # # o # 
+* f o o . * 
+# o o o . # 
+# # * * 3 # 
+move: (5,1) r
+# * 3 3 * # 
+# o . . o # 
+* o . . f * 
+* o o o o F 
+* f # # o # 
+* f o o . * 
+# o o o . # 
+# # * * 3 # 
+move: (4,6) l
+# * 3 3 * # 
+# o . . o # 
+* o . . f * 
+* f . . . * 
+* f # # o # 
+* f o o . * 
+# o o o . # 
+# # * * 3 # 
+move: (8,5) u
+# * 3 3 * # 
+# o . . o # 
+* o . . f * 
+* f . . o * 
+* f # # o # 
+* f o o o * 
+# o o o o # 
+# # * * * # 
+move: (1,4) d
+# * 3 * * # 
+# o . o o # 
+* o . o f * 
+* f . o o * 
+* f # # o # 
+* f o o o * 
+# o o o o # 
+# # * * * # 
+move: (1,3) d
+# * * * * # 
+# o o o o # 
+* o o o f * 
+* f o o o * 
+* f # # o # 
+* f o o o * 
+# o o o o # 
+# # * * * # 
+Number of moves: 14
+Number of vertices examined: 11769
+0.467678 [s]
+
+Level Everest 31
+Sequence of moves: 
+# 2 v 1 2 # 
+2 . . . . 2 
+> . . . . 2 
+1 v v v v 1 
+F . . . . F 
+move: (4,6) l
+# 2 v 1 2 # 
+2 . . . . 2 
+> . . . . 2 
+1 v v v v * 
+F . . . o F 
+move: (5,6) l
+# 2 v 1 2 # 
+2 . . . . 2 
+> . . . . 2 
+1 v v v v * 
+F . . f . * 
+move: (4,1) r
+# 2 v 1 2 # 
+2 . . . . 2 
+> . . . . 2 
+* v v v v * 
+F o . f . * 
+move: (3,6) l
+# 2 v 1 2 # 
+2 . . . . 2 
+> . . o o * 
+* v v v v * 
+F o . f . * 
+move: (2,1) d
+# 2 v 1 2 # 
+* . . . . 2 
+> o o o o * 
+* v v v v * 
+F o . f . * 
+move: (1,5) d
+# 2 v 1 * # 
+* . . . o 2 
+> o o o o * 
+* v v v v * 
+F o . f o * 
+move: (2,6) l
+# 2 v 1 * # 
+* . o o o * 
+> o o o o * 
+* v v v v * 
+F o . f o * 
+move: (1,4) l
+# 2 v * * # 
+* . o o o * 
+> o o o o * 
+* v v v v * 
+F o o f o * 
+move: (5,1) r
+# 2 v * * # 
+* . o o o * 
+> o o o o * 
+* v v v v * 
+* . f f o * 
+move: (1,2) d
+# * v * * # 
+* o o o o * 
+> o o o o * 
+* v v v v * 
+* o f f o * 
+Number of moves: 10
+Number of vertices examined: 2655
+0.0730493 [s]
+
+Level Everest 32
+Sequence of moves: 
+> b . b # # 
+b # . . . < 
+. . . . 4 . 
+^ 2 1 2 # . 
+3 . > . . ^ 
+3 . . . . 2 
+# # 4 F # # 
+move: (3,5) l
+> b . b # # 
+b # . . . < 
+o o o o * . 
+^ 2 1 2 # . 
+3 . > . . ^ 
+3 . . . . 2 
+# # 4 F # # 
+move: (5,1) r
+> b . b # # 
+b # . . . < 
+o o o o * . 
+^ 2 1 2 # . 
+* o > o o ^ 
+3 . . . . 2 
+# # 4 F # # 
+move: (4,4) u
+> b . t # # 
+b # . o . < 
+o o o o * . 
+^ 2 1 * # . 
+* o > o o ^ 
+3 . . . . 2 
+# # 4 F # # 
+move: (6,1) r
+> b . t # # 
+b # . o . < 
+o o o o * . 
+^ 2 1 * # . 
+* o > o o ^ 
+* o o o . 2 
+# # 4 F # # 
+move: (7,3) u
+> b . t # # 
+b # o o o < 
+o o o o * o 
+^ 2 1 * # o 
+* o > o o ^ 
+* o o o . 2 
+# # * F # # 
+move: (7,4) u
+> b . t # # 
+b # o o o < 
+o o o o * o 
+^ 2 1 * # o 
+* o > f o ^ 
+* o o . . 2 
+# # * * # # 
+move: (6,6) l
+> b . t # # 
+b # o o o < 
+o o o o * o 
+^ 2 1 * # o 
+* o > f o ^ 
+* o o o o * 
+# # * * # # 
+move: (4,3) u
+> b o t # # 
+b # o o o < 
+o o o o * o 
+^ 2 * * # o 
+* o > f o ^ 
+* o o o o * 
+# # * * # # 
+move: (4,2) l
+> t o t # # 
+t # o o o < 
+o o o o * o 
+^ * * * # o 
+* o > f o ^ 
+* o o o o * 
+# # * * # # 
+Number of moves: 9
+Number of vertices examined: 630
+0.0170669 [s]
+
+Level Everest 33
+Sequence of moves: 
+# S v 3 # # 
+# S . . 2 # 
+F . . . . 3 
+# 3 > . . . 
+# . 3 ^ . < 
+S . . . . 2 
+2 . . . F # 
+# # 1 1 # # 
+move: (5,3) r
+# S v 3 # # 
+# S . o 2 # 
+F . . o . 3 
+# 3 > o . . 
+# . * ^ . < 
+S . . . . 2 
+2 . . . F # 
+# # 1 1 # # 
+move: (4,2) d
+# S v 3 # # 
+# S . o 2 # 
+F . . o . 3 
+# * > o . . 
+# o * ^ . < 
+S o . . . 2 
+2 o . . F # 
+# # 1 1 # # 
+move: (7,1) r
+# S v 3 # # 
+# S . o 2 # 
+F . . o . 3 
+# * > o . . 
+# o * ^ . < 
+S o . . . 2 
+* o o o F # 
+# # 1 1 # # 
+move: (8,4) u
+# S v 3 # # 
+# S . o 2 # 
+F . . o . 3 
+# * > o . . 
+# o * ^ . < 
+S o . o . 2 
+* o o o F # 
+# # 1 * # # 
+move: (8,3) u
+# S v 3 # # 
+# S . o 2 # 
+F . . o . 3 
+# * > o . . 
+# o * ^ . < 
+S o o o . 2 
+* o o o F # 
+# # * * # # 
+move: (3,6) l
+# S v 3 # # 
+# S . o 2 # 
+F o o o o * 
+# * > o . . 
+# o * ^ . < 
+S o o o . 2 
+* o o o F # 
+# # * * # # 
+move: (1,4) l
+# S v * # # 
+# S o o 2 # 
+F o o o o * 
+# * > o o o 
+# o * ^ . < 
+S o o o . 2 
+* o o o F # 
+# # * * # # 
+move: (2,5) d
+# S v * # # 
+# S o o * # 
+F o o o o * 
+# * > o o o 
+# o * ^ o < 
+S o o o o 2 
+* o o o F # 
+# # * * # # 
+move: (3,1) r
+# S v * # # 
+# S o o * # 
+* . . . f * 
+# * > o o o 
+# o * ^ o < 
+S o o o o 2 
+* o o o F # 
+# # * * # # 
+move: (7,5) u
+# S v * # # 
+# S o o * # 
+* . . . f * 
+# * > o f o 
+# o * ^ . < 
+S o o o . 2 
+* o o o * # 
+# # * * # # 
+move: (6,6) u
+# S v * # # 
+# S o o * # 
+* . . o f * 
+# * > o f o 
+# o * ^ o < 
+S o o o . * 
+* o o o * # 
+# # * * # # 
+move: (6,1) r
+# S v * # # 
+# S o o * # 
+* . . o f * 
+# * > o f o 
+# o * ^ o < 
+* o o o s * 
+* o o o * # 
+# # * * # # 
+move: (2,2) d
+# S v * # # 
+# * o o * # 
+* s . o f * 
+# * > o f o 
+# o * ^ o < 
+* o o o s * 
+* o o o * # 
+# # * * # # 
+move: (1,2) r
+# * v * # # 
+# * o o * # 
+* s s o f * 
+# * > o f o 
+# o * ^ o < 
+* o o o s * 
+* o o o * # 
+# # * * # # 
+Number of moves: 14
+Number of vertices examined: 80444
+3.58016 [s]
+
+Level Everest 34
+Sequence of moves: 
+# 3 3 . 3 # 
+F . . . . 3 
+F . . . . 3 
+1 . . . . 3 
+# 1 . ^ . 3 
+# # # # F # 
+move: (4,6) l
+# 3 3 . 3 # 
+F . . . . 3 
+F . . . . 3 
+1 . o o o * 
+# 1 . ^ . 3 
+# # # # F # 
+move: (1,5) d
+# 3 3 . * # 
+F . . . o 3 
+F . . . o 3 
+1 . o o o * 
+# 1 . ^ o 3 
+# # # # F # 
+move: (2,6) l
+# 3 3 . * # 
+F o o o o * 
+F . . . o 3 
+1 . o o o * 
+# 1 . ^ o 3 
+# # # # F # 
+move: (6,5) u
+# 3 3 . * # 
+F o o o f * 
+F . . . . 3 
+1 . o o . * 
+# 1 . ^ . 3 
+# # # # * # 
+move: (5,6) l
+# 3 3 o * # 
+F o o o f * 
+F . . o . 3 
+1 . o o . * 
+# 1 . ^ o * 
+# # # # * # 
+move: (3,6) l
+# 3 3 o * # 
+F o o o f * 
+F o o o o * 
+1 . o o . * 
+# 1 . ^ o * 
+# # # # * # 
+move: (3,1) r
+# 3 3 o * # 
+F o o o f * 
+* . . . f * 
+1 . o o . * 
+# 1 . ^ o * 
+# # # # * # 
+move: (2,1) r
+# 3 3 o * # 
+* . . f f * 
+* . . . f * 
+1 . o o . * 
+# 1 . ^ o * 
+# # # # * # 
+move: (1,3) d
+# 3 * o * # 
+* . o f f * 
+* . o . f * 
+1 . o o . * 
+# 1 o ^ o * 
+# # # # * # 
+move: (5,2) r
+# 3 * o * # 
+* . o f f * 
+* . o o f * 
+1 . o o . * 
+# * o ^ o * 
+# # # # * # 
+move: (1,2) d
+# * * o * # 
+* o o f f * 
+* o o o f * 
+1 o o o . * 
+# * o ^ o * 
+# # # # * # 
+move: (4,1) r
+# * * o * # 
+* o o f f * 
+* o o o f * 
+* o o o o * 
+# * o ^ o * 
+# # # # * # 
+Number of moves: 12
+Number of vertices examined: 8262
+0.258076 [s]
+
+Level Everest 35
+Sequence of moves: 
+# # # S 2 # 
+F . . . . 2 
+2 . ^ > . . 
+# ^ . . . 3 
+2 . . . . 1 
+# S 2 3 F # 
+move: (5,6) l
+# # # S 2 # 
+F . . . . 2 
+2 . ^ > . . 
+# ^ . . . 3 
+2 . . . o * 
+# S 2 3 F # 
+move: (3,1) r
+# # # S 2 # 
+F . o . . 2 
+* o ^ > . . 
+# ^ . . . 3 
+2 . . . o * 
+# S 2 3 F # 
+move: (2,6) l
+# # # S 2 # 
+F . o o o * 
+* o ^ > . . 
+# ^ . . . 3 
+2 . . . o * 
+# S 2 3 F # 
+move: (1,5) d
+# # # S * # 
+F . o o o * 
+* o ^ > o . 
+# ^ . . o 3 
+2 . . . o * 
+# S 2 3 F # 
+move: (6,5) u
+# # # S * # 
+F . o o f * 
+* o ^ > . . 
+# ^ . . . 3 
+2 . . . . * 
+# S 2 3 * # 
+move: (6,4) u
+# # # S * # 
+F . o o f * 
+* o ^ > o . 
+# ^ . o . 3 
+2 . . o . * 
+# S 2 * * # 
+move: (4,6) l
+# # # S * # 
+F o o o f * 
+* o ^ > o . 
+# ^ o o o * 
+2 . . o . * 
+# S 2 * * # 
+move: (1,4) d
+# # # * * # 
+F o o o f * 
+* o ^ > o s 
+# ^ o o o * 
+2 . . o . * 
+# S 2 * * # 
+move: (2,1) r
+# # # * * # 
+* . . f f * 
+* o ^ > o s 
+# ^ o o o * 
+2 . . o . * 
+# S 2 * * # 
+move: (6,3) u
+# # # * * # 
+* . o f f * 
+* o ^ > o s 
+# ^ o o o * 
+2 . o o . * 
+# S * * * # 
+move: (5,1) r
+# # # * * # 
+* . o f f * 
+* o ^ > o s 
+# ^ o o o * 
+* o o o o * 
+# S * * * # 
+move: (6,2) u
+# # # * * # 
+* s o f f * 
+* o ^ > o s 
+# ^ o o o * 
+* o o o o * 
+# * * * * # 
+Number of moves: 12
+Number of vertices examined: 5776
+0.224171 [s]
+
+Level Everest 36
+Sequence of moves: 
+# 3 F F 3 # 
+3 > . . . 2 
+> . . . v . 
+. . . . . . 
+^ . . . . < 
+3 ^ . . < 3 
+# 3 F F 3 # 
+move: (1,2) d
+# * F F 3 # 
+3 > o o o 2 
+> . . . v . 
+. . . . . . 
+^ . . . . < 
+3 ^ . . < 3 
+# 3 F F 3 # 
+move: (7,5) u
+# * F F 3 # 
+3 > o o o 2 
+> . . . v . 
+. . . . . . 
+^ o . . . < 
+3 ^ o o < 3 
+# 3 F F * # 
+move: (6,6) u
+# * F F 3 # 
+3 > o o o 2 
+> . . . v . 
+. . . . . . 
+^ o o o o < 
+3 ^ o o < * 
+# 3 F F * # 
+move: (2,6) d
+# * F F 3 # 
+3 > o o o * 
+> . . . v o 
+. . . . . o 
+^ o o o o < 
+3 ^ o o < * 
+# 3 F F * # 
+move: (2,1) d
+# * F F 3 # 
+* > o o o * 
+> o o o v o 
+. . . . . o 
+^ o o o o < 
+3 ^ o o < * 
+# 3 F F * # 
+move: (1,4) d
+# * F * 3 # 
+* > o . o * 
+> o o . v o 
+. . . f . o 
+^ o o o o < 
+3 ^ o o < * 
+# 3 F F * # 
+move: (7,4) u
+# * F * 3 # 
+* > o . o * 
+> o o . v o 
+. . . f . o 
+^ o o f o < 
+3 ^ o . < * 
+# 3 F * * # 
+move: (1,3) d
+# * * * 3 # 
+* > . . o * 
+> o . . v o 
+. . f f . o 
+^ o o f o < 
+3 ^ o . < * 
+# 3 F * * # 
+move: (7,3) u
+# * * * 3 # 
+* > . . o * 
+> o . . v o 
+. . f f . o 
+^ o f f o < 
+3 ^ . . < * 
+# 3 * * * # 
+move: (7,2) u
+# * * * 3 # 
+* > o o o * 
+> o . . v o 
+. o f f . o 
+^ o f f o < 
+3 ^ . . < * 
+# * * * * # 
+move: (6,1) u
+# * * * 3 # 
+* > o o o * 
+> o o o v o 
+o o f f . o 
+^ o f f o < 
+* ^ . . < * 
+# * * * * # 
+move: (1,5) d
+# * * * * # 
+* > o o o * 
+> o o o v o 
+o o f f o o 
+^ o f f o < 
+* ^ o o < * 
+# * * * * # 
+Number of moves: 12
+Number of vertices examined: 2793
+0.0807876 [s]
+

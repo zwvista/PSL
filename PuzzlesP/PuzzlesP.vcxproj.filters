@@ -73,6 +73,9 @@
     <Text Include="Puzzles\PuzzleRetreat_Morning.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\PuzzleRetreat_Everest.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -152,6 +155,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\PuzzleRetreat_Morning.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\PuzzleRetreat_Everest.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

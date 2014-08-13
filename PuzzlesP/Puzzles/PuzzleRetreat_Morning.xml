@@ -188,4 +188,157 @@ S   2\
 ## 2##\
     ]]>
   </level>
+  <level id="Morning 21">
+    <![CDATA[
+###2##\
+2   ##\
+#3   #\
+     1\
+   2 #\
+2    #\
+##4#3#\
+    ]]>
+  </level>
+  <level id="Morning 22">
+    <![CDATA[
+#11##\
+#   2\
+# b 2\
+1 b #\
+###2#\
+    ]]>
+  </level>
+  <level id="Morning 23">
+    <![CDATA[
+# ##\
+1 2#\
+v  2\
+>  v\
+#3  \
+    ]]>
+  </level>
+  <level id="Morning 24">
+    <![CDATA[
+#111#\
+2   F\
+F   2\
+#111#\
+    ]]>
+  </level>
+  <level id="Morning 25">
+    <![CDATA[
+##b###\
+#2bb##\
+#   2#\
+1    2\
+#>^3##\
+    ]]>
+  </level>
+  <level id="Morning 26">
+    <![CDATA[
+#1###\
+2 v 2\
+    2\
+    2\
+1 > #\
+#2###\
+    ]]>
+  </level>
+  <level id="Morning 27">
+    <![CDATA[
+#S##\
+  1#\
+   2\
+S  S\
+   1\
+  1#\
+S3##\
+    ]]>
+  </level>
+  <level id="Morning 28">
+    <![CDATA[
+##2#2#\
+#    1\
+2    2\
+S    #\
+#2####\
+    ]]>
+  </level>
+  <level id="Morning 29">
+    <![CDATA[
+##F##\
+2   2\
+#b b2\
+2   #\
+#12##\
+    ]]>
+  </level>
+  <level id="Morning 30">
+    <![CDATA[
+# #2#2\
+4     \
+# 3 2 \
+1     \
+   2 #\
+#4   1\
+    ]]>
+  </level>
+  <level id="Morning 31">
+    <![CDATA[
+##F##\
+#> <#\
+3   1\
+1   2\
+1   1\
+#2 3#\
+    ]]>
+  </level>
+  <level id="Morning 32">
+    <![CDATA[
+2   v1\
+  22v2\
+2   v#\
+#21  b\
+###bb#\
+####b#\
+    ]]>
+  </level>
+  <level id="Morning 33">
+    <![CDATA[
+##F2#\
+#1  #\
+#  <#\
+#F1 1\
+2   2\
+# 11#\
+    ]]>
+  </level>
+  <level id="Morning 34">
+    <![CDATA[
+#1v2#\
+#1v2#\
+2vvv#\
+    2\
+#b b#\
+#bbb#\
+    ]]>
+  </level>
+  <level id="Morning 35">
+    <![CDATA[
+##F2#\
+#1  #\
+S>  S\
+2  F#\
+#11##\
+    ]]>
+  </level>
+  <level id="Morning 36">
+    <![CDATA[
+#2b##\
+2  b#\
+b   2\
+#b2 1\
+###1#\
+    ]]>
+  </level>
 </levels>
