@@ -158,6 +158,7 @@
     <Text Include="Puzzles\Mirrors.txt" />
     <Text Include="Puzzles\MoreOrLess.txt" />
     <Text Include="Puzzles\Mosaic.txt" />
+    <Text Include="Puzzles\MoveTheBox.txt" />
     <Text Include="Puzzles\mummymaze.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -178,6 +179,7 @@
     <ClCompile Include="Puzzles\Mirrors.cpp" />
     <ClCompile Include="Puzzles\MoreOrLess.cpp" />
     <ClCompile Include="Puzzles\Mosaic.cpp" />
+    <ClCompile Include="Puzzles\MoveTheBox.cpp" />
     <ClCompile Include="Puzzles\mummymaze.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -198,6 +200,7 @@
     <Xml Include="Puzzles\Mirrors.xml" />
     <Xml Include="Puzzles\MoreOrLess.xml" />
     <Xml Include="Puzzles\Mosaic.xml" />
+    <Xml Include="Puzzles\MoveTheBox.xml" />
     <Xml Include="Puzzles\mummymaze.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
