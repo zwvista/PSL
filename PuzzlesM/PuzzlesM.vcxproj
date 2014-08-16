@@ -158,7 +158,7 @@
     <Text Include="Puzzles\Mirrors.txt" />
     <Text Include="Puzzles\MoreOrLess.txt" />
     <Text Include="Puzzles\Mosaic.txt" />
-    <Text Include="Puzzles\MoveTheBox.txt" />
+    <Text Include="Puzzles\MoveTheBox_Boston.txt" />
     <Text Include="Puzzles\mummymaze.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -200,7 +200,7 @@
     <Xml Include="Puzzles\Mirrors.xml" />
     <Xml Include="Puzzles\MoreOrLess.xml" />
     <Xml Include="Puzzles\Mosaic.xml" />
-    <Xml Include="Puzzles\MoveTheBox.xml" />
+    <Xml Include="Puzzles\MoveTheBox_Boston.xml" />
     <Xml Include="Puzzles\mummymaze.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

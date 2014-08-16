@@ -4,24 +4,12 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Puzzle Retreat
+	ios game: Move the Box
 */
 
 namespace puzzles{ namespace MoveTheBox{
 
-#define PUZ_HOLE_EMPTY		' '
-#define PUZ_BLOCK_STOP		'S'
-#define PUZ_BLOCK_FIRE		'F'
-#define PUZ_BLOCK_FIXED		'#'
-#define PUZ_HOLE_BONSAI		'b'
-
-#define PUZ_BLOCK_ICE		'O'
-#define PUZ_HOLE_ICE		'o'
-#define PUZ_HOLE_STOP		's'
-#define PUZ_HOLE_FIRE		'f'
-#define PUZ_HOLE_TREE		't'
-#define PUZ_BLOCK_ARROW		'A'
-#define PUZ_BLOCK_USED		'*'
+#define PUZ_SPACE		' '
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -29,31 +17,13 @@ const Position offset[] = {
 	{1, 0},		// s
 	{0, -1},		// w
 };
-const string arrows = "^>v<";
 const string dirs = "urdl";
-
-enum class puz_block_type
-{
-	ICE,
-	STOP,
-	FIRE,
-};
-struct puz_block
-{
-	puz_block_type m_type;
-	int m_num;
-	puz_block(){}
-	puz_block(puz_block_type t, int n)
-		: m_type(t), m_num(n) {}
-};
 
 struct puz_game
 {
 	string m_id;
 	Position m_size;
 	string m_start;
-	map<Position, puz_block> m_pos2block;
-	map<Position, int> m_pos2dir;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 	int rows() const { return m_size.first; }
@@ -62,50 +32,14 @@ struct puz_game
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id(attrs.get<string>("id"))
-	, m_size(strs.size() + 2, strs[0].length() + 2)
+	, m_size(strs.size(), strs[0].length())
 {
-	m_start.append(string(cols(), PUZ_BLOCK_FIXED));
-	for(int r = 1; r < rows() - 1; ++r){
-		auto& str = strs[r - 1];
-		m_start.push_back(PUZ_BLOCK_FIXED);
-		for(int c = 1; c < cols() - 1; ++c){
-			Position p(r, c);
-			switch(char ch = str[c - 1]){
-			case PUZ_HOLE_EMPTY:
-			case PUZ_HOLE_BONSAI:
-			case PUZ_BLOCK_FIXED:
-				m_start.push_back(ch);
-				break;
-			case PUZ_BLOCK_STOP:
-				m_start.push_back(ch);
-				m_pos2block[p] = {puz_block_type::STOP, 1};
-				break;
-			case PUZ_BLOCK_FIRE:
-				m_start.push_back(ch);
-				m_pos2block[p] = {puz_block_type::FIRE, 1};
-				break;
-			default:
-				if(isdigit(ch)){
-					m_pos2block[p] = {puz_block_type::ICE, ch - '0'};
-					m_start.push_back(PUZ_BLOCK_ICE);
-				}
-				else{
-					int n = arrows.find(ch);
-					if(n != -1){
-						m_pos2dir[p] = n;
-						m_start.push_back(PUZ_BLOCK_ARROW);
-					}
-				}
-			}
-		}
-		m_start.push_back(PUZ_BLOCK_FIXED);
-	}
-	m_start.append(string(cols(), PUZ_BLOCK_FIXED));
+	m_start = boost::accumulate(strs, string());
 }
 
 struct puz_step : pair<Position, int>
 {
-	puz_step(const Position& p, int n) : pair<Position, int>(p, n) {}
+	puz_step(const Position& p, int n) : pair<Position, int>(p + Position(1, 1), n) {}
 };
 
 ostream& operator<<(ostream &out, const puz_step &mi)
@@ -123,16 +57,16 @@ struct puz_state : string
 	char cells(const Position& p) const { return (*this)[p.first * cols() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * cols() + p.second]; }
 	bool make_move(const Position& p, int n);
-	bool make_move2(const Position& p, Position os, bool is_test);
+	bool clear_boxes();
+	bool fall_boxes();
+	bool check_boxes() const;
 
 	//solve_puzzle interface
 	bool is_goal_state() const {
-		return get_heuristic() == 0 && boost::count_if(*this, [](char ch){
-			return ch == PUZ_HOLE_EMPTY || ch == PUZ_HOLE_BONSAI;
-		}) == 0;
+		return boost::count(*this, PUZ_SPACE) == rows() * cols();
 	}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_pos2block.size(); }
+	unsigned int get_heuristic() const { return 1; }
 	unsigned int get_distance(const puz_state& child) const { return 1; }
 	void dump_move(ostream& out) const { if(m_move) out << *m_move; }
 	ostream& dump(ostream& out) const;
@@ -142,104 +76,124 @@ struct puz_state : string
 	
 	const puz_game* m_game = nullptr;
 	boost::optional<puz_step> m_move;
-	map<Position, puz_block> m_pos2block;
 };
 
 puz_state::puz_state(const puz_game& g)
-	: string(g.m_start), m_game(&g), m_pos2block(g.m_pos2block)
+	: string(g.m_start), m_game(&g)
 {
+}
+
+bool puz_state::clear_boxes()
+{
+	set<Position> boxes;
+	auto f = [&](Position p, int d, int& n, char ch, char& ch_last){
+		if(ch_last != PUZ_SPACE && ch != ch_last && n > 2){
+			auto& os = offset[d];
+			for(int i = 0; i < n; i++)
+				boxes.insert(p -= os);
+		}
+		n = ch == PUZ_SPACE ? 0 : ch == ch_last ? n + 1 : 1;
+		ch_last = ch;
+	};
+	for(int r = 0; r < rows(); ++r){
+		char ch_last = PUZ_SPACE;
+		for(int c = 0, n = 0; c <= cols(); ++c){
+			Position p(r, c);
+			f(p, 1, n, c < cols() ? cells(p) : PUZ_SPACE, ch_last);
+		}
+	}
+	for(int c = 0; c < cols(); ++c){
+		char ch_last = PUZ_SPACE;
+		for(int r = 0, n = 0; r <= rows(); ++r){
+			Position p(r, c);
+			f(p, 2, n, r < rows() ? cells(p) : PUZ_SPACE, ch_last);
+		}
+	}
+	for(auto& p : boxes)
+		cells(p) = PUZ_SPACE;
+	return !boxes.empty();
+}
+
+bool puz_state::fall_boxes()
+{
+	bool did_fall = false;
+	for(int c = 0; c < cols(); ++c){
+		int n = 0;
+		string boxes;
+		for(int r = rows() - 1; r >= 0; --r){
+			char ch = cells({r, c});
+			if(ch != PUZ_SPACE){
+				boxes = ch + boxes;
+				n = rows() - r;
+			}
+		}
+		int sz = boxes.size();
+		if(n > sz){
+			did_fall = true;
+			int r = rows() - n;
+			for(int i = 0; i < n - sz; ++i)
+				cells({r++, c}) = PUZ_SPACE;
+			for(int i = 0; i < sz; ++i)
+				cells({r++, c}) = boxes[i];
+		}
+	}
+	return did_fall;
+}
+
+bool puz_state::check_boxes() const
+{
+	map<char, int> box2cnt;
+	for(int r = 0; r < rows(); ++r)
+		for(int c = 0; c < cols(); ++c){
+			char ch = cells({r, c});
+			if(ch != PUZ_SPACE)
+				box2cnt[ch]++;
+		}
+	return boost::algorithm::all_of(box2cnt, [](const pair<const char, int>& kv){
+		return kv.second > 2;
+	});
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
-	if(!make_move2(p, offset[n], false))
-		return false;
-
 	m_move = puz_step(p, n);
-	m_pos2block.erase(p);
-
-	return boost::algorithm::any_of(m_pos2block, [&](const pair<const Position, puz_block>& kv){
-		return kv.second.m_type == puz_block_type::FIRE;
-	}) || boost::algorithm::all_of(m_pos2block, [&](const pair<const Position, puz_block>& kv){
-		return boost::algorithm::any_of(offset, [&](const Position& os){
-			return make_move2(kv.first, os, true);
-		});
-	});
-}
-
-bool puz_state::make_move2(const Position& p, Position os, bool is_test)
-{
-	auto& blk = m_pos2block.at(p);
-	int n = blk.m_num;
-	auto t = blk.m_type;
-	if(!is_test)
-		cells(p) = PUZ_BLOCK_USED;
-	set<Position> p_arrows;
-	for(auto p2 = p + os;; p2 += os)
-		switch(char& ch = cells(p2)){
-		case PUZ_BLOCK_ARROW:
-			if(p_arrows.count(p2) != 0)
-				return false;
-			os = offset[m_game->m_pos2dir.at(p2)];
-			p_arrows.insert(p2);
-			break;
-		case PUZ_HOLE_EMPTY:
-			if(!is_test)
-				ch = t == puz_block_type::STOP ? PUZ_HOLE_STOP :
-					t == puz_block_type::FIRE ? PUZ_HOLE_FIRE :
-					PUZ_HOLE_ICE;
-			if(--n == 0)
-				return true;
-			break;
-		case PUZ_HOLE_BONSAI:
-			if(t != puz_block_type::ICE)
-				return false;
-			if(!is_test)
-				ch = PUZ_HOLE_TREE;
-			if(--n == 0)
-				return true;
-			break;
-		case PUZ_HOLE_ICE:
-			if(!is_test && t == puz_block_type::FIRE)
-				ch = PUZ_HOLE_EMPTY;
-			break;
-		default:
-			if(t == puz_block_type::FIRE){
-				char& ch2 = cells(p2 - os);
-				if(is_test && ch2 == PUZ_HOLE_ICE ||
-					!is_test && ch2 == PUZ_HOLE_EMPTY){
-					if(!is_test)
-						ch2 = PUZ_HOLE_FIRE;
-					return true;
-				}
-			}
-			return false;
-		}
-
-	// should not reach here
-	return false;
+	auto p2 = p + offset[n];
+	::swap(cells(p), cells(p2));
+	while(clear_boxes() | fall_boxes());
+	return check_boxes();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	for(auto& kv : m_pos2block)
-		for(int n = 0; n < 4; ++n){
-			children.push_back(*this);
-			if(!children.back().make_move(kv.first, n))
-				children.pop_back();
+	for(int r = 0; r < rows(); ++r)
+		for(int c = 0; c < cols(); ++c){
+			Position p(r, c);
+			char ch = cells(p);
+			auto f = [&](int n){
+				auto p2 = p + offset[n];
+				char ch2 = cells(p2);
+				if(ch == ch2 || ch == PUZ_SPACE && n == 2) return;
+				if(ch == PUZ_SPACE) // n == 1
+					p = p2, n = 3;
+				children.push_back(*this);
+				if(!children.back().make_move(p, n))
+					children.pop_back();
+			};
+			if(r < rows() - 1)
+				f(2);
+			if(c < cols() - 1)
+				f(1);
 		}
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
 	dump_move(out);
-	for(int r = 1; r < rows() - 1; ++r){
-		for(int c = 1; c < cols() - 1; ++c){
+	for(int r = 0; r < rows(); ++r){
+		for(int c = 0; c < cols(); ++c){
 			Position p(r, c);
 			char ch = cells(p);
-			out << (ch == PUZ_BLOCK_ICE ? char(m_game->m_pos2block.at(p).m_num + '0') :
-				ch == PUZ_BLOCK_ARROW ? arrows[m_game->m_pos2dir.at(p)] :
-				ch == PUZ_HOLE_EMPTY ? '.' : ch) << ' ';
+			out << (ch == PUZ_SPACE ? '.' : ch) << ' ';
 		}
 		out << endl;
 	}
@@ -252,5 +206,5 @@ void solve_puz_MoveTheBox()
 {
 	using namespace puzzles::MoveTheBox;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\MoveTheBox.xml", "Puzzles\\MoveTheBox.txt");
+		"Puzzles\\MoveTheBox_Boston.xml", "Puzzles\\MoveTheBox_Boston.txt");
 }

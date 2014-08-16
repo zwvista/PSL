@@ -1,0 +1,832 @@
+Level Boston 1
+Sequence of moves: 
+. . a a . a . 
+move: (1,6) l
+. . . . . . . 
+Number of moves: 1
+Number of vertices examined: 5
+0.00342304 [s]
+
+Level Boston 2
+Sequence of moves: 
+. . . a . . . 
+. . a a . . . 
+move: (2,4) r
+. . . . . . . 
+. . . . . . . 
+Number of moves: 1
+Number of vertices examined: 3
+0.000848622 [s]
+
+Level Boston 3
+Sequence of moves: 
+. . . a . . . 
+. . a a . a . 
+move: (2,4) r
+. . . . . . . 
+. . . . . . . 
+Number of moves: 1
+Number of vertices examined: 5
+0.000652223 [s]
+
+Level Boston 4
+Sequence of moves: 
+. . a b a . . 
+. . b a b . . 
+move: (1,4) d
+. . . . . . . 
+. . . . . . . 
+Number of moves: 1
+Number of vertices examined: 11
+0.00138523 [s]
+
+Level Boston 5
+Sequence of moves: 
+. . . a b . . 
+. . . b a . . 
+. . . b a . . 
+move: (1,4) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 1
+Number of vertices examined: 8
+0.0010203 [s]
+
+Level Boston 6
+Sequence of moves: 
+. . . a . . . 
+. . . b b . . 
+. . . a a b . 
+move: (1,4) l
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 1
+Number of vertices examined: 2
+0.00087056 [s]
+
+Level Boston 7
+Sequence of moves: 
+. . . . a . . 
+. . b . a . . 
+. . a b b . . 
+. . b a a . . 
+. . b b a . . 
+move: (5,3) l
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 1
+Number of vertices examined: 11
+0.00246403 [s]
+
+Level Boston 8
+Sequence of moves: 
+. . . a . . . 
+. . . b . . . 
+. . a c b . . 
+. . c b c . . 
+. a c a c b . 
+. a a c b b . 
+move: (5,4) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 1
+Number of vertices examined: 6
+0.00286971 [s]
+
+Level Boston 9
+Sequence of moves: 
+. . . a . . . 
+. . . b . . . 
+. . . a . . . 
+. . . b . . . 
+. . b a b . . 
+. . b a b . . 
+. . a b a . . 
+move: (3,4) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 1
+Number of vertices examined: 9
+0.00252532 [s]
+
+Level Boston 10
+Sequence of moves: 
+. a . a . a . 
+move: (1,2) r
+. . a a . a . 
+move: (1,6) l
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 16
+0.00132186 [s]
+
+Level Boston 11
+Sequence of moves: 
+. . a b c . . 
+. . c a b . . 
+. . c a b . . 
+move: (1,4) r
+. . a c . . . 
+. . c a . . . 
+. . c a . . . 
+move: (1,3) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 37
+0.00620709 [s]
+
+Level Boston 12
+Sequence of moves: 
+. . a b . . . 
+. . a b . . . 
+. . b c . . . 
+. . a c c . . 
+move: (3,3) r
+. . a . . . . 
+. . a . . . . 
+. . c . . . . 
+. . a c c . . 
+move: (3,3) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 98
+0.00976176 [s]
+
+Level Boston 13
+Sequence of moves: 
+. . a . . . . 
+. . b . . . . 
+. . b a a . . 
+. . c c b c . 
+move: (4,4) r
+. . a . . . . 
+. . b . . . . 
+. . b a a . . 
+. . c b c c . 
+move: (4,3) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 88
+0.00923664 [s]
+
+Level Boston 14
+Sequence of moves: 
+. . . a a . . 
+. . a b c . . 
+. . b b c c . 
+move: (2,4) r
+. . . a a . . 
+. . a c b . . 
+. . b b c c . 
+move: (2,5) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 62
+0.00627325 [s]
+
+Level Boston 15
+Sequence of moves: 
+. a a . a . . 
+. a a . a a . 
+move: (2,2) l
+. . . . a . . 
+. . a . a a . 
+move: (2,5) l
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 15
+0.0014413 [s]
+
+Level Boston 16
+Sequence of moves: 
+. . . a . . . 
+. . b c b . . 
+. . a d a . . 
+. b d e c b . 
+. d f a f c . 
+b a a e f e b 
+move: (6,4) r
+. . . a . . . 
+. . b c b . . 
+. . a d a . . 
+. b d e c b . 
+. d f a f c . 
+b a a f e e b 
+move: (5,4) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 735
+0.290729 [s]
+
+Level Boston 17
+Sequence of moves: 
+. . . a . . . 
+. . . b . . . 
+. . c b . . . 
+. . c d . . . 
+. . a b c . . 
+. . d d a . . 
+move: (4,3) r
+. . . a . . . 
+. . . b . . . 
+. . c b . . . 
+. . d c . . . 
+. . a b c . . 
+. . d d a . . 
+move: (4,3) l
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 122
+0.0275671 [s]
+
+Level Boston 18
+Sequence of moves: 
+. . . a . . . 
+. . . b . . . 
+. . a c a . . 
+. . c b c . . 
+. . b d b . . 
+. a d b d a . 
+move: (3,4) d
+. . . . . . . 
+. . . a . . . 
+. . . b . . . 
+. . a b a . . 
+. . b d b . . 
+. a d b d a . 
+move: (5,4) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 458
+0.108629 [s]
+
+Level Boston 19
+Sequence of moves: 
+. . . a . . . 
+. . . b . . . 
+. . . c . . . 
+. . . c . . . 
+. . b d a . . 
+. b d c a d . 
+move: (5,4) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . a . . . 
+. . b b a . . 
+. b d d a d . 
+move: (6,5) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 217
+0.0339724 [s]
+
+Level Boston 20
+Sequence of moves: 
+. . . a . . . 
+. . a b . . . 
+. . b a b . . 
+. . a b a . . 
+. . b a b . . 
+. . a b a . . 
+. . b a b . . 
+move: (6,3) r
+. . . . . . . 
+. . . . . . . 
+. . . . b . . 
+. . . a a . . 
+. . a b b . . 
+. . b a a . . 
+. . a b b . . 
+move: (3,5) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 610
+0.141606 [s]
+
+Level Boston 21
+Sequence of moves: 
+. . . a . . . 
+. . b c d . . 
+. . d b d . . 
+. . d c c . . 
+. . c e d . . 
+. . e d a . . 
+. c c e b a . 
+move: (4,5) d
+. . . a . . . 
+. . b c . . . 
+. . d b . . . 
+. . d c . . . 
+. . c e c . . 
+. . e d a . . 
+. c c e b a . 
+move: (6,3) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 801
+0.230576 [s]
+
+Level Boston 22
+Sequence of moves: 
+. . a b . c . 
+. d b a a c . 
+. b d d c b . 
+move: (2,2) d
+. . . . . c . 
+. . a b a c . 
+. b b a c b . 
+move: (3,5) r
+. . . . . . . 
+. . a b a . . 
+. b b a b . . 
+move: (2,4) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 3
+Number of vertices examined: 1514
+0.165557 [s]
+
+Level Boston 23
+Sequence of moves: 
+. . . a . . . 
+. . . a . . . 
+. . . b . . . 
+. . . a . . . 
+. . . a . . . 
+. . . b . . . 
+. . b b . . . 
+move: (7,3) l
+. . . a . . . 
+. . . a . . . 
+. . . b . . . 
+. . . a . . . 
+. . . a . . . 
+. . . b . . . 
+. b . b . . . 
+move: (3,4) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . b . . . 
+. b . b b . . 
+move: (7,4) l
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 3
+Number of vertices examined: 109
+0.0133554 [s]
+
+Level Boston 24
+Sequence of moves: 
+. . . a . . . 
+. . . b a . . 
+. . a a b . c 
+. . b d a a c 
+. a a d e e d 
+. d d e d c c 
+a e e d c c d 
+move: (6,5) r
+. . . a . . . 
+. . . b a . . 
+. . a a b . c 
+. . b d a a c 
+. a a d e e d 
+. d d e c d c 
+a e e d c c d 
+move: (6,6) r
+. . . a . . . 
+. . . b . . . 
+. . a a . . . 
+. . b d a . . 
+. a a d b . . 
+. d d e a a . 
+a e e d e e . 
+move: (6,4) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 3
+Number of vertices examined: 8307
+3.32343 [s]
+
+Level Boston 25
+Sequence of moves: 
+. a . . . . . 
+. b . a . . . 
+. c . d . . . 
+. e a b . . . 
+. b d c . . . 
+. d c c . . . 
+. c c d . . . 
+. d e e . d . 
+move: (5,2) r
+. a . . . . . 
+. b . a . . . 
+. c . d . . . 
+. e a b . . . 
+. d b c . . . 
+. d c c . . . 
+. c c d . . . 
+. d e e . d . 
+move: (7,4) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 971
+0.336409 [s]
+
+Level Boston 26
+Sequence of moves: 
+. . . a . . . 
+. . . a . . . 
+. . . b . . . 
+. . b b c . . 
+. . c c d . . 
+. . e a f . . 
+. . f f e . . 
+e e d d e . e 
+move: (3,4) r
+. . . . . . . 
+. . . a . . . 
+. . . a b . . 
+. . b b c . . 
+. . c c d . . 
+. . e a f . . 
+. . f f e . . 
+e e d d e . e 
+move: (8,5) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 561
+0.15955 [s]
+
+Level Boston 27
+Sequence of moves: 
+. . a . . . . 
+. . b . . . . 
+. . c c b . . 
+. . a b c . . 
+. . d a a . . 
+. . a d d . . 
+. . c a a . . 
+c . c a a . . 
+move: (3,4) d
+. . a . . . . 
+. . b . . . . 
+. . c b b . . 
+. . a c c . . 
+. . d a a . . 
+. . a d d . . 
+. . c a a . . 
+c . c a a . . 
+move: (8,3) l
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 119
+0.0418617 [s]
+
+Level Boston 28
+Sequence of moves: 
+. . a a . . . 
+. a b b . . . 
+. b c c b . . 
+. c d d c d b 
+. c d c d b d 
+move: (4,6) d
+. . a a . . . 
+. a b b . . . 
+. b c c . . . 
+. c d d b . . 
+. c d c c b b 
+move: (5,2) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 304
+0.0713779 [s]
+
+Level Boston 29
+Sequence of moves: 
+. . . . a . . 
+. . . . b . . 
+. . . . b . . 
+. . . a a . . 
+. . . b b a . 
+. . . c c a . 
+. . b b c c b 
+. . b c b c a 
+move: (3,5) r
+. . . . . . . 
+. . . . a . . 
+. . . . b . . 
+. . . a a b . 
+. . . b b a . 
+. . . c c a . 
+. . b b c c b 
+. . b c b c a 
+move: (7,5) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 75
+0.0262481 [s]
+
+Level Boston 30
+Sequence of moves: 
+. a b . . . . 
+. c a . . . . 
+. d c b . . . 
+. e d a . . . 
+. a e c b . . 
+. e a d f . . 
+. d d a d f f 
+move: (3,2) l
+. . . . . . . 
+. . b . . . . 
+. a a b . . . 
+. c c a . . . 
+. e d c b . . 
+. a e d f . . 
+. e a a d f f 
+move: (7,2) l
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 823
+0.295905 [s]
+
+Level Boston 31
+Sequence of moves: 
+. . . a b . . 
+. . b b c . . 
+. . c a a . . 
+. . c b a . . 
+. . a a d . . 
+. . d d a . . 
+. . b a e . . 
+. b e e a . . 
+move: (3,3) r
+. . . a b . . 
+. . b b c . . 
+. . a c a . . 
+. . c b a . . 
+. . a a d . . 
+. . d d a . . 
+. . b a e . . 
+. b e e a . . 
+move: (8,5) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 730
+0.279567 [s]
+
+Level Boston 32
+Sequence of moves: 
+. . . a a . . 
+. . b c c . . 
+. . a c c . . 
+. . c b a . . 
+. . a a b c . 
+b b a a b a . 
+move: (6,5) r
+. . . . . . . 
+. . . a a . . 
+. . b c c . . 
+. . a c c . . 
+. . c b a c . 
+b b a a b b . 
+move: (5,5) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 445
+0.10478 [s]
+
+Level Boston 33
+Sequence of moves: 
+. . . . a . . 
+. . . . b . . 
+. . . a a . . 
+. . . a b . . 
+. . . c b a . 
+. . . b c c . 
+. . . b b a . 
+move: (7,4) l
+. . . . . . . 
+. . . . . . . 
+. . . . a . . 
+. . . . b . . 
+. . . . a . . 
+. . . a b a . 
+. . . a b a . 
+move: (5,5) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 70
+0.016565 [s]
+
+Level Boston 34
+Sequence of moves: 
+. . a . b . . 
+. . b a a . . 
+. . c b d . . 
+. . b c c . . 
+. . d d b . b 
+move: (4,3) l
+. . . . . . . 
+. . . . . . . 
+. . . . b . . 
+. . b b d . . 
+. b d d b . b 
+move: (3,5) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 186
+0.0426755 [s]
+
+Level Boston 35
+Sequence of moves: 
+. . . a . . . 
+. . . a . . . 
+. . a b . . . 
+. b b c . . . 
+. c c a . . . 
+. a a c . . . 
+. a c b c . . 
+. b b a a . . 
+move: (2,4) r
+. . . . . . . 
+. . . a . . . 
+. . a b . . . 
+. b b c . . . 
+. c c a . . . 
+. a a c a . . 
+. a c b c . . 
+. b b a a . . 
+move: (6,5) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 527
+0.158035 [s]
+
+Level Boston 36
+Sequence of moves: 
+. . . a . . . 
+. . . a b . . 
+. . . c c . . 
+. . . d d c . 
+. . b e b d . 
+. . d a e a . 
+. a a d d e . 
+move: (2,4) r
+. . . a . . . 
+. . . b a . . 
+. . . c c . . 
+. . . d d c . 
+. . b e b d . 
+. . d a e a . 
+. a a d d e . 
+move: (6,3) d
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 517
+0.162218 [s]
+

@@ -52,7 +52,7 @@
     <Text Include="Puzzles\MoreOrLess.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\MoveTheBox.txt">
+    <Text Include="Puzzles\MoveTheBox_Boston.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -148,7 +148,7 @@
     <Xml Include="Puzzles\MoreOrLess.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\MoveTheBox.xml">
+    <Xml Include="Puzzles\MoveTheBox_Boston.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
