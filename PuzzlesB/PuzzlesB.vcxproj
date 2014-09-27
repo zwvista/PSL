@@ -161,6 +161,7 @@
     <Text Include="Puzzles\BoxItUp.txt" />
     <Text Include="Puzzles\Branches.txt" />
     <Text Include="Puzzles\Bridges.txt" />
+    <Text Include="Puzzles\BusySeas.txt" />
     <Text Include="Puzzles\BWTapa.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <ClCompile Include="Puzzles\BoxItUp.cpp" />
     <ClCompile Include="Puzzles\Branches.cpp" />
     <ClCompile Include="Puzzles\Bridges.cpp" />
+    <ClCompile Include="Puzzles\BusySeas.cpp" />
     <ClCompile Include="Puzzles\BWTapa.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -203,6 +205,7 @@
     <Xml Include="Puzzles\BoxItUp.xml" />
     <Xml Include="Puzzles\Branches.xml" />
     <Xml Include="Puzzles\Bridges.xml" />
+    <Xml Include="Puzzles\BusySeas.xml" />
     <Xml Include="Puzzles\BWTapa.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

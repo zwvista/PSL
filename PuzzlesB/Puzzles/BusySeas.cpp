@@ -3,21 +3,20 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 9/Lighthouses
+	ios game: Logic Games/Puzzle Set 14/Busy Seas
 
 	Summary
-	Lighten Up at Sea
+	More seafaring puzzles
 
 	Description
 	1. You are at sea and you need to find the lighthouses and light the boats.
 	2. Each boat has a number on it that tells you how many lighthouses are lighting it.
-	3. A lighthouse lights all the tiles horizontally and vertically and doesn't
-	   stop at boats or other lighthouses.
-	4. Finally, no boat touches another boat or lighthouse, not even diagonally.
-	   No lighthouse touches another lighthouse as well.
+	3. A lighthouse lights all the tiles horizontally and vertically. Its
+	   light is stopped by the first boat it meets.
+	4. Lighthouses can touch boats and other lighthouses.
 */
 
-namespace puzzles{ namespace Lighthouses{
+namespace puzzles{ namespace BusySeas{
 
 #define PUZ_SPACE			' '
 #define PUZ_EMPTY			'.'
@@ -27,13 +26,9 @@ namespace puzzles{ namespace Lighthouses{
 
 const Position offset[] = {
 	{-1, 0},		// n
-	{-1, 1},		// ne
 	{0, 1},		// e
-	{1, 1},		// se
 	{1, 0},		// s
-	{1, -1},		// sw
 	{0, -1},		// w
-	{-1, -1},	// nw
 };
 
 struct puz_game
@@ -103,13 +98,6 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
 	for(auto& kv : g.m_pos2num)
-		for(auto& os : offset){
-			char& ch = cells(kv.first + os);
-			if(ch == PUZ_SPACE)
-				ch = PUZ_EMPTY;
-		}
-
-	for(auto& kv : g.m_pos2num)
 		m_matches[kv.first];
 	
 	find_matches(true);
@@ -123,18 +111,16 @@ int puz_state::find_matches(bool init)
 		perms.clear();
 
 		vector<Position> rng_s, rng_l;
-		for(int i = 0; i < 4; ++i){
-			auto& os = offset[i * 2];
+		for(auto& os : offset)
 			for(auto p2 = p + os; ; p2 += os){
 				char ch = cells(p2);
 				if(ch == PUZ_SPACE)
 					rng_s.push_back(p2);
 				else if(ch == PUZ_LIGHTHOUSE)
 					rng_l.push_back(p2);
-				else if(ch == PUZ_BOUNDARY)
+				else if(ch == PUZ_BOUNDARY || ch == PUZ_BOAT)
 					break;
 			}
-		}
 
 		int ns = rng_s.size(), nl = rng_l.size();
 		int n = m_game->m_pos2num.at(p), m = n - nl;
@@ -146,15 +132,7 @@ int puz_state::find_matches(bool init)
 				for(int i = 0, j = 0; i < perm.length(); ++i)
 					if(perm[i] == PUZ_LIGHTHOUSE)
 						rng[j++] = rng_s[i];
-				if([&]{
-					// no touching
-					for(const auto& p1 : rng)
-						for(const auto& p2 : rng)
-							if(boost::algorithm::any_of_equal(offset, p1 - p2))
-								return false;
-					return true;
-				}())
-					perms.emplace_back(rng_s, perm);
+				perms.emplace_back(rng_s, perm);
 			}while(boost::next_permutation(perm));
 		}
 
@@ -173,15 +151,8 @@ void puz_state::make_move2(const Position& p, const puz_move& kv)
 {
 	auto& rng = kv.first;
 	auto& str = kv.second;
-	for(int i = 0; i < rng.size(); ++i){
-		auto& p2 = rng[i];
-		if((cells(p2) = str[i]) == PUZ_LIGHTHOUSE)
-			for(auto& os : offset){
-				char& ch = cells(p2 + os);
-				if(ch == PUZ_SPACE)
-					ch = PUZ_EMPTY;
-			}
-	}
+	for(int i = 0; i < rng.size(); ++i)
+		cells(rng[i]) = str[i];
 
 	++m_distance;
 	m_matches.erase(p);
@@ -229,9 +200,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_Lighthouses()
+void solve_puz_BusySeas()
 {
-	using namespace puzzles::Lighthouses;
+	using namespace puzzles::BusySeas;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\Lighthouses.xml", "Puzzles\\Lighthouses.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\BusySeas.xml", "Puzzles\\BusySeas.txt", solution_format::GOAL_STATE_ONLY);
 }

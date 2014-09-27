@@ -11,6 +11,7 @@ extern void solve_puz_BoxItAround();
 extern void solve_puz_BoxItUp();
 extern void solve_puz_Branches();
 extern void solve_puz_Bridges();
+extern void solve_puz_BusySeas();
 extern void solve_puz_BWTapa();
 
 int main(int argc, char **argv)
@@ -26,6 +27,7 @@ int main(int argc, char **argv)
 	cout << "o4: Box It Up" << endl;
 	cout << "r1: Branches" << endl;
 	cout << "r2: Bridges" << endl;
+	cout << "u: Busy Seas" << endl;
 	cout << "w: B&W Tapa" << endl;
 	string str;
 	getline(cin, str);
@@ -40,6 +42,7 @@ int main(int argc, char **argv)
 	else if(str == "o4") solve_puz_BoxItUp();
 	else if(str == "r1") solve_puz_Branches();
 	else if(str == "r2") solve_puz_Bridges();
+	else if(str == "u") solve_puz_BusySeas();
 	else if(str == "w") solve_puz_BWTapa();
 
 	return 0;
