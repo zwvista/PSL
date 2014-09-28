@@ -155,6 +155,7 @@
     <Text Include="Puzzles\mazecat.txt" />
     <Text Include="Puzzles\MineShips.txt" />
     <Text Include="Puzzles\Minesweeper.txt" />
+    <Text Include="Puzzles\MiniLits.txt" />
     <Text Include="Puzzles\Mirrors.txt" />
     <Text Include="Puzzles\MoreOrLess.txt" />
     <Text Include="Puzzles\Mosaic.txt" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Puzzles\mazecat.cpp" />
     <ClCompile Include="Puzzles\MineShips.cpp" />
     <ClCompile Include="Puzzles\Minesweeper.cpp" />
+    <ClCompile Include="Puzzles\MiniLits.cpp" />
     <ClCompile Include="Puzzles\Mirrors.cpp" />
     <ClCompile Include="Puzzles\MoreOrLess.cpp" />
     <ClCompile Include="Puzzles\Mosaic.cpp" />
@@ -197,6 +199,7 @@
     <Xml Include="Puzzles\mazecat.xml" />
     <Xml Include="Puzzles\MineShips.xml" />
     <Xml Include="Puzzles\Minesweeper.xml" />
+    <Xml Include="Puzzles\MiniLits.xml" />
     <Xml Include="Puzzles\Mirrors.xml" />
     <Xml Include="Puzzles\MoreOrLess.xml" />
     <Xml Include="Puzzles\Mosaic.xml" />
