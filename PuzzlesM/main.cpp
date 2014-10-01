@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	cout << "a5: mazecat" << endl;
 	cout << "i1: Mine Ships" << endl;
 	cout << "i2: Minesweeper" << endl;
-	cout << "i3: Minesweeper" << endl;
+	cout << "i3: Mini-Lits" << endl;
 	cout << "i4: Mirrors" << endl;
 	cout << "o1: More Or Less" << endl;
 	cout << "o2: Mosaic" << endl;

@@ -10,8 +10,8 @@
 	Lits Jr.
 
 	Description
-	1. You play the game with triominoes (pieces of three squares).
-	2. The board is divided into many areas. You have to place a tetromino
+	1. You play the game with triominos (pieces of three squares).
+	2. The board is divided into many areas. You have to place a triomino
 	   into each area respecting these rules:
 	3. No two adjacent (touching horizontally / vertically) triominos should
 	   be of equal shape & orientation.
@@ -36,7 +36,7 @@ const Position offset2[] = {
 	{0, 0},		// w
 };
 
-const vector<vector<Position>> triominoes = {
+const vector<vector<Position>> triominos = {
 	// L
 	{{0, 0}, {0, 1}, {1, 0}},
 	{{0, 0}, {0, 1}, {1, 1}},
@@ -122,27 +122,24 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	for(int r = 0; r < m_sidelen; ++r)
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
-			for(int i = 0; i < triominoes.size(); ++i){
-				auto& t1 = triominoes[i];
-				for(int j = 0; j < t1.size(); ++j){
-					auto& t2 = t1[j];
-					int n = [&]{
-						int n = -1;
-						for(auto& os : t2){
-							auto p2 = p + os;
-							auto it = m_pos2area.find(p2);
-							if(it == m_pos2area.end())
-								return -1;
-							if(n == -1)
-								n = it->second;
-							else if(n != it->second)
-								return -1;
-						}
-						return n;
-					}();
-					if(n != -1)
-						m_Lits[n].emplace_back(p, i, j);
-				}
+			for(int i = 0; i < triominos.size(); ++i){
+				auto& t = triominos[i];
+				int n = [&]{
+					int n = -1;
+					for(auto& os : t){
+						auto p2 = p + os;
+						auto it = m_pos2area.find(p2);
+						if(it == m_pos2area.end())
+							return -1;
+						if(n == -1)
+							n = it->second;
+						else if(n != it->second)
+							return -1;
+					}
+					return n;
+				}();
+				if(n != -1)
+					m_Lits[n].emplace_back(p, i);
 			}
 		}
 }
@@ -198,10 +195,10 @@ int puz_state::find_matches(bool init)
 
 		boost::remove_erase_if(lit_ids, [&](int id){
 			auto& lit = m_game->m_Lits[area_id][id];
-			auto& t = triominoes[lit.second];
+			auto& t = triominos[lit.second];
 			char ch = lit.second + '0';
 			for(auto& os : t){
-				auto p2 = lit.m_p + os;
+				auto p2 = lit.first + os;
 				if(cells(p2) != PUZ_SPACE)
 					return true;
 				for(auto& os2 : offset){
@@ -245,7 +242,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 	}
 }
 
-// 5. All the shaded cells should form a valid Nurikabe.
+// All the shaded cells should form a valid Nurikabe.
 bool puz_state::is_continuous() const
 {
 	set<Position> area;
@@ -264,7 +261,7 @@ bool puz_state::is_continuous() const
 bool puz_state::make_move2(int i, int j)
 {
 	auto& lit = m_game->m_Lits[i][j];
-	auto& t = triominoes[lit.second];
+	auto& t = triominos[lit.second];
 
 	for(int k = 0; k < t.size(); ++k)
 		cells(lit.first + t[k]) = lit.second + '0';
