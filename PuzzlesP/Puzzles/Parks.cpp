@@ -171,17 +171,18 @@ struct puz_groups
 		};
 	}
 	void add_cell(const Position& p){
-		for(puz_area* a : get_areas(p))
+		for(auto a : get_areas(p))
 			a->add_cell(p);
 	}
 	void remove_cell(const Position& p){
-		for(puz_area* a : get_areas(p))
+		for(auto a : get_areas(p))
 			a->remove_cell(p);
 	}
 	void plant_tree(const Position& p){
-		for(puz_area* a : get_areas(p)){
+		for(auto a : get_areas(p)){
 			a->plant_tree(p);
 			if(a->second == 0){
+				// copy the range
 				auto rng = a->first;
 				for(auto& p2 : rng)
 					remove_cell(p2);
@@ -244,10 +245,9 @@ puz_state::puz_state(const puz_game& g)
 
 const puz_area& puz_groups::get_best_candidate_area() const
 {
-	const puz_group* grps[] = {&m_parks, &m_rows, &m_cols};
 	vector<const puz_area*> areas;
-	for(const puz_group* grp : grps)
-		for(const puz_area& a : *grp)
+	for(auto grp : {&m_parks, &m_rows, &m_cols})
+		for(auto& a : *grp)
 			if(a.second > 0)
 				areas.push_back(&a);
 
