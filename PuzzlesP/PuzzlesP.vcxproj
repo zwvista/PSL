@@ -164,6 +164,7 @@
     <Text Include="Puzzles\Pharaoh.txt" />
     <Text Include="Puzzles\Pharaoh_a.txt" />
     <Text Include="Puzzles\Pharaoh_ida.txt" />
+    <Text Include="Puzzles\PowerGrid.txt" />
     <Text Include="Puzzles\PuzzleRetreat_Everest.txt" />
     <Text Include="Puzzles\PuzzleRetreat_Morning.txt" />
     <Text Include="Puzzles\PuzzleRetreat_Welcome.txt" />
@@ -185,6 +186,7 @@
     <ClCompile Include="Puzzles\patternpuzzle.cpp" />
     <ClCompile Include="Puzzles\pegsolitary.cpp" />
     <ClCompile Include="Puzzles\Pharaoh.cpp" />
+    <ClCompile Include="Puzzles\PowerGrid.cpp" />
     <ClCompile Include="Puzzles\PuzzleRetreat.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -204,6 +206,7 @@
     <Xml Include="Puzzles\patternpuzzle.xml" />
     <Xml Include="Puzzles\pegsolitary.xml" />
     <Xml Include="Puzzles\Pharaoh.xml" />
+    <Xml Include="Puzzles\PowerGrid.xml" />
     <Xml Include="Puzzles\PuzzleRetreat_Everest.xml" />
     <Xml Include="Puzzles\PuzzleRetreat_Morning.xml" />
     <Xml Include="Puzzles\PuzzleRetreat_Welcome.xml">

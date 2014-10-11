@@ -76,6 +76,9 @@
     <Text Include="Puzzles\PuzzleRetreat_Everest.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\PowerGrid.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -125,6 +128,9 @@
     <ClCompile Include="Puzzles\PuzzleRetreat.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\PowerGrid.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\pathfind.xml">
@@ -158,6 +164,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\PuzzleRetreat_Everest.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\PowerGrid.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
