@@ -81,9 +81,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	m_filled_total_count = boost::accumulate(m_filled_counts_rows, 0);
 }
 
-// first : all the remaining positions in the area where a cell can be filled
+// first : all the remaining positions in the area where mercury can be filled
 // second : the number of cells that need to be filled in the row or column
-//          or the number of cells that has been filled in the thermometer
+//		or the number of cells that have been filled in the thermometer
 struct puz_area : pair<vector<Position>, int>
 {
 	puz_area() {}
@@ -91,11 +91,13 @@ struct puz_area : pair<vector<Position>, int>
 		: pair<vector<Position>, int>({}, filled_count)
 	{}
 	void add_cell(const Position& p){ first.push_back(p); }
-	void remove_cell(const Position& p){ boost::remove_erase(first, p); }
-	void fill_mercury(const Position& p, bool is_grp_thermometers){
-		if(boost::algorithm::none_of_equal(first, p)) return;
+	void remove_cell(const Position& p){ boost::remove_erase(first, p);	}
+	bool fill_mercury(const Position& p, bool is_grp_thermometers){
+		if(boost::algorithm::none_of_equal(first, p))
+			return false;
 		remove_cell(p);
 		is_grp_thermometers ? ++second : --second;
+		return true;
 	}
 	bool is_valid() const { return second >= 0 && first.size() >= second; }
 };
@@ -126,13 +128,14 @@ struct puz_state : string
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p);
+	void check_rowcol(puz_area& area);
 
 	// solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
 		return m_game->m_filled_total_count - boost::count_if(*this, [](char ch){
-			return ch != PUZ_SPACE;
+			return ch != PUZ_EMPTY;
 		});
 	}
 	unsigned int get_distance(const puz_state& child) const {return 1;}
@@ -158,54 +161,67 @@ puz_state::puz_state(const puz_game& g)
 		for(auto& p : g.m_thermometer_info[i])
 			for(auto a : {&m_grp_thermometers[i], &m_grp_rows[p.first], &m_grp_cols[p.second]})
 				a->add_cell(p);
+
+	for(int i = 0; i < sidelen(); ++i)
+		for(auto a : {&m_grp_rows[i], &m_grp_cols[i]})
+			check_rowcol(*a);
+}
+
+void puz_state::check_rowcol(puz_area& area)
+{
+	if(area.second != 0) return;
+	// copy the range
+	auto rng = area.first;
+	for(auto& p : rng){
+		auto& rng2 = m_grp_thermometers[m_game->m_pos2thermometer.at(p)].first;
+		vector<Position> rng3(boost::range::find(rng2, p), rng2.end());
+		for(auto p2 : rng3)
+			for(auto a : {&m_grp_thermometers[m_game->m_pos2thermometer.at(p2)],
+				&m_grp_rows[p2.first], &m_grp_cols[p2.second]})
+				a->remove_cell(p2);
+	}
 }
 
 bool puz_state::make_move(const Position& p)
 {
-	auto& thermometer = m_grp_thermometers[m_game->m_pos2thermometer.at(p)];
-	int n = thermometer.second;
+	int n = m_game->m_pos2thermometer.at(p);
+	auto& thermometer = m_grp_thermometers[n];
 	auto& info = m_game->m_thermometer_info[n];
 
-	cells(p) = n == 0 ? m_game->cells(p) : PUZ_END;
-	if(n > 1)
-		cells(info[n - 1]) = PUZ_SECTOR;
-
-	thermometer.fill_mercury(p, true);
-	for(auto* a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}){
-		a->fill_mercury(p, false);
-		if(a->second == 0){
-			// copy the range
-			auto rng = a->first;
-			for(auto& p2 : rng)
-				for(auto a : {&m_grp_thermometers[m_game->m_pos2thermometer.at(p2)],
-					&m_grp_rows[p.first], &m_grp_cols[p.second]})
-					a->remove_cell(p2);
-		}
+	int n2 = boost::range::find(info, p) - info.begin();
+	for(int i = 0; i <= n2; ++i){
+		auto& p2 = info[i];
+		cells(p2) =
+			i == 0 ? m_game->cells(p2) :
+			i == n2 ? PUZ_END : PUZ_SECTOR;
 	}
 
+	auto& rng = thermometer.first;
+	vector<Position> rng2(rng.begin(), ++boost::range::find(rng, p));
+	for(auto p2 : rng2){
+		if(!thermometer.fill_mercury(p2, true))
+			return false;
+		for(auto a : {&m_grp_rows[p2.first], &m_grp_cols[p2.second]}){
+			a->fill_mercury(p2, false);
+			check_rowcol(*a);
+		}
+	}
 
 	return m_grp_rows.is_valid() && m_grp_cols.is_valid();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	vector<vector<Position>> ranges(sidelen() * 2);
-	for(auto& a : m_grp_thermometers){
-		auto& rng = a.first;
-		if(!rng.empty()){
-			auto& p = rng.front();
-			ranges[p.first].push_back(p);
-			ranges[p.second + sidelen()].push_back(p);
-		}
-	}
-	boost::remove_erase_if(ranges, [](const vector<Position>& rng){
-		return rng.empty();
-	});
-	boost::sort(ranges, [](const vector<Position>& rng1, const vector<Position>& rng2){
-		return rng1.size() < rng2.size();
-	});
+	vector<const puz_area*> areas;
+	for(auto grp : {&m_grp_rows, &m_grp_cols})
+		for(auto& a : *grp)
+			if(a.second > 0)
+				areas.push_back(&a);
 
-	for(auto& p : ranges.front()){
+	auto& area = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
+		return a1->second < a2->second;
+	});
+	for(auto& p : area.first){
 		children.push_back(*this);
 		if(!children.back().make_move(p))
 			children.pop_back();
