@@ -13,7 +13,8 @@ int main(int argc, char **argv)
 	cout << "r: Orchards" << endl;
 	string str;
 	getline(cin, str);
-	if (str == "d") solve_puz_OddsAreEven();
+	if(str.empty());
+	else if (str == "d") solve_puz_OddsAreEven();
 	else if (str == "n") solve_puz_on_the_edge();
 	else if(str == "p") solve_puz_openvalve();
 	else if(str == "r") solve_puz_Orchards();

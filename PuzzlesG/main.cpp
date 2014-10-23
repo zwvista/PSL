@@ -9,7 +9,8 @@ int main(int argc, char **argv)
 	cout << "a2: Gardener" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "a1") solve_puz_Galaxies();
+	if(str.empty());
+	else if(str == "a1") solve_puz_Galaxies();
 	else if(str == "a2") solve_puz_Gardener();
 
 	return 0;

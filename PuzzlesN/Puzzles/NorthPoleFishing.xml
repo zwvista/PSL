@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="001">
+    <![CDATA[
+B  B\
+  H \
+    \
+BHHB\
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+    H HB  \
+  H B   H \
+B   HB HH \
+   B     B\
+H     HH  \
+ H H  H   \
+B     BH  \
+H  HB    B\
+H    BH   \
+  BHH  HH \
+    ]]>
+  </level>
+</levels>

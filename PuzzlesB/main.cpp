@@ -31,7 +31,8 @@ int main(int argc, char **argv)
 	cout << "w: B&W Tapa" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "a1") solve_puz_BalancedTapas();
+	if(str.empty());
+	else if(str == "a1") solve_puz_BalancedTapas();
 	else if(str == "a2") solve_puz_BattleShips();
 	else if(str == "l1") solve_puz_BlockedProduct();
 	else if(str == "l2") solve_puz_BlockedView();

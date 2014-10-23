@@ -1,0 +1,16 @@
+Level 001
+Sequence of moves: 
+ - - - -
+|B|   |B|
+ -     -
+| |  H| |
+   - -  
+|   |   |
+ -     -
+|B|H|H|B|
+ - - - -
+Number of moves: 3
+Number of vertices examined: 4
+0.00741893 [s]
+
+Level 200

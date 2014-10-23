@@ -4,30 +4,27 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 8/Neighbours
+	ios game: Logic Games/Puzzle Set 14/North Pole Fishing
 
 	Summary
-	Neighbours, yes, but not equally sociable
+	Fishing Neighbours
 
 	Description
-	1. The board represents a piece of land bought by a bunch of people. They
-	   decided to split the land in equal parts.
-	2. However some people are more social and some are less, so each owner
-	   wants an exact number of neighbours around him.
-	3. Each number on the board represents an owner house and the number of
-	   neighbours he desires.
-	4. Divide the land so that each one has an equal number of squares and
-	   the requested number of neighbours.
-	5. Later on, there will be Question Marks, which represents an owner for
-	   which you don't know the neighbours preference.
+	1. The board represents a piece of antarctic, which some fisherman want
+	   to split in equal parts.
+	2. They decide each one should have a piece of land of exactly 4 squares,
+	   including one fishing hole.
+	3. Divide the land accordingly.
+	4. Ice blocks are just obstacles and don't count as piece of land.
 */
 
-namespace puzzles{ namespace Neighbours{
+namespace puzzles{ namespace NorthPoleFishing{
 
 #define PUZ_SPACE		' '
-#define PUZ_BOUNDARY	'B'
-#define PUZ_QM			'?'
-#define PUZ_UNKNOWN		0
+#define PUZ_BOUNDARY	'+'
+#define PUZ_BLOCK		'B'
+#define PUZ_HOLE		'H'
+#define PUZ_PIECE_SIZE	4
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -43,58 +40,47 @@ const Position offset2[] = {
 	{0, 0},		// w
 };
 
-struct puz_area_info
-{
-	puz_area_info(const Position& p, int cnt)
-	: m_pHouse(p), m_neighbour_count(cnt) {}
-	Position m_pHouse;
-	int m_neighbour_count;
-};
-
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	map<Position, int> m_pos2num;
-	map<char, puz_area_info> m_id2info;
-	int m_cell_count_area;
+	map<char, Position> m_id2hole;
+	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
-	int neighbour_count(char id) const { return m_id2info.at(id).m_neighbour_count; }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size() + 2)
+	: m_id(attrs.get<string>("id"))
+	, m_sidelen(strs.size() + 2)
 {
-	for(int r = 1, n = 0; r < m_sidelen - 1; ++r){
+	char id = 'a';
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
+	for(int r = 1; r < m_sidelen - 1; ++r){
 		auto& str = strs[r - 1];
+		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 1; c < m_sidelen - 1; ++c){
 			char ch = str[c - 1];
-			if(ch == PUZ_SPACE) continue;
-			char id = n++ + 'a';
-			int cnt = ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0';
-			Position p(r, c);
-			m_pos2num[p] = cnt;
-			m_id2info.emplace(id, puz_area_info(p, cnt));
+			if(ch == PUZ_HOLE){
+				m_start.push_back(PUZ_SPACE);
+				m_id2hole[id++] = {r, c};
+			}
+			else
+				m_start.push_back(ch);
 		}
+		m_start.push_back(PUZ_BOUNDARY);
 	}
-	m_cell_count_area = (m_sidelen - 2) * (m_sidelen - 2) / m_id2info.size();
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
 }
 
 struct puz_area
 {
 	set<Position> m_inner, m_outer;
-	set<char> m_neighbours;
 	bool m_ready = false;
 
-	void add_cell(const Position& p, int cnt){
+	void add_cell(const Position& p){
 		m_inner.insert(p);
-		m_ready = m_inner.size() == cnt;
-	}
-	bool add_neighbour(char id, int cnt){
-		m_neighbours.insert(id);
-		return cnt == PUZ_UNKNOWN || m_neighbours.size() <= cnt;
+		m_ready = m_inner.size() == PUZ_PIECE_SIZE;
 	}
 
 	bool operator<(const puz_area& x) const {
@@ -131,14 +117,10 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+	: string(g.m_start), m_game(&g)
 {
-	for(int i = 0; i < sidelen(); ++i)
-		cells({i, 0}) = cells({i, sidelen() - 1}) =
-		cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
-
-	for(auto& kv : g.m_id2info)
-		make_move2(kv.first, kv.second.m_pHouse);
+	for(auto& kv : g.m_id2hole)
+		make_move2(kv.first, kv.second);
 
 	adjust_area(true);
 }
@@ -149,8 +131,7 @@ int puz_state::adjust_area(bool init)
 		char id = kv.first;
 		auto& area = kv.second;
 		auto& outer = area.m_outer;
-		int nb_cnt = m_game->neighbour_count(id);
-		if(area.m_ready && outer.empty()) continue;
+		if(area.m_ready) continue;
 
 		outer.clear();
 		for(auto& p : area.m_inner)
@@ -164,12 +145,9 @@ int puz_state::adjust_area(bool init)
 		if(!init)
 			switch(outer.size()){
 			case 0:
-				return !area.m_ready ||
-					nb_cnt != PUZ_UNKNOWN && area.m_neighbours.size() < nb_cnt ? 0 :
-					1;
+				return 0;
 			case 1:
-				if(!area.m_ready)
-					return make_move2(id, *outer.begin()) ? 1 : 0;
+				return make_move2(id, *outer.begin()) ? 1 : 0;
 				break;
 			}
 	}
@@ -180,22 +158,9 @@ bool puz_state::make_move2(char id, Position p)
 {
 	auto& area = m_id2area[id];
 	cells(p) = id;
-	area.add_cell(p, m_game->m_cell_count_area);
+	area.add_cell(p);
 	++m_distance;
 
-	for(auto& os : offset){
-		auto p2 = p + os;
-		char ch = cells(p2);
-		if(ch == PUZ_SPACE || ch == PUZ_BOUNDARY ||
-			ch == id || area.m_neighbours.count(ch) != 0)
-			continue;
-
-		char id2 = ch;
-		auto& area2 = m_id2area.at(id2);
-		if(!area.add_neighbour(id2, m_game->neighbour_count(id)) ||
-			!area2.add_neighbour(id, m_game->neighbour_count(id2)))
-			return false;
-	}
 	return true;
 }
 
@@ -227,6 +192,16 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
 	set<Position> horz_walls, vert_walls;
+	for(int r = 1; r < sidelen() - 1; ++r)
+		for(int c = 1; c < sidelen() - 1; ++c){
+			Position p(r, c);
+			if(cells(p) == PUZ_BLOCK){
+				horz_walls.insert(p);
+				horz_walls.insert(p + offset2[2]);
+				vert_walls.insert(p);
+				vert_walls.insert(p + offset2[1]);
+			}
+		}
 	for(auto& kv : m_id2area){
 		auto& area = kv.second;
 		for(auto& p : area.m_inner)
@@ -250,12 +225,10 @@ ostream& puz_state::dump(ostream& out) const
 			// draw vert-walls
 			out << (vert_walls.count(p) == 1 ? '|' : ' ');
 			if(c == sidelen() - 1) break;
-			char id = cells(p);
-			auto& info = m_game->m_id2info.at(id);
-			if(info.m_pHouse != p)
-				out << ' ';
-			else
-				out << m_id2area.at(id).m_neighbours.size();
+			char ch = cells(p);
+			out << (ch == PUZ_BLOCK ? ch :
+				m_game->m_id2hole.at(ch) == p ? PUZ_HOLE : PUZ_SPACE
+			);
 		}
 		out << endl;
 	}
@@ -264,13 +237,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_Neighbours()
+void solve_puz_NorthPoleFishing()
 {
-	using namespace puzzles::Neighbours;
+	using namespace puzzles::NorthPoleFishing;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\Neighbours.xml", "Puzzles\\Neighbours.txt", solution_format::GOAL_STATE_ONLY);
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\Neighbours2.xml", "Puzzles\\Neighbours2.txt", solution_format::GOAL_STATE_ONLY);
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\Neighbours3.xml", "Puzzles\\Neighbours3.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\NorthPoleFishing.xml", "Puzzles\\NorthPoleFishing.txt", solution_format::GOAL_STATE_ONLY);
 }

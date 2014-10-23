@@ -31,7 +31,8 @@ int main(int argc, char **argv)
 	cout << "u: mummymaze" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "a1") solve_puz_magic_square();
+	if(str.empty());
+	else if(str == "a1") solve_puz_magic_square();
 	else if(str == "a2") solve_puz_Magnets();
 	else if(str == "a3") solve_puz_Masyu();
 	else if(str == "a4") solve_puz_Mathrax();

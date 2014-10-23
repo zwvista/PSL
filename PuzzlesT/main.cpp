@@ -31,7 +31,8 @@ int main(int argc, char **argv)
 	cout << "w: twinballs" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "a1") solve_puz_Tapa();
+	if(str.empty());
+	else if(str == "a1") solve_puz_Tapa();
 	else if(str == "a2") solve_puz_TapaIslands();
 	else if(str == "a3") solve_puz_TapAlike();
 	else if(str == "a4") solve_puz_TapARow();

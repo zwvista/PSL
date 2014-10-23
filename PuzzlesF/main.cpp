@@ -19,7 +19,8 @@ int main(int argc, char **argv)
 	cout << "u: Futoshiki" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "e1") solve_puz_FenceItUp();
+	if(str.empty());
+	else if(str == "e1") solve_puz_FenceItUp();
 	else if(str == "e2") solve_puz_FenceLits();
 	else if(str == "i") solve_puz_Fillomino();
 	else if(str == "l") solve_puz_fling();

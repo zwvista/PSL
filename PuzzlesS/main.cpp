@@ -27,7 +27,8 @@ int main(int argc, char **argv)
 	cout << "u: sumscrapers" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "h1") solve_puz_SheepAndWolves();
+	if(str.empty());
+	else if(str == "h1") solve_puz_SheepAndWolves();
 	else if(str == "h2") solve_puz_ShopAndGas();
 	else if(str == "k1") solve_puz_Skydoku();
 	else if(str == "k2") solve_puz_Skyscrapers();

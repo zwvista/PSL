@@ -13,7 +13,8 @@ int main(int argc, char **argv)
 	cout << "r: Kropki" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "a1") solve_puz_Kakurasu();
+	if(str.empty());
+	else if(str == "a1") solve_puz_Kakurasu();
 	else if(str == "a2") solve_puz_Kakuro();
 	else if(str == "n") solve_puz_Knightoku();
 	else if(str == "r") solve_puz_Kropki();

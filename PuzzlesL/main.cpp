@@ -23,7 +23,8 @@ int main(int argc, char **argv)
 	cout << "o: Loopy" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "a") solve_puz_Landscaper();
+	if(str.empty());
+	else if(str == "a") solve_puz_Landscaper();
 	else if(str == "i1") solve_puz_LightBattleships();
 	else if(str == "i2") solve_puz_LightenUp();
 	else if(str == "i3") solve_puz_Lighthouses();

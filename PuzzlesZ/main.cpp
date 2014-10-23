@@ -9,7 +9,8 @@ int main(int argc, char **argv)
 	cout << "g: zgj" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "a") solve_puz_zafiro();
+	if(str.empty());
+	else if(str == "a") solve_puz_zafiro();
 	if(str == "g") solve_puz_zgj();
 
 	return 0;

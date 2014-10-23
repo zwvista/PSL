@@ -27,7 +27,8 @@ int main(int argc, char **argv)
 	cout << "u: Puzzle Retreat" << endl;
 	string str;
 	getline(cin, str);
-	if(str == "a1") solve_puz_Pairakabe();
+	if(str.empty());
+	else if(str == "a1") solve_puz_Pairakabe();
 	else if(str == "a2") solve_puz_ParkingLot();
 	else if(str == "a3") solve_puz_Parks();
 	else if(str == "a4") solve_puz_Parks2();
