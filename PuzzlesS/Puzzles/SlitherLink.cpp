@@ -136,7 +136,7 @@ puz_state::puz_state(const puz_game& g)
 					dt.push_back(lines);
 		}
 
-	for(const auto& kv : g.m_pos2num){
+	for(auto& kv : g.m_pos2num){
 		auto& perm_ids = m_matches[kv.first];
 		perm_ids.resize(g.m_num2perms.at(kv.second).size());
 		boost::iota(perm_ids, 0);

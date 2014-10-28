@@ -210,7 +210,7 @@ void puz_state::find_matches()
 
 			if(!m_pos2piece.empty())
 				for(const auto& kv : m_pos2piece){
-					const auto& p = kv.first;
+					auto& p = kv.first;
 					int r = p.first, c = p.second;
 					if(!vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv){
 						return kv.first.first == r && kv.second < len;

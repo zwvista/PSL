@@ -156,7 +156,7 @@ puz_state::puz_state(const puz_game& g)
 					dt.push_back(lines);
 		}
 
-	for(const auto& kv : g.m_pos2info){
+	for(auto& kv : g.m_pos2info){
 		auto& p = kv.first;
 		auto& info = kv.second;
 		m_finished.insert(p);

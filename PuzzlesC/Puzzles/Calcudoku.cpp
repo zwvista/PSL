@@ -80,7 +80,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			grp_rows[p.first].push_back(i);
 			grp_cols[p.second].push_back(i);
 		}
-		for(const auto& m : {grp_rows, grp_cols})
+		for(auto& m : {grp_rows, grp_cols})
 			for(auto& kv : m)
 				if(kv.second.size() > 1)
 					groups.push_back(kv.second);

@@ -166,7 +166,7 @@ puz_state::puz_state(const puz_game& g)
 					dt.push_back(lines);
 		}
 
-	for(const auto& kv : g.m_pos2pearl){
+	for(auto& kv : g.m_pos2pearl){
 		auto& perm_ids = m_matches[kv.first];
 		perm_ids.resize(kv.second == PUZ_BLACK_PEARL ? 4 : 16);
 		boost::iota(perm_ids, 0);

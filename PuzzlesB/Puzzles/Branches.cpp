@@ -99,7 +99,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-	for(const auto& kv : g.m_pos2num)
+	for(auto& kv : g.m_pos2num)
 		m_matches[kv.first];
 	
 	find_matches(true);
@@ -178,7 +178,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 		return kv1.second.size() < kv2.second.size();
 	});
 
-	for(const auto& perm : kv.second){
+	for(auto& perm : kv.second){
 		children.push_back(*this);
 		if(!children.back().make_move(kv.first, perm))
 			children.pop_back();

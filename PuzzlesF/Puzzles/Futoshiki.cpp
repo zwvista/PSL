@@ -131,7 +131,7 @@ int puz_state::find_matches(bool init)
 		auto& perm_ids = kv.second;
 
 		string chars;
-		for(const auto& p : m_game->m_area2range[area_id])
+		for(auto& p : m_game->m_area2range[area_id])
 			chars.push_back(cells(p));
 
 		boost::remove_erase_if(perm_ids, [&](int id){

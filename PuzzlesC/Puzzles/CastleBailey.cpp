@@ -116,7 +116,7 @@ puz_state::puz_state(const puz_game& g)
 		cells({i, 0}) = cells({i, sidelen() - 1}) =
 		cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
 
-	for(const auto& kv : g.m_pos2num){
+	for(auto& kv : g.m_pos2num){
 		auto& perm_ids = m_matches[kv.first];
 		perm_ids.resize(g.m_num2perms[kv.second].size());
 		boost::iota(perm_ids, 0);

@@ -135,7 +135,7 @@ int puz_state::find_matches(bool init)
 		auto& perm_ids = kv.second;
 
 		string chars;
-		for(const auto& p2 : m_game->m_area2range[kv.first])
+		for(auto& p2 : m_game->m_area2range[kv.first])
 			chars.push_back(cells(p2));
 
 		auto& ids = kv.first < sidelen() ? m_perm_id_rows : m_perm_id_cols;
