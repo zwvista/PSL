@@ -4,20 +4,20 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 2/Tatami
+	ios game: Logic Games/Puzzle Set 14/The Odd Brick
 
 	Summary
-	1,2,3... 1,2,3... Fill the mats
+	Even Bricks are strange, sometimes
 
 	Description
-	1. Each rectangle represents a mat(Tatami) which is of the same size.
-	   You must fill each Tatami with a number ranging from 1 to size.
-	2. Each number can appear only once in each Tatami.
-	3. In one row or column, each number must appear the same number of times.
-	4. You can't have two identical numbers touching horizontally or vertically.
+	1. On the board there is a wall, made of 2*1 and 1*1 bricks.
+	2. Each 2*1 brick contains and odd and an even number, while 1*1 bricks
+	   can contain any number.
+	3. Each row and column contains numbers 1 to N, where N is the side of
+	   the board.
 */
 
-namespace puzzles{ namespace Tatami{
+namespace puzzles{ namespace TheOddBrick{
 
 #define PUZ_SPACE		' '
 
@@ -48,12 +48,11 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	int m_size_of_tatami;
-	int m_tatami_count;
+	int m_brick_count;
 	vector<vector<Position>> m_area_pos;
 	puz_numbers m_numbers;
 	map<Position, char> m_pos2num;
-	map<Position, int> m_pos2tatami;
+	map<Position, int> m_pos2brick;
 	set<Position> m_horz_walls, m_vert_walls;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -89,6 +88,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	: m_id(attrs.get<string>("id"))
 	, m_sidelen(strs.size() / 2)
 	, m_area_pos(m_sidelen * 2)
+	, m_numbers(m_sidelen)
 {
 	set<Position> rng;
 	for(int r = 0;; ++r){
@@ -117,37 +117,25 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
 		m_area_pos.emplace_back();
 		for(auto& p : smoves){
-			m_pos2tatami[p] = n;
+			m_pos2brick[p] = n;
 			m_area_pos.back().push_back(p);
 			m_area_pos[p.first].push_back(p);
 			m_area_pos[m_sidelen + p.second].push_back(p);
 			rng.erase(p);
 		}
 	}
-	m_size_of_tatami = m_area_pos[m_sidelen * 2].size();
-	m_tatami_count = m_area_pos.size() - m_sidelen * 2;
-	m_numbers = puz_numbers(m_size_of_tatami);
+	m_brick_count = m_area_pos.size() - m_sidelen * 2;
 }
 
-// second.key : all char numbers used to fill a position
-// second.value : the number of remaining times that the key char number can be used in the area
-struct puz_area : pair<int, map<char, int>>
-{
-	puz_area() {}
-	puz_area(int index, const puz_numbers& numbers, int num_times_appear)
-		: pair<int, map<char, int>>(index, map<char, int>()){
-		for(char ch : numbers)
-			second.emplace(ch, num_times_appear);
-	}
-	bool fill_cells(const Position& p, char ch){ return --second.at(ch); }
-};
+// second : all char numbers used to fill a position
+typedef pair<int, puz_numbers> puz_area;
 
 struct puz_group : vector<puz_area>
 {
 	puz_group() {}
-	puz_group(int index, int sz, const puz_numbers& numbers, int num_times_appear){
+	puz_group(int index, int sz, const puz_numbers& numbers){
 		for(int i = 0; i < sz; i++)
-			emplace_back(index++, numbers, num_times_appear);
+			emplace_back(index++, numbers);
 	}
 };
 
@@ -171,7 +159,7 @@ struct puz_state : string
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const {return boost::range::count(*this, PUZ_SPACE);}
+	unsigned int get_heuristic() const {return boost::count(*this, PUZ_SPACE);}
 	unsigned int get_distance(const puz_state& child) const {return 1;}
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -180,7 +168,7 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game;
-	puz_group m_grp_tatamis;
+	puz_group m_grp_bricks;
 	puz_group m_grp_rows;
 	puz_group m_grp_cols;
 	map<Position, puz_numbers> m_pos2nums;
@@ -188,9 +176,9 @@ struct puz_state : string
 
 puz_state::puz_state(const puz_game& g)
 	: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
-	, m_grp_tatamis(g.m_sidelen * 2, g.m_tatami_count, g.m_numbers, 1)
-	, m_grp_rows(0, g.m_sidelen, g.m_numbers, g.m_sidelen / g.m_size_of_tatami)
-	, m_grp_cols(g.m_sidelen, g.m_sidelen, g.m_numbers, g.m_sidelen / g.m_size_of_tatami)
+	, m_grp_bricks(g.m_sidelen * 2, g.m_brick_count, g.m_numbers)
+	, m_grp_rows(0, g.m_sidelen, g.m_numbers)
+	, m_grp_cols(g.m_sidelen, g.m_sidelen, g.m_numbers)
 {
 	for(int r = 0; r < g.m_sidelen; ++r)
 		for(int c = 0; c < g.m_sidelen; ++c)
@@ -205,22 +193,21 @@ bool puz_state::make_move(const Position& p, char ch)
 	cells(p) = ch;
 	m_pos2nums.erase(p);
 
-	auto areas = {
-		&m_grp_tatamis[m_game->m_pos2tatami.at(p)],
+	auto f = [&](puz_area* a, char ch2){
+		for(auto& p2 : m_game->m_area_pos[a->first])
+			remove_pair(p2, ch2);
+	};
+	array<puz_area*, 3> areas = {
+		&m_grp_bricks[m_game->m_pos2brick.at(p)],
 		&m_grp_rows[p.first],
 		&m_grp_cols[p.second]
 	};
-	for(puz_area* a : areas)
-		if(a->fill_cells(p, ch) == 0)
-			for(auto& p2 : m_game->m_area_pos[a->first])
-				remove_pair(p2, ch);
-
-	// no touch
-	for(auto& os : offset){
-		auto p2 = p + os;
-		if(is_valid(p2))
-			remove_pair(p2, ch);
-	}
+	for(auto a : areas)
+		f(a, ch);
+	auto a = areas[0];
+	for(char ch2 : a->second)
+		if((ch - '0') % 2 == (ch2 - '0') % 2)
+			f(a, ch2);
 
 	return boost::algorithm::none_of(m_pos2nums, [](const pair<const Position, puz_numbers>& kv){
 		return kv.second.empty();
@@ -265,9 +252,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_Tatami()
+void solve_puz_TheOddBrick()
 {
-	using namespace puzzles::Tatami;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>
-		("Puzzles\\Tatami.xml", "Puzzles\\Tatami.txt", solution_format::GOAL_STATE_ONLY);
+	using namespace puzzles::TheOddBrick;
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+		"Puzzles\\TheOddBrick.xml", "Puzzles\\TheOddBrick.txt", solution_format::GOAL_STATE_ONLY);
 }

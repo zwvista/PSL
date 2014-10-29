@@ -15,7 +15,7 @@ Sequence of moves:
  - - - - - -
 Number of moves: 30
 Number of vertices examined: 31
-0.0123989 [s]
+0.00448723 [s]
 
 Level 030
 Sequence of moves: 
@@ -34,7 +34,7 @@ Sequence of moves:
  - - - - - -
 Number of moves: 32
 Number of vertices examined: 33
-0.0106013 [s]
+0.00418566 [s]
 
 Level 031
 Sequence of moves: 
@@ -53,7 +53,7 @@ Sequence of moves:
  - - - - - -
 Number of moves: 30
 Number of vertices examined: 31
-0.00773894 [s]
+0.00393494 [s]
 
 Level 072
 Sequence of moves: 
@@ -76,7 +76,7 @@ Sequence of moves:
  - - - - - - - -
 Number of moves: 49
 Number of vertices examined: 63
-0.0247852 [s]
+0.0115266 [s]
 
 Level 073
 Sequence of moves: 
@@ -99,7 +99,7 @@ Sequence of moves:
  - - - - - - - -
 Number of moves: 47
 Number of vertices examined: 48
-0.0217118 [s]
+0.00817632 [s]
 
 Level 074
 Sequence of moves: 
@@ -122,7 +122,7 @@ Sequence of moves:
  - - - - - - - -
 Number of moves: 50
 Number of vertices examined: 76
-0.0276445 [s]
+0.0120695 [s]
 
 Level 075
 Sequence of moves: 
@@ -145,7 +145,7 @@ Sequence of moves:
  - - - - - - - -
 Number of moves: 49
 Number of vertices examined: 102
-0.0384151 [s]
+0.0165734 [s]
 
 Level 116
 Sequence of moves: 
@@ -170,7 +170,7 @@ Sequence of moves:
  - - - - - - - - -
 Number of moves: 70
 Number of vertices examined: 95
-0.0455356 [s]
+0.019447 [s]
 
 Level 117
 Sequence of moves: 
@@ -195,7 +195,7 @@ Sequence of moves:
  - - - - - - - - -
 Number of moves: 75
 Number of vertices examined: 450
-0.18051 [s]
+0.0788092 [s]
 
 Level 118
 Sequence of moves: 
@@ -220,7 +220,7 @@ Sequence of moves:
  - - - - - - - - -
 Number of moves: 74
 Number of vertices examined: 273
-0.113104 [s]
+0.0531872 [s]
 
 Level 119
 Sequence of moves: 
@@ -247,7 +247,7 @@ Sequence of moves:
  - - - - - - - - - -
 Number of moves: 65
 Number of vertices examined: 88
-0.0411507 [s]
+0.0182738 [s]
 
 Level 120
 Sequence of moves: 
@@ -274,7 +274,7 @@ Sequence of moves:
  - - - - - - - - - -
 Number of moves: 72
 Number of vertices examined: 501
-0.252369 [s]
+0.111751 [s]
 
 Level 121
 Sequence of moves: 
@@ -301,5 +301,5 @@ Sequence of moves:
  - - - - - - - - - -
 Number of moves: 67
 Number of vertices examined: 1388
-0.462146 [s]
+0.286909 [s]
 
