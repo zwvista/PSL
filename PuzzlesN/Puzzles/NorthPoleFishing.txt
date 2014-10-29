@@ -11,6 +11,32 @@ Sequence of moves:
  - - - -
 Number of moves: 3
 Number of vertices examined: 4
-0.00741893 [s]
+0.01661 [s]
 
 Level 200
+Sequence of moves: 
+ - - - - - - - - - -
+| |      H|  H|B|   |
+   - - - -     -   -
+|    H| |B|   |  H| |
+ - - -   - - - - -  
+|B| |    H|B|  H|H  |
+ -   - - - -   -   -
+|   | |B| |   | | |B|
+   -   -   - -   - -
+|H| |   |    H|H    |
+ -   -   - - - - - -
+|  H  |H| |  H    | |
+ - - - -   - - - -  
+|B|   |   | |B|H    |
+ -   -   -   - - - -
+|H  | |H|B|   |   |B|
+ - -   - - -     - -
+|H  |   | |B|H| |   |
+     -     - -      
+|   |B|H|H    |H|H  |
+ - - - - - - - - - -
+Number of moves: 49
+Number of vertices examined: 116380
+57.3783 [s]
+

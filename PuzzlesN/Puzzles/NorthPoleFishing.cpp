@@ -97,7 +97,7 @@ struct puz_state : string
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(char id, const Position& p);
-	bool make_move2(char id, Position p);
+	void make_move2(char id, Position p);
 	int adjust_area(bool init);
 
 	//solve_puzzle interface
@@ -125,20 +125,51 @@ puz_state::puz_state(const puz_game& g)
 	adjust_area(true);
 }
 
+struct puz_state2 : Position
+{
+	puz_state2(const puz_state& s, const Position& p, int d);
+
+	void make_move(const Position& p){ 
+		static_cast<Position&>(*this) = p;
+		--m_distance;
+	}
+	void gen_children(list<puz_state2>& children) const;
+
+	const puz_state* m_state;
+	int m_distance;
+};
+
+puz_state2::puz_state2(const puz_state& s, const Position& p, int d)
+	: m_state(&s), m_distance(d)
+{
+	make_move(p);
+}
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	if(m_distance == 0) return;
+	for(auto& os : offset){
+		auto p2 = *this + os;
+		if(m_state->cells(p2) == PUZ_SPACE){
+			children.push_back(*this);
+			children.back().make_move(p2);
+		}
+	}
+}
+
 int puz_state::adjust_area(bool init)
 {
 	for(auto& kv : m_id2area){
 		char id = kv.first;
 		auto& area = kv.second;
 		auto& outer = area.m_outer;
+		outer.clear();
 		if(area.m_ready) continue;
 
-		outer.clear();
 		for(auto& p : area.m_inner)
 			for(auto& os : offset){
 				auto p2 = p + os;
-				char ch = cells(p2);
-				if(ch == PUZ_SPACE)
+				if(cells(p2) == PUZ_SPACE)
 					outer.insert(p2);
 			}
 
@@ -147,28 +178,38 @@ int puz_state::adjust_area(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(id, *outer.begin()) ? 1 : 0;
-				break;
+				return make_move2(id, *outer.begin()), 1;
 			}
 	}
-	return 2;
+
+	// pruning
+	set<Position> rng;
+	for(const auto& kv : m_id2area){
+		auto& area = kv.second;
+		int d = PUZ_PIECE_SIZE - area.m_inner.size();
+		for(auto& p : area.m_outer){
+			list<puz_state2> smoves;
+			puz_move_generator<puz_state2>::gen_moves({*this, p, d}, smoves);
+			rng.insert(smoves.begin(), smoves.end());
+		}
+	}
+	int sz1 = rng.size();
+	int sz2 = boost::count(*this, PUZ_SPACE);
+	return sz1 == sz2 ? 2 : 0;
 }
 
-bool puz_state::make_move2(char id, Position p)
+void puz_state::make_move2(char id, Position p)
 {
 	auto& area = m_id2area[id];
 	cells(p) = id;
 	area.add_cell(p);
 	++m_distance;
-
-	return true;
 }
 
 bool puz_state::make_move(char id, const Position& p)
 {
 	m_distance = 0;
-	if(!make_move2(id, p))
-		return false;
+	make_move2(id, p);
 	int m;
 	while((m = adjust_area(false)) == 1);
 	return m == 2;
