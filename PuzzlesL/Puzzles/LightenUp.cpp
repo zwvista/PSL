@@ -110,23 +110,23 @@ puz_state::puz_state(const puz_game& g)
 	for(auto& kv : g.m_walls){
 		auto& p = kv.first;
 		int n = kv.second;
-		vector<Position> ps;
+		vector<Position> rng;
 		for(auto& os : offset){
 			auto p2 = p + os;
 			if(cells(p2) != PUZ_WALL)
-				ps.push_back(p2);
+				rng.push_back(p2);
 		}
 
 		vector<string> perms;
 		string perm;
-		for(int i = 0; i < ps.size() - n; ++i)
+		for(int i = 0; i < rng.size() - n; ++i)
 			perm.push_back(PUZ_UNLIT);
 		for(int i = 0; i < n; ++i)
 			perm.push_back(PUZ_BULB);
 		do
 			perms.push_back(perm);
 		while(boost::next_permutation(perm));
-		second.emplace_back(ps, perms);
+		second.emplace_back(rng, perms);
 	}
 }
 
@@ -140,9 +140,9 @@ bool puz_state::make_move_area(int i, const string& perm)
 {
 	m_distance = 0;
 
-	const auto& ps = second[i].first;
-	for(int j = 0; j < ps.size(); ++j)
-		if(!make_move(ps[j], perm[j]))
+	const auto& rng = second[i].first;
+	for(int j = 0; j < rng.size(); ++j)
+		if(!make_move(rng[j], perm[j]))
 			return false;
 
 	second.erase(second.begin() + i);
@@ -187,14 +187,14 @@ bool puz_state::make_move(const Position& p, char ch_p)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	if(second.empty()){
-		vector<Position> ps;
+		vector<Position> rng;
 		for(int r = 1; r < sidelen() - 1; ++r)
 			for(int c = 1; c < sidelen() - 1; ++c){
 				Position p(r, c);
 				if(cells(p) == PUZ_SPACE)
-					ps.push_back(p);
+					rng.push_back(p);
 			}
-		for(const Position& p : ps){
+		for(const Position& p : rng){
 			children.push_back(*this);
 			if(!children.back().make_move_space(p))
 				children.pop_back();
@@ -204,7 +204,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 		int i = boost::min_element(second, [](const puz_area& a1, const puz_area& a2){
 			return a1.second.size() < a2.second.size();
 		}) - second.begin();
-		for(const auto& perm : second[i].second){
+		for(auto& perm : second[i].second){
 			children.push_back(*this);
 			if(!children.back().make_move_area(i, perm))
 				children.pop_back();
@@ -214,7 +214,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r) {
+	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
 			auto i = m_game->m_walls.find(p);

@@ -65,15 +65,14 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 	m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
 
-	// All numbers that appear only once in a row or column will be removed
+	// All numbers that appear only once in a row or column are removed
+	// as they are not the targets to be shaded
 	auto it = m_shaded.begin();
 	while((it = find_if(it, m_shaded.end(), [](const puz_shaded::value_type& kv){
 		return kv.second.size() == 1;
 	})) != m_shaded.end())
 		it = m_shaded.erase(it);
 }
-
-typedef pair<vector<Position>, int> puz_garden;
 
 struct puz_state : vector<int>
 {
