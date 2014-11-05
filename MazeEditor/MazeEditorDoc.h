@@ -50,6 +50,9 @@ public:
 	void FillBorderCells(char ch);
 	void FillBorderLines();
 
+	void SelectPos(const Position& p);
+	void SelectSinglePos(const Position& p);
+
 // Overrides
 public:
 	virtual BOOL OnNewDocument();
@@ -71,6 +74,7 @@ protected:
 	Position m_szMaze;
 	bool m_bHasWall;
 	set<Position> m_setHorzWall, m_setVertWall;
+	set<Position> m_setSelected;
 	map<Position, char> m_mapObjects;
 
 	set<Position>& GetWallSet(bool bVert) {return bVert ? m_setVertWall : m_setHorzWall;}

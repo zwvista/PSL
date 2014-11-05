@@ -303,3 +303,15 @@ void CMazeEditorDoc::SetData( const CString& strData )
 	}
 	m_sigMazeChanged();
 }
+
+void CMazeEditorDoc::SelectPos(const Position& p)
+{
+	m_setSelected.insert(p);
+	m_sigMazeChanged();
+}
+
+void CMazeEditorDoc::SelectSinglePos(const Position& p)
+{
+	ClearMaze();
+	SelectPos(p);
+}

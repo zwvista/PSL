@@ -50,7 +50,6 @@ public:
 protected:
 	CMazeEditorDoc* m_pDoc;
 	CMFCRibbonBar* m_pBar;
-	Position m_posCur;
 	int m_nSideLen;
 	CMFCRibbonEdit* m_pEditRows;
 	CMFCRibbonEdit* m_pEditCols;

@@ -357,7 +357,7 @@ void CMazeEditorView::SetCurPos( Position p )
 	int n = (p.first * m_pDoc->MazeWidth() + p.second + nArea) % nArea;
 	p = {n / m_pDoc->MazeWidth(), n % m_pDoc->MazeWidth()};
 
-	m_posCur = p;
+	m_pDoc->SelectSinglePos(p);
 	CString strCurPos;
 	strCurPos.Format(_T("%d,%d"), p.first, p.second);
 	m_pEditCurPos->SetEditText(strCurPos);
