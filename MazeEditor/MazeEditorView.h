@@ -50,19 +50,17 @@ public:
 protected:
 	CMazeEditorDoc* m_pDoc;
 	CMFCRibbonBar* m_pBar;
-	int m_nSideLen;
 	CMFCRibbonEdit* m_pEditRows;
 	CMFCRibbonEdit* m_pEditCols;
-	char m_chLast;
 	CMFCRibbonEdit* m_pEditChar;
 	CMFCRibbonEdit* m_pEditCurPos;
 	CMFCRibbonComboBox* m_pComboMovement;
 
 	CRect GetPosRect(int r, int c) {
-		return CRect(c * m_nSideLen, r * m_nSideLen, c * m_nSideLen + m_nSideLen, r * m_nSideLen + m_nSideLen);
+		return CRect(c * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen,
+			(c + 1) * m_pDoc->m_nSideLen, (r + 1) * m_pDoc->m_nSideLen);
 	}
 	CRect GetPosRect(const Position& p) {return GetPosRect(p.first, p.second);}
-	void SetCurPos(Position p);
 	void OnMazeChanged() {Invalidate();}
 	void OnMazeCleared();
 	void OnMazeResized();
@@ -71,6 +69,7 @@ protected:
 	void MoveDown();
 	void MoveLeft();
 	void MoveRight();
+	void SetCurrentPosition(Position p);
 
 // Generated message map functions
 protected:
@@ -81,7 +80,6 @@ protected:
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnResizeMaze();
-	afx_msg void OnClearMaze();
 	afx_msg void OnUpdateMazeHasWall(CCmdUI* pCmdUI) { pCmdUI->SetCheck(m_pDoc->HasWall()); }
 	afx_msg void OnMazeHasWallChanged();
 	afx_msg void OnMazeChar();

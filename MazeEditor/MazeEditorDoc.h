@@ -24,9 +24,9 @@ protected: // create from serialization only
 
 // Attributes
 public:
-	boost::signals2::signal<void()> m_sigMazeCleared;
-	boost::signals2::signal<void()> m_sigMazeChanged;
 	boost::signals2::signal<void()> m_sigMazeResized;
+	char m_chLast;
+	int m_nSideLen;
 
 	int MazeWidth() {return m_szMaze.second;}
 	int MazeHeight() {return m_szMaze.first;}
@@ -38,11 +38,10 @@ public:
 // Operations
 public:
 	void SetHasWall(bool bHasWall);
-	void SetHorzWall(const Position& p, bool bReset) {SetWall(p, false, bReset);}
-	void SetVertWall(const Position& p, bool bReset) {SetWall(p, true, bReset);}
+	void SetHorzWall(bool isDown, bool bReset) {SetWall(isDown, false, bReset);}
+	void SetVertWall(bool isRight, bool bReset) {SetWall(isRight, true, bReset);}
 	char GetObject(const Position& p) {return IsObject(p) ? m_mapObjects[p] : ' ';}
-	void SetObject(const Position& p, char ch);
-	void ClearMaze();
+	void SetObject(char ch);
 	void ResizeMaze(int w, int h);
 	CString GetData();
 	void SetData(const CString& strData);
@@ -50,8 +49,12 @@ public:
 	void FillBorderCells(char ch);
 	void FillBorderLines();
 
-	void SelectPos(const Position& p);
-	void SelectSinglePos(const Position& p);
+	void AddCurrentPosition(const Position& p);
+	void SetCurrentPosition(const Position& p);
+	const Position& GetCurrentPosition() { return *m_setCurrentPositions.begin(); }
+	bool isPositionSelected(const Position& p) {
+		return m_setCurrentPositions.count(p) != 0;
+	}
 
 // Overrides
 public:
@@ -74,15 +77,20 @@ protected:
 	Position m_szMaze;
 	bool m_bHasWall;
 	set<Position> m_setHorzWall, m_setVertWall;
-	set<Position> m_setSelected;
+	set<Position> m_setCurrentPositions;
 	map<Position, char> m_mapObjects;
 
 	set<Position>& GetWallSet(bool bVert) {return bVert ? m_setVertWall : m_setHorzWall;}
 	bool IsWall(const Position& p, bool bVert);
-	void SetWall(const Position& p, bool bVert, bool bReset);
+	void SetHorzWall(const Position& p, bool bReset) { SetWall(p, false, false, bReset); }
+	void SetVertWall(const Position& p, bool bReset) { SetWall(p, false, true, bReset); }
+	void SetWall(bool isDownOrRight, bool bVert, bool bReset);
+	void SetWall(const Position& p, bool isDownOrRight, bool bVert, bool bReset);
+	void SetObject(const Position& p, char ch);
 
 // Generated message map functions
 protected:
+	afx_msg void OnClearMaze();
 	DECLARE_MESSAGE_MAP()
 
 #ifdef SHARED_HANDLERS

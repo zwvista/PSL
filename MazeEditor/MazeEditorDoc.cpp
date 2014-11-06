@@ -32,6 +32,7 @@
 IMPLEMENT_DYNCREATE(CMazeEditorDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CMazeEditorDoc, CDocument)
+	ON_COMMAND(ID_MAZE_CLEAR, &CMazeEditorDoc::OnClearMaze)
 END_MESSAGE_MAP()
 
 
@@ -40,7 +41,10 @@ END_MESSAGE_MAP()
 CMazeEditorDoc::CMazeEditorDoc()
 	: m_szMaze(8, 8)
 	, m_bHasWall(false)
+	, m_nSideLen(40)
+	, m_chLast(' ')
 {
+	m_setCurrentPositions.emplace(0, 0);
 }
 
 CMazeEditorDoc::~CMazeEditorDoc()
@@ -181,40 +185,54 @@ bool CMazeEditorDoc::IsWall( const Position& p, bool bVert )
 	 return m_bHasWall && GetWallSet(bVert).count(p) != 0;
 }
 
-void CMazeEditorDoc::SetWall( const Position& p, bool bVert, bool bReset )
+void CMazeEditorDoc::SetWall(bool isDownOrRight, bool bVert, bool bReset)
 {
 	if(!m_bHasWall) return;
-	set<Position>& s = GetWallSet(bVert);
-	bReset ? s.erase(p) : (void)s.insert(p);
-	m_sigMazeChanged();
+	for(auto& p : m_setCurrentPositions)
+		SetWall(p, isDownOrRight, bVert, bReset);
+	UpdateAllViews(NULL);
+}
+
+void CMazeEditorDoc::SetWall(const Position& p, bool isDownOrRight, bool bVert, bool bReset)
+{
+	auto& rng = GetWallSet(bVert);
+	bReset ? rng.erase(p) : (void)rng.insert(p);
 }
 
 void CMazeEditorDoc::SetHasWall( bool bHasWall )
 {
 	m_bHasWall = bHasWall;
-	ClearMaze();
+	OnClearMaze();
 }
 
-void CMazeEditorDoc::SetObject( const Position& p, char ch )
+void CMazeEditorDoc::SetObject( char ch )
+{
+	for(const auto& p : m_setCurrentPositions)
+		SetObject(p, ch);
+	UpdateAllViews(NULL);
+}
+
+void CMazeEditorDoc::SetObject(const Position& p, char ch)
 {
 	ch == ' ' ? m_mapObjects.erase(p) : (m_mapObjects[p] = ch);
-	m_sigMazeChanged();
 }
 
-void CMazeEditorDoc::ClearMaze()
+void CMazeEditorDoc::OnClearMaze()
 {
 	m_setHorzWall.clear();
 	m_setVertWall.clear();
 	m_mapObjects.clear();
-	m_sigMazeCleared();
-	m_sigMazeChanged();
+	m_setCurrentPositions.clear();
+	m_setCurrentPositions.emplace(0, 0);
+	m_chLast = ' ';
+	UpdateAllViews(NULL);
 }
 
 void CMazeEditorDoc::ResizeMaze( int w, int h )
 {
 	m_szMaze = Position(h, w);
 	m_sigMazeResized();
-	ClearMaze();
+	OnClearMaze();
 }
 
 void CMazeEditorDoc::FillAll( char ch )
@@ -222,7 +240,7 @@ void CMazeEditorDoc::FillAll( char ch )
 	for(int r = 0; r < MazeHeight(); ++r)
 		for(int c = 0; c < MazeWidth(); ++c)
 			m_mapObjects[{r, c}] = ch;
-	m_sigMazeChanged();
+	UpdateAllViews(NULL);
 }
 
 void CMazeEditorDoc::FillBorderCells( char ch )
@@ -233,7 +251,7 @@ void CMazeEditorDoc::FillBorderCells( char ch )
 	for(int c = 0; c < MazeWidth(); ++c)
 		m_mapObjects[{0, c}] =
 		m_mapObjects[{MazeHeight() - 1, c}] = ch;
-	m_sigMazeChanged();
+	UpdateAllViews(NULL);
 }
 
 void CMazeEditorDoc::FillBorderLines()
@@ -244,7 +262,7 @@ void CMazeEditorDoc::FillBorderLines()
 	for(int c = 0; c < MazeWidth(); ++c)
 		m_setHorzWall.insert({0, c}),
 		m_setHorzWall.insert({MazeHeight(), c});
-	m_sigMazeChanged();
+	UpdateAllViews(NULL);
 }
 
 void SplitString( const CString& strText, LPCTSTR pszDelim, vector<CString>& vstrs )
@@ -276,17 +294,17 @@ void CMazeEditorDoc::SetData( const CString& strData )
 			const CString& str1 = vstrs[2 * r];
 			for(int c = 0; c < MazeWidth(); c++)
 				if(str1[2 * c + 1] == '-')
-					SetHorzWall(Position(r, c), false);
+					SetHorzWall({r, c}, false);
 			if(r == MazeHeight()) break;
 			const CString& str2 = vstrs[2 * r + 1];
 			for(int c = 0; ; c++){
 				Position p(r, c);
 				if(str2[2 * c] == '|')
-					SetVertWall(Position(r, c), false);
+					SetVertWall({r, c}, false);
 				if(c == MazeWidth()) break;
 				char ch = str2[2 * c + 1];
 				if(ch != ' ')
-					SetObject(Position(r, c), ch);
+					SetObject({r, c}, ch);
 			}
 		}
 	}
@@ -297,21 +315,21 @@ void CMazeEditorDoc::SetData( const CString& strData )
 			for(int c = 0; c < MazeWidth(); ++c){
 				char ch = str[c];
 				if(ch != ' ')
-					SetObject(Position(r, c), ch);
+					SetObject({r, c}, ch);
 			}
 		}
 	}
-	m_sigMazeChanged();
+	UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::SelectPos(const Position& p)
+void CMazeEditorDoc::AddCurrentPosition(const Position& p)
 {
-	m_setSelected.insert(p);
-	m_sigMazeChanged();
+	m_setCurrentPositions.insert(p);
+	UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::SelectSinglePos(const Position& p)
+void CMazeEditorDoc::SetCurrentPosition(const Position& p)
 {
-	ClearMaze();
-	SelectPos(p);
+	m_setCurrentPositions.clear();
+	AddCurrentPosition(p);
 }

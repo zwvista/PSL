@@ -44,7 +44,6 @@ BEGIN_MESSAGE_MAP(CMazeEditorView, CView)
 	ON_WM_CHAR()
 	ON_COMMAND(ID_MAZE_ROWS, &CMazeEditorView::OnResizeMaze)
 	ON_COMMAND(ID_MAZE_COLS, &CMazeEditorView::OnResizeMaze)
-	ON_COMMAND(ID_MAZE_CLEAR, &CMazeEditorView::OnClearMaze)
 	ON_COMMAND(ID_MAZE_HAS_WALL, &CMazeEditorView::OnMazeHasWallChanged)
 	ON_UPDATE_COMMAND_UI(ID_MAZE_HAS_WALL, &CMazeEditorView::OnUpdateMazeHasWall)
 	ON_COMMAND(ID_MAZE_CHAR, &CMazeEditorView::OnMazeChar)
@@ -60,13 +59,10 @@ END_MESSAGE_MAP()
 // CMazeEditorView construction/destruction
 
 CMazeEditorView::CMazeEditorView()
-	: m_posCur(0, 0)
-	, m_nSideLen(40)
-	, m_pDoc(NULL)
+	: m_pDoc(NULL)
 	, m_pBar(NULL)
 	, m_pEditRows(NULL)
 	, m_pEditCols(NULL)
-	, m_chLast(' ')
 {
 }
 
@@ -103,17 +99,18 @@ void CMazeEditorView::OnDraw(CDC* pDC)
 
 	int save = memdc.SaveDC();
 	memdc.SetBkMode(TRANSPARENT);
-	memdc.FillSolidRect(GetPosRect(m_posCur), clrFill);
 	for(int r = 0;; r++){
 		for(int c = 0; c < m_pDoc->MazeWidth(); c++){
 			Position p(r, c);
 			memdc.SelectObject(&(m_pDoc->IsHorzWall(p) ? penWall : penNone));
-			memdc.MoveTo(c * m_nSideLen, r * m_nSideLen);
-			memdc.LineTo((c + 1) * m_nSideLen, r * m_nSideLen);
+			memdc.MoveTo(c * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen);
+			memdc.LineTo((c + 1) * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen);
+			if(m_pDoc->isPositionSelected(p))
+				memdc.FillSolidRect(GetPosRect(p), clrFill);
 
 			if(m_pDoc->IsObject(p)){
 				char ch = m_pDoc->GetObject(p);
-				if(ch == '#' && p != m_posCur)
+				if(ch == '#' && !m_pDoc->isPositionSelected(p))
 					memdc.FillSolidRect(GetPosRect(p), clrFill2);
 				CString str(ch, 1);
 				memdc.DrawText(str, GetPosRect(p), DT_CENTER | DT_VCENTER | DT_SINGLELINE);
@@ -122,8 +119,8 @@ void CMazeEditorView::OnDraw(CDC* pDC)
 		if(r == m_pDoc->MazeHeight()) break;
 		for(int c = 0; c < m_pDoc->MazeWidth() + 1; c++){
 			memdc.SelectObject(&(m_pDoc->IsVertWall(Position(r, c)) ? penWall : penNone));
-			memdc.MoveTo(c * m_nSideLen, r * m_nSideLen);
-			memdc.LineTo(c * m_nSideLen, (r + 1) * m_nSideLen);
+			memdc.MoveTo(c * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen);
+			memdc.LineTo(c * m_pDoc->m_nSideLen, (r + 1) * m_pDoc->m_nSideLen);
 		}
 	}
 	memdc.RestoreDC(save);
@@ -198,8 +195,6 @@ void CMazeEditorView::OnInitialUpdate()
 	CView::OnInitialUpdate();
 
 	m_pDoc = GetDocument();
-	m_pDoc->m_sigMazeCleared.connect(bind(&CMazeEditorView::OnMazeCleared, this));
-	m_pDoc->m_sigMazeChanged.connect(bind(&CMazeEditorView::OnMazeChanged, this));
 	m_pDoc->m_sigMazeResized.connect(bind(&CMazeEditorView::OnMazeResized, this));
 
 	m_pBar = ((CFrameWndEx*)GetParent())->GetRibbonBar();
@@ -209,7 +204,6 @@ void CMazeEditorView::OnInitialUpdate()
 	m_pEditChar = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_CHAR);
 	m_pEditCurPos = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_CURPOS);
 	OnMazeResized();
-	SetCurPos(Position(0, 0));
 	m_pComboMovement = (CMFCRibbonComboBox*)m_pBar->FindByID(ID_MAZE_MOVEMENT);
 
 	for(auto str : {_T("None"), _T("Up"), _T("Down"), _T("Left"), _T("Right")})
@@ -219,60 +213,76 @@ void CMazeEditorView::OnInitialUpdate()
 
 void CMazeEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	SetCurPos(Position(point.y / m_nSideLen, point.x / m_nSideLen));
+	SetCurrentPosition({point.y / m_pDoc->m_nSideLen, point.x / m_pDoc->m_nSideLen});
 }
 
 void CMazeEditorView::MoveUp()
 {
-	SetCurPos(m_posCur + Position(-1, 0)); 
+	SetCurrentPosition(m_pDoc->GetCurrentPosition() + Position(-1, 0));
 }
 
 void CMazeEditorView::MoveDown()
 {
-	SetCurPos(m_posCur + Position(1, 0));
+	SetCurrentPosition(m_pDoc->GetCurrentPosition() + Position(1, 0));
 }
 
 void CMazeEditorView::MoveLeft()
 {
-	SetCurPos(m_posCur + Position(0, -1));
+	SetCurrentPosition(m_pDoc->GetCurrentPosition() + Position(0, -1));
 }
 
 void CMazeEditorView::MoveRight()
 {
-	SetCurPos(m_posCur + Position(0, 1));
+	SetCurrentPosition(m_pDoc->GetCurrentPosition() + Position(0, 1));
+}
+
+void CMazeEditorView::SetCurrentPosition(Position p)
+{
+	//if(p.first < 0 || p.first >= m_pDoc->MazeHeight() ||
+	//	p.second < 0 || p.second >= m_pDoc->MazeWidth()) return;
+
+	int nArea = m_pDoc->MazeHeight() * m_pDoc->MazeWidth();
+	int n = (p.first * m_pDoc->MazeWidth() + p.second + nArea) % nArea;
+	p = {n / m_pDoc->MazeWidth(), n % m_pDoc->MazeWidth()};
+
+	m_pDoc->SetCurrentPosition(p);
+	CString strCurPos;
+	strCurPos.Format(_T("%d,%d"), p.first, p.second);
+	m_pEditCurPos->SetEditText(strCurPos);
+	Invalidate();
 }
 
 void CMazeEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
-{
+{                      
 	bool bShift = GetKeyState(VK_SHIFT) & 0x8000 ? true : false;
 	bool bCtrl = GetKeyState(VK_CONTROL) & 0x8000 ? true : false;
 	switch(nChar){
 	case VK_UP:
 		if(bCtrl)
-			m_pDoc->SetHorzWall(m_posCur, bShift);
+			m_pDoc->SetHorzWall(false, bShift);
 		else
 			MoveUp();
 		break;
 	case VK_DOWN:
 		if(bCtrl)
-			m_pDoc->SetHorzWall(m_posCur + Position(1, 0), bShift);
+			m_pDoc->SetHorzWall(true, bShift);
 		else
 			MoveDown();
 		break;
 	case VK_LEFT:
 		if(bCtrl)
-			m_pDoc->SetVertWall(m_posCur, bShift);
+			m_pDoc->SetVertWall(false, bShift);
 		else
 			MoveLeft();
 		break;
 	case VK_RIGHT:
 		if(bCtrl)
-			m_pDoc->SetVertWall(m_posCur + Position(0, 1), bShift);
+			m_pDoc->SetVertWall(true, bShift);
 		else
 			MoveRight();
 		break;
 	case VK_RETURN:
-		m_pDoc->SetObject(m_posCur, m_chLast);
+		m_pDoc->SetObject(m_pDoc->m_chLast);
 		break;
 	}
 }
@@ -280,9 +290,9 @@ void CMazeEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CMazeEditorView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	if(isprint(nChar))
-		m_pDoc->SetObject(m_posCur, nChar);
+		m_pDoc->SetObject(nChar);
 	if(nChar != ' ' && nChar != VK_RETURN)
-		m_chLast = nChar;
+		m_pDoc->m_chLast = nChar;
 
 	switch(m_pComboMovement->GetCurSel()){
 	case 1:
@@ -312,30 +322,19 @@ void CMazeEditorView::OnResizeMaze()
 	}
 }
 
-void CMazeEditorView::OnClearMaze()
-{
-	m_pDoc->ClearMaze();
-}
-
 void CMazeEditorView::OnMazeHasWallChanged()
 {
 	m_pDoc->SetHasWall(!m_pDoc->HasWall());
 }
 
-void CMazeEditorView::OnMazeCleared()
-{
-	m_chLast = ' ';
-	SetCurPos(Position(0, 0));
-}
-
 void CMazeEditorView::OnMazeFillAll()
 {
-	m_pDoc->FillAll(m_chLast);
+	m_pDoc->FillAll(m_pDoc->m_chLast);
 }
 
 void CMazeEditorView::OnMazeFillBorderCells()
 {
-	m_pDoc->FillBorderCells(m_chLast);
+	m_pDoc->FillBorderCells(m_pDoc->m_chLast);
 }
 
 void CMazeEditorView::OnMazeFillBorderLines()
@@ -345,23 +344,7 @@ void CMazeEditorView::OnMazeFillBorderLines()
 
 void CMazeEditorView::OnMazeChar()
 {
-	m_chLast = m_pEditChar->GetEditText()[0];
-}
-
-void CMazeEditorView::SetCurPos( Position p )
-{
-	//if(p.first < 0 || p.first >= m_pDoc->MazeHeight() ||
-	//	p.second < 0 || p.second >= m_pDoc->MazeWidth()) return;
-
-	int nArea = m_pDoc->MazeHeight() * m_pDoc->MazeWidth();
-	int n = (p.first * m_pDoc->MazeWidth() + p.second + nArea) % nArea;
-	p = {n / m_pDoc->MazeWidth(), n % m_pDoc->MazeWidth()};
-
-	m_pDoc->SelectSinglePos(p);
-	CString strCurPos;
-	strCurPos.Format(_T("%d,%d"), p.first, p.second);
-	m_pEditCurPos->SetEditText(strCurPos);
-	Invalidate();
+	m_pDoc->m_chLast = m_pEditChar->GetEditText()[0];
 }
 
 void CMazeEditorView::OnEditCopy()
