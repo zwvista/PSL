@@ -358,16 +358,16 @@ void CMazeEditorDoc::SetData( const CString& strData )
 	UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::AddCurPos(const Position& p)
+void CMazeEditorDoc::ToggleCurPos(const Position& p)
 {
-	m_setCurPoss.insert(p);
+	isCurPos(p) ? m_setCurPoss.erase(p) : (void)m_setCurPoss.insert(p);
 	UpdateAllViews(NULL);
 }
 
 void CMazeEditorDoc::SetCurPos(const Position& p)
 {
 	m_setCurPoss.clear();
-	AddCurPos(p);
+	ToggleCurPos(p);
 }
 
 void CMazeEditorDoc::OnEnclosedSelected()

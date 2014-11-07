@@ -55,6 +55,7 @@ protected:
 	CMFCRibbonEdit* m_pEditChar;
 	CMFCRibbonEdit* m_pEditCurPos;
 	CMFCRibbonComboBox* m_pComboMovement;
+	CMFCRibbonEdit* m_pEditSideLen;
 
 	CRect GetPosRect(int r, int c) {
 		return CRect(c * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen,
@@ -81,6 +82,7 @@ protected:
 	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnResizeMaze();
 	afx_msg void OnMazeChar();
+	afx_msg void OnMazeSideLen();
 	afx_msg void OnEditCopy();
 	afx_msg void OnEditPaste();
 	afx_msg void OnUpdateMovement(CCmdUI* pCmdUI) {pCmdUI->Enable();}

@@ -45,6 +45,7 @@ BEGIN_MESSAGE_MAP(CMazeEditorView, CView)
 	ON_COMMAND(ID_MAZE_ROWS, &CMazeEditorView::OnResizeMaze)
 	ON_COMMAND(ID_MAZE_COLS, &CMazeEditorView::OnResizeMaze)
 	ON_COMMAND(ID_MAZE_CHAR, &CMazeEditorView::OnMazeChar)
+	ON_COMMAND(ID_MAZE_SIDELEN, &CMazeEditorView::OnMazeSideLen)
 	ON_COMMAND(ID_EDIT_COPY, &CMazeEditorView::OnEditCopy)
 	ON_COMMAND(ID_EDIT_PASTE, &CMazeEditorView::OnEditPaste)
 	ON_UPDATE_COMMAND_UI(ID_MAZE_MOVEMENT, &CMazeEditorView::OnUpdateMovement)
@@ -199,6 +200,7 @@ void CMazeEditorView::OnInitialUpdate()
 	m_pEditCurPos = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_CURPOS);
 	OnMazeResized();
 	m_pComboMovement = (CMFCRibbonComboBox*)m_pBar->FindByID(ID_MAZE_MOVEMENT);
+	m_pEditSideLen = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_SIDELEN);
 
 	for(auto str : {_T("None"), _T("Up"), _T("Down"), _T("Left"), _T("Right")})
 		m_pComboMovement->AddItem(str);
@@ -209,7 +211,7 @@ void CMazeEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	Position p(point.y / m_pDoc->m_nSideLen, point.x / m_pDoc->m_nSideLen);
 	bool bCtrl = GetKeyState(VK_CONTROL) & 0x8000 ? true : false;
-	bCtrl ? m_pDoc->AddCurPos(p) : SetCurPos(p);
+	bCtrl ? m_pDoc->ToggleCurPos(p) : SetCurPos(p);
 }
 
 void CMazeEditorView::MoveUp()
@@ -321,6 +323,12 @@ void CMazeEditorView::OnResizeMaze()
 void CMazeEditorView::OnMazeChar()
 {
 	m_pDoc->m_chLast = m_pEditChar->GetEditText()[0];
+}
+
+void CMazeEditorView::OnMazeSideLen()
+{
+	m_pDoc->m_nSideLen = _ttoi(m_pEditSideLen->GetEditText());
+	Invalidate();
 }
 
 void CMazeEditorView::OnEditCopy()

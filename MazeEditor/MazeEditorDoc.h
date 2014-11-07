@@ -46,7 +46,7 @@ public:
 	CString GetData();
 	void SetData(const CString& strData);
 
-	void AddCurPos(const Position& p);
+	void ToggleCurPos(const Position& p);
 	void SetCurPos(const Position& p);
 	const Position& GetCurPos() { return *m_setCurPoss.begin(); }
 	bool isCurPos(const Position& p) {

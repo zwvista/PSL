@@ -20,7 +20,7 @@
 	   there MUST be a Dot between them!
 
 	Variant
-	7. In later 9*9 levels you will also have bordere and coloured areas,
+	7. In later 9*9 levels you will also have bordered and coloured areas,
 	   which must also contain all the numbers 1 to 9.
 */
 
