@@ -28,32 +28,29 @@ public:
 	char m_chLast;
 	int m_nSideLen;
 
-	int MazeWidth() {return m_szMaze.second;}
-	int MazeHeight() {return m_szMaze.first;}
-	bool HasWall() {return m_bHasWall;}
-	bool IsHorzWall(const Position& p) {return IsWall(p, false);}
-	bool IsVertWall(const Position& p) {return IsWall(p, true);}
+	int MazeWidth() const {return m_szMaze.second;}
+	int MazeHeight() const { return m_szMaze.first; }
+	bool HasWall() const { return m_bHasWall; }
+	bool IsHorzWall(const Position& p) const {return IsWall(p, false);}
+	bool IsVertWall(const Position& p) const { return IsWall(p, true); }
 	bool IsObject(const Position& p) {return m_mapObjects.count(p) != 0;}
 
 // Operations
 public:
 	void SetHasWall(bool bHasWall);
-	void SetHorzWall(bool isDown, bool bReset) {SetWall(isDown, false, bReset);}
-	void SetVertWall(bool isRight, bool bReset) {SetWall(isRight, true, bReset);}
+	void SetHorzWall(bool isDown, bool bReset);
+	void SetVertWall(bool isRight, bool bReset);
 	char GetObject(const Position& p) {return IsObject(p) ? m_mapObjects[p] : ' ';}
 	void SetObject(char ch);
 	void ResizeMaze(int w, int h);
 	CString GetData();
 	void SetData(const CString& strData);
-	void FillAll(char ch);
-	void FillBorderCells(char ch);
-	void FillBorderLines();
 
-	void AddCurrentPosition(const Position& p);
-	void SetCurrentPosition(const Position& p);
-	const Position& GetCurrentPosition() { return *m_setCurrentPositions.begin(); }
-	bool isPositionSelected(const Position& p) {
-		return m_setCurrentPositions.count(p) != 0;
+	void AddCurPos(const Position& p);
+	void SetCurPos(const Position& p);
+	const Position& GetCurPos() { return *m_setCurPoss.begin(); }
+	bool isCurPos(const Position& p) {
+		return m_setCurPoss.count(p) != 0;
 	}
 
 // Overrides
@@ -77,20 +74,31 @@ protected:
 	Position m_szMaze;
 	bool m_bHasWall;
 	set<Position> m_setHorzWall, m_setVertWall;
-	set<Position> m_setCurrentPositions;
+	set<Position> m_setCurPoss;
 	map<Position, char> m_mapObjects;
 
-	set<Position>& GetWallSet(bool bVert) {return bVert ? m_setVertWall : m_setHorzWall;}
-	bool IsWall(const Position& p, bool bVert);
+	const set<Position>& GetWallSet(bool bVert) const { return bVert ? m_setVertWall : m_setHorzWall; }
+	set<Position>& GetWallSet(bool bVert) { return bVert ? m_setVertWall : m_setHorzWall; }
+	bool IsWall(const Position& p, bool bVert) const;
 	void SetHorzWall(const Position& p, bool bReset) { SetWall(p, false, false, bReset); }
 	void SetVertWall(const Position& p, bool bReset) { SetWall(p, false, true, bReset); }
 	void SetWall(bool isDownOrRight, bool bVert, bool bReset);
-	void SetWall(const Position& p, bool isDownOrRight, bool bVert, bool bReset);
+	void SetWall(Position p, bool isDownOrRight, bool bVert, bool bReset);
 	void SetObject(const Position& p, char ch);
+	bool IsValid(const Position& p) const {
+		return p.first >= 0 && p.first < MazeHeight() && p.second >= 0 && p.second < MazeWidth();
+	}
 
 // Generated message map functions
 protected:
 	afx_msg void OnClearMaze();
+	afx_msg void OnUpdateMazeHasWall(CCmdUI* pCmdUI) { pCmdUI->SetCheck(HasWall()); }
+	afx_msg void OnMazeHasWallChanged();
+	afx_msg void OnMazeFillAll();
+	afx_msg void OnMazeFillBorderCells();
+	afx_msg void OnMazeFillBorderLines();
+	afx_msg void OnEnclosedSelected();
+	afx_msg void OnUpdateMazeHasWall2(CCmdUI* pCmdUI) { pCmdUI->Enable(HasWall()); }
 	DECLARE_MESSAGE_MAP()
 
 #ifdef SHARED_HANDLERS

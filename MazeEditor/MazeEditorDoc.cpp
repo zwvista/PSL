@@ -27,12 +27,27 @@
 #define new DEBUG_NEW
 #endif
 
+const Position offset[] = {
+	{-1, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, -1},		// w
+};
+
 // CMazeEditorDoc
 
 IMPLEMENT_DYNCREATE(CMazeEditorDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CMazeEditorDoc, CDocument)
 	ON_COMMAND(ID_MAZE_CLEAR, &CMazeEditorDoc::OnClearMaze)
+	ON_COMMAND(ID_MAZE_HAS_WALL, &CMazeEditorDoc::OnMazeHasWallChanged)
+	ON_UPDATE_COMMAND_UI(ID_MAZE_HAS_WALL, &CMazeEditorDoc::OnUpdateMazeHasWall)
+	ON_COMMAND(ID_MAZE_FILL_ALL, &CMazeEditorDoc::OnMazeFillAll)
+	ON_COMMAND(ID_MAZE_FILL_BORDER_CELLS, &CMazeEditorDoc::OnMazeFillBorderCells)
+	ON_COMMAND(ID_MAZE_FILL_BORDER_LINES, &CMazeEditorDoc::OnMazeFillBorderLines)
+	ON_UPDATE_COMMAND_UI(ID_MAZE_FILL_BORDER_LINES, &CMazeEditorDoc::OnUpdateMazeHasWall2)
+	ON_COMMAND(ID_MAZE_ENCLOSE_SELECTED, &CMazeEditorDoc::OnEnclosedSelected)
+	ON_UPDATE_COMMAND_UI(ID_MAZE_ENCLOSE_SELECTED, &CMazeEditorDoc::OnUpdateMazeHasWall2)
 END_MESSAGE_MAP()
 
 
@@ -44,7 +59,7 @@ CMazeEditorDoc::CMazeEditorDoc()
 	, m_nSideLen(40)
 	, m_chLast(' ')
 {
-	m_setCurrentPositions.emplace(0, 0);
+	m_setCurPoss.emplace(0, 0);
 }
 
 CMazeEditorDoc::~CMazeEditorDoc()
@@ -177,25 +192,41 @@ CString CMazeEditorDoc::GetData()
 			}
 			str += "\\\r\n";
 		}
-		return str;
+	return str;
 }
 
-bool CMazeEditorDoc::IsWall( const Position& p, bool bVert )
+bool CMazeEditorDoc::IsWall(const Position& p, bool bVert) const
 {
-	 return m_bHasWall && GetWallSet(bVert).count(p) != 0;
+	return m_bHasWall && GetWallSet(bVert).count(p) != 0;
 }
 
 void CMazeEditorDoc::SetWall(bool isDownOrRight, bool bVert, bool bReset)
 {
 	if(!m_bHasWall) return;
-	for(auto& p : m_setCurrentPositions)
+	for(auto& p : m_setCurPoss)
 		SetWall(p, isDownOrRight, bVert, bReset);
 	UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::SetWall(const Position& p, bool isDownOrRight, bool bVert, bool bReset)
+void CMazeEditorDoc::SetHorzWall(bool isDown, bool bReset)
+{
+	if(!m_bHasWall) return;
+	SetWall(isDown, false, bReset);
+	UpdateAllViews(NULL);
+}
+
+void CMazeEditorDoc::SetVertWall(bool isRight, bool bReset)
+{
+	if(!m_bHasWall) return;
+	SetWall(isRight, true, bReset);
+	UpdateAllViews(NULL);
+}
+
+void CMazeEditorDoc::SetWall(Position p, bool isDownOrRight, bool bVert, bool bReset)
 {
 	auto& rng = GetWallSet(bVert);
+	if(isDownOrRight)
+		p += bVert ? Position(0, 1) : Position(1, 0);
 	bReset ? rng.erase(p) : (void)rng.insert(p);
 }
 
@@ -207,7 +238,7 @@ void CMazeEditorDoc::SetHasWall( bool bHasWall )
 
 void CMazeEditorDoc::SetObject( char ch )
 {
-	for(const auto& p : m_setCurrentPositions)
+	for(const auto& p : m_setCurPoss)
 		SetObject(p, ch);
 	UpdateAllViews(NULL);
 }
@@ -222,8 +253,8 @@ void CMazeEditorDoc::OnClearMaze()
 	m_setHorzWall.clear();
 	m_setVertWall.clear();
 	m_mapObjects.clear();
-	m_setCurrentPositions.clear();
-	m_setCurrentPositions.emplace(0, 0);
+	m_setCurPoss.clear();
+	m_setCurPoss.emplace(0, 0);
 	m_chLast = ' ';
 	UpdateAllViews(NULL);
 }
@@ -235,26 +266,31 @@ void CMazeEditorDoc::ResizeMaze( int w, int h )
 	OnClearMaze();
 }
 
-void CMazeEditorDoc::FillAll( char ch )
+void CMazeEditorDoc::OnMazeHasWallChanged()
+{
+	SetHasWall(!HasWall());
+}
+
+void CMazeEditorDoc::OnMazeFillAll()
 {
 	for(int r = 0; r < MazeHeight(); ++r)
 		for(int c = 0; c < MazeWidth(); ++c)
-			m_mapObjects[{r, c}] = ch;
+			m_mapObjects[{r, c}] = m_chLast;
 	UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::FillBorderCells( char ch )
+void CMazeEditorDoc::OnMazeFillBorderCells()
 {
 	for(int r = 0; r < MazeHeight(); ++r)
 		m_mapObjects[{r, 0}] =
-		m_mapObjects[{r, MazeWidth() - 1}] = ch;
+		m_mapObjects[{r, MazeWidth() - 1}] = m_chLast;
 	for(int c = 0; c < MazeWidth(); ++c)
 		m_mapObjects[{0, c}] =
-		m_mapObjects[{MazeHeight() - 1, c}] = ch;
+		m_mapObjects[{MazeHeight() - 1, c}] = m_chLast;
 	UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::FillBorderLines()
+void CMazeEditorDoc::OnMazeFillBorderLines()
 {
 	for(int r = 0; r < MazeHeight(); ++r)
 		m_setVertWall.insert({r, 0}),
@@ -322,14 +358,33 @@ void CMazeEditorDoc::SetData( const CString& strData )
 	UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::AddCurrentPosition(const Position& p)
+void CMazeEditorDoc::AddCurPos(const Position& p)
 {
-	m_setCurrentPositions.insert(p);
+	m_setCurPoss.insert(p);
 	UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::SetCurrentPosition(const Position& p)
+void CMazeEditorDoc::SetCurPos(const Position& p)
 {
-	m_setCurrentPositions.clear();
-	AddCurrentPosition(p);
+	m_setCurPoss.clear();
+	AddCurPos(p);
+}
+
+void CMazeEditorDoc::OnEnclosedSelected()
+{
+	for(const auto& p : m_setCurPoss){
+		auto p2 = p + offset[0];
+		if(!isCurPos(p2))
+			SetHorzWall(p, false);
+		p2 = p + offset[2];
+		if(!isCurPos(p2))
+			SetHorzWall(p2, false);
+		p2 = p + offset[3];
+		if(!isCurPos(p2))
+			SetVertWall(p, false);
+		p2 = p + offset[1];
+		if(!isCurPos(p2))
+			SetVertWall(p2, false);
+	}
+	UpdateAllViews(NULL);
 }
