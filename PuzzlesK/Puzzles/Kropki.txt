@@ -1,34 +1,89 @@
 Level 01
 Sequence of moves: 
-321
-213
-132
+3W2B1
+W W .
+2W1.3
+W . W
+1.3W2
 Number of moves: 1
 Number of vertices examined: 2
-0.00562209 [s]
+0.00323432 [s]
 
 Level 02
 Sequence of moves: 
-621543
-312456
-134265
-265134
-456312
-543621
+6.2B1.5W4W3
+B W B W W B
+3.1B2B4W5W6
+. . B B W W
+1.3W4B2.6W5
+B B W B B W
+2.6W5.1.3W4
+B W W . . B
+4W5W6B3.1B2
+W W B B B B
+5W4W3B6.2B1
 Number of moves: 1
 Number of vertices examined: 2
-0.00166765 [s]
+0.000900162 [s]
 
 Level 03
 Sequence of moves: 
-3654127
-6173245
-5712436
-7421563
-2345671
-4567312
-1236754
+3B6W5W4.1B2.7
+B . . W B B .
+6.1.7.3W2B4W5
+W . . W B W W
+5.7.1B2B4W3B6
+. . B B W B B
+7.4B2B1.5W6B3
+. W B . W W .
+2W3W4W5W6W7.1
+B . . . B . B
+4W5W6W7.3.1B2
+. . B W . . B
+1B2W3B6W7.5W4
 Number of moves: 1
 Number of vertices examined: 2
-0.00444543 [s]
+0.000378173 [s]
+
+Level 09
+Sequence of moves: 
+3.7.1.5.2.6.9.4B8
+. W . W . B . . .
+5.8.6.4.9.3W2.7.1
+. . . W . . B W .
+1W2.8.3.5.7.4.6.9
+. . B . . . B W .
+6.9.4.7.1B2.8.5.3
+. . W . . . . . .
+2B4W3.9.6W5.1.8W7
+B . . . B . . W .
+4.6W7.1.3.8.5.9.2
+. W . . W . . . .
+9.5.2.8B4.1.7.3B6
+W . . . . . W . .
+8.3.5.2.7.9.6.1.4
+W . . . W . B W W
+7.1.9.6.8B4W3W2.5
+ - - - - - - - - -
+|3 7 1 5 2|6 9 4 8|
+ -             - -
+|5|8 6 4 9|3 2|7 1|
+   - - - -   -    
+|1 2 8 3|5 7|4 6 9|
+           -      
+|6 9 4 7|1|2 8 5 3|
+ - - - - - - - - -
+|2 4 3 9 6 5 1 8 7|
+ - - - - - - - - -
+|4 6 7 1|3|8 5 9 2|
+       -          
+|9 5 2|8 4|1 7 3 6|
+     -   - - - -  
+|8 3|5 2|7 9 6 1|4|
+ - -             -
+|7 1 9 6|8 4 3 2 5|
+ - - - - - - - - -
+Number of moves: 12
+Number of vertices examined: 41
+0.0328613 [s]
 
