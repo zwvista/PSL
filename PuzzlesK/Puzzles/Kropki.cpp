@@ -140,13 +140,13 @@ bool puz_area::add_perm(const vector<int>& perm, puz_game* g)
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id(attrs.get<string>("id"))
 	, m_bordered(attrs.get<int>("Bordered", 0) == 1)
-	, m_sidelen(strs[0].size() * 2 - 1)
+	, m_sidelen(strs[0].size())
 	, m_areas(m_sidelen * 2)
 {
-	for(int r = 0; r < m_sidelen; ++r){
+	for(int r = 0; r < m_sidelen * 2 - 1; ++r){
 		auto& str = strs[r];
 		bool is_horz = r % 2 == 0;
-		for(int c = 0; c < m_sidelen / 2; ++c){
+		for(int c = 0; c < m_sidelen - 1; ++c){
 			if(is_horz)
 				m_start.push_back(PUZ_SPACE);
 			char ch = str[c];
@@ -154,11 +154,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			if(!is_horz)
 				m_start.push_back(PUZ_SPACE);
 		}
-		m_start.push_back(str[m_sidelen / 2]);
+		m_start.push_back(str[m_sidelen - 1]);
 	}
 
-	for(int r = 0; r < m_sidelen; r += 2)
-		for(int c = 0; c < m_sidelen; c += 2){
+	for(int r = 0; r < m_sidelen; ++r)
+		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
 			m_areas[r].add_pos(p);
 			m_areas[m_sidelen + c].add_pos(p);
@@ -169,10 +169,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int r = 0;; r += 2){
 			// horz-walls
 			auto& str_h = strs[r];
-			for(int c = 0; c < m_sidelen + 2; ++c)
+			for(int c = 0; c < m_sidelen * 2 + 2; ++c)
 				if(str_h[c] == '-')
-					m_horz_walls.insert({r, c});
-			if(r == m_sidelen + 2) break;
+					m_horz_walls.emplace(r, c);
+			if(r == m_sidelen * 2 + 1) break;
 			auto& str_v = strs[r + 1];
 			for(int c = 0;; ++c){
 				Position p(r, c);
@@ -199,15 +199,15 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		a.prepare(this);
 
 	vector<int> perm(m_sidelen / 2 + 1);
+	string perm2(perm.size(), PUZ_SPACE);
 	boost::iota(perm, 1);
 	do
 		if(boost::algorithm::any_of(m_areas, [&](puz_area& a){
 			return a.add_perm(perm, this);
 		})){
-			string s;
-			for(int i : perm)
-				s.push_back(i + '0');
-			m_perms.push_back(s);
+			for(int i = 0; i < perm.size(); ++i)
+				perm2[i] = perm[i] + '0';
+			m_perms.push_back(perm2);
 		}
 	while(boost::next_permutation(perm));
 }
