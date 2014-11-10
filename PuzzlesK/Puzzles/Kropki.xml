@@ -41,8 +41,25 @@ WWW  B \
 BWBW W \
     ]]>
   </level>
-  <level id="09">
+  <level id="09" Bordered="1">
     <![CDATA[
+       B \
+ W W B   \
+     W   \
+   W  BW \
+W        \
+  B   BW \
+    B    \
+  W      \
+BW  W  W \
+B   B  W \
+ W       \
+ W  W    \
+   B   B \
+W     W  \
+         \
+W   W BWW\
+    BWW  \
  - - - - - - - - - \
 |         |       |\
  -             - - \
