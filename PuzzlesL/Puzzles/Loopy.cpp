@@ -110,6 +110,7 @@ puz_state::puz_state(const puz_game& g)
 				if(is_valid(p + offset[i]))
 					dirs.push_back(i);
 
+			// Find all line permutations from the dot
 			for(int i = 0; i < dirs.size() - 1; ++i)
 				for(int j = i + 1; j < dirs.size(); ++j){
 					auto lines = lines_off;
@@ -146,7 +147,7 @@ int puz_state::find_matches(bool init)
 		auto &info1 = lines_info[index], &info2 = lines_info[index + 1];
 		auto f = [&](const puz_line_info& info, char ch){
 			return boost::algorithm::any_of(dots(p + info.first),
-				[&](const string& s) { return s[info.second] == ch; });
+				[&](const string& line) { return line[info.second] == ch; });
 		};
 		str.clear();
 		if(f(info1, PUZ_LINE_ON) && f(info2, PUZ_LINE_ON))
@@ -171,7 +172,7 @@ bool puz_state::make_move2(const Position& p, bool is_vert, char ch)
 	auto &info1 = lines_info[index], &info2 = lines_info[index + 1];
 	auto f = [&, ch](const puz_line_info& info){
 		boost::remove_erase_if(dots(p + info.first),
-			[&](const string& s) { return s[info.second] != ch; });
+			[&](const string& line) { return line[info.second] != ch; });
 	};
 	f(info1), f(info2);
 

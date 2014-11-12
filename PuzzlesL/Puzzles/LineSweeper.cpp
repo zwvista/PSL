@@ -69,17 +69,18 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 	for(auto& kv : m_num2perms){
 		int n = kv.first;
+		// Find all line permutations in relation to a number
 		auto& perms = kv.second;
+		// pass/no pass permutations
+		// PUZ_LINE_OFF means the offset position is not passed by the line
+		// PUZ_LINE_ON means the offset position is passed by the line
 		auto indicator = string(8 - n, PUZ_LINE_OFF) + string(n, PUZ_LINE_ON);
 		do{
-			set<Position> rng;
-			for(int i = 0; i < 8; ++i)
-				if(indicator[i] == PUZ_LINE_ON)
-					rng.insert(offset[i]);
-
 			vector<vector<string>> dir_lines(8);
 			for(int i = 0; i < 8; ++i)
+				// Find all line permutations from an offset position
 				if(indicator[i] == PUZ_LINE_OFF)
+					// This offset position is not passed by the line
 					dir_lines[i] = {lines_off};
 				else
 					for(auto& lines : lines_all)
@@ -88,20 +89,27 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 								if(lines[j] == PUZ_LINE_OFF)
 									continue;
 								auto p = offset[i] + offset[2 * j];
-								if(p == Position{} ||
-									boost::algorithm::any_of_equal(offset, p) &&
-									rng.count(p) == 0)
+								// The line from an offset position cannot lead to the number cell
+								// or any offset position not covered by the line
+								if(p == Position())
+									return false;
+								int n = boost::find(offset, p) - offset;
+								if(n < 8 && indicator[n] == PUZ_LINE_OFF)
 									return false;
 							}
 							return true;
 						}())
+							// This line permutation is possible for the offset position
 							dir_lines[i].push_back(lines);
 
+			// No line permutation from an offset position means
+			// this pass/no pass permutation is impossible
 			if(boost::algorithm::any_of(dir_lines, [](const vector<string>& lines){
 				return lines.empty();
 			}))
 				continue;
 
+			// Find all line permutations for this pass/no pass permutation
 			vector<int> indexes(8);
 			vector<string> perm(8);
 			for(int i = 0; i < 8;){
@@ -115,6 +123,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 								continue;
 							auto p = offset[j] + offset[2 * k];
 							int n = boost::find(offset, p) - offset;
+							// If the line from an offset position leads to another offset position,
+							// the line from the latter should also lead to the former
 							if(n < 8 && perm[n][(k + 2) % 4] == PUZ_LINE_OFF)
 								return false;
 						}
@@ -182,6 +192,8 @@ puz_state::puz_state(const puz_game& g)
 						if(lines[i] == PUZ_LINE_OFF)
 							continue;
 						auto p2 = p + offset[i * 2];
+						// The line cannot lead to a position
+						// outside the board or cover any number cell
 						if(!is_valid(p2) || g.m_pos2num.count(p2) != 0)
 							return false;
 					}
@@ -360,12 +372,11 @@ void puz_state::gen_children(list<puz_state>& children) const
 		}
 	}
 	else{
-		auto f = [](const puz_dot& dt){
-			int sz = dt.size();
-			return sz == 1 ? 100 : sz;
-		};
-		int i = boost::min_element(*this, [&](
-			const puz_dot& dt1, const puz_dot& dt2){
+		int i = boost::min_element(*this, [&](const puz_dot& dt1, const puz_dot& dt2){
+			auto f = [](const puz_dot& dt){
+				int sz = dt.size();
+				return sz == 1 ? 100 : sz;
+			};
 			return f(dt1) < f(dt2);
 		}) - begin();
 		auto& dt = (*this)[i];
