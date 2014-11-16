@@ -9,4 +9,34 @@
   6 5\
     ]]>
   </level>
+  <level id="02">
+    <![CDATA[
+3 3  \
+   6 \
+7 7 6\
+   4 \
+  2  \
+    ]]>
+  </level>
+  <level id="03">
+    <![CDATA[
+3  8 3\
+  4   \
+    3 \
+5 5A  \
+      \
+ 4 94 \
+    ]]>
+  </level>
+  <level id="17" InsideOutside="1">
+    <![CDATA[
+3    35\
+ 5  5  \
+ 3     \
+  7  7 \
+   9 7 \
+9 B 7 1\
+4 6  8 \
+    ]]>
+  </level>
 </levels>

@@ -271,8 +271,8 @@ int puz_state::check_dots(bool init)
 				if(!is_valid(p2))
 					continue;
 				auto& dt = dots(p2);
-				boost::remove_erase_if(dt, [&, i](const string& s){
-					return s[(i + 2) % 4] != lines[i];
+				boost::remove_erase_if(dt, [&, i](const string& lines2){
+					return lines2[(i + 2) % 4] != lines[i];
 				});
 				if(!init && dt.empty())
 					return 0;
