@@ -6,6 +6,7 @@ extern void solve_puz_Skydoku();
 extern void solve_puz_Skyscrapers();
 extern void solve_puz_SlantedMaze();
 extern void solve_puz_SlitherLink();
+extern void solve_puz_SlitherLink2();
 extern void solve_puz_snail();
 extern void solve_puz_sokoban();
 extern void solve_puz_square100();
@@ -20,6 +21,7 @@ int main(int argc, char **argv)
 	cout << "k2: Skyscrapers" << endl;
 	cout << "l1: Slanted Maze" << endl;
 	cout << "l2: SlitherLink" << endl;
+	cout << "l3: SlitherLink2" << endl;
 	cout << "n: snail" << endl;
 	cout << "o: sokoban" << endl;
 	cout << "q: square 100" << endl;
@@ -34,6 +36,7 @@ int main(int argc, char **argv)
 	else if(str == "k2") solve_puz_Skyscrapers();
 	else if(str == "l1") solve_puz_SlantedMaze();
 	else if(str == "l2") solve_puz_SlitherLink();
+	else if(str == "l3") solve_puz_SlitherLink2();
 	else if(str == "n") solve_puz_snail();
 	else if(str == "o") solve_puz_sokoban();
 	else if(str == "q") solve_puz_square100();
