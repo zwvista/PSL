@@ -108,7 +108,7 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\SlitherLink2.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
