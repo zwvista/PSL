@@ -118,22 +118,22 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-	set<Position> a;
+	set<Position> rng;
 	for(int r = 1; r < g.m_sidelen - 1; ++r)
 		for(int c = 1; c < g.m_sidelen - 1; ++c){
 			Position p(r, c);
 			if(is_flower(cells(p)))
-				a.insert(p);
+				rng.insert(p);
 		}
 
 	int n = 0;
-	while(!a.empty()){
+	while(!rng.empty()){
 		list<puz_state2> smoves;
-		puz_move_generator<puz_state2>::gen_moves(a, smoves);
+		puz_move_generator<puz_state2>::gen_moves(rng, smoves);
 
 		auto& outer = m_num2outer[n++];
 		for(auto& p : smoves){
-			a.erase(p);
+			rng.erase(p);
 			for(auto& os : offset){
 				auto p2 = p + os;
 				if(cells(p2) == PUZ_SPACE)
@@ -205,7 +205,11 @@ bool puz_state::make_move(Position p)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	auto& kv = *boost::min_element(m_num2outer);
+	auto& kv = *boost::min_element(m_num2outer, [](
+		const pair<int, set<Position>>& kv1,
+		const pair<int, set<Position>>& kv2){
+		return kv1.second.size() < kv2.second.size();
+	});
 	for(auto& p : kv.second){
 		children.push_back(*this);
 		if(!children.back().make_move(p))
@@ -215,10 +219,10 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r) {
+	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c){
 			char ch = cells({r, c});
-			out << ch;
+			out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
 		}
 		out << endl;
 	}

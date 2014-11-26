@@ -25,9 +25,6 @@
     <Text Include="Puzzles\FourMeNot.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\FourMeNot2.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\FenceLits.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -66,9 +63,6 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\FourMeNot.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\FourMeNot2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\FenceLits.cpp">

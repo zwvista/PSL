@@ -1,54 +1,69 @@
 Level 01
 Sequence of moves: 
-FfF.
-.FFF
- . f
- FfF
+F f F . 
+. F F F 
+. . . f 
+. F f F 
 Number of moves: 3
 Number of vertices examined: 5
-0.00370824 [s]
+0.00248851 [s]
 
 Level 02
 Sequence of moves: 
-F.  
-FF.F
-FF f
-.ffF
+F . . . 
+F F . F 
+F F . f 
+. f f F 
 Number of moves: 3
-Number of vertices examined: 7
-0.00126963 [s]
+Number of vertices examined: 5
+0.00164428 [s]
 
 Level 03
 Sequence of moves: 
-.Fff.
-Bf.fF
-FFf.F
-F.FFB
-.FFF.
+. F f f . 
+B f . f F 
+F F f . F 
+F . F F B 
+. F F F . 
 Number of moves: 5
-Number of vertices examined: 11
-0.000832256 [s]
+Number of vertices examined: 10
+0.00216188 [s]
 
 Level 04
 Sequence of moves: 
-Fff.B
-F.fFF
-.FF.F
-FF.FF
-BFFF.
+F f f . B 
+F . f F F 
+. F F . F 
+F F . F F 
+B F F F . 
 Number of moves: 3
 Number of vertices examined: 4
-0.000975376 [s]
+0.00224488 [s]
 
 Level 05
 Sequence of moves: 
-F.ffF
-ffF.F
-BF. B
-ffF.F
-F.ffF
+F . f f F 
+f f F . F 
+B F . . B 
+f f F . F 
+F . f f F 
 Number of moves: 8
 Number of vertices examined: 17
-0.00154333 [s]
+0.00175628 [s]
 
 Level 36
+Sequence of moves: 
+F f F . F F . F . F 
+F F . . . f B f f f 
+F f f B f f F . f B 
+B . f f f . . f f F 
+F f f . f f B F . f 
+f F . B . f f . f f 
+F . f f f . f f f B 
+B F f . f f B f f f 
+F f F B . f f f . f 
+F F . . F f F . F F 
+Number of moves: 43
+Number of vertices examined: 4789
+0.212707 [s]
+
