@@ -97,7 +97,8 @@ struct puz_state : vector<string>
 	int sidelen() const {return m_game->m_sidelen;}
 	string cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	string& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	bool make_move(char num, int n, bool opposite);
+	bool make_move(char num, int i, int j);
+	void find_moves();
 	bool check_board() const;
 
 	//solve_puzzle interface
@@ -163,6 +164,15 @@ puz_state::puz_state(const puz_game& g)
 		auto& links = m_num2links[kv.first];
 		for(auto& p : kv.second)
 			links.push_back(p);
+	}
+
+	find_moves();
+}
+
+void puz_state::find_moves()
+{
+	for(auto& kv : m_game->m_num2targets){
+		auto& links = m_num2links[kv.first];
 		for(auto& link : links)
 			link.find_moves(*this, false, links);
 	}
@@ -200,73 +210,100 @@ bool puz_state::check_board() const
 				area.insert(p);
 		}
 
-	//for(auto& kv : m_num2links){
-	//	auto& link = kv.second;
-	//	auto& tg = link.m_targets;
-	//	auto area3 = area;
-	//	area3.insert(tg.begin(), tg.end());
-
-	//	list<puz_state2> smoves;
-	//	puz_move_generator<puz_state2>::gen_moves({area3, link.m_head}, smoves);
-	//	set<Position> area4(smoves.begin(), smoves.end());
-	//	if(boost::algorithm::any_of(tg, [&](const Position& p){
-	//		return area4.count(p) == 0;
-	//	}))
-	//		return false;
-
-	//	area4.erase(link.m_head);
-	//	for(auto& p : tg)
-	//		area4.erase(p);
-	//	area2.insert(area4.begin(), area4.end());
-	//}
+	for(auto& kv : m_num2links){
+		auto& links = kv.second;
+		int sz = links.size();
+		for(int i = 0; i < sz; ++i){
+			auto area3 = area;
+			auto& link1 = links[i];
+			for(int j = 0; j < sz; ++j){
+				if(i == j) continue;
+				auto& link2 = links[j];
+				area3.insert(link2.m_head);
+				if(sz > 2)
+					area3.insert(link2.m_tail);
+			}				
+			list<puz_state2> smoves;
+			puz_move_generator<puz_state2>::gen_moves({area3, link1.m_head}, smoves);
+			set<Position> area4(smoves.begin(), smoves.end()), area5, area6;
+			boost::set_difference(area4, area, inserter(area5, area5.end()));
+			if(area5.empty())
+				return false;
+			boost::set_difference(area4, area5, inserter(area6, area6.end()));
+			area2.insert(area6.begin(), area6.end());
+		}
+	}
 
 	return area.size() == area2.size();
 }
 
-bool puz_state::make_move(char num, int n, bool opposite)
+bool puz_state::make_move(char num, int i, int j)
 {
-	//auto& link = m_num2links.at(num);
+	auto& links = m_num2links.at(num);
+	auto& link = links[i];
+	auto& m = link.m_moves[j];
+	int n = m.first, k = m.second;
 
-	//link.m_new_target = false;
-	//if(opposite){
-	//	::swap(link.m_head, link.m_tail);
-	//}
-	//auto p = link.m_head + offset[n];
-	//auto &str = cells(link.m_head), &str2 = cells(p);
-	//char ch = str2[0];
-	//auto& tg = link.m_targets;
+	if(n < 0){
+		n = ~n;
+		::swap(link.m_head, link.m_tail);
+	}
+	auto p = link.m_head + offset[n];
+	auto &str = cells(link.m_head), &str2 = cells(p);
 
-	//str2[0] = str[0];
-	//str2[(2 + n) % 4 + 1] = str[n + 1] = PUZ_LINE_ON;
-	//link.m_head = p;
+	str2[(2 + n) % 4 + 1] = str[n + 1] = PUZ_LINE_ON;
 
-	//if(ch != PUZ_SPACE){
-	//	tg.erase(p);
-	//	if(tg.empty())
-	//		m_num2links.erase(num);
-	//	else{
-	//		link.m_new_target = true;
-	//		link.find_moves(*this);
-	//	}
-	//}
-	//else
-	//	link.find_moves(*this);
+	if(k == -1){
+		str2[0] = str[0];
+		link.m_head = p;
+	}
+	else if(k % 2 == 0)
+		if(links.size() == 2)
+			m_num2links.erase(num);
+		else{
+			k /= 2;
+			auto p1 = link.m_tail, p2 = links[k].m_tail;
+			int k1 = min(i, k), k2 = max(i, k);
+			links.erase(links.begin() + k2);
+			auto& link2 = links[k1];
+			link2.m_head = p1, link2.m_tail = p2;
+		}
+	else{
+		k /= 2;
+		auto p1 = links[k].m_head, p2 = link.m_tail;
+		int k1 = min(i, k), k2 = max(i, k);
+		links.erase(links.begin() + k2);
+		auto& link2 = links[k1];
+		link2.m_head = p1, link2.m_tail = p2;
+	}
+
+	find_moves();
 
 	return check_board();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	//auto& kv = *boost::min_element(m_num2links, [&](
-	//	const pair<char, puz_link>& kv1,
-	//	const pair<char, puz_link>& kv2){
-	//	return kv1.second.m_moves.size() < kv2.second.m_moves.size();
-	//});
-	//for(auto& kv2 : kv.second.m_moves){
-	//	children.push_back(*this);
-	//	if(!children.back().make_move(kv.first, kv2.first, kv2.second))
-	//		children.pop_back();
-	//}
+	int sz = 100;
+	char num = ' ';
+	int n = 0;
+	for(auto& kv : m_num2links){
+		auto& links = kv.second;
+		for(int i = 0; i < links.size(); ++i){
+			auto& link = links[i];
+			if(link.m_moves.size() < sz){
+				sz = link.m_moves.size();
+				num = kv.first;
+				n = i;
+			}
+		}
+	}
+	auto& moves = m_num2links.at(num)[n].m_moves;
+	for(int i = 0; i < moves.size(); ++i){
+		children.push_back(*this);
+		if(!children.back().make_move(num, n, i))
+			children.pop_back();
+	}
 }
 
 ostream& puz_state::dump(ostream& out) const
