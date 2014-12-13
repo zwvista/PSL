@@ -8,12 +8,12 @@ Sequence of moves:
 |     | 
 3 2- -  
 Number of moves: 13
-Number of vertices examined: 18
-0.00389234 [s]
+Number of vertices examined: 15
+0.0148553 [s]
 
 Level test2
-Number of vertices examined: 6
-0.00249527 [s]
+Number of vertices examined: 5
+0.0128861 [s]
 
 Level 02
 Sequence of moves: 
@@ -31,8 +31,8 @@ Sequence of moves:
 |   | |     | 
 5 4-   - - -  
 Number of moves: 42
-Number of vertices examined: 147
-0.20649 [s]
+Number of vertices examined: 89
+0.4472 [s]
 
 Level 03
 Sequence of moves: 
@@ -50,6 +50,11 @@ Sequence of moves:
 | |       |   
 3  - - -2  -3 
 Number of moves: 45
-Number of vertices examined: 3950
-1.69878 [s]
+Number of vertices examined: 1144
+1.76908 [s]
 
+Level 04
+Number of vertices examined: 2897
+4.13416 [s]
+
+Level 16
