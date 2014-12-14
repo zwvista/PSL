@@ -73,17 +73,16 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-struct puz_state
+struct puz_state : string
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	char food(const Position& p) const { return m_cells[p.first * sidelen() * 2 + p.second * 2]; }
-	char& food(const Position& p) { return m_cells[p.first * sidelen() * 2 + p.second * 2]; }
-	char drinks(const Position& p) const { return m_cells[p.first * sidelen() * 2 + p.second * 2 + 1]; }
-	char& drinks(const Position& p) { return m_cells[p.first * sidelen() * 2 + p.second * 2 + 1]; }
-	string paring(const Position& p) const { return m_cells.substr(p.first * sidelen() * 2 + p.second * 2, 2); }
-	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
+	char food(const Position& p) const { return (*this)[p.first * sidelen() * 2 + p.second * 2]; }
+	char& food(const Position& p) { return (*this)[p.first * sidelen() * 2 + p.second * 2]; }
+	char drinks(const Position& p) const { return (*this)[p.first * sidelen() * 2 + p.second * 2 + 1]; }
+	char& drinks(const Position& p) { return (*this)[p.first * sidelen() * 2 + p.second * 2 + 1]; }
+	string paring(const Position& p) const { return substr(p.first * sidelen() * 2 + p.second * 2, 2); }
 	bool make_move(int i, int j);
 	bool make_move2(int i, int j);
 	int find_matches(bool init);
@@ -100,26 +99,17 @@ struct puz_state
 	}
 
 	const puz_game* m_game = nullptr;
-	string m_cells;
 	map<int, vector<int>> m_matches;
-	set<string> m_pairings;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: string(g.m_start), m_game(&g)
 {
 	vector<int> perm_ids(g.m_perms_food.size());
 	boost::iota(perm_ids, 0);
 	for(int i = 0; i < g.m_sidelen * 4; ++i)
 		m_matches[i] = perm_ids;
-
-	for(int r = 0; r < g.m_sidelen; ++r)
-		for(int c = 0; c < g.m_sidelen; ++c){
-			Position p(r, c);
-			if(food(p) != PUZ_SPACE && drinks(p) != PUZ_SPACE)
-				m_pairings.insert(paring(p));
-		}
 
 	find_matches(true);
 }
@@ -162,17 +152,20 @@ bool puz_state::make_move2(int i, int j)
 
 	for(int k = 0; k < perm.size(); ++k){
 		auto p = range[k];
-		char& ch = is_food ? food(p) : drinks(p);
-		if(ch == PUZ_SPACE){
-			ch = perm[k];
-			if(food(p) != PUZ_SPACE && drinks(p) != PUZ_SPACE){
-				auto fd = paring(p);
-				if(m_pairings.count(fd) != 0)
+		(is_food ? food(p) : drinks(p)) = perm[k];
+	}
+
+	set<string> parings;
+	for(int r = 0; r < sidelen(); ++r)
+		for(int c = 0; c < sidelen(); ++c){
+			Position p(r, c);
+			auto fd = paring(p);
+			if(fd[0] != PUZ_SPACE && fd[1] != PUZ_SPACE){
+				if(parings.count(fd) != 0)
 					return false;
-				m_pairings.insert(fd);
+				parings.insert(fd);
 			}
 		}
-	}
 
 	++m_distance;
 	m_matches.erase(i);
