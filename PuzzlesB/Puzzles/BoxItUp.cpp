@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 5/Box It Up
+	iOS Game: Logic Games/Puzzle Set 5/Box It Up
 
 	Summary
 	Numbered Areas Interval

@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 8/Mine Ships
+	iOS Game: Logic Games/Puzzle Set 8/Mine Ships
 
 	Summary
 	Warning! Naval Mines in the water!

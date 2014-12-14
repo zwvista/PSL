@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 9/Tapa Islands
+	iOS Game: Logic Games/Puzzle Set 9/Tapa Islands
 
 	Summary
 	Tap-Archipelago

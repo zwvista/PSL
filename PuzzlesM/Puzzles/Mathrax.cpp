@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 6/Mathrax
+	iOS Game: Logic Games/Puzzle Set 6/Mathrax
 
 	Summary
 	Diagonal Math Wiz

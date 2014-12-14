@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 2/Hidden Stars
+	iOS Game: Logic Games/Puzzle Set 2/Hidden Stars
 
 	Summary
 	Each Arrow points to a Star and every Star has an arrow pointing at it

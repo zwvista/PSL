@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 5/Clouds
+	iOS Game: Logic Games/Puzzle Set 5/Clouds
 
 	Summary
 	Weather Radar Report

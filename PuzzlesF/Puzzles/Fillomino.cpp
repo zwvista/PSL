@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 3/Fillomino
+	iOS Game: Logic Games/Puzzle Set 3/Fillomino
 
 	Summary
 	Detect areas marked by their extension

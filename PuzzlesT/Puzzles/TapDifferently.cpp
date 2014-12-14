@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 10/Tap Differently
+	iOS Game: Logic Games/Puzzle Set 10/Tap Differently
 
 	Summary
 	Tapa Landscaper

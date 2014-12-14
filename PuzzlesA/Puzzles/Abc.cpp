@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Abc
+	iOS Game: Logic Games/Puzzle Set 1/Abc
 
 	Summary
 	Fill the board with ABC

@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 6/Arrows
+	iOS Game: Logic Games/Puzzle Set 6/Arrows
 
 	Summary
 	Just Arrows?

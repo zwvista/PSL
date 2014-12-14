@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 9/Skydoku
+	iOS Game: Logic Games/Puzzle Set 9/Skydoku
 
 	Summary
 	Takes Sudoku to new heights!

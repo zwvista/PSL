@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 4/Kakuro
+	iOS Game: Logic Games/Puzzle Set 4/Kakuro
 
 	Summary
 	Fill the board with numbers 1 to 9 according to the sums

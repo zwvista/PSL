@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 11/Holiday Island
+	iOS Game: Logic Games/Puzzle Set 11/Holiday Island
 
 	Summary
 	This time the campers won't have their way!

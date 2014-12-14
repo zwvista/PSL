@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Move the Box
+	iOS Game: Move the Box
 */
 
 namespace puzzles{ namespace MoveTheBox{

@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 3/Masyu
+	iOS Game: Logic Games/Puzzle Set 3/Masyu
 
 	Summary
 	Draw a Necklace that goes through every Pearl

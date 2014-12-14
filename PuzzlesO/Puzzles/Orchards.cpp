@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 11/Orchards
+	iOS Game: Logic Games/Puzzle Set 11/Orchards
 
 	Summary
 	Plant the trees. Very close, this time!

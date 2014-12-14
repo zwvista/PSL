@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Light Battle Ships
+	iOS Game: Logic Games/Puzzle Set 1/Light Battle Ships
 
 	Summary
 	Please divert your course 15 degrees to avoid collision

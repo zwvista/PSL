@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 10/Balanced Tapas
+	iOS Game: Logic Games/Puzzle Set 10/Balanced Tapas
 
 	Summary
 	Healthy Spanish diet

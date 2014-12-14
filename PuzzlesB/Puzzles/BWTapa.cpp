@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 9/B&W Tapa
+	iOS Game: Logic Games/Puzzle Set 9/B&W Tapa
 
 	Summary
 	Black and white Tapas

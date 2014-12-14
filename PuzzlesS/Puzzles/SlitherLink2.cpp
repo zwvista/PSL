@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 3/SlitherLink
+	iOS Game: Logic Games/Puzzle Set 3/SlitherLink
 
 	Summary
 	Draw a loop a-la-minesweeper!

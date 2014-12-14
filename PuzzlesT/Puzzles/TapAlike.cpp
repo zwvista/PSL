@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 10/Tap-Alike
+	iOS Game: Logic Games/Puzzle Set 10/Tap-Alike
 
 	Summary
 	Dr. Jekyll and Mr. Tapa

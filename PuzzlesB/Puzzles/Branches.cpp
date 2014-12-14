@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 3/Branches
+	iOS Game: Logic Games/Puzzle Set 3/Branches
 
 	Summary
 	Fill the board with Branches departing from the numbers

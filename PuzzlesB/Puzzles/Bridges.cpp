@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 7/Bridges
+	iOS Game: Logic Games/Puzzle Set 7/Bridges
 
 	Summary
 	Enough Sudoku, let's build!

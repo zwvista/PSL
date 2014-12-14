@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 8/Kakurasu
+	iOS Game: Logic Games/Puzzle Set 8/Kakurasu
 
 	Summary
 	Cloud Kakuro on a Skyscraper

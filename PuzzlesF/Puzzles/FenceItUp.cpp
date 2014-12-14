@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 5/Fence It Up
+	iOS Game: Logic Games/Puzzle Set 5/Fence It Up
 
 	Summary
 	Now with Fences

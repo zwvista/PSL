@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 7/More Or Less
+	iOS Game: Logic Games/Puzzle Set 7/More Or Less
 
 	Summary
 	Mr. Futoshiki, meet Mr. Sudoku

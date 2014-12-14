@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 6/Sumscrapers
+	iOS Game: Logic Games/Puzzle Set 6/Sumscrapers
 
 	Summary
 	Sum the skyline!

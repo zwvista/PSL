@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 7/Consecutives
+	iOS Game: Logic Games/Puzzle Set 7/Consecutives
 
 	Summary
 	I believe you two already met ??

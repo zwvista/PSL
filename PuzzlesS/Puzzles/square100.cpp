@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 6/square100
+	iOS Game: Logic Games/Puzzle Set 6/square100
 
 	Summary
 	Exactly one hundred

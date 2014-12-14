@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 12/FenceLits
+	iOS Game: Logic Games/Puzzle Set 12/FenceLits
 
 	Summary
 	Fencing Tetris

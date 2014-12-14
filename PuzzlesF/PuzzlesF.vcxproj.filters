@@ -40,6 +40,9 @@
     <Text Include="Puzzles\FenceSentinels.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\FussyWaiter.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -80,6 +83,9 @@
     <ClCompile Include="Puzzles\FenceSentinels.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\FussyWaiter.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\fling.xml">
@@ -107,6 +113,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\FenceSentinels.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\FussyWaiter.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

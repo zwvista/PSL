@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 12/Sheep & Wolves
+	iOS Game: Logic Games/Puzzle Set 12/Sheep & Wolves
 
 	Summary
 	Where's a dog when you need one?

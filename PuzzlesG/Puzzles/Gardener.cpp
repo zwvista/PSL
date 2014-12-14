@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 7/Gardener
+	iOS Game: Logic Games/Puzzle Set 7/Gardener
 
 	Summary
 	Hitori Flower Planting

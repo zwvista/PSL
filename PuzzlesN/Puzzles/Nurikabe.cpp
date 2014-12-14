@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Nurikabe
+	iOS Game: Logic Games/Puzzle Set 1/Nurikabe
 
 	Summary
 	Draw a continuous wall that divides gardens as big as the numbers

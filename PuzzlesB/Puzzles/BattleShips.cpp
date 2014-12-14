@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Battle Ships
+	iOS Game: Logic Games/Puzzle Set 1/Battle Ships
 
 	Summary
 	Play solo Battleships, with the help of the numbers on the border.

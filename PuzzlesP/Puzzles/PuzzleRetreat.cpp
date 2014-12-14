@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Puzzle Retreat
+	iOS Game: Puzzle Retreat
 */
 
 namespace puzzles{ namespace PuzzleRetreat{

@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 13/Tatamino
+	iOS Game: Logic Games/Puzzle Set 13/Tatamino
 
 	Summary
 	Which is a little Tatami

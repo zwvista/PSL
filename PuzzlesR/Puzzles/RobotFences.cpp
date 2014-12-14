@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 13/Robot Fences
+	iOS Game: Logic Games/Puzzle Set 13/Robot Fences
 
 	Summary
 	BZZZZliip ...cows?

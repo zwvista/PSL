@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 5/Walls
+	iOS Game: Logic Games/Puzzle Set 5/Walls
 
 	Summary
 	Find the maze of Bricks

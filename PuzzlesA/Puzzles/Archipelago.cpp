@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 8/Archipelago
+	iOS Game: Logic Games/Puzzle Set 8/Archipelago
 
 	Summary
 	No bridges, just find the water

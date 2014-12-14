@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 2/Magnets
+	iOS Game: Logic Games/Puzzle Set 2/Magnets
 
 	Summary
 	Place Magnets on the board, respecting the orientation of poles

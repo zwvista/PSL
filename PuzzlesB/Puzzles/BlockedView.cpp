@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 3/Blocked View
+	iOS Game: Logic Games/Puzzle Set 3/Blocked View
 
 	Summary
 	This time it's one Garden and many Towers

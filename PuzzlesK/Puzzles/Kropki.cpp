@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 6/Kropki
+	iOS Game: Logic Games/Puzzle Set 6/Kropki
 
 	Summary
 	Fill the rows and columns with numbers, respecting the relations

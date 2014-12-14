@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 14/Power Grid
+	iOS Game: Logic Games/Puzzle Set 14/Power Grid
 
 	Summary
 	Utility Posts

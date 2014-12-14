@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 4/LineSweeper
+	iOS Game: Logic Games/Puzzle Set 4/LineSweeper
 
 	Summary
 	Draw a single loop, minesweeper style

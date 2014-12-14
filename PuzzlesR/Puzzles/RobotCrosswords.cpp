@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 13/RobotCrosswords
+	iOS Game: Logic Games/Puzzle Set 13/RobotCrosswords
 
 	Summary
 	BZZZZliip 4 across?

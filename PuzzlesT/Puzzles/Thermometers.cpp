@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 14/Thermometers
+	iOS Game: Logic Games/Puzzle Set 14/Thermometers
 
 	Summary
 	Puzzle Fever

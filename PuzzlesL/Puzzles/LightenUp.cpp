@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 2/Lighten Up
+	iOS Game: Logic Games/Puzzle Set 2/Lighten Up
 
 	Summary
 	Place lightbulbs to light up all the room squares

@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Snail
+	iOS Game: Logic Games/Puzzle Set 1/Snail
 
 	Summary
 	Follow the winding path with numbers 1, 2 and 3

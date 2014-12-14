@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 4/Galaxies
+	iOS Game: Logic Games/Puzzle Set 4/Galaxies
 
 	Summary
 	Fill the Symmetric Spiral Galaxies

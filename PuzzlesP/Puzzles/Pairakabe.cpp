@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 12/Pairakabe
+	iOS Game: Logic Games/Puzzle Set 12/Pairakabe
 
 	Summary
 	Just to confuse things a bit more

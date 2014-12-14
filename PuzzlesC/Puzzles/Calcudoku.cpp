@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 4/Calcudoku
+	iOS Game: Logic Games/Puzzle Set 4/Calcudoku
 
 	Summary
 	Mathematical Sudoku

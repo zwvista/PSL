@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 9/Pata
+	iOS Game: Logic Games/Puzzle Set 9/Pata
 
 	Summary
 	Yes, it's the opposite of Tapa

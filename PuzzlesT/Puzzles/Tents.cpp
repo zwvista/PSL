@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Tents
+	iOS Game: Logic Games/Puzzle Set 1/Tents
 
 	Summary
 	Each camper wants to put his Tent under the shade of a Tree. But he also

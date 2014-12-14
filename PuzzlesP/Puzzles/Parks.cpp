@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 1/Parks
+	iOS Game: Logic Games/Puzzle Set 1/Parks
 
 	Summary
 	Put one Tree in each Park, row and column.(two in bigger levels)

@@ -154,6 +154,7 @@
     <Text Include="Puzzles\Fillomino.txt" />
     <Text Include="Puzzles\fling.txt" />
     <Text Include="Puzzles\FourMeNot.txt" />
+    <Text Include="Puzzles\FussyWaiter.txt" />
     <Text Include="Puzzles\Futoshiki.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -170,6 +171,7 @@
     <ClCompile Include="Puzzles\Fillomino.cpp" />
     <ClCompile Include="Puzzles\fling.cpp" />
     <ClCompile Include="Puzzles\FourMeNot.cpp" />
+    <ClCompile Include="Puzzles\FussyWaiter.cpp" />
     <ClCompile Include="Puzzles\Futoshiki.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -187,6 +189,7 @@
     <Xml Include="Puzzles\fling2.xml" />
     <Xml Include="Puzzles\fling3.xml" />
     <Xml Include="Puzzles\FourMeNot.xml" />
+    <Xml Include="Puzzles\FussyWaiter.xml" />
     <Xml Include="Puzzles\Futoshiki.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

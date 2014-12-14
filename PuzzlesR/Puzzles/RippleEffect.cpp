@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 5/Ripple Effect
+	iOS Game: Logic Games/Puzzle Set 5/Ripple Effect
 
 	Summary
 	Fill the Room with the numbers, but take effect of the Ripple Effect

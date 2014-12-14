@@ -9,7 +9,7 @@ Sequence of moves:
 3 2- -  
 Number of moves: 13
 Number of vertices examined: 14
-0.0136964 [s]
+0.00279903 [s]
 
 Level test1
 Sequence of moves: 
@@ -22,7 +22,7 @@ Sequence of moves:
 3  - -  
 Number of moves: 13
 Number of vertices examined: 18
-0.0124041 [s]
+0.00445043 [s]
 
 Level test2
 Sequence of moves: 
@@ -35,7 +35,7 @@ Sequence of moves:
 4- - -4 
 Number of moves: 12
 Number of vertices examined: 13
-0.00657345 [s]
+0.00390695 [s]
 
 Level test3
 Sequence of moves: 
@@ -48,7 +48,7 @@ Sequence of moves:
         
 Number of moves: 9
 Number of vertices examined: 15
-0.00935577 [s]
+0.00388018 [s]
 
 Level 02
 Sequence of moves: 
@@ -67,7 +67,7 @@ Sequence of moves:
 5 4-   - - -  
 Number of moves: 42
 Number of vertices examined: 77
-0.327875 [s]
+0.103416 [s]
 
 Level 03
 Sequence of moves: 
@@ -86,7 +86,7 @@ Sequence of moves:
 3  - - -2  -3 
 Number of moves: 45
 Number of vertices examined: 163
-0.288077 [s]
+0.201711 [s]
 
 Level 04
 Sequence of moves: 
@@ -105,7 +105,7 @@ Sequence of moves:
  - - - - - -  
 Number of moves: 45
 Number of vertices examined: 1183
-1.2344 [s]
+0.891799 [s]
 
 Level 05
 Sequence of moves: 
@@ -126,7 +126,7 @@ Sequence of moves:
 5- - - - - - -  
 Number of moves: 57
 Number of vertices examined: 188
-0.658979 [s]
+0.431013 [s]
 
 Level 06
 Sequence of moves: 
@@ -147,7 +147,7 @@ Sequence of moves:
  - - - -6  - -  
 Number of moves: 58
 Number of vertices examined: 1800
-3.0858 [s]
+2.11329 [s]
 
 Level 07
 Sequence of moves: 
@@ -168,7 +168,7 @@ Sequence of moves:
 9  - - - - - -  
 Number of moves: 57
 Number of vertices examined: 92
-0.283816 [s]
+0.185633 [s]
 
 Level 08
 Sequence of moves: 
@@ -189,7 +189,7 @@ Sequence of moves:
  - - -2 5- - -  
 Number of moves: 58
 Number of vertices examined: 1171
-2.44992 [s]
+1.65095 [s]
 
 Level 09
 Sequence of moves: 
@@ -214,7 +214,7 @@ Sequence of moves:
 7-   - - - - - -8 3 
 Number of moves: 92
 Number of vertices examined: 427
-1.94264 [s]
+1.31144 [s]
 
 Level 10
 Sequence of moves: 
@@ -239,7 +239,7 @@ Sequence of moves:
 2 A- - - - - - -A 3 
 Number of moves: 90
 Number of vertices examined: 7745
-50.5425 [s]
+33.0689 [s]
 
 Level 11
 Sequence of moves: 
@@ -264,7 +264,7 @@ A- - - - -  9- - -
  - - - - - - - - -  
 Number of moves: 90
 Number of vertices examined: 56970
-637.589 [s]
+415.134 [s]
 
 Level 12
 Sequence of moves: 
@@ -289,7 +289,7 @@ Sequence of moves:
  - - - - - - - - -  
 Number of moves: 91
 Number of vertices examined: 202558
-1221.12 [s]
+981.249 [s]
 
 Level 13
 Sequence of moves: 
@@ -314,9 +314,32 @@ Sequence of moves:
  - - - - - - - -2 4 
 Number of moves: 94
 Number of vertices examined: 321580
-1582.71 [s]
+928.364 [s]
 
 Level 14
+Sequence of moves: 
+ -1 2 3- - - - - -  
+|   |             | 
+   -  4- - - - -    
+| |             | | 
+     - - - - -1     
+| | |           | | 
+      5- - - -      
+| | |         | | | 
+     - - - -        
+| |         | | | | 
+   - - - -2         
+|           | | | | 
+ - - - - - -        
+              | | | 
+ -3 5- - - - -      
+|               | | 
+  4- - - - - - -    
+|                 | 
+ - - - - - - - - -  
+Number of moves: 95
+Number of vertices examined: 663555
+3640.91 [s]
 
 Level 15
 Sequence of moves: 
@@ -341,7 +364,7 @@ Sequence of moves:
 5- - - - - - - - -  
 Number of moves: 95
 Number of vertices examined: 79708
-375.085 [s]
+238.803 [s]
 
 Level 16
 Sequence of moves: 
@@ -366,5 +389,5 @@ Sequence of moves:
 5- - - - - - - - -  
 Number of moves: 92
 Number of vertices examined: 120334
-792.206 [s]
+488.524 [s]
 

@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	ios game: Logic Games/Puzzle Set 8/Box It Around
+	iOS Game: Logic Games/Puzzle Set 8/Box It Around
 
 	Summary
 	Keep Boxing Stuff
