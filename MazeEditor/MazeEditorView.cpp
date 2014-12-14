@@ -205,6 +205,10 @@ void CMazeEditorView::OnInitialUpdate()
 	for(auto str : {_T("None"), _T("Up"), _T("Down"), _T("Left"), _T("Right")})
 		m_pComboMovement->AddItem(str);
 	m_pComboMovement->SelectItem(4);
+
+	CString str;
+	str.Format(_T("%d"), m_pDoc->m_nSideLen);
+	m_pEditSideLen->SetEditText(str);
 }
 
 void CMazeEditorView::OnLButtonDown(UINT nFlags, CPoint point)
