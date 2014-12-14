@@ -52,6 +52,7 @@ struct puz_game
 	map<Position, char> m_pos2num;
 	map<char, vector<Position>> m_num2targets;
 	vector<pair<char, int>> m_num2dist;
+	bool m_no_board_fill;
 	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -60,6 +61,7 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 2)
+, m_no_board_fill(attrs.get<int>("NoBoardFill", 0) == 1)
 {
 	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
 	for(int r = 1; r < m_sidelen - 1; ++r){
@@ -113,7 +115,9 @@ struct puz_state : vector<string>
 	set<Position> get_area(char ch) const;
 
 	//solve_puzzle interface
-	bool is_goal_state() const {return get_heuristic() == 0;}
+	bool is_goal_state() const {
+		return m_num2targets.empty() && (m_game->m_no_board_fill || get_heuristic() == 0);
+	}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
 		return (sidelen() - 2) * (sidelen() - 2) - 
@@ -197,16 +201,20 @@ bool puz_state::check_board() const
 
 		area3.insert(area4.begin(), area4.end());
 		list<puz_state2> smoves;
-		puz_move_generator<puz_state2>::gen_moves({area3, targets[0]}, smoves);
+		puz_move_generator<puz_state2>::gen_moves(
+			{area3, targets.empty() ? m_link.back() : targets[0]}, smoves);
 		set<Position> area5(smoves.begin(), smoves.end()), area6, area7;
 		boost::set_difference(area5, area, inserter(area6, area6.end()));
+		// ALL the same numbers must be reachable by the same line
 		if(area4.size() != area6.size())
 			return false;
-		boost::set_intersection(area, area5, inserter(area7, area7.end()));
-		area2.insert(area7.begin(), area7.end());
+		if(!m_game->m_no_board_fill){
+			boost::set_intersection(area, area5, inserter(area7, area7.end()));
+			area2.insert(area7.begin(), area7.end());
+		}
 	}
-
-	return area.size() == area2.size();
+	// ALL the squares must be reachable by lines
+	return m_game->m_no_board_fill || area.size() == area2.size();
 }
 
 bool puz_state::make_move(int n)
@@ -216,6 +224,7 @@ bool puz_state::make_move(int n)
 	m_link.push_back(p2);
 
 	if(m_link.size() >= 4){
+		// no line can cover a 2*2 area
 		vector<Position> v(m_link.rbegin(), m_link.rbegin() + 4);
 		boost::sort(v);
 		if(v[1] - v[0] == offset[1] && v[3] - v[2] == offset[1] &&
@@ -231,10 +240,9 @@ bool puz_state::make_move(int n)
 	else{
 		auto& targets = m_num2targets.back().second;
 		boost::remove_erase(targets, p2);
-		if(targets.empty()){
+		if(targets.empty())
 			m_num2targets.pop_back();
-			new_link();
-		}
+		new_link();
 	}
 
 	return check_board();
