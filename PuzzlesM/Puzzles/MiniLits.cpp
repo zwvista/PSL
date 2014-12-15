@@ -47,6 +47,8 @@ const vector<vector<Position>> triominos = {
 	{{0, 0}, {1, 0}, {2, 0}},
 };
 
+// first: the position where the triomino will be placed
+// second: the triomino id
 typedef pair<Position, int> puz_lit;
 
 struct puz_game
@@ -55,6 +57,8 @@ struct puz_game
 	int m_sidelen;
 	map<Position, int> m_pos2area;
 	int m_area_count;
+	// Dimension 1: area id
+	// Dimension 2: all possible combinations
 	vector<vector<puz_lit>> m_Lits;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -130,10 +134,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 						auto p2 = p + os;
 						auto it = m_pos2area.find(p2);
 						if(it == m_pos2area.end())
+							// outside the board
 							return -1;
 						if(n == -1)
+							// the area id
 							n = it->second;
 						else if(n != it->second)
+							// must be in the same area
 							return -1;
 					}
 					return n;
@@ -201,6 +208,8 @@ int puz_state::find_matches(bool init)
 				auto p2 = lit.first + os;
 				if(cells(p2) != PUZ_SPACE)
 					return true;
+				// No two adjacent (touching horizontally / vertically) triominos should
+				// be of equal shape & orientation.
 				for(auto& os2 : offset){
 					auto p3 = p2 + os2;
 					if(is_valid(p3) && ch == cells(p3))
