@@ -11,7 +11,7 @@ G-    H
   G- -S-  
 Number of moves: 5
 Number of vertices examined: 10
-0.00707558 [s]
+0.0403639 [s]
 
 Level 02
 Sequence of moves: 
@@ -26,7 +26,7 @@ S G-S-  S
  -     -G 
 Number of moves: 1
 Number of vertices examined: 2
-0.00193543 [s]
+0.00059692 [s]
 
 Level 03
 Sequence of moves: 
@@ -41,7 +41,7 @@ S G-S-G
 G-S-      
 Number of moves: 0
 Number of vertices examined: 1
-0.0016283 [s]
+0.000501675 [s]
 
 Level 04
 Sequence of moves: 
@@ -56,5 +56,30 @@ S G-  H-G
 G-S- - -G 
 Number of moves: 1
 Number of vertices examined: 2
-0.00167496 [s]
+0.000596509 [s]
+
+Level 36
+Sequence of moves: 
+G-    G-  G-S-G     
+| |   | | |   |     
+  S   S S     S     
+| |   | | |   |     
+S G-S-G   S   G-S-G 
+|       | |       | 
+G-S-      G-S-G   S 
+    |   |     |   | 
+G-S-G  -G     S  -G 
+|     |       | |   
+S     S   G-S-G S   
+|     |   |     |   
+G-S-      S G-H-G   
+    | |   | |       
+G-S-G G-S-G S    -G 
+|           |   | | 
+S  -S-      G-S-  S 
+| |   |           | 
+G-    G- - -S- - -G 
+Number of moves: 9
+Number of vertices examined: 26
+0.010169 [s]
 
