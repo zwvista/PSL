@@ -154,6 +154,7 @@
     <Text Include="Puzzles\Fillomino.txt" />
     <Text Include="Puzzles\fling.txt" />
     <Text Include="Puzzles\FourMeNot.txt" />
+    <Text Include="Puzzles\fullsearch.txt" />
     <Text Include="Puzzles\FussyWaiter.txt" />
     <Text Include="Puzzles\Futoshiki.txt" />
     <Text Include="ReadMe.txt" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Puzzles\Fillomino.cpp" />
     <ClCompile Include="Puzzles\fling.cpp" />
     <ClCompile Include="Puzzles\FourMeNot.cpp" />
+    <ClCompile Include="Puzzles\fullsearch.cpp" />
     <ClCompile Include="Puzzles\FussyWaiter.cpp" />
     <ClCompile Include="Puzzles\Futoshiki.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -189,6 +191,7 @@
     <Xml Include="Puzzles\fling2.xml" />
     <Xml Include="Puzzles\fling3.xml" />
     <Xml Include="Puzzles\FourMeNot.xml" />
+    <Xml Include="Puzzles\fullsearch.xml" />
     <Xml Include="Puzzles\FussyWaiter.xml" />
     <Xml Include="Puzzles\Futoshiki.xml" />
   </ItemGroup>

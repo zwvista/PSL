@@ -45,6 +45,7 @@ class puz_solver_dijkstra
 						remove_edge(pmap[v], v, g);
 						add_edge(u, v, edge_prop(dist), g);
 						m_smap.left.replace_data(m_smap.left.find(v), child);
+						pmap[v] = u;
 					}
 				} catch(out_of_range&) {
 					vertex_t v = add_vertex(vert_prop(boost::white_color), g);
