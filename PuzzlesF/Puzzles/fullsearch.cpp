@@ -11,10 +11,10 @@ namespace puzzles{ namespace fullsearch{
 #define PUZ_WALL		'#'
 
 const Position offset[] = {
-	{0, -1},
-	{1, 0},
-	{0, 1},
-	{-1, 0},
+	{-1, 0},		// n
+	{0, 1},		// e
+	{1, 0},		// s
+	{0, -1},		// w
 };
 
 struct puz_game
@@ -40,10 +40,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 1; c < cols() - 1; ++c){
 			Position p(r, c);
 			char ch = str[c - 1];
-			m_cells.push_back(ch);
 			switch(ch){
-			case PUZ_BALL: m_start = p; break;
-			case PUZ_GOAL: m_goal = p; break;
+			case PUZ_BALL: m_start = p; m_cells.push_back(PUZ_SPACE); break;
+			case PUZ_GOAL: m_goal = p; m_cells.push_back(ch); break;
+			default: m_cells.push_back(ch); break;
 			}
 		}
 		m_cells.push_back(PUZ_WALL);
@@ -51,20 +51,23 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	m_cells.append(cols(), PUZ_WALL);
 }
 
-struct puz_state : Position
+struct puz_state
 {
 	puz_state() {}
 	puz_state(const puz_game& g)
-		: Position(g.m_start), m_game(&g), m_move() {}
+		: m_game(&g), m_p(g.m_start), m_move() {}
 	char cells(const Position& p) const { return m_game->m_cells[p.first * cols() + p.second]; }
 	int rows() const { return m_game->rows(); }
 	int cols() const { return m_game->cols(); }
+	bool operator<(const puz_state& x) const {
+		return make_pair(m_p, m_move) < make_pair(x.m_p, x.m_move);
+	}
 	void make_move(int i);
 
 	// solve_puzzle interface
-	bool is_goal_state() const {return *this == m_game->m_goal;}
+	bool is_goal_state() const {return m_p == m_game->m_goal;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const {return manhattan_distance(*this, m_game->m_goal);}
+	unsigned int get_heuristic() const {return manhattan_distance(m_p, m_game->m_goal);}
 	unsigned int get_distance(const puz_state& child) const {return 1;}
 	void dump_move(ostream& out) const {if(m_move) out << m_move;}
 	ostream& dump(ostream& out) const;
@@ -73,23 +76,23 @@ struct puz_state : Position
 	}
 
 	const puz_game* m_game;
+	Position m_p;
 	char m_move;
 };
 
 void puz_state::make_move(int i)
 {
-	static char* moves = "lrud";
-	Position p = *this + offset[i];
-
-	dynamic_cast<Position&>(*this) = p;
+	static char* moves = "urdl";
+	m_p += offset[i];
 	m_move = moves[i];
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(int i = 0; i < 4; i++){
-		auto p = *this + offset[i];
-		if(cells(p) == PUZ_SPACE){
+		auto p = m_p + offset[i];
+		char ch = cells(p);
+		if(ch == PUZ_SPACE || ch == PUZ_GOAL){
 			children.push_back(*this);
 			children.back().make_move(i);
 		}
@@ -102,8 +105,10 @@ ostream& puz_state::dump(ostream& out) const
 		out << "move: " << m_move << endl;
 	for(int r = 1; r < rows() - 1; ++r){
 		for(int c = 1; c < cols() - 1; ++c){
-			char ch = cells({r, c});
-			out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
+			Position p(r, c);
+			char ch = cells(p);
+			out << (p == m_p ? PUZ_BALL : 
+				ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
 		}
 		out << endl;
 	}

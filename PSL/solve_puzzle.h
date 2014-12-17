@@ -80,7 +80,7 @@ void solve_puzzle_full(const string& fn_in, const string& fn_out,
 		boost::tie(found, vert_num) = puz_solver_full::find_solution(sstart, spaths);
 		for(int i = 0; i < spaths.size(); ++i){
 			auto& spath = spaths[i];
-			out << format("Solution %d\n") % i;
+			out << format("Solution %d\n") % (i + 1);
 			out << "Sequence of moves: ";
 			if(fmt != solution_format::MOVES_ONLY_SINGLE_LINE)
 				out << endl;

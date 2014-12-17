@@ -112,14 +112,15 @@ public:
 				auto& vs = stack.back();
 				if(vs.empty()){
 					stack.pop_back();
-					shortest_path.pop_back();
+					if(!shortest_path.empty())
+						shortest_path.pop_back();
 				}
 				else{
 					auto v = vs.back();
 					vs.pop_back();
 					shortest_path.push_back(v);
-					auto its = context.m_mpmap.equal_range(v);
-					if(its.first->second == v){
+					auto ret = context.m_mpmap.equal_range(v);
+					if(ret.first->second == v){
 						vector<puz_state> spath;
 						BOOST_REVERSE_FOREACH(vertex_t v, shortest_path)
 							spath.push_back(context.m_smap.left.at(v));
@@ -128,7 +129,7 @@ public:
 					}
 					else{
 						vector<vertex_t> vs;
-						for(auto it = its.first; it != its.second; ++it)
+						for(auto it = ret.first; it != ret.second; ++it)
 							vs.push_back(it->second);
 						stack.push_back(vs);
 					}
