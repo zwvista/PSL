@@ -106,11 +106,11 @@ public:
 		context.m_smap.insert(typename StateMap::relation(start, sstart));
 		try{
 			boost::astar_search(g, start, puz_heuristic(context.m_smap),
-			visitor(puz_visitor(context)).
-			color_map(get(boost::vertex_color, g)).
-			rank_map(get(boost::vertex_rank, g)).
-			distance_map(get(boost::vertex_distance, g)).
-			predecessor_map(get(boost::vertex_predecessor, g)));
+				visitor(puz_visitor(context)).
+				color_map(get(boost::vertex_color, g)).
+				rank_map(get(boost::vertex_rank, g)).
+				distance_map(get(boost::vertex_distance, g)).
+				predecessor_map(get(boost::vertex_predecessor, g)));
 		} catch(found_goal&) {}
 		bool found = !context.m_goal_vertices.empty();
 		if(found){
