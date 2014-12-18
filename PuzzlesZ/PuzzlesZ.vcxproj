@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\zafiro.txt" />
+    <Text Include="Puzzles\ZenLandscaper.txt" />
     <Text Include="Puzzles\zgj.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -160,6 +161,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\zafiro.cpp" />
+    <ClCompile Include="Puzzles\ZenLandscaper.cpp" />
     <ClCompile Include="Puzzles\zgj.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -170,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\zafiro.xml" />
+    <Xml Include="Puzzles\ZenLandscaper.xml" />
     <Xml Include="Puzzles\zgj.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

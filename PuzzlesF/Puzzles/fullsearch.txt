@@ -1,5 +1,5 @@
 Level 01
-Solution 1
+Solution 1:
 Sequence of moves: 
 @ . . 
 . . . 
@@ -21,7 +21,7 @@ move: r
 . . . 
 . . @ 
 Number of moves: 4
-Solution 2
+Solution 2:
 Sequence of moves: 
 @ . . 
 . . . 
@@ -43,7 +43,7 @@ move: r
 . . . 
 . . @ 
 Number of moves: 4
-Solution 3
+Solution 3:
 Sequence of moves: 
 @ . . 
 . . . 
@@ -65,7 +65,7 @@ move: r
 . . . 
 . . @ 
 Number of moves: 4
-Solution 4
+Solution 4:
 Sequence of moves: 
 @ . . 
 . . . 
@@ -87,7 +87,7 @@ move: d
 . . . 
 . . @ 
 Number of moves: 4
-Solution 5
+Solution 5:
 Sequence of moves: 
 @ . . 
 . . . 
@@ -109,7 +109,7 @@ move: d
 . . . 
 . . @ 
 Number of moves: 4
-Solution 6
+Solution 6:
 Sequence of moves: 
 @ . . 
 . . . 
@@ -132,10 +132,10 @@ move: d
 . . @ 
 Number of moves: 4
 Number of vertices examined: 23
-0.00802284 [s]
+0.00266032 [s]
 
 Level 02
-Solution 1
+Solution 1:
 Sequence of moves: 
 @ . # 
 . . . 
@@ -157,7 +157,7 @@ move: d
 . . . 
 # . @ 
 Number of moves: 4
-Solution 2
+Solution 2:
 Sequence of moves: 
 @ . # 
 . . . 
@@ -179,7 +179,7 @@ move: d
 . . . 
 # . @ 
 Number of moves: 4
-Solution 3
+Solution 3:
 Sequence of moves: 
 @ . # 
 . . . 
@@ -201,7 +201,7 @@ move: r
 . . . 
 # . @ 
 Number of moves: 4
-Solution 4
+Solution 4:
 Sequence of moves: 
 @ . # 
 . . . 
@@ -224,10 +224,10 @@ move: r
 # . @ 
 Number of moves: 4
 Number of vertices examined: 15
-0.00501048 [s]
+0.00118154 [s]
 
 Level 03
-Solution 1
+Solution 1:
 Sequence of moves: 
 @ . . 
 . # . 
@@ -249,7 +249,7 @@ move: r
 . # . 
 . . @ 
 Number of moves: 4
-Solution 2
+Solution 2:
 Sequence of moves: 
 @ . . 
 . # . 
@@ -272,5 +272,5 @@ move: d
 . . @ 
 Number of moves: 4
 Number of vertices examined: 15
-0.0032078 [s]
+0.00113269 [s]
 

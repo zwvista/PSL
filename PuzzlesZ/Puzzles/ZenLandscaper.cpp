@@ -3,78 +3,78 @@
 #include "solve_puzzle.h"
 
 /*
-	iOS Game: Logic Games/Puzzle Set 1/Abc
+	iOS Game: Logic Games/Puzzle Set 15/ZenLandscaper
 
 	Summary
-	Fill the board with ABC
+	Variety and Balance
 
 	Description
-	1. The goal is to put the letter A B and C in the board.
-	2. Each letter appear once in every row and column.
-	3. The letters on the borders tell you what letter you see from there.
-	4. Since most puzzles can contain empty spaces, the hint on the board
-	   doesn't always match the tile next to it.
-	5. Bigger puzzles can contain the letter 'D'. In these cases, the name
-	   of the puzzle is 'Abcd'. Further on, you might also encounter 'E',
-	   'F' etc.
+	1. The Zen master has been very stressed as of late, to the point that
+	   yesterday he bolted for the Bahamas.
+	2. The sun proved so irresistible, that he didn't even complete the
+	   Japanese Gardens he worked on.
+	3. Being the Zen Apprentice, you are given the task to complete all of
+	   them following the master teaching of variety and continuity.
+	4. The teaching says that any three contiguous tiles vertically,
+	   horizontally or diagonally must NOT be:
+	   all different
+	   all equal
 */
 
-namespace puzzles{ namespace Abc{
+namespace puzzles{ namespace ZenLandscaper{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
+
+const Position offset[] = {
+	{0, 1},		// e
+	{1, 1},		// se
+	{1, 0},		// s
+	{1, -1},	// sw
+};
 
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
 	string m_start;
-	char m_letter_max;
-	// 1st dimension : the index of the area(rows and columns)
-	// 2nd dimension : all the positions that the area is composed of
+	// 1st dimension : area id
+	// 2nd dimension : three contiguous tiles
 	vector<vector<Position>> m_area2range;
 	// all permutations
-	// A space A B C C
-	// A space A C B B
+	// 1 1 2
+	// 1 1 3
 	// ...
-	// C C B A space A
+	// 3 3 2
 	vector<string> m_perms;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+	bool is_valid(const Position& p) const {
+		return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+	}
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size())
-, m_area2range(m_sidelen * 2)
 {
 	m_start = boost::accumulate(strs, string());
-	m_letter_max = *boost::max_element(m_start);
-	for(int r = 0; r < m_sidelen; ++r){
-		auto& str = strs[r];
+	for(int r = 0; r < m_sidelen; ++r)
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
-			m_area2range[r].push_back(p);
-			m_area2range[m_sidelen + c].push_back(p);
-		}
-	}
-
-	string perm(m_sidelen, PUZ_EMPTY);
-	auto f = [&](int border, int start, int end, int step){
-		for(int i = start; i != end; i += step)
-			if(perm[i] != PUZ_EMPTY){
-				perm[border] = perm[i];
-				return;
+			for(auto& os : offset){
+				auto p2 = p + os, p3 = p2 + os;
+				if(is_valid(p2) && is_valid(p3))
+					m_area2range.push_back({p, p2, p3});
 			}
-	};
-
-	auto begin = next(perm.begin()), end = prev(perm.end());
-	iota(next(begin, m_sidelen - 2 - (m_letter_max - 'A' + 1)), end, 'A');
-	do{
-		f(0, 1, m_sidelen - 1, 1);
-		f(m_sidelen - 1, m_sidelen - 2, 0, -1);
-		m_perms.push_back(perm);
-	}while(next_permutation(begin, end));
+		}
+	for(char ch1 = '1'; ch1 <= '3'; ++ch1)
+		for(char ch2 = '1'; ch2 <= '3'; ++ch2)
+			for(char ch3 = '1'; ch3 <= '3'; ++ch3)
+				// NOT all equal or all different
+				if(!(ch1 == ch2 && ch2 == ch3 ||
+					ch1 != ch2 && ch1 != ch3 && ch2 != ch3))
+					m_perms.push_back({ch1, ch2, ch3});
 }
 
 struct puz_state
@@ -84,7 +84,9 @@ struct puz_state
 	int sidelen() const {return m_game->m_sidelen;}
 	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
+	bool operator<(const puz_state& x) const {
+		return make_pair(m_cells, m_matches) < make_pair(x.m_cells, x.m_matches);
+	}
 	bool make_move(int i, int j);
 	void make_move2(int i, int j);
 	int find_matches(bool init);
@@ -112,8 +114,8 @@ puz_state::puz_state(const puz_game& g)
 	vector<int> perm_ids(g.m_perms.size());
 	boost::iota(perm_ids, 0);
 
-	for(int i = 1; i < sidelen() - 1; ++i)
-		m_matches[i] = m_matches[sidelen() + i] = perm_ids;
+	for(int i = 0; i < g.m_area2range.size(); ++i)
+		m_matches[i] = perm_ids;
 
 	find_matches(true);
 }
@@ -193,9 +195,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_Abc()
+void solve_puz_ZenLandscaper()
 {
-	using namespace puzzles::Abc;
+	using namespace puzzles::ZenLandscaper;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\Abc.xml", "Puzzles\\Abc.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\ZenLandscaper.xml", "Puzzles\\ZenLandscaper.txt", solution_format::GOAL_STATE_ONLY);
 }

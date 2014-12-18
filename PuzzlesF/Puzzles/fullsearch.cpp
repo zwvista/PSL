@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "astar_solver_full.h"
+#include "astar_solver.h"
 #include "solve_puzzle.h"
 
 namespace puzzles{ namespace fullsearch{
@@ -120,6 +120,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_fullsearch()
 {
 	using namespace puzzles::fullsearch;
-	solve_puzzle_full<puz_game, puz_state, puz_solver_astar_full<puz_state>>(
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true>>(
 		"Puzzles\\fullsearch.xml", "Puzzles\\fullsearch.txt");
 }
