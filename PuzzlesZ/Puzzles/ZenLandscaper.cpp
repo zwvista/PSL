@@ -12,19 +12,18 @@
 	1. The Zen master has been very stressed as of late, to the point that
 	   yesterday he bolted for the Bahamas.
 	2. The sun proved so irresistible, that he didn't even complete the
-	   Japanese Gardens he worked on.
+	   Japanese Gardens he was working on.
 	3. Being the Zen Apprentice, you are given the task to complete all of
 	   them following the master teaching of variety and continuity.
 	4. The teaching says that any three contiguous tiles vertically,
 	   horizontally or diagonally must NOT be:
-	   all different
-	   all equal
+	   -> all different
+	   -> all equal
 */
 
 namespace puzzles{ namespace ZenLandscaper{
 
 #define PUZ_SPACE		' '
-#define PUZ_EMPTY		'.'
 
 const Position offset[] = {
 	{0, 1},		// e

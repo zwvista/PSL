@@ -84,17 +84,20 @@ class puz_solver_idastar
 	}
 
 public:
-	static pair<bool, size_t> find_solution(const puz_state& sstart, list<puz_state>& spath)
+	static pair<bool, size_t> find_solution(const puz_state& sstart, list<list<puz_state>>& spaths)
 	{
 		unsigned int inf = numeric_limits<unsigned int>::max();
 		unsigned int cost_limit = sstart.get_heuristic(), next_cost_limit = inf;
 		size_t examined = 0;
+		list<puz_state> spath;
 		spath.assign(1, sstart);
 		for(;;){
 			cout << cost_limit << endl;
 			bool found = dfs(0, sstart, cost_limit, next_cost_limit, spath, examined);
-			if(found)
+			if(found){
+				spaths.push_back(spath);
 				return make_pair(true, examined);
+			}
 			if(next_cost_limit == inf)
 				return make_pair(false, examined);
 			cost_limit = next_cost_limit, next_cost_limit = inf;

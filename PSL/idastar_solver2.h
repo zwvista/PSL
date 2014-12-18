@@ -83,7 +83,7 @@ class puz_solver_idastar2
 	};
 
 public:
-	static pair<bool, size_t> find_solution(const puz_state& sstart, list<puz_state>& spath)
+	static pair<bool, size_t> find_solution(const puz_state& sstart, list<list<puz_state>>& spaths)
 	{
 		bool found = false;
 		mygraph_t g;
@@ -106,8 +106,10 @@ public:
 				if(p[v] == v)
 					break;
 			}
+			list<puz_state> spath;
 			for(vertex_t v : shortest_path)
 				spath.push_back(smap.at(v));
+			spaths.push_back(spath);
 		}
 		return make_pair(found, examine_seq.first);
 	}
