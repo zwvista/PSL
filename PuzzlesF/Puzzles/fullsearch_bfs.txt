@@ -1,0 +1,336 @@
+Level 01
+Solution 1:
+Sequence of moves: 
+. . . 
+@ . . 
+. . . 
+. . x 
+move: d
+. . . 
+. . . 
+@ . . 
+. . x 
+move: d
+. . . 
+. . . 
+. . . 
+@ . x 
+move: r
+. . . 
+. . . 
+. . . 
+. @ x 
+move: r
+. . . 
+. . . 
+. . . 
+. . @ 
+Number of moves: 4
+Solution 2:
+Sequence of moves: 
+. . . 
+@ . . 
+. . . 
+. . x 
+move: d
+. . . 
+. . . 
+@ . . 
+. . x 
+move: r
+. . . 
+. . . 
+. @ . 
+. . x 
+move: d
+. . . 
+. . . 
+. . . 
+. @ x 
+move: r
+. . . 
+. . . 
+. . . 
+. . @ 
+Number of moves: 4
+Solution 3:
+Sequence of moves: 
+. . . 
+@ . . 
+. . . 
+. . x 
+move: r
+. . . 
+. @ . 
+. . . 
+. . x 
+move: d
+. . . 
+. . . 
+. @ . 
+. . x 
+move: d
+. . . 
+. . . 
+. . . 
+. @ x 
+move: r
+. . . 
+. . . 
+. . . 
+. . @ 
+Number of moves: 4
+Solution 4:
+Sequence of moves: 
+. . . 
+@ . . 
+. . . 
+. . x 
+move: d
+. . . 
+. . . 
+@ . . 
+. . x 
+move: r
+. . . 
+. . . 
+. @ . 
+. . x 
+move: r
+. . . 
+. . . 
+. . @ 
+. . x 
+move: d
+. . . 
+. . . 
+. . . 
+. . @ 
+Number of moves: 4
+Solution 5:
+Sequence of moves: 
+. . . 
+@ . . 
+. . . 
+. . x 
+move: r
+. . . 
+. @ . 
+. . . 
+. . x 
+move: d
+. . . 
+. . . 
+. @ . 
+. . x 
+move: r
+. . . 
+. . . 
+. . @ 
+. . x 
+move: d
+. . . 
+. . . 
+. . . 
+. . @ 
+Number of moves: 4
+Solution 6:
+Sequence of moves: 
+. . . 
+@ . . 
+. . . 
+. . x 
+move: r
+. . . 
+. @ . 
+. . . 
+. . x 
+move: r
+. . . 
+. . @ 
+. . . 
+. . x 
+move: d
+. . . 
+. . . 
+. . @ 
+. . x 
+move: d
+. . . 
+. . . 
+. . . 
+. . @ 
+Number of moves: 4
+Number of vertices examined: 33
+0.00538217 [s]
+
+Level 02
+Solution 1:
+Sequence of moves: 
+. . . 
+@ . # 
+. . . 
+# . x 
+move: d
+. . . 
+. . # 
+@ . . 
+# . x 
+move: r
+. . . 
+. . # 
+. @ . 
+# . x 
+move: d
+. . . 
+. . # 
+. . . 
+# @ x 
+move: r
+. . . 
+. . # 
+. . . 
+# . @ 
+Number of moves: 4
+Solution 2:
+Sequence of moves: 
+. . . 
+@ . # 
+. . . 
+# . x 
+move: r
+. . . 
+. @ # 
+. . . 
+# . x 
+move: d
+. . . 
+. . # 
+. @ . 
+# . x 
+move: d
+. . . 
+. . # 
+. . . 
+# @ x 
+move: r
+. . . 
+. . # 
+. . . 
+# . @ 
+Number of moves: 4
+Solution 3:
+Sequence of moves: 
+. . . 
+@ . # 
+. . . 
+# . x 
+move: d
+. . . 
+. . # 
+@ . . 
+# . x 
+move: r
+. . . 
+. . # 
+. @ . 
+# . x 
+move: r
+. . . 
+. . # 
+. . @ 
+# . x 
+move: d
+. . . 
+. . # 
+. . . 
+# . @ 
+Number of moves: 4
+Solution 4:
+Sequence of moves: 
+. . . 
+@ . # 
+. . . 
+# . x 
+move: r
+. . . 
+. @ # 
+. . . 
+# . x 
+move: d
+. . . 
+. . # 
+. @ . 
+# . x 
+move: r
+. . . 
+. . # 
+. . @ 
+# . x 
+move: d
+. . . 
+. . # 
+. . . 
+# . @ 
+Number of moves: 4
+Number of vertices examined: 23
+0.00402927 [s]
+
+Level 03
+Solution 1:
+Sequence of moves: 
+. . . 
+@ . . 
+. # . 
+. . x 
+move: d
+. . . 
+. . . 
+@ # . 
+. . x 
+move: d
+. . . 
+. . . 
+. # . 
+@ . x 
+move: r
+. . . 
+. . . 
+. # . 
+. @ x 
+move: r
+. . . 
+. . . 
+. # . 
+. . @ 
+Number of moves: 4
+Solution 2:
+Sequence of moves: 
+. . . 
+@ . . 
+. # . 
+. . x 
+move: r
+. . . 
+. @ . 
+. # . 
+. . x 
+move: r
+. . . 
+. . @ 
+. # . 
+. . x 
+move: d
+. . . 
+. . . 
+. # @ 
+. . x 
+move: d
+. . . 
+. . . 
+. # . 
+. . @ 
+Number of moves: 4
+Number of vertices examined: 25
+0.00468921 [s]
+

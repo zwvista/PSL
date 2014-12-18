@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "dijkstra_solver.h"
+#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 namespace puzzles{ namespace fullsearch{
@@ -121,5 +123,9 @@ void solve_puz_fullsearch()
 {
 	using namespace puzzles::fullsearch;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true>>(
-		"Puzzles\\fullsearch.xml", "Puzzles\\fullsearch.txt");
+		"Puzzles\\fullsearch.xml", "Puzzles\\fullsearch_astar.txt");
+	solve_puzzle<puz_game, puz_state, puz_solver_dijkstra<puz_state, true, true>>(
+		"Puzzles\\fullsearch.xml", "Puzzles\\fullsearch_dijkstra.txt");
+	solve_puzzle<puz_game, puz_state, puz_solver_bfs<puz_state, true, true>>(
+		"Puzzles\\fullsearch.xml", "Puzzles\\fullsearch_bfs.txt");
 }

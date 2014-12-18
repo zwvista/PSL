@@ -2,6 +2,7 @@
 <levels>
   <level id="01">
    <![CDATA[
+   \
 @  \
    \
   x\
@@ -9,6 +10,7 @@
  </level>
   <level id="02">
    <![CDATA[
+   \
 @ #\
    \
 # x\
@@ -16,6 +18,7 @@
  </level>
   <level id="03">
    <![CDATA[
+   \
 @  \
  # \
   x\

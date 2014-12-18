@@ -154,7 +154,9 @@
     <Text Include="Puzzles\Fillomino.txt" />
     <Text Include="Puzzles\fling.txt" />
     <Text Include="Puzzles\FourMeNot.txt" />
-    <Text Include="Puzzles\fullsearch.txt" />
+    <Text Include="Puzzles\fullsearch_astar.txt" />
+    <Text Include="Puzzles\fullsearch_bfs.txt" />
+    <Text Include="Puzzles\fullsearch_dijkstra.txt" />
     <Text Include="Puzzles\FussyWaiter.txt" />
     <Text Include="Puzzles\Futoshiki.txt" />
     <Text Include="ReadMe.txt" />

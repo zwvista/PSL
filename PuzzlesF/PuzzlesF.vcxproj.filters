@@ -43,7 +43,13 @@
     <Text Include="Puzzles\FussyWaiter.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\fullsearch.txt">
+    <Text Include="Puzzles\fullsearch_astar.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\fullsearch_bfs.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\fullsearch_dijkstra.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
