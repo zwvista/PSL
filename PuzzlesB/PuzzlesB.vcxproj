@@ -151,8 +151,6 @@
     <Text Include="Puzzles\BalancedTapas.txt" />
     <Text Include="Puzzles\BattleShips.txt" />
     <Text Include="Puzzles\bloc.txt" />
-    <Text Include="Puzzles\BlockedProduct.txt" />
-    <Text Include="Puzzles\BlockedView.txt" />
     <Text Include="Puzzles\bloxorz_a.txt" />
     <Text Include="Puzzles\bloxorz_ida.txt" />
     <Text Include="Puzzles\BootyIsland.txt" />
@@ -174,8 +172,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\BalancedTapas.cpp" />
     <ClCompile Include="Puzzles\BattleShips.cpp" />
-    <ClCompile Include="Puzzles\BlockedProduct.cpp" />
-    <ClCompile Include="Puzzles\BlockedView.cpp" />
     <ClCompile Include="Puzzles\bloxorz.cpp" />
     <ClCompile Include="Puzzles\BootyIsland.cpp" />
     <ClCompile Include="Puzzles\BotanicalPark.cpp" />
@@ -196,8 +192,6 @@
     <Xml Include="Puzzles\BalancedTapas.xml" />
     <Xml Include="Puzzles\BattleShips.xml" />
     <Xml Include="Puzzles\bloc.xml" />
-    <Xml Include="Puzzles\BlockedProduct.xml" />
-    <Xml Include="Puzzles\BlockedView.xml" />
     <Xml Include="Puzzles\bloxorz.xml" />
     <Xml Include="Puzzles\BootyIsland.xml" />
     <Xml Include="Puzzles\BotanicalPark.xml" />

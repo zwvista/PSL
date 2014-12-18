@@ -79,6 +79,9 @@
     <Text Include="Puzzles\PowerGrid.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\ProductSentinels.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -131,6 +134,9 @@
     <ClCompile Include="Puzzles\PowerGrid.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\ProductSentinels.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\pathfind.xml">
@@ -167,6 +173,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\PowerGrid.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\ProductSentinels.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

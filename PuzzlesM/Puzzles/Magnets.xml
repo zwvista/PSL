@@ -132,4 +132,20 @@ H H H 22\
 322013 -\
     ]]>
   </level>
+  <level id="119">
+    <![CDATA[
+H VH VH H 55\
+VV H  VH V4 \
+  VVH  H  54\
+VV  H H VV 4\
+  H H VV  54\
+H H H   H 4 \
+VH H VVVVV2 \
+ H VV       \
+H V  VVVH 43\
+H  H    H 45\
+ 5 5 3355 + \
+43 4 2 45  -\
+    ]]>
+  </level>
 </levels>

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+extern void solve_puz_Sentinels();
 extern void solve_puz_SheepAndWolves();
 extern void solve_puz_ShopAndGas();
 extern void solve_puz_Skydoku();
@@ -15,6 +16,7 @@ extern void solve_puz_sumscrapers();
 
 int main(int argc, char **argv)
 {
+	cout << "e: Sentinels" << endl;
 	cout << "h1: Sheep & Wolves" << endl;
 	cout << "h2: Shop & Gas" << endl;
 	cout << "k1: Skydoku" << endl;
@@ -30,6 +32,7 @@ int main(int argc, char **argv)
 	string str;
 	getline(cin, str);
 	if(str.empty());
+	else if(str == "e") solve_puz_Sentinels();
 	else if(str == "h1") solve_puz_SheepAndWolves();
 	else if(str == "h2") solve_puz_ShopAndGas();
 	else if(str == "k1") solve_puz_Skydoku();

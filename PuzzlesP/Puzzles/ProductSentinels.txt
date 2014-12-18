@@ -7,7 +7,7 @@ Sequence of moves:
  . 6 T .10
 Number of moves: 2
 Number of vertices examined: 3
-0.00625866 [s]
+0.00617196 [s]
 
 Level 02
 Sequence of moves: 
@@ -18,7 +18,7 @@ Sequence of moves:
  . . T . 4
 Number of moves: 2
 Number of vertices examined: 3
-0.00279904 [s]
+0.00542233 [s]
 
 Level 03
 Sequence of moves: 
@@ -29,7 +29,7 @@ Sequence of moves:
  . . . 8 T
 Number of moves: 2
 Number of vertices examined: 4
-0.00430616 [s]
+0.00540136 [s]
 
 Level 04
 Sequence of moves: 
@@ -40,5 +40,20 @@ Sequence of moves:
  T . 4 . 4
 Number of moves: 1
 Number of vertices examined: 2
-0.00338022 [s]
+0.00353085 [s]
+
+Level 19
+Sequence of moves: 
+ . T . . T . . . .
+ . 721 . . . . T .
+ . T . .1224 . . T
+ . . T . T . . 812
+ . T . . . T . T .
+18 4 T . T . . . .
+ . . .4212 . T . T
+ . T . T . .1015 .
+ . . . . T . . T .
+Number of moves: 8
+Number of vertices examined: 11
+0.0322185 [s]
 

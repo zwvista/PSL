@@ -25,12 +25,6 @@
     <Text Include="Puzzles\bloc.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\BlockedProduct.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\BlockedView.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\bloxorz_a.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -86,12 +80,6 @@
     <ClCompile Include="Puzzles\BattleShips.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\BlockedProduct.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\BlockedView.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\bloxorz.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -128,12 +116,6 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\bloc.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\BlockedProduct.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\BlockedView.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\bloxorz.xml">

@@ -4,17 +4,17 @@
 #include "solve_puzzle.h"
 
 /*
-	iOS Game: Logic Games/Puzzle Set 11/Blocked Product
+	iOS Game: Logic Games/Puzzle Set 3/Sentinels
 
 	Summary
-	Multiplicative Towers
+	This time it's one Garden and many Towers
 
 	Description
 	1. On the Board there are a few sentinels. These sentinels are marked with
 	   a number.
-	2. The number tells you the product of the tiles that Sentinel can control
-	   (see) from there vertically and horizontally. This includes the tile 
-	   where he is located.
+	2. The number tells you how many tiles that Sentinel can control (see) from
+	   there vertically and horizontally. This includes the tile where he is
+	   located.
 	3. You must put Towers on the Boards in accordance with these hints, keeping
 	   in mind that a Tower blocks the Sentinel View.
 	4. The restrictions are that there must be a single continuous Garden, and
@@ -23,7 +23,7 @@
 	   Sentinel View.
 */
 
-namespace puzzles{ namespace BlockedProduct{
+namespace puzzles{ namespace Sentinels{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
@@ -57,12 +57,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_BOUNDARY);
 		for(int c = 1; c < m_sidelen - 1; ++c){
-			auto s = str.substr(c * 2 - 2, 2);
-			if(s == "  ")
+			char ch = str[c - 1];
+			if(ch == PUZ_SPACE)
 				m_start.push_back(PUZ_SPACE);
 			else{
 				m_start.push_back(PUZ_SENTINEL);
-				m_pos2num[{r, c}] = atoi(s.c_str());
+				m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
 			}
 		}
 		m_start.push_back(PUZ_BOUNDARY);
@@ -115,12 +115,13 @@ int puz_state::find_matches(bool init)
 		auto& perms = kv.second;
 		perms.clear();
 
+		int sum = m_game->m_pos2num.at(p) - 1;
 		vector<vector<int>> dir_nums(4);
 		for(int i = 0; i < 4; ++i){
 			auto& os = offset[i];
 			int n = 0;
 			auto& nums = dir_nums[i];
-			for(auto p2 = p + os; ; p2 += os){
+			for(auto p2 = p + os; n <= sum; p2 += os){
 				char ch = cells(p2);
 				if(ch == PUZ_SPACE)
 					nums.push_back(n++);
@@ -133,12 +134,11 @@ int puz_state::find_matches(bool init)
 			}
 		}
 
-		int product = m_game->m_pos2num.at(p);
 		for(int n0 : dir_nums[0])
 			for(int n1 : dir_nums[1])
 				for(int n2 : dir_nums[2])
 					for(int n3 : dir_nums[3])
-						if((n0 + n2 + 1) * (n1 + n3 + 1) == product)
+						if(n0 + n1 + n2 + n3 == sum)
 							perms.push_back({n0, n1, n2, n3});
 
 		if(!init)
@@ -260,9 +260,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_BlockedProduct()
+void solve_puz_Sentinels()
 {
-	using namespace puzzles::BlockedProduct;
+	using namespace puzzles::Sentinels;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\BlockedProduct.xml", "Puzzles\\BlockedProduct.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Sentinels.xml", "Puzzles\\Sentinels.txt", solution_format::GOAL_STATE_ONLY);
 }

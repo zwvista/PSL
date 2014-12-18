@@ -2,8 +2,6 @@
 
 extern void solve_puz_BalancedTapas();
 extern void solve_puz_BattleShips();
-extern void solve_puz_BlockedProduct();
-extern void solve_puz_BlockedView();
 extern void solve_puz_bloxorz();
 extern void solve_puz_BootyIsland();
 extern void solve_puz_BotanicalPark();
@@ -18,9 +16,7 @@ int main(int argc, char **argv)
 {
 	cout << "a1: Balanced Tapas" << endl;
 	cout << "a2: Battle Ships" << endl;
-	cout << "l1: Blocked Product" << endl;
-	cout << "l2: Blocked View" << endl;
-	cout << "l3: bloxorz" << endl;
+	cout << "l: bloxorz" << endl;
 	cout << "o1: Booty Island" << endl;
 	cout << "o2: Botanical Park" << endl;
 	cout << "o3: Box It Around" << endl;
@@ -34,9 +30,7 @@ int main(int argc, char **argv)
 	if(str.empty());
 	else if(str == "a1") solve_puz_BalancedTapas();
 	else if(str == "a2") solve_puz_BattleShips();
-	else if(str == "l1") solve_puz_BlockedProduct();
-	else if(str == "l2") solve_puz_BlockedView();
-	else if(str == "l3") solve_puz_bloxorz();
+	else if(str == "l") solve_puz_bloxorz();
 	else if(str == "o1") solve_puz_BootyIsland();
 	else if(str == "o2") solve_puz_BotanicalPark();
 	else if(str == "o3") solve_puz_BoxItAround();
