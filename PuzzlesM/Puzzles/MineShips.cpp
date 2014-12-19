@@ -34,12 +34,14 @@ const puz_ship_info ship_info[] = {
 	{{"<>", "^v"}, {"1221", "1  1", "1221"}},
 	{{"<+>", "^+v"}, {"12321", "1   1", "12321"}},
 	{{"<++>", "^++v"}, {"123321", "1    1", "123321"}},
+	{{"<+++>", "^+++v"}, {"1233321", "1     1", "1233321"}},
 };
 
 struct puz_game
 {
 	string m_id;
 	int m_sidelen;
+	bool m_has_supertank;
 	string m_start;
 	map<int, int> m_ship2num;
 	map<Position, int> m_pos2num;
@@ -48,10 +50,13 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size())
+	: m_id(attrs.get<string>("id"))
+	, m_sidelen(strs.size())
+	, m_has_supertank(attrs.get<int>("SuperTank", 0) == 1)
 {
 	m_ship2num = map<int, int>{{1, 4}, {2, 3}, {3, 2}, {4, 1}};
+	if(m_has_supertank)
+		m_ship2num[5] = 1;
 
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];

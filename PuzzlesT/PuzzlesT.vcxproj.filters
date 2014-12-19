@@ -49,9 +49,6 @@
     <Text Include="Puzzles\Tatamino.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\Tatami.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\TierraDelFuego.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -62,6 +59,9 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\TheOddBrick.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Tatami.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
