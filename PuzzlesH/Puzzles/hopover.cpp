@@ -2,6 +2,13 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+	Instructions:
+	A frog can either move forward or jump a frog in front of it.
+	The object is to exchange the frogs.
+	http://www.freeonlinepcgames.net/play/hop-over-puzzle-classic-puzzle-can-you-switch-t/flash-game/
+*/
+
 namespace puzzles{ namespace hopover{
 
 #define PUZ_WALL	'#'
@@ -70,12 +77,15 @@ void puz_state::gen_children(list<puz_state>& children) const
 		char n = at(i);
 		if(n == PUZ_RED || n == PUZ_BLUE){
 			bool can_move = false;
+			// Red frogs move rightward and blue ones, leftward.
 			int delta = n == PUZ_RED ? 1 : -1;
 			int j = i + delta;
 			char n2 = at(j);
+			// A frog can move forward
 			if(n2 == PUZ_SPACE)
 				can_move = true;
-			else if(n2 != PUZ_WALL && n2 != n){
+			// or jump a frog in front of it
+			else if(n2 == PUZ_RED || n2 == PUZ_BLUE){
 				j += delta;
 				n2 = at(j);
 				if(n2 == PUZ_SPACE)
@@ -103,6 +113,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_hopover()
 {
 	using namespace puzzles::hopover;
-	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true>>(
 		"Puzzles\\hopover.xml", "Puzzles\\hopover.txt");
 }
