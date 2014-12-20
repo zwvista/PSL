@@ -175,6 +175,7 @@ int puz_state::find_matches(bool init)
 					ch1 == PUZ_SPACE || ch1 == ch2;
 			});
 		});
+		perm_ids.shrink_to_fit();
 
 		if(!init)
 			switch(perm_ids.size()){
