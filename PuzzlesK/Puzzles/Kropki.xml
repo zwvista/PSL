@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
 WB \
 WW \
@@ -9,7 +9,7 @@ W W\
  W \
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
  B WW \
 BWBWWB\
@@ -24,7 +24,7 @@ WWBBBB\
 WWB B \
     ]]>
   </level>
-  <level id="03">
+  <level id="3">
     <![CDATA[
 BWW B  \
 B  WBB \
@@ -41,7 +41,7 @@ WWW  B \
 BWBW W \
     ]]>
   </level>
-  <level id="09" Bordered="1">
+  <level id="9" Bordered="1">
     <![CDATA[
        B \
  W W B   \

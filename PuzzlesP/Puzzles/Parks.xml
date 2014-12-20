@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
  - - - - - \
 |   | | | |\
@@ -15,7 +15,7 @@
  - - - - - \
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
  - - - - - \
 |         |\
@@ -30,7 +30,7 @@
  - - - - - \
     ]]>
   </level>
-  <level id="03">
+  <level id="3">
     <![CDATA[
  - - - - - \
 |   |     |\
@@ -45,7 +45,7 @@
  - - - - - \
     ]]>
   </level>
-  <level id="04">
+  <level id="4">
     <![CDATA[
  - - - - - \
 |   |     |\
@@ -60,7 +60,7 @@
  - - - - - \
     ]]>
   </level>
-  <level id="05">
+  <level id="5">
     <![CDATA[
  - - - - - \
 |     |   |\
@@ -75,7 +75,7 @@
  - - - - - \
     ]]>
   </level>
-  <level id="06">
+  <level id="6">
     <![CDATA[
  - - - - - \
 |     |   |\
@@ -90,7 +90,7 @@
  - - - - - \
     ]]>
   </level>
-  <level id="07">
+  <level id="7">
     <![CDATA[
  - - - - - - \
 |   |       |\
@@ -107,7 +107,7 @@
  - - - - - - \
     ]]>
   </level>
-  <level id="08">
+  <level id="8">
     <![CDATA[
  - - - - - - \
 |   | |     |\
@@ -124,7 +124,7 @@
  - - - - - - \
     ]]>
   </level>
-  <level id="09">
+  <level id="9">
     <![CDATA[
  - - - - - - \
 | |     |   |\

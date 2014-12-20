@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="001"><![CDATA[
+  <level id="1"><![CDATA[
                  \
  # #     # # # # \
                  \
@@ -20,7 +20,7 @@
                  \
 ]]>
   </level>
-  <level id="002"><![CDATA[
+  <level id="2"><![CDATA[
              -   \
  # # # # # #|.|# \
                  \
@@ -40,7 +40,7 @@
                  \
 ]]>
   </level>
-  <level id="003"><![CDATA[
+  <level id="3"><![CDATA[
                  \
  # # # # #   # # \
                  \
@@ -60,7 +60,7 @@
                  \
 ]]>
   </level>
-  <level id="004"><![CDATA[
+  <level id="4"><![CDATA[
                - \
            # #   \
  -               \
@@ -80,7 +80,7 @@
                  \
 ]]>
   </level>
-  <level id="005"><![CDATA[
+  <level id="5"><![CDATA[
                  \
    # # # @ # # # \
                  \
@@ -100,7 +100,7 @@
                  \
 ]]>
   </level>
-  <level id="006"><![CDATA[
+  <level id="6"><![CDATA[
                  \
    # # # @ # # # \
                  \
@@ -120,7 +120,7 @@
                  \
 ]]>
   </level>
-  <level id="007"><![CDATA[
+  <level id="7"><![CDATA[
                  \
      #   . # # # \
                  \
@@ -139,7 +139,7 @@
  # #   # # # # # \
                  \
   ]]></level>
-  <level id="008"><![CDATA[
+  <level id="8"><![CDATA[
                  \
    . # # . # # # \
                  \
@@ -158,7 +158,7 @@
  # #|  # @ # # @ \
                  \
   ]]></level>
-  <level id="009"><![CDATA[
+  <level id="9"><![CDATA[
                  \
  # @ # # # # # # \
                  \
@@ -177,7 +177,7 @@
  #     # #   # # \
                  \
   ]]></level>
-  <level id="010"><![CDATA[
+  <level id="10"><![CDATA[
                  \
    #       # # # \
                  \
@@ -196,7 +196,7 @@
  # # # #   #   # \
                  \
   ]]></level>
-  <level id="011"><![CDATA[
+  <level id="11"><![CDATA[
                  \
  #   # # # # # # \
                  \
@@ -215,7 +215,7 @@
  # #   # # .  |  \
                  \
   ]]></level>
-  <level id="012"><![CDATA[
+  <level id="12"><![CDATA[
                  \
  # # # # #   # # \
                  \
@@ -234,7 +234,7 @@
  # # . # # #|  # \
                  \
   ]]></level>
-  <level id="013"><![CDATA[
+  <level id="13"><![CDATA[
                  \
  # # # # # # # # \
                  \
@@ -253,7 +253,7 @@
  # #   #   # .|  \
                  \
   ]]></level>
-  <level id="014"><![CDATA[
+  <level id="14"><![CDATA[
                  \
  # # #   # # # # \
                  \
@@ -272,7 +272,7 @@
  #   . # #   .   \
                  \
   ]]></level>
-  <level id="015"><![CDATA[
+  <level id="15"><![CDATA[
                  \
  # # # # # # # # \
                  \
@@ -291,7 +291,7 @@
  # # # # # # # # \
                  \
   ]]></level>
-  <level id="016"><![CDATA[
+  <level id="16"><![CDATA[
    -             \
  #   # # #   # # \
              -   \
@@ -310,7 +310,7 @@
  # # # # #   .   \
                  \
   ]]></level>
-  <level id="017"><![CDATA[
+  <level id="17"><![CDATA[
                  \
    @       # @|  \
  -               \
@@ -329,7 +329,7 @@
  # # # #   #   # \
                  \
   ]]></level>
-  <level id="018"><![CDATA[
+  <level id="18"><![CDATA[
                  \
  # # # #      |# \
                  \
@@ -348,7 +348,7 @@
  # #   .   #   # \
                  \
   ]]></level>
-  <level id="019"><![CDATA[
+  <level id="19"><![CDATA[
                  \
  # # # # # # # # \
                  \
@@ -367,7 +367,7 @@
  # #   # # #   @ \
                  \
   ]]></level>
-  <level id="020"><![CDATA[
+  <level id="20"><![CDATA[
                  \
  # @ # # # # @ # \
                  \
@@ -386,7 +386,7 @@
  # #   # # #  |  \
                  \
   ]]></level>
-  <level id="021"><![CDATA[
+  <level id="21"><![CDATA[
                  \
  . # . # # # # # \
            -     \
@@ -405,7 +405,7 @@
  # # # # # # # # \
                  \
   ]]></level>
-  <level id="022"><![CDATA[
+  <level id="22"><![CDATA[
                  \
  # # # # # # # # \
                  \

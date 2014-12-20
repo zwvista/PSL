@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <levels>
-  <level id="001">
+  <level id="1">
     <![CDATA[
                \
                \
@@ -13,7 +13,7 @@
                \
     ]]>
   </level>
-  <level id="002">
+  <level id="2">
     <![CDATA[
        #       \
    #####       \
@@ -27,7 +27,7 @@
        #       \
     ]]>
   </level>
-  <level id="003">
+  <level id="3">
     <![CDATA[
 !              \
 !              \

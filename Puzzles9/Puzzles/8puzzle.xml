@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="001"><![CDATA[
+  <level id="1"><![CDATA[
 756\
 832\
 4 1\
@@ -9,7 +9,7 @@
 456\
 78 \
   ]]></level>
-  <level id="002"><![CDATA[
+  <level id="2"><![CDATA[
 283\
 164\
 7 5\
@@ -18,7 +18,7 @@
 8 4\
 765\
   ]]></level>
-  <level id="003"><![CDATA[
+  <level id="3"><![CDATA[
 216\
 4 8\
 753\
@@ -27,14 +27,14 @@
 8 4\
 765\
   ]]></level>
-  <level id="010"><![CDATA[
+  <level id="10"><![CDATA[
 CANAMA\
 PANAL \
 \
 PANAMA\
 CANAL \
   ]]></level>
-  <level id="004"><![CDATA[
+  <level id="4"><![CDATA[
 68B \
 17FE\
 24AC\
@@ -45,7 +45,7 @@ CANAL \
 9ABC\
 DEF \
   ]]></level>
-  <level id="008"><![CDATA[
+  <level id="8"><![CDATA[
 1234\
 5678\
 9ABC\
@@ -56,7 +56,7 @@ DFE \
 89AB\
 CDEF\
   ]]></level>
-  <level id="005"><![CDATA[
+  <level id="5"><![CDATA[
 7A6B\
 8CD4\
 1F 9\
@@ -67,7 +67,7 @@ CDEF\
 9ABC\
 DEF \
   ]]></level>
-  <level id="006"><![CDATA[
+  <level id="6"><![CDATA[
 8BCD\
 AF76\
 2314\
@@ -78,7 +78,7 @@ AF76\
 9ABC\
 DEF \
   ]]></level>
-  <level id="007"><![CDATA[
+  <level id="7"><![CDATA[
 FEDC\
 BA98\
 7654\
@@ -89,7 +89,7 @@ BA98\
 9ABC\
 DEF \
   ]]></level>
-  <level id="009"><![CDATA[
+  <level id="9"><![CDATA[
 DEAD\
 PIGS\
 WONT\

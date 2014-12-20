@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <levels>
-  <level id="001"><![CDATA[
+  <level id="1"><![CDATA[
 00011\
 00000\
 00011\
 00000\
 00011\
   ]]></level>
-  <level id="002"><![CDATA[
+  <level id="2"><![CDATA[
 01011\
 01001\
 00000\
 01001\
 01011\
   ]]></level>
-  <level id="003"><![CDATA[
+  <level id="3"><![CDATA[
 100\
 000\
 000\
   ]]></level>
-  <level id="004"><![CDATA[
+  <level id="4"><![CDATA[
 11111\
 11111\
 11111\

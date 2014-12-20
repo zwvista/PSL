@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
 G  SG\
 S    \
@@ -9,7 +9,7 @@ G  H \
  G S \
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
 G SG \
  SGS \
@@ -18,7 +18,7 @@ SGS S\
     G\
     ]]>
   </level>
-  <level id="03">
+  <level id="3">
     <![CDATA[
 G  G \
  S SS\
@@ -27,7 +27,7 @@ SGSG \
 GS   \
     ]]>
   </level>
-  <level id="04">
+  <level id="4">
     <![CDATA[
 G GS \
  SS G\

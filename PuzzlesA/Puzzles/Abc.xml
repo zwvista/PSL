@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
  CBCA \
 C    A\
@@ -10,7 +10,7 @@ B    C\
  BCAC \
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
  BBAC \
 B    C\
@@ -20,7 +20,7 @@ A    B\
  ACBB \
     ]]>
   </level>
-  <level id="03">
+  <level id="3">
     <![CDATA[
  ACBCB \
 A     B\
@@ -31,7 +31,7 @@ C     A\
  CBABA \
     ]]>
   </level>
-  <level id="04">
+  <level id="4">
     <![CDATA[
  CAABB \
 C     B\
@@ -42,7 +42,7 @@ B     A\
  BBBCA \
     ]]>
   </level>
-  <level id="05">
+  <level id="5">
     <![CDATA[
    BB  \
        \
@@ -53,7 +53,7 @@ B      \
   A C  \
     ]]>
   </level>
-  <level id="06">
+  <level id="6">
     <![CDATA[
        \
 A      \
@@ -64,7 +64,7 @@ B      \
   AC C \
     ]]>
   </level>
-  <level id="07">
+  <level id="7">
     <![CDATA[
  ACDBA \
 C     A\
@@ -75,7 +75,7 @@ D     B\
  DDCAB \
     ]]>
   </level>
-  <level id="08">
+  <level id="8">
     <![CDATA[
    B   \
 D     C\
@@ -86,7 +86,7 @@ C     D\
    D   \
     ]]>
   </level>
-  <level id="09">
+  <level id="9">
     <![CDATA[
  CAAAB \
 C     B\

@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <levels>
-  <level id="001"><![CDATA[
+  <level id="1"><![CDATA[
 $#$#\
 # $$\
 ## #\
 ##$#\
   ]]></level>
-  <level id="002"><![CDATA[
+  <level id="2"><![CDATA[
 $###\
 #$#$\
  $ #\
 # ##\
 # ##\
   ]]></level>
-  <level id="003"><![CDATA[
+  <level id="3"><![CDATA[
 ##$$\
 # $$\
 #$  \
 # $$\
 $###\
   ]]></level>
-  <level id="004"><![CDATA[
+  <level id="4"><![CDATA[
  $ ##\
 $$$$#\
  $$# \
@@ -29,21 +29,21 @@ $  $ \
 # ###\
 ##$##\
   ]]></level>
-  <level id="005"><![CDATA[
+  <level id="5"><![CDATA[
 ### ###\
 $  $$$$\
 #$$$$$#\
 ##$$$##\
 ### ###\
   ]]></level>
-  <level id="006"><![CDATA[
+  <level id="6"><![CDATA[
 $$$$$\
 $$$$$\
 $$ $$\
 $$$$$\
 $$$$$\
   ]]></level>
-  <level id="007"><![CDATA[
+  <level id="7"><![CDATA[
 ##$$$##\
 $$$$$$$\
 $$$$$$$\
@@ -52,7 +52,7 @@ $$$$$$$\
 $$$$$$$\
 ##$$$##\
   ]]></level>
-  <level id="008"><![CDATA[
+  <level id="8"><![CDATA[
 #####$\
 ####$$\
 ###$$$\
@@ -65,7 +65,7 @@ $$$$$$$\
 ####$$\
 #####$\
   ]]></level>
-  <level id="009"><![CDATA[
+  <level id="9"><![CDATA[
 #### ####\
 ###$$$###\
 ###$$$###\
@@ -76,7 +76,7 @@ $$$$$$$\
 ###$$$###\
 #### ####\
   ]]></level>
-  <level id="010"><![CDATA[
+  <level id="10"><![CDATA[
 ##$$ $$##\
 ##$$$$$##\
 ##$$$$$##\

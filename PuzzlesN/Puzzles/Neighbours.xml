@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="001">
+  <level id="1">
     <![CDATA[
   32\
 23  \
@@ -8,7 +8,7 @@
  242\
     ]]>
   </level>
-  <level id="002">
+  <level id="2">
     <![CDATA[
  33 \
  5  \
@@ -16,7 +16,7 @@
 3  3\
     ]]>
   </level>
-  <level id="003">
+  <level id="3">
     <![CDATA[
      \
 2  4 \
@@ -25,7 +25,7 @@
  23 3\
     ]]>
   </level>
-  <level id="004">
+  <level id="4">
     <![CDATA[
      \
 42   \
@@ -34,7 +34,7 @@
     3\
     ]]>
   </level>
-  <level id="005">
+  <level id="5">
     <![CDATA[
  4   \
   3 3\
@@ -43,7 +43,7 @@
  2   \
     ]]>
   </level>
-  <level id="006">
+  <level id="6">
     <![CDATA[
    2 \
  3   \
@@ -52,7 +52,7 @@
 3    \
     ]]>
   </level>
-  <level id="007">
+  <level id="7">
     <![CDATA[
      \
 4  3 \
@@ -61,7 +61,7 @@
  2  3\
     ]]>
   </level>
-  <level id="008">
+  <level id="8">
     <![CDATA[
      \
 23   \
@@ -70,7 +70,7 @@
 32   \
     ]]>
   </level>
-  <level id="009">
+  <level id="9">
     <![CDATA[
  2   \
    ? \
@@ -79,7 +79,7 @@
 ?  3 \
     ]]>
   </level>
-  <level id="010">
+  <level id="10">
     <![CDATA[
    24\
      \
@@ -88,7 +88,7 @@
      \
     ]]>
   </level>
-  <level id="011">
+  <level id="11">
     <![CDATA[
      \
  2 ?3\
@@ -97,7 +97,7 @@
  22  \
     ]]>
   </level>
-  <level id="012">
+  <level id="12">
     <![CDATA[
 3 ?  \
 3    \
@@ -106,7 +106,7 @@
      \
     ]]>
   </level>
-  <level id="013">
+  <level id="13">
     <![CDATA[
      \
  ? 3 \
@@ -115,7 +115,7 @@
 3  2 \
     ]]>
   </level>
-  <level id="014">
+  <level id="14">
     <![CDATA[
   3  \
  4 33\
@@ -124,7 +124,7 @@
      \
     ]]>
   </level>
-  <level id="015">
+  <level id="15">
     <![CDATA[
      \
    23\
@@ -133,7 +133,7 @@
      \
     ]]>
   </level>
-  <level id="016">
+  <level id="16">
     <![CDATA[
 2    \
    23\
@@ -142,7 +142,7 @@
  2  3\
     ]]>
   </level>
-  <level id="017">
+  <level id="17">
     <![CDATA[
  3   \
      \
@@ -151,7 +151,7 @@
   3  \
     ]]>
   </level>
-  <level id="018">
+  <level id="18">
     <![CDATA[
 3  2 \
      \
@@ -160,7 +160,7 @@
      \
     ]]>
   </level>
-  <level id="019">
+  <level id="19">
     <![CDATA[
      \
  ? 2 \
@@ -169,7 +169,7 @@
     2\
     ]]>
   </level>
-  <level id="020">
+  <level id="20">
     <![CDATA[
      \
 2    \
@@ -178,7 +178,7 @@
   4  \
     ]]>
   </level>
-  <level id="021">
+  <level id="21">
     <![CDATA[
      \
 2 2  \
@@ -187,7 +187,7 @@
      \
     ]]>
   </level>
-  <level id="022">
+  <level id="22">
     <![CDATA[
      \
  4   \
@@ -196,7 +196,7 @@
     ?\
     ]]>
   </level>
-  <level id="023">
+  <level id="23">
     <![CDATA[
      \
 2  3 \
@@ -205,7 +205,7 @@
     4\
     ]]>
   </level>
-  <level id="024">
+  <level id="24">
     <![CDATA[
    2?\
   4  \
@@ -214,7 +214,7 @@
 3    \
     ]]>
   </level>
-  <level id="025">
+  <level id="25">
     <![CDATA[
      \
  3   \
@@ -223,7 +223,7 @@
   ?  \
     ]]>
   </level>
-  <level id="026">
+  <level id="26">
     <![CDATA[
  4  ?\
  3   \
@@ -232,7 +232,7 @@
 2    \
     ]]>
   </level>
-  <level id="027">
+  <level id="27">
     <![CDATA[
      \
  2   \
@@ -241,7 +241,7 @@
   4 2\
     ]]>
   </level>
-  <level id="028">
+  <level id="28">
     <![CDATA[
      \
 ?    \
@@ -250,7 +250,7 @@
  3   \
     ]]>
   </level>
-  <level id="029">
+  <level id="29">
     <![CDATA[
 3    \
     2\
@@ -259,7 +259,7 @@
   ?3 \
     ]]>
   </level>
-  <level id="030">
+  <level id="30">
     <![CDATA[
      \
    ? \
@@ -268,7 +268,7 @@
 2    \
     ]]>
   </level>
-  <level id="031">
+  <level id="31">
     <![CDATA[
    3 \
  2   \
@@ -277,7 +277,7 @@
 ?    \
     ]]>
   </level>
-  <level id="032">
+  <level id="32">
     <![CDATA[
      \
 4    \
@@ -286,7 +286,7 @@
  3 3 \
     ]]>
   </level>
-  <level id="033">
+  <level id="33">
     <![CDATA[
    1 \
     2\
@@ -295,7 +295,7 @@
  ?2  \
     ]]>
   </level>
-  <level id="034">
+  <level id="34">
     <![CDATA[
  ?   \
    2 \
@@ -304,7 +304,7 @@
      \
     ]]>
   </level>
-  <level id="035">
+  <level id="35">
     <![CDATA[
     2\
   4  \
@@ -313,7 +313,7 @@
      \
     ]]>
   </level>
-  <level id="036">
+  <level id="36">
     <![CDATA[
      \
 4  ? \
@@ -322,7 +322,7 @@
  ?  ?\
     ]]>
   </level>
-  <level id="037">
+  <level id="37">
     <![CDATA[
      \
   4 3\

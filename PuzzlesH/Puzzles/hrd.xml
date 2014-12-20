@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="001" name="横刀立马">
+  <level id="1" name="横刀立马">
     <![CDATA[
 ######\
 #BDdB#\
@@ -11,7 +11,7 @@
 ######\
 ]]>
   </level>
-  <level id="019" name="层层设防2">
+  <level id="19" name="层层设防2">
     <![CDATA[
 ######\
 #ADdA#\
@@ -22,7 +22,7 @@
 ######\
 ]]>
   </level>
-  <level id="055" name="峰回路转">
+  <level id="55" name="峰回路转">
     <![CDATA[
 ######\
 #AAAB#\
@@ -33,7 +33,7 @@
 ######\
 ]]>
   </level>
-  <level id="048" name="走投无路">
+  <level id="48" name="走投无路">
     <![CDATA[
 ######\
 #BDdB#\

@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
  30 14  2 31 15   \
  22    18    23   \
@@ -10,7 +10,7 @@
           12 24  4\
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
   1          14   \
  33  9 17    10 34\
@@ -20,7 +20,7 @@
        24    23  3\
     ]]>
   </level>
-  <level id="06">
+  <level id="6">
     <![CDATA[
  22  6            \
                 27\

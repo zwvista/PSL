@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
 VVH 22\
   H 11\
@@ -10,7 +10,7 @@ VH V10\
 1202 -\
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
 H VV11\
 H   22\
@@ -20,7 +20,7 @@ H   22\
 1222 -\
     ]]>
   </level>
-  <level id="03">
+  <level id="3">
     <![CDATA[
 H H V23\
 VH . 21\
@@ -31,7 +31,7 @@ V  VV12\
 22112 -\
     ]]>
   </level>
-  <level id="04">
+  <level id="4">
     <![CDATA[
 .VH V22\
 V H  32\
@@ -42,7 +42,7 @@ VH VV22\
 12223 -\
     ]]>
   </level>
-  <level id="05">
+  <level id="5">
     <![CDATA[
 VVH .  \
   VVV 0\
@@ -53,7 +53,7 @@ H    2 \
    22 -\
     ]]>
   </level>
-  <level id="06">
+  <level id="6">
     <![CDATA[
 .VH V  \
 V H   3\
@@ -64,7 +64,7 @@ VH     \
  2222 -\
     ]]>
   </level>
-  <level id="07">
+  <level id="7">
     <![CDATA[
 H VVV11\
 VV   12\
@@ -75,7 +75,7 @@ VVH V21\
 21202 -\
     ]]>
   </level>
-  <level id="08">
+  <level id="8">
     <![CDATA[
 H H .22\
 H H V12\
@@ -86,7 +86,7 @@ VV  V22\
 21212 -\
     ]]>
   </level>
-  <level id="09">
+  <level id="9">
     <![CDATA[
 .H VV  \
 H V    \

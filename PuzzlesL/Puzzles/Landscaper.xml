@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
   T \
  FTF\
@@ -8,7 +8,7 @@ F  T\
    F\
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
   TT\
 TT  \
@@ -16,7 +16,7 @@ T   \
   T \
     ]]>
   </level>
-  <level id="03">
+  <level id="3">
     <![CDATA[
   T \
  T  \
@@ -24,7 +24,7 @@ T   \
    F\
     ]]>
   </level>
-  <level id="04">
+  <level id="4">
     <![CDATA[
    F\
  F  \
@@ -32,7 +32,7 @@ F  F\
 T   \
     ]]>
   </level>
-  <level id="05">
+  <level id="5">
     <![CDATA[
  F  F \
 F FT F\
@@ -42,7 +42,7 @@ F  FT \
   F FF\
     ]]>
   </level>
-  <level id="06">
+  <level id="6">
     <![CDATA[
   F  T\
     TT\
@@ -52,7 +52,7 @@ T TF  \
 T     \
     ]]>
   </level>
-  <level id="07">
+  <level id="7">
     <![CDATA[
     T \
       \
@@ -62,7 +62,7 @@ T  T  \
 T TT F\
     ]]>
   </level>
-  <level id="08">
+  <level id="8">
     <![CDATA[
     F \
  TT   \
@@ -72,7 +72,7 @@ T F   \
  TFT  \
     ]]>
   </level>
-  <level id="09">
+  <level id="9">
     <![CDATA[
     TT\
      T\

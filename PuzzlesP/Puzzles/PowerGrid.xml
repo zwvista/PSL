@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
          1\
          6\
@@ -14,7 +14,7 @@
 516155161 \
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
          3\
          4\
@@ -28,7 +28,7 @@
 433715161 \
     ]]>
   </level>
-  <level id="04" GameType="DIAGONAL">
+  <level id="4" GameType="DIAGONAL">
     <![CDATA[
          6\
          1\
@@ -42,7 +42,7 @@
 261111113 \
     ]]>
   </level>
-  <level id="05" GameType="DIAGONAL">
+  <level id="5" GameType="DIAGONAL">
     <![CDATA[
          5\
          1\

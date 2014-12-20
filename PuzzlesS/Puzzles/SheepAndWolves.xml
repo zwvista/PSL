@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
 WS WW\
 S12 S\
@@ -9,7 +9,7 @@ W2S2S\
  222S\
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
 3 12S\
  2S 1\
@@ -18,7 +18,7 @@ W2S2S\
 S2W3 \
     ]]>
   </level>
-  <level id="03">
+  <level id="3">
     <![CDATA[
  13W \
 S2 32\
@@ -27,7 +27,7 @@ SW 2 \
  SS 1\
     ]]>
   </level>
-  <level id="04">
+  <level id="4">
     <![CDATA[
  2 S \
 S W 0\

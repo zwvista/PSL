@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
 BW W  \
 W     \
@@ -10,7 +10,7 @@ W  W  \
 BWWB  \
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
 BW    \
 W WWB \
@@ -20,7 +20,7 @@ BW BW \
    WW \
     ]]>
   </level>
-  <level id="03">
+  <level id="3">
     <![CDATA[
 BWW   \
 W    W\
@@ -30,7 +30,7 @@ WWWWWW\
       \
     ]]>
   </level>
-  <level id="04">
+  <level id="4">
     <![CDATA[
  W   B\
  W WB \
@@ -40,7 +40,7 @@ W     \
  W   B\
     ]]>
   </level>
-  <level id="05">
+  <level id="5">
     <![CDATA[
 B  WB \
   WBW \
@@ -50,7 +50,7 @@ B  WB \
 B   W \
     ]]>
   </level>
-  <level id="06">
+  <level id="6">
     <![CDATA[
   BWWB\
 WWW  W\
@@ -60,7 +60,7 @@ WWW  W\
 B B  B\
     ]]>
   </level>
-  <level id="07">
+  <level id="7">
     <![CDATA[
  WBBWB\
   WW W\
@@ -70,7 +70,7 @@ W WW  \
 BWBBW \
     ]]>
   </level>
-  <level id="08">
+  <level id="8">
     <![CDATA[
   BWW \
 W WBW \
@@ -80,7 +80,7 @@ W WBW \
 B   WB\
     ]]>
   </level>
-  <level id="09">
+  <level id="9">
     <![CDATA[
  W  W \
 WBW   \

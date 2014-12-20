@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <levels>
-  <level id="001">
+  <level id="1">
     <![CDATA[
 100\
 000\
 000\
     ]]>
   </level>
-  <level id="002" on="2">
+  <level id="2" on="2">
     <![CDATA[
 100\
 000\

@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
 <ooo1\
 o>v+1\
@@ -9,7 +9,7 @@ v<+o1\
 2012 \
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
 oo^o1\
 ++ov2\

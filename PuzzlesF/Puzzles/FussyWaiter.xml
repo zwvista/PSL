@@ -1,27 +1,27 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="01">
+  <level id="1">
     <![CDATA[
       \
 a  BcC\
  BaC A\
     ]]>
   </level>
-  <level id="02">
+  <level id="2">
     <![CDATA[
 a c b \
    CaA\
 b  B  \
     ]]>
   </level>
-  <level id="06">
+  <level id="6">
     <![CDATA[
  Bb   \
     aA\
    Cb \
     ]]>
   </level>
-  <level id="07">
+  <level id="7">
     <![CDATA[
 d     bD\
 aD A    \
@@ -29,7 +29,7 @@ b   cDdA\
   d bB  \
     ]]>
   </level>
-  <level id="08">
+  <level id="8">
     <![CDATA[
 bC Dd   \
     bDa \
