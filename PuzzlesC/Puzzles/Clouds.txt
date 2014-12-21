@@ -1,4 +1,4 @@
-Level 01
+Level 1
 Sequence of moves: 
 ....CC2
 ....CC2
@@ -11,7 +11,7 @@ Number of moves: 2
 Number of vertices examined: 4
 0.00835252 [s]
 
-Level 02
+Level 2
 Sequence of moves: 
 ....CC2
 CCC.CC5
@@ -24,7 +24,7 @@ Number of moves: 3
 Number of vertices examined: 50
 0.00935367 [s]
 
-Level 03
+Level 3
 Sequence of moves: 
 .CCC..3
 .CCC..3
@@ -37,7 +37,7 @@ Number of moves: 3
 Number of vertices examined: 77
 0.0108953 [s]
 
-Level 04
+Level 4
 Sequence of moves: 
 ....CC2
 CCC.CC5
@@ -50,7 +50,7 @@ Number of moves: 3
 Number of vertices examined: 76
 0.00881427 [s]
 
-Level 05
+Level 5
 Sequence of moves: 
 .CCC..3
 .CCC..3
@@ -63,7 +63,7 @@ Number of moves: 3
 Number of vertices examined: 11
 0.00385938 [s]
 
-Level 06
+Level 6
 Sequence of moves: 
 .CCC..3
 .CCC..3
@@ -76,7 +76,7 @@ Number of moves: 3
 Number of vertices examined: 17
 0.00242817 [s]
 
-Level 07
+Level 7
 Sequence of moves: 
 .CCC..3
 .CCC..3
@@ -89,7 +89,7 @@ Number of moves: 3
 Number of vertices examined: 14
 0.00429953 [s]
 
-Level 08
+Level 8
 Sequence of moves: 
 CCC...3
 CCC...3
@@ -102,7 +102,7 @@ Number of moves: 2
 Number of vertices examined: 4
 0.0022955 [s]
 
-Level 09
+Level 9
 Sequence of moves: 
 ....CC2
 ....CC2

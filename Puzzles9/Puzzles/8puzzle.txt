@@ -1,31 +1,31 @@
-Level 001
+Level 1
 Sequence of moves: ennwssennwsswnnesswnees
 Number of moves: 23
 Number of vertices examined: 9167
 0.0430717 [s]
 
-Level 002
+Level 2
 Sequence of moves: nnwse
 Number of moves: 5
 Number of vertices examined: 19
 0.00783409 [s]
 
-Level 003
+Level 3
 Sequence of moves: enwseswnwneeswwnes
 Number of moves: 18
 Number of vertices examined: 856
 0.0211931 [s]
 
-Level 010
+Level 10
 Sequence of moves: wwwwnwseenwswneeswnwseeeee
 Number of moves: 26
 Number of vertices examined: 117769
 0.545134 [s]
 
-Level 004
+Level 4
 Sequence of moves: wwsswseeenwnenwwswsseennnwswnesseennwwswssenees
 Number of moves: 47
 Number of vertices examined: 3392786
 14.643 [s]
 
-Level 008
+Level 8

@@ -1,4 +1,4 @@
-Level 01
+Level 1
 Sequence of moves: 
 W W . . . 
 3 W 6 . . 
@@ -9,7 +9,7 @@ Number of moves: 8
 Number of vertices examined: 29
 0.0099826 [s]
 
-Level 02
+Level 2
 Sequence of moves: 
 W 1 W W W 
 W W W . W 
@@ -20,7 +20,7 @@ Number of moves: 4
 Number of vertices examined: 8
 0.0025835 [s]
 
-Level 03
+Level 3
 Sequence of moves: 
 W W W . . . 
 W 5 W W 5 . 
@@ -32,7 +32,7 @@ Number of moves: 11
 Number of vertices examined: 25
 0.012062 [s]
 
-Level 04
+Level 4
 Sequence of moves: 
 W W W W W W 
 W 2 . W . W 
@@ -44,7 +44,7 @@ Number of moves: 5
 Number of vertices examined: 9
 0.00402859 [s]
 
-Level 05
+Level 5
 Sequence of moves: 
 W W . . W . 
 . W W 3 W . 
@@ -56,7 +56,7 @@ Number of moves: 11
 Number of vertices examined: 25
 0.00744302 [s]
 
-Level 06
+Level 6
 Sequence of moves: 
 W W W 4 . . 
 W . 3 W . W 
@@ -68,7 +68,7 @@ Number of moves: 12
 Number of vertices examined: 24
 0.00914387 [s]
 
-Level 07
+Level 7
 Sequence of moves: 
 W W W W 1 W 
 . W . W W W 
@@ -80,7 +80,7 @@ Number of moves: 10
 Number of vertices examined: 30
 0.0106243 [s]
 
-Level 08
+Level 8
 Sequence of moves: 
 W 3 . . W 1 W 
 W W W W W W W 
@@ -93,7 +93,7 @@ Number of moves: 10
 Number of vertices examined: 15
 0.00504795 [s]
 
-Level 09
+Level 9
 Sequence of moves: 
 . . . W . . W 
 4 W W W . W W 

@@ -1,4 +1,4 @@
-Level 01
+Level 1
 Sequence of moves: 
 F f F . 
 . F F F 
@@ -8,7 +8,7 @@ Number of moves: 3
 Number of vertices examined: 5
 0.00248851 [s]
 
-Level 02
+Level 2
 Sequence of moves: 
 F . . . 
 F F . F 
@@ -18,7 +18,7 @@ Number of moves: 3
 Number of vertices examined: 5
 0.00164428 [s]
 
-Level 03
+Level 3
 Sequence of moves: 
 . F f f . 
 B f . f F 
@@ -29,7 +29,7 @@ Number of moves: 5
 Number of vertices examined: 10
 0.00216188 [s]
 
-Level 04
+Level 4
 Sequence of moves: 
 F f f . B 
 F . f F F 
@@ -40,7 +40,7 @@ Number of moves: 3
 Number of vertices examined: 4
 0.00224488 [s]
 
-Level 05
+Level 5
 Sequence of moves: 
 F . f f F 
 f f F . F 

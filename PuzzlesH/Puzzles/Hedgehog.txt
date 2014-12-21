@@ -1,4 +1,4 @@
-Level 01
+Level 1
 Sequence of moves: 
  30 14  2 31 15  3
  22 34 18 35 23 19
@@ -10,7 +10,7 @@ Number of moves: 13
 Number of vertices examined: 14
 0.00405857 [s]
 
-Level 02
+Level 2
 Sequence of moves: 
   1 13 25 26 14  2
  33  9 17 18 10 34
@@ -22,7 +22,7 @@ Number of moves: 15
 Number of vertices examined: 16
 0.000795347 [s]
 
-Level 06
+Level 6
 Sequence of moves: 
  22  6  2  7 23  3
  18 14 26 19 15 27

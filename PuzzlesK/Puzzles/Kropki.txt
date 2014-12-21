@@ -1,4 +1,4 @@
-Level 01
+Level 1
 Sequence of moves: 
 3W2B1
 W W .
@@ -9,7 +9,7 @@ Number of moves: 1
 Number of vertices examined: 2
 0.00323432 [s]
 
-Level 02
+Level 2
 Sequence of moves: 
 6.2B1.5W4W3
 B W B W W B
@@ -26,7 +26,7 @@ Number of moves: 1
 Number of vertices examined: 2
 0.000900162 [s]
 
-Level 03
+Level 3
 Sequence of moves: 
 3B6W5W4.1B2.7
 B . . W B B .
@@ -45,7 +45,7 @@ Number of moves: 1
 Number of vertices examined: 2
 0.000378173 [s]
 
-Level 09
+Level 9
 Sequence of moves: 
 3.7.1.5.2.6.9.4B8
 . W . W . B . . .

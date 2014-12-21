@@ -1,4 +1,4 @@
-Level 001
+Level 1
 Sequence of moves: 
 (4,4) u (3,4)
 (3,4) u (2,4)
@@ -51,7 +51,7 @@ Number of moves: 47
 Number of vertices examined: 598429
 8.57332 [s]
 
-Level 002
+Level 2
 Sequence of moves: 
 (4,4) u (3,4)
 (3,4) u (2,4)
@@ -104,4 +104,4 @@ Number of moves: 47
 Number of vertices examined: 101
 0.00620885 [s]
 
-Level 004
+Level 4

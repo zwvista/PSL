@@ -1,4 +1,4 @@
-Level 01
+Level 1
 Sequence of moves: 
 bC cA aB 
 aA bB cC 
@@ -7,7 +7,7 @@ Number of moves: 2
 Number of vertices examined: 3
 0.00302883 [s]
 
-Level 02
+Level 2
 Sequence of moves: 
 aC cA bB 
 cB bC aA 
@@ -16,7 +16,7 @@ Number of moves: 2
 Number of vertices examined: 3
 0.00429292 [s]
 
-Level 06
+Level 6
 Sequence of moves: 
 aB bA cC 
 bC cB aA 
@@ -25,7 +25,7 @@ Number of moves: 3
 Number of vertices examined: 4
 0.0022386 [s]
 
-Level 07
+Level 7
 Sequence of moves: 
 dB cC aA bD 
 aD bA dC cB 
@@ -35,7 +35,7 @@ Number of moves: 5
 Number of vertices examined: 6
 0.0023091 [s]
 
-Level 08
+Level 8
 Sequence of moves: 
 bC aD dA cB 
 dB cA bD aC 

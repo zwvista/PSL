@@ -1,4 +1,4 @@
-Level 01
+Level 1
 Sequence of moves: 
 < . . . 1 
 . . . o 1 
@@ -9,7 +9,7 @@ Number of moves: 4
 Number of vertices examined: 5
 0.0115186 [s]
 
-Level 02
+Level 2
 Sequence of moves: 
 . . ^ . 1 
 o . . v 2 

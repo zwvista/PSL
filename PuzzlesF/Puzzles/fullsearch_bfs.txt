@@ -1,4 +1,4 @@
-Level 01
+Level 1
 Solution 1:
 Sequence of moves: 
 . . . 
@@ -164,7 +164,7 @@ Number of moves: 4
 Number of vertices examined: 33
 0.00538217 [s]
 
-Level 02
+Level 2
 Solution 1:
 Sequence of moves: 
 . . . 
@@ -276,7 +276,7 @@ Number of moves: 4
 Number of vertices examined: 23
 0.00402927 [s]
 
-Level 03
+Level 3
 Solution 1:
 Sequence of moves: 
 . . . 

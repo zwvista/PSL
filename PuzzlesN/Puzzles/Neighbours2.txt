@@ -1,4 +1,4 @@
-Level 051
+Level 51
 Sequence of moves: 
  - - - - - -
 |    3|  3|3|
@@ -15,5 +15,5 @@ Sequence of moves:
  - - - - - -
 Number of moves: 18
 Number of vertices examined: 210
-0.022699 [s]
+0.0248162 [s]
 

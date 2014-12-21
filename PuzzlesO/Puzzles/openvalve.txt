@@ -1,4 +1,4 @@
-Level 001
+Level 1
 Sequence of moves: 
  .................. 
  ...LseLsw......... 
@@ -9,7 +9,7 @@ Number of moves: 14
 Number of vertices examined: 141
 0.00395613 [s]
 
-Level 002
+Level 2
 Sequence of moves: 
  ...LseLsw...LseLsw 
 -IweLnwLneLswInsLne-
@@ -20,7 +20,7 @@ Number of moves: 15
 Number of vertices examined: 160
 0.00612693 [s]
 
-Level 003
+Level 3
 Sequence of moves: 
 -LswLseIweLsw...... 
  LneLnw...Ins...... 
@@ -31,7 +31,7 @@ Number of moves: 15
 Number of vertices examined: 66
 0.00160251 [s]
 
-Level 004
+Level 4
 Sequence of moves: 
  ............LseLsw 
  ......LseIweLnwIns 
@@ -42,7 +42,7 @@ Number of moves: 13
 Number of vertices examined: 108
 0.00224915 [s]
 
-Level 005
+Level 5
 Sequence of moves: 
  .................. 
  .................. 
@@ -53,7 +53,7 @@ Number of moves: 12
 Number of vertices examined: 63
 0.00374545 [s]
 
-Level 006
+Level 6
 Sequence of moves: 
  ......LseIweLsw... 
  ......Ins...3-wIwe-
@@ -64,7 +64,7 @@ Number of moves: 17
 Number of vertices examined: 268
 0.00596953 [s]
 
-Level 007
+Level 7
 Sequence of moves: 
  .........LseLsw... 
 -LswLseIwe3-eLneLsw 
@@ -75,7 +75,7 @@ Number of moves: 17
 Number of vertices examined: 347
 0.00647271 [s]
 
-Level 008
+Level 8
 Sequence of moves: 
  ......LseIweIweLsw 
  ...LseLnw...LseLnw 
@@ -86,7 +86,7 @@ Number of moves: 22
 Number of vertices examined: 949
 0.0166282 [s]
 
-Level 009
+Level 9
 Sequence of moves: 
 -Lsw............... 
  LneIwe3-nIweLsw... 
@@ -97,7 +97,7 @@ Number of moves: 15
 Number of vertices examined: 145
 0.00411596 [s]
 
-Level 010
+Level 10
 Sequence of moves: 
  ......LseIweLswLse-
  ......InsLseLnwIns 
@@ -108,7 +108,7 @@ Number of moves: 22
 Number of vertices examined: 500
 0.0101384 [s]
 
-Level 011
+Level 11
 Sequence of moves: 
  .........LseIweLsw 
  ......Lse4--LswIns 
@@ -119,7 +119,7 @@ Number of moves: 21
 Number of vertices examined: 705
 0.0134632 [s]
 
-Level 012
+Level 12
 Sequence of moves: 
  ...LseIweIweLswLse-
  LseLnw...LseLnwIns 
@@ -130,7 +130,7 @@ Number of moves: 18
 Number of vertices examined: 664
 0.0147287 [s]
 
-Level 013
+Level 13
 Sequence of moves: 
  LseIweIweLsw...... 
  Ins...Lse4--IweLsw 
@@ -141,7 +141,7 @@ Number of moves: 24
 Number of vertices examined: 1472
 0.0241024 [s]
 
-Level 014
+Level 14
 Sequence of moves: 
  ...LseIweLsw...... 
 -Iwe3-sIweLnwLseLsw 
@@ -152,7 +152,7 @@ Number of moves: 15
 Number of vertices examined: 210
 0.00529468 [s]
 
-Level 015
+Level 15
 Sequence of moves: 
 -IweLswLse3-nLsw... 
  Lse4--LnwInsInsLse-
@@ -163,7 +163,7 @@ Number of moves: 27
 Number of vertices examined: 787
 0.0139775 [s]
 
-Level 016
+Level 16
 Sequence of moves: 
  ...LseIweIweIweLsw 
  ...Ins...LseIwe4---
@@ -174,7 +174,7 @@ Number of moves: 26
 Number of vertices examined: 663
 0.0134124 [s]
 
-Level 017
+Level 17
 Sequence of moves: 
 -IweIweLsw......... 
  LseLsw3-wIweLsw... 
@@ -185,7 +185,7 @@ Number of moves: 25
 Number of vertices examined: 1424
 0.0258651 [s]
 
-Level 018
+Level 18
 Sequence of moves: 
  .................. 
  ......LseIwe3-nLsw 
@@ -196,7 +196,7 @@ Number of moves: 17
 Number of vertices examined: 1619
 0.0391208 [s]
 
-Level 019
+Level 19
 Sequence of moves: 
  ...LseIweLsw...... 
 -Iwe3-sIwe4--IweLsw 
@@ -207,7 +207,7 @@ Number of moves: 28
 Number of vertices examined: 2595
 0.0440732 [s]
 
-Level 020
+Level 20
 Sequence of moves: 
  ......LseLswLseIwe-
  Lse3-n3-eInsIns... 
@@ -218,7 +218,7 @@ Number of moves: 31
 Number of vertices examined: 9982
 0.17965 [s]
 
-Level 021
+Level 21
 Sequence of moves: 
  LseIweLsw......... 
 -3-e...LneLsw...... 
@@ -229,7 +229,7 @@ Number of moves: 27
 Number of vertices examined: 3793
 0.0721665 [s]
 
-Level 022
+Level 22
 Sequence of moves: 
 -IweLsw...LseLsw... 
  Lse3-sLsw3-w4--Lsw 
@@ -240,7 +240,7 @@ Number of moves: 29
 Number of vertices examined: 3129
 0.0509425 [s]
 
-Level 023
+Level 23
 Sequence of moves: 
  LseLswLseIweIwe3-n-
  Lne3-s4--LswLseLnw 
@@ -251,7 +251,7 @@ Number of moves: 30
 Number of vertices examined: 2727
 0.0469801 [s]
 
-Level 024
+Level 24
 Sequence of moves: 
  LseIwe3-nLsw...... 
  InsLseLnwLneIwe3-n-
@@ -262,7 +262,7 @@ Number of moves: 31
 Number of vertices examined: 795
 0.013552 [s]
 
-Level 025
+Level 25
 Sequence of moves: 
  LseIweIwe3-nIweLsw 
  Lne3-nIwe4--Iwe3-e 
@@ -273,7 +273,7 @@ Number of moves: 32
 Number of vertices examined: 529
 0.00893881 [s]
 
-Level 026
+Level 26
 Sequence of moves: 
 -LswLseIweLsw...... 
  Lne4--LswLneLsw... 
@@ -284,7 +284,7 @@ Number of moves: 28
 Number of vertices examined: 3593
 0.066526 [s]
 
-Level 027
+Level 27
 Sequence of moves: 
  LseLsw......LseLsw 
  Ins3-w3-nLswInsLne-
@@ -295,7 +295,7 @@ Number of moves: 30
 Number of vertices examined: 2489
 0.0409423 [s]
 
-Level 028
+Level 28
 Sequence of moves: 
  LseIweIweIwe3-nIwe-
  LneLswLse3-n3-sLsw 
@@ -306,7 +306,7 @@ Number of moves: 31
 Number of vertices examined: 1329
 0.0222196 [s]
 
-Level 029
+Level 29
 Sequence of moves: 
  ...LseIweLsw...... 
  Lse4--LswLne3-nLsw 
@@ -317,7 +317,7 @@ Number of moves: 29
 Number of vertices examined: 2541
 0.0467043 [s]
 
-Level 030
+Level 30
 Sequence of moves: 
  ...LseIweLswLseLsw 
 -Iwe4--LswLne3-eIns 
@@ -328,7 +328,7 @@ Number of moves: 32
 Number of vertices examined: 6535
 0.109738 [s]
 
-Level 031
+Level 31
 Sequence of moves: 
  ......LseLsw...... 
  ...LseLnwIns...Lse-
@@ -339,7 +339,7 @@ Number of moves: 23
 Number of vertices examined: 1996
 0.0339159 [s]
 
-Level 032
+Level 32
 Sequence of moves: 
  .................. 
  ............LseLsw 
@@ -350,7 +350,7 @@ Number of moves: 12
 Number of vertices examined: 96
 0.00297798 [s]
 
-Level 033
+Level 33
 Sequence of moves: 
  .................. 
  LseLsw......LseLsw 
@@ -361,7 +361,7 @@ Number of moves: 15
 Number of vertices examined: 323
 0.0071796 [s]
 
-Level 034
+Level 34
 Sequence of moves: 
 -Lsw......LseIweIwe-
  InsLseIwe3-e...... 
@@ -372,7 +372,7 @@ Number of moves: 16
 Number of vertices examined: 151
 0.00353896 [s]
 
-Level 035
+Level 35
 Sequence of moves: 
  LseLsw...LseLsw... 
 -LnwLne3-nLnwLneLsw 
@@ -383,7 +383,7 @@ Number of moves: 28
 Number of vertices examined: 1175
 0.0210464 [s]
 
-Level 036
+Level 36
 Sequence of moves: 
 -Lsw...LseIweLsw... 
  3-wLswLneLswLneLsw 
@@ -394,7 +394,7 @@ Number of moves: 29
 Number of vertices examined: 2564
 0.0423533 [s]
 
-Level 037
+Level 37
 Sequence of moves: 
  LseIweLswLseLsw... 
 -4--LswLne3-eLneLsw 
@@ -405,7 +405,7 @@ Number of moves: 27
 Number of vertices examined: 2441
 0.0478256 [s]
 
-Level 038
+Level 38
 Sequence of moves: 
  LseIwe3-nLsw...... 
  Lne3-nLnwLneLsw... 
@@ -416,7 +416,7 @@ Number of moves: 27
 Number of vertices examined: 16274
 0.281007 [s]
 
-Level 039
+Level 39
 Sequence of moves: 
  LseIweLsw......Lse-
  LneIwe3-sLswLseLnw 
@@ -427,7 +427,7 @@ Number of moves: 26
 Number of vertices examined: 2493
 0.0441748 [s]
 
-Level 040
+Level 40
 Sequence of moves: 
  LseLsw......LseLsw 
  Lne3-e...LseLnwLne-
@@ -438,7 +438,7 @@ Number of moves: 26
 Number of vertices examined: 19040
 0.333876 [s]
 
-Level 041
+Level 41
 Sequence of moves: 
  ...LseIweLsw...... 
  LseLnwLse3-sLsw... 
@@ -449,7 +449,7 @@ Number of moves: 28
 Number of vertices examined: 6783
 0.106735 [s]
 
-Level 042
+Level 42
 Sequence of moves: 
  ......LseLsw...... 
  ...LseLnwLneIweLsw 
@@ -460,7 +460,7 @@ Number of moves: 29
 Number of vertices examined: 2910
 0.0452477 [s]
 
-Level 043
+Level 43
 Sequence of moves: 
 -Lsw.........LseLsw 
  3-wIwe3-n3-nLnwLne-
@@ -471,7 +471,7 @@ Number of moves: 23
 Number of vertices examined: 764
 0.0154624 [s]
 
-Level 044
+Level 44
 Sequence of moves: 
  .........LseIweLsw 
 -Lsw......Lne3-n3-e 
@@ -482,7 +482,7 @@ Number of moves: 28
 Number of vertices examined: 3114
 0.0493379 [s]
 
-Level 045
+Level 45
 Sequence of moves: 
  ......Lse3-n3-nIwe-
  LseIwe4--LnwLneLsw 
@@ -493,7 +493,7 @@ Number of moves: 27
 Number of vertices examined: 2946
 0.0474941 [s]
 
-Level 046
+Level 46
 Sequence of moves: 
  .................. 
  ...............Lse-
@@ -504,7 +504,7 @@ Number of moves: 14
 Number of vertices examined: 222
 0.00602943 [s]
 
-Level 047
+Level 47
 Sequence of moves: 
  .................. 
  LseLsw............ 
@@ -515,7 +515,7 @@ Number of moves: 16
 Number of vertices examined: 775
 0.0177944 [s]
 
-Level 048
+Level 48
 Sequence of moves: 
  .........LseIweLsw 
 -LswLseIwe3-s3-nLnw 
@@ -526,7 +526,7 @@ Number of moves: 27
 Number of vertices examined: 3642
 0.0584362 [s]
 
-Level 049
+Level 49
 Sequence of moves: 
  Lse3-nIweLswLseLsw 
  Ins3-wLswLne4--Lnw 
@@ -537,7 +537,7 @@ Number of moves: 33
 Number of vertices examined: 7215
 0.125771 [s]
 
-Level 050
+Level 50
 Sequence of moves: 
  ......LseLsw...... 
  LseLswInsLneLsw... 

@@ -1,4 +1,4 @@
-Level 001
+Level 1
 Sequence of moves: 
 #####
 #@  #
@@ -73,4 +73,4 @@ Number of moves: 6
 Number of vertices examined: 15
 0.00567783 [s]
 
-Level 002
+Level 2

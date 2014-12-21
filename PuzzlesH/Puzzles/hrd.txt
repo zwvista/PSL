@@ -1,4 +1,4 @@
-Level 001
+Level 1
 Sequence of moves: 
 ######
 #BDdB#
@@ -955,7 +955,7 @@ Number of moves: 118
 Number of vertices examined: 77345
 16.7779 [s]
 
-Level 019
+Level 19
 Sequence of moves: 
 ######
 #ADdA#
@@ -2232,7 +2232,7 @@ Number of moves: 158
 Number of vertices examined: 118685
 27.8235 [s]
 
-Level 055
+Level 55
 Sequence of moves: 
 ######
 #AAAB#
@@ -3677,7 +3677,7 @@ Number of moves: 179
 Number of vertices examined: 133551
 32.394 [s]
 
-Level 048
+Level 48
 Number of vertices examined: 24489
 5.88425 [s]
 

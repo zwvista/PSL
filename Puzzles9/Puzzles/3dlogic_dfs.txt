@@ -1,91 +1,91 @@
-Level 001
+Level 1
 Sequence of moves: a(001)b(021)c(111)a(212)b(210)a(002)b(022)a(202)b(200)
 Number of moves: 9
 Number of vertices examined: 10
 0.0142025 [s]
 
-Level 002
+Level 2
 Sequence of moves: a(010)b(101)c(200)d(202)a(011)b(111)c(210)d(212)
 Number of moves: 8
 Number of vertices examined: 9
 0.0026437 [s]
 
-Level 003
+Level 3
 Sequence of moves: a(002)b(012)c(101)a(020)b(211)c(111)a(202)b(201)a(100)a(212)a(110)a(222)a(120)a(221)a(121)a(220)a(122)
 Number of moves: 17
 Number of vertices examined: 19
 0.00300863 [s]
 
-Level 004
+Level 4
 Sequence of moves: a(021)b(100)c(112)d(210)a(212)b(121)d(221)a(020)b(110)d(220)a(202)b(120)a(010)a(002)a(000)a(001)
 Number of moves: 16
 Number of vertices examined: 17
 0.00378899 [s]
 
-Level 005
+Level 5
 Sequence of moves: a(001)b(012)c(020)a(222)b(210)c(111)a(011)b(022)c(100)a(221)b(200)c(110)a(021)a(220)a(101)a(122)a(102)a(112)
 Number of moves: 18
 Number of vertices examined: 61
 0.00478177 [s]
 
-Level 006
+Level 6
 Sequence of moves: a(001)b(011)a(102)b(112)a(002)b(012)a(101)b(210)a(202)b(201)a(100)b(211)a(212)a(110)a(222)a(120)a(221)a(121)a(220)a(122)
 Number of moves: 20
 Number of vertices examined: 66
 0.00509099 [s]
 
-Level 007
+Level 7
 Sequence of moves: a(111)b(201)a(210)b(231)a(101)b(023)a(211)b(221)a(031)b(022)a(212)b(222)a(021)b(032)a(202)b(223)a(011)b(102)a(013)b(213)a(012)b(112)b(203)b(122)b(003)b(132)b(002)b(131)b(001)b(130)b(000)b(120)b(010)b(110)b(020)b(100)b(030)
 Number of moves: 37
 Number of vertices examined: 10543
 0.19786 [s]
 
-Level 008
+Level 8
 Sequence of moves: a(021)b(022)c(212)a(122)b(232)c(133)a(031)b(032)c(213)a(121)b(231)c(132)a(101)b(102)c(203)a(111)b(221)c(131)b(112)c(003)b(220)c(130)b(113)c(002)b(210)c(120)c(001)c(110)c(000)c(100)c(010)c(030)c(020)
 Number of moves: 33
 Number of vertices examined: 10825
 0.51851 [s]
 
-Level 009
+Level 9
 Sequence of moves: a(001)b(203)c(021)d(013)e(110)f(101)a(033)b(113)c(211)d(212)e(132)f(122)a(000)b(213)c(022)d(202)e(120)f(111)a(032)b(210)c(201)e(131)f(121)a(010)b(223)c(023)e(130)a(031)b(220)a(020)b(233)a(030)b(230)b(232)b(231)
 Number of moves: 35
 Number of vertices examined: 297849
 4.23151 [s]
 
-Level 010
+Level 10
 Sequence of moves: a(013)b(021)c(111)d(131)a(222)b(230)d(232)a(202)b(031)d(132)a(212)b(220)d(231)b(032)d(122)b(210)d(221)b(033)d(123)b(200)d(211)d(113)d(201)d(103)d(023)d(102)d(022)d(101)d(012)d(100)d(002)d(030)d(001)d(020)d(000)d(010)
 Number of moves: 36
 Number of vertices examined: 103346
 2.91304 [s]
 
-Level 011
+Level 11
 Sequence of moves: a(203)b(021)c(102)d(111)e(131)a(223)b(221)c(122)d(110)e(222)a(213)b(022)c(103)e(132)b(211)c(123)e(212)b(023)c(113)e(133)b(201)e(202)e(230)e(013)e(220)e(012)e(210)e(002)e(200)e(001)e(033)e(000)e(032)e(010)e(031)e(020)e(030)
 Number of moves: 37
 Number of vertices examined: 69220
 5.40756 [s]
 
-Level 012
+Level 12
 Sequence of moves: a(012)b(020)c(023)d(110)a(202)b(223)c(120)d(123)a(013)b(010)c(201)d(100)b(213)c(130)d(220)b(000)c(211)d(101)b(203)c(131)d(210)b(001)c(221)d(102)b(003)c(132)d(200)b(002)c(231)d(032)c(133)d(033)c(230)
 Number of moves: 33
 Number of vertices examined: 1227398
 19.0921 [s]
 
-Level 013
+Level 13
 Sequence of moves: a(012)b(032)c(120)d(212)e(233)a(033)b(210)c(203)d(133)e(232)a(013)b(102)c(110)d(222)a(023)b(113)c(003)d(132)b(112)c(100)d(221)c(002)d(122)c(030)d(220)c(001)d(123)c(020)c(000)c(010)
 Number of moves: 30
 Number of vertices examined: 192498
 4.69481 [s]
 
-Level 014
+Level 14
 Sequence of moves: a(021)b(030)c(122)d(201)a(221)b(102)c(212)d(202)a(031)b(020)c(112)a(220)b(032)c(211)a(101)b(010)c(113)a(123)b(022)c(210)a(111)b(000)a(133)b(023)a(110)b(001)a(132)b(013)a(120)b(002)a(131)b(012)a(130)
 Number of moves: 33
 Number of vertices examined: 55982
 2.7231 [s]
 
-Level 015
+Level 15
 Sequence of moves: a(030)b(011)c(033)a(123)b(112)c(110)a(031)b(012)c(043)a(133)b(111)c(100)a(032)b(013)c(042)a(134)b(121)c(040)a(022)b(003)c(041)a(230)b(131)a(023)b(004)a(231)b(132)a(024)b(204)a(221)b(142)a(014)b(214)a(222)b(143)a(203)b(224)a(212)b(144)a(213)b(223)b(240)b(233)b(241)b(232)b(242)
 Number of moves: 46
 Number of vertices examined: 60167
 1.42672 [s]
 
-Level 016
+Level 16

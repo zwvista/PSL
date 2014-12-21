@@ -1,4 +1,4 @@
-Level 01
+Level 1
 Sequence of moves: 
 G-   -S-G 
 | | |   | 
@@ -13,7 +13,7 @@ Number of moves: 5
 Number of vertices examined: 10
 0.0403639 [s]
 
-Level 02
+Level 2
 Sequence of moves: 
 G- -S-G   
 |     |   
@@ -28,7 +28,7 @@ Number of moves: 1
 Number of vertices examined: 2
 0.00059692 [s]
 
-Level 03
+Level 3
 Sequence of moves: 
 G-    G-  
 | |   | | 
@@ -43,7 +43,7 @@ Number of moves: 0
 Number of vertices examined: 1
 0.000501675 [s]
 
-Level 04
+Level 4
 Sequence of moves: 
 G-  G-S-  
 | | |   | 
