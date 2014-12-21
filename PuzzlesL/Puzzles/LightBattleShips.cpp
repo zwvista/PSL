@@ -65,7 +65,7 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
-	bool m_has_supertank;
+	bool m_has_supertanker;
 	map<int, int> m_ship2num;
 	map<Position, char> m_pos2piece;
 	map<Position, int> m_pos2light;
@@ -77,10 +77,10 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 	: m_id(attrs.get<string>("id"))
 	, m_sidelen(strs.size())
-	, m_has_supertank(attrs.get<int>("SuperTank", 0) == 1)
+	, m_has_supertanker(attrs.get<int>("SuperTanker", 0) == 1)
 {
 	m_ship2num = map<int, int>{{1, 4}, {2, 3}, {3, 2}, {4, 1}};
-	if(m_has_supertank)
+	if(m_has_supertanker)
 		m_ship2num[5] = 1;
 
 	for(int r = 0; r < m_sidelen; ++r){

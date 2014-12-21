@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <!--<level id="1">
+  <level id="1">
     <![CDATA[
  1 8 4 8 1 8 4 2 8 417\
  4 5 7 1 6 1 2 4 3 7 4\
@@ -15,7 +15,7 @@
 1413 025 114 010 715  \
     ]]>
   </level>
-  <level id="6" SuperTank="1">
+  <level id="6" SuperTanker="1">
     <![CDATA[
  3 1 4 1 1 3 8 2 6 8 8\
  6 3 6 6 4 2 8 5 3 236\
@@ -29,8 +29,8 @@
  1 1 6 5 7 2 4 6 8 410\
  6 620 5 519 8162012  \
     ]]>
-  </level>-->
-  <level id="120" SuperTank="1">
+  </level>
+  <level id="120" SuperTanker="1">
     <![CDATA[
  2 7 1 1 7 6 7 3 3 4 5 7\
  1 1 1 3 8 1 3 7 3 5 8  \

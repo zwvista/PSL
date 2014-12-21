@@ -270,7 +270,7 @@ v         1\
 5221211600 \
     ]]>
   </level>
-  <level id="19" SuperTank="1">
+  <level id="19" SuperTanker="1">
     <![CDATA[
           5\
           1\
@@ -300,7 +300,7 @@ v         1\
 1123171202 \
     ]]>
   </level>
-  <level id="21" SuperTank="1">
+  <level id="21" SuperTanker="1">
     <![CDATA[
         3\
         2\
@@ -313,7 +313,7 @@ v         1\
 51252316 \
     ]]>
   </level>
-  <level id="22" SuperTank="1">
+  <level id="22" SuperTanker="1">
     <![CDATA[
         4\
         2\
@@ -326,7 +326,7 @@ v         1\
 31525225 \
     ]]>
   </level>
-  <level id="128" SuperTank="1">
+  <level id="128" SuperTanker="1">
     <![CDATA[
            0\
            6\
