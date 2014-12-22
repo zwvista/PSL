@@ -49,9 +49,10 @@ public:
 	void ToggleCurPos(const Position& p);
 	void SetCurPos(const Position& p);
 	const Position& GetCurPos() { return *m_setCurPoss.begin(); }
-	bool isCurPos(const Position& p) {
+	bool IsCurPos(const Position& p) {
 		return m_setCurPoss.count(p) != 0;
 	}
+	bool IsSquare() { return m_bIsSquare; }
 
 // Overrides
 public:
@@ -76,6 +77,7 @@ protected:
 	set<Position> m_setHorzWall, m_setVertWall;
 	set<Position> m_setCurPoss;
 	map<Position, char> m_mapObjects;
+	bool m_bIsSquare;
 
 	const set<Position>& GetWallSet(bool bVert) const { return bVert ? m_setVertWall : m_setHorzWall; }
 	set<Position>& GetWallSet(bool bVert) { return bVert ? m_setVertWall : m_setHorzWall; }
@@ -99,6 +101,9 @@ protected:
 	afx_msg void OnMazeFillBorderLines();
 	afx_msg void OnEnclosedSelected();
 	afx_msg void OnUpdateMazeHasWall2(CCmdUI* pCmdUI) { pCmdUI->Enable(HasWall()); }
+	afx_msg void OnMazeSquare();
+	afx_msg void OnUpdateMazeWidth(CCmdUI* pCmdUI) { pCmdUI->Enable(!IsSquare()); }
+	afx_msg void OnUpdateMazeSquare(CCmdUI* pCmdUI) { pCmdUI->SetCheck(IsSquare()); }
 	DECLARE_MESSAGE_MAP()
 
 #ifdef SHARED_HANDLERS

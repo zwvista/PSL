@@ -48,6 +48,9 @@ BEGIN_MESSAGE_MAP(CMazeEditorDoc, CDocument)
 	ON_UPDATE_COMMAND_UI(ID_MAZE_FILL_BORDER_LINES, &CMazeEditorDoc::OnUpdateMazeHasWall2)
 	ON_COMMAND(ID_MAZE_ENCLOSE_SELECTED, &CMazeEditorDoc::OnEnclosedSelected)
 	ON_UPDATE_COMMAND_UI(ID_MAZE_ENCLOSE_SELECTED, &CMazeEditorDoc::OnUpdateMazeHasWall2)
+	ON_COMMAND(ID_MAZE_SQUARE, &CMazeEditorDoc::OnMazeSquare)
+	ON_UPDATE_COMMAND_UI(ID_MAZE_WIDTH, &CMazeEditorDoc::OnUpdateMazeWidth)
+	ON_UPDATE_COMMAND_UI(ID_MAZE_SQUARE, &CMazeEditorDoc::OnUpdateMazeSquare)
 END_MESSAGE_MAP()
 
 
@@ -58,6 +61,7 @@ CMazeEditorDoc::CMazeEditorDoc()
 	, m_bHasWall(false)
 	, m_nSideLen(40)
 	, m_chLast(' ')
+	, m_bIsSquare(true)
 {
 	m_setCurPoss.emplace(0, 0);
 }
@@ -360,7 +364,7 @@ void CMazeEditorDoc::SetData( const CString& strData )
 
 void CMazeEditorDoc::ToggleCurPos(const Position& p)
 {
-	isCurPos(p) ? m_setCurPoss.erase(p) : (void)m_setCurPoss.insert(p);
+	IsCurPos(p) ? m_setCurPoss.erase(p) : (void)m_setCurPoss.insert(p);
 	UpdateAllViews(NULL);
 }
 
@@ -374,17 +378,23 @@ void CMazeEditorDoc::OnEnclosedSelected()
 {
 	for(const auto& p : m_setCurPoss){
 		auto p2 = p + offset[0];
-		if(!isCurPos(p2))
+		if(!IsCurPos(p2))
 			SetHorzWall(p, false);
 		p2 = p + offset[2];
-		if(!isCurPos(p2))
+		if(!IsCurPos(p2))
 			SetHorzWall(p2, false);
 		p2 = p + offset[3];
-		if(!isCurPos(p2))
+		if(!IsCurPos(p2))
 			SetVertWall(p, false);
 		p2 = p + offset[1];
-		if(!isCurPos(p2))
+		if(!IsCurPos(p2))
 			SetVertWall(p2, false);
 	}
 	UpdateAllViews(NULL);
+}
+
+void CMazeEditorDoc::OnMazeSquare()
+{
+	if((m_bIsSquare = !m_bIsSquare) && MazeHeight() != MazeWidth())
+		ResizeMaze(MazeHeight(), MazeHeight());
 }

@@ -65,6 +65,41 @@ x oo o \
    >   \
     ]]>
   </level>
+  <level id="8">
+    <![CDATA[
+ >   o \
+>  o  o\
+ov   v \
+  ooo v\
+     v \
+ o     \
+  >  o \
+    ]]>
+  </level>
+  <level id="9">
+    <![CDATA[
+ v x >  \
+     o  \
+ >  vx  \
+ox     o\
+      o \
+o o  o  \
+   v    \
+      o \
+    ]]>
+  </level>
+  <level id="10">
+    <![CDATA[
+ o  v > \
+   v  o \
+v v    o\
+     vo \
+ o x  > \
+vx    o \
+    v v \
+  o    o\
+    ]]>
+  </level>
   <level id="24">
     <![CDATA[
  > x   v>  \

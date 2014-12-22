@@ -42,8 +42,8 @@ BEGIN_MESSAGE_MAP(CMazeEditorView, CView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_KEYDOWN()
 	ON_WM_CHAR()
-	ON_COMMAND(ID_MAZE_ROWS, &CMazeEditorView::OnResizeMaze)
-	ON_COMMAND(ID_MAZE_COLS, &CMazeEditorView::OnResizeMaze)
+	ON_COMMAND(ID_MAZE_HEIGHT, &CMazeEditorView::OnResizeMaze)
+	ON_COMMAND(ID_MAZE_WIDTH, &CMazeEditorView::OnResizeMaze)
 	ON_COMMAND(ID_MAZE_CHAR, &CMazeEditorView::OnMazeChar)
 	ON_COMMAND(ID_MAZE_SIDELEN, &CMazeEditorView::OnMazeSideLen)
 	ON_COMMAND(ID_EDIT_COPY, &CMazeEditorView::OnEditCopy)
@@ -56,8 +56,8 @@ END_MESSAGE_MAP()
 CMazeEditorView::CMazeEditorView()
 	: m_pDoc(NULL)
 	, m_pBar(NULL)
-	, m_pEditRows(NULL)
-	, m_pEditCols(NULL)
+	, m_pEditHeight(NULL)
+	, m_pEditWidth(NULL)
 {
 }
 
@@ -97,12 +97,12 @@ void CMazeEditorView::OnDraw(CDC* pDC)
 	for(int r = 0;; r++){
 		for(int c = 0; c < m_pDoc->MazeWidth(); c++){
 			Position p(r, c);
-			if(m_pDoc->isCurPos(p))
+			if(m_pDoc->IsCurPos(p))
 				memdc.FillSolidRect(GetPosRect(p), clrFill);
 
 			if(m_pDoc->IsObject(p)){
 				char ch = m_pDoc->GetObject(p);
-				if(ch == '#' && !m_pDoc->isCurPos(p))
+				if(ch == '#' && !m_pDoc->IsCurPos(p))
 					memdc.FillSolidRect(GetPosRect(p), clrFill2);
 				CString str(ch, 1);
 				memdc.DrawText(str, GetPosRect(p), DT_CENTER | DT_VCENTER | DT_SINGLELINE);
@@ -194,8 +194,8 @@ void CMazeEditorView::OnInitialUpdate()
 
 	m_pBar = ((CFrameWndEx*)GetParent())->GetRibbonBar();
 
-	m_pEditRows = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_ROWS);
-	m_pEditCols = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_COLS);
+	m_pEditHeight = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_HEIGHT);
+	m_pEditWidth = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_WIDTH);
 	m_pEditChar = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_CHAR);
 	m_pEditCurPos = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_CURPOS);
 	OnMazeResized();
@@ -317,9 +317,9 @@ void CMazeEditorView::OnResizeMaze()
 	static bool b = false;
 	if(!b){
 		b = true;
-		int rows = _ttoi(m_pEditRows->GetEditText());
-		int cols = _ttoi(m_pEditCols->GetEditText());
-		m_pDoc->ResizeMaze(cols, rows);
+		int h = _ttoi(m_pEditHeight->GetEditText());
+		int w = m_pDoc->IsSquare() ? h : _ttoi(m_pEditWidth->GetEditText());
+		m_pDoc->ResizeMaze(h, w);
 		b = false;
 	}
 }
@@ -380,7 +380,7 @@ void CMazeEditorView::OnMazeResized()
 {
 	CString str;
 	str.Format(_T("%d"), m_pDoc->MazeHeight());
-	m_pEditRows->SetEditText(str);
+	m_pEditHeight->SetEditText(str);
 	str.Format(_T("%d"), m_pDoc->MazeWidth());
-	m_pEditCols->SetEditText(str);
+	m_pEditWidth->SetEditText(str);
 }

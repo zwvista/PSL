@@ -50,8 +50,8 @@ public:
 protected:
 	CMazeEditorDoc* m_pDoc;
 	CMFCRibbonBar* m_pBar;
-	CMFCRibbonEdit* m_pEditRows;
-	CMFCRibbonEdit* m_pEditCols;
+	CMFCRibbonEdit* m_pEditHeight;
+	CMFCRibbonEdit* m_pEditWidth;
 	CMFCRibbonEdit* m_pEditChar;
 	CMFCRibbonEdit* m_pEditCurPos;
 	CMFCRibbonComboBox* m_pComboMovement;
