@@ -97,7 +97,7 @@ struct puz_state : string
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(char ch, const Position& p);
-	void adjust_galaxies();
+	bool adjust_galaxies();
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -112,6 +112,7 @@ struct puz_state : string
 
 	const puz_game* m_game = nullptr;
 	map<char, puz_galaxy> m_galaxies;
+	string m_next;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -131,26 +132,6 @@ puz_state::puz_state(const puz_game& g)
 	}
 
 	adjust_galaxies();
-}
-
-void puz_state::adjust_galaxies()
-{
-	for(auto it = m_galaxies.begin(); it != m_galaxies.end();){
-		auto& glx = it->second;
-		glx.m_outer.clear();
-		for(auto& p : glx.m_inner)
-			for(int i = 0; i < 4; ++i){
-				if(glx.m_center_in_cell && glx.m_inner.size() == 1 && i > 1) continue;
-				auto p2 = p + offset[i];
-				auto p3 = glx.m_center - p2;
-				if(cells(p2) == PUZ_SPACE && cells(p3) == PUZ_SPACE)
-					glx.m_outer.insert(min(p2, p3));
-			}
-		if(glx.m_outer.empty())
-			it = m_galaxies.erase(it);
-		else
-			++it;
-	}
 }
 
 struct puz_state2 : Position
@@ -182,14 +163,26 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 	}
 }
 
-bool puz_state::make_move(char ch, const Position& p)
+bool puz_state::adjust_galaxies()
 {
-	auto& glx = m_galaxies.at(ch);
-	glx.m_inner.insert(p);
-	cells(p) = cells(glx.m_center - p) = ch;
-	adjust_galaxies();
-
+	for(auto it = m_galaxies.begin(); it != m_galaxies.end();){
+		auto& glx = it->second;
+		glx.m_outer.clear();
+		for(auto& p : glx.m_inner)
+			for(int i = 0; i < 4; ++i){
+				if(glx.m_center_in_cell && glx.m_inner.size() == 1 && i > 1) continue;
+				auto p2 = p + offset[i];
+				auto p3 = glx.m_center - p2;
+				if(cells(p2) == PUZ_SPACE && cells(p3) == PUZ_SPACE)
+					glx.m_outer.insert(min(p2, p3));
+			}
+		if(glx.m_outer.empty())
+			it = m_galaxies.erase(it);
+		else
+			++it;
+	}
 	set<Position> rng;
+	set<set<char>> rng2;
 	for(int r = 1; r < sidelen() - 1; ++r)
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
@@ -199,38 +192,59 @@ bool puz_state::make_move(char ch, const Position& p)
 	while(!rng.empty()){
 		list<puz_state2> smoves;
 		puz_move_generator<puz_state2>::gen_moves({*this, *rng.begin()}, smoves);
-		vector<Position> rng2;
-		set<char> rng3;
+		vector<Position> rng3;
+		set<char> rng4;
+		set<char> rng5;
 		for(auto& p : smoves){
 			char ch = cells(p);
 			if(ch == PUZ_SPACE)
-				rng2.push_back(p);
+				rng3.push_back(p);
 			else
-				rng3.insert(ch);
+				rng4.insert(ch);
 		}
-		if(boost::algorithm::any_of(rng2, [&](const Position& p){
-			return boost::algorithm::none_of(rng3, [&](char ch){
+		for(auto& p : rng3){
+			for(char ch : rng4){
 				auto it = m_galaxies.find(ch);
 				if(it == m_galaxies.end())
-					return false;
-				auto& center = it->second.m_center;
-				return p.first <= center.first && p.second <= center.second &&
-					this->cells(center - p) == PUZ_SPACE;
-			});
-		}))
-			return false;
-		for(auto& p : rng2)
+					continue;
+				auto p2 = it->second.m_center - p;
+				if(p2.first > 0 && p.second > 0 &&
+					p2.first < sidelen() - 1 && p2.second < sidelen() - 1 &&
+					cells(p2) == PUZ_SPACE)
+					rng5.insert(ch);
+			}
+			if(rng5.empty())
+				return false;
+			rng2.insert(rng5);
 			rng.erase(p);
+		}
+	}
+	if(rng2.empty())
+		m_next = "";
+	else{
+		auto& rng23 = *boost::min_element(rng2,
+			[](const set<char>& rng21, const set<char>& rng22){
+			return rng21.size() < rng22.size();
+		});
+		m_next = string(rng23.begin(), rng23.end());
 	}
 	return true;
 }
 
+bool puz_state::make_move(char ch, const Position& p)
+{
+	auto& glx = m_galaxies.at(ch);
+	glx.m_inner.insert(p);
+	cells(p) = cells(glx.m_center - p) = ch;
+	return adjust_galaxies();
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	for(auto& kv : m_galaxies)
-		for(auto& p : kv.second.m_outer){
+	for(char ch : m_next)
+		for(auto& p : m_galaxies.at(ch).m_outer){
 			children.push_back(*this);
-			if(!children.back().make_move(kv.first, p))
+			if(!children.back().make_move(ch, p))
 				children.pop_back();
 		}
 }
