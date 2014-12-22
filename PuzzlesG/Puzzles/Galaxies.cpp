@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -125,10 +126,10 @@ puz_state::puz_state(const puz_game& g)
 
 	char ch = 'a';
 	for(auto& p : g.m_galaxies){
-		puz_galaxy g(p, ch++);
-		for(auto& p2 : g.m_inner)
-			cells(p2) = cells(g.m_center - p2) = g.m_ch;
-		m_galaxies.push_back(g);
+		puz_galaxy glx(p, ch++);
+		for(auto& p2 : glx.m_inner)
+			cells(p2) = cells(glx.m_center - p2) = glx.m_ch;
+		m_galaxies.push_back(glx);
 	}
 
 	adjust_galaxies();
@@ -136,40 +137,87 @@ puz_state::puz_state(const puz_game& g)
 
 void puz_state::adjust_galaxies()
 {
-	for(auto& g : m_galaxies){
-		g.m_outer.clear();
-		if(g.m_ready) continue;
-		for(auto& p : g.m_inner)
+	for(auto& glx : m_galaxies){
+		glx.m_outer.clear();
+		if(glx.m_ready) continue;
+		for(auto& p : glx.m_inner)
 			for(int i = 0; i < 4; ++i){
-				if(g.m_center_in_cell && g.m_inner.size() == 1 && i > 1) continue;
+				if(glx.m_center_in_cell && glx.m_inner.size() == 1 && i > 1) continue;
 				auto p2 = p + offset[i];
-				auto p3 = g.m_center - p2;
+				auto p3 = glx.m_center - p2;
 				if(cells(p2) == PUZ_SPACE && cells(p3) == PUZ_SPACE)
-					g.m_outer.insert(p2);
+					glx.m_outer.insert(min(p2, p3));
 			}
-		if(g.m_outer.empty())
-			g.m_ready = true;
+		if(glx.m_outer.empty())
+			glx.m_ready = true;
+	}
+}
+
+struct puz_state2 : Position
+{
+	puz_state2(const puz_state& s, const Position& starting);
+
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+	void gen_children(list<puz_state2>& children) const;
+
+	const puz_state* m_state;
+};
+
+puz_state2::puz_state2(const puz_state& s, const Position& starting)
+	: m_state(&s)
+{
+	make_move(starting);
+}
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	if(m_state->cells(*this) != PUZ_SPACE)
+		return;
+	for(auto& os : offset){
+		auto p2 = *this + os;
+		if(m_state->cells(p2) != PUZ_BOUNDARY){
+			children.push_back(*this);
+			children.back().make_move(p2);
+		}
 	}
 }
 
 bool puz_state::make_move(int n, const Position& p)
 {
-	auto& g = m_galaxies[n];
-	for(auto&& p2 : {p, g.m_center - p}){
-		g.m_inner.insert(p2);
-		cells(p2) = g.m_ch;
-	}
+	auto& glx = m_galaxies[n];
+	glx.m_inner.insert(p);
+	cells(p) = cells(glx.m_center - p) = glx.m_ch;
 	adjust_galaxies();
-	return is_goal_state() || boost::algorithm::any_of(m_galaxies, [](const puz_galaxy& g){
-		return !g.m_outer.empty();
-	});
+
+	set<Position> rng;
+	for(int r = 1; r < sidelen() - 1; ++r)
+		for(int c = 1; c < sidelen() - 1; ++c){
+			Position p(r, c);
+			if(cells(p) == PUZ_SPACE)
+				rng.insert(p);
+		}
+	while(!rng.empty()){
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves({*this, *rng.begin()}, smoves);
+		bool all_ready = true;
+		for(auto& p : smoves){
+			char ch = cells(p);
+			if(ch == PUZ_SPACE)
+				rng.erase(p);
+			else if(!m_galaxies[ch - 'a'].m_ready)
+				all_ready = false;
+		}
+		if(all_ready)
+			return false;
+	}
+	return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	for(int i = 0; i < m_galaxies.size(); ++i){
-		auto& g = m_galaxies[i];
-		for(auto& p : g.m_outer){
+		auto& glx = m_galaxies[i];
+		for(auto& p : glx.m_outer){
 			children.push_back(*this);
 			if(!children.back().make_move(i, p))
 				children.pop_back();
