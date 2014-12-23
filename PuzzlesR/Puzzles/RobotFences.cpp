@@ -213,7 +213,7 @@ int puz_state::find_matches(bool init)
 				return 0;
 			case 1:
 				return make_move2(n, perm_ids.front()), 1;
-		}
+			}
 	}
 	return 2;
 }

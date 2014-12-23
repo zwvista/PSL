@@ -46,4 +46,53 @@
  - - - - - - - - - \
     ]]>
   </level>
+  <level id="36">
+    <![CDATA[
+ - - - - - - - - - \
+|E E O O O E|O O 8|\
+       - - -       \
+|E O O|E|E O|O O E|\
+ - - -             \
+|7 O E E|O O|3 E E|\
+             - - - \
+|O O O 2|E E O E O|\
+ - - - - - - - - - \
+|O O|E E 3 O E|E 9|\
+           - -     \
+|E O|O O E|6 E O O|\
+       - -   - -   \
+|2 E|1|O|O E|E|O|O|\
+     -   - -     - \
+|O E|E 3 1 O O|4 E|\
+   -   - - - -     \
+|O|E E|O E O E O O|\
+ - - - - - - - - - \
+    ]]>
+  </level>
+  <level id="39" NoAreas="1">
+    <![CDATA[
+7OO92E6O4\
+E8OOOOEEO\
+3O4E8O9E5\
+E63OOEOEO\
+EO5OEOEOE\
+O1OEE3O6E\
+4E67O5EOO\
+94EEOEO57\
+O984O2576\
+    ]]>
+  </level>
+  <level id="56" NoAreas="1">
+    <![CDATA[
+3EOOOEEEO\
+O9E8EO7EO\
+OOOEOE2EO\
+OEEO9EOOE\
+EEOOOOOEE\
+EE4E7O5O9\
+OOO24EO9E\
+E3E1EO6OO\
+EO5OEOE74\
+    ]]>
+  </level>
 </levels>

@@ -55,6 +55,7 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
+	bool m_bNoAreas;
 	map<Position, char> m_horz_walls, m_vert_walls;
 	vector<vector<Position>> m_areas;
 	map<Position, puz_pos_info> m_pos2info;
@@ -93,42 +94,56 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size() / 2)
-, m_areas(m_sidelen * 3)
+	: m_id(attrs.get<string>("id"))
+	, m_sidelen(9)
+	, m_bNoAreas(attrs.get<int>("NoAreas", 0) == 1)
+	, m_areas(m_bNoAreas ? 18 : 27)
 {
-	set<Position> rng;
-	for(int r = 0;; ++r){
-		// horz-walls
-		auto& str_h = strs[r * 2];
-		for(int c = 0; c < m_sidelen; ++c)
-			m_horz_walls[{r, c}] = str_h[c * 2 + 1];
-		if(r == m_sidelen) break;
-		auto& str_v = strs[r * 2 + 1];
-		for(int c = 0;; ++c){
-			Position p(r, c);
-			// vert-walls
-			m_vert_walls[p] = str_v[c * 2];
-			if(c == m_sidelen) break;
-			rng.insert(p);
-			m_areas[p.first].push_back(p);
-			m_areas[m_sidelen + p.second].push_back(p);
-			m_start.push_back(str_v[c * 2 + 1]);
+	if(!m_bNoAreas){
+		set<Position> rng;
+		for(int r = 0;; ++r){
+			// horz-walls
+			auto& str_h = strs[r * 2];
+			for(int c = 0; c < m_sidelen; ++c)
+				m_horz_walls[{r, c}] = str_h[c * 2 + 1];
+			if(r == m_sidelen) break;
+			auto& str_v = strs[r * 2 + 1];
+			for(int c = 0;; ++c){
+				Position p(r, c);
+				// vert-walls
+				m_vert_walls[p] = str_v[c * 2];
+				if(c == m_sidelen) break;
+				rng.insert(p);
+				m_areas[p.first].push_back(p);
+				m_areas[m_sidelen + p.second].push_back(p);
+				m_start.push_back(str_v[c * 2 + 1]);
+			}
+		}
+		for(int n = 0; !rng.empty(); ++n){
+			list<puz_state2> smoves;
+			puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls,
+				*rng.begin()}, smoves);
+			int id = m_sidelen * 2 + n;
+			auto& area = m_areas[id];
+			for(auto& p : smoves){
+				area.push_back(p);
+				rng.erase(p);
+				m_pos2info[p].m_area_id = id;
+			}
+			boost::sort(area);
 		}
 	}
-	for(int n = 0; !rng.empty(); ++n){
-		list<puz_state2> smoves;
-		puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls,
-			*rng.begin()}, smoves);
-		int id = m_sidelen * 2 + n;
-		auto& area = m_areas[id];
-		for(auto& p : smoves){
-			area.push_back(p);
-			rng.erase(p);
-			m_pos2info[p].m_area_id = id;
-		}
-		boost::sort(area);
+	else{
+		m_start = boost::accumulate(strs, string());
+		for(int r = 0; r < m_sidelen; ++r)
+			for(int c = 0; c < m_sidelen; ++c){
+				Position p(r, c);
+				m_areas[p.first].push_back(p);
+				m_areas[m_sidelen + p.second].push_back(p);
+				m_pos2info[p].m_area_id = -1;
+			}
 	}
+
 	for(int r = 0; r < m_sidelen; ++r)
 		for(int c = 0; c < m_sidelen; ++c){
 			Position p(r, c);
@@ -190,8 +205,11 @@ bool puz_state::make_move(const Position& p, char ch)
 		if(it != m_pos2nums.end())
 			boost::remove_erase_if(it->second, g);
 	};
-	for(auto& area : {areas[p.first], areas[sidelen() + p.second], areas[info.m_area_id]})
-		for(auto& p2 : area)
+	vector<const vector<Position>*> area_ptrs = {&areas[p.first], &areas[sidelen() + p.second]};
+	if(!m_game->m_bNoAreas)
+		area_ptrs.emplace_back(&areas[info.m_area_id]);
+	for(auto* area : area_ptrs)
+		for(auto& p2 : *area)
 			if(p2 != p)
 				f(p2, [ch](char ch2){ return ch2 == ch; });
 	m_pos2nums.erase(p);
@@ -227,11 +245,28 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 0; r < sidelen(); ++r){
-		for(int c = 0; c < sidelen(); ++c)
-			out << cells({r, c}) << ' ';
-		out << endl;
-	}
+	if(!m_game->m_bNoAreas)
+		for(int r = 0;; ++r){
+			// draw horz-walls
+			for(int c = 0; c < sidelen(); ++c)
+				out << ' ' << m_game->m_horz_walls.at({r, c});
+			out << endl;
+			if(r == sidelen()) break;
+			for(int c = 0;; ++c){
+				Position p(r, c);
+				// draw vert-walls
+				out << m_game->m_vert_walls.at(p);
+				if(c == sidelen()) break;
+				out << cells(p);
+			}
+			out << endl;
+		}
+	else
+		for(int r = 0; r < sidelen(); ++r){
+			for(int c = 0; c < sidelen(); ++c)
+				out << cells({r, c}) << ' ';
+			out << endl;
+		}
 	return out;
 }
 
