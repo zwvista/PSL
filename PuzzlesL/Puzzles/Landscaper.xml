@@ -136,4 +136,35 @@ T  F F  F\
          \
     ]]>
   </level>
+  <level id="51">
+    <![CDATA[
+         T \
+  FF F   TT\
+     F     \
+  T    F T \
+T   T    T \
+FF  T      \
+      T    \
+T   FT   F \
+           \
+    T    FF\
+    F   F  \
+    ]]>
+  </level>
+  <level id="72">
+    <![CDATA[
+ FF       T \
+T  F  F     \
+    T  T TT \
+            \
+   F  TT    \
+ F  TT  FT T\
+F           \
+    T T     \
+FF     T F F\
+FF        T \
+    TF      \
+    T  F    \
+    ]]>
+  </level>
 </levels>

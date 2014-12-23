@@ -135,6 +135,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			m_pos2fb[p] = n;
 			rng.erase(p);
 		}
+		boost::sort(m_fb_info[n].m_range);
 	}
 
 	map<pair<int, int>, vector<string>> pair2perms;
@@ -143,7 +144,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		int flower_cnt = info.m_flower_count;
 		auto& perms = pair2perms[make_pair(pos_cnt, flower_cnt)];
 		if(perms.empty())
-			for(int i = 0; i < pos_cnt; ++i){
+			for(int i = 0; i <= pos_cnt; ++i){
 				if(flower_cnt != PUZ_FLOWER_COUNT_UNKOWN && flower_cnt != i) continue;
 				auto perm = string(pos_cnt - i, PUZ_EMPTY) + string(i, PUZ_FLOWER);
 				do

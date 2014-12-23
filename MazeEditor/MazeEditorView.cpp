@@ -291,6 +291,11 @@ void CMazeEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CMazeEditorView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
+	if(nChar == VK_BACK){
+		m_pDoc->SetObject(_T(' '));
+		MoveLeft();
+		return;
+	}
 	if(isprint(nChar))
 		m_pDoc->SetObject(nChar);
 	if(nChar != ' ' && nChar != VK_RETURN)

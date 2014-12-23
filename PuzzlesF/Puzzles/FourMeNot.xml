@@ -57,4 +57,18 @@ F FB      \
 FF  F F FF\
     ]]>
   </level>
+  <level id="40">
+    <![CDATA[
+F  FFF    \
+     FF  F\
+   FF FF F\
+  F FFF F \
+ FF FF   F\
+ F        \
+F        F\
+ F    F FF\
+F F    FFF\
+ F F F    \
+    ]]>
+  </level>
 </levels>

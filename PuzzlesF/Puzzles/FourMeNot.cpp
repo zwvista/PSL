@@ -195,7 +195,7 @@ bool puz_state::make_move(Position p)
 			outer.insert(p2);
 	}
 
-	return is_goal_state() ||(
+	return is_goal_state() || (
 		check_field(),
 		boost::algorithm::all_of(m_num2outer, [](const pair<int, set<Position>>& kv){
 			return kv.second.size() > 0;

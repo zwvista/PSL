@@ -154,59 +154,58 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
-	vector<int> m_lit_ids;
+	map<Position, vector<int>> m_matches;
 	set<Position> m_horz_walls, m_vert_walls;
 };
 
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-	m_lit_ids.resize(g.m_lits.size());
-	boost::iota(m_lit_ids, 0);
+	for(int i = 0; i < g.m_lits.size(); ++i){
+		auto& lit = g.m_lits[i];
+		auto& p = lit.first;
+		for(auto& os : tetrominoes[lit.second])
+			m_matches[p + os].push_back(i);
+	}
 }
 
 bool puz_state::make_move(int n)
 {
-	{
-		auto& lit = m_game->m_lits[n];
-		auto& p = lit.first;
-		auto& t = m_game->m_tetros[lit.second];
-		for(int i = 0; i < 4; ++i)
-			cells(p + t.m_offset[i]) = t.m_nums[i] + '0';
-		for(auto& os : t.m_horz_walls)
-			m_horz_walls.insert(p + os);
-		for(auto& os : t.m_vert_walls)
-			m_vert_walls.insert(p + os);
-	}
+	auto& lit = m_game->m_lits[n];
+	auto& p = lit.first;
+	auto& t = m_game->m_tetros[lit.second];
 
-	boost::remove_erase_if(m_lit_ids, [&](int id){
-		auto& lit = m_game->m_lits[id];
-		auto& p = lit.first;
-		auto& t = m_game->m_tetros[lit.second];
-		for(int i = 0; i < 4; ++i)
-			if(cells(p + t.m_offset[i]) != PUZ_SPACE)
-				return true;
-		return false;
-	});
+	for(auto& os : t.m_horz_walls)
+		m_horz_walls.insert(p + os);
+	for(auto& os : t.m_vert_walls)
+		m_vert_walls.insert(p + os);
 
-	// pruning
-	set<Position> rng1, rng2;
-	for(int i = 0; i < length(); ++i)
-		if((*this)[i] == PUZ_SPACE)
-			rng1.emplace(i / sidelen(), i % sidelen());
-	for(int n : m_lit_ids){
-		auto& lit = m_game->m_lits[n];
-		auto& p = lit.first;
-		auto& t = m_game->m_tetros[lit.second];
-		for(int i = 0; i < 4; ++i)
-			rng2.insert(p + t.m_offset[i]);
+	set<int> lit_ids;
+	for(int i = 0; i < 4; ++i){
+		auto p2 = p + t.m_offset[i];
+		cells(p2) = t.m_nums[i] + '0';
+		auto& v = m_matches.at(p2);
+		lit_ids.insert(v.begin(), v.end());
+		m_matches.erase(p2);
 	}
-	return rng1.size() == rng2.size();
+	for(auto& kv : m_matches){
+		auto& v = kv.second;
+		for(int i : lit_ids)
+			boost::remove_erase(v, i);
+		if(v.empty())
+			return false;
+	}
+	return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	for(int n : m_lit_ids){
+	auto& kv = *boost::min_element(m_matches, [](
+		const pair<const Position, vector<int>>& kv1,
+		const pair<const Position, vector<int>>& kv2){
+		return kv1.second.size() < kv2.second.size();
+	});
+	for(int n : kv.second){
 		children.push_back(*this);
 		if(!children.back().make_move(n))
 			children.pop_back();
