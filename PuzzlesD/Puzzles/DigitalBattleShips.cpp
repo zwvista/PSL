@@ -145,6 +145,27 @@ struct puz_state : string
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, int n, bool vert);
 	void find_matches();
+	bool exist_matches(int i, function<bool(int)> f){
+		auto it = m_area_matches.find(i);
+		return it == m_area_matches.end() ||
+			boost::algorithm::any_of(it->second.second, f);
+	}
+	bool exist_matches(int i, int j){
+		auto& ai = m_game->m_area2info[i];
+		return exist_matches(i, [&](int n){
+			return boost::algorithm::none_of(ai.m_perms[n], [=](const pair<int, int>& kv){
+				return j >= kv.first && j < kv.first + kv.second;
+			});
+		});
+	}
+	bool exist_matches(int i, int j, int k){
+		auto& ai = m_game->m_area2info[i];
+		return exist_matches(i, [&](int n){
+			return boost::algorithm::any_of(ai.m_perms[n], [=](const pair<int, int>& kv){
+				return j == kv.first && k == kv.second;
+			});
+		});
+	}
 	void remove_matches(int i, function<bool(int)> f){
 		auto it = m_area_matches.find(i);
 		if(it == m_area_matches.end()) return;
@@ -239,13 +260,23 @@ void puz_state::find_matches()
 				for(int c = 0; c < sidelen() - (vert ? 0 : len - 1); ++c){
 					Position p(r, c);
 					if([&]{
+						auto& si = ship_info[i - 1];
 						auto p2 = p;
-						auto os = vert ? Position(1, 0) : Position(0, 1);
-						for(char ch : s){
-							if(cells(p2) != PUZ_SPACE)
-								return false;
-							p2 += os;
-						}
+						if(!exist_matches(!vert ? p2.first : p2.second + sidelen(),
+							!vert ? p2.second : p2.first, len))
+							return false;
+						for(int r2 = 0; r2 < 3; ++r2)
+							for(int c2 = 0; c2 < len + 2; ++c2){
+								auto p2 = p + Position(-1, -1) + Position(!vert ? r2 : c2, !vert ? c2 : r2);
+								if(!is_valid(p2)) continue;
+								char ch = cells(p2);
+								char ch2 = si.m_area[r2][c2];
+								if(ch2 == ' '){
+								}
+								else{
+
+								}
+							}
 						return true;
 					}())
 						m_ship_matches[i].emplace_back(p + Position(-1, -1), vert);
