@@ -181,52 +181,56 @@ bool puz_state::adjust_galaxies()
 		else
 			++it;
 	}
+
 	set<Position> rng;
-	set<set<char>> rng2;
 	for(int r = 1; r < sidelen() - 1; ++r)
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
 			if(cells(p) == PUZ_SPACE)
 				rng.insert(p);
 		}
+
+	set<set<char>> idss;
 	while(!rng.empty()){
 		list<puz_state2> smoves;
 		puz_move_generator<puz_state2>::gen_moves({*this, *rng.begin()}, smoves);
-		vector<Position> rng3;
-		set<char> rng4;
-		set<char> rng5;
+		vector<Position> rng2;
+		set<char> ids1;
+		set<char> ids2;
 		for(auto& p : smoves){
 			char ch = cells(p);
 			if(ch == PUZ_SPACE)
-				rng3.push_back(p);
-			else
-				rng4.insert(ch);
+				rng2.push_back(p);
+			else if(m_galaxies.count(ch) != 0)
+				ids1.insert(ch);
 		}
-		for(auto& p : rng3){
-			for(char ch : rng4){
-				auto it = m_galaxies.find(ch);
-				if(it == m_galaxies.end())
-					continue;
-				auto p2 = it->second.m_center - p;
+		// For each space, there should exist at least one galaxy
+		// from which the space is reachable
+		for(auto& p : rng2){
+			for(char ch : ids1){
+				// The galaxies are symmetrical
+				auto p2 = m_galaxies.at(ch).m_center - p;
 				if(p2.first > 0 && p.second > 0 &&
 					p2.first < sidelen() - 1 && p2.second < sidelen() - 1 &&
 					cells(p2) == PUZ_SPACE)
-					rng5.insert(ch);
+					ids2.insert(ch);
 			}
-			if(rng5.empty())
+			if(ids2.empty())
 				return false;
-			rng2.insert(rng5);
+			idss.insert(ids2);
 			rng.erase(p);
 		}
 	}
-	if(rng2.empty())
+	if(idss.empty())
 		m_next = "";
 	else{
-		auto& rng23 = *boost::min_element(rng2,
-			[](const set<char>& rng21, const set<char>& rng22){
-			return rng21.size() < rng22.size();
+		// Find the space for which there exists the minimum number
+		// of galaxies from which the space is reachable
+		auto& ids3 = *boost::min_element(idss,
+			[](const set<char>& ids1, const set<char>& ids2){
+			return ids1.size() < ids2.size();
 		});
-		m_next = string(rng23.begin(), rng23.end());
+		m_next = string(ids3.begin(), ids3.end());
 	}
 	return true;
 }
