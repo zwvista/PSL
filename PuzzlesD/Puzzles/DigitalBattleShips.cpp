@@ -145,10 +145,10 @@ struct puz_state : string
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, int n, bool vert);
 	void find_matches();
-	void remove_matches(int i, function<void(int)> f){
+	void remove_matches(int i, function<bool(int)> f){
 		auto it = m_area_matches.find(i);
 		if(it == m_area_matches.end()) return;
-		boost::remove_erase_if(it->second, f);
+		boost::remove_erase_if(it->second.second, f);
 	}
 	void remove_matches(int i, int j){
 		auto& ai = m_game->m_area2info[i];
@@ -199,7 +199,7 @@ puz_state::puz_state(const puz_game& g)
 		kv.first = ai.m_sum;
 		auto& v = kv.second;
 		v.resize(ai.m_perms.size());
-		boost::iota(v, 1);
+		boost::iota(v, 0);
 	}
 
 	find_matches();
@@ -273,6 +273,14 @@ bool puz_state::make_move(const Position& p, int n, bool vert)
 				int n2 = m_game->m_pos2num.at(p2);
 				remove_matches(vert ? p2.first : p2.second + sidelen(),
 					vert ? p2.second : p2.first, 1);
+
+				auto f = [&](int id){
+					auto it = m_area_matches.find(id);
+					if(it != m_area_matches.end())
+						it->second.first -= n2;
+				};
+				f(p2.first);
+				f(p2.second + sidelen());
 			}
 			else if(ch == PUZ_SPACE){
 				ch = PUZ_EMPTY;
@@ -287,7 +295,7 @@ bool puz_state::make_move(const Position& p, int n, bool vert)
 	return boost::algorithm::all_of(m_area_matches, 
 		[&](const pair<int, pair<int, vector<int>>>& kv){
 		return !kv.second.second.empty();
-	});
+	}) && (!is_goal_state() || m_area_matches.empty());
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
