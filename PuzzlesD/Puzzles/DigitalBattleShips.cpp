@@ -36,6 +36,7 @@ namespace puzzles{ namespace DigitalBattleships{
 #define PUZ_RIGHT		'>'
 #define PUZ_MIDDLE		'+'
 #define PUZ_BOAT		'o'
+#define PUZ_PIECE		'x'
 
 #define PUZ_UNKNOWN		-1
 
@@ -143,8 +144,9 @@ struct puz_state : string
 	}
 	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-	bool make_move(const Position& p, int n, bool vert);
-	void find_matches();
+	bool make_move_ship(const Position& p, int n, bool vert);
+	bool make_move_area(int i, int j);
+	bool find_matches();
 	bool exist_matches(int i, function<bool(int)> f){
 		auto it = m_area_matches.find(i);
 		return it == m_area_matches.end() ||
@@ -192,11 +194,11 @@ struct puz_state : string
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return boost::accumulate(m_ship2num, 0, [](int acc, const pair<int, int>& kv){
-			return acc + kv.second;
+		return boost::count_if(*this, [](char ch){
+			return ch == PUZ_SPACE || ch == PUZ_PIECE;
 		});
 	}
-	unsigned int get_distance(const puz_state& child) const {return 1;}
+	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
 	friend ostream& operator<<(ostream& out, const puz_state& state) {
@@ -207,6 +209,7 @@ struct puz_state : string
 	map<int, int> m_ship2num;
 	map<int, vector<pair<Position, bool>>> m_ship_matches;
 	map<int, pair<int, vector<int>>> m_area_matches;
+	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -226,7 +229,7 @@ puz_state::puz_state(const puz_game& g)
 	find_matches();
 }
 
-void puz_state::find_matches()
+bool puz_state::find_matches()
 {
 	for(auto it = m_area_matches.begin(); it != m_area_matches.end();)
 		if(it->second.first == 0){
@@ -235,6 +238,7 @@ void puz_state::find_matches()
 				char& ch = cells(p);
 				if(ch == PUZ_SPACE){
 					ch = PUZ_EMPTY;
+					++m_distance;
 					bool vert = it->first < sidelen();
 					remove_matches(vert ? p.first : p.second + sidelen(),
 						vert ? p.second : p.first);
@@ -254,16 +258,14 @@ void puz_state::find_matches()
 			if(i == 1 && vert)
 				continue;
 
-			auto& s = ship_info[i - 1].m_pieces[j];
-			int len = s.length();
+			auto& si = ship_info[i - 1];
+			int len = si.m_pieces[j].length();
 			for(int r = 0; r < sidelen() - (!vert ? 0 : len - 1); ++r){
 				for(int c = 0; c < sidelen() - (vert ? 0 : len - 1); ++c){
 					Position p(r, c);
 					if([&]{
-						auto& si = ship_info[i - 1];
-						auto p2 = p;
-						if(!exist_matches(!vert ? p2.first : p2.second + sidelen(),
-							!vert ? p2.second : p2.first, len))
+						if(!exist_matches(!vert ? p.first : p.second + sidelen(),
+							!vert ? p.second : p.first, len))
 							return false;
 						for(int r2 = 0; r2 < 3; ++r2)
 							for(int c2 = 0; c2 < len + 2; ++c2){
@@ -271,36 +273,45 @@ void puz_state::find_matches()
 								if(!is_valid(p2)) continue;
 								char ch = cells(p2);
 								char ch2 = si.m_area[r2][c2];
-								if(ch2 == ' '){
-								}
-								else{
-
-								}
+								if(ch2 == ' ' && (ch != PUZ_SPACE && ch != PUZ_PIECE ||
+									!exist_matches(vert ? p2.first : p2.second + sidelen(),
+									vert ? p2.second : p2.first, 1)) ||
+									ch2 == '.' && (ch != PUZ_SPACE && ch != PUZ_EMPTY ||
+									!exist_matches(vert ? p2.first : p2.second + sidelen(),
+									vert ? p2.second : p2.first)))
+									return false;
 							}
 						return true;
 					}())
-						m_ship_matches[i].emplace_back(p + Position(-1, -1), vert);
+						m_ship_matches[i].emplace_back(p, vert);
 				}
 			}
 		}
 	}
+	return boost::algorithm::all_of(m_area_matches,
+		[&](const pair<int, pair<int, vector<int>>>& kv){
+		return !kv.second.second.empty();
+	}) && boost::accumulate(m_ship2num, 0, [](int acc, const pair<int, int>& kv){
+		return acc + kv.first * kv.second;
+	}) >= boost::count(*this, PUZ_PIECE);
 }
 
-bool puz_state::make_move(const Position& p, int n, bool vert)
+bool puz_state::make_move_ship(const Position& p, int n, bool vert)
 {
+	m_distance = 0;
 	auto& si = ship_info[n - 1];
 	int len = si.m_pieces[0].length();
-	auto p2 = p + Position(1, 1);
-	remove_matches(!vert ? p2.first : p2.second + sidelen(),
-		!vert ? p2.second : p2.first, len);
+	remove_matches(!vert ? p.first : p.second + sidelen(),
+		!vert ? p.second : p.first, len);
 	for(int r2 = 0; r2 < 3; ++r2)
 		for(int c2 = 0; c2 < len + 2; ++c2){
-			auto p2 = p + Position(!vert ? r2 : c2, !vert ? c2 : r2);
+			auto p2 = p + Position(-1, -1) + Position(!vert ? r2 : c2, !vert ? c2 : r2);
 			if(!is_valid(p2)) continue;
 			char& ch = cells(p2);
 			char ch2 = si.m_area[r2][c2];
 			if(ch2 == ' '){
 				ch = si.m_pieces[!vert ? 0 : 1][c2 - 1];
+				++m_distance;
 				int n2 = m_game->m_pos2num.at(p2);
 				remove_matches(vert ? p2.first : p2.second + sidelen(),
 					vert ? p2.second : p2.first, 1);
@@ -315,6 +326,7 @@ bool puz_state::make_move(const Position& p, int n, bool vert)
 			}
 			else if(ch == PUZ_SPACE){
 				ch = PUZ_EMPTY;
+				++m_distance;
 				remove_matches(vert ? p2.first : p2.second + sidelen(),
 					vert ? p2.second : p2.first);
 			}
@@ -322,25 +334,67 @@ bool puz_state::make_move(const Position& p, int n, bool vert)
 
 	if(--m_ship2num[n] == 0)
 		m_ship2num.erase(n);
-	find_matches();
-	return boost::algorithm::all_of(m_area_matches, 
-		[&](const pair<int, pair<int, vector<int>>>& kv){
-		return !kv.second.second.empty();
-	}) && (!is_goal_state() || m_area_matches.empty());
+	return find_matches();
+}
+
+bool puz_state::make_move_area(int i, int j)
+{
+	m_distance = 0;
+	bool vert = i >= sidelen();
+	vector<char> v(sidelen(), PUZ_EMPTY);
+	int id = m_area_matches.at(i).second[j];
+	auto& ai = m_game->m_area2info[i];
+	auto& perm = ai.m_perms[id];
+	for(auto& kv : perm)
+		for(int k = 0; k < kv.second; ++k)
+			v[k + kv.first] = PUZ_PIECE;
+	for(int k = 0; k < sidelen(); ++k){
+		auto& p = ai.m_rng[k];
+		char& ch = cells(p);
+		char ch2 = v[k];
+		if(ch2 == PUZ_EMPTY && ch != PUZ_SPACE && ch != PUZ_EMPTY ||
+			ch2 == PUZ_PIECE && ch == PUZ_EMPTY)
+			return false;
+		if(ch != PUZ_SPACE) continue;
+		ch = ch2;
+		if(ch2 == PUZ_EMPTY)
+			++m_distance;
+	}
+	m_area_matches.erase(i);
+	return find_matches();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	auto& kv = *boost::min_element(m_ship_matches, [](
-		const pair<int, vector<pair<Position, bool>>>& kv1,
-		const pair<int, vector<pair<Position, bool>>>& kv2){
-		return kv1.second.size() < kv2.second.size();
-	});
-	for(auto& kv2 : m_ship_matches.at(kv.first)){
-		children.push_back(*this);
-		if(!children.back().make_move(kv2.first, kv.first, kv2.second))
-			children.pop_back();
-	}
+	const pair<const int, vector<pair<Position, bool>>>* kv_ship_ptr = nullptr;
+	if(!m_ship_matches.empty())
+		kv_ship_ptr = &*boost::min_element(m_ship_matches, [](
+			const pair<int, vector<pair<Position, bool>>>& kv1,
+			const pair<int, vector<pair<Position, bool>>>& kv2){
+			return kv1.second.size() < kv2.second.size();
+		});
+
+	const pair<const int, pair<int, vector<int>>>* kv_area_ptr = nullptr;
+	if(!m_area_matches.empty())
+		kv_area_ptr = &*boost::min_element(m_area_matches, [](
+			const pair<int, pair<int, vector<int>>>& kv1,
+			const pair<int, pair<int, vector<int>>>& kv2){
+			return kv1.second.second.size() < kv2.second.second.size();
+		});
+
+	if(kv_ship_ptr != nullptr && (kv_area_ptr == nullptr ||
+		kv_ship_ptr->second.size() < kv_area_ptr->second.second.size()))
+		for(auto& kv2 : kv_ship_ptr->second){
+			children.push_back(*this);
+			if(!children.back().make_move_ship(kv2.first, kv_ship_ptr->first, kv2.second))
+				children.pop_back();
+		}
+	else
+		for(int i = 0; i < kv_area_ptr->second.second.size(); ++i){
+			children.push_back(*this);
+			if(!children.back().make_move_area(kv_area_ptr->first, i))
+				children.pop_back();
+		}
 }
 
 ostream& puz_state::dump(ostream& out) const
