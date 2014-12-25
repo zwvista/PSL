@@ -134,7 +134,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-struct puz_state : string
+struct puz_state
 {
 	puz_state() {}
 	puz_state(const puz_game& g);
@@ -142,8 +142,12 @@ struct puz_state : string
 	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
 	}
-	char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+	bool operator<(const puz_state& x) const { 
+		return make_pair(m_cells, m_area_matches) <
+			make_pair(x.m_cells, x.m_area_matches);
+	}
 	bool make_move_ship(const Position& p, int n, bool vert);
 	bool make_move_area(int i, int j);
 	bool find_matches();
@@ -189,12 +193,22 @@ struct puz_state : string
 			});
 		});
 	}
+	void remove_matches2(int i, int j){
+		auto& ai = m_game->m_area2info[i];
+		remove_matches(i, [&](int n){
+			return boost::algorithm::none_of(ai.m_perms[n], [=](const pair<int, int>& kv){
+				return j >= kv.first && j < kv.first + kv.second;
+			});
+		});
+	}
 
 	// solve_puzzle interface
-	bool is_goal_state() const {return get_heuristic() == 0;}
+	bool is_goal_state() const {
+		return m_ship_matches.empty() && m_area_matches.empty();
+	}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return boost::count_if(*this, [](char ch){
+		return boost::count_if(m_cells, [](char ch){
 			return ch == PUZ_SPACE || ch == PUZ_PIECE;
 		});
 	}
@@ -209,12 +223,13 @@ struct puz_state : string
 	map<int, int> m_ship2num;
 	map<int, vector<pair<Position, bool>>> m_ship_matches;
 	map<int, pair<int, vector<int>>> m_area_matches;
+	string m_cells;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
-, m_ship2num(g.m_ship2num)
+	: m_game(&g), m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+	, m_ship2num(g.m_ship2num)
 {
 	for(int i = 0; i < g.m_area2info.size(); ++i){
 		auto& ai = g.m_area2info[i];
@@ -239,7 +254,7 @@ bool puz_state::find_matches()
 				if(ch == PUZ_SPACE){
 					ch = PUZ_EMPTY;
 					++m_distance;
-					bool vert = it->first < sidelen();
+					bool vert = it->first >= sidelen();
 					remove_matches(vert ? p.first : p.second + sidelen(),
 						vert ? p.second : p.first);
 				}
@@ -293,7 +308,7 @@ bool puz_state::find_matches()
 		return !kv.second.second.empty();
 	}) && boost::accumulate(m_ship2num, 0, [](int acc, const pair<int, int>& kv){
 		return acc + kv.first * kv.second;
-	}) >= boost::count(*this, PUZ_PIECE);
+	}) >= boost::count(m_cells, PUZ_PIECE);
 }
 
 bool puz_state::make_move_ship(const Position& p, int n, bool vert)
@@ -357,8 +372,14 @@ bool puz_state::make_move_area(int i, int j)
 			return false;
 		if(ch != PUZ_SPACE) continue;
 		ch = ch2;
-		if(ch2 == PUZ_EMPTY)
+		if(ch2 == PUZ_EMPTY){
 			++m_distance;
+			remove_matches(vert ? p.first : p.second + sidelen(),
+				vert ? p.second : p.first);
+		}
+		else
+			remove_matches2(vert ? p.first : p.second + sidelen(),
+				vert ? p.second : p.first);
 	}
 	m_area_matches.erase(i);
 	return find_matches();
@@ -399,13 +420,23 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+	auto f = [&](int i){
+		auto& ai = m_game->m_area2info[i];
+		int sum = 0;
+		for(auto& p : ai.m_rng){
+			char ch = cells(p);
+			if(ch != PUZ_EMPTY && ch != PUZ_SPACE)
+				sum += m_game->m_pos2num.at(p);
+		}
+		return sum;
+	};
 	for(int r = 0; r <= sidelen(); ++r){
 		for(int c = 0; c <= sidelen(); ++c)
 			if(r == sidelen() && c == sidelen())
 				break;
 			else if(c == sidelen() || r == sidelen())
-				out << format("%2d") %
-				m_game->m_area2info[c == sidelen() ? r : c + sidelen()].m_sum
+				out << format("%2d") % 
+				f(c == sidelen() ? r : c + sidelen())
 				<< ' ';
 			else{
 				Position p(r, c);
