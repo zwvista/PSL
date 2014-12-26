@@ -6,7 +6,7 @@ W . . .
 W W . . 
 Number of moves: 1
 Number of vertices examined: 2
-0.00457219 [s]
+0.105757 [s]
 
 Level 2
 Sequence of moves: 
@@ -16,7 +16,7 @@ W . W W
 . . W W 
 Number of moves: 1
 Number of vertices examined: 2
-0.00176063 [s]
+0.00347854 [s]
 
 Level 3
 Sequence of moves: 
@@ -26,7 +26,7 @@ W . . .
 W W W . 
 Number of moves: 1
 Number of vertices examined: 2
-0.00149911 [s]
+0.00346869 [s]
 
 Level 4
 Sequence of moves: 
@@ -36,7 +36,7 @@ W . . W
 . . W W 
 Number of moves: 2
 Number of vertices examined: 3
-0.00201413 [s]
+0.00317679 [s]
 
 Level 5
 Sequence of moves: 
@@ -46,7 +46,7 @@ W . W .
 . . . . 
 Number of moves: 1
 Number of vertices examined: 2
-0.00152139 [s]
+0.00279991 [s]
 
 Level 6
 Sequence of moves: 
@@ -57,7 +57,7 @@ Sequence of moves:
 . . W W W 
 Number of moves: 1
 Number of vertices examined: 2
-0.00148518 [s]
+0.00462642 [s]
 
 Level 7
 Sequence of moves: 
@@ -68,7 +68,7 @@ W W W . W
 . . . . W 
 Number of moves: 1
 Number of vertices examined: 2
-0.00159522 [s]
+0.00274613 [s]
 
 Level 8
 Sequence of moves: 
@@ -79,7 +79,7 @@ W . . . W
 W . W W W 
 Number of moves: 1
 Number of vertices examined: 2
-0.0016868 [s]
+0.00269112 [s]
 
 Level 9
 Sequence of moves: 
@@ -90,7 +90,7 @@ W W . . W
 W W . W W 
 Number of moves: 1
 Number of vertices examined: 2
-0.00265974 [s]
+0.00227318 [s]
 
 Level 10
 Sequence of moves: 
@@ -101,7 +101,7 @@ W . W . W
 . . . . . 
 Number of moves: 2
 Number of vertices examined: 3
-0.00227495 [s]
+0.00273956 [s]
 
 Level 36
 Sequence of moves: 
@@ -113,6 +113,22 @@ Sequence of moves:
 . W W W . . 
 Number of moves: 1
 Number of vertices examined: 2
-0.00282236 [s]
+0.00490477 [s]
 
 Level 200
+Sequence of moves: 
+W W W W W W . . . W W 
+W . . . . W . W . . W 
+W . W W W W . W W W W 
+. . . . . . . . W . W 
+. W . W W W . W W . W 
+. W W W W . . . . . W 
+. W W W W W . W W W W 
+. W . . W W . W W W W 
+. . W . . . . W W . W 
+W . W W W . W W W . W 
+W W W . . . . . . . W 
+Number of moves: 45
+Number of vertices examined: 31015
+35.3352 [s]
+

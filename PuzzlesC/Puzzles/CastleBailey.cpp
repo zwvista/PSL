@@ -29,7 +29,6 @@ namespace puzzles{ namespace CastleBailey{
 #define PUZ_EMPTY		'.'
 #define PUZ_WALL		'W'
 #define PUZ_BOUNDARY	'B'
-#define PUZ_UNKNOWN		5
 
 const Position offset[] = {
 	{0, 0},	// nw
@@ -58,24 +57,23 @@ struct puz_game
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 1)
-, m_num2perms(PUZ_UNKNOWN + 1)
+, m_num2perms(5)
 {
 	for(int r = 0; r < m_sidelen - 1; ++r){
 		auto& str = strs[r];
 		for(int c = 0; c < m_sidelen - 1; ++c){
 			char ch = str[c];
-			m_pos2num[{r, c}] = ch == ' ' ? PUZ_UNKNOWN : ch - '0';
+			if(ch != ' ')
+				m_pos2num[{r, c}] = ch - '0';
 		}
 	}
 
-	auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
 	for(int i = 0; i <= 4; ++i){
 		auto& perms = m_num2perms[i];
 		auto perm = string(4 - i, PUZ_EMPTY) + string(i, PUZ_WALL);
-		do{
+		do
 			perms.push_back(perm);
-			perms_unknown.push_back(perm);
-		}while(boost::next_permutation(perm));
+		while(boost::next_permutation(perm));
 	}
 }
 
@@ -86,16 +84,21 @@ struct puz_state
 	int sidelen() const {return m_game->m_sidelen;}
 	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-	bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+	bool operator<(const puz_state& x) const {
+		return make_pair(m_cells, m_matches) < make_pair(x.m_cells, x.m_matches);
+	}
 	bool make_move(const Position& p, int n);
 	bool make_move2(const Position& p, int n);
+	bool make_move_space(const Position& p, char ch);
 	int find_matches(bool init);
 	bool is_continuous() const;
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_matches.size(); }
+	unsigned int get_heuristic() const {
+		return boost::count(m_cells, PUZ_SPACE) + m_matches.size();
+	}
 	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -156,39 +159,38 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-	puz_state2(const set<Position>& a) : m_area(a) { make_move(*a.begin()); }
+	puz_state2(const puz_state& s, const Position& starting)
+		: m_state(&s) { make_move(starting); }
 
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const set<Position>& m_area;
+	const puz_state* m_state;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(auto& os : offset2){
-		auto p = *this + os;
-		if(m_area.count(p) != 0){
+		auto p2 = *this + os;
+		char ch = m_state->cells(p2);
+		if(ch == PUZ_SPACE || ch == PUZ_EMPTY){
 			children.push_back(*this);
-			children.back().make_move(p);
+			children.back().make_move(p2);
 		}
 	}
 }
 
 bool puz_state::is_continuous() const
 {
-	set<Position> area;
-	for(int r = 1; r < sidelen() - 1; ++r)
-		for(int c = 1; c < sidelen() - 1; ++c){
-			Position p(r, c);
-			char ch = cells(p);
-			if(ch == PUZ_EMPTY || ch == PUZ_SPACE)
-				area.insert(p);
-		}
-
+	int i = m_cells.find(PUZ_EMPTY);
+	if(i == -1)
+		return true;
 	list<puz_state2> smoves;
-	puz_move_generator<puz_state2>::gen_moves(area, smoves);
-	return smoves.size() == area.size();
+	puz_move_generator<puz_state2>::gen_moves(
+		{*this, {i / sidelen(), i % sidelen()}}, smoves);
+	return boost::count_if(smoves, [&](const Position& p){
+		return cells(p) == PUZ_EMPTY;
+	}) == boost::count(m_cells, PUZ_EMPTY);
 }
 
 bool puz_state::make_move2(const Position& p, int n)
@@ -198,13 +200,12 @@ bool puz_state::make_move2(const Position& p, int n)
 	for(int k = 0; k < perm.size(); ++k){
 		char& ch = cells(p + offset[k]);
 		if(ch == PUZ_SPACE)
-			ch = perm[k];
+			ch = perm[k], ++m_distance;
 	}
 
 	++m_distance;
 	m_matches.erase(p);
-
-	return !is_goal_state() || is_continuous();
+	return is_continuous();
 }
 
 bool puz_state::make_move(const Position& p, int n)
@@ -217,18 +218,35 @@ bool puz_state::make_move(const Position& p, int n)
 	return m == 2;
 }
 
+bool puz_state::make_move_space(const Position& p, char ch)
+{
+	m_distance = 1;
+	cells(p) = ch;
+	return is_continuous();
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	auto& kv = *boost::min_element(m_matches, [](
-		const pair<const Position, vector<int>>& kv1,
-		const pair<const Position, vector<int>>& kv2){
-		return kv1.second.size() < kv2.second.size();
-	});
-
-	for(int n : kv.second){
-		children.push_back(*this);
-		if(!children.back().make_move(kv.first, n))
-			children.pop_back();
+	if(!m_matches.empty()){
+		auto& kv = *boost::min_element(m_matches, [](
+			const pair<const Position, vector<int>>& kv1,
+			const pair<const Position, vector<int>>& kv2){
+			return kv1.second.size() < kv2.second.size();
+		});
+		for(int n : kv.second){
+			children.push_back(*this);
+			if(!children.back().make_move(kv.first, n))
+				children.pop_back();
+		}
+	}
+	else{
+		int i = m_cells.find(PUZ_SPACE);
+		Position p(i / sidelen(), i % sidelen());
+		for(char ch : {PUZ_EMPTY, PUZ_WALL}){
+			children.push_back(*this);
+			if(!children.back().make_move_space(p, ch))
+				children.pop_back();
+		}
 	}
 }
 
