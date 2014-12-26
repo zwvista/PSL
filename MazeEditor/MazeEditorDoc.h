@@ -42,7 +42,7 @@ public:
 	void SetVertWall(bool isRight, bool bReset);
 	char GetObject(const Position& p) {return IsObject(p) ? m_mapObjects[p] : ' ';}
 	void SetObject(char ch);
-	void ResizeMaze(int w, int h);
+	void ResizeMaze(int h, int w);
 	CString GetData();
 	void SetData(const CString& strData);
 

@@ -263,7 +263,7 @@ void CMazeEditorDoc::OnClearMaze()
 	UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::ResizeMaze( int w, int h )
+void CMazeEditorDoc::ResizeMaze( int h, int w )
 {
 	m_szMaze = Position(h, w);
 	m_sigMazeResized();
