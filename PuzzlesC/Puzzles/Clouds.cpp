@@ -56,7 +56,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				m_pieces.emplace(r, c);
 			else if(ch != PUZ_SPACE)
 				(c == m_sidelen - 1 ? m_piece_counts_rows[r] : m_piece_counts_cols[c])
-				= ch - '0';
+				= isdigit(ch) ? ch - '0' : ch - 'A' + 10;
 		}
 	}
 	m_cloud_max_size = {
