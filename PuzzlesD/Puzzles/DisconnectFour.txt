@@ -6,7 +6,7 @@ yRRR
 YYry
 Number of moves: 1
 Number of vertices examined: 2
-0.00305671 [s]
+0.00440925 [s]
 
 Level 2
 Sequence of moves: 
@@ -16,7 +16,7 @@ RRyY
 YRRR
 Number of moves: 1
 Number of vertices examined: 2
-0.000620884 [s]
+0.00206504 [s]
 
 Level 3
 Sequence of moves: 
@@ -27,7 +27,7 @@ Rryry
 YRYRY
 Number of moves: 1
 Number of vertices examined: 2
-0.000801264 [s]
+0.00148453 [s]
 
 Level 36
 Sequence of moves: 
@@ -41,5 +41,23 @@ rYYYrrry
 YYYrRyYr
 Number of moves: 1
 Number of vertices examined: 2
-0.00113695 [s]
+0.00267264 [s]
+
+Level 157
+Sequence of moves: 
+rYYYryrRRyRY
+ryYyrYyyrryr
+yYrryYYryyry
+rryRrryrryRy
+RyrYyyryyRrr
+YrYYrRyrRRyY
+yrrryRRyyrRr
+rYyyrRryryyr
+yyryyyryrYrY
+yrRRyryrYYrY
+RyRryrYryrYY
+YRyRryRYYrYr
+Number of moves: 2
+Number of vertices examined: 3
+0.010021 [s]
 
