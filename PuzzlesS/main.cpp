@@ -10,7 +10,7 @@ extern void solve_puz_SlitherLink();
 extern void solve_puz_SlitherLink2();
 extern void solve_puz_snail();
 extern void solve_puz_sokoban();
-extern void solve_puz_square100();
+extern void solve_puz_Square100();
 extern void solve_puz_strimko();
 extern void solve_puz_sumscrapers();
 
@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 	cout << "l3: SlitherLink2" << endl;
 	cout << "n: snail" << endl;
 	cout << "o: sokoban" << endl;
-	cout << "q: square 100" << endl;
+	cout << "q: Square 100" << endl;
 	cout << "t: strimko" << endl;
 	cout << "u: sumscrapers" << endl;
 	string str;
@@ -42,7 +42,7 @@ int main(int argc, char **argv)
 	else if(str == "l3") solve_puz_SlitherLink2();
 	else if(str == "n") solve_puz_snail();
 	else if(str == "o") solve_puz_sokoban();
-	else if(str == "q") solve_puz_square100();
+	else if(str == "q") solve_puz_Square100();
 	else if(str == "t") solve_puz_strimko();
 	else if(str == "u") solve_puz_sumscrapers();
 

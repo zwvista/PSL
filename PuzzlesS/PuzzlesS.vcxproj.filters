@@ -25,9 +25,6 @@
     <Text Include="Puzzles\strimko.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\square100.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\sumscrapers.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -58,6 +55,9 @@
     <Text Include="Puzzles\Sentinels.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Square100.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -81,9 +81,6 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\strimko.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\square100.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\sumscrapers.cpp">
@@ -116,15 +113,15 @@
     <ClCompile Include="Puzzles\Sentinels.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Square100.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\sokoban.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\strimko.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\square100.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\sumscrapers.xml">
@@ -152,6 +149,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Sentinels.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Square100.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

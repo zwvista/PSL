@@ -158,7 +158,7 @@
     <Text Include="Puzzles\SlitherLink2.txt" />
     <Text Include="Puzzles\snail.txt" />
     <Text Include="Puzzles\sokoban.txt" />
-    <Text Include="Puzzles\square100.txt" />
+    <Text Include="Puzzles\Square100.txt" />
     <Text Include="Puzzles\strimko.txt" />
     <Text Include="Puzzles\sumscrapers.txt" />
     <Text Include="ReadMe.txt" />
@@ -180,7 +180,7 @@
     <ClCompile Include="Puzzles\SlitherLink2.cpp" />
     <ClCompile Include="Puzzles\snail.cpp" />
     <ClCompile Include="Puzzles\sokoban.cpp" />
-    <ClCompile Include="Puzzles\square100.cpp" />
+    <ClCompile Include="Puzzles\Square100.cpp" />
     <ClCompile Include="Puzzles\strimko.cpp" />
     <ClCompile Include="Puzzles\sumscrapers.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -200,7 +200,7 @@
     <Xml Include="Puzzles\SlitherLink.xml" />
     <Xml Include="Puzzles\snail.xml" />
     <Xml Include="Puzzles\sokoban.xml" />
-    <Xml Include="Puzzles\square100.xml" />
+    <Xml Include="Puzzles\Square100.xml" />
     <Xml Include="Puzzles\strimko.xml" />
     <Xml Include="Puzzles\sumscrapers.xml" />
   </ItemGroup>

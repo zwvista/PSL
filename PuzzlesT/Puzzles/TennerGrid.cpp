@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	iOS Game: Logic Games/Puzzle Set 6/TennerGrid
+	iOS Game: Logic Games/Puzzle Set 7/TennerGrid
 
 	Summary
 	Counting up to 10

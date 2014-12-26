@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-	iOS Game: Logic Games/Puzzle Set 6/square100
+	iOS Game: Logic Games/Puzzle Set 10/Square100
 
 	Summary
 	Exactly one hundred
@@ -15,7 +15,7 @@
 	3. You can add digits before or after the given one.
 */
 
-namespace puzzles{ namespace square100{
+namespace puzzles{ namespace Square100{
 
 #define PUZ_SPACE		0
 
@@ -201,9 +201,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_square100()
+void solve_puz_Square100()
 {
-	using namespace puzzles::square100;
+	using namespace puzzles::Square100;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\square100.xml", "Puzzles\\square100.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Square100.xml", "Puzzles\\Square100.txt", solution_format::GOAL_STATE_ONLY);
 }
