@@ -24,7 +24,7 @@
 	   path) must have exactly one 1, one 2 and one 3.
 */
 
-namespace puzzles{ namespace snail{
+namespace puzzles{ namespace Snail{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
@@ -249,9 +249,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_snail()
+void solve_puz_Snail()
 {
-	using namespace puzzles::snail;
+	using namespace puzzles::Snail;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\snail.xml", "Puzzles\\snail.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Snail.xml", "Puzzles\\Snail.txt", solution_format::GOAL_STATE_ONLY);
 }

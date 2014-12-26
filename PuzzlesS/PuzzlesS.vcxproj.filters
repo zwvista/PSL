@@ -28,9 +28,6 @@
     <Text Include="Puzzles\sumscrapers.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\snail.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\SlitherLink.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -56,6 +53,9 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\Square100.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Snail.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -86,9 +86,6 @@
     <ClCompile Include="Puzzles\sumscrapers.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\snail.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\SlitherLink.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -116,6 +113,9 @@
     <ClCompile Include="Puzzles\Square100.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Snail.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\sokoban.xml">
@@ -125,9 +125,6 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\sumscrapers.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\snail.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\SlitherLink.xml">
@@ -152,6 +149,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Square100.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Snail.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

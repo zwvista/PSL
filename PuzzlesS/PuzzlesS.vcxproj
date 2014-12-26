@@ -156,7 +156,7 @@
     <Text Include="Puzzles\SlantedMaze.txt" />
     <Text Include="Puzzles\SlitherLink.txt" />
     <Text Include="Puzzles\SlitherLink2.txt" />
-    <Text Include="Puzzles\snail.txt" />
+    <Text Include="Puzzles\Snail.txt" />
     <Text Include="Puzzles\sokoban.txt" />
     <Text Include="Puzzles\Square100.txt" />
     <Text Include="Puzzles\strimko.txt" />
@@ -178,7 +178,7 @@
     <ClCompile Include="Puzzles\SlantedMaze.cpp" />
     <ClCompile Include="Puzzles\SlitherLink.cpp" />
     <ClCompile Include="Puzzles\SlitherLink2.cpp" />
-    <ClCompile Include="Puzzles\snail.cpp" />
+    <ClCompile Include="Puzzles\Snail.cpp" />
     <ClCompile Include="Puzzles\sokoban.cpp" />
     <ClCompile Include="Puzzles\Square100.cpp" />
     <ClCompile Include="Puzzles\strimko.cpp" />
@@ -198,7 +198,7 @@
     <Xml Include="Puzzles\Skyscrapers.xml" />
     <Xml Include="Puzzles\SlantedMaze.xml" />
     <Xml Include="Puzzles\SlitherLink.xml" />
-    <Xml Include="Puzzles\snail.xml" />
+    <Xml Include="Puzzles\Snail.xml" />
     <Xml Include="Puzzles\sokoban.xml" />
     <Xml Include="Puzzles\Square100.xml" />
     <Xml Include="Puzzles\strimko.xml" />
