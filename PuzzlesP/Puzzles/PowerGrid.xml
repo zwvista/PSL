@@ -28,7 +28,7 @@
 433715161 \
     ]]>
   </level>
-  <level id="4" GameType="DIAGONAL">
+  <level id="5" GameType="DIAGONAL">
     <![CDATA[
          6\
          1\
@@ -42,7 +42,7 @@
 261111113 \
     ]]>
   </level>
-  <level id="5" GameType="DIAGONAL">
+  <level id="6" GameType="DIAGONAL">
     <![CDATA[
          5\
          1\
@@ -97,6 +97,22 @@
           5\
           1\
    1   451 \
+    ]]>
+  </level>
+  <level id="220">
+    <![CDATA[
+            \
+            \
+            \
+            \
+           8\
+            \
+           2\
+            \
+            \
+            \
+            \
+  7   3   9 \
     ]]>
   </level>
 </levels>

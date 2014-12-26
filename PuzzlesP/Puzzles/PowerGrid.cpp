@@ -26,6 +26,8 @@ namespace puzzles{ namespace PowerGrid{
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
 #define PUZ_POST		'P'
+
+#define PUZ_UNKNOWN		0
 	
 const Position offset[] = {
 	{-1, 0},		// n
@@ -58,7 +60,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_area2info(m_sidelen * 2 + (m_is_diagonal_type ? 2 : 0))
 {
 	auto f = [&](char ch) {
-		int n = ch == ' ' ? 0 : ch - '0';
+		int n = ch == ' ' ? PUZ_UNKNOWN : ch - '0';
 		m_num2perms[n];
 		return n;
 	};
@@ -79,20 +81,21 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			m_area2info[m_sidelen * 2 + 1].second = 0];
 	
 	string perm_empty(m_sidelen, PUZ_EMPTY), perm;
-	auto g = [&](int n, vector<string>& perms){
-		for(int i = 0; i < m_sidelen - n - 1; ++i){
-			perm = perm_empty;
-			perm[i] = perm[i + n + 1] = PUZ_POST;
-			perms.push_back(perm);
-		}
-	};
 	for(auto& kv : m_num2perms){
 		int n = kv.first;
-		if(n == 0)
-			for(int i = 0; i < m_sidelen - n - 1; ++i)
-				g(i, kv.second);
+		auto& perms = kv.second;
+		auto g = [&]{
+			for(int i = 0; i < m_sidelen - n - 1; ++i){
+				perm = perm_empty;
+				perm[i] = perm[i + n + 1] = PUZ_POST;
+				perms.push_back(perm);
+			}
+		};
+		if(n == PUZ_UNKNOWN)
+			for(n = 1; n < m_sidelen - 1; ++n)
+				g();
 		else
-			g(n, kv.second);
+			g();
 	}
 }
 
