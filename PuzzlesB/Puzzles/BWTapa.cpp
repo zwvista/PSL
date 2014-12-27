@@ -137,7 +137,6 @@ struct puz_state : string
 	bool make_move_hint2(const Position& p, int n);
 	bool make_move_space(const Position& p, char ch);
 	int find_matches(bool init);
-	vector<puz_path> find_paths(bool empty_path) const;
 	puz_hint compute_hint(const Position& p) const;
 	bool is_valid_move() const;
 
@@ -200,65 +199,26 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-	puz_state2(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+	puz_state2(const puz_state& s, const Position& starting, const vector<char>& color)
+		: m_state(&s), m_color(color) {	make_move(starting); }
 
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const set<Position>* m_rng;
+	const puz_state* m_state;
+	const vector<char> m_color;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
 	for(int i = 0; i < 4; ++i){
 		auto p2 = *this + offset[i * 2];
-		if(m_rng->count(p2) != 0){
+		char ch = m_state->cells(p2);
+		if(ch == PUZ_SPACE || boost::algorithm::any_of_equal(m_color, ch)){
 			children.push_back(*this);
 			children.back().make_move(p2);
 		}
 	}
-}
-
-vector<puz_path> puz_state::find_paths(bool empty_path) const
-{
-	set<Position> a;
-	for(int i = 0; i < length(); ++i){
-		char ch = (*this)[i];
-		if(ch == PUZ_SPACE || !empty_path && ch == PUZ_FILLED ||
-			empty_path && (ch == PUZ_HINT || ch == PUZ_EMPTY))
-			a.insert({i / sidelen(), i % sidelen()});
-	}
-
-	vector<puz_path> paths;
-	while(!a.empty()){
-		list<puz_state2> smoves;
-		puz_move_generator<puz_state2>::gen_moves(a, smoves);
-
-		if(empty_path && boost::algorithm::all_of(smoves, [&](const puz_state2& p){
-			return cells(p) == PUZ_HINT;
-		}))
-			for(auto& p : smoves)
-				a.erase(p);
-		else{
-			paths.emplace_back();
-			auto& path = paths.back();
-			for(auto& p : smoves){
-				a.erase(p);
-				path.first.push_back(p);
-				char ch = cells(p);
-				if(!empty_path && ch == PUZ_FILLED ||
-					empty_path && (ch == PUZ_HINT || ch == PUZ_EMPTY))
-					path.second++;
-			}
-		}
-
-	}
-
-	boost::sort(paths, [&](const puz_path& path1, const puz_path& path2){
-		return path1.second > path2.second;
-	});
-
-	return paths;
 }
 
 bool puz_state::make_move_hint2(const Position& p, int n)
@@ -272,22 +232,6 @@ bool puz_state::make_move_hint2(const Position& p, int n)
 	}
 
 	m_matches.erase(p);
-	if(m_matches.empty())
-		for(bool empty_path : {false, true}){
-			auto paths = find_paths(empty_path);
-			while(paths.size() > 1){
-				auto& path = paths.back();
-				if(path.second != 0)
-					return false;
-
-				for(auto& p2 : path.first){
-					char& ch = cells(p2);
-					ch = !empty_path ? PUZ_EMPTY : PUZ_FILLED, ++m_distance;
-				}
-				paths.pop_back();
-			}
-		}
-
 	return is_valid_move();
 }
 
@@ -305,7 +249,6 @@ bool puz_state::make_move_space(const Position& p, char ch)
 {
 	cells(p) = ch;
 	m_distance = 1;
-
 	return is_valid_move();
 }
 
@@ -321,6 +264,22 @@ puz_hint puz_state::compute_hint(const Position& p) const
 
 bool puz_state::is_valid_move() const
 {
+	auto is_continuous = [&](const vector<char>& color){
+		int i = boost::find_if(*this, [&](char ch){
+			return boost::algorithm::any_of_equal(color, ch);
+		}) - begin();
+		if(i == size())
+			return true;
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves(
+			{*this, {i / sidelen(), i % sidelen()}, color}, smoves);
+		return boost::count_if(smoves, [&](const Position& p){
+			return boost::algorithm::any_of_equal(color, this->cells(p));
+		}) == boost::count_if(*this, [&](char ch){
+			return boost::algorithm::any_of_equal(color, ch);
+		});
+	};
+
 	auto is_same_color = [&](const vector<Position>& rng, const vector<char>& color){
 		return boost::algorithm::all_of(rng, [&](const Position& p){
 			return boost::algorithm::any_of_equal(color, this->cells(p));
@@ -335,13 +294,7 @@ bool puz_state::is_valid_move() const
 		return true;
 	};
 
-	auto check_path = [](const vector<puz_path>& paths){
-		for(int i = 1; i < paths.size(); ++i)
-			if(paths[i].second != 0)
-				return false;
-		return true;
-	};
-	return check_path(find_paths(false)) && check_path(find_paths(true)) &&
+	return is_continuous({PUZ_FILLED}) && is_continuous({PUZ_HINT, PUZ_EMPTY}) &&
 		is_valid_square({PUZ_FILLED}) && is_valid_square({PUZ_HINT, PUZ_EMPTY});
 }
 

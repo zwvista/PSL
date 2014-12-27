@@ -143,7 +143,6 @@ struct puz_state : string
 	bool make_move_hint2(const Position& p, int n);
 	bool make_move_space(const Position& p, char ch);
 	int find_matches(bool init);
-	vector<puz_path> find_paths() const;
 	puz_hint compute_hint(const Position& p) const;
 	bool is_valid_move() const;
 
@@ -206,15 +205,38 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-	puz_state2(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+	puz_state2(const puz_state& s, const Position& starting)
+		: m_state(&s) {	make_move(starting); }
 
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
-	const set<Position>* m_rng;
+	const puz_state* m_state;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	for(int i = 0; i < 4; ++i){
+		auto p2 = *this + offset[i * 2];
+		char ch = m_state->cells(p2);
+		if(ch == PUZ_SPACE || ch == PUZ_FILLED){
+			children.push_back(*this);
+			children.back().make_move(p2);
+		}
+	}
+}
+
+struct puz_state3 : Position
+{
+	puz_state3(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+
+	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+	void gen_children(list<puz_state3>& children) const;
+
+	const set<Position>* m_rng;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
 {
 	for(int i = 0; i < 4; ++i){
 		auto p2 = *this + offset[i * 2];
@@ -223,36 +245,6 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 			children.back().make_move(p2);
 		}
 	}
-}
-
-vector<puz_path> puz_state::find_paths() const
-{
-	set<Position> a;
-	for(int i = 0; i < length(); ++i){
-		char ch = (*this)[i];
-		if(ch == PUZ_SPACE || ch == PUZ_FILLED)
-			a.insert({i / sidelen(), i % sidelen()});
-	}
-
-	vector<puz_path> paths;
-	while(!a.empty()){
-		list<puz_state2> smoves;
-		puz_move_generator<puz_state2>::gen_moves(a, smoves);
-		paths.emplace_back();
-		auto& path = paths.back();
-		for(auto& p : smoves){
-			a.erase(p);
-			path.first.push_back(p);
-			if(cells(p) == PUZ_FILLED)
-				path.second++;
-		}
-	}
-
-	boost::sort(paths, [&](const puz_path& path1, const puz_path& path2){
-		return path1.second > path2.second;
-	});
-
-	return paths;
 }
 
 bool puz_state::make_move_hint2(const Position& p, int n)
@@ -266,19 +258,6 @@ bool puz_state::make_move_hint2(const Position& p, int n)
 	}
 
 	m_matches.erase(p);
-	if(m_matches.empty()){
-		auto paths = find_paths();
-		while(paths.size() > 1){
-			auto& path = paths.back();
-			if(path.second != 0)
-				return false;
-
-			for(auto& p2 : path.first)
-				cells(p2) = PUZ_EMPTY, ++m_distance;
-			paths.pop_back();
-		}
-	}
-
 	return is_valid_move();
 }
 
@@ -297,7 +276,7 @@ bool puz_state::make_move_space(const Position& p, char ch)
 	cells(p) = ch;
 	m_distance = 1;
 
-	return (!is_goal_state() || find_paths().size() == 1) && is_valid_move();
+	return is_valid_move();
 }
 
 puz_hint puz_state::compute_hint(const Position& p) const
@@ -312,6 +291,18 @@ puz_hint puz_state::compute_hint(const Position& p) const
 
 bool puz_state::is_valid_move() const
 {
+	auto is_continuous = [&]{
+		int i = find(PUZ_FILLED);
+		if(i == -1)
+			return true;
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves(
+			{*this, {i / sidelen(), i % sidelen()}}, smoves);
+		return boost::count_if(smoves, [&](const Position& p){
+			return this->cells(p) == PUZ_FILLED;
+		}) == boost::count(*this, PUZ_FILLED);
+	};
+
 	auto is_same_color = [&](const vector<Position>& rng, const vector<char>& color){
 		return boost::algorithm::all_of(rng, [&](const Position& p){
 			return boost::algorithm::any_of_equal(color, this->cells(p));
@@ -337,8 +328,8 @@ bool puz_state::is_valid_move() const
 		}
 
 		while(!a.empty()){
-			list<puz_state2> smoves;
-			puz_move_generator<puz_state2>::gen_moves(a, smoves);
+			list<puz_state3> smoves;
+			puz_move_generator<puz_state3>::gen_moves(a, smoves);
 			vector<puz_hint> hints;
 			for(auto& p : smoves){
 				if(cells(p) == PUZ_HINT){
@@ -357,7 +348,7 @@ bool puz_state::is_valid_move() const
 		return true;
 	};
 
-	return is_valid_tapa() && (!is_goal_state() || is_tapa_islands());
+	return is_continuous() && is_valid_tapa() && (!is_goal_state() || is_tapa_islands());
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
