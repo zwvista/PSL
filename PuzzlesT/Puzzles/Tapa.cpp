@@ -338,12 +338,10 @@ bool puz_state::is_valid_move() const
 
 	auto is_four_me_tapa = [&]{
 		for(int i = 1; i < sidelen() - 4; ++i)
-			for(int j = 1; j < sidelen() - 1; ++j){
-				if(is_same_color({{i, j}, {i + 1, j}, {i + 2, j}, {i + 3, j}}, {PUZ_FILLED}))
+			for(int j = 1; j < sidelen() - 1; ++j)
+				if(is_same_color({{i, j}, {i + 1, j}, {i + 2, j}, {i + 3, j}}, {PUZ_FILLED}) ||
+					is_same_color({{j, i}, {j, i + 1}, {j, i + 2}, {j, i + 3}}, {PUZ_FILLED}))
 					return false;
-				if(is_same_color({{j, i}, {j, i + 1}, {j, i + 2}, {j, i + 3}}, {PUZ_FILLED}))
-					return false;
-			}
 		return true;
 	};
 

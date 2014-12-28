@@ -266,6 +266,7 @@ void CMazeEditorDoc::OnClearMaze()
 void CMazeEditorDoc::ResizeMaze( int h, int w )
 {
 	m_szMaze = Position(h, w);
+	m_bIsSquare = h == w;
 	m_sigMazeResized();
 	OnClearMaze();
 }
@@ -329,7 +330,7 @@ void CMazeEditorDoc::SetData( const CString& strData )
 	vector<CString> vstrs;
 	SplitString(strData, _T("\\\r\n"), vstrs);
 	if(m_bHasWall){
-		ResizeMaze(vstrs[0].GetLength() / 2, vstrs.size() / 2);
+		ResizeMaze(vstrs.size() / 2, vstrs[0].GetLength() / 2);
 		for(int r = 0;; r++){
 			const CString& str1 = vstrs[2 * r];
 			for(int c = 0; c < MazeWidth(); c++)
@@ -349,7 +350,7 @@ void CMazeEditorDoc::SetData( const CString& strData )
 		}
 	}
 	else{
-		ResizeMaze(vstrs[0].GetLength(), vstrs.size());
+		ResizeMaze(vstrs.size(), vstrs[0].GetLength());
 		for(int r = 0; r < MazeHeight(); ++r){
 			const CString& str = vstrs[r];
 			for(int c = 0; c < MazeWidth(); ++c){
