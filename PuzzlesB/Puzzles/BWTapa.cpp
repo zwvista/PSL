@@ -306,7 +306,6 @@ void puz_state::gen_children(list<puz_state>& children) const
 			const pair<const Position, vector<int>>& kv2){
 			return kv1.second.size() < kv2.second.size();
 		});
-
 		for(int n : kv.second){
 			children.push_back(*this);
 			if(!children.back().make_move_hint(kv.first, n))
