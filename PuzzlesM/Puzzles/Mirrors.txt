@@ -15,7 +15,7 @@ Sequence of moves:
  -   -   - -  
 Number of moves: 0
 Number of vertices examined: 1
-0.00706097 [s]
+0.00489047 [s]
 
 Level 2
 Sequence of moves: 
@@ -34,7 +34,7 @@ B  -   -   -
  -   -   - -  
 Number of moves: 0
 Number of vertices examined: 1
-0.00218268 [s]
+0.00374059 [s]
 
 Level 3
 Sequence of moves: 
@@ -53,7 +53,7 @@ Sequence of moves:
  - -   -   -  
 Number of moves: 0
 Number of vertices examined: 1
-0.00149145 [s]
+0.00230468 [s]
 
 Level 4
 Sequence of moves: 
@@ -72,5 +72,34 @@ S  -   - -  S
  - - - - - -  
 Number of moves: 5
 Number of vertices examined: 11
-0.00730124 [s]
+0.00452324 [s]
+
+Level 45
+Sequence of moves: 
+ -  S  - - - - - - -  B 
+| |                 |   
+   - -   - - - - -   -  
+|     | |         |   | 
+ - -     - -  B B  -    
+    | |     |       | | 
+ -       - -  B  - -    
+| | | | |       |     | 
+   -   -  B  - -   -    
+|           |     | | | 
+ - - - - -   - -        
+          |     | | | | 
+ - - - -    B B      -  
+|       | |     | |     
+ - - -     - -   -   -  
+      | |     |     | | 
+ - - -     -   -  B     
+|       | | |   |   | | 
+ - -  B      - -  B     
+    |   | |         | | 
+ -   -     - - - - -    
+| |   | |             | 
+S  - -   - - - - - - -  
+Number of moves: 16
+Number of vertices examined: 31
+0.0120557 [s]
 

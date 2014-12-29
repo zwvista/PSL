@@ -207,7 +207,7 @@ bool puz_state::check_loop() const
 					break;
 				}
 			if(p2 == p)
-				if(has_loop)
+				if(has_loop || !m_game->m_spots.empty())
 					return false;
 				else{
 					has_loop = true;
