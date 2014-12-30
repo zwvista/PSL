@@ -47,7 +47,7 @@ struct puz_garden
 		m_inner.insert(p);
 	}
 	bool operator<(const puz_garden& x) const {
-		return m_outer.size() < x.m_outer.size();
+		return m_remaining < x.m_remaining;
 	}
 };
 
@@ -109,9 +109,7 @@ struct puz_state : string
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return boost::accumulate(m_ch2garden, 0, [](int acc, const pair<char, puz_garden>& kv){
-			return acc + kv.second.m_remaining;
-		});
+		return boost::count(*this, PUZ_SPACE);
 	}
 	unsigned int get_distance(const puz_state& child) const { return m_distance; }
 	void dump_move(ostream& out) const {}
@@ -122,7 +120,6 @@ struct puz_state : string
 
 	const puz_game* m_game = nullptr;
 	map<char, puz_garden> m_ch2garden;
-	vector<set<Position>> m_2by2walls;
 	unsigned int m_distance = 0;
 };
 
@@ -130,15 +127,6 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 , m_ch2garden(g.m_ch2garden)
 {
-	for(int r = 1; r < g.m_sidelen - 2; ++r)
-		for(int c = 1; c < g.m_sidelen - 2; ++c){
-			set<Position> rng{{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}};
-			if(boost::algorithm::all_of(rng, [&](const Position& p){
-				return cells(p) == PUZ_SPACE;
-			}))
-				m_2by2walls.push_back(rng);
-		}
-
 	for(auto& kv : g.m_pos2num)
 		if(kv.second == 1)
 			for(auto& os : offset){
@@ -156,15 +144,29 @@ void puz_state::check_board()
 	for(int r = 1; r < sidelen() - 1; ++r)
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
-			if(cells(p) != PUZ_SPACE) continue;
+			char& ch = cells(p);
+			if(ch != PUZ_SPACE) continue;
+
+			if(boost::algorithm::none_of(m_ch2garden, [&](const pair<char, puz_garden>& kv){
+				auto& g = kv.second;
+				return boost::algorithm::any_of(g.m_inner, [&](const Position& p2){
+					return manhattan_distance(p, p2) <= g.m_remaining;
+				});
+			})){
+				// Cells that cannot be reached by any garden must be a wall
+				ch = PUZ_WALL, ++m_distance;
+				continue;
+			}
+
 			set<char> chars;
 			for(auto& os : offset){
-				char ch = cells(p + os);
-				if(ch != PUZ_BOUNDARY && ch != PUZ_SPACE && ch != PUZ_WALL)
-					chars.insert(ch);
+				char ch2 = cells(p + os);
+				if(ch2 != PUZ_BOUNDARY && ch2 != PUZ_SPACE && ch2 != PUZ_WALL)
+					chars.insert(ch2);
 			}
+			// Gardens must be separated by a wall
 			if(chars.size() > 1)
-				cells(p) = PUZ_WALL;
+				ch = PUZ_WALL, ++m_distance;
 		}
 }
 
@@ -234,37 +236,30 @@ bool puz_state::is_continuous() const
 bool puz_state::make_move2(char ch, const Position& p)
 {
 	auto& g = m_ch2garden.at(ch);
-	cells(p) = ch;
+	cells(p) = ch, ++m_distance;
 	g.m_inner.insert(p);
 	if(--g.m_remaining == 0){
 		for(auto& p2 : g.m_inner)
 			for(auto& os : offset){
 				char& ch2 = cells(p2 + os);
 				if(ch2 == PUZ_SPACE)
-					ch2 = PUZ_WALL;
+					ch2 = PUZ_WALL, ++m_distance;
 			}
 		m_ch2garden.erase(ch);
 	}
-	++m_distance;
-
-	boost::remove_erase_if(m_2by2walls, [&](const set<Position>& rng){
-		return rng.count(p) != 0;
-	});
-
-	// pruning
-	if(boost::algorithm::any_of(m_2by2walls, [&](const set<Position>& rng){
-		return boost::algorithm::none_of(rng, [&](const Position& p2){
-			return boost::algorithm::any_of(m_ch2garden, [&](const pair<char, puz_garden>& kv){
-				auto& g = kv.second;
-				return boost::algorithm::any_of(g.m_inner, [&](const Position& p3){
-					return manhattan_distance(p2, p3) <= g.m_remaining;
-				});
-			});
-		});
-	}))
-		return false;
 
 	check_board();
+
+	// pruning
+	for(int r = 1; r < sidelen() - 2; ++r)
+		for(int c = 1; c < sidelen() - 2; ++c){
+			vector<Position> rng{{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}};
+			if(boost::algorithm::all_of(rng, [&](const Position& p){
+				return cells(p) == PUZ_WALL;
+			}))
+				return false;
+		}
+
 	return is_continuous();
 }
 
@@ -298,7 +293,7 @@ ostream& puz_state::dump(ostream& out) const
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
 			char ch = cells(p);
-			if(ch == PUZ_SPACE || ch == PUZ_WALL)
+			if(ch == PUZ_WALL)
 				out << PUZ_WALL << ' ';
 			else{
 				auto it = m_game->m_pos2num.find(p);
