@@ -119,6 +119,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+	set<Position> spaces;
 	for(auto& kv : m_matches){
 		auto& p = kv.first;
 		auto& box_ids = kv.second;
@@ -140,8 +141,16 @@ int puz_state::find_matches(bool init)
 			case 1:
 				return make_move2(p, box_ids.front()) ? 1 : 0;
 			}
+
+		// pruning
+		for(int id : box_ids){
+			auto& box = boxes[id];
+			for(int r = box.first.first; r <= box.second.first; ++r)
+				for(int c = box.first.second; c <= box.second.second; ++c)
+					spaces.emplace(r, c);
+		}
 	}
-	return 2;
+	return boost::count(*this, PUZ_SPACE) == spaces.size() ? 2 : 0;
 }
 
 bool puz_state::make_move2(const Position& p, int n)
