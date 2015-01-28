@@ -127,25 +127,25 @@ public:
 					if(vs.empty()){
 						stack.pop_back();
 						if(!shortest_path.empty())
-							shortest_path.pop_back();
+							shortest_path.pop_front();
 					}
 					else{
-						auto v = vs.back();
-						vs.pop_back();
-						shortest_path.push_back(v);
+						auto v = vs.front();
+						vs.erase(vs.begin());
+						shortest_path.push_front(v);
 						auto ret = context.m_mpmap.equal_range(v);
 						if(ret.first->second == v){
 							list<puz_state> spath;
-							BOOST_REVERSE_FOREACH(vertex_t v, shortest_path)
-								spath.push_back(context.m_smap.left.at(v));
+							for(vertex_t v2 : shortest_path)
+								spath.push_back(context.m_smap.left.at(v2));
 							spaths.push_back(spath);
-							shortest_path.pop_back();
+							shortest_path.pop_front();
 						}
 						else{
-							vector<vertex_t> vs;
+							vector<vertex_t> vs2;
 							for(auto it = ret.first; it != ret.second; ++it)
-								vs.push_back(it->second);
-							stack.push_back(vs);
+								vs2.push_back(it->second);
+							stack.push_back(vs2);
 						}
 					}
 				}

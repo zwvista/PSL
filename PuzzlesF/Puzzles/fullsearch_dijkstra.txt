@@ -10,17 +10,17 @@ move: r
 . @ . 
 . . . 
 . . x 
+move: d
+. . . 
+. . . 
+. @ . 
+. . x 
+move: d
+. . . 
+. . . 
+. . . 
+. @ x 
 move: r
-. . . 
-. . @ 
-. . . 
-. . x 
-move: d
-. . . 
-. . . 
-. . @ 
-. . x 
-move: d
 . . . 
 . . . 
 . . . 
@@ -42,45 +42,18 @@ move: r
 . . . 
 . @ . 
 . . x 
-move: r
-. . . 
-. . . 
-. . @ 
-. . x 
 move: d
+. . . 
+. . . 
+. . . 
+. @ x 
+move: r
 . . . 
 . . . 
 . . . 
 . . @ 
 Number of moves: 4
 Solution 3:
-Sequence of moves: 
-. . . 
-@ . . 
-. . . 
-. . x 
-move: r
-. . . 
-. @ . 
-. . . 
-. . x 
-move: d
-. . . 
-. . . 
-. @ . 
-. . x 
-move: r
-. . . 
-. . . 
-. . @ 
-. . x 
-move: d
-. . . 
-. . . 
-. . . 
-. . @ 
-Number of moves: 4
-Solution 4:
 Sequence of moves: 
 . . . 
 @ . . 
@@ -107,6 +80,33 @@ move: r
 . . . 
 . . @ 
 Number of moves: 4
+Solution 4:
+Sequence of moves: 
+. . . 
+@ . . 
+. . . 
+. . x 
+move: r
+. . . 
+. @ . 
+. . . 
+. . x 
+move: d
+. . . 
+. . . 
+. @ . 
+. . x 
+move: r
+. . . 
+. . . 
+. . @ 
+. . x 
+move: d
+. . . 
+. . . 
+. . . 
+. . @ 
+Number of moves: 4
 Solution 5:
 Sequence of moves: 
 . . . 
@@ -123,12 +123,12 @@ move: r
 . . . 
 . @ . 
 . . x 
-move: d
-. . . 
-. . . 
-. . . 
-. @ x 
 move: r
+. . . 
+. . . 
+. . @ 
+. . x 
+move: d
 . . . 
 . . . 
 . . . 
@@ -145,54 +145,27 @@ move: r
 . @ . 
 . . . 
 . . x 
-move: d
+move: r
 . . . 
+. . @ 
 . . . 
-. @ . 
 . . x 
 move: d
 . . . 
 . . . 
-. . . 
-. @ x 
-move: r
+. . @ 
+. . x 
+move: d
 . . . 
 . . . 
 . . . 
 . . @ 
 Number of moves: 4
 Number of vertices examined: 33
-0.00621837 [s]
+0.0035303 [s]
 
 Level 2
 Solution 1:
-Sequence of moves: 
-. . . 
-@ . # 
-. . . 
-# . x 
-move: r
-. . . 
-. @ # 
-. . . 
-# . x 
-move: d
-. . . 
-. . # 
-. @ . 
-# . x 
-move: d
-. . . 
-. . # 
-. . . 
-# @ x 
-move: r
-. . . 
-. . # 
-. . . 
-# . @ 
-Number of moves: 4
-Solution 2:
 Sequence of moves: 
 . . . 
 @ . # 
@@ -208,12 +181,39 @@ move: r
 . . # 
 . @ . 
 # . x 
+move: r
+. . . 
+. . # 
+. . @ 
+# . x 
 move: d
 . . . 
 . . # 
 . . . 
-# @ x 
+# . @ 
+Number of moves: 4
+Solution 2:
+Sequence of moves: 
+. . . 
+@ . # 
+. . . 
+# . x 
 move: r
+. . . 
+. @ # 
+. . . 
+# . x 
+move: d
+. . . 
+. . # 
+. @ . 
+# . x 
+move: r
+. . . 
+. . # 
+. . @ 
+# . x 
+move: d
 . . . 
 . . # 
 . . . 
@@ -225,22 +225,22 @@ Sequence of moves:
 @ . # 
 . . . 
 # . x 
-move: r
-. . . 
-. @ # 
-. . . 
-# . x 
 move: d
+. . . 
+. . # 
+@ . . 
+# . x 
+move: r
 . . . 
 . . # 
 . @ . 
 # . x 
-move: r
+move: d
 . . . 
 . . # 
-. . @ 
-# . x 
-move: d
+. . . 
+# @ x 
+move: r
 . . . 
 . . # 
 . . . 
@@ -252,59 +252,32 @@ Sequence of moves:
 @ . # 
 . . . 
 # . x 
-move: d
-. . . 
-. . # 
-@ . . 
-# . x 
 move: r
+. . . 
+. @ # 
+. . . 
+# . x 
+move: d
 . . . 
 . . # 
 . @ . 
 # . x 
-move: r
+move: d
 . . . 
 . . # 
-. . @ 
-# . x 
-move: d
+. . . 
+# @ x 
+move: r
 . . . 
 . . # 
 . . . 
 # . @ 
 Number of moves: 4
 Number of vertices examined: 23
-0.00515907 [s]
+0.00328376 [s]
 
 Level 3
 Solution 1:
-Sequence of moves: 
-. . . 
-@ . . 
-. # . 
-. . x 
-move: r
-. . . 
-. @ . 
-. # . 
-. . x 
-move: r
-. . . 
-. . @ 
-. # . 
-. . x 
-move: d
-. . . 
-. . . 
-. # @ 
-. . x 
-move: d
-. . . 
-. . . 
-. # . 
-. . @ 
-Number of moves: 4
-Solution 2:
 Sequence of moves: 
 . . . 
 @ . . 
@@ -331,6 +304,33 @@ move: r
 . # . 
 . . @ 
 Number of moves: 4
+Solution 2:
+Sequence of moves: 
+. . . 
+@ . . 
+. # . 
+. . x 
+move: r
+. . . 
+. @ . 
+. # . 
+. . x 
+move: r
+. . . 
+. . @ 
+. # . 
+. . x 
+move: d
+. . . 
+. . . 
+. # @ 
+. . x 
+move: d
+. . . 
+. . . 
+. # . 
+. . @ 
+Number of moves: 4
 Number of vertices examined: 25
-0.00590111 [s]
+0.00186161 [s]
 
