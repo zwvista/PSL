@@ -74,7 +74,7 @@ struct puz_state : string
 	char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
 	bool make_move(const Position& p, int h, int w);
 	void check_area();
-	void find_matches();
+	bool find_matches();
 
 	// solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
@@ -127,7 +127,7 @@ void puz_state::check_area()
 	}
 }
 
-void puz_state::find_matches()
+bool puz_state::find_matches()
 {
 	m_matches.clear();
 	for(int h = 2; h <= m_game->m_cloud_max_size.first; ++h)
@@ -149,6 +149,24 @@ void puz_state::find_matches()
 						return m_pieces.empty() || is_piece;
 					}())
 						m_matches.push_back({{r, c}, {h, w}});
+
+	if(m_pieces.empty()){
+		// pruning
+		set<Position> rng;
+		for(auto& kv : m_matches)
+			for(int r = kv.first.first; r < kv.first.first + kv.second.first; ++r)
+				for(int c = kv.first.second; c < kv.first.second + kv.second.second; ++c)
+					rng.emplace(r, c);
+		for(int i = 1; i < sidelen() - 1; ++i)
+			if(boost::count_if(rng, [i](const Position& p){
+				return p.second == i;
+			}) < m_piece_counts_cols[i] ||
+				boost::count_if(rng, [i](const Position& p){
+				return p.first == i;
+			}) < m_piece_counts_rows[i])
+				return false;
+	}
+	return true;
 }
 
 bool puz_state::make_move(const Position& p, int h, int w)
@@ -175,10 +193,8 @@ bool puz_state::make_move(const Position& p, int h, int w)
 	m_distance = h * w;
 	check_area();
 
-	// pruning
-	// What shall we do here for pruning?
-
-	find_matches();
+	if(!find_matches())
+		return false;
 	return is_goal_state() || !m_matches.empty();
 }
 
