@@ -150,13 +150,19 @@ bool puz_state::find_matches()
 					}())
 						m_matches.push_back({{r, c}, {h, w}});
 
-	if(m_pieces.empty()){
+	if(m_pieces.empty() && !m_matches.empty()){
 		// pruning
 		set<Position> rng;
-		for(auto& kv : m_matches)
+		map<int, set<int>> rc_matches;
+		for(int i = 0; i < m_matches.size(); ++i){
+			auto& kv = m_matches[i];
 			for(int r = kv.first.first; r < kv.first.first + kv.second.first; ++r)
-				for(int c = kv.first.second; c < kv.first.second + kv.second.second; ++c)
+				for(int c = kv.first.second; c < kv.first.second + kv.second.second; ++c) {
 					rng.emplace(r, c);
+					rc_matches[r].insert(i);
+					rc_matches[sidelen() + c].insert(i);
+				}
+		}
 		for(int i = 1; i < sidelen() - 1; ++i)
 			if(boost::count_if(rng, [i](const Position& p){
 				return p.second == i;
@@ -165,6 +171,16 @@ bool puz_state::find_matches()
 				return p.first == i;
 			}) < m_piece_counts_rows[i])
 				return false;
+
+		auto& kv = *boost::min_element(rc_matches, [](
+			const pair<const int, set<int>>& kv1,
+			const pair<const int, set<int>>& kv2){
+			return kv1.second.size() < kv2.second.size();
+		});
+		vector<pair<Position, Position>> matches;
+		for(int i : kv.second)
+			matches.push_back(m_matches[i]);
+		::swap(m_matches, matches);
 	}
 	return true;
 }

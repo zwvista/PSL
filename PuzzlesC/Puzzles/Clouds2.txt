@@ -10,8 +10,8 @@ CC......2
 CC......2
 24233322
 Number of moves: 4
-Number of vertices examined: 8
-0.0027034 [s]
+Number of vertices examined: 7
+0.00239098 [s]
 
 Level 62
 Sequence of moves: 
@@ -25,8 +25,8 @@ CC.CC.CC6
 .CC.....2
 37433244
 Number of moves: 5
-Number of vertices examined: 21
-0.0123511 [s]
+Number of vertices examined: 6
+0.00561413 [s]
 
 Level 88
 Sequence of moves: 
@@ -42,8 +42,8 @@ CCC...CC..5
 ..CCCCC...5
 2253338500
 Number of moves: 3
-Number of vertices examined: 7
-0.0105332 [s]
+Number of vertices examined: 4
+0.00371045 [s]
 
 Level 153
 Sequence of moves: 
@@ -63,6 +63,6 @@ CC.CCCCC...CCC10
 ...........CCC3
 66354458633666
 Number of moves: 10
-Number of vertices examined: 78386
-1012.57 [s]
+Number of vertices examined: 2381
+7.39723 [s]
 
