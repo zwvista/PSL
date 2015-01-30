@@ -58,6 +58,7 @@ struct puz_game
 	map<Position, int> m_pos2num;
 	map<char, puz_garden> m_ch2garden;
 	string m_start;
+	int m_max_size = 0;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -84,6 +85,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				else{
 					m_ch2garden[ch_g] = {p, n - 1};
 					m_start.push_back(ch_g++);
+					m_max_size = max(m_max_size, n);
 				}
 			}
 		}
@@ -139,6 +141,37 @@ puz_state::puz_state(const puz_game& g)
 	adjust_area(true);
 }
 
+struct puz_state2 : Position
+{
+	puz_state2(const puz_state& s, const Position& starting)
+		: Position(starting), m_state(&s)
+	{}
+
+	void make_move(const Position& p){
+		static_cast<Position&>(*this) = p;
+		++m_distance;
+	}
+	void gen_children(list<puz_state2>& children) const;
+
+	const puz_state* m_state;
+	int m_distance = 0;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+	if(m_state->cells(*this) != PUZ_SPACE ||
+		m_distance == m_state->m_game->m_max_size)
+		return;
+	for(auto& os : offset){
+		auto p2 = *this + os;
+		char ch = m_state->cells(p2);
+		if(ch != PUZ_WALL && ch != PUZ_BOUNDARY){
+			children.push_back(*this);
+			children.back().make_move(p2);
+		}
+	}
+}
+
 void puz_state::check_board()
 {
 	for(int r = 1; r < sidelen() - 1; ++r)
@@ -147,11 +180,12 @@ void puz_state::check_board()
 			char& ch = cells(p);
 			if(ch != PUZ_SPACE) continue;
 
-			if(boost::algorithm::none_of(m_ch2garden, [&](const pair<char, puz_garden>& kv){
-				auto& g = kv.second;
-				return boost::algorithm::any_of(g.m_inner, [&](const Position& p2){
-					return manhattan_distance(p, p2) <= g.m_remaining;
-				});
+			list<puz_state2> smoves;
+			puz_move_generator<puz_state2>::gen_moves({*this, p}, smoves);
+			if(boost::algorithm::none_of(smoves, [&](const puz_state2& s2){
+				auto it = m_ch2garden.find(cells(s2));
+				return it != m_ch2garden.end() &&
+					s2.m_distance <= it->second.m_remaining;
 			})){
 				// Cells that cannot be reached by any garden must be a wall
 				ch = PUZ_WALL, ++m_distance;
@@ -196,17 +230,17 @@ int puz_state::adjust_area(bool init)
 	return 2;
 }
 
-struct puz_state2 : Position
+struct puz_state3 : Position
 {
-	puz_state2(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+	puz_state3(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
 
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
-	void gen_children(list<puz_state2>& children) const;
+	void gen_children(list<puz_state3>& children) const;
 
 	const set<Position>* m_rng;
 };
 
-void puz_state2::gen_children(list<puz_state2>& children) const
+void puz_state3::gen_children(list<puz_state3>& children) const
 {
 	for(auto& os : offset){
 		auto p2 = *this + os;
@@ -228,8 +262,8 @@ bool puz_state::is_continuous() const
 				a.insert(p);
 		}
 
-	list<puz_state2> smoves;
-	puz_move_generator<puz_state2>::gen_moves(a, smoves);
+	list<puz_state3> smoves;
+	puz_move_generator<puz_state3>::gen_moves(a, smoves);
 	return smoves.size() == a.size();
 }
 
