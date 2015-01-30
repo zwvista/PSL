@@ -150,14 +150,14 @@ bool puz_state::find_matches()
 					}())
 						m_matches.push_back({{r, c}, {h, w}});
 
-	if(m_pieces.empty() && !m_matches.empty()){
+	if(m_pieces.empty()){
 		// pruning
 		set<Position> rng;
 		map<int, set<int>> rc_matches;
 		for(int i = 0; i < m_matches.size(); ++i){
 			auto& kv = m_matches[i];
 			for(int r = kv.first.first; r < kv.first.first + kv.second.first; ++r)
-				for(int c = kv.first.second; c < kv.first.second + kv.second.second; ++c) {
+				for(int c = kv.first.second; c < kv.first.second + kv.second.second; ++c){
 					rng.emplace(r, c);
 					rc_matches[r].insert(i);
 					rc_matches[sidelen() + c].insert(i);
@@ -172,15 +172,17 @@ bool puz_state::find_matches()
 			}) < m_piece_counts_rows[i])
 				return false;
 
-		auto& kv = *boost::min_element(rc_matches, [](
-			const pair<const int, set<int>>& kv1,
-			const pair<const int, set<int>>& kv2){
-			return kv1.second.size() < kv2.second.size();
-		});
-		vector<pair<Position, Position>> matches;
-		for(int i : kv.second)
-			matches.push_back(m_matches[i]);
-		::swap(m_matches, matches);
+		if(!m_matches.empty()){
+			auto& kv = *boost::min_element(rc_matches, [](
+				const pair<const int, set<int>>& kv1,
+				const pair<const int, set<int>>& kv2){
+				return kv1.second.size() < kv2.second.size();
+			});
+			vector<pair<Position, Position>> matches;
+			for(int i : kv.second)
+				matches.push_back(m_matches[i]);
+			::swap(m_matches, matches);
+		}
 	}
 	return true;
 }
@@ -209,9 +211,7 @@ bool puz_state::make_move(const Position& p, int h, int w)
 	m_distance = h * w;
 	check_area();
 
-	if(!find_matches())
-		return false;
-	return is_goal_state() || !m_matches.empty();
+	return find_matches();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -230,11 +230,11 @@ ostream& puz_state::dump(ostream& out) const
 			if(r == sidelen() - 1 && c == sidelen() - 1)
 				break;
 			else if(c == sidelen() - 1)
-				out << m_game->m_piece_counts_rows[r];
+				out << format("%-2d") % m_game->m_piece_counts_rows[r];
 			else if(r == sidelen() - 1)
-				out << m_game->m_piece_counts_cols[c];
+				out << format("%-2d") % m_game->m_piece_counts_cols[c];
 			else
-				out << cells({r, c});
+				out << cells({r, c}) << ' ';
 		out << endl;
 	}
 	return out;
