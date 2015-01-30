@@ -196,7 +196,6 @@ bool puz_state::adjust_galaxies()
 		puz_move_generator<puz_state2>::gen_moves({*this, *rng.begin()}, smoves);
 		vector<Position> rng2;
 		set<char> ids1;
-		set<char> ids2;
 		for(auto& p : smoves){
 			char ch = cells(p);
 			if(ch == PUZ_SPACE)
@@ -207,6 +206,7 @@ bool puz_state::adjust_galaxies()
 		// For each space, there should exist at least one galaxy
 		// from which the space is reachable
 		for(auto& p : rng2){
+			set<char> ids2;
 			for(char ch : ids1){
 				// The galaxies are symmetrical
 				auto p2 = m_galaxies.at(ch).m_center - p;

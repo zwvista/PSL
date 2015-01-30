@@ -11,7 +11,7 @@ Sequence of moves:
  - - - -
 Number of moves: 3
 Number of vertices examined: 6
-0.00317532 [s]
+0.084419 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,7 +26,7 @@ Sequence of moves:
  - - - -
 Number of moves: 2
 Number of vertices examined: 3
-0.00413782 [s]
+0.000887579 [s]
 
 Level 3
 Sequence of moves: 
@@ -43,7 +43,7 @@ Sequence of moves:
  - - - - -
 Number of moves: 6
 Number of vertices examined: 10
-0.00621632 [s]
+0.0014221 [s]
 
 Level 4
 Sequence of moves: 
@@ -60,7 +60,7 @@ Sequence of moves:
  - - - - -
 Number of moves: 4
 Number of vertices examined: 6
-0.00555993 [s]
+0.000916727 [s]
 
 Level 5
 Sequence of moves: 
@@ -78,8 +78,8 @@ Sequence of moves:
 |.|.o.|.o.|.|
  - - - - - -
 Number of moves: 10
-Number of vertices examined: 13
-0.0114545 [s]
+Number of vertices examined: 12
+0.00309503 [s]
 
 Level 6
 Sequence of moves: 
@@ -98,7 +98,7 @@ Sequence of moves:
  - - - - - -
 Number of moves: 7
 Number of vertices examined: 10
-0.0079026 [s]
+0.00152391 [s]
 
 Level 7
 Sequence of moves: 
@@ -118,8 +118,8 @@ Sequence of moves:
 |. .|.|.o.|. .|
  - - - - - - -
 Number of moves: 9
-Number of vertices examined: 18
-0.0126763 [s]
+Number of vertices examined: 16
+0.00327813 [s]
 
 Level 8
 Sequence of moves: 
@@ -139,8 +139,8 @@ Sequence of moves:
 |. .|.o.|. o .|
  - - - - - - -
 Number of moves: 13
-Number of vertices examined: 23
-0.0190769 [s]
+Number of vertices examined: 17
+0.00343167 [s]
 
 Level 9
 Sequence of moves: 
@@ -162,8 +162,8 @@ Sequence of moves:
 |. . . . .|. o .|
  - - - - - - - -
 Number of moves: 17
-Number of vertices examined: 29
-0.0240683 [s]
+Number of vertices examined: 24
+0.00623974 [s]
 
 Level 10
 Sequence of moves: 
@@ -186,7 +186,7 @@ Sequence of moves:
  - - - - - - - -
 Number of moves: 14
 Number of vertices examined: 24
-0.0214713 [s]
+0.0245702 [s]
 
 Level 24
 Sequence of moves: 
@@ -214,6 +214,6 @@ Sequence of moves:
 |.|o|. . . . .|. .|.o.|
  - - - - - - - - - - -
 Number of moves: 32
-Number of vertices examined: 151
-0.20629 [s]
+Number of vertices examined: 68
+0.0579566 [s]
 
