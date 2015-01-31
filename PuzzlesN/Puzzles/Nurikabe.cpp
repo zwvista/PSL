@@ -58,7 +58,6 @@ struct puz_game
 	map<Position, int> m_pos2num;
 	map<char, puz_garden> m_ch2garden;
 	string m_start;
-	int m_max_size = 0;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -85,7 +84,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				else{
 					m_ch2garden[ch_g] = {p, n - 1};
 					m_start.push_back(ch_g++);
-					m_max_size = max(m_max_size, n);
 				}
 			}
 		}
@@ -104,7 +102,6 @@ struct puz_state : string
 	bool make_move(char ch, const Position& p);
 	bool make_move2(char ch, const Position& p);
 	int adjust_area(bool init);
-	void check_board();
 	bool is_continuous() const;
 
 	//solve_puzzle interface
@@ -129,22 +126,13 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 , m_ch2garden(g.m_ch2garden)
 {
-	for(auto& kv : g.m_pos2num)
-		if(kv.second == 1)
-			for(auto& os : offset){
-				char& ch = cells(kv.first + os);
-				if(ch == PUZ_SPACE)
-					ch = PUZ_WALL;
-			}
-
-	check_board();
 	adjust_area(true);
 }
 
 struct puz_state2 : Position
 {
-	puz_state2(const puz_state& s, const Position& starting)
-		: Position(starting), m_state(&s)
+	puz_state2(const puz_state& s, const puz_garden& g)
+		: Position(-1, -1), m_state(&s), m_garden(&g)
 	{}
 
 	void make_move(const Position& p){
@@ -154,70 +142,61 @@ struct puz_state2 : Position
 	void gen_children(list<puz_state2>& children) const;
 
 	const puz_state* m_state;
-	int m_distance = 0;
+	const puz_garden* m_garden;
+	int m_distance = -1;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-	if(m_state->cells(*this) != PUZ_SPACE ||
-		m_distance == m_state->m_game->m_max_size)
-		return;
-	for(auto& os : offset){
-		auto p2 = *this + os;
-		char ch = m_state->cells(p2);
-		if(ch != PUZ_WALL && ch != PUZ_BOUNDARY){
+	if(m_distance == -1)
+		for(auto p : m_garden->m_inner){
 			children.push_back(*this);
-			children.back().make_move(p2);
+			children.back().make_move(p);
 		}
-	}
-}
-
-void puz_state::check_board()
-{
-	for(int r = 1; r < sidelen() - 1; ++r)
-		for(int c = 1; c < sidelen() - 1; ++c){
-			Position p(r, c);
-			char& ch = cells(p);
-			if(ch != PUZ_SPACE) continue;
-
-			list<puz_state2> smoves;
-			puz_move_generator<puz_state2>::gen_moves({*this, p}, smoves);
-			if(boost::algorithm::none_of(smoves, [&](const puz_state2& s2){
-				auto it = m_ch2garden.find(cells(s2));
-				return it != m_ch2garden.end() &&
-					s2.m_distance <= it->second.m_remaining;
-			})){
-				// Cells that cannot be reached by any garden must be a wall
-				ch = PUZ_WALL, ++m_distance;
-				continue;
+	else if(m_distance < m_garden->m_remaining)
+		for(auto& os : offset){
+			auto p = *this + os;
+			char ch_g = m_state->cells(*m_garden->m_inner.begin());
+			if(m_state->cells(p) == PUZ_SPACE && [&]{
+				for(auto& os2 : offset){
+					char ch = m_state->cells(p + os2);
+					if(ch != PUZ_WALL && ch != PUZ_BOUNDARY &&
+						ch != PUZ_SPACE && ch != ch_g)
+						return false;
+				}
+				return true;
+			}()){
+				children.push_back(*this);
+				children.back().make_move(p);
 			}
-
-			set<char> chars;
-			for(auto& os : offset){
-				char ch2 = cells(p + os);
-				if(ch2 != PUZ_BOUNDARY && ch2 != PUZ_SPACE && ch2 != PUZ_WALL)
-					chars.insert(ch2);
-			}
-			// Gardens must be separated by a wall
-			if(chars.size() > 1)
-				ch = PUZ_WALL, ++m_distance;
 		}
 }
 
 int puz_state::adjust_area(bool init)
 {
-	for(auto& kv : m_ch2garden){
+	set<Position> rng;
+	for(int r = 1; r < sidelen() - 1; ++r)
+		for(int c = 1; c < sidelen() - 1; ++c){
+			Position p(r, c);
+			if(cells(p) == PUZ_SPACE)
+				rng.insert(p);
+		}
+
+	for(auto& kv : m_ch2garden) {
 		char ch = kv.first;
 		auto& g = kv.second;
 		auto& outer = g.m_outer;
 		outer.clear();
 
-		for(auto& p : g.m_inner)
-			for(auto& os : offset){
-				auto p2 = p + os;
-				if(cells(p2) == PUZ_SPACE)
-					outer.insert(p2);
-			}
+		list<puz_state2> smoves;
+		puz_move_generator<puz_state2>::gen_moves({*this, g}, smoves);
+		for(auto& s : smoves){
+			int d = s.m_distance;
+			if(d == 1)
+				outer.insert(s);
+			if(d > 0)
+				rng.erase(s);
+		}
 
 		if(!init)
 			switch(outer.size()){
@@ -227,6 +206,9 @@ int puz_state::adjust_area(bool init)
 				return make_move2(ch, *outer.begin()) ? 1 : 0;
 			}
 	}
+	for(auto& p : rng)
+		// Cells that cannot be reached by any garden must be a wall
+		cells(p) = PUZ_WALL, ++m_distance;
 	return 2;
 }
 
@@ -282,9 +264,7 @@ bool puz_state::make_move2(char ch, const Position& p)
 		m_ch2garden.erase(ch);
 	}
 
-	check_board();
-
-	// pruning
+	// The wall can't form 2*2 squares.
 	for(int r = 1; r < sidelen() - 2; ++r)
 		for(int c = 1; c < sidelen() - 2; ++c){
 			vector<Position> rng{{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}};
