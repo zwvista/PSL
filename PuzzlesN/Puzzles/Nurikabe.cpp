@@ -290,8 +290,8 @@ bool puz_state::make_move(char ch, const Position& p)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_ch2garden, [](
-		const pair<char, puz_garden>& kv1,
-		const pair<char, puz_garden>& kv2){
+		const pair<const char, puz_garden>& kv1,
+		const pair<const char, puz_garden>& kv2){
 		return kv1.second < kv2.second;
 	});
 	for(auto& p : kv.second.m_outer){
