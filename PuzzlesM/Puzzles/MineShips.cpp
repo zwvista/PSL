@@ -25,7 +25,9 @@ namespace puzzles{ namespace MineShips{
 #define PUZ_NUMBER		'N'
 
 struct puz_ship_info {
+	// symbols that represent the ship
 	string m_pieces[2];
+	// the area occupied by the ship
 	string m_area[3];
 };
 
@@ -43,7 +45,7 @@ struct puz_game
 	int m_sidelen;
 	bool m_has_supertanker;
 	string m_start;
-	map<int, int> m_ship2num;
+	map<int, int> m_ship2num{{1, 4},{2, 3},{3, 2},{4, 1}};
 	map<Position, int> m_pos2num;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -54,7 +56,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_sidelen(strs.size())
 	, m_has_supertanker(attrs.get<int>("SuperTanker", 0) == 1)
 {
-	m_ship2num = map<int, int>{{1, 4}, {2, 3}, {3, 2}, {4, 1}};
 	if(m_has_supertanker)
 		m_ship2num[5] = 1;
 
@@ -86,7 +87,7 @@ struct puz_state : string
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return boost::accumulate(m_ship2num, 0, [](int acc, const pair<int, int>& kv){
+		return boost::accumulate(m_ship2num, 0, [](int acc, const pair<const int, int>& kv){
 			return acc + kv.second;
 		});
 	}
@@ -176,7 +177,7 @@ bool puz_state::make_move(const Position& p, int n, bool vert)
 	find_matches();
 
 	if(!is_goal_state())
-		return boost::algorithm::all_of(m_ship2num, [&](const pair<int, int>& kv){
+		return boost::algorithm::all_of(m_ship2num, [&](const pair<const int, int>& kv){
 			return m_matches[kv.first].size() >= kv.second;
 		});
 	else
@@ -188,8 +189,8 @@ bool puz_state::make_move(const Position& p, int n, bool vert)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_matches, [](
-		const pair<int, vector<pair<Position, bool>>>& kv1,
-		const pair<int, vector<pair<Position, bool>>>& kv2){
+		const pair<const int, vector<pair<Position, bool>>>& kv1,
+		const pair<const int, vector<pair<Position, bool>>>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
 	for(auto& kv2 : m_matches.at(kv.first)){

@@ -49,7 +49,9 @@ const Position offset[] = {
 };
 
 struct puz_ship_info {
+	// symbols that represent the ship
 	string m_pieces[2];
+	// the area occupied by the ship
 	string m_area[3];
 };
 
@@ -66,7 +68,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	bool m_has_supertanker;
-	map<int, int> m_ship2num;
+	map<int, int> m_ship2num{{1, 4},{2, 3},{3, 2},{4, 1}};
 	map<Position, char> m_pos2piece;
 	map<Position, int> m_pos2light;
 	string m_start;
@@ -79,7 +81,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_sidelen(strs.size())
 	, m_has_supertanker(attrs.get<int>("SuperTanker", 0) == 1)
 {
-	m_ship2num = map<int, int>{{1, 4}, {2, 3}, {3, 2}, {4, 1}};
 	if(m_has_supertanker)
 		m_ship2num[5] = 1;
 
@@ -110,7 +111,14 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
+// key: the position of the ship piece
+// value.elem.0: the kind of the ship
+// value.elem.1: the position of the ship
+// value.elem.2: false if the ship is horizontal, true if vertical
 typedef map<Position, vector<tuple<int, Position, bool>>> puz_pos_match;
+// key: the kind of the ship
+// value.elem.first: the position of the ship
+// value.elem.second: false if the ship is horizontal, true if vertical
 typedef map<int, vector<pair<Position, bool>>> puz_ship_match;
 
 struct puz_state : string
@@ -155,6 +163,7 @@ puz_state::puz_state(const puz_game& g)
 , m_ship2num(g.m_ship2num), m_pos2piece(g.m_pos2piece)
 , m_pos2light(g.m_pos2light)
 {
+	// 3. Ships cannot touch Lighthouses. Not even diagonally.
 	for(auto& kv : g.m_pos2light)
 		for(auto& os : offset){
 			auto p = kv.first + os;
@@ -220,10 +229,13 @@ void puz_state::find_matches()
 						continue;
 
 					char ch = kv.second;
-					for(int k = 1 - len; k <= 0; ++k){
-						if(s[-k] != ch)
+					// 0
+					// < + + >
+					//       len-1
+					for(int k = 0; k < len; ++k){
+						if(s[k] != ch)
 							continue;
-						auto p2 = p + (vert ? Position(k, 0) : Position(0, k));
+						auto p2 = p - (vert ? Position(k, 0) : Position(0, k));
 						if(f(p2))
 							m_pos_matches[p].emplace_back(i, p2 + Position(-1, -1), vert);
 					}
@@ -280,7 +292,7 @@ bool puz_state::make_move(const Position& p_piece, const Position& p, int n, boo
 			return m_pos_matches.count(kv.first) != 0;
 		});
 	else if(!is_goal_state())
-		return boost::algorithm::all_of(m_ship2num, [&](const pair<int, int>& kv){
+		return boost::algorithm::all_of(m_ship2num, [&](const pair<const int, int>& kv){
 			return m_ship_matches[kv.first].size() >= kv.second;
 		});
 	else

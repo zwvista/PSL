@@ -155,6 +155,7 @@
     <Text Include="Puzzles\TapARow.txt" />
     <Text Include="Puzzles\Tatami.txt" />
     <Text Include="Puzzles\Tatamino.txt" />
+    <Text Include="Puzzles\Tatamino2.txt" />
     <Text Include="Puzzles\TennerGrid.txt" />
     <Text Include="Puzzles\Tents.txt" />
     <Text Include="Puzzles\TheOddBrick.txt" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Puzzles\TapARow.cpp" />
     <ClCompile Include="Puzzles\Tatami.cpp" />
     <ClCompile Include="Puzzles\Tatamino.cpp" />
+    <ClCompile Include="Puzzles\Tatamino2.cpp" />
     <ClCompile Include="Puzzles\TennerGrid.cpp" />
     <ClCompile Include="Puzzles\Tents.cpp" />
     <ClCompile Include="Puzzles\TheOddBrick.cpp" />
@@ -200,7 +202,9 @@
     <Xml Include="Puzzles\TapDifferently.xml" />
     <Xml Include="Puzzles\TapARow.xml" />
     <Xml Include="Puzzles\Tatami.xml" />
-    <Xml Include="Puzzles\Tatamino.xml" />
+    <Xml Include="Puzzles\Tatamino.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="Puzzles\TennerGrid.xml" />
     <Xml Include="Puzzles\Tents.xml" />
     <Xml Include="Puzzles\TheOddBrick.xml" />

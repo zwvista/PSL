@@ -41,7 +41,9 @@ namespace puzzles{ namespace DigitalBattleships{
 #define PUZ_UNKNOWN		-1
 
 struct puz_ship_info {
+	// symbols that represent the ship
 	string m_pieces[2];
+	// the area occupied by the ship
 	string m_area[3];
 };
 
@@ -53,10 +55,15 @@ const puz_ship_info ship_info[] = {
 	{{"<+++>", "^+++v"}, {".......", ".     .", "......."}},
 };
 
+// a row or column
 struct puz_area_info
 {
 	int m_sum;
 	vector<Position> m_rng;
+	// elem: all permutations
+	// elem.elem: all ships in this area
+	// elem.elem.first: the starting position of a ship
+	// elem.elem.second: the length of a ship
 	vector<vector<pair<int, int>>> m_perms;
 };
 
@@ -65,7 +72,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	bool m_has_supertanker;
-	map<int, int> m_ship2num;
+	map<int, int> m_ship2num{{1, 4},{2, 3},{3, 2},{4, 1}};
 	map<Position, int> m_pos2num;
 	vector<puz_area_info> m_area2info;
 
@@ -78,7 +85,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_has_supertanker(attrs.get<int>("SuperTanker", 0) == 1)
 	, m_area2info(m_sidelen * 2)
 {
-	m_ship2num = map<int, int>{{1, 4}, {2, 3}, {3, 2}, {4, 1}};
 	if(m_has_supertanker)
 		m_ship2num[5] = 1;
 
@@ -104,16 +110,20 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		if(ai.m_sum == 0 || ai.m_sum == PUZ_UNKNOWN) continue;
 		int sz = ai.m_rng.size();
 		int cnt = m_has_supertanker ? 5 : 4;
-		deque<pair<int, vector<pair<int, int>>>> stack;
+		// elem.first: partial sum
+		// elem.second: all ships in this area
+		// elem.second.elem.first: the starting position of the ship
+		// elem.second.elem.second: the length of the ship
+		deque<pair<int, vector<pair<int, int>>>> queue;
 		for(int i = 0; i < sz; ++i)
 			for(int j = 1; j <= cnt; ++j)
 				if(i + j - 1 < sz){
 					vector<pair<int, int>> v;
 					v.emplace_back(i, j);
-					stack.emplace_back(0, v);
+					queue.emplace_back(0, v);
 				}
-		while(!stack.empty()){
-			auto& kv = stack.front();
+		while(!queue.empty()){
+			auto& kv = queue.front();
 			auto& v = kv.second;
 			auto& kv2 = v.back();
 			int sum = kv.first;
@@ -126,10 +136,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 					for(int j = 1; j <= cnt; ++j)
 						if(i + j - 1 < sz){
 							v.emplace_back(i, j);
-							stack.emplace_back(sum, v);
+							queue.emplace_back(sum, v);
 							v.pop_back();
 						}
-			stack.pop_front();
+			queue.pop_front();
 		}
 	}
 }
@@ -159,7 +169,7 @@ struct puz_state
 	bool exist_matches(int i, int j){
 		auto& ai = m_game->m_area2info[i];
 		return exist_matches(i, [&](int n){
-			return boost::algorithm::none_of(ai.m_perms[n], [=](const pair<int, int>& kv){
+			return boost::algorithm::none_of(ai.m_perms[n], [=](const pair<const int, int>& kv){
 				return j >= kv.first && j < kv.first + kv.second;
 			});
 		});
@@ -167,7 +177,7 @@ struct puz_state
 	bool exist_matches(int i, int j, int k){
 		auto& ai = m_game->m_area2info[i];
 		return exist_matches(i, [&](int n){
-			return boost::algorithm::any_of(ai.m_perms[n], [=](const pair<int, int>& kv){
+			return boost::algorithm::any_of(ai.m_perms[n], [=](const pair<const int, int>& kv){
 				return j == kv.first && k == kv.second;
 			});
 		});
@@ -180,7 +190,7 @@ struct puz_state
 	void remove_matches(int i, int j){
 		auto& ai = m_game->m_area2info[i];
 		remove_matches(i, [&](int n){
-			return boost::algorithm::any_of(ai.m_perms[n], [=](const pair<int, int>& kv){
+			return boost::algorithm::any_of(ai.m_perms[n], [=](const pair<const int, int>& kv){
 				return j >= kv.first && j < kv.first + kv.second;
 			});
 		});
@@ -188,7 +198,7 @@ struct puz_state
 	void remove_matches(int i, int j, int k){
 		auto& ai = m_game->m_area2info[i];
 		remove_matches(i, [&](int n){
-			return boost::algorithm::none_of(ai.m_perms[n], [=](const pair<int, int>& kv){
+			return boost::algorithm::none_of(ai.m_perms[n], [=](const pair<const int, int>& kv){
 				return j == kv.first && k == kv.second;
 			});
 		});
@@ -196,7 +206,7 @@ struct puz_state
 	void remove_matches2(int i, int j){
 		auto& ai = m_game->m_area2info[i];
 		remove_matches(i, [&](int n){
-			return boost::algorithm::none_of(ai.m_perms[n], [=](const pair<int, int>& kv){
+			return boost::algorithm::none_of(ai.m_perms[n], [=](const pair<const int, int>& kv){
 				return j >= kv.first && j < kv.first + kv.second;
 			});
 		});
@@ -247,14 +257,18 @@ puz_state::puz_state(const puz_game& g)
 bool puz_state::find_matches()
 {
 	for(auto it = m_area_matches.begin(); it != m_area_matches.end();)
+		// if the sum has become zero
 		if(it->second.first == 0){
 			auto& ai = m_game->m_area2info[it->first];
 			for(auto& p : ai.m_rng){
 				char& ch = cells(p);
+				// there should not exist any more ship pieces
 				if(ch == PUZ_SPACE){
 					ch = PUZ_EMPTY;
 					++m_distance;
 					bool vert = it->first >= sidelen();
+					// remove all matches in the other direction
+					// that includes this position
 					remove_matches(vert ? p.first : p.second + sidelen(),
 						vert ? p.second : p.first);
 				}
@@ -304,9 +318,9 @@ bool puz_state::find_matches()
 		}
 	}
 	return boost::algorithm::all_of(m_area_matches,
-		[&](const pair<int, pair<int, vector<int>>>& kv){
+		[&](const pair<const int, pair<int, vector<int>>>& kv){
 		return !kv.second.second.empty();
-	}) && boost::accumulate(m_ship2num, 0, [](int acc, const pair<int, int>& kv){
+	}) && boost::accumulate(m_ship2num, 0, [](int acc, const pair<const int, int>& kv){
 		return acc + kv.first * kv.second;
 	}) >= boost::count(m_cells, PUZ_PIECE);
 }
@@ -390,16 +404,16 @@ void puz_state::gen_children(list<puz_state>& children) const
 	const pair<const int, vector<pair<Position, bool>>>* kv_ship_ptr = nullptr;
 	if(!m_ship_matches.empty())
 		kv_ship_ptr = &*boost::min_element(m_ship_matches, [](
-			const pair<int, vector<pair<Position, bool>>>& kv1,
-			const pair<int, vector<pair<Position, bool>>>& kv2){
+			const pair<const int, vector<pair<Position, bool>>>& kv1,
+			const pair<const int, vector<pair<Position, bool>>>& kv2){
 			return kv1.second.size() < kv2.second.size();
 		});
 
 	const pair<const int, pair<int, vector<int>>>* kv_area_ptr = nullptr;
 	if(!m_area_matches.empty())
 		kv_area_ptr = &*boost::min_element(m_area_matches, [](
-			const pair<int, pair<int, vector<int>>>& kv1,
-			const pair<int, pair<int, vector<int>>>& kv2){
+			const pair<const int, pair<int, vector<int>>>& kv1,
+			const pair<const int, pair<int, vector<int>>>& kv2){
 			return kv1.second.second.size() < kv2.second.second.size();
 		});
 

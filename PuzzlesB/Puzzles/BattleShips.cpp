@@ -38,7 +38,9 @@ namespace puzzles{ namespace BattleShips{
 #define PUZ_BOAT		'o'
 
 struct puz_ship_info {
+	// symbols that represent the ship
 	string m_pieces[2];
+	// the area occupied by the ship
 	string m_area[3];
 };
 
@@ -56,7 +58,7 @@ struct puz_game
 	int m_sidelen;
 	vector<int> m_piece_counts_rows, m_piece_counts_cols;
 	bool m_has_supertanker;
-	map<int, int> m_ship2num;
+	map<int, int> m_ship2num{{1, 4},{2, 3},{3, 2},{4, 1}};
 	map<Position, char> m_pos2piece;
 	string m_start;
 
@@ -70,7 +72,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_piece_counts_rows(m_sidelen)
 	, m_piece_counts_cols(m_sidelen)
 {
-	m_ship2num = map<int, int>{{1, 4}, {2, 3}, {3, 2}, {4, 1}};
 	if(m_has_supertanker)
 		m_ship2num[5] = 1;
 
@@ -101,7 +102,14 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
+// key: the position of the ship piece
+// value.elem.0: the kind of the ship
+// value.elem.1: the position of the ship
+// value.elem.2: false if the ship is horizontal, true if vertical
 typedef map<Position, vector<tuple<int, Position, bool>>> puz_pos_match;
+// key: the kind of the ship
+// value.elem.first: the position of the ship
+// value.elem.second: false if the ship is horizontal, true if vertical
 typedef map<int, vector<pair<Position, bool>>> puz_ship_match;
 
 struct puz_state : string
@@ -122,7 +130,7 @@ struct puz_state : string
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return boost::accumulate(m_ship2num, 0, [](int acc, const pair<int, int>& kv){
+		return boost::accumulate(m_ship2num, 0, [](int acc, const pair<const int, int>& kv){
 			return acc + kv.second;
 		});
 	}
@@ -142,10 +150,10 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
-, m_piece_counts_rows(g.m_piece_counts_rows)
-, m_piece_counts_cols(g.m_piece_counts_cols)
-, m_ship2num(g.m_ship2num), m_pos2piece(g.m_pos2piece)
+	: string(g.m_start), m_game(&g)
+	, m_piece_counts_rows(g.m_piece_counts_rows)
+	, m_piece_counts_cols(g.m_piece_counts_cols)
+	, m_ship2num(g.m_ship2num), m_pos2piece(g.m_pos2piece)
 {
 	check_area();
 	find_matches();
@@ -200,10 +208,13 @@ void puz_state::find_matches()
 						continue;
 
 					char ch = kv.second;
-					for(int k = 1 - len; k <= 0; ++k){
-						if(s[-k] != ch)
+					// 0
+					// < + + >
+					//       len-1
+					for(int k = 0; k < len; ++k){
+						if(s[k] != ch)
 							continue;
-						auto p2 = p + (vert ? Position(k, 0) : Position(0, k));
+						auto p2 = p - (vert ? Position(k, 0) : Position(0, k));
 						if(f(p2))
 							m_pos_matches[p].emplace_back(i, p2 + Position(-1, -1), vert);
 					}
@@ -243,7 +254,7 @@ bool puz_state::make_move(const Position& p_piece, const Position& p, int n, boo
 				ch = PUZ_EMPTY;
 		}
 
-	if(--m_ship2num[n] == 0)
+	if(--m_ship2num.at(n) == 0)
 		m_ship2num.erase(n);
 	m_pos2piece.erase(p_piece);
 	check_area();
@@ -254,7 +265,7 @@ bool puz_state::make_move(const Position& p_piece, const Position& p, int n, boo
 			return m_pos_matches.count(kv.first) != 0;
 		});
 	else if(!is_goal_state())
-		return boost::algorithm::all_of(m_ship2num, [&](const pair<int, int>& kv){
+		return boost::algorithm::all_of(m_ship2num, [&](const pair<const int, int>& kv){
 			return m_ship_matches[kv.first].size() >= kv.second;
 		});
 	else
