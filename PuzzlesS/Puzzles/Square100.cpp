@@ -19,6 +19,7 @@ namespace puzzles{ namespace Square100{
 
 #define PUZ_SPACE		0
 
+// a row or a column
 struct puz_area
 {
 	vector<Position> m_range;
@@ -36,9 +37,9 @@ struct puz_game
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size())
-, m_areas(m_sidelen * 2)
+	: m_id(attrs.get<string>("id"))
+	, m_sidelen(strs.size())
+	, m_areas(m_sidelen * 2)
 {
 	for(int r = 0; r < m_sidelen; ++r){
 		auto& str = strs[r];
@@ -59,9 +60,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		int cnt = nums.size();
 
 		// indexes: 0--19  0--19  0--19
-		// An index less than 10 means a digit(=index) should be added
+		// An index smaller than 10 means a digit(=index) should be added
 		// before the given one.
-		// An index greater than or equal to 10 means a digit(=index - 10)
+		// An index greater than or equal to 10 means a digit(=index-10)
 		// should be added after the given one.
 		vector<int> indexes(cnt);
 		vector<int> perm(cnt);
@@ -109,7 +110,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_sidelen * g.m_sidelen), m_game(&g)
+	: m_cells(g.m_sidelen * g.m_sidelen), m_game(&g)
 {
 	auto f = [&](int area_id){
 		auto& perm_ids = m_matches[area_id];
@@ -177,8 +178,8 @@ bool puz_state::make_move(int i, int j)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_matches, [](
-		const pair<int, vector<int>>& kv1, 
-		const pair<int, vector<int>>& kv2){
+		const pair<const int, vector<int>>& kv1, 
+		const pair<const int, vector<int>>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
 	for(int n : kv.second){

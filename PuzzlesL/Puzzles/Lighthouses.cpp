@@ -68,7 +68,16 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
 }
 
-typedef pair<vector<Position>, string> puz_move;
+struct puz_area
+{
+	// all the tiles that are in the same row or column as the boat
+	vector<Position> m_rng;
+	// elem: characters that represent the kind of each tile
+	vector<string> m_perms;
+	bool operator<(const puz_area& x) const {
+		return std::tie(m_rng, m_perms) < std::tie(x.m_rng, x.m_perms);
+	}
+};
 
 struct puz_state
 {
@@ -78,8 +87,8 @@ struct puz_state
 	char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
 	char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-	bool make_move(const Position& p, const puz_move& kv);
-	void make_move2(const Position& p, const puz_move& kv);
+	bool make_move(const Position& p, const vector<Position>& rng, const string& perm);
+	void make_move2(const Position& p, const vector<Position>& rng, const string& perm);
 	int find_matches(bool init);
 
 	//solve_puzzle interface
@@ -95,13 +104,14 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	string m_cells;
-	map<Position, vector<puz_move>> m_matches;
+	map<Position, puz_area> m_matches;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
+	// 4. No boat touches another boat or lighthouse, not even diagonally.
 	for(auto& kv : g.m_pos2num)
 		for(auto& os : offset){
 			char& ch = cells(kv.first + os);
@@ -119,10 +129,13 @@ int puz_state::find_matches(bool init)
 {
 	for(auto& kv : m_matches){
 		const auto& p = kv.first;
-		auto& perms = kv.second;
+		auto& area = kv.second;
+		auto& rng_s = area.m_rng;
+		rng_s.clear();
+		auto& perms = area.m_perms;
 		perms.clear();
 
-		vector<Position> rng_s, rng_l;
+		vector<Position> rng_l;
 		for(int i = 0; i < 4; ++i){
 			auto& os = offset[i * 2];
 			for(auto p2 = p + os; ; p2 += os){
@@ -147,14 +160,14 @@ int puz_state::find_matches(bool init)
 					if(perm[i] == PUZ_LIGHTHOUSE)
 						rng[j++] = rng_s[i];
 				if([&]{
-					// no touching
+					// No lighthouse touches another lighthouse
 					for(const auto& p1 : rng)
 						for(const auto& p2 : rng)
 							if(boost::algorithm::any_of_equal(offset, p1 - p2))
 								return false;
 					return true;
 				}())
-					perms.emplace_back(rng_s, perm);
+					perms.push_back(perm);
 			}while(boost::next_permutation(perm));
 		}
 
@@ -163,19 +176,17 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, perms.front()), 1;
+				return make_move2(p, rng_s, perms.front()), 1;
 			}
 	}
 	return 2;
 }
 
-void puz_state::make_move2(const Position& p, const puz_move& kv)
+void puz_state::make_move2(const Position& p, const vector<Position>& rng, const string& perm)
 {
-	auto& rng = kv.first;
-	auto& str = kv.second;
 	for(int i = 0; i < rng.size(); ++i){
 		auto& p2 = rng[i];
-		if((cells(p2) = str[i]) == PUZ_LIGHTHOUSE)
+		if((cells(p2) = perm[i]) == PUZ_LIGHTHOUSE)
 			for(auto& os : offset){
 				char& ch = cells(p2 + os);
 				if(ch == PUZ_SPACE)
@@ -187,10 +198,10 @@ void puz_state::make_move2(const Position& p, const puz_move& kv)
 	m_matches.erase(p);
 }
 
-bool puz_state::make_move(const Position& p, const puz_move& kv)
+bool puz_state::make_move(const Position& p, const vector<Position>& rng, const string& perm)
 {
 	m_distance = 0;
-	make_move2(p, kv);
+	make_move2(p, rng, perm);
 	int m;
 	while((m = find_matches(false)) == 1);
 	return m == 2;
@@ -199,14 +210,14 @@ bool puz_state::make_move(const Position& p, const puz_move& kv)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_matches, [](
-		const pair<const Position, vector<puz_move>>& kv1,
-		const pair<const Position, vector<puz_move>>& kv2){
-		return kv1.second.size() < kv2.second.size();
+		const pair<const Position, puz_area>& kv1,
+		const pair<const Position, puz_area>& kv2){
+		return kv1.second.m_perms.size() < kv2.second.m_perms.size();
 	});
 
-	for(auto& kv2 : kv.second){
+	for(auto& perm : kv.second.m_perms){
 		children.push_back(*this);
-		if(!children.back().make_move(kv.first, kv2))
+		if(!children.back().make_move(kv.first, kv.second.m_rng, perm))
 			children.pop_back();
 	}
 }
