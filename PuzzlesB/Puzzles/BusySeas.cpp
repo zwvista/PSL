@@ -45,7 +45,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 2)
 {
-	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
 	for(int r = 1; r < m_sidelen - 1; ++r){
 		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_BOUNDARY);
@@ -60,7 +60,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
-	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
 }
 
 typedef pair<vector<Position>, string> puz_move;

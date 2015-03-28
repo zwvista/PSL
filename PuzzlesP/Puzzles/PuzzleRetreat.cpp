@@ -64,7 +64,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	: m_id(attrs.get<string>("id"))
 	, m_size(strs.size() + 2, strs[0].length() + 2)
 {
-	m_start.append(string(cols(), PUZ_BLOCK_FIXED));
+	m_start.append(cols(), PUZ_BLOCK_FIXED);
 	for(int r = 1; r < rows() - 1; ++r){
 		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_BLOCK_FIXED);
@@ -100,7 +100,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 		m_start.push_back(PUZ_BLOCK_FIXED);
 	}
-	m_start.append(string(cols(), PUZ_BLOCK_FIXED));
+	m_start.append(cols(), PUZ_BLOCK_FIXED);
 }
 
 struct puz_step : pair<Position, int>

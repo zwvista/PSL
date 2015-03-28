@@ -50,7 +50,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 2)
 {
-	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
 	for(int r = 1; r < m_sidelen - 1; ++r){
 		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_BOUNDARY);
@@ -65,7 +65,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 		m_start.push_back(PUZ_BOUNDARY);
 	}
-	m_start.append(string(m_sidelen, PUZ_BOUNDARY));
+	m_start.append(m_sidelen, PUZ_BOUNDARY);
 }
 
 struct puz_area
@@ -130,39 +130,41 @@ int puz_state::find_matches(bool init)
 	for(auto& kv : m_matches){
 		const auto& p = kv.first;
 		auto& area = kv.second;
-		auto& rng_s = area.m_rng;
-		rng_s.clear();
+		auto& rng_space = area.m_rng;
+		rng_space.clear();
 		auto& perms = area.m_perms;
 		perms.clear();
 
-		vector<Position> rng_l;
+		vector<Position> rng_light;
 		for(int i = 0; i < 4; ++i){
 			auto& os = offset[i * 2];
 			for(auto p2 = p + os; ; p2 += os){
 				char ch = cells(p2);
 				if(ch == PUZ_SPACE)
-					rng_s.push_back(p2);
+					rng_space.push_back(p2);
 				else if(ch == PUZ_LIGHTHOUSE)
-					rng_l.push_back(p2);
+					rng_light.push_back(p2);
 				else if(ch == PUZ_BOUNDARY)
 					break;
 			}
 		}
 
-		int ns = rng_s.size(), nl = rng_l.size();
-		int n = m_game->m_pos2num.at(p), m = n - nl;
+		// Out of all the tiles in the same row or column as the boat,
+		// ns are undetermined and nl are lighthouses
+		int ns = rng_space.size(), nl = rng_light.size();
+		int n = m_game->m_pos2num.at(p), nl2 = n - nl;
 
-		if(m >= 0 && m <= ns){
-			auto perm = string(ns - m, PUZ_EMPTY) + string(m, PUZ_LIGHTHOUSE);
-			vector<Position> rng(m);
+		if(nl2 >= 0 && nl2 <= ns){
+			auto perm = string(ns - nl2, PUZ_EMPTY) + string(nl2, PUZ_LIGHTHOUSE);
+			vector<Position> rng_light2(nl2);
 			do{
 				for(int i = 0, j = 0; i < perm.length(); ++i)
 					if(perm[i] == PUZ_LIGHTHOUSE)
-						rng[j++] = rng_s[i];
+						rng_light2[j++] = rng_space[i];
 				if([&]{
 					// No lighthouse touches another lighthouse
-					for(const auto& p1 : rng)
-						for(const auto& p2 : rng)
+					for(const auto& p1 : rng_light2)
+						for(const auto& p2 : rng_light2)
 							if(boost::algorithm::any_of_equal(offset, p1 - p2))
 								return false;
 					return true;
@@ -176,7 +178,7 @@ int puz_state::find_matches(bool init)
 			case 0:
 				return 0;
 			case 1:
-				return make_move2(p, rng_s, perms.front()), 1;
+				return make_move2(p, rng_space, perms.front()), 1;
 			}
 	}
 	return 2;

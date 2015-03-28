@@ -73,7 +73,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 , m_sidelen(strs.size() + 1)
 , m_dot_count(m_sidelen * m_sidelen)
 {
-	m_start.append(string(m_sidelen + 1, PUZ_WOLF));
+	m_start.append(m_sidelen + 1, PUZ_WOLF);
 	for(int r = 1; r < m_sidelen; ++r){
 		auto& str = strs[r - 1];
 		m_start.push_back(PUZ_WOLF);
@@ -85,7 +85,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 		m_start.push_back(PUZ_WOLF);
 	}
-	m_start.append(string(m_sidelen + 1, PUZ_WOLF));
+	m_start.append(m_sidelen + 1, PUZ_WOLF);
 
 	// 3. Each number tells you on how many of its four sides are touched
 	// by the path.
