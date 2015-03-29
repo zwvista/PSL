@@ -27,7 +27,6 @@ namespace puzzles{ namespace FourMeNot{
 #define PUZ_FIXED		'F'
 #define PUZ_ADDED		'f'
 #define PUZ_BLOCK		'B'
-#define PUZ_BOUNDARY	'+'
 
 bool is_flower(char ch) { return ch == PUZ_FIXED || ch == PUZ_ADDED; }
 
@@ -51,15 +50,15 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 2)
 {
-	m_start.append(m_sidelen, PUZ_BOUNDARY);
+	m_start.append(m_sidelen, PUZ_BLOCK);
 	for(int r = 1; r < m_sidelen - 1; ++r){
 		auto& str = strs[r - 1];
-		m_start.push_back(PUZ_BOUNDARY);
+		m_start.push_back(PUZ_BLOCK);
 		for(int c = 1; c < m_sidelen - 1; ++c)
 			m_start.push_back(str[c - 1]);
-		m_start.push_back(PUZ_BOUNDARY);
+		m_start.push_back(PUZ_BLOCK);
 	}
-	m_start.append(m_sidelen, PUZ_BOUNDARY);
+	m_start.append(m_sidelen, PUZ_BLOCK);
 }
 
 struct puz_state : string
@@ -84,25 +83,23 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
+	// key: the index of the flowerbed
+	// value: the neighboring tiles of the flowerbed
 	map<int, set<Position>> m_num2outer;
 	unsigned int m_distance = 0;
 };
 
 struct puz_state2 : Position
 {
-	puz_state2(const set<Position>& rng);
+	puz_state2(const set<Position>& rng) : m_rng(&rng) {
+		make_move(*rng.begin());
+	}
 
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
 	const set<Position>* m_rng;
 };
-
-puz_state2::puz_state2(const set<Position>& rng)
-: m_rng(&rng)
-{
-	make_move(*rng.begin());
-}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
@@ -162,7 +159,9 @@ void puz_state::check_field()
 			}
 			if(counts[0] + counts[2] < 3 && counts[1] + counts[3] < 3)
 				continue;
-
+			// if a flower is put in this tile
+			// more than 3 flowers will line up horizontally and/or vertically
+			// so this tile must be empty.
 			cells(p) = PUZ_EMPTY;
 			for(auto& kv : m_num2outer)
 				kv.second.erase(p);
@@ -177,6 +176,7 @@ bool puz_state::make_move(Position p)
 			nums.push_back(kv.first);
 
 	m_distance = 0;
+	// merge all the flowerbeds adjacent to p
 	while(nums.size() > 1){
 		int n2 = nums.back(), n1 = nums.rbegin()[1];
 		auto &outer2 = m_num2outer.at(n2), &outer1 = m_num2outer.at(n1);
@@ -197,7 +197,8 @@ bool puz_state::make_move(Position p)
 
 	return is_goal_state() || (
 		check_field(),
-		boost::algorithm::all_of(m_num2outer, [](const pair<int, set<Position>>& kv){
+		boost::algorithm::all_of(m_num2outer,
+			[](const pair<const int, set<Position>>& kv){
 			return kv.second.size() > 0;
 		})
 	);
@@ -206,8 +207,8 @@ bool puz_state::make_move(Position p)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_num2outer, [](
-		const pair<int, set<Position>>& kv1,
-		const pair<int, set<Position>>& kv2){
+		const pair<const int, set<Position>>& kv1,
+		const pair<const int, set<Position>>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
 	for(auto& p : kv.second){

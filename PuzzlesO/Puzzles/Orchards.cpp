@@ -45,7 +45,7 @@ struct puz_tree_info
 	Position m_spaces[6];
 };
 
-const puz_tree_info tree_info[4] = {
+const puz_tree_info tree_info[] = {
 	{{{0, 0}, {-1, 0}}, {{-2, 0}, {-1, 1}, {0, 1}, {1, 0}, {0, -1}, {-1, -1}}},
 	{{{0, 0}, {0, 1}}, {{-1, 0}, {-1, 1}, {0, 2}, {1, 1}, {1, 0}, {0, -1}}},
 	{{{0, 0}, {1, 0}}, {{-1, 0}, {0, 1}, {1, 1}, {2, 0}, {1, -1}, {0, -1}}},
@@ -132,6 +132,9 @@ struct puz_area : pair<set<Position>, int>
 	bool can_plant_tree(const Position& p){ return first.count(p) != 0; }
 	void plant_tree(const Position& p){ first.erase(p); --second; }
 	bool is_valid() const {
+		// if second < 0, that means too many tree have been planted in this area
+		// if first.size() < second, that means there are not enough positions
+		// for the trees to be planted
 		return second >= 0 && first.size() >= second;
 	}
 };
@@ -206,13 +209,11 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	vector<const puz_area*> areas;
-	for(auto& a : m_areas)
-		if(a.second > 0)
-			areas.push_back(&a);
-
-	auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
-		return a1->first.size() < a2->first.size();
+	auto& a = *boost::min_element(m_areas, [](const puz_area& a1, const puz_area& a2){
+		auto f = [](const puz_area& a){
+			return a.second == 0 ? 100 : a.first.size();
+		};
+		return f(a1) < f(a2);
 	});
 	for(auto& p : a.first)
 		for(int i = 0; i < 4; ++i){
