@@ -80,10 +80,12 @@ struct puz_galaxy
 
 	puz_galaxy() {}
 	puz_galaxy(const Position& p) : m_center(p) {
-		Position p2(m_center.first / 2, m_center.second / 2);
+		Position p2(p.first / 2, p.second / 2);
 		m_inner.insert(p2);
+		// cross two tiles in the same row
 		if(p.first % 2 == 1 && p.second % 2 == 1)
 			m_inner.insert(p2 + Position(0, 1));
+		// inside a tile
 		else if(p.first % 2 == 0 && p.second % 2 == 0)
 			m_center_in_cell = true;
 	}
@@ -136,19 +138,15 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-	puz_state2(const puz_state& s, const Position& starting);
+	puz_state2(const puz_state& s, const Position& starting) : m_state(&s) {
+		make_move(starting);
+	}
 
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
 	const puz_state* m_state;
 };
-
-puz_state2::puz_state2(const puz_state& s, const Position& starting)
-	: m_state(&s)
-{
-	make_move(starting);
-}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
@@ -203,8 +201,8 @@ bool puz_state::adjust_galaxies()
 			else if(m_galaxies.count(ch) != 0)
 				ids1.insert(ch);
 		}
-		// For each space, there should exist at least one galaxy
-		// from which the space is reachable
+		// For each tile, there should exist at least one galaxy
+		// from which the tile is reachable
 		for(auto& p : rng2){
 			set<char> ids2;
 			for(char ch : ids1){
@@ -224,8 +222,7 @@ bool puz_state::adjust_galaxies()
 	if(idss.empty())
 		m_next = "";
 	else{
-		// Find the space for which there exists the minimum number
-		// of galaxies from which the space is reachable
+		// Find the tile reachable from the fewest number of galaxies
 		auto& ids3 = *boost::min_element(idss,
 			[](const set<char>& ids1, const set<char>& ids2){
 			return ids1.size() < ids2.size();

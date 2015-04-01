@@ -10,7 +10,7 @@
 
 	Description
 	1. The board represents a parking lot seen from above.
-	2. Each number identifies a ca and all cars are identified by a number,
+	2. Each number identifies a car and all cars are identified by a number,
 	   there are no hidden cars.
 	3. Cars can be regular sports cars (2*1 tiles) or limousines (3*1 tiles)
 	   and can be oriented horizontally or vertically.

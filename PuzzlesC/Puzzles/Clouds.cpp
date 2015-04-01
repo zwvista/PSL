@@ -92,6 +92,8 @@ struct puz_state : string
 	const puz_game* m_game;
 	vector<int> m_piece_counts_rows, m_piece_counts_cols;
 	set<Position> m_pieces;
+	// elem.first: the upper-left position
+	// elem.second: the height and width
 	vector<pair<Position, Position>> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -159,10 +161,17 @@ bool puz_state::find_matches()
 			for(int r = kv.first.first; r < kv.first.first + kv.second.first; ++r)
 				for(int c = kv.first.second; c < kv.first.second + kv.second.second; ++c){
 					rng.emplace(r, c);
+					// if it contains the position (r,c)
+					// the ith cloud will be inserted into
+					// Row r group and Column c group
 					rc_matches[r].insert(i);
 					rc_matches[sidelen() + c].insert(i);
 				}
 		}
+
+		// the total number of the tiles in the clouds
+		// in a row or column should be greater or equal to
+		// the count in that row or column
 		for(int i = 1; i < sidelen() - 1; ++i)
 			if(boost::count_if(rng, [i](const Position& p){
 				return p.second == i;
@@ -173,6 +182,7 @@ bool puz_state::find_matches()
 				return false;
 
 		if(!m_matches.empty()){
+			// find the group that has the fewest number of clouds
 			auto& kv = *boost::min_element(rc_matches, [](
 				const pair<const int, set<int>>& kv1,
 				const pair<const int, set<int>>& kv2){

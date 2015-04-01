@@ -41,7 +41,10 @@ const Position offset2[] = {
 
 struct puz_tree_info
 {
+	// Trees must be planted in pairs
 	Position m_trees[2];
+	// there are no 3 or more contiguous trees,
+	// so the 6 tiles around the paired trees must be empty
 	Position m_spaces[6];
 };
 
@@ -132,7 +135,7 @@ struct puz_area : pair<set<Position>, int>
 	bool can_plant_tree(const Position& p){ return first.count(p) != 0; }
 	void plant_tree(const Position& p){ first.erase(p); --second; }
 	bool is_valid() const {
-		// if second < 0, that means too many tree have been planted in this area
+		// if second < 0, that means too many trees have been planted in this area
 		// if first.size() < second, that means there are not enough positions
 		// for the trees to be planted
 		return second >= 0 && first.size() >= second;
@@ -185,22 +188,27 @@ bool puz_state::make_move(const Position& p, int n)
 	auto& info = tree_info[n];
 	for(auto& os : info.m_trees){
 		auto p2 = p + os;
+		// trees must be inside
 		if(!is_valid(p2))
 			return false;
 		cells(p2) = PUZ_TREE;
 		auto& a = get_area(p2);
+		// the position must be valid in the area
 		if(!a.can_plant_tree(p2))
 			return false;
 		a.plant_tree(p2);
+		// the area must remain valid after the tree is planted
 		if(!a.is_valid())
 			return false;
 	}
 	for(auto& os : info.m_spaces){
 		auto p2 = p + os;
+		// positions around the trees can be outside
 		if(!is_valid(p2))
 			continue;
 		auto& a = get_area(p2);
 		a.remove_cell(p2);
+		// the area must remain valid after the position is marked as empty
 		if(!a.is_valid())
 			return false;
 	}
@@ -211,6 +219,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& a = *boost::min_element(m_areas, [](const puz_area& a1, const puz_area& a2){
 		auto f = [](const puz_area& a){
+			// ignore the areas where no trees need to be planted
 			return a.second == 0 ? 100 : a.first.size();
 		};
 		return f(a1) < f(a2);
