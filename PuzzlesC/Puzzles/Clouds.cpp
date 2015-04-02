@@ -162,7 +162,7 @@ bool puz_state::find_matches()
 				for(int c = kv.first.second; c < kv.first.second + kv.second.second; ++c){
 					rng.emplace(r, c);
 					// if it contains the position (r,c)
-					// the ith cloud will be inserted into
+					// the i-th cloud will be inserted into
 					// Row r group and Column c group
 					rc_matches[r].insert(i);
 					rc_matches[sidelen() + c].insert(i);

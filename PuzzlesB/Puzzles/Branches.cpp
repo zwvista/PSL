@@ -120,8 +120,10 @@ int puz_state::find_matches(bool init)
 			auto& nums = dir_nums[i];
 			for(auto p2 = p + os; n <= sum; p2 += os)
 				if(cells(p2) == PUZ_SPACE)
+					// we can stop here
 					nums.push_back(n++);
 				else{
+					// we have to stop here
 					nums.push_back(n);
 					break;
 				}
@@ -151,10 +153,12 @@ void puz_state::make_move2(const Position& p, const vector<int>& perm)
 		auto& os = offset[i];
 		int n = perm[i];
 		auto p2 = p + os;
-		for(int j = 0; j < n; ++j){
-			cells(p2) = str_branch[i + (j == n - 1 ? 4 : 0)];
+		for(int j = 0; j < n - 1; ++j){
+			cells(p2) = str_branch[i];
 			p2 += os;
 		}
+		if(n > 0)
+			cells(p2) = str_branch[i + 4];
 	}
 
 	++m_distance;

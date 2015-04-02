@@ -120,11 +120,14 @@ int puz_state::find_matches(bool init)
 			for(auto p2 = p + os; n <= sum; p2 += os){
 				char ch = cells(p2);
 				if(ch == PUZ_SPACE)
+					// we can stop here
 					nums.push_back(n++);
 				else if(is_horz && ch == PUZ_HORZ ||
 					!is_horz && ch == PUZ_VERT)
+					// we cannot stop here
 					++n;
 				else{
+					// we have to stop here
 					nums.push_back(n);
 					break;
 				}
@@ -160,6 +163,7 @@ void puz_state::make_move2(const Position& p, const vector<int>& perm)
 			cells(p2) = is_horz ? PUZ_HORZ : PUZ_VERT;
 			p2 += os;
 		}
+		// we choose to stop here, so it must be in other direction
 		if(cells(p2) == PUZ_SPACE)
 			cells(p2) = is_horz ? PUZ_VERT : PUZ_HORZ;
 	}
@@ -185,7 +189,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 		return kv1.second.size() < kv2.second.size();
 	});
 
-	for(const auto& perm : kv.second){
+	for(auto& perm : kv.second){
 		children.push_back(*this);
 		if(!children.back().make_move(kv.first, perm))
 			children.pop_back();
