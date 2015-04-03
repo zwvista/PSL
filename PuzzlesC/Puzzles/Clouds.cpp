@@ -94,7 +94,7 @@ struct puz_state : string
 	set<Position> m_pieces;
 	// elem.first: the upper-left position
 	// elem.second: the height and width
-	vector<pair<Position, Position>> m_matches;
+	vector<pair<Position, Position>> m_clouds;
 	unsigned int m_distance = 0;
 };
 
@@ -131,7 +131,7 @@ void puz_state::check_area()
 
 bool puz_state::find_matches()
 {
-	m_matches.clear();
+	m_clouds.clear();
 	for(int h = 2; h <= m_game->m_cloud_max_size.first; ++h)
 		for(int r = 1; r < sidelen() - h; ++r)
 			for(int w = 2; w <= m_game->m_cloud_max_size.second; ++w)
@@ -150,22 +150,22 @@ bool puz_state::find_matches()
 							}
 						return m_pieces.empty() || is_piece;
 					}())
-						m_matches.push_back({{r, c}, {h, w}});
+						m_clouds.push_back({{r, c}, {h, w}});
 
 	if(m_pieces.empty()){
 		// pruning
 		set<Position> rng;
-		map<int, set<int>> rc_matches;
-		for(int i = 0; i < m_matches.size(); ++i){
-			auto& kv = m_matches[i];
+		map<int, set<int>> rc_indexes;
+		for(int i = 0; i < m_clouds.size(); ++i){
+			auto& kv = m_clouds[i];
 			for(int r = kv.first.first; r < kv.first.first + kv.second.first; ++r)
 				for(int c = kv.first.second; c < kv.first.second + kv.second.second; ++c){
 					rng.emplace(r, c);
 					// if it contains the position (r,c)
 					// the i-th cloud will be inserted into
 					// Row r group and Column c group
-					rc_matches[r].insert(i);
-					rc_matches[sidelen() + c].insert(i);
+					rc_indexes[r].insert(i);
+					rc_indexes[sidelen() + c].insert(i);
 				}
 		}
 
@@ -181,17 +181,17 @@ bool puz_state::find_matches()
 			}) < m_piece_counts_rows[i])
 				return false;
 
-		if(!m_matches.empty()){
+		if(!m_clouds.empty()){
 			// find the group that has the fewest number of clouds
-			auto& kv = *boost::min_element(rc_matches, [](
+			auto& kv = *boost::min_element(rc_indexes, [](
 				const pair<const int, set<int>>& kv1,
 				const pair<const int, set<int>>& kv2){
 				return kv1.second.size() < kv2.second.size();
 			});
-			vector<pair<Position, Position>> matches;
+			vector<pair<Position, Position>> clouds;
 			for(int i : kv.second)
-				matches.push_back(m_matches[i]);
-			::swap(m_matches, matches);
+				clouds.push_back(m_clouds[i]);
+			::swap(m_clouds, clouds);
 		}
 	}
 	return true;
@@ -226,7 +226,7 @@ bool puz_state::make_move(const Position& p, int h, int w)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	for(auto& kv : m_matches){
+	for(auto& kv : m_clouds){
 		children.push_back(*this);
 		if(!children.back().make_move(kv.first, kv.second.first, kv.second.second))
 			children.pop_back();

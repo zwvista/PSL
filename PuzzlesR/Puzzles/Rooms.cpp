@@ -142,12 +142,15 @@ int puz_state::find_matches(bool init)
 				for(auto p2 = p; n <= sum; p2 += os)
 					switch(get_door_status(p2, i)){
 					case PUZ_DOOR_UNKNOWN:
+						// we can stop here
 						nums.push_back(n++);
 						break;
 					case PUZ_DOOR_OPEN:
+						// we cannot stop here
 						++n;
 						break;
 					case PUZ_DOOR_CLOSED:
+						// we have to stop here
 						nums.push_back(n);
 						return;
 					}
@@ -174,19 +177,15 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-	puz_state2(const puz_state& s);
+	puz_state2(const puz_state& s) : m_state(&s){
+		make_move({});
+	}
 
 	void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
 	void gen_children(list<puz_state2>& children) const;
 
 	const puz_state* m_state;
 };
-
-puz_state2::puz_state2(const puz_state& s)
-: m_state(&s)
-{
-	make_move({});
-}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {

@@ -118,8 +118,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int i = 0; i < sz; ++i)
 			for(int j = 1; j <= cnt; ++j)
 				if(i + j - 1 < sz){
-					vector<pair<int, int>> v;
-					v.emplace_back(i, j);
+					vector<pair<int, int>> v{{i, j}};
 					queue.emplace_back(0, v);
 				}
 		while(!queue.empty()){
