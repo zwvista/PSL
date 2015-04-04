@@ -139,7 +139,7 @@ struct puz_state : string
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return boost::accumulate(m_ship2num, 0, [](int acc, const pair<int, int>& kv){
+		return boost::accumulate(m_ship2num, 0, [](int acc, const pair<const int, int>& kv){
 			return acc + kv.second;
 		});
 	}

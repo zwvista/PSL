@@ -335,12 +335,12 @@ bool puz_state::make_move2(const Position& p, int n)
 		m_game->m_game_type != puz_game_type::CONSECUTIVE ||
 		!is_goal_state() ||
 		m_game->m_game_type == puz_game_type::NON_CONSECUTIVE &&
-		boost::algorithm::all_of(m_id2area, [&](const pair<int, puz_area>& kv){
+		boost::algorithm::all_of(m_id2area, [&](const pair<const int, puz_area>& kv){
 			return boost::algorithm::none_of(kv.second.m_inner, [&](const Position& p2){
 				return f(p2, kv.second.m_cell_count);
 			});
 		}) || m_game->m_game_type == puz_game_type::CONSECUTIVE &&
-		boost::algorithm::all_of(m_id2area, [&](const pair<int, puz_area>& kv){
+		boost::algorithm::all_of(m_id2area, [&](const pair<const int, puz_area>& kv){
 			return boost::algorithm::any_of(kv.second.m_inner, [&](const Position& p2){
 				return f(p2, kv.second.m_cell_count);
 			});
@@ -360,8 +360,8 @@ bool puz_state::make_move(const Position& p, int n)
 bool puz_state::make_move_hidden(const Position& p, int n)
 {
 	int id = boost::max_element(m_id2area, [](
-		const pair<int, puz_area>& kv1,
-		const pair<int, puz_area>& kv2){
+		const pair<const int, puz_area>& kv1,
+		const pair<const int, puz_area>& kv2){
 		return kv1.first < kv2.first;
 	})->first + 1;
 	auto& area = m_id2area[id];
@@ -375,8 +375,8 @@ bool puz_state::make_move_hidden(const Position& p, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_id2area, [](
-		const pair<int, puz_area>& kv1,
-		const pair<int, puz_area>& kv2){
+		const pair<const int, puz_area>& kv1,
+		const pair<const int, puz_area>& kv2){
 		return kv1.second < kv2.second;
 	});
 

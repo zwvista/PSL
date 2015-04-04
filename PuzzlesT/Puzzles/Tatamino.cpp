@@ -283,8 +283,8 @@ bool puz_state::make_move(const Position& p, int n)
 bool puz_state::make_move_hidden(const Position& p, int n)
 {
 	int id = boost::max_element(m_id2area, [](
-		const pair<int, puz_area>& kv1,
-		const pair<int, puz_area>& kv2){
+		const pair<const int, puz_area>& kv1,
+		const pair<const int, puz_area>& kv2){
 		return kv1.first < kv2.first;
 	})->first + 1;
 	auto& area = m_id2area[id];
@@ -298,8 +298,8 @@ bool puz_state::make_move_hidden(const Position& p, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_id2area, [](
-		const pair<int, puz_area>& kv1,
-		const pair<int, puz_area>& kv2){
+		const pair<const int, puz_area>& kv1,
+		const pair<const int, puz_area>& kv2){
 		return kv1.second < kv2.second;
 	});
 

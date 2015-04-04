@@ -213,7 +213,7 @@ bool puz_state::make_move(int i, const vector<int>& nums)
 		apply_ripple_effect(p, n);
 	}
 	m_room2info.erase(i);
-	return boost::algorithm::none_of(m_room2info, [](const pair<int, puz_room_info>& kv){
+	return boost::algorithm::none_of(m_room2info, [](const pair<const int, puz_room_info>& kv){
 		return kv.second.second.empty();
 	});
 }
@@ -221,8 +221,8 @@ bool puz_state::make_move(int i, const vector<int>& nums)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_room2info, [](
-		const pair<int, puz_room_info>& kv1,
-		const pair<int, puz_room_info>& kv2){
+		const pair<const int, puz_room_info>& kv1,
+		const pair<const int, puz_room_info>& kv2){
 		return kv1.second.second.size() < kv2.second.second.size();
 	});
 	for(auto& nums : kv.second.second){

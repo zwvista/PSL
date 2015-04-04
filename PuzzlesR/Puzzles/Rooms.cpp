@@ -102,7 +102,12 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	unsigned int m_distance = 0;
+	// key: the position of the room
+	// value.elem: the numbers of the rooms that can be seen from the room
+	//             in all the four directions
 	map<Position, vector<vector<int>>> m_matches;
+	// key: the position of the door
+	// value: the status of the door: unknown, open, closed
 	map<Position, char> m_horz_doors, m_vert_doors;
 };
 
@@ -212,6 +217,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 	++m_distance;
 	m_matches.erase(p);
 
+	// each Room must be reachable from the others
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
 	return smoves.size() == sidelen() * sidelen();

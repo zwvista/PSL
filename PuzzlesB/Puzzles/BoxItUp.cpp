@@ -55,10 +55,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		int box_area = info.m_area;
 		auto& boxes = info.m_boxes;
 
-		for(int i = 1; i <= m_sidelen; ++i){
-			int j = box_area / i;
-			if(i * j != box_area || j > m_sidelen) continue;
-			Position box_sz(i - 1, j - 1);
+		for(int h = 1; h <= m_sidelen; ++h){
+			int w = box_area / h;
+			if(h * w != box_area || w > m_sidelen) continue;
+			Position box_sz(h - 1, w - 1);
 			auto p2 = pn - box_sz;
 			for(int r = p2.first; r <= pn.first; ++r)
 				for(int c = p2.second; c <= pn.second; ++c){

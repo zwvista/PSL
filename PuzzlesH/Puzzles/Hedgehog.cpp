@@ -204,7 +204,7 @@ struct puz_state : vector<int>
 puz_state::puz_state(const puz_game& g)
 : vector<int>(g.m_start), m_game(&g)
 {
-	auto f = [&](const pair<int, Position>& kv_cur, const pair<int, Position>& kv_next){
+	auto f = [&](const pair<const int, Position>& kv_cur, const pair<const int, Position>& kv_next){
 		if(kv_next.first != PUZ_FOREST_DEST && kv_next.first - kv_cur.first != 1 ||
 			kv_next.first == PUZ_FOREST_DEST && kv_cur.first != m_game->max_num_forest()){
 			m_segments.emplace_back();

@@ -54,9 +54,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		int box_sum = info.m_sum;
 		auto& boxes = info.m_boxes;
 
-		for(int i = 1; i < min(box_sum, m_sidelen); ++i){
-			int j = box_sum - i;
-			Position box_sz(i - 1, j - 1);
+		for(int h = 1; h < min(box_sum, m_sidelen); ++h){
+			int w = box_sum - h;
+			Position box_sz(h - 1, w - 1);
 			auto p2 = pn - box_sz;
 			for(int r = p2.first; r <= pn.first; ++r)
 				for(int c = p2.second; c <= pn.second; ++c){
