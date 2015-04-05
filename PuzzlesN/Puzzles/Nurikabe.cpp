@@ -47,7 +47,8 @@ struct puz_garden
 		m_inner.insert(p);
 	}
 	bool operator<(const puz_garden& x) const {
-		return m_remaining < x.m_remaining;
+		return min(m_remaining, (int)m_outer.size()) <
+			min(x.m_remaining, (int)x.m_outer.size());
 	}
 };
 

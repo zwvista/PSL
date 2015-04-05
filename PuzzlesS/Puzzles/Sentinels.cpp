@@ -95,6 +95,9 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	string m_cells;
+	// key: the position of the number that represents the sentinel
+	// value.elem: the numbers of the tiles visible from the position of
+	//             the sentinel in all the four directions
 	map<Position, vector<vector<int>>> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -124,10 +127,13 @@ int puz_state::find_matches(bool init)
 			for(auto p2 = p + os; n <= sum; p2 += os){
 				char ch = cells(p2);
 				if(ch == PUZ_SPACE)
+					// we can stop here
 					nums.push_back(n++);
 				else if(ch == PUZ_EMPTY || ch == PUZ_SENTINEL)
+					// we cannot stop here
 					++n;
 				else{
+					// we have to stop here
 					nums.push_back(n);
 					break;
 				}
@@ -198,11 +204,11 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 		}
 		char& ch = cells(p2);
 		if(ch == PUZ_SPACE){
-			for(auto& os2 : offset){
-				auto p3 = p2 + os2;
-				if(cells(p3) == PUZ_TOWER)
-					return false;
-			}
+			// Two Towers can't touch horizontally or vertically
+			if(boost::algorithm::any_of(offset, [&](const Position& os2){
+				return cells(p2 + os2) == PUZ_TOWER;
+			}))
+				return false;
 			ch = PUZ_TOWER;
 		}
 	}
@@ -210,6 +216,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 	++m_distance;
 	m_matches.erase(p);
 
+	// There must be a single continuous garden
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
 	return smoves.size() == boost::count_if(m_cells, [](char ch){

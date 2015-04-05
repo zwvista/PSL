@@ -106,6 +106,8 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	vector<int> m_cells;
+	// key: the index of a row or column
+	// value.elem: the index of the permutation
 	map<int, vector<int>> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -195,7 +197,7 @@ ostream& puz_state::dump(ostream& out) const
 		for(int c = 0; c < sidelen(); ++c){
 			int n = cells({r, c});
 			if(n == PUZ_UNKNOWN || n == 0)
-				out << "   ";
+				out << "  .";
 			else
 				out << format("%3d") % cells({r, c});
 		}

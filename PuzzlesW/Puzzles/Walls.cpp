@@ -90,6 +90,9 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	string m_cells;
+	// key: the position of the number
+	// value.elem: the lengths of the wall segments that stem from
+	//             the number in all the four directions
 	map<Position, vector<vector<int>>> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -163,8 +166,8 @@ void puz_state::make_move2(const Position& p, const vector<int>& perm)
 			cells(p2) = is_horz ? PUZ_HORZ : PUZ_VERT;
 			p2 += os;
 		}
-		// we choose to stop here, so it must be in other direction
 		if(cells(p2) == PUZ_SPACE)
+			// we choose to stop here, so it must be in other direction
 			cells(p2) = is_horz ? PUZ_VERT : PUZ_HORZ;
 	}
 
@@ -198,7 +201,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r) {
+	for(int r = 1; r < sidelen() - 1; ++r){
 		for(int c = 1; c < sidelen() - 1; ++c){
 			Position p(r, c);
 			char ch = cells(p);

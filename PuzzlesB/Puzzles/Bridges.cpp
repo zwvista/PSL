@@ -94,6 +94,9 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
+	// key: the position of the number
+	// value.elem: the numbers of the bridges connected to the number
+	//             in all the four directions
 	map<Position, vector<vector<int>>> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -119,21 +122,24 @@ int puz_state::find_matches(bool init)
 		for(int i = 0; i < 4; ++i){
 			bool is_horz = i % 2 == 1;
 			auto& os = offset[i];
-			int n = 0;
 			auto& nums = dir_nums[i];
+			// none for the other cases
 			nums = {0};
 			for(auto p2 = p + os; ; p2 += os){
 				char ch = cells(p2);
 				if(ch == PUZ_NUMBER){
 					if(m_matches.count(p2) != 0)
+						// one, two bridges or none
 						nums = {0, 1, 2};
 				}
 				else if(ch == PUZ_HORZ_1 || ch == PUZ_HORZ_2){
 					if(is_horz)
+						// already connected
 						nums = {ch == PUZ_HORZ_1 ? 1 : 2};
 				}
 				else if(ch == PUZ_VERT_1 || ch == PUZ_VERT_2){
 					if(!is_horz)
+						// already connected
 						nums = {ch == PUZ_VERT_1 ? 1 : 2};
 				}
 				if(ch != PUZ_SPACE)

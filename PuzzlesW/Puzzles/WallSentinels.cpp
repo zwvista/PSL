@@ -13,7 +13,7 @@
 	1. On the board there is a single continuous castle wall, which you
 	   must discover.
 	2. The numbers on the board represent Sentinels (in a similar way to
-	   'Blocked View'). The Sentinels can be placed on the Wall or Land.
+	   'Sentinels'). The Sentinels can be placed on the Wall or Land.
 	3. The number tells you how many tiles that Sentinel can control (see)
 	   from there vertically and horizontally - of his type of tile.
 	4. That means the number of a Land Sentinel indicates how many Land tiles
@@ -21,7 +21,9 @@
 	5. That works the opposite way for Wall Sentinels: they control all the
 	   Wall tiles up to Land tiles or the grid border.
 	6. The number includes the tile itself, where the Sentinel is located
-	   (again, like 'Blocked View').
+	   (again, like 'Sentinels').
+	7. Lastly there is a single, orthogonally contiguous, Wall and it cannot
+	   contain 2*2 Wall tiles - just like Nurikabe.
 */
 
 namespace puzzles{ namespace WallSentinels{
@@ -102,6 +104,9 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	string m_cells;
+	// key: the position of the number that represents the sentinel
+	// value.elem: the numbers of the tiles visible from the position of
+	//             the sentinel in all the four directions
 	map<Position, vector<vector<int>>> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -132,11 +137,14 @@ int puz_state::find_matches(bool init)
 			for(auto p2 = p + os; n <= sum; p2 += os){
 				char ch = cells(p2);
 				if(ch == PUZ_SPACE)
+					// we can stop here
 					nums.push_back(n++);
 				else if(!is_wall && (ch == PUZ_LAND || ch == PUZ_LAND_S) ||
 					is_wall && (ch == PUZ_WALL || ch == PUZ_WALL_S))
+					// we cannot stop here
 					++n;
 				else{
+					// we have to stop here
 					nums.push_back(n);
 					break;
 				}
@@ -188,6 +196,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 	}
 }
 
+// There is a single, orthogonally contiguous, Wall
 bool puz_state::is_continuous() const
 {
 	set<Position> rng;
@@ -213,6 +222,7 @@ bool puz_state::is_continuous() const
 	});
 }
 
+// The wall cannot contain 2*2 wall tiles
 bool puz_state::is_valid_square(const Position& p) const
 {
 	auto f = [&](const vector<Position>& rng){
@@ -250,6 +260,7 @@ bool puz_state::make_move_sentinel2(const Position& p, const vector<int>& perm)
 		}
 		char& ch = cells(p2);
 		if(ch == PUZ_SPACE){
+			// we choose to stop here, so it must be of other type
 			ch = is_wall ? PUZ_LAND : PUZ_WALL;
 			if(ch == PUZ_WALL && !is_valid_square(p2))
 				return false;
@@ -287,8 +298,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 			const pair<const Position, vector<vector<int>>>& kv2){
 			return kv1.second.size() < kv2.second.size();
 		});
-
-		for(const auto& perm : kv.second){
+		for(auto& perm : kv.second){
 			children.push_back(*this);
 			if(!children.back().make_move_sentinel(kv.first, perm))
 				children.pop_back();

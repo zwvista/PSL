@@ -92,6 +92,9 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	string m_cells;
+	// key: the position of the number
+	// value.elem: the lengths of the branches that stem from
+	//             the number in all the four directions
 	map<Position, vector<vector<int>>> m_matches;
 	unsigned int m_distance = 0;
 };

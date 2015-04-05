@@ -49,6 +49,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 
 	for(auto& kv : m_pos2boxinfo){
+		// the position of the number
 		const auto& pn = kv.first;
 		auto& info = kv.second;
 		int box_sum = info.m_sum;
@@ -58,11 +59,19 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			int w = box_sum - h;
 			Position box_sz(h - 1, w - 1);
 			auto p2 = pn - box_sz;
+			//   - - - - 
+			//  |       |
+			//         - - - - 
+			//  |     |6|     |
+			//   - - - -      
+			//        |       |
+			//         - - - - 
 			for(int r = p2.first; r <= pn.first; ++r)
 				for(int c = p2.second; c <= pn.second; ++c){
 					Position tl(r, c), br = tl + box_sz;
 					if(tl.first >= 0 && tl.second >= 0 &&
 						br.first < m_sidelen && br.second < m_sidelen &&
+						// All the other numbers should not be inside this box
 						boost::algorithm::none_of(m_pos2boxinfo, [&](
 						const pair<const Position, puz_box_info>& kv){
 						auto& p = kv.first;
@@ -99,6 +108,8 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
+	// key: the position of the number
+	// value.elem: the index of the box
 	map<Position, vector<int>> m_matches;
 	set<Position> m_horz_walls, m_vert_walls;
 	unsigned int m_distance = 0;
@@ -150,6 +161,7 @@ int puz_state::find_matches(bool init)
 					spaces.emplace(r, c);
 		}
 	}
+	// All the boxes added up should cover all the remaining spaces
 	return boost::count(*this, PUZ_SPACE) == spaces.size() ? 2 : 0;
 }
 

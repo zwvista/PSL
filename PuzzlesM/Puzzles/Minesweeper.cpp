@@ -96,6 +96,8 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	string m_cells;
+	// key: the position of the number
+	// value.elem: the index of the permutation
 	map<Position, vector<int>> m_matches;
 	unsigned int m_distance = 0;
 };

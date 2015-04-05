@@ -31,10 +31,14 @@ const Position offset[] = {
 	{-1, -1},	// nw
 };
 
+// all possible arrows that may point to a number
 struct puz_arrow
 {
+	// elem: the position of the arrow
 	vector<Position> m_range;
+	// elem: the direction of the arrow
 	vector<int> m_dirs;
+	// elem: all permutations of the directions of the arrows
 	vector<vector<int>> m_perms;
 };
 
@@ -95,8 +99,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			indicators.insert(indicators.end(), n, 1);
 			do{
 				for(int i = 0; i < sz; ++i){
-					int n = arrow.m_dirs[i];
-					perm[i] = indicators[i] == 1 ? n : ~n;
+					int d = arrow.m_dirs[i];
+					// a positive or 0 direction means the arrow is supposed to
+					// point to the number, and a negative direction means
+					// the arrow is not supposed to point to the number
+					perm[i] = indicators[i] == 1 ? d : ~d;
 				}
 					
 				arrow.m_perms.push_back(perm);
@@ -129,7 +136,11 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	vector<int> m_cells;
+	// key: the position of the number
+	// value.elem: the index of the permutation
 	map<Position, vector<int>> m_matches;
+	// key: the position of the arrow that resides outside the board
+	// value.elem: the possible direction of the arrow
 	map<Position, set<int>> m_arrow_dirs;
 	unsigned int m_distance = 0;
 };
@@ -143,26 +154,21 @@ puz_state::puz_state(const puz_game& g)
 		boost::iota(perm_ids, 0);
 	}
 
-	for(int r = 1; r < sidelen() - 1; ++r){
-		auto& s1 = m_arrow_dirs[{r, 0}];
-		s1 = {1, 2, 3};
-		if(r == 1) s1.erase(1);
-		else if(r == sidelen() - 2) s1.erase(3);
-		auto& s2 = m_arrow_dirs[{r, sidelen() - 1}];
-		s2 = {5, 6, 7};
-		if(r == 1) s2.erase(7);
-		else if(r == sidelen() - 2) s2.erase(5);
-	}
-	for(int c = 1; c < sidelen() - 1; ++c){
-		auto& s1 = m_arrow_dirs[{0, c}];
-		s1 = {3, 4, 5};
-		if(c == 1) s1.erase(5);
-		else if(c == sidelen() - 2) s1.erase(3);
-		auto& s2 = m_arrow_dirs[{sidelen() - 1, c}];
-		s2 = {0, 1, 7};
-		if(c == 1) s2.erase(7);
-		else if(c == sidelen() - 2) s2.erase(1);
-	}
+	// compute the possible directions of the arrows
+	// that reside outside the board
+	auto f = [&](int r, int c){
+		Position p(r, c);
+		auto& dirs = m_arrow_dirs[p];
+		for(int i = 0; i <= 8; ++i){
+			auto p2 = p + offset[i];
+			// the arrow must point to a tile inside the board
+			if(p2.first > 0 && p2.second > 0 &&
+				p2.first < sidelen() - 1 && p2.second < sidelen() - 1)
+				dirs.insert(i);
+		}
+	};
+	for(int i = 1; i < sidelen() - 1; ++i)
+		f(0, i), f(sidelen() - 1, i), f(i, 0), f(i, sidelen() - 1);
 
 	find_matches(true);
 }
@@ -180,7 +186,11 @@ int puz_state::find_matches(bool init)
 
 		boost::remove_erase_if(perm_ids, [&](int id){
 			return !boost::equal(arrow_dirs, arrow.m_perms[id], [](const set<int>& dirs, int n2){
+				// a positive or 0 direction means the arrow is supposed to
+				// point to the number, so it should be contained
 				return n2 >= 0 && dirs.count(n2) != 0
+					// a negative direction means the arrow is not supposed
+					// to point to the number, so it should not be contained
 					|| n2 < 0 && (dirs.size() > 1 || dirs.count(~n2) == 0);
 			});
 		});
@@ -202,13 +212,13 @@ void puz_state::make_move2(const Position& p, int n)
 	auto& perm = arrow.m_perms[n];
 
 	for(int k = 0; k < perm.size(); ++k){
-		const auto& p = arrow.m_range[k];
-		int& n1 = cells(p);
+		const auto& p2 = arrow.m_range[k];
+		int& n1 = cells(p2);
 		int n2 = perm[k];
 		if(n2 >= 0)
-			m_arrow_dirs[p] = {n1 = n2};
+			m_arrow_dirs[p2] = {n1 = n2};
 		else
-			m_arrow_dirs[p].erase(~n2);
+			m_arrow_dirs[p2].erase(~n2);
 	}
 
 	++m_distance;
