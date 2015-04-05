@@ -92,7 +92,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			}
 		m_num2dist.emplace_back(kv.first, dist);
 	}
-	boost::sort(m_num2dist, [&](const pair<char, int>& kv1, const pair<char, int>& kv2){
+	boost::sort(m_num2dist, [&](
+		const pair<const char, int>& kv1,
+		const pair<const char, int>& kv2){
 		return kv1.second < kv2.second;
 	});
 }

@@ -40,6 +40,8 @@ const Position offset[] = {
 	{-1, -1},	// nw
 };
 
+// first: the positions in the area (a row, column, or diagonal)
+// second: the length of the cables between the two Posts
 typedef pair<vector<Position>, int> puz_area_info;
 
 struct puz_game
@@ -61,8 +63,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 {
 	auto f = [&](char ch) {
 		int n = ch == ' ' ? PUZ_UNKNOWN : ch - '0';
-		m_num2perms[n];
-		return n;
+		return m_num2perms[n], n;
 	};
 	for(int i = 0; i < m_sidelen; ++i){
 		m_area2info[i].second = f(strs[i][m_sidelen]);
@@ -77,8 +78,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 	if(m_is_diagonal_type)
-		m_num2perms[m_area2info[m_sidelen * 2].second =
-			m_area2info[m_sidelen * 2 + 1].second = 0];
+		m_area2info[m_sidelen * 2].second = m_area2info[m_sidelen * 2 + 1].second =
+			(m_num2perms[PUZ_UNKNOWN], PUZ_UNKNOWN);
 	
 	string perm_empty(m_sidelen, PUZ_EMPTY), perm;
 	for(auto& kv : m_num2perms){
@@ -127,6 +128,8 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	string m_cells;
+	// key: the index of the area
+	// value.elem: the index of the permutation
 	map<int, vector<int>> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -182,6 +185,7 @@ void puz_state::make_move2(int i, int j)
 		char ch = perm[k];
 		auto& p = range[k];
 		if((cells(p) = ch) == PUZ_POST)
+			// Posts cannot touch themselves, not even diagonally.
 			for(auto& os : offset){
 				auto p2 = p + os;
 				if(is_valid(p2))
@@ -218,6 +222,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+	// Compute the length of the cables between the two Posts in a row
+	// or column ourselves, as the numbers are not always given
+	// in the level
 	auto f = [&](int n){
 		auto& rng = m_game->m_area2info[n].first;
 		vector<int> v;

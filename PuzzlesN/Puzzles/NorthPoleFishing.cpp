@@ -82,11 +82,6 @@ struct puz_area
 		m_inner.insert(p);
 		m_ready = m_inner.size() == PUZ_PIECE_SIZE;
 	}
-
-	bool operator<(const puz_area& x) const {
-		return make_pair(m_ready, m_outer.size()) <
-			make_pair(x.m_ready, x.m_outer.size());
-	}
 };
 
 struct puz_state : string
@@ -114,6 +109,7 @@ struct puz_state : string
 	const puz_game* m_game = nullptr;
 	map<char, puz_area> m_id2area;
 	unsigned int m_distance = 0;
+	string m_next;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -183,19 +179,32 @@ int puz_state::adjust_area(bool init)
 	}
 
 	// pruning
-	set<Position> rng;
+	map<Position, set<char>> space2ids;
 	for(const auto& kv : m_id2area){
 		auto& area = kv.second;
 		int d = PUZ_PIECE_SIZE - area.m_inner.size();
 		for(auto& p : area.m_outer){
 			list<puz_state2> smoves;
 			puz_move_generator<puz_state2>::gen_moves({*this, p, d}, smoves);
-			rng.insert(smoves.begin(), smoves.end());
+			for(auto& p2 : smoves)
+				space2ids[p2].insert(kv.first);
 		}
 	}
-	int sz1 = rng.size();
-	int sz2 = boost::count(*this, PUZ_SPACE);
-	return sz1 == sz2 ? 2 : 0;
+	if(space2ids.size() != boost::count(*this, PUZ_SPACE))
+		return 0;
+
+	if(space2ids.empty())
+		m_next = "";
+	else{
+		// find the tile reachable from the fewest number of fishing holes
+		const auto& ids = boost::min_element(space2ids, [](
+			const pair<const Position, set<char>>& kv1,
+			const pair<const Position, set<char>>& kv2){
+			return kv1.second.size() < kv2.second.size();
+		})->second;
+		m_next = string(ids.begin(), ids.end());
+	}
+	return 2;
 }
 
 void puz_state::make_move2(char id, Position p)
@@ -217,17 +226,12 @@ bool puz_state::make_move(char id, const Position& p)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	auto& kv = *boost::min_element(m_id2area, [](
-		const pair<char, puz_area>& kv1,
-		const pair<char, puz_area>& kv2){
-		return kv1.second < kv2.second;
-	});
-	if(kv.second.m_ready) return;
-	for(auto& p : kv.second.m_outer){
-		children.push_back(*this);
-		if(!children.back().make_move(kv.first, p))
-			children.pop_back();
-	}
+	for(char ch : m_next)
+		for(auto& p : m_id2area.at(ch).m_outer){
+			children.push_back(*this);
+			if(!children.back().make_move(ch, p))
+				children.pop_back();
+		}
 }
 
 ostream& puz_state::dump(ostream& out) const

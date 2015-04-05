@@ -404,8 +404,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
 	if(!m_matches.empty()){
 		auto& kv = *boost::min_element(m_matches, [](
-			const pair<char, vector<vector<Position>>>& kv1,
-			const pair<char, vector<vector<Position>>>& kv2){
+			const pair<const char, vector<vector<Position>>>& kv1,
+			const pair<const char, vector<vector<Position>>>& kv2){
 			return kv1.second.size() < kv2.second.size();
 		});
 		for(int i = 0; i < kv.second.size(); ++i){

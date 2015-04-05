@@ -98,7 +98,7 @@ struct puz_state : string
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return boost::accumulate(m_ch2garden, 0, [](int acc, const pair<char, puz_garden>& kv){
+		return boost::accumulate(m_ch2garden, 0, [](int acc, const pair<const char, puz_garden>& kv){
 			return acc + kv.second.m_remaining;
 		});
 	}
@@ -250,10 +250,10 @@ bool puz_state::make_move2(char ch, const Position& p)
 	});
 
 	// pruning
-	if(boost::algorithm::any_of(m_ch2garden, [&](const pair<char, puz_garden>& kv){
+	if(boost::algorithm::any_of(m_ch2garden, [&](const pair<const char, puz_garden>& kv){
 		auto& g = kv.second;
 		return !g.m_paired && boost::algorithm::none_of(kv.second.m_inner, [&](const Position& p2){
-			return boost::algorithm::any_of(m_ch2garden, [&](const pair<char, puz_garden>& kv2){
+			return boost::algorithm::any_of(m_ch2garden, [&](const pair<const char, puz_garden>& kv2){
 				auto& g2 = kv2.second;
 				return kv.first != kv2.first && !g2.m_paired &&
 					boost::algorithm::any_of(g2.m_inner, [&](const Position& p3){
@@ -281,8 +281,8 @@ bool puz_state::make_move(char ch, const Position& p)
 void puz_state::gen_children(list<puz_state>& children) const
 {
 	auto& kv = *boost::min_element(m_ch2garden, [](
-		const pair<char, puz_garden>& kv1,
-		const pair<char, puz_garden>& kv2){
+		const pair<const char, puz_garden>& kv1,
+		const pair<const char, puz_garden>& kv2){
 		return kv1.second < kv2.second;
 	});
 	for(auto& p : kv.second.m_outer){
