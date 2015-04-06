@@ -93,7 +93,7 @@ struct puz_state
 	const puz_game* m_game = nullptr;
 	string m_cells;
 	// key: the position of the number
-	// value.elem: the lengths of the branches that stem from
+	// value.elem: respective lengths of the branches that stem from
 	//             the number in all the four directions
 	map<Position, vector<vector<int>>> m_matches;
 	unsigned int m_distance = 0;
@@ -132,6 +132,8 @@ int puz_state::find_matches(bool init)
 				}
 		}
 
+		// Compute the total length of the branches connected to the number
+		// Record the combination if the sum is equal to the given number
 		for(int n0 : dir_nums[0])
 			for(int n1 : dir_nums[1])
 				for(int n2 : dir_nums[2])
@@ -161,6 +163,7 @@ void puz_state::make_move2(const Position& p, const vector<int>& perm)
 			p2 += os;
 		}
 		if(n > 0)
+			// branch head
 			cells(p2) = str_branch[i + 4];
 	}
 

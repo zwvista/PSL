@@ -82,7 +82,12 @@ struct puz_area : pair<set<Position>, int>
 		if(!at_least_one || at_least_one && second == 1)
 			--second;
 	}
-	bool is_valid() const { return second >= 0 && first.size() >= second; }
+	bool is_valid() const {
+		// if second < 0, that means too many plants have been found in this area
+		// if first.size() < second, that means there are not enough positions
+		// for the plants to be found
+		return second >= 0 && first.size() >= second;
+	}
 };
 
 // all of the areas in the group
@@ -156,20 +161,30 @@ bool puz_state::make_move(const Position& p)
 {
 	cells(p) = PUZ_PLANT;
 
+	auto grps_remove_cell = [&](const Position& p2){
+		for(auto& a : m_grp_arrows)
+			a.remove_cell(p2);
+		m_grp_rows[p2.first].remove_cell(p2);
+		m_grp_cols[p2.second].remove_cell(p2);
+	};
+
 	for(auto& a : m_grp_arrows)
 		a.place_plant(p, true);
-	m_grp_rows[p.first].place_plant(p, false);
-	m_grp_cols[p.second].place_plant(p, false);
+	for(auto* a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}){
+		a->place_plant(p, false);
+		if(a->second == 0){
+			// copy the range
+			auto rng = a->first;
+			for(auto& p2 : rng)
+				grps_remove_cell(p2);
+		}
+	}
 
 	// no touch
 	for(auto& os : offset){
 		auto p2 = p + os;
-		if(is_valid(p2)){
-			for(auto& a : m_grp_arrows)
-				a.remove_cell(p2);
-			m_grp_rows[p2.first].remove_cell(p2);
-			m_grp_cols[p2.second].remove_cell(p2);
-		}
+		if(is_valid(p2))
+			grps_remove_cell(p2);
 	}
 
 	return m_grp_rows.is_valid() && m_grp_cols.is_valid();

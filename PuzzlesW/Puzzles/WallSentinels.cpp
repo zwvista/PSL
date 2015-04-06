@@ -105,7 +105,7 @@ struct puz_state
 	const puz_game* m_game = nullptr;
 	string m_cells;
 	// key: the position of the number that represents the sentinel
-	// value.elem: the numbers of the tiles visible from the position of
+	// value.elem: respective numbers of the tiles visible from the position of
 	//             the sentinel in all the four directions
 	map<Position, vector<vector<int>>> m_matches;
 	unsigned int m_distance = 0;
@@ -128,6 +128,7 @@ int puz_state::find_matches(bool init)
 		perms.clear();
 		bool is_wall = cells(p) == PUZ_WALL_S;
 
+		// Exclude the tile where the sentinel is located
 		int sum = m_game->m_pos2num.at(p) - 1;
 		vector<vector<int>> dir_nums(4);
 		for(int i = 0; i < 4; ++i){
@@ -151,6 +152,8 @@ int puz_state::find_matches(bool init)
 			}
 		}
 
+		// Compute the total number of the tiles the sentinel can see from the position
+		// Record the combination if the sum is equal to the given number
 		for(int n0 : dir_nums[0])
 			for(int n1 : dir_nums[1])
 				for(int n2 : dir_nums[2])

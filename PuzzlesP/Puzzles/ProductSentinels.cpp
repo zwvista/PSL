@@ -96,7 +96,7 @@ struct puz_state
 	const puz_game* m_game = nullptr;
 	string m_cells;
 	// key: the position of the number that represents the sentinel
-	// value.elem: the numbers of the tiles visible from the position of
+	// value.elem: respective numbers of the tiles visible from the position of
 	//             the sentinel in all the four directions
 	map<Position, vector<vector<int>>> m_matches;
 	unsigned int m_distance = 0;
@@ -140,6 +140,8 @@ int puz_state::find_matches(bool init)
 		}
 
 		int product = m_game->m_pos2num.at(p);
+		// Compute the product of the tiles the sentinel can see from the position
+		// Record the combination if the product is equal to the given number
 		for(int n0 : dir_nums[0])
 			for(int n1 : dir_nums[1])
 				for(int n2 : dir_nums[2])

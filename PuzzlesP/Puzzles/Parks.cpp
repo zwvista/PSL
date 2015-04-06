@@ -136,6 +136,9 @@ struct puz_area : pair<vector<Position>, int>
 	void remove_cell(const Position& p){ boost::remove_erase(first, p); }
 	void plant_tree(const Position& p){ remove_cell(p); --second; }
 	bool is_valid() const {
+		// if second < 0, that means too many trees have been planted in this area
+		// if first.size() < second, that means there are not enough positions
+		// for the trees to be planted
 		return second >= 0 && first.size() >= second;
 	}
 };

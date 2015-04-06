@@ -34,9 +34,6 @@
     <Text Include="Puzzles\Minesweeper.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\Mosaic.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\Masyu.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -56,6 +53,9 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\MiniLits.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Mosaik.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -92,9 +92,6 @@
     <ClCompile Include="Puzzles\Minesweeper.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\Mosaic.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\Masyu.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -114,6 +111,9 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\MiniLits.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Mosaik.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -136,9 +136,6 @@
     <Xml Include="Puzzles\Minesweeper.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\Mosaic.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\Masyu.xml">
       <Filter>Puzzles</Filter>
     </Xml>
@@ -158,6 +155,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\MiniLits.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Mosaik.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

@@ -3,13 +3,13 @@
 #include "solve_puzzle.h"
 
 /*
-	iOS Game: Logic Games/Puzzle Set 4/Mosaic
+	iOS Game: Logic Games/Puzzle Set 4/Mosaik
 
 	Summary
 	Paint the mosaic, filling squares with the numbered hints
 
 	Description
-	1. In Mosaic, there is a hidden image which can be discovered using the
+	1. In Mosaik, there is a hidden image which can be discovered using the
 	   numbered hints.
 	2. A number tells you how many tiles must be filled in the 3*3 area formed
 	   by the tile itself and the ones surrounding it.
@@ -19,12 +19,12 @@
 	   area are filled and some are not.
 */
 
-namespace puzzles{ namespace Mosaic{
+namespace puzzles{ namespace Mosaik{
 
 #define PUZ_UNKNOWN		10
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
-#define PUZ_MOSAIC		'M'
+#define PUZ_MOSAIK		'M'
 #define PUZ_BOUNDARY	'B'
 	
 const Position offset[] = {
@@ -67,7 +67,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
 	for(int i = 0; i <= 9; ++i){
 		auto& perms = m_num2perms[i];
-		auto perm = string(9 - i, PUZ_EMPTY) + string(i, PUZ_MOSAIC);
+		auto perm = string(9 - i, PUZ_EMPTY) + string(i, PUZ_MOSAIK);
 		do{
 			perms.push_back(perm);
 			perms_unknown.push_back(perm);
@@ -100,6 +100,8 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	string m_cells;
+	// key: the position of the number
+	// value.elem: the index of the permutation
 	map<Position, vector<int>> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -198,9 +200,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_Mosaic()
+void solve_puz_Mosaik()
 {
-	using namespace puzzles::Mosaic;
+	using namespace puzzles::Mosaik;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\Mosaic.xml", "Puzzles\\Mosaic.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\Mosaik.xml", "Puzzles\\Mosaik.txt", solution_format::GOAL_STATE_ONLY);
 }

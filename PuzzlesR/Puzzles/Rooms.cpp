@@ -103,7 +103,7 @@ struct puz_state
 	const puz_game* m_game = nullptr;
 	unsigned int m_distance = 0;
 	// key: the position of the room
-	// value.elem: the numbers of the rooms that can be seen from the room
+	// value.elem: respective numbers of the rooms visible from the room
 	//             in all the four directions
 	map<Position, vector<vector<int>>> m_matches;
 	// key: the position of the door
@@ -162,6 +162,8 @@ int puz_state::find_matches(bool init)
 			}();
 		}
 
+		// Compute the total number of the rooms visible from the room
+		// Record the combination if the sum is equal to the given number
 		for(int n0 : dir_nums[0])
 			for(int n1 : dir_nums[1])
 				for(int n2 : dir_nums[2])
@@ -211,6 +213,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 			set_door_status(p2, i, PUZ_DOOR_OPEN);
 			p2 += os;
 		}
+		// we choose to stop here, so the door must be closed
 		set_door_status(p2, i, PUZ_DOOR_CLOSED);
 	}
 

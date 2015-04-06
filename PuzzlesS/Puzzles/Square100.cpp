@@ -22,8 +22,11 @@ namespace puzzles{ namespace Square100{
 // a row or a column
 struct puz_area
 {
+	// all positions
 	vector<Position> m_range;
+	// all given digits
 	vector<int> m_nums;
+	// all permutations
 	vector<vector<int>> m_perms;
 };
 
