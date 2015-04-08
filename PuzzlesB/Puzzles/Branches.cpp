@@ -110,6 +110,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+	set<Position> spaces;
 	for(auto& kv : m_matches){
 		const auto& p = kv.first;
 		auto& perms = kv.second;
@@ -122,9 +123,11 @@ int puz_state::find_matches(bool init)
 			int n = 0;
 			auto& nums = dir_nums[i];
 			for(auto p2 = p + os; n <= sum; p2 += os)
-				if(cells(p2) == PUZ_SPACE)
+				if(cells(p2) == PUZ_SPACE){
 					// we can stop here
 					nums.push_back(n++);
+					spaces.insert(p2);
+				}
 				else{
 					// we have to stop here
 					nums.push_back(n);
@@ -149,7 +152,9 @@ int puz_state::find_matches(bool init)
 				return make_move2(p, perms.front()), 1;
 			}
 	}
-	return 2;
+	// pruning
+	// All the branches added up should cover all the remaining spaces
+	return boost::count(m_cells, PUZ_SPACE) == spaces.size() ? 2 : 0;
 }
 
 void puz_state::make_move2(const Position& p, const vector<int>& perm)
