@@ -35,12 +35,12 @@ const Position offset2[] = {
 	{0, 0},		// w
 };
 
-struct puz_numbers : set<char>
+struct puz_numbers : vector<char>
 {
 	puz_numbers() {}
 	puz_numbers(int num){
 		for(int i = 0; i < num; ++i)
-			insert(i + '1');
+			push_back(i + '1');
 	}
 };
 
@@ -127,6 +127,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	m_brick_count = m_area_pos.size() - m_sidelen * 2;
 }
 
+// first: the index of the area
 // second : all char numbers used to fill a position
 typedef pair<int, puz_numbers> puz_area;
 
@@ -153,7 +154,7 @@ struct puz_state : string
 	void remove_pair(const Position& p, char ch){
 		auto i = m_pos2nums.find(p);
 		if(i != m_pos2nums.end())
-			i->second.erase(ch);
+			boost::remove_erase(i->second, ch);
 	}
 
 	//solve_puzzle interface
@@ -204,6 +205,7 @@ bool puz_state::make_move(const Position& p, char ch)
 	};
 	for(auto a : areas)
 		f(a, ch);
+	// Each 2*1 brick contains and odd and an even number
 	auto a = areas[0];
 	for(char ch2 : a->second)
 		if((ch - '0') % 2 == (ch2 - '0') % 2)
@@ -221,11 +223,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 		const pair<const Position, puz_numbers>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
-
-	auto& p = kv.first;
 	for(char ch : kv.second){
 		children.push_back(*this);
-		if(!children.back().make_move(p, ch))
+		if(!children.back().make_move(kv.first, ch))
 			children.pop_back();
 	}
 }

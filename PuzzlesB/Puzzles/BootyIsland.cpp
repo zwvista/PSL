@@ -74,21 +74,26 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 // first : all the remaining positions in the area where a treasure can be found
 // second : the number of treasures that need to be found in the area
-struct puz_area : pair<set<Position>, int>
+struct puz_area : pair<vector<Position>, int>
 {
 	puz_area() {}
 	puz_area(int treasure_count_area)
-		: pair<set<Position>, int>({}, treasure_count_area)
+		: pair<vector<Position>, int>({}, treasure_count_area)
 	{}
-	void add_cell(const Position& p){ first.insert(p); }
-	void remove_cell(const Position& p){ first.erase(p); }
+	void add_cell(const Position& p){ first.push_back(p); }
+	void remove_cell(const Position& p){ boost::remove_erase(first, p); }
 	void find_treasure(const Position& p, bool at_least_one){
-		if(first.count(p) == 0) return;
-		first.erase(p);
+		if(boost::algorithm::none_of_equal(first, p)) return;
+		remove_cell(p);
 		if(!at_least_one || at_least_one && second == 1)
 			--second;
 	}
-	bool is_valid() const { return second >= 0 && first.size() >= second; }
+	bool is_valid() const { 
+		// if second < 0, that means too many treasures have been found in this area
+		// if first.size() < second, that means there are not enough positions
+		// for the treasures to be found
+		return second >= 0 && first.size() >= second;
+	}
 };
 
 // all of the areas in the group
@@ -136,10 +141,10 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
-, m_grp_maps(g.m_pos2map.size(), 1)
-, m_grp_rows(g.m_sidelen, g.m_treasure_count_area)
-, m_grp_cols(g.m_sidelen, g.m_treasure_count_area)
+	: string(g.m_start), m_game(&g)
+	, m_grp_maps(g.m_pos2map.size(), 1)
+	, m_grp_rows(g.m_sidelen, g.m_treasure_count_area)
+	, m_grp_cols(g.m_sidelen, g.m_treasure_count_area)
 {
 	for(int r = 0, i = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
@@ -170,20 +175,30 @@ bool puz_state::make_move(const Position& p)
 {
 	cells(p) = PUZ_TREASURE;
 
+	auto grps_remove_cell = [&](const Position& p2){
+		for(auto& a : m_grp_maps)
+			a.remove_cell(p2);
+		m_grp_rows[p2.first].remove_cell(p2);
+		m_grp_cols[p2.second].remove_cell(p2);
+	};
+
 	for(auto& a : m_grp_maps)
 		a.find_treasure(p, true);
-	m_grp_rows[p.first].find_treasure(p, false);
-	m_grp_cols[p.second].find_treasure(p, false);
+	for(auto* a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}){
+		a->find_treasure(p, false);
+		if(a->second == 0){
+			// copy the range
+			auto rng = a->first;
+			for(auto& p2 : rng)
+				grps_remove_cell(p2);
+		}
+	}
 
 	// no touch
 	for(auto& os : offset){
 		auto p2 = p + os;
-		if(is_valid(p2)){
-			for(auto& a : m_grp_maps)
-				a.remove_cell(p2);
-			m_grp_rows[p2.first].remove_cell(p2);
-			m_grp_cols[p2.second].remove_cell(p2);
-		}
+		if(is_valid(p2))
+			grps_remove_cell(p2);
 	}
 
 	return m_grp_rows.is_valid() && m_grp_cols.is_valid();

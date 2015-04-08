@@ -20,7 +20,7 @@
 	   by one and only one Arrow.
 */
 
-namespace puzzles{ namespace HiddenStar{
+namespace puzzles{ namespace HiddenStars{
 
 #define PUZ_SPACE		' '
 #define PUZ_EMPTY		'.'
@@ -82,17 +82,17 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 // first : all the remaining positions in the area where a star can be hidden
 // second : the number of stars that need to be found in the area
-struct puz_area : pair<set<Position>, int>
+struct puz_area : pair<vector<Position>, int>
 {
 	puz_area() {}
 	puz_area(int star_count)
-		: pair<set<Position>, int>({}, star_count)
+		: pair<vector<Position>, int>({}, star_count)
 	{}
-	void add_cell(const Position& p){ first.insert(p); }
-	void remove_cell(const Position& p){ first.erase(p); }
+	void add_cell(const Position& p){ first.push_back(p); }
+	void remove_cell(const Position& p){ boost::remove_erase(first, p); }
 	void place_star(const Position& p, bool at_least_one){
-		if(first.count(p) == 0) return;
-		first.erase(p);
+		if(boost::algorithm::none_of_equal(first, p)) return;
+		remove_cell(p);
 		if(!at_least_one || at_least_one && second == 1)
 			--second;
 	}
@@ -175,10 +175,23 @@ bool puz_state::make_move(const Position& p)
 {
 	cells(p) = PUZ_STAR;
 
+	auto f = [&](puz_area& a, bool at_least_one){
+		a.place_star(p, at_least_one);
+		if(at_least_one || a.second > 0) return;
+		// copy the range
+		auto rng = a.first;
+		for(auto& p2 : rng){
+			for(auto& a2 : m_grp_arrows)
+				a2.remove_cell(p2);
+			m_grp_rows[p2.first].remove_cell(p2);
+			m_grp_cols[p2.second].remove_cell(p2);
+		}
+	};
+
 	for(auto& a : m_grp_arrows)
-		a.place_star(p, !m_game->m_only_one_arrow);
-	m_grp_rows[p.first].place_star(p, false);
-	m_grp_cols[p.second].place_star(p, false);
+		f(a, !m_game->m_only_one_arrow);
+	f(m_grp_rows[p.first], false);
+	f(m_grp_cols[p.second], false);
 
 	return m_grp_rows.is_valid() && m_grp_cols.is_valid() &&
 		(!m_game->m_only_one_arrow || m_grp_arrows.is_valid()) &&
@@ -231,9 +244,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_HiddenStar()
+void solve_puz_HiddenStars()
 {
-	using namespace puzzles::HiddenStar;
+	using namespace puzzles::HiddenStars;
 	solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-		"Puzzles\\HiddenStar.xml", "Puzzles\\HiddenStar.txt", solution_format::GOAL_STATE_ONLY);
+		"Puzzles\\HiddenStars.xml", "Puzzles\\HiddenStars.txt", solution_format::GOAL_STATE_ONLY);
 }

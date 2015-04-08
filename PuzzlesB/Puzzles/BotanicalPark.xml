@@ -43,6 +43,22 @@
          \
     ]]>
   </level>
+  <level id="23" PlantsInEachArea="2">
+    <![CDATA[
+  33        \
+     66     \
+            \
+ 00   2     \
+      2 11  \
+22 77       \
+            \
+4           \
+4 66        \
+       55 4 \
+          4 \
+            \
+    ]]>
+  </level>
   <level id="24" PlantsInEachArea="2">
     <![CDATA[
         6665\

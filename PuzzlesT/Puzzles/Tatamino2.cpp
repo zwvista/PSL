@@ -51,6 +51,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
+struct puz_area
+{
+	set<Position> m_inner, m_outer;
+	int m_cell_count;
+};
+
 struct puz_state : string
 {
 	puz_state() {}

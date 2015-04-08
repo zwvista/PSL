@@ -68,17 +68,17 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 // first : all the remaining positions in the area where a plant can be hidden
 // second : the number of plants that need to be found in the area
-struct puz_area : pair<set<Position>, int>
+struct puz_area : pair<vector<Position>, int>
 {
 	puz_area() {}
 	puz_area(int plant_count)
-		: pair<set<Position>, int>({}, plant_count)
+		: pair<vector<Position>, int>({}, plant_count)
 	{}
-	void add_cell(const Position& p){ first.insert(p); }
-	void remove_cell(const Position& p){ first.erase(p); }
+	void add_cell(const Position& p){ first.push_back(p); }
+	void remove_cell(const Position& p){ boost::remove_erase(first, p); }
 	void place_plant(const Position& p, bool at_least_one){
-		if(first.count(p) == 0) return;
-		first.erase(p);
+		if(boost::algorithm::none_of_equal(first, p)) return;
+		remove_cell(p);
 		if(!at_least_one || at_least_one && second == 1)
 			--second;
 	}
@@ -135,10 +135,10 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
-, m_grp_arrows(g.m_pos2arrow.size(), 1)
-, m_grp_rows(g.m_sidelen, g.m_plant_count_area)
-, m_grp_cols(g.m_sidelen, g.m_plant_count_area)
+	: string(g.m_start), m_game(&g)
+	, m_grp_arrows(g.m_pos2arrow.size(), 1)
+	, m_grp_rows(g.m_sidelen, g.m_plant_count_area)
+	, m_grp_cols(g.m_sidelen, g.m_plant_count_area)
 {
 	for(int r = 0, i = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){

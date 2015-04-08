@@ -99,7 +99,12 @@ struct puz_area : pair<vector<Position>, int>
 		is_grp_thermometers ? ++second : --second;
 		return true;
 	}
-	bool is_valid() const { return second >= 0 && first.size() >= second; }
+	bool is_valid() const {
+		// if second < 0, that means too much mercury have been filled in this area
+		// if first.size() < second, that means there are not enough positions
+		// for the mercury to be filled
+		return second >= 0 && first.size() >= second;
+	}
 };
 
 // all of the areas in the group
