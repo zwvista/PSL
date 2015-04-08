@@ -1,0 +1,30 @@
+Level 1
+Sequence of moves: 
+Number of moves: 14
+Number of vertices examined: 15
+38.815 [s]
+
+Level 2
+Sequence of moves: 
+Number of moves: 15
+Number of vertices examined: 16
+0.120904 [s]
+
+Level 3
+Sequence of moves: 
+Number of moves: 13
+Number of vertices examined: 14
+0.0661327 [s]
+
+Level 36
+Sequence of moves: 
+Number of moves: 46
+Number of vertices examined: 47
+0.207939 [s]
+
+Level 170
+Sequence of moves: 
+Number of moves: 116
+Number of vertices examined: 117
+0.927339 [s]
+

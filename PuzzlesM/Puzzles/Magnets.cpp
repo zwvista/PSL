@@ -35,7 +35,8 @@ const Position offset[] = {
 	{-1, 0},
 };
 
-typedef set<char> puz_chars;
+typedef vector<char> puz_chars;
+const puz_chars all_chars = {PUZ_POSITIVE, PUZ_NEGATIVE, PUZ_EMPTY};
 
 struct puz_game
 {
@@ -92,6 +93,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
+// first: the index of the area
 // second.key : all chars used to fill a position
 // second.first : the number of remaining times that the key char can be used in the area
 // second.second : the number of times that the key char has been used in the area
@@ -107,7 +109,7 @@ struct puz_area : pair<int, map<char, pair<int, int>>>
 			num_negative == PUZ_UNKNOWN ? PUZ_UNKNOWN :
 			num_all - num_positive - num_negative, 0};
 	}
-	bool fill_cells(const Position& p, char ch){
+	bool fill_cell(const Position& p, char ch){
 		auto& kv = second.at(ch);
 		if(kv.first != PUZ_UNKNOWN)
 			--kv.first;
@@ -122,7 +124,14 @@ struct puz_area : pair<int, map<char, pair<int, int>>>
 	}
 };
 
-typedef vector<puz_area> puz_group;
+struct puz_group : vector<puz_area>
+{
+	bool is_ready() const {
+		return boost::algorithm::all_of(*this, [](const puz_area& a){
+			return a.is_ready();
+		});
+	}
+};
 
 struct puz_state : string
 {
@@ -141,10 +150,11 @@ struct puz_state : string
 			for(auto& p : m_game->m_area_info[a.first])
 				remove_pair(p, ch);
 	}
+	// remove the possibility of filling the position p with char ch
 	void remove_pair(const Position& p, char ch){
 		auto i = m_pos2chars.find(p);
 		if(i != m_pos2chars.end())
-			i->second.erase(ch);
+			boost::remove_erase(i->second, ch);
 	}
 
 	//solve_puzzle interface
@@ -168,7 +178,6 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_game(&g)
 {
-	puz_chars all_chars = {PUZ_POSITIVE, PUZ_NEGATIVE, PUZ_EMPTY};
 	for(int r = 0; r < g.m_sidelen; ++r)
 		for(int c = 0; c < g.m_sidelen; ++c){
 			Position p(r, c);
@@ -197,10 +206,12 @@ bool puz_state::make_move(const Position& p, char ch)
 	if(!make_move2(p, ch))
 		return false;
 
+	// The rectangle should be handled within one move
 	auto rng = m_game->m_area_info.at(m_game->m_pos2rect.at(p));
 	boost::remove_erase(rng, p);
 	auto& p2 = rng[0];
 
+	// We either fill the rectangle with a Magnet or mark it as empty
 	char ch2 =
 		ch == PUZ_EMPTY ? PUZ_EMPTY :
 		ch == PUZ_POSITIVE ? PUZ_NEGATIVE :
@@ -214,7 +225,7 @@ bool puz_state::make_move2(const Position& p, char ch)
 	m_pos2chars.erase(p);
 
 	for(auto a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}){
-		if(!a->fill_cells(p, ch))
+		if(!a->fill_cell(p, ch))
 			return false;
 		check_area(*a, ch);
 	}
@@ -227,14 +238,9 @@ bool puz_state::make_move2(const Position& p, char ch)
 				remove_pair(p2, ch);
 		}
 
-	auto f = [](const puz_group& grp){
-		return boost::algorithm::all_of(grp, [](const puz_area& a){
-			return a.is_ready();
-		});
-	};
 	return boost::algorithm::none_of(m_pos2chars, [](const pair<const Position, puz_chars>& kv){
 		return kv.second.empty();
-	}) && (!is_goal_state() || f(m_grp_rows) && f(m_grp_cols));
+	}) && (!is_goal_state() || m_grp_rows.is_ready() && m_grp_cols.is_ready());
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
