@@ -206,12 +206,13 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 		}
 		char& ch = cells(p2);
 		if(ch == PUZ_SPACE){
-			// Two Towers can't touch horizontally or vertically
-			if(boost::algorithm::any_of(offset, [&](const Position& os2){
-				return cells(p2 + os2) == PUZ_TOWER;
-			}))
-				return false;
 			ch = PUZ_TOWER;
+			// Two Towers can't touch horizontally or vertically
+			for(auto& os2 : offset){
+				char& ch2 = cells(p2 + os2);
+				if(ch2 == PUZ_SPACE)
+					ch2 = PUZ_EMPTY;
+			}
 		}
 	}
 

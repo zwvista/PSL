@@ -114,7 +114,12 @@ struct puz_area : pair<vector<Position>, int>
 		if(!at_least_one || at_least_one && second == 1)
 			--second;
 	}
-	bool is_valid() const { return second >= 0 && first.size() >= second; }
+	bool is_valid() const {
+		// if second < 0, that means too many tents have been put in this area
+		// if first.size() < second, that means there are not enough positions
+		// for the tents to be put
+		return second >= 0 && first.size() >= second;
+	}
 };
 
 // all of the areas in the group

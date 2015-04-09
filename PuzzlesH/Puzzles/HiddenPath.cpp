@@ -57,7 +57,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 				m_start = p;
 			m_nums.push_back(n);
 			m_dirs.push_back(str[c + 2] - '0');
-			if(n != 0)
+			if(n != PUZ_UNKNOWN)
 				m_num2pos[n] = p;
 		}
 	}
