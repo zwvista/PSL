@@ -99,7 +99,7 @@ struct puz_state : vector<puz_dot>
 puz_state::puz_state(const puz_game& g)
 : vector<puz_dot>(g.m_dot_count), m_game(&g)
 {
-	auto lines_off = string(4, PUZ_LINE_OFF);
+	auto lineseg_off = string(4, PUZ_LINE_OFF);
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
@@ -113,7 +113,7 @@ puz_state::puz_state(const puz_game& g)
 			// Find all line permutations from the dot
 			for(int i = 0; i < dirs.size() - 1; ++i)
 				for(int j = i + 1; j < dirs.size(); ++j){
-					auto lines = lines_off;
+					auto lines = lineseg_off;
 					lines[dirs[i]] = lines[dirs[j]] = PUZ_LINE_ON;
 					dt.push_back(lines);
 				}

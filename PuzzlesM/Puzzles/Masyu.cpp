@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -23,20 +23,27 @@
 
 namespace puzzles{ namespace Masyu{
 
-#define PUZ_LINE_OFF		'0'
-#define PUZ_LINE_ON			'1'
 #define PUZ_BLACK_PEARL		'B'
 #define PUZ_WHITE_PEARL		'W'
 
-const string lines_off = "0000";
-const vector<string> lines_all = {
-	"0011", "0101", "0110", "1001", "1010", "1100",
+// n-e-s-w
+// 0 means line is off in this direction
+// 1,2,4,8 means line is on in this direction
+
+inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
+
+const int lineseg_off = 0;
+const vector<int> linesegs_all = {
+	// ┐  ─  ┌  ┘  │  └
+	12, 10, 6, 9, 5, 3,
 };
-const vector<string> lines_all_black = {
-	"1100", "0110", "0011", "1001",
+const vector<int> linesegs_all_black = {
+	// └  ┌  ┐  ┘
+	3, 6, 12, 9,
 };
-const vector<string> lines_all_white = {
-	"1010", "0101",
+const vector<int> linesegs_all_white = {
+	// │  ─
+	5, 10,
 };
 
 const Position offset[] = {
@@ -46,31 +53,41 @@ const Position offset[] = {
 	{0, -1},		// w
 };
 
-typedef pair<Position, string> puz_dot_info;
-const puz_dot_info dot_info_black[][3] = {
-	{{{0, 0}, "1100"}, {{-1, 0}, "1010"}, {{0, 1}, "0101"}},		// n & e
-	{{{0, 0}, "0110"}, {{0, 1}, "0101"}, {{1, 0}, "1010"}},		// e & s
-	{{{0, 0}, "0011"}, {{1, 0}, "1010"}, {{0, -1}, "0101"}},		// s & w
-	{{{0, 0}, "1001"}, {{0, -1}, "0101"}, {{-1, 0}, "1010"}},	// w & n
-};
-const puz_dot_info dot_info_white[][3] = {
-	{{{0, 0}, "1010"}, {{-1, 0}, "1010"}, {{1, 0}, "1100"}},		// n & s
-	{{{0, 0}, "1010"}, {{-1, 0}, "1010"}, {{1, 0}, "1001"}},		// n & s
-	{{{0, 0}, "1010"}, {{-1, 0}, "0110"}, {{1, 0}, "1100"}},		// n & s
-	{{{0, 0}, "1010"}, {{-1, 0}, "0110"}, {{1, 0}, "1010"}},		// n & s
-	{{{0, 0}, "1010"}, {{-1, 0}, "0110"}, {{1, 0}, "1001"}},		// n & s
-	{{{0, 0}, "1010"}, {{-1, 0}, "0011"}, {{1, 0}, "1100"}},		// n & s
-	{{{0, 0}, "1010"}, {{-1, 0}, "0011"}, {{1, 0}, "1010"}},		// n & s
-	{{{0, 0}, "1010"}, {{-1, 0}, "0011"}, {{1, 0}, "1001"}},		// n & s
+// first: the offset of the line segment
+// second: an integer that depicts the line segment
+typedef pair<Position, int> puz_lineseg_info;
 
-	{{{0, 0}, "0101"}, {{0, 1}, "1001"}, {{0, -1}, "1100"}},		// e & w
-	{{{0, 0}, "0101"}, {{0, 1}, "1001"}, {{0, -1}, "0110"}},		// e & w
-	{{{0, 0}, "0101"}, {{0, 1}, "1001"}, {{0, -1}, "0101"}},		// e & w
-	{{{0, 0}, "0101"}, {{0, 1}, "0101"}, {{0, -1}, "1100"}},		// e & w
-	{{{0, 0}, "0101"}, {{0, 1}, "0101"}, {{0, -1}, "0110"}},		// e & w
-	{{{0, 0}, "0101"}, {{0, 1}, "0011"}, {{0, -1}, "1100"}},		// e & w
-	{{{0, 0}, "0101"}, {{0, 1}, "0011"}, {{0, -1}, "0110"}},		// e & w
-	{{{0, 0}, "0101"}, {{0, 1}, "0011"}, {{0, -1}, "0101"}},		// e & w
+// permutations of the line segments for a black pearl
+const puz_lineseg_info black_pearl_perms[][3] = {
+	// │  ┌─ ─┐  │
+	// └─ │   │ ─┘
+	{{{0, 0}, 3}, {{-1, 0}, 5}, {{0, 1}, 10}},		// n & e
+	{{{0, 0}, 6}, {{0, 1}, 10}, {{1, 0}, 5}},		// e & s
+	{{{0, 0}, 12}, {{1, 0}, 5}, {{0, -1}, 10}},		// s & w
+	{{{0, 0}, 9}, {{0, -1}, 10}, {{-1, 0}, 5}},	// w & n
+};
+// permutations of the line segments for a white pearl
+const puz_lineseg_info white_pearl_perms[][3] = {
+	// │ │ ┌ ┌ ┌ ┐ ┐ ┐
+	// │ │ │ │ │ │ │ │
+	// └ ┘ │ └ ┘ │ └ ┘
+	{{{0, 0}, 5}, {{-1, 0}, 5}, {{1, 0}, 3}},		// n & s
+	{{{0, 0}, 5}, {{-1, 0}, 5}, {{1, 0}, 9}},		// n & s
+	{{{0, 0}, 5}, {{-1, 0}, 6}, {{1, 0}, 3}},		// n & s
+	{{{0, 0}, 5}, {{-1, 0}, 6}, {{1, 0}, 5}},		// n & s
+	{{{0, 0}, 5}, {{-1, 0}, 6}, {{1, 0}, 9}},		// n & s
+	{{{0, 0}, 5}, {{-1, 0}, 12}, {{1, 0}, 3}},		// n & s
+	{{{0, 0}, 5}, {{-1, 0}, 12}, {{1, 0}, 5}},		// n & s
+	{{{0, 0}, 5}, {{-1, 0}, 12}, {{1, 0}, 9}},		// n & s
+	// └─┘ ┌─┘ ──┘ └── ┌── └─┐ ┌─┐ ──┐
+	{{{0, 0}, 10}, {{0, 1}, 9}, {{0, -1}, 3}},		// e & w
+	{{{0, 0}, 10}, {{0, 1}, 9}, {{0, -1}, 6}},		// e & w
+	{{{0, 0}, 10}, {{0, 1}, 9}, {{0, -1}, 10}},		// e & w
+	{{{0, 0}, 10}, {{0, 1}, 10}, {{0, -1}, 3}},		// e & w
+	{{{0, 0}, 10}, {{0, 1}, 10}, {{0, -1}, 6}},		// e & w
+	{{{0, 0}, 10}, {{0, 1}, 12}, {{0, -1}, 3}},		// e & w
+	{{{0, 0}, 10}, {{0, 1}, 12}, {{0, -1}, 6}},		// e & w
+	{{{0, 0}, 10}, {{0, 1}, 12}, {{0, -1}, 10}},		// e & w
 };
 
 struct puz_game
@@ -101,7 +118,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-typedef vector<string> puz_dot;
+typedef vector<int> puz_dot;
 
 struct puz_state
 {
@@ -136,13 +153,15 @@ struct puz_state
 
 	const puz_game* m_game = nullptr;
 	vector<puz_dot> m_dots;
+	// key: the position of the dot
+	// value: the index of the permutation
 	map<Position, vector<int>> m_matches;
 	set<Position> m_finished;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_dots(g.m_dot_count), m_game(&g)
+	: m_dots(g.m_dot_count), m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
@@ -150,20 +169,20 @@ puz_state::puz_state(const puz_game& g)
 			auto& dt = dots(p);
 			auto it = g.m_pos2pearl.find(p);
 			if(it == g.m_pos2pearl.end())
-				dt.push_back(lines_off);
+				dt.push_back(lineseg_off);
 
-			auto& lines_all2 = 
-				it == g.m_pos2pearl.end() ? lines_all :
-				it->second == PUZ_BLACK_PEARL ? lines_all_black :
-				lines_all_white;
-			for(auto& lines : lines_all2)
+			auto& linesegs_all2 = 
+				it == g.m_pos2pearl.end() ? linesegs_all :
+				it->second == PUZ_BLACK_PEARL ? linesegs_all_black :
+				linesegs_all_white;
+			for(auto& lineseg : linesegs_all2)
 				if([&]{
 					for(int i = 0; i < 4; ++i)
-						if(lines[i] == PUZ_LINE_ON && !is_valid(p + offset[i]))
+						if(is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
 							return false;
 					return true;
 				}())
-					dt.push_back(lines);
+					dt.push_back(lineseg);
 		}
 
 	for(auto& kv : g.m_pos2pearl){
@@ -182,13 +201,13 @@ int puz_state::find_matches(bool init)
 		const auto& p = kv.first;
 		auto& perm_ids = kv.second;
 
-		auto info = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
-			dot_info_black : dot_info_white;
+		auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
+			black_pearl_perms : white_pearl_perms;
 		boost::remove_erase_if(perm_ids, [&](int id){
-			auto info2 = info[id];
+			auto perm = perms[id];
 			for(int i = 0; i < 3; ++i){
-				auto& info3 = info2[i];
-				if(boost::algorithm::none_of_equal(dots(p + info3.first), info3.second))
+				auto& info = perm[i];
+				if(boost::algorithm::none_of_equal(dots(p + info.first), info.second))
 					return true;
 			}
 			return false;
@@ -223,14 +242,14 @@ int puz_state::check_dots(bool init)
 
 		n = 1;
 		for(const auto& p : newly_finished){
-			const auto& lines = dots(p)[0];
+			int lineseg = dots(p)[0];
 			for(int i = 0; i < 4; ++i){
 				auto p2 = p + offset[i];
 				if(!is_valid(p2))
 					continue;
 				auto& dt = dots(p2);
-				boost::remove_erase_if(dt, [&, i](const string& s){
-					return s[(i + 2) % 4] != lines[i];
+				boost::remove_erase_if(dt, [&, i](int lineseg2){
+					return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
 				});
 				if(!init && dt.empty())
 					return 0;
@@ -243,12 +262,12 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::make_move_pearl2(const Position& p, int n)
 {
-	auto info = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
-		dot_info_black : dot_info_white;
-	auto info2 = info[n];
+	auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
+		black_pearl_perms : white_pearl_perms;
+	auto perm = perms[n];
 	for(int i = 0; i < 3; ++i){
-		auto& info3 = info2[i];
-		dots(p + info3.first) = {info3.second};
+		auto& info = perm[i];
+		dots(p + info.first) = {info.second};
 	}
 	m_matches.erase(p);
 	return check_loop();
@@ -277,7 +296,8 @@ bool puz_state::make_move_line(const Position& p, int n)
 	m_distance = 0;
 	auto& dt = dots(p);
 	dt = {dt[n]};
-	return check_dots(false) != 0 && check_loop();
+	int m = check_dots(false);
+	return m == 1 ? check_loop() : m == 2;
 }
 
 bool puz_state::check_loop() const
@@ -287,7 +307,7 @@ bool puz_state::check_loop() const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			if(dt.size() == 1 && dt[0] != lines_off)
+			if(dt.size() == 1 && dt[0] != lineseg_off)
 				rng.insert(p);
 		}
 
@@ -296,9 +316,9 @@ bool puz_state::check_loop() const
 		auto p = *rng.begin(), p2 = p;
 		for(int n = -1;;){
 			rng.erase(p2);
-			auto& str = dots(p2)[0];
+			auto& lineseg = dots(p2)[0];
 			for(int i = 0; i < 4; ++i)
-				if(str[i] == PUZ_LINE_ON && (i + 2) % 4 != n){
+				if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){
 					p2 += offset[n = i];
 					break;
 				}
@@ -355,13 +375,13 @@ ostream& puz_state::dump(ostream& out) const
 			auto& dt = dots(p);
 			auto it = m_game->m_pos2pearl.find(p);
 			out << (it != m_game->m_pos2pearl.end() ? it->second : ' ')
-				<< (dt[0][1] == PUZ_LINE_ON ? '-' : ' ');
+				<< (is_lineseg_on(dt[0], 1) ? '-' : ' ');
 		}
 		out << endl;
 		if(r == sidelen() - 1) break;
 		for(int c = 0; c < sidelen(); ++c)
 			// draw vert-lines
-			out << (dots({r, c})[0][2] == PUZ_LINE_ON ? "| " : "  ");
+			out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
 		out << endl;
 	}
 	return out;

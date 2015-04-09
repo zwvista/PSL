@@ -36,7 +36,7 @@ namespace puzzles{ namespace NumberLink{
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
 
-const string lines_off = "0000";
+const string lineseg_off = "0000";
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -124,7 +124,7 @@ struct puz_state : vector<string>
 	unsigned int get_heuristic() const {
 		return (sidelen() - 2) * (sidelen() - 2) - 
 			boost::count_if(*this, [](const string& s){
-			return s.substr(1) != lines_off;
+			return s.substr(1) != lineseg_off;
 		});
 	}
 	unsigned int get_distance(const puz_state& child) const { return 1; }
@@ -143,7 +143,7 @@ puz_state::puz_state(const puz_game& g)
 : vector<string>(g.m_start.size()), m_game(&g)
 {
 	for(int i = 0; i < size(); ++i)
-		(*this)[i] = g.m_start[i] + lines_off;
+		(*this)[i] = g.m_start[i] + lineseg_off;
 	
 	for(auto& kv : g.m_num2dist)
 		m_num2targets.emplace_back(kv.first, g.m_num2targets.at(kv.first));

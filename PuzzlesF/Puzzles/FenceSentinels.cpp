@@ -25,8 +25,8 @@ namespace puzzles{ namespace FenceSentinels{
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
 
-const string lines_off = "0000";
-const string lines_all[] = {
+const string lineseg_off = "0000";
+const string linesegs_all[] = {
 	"0011", "0101", "0110", "1001", "1010", "1100",
 };
 
@@ -112,13 +112,13 @@ struct puz_state : vector<puz_dot>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count, {lines_off}), m_game(&g)
+: vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			for(auto& lines : lines_all)
+			for(auto& lines : linesegs_all)
 				if([&]{
 					for(int i = 0; i < 4; ++i)
 						if(lines[i] == PUZ_LINE_ON && !is_valid_point(p + offset[i]))
@@ -257,7 +257,7 @@ bool puz_state::check_loop() const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			if(dt.size() == 1 && dt[0] != lines_off)
+			if(dt.size() == 1 && dt[0] != lineseg_off)
 				rng.insert(p);
 		}
 

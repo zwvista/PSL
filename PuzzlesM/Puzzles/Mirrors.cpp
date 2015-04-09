@@ -31,8 +31,8 @@ namespace puzzles{ namespace Mirrors{
 #define PUZ_BLOCK			"B "
 #define PUZ_SPOT			"S "
 
-const string lines_off = "0000";
-const vector<string> lines_all = {
+const string lineseg_off = "0000";
+const vector<string> linesegs_all = {
 	"0011", "0101", "0110", "1001", "1010", "1100",
 };
 const vector<string> lines_spot = {
@@ -73,7 +73,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			if(s == PUZ_SPOT)
 				m_spots.insert(p);
 			else if(s != "  "){
-				auto lines = lines_off;
+				auto lines = lineseg_off;
 				if(s != PUZ_BLOCK)
 					lines[s[0] - '0'] = lines[s[1] - '0'] = PUZ_LINE_ON;
 				m_pos2lines[{r, c}] = lines;
@@ -125,8 +125,8 @@ puz_state::puz_state(const puz_game& g)
 			if(it != g.m_pos2lines.end())
 				dt = {it->second};
 			else{
-				auto& lines_all2 = g.m_spots.count(p) != 0 ? lines_spot : lines_all;
-				for(auto& lines : lines_all2)
+				auto& linesegs_all2 = g.m_spots.count(p) != 0 ? lines_spot : linesegs_all;
+				for(auto& lines : linesegs_all2)
 					if([&]{
 						for(int i = 0; i < 4; ++i)
 							if(lines[i] == PUZ_LINE_ON && !is_valid(p + offset[i]))
@@ -191,7 +191,7 @@ bool puz_state::check_loop() const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			if(dt.size() == 1 && dt[0] != lines_off)
+			if(dt.size() == 1 && dt[0] != lineseg_off)
 				rng.insert(p);
 		}
 
@@ -243,7 +243,7 @@ ostream& puz_state::dump(ostream& out) const
 			Position p(r, c);
 			auto& dt = dots(p);
 			out << (m_game->m_spots.count(p) != 0 ? PUZ_SPOT :
-				dt[0] == lines_off ? PUZ_BLOCK :
+				dt[0] == lineseg_off ? PUZ_BLOCK :
 				dt[0][1] == PUZ_LINE_ON ? " -" : "  ");
 		}
 		out << endl;

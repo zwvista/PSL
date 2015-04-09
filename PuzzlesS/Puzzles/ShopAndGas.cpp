@@ -42,14 +42,14 @@ namespace puzzles{ namespace ShopAndGas{
 #define PUZ_SHOP			'S'
 #define PUZ_GAS				'G'
 
-const string lines_off = "0000";
-const vector<string> lines_all = {
+const string lineseg_off = "0000";
+const vector<string> linesegs_all = {
 	"0011", "0101", "0110", "1001", "1010", "1100",
 };
-const vector<string> lines_all_gas = {
+const vector<string> linesegs_all_gas = {
 	"1100", "0110", "0011", "1001",
 };
-const vector<string> lines_all_shop = {
+const vector<string> linesegs_all_shop = {
 	"1010", "0101",
 };
 
@@ -129,13 +129,13 @@ puz_state::puz_state(const puz_game& g)
 			auto& dt = dots(p);
 			auto it = g.m_pos2object.find(p);
 			if(it == g.m_pos2object.end())
-				dt.push_back(lines_off);
+				dt.push_back(lineseg_off);
 
-			auto& lines_all2 = 
-				it == g.m_pos2object.end() || it->second == PUZ_HOME ? lines_all :
-				it->second == PUZ_GAS ? lines_all_gas :
-				lines_all_shop;
-			for(auto& lines : lines_all2)
+			auto& linesegs_all2 = 
+				it == g.m_pos2object.end() || it->second == PUZ_HOME ? linesegs_all :
+				it->second == PUZ_GAS ? linesegs_all_gas :
+				linesegs_all_shop;
+			for(auto& lines : linesegs_all2)
 				if([&]{
 					for(int i = 0; i < 4; ++i)
 						if(lines[i] == PUZ_LINE_ON && !is_valid(p + offset[i]))
@@ -199,7 +199,7 @@ bool puz_state::check_loop() const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			if(dt.size() == 1 && dt[0] != lines_off)
+			if(dt.size() == 1 && dt[0] != lineseg_off)
 				rng.insert(p);
 		}
 

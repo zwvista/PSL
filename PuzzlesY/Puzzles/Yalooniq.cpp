@@ -29,8 +29,8 @@ namespace puzzles{ namespace Yalooniq{
 #define PUZ_SQUARE_OFF		'0'
 #define PUZ_SQUARE_ON		'1'
 
-const string lines_off = "0000";
-const string lines_all[] = {
+const string lineseg_off = "0000";
+const string linesegs_all[] = {
 	"0011", "0101", "0110", "1001", "1010", "1100",
 };
 const string square_dirs = "^>v<";
@@ -133,7 +133,7 @@ struct puz_state : vector<puz_dot>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count, {lines_off}), m_game(&g)
+: vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
@@ -142,7 +142,7 @@ puz_state::puz_state(const puz_game& g)
 				continue;
 
 			auto& dt = dots(p);
-			for(auto& lines : lines_all)
+			for(auto& lines : linesegs_all)
 				if([&]{
 					for(int i = 0; i < 4; ++i){
 						if(lines[i] == PUZ_LINE_OFF)
@@ -182,8 +182,8 @@ int puz_state::find_matches(bool init)
 			for(int i = 0; i < rng.size(); ++i){
 				char ch = perm[i];
 				const auto& dt = dots(rng[i]);
-				if(ch == PUZ_SQUARE_OFF && dt.size() == 1 && dt[0] == lines_off ||
-					ch == PUZ_SQUARE_ON && dt[0] != lines_off)
+				if(ch == PUZ_SQUARE_OFF && dt.size() == 1 && dt[0] == lineseg_off ||
+					ch == PUZ_SQUARE_ON && dt[0] != lineseg_off)
 					return true;
 			}
 			return false;
@@ -219,7 +219,7 @@ int puz_state::check_dots(bool init)
 		n = 1;
 		for(const auto& p : newly_finished){
 			const auto& lines = dots(p)[0];
-			bool is_square = lines == lines_off && m_game->m_pos2info.count(p) == 0;
+			bool is_square = lines == lineseg_off && m_game->m_pos2info.count(p) == 0;
 			for(int i = 0; i < 4; ++i){
 				auto p2 = p + offset[i];
 				if(!is_valid(p2))
@@ -229,7 +229,7 @@ int puz_state::check_dots(bool init)
 					return s[(i + 2) % 4] != lines[i];
 				});
 				if(is_square && m_game->m_pos2info.count(p2) == 0)
-					boost::remove_erase(dt, lines_off);
+					boost::remove_erase(dt, lineseg_off);
 				if(!init && dt.empty())
 					return 0;
 			}
@@ -248,11 +248,11 @@ void puz_state::make_move_square2(const Position& p, int n)
 		const auto& p2 = rng[i];
 		auto& dt = dots(p2);
 		if(perm[i] == PUZ_SQUARE_OFF){
-			if(dt[0] == lines_off)
+			if(dt[0] == lineseg_off)
 				dt.erase(dt.begin());
 		}
 		else
-			dt = {lines_off};
+			dt = {lineseg_off};
 	}
 	m_matches.erase(p);
 }
@@ -287,7 +287,7 @@ bool puz_state::check_loop() const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			if(dt.size() == 1 && dt[0] != lines_off)
+			if(dt.size() == 1 && dt[0] != lineseg_off)
 				rng.insert(p);
 		}
 
@@ -359,7 +359,7 @@ ostream& puz_state::dump(ostream& out) const
 				out << info.m_num << info.m_dir;
 			}
 			else
-				out << (dt[0] == lines_off ? "S " :
+				out << (dt[0] == lineseg_off ? "S " :
 					dt[0][1] == PUZ_LINE_ON ? " -" : "  ");
 		}
 		out << endl;

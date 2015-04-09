@@ -23,9 +23,16 @@ namespace puzzles{ namespace LineSweeper{
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
 
-const string lines_off = "0000";
-const string lines_all[] = {
-	"0011", "0101", "0110", "1001", "1010", "1100",
+// n-e-s-w
+// 0 means line is off in this direction
+// 1,2,4,8 means line is on in this direction
+
+inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
+
+const int lineseg_off = 0;
+const vector<int> linesegs_all = {
+	// „¢  „Ÿ  „¡  „£  „   „¤
+	12, 10, 6, 9, 5, 3,
 };
 
 const Position offset[] = {
@@ -45,7 +52,7 @@ struct puz_game
 	int m_sidelen;
 	int m_dot_count;
 	map<Position, int> m_pos2num;
-	map<int, vector<vector<string>>> m_num2perms;
+	map<int, vector<vector<int>>> m_num2perms;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -69,29 +76,30 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 
 	for(auto& kv : m_num2perms){
 		int n = kv.first;
-		// Find all line permutations in relation to a number
+		// Find all line segment permutations in relation to a number
 		auto& perms = kv.second;
 		// pass/no pass permutations
-		// PUZ_LINE_OFF means the offset position is not passed by the line
-		// PUZ_LINE_ON means the offset position is passed by the line
+		// PUZ_LINE_OFF means an adjacent cell is not passed by the line
+		// PUZ_LINE_ON means an adjacent cell is passed by the line
 		auto indicator = string(8 - n, PUZ_LINE_OFF) + string(n, PUZ_LINE_ON);
 		do{
-			vector<vector<string>> dir_lines(8);
+			vector<vector<int>> dir2linesegs(8);
 			for(int i = 0; i < 8; ++i)
-				// Find all line permutations from an offset position
+				// Find all line permutations from an adjacent cell
 				if(indicator[i] == PUZ_LINE_OFF)
-					// This offset position is not passed by the line
-					dir_lines[i] = {lines_off};
+					// This adjacent cell is not passed by the line
+					dir2linesegs[i] = {lineseg_off};
 				else
-					for(auto& lines : lines_all)
+					for(auto& lineseg : linesegs_all)
 						if([&]{
 							for(int j = 0; j < 4; ++j){
-								if(lines[j] == PUZ_LINE_OFF)
+								if(!is_lineseg_on(lineseg, j))
 									continue;
+								// compute the position that the line segment in an adjacent cell leads to
 								auto p = offset[i] + offset[2 * j];
-								// The line from an offset position cannot lead to the number cell
-								// or any offset position not covered by the line
-								if(p == Position())
+								// The line segment from an adjacent cell cannot lead to the number cell
+								// or any adjacent cell not covered by the line
+								if(p == Position(0, 0))
 									return false;
 								int n = boost::find(offset, p) - offset;
 								if(n < 8 && indicator[n] == PUZ_LINE_OFF)
@@ -99,40 +107,40 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 							}
 							return true;
 						}())
-							// This line permutation is possible for the offset position
-							dir_lines[i].push_back(lines);
+							// This line segment permutation is possible for the adjacent cell
+							dir2linesegs[i].push_back(lineseg);
 
-			// No line permutation from an offset position means
+			// No line segment permutation from an adjacent cell means
 			// this pass/no pass permutation is impossible
-			if(boost::algorithm::any_of(dir_lines, [](const vector<string>& lines){
-				return lines.empty();
+			if(boost::algorithm::any_of(dir2linesegs, [](const vector<int>& linesegs){
+				return linesegs.empty();
 			}))
 				continue;
 
 			// Find all line permutations for this pass/no pass permutation
 			vector<int> indexes(8);
-			vector<string> perm(8);
+			vector<int> perm(8);
 			for(int i = 0; i < 8;){
 				for(int j = 0; j < 8; ++j)
-					perm[j] = dir_lines[j][indexes[j]];
+					perm[j] = dir2linesegs[j][indexes[j]];
 				if([&]{
 					for(int j = 0; j < 8; ++j){
-						auto& lines = perm[j];
+						int lineseg = perm[j];
 						for(int k = 0; k < 4; ++k){
-							if(lines[k] == PUZ_LINE_OFF)
+							if(!is_lineseg_on(lineseg, k))
 								continue;
 							auto p = offset[j] + offset[2 * k];
 							int n = boost::find(offset, p) - offset;
-							// If the line from an offset position leads to another offset position,
+							// If the line from an adjacent cell leads to another adjacent cell,
 							// the line from the latter should also lead to the former
-							if(n < 8 && perm[n][(k + 2) % 4] == PUZ_LINE_OFF)
+							if(n < 8 && !is_lineseg_on(perm[n], (k + 2) % 4))
 								return false;
 						}
 					}
 					return true;
 				}())
 					perms.push_back(perm);
-				for(i = 0; i < 8 && ++indexes[i] == dir_lines[i].size(); ++i)
+				for(i = 0; i < 8 && ++indexes[i] == dir2linesegs[i].size(); ++i)
 					indexes[i] = 0;
 			}
 
@@ -140,7 +148,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-typedef vector<string> puz_dot;
+typedef vector<int> puz_dot;
 
 struct puz_state : vector<puz_dot>
 {
@@ -177,7 +185,7 @@ struct puz_state : vector<puz_dot>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count, {lines_off}), m_game(&g)
+: vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
 {
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
@@ -186,20 +194,20 @@ puz_state::puz_state(const puz_game& g)
 				continue;
 
 			auto& dt = dots(p);
-			for(auto& lines : lines_all)
+			for(auto& lineseg : linesegs_all)
 				if([&]{
 					for(int i = 0; i < 4; ++i){
-						if(lines[i] == PUZ_LINE_OFF)
+						if(!is_lineseg_on(lineseg, i))
 							continue;
 						auto p2 = p + offset[i * 2];
-						// The line cannot lead to a position
+						// The line segment cannot lead to a position
 						// outside the board or cover any number cell
 						if(!is_valid(p2) || g.m_pos2num.count(p2) != 0)
 							return false;
 					}
 					return true;
 				}())
-					dt.push_back(lines);
+					dt.push_back(lineseg);
 		}
 
 	for(auto& kv : g.m_pos2num){
@@ -225,12 +233,12 @@ int puz_state::find_matches(bool init)
 			auto& perm = perms[id];
 			for(int i = 0; i < 8; ++i){
 				auto p2 = p + offset[i];
-				auto& lines = perm[i];
+				int lineseg = perm[i];
 				if(!is_valid(p2)){
-					if(lines != lines_off)
+					if(lineseg != lineseg_off)
 						return true;
 				}
-				else if(boost::algorithm::none_of_equal(dots(p2), lines))
+				else if(boost::algorithm::none_of_equal(dots(p2), lineseg))
 					return true;
 			}
 			return false;
@@ -265,14 +273,14 @@ int puz_state::check_dots(bool init)
 
 		n = 1;
 		for(const auto& p : newly_finished){
-			const auto& lines = dots(p)[0];
+			int lineseg = dots(p)[0];
 			for(int i = 0; i < 4; ++i){
 				auto p2 = p + offset[i * 2];
 				if(!is_valid(p2))
 					continue;
 				auto& dt = dots(p2);
-				boost::remove_erase_if(dt, [&, i](const string& lines2){
-					return lines2[(i + 2) % 4] != lines[i];
+				boost::remove_erase_if(dt, [&, i](int lineseg2){
+					return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
 				});
 				if(!init && dt.empty())
 					return 0;
@@ -301,7 +309,7 @@ bool puz_state::check_loop() const
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			if(dt.size() == 1 && dt[0] != lines_off)
+			if(dt.size() == 1 && dt[0] != lineseg_off)
 				rng.insert(p);
 		}
 
@@ -310,9 +318,9 @@ bool puz_state::check_loop() const
 		auto p = *rng.begin(), p2 = p;
 		for(int n = -1;;){
 			rng.erase(p2);
-			auto& str = dots(p2)[0];
+			auto& lineseg = dots(p2)[0];
 			for(int i = 0; i < 4; ++i)
-				if(str[i] == PUZ_LINE_ON && (i + 2) % 4 != n){
+				if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){
 					p2 += offset[(n = i) * 2];
 					break;
 				}
@@ -397,13 +405,13 @@ ostream& puz_state::dump(ostream& out) const
 			Position p(r, c);
 			auto it = m_game->m_pos2num.find(p);
 			out << char(it == m_game->m_pos2num.end() ? ' ' : it->second + '0')
-				<< (dots(p)[0][1] == PUZ_LINE_ON ? '-' : ' ');
+				<< (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
 		}
 		out << endl;
 		if(r == sidelen() - 1) break;
 		for(int c = 0; c < sidelen(); ++c)
 			// draw vert-lines
-			out << (dots({r, c})[0][2] == PUZ_LINE_ON ? "| " : "  ");
+			out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
 		out << endl;
 	}
 	return out;
