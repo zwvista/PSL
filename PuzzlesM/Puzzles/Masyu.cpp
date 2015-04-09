@@ -37,10 +37,14 @@ const vector<int> linesegs_all = {
 	// ┐  ─  ┌  ┘  │  └
 	12, 10, 6, 9, 5, 3,
 };
+// All line segments for a Black Pearl
+// Lines passing through Black Pearls must do a 90 degree turn in them.
 const vector<int> linesegs_all_black = {
 	// └  ┌  ┐  ┘
 	3, 6, 12, 9,
 };
+// All line segments for a White Pearl
+// Lines passing through White Pearls must go straight through them.
 const vector<int> linesegs_all_white = {
 	// │  ─
 	5, 10,
@@ -57,7 +61,8 @@ const Position offset[] = {
 // second: an integer that depicts the line segment
 typedef pair<Position, int> puz_lineseg_info;
 
-// permutations of the line segments for a black pearl
+// permutations of line segments for a black pearl and its two adjacent cells
+// they must go straight in the next tile in both directions.
 const puz_lineseg_info black_pearl_perms[][3] = {
 	// │  ┌─ ─┐  │
 	// └─ │   │ ─┘
@@ -66,7 +71,8 @@ const puz_lineseg_info black_pearl_perms[][3] = {
 	{{{0, 0}, 12}, {{1, 0}, 5}, {{0, -1}, 10}},		// s & w
 	{{{0, 0}, 9}, {{0, -1}, 10}, {{-1, 0}, 5}},	// w & n
 };
-// permutations of the line segments for a white pearl
+// permutations of line segments for a white pearl and its two adjacent cells
+// at least at one side of the White Pearl(or both), they must do a 90 degree turn.
 const puz_lineseg_info white_pearl_perms[][3] = {
 	// │ │ ┌ ┌ ┌ ┐ ┐ ┐
 	// │ │ │ │ │ │ │ │
@@ -312,24 +318,21 @@ bool puz_state::check_loop() const
 				rng.insert(p);
 		}
 
-	bool has_loop = false;
 	while(!rng.empty()){
 		auto p = *rng.begin(), p2 = p;
 		for(int n = -1;;){
 			rng.erase(p2);
 			auto& lineseg = dots(p2)[0];
 			for(int i = 0; i < 4; ++i)
+				// go ahead if the line segment does not lead a way back
 				if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){
 					p2 += offset[n = i];
 					break;
 				}
 			if(p2 == p)
-				if(has_loop)
-					return false;
-				else{
-					has_loop = true;
-					break;
-				}
+				// we have a loop here,
+				// so we should have exhausted the line segments 
+				return rng.empty();
 			if(rng.count(p2) == 0)
 				break;
 		}

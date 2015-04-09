@@ -259,24 +259,21 @@ bool puz_state::check_loop() const
 				rng.insert(p);
 		}
 
-	bool has_loop = false;
 	while(!rng.empty()){
 		auto p = *rng.begin(), p2 = p;
 		for(int n = -1;;){
 			rng.erase(p2);
 			int lineseg = dots(p2)[0];
 			for(int i = 0; i < 4; ++i)
+				// go ahead if the line segment does not lead a way back
 				if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){
 					p2 += offset[n = i];
 					break;
 				}
 			if(p2 == p)
-				if(has_loop)
-					return false;
-				else{
-					has_loop = true;
-					break;
-				}
+				// we have a loop here,
+				// so we should have exhausted the line segments 
+				return rng.empty();
 			if(rng.count(p2) == 0)
 				break;
 		}
