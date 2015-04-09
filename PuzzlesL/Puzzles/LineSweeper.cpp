@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -31,7 +31,7 @@ inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0
 
 const int lineseg_off = 0;
 const vector<int> linesegs_all = {
-	// Ñ¢  Ñü  Ñ°  Ñ£  Ñ†  Ñ§
+	// ‚îê  ‚îÄ  ‚îå  ‚îò  ‚îÇ  ‚îî
 	12, 10, 6, 9, 5, 3,
 };
 
@@ -90,7 +90,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 					// This adjacent cell is not passed by the line
 					dir2linesegs[i] = {lineseg_off};
 				else
-					for(auto& lineseg : linesegs_all)
+					for(int lineseg : linesegs_all)
 						if([&]{
 							for(int j = 0; j < 4; ++j){
 								if(!is_lineseg_on(lineseg, j))
@@ -131,8 +131,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 								continue;
 							auto p = offset[j] + offset[2 * k];
 							int n = boost::find(offset, p) - offset;
-							// If the line from an adjacent cell leads to another adjacent cell,
-							// the line from the latter should also lead to the former
+							// If the line segment from an adjacent cell leads to another adjacent cell,
+							// the line segment from the latter should also lead to the former
 							if(n < 8 && !is_lineseg_on(perm[n], (k + 2) % 4))
 								return false;
 						}

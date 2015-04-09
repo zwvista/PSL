@@ -175,9 +175,10 @@ puz_state::puz_state(const puz_game& g)
 				it == g.m_pos2pearl.end() ? linesegs_all :
 				it->second == PUZ_BLACK_PEARL ? linesegs_all_black :
 				linesegs_all_white;
-			for(auto& lineseg : linesegs_all2)
+			for(int lineseg : linesegs_all2)
 				if([&]{
 					for(int i = 0; i < 4; ++i)
+						// The line segment cannot lead to a position outside the board
 						if(is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
 							return false;
 					return true;
