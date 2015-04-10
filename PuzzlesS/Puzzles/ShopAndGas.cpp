@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -42,15 +42,26 @@ namespace puzzles{ namespace ShopAndGas{
 #define PUZ_SHOP			'S'
 #define PUZ_GAS				'G'
 
-const string lineseg_off = "0000";
-const vector<string> linesegs_all = {
-	"0011", "0101", "0110", "1001", "1010", "1100",
+// n-e-s-w
+// 0 means line is off in this direction
+// 1,2,4,8 means line is on in this direction
+
+inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
+
+const int lineseg_off = 0;
+const vector<int> linesegs_all = {
+	// ┐  ─  ┌  ┘  │  └
+	12, 10, 6, 9, 5, 3,
 };
-const vector<string> linesegs_all_gas = {
-	"1100", "0110", "0011", "1001",
+// All these prototype fuel stations are shaped like corners.
+const vector<int> linesegs_all_gas = {
+	// └  ┌  ┐  ┘
+	3, 6, 12, 9,
 };
-const vector<string> linesegs_all_shop = {
-	"1010", "0101",
+// Shopping malls have straight roads.
+const vector<int> linesegs_all_shop = {
+	// │  ─
+	5, 10,
 };
 
 const Position offset[] = {
@@ -88,7 +99,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-typedef vector<string> puz_dot;
+typedef vector<int> puz_dot;
 
 struct puz_state : vector<puz_dot>
 {
@@ -135,14 +146,15 @@ puz_state::puz_state(const puz_game& g)
 				it == g.m_pos2object.end() || it->second == PUZ_HOME ? linesegs_all :
 				it->second == PUZ_GAS ? linesegs_all_gas :
 				linesegs_all_shop;
-			for(auto& lines : linesegs_all2)
+			for(int lineseg : linesegs_all2)
 				if([&]{
 					for(int i = 0; i < 4; ++i)
-						if(lines[i] == PUZ_LINE_ON && !is_valid(p + offset[i]))
+						// The line segment cannot lead to a position outside the board
+						if(is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
 							return false;
 					return true;
 				}())
-					dt.push_back(lines);
+					dt.push_back(lineseg);
 		}
 
 	check_dots(true);
@@ -166,14 +178,14 @@ int puz_state::check_dots(bool init)
 
 		n = 1;
 		for(const auto& p : newly_finished){
-			const auto& lines = dots(p)[0];
+			int lineseg = dots(p)[0];
 			for(int i = 0; i < 4; ++i){
 				auto p2 = p + offset[i];
 				if(!is_valid(p2))
 					continue;
 				auto& dt = dots(p2);
-				boost::remove_erase_if(dt, [&, i](const string& s){
-					return s[(i + 2) % 4] != lines[i];
+				boost::remove_erase_if(dt, [&, i](int lineseg2){
+					return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
 				});
 				if(!init && dt.empty())
 					return 0;
@@ -203,15 +215,14 @@ bool puz_state::check_loop() const
 				rng.insert(p);
 		}
 
-	bool has_loop = false;
 	while(!rng.empty()){
 		auto p = *rng.begin(), p2 = p;
 		char last_obj = ' ';
 		for(int n = -1;;){
 			rng.erase(p2);
-			auto& str = dots(p2)[0];
+			int lineseg = dots(p2)[0];
 			for(int i = 0; i < 4; ++i)
-				if(str[i] == PUZ_LINE_ON && (i + 2) % 4 != n){
+				if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){
 					p2 += offset[n = i];
 					break;
 				}
@@ -224,12 +235,9 @@ bool puz_state::check_loop() const
 				last_obj = obj;
 			}
 			if(p2 == p)
-				if(has_loop)
-					return false;
-				else{
-					has_loop = true;
-					break;
-				}
+				// we have a loop here,
+				// so we should have exhausted the line segments 
+				return rng.empty();
 			if(rng.count(p2) == 0)
 				break;
 		}
@@ -261,13 +269,13 @@ ostream& puz_state::dump(ostream& out) const
 			auto& dt = dots(p);
 			auto it = m_game->m_pos2object.find(p);
 			out << (it != m_game->m_pos2object.end() ? it->second : ' ')
-				<< (dt[0][1] == PUZ_LINE_ON ? '-' : ' ');
+				<< (is_lineseg_on(dt[0], 1) ? '-' : ' ');
 		}
 		out << endl;
 		if(r == sidelen() - 1) break;
 		for(int c = 0; c < sidelen(); ++c)
 			// draw vert-lines
-			out << (dots({r, c})[0][2] == PUZ_LINE_ON ? "| " : "  ");
+			out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
 		out << endl;
 	}
 	return out;

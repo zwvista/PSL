@@ -322,7 +322,7 @@ bool puz_state::check_loop() const
 		auto p = *rng.begin(), p2 = p;
 		for(int n = -1;;){
 			rng.erase(p2);
-			auto& lineseg = dots(p2)[0];
+			int lineseg = dots(p2)[0];
 			for(int i = 0; i < 4; ++i)
 				// go ahead if the line segment does not lead a way back
 				if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){

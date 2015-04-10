@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -31,12 +31,20 @@ namespace puzzles{ namespace Mirrors{
 #define PUZ_BLOCK			"B "
 #define PUZ_SPOT			"S "
 
-const string lineseg_off = "0000";
-const vector<string> linesegs_all = {
-	"0011", "0101", "0110", "1001", "1010", "1100",
+// n-e-s-w
+// 0 means line is off in this direction
+// 1,2,4,8 means line is on in this direction
+
+inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
+
+const int lineseg_off = 0;
+const vector<int> linesegs_all = {
+	// ┐  ─  ┌  ┘  │  └
+	12, 10, 6, 9, 5, 3,
 };
-const vector<string> lines_spot = {
-	"1000", "0100", "0010", "0001",
+const vector<int> lines_spot = {
+	// ╵ ╶ ╷ ╴
+	1, 2, 4, 8,
 };
 
 const Position offset[] = {
@@ -51,7 +59,7 @@ struct puz_game
 	string m_id;
 	int m_sidelen;
 	int m_dot_count;
-	map<Position, string> m_pos2lines;
+	map<Position, int> m_pos2lineseg;
 	set<Position> m_spots;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -72,17 +80,15 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			Position p(r, c);
 			if(s == PUZ_SPOT)
 				m_spots.insert(p);
-			else if(s != "  "){
-				auto lines = lineseg_off;
-				if(s != PUZ_BLOCK)
-					lines[s[0] - '0'] = lines[s[1] - '0'] = PUZ_LINE_ON;
-				m_pos2lines[{r, c}] = lines;
-			}
+			else if(s != "  ")
+				m_pos2lineseg[{r, c}] =
+					s == PUZ_BLOCK ? lineseg_off :
+					(1 << (s[0] - '0')) | (1 << (s[1] - '0'));
 		}
 	}
 }
 
-typedef vector<string> puz_dot;
+typedef vector<int> puz_dot;
 
 struct puz_state : vector<puz_dot>
 {
@@ -121,19 +127,19 @@ puz_state::puz_state(const puz_game& g)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			auto it = g.m_pos2lines.find(p);
-			if(it != g.m_pos2lines.end())
+			auto it = g.m_pos2lineseg.find(p);
+			if(it != g.m_pos2lineseg.end())
 				dt = {it->second};
 			else{
 				auto& linesegs_all2 = g.m_spots.count(p) != 0 ? lines_spot : linesegs_all;
-				for(auto& lines : linesegs_all2)
+				for(int lineseg : linesegs_all2)
 					if([&]{
 						for(int i = 0; i < 4; ++i)
-							if(lines[i] == PUZ_LINE_ON && !is_valid(p + offset[i]))
+							if(is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
 								return false;
 						return true;
 					}())
-						dt.push_back(lines);
+						dt.push_back(lineseg);
 			}
 		}
 
@@ -158,14 +164,14 @@ int puz_state::check_dots(bool init)
 
 		n = 1;
 		for(const auto& p : newly_finished){
-			const auto& lines = dots(p)[0];
+			int lineseg = dots(p)[0];
 			for(int i = 0; i < 4; ++i){
 				auto p2 = p + offset[i];
 				if(!is_valid(p2))
 					continue;
 				auto& dt = dots(p2);
-				boost::remove_erase_if(dt, [&, i](const string& s){
-					return s[(i + 2) % 4] != lines[i];
+				boost::remove_erase_if(dt, [&, i](int lineseg2){
+					return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
 				});
 				if(!init && dt.empty())
 					return 0;
@@ -195,24 +201,20 @@ bool puz_state::check_loop() const
 				rng.insert(p);
 		}
 
-	bool has_loop = false;
 	while(!rng.empty()){
 		auto p = *rng.begin(), p2 = p;
 		for(int n = -1;;){
 			rng.erase(p2);
-			auto& str = dots(p2)[0];
+			int lineseg = dots(p2)[0];
 			for(int i = 0; i < 4; ++i)
-				if(str[i] == PUZ_LINE_ON && (i + 2) % 4 != n){
+				if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){
 					p2 += offset[n = i];
 					break;
 				}
 			if(p2 == p)
-				if(has_loop || !m_game->m_spots.empty())
-					return false;
-				else{
-					has_loop = true;
-					break;
-				}
+				// we have a loop here,
+				// so we should have exhausted the line segments 
+				return rng.empty() && m_game->m_spots.empty();
 			if(rng.count(p2) == 0)
 				break;
 		}
@@ -244,13 +246,13 @@ ostream& puz_state::dump(ostream& out) const
 			auto& dt = dots(p);
 			out << (m_game->m_spots.count(p) != 0 ? PUZ_SPOT :
 				dt[0] == lineseg_off ? PUZ_BLOCK :
-				dt[0][1] == PUZ_LINE_ON ? " -" : "  ");
+				is_lineseg_on(dt[0], 1) ? " -" : "  ");
 		}
 		out << endl;
 		if(r == sidelen() - 1) break;
 		for(int c = 0; c < sidelen(); ++c)
 			// draw vert-lines
-			out << (dots({r, c})[0][2] == PUZ_LINE_ON ? "| " : "  ");
+			out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
 		out << endl;
 	}
 	return out;

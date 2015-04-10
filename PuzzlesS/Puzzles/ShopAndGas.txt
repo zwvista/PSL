@@ -11,7 +11,7 @@ G-    H
   G- -S-  
 Number of moves: 5
 Number of vertices examined: 10
-0.0403639 [s]
+0.00482853 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,7 +26,7 @@ S G-S-  S
  -     -G 
 Number of moves: 1
 Number of vertices examined: 2
-0.00059692 [s]
+0.000986889 [s]
 
 Level 3
 Sequence of moves: 
@@ -41,7 +41,7 @@ S G-S-G
 G-S-      
 Number of moves: 0
 Number of vertices examined: 1
-0.000501675 [s]
+0.00092449 [s]
 
 Level 4
 Sequence of moves: 
@@ -56,7 +56,7 @@ S G-  H-G
 G-S- - -G 
 Number of moves: 1
 Number of vertices examined: 2
-0.000596509 [s]
+0.00178946 [s]
 
 Level 36
 Sequence of moves: 
@@ -80,6 +80,6 @@ S  -S-      G-S-  S
 | |   |           | 
 G-    G- - -S- - -G 
 Number of moves: 9
-Number of vertices examined: 26
-0.010169 [s]
+Number of vertices examined: 13
+0.00767549 [s]
 

@@ -80,6 +80,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		}
 	}
 
+	// Each number in a tile tells you on how many of its four sides
+	// are touched by the path. Empty tiles can have any number of sides
+	// touched by that path.
 	auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
 	for(int i = 0; i < 4; ++i){
 		auto& perms = m_num2perms[i];

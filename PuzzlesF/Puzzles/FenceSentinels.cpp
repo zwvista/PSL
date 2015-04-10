@@ -25,9 +25,16 @@ namespace puzzles{ namespace FenceSentinels{
 #define PUZ_LINE_OFF		'0'
 #define PUZ_LINE_ON			'1'
 
-const string lineseg_off = "0000";
-const string linesegs_all[] = {
-	"0011", "0101", "0110", "1001", "1010", "1100",
+// n-e-s-w
+// 0 means line is off in this direction
+// 1,2,4,8 means line is on in this direction
+
+inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
+
+const int lineseg_off = 0;
+const vector<int> linesegs_all = {
+	// „¢  „Ÿ  „¡  „£  „   „¤
+	12, 10, 6, 9, 5, 3,
 };
 
 const Position offset[] = {
@@ -72,7 +79,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 }
 
-typedef vector<string> puz_dot;
+typedef vector<int> puz_dot;
 
 struct puz_state : vector<puz_dot>
 {
@@ -118,14 +125,15 @@ puz_state::puz_state(const puz_game& g)
 		for(int c = 0; c < sidelen(); ++c){
 			Position p(r, c);
 			auto& dt = dots(p);
-			for(auto& lines : linesegs_all)
+			for(int lineseg : linesegs_all)
 				if([&]{
 					for(int i = 0; i < 4; ++i)
-						if(lines[i] == PUZ_LINE_ON && !is_valid_point(p + offset[i]))
+						// The line segment cannot lead to a position outside the board
+						if(is_lineseg_on(lineseg, i) && !is_valid_point(p + offset[i]))
 							return false;
 					return true;
 				}())
-					dt.push_back(lines);
+					dt.push_back(lineseg);
 		}
 
 	for(auto& kv : g.m_pos2num)
@@ -149,20 +157,20 @@ int puz_state::find_matches(bool init)
 			int n = 0;
 			auto& nums = dir_nums[i];
 			for(auto p2 = p; n <= sum; p2 += os){
-				auto f = [&](char ch){
+				auto f = [&](bool is_on){
 					auto& info = lines_info[i * 2];
 					const auto& dt = dots(p2 + info.first);
-					return boost::algorithm::all_of(dt, [=](const string& line){
-						return line[info.second] == ch;
+					return boost::algorithm::all_of(dt, [=](int lineseg){
+						return is_lineseg_on(lineseg, info.second) == is_on;
 					});
 				};
-				if(!is_valid_cell(p2 + os) || f(PUZ_LINE_ON)){
+				if(!is_valid_cell(p2 + os) || f(true)){
 					nums.push_back(n);
 					break;
 				}
 				else if(!m_game->m_inside_outside &&
 					p2 == p && m_game->m_pos2num.count(p2 + os) != 0 ||
-					f(PUZ_LINE_OFF))
+					f(false))
 					++n;
 				else
 					nums.push_back(n++);
@@ -205,14 +213,14 @@ int puz_state::check_dots(bool init)
 
 		n = 1;
 		for(const auto& p : newly_finished){
-			const auto& lines = dots(p)[0];
+			int lineseg = dots(p)[0];
 			for(int i = 0; i < 4; ++i){
 				auto p2 = p + offset[i];
 				if(!is_valid_point(p2))
 					continue;
 				auto& dt = dots(p2);
-				boost::remove_erase_if(dt, [&, i](const string& lines2){
-					return lines2[(i + 2) % 4] != lines[i];
+				boost::remove_erase_if(dt, [&, i](int lineseg2){
+					return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
 				});
 				if(!init && dt.empty())
 					return 0;
@@ -236,9 +244,9 @@ bool puz_state::make_move_hint2(const Position& p, int n)
 			for(int k = 0; k < 2; ++k){
 				auto& info = lines_info[i * 2 + k];
 				auto& dt = dots(p2 + info.first);
-				char line = j < m ? PUZ_LINE_OFF : PUZ_LINE_ON;
-				boost::remove_erase_if(dt, [&](const string& lines){
-					return lines[info.second] != line;
+				bool is_on = j == m;
+				boost::remove_erase_if(dt, [&](int lineseg){
+					return is_lineseg_on(lineseg, info.second) != is_on;
 				});
 				if(dt.empty())
 					return 0;
@@ -261,24 +269,21 @@ bool puz_state::check_loop() const
 				rng.insert(p);
 		}
 
-	bool has_loop = false;
 	while(!rng.empty()){
 		auto p = *rng.begin(), p2 = p;
 		for(int n = -1;;){
 			rng.erase(p2);
-			auto& str = dots(p2)[0];
+			int lineseg = dots(p2)[0];
 			for(int i = 0; i < 4; ++i)
-				if(str[i] == PUZ_LINE_ON && (i + 2) % 4 != n){
+				// go ahead if the line segment does not lead a way back
+				if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){
 					p2 += offset[n = i];
 					break;
 				}
 			if(p2 == p)
-				if(has_loop)
-					return false;
-				else{
-					has_loop = true;
-					break;
-				}
+				// we have a loop here,
+				// so we should have exhausted the line segments 
+				return rng.empty();
 			if(rng.count(p2) == 0)
 				break;
 		}
@@ -351,13 +356,13 @@ ostream& puz_state::dump(ostream& out) const
 	for(int r = 0;; ++r){
 		// draw horz-lines
 		for(int c = 0; c < sidelen(); ++c)
-			out << (dots({r, c})[0][1] == PUZ_LINE_ON ? " --" : "   ");
+			out << (is_lineseg_on(dots({r, c})[0], 1) ? " --" : "   ");
 		out << endl;
 		if(r == sidelen() - 1) break;
 		for(int c = 0;; ++c){
 			Position p(r, c);
 			// draw vert-lines
-			out << (dots(p)[0][2] == PUZ_LINE_ON ? '|' : ' ');
+			out << (is_lineseg_on(dots(p)[0], 2) ? '|' : ' ');
 			if(c == sidelen() - 1) break;
 			auto it = m_game->m_pos2num.find(p);
 			if(it == m_game->m_pos2num.end())
