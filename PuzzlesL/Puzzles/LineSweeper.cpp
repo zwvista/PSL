@@ -194,7 +194,7 @@ puz_state::puz_state(const puz_game& g)
 				continue;
 
 			auto& dt = dots(p);
-			for(auto& lineseg : linesegs_all)
+			for(int lineseg : linesegs_all)
 				if([&]{
 					for(int i = 0; i < 4; ++i){
 						if(!is_lineseg_on(lineseg, i))
@@ -279,7 +279,8 @@ int puz_state::check_dots(bool init)
 				if(!is_valid(p2))
 					continue;
 				auto& dt = dots(p2);
-				boost::remove_erase_if(dt, [&, i](int lineseg2){
+				// The line segments in adjacent cells must be connected
+				boost::remove_erase_if(dt, [=](int lineseg2){
 					return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
 				});
 				if(!init && dt.empty())
@@ -313,6 +314,7 @@ bool puz_state::check_loop() const
 				rng.insert(p);
 		}
 
+	bool has_branch = false;
 	while(!rng.empty()){
 		auto p = *rng.begin(), p2 = p;
 		for(int n = -1;;){
@@ -327,9 +329,11 @@ bool puz_state::check_loop() const
 			if(p2 == p)
 				// we have a loop here,
 				// so we should have exhausted the line segments 
-				return rng.empty();
-			if(rng.count(p2) == 0)
+				return !has_branch && rng.empty();
+			if(rng.count(p2) == 0){
+				has_branch = true;
 				break;
+			}
 		}
 	}
 	return true;

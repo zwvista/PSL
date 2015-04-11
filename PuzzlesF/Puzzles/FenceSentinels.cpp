@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -33,7 +33,7 @@ inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0
 
 const int lineseg_off = 0;
 const vector<int> linesegs_all = {
-	// „¢  „Ÿ  „¡  „£  „   „¤
+	// â”  â”€  â”Œ  â”˜  â”‚  â””
 	12, 10, 6, 9, 5, 3,
 };
 
@@ -160,19 +160,24 @@ int puz_state::find_matches(bool init)
 				auto f = [&](bool is_on){
 					auto& info = lines_info[i * 2];
 					const auto& dt = dots(p2 + info.first);
+					int j = info.second;
 					return boost::algorithm::all_of(dt, [=](int lineseg){
-						return is_lineseg_on(lineseg, info.second) == is_on;
+						return is_lineseg_on(lineseg, j) == is_on;
 					});
 				};
 				if(!is_valid_cell(p2 + os) || f(true)){
+					// we have to stop here
 					nums.push_back(n);
 					break;
 				}
 				else if(!m_game->m_inside_outside &&
-					p2 == p && m_game->m_pos2num.count(p2 + os) != 0 ||
+					m_game->m_pos2num.count(p2) != 0 && 
+					m_game->m_pos2num.count(p2 + os) != 0 ||
 					f(false))
+					// we cannot stop here
 					++n;
 				else
+					// we can stop here
 					nums.push_back(n++);
 			}
 		}
@@ -219,6 +224,7 @@ int puz_state::check_dots(bool init)
 				if(!is_valid_point(p2))
 					continue;
 				auto& dt = dots(p2);
+				// The line segments in adjacent cells must be connected
 				boost::remove_erase_if(dt, [&, i](int lineseg2){
 					return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
 				});

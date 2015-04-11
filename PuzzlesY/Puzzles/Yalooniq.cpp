@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -37,7 +37,7 @@ inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0
 
 const int lineseg_off = 0;
 const vector<int> linesegs_all = {
-	// „¢  „Ÿ  „¡  „£  „   „¤
+	// â”  â”€  â”Œ  â”˜  â”‚  â””
 	12, 10, 6, 9, 5, 3,
 };
 const string square_dirs = "^>v<";
@@ -155,6 +155,8 @@ puz_state::puz_state(const puz_game& g)
 						if(!is_lineseg_on(lineseg, i))
 							continue;
 						auto p2 = p + offset[i];
+						// The line segment cannot lead to a position
+						// outside the board or cover any arrow cell
 						if(!is_valid(p2) || g.m_pos2info.count(p2) != 0)
 							return false;
 					}
@@ -232,7 +234,8 @@ int puz_state::check_dots(bool init)
 				if(!is_valid(p2))
 					continue;
 				auto& dt = dots(p2);
-				boost::remove_erase_if(dt, [&, i](int lineseg2){
+				// The line segments in adjacent cells must be connected
+				boost::remove_erase_if(dt, [=](int lineseg2){
 					return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
 				});
 				if(is_square && m_game->m_pos2info.count(p2) == 0)
