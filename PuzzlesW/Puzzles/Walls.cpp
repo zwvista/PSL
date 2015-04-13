@@ -75,6 +75,7 @@ struct puz_state
 	bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
 	bool make_move(const Position& p, const vector<int>& perm);
 	void make_move2(const Position& p, const vector<int>& perm);
+	void make_move3(const Position& p, const vector<int>& perm, int i, bool stopped);
 	int find_matches(bool init);
 
 	//solve_puzzle interface
@@ -108,10 +109,12 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+	bool matches_changed = false;
 	set<Position> spaces;
 	for(auto& kv : m_matches){
 		const auto& p = kv.first;
 		auto& perms = kv.second;
+		auto perms_old = perms;
 		perms.clear();
 
 		int sum = m_game->m_pos2num.at(p);
@@ -155,28 +158,53 @@ int puz_state::find_matches(bool init)
 				return 0;
 			case 1:
 				return make_move2(p, perms.front()), 1;
+			default:
+				matches_changed = matches_changed || perms != perms_old;
+				break;
 			}
 	}
 	// pruning
 	// All the branches added up should cover all the remaining spaces
-	return boost::count(m_cells, PUZ_SPACE) == spaces.size() ? 2 : 0;
+	if(boost::count(m_cells, PUZ_SPACE) != spaces.size())
+		return 0;
+
+	if(!matches_changed)
+		return 2;
+
+	for(auto& kv : m_matches){
+		const auto& p = kv.first;
+		auto& perms = kv.second;
+		for(int i = 0; i < 4; ++i){
+			auto f = [=](const vector<int>& v1, const vector<int>& v2){
+				return v1[i] < v2[i];
+			};
+			auto perm = *boost::min_element(perms, f);
+			int n = boost::max_element(perms, f)->at(i);
+			make_move3(p, perm, i, perm[i] == n);
+		}
+	}
+	return 1;
+}
+
+void puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bool stopped)
+{
+	bool is_horz = i % 2 == 1;
+	auto& os = offset[i];
+	int n = perm[i];
+	auto p2 = p + os;
+	for(int j = 0; j < n; ++j){
+		cells(p2) = is_horz ? PUZ_HORZ : PUZ_VERT;
+		p2 += os;
+	}
+	if(stopped && cells(p2) == PUZ_SPACE)
+		// we choose to stop here, so it must be in other direction
+		cells(p2) = is_horz ? PUZ_VERT : PUZ_HORZ;
 }
 
 void puz_state::make_move2(const Position& p, const vector<int>& perm)
 {
-	for(int i = 0; i < 4; ++i){
-		bool is_horz = i % 2 == 1;
-		auto& os = offset[i];
-		int n = perm[i];
-		auto p2 = p + os;
-		for(int j = 0; j < n; ++j){
-			cells(p2) = is_horz ? PUZ_HORZ : PUZ_VERT;
-			p2 += os;
-		}
-		if(cells(p2) == PUZ_SPACE)
-			// we choose to stop here, so it must be in other direction
-			cells(p2) = is_horz ? PUZ_VERT : PUZ_HORZ;
-	}
+	for(int i = 0; i < 4; ++i)
+		make_move3(p, perm, i, true);
 
 	++m_distance;
 	m_matches.erase(p);
@@ -198,7 +226,6 @@ void puz_state::gen_children(list<puz_state>& children) const
 		const pair<const Position, vector<vector<int>>>& kv2){
 		return kv1.second.size() < kv2.second.size();
 	});
-
 	for(auto& perm : kv.second){
 		children.push_back(*this);
 		if(!children.back().make_move(kv.first, perm))
