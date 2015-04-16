@@ -71,6 +71,18 @@
  9   24\
     ]]>
   </level>
+  <level id="25" InsideOutside="1">
+    <![CDATA[
+   4 2 1\
+4   32  \
+   5  9A\
+5   4   \
+   5    \
+ 7   55 \
+1   87 C\
+ 841  2 \
+    ]]>
+  </level>
   <level id="84" InsideOutside="1">
     <![CDATA[
  6 4       4\

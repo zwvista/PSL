@@ -11,9 +11,9 @@ Sequence of moves:
  --               
 |       6|  | 5|
  -- -- --    --   
-Number of moves: 6
-Number of vertices examined: 8
-0.0020235 [s]
+Number of moves: 5
+Number of vertices examined: 7
+0.00687295 [s]
 
 Level 2
 Sequence of moves: 
@@ -28,9 +28,9 @@ Sequence of moves:
        --         
       | 2   |   
        -- --      
-Number of moves: 6
-Number of vertices examined: 14
-0.00231532 [s]
+Number of moves: 4
+Number of vertices examined: 5
+0.00389544 [s]
 
 Level 3
 Sequence of moves: 
@@ -47,9 +47,9 @@ Sequence of moves:
     -- --    --      
    | 4     9  4|   
     -- -- -- --      
-Number of moves: 7
-Number of vertices examined: 9
-0.00231398 [s]
+Number of moves: 4
+Number of vertices examined: 5
+0.00376489 [s]
 
 Level 4
 Sequence of moves: 
@@ -66,9 +66,9 @@ Sequence of moves:
        --       --   
 |    5|  | 3   |   
  -- --    -- --      
-Number of moves: 5
-Number of vertices examined: 17
-0.00434998 [s]
+Number of moves: 3
+Number of vertices examined: 7
+0.00913985 [s]
 
 Level 17
 Sequence of moves: 
@@ -89,7 +89,7 @@ Sequence of moves:
  --    --    -- -- --   
 Number of moves: 9
 Number of vertices examined: 35
-0.00931883 [s]
+0.010394 [s]
 
 Level 18
 Sequence of moves: 
@@ -110,7 +110,7 @@ Sequence of moves:
  -- --    --    -- --   
 Number of moves: 9
 Number of vertices examined: 51
-0.0102291 [s]
+0.0106354 [s]
 
 Level 19
 Sequence of moves: 
@@ -131,6 +131,29 @@ Sequence of moves:
  -- -- -- --    -- --   
 Number of moves: 10
 Number of vertices examined: 19
-0.00367622 [s]
+0.00563194 [s]
+
+Level 25
+Sequence of moves: 
+ --          --    --      
+|  |       4|  | 2|  | 1 
+                      --   
+| 4|        | 3| 2|     |
+    --    --    --         
+|     |  | 5        9 10|
+          -- -- --         
+| 5   |       4   |     |
+ --       -- -- --         
+   |  |  | 5            |
+ --       -- -- -- --      
+|    7|          5  5|  |
+ --    -- -- -- -- --      
+  1|          8  7    12|
+ --       --    --    --   
+|    8  4| 1|  |  | 2|   
+ -- -- --    --    --      
+Number of moves: 10
+Number of vertices examined: 16
+0.005322 [s]
 
 Level 84

@@ -22,8 +22,12 @@
 
 namespace puzzles{ namespace FenceSentinels{
 
-#define PUZ_LINE_OFF		'0'
-#define PUZ_LINE_ON			'1'
+#define PUZ_BOUNDARY		'+'
+#define PUZ_INSIDE			'I'
+#define PUZ_OUTSIDE			'O'
+#define PUZ_SPACE			' '
+
+inline bool is_inside(char ch) { return ch == PUZ_INSIDE; }
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -44,12 +48,19 @@ const Position offset[] = {
 	{0, -1},		// w
 };
 
+const Position offset2[] = {
+	{0, 0}, {0, 1},	// n
+	{0, 1}, {1, 1},		// e
+	{1, 1}, {1, 0},		// s
+	{1, 0}, {0, 0},	// w
+};
+
 typedef pair<Position, int> puz_line_info;
 const puz_line_info lines_info[] = {
-	{{0, 0}, 1}, {{0, 1}, 3}, 		// n
-	{{0, 1}, 2}, {{1, 1}, 0}, 		// e
-	{{1, 1}, 3}, {{1, 0}, 1}, 		// s
-	{{1, 0}, 0}, {{0, 0}, 2}, 		// w
+	{{-1, -1}, 1}, {{-1, 0}, 3}, 		// n
+	{{-1, 0}, 2}, {{0, 0}, 0}, 		// e
+	{{0, 0}, 3}, {{0, -1}, 1}, 		// s
+	{{0, -1}, 0}, {{-1, -1}, 2}, 		// w
 };
 
 struct puz_game
@@ -59,6 +70,7 @@ struct puz_game
 	int m_dot_count;
 	bool m_inside_outside;
 	map<Position, int> m_pos2num;
+	string m_start;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -69,14 +81,22 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	, m_sidelen(strs.size() + 1)
 	, m_dot_count(m_sidelen * m_sidelen)
 {
-	for(int r = 0; r < m_sidelen - 1; ++r){
-		auto& str = strs[r];
-		for(int c = 0; c < m_sidelen - 1; ++c){
-			char ch = str[c];
-			if(ch != ' ')
+	m_start.append(m_sidelen + 1, PUZ_BOUNDARY);
+	for(int r = 1; r < m_sidelen; ++r){
+		auto& str = strs[r - 1];
+		m_start.push_back(PUZ_BOUNDARY);
+		for(int c = 1; c < m_sidelen; ++c){
+			char ch = str[c - 1];
+			if(ch != ' '){
 				m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+				m_start.push_back(m_inside_outside ? PUZ_SPACE : PUZ_INSIDE);
+			}
+			else
+				m_start.push_back(PUZ_SPACE);
 		}
+		m_start.push_back(PUZ_BOUNDARY);
 	}
+	m_start.append(m_sidelen + 1, PUZ_BOUNDARY);
 }
 
 typedef vector<int> puz_dot;
@@ -86,25 +106,25 @@ struct puz_state : vector<puz_dot>
 	puz_state() {}
 	puz_state(const puz_game& g);
 	int sidelen() const {return m_game->m_sidelen;}
-	bool is_valid_point(const Position& p) const {
+	bool is_valid(const Position& p) const {
 		return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
-	}
-	bool is_valid_cell(const Position& p) const {
-		return p.first >= 0 && p.first < sidelen() - 1 && p.second >= 0 && p.second < sidelen() - 1;
 	}
 	const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
 	puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+	char cells(const Position& p) const { return m_cells[p.first * (sidelen() + 1) + p.second]; }
+	char& cells(const Position& p) { return m_cells[p.first * (sidelen() + 1) + p.second]; }
 	bool make_move_hint(const Position& p, int n);
 	bool make_move_hint2(const Position& p, int n);
 	bool make_move_dot(const Position& p, int n);
 	int find_matches(bool init);
+	int check_cells(bool init);
 	int check_dots(bool init);
 	bool check_loop() const;
 
 	//solve_puzzle interface
 	bool is_goal_state() const {return get_heuristic() == 0;}
 	void gen_children(list<puz_state>& children) const;
-	unsigned int get_heuristic() const { return m_game->m_dot_count - m_finished.size(); }
+	unsigned int get_heuristic() const { return m_game->m_dot_count - m_finished_dots.size(); }
 	unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
 	void dump_move(ostream& out) const {}
 	ostream& dump(ostream& out) const;
@@ -113,13 +133,15 @@ struct puz_state : vector<puz_dot>
 	}
 
 	const puz_game* m_game = nullptr;
+	string m_cells;
 	map<Position, vector<vector<int>>> m_matches;
-	set<Position> m_finished;
+	set<Position> m_finished_dots, m_finished_cells;
 	unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
+, m_cells(g.m_start)
 {
 	for(int r = 0; r < sidelen(); ++r)
 		for(int c = 0; c < sidelen(); ++c){
@@ -129,7 +151,7 @@ puz_state::puz_state(const puz_game& g)
 				if([&]{
 					for(int i = 0; i < 4; ++i)
 						// The line segment cannot lead to a position outside the board
-						if(is_lineseg_on(lineseg, i) && !is_valid_point(p + offset[i]))
+						if(is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
 							return false;
 					return true;
 				}())
@@ -140,7 +162,7 @@ puz_state::puz_state(const puz_game& g)
 		m_matches[kv.first];
 
 	find_matches(true);
-	check_dots(true);
+	while((check_cells(true), check_dots(true)) == 1);
 }
 
 int puz_state::find_matches(bool init)
@@ -165,7 +187,7 @@ int puz_state::find_matches(bool init)
 						return is_lineseg_on(lineseg, j) == is_on;
 					});
 				};
-				if(!is_valid_cell(p2 + os) || f(true)){
+				if(cells(p2 + os) == PUZ_BOUNDARY || f(true)){
 					// we have to stop here
 					nums.push_back(n);
 					break;
@@ -200,6 +222,37 @@ int puz_state::find_matches(bool init)
 	return 2;
 }
 
+int puz_state::check_cells(bool init)
+{
+	int n = 2;
+	for(int r = 1; r < sidelen(); ++r)
+		for(int c = 1; c < sidelen(); ++c){
+			Position p(r, c);
+			char ch = cells(p);
+			if(ch == PUZ_SPACE || m_finished_cells.count(p) != 0)
+				continue;
+			m_finished_cells.insert(p);
+			for(int i = 0; i < 4; ++i){
+				char ch2 = cells(p + offset[i]);
+				if(ch2 == PUZ_SPACE)
+					continue;
+				n = 1;
+				bool is_on = is_inside(ch) != is_inside(ch2);
+				for(int j = 0; j < 2; ++j){
+					auto& info = lines_info[i * 2 + j];
+					auto& dt = dots(p + info.first);
+					int k = info.second;
+					boost::remove_erase_if(dt, [=](int lineseg){
+						return is_lineseg_on(lineseg, k) != is_on;
+					});
+					if(!init && dt.empty())
+						return 0;
+				}
+			}
+		}
+	return n;
+}
+
 int puz_state::check_dots(bool init)
 {
 	int n = 2;
@@ -209,7 +262,7 @@ int puz_state::check_dots(bool init)
 			for(int c = 0; c < sidelen(); ++c){
 				Position p(r, c);
 				const auto& dt = dots(p);
-				if(dt.size() == 1 && m_finished.count(p) == 0)
+				if(dt.size() == 1 && m_finished_dots.count(p) == 0)
 					newly_finished.insert(p);
 			}
 
@@ -221,7 +274,7 @@ int puz_state::check_dots(bool init)
 			int lineseg = dots(p)[0];
 			for(int i = 0; i < 4; ++i){
 				auto p2 = p + offset[i];
-				if(!is_valid_point(p2))
+				if(!is_valid(p2))
 					continue;
 				auto& dt = dots(p2);
 				// The line segments in adjacent cells must be connected
@@ -231,7 +284,20 @@ int puz_state::check_dots(bool init)
 				if(!init && dt.empty())
 					return 0;
 			}
-			m_finished.insert(p);
+			m_finished_dots.insert(p);
+
+			for(int i = 0; i < 4; ++i){
+				char& ch1 = cells(p + offset2[i * 2]);
+				char& ch2 = cells(p + offset2[i * 2 + 1]);
+				bool is_on = is_lineseg_on(lineseg, i);
+				auto f = [=](char& ch1, char& ch2){
+					ch1 = !is_on ? 
+						is_inside(ch2) ? PUZ_INSIDE : PUZ_OUTSIDE :
+						is_inside(ch2) ? PUZ_OUTSIDE : PUZ_INSIDE;
+				};
+				if((ch1 == PUZ_SPACE) != (ch2 == PUZ_SPACE))
+					ch1 == PUZ_SPACE ? f(ch1, ch2) : f(ch2, ch1);
+			}
 		}
 		m_distance += newly_finished.size();
 	}
@@ -245,7 +311,7 @@ bool puz_state::make_move_hint2(const Position& p, int n)
 		auto p2 = p;
 		auto& os = offset[i];
 		for(int j = 0; j <= m; ++j, p2 += os){
-			if(j == m && m_game->m_inside_outside && !is_valid_cell(p2 + os))
+			if(j == m && m_game->m_inside_outside && cells(p2 + os) == PUZ_BOUNDARY)
 				break;
 			for(int k = 0; k < 2; ++k){
 				auto& info = lines_info[i * 2 + k];
@@ -305,6 +371,9 @@ bool puz_state::make_move_hint(const Position& p, int n)
 	for(;;){
 		int m;
 		while((m = find_matches(false)) == 1);
+		if(m == 0)
+			return false;
+		m = check_cells(false);
 		if(m == 0)
 			return false;
 		m = check_dots(false);
@@ -370,7 +439,8 @@ ostream& puz_state::dump(ostream& out) const
 			// draw vert-lines
 			out << (is_lineseg_on(dots(p)[0], 2) ? '|' : ' ');
 			if(c == sidelen() - 1) break;
-			auto it = m_game->m_pos2num.find(p);
+			auto p2 = p + Position(1, 1);
+			auto it = m_game->m_pos2num.find(p2);
 			if(it == m_game->m_pos2num.end())
 				out << "  ";
 			else
