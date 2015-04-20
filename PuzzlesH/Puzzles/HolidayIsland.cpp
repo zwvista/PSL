@@ -27,7 +27,6 @@ namespace puzzles{ namespace HolidayIsland{
 #define PUZ_EMPTY		'.'
 #define PUZ_TENT		'T'
 #define PUZ_WATER		'W'
-#define PUZ_BOUNDARY	'B'
 
 const Position offset[] = {
 	{-1, 0},		// n
@@ -42,7 +41,6 @@ struct puz_game
 	int m_sidelen;
 	map<Position, int> m_pos2num;
 	string m_start;
-	int m_reachable = 0;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -51,32 +49,26 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 : m_id(attrs.get<string>("id"))
 , m_sidelen(strs.size() + 2)
 {
-	m_start.append(m_sidelen, PUZ_BOUNDARY);
+	m_start.append(m_sidelen, PUZ_WATER);
 	for(int r = 1; r < m_sidelen - 1; ++r){
 		auto& str = strs[r - 1];
-		m_start.push_back(PUZ_BOUNDARY);
+		m_start.push_back(PUZ_WATER);
 		for(int c = 1; c < m_sidelen - 1; ++c){
 			char ch = str[c - 1];
 			if(ch != PUZ_SPACE){
 				int n = ch - '0';
-				m_reachable += n;
 				m_pos2num[{r, c}] = n;
 			}
-			m_start.push_back(ch == PUZ_SPACE ? PUZ_WATER : PUZ_TENT);
+			m_start.push_back(ch == PUZ_SPACE ? PUZ_SPACE : PUZ_TENT);
 		}
-		m_start.push_back(PUZ_BOUNDARY);
+		m_start.push_back(PUZ_WATER);
 	}
-	m_start.append(m_sidelen, PUZ_BOUNDARY);
+	m_start.append(m_sidelen, PUZ_WATER);
 }
 
 struct puz_area
 {
 	set<Position> m_inner, m_outer;
-	bool m_ready = false;
-	bool operator<(const puz_area& x) const {
-		return make_pair(m_ready, m_outer.size()) <
-			make_pair(x.m_ready, x.m_outer.size());
-	}
 };
 
 struct puz_state : string
@@ -94,9 +86,9 @@ struct puz_state : string
 	bool is_goal_state() const { return get_heuristic() == 0; }
 	void gen_children(list<puz_state>& children) const;
 	unsigned int get_heuristic() const {
-		return m_game->m_reachable - boost::accumulate(m_pos2area, 0, [this](
+		return boost::accumulate(m_pos2area, 0, [this](
 			int acc, const pair<const Position, puz_area>& kv){
-			return acc + kv.second.m_inner.size() - 1;
+			return acc + m_game->m_pos2num.at(kv.first) + 1 - kv.second.m_inner.size();
 		});
 	}
 	unsigned int get_distance(const puz_state& child) const { return m_distance; }
@@ -129,14 +121,12 @@ int puz_state::adjust_area(bool init)
 		auto& area = kv.second;
 		auto& outer = area.m_outer;
 
-		if(area.m_ready) continue;
-
 		outer.clear();
 		for(auto& p : area.m_inner)
 			for(auto& os : offset){
 				auto p2 = p + os;
 				char ch = cells(p2);
-				if(ch == PUZ_WATER)
+				if(ch == PUZ_SPACE)
 					outer.insert(p2);
 			}
 
@@ -174,7 +164,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 	for(auto& os : offset){
 		auto p2 = *this + os;
 		char ch = m_state->cells(p2);
-		if(ch != PUZ_BOUNDARY && ch != PUZ_WATER){
+		if(ch == PUZ_EMPTY || ch == PUZ_TENT){
 			children.push_back(*this);
 			children.back().make_move(p2);
 		}
@@ -202,7 +192,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 	for(auto& os : offset){
 		auto p2 = *this + os;
 		char ch = m_state->cells(p2);
-		if(ch != PUZ_BOUNDARY && ch != PUZ_WATER){
+		if(ch != PUZ_WATER){
 			children.push_back(*this);
 			children.back().make_move(p2);
 		}
@@ -214,34 +204,45 @@ bool puz_state::make_move2(const Position& p)
 	cells(m_starting = p) = PUZ_EMPTY;
 	list<puz_state2> smoves;
 	puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-	vector<Position> ps_tent, ps_empty;
+	vector<Position> rng_tent, rng_empty;
 	for(const auto& p2 : smoves)
-		(cells(p2) == PUZ_TENT ? ps_tent : ps_empty).push_back(p2);
+		(cells(p2) == PUZ_TENT ? rng_tent : rng_empty).push_back(p2);
 
-	for(const auto& p2 : ps_tent){
+	for(const auto& p2 : rng_tent){
 		auto& area = m_pos2area.at(p2);
-		if(area.m_ready)
-			return false;
-
 		auto& inner = area.m_inner;
 		int sz = inner.size();
 		int num = m_game->m_pos2num.at(p2) + 1;
-		inner.insert(ps_empty.begin(), ps_empty.end());
+		inner.insert(rng_empty.begin(), rng_empty.end());
 		if(inner.size() > num)
 			return false;
-		area.m_ready = inner.size() == num;
 		m_distance += inner.size() - sz;
+		if(inner.size() == num){
+			for(const auto& p3 : inner)
+				for(auto& os : offset){
+					char& ch = cells(p3 + os);
+					if(ch == PUZ_SPACE)
+						ch = PUZ_WATER;
+				}
+			m_pos2area.erase(p2);
+		}
 	}
 
-	if(boost::algorithm::any_of(m_pos2area, [](const pair<const Position, puz_area>& kv){
-		return !kv.second.m_ready;
-	}))
-		return true;
-
+	// There is only one, continuous island.
 	list<puz_state3> smoves2;
 	puz_move_generator<puz_state3>::gen_moves(*this, smoves2);
-	return smoves2.size() == boost::count_if(*this, [](char ch){
-		return ch != PUZ_BOUNDARY && ch != PUZ_WATER;
+	set<Position> rng1(smoves2.begin(), smoves2.end());
+
+	set<Position> rng2, rng3;
+	for(int r = 1; r < sidelen() - 1; ++r)
+		for(int c = 1; c < sidelen() - 1; ++c){
+			Position p2(r, c);
+			if(cells(p2) != PUZ_WATER)
+				rng2.insert(p2);
+		}
+	boost::set_difference(rng2, rng1, inserter(rng3, rng3.end()));
+	return boost::algorithm::all_of(rng3, [this](const Position& p2){
+		return cells(p2) == PUZ_SPACE;
 	});
 }
 
@@ -260,7 +261,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 	auto& kv = *boost::min_element(m_pos2area, [](
 		const pair<const Position, puz_area>& kv1,
 		const pair<const Position, puz_area>& kv2){
-		return kv1.second < kv2.second;
+		return kv1.second.m_outer.size() < kv2.second.m_outer.size();
 	});
 	for(auto& p : kv.second.m_outer){
 		children.push_back(*this);
@@ -278,7 +279,7 @@ ostream& puz_state::dump(ostream& out) const
 			if(ch == PUZ_TENT)
 				out << format("%-2d") % m_game->m_pos2num.at(p);
 			else
-				out << ch << ' ';
+				out << (ch == PUZ_SPACE ? PUZ_WATER : ch) << ' ';
 		}
 		out << endl;
 	}
