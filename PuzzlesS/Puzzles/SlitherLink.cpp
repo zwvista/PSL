@@ -129,7 +129,7 @@ struct puz_state : vector<puz_dot>
 
 	const puz_game* m_game = nullptr;
 	map<Position, vector<int>> m_matches;
-	set<Position> m_finished;
+	set<pair<Position, int>> m_finished;
 	unsigned int m_distance = 0;
 };
 
@@ -198,25 +198,31 @@ int puz_state::check_dots(bool init)
 {
 	int n = 2;
 	for(;;){
-		set<Position> newly_finished;
+		set<pair<Position, int>> newly_finished;
 		for(int r = 0; r < sidelen(); ++r)
 			for(int c = 0; c < sidelen(); ++c){
 				Position p(r, c);
 				const auto& dt = dots(p);
-				if(dt.size() == 1 && m_finished.count(p) == 0)
-					newly_finished.insert(p);
+				for(int i = 0; i < 4; ++i)
+					if(m_finished.count({p, i}) == 0 && (
+						boost::algorithm::all_of(dt, [=](int lineseg){
+						return is_lineseg_on(lineseg, i);
+					}) || boost::algorithm::all_of(dt, [=](int lineseg){
+						return !is_lineseg_on(lineseg, i);
+					})))
+						newly_finished.insert({p, i});
 			}
 
 		if(newly_finished.empty())
 			return n;
 
 		n = 1;
-		for(const auto& p : newly_finished){
+		for(const auto& kv : newly_finished){
+			auto& p = kv.first;
+			int i = kv.second;
 			int lineseg = dots(p)[0];
-			for(int i = 0; i < 4; ++i){
-				auto p2 = p + offset[i];
-				if(!is_valid(p2))
-					continue;
+			auto p2 = p + offset[i];
+			if(is_valid(p2)){
 				auto& dt = dots(p2);
 				// The line segments in adjacent cells must be connected
 				boost::remove_erase_if(dt, [=](int lineseg2){
@@ -225,7 +231,7 @@ int puz_state::check_dots(bool init)
 				if(!init && dt.empty())
 					return 0;
 			}
-			m_finished.insert(p);
+			m_finished.insert(kv);
 		}
 		//m_distance += newly_finished.size();
 	}
