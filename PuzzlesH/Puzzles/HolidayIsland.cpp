@@ -56,10 +56,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 		for(int c = 1; c < m_sidelen - 1; ++c){
 			char ch = str[c - 1];
 			if(ch != PUZ_SPACE){
-				int n = ch - '0';
-				m_pos2num[{r, c}] = n;
+				m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+				m_start.push_back(PUZ_TENT);
 			}
-			m_start.push_back(ch == PUZ_SPACE ? PUZ_SPACE : PUZ_TENT);
+			else
+				m_start.push_back(PUZ_SPACE);
 		}
 		m_start.push_back(PUZ_WATER);
 	}
@@ -258,10 +259,11 @@ bool puz_state::make_move(const Position& p)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-	auto& kv = *boost::min_element(m_pos2area, [](
+	auto& kv = *boost::min_element(m_pos2area, [&](
 		const pair<const Position, puz_area>& kv1,
 		const pair<const Position, puz_area>& kv2){
-		return kv1.second.m_outer.size() < kv2.second.m_outer.size();
+		//return kv1.second.m_outer.size() < kv2.second.m_outer.size();
+		return m_game->m_pos2num.at(kv1.first) < m_game->m_pos2num.at(kv2.first);
 	});
 	for(auto& p : kv.second.m_outer){
 		children.push_back(*this);
