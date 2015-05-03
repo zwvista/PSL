@@ -88,6 +88,8 @@ struct puz_state : string
 	}
 
 	const puz_game* m_game = nullptr;
+	// key: position of the token
+	// value: r / y / ry
 	map<Position, string> m_matches;
 	unsigned int m_distance = 0;
 };
@@ -120,6 +122,8 @@ int puz_state::find_matches(bool init)
 					++n;
 				counts.push_back(n);
 			}
+			// there are no more than three tokens of the same colour
+			// lined up horizontally, vertically or	diagonally.
 			for(int i = 0; i < 4; ++i)
 				if(counts[i] + counts[4 + i] >= 3)
 					return true;
@@ -169,11 +173,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-	for(int r = 1; r < sidelen() - 1; ++r) {
-		for(int c = 1; c < sidelen() - 1; ++c){
-			char ch = cells({r, c});
-			out << ch;
-		}
+	for(int r = 1; r < sidelen() - 1; ++r){
+		for(int c = 1; c < sidelen() - 1; ++c)
+			out << cells({r, c});
 		out << endl;
 	}
 	return out;

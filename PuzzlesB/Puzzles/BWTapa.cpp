@@ -78,7 +78,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			else{
 				m_start.push_back(PUZ_HINT);
 				auto& hint = m_pos2hint[{r, c}];
-				for(int i = 0, n = 0; i < 4; ++i){
+				for(int i = 0; i < 4; ++i){
 					char ch = s[i];
 					if(ch != PUZ_SPACE)
 						hint.push_back(ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0');
@@ -119,9 +119,11 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	}
 
 	// A cell with a 0 means all its surrounding cells are empty.
-	auto it = m_hint2perms.find({0});
-	if(it != m_hint2perms.end())
-		it->second = {string(8, PUZ_EMPTY)};
+	for(int n : {0, PUZ_UNKNOWN}){
+		auto it = m_hint2perms.find({n});
+		if(it != m_hint2perms.end())
+			it->second.emplace_back(8, PUZ_EMPTY);
+	}
 }
 
 typedef pair<vector<Position>, int> puz_path;
