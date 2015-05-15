@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	cout << "i2: HiddenStars" << endl;
 	cout << "i3: Hidoku" << endl;
 	cout << "i4: Hitori" << endl;
-	cout << "o1: holiday island" << endl;
+	cout << "o1: Holiday Island" << endl;
 	cout << "o2: hopover" << endl;
 	cout << "r: hrd" << endl;
 	string str;

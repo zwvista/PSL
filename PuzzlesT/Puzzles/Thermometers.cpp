@@ -38,7 +38,11 @@ struct puz_game
 {
 	string m_id;
 	int m_sidelen;
+	// elem: thermometer
+	// elem.elem: position occupied by the thermometer
 	vector<vector<Position>> m_thermometer_info;
+	// key: position occupied by the thermometer
+	// value: index of the thermometer
 	map<Position, int> m_pos2thermometer;
 	vector<int> m_filled_counts_rows, m_filled_counts_cols;
 	int m_filled_total_count;
@@ -63,13 +67,13 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 			if(isdigit(ch))
 				(c == m_sidelen ? m_filled_counts_rows[r] : m_filled_counts_cols[c])
 				= ch - '0';
-			else if(ch != PUZ_SPACE) {
+			else{
 				int d = bulbs.find(ch);
 				if(d == -1) continue;
 				int n = m_thermometer_info.size();
 				m_thermometer_info.emplace_back();
 				auto& info = m_thermometer_info.back();
-				auto os = offset[d];
+				auto& os = offset[d];
 				for(auto p2 = p;; p2 += os){
 					m_pos2thermometer[p2] = n;
 					info.push_back(p2);
