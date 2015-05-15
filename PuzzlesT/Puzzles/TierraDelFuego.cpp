@@ -100,6 +100,7 @@ struct puz_state : string
 
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
+, m_tribes_index(g.m_tribes.size() * g.m_tribes.size())
 {
 	m_waters.resize(g.m_water_info.size());
 	boost::iota(m_waters, 0);
