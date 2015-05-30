@@ -190,7 +190,8 @@ int puz_state::find_matches(bool init)
 				// point to the number, so it should be contained
 				return n2 >= 0 && dirs.count(n2) != 0
 					// a negative direction means the arrow is not supposed
-					// to point to the number, so it should not be contained
+					// to point to the number, so it should not be the only
+                    // possible direction
 					|| n2 < 0 && (dirs.size() > 1 || dirs.count(~n2) == 0);
 			});
 		});
