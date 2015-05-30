@@ -31,7 +31,7 @@ struct puz_game
 	int m_sidelen;
 	vector<vector<Position>> m_area2range;
 	string m_start;
-	vector<string> m_perms_food, m_perms_drink, m_perms_pair;
+	vector<string> m_perms_food, m_perms_drink;
 
 	puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
 };
@@ -61,16 +61,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 	do
 		m_perms_drink.push_back(perm);
 	while(boost::next_permutation(perm));
-
-	// pairings of food and drink
-	string fd = "  ";
-	for(int i = 0; i < m_sidelen; ++i){
-		fd[0] = i + 'a';
-		for(int j = 0; j < m_sidelen; ++j){
-			fd[1] = j + 'A';
-			m_perms_pair.push_back(fd);
-		}
-	}
 }
 
 struct puz_state : string
