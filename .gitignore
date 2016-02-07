@@ -2,6 +2,7 @@
 *.suo
 *.sdf
 *.opensdf
+*.opendb
 /ipch
 
 Debug

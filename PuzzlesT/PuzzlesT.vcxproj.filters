@@ -67,6 +67,9 @@
     <Text Include="Puzzles\Tatamino2.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\TurnTwice.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -131,6 +134,9 @@
     <ClCompile Include="Puzzles\Tatamino2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\TurnTwice.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\turnz.xml">
@@ -173,6 +179,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\TheOddBrick.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\TurnTwice.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

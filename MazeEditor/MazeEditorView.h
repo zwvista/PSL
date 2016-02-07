@@ -18,75 +18,75 @@
 class CMazeEditorView : public CView
 {
 protected: // create from serialization only
-	CMazeEditorView();
-	DECLARE_DYNCREATE(CMazeEditorView)
+    CMazeEditorView();
+    DECLARE_DYNCREATE(CMazeEditorView)
 
 // Attributes
 public:
-	CMazeEditorDoc* GetDocument() const;
+    CMazeEditorDoc* GetDocument() const;
 
 // Operations
 public:
 
 // Overrides
 public:
-	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
-	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-	virtual void OnInitialUpdate();
+    virtual void OnDraw(CDC* pDC);  // overridden to draw this view
+    virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+    virtual void OnInitialUpdate();
 
 protected:
-	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
-	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
-	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
+    virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
+    virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
+    virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 
 // Implementation
 public:
-	virtual ~CMazeEditorView();
+    virtual ~CMazeEditorView();
 #ifdef _DEBUG
-	virtual void AssertValid() const;
-	virtual void Dump(CDumpContext& dc) const;
+    virtual void AssertValid() const;
+    virtual void Dump(CDumpContext& dc) const;
 #endif
 
 protected:
-	CMazeEditorDoc* m_pDoc;
-	CMFCRibbonBar* m_pBar;
-	CMFCRibbonEdit* m_pEditHeight;
-	CMFCRibbonEdit* m_pEditWidth;
-	CMFCRibbonEdit* m_pEditChar;
-	CMFCRibbonEdit* m_pEditCurPos;
-	CMFCRibbonComboBox* m_pComboMovement;
-	CMFCRibbonEdit* m_pEditSideLen;
+    CMazeEditorDoc* m_pDoc;
+    CMFCRibbonBar* m_pBar;
+    CMFCRibbonEdit* m_pEditHeight;
+    CMFCRibbonEdit* m_pEditWidth;
+    CMFCRibbonEdit* m_pEditChar;
+    CMFCRibbonEdit* m_pEditCurPos;
+    CMFCRibbonComboBox* m_pComboMovement;
+    CMFCRibbonEdit* m_pEditSideLen;
 
-	CRect GetPosRect(int r, int c) {
-		return CRect(c * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen,
-			(c + 1) * m_pDoc->m_nSideLen, (r + 1) * m_pDoc->m_nSideLen);
-	}
-	CRect GetPosRect(const Position& p) {return GetPosRect(p.first, p.second);}
-	void OnMazeChanged() {Invalidate();}
-	void OnMazeCleared();
-	void OnMazeResized();
+    CRect GetPosRect(int r, int c) {
+        return CRect(c * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen,
+            (c + 1) * m_pDoc->m_nSideLen, (r + 1) * m_pDoc->m_nSideLen);
+    }
+    CRect GetPosRect(const Position& p) {return GetPosRect(p.first, p.second);}
+    void OnMazeChanged() {Invalidate();}
+    void OnMazeCleared();
+    void OnMazeResized();
 
-	void MoveUp();
-	void MoveDown();
-	void MoveLeft();
-	void MoveRight();
-	void SetCurPos(Position p);
+    void MoveUp();
+    void MoveDown();
+    void MoveLeft();
+    void MoveRight();
+    void SetCurPos(Position p);
 
 // Generated message map functions
 protected:
-	afx_msg void OnFilePrintPreview();
-	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
-	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
-	afx_msg void OnResizeMaze();
-	afx_msg void OnMazeChar();
-	afx_msg void OnMazeSideLen();
-	afx_msg void OnEditCopy();
-	afx_msg void OnEditPaste();
-	afx_msg void OnUpdateMovement(CCmdUI* pCmdUI) {pCmdUI->Enable();}
-	DECLARE_MESSAGE_MAP()
+    afx_msg void OnFilePrintPreview();
+    afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
+    afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+    afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+    afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
+    afx_msg void OnResizeMaze();
+    afx_msg void OnMazeChar();
+    afx_msg void OnMazeSideLen();
+    afx_msg void OnEditCopy();
+    afx_msg void OnEditPaste();
+    afx_msg void OnUpdateMovement(CCmdUI* pCmdUI) {pCmdUI->Enable();}
+    DECLARE_MESSAGE_MAP()
 };
 
 #ifndef _DEBUG  // debug version in MazeEditorView.cpp

@@ -7,17 +7,17 @@ extern void solve_puz_Orchards();
 
 int main(int argc, char **argv)
 {
-	cout << "d: Odds Are Even" << endl;
-	cout << "n: on_the_edge" << endl;
-	cout << "p: openvalve" << endl;
-	cout << "r: Orchards" << endl;
-	string str;
-	getline(cin, str);
-	if(str.empty());
-	else if (str == "d") solve_puz_OddsAreEven();
-	else if (str == "n") solve_puz_on_the_edge();
-	else if(str == "p") solve_puz_openvalve();
-	else if(str == "r") solve_puz_Orchards();
+    cout << "d: Odds Are Even" << endl;
+    cout << "n: on_the_edge" << endl;
+    cout << "p: openvalve" << endl;
+    cout << "r: Orchards" << endl;
+    string str;
+    getline(cin, str);
+    if(str.empty());
+    else if (str == "d") solve_puz_OddsAreEven();
+    else if (str == "n") solve_puz_on_the_edge();
+    else if(str == "p") solve_puz_openvalve();
+    else if(str == "r") solve_puz_Orchards();
 
-	return 0;
+    return 0;
 }
