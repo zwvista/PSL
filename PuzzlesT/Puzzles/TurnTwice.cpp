@@ -2,7 +2,7 @@
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
-
+#include <boost/math/special_functions/sign.hpp>
 /*
     iOS Game: Logic Games/Puzzle Set 15/Turn Twice
 
@@ -26,7 +26,7 @@ namespace puzzles{ namespace TurnTwice{
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
 #define PUZ_SIGNPOST    'S'
-#define PUZ_WALL        '+'
+#define PUZ_WALL        'W'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -78,8 +78,8 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
             for(int k = 0; k < sz2; ++k){
                 vector<Position> path;
                 for(auto p = p1;;){
-                    Position os1((p.first < p2.first) - (p.first > p2.first), 0);
-                    Position os2(0, (p.second < p2.second) - (p.second > p2.second));
+                    Position os1(boost::math::sign(p2.first - p.first), 0);
+                    Position os2(0, boost::math::sign(p2.second - p.second));
                     Position os = k == 0 && os1 != os0 || k == 1 && os2 == os0 ? os1 : os2;
                     p += os;
                     if(p == p2) break;
@@ -100,8 +100,9 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_paths < x.m_paths; }
-    bool make_move(const Position& p, const vector<int>& perm);
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool make_move(const Position& p);
+    bool is_continuous() const;
 
     //solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
@@ -121,13 +122,74 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_game(&g) ,m_cells(g.m_start), m_paths(g.m_paths)
 {
 }
 
-bool puz_state::make_move(const Position& p, const vector<int>& perm)
+struct puz_state2 : Position
 {
-    m_distance = 0;
+    puz_state2(const set<Position>& a) : m_area(a) { make_move(*a.begin()); }
+
+    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const set<Position>& m_area;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for(auto& os : offset){
+        auto p = *this + os;
+        if(m_area.count(p) != 0){
+            children.push_back(*this);
+            children.back().make_move(p);
+        }
+    }
+}
+
+// 5. All the signposts and empty spaces must form an orthogonally continuous area.
+bool puz_state::is_continuous() const
+{
+    set<Position> area;
+    for(int r = 1; r < sidelen() - 1; ++r)
+        for(int c = 1; c < sidelen() - 1; ++c){
+            Position p(r, c);
+            if(cells(p) != PUZ_WALL)
+                area.insert(p);
+        }
+
+    list<puz_state2> smoves;
+    puz_move_generator<puz_state2>::gen_moves(area, smoves);
+    return smoves.size() == area.size();
+}
+
+bool puz_state::make_move(const Position& p)
+{
+    cells(p) = PUZ_WALL;
+    if(!is_continuous())
+        return false;
+
+    int sz = m_paths.size();
+    boost::remove_erase_if(m_paths, [&](const vector<Position>& path){
+        return boost::algorithm::any_of_equal(path, p);
+    });
+
+    // 4. Walls can't touch horizontally or vertically.
+    for(auto& os : offset){
+        auto p2 = p + os;
+        char& ch = cells(p2);
+        if(ch == PUZ_SPACE){
+            ch = PUZ_EMPTY;
+            for(auto& path : m_paths)
+                boost::remove_erase(path, p2);
+        }
+    }
+    boost::remove_erase_if(m_paths, [&](const vector<Position>& path){
+        return path.empty();
+    });
+    m_distance = sz - m_paths.size();
+
+    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -139,7 +201,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
     for(auto& p : path){
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, perm))
+        if(!children.back().make_move(p))
             children.pop_back();
     }
 }
@@ -147,8 +209,10 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for(int r = 1; r < sidelen() - 1; ++r){
-        for (int c = 1; c < sidelen() - 1; ++c)
-            out << cells({r, c});
+        for(int c = 1; c < sidelen() - 1; ++c){
+            char ch = cells({r, c});
+            out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
+        }
         out << endl;
     }
     return out;
