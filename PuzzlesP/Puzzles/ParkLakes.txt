@@ -1,0 +1,9 @@
+Level 1
+Sequence of moves: 
+...
+N..
+...
+Number of moves: 0
+Number of vertices examined: 1
+0.183311 [s]
+
