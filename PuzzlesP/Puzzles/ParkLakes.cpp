@@ -149,13 +149,15 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
-    bool make_move(const Position& p);
+    bool make_move(const Position& p, int n);
+    bool make_move2(const Position& p, int n);
+    int find_matches(bool init);
     bool is_continuous() const;
 
     //solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_paths.size(); }
+    unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -165,13 +167,48 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    vector<vector<Position>> m_paths;
+    map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g) ,m_cells(g.m_start)
 {
+    for(auto& kv : g.m_pos2lakeinfo){
+        auto& lake_ids = m_matches[kv.first];
+        lake_ids.resize(kv.second.m_lake_perms.size());
+        boost::iota(lake_ids, 0);
+    }
+
+    find_matches(true);
+}
+
+int puz_state::find_matches(bool init)
+{
+    for(auto& kv : m_matches){
+        auto& p = kv.first;
+        auto& lake_ids = kv.second;
+
+        auto& lake_perms = m_game->m_pos2lakeinfo.at(p).m_lake_perms;
+        boost::remove_erase_if(lake_ids, [&](int id){
+            auto& lakes = lake_perms[id];
+            for(auto& lake : lakes)
+                for(int r = lake.first.first; r <= lake.second.first; ++r)
+                    for(int c = lake.first.second; c <= lake.second.second; ++c)
+                        if(this->cells({r, c}) != PUZ_SPACE)
+                            return true;
+            return false;
+        });
+
+        if(!init)
+            switch(lake_ids.size()){
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(p, lake_ids.front()) ? 1 : 0;
+            }
+    }
+    return 2;
 }
 
 struct puz_state2 : Position
@@ -211,45 +248,36 @@ bool puz_state::is_continuous() const
     return smoves.size() == area.size();
 }
 
-bool puz_state::make_move(const Position& p)
+bool puz_state::make_move2(const Position& p, int n)
 {
     cells(p) = PUZ_LAKE;
     if(!is_continuous())
         return false;
 
-    int sz = m_paths.size();
-    boost::remove_erase_if(m_paths, [&](const vector<Position>& path){
-        return boost::algorithm::any_of_equal(path, p);
-    });
 
-    // 4. Walls can't touch horizontally or vertically.
-    for(auto& os : offset){
-        auto p2 = p + os;
-        char& ch = cells(p2);
-        if(ch == PUZ_SPACE){
-            ch = PUZ_EMPTY;
-            for(auto& path : m_paths)
-                boost::remove_erase(path, p2);
-        }
-    }
-    boost::remove_erase_if(m_paths, [&](const vector<Position>& path){
-        return path.empty();
-    });
-    m_distance = sz - m_paths.size();
 
     return true;
 }
 
+bool puz_state::make_move(const Position& p, int n)
+{
+    m_distance = 0;
+    make_move2(p, n);
+    int m;
+    while((m = find_matches(false)) == 1);
+    return m == 2;
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& path = *boost::min_element(m_paths, [](
-        const vector<Position>& path1, const vector<Position>& path2){
-        return path1.size() < path2.size();
+    auto& kv = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2){
+        return kv1.second.size() < kv2.second.size();
     });
-
-    for(auto& p : path){
+    for(int n : kv.second){
         children.push_back(*this);
-        if(!children.back().make_move(p))
+        if(!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
