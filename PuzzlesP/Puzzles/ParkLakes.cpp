@@ -146,6 +146,9 @@ struct puz_state
     puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+    }
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
@@ -191,11 +194,10 @@ int puz_state::find_matches(bool init)
 
         auto& lake_perms = m_game->m_pos2lakeinfo.at(p).m_lake_perms;
         boost::remove_erase_if(lake_ids, [&](int id){
-            auto& lakes = lake_perms[id];
-            for(auto& lake : lakes)
+            for(auto& lake : lake_perms[id])
                 for(int r = lake.first.first; r <= lake.second.first; ++r)
                     for(int c = lake.first.second; c <= lake.second.second; ++c)
-                        if(this->cells({r, c}) != PUZ_SPACE)
+                        if(this->cells({r, c}) == PUZ_EMPTY)
                             return true;
             return false;
         });
@@ -213,7 +215,8 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& a) : m_area(a) { make_move(*a.begin()); }
+    puz_state2(const set<Position>& a, const Position& p_start)
+        : m_area(a) { make_move(p_start); }
 
     void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -232,37 +235,53 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     }
 }
 
-// 5. All the signposts and empty spaces must form an orthogonally continuous area.
+// 5. All the land tiles are connected horizontally or vertically.
 bool puz_state::is_continuous() const
 {
-    set<Position> area;
+    set<Position> rng1;
     for(int r = 0; r < sidelen(); ++r)
         for(int c = 0; c < sidelen(); ++c){
             Position p(r, c);
             if(cells(p) != PUZ_LAKE)
-                area.insert(p);
+                rng1.insert(p);
         }
 
     list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(area, smoves);
-    return smoves.size() == area.size();
+    puz_move_generator<puz_state2>::gen_moves({rng1, m_game->m_pos2lakeinfo.begin()->first}, smoves);
+    set<Position> rng2(smoves.begin(), smoves.end()), rng3;
+    boost::set_difference(rng1, rng2, inserter(rng3, rng3.end()));
+    return boost::algorithm::all_of(rng3, [this](const Position& p){
+        return cells(p) != PUZ_NUM;
+    });
 }
 
 bool puz_state::make_move2(const Position& p, int n)
 {
-    cells(p) = PUZ_LAKE;
+    auto& lakes = m_game->m_pos2lakeinfo.at(p).m_lake_perms[n];
+    for(auto& lake : lakes)
+        for(int r = lake.first.first; r <= lake.second.first; ++r)
+            for(int c = lake.first.second; c <= lake.second.second; ++c)
+                cells({r, c}) = PUZ_LAKE;
+    for(auto& os : offset){
+        auto p2 = p + os;
+        if(!is_valid(p2)) continue;
+        char& ch = cells(p2);
+        if(ch == PUZ_SPACE)
+            ch = PUZ_EMPTY;
+    }
     if(!is_continuous())
         return false;
 
-
-
+    ++m_distance;
+    m_matches.erase(p);
     return true;
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    if(!make_move2(p, n))
+        return false;
     int m;
     while((m = find_matches(false)) == 1);
     return m == 2;
@@ -284,10 +303,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r){
-        for(int c = 1; c < sidelen() - 1; ++c){
-            char ch = cells({r, c});
-            out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
+    for(int r = 0; r < sidelen(); ++r){
+        for(int c = 0; c < sidelen(); ++c){
+            Position p(r, c);
+            char ch = cells(p);
+            if(ch == PUZ_NUM){
+                int n = m_game->m_pos2lakeinfo.at(p).m_sum;
+                if(n == -1)
+                    out << " ?";
+                else
+                    out << format("%2d") % n;
+            }
+            else
+                out << ' ' << (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
         }
         out << endl;
     }
