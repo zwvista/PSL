@@ -258,17 +258,25 @@ bool puz_state::is_continuous() const
 bool puz_state::make_move2(const Position& p, int n)
 {
     auto& lakes = m_game->m_pos2lakeinfo.at(p).m_lake_perms[n];
-    for(auto& lake : lakes)
-        for(int r = lake.first.first; r <= lake.second.first; ++r)
-            for(int c = lake.first.second; c <= lake.second.second; ++c)
-                cells({r, c}) = PUZ_LAKE;
-    for(auto& os : offset){
-        auto p2 = p + os;
-        if(!is_valid(p2)) continue;
+    auto f = [this](const Position& p2){
+        if(!is_valid(p2)) return;
         char& ch = cells(p2);
         if(ch == PUZ_SPACE)
             ch = PUZ_EMPTY;
+    };
+    for(auto& lake : lakes){
+        int r1 = lake.first.first, r2 = lake.second.first;
+        int c1 = lake.first.second, c2 = lake.second.second;
+        for(int r = r1; r <= r2; ++r)
+            for(int c = c1; c <= c2; ++c)
+                cells({r, c}) = PUZ_LAKE;
+        for(int r = r1; r <= r2; ++r)
+            f({r, c1 - 1}), f({r, c2 + 1});
+        for(int c = c1; c <= c2; ++c)
+            f({r1 - 1, c}), f({r2 + 1, c});
     }
+    for(auto& os : offset)
+        f(p + os);
     if(!is_continuous())
         return false;
 
