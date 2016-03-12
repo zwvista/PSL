@@ -58,6 +58,9 @@
     <Text Include="Puzzles\BusySeas.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\BoxItAgain.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -110,6 +113,9 @@
     <ClCompile Include="Puzzles\BusySeas.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\BoxItAgain.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\BattleShips.xml">
@@ -146,6 +152,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\BusySeas.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\BoxItAgain.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

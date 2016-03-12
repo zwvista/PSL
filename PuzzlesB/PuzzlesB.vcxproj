@@ -155,6 +155,7 @@
     <Text Include="Puzzles\bloxorz_ida.txt" />
     <Text Include="Puzzles\BootyIsland.txt" />
     <Text Include="Puzzles\BotanicalPark.txt" />
+    <Text Include="Puzzles\BoxItAgain.txt" />
     <Text Include="Puzzles\BoxItAround.txt" />
     <Text Include="Puzzles\BoxItUp.txt" />
     <Text Include="Puzzles\Branches.txt" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Puzzles\bloxorz.cpp" />
     <ClCompile Include="Puzzles\BootyIsland.cpp" />
     <ClCompile Include="Puzzles\BotanicalPark.cpp" />
+    <ClCompile Include="Puzzles\BoxItAgain.cpp" />
     <ClCompile Include="Puzzles\BoxItAround.cpp" />
     <ClCompile Include="Puzzles\BoxItUp.cpp" />
     <ClCompile Include="Puzzles\Branches.cpp" />
@@ -195,6 +197,7 @@
     <Xml Include="Puzzles\bloxorz.xml" />
     <Xml Include="Puzzles\BootyIsland.xml" />
     <Xml Include="Puzzles\BotanicalPark.xml" />
+    <Xml Include="Puzzles\BoxItAgain.xml" />
     <Xml Include="Puzzles\BoxItAround.xml" />
     <Xml Include="Puzzles\BoxItUp.xml" />
     <Xml Include="Puzzles\Branches.xml" />
