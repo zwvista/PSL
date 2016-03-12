@@ -1,21 +1,28 @@
 Level 1
-Number of vertices examined: 3
-0.00209629 [s]
+Sequence of moves: 
+ L10 L L L
+ 2 . L L L
+ L10 L L L
+ . . . . 9
+ . L 2 L 1
+Number of moves: 1
+Number of vertices examined: 2
+0.00301232 [s]
 
 Level 200
 Sequence of moves: 
- . L . L 2 L 2 . . . L
- . 5 . . . 1 L . . . ?
+ . L . L 2 L 2 L . . L
+ . 5 . . . 1 . . . . 1
  L L . . L . 2 L . L 2
- L L . L 2 . . . . . L
+ L L . L 2 . L . . . L
  . . . . . L11 L L L .
- . . L L L . L L L L .
- L . L L L L . L L L .
- ? . L L L10 . 9 . . .
- . 4 .10 . . . . . . L
+ . . L L L . . L L L .
+ L . L L L . . L L L .
+ 1 . L L L10 . 9 . . .
+ . 4 .10 . L . . . . L
  L L . L . . 4 L L . 2
- L L . . ? L . L L . L
-Number of moves: 9
-Number of vertices examined: 22
-0.0864141 [s]
+ L L . . 1 L . L L . L
+Number of moves: 3
+Number of vertices examined: 4
+0.0214557 [s]
 

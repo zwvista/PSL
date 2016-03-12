@@ -24,7 +24,7 @@ namespace puzzles{ namespace ParkLakes{
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
 #define PUZ_NUM          'N'
-#define PUZ_LAKE         'L'
+#define PUZ_WATER        'L'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -33,24 +33,29 @@ const Position offset[] = {
     {0, -1},        // w
 };
 
-    // top-left and bottom-right
-typedef pair<Position, Position> puz_lake;
-
-struct puz_lake_info
+struct puz_hint_perm
+{
+    set<Position> m_water;
+    set<Position> m_empty;
+};
+struct puz_hint_info
 {
     int m_sum;
-    vector<vector<puz_lake>> m_lake_perms;
+    vector<puz_hint_perm> m_hint_perms;
 };
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, puz_lake_info> m_pos2lakeinfo;
+    map<Position, puz_hint_info> m_pos2hintinfo;
     string m_start;
 
     puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
@@ -66,7 +71,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
                 m_start.push_back(PUZ_SPACE);
             else{
                 m_start.push_back(PUZ_NUM);
-                num2perms[m_pos2lakeinfo[{r, c}].m_sum = s == " ?" ? -1 : atoi(s.c_str())];
+                num2perms[m_pos2hintinfo[{r, c}].m_sum = s == " ?" ? -1 : atoi(s.c_str())];
             }
         }
     }
@@ -82,61 +87,50 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
                             perms.push_back({n0, n1, n2, n3});
                     }
     }
-    for(auto& kv : m_pos2lakeinfo){
+    for(auto& kv : m_pos2hintinfo){
         auto& p0 = kv.first;
         int r0 = p0.first, c0 = p0.second;
         auto& info = kv.second;
         auto& perms = num2perms[info.m_sum];
-        map<pair<int, int>, vector<puz_lake>> dirnum2lakes;
         for(auto& perm : perms){
-            for(int i = 0; i < 4; ++i){
-                int n = perm[i];
-                if(n == 0 || dirnum2lakes.count({i, n}) != 0) continue;
-                auto& lakes = dirnum2lakes[{i, n}];
-                Position lake_sz(n - 1, n - 1);
-                int r1 = i == 0 ? r0 - n : i == 2 ? r0 + 1 : r0 - n + 1;
-                int r2 = i == 0 ? r0 - n : i == 2 ? r0 + 1 : r0;
-                int c1 = i == 3 ? c0 - n : i == 1 ? c0 + 1 : c0 - n + 1;
-                int c2 = i == 3 ? c0 - n : i == 1 ? c0 + 1 : c0;
-                for(int r = r1; r <= r2; ++r)
-                    for(int c = c1; c <= c2; ++c){
-                        Position tl(r, c), br = tl + lake_sz;
-                        if(tl.first >= 0 && tl.second >= 0 &&
-                            br.first < m_sidelen && br.second < m_sidelen &&
-                            // 4. Lakes aren't on tiles with numbers or question marks.
-                            boost::algorithm::none_of(m_pos2lakeinfo, [&](
-                                const pair<const Position, puz_lake_info>& kv){
-                            auto& p = kv.first;
-                            return
-                                p.first >= tl.first && p.second >= tl.second &&
-                                p.first <= br.first && p.second <= br.second;
-                        }))
-                            lakes.emplace_back(tl, br);
+            vector<int> indexes(4);
+            for(int i = 0; i < 4;){
+                puz_hint_perm hp;
+                auto f = [&](const Position& p1){
+                    if(is_valid(p1) && cells(p1) == PUZ_SPACE)
+                        hp.m_empty.emplace(p1);
+                };
+                for(int j = 0; j < 4; ++j){
+                    int n = perm[j];
+                    if(n == 0)
+                        f(p0 + offset[j]);
+                    else{
+                        int k = indexes[j];
+                        int r1 = j == 0 ? r0 - n : j == 2 ? r0 + 1 : r0 - n + 1 + k;
+                        int c1 = j == 3 ? c0 - n : j == 1 ? c0 + 1 : c0 - n + 1 + k;
+                        int r2 = r1 + n;
+                        int c2 = c1 + n;
+                        if(!is_valid({r1, c1}) || !is_valid({r2 - 1, c2 - 1}))
+                            goto next_perm;
+                        for(int r = r1; r < r2; ++r)
+                            for(int c = c1; c < c2; ++c){
+                                Position p1(r, c);
+                                if(cells(p1) == PUZ_SPACE && hp.m_empty.count(p1) == 0)
+                                    hp.m_water.emplace(p1);
+                                else
+                                    goto next_perm;
+                            }
+                        for(int r = r1; r < r2; ++r)
+                            f({r, c1 - 1}), f({r, c2});
+                        for(int c = c1; c < c2; ++c)
+                            f({r1 - 1, c1}), f({r2, c});
                     }
-            }
-        }
-        for(auto& perm : perms){
-            vector<int> indexes;
-            vector<vector<puz_lake>> lake_perms;
-            for(int i = 0; i < 4; ++i){
-                int n = perm[i];
-                if(n == 0) continue;
-                auto lakes = dirnum2lakes[{i, n}];
-                if(lakes.empty()) goto next_perm;
-                lake_perms.push_back(lakes);
-            }
-            int cnt = lake_perms.size();
-            indexes.resize(cnt);
-            for(int i = 0; i < cnt;){
-                vector<puz_lake> lakes;
-                for(int j = 0; j < cnt; ++j)
-                    lakes.push_back(lake_perms[j][indexes[j]]);
-
-                info.m_lake_perms.push_back(lakes);
-                for(i = 0; i < cnt && ++indexes[i] == lake_perms[i].size(); ++i)
+                }
+                info.m_hint_perms.push_back(hp);
+            next_perm:
+                for(i = 0; i < 4 && ++indexes[i] == std::max(1, perm[i]); ++i)
                     indexes[i] = 0;
             }
-        next_perm:;
         }
     }
 }
@@ -156,6 +150,7 @@ struct puz_state
     bool make_move2(const Position& p, int n);
     int find_matches(bool init);
     bool is_continuous() const;
+    int get_hint(const Position& p) const;
 
     //solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
@@ -177,10 +172,10 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g) ,m_cells(g.m_start)
 {
-    for(auto& kv : g.m_pos2lakeinfo){
-        auto& lake_ids = m_matches[kv.first];
-        lake_ids.resize(kv.second.m_lake_perms.size());
-        boost::iota(lake_ids, 0);
+    for(auto& kv : g.m_pos2hintinfo){
+        auto& perm_ids = m_matches[kv.first];
+        perm_ids.resize(kv.second.m_hint_perms.size());
+        boost::iota(perm_ids, 0);
     }
 
     find_matches(true);
@@ -190,24 +185,24 @@ int puz_state::find_matches(bool init)
 {
     for(auto& kv : m_matches){
         auto& p = kv.first;
-        auto& lake_ids = kv.second;
+        auto& perm_ids = kv.second;
 
-        auto& lake_perms = m_game->m_pos2lakeinfo.at(p).m_lake_perms;
-        boost::remove_erase_if(lake_ids, [&](int id){
-            for(auto& lake : lake_perms[id])
-                for(int r = lake.first.first; r <= lake.second.first; ++r)
-                    for(int c = lake.first.second; c <= lake.second.second; ++c)
-                        if(this->cells({r, c}) == PUZ_EMPTY)
-                            return true;
-            return false;
+        auto& hint_perms = m_game->m_pos2hintinfo.at(p).m_hint_perms;
+        boost::remove_erase_if(perm_ids, [&](int id){
+            auto& hp = hint_perms[id];
+            return boost::algorithm::any_of(hp.m_water, [&](const Position& p){
+                return this->cells(p) == PUZ_EMPTY;
+            }) || boost::algorithm::any_of(hp.m_empty, [&](const Position& p){
+                return this->cells(p) == PUZ_WATER;
+            });
         });
 
         if(!init)
-            switch(lake_ids.size()){
+            switch(perm_ids.size()){
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, lake_ids.front()) ? 1 : 0;
+                return make_move2(p, perm_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -242,12 +237,12 @@ bool puz_state::is_continuous() const
     for(int r = 0; r < sidelen(); ++r)
         for(int c = 0; c < sidelen(); ++c){
             Position p(r, c);
-            if(cells(p) != PUZ_LAKE)
+            if(cells(p) != PUZ_WATER)
                 rng1.insert(p);
         }
 
     list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves({rng1, m_game->m_pos2lakeinfo.begin()->first}, smoves);
+    puz_move_generator<puz_state2>::gen_moves({rng1, m_game->m_pos2hintinfo.begin()->first}, smoves);
     set<Position> rng2(smoves.begin(), smoves.end()), rng3;
     boost::set_difference(rng1, rng2, inserter(rng3, rng3.end()));
     return boost::algorithm::all_of(rng3, [this](const Position& p){
@@ -257,26 +252,11 @@ bool puz_state::is_continuous() const
 
 bool puz_state::make_move2(const Position& p, int n)
 {
-    auto& lakes = m_game->m_pos2lakeinfo.at(p).m_lake_perms[n];
-    auto f = [this](const Position& p2){
-        if(!is_valid(p2)) return;
-        char& ch = cells(p2);
-        if(ch == PUZ_SPACE)
-            ch = PUZ_EMPTY;
-    };
-    for(auto& lake : lakes){
-        int r1 = lake.first.first, r2 = lake.second.first;
-        int c1 = lake.first.second, c2 = lake.second.second;
-        for(int r = r1; r <= r2; ++r)
-            for(int c = c1; c <= c2; ++c)
-                cells({r, c}) = PUZ_LAKE;
-        for(int r = r1; r <= r2; ++r)
-            f({r, c1 - 1}), f({r, c2 + 1});
-        for(int c = c1; c <= c2; ++c)
-            f({r1 - 1, c}), f({r2 + 1, c});
-    }
-    for(auto& os : offset)
-        f(p + os);
+    auto& hp = m_game->m_pos2hintinfo.at(p).m_hint_perms[n];
+    for(auto& p2 : hp.m_water)
+        cells(p2) = PUZ_WATER;
+    for(auto& p2 : hp.m_empty)
+        cells(p2) = PUZ_EMPTY;
     if(!is_continuous())
         return false;
 
@@ -309,6 +289,21 @@ void puz_state::gen_children(list<puz_state>& children) const
     }
 }
 
+int puz_state::get_hint(const Position& p) const
+{
+    int sum = 0;
+    for(int i = 0; i < 4; ++i){
+        auto p2 = p + offset[i];
+        if(!is_valid(p2) || cells(p2) != PUZ_WATER) continue;
+        int n = 1;
+        auto os = offset[i % 2 == 0 ? 1 : 2];
+        for(auto p3 = p2 - os; is_valid(p3) && cells(p3) == PUZ_WATER; p3 -= os, ++n);
+        for(auto p3 = p2 + os; is_valid(p3) && cells(p3) == PUZ_WATER; p3 += os, ++n);
+        sum += n * n;
+    }
+    return sum;
+}
+
 ostream& puz_state::dump(ostream& out) const
 {
     for(int r = 0; r < sidelen(); ++r){
@@ -316,11 +311,10 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             char ch = cells(p);
             if(ch == PUZ_NUM){
-                int n = m_game->m_pos2lakeinfo.at(p).m_sum;
+                int n = m_game->m_pos2hintinfo.at(p).m_sum;
                 if(n == -1)
-                    out << " ?";
-                else
-                    out << format("%2d") % n;
+                    n = get_hint(p);
+                out << format("%2d") % n;
             }
             else
                 out << ' ' << (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
