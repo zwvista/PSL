@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 5/Box It Again
+    iOS Game: Logic Games/Puzzle Set 15/Box It Again
 
     Summary
     Harder Boxes
@@ -103,7 +103,7 @@ struct puz_state : string
     //solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
+    unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -166,7 +166,7 @@ bool puz_state::make_move2(const Position& p, int n)
     auto &tl = box.first, &br = box.second;
     for(int r = tl.first; r <= br.first; ++r)
         for(int c = tl.second; c <= br.second; ++c)
-            cells(r, c) = m_ch, ++m_distance;
+            cells(r, c) = m_ch;
     for(int r = tl.first; r <= br.first; ++r)
         m_vert_walls.emplace(r, tl.second),
         m_vert_walls.emplace(r, br.second + 1);
@@ -174,7 +174,7 @@ bool puz_state::make_move2(const Position& p, int n)
         m_horz_walls.emplace(tl.first, c),
         m_horz_walls.emplace(br.first + 1, c);
 
-    ++m_ch;
+    ++m_ch, ++m_distance;
     m_matches.erase(p);
     return is_goal_state() || !m_matches.empty();
 }
