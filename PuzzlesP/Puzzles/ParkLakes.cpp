@@ -190,10 +190,10 @@ int puz_state::find_matches(bool init)
         auto& hint_perms = m_game->m_pos2hintinfo.at(p).m_hint_perms;
         boost::remove_erase_if(perm_ids, [&](int id){
             auto& hp = hint_perms[id];
-            return boost::algorithm::any_of(hp.m_water, [&](const Position& p){
-                return this->cells(p) == PUZ_EMPTY;
-            }) || boost::algorithm::any_of(hp.m_empty, [&](const Position& p){
-                return this->cells(p) == PUZ_WATER;
+            return boost::algorithm::any_of(hp.m_water, [&](const Position& p2){
+                return this->cells(p2) == PUZ_EMPTY;
+            }) || boost::algorithm::any_of(hp.m_empty, [&](const Position& p2){
+                return this->cells(p2) == PUZ_WATER;
             });
         });
 
