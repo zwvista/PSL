@@ -98,7 +98,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
                 puz_hint_perm hp;
                 auto f = [&](const Position& p1){
                     if(is_valid(p1) && cells(p1) == PUZ_SPACE)
-                        hp.m_empty.emplace(p1);
+                        hp.m_empty.insert(p1);
                 };
                 for(int j = 0; j < 4; ++j){
                     int n = perm[j];
@@ -108,22 +108,22 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
                         int k = indexes[j];
                         int r1 = j == 0 ? r0 - n : j == 2 ? r0 + 1 : r0 - n + 1 + k;
                         int c1 = j == 3 ? c0 - n : j == 1 ? c0 + 1 : c0 - n + 1 + k;
-                        int r2 = r1 + n;
-                        int c2 = c1 + n;
-                        if(!is_valid({r1, c1}) || !is_valid({r2 - 1, c2 - 1}))
+                        int r2 = r1 + n - 1;
+                        int c2 = c1 + n - 1;
+                        if(!is_valid({r1, c1}) || !is_valid({r2, c2}))
                             goto next_perm;
-                        for(int r = r1; r < r2; ++r)
-                            for(int c = c1; c < c2; ++c){
+                        for(int r = r1; r <= r2; ++r)
+                            for(int c = c1; c <= c2; ++c){
                                 Position p1(r, c);
                                 if(cells(p1) == PUZ_SPACE && hp.m_empty.count(p1) == 0)
-                                    hp.m_water.emplace(p1);
+                                    hp.m_water.insert(p1);
                                 else
                                     goto next_perm;
                             }
-                        for(int r = r1; r < r2; ++r)
-                            f({r, c1 - 1}), f({r, c2});
-                        for(int c = c1; c < c2; ++c)
-                            f({r1 - 1, c1}), f({r2, c});
+                        for(int r = r1; r <= r2; ++r)
+                            f({r, c1 - 1}), f({r, c2 + 1});
+                        for(int c = c1; c <= c2; ++c)
+                            f({r1 - 1, c1}), f({r2 + 1, c});
                     }
                 }
                 info.m_hint_perms.push_back(hp);
@@ -191,9 +191,9 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(perm_ids, [&](int id){
             auto& hp = hint_perms[id];
             return boost::algorithm::any_of(hp.m_water, [&](const Position& p2){
-                return this->cells(p2) == PUZ_EMPTY;
+                return cells(p2) == PUZ_EMPTY;
             }) || boost::algorithm::any_of(hp.m_empty, [&](const Position& p2){
-                return this->cells(p2) == PUZ_WATER;
+                return cells(p2) == PUZ_WATER;
             });
         });
 

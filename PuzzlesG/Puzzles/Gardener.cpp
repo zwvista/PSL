@@ -28,20 +28,20 @@
 
 namespace puzzles{ namespace Gardener{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_FLOWER        'F'
+#define PUZ_SPACE       ' '
+#define PUZ_EMPTY       '.'
+#define PUZ_FLOWER      'F'
 #define PUZ_BOUNDARY    'B'
 
-#define PUZ_FLOWER_COUNT_UNKOWN        -1
+#define PUZ_FLOWER_COUNT_UNKNOWN        -1
 
 bool is_empty(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY; }
 
 const Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 const Position offset2[] = {
@@ -54,7 +54,7 @@ const Position offset2[] = {
 struct puz_fb_info
 {
     vector<Position> m_range;
-    int m_flower_count = PUZ_FLOWER_COUNT_UNKOWN;
+    int m_flower_count = PUZ_FLOWER_COUNT_UNKNOWN;
     vector<string> m_perms;
 };
 
@@ -145,7 +145,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
         auto& perms = pair2perms[make_pair(pos_cnt, flower_cnt)];
         if(perms.empty())
             for(int i = 0; i <= pos_cnt; ++i){
-                if(flower_cnt != PUZ_FLOWER_COUNT_UNKOWN && flower_cnt != i) continue;
+                if(flower_cnt != PUZ_FLOWER_COUNT_UNKNOWN && flower_cnt != i) continue;
                 auto perm = string(pos_cnt - i, PUZ_EMPTY) + string(i, PUZ_FLOWER);
                 do
                     perms.push_back(perm);

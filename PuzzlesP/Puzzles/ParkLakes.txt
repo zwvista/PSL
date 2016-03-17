@@ -7,7 +7,7 @@ Sequence of moves:
  . L 2 L 1
 Number of moves: 1
 Number of vertices examined: 2
-0.00301232 [s]
+0.0372642 [s]
 
 Level 200
 Sequence of moves: 
@@ -24,5 +24,5 @@ Sequence of moves:
  L L . . 1 L . L L . L
 Number of moves: 3
 Number of vertices examined: 4
-0.0214557 [s]
+0.0105125 [s]
 
