@@ -31,23 +31,37 @@ const Position offset[] = {
     {0, -1},        // w
 };
 
-struct puz_game    
+struct puz_cloud
+{
+    set<Position> m_body;
+    set<Position> m_empty;
+};
+
+struct puz_game
 {
     string m_id;
     int m_sidelen;
     vector<int> m_piece_counts_rows, m_piece_counts_cols;
-    Position m_cloud_max_size;
+    vector<puz_cloud> m_clouds;
     set<Position> m_pieces;
+    string m_start;
 
     puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char& cells(const Position& p) { return m_start[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
-, m_sidelen(strs.size() + 1)
-, m_piece_counts_rows(m_sidelen)
-, m_piece_counts_cols(m_sidelen)
+    : m_id(attrs.get<string>("id"))
+    , m_sidelen(strs.size() + 1)
+    , m_piece_counts_rows(m_sidelen)
+    , m_piece_counts_cols(m_sidelen)
+    , m_start(m_sidelen * m_sidelen, PUZ_SPACE)
 {
+    for(int i = 0; i < m_sidelen; ++i)
+        cells({i, 0}) = cells({i, m_sidelen - 1}) =
+        cells({0, i}) = cells({m_sidelen - 1, i}) = PUZ_BOUNDARY;
+
     for(int r = 1; r < m_sidelen; ++r){
         auto& str = strs[r - 1];
         for(int c = 1; c < m_sidelen; c++){
@@ -59,10 +73,36 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
                 = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
         }
     }
-    m_cloud_max_size = {
-        *boost::max_element(m_piece_counts_cols),
-        *boost::max_element(m_piece_counts_rows)
-    };
+
+    int max_rows = *boost::max_element(m_piece_counts_cols);
+    int max_cols = *boost::max_element(m_piece_counts_rows);
+    for(int h = 2; h <= max_rows; ++h)
+        for(int r = 1; r < m_sidelen - h; ++r)
+            for(int w = 2; w <= max_cols; ++w)
+                for(int c = 1; c < m_sidelen - w; ++c){
+                    puz_cloud o;
+                    auto f = [&](const Position& p){
+                        char ch = cells(p);
+                        if(ch == PUZ_SPACE)
+                            o.m_empty.insert(p);
+                    };
+                    for(int dr = 0; dr < h; ++dr)
+                        if(m_piece_counts_rows[r + dr] < w)
+                            goto next_cloud;
+                    for(int dc = 0; dc < w; ++dc)
+                        if(m_piece_counts_cols[c + dc] < h)
+                            goto next_cloud;
+                    for(int dr = 0; dr < h; ++dr)
+                        for(int dc = 0; dc < w; ++dc)
+                            o.m_body.emplace(r + dr, c + dc);
+                    for(int dr = -1; dr <= h; ++dr)
+                        f({r + dr, c - 1}), f({r + dr, c + w});
+                    for(int dc = -1; dc <= w; ++dc)
+                        f({r - 1, c + dc}), f({r + h, c + dc});
+                    m_clouds.push_back(o);
+
+                next_cloud:;
+                }
 }
 
 struct puz_state : string
@@ -72,7 +112,8 @@ struct puz_state : string
     int sidelen() const { return m_game->m_sidelen; }
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move(const Position& p, int h, int w);
+    bool make_move(int n);
+    bool make_move2(int n);
     void check_area();
     bool find_matches();
 
@@ -92,21 +133,18 @@ struct puz_state : string
     const puz_game* m_game;
     vector<int> m_piece_counts_rows, m_piece_counts_cols;
     set<Position> m_pieces;
-    // elem.first: the upper-left position
-    // elem.second: the height and width
-    vector<pair<Position, Position>> m_clouds;
+    vector<int> m_matches, m_matches2;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
-, m_piece_counts_rows(g.m_piece_counts_rows)
-, m_piece_counts_cols(g.m_piece_counts_cols)
-, m_pieces(g.m_pieces)
+    : string(g.m_start), m_game(&g)
+    , m_piece_counts_rows(g.m_piece_counts_rows)
+    , m_piece_counts_cols(g.m_piece_counts_cols)
+    , m_pieces(g.m_pieces)
 {
-    for(int i = 0; i < sidelen(); ++i)
-        cells({i, 0}) = cells({i, sidelen() - 1}) =
-        cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
+    m_matches.resize(g.m_clouds.size());
+    boost::iota(m_matches, 0);
 
     check_area();
     find_matches();
@@ -131,104 +169,87 @@ void puz_state::check_area()
 
 bool puz_state::find_matches()
 {
-    m_clouds.clear();
-    for(int h = 2; h <= m_game->m_cloud_max_size.first; ++h)
-        for(int r = 1; r < sidelen() - h; ++r)
-            for(int w = 2; w <= m_game->m_cloud_max_size.second; ++w)
-                for(int c = 1; c < sidelen() - w; ++c)
-                    if([=]{
-                        bool is_piece = false;
-                        for(int dr = 0; dr < h; ++dr)
-                            for(int dc = 0; dc < w; ++dc){
-                                Position p(r + dr, c + dc);
-                                if(m_pieces.count(p) != 0)
-                                    is_piece = true;
-                                if(m_piece_counts_cols[p.second] < h ||
-                                    m_piece_counts_rows[p.first] < w ||
-                                    cells(p) != PUZ_SPACE)
-                                    return false;
-                            }
-                        return m_pieces.empty() || is_piece;
-                    }())
-                        m_clouds.push_back({{r, c}, {h, w}});
+    boost::remove_erase_if(m_matches, [&](int id){
+        auto& o = m_game->m_clouds[id];
+        return boost::algorithm::any_of(o.m_body, [&](const Position& p){
+            return cells(p) == PUZ_EMPTY;
+        }) || boost::algorithm::any_of(o.m_empty, [&](const Position& p){
+            return cells(p) == PUZ_CLOUD;
+        });
+    });
 
-    if(m_pieces.empty()){
-        // pruning
-        set<Position> rng;
-        map<int, set<int>> rc_indexes;
-        for(int i = 0; i < m_clouds.size(); ++i){
-            auto& kv = m_clouds[i];
-            for(int r = kv.first.first; r < kv.first.first + kv.second.first; ++r)
-                for(int c = kv.first.second; c < kv.first.second + kv.second.second; ++c){
-                    rng.emplace(r, c);
-                    // if it contains the position (r,c)
-                    // the i-th cloud will be inserted into
-                    // Row r group and Column c group
-                    rc_indexes[r].insert(i);
-                    rc_indexes[sidelen() + c].insert(i);
-                }
+    // pruning
+    set<Position> rng;
+    map<int, set<int>> rc_indexes;
+    for(int id : m_matches){
+        auto& o = m_game->m_clouds[id];
+        for(auto& p : o.m_body){
+            rng.insert(p);
+            // if it contains the position (r,c)
+            // the i-th cloud will be inserted into
+            // Row r group and Column c group
+            rc_indexes[p.first].insert(id);
+            rc_indexes[sidelen() + p.second].insert(id);
         }
+    }
 
-        // the total number of the tiles in the clouds
-        // in a row or column should be greater or equal to
-        // the count in that row or column
-        for(int i = 1; i < sidelen() - 1; ++i)
-            if(boost::count_if(rng, [i](const Position& p){
-                return p.second == i;
-            }) < m_piece_counts_cols[i] ||
-                boost::count_if(rng, [i](const Position& p){
-                return p.first == i;
-            }) < m_piece_counts_rows[i])
-                return false;
+    // the total number of the tiles in the clouds
+    // in a row or column should be greater or equal to
+    // the count in that row or column
+    for(int i = 1; i < sidelen() - 1; ++i)
+        if(boost::count_if(rng, [i](const Position& p){
+            return p.second == i;
+        }) < m_piece_counts_cols[i] ||
+            boost::count_if(rng, [i](const Position& p){
+            return p.first == i;
+        }) < m_piece_counts_rows[i])
+            return false;
 
-        if(!m_clouds.empty()){
-            // find the group that has the fewest number of clouds
-            auto& kv = *boost::min_element(rc_indexes, [](
-                const pair<const int, set<int>>& kv1,
-                const pair<const int, set<int>>& kv2){
-                return kv1.second.size() < kv2.second.size();
-            });
-            vector<pair<Position, Position>> clouds;
-            for(int i : kv.second)
-                clouds.push_back(m_clouds[i]);
-            ::swap(m_clouds, clouds);
-        }
+    if(!m_matches.empty()){
+        // find the group that has the fewest number of clouds
+        auto& kv = *boost::min_element(rc_indexes, [](
+            const pair<const int, set<int>>& kv1,
+            const pair<const int, set<int>>& kv2){
+            return kv1.second.size() < kv2.second.size();
+        });
+        m_matches2.clear();
+        for(int id : kv.second)
+            m_matches2.push_back(id);
     }
     return true;
 }
 
-bool puz_state::make_move(const Position& p, int h, int w)
+bool puz_state::make_move(int n)
 {
-    for(int dr = 0; dr < h; ++dr)
-        for(int dc = 0; dc < w; ++dc){
-            auto p2 = p + Position(dr, dc);
-            cells(p2) = PUZ_CLOUD;
-            --m_piece_counts_rows[p2.first];
-            --m_piece_counts_cols[p2.second];
-            m_pieces.erase(p2);
-        }
+    //for(int dr = 0; dr < h; ++dr)
+    //    for(int dc = 0; dc < w; ++dc){
+    //        auto p2 = p + Position(dr, dc);
+    //        cells(p2) = PUZ_CLOUD;
+    //        --m_piece_counts_rows[p2.first];
+    //        --m_piece_counts_cols[p2.second];
+    //        m_pieces.erase(p2);
+    //    }
 
-    auto f = [this](const Position& p){
-        char& ch = cells(p);
-        if(ch == PUZ_SPACE)
-            ch = PUZ_EMPTY;
-    };
-    for(int dr = -1; dr <= h; ++dr)
-        f(p + Position(dr, -1)), f(p + Position(dr, w));
-    for(int dc = -1; dc <= w; ++dc)
-        f(p + Position(-1, dc)), f(p + Position(h, dc));
+    //auto f = [this](const Position& p){
+    //    char& ch = cells(p);
+    //    if(ch == PUZ_SPACE)
+    //        ch = PUZ_EMPTY;
+    //};
+    //for(int dr = -1; dr <= h; ++dr)
+    //    f(p + Position(dr, -1)), f(p + Position(dr, w));
+    //for(int dc = -1; dc <= w; ++dc)
+    //    f(p + Position(-1, dc)), f(p + Position(h, dc));
 
-    m_distance = h * w;
-    check_area();
+    //m_distance = h * w;
 
     return find_matches();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(auto& kv : m_clouds){
+    for(int n : m_matches2){
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, kv.second.first, kv.second.second))
+        if(!children.back().make_move(n))
             children.pop_back();
     }
 }

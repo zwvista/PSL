@@ -24,14 +24,14 @@ namespace puzzles{ namespace LightenUp{
 
 #define PUZ_WALL        'W'
 #define PUZ_BULB        'B'
-#define PUZ_SPACE        ' '
-#define PUZ_UNLIT        '.'
-#define PUZ_LIT            '+'
+#define PUZ_SPACE       ' '
+#define PUZ_UNLIT       '.'
+#define PUZ_LIT         '+'
 
 const Position offset[] = {
     {-1, 0},    // n
-    {0, 1},        // e
-    {1, 0},        // s
+    {0, 1},     // e
+    {1, 0},     // s
     {0, -1},    // w
 };
 
