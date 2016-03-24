@@ -35,6 +35,7 @@ struct puz_cloud
 {
     set<Position> m_body;
     set<Position> m_empty;
+    Position m_size;
 };
 
 struct puz_game
@@ -92,6 +93,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
                     for(int dc = 0; dc < w; ++dc)
                         if(m_piece_counts_cols[c + dc] < h)
                             goto next_cloud;
+                    o.m_size = {h, w};
                     for(int dr = 0; dr < h; ++dr)
                         for(int dc = 0; dc < w; ++dc)
                             o.m_body.emplace(r + dr, c + dc);
@@ -113,7 +115,6 @@ struct puz_state : string
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(int n);
-    bool make_move2(int n);
     void check_area();
     bool find_matches();
 
@@ -171,6 +172,13 @@ bool puz_state::find_matches()
 {
     boost::remove_erase_if(m_matches, [&](int id){
         auto& o = m_game->m_clouds[id];
+        auto& p0 = *o.m_body.begin();
+        for(int dc = 0; dc < o.m_size.second; ++dc)
+            if(m_piece_counts_cols[p0.second + dc] < o.m_size.first)
+                return true;
+        for(int dr = 0; dr < o.m_size.first; ++dr)
+            if(m_piece_counts_rows[p0.first + dr] < o.m_size.second)
+                return true;
         return boost::algorithm::any_of(o.m_body, [&](const Position& p){
             return cells(p) == PUZ_EMPTY;
         }) || boost::algorithm::any_of(o.m_empty, [&](const Position& p){
@@ -178,70 +186,73 @@ bool puz_state::find_matches()
         });
     });
 
-    // pruning
-    set<Position> rng;
-    map<int, set<int>> rc_indexes;
-    for(int id : m_matches){
-        auto& o = m_game->m_clouds[id];
-        for(auto& p : o.m_body){
-            rng.insert(p);
-            // if it contains the position (r,c)
-            // the i-th cloud will be inserted into
-            // Row r group and Column c group
-            rc_indexes[p.first].insert(id);
-            rc_indexes[sidelen() + p.second].insert(id);
+    m_matches2.clear();
+    if(!m_pieces.empty())
+        for(int id : m_matches){
+            auto& o = m_game->m_clouds[id];
+            if(boost::algorithm::any_of(m_pieces, [&](const Position& p){
+                return o.m_body.count(p) == 1;
+            }))
+                m_matches2.push_back(id);
         }
-    }
+    else{
+        // pruning
+        set<Position> rng;
+        map<int, set<int>> rc_indexes;
+        for(int id : m_matches){
+            auto& o = m_game->m_clouds[id];
+            for(auto& p : o.m_body){
+                rng.insert(p);
+                // if it contains the position (r,c)
+                // the i-th cloud will be inserted into
+                // Row r group and Column c group
+                rc_indexes[p.first].insert(id);
+                rc_indexes[sidelen() + p.second].insert(id);
+            }
+        }
 
-    // the total number of the tiles in the clouds
-    // in a row or column should be greater or equal to
-    // the count in that row or column
-    for(int i = 1; i < sidelen() - 1; ++i)
-        if(boost::count_if(rng, [i](const Position& p){
-            return p.second == i;
-        }) < m_piece_counts_cols[i] ||
-            boost::count_if(rng, [i](const Position& p){
-            return p.first == i;
-        }) < m_piece_counts_rows[i])
-            return false;
+        // the total number of the tiles in the clouds
+        // in a row or column should be greater or equal to
+        // the count in that row or column
+        for(int i = 1; i < sidelen() - 1; ++i)
+            if(boost::count_if(rng, [i](const Position& p){
+                return p.second == i;
+            }) < m_piece_counts_cols[i] ||
+                boost::count_if(rng, [i](const Position& p){
+                return p.first == i;
+            }) < m_piece_counts_rows[i])
+                return false;
 
-    if(!m_matches.empty()){
-        // find the group that has the fewest number of clouds
-        auto& kv = *boost::min_element(rc_indexes, [](
-            const pair<const int, set<int>>& kv1,
-            const pair<const int, set<int>>& kv2){
-            return kv1.second.size() < kv2.second.size();
-        });
-        m_matches2.clear();
-        for(int id : kv.second)
-            m_matches2.push_back(id);
+        if(!m_matches.empty()){
+            // find the group that has the fewest number of clouds
+            auto& kv = *boost::min_element(rc_indexes, [](
+                const pair<const int, set<int>>& kv1,
+                const pair<const int, set<int>>& kv2){
+                return kv1.second.size() < kv2.second.size();
+            });
+            for(int id : kv.second)
+                m_matches2.push_back(id);
+        }
     }
     return true;
 }
 
 bool puz_state::make_move(int n)
 {
-    //for(int dr = 0; dr < h; ++dr)
-    //    for(int dc = 0; dc < w; ++dc){
-    //        auto p2 = p + Position(dr, dc);
-    //        cells(p2) = PUZ_CLOUD;
-    //        --m_piece_counts_rows[p2.first];
-    //        --m_piece_counts_cols[p2.second];
-    //        m_pieces.erase(p2);
-    //    }
+    auto& o = m_game->m_clouds[n];
+    for(auto& p : o.m_body){
+        cells(p) = PUZ_CLOUD;
+        --m_piece_counts_rows[p.first];
+        --m_piece_counts_cols[p.second];
+        m_pieces.erase(p);
+    }
+    for(auto& p : o.m_empty)
+        cells(p) = PUZ_EMPTY;
 
-    //auto f = [this](const Position& p){
-    //    char& ch = cells(p);
-    //    if(ch == PUZ_SPACE)
-    //        ch = PUZ_EMPTY;
-    //};
-    //for(int dr = -1; dr <= h; ++dr)
-    //    f(p + Position(dr, -1)), f(p + Position(dr, w));
-    //for(int dc = -1; dc <= w; ++dc)
-    //    f(p + Position(-1, dc)), f(p + Position(h, dc));
+    m_distance = o.m_body.size();
+    boost::remove_erase(m_matches, n);
 
-    //m_distance = h * w;
-
+    check_area();
     return find_matches();
 }
 
