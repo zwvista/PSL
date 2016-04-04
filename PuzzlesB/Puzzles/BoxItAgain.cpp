@@ -44,10 +44,9 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
     for(int r = 0; r < m_sidelen; ++r){
         auto& str = strs[r];
         for(int c = 0; c < m_sidelen; ++c){
-            auto s = str.substr(c * 2, 2);
-            int n = atoi(s.c_str());
-            if(n != 0)
-                m_pos2boxinfo[{r, c}].m_area = n;
+            char ch = str[c];
+            if(ch != PUZ_SPACE)
+                m_pos2boxinfo[{r, c}].m_area = ch - '0';
         }
     }
 
@@ -208,7 +207,7 @@ ostream& puz_state::dump(ostream& out) const
     for(int r = 0;; ++r){
         // draw horz-walls
         for(int c = 0; c < sidelen(); ++c)
-            out << (m_horz_walls.count({r, c}) == 1 ? " --" : "   ");
+            out << (m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
         out << endl;
         if(r == sidelen()) break;
         for(int c = 0;; ++c){
@@ -218,9 +217,9 @@ ostream& puz_state::dump(ostream& out) const
             if(c == sidelen()) break;
             auto it = m_game->m_pos2boxinfo.find(p);
             if(it == m_game->m_pos2boxinfo.end())
-                out << " .";
+                out << ".";
             else
-                out << format("%2d") % it->second.m_area;
+                out << it->second.m_area;
         }
         out << endl;
     }
