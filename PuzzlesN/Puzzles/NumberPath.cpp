@@ -84,7 +84,8 @@ bool puz_state::make_move(const Position& p)
     int n = cells(p);
     if(n > count() || boost::algorithm::any_of_equal(m_nums, n)) return false;
     push_back(p);
-    return !is_goal_state() || p == Position(sidelen() - 1, sidelen() - 1);
+    m_nums.push_back(n);
+    return manhattan_distance(p, {sidelen() - 1, sidelen() - 1}) <= count() - size();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -100,9 +101,29 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
+    set<Position> horz_lines, vert_lines;
+    for(int i = 0; i < size() - 1; ++i){
+        auto &p1 = (*this)[i], &p2 = (*this)[i + 1];
+        switch(boost::range::find(offset, p2 - p1) - offset){
+        case 0: vert_lines.insert(p2);  break;
+        case 1: horz_lines.insert(p1);  break;
+        case 2: vert_lines.insert(p1);  break;
+        case 3: horz_lines.insert(p2);  break;
+        }
+    }
+
+    for(int r = 0;; ++r){
+        // draw horz-lines
+        for(int c = 0; c < sidelen(); ++c){
+            Position p(r, c);
+            out << format("%2d") % cells(p)
+                << (horz_lines.count(p) != 0 ? '-' : ' ');
+        }
+        out << endl;
+        if(r == sidelen() - 1) break;
         for(int c = 0; c < sidelen(); ++c)
-            out << format("%3d") % cells({r, c});
+            // draw vert-lines
+            out << (vert_lines.count({r, c}) != 0 ? " | " : "   ");
         out << endl;
     }
     return out;
