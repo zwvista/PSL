@@ -40,6 +40,9 @@
     <Text Include="Puzzles\NorthPoleFishing.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\NoughtsAndCrosses.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -74,6 +77,9 @@
     <ClCompile Include="Puzzles\NorthPoleFishing.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\numeric_paranoia.xml">
@@ -95,6 +101,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\NorthPoleFishing.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\NoughtsAndCrosses.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

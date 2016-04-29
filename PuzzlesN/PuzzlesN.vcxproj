@@ -152,6 +152,7 @@
     <Text Include="Puzzles\Neighbours2.txt" />
     <Text Include="Puzzles\Neighbours3.txt" />
     <Text Include="Puzzles\NorthPoleFishing.txt" />
+    <Text Include="Puzzles\NoughtsAndCrosses.txt" />
     <Text Include="Puzzles\NumberLink.txt" />
     <Text Include="Puzzles\numeric_paranoia.txt" />
     <Text Include="Puzzles\Nurikabe.txt" />
@@ -166,6 +167,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Neighbours.cpp" />
     <ClCompile Include="Puzzles\NorthPoleFishing.cpp" />
+    <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp" />
     <ClCompile Include="Puzzles\NumberLink.cpp" />
     <ClCompile Include="Puzzles\numeric_paranoia.cpp" />
     <ClCompile Include="Puzzles\Nurikabe.cpp" />
@@ -181,6 +183,7 @@
     <Xml Include="Puzzles\Neighbours2.xml" />
     <Xml Include="Puzzles\Neighbours3.xml" />
     <Xml Include="Puzzles\NorthPoleFishing.xml" />
+    <Xml Include="Puzzles\NoughtsAndCrosses.xml" />
     <Xml Include="Puzzles\NumberLink.xml" />
     <Xml Include="Puzzles\numeric_paranoia.xml" />
     <Xml Include="Puzzles\Nurikabe.xml" />
