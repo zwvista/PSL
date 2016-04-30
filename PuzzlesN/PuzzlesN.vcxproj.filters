@@ -40,9 +40,10 @@
     <Text Include="Puzzles\NorthPoleFishing.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\NoughtsAndCrosses.txt">
+    <Text Include="Puzzles\NumberPath.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\NoughtsAndCrosses.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -77,7 +78,7 @@
     <ClCompile Include="Puzzles\NorthPoleFishing.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp">
+    <ClCompile Include="Puzzles\NumberPath.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -103,8 +104,9 @@
     <Xml Include="Puzzles\NorthPoleFishing.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\NoughtsAndCrosses.xml">
+    <Xml Include="Puzzles\NumberPath.xml">
       <Filter>Puzzles</Filter>
     </Xml>
+    <Xml Include="Puzzles\NoughtsAndCrosses.xml" />
   </ItemGroup>
 </Project>
