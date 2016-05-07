@@ -168,6 +168,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Neighbours.cpp" />
     <ClCompile Include="Puzzles\NorthPoleFishing.cpp" />
+    <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp" />
     <ClCompile Include="Puzzles\NumberLink.cpp" />
     <ClCompile Include="Puzzles\NumberPath.cpp" />
     <ClCompile Include="Puzzles\numeric_paranoia.cpp" />

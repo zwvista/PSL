@@ -4,26 +4,24 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 12/Carpenter's Wall
+    iOS Game: Logic Games/Puzzle Set 16/Carpenter's Square
 
     Summary
-    Angled Walls
+    Angled Borders
 
     Description
-    1. In this game you have to create a valid Nurikabe following a different
-       type of hints.
-    2. In the end, the empty spaces left by the Nurikabe will form many Carpenter's
-       Squares (L shaped tools) of different size.
-    3. The circled numbers on the board indicate the corner of the L.
-    4. When a number is inside the circle, that indicates the total number of
+    1. Similar to Carpenter's Wall, this time you have to respect the same
+       rules, but instead of forming a Nurikabe, you just have to divide the
+       board into many.Capenter's Squares (L shaped tools) of different size.
+    2. The circled numbers on the board indicate the corner of the L.
+    3. When a number is inside the circle, that indicates the total number of
        squares occupied by the L.
-    5. The arrow always sits at the end of an arm and points to the corner of
+    4. The arrow always sits at the end of an arm and points to the corner of
        an L.
-    6. Not all the Carpenter's Squares might be indicated: some could be hidden
-       and no hint given.
+    5. All the tiles in the board have to be part of a Carpenter's Square.
 */
 
-namespace puzzles{ namespace CarpentersWall{
+namespace puzzles{ namespace CarpentersSquare{
 
 #define PUZ_SPACE        ' '
 #define PUZ_WALL        'W'
@@ -471,9 +469,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_CarpentersWall()
+void solve_puz_CarpentersSquare()
 {
-    using namespace puzzles::CarpentersWall;
+    using namespace puzzles::CarpentersSquare;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\CarpentersWall.xml", "Puzzles\\CarpentersWall.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles\\CarpentersSquare.xml", "Puzzles\\CarpentersSquare.txt", solution_format::GOAL_STATE_ONLY);
 }

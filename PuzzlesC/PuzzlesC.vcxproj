@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\Calcudoku.txt" />
+    <Text Include="Puzzles\CarpentersSquare.txt" />
     <Text Include="Puzzles\CarpentersWall.txt" />
     <Text Include="Puzzles\CastleBailey.txt" />
     <Text Include="Puzzles\Clouds.txt" />
@@ -164,6 +165,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Calcudoku.cpp" />
+    <ClCompile Include="Puzzles\CarpentersSquare.cpp" />
     <ClCompile Include="Puzzles\CarpentersWall.cpp" />
     <ClCompile Include="Puzzles\CastleBailey.cpp" />
     <ClCompile Include="Puzzles\Clouds.cpp" />
@@ -179,6 +181,7 @@
     <Xml Include="Puzzles\Calcudoku.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Puzzles\CarpentersSquare.xml" />
     <Xml Include="Puzzles\CarpentersWall.xml" />
     <Xml Include="Puzzles\CastleBailey.xml" />
     <Xml Include="Puzzles\Clouds.xml" />
