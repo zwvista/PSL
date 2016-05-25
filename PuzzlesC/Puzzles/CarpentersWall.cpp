@@ -25,15 +25,15 @@
 
 namespace puzzles{ namespace CarpentersWall{
 
-#define PUZ_SPACE        ' '
+#define PUZ_SPACE       ' '
 #define PUZ_WALL        'W'
 #define PUZ_BOUNDARY    '+'
-#define PUZ_CORNER        'o'
+#define PUZ_CORNER      'o'
 
 const Position offset[] = {
     {-1, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
+    {0, 1},         // e
+    {1, 0},         // s
     {0, -1},        // w
 };
 
