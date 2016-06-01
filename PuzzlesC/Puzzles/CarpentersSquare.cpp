@@ -118,7 +118,9 @@ struct puz_state : string
     }
 
     //solve_puzzle interface
-    bool is_goal_state() const {return get_heuristic() == 0;}
+    bool is_goal_state() const {
+        return get_heuristic() == 0 && find(PUZ_SPACE) == string::npos;
+    }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
@@ -154,7 +156,7 @@ int puz_state::adjust_area(bool init)
         auto& t = get_tool(ch);
         auto& p = t.m_hint_pos;
 
-        auto f2 = [&](const vector<Position>& a0, const vector<Position>& a1, int i, int j){
+        auto f = [&](const vector<Position>& a0, const vector<Position>& a1, int i, int j){
             vector<Position> rng;
             for(int k = 0; k < i; ++k)
                 rng.push_back(a0[k]);
@@ -178,12 +180,12 @@ int puz_state::adjust_area(bool init)
                     arms[i].push_back(p2);
                     arm_lens[i].push_back(j++);
                 }
-                if(ch2 == PUZ_BOUNDARY || islower(ch2)) continue;
+                if(m_matches.count(ch2) == 0) continue;
                 auto& t = get_tool(ch2);
                 if(t.hint_type() == tool_hint_type::ARM_END &&
                     (t.dir() + 2) % 4 == i){
                     arms[i].push_back(p2);
-                    arm_lens[i].push_back(++j);
+                    arm_lens[i].push_back(j);
                 }
             }
             for(auto& dirs : tool_dirs2){
@@ -193,7 +195,7 @@ int puz_state::adjust_area(bool init)
                 for(int i : lens0)
                     for(int j : lens1)
                         if(len == -1 || i + j + 1 == len)
-                            f2(a0, a1, i, j);
+                            f(a0, a1, i, j);
             }
         };
 
@@ -207,7 +209,7 @@ int puz_state::adjust_area(bool init)
             char ch2;
             for(p2 = p + os; ; p2 += os){
                 ch2 = cells(p2);
-                if(ch2 == PUZ_BOUNDARY || islower(ch2)) break;
+                if(ch2 != PUZ_SPACE && m_matches.count(ch2) == 0) break;
                 if(ch2 == PUZ_SPACE)
                     a0.push_back(p2);
                 else{
@@ -232,7 +234,7 @@ int puz_state::adjust_area(bool init)
                     int j;
                     for(j = 1; j <= a1.size(); ++j)
                         arm_lens.push_back(j);
-                    if (ch2 != PUZ_BOUNDARY && !islower(ch2)) {
+                    if (m_matches.count(ch2) != 0) {
                         auto& t = get_tool(ch2);
                         if (t.hint_type() == tool_hint_type::ARM_END &&
                             (t.dir() + 2) % 4 == d2) {
@@ -243,7 +245,7 @@ int puz_state::adjust_area(bool init)
                     if(a1.empty()) continue;
                     for(int j : arm_lens)
                         if(len == -1 || i + j + 1 == len)
-                            f2(a0, a1, i, j);
+                            f(a0, a1, i, j);
                 }
             }
         };
@@ -283,12 +285,8 @@ bool puz_state::make_move2(char ch, int n)
     if(chars.empty())
         chars.insert(ch);
 
-    for(auto& p : rng){
+    for(auto& p : rng)
         cells(p) = ch;
-        for(auto& os : offset){
-            char& ch2 = cells(p + os);
-        }
-    }
     for(char ch2 : chars){
         m_matches.erase(ch2);
         ++m_distance;
@@ -354,6 +352,25 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    for(int r = 1;; ++r){
+        // draw horz-walls
+        for(int c = 1; c < sidelen() - 1; ++c)
+            out << (cells({r, c}) != cells({r - 1, c}) ? " -" : "  ");
+        out << endl;
+        if(r == sidelen() - 1) break;
+        for(int c = 1;; ++c){
+            Position p(r, c);
+            // draw vert-walls
+            out << (cells({r, c}) != cells({r, c - 1}) ? '|' : ' ');
+            if(c == sidelen() - 1) break;
+            auto it = m_game->m_pos2ch.find(p);
+            if(it == m_game->m_pos2ch.end())
+                out << ".";
+            else
+                out << it->second;
+        }
+        out << endl;
+    }
     return out;
 }
 

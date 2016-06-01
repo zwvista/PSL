@@ -3,10 +3,37 @@
   <level id="1">
     <![CDATA[
     <\
-    o\
+    O\
      \
   3  \
 7  4 \
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+>3  7\
+v    \
+  O  \
+ >   \
+O    \
+    ]]>
+  </level>
+  <level id="3">
+    <![CDATA[
+6   O\
+     \
+     \
+^^  ^\
+   4 \
+    ]]>
+  </level>
+  <level id="4">
+    <![CDATA[
+   5 \
+  <  \
+  <  \
+  > 6\
+O    \
     ]]>
   </level>
 </levels>

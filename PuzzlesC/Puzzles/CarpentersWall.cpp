@@ -459,7 +459,7 @@ ostream& puz_state::dump(ostream& out) const
                     out << ". ";
                 else{
                     char ch = it->second;
-                    if(isupper(ch))
+                    if(isupper(ch) && ch != PUZ_CORNER)
                         out << ch - 'A' + 10;
                     else
                         out << ch << ' ';
