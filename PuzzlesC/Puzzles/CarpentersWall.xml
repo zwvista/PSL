@@ -2,7 +2,7 @@
 <levels>
   <level id="1">
     <![CDATA[
- o 5 \
+ O 5 \
      \
      \
  v   \
@@ -11,7 +11,7 @@
   </level>
   <level id="2">
     <![CDATA[
- o   \
+ O   \
      \
      \
      \
@@ -48,7 +48,7 @@
   <level id="6">
     <![CDATA[
       \
-  o   \
+  O   \
    v  \
 v     \
       \
@@ -105,14 +105,14 @@ v     \
        \
 5      \
       ^\
-  > o  \
+  > O  \
     ]]>
   </level>
   <level id="12">
     <![CDATA[
 5  <    \
        v\
-     o  \
+     O  \
    <    \
     v   \
         \
@@ -122,9 +122,9 @@ v     \
   </level>
   <level id="13">
     <![CDATA[
->  o   <\
+>  O   <\
         \
-       o\
+       O\
  ^ 5    \
         \
         \
@@ -134,11 +134,11 @@ v     \
   </level>
   <level id="14">
     <![CDATA[
- o v    \
-      o \
+ O v    \
+      O \
         \
         \
-o  v  o \
+O  v  O \
         \
 ^       \
      3  \
@@ -164,9 +164,9 @@ o  v  o \
 v        \
         v\
          \
-  o 4    \
+  O 4    \
          \
-  o o    \
+  O O    \
          \
     ]]>
   </level>
@@ -176,7 +176,7 @@ v        \
          \
    <     \
          \
-7    >  o\
+7    >  O\
          \
          \
     ^    \
@@ -241,12 +241,12 @@ v         \
   </level>
   <level id="22">
     <![CDATA[
-  3 >    o\
+  3 >    O\
           \
           \
    4      \
           \
-6  o      \
+6  O      \
           \
           \
      <    \
@@ -264,7 +264,7 @@ v         \
           \
           \
           \
-o    ^   <\
+O    ^   <\
     ]]>
   </level>
 </levels>

@@ -1,6 +1,6 @@
 Level 1
 Sequence of moves: 
-. o W 5 . 
+. O W 5 . 
 W . W . W 
 W W W . W 
 W v W . W 
@@ -11,7 +11,7 @@ Number of vertices examined: 3
 
 Level 2
 Sequence of moves: 
-. o W W W 
+. O W W W 
 W . W . W 
 W . W . W 
 W W W . W 
@@ -56,7 +56,7 @@ Number of vertices examined: 24
 Level 6
 Sequence of moves: 
 W W . W . . 
-W . o W W . 
+W . O W W . 
 W W W v W . 
 v W . . W . 
 . W W W W W 
@@ -123,7 +123,7 @@ W ^ W W . W .
 W W W . . W . 
 5 . . W W W . 
 . W W W . W ^ 
-. W > . o W W 
+. W > . O W W 
 Number of moves: 5
 Number of vertices examined: 24
 0.0130675 [s]
@@ -132,7 +132,7 @@ Level 12
 Sequence of moves: 
 5 . . < W W W W 
 . W W W W . W v 
-W W . W . o W . 
+W W . W . O W . 
 . W . < W W W . 
 . W W W v W . . 
 . . . W . W W W 
@@ -144,9 +144,9 @@ Number of vertices examined: 44
 
 Level 13
 Sequence of moves: 
-> . W o . . . < 
+> . W O . . . < 
 W . W . W W W W 
-W . W W W . . o 
+W . W W W . . O 
 W ^ W 5 . W W . 
 W W W . W . W . 
 W . W . W . W W 
@@ -158,11 +158,11 @@ Number of vertices examined: 86
 
 Level 14
 Sequence of moves: 
-. o W v W W W W 
-W . W . W . o W 
+. O W v W W W W 
+W . W . W . O W 
 W . W . . W . W 
 W W W W W W W W 
-o . W v W . o W 
+O . W v W . O W 
 . W W . W W . W 
 ^ W . . W . W W 
 W W W W W 3 . W 
@@ -192,9 +192,9 @@ W W W W W W W W .
 v W . . . . . W W 
 . . W W W W . W v 
 W W . W . W W W . 
-W . o W 4 . . W . 
+W . O W 4 . . W . 
 W W W W W W W W . 
-W . o W o . W . . 
+W . O W O . W . . 
 W W . W . W W W W 
 Number of moves: 8
 Number of vertices examined: 38
@@ -206,7 +206,7 @@ W v W . . . W . <
 W . W W W . W . W 
 W . . < W . W . W 
 W W W W W W W W W 
-7 . . . W > . . o 
+7 . . . W > . . O 
 . W W W W W W W . 
 . W . W . . . W W 
 . W . W ^ W W W . 
@@ -281,12 +281,12 @@ Number of vertices examined: 81578
 
 Level 22
 Sequence of moves: 
-W . 3 W > . W . . o 
+W . 3 W > . W . . O 
 W W . W W . W W W . 
 . W W . W W W . W . 
 . . W 4 . . W . W . 
 W W W W W W . . W . 
-6 . W o . W W W W . 
+6 . W O . W W W W . 
 . W W . W . . . W . 
 . W . W W W W . W W 
 . W . . . < W . W . 
@@ -306,7 +306,7 @@ W 7 . . . . W ^ W .
 W . W W W W W W W . 
 W . W . . . W . W . 
 . W W W W . W . W W 
-o . . . W ^ W . . < 
+O . . . W ^ W . . < 
 Number of moves: 9
 Number of vertices examined: 1848
 5.82489 [s]
