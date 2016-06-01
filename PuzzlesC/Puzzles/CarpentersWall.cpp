@@ -191,9 +191,10 @@ int puz_state::adjust_area(bool init)
             ranges.push_back(rng);
         };
 
+        // start from an arm corner
         auto g1 = [&](int len){
             vector<vector<Position>> arms(4);
-            vector<vector<int>> indexes(4);
+            vector<vector<int>> arm_lens(4);
             Position p2;
             int n;
             for(int i = 0; i < 4; ++i){
@@ -201,29 +202,30 @@ int puz_state::adjust_area(bool init)
                 int j = 1;
                 for(p2 = p + os; (n = f1(p2)) == 1; p2 += os){
                     arms[i].push_back(p2);
-                    indexes[i].push_back(j++);
+                    arm_lens[i].push_back(j++);
                 }
-                if(~n != i) continue;
+                if (~n != i) continue;
                 auto p3 = p2 + os;
                 auto& t = get_tool(this->cells(p3));
-                if(t.hint_type() == tool_hint_type::ARM_END &&
-                    (t.dir() + 2) % 4 == i){
+                if (t.hint_type() == tool_hint_type::ARM_END &&
+                    (t.dir() + 2) % 4 == i) {
                     arms[i].push_back(p2);
                     arms[i].push_back(p3);
-                    indexes[i].push_back(++j);
+                    arm_lens[i].push_back(++j);
                 }
             }
-            for(auto& dirs : tool_dirs2){
+            for (auto& dirs : tool_dirs2) {
                 auto &a0 = arms[dirs[0]], &a1 = arms[dirs[1]];
-                auto &ids0 = indexes[dirs[0]], &ids1 = indexes[dirs[1]];
+                auto &lens0 = arm_lens[dirs[0]], &lens1 = arm_lens[dirs[1]];
                 if(a0.empty() || a1.empty()) continue;
-                for(int i : ids0)
-                    for(int j : ids1)
+                for(int i : lens0)
+                    for(int j : lens1)
                         if(len == -1 || i + j + 1 == len)
                             f2(a0, a1, i, j);
             }
         };
 
+        // start from an arm end
         auto g2 = [&](int d){
             vector<Position> a0, a1;
             auto& os = offset[d];
@@ -255,10 +257,10 @@ int puz_state::adjust_area(bool init)
                     for(p3 = p2 + os2; (n = f1(p3)) == 1; p3 += os2)
                         a1.push_back(p3);
                     cells(p2) = ch_corner;
-                    vector<int> indexes;
+                    vector<int> arm_lens;
                     int j;
                     for(j = 1; j <= a1.size(); ++j)
-                        indexes.push_back(j);
+                        arm_lens.push_back(j);
                     if(~n == d2){
                         auto p4 = p3 + offset[d2];
                         char ch2 = this->cells(p4);
@@ -267,11 +269,11 @@ int puz_state::adjust_area(bool init)
                             (t.dir() + 2) % 4 == d2){
                             a1.push_back(p3);
                             a1.push_back(p4);
-                            indexes.push_back(++j);
+                            arm_lens.push_back(++j);
                         }
                     }
                     if(a1.empty()) continue;
-                    for(int j : indexes)
+                    for(int j : arm_lens)
                         if(len == -1 || i + j + 1 == len)
                             f2(a0, a1, i, j);
                 }

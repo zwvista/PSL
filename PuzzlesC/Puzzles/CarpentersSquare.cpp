@@ -154,18 +154,6 @@ int puz_state::adjust_area(bool init)
         auto& t = get_tool(ch);
         auto& p = t.m_hint_pos;
 
-        auto f1 = [&](const Position& p2){
-            if(cells(p2) != PUZ_SPACE)
-                return 0;
-            for(int i = 0; i < 4; ++i){
-                char ch2 = this->cells(p2 + offset[i]);
-                if(ch2 != PUZ_BOUNDARY && ch2 != PUZ_SPACE &&
-                    ch2 != ch)
-                    return ~i;
-            }
-            return 1;
-        };
-
         auto f2 = [&](const vector<Position>& a0, const vector<Position>& a1, int i, int j){
             vector<Position> rng;
             for(int k = 0; k < i; ++k)
@@ -177,59 +165,58 @@ int puz_state::adjust_area(bool init)
             ranges.push_back(rng);
         };
 
+        // start from an arm corner
         auto g1 = [&](int len){
             vector<vector<Position>> arms(4);
-            vector<vector<int>> indexes(4);
+            vector<vector<int>> arm_lens(4);
             Position p2;
-            int n;
+            char ch2;
             for(int i = 0; i < 4; ++i){
                 auto& os = offset[i];
                 int j = 1;
-                for(p2 = p + os; (n = f1(p2)) == 1; p2 += os){
+                for(p2 = p + os; (ch2 = cells(p2)) == PUZ_SPACE; p2 += os){
                     arms[i].push_back(p2);
-                    indexes[i].push_back(j++);
+                    arm_lens[i].push_back(j++);
                 }
-                if(~n != i) continue;
-                auto p3 = p2 + os;
-                auto& t = get_tool(this->cells(p3));
+                if(ch2 == PUZ_BOUNDARY || islower(ch2)) continue;
+                auto& t = get_tool(ch2);
                 if(t.hint_type() == tool_hint_type::ARM_END &&
                     (t.dir() + 2) % 4 == i){
                     arms[i].push_back(p2);
-                    arms[i].push_back(p3);
-                    indexes[i].push_back(++j);
+                    arm_lens[i].push_back(++j);
                 }
             }
             for(auto& dirs : tool_dirs2){
                 auto &a0 = arms[dirs[0]], &a1 = arms[dirs[1]];
-                auto &ids0 = indexes[dirs[0]], &ids1 = indexes[dirs[1]];
+                auto &lens0 = arm_lens[dirs[0]], &lens1 = arm_lens[dirs[1]];
                 if(a0.empty() || a1.empty()) continue;
-                for(int i : ids0)
-                    for(int j : ids1)
+                for(int i : lens0)
+                    for(int j : lens1)
                         if(len == -1 || i + j + 1 == len)
                             f2(a0, a1, i, j);
             }
         };
 
+        // start from an arm end
         auto g2 = [&](int d){
             vector<Position> a0, a1;
             auto& os = offset[d];
             int d21 = (d + 3) % 4, d22 = (d + 1) % 4;
             Position p2;
-            int n, len = -1;
+            int len = -1;
+            char ch2;
             for(p2 = p + os; ; p2 += os){
-                n = f1(p2);
-                if(n != 1 && ~n != d) break;
-                if(n == 1)
+                ch2 = cells(p2);
+                if(ch2 == PUZ_BOUNDARY || islower(ch2)) break;
+                if(ch2 == PUZ_SPACE)
                     a0.push_back(p2);
                 else{
-                    auto p3 = p2 + os;
-                    auto& t = get_tool(this->cells(p3));
+                    auto& t = get_tool(ch2);
                     auto ht = t.hint_type();
                     if(ht == tool_hint_type::ARM_END) break;
                     if(ht == tool_hint_type::NUMBER)
                         len = t.len();
                     a0.push_back(p2);
-                    a0.push_back(p2 = p3);
                 }
                 char ch_corner = cells(p2);
                 int i = a0.size();
@@ -238,41 +225,25 @@ int puz_state::adjust_area(bool init)
                     a1.clear();
                     Position p3;
                     cells(p2) = ch;
-                    for(p3 = p2 + os2; (n = f1(p3)) == 1; p3 += os2)
+                    for(p3 = p2 + os2; (ch2 = cells(p3)) == PUZ_SPACE; p3 += os2)
                         a1.push_back(p3);
                     cells(p2) = ch_corner;
-                    vector<int> indexes;
+                    vector<int> arm_lens;
                     int j;
                     for(j = 1; j <= a1.size(); ++j)
-                        indexes.push_back(j);
-                    if(~n == d2){
-                        auto p4 = p3 + offset[d2];
-                        char ch2 = this->cells(p4);
+                        arm_lens.push_back(j);
+                    if (ch2 != PUZ_BOUNDARY && !islower(ch2)) {
                         auto& t = get_tool(ch2);
-                        if(t.hint_type() == tool_hint_type::ARM_END &&
-                            (t.dir() + 2) % 4 == d2){
+                        if (t.hint_type() == tool_hint_type::ARM_END &&
+                            (t.dir() + 2) % 4 == d2) {
                             a1.push_back(p3);
-                            a1.push_back(p4);
-                            indexes.push_back(++j);
+                            arm_lens.push_back(++j);
                         }
                     }
                     if(a1.empty()) continue;
-                    for(int j : indexes)
+                    for(int j : arm_lens)
                         if(len == -1 || i + j + 1 == len)
                             f2(a0, a1, i, j);
-                }
-                if(ch_corner != PUZ_SPACE && ch_corner != ch) break;
-            }
-            if(n == 0) return;
-            n = ~n;
-            if(n == d21 || n == d22){
-                auto p3 = p2 + offset[n];
-                auto& t = get_tool(this->cells(p3));
-                if(t.hint_type() == tool_hint_type::ARM_END &&
-                    (t.dir() + 2) % 4 == n){
-                    a0.push_back(p2);
-                    a1 = {p3};
-                    f2(a0, a1, a0.size(), 1);
                 }
             }
         };
