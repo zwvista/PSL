@@ -94,7 +94,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
             for(auto& os : offset)
                 info.m_range.push_back(p + os);
             info.m_operator = s[2];
-            info.m_result = atoi(s.substr(0, 2).c_str());
+            info.m_result = stoi(s.substr(0, 2));
         }
     }
     m_area_count = m_sidelen * 2 + m_area_diag_info.size();

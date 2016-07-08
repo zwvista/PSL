@@ -18,31 +18,31 @@
 namespace puzzles{ namespace AbstractPainting{
 
 #define PUZ_TREE        'T'
-#define PUZ_SPACE        '.'
+#define PUZ_SPACE       '.'
+#define PUZ_UNKNOWN     -1
 
 const Position offset[] = {
     {-1, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
+    {0, 1},         // e
+    {1, 0},         // s
     {0, -1},        // w
 };
 
 const Position offset2[] = {
-    {0, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, 0},        // w
+    {0, 0},         // n
+    {0, 1},         // e
+    {1, 0},         // s
+    {0, 0},         // w
 };
 
 struct puz_game    
 {
     string m_id;
     int m_sidelen;
-    int m_tree_count_area;
-    int m_tree_total_count;
-    map<Position, int> m_pos2park;
-    vector<Position> m_trees;
-    vector<Position> m_spaces;
+    vector<int> m_painting_counts_rows, m_painting_counts_cols;
+    int m_painting_total_count;
+    vector<vector<Position>> m_regions;
+    map<Position, int> m_pos2region;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
@@ -62,7 +62,7 @@ struct puz_state2 : Position
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for(int i = 0; i < 4; ++i){
-        auto p = *this + offset[i * 2];
+        auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
         if(walls.count(p_wall) == 0){
@@ -74,9 +74,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
     : m_id(attrs.get<string>("id"))
-    , m_sidelen(strs.size() / 2)
-    , m_tree_count_area(attrs.get<int>("TreesInEachArea", 1))
-    , m_tree_total_count(m_tree_count_area * m_sidelen)
+    , m_sidelen(strs.size() / 2 - 1)
+    , m_painting_counts_rows(m_sidelen)
+    , m_painting_counts_cols(m_sidelen)
 {
     set<Position> rng;
     for(int r = 0;; ++r){
@@ -93,26 +93,27 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
             if(str_v[c * 2] == '|')
                 m_vert_walls.insert(p);
             if(c == m_sidelen) break;
-            char ch = str_v[c * 2 + 1];
-            if(ch == PUZ_TREE)
-                m_trees.push_back(p);
-            else if(ch == PUZ_SPACE)
-                m_spaces.push_back(p);
-            if(ch != PUZ_SPACE)
-                rng.insert(p);
+            rng.insert(p);
         }
+    }
+
+    auto f = [](const string& s) { return s == "  " ? PUZ_UNKNOWN : stoi(s); };
+    for(int i = 0; i < m_sidelen; ++i){
+        m_painting_counts_rows[i] = f(strs[i * 2 + 1].substr(m_sidelen * 2 + 1, 2));
+        m_painting_counts_cols[i] = f(strs[m_sidelen * 2 + 1].substr(i * 2, 2));
     }
 
     for(int n = 0; !rng.empty(); ++n){
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+        vector<Position> rng2;
         for(auto& p : smoves){
-            m_pos2park[p] = n;
+            m_pos2region[p] = n;
             rng.erase(p);
+            rng2.push_back(p);
         }
+        m_regions.push_back(rng2);
     }
-    for(auto& p : m_spaces)
-        m_pos2park[p] = 0;
 }
 
 // first : all the remaining positions in the area where a tree can be planted
@@ -152,14 +153,14 @@ struct puz_groups
     puz_groups() {}
     puz_groups(const puz_game* g)
         : m_game(g)
-        , m_parks(g->m_sidelen, g->m_tree_count_area)
-        , m_rows(g->m_sidelen, g->m_tree_count_area)
-        , m_cols(g->m_sidelen, g->m_tree_count_area)
+        , m_parks(g->m_sidelen, g->m_painting_total_count)
+        , m_rows(g->m_sidelen, g->m_painting_total_count)
+        , m_cols(g->m_sidelen, g->m_painting_total_count)
     {}
 
     array<puz_area*, 3> get_areas(const Position& p){
         return {
-            &m_parks[m_game->m_pos2park.at(p)],
+            &m_parks[m_game->m_pos2region.at(p)],
             &m_rows[p.first],
             &m_cols[p.second]
         };
@@ -210,7 +211,7 @@ struct puz_state : string
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_groups.m_game->m_tree_total_count - boost::count(*this, PUZ_TREE);
+        return m_groups.m_game->m_painting_total_count - boost::count(*this, PUZ_TREE);
     }
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {}
@@ -230,11 +231,6 @@ puz_state::puz_state(const puz_game& g)
         for(int c = 0; c < g.m_sidelen; ++c)
             m_groups.add_cell({r, c});
 
-    for(auto& p : g.m_spaces)
-        m_groups.remove_cell(p);
-
-    for(auto& p : g.m_trees)
-        make_move(p);
 }
 
 const puz_area& puz_groups::get_best_candidate_area() const

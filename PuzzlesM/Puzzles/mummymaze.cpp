@@ -77,7 +77,7 @@ struct puz_game
 
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
     : m_id(attrs.get<string>("id"))
-    , m_size(atoi(attrs.get<string>("rows").c_str()), atoi(attrs.get<string>("cols").c_str()))
+    , m_size(stoi(attrs.get<string>("rows")), stoi(attrs.get<string>("cols")))
 {
     if(attrs.count("goal"))
         sscanf(attrs.get<string>("goal").c_str(), "(%d,%d)", &m_goal.first, &m_goal.second);

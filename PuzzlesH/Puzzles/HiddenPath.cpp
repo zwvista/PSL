@@ -52,7 +52,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
         for(int c = 0; c < m_sidelen * 3; c += 3){
             Position p(r, c / 3);
             auto s = str.substr(c, 2);
-            int n = s == "  " ? PUZ_UNKNOWN : atoi(s.c_str());
+            int n = s == "  " ? PUZ_UNKNOWN : stoi(s);
             if(n == 1)
                 m_start = p;
             m_nums.push_back(n);

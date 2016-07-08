@@ -71,7 +71,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
                 m_start.push_back(PUZ_SPACE);
             else{
                 m_start.push_back(PUZ_NUM);
-                num2perms[m_pos2hintinfo[{r, c}].m_sum = s == " ?" ? -1 : atoi(s.c_str())];
+                num2perms[m_pos2hintinfo[{r, c}].m_sum = s == " ?" ? -1 : stoi(s)];
             }
         }
     }

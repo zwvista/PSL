@@ -44,7 +44,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
         auto& str = strs[r];
         for(int c = 0; c < m_sidelen; ++c){
             auto s = str.substr(c * 2, 2);
-            int n = atoi(s.c_str());
+            int n = stoi(s);
             m_start.push_back(n == 0 ? PUZ_UNKNOWN : n);
             if(r == m_sidelen - 1 || c == m_sidelen - 1){
                 if(r == m_sidelen - 1)

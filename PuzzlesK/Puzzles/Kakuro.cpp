@@ -54,10 +54,10 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
             if(s1 == "  ")
                 m_blanks[p] = 0;
             else{
-                int n1 = atoi(s1.c_str());
+                int n1 = stoi(s1);
                 if(n1 != 0)
                     m_pos2area[{p, true}].m_sum = n1;
-                int n2 = atoi(s2.c_str());
+                int n2 = stoi(s2);
                 if(n2 != 0)
                     m_pos2area[{p, false}].m_sum = n2;
             }

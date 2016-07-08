@@ -70,7 +70,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
             info.m_range.push_back(p);
             if(s.substr(1) == "   ") continue;
             info.m_operator = s[3];
-            info.m_result = atoi(s.substr(1, 2).c_str());
+            info.m_result = stoi(s.substr(1, 2));
         }
     }
 

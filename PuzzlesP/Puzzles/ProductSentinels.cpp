@@ -62,7 +62,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
                 m_start.push_back(PUZ_SPACE);
             else{
                 m_start.push_back(PUZ_SENTINEL);
-                m_pos2num[{r, c}] = atoi(s.c_str());
+                m_pos2num[{r, c}] = stoi(s);
             }
         }
         m_start.push_back(PUZ_BOUNDARY);

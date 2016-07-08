@@ -47,7 +47,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
         auto& str = strs[r];
         for(int c = 0; c < m_sidelen; ++c){
             Position p(r, c);
-            int n = atoi(str.substr(c * 3, 3).c_str());
+            int n = stoi(str.substr(c * 3, 3));
             m_start.push_back(n);
             if(n != 0)
                 m_num2pos[n] = p;

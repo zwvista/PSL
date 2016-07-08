@@ -95,7 +95,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
             if(r == m_sidelen && c == m_sidelen)
                 break;
             auto s = str.substr(c * 2, 2);
-            int n = s == "  " ? PUZ_UNKNOWN : atoi(s.c_str());
+            int n = s == "  " ? PUZ_UNKNOWN : stoi(s);
             if(r == m_sidelen || c == m_sidelen)
                 m_area2info[c == m_sidelen ? r : c + m_sidelen].m_sum = n;
             else{

@@ -49,7 +49,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
         auto& str = strs[r];
         for(int c = 0; c < m_sidelen; ++c){
             string s = str.substr(c * 2, 2);
-            m_start.push_back(atoi(s.c_str()));
+            m_start.push_back(stoi(s));
             Position p(r, c);
             m_area2range[r].push_back(p);
             m_area2range[m_sidelen + c].push_back(p);

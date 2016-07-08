@@ -60,7 +60,7 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
         m_start.push_back(PUZ_BOUNDARY);
         for(int c = 1; c < m_sidelen - 1; ++c){
             auto s = str.substr(c * 2 - 2, 2);
-            int n = atoi(s.c_str());
+            int n = stoi(s);
             if(n > 4)
                 m_pos2info[{r, c}] = {ch, n};
             m_start.push_back(n == 0 ? PUZ_SPACE :
