@@ -1,15 +1,34 @@
 Level 1
 Sequence of moves: 
  - - - -
-|.|P P P|
+|.|P P P|3 
    -    
-|. .|P P|
+|. .|P P|2 
  - - - -
-|P P P P|
+|P P P P|4 
  - -    
-|. .|P P|
+|. .|P P|2 
  - - - -
+ 1 2 4 4
 Number of moves: 1
 Number of vertices examined: 2
-0.0123714 [s]
+0.00146087 [s]
+
+Level 18
+Sequence of moves: 
+ - - - - -
+|P P|.|P P|4 
+          
+|P P|.|P P|4 
+ - - -    
+|. . .|P P|2 
+     - - -
+|. .|P P P|3 
+ - -      
+|. .|P P P|3 
+ - - - - -
+ 2 2 2 5 5
+Number of moves: 2
+Number of vertices examined: 3
+0.00148095 [s]
 

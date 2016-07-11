@@ -252,6 +252,13 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    auto f = [&](int rc){
+        int cnt = 0;
+        for(int i = 0; i < sidelen(); ++i)
+            if(cells(rc < sidelen() ? Position(rc, i) : Position(i, rc - sidelen())) == PUZ_PAINTING)
+                ++cnt;
+        out << format(rc < sidelen() ? "%-2d" : "%2d") % cnt;
+    };
     for(int r = 0;; ++r){
         // draw horz-walls
         for(int c = 0; c < sidelen(); ++c)
@@ -262,11 +269,17 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             // draw vert-walls
             out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
-            if(c == sidelen()) break;
+            if(c == sidelen()){
+                f(r);
+                break;
+            }
             out << cells(p);
         }
         out << endl;
     }
+    for(int c = 0; c < sidelen(); ++c)
+        f(c + sidelen());
+    out << endl;
     return out;
 }
 
