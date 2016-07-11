@@ -19,7 +19,6 @@ namespace puzzles{ namespace AbstractPainting{
 
 #define PUZ_PAINTING    'P'
 #define PUZ_SPACE       '.'
-#define PUZ_UNKNOWN     -1
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -45,8 +44,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_painting_counts;
-    int m_painting_total_count;
+    map<int, int> m_painting_counts;
     vector<puz_region> m_regions;
     map<Position, int> m_pos2region;
     map<pair<int, int>, int> m_rc_region2count;
@@ -82,7 +80,6 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
     : m_id(attrs.get<string>("id"))
     , m_sidelen(strs.size() / 2 - 1)
-    , m_painting_counts(m_sidelen * 2)
 {
     set<Position> rng;
     for(int r = 0;; ++r){
@@ -103,12 +100,14 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
         }
     }
 
-    auto f = [](const string& s) { return s == "  " ? PUZ_UNKNOWN : stoi(s); };
+    auto f = [&](int rc, const string& s) {
+        if(s != "  ")
+            m_painting_counts[rc] = stoi(s);
+    };
     for(int i = 0; i < m_sidelen; ++i){
-        m_painting_counts[i] = f(strs[i * 2 + 1].substr(m_sidelen * 2 + 1, 2));
-        m_painting_counts[i + m_sidelen] = f(strs[m_sidelen * 2 + 1].substr(i * 2, 2));
+        f(i, strs[i * 2 + 1].substr(m_sidelen * 2 + 1, 2));
+        f(i + m_sidelen, strs[m_sidelen * 2 + 1].substr(i * 2, 2));
     }
-    m_painting_total_count = boost::accumulate(m_painting_counts, 0) / 2;
 
     for(int n = 0; !rng.empty(); ++n){
         list<puz_state2> smoves;
@@ -136,14 +135,17 @@ struct puz_state : string
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(int n);
-    bool make_move2(int n);
+    void make_move2(int n);
     int find_matches(bool init);
 
     // solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_game->m_painting_total_count - boost::count(*this, PUZ_PAINTING);
+        return boost::accumulate(m_painting_counts, 0,
+            [](int acc, const pair<const int, int>& kv){
+            return acc + kv.second;
+        });
     }
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {}
@@ -153,7 +155,7 @@ struct puz_state : string
     }
 
     const puz_game* m_game = nullptr;
-    vector<int> m_painting_counts;
+    map<int, int> m_painting_counts;
     // key: index of the row/column
     // value.elem: index of the region that can be revealed
     map<int, vector<int>> m_matches;
@@ -166,45 +168,72 @@ puz_state::puz_state(const puz_game& g)
     , m_painting_counts(g.m_painting_counts)
 {
     for(int i = 0; i < g.m_regions.size(); ++i)
-        for(auto& kv : g.m_regions[i].m_rc2count)
-            m_matches[kv.first].push_back(i);
+        for(auto& kv : g.m_regions[i].m_rc2count){
+            int rc = kv.first;
+            if(m_painting_counts.count(rc) != 0)
+                m_matches[rc].push_back(i);
+        }
 
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
+    set<int> hidden_ids;
     for(auto& kv : m_matches){
         int rc = kv.first;
         auto& region_ids = kv.second;
-
+        for(int id : region_ids)
+            if(m_painting_counts[rc] < m_game->m_regions[id].m_rc2count.at(rc))
+                hidden_ids.insert(id);
+    }
+    for(auto& kv : m_matches){
+        int rc = kv.first;
+        auto& region_ids = kv.second;
         boost::remove_erase_if(region_ids, [&](int id){
-            return m_game->m_regions[id].m_rc2count.at(rc) > m_painting_counts[rc];
+            return hidden_ids.count(id) != 0;
         });
-
         if(!init)
             switch(region_ids.size()){
             case 0:
                 return 0;
             case 1:
-                return make_move2(*region_ids.begin()) ? 1 : 0;
+                {
+                    int id = *region_ids.begin();
+                    return m_painting_counts[rc] != m_game->m_regions[id].m_rc2count.at(rc) ? 0 :
+                        (make_move2(id), 1);
+                }
             }
     }
     return 2;
 }
 
-bool puz_state::make_move2(int n)
+void puz_state::make_move2(int n)
 {
     auto& region = m_game->m_regions[n];
-    for(auto& p : region.m_rng)
+    for(auto& p : region.m_rng){
+        auto f = [&](int rc){
+            if(m_painting_counts.count(rc) != 0)
+                --m_painting_counts[rc], ++m_distance;
+        };
+        f(p.first);
+        f(p.second + sidelen());
         cells(p) = PUZ_PAINTING;
+    }
+    for(auto& kv : m_matches)
+        boost::remove_erase(kv.second, n);
+    for(auto& kv : m_painting_counts)
+        if(kv.second == 0)
+            m_matches.erase(kv.first);
 }
 
 bool puz_state::make_move(int n)
 {
-    auto& region = m_game->m_regions[n];
-    for(auto& p : region.m_rng)
-        cells(p) = PUZ_PAINTING;
+    m_distance = 0;
+    make_move2(n);
+    int m;
+    while((m = find_matches(false)) == 1);
+    return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
