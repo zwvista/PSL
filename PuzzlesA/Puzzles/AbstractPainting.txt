@@ -10,9 +10,9 @@ Sequence of moves:
 |. .|P P|2 
  - - - -
  1 2 4 4
-Number of moves: 1
-Number of vertices examined: 2
-0.00146087 [s]
+Number of moves: 2
+Number of vertices examined: 3
+0.000879024 [s]
 
 Level 18
 Sequence of moves: 
@@ -28,7 +28,73 @@ Sequence of moves:
 |. .|P P P|3 
  - - - - -
  2 2 2 5 5
-Number of moves: 2
-Number of vertices examined: 3
-0.00148095 [s]
+Number of moves: 3
+Number of vertices examined: 4
+0.000702773 [s]
+
+Level 24
+Sequence of moves: 
+ - - - - -
+|P|P P P|.|4 
+   -      
+|P P|P P|.|4 
+     - -  
+|P P|.|P|.|3 
+   -     -
+|P|. .|P P|3 
+ - -   -  
+|. .|. .|P|1 
+ - - - - -
+ 4 3 2 4 2
+Number of moves: 3
+Number of vertices examined: 4
+0.000752301 [s]
+
+Level 33
+Sequence of moves: 
+ - - - - - -
+|. . .|.|P P|2 
+ - - -   -  
+|P P|. . .|P|3 
+     -      
+|P P|.|. .|P|3 
+ - -   - -  
+|. .|. . .|P|1 
+ -   - - - -
+|.|.|P P|P P|4 
+   -        
+|.|P P P|P P|5 
+ - - - - - -
+ 2 3 2 2 3 6
+Number of moves: 4
+Number of vertices examined: 5
+0.000794691 [s]
+
+Level 250
+Sequence of moves: 
+ - - - - - - - - - -
+|. .|.|P|.|.|P P P|P|5 
+ - -         -   -  
+|.|. .|P|.|.|P|P|.|P|4 
+   - - - - -   -   -
+|.|. .|. .|P P|. . .|2 
+ - - - - - -   - - -
+|. .|P P|P P|P|. .|.|5 
+ - - -   -   - - -  
+|. . .|P|P|P|P|P P|.|6 
+ - - - -   -       -
+|P|.|P P P|.|P|P P|P|8 
+     - - -   - - -  
+|P|. .|. .|.|.|P P|P|4 
+ - - - - - -   -   -
+|P|P|. .|P P|. .|P|.|5 
+     - - - - - - -  
+|P|P|. . . .|. .|. .|2 
+ - - - - - - - - -  
+|P P P|P P P|. . .|.|6 
+ - - - - - - - - - -
+ 5 3 3 6 5 5 6 5 5 4
+Number of moves: 17
+Number of vertices examined: 21
+0.00252775 [s]
 

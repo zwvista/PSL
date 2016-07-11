@@ -135,8 +135,7 @@ struct puz_state : string
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(int n);
-    void make_move2(int n);
-    int find_matches(bool init);
+    bool find_matches(bool init);
 
     // solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
@@ -177,7 +176,7 @@ puz_state::puz_state(const puz_game& g)
     find_matches(true);
 }
 
-int puz_state::find_matches(bool init)
+bool puz_state::find_matches(bool init)
 {
     set<int> hidden_ids;
     for(auto& kv : m_matches){
@@ -193,22 +192,13 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(region_ids, [&](int id){
             return hidden_ids.count(id) != 0;
         });
-        if(!init)
-            switch(region_ids.size()){
-            case 0:
-                return 0;
-            case 1:
-                {
-                    int id = *region_ids.begin();
-                    return m_painting_counts[rc] != m_game->m_regions[id].m_rc2count.at(rc) ? 0 :
-                        (make_move2(id), 1);
-                }
-            }
     }
-    return 2;
+    return boost::algorithm::none_of(m_matches, [](const pair<const int, vector<int>>& kv){
+        return kv.second.empty();
+    });
 }
 
-void puz_state::make_move2(int n)
+bool puz_state::make_move(int n)
 {
     auto& region = m_game->m_regions[n];
     for(auto& p : region.m_rng){
@@ -225,15 +215,7 @@ void puz_state::make_move2(int n)
     for(auto& kv : m_painting_counts)
         if(kv.second == 0)
             m_matches.erase(kv.first);
-}
-
-bool puz_state::make_move(int n)
-{
-    m_distance = 0;
-    make_move2(n);
-    int m;
-    while((m = find_matches(false)) == 1);
-    return m == 2;
+    return find_matches(false);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
