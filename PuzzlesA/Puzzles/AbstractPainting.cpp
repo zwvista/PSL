@@ -193,6 +193,9 @@ bool puz_state::find_matches(bool init)
             return hidden_ids.count(id) != 0;
         });
     }
+    for(auto& kv : m_painting_counts)
+        if(kv.second == 0)
+            m_matches.erase(kv.first);
     return boost::algorithm::none_of(m_matches, [](const pair<const int, vector<int>>& kv){
         return kv.second.empty();
     });
@@ -212,9 +215,6 @@ bool puz_state::make_move(int n)
     }
     for(auto& kv : m_matches)
         boost::remove_erase(kv.second, n);
-    for(auto& kv : m_painting_counts)
-        if(kv.second == 0)
-            m_matches.erase(kv.first);
     return find_matches(false);
 }
 
