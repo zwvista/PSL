@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 extern void solve_puz_Landscaper();
+extern void solve_puz_Landscapes();
 extern void solve_puz_LightBattleships();
 extern void solve_puz_LightenUp();
 extern void solve_puz_Lighthouses();
@@ -12,7 +13,8 @@ extern void solve_puz_Loopy();
 
 int main(int argc, char **argv)
 {
-    cout << "a: Landscaper" << endl;
+    cout << "a1: Landscaper" << endl;
+    cout << "a2: Landscapes" << endl;
     cout << "i1: Light Battle Ships" << endl;
     cout << "i2: Lighten Up" << endl;
     cout << "i3: Lighthouses" << endl;
@@ -24,7 +26,8 @@ int main(int argc, char **argv)
     string str;
     getline(cin, str);
     if(str.empty());
-    else if(str == "a") solve_puz_Landscaper();
+    else if(str == "a1") solve_puz_Landscaper();
+    else if(str == "a2") solve_puz_Landscapes();
     else if(str == "i1") solve_puz_LightBattleships();
     else if(str == "i2") solve_puz_LightenUp();
     else if(str == "i3") solve_puz_Lighthouses();

@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - \
+|S S S| |\
+ -   -   \
+|T|S|R| |\
+   -     \
+|T|R R| |\
+ -   - - \
+|S|R|T T|\
+ - - - - \
+    ]]>
+  </level>
+</levels>

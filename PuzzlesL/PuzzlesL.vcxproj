@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\Landscaper.txt" />
+    <Text Include="Puzzles\Landscapes.txt" />
     <Text Include="Puzzles\LightBattleShips.txt" />
     <Text Include="Puzzles\LightenUp.txt" />
     <Text Include="Puzzles\Lighthouses.txt" />
@@ -168,6 +169,7 @@
     <ClCompile Include="..\PSL\Position.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Landscaper.cpp" />
+    <ClCompile Include="Puzzles\Landscapes.cpp" />
     <ClCompile Include="Puzzles\LightBattleShips.cpp" />
     <ClCompile Include="Puzzles\LightenUp.cpp" />
     <ClCompile Include="Puzzles\Lighthouses.cpp" />
@@ -185,6 +187,9 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Landscaper.xml" />
+    <Xml Include="Puzzles\Landscapes.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="Puzzles\LightBattleShips.xml" />
     <Xml Include="Puzzles\LightenUp.xml" />
     <Xml Include="Puzzles\Lighthouses.xml" />
