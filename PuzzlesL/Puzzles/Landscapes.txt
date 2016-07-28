@@ -11,5 +11,51 @@ Sequence of moves:
  - - - -
 Number of moves: 1
 Number of vertices examined: 2
-0.000978975 [s]
+0.0050062 [s]
+
+Level 4
+Sequence of moves: 
+ - - - - -
+|S|T T T T|
+   - - - -
+|S S|W W|S|
+   -   - -
+|S|R|W|T T|
+ -   -    
+|R R|S|T T|
+ - - - - -
+|W|T|W|R|W|
+ - - - - -
+Number of moves: 5
+Number of vertices examined: 6
+0.00552845 [s]
+
+Level 300
+Sequence of moves: 
+ - - - - - - - - - - -
+|W|R R|T|S|R|W|R|W W W|
+ - - -   -   - - - - -
+|S S S|T T|R|T|S S|T|S|
+ - - - - - - - - -   -
+|T|R|W W W|S|W|R|T T|W|
+ -   - - - - - - - -  
+|R R|S|T T|R|T|S S S|W|
+ - - - - - - - - - - -
+|W|T|W|R|S S|W|R|T|R|T|
+ - - - - - - - - - - -
+|R|S S|T T|R|T|S|W W|S|
+ - - -   -   -   -   -
+|T|W W|T|W|R|W|S S|W|R|
+   - - - - - - - - -  
+|T T|R R|S S|T|R R|T|R|
+ - -   - - - - -   - -
+|W W|R|W|T|R|W|S|R|S|W|
+ -   - - -   - - -   -
+|R|W|S S|R R|T T T|S|T|
+ - - -   - - - - -   -
+|T T|R|S|W W W|R|W|S|W|
+ - - - - - - - - - - -
+Number of moves: 58
+Number of vertices examined: 174
+0.0142607 [s]
 
