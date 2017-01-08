@@ -1,0 +1,28 @@
+Level test
+Solution 1:
+Sequence of moves: 
++ + W + W 
+B + W + + 
+3 B + + + 
+B 2 + + B 
++ + + B + 
+Number of moves: 4
+Solution 2:
+Sequence of moves: 
++ + W + W 
+B + W + + 
+3 B + + + 
+B 2 + B + 
++ + + + B 
+Number of moves: 4
+Solution 3:
+Sequence of moves: 
++ + W + W 
+B + W + + 
+3 B + + + 
+B 2 + B + 
++ + + + B 
+Number of moves: 4
+Number of vertices examined: 25
+0.00685962 [s]
+

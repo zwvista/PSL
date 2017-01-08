@@ -232,6 +232,8 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_LightenUp()
 {
     using namespace puzzles::LightenUp;
-    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\LightenUp.xml", "Puzzles\\LightenUp.txt", solution_format::GOAL_STATE_ONLY);
+    //solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+    //    "Puzzles\\LightenUp.xml", "Puzzles\\LightenUp.txt", solution_format::GOAL_STATE_ONLY);
+    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true>>(
+        "Puzzles\\LightenUp2.xml", "Puzzles\\LightenUp2.txt", solution_format::GOAL_STATE_ONLY);
 }

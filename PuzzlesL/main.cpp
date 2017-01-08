@@ -4,6 +4,7 @@ extern void solve_puz_Landscaper();
 extern void solve_puz_Landscapes();
 extern void solve_puz_LightBattleships();
 extern void solve_puz_LightenUp();
+extern void gen_puz_LightenUp();
 extern void solve_puz_Lighthouses();
 extern void solve_puz_lightsout();
 extern void solve_puz_lightsout_int();
@@ -17,6 +18,7 @@ int main(int argc, char **argv)
     cout << "a2: Landscapes" << endl;
     cout << "i1: Light Battle Ships" << endl;
     cout << "i2: Lighten Up" << endl;
+    cout << "i2g: Lighten Up Gen" << endl;
     cout << "i3: Lighthouses" << endl;
     cout << "i4: lightsout" << endl;
     cout << "i5: lightsout_int" << endl;
@@ -30,6 +32,7 @@ int main(int argc, char **argv)
     else if(str == "a2") solve_puz_Landscapes();
     else if(str == "i1") solve_puz_LightBattleships();
     else if(str == "i2") solve_puz_LightenUp();
+    else if(str == "i2g") gen_puz_LightenUp();
     else if(str == "i3") solve_puz_Lighthouses();
     else if(str == "i4") solve_puz_lightsout();
     else if(str == "i5") solve_puz_lightsout_int();

@@ -152,6 +152,7 @@
     <Text Include="Puzzles\Landscapes.txt" />
     <Text Include="Puzzles\LightBattleShips.txt" />
     <Text Include="Puzzles\LightenUp.txt" />
+    <Text Include="Puzzles\LightenUp2.txt" />
     <Text Include="Puzzles\Lighthouses.txt" />
     <Text Include="Puzzles\lightsout-int.txt" />
     <Text Include="Puzzles\lightsout_classic.txt" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Puzzles\Landscapes.cpp" />
     <ClCompile Include="Puzzles\LightBattleShips.cpp" />
     <ClCompile Include="Puzzles\LightenUp.cpp" />
+    <ClCompile Include="Puzzles\LightenUpGen.cpp" />
     <ClCompile Include="Puzzles\Lighthouses.cpp" />
     <ClCompile Include="Puzzles\lightsout-int.cpp" />
     <ClCompile Include="Puzzles\lightsout.cpp" />
@@ -192,6 +194,7 @@
     </Xml>
     <Xml Include="Puzzles\LightBattleShips.xml" />
     <Xml Include="Puzzles\LightenUp.xml" />
+    <Xml Include="Puzzles\LightenUp2.xml" />
     <Xml Include="Puzzles\Lighthouses.xml" />
     <Xml Include="Puzzles\lightsout-int.xml" />
     <Xml Include="Puzzles\lightsout_2000.xml" />
