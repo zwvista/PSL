@@ -1,4 +1,15 @@
 Level test
+Sequence of moves: 
++ + W + W 
+B + 1 B + 
+3 B + + + 
+B 2 + + B 
++ + B + + 
+Number of moves: 5
+Number of vertices examined: 8
+0.00304952 [s]
+
+Level test2
 Solution 1:
 Sequence of moves: 
 + + W + W 
@@ -17,12 +28,36 @@ B 2 + B +
 Number of moves: 4
 Solution 3:
 Sequence of moves: 
++ + W B W 
+B + W + B 
+3 B + + + 
+B 2 + + + 
++ + B + + 
+Number of moves: 5
+Solution 4:
+Sequence of moves: 
 + + W + W 
-B + W + + 
+B + W + B 
 3 B + + + 
 B 2 + B + 
-+ + + + B 
-Number of moves: 4
-Number of vertices examined: 25
-0.00685962 [s]
++ + B + + 
+Number of moves: 5
+Solution 5:
+Sequence of moves: 
++ + W B W 
+B + W + + 
+3 B + + + 
+B 2 + + B 
++ + B + + 
+Number of moves: 5
+Solution 6:
+Sequence of moves: 
++ + W + W 
+B + W B + 
+3 B + + + 
+B 2 + + B 
++ + B + + 
+Number of moves: 5
+Number of vertices examined: 29
+0.00865647 [s]
 

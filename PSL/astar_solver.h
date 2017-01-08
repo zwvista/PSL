@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 
-template<class puz_state, bool directed = true, bool complete = false>
+template<class puz_state, bool directed = true, bool shortest_paths_only = true, bool goal_states_only = true>
 class puz_solver_astar
 {
     typedef boost::property<boost::vertex_color_t, boost::default_color_type,
@@ -17,6 +17,8 @@ class puz_solver_astar
     typedef typename boost::bimap<vertex_t, puz_state> StateMap;
     typedef typename boost::property_map<mygraph_t, boost::vertex_predecessor_t>::type PredMap;
     typedef typename boost::property_map<mygraph_t, boost::vertex_distance_t>::type DistMap;
+
+    static const bool first_solution_only = shortest_paths_only && goal_states_only;
 
     struct found_goal {};
 
@@ -45,8 +47,8 @@ class puz_solver_astar
             const puz_state& cur = smap.left.at(u);
             if(cur.is_goal_state()){
                 m_context.m_goal_vertices.push_back(u);
-                m_context.m_goal_distance = dmap[u];
-                if(!complete)
+                m_context.m_goal_distance = std::min(m_context.m_goal_distance, dmap[u]);
+                if(first_solution_only)
                     throw found_goal();
                 return;
             }
@@ -56,7 +58,7 @@ class puz_solver_astar
             for(puz_state& child : children) {
                 unsigned int dist = cur.get_distance(child);
                 unsigned int new_dist = dmap[u] + dist;
-                if(complete && new_dist > m_context.m_goal_distance) continue;
+                if(shortest_paths_only && new_dist > m_context.m_goal_distance) continue;
                 try{
                     vertex_t v = smap.right.at(child);
                     if(new_dist < dmap[v]){
@@ -64,19 +66,19 @@ class puz_solver_astar
                         add_edge(u, v, edge_prop(dist), g);
                         smap.left.replace_data(smap.left.find(v), child);
                         pmap[v] = u;
-                        if(complete){
+                        if(!first_solution_only){
                             mpmap.erase(v);
                             mpmap.emplace(v, u);
                         }
                     }
-                    else if(complete && new_dist == dmap[v])
+                    else if(!first_solution_only && new_dist == dmap[v])
                         mpmap.emplace(v, u);
                 } catch(out_of_range&) {
                     vertex_t v = add_vertex(vert_prop(boost::white_color), g);
                     smap.insert(typename StateMap::relation(v, child));
                     dmap[v] = numeric_limits<unsigned int>::max();
                     add_edge(u, v, edge_prop(dist), g);
-                    if(complete)
+                    if(!first_solution_only)
                         mpmap.emplace(v, u);
                 }
             }
@@ -97,7 +99,7 @@ class puz_solver_astar
     };
 
 public:
-    static pair<bool, size_t> find_solution(const puz_state& sstart, list<list<puz_state>>& spaths)
+    static pair<bool, size_t> find_solution(const puz_state& sstart, list<list<puz_state>>& state_paths)
     {
         mygraph_t g;
         puz_context context;
@@ -114,18 +116,21 @@ public:
         } catch(found_goal&) {}
         bool found = !context.m_goal_vertices.empty();
         if(found){
-            list<vertex_t> shortest_path;
-            if(!complete){
+            list<vertex_t> vertex_path;
+            if(goal_states_only){
                 PredMap p = get(boost::vertex_predecessor, g);
-                for(vertex_t v = context.m_goal_vertices.back();; v = p[v]) {
-                    shortest_path.push_front(v);
-                    if(p[v] == v)
-                        break;
+                for(vertex_t v : context.m_goal_vertices){
+                    vertex_path.clear();
+                    for(;;){
+                        vertex_path.push_front(v);
+                        if(p[v] == v) break;
+                        v = p[v];
+                    }
+                    list<puz_state> state_path;
+                    for(vertex_t v : vertex_path)
+                        state_path.push_back(context.m_smap.left.at(v));
+                    state_paths.push_back(state_path);
                 }
-                list<puz_state> spath;
-                for(vertex_t v : shortest_path)
-                    spath.push_back(context.m_smap.left.at(v));
-                spaths.push_back(spath);
             }
             else{
                 vector<vector<vertex_t>> stack;
@@ -134,20 +139,20 @@ public:
                     auto& vs = stack.back();
                     if(vs.empty()){
                         stack.pop_back();
-                        if(!shortest_path.empty())
-                            shortest_path.pop_front();
+                        if(!vertex_path.empty())
+                            vertex_path.pop_front();
                     }
                     else{
                         auto v = vs.front();
                         vs.erase(vs.begin());
-                        shortest_path.push_front(v);
+                        vertex_path.push_front(v);
                         auto ret = context.m_mpmap.equal_range(v);
                         if(ret.first->second == v){
-                            list<puz_state> spath;
-                            for(vertex_t v2 : shortest_path)
-                                spath.push_back(context.m_smap.left.at(v2));
-                            spaths.push_back(spath);
-                            shortest_path.pop_front();
+                            list<puz_state> state_path;
+                            for(vertex_t v2 : vertex_path)
+                                state_path.push_back(context.m_smap.left.at(v2));
+                            state_paths.push_back(state_path);
+                            vertex_path.pop_front();
                         }
                         else{
                             vector<vertex_t> vs2;

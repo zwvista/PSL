@@ -122,7 +122,7 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_fullsearch()
 {
     using namespace puzzles::fullsearch;
-    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true>>(
+    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true, false>>(
         "Puzzles\\fullsearch.xml", "Puzzles\\fullsearch_astar.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_dijkstra<puz_state, true, true>>(
         "Puzzles\\fullsearch.xml", "Puzzles\\fullsearch_dijkstra.txt");

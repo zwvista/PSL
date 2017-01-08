@@ -113,6 +113,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_hopover()
 {
     using namespace puzzles::hopover;
-    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true>>(
+    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true, false>>(
         "Puzzles\\hopover.xml", "Puzzles\\hopover.txt");
 }
