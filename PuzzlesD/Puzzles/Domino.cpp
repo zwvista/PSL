@@ -246,5 +246,5 @@ void solve_puz_Domino()
 {
     using namespace puzzles::Domino;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Domino.xml", "Puzzles\\Domino.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Domino.xml", "Puzzles/Domino.txt", solution_format::GOAL_STATE_ONLY);
 }

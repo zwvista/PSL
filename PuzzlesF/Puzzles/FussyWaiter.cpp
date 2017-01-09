@@ -204,5 +204,5 @@ void solve_puz_FussyWaiter()
 {
     using namespace puzzles::FussyWaiter;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\FussyWaiter.xml", "Puzzles\\FussyWaiter.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/FussyWaiter.xml", "Puzzles/FussyWaiter.txt", solution_format::GOAL_STATE_ONLY);
 }

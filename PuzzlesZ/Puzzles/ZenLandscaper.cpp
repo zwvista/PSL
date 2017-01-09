@@ -198,5 +198,5 @@ void solve_puz_ZenLandscaper()
 {
     using namespace puzzles::ZenLandscaper;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\ZenLandscaper.xml", "Puzzles\\ZenLandscaper.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/ZenLandscaper.xml", "Puzzles/ZenLandscaper.txt", solution_format::GOAL_STATE_ONLY);
 }

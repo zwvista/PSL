@@ -374,5 +374,5 @@ void solve_puz_TapDifferently()
 {
     using namespace puzzles::TapDifferently;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\TapDifferently.xml", "Puzzles\\TapDifferently.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/TapDifferently.xml", "Puzzles/TapDifferently.txt", solution_format::GOAL_STATE_ONLY);
 }

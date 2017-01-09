@@ -357,5 +357,5 @@ void solve_puz_Pata()
 {
     using namespace puzzles::Pata;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Pata.xml", "Puzzles\\Pata.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Pata.xml", "Puzzles/Pata.txt", solution_format::GOAL_STATE_ONLY);
 }

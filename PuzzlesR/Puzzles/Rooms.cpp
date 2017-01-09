@@ -277,5 +277,5 @@ void solve_puz_Rooms()
 {
     using namespace puzzles::Rooms;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Rooms.xml", "Puzzles\\Rooms.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Rooms.xml", "Puzzles/Rooms.txt", solution_format::GOAL_STATE_ONLY);
 }

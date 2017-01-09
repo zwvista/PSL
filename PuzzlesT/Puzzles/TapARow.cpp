@@ -381,5 +381,5 @@ void solve_puz_TapARow()
 {
     using namespace puzzles::TapARow;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\TapARow.xml", "Puzzles\\TapARow.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/TapARow.xml", "Puzzles/TapARow.txt", solution_format::GOAL_STATE_ONLY);
 }

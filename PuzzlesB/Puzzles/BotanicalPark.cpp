@@ -230,5 +230,5 @@ void solve_puz_BotanicalPark()
 {
     using namespace puzzles::BotanicalPark;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\BotanicalPark.xml", "Puzzles\\BotanicalPark.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/BotanicalPark.xml", "Puzzles/BotanicalPark.txt", solution_format::GOAL_STATE_ONLY);
 }

@@ -416,5 +416,5 @@ void solve_puz_SheepAndWolves()
 {
     using namespace puzzles::SheepAndWolves;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\SheepAndWolves.xml", "Puzzles\\SheepAndWolves.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/SheepAndWolves.xml", "Puzzles/SheepAndWolves.txt", solution_format::GOAL_STATE_ONLY);
 }

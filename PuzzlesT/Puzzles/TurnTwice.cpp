@@ -224,5 +224,5 @@ void solve_puz_TurnTwice()
 {
     using namespace puzzles::TurnTwice;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\TurnTwice.xml", "Puzzles\\TurnTwice.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/TurnTwice.xml", "Puzzles/TurnTwice.txt", solution_format::GOAL_STATE_ONLY);
 }

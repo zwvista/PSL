@@ -355,5 +355,5 @@ void solve_puz_BWTapa()
 {
     using namespace puzzles::BWTapa;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\BWTapa.xml", "Puzzles\\BWTapa.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/BWTapa.xml", "Puzzles/BWTapa.txt", solution_format::GOAL_STATE_ONLY);
 }

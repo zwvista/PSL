@@ -104,5 +104,5 @@ void solve_puz_rotationgame()
 {
     using namespace puzzles::rotationgame;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
-        "Puzzles\\rotationgame.xml", "Puzzles\\rotationgame.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        "Puzzles/rotationgame.xml", "Puzzles/rotationgame.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

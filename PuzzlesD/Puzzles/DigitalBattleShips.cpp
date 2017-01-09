@@ -471,5 +471,5 @@ void solve_puz_DigitalBattleships()
 {
     using namespace puzzles::DigitalBattleships;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\DigitalBattleships.xml", "Puzzles\\DigitalBattleships.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/DigitalBattleships.xml", "Puzzles/DigitalBattleships.txt", solution_format::GOAL_STATE_ONLY);
 }

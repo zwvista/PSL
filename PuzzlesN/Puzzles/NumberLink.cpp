@@ -293,5 +293,5 @@ void solve_puz_NumberLink()
 {
     using namespace puzzles::NumberLink;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\NumberLink.xml", "Puzzles\\NumberLink.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/NumberLink.xml", "Puzzles/NumberLink.txt", solution_format::GOAL_STATE_ONLY);
 }

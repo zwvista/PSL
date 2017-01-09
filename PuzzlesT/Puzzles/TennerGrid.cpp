@@ -245,5 +245,5 @@ void solve_puz_TennerGrid()
 {
     using namespace puzzles::TennerGrid;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\TennerGrid.xml", "Puzzles\\TennerGrid.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/TennerGrid.xml", "Puzzles/TennerGrid.txt", solution_format::GOAL_STATE_ONLY);
 }

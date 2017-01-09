@@ -287,5 +287,5 @@ void solve_puz_ShopAndGas()
 {
     using namespace puzzles::ShopAndGas;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\ShopAndGas.xml", "Puzzles\\ShopAndGas.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/ShopAndGas.xml", "Puzzles/ShopAndGas.txt", solution_format::GOAL_STATE_ONLY);
 }

@@ -266,5 +266,5 @@ void solve_puz_CastleBailey()
 {
     using namespace puzzles::CastleBailey;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\CastleBailey.xml", "Puzzles\\CastleBailey.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/CastleBailey.xml", "Puzzles/CastleBailey.txt", solution_format::GOAL_STATE_ONLY);
 }

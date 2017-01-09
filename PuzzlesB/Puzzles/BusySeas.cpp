@@ -204,5 +204,5 @@ void solve_puz_BusySeas()
 {
     using namespace puzzles::BusySeas;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\BusySeas.xml", "Puzzles\\BusySeas.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/BusySeas.xml", "Puzzles/BusySeas.txt", solution_format::GOAL_STATE_ONLY);
 }

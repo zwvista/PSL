@@ -125,5 +125,5 @@ void solve_puz_HiddenPath()
 {
     using namespace puzzles::HiddenPath;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\HiddenPath.xml", "Puzzles\\HiddenPath.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/HiddenPath.xml", "Puzzles/HiddenPath.txt", solution_format::GOAL_STATE_ONLY);
 }

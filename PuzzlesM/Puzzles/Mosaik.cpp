@@ -204,5 +204,5 @@ void solve_puz_Mosaik()
 {
     using namespace puzzles::Mosaik;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Mosaik.xml", "Puzzles\\Mosaik.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Mosaik.xml", "Puzzles/Mosaik.txt", solution_format::GOAL_STATE_ONLY);
 }

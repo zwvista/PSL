@@ -187,5 +187,5 @@ void solve_puz_DisconnectFour()
 {
     using namespace puzzles::DisconnectFour;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\DisconnectFour.xml", "Puzzles\\DisconnectFour.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/DisconnectFour.xml", "Puzzles/DisconnectFour.txt", solution_format::GOAL_STATE_ONLY);
 }

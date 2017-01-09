@@ -208,5 +208,5 @@ void solve_puz_zgj()
 {
     using namespace puzzles::zgj;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\zgj.xml", "Puzzles\\zgj.txt");
+        "Puzzles/zgj.xml", "Puzzles/zgj.txt");
 }

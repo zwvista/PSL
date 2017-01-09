@@ -252,7 +252,7 @@ void solve_puz_Wriggle()
 {
     using namespace puzzles::Wriggle;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >(
-        "Puzzles\\Wriggle.xml", "Puzzles\\Wriggle.txt", solution_format::CUSTOM, dump_all);
+        "Puzzles/Wriggle.xml", "Puzzles/Wriggle.txt", solution_format::CUSTOM, dump_all);
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state> >(
-        "Puzzles\\Wriggle2.xml", "Puzzles\\Wriggle2.txt", solution_format::CUSTOM, dump_all);
+        "Puzzles/Wriggle2.xml", "Puzzles/Wriggle2.txt", solution_format::CUSTOM, dump_all);
 }

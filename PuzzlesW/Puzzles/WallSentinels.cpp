@@ -340,5 +340,5 @@ void solve_puz_WallSentinels()
 {
     using namespace puzzles::WallSentinels;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\WallSentinels.xml", "Puzzles\\WallSentinels.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/WallSentinels.xml", "Puzzles/WallSentinels.txt", solution_format::GOAL_STATE_ONLY);
 }

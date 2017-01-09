@@ -258,5 +258,5 @@ void solve_puz_Orchards()
 {
     using namespace puzzles::Orchards;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Orchards.xml", "Puzzles\\Orchards.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Orchards.xml", "Puzzles/Orchards.txt", solution_format::GOAL_STATE_ONLY);
 }

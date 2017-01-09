@@ -238,5 +238,5 @@ void solve_puz_Landscapes()
 {
     using namespace puzzles::Landscapes;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Landscapes.xml", "Puzzles\\Landscapes.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Landscapes.xml", "Puzzles/Landscapes.txt", solution_format::GOAL_STATE_ONLY);
 }

@@ -145,7 +145,7 @@ void solve_puz_15pegs()
 {
     using namespace puzzles::_15pegs;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\15pegs.xml", "Puzzles\\15pegs.txt");
+        "Puzzles/15pegs.xml", "Puzzles/15pegs.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>(
-        "Puzzles\\15pegs.xml", "Puzzles\\15pegs.txt");
+        "Puzzles/15pegs.xml", "Puzzles/15pegs.txt");
 }

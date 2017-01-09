@@ -286,5 +286,5 @@ void solve_puz_NorthPoleFishing()
 {
     using namespace puzzles::NorthPoleFishing;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\NorthPoleFishing.xml", "Puzzles\\NorthPoleFishing.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/NorthPoleFishing.xml", "Puzzles/NorthPoleFishing.txt", solution_format::GOAL_STATE_ONLY);
 }

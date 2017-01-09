@@ -236,5 +236,5 @@ void solve_puz_FourMeNot()
 {
     using namespace puzzles::FourMeNot;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\FourMeNot.xml", "Puzzles\\FourMeNot.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/FourMeNot.xml", "Puzzles/FourMeNot.txt", solution_format::GOAL_STATE_ONLY);
 }

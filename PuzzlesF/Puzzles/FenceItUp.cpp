@@ -245,5 +245,5 @@ void solve_puz_FenceItUp()
 {
     using namespace puzzles::FenceItUp;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\FenceItUp.xml", "Puzzles\\FenceItUp.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/FenceItUp.xml", "Puzzles/FenceItUp.txt", solution_format::GOAL_STATE_ONLY);
 }

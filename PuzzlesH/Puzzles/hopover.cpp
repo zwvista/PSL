@@ -113,5 +113,5 @@ void solve_puz_hopover()
 {
     using namespace puzzles::hopover;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true, false>>(
-        "Puzzles\\hopover.xml", "Puzzles\\hopover.txt");
+        "Puzzles/hopover.xml", "Puzzles/hopover.txt");
 }

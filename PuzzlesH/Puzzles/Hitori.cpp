@@ -202,5 +202,5 @@ void solve_puz_Hitori()
 {
     using namespace puzzles::Hitori;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Hitori.xml", "Puzzles\\Hitori.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Hitori.xml", "Puzzles/Hitori.txt", solution_format::GOAL_STATE_ONLY);
 }

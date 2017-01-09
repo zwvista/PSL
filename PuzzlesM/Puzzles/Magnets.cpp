@@ -288,5 +288,5 @@ void solve_puz_Magnets()
 {
     using namespace puzzles::Magnets;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>
-        ("Puzzles\\Magnets.xml", "Puzzles\\Magnets.txt", solution_format::GOAL_STATE_ONLY);
+        ("Puzzles/Magnets.xml", "Puzzles/Magnets.txt", solution_format::GOAL_STATE_ONLY);
 }

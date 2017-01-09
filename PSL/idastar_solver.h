@@ -52,7 +52,7 @@ class puz_solver_idastar
         while(!stack.empty()){
             boost::tie(start_cost, cur, children) = stack.back();
             stack.pop_back();
-            for(list<puz_state>::iterator i = children.begin(); i != children.end();){
+            for(auto i = children.begin(); i != children.end();){
                 const puz_state& child = *i;
                 // full cycle checking
                 if(boost::range::find(spath, child) != spath.end()){

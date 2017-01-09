@@ -343,5 +343,5 @@ void solve_puz_Gardener()
 {
     using namespace puzzles::Gardener;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Gardener.xml", "Puzzles\\Gardener.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Gardener.xml", "Puzzles/Gardener.txt", solution_format::GOAL_STATE_ONLY);
 }

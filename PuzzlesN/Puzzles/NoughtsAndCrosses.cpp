@@ -195,5 +195,5 @@ void solve_puz_NoughtsAndCrosses()
 {
     using namespace puzzles::NoughtsAndCrosses;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>
-        ("Puzzles\\NoughtsAndCrosses.xml", "Puzzles\\NoughtsAndCrosses.txt", solution_format::GOAL_STATE_ONLY);
+        ("Puzzles/NoughtsAndCrosses.xml", "Puzzles/NoughtsAndCrosses.txt", solution_format::GOAL_STATE_ONLY);
 }

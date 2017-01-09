@@ -288,7 +288,7 @@ void solve_puz_Clouds()
 {
     using namespace puzzles::Clouds;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Clouds.xml", "Puzzles\\Clouds.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Clouds.xml", "Puzzles/Clouds.txt", solution_format::GOAL_STATE_ONLY);
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Clouds2.xml", "Puzzles\\Clouds2.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Clouds2.xml", "Puzzles/Clouds2.txt", solution_format::GOAL_STATE_ONLY);
 }

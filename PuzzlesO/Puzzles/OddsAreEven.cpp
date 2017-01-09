@@ -276,5 +276,5 @@ void solve_puz_OddsAreEven()
 {
     using namespace puzzles::OddsAreEven;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\OddsAreEven.xml", "Puzzles\\OddsAreEven.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/OddsAreEven.xml", "Puzzles/OddsAreEven.txt", solution_format::GOAL_STATE_ONLY);
 }

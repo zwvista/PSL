@@ -145,5 +145,5 @@ void solve_puz_numeric_paranoia()
 {
     using namespace puzzles::numeric_paranoia;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\numeric_paranoia.xml", "Puzzles\\numeric_paranoia.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        "Puzzles/numeric_paranoia.xml", "Puzzles/numeric_paranoia.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

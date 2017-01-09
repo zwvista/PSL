@@ -123,9 +123,9 @@ void solve_puz_fullsearch()
 {
     using namespace puzzles::fullsearch;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true, false>>(
-        "Puzzles\\fullsearch.xml", "Puzzles\\fullsearch_astar.txt");
+        "Puzzles/fullsearch.xml", "Puzzles/fullsearch_astar.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_dijkstra<puz_state, true, true, false>>(
-        "Puzzles\\fullsearch.xml", "Puzzles\\fullsearch_dijkstra.txt");
+        "Puzzles/fullsearch.xml", "Puzzles/fullsearch_dijkstra.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_bfs<puz_state, true, true, false>>(
-        "Puzzles\\fullsearch.xml", "Puzzles\\fullsearch_bfs.txt");
+        "Puzzles/fullsearch.xml", "Puzzles/fullsearch_bfs.txt");
 }

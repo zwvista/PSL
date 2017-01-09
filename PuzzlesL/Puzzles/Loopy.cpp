@@ -262,5 +262,5 @@ void solve_puz_Loopy()
 {
     using namespace puzzles::Loopy;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Loopy.xml", "Puzzles\\Loopy.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Loopy.xml", "Puzzles/Loopy.txt", solution_format::GOAL_STATE_ONLY);
 }

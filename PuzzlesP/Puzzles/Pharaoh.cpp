@@ -191,7 +191,7 @@ void solve_puz_Pharaoh()
 {
     using namespace puzzles::Pharaoh;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Pharaoh.xml", "Puzzles\\Pharaoh_a.txt");
+        "Puzzles/Pharaoh.xml", "Puzzles/Pharaoh_a.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>(
-        "Puzzles\\Pharaoh.xml", "Puzzles\\Pharaoh_ida.txt");
+        "Puzzles/Pharaoh.xml", "Puzzles/Pharaoh_ida.txt");
 }

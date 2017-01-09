@@ -310,5 +310,5 @@ void solve_puz_Parks()
 {
     using namespace puzzles::Parks;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Parks.xml", "Puzzles\\Parks.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Parks.xml", "Puzzles/Parks.txt", solution_format::GOAL_STATE_ONLY);
 }

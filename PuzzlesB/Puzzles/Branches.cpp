@@ -258,5 +258,5 @@ void solve_puz_Branches()
 {
     using namespace puzzles::Branches;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Branches.xml", "Puzzles\\Branches.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Branches.xml", "Puzzles/Branches.txt", solution_format::GOAL_STATE_ONLY);
 }

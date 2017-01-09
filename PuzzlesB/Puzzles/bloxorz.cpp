@@ -321,9 +321,9 @@ void solve_puz_bloxorz()
 {
     using namespace puzzles::bloxorz;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\bloxorz.xml", "Puzzles\\bloxorz_a.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        "Puzzles/bloxorz.xml", "Puzzles/bloxorz_a.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
     solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>(
-        "Puzzles\\bloxorz.xml", "Puzzles\\bloxorz_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        "Puzzles/bloxorz.xml", "Puzzles/bloxorz_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\bloc.xml", "Puzzles\\bloc.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        "Puzzles/bloc.xml", "Puzzles/bloc.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

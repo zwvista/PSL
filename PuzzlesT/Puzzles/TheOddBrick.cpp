@@ -256,5 +256,5 @@ void solve_puz_TheOddBrick()
 {
     using namespace puzzles::TheOddBrick;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\TheOddBrick.xml", "Puzzles\\TheOddBrick.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/TheOddBrick.xml", "Puzzles/TheOddBrick.txt", solution_format::GOAL_STATE_ONLY);
 }

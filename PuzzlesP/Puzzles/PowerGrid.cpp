@@ -255,5 +255,5 @@ void solve_puz_PowerGrid()
 {
     using namespace puzzles::PowerGrid;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\PowerGrid.xml", "Puzzles\\PowerGrid.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/PowerGrid.xml", "Puzzles/PowerGrid.txt", solution_format::GOAL_STATE_ONLY);
 }

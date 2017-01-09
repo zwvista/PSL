@@ -206,5 +206,5 @@ void solve_puz_MoveTheBox()
 {
     using namespace puzzles::MoveTheBox;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\MoveTheBox_Boston.xml", "Puzzles\\MoveTheBox_Boston.txt");
+        "Puzzles/MoveTheBox_Boston.xml", "Puzzles/MoveTheBox_Boston.txt");
 }

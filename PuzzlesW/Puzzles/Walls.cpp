@@ -255,5 +255,5 @@ void solve_puz_Walls()
 {
     using namespace puzzles::Walls;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Walls.xml", "Puzzles\\Walls.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Walls.xml", "Puzzles/Walls.txt", solution_format::GOAL_STATE_ONLY);
 }

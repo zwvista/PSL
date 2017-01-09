@@ -457,5 +457,5 @@ void solve_puz_FenceSentinels()
 {
     using namespace puzzles::FenceSentinels;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\FenceSentinels.xml", "Puzzles\\FenceSentinels.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/FenceSentinels.xml", "Puzzles/FenceSentinels.txt", solution_format::GOAL_STATE_ONLY);
 }

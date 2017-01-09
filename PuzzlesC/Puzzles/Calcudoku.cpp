@@ -231,5 +231,5 @@ void solve_puz_Calcudoku()
 {
     using namespace puzzles::Calcudoku;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Calcudoku.xml", "Puzzles\\Calcudoku.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Calcudoku.xml", "Puzzles/Calcudoku.txt", solution_format::GOAL_STATE_ONLY);
 }

@@ -241,5 +241,5 @@ void solve_puz_BoxItUp()
 {
     using namespace puzzles::BoxItUp;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\BoxItUp.xml", "Puzzles\\BoxItUp.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/BoxItUp.xml", "Puzzles/BoxItUp.txt", solution_format::GOAL_STATE_ONLY);
 }

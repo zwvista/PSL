@@ -269,5 +269,5 @@ void solve_puz_Tatami()
 {
     using namespace puzzles::Tatami;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>
-        ("Puzzles\\Tatami.xml", "Puzzles\\Tatami.txt", solution_format::GOAL_STATE_ONLY);
+        ("Puzzles/Tatami.xml", "Puzzles/Tatami.txt", solution_format::GOAL_STATE_ONLY);
 }

@@ -277,5 +277,5 @@ void solve_puz_Bridges()
 {
     using namespace puzzles::Bridges;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Bridges.xml", "Puzzles\\Bridges.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Bridges.xml", "Puzzles/Bridges.txt", solution_format::GOAL_STATE_ONLY);
 }

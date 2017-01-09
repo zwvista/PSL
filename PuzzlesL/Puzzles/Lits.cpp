@@ -349,5 +349,5 @@ void solve_puz_Lits()
 {
     using namespace puzzles::Lits;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Lits.xml", "Puzzles\\Lits.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Lits.xml", "Puzzles/Lits.txt", solution_format::GOAL_STATE_ONLY);
 }

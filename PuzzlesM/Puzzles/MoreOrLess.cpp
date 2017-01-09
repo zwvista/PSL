@@ -271,5 +271,5 @@ void solve_puz_MoreOrLess()
 {
     using namespace puzzles::MoreOrLess;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\MoreOrLess.xml", "Puzzles\\MoreOrLess.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/MoreOrLess.xml", "Puzzles/MoreOrLess.txt", solution_format::GOAL_STATE_ONLY);
 }

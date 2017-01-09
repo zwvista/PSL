@@ -337,5 +337,5 @@ void solve_puz_Kropki()
 {
     using namespace puzzles::Kropki;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Kropki.xml", "Puzzles\\Kropki.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Kropki.xml", "Puzzles/Kropki.txt", solution_format::GOAL_STATE_ONLY);
 }

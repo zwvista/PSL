@@ -209,5 +209,5 @@ void solve_puz_RobotCrosswords()
 {
     using namespace puzzles::RobotCrosswords;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\RobotCrosswords.xml", "Puzzles\\RobotCrosswords.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/RobotCrosswords.xml", "Puzzles/RobotCrosswords.txt", solution_format::GOAL_STATE_ONLY);
 }

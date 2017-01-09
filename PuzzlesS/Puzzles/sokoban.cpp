@@ -178,5 +178,5 @@ void solve_puz_sokoban()
 {
     using namespace puzzles::sokoban;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\sokoban.xml", "Puzzles\\sokoban.txt");
+        "Puzzles/sokoban.xml", "Puzzles/sokoban.txt");
 }

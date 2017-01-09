@@ -366,5 +366,5 @@ void solve_puz_BalancedTapas()
 {
     using namespace puzzles::BalancedTapas;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\BalancedTapas.xml", "Puzzles\\BalancedTapas.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/BalancedTapas.xml", "Puzzles/BalancedTapas.txt", solution_format::GOAL_STATE_ONLY);
 }

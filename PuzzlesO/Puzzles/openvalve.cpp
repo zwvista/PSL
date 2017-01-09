@@ -190,5 +190,5 @@ void solve_puz_openvalve()
 {
     using namespace puzzles::openvalve;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\openvalve.xml", "Puzzles\\openvalve.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/openvalve.xml", "Puzzles/openvalve.txt", solution_format::GOAL_STATE_ONLY);
 }

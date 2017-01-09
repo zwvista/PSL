@@ -272,5 +272,5 @@ void solve_puz_AbstractPainting()
 {
     using namespace puzzles::AbstractPainting;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\AbstractPainting.xml", "Puzzles\\AbstractPainting.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/AbstractPainting.xml", "Puzzles/AbstractPainting.txt", solution_format::GOAL_STATE_ONLY);
 }

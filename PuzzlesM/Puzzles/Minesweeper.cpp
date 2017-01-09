@@ -202,5 +202,5 @@ void solve_puz_Minesweeper()
 {
     using namespace puzzles::Minesweeper;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Minesweeper.xml", "Puzzles\\Minesweeper.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Minesweeper.xml", "Puzzles/Minesweeper.txt", solution_format::GOAL_STATE_ONLY);
 }

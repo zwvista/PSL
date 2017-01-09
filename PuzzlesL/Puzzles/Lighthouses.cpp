@@ -246,5 +246,5 @@ void solve_puz_Lighthouses()
 {
     using namespace puzzles::Lighthouses;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Lighthouses.xml", "Puzzles\\Lighthouses.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Lighthouses.xml", "Puzzles/Lighthouses.txt", solution_format::GOAL_STATE_ONLY);
 }

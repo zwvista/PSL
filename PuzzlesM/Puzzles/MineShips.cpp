@@ -225,5 +225,5 @@ void solve_puz_MineShips()
 {
     using namespace puzzles::MineShips;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\MineShips.xml", "Puzzles\\MineShips.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/MineShips.xml", "Puzzles/MineShips.txt", solution_format::GOAL_STATE_ONLY);
 }

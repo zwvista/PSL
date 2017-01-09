@@ -258,5 +258,5 @@ void solve_puz_RippleEffect()
 {
     using namespace puzzles::RippleEffect;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\RippleEffect.xml", "Puzzles\\RippleEffect.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/RippleEffect.xml", "Puzzles/RippleEffect.txt", solution_format::GOAL_STATE_ONLY);
 }

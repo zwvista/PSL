@@ -279,5 +279,5 @@ void solve_puz_Galaxies()
 {
     using namespace puzzles::Galaxies;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Galaxies.xml", "Puzzles\\Galaxies.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Galaxies.xml", "Puzzles/Galaxies.txt", solution_format::GOAL_STATE_ONLY);
 }

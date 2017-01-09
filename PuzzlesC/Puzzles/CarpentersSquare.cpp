@@ -380,5 +380,5 @@ void solve_puz_CarpentersSquare()
 {
     using namespace puzzles::CarpentersSquare;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\CarpentersSquare.xml", "Puzzles\\CarpentersSquare.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/CarpentersSquare.xml", "Puzzles/CarpentersSquare.txt", solution_format::GOAL_STATE_ONLY);
 }

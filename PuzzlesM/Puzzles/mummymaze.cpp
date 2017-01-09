@@ -275,5 +275,5 @@ void solve_puz_mummymaze()
 {
     using namespace puzzles::mummymaze;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\mummymaze.xml", "Puzzles\\mummymaze.txt");
+        "Puzzles/mummymaze.xml", "Puzzles/mummymaze.txt");
 }

@@ -169,7 +169,7 @@ void solve_puz_twinballs()
 {
     using namespace puzzles::twinballs;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>
-        ("Puzzles\\twinballs.xml", "Puzzles\\twinballs_a.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        ("Puzzles/twinballs.xml", "Puzzles/twinballs_a.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
     solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>
-        ("Puzzles\\twinballs.xml", "Puzzles\\twinballs_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        ("Puzzles/twinballs.xml", "Puzzles/twinballs_ida.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

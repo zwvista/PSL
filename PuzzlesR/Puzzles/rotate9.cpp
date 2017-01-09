@@ -133,5 +133,5 @@ void solve_puz_rotate9()
 {
     using namespace puzzles::rotate9;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
-        "Puzzles\\rotate9.xml", "Puzzles\\rotate9.txt");
+        "Puzzles/rotate9.xml", "Puzzles/rotate9.txt");
 }

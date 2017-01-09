@@ -294,5 +294,5 @@ void solve_puz_HolidayIsland()
 {
     using namespace puzzles::HolidayIsland;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\HolidayIsland.xml", "Puzzles\\HolidayIsland.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/HolidayIsland.xml", "Puzzles/HolidayIsland.txt", solution_format::GOAL_STATE_ONLY);
 }

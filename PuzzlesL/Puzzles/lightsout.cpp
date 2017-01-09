@@ -159,9 +159,9 @@ void solve_puz_lightsout()
 {
     using namespace puzzles::lightsout;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\lightsout_classic.xml", "Puzzles\\lightsout_classic.txt", solution_format::MOVES_ONLY);
+        "Puzzles/lightsout_classic.xml", "Puzzles/lightsout_classic.txt", solution_format::MOVES_ONLY);
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\lightsout_2000.xml", "Puzzles\\lightsout_2000.txt", solution_format::MOVES_ONLY);
+        "Puzzles/lightsout_2000.xml", "Puzzles/lightsout_2000.txt", solution_format::MOVES_ONLY);
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\lightsout_variants.xml", "Puzzles\\lightsout_variants.txt", solution_format::MOVES_ONLY);
+        "Puzzles/lightsout_variants.xml", "Puzzles/lightsout_variants.txt", solution_format::MOVES_ONLY);
 }

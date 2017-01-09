@@ -167,5 +167,5 @@ void solve_puz_strimko()
 {
     using namespace puzzles::strimko;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\strimko.xml", "Puzzles\\strimko.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/strimko.xml", "Puzzles/strimko.txt", solution_format::GOAL_STATE_ONLY);
 }

@@ -136,5 +136,5 @@ void solve_puz_fling()
 {
     using namespace puzzles::fling;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\fling3.xml", "Puzzles\\fling.txt", solution_format::MOVES_ONLY);
+        "Puzzles/fling3.xml", "Puzzles/fling.txt", solution_format::MOVES_ONLY);
 }

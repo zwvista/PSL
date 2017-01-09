@@ -239,5 +239,5 @@ void solve_puz_BoxItAround()
 {
     using namespace puzzles::BoxItAround;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\BoxItAround.xml", "Puzzles\\BoxItAround.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/BoxItAround.xml", "Puzzles/BoxItAround.txt", solution_format::GOAL_STATE_ONLY);
 }

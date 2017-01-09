@@ -168,5 +168,5 @@ void solve_puz_escapology()
 {
     using namespace puzzles::escapology;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\escapology.xml", "Puzzles\\escapology.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        "Puzzles/escapology.xml", "Puzzles/escapology.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

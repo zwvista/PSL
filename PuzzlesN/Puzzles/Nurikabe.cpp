@@ -329,5 +329,5 @@ void solve_puz_Nurikabe()
 {
     using namespace puzzles::Nurikabe;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Nurikabe.xml", "Puzzles\\Nurikabe.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Nurikabe.xml", "Puzzles/Nurikabe.txt", solution_format::GOAL_STATE_ONLY);
 }

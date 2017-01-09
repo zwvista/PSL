@@ -407,5 +407,5 @@ void solve_puz_Masyu()
 {
     using namespace puzzles::Masyu;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Masyu.xml", "Puzzles\\Masyu.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Masyu.xml", "Puzzles/Masyu.txt", solution_format::GOAL_STATE_ONLY);
 }

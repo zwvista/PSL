@@ -177,7 +177,7 @@ void solve_puz_hrd()
 {
     using namespace puzzles::hrd;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\hrd.xml", "Puzzles\\hrd.txt");
+        "Puzzles/hrd.xml", "Puzzles/hrd.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>(
-        "Puzzles\\hrd.xml", "Puzzles\\hrd_ida.txt");
+        "Puzzles/hrd.xml", "Puzzles/hrd_ida.txt");
 }

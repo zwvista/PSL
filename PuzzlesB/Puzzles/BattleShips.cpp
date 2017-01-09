@@ -324,5 +324,5 @@ void solve_puz_BattleShips()
 {
     using namespace puzzles::BattleShips;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\BattleShips.xml", "Puzzles\\BattleShips.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/BattleShips.xml", "Puzzles/BattleShips.txt", solution_format::GOAL_STATE_ONLY);
 }

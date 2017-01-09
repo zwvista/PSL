@@ -124,5 +124,5 @@ void solve_puz_lightsout_int()
 {
     using namespace puzzles::lightsout_int;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\lightsout-int.xml", "Puzzles\\lightsout-int.txt");
+        "Puzzles/lightsout-int.xml", "Puzzles/lightsout-int.txt");
 }

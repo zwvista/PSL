@@ -252,9 +252,9 @@ void solve_puz_PuzzleRetreat()
 {
     using namespace puzzles::PuzzleRetreat;
     //solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-    //    "Puzzles\\PuzzleRetreat_Welcome.xml", "Puzzles\\PuzzleRetreat_Welcome.txt");
+    //    "Puzzles/PuzzleRetreat_Welcome.xml", "Puzzles/PuzzleRetreat_Welcome.txt");
     //solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-    //    "Puzzles\\PuzzleRetreat_Morning.xml", "Puzzles\\PuzzleRetreat_Morning.txt");
+    //    "Puzzles/PuzzleRetreat_Morning.xml", "Puzzles/PuzzleRetreat_Morning.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\PuzzleRetreat_Everest.xml", "Puzzles\\PuzzleRetreat_Everest.txt");
+        "Puzzles/PuzzleRetreat_Everest.xml", "Puzzles/PuzzleRetreat_Everest.txt");
 }

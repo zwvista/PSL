@@ -270,5 +270,5 @@ void solve_puz_Arrows()
 {
     using namespace puzzles::Arrows;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Arrows.xml", "Puzzles\\Arrows.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Arrows.xml", "Puzzles/Arrows.txt", solution_format::GOAL_STATE_ONLY);
 }

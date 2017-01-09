@@ -311,5 +311,5 @@ void solve_puz_Archipelago()
 {
     using namespace puzzles::Archipelago;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Archipelago.xml", "Puzzles\\Archipelago.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Archipelago.xml", "Puzzles/Archipelago.txt", solution_format::GOAL_STATE_ONLY);
 }

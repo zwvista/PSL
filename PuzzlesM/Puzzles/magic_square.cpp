@@ -124,5 +124,5 @@ void solve_puz_magic_square()
 {
     using namespace puzzles::magic_square;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
-        "Puzzles\\magic_square.xml", "Puzzles\\magic_square.txt");
+        "Puzzles/magic_square.xml", "Puzzles/magic_square.txt");
 }

@@ -357,5 +357,5 @@ void solve_puz_SlitherLink()
 {
     using namespace puzzles::SlitherLink;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\SlitherLink.xml", "Puzzles\\SlitherLink.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/SlitherLink.xml", "Puzzles/SlitherLink.txt", solution_format::GOAL_STATE_ONLY);
 }

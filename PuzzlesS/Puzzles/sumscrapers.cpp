@@ -199,5 +199,5 @@ void solve_puz_sumscrapers()
 {
     using namespace puzzles::sumscrapers;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\sumscrapers.xml", "Puzzles\\sumscrapers.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/sumscrapers.xml", "Puzzles/sumscrapers.txt", solution_format::GOAL_STATE_ONLY);
 }

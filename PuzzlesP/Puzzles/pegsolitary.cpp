@@ -130,5 +130,5 @@ void solve_puz_pegsolitary()
 {
     using namespace puzzles::pegsolitary;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\pegsolitary.xml", "Puzzles\\pegsolitary.txt");
+        "Puzzles/pegsolitary.xml", "Puzzles/pegsolitary.txt");
 }

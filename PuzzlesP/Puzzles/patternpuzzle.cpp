@@ -169,5 +169,5 @@ void solve_puz_patternpuzzle()
 {
     using namespace puzzles::patternpuzzle;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
-        "Puzzles\\patternpuzzle.xml", "Puzzles\\patternpuzzle.txt", solution_format::MOVES_ONLY);
+        "Puzzles/patternpuzzle.xml", "Puzzles/patternpuzzle.txt", solution_format::MOVES_ONLY);
 }

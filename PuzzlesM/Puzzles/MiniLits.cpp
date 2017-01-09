@@ -329,5 +329,5 @@ void solve_puz_MiniLits()
 {
     using namespace puzzles::MiniLits;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\MiniLits.xml", "Puzzles\\MiniLits.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/MiniLits.xml", "Puzzles/MiniLits.txt", solution_format::GOAL_STATE_ONLY);
 }

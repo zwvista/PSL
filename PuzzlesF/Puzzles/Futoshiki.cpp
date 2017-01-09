@@ -208,5 +208,5 @@ void solve_puz_Futoshiki()
 {
     using namespace puzzles::Futoshiki;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Futoshiki.xml", "Puzzles\\Futoshiki.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Futoshiki.xml", "Puzzles/Futoshiki.txt", solution_format::GOAL_STATE_ONLY);
 }

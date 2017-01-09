@@ -277,5 +277,5 @@ void solve_puz_SlantedMaze()
 {
     using namespace puzzles::SlantedMaze;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\SlantedMaze.xml", "Puzzles\\SlantedMaze.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/SlantedMaze.xml", "Puzzles/SlantedMaze.txt", solution_format::GOAL_STATE_ONLY);
 }

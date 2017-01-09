@@ -319,5 +319,5 @@ void solve_puz_Pairakabe()
 {
     using namespace puzzles::Pairakabe;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Pairakabe.xml", "Puzzles\\Pairakabe.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Pairakabe.xml", "Puzzles/Pairakabe.txt", solution_format::GOAL_STATE_ONLY);
 }

@@ -424,5 +424,5 @@ void solve_puz_LineSweeper()
 {
     using namespace puzzles::LineSweeper;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\LineSweeper.xml", "Puzzles\\LineSweeper.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/LineSweeper.xml", "Puzzles/LineSweeper.txt", solution_format::GOAL_STATE_ONLY);
 }

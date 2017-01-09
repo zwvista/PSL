@@ -230,5 +230,5 @@ void solve_puz_zafiro()
 {
     using namespace puzzles::zafiro;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
-        "Puzzles\\zafiro.xml", "Puzzles\\zafiro.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        "Puzzles/zafiro.xml", "Puzzles/zafiro.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

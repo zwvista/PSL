@@ -292,5 +292,5 @@ void solve_puz_Knightoku()
 {
     using namespace puzzles::Knightoku;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Knightoku.xml", "Puzzles\\Knightoku.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Knightoku.xml", "Puzzles/Knightoku.txt", solution_format::GOAL_STATE_ONLY);
 }

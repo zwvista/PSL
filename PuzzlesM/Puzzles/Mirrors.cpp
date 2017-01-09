@@ -264,5 +264,5 @@ void solve_puz_Mirrors()
 {
     using namespace puzzles::Mirrors;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Mirrors.xml", "Puzzles\\Mirrors.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Mirrors.xml", "Puzzles/Mirrors.txt", solution_format::GOAL_STATE_ONLY);
 }

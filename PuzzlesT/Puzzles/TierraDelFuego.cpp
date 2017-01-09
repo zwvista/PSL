@@ -229,5 +229,5 @@ void solve_puz_TierraDelFuego()
 {
     using namespace puzzles::TierraDelFuego;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\TierraDelFuego.xml", "Puzzles\\TierraDelFuego.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/TierraDelFuego.xml", "Puzzles/TierraDelFuego.txt", solution_format::GOAL_STATE_ONLY);
 }

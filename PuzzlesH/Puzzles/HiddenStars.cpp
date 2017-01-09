@@ -245,5 +245,5 @@ void solve_puz_HiddenStars()
 {
     using namespace puzzles::HiddenStars;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\HiddenStars.xml", "Puzzles\\HiddenStars.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/HiddenStars.xml", "Puzzles/HiddenStars.txt", solution_format::GOAL_STATE_ONLY);
 }

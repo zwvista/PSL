@@ -209,5 +209,5 @@ void solve_puz_Square100()
 {
     using namespace puzzles::Square100;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Square100.xml", "Puzzles\\Square100.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Square100.xml", "Puzzles/Square100.txt", solution_format::GOAL_STATE_ONLY);
 }

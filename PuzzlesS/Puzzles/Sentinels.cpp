@@ -275,5 +275,5 @@ void solve_puz_Sentinels()
 {
     using namespace puzzles::Sentinels;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Sentinels.xml", "Puzzles\\Sentinels.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Sentinels.xml", "Puzzles/Sentinels.txt", solution_format::GOAL_STATE_ONLY);
 }

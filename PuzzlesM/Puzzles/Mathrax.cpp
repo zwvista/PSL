@@ -270,5 +270,5 @@ void solve_puz_Mathrax()
 {
     using namespace puzzles::Mathrax;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Mathrax.xml", "Puzzles\\Mathrax.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Mathrax.xml", "Puzzles/Mathrax.txt", solution_format::GOAL_STATE_ONLY);
 }

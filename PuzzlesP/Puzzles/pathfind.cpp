@@ -133,15 +133,15 @@ void solve_puz_pathfind()
 {
     using namespace puzzles::pathfind;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\pathfind.xml", "Puzzles\\pathfind_astar.txt");
+        "Puzzles/pathfind.xml", "Puzzles/pathfind_astar.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_dijkstra<puz_state>>(
-        "Puzzles\\pathfind.xml", "Puzzles\\pathfind_dijkstra.txt");
+        "Puzzles/pathfind.xml", "Puzzles/pathfind_dijkstra.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_bfs<puz_state>>(
-        "Puzzles\\pathfind.xml", "Puzzles\\pathfind_bfs.txt");
+        "Puzzles/pathfind.xml", "Puzzles/pathfind_bfs.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_idastar<puz_state>>(
-        "Puzzles\\pathfind.xml", "Puzzles\\pathfind_idastar.txt");
+        "Puzzles/pathfind.xml", "Puzzles/pathfind_idastar.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_idastar2<puz_state>>(
-        "Puzzles\\pathfind.xml", "Puzzles\\pathfind_idastar2.txt");
+        "Puzzles/pathfind.xml", "Puzzles/pathfind_idastar2.txt");
     solve_puzzle<puz_game, puz_state, puz_solver_dfs<puz_state>>(
-        "Puzzles\\pathfind.xml", "Puzzles\\pathfind_dfs.txt");
+        "Puzzles/pathfind.xml", "Puzzles/pathfind_dfs.txt");
 }

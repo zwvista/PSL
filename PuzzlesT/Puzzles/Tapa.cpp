@@ -411,5 +411,5 @@ void solve_puz_Tapa()
 {
     using namespace puzzles::Tapa;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Tapa.xml", "Puzzles\\Tapa.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Tapa.xml", "Puzzles/Tapa.txt", solution_format::GOAL_STATE_ONLY);
 }

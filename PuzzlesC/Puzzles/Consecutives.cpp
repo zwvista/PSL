@@ -285,5 +285,5 @@ void solve_puz_Consecutives()
 {
     using namespace puzzles::Consecutives;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Consecutives.xml", "Puzzles\\Consecutives.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Consecutives.xml", "Puzzles/Consecutives.txt", solution_format::GOAL_STATE_ONLY);
 }

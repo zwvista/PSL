@@ -196,7 +196,7 @@ void solve_puz_on_the_edge()
 {
     using namespace puzzles::on_the_edge;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\on_the_edge.xml", "Puzzles\\on_the_edge.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        "Puzzles/on_the_edge.xml", "Puzzles/on_the_edge.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
     solve_puzzle<puz_game, puz_state, puz_solver_dfs<puz_state>>(
-        "Puzzles\\on_the_edge.xml", "Puzzles\\on_the_edge_dfs.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
+        "Puzzles/on_the_edge.xml", "Puzzles/on_the_edge_dfs.txt", solution_format::MOVES_ONLY_SINGLE_LINE);
 }

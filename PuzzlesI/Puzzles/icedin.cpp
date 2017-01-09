@@ -261,5 +261,5 @@ void solve_puz_icedin()
 {
     using namespace puzzles::icedin;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\icedin.xml", "Puzzles\\icedin.txt");
+        "Puzzles/icedin.xml", "Puzzles/icedin.txt");
 }

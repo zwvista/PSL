@@ -212,5 +212,5 @@ void solve_puz_Kakurasu()
 {
     using namespace puzzles::Kakurasu;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Kakurasu.xml", "Puzzles\\Kakurasu.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Kakurasu.xml", "Puzzles/Kakurasu.txt", solution_format::GOAL_STATE_ONLY);
 }

@@ -300,5 +300,5 @@ void solve_puz_ParkingLot()
 {
     using namespace puzzles::ParkingLot;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\ParkingLot.xml", "Puzzles\\ParkingLot.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/ParkingLot.xml", "Puzzles/ParkingLot.txt", solution_format::GOAL_STATE_ONLY);
 }

@@ -261,5 +261,5 @@ void solve_puz_Thermometers()
 {
     using namespace puzzles::Thermometers;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Thermometers.xml", "Puzzles\\Thermometers.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Thermometers.xml", "Puzzles/Thermometers.txt", solution_format::GOAL_STATE_ONLY);
 }

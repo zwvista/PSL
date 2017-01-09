@@ -195,5 +195,5 @@ void solve_puz_Tatamino2()
 {
     using namespace puzzles::Tatamino2;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles\\Tatamino.xml", "Puzzles\\Tatamino2.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Tatamino.xml", "Puzzles/Tatamino2.txt", solution_format::GOAL_STATE_ONLY);
 }
