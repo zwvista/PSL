@@ -52,7 +52,6 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
     m_start = boost::accumulate(strs, string());
 
     for(int r = 0; r < m_sidelen; ++r){
-        auto& str = strs[r];
         for(int c = 0; c < m_sidelen; ++c){
             Position p(r, c);
             m_area2range[r].push_back(p);
@@ -129,7 +128,6 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    auto& perms = m_game->m_perms;
     for(auto& kv : m_matches){
         auto& p = kv.first;
         auto& perm_ids = kv.second;

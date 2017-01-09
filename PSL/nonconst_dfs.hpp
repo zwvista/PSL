@@ -170,10 +170,10 @@ namespace boost {
       // Variable is needed to workaround a borland bug.
       TF& fn = static_cast<TF&>(func);
       if (!fn(u, g)){
-        vector<Edge> edges;
+        std::vector<Edge> edges;
         for (boost::tie(ei, ei_end) = out_edges(u, g); ei != ei_end; ++ei)
             edges.push_back(*ei);
-        for (vector<Edge>::const_iterator it = edges.begin(); it != edges.end(); it++){
+        for (auto it = edges.begin(); it != edges.end(); it++){
           Vertex v = target(*it, g);           vis.examine_edge(*it, g);
           ColorValue v_color = get(color, v);
           if (v_color == Color::white()) {     vis.tree_edge(*it, g);

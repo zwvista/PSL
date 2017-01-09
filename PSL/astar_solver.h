@@ -13,7 +13,7 @@ class puz_solver_astar
     typedef typename boost::mpl::if_c<directed, boost::directedS, boost::undirectedS>::type directedSOrUndirectedS;
     typedef boost::adjacency_list<boost::listS, boost::vecS, directedSOrUndirectedS, vert_prop, edge_prop> mygraph_t;
     typedef typename mygraph_t::vertex_descriptor vertex_t;
-    typedef typename unordered_multimap<vertex_t, unsigned int> MultiPredMap;
+    typedef unordered_multimap<vertex_t, unsigned int> MultiPredMap;
     typedef typename boost::bimap<vertex_t, puz_state> StateMap;
     typedef typename boost::property_map<mygraph_t, boost::vertex_predecessor_t>::type PredMap;
     typedef typename boost::property_map<mygraph_t, boost::vertex_distance_t>::type DistMap;
@@ -99,7 +99,7 @@ class puz_solver_astar
     };
 
 public:
-    static pair<bool, size_t> find_solution(const puz_state& sstart, list<list<puz_state>>& state_paths)
+    static std::pair<bool, size_t> find_solution(const puz_state& sstart, list<list<puz_state>>& state_paths)
     {
         mygraph_t g;
         puz_context context;
