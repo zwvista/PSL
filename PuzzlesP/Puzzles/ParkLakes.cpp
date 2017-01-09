@@ -211,19 +211,19 @@ int puz_state::find_matches(bool init)
 struct puz_state2 : Position
 {
     puz_state2(const set<Position>& a, const Position& p_start)
-        : m_area(a) { make_move(p_start); }
+        : m_area(&a) { make_move(p_start); }
 
     void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>& m_area;
+    const set<Position>* m_area;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for(auto& os : offset){
         auto p = *this + os;
-        if(m_area.count(p) != 0){
+        if(m_area->count(p) != 0){
             children.push_back(*this);
             children.back().make_move(p);
         }

@@ -51,7 +51,7 @@ class puz_solver_dfs
                     add_edge(u, v, edge_prop(dist), g);
                     dmap[v] = dmap[u] + dist;
                     pmap[v] = u;
-                    m_smap.insert(StateMap::relation(v, child));
+                    m_smap.insert(typename StateMap::relation(v, child));
                 }
             }
         }
@@ -72,7 +72,7 @@ public:
         PredMap pmap = get(boost::vertex_predecessor_t(), g);
         dmap[start] = 0;
         pmap[start] = start;
-        smap.insert(StateMap::relation(start, sstart));
+        smap.insert(typename StateMap::relation(start, sstart));
         try {
             boost::depth_first_search(g,
                 visitor(puz_visitor(examine_seq, smap)).

@@ -113,16 +113,16 @@ struct puz_state : puz_state_base
 
 struct puz_state2 : puz_state_base
 {
-    puz_state2(const puz_state& s) : m_cells(s.m_cells) {
+    puz_state2(const puz_state& s) : m_cells(&s.m_cells) {
         m_game = s.m_game, m_block = s.m_block;
     }
-    char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+    char cells(const Position& p) const {return (*m_cells)[p.first * cols() + p.second];}
     bool operator<(const puz_state2& x) const {
         return m_block < x.m_block;
     }
     void gen_children(list<puz_state2>& children) const;
 
-    const string& m_cells;
+    const string* m_cells;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const

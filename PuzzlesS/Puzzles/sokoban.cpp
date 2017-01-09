@@ -91,10 +91,10 @@ struct puz_state : puz_state_base
 
 struct puz_state2 : puz_state_base
 {
-    puz_state2(const puz_state& s) : m_cells(s.m_cells){
+    puz_state2(const puz_state& s) : m_cells(&s.m_cells){
         m_game = s.m_game, m_man = s.m_man;
     }
-    char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+    char cells(const Position& p) const {return (*m_cells)[p.first * cols() + p.second];}
     bool operator<(const puz_state2& x) const {
         return m_man < x.m_man;
     }
@@ -103,7 +103,7 @@ struct puz_state2 : puz_state_base
     }
     void gen_children(list<puz_state2>& children) const;
 
-    const string& m_cells;
+    const string* m_cells;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -120,7 +120,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 puz_state::puz_state(const puz_state2& x2)
-    : m_cells(x2.m_cells)
+    : m_cells(*x2.m_cells)
 {
     m_game = x2.m_game, m_man = x2.m_man, m_move = x2.m_move;
 }

@@ -208,7 +208,7 @@ struct puz_state2 : Position
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
-    const vector<char> m_color;
+    vector<char> m_color;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const

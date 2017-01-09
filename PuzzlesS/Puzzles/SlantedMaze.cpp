@@ -185,17 +185,17 @@ bool puz_state::make_move2(const Position& p, int n)
 struct puz_state2 : Position
 {
     puz_state2(const puz_state& s, set<Position>& dots, set<Position>& path, bool& has_loop)
-        : m_state(s), m_dots(dots), m_path(path), m_has_loop(has_loop) {
+        : m_state(&s), m_dots(&dots), m_path(&path), m_has_loop(&has_loop) {
         make_move(-1, *dots.begin());
     }
 
-    int sidelen() const { return m_state.sidelen(); }
+    int sidelen() const { return m_state->sidelen(); }
     void make_move(int n, const Position& p);
     void gen_children(list<puz_state2>& children) const;
 
-    const puz_state& m_state;
-    set<Position> &m_dots, &m_path;
-    bool& m_has_loop;
+    const puz_state* m_state;
+    set<Position> *m_dots, *m_path;
+    bool* m_has_loop;
     int m_last_dir;
 };
 
@@ -203,18 +203,18 @@ void puz_state2::make_move(int n, const Position& p)
 {
     m_last_dir = n;
     static_cast<Position&>(*this) = p;
-    if(m_path.count(p) == 0)
-        m_path.insert(p);
+    if(m_path->count(p) == 0)
+        m_path->insert(p);
     else
-        m_has_loop = true;
-    m_dots.erase(p);
+        *m_has_loop = true;
+    m_dots->erase(p);
 }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for(int i = 0; i < 4; ++i)
         if((i + 2) % 4 != m_last_dir &&
-            m_state.cells(*this + offset[i]) == slants[i]){
+            m_state->cells(*this + offset[i]) == slants[i]){
             children.push_back(*this);
             children.back().make_move(i, *this + offset2[i]);
         }

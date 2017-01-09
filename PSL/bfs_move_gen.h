@@ -23,7 +23,7 @@ class puz_move_generator
             cur.gen_children(children);
             for(puz_state& child : children) {
                 try{
-                    vertex_t v = m_smap.right.at(child);
+                    m_smap.right.at(child);
                 } catch(out_of_range&) {
                     vertex_t v = add_vertex(vert_prop(boost::white_color), g);
                     m_smap.insert(typename StateMap::relation(v, child));

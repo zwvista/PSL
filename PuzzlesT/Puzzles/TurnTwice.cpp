@@ -128,19 +128,19 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& a) : m_area(a) { make_move(*a.begin()); }
+    puz_state2(const set<Position>& a) : m_area(&a) { make_move(*a.begin()); }
 
     void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>& m_area;
+    const set<Position>* m_area;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for(auto& os : offset){
         auto p = *this + os;
-        if(m_area.count(p) != 0){
+        if(m_area->count(p) != 0){
             children.push_back(*this);
             children.back().make_move(p);
         }

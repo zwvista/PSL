@@ -12,7 +12,7 @@ class puz_solver_bfs
     typedef typename boost::mpl::if_c<directed, boost::directedS, boost::undirectedS>::type directedSOrUndirectedS;
     typedef boost::adjacency_list<boost::listS, boost::vecS, directedSOrUndirectedS, vert_prop, edge_prop> mygraph_t;
     typedef typename mygraph_t::vertex_descriptor vertex_t;
-    typedef typename unordered_multimap<vertex_t, unsigned int> MultiPredMap;
+    typedef unordered_multimap<vertex_t, unsigned int> MultiPredMap;
     typedef typename boost::bimap<vertex_t, puz_state> StateMap;
     typedef typename boost::property_map<mygraph_t, boost::vertex_predecessor_t>::type PredMap;
     typedef typename boost::property_map<mygraph_t, boost::vertex_distance_t>::type DistMap;
@@ -77,7 +77,7 @@ class puz_solver_bfs
                     add_edge(u, v, edge_prop(dist), g);
                     dmap[v] = new_dist;
                     pmap[v] = u;
-                    smap.insert(StateMap::relation(v, child));
+                    smap.insert(typename StateMap::relation(v, child));
                     if(!first_solution_only)
                         mpmap.emplace(v, u);
                 }

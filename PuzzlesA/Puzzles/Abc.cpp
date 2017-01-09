@@ -50,14 +50,12 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
 {
     m_start = boost::accumulate(strs, string());
     m_letter_max = *boost::max_element(m_start);
-    for(int r = 0; r < m_sidelen; ++r){
-        auto& str = strs[r];
+    for(int r = 0; r < m_sidelen; ++r)
         for(int c = 0; c < m_sidelen; ++c){
             Position p(r, c);
             m_area2range[r].push_back(p);
             m_area2range[m_sidelen + c].push_back(p);
         }
-    }
 
     string perm(m_sidelen, PUZ_EMPTY);
     auto f = [&](int border, int start, int end, int step){
@@ -107,7 +105,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_game(&g), m_cells(g.m_start)
 {
     vector<int> perm_ids(g.m_perms.size());
     boost::iota(perm_ids, 0);

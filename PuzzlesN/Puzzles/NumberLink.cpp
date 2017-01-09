@@ -166,19 +166,19 @@ set<Position> puz_state::get_area(char ch) const
 struct puz_state2 : Position
 {
     puz_state2(const set<Position>& a, const Position& p_start)
-        : m_area(a) { make_move(p_start); }
+        : m_area(&a) { make_move(p_start); }
 
     void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>& m_area;
+    const set<Position>* m_area;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for(auto& os : offset){
         auto p = *this + os;
-        if(m_area.count(p) != 0){
+        if(m_area->count(p) != 0){
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -272,7 +272,7 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-lines
         for(int c = 1; c < sidelen() - 1; ++c){
             Position p(r, c);
-            auto& str = cells(p);
+            auto str = cells(p);
             auto it = m_game->m_pos2num.find(p);
             out << (it != m_game->m_pos2num.end() ? it->second : ' ')
                 << (str[2] == PUZ_LINE_ON ? '-' : ' ');

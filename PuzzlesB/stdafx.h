@@ -3,10 +3,10 @@
 #define NOMINMAX
 #define _SCL_SECURE_NO_WARNINGS
 
-#include "targetver.h"
+//#include "targetver.h"
 
 #include <stdio.h>
-#include <tchar.h>
+//#include <tchar.h>
 
 #include <algorithm>
 #include <numeric>

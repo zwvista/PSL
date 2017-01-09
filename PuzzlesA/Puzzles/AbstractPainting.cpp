@@ -56,12 +56,12 @@ struct puz_game
 struct puz_state2 : Position
 {
     puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
-        : m_horz_walls(horz_walls), m_vert_walls(vert_walls) { make_move(p_start); }
+        : m_horz_walls(&horz_walls), m_vert_walls(&vert_walls) { make_move(p_start); }
 
     void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position> &m_horz_walls, &m_vert_walls;
+    const set<Position> *m_horz_walls, *m_vert_walls;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -69,7 +69,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for(int i = 0; i < 4; ++i){
         auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
-        auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
+        auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
         if(walls.count(p_wall) == 0){
             children.push_back(*this);
             children.back().make_move(p);
@@ -187,7 +187,6 @@ bool puz_state::find_matches(bool init)
                 hidden_ids.insert(id);
     }
     for(auto& kv : m_matches){
-        int rc = kv.first;
         auto& region_ids = kv.second;
         boost::remove_erase_if(region_ids, [&](int id){
             return hidden_ids.count(id) != 0;
