@@ -222,7 +222,7 @@ ostream& puz_state::dump(ostream& out, bool move_only) const
             const vector<Position>& w = m_worms[i];
             for(size_t j = 0; j < w.size(); j++){
                 int r, c;
-                std::tie(r, c) = (pair<int, int>)w[j];
+                boost::tie(r, c) = w[j];
                 string& str = vstrs[r - 1];
                 str[c * 2 - 2] = i + '1';
                 str[c * 2 - 1] = j + 'a';

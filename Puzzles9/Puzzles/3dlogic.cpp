@@ -157,16 +157,16 @@ struct puz_state : puz_state_base
 struct puz_state2 : puz_state_base
 {
     puz_state2(const puz_state& x, vector<int>& connects, const Position3d& p)
-        : m_cells(x.m_cells), m_links(x.m_links), m_connects(connects) {
+        : m_cells(&x.m_cells), m_links(x.m_links), m_connects(connects) {
         m_game = x.m_game; make_move(p);
     }
-    char cells(const Position3d& p) const {return m_cells.at(p2i(p));}
+    char cells(const Position3d& p) const {return m_cells->at(p2i(p));}
     bool operator<(const puz_state2& x) const {return m_curpos < x.m_curpos;}
     void make_move(const Position3d& p){m_curpos = p;}
 
     void gen_children(list<puz_state2>& children) const;
 
-    const string& m_cells;
+    const string* m_cells;
     const vector<Position3dPair>& m_links;
     vector<int>& m_connects;
     Position3d m_curpos;
