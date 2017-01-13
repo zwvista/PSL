@@ -74,7 +74,9 @@ struct puz_state_base
 bool puz_state_base::is_valid(Position3d& p) const
 {
     int face, r, c;
-    boost::tie(face, boost::tie(r, c)) = p;
+    // cannot compile with gcc
+    // boost::tie(face, boost::tie(r, c)) = p;
+    face = p.first, r = p.second.first, c = p.second.second;
     if(face == 0){
         if(r == -1 || c == -1) return false;
         if(r == sidelen())
@@ -157,7 +159,7 @@ struct puz_state : puz_state_base
 struct puz_state2 : puz_state_base
 {
     puz_state2(const puz_state& x, vector<int>& connects, const Position3d& p)
-        : m_cells(&x.m_cells), m_links(x.m_links), m_connects(connects) {
+        : m_cells(&x.m_cells), m_links(&x.m_links), m_connects(&connects) {
         m_game = x.m_game; make_move(p);
     }
     char cells(const Position3d& p) const {return m_cells->at(p2i(p));}
@@ -167,8 +169,8 @@ struct puz_state2 : puz_state_base
     void gen_children(list<puz_state2>& children) const;
 
     const string* m_cells;
-    const vector<Position3dPair>& m_links;
-    vector<int>& m_connects;
+    const vector<Position3dPair>* m_links;
+    vector<int>* m_connects;
     Position3d m_curpos;
 };
 
@@ -184,11 +186,11 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         }
         else if(islower(ch)){
             int i = ch - 'a';
-            const Position3d& link1 = m_links[i].first;
-            const Position3d& link2 = m_links[i].second;
+            const Position3d& link1 = (*m_links)[i].first;
+            const Position3d& link2 = (*m_links)[i].second;
             if(link1 != link2){
-                if(p == link1) m_connects[i] |= 1;
-                if(p == link2) m_connects[i] |= 2;
+                if(p == link1) (*m_connects)[i] |= 1;
+                if(p == link2) (*m_connects)[i] |= 2;
             }
         }
     }
