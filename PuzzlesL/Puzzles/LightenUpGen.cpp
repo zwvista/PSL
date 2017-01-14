@@ -130,8 +130,8 @@ void gen_puz_LightenUp()
 {
     using namespace puzzles::LightenUp;
     srand(time(NULL));
-    puz_generator g(5);
-    g.gen_walls(5);
+    puz_generator g(6);
+    g.gen_walls(10);
     g.gen_lightbulbs();
     auto s = g.to_string();
     cout << s;

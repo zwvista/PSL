@@ -7,15 +7,25 @@
 3    \
  2   \
      \
-     ]]>
+    ]]>
   </level>
   <level id="test2">
     <![CDATA[
-  W W\
-  W  \
-3    \
- 2   \
      \
-     ]]>
+    3\
+ 2   \
+  W  \
+ W W \
+    ]]>
   </level>
+  <level id="test3">
+    <![CDATA[
+1 1   \
+01    \
+ 10 2 \
+  11  \
+     0\
+      \
+    ]]>
+   </level>
 </levels>

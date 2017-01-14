@@ -46,8 +46,10 @@ class puz_solver_dijkstra
             // check for goal
             const puz_state& cur = smap.left.at(u);
             if(cur.is_goal_state()){
-                m_context.m_goal_vertices.push_back(u);
-                m_context.m_goal_distance = std::min(m_context.m_goal_distance, dmap[u]);
+                if(boost::algorithm::none_of_equal(m_context.m_goal_vertices, u)){
+                    m_context.m_goal_vertices.push_back(u);
+                    m_context.m_goal_distance = std::min(m_context.m_goal_distance, dmap[u]);
+                }
                 if(first_solution_only)
                     throw found_goal();
                 return;
