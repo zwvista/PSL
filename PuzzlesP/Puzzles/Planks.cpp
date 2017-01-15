@@ -196,25 +196,23 @@ bool puz_state::make_move2(const Position& p, int n)
         }
     };
 
-    string neighbors;
-    for(auto& p : range)
-        f(neighbors, p);
-    if(neighbors.size() > 2)
-        return false;
-
-    if(!is_goal_state()) return true;
     set<Position> area;
     map<char, string> plank2neighbors;
     for(int r = 0; r < sidelen(); ++r)
         for(int c = 0; c < sidelen(); ++c){
             Position p(r, c);
             char ch = cells(p);
-            if(ch == PUZ_SPACE) continue;
+            if(ch == PUZ_SPACE || ch == PUZ_NAIL) continue;
             area.insert(p);
             f(plank2neighbors[ch], p);
         }
-    if(boost::algorithm::any_of(plank2neighbors, [](const pair<const char, string>& kv){return kv.second.size() != 2;}))
+    if(boost::algorithm::any_of(plank2neighbors, [&](const pair<const char, string>& kv){
+        int sz = kv.second.size();
+        return sz > 2 || is_goal_state() && sz != 2; 
+    }))
         return false;
+
+    if(!is_goal_state()) return true;
 
     list<puz_state2> smoves;
     puz_move_generator<puz_state2>::gen_moves(area, smoves);
