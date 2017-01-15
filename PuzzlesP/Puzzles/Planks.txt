@@ -1,0 +1,65 @@
+Level 1
+Sequence of moves: 
+e           
+e     b b bN
+eNg gNg   c 
+d         cN
+d f f fN  c 
+dN    a a aN
+Number of moves: 6
+Number of vertices examined: 36
+0.000931512 [s]
+
+Level 2
+Sequence of moves: 
+  fNf f     
+  h   gNg g 
+  h   b b bN
+d hN      a 
+dN  c cNc aN
+d e e eN  a 
+Number of moves: 8
+Number of vertices examined: 32
+0.000633357 [s]
+
+Level 3
+Sequence of moves: 
+aNa a b b bN
+c         g 
+cN  e e eNg 
+c d fN    gN
+  d f       
+  dNf       
+Number of moves: 7
+Number of vertices examined: 139
+0.00237988 [s]
+
+Level 4
+Sequence of moves: 
+    g a a aN
+    gN    f 
+    g   c f 
+d d dN  c fN
+b b bN  cN  
+    e e eN  
+Number of moves: 7
+Number of vertices examined: 21
+0.000531417 [s]
+
+Level 250
+Sequence of moves: 
+  e e eNd d dN        
+      j   fN  gN  iN  
+lNl l j   f hNg   i c 
+  mN  jN  f h g p i c 
+  m n       h   p   cN
+  m nNkN        pN  aN
+    n k   qN        a 
+      k   q rN      a 
+    sNs s q r       b 
+            r o oNo bN
+                    b 
+Number of moves: 18
+Number of vertices examined: 3760929
+130.616 [s]
+

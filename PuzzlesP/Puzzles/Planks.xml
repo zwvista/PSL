@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<levels>
+  <level id="1">
+    <![CDATA[
+      \
+     N\
+N N   \
+     N\
+   N  \
+N    N\
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+ N    \
+   N  \
+     N\
+ N    \
+N  N N\
+   N  \
+    ]]>
+  </level>
+  <level id="3">
+    <![CDATA[
+N    N\
+      \
+N   N \
+  N  N\
+      \
+ N    \
+    ]]>
+  </level>
+  <level id="4">
+    <![CDATA[
+     N\
+  N   \
+      \
+  N  N\
+  N N \
+    N \
+    ]]>
+  </level>
+  <level id="250">
+    <![CDATA[
+   N  N    \
+     N N N \
+N     N    \
+ N N       \
+          N\
+  NN    N N\
+     N     \
+      N    \
+  N        \
+        N N\
+           \
+    ]]>
+  </level>
+</levels>
