@@ -7,8 +7,8 @@ d         cN
 d f f fN  c 
 dN    a a aN
 Number of moves: 6
-Number of vertices examined: 29
-0.00110014 [s]
+Number of vertices examined: 25
+0.002329 [s]
 
 Level 2
 Sequence of moves: 
@@ -20,7 +20,7 @@ dN  c cNc aN
 d e e eN  a 
 Number of moves: 8
 Number of vertices examined: 16
-0.000584814 [s]
+0.001708 [s]
 
 Level 3
 Sequence of moves: 
@@ -31,8 +31,8 @@ c d fN    gN
   d f       
   dNf       
 Number of moves: 7
-Number of vertices examined: 130
-0.00254288 [s]
+Number of vertices examined: 56
+0.002905 [s]
 
 Level 4
 Sequence of moves: 
@@ -43,8 +43,8 @@ d d dN  c fN
 b b bN  cN  
     e e eN  
 Number of moves: 7
-Number of vertices examined: 13
-0.000557988 [s]
+Number of vertices examined: 9
+0.000737 [s]
 
 Level 250
 Sequence of moves: 
@@ -60,6 +60,6 @@ lNl l j   f hNg   i c
             r o oNo bN
                     b 
 Number of moves: 18
-Number of vertices examined: 195912
-7.763 [s]
+Number of vertices examined: 713
+0.130428 [s]
 

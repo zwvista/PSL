@@ -22,10 +22,6 @@ namespace puzzles{ namespace Planks{
 
 #define PUZ_SPACE       ' '
 #define PUZ_NAIL        'N'
-#define PUZ_HORZ_1      'H'
-#define PUZ_HORZ_2      '-'
-#define PUZ_VERT_1      'V'
-#define PUZ_VERT_2      '|'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -185,32 +181,46 @@ bool puz_state::make_move2(const Position& p, int n)
     ++m_ch, ++m_distance;
     m_matches.erase(p);
 
-    auto f = [&](string& neighbors, const Position& p){
-        char ch = cells(p);
-        for(auto& os : offset){
-            auto p2 = p + os;
-            if(!is_valid(p2)) continue;
-            char ch2 = cells(p2);
-            if(ch2 != PUZ_SPACE && ch2 != ch && (ch2 == PUZ_NAIL || neighbors.find(ch2) == -1))
-                neighbors += ch2;
-        }
-    };
+    set<Position> rngMatches;
+    for(auto& kv : m_matches){
+    	auto& rng = m_game->m_pos2planks.at(kv.first);
+    	for(int n : kv.second)
+    		for(auto& p : rng[n])
+    			rngMatches.insert(p);
+    }
 
     set<Position> area;
-    map<char, string> plank2neighbors;
+    map<char, vector<Position>> ch2plank;
     for(int r = 0; r < sidelen(); ++r)
         for(int c = 0; c < sidelen(); ++c){
             Position p(r, c);
             char ch = cells(p);
             if(ch == PUZ_SPACE || ch == PUZ_NAIL) continue;
             area.insert(p);
-            f(plank2neighbors[ch], p);
+            ch2plank[ch].push_back(p);
         }
-    if(boost::algorithm::any_of(plank2neighbors, [&](const pair<const char, string>& kv){
-        int sz = kv.second.size();
-        return sz > 2 || is_goal_state() && sz != 2; 
-    }))
-        return false;
+    for(auto& kv : ch2plank){
+        char ch = kv.first;
+    	string s;
+    	vector<Position> rng;
+    	for(auto& p : kv.second)
+			for(auto& os : offset){
+				auto p2 = p + os;
+				if(!is_valid(p2)) continue;
+				char ch2 = cells(p2);
+				if(ch2 != ch)
+					rng.push_back(p2);
+				if(ch2 != PUZ_SPACE && ch2 != ch && (ch2 == PUZ_NAIL || s.find(ch2) == -1))
+					s += ch2;
+			}
+        int sz = s.size();
+        if(sz > 2 || is_goal_state() && sz != 2)
+        	return false;
+        if(sz < 2 && boost::algorithm::all_of(rng, [&](const Position& p){
+        	return rngMatches.count(p) == 0;
+        }))
+        	return false;
+    }
 
     if(!is_goal_state()) return true;
 
