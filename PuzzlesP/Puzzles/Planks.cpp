@@ -116,7 +116,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_game(&g), m_cells(g.m_start)
 {
     for(auto& kv : g.m_pos2planks){
         auto& perm_ids = m_matches[kv.first];
@@ -208,9 +208,9 @@ bool puz_state::make_move2(const Position& p, int n)
 				auto p2 = p + os;
 				if(!is_valid(p2)) continue;
 				char ch2 = cells(p2);
-				if(ch2 != ch)
+				if(ch2 == PUZ_SPACE)
 					rng.push_back(p2);
-				if(ch2 != PUZ_SPACE && ch2 != ch && (ch2 == PUZ_NAIL || s.find(ch2) == -1))
+				if(ch2 == PUZ_NAIL || ch2 != PUZ_SPACE && ch2 != ch && s.find(ch2) == -1)
 					s += ch2;
 			}
         int sz = s.size();
