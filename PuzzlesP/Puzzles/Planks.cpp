@@ -183,10 +183,10 @@ bool puz_state::make_move2(const Position& p, int n)
 
     set<Position> rngMatches;
     for(auto& kv : m_matches){
-    	auto& rng = m_game->m_pos2planks.at(kv.first);
-    	for(int n : kv.second)
-    		for(auto& p : rng[n])
-    			rngMatches.insert(p);
+        auto& rng = m_game->m_pos2planks.at(kv.first);
+        for(int n : kv.second)
+            for(auto& p : rng[n])
+                rngMatches.insert(p);
     }
 
     set<Position> area;
@@ -201,25 +201,23 @@ bool puz_state::make_move2(const Position& p, int n)
         }
     for(auto& kv : ch2plank){
         char ch = kv.first;
-    	string s;
-    	vector<Position> rng;
-    	for(auto& p : kv.second)
-			for(auto& os : offset){
-				auto p2 = p + os;
-				if(!is_valid(p2)) continue;
-				char ch2 = cells(p2);
-				if(ch2 == PUZ_SPACE)
-					rng.push_back(p2);
-				if(ch2 == PUZ_NAIL || ch2 != PUZ_SPACE && ch2 != ch && s.find(ch2) == -1)
-					s += ch2;
-			}
-        int sz = s.size();
-        if(sz > 2 || is_goal_state() && sz != 2)
-        	return false;
-        if(sz < 2 && boost::algorithm::all_of(rng, [&](const Position& p){
-        	return rngMatches.count(p) == 0;
-        }))
-        	return false;
+        string strNeighbors;
+        vector<Position> rngNeighbors;
+        for(auto& p : kv.second)
+            for(auto& os : offset){
+                auto p2 = p + os;
+                if(!is_valid(p2)) continue;
+                char ch2 = cells(p2);
+                if(ch2 == PUZ_SPACE)
+                    rngNeighbors.push_back(p2);
+                if(ch2 == PUZ_NAIL || ch2 != PUZ_SPACE && ch2 != ch && strNeighbors.find(ch2) == -1)
+                    strNeighbors += ch2;
+            }
+        int sz = strNeighbors.size();
+        if(sz > 2 || sz < 2 && (is_goal_state() || boost::algorithm::all_of(rngNeighbors, [&](const Position& p){
+            return rngMatches.count(p) == 0;
+        })))
+            return false;
     }
 
     if(!is_goal_state()) return true;
