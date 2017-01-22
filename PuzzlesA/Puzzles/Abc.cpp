@@ -58,19 +58,18 @@ puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& 
         }
 
     string perm(m_sidelen, PUZ_EMPTY);
-    auto f = [&](int border, int start, int end, int step){
-        for(int i = start; i != end; i += step)
-            if(perm[i] != PUZ_EMPTY){
-                perm[border] = perm[i];
-                return;
-            }
-    };
-
     auto begin = next(perm.begin()), end = prev(perm.end());
+    auto rbegin = next(perm.rbegin()), rend = prev(perm.rend());
+    // 1. The goal is to put the letter A B and C in the board.
+    // 2. Each letter appear once in every row and column.
+    // space ... A B C
     iota(next(begin, m_sidelen - 2 - (m_letter_max - 'A' + 1)), end, 'A');
     do{
-        f(0, 1, m_sidelen - 1, 1);
-        f(m_sidelen - 1, m_sidelen - 2, 0, -1);
+        // 3. The letters on the borders tell you what letter you see from there.
+        // determine the letter on the left and top borders
+        *perm.begin() = *find_if(begin, end, [](char ch){return ch != PUZ_EMPTY;});
+        // determine the letter on the right and bottom borders
+        *perm.rbegin() = *find_if(rbegin, rend, [](char ch){return ch != PUZ_EMPTY;});
         m_perms.push_back(perm);
     }while(next_permutation(begin, end));
 }
