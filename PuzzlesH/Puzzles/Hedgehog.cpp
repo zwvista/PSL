@@ -153,7 +153,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for(int c = 0; c < m_sidelen; ++c){
             Position p(r, c);
             auto s = str.substr(c * 3, 3);
-            int n = s == PUZ_BOULDER_STR ? PUZ_BOULDER : stoi(s);
+            int n = s == PUZ_BOULDER_STR ? PUZ_BOULDER : s == "   " ? PUZ_SPACE : stoi(s);
             m_start.push_back(n);
             if(n == PUZ_BOULDER)
                 ++m_boulder_count;
