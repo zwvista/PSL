@@ -80,11 +80,11 @@ struct puz_game
     map<Position, int> m_pos2num;
     vector<puz_lit> m_lits;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+: m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
 , m_tetros(tetrominoes.size())
 {

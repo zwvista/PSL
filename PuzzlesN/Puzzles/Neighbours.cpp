@@ -59,12 +59,12 @@ struct puz_game
     map<char, puz_area_info> m_id2info;
     int m_cell_count_area;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     int neighbour_count(char id) const { return m_id2info.at(id).m_neighbour_count; }
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+: m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
     for(int r = 1, n = 0; r < m_sidelen - 1; ++r){

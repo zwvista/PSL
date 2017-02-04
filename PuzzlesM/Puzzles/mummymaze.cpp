@@ -37,7 +37,7 @@ struct puz_game
     set<Position> m_vert_wall;
     set<Position> m_skull;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     bool is_horz_wall(const Position& p) const {return m_horz_wall.count(p) != 0;}
     bool is_vert_wall(const Position& p) const {return m_vert_wall.count(p) != 0;}
     bool is_horz_gate(const Position& p) const {
@@ -75,8 +75,8 @@ struct puz_game
     }
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_size(stoi(attrs.get<string>("rows")), stoi(attrs.get<string>("cols")))
 {
     if(attrs.count("goal"))

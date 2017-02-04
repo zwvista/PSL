@@ -128,7 +128,7 @@ struct puz_game
     int m_boulder_count = 0;
     vector<int> m_start;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     bool is_forest_game() const {
         return m_game_type == puz_game_type::FOREST ||
             m_game_type == puz_game_type::ENCHANTED_FOREST;
@@ -136,8 +136,8 @@ struct puz_game
     int max_num_forest() const { return 81 - m_boulder_count; }
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
 {
     auto game_type = attrs.get<string>("GameType", "Back Garden");

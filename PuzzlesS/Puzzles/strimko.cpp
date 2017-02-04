@@ -15,11 +15,11 @@ struct puz_game
     vector<vector<Position>> m_areas;
     vector<string> m_perms;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() / 2)
 {
     m_start = accumulate(strs.begin(), strs.begin() + m_sidelen, string());

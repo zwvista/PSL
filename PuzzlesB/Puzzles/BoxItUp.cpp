@@ -32,11 +32,11 @@ struct puz_game
     int m_sidelen;
     map<Position, puz_box_info> m_pos2boxinfo;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+: m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
 {
     for(int r = 0; r < m_sidelen; ++r){

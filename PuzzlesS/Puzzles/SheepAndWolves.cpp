@@ -71,12 +71,12 @@ struct puz_game
     map<int, vector<int>> m_num2perms;
     string m_start;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * (m_sidelen + 1) + p.second]; }
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+: m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 1)
 , m_dot_count(m_sidelen * m_sidelen)
 {

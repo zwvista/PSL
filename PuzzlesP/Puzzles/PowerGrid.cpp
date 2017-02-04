@@ -52,11 +52,11 @@ struct puz_game
     vector<puz_area_info> m_area2info;
     map<int, vector<string>> m_num2perms;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() - 1)
     , m_is_diagonal_type(attrs.get<string>("GameType", "") == "DIAGONAL")
     , m_area2info(m_sidelen * 2 + (m_is_diagonal_type ? 2 : 0))

@@ -58,11 +58,11 @@ struct puz_game
     vector<puz_area_diag_info> m_area_diag_info;
     int m_area_count;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+: m_id(level.attribute("id").value())
 , m_sidelen(strs[0].size())
 , m_area_rc2range(m_sidelen * 2)
 {

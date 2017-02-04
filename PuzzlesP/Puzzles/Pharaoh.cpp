@@ -35,13 +35,13 @@ struct puz_game
     vector<char> m_cells;
     string m_id;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_size(strs.size(), strs[0].length())
 {
     Position pos[] = {Position(0, 0), Position(0, 1), Position(0, 0), Position(1, 0)};

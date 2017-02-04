@@ -15,19 +15,16 @@ inline unsigned int manhattan_distance(const Position& p1, const Position& p2)
 template<class puz_game>
 void load_xml(list<puz_game>& games, const string& fn_in)
 {
-    using namespace boost::property_tree::xml_parser;
-    ptree pt;
-    read_xml(fn_in, pt, no_comments | trim_whitespace);
+    xml_document doc;
+    doc.load_file(fn_in.c_str());
     string str;
     vector<string> vstr;
 
-    for(const ptree::value_type& v : pt.get_child("levels")){
-        //if(v.first == "<xmlcomment>") continue;
-        const ptree& child = v.second;
-        str = child.data();
+    for(xml_node v : doc.child("levels").children()){
+        str = v.text().as_string();
         boost::split(vstr, str, boost::is_any_of("\\\r\n"), boost::token_compress_on);
         vstr.pop_back();
         vstr.erase(vstr.begin());
-        games.push_back(puz_game(child.get_child("<xmlattr>"), vstr, child));
+        games.push_back(puz_game(vstr, v));
     }
 }

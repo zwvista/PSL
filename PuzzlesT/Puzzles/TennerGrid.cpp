@@ -47,14 +47,14 @@ struct puz_game
     vector<int> m_start;
     vector<puz_area_info> m_area_info;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
     int cols() const { return m_size.second; }
     int cells(const Position& p) const { return m_start[p.first * cols() + p.second]; }
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+: m_id(level.attribute("id").value())
 , m_size(strs.size() - 1, strs[0].size() / 2)
 , m_area_info(rows() + cols())
 {

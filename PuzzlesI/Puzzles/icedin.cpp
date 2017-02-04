@@ -33,7 +33,7 @@ struct puz_game
     string m_start;
     vector<Position> m_blocks, m_switches;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
     bool is_switch(const Position& p) const {
@@ -41,8 +41,8 @@ struct puz_game
     }
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_size(strs.size(), strs[0].length())
 {
     m_start.resize(rows() * cols());

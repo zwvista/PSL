@@ -48,11 +48,11 @@ struct puz_game
     map<int, int> m_ship2num{{1, 4},{2, 3},{3, 2},{4, 1}};
     map<Position, int> m_pos2num;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
     , m_has_supertanker(attrs.get<int>("SuperTanker", 0) == 1)
 {

@@ -31,13 +31,13 @@ struct puz_game
     set<Position> m_finishes;
     set<Position> m_blobs;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_size(strs.size() + 2, strs[0].length() + 2)
 {
     m_start = string(rows() * cols(), PUZ_SPACE);

@@ -76,11 +76,11 @@ struct puz_game
     map<Position, int> m_pos2num;
     vector<puz_area_info> m_area2info;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() - 1)
     , m_has_supertanker(attrs.get<int>("SuperTanker", 0) == 1)
     , m_area2info(m_sidelen * 2)

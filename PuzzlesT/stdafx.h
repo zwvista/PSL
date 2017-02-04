@@ -37,8 +37,7 @@
 #include <boost/algorithm/cxx11/none_of.hpp>
 #include <boost/algorithm/cxx11/any_of.hpp>
 #include <boost/algorithm/cxx11/all_of.hpp>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/xml_parser.hpp>
+#include "pugixml.hpp"
 #include <boost/range/algorithm.hpp>
 #include <boost/range/algorithm_ext.hpp>
 #include <boost/range/numeric.hpp>
@@ -52,6 +51,6 @@ namespace karma = boost::spirit::karma;
 namespace ascii = boost::spirit::ascii;
 namespace phx = boost::phoenix;
 using namespace phx::arg_names;
-using boost::property_tree::ptree;
+using namespace pugi;
 using boost::format;
 using boost::lexical_cast;

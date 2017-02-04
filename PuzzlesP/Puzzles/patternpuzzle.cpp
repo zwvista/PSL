@@ -35,7 +35,7 @@ struct puz_game
     string m_start;
     vector<int> m_dirs;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
     int& dir(int r, int c) {return m_dirs[r * cols() + c];}
@@ -44,8 +44,8 @@ struct puz_game
     }
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_size(strs.size(), strs[0].length())
     , m_dirs(rows() * cols())
 {

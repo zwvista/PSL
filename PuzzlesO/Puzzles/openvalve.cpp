@@ -39,15 +39,15 @@ struct puz_game
     string m_pipes, m_start;
     Position m_entrance, m_exit;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
     int cell_offset(const Position& p) const {return p.first * cols() + p.second;}
     char pipe(const Position& p) const {return m_pipes[cell_offset(p)];}
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_size(strs.size(), strs[0].length() - 2)
     , m_start(rows() * cols() * 3, '.')
 {

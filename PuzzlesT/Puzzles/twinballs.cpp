@@ -24,7 +24,7 @@ struct puz_game
     string m_cells;
     string m_id;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
     bool is_horz_wall(const Position& p) const {return m_horz_wall.count(p) != 0;}
@@ -34,8 +34,8 @@ struct puz_game
     char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_size(Position(strs.size() / 2 + 2, strs[0].length() / 2 + 2))
 {
     m_cells = string(rows() * cols(), ' ');

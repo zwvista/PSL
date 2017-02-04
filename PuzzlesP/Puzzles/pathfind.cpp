@@ -26,15 +26,15 @@ struct puz_game
     set<Position> m_horz_wall;
     set<Position> m_vert_wall;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
     bool is_horz_wall(const Position& p) const {return m_horz_wall.count(p) != 0;}
     bool is_vert_wall(const Position& p) const {return m_vert_wall.count(p) != 0;}
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_size(strs.size() / 2, strs[0].length() / 2)
 {
     for(int r = 0; ; ++r){

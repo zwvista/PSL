@@ -49,12 +49,12 @@ struct puz_game
     vector<int> m_start;
     map<Position, puz_arrow> m_pos2arrows;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+: m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
     m_start.push_back(PUZ_CORNER);

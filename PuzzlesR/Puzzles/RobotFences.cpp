@@ -49,7 +49,7 @@ struct puz_game
     string m_start;
     set<Position> m_horz_walls, m_vert_walls;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
@@ -79,8 +79,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     }
 }
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() / 2)
 {
     set<Position> rng;

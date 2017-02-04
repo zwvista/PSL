@@ -72,11 +72,11 @@ struct puz_game
     map<Position, int> m_pos2num;
     string m_start;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-    : m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+    : m_id(level.attribute("id").value())
     , m_inside_outside(attrs.get<int>("InsideOutside", 0) == 1)
     , m_sidelen(strs.size() + 1)
     , m_dot_count(m_sidelen * m_sidelen)

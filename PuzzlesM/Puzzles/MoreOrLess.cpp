@@ -67,7 +67,7 @@ struct puz_game
     vector<vector<Position>> m_areas;
     map<Position, puz_pos_info> m_pos2info;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
 };
 
 struct puz_state2 : Position
@@ -103,8 +103,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     }
 }
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+: m_id(level.attribute("id").value())
 , m_sidelen(strs.size() / 2)
 , m_areas(m_sidelen * 3)
 {

@@ -61,7 +61,7 @@ struct puz_game
     // Dimension 2: all possible combinations
     vector<vector<puz_lit>> m_Lits;
 
-    puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level);
+    puz_game(const vector<string>& strs, const xml_node& level);
 };
 
 struct puz_state2 : Position
@@ -90,8 +90,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     }
 }
 
-puz_game::puz_game(const ptree& attrs, const vector<string>& strs, const ptree& level)
-: m_id(attrs.get<string>("id"))
+puz_game::puz_game(const vector<string>& strs, const xml_node& level)
+: m_id(level.attribute("id").value())
 , m_sidelen(strs.size() / 2)
 {
     set<Position> horz_walls, vert_walls, rng;
