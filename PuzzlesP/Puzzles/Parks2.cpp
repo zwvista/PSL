@@ -93,7 +93,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() / 2)
-, m_tree_count_area(attrs.get<int>("TreesInEachArea", 1))
+, m_tree_count_area(level.attribute("TreesInEachArea").as_int(1))
 , m_tree_total_count(m_tree_count_area * m_sidelen)
 , m_area_info(m_sidelen * 3)
 {

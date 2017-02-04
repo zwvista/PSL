@@ -58,7 +58,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
-    , m_treasure_count_area(attrs.get<int>("TreasuresInEachArea", 1))
+    , m_treasure_count_area(level.attribute("TreasuresInEachArea").as_int(1))
     , m_treasure_total_count(m_treasure_count_area * m_sidelen)
 {
     for(int r = 0; r < m_sidelen; ++r){

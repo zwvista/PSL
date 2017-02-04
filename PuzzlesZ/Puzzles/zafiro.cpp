@@ -215,7 +215,7 @@ unsigned int puz_state::get_heuristic() const
 ostream& puz_state::dump(ostream& out) const
 {
     if(m_move)
-        out << "move: " << m_move << endl;
+        out << "move: " << *m_move << endl;
     for(int r = 1; r < rows() - 1; ++r) {
         for(int c = 1; c < cols() - 1; ++c)
             out << cells({r, c}) << ' ';

@@ -140,7 +140,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
 {
-    auto game_type = attrs.get<string>("GameType", "Back Garden");
+    string game_type = level.attribute("GameType").as_string("Back Garden");
     m_game_type =
         game_type == "Orchard" ? puz_game_type::ORCHARD :
         game_type == "Forest" ? puz_game_type::FOREST :

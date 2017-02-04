@@ -79,7 +79,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
 {
-    auto game_type = attrs.get<string>("GameType", "Fillomino");
+    string game_type = level.attribute("GameType").as_string("Fillomino");
     m_game_type =
         game_type == "No Rectangles" ? puz_game_type::NO_RECTANGLES :
         game_type == "Only Rectangles" ? puz_game_type::ONLY_RECTANGLES :

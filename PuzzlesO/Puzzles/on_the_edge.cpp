@@ -49,12 +49,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_goal = Position(r, c);
                 break;
             }
-    for(const ptree::value_type& v : level)
-        if(v.first == "teleporter"){
-            const ptree& teleporter_attrs = v.second.get_child("<xmlattr>");
+    for(auto v : level.children())
+        if(string(v.name()) == "teleporter"){
             Position p1, p2;
-            parse_position(teleporter_attrs.get<string>("position1"), p1);
-            parse_position(teleporter_attrs.get<string>("position2"), p2);
+            parse_position(v.attribute("position1").value(), p1);
+            parse_position(v.attribute("position2").value(), p2);
             m_teleporters[p1] = p2;
             m_teleporters[p2] = p1;
         }

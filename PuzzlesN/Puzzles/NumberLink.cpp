@@ -61,7 +61,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
-, m_no_board_fill(attrs.get<int>("NoBoardFill", 0) == 1)
+, m_no_board_fill(level.attribute("NoBoardFill").as_int() == 1)
 {
     m_start.append(m_sidelen, PUZ_BOUNDARY);
     for(int r = 1; r < m_sidelen - 1; ++r){

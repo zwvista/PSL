@@ -77,7 +77,7 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_inside_outside(attrs.get<int>("InsideOutside", 0) == 1)
+    , m_inside_outside(level.attribute("InsideOutside").as_int() == 1)
     , m_sidelen(strs.size() + 1)
     , m_dot_count(m_sidelen * m_sidelen)
 {

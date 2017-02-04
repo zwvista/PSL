@@ -58,7 +58,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
-    , m_num(attrs.get<int>("num"))
+    , m_num(level.attribute("num").as_int())
     , m_area_pos(m_sidelen * 2)
     , m_numbers(m_num)
 {

@@ -52,7 +52,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
-    , m_plant_count_area(attrs.get<int>("PlantsInEachArea", 1))
+    , m_plant_count_area(level.attribute("PlantsInEachArea").as_int(1))
     , m_plant_total_count(m_plant_count_area * m_sidelen)
 {
     for(int r = 0; r < m_sidelen; ++r){

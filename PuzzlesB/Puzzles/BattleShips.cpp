@@ -68,7 +68,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() - 1)
-    , m_has_supertanker(attrs.get<int>("SuperTanker", 0) == 1)
+    , m_has_supertanker(level.attribute("SuperTanker").as_int() == 1)
     , m_piece_counts_rows(m_sidelen)
     , m_piece_counts_cols(m_sidelen)
 {

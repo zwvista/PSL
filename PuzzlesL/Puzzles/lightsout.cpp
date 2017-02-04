@@ -31,7 +31,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     static const string movetype_diagonal = "101010101";
     static const string movetype_knight = "0101010001001001000101010";
     static const string movetype_hexagonal = "0000001010101010101000000";
-    string movetype = attrs.get<string>("movetype", movetype_orthogonal);
+    string movetype = level.attribute("movetype").as_string(movetype_orthogonal.c_str());
     if(movetype == "+")
         movetype = movetype_orthogonal;
     else if(movetype == "*")
@@ -46,7 +46,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if(movetype[i] == '1')
                 m_offset.push_back(Position(r, c));
 
-    string wraparound = attrs.get<string>("wraparound", string("none"));
+    string wraparound = level.attribute("wraparound").as_string("none");
     m_wraparound = 
         wraparound == "both" ? waBoth :
         wraparound == "left-right" ? waLeftRight :
@@ -54,7 +54,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         waNone;
 
     m_start = boost::accumulate(strs, string());
-    m_on = attrs.get<string>("on", string("1"))[0];
+    m_on = string(level.attribute("on").as_string("1"))[0];
 }
 
 struct puz_step

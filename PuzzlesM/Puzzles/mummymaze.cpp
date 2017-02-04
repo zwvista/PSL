@@ -77,13 +77,13 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_size(stoi(attrs.get<string>("rows")), stoi(attrs.get<string>("cols")))
+    , m_size(atoi(level.attribute("rows").value()), atoi(level.attribute("cols").value()))
 {
-    if(attrs.count("goal"))
-        sscanf(attrs.get<string>("goal").c_str(), "(%d,%d)", &m_goal.first, &m_goal.second);
-    if(attrs.count("key")){
+    if(!level.attribute("goal").empty())
+        sscanf(level.attribute("goal").value(), "(%d,%d)", &m_goal.first, &m_goal.second);
+    if(!level.attribute("key").empty()){
         m_key_gate = mm_key_gate();
-        sscanf(attrs.get<string>("key").c_str(), "(%d,%d)", &m_key_gate->m_key.first, &m_key_gate->m_key.second);
+        sscanf(level.attribute("key").value(), "(%d,%d)", &m_key_gate->m_key.first, &m_key_gate->m_key.second);
     }
     for(int r = 0; ; ++r){
         const string& hstr = strs[2 * r];

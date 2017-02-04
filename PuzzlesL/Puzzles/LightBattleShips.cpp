@@ -79,7 +79,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
-    , m_has_supertanker(attrs.get<int>("SuperTanker", 0) == 1)
+    , m_has_supertanker(level.attribute("SuperTanker").as_int() == 1)
 {
     if(m_has_supertanker)
         m_ship2num[5] = 1;

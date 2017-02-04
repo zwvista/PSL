@@ -95,7 +95,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    auto game_type = attrs.get<string>("GameType", "Tapa");
+    string game_type = level.attribute("GameType").as_string("Tapa");
     m_game_type =
         game_type == "Equal Tapa" ? puz_game_type::EQUAL :
         game_type == "Four-Me-Tapa" ? puz_game_type::FOUR_ME :

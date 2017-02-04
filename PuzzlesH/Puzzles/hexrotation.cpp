@@ -129,7 +129,7 @@ unsigned int puz_state::get_heuristic() const
 ostream& puz_state::dump(ostream& out) const
 {
     if(m_move)
-        out << "click: " << m_move << endl;
+        out << "click: " << *m_move << endl;
     out << endl;
     return out;
 }

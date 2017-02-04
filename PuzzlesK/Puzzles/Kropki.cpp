@@ -131,7 +131,7 @@ bool puz_area::add_perm(const vector<int>& perm, const puz_game* g)
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_bordered(attrs.get<int>("Bordered", 0) == 1)
+    , m_bordered(level.attribute("Bordered").as_int() == 1)
     , m_sidelen(strs[0].size())
     , m_areas(m_sidelen * 2)
 {

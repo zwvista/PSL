@@ -137,9 +137,9 @@ void gen_puz_LightenUp()
     g.gen_lightbulbs();
     auto s = g.to_string();
     cout << s;
-    ptree pt;
-    auto& root = pt.put("levels", "");
-    auto& child = root.add("level","");
-    child.put("<xmlattr>.id", "test");
-    write_xml("Puzzles/LightUpTest.xml", pt, locale());
+    //ptree pt;
+    //auto& root = pt.put("levels", "");
+    //auto& child = root.add("level","");
+    //child.put("<xmlattr>.id", "test");
+    //write_xml("Puzzles/LightUpTest.xml", pt, locale());
 }

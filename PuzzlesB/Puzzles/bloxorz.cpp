@@ -78,15 +78,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     Position os(2, 2);
-    for(const ptree::value_type& v : level){
-        if(v.first == "switch"){
-            const ptree& switch_attrs = v.second.get_child("<xmlattr>");
+    for(auto v : level.children()){
+        if(string(v.name()) == "switch"){
             Position p;
             puz_switch switch_;
-            parse_position(switch_attrs.get<string>("position"), p);
-            switch_.first = switch_attrs.get<string>("type") == "heavy";
+            parse_position(v.attribute("position").value(), p);
+            switch_.first = string(v.attribute("type").value()) == "heavy";
             {
-                const string& action = switch_attrs.get<string>("action");
+                const string& action = v.attribute("action").value();
                 pair<int, ESwitchActionType> pr;
                 string::const_iterator first = action.begin();
                 qi::phrase_parse(first, action.end(), 
@@ -102,30 +101,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             }
             m_switches[p + os] = switch_;
         }
-        else if(v.first == "bridge"){
-            const ptree& bridge_attrs = v.second.get_child("<xmlattr>");
+        else if(string(v.name()) == "bridge"){
             puz_bridge bridge;
-            parse_positions(bridge_attrs.get<string>("position"), bridge.first);
-            bridge.second = bridge_attrs.get<string>("state") == "on";
+            parse_positions(v.attribute("position").value(), bridge.first);
+            bridge.second = string(v.attribute("state").value()) == "on";
             for(Position& p2 : bridge.first)
                 p2 += os;
             m_bridges.push_back(bridge);
         }
-        else if(v.first == "splitter"){
-            const ptree& splitter_attrs = v.second.get_child("<xmlattr>");
+        else if(string(v.name()) == "splitter"){
             Position p;
-            parse_position(splitter_attrs.get<string>("position"), p);
+            parse_position(v.attribute("position").value(), p);
             puz_splitter splitter;
-            parse_positions(splitter_attrs.get<string>("locations"), splitter);
+            parse_positions(v.attribute("locations").value(), splitter);
             for(Position& p2 : splitter)
                 p2 += os;
             m_splitters[p + os] = splitter;
         }
-        else if(v.first == "teleporter"){
-            const ptree& teleporter_attrs = v.second.get_child("<xmlattr>");
+        else if(string(v.name()) == "teleporter"){
             Position p, p2;
-            parse_position(teleporter_attrs.get<string>("position"), p);
-            parse_position(teleporter_attrs.get<string>("location"), p2);
+            parse_position(v.attribute("position").value(), p);
+            parse_position(v.attribute("location").value(), p2);
             m_teleporters[p + os] = p2 + os;
         }
     }

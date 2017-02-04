@@ -91,7 +91,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    auto str = attrs.get<string>("LeftPart");
+    string str = level.attribute("LeftPart").value();
     m_left = str[0] - '0', m_right = m_left + 1;
     if(str.length() > 1)
         ++m_left;
