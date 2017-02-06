@@ -237,3 +237,10 @@ void solve_puz_LightenUp()
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, false, true>>(
         "Puzzles/LightenUp2.xml", "Puzzles/LightenUp2.txt", solution_format::GOAL_STATE_ONLY);
 }
+
+void solve_puz_LightenUpTest()
+{
+    using namespace puzzles::LightenUp;
+    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, false, true>>(
+        "Puzzles/LightenUpTest.xml", "Puzzles/LightenUpTest.txt", solution_format::GOAL_STATE_ONLY);
+}

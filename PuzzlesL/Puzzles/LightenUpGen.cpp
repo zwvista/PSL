@@ -113,7 +113,7 @@ void puz_generator::gen_lightbulbs()
 string puz_generator::to_string()
 {
     stringstream ss;
-    ss << endl << "    <![CDATA[" << endl;
+    ss << endl;
     for(int r = 1; r < m_sidelen - 1; r++){
         for(int c = 1; c < m_sidelen - 1; c++){
             Position p(r, c);
@@ -122,7 +122,6 @@ string puz_generator::to_string()
         }
         ss << '\\' << endl;
     }
-    ss << "    ]]>" << endl;
     return ss.str();
 }
 
@@ -137,9 +136,12 @@ void gen_puz_LightenUp()
     g.gen_lightbulbs();
     auto s = g.to_string();
     cout << s;
-    //ptree pt;
-    //auto& root = pt.put("levels", "");
-    //auto& child = root.add("level","");
-    //child.put("<xmlattr>.id", "test");
-    //write_xml("Puzzles/LightUpTest.xml", pt, locale());
+    xml_document doc;
+    auto levels = doc.append_child("levels");
+    auto& level = levels.append_child("level");
+    level.append_attribute("id") = "test";
+    level.append_child(node_cdata).set_value(s.c_str());
+    doc.save_file("Puzzles/LightenUpTest.xml");
+    extern void solve_puz_LightenUpTest();
+    solve_puz_LightenUpTest();
 }
