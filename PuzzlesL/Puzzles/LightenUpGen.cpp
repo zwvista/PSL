@@ -27,6 +27,7 @@ namespace puzzles{ namespace LightenUp{
 #define PUZ_SPACE       ' '
 #define PUZ_UNLIT       '.'
 #define PUZ_LIT         '+'
+#define PUZ_NONHINT      'w'
 
 const Position offset[] = {
     {-1, 0},    // n
@@ -39,15 +40,16 @@ struct puz_generator
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_walls;
+    map<Position, int> m_pos2hint;
     string m_start;
     char cells(const Position& p) const { return m_start.at(p.first * m_sidelen + p.second); }
     char& cells(const Position& p) { return m_start[p.first * m_sidelen + p.second]; }
 
     puz_generator(int n);
-    Position gen_elem(int n, char ch);
+    Position gen_elem(int n, char ch_old, char ch_new);
     void gen_walls(int n);
     void gen_lightbulbs();
+    void gen_nonhint(int n);
     string to_string();
 };
 
@@ -63,16 +65,17 @@ puz_generator::puz_generator(int n)
     m_start.append(m_sidelen, PUZ_WALL);
 }
 
-Position puz_generator::gen_elem(int n, char ch_n)
+Position puz_generator::gen_elem(int n, char ch_old, char ch_new)
 {
     int j = 0;
-    for(int i = 0; i < m_start.length(); i++){
-        char& ch = m_start[i];
-        if(ch == PUZ_SPACE && j++ == n){
-            ch = ch_n;
-            return {i / m_sidelen, i % m_sidelen};
+    for(int r = 1; r < m_sidelen - 1; ++r)
+        for(int c = 1; c < m_sidelen - 1; ++c){
+            char& ch = cells(Position(r, c));
+            if(ch == ch_old && j++ == n){
+                ch = ch_new;
+                return {r, c};
+            }
         }
-    }
     return {-1, -1};
 }
 
@@ -80,8 +83,8 @@ void puz_generator::gen_walls(int n)
 {
     for(int i = 0; i < n; i++){
         int m = rand() % boost::count(m_start, PUZ_SPACE);
-        auto p = gen_elem(m, PUZ_WALL);
-        m_walls[p] = 0;
+        auto p = gen_elem(m, PUZ_SPACE, PUZ_WALL);
+        m_pos2hint[p] = 0;
     }
 }
 
@@ -91,12 +94,12 @@ void puz_generator::gen_lightbulbs()
         int n = boost::count(m_start, PUZ_SPACE);
         if(n == 0) return;
         int m = rand() % n;
-        auto p = gen_elem(m, PUZ_BULB);
+        auto p = gen_elem(m, PUZ_SPACE, PUZ_BULB);
         for(auto& os : offset){
             [&]{
                 auto p2 = p + os;
-                if(cells(p2) == PUZ_WALL)
-                    m_walls[p2]++;
+                if(cells(p2) == PUZ_WALL && m_pos2hint.count(p2) != 0)
+                    m_pos2hint[p2]++;
                 for(;; p2 += os)
                     switch(char& ch2 = cells(p2)){
                     case PUZ_WALL:
@@ -110,6 +113,14 @@ void puz_generator::gen_lightbulbs()
     }
 }
 
+void puz_generator::gen_nonhint(int n)
+{
+    for(int i = 0; i < n; i++){
+        int m = rand() % (m_pos2hint.size() - i);
+        gen_elem(m, PUZ_WALL, PUZ_NONHINT);
+    }
+}
+
 string puz_generator::to_string()
 {
     stringstream ss;
@@ -118,7 +129,7 @@ string puz_generator::to_string()
         for(int c = 1; c < m_sidelen - 1; c++){
             Position p(r, c);
             char ch = cells(p);
-            ss << (ch == PUZ_WALL ? char(m_walls[p] + '0') : PUZ_SPACE);
+            ss << (ch == PUZ_NONHINT ? PUZ_WALL : ch == PUZ_WALL ? char(m_pos2hint[p] + '0') : PUZ_SPACE);
         }
         ss << '\\' << endl;
     }
@@ -127,21 +138,35 @@ string puz_generator::to_string()
 
 }}
 
-void gen_puz_LightenUp()
+bool is_valid_LightenUp(const string& s)
 {
-    using namespace puzzles::LightenUp;
-    srand(time(NULL));
-    puz_generator g(6);
-    g.gen_walls(12);
-    g.gen_lightbulbs();
-    auto s = g.to_string();
-    cout << s;
+    extern void solve_puz_LightenUpTest();
     xml_document doc;
     auto levels = doc.append_child("levels");
     auto& level = levels.append_child("level");
     level.append_attribute("id") = "test";
     level.append_child(node_cdata).set_value(s.c_str());
     doc.save_file("Puzzles/LightenUpTest.xml");
-    extern void solve_puz_LightenUpTest();
     solve_puz_LightenUpTest();
+    ifstream in("Puzzles/LightenUpTest.txt");
+    string x;
+    getline(in, x);
+    getline(in, x);
+    return x != "Solution 1:";
+}
+
+void gen_puz_LightenUp()
+{
+    using namespace puzzles::LightenUp;
+    srand(time(NULL));
+
+    string s;
+    do{
+        puz_generator g(6);
+        g.gen_walls(12);
+        g.gen_lightbulbs();
+        g.gen_nonhint(3);
+        s = g.to_string();
+        cout << s;
+    }while(!is_valid_LightenUp(s));
 }
