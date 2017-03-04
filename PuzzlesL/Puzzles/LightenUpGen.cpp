@@ -38,7 +38,6 @@ const Position offset[] = {
 
 struct puz_generator
 {
-    string m_id;
     int m_sidelen;
     map<Position, int> m_pos2hint;
     string m_start;
@@ -143,7 +142,7 @@ bool is_valid_LightenUp(const string& s)
     extern void solve_puz_LightenUpTest();
     xml_document doc;
     auto levels = doc.append_child("levels");
-    auto& level = levels.append_child("level");
+    auto level = levels.append_child("level");
     level.append_attribute("id") = "test";
     level.append_child(node_cdata).set_value(s.c_str());
     doc.save_file("Puzzles/LightenUpTest.xml");
@@ -162,10 +161,10 @@ void gen_puz_LightenUp()
 
     string s;
     do{
-        puz_generator g(6);
-        g.gen_walls(12);
+        puz_generator g(5);
+        g.gen_walls(5);
         g.gen_lightbulbs();
-        g.gen_nonhint(3);
+        g.gen_nonhint(1);
         s = g.to_string();
         cout << s;
     }while(!is_valid_LightenUp(s));
