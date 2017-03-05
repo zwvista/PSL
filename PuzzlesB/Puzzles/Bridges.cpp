@@ -23,18 +23,18 @@
 
 namespace puzzles{ namespace Bridges{
 
-#define PUZ_SPACE            ' '
+#define PUZ_SPACE             ' '
 #define PUZ_ISLAND            'N'
 #define PUZ_HORZ_1            '-'
 #define PUZ_VERT_1            '|'
 #define PUZ_HORZ_2            '='
 #define PUZ_VERT_2            'H'
-#define PUZ_BOUNDARY        'B'
+#define PUZ_BOUNDARY          'B'
 
 const Position offset[] = {
     {-1, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
+    {0, 1},         // e
+    {1, 0},         // s
     {0, -1},        // w
 };
 
@@ -127,21 +127,15 @@ int puz_state::find_matches(bool init)
             nums = {0};
             for(auto p2 = p + os; ; p2 += os){
                 char ch = cells(p2);
-                if(ch == PUZ_ISLAND){
-                    if(m_matches.count(p2) != 0)
-                        // one, two bridges or none
-                        nums = {0, 1, 2};
-                }
-                else if(ch == PUZ_HORZ_1 || ch == PUZ_HORZ_2){
-                    if(is_horz)
-                        // already connected
-                        nums = {ch == PUZ_HORZ_1 ? 1 : 2};
-                }
-                else if(ch == PUZ_VERT_1 || ch == PUZ_VERT_2){
-                    if(!is_horz)
-                        // already connected
-                        nums = {ch == PUZ_VERT_1 ? 1 : 2};
-                }
+                if(ch == PUZ_ISLAND && m_matches.count(p2) != 0)
+                    // one, two bridges or none
+                    nums = {0, 1, 2};
+                else if((ch == PUZ_HORZ_1 || ch == PUZ_HORZ_2) && is_horz)
+                    // already connected
+                    nums = {ch == PUZ_HORZ_1 ? 1 : 2};
+                else if((ch == PUZ_VERT_1 || ch == PUZ_VERT_2) && !is_horz)
+                    // already connected
+                    nums = {ch == PUZ_VERT_1 ? 1 : 2};
                 if(ch != PUZ_SPACE)
                     break;
             }
@@ -278,4 +272,11 @@ void solve_puz_Bridges()
     using namespace puzzles::Bridges;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
         "Puzzles/Bridges.xml", "Puzzles/Bridges.txt", solution_format::GOAL_STATE_ONLY);
+}
+
+void solve_puz_BridgesTest()
+{
+    using namespace puzzles::Bridges;
+    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, false, true>>(
+        "Puzzles/BridgesTest.xml", "Puzzles/BridgesTest.txt", solution_format::GOAL_STATE_ONLY);
 }
