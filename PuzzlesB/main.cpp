@@ -16,6 +16,7 @@ extern void solve_puz_BWTapa();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a1: Balanced Tapas" << endl;
     cout << "a2: Battle Ships" << endl;
     cout << "l: bloxorz" << endl;

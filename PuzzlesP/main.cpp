@@ -17,6 +17,7 @@ extern void solve_puz_PuzzleRetreat();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a1: Pairakabe" << endl;
     cout << "a2: Parking Lot" << endl;
     cout << "a3: Park Lakes" << endl;

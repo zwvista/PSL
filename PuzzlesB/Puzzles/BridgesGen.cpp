@@ -23,18 +23,18 @@
 
 namespace puzzles{ namespace Bridges{
 
-#define PUZ_SPACE            ' '
+#define PUZ_SPACE             ' '
 #define PUZ_NUMBER            'N'
 #define PUZ_HORZ_1            '-'
 #define PUZ_VERT_1            '|'
 #define PUZ_HORZ_2            '='
 #define PUZ_VERT_2            'H'
-#define PUZ_BOUNDARY        'B'
+#define PUZ_BOUNDARY          'B'
 
 const Position offset[] = {
     {-1, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
+    {0, 1},         // e
+    {1, 0},         // s
     {0, -1},        // w
 };
 
@@ -68,4 +68,5 @@ puz_generator::puz_generator(int n)
 void gen_puz_Bridges()
 {
     using namespace puzzles::Bridges;
+    puz_generator g(5);
 }

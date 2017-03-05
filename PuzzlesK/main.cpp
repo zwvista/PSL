@@ -7,6 +7,7 @@ extern void solve_puz_Kropki();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a1: Kakurasu" << endl;
     cout << "a2: Kakuro" << endl;
     cout << "n: Knightoku" << endl;

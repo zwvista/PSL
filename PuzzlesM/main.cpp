@@ -16,6 +16,7 @@ extern void solve_puz_mummymaze();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a1: magic_square" << endl;
     cout << "a2: Magnets" << endl;
     cout << "a3: Masyu" << endl;

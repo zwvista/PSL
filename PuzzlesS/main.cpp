@@ -16,6 +16,7 @@ extern void solve_puz_sumscrapers();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "e: Sentinels" << endl;
     cout << "h1: Sheep & Wolves" << endl;
     cout << "h2: Shop & Gas" << endl;

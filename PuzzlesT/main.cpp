@@ -19,6 +19,7 @@ extern void solve_puz_twinballs();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a1: Tapa" << endl;
     cout << "a2: Tapa Islands" << endl;
     cout << "a3: Tap-Alike" << endl;

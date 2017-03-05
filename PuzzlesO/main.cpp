@@ -7,6 +7,7 @@ extern void solve_puz_Orchards();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "d: Odds Are Even" << endl;
     cout << "n: on_the_edge" << endl;
     cout << "p: openvalve" << endl;

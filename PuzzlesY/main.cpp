@@ -4,6 +4,7 @@ extern void solve_puz_Yalooniq();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a: Yalooniq" << endl;
     string str;
     getline(cin, str);

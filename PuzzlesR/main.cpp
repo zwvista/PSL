@@ -9,6 +9,7 @@ extern void solve_puz_rotationgame();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "i: Ripple Effect" << endl;
     cout << "o1: Robot Crosswords" << endl;
     cout << "o2: Robot Fences" << endl;

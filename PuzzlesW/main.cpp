@@ -6,6 +6,7 @@ extern void solve_puz_Wriggle();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a1: Walls" << endl;
     cout << "a2: Wall Sentinels" << endl;
     cout << "r: Wriggle" << endl;

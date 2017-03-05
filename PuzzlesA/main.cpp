@@ -7,6 +7,7 @@ extern void solve_puz_Arrows();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "b1: Abc" << endl;
     cout << "b2: Abstract Painting" << endl;
     cout << "r1: Archipelago" << endl;

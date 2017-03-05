@@ -12,6 +12,7 @@ extern void solve_puz_Futoshiki();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "e1: Fence It Up" << endl;
     cout << "e2: FenceLits" << endl;
     cout << "e3: Fence Sentinels" << endl;

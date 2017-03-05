@@ -6,6 +6,7 @@ extern void solve_puz_zgj();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a: zafiro" << endl;
     cout << "e: Zen Landscaper" << endl;
     cout << "g: zgj" << endl;

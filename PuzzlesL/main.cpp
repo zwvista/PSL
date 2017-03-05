@@ -14,6 +14,7 @@ extern void solve_puz_Loopy();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a1: Landscaper" << endl;
     cout << "a2: Landscapes" << endl;
     cout << "i1: Light Battle Ships" << endl;

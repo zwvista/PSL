@@ -5,6 +5,7 @@ extern void solve_puz_Gardener();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a1: Galaxies" << endl;
     cout << "a2: Gardener" << endl;
     string str;

@@ -6,6 +6,7 @@ extern void solve_puz_8puzzle();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "1: 15pegs" << endl;
     cout << "3: 3dlogic" << endl;
     cout << "8: 8puzzle" << endl;

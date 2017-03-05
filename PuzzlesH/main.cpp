@@ -12,6 +12,7 @@ extern void solve_puz_hrd();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "e1: Hedgehog" << endl;
     cout << "e2: hexrotation" << endl;
     cout << "i1: HiddenPath" << endl;

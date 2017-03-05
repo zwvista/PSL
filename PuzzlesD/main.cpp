@@ -6,6 +6,7 @@ extern void solve_puz_Domino();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "i1: Digital Battle Ships" << endl;
     cout << "i2: Disconnect Four" << endl;
     cout << "o: Domino" << endl;

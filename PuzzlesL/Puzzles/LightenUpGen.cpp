@@ -157,7 +157,6 @@ bool is_valid_LightenUp(const string& s)
 void gen_puz_LightenUp()
 {
     using namespace puzzles::LightenUp;
-    srand(time(NULL));
 
     string s;
     do{

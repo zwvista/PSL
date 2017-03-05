@@ -9,6 +9,7 @@ extern void solve_puz_Consecutives();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "a1: Calcudoku" << endl;
     cout << "a2: Carpenter's Square" << endl;
     cout << "a3: Carpenter's Wall" << endl;

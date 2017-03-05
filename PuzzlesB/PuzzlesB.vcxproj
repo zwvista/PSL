@@ -187,6 +187,7 @@
     <ClCompile Include="Puzzles\BoxItUp.cpp" />
     <ClCompile Include="Puzzles\Branches.cpp" />
     <ClCompile Include="Puzzles\Bridges.cpp" />
+    <ClCompile Include="Puzzles\BridgesGen.cpp" />
     <ClCompile Include="Puzzles\BusySeas.cpp" />
     <ClCompile Include="Puzzles\BWTapa.cpp" />
     <ClCompile Include="stdafx.cpp">

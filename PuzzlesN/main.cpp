@@ -9,6 +9,7 @@ extern void solve_puz_Nurikabe();
 
 int main(int argc, char **argv)
 {
+    srand(time(0));
     cout << "e: Neighbours" << endl;
     cout << "o1: North Pole Fishing" << endl;
     cout << "o2: Noughts & Crosses" << endl;
