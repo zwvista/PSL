@@ -86,6 +86,9 @@
     <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="..\PSL\pugixml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\numeric_paranoia.xml">

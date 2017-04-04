@@ -44,6 +44,9 @@
     <ClCompile Include="Puzzles\Yalooniq.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="..\PSL\pugixml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Yalooniq.xml">

@@ -107,6 +107,9 @@
     <ClCompile Include="Puzzles\LightenUpGen.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="..\PSL\pugixml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\lightsout_2000.xml">

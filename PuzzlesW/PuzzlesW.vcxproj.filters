@@ -59,6 +59,9 @@
     <ClCompile Include="Puzzles\WallSentinels.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="..\PSL\pugixml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Walls.xml">

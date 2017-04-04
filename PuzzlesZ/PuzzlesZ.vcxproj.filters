@@ -56,6 +56,9 @@
     <ClCompile Include="Puzzles\ZenLandscaper.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="..\PSL\pugixml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\zafiro.xml">
