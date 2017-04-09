@@ -87,7 +87,7 @@ struct puz_state
 
     //solve_puzzle interface
     bool is_goal_state() const {
-        return m_move_count == 0 && m_is_valid_state && get_heuristic() == 0;
+        return m_is_valid_state && get_heuristic() == 0;
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
@@ -155,7 +155,7 @@ void puz_state::make_move(function<void()> f)
     f();
     check_squares();
     --m_move_count;
-    m_distance = abs(d - (int)get_heuristic());
+    m_distance = get_heuristic() - d;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
