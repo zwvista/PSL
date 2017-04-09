@@ -38,6 +38,28 @@
 .-.-.-.\
     ]]>
   </level>
+  <level id="1-16" action="move" matches="2" squares="5">
+    <![CDATA[
+.-. .-.\
+| | | |\
+.-.-.-.\
+  | |  \
+.-.-. .\
+| |    \
+.-. . .\
+    ]]>
+  </level>
+  <level id="1-19" action="add" matches="2" squares="4">
+    <![CDATA[
+.-.-.-.\
+|     |\
+.-. .-.\
+| | | |\
+. .-. .\
+|     |\
+.-.-.-.\
+    ]]>
+  </level>
   <level id="3-16" action="remove" matches="4" squares="4">
     <![CDATA[
 .-.-.  \
