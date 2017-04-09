@@ -58,6 +58,9 @@
     <Text Include="Puzzles\Mosaik.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\MatchSquares.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -119,6 +122,9 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\MatchSquares.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
@@ -161,6 +167,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Mosaik.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\MatchSquares.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
