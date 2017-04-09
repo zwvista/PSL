@@ -127,13 +127,12 @@ void puz_state::check_triangles()
     m_triangle_count = 0;
     set<puz_match> matches_in_triangle;
     for(int r = 0; r < rows() - 1; ++r)
-        for(int c = 0; c < cols() - 2; ++c){
+        for(int c = 0; c < cols() - 1; ++c){
             for(int n = 1;; ++n){
                 for(int i = 0; i <= n; ++i){
-                    if(!is_valid_dot({r, c + i * 2})) goto next_dot;
-                    if(!is_valid_dot({r + 1, c - i})) goto next_dot;
-                    if(!is_valid_dot({r + i, c})) goto next_dot;
-                    if(!is_valid_dot({r + i, c + n})) goto next_dot;
+                    if(!is_valid_dot({r, c + i * 2})) goto next_dot1;
+                    if(!is_valid_dot({r + i, c + i})) goto next_dot1;
+                    if(!is_valid_dot({r + i, c + n * 2 - i})) goto next_dot1;
                 }
                 vector<puz_match> matches;
                 auto f = [&](int r1, int c1, int r2, int c2) {
@@ -143,16 +142,38 @@ void puz_state::check_triangles()
                     return true;
                 };
                 for(int i = 0; i < n; ++i){
-                    if(!f(r, c + i, r, c + i + 1)) goto next_triangle;
-                    if(!f(r + n, c + i, r + n, c + i + 1)) goto next_triangle;
-                    if(!f(r + i, c, r + i + 1, c)) goto next_triangle;
-                    if(!f(r + i, c + n, r + i + 1, c + n)) goto next_triangle;
+                    if(!f(r, c + i * 2, r, c + i * 2 + 2)) goto next_triangle1;
+                    if(!f(r + i, c + i, r + i + 1, c + i + 1)) goto next_triangle1;
+                    if(!f(r + i, c + n * 2 - i, r + i + 1, c + n * 2 - i - 1)) goto next_triangle1;
                 }
                 matches_in_triangle.insert(matches.begin(), matches.end());
                 ++m_triangle_count;
-            next_triangle:;
+            next_triangle1:;
             }
-        next_dot:;
+        next_dot1:;
+            for(int n = 1;; ++n){
+                for(int i = 0; i <= n; ++i){
+                    if(!is_valid_dot({r + i, c - i})) goto next_dot2;
+                    if(!is_valid_dot({r + i, c + i})) goto next_dot2;
+                    if(!is_valid_dot({r + n, c - n + i * 2})) goto next_dot2;
+                }
+                vector<puz_match> matches;
+                auto f = [&](int r1, int c1, int r2, int c2) {
+                    puz_match m({r1, c1}, {r2, c2});
+                    if(!is_match(m)) return false;
+                    matches.push_back(m);
+                    return true;
+                };
+                for(int i = 0; i < n; ++i){
+                    if(!f(r + i, c - i, r + i + 1, c - i - 1)) goto next_triangle2;
+                    if(!f(r + i, c + i, r + i + 1, c + i + 1)) goto next_triangle2;
+                    if(!f(r + n, c - n + i * 2, r + n, c - n + i * 2 + 2)) goto next_triangle2;
+                }
+                matches_in_triangle.insert(matches.begin(), matches.end());
+                ++m_triangle_count;
+            next_triangle2:;
+            }
+        next_dot2:;
         }
     m_is_valid_state = m_matches == matches_in_triangle;
 }
@@ -198,18 +219,26 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for(int r = 0;; ++r){
-        for(int c = 0;; ++c){
+        for(int c = 0; c < cols(); ++c){
             Position p(r, c);
-            out << (is_valid_dot(p) ? '.' : ' ');
-            if(c == cols() - 1) break;
-            out << (is_match({p, Position(r, c + 2)}) ? '-' : ' ');
+            if(is_valid_dot(p)){
+                out << '.';
+                if(is_match({p, Position(r, c + 2)})){
+                    out << "---";
+                    ++c;
+                }
+                else
+                    out << ' ';
+            }
+            else
+                out << "  ";
         }
         out << endl;
         if(r == rows() - 1) break;
-        for(int c = 0;; ++c){
-            out << (is_match({Position(r, c), Position(r + 1, c)}) ? '|' : ' ');
-            if(c == cols() - 1) break;
+        for(int c = 0; c < cols(); ++c){
             out << ' ';
+            out << (is_match({Position(r, c + 1), Position(r + 1, c)}) ? '/' :
+                is_match({Position(r, c), Position(r + 1, c + 1)}) ? '\\' : ' ');
         }
         out << endl;
     }

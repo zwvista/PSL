@@ -9,4 +9,44 @@
   .   .  \
     ]]>
   </level>
+  <level id="1-5" action="add" matches="2" triangles="4">
+    <![CDATA[
+.---.---.   .\
+ A     /     \
+  .---.---.  \
+     /     A \
+.   .---.---.\
+    ]]>
+  </level>
+  <level id="1-8" action="add" matches="3" triangles="4">
+    <![CDATA[
+.   .   .   .\
+   / A / A   \
+  .   .   .  \
+ /         A \
+.---.   .---.\
+   /     A   \
+  .---.---.  \
+    ]]>
+  </level>
+  <level id="1-10" action="remove" matches="3" triangles="2">
+    <![CDATA[
+.---.    \
+ A / A   \
+  .---.  \
+   A / A \
+    .---.\
+    ]]>
+  </level>
+  <level id="3-17" action="move" matches="3" triangles="5">
+    <![CDATA[
+.---.   .---.\
+ A   A /   / \
+  .---.---.  \
+     / A     \
+.---.---.---.\
+ A /     A / \
+  .   .   .  \
+    ]]>
+  </level>
 </levels>
