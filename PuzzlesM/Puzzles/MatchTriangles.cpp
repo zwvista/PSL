@@ -6,7 +6,7 @@
     iOS Game: Matchsticks Puzzles
 */
 
-namespace puzzles{ namespace MatchSquares{
+namespace puzzles{ namespace MatchTriangles{
 
 #define PUZ_REMOVE        0
 #define PUZ_ADD           1
@@ -27,7 +27,7 @@ struct puz_game
     Position m_size;
     set<Position> m_dots;
     set<puz_match> m_matches;
-    int m_action, m_move_count, m_square_count;
+    int m_action, m_move_count, m_triangle_count;
     set<puz_match> m_possible_matches;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -40,7 +40,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size() / 2 + 1, strs[0].size() / 2 + 1)
     , m_move_count(level.attribute("matches").as_int())
-    , m_square_count(level.attribute("squares").as_int())
+    , m_triangle_count(level.attribute("triangles").as_int())
 {
     string action = level.attribute("action").value();
     m_action = action == "add" ? PUZ_ADD : action == "move" ? PUZ_MOVE : PUZ_REMOVE;
@@ -51,20 +51,28 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if(str_h[c * 2] == '.')
                 m_dots.insert(p);
             if(c == cols() - 1) break;
-            if(str_h[c * 2 + 1] == '-')
-                m_matches.emplace(p, Position(r, c + 1));
+            if(str_h[c * 2 + 1] == '-' && is_valid_dot(p))
+                m_matches.emplace(p, Position(r, c + 2));
         }
         if(r == rows() - 1) break;
         auto& str_v = strs[r * 2 + 1];
         for(int c = 0; c < cols(); ++c)
-            if(str_v[c * 2] == '|')
-                m_matches.emplace(Position(r, c), Position(r + 1, c));
+            switch(str_v[c * 2 + 1]){
+            case 'A':
+                m_matches.emplace(Position(r, c), Position(r + 1, c + 1));
+                break;
+            case '/':
+                m_matches.emplace(Position(r, c + 1), Position(r + 1, c));
+                break;
+            }
     }
     if(m_action != PUZ_REMOVE)
         for(auto& p : m_dots){
-            Position p2(p.first, p.second + 1), p3(p.first + 1, p.second);
+            Position p2(p.first, p.second + 2);
+            Position p3(p.first + 1, p.second - 1), p4(p.first + 1, p.second + 1);
             if(is_valid_dot(p2)) m_possible_matches.emplace(p, p2);
             if(is_valid_dot(p3)) m_possible_matches.emplace(p, p3);
+            if(is_valid_dot(p4)) m_possible_matches.emplace(p, p4);
         }
 }
 
@@ -77,7 +85,7 @@ struct puz_state
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
     bool is_valid_dot(const Position& p) const { return m_game->is_valid_dot(p); }
     bool is_match(const puz_match& m) const { return m_matches.count(m) != 0; }
-    void check_squares();
+    void check_triangles();
     void make_move(function<void()> f);
     void make_move_remove(const puz_match& m) { make_move([&]{m_matches.erase(m);}); }
     void make_move_add(const puz_match& m) { make_move([&]{m_matches.insert(m);}); }
@@ -91,7 +99,7 @@ struct puz_state
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_move_count * 10 + abs(m_square_count - m_game->m_square_count);
+        return m_move_count * 10 + abs(m_triangle_count - m_game->m_triangle_count);
     }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
@@ -103,7 +111,7 @@ struct puz_state
     const puz_game* m_game = nullptr;
     set<puz_match> m_matches;
     int m_move_count;
-    int m_square_count = 0;
+    int m_triangle_count = 0;
     bool m_is_valid_state = false;
     unsigned int m_distance = 0;
 };
@@ -111,19 +119,19 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_matches(g.m_matches), m_move_count(g.m_move_count)
 {
-    check_squares();
+    check_triangles();
 }
 
-void puz_state::check_squares()
+void puz_state::check_triangles()
 {
-    m_square_count = 0;
-    set<puz_match> matches_in_square;
+    m_triangle_count = 0;
+    set<puz_match> matches_in_triangle;
     for(int r = 0; r < rows() - 1; ++r)
-        for(int c = 0; c < cols() - 1; ++c){
+        for(int c = 0; c < cols() - 2; ++c){
             for(int n = 1;; ++n){
                 for(int i = 0; i <= n; ++i){
-                    if(!is_valid_dot({r, c + i})) goto next_dot;
-                    if(!is_valid_dot({r + n, c + i})) goto next_dot;
+                    if(!is_valid_dot({r, c + i * 2})) goto next_dot;
+                    if(!is_valid_dot({r + 1, c - i})) goto next_dot;
                     if(!is_valid_dot({r + i, c})) goto next_dot;
                     if(!is_valid_dot({r + i, c + n})) goto next_dot;
                 }
@@ -135,25 +143,25 @@ void puz_state::check_squares()
                     return true;
                 };
                 for(int i = 0; i < n; ++i){
-                    if(!f(r, c + i, r, c + i + 1)) goto next_square;
-                    if(!f(r + n, c + i, r + n, c + i + 1)) goto next_square;
-                    if(!f(r + i, c, r + i + 1, c)) goto next_square;
-                    if(!f(r + i, c + n, r + i + 1, c + n)) goto next_square;
+                    if(!f(r, c + i, r, c + i + 1)) goto next_triangle;
+                    if(!f(r + n, c + i, r + n, c + i + 1)) goto next_triangle;
+                    if(!f(r + i, c, r + i + 1, c)) goto next_triangle;
+                    if(!f(r + i, c + n, r + i + 1, c + n)) goto next_triangle;
                 }
-                matches_in_square.insert(matches.begin(), matches.end());
-                ++m_square_count;
-            next_square:;
+                matches_in_triangle.insert(matches.begin(), matches.end());
+                ++m_triangle_count;
+            next_triangle:;
             }
         next_dot:;
         }
-    m_is_valid_state = m_matches == matches_in_square;
+    m_is_valid_state = m_matches == matches_in_triangle;
 }
 
 void puz_state::make_move(function<void()> f)
 {
     int d = get_heuristic();
     f();
-    check_squares();
+    check_triangles();
     --m_move_count;
     m_distance = get_heuristic() - d;
 }
@@ -194,7 +202,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             out << (is_valid_dot(p) ? '.' : ' ');
             if(c == cols() - 1) break;
-            out << (is_match({p, Position(r, c + 1)}) ? '-' : ' ');
+            out << (is_match({p, Position(r, c + 2)}) ? '-' : ' ');
         }
         out << endl;
         if(r == rows() - 1) break;
@@ -210,9 +218,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_MatchSquares()
+void solve_puz_MatchTriangles()
 {
-    using namespace puzzles::MatchSquares;
+    using namespace puzzles::MatchTriangles;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/MatchSquares.xml", "Puzzles/MatchSquares.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/MatchTriangles.xml", "Puzzles/MatchTriangles.txt", solution_format::GOAL_STATE_ONLY);
 }

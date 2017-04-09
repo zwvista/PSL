@@ -153,6 +153,7 @@
     <Text Include="Puzzles\Magnets.txt" />
     <Text Include="Puzzles\Masyu.txt" />
     <Text Include="Puzzles\MatchSquares.txt" />
+    <Text Include="Puzzles\MatchTriangles.txt" />
     <Text Include="Puzzles\Mathrax.txt" />
     <Text Include="Puzzles\mazecat.txt" />
     <Text Include="Puzzles\MineShips.txt" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Puzzles\Magnets.cpp" />
     <ClCompile Include="Puzzles\Masyu.cpp" />
     <ClCompile Include="Puzzles\MatchSquares.cpp" />
+    <ClCompile Include="Puzzles\MatchTriangles.cpp" />
     <ClCompile Include="Puzzles\Mathrax.cpp" />
     <ClCompile Include="Puzzles\mazecat.cpp" />
     <ClCompile Include="Puzzles\MineShips.cpp" />
@@ -207,6 +209,7 @@
     <Xml Include="Puzzles\MatchSquares.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Puzzles\MatchTriangles.xml" />
     <Xml Include="Puzzles\Mathrax.xml" />
     <Xml Include="Puzzles\mazecat.xml" />
     <Xml Include="Puzzles\MineShips.xml" />
