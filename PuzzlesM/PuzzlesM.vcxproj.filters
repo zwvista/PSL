@@ -58,10 +58,10 @@
     <Text Include="Puzzles\Mosaik.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\MatchSquares.txt">
+    <Text Include="Puzzles\MatchstickSquares.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\MatchTriangles.txt">
+    <Text Include="Puzzles\MatchstickTriangles.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -125,10 +125,10 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\MatchSquares.cpp">
+    <ClCompile Include="Puzzles\MatchstickSquares.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\MatchTriangles.cpp">
+    <ClCompile Include="Puzzles\MatchstickTriangles.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -175,10 +175,10 @@
     <Xml Include="Puzzles\Mosaik.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\MatchSquares.xml">
+    <Xml Include="Puzzles\MatchstickSquares.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\MatchTriangles.xml">
+    <Xml Include="Puzzles\MatchstickTriangles.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

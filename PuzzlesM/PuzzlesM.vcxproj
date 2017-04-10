@@ -152,8 +152,8 @@
     <Text Include="Puzzles\magic_square.txt" />
     <Text Include="Puzzles\Magnets.txt" />
     <Text Include="Puzzles\Masyu.txt" />
-    <Text Include="Puzzles\MatchSquares.txt" />
-    <Text Include="Puzzles\MatchTriangles.txt" />
+    <Text Include="Puzzles\MatchstickSquares.txt" />
+    <Text Include="Puzzles\MatchstickTriangles.txt" />
     <Text Include="Puzzles\Mathrax.txt" />
     <Text Include="Puzzles\mazecat.txt" />
     <Text Include="Puzzles\MineShips.txt" />
@@ -182,8 +182,8 @@
     <ClCompile Include="Puzzles\magic_square.cpp" />
     <ClCompile Include="Puzzles\Magnets.cpp" />
     <ClCompile Include="Puzzles\Masyu.cpp" />
-    <ClCompile Include="Puzzles\MatchSquares.cpp" />
-    <ClCompile Include="Puzzles\MatchTriangles.cpp" />
+    <ClCompile Include="Puzzles\MatchstickSquares.cpp" />
+    <ClCompile Include="Puzzles\MatchstickTriangles.cpp" />
     <ClCompile Include="Puzzles\Mathrax.cpp" />
     <ClCompile Include="Puzzles\mazecat.cpp" />
     <ClCompile Include="Puzzles\MineShips.cpp" />
@@ -206,10 +206,10 @@
     <Xml Include="Puzzles\magic_square2.xml" />
     <Xml Include="Puzzles\Magnets.xml" />
     <Xml Include="Puzzles\Masyu.xml" />
-    <Xml Include="Puzzles\MatchSquares.xml">
+    <Xml Include="Puzzles\MatchstickSquares.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="Puzzles\MatchTriangles.xml" />
+    <Xml Include="Puzzles\MatchstickTriangles.xml" />
     <Xml Include="Puzzles\Mathrax.xml" />
     <Xml Include="Puzzles\mazecat.xml" />
     <Xml Include="Puzzles\MineShips.xml" />

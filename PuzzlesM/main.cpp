@@ -3,8 +3,8 @@
 extern void solve_puz_magic_square();
 extern void solve_puz_Magnets();
 extern void solve_puz_Masyu();
-extern void solve_puz_MatchSquares();
-extern void solve_puz_MatchTriangles();
+extern void solve_puz_MatchmatchstickSquares();
+extern void solve_puz_MatchmatchstickTriangles();
 extern void solve_puz_Mathrax();
 extern void solve_puz_mazecat();
 extern void solve_puz_MineShips();
@@ -22,8 +22,8 @@ int main(int argc, char **argv)
     cout << "a1: magic_square" << endl;
     cout << "a2: Magnets" << endl;
     cout << "a3: Masyu" << endl;
-    cout << "a4: MatchSquares" << endl;
-    cout << "a5: MatchTriangles" << endl;
+    cout << "a4: MatchmatchstickSquares" << endl;
+    cout << "a5: MatchmatchstickTriangles" << endl;
     cout << "a6: Mathrax" << endl;
     cout << "a7: mazecat" << endl;
     cout << "i1: Mine Ships" << endl;
@@ -40,8 +40,8 @@ int main(int argc, char **argv)
     else if(str == "a1") solve_puz_magic_square();
     else if(str == "a2") solve_puz_Magnets();
     else if(str == "a3") solve_puz_Masyu();
-    else if(str == "a4") solve_puz_MatchSquares();
-    else if(str == "a5") solve_puz_MatchTriangles();
+    else if(str == "a4") solve_puz_MatchmatchstickSquares();
+    else if(str == "a5") solve_puz_MatchmatchstickTriangles();
     else if(str == "a6") solve_puz_Mathrax();
     else if(str == "a7") solve_puz_mazecat();
     else if(str == "i1") solve_puz_MineShips();
