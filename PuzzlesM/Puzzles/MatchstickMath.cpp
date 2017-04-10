@@ -6,7 +6,7 @@
     iOS Game: Matchstick Puzzles
 */
 
-namespace puzzles{ namespace MatchstickTriangles{
+namespace puzzles{ namespace MatchstickMath{
 
 #define PUZ_REMOVE        0
 #define PUZ_ADD           1
@@ -20,7 +20,7 @@ struct puz_game
     Position m_size;
     set<Position> m_dots;
     set<puz_matchstick> m_matchsticks;
-    int m_action, m_move_count, m_triangle_count;
+    int m_action, m_move_count, m_square_count;
     set<puz_matchstick> m_possible_matchsticks;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -33,7 +33,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size() / 2 + 1, strs[0].size() / 2 + 1)
     , m_move_count(level.attribute("matchsticks").as_int())
-    , m_triangle_count(level.attribute("triangles").as_int())
+    , m_square_count(level.attribute("squares").as_int())
 {
     string action = level.attribute("action").value();
     m_action = action == "add" ? PUZ_ADD : action == "move" ? PUZ_MOVE : PUZ_REMOVE;
@@ -44,28 +44,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if(str_h[c * 2] == '.')
                 m_dots.insert(p);
             if(c == cols() - 1) break;
-            if(str_h[c * 2 + 1] == '-' && is_valid_dot(p))
-                m_matchsticks.emplace(p, Position(r, c + 2));
+            if(str_h[c * 2 + 1] == '-')
+                m_matchsticks.emplace(p, Position(r, c + 1));
         }
         if(r == rows() - 1) break;
         auto& str_v = strs[r * 2 + 1];
         for(int c = 0; c < cols(); ++c)
-            switch(str_v[c * 2 + 1]){
-            case 'A':
-                m_matchsticks.emplace(Position(r, c), Position(r + 1, c + 1));
-                break;
-            case '/':
-                m_matchsticks.emplace(Position(r, c + 1), Position(r + 1, c));
-                break;
-            }
+            if(str_v[c * 2] == '|')
+                m_matchsticks.emplace(Position(r, c), Position(r + 1, c));
     }
     if(m_action != PUZ_REMOVE)
         for(auto& p : m_dots){
-            Position p2(p.first, p.second + 2);
-            Position p3(p.first + 1, p.second - 1), p4(p.first + 1, p.second + 1);
+            Position p2(p.first, p.second + 1), p3(p.first + 1, p.second);
             if(is_valid_dot(p2)) m_possible_matchsticks.emplace(p, p2);
             if(is_valid_dot(p3)) m_possible_matchsticks.emplace(p, p3);
-            if(is_valid_dot(p4)) m_possible_matchsticks.emplace(p, p4);
         }
 }
 
@@ -78,7 +70,7 @@ struct puz_state
     bool operator<(const puz_state& x) const { return m_matchsticks < x.m_matchsticks; }
     bool is_valid_dot(const Position& p) const { return m_game->is_valid_dot(p); }
     bool is_matchstick(const puz_matchstick& m) const { return m_matchsticks.count(m) != 0; }
-    void check_triangles();
+    void check_squares();
     void make_move(function<void()> f);
     void make_move_remove(const puz_matchstick& m) { make_move([&]{m_matchsticks.erase(m);}); }
     void make_move_add(const puz_matchstick& m) { make_move([&]{m_matchsticks.insert(m);}); }
@@ -92,7 +84,7 @@ struct puz_state
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_move_count * 10 + abs(m_triangle_count - m_game->m_triangle_count);
+        return m_move_count * 10 + abs(m_square_count - m_game->m_square_count);
     }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
@@ -104,7 +96,7 @@ struct puz_state
     const puz_game* m_game = nullptr;
     set<puz_matchstick> m_matchsticks;
     int m_move_count;
-    int m_triangle_count = 0;
+    int m_square_count = 0;
     bool m_is_valid_state = false;
     unsigned int m_distance = 0;
 };
@@ -112,20 +104,21 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_matchsticks(g.m_matchsticks), m_move_count(g.m_move_count)
 {
-    check_triangles();
+    check_squares();
 }
 
-void puz_state::check_triangles()
+void puz_state::check_squares()
 {
-    m_triangle_count = 0;
-    set<puz_matchstick> matchsticks_in_triangle;
+    m_square_count = 0;
+    set<puz_matchstick> matchsticks_in_square;
     for(int r = 0; r < rows() - 1; ++r)
         for(int c = 0; c < cols() - 1; ++c){
             for(int n = 1;; ++n){
                 for(int i = 0; i <= n; ++i){
-                    if(!is_valid_dot({r, c + i * 2})) goto next_dot1;
-                    if(!is_valid_dot({r + i, c + i})) goto next_dot1;
-                    if(!is_valid_dot({r + i, c + n * 2 - i})) goto next_dot1;
+                    if(!is_valid_dot({r, c + i})) goto next_dot;
+                    if(!is_valid_dot({r + n, c + i})) goto next_dot;
+                    if(!is_valid_dot({r + i, c})) goto next_dot;
+                    if(!is_valid_dot({r + i, c + n})) goto next_dot;
                 }
                 vector<puz_matchstick> matchsticks;
                 auto f = [&](int r1, int c1, int r2, int c2) {
@@ -135,47 +128,25 @@ void puz_state::check_triangles()
                     return true;
                 };
                 for(int i = 0; i < n; ++i){
-                    if(!f(r, c + i * 2, r, c + i * 2 + 2)) goto next_triangle1;
-                    if(!f(r + i, c + i, r + i + 1, c + i + 1)) goto next_triangle1;
-                    if(!f(r + i, c + n * 2 - i, r + i + 1, c + n * 2 - i - 1)) goto next_triangle1;
+                    if(!f(r, c + i, r, c + i + 1)) goto next_square;
+                    if(!f(r + n, c + i, r + n, c + i + 1)) goto next_square;
+                    if(!f(r + i, c, r + i + 1, c)) goto next_square;
+                    if(!f(r + i, c + n, r + i + 1, c + n)) goto next_square;
                 }
-                matchsticks_in_triangle.insert(matchsticks.begin(), matchsticks.end());
-                ++m_triangle_count;
-            next_triangle1:;
+                matchsticks_in_square.insert(matchsticks.begin(), matchsticks.end());
+                ++m_square_count;
+            next_square:;
             }
-        next_dot1:;
-            for(int n = 1;; ++n){
-                for(int i = 0; i <= n; ++i){
-                    if(!is_valid_dot({r + i, c - i})) goto next_dot2;
-                    if(!is_valid_dot({r + i, c + i})) goto next_dot2;
-                    if(!is_valid_dot({r + n, c - n + i * 2})) goto next_dot2;
-                }
-                vector<puz_matchstick> matchsticks;
-                auto f = [&](int r1, int c1, int r2, int c2) {
-                    puz_matchstick m({r1, c1}, {r2, c2});
-                    if(!is_matchstick(m)) return false;
-                    matchsticks.push_back(m);
-                    return true;
-                };
-                for(int i = 0; i < n; ++i){
-                    if(!f(r + i, c - i, r + i + 1, c - i - 1)) goto next_triangle2;
-                    if(!f(r + i, c + i, r + i + 1, c + i + 1)) goto next_triangle2;
-                    if(!f(r + n, c - n + i * 2, r + n, c - n + i * 2 + 2)) goto next_triangle2;
-                }
-                matchsticks_in_triangle.insert(matchsticks.begin(), matchsticks.end());
-                ++m_triangle_count;
-            next_triangle2:;
-            }
-        next_dot2:;
+        next_dot:;
         }
-    m_is_valid_state = m_matchsticks == matchsticks_in_triangle;
+    m_is_valid_state = m_matchsticks == matchsticks_in_square;
 }
 
 void puz_state::make_move(function<void()> f)
 {
     int d = get_heuristic();
     f();
-    check_triangles();
+    check_squares();
     --m_move_count;
     m_distance = get_heuristic() - d;
 }
@@ -212,26 +183,18 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for(int r = 0;; ++r){
-        for(int c = 0; c < cols(); ++c){
+        for(int c = 0;; ++c){
             Position p(r, c);
-            if(is_valid_dot(p)){
-                out << '.';
-                if(is_matchstick({p, Position(r, c + 2)})){
-                    out << "---";
-                    ++c;
-                }
-                else
-                    out << ' ';
-            }
-            else
-                out << "  ";
+            out << (is_valid_dot(p) ? '.' : ' ');
+            if(c == cols() - 1) break;
+            out << (is_matchstick({p, Position(r, c + 1)}) ? '-' : ' ');
         }
         out << endl;
         if(r == rows() - 1) break;
-        for(int c = 0; c < cols(); ++c){
+        for(int c = 0;; ++c){
+            out << (is_matchstick({Position(r, c), Position(r + 1, c)}) ? '|' : ' ');
+            if(c == cols() - 1) break;
             out << ' ';
-            out << (is_matchstick({Position(r, c + 1), Position(r + 1, c)}) ? '/' :
-                is_matchstick({Position(r, c), Position(r + 1, c + 1)}) ? '\\' : ' ');
         }
         out << endl;
     }
@@ -240,9 +203,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_MatchstickTriangles()
+void solve_puz_MatchstickMath()
 {
-    using namespace puzzles::MatchstickTriangles;
+    using namespace puzzles::MatchstickMath;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/MatchstickTriangles.xml", "Puzzles/MatchstickTriangles.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/MatchstickMath.xml", "Puzzles/MatchstickMath.txt", solution_format::GOAL_STATE_ONLY);
 }

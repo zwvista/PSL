@@ -3,21 +3,14 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Matchmatchstick Puzzles
+    iOS Game: Matchstick Puzzles
 */
 
-namespace puzzles{ namespace MatchmatchstickSquares{
+namespace puzzles{ namespace MatchstickSquares{
 
 #define PUZ_REMOVE        0
 #define PUZ_ADD           1
 #define PUZ_MOVE          2
-
-const Position offset[] = {
-    {-1, 0},    // n
-    {0, 1},     // e
-    {1, 0},     // s
-    {0, -1},    // w
-};
 
 typedef pair<Position, Position> puz_matchstick;
 
@@ -210,9 +203,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_MatchmatchstickSquares()
+void solve_puz_MatchstickSquares()
 {
-    using namespace puzzles::MatchmatchstickSquares;
+    using namespace puzzles::MatchstickSquares;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/MatchmatchstickSquares.xml", "Puzzles/MatchmatchstickSquares.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/MatchstickSquares.xml", "Puzzles/MatchstickSquares.txt", solution_format::GOAL_STATE_ONLY);
 }

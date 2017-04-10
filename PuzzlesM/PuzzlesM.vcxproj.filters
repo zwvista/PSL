@@ -64,6 +64,9 @@
     <Text Include="Puzzles\MatchstickTriangles.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\MatchstickMath.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -131,6 +134,9 @@
     <ClCompile Include="Puzzles\MatchstickTriangles.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\MatchstickMath.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
@@ -179,6 +185,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\MatchstickTriangles.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\MatchstickMath.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
