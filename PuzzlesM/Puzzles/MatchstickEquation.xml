@@ -4,4 +4,48 @@
     <![CDATA[
     ]]>
   </level>
+  <level id="1-6" action="add" matchsticks="3" equation="2*1=6">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="1-9" action="remove" matchsticks="2" equation="7+4=8">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="1-12" action="add" matchsticks="2" equation="2+1=5">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="1-15" action="remove" matchsticks="2" equation="9*2=8">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="1-18" action="add" matchsticks="4" equation="2-5=5">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="2-2" action="remove" matchsticks="2" equation="9+7=6">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="2-5" action="move" matchsticks="1" equation="8-2=1">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="2-8" action="remove" matchsticks="2" equation="8+9=19">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="2-12" action="add" matchsticks="4" equation="7-5=6">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="4-6" action="remove" matchsticks="3" equation="96+2=67">
+    <![CDATA[
+    ]]>
+  </level>
+  <level id="5-3" action="remove" matchsticks="4" equation="8*6=20">
+    <![CDATA[
+    ]]>
+  </level>
 </levels>
