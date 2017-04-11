@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="1-2" action="remove" matches="2" squares="3">
+  <level id="1-2" action="remove" matchsticks="2" squares="3">
     <![CDATA[
 .-.-.\
 | | |\
@@ -9,7 +9,7 @@
 .-.-.\
     ]]>
   </level>
-  <level id="1-4" action="move" matches="1" squares="2">
+  <level id="1-4" action="move" matchsticks="1" squares="2">
     <![CDATA[
 .-.-.\
 |   |\
@@ -18,7 +18,7 @@
 .-.-.\
     ]]>
   </level>
-  <level id="1-7" action="remove" matches="2" squares="2">
+  <level id="1-7" action="remove" matchsticks="2" squares="2">
     <![CDATA[
 .-.-.\
 | | |\
@@ -27,7 +27,7 @@
 .-.  \
     ]]>
   </level>
-  <level id="1-13" action="remove" matches="2" squares="3">
+  <level id="1-13" action="remove" matchsticks="2" squares="3">
     <![CDATA[
 .-.    \
 | |    \
@@ -38,7 +38,7 @@
 .-.-.-.\
     ]]>
   </level>
-  <level id="1-16" action="move" matches="2" squares="5">
+  <level id="1-16" action="move" matchsticks="2" squares="5">
     <![CDATA[
 .-. .-.\
 | | | |\
@@ -49,7 +49,7 @@
 .-. . .\
     ]]>
   </level>
-  <level id="1-19" action="add" matches="2" squares="4">
+  <level id="1-19" action="add" matchsticks="2" squares="4">
     <![CDATA[
 .-.-.-.\
 |     |\
@@ -60,7 +60,7 @@
 .-.-.-.\
     ]]>
   </level>
-  <level id="3-16" action="remove" matches="4" squares="4">
+  <level id="3-16" action="remove" matchsticks="4" squares="4">
     <![CDATA[
 .-.-.  \
 |   |  \
@@ -71,6 +71,17 @@
 .-.-.-.\
 |   |  \
 .-.-.  \
+    ]]>
+  </level>
+  <level id="5-1" action="remove" matchsticks="3" squares="6">
+    <![CDATA[
+.-.-.-.-.-.\
+| | | | | |\
+.-.-.-.-.-.\
+  | | | |  \
+  .-.-.-.  \
+    | |    \
+    .-.    \
     ]]>
   </level>
 </levels>

@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <levels>
-  <level id="1-2" action="add" matches="2" triangles="2">
+  <level id="1-2" action="add" matchsticks="2" triangles="2">
     <![CDATA[
   .   .  \
    A /   \
@@ -9,7 +9,7 @@
   .   .  \
     ]]>
   </level>
-  <level id="1-5" action="add" matches="2" triangles="4">
+  <level id="1-5" action="add" matchsticks="2" triangles="4">
     <![CDATA[
 .---.---.   .\
  A     /     \
@@ -18,7 +18,7 @@
 .   .---.---.\
     ]]>
   </level>
-  <level id="1-8" action="add" matches="3" triangles="4">
+  <level id="1-8" action="add" matchsticks="3" triangles="4">
     <![CDATA[
 .   .   .   .\
    / A / A   \
@@ -29,7 +29,7 @@
   .---.---.  \
     ]]>
   </level>
-  <level id="1-10" action="remove" matches="3" triangles="2">
+  <level id="1-10" action="remove" matchsticks="3" triangles="2">
     <![CDATA[
 .---.    \
  A / A   \
@@ -38,7 +38,7 @@
     .---.\
     ]]>
   </level>
-  <level id="3-17" action="move" matches="3" triangles="5">
+  <level id="3-17" action="move" matchsticks="3" triangles="5">
     <![CDATA[
 .---.   .---.\
  A   A /   / \

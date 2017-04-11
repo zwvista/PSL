@@ -6,7 +6,7 @@
     iOS Game: Matchstick Puzzles
 */
 
-namespace puzzles{ namespace MatchstickMath{
+namespace puzzles{ namespace MatchstickEquation{
 
 #define PUZ_REMOVE        0
 #define PUZ_ADD           1
@@ -31,34 +31,10 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_size(strs.size() / 2 + 1, strs[0].size() / 2 + 1)
     , m_move_count(level.attribute("matchsticks").as_int())
-    , m_square_count(level.attribute("squares").as_int())
 {
     string action = level.attribute("action").value();
     m_action = action == "add" ? PUZ_ADD : action == "move" ? PUZ_MOVE : PUZ_REMOVE;
-    for(int r = 0;; ++r){
-        auto& str_h = strs[r * 2];
-        for(int c = 0;; ++c){
-            Position p(r, c);
-            if(str_h[c * 2] == '.')
-                m_dots.insert(p);
-            if(c == cols() - 1) break;
-            if(str_h[c * 2 + 1] == '-')
-                m_matchsticks.emplace(p, Position(r, c + 1));
-        }
-        if(r == rows() - 1) break;
-        auto& str_v = strs[r * 2 + 1];
-        for(int c = 0; c < cols(); ++c)
-            if(str_v[c * 2] == '|')
-                m_matchsticks.emplace(Position(r, c), Position(r + 1, c));
-    }
-    if(m_action != PUZ_REMOVE)
-        for(auto& p : m_dots){
-            Position p2(p.first, p.second + 1), p3(p.first + 1, p.second);
-            if(is_valid_dot(p2)) m_possible_matchsticks.emplace(p, p2);
-            if(is_valid_dot(p3)) m_possible_matchsticks.emplace(p, p3);
-        }
 }
 
 struct puz_state
@@ -203,9 +179,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }}
 
-void solve_puz_MatchstickMath()
+void solve_puz_MatchstickEquation()
 {
-    using namespace puzzles::MatchstickMath;
+    using namespace puzzles::MatchstickEquation;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/MatchstickMath.xml", "Puzzles/MatchstickMath.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/MatchstickEquation.xml", "Puzzles/MatchstickEquation.txt", solution_format::GOAL_STATE_ONLY);
 }

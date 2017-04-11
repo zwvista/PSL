@@ -64,7 +64,7 @@
     <Text Include="Puzzles\MatchstickTriangles.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\MatchstickMath.txt">
+    <Text Include="Puzzles\MatchstickEquation.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -134,7 +134,7 @@
     <ClCompile Include="Puzzles\MatchstickTriangles.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\MatchstickMath.cpp">
+    <ClCompile Include="Puzzles\MatchstickEquation.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -187,7 +187,7 @@
     <Xml Include="Puzzles\MatchstickTriangles.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\MatchstickMath.xml">
+    <Xml Include="Puzzles\MatchstickEquation.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
