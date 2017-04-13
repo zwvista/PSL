@@ -49,4 +49,17 @@
   .   .   .  \
     ]]>
   </level>
+  <level id="5-7" action="move" matchsticks="4" triangles="4">
+    <![CDATA[
+  .   .   .   .  \
+   A /     A /   \
+.   .   .   .   .\
+   / A     / A   \
+  .   .   .   .  \
+ /     A /     A \
+.   .   .   .   .\
+       / A       \
+  .   .   .   .  \
+    ]]>
+  </level>
 </levels>

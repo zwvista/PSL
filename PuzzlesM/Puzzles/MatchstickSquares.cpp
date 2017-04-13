@@ -84,7 +84,7 @@ struct puz_state
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_move_count * 10 + abs(m_square_count - m_game->m_square_count);
+        return m_move_count * 10 + abs(m_square_count - m_game->m_square_count) * 4 + m_unused_count;
     }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
@@ -97,6 +97,7 @@ struct puz_state
     set<puz_matchstick> m_matchsticks;
     int m_move_count;
     int m_square_count = 0;
+    unsigned int m_unused_count = 0;
     bool m_is_valid_state = false;
     unsigned int m_distance = 0;
 };
@@ -140,6 +141,7 @@ void puz_state::check_squares()
         next_dot:;
         }
     m_is_valid_state = m_matchsticks == matchsticks_in_square;
+    m_unused_count = m_matchsticks.size() - matchsticks_in_square.size();
 }
 
 void puz_state::make_move(function<void()> f)
@@ -148,7 +150,7 @@ void puz_state::make_move(function<void()> f)
     f();
     check_squares();
     --m_move_count;
-    m_distance = get_heuristic() - d;
+    m_distance = d - get_heuristic();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
