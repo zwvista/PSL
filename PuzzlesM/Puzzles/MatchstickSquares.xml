@@ -84,4 +84,26 @@
     .-.    \
     ]]>
   </level>
+  <level id="5-17" action="move" matchsticks="3" squares="4">
+    <![CDATA[
+.-.-.-. .\
+| | | |  \
+.-.-.-. .\
+| | | |  \
+.-. .-. .\
+    ]]>
+  </level>
+  <level id="5-20" action="move" matchsticks="2" squares="5">
+    <![CDATA[
+.-. .-.\
+| | | |\
+.-. .-.\
+| | | |\
+.-.-.-.\
+  | |  \
+.-. .-.\
+| | | |\
+.-. .-.\
+    ]]>
+  </level>
 </levels>
