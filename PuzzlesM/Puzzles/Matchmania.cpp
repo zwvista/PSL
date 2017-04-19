@@ -68,6 +68,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start.append(cols(), PUZ_STONE);
 }
 
+struct puz_step : pair<Position, Position>
+{
+    using pair::pair;
+};
+
+ostream & operator<<(ostream &out, const puz_step &mi)
+{
+    out << format("move: %1% -> %2%\n") % mi.first % mi.second;
+    return out;
+}
+
 struct puz_state
 {
     puz_state() {}
@@ -85,7 +96,7 @@ struct puz_state
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return 1; }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
-    void dump_move(ostream& out) const {}
+    void dump_move(ostream& out) const { if(m_move) out << *m_move; }
     ostream& dump(ostream& out) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {
         return state.dump(out);
@@ -94,10 +105,11 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     unsigned int m_distance = 0;
+    boost::optional<puz_step> m_move;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g)
+: m_game(&g), m_cells(g.m_start)
 {
 }
 
