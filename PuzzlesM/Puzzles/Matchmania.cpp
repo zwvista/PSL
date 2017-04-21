@@ -12,6 +12,7 @@ namespace puzzles{ namespace Matchmania{
 #define PUZ_SPACE        ' '
 #define PUZ_HOLE         'O'
 #define PUZ_STONE        'S'
+#define PUZ_FOOD2        'm'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -23,7 +24,7 @@ const Position offset[] = {
 struct puz_bunny_info
 {
     char m_bunny_name, m_food_name;
-	Position m_origin;
+	Position m_bunny;
 	set<Position> m_food;
     int steps() const { return m_food.size() + 1; }
 };
@@ -58,7 +59,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             {
                 auto& info = m_name2info[ch];
                 info.m_bunny_name = ch;
-                info.m_origin = p;
+                info.m_bunny = p;
                 break;
             }
             case 'c':
@@ -101,6 +102,7 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool make_move(const Position& p1, const Position& p2);
 
     //solve_puzzle interface
     bool is_goal_state() const {
@@ -123,6 +125,7 @@ struct puz_state
     string m_cells;
     map<char, puz_bunny_info> m_name2info;
     set<Position> m_food2;
+    char m_curr_bunny = 0;
     unsigned int m_distance = 0;
     boost::optional<puz_step> m_move;
 };
@@ -130,7 +133,7 @@ struct puz_state
 struct puz_state2 : Position
 {
     puz_state2(const puz_state& s, const puz_bunny_info& info)
-        : m_state(&s), m_info(&info) { make_move(info.m_origin); }
+        : m_state(&s), m_info(&info) { make_move(info.m_bunny); }
 
     void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -142,11 +145,12 @@ struct puz_state2 : Position
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     char ch = m_state->cells(*this);
-    if(ch != m_info->m_bunny_name && ch != PUZ_SPACE) return;
+    if(ch == m_info->m_food_name || ch == PUZ_FOOD2) return;
     for(auto& os : offset){
         auto p = *this + os;
         ch = m_state->cells(p);
-        if(ch == m_info->m_bunny_name || ch == PUZ_SPACE){
+        if(ch == m_info->m_bunny_name || ch == PUZ_SPACE ||
+           ch == m_info->m_food_name || ch == PUZ_FOOD2){
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -158,14 +162,65 @@ puz_state::puz_state(const puz_game& g)
 , m_name2info(g.m_name2info), m_food2(g.m_food2)
 {
 }
+    
+bool puz_state::make_move(const Position& p1, const Position& p2)
+{
+    char &ch1 = cells(p1), &ch2 = cells(p2);
+    if(ch2 == PUZ_HOLE){
+        m_name2info.erase(ch1);
+        ch1 = PUZ_SPACE;
+        m_curr_bunny = 0;
+    }
+    else{
+        m_name2info[ch2].m_food.erase(p2);
+        m_curr_bunny = ch2 = exchange(ch1, PUZ_SPACE);
+    }
+    m_move = puz_step(p1, p2);
+    m_distance = 1;
+    return true;
+}
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
+    if(m_curr_bunny == 0)
+        for(auto& kv : m_name2info){
+            auto& info = kv.second;
+            list<puz_state2> smoves;
+            puz_move_generator<puz_state2>::gen_moves({*this, info}, smoves);
+            smoves.remove_if([&](const Position& p){
+                return info.m_food.count(p) == 0;
+            });
+            for(auto& p : smoves){
+                children.push_back(*this);
+                children.back().make_move(info.m_bunny, p);
+            }
+        }
+    else{
+        auto& info = m_name2info.at(m_curr_bunny);
+        auto& p1 = info.m_bunny;
+        for(auto& os : offset){
+            auto p2 = p1 + os;
+            char ch = cells(p2);
+            if(ch == info.m_food_name || ch == PUZ_FOOD2){
+                children.push_back(*this);
+                children.back().make_move(p1, p2);
+            }
+            else if(ch == PUZ_HOLE){
+                children.push_back(*this);
+                children.back().make_move(p1, p2);
+            }
+        }
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
+    for(int r = 1; r < rows() - 1; ++r){
+        for(int c = 1; c < cols() - 1; ++c)
+            out << cells(Position(r, c));
+        out << endl;
+    }
     return out;
 }
 
