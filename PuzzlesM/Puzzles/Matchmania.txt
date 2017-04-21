@@ -1,0 +1,718 @@
+Level 1-1
+Sequence of moves: 
+     
+     
+     
+CcccO
+     
+     
+     
+move: (4,1) -> (4,2)
+     
+     
+     
+ CccO
+     
+     
+     
+move: (4,2) -> (4,3)
+     
+     
+     
+  CcO
+     
+     
+     
+move: (4,3) -> (4,4)
+     
+     
+     
+   CO
+     
+     
+     
+move: (4,4) -> (4,5)
+     
+     
+     
+    O
+     
+     
+     
+Number of moves: 4
+Number of vertices examined: 7
+0.00862991 [s]
+
+Level 1-2
+Sequence of moves: 
+     
+C cc 
+   c 
+cccc 
+c    
+ccccO
+     
+move: (2,1) -> (2,3)
+     
+  Cc 
+   c 
+cccc 
+c    
+ccccO
+     
+move: (2,3) -> (2,4)
+     
+   C 
+   c 
+cccc 
+c    
+ccccO
+     
+move: (2,4) -> (3,4)
+     
+     
+   C 
+cccc 
+c    
+ccccO
+     
+move: (3,4) -> (4,4)
+     
+     
+     
+cccC 
+c    
+ccccO
+     
+move: (4,4) -> (4,3)
+     
+     
+     
+ccC  
+c    
+ccccO
+     
+move: (4,3) -> (4,2)
+     
+     
+     
+cC   
+c    
+ccccO
+     
+move: (4,2) -> (4,1)
+     
+     
+     
+C    
+c    
+ccccO
+     
+move: (4,1) -> (5,1)
+     
+     
+     
+     
+C    
+ccccO
+     
+move: (5,1) -> (6,1)
+     
+     
+     
+     
+     
+CcccO
+     
+move: (6,1) -> (6,2)
+     
+     
+     
+     
+     
+ CccO
+     
+move: (6,2) -> (6,3)
+     
+     
+     
+     
+     
+  CcO
+     
+move: (6,3) -> (6,4)
+     
+     
+     
+     
+     
+   CO
+     
+move: (6,4) -> (6,5)
+     
+     
+     
+     
+     
+    O
+     
+Number of moves: 13
+Number of vertices examined: 24
+0.0407853 [s]
+
+Level 1-3
+Sequence of moves: 
+C cc 
+   c 
+ccccc
+c c c
+c O c
+c   c
+ccccc
+move: (1,1) -> (1,3)
+  Cc 
+   c 
+ccccc
+c c c
+c O c
+c   c
+ccccc
+move: (1,3) -> (1,4)
+   C 
+   c 
+ccccc
+c c c
+c O c
+c   c
+ccccc
+move: (1,4) -> (2,4)
+     
+   C 
+ccccc
+c c c
+c O c
+c   c
+ccccc
+move: (2,4) -> (3,4)
+     
+     
+cccCc
+c c c
+c O c
+c   c
+ccccc
+move: (3,4) -> (3,5)
+     
+     
+ccc C
+c c c
+c O c
+c   c
+ccccc
+move: (3,5) -> (4,5)
+     
+     
+ccc  
+c c C
+c O c
+c   c
+ccccc
+move: (4,5) -> (5,5)
+     
+     
+ccc  
+c c  
+c O C
+c   c
+ccccc
+move: (5,5) -> (6,5)
+     
+     
+ccc  
+c c  
+c O  
+c   C
+ccccc
+move: (6,5) -> (7,5)
+     
+     
+ccc  
+c c  
+c O  
+c    
+ccccC
+move: (7,5) -> (7,4)
+     
+     
+ccc  
+c c  
+c O  
+c    
+cccC 
+move: (7,4) -> (7,3)
+     
+     
+ccc  
+c c  
+c O  
+c    
+ccC  
+move: (7,3) -> (7,2)
+     
+     
+ccc  
+c c  
+c O  
+c    
+cC   
+move: (7,2) -> (7,1)
+     
+     
+ccc  
+c c  
+c O  
+c    
+C    
+move: (7,1) -> (6,1)
+     
+     
+ccc  
+c c  
+c O  
+C    
+     
+move: (6,1) -> (5,1)
+     
+     
+ccc  
+c c  
+C O  
+     
+     
+move: (5,1) -> (4,1)
+     
+     
+ccc  
+C c  
+  O  
+     
+     
+move: (4,1) -> (3,1)
+     
+     
+Ccc  
+  c  
+  O  
+     
+     
+move: (3,1) -> (3,2)
+     
+     
+ Cc  
+  c  
+  O  
+     
+     
+move: (3,2) -> (3,3)
+     
+     
+  C  
+  c  
+  O  
+     
+     
+move: (3,3) -> (4,3)
+     
+     
+     
+  C  
+  O  
+     
+     
+move: (4,3) -> (5,3)
+     
+     
+     
+     
+  O  
+     
+     
+Number of moves: 21
+Number of vertices examined: 44
+0.0813245 [s]
+
+Level 1-4
+Sequence of moves: 
+C    
+     
+     
+     
+   cc
+  ccc
+  ccO
+move: (1,1) -> (5,4)
+     
+     
+     
+     
+   Cc
+  ccc
+  ccO
+move: (5,4) -> (5,5)
+     
+     
+     
+     
+    C
+  ccc
+  ccO
+move: (5,5) -> (6,5)
+     
+     
+     
+     
+     
+  ccC
+  ccO
+move: (6,5) -> (6,4)
+     
+     
+     
+     
+     
+  cC 
+  ccO
+move: (6,4) -> (6,3)
+     
+     
+     
+     
+     
+  C  
+  ccO
+move: (6,3) -> (7,3)
+     
+     
+     
+     
+     
+     
+  CcO
+move: (7,3) -> (7,4)
+     
+     
+     
+     
+     
+     
+   CO
+move: (7,4) -> (7,5)
+     
+     
+     
+     
+     
+     
+    O
+Number of moves: 8
+Number of vertices examined: 21
+0.0257763 [s]
+
+Level 1-5
+Sequence of moves: 
+    O
+ccccc
+c   c
+c C c
+c   c
+ccccc
+     
+move: (4,3) -> (3,5)
+    O
+ccccc
+c   C
+c   c
+c   c
+ccccc
+     
+move: (3,5) -> (4,5)
+    O
+ccccc
+c    
+c   C
+c   c
+ccccc
+     
+move: (4,5) -> (5,5)
+    O
+ccccc
+c    
+c    
+c   C
+ccccc
+     
+move: (5,5) -> (6,5)
+    O
+ccccc
+c    
+c    
+c    
+ccccC
+     
+move: (6,5) -> (6,4)
+    O
+ccccc
+c    
+c    
+c    
+cccC 
+     
+move: (6,4) -> (6,3)
+    O
+ccccc
+c    
+c    
+c    
+ccC  
+     
+move: (6,3) -> (6,2)
+    O
+ccccc
+c    
+c    
+c    
+cC   
+     
+move: (6,2) -> (6,1)
+    O
+ccccc
+c    
+c    
+c    
+C    
+     
+move: (6,1) -> (5,1)
+    O
+ccccc
+c    
+c    
+C    
+     
+     
+move: (5,1) -> (4,1)
+    O
+ccccc
+c    
+C    
+     
+     
+     
+move: (4,1) -> (3,1)
+    O
+ccccc
+C    
+     
+     
+     
+     
+move: (3,1) -> (2,1)
+    O
+Ccccc
+     
+     
+     
+     
+     
+move: (2,1) -> (2,2)
+    O
+ Cccc
+     
+     
+     
+     
+     
+move: (2,2) -> (2,3)
+    O
+  Ccc
+     
+     
+     
+     
+     
+move: (2,3) -> (2,4)
+    O
+   Cc
+     
+     
+     
+     
+     
+move: (2,4) -> (2,5)
+    O
+    C
+     
+     
+     
+     
+     
+move: (2,5) -> (1,5)
+    O
+     
+     
+     
+     
+     
+     
+Number of moves: 17
+Number of vertices examined: 137
+0.195751 [s]
+
+Level 1-6
+Sequence of moves: 
+  ccc
+   cc
+  cc 
+C cc 
+   cO
+  ccc
+  ccc
+move: (4,1) -> (1,3)
+  Ccc
+   cc
+  cc 
+  cc 
+   cO
+  ccc
+  ccc
+move: (1,3) -> (1,4)
+   Cc
+   cc
+  cc 
+  cc 
+   cO
+  ccc
+  ccc
+move: (1,4) -> (1,5)
+    C
+   cc
+  cc 
+  cc 
+   cO
+  ccc
+  ccc
+move: (1,5) -> (2,5)
+     
+   cC
+  cc 
+  cc 
+   cO
+  ccc
+  ccc
+move: (2,5) -> (2,4)
+     
+   C 
+  cc 
+  cc 
+   cO
+  ccc
+  ccc
+move: (2,4) -> (3,4)
+     
+     
+  cC 
+  cc 
+   cO
+  ccc
+  ccc
+move: (3,4) -> (3,3)
+     
+     
+  C  
+  cc 
+   cO
+  ccc
+  ccc
+move: (3,3) -> (4,3)
+     
+     
+     
+  Cc 
+   cO
+  ccc
+  ccc
+move: (4,3) -> (4,4)
+     
+     
+     
+   C 
+   cO
+  ccc
+  ccc
+move: (4,4) -> (5,4)
+     
+     
+     
+     
+   CO
+  ccc
+  ccc
+move: (5,4) -> (6,4)
+     
+     
+     
+     
+    O
+  cCc
+  ccc
+move: (6,4) -> (6,3)
+     
+     
+     
+     
+    O
+  C c
+  ccc
+move: (6,3) -> (7,3)
+     
+     
+     
+     
+    O
+    c
+  Ccc
+move: (7,3) -> (7,4)
+     
+     
+     
+     
+    O
+    c
+   Cc
+move: (7,4) -> (7,5)
+     
+     
+     
+     
+    O
+    c
+    C
+move: (7,5) -> (6,5)
+     
+     
+     
+     
+    O
+    C
+     
+move: (6,5) -> (5,5)
+     
+     
+     
+     
+    O
+     
+     
+Number of moves: 17
+Number of vertices examined: 49
+0.0909616 [s]
+

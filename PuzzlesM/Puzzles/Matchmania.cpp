@@ -34,7 +34,7 @@ struct puz_game
     string m_id;
     Position m_size;
     string m_start;
-    map<char, puz_bunny_info> m_name2info;
+    map<char, puz_bunny_info> m_bunny2info;
     set<Position> m_holes, m_food2;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -55,16 +55,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         	char ch = str[c - 1];
         	m_start.push_back(ch);
         	switch(ch){
-            case 'C':
+            case 'C': // Calvin
             {
-                auto& info = m_name2info[ch];
+                auto& info = m_bunny2info[ch];
                 info.m_bunny_name = ch;
                 info.m_bunny = p;
                 break;
             }
             case 'c':
             {
-                auto& info = m_name2info[toupper(ch)];
+                auto& info = m_bunny2info[toupper(ch)];
                 info.m_food_name = ch;
                 info.m_food.insert(p);
                 break;
@@ -110,7 +110,7 @@ struct puz_state
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { 
-        return boost::accumulate(m_name2info, 0, [](int acc, const pair<const char, puz_bunny_info>& kv){
+        return boost::accumulate(m_bunny2info, 0, [](int acc, const pair<const char, puz_bunny_info>& kv){
             return acc + kv.second.steps();
         }) + m_food2.size();
     }
@@ -123,7 +123,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    map<char, puz_bunny_info> m_name2info;
+    map<char, puz_bunny_info> m_bunny2info;
     set<Position> m_food2;
     char m_curr_bunny = 0;
     unsigned int m_distance = 0;
@@ -133,7 +133,9 @@ struct puz_state
 struct puz_state2 : Position
 {
     puz_state2(const puz_state& s, const puz_bunny_info& info)
-        : m_state(&s), m_info(&info) { make_move(info.m_bunny); }
+        : m_state(&s), m_info(&info) {
+        make_move(info.m_bunny);
+    }
 
     void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -150,6 +152,33 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p = *this + os;
         ch = m_state->cells(p);
         if(ch == m_info->m_bunny_name || ch == PUZ_SPACE ||
+            ch == m_info->m_food_name || ch == PUZ_FOOD2){
+            children.push_back(*this);
+            children.back().make_move(p);
+        }
+    }
+}
+
+struct puz_state3 : Position
+{
+    puz_state3(const puz_state& s, const puz_bunny_info& info)
+        : m_state(&s), m_info(&info) { make_move(info.m_bunny); }
+
+    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state3>& children) const;
+
+    const puz_state* m_state;
+    const puz_bunny_info* m_info;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    char ch = m_state->cells(*this);
+    if(ch == PUZ_HOLE) return;
+    for(auto& os : offset){
+        auto p = *this + os;
+        ch = m_state->cells(p);
+        if(ch == m_info->m_bunny_name || ch == PUZ_HOLE ||
            ch == m_info->m_food_name || ch == PUZ_FOOD2){
             children.push_back(*this);
             children.back().make_move(p);
@@ -159,22 +188,45 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
-, m_name2info(g.m_name2info), m_food2(g.m_food2)
+, m_bunny2info(g.m_bunny2info), m_food2(g.m_food2)
 {
 }
     
 bool puz_state::make_move(const Position& p1, const Position& p2)
 {
     char &ch1 = cells(p1), &ch2 = cells(p2);
+    auto& info = m_bunny2info.at(ch1);
     if(ch2 == PUZ_HOLE){
-        m_name2info.erase(ch1);
+        if(!info.m_food.empty())
+            return false;
+        m_bunny2info.erase(ch1);
+        if(m_bunny2info.empty() && !m_food2.empty())
+            return false;
         ch1 = PUZ_SPACE;
         m_curr_bunny = 0;
     }
     else{
-        m_name2info[ch2].m_food.erase(p2);
+        info.m_food.erase(info.m_bunny = p2);
         m_curr_bunny = ch2 = exchange(ch1, PUZ_SPACE);
     }
+
+    if(!m_bunny2info.empty()){
+        // pruning
+        list<puz_state3> smoves;
+        puz_move_generator<puz_state3>::gen_moves({*this, info}, smoves);
+        // 1. The bunny must reach the hole after taking all its own food.
+        // 2. The bunny must take all the common food if he is the last bunny.
+        if(boost::algorithm::none_of(smoves, [&](const Position& p){
+            return cells(p) == PUZ_HOLE;
+        }) || boost::count_if(smoves, [&](const Position& p){
+            return cells(p) == info.m_food_name;
+        }) != info.m_food.size() || m_bunny2info.size() == 1 &&
+            boost::count_if(smoves, [&](const Position& p){
+            return cells(p) == PUZ_FOOD2;
+        }) != m_food2.size())
+            return false;
+    }
+
     m_move = puz_step(p1, p2);
     m_distance = 1;
     return true;
@@ -183,7 +235,7 @@ bool puz_state::make_move(const Position& p1, const Position& p2)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if(m_curr_bunny == 0)
-        for(auto& kv : m_name2info){
+        for(auto& kv : m_bunny2info){
             auto& info = kv.second;
             list<puz_state2> smoves;
             puz_move_generator<puz_state2>::gen_moves({*this, info}, smoves);
@@ -192,22 +244,25 @@ void puz_state::gen_children(list<puz_state>& children) const
             });
             for(auto& p : smoves){
                 children.push_back(*this);
-                children.back().make_move(info.m_bunny, p);
+                if(!children.back().make_move(info.m_bunny, p))
+                    children.pop_back();
             }
         }
     else{
-        auto& info = m_name2info.at(m_curr_bunny);
+        auto& info = m_bunny2info.at(m_curr_bunny);
         auto& p1 = info.m_bunny;
         for(auto& os : offset){
             auto p2 = p1 + os;
             char ch = cells(p2);
             if(ch == info.m_food_name || ch == PUZ_FOOD2){
                 children.push_back(*this);
-                children.back().make_move(p1, p2);
+                if(!children.back().make_move(p1, p2))
+                    children.pop_back();
             }
             else if(ch == PUZ_HOLE){
                 children.push_back(*this);
-                children.back().make_move(p1, p2);
+                if(!children.back().make_move(p1, p2))
+                    children.pop_back();
             }
         }
     }
