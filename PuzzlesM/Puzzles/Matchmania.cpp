@@ -152,9 +152,7 @@ struct puz_state
 struct puz_state2 : Position
 {
     puz_state2(const puz_state& s, const puz_bunny_info& info)
-        : m_state(&s), m_info(&info) {
-        make_move(info.m_bunny);
-    }
+        : m_state(&s), m_info(&info) { make_move(info.m_bunny); }
 
     void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -173,8 +171,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
         if(walls.count(p_wall) != 0) continue;
         ch = m_state->cells(p);
-        if(ch == m_info->m_bunny_name || ch == PUZ_SPACE ||
-            ch == m_info->m_food_name || ch == PUZ_MUSHROOM){
+        if(ch == PUZ_SPACE || ch == m_info->m_food_name || ch == PUZ_MUSHROOM){
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -203,8 +200,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
         auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
         if(walls.count(p_wall) != 0) continue;
         ch = m_state->cells(p);
-        if(ch == m_info->m_bunny_name || ch == PUZ_HOLE ||
-           ch == m_info->m_food_name || ch == PUZ_MUSHROOM){
+        if(ch == PUZ_HOLE || ch == m_info->m_food_name || ch == PUZ_MUSHROOM){
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -231,13 +227,13 @@ bool puz_state::make_move(const Position& p1, const Position& p2)
         m_curr_bunny = 0;
     }
     else{
-        info.m_food.erase(info.m_bunny = p2);
+        (ch2 == PUZ_MUSHROOM ? m_mushrooms : info.m_food).erase(info.m_bunny = p2);
         m_curr_bunny = ch2 = exchange(ch1, PUZ_SPACE);
     }
 
     // pruning
-    for(auto& kv : m_bunny2info){
-        auto& info = kv.second;
+    if(m_curr_bunny != 0){
+        auto& info = m_bunny2info.at(m_curr_bunny);
         list<puz_state3> smoves;
         puz_move_generator<puz_state3>::gen_moves({*this, info}, smoves);
         // 1. The bunny must reach one of the holes after taking all its own food.
@@ -266,7 +262,8 @@ void puz_state::gen_children(list<puz_state>& children) const
             list<puz_state2> smoves;
             puz_move_generator<puz_state2>::gen_moves({*this, info}, smoves);
             smoves.remove_if([&](const Position& p){
-                return info.m_food.count(p) == 0;
+                char ch = cells(p);
+                return !(ch == info.m_food_name || ch == PUZ_MUSHROOM);
             });
             for(auto& p : smoves){
                 children.push_back(*this);
