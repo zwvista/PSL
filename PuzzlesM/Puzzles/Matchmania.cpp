@@ -101,14 +101,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_step : pair<Position, Position>
-{
-    using pair::pair;
-};
+struct puz_step : vector<Position> { using vector::vector; };
 
 ostream & operator<<(ostream &out, const puz_step &mi)
 {
-    out << format("move: %1% -> %2%\n") % mi.first % mi.second;
+    if(!mi.empty()){
+        out << "move: ";
+        for(int i = 0; i < mi.size(); ++i){
+            out << mi[i];
+            if(i < mi.size() - 1)
+                out << " -> ";
+        }
+        out << endl;
+    }
     return out;
 }
 
@@ -134,7 +139,7 @@ struct puz_state
         }) + m_mushrooms.size();
     }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
-    void dump_move(ostream& out) const { if(m_move) out << *m_move; }
+    void dump_move(ostream& out) const { out << m_move; }
     ostream& dump(ostream& out) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {
         return state.dump(out);
@@ -146,7 +151,7 @@ struct puz_state
     set<Position> m_mushrooms;
     char m_curr_bunny = 0;
     unsigned int m_distance = 0;
-    boost::optional<puz_step> m_move;
+    puz_step m_move;
 };
 
 struct puz_state2 : Position
@@ -207,6 +212,39 @@ void puz_state3::gen_children(list<puz_state3>& children) const
     }
 }
 
+struct puz_state4 : Position
+{
+    puz_state4() {}
+    puz_state4(const puz_state& s, const puz_bunny_info& info, const Position& dest)
+        : m_state(&s), m_info(&info), m_dest(&dest) { make_move(info.m_bunny); }
+
+    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    //solve_puzzle interface
+    bool is_goal_state() const { return get_heuristic() == 0; }
+    void gen_children(list<puz_state4>& children) const;
+    unsigned int get_heuristic() const { return manhattan_distance(*this, *m_dest); }
+    unsigned int get_distance(const puz_state4& child) const { return 1; }
+    void dump_move(ostream& out) const {}
+
+    const puz_state* m_state = nullptr;
+    const puz_bunny_info* m_info = nullptr;
+    const Position* m_dest = nullptr;
+};
+
+void puz_state4::gen_children(list<puz_state4>& children) const
+{
+    for(int i = 0; i < 4; ++i){
+        auto p = *this + offset[i];
+        auto p_wall = *this + offset2[i];
+        auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
+        if(walls.count(p_wall) != 0) continue;
+        if(p == *m_dest || m_state->cells(p) == PUZ_SPACE){
+            children.push_back(*this);
+            children.back().make_move(p);
+        }
+    }
+}
+
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 , m_bunny2info(g.m_bunny2info), m_mushrooms(g.m_mushrooms)
@@ -225,8 +263,17 @@ bool puz_state::make_move(const Position& p1, const Position& p2)
             return false;
         ch1 = PUZ_SPACE;
         m_curr_bunny = 0;
+        m_move = {p1, p2};
     }
     else{
+        if(m_curr_bunny == 0){
+            puz_state4 sstart(*this, info, p2);
+            list<list<puz_state4>> spaths;
+            puz_solver_astar<puz_state4>::find_solution(sstart, spaths);
+            m_move.assign(spaths.front().begin(), spaths.front().end());
+        }
+        else
+            m_move = {p1, p2};
         (ch2 == PUZ_MUSHROOM ? m_mushrooms : info.m_food).erase(info.m_bunny = p2);
         m_curr_bunny = ch2 = exchange(ch1, PUZ_SPACE);
     }
@@ -249,7 +296,6 @@ bool puz_state::make_move(const Position& p1, const Position& p2)
             return false;
     }
 
-    m_move = puz_step(p1, p2);
     m_distance = 1;
     return true;
 }
