@@ -28,6 +28,8 @@ const Position offset2[] = {
     {0, 0},        // w
 };
 
+const string dirs = "^>v<";
+
 struct puz_bunny_info
 {
     char m_bunny_name, m_food_name;
@@ -139,10 +141,10 @@ struct puz_state
         }) + m_mushrooms.size();
     }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
-    void dump_move(ostream& out) const { out << m_move; }
-    ostream& dump(ostream& out) const;
+    void dump_move(ostream& out) const {}
+    ostream& dump(ostream& out, const map<Position, char>& pos2dir, const puz_step& move) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {
-        return state.dump(out);
+        return state.dump(out, {}, {});
     }
 
     const puz_game* m_game = nullptr;
@@ -340,13 +342,13 @@ void puz_state::gen_children(list<puz_state>& children) const
     }
 }
 
-ostream& puz_state::dump(ostream& out) const
+ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const puz_step& move) const
 {
-    dump_move(out);
+    out << move;
     for(int r = 0;; ++r){
         // draw horz-walls
         for(int c = 0; c < cols(); ++c)
-            out << (m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+            out << (m_game->m_horz_walls.count({r, c}) == 1 ? " --" : "   ");
         out << endl;
         if(r == rows()) break;
         for(int c = 0;; ++c){
@@ -354,11 +356,29 @@ ostream& puz_state::dump(ostream& out) const
             // draw vert-walls
             out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
             if(c == cols()) break;
-            out << cells(p);
+            out << cells(p) << (pos2dir.count(p) == 0 ? ' ' : pos2dir.at(p));
         }
         out << endl;
     }
     return out;
+}
+
+void dump_all(ostream& out, const list<puz_state>& spath)
+{
+    map<Position, char> pos2dir;
+    puz_step move(2);
+    for(auto it_last = spath.cbegin(), it = next(it_last); it != spath.cend(); it++){
+        auto& m = it->m_move;
+        if(pos2dir.empty()) move[0] = m[0];
+        for(int i = 0; i < m.size() - 1; ++i)
+            pos2dir[m[i]] = dirs[boost::find(offset, m[i + 1] - m[i]) - offset];
+        if(it->m_curr_bunny == 0){
+            move[1] = m.back();
+            it_last->dump(out, pos2dir, move);
+            pos2dir.clear();
+            it_last = it;
+        }
+    }
 }
 
 }}
@@ -367,5 +387,5 @@ void solve_puz_Matchmania()
 {
     using namespace puzzles::Matchmania;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Matchmania.xml", "Puzzles/Matchmania.txt");
+        "Puzzles/Matchmania.xml", "Puzzles/Matchmania.txt", solution_format::CUSTOM, dump_all);
 }
