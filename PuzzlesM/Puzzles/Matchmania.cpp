@@ -12,13 +12,20 @@ namespace puzzles{ namespace Matchmania{
 #define PUZ_SPACE        ' '
 #define PUZ_HOLE         'O'
 #define PUZ_STONE        'S'
-#define PUZ_FOOD2        'm'
+#define PUZ_MUSHROOM     'm'
 
 const Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s
     {0, -1},        // w
+};
+
+const Position offset2[] = {
+    {0, 0},        // n
+    {0, 1},        // e
+    {1, 0},        // s
+    {0, 0},        // w
 };
 
 struct puz_bunny_info
@@ -35,7 +42,8 @@ struct puz_game
     Position m_size;
     string m_start;
     map<char, puz_bunny_info> m_bunny2info;
-    set<Position> m_holes, m_food2;
+    set<Position> m_holes, m_mushrooms;
+    set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
@@ -44,18 +52,28 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-	, m_size(strs.size() + 2, strs[0].size() + 2)
+	, m_size(strs.size() / 2, strs[0].size() / 2)
 {
-    m_start.append(cols(), PUZ_STONE);
-    for(int r = 1; r < rows() - 1; ++r){
-        auto& str = strs[r - 1];
-        m_start.push_back(PUZ_STONE);
-        for(int c = 1; c < cols() - 1; ++c){
-        	Position p(r, c);
-        	char ch = str[c - 1];
-        	m_start.push_back(ch);
-        	switch(ch){
+    for(int r = 0;; ++r){
+        // horz-walls
+        auto& str_h = strs[r * 2];
+        for(int c = 0; c < cols(); ++c)
+            if(str_h[c * 2 + 1] == '-')
+                m_horz_walls.insert({r, c});
+        if(r == rows()) break;
+        auto& str_v = strs[r * 2 + 1];
+        for(int c = 0;; ++c){
+            Position p(r, c);
+            if(str_v[c * 2] == '|')
+                m_vert_walls.insert(p);
+            if(c == cols()) break;
+            char ch = str_v[c * 2 + 1];
+            m_start.push_back(ch);
+            switch(ch){
             case 'C': // Calvin
+            case 'T': // Otto
+            case 'P': // Peanut
+            case 'D': // Daisy
             {
                 auto& info = m_bunny2info[ch];
                 info.m_bunny_name = ch;
@@ -63,6 +81,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 break;
             }
             case 'c':
+            case 't':
+            case 'p':
+            case 'd':
             {
                 auto& info = m_bunny2info[toupper(ch)];
                 info.m_food_name = ch;
@@ -70,16 +91,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 break;
             }
             case 'm':
-                m_food2.insert(p);
+                m_mushrooms.insert(p);
         		break;
             case PUZ_HOLE:
             	m_holes.insert(p);
         		break;
             }
         }
-        m_start.push_back(PUZ_STONE);
     }
-    m_start.append(cols(), PUZ_STONE);
 }
 
 struct puz_step : pair<Position, Position>
@@ -112,7 +131,7 @@ struct puz_state
     unsigned int get_heuristic() const { 
         return boost::accumulate(m_bunny2info, 0, [](int acc, const pair<const char, puz_bunny_info>& kv){
             return acc + kv.second.steps();
-        }) + m_food2.size();
+        }) + m_mushrooms.size();
     }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const { if(m_move) out << *m_move; }
@@ -124,7 +143,7 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     map<char, puz_bunny_info> m_bunny2info;
-    set<Position> m_food2;
+    set<Position> m_mushrooms;
     char m_curr_bunny = 0;
     unsigned int m_distance = 0;
     boost::optional<puz_step> m_move;
@@ -147,12 +166,15 @@ struct puz_state2 : Position
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     char ch = m_state->cells(*this);
-    if(ch == m_info->m_food_name || ch == PUZ_FOOD2) return;
-    for(auto& os : offset){
-        auto p = *this + os;
+    if(ch == m_info->m_food_name || ch == PUZ_MUSHROOM) return;
+    for(int i = 0; i < 4; ++i){
+        auto p = *this + offset[i];
+        auto p_wall = *this + offset2[i];
+        auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
+        if(walls.count(p_wall) != 0) continue;
         ch = m_state->cells(p);
         if(ch == m_info->m_bunny_name || ch == PUZ_SPACE ||
-            ch == m_info->m_food_name || ch == PUZ_FOOD2){
+            ch == m_info->m_food_name || ch == PUZ_MUSHROOM){
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -175,11 +197,14 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 {
     char ch = m_state->cells(*this);
     if(ch == PUZ_HOLE) return;
-    for(auto& os : offset){
-        auto p = *this + os;
+    for(int i = 0; i < 4; ++i){
+        auto p = *this + offset[i];
+        auto p_wall = *this + offset2[i];
+        auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
+        if(walls.count(p_wall) != 0) continue;
         ch = m_state->cells(p);
         if(ch == m_info->m_bunny_name || ch == PUZ_HOLE ||
-           ch == m_info->m_food_name || ch == PUZ_FOOD2){
+           ch == m_info->m_food_name || ch == PUZ_MUSHROOM){
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -188,7 +213,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
-, m_bunny2info(g.m_bunny2info), m_food2(g.m_food2)
+, m_bunny2info(g.m_bunny2info), m_mushrooms(g.m_mushrooms)
 {
 }
     
@@ -200,7 +225,7 @@ bool puz_state::make_move(const Position& p1, const Position& p2)
         if(!info.m_food.empty())
             return false;
         m_bunny2info.erase(ch1);
-        if(m_bunny2info.empty() && !m_food2.empty())
+        if(m_bunny2info.empty() && !m_mushrooms.empty())
             return false;
         ch1 = PUZ_SPACE;
         m_curr_bunny = 0;
@@ -210,20 +235,21 @@ bool puz_state::make_move(const Position& p1, const Position& p2)
         m_curr_bunny = ch2 = exchange(ch1, PUZ_SPACE);
     }
 
-    if(!m_bunny2info.empty()){
-        // pruning
+    // pruning
+    for(auto& kv : m_bunny2info){
+        auto& info = kv.second;
         list<puz_state3> smoves;
         puz_move_generator<puz_state3>::gen_moves({*this, info}, smoves);
-        // 1. The bunny must reach the hole after taking all its own food.
-        // 2. The bunny must take all the common food if he is the last bunny.
+        // 1. The bunny must reach one of the holes after taking all its own food.
+        // 2. The bunny must take all mushrooms if he is the last bunny.
         if(boost::algorithm::none_of(smoves, [&](const Position& p){
             return cells(p) == PUZ_HOLE;
         }) || boost::count_if(smoves, [&](const Position& p){
             return cells(p) == info.m_food_name;
         }) != info.m_food.size() || m_bunny2info.size() == 1 &&
             boost::count_if(smoves, [&](const Position& p){
-            return cells(p) == PUZ_FOOD2;
-        }) != m_food2.size())
+            return cells(p) == PUZ_MUSHROOM;
+        }) != m_mushrooms.size())
             return false;
     }
 
@@ -251,10 +277,13 @@ void puz_state::gen_children(list<puz_state>& children) const
     else{
         auto& info = m_bunny2info.at(m_curr_bunny);
         auto& p1 = info.m_bunny;
-        for(auto& os : offset){
-            auto p2 = p1 + os;
+        for(int i = 0; i < 4; ++i){
+            auto p_wall = p1 + offset2[i];
+            auto& walls = i % 2 == 0 ? m_game->m_horz_walls : m_game->m_vert_walls;
+            if(walls.count(p_wall) != 0) continue;
+            auto p2 = p1 + offset[i];
             char ch = cells(p2);
-            if(ch == info.m_food_name || ch == PUZ_FOOD2){
+            if(ch == info.m_food_name || ch == PUZ_MUSHROOM){
                 children.push_back(*this);
                 if(!children.back().make_move(p1, p2))
                     children.pop_back();
@@ -271,9 +300,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 1; r < rows() - 1; ++r){
-        for(int c = 1; c < cols() - 1; ++c)
-            out << cells(Position(r, c));
+    for(int r = 0;; ++r){
+        // draw horz-walls
+        for(int c = 0; c < cols(); ++c)
+            out << (m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+        out << endl;
+        if(r == rows()) break;
+        for(int c = 0;; ++c){
+            Position p(r, c);
+            // draw vert-walls
+            out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+            if(c == cols()) break;
+            out << cells(p);
+        }
         out << endl;
     }
     return out;
