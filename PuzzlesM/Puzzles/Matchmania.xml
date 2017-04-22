@@ -350,4 +350,96 @@
  - - - - - \
     ]]>
   </level>
+  <level id="2-64">
+    <![CDATA[
+ - - - - - - - \
+|c c c O c c c|\
+               \
+|c   c c c S c|\
+               \
+|c   c   c c c|\
+               \
+|c c c c c O  |\
+               \
+|p p p O t t t|\
+               \
+|p C p   t t t|\
+               \
+|p p p p   t  |\
+               \
+|p p T p   t O|\
+               \
+|O p p p     P|\
+ - - - - - - - \
+    ]]>
+  </level>
+  <level id="3-1">
+    <![CDATA[
+ - - - - - - - \
+|      C      |\
+               \
+|             |\
+               \
+|  t t t t t  |\
+               \
+|  t c c c t  |\
+               \
+|1 t c 1 c t  |\
+               \
+|  t c c c t  |\
+               \
+|  t c O c t  |\
+               \
+|  t c T c t  |\
+               \
+|  t c c c O  |\
+ - - - - - - - \
+    ]]>
+  </level>
+  <level id="3-2">
+    <![CDATA[
+ - - - - - - - \
+|             |\
+               \
+|             |\
+   - - - -     \
+| |p p p p|   |\
+               \
+| |p S p p|P  |\
+           -   \
+| |p p p p p| |\
+               \
+| |  O p 1 p| |\
+   -           \
+|  1|  p p p| |\
+     - - - -   \
+|             |\
+               \
+|             |\
+ - - - - - - - \
+    ]]>
+  </level>
+  <level id="3-6">
+    <![CDATA[
+ - - - - - - - \
+|  1       2  |\
+               \
+|  c       c  |\
+               \
+|  c       c  |\
+               \
+|  c       c  |\
+               \
+|  c   C   O  |\
+               \
+|  c       c  |\
+               \
+|  c       c  |\
+               \
+|  c       c  |\
+               \
+|  2       1  |\
+ - - - - - - - \
+    ]]>
+  </level>
 </levels>
