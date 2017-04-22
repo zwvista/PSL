@@ -324,6 +324,7 @@ bool puz_state::make_move(const Position& p1, const Position& p2, bool teleporte
             puz_state4 sstart(*this, info, p2);
             list<list<puz_state4>> spaths;
             puz_solver_astar<puz_state4>::find_solution(sstart, spaths);
+            m_move.clear();
             for(auto& kv : spaths.front())
                 m_move.push_back(kv.first);
         }
