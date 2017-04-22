@@ -188,12 +188,14 @@ struct puz_state2 : pair<Position, bool>
         : m_state(&s), m_info(&info) { make_move(info.m_bunny, false); }
 
     void make_move(const Position& p, bool teleported){
-        first = p, second = teleported;
+        first = p;
+        if(second = teleported) m_last_teleported = p;
     }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
     const puz_bunny_info* m_info;
+    Position m_last_teleported{-1, -1};
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -211,7 +213,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
             if(walls.count(p_wall) != 0) continue;
             ch = m_state->cells(p);
-            if(ch == PUZ_SPACE || ch == m_info->m_food_name || ch == PUZ_MUSHROOM){
+            if(ch == PUZ_SPACE && p != m_last_teleported || ch == m_info->m_food_name || ch == PUZ_MUSHROOM){
                 children.push_back(*this);
                 children.back().make_move(p, false);
             }
@@ -262,7 +264,8 @@ struct puz_state4 : pair<Position, bool>
         : m_state(&s), m_info(&info), m_dest(&dest) { make_move(info.m_bunny, false); }
 
     void make_move(const Position& p, bool teleported){
-        first = p, second = teleported;
+        first = p;
+        if(second = teleported) m_last_teleported = p;
     }
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -274,6 +277,7 @@ struct puz_state4 : pair<Position, bool>
     const puz_state* m_state = nullptr;
     const puz_bunny_info* m_info = nullptr;
     const Position* m_dest = nullptr;
+    Position m_last_teleported{-1, -1};
 };
 
 void puz_state4::gen_children(list<puz_state4>& children) const
@@ -288,7 +292,7 @@ void puz_state4::gen_children(list<puz_state4>& children) const
         auto p_wall = first + offset2[i];
         auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
         if(walls.count(p_wall) != 0) continue;
-        if(p == *m_dest || m_state->cells(p) == PUZ_SPACE){
+        if(p == *m_dest || m_state->cells(p) == PUZ_SPACE && p != m_last_teleported){
             children.push_back(*this);
             children.back().make_move(p, false);
         }

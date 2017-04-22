@@ -442,4 +442,50 @@
  - - - - - - - \
     ]]>
   </level>
+  <level id="3-19">
+    <![CDATA[
+ - - - - - - - \
+|             |\
+               \
+|    1 P 1    |\
+     -         \
+|  p p 2 p p  |\
+     - - -     \
+|  p|     |p  |\
+               \
+|  p|  2  |p  |\
+               \
+|  p|  p  |p  |\
+               \
+|  p|  O  |p  |\
+     - - -     \
+|  p p p p p  |\
+               \
+|             |\
+ - - - - - - - \
+    ]]>
+  </level>
+  <level id="3-75">
+    <![CDATA[
+ - - - - - - - \
+|1   C T P   1|\
+               \
+|p p p p p c c|\
+               \
+|p O p   p c c|\
+               \
+|p p p p p c c|\
+               \
+|t t t   c c c|\
+               \
+|t   t   c   c|\
+               \
+|t   t t c O c|\
+               \
+|t O t t c c c|\
+               \
+|t t t        |\
+ - - - - - - - \
+    ]]>
+  </level>
 </levels>
