@@ -178,6 +178,7 @@ struct puz_state
     set<Position> m_mushrooms;
     char m_curr_bunny = 0;
     bool m_teleported = false;
+    Position m_last_teleport{-1, -1};
     unsigned int m_distance = 0;
     puz_step m_move;
 };
@@ -189,13 +190,13 @@ struct puz_state2 : pair<Position, bool>
 
     void make_move(const Position& p, bool teleported){
         first = p;
-        if(second = teleported) m_last_teleported = p;
+        if(second = teleported) m_last_teleport = p;
     }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
     const puz_bunny_info* m_info;
-    Position m_last_teleported{-1, -1};
+    Position m_last_teleport{-1, -1};
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -213,7 +214,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
             if(walls.count(p_wall) != 0) continue;
             ch = m_state->cells(p);
-            if(ch == PUZ_SPACE && p != m_last_teleported || ch == m_info->m_food_name || ch == PUZ_MUSHROOM){
+            if(ch == PUZ_SPACE && p != m_last_teleport || ch == m_info->m_food_name || ch == PUZ_MUSHROOM){
                 children.push_back(*this);
                 children.back().make_move(p, false);
             }
@@ -226,12 +227,14 @@ struct puz_state3 : pair<Position, bool>
         : m_state(&s), m_info(&info) { make_move(info.m_bunny, teleported); }
 
     void make_move(const Position& p, bool teleported){
-        first = p, second = teleported;
+        first = p;
+        if(second = teleported) m_last_teleport = p;
     }
     void gen_children(list<puz_state3>& children) const;
 
     const puz_state* m_state;
     const puz_bunny_info* m_info;
+    Position m_last_teleport{-1, -1};
 };
 
 void puz_state3::gen_children(list<puz_state3>& children) const
@@ -250,7 +253,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
             if(walls.count(p_wall) != 0) continue;
             ch = m_state->cells(p);
             if(ch == PUZ_HOLE || ch == m_info->m_food_name || ch == PUZ_MUSHROOM ||
-                m_state->is_teleport(p)){
+                m_state->is_teleport(p) && p != m_last_teleport){
                 children.push_back(*this);
                 children.back().make_move(p, false);
             }
@@ -265,7 +268,7 @@ struct puz_state4 : pair<Position, bool>
 
     void make_move(const Position& p, bool teleported){
         first = p;
-        if(second = teleported) m_last_teleported = p;
+        if(second = teleported) m_last_teleport = p;
     }
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -277,7 +280,7 @@ struct puz_state4 : pair<Position, bool>
     const puz_state* m_state = nullptr;
     const puz_bunny_info* m_info = nullptr;
     const Position* m_dest = nullptr;
-    Position m_last_teleported{-1, -1};
+    Position m_last_teleport{-1, -1};
 };
 
 void puz_state4::gen_children(list<puz_state4>& children) const
@@ -292,7 +295,7 @@ void puz_state4::gen_children(list<puz_state4>& children) const
         auto p_wall = first + offset2[i];
         auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
         if(walls.count(p_wall) != 0) continue;
-        if(p == *m_dest || m_state->cells(p) == PUZ_SPACE && p != m_last_teleported){
+        if(p == *m_dest || m_state->cells(p) == PUZ_SPACE && p != m_last_teleport){
             children.push_back(*this);
             children.back().make_move(p, false);
         }
@@ -354,7 +357,7 @@ bool puz_state::make_move(const Position& p1, const Position& p2, bool teleporte
     }
 
     m_distance = 1;
-    m_teleported = teleported;
+    if(m_teleported = teleported) m_last_teleport = p2;
     return true;
 }
 
@@ -391,7 +394,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 auto p2 = p1 + offset[i];
                 char ch = cells(p2);
                 if(ch == PUZ_HOLE || ch == info.m_food_name || ch == PUZ_MUSHROOM ||
-                    is_teleport(p2)){
+                    is_teleport(p2) && p2 != m_last_teleport){
                     children.push_back(*this);
                     if(!children.back().make_move(p1, p2, false))
                         children.pop_back();
