@@ -275,7 +275,6 @@ int puz_state::adjust_area(bool init)
 
 bool puz_state::make_move2(char ch, int n)
 {
-    auto& t = get_tool(ch);
     auto& rng = m_matches.at(ch)[n];
 
     set<char> chars;

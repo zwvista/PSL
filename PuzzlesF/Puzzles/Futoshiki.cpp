@@ -58,7 +58,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     bool ltgt_mode = m_start.find(PUZ_ROW_CS) == -1;
 
     for(int r = 0; r < m_sidelen; ++r){
-        auto& str = strs[r];
         for(int c = 0; c < m_sidelen; ++c){
             Position p(r, c);
             m_area2range[r].push_back(p);

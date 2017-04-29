@@ -233,7 +233,6 @@ bool puz_state::check_cell_count(const Position& p, function<bool(int)> f)
 int puz_state::adjust_area(bool init)
 {
     for(auto& kv : m_id2area){
-        int id = kv.first;
         auto& area = kv.second;
 
         auto& outer = area.m_outer;

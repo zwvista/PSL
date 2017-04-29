@@ -28,16 +28,6 @@
 		8CA2411A1EB47AC40055D6B1 /* PuzzleRetreat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2410C1EB47AC40055D6B1 /* PuzzleRetreat.cpp */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		8CA23F961EB478D30055D6B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8CA23F921EB478D30055D6B1 /* PuzzlesR.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8CA23EC41EA9233C0055D6B1;
-			remoteInfo = PuzzlesR;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		8CA23EC21EA9233C0055D6B1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -78,7 +68,6 @@
 		8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F301EA926F60055D6B1 /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
 		8CA23F311EA926F60055D6B1 /* targetver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
-		8CA23F921EB478D30055D6B1 /* PuzzlesR.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PuzzlesR.xcodeproj; path = ../PuzzlesR/PuzzlesR.xcodeproj; sourceTree = "<group>"; };
 		8CA240D91EB47AC40055D6B1 /* Pairakabe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pairakabe.cpp; sourceTree = "<group>"; };
 		8CA240DA1EB47AC40055D6B1 /* Pairakabe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pairakabe.txt; sourceTree = "<group>"; };
 		8CA240DB1EB47AC40055D6B1 /* Pairakabe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Pairakabe.xml; sourceTree = "<group>"; };
@@ -147,7 +136,6 @@
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
-				8CA23F921EB478D30055D6B1 /* PuzzlesR.xcodeproj */,
 				8CA23F1B1EA926F60055D6B1 /* PSL */,
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
@@ -255,14 +243,6 @@
 			path = ../PSL;
 			sourceTree = "<group>";
 		};
-		8CA23F931EB478D30055D6B1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8CA23F971EB478D30055D6B1 /* PuzzlesR */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -309,28 +289,12 @@
 			mainGroup = 8CA23EBB1EA9233C0055D6B1;
 			productRefGroup = 8CA23EC51EA9233C0055D6B1 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 8CA23F931EB478D30055D6B1 /* Products */;
-					ProjectRef = 8CA23F921EB478D30055D6B1 /* PuzzlesR.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8CA23EC31EA9233C0055D6B1 /* PuzzlesP */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		8CA23F971EB478D30055D6B1 /* PuzzlesR */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = PuzzlesR;
-			remoteRef = 8CA23F961EB478D30055D6B1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8CA23EC01EA9233C0055D6B1 /* Sources */ = {
@@ -374,7 +338,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -422,7 +386,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
