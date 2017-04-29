@@ -31,6 +31,23 @@
 		8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8CA23F691EB476990055D6B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8CA23F651EB476990055D6B1 /* PuzzlesA.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8CA23EC41EA9233C0055D6B1;
+			remoteInfo = PuzzlesA;
+		};
+		8CA23F901EB478C00055D6B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8CA23F8C1EB478C00055D6B1 /* PuzzlesN.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8CA23EC41EA9233C0055D6B1;
+			remoteInfo = PuzzlesN;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		8CA23EC21EA9233C0055D6B1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -123,6 +140,8 @@
 		8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F301EA926F60055D6B1 /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
 		8CA23F311EA926F60055D6B1 /* targetver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
+		8CA23F651EB476990055D6B1 /* PuzzlesA.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PuzzlesA.xcodeproj; path = ../Puzzles9/PuzzlesA.xcodeproj; sourceTree = "<group>"; };
+		8CA23F8C1EB478C00055D6B1 /* PuzzlesN.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PuzzlesN.xcodeproj; path = ../PuzzlesN/PuzzlesN.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +158,7 @@
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
+				8CA23F8C1EB478C00055D6B1 /* PuzzlesN.xcodeproj */,
 				8CA23F1B1EA926F60055D6B1 /* PSL */,
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
@@ -146,6 +166,7 @@
 				8CA23F191EA925F20055D6B1 /* targetver.h */,
 				8CA23ECF1EA924380055D6B1 /* Puzzles */,
 				8CA23EC51EA9233C0055D6B1 /* Products */,
+				8CA23F651EB476990055D6B1 /* PuzzlesA.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -246,6 +267,22 @@
 			path = ../PSL;
 			sourceTree = "<group>";
 		};
+		8CA23F661EB476990055D6B1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8CA23F6A1EB476990055D6B1 /* PuzzlesA */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8CA23F8D1EB478C00055D6B1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8CA23F911EB478C00055D6B1 /* PuzzlesN */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -292,12 +329,39 @@
 			mainGroup = 8CA23EBB1EA9233C0055D6B1;
 			productRefGroup = 8CA23EC51EA9233C0055D6B1 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8CA23F661EB476990055D6B1 /* Products */;
+					ProjectRef = 8CA23F651EB476990055D6B1 /* PuzzlesA.xcodeproj */;
+				},
+				{
+					ProductGroup = 8CA23F8D1EB478C00055D6B1 /* Products */;
+					ProjectRef = 8CA23F8C1EB478C00055D6B1 /* PuzzlesN.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8CA23EC31EA9233C0055D6B1 /* PuzzlesM */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8CA23F6A1EB476990055D6B1 /* PuzzlesA */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = PuzzlesA;
+			remoteRef = 8CA23F691EB476990055D6B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8CA23F911EB478C00055D6B1 /* PuzzlesN */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = PuzzlesN;
+			remoteRef = 8CA23F901EB478C00055D6B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8CA23EC01EA9233C0055D6B1 /* Sources */ = {
@@ -372,7 +436,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /Users/zwvista/Documents/boost_1_63_0;
+				HEADER_SEARCH_PATHS = /Users/zwvista/Documents/boost_1_64_0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -414,7 +478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /Users/zwvista/Documents/boost_1_63_0;
+				HEADER_SEARCH_PATHS = /Users/zwvista/Documents/boost_1_64_0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;

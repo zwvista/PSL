@@ -2,6 +2,69 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:PuzzlesM/PuzzlesM.xcodeproj">
+      location = "group:Puzzles9/Puzzles9.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesA/PuzzlesA.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesB/PuzzlesB.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesC/PuzzlesC.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesD/PuzzlesD.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesE/PuzzlesE.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesF/PuzzlesF.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesG/PuzzlesG.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesH/PuzzlesH.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesI/PuzzlesI.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesK/PuzzlesK.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesL/PuzzlesL.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesM/PuzzlesM.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesN/PuzzlesN.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesO/PuzzlesO.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesP/PuzzlesP.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesR/PuzzlesR.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesS/PuzzlesS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesT/PuzzlesT.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesW/PuzzlesW.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesY/PuzzlesY.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PuzzlesZ/PuzzlesZ.xcodeproj">
    </FileRef>
 </Workspace>
