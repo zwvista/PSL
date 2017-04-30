@@ -2,73 +2,90 @@
 <levels>
   <level id="1-2" action="add" matchsticks="2" triangles="2">
     <![CDATA[
-  .   .  \
-   A /   \
-.   .   .\
-   / A   \
-  .   .  \
+x  x\
+ A/ \
+    \
+ /A \
+x  x\
     ]]>
   </level>
   <level id="1-5" action="add" matchsticks="2" triangles="4">
     <![CDATA[
-.---.---.   .\
- A     /     \
-  .---.---.  \
-     /     A \
-.   .---.---.\
+----  \
+A  /  \
+x----x\
+  /  A\
+  ----\
     ]]>
   </level>
   <level id="1-8" action="add" matchsticks="3" triangles="4">
     <![CDATA[
-.   .   .   .\
-   / A / A   \
-  .   .   .  \
- /         A \
-.---.   .---.\
-   /     A   \
-  .---.---.  \
+      \
+ /A/A \
+x    x\
+/    A\
+--  --\
+ /  A \
+x----x\
     ]]>
   </level>
   <level id="1-10" action="remove" matchsticks="3" triangles="2">
     <![CDATA[
-.---.    \
- A / A   \
-  .---.  \
-   A / A \
-    .---.\
+--xx\
+A/A \
+x--x\
+ A/A\
+xx--\
     ]]>
   </level>
   <level id="3-17" action="move" matchsticks="3" triangles="5">
     <![CDATA[
-.---.   .---.\
- A   A /   / \
-  .---.---.  \
-     / A     \
-.---.---.---.\
- A /     A / \
-  .   .   .  \
+--  --\
+A A/ /\
+x----x\
+  /A  \
+------\
+A/  A/\
+x    x\
     ]]>
   </level>
   <level id="5-7" action="move" matchsticks="4" triangles="4">
     <![CDATA[
-  .   .   .   .  \
-   A /     A /   \
-.   .   .   .   .\
-   / A     / A   \
-  .   .   .   .  \
- /     A /     A \
-.   .   .   .   .\
-       / A       \
-  .   .   .   .  \
+x      x\
+ A/  A/ \
+        \
+ /A  /A \
+x      x\
+/  A/  A\
+        \
+   /A   \
+x      x\
     ]]>
   </level>
   <level id="5-14" action="move" matchsticks="4" triangles="3">
     <![CDATA[
-  .   .   .   .   .  \
-   A   A   A   A     \
-.   .   .   .   .   .\
-     A / A / A /     \
-  .   .   .   .   .  \
+x        x\
+ A A A A  \
+          \
+  A/A/A/  \
+x        x\
+    ]]>
+  </level>
+  <level id="7-7" action="move" matchsticks="4" triangles="4">
+    <![CDATA[
+x    x\
+      \
+      \
+ / /A \
+x----x\
+ A/A  \
+  --  \
+ /A/  \
+x----x\
+ A A/ \
+      \
+      \
+x    x\
     ]]>
   </level>
 </levels>

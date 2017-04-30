@@ -237,7 +237,7 @@ void CMazeEditorDoc::SetWall(Position p, bool isDownOrRight, bool bVert, bool bR
 void CMazeEditorDoc::SetHasWall( bool bHasWall )
 {
     m_bHasWall = bHasWall;
-    OnClearMaze();
+    UpdateAllViews(NULL);
 }
 
 void CMazeEditorDoc::SetObject( char ch )

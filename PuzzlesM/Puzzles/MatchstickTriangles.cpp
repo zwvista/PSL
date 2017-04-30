@@ -31,7 +31,7 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_size(strs.size() / 2 + 1, strs[0].size() / 2 + 1)
+    , m_size(strs.size() / 2 + 1, strs[0].size() + 1)
     , m_move_count(level.attribute("matchsticks").as_int())
     , m_triangle_count(level.attribute("triangles").as_int())
 {
@@ -39,18 +39,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_action = action == "add" ? PUZ_ADD : action == "move" ? PUZ_MOVE : PUZ_REMOVE;
     for(int r = 0;; ++r){
         auto& str_h = strs[r * 2];
-        for(int c = 0;; ++c){
-            Position p(r, c);
-            if(str_h[c * 2] == '.')
-                m_dots.insert(p);
-            if(c == cols() - 1) break;
-            if(str_h[c * 2 + 1] == '-' && is_valid_dot(p))
-                m_matchsticks.emplace(p, Position(r, c + 2));
+        for(int c = 0; c < cols(); ++c){
+            char ch = str_h[c];
+            if(ch == ' ' || ch == '-'){
+                Position p1(r, c), p2(r, c + 2);
+                m_dots.insert(p1);
+                m_dots.insert(p2);
+                ++c;
+                if(ch == '-')
+                    m_matchsticks.emplace(p1, p2);
+            }
         }
         if(r == rows() - 1) break;
         auto& str_v = strs[r * 2 + 1];
         for(int c = 0; c < cols(); ++c)
-            switch(str_v[c * 2 + 1]){
+            switch(str_v[c]){
             case 'A':
                 m_matchsticks.emplace(Position(r, c), Position(r + 1, c + 1));
                 break;

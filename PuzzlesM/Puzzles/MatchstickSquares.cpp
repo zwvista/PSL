@@ -39,13 +39,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_action = action == "add" ? PUZ_ADD : action == "move" ? PUZ_MOVE : PUZ_REMOVE;
     for(int r = 0;; ++r){
         auto& str_h = strs[r * 2];
-        for(int c = 0;; ++c){
-            Position p(r, c);
-            if(str_h[c * 2] == '.')
-                m_dots.insert(p);
-            if(c == cols() - 1) break;
-            if(str_h[c * 2 + 1] == '-')
-                m_matchsticks.emplace(p, Position(r, c + 1));
+        for(int c = 0; c < cols() - 1; ++c){
+            char ch = str_h[c * 2 + 1];
+            if(ch == ' ' || ch == '-'){
+                Position p1(r, c), p2(r, c + 1);
+                m_dots.insert(p1);
+                m_dots.insert(p2);
+                if(ch == '-')
+                    m_matchsticks.emplace(p1, p2);
+            }
         }
         if(r == rows() - 1) break;
         auto& str_v = strs[r * 2 + 1];
