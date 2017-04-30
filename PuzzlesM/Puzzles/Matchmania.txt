@@ -8,7 +8,7 @@ move: (3,0) -> (3,4)
                
 |              |
                
-|C> c> c> c> O |
+|C> c> c> c> O#|
                
 |              |
                
@@ -18,7 +18,7 @@ move: (3,0) -> (3,4)
  -- -- -- -- --
 Number of moves: 4
 Number of vertices examined: 7
-0.000873261 [s]
+0.006742 [s]
 
 Level 1-2
 Sequence of moves: 
@@ -34,13 +34,13 @@ move: (1,0) -> (5,4)
                
 |cv            |
                
-|c> c> c> c> O |
+|c> c> c> c> O#|
                
 |              |
  -- -- -- -- --
 Number of moves: 13
 Number of vertices examined: 24
-0.00240108 [s]
+0.012744 [s]
 
 Level 1-3
 Sequence of moves: 
@@ -54,7 +54,7 @@ move: (0,0) -> (4,2)
                
 |c^    cv    cv|
                
-|c^    O     cv|
+|c^    O#    cv|
                
 |c^          cv|
                
@@ -62,7 +62,7 @@ move: (0,0) -> (4,2)
  -- -- -- -- --
 Number of moves: 21
 Number of vertices examined: 44
-0.00433309 [s]
+0.020771 [s]
 
 Level 1-4
 Sequence of moves: 
@@ -80,17 +80,17 @@ move: (0,0) -> (6,4)
                
 |      cv c< c<|
                
-|      c> c> O |
+|      c> c> O#|
  -- -- -- -- --
 Number of moves: 8
 Number of vertices examined: 21
-0.00150764 [s]
+0.007812 [s]
 
 Level 1-5
 Sequence of moves: 
 move: (3,2) -> (0,4)
  -- -- -- -- --
-|            O |
+|            O#|
                
 |c> c> c> c> c^|
                
@@ -106,7 +106,7 @@ move: (3,2) -> (0,4)
  -- -- -- -- --
 Number of moves: 17
 Number of vertices examined: 137
-0.00918891 [s]
+0.059643 [s]
 
 Level 1-6
 Sequence of moves: 
@@ -120,7 +120,7 @@ move: (3,0) -> (4,4)
                
 |C^    c> cv   |
                
-|         cv O |
+|         cv O#|
                
 |      cv c< c^|
                
@@ -128,7 +128,7 @@ move: (3,0) -> (4,4)
  -- -- -- -- --
 Number of moves: 17
 Number of vertices examined: 49
-0.00434714 [s]
+0.023605 [s]
 
 Level 1-7
 Sequence of moves: 
@@ -136,7 +136,7 @@ move: (6,4) -> (1,1)
  -- -- -- -- --
 |              |
                
-|   O  cv  <  <|
+|   O# cv  <  <|
                
 |c> c^ c> cv  ^|
                
@@ -150,7 +150,7 @@ move: (6,4) -> (1,1)
  -- -- -- -- --
 Number of moves: 12
 Number of vertices examined: 60
-0.00521402 [s]
+0.022842 [s]
 
 Level 1-8
 Sequence of moves: 
@@ -158,7 +158,7 @@ move: (3,2) -> (1,0)
  -- -- -- -- --
 |              |
                
-|O  c> c> c> cv|
+|O# c> c> c> cv|
                
 |c^  ^  < cv c<|
                
@@ -172,7 +172,7 @@ move: (3,2) -> (1,0)
  -- -- -- -- --
 Number of moves: 20
 Number of vertices examined: 53
-0.00573802 [s]
+0.034916 [s]
 
 Level 1-9
 Sequence of moves: 
@@ -188,7 +188,7 @@ move: (1,4) -> (5,2)
                
 |cv c<    t    |
                
-|c> c> O  t    |
+|c> c> O# t    |
                
 |              |
  -- -- -- -- --
@@ -204,13 +204,13 @@ move: (2,2) -> (5,2)
                
 |         tv   |
                
-|      O  t<   |
+|      O# t<   |
                
 |              |
  -- -- -- -- --
 Number of moves: 19
 Number of vertices examined: 43
-0.00363816 [s]
+0.015895 [s]
 
 Level 1-10
 Sequence of moves: 
@@ -222,7 +222,7 @@ move: (2,2) -> (3,0)
                
 |c^ c< C< T  cv|
                
-|O  c< c< c< c<|
+|O# c< c< c< c<|
                
 |t     t  t  t |
                
@@ -238,7 +238,7 @@ move: (2,3) -> (3,0)
                
 |         T>  v|
                
-|O            v|
+|O#           v|
                
 |t^    tv t< tv|
                
@@ -248,7 +248,7 @@ move: (2,3) -> (3,0)
  -- -- -- -- --
 Number of moves: 29
 Number of vertices examined: 99
-0.00795822 [s]
+0.039752 [s]
 
 Level 1-11
 Sequence of moves: 
@@ -264,13 +264,13 @@ move: (6,2) -> (5,4)
                
 |O   ^    t> tv|
                
-|    ^  <    O |
+|    ^  <    O#|
                
 |      T^      |
  -- -- -- -- --
 Number of moves: 14
 Number of vertices examined: 32
-0.00282187 [s]
+0.0118 [s]
 
 Level 1-12
 Sequence of moves: 
@@ -280,7 +280,7 @@ move: (4,2) -> (2,3)
                
 |cv O  c^ c< c<|
                
-|c> c> c> O  c^|
+|c> c> c> O# c^|
                
 |   cv c< c> c^|
                
@@ -292,7 +292,7 @@ move: (4,2) -> (2,3)
  -- -- -- -- --
 Number of moves: 21
 Number of vertices examined: 47
-0.00537497 [s]
+0.027411 [s]
 
 Level 1-13
 Sequence of moves: 
@@ -302,7 +302,7 @@ move: (6,0) -> (2,2)
                
 |t^ t< tv      |
                
-|t> t^ O  c    |
+|t> t^ O# c    |
                
 |t^ t<    c    |
                
@@ -318,7 +318,7 @@ move: (0,4) -> (2,2)
                
 |    v  <  <  <|
                
-|    v O  c<   |
+|    v O# c<   |
                
 |    v    c^   |
                
@@ -330,7 +330,7 @@ move: (0,4) -> (2,2)
  -- -- -- -- --
 Number of moves: 22
 Number of vertices examined: 57
-0.00584507 [s]
+0.021894 [s]
 
 Level 1-14
 Sequence of moves: 
@@ -340,7 +340,7 @@ move: (6,3) -> (2,4)
                
 |t^ t< t> tv   |
                
-|   t^ t< t> O |
+|   t^ t< t> O#|
                
 |S  t> t^      |
                
@@ -352,7 +352,7 @@ move: (6,3) -> (2,4)
  -- -- -- -- --
 Number of moves: 15
 Number of vertices examined: 30
-0.00338318 [s]
+0.013192 [s]
 
 Level 1-15
 Sequence of moves: 
@@ -366,7 +366,7 @@ move: (0,2) -> (4,2)
                
 |   c^ cv c<  v|
                
-|   c^ O  cv  <|
+|   c^ O# cv  <|
                
 |   c^ c< c<   |
                
@@ -374,7 +374,7 @@ move: (0,2) -> (4,2)
  -- -- -- -- --
 Number of moves: 14
 Number of vertices examined: 122
-0.00831514 [s]
+0.049821 [s]
 
 Level 1-16
 Sequence of moves: 
@@ -388,7 +388,7 @@ move: (7,3) -> (4,3)
                      
 |  |t^ t<|tv t< tv|  |
                      
-|  |t> t^ O |t^|tv|  |
+|  |t> t^ O#|t^|tv|  |
                      
 |  |t^ t< t< t^ t<   |
     -- --            
@@ -400,7 +400,7 @@ move: (7,3) -> (4,3)
  -- -- -- -- -- -- --
 Number of moves: 20
 Number of vertices examined: 47
-0.00822393 [s]
+0.044609 [s]
 
 Level 1-17
 Sequence of moves: 
@@ -420,7 +420,7 @@ move: (5,4) -> (7,5)
        --            
 |c  c  c | v tv t<  ^|
                      
-|c  O  c   v t> O   ^|
+|c  O  c   v t> O#  ^|
                      
 |c  c  c   >  >  >  ^|
  -- -- -- -- -- -- --
@@ -432,7 +432,7 @@ move: (2,4) -> (3,1)
                      
 | v       S  C^      |
                      
-| v O  c< c<|        |
+| v O# c< c<|        |
                      
 | v c> c> c^|        |
        -- --         
@@ -446,7 +446,7 @@ move: (2,4) -> (3,1)
  -- -- -- -- -- -- --
 Number of moves: 30
 Number of vertices examined: 62
-0.0113672 [s]
+0.048762 [s]
 
 Level 2-1
 Sequence of moves: 
@@ -460,7 +460,7 @@ move: (1,0) -> (4,2)
                
 |      mv t    |
                
-|      O  t    |
+|      O# t    |
                
 |              |
                
@@ -476,7 +476,7 @@ move: (1,4) -> (4,2)
                
 |         tv   |
                
-|      O  t<   |
+|      O# t<   |
                
 |              |
                
@@ -484,7 +484,7 @@ move: (1,4) -> (4,2)
  -- -- -- -- --
 Number of moves: 8
 Number of vertices examined: 18
-0.00271099 [s]
+0.01201 [s]
 
 Level 2-64
 Sequence of moves: 
@@ -506,7 +506,7 @@ move: (8,6) -> (8,0)
                      
 |pv p^ T  pv  ^ t  O |
                      
-|O  p^ p< p<  ^  < P<|
+|O# p^ p< p<  ^  < P<|
  -- -- -- -- -- -- --
 move: (7,2) -> (7,6)
  -- -- -- -- -- -- --
@@ -524,13 +524,13 @@ move: (7,2) -> (7,6)
                      
 |       ^       tv   |
                      
-|      T^       t> O |
+|      T^       t> O#|
                      
 |O                   |
  -- -- -- -- -- -- --
 move: (5,1) -> (0,3)
  -- -- -- -- -- -- --
-|c> c> cv O  cv c< c<|
+|c> c> cv O# cv c< c<|
                      
 |c^    cv c^ c< S  c^|
                      
@@ -550,7 +550,7 @@ move: (5,1) -> (0,3)
  -- -- -- -- -- -- --
 Number of moves: 47
 Number of vertices examined: 257
-0.0220868 [s]
+0.147575 [s]
 
 Level 3-1
 Sequence of moves: 
@@ -568,7 +568,7 @@ move: (0,3) -> (6,3)
                      
 |   t  cv c< c< t    |
                      
-|   t  cv O  c< t    |
+|   t  cv O# c< t    |
                      
 |   t  cv T  c^ t    |
                      
@@ -592,11 +592,11 @@ move: (7,3) -> (8,5)
                      
 |   t^    Tv    tv   |
                      
-|   t^  <  <    O    |
+|   t^  <  <    O#   |
  -- -- -- -- -- -- --
 Number of moves: 34
 Number of vertices examined: 134
-0.0114505 [s]
+0.067855 [s]
 
 Level 3-2
 Sequence of moves: 
@@ -612,7 +612,7 @@ move: (3,5) -> (5,2)
                 --   
 |  |p> pv p^ p< p<| v|
                      
-|  |   O  pv 1< p^| v|
+|  |   O# pv 1< p^| v|
     --               
 |   1o|   p> p> p^| v|
        -- -- -- --   
@@ -622,7 +622,7 @@ move: (3,5) -> (5,2)
  -- -- -- -- -- -- --
 Number of moves: 19
 Number of vertices examined: 53
-0.00497999 [s]
+0.030069 [s]
 
 Level 3-6
 Sequence of moves: 
@@ -636,7 +636,7 @@ move: (4,3) -> (4,5)
                      
 |   cv          cv   |
                      
-|   cv    C>  v O    |
+|   cv    C>  v O#   |
                      
 |   cv        > cv   |
                      
@@ -648,7 +648,7 @@ move: (4,3) -> (4,5)
  -- -- -- -- -- -- --
 Number of moves: 18
 Number of vertices examined: 51
-0.0156178 [s]
+0.094428 [s]
 
 Level 3-19
 Sequence of moves: 
@@ -666,7 +666,7 @@ move: (1,3) -> (6,3)
                      
 |   p^|   pv   |pv   |
                      
-|   p^|   O    |pv   |
+|   p^|   O#   |pv   |
        -- -- --      
 |   p^ p< p< p< p<   |
                      
@@ -674,7 +674,7 @@ move: (1,3) -> (6,3)
  -- -- -- -- -- -- --
 Number of moves: 22
 Number of vertices examined: 40
-0.0130192 [s]
+0.085528 [s]
 
 Level 3-71
 Sequence of moves: 
@@ -690,7 +690,7 @@ move: (0,3) -> (5,4)
                      
 | v c^ c<|cv 2  cv   |
                      
-| v c> c^ cv O  cv   |
+| v c> c^ cv O# cv   |
                      
 | v c^ c< c< c^ c<   |
                      
@@ -700,7 +700,7 @@ move: (0,3) -> (5,4)
  -- -- -- -- -- -- --
 Number of moves: 29
 Number of vertices examined: 4716
-0.576991 [s]
+3.2533 [s]
 
 Level 3-75
 Sequence of moves: 
@@ -710,7 +710,7 @@ move: (0,4) -> (2,1)
                      
 |pv p< pv p< p< c  c |
                      
-|pv O  p<    p^ c  c |
+|pv O# p<    p^ c  c |
                      
 |p> p> p> p> p^ c  c |
                      
@@ -738,7 +738,7 @@ move: (0,2) -> (6,5)
                      
 |t     t   > c^    cv|
                      
-|t     t  t  c> O  cv|
+|t     t  t  c> O# cv|
                      
 |t  O  t  t  c^ c< c<|
                      
@@ -760,13 +760,13 @@ move: (0,3) -> (7,1)
                      
 |t^    t> tv  v O    |
                      
-|t^ O  t< t<  v      |
+|t^ O# t< t<  v      |
                      
 |t^ t< t<  <  <      |
  -- -- -- -- -- -- --
 Number of moves: 47
 Number of vertices examined: 314
-0.0234053 [s]
+0.175273 [s]
 
 Level 4-36
 Sequence of moves: 
@@ -778,7 +778,7 @@ move: (1,0) -> (3,4)
                      
 |    > t^ tv t< m  c |
                      
-|         tv O  t< c |
+|         tv O# t< c |
                      
 |p  p  m  t> t> t^ c |
                      
@@ -808,11 +808,11 @@ move: (5,1) -> (8,6)
                      
 |pv O  p> p> pv c  c |
                      
-|p> p> p^    p> m> O |
+|p> p> p^    p> m> O#|
  -- -- -- -- -- -- --
 move: (0,5) -> (0,6)
  -- -- -- -- -- -- --
-|             v C< O |
+|             v C< O#|
                      
 |         S   v c> c^|
                      
@@ -832,7 +832,7 @@ move: (0,5) -> (0,6)
  -- -- -- -- -- -- --
 Number of moves: 43
 Number of vertices examined: 434
-0.0339616 [s]
+0.502664 [s]
 
 Level 4-37
 Sequence of moves: 
@@ -846,7 +846,7 @@ move: (8,2) -> (4,3)
                      
 |c  c  c  m  t  t  t |
                      
-|O  S  m> O  m       |
+|O  S  m> O# m       |
                      
 |C     p^ m< d  d  d |
                      
@@ -866,7 +866,7 @@ move: (8,3) -> (4,3)
                      
 |c  c  c  m  t  t  t |
                      
-|O  S     O  m<      |
+|O  S     O# m<      |
                      
 |C           d^ d< d<|
                      
@@ -886,7 +886,7 @@ move: (6,5) -> (4,3)
                      
 |c  c  c  mv t< t> t^|
                      
-|O  S     O      ^   |
+|O  S     O#     ^   |
                      
 |C               ^   |
                      
@@ -906,7 +906,7 @@ move: (5,0) -> (4,0)
                      
 |cv c^ c<     ^      |
                      
-|O  S     O   ^      |
+|O# S     O   ^      |
                      
 |C>  >  >  >  ^      |
                      
@@ -918,7 +918,7 @@ move: (5,0) -> (4,0)
  -- -- -- -- -- -- --
 Number of moves: 50
 Number of vertices examined: 216
-0.0153283 [s]
+0.207619 [s]
 
 Level 4-40
 Sequence of moves: 
@@ -936,7 +936,7 @@ move: (7,1) -> (6,1)
                      
 |c> cv c^ c< c<  ^ t |
                      
-|t  O   >  >  >  ^ t |
+|t  O#  >  >  >  ^ t |
                      
 |t  C>  ^ t  t  T  t |
                      
@@ -944,7 +944,7 @@ move: (7,1) -> (6,1)
  -- -- -- -- -- -- --
 move: (7,5) -> (0,6)
  -- -- -- -- -- -- --
-|                  O |
+|                  O#|
                      
 |                  t^|
                      
@@ -964,7 +964,7 @@ move: (7,5) -> (0,6)
  -- -- -- -- -- -- --
 Number of moves: 45
 Number of vertices examined: 234
-0.0281056 [s]
+0.382341 [s]
 
 Level 4-60
 Sequence of moves: 
@@ -976,7 +976,7 @@ move: (3,3) -> (3,1)
                      
 |t^ t< t< t> t^ tv t<|
                      
-|t> O   ^ T< P  tv O |
+|t> O#  ^ T< P  tv O |
                      
 |t^ t< t< t< t< t< p |
                      
@@ -996,7 +996,7 @@ move: (3,4) -> (3,6)
                      
 |                    |
                      
-|   O        P>  v O |
+|   O        P>  v O#|
                      
 |                v p^|
                      
@@ -1026,7 +1026,7 @@ move: (6,5) -> (8,6)
                      
 |dv O  c  c          |
                      
-|d> d> d> d> d> d> O |
+|d> d> d> d> d> d> O#|
  -- -- -- -- -- -- --
 move: (1,1) -> (7,1)
  -- -- -- -- -- -- --
@@ -1044,13 +1044,13 @@ move: (1,1) -> (7,1)
                      
 | v cv    c^         |
                      
-| v O  c> c^         |
+| v O# c> c^         |
                      
 | >  >  ^          O |
  -- -- -- -- -- -- --
 Number of moves: 55
 Number of vertices examined: 325
-0.0367628 [s]
+0.330144 [s]
 
 Level 4-64
 Sequence of moves: 
@@ -1066,7 +1066,7 @@ move: (0,3) -> (5,3)
                      
 |t^ t<    c  c  c    |
  -- -- -- -- -- -- --
-|c  c  c  O  tv t< t<|
+|c  c  c  O# tv t< t<|
                      
 |c  c  c  m^ t< t> t^|
     --               
@@ -1086,7 +1086,7 @@ move: (0,2) -> (5,3)
                      
 |         c> c> c^   |
  -- -- -- -- -- -- --
-|c> c> c> O          |
+|c> c> c> O#         |
                      
 |c^ c< c<            |
     --               
@@ -1096,7 +1096,7 @@ move: (0,2) -> (5,3)
  -- -- -- -- -- -- --
 Number of moves: 54
 Number of vertices examined: 276
-0.032581 [s]
+0.275843 [s]
 
 Level 4-65
 Sequence of moves: 
@@ -1108,7 +1108,7 @@ move: (0,1) -> (3,1)
  -- -- --            
 |c  c  c |c  m  m    |
                      
-|O  2  c |c  O  p  p |
+|O  2# c |c  O  p  p |
                      
 |p  c  c |c  c  c  p |
        -- -- --      
@@ -1128,7 +1128,7 @@ move: (0,0) -> (3,0)
  -- -- --            
 |cv c< c<|cv m  m    |
                      
-|O  P  c^|cv O  p  p |
+|O# P  c^|cv O  p  p |
                      
 |p  c> c^|c> c> cv p |
        -- -- --      
@@ -1148,7 +1148,7 @@ move: (3,1) -> (3,4)
  -- -- --            
 |        |   mv m<   |
                      
-|O  Pv   |   O  p^ p<|
+|O  Pv   |   O# p^ p<|
                      
 |pv  <   |         p^|
        -- -- --      
@@ -1174,7 +1174,7 @@ move: (1,0) -> (6,4)
        -- -- --      
 |    v|3v d> dv| ^   |
                      
-|    v|d> d^ O | ^   |
+|    v|d> d^ O#| ^   |
        -- -- --      
 |    >  >  >  >  ^   |
                      
@@ -1182,7 +1182,7 @@ move: (1,0) -> (6,4)
  -- -- -- -- -- -- --
 Number of moves: 57
 Number of vertices examined: 248
-0.0286163 [s]
+0.204357 [s]
 
 Level 5-1
 Sequence of moves: 
@@ -1196,7 +1196,7 @@ move: (1,5) -> (4,6)
        --            
 |C  c  c  c  c |1o c |
     -- -- -- --      
-|   d> d> dv       O |
+|   d> d> dv       O#|
                      
 |d> d^ dv d< d> d> d^|
                      
@@ -1212,7 +1212,7 @@ move: (3,0) -> (2,0)
                      
 |   c> cv c^ c<|   c^|
           --         
-|O  c< c> c> cv|   c^|
+|O# c< c> c> cv|   c^|
        --            
 |Cv c^ c< c< c<|1> c^|
     -- -- -- --      
@@ -1228,7 +1228,7 @@ move: (3,0) -> (2,0)
  -- -- -- -- -- -- --
 Number of moves: 53
 Number of vertices examined: 2374
-0.310903 [s]
+1.44185 [s]
 
 Level 5-2
 Sequence of moves: 
@@ -1236,7 +1236,7 @@ move: (7,3) -> (1,4)
  -- -- -- -- -- -- --
 |dv d< d< d< dv d< d<|
                      
-|dv 1>  v d^ O     d^|
+|dv 1>  v d^ O#    d^|
                      
 |dv T   > d^       d^|
                      
@@ -1266,7 +1266,7 @@ move: (2,1) -> (6,3)
                      
 |   tv t< tv t< t<   |
                      
-|tv t< t^ O     t^   |
+|tv t< t^ O#    t^   |
                      
 |tv S  t^  < 1< t^   |
                      
@@ -1274,5 +1274,5 @@ move: (2,1) -> (6,3)
  -- -- -- -- -- -- --
 Number of moves: 44
 Number of vertices examined: 822
-0.0687909 [s]
+0.355973 [s]
 

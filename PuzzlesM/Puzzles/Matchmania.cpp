@@ -440,7 +440,7 @@ void dump_all(ostream& out, const list<puz_state>& spath)
             pos2dir[m[i]] = dirs[boost::find(offset, m[i + 1] - m[i]) - offset];
         if(it->m_curr_bunny == 0 &&
             (next(it) == spath.end() || next(it)->m_move[0] != m.back())){
-            move[1] = m.back();
+            pos2dir[move[1] = m.back()] = '#';
             it_last->dump(out, pos2dir, move);
             pos2dir.clear();
             it_last = it;
