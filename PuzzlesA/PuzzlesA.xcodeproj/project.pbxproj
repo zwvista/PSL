@@ -18,16 +18,6 @@
 		8CA23F641EB475A70055D6B1 /* Arrows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F5E1EB475A70055D6B1 /* Arrows.cpp */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		8CA23F841EB478740055D6B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8CA23F801EB478740055D6B1 /* PuzzlesB.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8CA23EC41EA9233C0055D6B1;
-			remoteInfo = PuzzlesB;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		8CA23EC21EA9233C0055D6B1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -80,7 +70,6 @@
 		8CA23F5E1EB475A70055D6B1 /* Arrows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arrows.cpp; sourceTree = "<group>"; };
 		8CA23F5F1EB475A70055D6B1 /* Arrows.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Arrows.txt; sourceTree = "<group>"; };
 		8CA23F601EB475A70055D6B1 /* Arrows.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Arrows.xml; sourceTree = "<group>"; };
-		8CA23F801EB478740055D6B1 /* PuzzlesB.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PuzzlesB.xcodeproj; path = ../PuzzlesB/PuzzlesB.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +86,6 @@
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
-				8CA23F801EB478740055D6B1 /* PuzzlesB.xcodeproj */,
 				8CA23F1B1EA926F60055D6B1 /* PSL */,
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
@@ -165,14 +153,6 @@
 			path = ../PSL;
 			sourceTree = "<group>";
 		};
-		8CA23F811EB478740055D6B1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8CA23F851EB478740055D6B1 /* PuzzlesB */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -219,28 +199,12 @@
 			mainGroup = 8CA23EBB1EA9233C0055D6B1;
 			productRefGroup = 8CA23EC51EA9233C0055D6B1 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 8CA23F811EB478740055D6B1 /* Products */;
-					ProjectRef = 8CA23F801EB478740055D6B1 /* PuzzlesB.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8CA23EC31EA9233C0055D6B1 /* PuzzlesA */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		8CA23F851EB478740055D6B1 /* PuzzlesB */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = PuzzlesB;
-			remoteRef = 8CA23F841EB478740055D6B1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8CA23EC01EA9233C0055D6B1 /* Sources */ = {
@@ -274,7 +238,6 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -322,7 +285,6 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
