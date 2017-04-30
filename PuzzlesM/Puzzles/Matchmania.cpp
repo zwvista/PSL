@@ -186,7 +186,7 @@ struct puz_state
 struct puz_state2 : pair<Position, bool>
 {
     puz_state2(const puz_state& s, const puz_bunny_info& info)
-        : m_state(&s), m_info(&info) { make_move(info.m_bunny, false); }
+        : m_state(&s), m_info(&info) { make_move(info.m_bunny, s.m_teleported); }
 
     void make_move(const Position& p, bool teleported){
         first = p;
@@ -202,8 +202,8 @@ struct puz_state2 : pair<Position, bool>
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     char ch = m_state->cells(first);
-    if(ch == m_info->m_food_name || ch == PUZ_MUSHROOM) return;
-    if(!second && m_state->is_teleport(first)){
+    if(ch == m_info->m_food_name || ch == PUZ_MUSHROOM || second) return;
+    if(m_state->is_teleport(first)){
         children.push_back(*this);
         children.back().make_move(m_state->get_teleport(first).second, true);
     }
@@ -223,8 +223,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 struct puz_state3 : pair<Position, bool>
 {
-    puz_state3(const puz_state& s, const puz_bunny_info& info, bool teleported)
-        : m_state(&s), m_info(&info) { make_move(info.m_bunny, teleported); }
+    puz_state3(const puz_state& s, const puz_bunny_info& info)
+        : m_state(&s), m_info(&info) { make_move(info.m_bunny, s.m_teleported); }
 
     void make_move(const Position& p, bool teleported){
         first = p;
@@ -264,7 +264,7 @@ struct puz_state4 : pair<Position, bool>
 {
     puz_state4() {}
     puz_state4(const puz_state& s, const puz_bunny_info& info, const Position& dest)
-        : m_state(&s), m_info(&info), m_dest(&dest) { make_move(info.m_bunny, false); }
+        : m_state(&s), m_info(&info), m_dest(&dest) { make_move(info.m_bunny, s.m_teleported); }
 
     void make_move(const Position& p, bool teleported){
         first = p;
@@ -285,7 +285,8 @@ struct puz_state4 : pair<Position, bool>
 
 void puz_state4::gen_children(list<puz_state4>& children) const
 {
-    if(!second && m_state->is_teleport(first)){
+    if(second) return;
+    if(m_state->is_teleport(first)){
         children.push_back(*this);
         children.back().make_move(m_state->get_teleport(first).second, true);
     }
@@ -334,14 +335,18 @@ bool puz_state::make_move(const Position& p1, const Position& p2, bool teleporte
         else
             m_move = {p1, p2};
         (ch2 == PUZ_MUSHROOM ? m_mushrooms : info.m_food).erase(info.m_bunny = p2);
-        m_curr_bunny = ch2 = exchange(ch1, PUZ_SPACE);
+        ch2 = exchange(ch1, PUZ_SPACE);
+        m_curr_bunny = m_curr_bunny == 0 && teleported ? 0 : ch2;
     }
+    
+    m_distance = 1;
+    if(m_teleported = teleported) m_last_teleport = p2;
 
     // pruning
     if(m_curr_bunny != 0){
         auto& info = m_bunny2info.at(m_curr_bunny);
         list<puz_state3> smoves;
-        puz_move_generator<puz_state3>::gen_moves({*this, info, teleported}, smoves);
+        puz_move_generator<puz_state3>::gen_moves({*this, info}, smoves);
         // 1. The bunny must reach one of the holes after taking all its own food
         //    and/or some mushrooms.
         // 2. The bunny must take all mushrooms if he is the last bunny.
@@ -355,9 +360,6 @@ bool puz_state::make_move(const Position& p1, const Position& p2, bool teleporte
         }) != m_mushrooms.size())
             return false;
     }
-
-    m_distance = 1;
-    if(m_teleported = teleported) m_last_teleport = p2;
     return true;
 }
 
@@ -370,11 +372,11 @@ void puz_state::gen_children(list<puz_state>& children) const
             puz_move_generator<puz_state2>::gen_moves({*this, info}, smoves);
             smoves.remove_if([&](const puz_state2& kv){
                 char ch = cells(kv.first);
-                return !(ch == info.m_food_name || ch == PUZ_MUSHROOM);
+                return !(ch == info.m_food_name || ch == PUZ_MUSHROOM || is_teleport(kv.first));
             });
             for(auto& kv : smoves){
                 children.push_back(*this);
-                if(!children.back().make_move(info.m_bunny, kv.first, false))
+                if(!children.back().make_move(info.m_bunny, kv.first, is_teleport(kv.first)))
                     children.pop_back();
             }
         }

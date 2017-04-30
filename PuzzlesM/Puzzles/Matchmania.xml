@@ -626,6 +626,29 @@
  - - - - - - - \
     ]]>
   </level>
+  <level id="4-65">
+    <![CDATA[
+ - - - - - - - \
+|C P 1|c c c 1|\
+               \
+|D 2 3|c   c c|\
+ - - -         \
+|c c c|c m m  |\
+               \
+|O 2 c|c O p p|\
+               \
+|p c c|c c c p|\
+     - - -     \
+|p c|3 d d|c p|\
+               \
+|p c|d d O|c p|\
+     - - -     \
+|p c c c c c p|\
+               \
+|p p p p p p p|\
+ - - - - - - - \
+    ]]>
+  </level>
   <level id="5-1">
     <![CDATA[
  - - - - - - - \
