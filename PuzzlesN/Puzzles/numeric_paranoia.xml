@@ -2,114 +2,114 @@
 <levels>
   <level id="7X5 1">
     <![CDATA[
-C    FA\
-  G  E \
-  H D  \
-     B \
-       \
+C    FA`
+  G  E `
+  H D  `
+     B `
+       `
     ]]>
   </level>
   <level id="7X5 2">
     <![CDATA[
-    G  \
-     F \
-    H E\
-  DC   \
-AB     \
+    G  `
+     F `
+    H E`
+  DC   `
+AB     `
     ]]>
   </level>
   <level id="7X5 3">
     <![CDATA[
-       \
-      C\
-FDE A  \
-    B  \
- GH    \
+       `
+      C`
+FDE A  `
+    B  `
+ GH    `
     ]]>
   </level>
   <level id="7X5 4">
     <![CDATA[
-   H  G\
-     F \
-AC  I E\
-    D  \
- B     \
+   H  G`
+     F `
+AC  I E`
+    D  `
+ B     `
     ]]>
   </level>
   <level id="7X5 5">
     <![CDATA[
-   B  A\
- C    F\
-E  DH  \
-     G \
-       \
+   B  A`
+ C    F`
+E  DH  `
+     G `
+       `
     ]]>
   </level>
   <level id="7X5 6">
     <![CDATA[
-     E \
- H G   \
-     DF\
- A     \
-C B    \
+     E `
+ H G   `
+     DF`
+ A     `
+C B    `
     ]]>
   </level>
   <level id="7X5 7">
     <![CDATA[
-       \
-      B\
-FDE    \
-   C   \
-G H   A\
+       `
+      B`
+FDE    `
+   C   `
+G H   A`
     ]]>
   </level>
   <level id="7X5 8">
     <![CDATA[
-B      \
-   FGDE\
-  A    \
- H     \
-   C   \
+B      `
+   FGDE`
+  A    `
+ H     `
+   C   `
     ]]>
   </level>
   <level id="8X6 1">
     <![CDATA[
-I HG    \
-        \
-      B \
-   F    \
-  LK DCE\
- J  A   \
+I HG    `
+        `
+      B `
+   F    `
+  LK DCE`
+ J  A   `
     ]]>
   </level>
   <level id="8X6 2">
     <![CDATA[
-        \
- H    GF\
-L   IE  \
- MK J   \
-     B D\
-A     C \
+        `
+ H    GF`
+L   IE  `
+ MK J   `
+     B D`
+A     C `
     ]]>
   </level>
   <level id="8X6 3">
     <![CDATA[
-        \
-      F \
-H  E  G \
- J      \
-KI   DCA\
- L    B \
+        `
+      F `
+H  E  G `
+ J      `
+KI   DCA`
+ L    B `
     ]]>
   </level>
   <level id="8X6 4">
     <![CDATA[
- J      \
- K      \
- I A FG \
-CD  H   \
-  E     \
-   B    \
+ J      `
+ K      `
+ I A FG `
+CD  H   `
+  E     `
+   B    `
     ]]>
   </level>
 </levels>

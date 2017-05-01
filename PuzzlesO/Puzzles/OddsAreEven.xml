@@ -2,97 +2,97 @@
 <levels>
   <level id="1">
     <![CDATA[
- - - - - - - - - - \
-|O E E|5 1 3|2 O E|\
-                   \
-|O 4 E|6 E O|5 O O|\
-                   \
-|O 5 O|2 O 4|E 6 1|\
- - - - - - - - - - \
-|5 O 3|O 7 E|E E E|\
-                   \
-|7 O E|E E O|9 3 2|\
-                   \
-|E E 4|O 3 6|O 5 O|\
- - - - - - - - - - \
-|E O O|E 6 E|7 O O|\
-                   \
-|E E 9|O 5 1|3 E E|\
-                   \
-|E 7 1|O 2 O|4 8 5|\
- - - - - - - - - - \
+ - - - - - - - - - `
+|O E E|5 1 3|2 O E|`
+                   `
+|O 4 E|6 E O|5 O O|`
+                   `
+|O 5 O|2 O 4|E 6 1|`
+ - - - - - - - - - `
+|5 O 3|O 7 E|E E E|`
+                   `
+|7 O E|E E O|9 3 2|`
+                   `
+|E E 4|O 3 6|O 5 O|`
+ - - - - - - - - - `
+|E O O|E 6 E|7 O O|`
+                   `
+|E E 9|O 5 1|3 E E|`
+                   `
+|E 7 1|O 2 O|4 8 5|`
+ - - - - - - - - - `
     ]]>
   </level>
   <level id="2">
     <![CDATA[
- - - - - - - - - - \
-|O 4 E|7 2 E|O O O|\
-                   \
-|6 O E|5 3 E|9 8 7|\
-                   \
-|O 5 O|O E O|E E 6|\
- - - - - - - - - - \
-|7 O E|3 E O|8 O 2|\
-                   \
-|5 2 6|O O E|O 4 1|\
-                   \
-|E 3 O|4 O 2|O E 9|\
- - - - - - - - - - \
-|O 8 O|E 9 7|E O E|\
-                   \
-|E 7 O|2 O O|E 9 8|\
-                   \
-|2 E 9|E E O|1 7 5|\
- - - - - - - - - - \
+ - - - - - - - - - `
+|O 4 E|7 2 E|O O O|`
+                   `
+|6 O E|5 3 E|9 8 7|`
+                   `
+|O 5 O|O E O|E E 6|`
+ - - - - - - - - - `
+|7 O E|3 E O|8 O 2|`
+                   `
+|5 2 6|O O E|O 4 1|`
+                   `
+|E 3 O|4 O 2|O E 9|`
+ - - - - - - - - - `
+|O 8 O|E 9 7|E O E|`
+                   `
+|E 7 O|2 O O|E 9 8|`
+                   `
+|2 E 9|E E O|1 7 5|`
+ - - - - - - - - - `
     ]]>
   </level>
   <level id="36">
     <![CDATA[
- - - - - - - - - - \
-|E E O O O E|O O 8|\
-       - - -       \
-|E O O|E|E O|O O E|\
- - - -             \
-|7 O E E|O O|3 E E|\
-             - - - \
-|O O O 2|E E O E O|\
- - - - - - - - - - \
-|O O|E E 3 O E|E 9|\
-           - -     \
-|E O|O O E|6 E O O|\
-       - -   - -   \
-|2 E|1|O|O E|E|O|O|\
-     -   - -     - \
-|O E|E 3 1 O O|4 E|\
-   -   - - - -     \
-|O|E E|O E O E O O|\
- - - - - - - - - - \
+ - - - - - - - - - `
+|E E O O O E|O O 8|`
+       - - -       `
+|E O O|E|E O|O O E|`
+ - - -             `
+|7 O E E|O O|3 E E|`
+             - - - `
+|O O O 2|E E O E O|`
+ - - - - - - - - - `
+|O O|E E 3 O E|E 9|`
+           - -     `
+|E O|O O E|6 E O O|`
+       - -   - -   `
+|2 E|1|O|O E|E|O|O|`
+     -   - -     - `
+|O E|E 3 1 O O|4 E|`
+   -   - - - -     `
+|O|E E|O E O E O O|`
+ - - - - - - - - - `
     ]]>
   </level>
   <level id="39" NoAreas="1">
     <![CDATA[
-7OO92E6O4\
-E8OOOOEEO\
-3O4E8O9E5\
-E63OOEOEO\
-EO5OEOEOE\
-O1OEE3O6E\
-4E67O5EOO\
-94EEOEO57\
-O984O2576\
+7OO92E6O4`
+E8OOOOEEO`
+3O4E8O9E5`
+E63OOEOEO`
+EO5OEOEOE`
+O1OEE3O6E`
+4E67O5EOO`
+94EEOEO57`
+O984O2576`
     ]]>
   </level>
   <level id="56" NoAreas="1">
     <![CDATA[
-3EOOOEEEO\
-O9E8EO7EO\
-OOOEOE2EO\
-OEEO9EOOE\
-EEOOOOOEE\
-EE4E7O5O9\
-OOO24EO9E\
-E3E1EO6OO\
-EO5OEOE74\
+3EOOOEEEO`
+O9E8EO7EO`
+OOOEOE2EO`
+OEEO9EOOE`
+EEOOOOOEE`
+EE4E7O5O9`
+OOO24EO9E`
+E3E1EO6OO`
+EO5OEOE74`
     ]]>
   </level>
 </levels>

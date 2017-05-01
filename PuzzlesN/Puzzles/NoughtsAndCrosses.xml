@@ -2,23 +2,23 @@
 <levels>
   <level id="1" num="3">
     <![CDATA[
-3O1 \
-O O1\
- O  \
-X OO\
+3O1 `
+O O1`
+ O  `
+X OO`
     ]]>
   </level>
   <level id="300" num="8">
     <![CDATA[
-3 1  X 48\
-8 4 7 O6 \
-X  64  23\
- 3       \
-  5   1  \
- 2OO  8  \
-2  1  43 \
- 6 7    X\
-4O7O 2OO1\
+3 1  X 48`
+8 4 7 O6 `
+X  64  23`
+ 3       `
+  5   1  `
+ 2OO  8  `
+2  1  43 `
+ 6 7    X`
+4O7O 2OO1`
     ]]>
   </level>
 </levels>

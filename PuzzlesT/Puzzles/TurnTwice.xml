@@ -2,25 +2,25 @@
 <levels>
   <level id="1">
     <![CDATA[
- S S\
-    \
-S   \
-   S\
+ S S`
+    `
+S   `
+   S`
     ]]>
   </level>
   <level id="200">
     <![CDATA[
-S S  S  S  \
-    S     S\
- S         \
-S       S  \
-   S   S  S\
- S         \
-S   S S  S \
-       S   \
-      S    \
-S  S      S\
-  S S   S  \
+S S  S  S  `
+    S     S`
+ S         `
+S       S  `
+   S   S  S`
+ S         `
+S   S S  S `
+       S   `
+      S    `
+S  S      S`
+  S S   S  `
     ]]>
   </level>
 </levels>

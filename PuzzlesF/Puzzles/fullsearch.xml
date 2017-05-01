@@ -2,26 +2,26 @@
 <levels>
   <level id="1">
    <![CDATA[
-   \
-@  \
-   \
-  x\
+   `
+@  `
+   `
+  x`
   ]]>
  </level>
   <level id="2">
    <![CDATA[
-   \
-@ #\
-   \
-# x\
+   `
+@ #`
+   `
+# x`
   ]]>
  </level>
   <level id="3">
    <![CDATA[
-   \
-@  \
- # \
-  x\
+   `
+@  `
+ # `
+  x`
   ]]>
  </level>
 </levels>

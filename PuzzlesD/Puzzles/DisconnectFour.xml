@@ -2,55 +2,55 @@
 <levels>
   <level id="1">
     <![CDATA[
-YYY \
- R R\
- RRR\
-YY  \
+YYY `
+ R R`
+ RRR`
+YY  `
     ]]>
   </level>
   <level id="2">
     <![CDATA[
-R YR\
-YRRR\
-RR Y\
-YRRR\
+R YR`
+YRRR`
+RR Y`
+YRRR`
     ]]>
   </level>
   <level id="3">
     <![CDATA[
-RRYYR\
-RY YY\
-YR R \
-R    \
-YRYRY\
+RRYYR`
+RY YY`
+YR R `
+R    `
+YRYRY`
     ]]>
   </level>
   <level id="36">
     <![CDATA[
- R   R Y\
- Y Y Y Y\
-YR YY  Y\
-  Y  Y  \
- YR  YRY\
-    R YY\
- YYY    \
-YYY R Y \
+ R   R Y`
+ Y Y Y Y`
+YR YY  Y`
+  Y  Y  `
+ YR  YRY`
+    R YY`
+ YYY    `
+YYY R Y `
     ]]>
   </level>
   <level id="157">
     <![CDATA[
- YYY   RR RY\
-  Y  Y      \
- Y   YY     \
-   R      R \
-R  Y     R  \
-Y YY R  RR Y\
-     RR   R \
- Y   R      \
-         Y Y\
-  RR    YY Y\
-R R   Y   YY\
-YR R  RYY Y \
+ YYY   RR RY`
+  Y  Y      `
+ Y   YY     `
+   R      R `
+R  Y     R  `
+Y YY R  RR Y`
+     RR   R `
+ Y   R      `
+         Y Y`
+  RR    YY Y`
+R R   Y   YY`
+YR R  RYY Y `
     ]]>
   </level>
 </levels>

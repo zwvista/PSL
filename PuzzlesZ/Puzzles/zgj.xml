@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <levels>
   <level id="1"><![CDATA[
-@  \
-TTT\
-   \
-MMM\
-S  \
- I \
-. S\
+@  `
+TTT`
+   `
+MMM`
+S  `
+ I `
+. S`
   ]]></level>
   <level id="2"><![CDATA[
-@  S  TM      \
-TTTT ITM  TTTS\
-   S  TM  S   \
-MMMM  TM  MMMS\
-   S  TM  S   \
-IIII  TM  IIIS\
-      TM  S   \
-    IIIIIIS  .\
+@  S  TM      `
+TTTT ITM  TTTS`
+   S  TM  S   `
+MMMM  TM  MMMS`
+   S  TM  S   `
+IIII  TM  IIIS`
+      TM  S   `
+    IIIIIIS  .`
   ]]></level>
 </levels>

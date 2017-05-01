@@ -178,7 +178,7 @@ CString CMazeEditorDoc::GetData()
                 Position p(r, c);
                 str += IsHorzWall(p) ? _T(" -") : _T("  ");
             }
-            str += " \\\r\n";
+            str += " `\r\n";
             if(r == MazeHeight()) break;
             for(int c = 0; ; c++){
                 Position p(r, c);
@@ -186,7 +186,7 @@ CString CMazeEditorDoc::GetData()
                 if(c == MazeWidth()) break;
                 str += IsObject(p) ? CString(GetObject(p), 1) : _T(" ");
             }
-            str += "\\\r\n";
+            str += "`\r\n";
         }
     else
         for(int r = 0; r < MazeHeight(); ++r){
@@ -194,7 +194,7 @@ CString CMazeEditorDoc::GetData()
                 Position p(r, c);
                 str += IsObject(p) ? CString(GetObject(p), 1) : _T(" ");
             }
-            str += "\\\r\n";
+            str += "`\r\n";
         }
     return str;
 }
@@ -328,7 +328,7 @@ void SplitString( const CString& strText, LPCTSTR pszDelim, vector<CString>& vst
 void CMazeEditorDoc::SetData( const CString& strData )
 {
     vector<CString> vstrs;
-    SplitString(strData, _T("\\\r\n"), vstrs);
+    SplitString(strData, _T("`\r\n"), vstrs);
     if(m_bHasWall){
         ResizeMaze(vstrs.size() / 2, vstrs[0].GetLength() / 2);
         for(int r = 0;; r++){

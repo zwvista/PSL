@@ -1,37 +1,37 @@
 <?xml version="1.0" ?>
 <levels>
   <level id="sample"><![CDATA[
-   \
-1 2\
-   \
-aab\
-abc\
-bcc\
+   `
+1 2`
+   `
+aab`
+abc`
+bcc`
   ]]></level>
   <level id="core 1 easy"><![CDATA[
-2  3\
-    \
-    \
-1  4\
-aaab\
-acdb\
-cdcb\
-cddb\
+2  3`
+    `
+    `
+1  4`
+aaab`
+acdb`
+cdcb`
+cddb`
   ]]></level>
   <level id="core 100 master"><![CDATA[
- 5   3 \
-       \
-       \
- 4   2 \
-       \
-   1   \
- 6   4 \
-aaaabbb\
-acdcccb\
-eacdcbb\
-aeeedcb\
-eeddfff\
-edgfggg\
-dgggfff\
+ 5   3 `
+       `
+       `
+ 4   2 `
+       `
+   1   `
+ 6   4 `
+aaaabbb`
+acdcccb`
+eacdcbb`
+aeeedcb`
+eeddfff`
+edgfggg`
+dgggfff`
   ]]></level>
 </levels>

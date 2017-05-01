@@ -2,169 +2,169 @@
 <levels>
   <level id="1">
     <![CDATA[
-  T \
- FTF\
-F  T\
-   F\
+  T `
+ FTF`
+F  T`
+   F`
     ]]>
   </level>
   <level id="2">
     <![CDATA[
-  TT\
-TT  \
-T   \
-  T \
+  TT`
+TT  `
+T   `
+  T `
     ]]>
   </level>
   <level id="3">
     <![CDATA[
-  T \
- T  \
-  TT\
-   F\
+  T `
+ T  `
+  TT`
+   F`
     ]]>
   </level>
   <level id="4">
     <![CDATA[
-   F\
- F  \
-F  F\
-T   \
+   F`
+ F  `
+F  F`
+T   `
     ]]>
   </level>
   <level id="5">
     <![CDATA[
- F  F \
-F FT F\
-F T T \
-T  T F\
-F  FT \
-  F FF\
+ F  F `
+F FT F`
+F T T `
+T  T F`
+F  FT `
+  F FF`
     ]]>
   </level>
   <level id="6">
     <![CDATA[
-  F  T\
-    TT\
- T  T \
-T TF  \
-  T   \
-T     \
+  F  T`
+    TT`
+ T  T `
+T TF  `
+  T   `
+T     `
     ]]>
   </level>
   <level id="7">
     <![CDATA[
-    T \
-      \
- F   F\
- F    \
-T  T  \
-T TT F\
+    T `
+      `
+ F   F`
+ F    `
+T  T  `
+T TT F`
     ]]>
   </level>
   <level id="8">
     <![CDATA[
-    F \
- TT   \
-FF T T\
-T F   \
-      \
- TFT  \
+    F `
+ TT   `
+FF T T`
+T F   `
+      `
+ TFT  `
     ]]>
   </level>
   <level id="9">
     <![CDATA[
-    TT\
-     T\
- F  F \
-  T F \
-   F  \
-      \
+    TT`
+     T`
+ F  F `
+  T F `
+   F  `
+      `
     ]]>
   </level>
   <level id="10">
     <![CDATA[
- F    \
-   T T\
- T    \
- T   F\
-T  T T\
-   T  \
+ F    `
+   T T`
+ T    `
+ T   F`
+T  T T`
+   T  `
     ]]>
   </level>
   <level id="11">
     <![CDATA[
-   T T\
-    F \
-  T  T\
-F    T\
-      \
-F     \
+   T T`
+    F `
+  T  T`
+F    T`
+      `
+F     `
     ]]>
   </level>
   <level id="12">
     <![CDATA[
-      \
-FF    \
-T  F  \
- TT T \
-      \
-    FF\
+      `
+FF    `
+T  F  `
+ TT T `
+      `
+    FF`
     ]]>
   </level>
   <level id="13">
     <![CDATA[
-F T  TT\
-TT  T  \
-   F   \
- F T F \
-       \
-TF F  F\
-     T \
+F T  TT`
+TT  T  `
+   F   `
+ F T F `
+       `
+TF F  F`
+     T `
     ]]>
   </level>
   <level id="28">
     <![CDATA[
-    TT TT\
-  T      \
-F     TT \
-   T  F T\
-F    F   \
-    F    \
-T  F F  F\
-  F F  T \
-         \
+    TT TT`
+  T      `
+F     TT `
+   T  F T`
+F    F   `
+    F    `
+T  F F  F`
+  F F  T `
+         `
     ]]>
   </level>
   <level id="51">
     <![CDATA[
-         T \
-  FF F   TT\
-     F     \
-  T    F T \
-T   T    T \
-FF  T      \
-      T    \
-T   FT   F \
-           \
-    T    FF\
-    F   F  \
+         T `
+  FF F   TT`
+     F     `
+  T    F T `
+T   T    T `
+FF  T      `
+      T    `
+T   FT   F `
+           `
+    T    FF`
+    F   F  `
     ]]>
   </level>
   <level id="72">
     <![CDATA[
- FF       T \
-T  F  F     \
-    T  T TT \
-            \
-   F  TT    \
- F  TT  FT T\
-F           \
-    T T     \
-FF     T F F\
-FF        T \
-    TF      \
-    T  F    \
+ FF       T `
+T  F  F     `
+    T  T TT `
+            `
+   F  TT    `
+ F  TT  FT T`
+F           `
+    T T     `
+FF     T F F`
+FF        T `
+    TF      `
+    T  F    `
     ]]>
   </level>
 </levels>

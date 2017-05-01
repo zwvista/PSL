@@ -2,130 +2,130 @@
 <levels>
   <level id="1">
     <![CDATA[
-> x \
-    \
- o v\
-o   \
+> x `
+    `
+ o v`
+o   `
     ]]>
   </level>
   <level id="2">
     <![CDATA[
- o o\
-x x \
-    \
- o o\
+ o o`
+x x `
+    `
+ o o`
     ]]>
   </level>
   <level id="3">
     <![CDATA[
- o x \
-     \
-v >  \
- >   \
- o o \
+ o x `
+     `
+v >  `
+ >   `
+ o o `
     ]]>
   </level>
   <level id="4">
     <![CDATA[
-v v v\
-     \
- >  v\
-> v  \
-o  > \
+v v v`
+     `
+ >  v`
+> v  `
+o  > `
     ]]>
   </level>
   <level id="5">
     <![CDATA[
- o o o\
-    v \
-> o   \
- o    \
-o o  o\
- > >  \
+ o o o`
+    v `
+> o   `
+ o    `
+o o  o`
+ > >  `
     ]]>
   </level>
   <level id="6">
     <![CDATA[
-o v > \
- v ox \
-      \
-o    o\
- > o> \
->    o\
+o v > `
+ v ox `
+      `
+o    o`
+ > o> `
+>    o`
     ]]>
   </level>
   <level id="7">
     <![CDATA[
-> v> > \
- o  >  \
-ox  x  \
-       \
->      \
-x oo o \
-   >   \
+> v> > `
+ o  >  `
+ox  x  `
+       `
+>      `
+x oo o `
+   >   `
     ]]>
   </level>
   <level id="8">
     <![CDATA[
- >   o \
->  o  o\
-ov   v \
-  ooo v\
-     v \
- o     \
-  >  o \
+ >   o `
+>  o  o`
+ov   v `
+  ooo v`
+     v `
+ o     `
+  >  o `
     ]]>
   </level>
   <level id="9">
     <![CDATA[
- v x >  \
-     o  \
- >  vx  \
-ox     o\
-      o \
-o o  o  \
-   v    \
-      o \
+ v x >  `
+     o  `
+ >  vx  `
+ox     o`
+      o `
+o o  o  `
+   v    `
+      o `
     ]]>
   </level>
   <level id="10">
     <![CDATA[
- o  v > \
-   v  o \
-v v    o\
-     vo \
- o x  > \
-vx    o \
-    v v \
-  o    o\
+ o  v > `
+   v  o `
+v v    o`
+     vo `
+ o x  > `
+vx    o `
+    v v `
+  o    o`
     ]]>
   </level>
   <level id="11">
     <![CDATA[
- o   o > \
-    vo  o\
->      x \
-  v      \
->  x     \
-o    v>  \
-x v     o\
-   o >   \
-  o >  o \
+ o   o > `
+    vo  o`
+>      x `
+  v      `
+>  x     `
+o    v>  `
+x v     o`
+   o >   `
+  o >  o `
     ]]>
   </level>
   <level id="24">
     <![CDATA[
- > x   v>  \
-     x    o\
-    o  o   \
- o    x    \
-  x      v \
->    x o   \
-   >       \
-x       v  \
-  o      x \
-   v   x   \
- o       > \
+ > x   v>  `
+     x    o`
+    o  o   `
+ o    x    `
+  x      v `
+>    x o   `
+   >       `
+x       v  `
+  o      x `
+   v   x   `
+ o       > `
     ]]>
   </level>
 </levels>

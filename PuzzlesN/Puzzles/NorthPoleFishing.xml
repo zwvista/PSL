@@ -2,24 +2,24 @@
 <levels>
   <level id="1">
     <![CDATA[
-B  B\
-  H \
-    \
-BHHB\
+B  B`
+  H `
+    `
+BHHB`
     ]]>
   </level>
   <level id="200">
     <![CDATA[
-    H HB  \
-  H B   H \
-B   HB HH \
-   B     B\
-H     HH  \
- H H  H   \
-B     BH  \
-H  HB    B\
-H    BH   \
-  BHH  HH \
+    H HB  `
+  H B   H `
+B   HB HH `
+   B     B`
+H     HH  `
+ H H  H   `
+B     BH  `
+H  HB    B`
+H    BH   `
+  BHH  HH `
     ]]>
   </level>
 </levels>

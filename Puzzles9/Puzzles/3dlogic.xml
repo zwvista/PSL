@@ -2,319 +2,319 @@
 <levels>
   <level id="abc">
     <![CDATA[
- a  \
-  b \
-   c\
-   #\
-   #\
-   c\
-  b \
- a  \
-####\
-####\
-####\
-####\
+ a  `
+  b `
+   c`
+   #`
+   #`
+   c`
+  b `
+ a  `
+####`
+####`
+####`
+####`
     ]]>
   </level>
   <level id="1">
     <![CDATA[
-a  \
-###\
-b  \
-###\
-c #\
-#c#\
- # \
- # \
-b#a\
+a  `
+###`
+b  `
+###`
+c #`
+#c#`
+ # `
+ # `
+b#a`
     ]]>
   </level>
   <level id="2">
     <![CDATA[
-a##\
-  a\
-###\
-b c\
-# #\
-#b#\
- d \
- # \
-c#d\
+a##`
+  a`
+###`
+b c`
+# #`
+#b#`
+ d `
+ # `
+c#d`
     ]]>
   </level>
   <level id="3">
     <![CDATA[
-#a \
-ab \
- c#\
-  #\
-  c\
-   \
-#  \
-b  \
-   \
+#a `
+ab `
+ c#`
+  #`
+  c`
+   `
+#  `
+b  `
+   `
     ]]>
   </level>
   <level id="4">
     <![CDATA[
-   \
- ##\
-  a\
- bc\
- c \
-  b\
-d# \
- a \
-  d\
+   `
+ ##`
+  a`
+ bc`
+ c `
+  b`
+d# `
+ a `
+  d`
     ]]>
   </level>
   <level id="5">
     <![CDATA[
-a b\
-c  \
-   \
-   \
-   \
-#c \
- ##\
- ba\
-   \
+a b`
+c  `
+   `
+   `
+   `
+#c `
+ ##`
+ ba`
+   `
     ]]>
   </level>
   <level id="6">
     <![CDATA[
-a  \
-b  \
-###\
-   \
- b \
-   \
-a  \
-   \
-   \
+a  `
+b  `
+###`
+   `
+ b `
+   `
+a  `
+   `
+   `
     ]]>
   </level>
   <level id="7">
     <![CDATA[
-    \
-    \
-    \
-   #\
-   #\
-   #\
- a #\
-   #\
-b   \
-    \
-a   \
-b ##\
+    `
+    `
+    `
+   #`
+   #`
+   #`
+ a #`
+   #`
+b   `
+    `
+a   `
+b ##`
     ]]>
   </level>
   <level id="8">
     <![CDATA[
-    \
- ab#\
-   #\
-   #\
-   #\
-    \
-   a\
-    \
-### \
- c  \
-  ##\
-c  b\
+    `
+ ab#`
+   #`
+   #`
+   #`
+    `
+   a`
+    `
+### `
+ c  `
+  ##`
+c  b`
     ]]>
   </level>
   <level id="9">
     <![CDATA[
-  ab\
- cd \
-    \
-    \
-e fb\
-  # \
-   f\
-   e\
-a   \
-    \
- cd \
-    \
+  ab`
+ cd `
+    `
+    `
+e fb`
+  # `
+   f`
+   e`
+a   `
+    `
+ cd `
+    `
     ]]>
   </level>
   <level id="10">
     <![CDATA[
-   a\
- b  \
-    \
-    \
-    \
-c c \
-##  \
-d  b\
-   #\
-   #\
-   a\
-   d\
+   a`
+ b  `
+    `
+    `
+    `
+c c `
+##  `
+d  b`
+   #`
+   #`
+   a`
+   d`
     ]]>
   </level>
   <level id="11">
     <![CDATA[
-   a\
- b  \
-    \
-    \
-#c  \
-  d \
-dc  \
-e   \
-    \
-    \
-    \
- bea\
+   a`
+ b  `
+    `
+    `
+#c  `
+  d `
+dc  `
+e   `
+    `
+    `
+    `
+ bea`
     ]]>
   </level>
   <level id="12">
     <![CDATA[
-    \
- a  \
- bc \
-    \
-   #\
- d# \
- cd \
-    \
-    \
-  a \
-  b \
-    \
+    `
+ a  `
+ bc `
+    `
+   #`
+ d# `
+ cd `
+    `
+    `
+  a `
+  b `
+    `
     ]]>
   </level>
   <level id="13">
     <![CDATA[
-    \
- a  \
- #b \
- #  \
- # a\
- #  \
- c  \
-    \
-b   \
- d c\
-   e\
-de  \
+    `
+ a  `
+ #b `
+ #  `
+ # a`
+ #  `
+ c  `
+    `
+b   `
+ d c`
+   e`
+de  `
     ]]>
   </level>
   <level id="14">
     <![CDATA[
-   #\
- a  \
-    \
-   #\
-b  b\
-    \
- c  \
-    \
-d  d\
-   c\
-  a \
-####\
+   #`
+ a  `
+    `
+   #`
+b  b`
+    `
+ c  `
+    `
+d  d`
+   c`
+  a `
+####`
     ]]>
   </level>
   <level id="15">
     <![CDATA[
-##   \
-#    \
-ab   \
-    c\
-    #\
- ####\
-   b#\
-c a #\
-#    \
-##   \
-###  \
-#    \
-#    \
-    #\
-   ##\
+##   `
+#    `
+ab   `
+    c`
+    #`
+ ####`
+   b#`
+c a #`
+#    `
+##   `
+###  `
+#    `
+#    `
+    #`
+   ##`
     ]]>
   </level>
   <level id="16">
     <![CDATA[
-a    \
-    b\
-  c  \
-  d  \
-     \
-     \
-     \
-   e \
- f   \
-   a \
- c f \
-  d  \
-b    \
-  e  \
-     \
+a    `
+    b`
+  c  `
+  d  `
+     `
+     `
+     `
+   e `
+ f   `
+   a `
+ c f `
+  d  `
+b    `
+  e  `
+     `
     ]]>
   </level>
   <level id="17">
     <![CDATA[
-a    \
-    b\
-  c  \
-  d  \
-     \
-     \
-     \
-   e \
- f   \
-   a \
- c f \
-  d  \
-b    \
-  e  \
-     \
+a    `
+    b`
+  c  `
+  d  `
+     `
+     `
+     `
+   e `
+ f   `
+   a `
+ c f `
+  d  `
+b    `
+  e  `
+     `
     ]]>
   </level>
   <level id="18">
     <![CDATA[
-    #\
- a  #\
-    #\
-b   #\
-    c\
- c   \
- d   \
-     \
-###  \
-b    \
-     \
-   d \
-     \
-#####\
-    a\
+    #`
+ a  #`
+    #`
+b   #`
+    c`
+ c   `
+ d   `
+     `
+###  `
+b    `
+     `
+   d `
+     `
+#####`
+    a`
     ]]>
   </level>
   <level id="19">
     <![CDATA[
-   ab\
-     \
-  cd \
-  e  \
-     \
-     \
-    b\
-     \
-     \
-     \
-de c \
-     \
-  a  \
-     \
-     \
+   ab`
+     `
+  cd `
+  e  `
+     `
+     `
+    b`
+     `
+     `
+     `
+de c `
+     `
+  a  `
+     `
+     `
     ]]>
   </level>
 </levels>

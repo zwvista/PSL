@@ -2,123 +2,123 @@
 <levels>
   <level id="1">
     <![CDATA[
-WB \
-WW \
-W  \
-W W\
- W \
+WB `
+WW `
+W  `
+W W`
+ W `
     ]]>
   </level>
   <level id="2">
     <![CDATA[
- B WW \
-BWBWWB\
- BBWW \
-  BBWW\
- WB W \
-BBWBBW\
- W  W \
-BWW  B\
-WWB B \
-WWBBBB\
-WWB B \
+ B WW `
+BWBWWB`
+ BBWW `
+  BBWW`
+ WB W `
+BBWBBW`
+ W  W `
+BWW  B`
+WWB B `
+WWBBBB`
+WWB B `
     ]]>
   </level>
   <level id="3">
     <![CDATA[
-BWW B  \
-B  WBB \
-   WBW \
-W  WBWW\
-  BBWB \
-  BBWBB\
- BB WB \
- WB WW \
-WWWWW  \
-B   B B\
-WWW  B \
-  BW  B\
-BWBW W \
+BWW B  `
+B  WBB `
+   WBW `
+W  WBWW`
+  BBWB `
+  BBWBB`
+ BB WB `
+ WB WW `
+WWWWW  `
+B   B B`
+WWW  B `
+  BW  B`
+BWBW W `
     ]]>
   </level>
   <level id="9" Bordered="1">
     <![CDATA[
-       B \
- W W B   \
-     W   \
-   W  BW \
-W        \
-  B   BW \
-    B    \
-  W      \
-BW  W  W \
-B   B  W \
- W       \
- W  W    \
-   B   B \
-W     W  \
-         \
-W   W BWW\
-    BWW  \
- - - - - - - - - - \
-|         |       |\
- -             - - \
-| |       |   |   |\
-   - - - -   -     \
-|       |   |     |\
-           -       \
-|       | |       |\
- - - - - - - - - - \
-|                 |\
- - - - - - - - - - \
-|       | |       |\
-       -           \
-|     |   |       |\
-     -   - - - -   \
-|   |   |       | |\
- - -             - \
-|       |         |\
- - - - - - - - - - \
+       B `
+ W W B   `
+     W   `
+   W  BW `
+W        `
+  B   BW `
+    B    `
+  W      `
+BW  W  W `
+B   B  W `
+ W       `
+ W  W    `
+   B   B `
+W     W  `
+         `
+W   W BWW`
+    BWW  `
+ - - - - - - - - - `
+|         |       |`
+ -             - - `
+| |       |   |   |`
+   - - - -   -     `
+|       |   |     |`
+           -       `
+|       | |       |`
+ - - - - - - - - - `
+|                 |`
+ - - - - - - - - - `
+|       | |       |`
+       -           `
+|     |   |       |`
+     -   - - - -   `
+|   |   |       | |`
+ - -             - `
+|       |         |`
+ - - - - - - - - - `
     ]]>
   </level>
   <level id="22" Bordered="1">
     <![CDATA[
-W  W WW  \
- W       \
- B W     \
- BWW   WB\
- W       \
-   W W  W\
- BW WWWW \
-B      BW\
-  W W  W \
-  WWBW W \
-  W B BW \
-   WW    \
- WB    W \
-      W  \
-BW   B   \
- B   B W \
-         \
- - - - - - - - - - \
-|                 |\
- - - - - - - - - - \
-|   |             |\
-     - - - - -     \
-|     |   |   |   |\
- - -   -       - - \
-|   |   | |       |\
-   -   -   - - -   \
-| |   |     |   | |\
-   - - -   -   -   \
-|       | |   |   |\
- - -       -   - - \
-|   |   |   |     |\
-     - - - - -     \
-|             |   |\
- - - - - - - - - - \
-|                 |\
- - - - - - - - - - \
+W  W WW  `
+ W       `
+ B W     `
+ BWW   WB`
+ W       `
+   W W  W`
+ BW WWWW `
+B      BW`
+  W W  W `
+  WWBW W `
+  W B BW `
+   WW    `
+ WB    W `
+      W  `
+BW   B   `
+ B   B W `
+         `
+ - - - - - - - - - `
+|                 |`
+ - - - - - - - - - `
+|   |             |`
+     - - - - -     `
+|     |   |   |   |`
+ - -   -       - - `
+|   |   | |       |`
+   -   -   - - -   `
+| |   |     |   | |`
+   - - -   -   -   `
+|       | |   |   |`
+ - -       -   - - `
+|   |   |   |     |`
+     - - - - -     `
+|             |   |`
+ - - - - - - - - - `
+|                 |`
+ - - - - - - - - - `
     ]]>
   </level>
 </levels>

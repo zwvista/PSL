@@ -2,65 +2,65 @@
 <levels>
   <level id="1">
     <![CDATA[
-WS WW\
-S12 S\
-1 S3 \
-W2S2S\
- 222S\
+WS WW`
+S12 S`
+1 S3 `
+W2S2S`
+ 222S`
     ]]>
   </level>
   <level id="2">
     <![CDATA[
-3 12S\
- 2S 1\
-3W1S \
- 2 03\
-S2W3 \
+3 12S`
+ 2S 1`
+3W1S `
+ 2 03`
+S2W3 `
     ]]>
   </level>
   <level id="3">
     <![CDATA[
- 13W \
-S2 32\
-S S S\
-SW 2 \
- SS 1\
+ 13W `
+S2 32`
+S S S`
+SW 2 `
+ SS 1`
     ]]>
   </level>
   <level id="4">
     <![CDATA[
- 2 S \
-S W 0\
-W12S \
-S1 SS\
- 32 W\
+ 2 S `
+S W 0`
+W12S `
+S1 SS`
+ 32 W`
     ]]>
   </level>
   <level id="36">
     <![CDATA[
-2 12 S  \
- W2 S W \
-21 2 2  \
- 2SS 2S2\
-W2 21S 2\
- 1SSW WW\
-S1 SW1 S\
-3 W   1 \
+2 12 S  `
+ W2 S W `
+21 2 2  `
+ 2SS 2S2`
+W2 21S 2`
+ 1SSW WW`
+S1 SW1 S`
+3 W   1 `
     ]]>
   </level>
   <level id="100">
     <![CDATA[
-1   3  S 2 \
- 3 W 11 W 3\
-3 1 23 2  3\
- 2 W  S  1 \
- W  S SW SW\
-2 S 2   113\
-SW S W 1W  \
- 20 3 1    \
-1  0 1 2WS3\
-2   S 3 2 1\
-  1 WS   S \
+1   3  S 2 `
+ 3 W 11 W 3`
+3 1 23 2  3`
+ 2 W  S  1 `
+ W  S SW SW`
+2 S 2   113`
+SW S W 1W  `
+ 20 3 1    `
+1  0 1 2WS3`
+2   S 3 2 1`
+  1 WS   S `
     ]]>
   </level>
 </levels>

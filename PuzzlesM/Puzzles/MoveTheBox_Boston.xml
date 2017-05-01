@@ -2,334 +2,334 @@
 <levels>
   <level id="Boston 1">
     <![CDATA[
-  aa a \
+  aa a `
     ]]>
   </level>
   <level id="Boston 2">
     <![CDATA[
-   a   \
-  aa   \
+   a   `
+  aa   `
     ]]>
   </level>
   <level id="Boston 3">
     <![CDATA[
-   a   \
-  aa a \
+   a   `
+  aa a `
     ]]>
   </level>
   <level id="Boston 4">
     <![CDATA[
-  aba  \
-  bab  \
+  aba  `
+  bab  `
     ]]>
   </level>
   <level id="Boston 5">
     <![CDATA[
-   ab  \
-   ba  \
-   ba  \
+   ab  `
+   ba  `
+   ba  `
     ]]>
   </level>
   <level id="Boston 6">
     <![CDATA[
-   a   \
-   bb  \
-   aab \
+   a   `
+   bb  `
+   aab `
     ]]>
   </level>
   <level id="Boston 7">
     <![CDATA[
-    a  \
-  b a  \
-  abb  \
-  baa  \
-  bba  \
+    a  `
+  b a  `
+  abb  `
+  baa  `
+  bba  `
     ]]>
   </level>
   <level id="Boston 8">
     <![CDATA[
-   a   \
-   b   \
-  acb  \
-  cbc  \
- acacb \
- aacbb \
+   a   `
+   b   `
+  acb  `
+  cbc  `
+ acacb `
+ aacbb `
     ]]>
   </level>
   <level id="Boston 9">
     <![CDATA[
-   a   \
-   b   \
-   a   \
-   b   \
-  bab  \
-  bab  \
-  aba  \
+   a   `
+   b   `
+   a   `
+   b   `
+  bab  `
+  bab  `
+  aba  `
     ]]>
   </level>
   <level id="Boston 10">
     <![CDATA[
- a a a \
+ a a a `
     ]]>
   </level>
   <level id="Boston 11">
     <![CDATA[
-  abc  \
-  cab  \
-  cab  \
+  abc  `
+  cab  `
+  cab  `
     ]]>
   </level>
   <level id="Boston 12">
     <![CDATA[
-  ab   \
-  ab   \
-  bc   \
-  acc  \
+  ab   `
+  ab   `
+  bc   `
+  acc  `
     ]]>
   </level>
   <level id="Boston 13">
     <![CDATA[
-  a    \
-  b    \
-  baa  \
-  ccbc \
+  a    `
+  b    `
+  baa  `
+  ccbc `
     ]]>
   </level>
   <level id="Boston 14">
     <![CDATA[
-   aa  \
-  abc  \
-  bbcc \
+   aa  `
+  abc  `
+  bbcc `
     ]]>
   </level>
   <level id="Boston 15">
     <![CDATA[
- aa a  \
- aa aa \
+ aa a  `
+ aa aa `
     ]]>
   </level>
   <level id="Boston 16">
     <![CDATA[
-   a   \
-  bcb  \
-  ada  \
- bdecb \
- dfafc \
-baaefeb\
+   a   `
+  bcb  `
+  ada  `
+ bdecb `
+ dfafc `
+baaefeb`
     ]]>
   </level>
   <level id="Boston 17">
     <![CDATA[
-   a   \
-   b   \
-  cb   \
-  cd   \
-  abc  \
-  dda  \
+   a   `
+   b   `
+  cb   `
+  cd   `
+  abc  `
+  dda  `
     ]]>
   </level>
   <level id="Boston 18">
     <![CDATA[
-   a   \
-   b   \
-  aca  \
-  cbc  \
-  bdb  \
- adbda \
+   a   `
+   b   `
+  aca  `
+  cbc  `
+  bdb  `
+ adbda `
     ]]>
   </level>
   <level id="Boston 19">
     <![CDATA[
-   a   \
-   b   \
-   c   \
-   c   \
-  bda  \
- bdcad \
+   a   `
+   b   `
+   c   `
+   c   `
+  bda  `
+ bdcad `
     ]]>
   </level>
   <level id="Boston 20">
     <![CDATA[
-   a   \
-  ab   \
-  bab  \
-  aba  \
-  bab  \
-  aba  \
-  bab  \
+   a   `
+  ab   `
+  bab  `
+  aba  `
+  bab  `
+  aba  `
+  bab  `
     ]]>
   </level>
   <level id="Boston 21">
     <![CDATA[
-   a   \
-  bcd  \
-  dbd  \
-  dcc  \
-  ced  \
-  eda  \
- cceba \
+   a   `
+  bcd  `
+  dbd  `
+  dcc  `
+  ced  `
+  eda  `
+ cceba `
     ]]>
   </level>
   <level id="Boston 22">
     <![CDATA[
-  ab c \
- dbaac \
- bddcb \
+  ab c `
+ dbaac `
+ bddcb `
     ]]>
   </level>
   <level id="Boston 23">
     <![CDATA[
-   a   \
-   a   \
-   b   \
-   a   \
-   a   \
-   b   \
-  bb   \
+   a   `
+   a   `
+   b   `
+   a   `
+   a   `
+   b   `
+  bb   `
     ]]>
   </level>
   <level id="Boston 24">
     <![CDATA[
-   a   \
-   ba  \
-  aab c\
-  bdaac\
- aadeed\
- ddedcc\
-aeedccd\
+   a   `
+   ba  `
+  aab c`
+  bdaac`
+ aadeed`
+ ddedcc`
+aeedccd`
     ]]>
   </level>
   <level id="Boston 25">
     <![CDATA[
- a     \
- b a   \
- c d   \
- eab   \
- bdc   \
- dcc   \
- ccd   \
- dee d \
+ a     `
+ b a   `
+ c d   `
+ eab   `
+ bdc   `
+ dcc   `
+ ccd   `
+ dee d `
     ]]>
   </level>
   <level id="Boston 26">
     <![CDATA[
-   a   \
-   a   \
-   b   \
-  bbc  \
-  ccd  \
-  eaf  \
-  ffe  \
-eedde e\
+   a   `
+   a   `
+   b   `
+  bbc  `
+  ccd  `
+  eaf  `
+  ffe  `
+eedde e`
     ]]>
   </level>
   <level id="Boston 27">
     <![CDATA[
-  a    \
-  b    \
-  ccb  \
-  abc  \
-  daa  \
-  add  \
-  caa  \
-c caa  \
+  a    `
+  b    `
+  ccb  `
+  abc  `
+  daa  `
+  add  `
+  caa  `
+c caa  `
     ]]>
   </level>
   <level id="Boston 28">
     <![CDATA[
-  aa   \
- abb   \
- bccb  \
- cddcdb\
- cdcdbd\
+  aa   `
+ abb   `
+ bccb  `
+ cddcdb`
+ cdcdbd`
     ]]>
   </level>
   <level id="Boston 29">
     <![CDATA[
-    a  \
-    b  \
-    b  \
-   aa  \
-   bba \
-   cca \
-  bbccb\
-  bcbca\
+    a  `
+    b  `
+    b  `
+   aa  `
+   bba `
+   cca `
+  bbccb`
+  bcbca`
     ]]>
   </level>
   <level id="Boston 30">
     <![CDATA[
- ab    \
- ca    \
- dcb   \
- eda   \
- aecb  \
- eadf  \
- ddadff\
+ ab    `
+ ca    `
+ dcb   `
+ eda   `
+ aecb  `
+ eadf  `
+ ddadff`
     ]]>
   </level>
   <level id="Boston 31">
     <![CDATA[
-   ab  \
-  bbc  \
-  caa  \
-  cba  \
-  aad  \
-  dda  \
-  bae  \
- beea  \
+   ab  `
+  bbc  `
+  caa  `
+  cba  `
+  aad  `
+  dda  `
+  bae  `
+ beea  `
     ]]>
   </level>
   <level id="Boston 32">
     <![CDATA[
-   aa  \
-  bcc  \
-  acc  \
-  cba  \
-  aabc \
-bbaaba \
+   aa  `
+  bcc  `
+  acc  `
+  cba  `
+  aabc `
+bbaaba `
     ]]>
   </level>
   <level id="Boston 33">
     <![CDATA[
-    a  \
-    b  \
-   aa  \
-   ab  \
-   cba \
-   bcc \
-   bba \
+    a  `
+    b  `
+   aa  `
+   ab  `
+   cba `
+   bcc `
+   bba `
     ]]>
   </level>
   <level id="Boston 34">
     <![CDATA[
-  a b  \
-  baa  \
-  cbd  \
-  bcc  \
-  ddb b\
+  a b  `
+  baa  `
+  cbd  `
+  bcc  `
+  ddb b`
     ]]>
   </level>
   <level id="Boston 35">
     <![CDATA[
-   a   \
-   a   \
-  ab   \
- bbc   \
- cca   \
- aac   \
- acbc  \
- bbaa  \
+   a   `
+   a   `
+  ab   `
+ bbc   `
+ cca   `
+ aac   `
+ acbc  `
+ bbaa  `
     ]]>
   </level>
   <level id="Boston 36">
     <![CDATA[
-   a   \
-   ab  \
-   cc  \
-   ddc \
-  bebd \
-  daea \
- aadde \
+   a   `
+   ab  `
+   cc  `
+   ddc `
+  bebd `
+  daea `
+ aadde `
     ]]>
   </level>
 </levels>
