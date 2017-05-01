@@ -1,0 +1,528 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8CA241DD1EB716AF0055D6B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241DC1EB716AF0055D6B1 /* AppDelegate.swift */; };
+		8CA241DF1EB716AF0055D6B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241DE1EB716AF0055D6B1 /* ViewController.swift */; };
+		8CA241E11EB716AF0055D6B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CA241E01EB716AF0055D6B1 /* Assets.xcassets */; };
+		8CA241E41EB716AF0055D6B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CA241E21EB716AF0055D6B1 /* Main.storyboard */; };
+		8CA241EF1EB716AF0055D6B1 /* MazeEditor3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241EE1EB716AF0055D6B1 /* MazeEditor3Tests.swift */; };
+		8CA241FA1EB716AF0055D6B1 /* MazeEditor3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241F91EB716AF0055D6B1 /* MazeEditor3UITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8CA241EB1EB716AF0055D6B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8CA241D11EB716AE0055D6B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8CA241D81EB716AE0055D6B1;
+			remoteInfo = MazeEditor3;
+		};
+		8CA241F61EB716AF0055D6B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8CA241D11EB716AE0055D6B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8CA241D81EB716AE0055D6B1;
+			remoteInfo = MazeEditor3;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8CA241D91EB716AE0055D6B1 /* MazeEditor3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazeEditor3.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CA241DC1EB716AF0055D6B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8CA241DE1EB716AF0055D6B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8CA241E01EB716AF0055D6B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8CA241E31EB716AF0055D6B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8CA241E51EB716AF0055D6B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8CA241EA1EB716AF0055D6B1 /* MazeEditor3Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MazeEditor3Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CA241EE1EB716AF0055D6B1 /* MazeEditor3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeEditor3Tests.swift; sourceTree = "<group>"; };
+		8CA241F01EB716AF0055D6B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8CA241F51EB716AF0055D6B1 /* MazeEditor3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MazeEditor3UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CA241F91EB716AF0055D6B1 /* MazeEditor3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeEditor3UITests.swift; sourceTree = "<group>"; };
+		8CA241FB1EB716AF0055D6B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8CA241D61EB716AE0055D6B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CA241E71EB716AF0055D6B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CA241F21EB716AF0055D6B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8CA241D01EB716AE0055D6B1 = {
+			isa = PBXGroup;
+			children = (
+				8CA241DB1EB716AF0055D6B1 /* MazeEditor3 */,
+				8CA241ED1EB716AF0055D6B1 /* MazeEditor3Tests */,
+				8CA241F81EB716AF0055D6B1 /* MazeEditor3UITests */,
+				8CA241DA1EB716AE0055D6B1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8CA241DA1EB716AE0055D6B1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8CA241D91EB716AE0055D6B1 /* MazeEditor3.app */,
+				8CA241EA1EB716AF0055D6B1 /* MazeEditor3Tests.xctest */,
+				8CA241F51EB716AF0055D6B1 /* MazeEditor3UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8CA241DB1EB716AF0055D6B1 /* MazeEditor3 */ = {
+			isa = PBXGroup;
+			children = (
+				8CA241DC1EB716AF0055D6B1 /* AppDelegate.swift */,
+				8CA241DE1EB716AF0055D6B1 /* ViewController.swift */,
+				8CA241E01EB716AF0055D6B1 /* Assets.xcassets */,
+				8CA241E21EB716AF0055D6B1 /* Main.storyboard */,
+				8CA241E51EB716AF0055D6B1 /* Info.plist */,
+			);
+			path = MazeEditor3;
+			sourceTree = "<group>";
+		};
+		8CA241ED1EB716AF0055D6B1 /* MazeEditor3Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8CA241EE1EB716AF0055D6B1 /* MazeEditor3Tests.swift */,
+				8CA241F01EB716AF0055D6B1 /* Info.plist */,
+			);
+			path = MazeEditor3Tests;
+			sourceTree = "<group>";
+		};
+		8CA241F81EB716AF0055D6B1 /* MazeEditor3UITests */ = {
+			isa = PBXGroup;
+			children = (
+				8CA241F91EB716AF0055D6B1 /* MazeEditor3UITests.swift */,
+				8CA241FB1EB716AF0055D6B1 /* Info.plist */,
+			);
+			path = MazeEditor3UITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8CA241D81EB716AE0055D6B1 /* MazeEditor3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CA241FE1EB716AF0055D6B1 /* Build configuration list for PBXNativeTarget "MazeEditor3" */;
+			buildPhases = (
+				8CA241D51EB716AE0055D6B1 /* Sources */,
+				8CA241D61EB716AE0055D6B1 /* Frameworks */,
+				8CA241D71EB716AE0055D6B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MazeEditor3;
+			productName = MazeEditor3;
+			productReference = 8CA241D91EB716AE0055D6B1 /* MazeEditor3.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8CA241E91EB716AF0055D6B1 /* MazeEditor3Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CA242011EB716AF0055D6B1 /* Build configuration list for PBXNativeTarget "MazeEditor3Tests" */;
+			buildPhases = (
+				8CA241E61EB716AF0055D6B1 /* Sources */,
+				8CA241E71EB716AF0055D6B1 /* Frameworks */,
+				8CA241E81EB716AF0055D6B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8CA241EC1EB716AF0055D6B1 /* PBXTargetDependency */,
+			);
+			name = MazeEditor3Tests;
+			productName = MazeEditor3Tests;
+			productReference = 8CA241EA1EB716AF0055D6B1 /* MazeEditor3Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8CA241F41EB716AF0055D6B1 /* MazeEditor3UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CA242041EB716AF0055D6B1 /* Build configuration list for PBXNativeTarget "MazeEditor3UITests" */;
+			buildPhases = (
+				8CA241F11EB716AF0055D6B1 /* Sources */,
+				8CA241F21EB716AF0055D6B1 /* Frameworks */,
+				8CA241F31EB716AF0055D6B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8CA241F71EB716AF0055D6B1 /* PBXTargetDependency */,
+			);
+			name = MazeEditor3UITests;
+			productName = MazeEditor3UITests;
+			productReference = 8CA241F51EB716AF0055D6B1 /* MazeEditor3UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8CA241D11EB716AE0055D6B1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "趙偉";
+				TargetAttributes = {
+					8CA241D81EB716AE0055D6B1 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = U259NHMY78;
+						ProvisioningStyle = Automatic;
+					};
+					8CA241E91EB716AF0055D6B1 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = U259NHMY78;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8CA241D81EB716AE0055D6B1;
+					};
+					8CA241F41EB716AF0055D6B1 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = U259NHMY78;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8CA241D81EB716AE0055D6B1;
+					};
+				};
+			};
+			buildConfigurationList = 8CA241D41EB716AE0055D6B1 /* Build configuration list for PBXProject "MazeEditor3" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8CA241D01EB716AE0055D6B1;
+			productRefGroup = 8CA241DA1EB716AE0055D6B1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8CA241D81EB716AE0055D6B1 /* MazeEditor3 */,
+				8CA241E91EB716AF0055D6B1 /* MazeEditor3Tests */,
+				8CA241F41EB716AF0055D6B1 /* MazeEditor3UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8CA241D71EB716AE0055D6B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CA241E11EB716AF0055D6B1 /* Assets.xcassets in Resources */,
+				8CA241E41EB716AF0055D6B1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CA241E81EB716AF0055D6B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CA241F31EB716AF0055D6B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8CA241D51EB716AE0055D6B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CA241DF1EB716AF0055D6B1 /* ViewController.swift in Sources */,
+				8CA241DD1EB716AF0055D6B1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CA241E61EB716AF0055D6B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CA241EF1EB716AF0055D6B1 /* MazeEditor3Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CA241F11EB716AF0055D6B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CA241FA1EB716AF0055D6B1 /* MazeEditor3UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8CA241EC1EB716AF0055D6B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8CA241D81EB716AE0055D6B1 /* MazeEditor3 */;
+			targetProxy = 8CA241EB1EB716AF0055D6B1 /* PBXContainerItemProxy */;
+		};
+		8CA241F71EB716AF0055D6B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8CA241D81EB716AE0055D6B1 /* MazeEditor3 */;
+			targetProxy = 8CA241F61EB716AF0055D6B1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8CA241E21EB716AF0055D6B1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8CA241E31EB716AF0055D6B1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8CA241FC1EB716AF0055D6B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8CA241FD1EB716AF0055D6B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		8CA241FF1EB716AF0055D6B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U259NHMY78;
+				INFOPLIST_FILE = MazeEditor3/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		8CA242001EB716AF0055D6B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U259NHMY78;
+				INFOPLIST_FILE = MazeEditor3/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		8CA242021EB716AF0055D6B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U259NHMY78;
+				INFOPLIST_FILE = MazeEditor3Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MazeEditor3.app/Contents/MacOS/MazeEditor3";
+			};
+			name = Debug;
+		};
+		8CA242031EB716AF0055D6B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U259NHMY78;
+				INFOPLIST_FILE = MazeEditor3Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MazeEditor3.app/Contents/MacOS/MazeEditor3";
+			};
+			name = Release;
+		};
+		8CA242051EB716AF0055D6B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U259NHMY78;
+				INFOPLIST_FILE = MazeEditor3UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = MazeEditor3;
+			};
+			name = Debug;
+		};
+		8CA242061EB716AF0055D6B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U259NHMY78;
+				INFOPLIST_FILE = MazeEditor3UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = MazeEditor3;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8CA241D41EB716AE0055D6B1 /* Build configuration list for PBXProject "MazeEditor3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CA241FC1EB716AF0055D6B1 /* Debug */,
+				8CA241FD1EB716AF0055D6B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8CA241FE1EB716AF0055D6B1 /* Build configuration list for PBXNativeTarget "MazeEditor3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CA241FF1EB716AF0055D6B1 /* Debug */,
+				8CA242001EB716AF0055D6B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8CA242011EB716AF0055D6B1 /* Build configuration list for PBXNativeTarget "MazeEditor3Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CA242021EB716AF0055D6B1 /* Debug */,
+				8CA242031EB716AF0055D6B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8CA242041EB716AF0055D6B1 /* Build configuration list for PBXNativeTarget "MazeEditor3UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CA242051EB716AF0055D6B1 /* Debug */,
+				8CA242061EB716AF0055D6B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8CA241D11EB716AE0055D6B1 /* Project object */;
+}
