@@ -1,1278 +1,1394 @@
 Level 1-1
 Sequence of moves: 
-move: (3,0) -> (3,4)
- -- -- -- -- --
-|              |
-               
-|              |
-               
-|              |
-               
-|C> c> c> c> O#|
-               
-|              |
-               
-|              |
-               
-|              |
- -- -- -- -- --
+move: (4,1) -> (4,5)
+  1  2  3  4  5
+  -- -- -- -- --
+1|              |1
+                
+2|              |2
+                
+3|              |3
+                
+4|C> c> c> c> O#|4
+                
+5|              |5
+                
+6|              |6
+                
+7|              |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 4
 Number of vertices examined: 7
-0.006742 [s]
+0.00103141 [s]
 
 Level 1-2
 Sequence of moves: 
-move: (1,0) -> (5,4)
- -- -- -- -- --
-|              |
-               
-|C>  > c> cv   |
-               
-|         cv   |
-               
-|cv c< c< c<   |
-               
-|cv            |
-               
-|c> c> c> c> O#|
-               
-|              |
- -- -- -- -- --
+move: (2,1) -> (6,5)
+  1  2  3  4  5
+  -- -- -- -- --
+1|              |1
+                
+2|C>  > c> cv   |2
+                
+3|         cv   |3
+                
+4|cv c< c< c<   |4
+                
+5|cv            |5
+                
+6|c> c> c> c> O#|6
+                
+7|              |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 13
 Number of vertices examined: 24
-0.012744 [s]
+0.00252372 [s]
 
 Level 1-3
 Sequence of moves: 
-move: (0,0) -> (4,2)
- -- -- -- -- --
-|C>  > c> cv   |
-               
-|         cv   |
-               
-|c> c> cv c> cv|
-               
-|c^    cv    cv|
-               
-|c^    O#    cv|
-               
-|c^          cv|
-               
-|c^ c< c< c< c<|
- -- -- -- -- --
+move: (1,1) -> (5,3)
+  1  2  3  4  5
+  -- -- -- -- --
+1|C>  > c> cv   |1
+                
+2|         cv   |2
+                
+3|c> c> cv c> cv|3
+                
+4|c^    cv    cv|4
+                
+5|c^    O#    cv|5
+                
+6|c^          cv|6
+                
+7|c^ c< c< c< c<|7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 21
 Number of vertices examined: 44
-0.020771 [s]
+0.00518642 [s]
 
 Level 1-4
 Sequence of moves: 
-move: (0,0) -> (6,4)
- -- -- -- -- --
-|C>  v         |
-               
-|    v         |
-               
-|    v         |
-               
-|    v         |
-               
-|    >  > c> cv|
-               
-|      cv c< c<|
-               
-|      c> c> O#|
- -- -- -- -- --
+move: (1,1) -> (7,5)
+  1  2  3  4  5
+  -- -- -- -- --
+1|C>  v         |1
+                
+2|    v         |2
+                
+3|    v         |3
+                
+4|    v         |4
+                
+5|    >  > c> cv|5
+                
+6|      cv c< c<|6
+                
+7|      c> c> O#|7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 8
 Number of vertices examined: 21
-0.007812 [s]
+0.00156921 [s]
 
 Level 1-5
 Sequence of moves: 
-move: (3,2) -> (0,4)
- -- -- -- -- --
-|            O#|
-               
-|c> c> c> c> c^|
-               
-|c^     >  > cv|
-               
-|c^    C^    cv|
-               
-|c^          cv|
-               
-|c^ c< c< c< c<|
-               
-|              |
- -- -- -- -- --
+move: (4,3) -> (1,5)
+  1  2  3  4  5
+  -- -- -- -- --
+1|            O#|1
+                
+2|c> c> c> c> c^|2
+                
+3|c^     >  > cv|3
+                
+4|c^    C^    cv|4
+                
+5|c^          cv|5
+                
+6|c^ c< c< c< c<|6
+                
+7|              |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 17
 Number of vertices examined: 137
-0.059643 [s]
+0.00893317 [s]
 
 Level 1-6
 Sequence of moves: 
-move: (3,0) -> (4,4)
- -- -- -- -- --
-|      c> c> cv|
-               
-|    >  ^ cv c<|
-               
-| >  ^ cv c<   |
-               
-|C^    c> cv   |
-               
-|         cv O#|
-               
-|      cv c< c^|
-               
-|      c> c> c^|
- -- -- -- -- --
+move: (4,1) -> (5,5)
+  1  2  3  4  5
+  -- -- -- -- --
+1|      c> c> cv|1
+                
+2|    >  ^ cv c<|2
+                
+3| >  ^ cv c<   |3
+                
+4|C^    c> cv   |4
+                
+5|         cv O#|5
+                
+6|      cv c< c^|6
+                
+7|      c> c> c^|7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 17
 Number of vertices examined: 49
-0.023605 [s]
+0.00452113 [s]
 
 Level 1-7
 Sequence of moves: 
-move: (6,4) -> (1,1)
- -- -- -- -- --
-|              |
-               
-|   O# cv  <  <|
-               
-|c> c^ c> cv  ^|
-               
-|c^ c< cv c<  ^|
-               
-|   c^ c<     ^|
-               
-|             ^|
-               
-|            C^|
- -- -- -- -- --
+move: (7,5) -> (2,2)
+  1  2  3  4  5
+  -- -- -- -- --
+1|              |1
+                
+2|   O# cv  <  <|2
+                
+3|c> c^ c> cv  ^|3
+                
+4|c^ c< cv c<  ^|4
+                
+5|   c^ c<     ^|5
+                
+6|             ^|6
+                
+7|            C^|7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 12
 Number of vertices examined: 60
-0.022842 [s]
+0.00572346 [s]
 
 Level 1-8
 Sequence of moves: 
-move: (3,2) -> (1,0)
- -- -- -- -- --
-|              |
-               
-|O# c> c> c> cv|
-               
-|c^  ^  < cv c<|
-               
-|c^ c< C^ c> cv|
-               
-|c> c^       cv|
-               
-|c^ c< c< c< c<|
-               
-|              |
- -- -- -- -- --
+move: (4,3) -> (2,1)
+  1  2  3  4  5
+  -- -- -- -- --
+1|              |1
+                
+2|O# c> c> c> cv|2
+                
+3|c^  ^  < cv c<|3
+                
+4|c^ c< C^ c> cv|4
+                
+5|c> c^       cv|5
+                
+6|c^ c< c< c< c<|6
+                
+7|              |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 20
 Number of vertices examined: 53
-0.034916 [s]
+0.00634404 [s]
 
 Level 1-9
 Sequence of moves: 
-move: (1,4) -> (5,2)
- -- -- -- -- --
-|       v  <  <|
-               
-|cv c< c< t  C^|
-               
-|c> cv T  t  t |
-               
-|   cv    t  t |
-               
-|cv c<    t    |
-               
-|c> c> O# t    |
-               
-|              |
- -- -- -- -- --
-move: (2,2) -> (5,2)
- -- -- -- -- --
-|              |
-               
-|       > tv   |
-               
-|      T^ t> tv|
-               
-|         tv t<|
-               
-|         tv   |
-               
-|      O# t<   |
-               
-|              |
- -- -- -- -- --
+move: (2,5) -> (6,3)
+  1  2  3  4  5
+  -- -- -- -- --
+1|       v  <  <|1
+                
+2|cv c< c< t  C^|2
+                
+3|c> cv T  t  t |3
+                
+4|   cv    t  t |4
+                
+5|cv c<    t    |5
+                
+6|c> c> O# t    |6
+                
+7|              |7
+  -- -- -- -- --
+  1  2  3  4  5
+move: (3,3) -> (6,3)
+  1  2  3  4  5
+  -- -- -- -- --
+1|              |1
+                
+2|       > tv   |2
+                
+3|      T^ t> tv|3
+                
+4|         tv t<|4
+                
+5|         tv   |5
+                
+6|      O# t<   |6
+                
+7|              |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 19
 Number of vertices examined: 43
-0.015895 [s]
+0.00375798 [s]
 
 Level 1-10
 Sequence of moves: 
-move: (2,2) -> (3,0)
- -- -- -- -- --
-|   c> cv c> cv|
-               
-|c> c^ c> c^ cv|
-               
-|c^ c< C< T  cv|
-               
-|O# c< c< c< c<|
-               
-|t     t  t  t |
-               
-|t  t  t  t  t |
-               
-|   t  t       |
- -- -- -- -- --
-move: (2,3) -> (3,0)
- -- -- -- -- --
-|              |
-               
-|              |
-               
-|         T>  v|
-               
-|O#           v|
-               
-|t^    tv t< tv|
-               
-|t^ t< tv t^ t<|
-               
-|   t^ t<      |
- -- -- -- -- --
+move: (3,3) -> (4,1)
+  1  2  3  4  5
+  -- -- -- -- --
+1|   c> cv c> cv|1
+                
+2|c> c^ c> c^ cv|2
+                
+3|c^ c< C< T  cv|3
+                
+4|O# c< c< c< c<|4
+                
+5|t     t  t  t |5
+                
+6|t  t  t  t  t |6
+                
+7|   t  t       |7
+  -- -- -- -- --
+  1  2  3  4  5
+move: (3,4) -> (4,1)
+  1  2  3  4  5
+  -- -- -- -- --
+1|              |1
+                
+2|              |2
+                
+3|         T>  v|3
+                
+4|O#           v|4
+                
+5|t^    tv t< tv|5
+                
+6|t^ t< tv t^ t<|6
+                
+7|   t^ t<      |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 29
 Number of vertices examined: 99
-0.039752 [s]
+0.00788464 [s]
 
 Level 1-11
 Sequence of moves: 
-move: (6,2) -> (5,4)
- -- -- -- -- --
-|              |
-               
-|t> tv         |
-               
-|t^ t> t> t> tv|
-               
-|t^ t<    tv t<|
-               
-|O   ^    t> tv|
-               
-|    ^  <    O#|
-               
-|      T^      |
- -- -- -- -- --
+move: (7,3) -> (6,5)
+  1  2  3  4  5
+  -- -- -- -- --
+1|              |1
+                
+2|t> tv         |2
+                
+3|t^ t> t> t> tv|3
+                
+4|t^ t<    tv t<|4
+                
+5|O   ^    t> tv|5
+                
+6|    ^  <    O#|6
+                
+7|      T^      |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 14
 Number of vertices examined: 32
-0.0118 [s]
+0.00379707 [s]
 
 Level 1-12
 Sequence of moves: 
-move: (4,2) -> (2,3)
- -- -- -- -- --
-|cv c< c<      |
-               
-|cv O  c^ c< c<|
-               
-|c> c> c> O# c^|
-               
-|   cv c< c> c^|
-               
-|   cv C^ c^   |
-               
-|   c> c> c^   |
-               
-|              |
- -- -- -- -- --
+move: (5,3) -> (3,4)
+  1  2  3  4  5
+  -- -- -- -- --
+1|cv c< c<      |1
+                
+2|cv O  c^ c< c<|2
+                
+3|c> c> c> O# c^|3
+                
+4|   cv c< c> c^|4
+                
+5|   cv C^ c^   |5
+                
+6|   c> c> c^   |6
+                
+7|              |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 21
 Number of vertices examined: 47
-0.027411 [s]
+0.00482669 [s]
 
 Level 1-13
 Sequence of moves: 
-move: (6,0) -> (2,2)
- -- -- -- -- --
-|t> t> tv    C |
-               
-|t^ t< tv      |
-               
-|t> t^ O# c    |
-               
-|t^ t<    c    |
-               
-|    ^ O  c  c |
-               
-| >  ^ c  c  c |
-               
-|T^    c  c  c |
- -- -- -- -- --
-move: (0,4) -> (2,2)
- -- -- -- -- --
-|            Cv|
-               
-|    v  <  <  <|
-               
-|    v O# c<   |
-               
-|    v    c^   |
-               
-|    v O  c^ c<|
-               
-|    v c> cv c^|
-               
-|    > c^ c> c^|
- -- -- -- -- --
+move: (7,1) -> (3,3)
+  1  2  3  4  5
+  -- -- -- -- --
+1|t> t> tv    C |1
+                
+2|t^ t< tv      |2
+                
+3|t> t^ O# c    |3
+                
+4|t^ t<    c    |4
+                
+5|    ^ O  c  c |5
+                
+6| >  ^ c  c  c |6
+                
+7|T^    c  c  c |7
+  -- -- -- -- --
+  1  2  3  4  5
+move: (1,5) -> (3,3)
+  1  2  3  4  5
+  -- -- -- -- --
+1|            Cv|1
+                
+2|    v  <  <  <|2
+                
+3|    v O# c<   |3
+                
+4|    v    c^   |4
+                
+5|    v O  c^ c<|5
+                
+6|    v c> cv c^|6
+                
+7|    > c^ c> c^|7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 22
 Number of vertices examined: 57
-0.021894 [s]
+0.00591814 [s]
 
 Level 1-14
 Sequence of moves: 
-move: (6,3) -> (2,4)
- -- -- -- -- --
-|t> t> tv      |
-               
-|t^ t< t> tv   |
-               
-|   t^ t< t> O#|
-               
-|S  t> t^      |
-               
-|   t^ t< S    |
-               
-|   S   ^  <   |
-               
-|         T^   |
- -- -- -- -- --
+move: (7,4) -> (3,5)
+  1  2  3  4  5
+  -- -- -- -- --
+1|t> t> tv      |1
+                
+2|t^ t< t> tv   |2
+                
+3|   t^ t< t> O#|3
+                
+4|S  t> t^      |4
+                
+5|   t^ t< S    |5
+                
+6|   S   ^  <   |6
+                
+7|         T^   |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 15
 Number of vertices examined: 30
-0.013192 [s]
+0.00328865 [s]
 
 Level 1-15
 Sequence of moves: 
-move: (0,2) -> (4,2)
- -- -- -- -- --
-|      C>  >  v|
-               
-|   c> c> cv  v|
-               
-|   c^    cv  v|
-               
-|   c^ cv c<  v|
-               
-|   c^ O# cv  <|
-               
-|   c^ c< c<   |
-               
-|              |
- -- -- -- -- --
+move: (1,3) -> (5,3)
+  1  2  3  4  5
+  -- -- -- -- --
+1|      C>  >  v|1
+                
+2|   c> c> cv  v|2
+                
+3|   c^    cv  v|3
+                
+4|   c^ cv c<  v|4
+                
+5|   c^ O# cv  <|5
+                
+6|   c^ c< c<   |6
+                
+7|              |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 14
 Number of vertices examined: 122
-0.049821 [s]
+0.0126786 [s]
 
 Level 1-16
 Sequence of moves: 
-move: (7,3) -> (4,3)
- -- -- -- -- -- -- --
-|                    |
-                     
-|                    |
-          -- -- --   
-|   t> t> t> t> tv|  |
-                     
-|  |t^ t<|tv t< tv|  |
-                     
-|  |t> t^ O#|t^|tv|  |
-                     
-|  |t^ t< t< t^ t<   |
-    -- --            
-|          ^         |
-                     
-|         T^         |
-                     
-|                    |
- -- -- -- -- -- -- --
+move: (8,4) -> (5,4)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|                    |1
+                      
+2|                    |2
+           -- -- --   
+3|   t> t> t> t> tv|  |3
+                      
+4|  |t^ t<|tv t< tv|  |4
+                      
+5|  |t> t^ O#|t^|tv|  |5
+                      
+6|  |t^ t< t< t^ t<   |6
+     -- --            
+7|          ^         |7
+                      
+8|         T^         |8
+                      
+9|                    |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 20
 Number of vertices examined: 47
-0.044609 [s]
+0.00543501 [s]
 
 Level 1-17
 Sequence of moves: 
-move: (5,4) -> (7,5)
- -- -- -- -- -- -- --
-|    v  <  <  <  <  <|
-                     
-|   tv t> t> t> tv  ^|
-                     
-|   t> t^ S  C  tv  ^|
-                     
-|   O  c  c |   tv  ^|
-                     
-|   c  c  c |   tv  ^|
-       -- --         
-|   c      v T< tv  ^|
-       --            
-|c  c  c | v tv t<  ^|
-                     
-|c  O  c   v t> O#  ^|
-                     
-|c  c  c   >  >  >  ^|
- -- -- -- -- -- -- --
-move: (2,4) -> (3,1)
- -- -- -- -- -- -- --
-|                    |
-                     
-| v  <  <  <  <      |
-                     
-| v       S  C^      |
-                     
-| v O# c< c<|        |
-                     
-| v c> c> c^|        |
-       -- --         
-| v c^               |
-       --            
-|cv c^ c<|           |
-                     
-|cv O  c^       O    |
-                     
-|c> c> c^            |
- -- -- -- -- -- -- --
+move: (6,5) -> (8,6)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|    v  <  <  <  <  <|1
+                      
+2|   tv t> t> t> tv  ^|2
+                      
+3|   t> t^ S  C  tv  ^|3
+                      
+4|   O  c  c |   tv  ^|4
+                      
+5|   c  c  c |   tv  ^|5
+        -- --         
+6|   c      v T< tv  ^|6
+        --            
+7|c  c  c | v tv t<  ^|7
+                      
+8|c  O  c   v t> O#  ^|8
+                      
+9|c  c  c   >  >  >  ^|9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (3,5) -> (4,2)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|                    |1
+                      
+2| v  <  <  <  <      |2
+                      
+3| v       S  C^      |3
+                      
+4| v O# c< c<|        |4
+                      
+5| v c> c> c^|        |5
+        -- --         
+6| v c^               |6
+        --            
+7|cv c^ c<|           |7
+                      
+8|cv O  c^       O    |8
+                      
+9|c> c> c^            |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 30
 Number of vertices examined: 62
-0.048762 [s]
+0.00798607 [s]
 
 Level 2-1
 Sequence of moves: 
-move: (1,0) -> (4,2)
- -- -- -- -- --
-|              |
-               
-|C>  v       T |
-               
-|   c> mv m    |
-               
-|      mv t    |
-               
-|      O# t    |
-               
-|              |
-               
-|              |
- -- -- -- -- --
-move: (1,4) -> (4,2)
- -- -- -- -- --
-|              |
-               
-|            Tv|
-               
-|         mv  <|
-               
-|         tv   |
-               
-|      O# t<   |
-               
-|              |
-               
-|              |
- -- -- -- -- --
+move: (2,1) -> (5,3)
+  1  2  3  4  5
+  -- -- -- -- --
+1|              |1
+                
+2|C>  v       T |2
+                
+3|   c> mv m    |3
+                
+4|      mv t    |4
+                
+5|      O# t    |5
+                
+6|              |6
+                
+7|              |7
+  -- -- -- -- --
+  1  2  3  4  5
+move: (2,5) -> (5,3)
+  1  2  3  4  5
+  -- -- -- -- --
+1|              |1
+                
+2|            Tv|2
+                
+3|         mv  <|3
+                
+4|         tv   |4
+                
+5|      O# t<   |5
+                
+6|              |6
+                
+7|              |7
+  -- -- -- -- --
+  1  2  3  4  5
 Number of moves: 8
 Number of vertices examined: 18
-0.01201 [s]
+0.00298283 [s]
 
 Level 2-64
 Sequence of moves: 
-move: (8,6) -> (8,0)
- -- -- -- -- -- -- --
-|c  c  c  O  c  c  c |
-                     
-|c     c  c  c  S  c |
-                     
-|c     c     c  c  c |
-                     
-|c  c  c  c  c  O    |
-                     
-|pv p< p< O  t  t  t |
-                     
-|pv C  p^    t  t  t |
-                     
-|pv p> p^ pv  < t    |
-                     
-|pv p^ T  pv  ^ t  O |
-                     
-|O# p^ p< p<  ^  < P<|
- -- -- -- -- -- -- --
-move: (7,2) -> (7,6)
- -- -- -- -- -- -- --
-|c  c  c  O  c  c  c |
-                     
-|c     c  c  c  S  c |
-                     
-|c     c     c  c  c |
-                     
-|c  c  c  c  c  O    |
-                     
-|         O  t> t> tv|
-                     
-|   C   >  > t^ tv t<|
-                     
-|       ^       tv   |
-                     
-|      T^       t> O#|
-                     
-|O                   |
- -- -- -- -- -- -- --
-move: (5,1) -> (0,3)
- -- -- -- -- -- -- --
-|c> c> cv O# cv c< c<|
-                     
-|c^    cv c^ c< S  c^|
-                     
-|c^    cv    c> c> c^|
-                     
-|c^ c< c> c> c^ O    |
-                     
-|    ^    O          |
-                     
-|   C^               |
-                     
-|                    |
-                     
-|                  O |
-                     
-|O                   |
- -- -- -- -- -- -- --
+move: (9,7) -> (9,1)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|c  c  c  O  c  c  c |1
+                      
+2|c     c  c  c  S  c |2
+                      
+3|c     c     c  c  c |3
+                      
+4|c  c  c  c  c  O    |4
+                      
+5|pv p< p< O  t  t  t |5
+                      
+6|pv C  p^    t  t  t |6
+                      
+7|pv p> p^ pv  < t    |7
+                      
+8|pv p^ T  pv  ^ t  O |8
+                      
+9|O# p^ p< p<  ^  < P<|9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (8,3) -> (8,7)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|c  c  c  O  c  c  c |1
+                      
+2|c     c  c  c  S  c |2
+                      
+3|c     c     c  c  c |3
+                      
+4|c  c  c  c  c  O    |4
+                      
+5|         O  t> t> tv|5
+                      
+6|   C   >  > t^ tv t<|6
+                      
+7|       ^       tv   |7
+                      
+8|      T^       t> O#|8
+                      
+9|O                   |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (6,2) -> (1,4)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|c> c> cv O# cv c< c<|1
+                      
+2|c^    cv c^ c< S  c^|2
+                      
+3|c^    cv    c> c> c^|3
+                      
+4|c^ c< c> c> c^ O    |4
+                      
+5|    ^    O          |5
+                      
+6|   C^               |6
+                      
+7|                    |7
+                      
+8|                  O |8
+                      
+9|O                   |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 47
 Number of vertices examined: 257
-0.147575 [s]
+0.0217104 [s]
 
 Level 3-1
 Sequence of moves: 
-move: (0,3) -> (6,3)
- -- -- -- -- -- -- --
-|         Cv         |
-                     
-| v  <  <  <         |
-                     
-| v t  t  t  t  t    |
-                     
-| v t  c> c> cv t    |
-                     
-|1o t  c^ 1< cv t    |
-                     
-|   t  cv c< c< t    |
-                     
-|   t  cv O# c< t    |
-                     
-|   t  cv T  c^ t    |
-                     
-|   t  c> c> c^ O    |
- -- -- -- -- -- -- --
-move: (7,3) -> (8,5)
- -- -- -- -- -- -- --
-|                    |
-                     
-|                    |
-                     
-|   t> t> t> t> tv   |
-                     
-|   t^          tv   |
-                     
-|1  t^    1     tv   |
-                     
-|   t^          tv   |
-                     
-|   t^    O     tv   |
-                     
-|   t^    Tv    tv   |
-                     
-|   t^  <  <    O#   |
- -- -- -- -- -- -- --
+move: (1,4) -> (7,4)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|         Cv         |1
+                      
+2| v  <  <  <         |2
+                      
+3| v t  t  t  t  t    |3
+                      
+4| v t  c> c> cv t    |4
+                      
+5|1o t  c^ 1< cv t    |5
+                      
+6|   t  cv c< c< t    |6
+                      
+7|   t  cv O# c< t    |7
+                      
+8|   t  cv T  c^ t    |8
+                      
+9|   t  c> c> c^ O    |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (8,4) -> (9,6)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|                    |1
+                      
+2|                    |2
+                      
+3|   t> t> t> t> tv   |3
+                      
+4|   t^          tv   |4
+                      
+5|1  t^    1     tv   |5
+                      
+6|   t^          tv   |6
+                      
+7|   t^    O     tv   |7
+                      
+8|   t^    Tv    tv   |8
+                      
+9|   t^  <  <    O#   |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 34
 Number of vertices examined: 134
-0.067855 [s]
+0.0124725 [s]
 
 Level 3-2
 Sequence of moves: 
-move: (3,5) -> (5,2)
- -- -- -- -- -- -- --
-|                    |
-                     
-|                    |
-    -- -- -- --      
-|  |pv p< p< p<|     |
-                     
-|  |pv S  p> p^|P>  v|
-                --   
-|  |p> pv p^ p< p<| v|
-                     
-|  |   O# pv 1< p^| v|
-    --               
-|   1o|   p> p> p^| v|
-       -- -- -- --   
-|    ^  <  <  <  <  <|
-                     
-|                    |
- -- -- -- -- -- -- --
+move: (4,6) -> (6,3)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|                    |1
+                      
+2|                    |2
+     -- -- -- --      
+3|  |pv p< p< p<|     |3
+                      
+4|  |pv S  p> p^|P>  v|4
+                 --   
+5|  |p> pv p^ p< p<| v|5
+                      
+6|  |   O# pv 1< p^| v|6
+     --               
+7|   1o|   p> p> p^| v|7
+        -- -- -- --   
+8|    ^  <  <  <  <  <|8
+                      
+9|                    |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 19
 Number of vertices examined: 53
-0.030069 [s]
+0.00521044 [s]
 
 Level 3-6
 Sequence of moves: 
-move: (4,3) -> (4,5)
- -- -- -- -- -- -- --
-|   1v          2v   |
-                     
-|   cv          cv   |
-                     
-|   cv          cv   |
-                     
-|   cv          cv   |
-                     
-|   cv    C>  v O#   |
-                     
-|   cv        > cv   |
-                     
-|   cv          cv   |
-                     
-|   cv          cv   |
-                     
-|   2o          1o   |
- -- -- -- -- -- -- --
+move: (5,4) -> (5,6)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|   1v          2v   |1
+                      
+2|   cv          cv   |2
+                      
+3|   cv          cv   |3
+                      
+4|   cv          cv   |4
+                      
+5|   cv    C>  v O#   |5
+                      
+6|   cv        > cv   |6
+                      
+7|   cv          cv   |7
+                      
+8|   cv          cv   |8
+                      
+9|   2o          1o   |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 18
 Number of vertices examined: 51
-0.094428 [s]
+0.0170217 [s]
 
 Level 3-19
 Sequence of moves: 
-move: (1,3) -> (6,3)
- -- -- -- -- -- -- --
-|                    |
-                     
-|      1o P< 1v      |
-       --            
-|   p> p> 2o p> pv   |
-       -- -- --      
-|   p^|        |pv   |
-                     
-|   p^|   2v   |pv   |
-                     
-|   p^|   pv   |pv   |
-                     
-|   p^|   O#   |pv   |
-       -- -- --      
-|   p^ p< p< p< p<   |
-                     
-|                    |
- -- -- -- -- -- -- --
+move: (2,4) -> (7,4)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|                    |1
+                      
+2|      1o P< 1v      |2
+        --            
+3|   p> p> 2o p> pv   |3
+        -- -- --      
+4|   p^|        |pv   |4
+                      
+5|   p^|   2v   |pv   |5
+                      
+6|   p^|   pv   |pv   |6
+                      
+7|   p^|   O#   |pv   |7
+        -- -- --      
+8|   p^ p< p< p< p<   |8
+                      
+9|                    |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 22
 Number of vertices examined: 40
-0.085528 [s]
+0.0127231 [s]
 
 Level 3-71
 Sequence of moves: 
-move: (0,3) -> (5,4)
- -- -- -- -- -- -- --
-| v  <  < C<         |
-    -- -- -- -- --   
-| v|c> cv c> c> cv|  |
-                     
-| v|c^ c> c^ cv c<|  |
-       --            
-| v|c^|1> cv c> cv|  |
-                     
-| v c^ c<|cv 2  cv   |
-                     
-| v c> c^ cv O# cv   |
-                     
-| v c^ c< c< c^ c<   |
-                     
-| >  >  v            |
-                     
-|      1o    2       |
- -- -- -- -- -- -- --
+move: (1,4) -> (6,5)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1| v  <  < C<         |1
+     -- -- -- -- --   
+2| v|c> cv c> c> cv|  |2
+                      
+3| v|c^ c> c^ cv c<|  |3
+        --            
+4| v|c^|1> cv c> cv|  |4
+                      
+5| v c^ c<|cv 2  cv   |5
+                      
+6| v c> c^ cv O# cv   |6
+                      
+7| v c^ c< c< c^ c<   |7
+                      
+8| >  >  v            |8
+                      
+9|      1o    2       |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 29
 Number of vertices examined: 4716
-3.2533 [s]
+0.575024 [s]
 
 Level 3-75
 Sequence of moves: 
-move: (0,4) -> (2,1)
- -- -- -- -- -- -- --
-|1>  v C  T  P>  > 1o|
-                     
-|pv p< pv p< p< c  c |
-                     
-|pv O# p<    p^ c  c |
-                     
-|p> p> p> p> p^ c  c |
-                     
-|t  t  t     c  c  c |
-                     
-|t     t     c     c |
-                     
-|t     t  t  c  O  c |
-                     
-|t  O  t  t  c  c  c |
-                     
-|t  t  t             |
- -- -- -- -- -- -- --
-move: (0,2) -> (6,5)
- -- -- -- -- -- -- --
-|1     Cv T        1 |
-                     
-|       >  v    c> cv|
-                     
-|   O      v    c^ cv|
-                     
-|          v    c^ cv|
-                     
-|t  t  t   v c> c^ cv|
-                     
-|t     t   > c^    cv|
-                     
-|t     t  t  c> O# cv|
-                     
-|t  O  t  t  c^ c< c<|
-                     
-|t  t  t             |
- -- -- -- -- -- -- --
-move: (0,3) -> (7,1)
- -- -- -- -- -- -- --
-|1        Tv       1 |
-                     
-|          v         |
-                     
-|   O      v         |
-                     
-|          v         |
-                     
-|t> t> tv  v         |
-                     
-|t^    tv  >  v      |
-                     
-|t^    t> tv  v O    |
-                     
-|t^ O# t< t<  v      |
-                     
-|t^ t< t<  <  <      |
- -- -- -- -- -- -- --
+move: (1,5) -> (3,2)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|1>  v C  T  P>  > 1o|1
+                      
+2|pv p< pv p< p< c  c |2
+                      
+3|pv O# p<    p^ c  c |3
+                      
+4|p> p> p> p> p^ c  c |4
+                      
+5|t  t  t     c  c  c |5
+                      
+6|t     t     c     c |6
+                      
+7|t     t  t  c  O  c |7
+                      
+8|t  O  t  t  c  c  c |8
+                      
+9|t  t  t             |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (1,3) -> (7,6)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|1     Cv T        1 |1
+                      
+2|       >  v    c> cv|2
+                      
+3|   O      v    c^ cv|3
+                      
+4|          v    c^ cv|4
+                      
+5|t  t  t   v c> c^ cv|5
+                      
+6|t     t   > c^    cv|6
+                      
+7|t     t  t  c> O# cv|7
+                      
+8|t  O  t  t  c^ c< c<|8
+                      
+9|t  t  t             |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (1,4) -> (8,2)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|1        Tv       1 |1
+                      
+2|          v         |2
+                      
+3|   O      v         |3
+                      
+4|          v         |4
+                      
+5|t> t> tv  v         |5
+                      
+6|t^    tv  >  v      |6
+                      
+7|t^    t> tv  v O    |7
+                      
+8|t^ O# t< t<  v      |8
+                      
+9|t^ t< t<  <  <      |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 47
 Number of vertices examined: 314
-0.175273 [s]
+0.0238205 [s]
 
 Level 4-36
 Sequence of moves: 
-move: (1,0) -> (3,4)
- -- -- -- -- -- -- --
-|      t> t> tv C  O |
-                     
-|T>  v t^ S  tv c  c |
-                     
-|    > t^ tv t< m  c |
-                     
-|         tv O# t< c |
-                     
-|p  p  m  t> t> t^ c |
-                     
-|p  P  p           c |
-                     
-|p  p  m           c |
-                     
-|p  O  p  p  p  c  c |
-                     
-|p  p  p     p  m  O |
- -- -- -- -- -- -- --
-move: (5,1) -> (8,6)
- -- -- -- -- -- -- --
-|               C  O |
-                     
-|         S     c  c |
-                     
-|               m  c |
-                     
-|            O     c |
-                     
-|p> p> mv          c |
-                     
-|p^ P< pv          c |
-                     
-|pv p< m<          c |
-                     
-|pv O  p> p> pv c  c |
-                     
-|p> p> p^    p> m> O#|
- -- -- -- -- -- -- --
-move: (0,5) -> (0,6)
- -- -- -- -- -- -- --
-|             v C< O#|
-                     
-|         S   v c> c^|
-                     
-|          v  < m^ c<|
-                     
-|          v O     c^|
-                     
-|          >  v    c^|
-                     
-|             v    c^|
-                     
-|             >  v c^|
-                     
-|   O           c> c^|
-                     
-|                  O |
- -- -- -- -- -- -- --
+move: (2,1) -> (4,5)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|      t> t> tv C  O |1
+                      
+2|T>  v t^ S  tv c  c |2
+                      
+3|    > t^ tv t< m  c |3
+                      
+4|         tv O# t< c |4
+                      
+5|p  p  m  t> t> t^ c |5
+                      
+6|p  P  p           c |6
+                      
+7|p  p  m           c |7
+                      
+8|p  O  p  p  p  c  c |8
+                      
+9|p  p  p     p  m  O |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (6,2) -> (9,7)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|               C  O |1
+                      
+2|         S     c  c |2
+                      
+3|               m  c |3
+                      
+4|            O     c |4
+                      
+5|p> p> mv          c |5
+                      
+6|p^ P< pv          c |6
+                      
+7|pv p< m<          c |7
+                      
+8|pv O  p> p> pv c  c |8
+                      
+9|p> p> p^    p> m> O#|9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (1,6) -> (1,7)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|             v C< O#|1
+                      
+2|         S   v c> c^|2
+                      
+3|          v  < m^ c<|3
+                      
+4|          v O     c^|4
+                      
+5|          >  v    c^|5
+                      
+6|             v    c^|6
+                      
+7|             >  v c^|7
+                      
+8|   O           c> c^|8
+                      
+9|                  O |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 43
 Number of vertices examined: 434
-0.502664 [s]
+0.0331798 [s]
 
 Level 4-37
 Sequence of moves: 
-move: (8,2) -> (4,3)
- -- -- -- -- -- -- --
-|c  c  c |   t  t  t |
-                     
-|c  c  c     t     t |
-                     
-|c  c  c     t     t |
-                     
-|c  c  c  m  t  t  t |
-                     
-|O  S  m> O# m       |
-                     
-|C     p^ m< d  d  d |
-                     
-|   p> pv p^ d  T  d |
-                     
-|p> p^ p> p^ d     d |
-       -- --         
-|p^ p< P< D  d  d  d |
- -- -- -- -- -- -- --
-move: (8,3) -> (4,3)
- -- -- -- -- -- -- --
-|c  c  c |   t  t  t |
-                     
-|c  c  c     t     t |
-                     
-|c  c  c     t     t |
-                     
-|c  c  c  m  t  t  t |
-                     
-|O  S     O# m<      |
-                     
-|C           d^ d< d<|
-                     
-|    >  >  > dv T  d^|
-                     
-|    ^       dv    d^|
-       -- --         
-|    ^  < D< d> d> d^|
- -- -- -- -- -- -- --
-move: (6,5) -> (4,3)
- -- -- -- -- -- -- --
-|c  c  c |   tv t< t<|
-                     
-|c  c  c     tv    t^|
-                     
-|c  c  c     tv    t^|
-                     
-|c  c  c  mv t< t> t^|
-                     
-|O  S     O#     ^   |
-                     
-|C               ^   |
-                     
-|               T^   |
-                     
-|                    |
-       -- --         
-|                    |
- -- -- -- -- -- -- --
-move: (5,0) -> (4,0)
- -- -- -- -- -- -- --
-|cv c< c<|           |
-                     
-|cv c> c^            |
-                     
-|cv c^ cv  <  <      |
-                     
-|cv c^ c<     ^      |
-                     
-|O# S     O   ^      |
-                     
-|C>  >  >  >  ^      |
-                     
-|                    |
-                     
-|                    |
-       -- --         
-|                    |
- -- -- -- -- -- -- --
+move: (9,3) -> (5,4)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|c  c  c |   t  t  t |1
+                      
+2|c  c  c     t     t |2
+                      
+3|c  c  c     t     t |3
+                      
+4|c  c  c  m  t  t  t |4
+                      
+5|O  S  m> O# m       |5
+                      
+6|C     p^ m< d  d  d |6
+                      
+7|   p> pv p^ d  T  d |7
+                      
+8|p> p^ p> p^ d     d |8
+        -- --         
+9|p^ p< P< D  d  d  d |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (9,4) -> (5,4)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|c  c  c |   t  t  t |1
+                      
+2|c  c  c     t     t |2
+                      
+3|c  c  c     t     t |3
+                      
+4|c  c  c  m  t  t  t |4
+                      
+5|O  S     O# m<      |5
+                      
+6|C           d^ d< d<|6
+                      
+7|    >  >  > dv T  d^|7
+                      
+8|    ^       dv    d^|8
+        -- --         
+9|    ^  < D< d> d> d^|9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (7,6) -> (5,4)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|c  c  c |   tv t< t<|1
+                      
+2|c  c  c     tv    t^|2
+                      
+3|c  c  c     tv    t^|3
+                      
+4|c  c  c  mv t< t> t^|4
+                      
+5|O  S     O#     ^   |5
+                      
+6|C               ^   |6
+                      
+7|               T^   |7
+                      
+8|                    |8
+        -- --         
+9|                    |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (6,1) -> (5,1)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|cv c< c<|           |1
+                      
+2|cv c> c^            |2
+                      
+3|cv c^ cv  <  <      |3
+                      
+4|cv c^ c<     ^      |4
+                      
+5|O# S     O   ^      |5
+                      
+6|C>  >  >  >  ^      |6
+                      
+7|                    |7
+                      
+8|                    |8
+        -- --         
+9|                    |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 50
 Number of vertices examined: 216
-0.207619 [s]
+0.0148648 [s]
 
 Level 4-40
 Sequence of moves: 
-move: (7,1) -> (6,1)
- -- -- -- -- -- -- --
-|      cv c< c< c< O |
-                     
-|      c> cv    c^ t |
-                     
-|cv c< c< c> cv c^ t |
-                     
-|cv    c^ O  cv c^ t |
-                     
-|cv    c^    cv  ^ t |
-                     
-|c> cv c^ c< c<  ^ t |
-                     
-|t  O#  >  >  >  ^ t |
-                     
-|t  C>  ^ t  t  T  t |
-                     
-|t  t  t  t  t  t  t |
- -- -- -- -- -- -- --
-move: (7,5) -> (0,6)
- -- -- -- -- -- -- --
-|                  O#|
-                     
-|                  t^|
-                     
-|                  t^|
-                     
-|         O        t^|
-                     
-|                  t^|
-                     
-| v  <  <          t^|
-                     
-|tv O   ^  <  <  < t^|
-                     
-|tv       t> tv T^ t^|
-                     
-|t> t> t> t^ t> t> t^|
- -- -- -- -- -- -- --
+move: (8,2) -> (7,2)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|      cv c< c< c< O |1
+                      
+2|      c> cv    c^ t |2
+                      
+3|cv c< c< c> cv c^ t |3
+                      
+4|cv    c^ O  cv c^ t |4
+                      
+5|cv    c^    cv  ^ t |5
+                      
+6|c> cv c^ c< c<  ^ t |6
+                      
+7|t  O#  >  >  >  ^ t |7
+                      
+8|t  C>  ^ t  t  T  t |8
+                      
+9|t  t  t  t  t  t  t |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (8,6) -> (1,7)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|                  O#|1
+                      
+2|                  t^|2
+                      
+3|                  t^|3
+                      
+4|         O        t^|4
+                      
+5|                  t^|5
+                      
+6| v  <  <          t^|6
+                      
+7|tv O   ^  <  <  < t^|7
+                      
+8|tv       t> tv T^ t^|8
+                      
+9|t> t> t> t^ t> t> t^|9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 45
 Number of vertices examined: 234
-0.382341 [s]
+0.0276219 [s]
 
 Level 4-60
 Sequence of moves: 
-move: (3,3) -> (3,1)
- -- -- -- -- -- -- --
-|t> t> tv O  t> t> tv|
-                     
-|t^ C  t> tv t^ O  tv|
-                     
-|t^ t< t< t> t^ tv t<|
-                     
-|t> O#  ^ T< P  tv O |
-                     
-|t^ t< t< t< t< t< p |
-                     
-|d  c  c  c  p  p  p |
-                     
-|d  c     c  p  D  p |
-                     
-|d  O  c  c  p  p  p |
-                     
-|d  d  d  d  d  d  O |
- -- -- -- -- -- -- --
-move: (3,4) -> (3,6)
- -- -- -- -- -- -- --
-|         O          |
-                     
-|   C           O    |
-                     
-|                    |
-                     
-|   O        P>  v O#|
-                     
-|                v p^|
-                     
-|d  c  c  c  pv p< p^|
-                     
-|d  c     c  pv D  p^|
-                     
-|d  O  c  c  p> p> p^|
-                     
-|d  d  d  d  d  d  O |
- -- -- -- -- -- -- --
-move: (6,5) -> (8,6)
- -- -- -- -- -- -- --
-|         O          |
-                     
-|   C           O    |
-                     
-|                    |
-                     
-|   O              O |
-                     
-| v  <  <  <  <      |
-                     
-|dv c  c  c   ^  <   |
-                     
-|dv c     c     D^   |
-                     
-|dv O  c  c          |
-                     
-|d> d> d> d> d> d> O#|
- -- -- -- -- -- -- --
-move: (1,1) -> (7,1)
- -- -- -- -- -- -- --
-|         O          |
-                     
-|   Cv          O    |
-                     
-| v  <               |
-                     
-| v O              O |
-                     
-| v                  |
-                     
-| v cv c< c<         |
-                     
-| v cv    c^         |
-                     
-| v O# c> c^         |
-                     
-| >  >  ^          O |
- -- -- -- -- -- -- --
+move: (4,4) -> (4,2)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|t> t> tv O  t> t> tv|1
+                      
+2|t^ C  t> tv t^ O  tv|2
+                      
+3|t^ t< t< t> t^ tv t<|3
+                      
+4|t> O#  ^ T< P  tv O |4
+                      
+5|t^ t< t< t< t< t< p |5
+                      
+6|d  c  c  c  p  p  p |6
+                      
+7|d  c     c  p  D  p |7
+                      
+8|d  O  c  c  p  p  p |8
+                      
+9|d  d  d  d  d  d  O |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (4,5) -> (4,7)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|         O          |1
+                      
+2|   C           O    |2
+                      
+3|                    |3
+                      
+4|   O        P>  v O#|4
+                      
+5|                v p^|5
+                      
+6|d  c  c  c  pv p< p^|6
+                      
+7|d  c     c  pv D  p^|7
+                      
+8|d  O  c  c  p> p> p^|8
+                      
+9|d  d  d  d  d  d  O |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (7,6) -> (9,7)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|         O          |1
+                      
+2|   C           O    |2
+                      
+3|                    |3
+                      
+4|   O              O |4
+                      
+5| v  <  <  <  <      |5
+                      
+6|dv c  c  c   ^  <   |6
+                      
+7|dv c     c     D^   |7
+                      
+8|dv O  c  c          |8
+                      
+9|d> d> d> d> d> d> O#|9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (2,2) -> (8,2)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|         O          |1
+                      
+2|   Cv          O    |2
+                      
+3| v  <               |3
+                      
+4| v O              O |4
+                      
+5| v                  |5
+                      
+6| v cv c< c<         |6
+                      
+7| v cv    c^         |7
+                      
+8| v O# c> c^         |8
+                      
+9| >  >  ^          O |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 55
 Number of vertices examined: 325
-0.330144 [s]
+0.0370538 [s]
 
 Level 4-64
 Sequence of moves: 
-move: (0,3) -> (5,3)
- -- -- -- -- -- -- --
-|tv t< C |Tv c  c  c |
-                     
-|tv t^ m< m< c  1  c |
-                     
-|t> t> tv|c  c  c  c |
-                     
-|2o tv t<|c  S  c    |
-                     
-|t^ t<    c  c  c    |
- -- -- -- -- -- -- --
-|c  c  c  O# tv t< t<|
-                     
-|c  c  c  m^ t< t> t^|
-    --               
-|c  c  c    |t> t^ 2v|
-                     
-|1          |t^ t< t<|
- -- -- -- -- -- -- --
-move: (0,2) -> (5,3)
- -- -- -- -- -- -- --
-|      Cv| > cv cv c<|
-                     
-|       >  ^ cv 1o c^|
-                     
-|        |cv c< c> c^|
-                     
-|2       |cv S  c^   |
-                     
-|         c> c> c^   |
- -- -- -- -- -- -- --
-|c> c> c> O#         |
-                     
-|c^ c< c<            |
-    --               
-|c> c> c^   |      2 |
-                     
-|1^         |        |
- -- -- -- -- -- -- --
+move: (1,4) -> (6,4)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|tv t< C |Tv c  c  c |1
+                      
+2|tv t^ m< m< c  1  c |2
+                      
+3|t> t> tv|c  c  c  c |3
+                      
+4|2o tv t<|c  S  c    |4
+                      
+5|t^ t<    c  c  c    |5
+  -- -- -- -- -- -- --
+6|c  c  c  O# tv t< t<|6
+                      
+7|c  c  c  m^ t< t> t^|7
+     --               
+8|c  c  c    |t> t^ 2v|8
+                      
+9|1          |t^ t< t<|9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (1,3) -> (6,4)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|      Cv| > cv cv c<|1
+                      
+2|       >  ^ cv 1o c^|2
+                      
+3|        |cv c< c> c^|3
+                      
+4|2       |cv S  c^   |4
+                      
+5|         c> c> c^   |5
+  -- -- -- -- -- -- --
+6|c> c> c> O#         |6
+                      
+7|c^ c< c<            |7
+     --               
+8|c> c> c^   |      2 |8
+                      
+9|1^         |        |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 54
 Number of vertices examined: 276
-0.275843 [s]
+0.0846368 [s]
 
 Level 4-65
 Sequence of moves: 
-move: (0,1) -> (3,1)
- -- -- -- -- -- -- --
-|C  Pv 1 |c  c  c  1 |
-                     
-|D  2o 3 |c     c  c |
- -- -- --            
-|c  c  c |c  m  m    |
-                     
-|O  2# c |c  O  p  p |
-                     
-|p  c  c |c  c  c  p |
-       -- -- --      
-|p  c |3  d  d |c  p |
-                     
-|p  c |d  d  O |c  p |
-       -- -- --      
-|p  c  c  c  c  c  p |
-                     
-|p  p  p  p  p  p  p |
- -- -- -- -- -- -- --
-move: (0,0) -> (3,0)
- -- -- -- -- -- -- --
-|C>  > 1o|cv c< c< 1v|
-                     
-|D  2  3 |cv    c^ c<|
- -- -- --            
-|cv c< c<|cv m  m    |
-                     
-|O# P  c^|cv O  p  p |
-                     
-|p  c> c^|c> c> cv p |
-       -- -- --      
-|p  c^|3  d  d |cv p |
-                     
-|p  c^|d  d  O |cv p |
-       -- -- --      
-|p  c^ c< c< c< c< p |
-                     
-|p  p  p  p  p  p  p |
- -- -- -- -- -- -- --
-move: (3,1) -> (3,4)
- -- -- -- -- -- -- --
-|      1 |         1 |
-                     
-|D  2  3 |           |
- -- -- --            
-|        |   mv m<   |
-                     
-|O  Pv   |   O# p^ p<|
-                     
-|pv  <   |         p^|
-       -- -- --      
-|pv   |3  d  d |   p^|
-                     
-|pv   |d  d  O |   p^|
-       -- -- --      
-|pv                p^|
-                     
-|p> p> p> p> p> p> p^|
- -- -- -- -- -- -- --
-move: (1,0) -> (6,4)
- -- -- -- -- -- -- --
-|      1v|       > 1o|
-                     
-|D> 2o 3o|       ^   |
- -- -- --            
-|        |       ^   |
-                     
-|O  2v   |   O   ^   |
-                     
-|    v   |       ^   |
-       -- -- --      
-|    v|3v d> dv| ^   |
-                     
-|    v|d> d^ O#| ^   |
-       -- -- --      
-|    >  >  >  >  ^   |
-                     
-|                    |
- -- -- -- -- -- -- --
+move: (1,2) -> (4,2)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|C  Pv 1 |c  c  c  1 |1
+                      
+2|D  2o 3 |c     c  c |2
+  -- -- --            
+3|c  c  c |c  m  m    |3
+                      
+4|O  2# c |c  O  p  p |4
+                      
+5|p  c  c |c  c  c  p |5
+        -- -- --      
+6|p  c |3  d  d |c  p |6
+                      
+7|p  c |d  d  O |c  p |7
+        -- -- --      
+8|p  c  c  c  c  c  p |8
+                      
+9|p  p  p  p  p  p  p |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (1,1) -> (4,1)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|C>  > 1o|cv c< c< 1v|1
+                      
+2|D  2  3 |cv    c^ c<|2
+  -- -- --            
+3|cv c< c<|cv m  m    |3
+                      
+4|O# P  c^|cv O  p  p |4
+                      
+5|p  c> c^|c> c> cv p |5
+        -- -- --      
+6|p  c^|3  d  d |cv p |6
+                      
+7|p  c^|d  d  O |cv p |7
+        -- -- --      
+8|p  c^ c< c< c< c< p |8
+                      
+9|p  p  p  p  p  p  p |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (4,2) -> (4,5)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|      1 |         1 |1
+                      
+2|D  2  3 |           |2
+  -- -- --            
+3|        |   mv m<   |3
+                      
+4|O  Pv   |   O# p^ p<|4
+                      
+5|pv  <   |         p^|5
+        -- -- --      
+6|pv   |3  d  d |   p^|6
+                      
+7|pv   |d  d  O |   p^|7
+        -- -- --      
+8|pv                p^|8
+                      
+9|p> p> p> p> p> p> p^|9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (2,1) -> (7,5)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|      1v|       > 1o|1
+                      
+2|D> 2o 3o|       ^   |2
+  -- -- --            
+3|        |       ^   |3
+                      
+4|O  2v   |   O   ^   |4
+                      
+5|    v   |       ^   |5
+        -- -- --      
+6|    v|3v d> dv| ^   |6
+                      
+7|    v|d> d^ O#| ^   |7
+        -- -- --      
+8|    >  >  >  >  ^   |8
+                      
+9|                    |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 57
 Number of vertices examined: 248
-0.204357 [s]
+0.0356241 [s]
 
 Level 5-1
 Sequence of moves: 
-move: (1,5) -> (4,6)
- -- -- -- -- -- -- --
-|   c  c  c  c  c  c |
-                     
-|   c  c  c  c |Dv c |
-          --         
-|O  c  c  c  c | v c |
-       --            
-|C  c  c  c  c |1o c |
-    -- -- -- --      
-|   d> d> dv       O#|
-                     
-|d> d^ dv d< d> d> d^|
-                     
-|d^    d> d> d^ 1> dv|
-          --         
-|d^    dv d< dv d< dv|
-                     
-|d^ d< d< d^ d< d^ d<|
- -- -- -- -- -- -- --
-move: (3,0) -> (2,0)
- -- -- -- -- -- -- --
-|   cv c< c< cv c< c<|
-                     
-|   c> cv c^ c<|   c^|
-          --         
-|O# c< c> c> cv|   c^|
-       --            
-|Cv c^ c< c< c<|1> c^|
-    -- -- -- --      
-| >  >  >  >  >  v O |
-                     
-|                v   |
-                     
-|               1o   |
-          --         
-|                    |
-                     
-|                    |
- -- -- -- -- -- -- --
+move: (2,6) -> (5,7)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|   c  c  c  c  c  c |1
+                      
+2|   c  c  c  c |Dv c |2
+           --         
+3|O  c  c  c  c | v c |3
+        --            
+4|C  c  c  c  c |1o c |4
+     -- -- -- --      
+5|   d> d> dv       O#|5
+                      
+6|d> d^ dv d< d> d> d^|6
+                      
+7|d^    d> d> d^ 1> dv|7
+           --         
+8|d^    dv d< dv d< dv|8
+                      
+9|d^ d< d< d^ d< d^ d<|9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (4,1) -> (3,1)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|   cv c< c< cv c< c<|1
+                      
+2|   c> cv c^ c<|   c^|2
+           --         
+3|O# c< c> c> cv|   c^|3
+        --            
+4|Cv c^ c< c< c<|1> c^|4
+     -- -- -- --      
+5| >  >  >  >  >  v O |5
+                      
+6|                v   |6
+                      
+7|               1o   |7
+           --         
+8|                    |8
+                      
+9|                    |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 53
 Number of vertices examined: 2374
-1.44185 [s]
+0.265559 [s]
 
 Level 5-2
 Sequence of moves: 
-move: (7,3) -> (1,4)
- -- -- -- -- -- -- --
-|dv d< d< d< dv d< d<|
-                     
-|dv 1>  v d^ O#    d^|
-                     
-|dv T   > d^       d^|
-                     
-|d> dv    d> d> d> d^|
-                     
-|O  d> d> d^    O    |
-                     
-|   t  t  t  t  t    |
-                     
-|t  t  t  O     t    |
-                     
-|t  S  t  D> 1o t    |
-                     
-|t  t  t  t  t  t    |
- -- -- -- -- -- -- --
-move: (2,1) -> (6,3)
- -- -- -- -- -- -- --
-|                    |
-                     
-|   1o       O       |
-                     
-|   T^               |
-                     
-|                    |
-                     
-|O              O    |
-                     
-|   tv t< tv t< t<   |
-                     
-|tv t< t^ O#    t^   |
-                     
-|tv S  t^  < 1< t^   |
-                     
-|t> t> t> t> t> t^   |
- -- -- -- -- -- -- --
+move: (8,4) -> (2,5)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|dv d< d< d< dv d< d<|1
+                      
+2|dv 1>  v d^ O#    d^|2
+                      
+3|dv T   > d^       d^|3
+                      
+4|d> dv    d> d> d> d^|4
+                      
+5|O  d> d> d^    O    |5
+                      
+6|   t  t  t  t  t    |6
+                      
+7|t  t  t  O     t    |7
+                      
+8|t  S  t  D> 1o t    |8
+                      
+9|t  t  t  t  t  t    |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
+move: (3,2) -> (7,4)
+  1  2  3  4  5  6  7
+  -- -- -- -- -- -- --
+1|                    |1
+                      
+2|   1o       O       |2
+                      
+3|   T^               |3
+                      
+4|                    |4
+                      
+5|O              O    |5
+                      
+6|   tv t< tv t< t<   |6
+                      
+7|tv t< t^ O#    t^   |7
+                      
+8|tv S  t^  < 1< t^   |8
+                      
+9|t> t> t> t> t> t^   |9
+  -- -- -- -- -- -- --
+  1  2  3  4  5  6  7
 Number of moves: 44
 Number of vertices examined: 822
-0.355973 [s]
+0.0681194 [s]
 

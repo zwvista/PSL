@@ -130,7 +130,8 @@ ostream & operator<<(ostream &out, const puz_step &mi)
     if(!mi.empty()){
         out << "move: ";
         for(int i = 0; i < mi.size(); ++i){
-            out << mi[i];
+            auto& p = mi[i];
+            out << format("(%1%,%2%)") % (p.first + 1) % (p.second + 1);
             if(i < mi.size() - 1)
                 out << " -> ";
         }
@@ -409,12 +410,17 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const puz_step& move) const
 {
     out << move;
+    for(int c = 0; c < cols(); ++c)
+        out << format("%3d") % (c + 1);
+    out << endl;
     for(int r = 0;; ++r){
+        out << ' ';
         // draw horz-walls
         for(int c = 0; c < cols(); ++c)
             out << (m_game->m_horz_walls.count({r, c}) == 1 ? " --" : "   ");
         out << endl;
         if(r == rows()) break;
+        out << (r + 1);
         for(int c = 0;; ++c){
             Position p(r, c);
             // draw vert-walls
@@ -424,8 +430,11 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
             out << (ch != PUZ_SPACE ? ch : is_teleport(p) ? get_teleport(p).first : ch)
                 << (pos2dir.count(p) == 1 ? pos2dir.at(p) : ' ');
         }
-        out << endl;
+        out << (r + 1) << endl;
     }
+    for(int c = 0; c < cols(); ++c)
+        out << format("%3d") % (c + 1);
+    out << endl;
     return out;
 }
 
