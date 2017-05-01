@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:MazeEditor3/MazeEditor3.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Puzzles9/Puzzles9.xcodeproj">
    </FileRef>
    <FileRef
