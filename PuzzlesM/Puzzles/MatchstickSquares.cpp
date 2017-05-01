@@ -21,6 +21,7 @@ struct puz_game
     set<Position> m_dots;
     set<puz_matchstick> m_matchsticks;
     int m_action, m_move_count, m_square_count;
+    bool m_allequal;
     set<puz_matchstick> m_possible_matchsticks;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -34,6 +35,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size() / 2 + 1, strs[0].size() / 2 + 1)
     , m_move_count(level.attribute("matchsticks").as_int())
     , m_square_count(level.attribute("squares").as_int())
+    , m_allequal(level.attribute("allequal").as_int() != 0)
 {
     string action = level.attribute("action").value();
     m_action = action == "add" ? PUZ_ADD : action == "move" ? PUZ_MOVE : PUZ_REMOVE;
@@ -114,6 +116,7 @@ void puz_state::check_squares()
 {
     m_square_count = 0;
     set<puz_matchstick> matchsticks_in_square;
+    set<int> square_sizes;
     for(int r = 0; r < rows() - 1; ++r)
         for(int c = 0; c < cols() - 1; ++c){
             for(int n = 1;; ++n){
@@ -137,12 +140,14 @@ void puz_state::check_squares()
                     if(!f(r + i, c + n, r + i + 1, c + n)) goto next_square;
                 }
                 matchsticks_in_square.insert(matchsticks.begin(), matchsticks.end());
+                square_sizes.insert(n);
                 ++m_square_count;
             next_square:;
             }
         next_dot:;
         }
-    m_is_valid_state = m_matchsticks == matchsticks_in_square;
+    m_is_valid_state = m_matchsticks == matchsticks_in_square &&
+        (!m_game->m_allequal || square_sizes.size() == 1);
     m_unused_count = m_matchsticks.size() - matchsticks_in_square.size();
 }
 

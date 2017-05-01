@@ -48,4 +48,8 @@
     <![CDATA[
     ]]>
   </level>
+  <level id="7-9" action="add" matchsticks="4" equation="15/4=5">
+    <![CDATA[
+    ]]>
+  </level>
 </levels>

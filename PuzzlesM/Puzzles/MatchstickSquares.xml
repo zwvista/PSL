@@ -106,4 +106,19 @@
  -   - \
     ]]>
   </level>
+  <level id="7-8" action="move" matchsticks="3" squares="9" allequal="1">
+    <![CDATA[
+     - \
+    | |\
+ - - - \
+| | | |\
+ - - - \
+| | | |\
+ - - - \
+  | |  \
+ - - - \
+| | | |\
+ - - - \
+    ]]>
+  </level>
 </levels>

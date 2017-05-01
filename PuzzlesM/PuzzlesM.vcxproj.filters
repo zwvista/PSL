@@ -70,6 +70,9 @@
     <Text Include="Puzzles\Matchmania.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\MoveTheBox_NewYork.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -197,6 +200,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Matchmania.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\MoveTheBox_NewYork.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

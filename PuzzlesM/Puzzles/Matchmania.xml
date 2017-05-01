@@ -695,4 +695,165 @@
  - - - - - - - \
     ]]>
   </level>
+  <level id="5-4">
+    <![CDATA[
+ - - - - - - - \
+|c c c c c c c|\
+               \
+|c p p p p p c|\
+               \
+|c p   C   p c|\
+               \
+|c 1 d d d 2 c|\
+               \
+|c c c c c c c|\
+               \
+|c O p p p P c|\
+               \
+|c d d d p 1 c|\
+               \
+|c 2 D d d d c|\
+               \
+|c c c c c c c|\
+ - - - - - - - \
+    ]]>
+  </level>
+  <level id="5-6">
+    <![CDATA[
+ - - - - - - - \
+|1 p p p p p 2|\
+               \
+|p p   p O p t|\
+               \
+|p T 3 p p p t|\
+               \
+|p p p p   p t|\
+               \
+|P   O p   p t|\
+               \
+|3 c c p p p t|\
+               \
+|2 c c c c c t|\
+               \
+|O t t     t t|\
+               \
+|1 t t t t t C|\
+ - - - - - - - \
+    ]]>
+  </level>
+  <level id="5-10">
+    <![CDATA[
+ - - - - - - - \
+|d d d d      |\
+               \
+|d O|d d d d d|\
+               \
+|d d d   d O d|\
+ - -           \
+|C       d d d|\
+ - -     -     \
+|c c c c c    |\
+               \
+|c c|c D c c c|\
+               \
+|c c c c c|  c|\
+               \
+|c   O c c O c|\
+       -       \
+|c c c c c c c|\
+ - - - - - - - \
+    ]]>
+  </level>
+  <level id="5-12">
+    <![CDATA[
+ - - - - - - - \
+|t   D p p p C|\
+               \
+|t T d d d p p|\
+               \
+|t O d P d p p|\
+               \
+|t d d d d O c|\
+               \
+|t d O d d d c|\
+               \
+|t d d d S d c|\
+               \
+|t c d d d d c|\
+               \
+|t c c c c c c|\
+               \
+|t t t t t t O|\
+ - - - - - - - \
+    ]]>
+  </level>
+  <level id="5-14">
+    <![CDATA[
+ - - - - - - - \
+|             |\
+               \
+|  m m m m m  |\
+               \
+|  m d m m m  |\
+               \
+|  m m O d m  |\
+               \
+|  m m c m m  |\
+               \
+|  m m m m d  |\
+               \
+|  m m m m c  |\
+               \
+|             |\
+               \
+|    C   D    |\
+ - - - - - - - \
+    ]]>
+  </level>
+  <level id="5-16">
+    <![CDATA[
+ - - - - - - - \
+|t t t     D T|\
+               \
+|t O t t t    |\
+               \
+|t t t   t    |\
+               \
+|    m t t t t|\
+               \
+|  d d m t O t|\
+               \
+|  d   d m t t|\
+               \
+|  d d d d    |\
+               \
+|    d O d    |\
+               \
+|    d d d    |\
+ - - - - - - - \
+    ]]>
+  </level>
+  <level id="5-18">
+    <![CDATA[
+ - - - - - - - \
+|1 p p p p p p|\
+               \
+|t t t p p O p|\
+   -           \
+|t t t t 2 p p|\
+               \
+|t t t t     P|\
+ - - - - - - - \
+|O 3 m m m 2 O|\
+ - - - - - - - \
+|t t p p p   T|\
+               \
+|t 3 p p p p  |\
+               \
+|t O p p   1  |\
+               \
+|t t t t t t  |\
+ - - - - - - - \
+    ]]>
+  </level>
 </levels>
