@@ -54,7 +54,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& str_v = strs[r * 2 + 1];
         for(int c = 0; c < cols(); ++c)
             switch(str_v[c]){
-            case 'A':
+            case '\\':
                 m_matchsticks.emplace(Position(r, c), Position(r + 1, c + 1));
                 break;
             case '/':

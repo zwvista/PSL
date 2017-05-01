@@ -23,8 +23,10 @@ void load_xml(list<puz_game>& games, const string& fn_in)
     for(xml_node v : doc.child("levels").children()){
         str = v.text().as_string();
         boost::split(vstr, str, boost::is_any_of("`\r\n"), boost::token_compress_on);
-        vstr.pop_back();
-        vstr.erase(vstr.begin());
+        if(!str.empty()){
+            vstr.pop_back();
+            vstr.erase(vstr.begin());
+        }
         games.push_back(puz_game(vstr, v));
     }
 }
