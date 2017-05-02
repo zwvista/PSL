@@ -856,4 +856,119 @@
  - - - - - - - `
     ]]>
   </level>
+  <level id="5-22">
+    <![CDATA[
+ - - - - - - - `
+|1 d d d d   2|`
+               `
+|d d P d d d d|`
+               `
+|d S d d T O d|`
+               `
+|d d d d d d d|`
+ - - -         `
+|O p p|  p p  |`
+               `
+|t p p p p p p|`
+               `
+|t m|1 D 2   O|`
+     - -       `
+|t t t     t t|`
+               `
+|t t t t t t t|`
+ - - - - - - - `
+    ]]>
+  </level>
+  <level id="5-27">
+    <![CDATA[
+ - - - - - - - `
+|             |`
+               `
+|    d d d    |`
+               `
+|    d d d    |`
+               `
+|  p m m m c  |`
+               `
+|p p p O c c c|`
+               `
+|p p m t m c c|`
+               `
+|    t t      |`
+               `
+|D     t t    |`
+               `
+|    T   P   C|`
+ - - - - - - - `
+    ]]>
+  </level>
+  <level id="5-31">
+    <![CDATA[
+ - - - - - - - `
+|d d d d d d d|`
+               `
+|d d d d P O d|`
+               `
+|d d C d d d d|`
+               `
+|T|d d d d    |`
+     - - -     `
+|t O p p D   O|`
+         -     `
+|t   p p|c c c|`
+               `
+|t t t p c|c c|`
+               `
+|t S t p c c|c|`
+               `
+|t t t O c c c|`
+ - - - - - - - `
+    ]]>
+  </level>
+  <level id="5-34">
+    <![CDATA[
+ - - - - - - - `
+|D O c c c c c|`
+               `
+|c c c c c O c|`
+               `
+|c S c   c c c|`
+             - `
+|c c c c c O d|`
+               `
+|c|c c c c d d|`
+               `
+|c S c     d d|`
+               `
+|c c c C d d d|`
+               `
+|c c d d d O d|`
+               `
+|  O d d d d d|`
+ - - - - - - - `
+    ]]>
+  </level>
+  <level id="5-36">
+    <![CDATA[
+ - - - - - - - `
+|             |`
+       -       `
+|  t t|t t t  |`
+               `
+|  t t t t t  |`
+         -     `
+|  t t O t t  |`
+               `
+|  t t t t t  |`
+         -     `
+|  t|t t t t  |`
+               `
+|  t t O t t  |`
+     -         `
+|  t t t t t  |`
+               `
+|      T      |`
+ - - - - - - - `
+    ]]>
+  </level>
 </levels>

@@ -213,9 +213,21 @@ void CMazeEditorView::OnInitialUpdate()
 
 void CMazeEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
-    Position p(point.y / m_pDoc->m_nSideLen, point.x / m_pDoc->m_nSideLen);
+    Position p(min(point.y / m_pDoc->m_nSideLen, m_pDoc->MazeHeight() - 1),
+        min(point.x / m_pDoc->m_nSideLen, m_pDoc->MazeWidth() - 1));
+    bool bAlt = GetKeyState(VK_MENU) & 0x8000 ? true : false;
     bool bCtrl = GetKeyState(VK_CONTROL) & 0x8000 ? true : false;
-    bCtrl ? m_pDoc->ToggleCurPos(p) : SetCurPos(p);
+    bool bShift = GetKeyState(VK_SHIFT) & 0x8000 ? true : false;
+    bAlt ? m_pDoc->ToggleCurPos(p) : SetCurPos(p);
+    if(bCtrl)
+        if(abs(point.y - p.first * m_pDoc->m_nSideLen) < 10)
+            m_pDoc->SetHorzWall(false, bShift);
+        else if(abs(point.x - p.second * m_pDoc->m_nSideLen) < 10)
+            m_pDoc->SetVertWall(false, bShift);
+        else if(abs(point.y - (p.first + 1) * m_pDoc->m_nSideLen) < 10)
+            m_pDoc->SetHorzWall(true, bShift);
+        else if(abs(point.x - (p.second + 1) * m_pDoc->m_nSideLen) < 10)
+            m_pDoc->SetVertWall(true, bShift);
 }
 
 void CMazeEditorView::MoveUp()
