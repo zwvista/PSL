@@ -1,0 +1,26 @@
+Level New York 1
+Sequence of moves: 
+. . . a . . . 
+. . . b . . . 
+. . . c . . . 
+. . d c . . . 
+. . c d a . . 
+. . b d b a . 
+move: (3,4) l
+. . . . . . . 
+. . . a . . . 
+. . c b . . . 
+. . d c . . . 
+. . c d a . . 
+. . b d b a . 
+move: (4,3) r
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+. . . . . . . 
+Number of moves: 2
+Number of vertices examined: 78
+0.00812582 [s]
+

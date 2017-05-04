@@ -1,0 +1,12 @@
+Level test
+Sequence of moves: 
+ 3 - - 4 - 2
+ H     H 1 |
+ 4 - 1 H | |
+ |     2 | 1
+ 3 = = = 3  
+            
+Number of moves: 1
+Number of vertices examined: 2
+0.00645953 [s]
+

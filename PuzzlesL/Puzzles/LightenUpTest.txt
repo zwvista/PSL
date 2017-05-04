@@ -1,0 +1,12 @@
+Level test
+Sequence of moves: 
++ + B + W 0 
+B + W B 1 0 
+1 + + 1 0 + 
++ B + + + + 
+B 4 B 3 B + 
++ B W B 3 B 
+Number of moves: 10
+Number of vertices examined: 11
+0.000484918 [s]
+
