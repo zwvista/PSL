@@ -13,6 +13,8 @@
 		8CA241E41EB716AF0055D6B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CA241E21EB716AF0055D6B1 /* Main.storyboard */; };
 		8CA241EF1EB716AF0055D6B1 /* MazeEditor3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241EE1EB716AF0055D6B1 /* MazeEditor3Tests.swift */; };
 		8CA241FA1EB716AF0055D6B1 /* MazeEditor3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241F91EB716AF0055D6B1 /* MazeEditor3UITests.swift */; };
+		8CA242081EB82CC80055D6B1 /* MazeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA242071EB82CC80055D6B1 /* MazeView.swift */; };
+		8CA2420A1EB8B3460055D6B1 /* Maze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA242091EB8B3460055D6B1 /* Maze.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		8CA241F51EB716AF0055D6B1 /* MazeEditor3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MazeEditor3UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA241F91EB716AF0055D6B1 /* MazeEditor3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeEditor3UITests.swift; sourceTree = "<group>"; };
 		8CA241FB1EB716AF0055D6B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8CA242071EB82CC80055D6B1 /* MazeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MazeView.swift; sourceTree = "<group>"; };
+		8CA242091EB8B3460055D6B1 /* Maze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maze.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 				8CA241E01EB716AF0055D6B1 /* Assets.xcassets */,
 				8CA241E21EB716AF0055D6B1 /* Main.storyboard */,
 				8CA241E51EB716AF0055D6B1 /* Info.plist */,
+				8CA242071EB82CC80055D6B1 /* MazeView.swift */,
+				8CA242091EB8B3460055D6B1 /* Maze.swift */,
 			);
 			path = MazeEditor3;
 			sourceTree = "<group>";
@@ -258,7 +264,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CA242081EB82CC80055D6B1 /* MazeView.swift in Sources */,
 				8CA241DF1EB716AF0055D6B1 /* ViewController.swift in Sources */,
+				8CA2420A1EB8B3460055D6B1 /* Maze.swift in Sources */,
 				8CA241DD1EB716AF0055D6B1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

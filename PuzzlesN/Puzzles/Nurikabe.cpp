@@ -158,6 +158,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         for(auto& os : offset){
             auto p = *this + os;
             char ch_g = m_state->cells(*m_garden->m_inner.begin());
+            // Gardens are separated by a wall, so they cannot touch
+            // each other horizontally or vertically.
             if(m_state->cells(p) == PUZ_SPACE && [&]{
                 for(auto& os2 : offset){
                     char ch = m_state->cells(p + os2);
@@ -255,6 +257,7 @@ bool puz_state::make_move2(char ch, const Position& p)
     auto& g = m_ch2garden.at(ch);
     cells(p) = ch, ++m_distance;
     g.m_inner.insert(p);
+    // Gardens are separated by a wall.
     if(--g.m_remaining == 0){
         for(auto& p2 : g.m_inner)
             for(auto& os : offset){

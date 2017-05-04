@@ -59,7 +59,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    char ch_g = 'A';
+    char ch_g = 'a';
     m_start.append(m_sidelen, PUZ_BOUNDARY);
     for(int r = 1; r < m_sidelen - 1; ++r){
         auto& str = strs[r - 1];
