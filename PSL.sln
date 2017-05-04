@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MazeEditor", "MazeEditor\MazeEditor.vcxproj", "{6CEE0F90-6308-41D9-9511-C9CDD88366A1}"
 EndProject
@@ -50,6 +50,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeEditor2", "MazeEditor2\MazeEditor2.csproj", "{73B48C22-1272-4BC6-A752-00CDAC4175E9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PuzzlesY", "PuzzlesY\PuzzlesY.vcxproj", "{3F6CA6E7-7499-4DB9-BA23-495A95672158}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CopyCProject", "CopyCProject\CopyCProject.vcxproj", "{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -543,6 +545,26 @@ Global
 		{3F6CA6E7-7499-4DB9-BA23-495A95672158}.Release|x64.Build.0 = Release|x64
 		{3F6CA6E7-7499-4DB9-BA23-495A95672158}.Release|x86.ActiveCfg = Release|Win32
 		{3F6CA6E7-7499-4DB9-BA23-495A95672158}.Release|x86.Build.0 = Release|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Debug|ARM.ActiveCfg = Debug|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Debug|Win32.Build.0 = Debug|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Debug|x64.ActiveCfg = Debug|x64
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Debug|x64.Build.0 = Debug|x64
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Debug|x86.ActiveCfg = Debug|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Debug|x86.Build.0 = Debug|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Release|Any CPU.ActiveCfg = Release|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Release|ARM.ActiveCfg = Release|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Release|Win32.ActiveCfg = Release|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Release|Win32.Build.0 = Release|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Release|x64.ActiveCfg = Release|x64
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Release|x64.Build.0 = Release|x64
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Release|x86.ActiveCfg = Release|Win32
+		{EFEDFA0E-468D-4659-ACAB-FF0FDBF7E4D6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
