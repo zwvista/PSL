@@ -1,7 +1,7 @@
 // CopyCProject.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
+//#include "stdafx.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -22,19 +22,19 @@ std::wstring Replacewstring(std::wstring subject, const std::wstring& search,
 
 int main()
 {
-    wifstream wif(L"../Puzzles9/.cproject");
-    wif.imbue(locale(locale::empty(), new codecvt_utf8<wchar_t, 0x10ffff, consume_header>));
+    wifstream wif("../Puzzles9/.cproject");
+    wif.imbue(locale(locale(), new codecvt_utf8<wchar_t, 0x10ffff, consume_header>));
     wstringstream wss;
     wss << wif.rdbuf();
     wif.close();
     wstring s = wss.str();
 
     for(char ch : {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z'}){
-        wstring prj = wstring(L"Puzzles") + wchar_t(ch);
+        string prj = string("Puzzles") + ch;
         wofstream wof;
-        wof.imbue(std::locale(std::locale::empty(), new std::codecvt_utf8<wchar_t, 0x10ffff, std::generate_header>)); 
-        wof.open(L"../" + prj + L"/.cproject");
-        wstring t = Replacewstring(s, L"Puzzles9", prj);
+        wof.imbue(locale(locale(), new codecvt_utf8<wchar_t, 0x10ffff, consume_header>));
+        wof.open("../" + prj + "/.cproject");
+        wstring t = Replacewstring(s, L"Puzzles9", wstring(prj.begin(), prj.end()));
         wof << t;
         wof.close();
     }

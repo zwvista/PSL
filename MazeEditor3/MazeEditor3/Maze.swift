@@ -9,6 +9,8 @@
 import Cocoa
 
 class Maze: NSObject {
-    var height = 8
-    var width = 8
+    var size = Position(8, 8)
+    var currPos = Position()
 }
+
+let maze = Maze()

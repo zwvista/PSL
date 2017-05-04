@@ -687,20 +687,35 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="F6I-Iq-u1r" customClass="MazeView" customModule="MazeEditor3" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="800" height="400"/>
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
                             </customView>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tTL-3W-Oc3">
+                                <rect key="frame" x="30" y="556" width="76" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="00Z-hz-vEg" id="f2h-px-TNq">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="GRE-9Z-2gY">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="00Z-hz-vEg"/>
+                                            <menuItem title="Item 2" id="wxh-xc-haP"/>
+                                            <menuItem title="Item 3" id="Cpw-9U-V4b"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="F6I-Iq-u1r" secondAttribute="trailing" id="X2i-0p-Uce"/>
                             <constraint firstAttribute="bottom" secondItem="F6I-Iq-u1r" secondAttribute="bottom" id="b3Y-1x-yVR"/>
-                            <constraint firstItem="F6I-Iq-u1r" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="200" id="qWS-Rr-WIa"/>
+                            <constraint firstItem="F6I-Iq-u1r" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="100" id="qWS-Rr-WIa"/>
                             <constraint firstItem="F6I-Iq-u1r" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="z7u-Q1-6Km"/>
                         </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="115" y="756"/>
         </scene>
     </scenes>
 </document>

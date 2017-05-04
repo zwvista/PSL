@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C2B769D1EBB5FBC000FF777 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2B769C1EBB5FBC000FF777 /* Position.swift */; };
 		8CA241DD1EB716AF0055D6B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241DC1EB716AF0055D6B1 /* AppDelegate.swift */; };
 		8CA241DF1EB716AF0055D6B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241DE1EB716AF0055D6B1 /* ViewController.swift */; };
 		8CA241E11EB716AF0055D6B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CA241E01EB716AF0055D6B1 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C2B769C1EBB5FBC000FF777 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		8CA241D91EB716AE0055D6B1 /* MazeEditor3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazeEditor3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA241DC1EB716AF0055D6B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CA241DE1EB716AF0055D6B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				8CA241E51EB716AF0055D6B1 /* Info.plist */,
 				8CA242071EB82CC80055D6B1 /* MazeView.swift */,
 				8CA242091EB8B3460055D6B1 /* Maze.swift */,
+				8C2B769C1EBB5FBC000FF777 /* Position.swift */,
 			);
 			path = MazeEditor3;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				8CA242081EB82CC80055D6B1 /* MazeView.swift in Sources */,
 				8CA241DF1EB716AF0055D6B1 /* ViewController.swift in Sources */,
 				8CA2420A1EB8B3460055D6B1 /* Maze.swift in Sources */,
+				8C2B769D1EBB5FBC000FF777 /* Position.swift in Sources */,
 				8CA241DD1EB716AF0055D6B1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,6 +517,7 @@
 				8CA242001EB716AF0055D6B1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8CA242011EB716AF0055D6B1 /* Build configuration list for PBXNativeTarget "MazeEditor3Tests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +526,7 @@
 				8CA242031EB716AF0055D6B1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8CA242041EB716AF0055D6B1 /* Build configuration list for PBXNativeTarget "MazeEditor3UITests" */ = {
 			isa = XCConfigurationList;
@@ -529,6 +535,7 @@
 				8CA242061EB716AF0055D6B1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
