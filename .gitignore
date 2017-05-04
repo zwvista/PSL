@@ -12,3 +12,6 @@ x64
 /PSL.sln.ide
 .vs
 /*.db
+
+.settings/
+.cproject
