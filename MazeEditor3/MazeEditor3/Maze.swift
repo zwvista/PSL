@@ -10,7 +10,22 @@ import Cocoa
 
 class Maze: NSObject {
     var size = Position(8, 8)
+    var height: Int {
+        get {return size.row}
+        set {size = Position(newValue, size.col)}
+    }
+    var width: Int {
+        get {return size.col}
+        set {size = Position(size.row, newValue)}
+    }
     var currPos = Position()
+    func setCurrPos(p: Position) {
+        let nArea = height * width
+        let n = (p.row * height + p.col + nArea) % nArea
+        currPos = Position(n / height, n % height)
+    }
+    var pos2obj = [Position: Character]()
+    
 }
 
 let maze = Maze()

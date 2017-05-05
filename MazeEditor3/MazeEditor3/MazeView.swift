@@ -20,23 +20,23 @@ class MazeView: NSView {
 
         let blackColor = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         blackColor.set()
-        let noHLines = maze.size.row;
-        let noVLines = maze.size.col;
-        let vSpacing = dirtyRect.size.height / CGFloat(noHLines)
-        let hSpacing = dirtyRect.size.width / CGFloat(noVLines)
+        let rows = maze.height;
+        let cols = maze.width;
+        let vSpacing = dirtyRect.size.height / CGFloat(rows)
+        let hSpacing = dirtyRect.size.width / CGFloat(cols)
         let spacing = min(vSpacing, hSpacing)
         let bPath:NSBezierPath = NSBezierPath()
         bPath.lineWidth = 1.0
-        for i in 0...noHLines {
+        for i in 0...rows {
             let yVal = CGFloat(i) * spacing
             bPath.move(to: NSMakePoint(0, yVal))
-            bPath.line(to: NSMakePoint(CGFloat(noVLines) * spacing , yVal))
+            bPath.line(to: NSMakePoint(CGFloat(cols) * spacing , yVal))
         }
         bPath.stroke()
-        for i in 0...noVLines {
+        for i in 0...cols {
             let xVal = CGFloat(i) * spacing
             bPath.move(to: NSMakePoint(xVal, 0))
-            bPath.line(to: NSMakePoint(xVal, CGFloat(noHLines) * spacing))
+            bPath.line(to: NSMakePoint(xVal, CGFloat(rows) * spacing))
         }
         bPath.stroke()
         
@@ -45,6 +45,18 @@ class MazeView: NSView {
         NSRectFill(NSRect(x: CGFloat(maze.currPos.col) * spacing + margin,
                           y: CGFloat(maze.currPos.row) * spacing + margin,
                           width: spacing - margin * 2, height: spacing - margin * 2))
+        
+        for r in 0..<rows {
+            for c in 0..<cols {
+                let p = Position(r, c)
+                if let ch = maze.pos2obj[p] {
+                    ("\(ch)" as NSString).draw(
+                        in: NSRect(x: CGFloat(c) * spacing + margin,
+                                   y: CGFloat(r) * spacing + margin,
+                                   width: spacing - margin * 2, height: spacing - margin * 2), withAttributes: nil)
+                }
+            }
+        }
 
     }
     

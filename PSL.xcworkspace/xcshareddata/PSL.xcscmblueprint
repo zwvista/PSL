@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "5AFC74DD8F6E416AF5F4E3992B7F9B81543C2C43",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "EB01B6A79D272820BD36949BD1BFF044DAB62FBE" : 9223372036854775807,
+    "5AFC74DD8F6E416AF5F4E3992B7F9B81543C2C43" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1FC5D5CB-BCA5-4D8B-9463-7C2EF2B3FB58",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "EB01B6A79D272820BD36949BD1BFF044DAB62FBE" : "..\/OSS\/EZSwiftExtensions",
+    "5AFC74DD8F6E416AF5F4E3992B7F9B81543C2C43" : "PSL\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "PSL",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "PSL.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/zwvista\/PSL",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5AFC74DD8F6E416AF5F4E3992B7F9B81543C2C43"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/goktugyil\/EZSwiftExtensions",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EB01B6A79D272820BD36949BD1BFF044DAB62FBE"
+    }
+  ]
+}

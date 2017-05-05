@@ -678,10 +678,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Maze View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="MazeEditor3" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="MazeViewController" customModule="MazeEditor3" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -689,8 +689,17 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="F6I-Iq-u1r" customClass="MazeView" customModule="MazeEditor3" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
                             </customView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAs-Tb-zf0">
+                                <rect key="frame" x="18" y="562" width="57" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Height" id="Wkl-It-jP9">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tTL-3W-Oc3">
-                                <rect key="frame" x="30" y="556" width="76" height="26"/>
+                                <rect key="frame" x="79" y="556" width="76" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="00Z-hz-vEg" id="f2h-px-TNq">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -703,6 +712,38 @@
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="heightPopupChanged:" target="XfG-lQ-9wD" id="Src-tR-gUk"/>
+                                    <binding destination="E5X-8R-7de" name="content" keyPath="arrangedObjects" id="0Qp-a2-oTh"/>
+                                </connections>
+                            </popUpButton>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qr-Nv-LXf">
+                                <rect key="frame" x="18" y="533" width="57" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Width" id="QcD-Ft-gzU">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SOh-2S-dq8">
+                                <rect key="frame" x="79" y="527" width="76" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="HZj-w3-DG9" id="1bJ-q2-2vL">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="jf9-Hq-yPF">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="HZj-w3-DG9"/>
+                                            <menuItem title="Item 2" id="ZVR-eC-KAQ"/>
+                                            <menuItem title="Item 3" id="yHd-kB-zGz"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="widthPopupChanged:" target="XfG-lQ-9wD" id="Bav-0N-9cG"/>
+                                    <binding destination="E5X-8R-7de" name="content" keyPath="arrangedObjects" id="nQZ-Xt-Pqj"/>
+                                </connections>
                             </popUpButton>
                         </subviews>
                         <constraints>
@@ -712,8 +753,20 @@
                             <constraint firstItem="F6I-Iq-u1r" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="z7u-Q1-6Km"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="heightPopup" destination="tTL-3W-Oc3" id="a0p-yF-NXf"/>
+                        <outlet property="mazeView" destination="F6I-Iq-u1r" id="YiP-gq-osO"/>
+                        <outlet property="sizeController" destination="E5X-8R-7de" id="MhO-WT-a2e"/>
+                        <outlet property="widthPopup" destination="SOh-2S-dq8" id="ErO-wC-tuy"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <arrayController id="E5X-8R-7de">
+                    <connections>
+                        <binding destination="XfG-lQ-9wD" name="contentArray" keyPath="sizes" id="Mmb-7h-mBB"/>
+                    </connections>
+                </arrayController>
+                <userDefaultsController representsSharedInstance="YES" id="ret-Ki-TI8"/>
             </objects>
             <point key="canvasLocation" x="115" y="756"/>
         </scene>
