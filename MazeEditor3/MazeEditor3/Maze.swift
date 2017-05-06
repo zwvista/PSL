@@ -8,11 +8,22 @@
 
 import Cocoa
 
+protocol MazeDelegate: class {
+    func updateMazeSize()
+    func updateMazeView()
+    func updateCurPosition()
+}
+
 class Maze: NSObject {
     private var size = Position(8, 8)
+    weak var delegate: MazeDelegate?
     var height: Int {
         get {return size.row}
-        set {size = Position(newValue, size.col)}
+        set {
+            size = Position(newValue, size.col)
+            delegate?.updateMazeSize()
+            delegate?.updateMazeView()
+        }
     }
     var width: Int {
         get {return size.col}
@@ -21,8 +32,10 @@ class Maze: NSObject {
     var curPos = Position()
     func setCurPos(p: Position) {
         let nArea = height * width
-        let n = (p.row * height + p.col + nArea) % nArea
-        curPos = Position(n / height, n % height)
+        let n = (p.row * width + p.col + nArea) % nArea
+        curPos = Position(n / width, n % width)
+        delegate?.updateCurPosition()
+        delegate?.updateMazeView()
     }
     private var pos2obj = [Position: Character]()
     var hasWall = false
@@ -33,6 +46,22 @@ class Maze: NSObject {
     func setObject(p: Position, ch: Character) {pos2obj[p] = ch}
     func isHorzWall(p: Position) -> Bool {return horzWall.contains(p)}
     func isVertWall(p: Position) -> Bool {return vertWall.contains(p)}
+    func toggleHorzWall(p: Position) {
+        if horzWall.contains(p) {
+            horzWall.remove(p)
+        } else {
+            horzWall.insert(p)
+        }
+        delegate?.updateMazeView()
+    }
+    func toggleVertWall(p: Position) {
+        if vertWall.contains(p) {
+            vertWall.remove(p)
+        } else {
+            vertWall.insert(p)
+        }
+        delegate?.updateMazeView()
+    }
     
     func fillBorderLines() {
         guard hasWall else {return}
@@ -44,6 +73,7 @@ class Maze: NSObject {
             horzWall.insert(Position(0, c))
             horzWall.insert(Position(height, c))
         }
+        delegate?.updateMazeView()
     }
     
     var data: String {
@@ -64,6 +94,7 @@ class Maze: NSObject {
                         let ch = getObject(p: p)
                         str += ch != nil ? String(ch!) : " "
                     }
+                    str += "`\n"
                 }
             } else {
                 for r in 0..<height {
@@ -72,10 +103,73 @@ class Maze: NSObject {
                         let ch = getObject(p: p)
                         str += ch != nil ? String(ch!) : " "
                     }
+                    str += " `\n"
                 }
             }
             return str
         }
+        set {
+            let strs = newValue.components(separatedBy: "`\n").filter{$0 != ""}
+            if hasWall {
+                size = Position(strs.count / 2, strs[0].characters.count / 2)
+                for r in 0...height {
+                    let str1 = strs[2 * r]
+                    for c in 0..<width {
+                        if str1.characters[str1.index(str1.startIndex, offsetBy: 2 * c + 1)] == "-" {
+                            horzWall.insert(Position(r, c))
+                        }
+                    }
+                    if r == height {break}
+                    let str2 = strs[2 * r + 1]
+                    for c in 0...width {
+                        if str2.characters[str1.index(str1.startIndex, offsetBy: 2 * c)] == "|" {
+                            vertWall.insert(Position(r, c))
+                        }
+                        if c == width {break}
+                        let ch = str2.characters[str1.index(str1.startIndex, offsetBy: 2 * c + 1)]
+                        if ch != " " {
+                            pos2obj[Position(r, c)] = ch
+                        }
+                    }
+                }
+            } else {
+                size = Position(strs.count, strs[0].characters.count)
+                for r in 0..<height {
+                    let str = strs[r]
+                    for c in 0..<width {
+                        let ch = str.characters[str.index(str.startIndex, offsetBy: c)]
+                        if ch != " " {
+                            pos2obj[Position(r, c)] = ch
+                        }
+                    }
+                }
+            }
+            updateMaze()
+        }
+    }
+    
+    func clearAll() {
+        clearWalls()
+        clearChars()
+    }
+    
+    func clearWalls() {
+        horzWall.removeAll()
+        vertWall.removeAll()
+        delegate?.updateMazeView()
+    }
+    
+    func clearChars() {
+        curPos = Position()
+        pos2obj.removeAll()
+        delegate?.updateCurPosition()
+        delegate?.updateMazeView()
+    }
+    
+    func updateMaze() {
+        delegate?.updateMazeSize()
+        delegate?.updateCurPosition()
+        delegate?.updateMazeView()
     }
 }
 

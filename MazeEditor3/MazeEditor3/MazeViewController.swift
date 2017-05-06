@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class MazeViewController: NSViewController {
+class MazeViewController: NSViewController, MazeDelegate {
     
     let sizes = [Int](1...20)
     
@@ -20,10 +20,9 @@ class MazeViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        heightPopup.selectItem(withTitle: String(maze.height))
-        widthPopup.selectItem(withTitle: String(maze.width))
+        maze.delegate = self
         mazeView.mazeVC = self
-        updateCurPosition()
+        maze.updateMaze()
     }
 
     override var representedObject: Any? {
@@ -34,30 +33,22 @@ class MazeViewController: NSViewController {
     
     @IBAction func heightPopupChanged(_ sender: NSPopUpButton) {
         maze.height = sender.selectedItem!.representedObject as! Int
-        mazeView.needsDisplay = true
     }
     
     @IBAction func widthPopupChanged(_ sender: NSPopUpButton) {
         maze.width = sender.selectedItem!.representedObject as! Int
-        mazeView.needsDisplay = true
     }
 
     @IBAction func hasWallChanged(_ sender: NSButton) {
         maze.hasWall = sender.state == NSOnState
-        mazeView.needsDisplay = true
     }
     
     @IBAction func fillBorderLines(_ sender: NSButton) {
         maze.fillBorderLines()
-        mazeView.needsDisplay = true
     }
     
     func desc(p: Position) -> String {
         return "\(p.row),\(p.col)"
-    }
-    
-    func updateCurPosition() {
-        positionTextField.stringValue = desc(p: maze.curPos)
     }
     
     func updateMousePosition(p: Position) {
@@ -71,9 +62,32 @@ class MazeViewController: NSViewController {
     }
     
     @IBAction func paste(_ sender: NSButton) {
+        maze.data = NSPasteboard.general().string(forType: NSPasteboardTypeString)!
     }
     
-    @IBAction func clear(_ sender: NSButton) {
+    @IBAction func clearAll(_ sender: NSButton) {
+        maze.clearAll()
+    }
+    
+    @IBAction func clearWalls(_ sender: NSButton) {
+        maze.clearWalls()
+    }
+    
+    @IBAction func clearChars(_ sender: NSButton) {
+        maze.clearChars()
+    }
+    
+    func updateMazeSize() {
+        heightPopup.selectItem(withTitle: String(maze.height))
+        widthPopup.selectItem(withTitle: String(maze.width))
+    }
+    
+    func updateMazeView() {
+        mazeView.needsDisplay = true
+    }
+    
+    func updateCurPosition() {
+        positionTextField.stringValue = desc(p: maze.curPos)
     }
 }
 

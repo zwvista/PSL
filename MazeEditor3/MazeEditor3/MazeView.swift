@@ -100,29 +100,20 @@ class MazeView: NSView {
 
     }
     
-    func updateUI1() {
-        mazeVC.updateCurPosition()
-        needsDisplay = true
-    }
-    
     func moveLeft() {
         maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col - 1))
-        updateUI1()
     }
     
     func moveRight() {
         maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col + 1))
-        updateUI1()
     }
     
     func moveUp() {
         maze.setCurPos(p: Position(maze.curPos.row - 1, maze.curPos.col))
-        updateUI1()
     }
     
     func moveDown() {
         maze.setCurPos(p: Position(maze.curPos.row + 1, maze.curPos.col))
-        updateUI1()
     }
     
     override func keyDown(with event: NSEvent) {
@@ -138,6 +129,9 @@ class MazeView: NSView {
             moveUp()
         case NSDownArrowFunctionKey:
             moveDown()
+        case 127:
+            maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
+            moveLeft()
         default:
             if isprint(Int32(ch)) != 0 {
                 maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
@@ -154,13 +148,12 @@ class MazeView: NSView {
         let p = Position(min(maze.height - 1, Int(y / spacing)), min(maze.width - 1, Int(x / spacing)))
         let p2 = Position(min(maze.height - 1, Int((y + offset) / spacing)), min(maze.width - 1, Int((x + offset) / spacing)))
         if maze.hasWall && abs(x - CGFloat(p2.col) * spacing) < offset {
-            maze.vertWall.insert(p2)
+            maze.toggleVertWall(p: p2)
         } else if maze.hasWall && abs(y - CGFloat(p2.row) * spacing) < offset {
-            maze.horzWall.insert(p2)
+            maze.toggleHorzWall(p: p2)
         } else {
             maze.setCurPos(p: p)
         }
-        updateUI1()
     }
     
     override func mouseMoved(with event: NSEvent) {
