@@ -15,15 +15,15 @@ class MazeViewController: NSViewController {
     @IBOutlet weak var heightPopup: NSPopUpButton!
     @IBOutlet weak var widthPopup: NSPopUpButton!
     @IBOutlet weak var mazeView: MazeView!
+    @IBOutlet weak var positionTextField: NSTextField!
+    @IBOutlet weak var mouseTextField: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
-            self.keyDown(with: $0)
-            return $0
-        }
         heightPopup.selectItem(withTitle: String(maze.height))
         widthPopup.selectItem(withTitle: String(maze.width))
+        mazeView.mazeVC = self
+        updateCurPosition()
     }
 
     override var representedObject: Any? {
@@ -31,8 +31,6 @@ class MazeViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-    
-    override var acceptsFirstResponder: Bool {return true}
     
     @IBAction func heightPopupChanged(_ sender: NSPopUpButton) {
         maze.height = sender.selectedItem!.representedObject as! Int
@@ -43,48 +41,39 @@ class MazeViewController: NSViewController {
         maze.width = sender.selectedItem!.representedObject as! Int
         mazeView.needsDisplay = true
     }
-    
-    func moveLeft() {
-        maze.setCurrPos(p: Position(maze.currPos.row, maze.currPos.col - 1))
-        mazeView.needsDisplay = true
-    }
-    
-    func moveRight() {
-        maze.setCurrPos(p: Position(maze.currPos.row, maze.currPos.col + 1))
-        mazeView.needsDisplay = true
-    }
-    
-    func moveUp() {
-        maze.setCurrPos(p: Position(maze.currPos.row - 1, maze.currPos.col))
-        mazeView.needsDisplay = true
-    }
-    
-    func moveDown() {
-        maze.setCurrPos(p: Position(maze.currPos.row + 1, maze.currPos.col))
-        mazeView.needsDisplay = true
-    }
 
-    override func keyDown(with event: NSEvent) {
-        // http://stackoverflow.com/questions/9268045/how-can-i-detect-that-the-shift-key-has-been-pressed
-        let char = Int(event.charactersIgnoringModifiers!.utf16[String.UTF16View.Index(0)])
-        let hasCommand = event.modifierFlags.contains(.command)
-        switch char {
-        case NSLeftArrowFunctionKey:
-            moveLeft()
-        case NSRightArrowFunctionKey:
-            moveRight()
-        case NSUpArrowFunctionKey:
-            moveUp()
-        case NSDownArrowFunctionKey:
-            moveDown()
-        default:
-            if isprint(Int32(char)) != 0 {
-                maze.pos2obj[maze.currPos] = Character(UnicodeScalar(char)!)
-                moveRight()
-            }
-            super.keyDown(with: event)
-        }
+    @IBAction func hasWallChanged(_ sender: NSButton) {
+        maze.hasWall = sender.state == NSOnState
+        mazeView.needsDisplay = true
     }
-
+    
+    @IBAction func fillBorderLines(_ sender: NSButton) {
+        maze.fillBorderLines()
+        mazeView.needsDisplay = true
+    }
+    
+    func desc(p: Position) -> String {
+        return "\(p.row),\(p.col)"
+    }
+    
+    func updateCurPosition() {
+        positionTextField.stringValue = desc(p: maze.curPos)
+    }
+    
+    func updateMousePosition(p: Position) {
+        mouseTextField.stringValue = desc(p: p)
+    }
+    
+    @IBAction func copy(_ sender: NSButton) {
+        let pb = NSPasteboard.general()
+        pb.clearContents()
+        pb.setString(maze.data, forType: NSPasteboardTypeString)
+    }
+    
+    @IBAction func paste(_ sender: NSButton) {
+    }
+    
+    @IBAction func clear(_ sender: NSButton) {
+    }
 }
 
