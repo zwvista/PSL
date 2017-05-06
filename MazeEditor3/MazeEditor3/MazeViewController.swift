@@ -15,15 +15,13 @@ class MazeViewController: NSViewController {
     @IBOutlet weak var heightPopup: NSPopUpButton!
     @IBOutlet weak var widthPopup: NSPopUpButton!
     @IBOutlet weak var mazeView: MazeView!
+    @IBOutlet weak var positionTextField: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         heightPopup.selectItem(withTitle: String(maze.height))
         widthPopup.selectItem(withTitle: String(maze.width))
-        NSEvent.addLocalMonitorForEvents(matching: .mouseMoved) {
-            self.mouseMoved(with: $0)
-            return $0
-        }
+        mazeView.mazeVC = self
     }
 
     override var representedObject: Any? {
@@ -52,8 +50,8 @@ class MazeViewController: NSViewController {
         mazeView.needsDisplay = true
     }
     
-    override func mouseMoved(with event: NSEvent) {
-        
+    func updatePosition(p: Position) {
+        positionTextField.stringValue = "\(p.row),\(p.col)"
     }
 }
 

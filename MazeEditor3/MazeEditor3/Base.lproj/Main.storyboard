@@ -800,9 +800,9 @@
                                 </buttonCell>
                             </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0aK-aR-bBC">
-                                <rect key="frame" x="396" y="557" width="96" height="22"/>
+                                <rect key="frame" x="396" y="557" width="66" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="rPH-6n-19H">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="rPH-6n-19H">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -852,6 +852,7 @@
                     <connections>
                         <outlet property="heightPopup" destination="tTL-3W-Oc3" id="a0p-yF-NXf"/>
                         <outlet property="mazeView" destination="F6I-Iq-u1r" id="YiP-gq-osO"/>
+                        <outlet property="positionTextField" destination="0aK-aR-bBC" id="wZk-TK-AG8"/>
                         <outlet property="widthPopup" destination="SOh-2S-dq8" id="ErO-wC-tuy"/>
                     </connections>
                 </viewController>

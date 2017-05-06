@@ -14,6 +14,20 @@ class MazeView: NSView {
     override var acceptsFirstResponder: Bool {return true}
 
     var spacing:CGFloat = 0
+    weak var mazeVC: MazeViewController?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let options:NSTrackingAreaOptions = [
+            .mouseEnteredAndExited,
+            .mouseMoved,
+            .cursorUpdate,
+            .activeAlways
+        ]
+        let trackingArea = NSTrackingArea(rect: bounds, options: options, owner: self, userInfo: nil)
+        addTrackingArea(trackingArea)
+
+    }
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -130,15 +144,23 @@ class MazeView: NSView {
         let offset:CGFloat = 10
         let pt = event.locationInWindow
         let (x, y) = (pt.x, frame.size.height - pt.y)
-        let p = Position(min(maze.height - 1, Int((y + offset) / spacing)), min(maze.width - 1, Int((x + offset) / spacing)))
-        if maze.hasWall && abs(x - CGFloat(p.col) * spacing) < offset {
-            maze.vertWall.insert(p)
-        } else if maze.hasWall && abs(y - CGFloat(p.row) * spacing) < offset {
-            maze.horzWall.insert(p)
+        let p = Position(min(maze.height - 1, Int(y / spacing)), min(maze.width - 1, Int(x / spacing)))
+        let p2 = Position(min(maze.height - 1, Int((y + offset) / spacing)), min(maze.width - 1, Int((x + offset) / spacing)))
+        if maze.hasWall && abs(x - CGFloat(p2.col) * spacing) < offset {
+            maze.vertWall.insert(p2)
+        } else if maze.hasWall && abs(y - CGFloat(p2.row) * spacing) < offset {
+            maze.horzWall.insert(p2)
         } else {
             maze.setCurrPos(p: p)
         }
         needsDisplay = true
+    }
+    
+    override func mouseMoved(with event: NSEvent) {
+        let pt = event.locationInWindow
+        let (x, y) = (pt.x, frame.size.height - pt.y)
+        let p = Position(min(maze.height - 1, Int(y / spacing)), min(maze.width - 1, Int(x / spacing)))
+        mazeVC?.updatePosition(p: p)
     }
     
 }
