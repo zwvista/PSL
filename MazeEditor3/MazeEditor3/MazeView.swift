@@ -80,8 +80,8 @@ class MazeView: NSView {
         let textStyle = NSMutableParagraphStyle.default().mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.center
         let textColor = NSColor.brown
-        let textFontAttributes = [
-            NSFontAttributeName: font,
+        let textFontAttributes: [String: Any] = [
+            NSFontAttributeName: font as Any,
             NSForegroundColorAttributeName: textColor,
             NSParagraphStyleAttributeName: textStyle
         ]
@@ -89,34 +89,30 @@ class MazeView: NSView {
             for c in 0..<cols {
                 let p = Position(r, c)
                 if let ch = maze.getObject(p: p) {
-                    ("\(ch)" as NSString).draw(
-                        in: NSRect(x: CGFloat(c) * spacing + margin,
-                                   y: CGFloat(r) * spacing + margin,
-                                   width: spacing - margin * 2, height: spacing - margin * 2),
+                    let str = "\(ch)" as NSString
+                    str.draw(
+                        in: NSRect(x: CGFloat(c) * spacing,
+                                   y: CGFloat(r) * spacing,
+                                   width: spacing, height: spacing),
                         withAttributes: textFontAttributes)
                 }
             }
         }
-
-    }
-    
-    func moveLeft() {
-        maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col - 1))
-    }
-    
-    func moveRight() {
-        maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col + 1))
-    }
-    
-    func moveUp() {
-        maze.setCurPos(p: Position(maze.curPos.row - 1, maze.curPos.col))
-    }
-    
-    func moveDown() {
-        maze.setCurPos(p: Position(maze.curPos.row + 1, maze.curPos.col))
     }
     
     override func keyDown(with event: NSEvent) {
+        func moveLeft() {
+            maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col - 1))
+        }
+        func moveRight() {
+            maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col + 1))
+        }
+        func moveUp() {
+            maze.setCurPos(p: Position(maze.curPos.row - 1, maze.curPos.col))
+        }
+        func moveDown() {
+            maze.setCurPos(p: Position(maze.curPos.row + 1, maze.curPos.col))
+        }
         func moveNext() {
             switch delegate!.curMovement {
             case .moveUp:
@@ -133,7 +129,7 @@ class MazeView: NSView {
         }
         // http://stackoverflow.com/questions/9268045/how-can-i-detect-that-the-shift-key-has-been-pressed
         let ch = Int(event.charactersIgnoringModifiers!.utf16[String.UTF16View.Index(0)])
-        let hasCommand = event.modifierFlags.contains(.command)
+        // let hasCommand = event.modifierFlags.contains(.command)
         switch ch {
         case NSLeftArrowFunctionKey:
             moveLeft()
