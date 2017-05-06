@@ -70,8 +70,8 @@ class MazeView: NSView {
         
         NSColor.green.setFill()
         let margin:CGFloat = 2
-        NSRectFill(NSRect(x: CGFloat(maze.currPos.col) * spacing + margin,
-                          y: CGFloat(maze.currPos.row) * spacing + margin,
+        NSRectFill(NSRect(x: CGFloat(maze.curPos.col) * spacing + margin,
+                          y: CGFloat(maze.curPos.row) * spacing + margin,
                           width: spacing - margin * 2, height: spacing - margin * 2))
         
         let font = NSFont(name: "Helvetica Bold", size: 20.0)
@@ -86,7 +86,7 @@ class MazeView: NSView {
         for r in 0..<rows {
             for c in 0..<cols {
                 let p = Position(r, c)
-                if let ch = maze.pos2obj[p] {
+                if let ch = maze.getObject(p: p) {
                     ("\(ch)" as NSString).draw(
                         in: NSRect(x: CGFloat(c) * spacing + margin,
                                    y: CGFloat(r) * spacing + margin,
@@ -99,22 +99,22 @@ class MazeView: NSView {
     }
     
     func moveLeft() {
-        maze.setCurrPos(p: Position(maze.currPos.row, maze.currPos.col - 1))
+        maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col - 1))
         needsDisplay = true
     }
     
     func moveRight() {
-        maze.setCurrPos(p: Position(maze.currPos.row, maze.currPos.col + 1))
+        maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col + 1))
         needsDisplay = true
     }
     
     func moveUp() {
-        maze.setCurrPos(p: Position(maze.currPos.row - 1, maze.currPos.col))
+        maze.setCurPos(p: Position(maze.curPos.row - 1, maze.curPos.col))
         needsDisplay = true
     }
     
     func moveDown() {
-        maze.setCurrPos(p: Position(maze.currPos.row + 1, maze.currPos.col))
+        maze.setCurPos(p: Position(maze.curPos.row + 1, maze.curPos.col))
         needsDisplay = true
     }
     
@@ -133,7 +133,7 @@ class MazeView: NSView {
             moveDown()
         default:
             if isprint(Int32(char)) != 0 {
-                maze.pos2obj[maze.currPos] = Character(UnicodeScalar(char)!)
+                maze.setObject(p: maze.curPos, char: Character(UnicodeScalar(char)!))
                 moveRight()
             }
             super.keyDown(with: event)
@@ -151,7 +151,7 @@ class MazeView: NSView {
         } else if maze.hasWall && abs(y - CGFloat(p2.row) * spacing) < offset {
             maze.horzWall.insert(p2)
         } else {
-            maze.setCurrPos(p: p)
+            maze.setCurPos(p: p)
         }
         needsDisplay = true
     }

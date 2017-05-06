@@ -53,5 +53,17 @@ class MazeViewController: NSViewController {
     func updatePosition(p: Position) {
         positionTextField.stringValue = "\(p.row),\(p.col)"
     }
+    
+    @IBAction func copy(_ sender: NSButton) {
+        let pb = NSPasteboard.general()
+        pb.clearContents()
+        pb.setString(maze.data, forType: NSPasteboardTypeString)
+    }
+    
+    @IBAction func paste(_ sender: NSButton) {
+    }
+    
+    @IBAction func clear(_ sender: NSButton) {
+    }
 }
 
