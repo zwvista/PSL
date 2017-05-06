@@ -12,6 +12,7 @@ protocol MazeDelegate: class {
     func updateMazeSize()
     func updateMazeView()
     func updateCurPosition()
+    func updateMousePosition(p: Position)
 }
 
 class Maze: NSObject {
@@ -109,6 +110,7 @@ class Maze: NSObject {
             return str
         }
         set {
+            clearAll()
             let strs = newValue.components(separatedBy: "`\n").filter{$0 != ""}
             if hasWall {
                 size = Position(strs.count / 2, strs[0].characters.count / 2)

@@ -21,7 +21,7 @@ class MazeViewController: NSViewController, MazeDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         maze.delegate = self
-        mazeView.mazeVC = self
+        mazeView.delegate = self
         maze.updateMaze()
     }
 
@@ -45,14 +45,6 @@ class MazeViewController: NSViewController, MazeDelegate {
     
     @IBAction func fillBorderLines(_ sender: NSButton) {
         maze.fillBorderLines()
-    }
-    
-    func desc(p: Position) -> String {
-        return "\(p.row),\(p.col)"
-    }
-    
-    func updateMousePosition(p: Position) {
-        mouseTextField.stringValue = desc(p: p)
     }
     
     @IBAction func copy(_ sender: NSButton) {
@@ -86,8 +78,16 @@ class MazeViewController: NSViewController, MazeDelegate {
         mazeView.needsDisplay = true
     }
     
+    private func desc(p: Position) -> String {
+        return "\(p.row),\(p.col)"
+    }
+    
     func updateCurPosition() {
         positionTextField.stringValue = desc(p: maze.curPos)
+    }
+    
+    func updateMousePosition(p: Position) {
+        mouseTextField.stringValue = desc(p: p)
     }
 }
 

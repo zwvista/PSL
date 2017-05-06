@@ -14,7 +14,7 @@ class MazeView: NSView {
     override var acceptsFirstResponder: Bool {return true}
 
     var spacing:CGFloat = 0
-    weak var mazeVC: MazeViewController!
+    weak var delegate: MazeDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -160,7 +160,7 @@ class MazeView: NSView {
         let pt = event.locationInWindow
         let (x, y) = (pt.x, frame.size.height - pt.y)
         let p = Position(min(maze.height - 1, Int(y / spacing)), min(maze.width - 1, Int(x / spacing)))
-        mazeVC.updateMousePosition(p: p)
+        delegate?.updateMousePosition(p: p)
     }
     
 }
