@@ -8,9 +8,17 @@
 
 import Cocoa
 
+enum MazeMovement: Int {
+    case none, moveUp, moveDown, moveLeft, moveRight
+}
+
 class MazeViewController: NSViewController, MazeDelegate {
     
     let sizes = [Int](1...20)
+    let movements = ["None", "Move Up", "Move Down", "Move Left", "Move Right"]
+    var curMovement: MazeMovement {
+        return MazeMovement.init(rawValue: movementPopup.selectedItem!.tag)!
+    }
     
     @IBOutlet weak var heightPopup: NSPopUpButton!
     @IBOutlet weak var widthPopup: NSPopUpButton!
@@ -18,12 +26,20 @@ class MazeViewController: NSViewController, MazeDelegate {
     @IBOutlet weak var positionTextField: NSTextField!
     @IBOutlet weak var mouseTextField: NSTextField!
     @IBOutlet weak var isSquareCheckbox: NSButton!
+    @IBOutlet weak var movementPopup: NSPopUpButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         maze.delegate = self
         mazeView.delegate = self
         maze.updateMaze()
+        
+        movementPopup.removeAllItems()
+        movementPopup.addItems(withTitles: movements)
+        for i in 0..<5 {
+            movementPopup.item(at: i)?.tag = i
+        }
+        movementPopup.selectItem(withTag: MazeMovement.moveRight.rawValue)
     }
 
     override var representedObject: Any? {

@@ -129,13 +129,24 @@ class MazeView: NSView {
             moveUp()
         case NSDownArrowFunctionKey:
             moveDown()
-        case 127:
+        case NSDeleteCharacter:
             maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
             moveLeft()
         default:
             if isprint(Int32(ch)) != 0 {
                 maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
-                moveRight()
+                switch delegate!.curMovement {
+                case .moveUp:
+                    moveUp()
+                case .moveDown:
+                    moveDown()
+                case .moveLeft:
+                    moveLeft()
+                case .moveRight:
+                    moveRight()
+                default:
+                    break
+                }
             }
             super.keyDown(with: event)
         }
