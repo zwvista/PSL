@@ -17,6 +17,7 @@ class MazeViewController: NSViewController, MazeDelegate {
     @IBOutlet weak var mazeView: MazeView!
     @IBOutlet weak var positionTextField: NSTextField!
     @IBOutlet weak var mouseTextField: NSTextField!
+    @IBOutlet weak var isSquareCheckbox: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,10 @@ class MazeViewController: NSViewController, MazeDelegate {
         maze.width = sender.selectedItem!.representedObject as! Int
     }
 
+    @IBAction func isSquareChanged(_ sender: NSButton) {
+        maze.isSquare = sender.state == NSOnState
+    }
+    
     @IBAction func hasWallChanged(_ sender: NSButton) {
         maze.hasWall = sender.state == NSOnState
     }
@@ -88,6 +93,11 @@ class MazeViewController: NSViewController, MazeDelegate {
     
     func updateMousePosition(p: Position) {
         mouseTextField.stringValue = desc(p: p)
+    }
+    
+    func updateIsSquare() {
+        isSquareCheckbox.state = maze.isSquare ? NSOnState : NSOffState
+        widthPopup.isEnabled = !maze.isSquare
     }
 }
 

@@ -752,6 +752,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="isSquareChanged:" target="XfG-lQ-9wD" id="DTb-N9-75J"/>
+                                </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ggP-0Q-4Po">
                                 <rect key="frame" x="200" y="563" width="75" height="18"/>
@@ -900,6 +903,7 @@
                     </view>
                     <connections>
                         <outlet property="heightPopup" destination="tTL-3W-Oc3" id="a0p-yF-NXf"/>
+                        <outlet property="isSquareCheckbox" destination="Pei-x3-ve6" id="kN7-Eu-qch"/>
                         <outlet property="mazeView" destination="F6I-Iq-u1r" id="YiP-gq-osO"/>
                         <outlet property="mouseTextField" destination="CQE-UR-paI" id="Efm-D4-xht"/>
                         <outlet property="positionTextField" destination="0aK-aR-bBC" id="wZk-TK-AG8"/>

@@ -13,6 +13,7 @@ protocol MazeDelegate: class {
     func updateMazeView()
     func updateCurPosition()
     func updateMousePosition(p: Position)
+    func updateIsSquare()
 }
 
 class Maze: NSObject {
@@ -21,14 +22,27 @@ class Maze: NSObject {
     var height: Int {
         get {return size.row}
         set {
-            size = Position(newValue, size.col)
+            size = Position(newValue, isSquare_ ? newValue : size.col)
             delegate?.updateMazeSize()
             delegate?.updateMazeView()
         }
     }
     var width: Int {
         get {return size.col}
-        set {size = Position(size.row, newValue)}
+        set {
+            size = Position(size.row, newValue)
+            delegate?.updateMazeSize()
+            delegate?.updateMazeView()
+        }
+    }
+    private var isSquare_ = true
+    var isSquare: Bool {
+        get {return isSquare_}
+        set {
+            isSquare_ = newValue
+            delegate?.updateIsSquare()
+            if newValue {width = height}
+        }
     }
     var curPos = Position()
     func setCurPos(p: Position) {
@@ -170,6 +184,7 @@ class Maze: NSObject {
     
     func updateMaze() {
         delegate?.updateMazeSize()
+        delegate?.updateIsSquare()
         delegate?.updateCurPosition()
         delegate?.updateMazeView()
     }
