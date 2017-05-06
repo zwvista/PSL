@@ -1017,4 +1017,50 @@
  - - - - - - - `
     ]]>
   </level>
+  <level id="5-50">
+    <![CDATA[
+ - - - - - - - `
+|             |`
+         - -   `
+|  c c m p p  |`
+               `
+|  c c m p p  |`
+   -           `
+|   |c|p S p  |`
+               `
+|    O p p p p|`
+ -             `
+|  C P   p S p|`
+               `
+|        p p p|`
+ - - -         `
+|        p|p p|`
+               `
+|        p p p|`
+ - - - - - - - `
+    ]]>
+  </level>
+  <level id="5-74">
+    <![CDATA[
+ - - - - - - - `
+|1 D d d d d d|`
+               `
+|t t m t t 2 d|`
+               `
+|t 3 d 3 t   d|`
+               `
+|t c m c m c d|`
+               `
+|t c d O t c d|`
+               `
+|t c d d m m d|`
+               `
+|t m t t t c  |`
+               `
+|4 c 4 T 2 c  |`
+               `
+|C c c c c c 1|`
+ - - - - - - - `
+    ]]>
+  </level>
 </levels>
