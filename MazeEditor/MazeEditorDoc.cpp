@@ -39,7 +39,9 @@ const Position offset[] = {
 IMPLEMENT_DYNCREATE(CMazeEditorDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CMazeEditorDoc, CDocument)
-    ON_COMMAND(ID_MAZE_CLEAR, &CMazeEditorDoc::OnClearMaze)
+    ON_COMMAND(ID_MAZE_CLEAR_ALL, &CMazeEditorDoc::OnMazeClearAll)
+    ON_COMMAND(ID_MAZE_CLEAR_WALLS, &CMazeEditorDoc::OnMazeClearWalls)
+    ON_COMMAND(ID_MAZE_CLEAR_CHARS, &CMazeEditorDoc::OnMazeClearChars)
     ON_COMMAND(ID_MAZE_HAS_WALL, &CMazeEditorDoc::OnMazeHasWallChanged)
     ON_UPDATE_COMMAND_UI(ID_MAZE_HAS_WALL, &CMazeEditorDoc::OnUpdateMazeHasWall)
     ON_COMMAND(ID_MAZE_FILL_ALL, &CMazeEditorDoc::OnMazeFillAll)
@@ -252,10 +254,21 @@ void CMazeEditorDoc::SetObject(const Position& p, char ch)
     ch == ' ' ? m_mapObjects.erase(p) : (m_mapObjects[p] = ch);
 }
 
-void CMazeEditorDoc::OnClearMaze()
+void CMazeEditorDoc::OnMazeClearAll()
+{
+    OnMazeClearWalls();
+    OnMazeClearChars();
+}
+
+void CMazeEditorDoc::OnMazeClearWalls()
 {
     m_setHorzWall.clear();
     m_setVertWall.clear();
+    UpdateAllViews(NULL);
+}
+
+void CMazeEditorDoc::OnMazeClearChars()
+{
     m_mapObjects.clear();
     m_setCurPoss.clear();
     m_setCurPoss.emplace(0, 0);
@@ -266,9 +279,8 @@ void CMazeEditorDoc::OnClearMaze()
 void CMazeEditorDoc::ResizeMaze( int h, int w )
 {
     m_szMaze = Position(h, w);
-    m_bIsSquare = h == w;
     m_sigMazeResized();
-    OnClearMaze();
+    OnMazeClearAll();
 }
 
 void CMazeEditorDoc::OnMazeHasWallChanged()

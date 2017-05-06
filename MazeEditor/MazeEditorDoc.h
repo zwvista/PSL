@@ -93,7 +93,9 @@ protected:
 
 // Generated message map functions
 protected:
-    afx_msg void OnClearMaze();
+    afx_msg void OnMazeClearAll();
+    afx_msg void OnMazeClearWalls();
+    afx_msg void OnMazeClearChars();
     afx_msg void OnUpdateMazeHasWall(CCmdUI* pCmdUI) { pCmdUI->SetCheck(HasWall()); }
     afx_msg void OnMazeHasWallChanged();
     afx_msg void OnMazeFillAll();
