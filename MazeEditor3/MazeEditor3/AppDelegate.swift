@@ -21,6 +21,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
-
+    // http://stackoverflow.com/questions/5268757/how-to-quit-cocoa-app-when-windows-close
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
 }
 
