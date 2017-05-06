@@ -8,16 +8,6 @@
 
 import Cocoa
 
-protocol MazeDelegate: class {
-    func updateMazeSize()
-    func updateMazeView()
-    func updateCurPosition()
-    func updateMousePosition(p: Position)
-    func updateIsSquare()
-    func updateCurObject()
-    var curMovement: MazeMovement {get}
-}
-
 class Maze: NSObject {
     private var size = Position(8, 8)
     weak var delegate: MazeDelegate?
@@ -55,7 +45,15 @@ class Maze: NSObject {
         delegate?.updateMazeView()
     }
     private var pos2obj = [Position: Character]()
-    var hasWall = false
+    private var hasWall_ = false
+    var hasWall: Bool {
+        get {return hasWall_}
+        set {
+            hasWall_ = newValue
+            delegate?.updateHasWall()
+            delegate?.updateMazeView()
+        }
+    }
     var horzWall = Set<Position>()
     var vertWall = Set<Position>()
     var curObj: Character = " "
@@ -197,6 +195,10 @@ class Maze: NSObject {
         delegate?.updateIsSquare()
         delegate?.updateCurPosition()
         delegate?.updateMazeView()
+    }
+    
+    deinit {
+        Swift.print("deinit called: \(NSStringFromClass(type(of: self)))")
     }
 }
 

@@ -921,6 +921,8 @@
                     </view>
                     <connections>
                         <outlet property="charTextField" destination="lWn-kA-woC" id="zqJ-VA-pzn"/>
+                        <outlet property="fillBorderLinesButton" destination="8aK-9V-uvv" id="SvN-uX-CPR"/>
+                        <outlet property="hasWallCheckbox" destination="ggP-0Q-4Po" id="i6k-kq-ozM"/>
                         <outlet property="heightPopup" destination="tTL-3W-Oc3" id="a0p-yF-NXf"/>
                         <outlet property="isSquareCheckbox" destination="Pei-x3-ve6" id="kN7-Eu-qch"/>
                         <outlet property="mazeView" destination="F6I-Iq-u1r" id="YiP-gq-osO"/>

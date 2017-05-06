@@ -180,4 +180,7 @@ class MazeView: NSView {
         delegate?.updateMousePosition(p: p)
     }
     
+    deinit {
+        Swift.print("deinit called: \(NSStringFromClass(type(of: self)))")
+    }
 }

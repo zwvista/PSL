@@ -8,16 +8,12 @@
 
 import Cocoa
 
-enum MazeMovement: Int {
-    case none, moveUp, moveDown, moveLeft, moveRight
-}
-
 class MazeViewController: NSViewController, MazeDelegate {
     
     let sizes = [Int](1...20)
     let movements = ["None", "Move Up", "Move Down", "Move Left", "Move Right"]
     var curMovement: MazeMovement {
-        return MazeMovement.init(rawValue: movementPopup.selectedItem!.tag)!
+        return MazeMovement(rawValue: movementPopup.selectedItem!.tag)!
     }
     
     @IBOutlet weak var heightPopup: NSPopUpButton!
@@ -28,12 +24,15 @@ class MazeViewController: NSViewController, MazeDelegate {
     @IBOutlet weak var isSquareCheckbox: NSButton!
     @IBOutlet weak var movementPopup: NSPopUpButton!
     @IBOutlet weak var charTextField: NSTextField!
+    @IBOutlet weak var hasWallCheckbox: NSButton!
+    @IBOutlet weak var fillBorderLinesButton: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         maze.delegate = self
         mazeView.delegate = self
         maze.updateMaze()
+        updateHasWall()
         
         movementPopup.removeAllItems()
         movementPopup.addItems(withTitles: movements)
@@ -119,6 +118,15 @@ class MazeViewController: NSViewController, MazeDelegate {
     
     func updateCurObject() {
         charTextField.stringValue = String(maze.curObj)
+    }
+    
+    func updateHasWall() {
+        hasWallCheckbox.state = maze.hasWall ? NSOnState : NSOffState
+        fillBorderLinesButton.isEnabled = maze.hasWall
+    }
+    
+    deinit {
+        Swift.print("deinit called: \(NSStringFromClass(type(of: self)))")
     }
 }
 

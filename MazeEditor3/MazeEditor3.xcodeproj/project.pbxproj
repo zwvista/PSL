@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C2B769D1EBB5FBC000FF777 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2B769C1EBB5FBC000FF777 /* Position.swift */; };
+		8C6589811EBE06410005D93A /* MazeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6589801EBE06410005D93A /* MazeDelegate.swift */; };
 		8CA241DD1EB716AF0055D6B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241DC1EB716AF0055D6B1 /* AppDelegate.swift */; };
 		8CA241DF1EB716AF0055D6B1 /* MazeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241DE1EB716AF0055D6B1 /* MazeViewController.swift */; };
 		8CA241E11EB716AF0055D6B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CA241E01EB716AF0055D6B1 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		8C2B769C1EBB5FBC000FF777 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		8C6589801EBE06410005D93A /* MazeDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MazeDelegate.swift; sourceTree = "<group>"; };
 		8CA241D91EB716AE0055D6B1 /* MazeEditor3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazeEditor3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA241DC1EB716AF0055D6B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CA241DE1EB716AF0055D6B1 /* MazeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				8CA242071EB82CC80055D6B1 /* MazeView.swift */,
 				8CA242091EB8B3460055D6B1 /* Maze.swift */,
 				8C2B769C1EBB5FBC000FF777 /* Position.swift */,
+				8C6589801EBE06410005D93A /* MazeDelegate.swift */,
 			);
 			path = MazeEditor3;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				8CA242081EB82CC80055D6B1 /* MazeView.swift in Sources */,
 				8CA241DF1EB716AF0055D6B1 /* MazeViewController.swift in Sources */,
 				8CA2420A1EB8B3460055D6B1 /* Maze.swift in Sources */,
+				8C6589811EBE06410005D93A /* MazeDelegate.swift in Sources */,
 				8C2B769D1EBB5FBC000FF777 /* Position.swift in Sources */,
 				8CA241DD1EB716AF0055D6B1 /* AppDelegate.swift in Sources */,
 			);
