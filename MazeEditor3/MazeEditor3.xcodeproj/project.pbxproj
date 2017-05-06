@@ -17,6 +17,7 @@
 		8CA241FA1EB716AF0055D6B1 /* MazeEditor3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241F91EB716AF0055D6B1 /* MazeEditor3UITests.swift */; };
 		8CA242081EB82CC80055D6B1 /* MazeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA242071EB82CC80055D6B1 /* MazeView.swift */; };
 		8CA2420A1EB8B3460055D6B1 /* Maze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA242091EB8B3460055D6B1 /* Maze.swift */; };
+		8CD36D731EBE172700F02FF8 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD36D411EBE172700F02FF8 /* StringExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		8CA241FB1EB716AF0055D6B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CA242071EB82CC80055D6B1 /* MazeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MazeView.swift; sourceTree = "<group>"; };
 		8CA242091EB8B3460055D6B1 /* Maze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maze.swift; sourceTree = "<group>"; };
+		8CD36D411EBE172700F02FF8 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		8CA241D01EB716AE0055D6B1 = {
 			isa = PBXGroup;
 			children = (
+				8CD36D271EBE172700F02FF8 /* EZSwiftExtensions */,
 				8CA241DB1EB716AF0055D6B1 /* MazeEditor3 */,
 				8CA241ED1EB716AF0055D6B1 /* MazeEditor3Tests */,
 				8CA241F81EB716AF0055D6B1 /* MazeEditor3UITests */,
@@ -132,6 +135,15 @@
 				8CA241FB1EB716AF0055D6B1 /* Info.plist */,
 			);
 			path = MazeEditor3UITests;
+			sourceTree = "<group>";
+		};
+		8CD36D271EBE172700F02FF8 /* EZSwiftExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				8CD36D411EBE172700F02FF8 /* StringExtensions.swift */,
+			);
+			name = EZSwiftExtensions;
+			path = ../../../OSS/EZSwiftExtensions/Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +286,7 @@
 				8CA241DF1EB716AF0055D6B1 /* MazeViewController.swift in Sources */,
 				8CA2420A1EB8B3460055D6B1 /* Maze.swift in Sources */,
 				8C6589811EBE06410005D93A /* MazeDelegate.swift in Sources */,
+				8CD36D731EBE172700F02FF8 /* StringExtensions.swift in Sources */,
 				8C2B769D1EBB5FBC000FF777 /* Position.swift in Sources */,
 				8CA241DD1EB716AF0055D6B1 /* AppDelegate.swift in Sources */,
 			);

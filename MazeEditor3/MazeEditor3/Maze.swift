@@ -133,22 +133,22 @@ class Maze: NSObject {
             clearAll()
             let strs = newValue.components(separatedBy: "`\n").filter{$0 != ""}
             if hasWall {
-                size = Position(strs.count / 2, strs[0].characters.count / 2)
+                size = Position(strs.count / 2, strs[0].length / 2)
                 for r in 0...height {
                     let str1 = strs[2 * r]
                     for c in 0..<width {
-                        if str1.characters[str1.index(str1.startIndex, offsetBy: 2 * c + 1)] == "-" {
+                        if str1[2 * c + 1] == "-" {
                             horzWall.insert(Position(r, c))
                         }
                     }
                     if r == height {break}
                     let str2 = strs[2 * r + 1]
                     for c in 0...width {
-                        if str2.characters[str1.index(str1.startIndex, offsetBy: 2 * c)] == "|" {
+                        if str2[2 * c] == "|" {
                             vertWall.insert(Position(r, c))
                         }
                         if c == width {break}
-                        let ch = str2.characters[str1.index(str1.startIndex, offsetBy: 2 * c + 1)]
+                        let ch = str2[2 * c + 1]
                         if ch != " " {
                             pos2obj[Position(r, c)] = ch
                         }
@@ -159,7 +159,7 @@ class Maze: NSObject {
                 for r in 0..<height {
                     let str = strs[r]
                     for c in 0..<width {
-                        let ch = str.characters[str.index(str.startIndex, offsetBy: c)]
+                        let ch = str[c]
                         if ch != " " {
                             pos2obj[Position(r, c)] = ch
                         }
