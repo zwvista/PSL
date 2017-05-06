@@ -71,7 +71,7 @@ class MazeView: NSView {
         
         let color1 = NSColor(calibratedRed: 0, green: 200, blue: 0, alpha: 1)
         color1.setFill()
-        let margin:CGFloat = 2
+        let margin:CGFloat = 3
         NSRectFill(NSRect(x: CGFloat(maze.curPos.col) * spacing + margin,
                           y: CGFloat(maze.curPos.row) * spacing + margin,
                           width: spacing - margin * 2, height: spacing - margin * 2))
@@ -117,6 +117,20 @@ class MazeView: NSView {
     }
     
     override func keyDown(with event: NSEvent) {
+        func moveNext() {
+            switch delegate!.curMovement {
+            case .moveUp:
+                moveUp()
+            case .moveDown:
+                moveDown()
+            case .moveLeft:
+                moveLeft()
+            case .moveRight:
+                moveRight()
+            default:
+                break
+            }
+        }
         // http://stackoverflow.com/questions/9268045/how-can-i-detect-that-the-shift-key-has-been-pressed
         let ch = Int(event.charactersIgnoringModifiers!.utf16[String.UTF16View.Index(0)])
         let hasCommand = event.modifierFlags.contains(.command)
@@ -130,23 +144,15 @@ class MazeView: NSView {
         case NSDownArrowFunctionKey:
             moveDown()
         case NSDeleteCharacter:
-            maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
+            maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(" ")!))
             moveLeft()
+        case NSCarriageReturnCharacter:
+            maze.setObject(p: maze.curPos, ch: maze.curObj)
+            moveNext()
         default:
             if isprint(Int32(ch)) != 0 {
                 maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
-                switch delegate!.curMovement {
-                case .moveUp:
-                    moveUp()
-                case .moveDown:
-                    moveDown()
-                case .moveLeft:
-                    moveLeft()
-                case .moveRight:
-                    moveRight()
-                default:
-                    break
-                }
+                moveNext()
             }
             super.keyDown(with: event)
         }

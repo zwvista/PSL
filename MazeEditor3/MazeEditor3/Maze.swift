@@ -14,6 +14,7 @@ protocol MazeDelegate: class {
     func updateCurPosition()
     func updateMousePosition(p: Position)
     func updateIsSquare()
+    func updateCurObject()
     var curMovement: MazeMovement {get}
 }
 
@@ -57,10 +58,13 @@ class Maze: NSObject {
     var hasWall = false
     var horzWall = Set<Position>()
     var vertWall = Set<Position>()
+    var curObj: Character = " "
     
     func getObject(p: Position) -> Character? {return pos2obj[p]}
     func setObject(p: Position, ch: Character) {
         pos2obj[p] = ch
+        curObj = ch
+        delegate?.updateCurObject()
         delegate?.updateMazeView()
     }
     func isHorzWall(p: Position) -> Bool {return horzWall.contains(p)}
@@ -182,7 +186,9 @@ class Maze: NSObject {
     func clearChars() {
         curPos = Position()
         pos2obj.removeAll()
+        curObj = " "
         delegate?.updateCurPosition()
+        delegate?.updateCurObject()
         delegate?.updateMazeView()
     }
     

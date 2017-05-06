@@ -27,6 +27,7 @@ class MazeViewController: NSViewController, MazeDelegate {
     @IBOutlet weak var mouseTextField: NSTextField!
     @IBOutlet weak var isSquareCheckbox: NSButton!
     @IBOutlet weak var movementPopup: NSPopUpButton!
+    @IBOutlet weak var charTextField: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,6 +115,10 @@ class MazeViewController: NSViewController, MazeDelegate {
     func updateIsSquare() {
         isSquareCheckbox.state = maze.isSquare ? NSOnState : NSOffState
         widthPopup.isEnabled = !maze.isSquare
+    }
+    
+    func updateCurObject() {
+        charTextField.stringValue = String(maze.curObj)
     }
 }
 
