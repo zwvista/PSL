@@ -30,7 +30,7 @@ class Maze: NSObject {
     var vertWall = Set<Position>()
     
     func getObject(p: Position) -> Character? {return pos2obj[p]}
-    func setObject(p: Position, char: Character) {pos2obj[p] = char}
+    func setObject(p: Position, ch: Character) {pos2obj[p] = ch}
     func isHorzWall(p: Position) -> Bool {return horzWall.contains(p)}
     func isVertWall(p: Position) -> Bool {return vertWall.contains(p)}
     

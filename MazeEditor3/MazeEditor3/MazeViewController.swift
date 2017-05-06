@@ -16,12 +16,14 @@ class MazeViewController: NSViewController {
     @IBOutlet weak var widthPopup: NSPopUpButton!
     @IBOutlet weak var mazeView: MazeView!
     @IBOutlet weak var positionTextField: NSTextField!
+    @IBOutlet weak var mouseTextField: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         heightPopup.selectItem(withTitle: String(maze.height))
         widthPopup.selectItem(withTitle: String(maze.width))
         mazeView.mazeVC = self
+        updateCurPosition()
     }
 
     override var representedObject: Any? {
@@ -50,8 +52,16 @@ class MazeViewController: NSViewController {
         mazeView.needsDisplay = true
     }
     
-    func updatePosition(p: Position) {
-        positionTextField.stringValue = "\(p.row),\(p.col)"
+    func desc(p: Position) -> String {
+        return "\(p.row),\(p.col)"
+    }
+    
+    func updateCurPosition() {
+        positionTextField.stringValue = desc(p: maze.curPos)
+    }
+    
+    func updateMousePosition(p: Position) {
+        mouseTextField.stringValue = desc(p: p)
     }
     
     @IBAction func copy(_ sender: NSButton) {

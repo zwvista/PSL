@@ -14,7 +14,7 @@ class MazeView: NSView {
     override var acceptsFirstResponder: Bool {return true}
 
     var spacing:CGFloat = 0
-    weak var mazeVC: MazeViewController?
+    weak var mazeVC: MazeViewController!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,7 +54,8 @@ class MazeView: NSView {
         }
         bPath.stroke()
         if maze.hasWall {
-            NSColor.red.set()
+            let color2 = NSColor(calibratedRed: 128, green: 0, blue: 0, alpha: 1)
+            color2.set()
             let bPath2:NSBezierPath = NSBezierPath()
             bPath2.lineWidth = 5
             for p in maze.horzWall {
@@ -68,7 +69,8 @@ class MazeView: NSView {
             bPath2.stroke()
         }
         
-        NSColor.green.setFill()
+        let color1 = NSColor(calibratedRed: 0, green: 200, blue: 0, alpha: 1)
+        color1.setFill()
         let margin:CGFloat = 2
         NSRectFill(NSRect(x: CGFloat(maze.curPos.col) * spacing + margin,
                           y: CGFloat(maze.curPos.row) * spacing + margin,
@@ -98,31 +100,36 @@ class MazeView: NSView {
 
     }
     
+    func updateUI1() {
+        mazeVC.updateCurPosition()
+        needsDisplay = true
+    }
+    
     func moveLeft() {
         maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col - 1))
-        needsDisplay = true
+        updateUI1()
     }
     
     func moveRight() {
         maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col + 1))
-        needsDisplay = true
+        updateUI1()
     }
     
     func moveUp() {
         maze.setCurPos(p: Position(maze.curPos.row - 1, maze.curPos.col))
-        needsDisplay = true
+        updateUI1()
     }
     
     func moveDown() {
         maze.setCurPos(p: Position(maze.curPos.row + 1, maze.curPos.col))
-        needsDisplay = true
+        updateUI1()
     }
     
     override func keyDown(with event: NSEvent) {
         // http://stackoverflow.com/questions/9268045/how-can-i-detect-that-the-shift-key-has-been-pressed
-        let char = Int(event.charactersIgnoringModifiers!.utf16[String.UTF16View.Index(0)])
+        let ch = Int(event.charactersIgnoringModifiers!.utf16[String.UTF16View.Index(0)])
         let hasCommand = event.modifierFlags.contains(.command)
-        switch char {
+        switch ch {
         case NSLeftArrowFunctionKey:
             moveLeft()
         case NSRightArrowFunctionKey:
@@ -132,8 +139,8 @@ class MazeView: NSView {
         case NSDownArrowFunctionKey:
             moveDown()
         default:
-            if isprint(Int32(char)) != 0 {
-                maze.setObject(p: maze.curPos, char: Character(UnicodeScalar(char)!))
+            if isprint(Int32(ch)) != 0 {
+                maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
                 moveRight()
             }
             super.keyDown(with: event)
@@ -153,14 +160,14 @@ class MazeView: NSView {
         } else {
             maze.setCurPos(p: p)
         }
-        needsDisplay = true
+        updateUI1()
     }
     
     override func mouseMoved(with event: NSEvent) {
         let pt = event.locationInWindow
         let (x, y) = (pt.x, frame.size.height - pt.y)
         let p = Position(min(maze.height - 1, Int(y / spacing)), min(maze.width - 1, Int(x / spacing)))
-        mazeVC?.updatePosition(p: p)
+        mazeVC.updateMousePosition(p: p)
     }
     
 }
