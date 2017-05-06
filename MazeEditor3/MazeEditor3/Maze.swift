@@ -195,6 +195,7 @@ class Maze: NSObject {
         delegate?.updateIsSquare()
         delegate?.updateCurPosition()
         delegate?.updateMazeView()
+        delegate?.updateHasWall()
     }
     
     deinit {

@@ -32,8 +32,7 @@ class MazeViewController: NSViewController, MazeDelegate {
         maze.delegate = self
         mazeView.delegate = self
         maze.updateMaze()
-        updateHasWall()
-        
+       
         movementPopup.removeAllItems()
         movementPopup.addItems(withTitles: movements)
         for i in 0..<5 {
