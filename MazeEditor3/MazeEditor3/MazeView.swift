@@ -146,10 +146,10 @@ class MazeView: NSView {
             maze.setObject(p: maze.curPos, ch: maze.curObj)
             moveNext()
         default:
-            if isprint(Int32(ch)) != 0 {
+//            if isprint(Int32(ch)) != 0 {
                 maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
                 moveNext()
-            }
+//            }
             super.keyDown(with: event)
         }
     }

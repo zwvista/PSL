@@ -13,4 +13,5 @@
   <level id="4-6" action="remove" matchsticks="3" equation="96+2=67" />
   <level id="5-3" action="remove" matchsticks="4" equation="8*6=20" />
   <level id="7-9" action="add" matchsticks="4" equation="15/4=5" />
+  <level id="7-12" action="move" matchsticks="3" equation="70+30=56" />
 </levels>

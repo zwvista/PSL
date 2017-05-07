@@ -88,4 +88,17 @@ x----x`
 x    x`
     ]]>
   </level>
+  <level id="7-15" action="move" matchsticks="4" triangles="6">
+    <![CDATA[
+  ----   `
+  \/\/   `
+x  --  x `
+   \/    `
+         `
+   /\    `
+x  --  x `
+  /\/\   `
+  ----   `
+    ]]>
+  </level>
 </levels>

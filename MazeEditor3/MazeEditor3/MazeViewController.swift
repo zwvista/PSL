@@ -13,7 +13,7 @@ class MazeViewController: NSViewController, MazeDelegate {
     let sizes = [Int](1...20)
     let movements = ["None", "Move Up", "Move Down", "Move Left", "Move Right"]
     var curMovement: MazeMovement {
-        return MazeMovement(rawValue: movementPopup.selectedItem!.tag)!
+        return MazeMovement(rawValue: movementPopup.indexOfSelectedItem)!
     }
     
     @IBOutlet weak var heightPopup: NSPopUpButton!
@@ -35,10 +35,7 @@ class MazeViewController: NSViewController, MazeDelegate {
        
         movementPopup.removeAllItems()
         movementPopup.addItems(withTitles: movements)
-        for i in 0..<5 {
-            movementPopup.item(at: i)?.tag = i
-        }
-        movementPopup.selectItem(withTag: MazeMovement.moveRight.rawValue)
+        movementPopup.selectItem(at: MazeMovement.moveRight.rawValue)
     }
 
     override var representedObject: Any? {

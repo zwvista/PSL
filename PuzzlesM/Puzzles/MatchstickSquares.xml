@@ -121,4 +121,15 @@
  - - - `
     ]]>
   </level>
+  <level id="7-14" action="move" matchsticks="4" squares="4">
+    <![CDATA[
+           `
+    | | | |`
+   -   -   `
+  | | | |  `
+   -   -   `
+| | | |    `
+           `
+    ]]>
+  </level>
 </levels>
