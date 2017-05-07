@@ -29,7 +29,7 @@ int main()
     wif.close();
     wstring s = wss.str();
 
-    for(char ch : {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z'}){
+    for(char ch : {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W', 'Y', 'Z'}){
         string prj = string("Puzzles") + ch;
         wofstream wof;
         wof.imbue(locale(locale(), new codecvt_utf8<wchar_t, 0x10ffff, consume_header>));
