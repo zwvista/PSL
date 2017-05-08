@@ -62,7 +62,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 break;
             }
     }
-    if(m_action != PUZ_REMOVE)
+    if(m_action != PUZ_REMOVE){
         for(auto& p : m_dots){
             Position p2(p.first, p.second + 2);
             Position p3(p.first + 1, p.second - 1), p4(p.first + 1, p.second + 1);
@@ -70,6 +70,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if(is_valid_dot(p3)) m_possible_matchsticks.emplace(p, p3);
             if(is_valid_dot(p4)) m_possible_matchsticks.emplace(p, p4);
         }
+        for(auto& p : m_matchsticks)
+            m_possible_matchsticks.erase(p);
+    }
 }
 
 struct puz_state
@@ -84,9 +87,11 @@ struct puz_state
     void check_triangles();
     void make_move(function<void()> f);
     void make_move_remove(const puz_matchstick& m) { make_move([&]{m_matchsticks.erase(m);}); }
-    void make_move_add(const puz_matchstick& m) { make_move([&]{m_matchsticks.insert(m);}); }
+    void make_move_add(const puz_matchstick& m) {
+        make_move([&]{ m_matchsticks.insert(m); m_possible_matchsticks.erase(m); });
+    }
     void make_move_move(const puz_matchstick& m1, const puz_matchstick& m2) {
-        make_move([&]{m_matchsticks.erase(m1); m_matchsticks.insert(m2);});
+        make_move([&]{ m_matchsticks.erase(m1); m_matchsticks.insert(m2); m_possible_matchsticks.erase(m2); });
     }
 
     //solve_puzzle interface
@@ -105,7 +110,7 @@ struct puz_state
     }
 
     const puz_game* m_game = nullptr;
-    set<puz_matchstick> m_matchsticks;
+    set<puz_matchstick> m_matchsticks, m_possible_matchsticks;
     int m_move_count;
     int m_triangle_count = 0;
     unsigned int m_unused_count = 0;
@@ -114,7 +119,8 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_matchsticks(g.m_matchsticks), m_move_count(g.m_move_count)
+: m_game(&g), m_matchsticks(g.m_matchsticks)
+, m_possible_matchsticks(g.m_possible_matchsticks), m_move_count(g.m_move_count)
 {
     check_triangles();
 }
@@ -188,7 +194,6 @@ void puz_state::make_move(function<void()> f)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if(m_move_count == 0) return;
-    set<puz_matchstick> matchsticks;
     switch(m_game->m_action){
     case PUZ_REMOVE:
         for(auto& m : m_matchsticks){
@@ -197,16 +202,14 @@ void puz_state::gen_children(list<puz_state>& children) const
         }
         break;
     case PUZ_ADD:
-        boost::set_difference(m_game->m_possible_matchsticks, m_matchsticks, inserter(matchsticks, matchsticks.end()));
-        for(auto& m : matchsticks){
+        for(auto& m : m_possible_matchsticks){
             children.push_back(*this);
             children.back().make_move_add(m);
         }
         break;
     case PUZ_MOVE:
-        boost::set_difference(m_game->m_possible_matchsticks, m_matchsticks, inserter(matchsticks, matchsticks.end()));
         for(auto& m1 : m_matchsticks)
-            for(auto& m2 : matchsticks){
+            for(auto& m2 : m_possible_matchsticks){
                 children.push_back(*this);
                 children.back().make_move_move(m1, m2);
             }

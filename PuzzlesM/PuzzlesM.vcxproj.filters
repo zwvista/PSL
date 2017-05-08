@@ -67,9 +67,6 @@
     <Text Include="Puzzles\MatchstickEquation.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\Matchmania.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\MoveTheBox_NewYork.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -143,9 +140,6 @@
     <ClCompile Include="Puzzles\MatchstickEquation.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\Matchmania.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
@@ -197,9 +191,6 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\MatchstickEquation.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\Matchmania.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\MoveTheBox_NewYork.xml">

@@ -4,10 +4,10 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Matchmania
+    iOS Game: Patchmania
 */
 
-namespace puzzles{ namespace Matchmania{
+namespace puzzles{ namespace Patchmania{
 
 #define PUZ_SPACE        ' '
 #define PUZ_HOLE         'O'
@@ -459,9 +459,9 @@ void dump_all(ostream& out, const list<puz_state>& spath)
 
 }}
 
-void solve_puz_Matchmania()
+void solve_puz_Patchmania()
 {
-    using namespace puzzles::Matchmania;
+    using namespace puzzles::Patchmania;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Matchmania.xml", "Puzzles/Matchmania.txt", solution_format::CUSTOM, dump_all);
+        "Puzzles/Patchmania.xml", "Puzzles/Patchmania.txt", solution_format::CUSTOM, dump_all);
 }

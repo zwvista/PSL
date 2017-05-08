@@ -152,7 +152,6 @@
     <Text Include="Puzzles\magic_square.txt" />
     <Text Include="Puzzles\Magnets.txt" />
     <Text Include="Puzzles\Masyu.txt" />
-    <Text Include="Puzzles\Matchmania.txt" />
     <Text Include="Puzzles\MatchstickEquation.txt" />
     <Text Include="Puzzles\MatchstickSquares.txt" />
     <Text Include="Puzzles\MatchstickTriangles.txt" />
@@ -185,7 +184,6 @@
     <ClCompile Include="Puzzles\magic_square.cpp" />
     <ClCompile Include="Puzzles\Magnets.cpp" />
     <ClCompile Include="Puzzles\Masyu.cpp" />
-    <ClCompile Include="Puzzles\Matchmania.cpp" />
     <ClCompile Include="Puzzles\MatchstickEquation.cpp" />
     <ClCompile Include="Puzzles\MatchstickSquares.cpp" />
     <ClCompile Include="Puzzles\MatchstickTriangles.cpp" />
@@ -211,7 +209,6 @@
     <Xml Include="Puzzles\magic_square2.xml" />
     <Xml Include="Puzzles\Magnets.xml" />
     <Xml Include="Puzzles\Masyu.xml" />
-    <Xml Include="Puzzles\Matchmania.xml" />
     <Xml Include="Puzzles\MatchstickEquation.xml" />
     <Xml Include="Puzzles\MatchstickSquares.xml">
       <SubType>Designer</SubType>

@@ -7,7 +7,7 @@ Sequence of moves:
 .-.-.
 Number of moves: 2
 Number of vertices examined: 14
-0.011572 [s]
+0.00165046 [s]
 
 Level 1-4
 Sequence of moves: 
@@ -18,7 +18,7 @@ Sequence of moves:
 .-.-.
 Number of moves: 1
 Number of vertices examined: 2
-0.001918 [s]
+0.000380167 [s]
 
 Level 1-7
 Sequence of moves: 
@@ -29,7 +29,7 @@ Sequence of moves:
 .-.  
 Number of moves: 2
 Number of vertices examined: 14
-0.005595 [s]
+0.000838003 [s]
 
 Level 1-13
 Sequence of moves: 
@@ -42,7 +42,7 @@ Sequence of moves:
 .-.-.-.
 Number of moves: 2
 Number of vertices examined: 10
-0.010398 [s]
+0.00199077 [s]
 
 Level 1-16
 Sequence of moves: 
@@ -55,7 +55,7 @@ Sequence of moves:
 .-. . .
 Number of moves: 2
 Number of vertices examined: 3
-0.036257 [s]
+0.00598636 [s]
 
 Level 1-19
 Sequence of moves: 
@@ -68,7 +68,7 @@ Sequence of moves:
 .-.-.-.
 Number of moves: 2
 Number of vertices examined: 4
-0.003505 [s]
+0.000792015 [s]
 
 Level 3-16
 Sequence of moves: 
@@ -83,7 +83,7 @@ Sequence of moves:
 .-.-.  
 Number of moves: 4
 Number of vertices examined: 15398
-6.76773 [s]
+1.21065 [s]
 
 Level 5-1
 Sequence of moves: 
@@ -96,7 +96,7 @@ Sequence of moves:
     .-.    
 Number of moves: 3
 Number of vertices examined: 151
-0.426539 [s]
+0.0603518 [s]
 
 Level 5-17
 Sequence of moves: 
@@ -106,8 +106,8 @@ Sequence of moves:
 | | | |  
 .-. .-. .
 Number of moves: 3
-Number of vertices examined: 335
-2.3811 [s]
+Number of vertices examined: 322
+0.320128 [s]
 
 Level 5-20
 Sequence of moves: 
@@ -122,15 +122,15 @@ Sequence of moves:
 .-. .-.
 Number of moves: 2
 Number of vertices examined: 39
-0.27405 [s]
+0.0320848 [s]
 
 Level 7-8
 Sequence of moves: 
 .-. .-.
 | | | |
-.-. .-.
-| | | |
-.-. .-.
+.-.-.-.
+  | |  
+.-.-.-.
 | | | |
 .-.-.-.
   | |  
@@ -138,19 +138,19 @@ Sequence of moves:
 | | | |
 .-. .-.
 Number of moves: 3
-Number of vertices examined: 7470
-63.0967 [s]
+Number of vertices examined: 2791
+5.7819 [s]
 
 Level 7-14
 Sequence of moves: 
-. . . .-. .
-      | |  
+. . .-. . .
+    | |    
 . .-.-.-. .
-  |   | |  
-. .-. .-. .
-  | | |    
-. .-.-. . .
+  | | | |  
+.-.-. .-. .
+| |        
+.-. . . . .
 Number of moves: 4
-Number of vertices examined: 3825
-29.6224 [s]
+Number of vertices examined: 15670
+14.9375 [s]
 
