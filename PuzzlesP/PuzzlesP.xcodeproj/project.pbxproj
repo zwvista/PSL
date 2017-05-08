@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C5AE25B1EC0BAF5000F0949 /* Patchmania.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C5AE2581EC0BAF5000F0949 /* Patchmania.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -41,6 +42,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C5AE2581EC0BAF5000F0949 /* Patchmania.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Patchmania.cpp; sourceTree = "<group>"; };
+		8C5AE2591EC0BAF5000F0949 /* Patchmania.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Patchmania.txt; sourceTree = "<group>"; };
+		8C5AE25A1EC0BAF5000F0949 /* Patchmania.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Patchmania.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesP; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -174,6 +178,9 @@
 				8CA240E71EB47AC40055D6B1 /* Pata.cpp */,
 				8CA240E81EB47AC40055D6B1 /* Pata.txt */,
 				8CA240E91EB47AC40055D6B1 /* Pata.xml */,
+				8C5AE2581EC0BAF5000F0949 /* Patchmania.cpp */,
+				8C5AE2591EC0BAF5000F0949 /* Patchmania.txt */,
+				8C5AE25A1EC0BAF5000F0949 /* Patchmania.xml */,
 				8CA240EA1EB47AC40055D6B1 /* pathfind_astar.txt */,
 				8CA240EB1EB47AC40055D6B1 /* pathfind_bfs.txt */,
 				8CA240EC1EB47AC40055D6B1 /* pathfind_dfs.txt */,
@@ -302,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CA2410D1EB47AC40055D6B1 /* Pairakabe.cpp in Sources */,
+				8C5AE25B1EC0BAF5000F0949 /* Patchmania.cpp in Sources */,
 				8CA241151EB47AC40055D6B1 /* pegsolitary.cpp in Sources */,
 				8CA241181EB47AC40055D6B1 /* PowerGrid.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,

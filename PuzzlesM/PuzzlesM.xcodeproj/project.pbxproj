@@ -11,7 +11,6 @@
 		8CA23F051EA924380055D6B1 /* magic_square.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ED01EA924380055D6B1 /* magic_square.cpp */; };
 		8CA23F061EA924380055D6B1 /* Magnets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ED41EA924380055D6B1 /* Magnets.cpp */; };
 		8CA23F071EA924380055D6B1 /* Masyu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ED71EA924380055D6B1 /* Masyu.cpp */; };
-		8CA23F081EA924380055D6B1 /* Matchmania.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23EDA1EA924380055D6B1 /* Matchmania.cpp */; };
 		8CA23F091EA924380055D6B1 /* MatchstickEquation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23EDD1EA924380055D6B1 /* MatchstickEquation.cpp */; };
 		8CA23F0A1EA924380055D6B1 /* MatchstickSquares.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23EE01EA924380055D6B1 /* MatchstickSquares.cpp */; };
 		8CA23F0B1EA924380055D6B1 /* MatchstickTriangles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23EE31EA924380055D6B1 /* MatchstickTriangles.cpp */; };
@@ -56,9 +55,6 @@
 		8CA23ED71EA924380055D6B1 /* Masyu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Masyu.cpp; sourceTree = "<group>"; };
 		8CA23ED81EA924380055D6B1 /* Masyu.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Masyu.txt; sourceTree = "<group>"; };
 		8CA23ED91EA924380055D6B1 /* Masyu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Masyu.xml; sourceTree = "<group>"; };
-		8CA23EDA1EA924380055D6B1 /* Matchmania.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matchmania.cpp; sourceTree = "<group>"; };
-		8CA23EDB1EA924380055D6B1 /* Matchmania.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Matchmania.txt; sourceTree = "<group>"; };
-		8CA23EDC1EA924380055D6B1 /* Matchmania.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Matchmania.xml; sourceTree = "<group>"; };
 		8CA23EDD1EA924380055D6B1 /* MatchstickEquation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MatchstickEquation.cpp; sourceTree = "<group>"; };
 		8CA23EDE1EA924380055D6B1 /* MatchstickEquation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MatchstickEquation.txt; sourceTree = "<group>"; };
 		8CA23EDF1EA924380055D6B1 /* MatchstickEquation.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MatchstickEquation.xml; sourceTree = "<group>"; };
@@ -170,9 +166,6 @@
 				8CA23ED71EA924380055D6B1 /* Masyu.cpp */,
 				8CA23ED81EA924380055D6B1 /* Masyu.txt */,
 				8CA23ED91EA924380055D6B1 /* Masyu.xml */,
-				8CA23EDA1EA924380055D6B1 /* Matchmania.cpp */,
-				8CA23EDB1EA924380055D6B1 /* Matchmania.txt */,
-				8CA23EDC1EA924380055D6B1 /* Matchmania.xml */,
 				8CA23EDD1EA924380055D6B1 /* MatchstickEquation.cpp */,
 				8CA23EDE1EA924380055D6B1 /* MatchstickEquation.txt */,
 				8CA23EDF1EA924380055D6B1 /* MatchstickEquation.xml */,
@@ -312,7 +305,6 @@
 				8CA23F061EA924380055D6B1 /* Magnets.cpp in Sources */,
 				8CA23F121EA924380055D6B1 /* MoreOrLess.cpp in Sources */,
 				8CA23F071EA924380055D6B1 /* Masyu.cpp in Sources */,
-				8CA23F081EA924380055D6B1 /* Matchmania.cpp in Sources */,
 				8CA23F0B1EA924380055D6B1 /* MatchstickTriangles.cpp in Sources */,
 				8CA23F101EA924380055D6B1 /* MiniLits.cpp in Sources */,
 				8CA23F051EA924380055D6B1 /* magic_square.cpp in Sources */,
