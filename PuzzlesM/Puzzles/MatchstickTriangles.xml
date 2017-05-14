@@ -1,5 +1,9 @@
 <?xml version="1.0" ?>
 <puzzle>
+<help>
+  <![CDATA[
+  ]]>
+</help>
 <levels>
   <level id="1-2" action="add" matchsticks="2" triangles="2">
     <![CDATA[

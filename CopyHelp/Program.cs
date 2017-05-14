@@ -22,12 +22,12 @@ namespace CopyHelp
             foreach (var f in lst)
             {
                 var lines = File.ReadAllLines(f).ToList();
-                if (lines[1] != "<levels>") continue;
-                lines.Insert(1, "<puzzle>");
-                if (lines.Last().Trim() == "")
-                    lines[lines.Count - 1] = "</puzzle>";
-                else
-                    lines.Add("</puzzle>");
+                if (lines[2] != "<levels>") continue;
+                int i = 2;
+                lines.Insert(i++, "<help>");
+                lines.Insert(i++, "  <![CDATA[");
+                lines.Insert(i++, "  ]]>");
+                lines.Insert(i++, "</help>");
                 File.WriteAllLines(f, lines);
             }
         }

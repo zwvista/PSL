@@ -1,5 +1,9 @@
 <?xml version="1.0" ?>
 <puzzle>
+<help>
+  <![CDATA[
+  ]]>
+</help>
 <levels>
   <level id="1-2" action="remove" matchsticks="1" equation="9-1=2" />
   <level id="1-6" action="add" matchsticks="3" equation="2*1=6" />

@@ -1,5 +1,9 @@
 <?xml version="1.0" ?>
 <puzzle>
+<help>
+  <![CDATA[
+  ]]>
+</help>
 <levels>
   <level id="110" rows="10" cols="10" goal="(9,6)"><![CDATA[
  - - - - - - - - - - `
