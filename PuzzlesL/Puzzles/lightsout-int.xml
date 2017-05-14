@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<puzzle>
 <levels>
   <level id="1"><![CDATA[
 00011`
@@ -27,3 +28,4 @@
 11111`
   ]]></level>
 </levels>
+</puzzle>

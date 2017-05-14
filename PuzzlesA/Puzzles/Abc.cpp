@@ -10,7 +10,7 @@
 
     Description
     1. The goal is to put the letter A B and C in the board.
-    2. Each letter appear once in every row and column.
+    2. Each letter appears once in every row and column.
     3. The letters on the borders tell you what letter you see from there.
     4. Since most puzzles can contain empty spaces, the hint on the board
        doesn't always match the tile next to it.

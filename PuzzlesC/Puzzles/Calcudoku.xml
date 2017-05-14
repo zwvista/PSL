@@ -1,4 +1,5 @@
 <?xml version="1.0" ?>
+<puzzle>
 <levels>
   <level id="1">
     <![CDATA[
@@ -82,3 +83,4 @@ s 5/s   t 2/t   u21*u   r   `
     ]]>
   </level>
 </levels>
+</puzzle>

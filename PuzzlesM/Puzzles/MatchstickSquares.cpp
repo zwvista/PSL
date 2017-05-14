@@ -89,11 +89,11 @@ struct puz_state
 
     //solve_puzzle interface
     bool is_goal_state() const {
-        return m_is_valid_state && get_heuristic() == 0;
+        return m_is_valid_state && m_move_count == 0 && get_heuristic() == 0;
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_move_count * 10 + abs(m_square_count - m_game->m_square_count) * 4 + m_unused_count;
+        return abs(m_square_count - m_game->m_square_count) * 4 + m_unused_count;
     }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
@@ -163,7 +163,7 @@ void puz_state::make_move(function<void()> f)
     f();
     check_squares();
     --m_move_count;
-    m_distance = d - get_heuristic();
+    m_distance = max(0, d - (int)get_heuristic());
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

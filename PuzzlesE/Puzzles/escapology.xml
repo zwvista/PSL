@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<puzzle>
 <levels>
   <!--<level id="Rio-1">
     <![CDATA[
@@ -950,3 +951,4 @@ d    d`
     ]]>
   </level>
 </levels>
+</puzzle>

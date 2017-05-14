@@ -1,4 +1,5 @@
 <?xml version="1.0" ?>
+<puzzle>
 <levels>
   <level id="101" code="523200">
     <![CDATA[
@@ -471,3 +472,4 @@
     <bridge position="(6,8)" state ="off"/>
   </level>
 </levels>
+</puzzle>
