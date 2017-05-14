@@ -26,50 +26,33 @@ namespace CopyHelp
         static void Main(string[] args)
         {
             var puz = "Puzzles";
-            var d = Directory.GetCurrentDirectory() + "/../../..";
-            var dirList = Directory.GetDirectories(d).Where(d2 =>
+            var pslList = Directory.GetDirectories(@"D:\Programs\Games\PSL").Where(d2 =>
             {
                 var f = Path.GetFileName(d2);
                 return f.StartsWith(puz) && f.Length - puz.Length == 1;
             }).Select(d2 => d2 + "/Puzzles").ToList();
-            var xmlList = dirList.SelectMany(d2 => Directory.GetFiles(d2, "*.xml")).ToList();
-            var cppList = dirList.SelectMany(d2 => Directory.GetFiles(d2, "*.cpp")).ToList();
-            var cpp2xml = (from c in cppList
-                           from x in xmlList
+            var cppList = pslList.SelectMany(d2 => Directory.GetFiles(d2, "*.cpp")).ToList();
+            var stateList = Directory.GetFiles(@"D:\Programs\Games\LogicPuzzlesAndroid\app\src\main\java\com\zwstudio\logicpuzzlesandroid\puzzles", "*GameState.java", SearchOption.AllDirectories)
+                .ToList();
+            var cpp2state = (from c in cppList
+                           from x in stateList
                            where Path.GetFileNameWithoutExtension(x).StartsWith(Path.GetFileNameWithoutExtension(c))
-                           select new { Cpp = c, Xml = x }).ToList();
+                           select new { Cpp = c, State = x }).ToList();
 
-            var reg = new Regex(@"^\s+\d+\. ");
-            foreach (var kv in cpp2xml)
+            foreach (var kv in cpp2state)
             {
                 var lines = File.ReadAllLines(kv.Cpp).ToList();
                 var a = lines.FindIndex(s2 => s2.Trim() == "/*");
                 var b = lines.FindIndex(s2 => s2.Trim() == "*/");
                 if (a == -1 || b == -1) continue;
-                lines = lines.Skip(a).Take(b - a).ToList();
-                a = lines.FindIndex(s2 => s2.Trim() == "Description");
+                lines = lines.Skip(a).Take(b - a + 1).ToList();
+                var lines2 = File.ReadAllLines(kv.State).ToList();
+                a = lines2.FindIndex(s2 => s2.Trim() == "private void updateIsSolved() {");
                 if (a == -1) continue;
-                lines = lines.Skip(a + 1).ToList();
-                var lines2 = new List<String>();
-                var s = "";
+                int i = a;
                 foreach (var s2 in lines)
-                {
-                    if (reg.IsMatch(s2))
-                    {
-                        if (s != "") lines2.Add(s);
-                        s = s2.Trim();
-                    }
-                    else
-                        s += " " + s2.Trim();
-                }
-                if (s != "") lines2.Add(s);
-
-                lines = File.ReadAllLines(kv.Xml).ToList();
-                if (lines[2] != "<help>") continue;
-                int i = 4;
-                foreach (var s2 in lines2)
-                    lines.Insert(i++, s2);
-                File.WriteAllLines(kv.Xml, lines);
+                    lines2.Insert(i++, s2.Trim() == "" ? "" : "    " + s2);
+                File.WriteAllLines(kv.State, lines2);
             }
         }
     }
