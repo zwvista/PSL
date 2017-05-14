@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Plays with the same rules as Tapa with these variations:
+2. The number also tells you the filled cell count for that row.
+3. In other words, the sum of the digits in that row equals the number of that row.
   ]]>
 </help>
 <levels>

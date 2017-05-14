@@ -2,6 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
+1. On the board there are a few nails. Each one nails a plank to the board.
+2. Planks are 3 tiles long and can be oriented vertically or horizontally. The Nail can be in any of the 3 tiles.
+3. Each Plank touches orthogonally exactly two other Planks.
+4. All the Planks form a ring, or a closed loop.
   ]]>
 </help>
 <levels>

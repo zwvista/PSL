@@ -2,6 +2,8 @@
 <puzzle>
 <help>
   <![CDATA[
+1. In a possible crossword for Robots, letters are substituted with digits.
+2. Each 'word' is formed by an uninterrupted sequence of numbers (i.e. 2-3-4-5), but in any order (i.e. 3-4-2-5).
   ]]>
 </help>
 <levels>

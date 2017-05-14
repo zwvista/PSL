@@ -2,6 +2,11 @@
 <puzzle>
 <help>
   <![CDATA[
+1. This time the resort is an island, the place is packed and the campers (Tents) must compromise!
+2. The board represents an Island, where there are a few Tents, identified by the numbers.
+3. Your job is to find the water surrounding the island, with these rules:
+4. There is only one, continuous island.
+5. The numbers tell you how many tiles that camper can walk from his Tent, by moving horizontally or vertically. A camper can't cross water or other Tents.
   ]]>
 </help>
 <levels>

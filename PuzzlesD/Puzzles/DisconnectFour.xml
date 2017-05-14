@@ -2,6 +2,8 @@
 <puzzle>
 <help>
   <![CDATA[
+1. The opposite of the famous game 'Connect Four', where you must line up four tokens of the same colour.
+2. In this puzzle you have to ensure that there are no more than three tokens of the same colour lined up horizontally, vertically or diagonally.
   ]]>
 </help>
 <levels>

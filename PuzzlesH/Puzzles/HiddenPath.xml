@@ -2,6 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
+ Starting at the tile number 1, reach the last tile by jumping from tile to tile.
+1. When jumping from a tile, you have to follow the direction of the arrow and land on a tile in that direction
+2. Although you have to follow the direction of the arrow, you can land on any tile in that direction, not just the one next to the current tile.
+3. The goal is to jump on every tile, only once and reach the last tile.
   ]]>
 </help>
 <levels>

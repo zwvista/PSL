@@ -2,6 +2,12 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Plays the opposite of Tapa, regarding the hints:
+2. A number indicates the groups of connected empty tiles that are around it, instead of filled ones.
+3. Different groups of empty tiles are separated by at least one filled cell.
+4. Same as Tapa:
+5. The filled tiles are continuous.
+6. You can't have a 2*2 space of filled tiles.
   ]]>
 </help>
 <levels>

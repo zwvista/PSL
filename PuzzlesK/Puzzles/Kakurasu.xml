@@ -2,6 +2,8 @@
 <puzzle>
 <help>
   <![CDATA[
+1. On the bottom and right border, you see the value of (respectively) the columns and rows.
+2. On the other borders, on the top and the left, you see the hints about which tile have to be filled on the board. These numbers represent the sum of the values mentioned above.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,12 @@
 <puzzle>
 <help>
   <![CDATA[
+1. In this game you have to create a valid Nurikabe following a different type of hints.
+2. In the end, the empty spaces left by the Nurikabe will form many Carpenter's Squares (L shaped tools) of different size.
+3. The circled numbers on the board indicate the corner of the L.
+4. When a number is inside the circle, that indicates the total number of squares occupied by the L.
+5. The arrow always sits at the end of an arm and points to the corner of an L.
+6. Not all the Carpenter's Squares might be indicated: some could be hidden and no hint given.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,13 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Connect the couples of equal numbers (i.e. 2 with 2, 3 with 3 etc) with a continuous line.
+2. The line can only go horizontally or vertically and can't cross itself or other lines.
+3. Lines must originate on a number and must end in the other equal number.
+4. At the end of the puzzle, you must have covered ALL the squares with lines and no line can cover a 2*2 area (like a 180 degree turn).
+5. In other words you can't turn right and immediately right again. The same happens on the left, obviously. Be careful not to miss this rule.  Variant
+6. In some levels there will be a note that tells you don't need to cover all the squares.
+7. In some levels you will have more than a couple of the same number. In these cases, you must connect ALL the same numbers together.
   ]]>
 </help>
 <levels>

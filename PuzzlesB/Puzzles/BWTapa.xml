@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Play with the same rules as Tapa with these variations:
+2. Both Black and White cells must form a single continuous region.
+3. There can't be any 2*2 of white or black cells.
   ]]>
 </help>
 <levels>

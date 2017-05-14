@@ -2,6 +2,11 @@
 <puzzle>
 <help>
   <![CDATA[
+1. In an effort to complicate signposts, you're given the task to have signposts reach other by no less than two turns.
+2. In other words, you have to place walls on the board so that a maze of signposts is formed. In this maze:
+3. In order to go from one signpost to the other, you have to turn at least twice.
+4. Walls can't touch horizontally or vertically.
+5. All the signposts and empty spaces must form an orthogonally continuous area.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
+1. On the board a few Thermometers are laid down. Your goal is  to fill them according to the hints.
+2. In a Thermometer, mercury always starts at the bulb and can progressively fill the Thermometer towards the end.
+3. A Thermometer can also be completely empty, including the bulb.
+4. The numbers on the border tell you how many filled cells are present on that Row or Column.
   ]]>
 </help>
 <levels>

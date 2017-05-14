@@ -2,6 +2,11 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Plays like SlitherLink:
+2. Draw a single looping path with the aid of the numbered hints. The path cannot have branches or cross itself.
+3. Each number tells you on how many of its four sides are touched by the path.
+4. With this added rule:
+5. In the end all the sheep must be corralled inside the loop, while all the wolves must be outside.
   ]]>
 </help>
 <levels>

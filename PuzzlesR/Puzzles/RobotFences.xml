@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. A bit like Robot Crosswords, you need to fill each region with a randomly ordered sequence of numbers.
+2. Numbers can only be in range 1 to N where N is the board size.
+3. No same number can appear in the same row or column.
   ]]>
 </help>
 <levels>

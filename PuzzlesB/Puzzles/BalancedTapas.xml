@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Plays with the same rules as Tapa with these variations.
+2. The board is divided in two vertical parts.
+3. The filled cell count in both parts must be equal.
   ]]>
 </help>
 <levels>

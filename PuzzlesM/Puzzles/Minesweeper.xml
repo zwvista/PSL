@@ -2,6 +2,8 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Find the mines on the field.
+2. Numbers tell you how many mines there are close by, touching that number horizontally, vertically or diagonally.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Just like Box It Up, you have to divide the Board in Boxes (Rectangles).
+2. Each Box must contain one number and the number represents the area of that Box.
+3. However this time, some tiles can be left unboxed, the board isn't entirely covered by boxes.
   ]]>
 </help>
 <levels>

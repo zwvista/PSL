@@ -2,6 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
+1. In the board there are marked centers of a few 'Spiral' Galaxies.
+2. These Galaxies are symmetrical to a rotation of 180 degrees. This means that rotating the shape of the Galaxy by 180 degrees (half a full turn) around the center, will result in an identical shape.
+3. In the end, all the space must be included in Galaxies and Galaxies can't overlap.
+4. There can be single tile Galaxies (with the center inside it) and some Galaxy center will be cross two or four tiles.
   ]]>
 </help>
 <levels>

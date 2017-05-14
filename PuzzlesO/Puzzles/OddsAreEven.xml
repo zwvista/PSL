@@ -2,6 +2,11 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Odds Are Even is a Sudoku variant where the hints are given by differently shaded tiles.
+2. Standard Sudoku rules apply, i.e. you need to fill the board with numbers 1 to 9 in every row, column and area, without repetitions.
+3. The brighter coloured tiles contain odd numbers (1,3,5,7,9) and the dim ones contain even numbers (2,4,6,8).  Variation
+4. Further levels have irregular areas, instead of the classic 3*3 Sudoku. All the other rules are the same.
+5. Even further, you will find levels that have NO areas.
   ]]>
 </help>
 <levels>

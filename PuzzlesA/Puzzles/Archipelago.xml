@@ -2,6 +2,12 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Each number represents a rectangular island in the Archipelago.
+2. The number in itself identifies how many squares the island occupies.
+3. Islands can only touch each other diagonally and by touching they must form a network where no island is isolated from the others.
+4. In other words, every island must be touching another island diagonally and no group of islands must be separated from the others.
+5. Not all the islands you need to find are necessarily marked by numbers.
+6. Finally, no 2*2 square can be occupied by water only (just like Nurikabe).
   ]]>
 </help>
 <levels>

@@ -2,6 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Your goal is to write a number in every blank tile (without a diagonal line).
+2. The number on the top of a column or at the left of a row, gives you the sum of the numbers in that column or row.
+3. You can write numbers 1 to 9 in the tiles, however no same number should appear in a consecutive row or column.
+4. Tiles which only have a diagonal line aren't used in the game.
   ]]>
 </help>
 <levels>

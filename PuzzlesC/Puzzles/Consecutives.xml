@@ -2,6 +2,12 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Consecutives can be seen as a mix between Sudoku and 'consecutive' Futoshiki.
+2. Standard Sudoku rules apply, i.e. you need to fill the board with numbers 1 to 9 in every row, column and area, without repetitions.
+3. The marks highlighted between two tiles tell you that those two numbers are Consecutives, like 1 and 2 or 3 and 4 or 6 and 5.
+4. Please note that if there is no mark, there CAN'T be two consecutive numbers in the neighboring tiles.  Variation
+5. Further levels have irregular areas, instead of the classic 3*3 Sudoku. All the other rules are the same.
+6. Even further, you will find levels that have NO areas.
   ]]>
 </help>
 <levels>

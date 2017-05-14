@@ -2,6 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Fill the board with diagonal lines (Slants), following the hints at the intersections.
+2. Every number tells you how many Slants (diagonal lines) touch that point. So, for example, a 4 designates an X pattern around it.
+3. The Mazes or paths the Slants will form will usually branch off many times, but can also end abruptly. Also all the Slants don't need to be all connected.
+4. However, you must ensure that they don't form a closed loop anywhere. This also means very big loops, not just 2*2.
   ]]>
 </help>
 <levels>

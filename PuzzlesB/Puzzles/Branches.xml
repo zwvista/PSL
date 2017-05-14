@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. In Branches you must fill the board with straight horizontal and vertical lines(Branches) that stem from each number.
+2. The number itself tells you how many tiles its Branches fill up. The tile with the number doesn't count.
+3. There can't be blank tiles and Branches can't overlap, nor run over the numbers. Moreover Branches must be in a single straight line and can't make corners.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,7 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Draw a single looping path. You have to touch all the dots. As usual, the path cannot have branches or cross itself.
   ]]>
 </help>
 <levels>

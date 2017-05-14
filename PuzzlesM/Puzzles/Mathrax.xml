@@ -2,6 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
+1. The goal is to input numbers 1 to N, where N is the board size, following the hints in the intersections.
+2. A number must appear once for every row and column.
+3. The tiny numbers and sign in the intersections tell you the result of the operation between the two opposite diagonal tiles. This is valid for both pairs of numbers surrounding the hint.
+4. In some puzzles, there will be 'E' or 'O' as hint. This means that all four tiles are either (E)ven or (O)dd numbers.
   ]]>
 </help>
 <levels>

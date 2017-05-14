@@ -2,6 +2,7 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Connect the top left corner (1) to the bottom right corner (N), including all the numbers between 1 and N, only once.
   ]]>
 </help>
 <levels>

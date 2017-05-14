@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. On the board there is a wall, made of 2*1 and 1*1 bricks.
+2. Each 2*1 brick contains and odd and an even number, while 1*1 bricks can contain any number.
+3. Each row and column contains numbers 1 to N, where N is the side of the board.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. You are given a 3*3 or 4*4 square with digits in it.
+2. You have to add digits to some (or all) tiles, in order to produce the sum of 100 for every row and column.
+3. You can add digits before or after the given one.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,11 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Place all numbers from 1 to N on each row and column - just once, without repeating.
+2. In other words, all numbers must appear just once on each row and column.
+3. A circle marks where a number must go.
+4. A cross marks where no number can go.
+5. All other cells can contain a number or be empty.
   ]]>
 </help>
 <levels>

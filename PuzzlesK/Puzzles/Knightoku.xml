@@ -2,6 +2,11 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Knightoku is a Sudoku variant which plays mostly like Sudoku with one glaring exception.
+2. Standard Sudoku rules apply, i.e. you need to fill the board with numbers 1 to 9 in every row, column and area, without repetitions.
+3. Two tiles in a chess-like Knight jump configuration (i.e. L-shaped) can't contain the same number.  Variation
+4. Further levels have irregular areas, instead of the classic 3*3 Sudoku. All the other rules are the same.
+5. Even further, you will find levels that have NO areas.
   ]]>
 </help>
 <levels>

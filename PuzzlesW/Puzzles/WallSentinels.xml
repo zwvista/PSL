@@ -2,6 +2,13 @@
 <puzzle>
 <help>
   <![CDATA[
+1. On the board there is a single continuous castle wall, which you must discover.
+2. The numbers on the board represent Sentinels (in a similar way to 'Sentinels'). The Sentinels can be placed on the Wall or Land.
+3. The number tells you how many tiles that Sentinel can control (see) from there vertically and horizontally - of his type of tile.
+4. That means the number of a Land Sentinel indicates how many Land tiles are visible from there, up to Wall tiles or the grid border.
+5. That works the opposite way for Wall Sentinels: they control all the Wall tiles up to Land tiles or the grid border.
+6. The number includes the tile itself, where the Sentinel is located (again, like 'Sentinels').
+7. Lastly there is a single, orthogonally contiguous, Wall and it cannot contain 2*2 Wall tiles - just like Nurikabe.
   ]]>
 </help>
 <levels>

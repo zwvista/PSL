@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Plays with the same rules as Tapa with these variations:
+2. Each row must have a different number of filled cells.
+3. Each column must have a different number of filled cells.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
+1. In Four-Me-Not (or Forbidden Four) you need to create a continuous flower bed without putting four flowers in a row.
+2. More exactly, you have to join the existing flowers by adding more of them, creating a single path of flowers touching horizontally or vertically.
+3. At the same time, you can't line up horizontally or vertically more than 3 flowers (thus Forbidden Four).
+4. Some tiles are marked as squares and are just fixed blocks.
   ]]>
 </help>
 <levels>

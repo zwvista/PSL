@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Starting at the tile number 1, reach the last tile by jumping from tile to tile.
+2. When jumping from a tile, you can land on any tile around it, horizontally, vertically or diagonally touching.
+3. The goal is to jump on every tile, only once and reach the last tile.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. You goal is to enter every digit, from 0 to 9, in each row of the Grid.
+2. The number on the bottom row gives you the sum for that column.
+3. Digit can repeat on the same column, however digits in contiguous tiles must be different, even diagonally. Obviously digits can't repeat on the same row.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,14 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Your goal as a landscaper is to plant some Trees and Flowers on the field, in every available tile.
+2. In doing this, you must assure the scenery is varied enough:
+3. No more than two consecutive Trees or Flowers should appear horizontally or vertically.
+4. Every row and column should have an equal number of Trees and Flowers.
+5. Each row disposition must be unique, i.e. the same arrangement of Trees and Flowers can't appear on two rows.
+6. Each column disposition must be unique as well.  Odd-size levels
+7. Please note that in odd-size levels, the number of Trees and Flowers obviously won't be equal on a row or column. However each row and column will have the same number of Flowers and Trees.
+8. Also, the number of Trees will always be greater than that of Flowers (i.e. 3 Flowers and 4 Trees, 4 Flowers and 5 Trees, etc).
   ]]>
 </help>
 <levels>

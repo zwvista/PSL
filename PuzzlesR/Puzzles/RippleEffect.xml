@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. The goal is to fill the Rooms you see on the board, with numbers 1 to room size.
+2. While doing this, you must consider the Ripple Effect. The same number can only appear on the same row or column at the distance of the number itself.
+3. For example a 2 must be separated by another 2 on the same row or column by at least two tiles.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Plays like a cross between Sudoku and Skyscrapers.
+2. Hints on the borders tell you -like Skyscrapers- how many buildings you see from there.
+3. In the inner board regular Sudoku rules apply, except that in some levels you only have numbers 1 to 8.
   ]]>
 </help>
 <levels>

@@ -2,6 +2,12 @@
 <puzzle>
 <help>
   <![CDATA[
+1. A very convoluted Medieval Architect devised a very weird Bailey (or Ward, the inner area contained in the Outer Walls of a Castle).
+2. He deployed quite a few towers (the circles) and put a number on top of each one.
+3. The number tells you how many pieces (squares) of wall it touches.
+4. So the number can go from 0 (no walls around the tower) to 4 (tower entirely surrounded by walls).
+5. Board borders don't count as walls, so there you'll have two walls at most (or one in corners).
+6. To facilitate movement in the castle, the Bailey must have a single continuous are (Garden).
   ]]>
 </help>
 <levels>

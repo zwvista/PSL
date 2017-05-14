@@ -2,6 +2,8 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Identify the landscape in every region, choosing between trees, sand, water and rocks.
+2. Two regions can't have the same landscape if they touch, not even diagonally.
   ]]>
 </help>
 <levels>

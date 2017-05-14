@@ -2,6 +2,13 @@
 <puzzle>
 <help>
   <![CDATA[
+1. The Goal is to enter numbers 1 to board size once in every row and column.
+2. A Dot between two tiles give you hints about the two numbers:
+3. Black Dot - one number is twice the other.
+4. White Dot - the numbers are consecutive.
+5. Where the numbers are 1 and 2, there can be either a Black Dot(2 is 1*2) or a White Dot(1 and 2 are consecutive).
+6. Please note that when two numbers are either consecutive or doubles, there MUST be a Dot between them!  Variant
+7. In later 9*9 levels you will also have bordered and coloured areas, which must also contain all the numbers 1 to 9.
   ]]>
 </help>
 <levels>

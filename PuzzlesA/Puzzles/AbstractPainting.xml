@@ -2,6 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
+1. The goal is to reveal part of the abstract painting behind the board.
+2. Outer numbers tell how many tiles form the painting on the row and column.
+3. The region of the painting can be entirely hidden or revealed.
   ]]>
 </help>
 <levels>

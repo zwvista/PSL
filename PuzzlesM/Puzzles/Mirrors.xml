@@ -2,6 +2,11 @@
 <puzzle>
 <help>
   <![CDATA[
+1. The goal is to draw a single, continuous, non-crossing path that fills the entire board.
+2. Some tiles are already given and can contain Mirrors, which force the path to make a turn. Other tiles already contain a fixed piece of straight path.
+3. Your task is to fill the remaining board tiles with straight or 90 degree path lines, in the end connecting a single, continuous line.
+4. Please note you can make 90 degree turn even there are no mirrors.  Variant
+5. In the Maze variant, the path isn't closed. You have two spots on the board which represent the start and end of the path.
   ]]>
 </help>
 <levels>

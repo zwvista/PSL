@@ -2,6 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
+1. The board represents a Botanical Park, with arrows pointing to the different plants.
+2. Each arrow points to at least one plant and there is exactly one plant in every row and in every column.
+3. Plants cannot touch, not even diagonally.  Variant
+4. Puzzle with side 9 or bigger have TWO plants in every row and column.
   ]]>
 </help>
 <levels>

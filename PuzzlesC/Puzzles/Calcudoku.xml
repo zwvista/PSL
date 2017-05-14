@@ -2,6 +2,12 @@
 <puzzle>
 <help>
   <![CDATA[
+1. Write numbers ranging from 1 to board size respecting the calculation hint.
+2. The tiny numbers and math signs in the corner of an area give you the hint about what's happening inside that area.
+3. For example a '3+' means that the sum of the numbers inside that area equals 3. In that case you would have to write the numbers 1 and 2 there.
+4. Another example: '12*' means that the multiplication of the numbers in that area gives 12, so it could be 3 and 4 or even 3, 4 and 1, depending on the area size.
+5. Even where the order of the operands matter (in subtraction and division) they can appear in any order inside the area (ie.e. 2/ could be done with 4 and 2 or 2 and 4.
+6. All the numbers appear just one time in each row and column, but they could be repeated in non-straight areas, like the L-shaped one.
   ]]>
 </help>
 <levels>
