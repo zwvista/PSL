@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 extern void solve_puz_Pairakabe();
+extern void solve_puz_Pairakabe2();
 extern void solve_puz_ParkingLot();
 extern void solve_puz_ParkLakes();
 extern void solve_puz_Parks();
@@ -20,6 +21,7 @@ int main(int argc, char **argv)
 {
     srand(time(0));
     cout << "a1: Pairakabe" << endl;
+    cout << "a12: Pairakabe2" << endl;
     cout << "a2: Parking Lot" << endl;
     cout << "a3: Park Lakes" << endl;
     cout << "a4: Parks" << endl;
@@ -38,6 +40,7 @@ int main(int argc, char **argv)
     getline(cin, str);
     if(str.empty());
     else if(str == "a1") solve_puz_Pairakabe();
+    else if(str == "a12") solve_puz_Pairakabe2();
     else if(str == "a2") solve_puz_ParkingLot();
     else if(str == "a3") solve_puz_ParkLakes();
     else if(str == "a4") solve_puz_Parks();

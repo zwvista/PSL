@@ -91,6 +91,9 @@
     <Text Include="Puzzles\Patchmania.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Pairakabe2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -156,6 +159,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\Patchmania.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Pairakabe2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
