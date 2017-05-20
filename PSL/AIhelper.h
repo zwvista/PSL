@@ -20,7 +20,7 @@ void load_xml(list<puz_game>& games, const string& fn_in)
     string str;
     vector<string> vstr;
 
-    for(xml_node v : doc.child("levels").children()){
+    for(xml_node v : doc.child("puzzle").child("levels").children()){
         str = v.text().as_string();
         boost::split(vstr, str, boost::is_any_of("`\r\n"), boost::token_compress_on);
         if(!str.empty()){
