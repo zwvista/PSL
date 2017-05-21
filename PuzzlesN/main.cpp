@@ -6,7 +6,6 @@ extern void solve_puz_NumberPath();extern void solve_puz_NoughtsAndCrosses();
 extern void solve_puz_NumberLink();
 extern void solve_puz_numeric_paranoia();
 extern void solve_puz_Nurikabe();
-extern void solve_puz_Nurikabe2();
 
 int main(int argc, char **argv)
 {
@@ -18,7 +17,6 @@ int main(int argc, char **argv)
     cout << "u2: NumberLink" << endl;
     cout << "u3: numeric_paranoia" << endl;
     cout << "u4: Nurikabe" << endl;
-    cout << "u5: Nurikabe2" << endl;
     string str;
     getline(cin, str);
     if(str.empty());
@@ -29,7 +27,6 @@ int main(int argc, char **argv)
     else if(str == "u2") solve_puz_NumberLink();
     else if(str == "u3") solve_puz_numeric_paranoia();
     else if(str == "u4") solve_puz_Nurikabe();
-    else if(str == "u5") solve_puz_Nurikabe2();
 
     return 0;
 }

@@ -150,7 +150,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\Pairakabe.txt" />
-    <Text Include="Puzzles\Pairakabe2.txt" />
     <Text Include="Puzzles\ParkingLot.txt" />
     <Text Include="Puzzles\ParkLakes.txt" />
     <Text Include="Puzzles\Parks.txt" />
@@ -190,7 +189,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Pairakabe.cpp" />
-    <ClCompile Include="Puzzles\Pairakabe2.cpp" />
     <ClCompile Include="Puzzles\ParkingLot.cpp" />
     <ClCompile Include="Puzzles\ParkLakes.cpp" />
     <ClCompile Include="Puzzles\Parks.cpp" />
