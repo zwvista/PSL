@@ -48,8 +48,11 @@ const Position offset2[] = {
 
 struct puz_garden
 {
+    // a character that represents the garden. 'a', 'b' and so on
     char m_name;
+    // number of the tiles occupied by the garden
     int m_num;
+    // all permutations (forms) of the garden
     vector<set<Position>> m_perms;
 };
 
@@ -57,6 +60,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
+    // key: the position of the number(hint)
     map<Position, puz_garden> m_pos2garden;
     string m_start;
 
@@ -83,15 +87,18 @@ struct puz_state2 : set<Position>
 void puz_state2::gen_children(list<puz_state2>& children) const {
     for(auto& p : *this)
         for(auto& os : offset){
+            // Gardens extend horizontally or vertically
             auto p2 = p + os;
             char ch2 = m_game->cells(p2);
-            if(ch2 != PUZ_SPACE || count(p2) != 0 || boost::algorithm::any_of(offset, [&](const Position& os2){
+            if(ch2 == PUZ_SPACE && count(p2) == 0 && boost::algorithm::none_of(offset, [&](const Position& os2){
                 auto p3 = p2 + os2;
                 char ch3 = m_game->cells(p3);
+                // Gardens are separated by a wall. They cannot touch each other orthogonally.
                 return count(p3) == 0 && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY;
-            })) continue;
-            children.push_back(*this);
-            children.back().make_move(p2);
+            })){
+                children.push_back(*this);
+                children.back().make_move(p2);
+            }
         }
 }
 
@@ -127,6 +134,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         else {
             puz_state2 sstart(*this, garden, p);
             list<list<puz_state2>> spaths;
+            // Gardens can have any form.
             puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
             for(auto& spath : spaths)
                 garden.m_perms.push_back(spath.back());
@@ -149,7 +157,6 @@ struct puz_state
     int find_matches(bool init);
     bool is_continuous() const;
     bool check_2x2();
-    bool is_valid_move() { return check_2x2() && is_continuous(); }
 
     //solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
@@ -164,6 +171,8 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
+    // key: the position of the hint
+    // value: index into the forms of the garden
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
@@ -276,6 +285,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
     }
 }
 
+// All wall tiles on the board must be connected horizontally or vertically.
 bool puz_state::is_continuous() const
 {
     set<Position> a;
@@ -292,9 +302,9 @@ bool puz_state::is_continuous() const
     return smoves.size() == a.size();
 }
 
+// The wall can't form 2*2 squares.
 bool puz_state::check_2x2()
 {
-    // The wall can't form 2*2 squares.
     for(int r = 1; r < sidelen() - 2; ++r)
         for(int c = 1; c < sidelen() - 2; ++c){
             Position p(r, c);
@@ -330,7 +340,7 @@ bool puz_state::make_move2(Position p, int n)
     ++m_distance;
     m_matches.erase(p);
 
-    return is_valid_move();
+    return check_2x2() && is_continuous();
 }
 
 bool puz_state::make_move(const Position& p, int n)
@@ -345,9 +355,7 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& kv = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2){
+    auto& kv = *boost::min_element(m_matches, [](auto& kv1, auto& kv2){
         return kv1.second.size() < kv2.second.size();
     });
     for(int n : kv.second){

@@ -8,8 +8,8 @@ Sequence of moves:
     |       
 11  6- 3-13 
 Number of moves: 12
-Number of vertices examined: 342
-0.00200329 [s]
+Number of vertices examined: 247
+0.00160754 [s]
 
 Level 2
 Sequence of moves: 
@@ -21,8 +21,8 @@ Sequence of moves:
  |  |     | 
  3- 8  6 13 
 Number of moves: 12
-Number of vertices examined: 33
-0.000570252 [s]
+Number of vertices examined: 32
+0.000427178 [s]
 
 Level 260
 Sequence of moves: 
@@ -46,6 +46,6 @@ Sequence of moves:
                             | 
  1  7 13 16 11  7 10  8 15 21 
 Number of moves: 20
-Number of vertices examined: 599
-0.00357199 [s]
+Number of vertices examined: 576
+0.00447515 [s]
 

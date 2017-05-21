@@ -46,6 +46,9 @@
     <Text Include="Puzzles\NoughtsAndCrosses.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\NumberPath2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\NumberPath2.cpp">
+      <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -156,6 +156,7 @@
     <Text Include="Puzzles\NoughtsAndCrosses.txt" />
     <Text Include="Puzzles\NumberLink.txt" />
     <Text Include="Puzzles\NumberPath.txt" />
+    <Text Include="Puzzles\NumberPath2.txt" />
     <Text Include="Puzzles\numeric_paranoia.txt" />
     <Text Include="Puzzles\Nurikabe.txt" />
     <Text Include="ReadMe.txt" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp" />
     <ClCompile Include="Puzzles\NumberLink.cpp" />
     <ClCompile Include="Puzzles\NumberPath.cpp" />
+    <ClCompile Include="Puzzles\NumberPath2.cpp" />
     <ClCompile Include="Puzzles\numeric_paranoia.cpp" />
     <ClCompile Include="Puzzles\Nurikabe.cpp" />
     <ClCompile Include="stdafx.cpp">

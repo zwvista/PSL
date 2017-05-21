@@ -14,7 +14,7 @@
        all the numbers between 1 and N, only once.
 */
 
-namespace puzzles{ namespace NumberPath{
+namespace puzzles{ namespace NumberPath2{
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -50,48 +50,52 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_state : vector<Position>
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
     int cells(const Position& p) const { return m_game->cells(p); }
+    bool operator<(const puz_state& x) const {
+        return tie(m_p, m_nums) < tie(x.m_p, x.m_nums);
+    }
     int count() const { return m_game->m_start.back(); }
     bool make_move(const Position& p);
 
     // solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return count() - size(); }
+    unsigned int get_heuristic() const { return count() - m_nums.size(); }
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {}
-    ostream& dump(ostream& out) const;
+    ostream& dump(ostream& out, const set<Position>& horz_lines, const set<Position>& vert_lines) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {
-        return state.dump(out);
+        return state.dump(out, {}, {});
     }
 
     const puz_game* m_game = nullptr;
+    Position m_p;
+    vector<int> m_nums;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : vector<Position>{{}}, m_game(&g)
+    : m_game(&g), m_p{}, m_nums{g.m_start[0]}
 {
 }
+
 
 bool puz_state::make_move(const Position& p)
 {
     int n = cells(p);
-    if(n > count() || boost::algorithm::any_of(*this, [&](auto& p2){
-        return cells(p2) == n;
-    }))
-        return false;
-    push_back(p);
-    return manhattan_distance(p, {sidelen() - 1, sidelen() - 1}) <= count() - size();
+    if(n > count() || boost::algorithm::any_of_equal(m_nums, n)) return false;
+    m_p = p;
+    m_nums.push_back(n);
+    return manhattan_distance(p, {sidelen() - 1, sidelen() - 1}) <= count() - m_nums.size();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for(auto& os : offset){
-        auto p = back() + os;
+        auto p = m_p + os;
         if(!m_game->is_valid(p)) continue;
         children.push_back(*this);
         if(!children.back().make_move(p))
@@ -99,19 +103,8 @@ void puz_state::gen_children(list<puz_state>& children) const
     }
 }
 
-ostream& puz_state::dump(ostream& out) const
+ostream& puz_state::dump(ostream& out, const set<Position>& horz_lines, const set<Position>& vert_lines) const
 {
-    set<Position> horz_lines, vert_lines;
-    for(int i = 0; i < size() - 1; ++i){
-        auto &p1 = (*this)[i], &p2 = (*this)[i + 1];
-        switch(boost::range::find(offset, p2 - p1) - offset){
-        case 0: vert_lines.insert(p2);  break;
-        case 1: horz_lines.insert(p1);  break;
-        case 2: vert_lines.insert(p1);  break;
-        case 3: horz_lines.insert(p2);  break;
-        }
-    }
-
     for(int r = 0;; ++r){
         // draw horz-lines
         for(int c = 0; c < sidelen(); ++c){
@@ -129,11 +122,26 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
+void dump_all(ostream& out, const list<puz_state>& spath)
+{
+    set<Position> horz_lines, vert_lines;
+    for(auto it = spath.begin(), it2 = next(it); it2 != spath.end(); ++it, ++it2){
+        auto &p1 = it->m_p, &p2 = it2->m_p;
+        switch(boost::range::find(offset, p2 - p1) - offset){
+        case 0: vert_lines.insert(p2);  break;
+        case 1: horz_lines.insert(p1);  break;
+        case 2: vert_lines.insert(p1);  break;
+        case 3: horz_lines.insert(p2);  break;
+        }
+    }
+    spath.back().dump(out, horz_lines, vert_lines);
+}
+
 }}
 
-void solve_puz_NumberPath()
+void solve_puz_NumberPath2()
 {
-    using namespace puzzles::NumberPath;
+    using namespace puzzles::NumberPath2;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/NumberPath.xml", "Puzzles/NumberPath.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/NumberPath.xml", "Puzzles/NumberPath2.txt", solution_format::CUSTOM, dump_all);
 }
