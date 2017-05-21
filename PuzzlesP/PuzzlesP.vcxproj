@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\PaintTheNurikabe.txt" />
     <Text Include="Puzzles\Pairakabe.txt" />
     <Text Include="Puzzles\ParkingLot.txt" />
     <Text Include="Puzzles\ParkLakes.txt" />
@@ -188,6 +189,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\PaintTheNurikabe.cpp" />
     <ClCompile Include="Puzzles\Pairakabe.cpp" />
     <ClCompile Include="Puzzles\ParkingLot.cpp" />
     <ClCompile Include="Puzzles\ParkLakes.cpp" />
@@ -211,6 +213,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\PaintTheNurikabe.xml" />
     <Xml Include="Puzzles\Pairakabe.xml" />
     <Xml Include="Puzzles\ParkingLot.xml" />
     <Xml Include="Puzzles\ParkLakes.xml" />
