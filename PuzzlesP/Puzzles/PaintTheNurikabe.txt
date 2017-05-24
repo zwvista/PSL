@@ -1,0 +1,30 @@
+Level 1
+Sequence of moves: 
+.0 .1 .0 .1 
+.1 P  .3 P  
+.  P3 P2 P3 
+P1 P2 .3 P1 
+Number of moves: 1
+Number of vertices examined: 2
+0.0252083 [s]
+
+Level 2
+Sequence of moves: 
+.  P  .2 .0 
+P  P3 P  .  
+P1 .  P  .  
+.1 .  .1 .0 
+Number of moves: 1
+Number of vertices examined: 2
+0.0107998 [s]
+
+Level 3
+Sequence of moves: 
+.  .  .1 .0 
+.  P  P  .2 
+.0 .  P3 P  
+.1 P1 P  .  
+Number of moves: 1
+Number of vertices examined: 2
+0.0121462 [s]
+
