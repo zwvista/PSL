@@ -280,10 +280,14 @@ bool puz_state::check_2x2()
             }
             if(rngPainted.size() == 4 || rngEmpty.size() == 4)
                 return false;
+            auto f = [&](const Position& p, char ch){
+                for(auto& p2 : m_game->m_areas[m_game->m_pos2area.at(p)])
+                    cells(p2) = ch;
+            };
             if(rngPainted.size() == 3 && rngSpace.size() == 1)
-                cells(rngSpace[0]) = PUZ_EMPTY;
+                f(rngSpace[0], PUZ_EMPTY);
             if(rngEmpty.size() == 3 && rngSpace.size() == 1)
-                cells(rngSpace[0]) = PUZ_PAINTED;
+                f(rngSpace[0], PUZ_PAINTED);
         }
     return true;
 }
@@ -312,7 +316,7 @@ bool puz_state::make_move2(const Position& p, int n)
 
     ++m_distance;
     m_matches.erase(p);
-    return is_continuous() && check_2x2();
+    return check_2x2() && is_continuous();
 }
 
 bool puz_state::make_move(const Position& p, int n)
@@ -341,15 +345,23 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r){
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for(int r = 1;; ++r){
+        // draw horz-walls
+        for(int c = 1; c < sidelen() - 1; ++c)
+            out << (m_game->m_horz_walls.count({r, c}) == 1 ? " --" : "   ");
+        out << endl;
+        if(r == sidelen() - 1) break;
+        for(int c = 1;; ++c){
             Position p(r, c);
+            // draw vert-walls
+            out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+            if(c == sidelen() - 1) break;
             out << cells(p);
             auto it = m_game->m_pos2num.find(p);
             if(it == m_game->m_pos2num.end())
-                out << "  ";
+                out << ' ';
             else
-                out << format("%-2s") % it->second;
+                out << it->second;
         }
         out << endl;
     }
