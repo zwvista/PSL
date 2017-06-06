@@ -208,7 +208,7 @@ bool puz_state::adjust_galaxies()
             for(char ch : ids1){
                 // The galaxies are symmetrical
                 auto p2 = m_galaxies.at(ch).m_center - p;
-                if(p2.first > 0 && p.second > 0 &&
+                if(p2.first > 0 && p2.second > 0 &&
                     p2.first < sidelen() - 1 && p2.second < sidelen() - 1 &&
                     cells(p2) == PUZ_SPACE)
                     ids2.insert(ch);
