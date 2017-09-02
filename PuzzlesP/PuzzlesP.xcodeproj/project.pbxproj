@@ -27,6 +27,7 @@
 		8CA241181EB47AC40055D6B1 /* PowerGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241001EB47AC40055D6B1 /* PowerGrid.cpp */; };
 		8CA241191EB47AC40055D6B1 /* ProductSentinels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241031EB47AC40055D6B1 /* ProductSentinels.cpp */; };
 		8CA2411A1EB47AC40055D6B1 /* PuzzleRetreat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2410C1EB47AC40055D6B1 /* PuzzleRetreat.cpp */; };
+		8CDAE7DA1F5ADE96000DE5AF /* PaintTheNurikabe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CDAE7D71F5ADE96000DE5AF /* PaintTheNurikabe.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -124,6 +125,9 @@
 		8CA2410A1EB47AC40055D6B1 /* PuzzleRetreat_Welcome.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PuzzleRetreat_Welcome.txt; sourceTree = "<group>"; };
 		8CA2410B1EB47AC40055D6B1 /* PuzzleRetreat_Welcome.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PuzzleRetreat_Welcome.xml; sourceTree = "<group>"; };
 		8CA2410C1EB47AC40055D6B1 /* PuzzleRetreat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PuzzleRetreat.cpp; sourceTree = "<group>"; };
+		8CDAE7D71F5ADE96000DE5AF /* PaintTheNurikabe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PaintTheNurikabe.cpp; sourceTree = "<group>"; };
+		8CDAE7D81F5ADE96000DE5AF /* PaintTheNurikabe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PaintTheNurikabe.txt; sourceTree = "<group>"; };
+		8CDAE7D91F5ADE96000DE5AF /* PaintTheNurikabe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PaintTheNurikabe.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +165,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
+				8CDAE7D71F5ADE96000DE5AF /* PaintTheNurikabe.cpp */,
+				8CDAE7D81F5ADE96000DE5AF /* PaintTheNurikabe.txt */,
+				8CDAE7D91F5ADE96000DE5AF /* PaintTheNurikabe.xml */,
 				8CA240D91EB47AC40055D6B1 /* Pairakabe.cpp */,
 				8CA240DA1EB47AC40055D6B1 /* Pairakabe.txt */,
 				8CA240DB1EB47AC40055D6B1 /* Pairakabe.xml */,
@@ -309,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CA2410D1EB47AC40055D6B1 /* Pairakabe.cpp in Sources */,
+				8CDAE7DA1F5ADE96000DE5AF /* PaintTheNurikabe.cpp in Sources */,
 				8C5AE25B1EC0BAF5000F0949 /* Patchmania.cpp in Sources */,
 				8CA241151EB47AC40055D6B1 /* pegsolitary.cpp in Sources */,
 				8CA241181EB47AC40055D6B1 /* PowerGrid.cpp in Sources */,

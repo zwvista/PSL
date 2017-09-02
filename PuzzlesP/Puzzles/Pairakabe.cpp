@@ -48,6 +48,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
+    // key: positions of two numbers
     map<pair<Position, Position>, puz_garden> m_pair2garden;
     string m_start;
 
@@ -63,7 +64,8 @@ struct puz_state2 : set<Position>
 
     bool is_goal_state() const { return m_distance == m_garden->m_num; }
     bool make_move(const Position& p) {
-        insert(p); ++m_distance; 
+        insert(p); ++m_distance;
+        // cannot go too far away
         return boost::algorithm::any_of(*this, [&](const Position& p2){
             return manhattan_distance(p2, *m_p2) <= m_garden->m_num - m_distance;
         });
@@ -82,10 +84,14 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
         for(auto& os : offset){
             auto p2 = p + os;
             char ch2 = m_game->cells(p2);
+            // An adjacent tile cannot be put into the garden
+            // if it belongs to another garden or
+            // it is already in the garden or
             if(ch2 != PUZ_SPACE && p2 != *m_p2 || count(p2) != 0 ||
                 boost::algorithm::any_of(offset, [&](const Position& os2){
                 auto p3 = p2 + os2;
                 char ch3 = m_game->cells(p3);
+                // any adjacent tile to it belongs to another garden
                 return p3 != *m_p2 && count(p3) == 0 && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY;
             })) continue;
             children.push_back(*this);
@@ -123,8 +129,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         int n = kv.second;
         for(auto& kv2 : m_pos2num){
             auto p2 = kv2.first;
+            // only make a pairing with a tile greater than itself
             if(p2 <= p) continue;
             int n3 = n + kv2.second;
+            // cannot make a pairing with a tile too far away
             if(manhattan_distance(p, p2) + 1 > n3) continue;
             auto kv3 = make_pair(p, p2);
             auto& garden = m_pair2garden[kv3];
@@ -133,6 +141,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             puz_state2 sstart(*this, garden, p, p2);
             list<list<puz_state2>> spaths;
             puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
+            // save all goal states as permutations
+            // A goal state is a path linking two numbers
             for(auto& spath : spaths)
                 garden.m_perms.push_back(spath.back());
             if(garden.m_perms.empty())
@@ -171,6 +181,9 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
+    // key: the position of the first number
+    // value.elem.first: the position of the second number
+    // value.elem.second: the index into the permutations (paths)
     map<Position, vector<pair<Position, int>>> m_matches;
     unsigned int m_distance = 0;
 };
@@ -194,6 +207,9 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+    // key: a space tile
+    // value.elem: positions of two tiles from which a garden
+    //             containing that space tile can be formed
     map<Position, set<pair<Position, Position>>> space2hints;
     for(int r = 1; r < sidelen() - 1; ++r)
         for(int c = 1; c < sidelen() - 1; ++c){
@@ -206,6 +222,7 @@ int puz_state::find_matches(bool init)
     for(auto& kv : m_matches){
         auto& p = kv.first;
         auto& v = kv.second;
+        // remove any path if it contains a tile which belongs to another garden
         boost::remove_erase_if(v, [&](auto& kv2){
             auto& p2 = kv2.first;
             auto& perm = m_game->m_pair2garden.at({min(p, p2), max(p, p2)}).m_perms[kv2.second];
@@ -218,7 +235,8 @@ int puz_state::find_matches(bool init)
             auto& p2 = kv2.first;
             auto& perm = m_game->m_pair2garden.at({min(p, p2), max(p, p2)}).m_perms[kv2.second];
             for(auto& p3 : perm)
-                space2hints[p3].emplace(min(p, p2), max(p, p2));
+                if(p3 != p && p3 != p2)
+                    space2hints.at(p3).emplace(min(p, p2), max(p, p2));
         }
 
         if(!init)
@@ -340,13 +358,13 @@ bool puz_state::make_move2(Position p, Position p2, int n)
     auto& garden = m_game->m_pair2garden.at({min(p, p2), max(p, p2)});
     auto& perm = garden.m_perms[n];
 
-    for(auto& p2 : perm)
-        cells(p2) = garden.m_name;
-    for(auto& p2 : perm)
+    for(auto& p3 : perm)
+        cells(p3) = garden.m_name;
+    for(auto& p3 : perm)
         // Gardens are separated by a wall.
         for(auto& os : offset)
-            switch(char& ch2 = cells(p2 + os)){
-            case PUZ_SPACE: ch2 = PUZ_WALL; break;
+            switch(char& ch3 = cells(p3 + os)){
+            case PUZ_SPACE: ch3 = PUZ_WALL; break;
             case PUZ_EMPTY: return false;
             }
 
