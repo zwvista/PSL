@@ -38,8 +38,11 @@ const Position offset2[] = {
 
 struct puz_garden
 {
+    // character that represents the garden. 'a', 'b' and so on
     char m_name;
+    // number of the tiles occupied by the garden
     int m_num;
+    // all permutations (forms) of the garden
     vector<set<Position>> m_perms;
 };
 
@@ -48,7 +51,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
-    // key: positions of two numbers
+    // key: positions of the two numbers (hints)
     map<pair<Position, Position>, puz_garden> m_pair2garden;
     string m_start;
 
@@ -82,16 +85,18 @@ struct puz_state2 : set<Position>
 void puz_state2::gen_children(list<puz_state2>& children) const {
     for(auto& p : *this)
         for(auto& os : offset){
+            // Gardens extend horizontally or vertically
             auto p2 = p + os;
             char ch2 = m_game->cells(p2);
-            // An adjacent tile cannot be put into the garden
+            // An adjacent tile cannot be occupied by the garden
             // if it belongs to another garden or
             // it is already in the garden or
             if(ch2 != PUZ_SPACE && p2 != *m_p2 || count(p2) != 0 ||
                 boost::algorithm::any_of(offset, [&](const Position& os2){
                 auto p3 = p2 + os2;
                 char ch3 = m_game->cells(p3);
-                // any adjacent tile to it belongs to another garden
+                // any adjacent tile to it belongs to another garden, because
+                // Gardens are separated by a wall. They cannot touch each other orthogonally.
                 return p3 != *m_p2 && count(p3) == 0 && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY;
             })) continue;
             children.push_back(*this);
@@ -140,9 +145,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             garden.m_num = n3;
             puz_state2 sstart(*this, garden, p, p2);
             list<list<puz_state2>> spaths;
+            // Gardens can have any form.
             puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
             // save all goal states as permutations
-            // A goal state is a path linking two numbers
+            // A goal state is a garden formed from two numbers
             for(auto& spath : spaths)
                 garden.m_perms.push_back(spath.back());
             if(garden.m_perms.empty())
@@ -181,9 +187,9 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    // key: the position of the first number
-    // value.elem.first: the position of the second number
-    // value.elem.second: the index into the permutations (paths)
+    // key: position of the first number
+    // value.elem.first: position of the second number
+    // value.elem.second: index into the permutations (forms) of the garden
     map<Position, vector<pair<Position, int>>> m_matches;
     unsigned int m_distance = 0;
 };
@@ -208,7 +214,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     // key: a space tile
-    // value.elem: positions of two tiles from which a garden
+    // value.elem: positions of the two numbers from which a garden
     //             containing that space tile can be formed
     map<Position, set<pair<Position, Position>>> space2hints;
     for(int r = 1; r < sidelen() - 1; ++r)
@@ -233,10 +239,11 @@ int puz_state::find_matches(bool init)
         });
         for(auto& kv2 : v){
             auto& p2 = kv2.first;
-            auto& perm = m_game->m_pair2garden.at({min(p, p2), max(p, p2)}).m_perms[kv2.second];
+            auto k = make_pair(min(p, p2), max(p, p2));
+            auto& perm = m_game->m_pair2garden.at(k).m_perms[kv2.second];
             for(auto& p3 : perm)
                 if(p3 != p && p3 != p2)
-                    space2hints.at(p3).emplace(min(p, p2), max(p, p2));
+                    space2hints.at(p3).insert(k);
         }
 
         if(!init)
@@ -270,6 +277,7 @@ int puz_state::find_matches(bool init)
             // Cells that can be reached by only one garden
             auto& kv2 = *h.begin();
             auto& perms = m_game->m_pair2garden.at(kv2).m_perms;
+            // remove any permutation that does not contain the empty tile
             boost::remove_erase_if(m_matches.at(kv2.first), [&](auto& kv3){
                 return kv3.first == kv2.second && boost::algorithm::none_of_equal(perms[kv3.second], p);
             });
@@ -312,6 +320,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
     }
 }
 
+// All wall tiles on the board must be connected horizontally or vertically.
 bool puz_state::is_continuous() const
 {
     set<Position> a;
@@ -332,9 +341,9 @@ bool puz_state::is_continuous() const
     });
 }
 
+// The wall can't form 2*2 squares.
 bool puz_state::check_2x2()
 {
-    // The wall can't form 2*2 squares.
     for(int r = 1; r < sidelen() - 2; ++r)
         for(int c = 1; c < sidelen() - 2; ++c){
             Position p(r, c);
