@@ -74,7 +74,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_galaxy
 {
+    // m_inner only holds half of the tiles in the galaxy,
+    // as galaxies are symmetrical.
     set<Position> m_inner, m_outer;
+    // position the galaxy is symmetrical to, which means
+    // if position p is in the galaxy, 
+    // the position (m_center - p) must also in the galaxy.
     Position m_center;
     bool m_center_in_cell = false;
 
@@ -82,7 +87,7 @@ struct puz_galaxy
     puz_galaxy(const Position& p) : m_center(p) {
         Position p2(p.first / 2, p.second / 2);
         m_inner.insert(p2);
-        // cross two tiles in the same row
+        // cross 4 tiles
         if(p.first % 2 == 1 && p.second % 2 == 1)
             m_inner.insert(p2 + Position(0, 1));
         // inside a tile
@@ -191,18 +196,19 @@ bool puz_state::adjust_galaxies()
     set<set<char>> idss;
     while(!rng.empty()){
         list<puz_state2> smoves;
+        // find all tiles reachable from the first space tile
         puz_move_generator<puz_state2>::gen_moves({*this, *rng.begin()}, smoves);
         vector<Position> rng2;
         set<char> ids1;
         for(auto& p : smoves){
             char ch = cells(p);
             if(ch == PUZ_SPACE)
-                rng2.push_back(p);
+                rng2.push_back(p); // space tiles
             else if(m_galaxies.count(ch) != 0)
-                ids1.insert(ch);
+                ids1.insert(ch); // galaxies
         }
-        // For each tile, there should exist at least one galaxy
-        // from which the tile is reachable
+        // For each space tile, there should exist at least one galaxy
+        // from which the space tile is reachable
         for(auto& p : rng2){
             set<char> ids2;
             for(char ch : ids1){
@@ -222,7 +228,7 @@ bool puz_state::adjust_galaxies()
     if(idss.empty())
         m_next = "";
     else{
-        // Find the tile reachable from the fewest number of galaxies
+        // Find the space tile reachable from the fewest number of galaxies
         auto& ids3 = *boost::min_element(idss,
             [](const set<char>& ids1, const set<char>& ids2){
             return ids1.size() < ids2.size();
