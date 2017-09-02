@@ -11,7 +11,7 @@ Sequence of moves:
  - - - -
 Number of moves: 3
 Number of vertices examined: 6
-0.00153359 [s]
+0.005488 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,7 +26,7 @@ Sequence of moves:
  - - - -
 Number of moves: 2
 Number of vertices examined: 3
-0.000946393 [s]
+0.000682 [s]
 
 Level 3
 Sequence of moves: 
@@ -43,7 +43,7 @@ Sequence of moves:
  - - - - -
 Number of moves: 6
 Number of vertices examined: 10
-0.00219263 [s]
+0.004524 [s]
 
 Level 4
 Sequence of moves: 
@@ -60,7 +60,7 @@ Sequence of moves:
  - - - - -
 Number of moves: 4
 Number of vertices examined: 6
-0.00159963 [s]
+0.002662 [s]
 
 Level 5
 Sequence of moves: 
@@ -79,7 +79,7 @@ Sequence of moves:
  - - - - - -
 Number of moves: 10
 Number of vertices examined: 12
-0.00441337 [s]
+0.010727 [s]
 
 Level 6
 Sequence of moves: 
@@ -98,7 +98,7 @@ Sequence of moves:
  - - - - - -
 Number of moves: 7
 Number of vertices examined: 10
-0.00232025 [s]
+0.005694 [s]
 
 Level 7
 Sequence of moves: 
@@ -119,7 +119,7 @@ Sequence of moves:
  - - - - - - -
 Number of moves: 9
 Number of vertices examined: 16
-0.00428933 [s]
+0.011204 [s]
 
 Level 8
 Sequence of moves: 
@@ -140,7 +140,7 @@ Sequence of moves:
  - - - - - - -
 Number of moves: 13
 Number of vertices examined: 17
-0.00506572 [s]
+0.013496 [s]
 
 Level 9
 Sequence of moves: 
@@ -163,7 +163,7 @@ Sequence of moves:
  - - - - - - - -
 Number of moves: 17
 Number of vertices examined: 24
-0.00828417 [s]
+0.020655 [s]
 
 Level 10
 Sequence of moves: 
@@ -186,7 +186,7 @@ Sequence of moves:
  - - - - - - - -
 Number of moves: 14
 Number of vertices examined: 24
-0.0142173 [s]
+0.047557 [s]
 
 Level 11
 Sequence of moves: 
@@ -210,8 +210,8 @@ Sequence of moves:
 |.|. o .|.o.|. o .|
  - - - - - - - - -
 Number of moves: 20
-Number of vertices examined: 36
-0.024027 [s]
+Number of vertices examined: 35
+0.06411 [s]
 
 Level 24
 Sequence of moves: 
@@ -239,6 +239,6 @@ Sequence of moves:
 |.|o|. . . . .|. .|.o.|
  - - - - - - - - - - -
 Number of moves: 32
-Number of vertices examined: 68
-0.0751425 [s]
+Number of vertices examined: 64
+0.210341 [s]
 

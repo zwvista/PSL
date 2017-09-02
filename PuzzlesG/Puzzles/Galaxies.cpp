@@ -79,7 +79,7 @@ struct puz_galaxy
     set<Position> m_inner, m_outer;
     // position the galaxy is symmetrical to, which means
     // if position p is in the galaxy, 
-    // the position (m_center - p) must also in the galaxy.
+    // the position (m_center - p) must also be in the galaxy.
     Position m_center;
     bool m_center_in_cell = false;
 
