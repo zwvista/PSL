@@ -126,8 +126,6 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
-				8CDAE7DB1F5AEA75000DE5AF /* NumberPath2.cpp */,
-				8CDAE7DC1F5AEA75000DE5AF /* NumberPath2.txt */,
 				8CA240A81EB47A950055D6B1 /* Neighbours.cpp */,
 				8CA240A91EB47A950055D6B1 /* Neighbours.txt */,
 				8CA240AA1EB47A950055D6B1 /* Neighbours.xml */,
@@ -147,6 +145,8 @@
 				8CA240B81EB47A950055D6B1 /* NumberPath.cpp */,
 				8CA240B91EB47A950055D6B1 /* NumberPath.txt */,
 				8CA240BA1EB47A950055D6B1 /* NumberPath.xml */,
+				8CDAE7DB1F5AEA75000DE5AF /* NumberPath2.cpp */,
+				8CDAE7DC1F5AEA75000DE5AF /* NumberPath2.txt */,
 				8CA240BB1EB47A950055D6B1 /* numeric_paranoia.cpp */,
 				8CA240BC1EB47A950055D6B1 /* numeric_paranoia.txt */,
 				8CA240BD1EB47A950055D6B1 /* numeric_paranoia.xml */,
