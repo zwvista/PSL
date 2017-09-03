@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 
-template<class puz_state, bool directed = true, bool shortest_paths_only = true, bool goal_states_only = true>
+template<class puz_state, bool directed = true, bool shortest_paths_only = true, bool first_paths_only = true>
 class puz_solver_dijkstra
 {
     typedef boost::property<boost::vertex_color_t, boost::default_color_type,
@@ -18,7 +18,7 @@ class puz_solver_dijkstra
     typedef typename boost::property_map<mygraph_t, boost::vertex_predecessor_t>::type PredMap;
     typedef typename boost::property_map<mygraph_t, boost::vertex_distance_t>::type DistMap;
 
-    static const bool first_solution_only = shortest_paths_only && goal_states_only;
+    static const bool first_solution_only = shortest_paths_only && first_paths_only;
 
     struct found_goal {};
 
@@ -119,7 +119,7 @@ public:
         bool found = !context.m_goal_vertices.empty();
         if(found){
             list<vertex_t> vertex_path;
-            if(goal_states_only){
+            if(first_paths_only){
                 PredMap p = get(boost::vertex_predecessor, g);
                 for(vertex_t v : context.m_goal_vertices){
                     vertex_path.clear();
