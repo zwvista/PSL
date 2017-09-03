@@ -40,9 +40,9 @@ struct puz_region
 {
     // character that represents the region. 'a', 'b' and so on
     char m_name;
-    // elem.key: number of the tiles occupied by the region
-    // elem.value: all permutations (forms) of the region
-    map<int, set<Position>> m_perms;
+    // key: number of the tiles occupied by the region
+    // value: all permutations (forms) of the region
+    map<int, set<Position>> m_num2perms;
 };
 
 struct puz_game
@@ -61,23 +61,22 @@ struct puz_game
 
 struct puz_state2 : set<Position>
 {
-    puz_state2(const puz_game& game, const puz_region& region, const Position& p, const Position& p2, int num)
-        : m_game(&game), m_region(&region), m_p2(p2), m_num(num) {make_move(p);}
+    puz_state2(const puz_game& game, const Position& p, const Position& p2, int num)
+        : m_game(&game), m_p2(&p2), m_num(num) {make_move(p);}
 
     bool is_goal_state() const { return m_distance == m_num; }
     bool make_move(const Position& p) {
         insert(p); ++m_distance;
         return boost::algorithm::any_of(*this, [&](const Position& p2){
             // cannot go too far away
-            return manhattan_distance(p2, m_p2) <= m_num - m_distance;
+            return manhattan_distance(p2, *m_p2) <= m_num - m_distance;
         });
     }
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
-    const puz_region* m_region;
-    Position m_p2;
+    const Position* m_p2;
     int m_num;
     int m_distance = 0;
 };
@@ -87,7 +86,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
         for(auto& os : offset){
             auto p2 = p + os;
             char ch2 = m_game->cells(p2);
-            if(ch2 != PUZ_SPACE && p2 != m_p2 || count(p2) != 0) continue;
+            if(ch2 != PUZ_SPACE && p2 != *m_p2 || count(p2) != 0) continue;
             children.push_back(*this);
             if(!children.back().make_move(p2))
                 children.pop_back();
@@ -126,19 +125,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if(p2 <= p) continue;
             int n2 = kv2.second;
             if(n > n2) swap(n, n2);
+            // The region size must be between the two numbers.
+            // cannot make a pairing with a tile too far away
             if(n2 - n < 2 || manhattan_distance(p, p2) + 1 >= n2) continue;
             auto kv3 = make_pair(p, p2);
             auto& region = m_pair2region[kv3];
             region.m_name = cells(p);
             for(int i = n + 1; i < n2; ++i){
-                puz_state2 sstart(*this, region, p, p2, i);
+                puz_state2 sstart(*this, p, p2, i);
                 list<list<puz_state2>> spaths;
                 puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
                 for(auto& spath : spaths)
-                    region.m_perms[i] = spath.back();
-                if(region.m_perms.empty())
-                    m_pair2region.erase(kv3);
+                    region.m_num2perms[i] = spath.back();
             }
+            if(region.m_num2perms.empty())
+                m_pair2region.erase(kv3);
         }
     }
 }
@@ -182,7 +183,7 @@ puz_state::puz_state(const puz_game& g)
 {
     for(auto& kv : g.m_pair2region){
         auto &p = kv.first.first, &p2 = kv.first.second;
-        auto sz = kv.second.m_perms.size();
+        auto sz = kv.second.m_num2perms.size();
         auto& v = m_matches[p];
         auto& v2 = m_matches[p2];
         for(int i = 0; i < sz; i++){
@@ -210,7 +211,7 @@ int puz_state::find_matches(bool init)
     //    auto& v = kv.second;
     //    boost::remove_erase_if(v, [&](auto& kv2){
     //        auto& p2 = kv2.first;
-    //        auto& perm = m_game->m_pair2region.at({min(p, p2), max(p, p2)}).m_perms[kv2.second];
+    //        auto& perm = m_game->m_pair2region.at({min(p, p2), max(p, p2)}).m_num2perms[kv2.second];
     //        return boost::algorithm::any_of(perm, [&](auto& p3){
     //            char ch = cells(p3);
     //            return p3 != p && p3 != p2 && ch != PUZ_SPACE && ch != PUZ_EMPTY;
@@ -218,7 +219,7 @@ int puz_state::find_matches(bool init)
     //    });
     //    for(auto& kv2 : v){
     //        auto& p2 = kv2.first;
-    //        auto& perm = m_game->m_pair2region.at({min(p, p2), max(p, p2)}).m_perms[kv2.second];
+    //        auto& perm = m_game->m_pair2region.at({min(p, p2), max(p, p2)}).m_num2perms[kv2.second];
     //        //for(auto& p3 : perm)
     //        //    space2hints[p3].emplace(min(p, p2), max(p, p2));
     //    }
@@ -253,7 +254,7 @@ int puz_state::find_matches(bool init)
     //        if(ch == PUZ_SPACE) continue;
     //        // Cells that can be reached by only one region
     //        auto& kv2 = *h.begin();
-    //        auto& perms = m_game->m_pair2region.at(kv2).m_perms;
+    //        auto& perms = m_game->m_pair2region.at(kv2).m_num2perms;
     //        boost::remove_erase_if(m_matches.at(kv2.first), [&](auto& kv3){
     //            return kv3.first == kv2.second && boost::algorithm::none_of_equal(perms[kv3.second], p);
     //        });
@@ -340,7 +341,7 @@ bool puz_state::check_2x2()
 bool puz_state::make_move2(Position p, Position p2, int n)
 {
     //auto& region = m_game->m_pair2region.at({min(p, p2), max(p, p2)});
-    //auto& perm = region.m_perms[n];
+    //auto& perm = region.m_num2perms[n];
 
     //for(auto& p2 : perm)
     //    cells(p2) = region.m_name;
