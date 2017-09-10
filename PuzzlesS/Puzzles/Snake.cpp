@@ -85,6 +85,9 @@ struct puz_state : string
     puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+    }
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(int i, int j);
@@ -177,6 +180,19 @@ bool puz_state::make_move2(int i, int j)
             ++m_distance, --m_piece_counts_rows[p.first], --m_piece_counts_cols[p.second];
     }
     m_matches.erase(i);
+    
+    if(is_goal_state())
+        for(int r = 0; r < sidelen(); ++r)
+            for(int c = 0; c < sidelen(); ++c){
+                Position p(r, c);
+                if(cells(p) != PUZ_SNAKE) continue;
+                int n = boost::count_if(offset, [&](const Position& os){
+                    Position p2 = p + os;
+                    return is_valid(p2) && cells(p2) == PUZ_SNAKE;
+                });
+                if(!(n == 2 || n == 1 && (p == Position(0, 0) || p == Position(sidelen() - 1, sidelen() - 1))))
+                    return false;
+            }
     return true;
 }
 
