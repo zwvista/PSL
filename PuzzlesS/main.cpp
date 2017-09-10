@@ -9,6 +9,7 @@ extern void solve_puz_SlantedMaze();
 extern void solve_puz_SlitherLink();
 extern void solve_puz_SlitherLink2();
 extern void solve_puz_Snail();
+extern void solve_puz_Snake();
 extern void solve_puz_sokoban();
 extern void solve_puz_Square100();
 extern void solve_puz_strimko();
@@ -25,7 +26,8 @@ int main(int argc, char **argv)
     cout << "l1: Slanted Maze" << endl;
     cout << "l2: SlitherLink" << endl;
     cout << "l3: SlitherLink2" << endl;
-    cout << "n: Snail" << endl;
+    cout << "n1: Snail" << endl;
+    cout << "n2: Snake" << endl;
     cout << "o: sokoban" << endl;
     cout << "q: Square 100" << endl;
     cout << "t: strimko" << endl;
@@ -41,7 +43,8 @@ int main(int argc, char **argv)
     else if(str == "l1") solve_puz_SlantedMaze();
     else if(str == "l2") solve_puz_SlitherLink();
     else if(str == "l3") solve_puz_SlitherLink2();
-    else if(str == "n") solve_puz_Snail();
+    else if(str == "n1") solve_puz_Snail();
+    else if(str == "n2") solve_puz_Snake();
     else if(str == "o") solve_puz_sokoban();
     else if(str == "q") solve_puz_Square100();
     else if(str == "t") solve_puz_strimko();

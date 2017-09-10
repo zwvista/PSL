@@ -58,6 +58,9 @@
     <Text Include="Puzzles\Snail.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Snake.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -119,6 +122,9 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Snake.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\sokoban.xml">
@@ -155,6 +161,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Snail.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Snake.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
