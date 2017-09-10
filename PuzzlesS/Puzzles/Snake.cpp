@@ -227,6 +227,4 @@ void solve_puz_Snake()
     using namespace puzzles::Snake;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
         "Puzzles/Snake.xml", "Puzzles/Snake.txt", solution_format::GOAL_STATE_ONLY);
-    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Snake2.xml", "Puzzles/Snake2.txt", solution_format::GOAL_STATE_ONLY);
 }
