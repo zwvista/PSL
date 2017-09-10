@@ -22,6 +22,7 @@ namespace puzzles{ namespace Snake{
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
 #define PUZ_SNAKE        'S'
+#define PUZ_UNKNOWN        -1
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -35,6 +36,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     vector<int> m_piece_counts_rows, m_piece_counts_cols;
+    Position m_head_tail[2];
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_area2range;
@@ -54,13 +56,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_area2range(m_sidelen * 2)
     , m_start(m_sidelen * m_sidelen, PUZ_SPACE)
 {
-    for(int r = 0; r <= m_sidelen; ++r){
+    for(int r = 0, n = 0; r <= m_sidelen; ++r){
         auto& str = strs[r];
         for(int c = 0; c <= m_sidelen; c++){
+            Position p(r, c);
             char ch = str[c];
-            if(ch != PUZ_SPACE)
+            if(ch == PUZ_SNAKE)
+                m_head_tail[n++] = p;
+            else if(c == m_sidelen || r == m_sidelen){
+                if(c == m_sidelen && r == m_sidelen) continue;
                 (c == m_sidelen ? m_piece_counts_rows[r] : m_piece_counts_cols[c])
-                = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                = isdigit(ch) ? ch - '0' : PUZ_UNKNOWN;
+            }
         }
     }
     cells({0, 0}) = cells({m_sidelen - 1, m_sidelen - 1}) = PUZ_SNAKE;
@@ -71,11 +78,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_area2range[m_sidelen + c].push_back(p);
         }
 
-    for(int i = 1; i <= m_sidelen; ++i){
+    auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
+    for(int i = 0; i <= m_sidelen; ++i){
         auto& perms = m_num2perms[i];
         auto perm = string(m_sidelen - i, PUZ_EMPTY) + string(i, PUZ_SNAKE);
         do{
             perms.push_back(perm);
+            perms_unknown.push_back(perm);
         } while(boost::next_permutation(perm));
     }
 }
@@ -93,12 +102,15 @@ struct puz_state : string
     bool make_move(int i, int j);
     bool make_move2(int i, int j);
     int find_matches(bool init);
+    void dec(int& n){ if(n != PUZ_UNKNOWN) --n; }
 
     // solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return 
-        boost::accumulate(m_piece_counts_rows, 0);
+    unsigned int get_heuristic() const {
+        return boost::accumulate(m_piece_counts_rows, 0, [](int acc, int n){
+            return acc + (n == PUZ_UNKNOWN ? 0 : n);
+        });
     }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
@@ -129,8 +141,8 @@ puz_state::puz_state(const puz_game& g)
         m_matches[sidelen() + i] = f(g.m_piece_counts_cols[i]);
     }
     
-    --m_piece_counts_rows[0], --m_piece_counts_cols[0];
-    --m_piece_counts_rows[sidelen() - 1], --m_piece_counts_cols[sidelen() - 1];
+    for(auto& p : g.m_head_tail)
+        dec(m_piece_counts_rows[p.first]), dec(m_piece_counts_cols[p.second]);
 
     find_matches(true);
 }
@@ -160,7 +172,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(area_id, perm_ids.front()), 1;
+                return make_move2(area_id, perm_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -177,7 +189,7 @@ bool puz_state::make_move2(int i, int j)
         auto& p = range[k];
         char& ch = cells(p);
         if(ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE)
-            ++m_distance, --m_piece_counts_rows[p.first], --m_piece_counts_cols[p.second];
+            ++m_distance, dec(m_piece_counts_rows[p.first]), dec(m_piece_counts_cols[p.second]);
     }
     m_matches.erase(i);
     
@@ -190,7 +202,7 @@ bool puz_state::make_move2(int i, int j)
                     Position p2 = p + os;
                     return is_valid(p2) && cells(p2) == PUZ_SNAKE;
                 });
-                if(!(n == 2 || n == 1 && (p == Position(0, 0) || p == Position(sidelen() - 1, sidelen() - 1))))
+                if(!(n == 2 || n == 1 && (p == m_game->m_head_tail[0] || p == m_game->m_head_tail[1])))
                     return false;
             }
     return true;
@@ -199,7 +211,8 @@ bool puz_state::make_move2(int i, int j)
 bool puz_state::make_move(int i, int j)
 {
     m_distance = 0;
-    make_move2(i, j);
+    if(!make_move2(i, j))
+        return false;
     int m;
     while((m = find_matches(false)) == 1);
     return m == 2;
@@ -221,14 +234,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    auto f = [&](int i){
+        return boost::count_if(m_game->m_area2range[i], [&](const Position& p){
+            return cells(p) == PUZ_SNAKE;
+        });
+    };
     for(int r = 0; r <= sidelen(); ++r){
         for(int c = 0; c <= sidelen(); ++c)
             if(r == sidelen() && c == sidelen())
                 break;
             else if(c == sidelen())
-                out << format("%-2d") % m_game->m_piece_counts_rows[r];
+                out << format("%-2d") % f(r);
             else if(r == sidelen())
-                out << format("%-2d") % m_game->m_piece_counts_cols[c];
+                out << format("%-2d") % f(c + sidelen());
             else
                 out << cells({r, c}) << ' ';
         out << endl;
