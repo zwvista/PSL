@@ -1,14 +1,4 @@
-Level 36
-Sequence of moves: 
-S S S S . . . 4 
-. . . S . . . 1 
-S S S S . . . 4 
-S . . .     . 1 
-S S . .     . 2 
-. S . S S S . 4 
-. S S S . S S 5 
-4 5 3 5 1 2 1 
-Number of moves: 9
-Number of vertices examined: 15995
-0.490206 [s]
+Level 81
+Number of vertices examined: 1404715
+27.7079 [s]
 

@@ -62,7 +62,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             char ch = str[c];
             if(ch == PUZ_SNAKE)
-                m_head_tail[n++] = p;
+                cells(m_head_tail[n++] = p) = ch;
             else if(c == m_sidelen || r == m_sidelen){
                 if(c == m_sidelen && r == m_sidelen) continue;
                 (c == m_sidelen ? m_piece_counts_rows[r] : m_piece_counts_cols[c])
@@ -70,7 +70,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             }
         }
     }
-    cells({0, 0}) = cells({m_sidelen - 1, m_sidelen - 1}) = PUZ_SNAKE;
     for(int r = 0; r < m_sidelen; ++r)
         for(int c = 0; c < m_sidelen; ++c){
             Position p(r, c);
@@ -89,7 +88,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state() {}
     puz_state(const puz_game& g);
@@ -97,8 +96,11 @@ struct puz_state : string
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
     bool make_move(int i, int j);
     bool make_move2(int i, int j);
     int find_matches(bool init);
@@ -120,13 +122,14 @@ struct puz_state : string
     }
 
     const puz_game* m_game;
+    string m_cells;
     vector<int> m_piece_counts_rows, m_piece_counts_cols;
     map<int, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_start), m_game(&g)
+    : m_cells(g.m_start), m_game(&g)
     , m_piece_counts_rows(g.m_piece_counts_rows)
     , m_piece_counts_cols(g.m_piece_counts_cols)
 {
@@ -193,18 +196,19 @@ bool puz_state::make_move2(int i, int j)
     }
     m_matches.erase(i);
     
-    if(is_goal_state())
-        for(int r = 0; r < sidelen(); ++r)
-            for(int c = 0; c < sidelen(); ++c){
-                Position p(r, c);
-                if(cells(p) != PUZ_SNAKE) continue;
-                int n = boost::count_if(offset, [&](const Position& os){
-                    Position p2 = p + os;
-                    return is_valid(p2) && cells(p2) == PUZ_SNAKE;
-                });
-                if(!(n == 2 || n == 1 && (p == m_game->m_head_tail[0] || p == m_game->m_head_tail[1])))
-                    return false;
-            }
+    bool b1 = is_goal_state();
+    for(int r = 0; r < sidelen(); ++r)
+        for(int c = 0; c < sidelen(); ++c){
+            Position p(r, c);
+            if(cells(p) != PUZ_SNAKE) continue;
+            int n = boost::count_if(offset, [&](const Position& os){
+                Position p2 = p + os;
+                return is_valid(p2) && cells(p2) == PUZ_SNAKE;
+            });
+            bool b2 = p == m_game->m_head_tail[0] || p == m_game->m_head_tail[1];
+            if(!(b2 && (!b1 && n <= 1 || b1 && n == 1) || !b2 && (!b1 && n <= 2 || b1 && n == 2)))
+                return false;
+        }
     return true;
 }
 
