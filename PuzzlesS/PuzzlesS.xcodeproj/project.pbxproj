@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C269F401F66809100489ADC /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C269F3D1F66809100489ADC /* Snake.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -40,6 +41,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C269F3D1F66809100489ADC /* Snake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Snake.cpp; sourceTree = "<group>"; };
+		8C269F3E1F66809100489ADC /* Snake.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Snake.txt; sourceTree = "<group>"; };
+		8C269F3F1F66809100489ADC /* Snake.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Snake.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesS; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -168,6 +172,9 @@
 				8CA2414A1EB47AEC0055D6B1 /* Snail.cpp */,
 				8CA2414B1EB47AEC0055D6B1 /* Snail.txt */,
 				8CA2414C1EB47AEC0055D6B1 /* Snail.xml */,
+				8C269F3D1F66809100489ADC /* Snake.cpp */,
+				8C269F3E1F66809100489ADC /* Snake.txt */,
+				8C269F3F1F66809100489ADC /* Snake.xml */,
 				8CA2414D1EB47AEC0055D6B1 /* sokoban.cpp */,
 				8CA2414E1EB47AEC0055D6B1 /* sokoban.txt */,
 				8CA2414F1EB47AEC0055D6B1 /* sokoban.xml */,
@@ -286,6 +293,7 @@
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA241651EB47AEC0055D6B1 /* sumscrapers.cpp in Sources */,
 				8CA2415E1EB47AEC0055D6B1 /* SlantedMaze.cpp in Sources */,
+				8C269F401F66809100489ADC /* Snake.cpp in Sources */,
 				8CA241611EB47AEC0055D6B1 /* Snail.cpp in Sources */,
 				8CA241641EB47AEC0055D6B1 /* strimko.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
