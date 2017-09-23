@@ -104,7 +104,7 @@ struct puz_state
     bool make_move(int i, int j);
     bool make_move2(int i, int j);
     int find_matches(bool init);
-    void dec(int& n){ if(n != PUZ_UNKNOWN) --n; }
+    bool dec(int& n) const { return n == PUZ_UNKNOWN ? false : (--n, true); }
 
     // solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
@@ -112,7 +112,9 @@ struct puz_state
     unsigned int get_heuristic() const {
         return boost::accumulate(m_piece_counts_rows, 0, [](int acc, int n){
             return acc + (n == PUZ_UNKNOWN ? 0 : n);
-        });
+        }) + boost::accumulate(m_piece_counts_cols, 0, [](int acc, int n){
+            return acc + (n == PUZ_UNKNOWN ? 0 : n);
+        }) + m_matches.size();
     }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
@@ -191,22 +193,29 @@ bool puz_state::make_move2(int i, int j)
     for(int k = 0; k < perm.size(); ++k){
         auto& p = range[k];
         char& ch = cells(p);
-        if(ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE)
-            ++m_distance, dec(m_piece_counts_rows[p.first]), dec(m_piece_counts_cols[p.second]);
+        if(ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE){
+            if(dec(m_piece_counts_rows[p.first])) ++m_distance;
+            if(dec(m_piece_counts_cols[p.second])) ++m_distance;
+        }
     }
-    m_matches.erase(i);
+    m_matches.erase(i); ++m_distance;
     
     bool b1 = is_goal_state();
     for(int r = 0; r < sidelen(); ++r)
         for(int c = 0; c < sidelen(); ++c){
             Position p(r, c);
             if(cells(p) != PUZ_SNAKE) continue;
-            int n = boost::count_if(offset, [&](const Position& os){
+            int n1 = boost::count_if(offset, [&](const Position& os){
                 Position p2 = p + os;
                 return is_valid(p2) && cells(p2) == PUZ_SNAKE;
             });
+            int n2 = boost::count_if(offset, [&](const Position& os){
+                Position p2 = p + os;
+                return !is_valid(p2) || cells(p2) == PUZ_EMPTY;
+            });
             bool b2 = p == m_game->m_head_tail[0] || p == m_game->m_head_tail[1];
-            if(!(b2 && (!b1 && n <= 1 || b1 && n == 1) || !b2 && (!b1 && n <= 2 || b1 && n == 2)))
+            if(!(b2 && (!b1 && n1 <= 1 && n2 <= 3 || b1 && n1 == 1 && n2 == 3) ||
+                !b2 && (!b1 && n1 <= 2 && n2 <= 2 || b1 && n1 == 2 && n2 == 2)))
                 return false;
         }
     return true;

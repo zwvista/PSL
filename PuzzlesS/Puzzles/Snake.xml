@@ -9,7 +9,7 @@
   ]]>
 </help>
 <levels>
-  <!--<level id="1">
+  <level id="1">
     <![CDATA[
 S    4`
      1`
@@ -50,7 +50,7 @@ S      4`
       S5`
 4535  1 `
     ]]>
-  </level>-->
+  </level>
     <level id="81">
       <![CDATA[
         4`
@@ -64,7 +64,7 @@ S      4`
 4 5 5 23 `
     ]]>
     </level>
-  <!--<level id="82">
+  <level id="82">
    <![CDATA[
  S      4`
         2`
@@ -89,6 +89,6 @@ S       5`
          `
 114 44 4 `
     ]]>
-  </level>-->
+  </level>
 </levels>
 </puzzle>
