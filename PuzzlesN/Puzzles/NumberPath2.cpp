@@ -143,5 +143,5 @@ void solve_puz_NumberPath2()
 {
     using namespace puzzles::NumberPath2;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/NumberPath.xml", "Puzzles/NumberPath2.txt", solution_format::CUSTOM, dump_all);
+        "Puzzles/NumberPath.xml", "Puzzles/NumberPath2.txt", solution_format::CUSTOM_STATES, dump_all);
 }

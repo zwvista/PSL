@@ -8,13 +8,15 @@ enum class solution_format
     GOAL_STATE_ONLY,
     MOVES_ONLY,
     MOVES_ONLY_SINGLE_LINE,
-    CUSTOM,
+    CUSTOM_STATES,
+    CUSTOM_SOLUTIONS,
 };
 
 template<class puz_game, class puz_state, class puz_solver>
 void solve_puzzle(const string& fn_in, const string& fn_out,
                   solution_format fmt = solution_format::ALL_STATES,
-                  function<void(ostream&, const list<puz_state>&)> dumper = {})
+                  function<void(ostream&, const list<puz_state>&)> states_dumper = {},
+                  function<void(ostream&, const list<list<puz_state>>&)> solutions_dumper = {})
 {
     list<puz_game> games;
 
@@ -31,28 +33,32 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
         bool found;
         size_t vert_num;
         boost::tie(found, vert_num) = puz_solver::find_solution(sstart, spaths);
-        int i = 1;
-        for(auto& spath : spaths){
-            if(spaths.size() > 1)
-                out << format("Solution %d:\n") % i++;
-            out << "Sequence of moves: ";
-            if(fmt != solution_format::MOVES_ONLY_SINGLE_LINE)
-                out << endl;
-            if(fmt == solution_format::CUSTOM)
-                dumper(out, spath);
-            else if(fmt == solution_format::GOAL_STATE_ONLY)
-                out << spath.back();
-            else{
-                for(puz_state& s : spath){
-                    if(fmt == solution_format::MOVES_ONLY || fmt == solution_format::MOVES_ONLY_SINGLE_LINE)
-                        s.dump_move(out);
-                    else
-                        out << s;
-                }
-                if(fmt == solution_format::MOVES_ONLY_SINGLE_LINE)
+        if(fmt == solution_format::CUSTOM_SOLUTIONS)
+            solutions_dumper(out, spaths);
+        else{
+            int i = 1;
+            for(auto& spath : spaths){
+                if(spaths.size() > 1)
+                    out << format("Solution %d:\n") % i++;
+                out << "Sequence of moves: ";
+                if(fmt != solution_format::MOVES_ONLY_SINGLE_LINE)
                     out << endl;
+                if(fmt == solution_format::CUSTOM_STATES)
+                    states_dumper(out, spath);
+                else if(fmt == solution_format::GOAL_STATE_ONLY)
+                    out << spath.back();
+                else{
+                    for(puz_state& s : spath){
+                        if(fmt == solution_format::MOVES_ONLY || fmt == solution_format::MOVES_ONLY_SINGLE_LINE)
+                            s.dump_move(out);
+                        else
+                            out << s;
+                    }
+                    if(fmt == solution_format::MOVES_ONLY_SINGLE_LINE)
+                        out << endl;
+                }
+                out << "Number of moves: " << spath.size() - 1 << endl;
             }
-            out << "Number of moves: " << spath.size() - 1 << endl;
         }
         out << "Number of vertices examined: " << vert_num << endl;
         out << t.elapsed() << " [s]" << endl;

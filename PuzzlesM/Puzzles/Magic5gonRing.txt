@@ -1,88 +1,52 @@
 Level 1
-Solution 1:
-Sequence of moves: 
+2 solutions in total:
 9: 4,3,2; 6,2,1; 5,1,3
-Number of moves: 3
-Solution 2:
-Sequence of moves: 
 9: 4,2,3; 5,3,1; 6,1,2
-Number of moves: 3
+The maximum 9-digit string is: 432621513
 Number of vertices examined: 33
-0.00465 [s]
+0.00506 [s]
 
 Level 2
-Solution 1:
-Sequence of moves: 
+2 solutions in total:
 10: 2,5,3; 6,3,1; 4,1,5
-Number of moves: 3
-Solution 2:
-Sequence of moves: 
 10: 2,3,5; 4,5,1; 6,1,3
-Number of moves: 3
+The maximum 10-digit string is: 253631415
 Number of vertices examined: 33
-0.002752 [s]
+0.00278 [s]
 
 Level 3
-Solution 1:
-Sequence of moves: 
+2 solutions in total:
 11: 1,4,6; 3,6,2; 5,2,4
-Number of moves: 3
-Solution 2:
-Sequence of moves: 
 11: 1,6,4; 5,4,2; 3,2,6
-Number of moves: 3
+The maximum 11-digit string is: 164542326
 Number of vertices examined: 33
-0.003368 [s]
+0.003585 [s]
 
 Level 4
-Solution 1:
-Sequence of moves: 
+2 solutions in total:
 12: 1,5,6; 2,6,4; 3,4,5
-Number of moves: 3
-Solution 2:
-Sequence of moves: 
 12: 1,6,5; 3,5,4; 2,4,6
-Number of moves: 3
+The maximum 12-digit string is: 165354246
 Number of vertices examined: 33
-0.002751 [s]
+0.002539 [s]
 
 Level 5
-Solution 1:
-Sequence of moves: 
+4 solutions in total:
 16: 2,10,4; 9,4,3; 6,3,7; 8,7,1; 5,1,10
-Number of moves: 5
-Solution 2:
-Sequence of moves: 
 16: 2,9,5; 10,5,1; 8,1,7; 6,7,3; 4,3,9
-Number of moves: 5
-Solution 3:
-Sequence of moves: 
 16: 2,4,10; 5,10,1; 8,1,7; 6,7,3; 9,3,4
-Number of moves: 5
-Solution 4:
-Sequence of moves: 
 16: 2,5,9; 4,9,3; 6,3,7; 8,7,1; 10,1,5
-Number of moves: 5
+The maximum 16-digit string is: 2951051817673439
 Number of vertices examined: 454
-0.157352 [s]
+0.15454 [s]
 
 Level 6
-Solution 1:
-Sequence of moves: 
+4 solutions in total:
 17: 1,6,10; 3,10,4; 5,4,8; 7,8,2; 9,2,6
-Number of moves: 5
-Solution 2:
-Sequence of moves: 
 17: 2,8,7; 9,7,1; 6,1,10; 3,10,4; 5,4,8
-Number of moves: 5
-Solution 3:
-Sequence of moves: 
 17: 2,7,8; 5,8,4; 3,4,10; 6,10,1; 9,1,7
-Number of moves: 5
-Solution 4:
-Sequence of moves: 
 17: 1,10,6; 9,6,2; 7,2,8; 5,8,4; 3,4,10
-Number of moves: 5
+The maximum 17-digit string is: 28797161103104548
 Number of vertices examined: 424
-0.146023 [s]
+0.139768 [s]
 

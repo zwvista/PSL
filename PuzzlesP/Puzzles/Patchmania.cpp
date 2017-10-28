@@ -463,5 +463,5 @@ void solve_puz_Patchmania()
 {
     using namespace puzzles::Patchmania;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Patchmania.xml", "Puzzles/Patchmania.txt", solution_format::CUSTOM, dump_all);
+        "Puzzles/Patchmania.xml", "Puzzles/Patchmania.txt", solution_format::CUSTOM_STATES, dump_all);
 }

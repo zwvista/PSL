@@ -123,6 +123,24 @@ ostream& puz_state::dump(ostream& out) const
     out << endl;
     return out;
 }
+    
+void dump_all(ostream& out, const list<list<puz_state>>& spaths)
+{
+    list<puz_state> goal_states;
+    for(auto& spath : spaths)
+        goal_states.push_back(spath.back());
+    out << goal_states.size() << " solutions in total:" << endl;
+    for(auto& s : goal_states)
+        s.dump(out);
+    auto str = boost::accumulate(goal_states, string(), [](auto&& acc, auto&& state){
+        return max(acc, boost::accumulate(state.m_matches, string(), [](auto&& acc2, auto&& v){
+            return boost::accumulate(v, acc2, [](auto&& acc3, int i){
+                return acc3 + boost::lexical_cast<string>(i);
+            });
+        }));
+    });
+    out << "The maximum " << goal_states.front().m_game->m_total << "-digit string is: " << str << endl;
+}
 
 }}
 
@@ -130,5 +148,6 @@ void solve_puz_Magic5gonRing()
 {
     using namespace puzzles::Magic5gonRing;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, true, true, false>>(
-        "Puzzles/Magic5gonRing.xml", "Puzzles/Magic5gonRing.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Magic5gonRing.xml", "Puzzles/Magic5gonRing.txt",
+          solution_format::CUSTOM_SOLUTIONS, {}, dump_all);
 }
