@@ -4,6 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
+     https://projecteuler.net/problem=68
      Project Euler Problem 68
      Consider the following "magic" 3-gon ring, filled with the numbers 1 to 6, and each line adding to nine.
          4
@@ -36,8 +37,8 @@ namespace puzzles{ namespace Magic5gonRing{
 struct puz_game
 {
     string m_id;
-    int m_gon, m_numbers, m_total;
-    vector<vector<int>> m_perms;
+    int m_gon, m_numbers, m_min_total, m_max_total;
+    map<int, vector<vector<int>>> m_num2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -45,23 +46,35 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_gon(level.attribute("gon").as_int())
-, m_numbers(level.attribute("numbers").as_int())
-, m_total(level.attribute("total").as_int())
+, m_numbers(m_gon * 2)
 {
-    for(int i = 1; i <= m_numbers; ++i)
-        for(int j = 1; j <= m_numbers; ++j){
-            if (j == i) continue;
-            int k = m_total - i - j;
-            if (k <= 0 || k > m_numbers || k == i || k == j) continue;
-            m_perms.push_back({i, j, k});
-        }
+    m_min_total = m_numbers + 2 + m_gon / 2;
+    m_max_total = m_numbers * 2 + 1 - m_gon / 2;
+    for(int n = m_min_total; n <= m_max_total; ++n){
+        auto& perms = m_num2perms[n];
+        for(int i = 1; i <= m_numbers; ++i)
+            for(int j = 1; j <= m_numbers; ++j){
+                if (j == i) continue;
+                int k = n - i - j;
+                if (k <= 0 || k > m_numbers || k == i || k == j) continue;
+                perms.push_back({i, j, k});
+            }
+    }
 }
 
 struct puz_state
 {
     puz_state(const puz_game& g);
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-    bool make_move(int i);
+    bool make_move(int i, int n);
+    int total() const {return m_matches.empty() ? 0 : boost::accumulate(m_matches[0], 0);}
+    string digit_string() const {
+        return boost::accumulate(m_matches, string(), [](auto&& acc, auto&& v){
+            return boost::accumulate(v, acc, [](auto&& acc2, int i){
+                return acc2 + boost::lexical_cast<string>(i);
+            });
+        });
+    }
 
     //solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 0;}
@@ -83,9 +96,9 @@ puz_state::puz_state(const puz_game& g)
 {
 }
 
-bool puz_state::make_move(int i)
+bool puz_state::make_move(int i, int n)
 {
-    m_matches.push_back(m_game->m_perms[i]);
+    m_matches.push_back(m_game->m_num2perms.at(n)[i]);
     set<int> s;
     for(auto& m : m_matches)
         for(int i : m)
@@ -100,30 +113,33 @@ bool puz_state::make_move(int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < m_game->m_perms.size(); ++i){
-        children.push_back(*this);
-        if(!children.back().make_move(i))
-            children.pop_back();
+    for(auto& kv : m_game->m_num2perms){
+        int n = kv.first, n2 = total();
+        if (n2 != 0 && n != n2) continue;
+        for(int i = 0; i < kv.second.size(); ++i){
+            children.push_back(*this);
+            if(!children.back().make_move(i, n))
+                children.pop_back();
+        }
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    out << m_game->m_total << ": ";
-    for(int i = 0; i < m_matches.size(); ++i){
-        auto& m = m_matches[i];
+    out << total() << ": ";
+    for(auto& m : m_matches){
         for(int j = 0; j < m.size(); ++j){
             out << m[j];
             if (j < m.size() - 1)
                 out << ",";
         }
-        if (i < m_matches.size() - 1)
-            out << "; ";
+        out << "; ";
     }
-    out << endl;
+    auto s = digit_string();
+    out << s.length() << "-digit string: " << s << endl;
     return out;
 }
-    
+
 void dump_all(ostream& out, const list<list<puz_state>>& spaths)
 {
     list<puz_state> goal_states;
@@ -132,14 +148,14 @@ void dump_all(ostream& out, const list<list<puz_state>>& spaths)
     out << goal_states.size() << " solutions in total:" << endl;
     for(auto& s : goal_states)
         s.dump(out);
-    auto str = boost::accumulate(goal_states, string(), [](auto&& acc, auto&& state){
-        return max(acc, boost::accumulate(state.m_matches, string(), [](auto&& acc2, auto&& v){
-            return boost::accumulate(v, acc2, [](auto&& acc3, int i){
-                return acc3 + boost::lexical_cast<string>(i);
-            });
-        }));
-    });
-    out << "The maximum " << goal_states.front().m_game->m_total << "-digit string is: " << str << endl;
+    map<int, string> num2str;
+    for(auto& state : goal_states){
+        auto s = state.digit_string();
+        auto& s2 = num2str[s.length()];
+        s2 = max(s2, s);
+    }
+    for(auto& kv : num2str)
+        out << "The maximum " << kv.first << "-digit string is: " << kv.second << endl;
 }
 
 }}

@@ -30,17 +30,15 @@ Using the numbers 1 to 10, and depending on arrangements, it is possible to form
   ]]>
 </help>
 <levels>
-  <level id="1" gon="3" numbers="6" total="9">
+  <level id="1" gon="3">
   </level>
-  <level id="2" gon="3" numbers="6" total="10">
+  <level id="2" gon="4">
   </level>
-  <level id="3" gon="3" numbers="6" total="11">
+  <level id="3" gon="5">
   </level>
-  <level id="4" gon="3" numbers="6" total="12">
+  <level id="4" gon="6">
   </level>
-  <level id="5" gon="5" numbers="10" total="16">
-  </level>
-  <level id="6" gon="5" numbers="10" total="17">
+  <level id="5" gon="7">
   </level>
 </levels>
 </puzzle>
