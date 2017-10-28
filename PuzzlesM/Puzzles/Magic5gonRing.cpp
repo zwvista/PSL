@@ -92,11 +92,10 @@ bool puz_state::make_move(int i)
             s.insert(i);
     int sz1 = m_matches.size(), sz2 = s.size();
     bool b = is_goal_state();
-    if(!(b && sz2 == m_game->m_numbers || sz2 == 2 * sz1 + 1))
-        return false;
-    return sz1 == 1 || (*next(m_matches.rbegin()))[2] == m_matches.back()[1] &&
+    return sz2 == (b ? m_game->m_numbers : 2 * sz1 + 1) &&
+        (sz1 == 1 || (*next(m_matches.rbegin()))[2] == m_matches.back()[1] &&
         m_matches.front()[0] < m_matches.back()[0] &&
-        (!b || b && m_matches.back()[2] == m_matches.front()[1]);
+        (!b || m_matches.back()[2] == m_matches.front()[1]));
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
