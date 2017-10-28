@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C2964061FA4339F0017A812 /* Magic5gonRing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C2964031FA4339E0017A812 /* Magic5gonRing.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F051EA924380055D6B1 /* magic_square.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ED01EA924380055D6B1 /* magic_square.cpp */; };
 		8CA23F061EA924380055D6B1 /* Magnets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ED41EA924380055D6B1 /* Magnets.cpp */; };
@@ -43,6 +44,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C2964031FA4339E0017A812 /* Magic5gonRing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Magic5gonRing.cpp; sourceTree = "<group>"; };
+		8C2964041FA4339E0017A812 /* Magic5gonRing.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Magic5gonRing.txt; sourceTree = "<group>"; };
+		8C2964051FA4339F0017A812 /* Magic5gonRing.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Magic5gonRing.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesM; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23ED01EA924380055D6B1 /* magic_square.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = magic_square.cpp; sourceTree = "<group>"; };
@@ -160,6 +164,9 @@
 				8CA23ED11EA924380055D6B1 /* magic_square.txt */,
 				8CA23ED21EA924380055D6B1 /* magic_square.xml */,
 				8CA23ED31EA924380055D6B1 /* magic_square2.xml */,
+				8C2964031FA4339E0017A812 /* Magic5gonRing.cpp */,
+				8C2964041FA4339E0017A812 /* Magic5gonRing.txt */,
+				8C2964051FA4339F0017A812 /* Magic5gonRing.xml */,
 				8CA23ED41EA924380055D6B1 /* Magnets.cpp */,
 				8CA23ED51EA924380055D6B1 /* Magnets.txt */,
 				8CA23ED61EA924380055D6B1 /* Magnets.xml */,
@@ -199,9 +206,9 @@
 				8CA23EFB1EA924380055D6B1 /* Mosaik.cpp */,
 				8CA23EFC1EA924380055D6B1 /* Mosaik.txt */,
 				8CA23EFD1EA924380055D6B1 /* Mosaik.xml */,
-				8CA23EFE1EA924380055D6B1 /* MoveTheBox.cpp */,
 				8CA23EFF1EA924380055D6B1 /* MoveTheBox_Boston.txt */,
 				8CA23F001EA924380055D6B1 /* MoveTheBox_Boston.xml */,
+				8CA23EFE1EA924380055D6B1 /* MoveTheBox.cpp */,
 				8CA23F011EA924380055D6B1 /* mummymaze.cpp */,
 				8CA23F021EA924380055D6B1 /* mummymaze.txt */,
 				8CA23F031EA924380055D6B1 /* mummymaze.xml */,
@@ -265,7 +272,7 @@
 		8CA23EBC1EA9233C0055D6B1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "趙偉";
 				TargetAttributes = {
 					8CA23EC31EA9233C0055D6B1 = {
@@ -315,6 +322,7 @@
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA23F111EA924380055D6B1 /* Mirrors.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
+				8C2964061FA4339F0017A812 /* Magic5gonRing.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA23F0E1EA924380055D6B1 /* MineShips.cpp in Sources */,
 				8CA23F131EA924380055D6B1 /* Mosaik.cpp in Sources */,
@@ -333,7 +341,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -341,7 +351,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -381,7 +395,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -389,7 +405,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
