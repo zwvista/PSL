@@ -11,7 +11,7 @@
     Description
     1. A simple puzzle where you have to divide the Board in Boxes (Rectangles).
     2. Each Box must contain one number and the number represents the sum of
-       of the width and the height of that Box.
+       the width and the height of that Box.
 */
 
 namespace puzzles{ namespace BoxItAround{
