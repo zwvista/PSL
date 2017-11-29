@@ -15,7 +15,8 @@
     3. Each row and column can't have two Skyscrapers of the same height.
     4. The numbers on the boarders tell the SUM of the heights of the Skyscrapers
        you see from there, keeping mind that a higher skyscraper hides a lower one.
-       Skyscrapers are numbered from 1 (lowest) to the grid size (height).
+       Skyscrapers are numbered from 1 (lowest) to the grid size (highest).
+    5. Each row and column can't have similar Skyscrapers.
 */
 
 namespace puzzles{ namespace sumscrapers{
