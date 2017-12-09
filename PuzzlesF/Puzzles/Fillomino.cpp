@@ -16,7 +16,7 @@
        tile. Areas marked with '2' will consist of two (horizontally or
        vertically) adjacent tiles. Tiles numbered '3' will appear in a group
        of three and so on.
-    3. Two areas with the same areas can also be totally hidden at the start.
+    3. Some areas can also be totally hidden at the start.
     
     Variation
     4. Fillomino has several variants.
