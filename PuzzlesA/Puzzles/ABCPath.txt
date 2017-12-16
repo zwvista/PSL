@@ -1,4 +1,13 @@
 Level 20171216
-Number of vertices examined: 77
-0.00419 [s]
+Sequence of moves: 
+R C V W K L G 
+P B A Q P O O 
+N C R I H N I 
+S D S G J M J 
+T T E F K L F 
+U U V W X Y Y 
+H D E Q X M B 
+Number of moves: 24
+Number of vertices examined: 59
+0.003159 [s]
 
