@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C355CD31FE56966002FC9D6 /* ABCPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C355CD21FE56966002FC9D6 /* ABCPath.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -31,6 +32,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C355CD01FE56965002FC9D6 /* ABCPath.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ABCPath.txt; sourceTree = "<group>"; };
+		8C355CD11FE56966002FC9D6 /* ABCPath.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ABCPath.xml; sourceTree = "<group>"; };
+		8C355CD21FE56966002FC9D6 /* ABCPath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ABCPath.cpp; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesA */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesA; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -110,6 +114,9 @@
 				8CA23F551EB475A70055D6B1 /* Abc.cpp */,
 				8CA23F561EB475A70055D6B1 /* Abc.txt */,
 				8CA23F571EB475A70055D6B1 /* Abc.xml */,
+				8C355CD21FE56966002FC9D6 /* ABCPath.cpp */,
+				8C355CD01FE56965002FC9D6 /* ABCPath.txt */,
+				8C355CD11FE56966002FC9D6 /* ABCPath.xml */,
 				8CA23F581EB475A70055D6B1 /* AbstractPainting.cpp */,
 				8CA23F591EB475A70055D6B1 /* AbstractPainting.txt */,
 				8CA23F5A1EB475A70055D6B1 /* AbstractPainting.xml */,
@@ -220,6 +227,7 @@
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA23F631EB475A70055D6B1 /* Archipelago.cpp in Sources */,
+				8C355CD31FE56966002FC9D6 /* ABCPath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

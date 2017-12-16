@@ -1,0 +1,4 @@
+Level 20171216
+Number of vertices examined: 77
+0.00419 [s]
+
