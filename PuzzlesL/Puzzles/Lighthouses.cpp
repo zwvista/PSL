@@ -157,7 +157,7 @@ int puz_state::find_matches(bool init)
         if (nl2 >= 0 && nl2 <= ns) {
             auto perm = string(ns - nl2, PUZ_EMPTY) + string(nl2, PUZ_LIGHTHOUSE);
             vector<Position> rng_light2(nl2);
-            do{
+            do {
                 for (int i = 0, j = 0; i < perm.length(); ++i)
                     if (perm[i] == PUZ_LIGHTHOUSE)
                         rng_light2[j++] = rng_space[i];
@@ -170,7 +170,7 @@ int puz_state::find_matches(bool init)
                     return true;
                 }())
                     perms.push_back(perm);
-            }while(boost::next_permutation(perm));
+            } while(boost::next_permutation(perm));
         }
 
         if (!init)

@@ -68,10 +68,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int i = 0; i <= 9; ++i) {
         auto& perms = m_num2perms[i];
         auto perm = string(9 - i, PUZ_EMPTY) + string(i, PUZ_MOSAIK);
-        do{
+        do {
             perms.push_back(perm);
             perms_unknown.push_back(perm);
-        }while(boost::next_permutation(perm));
+        } while(boost::next_permutation(perm));
     }
 }
 

@@ -81,7 +81,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int i = 0; i <= m_sidelen; ++i) {
         auto& perms = m_num2perms[i];
         auto perm = string(m_sidelen - i, PUZ_EMPTY) + string(i, PUZ_SNAKE);
-        do{
+        do {
             perms.push_back(perm);
             perms_unknown.push_back(perm);
         } while (boost::next_permutation(perm));

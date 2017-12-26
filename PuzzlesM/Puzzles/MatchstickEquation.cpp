@@ -87,11 +87,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         qi::int_[phx::ref(result) = qi::_1], qi::space);
     auto f = [&](int n) {
         int index = m_indexes.back();
-        do{
+        do {
             m_digits.push_back(n % 10);
             ++index;
             n /= 10;
-        }while(n != 0);
+        } while(n != 0);
         m_indexes.push_back(index);
     };
     f(operand1);

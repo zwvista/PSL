@@ -64,14 +64,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     // 2. Each letter appear once in every row and column.
     // space ... A B C
     iota(next(begin, m_sidelen - 2 - (m_letter_max - 'A' + 1)), end, 'A');
-    do{
+    do {
         // 3. The letters on the borders tell you what letter you see from there.
         // determine the letter on the left and top borders
         *perm.begin() = *find_if(begin, end, [](char ch) {return ch != PUZ_EMPTY;});
         // determine the letter on the right and bottom borders
         *perm.rbegin() = *find_if(rbegin, rend, [](char ch) {return ch != PUZ_EMPTY;});
         m_perms.push_back(perm);
-    }while(next_permutation(begin, end));
+    } while(next_permutation(begin, end));
 }
 
 struct puz_state

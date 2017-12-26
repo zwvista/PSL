@@ -128,12 +128,12 @@ int puz_state::find_matches(bool init)
         if (m >= 0 && m <= ns) {
             auto perm = string(ns - m, PUZ_EMPTY) + string(m, PUZ_LIGHTHOUSE);
             vector<Position> rng(m);
-            do{
+            do {
                 for (int i = 0, j = 0; i < perm.length(); ++i)
                     if (perm[i] == PUZ_LIGHTHOUSE)
                         rng[j++] = rng_s[i];
                 perms.emplace_back(rng_s, perm);
-            }while(boost::next_permutation(perm));
+            } while(boost::next_permutation(perm));
         }
 
         if (!init)

@@ -69,7 +69,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     string perm2(m_sidelen, PUZ_SPACE);
 
     boost::iota(perm, '1');
-    do{
+    do {
         for (int i = m_sidelen - 1, j = i / 2;; i -= 2, --j) {
             perm2[i] = perm[j];
             if (i == 0) break;
@@ -78,7 +78,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 myabs(perm[j - 1] - perm[j]) == 1 ? PUZ_ROW_CS : PUZ_NOT_CS;
         }
         m_perms.push_back(perm2);
-    }while(boost::next_permutation(perm));
+    } while(boost::next_permutation(perm));
 }
 
 struct puz_state

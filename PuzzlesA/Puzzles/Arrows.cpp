@@ -97,7 +97,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             vector<int> indicators;
             indicators.insert(indicators.end(), sz - n, 0);
             indicators.insert(indicators.end(), n, 1);
-            do{
+            do {
                 for (int i = 0; i < sz; ++i) {
                     int d = arrow.m_dirs[i];
                     // a positive or 0 direction means the arrow is supposed to
@@ -107,7 +107,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 }
                     
                 arrow.m_perms.push_back(perm);
-            }while(boost::next_permutation(indicators));
+            } while(boost::next_permutation(indicators));
         }
 }
 

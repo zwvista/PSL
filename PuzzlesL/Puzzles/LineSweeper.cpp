@@ -82,7 +82,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         // PUZ_LINE_OFF means an adjacent cell is not passed by the line
         // PUZ_LINE_ON means an adjacent cell is passed by the line
         auto indicator = string(8 - n, PUZ_LINE_OFF) + string(n, PUZ_LINE_ON);
-        do{
+        do {
             vector<vector<int>> dir2linesegs(8);
             for (int i = 0; i < 8; ++i)
                 // Find all line permutations from an adjacent cell
@@ -144,7 +144,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     indexes[i] = 0;
             }
 
-        }while(boost::next_permutation(indicator));
+        } while(boost::next_permutation(indicator));
     }
 }
 

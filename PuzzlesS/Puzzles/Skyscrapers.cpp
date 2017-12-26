@@ -68,11 +68,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     auto begin = next(perm.begin()), end = prev(perm.end());
     iota(begin, end, '1');
-    do{
+    do {
         f(0, 1, m_sidelen - 1, 1);
         f(m_sidelen - 1, m_sidelen - 2, 0, -1);
         m_perms.push_back(perm);
-    }while(next_permutation(begin, end));
+    } while(next_permutation(begin, end));
 }
 
 struct puz_state

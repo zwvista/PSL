@@ -77,7 +77,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& perms = m_num2perms[i];
         vector<int> indexes(4, PUZ_UNTOUCHED);
         fill(indexes.begin() + 4 - i, indexes.end(), PUZ_TOUCHED);
-        do{
+        do {
             for (int j = 0; j < 4; ++j) {
                 char ch = slants[j];
                 perm[j] = indexes[j] == PUZ_TOUCHED ? ch :
@@ -86,7 +86,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             }
             perms.push_back(perm);
             perms_unknown.push_back(perm);
-        }while(boost::next_permutation(indexes));
+        } while(boost::next_permutation(indexes));
     }
 }
 

@@ -87,14 +87,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int i = 0; i < 4; ++i) {
         auto& perms = m_num2perms[i];
         auto indicator = string(4 - i, PUZ_LINE_OFF) + string(i, PUZ_LINE_ON);
-        do{
+        do {
             int perm = 0;
             for (int j = 0; j < 4; ++j)
                 if (indicator[j] == PUZ_LINE_ON)
                     perm += (1 << j);
             perms.push_back(perm);
             perms_unknown.push_back(perm);
-        }while(boost::next_permutation(indicator));
+        } while(boost::next_permutation(indicator));
     }
 }
 

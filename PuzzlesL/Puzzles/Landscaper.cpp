@@ -65,7 +65,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             perm[i] = PUZ_FLOWER;
         for (int i = 0; i < n2; ++i)
             perm[i + n1] = PUZ_TREE;
-        do{
+        do {
             bool no_more_than_two = true;
             for (int i = 1, n = 1; i < m_sidelen; ++i) {
                 n = perm[i] == perm[i - 1] ? n + 1 : 1;
@@ -76,7 +76,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             }
             if (no_more_than_two)
                 m_perms.push_back(perm);
-        }while(boost::next_permutation(perm));
+        } while(boost::next_permutation(perm));
     };
     if (m_sidelen % 2 == 0)
         f(m_sidelen / 2, m_sidelen / 2);

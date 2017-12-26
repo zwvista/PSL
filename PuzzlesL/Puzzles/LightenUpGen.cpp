@@ -159,12 +159,12 @@ void gen_puz_LightenUp()
     using namespace puzzles::LightenUp;
 
     string s;
-    do{
+    do {
         puz_generator g(5);
         g.gen_walls(5);
         g.gen_lightbulbs();
         g.gen_nonhint(1);
         s = g.to_string();
         cout << s;
-    }while(!is_valid_LightenUp(s));
+    } while(!is_valid_LightenUp(s));
 }

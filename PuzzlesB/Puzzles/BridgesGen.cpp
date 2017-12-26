@@ -114,7 +114,7 @@ void gen_puz_Bridges()
     using namespace puzzles::Bridges;
 
     string s;
-    do{
+    do {
         for (;;) {
             puz_generator g(6);
             do
@@ -126,5 +126,5 @@ void gen_puz_Bridges()
                 break;
             }
         }
-    }while(!is_valid_Bridges(s));
+    } while(!is_valid_Bridges(s));
 }
