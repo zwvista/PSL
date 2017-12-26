@@ -22,15 +22,15 @@ int main(int argc, char **argv)
     cout << "u4: Nurikabe" << endl;
     string str;
     getline(cin, str);
-    if(str.empty());
-    else if(str == "e") solve_puz_Neighbours();
-    else if(str == "o1") solve_puz_NorthPoleFishing();
-    else if(str == "o2") solve_puz_NoughtsAndCrosses();
-    else if(str == "u1") solve_puz_NumberPath();
-    else if(str == "u12") solve_puz_NumberPath2();
-    else if(str == "u2") solve_puz_NumberLink();
-    else if(str == "u3") solve_puz_numeric_paranoia();
-    else if(str == "u4") solve_puz_Nurikabe();
+    if (str.empty());
+    else if (str == "e") solve_puz_Neighbours();
+    else if (str == "o1") solve_puz_NorthPoleFishing();
+    else if (str == "o2") solve_puz_NoughtsAndCrosses();
+    else if (str == "u1") solve_puz_NumberPath();
+    else if (str == "u12") solve_puz_NumberPath2();
+    else if (str == "u2") solve_puz_NumberLink();
+    else if (str == "u3") solve_puz_numeric_paranoia();
+    else if (str == "u4") solve_puz_Nurikabe();
 
     return 0;
 }

@@ -110,15 +110,15 @@ public:
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int r = 0; r < rows(); ++r)
-        for(int c = 0; c <= r; ++c){
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c <= r; ++c) {
             Position p1(r, c);
-            if(cells(p1) == PUZ_SPACE) continue;
-            for(int i = 0; i < 6; ++i){
+            if (cells(p1) == PUZ_SPACE) continue;
+            for (int i = 0; i < 6; ++i) {
                 Position p2 = p1 + offset[i];
                 Position p3 = p2 + offset[i];
-                if(is_valid(p2) && cells(p2) == PUZ_PEG &&
-                    is_valid(p3) && cells(p3) == PUZ_SPACE){
+                if (is_valid(p2) && cells(p2) == PUZ_PEG &&
+                    is_valid(p3) && cells(p3) == PUZ_SPACE) {
                         children.push_back(*this);
                         children.back().make_move(p1, p2, p3);
                 }
@@ -129,10 +129,10 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 0; r < rows(); ++r) {
-        for(int i = 0; i < cols()- r - 1; ++i)
+    for (int r = 0; r < rows(); ++r) {
+        for (int i = 0; i < cols()- r - 1; ++i)
             out << " ";
-        for(int c = 0; c <= r; ++c)
+        for (int c = 0; c <= r; ++c)
             out << cells({r, c}) << " ";
         out << endl;
     }

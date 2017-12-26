@@ -43,11 +43,11 @@ public:
 };
 ostream & operator<<(ostream &out, const pstate_t &p)
 {
-    if(p.m_mi)
+    if (p.m_mi)
         out << "move: " << *p.m_mi << endl;
-    for(int i = 0; i < p.m_r; ++i) {
-        for(int j = 0; j < p.m_c; ++j) {
-            if(p.get(i, j) > 0)
+    for (int i = 0; i < p.m_r; ++i) {
+        for (int j = 0; j < p.m_c; ++j) {
+            if (p.get(i, j) > 0)
                 out << p.get(i, j) << " ";
             else
                 out << "  ";
@@ -62,19 +62,19 @@ void gen_children(const pstate_t &p, list<pstate_t>& children)
     pstate_t::const_iterator i = find(p.begin(), p.end(), 0);
     int sr, sc, soff = i - p.begin();
     p.coords(soff, sr, sc);
-    if(sc > 0) { // move tile to left of space
+    if (sc > 0) { // move tile to left of space
         children.push_back(p);
         children.back().move(soff, p.cells(sr, sc - 1), 'w');
     }
-    if(sc < p.m_c - 1) { // move tile to right of space
+    if (sc < p.m_c - 1) { // move tile to right of space
         children.push_back(p);
         children.back().move(soff, p.cells(sr, sc + 1), 'e');
     }
-    if(sr > 0) { // move tile above space
+    if (sr > 0) { // move tile above space
         children.push_back(p);
         children.back().move(soff, p.cells(sr - 1, sc), 'n');
     }
-    if(sr < p.m_r - 1) { // move tile below space
+    if (sr < p.m_r - 1) { // move tile below space
         children.push_back(p);
         children.back().move(soff, p.cells(sr + 1, sc), 's');
     }
@@ -107,12 +107,12 @@ public:
         DistMap dmap = get(vertex_distance_t(), g);
         // check for goal
         const pstate_t& cur = m_smap.left.at(u);
-        if(cur == m_goal)
+        if (cur == m_goal)
             throw found_goal();
         // add successors of this state
         list<pstate_t> children;
         gen_children(cur, children);
-        for(pstate_t& child : children) {
+        for (pstate_t& child : children) {
             // make sure this state is new
             try{
                 vertex_t v = m_smap.right.at(child);
@@ -143,7 +143,7 @@ public:
         pstate_t::const_iterator i, j;
         int ir, ic, jr, jc;
         const pstate_t& cur = m_smap.left.at(u);
-        for(i = cur.begin(); i != cur.end(); ++i) {
+        for (i = cur.begin(); i != cur.end(); ++i) {
             j = find(m_goal.begin(), m_goal.end(), *i);
             cur.coords(i - cur.begin(), ir, ic);
             m_goal.coords(j - m_goal.begin(), jr, jc);
@@ -184,13 +184,13 @@ int main(int argc, char **argv)
     } catch(found_goal&) {
         PredMap p = get(vertex_predecessor, g);
         list<vertex_t> shortest_path;
-        for(vertex_t v = examine_seq.back();; v = p[v]) {
+        for (vertex_t v = examine_seq.back();; v = p[v]) {
             shortest_path.push_front(v);
-            if(p[v] == v)
+            if (p[v] == v)
                 break;
         }
         cout << "Sequence of moves:" << endl;
-        for(vertex_t v : shortest_path)
+        for (vertex_t v : shortest_path)
             cout << smap.left.at(v) << endl;
         cout << "Number of moves: "
             << shortest_path.size() - 1 << endl;

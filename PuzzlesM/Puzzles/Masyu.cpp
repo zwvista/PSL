@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -114,11 +114,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size())
     , m_dot_count(m_sidelen * m_sidelen)
 {
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            if(ch != ' ')
+            if (ch != ' ')
                 m_pos2pearl[{r, c}] = ch;
         }
     }
@@ -169,30 +169,30 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
     : m_dots(g.m_dot_count), m_game(&g)
 {
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             auto it = g.m_pos2pearl.find(p);
-            if(it == g.m_pos2pearl.end())
+            if (it == g.m_pos2pearl.end())
                 dt.push_back(lineseg_off);
 
             auto& linesegs_all2 = 
                 it == g.m_pos2pearl.end() ? linesegs_all :
                 it->second == PUZ_BLACK_PEARL ? linesegs_all_black :
                 linesegs_all_white;
-            for(int lineseg : linesegs_all2)
-                if([&]{
-                    for(int i = 0; i < 4; ++i)
+            for (int lineseg : linesegs_all2)
+                if ([&]{
+                    for (int i = 0; i < 4; ++i)
                         // The line segment cannot lead to a position outside the board
-                        if(is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
+                        if (is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
                             return false;
                     return true;
                 }())
                     dt.push_back(lineseg);
         }
 
-    for(auto& kv : g.m_pos2pearl){
+    for (auto& kv : g.m_pos2pearl) {
         auto& perm_ids = m_matches[kv.first];
         perm_ids.resize(kv.second == PUZ_BLACK_PEARL ? 4 : 16);
         boost::iota(perm_ids, 0);
@@ -204,24 +204,24 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& perm_ids = kv.second;
 
         auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
             black_pearl_perms : white_pearl_perms;
-        boost::remove_erase_if(perm_ids, [&](int id){
+        boost::remove_erase_if(perm_ids, [&](int id) {
             auto perm = perms[id];
-            for(int i = 0; i < 3; ++i){
+            for (int i = 0; i < 3; ++i) {
                 auto& info = perm[i];
-                if(boost::algorithm::none_of_equal(dots(p + info.first), info.second))
+                if (boost::algorithm::none_of_equal(dots(p + info.first), info.second))
                     return true;
             }
             return false;
         });
 
-        if(!init)
-            switch(perm_ids.size()){
+        if (!init)
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -234,38 +234,38 @@ int puz_state::find_matches(bool init)
 int puz_state::check_dots(bool init)
 {
     int n = 2;
-    for(;;){
+    for (;;) {
         set<pair<Position, int>> newly_finished;
-        for(int r = 0; r < sidelen(); ++r)
-            for(int c = 0; c < sidelen(); ++c){
+        for (int r = 0; r < sidelen(); ++r)
+            for (int c = 0; c < sidelen(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
-                for(int i = 0; i < 4; ++i)
-                    if(m_finished.count({p, i}) == 0 && (
-                        boost::algorithm::all_of(dt, [=](int lineseg){
+                for (int i = 0; i < 4; ++i)
+                    if (m_finished.count({p, i}) == 0 && (
+                        boost::algorithm::all_of(dt, [=](int lineseg) {
                         return is_lineseg_on(lineseg, i);
-                    }) || boost::algorithm::all_of(dt, [=](int lineseg){
+                    }) || boost::algorithm::all_of(dt, [=](int lineseg) {
                         return !is_lineseg_on(lineseg, i);
                     })))
                         newly_finished.insert({p, i});
             }
 
-        if(newly_finished.empty())
+        if (newly_finished.empty())
             return n;
 
         n = 1;
-        for(const auto& kv : newly_finished){
+        for (const auto& kv : newly_finished) {
             auto& p = kv.first;
             int i = kv.second;
             int lineseg = dots(p)[0];
             auto p2 = p + offset[i];
-            if(is_valid(p2)){
+            if (is_valid(p2)) {
                 auto& dt = dots(p2);
                 // The line segments in adjacent cells must be connected
-                boost::remove_erase_if(dt, [=](int lineseg2){
+                boost::remove_erase_if(dt, [=](int lineseg2) {
                     return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
                 });
-                if(!init && dt.empty())
+                if (!init && dt.empty())
                     return 0;
             }
             m_finished.insert(kv);
@@ -279,7 +279,7 @@ bool puz_state::make_move_pearl2(const Position& p, int n)
     auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
         black_pearl_perms : white_pearl_perms;
     auto perm = perms[n];
-    for(int i = 0; i < 3; ++i){
+    for (int i = 0; i < 3; ++i) {
         auto& info = perm[i];
         dots(p + info.first) = {info.second};
     }
@@ -290,17 +290,17 @@ bool puz_state::make_move_pearl2(const Position& p, int n)
 bool puz_state::make_move_pearl(const Position& p, int n)
 {
     m_distance = 0;
-    if(!make_move_pearl2(p, n))
+    if (!make_move_pearl2(p, n))
         return false;
-    for(;;){
+    for (;;) {
         int m;
-        while((m = find_matches(false)) == 1);
-        if(m == 0)
+        while ((m = find_matches(false)) == 1);
+        if (m == 0)
             return false;
         m = check_dots(false);
-        if(m != 1)
+        if (m != 1)
             return m == 2;
-        if(!check_loop())
+        if (!check_loop())
             return false;
     }
 }
@@ -317,31 +317,31 @@ bool puz_state::make_move_line(const Position& p, int n)
 bool puz_state::check_loop() const
 {
     set<Position> rng;
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if(dt.size() == 1 && dt[0] != lineseg_off)
+            if (dt.size() == 1 && dt[0] != lineseg_off)
                 rng.insert(p);
         }
 
     bool has_branch = false;
-    while(!rng.empty()){
+    while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
-        for(int n = -1;;){
+        for (int n = -1;;) {
             rng.erase(p2);
             int lineseg = dots(p2)[0];
-            for(int i = 0; i < 4; ++i)
+            for (int i = 0; i < 4; ++i)
                 // go ahead if the line segment does not lead a way back
-                if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){
+                if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
                     p2 += offset[n = i];
                     break;
                 }
-            if(p2 == p)
+            if (p2 == p)
                 // we have a loop here,
                 // so we should have exhausted the line segments 
                 return !has_branch && rng.empty();
-            if(rng.count(p2) == 0){
+            if (rng.count(p2) == 0) {
                 has_branch = true;
                 break;
             }
@@ -352,29 +352,28 @@ bool puz_state::check_loop() const
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if(!m_matches.empty()){
+    if (!m_matches.empty()) {
         auto& kv = *boost::min_element(m_matches, [](
             const pair<const Position, vector<int>>& kv1,
-            const pair<const Position, vector<int>>& kv2){
+            const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
 
-        for(int n : kv.second){
+        for (int n : kv.second) {
             children.push_back(*this);
-            if(!children.back().make_move_pearl(kv.first, n))
+            if (!children.back().make_move_pearl(kv.first, n))
                 children.pop_back();
         }
-    }
-    else{
-        int n = boost::min_element(m_dots, [](const puz_dot& dt1, const puz_dot& dt2){
-            auto f = [](int sz){return sz == 1 ? 1000 : sz;};
+    } else {
+        int n = boost::min_element(m_dots, [](const puz_dot& dt1, const puz_dot& dt2) {
+            auto f = [](int sz) {return sz == 1 ? 1000 : sz;};
             return f(dt1.size()) < f(dt2.size());
         }) - m_dots.begin();
         Position p(n / sidelen(), n % sidelen());
         auto& dt = dots(p);
-        for(int i = 0; i < dt.size(); ++i){
+        for (int i = 0; i < dt.size(); ++i) {
             children.push_back(*this);
-            if(!children.back().make_move_line(p, i))
+            if (!children.back().make_move_line(p, i))
                 children.pop_back();
         }
     }
@@ -382,9 +381,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // draw horz-lines
-        for(int c = 0; c < sidelen(); ++c){
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             auto it = m_game->m_pos2pearl.find(p);
@@ -392,8 +391,8 @@ ostream& puz_state::dump(ostream& out) const
                 << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         out << endl;
-        if(r == sidelen() - 1) break;
-        for(int c = 0; c < sidelen(); ++c)
+        if (r == sidelen() - 1) break;
+        for (int c = 0; c < sidelen(); ++c)
             // draw vert-lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
         out << endl;

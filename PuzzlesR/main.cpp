@@ -18,13 +18,13 @@ int main(int argc, char **argv)
     cout << "o5: rotation game" << endl;
     string str;
     getline(cin, str);
-    if(str.empty());
-    else if(str == "i") solve_puz_RippleEffect();
-    else if(str == "o1") solve_puz_RobotCrosswords();
-    else if(str == "o2") solve_puz_RobotFences();
-    else if(str == "o3") solve_puz_Rooms();
-    else if(str == "o4") solve_puz_rotate9();
-    else if(str == "o5") solve_puz_rotationgame();
+    if (str.empty());
+    else if (str == "i") solve_puz_RippleEffect();
+    else if (str == "o1") solve_puz_RobotCrosswords();
+    else if (str == "o2") solve_puz_RobotFences();
+    else if (str == "o3") solve_puz_Rooms();
+    else if (str == "o4") solve_puz_rotate9();
+    else if (str == "o5") solve_puz_rotationgame();
 
     return 0;
 }

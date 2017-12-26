@@ -148,16 +148,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         game_type == "Enchanted Forest" ? puz_game_type::ENCHANTED_FOREST :
         puz_game_type::BACK_GARDEN;
 
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             auto s = str.substr(c * 3, 3);
             int n = s == PUZ_BOULDER_STR ? PUZ_BOULDER : s == "   " ? PUZ_SPACE : stoi(s);
             m_start.push_back(n);
-            if(n == PUZ_BOULDER)
+            if (n == PUZ_BOULDER)
                 ++m_boulder_count;
-            else if(n != PUZ_SPACE)
+            else if (n != PUZ_SPACE)
                 m_num2pos[n] = p;
         }
     }
@@ -186,7 +186,7 @@ struct puz_state : vector<int>
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::accumulate(m_segments, 0, [&](int acc, const puz_segment& o){
+        return boost::accumulate(m_segments, 0, [&](int acc, const puz_segment& o) {
             return acc + o.m_dest.second - o.m_cur.second - 1;
         });
     }
@@ -204,9 +204,9 @@ struct puz_state : vector<int>
 puz_state::puz_state(const puz_game& g)
 : vector<int>(g.m_start), m_game(&g)
 {
-    auto f = [&](const pair<const int, Position>& kv_cur, const pair<const int, Position>& kv_next){
-        if(kv_next.first != PUZ_FOREST_DEST && kv_next.first - kv_cur.first != 1 ||
-            kv_next.first == PUZ_FOREST_DEST && kv_cur.first != m_game->max_num_forest()){
+    auto f = [&](const pair<const int, Position>& kv_cur, const pair<const int, Position>& kv_next) {
+        if (kv_next.first != PUZ_FOREST_DEST && kv_next.first - kv_cur.first != 1 ||
+            kv_next.first == PUZ_FOREST_DEST && kv_cur.first != m_game->max_num_forest()) {
             m_segments.emplace_back();
             auto& o = m_segments.back();
             o.m_cur = {kv_cur.second, kv_cur.first};
@@ -214,7 +214,7 @@ puz_state::puz_state(const puz_game& g)
             segment_next(o);
         }
     };
-    for(auto prev = m_game->m_num2pos.begin(), first = std::next(prev),
+    for (auto prev = m_game->m_num2pos.begin(), first = std::next(prev),
         last = m_game->m_num2pos.end(); first != last; ++prev, ++first)
         f(*prev, *first);
 
@@ -227,41 +227,40 @@ puz_state::puz_state(const puz_game& g)
 vector<int> puz_state::get_dirs(const Position& p) const
 {
     vector<int> dirs;
-    if(m_game->is_forest_game()){
+    if (m_game->is_forest_game()) {
         bool enchanted = m_game->m_game_type == puz_game_type::ENCHANTED_FOREST;
         // 23 | 24  | 45
         // -  -  -  -  -
         // 02 | 0246| 46
         // -  -  -  -  -
         // 01 | 06  | 67
-        switch(int n = p.first / 3 * 3 + p.second / 3){
-        case 0: dirs = {2}; if(enchanted) dirs.push_back(3); break;
+        switch(int n = p.first / 3 * 3 + p.second / 3) {
+        case 0: dirs = {2}; if (enchanted) dirs.push_back(3); break;
         case 1: dirs = {2, 4}; break;
-        case 2: dirs = {4}; if(enchanted) dirs.push_back(5); break;
+        case 2: dirs = {4}; if (enchanted) dirs.push_back(5); break;
         case 3: dirs = {0, 2}; break;
         case 4: dirs = {0, 2, 4, 6}; break;
         case 5: dirs = {4, 6}; break;
-        case 6: dirs = {0}; if(enchanted) dirs.push_back(1); break;
+        case 6: dirs = {0}; if (enchanted) dirs.push_back(1); break;
         case 7: dirs = {0, 6}; break;
-        case 8: dirs = {6}; if(enchanted) dirs.push_back(7); break;
+        case 8: dirs = {6}; if (enchanted) dirs.push_back(7); break;
         }
-    }
-    else{
+    } else {
         // 234 | 456
         // - - - - -
         // 012 | 670
         int half = sidelen() / 2;
         int n = p.first / half * 2 + p.second / half;
-        switch(n){
+        switch(n) {
         case 0: n = 2; break;
         case 1: n = 4; break;
         case 2: n = 0; break;
         case 3: n = 6; break;
         }
         dirs.push_back(n);
-        if(m_game->m_game_type == puz_game_type::CITY)
+        if (m_game->m_game_type == puz_game_type::CITY)
             dirs.push_back(n + 1);
-        if(m_game->m_game_type != puz_game_type::BACK_GARDEN)
+        if (m_game->m_game_type != puz_game_type::BACK_GARDEN)
             dirs.push_back((n + 2) % 8);
     }
     return dirs;
@@ -269,9 +268,9 @@ vector<int> puz_state::get_dirs(const Position& p) const
 
 void puz_state::segment_next(puz_segment& o) const
 {
-    auto f = [&](int d){
+    auto f = [&](int d) {
         auto os = offset[d];
-        if(d % 2 == 1){
+        if (d % 2 == 1) {
             int stride = 
                 m_game->m_game_type == puz_game_type::ENCHANTED_FOREST ?
                 6 : sidelen() / 2;
@@ -284,18 +283,18 @@ void puz_state::segment_next(puz_segment& o) const
     auto &p1 = o.m_cur.first, &p2 = o.m_dest.first;
     o.m_next.clear();
     auto ds1 = get_dirs(p1);
-    for(int d1 : ds1){
+    for (int d1 : ds1) {
         auto os = f(d1);
-        for(auto p3 = p1 + os; is_valid(p3); p3 += os){
+        for (auto p3 = p1 + os; is_valid(p3); p3 += os) {
             auto ds3 = get_dirs(p3);
-            if(ds3 == ds1) continue;
-            for(int d3 : ds3){
-                if(cells(p3) == PUZ_SPACE && (n1 + 1 != n2 || [&]{
+            if (ds3 == ds1) continue;
+            for (int d3 : ds3) {
+                if (cells(p3) == PUZ_SPACE && (n1 + 1 != n2 || [&]{
                     auto os2 = f(d3);
-                    for(auto p4 = p3 + os2; is_valid(p4); p4 += os2){
+                    for (auto p4 = p3 + os2; is_valid(p4); p4 += os2) {
                         auto ds4 = get_dirs(p4);
-                        if(ds4 == ds3) continue;
-                        if(p4 == p2)
+                        if (ds4 == ds3) continue;
+                        if (p4 == p2)
                             return true;
                     }
                     return false;
@@ -311,15 +310,15 @@ bool puz_state::make_move(int i, int j)
     auto& o = m_segments[i];
     auto p = o.m_next[j];
     cells(o.m_cur.first = p) = ++o.m_cur.second;
-    if(o.m_dest.second - o.m_cur.second == 1 ||
+    if (o.m_dest.second - o.m_cur.second == 1 ||
         o.m_dest.second == PUZ_FOREST_DEST && o.m_cur.second == m_game->max_num_forest())
         m_segments.erase(m_segments.begin() + i);
     else
         segment_next(o);
-    for(auto& o2 : m_segments)
+    for (auto& o2 : m_segments)
         boost::remove_erase(o2.m_next, p);
 
-    return boost::algorithm::none_of(m_segments, [](const puz_segment& o2){
+    return boost::algorithm::none_of(m_segments, [](const puz_segment& o2) {
         return o2.m_next.empty();
     });
 }
@@ -327,24 +326,24 @@ bool puz_state::make_move(int i, int j)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto it = boost::min_element(m_segments, [](
-        const puz_segment& o1, const puz_segment& o2){
+        const puz_segment& o1, const puz_segment& o2) {
         return o1.m_next.size() < o2.m_next.size();
     });
     int i = it - m_segments.begin();
 
-    for(int j = 0; j < it->m_next.size(); ++j){
+    for (int j = 0; j < it->m_next.size(); ++j) {
         children.push_back(*this);
-        if(!children.back().make_move(i, j))
+        if (!children.back().make_move(i, j))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             int n = cells({r, c});
-            if(n == PUZ_BOULDER)
+            if (n == PUZ_BOULDER)
                 out << PUZ_BOULDER_STR;
             else
                 out << format("%3d") % n;

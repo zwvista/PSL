@@ -51,14 +51,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 2)
 {
     m_start.append(m_sidelen, PUZ_BOUNDARY);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for(int c = 1; c < m_sidelen - 1; ++c){
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
-            if(ch == PUZ_SPACE)
+            if (ch == PUZ_SPACE)
                 m_start.push_back(ch);
-            else{
+            else {
                 m_start.push_back(PUZ_BOAT);
                 m_pos2num[{r, c}] = ch - '0';
             }
@@ -112,14 +112,14 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
     // 4. No boat touches another boat or lighthouse, not even diagonally.
-    for(auto& kv : g.m_pos2num)
-        for(auto& os : offset){
+    for (auto& kv : g.m_pos2num)
+        for (auto& os : offset) {
             char& ch = cells(kv.first + os);
-            if(ch == PUZ_SPACE)
+            if (ch == PUZ_SPACE)
                 ch = PUZ_EMPTY;
         }
 
-    for(auto& kv : g.m_pos2num)
+    for (auto& kv : g.m_pos2num)
         m_matches[kv.first];
     
     find_matches(true);
@@ -127,7 +127,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& area = kv.second;
         auto& rng_space = area.m_rng;
@@ -136,15 +136,15 @@ int puz_state::find_matches(bool init)
         perms.clear();
 
         vector<Position> rng_light;
-        for(int i = 0; i < 4; ++i){
+        for (int i = 0; i < 4; ++i) {
             auto& os = offset[i * 2];
-            for(auto p2 = p + os; ; p2 += os){
+            for (auto p2 = p + os; ; p2 += os) {
                 char ch = cells(p2);
-                if(ch == PUZ_SPACE)
+                if (ch == PUZ_SPACE)
                     rng_space.push_back(p2);
-                else if(ch == PUZ_LIGHTHOUSE)
+                else if (ch == PUZ_LIGHTHOUSE)
                     rng_light.push_back(p2);
-                else if(ch == PUZ_BOUNDARY)
+                else if (ch == PUZ_BOUNDARY)
                     break;
             }
         }
@@ -154,18 +154,18 @@ int puz_state::find_matches(bool init)
         int ns = rng_space.size(), nl = rng_light.size();
         int n = m_game->m_pos2num.at(p), nl2 = n - nl;
 
-        if(nl2 >= 0 && nl2 <= ns){
+        if (nl2 >= 0 && nl2 <= ns) {
             auto perm = string(ns - nl2, PUZ_EMPTY) + string(nl2, PUZ_LIGHTHOUSE);
             vector<Position> rng_light2(nl2);
             do{
-                for(int i = 0, j = 0; i < perm.length(); ++i)
-                    if(perm[i] == PUZ_LIGHTHOUSE)
+                for (int i = 0, j = 0; i < perm.length(); ++i)
+                    if (perm[i] == PUZ_LIGHTHOUSE)
                         rng_light2[j++] = rng_space[i];
-                if([&]{
+                if ([&]{
                     // No lighthouse touches another lighthouse
-                    for(const auto& p1 : rng_light2)
-                        for(const auto& p2 : rng_light2)
-                            if(boost::algorithm::any_of_equal(offset, p1 - p2))
+                    for (const auto& p1 : rng_light2)
+                        for (const auto& p2 : rng_light2)
+                            if (boost::algorithm::any_of_equal(offset, p1 - p2))
                                 return false;
                     return true;
                 }())
@@ -173,8 +173,8 @@ int puz_state::find_matches(bool init)
             }while(boost::next_permutation(perm));
         }
 
-        if(!init)
-            switch(perms.size()){
+        if (!init)
+            switch(perms.size()) {
             case 0:
                 return 0;
             case 1:
@@ -186,12 +186,12 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, const vector<Position>& rng, const string& perm)
 {
-    for(int i = 0; i < rng.size(); ++i){
+    for (int i = 0; i < rng.size(); ++i) {
         auto& p2 = rng[i];
-        if((cells(p2) = perm[i]) == PUZ_LIGHTHOUSE)
-            for(auto& os : offset){
+        if ((cells(p2) = perm[i]) == PUZ_LIGHTHOUSE)
+            for (auto& os : offset) {
                 char& ch = cells(p2 + os);
-                if(ch == PUZ_SPACE)
+                if (ch == PUZ_SPACE)
                     ch = PUZ_EMPTY;
             }
     }
@@ -205,7 +205,7 @@ bool puz_state::make_move(const Position& p, const vector<Position>& rng, const 
     m_distance = 0;
     make_move2(p, rng, perm);
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -213,24 +213,24 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const Position, puz_area>& kv1,
-        const pair<const Position, puz_area>& kv2){
+        const pair<const Position, puz_area>& kv2) {
         return kv1.second.m_perms.size() < kv2.second.m_perms.size();
     });
 
-    for(auto& perm : kv.second.m_perms){
+    for (auto& perm : kv.second.m_perms) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, kv.second.m_rng, perm))
+        if (!children.back().make_move(kv.first, kv.second.m_rng, perm))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r) {
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if(ch == PUZ_BOAT)
+            if (ch == PUZ_BOAT)
                 out << format("%2d") % m_game->m_pos2num.at(p);
             else
                 out << ' ' << ch;

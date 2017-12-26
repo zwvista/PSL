@@ -39,31 +39,31 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     string action = level.attribute("action").value();
     m_action = action == "add" ? PUZ_ADD : action == "move" ? PUZ_MOVE : PUZ_REMOVE;
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         auto& str_h = strs[r * 2];
-        for(int c = 0; c < cols() - 1; ++c){
+        for (int c = 0; c < cols() - 1; ++c) {
             char ch = str_h[c * 2 + 1];
-            if(ch == ' ' || ch == '-'){
+            if (ch == ' ' || ch == '-') {
                 Position p1(r, c), p2(r, c + 1);
                 m_dots.insert(p1);
                 m_dots.insert(p2);
-                if(ch == '-')
+                if (ch == '-')
                     m_matchsticks.emplace(p1, p2);
             }
         }
-        if(r == rows() - 1) break;
+        if (r == rows() - 1) break;
         auto& str_v = strs[r * 2 + 1];
-        for(int c = 0; c < cols(); ++c)
-            if(str_v[c * 2] == '|')
+        for (int c = 0; c < cols(); ++c)
+            if (str_v[c * 2] == '|')
                 m_matchsticks.emplace(Position(r, c), Position(r + 1, c));
     }
-    if(m_action != PUZ_REMOVE){
-        for(auto& p : m_dots){
+    if (m_action != PUZ_REMOVE) {
+        for (auto& p : m_dots) {
             Position p2(p.first, p.second + 1), p3(p.first + 1, p.second);
-            if(is_valid_dot(p2)) m_possible_matchsticks.emplace(p, p2);
-            if(is_valid_dot(p3)) m_possible_matchsticks.emplace(p, p3);
+            if (is_valid_dot(p2)) m_possible_matchsticks.emplace(p, p2);
+            if (is_valid_dot(p3)) m_possible_matchsticks.emplace(p, p3);
         }
-        for(auto& p : m_matchsticks)
+        for (auto& p : m_matchsticks)
             m_possible_matchsticks.erase(p);
     }
 }
@@ -123,27 +123,27 @@ void puz_state::check_squares()
     m_square_count = 0;
     set<puz_matchstick> matchsticks_in_square;
     set<int> square_sizes;
-    for(int r = 0; r < rows() - 1; ++r)
-        for(int c = 0; c < cols() - 1; ++c){
-            for(int n = 1;; ++n){
-                for(int i = 0; i <= n; ++i){
-                    if(!is_valid_dot({r, c + i})) goto next_dot;
-                    if(!is_valid_dot({r + n, c + i})) goto next_dot;
-                    if(!is_valid_dot({r + i, c})) goto next_dot;
-                    if(!is_valid_dot({r + i, c + n})) goto next_dot;
+    for (int r = 0; r < rows() - 1; ++r)
+        for (int c = 0; c < cols() - 1; ++c) {
+            for (int n = 1;; ++n) {
+                for (int i = 0; i <= n; ++i) {
+                    if (!is_valid_dot({r, c + i})) goto next_dot;
+                    if (!is_valid_dot({r + n, c + i})) goto next_dot;
+                    if (!is_valid_dot({r + i, c})) goto next_dot;
+                    if (!is_valid_dot({r + i, c + n})) goto next_dot;
                 }
                 vector<puz_matchstick> matchsticks;
                 auto f = [&](int r1, int c1, int r2, int c2) {
                     puz_matchstick m({r1, c1}, {r2, c2});
-                    if(!is_matchstick(m)) return false;
+                    if (!is_matchstick(m)) return false;
                     matchsticks.push_back(m);
                     return true;
                 };
-                for(int i = 0; i < n; ++i){
-                    if(!f(r, c + i, r, c + i + 1)) goto next_square;
-                    if(!f(r + n, c + i, r + n, c + i + 1)) goto next_square;
-                    if(!f(r + i, c, r + i + 1, c)) goto next_square;
-                    if(!f(r + i, c + n, r + i + 1, c + n)) goto next_square;
+                for (int i = 0; i < n; ++i) {
+                    if (!f(r, c + i, r, c + i + 1)) goto next_square;
+                    if (!f(r + n, c + i, r + n, c + i + 1)) goto next_square;
+                    if (!f(r + i, c, r + i + 1, c)) goto next_square;
+                    if (!f(r + i, c + n, r + i + 1, c + n)) goto next_square;
                 }
                 matchsticks_in_square.insert(matchsticks.begin(), matchsticks.end());
                 square_sizes.insert(n);
@@ -168,23 +168,23 @@ void puz_state::make_move(function<void()> f)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if(m_move_count == 0) return;
-    switch(m_game->m_action){
+    if (m_move_count == 0) return;
+    switch(m_game->m_action) {
     case PUZ_REMOVE:
-        for(auto& m : m_matchsticks){
+        for (auto& m : m_matchsticks) {
             children.push_back(*this);
             children.back().make_move_remove(m);
         }
         break;
     case PUZ_ADD:
-        for(auto& m : m_possible_matchsticks){
+        for (auto& m : m_possible_matchsticks) {
             children.push_back(*this);
             children.back().make_move_add(m);
         }
         break;
     case PUZ_MOVE:
-        for(auto& m1 : m_matchsticks)
-            for(auto& m2 : m_possible_matchsticks){
+        for (auto& m1 : m_matchsticks)
+            for (auto& m2 : m_possible_matchsticks) {
                 children.push_back(*this);
                 children.back().make_move_move(m1, m2);
             }
@@ -194,18 +194,18 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0;; ++r){
-        for(int c = 0;; ++c){
+    for (int r = 0;; ++r) {
+        for (int c = 0;; ++c) {
             Position p(r, c);
             out << (is_valid_dot(p) ? '.' : ' ');
-            if(c == cols() - 1) break;
+            if (c == cols() - 1) break;
             out << (is_matchstick({p, Position(r, c + 1)}) ? '-' : ' ');
         }
         out << endl;
-        if(r == rows() - 1) break;
-        for(int c = 0;; ++c){
+        if (r == rows() - 1) break;
+        for (int c = 0;; ++c) {
             out << (is_matchstick({Position(r, c), Position(r + 1, c)}) ? '|' : ' ');
-            if(c == cols() - 1) break;
+            if (c == cols() - 1) break;
             out << ' ';
         }
         out << endl;

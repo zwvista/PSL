@@ -49,14 +49,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 2)
 {
     m_start.append(m_sidelen, PUZ_WALL);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_WALL);
-        for(int c = 1; c < m_sidelen - 1; ++c){
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
-            if(ch == PUZ_SPACE)
+            if (ch == PUZ_SPACE)
                 m_start.push_back(ch);
-            else{
+            else {
                 m_start.push_back(PUZ_NUMBER);
                 int n = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
                 m_pos2num[{r, c}] = n;
@@ -103,7 +103,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for(auto& kv : g.m_pos2num)
+    for (auto& kv : g.m_pos2num)
         m_matches[kv.first];
     
     find_matches(true);
@@ -113,7 +113,7 @@ int puz_state::find_matches(bool init)
 {
     bool matches_changed = false;
     set<Position> spaces;
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& perms = kv.second;
         auto perms_old = perms;
@@ -121,21 +121,20 @@ int puz_state::find_matches(bool init)
 
         int sum = m_game->m_pos2num.at(p);
         vector<vector<int>> dir_nums(4);
-        for(int i = 0; i < 4; ++i){
+        for (int i = 0; i < 4; ++i) {
             auto& os = offset[i];
             int n = 0;
             auto& nums = dir_nums[i];
-            for(auto p2 = p + os; n <= sum; p2 += os){
+            for (auto p2 = p + os; n <= sum; p2 += os) {
                 char ch = cells(p2);
-                if(ch == PUZ_SPACE){
+                if (ch == PUZ_SPACE) {
                     // we can stop here
                     nums.push_back(n++);
                     spaces.insert(p2);
-                }
-                else if(ch == str_branch[i] || ch == str_branch[i + 4])
+                } else if (ch == str_branch[i] || ch == str_branch[i + 4])
                     // we cannot stop here
                     ++n;
-                else{
+                else {
                     // we have to stop here
                     nums.push_back(n);
                     break;
@@ -145,15 +144,15 @@ int puz_state::find_matches(bool init)
 
         // Compute the total length of the branches connected to the number
         // Record the combination if the sum is equal to the given number
-        for(int n0 : dir_nums[0])
-            for(int n1 : dir_nums[1])
-                for(int n2 : dir_nums[2])
-                    for(int n3 : dir_nums[3])
-                        if(n0 + n1 + n2 + n3 == sum)
+        for (int n0 : dir_nums[0])
+            for (int n1 : dir_nums[1])
+                for (int n2 : dir_nums[2])
+                    for (int n3 : dir_nums[3])
+                        if (n0 + n1 + n2 + n3 == sum)
                             perms.push_back({n0, n1, n2, n3});
 
-        if(!init)
-            switch(perms.size()){
+        if (!init)
+            switch(perms.size()) {
             case 0:
                 return 0;
             case 1:
@@ -165,17 +164,17 @@ int puz_state::find_matches(bool init)
     }
     // pruning
     // All the branches added up should cover all the remaining spaces
-    if(boost::count(m_cells, PUZ_SPACE) != spaces.size())
+    if (boost::count(m_cells, PUZ_SPACE) != spaces.size())
         return 0;
 
-    if(!matches_changed)
+    if (!matches_changed)
         return 2;
 
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& perms = kv.second;
-        for(int i = 0; i < 4; ++i){
-            auto f = [=](const vector<int>& v1, const vector<int>& v2){
+        for (int i = 0; i < 4; ++i) {
+            auto f = [=](const vector<int>& v1, const vector<int>& v2) {
                 return v1[i] < v2[i];
             };
             auto perm = *boost::min_element(perms, f);
@@ -191,18 +190,18 @@ void puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bo
     auto& os = offset[i];
     int n = perm[i];
     auto p2 = p + os;
-    for(int j = 0; j < n - 1; ++j){
+    for (int j = 0; j < n - 1; ++j) {
         cells(p2) = str_branch[i];
         p2 += os;
     }
-    if(stopped && n > 0)
+    if (stopped && n > 0)
         // branch head
         cells(p2) = str_branch[i + 4];
 }
 
 void puz_state::make_move2(const Position& p, const vector<int>& perm)
 {
-    for(int i = 0; i < 4; ++i)
+    for (int i = 0; i < 4; ++i)
         make_move3(p, perm, i, true);
 
     ++m_distance;
@@ -214,7 +213,7 @@ bool puz_state::make_move(const Position& p, const vector<int>& perm)
     m_distance = 0;
     make_move2(p, perm);
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -222,23 +221,23 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const Position, vector<vector<int>>>& kv1,
-        const pair<const Position, vector<vector<int>>>& kv2){
+        const pair<const Position, vector<vector<int>>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
 
-    for(auto& perm : kv.second){
+    for (auto& perm : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, perm))
+        if (!children.back().make_move(kv.first, perm))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r) {
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            switch(char ch = cells({r, c})){
+            switch(char ch = cells({r, c})) {
             case PUZ_NUMBER:
                 out << format("%2d") % m_game->m_pos2num.at(p);
                 break;

@@ -57,23 +57,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     int n = level.attribute("matchsticks").as_int();
     string action = level.attribute("action").value();
-    if(action == "remove")
+    if (action == "remove")
         m_remove_count = n, m_add_count = 0;
-    else if(action == "add")
+    else if (action == "add")
         m_remove_count = 0, m_add_count = n;
     else
         m_remove_count = m_add_count = n;
-    for(int i = 0; i < 10; ++i){
+    for (int i = 0; i < 10; ++i) {
         int d1 = matchstick_digits[i];
-        for(int j = 0; j < 10; ++j){
+        for (int j = 0; j < 10; ++j) {
             int d2 = matchstick_digits[j];
             auto& v = m_digit2digit[i * 10 + j];
             int n1 = 0, n2 = 0;
-            for(int k = 0; k < 7; ++k){
+            for (int k = 0; k < 7; ++k) {
                 int b1 = d1 & 1 << k;
                 int b2 = d2 & 1 << k;
-                if(b1 && !b2) ++n1;
-                else if(!b1 && b2) ++n2;
+                if (b1 && !b2) ++n1;
+                else if (!b1 && b2) ++n2;
             }
             v = make_pair(n1, n2);
         }
@@ -85,7 +85,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         qi::char_[phx::ref(m_operator) = qi::_1] >>
         qi::int_[phx::ref(operand2) = qi::_1] >> '=' >>
         qi::int_[phx::ref(result) = qi::_1], qi::space);
-    auto f = [&](int n){
+    auto f = [&](int n) {
         int index = m_indexes.back();
         do{
             m_digits.push_back(n % 10);
@@ -140,10 +140,10 @@ puz_state::puz_state(const puz_game& g)
 
 void puz_state::prepare_equation(int& operand1, int& operand2, int& result) const
 {
-    auto f = [&](int& n, int idx){
+    auto f = [&](int& n, int idx) {
         auto& indexes = m_game->m_indexes;
         n = 0;
-        for(int i = indexes[idx + 1] - 1; i >= indexes[idx]; --i)
+        for (int i = indexes[idx + 1] - 1; i >= indexes[idx]; --i)
             n = n * 10 + m_digits[i];
     };
     f(operand1, 0);
@@ -155,7 +155,7 @@ bool puz_state::is_valid_equation() const
 {
     int operand1, operand2, result;
     prepare_equation(operand1, operand2, result);
-    switch(m_operator){
+    switch(m_operator) {
     case '+':
         return operand1 + operand2 == result;
     case '-':
@@ -183,7 +183,7 @@ void puz_state::make_move(char op_to)
 {
     auto d = get_heuristic();
     ++m_index;
-    if(m_operator != op_to){
+    if (m_operator != op_to) {
         auto& t = op2op.at(m_operator);
         m_remove_count -= get<1>(t), m_add_count -= get<2>(t);
         m_operator = op_to;
@@ -194,20 +194,19 @@ void puz_state::make_move(char op_to)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     int sz = m_digits.size();
-    if(m_index == sz){
+    if (m_index == sz) {
         children.push_back(*this);
         children.back().make_move(m_operator);
         auto& t = op2op.at(m_operator);
-        if(get<1>(t) <= m_remove_count && get<2>(t) <= m_add_count){
+        if (get<1>(t) <= m_remove_count && get<2>(t) <= m_add_count) {
             children.push_back(*this);
             children.back().make_move(get<0>(t));
         }
-    }
-    else if(m_index < sz){
+    } else if (m_index < sz) {
         int digit_from = m_digits[m_index];
-        for(int digit_to = 0; digit_to < 10; ++digit_to){
+        for (int digit_to = 0; digit_to < 10; ++digit_to) {
             auto& kv = m_game->m_digit2digit[digit_from * 10 + digit_to];
-            if(kv.first <= m_remove_count && kv.second <= m_add_count){
+            if (kv.first <= m_remove_count && kv.second <= m_add_count) {
                 children.push_back(*this);
                 children.back().make_move(digit_to);
             }

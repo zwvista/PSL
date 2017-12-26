@@ -55,13 +55,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     m_start.append(m_sidelen, PUZ_BOUNDARY);
     char ch = 'a';
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for(int c = 1; c < m_sidelen - 1; ++c){
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             auto s = str.substr(c * 2 - 2, 2);
             int n = stoi(s);
-            if(n > 4)
+            if (n > 4)
                 m_pos2info[{r, c}] = {ch, n};
             m_start.push_back(n == 0 ? PUZ_SPACE :
                 n == 4 ? PUZ_SINGLE : ch++);
@@ -92,8 +92,8 @@ struct puz_state : string
     bool make_move(const Position& pnum, const Position& p);
     void make_move2(const Position& pnum, const Position& p);
     int adjust_area(bool init);
-    int get_perimeter_len(const puz_area& area, const Position& p){
-        int n = boost::count_if(offset, [&](const Position& os){
+    int get_perimeter_len(const puz_area& area, const Position& p) {
+        int n = boost::count_if(offset, [&](const Position& os) {
             return area.m_inner.count(p + os) != 0;
         });
         return area.m_perimeter_len - n + (4 - n);
@@ -118,7 +118,7 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-    for(auto& kv : g.m_pos2info){
+    for (auto& kv : g.m_pos2info) {
         auto& pnum = kv.first;
         m_pos2area[pnum].m_inner.insert(pnum);
     }
@@ -127,25 +127,25 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::adjust_area(bool init)
 {
-    for(auto& kv : m_pos2area){
+    for (auto& kv : m_pos2area) {
         const auto& pnum = kv.first;
         auto& info = m_game->m_pos2info.at(pnum);
 
         auto& area = kv.second;
         auto& outer = area.m_outer;
-        if(area.m_ready && outer.empty()) continue;
+        if (area.m_ready && outer.empty()) continue;
 
         outer.clear();
-        for(auto& p : area.m_inner)
-            for(auto& os : offset){
+        for (auto& p : area.m_inner)
+            for (auto& os : offset) {
                 auto p2 = p + os;
-                if(cells(p2) == PUZ_SPACE &&
+                if (cells(p2) == PUZ_SPACE &&
                     get_perimeter_len(area, p2) <= info.second)
                     outer.insert(p2);
             }
 
-        if(!init)
-            switch(outer.size()){
+        if (!init)
+            switch(outer.size()) {
             case 0:
                 return area.m_ready ? 1 : 0;
             case 1:
@@ -173,7 +173,7 @@ bool puz_state::make_move(const Position& pnum, const Position& p)
     m_distance = 0;
     make_move2(pnum, p);
     int m;
-    while((m = adjust_area(false)) == 1);
+    while ((m = adjust_area(false)) == 1);
     return m == 2;
 }
 
@@ -181,12 +181,12 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_pos2area, [](
         const pair<const Position, puz_area>& kv1,
-        const pair<const Position, puz_area>& kv2){
+        const pair<const Position, puz_area>& kv2) {
         return kv1.second < kv2.second;
     });
-    for(auto& p : kv.second.m_outer){
+    for (auto& p : kv.second.m_outer) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, p))
+        if (!children.back().make_move(kv.first, p))
             children.pop_back();
     }
 }
@@ -194,42 +194,42 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     set<Position> horz_walls, vert_walls;
-    for(int r = 1; r < sidelen() - 1; ++r)
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            if(cells(p) == PUZ_SINGLE){
-                for(int i = 0; i < 4; ++i){
+            if (cells(p) == PUZ_SINGLE) {
+                for (int i = 0; i < 4; ++i) {
                     auto p_wall = p + offset2[i];
                     auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
                     walls.insert(p_wall);
                 }
             }
         }
-    for(auto& kv : m_pos2area){
+    for (auto& kv : m_pos2area) {
         auto& area = kv.second;
-        for(auto& p : area.m_inner)
-            for(int i = 0; i < 4; ++i){
+        for (auto& p : area.m_inner)
+            for (int i = 0; i < 4; ++i) {
                 auto p2 = p + offset[i];
                 auto p_wall = p + offset2[i];
                 auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
-                if(area.m_inner.count(p2) == 0)
+                if (area.m_inner.count(p2) == 0)
                     walls.insert(p_wall);
             }
     }
 
-    for(int r = 1;; ++r){
+    for (int r = 1;; ++r) {
         // draw horz-walls
-        for(int c = 1; c < sidelen() - 1; ++c)
+        for (int c = 1; c < sidelen() - 1; ++c)
             out << (horz_walls.count({r, c}) == 1 ? " --" : "   ");
         out << endl;
-        if(r == sidelen() - 1) break;
-        for(int c = 1;; ++c){
+        if (r == sidelen() - 1) break;
+        for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vert-walls
             out << (vert_walls.count(p) == 1 ? '|' : ' ');
-            if(c == sidelen() - 1) break;
+            if (c == sidelen() - 1) break;
             auto it = m_game->m_pos2info.find(p);
-            if(it == m_game->m_pos2info.end())
+            if (it == m_game->m_pos2info.end())
                 out << (cells(p) == PUZ_SINGLE ? " 4" : " .");
             else
                 out << format("%2d") % it->second.second;

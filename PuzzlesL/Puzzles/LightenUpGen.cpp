@@ -56,7 +56,7 @@ puz_generator::puz_generator(int n)
     : m_sidelen(n + 2)
 {
     m_start.append(m_sidelen, PUZ_WALL);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         m_start.push_back(PUZ_WALL);
         m_start.append(m_sidelen - 2, PUZ_SPACE);
         m_start.push_back(PUZ_WALL);
@@ -67,10 +67,10 @@ puz_generator::puz_generator(int n)
 Position puz_generator::gen_elem(int n, char ch_old, char ch_new)
 {
     int j = 0;
-    for(int r = 1; r < m_sidelen - 1; ++r)
-        for(int c = 1; c < m_sidelen - 1; ++c){
+    for (int r = 1; r < m_sidelen - 1; ++r)
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             char& ch = cells(Position(r, c));
-            if(ch == ch_old && j++ == n){
+            if (ch == ch_old && j++ == n) {
                 ch = ch_new;
                 return {r, c};
             }
@@ -80,7 +80,7 @@ Position puz_generator::gen_elem(int n, char ch_old, char ch_new)
 
 void puz_generator::gen_walls(int n)
 {
-    for(int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++) {
         int m = rand() % boost::count(m_start, PUZ_SPACE);
         auto p = gen_elem(m, PUZ_SPACE, PUZ_WALL);
         m_pos2hint[p] = 0;
@@ -89,18 +89,18 @@ void puz_generator::gen_walls(int n)
 
 void puz_generator::gen_lightbulbs()
 {
-    for(;;){
+    for (;;) {
         int n = boost::count(m_start, PUZ_SPACE);
-        if(n == 0) return;
+        if (n == 0) return;
         int m = rand() % n;
         auto p = gen_elem(m, PUZ_SPACE, PUZ_BULB);
-        for(auto& os : offset){
+        for (auto& os : offset) {
             [&]{
                 auto p2 = p + os;
-                if(cells(p2) == PUZ_WALL && m_pos2hint.count(p2) != 0)
+                if (cells(p2) == PUZ_WALL && m_pos2hint.count(p2) != 0)
                     m_pos2hint[p2]++;
-                for(;; p2 += os)
-                    switch(char& ch2 = cells(p2)){
+                for (;; p2 += os)
+                    switch(char& ch2 = cells(p2)) {
                     case PUZ_WALL:
                         return;
                     case PUZ_SPACE:
@@ -114,7 +114,7 @@ void puz_generator::gen_lightbulbs()
 
 void puz_generator::gen_nonhint(int n)
 {
-    for(int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++) {
         int m = rand() % (m_pos2hint.size() - i);
         gen_elem(m, PUZ_WALL, PUZ_NONHINT);
     }
@@ -124,8 +124,8 @@ string puz_generator::to_string()
 {
     stringstream ss;
     ss << endl;
-    for(int r = 1; r < m_sidelen - 1; r++){
-        for(int c = 1; c < m_sidelen - 1; c++){
+    for (int r = 1; r < m_sidelen - 1; r++) {
+        for (int c = 1; c < m_sidelen - 1; c++) {
             Position p(r, c);
             char ch = cells(p);
             ss << (ch == PUZ_NONHINT ? PUZ_WALL : ch == PUZ_WALL ? char(m_pos2hint[p] + '0') : PUZ_SPACE);

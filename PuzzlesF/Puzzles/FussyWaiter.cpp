@@ -43,8 +43,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     m_start = boost::accumulate(strs, string());
 
-    for(int r = 0; r < m_sidelen; ++r)
-        for(int c = 0; c < m_sidelen; ++c){
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             m_area2range[r].push_back(p);
             m_area2range[c + m_sidelen].push_back(p);
@@ -56,11 +56,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     boost::iota(perm, 'a');
     do
         m_perms_food.push_back(perm);
-    while(boost::next_permutation(perm));
+    while (boost::next_permutation(perm));
     boost::iota(perm, 'A');
     do
         m_perms_drink.push_back(perm);
-    while(boost::next_permutation(perm));
+    while (boost::next_permutation(perm));
 }
 
 struct puz_state : string
@@ -98,7 +98,7 @@ puz_state::puz_state(const puz_game& g)
 {
     vector<int> perm_ids(g.m_perms_food.size());
     boost::iota(perm_ids, 0);
-    for(int i = 0; i < g.m_sidelen * 4; ++i)
+    for (int i = 0; i < g.m_sidelen * 4; ++i)
         m_matches[i] = perm_ids;
 
     find_matches(true);
@@ -106,24 +106,24 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         int area_id = kv.first;
         auto& perm_ids = kv.second;
         bool is_food = area_id < sidelen() * 2;
         auto& perms = is_food ? m_game->m_perms_food : m_game->m_perms_drink;
 
         string chars;
-        for(auto& p : m_game->m_area2range[area_id])
+        for (auto& p : m_game->m_area2range[area_id])
             chars.push_back(is_food ? food(p) : drinks(p));
 
-        boost::remove_erase_if(perm_ids, [&](int id){
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2){
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             });
         });
 
-        if(!init)
-            switch(perm_ids.size()){
+        if (!init)
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -140,18 +140,18 @@ bool puz_state::make_move2(int i, int j)
     auto& perms = is_food ? m_game->m_perms_food : m_game->m_perms_drink;
     auto& perm = perms[j];
 
-    for(int k = 0; k < perm.size(); ++k){
+    for (int k = 0; k < perm.size(); ++k) {
         auto p = range[k];
         (is_food ? food(p) : drinks(p)) = perm[k];
     }
 
     set<string> parings;
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto fd = paring(p);
-            if(fd[0] != PUZ_SPACE && fd[1] != PUZ_SPACE){
-                if(parings.count(fd) != 0)
+            if (fd[0] != PUZ_SPACE && fd[1] != PUZ_SPACE) {
+                if (parings.count(fd) != 0)
                     return false;
                 parings.insert(fd);
             }
@@ -165,10 +165,10 @@ bool puz_state::make_move2(int i, int j)
 bool puz_state::make_move(int i, int j)
 {
     m_distance = 0;
-    if(!make_move2(i, j))
+    if (!make_move2(i, j))
         return false;
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -176,20 +176,20 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2){
+        const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(int n : kv.second){
+    for (int n : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             out << food(p) << drinks(p) << ' ';
         }

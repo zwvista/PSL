@@ -51,10 +51,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 2)
 {
     m_start.append(m_sidelen, PUZ_BLOCK);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BLOCK);
-        for(int c = 1; c < m_sidelen - 1; ++c)
+        for (int c = 1; c < m_sidelen - 1; ++c)
             m_start.push_back(str[c - 1]);
         m_start.push_back(PUZ_BLOCK);
     }
@@ -95,7 +95,7 @@ struct puz_state2 : Position
         make_move(*rng.begin());
     }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const set<Position>* m_rng;
@@ -103,9 +103,9 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p2 = *this + os;
-        if(m_rng->count(p2) != 0){
+        if (m_rng->count(p2) != 0) {
             children.push_back(*this);
             children.back().make_move(p2);
         }
@@ -116,24 +116,24 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
     set<Position> rng;
-    for(int r = 1; r < g.m_sidelen - 1; ++r)
-        for(int c = 1; c < g.m_sidelen - 1; ++c){
+    for (int r = 1; r < g.m_sidelen - 1; ++r)
+        for (int c = 1; c < g.m_sidelen - 1; ++c) {
             Position p(r, c);
-            if(is_flower(cells(p)))
+            if (is_flower(cells(p)))
                 rng.insert(p);
         }
 
     int n = 0;
-    while(!rng.empty()){
+    while (!rng.empty()) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves(rng, smoves);
 
         auto& outer = m_num2outer[n++];
-        for(auto& p : smoves){
+        for (auto& p : smoves) {
             rng.erase(p);
-            for(auto& os : offset){
+            for (auto& os : offset) {
                 auto p2 = p + os;
-                if(cells(p2) == PUZ_SPACE)
+                if (cells(p2) == PUZ_SPACE)
                     outer.insert(p2);
             }
         }
@@ -144,26 +144,26 @@ puz_state::puz_state(const puz_game& g)
 
 void puz_state::check_field()
 {
-    for(int r = 1; r < sidelen() - 1; ++r)
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            if(cells(p) != PUZ_SPACE)
+            if (cells(p) != PUZ_SPACE)
                 continue;
 
             vector<int> counts;
-            for(auto& os : offset){
+            for (auto& os : offset) {
                 int n = 0;
-                for(auto p2 = p + os; is_flower(cells(p2)); p2 += os)
+                for (auto p2 = p + os; is_flower(cells(p2)); p2 += os)
                     ++n;
                 counts.push_back(n);
             }
-            if(counts[0] + counts[2] < 3 && counts[1] + counts[3] < 3)
+            if (counts[0] + counts[2] < 3 && counts[1] + counts[3] < 3)
                 continue;
             // if a flower is put in this tile
             // more than 3 flowers will line up horizontally and/or vertically
             // so this tile must be empty.
             cells(p) = PUZ_EMPTY;
-            for(auto& kv : m_num2outer)
+            for (auto& kv : m_num2outer)
                 kv.second.erase(p);
         }
 }
@@ -171,13 +171,13 @@ void puz_state::check_field()
 bool puz_state::make_move(Position p)
 {
     vector<int> nums;
-    for(auto& kv : m_num2outer)
-        if(kv.second.count(p) != 0)
+    for (auto& kv : m_num2outer)
+        if (kv.second.count(p) != 0)
             nums.push_back(kv.first);
 
     m_distance = 0;
     // merge all the flowerbeds adjacent to p
-    while(nums.size() > 1){
+    while (nums.size() > 1) {
         int n2 = nums.back(), n1 = nums.rbegin()[1];
         auto &outer2 = m_num2outer.at(n2), &outer1 = m_num2outer.at(n1);
         outer1.insert(outer2.begin(), outer2.end());
@@ -189,16 +189,16 @@ bool puz_state::make_move(Position p)
     cells(p) = PUZ_ADDED;
     auto& outer = m_num2outer.at(nums[0]);
     outer.erase(p);
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p2 = p + os;
-        if(cells(p2) == PUZ_SPACE)
+        if (cells(p2) == PUZ_SPACE)
             outer.insert(p2);
     }
 
     return is_goal_state() || (
         check_field(),
         boost::algorithm::all_of(m_num2outer,
-            [](const pair<const int, set<Position>>& kv){
+            [](const pair<const int, set<Position>>& kv) {
             return kv.second.size() > 0;
         })
     );
@@ -208,20 +208,20 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_num2outer, [](
         const pair<const int, set<Position>>& kv1,
-        const pair<const int, set<Position>>& kv2){
+        const pair<const int, set<Position>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(auto& p : kv.second){
+    for (auto& p : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(p))
+        if (!children.back().make_move(p))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r){
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
             char ch = cells({r, c});
             out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
         }

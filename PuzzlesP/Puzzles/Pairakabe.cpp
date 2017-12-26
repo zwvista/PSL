@@ -69,7 +69,7 @@ struct puz_state2 : set<Position>
     bool make_move(const Position& p) {
         insert(p); ++m_distance;
         // cannot go too far away
-        return boost::algorithm::any_of(*this, [&](const Position& p2){
+        return boost::algorithm::any_of(*this, [&](const Position& p2) {
             return manhattan_distance(p2, *m_p2) <= m_garden->m_num - m_distance;
         });
     }
@@ -83,16 +83,16 @@ struct puz_state2 : set<Position>
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
-    for(auto& p : *this)
-        for(auto& os : offset){
+    for (auto& p : *this)
+        for (auto& os : offset) {
             // Gardens extend horizontally or vertically
             auto p2 = p + os;
             char ch2 = m_game->cells(p2);
             // An adjacent tile cannot be occupied by the garden
             // if it belongs to another garden or
             // it is already in the garden or
-            if(ch2 != PUZ_SPACE && p2 != *m_p2 || count(p2) != 0 ||
-                boost::algorithm::any_of(offset, [&](const Position& os2){
+            if (ch2 != PUZ_SPACE && p2 != *m_p2 || count(p2) != 0 ||
+                boost::algorithm::any_of(offset, [&](const Position& os2) {
                 auto p3 = p2 + os2;
                 char ch3 = m_game->cells(p3);
                 // any adjacent tile to it belongs to another garden, because
@@ -100,7 +100,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 return p3 != *m_p2 && count(p3) == 0 && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY;
             })) continue;
             children.push_back(*this);
-            if(!children.back().make_move(p2))
+            if (!children.back().make_move(p2))
                 children.pop_back();
         }
 }
@@ -111,14 +111,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     char ch_g = 'a';
     m_start.append(m_sidelen, PUZ_BOUNDARY);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for(int c = 1; c < m_sidelen - 1; ++c){
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
-            if(ch == PUZ_SPACE)
+            if (ch == PUZ_SPACE)
                 m_start.push_back(PUZ_SPACE);
-            else{
+            else {
                 int n = ch - '0';
                 Position p(r, c);
                 m_pos2num[p] = n;
@@ -129,16 +129,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    for(auto& kv : m_pos2num){
+    for (auto& kv : m_pos2num) {
         auto& p = kv.first;
         int n = kv.second;
-        for(auto& kv2 : m_pos2num){
+        for (auto& kv2 : m_pos2num) {
             auto p2 = kv2.first;
             // only make a pairing with a tile greater than itself
-            if(p2 <= p) continue;
+            if (p2 <= p) continue;
             int n3 = n + kv2.second;
             // cannot make a pairing with a tile too far away
-            if(manhattan_distance(p, p2) + 1 > n3) continue;
+            if (manhattan_distance(p, p2) + 1 > n3) continue;
             auto kv3 = make_pair(p, p2);
             auto& garden = m_pair2garden[kv3];
             garden.m_name = cells(p);
@@ -149,9 +149,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
             // save all goal states as permutations
             // A goal state is a garden formed from two numbers
-            for(auto& spath : spaths)
+            for (auto& spath : spaths)
                 garden.m_perms.push_back(spath.back());
-            if(garden.m_perms.empty())
+            if (garden.m_perms.empty())
                 m_pair2garden.erase(kv3);
         }
     }
@@ -197,12 +197,12 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for(auto& kv : g.m_pair2garden){
+    for (auto& kv : g.m_pair2garden) {
         auto &p = kv.first.first, &p2 = kv.first.second;
         auto sz = kv.second.m_perms.size();
         auto& v = m_matches[p];
         auto& v2 = m_matches[p2];
-        for(int i = 0; i < sz; i++){
+        for (int i = 0; i < sz; i++) {
             v.emplace_back(p2, i);
             v2.emplace_back(p, i);
         }
@@ -217,37 +217,37 @@ int puz_state::find_matches(bool init)
     // value.elem: positions of the two numbers from which a garden
     //             containing that space tile can be formed
     map<Position, set<pair<Position, Position>>> space2hints;
-    for(int r = 1; r < sidelen() - 1; ++r)
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if(ch == PUZ_SPACE || ch == PUZ_EMPTY)
+            if (ch == PUZ_SPACE || ch == PUZ_EMPTY)
                 space2hints[p];
         }
 
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         auto& p = kv.first;
         auto& v = kv.second;
         // remove any path if it contains a tile which belongs to another garden
-        boost::remove_erase_if(v, [&](auto& kv2){
+        boost::remove_erase_if(v, [&](auto& kv2) {
             auto& p2 = kv2.first;
             auto& perm = m_game->m_pair2garden.at({min(p, p2), max(p, p2)}).m_perms[kv2.second];
-            return boost::algorithm::any_of(perm, [&](auto& p3){
+            return boost::algorithm::any_of(perm, [&](auto& p3) {
                 char ch = cells(p3);
                 return p3 != p && p3 != p2 && ch != PUZ_SPACE && ch != PUZ_EMPTY;
             });
         });
-        for(auto& kv2 : v){
+        for (auto& kv2 : v) {
             auto& p2 = kv2.first;
             auto k = make_pair(min(p, p2), max(p, p2));
             auto& perm = m_game->m_pair2garden.at(k).m_perms[kv2.second];
-            for(auto& p3 : perm)
-                if(p3 != p && p3 != p2)
+            for (auto& p3 : perm)
+                if (p3 != p && p3 != p2)
                     space2hints.at(p3).insert(k);
         }
 
-        if(!init)
-            switch(v.size()){
+        if (!init)
+            switch(v.size()) {
             case 0:
                 return 0;
             case 1:
@@ -255,44 +255,44 @@ int puz_state::find_matches(bool init)
             }
     }
     bool changed = false;
-    for(auto& kv : space2hints){
+    for (auto& kv : space2hints) {
         const auto& p = kv.first;
         auto& h = kv.second;
-        if(!h.empty()) continue;
+        if (!h.empty()) continue;
         // Cells that cannot be reached by any garden can be nothing but a wall
         char& ch = cells(p);
-        if(ch == PUZ_EMPTY)
+        if (ch == PUZ_EMPTY)
             return false;
         ch = PUZ_WALL;
         changed = true;
     }
-    if(changed){
-        if(!check_2x2()) return 0;
-        for(auto& kv : space2hints){
+    if (changed) {
+        if (!check_2x2()) return 0;
+        for (auto& kv : space2hints) {
             const auto& p = kv.first;
             auto& h = kv.second;
-            if(h.size() != 1) continue;
+            if (h.size() != 1) continue;
             char ch = cells(p);
-            if(ch == PUZ_SPACE) continue;
+            if (ch == PUZ_SPACE) continue;
             // Cells that can be reached by only one garden
             auto& kv2 = *h.begin();
             auto& perms = m_game->m_pair2garden.at(kv2).m_perms;
             // remove any permutation that does not contain the empty tile
-            boost::remove_erase_if(m_matches.at(kv2.first), [&](auto& kv3){
+            boost::remove_erase_if(m_matches.at(kv2.first), [&](auto& kv3) {
                 return kv3.first == kv2.second && boost::algorithm::none_of_equal(perms[kv3.second], p);
             });
-            boost::remove_erase_if(m_matches.at(kv2.second), [&](auto& kv3){
+            boost::remove_erase_if(m_matches.at(kv2.second), [&](auto& kv3) {
                 return kv3.first == kv2.first && boost::algorithm::none_of_equal(perms[kv3.second], p);
             });
         }
-        if(!init){
-            for(auto& kv : m_matches){
+        if (!init) {
+            for (auto& kv : m_matches) {
                 const auto& p = kv.first;
                 auto& v = kv.second;
-                if(v.size() == 1)
+                if (v.size() == 1)
                     return make_move2(p, v[0].first, v[0].second) ? 1 : 0;
             }
-            if(!is_continuous())
+            if (!is_continuous())
                 return 0;
         }
     }
@@ -303,7 +303,7 @@ struct puz_state3 : Position
 {
     puz_state3(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state3>& children) const;
 
     const set<Position>* m_rng;
@@ -311,9 +311,9 @@ struct puz_state3 : Position
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p2 = *this + os;
-        if(m_rng->count(p2) != 0){
+        if (m_rng->count(p2) != 0) {
             children.push_back(*this);
             children.back().make_move(p2);
         }
@@ -324,19 +324,19 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 bool puz_state::is_continuous() const
 {
     set<Position> a;
-    for(int r = 1; r < sidelen() - 1; ++r)
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if(ch == PUZ_SPACE || ch == PUZ_WALL)
+            if (ch == PUZ_SPACE || ch == PUZ_WALL)
                 a.insert(p);
         }
 
     list<puz_state3> smoves;
     puz_move_generator<puz_state3>::gen_moves(a, smoves);
-    for(auto& p : smoves)
+    for (auto& p : smoves)
         a.erase(p);
-    return boost::algorithm::all_of(a, [&](auto& p){
+    return boost::algorithm::all_of(a, [&](auto& p) {
         return cells(p) == PUZ_SPACE;
     });
 }
@@ -344,19 +344,19 @@ bool puz_state::is_continuous() const
 // The wall can't form 2*2 squares.
 bool puz_state::check_2x2()
 {
-    for(int r = 1; r < sidelen() - 2; ++r)
-        for(int c = 1; c < sidelen() - 2; ++c){
+    for (int r = 1; r < sidelen() - 2; ++r)
+        for (int c = 1; c < sidelen() - 2; ++c) {
             Position p(r, c);
             vector<Position> rng1, rng2;
-            for(auto& os : offset2){
+            for (auto& os : offset2) {
                 auto p2 = p + os;
-                switch(cells(p2)){
+                switch(cells(p2)) {
                 case PUZ_WALL: rng1.push_back(p2); break;
                 case PUZ_SPACE: rng2.push_back(p2); break;
                 }
             }
-            if(rng1.size() == 4) return false;
-            if(rng1.size() == 3 && rng2.size() == 1)
+            if (rng1.size() == 4) return false;
+            if (rng1.size() == 3 && rng2.size() == 1)
                 cells(rng2[0]) = PUZ_EMPTY;
         }
     return true;
@@ -367,21 +367,21 @@ bool puz_state::make_move2(Position p, Position p2, int n)
     auto& garden = m_game->m_pair2garden.at({min(p, p2), max(p, p2)});
     auto& perm = garden.m_perms[n];
 
-    for(auto& p3 : perm)
+    for (auto& p3 : perm)
         cells(p3) = garden.m_name;
-    for(auto& p3 : perm)
+    for (auto& p3 : perm)
         // Gardens are separated by a wall.
-        for(auto& os : offset)
-            switch(char& ch3 = cells(p3 + os)){
+        for (auto& os : offset)
+            switch(char& ch3 = cells(p3 + os)) {
             case PUZ_SPACE: ch3 = PUZ_WALL; break;
             case PUZ_EMPTY: return false;
             }
 
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         auto& p3 = kv.first;
-        if(p3 == p || p3 == p2) continue;
+        if (p3 == p || p3 == p2) continue;
         auto &v = kv.second;
-        boost::remove_erase_if(v, [&](auto& kv2){
+        boost::remove_erase_if(v, [&](auto& kv2) {
             auto &p4 = kv2.first;
             return p == p4 || p2 == p4;
         });
@@ -390,7 +390,7 @@ bool puz_state::make_move2(Position p, Position p2, int n)
     m_matches.erase(p2);
     m_distance += 2;
 
-    return boost::algorithm::none_of(m_matches, [&](auto& kv){
+    return boost::algorithm::none_of(m_matches, [&](auto& kv) {
         return kv.second.empty();
     }) && is_valid_move();
 }
@@ -398,36 +398,36 @@ bool puz_state::make_move2(Position p, Position p2, int n)
 bool puz_state::make_move(const Position& p, const Position& p2, int n)
 {
     m_distance = 0;
-    if(!make_move2(p, p2, n))
+    if (!make_move2(p, p2, n))
         return false;
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& kv = *boost::min_element(m_matches, [](auto& kv1, auto& kv2){
+    auto& kv = *boost::min_element(m_matches, [](auto& kv1, auto& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(auto& kv2 : kv.second){
+    for (auto& kv2 : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, kv2.first, kv2.second))
+        if (!children.back().make_move(kv.first, kv2.first, kv2.second))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r){
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if(ch == PUZ_WALL)
+            if (ch == PUZ_WALL)
                 out << PUZ_WALL << ' ';
-            else{
+            else {
                 auto it = m_game->m_pos2num.find(p);
-                if(it == m_game->m_pos2num.end())
+                if (it == m_game->m_pos2num.end())
                     out << ". ";
                 else
                     out << format("%-2d") % it->second;

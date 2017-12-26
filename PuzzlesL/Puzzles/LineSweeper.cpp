@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -62,11 +62,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size())
     , m_dot_count(m_sidelen * m_sidelen)
 {
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            if(ch != ' '){
+            if (ch != ' ') {
                 int n = ch - '0';
                 m_num2perms[n];
                 m_pos2num[{r, c}] = n;
@@ -74,7 +74,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for(auto& kv : m_num2perms){
+    for (auto& kv : m_num2perms) {
         int n = kv.first;
         // Find all line segment permutations in relation to a number
         auto& perms = kv.second;
@@ -84,25 +84,25 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto indicator = string(8 - n, PUZ_LINE_OFF) + string(n, PUZ_LINE_ON);
         do{
             vector<vector<int>> dir2linesegs(8);
-            for(int i = 0; i < 8; ++i)
+            for (int i = 0; i < 8; ++i)
                 // Find all line permutations from an adjacent cell
-                if(indicator[i] == PUZ_LINE_OFF)
+                if (indicator[i] == PUZ_LINE_OFF)
                     // This adjacent cell is not passed by the line
                     dir2linesegs[i] = {lineseg_off};
                 else
-                    for(int lineseg : linesegs_all)
-                        if([&]{
-                            for(int j = 0; j < 4; ++j){
-                                if(!is_lineseg_on(lineseg, j))
+                    for (int lineseg : linesegs_all)
+                        if ([&]{
+                            for (int j = 0; j < 4; ++j) {
+                                if (!is_lineseg_on(lineseg, j))
                                     continue;
                                 // compute the position that the line segment in an adjacent cell leads to
                                 auto p = offset[i] + offset[2 * j];
                                 // The line segment from an adjacent cell cannot lead to the number cell
                                 // or any adjacent cell not covered by the line
-                                if(p == Position(0, 0))
+                                if (p == Position(0, 0))
                                     return false;
                                 int n = boost::find(offset, p) - offset;
-                                if(n < 8 && indicator[n] == PUZ_LINE_OFF)
+                                if (n < 8 && indicator[n] == PUZ_LINE_OFF)
                                     return false;
                             }
                             return true;
@@ -112,7 +112,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
             // No line segment permutation from an adjacent cell means
             // this pass/no pass permutation is impossible
-            if(boost::algorithm::any_of(dir2linesegs, [](const vector<int>& linesegs){
+            if (boost::algorithm::any_of(dir2linesegs, [](const vector<int>& linesegs) {
                 return linesegs.empty();
             }))
                 continue;
@@ -120,27 +120,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             // Find all line permutations for this pass/no pass permutation
             vector<int> indexes(8);
             vector<int> perm(8);
-            for(int i = 0; i < 8;){
-                for(int j = 0; j < 8; ++j)
+            for (int i = 0; i < 8;) {
+                for (int j = 0; j < 8; ++j)
                     perm[j] = dir2linesegs[j][indexes[j]];
-                if([&]{
-                    for(int j = 0; j < 8; ++j){
+                if ([&]{
+                    for (int j = 0; j < 8; ++j) {
                         int lineseg = perm[j];
-                        for(int k = 0; k < 4; ++k){
-                            if(!is_lineseg_on(lineseg, k))
+                        for (int k = 0; k < 4; ++k) {
+                            if (!is_lineseg_on(lineseg, k))
                                 continue;
                             auto p = offset[j] + offset[2 * k];
                             int n = boost::find(offset, p) - offset;
                             // If the line segment from an adjacent cell leads to another adjacent cell,
                             // the line segment from the latter should also lead to the former
-                            if(n < 8 && !is_lineseg_on(perm[n], (k + 2) % 4))
+                            if (n < 8 && !is_lineseg_on(perm[n], (k + 2) % 4))
                                 return false;
                         }
                     }
                     return true;
                 }())
                     perms.push_back(perm);
-                for(i = 0; i < 8 && ++indexes[i] == dir2linesegs[i].size(); ++i)
+                for (i = 0; i < 8 && ++indexes[i] == dir2linesegs[i].size(); ++i)
                     indexes[i] = 0;
             }
 
@@ -187,22 +187,22 @@ struct puz_state : vector<puz_dot>
 puz_state::puz_state(const puz_game& g)
 : vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
 {
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if(g.m_pos2num.count(p) != 0)
+            if (g.m_pos2num.count(p) != 0)
                 continue;
 
             auto& dt = dots(p);
-            for(int lineseg : linesegs_all)
-                if([&]{
-                    for(int i = 0; i < 4; ++i){
-                        if(!is_lineseg_on(lineseg, i))
+            for (int lineseg : linesegs_all)
+                if ([&]{
+                    for (int i = 0; i < 4; ++i) {
+                        if (!is_lineseg_on(lineseg, i))
                             continue;
                         auto p2 = p + offset[i * 2];
                         // The line segment cannot lead to a position
                         // outside the board or cover any number cell
-                        if(!is_valid(p2) || g.m_pos2num.count(p2) != 0)
+                        if (!is_valid(p2) || g.m_pos2num.count(p2) != 0)
                             return false;
                     }
                     return true;
@@ -210,7 +210,7 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for(auto& kv : g.m_pos2num){
+    for (auto& kv : g.m_pos2num) {
         auto& p = kv.first;
         m_finished.insert(p);
         auto& perm_ids = m_matches[p];
@@ -224,28 +224,27 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& perm_ids = kv.second;
 
         auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
-        boost::remove_erase_if(perm_ids, [&](int id){
+        boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
-            for(int i = 0; i < 8; ++i){
+            for (int i = 0; i < 8; ++i) {
                 auto p2 = p + offset[i];
                 int lineseg = perm[i];
-                if(!is_valid(p2)){
-                    if(lineseg != lineseg_off)
+                if (!is_valid(p2)) {
+                    if (lineseg != lineseg_off)
                         return true;
-                }
-                else if(boost::algorithm::none_of_equal(dots(p2), lineseg))
+                } else if (boost::algorithm::none_of_equal(dots(p2), lineseg))
                     return true;
             }
             return false;
         });
 
-        if(!init)
-            switch(perm_ids.size()){
+        if (!init)
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -258,32 +257,32 @@ int puz_state::find_matches(bool init)
 int puz_state::check_dots(bool init)
 {
     int n = 2;
-    for(;;){
+    for (;;) {
         set<Position> newly_finished;
-        for(int r = 0; r < sidelen(); ++r)
-            for(int c = 0; c < sidelen(); ++c){
+        for (int r = 0; r < sidelen(); ++r)
+            for (int c = 0; c < sidelen(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
-                if(dt.size() == 1 && m_finished.count(p) == 0)
+                if (dt.size() == 1 && m_finished.count(p) == 0)
                     newly_finished.insert(p);
             }
 
-        if(newly_finished.empty())
+        if (newly_finished.empty())
             return n;
 
         n = 1;
-        for(const auto& p : newly_finished){
+        for (const auto& p : newly_finished) {
             int lineseg = dots(p)[0];
-            for(int i = 0; i < 4; ++i){
+            for (int i = 0; i < 4; ++i) {
                 auto p2 = p + offset[i * 2];
-                if(!is_valid(p2))
+                if (!is_valid(p2))
                     continue;
                 auto& dt = dots(p2);
                 // The line segments in adjacent cells must be connected
-                boost::remove_erase_if(dt, [=](int lineseg2){
+                boost::remove_erase_if(dt, [=](int lineseg2) {
                     return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
                 });
-                if(!init && dt.empty())
+                if (!init && dt.empty())
                     return 0;
             }
             m_finished.insert(p);
@@ -295,9 +294,9 @@ int puz_state::check_dots(bool init)
 void puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
-    for(int i = 0; i < 8; ++i){
+    for (int i = 0; i < 8; ++i) {
         auto p2 = p + offset[i];
-        if(is_valid(p2))
+        if (is_valid(p2))
             dots(p2) = {perm[i]};
     }
     m_matches.erase(p);
@@ -306,31 +305,31 @@ void puz_state::make_move_hint2(const Position& p, int n)
 bool puz_state::check_loop() const
 {
     set<Position> rng;
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if(dt.size() == 1 && dt[0] != lineseg_off)
+            if (dt.size() == 1 && dt[0] != lineseg_off)
                 rng.insert(p);
         }
 
     bool has_branch = false;
-    while(!rng.empty()){
+    while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
-        for(int n = -1;;){
+        for (int n = -1;;) {
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
-            for(int i = 0; i < 4; ++i)
+            for (int i = 0; i < 4; ++i)
                 // go ahead if the line segment does not lead a way back
-                if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){
+                if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
                     p2 += offset[(n = i) * 2];
                     break;
                 }
-            if(p2 == p)
+            if (p2 == p)
                 // we have a loop here,
                 // so we should have exhausted the line segments 
                 return !has_branch && rng.empty();
-            if(rng.count(p2) == 0){
+            if (rng.count(p2) == 0) {
                 has_branch = true;
                 break;
             }
@@ -343,15 +342,15 @@ bool puz_state::make_move_hint(const Position& p, int n)
 {
     m_distance = 0;
     make_move_hint2(p, n);
-    for(;;){
+    for (;;) {
         int m;
-        while((m = find_matches(false)) == 1);
-        if(m == 0)
+        while ((m = find_matches(false)) == 1);
+        if (m == 0)
             return false;
         m = check_dots(false);
-        if(m != 1)
+        if (m != 1)
             return m == 2;
-        if(!check_loop())
+        if (!check_loop())
             return false;
     }
 }
@@ -367,22 +366,21 @@ bool puz_state::make_move_dot(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if(!m_matches.empty()){
+    if (!m_matches.empty()) {
         auto& kv = *boost::min_element(m_matches, [](
             const pair<const Position, vector<int>>& kv1,
-            const pair<const Position, vector<int>>& kv2){
+            const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
 
-        for(int n : kv.second){
+        for (int n : kv.second) {
             children.push_back(*this);
-            if(!children.back().make_move_hint(kv.first, n))
+            if (!children.back().make_move_hint(kv.first, n))
                 children.pop_back();
         }
-    }
-    else{
-        int i = boost::min_element(*this, [&](const puz_dot& dt1, const puz_dot& dt2){
-            auto f = [](const puz_dot& dt){
+    } else {
+        int i = boost::min_element(*this, [&](const puz_dot& dt1, const puz_dot& dt2) {
+            auto f = [](const puz_dot& dt) {
                 int sz = dt.size();
                 return sz == 1 ? 100 : sz;
             };
@@ -390,9 +388,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         }) - begin();
         auto& dt = (*this)[i];
         Position p(i / sidelen(), i % sidelen());
-        for(int n = 0; n < dt.size(); ++n){
+        for (int n = 0; n < dt.size(); ++n) {
             children.push_back(*this);
-            if(!children.back().make_move_dot(p, n))
+            if (!children.back().make_move_dot(p, n))
                 children.pop_back();
         }
     }
@@ -400,17 +398,17 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // draw horz-lines
-        for(int c = 0; c < sidelen(); ++c){
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto it = m_game->m_pos2num.find(p);
             out << char(it == m_game->m_pos2num.end() ? ' ' : it->second + '0')
                 << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }
         out << endl;
-        if(r == sidelen() - 1) break;
-        for(int c = 0; c < sidelen(); ++c)
+        if (r == sidelen() - 1) break;
+        for (int c = 0; c < sidelen(); ++c)
             // draw vert-lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
         out << endl;

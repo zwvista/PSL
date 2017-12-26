@@ -36,13 +36,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size() + 2, strs[0].length() + 2)
 {
     m_cells.append(cols(), PUZ_WALL);
-    for(int r = 1; r < rows() - 1; ++r){
+    for (int r = 1; r < rows() - 1; ++r) {
         auto& str = strs[r - 1];
         m_cells.push_back(PUZ_WALL);
-        for(int c = 1; c < cols() - 1; ++c){
+        for (int c = 1; c < cols() - 1; ++c) {
             Position p(r, c);
             char ch = str[c - 1];
-            switch(ch){
+            switch(ch) {
             case PUZ_BALL: m_start = p; m_cells.push_back(PUZ_SPACE); break;
             case PUZ_GOAL: m_goal = p; m_cells.push_back(ch); break;
             default: m_cells.push_back(ch); break;
@@ -91,10 +91,10 @@ void puz_state::make_move(int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < 4; i++){
+    for (int i = 0; i < 4; i++) {
         auto p = m_p + offset[i];
         char ch = cells(p);
-        if(ch == PUZ_SPACE || ch == PUZ_GOAL){
+        if (ch == PUZ_SPACE || ch == PUZ_GOAL) {
             children.push_back(*this);
             children.back().make_move(i);
         }
@@ -103,10 +103,10 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "move: " << m_move << endl;
-    for(int r = 1; r < rows() - 1; ++r){
-        for(int c = 1; c < cols() - 1; ++c){
+    for (int r = 1; r < rows() - 1; ++r) {
+        for (int c = 1; c < cols() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
             out << (p == m_p ? PUZ_BALL : 

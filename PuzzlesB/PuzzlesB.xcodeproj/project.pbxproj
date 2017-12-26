@@ -40,6 +40,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C6854311FF000D500C592FD /* Bridges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridges.h; sourceTree = "<group>"; };
+		8C6854331FF1CAAF00C592FD /* BridgesTest.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BridgesTest.xml; sourceTree = "<group>"; };
+		8C6854341FF1CAB000C592FD /* BridgesTest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BridgesTest.txt; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesB; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -175,9 +178,12 @@
 				8CA23FCC1EB479280055D6B1 /* Branches.txt */,
 				8CA23FCD1EB479280055D6B1 /* Branches.xml */,
 				8CA23FCE1EB479280055D6B1 /* Bridges.cpp */,
+				8C6854311FF000D500C592FD /* Bridges.h */,
 				8CA23FCF1EB479280055D6B1 /* Bridges.txt */,
 				8CA23FD01EB479280055D6B1 /* Bridges.xml */,
 				8CA23FD11EB479280055D6B1 /* BridgesGen.cpp */,
+				8C6854341FF1CAB000C592FD /* BridgesTest.txt */,
+				8C6854331FF1CAAF00C592FD /* BridgesTest.xml */,
 				8CA23FD21EB479280055D6B1 /* BusySeas.cpp */,
 				8CA23FD31EB479280055D6B1 /* BusySeas.txt */,
 				8CA23FD41EB479280055D6B1 /* BusySeas.xml */,

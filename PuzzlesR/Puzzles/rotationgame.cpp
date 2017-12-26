@@ -44,7 +44,7 @@ struct puz_state : string
 void puz_state::gen_children(list<puz_state>& children) const
 {
     static const char* moves = "AFBEHCGD";
-    for(int i = 0; i < 8; ++i){
+    for (int i = 0; i < 8; ++i) {
         children.push_back(*this);
         children.back().make_rotation(i / 2, i % 2 == 0, moves[i]);
     }
@@ -66,10 +66,10 @@ void puz_state::make_rotation(int n, bool reverse, char m)
         {13, 14, 15, 16, 17, 18, 19},
     };
     static vector<char> v(7);
-    for(int i = 0; i < 7; ++i)
+    for (int i = 0; i < 7; ++i)
         v[i] = (*this)[offset[n][i]];
     rotate(v.begin(), reverse ? v.begin() + 1 : v.end() - 1, v.end());
-    for(int i = 0; i < 7; ++i)
+    for (int i = 0; i < 7; ++i)
         (*this)[offset[n][i]] = v[i];
     m_move = m;
 }
@@ -78,10 +78,10 @@ unsigned int puz_state::get_heuristic() const
 {
     static int offset[8] = {6, 7, 8, 11, 12, 15, 16, 17};
     static vector<char> v(8);
-    for(int i = 0; i < 8; ++i)
+    for (int i = 0; i < 8; ++i)
         v[i] = (*this)[offset[i]];
     map<int, char> groups;
-    for(char ch = '1'; ch <= '3'; ++ch)
+    for (char ch = '1'; ch <= '3'; ++ch)
         groups[boost::count(v, ch)] = ch;
     char chMax = groups.rbegin()->second;
     unsigned int md = boost::accumulate(v, 0, arg1 + phx::bind(&myabs, chMax - arg2));
@@ -90,9 +90,9 @@ unsigned int puz_state::get_heuristic() const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "move: " << m_move << endl;
-    for(size_t i = 0; i < length(); ++i)
+    for (size_t i = 0; i < length(); ++i)
         cout << at(i) << ' ';
     cout << endl;
     return out;

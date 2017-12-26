@@ -40,12 +40,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
 {
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             char ch = str[c];
-            if(ch != PUZ_SPACE)
+            if (ch != PUZ_SPACE)
                 m_pos2num.emplace_back(p, ch);
         }
     }
@@ -69,14 +69,14 @@ struct puz_state : string
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(const Position& p, char ch);
     int get_id() const {
-        for(int i = 0;; ++i)
-            if(m_id2area.count(i) == 0)
+        for (int i = 0;; ++i)
+            if (m_id2area.count(i) == 0)
                 return i;
     }
     // remove the possibility of filling the position p with char ch
-    void remove_pair(const Position& p, char ch){
+    void remove_pair(const Position& p, char ch) {
         auto i = m_pos2nums.find(p);
-        if(i != m_pos2nums.end())
+        if (i != m_pos2nums.end())
             boost::remove_erase(i->second, ch);
     }
 
@@ -101,11 +101,11 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c)
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c)
             m_pos2nums[{r, c}] = "123";
 
-    for(auto& kv : m_game->m_pos2num)
+    for (auto& kv : m_game->m_pos2num)
         make_move(kv.first, kv.second);
 }
 
@@ -116,40 +116,39 @@ bool puz_state::make_move(const Position& p, char ch)
     m_pos2nums.erase(p);
 
     set<int> ids;
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p2 = p + os;
-        if(is_valid(p2) && cells(p2) == ch)
+        if (is_valid(p2) && cells(p2) == ch)
             ids.insert(m_pos2id.at(p2));
     }
 
     vector<Position> rng{p};
-    for(int id : ids){
+    for (int id : ids) {
         auto& v = m_id2area.at(id);
         rng.insert(rng.end(), v.begin(), v.end());
         m_id2area.erase(id);
     }
 
     int sz = rng.size();
-    if(sz > n)
+    if (sz > n)
         return false;
-    if(sz == n)
-        for(auto& p2 : rng){
-            for(auto& os : offset){
+    if (sz == n)
+        for (auto& p2 : rng) {
+            for (auto& os : offset) {
                 auto p3 = p2 + os;
-                if(is_valid(p3))
+                if (is_valid(p3))
                     remove_pair(p3, ch);
             }
             m_pos2id.erase(p2);
             m_pos2nums.erase(p2);
-        }
-    else{
+        } else {
         int id = get_id();
-        for(auto& p2 : rng)
+        for (auto& p2 : rng)
             m_pos2id[p2] = id;
         m_id2area[id] = rng;
     }
 
-    return boost::algorithm::none_of(m_pos2nums, [](const pair<const Position, string>& kv){
+    return boost::algorithm::none_of(m_pos2nums, [](const pair<const Position, string>& kv) {
         return kv.second.empty();
     });
 }
@@ -158,30 +157,30 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_pos2nums, [](
         const pair<const Position, string>& kv1,
-        const pair<const Position, string>& kv2){
+        const pair<const Position, string>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
 
-    for(char ch : kv.second){
+    for (char ch : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, ch))
+        if (!children.back().make_move(kv.first, ch))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    //for(int r = 0;; ++r){
+    //for(int r = 0;; ++r) {
     //    // draw horz-walls
-    //    for(int c = 0; c < sidelen(); ++c)
+    //    for (int c = 0; c < sidelen(); ++c)
     //        out << (m_horz_walls.at({r, c}) == PUZ_WALL_ON ? " -" : "  ");
     //    out << endl;
-    //    if(r == sidelen()) break;
-    //    for(int c = 0;; ++c){
+    //    if (r == sidelen()) break;
+    //    for (int c = 0;; ++c) {
     //        Position p(r, c);
     //        // draw vert-walls
     //        out << (m_vert_walls.at(p) == PUZ_WALL_ON ? '|' : ' ');
-    //        if(c == sidelen()) break;
+    //        if (c == sidelen()) break;
     //        out << cells(p);
     //    }
     //    out << endl;

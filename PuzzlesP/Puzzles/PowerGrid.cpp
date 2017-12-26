@@ -65,35 +65,35 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         int n = ch == ' ' ? PUZ_UNKNOWN : ch - '0';
         return m_num2perms[n], n;
     };
-    for(int i = 0; i < m_sidelen; ++i){
+    for (int i = 0; i < m_sidelen; ++i) {
         m_area2info[i].second = f(strs[i][m_sidelen]);
         m_area2info[i + m_sidelen].second = f(strs[m_sidelen][i]);
-        for(int j = 0; j < m_sidelen; ++j){
+        for (int j = 0; j < m_sidelen; ++j) {
             m_area2info[i].first.emplace_back(i, j);
             m_area2info[i + m_sidelen].first.emplace_back(j, i);
         }
-        if(m_is_diagonal_type){
+        if (m_is_diagonal_type) {
             m_area2info[m_sidelen * 2].first.emplace_back(i, i);
             m_area2info[m_sidelen * 2 + 1].first.emplace_back(i, m_sidelen - 1 - i);
         }
     }
-    if(m_is_diagonal_type)
+    if (m_is_diagonal_type)
         m_area2info[m_sidelen * 2].second = m_area2info[m_sidelen * 2 + 1].second =
             (m_num2perms[PUZ_UNKNOWN], PUZ_UNKNOWN);
     
     string perm_empty(m_sidelen, PUZ_EMPTY), perm;
-    for(auto& kv : m_num2perms){
+    for (auto& kv : m_num2perms) {
         int n = kv.first;
         auto& perms = kv.second;
         auto g = [&]{
-            for(int i = 0; i < m_sidelen - n - 1; ++i){
+            for (int i = 0; i < m_sidelen - n - 1; ++i) {
                 perm = perm_empty;
                 perm[i] = perm[i + n + 1] = PUZ_POST;
                 perms.push_back(perm);
             }
         };
-        if(n == PUZ_UNKNOWN)
-            for(n = 1; n < m_sidelen - 1; ++n)
+        if (n == PUZ_UNKNOWN)
+            for (n = 1; n < m_sidelen - 1; ++n)
                 g();
         else
             g();
@@ -137,7 +137,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
     : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for(int i = 1; i < g.m_area2info.size(); ++i){
+    for (int i = 1; i < g.m_area2info.size(); ++i) {
         auto& perm_ids = m_matches[i];
         perm_ids.resize(g.m_num2perms.at(g.m_area2info[i].second).size());
         boost::iota(perm_ids, 0);
@@ -148,24 +148,24 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         int area_id = kv.first;
         auto& perm_ids = kv.second;
 
         auto& info = m_game->m_area2info[area_id];
         string area;
-        for(auto& p : info.first)
+        for (auto& p : info.first)
             area.push_back(cells(p));
         auto& perms = m_game->m_num2perms.at(info.second);
 
-        boost::remove_erase_if(perm_ids, [&](int id){
-            return !boost::equal(area, perms[id], [](char ch1, char ch2){
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            return !boost::equal(area, perms[id], [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             });
         });
 
-        if(!init)
-            switch(perm_ids.size()){
+        if (!init)
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -181,14 +181,14 @@ void puz_state::make_move2(int i, int j)
     auto& range = info.first;
     auto& perm = m_game->m_num2perms.at(info.second)[j];
 
-    for(int k = 0; k < perm.size(); ++k){
+    for (int k = 0; k < perm.size(); ++k) {
         char ch = perm[k];
         auto& p = range[k];
-        if((cells(p) = ch) == PUZ_POST)
+        if ((cells(p) = ch) == PUZ_POST)
             // Posts cannot touch themselves, not even diagonally.
-            for(auto& os : offset){
+            for (auto& os : offset) {
                 auto p2 = p + os;
-                if(is_valid(p2))
+                if (is_valid(p2))
                     cells(p2) = PUZ_EMPTY;
             }
     }
@@ -202,7 +202,7 @@ bool puz_state::make_move(int i, int j)
     m_distance = 0;
     make_move2(i, j);
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -210,12 +210,12 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2){
+        const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(int n : kv.second){
+    for (int n : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
@@ -225,21 +225,21 @@ ostream& puz_state::dump(ostream& out) const
     // Compute the length of the cables between the two Posts in a row
     // or column ourselves, as the numbers are not always given
     // in the level
-    auto f = [&](int n){
+    auto f = [&](int n) {
         auto& rng = m_game->m_area2info[n].first;
         vector<int> v;
-        for(int i = 0; i < rng.size(); ++i)
-            if(cells(rng[i]) == PUZ_POST)
+        for (int i = 0; i < rng.size(); ++i)
+            if (cells(rng[i]) == PUZ_POST)
                 v.push_back(i);
         return v[1] - v[0] - 1;
     };
-    for(int r = 0; r <= sidelen(); ++r){
-        for(int c = 0; c <= sidelen(); ++c){
-            if(r == sidelen() && c == sidelen())
+    for (int r = 0; r <= sidelen(); ++r) {
+        for (int c = 0; c <= sidelen(); ++c) {
+            if (r == sidelen() && c == sidelen())
                 break;
-            if(c == sidelen())
+            if (c == sidelen())
                 out << format("%-2d") % f(r);
-            else if(r == sidelen())
+            else if (r == sidelen())
                 out << format("%-2d") % f(c + sidelen());
             else
                 out << cells({r, c}) << ' ';

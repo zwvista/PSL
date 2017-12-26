@@ -156,7 +156,7 @@ namespace boost {
                 m_decreased = relax(e, g, m_weight, m_predecessor, m_distance,
                     m_combine, m_compare);
 
-                if(m_decreased)
+                if (m_decreased)
                     m_vis.edge_relaxed(e, g);
                 else
                     m_vis.edge_not_relaxed(e, g);
@@ -180,7 +180,7 @@ namespace boost {
                 m_decreased = relax(e, g, m_weight, m_predecessor, m_distance,
                     m_combine, m_compare);
 
-                if(m_decreased) {
+                if (m_decreased) {
                     m_vis.edge_relaxed(e, g);
                     put(m_color, target(e, g), Color::gray());
                     m_vis.forward_or_cross_edge(e, g);
@@ -222,8 +222,8 @@ namespace boost {
         template <class Vertex, class Graph>
         bool operator() (Vertex u, Graph& g) {
             D min_d = m_combine(get(m_distance, u), m_h(u));
-            if(m_compare(m_limit, min_d)) {
-                if(m_compare(min_d, m_next_limit))
+            if (m_compare(m_limit, min_d)) {
+                if (m_compare(min_d, m_next_limit))
                     m_next_limit = min_d;
                 return true;
             }
@@ -272,7 +272,7 @@ namespace boost {
         idastar_dfs_term_func<IDAStarHeuristic, DistanceMap, CombineFunction, CompareFunction> 
             f(h, distance, combine, compare, limit, next_limit);
 
-        for(;;) {
+        for (;;) {
             typename graph_traits<VertexListGraph>::vertex_iterator ui, ui_end;
             for (tie(ui, ui_end) = vertices(g); ui != ui_end; ++ui) {
                 put(color, *ui, Color::white());
@@ -286,7 +286,7 @@ namespace boost {
 
             depth_first_visit(g, s, dfs_vis, color, f);
 
-            if(next_limit == inf) break;
+            if (next_limit == inf) break;
 
             limit = next_limit, next_limit = inf;
         };

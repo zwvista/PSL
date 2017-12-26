@@ -40,9 +40,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
 {
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             int n = stoi(str.substr(c * 2, 2));
             m_start.push_back(n);
@@ -86,7 +86,7 @@ puz_state::puz_state(const puz_game& g)
 bool puz_state::make_move(const Position& p)
 {
     int n = cells(p);
-    if(n > count() || boost::algorithm::any_of_equal(m_nums, n)) return false;
+    if (n > count() || boost::algorithm::any_of_equal(m_nums, n)) return false;
     m_p = p;
     m_nums.push_back(n);
     return manhattan_distance(p, {sidelen() - 1, sidelen() - 1}) <= count() - m_nums.size();
@@ -94,27 +94,27 @@ bool puz_state::make_move(const Position& p)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p = m_p + os;
-        if(!m_game->is_valid(p)) continue;
+        if (!m_game->is_valid(p)) continue;
         children.push_back(*this);
-        if(!children.back().make_move(p))
+        if (!children.back().make_move(p))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out, const set<Position>& horz_lines, const set<Position>& vert_lines) const
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // draw horz-lines
-        for(int c = 0; c < sidelen(); ++c){
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             out << format("%2d") % cells(p)
                 << (horz_lines.count(p) != 0 ? '-' : ' ');
         }
         out << endl;
-        if(r == sidelen() - 1) break;
-        for(int c = 0; c < sidelen(); ++c)
+        if (r == sidelen() - 1) break;
+        for (int c = 0; c < sidelen(); ++c)
             // draw vert-lines
             out << (vert_lines.count({r, c}) != 0 ? " | " : "   ");
         out << endl;
@@ -125,9 +125,9 @@ ostream& puz_state::dump(ostream& out, const set<Position>& horz_lines, const se
 void dump_all(ostream& out, const list<puz_state>& spath)
 {
     set<Position> horz_lines, vert_lines;
-    for(auto it = spath.begin(), it2 = next(it); it2 != spath.end(); ++it, ++it2){
+    for (auto it = spath.begin(), it2 = next(it); it2 != spath.end(); ++it, ++it2) {
         auto &p1 = it->m_p, &p2 = it2->m_p;
-        switch(boost::range::find(offset, p2 - p1) - offset){
+        switch(boost::range::find(offset, p2 - p1) - offset) {
         case 0: vert_lines.insert(p2);  break;
         case 1: horz_lines.insert(p1);  break;
         case 2: vert_lines.insert(p1);  break;

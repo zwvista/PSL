@@ -50,24 +50,24 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_num2perms(9)
 {
     m_start.append(m_sidelen, PUZ_BOUNDARY);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for(int c = 1; c < m_sidelen - 1; ++c){
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
             m_start.push_back(ch == PUZ_SPACE ? PUZ_SPACE : PUZ_EMPTY);
-            if(ch != PUZ_SPACE)
+            if (ch != PUZ_SPACE)
                 m_pos2num[{r, c}] = ch - '0';
         }
         m_start.push_back(PUZ_BOUNDARY);
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    for(int i = 0; i <= 8; ++i){
+    for (int i = 0; i <= 8; ++i) {
         auto perm = string(8 - i, PUZ_EMPTY) + string(i, PUZ_MINE);
         do
             m_num2perms[i].push_back(perm);
-        while(boost::next_permutation(perm));
+        while (boost::next_permutation(perm));
     }
 }
 
@@ -105,7 +105,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    for(auto& kv : g.m_pos2num){
+    for (auto& kv : g.m_pos2num) {
         auto& perm_ids = m_matches[kv.first];
         perm_ids.resize(g.m_num2perms[kv.second].size());
         boost::iota(perm_ids, 0);
@@ -116,24 +116,24 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         auto& p = kv.first;
         auto& perm_ids = kv.second;
 
         string chars;
-        for(auto& os : offset)
+        for (auto& os : offset)
             chars.push_back(cells(p + os));
 
         auto& perms = m_game->m_num2perms[m_game->m_pos2num.at(p)];
-        boost::remove_erase_if(perm_ids, [&](int id){
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2){
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2 ||
                     ch1 == PUZ_BOUNDARY && ch2 == PUZ_EMPTY;
             });
         });
 
-        if(!init)
-            switch(perm_ids.size()){
+        if (!init)
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -147,9 +147,9 @@ void puz_state::make_move2(const Position& p, int n)
 {
     auto& perm = m_game->m_num2perms[m_game->m_pos2num.at(p)][n];
 
-    for(int k = 0; k < perm.size(); ++k){
+    for (int k = 0; k < perm.size(); ++k) {
         char& ch = cells(p + offset[k]);
-        if(ch == PUZ_SPACE)
+        if (ch == PUZ_SPACE)
             ch = perm[k];
     }
 
@@ -162,7 +162,7 @@ bool puz_state::make_move(const Position& p, int n)
     m_distance = 0;
     make_move2(p, n);
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -170,23 +170,23 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1, 
-        const pair<const Position, vector<int>>& kv2){
+        const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(int n : kv.second){
+    for (int n : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r){
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             auto it = m_game->m_pos2num.find(p);
-            if(it == m_game->m_pos2num.end())
+            if (it == m_game->m_pos2num.end())
                 out << format("%-2s") % cells(p);
             else
                 out << format("%-2d") % it->second;

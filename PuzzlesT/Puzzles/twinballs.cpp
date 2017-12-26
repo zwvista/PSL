@@ -44,20 +44,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     int n = cols();
     int ball_count = 0, goal_count = 0;
-    for(int r = 1; ; ++r, n+= cols()){
+    for (int r = 1; ; ++r, n+= cols()) {
         const string& hstr = strs.at(2 * r - 2);
-        for(size_t i = 0; i < hstr.length(); i++)
-            if(hstr[i] == '-')
+        for (size_t i = 0; i < hstr.length(); i++)
+            if (hstr[i] == '-')
                 m_horz_wall.insert(Position(r, i / 2 + 1));
 
-        if(r == rows() - 1) break;
+        if (r == rows() - 1) break;
 
         m_cells[n] = m_cells[n + cols() - 1] = '#';
 
         const string& vstr = strs.at(2 * r - 1);
-        for(size_t i = 0; i < vstr.length(); i++){
+        for (size_t i = 0; i < vstr.length(); i++) {
             Position p(r, i / 2 + 1);
-            switch(vstr[i]){
+            switch(vstr[i]) {
             case '|': m_vert_wall.insert(p); break;
             case '@': m_balls[ball_count++] = p; break;
             case '.': m_goals[goal_count++] = p; break;
@@ -97,21 +97,21 @@ bool puz_state::make_move(EDir dir)
 {
     static char* moves = "lrud";
     bool moved = false;
-    for(Position& ball : m_balls){
+    for (Position& ball : m_balls) {
         Position p2 = ball + offset[dir];
         bool blocked = 
             dir == mvLeft && m_game->is_vert_wall(ball) ||
             dir == mvRight && m_game->is_vert_wall(p2) ||
             dir == mvUp && m_game->is_horz_wall(ball) ||
             dir == mvDown && m_game->is_horz_wall(p2);
-        if(!blocked){
-            if(m_game->is_hole(p2))
+        if (!blocked) {
+            if (m_game->is_hole(p2))
                 return false;
             ball = p2;
             moved = true;
         }
     }
-    if(!moved || m_balls[0] == m_balls[1])
+    if (!moved || m_balls[0] == m_balls[1])
         return false;
     sort(m_balls.begin(), m_balls.end());
     m_move = moves[dir];
@@ -120,9 +120,9 @@ bool puz_state::make_move(EDir dir)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < 4; i++){
+    for (int i = 0; i < 4; i++) {
         children.push_back(*this);
-        if(!children.back().make_move(EDir(i)))
+        if (!children.back().make_move(EDir(i)))
             children.pop_back();
     }
 }
@@ -130,7 +130,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 unsigned int puz_state::get_heuristic() const
 {
     static array<int, 4> a;
-    for(int i = 0; i < 4; ++i)
+    for (int i = 0; i < 4; ++i)
         a[i] = manhattan_distance(m_balls[i / 2], m_game->m_goals[i % 2]);
     boost::nth_element(a, a.begin() + 1);
     //boost::sort(a);
@@ -139,21 +139,21 @@ unsigned int puz_state::get_heuristic() const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "move: " << m_move << endl;
-    for(int r = 1; ; ++r){
+    for (int r = 1; ; ++r) {
         // draw horz wall
-        for(int c = 1; c < m_game->cols() - 1; ++c){
+        for (int c = 1; c < m_game->cols() - 1; ++c) {
             Position pos(r, c);
             out << (m_game->is_horz_wall(pos) ? " -" : "  ");
         }
         out << endl;
-        if(r == m_game->rows() - 1) break;
-        for(int c = 1; ; ++c){
+        if (r == m_game->rows() - 1) break;
+        for (int c = 1; ; ++c) {
             Position pos(r, c);
             // draw vert wall
             out << (m_game->is_vert_wall(pos) ? "|" : " ");
-            if(c == m_game->cols() - 1) break;
+            if (c == m_game->cols() - 1) break;
             // draw balls and goals
             out << (is_ball(pos) ? '@' : 
                 m_game->is_goal(pos) ? '.' : m_game->cells(pos));

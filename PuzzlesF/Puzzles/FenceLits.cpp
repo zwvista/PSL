@@ -88,39 +88,39 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size())
 , m_tetros(tetrominoes.size())
 {
-    for(int i = 0; i < m_tetros.size(); ++i){
+    for (int i = 0; i < m_tetros.size(); ++i) {
         auto& t = m_tetros[i];
         t.m_offset = tetrominoes[i];
         t.m_nums.resize(4);
-        for(int j = 0; j < 4; ++j){
+        for (int j = 0; j < 4; ++j) {
             int& n = t.m_nums[j];
             auto& p = t.m_offset[j];
-            for(int k = 0; k < 4; ++k)
-                if(boost::algorithm::none_of_equal(t.m_offset, p + offset[k])){
+            for (int k = 0; k < 4; ++k)
+                if (boost::algorithm::none_of_equal(t.m_offset, p + offset[k])) {
                     ++n;
                     (k % 2 == 0 ? t.m_horz_walls : t.m_vert_walls).push_back(p + offset2[k]);
                 }
         }
     }
 
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
             m_pos2num[{r, c}] = ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
         }
     }
 
-    for(int r = 0; r < m_sidelen; ++r)
-        for(int c = 0; c < m_sidelen; ++c){
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            for(int i = 0; i < m_tetros.size(); ++i){
+            for (int i = 0; i < m_tetros.size(); ++i) {
                 auto& t = m_tetros[i];
-                if([&]{
-                    for(int j = 0; j < 4; ++j){
+                if ([&]{
+                    for (int j = 0; j < 4; ++j) {
                         auto p2 = p + t.m_offset[j];
                         auto it = m_pos2num.find(p2);
-                        if(it == m_pos2num.end() ||
+                        if (it == m_pos2num.end() ||
                             it->second != PUZ_UNKNOWN &&
                             it->second != t.m_nums[j]
                         )
@@ -161,10 +161,10 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for(int i = 0; i < g.m_lits.size(); ++i){
+    for (int i = 0; i < g.m_lits.size(); ++i) {
         auto& lit = g.m_lits[i];
         auto& p = lit.first;
-        for(auto& os : tetrominoes[lit.second])
+        for (auto& os : tetrominoes[lit.second])
             m_matches[p + os].push_back(i);
     }
 }
@@ -175,24 +175,24 @@ bool puz_state::make_move(int n)
     auto& p = lit.first;
     auto& t = m_game->m_tetros[lit.second];
 
-    for(auto& os : t.m_horz_walls)
+    for (auto& os : t.m_horz_walls)
         m_horz_walls.insert(p + os);
-    for(auto& os : t.m_vert_walls)
+    for (auto& os : t.m_vert_walls)
         m_vert_walls.insert(p + os);
 
     set<int> lit_ids;
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         auto p2 = p + t.m_offset[i];
         cells(p2) = t.m_nums[i] + '0';
         auto& v = m_matches.at(p2);
         lit_ids.insert(v.begin(), v.end());
         m_matches.erase(p2);
     }
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         auto& v = kv.second;
-        for(int i : lit_ids)
+        for (int i : lit_ids)
             boost::remove_erase(v, i);
-        if(v.empty())
+        if (v.empty())
             return false;
     }
     return true;
@@ -202,29 +202,29 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2){
+        const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(int n : kv.second){
+    for (int n : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(n))
+        if (!children.back().make_move(n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // draw horz-walls
-        for(int c = 0; c < sidelen(); ++c)
+        for (int c = 0; c < sidelen(); ++c)
             out << (m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
         out << endl;
-        if(r == sidelen()) break;
-        for(int c = 0;; ++c){
+        if (r == sidelen()) break;
+        for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-walls
             out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
-            if(c == sidelen()) break;
+            if (c == sidelen()) break;
             out << cells(p);
         }
         out << endl;

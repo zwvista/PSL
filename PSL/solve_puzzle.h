@@ -23,7 +23,7 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
     load_xml(games, fn_in);
     ofstream out(fn_out);
 
-    for(const puz_game& game : games){
+    for (const puz_game& game : games) {
         util::high_resolution_timer t;
         puz_state sstart(game);
         list<list<puz_state>> spaths;
@@ -33,28 +33,28 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
         bool found;
         size_t vert_num;
         boost::tie(found, vert_num) = puz_solver::find_solution(sstart, spaths);
-        if(fmt == solution_format::CUSTOM_SOLUTIONS)
+        if (fmt == solution_format::CUSTOM_SOLUTIONS)
             solutions_dumper(out, spaths);
-        else{
+        else {
             int i = 1;
-            for(auto& spath : spaths){
-                if(spaths.size() > 1)
+            for (auto& spath : spaths) {
+                if (spaths.size() > 1)
                     out << format("Solution %d:\n") % i++;
                 out << "Sequence of moves: ";
-                if(fmt != solution_format::MOVES_ONLY_SINGLE_LINE)
+                if (fmt != solution_format::MOVES_ONLY_SINGLE_LINE)
                     out << endl;
-                if(fmt == solution_format::CUSTOM_STATES)
+                if (fmt == solution_format::CUSTOM_STATES)
                     states_dumper(out, spath);
-                else if(fmt == solution_format::GOAL_STATE_ONLY)
+                else if (fmt == solution_format::GOAL_STATE_ONLY)
                     out << spath.back();
-                else{
-                    for(puz_state& s : spath){
-                        if(fmt == solution_format::MOVES_ONLY || fmt == solution_format::MOVES_ONLY_SINGLE_LINE)
+                else {
+                    for (puz_state& s : spath) {
+                        if (fmt == solution_format::MOVES_ONLY || fmt == solution_format::MOVES_ONLY_SINGLE_LINE)
                             s.dump_move(out);
                         else
                             out << s;
                     }
-                    if(fmt == solution_format::MOVES_ONLY_SINGLE_LINE)
+                    if (fmt == solution_format::MOVES_ONLY_SINGLE_LINE)
                         out << endl;
                 }
                 out << "Number of moves: " << spath.size() - 1 << endl;

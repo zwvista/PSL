@@ -37,9 +37,9 @@ ostream & operator<<(ostream &out, const puz_step &mi)
 {
     out << (mi.m_is_row ? "rotate row " : "rotate col ")
         << mi.m_rc + 1 << " ";
-    if(mi.m_n == 1)
+    if (mi.m_n == 1)
         out << "once";
-    else if(mi.m_n == 2)
+    else if (mi.m_n == 2)
         out << "twice";
     else
         out << mi.m_n << " times";
@@ -58,19 +58,19 @@ struct puz_state : string
     char& cells(int r, int c) {return (*this)[r * cols() + c];}
     void rotate_row(int r, int n) {
         vector<int> v(cols());
-        for(int c = 0; c < cols(); ++c)
+        for (int c = 0; c < cols(); ++c)
             v[c] = cells(r, c);
         rotate(v.begin(), v.end() - n, v.end());
-        for(int c = 0; c < cols(); ++c)
+        for (int c = 0; c < cols(); ++c)
             cells(r, c) = v[c];
         m_move = puz_step(true, r, n);
     }
     void rotate_col(int c, int n) {
         vector<int> v(rows());
-        for(int r = 0; r < rows(); ++r)
+        for (int r = 0; r < rows(); ++r)
             v[r] = cells(r, c);
         rotate(v.begin(), v.end() - n, v.end());
-        for(int r = 0; r < rows(); ++r)
+        for (int r = 0; r < rows(); ++r)
             cells(r, c) = v[r];
         m_move = puz_step(false, c, n);
     }
@@ -93,14 +93,14 @@ struct puz_state : string
 void puz_state::gen_children(list<puz_state>& children) const
 {
     // rotate rows
-    for(int r = 0; r < rows(); ++r)
-        for(int n = 1; n < cols(); ++n){
+    for (int r = 0; r < rows(); ++r)
+        for (int n = 1; n < cols(); ++n) {
             children.push_back(*this);
             children.back().rotate_row(r, n);
         }
     // rotate cols
-    for(int c = 0; c < cols(); ++c)
-        for(int n = 1; n < rows(); ++n){
+    for (int c = 0; c < cols(); ++c)
+        for (int n = 1; n < rows(); ++n) {
             children.push_back(*this);
             children.back().rotate_col(c, n);
         }
@@ -109,7 +109,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 unsigned int puz_state::get_heuristic() const
 {
     unsigned int md = 0;
-    for(size_t i = 0; i < size(); ++i) {
+    for (size_t i = 0; i < size(); ++i) {
         int j = m_game->m_goal.find(operator[](i));
         md += myabs(i / cols() - j / cols()) + myabs(i % cols() - j % cols());
     }
@@ -119,8 +119,8 @@ unsigned int puz_state::get_heuristic() const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 0; r < rows(); ++r) {
-        for(int c = 0; c < cols(); ++c)
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c)
             out << cells(r, c) << " ";
         out << endl;
     }

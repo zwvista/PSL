@@ -34,20 +34,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     m_start = accumulate(strs.begin(), strs.begin() + rows(), string());
     m_goal = accumulate(strs.begin() + rows(), strs.end(), string());
-    for(int r = 0, n = 0; r < rows(); ++r)
-        for(int c = 0; c < cols(); ++c, ++n){
+    for (int r = 0, n = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c, ++n) {
             bool clickable = true;
             Position p(r, c);
-            for(int i = 0; i < 6; ++i){
+            for (int i = 0; i < 6; ++i) {
                 Position p2 = p + offset[i];
-                if(m_start[n] == PUZ_NOENTRY ||
+                if (m_start[n] == PUZ_NOENTRY ||
                     p2.first < 0 || p2.first >= rows() ||
-                    p2.second < 0 || p2.second >= cols()){
+                    p2.second < 0 || p2.second >= cols()) {
                     clickable = false;
                     break;
                 }
             }
-            if(clickable)
+            if (clickable)
                 m_clickable.push_back(p);
         }
 }
@@ -86,7 +86,7 @@ struct puz_state : string
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(const Position& p : m_game->m_clickable){
+    for (const Position& p : m_game->m_clickable) {
         children.push_back(*this);
         children.back().click(p);
     }
@@ -95,10 +95,10 @@ void puz_state::gen_children(list<puz_state>& children) const
 void puz_state::click(const Position& p)
 {
     static vector<char> v(6);
-    for(int i = 0; i < 6; ++i)
+    for (int i = 0; i < 6; ++i)
         v[i] = cells(p + offset[i]);
     rotate(v.begin(), v.end() - 1, v.end());
-    for(int i = 0; i < 6; ++i)
+    for (int i = 0; i < 6; ++i)
         cells(p + offset[i]) = v[i];
     m_move = puz_step(p);
 }
@@ -107,18 +107,18 @@ unsigned int puz_state::get_heuristic() const
 {
     unsigned int md = 0;
     map<char, Position> m1, m2;
-    for(size_t i = 0; i < length(); ++i){
+    for (size_t i = 0; i < length(); ++i) {
         char ch = at(i);
-        if(ch != PUZ_NOENTRY)
+        if (ch != PUZ_NOENTRY)
             m1[ch] += Position(i / cols(), i % cols());
     }
-    for(size_t i = 0; i < length(); ++i){
+    for (size_t i = 0; i < length(); ++i) {
         char ch = m_game->m_goal[i];
-        if(ch != PUZ_NOENTRY)
+        if (ch != PUZ_NOENTRY)
             m2[ch] += Position(i / cols(), i % cols());
     }
     typedef pair<char, Position> pair_type;
-    for(const pair_type& pr : m1){
+    for (const pair_type& pr : m1) {
         const Position& p1 = pr.second;
         const Position& p2 = m2.at(pr.first);
         md += manhattan_distance(p1, p2);
@@ -128,7 +128,7 @@ unsigned int puz_state::get_heuristic() const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "click: " << *m_move << endl;
     out << endl;
     return out;

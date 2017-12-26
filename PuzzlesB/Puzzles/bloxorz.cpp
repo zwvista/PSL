@@ -55,13 +55,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     fill(m_cells.begin(), m_cells.begin() + 2 * cols(), PUZ_HOLE);
     fill(m_cells.rbegin(), m_cells.rbegin() + 2 * cols(), PUZ_HOLE);
 
-    for(int r = 2, n = 2 * cols(); r < rows() - 2; ++r){
+    for (int r = 2, n = 2 * cols(); r < rows() - 2; ++r) {
         const string& str = strs[r - 2];
         m_cells[n++] = PUZ_HOLE;
         m_cells[n++] = PUZ_HOLE;
-        for(int c = 2; c < cols() - 2; ++c){
+        for (int c = 2; c < cols() - 2; ++c) {
             char ch = str[c - 2];
-            switch(ch){
+            switch(ch) {
             case PUZ_TWO:
                 m_blocks[0] = m_blocks[1] = Position(r, c);
                 ch = PUZ_SPACE;
@@ -78,8 +78,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     Position os(2, 2);
-    for(auto v : level.children()){
-        if(string(v.name()) == "switch"){
+    for (auto v : level.children()) {
+        if (string(v.name()) == "switch") {
             Position p;
             puz_switch switch_;
             parse_position(v.attribute("position").value(), p);
@@ -100,25 +100,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 );
             }
             m_switches[p + os] = switch_;
-        }
-        else if(string(v.name()) == "bridge"){
+        } else if (string(v.name()) == "bridge") {
             puz_bridge bridge;
             parse_positions(v.attribute("position").value(), bridge.first);
             bridge.second = string(v.attribute("state").value()) == "on";
-            for(Position& p2 : bridge.first)
+            for (Position& p2 : bridge.first)
                 p2 += os;
             m_bridges.push_back(bridge);
-        }
-        else if(string(v.name()) == "splitter"){
+        } else if (string(v.name()) == "splitter") {
             Position p;
             parse_position(v.attribute("position").value(), p);
             puz_splitter splitter;
             parse_positions(v.attribute("locations").value(), splitter);
-            for(Position& p2 : splitter)
+            for (Position& p2 : splitter)
                 p2 += os;
             m_splitters[p + os] = splitter;
-        }
-        else if(string(v.name()) == "teleporter"){
+        } else if (string(v.name()) == "teleporter") {
             Position p, p2;
             parse_position(v.attribute("position").value(), p);
             parse_position(v.attribute("location").value(), p2);
@@ -171,9 +168,9 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
     : m_game(&g), m_blocks(g.m_blocks), m_split(false)
 {
-    for(const puz_bridge& bridge : m_game->m_bridges){
+    for (const puz_bridge& bridge : m_game->m_bridges) {
         m_bridge_states.push_back(bridge.second);
-        if(bridge.second)
+        if (bridge.second)
             m_bridges.insert(bridge.first.begin(), bridge.first.end());
     }
 }
@@ -185,46 +182,43 @@ bool puz_state::make_move(int n, int dir)
     bool triggered = false;
 
     m_move.clear();
-    if(m_split){
+    if (m_split) {
         Position& block = m_blocks[n];
         block += os;
-        if(is_hole(block))
+        if (is_hole(block))
             return false;
         triggered = check_switch(block);
-        if(is_hole(m_blocks[1 - n]))
+        if (is_hole(m_blocks[1 - n]))
             return false;
-        for(int j = 0; j < 4; ++j)
-            if(m_blocks[0] + offset[j] == m_blocks[1]){
+        for (int j = 0; j < 4; ++j)
+            if (m_blocks[0] + offset[j] == m_blocks[1]) {
                 m_split = false;
                 break;
             }
         m_move += n + '0';
-    }
-    else{
-        if(m_blocks[0] == m_blocks[1]){
+    } else {
+        if (m_blocks[0] == m_blocks[1]) {
             m_blocks[0] += os;
             m_blocks[1] = m_blocks[0] + os;
-        }
-        else{
+        } else {
             m_blocks[0] += os;
             m_blocks[1] += os;
-            if(m_blocks[0] + os == m_blocks[1])
+            if (m_blocks[0] + os == m_blocks[1])
                 m_blocks[0] = m_blocks[1];
-            else if(m_blocks[0] - os == m_blocks[1])
+            else if (m_blocks[0] - os == m_blocks[1])
                 m_blocks[1] = m_blocks[0];
         }
-        if(is_hole(m_blocks[0]) || is_hole(m_blocks[1]))
+        if (is_hole(m_blocks[0]) || is_hole(m_blocks[1]))
             return false;
-        if(m_blocks[0] == m_blocks[1]){
-            if(is_orange(m_blocks[0]))
+        if (m_blocks[0] == m_blocks[1]) {
+            if (is_orange(m_blocks[0]))
                 return false;
             triggered = check_teleporter(m_blocks[0]);
             triggered = check_switch(m_blocks[0], true) || triggered;
             triggered = check_splitter(m_blocks[0]) || triggered;
-            if(triggered && (is_hole(m_blocks[0]) || is_hole(m_blocks[1])))
+            if (triggered && (is_hole(m_blocks[0]) || is_hole(m_blocks[1])))
                 return false;
-        }
-        else{
+        } else {
             triggered = check_switch(m_blocks[0]);
             triggered = check_switch(m_blocks[1]) || triggered;
         }
@@ -232,7 +226,7 @@ bool puz_state::make_move(int n, int dir)
 
     boost::sort(m_blocks);
     m_move += moves[dir];
-    if(triggered)
+    if (triggered)
         m_move += "..";
     return true;
 }
@@ -240,26 +234,26 @@ bool puz_state::make_move(int n, int dir)
 bool puz_state::check_switch(const Position& p, bool heavy_included)
 {
     map<Position, puz_switch>::const_iterator i = m_game->m_switches.find(p);
-    if(i == m_game->m_switches.end()) return false;
+    if (i == m_game->m_switches.end()) return false;
 
     const puz_switch& switch_ = i->second;
-    if(!heavy_included && switch_.first) return false;
+    if (!heavy_included && switch_.first) return false;
 
     typedef pair<int, ESwitchActionType> pair_type;
-    for(const pair_type& pr : switch_.second){
+    for (const pair_type& pr : switch_.second) {
         int index = pr.first;
         ESwitchActionType type = pr.second;
         bool on = 
             type == stOn ? true :
             type == stOff ? false :
             !m_bridge_states[index];
-        if(on == m_bridge_states[index]) continue;
+        if (on == m_bridge_states[index]) continue;
 
         const puz_bridge& bridge = m_game->m_bridges[index];
-        if(m_bridge_states[index] = on)
+        if (m_bridge_states[index] = on)
             m_bridges.insert(bridge.first.begin(), bridge.first.end());
         else
-            for(const Position& p : bridge.first)
+            for (const Position& p : bridge.first)
                 m_bridges.erase(p);
     }
     return true;
@@ -268,7 +262,7 @@ bool puz_state::check_switch(const Position& p, bool heavy_included)
 bool puz_state::check_splitter(const Position& p)
 {
     map<Position, puz_splitter>::const_iterator i = m_game->m_splitters.find(p);
-    if(i == m_game->m_splitters.end()) return false;
+    if (i == m_game->m_splitters.end()) return false;
     m_split = true;
     m_blocks[0] = i->second[0];
     m_blocks[1] = i->second[1];
@@ -278,18 +272,18 @@ bool puz_state::check_splitter(const Position& p)
 bool puz_state::check_teleporter(const Position& p)
 {
     map<Position, Position>::const_iterator i = m_game->m_teleporters.find(p);
-    if(i == m_game->m_teleporters.end()) return false;
+    if (i == m_game->m_teleporters.end()) return false;
     m_blocks[0] = m_blocks[1] = i->second;
     return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         int movable = m_split ? 2 : 1;
-        for(int n = 0; n < movable; ++n){
+        for (int n = 0; n < movable; ++n) {
             children.push_back(*this);
-            if(!children.back().make_move(n, i))
+            if (!children.back().make_move(n, i))
                 children.pop_back();
         }
     }
@@ -297,10 +291,10 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(!m_move.empty())
+    if (!m_move.empty())
         out << "move: " << m_move << endl;
-    for(int r = 2; r < m_game->rows() - 2; ++r) {
-        for(int c = 2; c < m_game->cols() - 2; ++c){
+    for (int r = 2; r < m_game->rows() - 2; ++r) {
+        for (int c = 2; c < m_game->cols() - 2; ++c) {
             Position p(r, c);
             out << (p == m_blocks[0] && p == m_blocks[1] ? PUZ_TWO :
                 p == m_blocks[0] || p == m_blocks[1] ? PUZ_ONE :

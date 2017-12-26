@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -89,11 +89,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size())
     , m_dot_count(m_sidelen * m_sidelen)
 {
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            if(ch != ' ')
+            if (ch != ' ')
                 m_pos2object[{r, c}] = ch;
         }
     }
@@ -134,23 +134,23 @@ struct puz_state : vector<puz_dot>
 puz_state::puz_state(const puz_game& g)
 : vector<puz_dot>(g.m_dot_count), m_game(&g)
 {
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             auto it = g.m_pos2object.find(p);
-            if(it == g.m_pos2object.end())
+            if (it == g.m_pos2object.end())
                 dt.push_back(lineseg_off);
 
             auto& linesegs_all2 = 
                 it == g.m_pos2object.end() || it->second == PUZ_HOME ? linesegs_all :
                 it->second == PUZ_GAS ? linesegs_all_gas :
                 linesegs_all_shop;
-            for(int lineseg : linesegs_all2)
-                if([&]{
-                    for(int i = 0; i < 4; ++i)
+            for (int lineseg : linesegs_all2)
+                if ([&]{
+                    for (int i = 0; i < 4; ++i)
                         // The line segment cannot lead to a position outside the board
-                        if(is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
+                        if (is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
                             return false;
                     return true;
                 }())
@@ -163,31 +163,31 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::check_dots(bool init)
 {
     int n = 2;
-    for(;;){
+    for (;;) {
         set<Position> newly_finished;
-        for(int r = 0; r < sidelen(); ++r)
-            for(int c = 0; c < sidelen(); ++c){
+        for (int r = 0; r < sidelen(); ++r)
+            for (int c = 0; c < sidelen(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
-                if(dt.size() == 1 && m_finished.count(p) == 0)
+                if (dt.size() == 1 && m_finished.count(p) == 0)
                     newly_finished.insert(p);
             }
 
-        if(newly_finished.empty())
+        if (newly_finished.empty())
             return n;
 
         n = 1;
-        for(const auto& p : newly_finished){
+        for (const auto& p : newly_finished) {
             int lineseg = dots(p)[0];
-            for(int i = 0; i < 4; ++i){
+            for (int i = 0; i < 4; ++i) {
                 auto p2 = p + offset[i];
-                if(!is_valid(p2))
+                if (!is_valid(p2))
                     continue;
                 auto& dt = dots(p2);
-                boost::remove_erase_if(dt, [&, i](int lineseg2){
+                boost::remove_erase_if(dt, [&, i](int lineseg2) {
                     return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
                 });
-                if(!init && dt.empty())
+                if (!init && dt.empty())
                     return 0;
             }
             m_finished.insert(p);
@@ -207,38 +207,38 @@ bool puz_state::make_move(const Position& p, int n)
 bool puz_state::check_loop() const
 {
     set<Position> rng;
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if(dt.size() == 1 && dt[0] != lineseg_off)
+            if (dt.size() == 1 && dt[0] != lineseg_off)
                 rng.insert(p);
         }
 
-    while(!rng.empty()){
+    while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
         char last_obj = ' ';
-        for(int n = -1;;){
+        for (int n = -1;;) {
             rng.erase(p2);
             int lineseg = dots(p2)[0];
-            for(int i = 0; i < 4; ++i)
-                if(is_lineseg_on(lineseg, i) && (i + 2) % 4 != n){
+            for (int i = 0; i < 4; ++i)
+                if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
                     p2 += offset[n = i];
                     break;
                 }
 
             auto it = m_game->m_pos2object.find(p2);
-            if(it != m_game->m_pos2object.end()){
+            if (it != m_game->m_pos2object.end()) {
                 char obj = it->second;
-                if(last_obj != ' ' && (last_obj == PUZ_GAS) == (obj == PUZ_GAS))
+                if (last_obj != ' ' && (last_obj == PUZ_GAS) == (obj == PUZ_GAS))
                     return false;
                 last_obj = obj;
             }
-            if(p2 == p)
+            if (p2 == p)
                 // we have a loop here,
                 // so we should have exhausted the line segments 
                 return rng.empty();
-            if(rng.count(p2) == 0)
+            if (rng.count(p2) == 0)
                 break;
         }
     }
@@ -247,24 +247,24 @@ bool puz_state::check_loop() const
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    int n = boost::min_element(*this, [](const puz_dot& dt1, const puz_dot& dt2){
-        auto f = [](int sz){return sz == 1 ? 1000 : sz;};
+    int n = boost::min_element(*this, [](const puz_dot& dt1, const puz_dot& dt2) {
+        auto f = [](int sz) {return sz == 1 ? 1000 : sz;};
         return f(dt1.size()) < f(dt2.size());
     }) - begin();
     Position p(n / sidelen(), n % sidelen());
     auto& dt = dots(p);
-    for(int i = 0; i < dt.size(); ++i){
+    for (int i = 0; i < dt.size(); ++i) {
         children.push_back(*this);
-        if(!children.back().make_move(p, i))
+        if (!children.back().make_move(p, i))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // draw horz-lines
-        for(int c = 0; c < sidelen(); ++c){
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             auto it = m_game->m_pos2object.find(p);
@@ -272,8 +272,8 @@ ostream& puz_state::dump(ostream& out) const
                 << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         out << endl;
-        if(r == sidelen() - 1) break;
-        for(int c = 0; c < sidelen(); ++c)
+        if (r == sidelen() - 1) break;
+        for (int c = 0; c < sidelen(); ++c)
             // draw vert-lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
         out << endl;

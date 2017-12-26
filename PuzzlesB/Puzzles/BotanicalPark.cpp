@@ -55,11 +55,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_plant_count_area(level.attribute("PlantsInEachArea").as_int(1))
     , m_plant_total_count(m_plant_count_area * m_sidelen)
 {
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; c++){
+        for (int c = 0; c < m_sidelen; c++) {
             char ch = str[c];
-            if(ch != PUZ_SPACE)
+            if (ch != PUZ_SPACE)
                 m_pos2arrow[{r, c}] = ch - '0';
             m_start.push_back(ch == PUZ_SPACE ? PUZ_EMPTY : PUZ_ARROW);
         }
@@ -74,12 +74,12 @@ struct puz_area : pair<vector<Position>, int>
     puz_area(int plant_count)
         : pair<vector<Position>, int>({}, plant_count)
     {}
-    void add_cell(const Position& p){ first.push_back(p); }
-    void remove_cell(const Position& p){ boost::remove_erase(first, p); }
-    void place_plant(const Position& p, bool at_least_one){
-        if(boost::algorithm::none_of_equal(first, p)) return;
+    void add_cell(const Position& p) { first.push_back(p); }
+    void remove_cell(const Position& p) { boost::remove_erase(first, p); }
+    void place_plant(const Position& p, bool at_least_one) {
+        if (boost::algorithm::none_of_equal(first, p)) return;
         remove_cell(p);
-        if(!at_least_one || at_least_one && second == 1)
+        if (!at_least_one || at_least_one && second == 1)
             --second;
     }
     bool is_valid() const {
@@ -140,17 +140,16 @@ puz_state::puz_state(const puz_game& g)
     , m_grp_rows(g.m_sidelen, g.m_plant_count_area)
     , m_grp_cols(g.m_sidelen, g.m_plant_count_area)
 {
-    for(int r = 0, i = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0, i = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if(cells(p) == PUZ_ARROW){
+            if (cells(p) == PUZ_ARROW) {
                 auto& os = offset[g.m_pos2arrow.at(p)];
-                for(auto p2 = p + os; is_valid(p2); p2 += os)
-                    if(cells(p2) == PUZ_EMPTY)
+                for (auto p2 = p + os; is_valid(p2); p2 += os)
+                    if (cells(p2) == PUZ_EMPTY)
                         m_grp_arrows[i].add_cell(p2);
                 ++i;
-            }
-            else{
+            } else {
                 m_grp_rows[r].add_cell(p);
                 m_grp_cols[c].add_cell(p);
             }
@@ -161,29 +160,29 @@ bool puz_state::make_move(const Position& p)
 {
     cells(p) = PUZ_PLANT;
 
-    auto grps_remove_cell = [&](const Position& p2){
-        for(auto& a : m_grp_arrows)
+    auto grps_remove_cell = [&](const Position& p2) {
+        for (auto& a : m_grp_arrows)
             a.remove_cell(p2);
         m_grp_rows[p2.first].remove_cell(p2);
         m_grp_cols[p2.second].remove_cell(p2);
     };
 
-    for(auto& a : m_grp_arrows)
+    for (auto& a : m_grp_arrows)
         a.place_plant(p, true);
-    for(auto* a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}){
+    for (auto* a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}) {
         a->place_plant(p, false);
-        if(a->second == 0){
+        if (a->second == 0) {
             // copy the range
             auto rng = a->first;
-            for(auto& p2 : rng)
+            for (auto& p2 : rng)
                 grps_remove_cell(p2);
         }
     }
 
     // no touch
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p2 = p + os;
-        if(is_valid(p2))
+        if (is_valid(p2))
             grps_remove_cell(p2);
     }
 
@@ -193,28 +192,28 @@ bool puz_state::make_move(const Position& p)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     vector<const puz_area*> areas;
-    for(auto grp : {&m_grp_arrows, &m_grp_rows, &m_grp_cols})
-        for(auto& a : *grp)
-            if(a.second > 0)
+    for (auto grp : {&m_grp_arrows, &m_grp_rows, &m_grp_cols})
+        for (auto& a : *grp)
+            if (a.second > 0)
                 areas.push_back(&a);
 
-    auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
+    auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2) {
         return a1->first.size() < a2->first.size();
     });
-    for(auto& p : a.first){
+    for (auto& p : a.first) {
         children.push_back(*this);
-        if(!children.back().make_move(p))
+        if (!children.back().make_move(p))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if(ch == PUZ_ARROW)
+            if (ch == PUZ_ARROW)
                 out << format("%-2d") % m_game->m_pos2arrow.at(p);
             else
                 out << ch << " ";

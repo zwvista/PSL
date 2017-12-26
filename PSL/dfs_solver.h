@@ -30,16 +30,16 @@ class puz_solver_dfs
             PredMap pmap = get(boost::vertex_predecessor_t(), g);
             // check for goal
             const puz_state& cur = m_smap.left.at(u);
-            if(cur.is_goal_state())
+            if (cur.is_goal_state())
                 throw found_goal();
             // add successors of this state
             list<puz_state> children;
             cur.gen_children(children);
-            for(puz_state& child : children) {
+            for (puz_state& child : children) {
                 unsigned int dist = cur.get_distance(child);
                 try{
                     vertex_t v = m_smap.right.at(child);
-                    //if(dmap[u] + dist < dmap[v]){
+                    //if(dmap[u] + dist < dmap[v]) {
                     //    remove_edge(pmap[v], v, g);
                     //    add_edge(u, v, edge_prop(dist), g);
                     //    dmap[v] = dmap[u] + dist;
@@ -83,13 +83,13 @@ public:
             found = true;
             PredMap p = get(boost::vertex_predecessor, g);
             list<vertex_t> shortest_path;
-            for(vertex_t v = examine_seq.back();; v = p[v]) {
+            for (vertex_t v = examine_seq.back();; v = p[v]) {
                 shortest_path.push_front(v);
-                if(p[v] == v)
+                if (p[v] == v)
                     break;
             }
             list<puz_state> spath;
-            for(vertex_t v : shortest_path)
+            for (vertex_t v : shortest_path)
                 spath.push_back(smap.left.at(v));
             spaths.push_back(spath);
         }

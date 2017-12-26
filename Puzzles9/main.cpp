@@ -12,10 +12,10 @@ int main(int argc, char **argv)
     cout << "8: 8puzzle" << endl;
     string str;
     getline(cin, str);
-    if(str.empty());
-    else if(str == "1") solve_puz_15pegs();
-    else if(str == "3") solve_puz_3dlogic();
-    else if(str == "8") solve_puz_8puzzle();
+    if (str.empty());
+    else if (str == "1") solve_puz_15pegs();
+    else if (str == "3") solve_puz_3dlogic();
+    else if (str == "8") solve_puz_8puzzle();
 
     return 0;
 }

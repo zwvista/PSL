@@ -42,7 +42,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 void puz_game::compute_heuristic()
 {
-    for(size_t i = 0; i < m_goal.size(); ++i)
+    for (size_t i = 0; i < m_goal.size(); ++i)
         m_groups[m_goal[i]].first.push_back(i);
 }
 
@@ -58,7 +58,7 @@ struct puz_state : string
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
-    void make_move(const Position& p, char dir){
+    void make_move(const Position& p, char dir) {
         cells(m_space) = cells(p);
         cells(m_space = p) = ' ';
         m_move = dir;
@@ -83,9 +83,9 @@ struct puz_state : string
 void puz_state::gen_children(list<puz_state>& children) const
 {
     char* dirs = "wens";
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         Position p = m_space + offset[i];
-        if(is_valid(p)){
+        if (is_valid(p)) {
             children.push_back(*this);
             children.back().make_move(p, dirs[i]);
         }
@@ -95,7 +95,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 //unsigned int puz_state::get_heuristic() const
 //{
 //    unsigned int md = 0;
-//    for(size_t i = 0; i < size(); ++i) {
+//    for (size_t i = 0; i < size(); ++i) {
 //        size_t j = m_game->m_goal.find(operator[](i));
 //        md += myabs(j / cols() - i / cols()) + myabs(j % cols() - i % cols());
 //    }
@@ -110,12 +110,12 @@ unsigned int puz_state::get_heuristic() const
     unsigned int md = 0;
 
     group_map& g = m_game->m_groups;
-    for(size_t i = 0; i < size(); ++i)
+    for (size_t i = 0; i < size(); ++i)
         g[at(i)].second.push_back(i);
-    for(group_map::iterator i = g.begin(); i != g.end(); ++i){
+    for (group_map::iterator i = g.begin(); i != g.end(); ++i) {
         vector<int>& v0 = i->second.first;
         vector<int>& v1 = i->second.second;
-        for(size_t j = 0; j < v0.size(); ++j)
+        for (size_t j = 0; j < v0.size(); ++j)
             md += myabs(v0[j] / cols() - v1[j] / cols()) + myabs(v0[j] % cols() - v1[j] % cols());
         v1.clear();
     }
@@ -125,10 +125,10 @@ unsigned int puz_state::get_heuristic() const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "move: " << m_move << endl;
-    for(int r = 0; r < rows(); ++r) {
-        for(int c = 0; c < cols(); ++c)
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c)
             out << cells({r, c}) << ' ';
         out << endl;
     }

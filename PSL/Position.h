@@ -9,11 +9,11 @@ struct Position :
 {
     Position() {}
     Position(int v1, int v2) : std::pair<int, int>(v1, v2) {}
-    Position& operator+=(const Position& x){
+    Position& operator+=(const Position& x) {
         first += x.first, second += x.second;
         return *this;
     }
-    Position& operator-=(const Position& x){
+    Position& operator-=(const Position& x) {
         first -= x.first, second -= x.second;
         return *this;
     }

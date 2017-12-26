@@ -60,10 +60,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start.push_back(PUZ_CORNER);
     m_start.insert(m_start.end(), m_sidelen - 2, PUZ_BORDER);
     m_start.push_back(PUZ_CORNER);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BORDER);
-        for(int c = 1; c < m_sidelen - 1; ++c)
+        for (int c = 1; c < m_sidelen - 1; ++c)
             m_start.push_back(str[c - 1] - '0');
         m_start.push_back(PUZ_BORDER);
     }
@@ -71,22 +71,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start.insert(m_start.end(), m_sidelen - 2, PUZ_BORDER);
     m_start.push_back(PUZ_CORNER);
 
-    for(int r = 1; r < m_sidelen - 1; ++r)
-        for(int c = 1; c < m_sidelen - 1; ++c){
+    for (int r = 1; r < m_sidelen - 1; ++r)
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
             int n = cells(p);
             auto& arrow = m_pos2arrows[p];
 
-            for(int i = 0; i < 8; ++i){
+            for (int i = 0; i < 8; ++i) {
                 auto& os = offset[i];
-                for(auto p2 = p + os;; p2 += os){
+                for (auto p2 = p + os;; p2 += os) {
                     int n2 = cells(p2);
-                    if(n2 == PUZ_BORDER){
+                    if (n2 == PUZ_BORDER) {
                         arrow.m_range.push_back(p2);
                         arrow.m_dirs.push_back((i + 4) % 8);
                         break;
                     }
-                    if(n2 == PUZ_CORNER)
+                    if (n2 == PUZ_CORNER)
                         break;
                 }
             }
@@ -98,7 +98,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             indicators.insert(indicators.end(), sz - n, 0);
             indicators.insert(indicators.end(), n, 1);
             do{
-                for(int i = 0; i < sz; ++i){
+                for (int i = 0; i < sz; ++i) {
                     int d = arrow.m_dirs[i];
                     // a positive or 0 direction means the arrow is supposed to
                     // point to the number, and a negative direction means
@@ -148,7 +148,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    for(auto& kv : g.m_pos2arrows){
+    for (auto& kv : g.m_pos2arrows) {
         auto& perm_ids = m_matches[kv.first];
         perm_ids.resize(kv.second.m_perms.size());
         boost::iota(perm_ids, 0);
@@ -156,18 +156,18 @@ puz_state::puz_state(const puz_game& g)
 
     // compute the possible directions of the arrows
     // that reside outside the board
-    auto f = [&](int r, int c){
+    auto f = [&](int r, int c) {
         Position p(r, c);
         auto& dirs = m_arrow_dirs[p];
-        for(int i = 0; i <= 8; ++i){
+        for (int i = 0; i <= 8; ++i) {
             auto p2 = p + offset[i];
             // the arrow must point to a tile inside the board
-            if(p2.first > 0 && p2.second > 0 &&
+            if (p2.first > 0 && p2.second > 0 &&
                 p2.first < sidelen() - 1 && p2.second < sidelen() - 1)
                 dirs.insert(i);
         }
     };
-    for(int i = 1; i < sidelen() - 1; ++i)
+    for (int i = 1; i < sidelen() - 1; ++i)
         f(0, i), f(sidelen() - 1, i), f(i, 0), f(i, sidelen() - 1);
 
     find_matches(true);
@@ -175,17 +175,17 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         auto& p = kv.first;
         auto& perm_ids = kv.second;
 
         auto& arrow = m_game->m_pos2arrows.at(p);
         vector<set<int>> arrow_dirs;
-        for(auto& p2 : arrow.m_range)
+        for (auto& p2 : arrow.m_range)
             arrow_dirs.push_back(m_arrow_dirs.at(p2));
 
-        boost::remove_erase_if(perm_ids, [&](int id){
-            return !boost::equal(arrow_dirs, arrow.m_perms[id], [](const set<int>& dirs, int n2){
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            return !boost::equal(arrow_dirs, arrow.m_perms[id], [](const set<int>& dirs, int n2) {
                 // a positive or 0 direction means the arrow is supposed to
                 // point to the number, so it should be contained
                 return n2 >= 0 && dirs.count(n2) != 0
@@ -196,8 +196,8 @@ int puz_state::find_matches(bool init)
             });
         });
 
-        if(!init)
-            switch(perm_ids.size()){
+        if (!init)
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -212,11 +212,11 @@ void puz_state::make_move2(const Position& p, int n)
     auto& arrow = m_game->m_pos2arrows.at(p);
     auto& perm = arrow.m_perms[n];
 
-    for(int k = 0; k < perm.size(); ++k){
+    for (int k = 0; k < perm.size(); ++k) {
         const auto& p2 = arrow.m_range[k];
         int& n1 = cells(p2);
         int n2 = perm[k];
-        if(n2 >= 0)
+        if (n2 >= 0)
             m_arrow_dirs[p2] = {n1 = n2};
         else
             m_arrow_dirs[p2].erase(~n2);
@@ -231,7 +231,7 @@ bool puz_state::make_move(const Position& p, int n)
     m_distance = 0;
     make_move2(p, n);
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -239,22 +239,22 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2){
+        const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(int n : kv.second){
+    for (int n : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r) {
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             int n = cells({r, c});
-            if(n == PUZ_CORNER)
+            if (n == PUZ_CORNER)
                 out << "  ";
             else
                 out << format("%-2d") % n;

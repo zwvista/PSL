@@ -21,7 +21,7 @@ class puz_move_generator
             // add successors of this state
             list<puz_state> children;
             cur.gen_children(children);
-            for(puz_state& child : children) {
+            for (puz_state& child : children) {
                 try{
                     m_smap.right.at(child);
                 } catch(out_of_range&) {
@@ -49,7 +49,7 @@ public:
             visitor(puz_visitor(examine_seq, smap)).
             color_map(get(boost::vertex_color, g)));
 
-        for(vertex_t v : examine_seq)
+        for (vertex_t v : examine_seq)
             smoves.push_back(smap.left.at(v));
     }
 };

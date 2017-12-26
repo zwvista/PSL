@@ -68,7 +68,7 @@ struct puz_state : string
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return 1; }
     unsigned int get_distance(const puz_state& child) const { return 1; }
-    void dump_move(ostream& out) const { if(m_move) out << *m_move; }
+    void dump_move(ostream& out) const { if (m_move) out << *m_move; }
     ostream& dump(ostream& out) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {
         return state.dump(out);
@@ -86,30 +86,30 @@ puz_state::puz_state(const puz_game& g)
 bool puz_state::clear_boxes()
 {
     set<Position> boxes;
-    auto f = [&](Position p, int d, int& n, char ch, char& ch_last){
-        if(ch_last != PUZ_SPACE && ch != ch_last && n > 2){
+    auto f = [&](Position p, int d, int& n, char ch, char& ch_last) {
+        if (ch_last != PUZ_SPACE && ch != ch_last && n > 2) {
             auto& os = offset[d];
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
                 boxes.insert(p -= os);
         }
         n = ch == PUZ_SPACE ? 0 : ch == ch_last ? n + 1 : 1;
         ch_last = ch;
     };
-    for(int r = 0; r < rows(); ++r){
+    for (int r = 0; r < rows(); ++r) {
         char ch_last = PUZ_SPACE;
-        for(int c = 0, n = 0; c <= cols(); ++c){
+        for (int c = 0, n = 0; c <= cols(); ++c) {
             Position p(r, c);
             f(p, 1, n, c < cols() ? cells(p) : PUZ_SPACE, ch_last);
         }
     }
-    for(int c = 0; c < cols(); ++c){
+    for (int c = 0; c < cols(); ++c) {
         char ch_last = PUZ_SPACE;
-        for(int r = 0, n = 0; r <= rows(); ++r){
+        for (int r = 0, n = 0; r <= rows(); ++r) {
             Position p(r, c);
             f(p, 2, n, r < rows() ? cells(p) : PUZ_SPACE, ch_last);
         }
     }
-    for(auto& p : boxes)
+    for (auto& p : boxes)
         cells(p) = PUZ_SPACE;
     return !boxes.empty();
 }
@@ -117,23 +117,23 @@ bool puz_state::clear_boxes()
 bool puz_state::fall_boxes()
 {
     bool did_fall = false;
-    for(int c = 0; c < cols(); ++c){
+    for (int c = 0; c < cols(); ++c) {
         int n = 0;
         string boxes;
-        for(int r = rows() - 1; r >= 0; --r){
+        for (int r = rows() - 1; r >= 0; --r) {
             char ch = cells({r, c});
-            if(ch != PUZ_SPACE){
+            if (ch != PUZ_SPACE) {
                 boxes = ch + boxes;
                 n = rows() - r;
             }
         }
         int sz = boxes.size();
-        if(n > sz){
+        if (n > sz) {
             did_fall = true;
             int r = rows() - n;
-            for(int i = 0; i < n - sz; ++i)
+            for (int i = 0; i < n - sz; ++i)
                 cells({r++, c}) = PUZ_SPACE;
-            for(int i = 0; i < sz; ++i)
+            for (int i = 0; i < sz; ++i)
                 cells({r++, c}) = boxes[i];
         }
     }
@@ -143,13 +143,13 @@ bool puz_state::fall_boxes()
 bool puz_state::check_boxes() const
 {
     map<char, int> box2cnt;
-    for(int r = 0; r < rows(); ++r)
-        for(int c = 0; c < cols(); ++c){
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             char ch = cells({r, c});
-            if(ch != PUZ_SPACE)
+            if (ch != PUZ_SPACE)
                 box2cnt[ch]++;
         }
-    return boost::algorithm::all_of(box2cnt, [](const pair<const char, int>& kv){
+    return boost::algorithm::all_of(box2cnt, [](const pair<const char, int>& kv) {
         return kv.second > 2;
     });
 }
@@ -159,29 +159,29 @@ bool puz_state::make_move(const Position& p, int n)
     m_move = puz_step(p, n);
     auto p2 = p + offset[n];
     ::swap(cells(p), cells(p2));
-    while(clear_boxes() | fall_boxes());
+    while (clear_boxes() | fall_boxes());
     return check_boxes();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int r = 0; r < rows(); ++r)
-        for(int c = 0; c < cols(); ++c){
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             char ch = cells(p);
-            auto f = [&](int n){
+            auto f = [&](int n) {
                 auto p2 = p + offset[n];
                 char ch2 = cells(p2);
-                if(ch == ch2 || ch == PUZ_SPACE && n == 2) return;
-                if(ch == PUZ_SPACE) // n == 1
+                if (ch == ch2 || ch == PUZ_SPACE && n == 2) return;
+                if (ch == PUZ_SPACE) // n == 1
                     p = p2, n = 3;
                 children.push_back(*this);
-                if(!children.back().make_move(p, n))
+                if (!children.back().make_move(p, n))
                     children.pop_back();
             };
-            if(r < rows() - 1)
+            if (r < rows() - 1)
                 f(2);
-            if(c < cols() - 1)
+            if (c < cols() - 1)
                 f(1);
         }
 }
@@ -189,8 +189,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 0; r < rows(); ++r){
-        for(int c = 0; c < cols(); ++c){
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             char ch = cells(p);
             out << (ch == PUZ_SPACE ? '.' : ch) << ' ';

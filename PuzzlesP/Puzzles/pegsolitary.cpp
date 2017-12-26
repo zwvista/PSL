@@ -39,10 +39,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     fill(m_start.rbegin(), m_start.rbegin() + cols(), PUZ_NONE);
 
     int n = cols();
-    for(int r = 1; r < rows() - 1; ++r, n += cols()){
+    for (int r = 1; r < rows() - 1; ++r, n += cols()) {
         const string& str = strs[r - 1];
         m_start[n] = m_start[n + cols() - 1] = PUZ_NONE;
-        for(int c = 1; c < cols() - 1; ++c)
+        for (int c = 1; c < cols() - 1; ++c)
             m_start[n + c] = str[c - 1];
     }
 }
@@ -80,8 +80,8 @@ struct puz_state : public string
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         int n = 0;
-        for(size_t i = 0; i < length(); i++)
-            if(at(i) == PUZ_PEG)
+        for (size_t i = 0; i < length(); i++)
+            if (at(i) == PUZ_PEG)
                 ++n;
         return n;
     }
@@ -98,14 +98,14 @@ struct puz_state : public string
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int r = 1; r < rows() - 1; ++r)
-        for(int c = 1; c < cols() - 1; ++c){
+    for (int r = 1; r < rows() - 1; ++r)
+        for (int c = 1; c < cols() - 1; ++c) {
             Position p1(r, c);
-            if(cells(p1) != PUZ_PEG) continue;
-            for(int i = 0; i < 8; ++i){
+            if (cells(p1) != PUZ_PEG) continue;
+            for (int i = 0; i < 8; ++i) {
                 Position p2 = p1 + offset[i];
                 Position p3 = p2 + offset[i];
-                if(cells(p2) == PUZ_PEG && cells(p3) == PUZ_HOLE){
+                if (cells(p2) == PUZ_PEG && cells(p3) == PUZ_HOLE) {
                         children.push_back(*this);
                         children.back().make_move(p1, p2, p3);
                 }
@@ -116,8 +116,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 1; r < rows() -1 ; ++r) {
-        for(int c = 0; c < cols() - 1; ++c)
+    for (int r = 1; r < rows() -1 ; ++r) {
+        for (int c = 0; c < cols() - 1; ++c)
             out << cells({r, c}) << " ";
         out << endl;
     }

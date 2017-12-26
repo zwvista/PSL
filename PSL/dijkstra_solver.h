@@ -45,42 +45,41 @@ class puz_solver_dijkstra
             StateMap &smap = m_context.m_smap;
             // check for goal
             const puz_state& cur = smap.left.at(u);
-            if(cur.is_goal_state()){
-                if(boost::algorithm::none_of_equal(m_context.m_goal_vertices, u)){
+            if (cur.is_goal_state()) {
+                if (boost::algorithm::none_of_equal(m_context.m_goal_vertices, u)) {
                     m_context.m_goal_vertices.push_back(u);
                     m_context.m_goal_distance = std::min(m_context.m_goal_distance, dmap[u]);
                 }
-                if(first_solution_only)
+                if (first_solution_only)
                     throw found_goal();
                 return;
             }
             // add successors of this state
             list<puz_state> children;
             cur.gen_children(children);
-            for(puz_state& child : children) {
+            for (puz_state& child : children) {
                 unsigned int dist = cur.get_distance(child);
                 unsigned int new_dist = dmap[u] + dist;
-                if(shortest_paths_only && new_dist > m_context.m_goal_distance) continue;
+                if (shortest_paths_only && new_dist > m_context.m_goal_distance) continue;
                 try{
                     vertex_t v = smap.right.at(child);
-                    if(new_dist < dmap[v]){
+                    if (new_dist < dmap[v]) {
                         remove_edge(pmap[v], v, g);
                         add_edge(u, v, edge_prop(dist), g);
                         smap.left.replace_data(smap.left.find(v), child);
                         pmap[v] = u;
-                        if(!first_solution_only){
+                        if (!first_solution_only) {
                             mpmap.erase(v);
                             mpmap.emplace(v, u);
                         }
-                    }
-                    else if(!first_solution_only && new_dist == dmap[v])
+                    } else if (!first_solution_only && new_dist == dmap[v])
                         mpmap.emplace(v, u);
                 } catch(out_of_range&) {
                     vertex_t v = add_vertex(vert_prop(boost::white_color), g);
                     smap.insert(typename StateMap::relation(v, child));
                     dmap[v] = numeric_limits<unsigned int>::max();
                     add_edge(u, v, edge_prop(dist), g);
-                    if(!first_solution_only)
+                    if (!first_solution_only)
                         mpmap.emplace(v, u);
                 }
             }
@@ -117,48 +116,45 @@ public:
                 predecessor_map(get(boost::vertex_predecessor, g)));
         } catch(found_goal&) {}
         bool found = !context.m_goal_vertices.empty();
-        if(found){
+        if (found) {
             list<vertex_t> vertex_path;
-            if(first_paths_only){
+            if (first_paths_only) {
                 PredMap p = get(boost::vertex_predecessor, g);
-                for(vertex_t v : context.m_goal_vertices){
+                for (vertex_t v : context.m_goal_vertices) {
                     vertex_path.clear();
-                    for(;;){
+                    for (;;) {
                         vertex_path.push_front(v);
-                        if(p[v] == v) break;
+                        if (p[v] == v) break;
                         v = p[v];
                     }
                     list<puz_state> state_path;
-                    for(vertex_t v : vertex_path)
+                    for (vertex_t v : vertex_path)
                         state_path.push_back(context.m_smap.left.at(v));
                     state_paths.push_back(state_path);
                 }
-            }
-            else{
+            } else {
                 vector<vector<vertex_t>> stack;
                 stack.push_back(context.m_goal_vertices);
-                while(!stack.empty()){
+                while (!stack.empty()) {
                     auto& vs = stack.back();
-                    if(vs.empty()){
+                    if (vs.empty()) {
                         stack.pop_back();
-                        if(!vertex_path.empty())
+                        if (!vertex_path.empty())
                             vertex_path.pop_front();
-                    }
-                    else{
+                    } else {
                         auto v = vs.front();
                         vs.erase(vs.begin());
                         vertex_path.push_front(v);
                         auto ret = context.m_mpmap.equal_range(v);
-                        if(ret.first->second == v){
+                        if (ret.first->second == v) {
                             list<puz_state> state_path;
-                            for(vertex_t v2 : vertex_path)
+                            for (vertex_t v2 : vertex_path)
                                 state_path.push_back(context.m_smap.left.at(v2));
                             state_paths.push_back(state_path);
                             vertex_path.pop_front();
-                        }
-                        else{
+                        } else {
                             vector<vertex_t> vs2;
-                            for(auto it = ret.first; it != ret.second; ++it)
+                            for (auto it = ret.first; it != ret.second; ++it)
                                 vs2.push_back(it->second);
                             stack.push_back(vs2);
                         }

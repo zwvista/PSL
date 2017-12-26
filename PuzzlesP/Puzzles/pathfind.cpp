@@ -37,18 +37,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size() / 2, strs[0].length() / 2)
 {
-    for(int r = 0; ; ++r){
+    for (int r = 0; ; ++r) {
         const string& hstr = strs.at(2 * r);
-        for(size_t i = 0; i < hstr.length(); ++i)
-            if(hstr[i] == '-')
+        for (size_t i = 0; i < hstr.length(); ++i)
+            if (hstr[i] == '-')
                 m_horz_wall.insert(Position(r, i / 2));
 
-        if(r == rows()) break;
+        if (r == rows()) break;
 
         const string& vstr = strs.at(2 * r + 1);
-        for(size_t i = 0; i < vstr.length(); ++i){
+        for (size_t i = 0; i < vstr.length(); ++i) {
             Position p(r, i / 2);
-            switch(vstr[i]){
+            switch(vstr[i]) {
             case '|': m_vert_wall.insert(p); break;
             case '@': m_start = p; break;
             case '.': m_goal = p; break;
@@ -83,7 +83,7 @@ bool puz_state::make_move(EDir dir)
 {
     static char* moves = "lrud";
     Position p = *this + offset[dir];
-    if(dir == mvLeft && m_game->is_vert_wall(*this) ||
+    if (dir == mvLeft && m_game->is_vert_wall(*this) ||
         dir == mvRight && m_game->is_vert_wall(p) ||
         dir == mvUp && m_game->is_horz_wall(*this) ||
         dir == mvDown && m_game->is_horz_wall(p))
@@ -96,28 +96,28 @@ bool puz_state::make_move(EDir dir)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < 4; i++){
+    for (int i = 0; i < 4; i++) {
         children.push_back(*this);
-        if(!children.back().make_move(EDir(i)))
+        if (!children.back().make_move(EDir(i)))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "move: " << m_move << endl;
-    for(int r = 0; ; ++r){
+    for (int r = 0; ; ++r) {
         // draw horz wall
-        for(int c = 0; c < m_game->cols(); ++c)
+        for (int c = 0; c < m_game->cols(); ++c)
             out << (m_game->is_horz_wall(Position(r, c)) ? " -" : "  ");
         out << endl;
-        if(r == m_game->rows()) break;
-        for(int c = 0; ; ++c){
+        if (r == m_game->rows()) break;
+        for (int c = 0; ; ++c) {
             Position pos(r, c);
             // draw vert wall
             out << (m_game->is_vert_wall(pos) ? "|" : " ");
-            if(c == m_game->cols()) break;
+            if (c == m_game->cols()) break;
             // draw balls and goals
             out << (pos == *this ? '@' : 
                 pos == m_game->m_goal ? '.' : ' ');

@@ -42,7 +42,7 @@ struct puz_block
 {
     puz_block_type m_type;
     int m_num;
-    puz_block(){}
+    puz_block() {}
     puz_block(puz_block_type t, int n)
         : m_type(t), m_num(n) {}
 };
@@ -65,12 +65,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size() + 2, strs[0].length() + 2)
 {
     m_start.append(cols(), PUZ_BLOCK_FIXED);
-    for(int r = 1; r < rows() - 1; ++r){
+    for (int r = 1; r < rows() - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BLOCK_FIXED);
-        for(int c = 1; c < cols() - 1; ++c){
+        for (int c = 1; c < cols() - 1; ++c) {
             Position p(r, c);
-            switch(char ch = str[c - 1]){
+            switch(char ch = str[c - 1]) {
             case PUZ_HOLE_EMPTY:
             case PUZ_HOLE_BONSAI:
             case PUZ_BLOCK_FIXED:
@@ -85,13 +85,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_pos2block[p] = {puz_block_type::FIRE, 1};
                 break;
             default:
-                if(isdigit(ch)){
+                if (isdigit(ch)) {
                     m_pos2block[p] = {puz_block_type::ICE, ch - '0'};
                     m_start.push_back(PUZ_BLOCK_ICE);
-                }
-                else{
+                } else {
                     int n = arrows.find(ch);
-                    if(n != -1){
+                    if (n != -1) {
                         m_pos2dir[p] = n;
                         m_start.push_back(PUZ_BLOCK_ARROW);
                     }
@@ -127,14 +126,14 @@ struct puz_state : string
 
     //solve_puzzle interface
     bool is_goal_state() const {
-        return get_heuristic() == 0 && boost::count_if(*this, [](char ch){
+        return get_heuristic() == 0 && boost::count_if(*this, [](char ch) {
             return ch == PUZ_HOLE_EMPTY || ch == PUZ_HOLE_BONSAI;
         }) == 0;
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return m_pos2block.size(); }
     unsigned int get_distance(const puz_state& child) const { return 1; }
-    void dump_move(ostream& out) const { if(m_move) out << *m_move; }
+    void dump_move(ostream& out) const { if (m_move) out << *m_move; }
     ostream& dump(ostream& out) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {
         return state.dump(out);
@@ -152,16 +151,16 @@ puz_state::puz_state(const puz_game& g)
 
 bool puz_state::make_move(const Position& p, int n)
 {
-    if(!make_move2(p, offset[n], false))
+    if (!make_move2(p, offset[n], false))
         return false;
 
     m_move = puz_step(p, n);
     m_pos2block.erase(p);
 
-    return boost::algorithm::any_of(m_pos2block, [&](const pair<const Position, puz_block>& kv){
+    return boost::algorithm::any_of(m_pos2block, [&](const pair<const Position, puz_block>& kv) {
         return kv.second.m_type == puz_block_type::FIRE;
-    }) || boost::algorithm::all_of(m_pos2block, [&](const pair<const Position, puz_block>& kv){
-        return boost::algorithm::any_of(offset, [&](const Position& os){
+    }) || boost::algorithm::all_of(m_pos2block, [&](const pair<const Position, puz_block>& kv) {
+        return boost::algorithm::any_of(offset, [&](const Position& os) {
             return make_move2(kv.first, os, true);
         });
     });
@@ -172,43 +171,43 @@ bool puz_state::make_move2(const Position& p, Position os, bool is_test)
     auto& blk = m_pos2block.at(p);
     int n = blk.m_num;
     auto t = blk.m_type;
-    if(!is_test)
+    if (!is_test)
         cells(p) = PUZ_BLOCK_USED;
     set<Position> p_arrows;
-    for(auto p2 = p + os;; p2 += os)
-        switch(char& ch = cells(p2)){
+    for (auto p2 = p + os;; p2 += os)
+        switch(char& ch = cells(p2)) {
         case PUZ_BLOCK_ARROW:
-            if(p_arrows.count(p2) != 0)
+            if (p_arrows.count(p2) != 0)
                 return false;
             os = offset[m_game->m_pos2dir.at(p2)];
             p_arrows.insert(p2);
             break;
         case PUZ_HOLE_EMPTY:
-            if(!is_test)
+            if (!is_test)
                 ch = t == puz_block_type::STOP ? PUZ_HOLE_STOP :
                     t == puz_block_type::FIRE ? PUZ_HOLE_FIRE :
                     PUZ_HOLE_ICE;
-            if(--n == 0)
+            if (--n == 0)
                 return true;
             break;
         case PUZ_HOLE_BONSAI:
-            if(t != puz_block_type::ICE)
+            if (t != puz_block_type::ICE)
                 return false;
-            if(!is_test)
+            if (!is_test)
                 ch = PUZ_HOLE_TREE;
-            if(--n == 0)
+            if (--n == 0)
                 return true;
             break;
         case PUZ_HOLE_ICE:
-            if(!is_test && t == puz_block_type::FIRE)
+            if (!is_test && t == puz_block_type::FIRE)
                 ch = PUZ_HOLE_EMPTY;
             break;
         default:
-            if(t == puz_block_type::FIRE){
+            if (t == puz_block_type::FIRE) {
                 char& ch2 = cells(p2 - os);
-                if(is_test && ch2 == PUZ_HOLE_ICE ||
-                    !is_test && ch2 == PUZ_HOLE_EMPTY){
-                    if(!is_test)
+                if (is_test && ch2 == PUZ_HOLE_ICE ||
+                    !is_test && ch2 == PUZ_HOLE_EMPTY) {
+                    if (!is_test)
                         ch2 = PUZ_HOLE_FIRE;
                     return true;
                 }
@@ -222,10 +221,10 @@ bool puz_state::make_move2(const Position& p, Position os, bool is_test)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(auto& kv : m_pos2block)
-        for(int n = 0; n < 4; ++n){
+    for (auto& kv : m_pos2block)
+        for (int n = 0; n < 4; ++n) {
             children.push_back(*this);
-            if(!children.back().make_move(kv.first, n))
+            if (!children.back().make_move(kv.first, n))
                 children.pop_back();
         }
 }
@@ -233,8 +232,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 1; r < rows() - 1; ++r){
-        for(int c = 1; c < cols() - 1; ++c){
+    for (int r = 1; r < rows() - 1; ++r) {
+        for (int c = 1; c < cols() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
             out << (ch == PUZ_BLOCK_ICE ? char(m_game->m_pos2block.at(p).m_num + '0') :

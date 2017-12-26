@@ -56,16 +56,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     char id = 'a';
     m_start.append(m_sidelen, PUZ_BOUNDARY);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for(int c = 1; c < m_sidelen - 1; ++c){
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
-            if(ch == PUZ_HOLE){
+            if (ch == PUZ_HOLE) {
                 m_start.push_back(PUZ_SPACE);
                 m_id2hole[id++] = {r, c};
-            }
-            else
+            } else
                 m_start.push_back(ch);
         }
         m_start.push_back(PUZ_BOUNDARY);
@@ -78,7 +77,7 @@ struct puz_area
     set<Position> m_inner, m_outer;
     bool m_ready = false;
 
-    void add_cell(const Position& p){
+    void add_cell(const Position& p) {
         m_inner.insert(p);
         m_ready = m_inner.size() == PUZ_PIECE_SIZE;
     }
@@ -115,7 +114,7 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
     : string(g.m_start), m_game(&g)
 {
-    for(auto& kv : g.m_id2hole)
+    for (auto& kv : g.m_id2hole)
         make_move2(kv.first, kv.second);
 
     adjust_area(true);
@@ -125,7 +124,7 @@ struct puz_state2 : Position
 {
     puz_state2(const puz_state& s, const Position& p, int d);
 
-    void make_move(const Position& p){ 
+    void make_move(const Position& p) { 
         static_cast<Position&>(*this) = p;
         --m_distance;
     }
@@ -143,10 +142,10 @@ puz_state2::puz_state2(const puz_state& s, const Position& p, int d)
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    if(m_distance == 0) return;
-    for(auto& os : offset){
+    if (m_distance == 0) return;
+    for (auto& os : offset) {
         auto p2 = *this + os;
-        if(m_state->cells(p2) == PUZ_SPACE){
+        if (m_state->cells(p2) == PUZ_SPACE) {
             children.push_back(*this);
             children.back().make_move(p2);
         }
@@ -155,22 +154,22 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 int puz_state::adjust_area(bool init)
 {
-    for(auto& kv : m_id2area){
+    for (auto& kv : m_id2area) {
         char id = kv.first;
         auto& area = kv.second;
         auto& outer = area.m_outer;
         outer.clear();
-        if(area.m_ready) continue;
+        if (area.m_ready) continue;
 
-        for(auto& p : area.m_inner)
-            for(auto& os : offset){
+        for (auto& p : area.m_inner)
+            for (auto& os : offset) {
                 auto p2 = p + os;
-                if(cells(p2) == PUZ_SPACE)
+                if (cells(p2) == PUZ_SPACE)
                     outer.insert(p2);
             }
 
-        if(!init)
-            switch(outer.size()){
+        if (!init)
+            switch(outer.size()) {
             case 0:
                 return 0;
             case 1:
@@ -180,26 +179,26 @@ int puz_state::adjust_area(bool init)
 
     // pruning
     map<Position, set<char>> space2ids;
-    for(const auto& kv : m_id2area){
+    for (const auto& kv : m_id2area) {
         auto& area = kv.second;
         int d = PUZ_PIECE_SIZE - area.m_inner.size();
-        for(auto& p : area.m_outer){
+        for (auto& p : area.m_outer) {
             list<puz_state2> smoves;
             puz_move_generator<puz_state2>::gen_moves({*this, p, d}, smoves);
-            for(auto& p2 : smoves)
+            for (auto& p2 : smoves)
                 space2ids[p2].insert(kv.first);
         }
     }
-    if(space2ids.size() != boost::count(*this, PUZ_SPACE))
+    if (space2ids.size() != boost::count(*this, PUZ_SPACE))
         return 0;
 
-    if(space2ids.empty())
+    if (space2ids.empty())
         m_next = "";
-    else{
+    else {
         // find the tile reachable from the fewest number of fishing holes
         const auto& ids = boost::min_element(space2ids, [](
             const pair<const Position, set<char>>& kv1,
-            const pair<const Position, set<char>>& kv2){
+            const pair<const Position, set<char>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         })->second;
         m_next = string(ids.begin(), ids.end());
@@ -220,16 +219,16 @@ bool puz_state::make_move(char id, const Position& p)
     m_distance = 0;
     make_move2(id, p);
     int m;
-    while((m = adjust_area(false)) == 1);
+    while ((m = adjust_area(false)) == 1);
     return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(char ch : m_next)
-        for(auto& p : m_id2area.at(ch).m_outer){
+    for (char ch : m_next)
+        for (auto& p : m_id2area.at(ch).m_outer) {
             children.push_back(*this);
-            if(!children.back().make_move(ch, p))
+            if (!children.back().make_move(ch, p))
                 children.pop_back();
         }
 }
@@ -237,39 +236,39 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     set<Position> horz_walls, vert_walls;
-    for(int r = 1; r < sidelen() - 1; ++r)
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            if(cells(p) == PUZ_BLOCK){
+            if (cells(p) == PUZ_BLOCK) {
                 horz_walls.insert(p);
                 horz_walls.insert(p + offset2[2]);
                 vert_walls.insert(p);
                 vert_walls.insert(p + offset2[1]);
             }
         }
-    for(auto& kv : m_id2area){
+    for (auto& kv : m_id2area) {
         auto& area = kv.second;
-        for(auto& p : area.m_inner)
-            for(int i = 0; i < 4; ++i){
+        for (auto& p : area.m_inner)
+            for (int i = 0; i < 4; ++i) {
                 auto p2 = p + offset[i];
                 auto p_wall = p + offset2[i];
                 auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
-                if(area.m_inner.count(p2) == 0)
+                if (area.m_inner.count(p2) == 0)
                     walls.insert(p_wall);
             }
     }
 
-    for(int r = 1;; ++r){
+    for (int r = 1;; ++r) {
         // draw horz-walls
-        for(int c = 1; c < sidelen() - 1; ++c)
+        for (int c = 1; c < sidelen() - 1; ++c)
             out << (horz_walls.count({r, c}) == 1 ? " -" : "  ");
         out << endl;
-        if(r == sidelen() - 1) break;
-        for(int c = 1;; ++c){
+        if (r == sidelen() - 1) break;
+        for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vert-walls
             out << (vert_walls.count(p) == 1 ? '|' : ' ');
-            if(c == sidelen() - 1) break;
+            if (c == sidelen() - 1) break;
             char ch = cells(p);
             out << (ch == PUZ_BLOCK ? ch :
                 m_game->m_id2hole.at(ch) == p ? PUZ_HOLE : PUZ_SPACE

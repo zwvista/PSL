@@ -73,7 +73,7 @@ struct puz_state2 : Position
         make_move(p_start);
     }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const set<Position> *m_horz_walls, *m_vert_walls;
@@ -81,11 +81,11 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
-        if(walls.count(p_wall) == 0){
+        if (walls.count(p_wall) == 0) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -97,28 +97,28 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() / 2)
 {
     set<Position> rng;
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // horz-walls
         auto& str_h = strs[r * 2];
-        for(int c = 0; c < m_sidelen; ++c)
-            if(str_h[c * 2 + 1] == '-')
+        for (int c = 0; c < m_sidelen; ++c)
+            if (str_h[c * 2 + 1] == '-')
                 m_horz_walls.insert({r, c});
-        if(r == m_sidelen) break;
+        if (r == m_sidelen) break;
         auto& str_v = strs[r * 2 + 1];
-        for(int c = 0;; ++c){
+        for (int c = 0;; ++c) {
             Position p(r, c);
             // vert-walls
-            if(str_v[c * 2] == '|')
+            if (str_v[c * 2] == '|')
                 m_vert_walls.insert(p);
-            if(c == m_sidelen) break;
+            if (c == m_sidelen) break;
             rng.insert(p);
         }
     }
 
-    for(m_area_count = 0; !rng.empty(); ++m_area_count){
+    for (m_area_count = 0; !rng.empty(); ++m_area_count) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
-        for(auto& p : smoves){
+        for (auto& p : smoves) {
             m_pos2area[p] = m_area_count;
             rng.erase(p);
         }
@@ -130,10 +130,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 struct puz_area : pair<set<Position>, int>
 {
     puz_area() : pair<set<Position>, int>({}, 2) {}
-    void add_cell(const Position& p){ first.insert(p); }
-    void remove_cell(const Position& p){ first.erase(p); }
-    bool can_plant_tree(const Position& p){ return first.count(p) != 0; }
-    void plant_tree(const Position& p){ first.erase(p); --second; }
+    void add_cell(const Position& p) { first.insert(p); }
+    void remove_cell(const Position& p) { first.erase(p); }
+    bool can_plant_tree(const Position& p) { return first.count(p) != 0; }
+    void plant_tree(const Position& p) { first.erase(p); --second; }
     bool is_valid() const {
         // if second < 0, that means too many trees have been planted in this area
         // if first.size() < second, that means there are not enough positions
@@ -176,8 +176,8 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_game(&g), m_areas(g.m_area_count)
 {
-    for(int r = 0; r < g.m_sidelen; ++r)
-        for(int c = 0; c < g.m_sidelen; ++c){
+    for (int r = 0; r < g.m_sidelen; ++r)
+        for (int c = 0; c < g.m_sidelen; ++c) {
             Position p(r, c);
             get_area(p).add_cell(p);
         }
@@ -186,30 +186,30 @@ puz_state::puz_state(const puz_game& g)
 bool puz_state::make_move(const Position& p, int n)
 {
     auto& info = tree_info[n];
-    for(auto& os : info.m_trees){
+    for (auto& os : info.m_trees) {
         auto p2 = p + os;
         // trees must be inside
-        if(!is_valid(p2))
+        if (!is_valid(p2))
             return false;
         cells(p2) = PUZ_TREE;
         auto& a = get_area(p2);
         // the position must be valid in the area
-        if(!a.can_plant_tree(p2))
+        if (!a.can_plant_tree(p2))
             return false;
         a.plant_tree(p2);
         // the area must remain valid after the tree is planted
-        if(!a.is_valid())
+        if (!a.is_valid())
             return false;
     }
-    for(auto& os : info.m_spaces){
+    for (auto& os : info.m_spaces) {
         auto p2 = p + os;
         // positions around the trees can be outside
-        if(!is_valid(p2))
+        if (!is_valid(p2))
             continue;
         auto& a = get_area(p2);
         a.remove_cell(p2);
         // the area must remain valid after the position is marked as empty
-        if(!a.is_valid())
+        if (!a.is_valid())
             return false;
     }
     return true;
@@ -217,34 +217,34 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& a = *boost::min_element(m_areas, [](const puz_area& a1, const puz_area& a2){
-        auto f = [](const puz_area& a){
+    auto& a = *boost::min_element(m_areas, [](const puz_area& a1, const puz_area& a2) {
+        auto f = [](const puz_area& a) {
             // ignore the areas where no trees need to be planted
             return a.second == 0 ? 100 : a.first.size();
         };
         return f(a1) < f(a2);
     });
-    for(auto& p : a.first)
-        for(int i = 0; i < 4; ++i){
+    for (auto& p : a.first)
+        for (int i = 0; i < 4; ++i) {
             children.push_back(*this);
-            if(!children.back().make_move(p, i))
+            if (!children.back().make_move(p, i))
                 children.pop_back();
         }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // draw horz-walls
-        for(int c = 0; c < sidelen(); ++c)
+        for (int c = 0; c < sidelen(); ++c)
             out << (m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
         out << endl;
-        if(r == sidelen()) break;
-        for(int c = 0;; ++c){
+        if (r == sidelen()) break;
+        for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-walls
             out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
-            if(c == sidelen()) break;
+            if (c == sidelen()) break;
             out << cells(p);
         }
         out << endl;

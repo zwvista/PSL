@@ -58,19 +58,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_star_counts_rows(m_sidelen)
     , m_star_counts_cols(m_sidelen)
 {
-    for(int r = 0, n = 0; r < m_sidelen + 1; ++r){
+    for (int r = 0, n = 0; r < m_sidelen + 1; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen + 1; c++){
+        for (int c = 0; c < m_sidelen + 1; c++) {
             char ch = str[c];
-            if(ch == PUZ_SPACE)
+            if (ch == PUZ_SPACE)
                 m_start.push_back(PUZ_EMPTY);
-            else{
+            else {
                 n = ch - '0';
-                if(c == m_sidelen)
+                if (c == m_sidelen)
                     m_star_counts_rows[r] = n;
-                else if(r == m_sidelen)
+                else if (r == m_sidelen)
                     m_star_counts_cols[c] = n;
-                else{
+                else {
                     m_pos2arrow[{r, c}] = n;
                     m_start.push_back(PUZ_ARROW);
                 }
@@ -88,12 +88,12 @@ struct puz_area : pair<vector<Position>, int>
     puz_area(int star_count)
         : pair<vector<Position>, int>({}, star_count)
     {}
-    void add_cell(const Position& p){ first.push_back(p); }
-    void remove_cell(const Position& p){ boost::remove_erase(first, p); }
-    void place_star(const Position& p, bool at_least_one){
-        if(boost::algorithm::none_of_equal(first, p)) return;
+    void add_cell(const Position& p) { first.push_back(p); }
+    void remove_cell(const Position& p) { boost::remove_erase(first, p); }
+    void place_star(const Position& p, bool at_least_one) {
+        if (boost::algorithm::none_of_equal(first, p)) return;
         remove_cell(p);
-        if(!at_least_one || at_least_one && second == 1)
+        if (!at_least_one || at_least_one && second == 1)
             --second;
     }
     bool is_valid() const {
@@ -108,8 +108,8 @@ struct puz_area : pair<vector<Position>, int>
 struct puz_group : vector<puz_area>
 {
     puz_group() {}
-    puz_group(const vector<int>& star_counts){
-        for(int cnt : star_counts)
+    puz_group(const vector<int>& star_counts) {
+        for (int cnt : star_counts)
             emplace_back(cnt);
     }
     bool is_valid() const {
@@ -157,11 +157,11 @@ puz_state::puz_state(const puz_game& g)
 , m_grp_cols(g.m_star_counts_cols)
 {
     int i = 0;
-    for(auto& kv : g.m_pos2arrow){
+    for (auto& kv : g.m_pos2arrow) {
         auto& p = kv.first;
         auto& os = offset[kv.second];
-        for(auto p2 = p + os; is_valid(p2); p2 += os)
-            if(cells(p2) == PUZ_EMPTY){
+        for (auto p2 = p + os; is_valid(p2); p2 += os)
+            if (cells(p2) == PUZ_EMPTY) {
                 m_grp_rows[p2.first].add_cell(p2);
                 m_grp_cols[p2.second].add_cell(p2);
                 m_grp_arrows[i].add_cell(p2);
@@ -174,20 +174,20 @@ bool puz_state::make_move(const Position& p)
 {
     cells(p) = PUZ_STAR;
 
-    auto f = [&](puz_area& a, bool at_least_one){
+    auto f = [&](puz_area& a, bool at_least_one) {
         a.place_star(p, at_least_one);
-        if(at_least_one || a.second > 0) return;
+        if (at_least_one || a.second > 0) return;
         // copy the range
         auto rng = a.first;
-        for(auto& p2 : rng){
-            for(auto& a2 : m_grp_arrows)
+        for (auto& p2 : rng) {
+            for (auto& a2 : m_grp_arrows)
                 a2.remove_cell(p2);
             m_grp_rows[p2.first].remove_cell(p2);
             m_grp_cols[p2.second].remove_cell(p2);
         }
     };
 
-    for(auto& a : m_grp_arrows)
+    for (auto& a : m_grp_arrows)
         f(a, !m_game->m_only_one_arrow);
     f(m_grp_rows[p.first], false);
     f(m_grp_cols[p.second], false);
@@ -199,37 +199,37 @@ bool puz_state::make_move(const Position& p)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     vector<const puz_area*> areas;
-    for(auto grp : {&m_grp_arrows, &m_grp_rows, &m_grp_cols})
-        for(auto& a : *grp)
-            if(a.second > 0)
+    for (auto grp : {&m_grp_arrows, &m_grp_rows, &m_grp_cols})
+        for (auto& a : *grp)
+            if (a.second > 0)
                 areas.push_back(&a);
 
-    auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
+    auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2) {
         return a1->first.size() < a2->first.size();
     });
-    for(auto& p : a.first){
+    for (auto& p : a.first) {
         children.push_back(*this);
-        if(!children.back().make_move(p))
+        if (!children.back().make_move(p))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    auto f = [&](int n){ out << format("%-2d") % n; };
+    auto f = [&](int n) { out << format("%-2d") % n; };
 
-    for(int r = 0; r <= sidelen(); ++r) {
-        for(int c = 0; c <= sidelen(); ++c)
-            if(r == sidelen() && c == sidelen())
+    for (int r = 0; r <= sidelen(); ++r) {
+        for (int c = 0; c <= sidelen(); ++c)
+            if (r == sidelen() && c == sidelen())
                 ;
-            else if(c == sidelen())
+            else if (c == sidelen())
                 f(m_game->m_star_counts_rows.at(r));
-            else if(r == sidelen())
+            else if (r == sidelen())
                 f(m_game->m_star_counts_cols.at(c));
-            else{
+            else {
                 Position p(r, c);
                 char ch = cells(p);
-                if(ch == PUZ_ARROW)
+                if (ch == PUZ_ARROW)
                     f(m_game->m_pos2arrow.at(p));
                 else
                     out << ch << " ";

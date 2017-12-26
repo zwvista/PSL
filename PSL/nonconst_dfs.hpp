@@ -169,11 +169,11 @@ namespace boost {
       typedef typename unwrap_reference<TerminatorFunc>::type TF;
       // Variable is needed to workaround a borland bug.
       TF& fn = static_cast<TF&>(func);
-      if (!fn(u, g)){
+      if (!fn(u, g)) {
         std::vector<Edge> edges;
         for (boost::tie(ei, ei_end) = out_edges(u, g); ei != ei_end; ++ei)
             edges.push_back(*ei);
-        for (auto it = edges.begin(); it != edges.end(); it++){
+        for (auto it = edges.begin(); it != edges.end(); it++) {
           Vertex v = target(*it, g);           vis.examine_edge(*it, g);
           ColorValue v_color = get(color, v);
           if (v_color == Color::white()) {     vis.tree_edge(*it, g);
@@ -206,7 +206,7 @@ namespace boost {
       put(color, u, Color::white()); vis.initialize_vertex(u, g);
     }
 
-    if (start_vertex != implicit_cast<Vertex>(*vertices(g).first)){ vis.start_vertex(start_vertex, g);
+    if (start_vertex != implicit_cast<Vertex>(*vertices(g).first)) { vis.start_vertex(start_vertex, g);
       detail::depth_first_visit_impl(g, start_vertex, vis, color,
                                      detail::nontruth2());
     }

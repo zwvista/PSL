@@ -16,12 +16,12 @@ int main(int argc, char **argv)
     cout << "v: Over Under" << endl;
     string str;
     getline(cin, str);
-    if(str.empty());
+    if (str.empty());
     else if (str == "d") solve_puz_OddsAreEven();
     else if (str == "n") solve_puz_on_the_edge();
-    else if(str == "p") solve_puz_openvalve();
-    else if(str == "r") solve_puz_Orchards();
-    else if(str == "v") solve_puz_OverUnder();
+    else if (str == "p") solve_puz_openvalve();
+    else if (str == "r") solve_puz_Orchards();
+    else if (str == "v") solve_puz_OverUnder();
 
     return 0;
 }

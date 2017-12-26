@@ -29,10 +29,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(Position(strs.size(), strs[0].length()))
 {
-    for(int r = 0; r < rows(); r++){
+    for (int r = 0; r < rows(); r++) {
         auto& str = strs[r];
-        for(int c = 0; c < cols(); c++)
-            if(str[c] == PUZ_BALL)
+        for (int c = 0; c < cols(); c++)
+            if (str[c] == PUZ_BALL)
                 m_balls.insert(Position(r, c));
     }
 }
@@ -82,22 +82,21 @@ bool puz_state::make_move(const Position& p, int i)
     vector<Position> moved_balls;
 
     Position p2 = p;
-    for(;;){
+    for (;;) {
         m_balls.erase(p2);
         bool bvalid, bball;
         Position p3 = p2 + os;
-        for(; ; p3 += os){
+        for (; ; p3 += os) {
             bvalid = is_valid(p3);
             bball = is_ball(p3);
-            if(!bvalid || bball) break;
+            if (!bvalid || bball) break;
         }
-        if(p2 == p && (!bvalid || p3 == p2 + os))
+        if (p2 == p && (!bvalid || p3 == p2 + os))
             return false;
-        if(bball){
+        if (bball) {
             moved_balls.push_back(p3 - os);
             p2 = p3;
-        }
-        else
+        } else
             break;
     }
 
@@ -108,20 +107,20 @@ bool puz_state::make_move(const Position& p, int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(const Position& p : m_balls)
-        for(int i = 0; i < 4; i++){
+    for (const Position& p : m_balls)
+        for (int i = 0; i < 4; i++) {
             children.push_back(*this);
-            if(!children.back().make_move(p, i))
+            if (!children.back().make_move(p, i))
                 children.pop_back();
         }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "move: " << *m_move << endl;
-    for(int r = 0; r < rows(); ++r){
-        for(int c = 0; c < cols(); ++c){
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c) {
             Position pos(r, c);
             out << (is_ball(pos) ? PUZ_BALL : ' ');
         }

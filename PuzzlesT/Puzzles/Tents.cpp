@@ -63,11 +63,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_tent_counts_cols(m_sidelen)
 {
     vector<Position> trees;
-    for(int r = 0; r <= m_sidelen; ++r){
+    for (int r = 0; r <= m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c <= m_sidelen; ++c){
+        for (int c = 0; c <= m_sidelen; ++c) {
             m_pos2trees[{r, c}];
-            switch(char ch = str[c]){
+            switch(char ch = str[c]) {
             case PUZ_SPACE:
                 m_start.push_back(PUZ_EMPTY);
                 break;
@@ -85,12 +85,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_tent_total_count = boost::accumulate(m_tent_counts_rows, 0);
 
     m_tree_info.resize(trees.size());
-    for(int i = 0; i < trees.size(); ++i){
+    for (int i = 0; i < trees.size(); ++i) {
         auto& p = trees[i];
         auto& info = m_tree_info[i];
-        for(int j = 0; j < 8; j += 2){
+        for (int j = 0; j < 8; j += 2) {
             auto p2 = p + offset[j];
-            if(is_valid(p2) && cells(p2) == PUZ_EMPTY){
+            if (is_valid(p2) && cells(p2) == PUZ_EMPTY) {
                 info.push_back(p2);
                 m_pos2trees[p2].push_back(i);
             }
@@ -106,12 +106,12 @@ struct puz_area : pair<vector<Position>, int>
     puz_area(int tent_count)
         : pair<vector<Position>, int>({}, tent_count)
     {}
-    void add_cell(const Position& p){ first.push_back(p); }
-    void remove_cell(const Position& p){ boost::remove_erase(first, p); }
-    void put_tent(const Position& p, bool at_least_one){
-        if(boost::algorithm::none_of_equal(first, p)) return;
+    void add_cell(const Position& p) { first.push_back(p); }
+    void remove_cell(const Position& p) { boost::remove_erase(first, p); }
+    void put_tent(const Position& p, bool at_least_one) {
+        if (boost::algorithm::none_of_equal(first, p)) return;
         remove_cell(p);
-        if(!at_least_one || at_least_one && second == 1)
+        if (!at_least_one || at_least_one && second == 1)
             --second;
     }
     bool is_valid() const {
@@ -126,8 +126,8 @@ struct puz_area : pair<vector<Position>, int>
 struct puz_group : vector<puz_area>
 {
     puz_group() {}
-    puz_group(const vector<int>& tent_counts){
-        for(int cnt : tent_counts)
+    puz_group(const vector<int>& tent_counts) {
+        for (int cnt : tent_counts)
             emplace_back(cnt);
     }
     bool is_valid() const {
@@ -174,8 +174,8 @@ puz_state::puz_state(const puz_game& g)
     , m_grp_rows(g.m_tent_counts_rows)
     , m_grp_cols(g.m_tent_counts_cols)
 {
-    for(int i = 0; i < g.m_tree_info.size(); ++i)
-        for(auto& p : g.m_tree_info[i]){
+    for (int i = 0; i < g.m_tree_info.size(); ++i)
+        for (auto& p : g.m_tree_info[i]) {
             m_grp_rows[p.first].add_cell(p);
             m_grp_cols[p.second].add_cell(p);
             m_grp_trees[i].add_cell(p);
@@ -186,29 +186,29 @@ bool puz_state::make_move(const Position& p)
 {
     cells(p) = PUZ_TENT;
 
-    auto grps_remove_cell = [&](const Position& p2){
-        for(int n : m_game->m_pos2trees.at(p2))
+    auto grps_remove_cell = [&](const Position& p2) {
+        for (int n : m_game->m_pos2trees.at(p2))
             m_grp_trees[n].remove_cell(p2);
         m_grp_rows[p2.first].remove_cell(p2);
         m_grp_cols[p2.second].remove_cell(p2);
     };
 
-    for(int n : m_game->m_pos2trees.at(p))
+    for (int n : m_game->m_pos2trees.at(p))
         m_grp_trees[n].put_tent(p, true);
-    for(auto* a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}){
+    for (auto* a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}) {
         a->put_tent(p, false);
-        if(a->second == 0){
+        if (a->second == 0) {
             // copy the range
             auto rng = a->first;
-            for(auto& p2 : rng)
+            for (auto& p2 : rng)
                 grps_remove_cell(p2);
         }
     }
 
     // no touch
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p2 = p + os;
-        if(is_valid(p2))
+        if (is_valid(p2))
             grps_remove_cell(p2);
     }
 
@@ -218,30 +218,30 @@ bool puz_state::make_move(const Position& p)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     vector<const puz_area*> areas;
-    for(auto grp : {&m_grp_trees, &m_grp_rows, &m_grp_cols})
-        for(auto& a : *grp)
-            if(a.second > 0)
+    for (auto grp : {&m_grp_trees, &m_grp_rows, &m_grp_cols})
+        for (auto& a : *grp)
+            if (a.second > 0)
                 areas.push_back(&a);
 
-    auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
+    auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2) {
         return a1->first.size() < a2->first.size();
     });
-    for(auto& p : a.first){
+    for (auto& p : a.first) {
         children.push_back(*this);
-        if(!children.back().make_move(p))
+        if (!children.back().make_move(p))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r <= sidelen(); ++r){
-        for(int c = 0; c <= sidelen(); ++c){
-            if(r == sidelen() && c == sidelen())
+    for (int r = 0; r <= sidelen(); ++r) {
+        for (int c = 0; c <= sidelen(); ++c) {
+            if (r == sidelen() && c == sidelen())
                 break;
-            if(c == sidelen())
+            if (c == sidelen())
                 out << format("%-2d") % m_game->m_tent_counts_rows[r];
-            else if(r == sidelen())
+            else if (r == sidelen())
                 out << format("%-2d") % m_game->m_tent_counts_cols[c];
             else
                 out << cells({r, c}) << ' ';

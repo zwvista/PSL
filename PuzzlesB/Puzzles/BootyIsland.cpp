@@ -61,11 +61,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_treasure_count_area(level.attribute("TreasuresInEachArea").as_int(1))
     , m_treasure_total_count(m_treasure_count_area * m_sidelen)
 {
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            if(ch != PUZ_SPACE)
+            if (ch != PUZ_SPACE)
                 m_pos2map[{r, c}] = ch - '0';
             m_start.push_back(ch == PUZ_SPACE ? PUZ_EMPTY : PUZ_MAP);
         }
@@ -80,12 +80,12 @@ struct puz_area : pair<vector<Position>, int>
     puz_area(int treasure_count_area)
         : pair<vector<Position>, int>({}, treasure_count_area)
     {}
-    void add_cell(const Position& p){ first.push_back(p); }
-    void remove_cell(const Position& p){ boost::remove_erase(first, p); }
-    void find_treasure(const Position& p, bool at_least_one){
-        if(boost::algorithm::none_of_equal(first, p)) return;
+    void add_cell(const Position& p) { first.push_back(p); }
+    void remove_cell(const Position& p) { boost::remove_erase(first, p); }
+    void find_treasure(const Position& p, bool at_least_one) {
+        if (boost::algorithm::none_of_equal(first, p)) return;
         remove_cell(p);
-        if(!at_least_one || at_least_one && second == 1)
+        if (!at_least_one || at_least_one && second == 1)
             --second;
     }
     bool is_valid() const { 
@@ -146,25 +146,24 @@ puz_state::puz_state(const puz_game& g)
     , m_grp_rows(g.m_sidelen, g.m_treasure_count_area)
     , m_grp_cols(g.m_sidelen, g.m_treasure_count_area)
 {
-    for(int r = 0, i = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0, i = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if(cells(p) == PUZ_MAP){
-                for(int j = 0; j < 4; ++j){
+            if (cells(p) == PUZ_MAP) {
+                for (int j = 0; j < 4; ++j) {
                     auto& os = offset[j * 2];
                     int n = g.m_pos2map.at(p);
                     auto p2 = p;
-                    if([&, n]{
-                        for(int k = 0; k < n; ++k)
-                            if(!is_valid(p2 += os))
+                    if ([&, n]{
+                        for (int k = 0; k < n; ++k)
+                            if (!is_valid(p2 += os))
                                 return false;
                         return cells(p2) == PUZ_EMPTY;
                     }())
                         m_grp_maps[i].add_cell(p2);
                 }
                 ++i;
-            }
-            else{
+            } else {
                 m_grp_rows[r].add_cell(p);
                 m_grp_cols[c].add_cell(p);
             }
@@ -175,29 +174,29 @@ bool puz_state::make_move(const Position& p)
 {
     cells(p) = PUZ_TREASURE;
 
-    auto grps_remove_cell = [&](const Position& p2){
-        for(auto& a : m_grp_maps)
+    auto grps_remove_cell = [&](const Position& p2) {
+        for (auto& a : m_grp_maps)
             a.remove_cell(p2);
         m_grp_rows[p2.first].remove_cell(p2);
         m_grp_cols[p2.second].remove_cell(p2);
     };
 
-    for(auto& a : m_grp_maps)
+    for (auto& a : m_grp_maps)
         a.find_treasure(p, true);
-    for(auto* a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}){
+    for (auto* a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}) {
         a->find_treasure(p, false);
-        if(a->second == 0){
+        if (a->second == 0) {
             // copy the range
             auto rng = a->first;
-            for(auto& p2 : rng)
+            for (auto& p2 : rng)
                 grps_remove_cell(p2);
         }
     }
 
     // no touch
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p2 = p + os;
-        if(is_valid(p2))
+        if (is_valid(p2))
             grps_remove_cell(p2);
     }
 
@@ -208,28 +207,28 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     const puz_group* grps[] = {&m_grp_maps, &m_grp_rows, &m_grp_cols};
     vector<const puz_area*> areas;
-    for(const puz_group* grp : grps)
-        for(const puz_area& a : *grp)
-            if(a.second > 0)
+    for (const puz_group* grp : grps)
+        for (const puz_area& a : *grp)
+            if (a.second > 0)
                 areas.push_back(&a);
 
-    const auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2){
+    const auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2) {
         return a1->first.size() < a2->first.size();
     });
-    for(auto& p : a.first){
+    for (auto& p : a.first) {
         children.push_back(*this);
-        if(!children.back().make_move(p))
+        if (!children.back().make_move(p))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if(ch == PUZ_MAP)
+            if (ch == PUZ_MAP)
                 out << format("%-2d") % m_game->m_pos2map.at(p);
             else
                 out << ch << " ";

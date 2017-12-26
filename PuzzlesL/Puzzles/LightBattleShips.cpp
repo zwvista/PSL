@@ -81,14 +81,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size())
     , m_has_supertanker(level.attribute("SuperTanker").as_int() == 1)
 {
-    if(m_has_supertanker)
+    if (m_has_supertanker)
         m_ship2num[5] = 1;
 
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            switch(char ch = str[c]){
+            switch(char ch = str[c]) {
             case PUZ_SPACE:
             case PUZ_EMPTY:
                 m_start.push_back(ch);
@@ -139,7 +139,7 @@ struct puz_state : string
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::accumulate(m_ship2num, 0, [](int acc, const pair<const int, int>& kv){
+        return boost::accumulate(m_ship2num, 0, [](int acc, const pair<const int, int>& kv) {
             return acc + kv.second;
         });
     }
@@ -164,12 +164,12 @@ puz_state::puz_state(const puz_game& g)
 , m_pos2light(g.m_pos2light)
 {
     // 3. Ships cannot touch Lighthouses. Not even diagonally.
-    for(auto& kv : g.m_pos2light)
-        for(auto& os : offset){
+    for (auto& kv : g.m_pos2light)
+        for (auto& os : offset) {
             auto p = kv.first + os;
-            if(!is_valid(p)) continue;
+            if (!is_valid(p)) continue;
             char& ch = cells(p);
-            if(ch == PUZ_SPACE)
+            if (ch == PUZ_SPACE)
                 ch = PUZ_EMPTY;
         }
 
@@ -179,16 +179,16 @@ puz_state::puz_state(const puz_game& g)
 
 void puz_state::check_area()
 {
-    auto f = [](char& ch){
-        if(ch == PUZ_SPACE)
+    auto f = [](char& ch) {
+        if (ch == PUZ_SPACE)
             ch = PUZ_EMPTY;
     };
 
-    for(auto& kv : m_pos2light)
-        if(kv.second == 0){
-            for(int r = 0; r < sidelen(); ++r)
+    for (auto& kv : m_pos2light)
+        if (kv.second == 0) {
+            for (int r = 0; r < sidelen(); ++r)
                 f(cells({r, kv.first.second}));
-            for(int c = 0; c < sidelen(); ++c)
+            for (int c = 0; c < sidelen(); ++c)
                 f(cells({kv.first.first, c}));
         }
 }
@@ -197,33 +197,33 @@ void puz_state::find_matches()
 {
     m_pos_matches.clear();
     m_ship_matches.clear();
-    for(const auto& kv : m_ship2num){
+    for (const auto& kv : m_ship2num) {
         int i = kv.first;
-        for(int j = 0; j < 2; ++j){
+        for (int j = 0; j < 2; ++j) {
             bool vert = j == 1;
-            if(i == 1 && vert)
+            if (i == 1 && vert)
                 continue;
 
             auto& s = ship_info[i - 1].m_pieces[j];
             int len = s.length();
 
-            auto f = [&](Position p){
+            auto f = [&](Position p) {
                 auto os = vert ? Position(1, 0) : Position(0, 1);
-                for(char ch : s){
-                    if(!is_valid(p) || cells(p) != PUZ_SPACE)
+                for (char ch : s) {
+                    if (!is_valid(p) || cells(p) != PUZ_SPACE)
                         return false;
                     p += os;
                 }
                 return true;
             };
 
-            if(!m_pos2piece.empty())
-                for(const auto& kv : m_pos2piece){
+            if (!m_pos2piece.empty())
+                for (const auto& kv : m_pos2piece) {
                     auto& p = kv.first;
                     int r = p.first, c = p.second;
-                    if(!vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv){
+                    if (!vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
                         return kv.first.first == r && kv.second < len;
-                    }) || vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv){
+                    }) || vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
                         return kv.first.second == c && kv.second < len;
                     }))
                         continue;
@@ -232,27 +232,26 @@ void puz_state::find_matches()
                     // 0
                     // < + + >
                     //       len-1
-                    for(int k = 0; k < len; ++k){
-                        if(s[k] != ch)
+                    for (int k = 0; k < len; ++k) {
+                        if (s[k] != ch)
                             continue;
                         auto p2 = p - (vert ? Position(k, 0) : Position(0, k));
-                        if(f(p2))
+                        if (f(p2))
                             m_pos_matches[p].emplace_back(i, p2 + Position(-1, -1), vert);
                     }
-                }
-            else
-                for(int r = 0; r < sidelen() - (!vert ? 0 : len - 1); ++r){
-                    if(!vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv){
+                } else
+                for (int r = 0; r < sidelen() - (!vert ? 0 : len - 1); ++r) {
+                    if (!vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
                         return kv.first.first == r && kv.second < len;
                     }))
                         continue;
-                    for(int c = 0; c < sidelen() - (vert ? 0 : len - 1); ++c){
-                        if(vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv){
+                    for (int c = 0; c < sidelen() - (vert ? 0 : len - 1); ++c) {
+                        if (vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
                             return kv.first.second == c && kv.second < len;
                         }))
                             continue;
                         Position p(r, c);
-                        if(f(p))
+                        if (f(p))
                             m_ship_matches[i].emplace_back(p + Position(-1, -1), vert);
                     }
                 }
@@ -264,66 +263,64 @@ bool puz_state::make_move(const Position& p_piece, const Position& p, int n, boo
 {
     auto& info = ship_info[n - 1];
     int len = info.m_pieces[0].length();
-    for(int r2 = 0; r2 < 3; ++r2)
-        for(int c2 = 0; c2 < len + 2; ++c2){
+    for (int r2 = 0; r2 < 3; ++r2)
+        for (int c2 = 0; c2 < len + 2; ++c2) {
             auto p2 = p + Position(!vert ? r2 : c2, !vert ? c2 : r2);
-            if(!is_valid(p2)) continue;
+            if (!is_valid(p2)) continue;
             char& ch = cells(p2);
             char ch2 = info.m_area[r2][c2];
-            if(ch2 == ' '){
+            if (ch2 == ' ') {
                 ch = info.m_pieces[!vert ? 0 : 1][c2 - 1];
-                for(auto& kv : m_pos2light)
-                    if(kv.first.first == p2.first || kv.first.second == p2.second)
+                for (auto& kv : m_pos2light)
+                    if (kv.first.first == p2.first || kv.first.second == p2.second)
                         --kv.second;
-            }
-            else if(ch == PUZ_SPACE)
+            } else if (ch == PUZ_SPACE)
                 ch = PUZ_EMPTY;
         }
 
 
-    if(--m_ship2num[n] == 0)
+    if (--m_ship2num[n] == 0)
         m_ship2num.erase(n);
     m_pos2piece.erase(p_piece);
     check_area();
     find_matches();
 
-    if(!m_pos2piece.empty())
-        return boost::algorithm::all_of(m_pos2piece, [&](const pair<const Position, char>& kv){
+    if (!m_pos2piece.empty())
+        return boost::algorithm::all_of(m_pos2piece, [&](const pair<const Position, char>& kv) {
             return m_pos_matches.count(kv.first) != 0;
         });
-    else if(!is_goal_state())
-        return boost::algorithm::all_of(m_ship2num, [&](const pair<const int, int>& kv){
+    else if (!is_goal_state())
+        return boost::algorithm::all_of(m_ship2num, [&](const pair<const int, int>& kv) {
             return m_ship_matches[kv.first].size() >= kv.second;
         });
     else
-        return boost::algorithm::all_of(m_pos2light, [](const pair<const Position, int>& kv){
+        return boost::algorithm::all_of(m_pos2light, [](const pair<const Position, int>& kv) {
             return kv.second == 0;
         });
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if(!m_pos2piece.empty()){
+    if (!m_pos2piece.empty()) {
         auto& kv = *boost::min_element(m_pos_matches, [](
             const puz_pos_match::value_type& kv1,
-            const puz_pos_match::value_type& kv2){
+            const puz_pos_match::value_type& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for(auto& tp : m_pos_matches.at(kv.first)){
+        for (auto& tp : m_pos_matches.at(kv.first)) {
             children.push_back(*this);
-            if(!children.back().make_move(kv.first, get<1>(tp), get<0>(tp), get<2>(tp)))
+            if (!children.back().make_move(kv.first, get<1>(tp), get<0>(tp), get<2>(tp)))
                 children.pop_back();
         }
-    }
-    else{
+    } else {
         auto& kv = *boost::min_element(m_ship_matches, [](
             const puz_ship_match::value_type& kv1,
-            const puz_ship_match::value_type& kv2){
+            const puz_ship_match::value_type& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for(auto& kv2 : m_ship_matches.at(kv.first)){
+        for (auto& kv2 : m_ship_matches.at(kv.first)) {
             children.push_back(*this);
-            if(!children.back().make_move(kv2.first, kv2.first, kv.first, kv2.second))
+            if (!children.back().make_move(kv2.first, kv2.first, kv.first, kv2.second))
                 children.pop_back();
         }
     }
@@ -331,11 +328,11 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if(ch == PUZ_LIGHT)
+            if (ch == PUZ_LIGHT)
                 out << format("%-2d") % m_game->m_pos2light.at(p);
             else
                 out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';

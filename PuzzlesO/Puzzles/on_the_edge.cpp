@@ -37,9 +37,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size(), strs[0].length())
 {
     m_cells = boost::accumulate(strs, string());
-    for(int r = 0, n = 0; r < rows(); ++r)
-        for(int c = 0; c < cols(); ++c, ++n)
-            switch(char& ch = m_cells[n]){
+    for (int r = 0, n = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c, ++n)
+            switch(char& ch = m_cells[n]) {
             case PUZ_BLOCK:
                 ch = PUZ_WHITE;
                 m_block = Position(r, c);
@@ -49,8 +49,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_goal = Position(r, c);
                 break;
             }
-    for(auto v : level.children())
-        if(string(v.name()) == "teleporter"){
+    for (auto v : level.children())
+        if (string(v.name()) == "teleporter") {
             Position p1, p2;
             parse_position(v.attribute("position1").value(), p1);
             parse_position(v.attribute("position2").value(), p2);
@@ -92,7 +92,7 @@ struct puz_state : puz_state_base
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         unsigned int n = 0;
-        for(char ch : m_cells)
+        for (char ch : m_cells)
             n += ch == PUZ_WHITE ? 1 : ch == PUZ_BLACK ? 2 : 0;
         return n;
     }
@@ -127,13 +127,13 @@ struct puz_state2 : puz_state_base
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     map<Position, Position>::const_iterator it = m_game->m_teleporters.find(m_block);
-    if(it != m_game->m_teleporters.end() && cells(it->second) != PUZ_HOLE){
+    if (it != m_game->m_teleporters.end() && cells(it->second) != PUZ_HOLE) {
         children.push_back(*this);
         children.back().m_block = it->second;
     }
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         Position p = m_block + offset[i];
-        if(is_valid(p) && cells(p) != PUZ_HOLE){
+        if (is_valid(p) && cells(p) != PUZ_HOLE) {
             children.push_back(*this);
             children.back().m_block = p;
         }
@@ -144,21 +144,21 @@ bool puz_state::make_move(int i)
 {
     char* dirs = "lrud";
 
-    if(m_block != m_game->m_goal)
+    if (m_block != m_game->m_goal)
         cells(m_block) = cells(m_block) == PUZ_BLACK ? PUZ_WHITE : PUZ_HOLE;
 
-    if(!is_valid(m_block += offset[i]) ||
+    if (!is_valid(m_block += offset[i]) ||
         cells(m_block) == PUZ_HOLE) return false;
 
     map<Position, Position>::const_iterator it = m_game->m_teleporters.find(m_block);
-    if(it != m_game->m_teleporters.end()){
+    if (it != m_game->m_teleporters.end()) {
         cells(m_block) = PUZ_HOLE;
         m_block = it->second;
     }
 
     list<puz_state2> smoves;
     puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-    if(get_spaces() != smoves.size()) return false;
+    if (get_spaces() != smoves.size()) return false;
 
     m_move = dirs[i];
     return true;
@@ -166,19 +166,19 @@ bool puz_state::make_move(int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         children.push_back(*this);
-        if(!children.back().make_move(i))
+        if (!children.back().make_move(i))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "move: " << m_move << endl;
-    for(int r = 0; r < rows(); ++r) {
-        for(int c = 0; c < cols(); ++c) {
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             out << (p == m_block ? PUZ_BLOCK :
             p == m_game->m_goal ? PUZ_GOAL :

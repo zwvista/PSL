@@ -46,7 +46,7 @@ struct puz_state : pair<string, boost::optional<puz_step>>
     puz_state() {}
     puz_state(const puz_game& g)
         : pair<string, boost::optional<puz_step>>{g.m_start, {}}, m_game(&g) {}
-    void make_move(int i, int j){
+    void make_move(int i, int j) {
         ::swap(first[i], first[j]);
         second = puz_step(i, j);
     }
@@ -56,7 +56,7 @@ struct puz_state : pair<string, boost::optional<puz_step>>
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         int n = 0;
-        for(size_t i = 1; i < first.length() - 1; ++i)
+        for (size_t i = 1; i < first.length() - 1; ++i)
             n += myabs(first[i] - m_game->m_goal[i]);
         return n;
     }
@@ -72,25 +72,25 @@ struct puz_state : pair<string, boost::optional<puz_step>>
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(size_t i = 1; i < first.length() - 1; ++i){
+    for (size_t i = 1; i < first.length() - 1; ++i) {
         char n = first[i];
-        if(n == PUZ_RED || n == PUZ_BLUE){
+        if (n == PUZ_RED || n == PUZ_BLUE) {
             bool can_move = false;
             // Red frogs move rightward and blue ones, leftward.
             int delta = n == PUZ_RED ? 1 : -1;
             int j = i + delta;
             char n2 = first[j];
             // A frog can move forward
-            if(n2 == PUZ_SPACE)
+            if (n2 == PUZ_SPACE)
                 can_move = true;
             // or jump a frog in front of it
-            else if(n2 == PUZ_RED || n2 == PUZ_BLUE){
+            else if (n2 == PUZ_RED || n2 == PUZ_BLUE) {
                 j += delta;
                 n2 = first[j];
-                if(n2 == PUZ_SPACE)
+                if (n2 == PUZ_SPACE)
                     can_move = true;
             }
-            if(can_move){
+            if (can_move) {
                 children.push_back(*this);
                 children.back().make_move(i, j);
             }
@@ -101,7 +101,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(size_t j = 1; j < first.size() - 1; ++j)
+    for (size_t j = 1; j < first.size() - 1; ++j)
         out << first[j] << " ";
     out << endl;
     return out;

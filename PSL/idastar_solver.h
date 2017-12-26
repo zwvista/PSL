@@ -11,21 +11,21 @@ class puz_solver_idastar
     {
         ++examined;
         unsigned int minimum_cost = start_cost + cur.get_heuristic();
-        if(minimum_cost > cost_limit)
+        if (minimum_cost > cost_limit)
             return next_cost_limit = std::min(next_cost_limit, minimum_cost), false;
-        if(cur.is_goal_state())
+        if (cur.is_goal_state())
             return next_cost_limit = cost_limit, true;
 
         list<puz_state> children;
         cur.gen_children(children);
-        for(const puz_state& child : children){
+        for (const puz_state& child : children) {
             // full cycle checking
-            if(boost::algorithm::any_of_equal(spath, child))
+            if (boost::algorithm::any_of_equal(spath, child))
                 continue;
             unsigned int new_start_cost = start_cost + cur.get_distance(child);
             spath.push_back(child);
             bool found = dfs(new_start_cost, child, cost_limit, next_cost_limit, spath, examined);
-            if(found)
+            if (found)
                 return true;
             spath.pop_back();
         }
@@ -39,9 +39,9 @@ class puz_solver_idastar
     {
         ++examined;
         unsigned int minimum_cost = start_cost + cur.get_heuristic();
-        if(minimum_cost > cost_limit)
+        if (minimum_cost > cost_limit)
             return next_cost_limit = std::min(next_cost_limit, minimum_cost), false;
-        if(cur.is_goal_state())
+        if (cur.is_goal_state())
             return next_cost_limit = cost_limit, true;
 
         typedef boost::tuple<unsigned int, puz_state, list<puz_state> > StateInfo;
@@ -49,13 +49,13 @@ class puz_solver_idastar
         list<puz_state> children;
         cur.gen_children(children);
         stack.push_back(boost::make_tuple(start_cost, cur, children));
-        while(!stack.empty()){
+        while (!stack.empty()) {
             boost::tie(start_cost, cur, children) = stack.back();
             stack.pop_back();
-            for(auto i = children.begin(); i != children.end();){
+            for (auto i = children.begin(); i != children.end();) {
                 const puz_state& child = *i;
                 // full cycle checking
-                if(boost::range::find(spath, child) != spath.end()){
+                if (boost::range::find(spath, child) != spath.end()) {
                     ++i;
                     continue;
                 }
@@ -65,19 +65,18 @@ class puz_solver_idastar
                 cur = child;
                 ++examined;
                 minimum_cost = start_cost + cur.get_heuristic();
-                if(minimum_cost > cost_limit){
+                if (minimum_cost > cost_limit) {
                     next_cost_limit = std::min(next_cost_limit, minimum_cost);
                     i = children.end();
-                }
-                else if(cur.is_goal_state())
+                } else if (cur.is_goal_state())
                     return next_cost_limit = cost_limit, true;
-                else{
+                else {
                     children.clear();
                     cur.gen_children(children);
                     i = children.begin();
                 }
             }
-            if(spath.size() > 1)
+            if (spath.size() > 1)
                 spath.pop_back();
         }
         return false;
@@ -91,14 +90,14 @@ public:
         size_t examined = 0;
         list<puz_state> spath;
         spath.assign(1, sstart);
-        for(;;){
+        for (;;) {
             cout << cost_limit << endl;
             bool found = dfs(0, sstart, cost_limit, next_cost_limit, spath, examined);
-            if(found){
+            if (found) {
                 spaths.push_back(spath);
                 return make_pair(true, examined);
             }
-            if(next_cost_limit == inf)
+            if (next_cost_limit == inf)
                 return make_pair(false, examined);
             cost_limit = next_cost_limit, next_cost_limit = inf;
         }

@@ -50,12 +50,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_dirs(rows() * cols())
 {
     m_start = boost::accumulate(strs, string());
-    for(int r = 0; r < rows(); ++r)
-        for(int c = 0; c < cols(); ++c){
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             int& d = dir(r, c);
-            for(int i = 0; i < 8; ++i){
+            for (int i = 0; i < 8; ++i) {
                 Position p = Position(r, c) + offset[i];
-                if(is_valid(p))
+                if (is_valid(p))
                     d |= 1 << i;
             }
         }
@@ -86,7 +86,7 @@ struct puz_state
     unsigned int get_heuristic() const {return boost::accumulate(m_cells, 0, arg1 + (arg2 - '0'));}
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {
-        if(first_move()) return;
+        if (first_move()) return;
         out << m_curpos << " " << dir_strs[m_index] << " " << next_pos() << endl;
     }
     ostream& dump(ostream& out) const;
@@ -103,7 +103,7 @@ struct puz_state
 
 bool puz_state::make_move(const Position& p, int i)
 {
-    if(first_move())
+    if (first_move())
         --cells(p);
     dir(p) ^= 1 << i;
 
@@ -115,16 +115,16 @@ bool puz_state::make_move(const Position& p, int i)
 
     // pruning
     //for(int r = 0; r < rows(); ++r)
-    //    for(int c = 0; c < cols(); ++c){
+    //    for (int c = 0; c < cols(); ++c) {
     //        Position p(r, c);
-    //        if(cells(p) == '0') continue;
+    //        if (cells(p) == '0') continue;
     //        bool connected = false;
-    //        for(int i = 0; i < 8; ++i)
-    //            if((dir(p) & (1 << i)) && cells(p + offset[i]) != '0'){
+    //        for (int i = 0; i < 8; ++i)
+    //            if ((dir(p) & (1 << i)) && cells(p + offset[i]) != '0') {
     //                connected = true;
     //                break;
     //            }
-    //        if(!connected) return false;
+    //        if (!connected) return false;
     //    }
 
     return true;
@@ -133,21 +133,20 @@ bool puz_state::make_move(const Position& p, int i)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     vector<Position> curs;
-    if(first_move())
-        for(int r = 0; r < rows(); ++r)
-            for(int c = 0; c < cols(); ++c){
+    if (first_move())
+        for (int r = 0; r < rows(); ++r)
+            for (int c = 0; c < cols(); ++c) {
                 Position p(r, c);
-                if(cells(p) != '0')
+                if (cells(p) != '0')
                     curs.push_back(p);
-            }
-    else
+            } else
         curs.push_back(next_pos());
 
-    for(const Position& p : curs)
-        for(int i = 0; i < 8; ++i)
-            if((dir(p) & (1 << i)) && cells(p + offset[i]) != '0'){
+    for (const Position& p : curs)
+        for (int i = 0; i < 8; ++i)
+            if ((dir(p) & (1 << i)) && cells(p + offset[i]) != '0') {
                 children.push_back(*this);
-                if(!children.back().make_move(p, i))
+                if (!children.back().make_move(p, i))
                     children.pop_back();
             }
 }
@@ -155,8 +154,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 0; r < rows(); ++r) {
-        for(int c = 0; c < cols(); ++c)
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c)
             out << cells({r, c}) << " ";
         out << endl;
     }

@@ -44,13 +44,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     fill(m_start.begin(), m_start.begin() + cols(), PUZ_ROCK);
     fill(m_start.rbegin(), m_start.rbegin() + cols(), PUZ_ROCK);
 
-    for(int r = 1, n = cols(); r < rows() - 1; ++r){
+    for (int r = 1, n = cols(); r < rows() - 1; ++r) {
         const string& str = strs[r - 1];
         m_start[n++] = PUZ_ROCK;
-        for(int c = 1; c < cols() - 1; ++c){
+        for (int c = 1; c < cols() - 1; ++c) {
             char ch = str[c - 1];
             Position p(r, c);
-            switch(ch){
+            switch(ch) {
             case PUZ_BLOB:
                 m_blobs.insert(p);
                 break;
@@ -109,51 +109,49 @@ bool puz_state::make_move(int i)
     Position os = offset[m_grav];
     int rs = m_grav % 2 == 0 ? rows() : cols();
     int cs = m_grav % 2 == 0 ? cols() : rows();
-    for(bool keep_moving = true; keep_moving;){
+    for (bool keep_moving = true; keep_moving;) {
         keep_moving = false;
-        for(int r = rs - 2; r >= 1; --r){
-            for(int c = 1; c < cs - 1; ++c){
+        for (int r = rs - 2; r >= 1; --r) {
+            for (int c = 1; c < cs - 1; ++c) {
                 Position p =
                     m_grav == 1 ? Position(cs - 1 - c, r) :
                     m_grav == 2 ? Position(rs - 1 - r, cs - 1 - c) :
                     m_grav == 3 ? Position(c, rs - 1 - r) :
                     Position(r, c);
                 char ch = cells(p);
-                if(ch != PUZ_BLOB && ch != PUZ_BLUB)
+                if (ch != PUZ_BLOB && ch != PUZ_BLUB)
                     continue;
                 Position p2 = p;
                 char ch2;
-                for(;;){
-                    if(ch == PUZ_BLOB && m_game->m_finishes.count(p2) != 0){
+                for (;;) {
+                    if (ch == PUZ_BLOB && m_game->m_finishes.count(p2) != 0) {
                         ch2 = PUZ_FINISH;
                         break;
                     }
                     ch2 = cells(p2 + os);
-                    if(ch2 == PUZ_SPACE)
+                    if (ch2 == PUZ_SPACE)
                         p2 += os;
-                    else if(ch2 == PUZ_KEY_Y){
+                    else if (ch2 == PUZ_KEY_Y) {
                         boost::replace(m_cells, PUZ_LOCK_Y, PUZ_SPACE);
                         cells(p2 += os) = PUZ_SPACE;
                         keep_moving = true;
-                    }
-                    else if(ch2 == PUZ_BREAK2){
+                    } else if (ch2 == PUZ_BREAK2) {
                         cells(p2 + os) = PUZ_BREAK1;
                         break;
-                    }
-                    else if(ch2 == PUZ_BREAK1)
+                    } else if (ch2 == PUZ_BREAK1)
                         cells(p2 += os) = PUZ_SPACE;
-                    else if(ch2 == PUZ_DEATH)
+                    else if (ch2 == PUZ_DEATH)
                         return false;
                     else
                         break;
                 }
-                if(p2 != p){
+                if (p2 != p) {
                     cells(p) = PUZ_SPACE;
-                    if(ch == PUZ_BLOB)
+                    if (ch == PUZ_BLOB)
                         m_blobs.erase(p);
-                    if(ch2 != PUZ_FINISH){
+                    if (ch2 != PUZ_FINISH) {
                         cells(p2) = ch;
-                        if(ch == PUZ_BLOB)
+                        if (ch == PUZ_BLOB)
                             m_blobs.insert(p2);
                     }
                 }
@@ -165,32 +163,32 @@ bool puz_state::make_move(int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < 2; ++i){
+    for (int i = 0; i < 2; ++i) {
         children.push_back(*this);
-        if(!children.back().make_move(i))
+        if (!children.back().make_move(i))
             children.pop_back();
     }
 }
 
 unsigned int puz_state::get_heuristic() const
 {
-    if(m_blobs.empty()) return 0;
+    if (m_blobs.empty()) return 0;
     int ir, ic, jr, jc;
     bool ar1 = false, ar2 = false, ac1 = false, ac2 = false;
-    for(const Position& p : m_blobs){
+    for (const Position& p : m_blobs) {
         boost::tie(ir, ic) = p;
         bool r1 = true, r2 = true, c1 = true, c2 = true;
-        for(const Position& p2 : m_game->m_finishes){
+        for (const Position& p2 : m_game->m_finishes) {
             boost::tie(jr, jc) = p2;
-            if(ir < jr)
+            if (ir < jr)
                 r2 = false;
-            else if(ir > jr)
+            else if (ir > jr)
                 r1 = false;
             else
                 r1 = r2 = false;
-            if(ic < jc)
+            if (ic < jc)
                 c2 = false;
-            else if(ic > jc)
+            else if (ic > jc)
                 c1 = false;
             else
                 c1 = c2 = false;
@@ -207,10 +205,10 @@ unsigned int puz_state::get_heuristic() const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "move: " << m_move << endl;
-    for(int r = 1; r < rows() - 1; ++r) {
-        for(int c = 1; c < cols() - 1; ++c)
+    for (int r = 1; r < rows() - 1; ++r) {
+        for (int c = 1; c < cols() - 1; ++c)
             out << cells({r, c}) << ' ';
         out << endl;
     }

@@ -89,13 +89,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
 {
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            if(ch == PUZ_SPACE)
+            if (ch == PUZ_SPACE)
                 m_start.push_back(PUZ_SPACE);
-            else{
+            else {
                 m_start.push_back(PUZ_CAR);
                 m_pos2hintinfo[{r, c}].m_move_count = ch - '0';
             }
@@ -103,34 +103,34 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     puz_hint_perm hp;
-    for(auto& kv : m_pos2hintinfo){
+    for (auto& kv : m_pos2hintinfo) {
         const auto& pn = kv.first;
         auto& info = kv.second;
         int n = info.m_move_count;
 
-        for(auto& ck : car_kinds){
+        for (auto& ck : car_kinds) {
             hp.m_str = ck.m_str;
-            for(auto& oss : ck.m_offset_car){
+            for (auto& oss : ck.m_offset_car) {
                 hp.m_car.clear();
-                for(auto& os : oss){
+                for (auto& os : oss) {
                     auto p2 = pn + os;
-                    if(!is_valid(p2) || cells(p2) == PUZ_CAR && p2 != pn)
+                    if (!is_valid(p2) || cells(p2) == PUZ_CAR && p2 != pn)
                         goto next_car1;
                     hp.m_car.push_back(p2);
                 }
-                for(int i = 0; i <= n; ++i){
+                for (int i = 0; i <= n; ++i) {
                     hp.m_empty.clear();
                     hp.m_other.clear();
-                    for(int j = 0; j < 2; ++j){
+                    for (int j = 0; j < 2; ++j) {
                         auto os = ck.m_offset_move[j];
                         auto p2 = (j == 0 ? hp.m_car.front() : hp.m_car.back()) + os;
-                        for(int m = 1; m <= (j == 0 ? i : n - i); ++m){
-                            if(!is_valid(p2) || cells(p2) != PUZ_SPACE)
+                        for (int m = 1; m <= (j == 0 ? i : n - i); ++m) {
+                            if (!is_valid(p2) || cells(p2) != PUZ_SPACE)
                                 goto next_car2;
                             hp.m_empty.push_back(p2);
                             p2 += os;
                         }
-                        if(is_valid(p2))
+                        if (is_valid(p2))
                             hp.m_other.push_back(p2);
                     }
                     info.m_hint_perms.push_back(hp);
@@ -172,7 +172,7 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-    for(auto& kv : g.m_pos2hintinfo){
+    for (auto& kv : g.m_pos2hintinfo) {
         auto& perm_ids = m_matches[kv.first];
         perm_ids.resize(kv.second.m_hint_perms.size());
         boost::iota(perm_ids, 0);
@@ -183,27 +183,27 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         auto& p = kv.first;
         auto& perm_ids = kv.second;
 
         auto& hint_perms = m_game->m_pos2hintinfo.at(p).m_hint_perms;
-        boost::remove_erase_if(perm_ids, [&](int id){
+        boost::remove_erase_if(perm_ids, [&](int id) {
             auto& hp = hint_perms[id];
-            return boost::algorithm::any_of(hp.m_car, [&](const Position& p2){
+            return boost::algorithm::any_of(hp.m_car, [&](const Position& p2) {
                 char ch = cells(p2);
                 return ch != PUZ_SPACE && ch != PUZ_CAR;
-            }) || boost::algorithm::any_of(hp.m_empty, [&](const Position& p2){
+            }) || boost::algorithm::any_of(hp.m_empty, [&](const Position& p2) {
                 char ch = cells(p2);
                 return ch != PUZ_SPACE && ch != PUZ_EMPTY;
-            }) || boost::algorithm::any_of(hp.m_other, [&](const Position& p2){
+            }) || boost::algorithm::any_of(hp.m_other, [&](const Position& p2) {
                 char ch = cells(p2);
                 return ch == PUZ_EMPTY;
             });
         });
 
-        if(!init)
-            switch(perm_ids.size()){
+        if (!init)
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -216,13 +216,13 @@ int puz_state::find_matches(bool init)
 bool puz_state::make_move2(const Position& p, int n)
 {
     auto& hp = m_game->m_pos2hintinfo.at(p).m_hint_perms[n];
-    for(int i = 0; i < hp.m_car.size(); ++i)
+    for (int i = 0; i < hp.m_car.size(); ++i)
         cells(hp.m_car[i]) = hp.m_str[i];
-    for(auto& p2 : hp.m_empty)
+    for (auto& p2 : hp.m_empty)
         cells(p2) = PUZ_EMPTY;
-    for(auto& p2 : hp.m_other){
+    for (auto& p2 : hp.m_other) {
         char& ch = cells(p2);
-        if(ch == PUZ_SPACE)
+        if (ch == PUZ_SPACE)
             ch = PUZ_CAR;
     }
 
@@ -231,16 +231,16 @@ bool puz_state::make_move2(const Position& p, int n)
 
     // pruning
     set<Position> rng1, rng2;
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p2(r, c);
-            if(cells(p2) == PUZ_CAR)
+            if (cells(p2) == PUZ_CAR)
                 rng1.insert(p2);
         }
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         auto& hint_perms = m_game->m_pos2hintinfo.at(kv.first).m_hint_perms;
-        for(int id : kv.second)
-            for(auto& p2 : hint_perms[id].m_car)
+        for (int id : kv.second)
+            for (auto& p2 : hint_perms[id].m_car)
                 rng2.insert(p2);
     }
     return boost::includes(rng2, rng1);
@@ -249,10 +249,10 @@ bool puz_state::make_move2(const Position& p, int n)
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    if(!make_move2(p, n))
+    if (!make_move2(p, n))
         return false;
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -260,23 +260,23 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1, 
-        const pair<const Position, vector<int>>& kv2){
+        const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(int n : kv.second){
+    for (int n : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto it = m_game->m_pos2hintinfo.find(p);
-            if(it == m_game->m_pos2hintinfo.end())
+            if (it == m_game->m_pos2hintinfo.end())
                 out << " .";
             else
                 out << format("%2d") % it->second.m_move_count;
@@ -284,8 +284,8 @@ ostream& puz_state::dump(ostream& out) const
         out << endl;
     }
     out << endl;
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             char ch = cells({r, c});
             out << format("%-2s") % (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
         }

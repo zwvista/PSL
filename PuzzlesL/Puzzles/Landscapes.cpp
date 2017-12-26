@@ -62,7 +62,7 @@ struct puz_state2 : Position
     puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
         : m_horz_walls(&horz_walls), m_vert_walls(&vert_walls) { make_move(p_start); }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const set<Position> *m_horz_walls, *m_vert_walls;
@@ -70,11 +70,11 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         auto p = *this + offset[i * 2];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
-        if(walls.count(p_wall) == 0){
+        if (walls.count(p_wall) == 0) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -86,36 +86,36 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size() / 2)
 {
     set<Position> rng;
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // horz-walls
         auto& str_h = strs[r * 2];
-        for(int c = 0; c < m_sidelen; ++c)
-            if(str_h[c * 2 + 1] == '-')
+        for (int c = 0; c < m_sidelen; ++c)
+            if (str_h[c * 2 + 1] == '-')
                 m_horz_walls.insert({r, c});
-        if(r == m_sidelen) break;
+        if (r == m_sidelen) break;
         auto& str_v = strs[r * 2 + 1];
-        for(int c = 0;; ++c){
+        for (int c = 0;; ++c) {
             Position p(r, c);
             // vert-walls
-            if(str_v[c * 2] == '|')
+            if (str_v[c * 2] == '|')
                 m_vert_walls.insert(p);
-            if(c == m_sidelen) break;
+            if (c == m_sidelen) break;
             m_start.push_back(str_v[c * 2 + 1]);
             rng.insert(p);
         }
     }
-    for(int n = 0; !rng.empty(); ++n){
+    for (int n = 0; !rng.empty(); ++n) {
         list<puz_state2> smoves;
         auto p0 = *rng.begin();
         puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p0}, smoves);
         puz_region region;
-        for(auto& p : smoves){
+        for (auto& p : smoves) {
             m_pos2region[p] = n;
             rng.erase(p);
             region.m_rng.push_back(p);
         }
         char ch = cells(p0);
-        if(ch != PUZ_SPACE)
+        if (ch != PUZ_SPACE)
             region.m_kind = {ch};
         m_regions.push_back(region);
     }
@@ -159,28 +159,28 @@ puz_state::puz_state(const puz_game& g)
     , m_game(&g)
 {
     vector<int> fixed_regions;
-    for(int i = 0; i < g.m_regions.size(); ++i){
+    for (int i = 0; i < g.m_regions.size(); ++i) {
         auto& region = g.m_regions[i];
-        if(region.m_kind.size() == 1)
+        if (region.m_kind.size() == 1)
             fixed_regions.push_back(i);
         else
             m_matches[i] = region.m_kind;
     }
-    for(int i : fixed_regions)
+    for (int i : fixed_regions)
         identify_region(i, g.m_regions[i].m_kind[0]);
 }
 
 void puz_state::identify_region(int n, char ch)
 {
-    for(auto& p : m_game->m_regions[n].m_rng)
-        for(auto& os : offset){
+    for (auto& p : m_game->m_regions[n].m_rng)
+        for (auto& os : offset) {
             auto p2 = p + os;
             auto it = m_game->m_pos2region.find(p2);
-            if(it == m_game->m_pos2region.end()) continue;
+            if (it == m_game->m_pos2region.end()) continue;
             int n2 = it->second;
-            if(n == n2) continue;
+            if (n == n2) continue;
             auto it2 = m_matches.find(n2);
-            if(it2 == m_matches.end()) continue;
+            if (it2 == m_matches.end()) continue;
             boost::remove_erase(it2->second, cells(p));
         }
 }
@@ -189,11 +189,11 @@ bool puz_state::make_move(int n, char ch)
 {
     m_distance = 0;
     auto& region = m_game->m_regions[n];
-    for(auto& p : region.m_rng)
+    for (auto& p : region.m_rng)
         cells(p) = ch, ++m_distance;
     identify_region(n, ch);
     m_matches.erase(n);
-    return boost::algorithm::none_of(m_matches, [](const pair<const int, vector<char>>& kv){
+    return boost::algorithm::none_of(m_matches, [](const pair<const int, vector<char>>& kv) {
         return kv.second.empty();
     });
 }
@@ -202,29 +202,29 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const int, vector<char>>& kv1,
-        const pair<const int, vector<char>>& kv2){
+        const pair<const int, vector<char>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(char ch : kv.second){
+    for (char ch : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, ch))
+        if (!children.back().make_move(kv.first, ch))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // draw horz-walls
-        for(int c = 0; c < sidelen(); ++c)
+        for (int c = 0; c < sidelen(); ++c)
             out << (m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
         out << endl;
-        if(r == sidelen()) break;
-        for(int c = 0;; ++c){
+        if (r == sidelen()) break;
+        for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-walls
             out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
-            if(c == sidelen()) break;
+            if (c == sidelen()) break;
             out << cells(p);
         }
         out << endl;

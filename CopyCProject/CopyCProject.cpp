@@ -13,7 +13,7 @@ using namespace std;
 std::wstring Replacewstring(std::wstring subject, const std::wstring& search,
     const std::wstring& replace) {
     size_t pos = 0;
-    while((pos = subject.find(search, pos)) != std::wstring::npos) {
+    while ((pos = subject.find(search, pos)) != std::wstring::npos) {
         subject.replace(pos, search.length(), replace);
         pos += replace.length();
     }
@@ -29,7 +29,7 @@ int main()
     wif.close();
     wstring s = wss.str();
 
-    for(char ch : {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W', 'Y', 'Z'}){
+    for (char ch : {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W', 'Y', 'Z'}) {
         string prj = string("Puzzles") + ch;
         wofstream wof;
         wof.imbue(locale(locale(), new codecvt_utf8<wchar_t, 0x10ffff, consume_header>));

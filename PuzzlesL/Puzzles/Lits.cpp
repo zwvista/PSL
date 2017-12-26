@@ -93,7 +93,7 @@ struct puz_state2 : Position
         make_move(p_start);
     }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const set<Position> *m_horz_walls, *m_vert_walls;
@@ -101,11 +101,11 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
-        if(walls.count(p_wall) == 0){
+        if (walls.count(p_wall) == 0) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -117,56 +117,56 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() / 2)
 {
     set<Position> horz_walls, vert_walls, rng;
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // horz-walls
         auto& str_h = strs[r * 2];
-        for(int c = 0; c < m_sidelen; ++c)
-            if(str_h[c * 2 + 1] == '-')
+        for (int c = 0; c < m_sidelen; ++c)
+            if (str_h[c * 2 + 1] == '-')
                 horz_walls.insert({r, c});
-        if(r == m_sidelen) break;
+        if (r == m_sidelen) break;
         auto& str_v = strs[r * 2 + 1];
-        for(int c = 0;; ++c){
+        for (int c = 0;; ++c) {
             Position p(r, c);
             // vert-walls
-            if(str_v[c * 2] == '|')
+            if (str_v[c * 2] == '|')
                 vert_walls.insert(p);
-            if(c == m_sidelen) break;
+            if (c == m_sidelen) break;
             rng.insert(p);
         }
     }
 
-    for(m_area_count = 0; !rng.empty(); ++m_area_count){
+    for (m_area_count = 0; !rng.empty(); ++m_area_count) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves({horz_walls, vert_walls, *rng.begin()}, smoves);
-        for(auto& p : smoves){
+        for (auto& p : smoves) {
             m_pos2area[p] = m_area_count;
             rng.erase(p);
         }
     }
 
     m_lits.resize(m_area_count);
-    for(int r = 0; r < m_sidelen; ++r)
-        for(int c = 0; c < m_sidelen; ++c){
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            for(int i = 0; i < tetrominoes.size(); ++i){
+            for (int i = 0; i < tetrominoes.size(); ++i) {
                 auto& t1 = tetrominoes[i];
-                for(int j = 0; j < t1.size(); ++j){
+                for (int j = 0; j < t1.size(); ++j) {
                     auto& t2 = t1[j];
                     int n = [&]{
                         int n = -1;
-                        for(auto& os : t2){
+                        for (auto& os : t2) {
                             auto p2 = p + os;
                             auto it = m_pos2area.find(p2);
-                            if(it == m_pos2area.end())
+                            if (it == m_pos2area.end())
                                 return -1;
-                            if(n == -1)
+                            if (n == -1)
                                 n = it->second;
-                            else if(n != it->second)
+                            else if (n != it->second)
                                 return -1;
                         }
                         return n;
                     }();
-                    if(n != -1)
+                    if (n != -1)
                         m_lits[n].emplace_back(p, i, j);
                 }
             }
@@ -207,7 +207,7 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for(int i = 0; i < g.m_area_count; ++i){
+    for (int i = 0; i < g.m_area_count; ++i) {
         auto& perm_ids = m_matches[i];
         perm_ids.resize(g.m_lits[i].size());
         boost::iota(perm_ids, 0);
@@ -218,29 +218,29 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         int area_id = kv.first;
         auto& lit_ids = kv.second;
 
-        boost::remove_erase_if(lit_ids, [&](int id){
+        boost::remove_erase_if(lit_ids, [&](int id) {
             auto& lit = m_game->m_lits[area_id][id];
             auto& t = tetrominoes[lit.m_index1][lit.m_index2];
             char ch = lit.m_index1 + '0';
-            for(auto& os : t){
+            for (auto& os : t) {
                 auto p2 = lit.m_p + os;
-                if(cells(p2) != PUZ_SPACE)
+                if (cells(p2) != PUZ_SPACE)
                     return true;
-                for(auto& os2 : offset){
+                for (auto& os2 : offset) {
                     auto p3 = p2 + os2;
-                    if(is_valid(p3) && ch == cells(p3))
+                    if (is_valid(p3) && ch == cells(p3))
                         return true;
                 }
             }
             return false;
         });
 
-        if(!init)
-            switch(lit_ids.size()){
+        if (!init)
+            switch(lit_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -254,7 +254,7 @@ struct puz_state3 : Position
 {
     puz_state3(const set<Position>& a) : m_area(&a) { make_move(*a.begin()); }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state3>& children) const;
 
     const set<Position>* m_area;
@@ -262,9 +262,9 @@ struct puz_state3 : Position
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p = *this + os;
-        if(m_area->count(p) != 0){
+        if (m_area->count(p) != 0) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -275,10 +275,10 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 bool puz_state::is_continuous() const
 {
     set<Position> area;
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if(cells(p) != PUZ_SPACE)
+            if (cells(p) != PUZ_SPACE)
                 area.insert(p);
         }
 
@@ -292,16 +292,16 @@ bool puz_state::make_move2(int i, int j)
     auto& lit = m_game->m_lits[i][j];
     auto& t = tetrominoes[lit.m_index1][lit.m_index2];
 
-    for(int k = 0; k < t.size(); ++k)
+    for (int k = 0; k < t.size(); ++k)
         cells(lit.m_p + t[k]) = lit.m_index1 + '0';
 
     ++m_distance;
     m_matches.erase(i);
 
-    for(int r = 0; r < sidelen() - 1; ++r)
-        for(int c = 0; c < sidelen() - 1; ++c){
+    for (int r = 0; r < sidelen() - 1; ++r)
+        for (int c = 0; c < sidelen() - 1; ++c) {
             vector<Position> rng = {{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}};
-            if(boost::algorithm::all_of(rng, [&](const Position& p){
+            if (boost::algorithm::all_of(rng, [&](const Position& p) {
                 return cells(p) != PUZ_SPACE;
             }))
                 return false;
@@ -312,10 +312,10 @@ bool puz_state::make_move2(int i, int j)
 bool puz_state::make_move(int i, int j)
 {
     m_distance = 0;
-    if(!make_move2(i, j))
+    if (!make_move2(i, j))
         return false;
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -323,20 +323,20 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2){
+        const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(int n : kv.second){
+    for (int n : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c)
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c)
             out << cells({r, c}) << ' ';
         out << endl;
     }

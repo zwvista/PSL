@@ -57,49 +57,49 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
 {
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             auto s = str.substr(c * 4, 4);
             int n = s[0] - 'a';
 
-            if(n >= m_area_info.size())
+            if (n >= m_area_info.size())
                 m_area_info.resize(n + 1);
             auto& info = m_area_info[n];
             info.m_range.push_back(p);
-            if(s.substr(1) == "   ") continue;
+            if (s.substr(1) == "   ") continue;
             info.m_operator = s[3];
             info.m_result = stoi(s.substr(1, 2));
         }
     }
 
-    auto f = [](const vector<Position>& rng){
+    auto f = [](const vector<Position>& rng) {
         vector<vector<int>> groups;
         map<int, vector<int>> grp_rows, grp_cols;
-        for(int i = 0; i < rng.size(); ++i){
+        for (int i = 0; i < rng.size(); ++i) {
             auto& p = rng[i];
             grp_rows[p.first].push_back(i);
             grp_cols[p.second].push_back(i);
         }
-        for(auto& m : {grp_rows, grp_cols})
-            for(auto& kv : m)
-                if(kv.second.size() > 1)
+        for (auto& m : {grp_rows, grp_cols})
+            for (auto& kv : m)
+                if (kv.second.size() > 1)
                     groups.push_back(kv.second);
         return groups;
     };
 
-    for(auto& info : m_area_info){
+    for (auto& info : m_area_info) {
         int cnt = info.m_range.size();
 
         vector<vector<int>> perms;
         vector<int> perm(cnt, 1);
-        for(int i = 0; i < cnt;){
+        for (int i = 0; i < cnt;) {
             auto nums = perm;
             boost::sort(nums, greater<>());
-            if(accumulate(next(nums.begin()), nums.end(),
-                nums.front(), [&](int acc, int v){
-                switch(info.m_operator){
+            if (accumulate(next(nums.begin()), nums.end(),
+                nums.front(), [&](int acc, int v) {
+                switch(info.m_operator) {
                 case PUZ_ADD:
                     return acc + v;
                 case PUZ_SUB:
@@ -113,15 +113,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 }
             }) == info.m_result)
                 perms.push_back(perm);
-            for(i = 0; i < cnt && ++perm[i] == m_sidelen + 1; ++i)
+            for (i = 0; i < cnt && ++perm[i] == m_sidelen + 1; ++i)
                 perm[i] = 1;
         }
 
         auto groups = f(info.m_range);
-        for(const auto& perm : perms)
-            if(boost::algorithm::all_of(groups, [&](const vector<int>& grp){
+        for (const auto& perm : perms)
+            if (boost::algorithm::all_of(groups, [&](const vector<int>& grp) {
                 set<int> nums;
-                for(int i : grp)
+                for (int i : grp)
                     nums.insert(perm[i]);
                 return nums.size() == grp.size();
             }))
@@ -158,7 +158,7 @@ puz_state::puz_state(const puz_game& g)
     : vector<int>(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
     , m_game(&g)
 {
-    for(int i = 0; i < g.m_area_info.size(); ++i){
+    for (int i = 0; i < g.m_area_info.size(); ++i) {
         auto& info = g.m_area_info[i];
         auto& perm_ids = m_matches[i];
         perm_ids.resize(info.m_perms.size());
@@ -172,30 +172,30 @@ bool puz_state::make_move(int i, int j)
     auto area = info.m_range;
     auto perm = info.m_perms[j];
 
-    for(int k = 0; k < perm.size(); ++k)
+    for (int k = 0; k < perm.size(); ++k)
         cells(area[k]) = perm[k];
 
     m_matches.erase(i);
 
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         int area_id = kv.first;
         auto& perm_ids = kv.second;
         auto& info2 = m_game->m_area_info[area_id];
         auto area2 = info2.m_range;
 
-        for(int k = 0; k < area.size(); ++k){
+        for (int k = 0; k < area.size(); ++k) {
             auto& p = area[k];
-            for(int k2 = 0; k2 < area2.size(); ++k2){
+            for (int k2 = 0; k2 < area2.size(); ++k2) {
                 auto& p2 = area2[k2];
-                if(p.first == p2.first || p.second == p2.second)
-                    boost::remove_erase_if(perm_ids, [&](int id){
+                if (p.first == p2.first || p.second == p2.second)
+                    boost::remove_erase_if(perm_ids, [&](int id) {
                         auto& perm2 = info2.m_perms[id];
                         return perm[k] == perm2[k2];
                     });
             }
         }
 
-        if(perm_ids.empty())
+        if (perm_ids.empty())
             return false;
     }
     return true;
@@ -205,20 +205,20 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2){
+        const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(int n : kv.second){
+    for (int n : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c)
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c)
             out << cells({r, c}) << ' ';
         out << endl;
     }

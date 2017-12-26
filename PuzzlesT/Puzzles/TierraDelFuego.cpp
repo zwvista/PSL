@@ -52,19 +52,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     m_start = boost::accumulate(strs, string());
 
-    auto f = [&](char ch, const Position& p1, const Position& p2){
-        if(ch == PUZ_SPACE && cells(p2) == PUZ_SPACE)
+    auto f = [&](char ch, const Position& p1, const Position& p2) {
+        if (ch == PUZ_SPACE && cells(p2) == PUZ_SPACE)
             m_water_info.push_back({p1, p2});
     };
-    for(int r = 0; r < m_sidelen; ++r)
-        for(int c = 0; c < m_sidelen; ++c){
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if(r < m_sidelen - 1)
+            if (r < m_sidelen - 1)
                 f(ch, p, {r + 1, c});
-            if(c < m_sidelen - 1)
+            if (c < m_sidelen - 1)
                 f(ch, p, {r, c + 1});
-            if(ch != PUZ_SPACE)
+            if (ch != PUZ_SPACE)
                 m_tribes.insert(ch);
         }
 }
@@ -110,7 +110,7 @@ struct puz_state2 : Position
 {
     puz_state2(const set<Position>& a) : m_area(&a) { make_move(*a.begin()); }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const set<Position>* m_area;
@@ -118,9 +118,9 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p = *this + os;
-        if(m_area->count(p) != 0){
+        if (m_area->count(p) != 0) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -131,67 +131,67 @@ bool puz_state::make_move(int n)
 {
     {
         auto& info = m_game->m_water_info[n];
-        for(auto& p : info){
+        for (auto& p : info) {
             cells(p) = PUZ_WATER;
-            for(auto& os : offset){
+            for (auto& os : offset) {
                 auto p2 = p + os;
-                if(!is_valid(p2)) continue;
+                if (!is_valid(p2)) continue;
                 char& ch = cells(p2);
-                if(ch == PUZ_SPACE)
+                if (ch == PUZ_SPACE)
                     ch = PUZ_ISLAND;
             }
         }
     }
 
-    boost::remove_erase_if(m_waters, [&](int id){
+    boost::remove_erase_if(m_waters, [&](int id) {
         auto& info = m_game->m_water_info[id];
-        return boost::algorithm::any_of(info, [&](const Position& p){
+        return boost::algorithm::any_of(info, [&](const Position& p) {
             return this->cells(p) != PUZ_SPACE;
         });
     });
 
     set<Position> a;
-    for(int i = 0; i < length(); ++i){
+    for (int i = 0; i < length(); ++i) {
         char ch = (*this)[i];
-        if(ch != PUZ_WATER && ch != PUZ_SPACE)
+        if (ch != PUZ_WATER && ch != PUZ_SPACE)
             a.insert({i / sidelen(), i % sidelen()});
     }
-    while(!a.empty()){
+    while (!a.empty()) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves(a, smoves);
         set<char> tribes;
-        for(auto& p : smoves){
+        for (auto& p : smoves) {
             a.erase(p);
             char ch = cells(p);
-            if(isalpha(ch))
+            if (isalpha(ch))
                 tribes.insert(ch);
         }
-        if(tribes.size() > 1)
+        if (tribes.size() > 1)
             return false;
     }
 
-    for(int i = 0; i < length(); ++i){
+    for (int i = 0; i < length(); ++i) {
         char ch = (*this)[i];
-        if(ch != PUZ_WATER)
+        if (ch != PUZ_WATER)
             a.insert({i / sidelen(), i % sidelen()});
     }
     int tribes_index = 0;
     set<char> all_tribes;
-    while(!a.empty()){
+    while (!a.empty()) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves(a, smoves);
         set<char> tribes;
-        for(auto& p : smoves){
+        for (auto& p : smoves) {
             a.erase(p);
             char ch = cells(p);
-            if(isalpha(ch)){
-                if(all_tribes.count(ch) != 0)
+            if (isalpha(ch)) {
+                if (all_tribes.count(ch) != 0)
                     return false;
                 tribes.insert(ch);
             }
         }
         all_tribes.insert(tribes.begin(), tribes.end());
-        if(tribes.empty())
+        if (tribes.empty())
             return false;
         int n = tribes.size();
         tribes_index += n * n;
@@ -204,17 +204,17 @@ bool puz_state::make_move(int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int n : m_waters){
+    for (int n : m_waters) {
         children.push_back(*this);
-        if(!children.back().make_move(n))
+        if (!children.back().make_move(n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             char ch = cells({r, c});
             out << (ch == PUZ_SPACE ? PUZ_ISLAND : ch) << ' ';
         }

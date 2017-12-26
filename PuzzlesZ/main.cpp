@@ -12,10 +12,10 @@ int main(int argc, char **argv)
     cout << "g: zgj" << endl;
     string str;
     getline(cin, str);
-    if(str.empty());
-    else if(str == "a") solve_puz_zafiro();
-    else if(str == "e") solve_puz_ZenLandscaper();
-    else if(str == "g") solve_puz_zgj();
+    if (str.empty());
+    else if (str == "a") solve_puz_zafiro();
+    else if (str == "e") solve_puz_ZenLandscaper();
+    else if (str == "g") solve_puz_zgj();
 
     return 0;
 }

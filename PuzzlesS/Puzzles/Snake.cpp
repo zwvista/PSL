@@ -56,35 +56,35 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_area2range(m_sidelen * 2)
     , m_start(m_sidelen * m_sidelen, PUZ_SPACE)
 {
-    for(int r = 0, n = 0; r <= m_sidelen; ++r){
+    for (int r = 0, n = 0; r <= m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c <= m_sidelen; c++){
+        for (int c = 0; c <= m_sidelen; c++) {
             Position p(r, c);
             char ch = str[c];
-            if(ch == PUZ_SNAKE)
+            if (ch == PUZ_SNAKE)
                 cells(m_head_tail[n++] = p) = ch;
-            else if(c == m_sidelen || r == m_sidelen){
-                if(c == m_sidelen && r == m_sidelen) continue;
+            else if (c == m_sidelen || r == m_sidelen) {
+                if (c == m_sidelen && r == m_sidelen) continue;
                 (c == m_sidelen ? m_piece_counts_rows[r] : m_piece_counts_cols[c])
                 = isdigit(ch) ? ch - '0' : PUZ_UNKNOWN;
             }
         }
     }
-    for(int r = 0; r < m_sidelen; ++r)
-        for(int c = 0; c < m_sidelen; ++c){
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             m_area2range[r].push_back(p);
             m_area2range[m_sidelen + c].push_back(p);
         }
 
     auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
-    for(int i = 0; i <= m_sidelen; ++i){
+    for (int i = 0; i <= m_sidelen; ++i) {
         auto& perms = m_num2perms[i];
         auto perm = string(m_sidelen - i, PUZ_EMPTY) + string(i, PUZ_SNAKE);
         do{
             perms.push_back(perm);
             perms_unknown.push_back(perm);
-        } while(boost::next_permutation(perm));
+        } while (boost::next_permutation(perm));
     }
 }
 
@@ -110,9 +110,9 @@ struct puz_state
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::accumulate(m_piece_counts_rows, 0, [](int acc, int n){
+        return boost::accumulate(m_piece_counts_rows, 0, [](int acc, int n) {
             return acc + (n == PUZ_UNKNOWN ? 0 : n);
-        }) + boost::accumulate(m_piece_counts_cols, 0, [](int acc, int n){
+        }) + boost::accumulate(m_piece_counts_cols, 0, [](int acc, int n) {
             return acc + (n == PUZ_UNKNOWN ? 0 : n);
         }) + m_matches.size();
     }
@@ -135,18 +135,18 @@ puz_state::puz_state(const puz_game& g)
     , m_piece_counts_rows(g.m_piece_counts_rows)
     , m_piece_counts_cols(g.m_piece_counts_cols)
 {
-    auto f = [&](int n){
+    auto f = [&](int n) {
         vector<int> perm_ids(g.m_num2perms.at(n).size());
         boost::iota(perm_ids, 0);
         return perm_ids;
     };
 
-    for(int i = 0; i < sidelen(); ++i){
+    for (int i = 0; i < sidelen(); ++i) {
         m_matches[i] = f(g.m_piece_counts_rows[i]);
         m_matches[sidelen() + i] = f(g.m_piece_counts_cols[i]);
     }
     
-    for(auto& p : g.m_head_tail)
+    for (auto& p : g.m_head_tail)
         dec(m_piece_counts_rows[p.first]), dec(m_piece_counts_cols[p.second]);
 
     find_matches(true);
@@ -154,26 +154,26 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         int area_id = kv.first;
         auto& perm_ids = kv.second;
 
         string chars;
-        for(auto& p : m_game->m_area2range[kv.first])
+        for (auto& p : m_game->m_area2range[kv.first])
             chars.push_back(cells(p));
 
         int n = area_id < sidelen() ? m_game->m_piece_counts_rows[area_id] :
             m_game->m_piece_counts_cols[area_id - sidelen()];
         auto& perms = m_game->m_num2perms.at(n);
 
-        boost::remove_erase_if(perm_ids, [&](int id){
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2){
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             });
         });
 
-        if(!init)
-            switch(perm_ids.size()){
+        if (!init)
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -190,31 +190,31 @@ bool puz_state::make_move2(int i, int j)
     auto& range = m_game->m_area2range[i];
     auto& perm = m_game->m_num2perms.at(n)[j];
 
-    for(int k = 0; k < perm.size(); ++k){
+    for (int k = 0; k < perm.size(); ++k) {
         auto& p = range[k];
         char& ch = cells(p);
-        if(ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE){
-            if(dec(m_piece_counts_rows[p.first])) ++m_distance;
-            if(dec(m_piece_counts_cols[p.second])) ++m_distance;
+        if (ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE) {
+            if (dec(m_piece_counts_rows[p.first])) ++m_distance;
+            if (dec(m_piece_counts_cols[p.second])) ++m_distance;
         }
     }
     m_matches.erase(i); ++m_distance;
     
     bool b1 = is_goal_state();
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if(cells(p) != PUZ_SNAKE) continue;
-            int n1 = boost::count_if(offset, [&](const Position& os){
+            if (cells(p) != PUZ_SNAKE) continue;
+            int n1 = boost::count_if(offset, [&](const Position& os) {
                 Position p2 = p + os;
                 return is_valid(p2) && cells(p2) == PUZ_SNAKE;
             });
-            int n2 = boost::count_if(offset, [&](const Position& os){
+            int n2 = boost::count_if(offset, [&](const Position& os) {
                 Position p2 = p + os;
                 return !is_valid(p2) || cells(p2) == PUZ_EMPTY;
             });
             bool b2 = p == m_game->m_head_tail[0] || p == m_game->m_head_tail[1];
-            if(!(b2 && (!b1 && n1 <= 1 && n2 <= 3 || b1 && n1 == 1 && n2 == 3) ||
+            if (!(b2 && (!b1 && n1 <= 1 && n2 <= 3 || b1 && n1 == 1 && n2 == 3) ||
                 !b2 && (!b1 && n1 <= 2 && n2 <= 2 || b1 && n1 == 2 && n2 == 2)))
                 return false;
         }
@@ -224,10 +224,10 @@ bool puz_state::make_move2(int i, int j)
 bool puz_state::make_move(int i, int j)
 {
     m_distance = 0;
-    if(!make_move2(i, j))
+    if (!make_move2(i, j))
         return false;
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -235,30 +235,30 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2){
+        const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(int n : kv.second){
+    for (int n : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    auto f = [&](int i){
-        return boost::count_if(m_game->m_area2range[i], [&](const Position& p){
+    auto f = [&](int i) {
+        return boost::count_if(m_game->m_area2range[i], [&](const Position& p) {
             return cells(p) == PUZ_SNAKE;
         });
     };
-    for(int r = 0; r <= sidelen(); ++r){
-        for(int c = 0; c <= sidelen(); ++c)
-            if(r == sidelen() && c == sidelen())
+    for (int r = 0; r <= sidelen(); ++r) {
+        for (int c = 0; c <= sidelen(); ++c)
+            if (r == sidelen() && c == sidelen())
                 break;
-            else if(c == sidelen())
+            else if (c == sidelen())
                 out << format("%-2d") % f(r);
-            else if(r == sidelen())
+            else if (r == sidelen())
                 out << format("%-2d") % f(c + sidelen());
             else
                 out << cells({r, c}) << ' ';

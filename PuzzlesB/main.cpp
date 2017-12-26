@@ -1,5 +1,8 @@
 #include "stdafx.h"
 
+#include "AIhelper.h"
+#include "Bridges.h"
+
 extern void solve_puz_BalancedTapas();
 extern void solve_puz_BattleShips();
 extern void solve_puz_bloxorz();
@@ -9,8 +12,6 @@ extern void solve_puz_BoxItAgain();
 extern void solve_puz_BoxItAround();
 extern void solve_puz_BoxItUp();
 extern void solve_puz_Branches();
-extern void solve_puz_Bridges();
-extern void gen_puz_Bridges();
 extern void solve_puz_BusySeas();
 extern void solve_puz_BWTapa();
 
@@ -32,20 +33,20 @@ int main(int argc, char **argv)
     cout << "w: B&W Tapa" << endl;
     string str;
     getline(cin, str);
-    if(str.empty());
-    else if(str == "a1") solve_puz_BalancedTapas();
-    else if(str == "a2") solve_puz_BattleShips();
-    else if(str == "l") solve_puz_bloxorz();
-    else if(str == "o1") solve_puz_BootyIsland();
-    else if(str == "o2") solve_puz_BotanicalPark();
-    else if(str == "o3") solve_puz_BoxItAgain();
-    else if(str == "o4") solve_puz_BoxItAround();
-    else if(str == "o5") solve_puz_BoxItUp();
-    else if(str == "r1") solve_puz_Branches();
-    else if(str == "r2") solve_puz_Bridges();
-    else if(str == "r2g") gen_puz_Bridges();
-    else if(str == "u") solve_puz_BusySeas();
-    else if(str == "w") solve_puz_BWTapa();
+    if (str.empty());
+    else if (str == "a1") solve_puz_BalancedTapas();
+    else if (str == "a2") solve_puz_BattleShips();
+    else if (str == "l") solve_puz_bloxorz();
+    else if (str == "o1") solve_puz_BootyIsland();
+    else if (str == "o2") solve_puz_BotanicalPark();
+    else if (str == "o3") solve_puz_BoxItAgain();
+    else if (str == "o4") solve_puz_BoxItAround();
+    else if (str == "o5") solve_puz_BoxItUp();
+    else if (str == "r1") solve_puz_Branches();
+    else if (str == "r2") solve_puz_Bridges();
+    else if (str == "r2g") gen_puz_Bridges();
+    else if (str == "u") solve_puz_BusySeas();
+    else if (str == "w") solve_puz_BWTapa();
 
     return 0;
 }

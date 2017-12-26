@@ -43,9 +43,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() - 2)
 {
-    for(int r = 0; r < m_sidelen + 2; ++r){
+    for (int r = 0; r < m_sidelen + 2; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen + 2; ++c){
+        for (int c = 0; c < m_sidelen + 2; ++c) {
             Position p(r, c);
             char ch = str[c];
             if (r == 0 || c == 0 || r == m_sidelen + 1 || c == m_sidelen + 1)
@@ -104,19 +104,19 @@ bool puz_state::make_move(const Position& p)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p = m_p + os;
-        if(!is_valid(p) || cells(p) != PUZ_SPACE) continue;
+        if (!is_valid(p) || cells(p) != PUZ_SPACE) continue;
         children.push_back(*this);
-        if(!children.back().make_move(p))
+        if (!children.back().make_move(p))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen() + 2; ++r){
-        for(int c = 0; c < sidelen() + 2; ++c)
+    for (int r = 0; r < sidelen() + 2; ++r) {
+        for (int c = 0; c < sidelen() + 2; ++c)
             if (r == 0 || c == 0 || r == sidelen() + 1 || c == sidelen() + 1)
                 out << m_game->m_pos2ch.at(Position(r, c)) << ' ';
             else

@@ -31,10 +31,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size(), strs[0].length())
     , m_start(0)
 {
-    for(int r = 0, n = 0; r < rows(); ++r){
+    for (int r = 0, n = 0; r < rows(); ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < cols(); ++c, ++n)
-            if(str[c] == PUZ_ON)
+        for (int c = 0; c < cols(); ++c, ++n)
+            if (str[c] == PUZ_ON)
                 m_start |= 1 << n;
     }
 }
@@ -64,9 +64,9 @@ struct puz_state
         return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
     inline void click(const Position& p) {
-        for(int i = 0; i < 5; ++i){
+        for (int i = 0; i < 5; ++i) {
             Position p2 = p + offset[i];
-            if(is_valid(p2))
+            if (is_valid(p2))
                 m_data ^= 1 << (p2.first * cols() + p2.second);
         }
         m_move = puz_step(p);
@@ -81,8 +81,8 @@ struct puz_state
     unsigned int get_heuristic() const {
         // not an admissible heuristic
         int n = 0;
-        for(int i = 0; i < rows() * cols(); ++i)
-            if(m_data & (1 << i))
+        for (int i = 0; i < rows() * cols(); ++i)
+            if (m_data & (1 << i))
                 n++;
         return n;
     }
@@ -100,8 +100,8 @@ struct puz_state
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int r = 0; r < rows(); ++r)
-        for(int c = 0; c < cols(); ++c){
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             children.push_back(*this);
             children.back().click(Position(r, c));
         }
@@ -110,8 +110,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 0; r < rows(); ++r) {
-        for(int c = 0; c < cols(); ++c)
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c)
             out << cells(r, c) << " ";
         out << endl;
     }

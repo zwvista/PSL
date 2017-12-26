@@ -19,9 +19,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size(), strs.size())
     , m_start(sidelen() * sidelen())
 {
-    for(int r = 0, n = 0; r < sidelen(); ++r){
+    for (int r = 0, n = 0; r < sidelen(); ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < sidelen(); ++c)
+        for (int c = 0; c < sidelen(); ++c)
             m_start[n++] = stoi(str.substr(c * 2, 2));
     }
 }
@@ -47,7 +47,7 @@ struct puz_state : vector<int>
     int sidelen() const {return m_game->sidelen();}
     int cells(int r, int c) const {return (*this)[r * sidelen() + c];}
     int& cells(int r, int c) {return (*this)[r * sidelen() + c];}
-    void make_move(int r1, int c1, int r2, int c2){
+    void make_move(int r1, int c1, int r2, int c2) {
         std::swap(cells(r1, c1), cells(r2, c2));
         m_move = puz_step(Position(r1, c1), Position(r2, c2));
     }
@@ -70,10 +70,10 @@ struct puz_state : vector<int>
 void puz_state::gen_children(list<puz_state>& children) const
 {
     int rcmax = sidelen() - 1;
-    for(int r1 = 0; r1 < rcmax; ++r1)
-        for(int c1 = 0; c1 < rcmax; ++c1)
-            for(int r2 = r1; r2 < rcmax; ++ r2)
-                for(int c2 = r1 == r2 ? c1 + 1 : 0; c2 < rcmax; ++c2){
+    for (int r1 = 0; r1 < rcmax; ++r1)
+        for (int c1 = 0; c1 < rcmax; ++c1)
+            for (int r2 = r1; r2 < rcmax; ++ r2)
+                for (int c2 = r1 == r2 ? c1 + 1 : 0; c2 < rcmax; ++c2) {
                     children.push_back(*this);
                     children.back().make_move(r1, c1, r2, c2);
                 }
@@ -83,25 +83,25 @@ unsigned int puz_state::get_heuristic() const
 {
     unsigned int d = 0;
     int rcmax = sidelen() - 1;
-    for(int r = 0; r < rcmax; ++r){
+    for (int r = 0; r < rcmax; ++r) {
         int sum = 0;
-        for(int c = 0; c < rcmax; ++c)
+        for (int c = 0; c < rcmax; ++c)
             sum += cells(r, c);
-        if(sum != cells(r, rcmax))
+        if (sum != cells(r, rcmax))
             d++;
     }
-    for(int c = 0; c < rcmax; ++c){
+    for (int c = 0; c < rcmax; ++c) {
         int sum = 0;
-        for(int r = 0; r < rcmax; ++r)
+        for (int r = 0; r < rcmax; ++r)
             sum += cells(r, c);
-        if(sum != cells(rcmax, c))
+        if (sum != cells(rcmax, c))
             d++;
     }
     {
         int sum = 0;
-        for(int i = 0; i < rcmax; ++i)
+        for (int i = 0; i < rcmax; ++i)
             sum += cells(i, i);
-        if(sum != cells(rcmax, rcmax))
+        if (sum != cells(rcmax, rcmax))
             d++;
     }
     return (d + 3) / 4;
@@ -110,8 +110,8 @@ unsigned int puz_state::get_heuristic() const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 0; r < sidelen(); ++r) {
-        for(int c = 0; c < sidelen(); ++c)
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c)
             out << format("%2d") % cells(r, c);
         out << endl;
     }

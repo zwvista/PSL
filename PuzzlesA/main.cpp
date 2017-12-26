@@ -16,12 +16,12 @@ int main(int argc, char **argv)
     cout << "r2: Arrows" << endl;
     string str;
     getline(cin, str);
-    if(str.empty());
-    else if(str == "b1") solve_puz_Abc();
-    else if(str == "b2") solve_puz_ABCPath();
-    else if(str == "b3") solve_puz_AbstractPainting();
-    else if(str == "r1") solve_puz_Archipelago();
-    else if(str == "r2") solve_puz_Arrows();
+    if (str.empty());
+    else if (str == "b1") solve_puz_Abc();
+    else if (str == "b2") solve_puz_ABCPath();
+    else if (str == "b3") solve_puz_AbstractPainting();
+    else if (str == "r1") solve_puz_Archipelago();
+    else if (str == "r2") solve_puz_Arrows();
 
     return 0;
 }

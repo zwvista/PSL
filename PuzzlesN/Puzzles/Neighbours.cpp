@@ -67,11 +67,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    for(int r = 1, n = 0; r < m_sidelen - 1; ++r){
+    for (int r = 1, n = 0; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
-        for(int c = 1; c < m_sidelen - 1; ++c){
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
-            if(ch == PUZ_SPACE) continue;
+            if (ch == PUZ_SPACE) continue;
             char id = n++ + 'a';
             int cnt = ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0';
             Position p(r, c);
@@ -88,11 +88,11 @@ struct puz_area
     set<char> m_neighbours;
     bool m_ready = false;
 
-    void add_cell(const Position& p, int cnt){
+    void add_cell(const Position& p, int cnt) {
         m_inner.insert(p);
         m_ready = m_inner.size() == cnt;
     }
-    bool add_neighbour(char id, int cnt){
+    bool add_neighbour(char id, int cnt) {
         m_neighbours.insert(id);
         return cnt == PUZ_UNKNOWN || m_neighbours.size() <= cnt;
     }
@@ -133,11 +133,11 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for(int i = 0; i < sidelen(); ++i)
+    for (int i = 0; i < sidelen(); ++i)
         cells({i, 0}) = cells({i, sidelen() - 1}) =
         cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
 
-    for(auto& kv : g.m_id2info)
+    for (auto& kv : g.m_id2info)
         make_move2(kv.first, kv.second.m_pHouse);
 
     adjust_area(true);
@@ -145,30 +145,30 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::adjust_area(bool init)
 {
-    for(auto& kv : m_id2area){
+    for (auto& kv : m_id2area) {
         char id = kv.first;
         auto& area = kv.second;
         auto& outer = area.m_outer;
         int nb_cnt = m_game->neighbour_count(id);
-        if(area.m_ready && outer.empty()) continue;
+        if (area.m_ready && outer.empty()) continue;
 
         outer.clear();
-        for(auto& p : area.m_inner)
-            for(auto& os : offset){
+        for (auto& p : area.m_inner)
+            for (auto& os : offset) {
                 auto p2 = p + os;
                 char ch = cells(p2);
-                if(ch == PUZ_SPACE)
+                if (ch == PUZ_SPACE)
                     outer.insert(p2);
             }
 
-        if(!init)
-            switch(outer.size()){
+        if (!init)
+            switch(outer.size()) {
             case 0:
                 return !area.m_ready ||
                     nb_cnt != PUZ_UNKNOWN && area.m_neighbours.size() < nb_cnt ? 0 :
                     1;
             case 1:
-                if(!area.m_ready)
+                if (!area.m_ready)
                     return make_move2(id, *outer.begin()) ? 1 : 0;
                 break;
             }
@@ -183,16 +183,16 @@ bool puz_state::make_move2(char id, Position p)
     area.add_cell(p, m_game->m_cell_count_area);
     ++m_distance;
 
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p2 = p + os;
         char ch = cells(p2);
-        if(ch == PUZ_SPACE || ch == PUZ_BOUNDARY ||
+        if (ch == PUZ_SPACE || ch == PUZ_BOUNDARY ||
             ch == id || area.m_neighbours.count(ch) != 0)
             continue;
 
         char id2 = ch;
         auto& area2 = m_id2area.at(id2);
-        if(!area.add_neighbour(id2, m_game->neighbour_count(id)) ||
+        if (!area.add_neighbour(id2, m_game->neighbour_count(id)) ||
             !area2.add_neighbour(id, m_game->neighbour_count(id2)))
             return false;
     }
@@ -202,10 +202,10 @@ bool puz_state::make_move2(char id, Position p)
 bool puz_state::make_move(char id, const Position& p)
 {
     m_distance = 0;
-    if(!make_move2(id, p))
+    if (!make_move2(id, p))
         return false;
     int m;
-    while((m = adjust_area(false)) == 1);
+    while ((m = adjust_area(false)) == 1);
     return m == 2;
 }
 
@@ -213,13 +213,13 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_id2area, [](
         const pair<const char, puz_area>& kv1,
-        const pair<const char, puz_area>& kv2){
+        const pair<const char, puz_area>& kv2) {
         return kv1.second < kv2.second;
     });
-    if(kv.second.m_ready) return;
-    for(auto& p : kv.second.m_outer){
+    if (kv.second.m_ready) return;
+    for (auto& p : kv.second.m_outer) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, p))
+        if (!children.back().make_move(kv.first, p))
             children.pop_back();
     }
 }
@@ -227,32 +227,32 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     set<Position> horz_walls, vert_walls;
-    for(auto& kv : m_id2area){
+    for (auto& kv : m_id2area) {
         auto& area = kv.second;
-        for(auto& p : area.m_inner)
-            for(int i = 0; i < 4; ++i){
+        for (auto& p : area.m_inner)
+            for (int i = 0; i < 4; ++i) {
                 auto p2 = p + offset[i];
                 auto p_wall = p + offset2[i];
                 auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
-                if(area.m_inner.count(p2) == 0)
+                if (area.m_inner.count(p2) == 0)
                     walls.insert(p_wall);
             }
     }
 
-    for(int r = 1;; ++r){
+    for (int r = 1;; ++r) {
         // draw horz-walls
-        for(int c = 1; c < sidelen() - 1; ++c)
+        for (int c = 1; c < sidelen() - 1; ++c)
             out << (horz_walls.count({r, c}) == 1 ? " -" : "  ");
         out << endl;
-        if(r == sidelen() - 1) break;
-        for(int c = 1;; ++c){
+        if (r == sidelen() - 1) break;
+        for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vert-walls
             out << (vert_walls.count(p) == 1 ? '|' : ' ');
-            if(c == sidelen() - 1) break;
+            if (c == sidelen() - 1) break;
             char id = cells(p);
             auto& info = m_game->m_id2info.at(id);
-            if(info.m_pHouse != p)
+            if (info.m_pHouse != p)
                 out << ' ';
             else
                 out << m_id2area.at(id).m_neighbours.size();

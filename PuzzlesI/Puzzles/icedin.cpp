@@ -46,11 +46,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size(), strs[0].length())
 {
     m_start.resize(rows() * cols());
-    for(int r = 0, n = 0; r < rows(); ++r){
+    for (int r = 0, n = 0; r < rows(); ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < cols(); ++c, ++n){
+        for (int c = 0; c < cols(); ++c, ++n) {
             Position p(r, c);
-            switch(char ch = str[c]){
+            switch(char ch = str[c]) {
             case PUZ_BLOCK:
                 m_start[n] = ch;
                 m_blocks.push_back(p);
@@ -118,39 +118,38 @@ bool puz_state::make_move(size_t n, EDir dir)
     Position& p = m_blocks[n];
     Position os = offset[dir];
     char& ch_push = cells(p - os);
-    if(ch_push != PUZ_GROUND && ch_push != PUZ_SPACE &&
+    if (ch_push != PUZ_GROUND && ch_push != PUZ_SPACE &&
         ch_push != PUZ_ICE3 && ch_push != PUZ_ICE2)
         return false;
     Position p2 = p;
-    for(;;){
+    for (;;) {
         char& ch = cells(p2 + os);
-        if(ch == PUZ_SPACE)
+        if (ch == PUZ_SPACE)
             p2 += os;
-        else if(ch == PUZ_ICE3 || ch == PUZ_ICE2)
+        else if (ch == PUZ_ICE3 || ch == PUZ_ICE2)
             ch--, p2 += os;
-        else if(ch == PUZ_ICE1 || ch == PUZ_HOLE){
+        else if (ch == PUZ_ICE1 || ch == PUZ_HOLE) {
             ch = PUZ_HOLE, p2 += os;
             break;
-        }
-        else
+        } else
             break;
     }
-    if(p2 == p)
+    if (p2 == p)
         return false;
-    if(ch_push == PUZ_ICE3 || ch_push == PUZ_ICE2)
+    if (ch_push == PUZ_ICE3 || ch_push == PUZ_ICE2)
         ch_push--;
     m_move = puz_step(p - os, moves[dir]);
     char& chSrc = cells(p);
     chSrc = chSrc == PUZ_BLOCK ? PUZ_SPACE : chSrc - PUZ_BLOCK + '0';
     char& chDest = cells(p = p2);
-    if(chDest == PUZ_SPACE)
+    if (chDest == PUZ_SPACE)
         chDest = PUZ_BLOCK;
-    else if(chDest == PUZ_ICE2 || chDest == PUZ_ICE1)
+    else if (chDest == PUZ_ICE2 || chDest == PUZ_ICE1)
         chDest += PUZ_BLOCK - '0';
-    else{
+    else {
         //chDest == PUZ_HOLE
         m_blocks.erase(m_blocks.begin() + n);
-        if(m_blocks.size() < m_game->m_switches.size())
+        if (m_blocks.size() < m_game->m_switches.size())
             return false;
     }
     return true;
@@ -158,10 +157,10 @@ bool puz_state::make_move(size_t n, EDir dir)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < 4; ++i)
-        for(size_t n = 0; n < m_blocks.size(); ++n){
+    for (int i = 0; i < 4; ++i)
+        for (size_t n = 0; n < m_blocks.size(); ++n) {
             children.push_back(*this);
-            if(!children.back().make_move(n, EDir(i)))
+            if (!children.back().make_move(n, EDir(i)))
                 children.pop_back();
         }
 }
@@ -192,8 +191,8 @@ unsigned int puz_state::slide_distance2(int i, int j1, int j2, bool i_is_r) cons
         break;
     }
     int jmin = min(j1, j2), jmax = max(j1, j2);
-    for(int j = jmin + 1; j < jmax; ++j){
-        switch(cells(i_is_r ? Position(i, j) : Position(j, i))){
+    for (int j = jmin + 1; j < jmax; ++j) {
+        switch(cells(i_is_r ? Position(i, j) : Position(j, i))) {
         case PUZ_BLOCK:
         case PUZ_BLOCK_ON_ICE1:
         case PUZ_BLOCK_ON_ICE2:
@@ -223,13 +222,13 @@ unsigned int puz_state::get_heuristic() const
 {
     int r1, c1, r2, c2;
     unsigned int d_sum = 0;
-    for(const Position& p2 : m_game->m_switches){
+    for (const Position& p2 : m_game->m_switches) {
         boost::tie(r2, c2) = p2;
         unsigned int d_min = 3;
-        for(const Position& p1 : m_blocks){
+        for (const Position& p1 : m_blocks) {
             boost::tie(r1, c1) = p1;
             unsigned int d = slide_distance(r1, c1, r2, c2);
-            if(d_min > d)
+            if (d_min > d)
                 d_min = d;
         }
         d_sum += d_min;
@@ -240,8 +239,8 @@ unsigned int puz_state::get_heuristic() const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 0; r < rows(); ++r) {
-        for(int c = 0; c < cols(); ++c){
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             char ch = cells(p);
             out << (

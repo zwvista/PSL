@@ -50,10 +50,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 2)
 {
     m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for(int c = 1; c < m_sidelen - 1; ++c){
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
             char ch = str[c - 1];
             int n = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
@@ -68,7 +68,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     // All numbers that appear only once in a row or column are removed
     // as they are not the targets to be shaded
     auto it = m_shaded.begin();
-    while((it = find_if(it, m_shaded.end(), [](const puz_shaded::value_type& kv){
+    while ((it = find_if(it, m_shaded.end(), [](const puz_shaded::value_type& kv) {
         return kv.second.size() == 1;
     })) != m_shaded.end())
         it = m_shaded.erase(it);
@@ -90,7 +90,7 @@ struct puz_state : vector<int>
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::accumulate(m_shaded, 0, [](int acc, const puz_shaded::value_type& kv){
+        return boost::accumulate(m_shaded, 0, [](int acc, const puz_shaded::value_type& kv) {
             return acc + kv.second.size() - 1;
         });
     }
@@ -110,7 +110,7 @@ struct puz_state2 : Position
 {
     puz_state2(const set<Position>& a): m_area(&a) { make_move(*a.begin()); }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const set<Position>* m_area;
@@ -118,9 +118,9 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p = *this + os;
-        if(m_area->count(p) != 0){
+        if (m_area->count(p) != 0) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -131,10 +131,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 bool puz_state::is_continuous() const
 {
     set<Position> area;
-    for(int r = 1; r < sidelen() - 1; ++r)
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            if(cells(p) != PUZ_SHADED)
+            if (cells(p) != PUZ_SHADED)
                 area.insert(p);
         }
 
@@ -148,12 +148,12 @@ bool puz_state::make_move(const pair<int, int>& key, const Position& p)
     cells(p) = PUZ_SHADED;
 
     m_distance = 0;
-    auto f = [&](const pair<int, int>& k){
+    auto f = [&](const pair<int, int>& k) {
         auto it = m_shaded.find(k);
-        if(it != m_shaded.end()){
+        if (it != m_shaded.end()) {
             ++m_distance;
             boost::remove_erase(it->second, p);
-            if(it->second.size() == 1)
+            if (it->second.size() == 1)
                 m_shaded.erase(it);
         }
     };
@@ -161,7 +161,7 @@ bool puz_state::make_move(const pair<int, int>& key, const Position& p)
     f({key.first < sidelen() ? sidelen() + p.second : p.first, key.second});
 
     // 2. Shaded squares don't touch horizontally or vertically between them.
-    return (boost::algorithm::none_of(offset, [&](const Position& os){
+    return (boost::algorithm::none_of(offset, [&](const Position& os) {
         return cells(p + os) == PUZ_SHADED;
     })) && is_continuous();
 }
@@ -170,23 +170,23 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_shaded, [](
         const puz_shaded::value_type& kv1,
-        const puz_shaded::value_type& kv2){
+        const puz_shaded::value_type& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(auto& p : kv.second){
+    for (auto& p : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, p))
+        if (!children.back().make_move(kv.first, p))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r){
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             int n = cells(p);
-            if(n == PUZ_SHADED)
+            if (n == PUZ_SHADED)
                 out << " .";
             else
                 out << format("%2d") % n;

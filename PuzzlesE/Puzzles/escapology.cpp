@@ -41,12 +41,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     fill(m_cells.rbegin(), m_cells.rbegin() + cols(), PUZ_STONE);
 
     int n = cols();
-    for(int r = 1; r < rows() - 1; ++r, n += cols()){
+    for (int r = 1; r < rows() - 1; ++r, n += cols()) {
         m_cells[n] = m_cells[n + cols() - 1] = PUZ_STONE;
         const string& vstr = strs.at(r - 1);
-        for(int c = 1; c < cols() - 1; ++c){
+        for (int c = 1; c < cols() - 1; ++c) {
             Position p(r, c);
-            switch(char ch = vstr[c - 1]){
+            switch(char ch = vstr[c - 1]) {
             case PUZ_BALL:
                 m_balls.insert(p); break;
             case PUZ_GOAL:
@@ -93,32 +93,32 @@ bool puz_state::make_move(int i)
 
     vector<Position> next;
 
-    while(!m_balls.empty()){
+    while (!m_balls.empty()) {
         Position b = *m_balls.begin();
         int n = 1;
 
-        while(m_balls.count(b - os) != 0)
+        while (m_balls.count(b - os) != 0)
             b -= os;
 
-        for(;;n++){
+        for (;;n++) {
             m_balls.erase(b);
             Position p1 = b - os, p2 = b + os;
             char ch1 = cells(p1), ch2 = cells(p2), chb = cells(b);
-            if(ch1 == PUZ_BLUE || ch2 == PUZ_BLUE || ch2 == PUZ_STONE ||
+            if (ch1 == PUZ_BLUE || ch2 == PUZ_BLUE || ch2 == PUZ_STONE ||
                 dirs.find(chb) != -1 && chb != dir ||
                 dirs.find(ch2) != -1 && ch2 != dir)
                 break;
-            if(m_balls.count(b = p2) == 0){
+            if (m_balls.count(b = p2) == 0) {
                 can_move = true;
                 break;
             }
         }
 
-        for(int i = 0; i < n; i++, b -= os)
+        for (int i = 0; i < n; i++, b -= os)
             next.push_back(b);
     }
 
-    if(!can_move) return false;
+    if (!can_move) return false;
 
     m_balls.insert(next.begin(), next.end());
     m_move = dir;
@@ -127,9 +127,9 @@ bool puz_state::make_move(int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < 4; i++){
+    for (int i = 0; i < 4; i++) {
         children.push_back(*this);
-        if(!children.back().make_move(i))
+        if (!children.back().make_move(i))
             children.pop_back();
     }
 }
@@ -140,8 +140,8 @@ unsigned int puz_state::get_heuristic() const
     vector<Position> goals(m_game->m_goals.begin(), m_game->m_goals.end());
     int n = m_balls.size();
     vector<int> a(n * n);
-    for(int i = 0; i < n; ++i)
-        for(int j = 0; j < n; ++j)
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
             a[i * n + j] = manhattan_distance(balls[i], goals[j]);
     boost::nth_element(a, a.begin() + n - 1);
     return a[n - 1];
@@ -149,10 +149,10 @@ unsigned int puz_state::get_heuristic() const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "move: " << m_move << endl;
-    for(int r = 1; ; ++r){
-        for(int c = 1; ; ++c){
+    for (int r = 1; ; ++r) {
+        for (int c = 1; ; ++c) {
             Position pos(r, c);
             out << (is_ball(pos) ? '@' : 
                 m_game->is_goal(pos) ? '.' : m_game->cells(pos));

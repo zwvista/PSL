@@ -50,10 +50,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     m_min_total = m_numbers + 2 + m_gon / 2;
     m_max_total = m_numbers * 2 + 1 - m_gon / 2;
-    for(int n = m_min_total; n <= m_max_total; ++n){
+    for (int n = m_min_total; n <= m_max_total; ++n) {
         auto& perms = m_num2perms[n];
-        for(int i = 1; i <= m_numbers; ++i)
-            for(int j = 1; j <= m_numbers; ++j){
+        for (int i = 1; i <= m_numbers; ++i)
+            for (int j = 1; j <= m_numbers; ++j) {
                 if (j == i) continue;
                 int k = n - i - j;
                 if (k <= 0 || k > m_numbers || k == i || k == j) continue;
@@ -69,8 +69,8 @@ struct puz_state
     bool make_move(int i, int n);
     int total() const {return m_matches.empty() ? 0 : boost::accumulate(m_matches[0], 0);}
     string digit_string() const {
-        return boost::accumulate(m_matches, string(), [](auto&& acc, auto&& v){
-            return boost::accumulate(v, acc, [](auto&& acc2, int i){
+        return boost::accumulate(m_matches, string(), [](auto&& acc, auto&& v) {
+            return boost::accumulate(v, acc, [](auto&& acc2, int i) {
                 return acc2 + boost::lexical_cast<string>(i);
             });
         });
@@ -100,8 +100,8 @@ bool puz_state::make_move(int i, int n)
 {
     m_matches.push_back(m_game->m_num2perms.at(n)[i]);
     set<int> s;
-    for(auto& m : m_matches)
-        for(int i : m)
+    for (auto& m : m_matches)
+        for (int i : m)
             s.insert(i);
     int sz1 = m_matches.size(), sz2 = s.size();
     bool b = is_goal_state();
@@ -113,12 +113,12 @@ bool puz_state::make_move(int i, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(auto& kv : m_game->m_num2perms){
+    for (auto& kv : m_game->m_num2perms) {
         int n = kv.first, n2 = total();
         if (n2 != 0 && n != n2) continue;
-        for(int i = 0; i < kv.second.size(); ++i){
+        for (int i = 0; i < kv.second.size(); ++i) {
             children.push_back(*this);
-            if(!children.back().make_move(i, n))
+            if (!children.back().make_move(i, n))
                 children.pop_back();
         }
     }
@@ -127,8 +127,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     out << total() << ": ";
-    for(auto& m : m_matches){
-        for(int j = 0; j < m.size(); ++j){
+    for (auto& m : m_matches) {
+        for (int j = 0; j < m.size(); ++j) {
             out << m[j];
             if (j < m.size() - 1)
                 out << ",";
@@ -143,18 +143,18 @@ ostream& puz_state::dump(ostream& out) const
 void dump_all(ostream& out, const list<list<puz_state>>& spaths)
 {
     list<puz_state> goal_states;
-    for(auto& spath : spaths)
+    for (auto& spath : spaths)
         goal_states.push_back(spath.back());
     out << goal_states.size() << " solutions in total:" << endl;
-    for(auto& s : goal_states)
+    for (auto& s : goal_states)
         s.dump(out);
     map<int, string> num2str;
-    for(auto& state : goal_states){
+    for (auto& state : goal_states) {
         auto s = state.digit_string();
         auto& s2 = num2str[s.length()];
         s2 = max(s2, s);
     }
-    for(auto& kv : num2str)
+    for (auto& kv : num2str)
         out << "The maximum " << kv.first << "-digit string is: " << kv.second << endl;
 }
 

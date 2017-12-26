@@ -34,21 +34,21 @@ int main(int argc, char **argv)
     cout << "u: sumscrapers" << endl;
     string str;
     getline(cin, str);
-    if(str.empty());
-    else if(str == "e") solve_puz_Sentinels();
-    else if(str == "h1") solve_puz_SheepAndWolves();
-    else if(str == "h2") solve_puz_ShopAndGas();
-    else if(str == "k1") solve_puz_Skydoku();
-    else if(str == "k2") solve_puz_Skyscrapers();
-    else if(str == "l1") solve_puz_SlantedMaze();
-    else if(str == "l2") solve_puz_SlitherLink();
-    else if(str == "l3") solve_puz_SlitherLink2();
-    else if(str == "n1") solve_puz_Snail();
-    else if(str == "n2") solve_puz_Snake();
-    else if(str == "o") solve_puz_sokoban();
-    else if(str == "q") solve_puz_Square100();
-    else if(str == "t") solve_puz_strimko();
-    else if(str == "u") solve_puz_sumscrapers();
+    if (str.empty());
+    else if (str == "e") solve_puz_Sentinels();
+    else if (str == "h1") solve_puz_SheepAndWolves();
+    else if (str == "h2") solve_puz_ShopAndGas();
+    else if (str == "k1") solve_puz_Skydoku();
+    else if (str == "k2") solve_puz_Skyscrapers();
+    else if (str == "l1") solve_puz_SlantedMaze();
+    else if (str == "l2") solve_puz_SlitherLink();
+    else if (str == "l3") solve_puz_SlitherLink2();
+    else if (str == "n1") solve_puz_Snail();
+    else if (str == "n2") solve_puz_Snake();
+    else if (str == "o") solve_puz_sokoban();
+    else if (str == "q") solve_puz_Square100();
+    else if (str == "t") solve_puz_strimko();
+    else if (str == "u") solve_puz_sumscrapers();
 
     return 0;
 }

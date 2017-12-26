@@ -32,18 +32,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     static const string movetype_knight = "0101010001001001000101010";
     static const string movetype_hexagonal = "0000001010101010101000000";
     string movetype = level.attribute("movetype").as_string(movetype_orthogonal.c_str());
-    if(movetype == "+")
+    if (movetype == "+")
         movetype = movetype_orthogonal;
-    else if(movetype == "*")
+    else if (movetype == "*")
         movetype = movetype_diagonal;
-    else if(movetype == "k")
+    else if (movetype == "k")
         movetype = movetype_knight;
-    else if(movetype == "h")
+    else if (movetype == "h")
         movetype = movetype_hexagonal;
     int delta = movetype.length() == 25 ? 2 : 1;
-    for(int r = -delta, i = 0; r <= delta; ++r)
-        for(int c = -delta; c <= delta; ++c, ++i)
-            if(movetype[i] == '1')
+    for (int r = -delta, i = 0; r <= delta; ++r)
+        for (int c = -delta; c <= delta; ++c, ++i)
+            if (movetype[i] == '1')
                 m_offset.push_back(Position(r, c));
 
     string wraparound = level.attribute("wraparound").as_string("none");
@@ -88,9 +88,9 @@ struct puz_state : string
     unsigned int get_heuristic() const {
         // not an admissible heuristic
         int n = 0;
-        for(size_t i = 0; i < length(); ++i){
+        for (size_t i = 0; i < length(); ++i) {
             char ch = at(i);
-            if(ch != PUZ_NONE)
+            if (ch != PUZ_NONE)
                 n += at(i) - PUZ_OFF;
         }
         return n;
@@ -109,10 +109,10 @@ struct puz_state : string
 bool puz_state::is_valid(Position& p) const
 {
     EWrapAround wa = m_game->m_wraparound;
-    if((wa == waNone || wa == waLeftRight) && (p.first < 0 || p.first >= rows()) ||
+    if ((wa == waNone || wa == waLeftRight) && (p.first < 0 || p.first >= rows()) ||
         (wa == waNone || wa == waUpDown) && (p.second < 0 || p.second >= cols()))
         return false;
-    if(wa != waNone){
+    if (wa != waNone) {
         p.first = (p.first + rows()) % rows();
         p.second = (p.second + cols()) % cols();
     }
@@ -121,9 +121,9 @@ bool puz_state::is_valid(Position& p) const
 
 void puz_state::click(const Position& p)
 {
-    for(const Position& os : m_game->m_offset){
+    for (const Position& os : m_game->m_offset) {
         Position p2 = p + os;
-        if(is_valid(p2) && cells(p2) != PUZ_NONE)
+        if (is_valid(p2) && cells(p2) != PUZ_NONE)
             // with "dim" state
             cells(p2) = cells(p2) == PUZ_OFF ? m_game->m_on : cells(p2) - 1;
     }
@@ -132,10 +132,10 @@ void puz_state::click(const Position& p)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int r = 0; r < rows(); ++r)
-        for(int c = 0; c < cols(); ++c){
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
-            if(cells(p) != PUZ_NONE){
+            if (cells(p) != PUZ_NONE) {
                 children.push_back(*this);
                 children.back().click(p);
             }
@@ -145,8 +145,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 0; r < rows(); ++r) {
-        for(int c = 0; c < cols(); ++c)
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c)
             out << cells({r, c}) << " ";
         out << endl;
     }

@@ -33,14 +33,14 @@ class puz_solver_idastar2
             // check for goal
             const puz_state& cur = m_smap.at(u);
             m_sset.insert(cur);
-            if(cur.is_goal_state())
+            if (cur.is_goal_state())
                 throw found_goal();
             // add successors of this state
             list<puz_state> children;
             cur.gen_children(children);
-            for(puz_state& child : children) {
+            for (puz_state& child : children) {
                 // full cycle checking
-                if(m_sset.count(child) != 0)
+                if (m_sset.count(child) != 0)
                     continue;
                 unsigned int dist = cur.get_distance(child);
                 vertex_t v = add_vertex(vert_prop(boost::white_color), g);
@@ -54,11 +54,11 @@ class puz_solver_idastar2
             typedef typename boost::graph_traits<Graph>::out_edge_iterator Iter;
             Iter ei, ei_end;
             vector<Vertex> vv;
-            for(std::tie(ei, ei_end) = out_edges(u, g); ei != ei_end; ++ei){
+            for (std::tie(ei, ei_end) = out_edges(u, g); ei != ei_end; ++ei) {
                 Vertex v = target(*ei, g);
                 vv.push_back(v);
             }
-            BOOST_REVERSE_FOREACH(Vertex v, vv){
+            BOOST_REVERSE_FOREACH(Vertex v, vv) {
                 m_smap.erase(v);
                 remove_edge(u, v, g);
                 remove_vertex(v, g);
@@ -101,13 +101,13 @@ public:
             found = true;
             PredMap p = get(boost::vertex_predecessor, g);
             list<vertex_t> shortest_path;
-            for(vertex_t v = examine_seq.second;; v = p[v]) {
+            for (vertex_t v = examine_seq.second;; v = p[v]) {
                 shortest_path.push_front(v);
-                if(p[v] == v)
+                if (p[v] == v)
                     break;
             }
             list<puz_state> spath;
-            for(vertex_t v : shortest_path)
+            for (vertex_t v : shortest_path)
                 spath.push_back(smap.at(v));
             spaths.push_back(spath);
         }

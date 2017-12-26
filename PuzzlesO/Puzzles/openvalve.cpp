@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
@@ -51,11 +51,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size(), strs[0].length() - 2)
     , m_start(rows() * cols() * 3, '.')
 {
-    for(int r = 0; r < rows(); ++r){
+    for (int r = 0; r < rows(); ++r) {
         const string& s = strs[r];
-        if(s[0] == '-')
+        if (s[0] == '-')
             m_entrance = Position(r, -1);
-        if(s[cols() + 1] == '-')
+        if (s[cols() + 1] == '-')
             m_exit = Position(r, cols());
         m_pipes += s.substr(1, cols());
     }
@@ -85,7 +85,7 @@ struct puz_state
         return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
     bool can_move(const Position& p, char dir, vector<int>& offset_vec) const;
-    void remove_dir(const Position& p, char dir){
+    void remove_dir(const Position& p, char dir) {
         boost::range::remove_erase(m_frontier, make_pair(p, dir));
     }
     void make_move(const Position& p, char dir, int i);
@@ -111,18 +111,18 @@ bool puz_state::can_move(const Position& p, char dir, vector<int>& offset_vec) c
 {
     int n = dirs.find(dir);
     Position p2 = p + offset[n];
-    if(p2 == m_game->m_exit)
+    if (p2 == m_game->m_exit)
         return true;
-    if(!is_valid(p2))
+    if (!is_valid(p2))
         return false;
 
     char dir2 = dirs[n + 4];
-    if(get_cells(p2) != "...")
+    if (get_cells(p2) != "...")
         return boost::algorithm::any_of_equal(m_frontier, make_pair(p2, dir2));
 
     n = pipes.find(m_game->pipe(p2));
-    for(int i = pipe_offset[n]; i < pipe_offset[n + 1]; ++i)
-        if(pipe_dirss[i].find(dir2) != -1)
+    for (int i = pipe_offset[n]; i < pipe_offset[n + 1]; ++i)
+        if (pipe_dirss[i].find(dir2) != -1)
             offset_vec.push_back(i);
     return true;
 }
@@ -133,32 +133,32 @@ void puz_state::make_move(const Position& p, char dir, int i)
     int n = dirs.find(dir);
     Position p2 = p + offset[n];
     char dir2 = dirs[n + 4];
-    if(i == -1)
-        if(p2 == m_game->m_exit)
+    if (i == -1)
+        if (p2 == m_game->m_exit)
             m_connected = true;
         else
             remove_dir(p2, dir2);
-    else{
+    else {
         set_cells(p2, m_game->pipe(p2) + pipe_cells[i]);
-        for(char dir3 : pipe_dirss[i])
-            if(dir3 != dir2)
+        for (char dir3 : pipe_dirss[i])
+            if (dir3 != dir2)
                 m_frontier.push_back(make_pair(p2, dir3));
     }
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if(m_frontier.empty()) return;
+    if (m_frontier.empty()) return;
     const pipe_info& pi = m_frontier.front();
     const Position& p = pi.first;
     char dir = pi.second;
     vector<int> offset_vec;
-    if(!can_move(p, dir, offset_vec))
+    if (!can_move(p, dir, offset_vec))
         return;
-    if(offset_vec.empty())
+    if (offset_vec.empty())
         offset_vec.push_back(-1);
 
-    for(int i : offset_vec){
+    for (int i : offset_vec) {
         children.push_back(*this);
         children.back().make_move(p, dir, i);
     }
@@ -167,7 +167,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 unsigned int puz_state::get_heuristic() const
 {
     unsigned int d = 0;
-    for(const pipe_info& pi : m_frontier)
+    for (const pipe_info& pi : m_frontier)
         d = max(d, manhattan_distance(pi.first, m_game->m_exit));
     return d;
 }
@@ -175,9 +175,9 @@ unsigned int puz_state::get_heuristic() const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int r = 0; r < rows(); ++r) {
+    for (int r = 0; r < rows(); ++r) {
         out << (r == m_game->m_entrance.first ? '-' : ' ');
-        for(int c = 0; c < cols(); ++c)
+        for (int c = 0; c < cols(); ++c)
             out << get_cells({r, c});
         out << (r == m_game->m_exit.first ? '-' : ' ') << endl;
     }

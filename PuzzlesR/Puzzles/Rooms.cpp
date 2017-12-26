@@ -59,11 +59,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size())
 {
     m_cells = boost::accumulate(strs, string());
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen; ++c){
+        for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            if(ch != ' ')
+            if (ch != ' ')
                 m_pos2num[{r, c}] = ch - '0';
         }
     }
@@ -78,7 +78,7 @@ struct puz_state
         auto& doors = i % 2 == 0 ? m_horz_doors : m_vert_doors;
         return doors.at(p + door_offset[i]);
     }
-    void set_door_status(const Position& p, int i, char status){
+    void set_door_status(const Position& p, int i, char status) {
         auto& doors = i % 2 == 0 ? m_horz_doors : m_vert_doors;
         doors.at(p + door_offset[i]) = status;
     }
@@ -114,17 +114,17 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 {
-    for(int r = 0; r <= sidelen(); ++r)
-        for(int c = 0; c <= sidelen(); ++c){
-            if(c < sidelen())
+    for (int r = 0; r <= sidelen(); ++r)
+        for (int c = 0; c <= sidelen(); ++c) {
+            if (c < sidelen())
                 m_horz_doors[{r, c}] = r == 0 || r == sidelen() ?
                     PUZ_DOOR_CLOSED : PUZ_DOOR_UNKNOWN;
-            if(r < sidelen())
+            if (r < sidelen())
                 m_vert_doors[{r, c}] = c == 0 || c == sidelen() ?
                     PUZ_DOOR_CLOSED : PUZ_DOOR_UNKNOWN;
         }
 
-    for(auto& kv : g.m_pos2num)
+    for (auto& kv : g.m_pos2num)
         m_matches[kv.first];
 
     find_matches(true);
@@ -132,20 +132,20 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& perms = kv.second;
         perms.clear();
 
         int sum = m_game->m_pos2num.at(p);
         vector<vector<int>> dir_nums(4);
-        for(int i = 0; i < 4; ++i){
+        for (int i = 0; i < 4; ++i) {
             auto& os = offset[i];
             int n = 0;
             auto& nums = dir_nums[i];
             [&]{
-                for(auto p2 = p; n <= sum; p2 += os)
-                    switch(get_door_status(p2, i)){
+                for (auto p2 = p; n <= sum; p2 += os)
+                    switch(get_door_status(p2, i)) {
                     case PUZ_DOOR_UNKNOWN:
                         // we can stop here
                         nums.push_back(n++);
@@ -164,15 +164,15 @@ int puz_state::find_matches(bool init)
 
         // Compute the total number of the rooms visible from the room
         // Record the combination if the sum is equal to the given number
-        for(int n0 : dir_nums[0])
-            for(int n1 : dir_nums[1])
-                for(int n2 : dir_nums[2])
-                    for(int n3 : dir_nums[3])
-                        if(n0 + n1 + n2 + n3 == sum)
+        for (int n0 : dir_nums[0])
+            for (int n1 : dir_nums[1])
+                for (int n2 : dir_nums[2])
+                    for (int n3 : dir_nums[3])
+                        if (n0 + n1 + n2 + n3 == sum)
                             perms.push_back({n0, n1, n2, n3});
 
-        if(!init)
-            switch(perms.size()){
+        if (!init)
+            switch(perms.size()) {
             case 0:
                 return 0;
             case 1:
@@ -184,11 +184,11 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s) : m_state(&s){
+    puz_state2(const puz_state& s) : m_state(&s) {
         make_move({});
     }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
@@ -196,8 +196,8 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for(int i = 0; i < 4; ++i)
-        if(m_state->get_door_status(*this, i) != PUZ_DOOR_CLOSED){
+    for (int i = 0; i < 4; ++i)
+        if (m_state->get_door_status(*this, i) != PUZ_DOOR_CLOSED) {
             children.push_back(*this);
             children.back().make_move(*this + offset[i]);
         }
@@ -205,11 +205,11 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 {
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         auto& os = offset[i];
         int n = perm[i];
         auto p2 = p;
-        for(int j = 0; j < n; ++j){
+        for (int j = 0; j < n; ++j) {
             set_door_status(p2, i, PUZ_DOOR_OPEN);
             p2 += os;
         }
@@ -229,10 +229,10 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 bool puz_state::make_move(const Position& p, const vector<int>& perm)
 {
     m_distance = 0;
-    if(!make_move2(p, perm))
+    if (!make_move2(p, perm))
         return false;
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -240,30 +240,30 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const Position, vector<vector<int>>>& kv1,
-        const pair<const Position, vector<vector<int>>>& kv2){
+        const pair<const Position, vector<vector<int>>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
 
-    for(auto& perm : kv.second){
+    for (auto& perm : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, perm))
+        if (!children.back().make_move(kv.first, perm))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // draw horz-doors
-        for(int c = 0; c < sidelen(); ++c)
+        for (int c = 0; c < sidelen(); ++c)
             out << (m_horz_doors.at({r, c}) == PUZ_DOOR_CLOSED ? " -" : "  ");
         out << endl;
-        if(r == sidelen()) break;
-        for(int c = 0;; ++c){
+        if (r == sidelen()) break;
+        for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-doors
             out << (m_vert_doors.at(p) == PUZ_DOOR_CLOSED ? '|' : ' ');
-            if(c == sidelen()) break;
+            if (c == sidelen()) break;
             out << m_game->cells(p);
         }
         out << endl;

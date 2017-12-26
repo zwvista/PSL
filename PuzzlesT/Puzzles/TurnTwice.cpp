@@ -52,14 +52,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size() + 2)
 {
     m_start.append(m_sidelen, PUZ_WALL);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_WALL);
-        for(int c = 1; c < m_sidelen - 1; ++c){
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
-            if(ch == PUZ_SPACE)
+            if (ch == PUZ_SPACE)
                 m_start.push_back(PUZ_SPACE);
-            else{
+            else {
                 m_start.push_back(PUZ_SIGNPOST);
                 m_signposts.emplace_back(r, c);
             }
@@ -70,20 +70,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     Position os0;
     int sz = m_signposts.size();
-    for(int i = 0; i < sz; ++i){
+    for (int i = 0; i < sz; ++i) {
         auto p1 = m_signposts[i];
-        for(int j = i + 1; j < sz; ++j){
+        for (int j = i + 1; j < sz; ++j) {
             auto p2 = m_signposts[j];
             int sz2 = p1.first == p2.first || p1.second == p2.second ? 1 : 2;
-            for(int k = 0; k < sz2; ++k){
+            for (int k = 0; k < sz2; ++k) {
                 vector<Position> path;
-                for(auto p = p1;;){
+                for (auto p = p1;;) {
                     Position os1(boost::math::sign(p2.first - p.first), 0);
                     Position os2(0, boost::math::sign(p2.second - p.second));
                     Position os = k == 0 && os1 != os0 || k == 1 && os2 == os0 ? os1 : os2;
                     p += os;
-                    if(p == p2) break;
-                    if(cells(p) != PUZ_SPACE) goto next_k;
+                    if (p == p2) break;
+                    if (cells(p) != PUZ_SPACE) goto next_k;
                     path.push_back(p);
                 }
                 m_paths.push_back(path);
@@ -130,7 +130,7 @@ struct puz_state2 : Position
 {
     puz_state2(const set<Position>& a) : m_area(&a) { make_move(*a.begin()); }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const set<Position>* m_area;
@@ -138,9 +138,9 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p = *this + os;
-        if(m_area->count(p) != 0){
+        if (m_area->count(p) != 0) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -151,10 +151,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 bool puz_state::is_continuous() const
 {
     set<Position> area;
-    for(int r = 1; r < sidelen() - 1; ++r)
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            if(cells(p) != PUZ_WALL)
+            if (cells(p) != PUZ_WALL)
                 area.insert(p);
         }
 
@@ -166,25 +166,25 @@ bool puz_state::is_continuous() const
 bool puz_state::make_move(const Position& p)
 {
     cells(p) = PUZ_WALL;
-    if(!is_continuous())
+    if (!is_continuous())
         return false;
 
     int sz = m_paths.size();
-    boost::remove_erase_if(m_paths, [&](const vector<Position>& path){
+    boost::remove_erase_if(m_paths, [&](const vector<Position>& path) {
         return boost::algorithm::any_of_equal(path, p);
     });
 
     // 4. Walls can't touch horizontally or vertically.
-    for(auto& os : offset){
+    for (auto& os : offset) {
         auto p2 = p + os;
         char& ch = cells(p2);
-        if(ch == PUZ_SPACE){
+        if (ch == PUZ_SPACE) {
             ch = PUZ_EMPTY;
-            for(auto& path : m_paths)
+            for (auto& path : m_paths)
                 boost::remove_erase(path, p2);
         }
     }
-    boost::remove_erase_if(m_paths, [&](const vector<Position>& path){
+    boost::remove_erase_if(m_paths, [&](const vector<Position>& path) {
         return path.empty();
     });
     m_distance = sz - m_paths.size();
@@ -195,21 +195,21 @@ bool puz_state::make_move(const Position& p)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& path = *boost::min_element(m_paths, [](
-        const vector<Position>& path1, const vector<Position>& path2){
+        const vector<Position>& path1, const vector<Position>& path2) {
         return path1.size() < path2.size();
     });
 
-    for(auto& p : path){
+    for (auto& p : path) {
         children.push_back(*this);
-        if(!children.back().make_move(p))
+        if (!children.back().make_move(p))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r){
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
             char ch = cells({r, c});
             out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
         }

@@ -28,16 +28,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size(), strs[0].length())
 {
     m_cells = boost::accumulate(strs, string());
-    for(int r = 0, n = 0; r < rows(); ++r)
-        for(int c = 0; c < cols(); ++c, ++n){
+    for (int r = 0, n = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c, ++n) {
             char& ch = m_cells[n];
-            if(ch != ' '){
+            if (ch != ' ') {
                 int n = ch - 'A';
-                if(n >= m_nums.size())
+                if (n >= m_nums.size())
                     m_nums.resize(n + 1);
                 m_nums[n] = Position(r, c);
             }
-            if(ch == 'A')
+            if (ch == 'A')
                 ch = '@';
         }
 }
@@ -58,8 +58,8 @@ struct puz_state : string
     bool is_unvisited(char ch) const {return ch == ' ' || isupper(ch);}
     int num_unvisited() const {
         int n = 0;
-        for(size_t i = 0; i < length(); ++i)
-            if(is_unvisited(at(i)))
+        for (size_t i = 0; i < length(); ++i)
+            if (is_unvisited(at(i)))
                 ++n;
         return n;
     }
@@ -86,31 +86,31 @@ bool puz_state::make_move(int i)
 {
     char* dirs = "<>^v";
     m_head += offset[i];
-    if(!is_valid(m_head)) return false;
+    if (!is_valid(m_head)) return false;
     char& ch = cells(m_head);
-    if(!is_unvisited(ch)) return false;
-    if(isupper(ch)){
-        if(ch - 'A' != m_next)
+    if (!is_unvisited(ch)) return false;
+    if (isupper(ch)) {
+        if (ch - 'A' != m_next)
             return false;
-        if(m_next == m_game->m_nums.size() - 1 && num_unvisited() != 1)
+        if (m_next == m_game->m_nums.size() - 1 && num_unvisited() != 1)
             return false;
         ++m_next;
     }
 
-    for(int r = 0; r < rows(); ++r)
-        for(int c = 0; c < cols(); ++c){
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
-            if(p == m_head || !is_unvisited(cells(p))) continue;
+            if (p == m_head || !is_unvisited(cells(p))) continue;
             bool reachable = false;
-            for(int i = 0; i < 4; ++i){
+            for (int i = 0; i < 4; ++i) {
                 Position p2 = p + offset[i];
-                if(!is_valid(p2)) continue;
-                if(p2 == m_head || is_unvisited(cells(p2))){
+                if (!is_valid(p2)) continue;
+                if (p2 == m_head || is_unvisited(cells(p2))) {
                     reachable = true;
                     break;
                 }
             }
-            if(!reachable)
+            if (!reachable)
                 return false;
         }
 
@@ -120,19 +120,19 @@ bool puz_state::make_move(int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         children.push_back(*this);
-        if(!children.back().make_move(i))
+        if (!children.back().make_move(i))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if(m_move)
+    if (m_move)
         out << "move: " << m_move << endl;
-    for(int r = 0; r < rows(); ++r) {
-        for(int c = 0; c < cols(); ++c)
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c)
             out << cells({r, c}) << ' ';
         out << endl;
     }

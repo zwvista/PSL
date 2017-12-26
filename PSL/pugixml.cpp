@@ -552,8 +552,7 @@ PUGI__NS_BEGIN
 				out_page->freed_size += sizeof(uint32_t);
 
 				return marker + 1;
-			}
-			else
+			} else
 			{
 				// roll back uint32_t part
 				_busy_size -= sizeof(uint32_t);
@@ -596,8 +595,7 @@ PUGI__NS_BEGIN
 				#endif
 
 					_busy_size = 0;
-				}
-				else
+				} else
 				{
 					assert(_root != page);
 					assert(page->prev);
@@ -701,8 +699,7 @@ PUGI__NS_BEGIN
 			_root = page;
 
 			_busy_size = size;
-		}
-		else
+		} else
 		{
 			// insert page before the end of linked list, so that it is deleted as soon as possible
 			// the last page is not deleted even if it's empty (see deallocate_memory)
@@ -817,8 +814,7 @@ PUGI__NS_BEGIN
 
 					_data = 255;
 				}
-			}
-			else
+			} else
 				_data = 0;
 		}
 
@@ -831,11 +827,9 @@ PUGI__NS_BEGIN
 					uintptr_t base = reinterpret_cast<uintptr_t>(this) & ~(compact_alignment - 1);
 
 					return reinterpret_cast<T*>(base + ((_data - 1 + start) << compact_alignment_log2));
-				}
-				else
+				} else
 					return compact_get_value<header_offset, T>(this);
-			}
-			else
+			} else
 				return 0;
 		}
 
@@ -874,8 +868,7 @@ PUGI__NS_BEGIN
 				if (static_cast<uintptr_t>(offset) <= 65533)
 				{
 					_data = static_cast<unsigned short>(offset + 1);
-				}
-				else
+				} else
 				{
 					xml_memory_page* page = compact_get_page(this, header_offset);
 
@@ -885,16 +878,14 @@ PUGI__NS_BEGIN
 					if (page->compact_shared_parent == value)
 					{
 						_data = 65534;
-					}
-					else
+					} else
 					{
 						compact_set_value<header_offset>(this, value);
 
 						_data = 65535;
 					}
 				}
-			}
-			else
+			} else
 			{
 				_data = 0;
 			}
@@ -909,13 +900,11 @@ PUGI__NS_BEGIN
 					uintptr_t base = reinterpret_cast<uintptr_t>(this) & ~(compact_alignment - 1);
 
 					return reinterpret_cast<T*>(base + ((_data - 1 - 65533) << compact_alignment_log2));
-				}
-				else if (_data == 65534)
+				} else if (_data == 65534)
 					return static_cast<T*>(compact_get_page(this, header_offset)->compact_shared_parent);
 				else
 					return compact_get_value<header_offset, T>(this);
-			}
-			else
+			} else
 				return 0;
 		}
 
@@ -960,31 +949,27 @@ PUGI__NS_BEGIN
 					{
 						*base = static_cast<uint16_t>((offset >> 7) + 1);
 						_data = static_cast<unsigned char>((offset & 127) + 1);
-					}
-					else
+					} else
 					{
 						ptrdiff_t remainder = offset - ((*base - 1) << 7);
 
 						if (static_cast<uintptr_t>(remainder) <= 253)
 						{
 							_data = static_cast<unsigned char>(remainder + 1);
-						}
-						else
+						} else
 						{
 							compact_set_value<header_offset>(this, value);
 
 							_data = 255;
 						}
 					}
-				}
-				else
+				} else
 				{
 					compact_set_value<header_offset>(this, value);
 
 					_data = 255;
 				}
-			}
-			else
+			} else
 			{
 				_data = 0;
 			}
@@ -1005,13 +990,11 @@ PUGI__NS_BEGIN
 					ptrdiff_t offset = ((*base - 1) << 7) + (_data - 1);
 
 					return page->compact_string_base + offset;
-				}
-				else
+				} else
 				{
 					return compact_get_value<header_offset, char_t>(this);
 				}
-			}
-			else
+			} else
 				return 0;
 		}
 
@@ -1219,8 +1202,7 @@ PUGI__NS_BEGIN
 			tail->next_sibling = child;
 			child->prev_sibling_c = tail;
 			head->prev_sibling_c = child;
-		}
-		else
+		} else
 		{
 			node->first_child = child;
 			child->prev_sibling_c = child;
@@ -1237,8 +1219,7 @@ PUGI__NS_BEGIN
 		{
 			child->prev_sibling_c = head->prev_sibling_c;
 			head->prev_sibling_c = child;
-		}
-		else
+		} else
 			child->prev_sibling_c = child;
 
 		child->next_sibling = head;
@@ -1309,8 +1290,7 @@ PUGI__NS_BEGIN
 			tail->next_attribute = attr;
 			attr->prev_attribute_c = tail;
 			head->prev_attribute_c = attr;
-		}
-		else
+		} else
 		{
 			node->first_attribute = attr;
 			attr->prev_attribute_c = attr;
@@ -1325,8 +1305,7 @@ PUGI__NS_BEGIN
 		{
 			attr->prev_attribute_c = head->prev_attribute_c;
 			head->prev_attribute_c = attr;
-		}
-		else
+		} else
 			attr->prev_attribute_c = attr;
 
 		attr->next_attribute = head;
@@ -1695,14 +1674,12 @@ PUGI__NS_BEGIN
 						result = Traits::high(result, 0x10000 + ((lead & 0x3ff) << 10) + (next & 0x3ff));
 						data += 2;
 						size -= 2;
-					}
-					else
+					} else
 					{
 						data += 1;
 						size -= 1;
 					}
-				}
-				else
+				} else
 				{
 					data += 1;
 					size -= 1;
@@ -2023,8 +2000,7 @@ PUGI__NS_BEGIN
 		{
 			out_buffer = static_cast<char_t*>(const_cast<void*>(contents));
 			out_length = length;
-		}
-		else
+		} else
 		{
 			char_t* buffer = static_cast<char_t*>(xml_memory::allocate((length + 1) * sizeof(char_t)));
 			if (!buffer) return false;
@@ -2063,8 +2039,7 @@ PUGI__NS_BEGIN
 
 			out_buffer = buffer;
 			out_length = length;
-		}
-		else
+		} else
 		{
 			char_t* buffer = static_cast<char_t*>(xml_memory::allocate((length + 1) * sizeof(char_t)));
 			if (!buffer) return false;
@@ -2345,16 +2320,14 @@ PUGI__NS_BEGIN
 			header &= ~header_mask;
 
 			return true;
-		}
-		else if (dest && strcpy_insitu_allow(source_length, header, header_mask, dest))
+		} else if (dest && strcpy_insitu_allow(source_length, header, header_mask, dest))
 		{
 			// we can reuse old buffer, so just copy the new data (including zero terminator)
 			memcpy(dest, source, source_length * sizeof(char_t));
 			dest[source_length] = 0;
 
 			return true;
-		}
-		else
+		} else
 		{
 			xml_allocator* alloc = PUGI__GETPAGE_IMPL(header)->allocator;
 
@@ -2416,8 +2389,7 @@ PUGI__NS_BEGIN
 				memmove(end - size, end, reinterpret_cast<char*>(s) - reinterpret_cast<char*>(end));
 
 				return s - size;
-			}
-			else return s;
+			} else return s;
 		}
 	};
 
@@ -2454,8 +2426,7 @@ PUGI__NS_BEGIN
 					}
 
 					++stre;
-				}
-				else	// &#... (dec code)
+				} else	// &#... (dec code)
 				{
 					char_t ch = *++stre;
 
@@ -2500,8 +2471,7 @@ PUGI__NS_BEGIN
 						g.push(s, stre - s);
 						return stre;
 					}
-				}
-				else if (*stre == 'p') // &ap
+				} else if (*stre == 'p') // &ap
 				{
 					if (*++stre == 'o' && *++stre == 's' && *++stre == ';') // &apos;
 					{
@@ -2587,18 +2557,15 @@ PUGI__NS_BEGIN
 				*s++ = '\n'; // replace first one with 0x0a
 
 				if (*s == '\n') g.push(s, 1);
-			}
-			else if (s[0] == '-' && s[1] == '-' && PUGI__ENDSWITH(s[2], '>')) // comment ends here
+			} else if (s[0] == '-' && s[1] == '-' && PUGI__ENDSWITH(s[2], '>')) // comment ends here
 			{
 				*g.flush(s) = 0;
 
 				return s + (s[2] == '>' ? 3 : 2);
-			}
-			else if (*s == 0)
+			} else if (*s == 0)
 			{
 				return 0;
-			}
-			else ++s;
+			} else ++s;
 		}
 	}
 
@@ -2615,18 +2582,15 @@ PUGI__NS_BEGIN
 				*s++ = '\n'; // replace first one with 0x0a
 
 				if (*s == '\n') g.push(s, 1);
-			}
-			else if (s[0] == ']' && s[1] == ']' && PUGI__ENDSWITH(s[2], '>')) // CDATA ends here
+			} else if (s[0] == ']' && s[1] == ']' && PUGI__ENDSWITH(s[2], '>')) // CDATA ends here
 			{
 				*g.flush(s) = 0;
 
 				return s + 1;
-			}
-			else if (*s == 0)
+			} else if (*s == 0)
 			{
 				return 0;
-			}
-			else ++s;
+			} else ++s;
 		}
 	}
 
@@ -2655,18 +2619,15 @@ PUGI__NS_BEGIN
 					*end = 0;
 
 					return s + 1;
-				}
-				else if (opt_eol::value && *s == '\r') // Either a single 0x0d or 0x0d 0x0a pair
+				} else if (opt_eol::value && *s == '\r') // Either a single 0x0d or 0x0d 0x0a pair
 				{
 					*s++ = '\n'; // replace first one with 0x0a
 
 					if (*s == '\n') g.push(s, 1);
-				}
-				else if (opt_escape::value && *s == '&')
+				} else if (opt_escape::value && *s == '&')
 				{
 					s = strconv_escape(s, g);
-				}
-				else if (*s == 0)
+				} else if (*s == 0)
 				{
 					char_t* end = g.flush(s);
 
@@ -2677,8 +2638,7 @@ PUGI__NS_BEGIN
 					*end = 0;
 
 					return s;
-				}
-				else ++s;
+				} else ++s;
 			}
 		}
 	};
@@ -2732,8 +2692,7 @@ PUGI__NS_BEGIN
 					while (PUGI__IS_CHARTYPE(*str, ct_space));
 
 					return s + 1;
-				}
-				else if (PUGI__IS_CHARTYPE(*s, ct_space))
+				} else if (PUGI__IS_CHARTYPE(*s, ct_space))
 				{
 					*s++ = ' ';
 
@@ -2744,16 +2703,13 @@ PUGI__NS_BEGIN
 
 						g.push(s, str - s);
 					}
-				}
-				else if (opt_escape::value && *s == '&')
+				} else if (opt_escape::value && *s == '&')
 				{
 					s = strconv_escape(s, g);
-				}
-				else if (!*s)
+				} else if (!*s)
 				{
 					return 0;
-				}
-				else ++s;
+				} else ++s;
 			}
 		}
 
@@ -2770,26 +2726,21 @@ PUGI__NS_BEGIN
 					*g.flush(s) = 0;
 
 					return s + 1;
-				}
-				else if (PUGI__IS_CHARTYPE(*s, ct_space))
+				} else if (PUGI__IS_CHARTYPE(*s, ct_space))
 				{
 					if (*s == '\r')
 					{
 						*s++ = ' ';
 
 						if (*s == '\n') g.push(s, 1);
-					}
-					else *s++ = ' ';
-				}
-				else if (opt_escape::value && *s == '&')
+					} else *s++ = ' ';
+				} else if (opt_escape::value && *s == '&')
 				{
 					s = strconv_escape(s, g);
-				}
-				else if (!*s)
+				} else if (!*s)
 				{
 					return 0;
-				}
-				else ++s;
+				} else ++s;
 			}
 		}
 
@@ -2806,22 +2757,18 @@ PUGI__NS_BEGIN
 					*g.flush(s) = 0;
 
 					return s + 1;
-				}
-				else if (*s == '\r')
+				} else if (*s == '\r')
 				{
 					*s++ = '\n';
 
 					if (*s == '\n') g.push(s, 1);
-				}
-				else if (opt_escape::value && *s == '&')
+				} else if (opt_escape::value && *s == '&')
 				{
 					s = strconv_escape(s, g);
-				}
-				else if (!*s)
+				} else if (!*s)
 				{
 					return 0;
-				}
-				else ++s;
+				} else ++s;
 			}
 		}
 
@@ -2838,16 +2785,13 @@ PUGI__NS_BEGIN
 					*g.flush(s) = 0;
 
 					return s + 1;
-				}
-				else if (opt_escape::value && *s == '&')
+				} else if (opt_escape::value && *s == '&')
 				{
 					s = strconv_escape(s, g);
-				}
-				else if (!*s)
+				} else if (!*s)
 				{
 					return 0;
-				}
-				else ++s;
+				} else ++s;
 			}
 		}
 	};
@@ -2914,8 +2858,7 @@ PUGI__NS_BEGIN
 				if (!*s) PUGI__THROW_ERROR(status_bad_doctype, s);
 
 				s++;
-			}
-			else if (s[0] == '<' && s[1] == '?')
+			} else if (s[0] == '<' && s[1] == '?')
 			{
 				// <? ... ?>
 				s += 2;
@@ -2923,16 +2866,14 @@ PUGI__NS_BEGIN
 				if (!*s) PUGI__THROW_ERROR(status_bad_doctype, s);
 
 				s += 2;
-			}
-			else if (s[0] == '<' && s[1] == '!' && s[2] == '-' && s[3] == '-')
+			} else if (s[0] == '<' && s[1] == '!' && s[2] == '-' && s[3] == '-')
 			{
 				s += 4;
 				PUGI__SCANFOR(s[0] == '-' && s[1] == '-' && s[2] == '>'); // no need for ENDSWITH because --> can't terminate proper doctype
 				if (!*s) PUGI__THROW_ERROR(status_bad_doctype, s);
 
 				s += 3;
-			}
-			else PUGI__THROW_ERROR(status_bad_doctype, s);
+			} else PUGI__THROW_ERROR(status_bad_doctype, s);
 
 			return s;
 		}
@@ -2951,8 +2892,7 @@ PUGI__NS_BEGIN
 					// nested ignore section
 					s += 3;
 					depth++;
-				}
-				else if (s[0] == ']' && s[1] == ']' && s[2] == '>')
+				} else if (s[0] == ']' && s[1] == ']' && s[2] == '>')
 				{
 					// ignore section end
 					s += 3;
@@ -2961,8 +2901,7 @@ PUGI__NS_BEGIN
 						return s;
 
 					depth--;
-				}
-				else s++;
+				} else s++;
 			}
 
 			PUGI__THROW_ERROR(status_bad_doctype, s);
@@ -2984,29 +2923,25 @@ PUGI__NS_BEGIN
 						// ignore
 						s = parse_doctype_ignore(s);
 						if (!s) return s;
-					}
-					else
+					} else
 					{
 						// some control group
 						s += 2;
 						depth++;
 					}
-				}
-				else if (s[0] == '<' || s[0] == '"' || s[0] == '\'')
+				} else if (s[0] == '<' || s[0] == '"' || s[0] == '\'')
 				{
 					// unknown tag (forbidden), or some primitive group
 					s = parse_doctype_primitive(s);
 					if (!s) return s;
-				}
-				else if (*s == '>')
+				} else if (*s == '>')
 				{
 					if (depth == 0)
 						return s;
 
 					depth--;
 					s++;
-				}
-				else s++;
+				} else s++;
 			}
 
 			if (depth != 0 || endch != '>') PUGI__THROW_ERROR(status_bad_doctype, s);
@@ -3038,8 +2973,7 @@ PUGI__NS_BEGIN
 						s = strconv_comment(s, endch);
 
 						if (!s) PUGI__THROW_ERROR(status_bad_comment, cursor->value);
-					}
-					else
+					} else
 					{
 						// Scan for terminating '-->'.
 						PUGI__SCANFOR(s[0] == '-' && s[1] == '-' && PUGI__ENDSWITH(s[2], '>'));
@@ -3050,10 +2984,8 @@ PUGI__NS_BEGIN
 
 						s += (s[2] == '>' ? 3 : 2); // Step over the '\0->'.
 					}
-				}
-				else PUGI__THROW_ERROR(status_bad_comment, s);
-			}
-			else if (*s == '[')
+				} else PUGI__THROW_ERROR(status_bad_comment, s);
+			} else if (*s == '[')
 			{
 				// '<![CDATA[...'
 				if (*++s=='C' && *++s=='D' && *++s=='A' && *++s=='T' && *++s=='A' && *++s == '[')
@@ -3070,8 +3002,7 @@ PUGI__NS_BEGIN
 							s = strconv_cdata(s, endch);
 
 							if (!s) PUGI__THROW_ERROR(status_bad_cdata, cursor->value);
-						}
-						else
+						} else
 						{
 							// Scan for terminating ']]>'.
 							PUGI__SCANFOR(s[0] == ']' && s[1] == ']' && PUGI__ENDSWITH(s[2], '>'));
@@ -3079,8 +3010,7 @@ PUGI__NS_BEGIN
 
 							*s++ = 0; // Zero-terminate this segment.
 						}
-					}
-					else // Flagged for discard, but we still have to scan for the terminator.
+					} else // Flagged for discard, but we still have to scan for the terminator.
 					{
 						// Scan for terminating ']]>'.
 						PUGI__SCANFOR(s[0] == ']' && s[1] == ']' && PUGI__ENDSWITH(s[2], '>'));
@@ -3090,10 +3020,8 @@ PUGI__NS_BEGIN
 					}
 
 					s += (s[1] == '>' ? 2 : 1); // Step over the last ']>'.
-				}
-				else PUGI__THROW_ERROR(status_bad_cdata, s);
-			}
-			else if (s[0] == 'D' && s[1] == 'O' && s[2] == 'C' && s[3] == 'T' && s[4] == 'Y' && s[5] == 'P' && PUGI__ENDSWITH(s[6], 'E'))
+				} else PUGI__THROW_ERROR(status_bad_cdata, s);
+			} else if (s[0] == 'D' && s[1] == 'O' && s[2] == 'C' && s[3] == 'T' && s[4] == 'Y' && s[5] == 'P' && PUGI__ENDSWITH(s[6], 'E'))
 			{
 				s -= 2;
 
@@ -3115,8 +3043,7 @@ PUGI__NS_BEGIN
 
 					cursor->value = mark;
 				}
-			}
-			else if (*s == 0 && endch == '-') PUGI__THROW_ERROR(status_bad_comment, s);
+			} else if (*s == 0 && endch == '-') PUGI__THROW_ERROR(status_bad_comment, s);
 			else if (*s == 0 && endch == '[') PUGI__THROW_ERROR(status_bad_cdata, s);
 			else PUGI__THROW_ERROR(status_unrecognized_tag, s);
 
@@ -3151,8 +3078,7 @@ PUGI__NS_BEGIN
 					if (cursor->parent) PUGI__THROW_ERROR(status_bad_pi, s);
 
 					PUGI__PUSHNODE(node_declaration);
-				}
-				else
+				} else
 				{
 					PUGI__PUSHNODE(node_pi);
 				}
@@ -3169,8 +3095,7 @@ PUGI__NS_BEGIN
 					s += (*s == '>');
 
 					PUGI__POPNODE();
-				}
-				else if (PUGI__IS_CHARTYPE(ch, ct_space))
+				} else if (PUGI__IS_CHARTYPE(ch, ct_space))
 				{
 					PUGI__SKIPWS();
 
@@ -3187,8 +3112,7 @@ PUGI__NS_BEGIN
 
 						// we exit from this function with cursor at node_declaration, which is a signal to parse() to go to LOC_ATTRIBUTES
 						s = value;
-					}
-					else
+					} else
 					{
 						// store value and step over >
 						cursor->value = value;
@@ -3199,10 +3123,8 @@ PUGI__NS_BEGIN
 
 						s += (*s == '>');
 					}
-				}
-				else PUGI__THROW_ERROR(status_bad_pi, s);
-			}
-			else
+				} else PUGI__THROW_ERROR(status_bad_pi, s);
+			} else
 			{
 				// scan for tag end
 				PUGI__SCANFOR(s[0] == '?' && PUGI__ENDSWITH(s[1], '>'));
@@ -3245,8 +3167,7 @@ PUGI__NS_BEGIN
 						if (ch == '>')
 						{
 							// end of tag
-						}
-						else if (PUGI__IS_CHARTYPE(ch, ct_space))
+						} else if (PUGI__IS_CHARTYPE(ch, ct_space))
 						{
 						LOC_ATTRIBUTES:
 							while (true)
@@ -3289,12 +3210,9 @@ PUGI__NS_BEGIN
 											// Whitespaces, / and > are ok, symbols and EOF are wrong,
 											// everything else will be detected
 											if (PUGI__IS_CHARTYPE(*s, ct_start_symbol)) PUGI__THROW_ERROR(status_bad_attribute, s);
-										}
-										else PUGI__THROW_ERROR(status_bad_attribute, s);
-									}
-									else PUGI__THROW_ERROR(status_bad_attribute, s);
-								}
-								else if (*s == '/')
+										} else PUGI__THROW_ERROR(status_bad_attribute, s);
+									} else PUGI__THROW_ERROR(status_bad_attribute, s);
+								} else if (*s == '/')
 								{
 									++s;
 
@@ -3303,47 +3221,38 @@ PUGI__NS_BEGIN
 										PUGI__POPNODE();
 										s++;
 										break;
-									}
-									else if (*s == 0 && endch == '>')
+									} else if (*s == 0 && endch == '>')
 									{
 										PUGI__POPNODE();
 										break;
-									}
-									else PUGI__THROW_ERROR(status_bad_start_element, s);
-								}
-								else if (*s == '>')
+									} else PUGI__THROW_ERROR(status_bad_start_element, s);
+								} else if (*s == '>')
 								{
 									++s;
 
 									break;
-								}
-								else if (*s == 0 && endch == '>')
+								} else if (*s == 0 && endch == '>')
 								{
 									break;
-								}
-								else PUGI__THROW_ERROR(status_bad_start_element, s);
+								} else PUGI__THROW_ERROR(status_bad_start_element, s);
 							}
 
 							// !!!
-						}
-						else if (ch == '/') // '<#.../'
+						} else if (ch == '/') // '<#.../'
 						{
 							if (!PUGI__ENDSWITH(*s, '>')) PUGI__THROW_ERROR(status_bad_start_element, s);
 
 							PUGI__POPNODE(); // Pop.
 
 							s += (*s == '>');
-						}
-						else if (ch == 0)
+						} else if (ch == 0)
 						{
 							// we stepped over null terminator, backtrack & handle closing tag
 							--s;
 
 							if (endch != '>') PUGI__THROW_ERROR(status_bad_start_element, s);
-						}
-						else PUGI__THROW_ERROR(status_bad_start_element, s);
-					}
-					else if (*s == '/')
+						} else PUGI__THROW_ERROR(status_bad_start_element, s);
+					} else if (*s == '/')
 					{
 						++s;
 
@@ -3370,30 +3279,25 @@ PUGI__NS_BEGIN
 						if (*s == 0)
 						{
 							if (endch != '>') PUGI__THROW_ERROR(status_bad_end_element, s);
-						}
-						else
+						} else
 						{
 							if (*s != '>') PUGI__THROW_ERROR(status_bad_end_element, s);
 							++s;
 						}
-					}
-					else if (*s == '?') // '<?...'
+					} else if (*s == '?') // '<?...'
 					{
 						s = parse_question(s, cursor, optmsk, endch);
 						if (!s) return s;
 
 						assert(cursor);
 						if (PUGI__NODETYPE(cursor) == node_declaration) goto LOC_ATTRIBUTES;
-					}
-					else if (*s == '!') // '<!...'
+					} else if (*s == '!') // '<!...'
 					{
 						s = parse_exclamation(s, cursor, optmsk, endch);
 						if (!s) return s;
-					}
-					else if (*s == 0 && endch == '?') PUGI__THROW_ERROR(status_bad_pi, s);
+					} else if (*s == 0 && endch == '?') PUGI__THROW_ERROR(status_bad_pi, s);
 					else PUGI__THROW_ERROR(status_unrecognized_tag, s);
-				}
-				else
+				} else
 				{
 					mark = s; // Save this offset while searching for a terminator.
 
@@ -3407,8 +3311,7 @@ PUGI__NS_BEGIN
 						if (!PUGI__OPTSET(parse_ws_pcdata | parse_ws_pcdata_single) || PUGI__OPTSET(parse_trim_pcdata))
 						{
 							continue;
-						}
-						else if (PUGI__OPTSET(parse_ws_pcdata_single))
+						} else if (PUGI__OPTSET(parse_ws_pcdata_single))
 						{
 							if (s[0] != '<' || s[1] != '/' || cursor->first_child) continue;
 						}
@@ -3422,8 +3325,7 @@ PUGI__NS_BEGIN
 						if (PUGI__OPTSET(parse_embed_pcdata) && cursor->parent && !cursor->first_child && !cursor->value)
 						{
 							cursor->value = s; // Save the offset.
-						}
-						else
+						} else
 						{
 							PUGI__PUSHNODE(node_pcdata); // Append a new node on the tree.
 
@@ -3435,8 +3337,7 @@ PUGI__NS_BEGIN
 						s = strconv_pcdata(s);
 
 						if (!*s) break;
-					}
-					else
+					} else
 					{
 						PUGI__SCANFOR(*s == '<'); // '...<'
 						if (!*s) break;
@@ -3516,8 +3417,7 @@ PUGI__NS_BEGIN
 
 				if (!PUGI__OPTSET(parse_fragment) && !has_element_node_siblings(first_root_child_parsed))
 					return make_parse_result(status_no_document_element, length - 1);
-			}
-			else
+			} else
 			{
 				// roll back offset if it occurs on a null terminator in the source buffer
 				if (result.offset > 0 && static_cast<size_t>(result.offset) == length - 1 && endch == 0)
@@ -3750,8 +3650,7 @@ PUGI__NS_BEGIN
 			{
 				memcpy(buffer + offset, data, length * sizeof(char_t));
 				bufsize = offset + length;
-			}
-			else
+			} else
 			{
 				write_direct(data, length);
 			}
@@ -3769,8 +3668,7 @@ PUGI__NS_BEGIN
 			if (offset < bufcapacity)
 			{
 				bufsize = offset;
-			}
-			else
+			} else
 			{
 				// backtrack a bit if we have split the codepoint
 				size_t length = offset - bufsize;
@@ -4049,8 +3947,7 @@ PUGI__NS_BEGIN
 				writer.write('\n');
 
 				text_output_indent(writer, indent, indent_length, depth + 1);
-			}
-			else
+			} else
 			{
 				writer.write(' ');
 			}
@@ -4088,8 +3985,7 @@ PUGI__NS_BEGIN
 					writer.write('>');
 
 					return false;
-				}
-				else
+				} else
 				{
 					if ((flags & format_raw) == 0)
 						writer.write(' ');
@@ -4098,15 +3994,13 @@ PUGI__NS_BEGIN
 
 					return false;
 				}
-			}
-			else
+			} else
 			{
 				writer.write('>');
 
 				return true;
 			}
-		}
-		else
+		} else
 		{
 			writer.write('>');
 
@@ -4119,8 +4013,7 @@ PUGI__NS_BEGIN
 				writer.write('>');
 
 				return false;
-			}
-			else
+			} else
 			{
 				return true;
 			}
@@ -4216,8 +4109,7 @@ PUGI__NS_BEGIN
 				node_output_simple(writer, node, flags);
 
 				indent_flags = 0;
-			}
-			else
+			} else
 			{
 				if ((indent_flags & indent_newline) && (flags & format_raw) == 0)
 					writer.write('\n');
@@ -4239,8 +4131,7 @@ PUGI__NS_BEGIN
 						depth++;
 						continue;
 					}
-				}
-				else if (PUGI__NODETYPE(node) == node_document)
+				} else if (PUGI__NODETYPE(node) == node_document)
 				{
 					indent_flags = indent_indent;
 
@@ -4249,8 +4140,7 @@ PUGI__NS_BEGIN
 						node = node->first_child;
 						continue;
 					}
-				}
-				else
+				} else
 				{
 					node_output_simple(writer, node, flags);
 
@@ -4366,8 +4256,7 @@ PUGI__NS_BEGIN
 				// since strcpy_insitu can reuse document buffer memory we need to mark both source and dest as shared
 				header |= xml_memory_page_contents_shared_mask;
 				source_header |= xml_memory_page_contents_shared_mask;
-			}
-			else
+			} else
 				strcpy_insitu(dest, header, header_mask, source, strlength(source));
 		}
 	}
@@ -4490,8 +4379,7 @@ PUGI__NS_BEGIN
 			size_t digits = static_cast<size_t>(s - start);
 
 			overflow = digits > sizeof(U) * 2;
-		}
-		else
+		} else
 		{
 			// since overflow detection relies on length of the sequence skip leading zeros
 			while (*s == '0')
@@ -4915,8 +4803,7 @@ PUGI__NS_BEGIN
 		{
 			stream.clear(); // clear error flags that could be set by a failing tellg
 			status = load_stream_data_noseek(stream, &buffer, &size);
-		}
-		else
+		} else
 			status = load_stream_data_seek(stream, &buffer, &size);
 
 		if (status != status_ok) return make_parse_result(status);
@@ -5028,8 +4915,7 @@ namespace pugi
 		{
 			assert(!wide_stream);
 			narrow_stream->write(reinterpret_cast<const char*>(data), static_cast<std::streamsize>(size));
-		}
-		else
+		} else
 		{
 			assert(wide_stream);
 			assert(size % sizeof(wchar_t) == 0);
@@ -6196,8 +6082,7 @@ namespace pugi
 				{
 					++walker._depth;
 					cur = cur.first_child();
-				}
-				else if (cur.next_sibling())
+				} else if (cur.next_sibling())
 					cur = cur.next_sibling();
 				else
 				{
@@ -7232,8 +7117,7 @@ PUGI__NS_BEGIN
 				// move to front
 				copy_backwards(begin, it, it + 1);
 				*begin = val;
-			}
-			else
+			} else
 			{
 				I hole = it;
 
@@ -7293,14 +7177,12 @@ PUGI__NS_BEGIN
 			{
 				if (--ltend != --eqbeg) swap(*ltend, *eqbeg);
 				swap(*eqbeg, *--eqend);
-			}
-			else if (ltend == begin)
+			} else if (ltend == begin)
 			{
 				if (eqend != gtbeg) swap(*eqbeg, *eqend);
 				++eqend;
 				swap(*gtbeg++, *eqbeg++);
-			}
-			else swap(*gtbeg++, *--ltend);
+			} else swap(*gtbeg++, *--ltend);
 		}
 	}
 
@@ -7317,8 +7199,7 @@ PUGI__NS_BEGIN
 		{
 			// median of three for small chunks
 			median3(first, middle, last, pred);
-		}
-		else
+		} else
 		{
 			// median of nine
 			size_t step = (last - first + 1) / 8;
@@ -7348,8 +7229,7 @@ PUGI__NS_BEGIN
 			{
 				sort(eqend, end, pred);
 				end = eqbeg;
-			}
-			else
+			} else
 			{
 				sort(begin, eqbeg, pred);
 				begin = eqend;
@@ -7412,8 +7292,7 @@ PUGI__NS_BEGIN
 				void* buf = &_root->data[0] + _root_size;
 				_root_size += size;
 				return buf;
-			}
-			else
+			} else
 			{
 				// make sure we have at least 1/4th of the page free after allocation to satisfy subsequent allocation requests
 				size_t block_capacity_base = sizeof(_root->data);
@@ -7643,8 +7522,7 @@ PUGI__NS_BEGIN
 			if (!*_buffer && !_uses_heap && !o._uses_heap)
 			{
 				_buffer = o._buffer;
-			}
-			else
+			} else
 			{
 				// need to make heap copy
 				size_t target_length = length();
@@ -7942,15 +7820,13 @@ PUGI__NS_BEGIN
 				// compare attribute parents
 				ln = lhs.parent();
 				rn = rhs.parent();
-			}
-			else if (lhs.attribute())
+			} else if (lhs.attribute())
 			{
 				// attributes go after the parent element
 				if (lhs.parent() == rhs.node()) return false;
 
 				ln = lhs.parent();
-			}
-			else if (rhs.attribute())
+			} else if (rhs.attribute())
 			{
 				// attributes go after the parent element
 				if (rhs.parent() == lhs.node()) return true;
@@ -8122,8 +7998,7 @@ PUGI__NS_BEGIN
 		if (exponent <= 0)
 		{
 			*s++ = '0';
-		}
-		else
+		} else
 		{
 			while (exponent > 0)
 			{
@@ -8335,8 +8210,7 @@ PUGI__NS_BEGIN
 
 				// avoid leading spaces
 				if (write != buffer) *write++ = ' ';
-			}
-			else *write++ = ch;
+			} else *write++ = ch;
 		}
 
 		// remove trailing space
@@ -8421,8 +8295,7 @@ PUGI__NS_BEGIN
 				// this code skips these characters without extra branches
 				*write = static_cast<char_t>(code);
 				write += 1 - (code >> 7);
-			}
-			else
+			} else
 			{
 				*write++ = ch;
 			}
@@ -8651,8 +8524,7 @@ PUGI__NS_BEGIN
 				sort(begin, end, document_order_comparator());
 
 				type = xpath_node_set::type_sorted;
-			}
-			else
+			} else
 				type = sorted;
 		}
 
@@ -8904,8 +8776,7 @@ PUGI__NS_BEGIN
 				{
 					cur += 2;
 					_cur_lexeme = lex_greater_or_equal;
-				}
-				else
+				} else
 				{
 					cur += 1;
 					_cur_lexeme = lex_greater;
@@ -8917,8 +8788,7 @@ PUGI__NS_BEGIN
 				{
 					cur += 2;
 					_cur_lexeme = lex_less_or_equal;
-				}
-				else
+				} else
 				{
 					cur += 1;
 					_cur_lexeme = lex_less;
@@ -8930,8 +8800,7 @@ PUGI__NS_BEGIN
 				{
 					cur += 2;
 					_cur_lexeme = lex_not_equal;
-				}
-				else
+				} else
 				{
 					_cur_lexeme = lex_none;
 				}
@@ -8986,8 +8855,7 @@ PUGI__NS_BEGIN
 					_cur_lexeme_contents.end = cur;
 
 					_cur_lexeme = lex_var_ref;
-				}
-				else
+				} else
 				{
 					_cur_lexeme = lex_none;
 				}
@@ -9029,8 +8897,7 @@ PUGI__NS_BEGIN
 				{
 					cur += 2;
 					_cur_lexeme = lex_double_slash;
-				}
-				else
+				} else
 				{
 					cur += 1;
 					_cur_lexeme = lex_slash;
@@ -9042,8 +8909,7 @@ PUGI__NS_BEGIN
 				{
 					cur += 2;
 					_cur_lexeme = lex_double_dot;
-				}
-				else if (PUGI__IS_CHARTYPEX(*(cur+1), ctx_digit))
+				} else if (PUGI__IS_CHARTYPEX(*(cur+1), ctx_digit))
 				{
 					_cur_lexeme_contents.begin = cur; // .
 
@@ -9054,8 +8920,7 @@ PUGI__NS_BEGIN
 					_cur_lexeme_contents.end = cur;
 
 					_cur_lexeme = lex_number;
-				}
-				else
+				} else
 				{
 					cur += 1;
 					_cur_lexeme = lex_dot;
@@ -9095,8 +8960,7 @@ PUGI__NS_BEGIN
 				{
 					cur += 2;
 					_cur_lexeme = lex_double_colon;
-				}
-				else
+				} else
 				{
 					_cur_lexeme = lex_none;
 				}
@@ -9119,8 +8983,7 @@ PUGI__NS_BEGIN
 					_cur_lexeme_contents.end = cur;
 
 					_cur_lexeme = lex_number;
-				}
-				else if (PUGI__IS_CHARTYPEX(*cur, ctx_start_symbol))
+				} else if (PUGI__IS_CHARTYPEX(*cur, ctx_start_symbol))
 				{
 					_cur_lexeme_contents.begin = cur;
 
@@ -9131,8 +8994,7 @@ PUGI__NS_BEGIN
 						if (cur[1] == '*') // namespace test ncname:*
 						{
 							cur += 2; // :*
-						}
-						else if (PUGI__IS_CHARTYPEX(cur[1], ctx_symbol)) // namespace test qname
+						} else if (PUGI__IS_CHARTYPEX(cur[1], ctx_symbol)) // namespace test qname
 						{
 							cur++; // :
 
@@ -9143,8 +9005,7 @@ PUGI__NS_BEGIN
 					_cur_lexeme_contents.end = cur;
 
 					_cur_lexeme = lex_string;
-				}
-				else
+				} else
 				{
 					_cur_lexeme = lex_none;
 				}
@@ -9342,8 +9203,7 @@ PUGI__NS_BEGIN
 
 					return comp(ls, rs);
 				}
-			}
-			else if (lt == xpath_type_node_set && rt == xpath_type_node_set)
+			} else if (lt == xpath_type_node_set && rt == xpath_type_node_set)
 			{
 				xpath_allocator_capture cr(stack.result);
 
@@ -9360,8 +9220,7 @@ PUGI__NS_BEGIN
 					}
 
 				return false;
-			}
-			else
+			} else
 			{
 				if (lt == xpath_type_node_set)
 				{
@@ -9387,8 +9246,7 @@ PUGI__NS_BEGIN
 					}
 
 					return false;
-				}
-				else if (lt == xpath_type_string)
+				} else if (lt == xpath_type_string)
 				{
 					xpath_allocator_capture cr(stack.result);
 
@@ -9445,8 +9303,7 @@ PUGI__NS_BEGIN
 				}
 
 				return false;
-			}
-			else if (lt != xpath_type_node_set && rt == xpath_type_node_set)
+			} else if (lt != xpath_type_node_set && rt == xpath_type_node_set)
 			{
 				xpath_allocator_capture cr(stack.result);
 
@@ -9462,8 +9319,7 @@ PUGI__NS_BEGIN
 				}
 
 				return false;
-			}
-			else if (lt == xpath_type_node_set && rt != xpath_type_node_set)
+			} else if (lt == xpath_type_node_set && rt != xpath_type_node_set)
 			{
 				xpath_allocator_capture cr(stack.result);
 
@@ -9479,8 +9335,7 @@ PUGI__NS_BEGIN
 				}
 
 				return false;
-			}
-			else
+			} else
 			{
 				assert(false && "Wrong types");
 				return false;
@@ -10022,8 +9877,7 @@ PUGI__NS_BEGIN
 					step_fill(ns, *it, stack.result, once, v);
 					if (_right) apply_predicates(ns, size, stack, eval);
 				}
-			}
-			else
+			} else
 			{
 				step_fill(ns, c.n, stack.result, once, v);
 				if (_right) apply_predicates(ns, 0, stack, eval);
@@ -10958,8 +10812,7 @@ PUGI__NS_BEGIN
 				c[length] = 0;
 
 				return c;
-			}
-			else return 0;
+			} else return 0;
 		}
 
 		xpath_ast_node* parse_function_helper(ast_type_t type0, ast_type_t type1, size_t argc, xpath_ast_node* args[2])
@@ -10989,8 +10842,7 @@ PUGI__NS_BEGIN
 						throw_error("Function has to be applied to node set");
 
 					return new (alloc_node()) xpath_ast_node(ast_func_count, xpath_type_number, args[0]);
-				}
-				else if (name == PUGIXML_TEXT("contains") && argc == 2)
+				} else if (name == PUGIXML_TEXT("contains") && argc == 2)
 					return new (alloc_node()) xpath_ast_node(ast_func_contains, xpath_type_boolean, args[0], args[1]);
 				else if (name == PUGIXML_TEXT("concat") && argc >= 2)
 					return new (alloc_node()) xpath_ast_node(ast_func_concat, xpath_type_string, args[0], args[1]);
@@ -11341,14 +11193,12 @@ PUGI__NS_BEGIN
 				axis_specified = true;
 
 				_lexer.next();
-			}
-			else if (_lexer.current() == lex_dot)
+			} else if (_lexer.current() == lex_dot)
 			{
 				_lexer.next();
 
 				return new (alloc_node()) xpath_ast_node(ast_step, set, axis_self, nodetest_type_node, 0);
-			}
-			else if (_lexer.current() == lex_double_dot)
+			} else if (_lexer.current() == lex_double_dot)
 			{
 				_lexer.next();
 
@@ -11384,13 +11234,11 @@ PUGI__NS_BEGIN
 						nt_type = nodetest_all;
 						nt_name = xpath_lexer_string();
 						_lexer.next();
-					}
-					else if (_lexer.current() == lex_string)
+					} else if (_lexer.current() == lex_string)
 					{
 						nt_name = _lexer.contents();
 						_lexer.next();
-					}
-					else throw_error("Unrecognized node test");
+					} else throw_error("Unrecognized node test");
 				}
 
 				if (nt_type == nodetest_none)
@@ -11410,8 +11258,7 @@ PUGI__NS_BEGIN
 								throw_error("Unrecognized node type");
 
 							nt_name = xpath_lexer_string();
-						}
-						else if (nt_name == PUGIXML_TEXT("processing-instruction"))
+						} else if (nt_name == PUGIXML_TEXT("processing-instruction"))
 						{
 							if (_lexer.current() != lex_quoted_string)
 								throw_error("Only literals are allowed as arguments to processing-instruction()");
@@ -11423,8 +11270,7 @@ PUGI__NS_BEGIN
 							if (_lexer.current() != lex_close_brace)
 								throw_error("Unmatched brace near processing-instruction()");
 							_lexer.next();
-						}
-						else
+						} else
 						{
 							throw_error("Unmatched brace near node type test");
 						}
@@ -11437,20 +11283,17 @@ PUGI__NS_BEGIN
 							nt_name.end--; // erase *
 
 							nt_type = nodetest_all_in_namespace;
-						}
-						else
+						} else
 						{
 							nt_type = nodetest_name;
 						}
 					}
 				}
-			}
-			else if (_lexer.current() == lex_multiply)
+			} else if (_lexer.current() == lex_multiply)
 			{
 				nt_type = nodetest_all;
 				_lexer.next();
-			}
-			else
+			} else
 			{
 				throw_error("Unrecognized node test");
 			}
@@ -11517,8 +11360,7 @@ PUGI__NS_BEGIN
 					return parse_relative_location_path(n);
 				else
 					return n;
-			}
-			else if (_lexer.current() == lex_double_slash)
+			} else if (_lexer.current() == lex_double_slash)
 			{
 				_lexer.next();
 
@@ -11585,8 +11427,7 @@ PUGI__NS_BEGIN
 				}
 
 				return n;
-			}
-			else if (_lexer.current() == lex_minus)
+			} else if (_lexer.current() == lex_minus)
 			{
 				_lexer.next();
 
@@ -11594,8 +11435,7 @@ PUGI__NS_BEGIN
 				xpath_ast_node* expr = parse_expression_rec(parse_path_or_unary_expression(), 7);
 
 				return new (alloc_node()) xpath_ast_node(ast_op_negate, xpath_type_number, expr);
-			}
-			else
+			} else
 			{
 				return parse_location_path();
 			}
@@ -11911,8 +11751,7 @@ namespace pugi
 			_begin = &_storage;
 			_end = &_storage + size_;
 			_type = type_;
-		}
-		else
+		} else
 		{
 			// make heap copy
 			xpath_node* storage = static_cast<xpath_node*>(impl::xml_memory::allocate(size_ * sizeof(xpath_node)));
@@ -12347,8 +12186,7 @@ namespace pugi
 		#else
 			throw std::bad_alloc();
 		#endif
-		}
-		else
+		} else
 		{
 			using impl::auto_deleter; // MSVC7 workaround
 			auto_deleter<impl::xpath_query_impl> impl(qimpl, impl::xpath_query_impl::destroy);

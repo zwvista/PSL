@@ -52,12 +52,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     brick_infos.push_back(bi1);
     brick_infos.push_back(bi2);
 
-    for(int r = 0; r < rows(); ++r){
+    for (int r = 0; r < rows(); ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < cols(); ++c){
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             m_cells.push_back(str[c]);
-            switch(str[c]){
+            switch(str[c]) {
             case '=':
                 m_brick_map[p] = btRed;
                 break;
@@ -106,7 +106,7 @@ struct puz_state
         //if(lastto != x.m_move->first)
         //    d += 1 << 16;
         unsigned int d = 1 << 16;
-        if(lastto != child.m_move->first)
+        if (lastto != child.m_move->first)
             d += 1;
         return d;
     }
@@ -129,20 +129,20 @@ bool puz_state::make_move(const Position& pos, EBrickType bt, const vector<Posit
 {
     bool can_move = true;
     vector<char> vch;
-    for(const Position& p : units)
+    for (const Position& p : units)
         vch.push_back(cells(pos + p));
-    for(const Position& p : units)
+    for (const Position& p : units)
         cells(pos + p) = ' ';
     Position pos2 = pos + offset[dir];
-    for(const Position& p : units)
-        if(cells(pos2 + p) != ' '){
+    for (const Position& p : units)
+        if (cells(pos2 + p) != ' ') {
             pos2 = pos;
             can_move = false;
             break;
         }
-    for(size_t i = 0; i < vch.size(); i++)
+    for (size_t i = 0; i < vch.size(); i++)
         cells(pos2 + units[i]) = vch[i];
-    if(can_move){
+    if (can_move) {
         m_brick_map.erase(pos);
         m_move = puz_step(pos, dir);
         m_brick_map[pos2] = bt;
@@ -152,8 +152,8 @@ bool puz_state::make_move(const Position& pos, EBrickType bt, const vector<Posit
 
 Position puz_state::red_pos() const
 {
-    for(const brick_pair& bp : m_brick_map)
-        if(bp.second == btRed)
+    for (const brick_pair& bp : m_brick_map)
+        if (bp.second == btRed)
             return bp.first;
     return Position();
 }
@@ -161,8 +161,8 @@ Position puz_state::red_pos() const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for(int i = 0, n = 0; i < rows(); i++) {
-        for(int j = 0; j < cols(); j++, n++)
+    for (int i = 0, n = 0; i < rows(); i++) {
+        for (int j = 0; j < cols(); j++, n++)
             out << m_cells[n];
         out << endl;
     }
@@ -173,12 +173,12 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     const vector<brick_info>& bis = m_game->brick_infos;
     puz_state p = *this;
-    for(const brick_pair& bp : m_brick_map){
+    for (const brick_pair& bp : m_brick_map) {
         const Position& pos = bp.first;
         EBrickType bt = bp.second;
         const brick_info& bi = bis[bt];
-        for(EBrickDir dir : bi.dirs)
-            if(p.make_move(pos, bt, bi.units, dir)){
+        for (EBrickDir dir : bi.dirs)
+            if (p.make_move(pos, bt, bi.units, dir)) {
                 children.push_back(p);
                 p = *this;
             }

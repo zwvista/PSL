@@ -24,16 +24,16 @@ int main(int argc, char **argv)
     cout << "u3: Futoshiki" << endl;
     string str;
     getline(cin, str);
-    if(str.empty());
-    else if(str == "e1") solve_puz_FenceItUp();
-    else if(str == "e2") solve_puz_FenceLits();
-    else if(str == "e3") solve_puz_FenceSentinels();
-    else if(str == "i") solve_puz_Fillomino();
-    else if(str == "l") solve_puz_fling();
-    else if(str == "o") solve_puz_FourMeNot();
-    else if(str == "u1") solve_puz_fullsearch();
-    else if(str == "u2") solve_puz_FussyWaiter();
-    else if(str == "u3") solve_puz_Futoshiki();
+    if (str.empty());
+    else if (str == "e1") solve_puz_FenceItUp();
+    else if (str == "e2") solve_puz_FenceLits();
+    else if (str == "e3") solve_puz_FenceSentinels();
+    else if (str == "i") solve_puz_Fillomino();
+    else if (str == "l") solve_puz_fling();
+    else if (str == "o") solve_puz_FourMeNot();
+    else if (str == "u1") solve_puz_fullsearch();
+    else if (str == "u2") solve_puz_FussyWaiter();
+    else if (str == "u3") solve_puz_Futoshiki();
 
     return 0;
 }

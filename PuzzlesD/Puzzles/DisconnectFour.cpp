@@ -55,10 +55,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 2)
 {
     m_start.append(m_sidelen, PUZ_BOUNDARY);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for(int c = 1; c < m_sidelen - 1; ++c)
+        for (int c = 1; c < m_sidelen - 1; ++c)
             m_start.push_back(str[c - 1]);
         m_start.push_back(PUZ_BOUNDARY);
     }
@@ -97,10 +97,10 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-    for(int r = 1; r < g.m_sidelen - 1; ++r)
-        for(int c = 1; c < g.m_sidelen - 1; ++c){
+    for (int r = 1; r < g.m_sidelen - 1; ++r)
+        for (int c = 1; c < g.m_sidelen - 1; ++c) {
             Position p(r, c);
-            if(cells(p) == PUZ_SPACE)
+            if (cells(p) == PUZ_SPACE)
                 m_matches[p] = RY;
         }
 
@@ -109,29 +109,29 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         auto& p = kv.first;
         auto& str = kv.second;
 
-        boost::remove_erase_if(str, [&](char ch){
+        boost::remove_erase_if(str, [&](char ch) {
             auto f = ch == PUZ_R_ADDED ? is_token_r : is_token_y;
             vector<int> counts;
-            for(auto& os : offset){
+            for (auto& os : offset) {
                 int n = 0;
-                for(auto p2 = p + os; f(cells(p2)); p2 += os)
+                for (auto p2 = p + os; f(cells(p2)); p2 += os)
                     ++n;
                 counts.push_back(n);
             }
             // there are no more than three tokens of the same colour
             // lined up horizontally, vertically or    diagonally.
-            for(int i = 0; i < 4; ++i)
-                if(counts[i] + counts[4 + i] >= 3)
+            for (int i = 0; i < 4; ++i)
+                if (counts[i] + counts[4 + i] >= 3)
                     return true;
             return false;
         });
 
-        if(!init)
-            switch(str.size()){
+        if (!init)
+            switch(str.size()) {
             case 0:
                 return 0;
             case 1:
@@ -153,7 +153,7 @@ bool puz_state::make_move(const Position& p, char ch)
     m_distance = 0;
     make_move2(p, ch);
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -161,20 +161,20 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const Position, string>& kv1,
-        const pair<const Position, string>& kv2){
+        const pair<const Position, string>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(char ch : kv.second){
+    for (char ch : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, ch))
+        if (!children.back().make_move(kv.first, ch))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r){
-        for(int c = 1; c < sidelen() - 1; ++c)
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c)
             out << cells({r, c});
         out << endl;
     }

@@ -48,17 +48,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() / 2 + 1)
 , m_dot_count(m_sidelen * m_sidelen)
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         auto& str_horz = strs[2 * r];
         // horz-lines
-        for(int c = 0; c < m_sidelen - 1; ++c)
-            if(str_horz[2 * c + 1] == '-')
+        for (int c = 0; c < m_sidelen - 1; ++c)
+            if (str_horz[2 * c + 1] == '-')
                 m_horz_lines.emplace(r, c);
-        if(r == m_sidelen - 1) break;
+        if (r == m_sidelen - 1) break;
         auto& str_vert = strs[2 * r + 1];
         // vert-lines
-        for(int c = 0; c <= m_sidelen - 1; ++c)
-            if(str_vert[2 * c] == '|')
+        for (int c = 0; c <= m_sidelen - 1; ++c)
+            if (str_vert[2 * c] == '|')
                 m_vert_lines.emplace(r, c);
     }
 }
@@ -100,37 +100,37 @@ puz_state::puz_state(const puz_game& g)
 : vector<puz_dot>(g.m_dot_count), m_game(&g)
 {
     auto lineseg_off = string(4, PUZ_LINE_OFF);
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
 
             vector<int> dirs;
-            for(int i = 0; i < 4; ++i)
-                if(is_valid(p + offset[i]))
+            for (int i = 0; i < 4; ++i)
+                if (is_valid(p + offset[i]))
                     dirs.push_back(i);
 
             // Find all line permutations from the dot
-            for(int i = 0; i < dirs.size() - 1; ++i)
-                for(int j = i + 1; j < dirs.size(); ++j){
+            for (int i = 0; i < dirs.size() - 1; ++i)
+                for (int j = i + 1; j < dirs.size(); ++j) {
                     auto lines = lineseg_off;
                     lines[dirs[i]] = lines[dirs[j]] = PUZ_LINE_ON;
                     dt.push_back(lines);
                 }
         }
 
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if(c < sidelen() - 1)
+            if (c < sidelen() - 1)
                 m_matches[{p, false}] = PUZ_LINE_UNKNOWN;
-            if(r < sidelen() - 1)
+            if (r < sidelen() - 1)
                 m_matches[{p, true}] =  PUZ_LINE_UNKNOWN;
         }
 
-    for(auto& p : g.m_horz_lines)
+    for (auto& p : g.m_horz_lines)
         make_move2(p, false, PUZ_LINE_ON);
-    for(auto& p : g.m_vert_lines)
+    for (auto& p : g.m_vert_lines)
         make_move2(p, true, PUZ_LINE_ON);
 
     find_matches(true);
@@ -138,25 +138,25 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         const auto& p = kv.first.first;
         bool is_vert = kv.first.second;
         auto& str = kv.second;
 
         int index = is_vert ? 2 : 0;
         auto &info1 = lines_info[index], &info2 = lines_info[index + 1];
-        auto f = [&](const puz_line_info& info, char ch){
+        auto f = [&](const puz_line_info& info, char ch) {
             return boost::algorithm::any_of(dots(p + info.first),
                 [&](const string& line) { return line[info.second] == ch; });
         };
         str.clear();
-        if(f(info1, PUZ_LINE_ON) && f(info2, PUZ_LINE_ON))
+        if (f(info1, PUZ_LINE_ON) && f(info2, PUZ_LINE_ON))
             str.push_back(PUZ_LINE_ON);
-        if(f(info1, PUZ_LINE_OFF) && f(info2, PUZ_LINE_OFF))
+        if (f(info1, PUZ_LINE_OFF) && f(info2, PUZ_LINE_OFF))
             str.push_back(PUZ_LINE_OFF);
 
-        if(!init)
-            switch(str.size()){
+        if (!init)
+            switch(str.size()) {
             case 0:
                 return 0;
             case 1:
@@ -170,7 +170,7 @@ bool puz_state::make_move2(const Position& p, bool is_vert, char ch)
 {
     int index = is_vert ? 2 : 0;
     auto &info1 = lines_info[index], &info2 = lines_info[index + 1];
-    auto f = [&, ch](const puz_line_info& info){
+    auto f = [&, ch](const puz_line_info& info) {
         boost::remove_erase_if(dots(p + info.first),
             [&](const string& line) { return line[info.second] != ch; });
     };
@@ -185,28 +185,28 @@ bool puz_state::make_move2(const Position& p, bool is_vert, char ch)
 bool puz_state::check_loop() const
 {
     set<Position> rng;
-    for(int r = 0; r < sidelen(); ++r)
-        for(int c = 0; c < sidelen(); ++c){
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if(dots(p).size() == 1)
+            if (dots(p).size() == 1)
                 rng.insert(p);
         }
-    if(m_matches.empty() && rng.size() != m_game->m_dot_count)
+    if (m_matches.empty() && rng.size() != m_game->m_dot_count)
         return false;
 
-    while(!rng.empty()){
+    while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
-        for(int cnt = 1, n = -1;; ++cnt){
+        for (int cnt = 1, n = -1;; ++cnt) {
             rng.erase(p2);
             auto& str = dots(p2)[0];
-            for(int i = 0; i < 4; ++i)
-                if(str[i] == PUZ_LINE_ON && (i + 2) % 4 != n){
+            for (int i = 0; i < 4; ++i)
+                if (str[i] == PUZ_LINE_ON && (i + 2) % 4 != n) {
                     p2 += offset[n = i];
                     break;
                 }
-            if(p2 == p)
+            if (p2 == p)
                 return cnt == m_game->m_dot_count;
-            if(rng.count(p2) == 0)
+            if (rng.count(p2) == 0)
                 break;
         }
     }
@@ -216,10 +216,10 @@ bool puz_state::check_loop() const
 bool puz_state::make_move(const Position& p, bool is_vert, char ch)
 {
     m_distance = 0;
-    if(!make_move2(p, is_vert, ch))
+    if (!make_move2(p, is_vert, ch))
         return false;
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -227,26 +227,26 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const pair<Position, bool>, string>& kv1,
-        const pair<const pair<Position, bool>, string>& kv2){
+        const pair<const pair<Position, bool>, string>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
 
-    for(char ch : kv.second){
+    for (char ch : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first.first, kv.first.second, ch))
+        if (!children.back().make_move(kv.first.first, kv.first.second, ch))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // draw horz-lines
-        for(int c = 0; c < sidelen() - 1; ++c)
+        for (int c = 0; c < sidelen() - 1; ++c)
             out << (dots({r, c})[0][1] == PUZ_LINE_ON ? " -" : "  ");
         out << endl;
-        if(r == sidelen() - 1) break;
-        for(int c = 0; c < sidelen(); ++c){
+        if (r == sidelen() - 1) break;
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             // draw vert-lines
             out << (dots(p)[0][2] == PUZ_LINE_ON ? "| " : "  ");

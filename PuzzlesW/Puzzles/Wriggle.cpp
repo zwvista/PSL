@@ -39,12 +39,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     fill(m_cells.rbegin(), m_cells.rbegin() + cols(), PUZ_BOX);
 
     int n = cols();
-    for(int r = 1; r < rows() - 1; ++r, n += cols()){
+    for (int r = 1; r < rows() - 1; ++r, n += cols()) {
         m_cells[n] = m_cells[n + cols() - 1] = PUZ_BOX;
         const string& vstr = strs.at(r - 1);
-        for(int c = 1; c < cols() - 1; ++c){
+        for (int c = 1; c < cols() - 1; ++c) {
             Position p(r, c);
-            switch(char ch = vstr[c * 2 - 2]){
+            switch(char ch = vstr[c * 2 - 2]) {
             case PUZ_GOAL:
                 m_goal = p;
             case PUZ_BOX:
@@ -55,9 +55,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 {
                     size_t nw = ch - '1';
                     size_t sz = m_worms.size();
-                    if(nw >= sz){
+                    if (nw >= sz) {
                         m_worms.resize(nw + 1);
-                        for(size_t i = sz; i <= nw; i++)
+                        for (size_t i = sz; i <= nw; i++)
                             m_worms[i].resize(26);
                     }
                     ch = vstr[c * 2 - 1];
@@ -67,7 +67,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for(vector<Position>& w : m_worms){
+    for (vector<Position>& w : m_worms) {
         int n = boost::range::find(w, Position()) - w.begin();
         w.resize(n);
     }
@@ -119,7 +119,7 @@ struct puz_state
     unsigned int get_heuristic() const;
     unsigned int get_distance(const puz_state& child) const {
         unsigned int d = 1;
-        if(m_move && !m_move->same_move(*child.m_move))
+        if (m_move && !m_move->same_move(*child.m_move))
             d += 1 << 16;
         return d;
     }
@@ -144,7 +144,7 @@ bool puz_state::can_move(int i, int j, int k) const
     const vector<Position>& w = m_worms[i];
     Position p = (j == 0 ? w.front() : w.back()) + offset[k];
     return cells(p) != PUZ_BOX && (i == 0 || cells(p) != PUZ_GOAL) &&
-        none_of(m_worms, [&](const vector<Position>& w){
+        none_of(m_worms, [&](const vector<Position>& w) {
         return any_of_equal(w, p);
     });
 }
@@ -155,11 +155,10 @@ void puz_state::make_move(int i, int j, int k)
     Position p1 = j == 0 ? w.front() : w.back();
     Position p2 = p1 + offset[k];
     m_move = puz_step(i, j, k, p1);
-    if(j == 0){
+    if (j == 0) {
         w.back() = p2;
         boost::rotate(w, std::prev(w.end()));
-    }
-    else{
+    } else {
         w.front() = p2;
         boost::rotate(w, std::next(w.begin()));
     }
@@ -169,17 +168,17 @@ void puz_state::make_move(int i, int j, int k)
 void puz_state::calc_layout()
 {
     m_layout = string((rows() - 2) * (cols() - 2) * 2, PUZ_SPACE);
-    auto f = [&](const Position& p, char ch_sz, char ch_ord){
+    auto f = [&](const Position& p, char ch_sz, char ch_ord) {
         int n = (p.first - 1) * (cols() - 2) + p.second - 1;
         m_layout[n * 2] = ch_sz;
         m_layout[n * 2 + 1] = ch_ord;
     };
-    for(int i = 0; i < m_worms.size(); ++i){
+    for (int i = 0; i < m_worms.size(); ++i) {
         const auto& w = m_worms[i];
         char ch_sz = 'a' + (i == 0 ? 0 : w.size());
         char ch_ord = 'a';
-        if(w.front() < w.back())
-            for(const auto& p : w)
+        if (w.front() < w.back())
+            for (const auto& p : w)
                 f(p, ch_sz, ch_ord++);
         else
             BOOST_REVERSE_FOREACH(const auto& p, w)
@@ -189,10 +188,10 @@ void puz_state::calc_layout()
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for(int i = 0; i < m_worms.size(); i++)
-        for(int j = 0; j < 2; j++)
-            for(int k = 0; k < 4; k++)
-                if(can_move(i, j, k)){
+    for (int i = 0; i < m_worms.size(); i++)
+        for (int j = 0; j < 2; j++)
+            for (int k = 0; k < 4; k++)
+                if (can_move(i, j, k)) {
                     children.push_back(*this);
                     children.back().make_move(i, j, k);
                 }
@@ -210,17 +209,17 @@ ostream& puz_state::dump(ostream& out, bool move_only) const
 {
     dump_move(out);
 
-    if(!move_only){
+    if (!move_only) {
         vector<string> vstrs(rows() - 2);
-        for(int r = 1; r < rows() - 1; ++r){
+        for (int r = 1; r < rows() - 1; ++r) {
             string& str = vstrs[r - 1];
             str = string((cols() - 2) * 2, PUZ_SPACE);
-            for(int c = 1; c < cols() - 1; ++c)
+            for (int c = 1; c < cols() - 1; ++c)
                 str[c * 2 - 2] = str[c * 2 - 1] = cells({r, c});
         }
-        for(size_t i = 0; i < m_worms.size(); i++){
+        for (size_t i = 0; i < m_worms.size(); i++) {
             const vector<Position>& w = m_worms[i];
-            for(size_t j = 0; j < w.size(); j++){
+            for (size_t j = 0; j < w.size(); j++) {
                 int r, c;
                 boost::tie(r, c) = w[j];
                 string& str = vstrs[r - 1];
@@ -228,7 +227,7 @@ ostream& puz_state::dump(ostream& out, bool move_only) const
                 str[c * 2 - 1] = j + 'a';
             }
         }
-        for(const string& str : vstrs)
+        for (const string& str : vstrs)
             out << str << endl;
     }
 
@@ -237,7 +236,7 @@ ostream& puz_state::dump(ostream& out, bool move_only) const
 
 void dump_all(ostream& out, const list<puz_state>& spath)
 {
-    for(auto it = spath.cbegin(); it != spath.cend(); it++){
+    for (auto it = spath.cbegin(); it != spath.cend(); it++) {
         auto it2 = next(it);
         bool move_only =
             it != spath.cbegin() && it2 != spath.cend() &&

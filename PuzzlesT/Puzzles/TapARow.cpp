@@ -42,12 +42,12 @@ typedef vector<int> puz_hint;
 puz_hint compute_hint(const vector<int>& filled)
 {
     vector<int> hint;
-    for(int j = 0; j < filled.size(); ++j)
-        if(j == 0 || filled[j] - filled[j - 1] != 1)
+    for (int j = 0; j < filled.size(); ++j)
+        if (j == 0 || filled[j] - filled[j - 1] != 1)
             hint.push_back(1);
         else
             ++hint.back();
-    if(filled.size() > 1 && hint.size() > 1 && filled.back() - filled.front() == 7)
+    if (filled.size() > 1 && hint.size() > 1 && filled.back() - filled.front() == 7)
         hint.front() += hint.back(), hint.pop_back();
     boost::sort(hint);
     return hint;
@@ -69,19 +69,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 2)
 {
     m_start.append(m_sidelen, PUZ_BOUNDARY);
-    for(int r = 1; r < m_sidelen - 1; ++r){
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for(int c = 1; c < m_sidelen - 1; ++c){
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             auto s = str.substr(c * 4 - 4, 4);
-            if(s == "    ")
+            if (s == "    ")
                 m_start.push_back(PUZ_SPACE);
-            else{
+            else {
                 m_start.push_back(PUZ_HINT);
                 auto& hint = m_pos2hint[{r, c}];
-                for(int i = 0; i < 4; ++i){
+                for (int i = 0; i < 4; ++i) {
                     char ch = s[i];
-                    if(ch != PUZ_SPACE)
+                    if (ch != PUZ_SPACE)
                         hint.push_back(ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0');
                 }
                 m_hint2perms[hint];
@@ -94,35 +94,35 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     // A tile is surrounded by at most 8 tiles, each of which has two states:
     // filled or empty. So all combinations of the states of the
     // surrounding tiles can be coded into an 8-bit number(0 -- 255).
-    for(int i = 1; i < 256; ++i){
+    for (int i = 1; i < 256; ++i) {
         vector<int> filled;
-        for(int j = 0; j < 8; ++j)
-            if(i & (1 << j))
+        for (int j = 0; j < 8; ++j)
+            if (i & (1 << j))
                 filled.push_back(j);
 
         string perm(8, PUZ_EMPTY);
-        for(int j : filled)
+        for (int j : filled)
             perm[j] = PUZ_FILLED;
 
         auto hint = compute_hint(filled);
 
-        for(auto& kv : m_hint2perms){
+        for (auto& kv : m_hint2perms) {
             auto& hint2 = kv.first;
-            if(hint2 == hint)
+            if (hint2 == hint)
                 kv.second.push_back(perm);
-            else if(boost::algorithm::any_of_equal(hint2, PUZ_UNKNOWN) && hint2.size() == hint.size()){
+            else if (boost::algorithm::any_of_equal(hint2, PUZ_UNKNOWN) && hint2.size() == hint.size()) {
                 auto hint3 = hint2;
                 boost::remove_erase(hint3, PUZ_UNKNOWN);
-                if(boost::includes(hint, hint3))
+                if (boost::includes(hint, hint3))
                     kv.second.push_back(perm);
             }
         }
     }
 
     // A cell with a 0 means all its surrounding cells are empty.
-    for(int n : {0, PUZ_UNKNOWN}){
+    for (int n : {0, PUZ_UNKNOWN}) {
         auto it = m_hint2perms.find({n});
-        if(it != m_hint2perms.end())
+        if (it != m_hint2perms.end())
             it->second.emplace_back(8, PUZ_EMPTY);
     }
 }
@@ -161,25 +161,25 @@ struct puz_state : string
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& perm_ids = kv.second;
 
         string chars;
-        for(auto& os : offset)
+        for (auto& os : offset)
             chars.push_back(cells(p + os));
 
         auto& perms = m_game->m_hint2perms.at(m_game->m_pos2hint.at(p));
-        boost::remove_erase_if(perm_ids, [&](int id){
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2){
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
                 return (ch1 == PUZ_BOUNDARY || ch1 == PUZ_HINT) && ch2 == PUZ_EMPTY ||
                     ch1 == PUZ_SPACE || ch1 == ch2;
             });
         });
         perm_ids.shrink_to_fit();
 
-        if(!init)
-            switch(perm_ids.size()){
+        if (!init)
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -192,7 +192,7 @@ int puz_state::find_matches(bool init)
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-    for(auto& kv : g.m_pos2hint){
+    for (auto& kv : g.m_pos2hint) {
         auto& perm_ids = m_matches[kv.first];
         perm_ids.resize(g.m_hint2perms.at(kv.second).size());
         boost::iota(perm_ids, 0);
@@ -206,7 +206,7 @@ struct puz_state2 : Position
     puz_state2(const puz_state& s, const Position& starting)
         : m_state(&s) {    make_move(starting); }
 
-    void make_move(const Position& p){ static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
@@ -214,10 +214,10 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for(int i = 0; i < 4; ++i){
+    for (int i = 0; i < 4; ++i) {
         auto p2 = *this + offset[i * 2];
         char ch = m_state->cells(p2);
-        if(ch == PUZ_SPACE || ch == PUZ_FILLED){
+        if (ch == PUZ_SPACE || ch == PUZ_FILLED) {
             children.push_back(*this);
             children.back().make_move(p2);
         }
@@ -227,10 +227,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 bool puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& perm = m_game->m_hint2perms.at(m_game->m_pos2hint.at(p))[n];
-    for(int i = 0; i < 8; ++i){
+    for (int i = 0; i < 8; ++i) {
         auto p2 = p + offset[i];
         char& ch = cells(p2);
-        if(ch == PUZ_SPACE)
+        if (ch == PUZ_SPACE)
             ch = perm[i], ++m_distance;
     }
 
@@ -241,10 +241,10 @@ bool puz_state::make_move_hint2(const Position& p, int n)
 bool puz_state::make_move_hint(const Position& p, int n)
 {
     m_distance = 0;
-    if(!make_move_hint2(p, n))
+    if (!make_move_hint2(p, n))
         return false;
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -258,8 +258,8 @@ bool puz_state::make_move_space(const Position& p, char ch)
 puz_hint puz_state::compute_hint(const Position& p) const
 {
     vector<int> filled;
-    for(int j = 0; j < 8; ++j)
-        if(cells(p + offset[j]) == PUZ_FILLED)
+    for (int j = 0; j < 8; ++j)
+        if (cells(p + offset[j]) == PUZ_FILLED)
             filled.push_back(j);
 
     return puzzles::TapARow::compute_hint(filled);
@@ -269,42 +269,42 @@ bool puz_state::is_valid_move() const
 {
     auto is_continuous = [&]{
         int i = find(PUZ_FILLED);
-        if(i == -1)
+        if (i == -1)
             return true;
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves(
             {*this, {i / sidelen(), i % sidelen()}}, smoves);
-        return boost::count_if(smoves, [&](const Position& p){
+        return boost::count_if(smoves, [&](const Position& p) {
             return this->cells(p) == PUZ_FILLED;
         }) == boost::count(*this, PUZ_FILLED);
     };
 
-    auto is_same_color = [&](const vector<Position>& rng, const vector<char>& color){
-        return boost::algorithm::all_of(rng, [&](const Position& p){
+    auto is_same_color = [&](const vector<Position>& rng, const vector<char>& color) {
+        return boost::algorithm::all_of(rng, [&](const Position& p) {
             return boost::algorithm::any_of_equal(color, this->cells(p));
         });
     };
 
-    auto is_valid_square = [&](const vector<char>& color){
-        for(int r = 1; r < sidelen() - 2; ++r)
-            for(int c = 1; c < sidelen() - 2; ++c)
-                if(is_same_color({{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}}, color))
+    auto is_valid_square = [&](const vector<char>& color) {
+        for (int r = 1; r < sidelen() - 2; ++r)
+            for (int c = 1; c < sidelen() - 2; ++c)
+                if (is_same_color({{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}}, color))
                     return false;
         return true;
     };
 
     auto is_valid_row = [&]{
         bool b = is_goal_state();
-        for(int r = 1; r < sidelen() - 1; ++r){
+        for (int r = 1; r < sidelen() - 1; ++r) {
             bool has_hint = false;
             int hinted_cnt = 0, filled_cnt = 0;
-            for(int c = 1; c < sidelen() - 1; ++c){
+            for (int c = 1; c < sidelen() - 1; ++c) {
                 Position p(r, c);
                 char ch = cells(p);
-                if(ch == PUZ_HINT){
+                if (ch == PUZ_HINT) {
                     auto hint = m_game->m_pos2hint.at(p);
-                    if(boost::algorithm::any_of_equal(hint, PUZ_UNKNOWN)){
-                        if(m_matches.count(p) != 0){
+                    if (boost::algorithm::any_of_equal(hint, PUZ_UNKNOWN)) {
+                        if (m_matches.count(p) != 0) {
                             has_hint = false;
                             break;
                         }
@@ -312,11 +312,10 @@ bool puz_state::is_valid_move() const
                     }
                     has_hint = true;
                     hinted_cnt += boost::accumulate(hint, 0);
-                }
-                else if(ch == PUZ_FILLED)
+                } else if (ch == PUZ_FILLED)
                     filled_cnt++;
             }
-            if(has_hint && (!b && filled_cnt > hinted_cnt || b && filled_cnt != hinted_cnt))
+            if (has_hint && (!b && filled_cnt > hinted_cnt || b && filled_cnt != hinted_cnt))
                 return false;
         }
         return true;
@@ -327,27 +326,26 @@ bool puz_state::is_valid_move() const
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if(!m_matches.empty()){
+    if (!m_matches.empty()) {
         auto& kv = *boost::min_element(m_matches, [](
             const pair<const Position, vector<int>>& kv1,
-            const pair<const Position, vector<int>>& kv2){
+            const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
 
-        for(int n : kv.second){
+        for (int n : kv.second) {
             children.push_back(*this);
-            if(!children.back().make_move_hint(kv.first, n))
+            if (!children.back().make_move_hint(kv.first, n))
                 children.pop_back();
         }
-    }
-    else{
+    } else {
         int n = find(PUZ_SPACE);
-        if(n == -1)
+        if (n == -1)
             return;
         Position p(n / sidelen(), n % sidelen());
-        for(char ch : {PUZ_FILLED, PUZ_EMPTY}){
+        for (char ch : {PUZ_FILLED, PUZ_EMPTY}) {
             children.push_back(*this);
-            if(!children.back().make_move_space(p, ch))
+            if (!children.back().make_move_space(p, ch))
                 children.pop_back();
         }
     }
@@ -355,19 +353,18 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 1; r < sidelen() - 1; ++r) {
-        for(int c = 1; c < sidelen() - 1; ++c){
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if(ch == PUZ_HINT){
+            if (ch == PUZ_HINT) {
                 auto hint = m_game->m_pos2hint.at(p);
-                if(boost::algorithm::any_of_equal(hint, PUZ_UNKNOWN))
+                if (boost::algorithm::any_of_equal(hint, PUZ_UNKNOWN))
                     hint = compute_hint(p);
-                for(int n : hint)
+                for (int n : hint)
                     out << char(n + '0');
                 out << string(4 - hint.size(), ' ');
-            }
-            else
+            } else
                 out << ch << "   ";
         }
         out << endl;

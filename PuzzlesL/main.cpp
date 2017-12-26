@@ -28,18 +28,18 @@ int main(int argc, char **argv)
     cout << "o: Loopy" << endl;
     string str;
     getline(cin, str);
-    if(str.empty());
-    else if(str == "a1") solve_puz_Landscaper();
-    else if(str == "a2") solve_puz_Landscapes();
-    else if(str == "i1") solve_puz_LightBattleships();
-    else if(str == "i2") solve_puz_LightenUp();
-    else if(str == "i2g") gen_puz_LightenUp();
-    else if(str == "i3") solve_puz_Lighthouses();
-    else if(str == "i4") solve_puz_lightsout();
-    else if(str == "i5") solve_puz_lightsout_int();
-    else if(str == "i6") solve_puz_LineSweeper();
-    else if(str == "i7") solve_puz_Lits();
-    else if(str == "o") solve_puz_Loopy();
+    if (str.empty());
+    else if (str == "a1") solve_puz_Landscaper();
+    else if (str == "a2") solve_puz_Landscapes();
+    else if (str == "i1") solve_puz_LightBattleships();
+    else if (str == "i2") solve_puz_LightenUp();
+    else if (str == "i2g") gen_puz_LightenUp();
+    else if (str == "i3") solve_puz_Lighthouses();
+    else if (str == "i4") solve_puz_lightsout();
+    else if (str == "i5") solve_puz_lightsout_int();
+    else if (str == "i6") solve_puz_LineSweeper();
+    else if (str == "i7") solve_puz_Lits();
+    else if (str == "o") solve_puz_Loopy();
 
     return 0;
 }

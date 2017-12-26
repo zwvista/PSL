@@ -47,17 +47,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
 {
-    for(int r = 0; r < m_sidelen; ++r){
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < m_sidelen * 3; c += 3){
+        for (int c = 0; c < m_sidelen * 3; c += 3) {
             Position p(r, c / 3);
             auto s = str.substr(c, 2);
             int n = s == "  " ? PUZ_UNKNOWN : stoi(s);
-            if(n == 1)
+            if (n == 1)
                 m_start = p;
             m_nums.push_back(n);
             m_dirs.push_back(str[c + 2] - '0');
-            if(n != PUZ_UNKNOWN)
+            if (n != PUZ_UNKNOWN)
                 m_num2pos[n] = p;
         }
     }
@@ -101,18 +101,18 @@ void puz_state::gen_children(list<puz_state>& children) const
     auto it = m_game->m_num2pos.find(n);
     bool found = it != m_game->m_num2pos.end();
     auto& os = offset[dirs(second)];
-    for(auto p = second + os; is_valid(p); p += os)
-        if(found && p == it->second || !found && cells(p) == PUZ_UNKNOWN){
+    for (auto p = second + os; is_valid(p); p += os)
+        if (found && p == it->second || !found && cells(p) == PUZ_UNKNOWN) {
             children.push_back(*this);
             children.back().make_move(p, n);
-            if(found) break;
+            if (found) break;
         }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0; r < sidelen(); ++r){
-        for(int c = 0; c < sidelen(); ++c)
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c)
             out << format("%02d") % cells({r, c}) << " ";
         out << endl;
     }

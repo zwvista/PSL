@@ -84,29 +84,29 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_size(strs.size(), strs[0].size())
 {
-    for(int r = 0; r < rows(); ++r){
+    for (int r = 0; r < rows(); ++r) {
         auto& str = strs[r];
-        for(int c = 0; c < cols(); ++c)
+        for (int c = 0; c < cols(); ++c)
             m_start.push_back(str[c] - '0');
     }
 
-    for(int i = 0, n = 0; i < rows(); ++i)
-        for(int j = i; j < rows(); ++j)
+    for (int i = 0, n = 0; i < rows(); ++i)
+        for (int j = i; j < rows(); ++j)
             m_comb2id[{i, j}] = n++;
 
-    auto f = [&](int kind, Position p1){
+    auto f = [&](int kind, Position p1) {
         puz_domino d(kind, p1);
         int n1 = cells(p1), n2 = cells(d.p2());
-        if(n1 > n2)
+        if (n1 > n2)
             swap(n1, n2);
         m_combid2dominoes[m_comb2id.at({n1, n2})].push_back(d);
     };
-    for(int r = 0; r < rows(); ++r)
-        for(int c = 0; c < cols(); ++c){
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
-            if(c < cols() - 1)
+            if (c < cols() - 1)
                 f(0, p);
-            if(r < rows() - 1)
+            if (r < rows() - 1)
                 f(1, p);
         }
 }
@@ -143,7 +143,7 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.rows() * g.cols(), PUZ_SPACE), m_game(&g)
 {
-    for(auto& kv : g.m_combid2dominoes){
+    for (auto& kv : g.m_combid2dominoes) {
         auto& domino_ids = m_matches[kv.first];
         domino_ids.resize(kv.second.size());
         boost::iota(domino_ids, 0);
@@ -154,19 +154,19 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for(auto& kv : m_matches){
+    for (auto& kv : m_matches) {
         int comb_id = kv.first;
         auto& domino_ids = kv.second;
 
         auto& dominos = m_game->m_combid2dominoes.at(comb_id);
-        boost::remove_erase_if(domino_ids, [&](int id){
+        boost::remove_erase_if(domino_ids, [&](int id) {
             auto& d = dominos[id];
             return cells(d.m_p1) != PUZ_SPACE ||
                 cells(d.p2()) != PUZ_SPACE;
         });
 
-        if(!init)
-            switch(domino_ids.size()){
+        if (!init)
+            switch(domino_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -184,12 +184,12 @@ void puz_state::make_move2(int i, int j)
     cells(d.p2()) = str[1];
 
     set<Position> rng{d.m_p1, d.p2()};
-    for(auto& p : rng)
-        for(int i = 0; i < 4; ++i){
+    for (auto& p : rng)
+        for (int i = 0; i < 4; ++i) {
             auto p3 = p + offset[i];
             auto p_wall = p + offset2[i];
             auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
-            if(rng.count(p3) == 0)
+            if (rng.count(p3) == 0)
                 walls.insert(p_wall);
         }
 
@@ -202,7 +202,7 @@ bool puz_state::make_move(int i, int j)
     m_distance = 0;
     make_move2(i, j);
     int m;
-    while((m = find_matches(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -210,29 +210,29 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
         const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2){
+        const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for(int n : kv.second){
+    for (int n : kv.second) {
         children.push_back(*this);
-        if(!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for(int r = 0;; ++r){
+    for (int r = 0;; ++r) {
         // draw horz-walls
-        for(int c = 0; c < cols(); ++c)
+        for (int c = 0; c < cols(); ++c)
             out << (m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
         out << endl;
-        if(r == rows()) break;
-        for(int c = 0;; ++c){
+        if (r == rows()) break;
+        for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-walls
             out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
-            if(c == cols()) break;
+            if (c == cols()) break;
             out << m_game->cells(p);
         }
         out << endl;
