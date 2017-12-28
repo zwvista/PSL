@@ -96,7 +96,7 @@ string puz_generator::to_string()
 bool is_valid_Bridges(const string& s)
 {
     xml_document doc;
-    auto levels = doc.append_child("levels");
+    auto levels = doc.append_child("puzzle").append_child("levels");
     auto level = levels.append_child("level");
     level.append_attribute("id") = "test";
     level.append_child(node_cdata).set_value(s.c_str());
@@ -107,6 +107,17 @@ bool is_valid_Bridges(const string& s)
     getline(in, x);
     getline(in, x);
     return x != "Solution 1:";
+}
+
+void save_new_Bridges(const string& s)
+{
+    xml_document doc;
+    doc.load_file("Puzzles/BridgesGen.xml");
+    auto levels = doc.child("puzzle").child("levels");
+    auto level = levels.append_child("level");
+    level.append_attribute("id") = "test";
+    level.append_child(node_cdata).set_value(s.c_str());
+    doc.save_file("Puzzles/BridgesGen.xml");
 }
 
 void gen_puz_Bridges()
@@ -127,4 +138,5 @@ void gen_puz_Bridges()
             }
         }
     } while(!is_valid_Bridges(s));
+    save_new_Bridges(s);
 }
