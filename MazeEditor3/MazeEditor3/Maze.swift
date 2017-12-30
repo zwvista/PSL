@@ -124,7 +124,7 @@ class Maze: NSObject {
                         let ch = getObject(p: p)
                         str += ch != nil ? String(ch!) : " "
                     }
-                    str += " `\n"
+                    str += "`\n"
                 }
             }
             return str
@@ -155,7 +155,7 @@ class Maze: NSObject {
                     }
                 }
             } else {
-                size = Position(strs.count, strs[0].characters.count)
+                size = Position(strs.count, strs[0].count)
                 for r in 0..<height {
                     let str = strs[r]
                     for c in 0..<width {

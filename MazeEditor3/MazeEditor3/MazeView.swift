@@ -128,7 +128,7 @@ class MazeView: NSView {
             }
         }
         // http://stackoverflow.com/questions/9268045/how-can-i-detect-that-the-shift-key-has-been-pressed
-        let ch = Int(event.charactersIgnoringModifiers!.utf16[String.UTF16View.Index(0)])
+        var ch = Int(event.charactersIgnoringModifiers!.utf16[String.UTF16View.Index(0)])
         // let hasCommand = event.modifierFlags.contains(.command)
         switch ch {
         case NSLeftArrowFunctionKey:
@@ -147,6 +147,7 @@ class MazeView: NSView {
             moveNext()
         default:
 //            if isprint(Int32(ch)) != 0 {
+                ch = Int(event.characters!.utf16[String.UTF16View.Index(0)])
                 maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
                 moveNext()
 //            }

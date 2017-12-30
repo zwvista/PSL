@@ -9,5 +9,18 @@ U U V W X Y Y
 H D E Q X M B 
 Number of moves: 24
 Number of vertices examined: 59
-0.003159 [s]
+0.00317 [s]
+
+Level 20171228
+Sequence of moves: 
+Q Y X F B C U 
+W Y X W V U V 
+L L N O P T N 
+R M K Q R S S 
+J J I A E D D 
+H H G F B C G 
+I M K O P T E 
+Number of moves: 24
+Number of vertices examined: 92
+0.001875 [s]
 

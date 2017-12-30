@@ -124,19 +124,23 @@ void gen_puz_Bridges()
 {
     using namespace puzzles::Bridges;
 
-    string s;
-    do {
-        for (;;) {
-            puz_generator g(6);
-            do
-                g.gen_bridge();
-            while (!g.m_islands.empty());
-            if (g.m_pos2nums.size() >= 12) {
-                s = g.to_string();
-                cout << s;
-                break;
-            }
+    for (int i = 6; i <= 8; ++i)
+        for (int j = 0; j < 8; ++j) {
+            string s;
+            do {
+                for (;;) {
+                    puz_generator g(i);
+                    do
+                        g.gen_bridge();
+                    while (!g.m_islands.empty());
+                    int k = i * i / 3 + (rand() % 5 - 2);
+                    if (g.m_pos2nums.size() >= k) {
+                        s = g.to_string();
+                        cout << s;
+                        break;
+                    }
+                }
+            } while(!is_valid_Bridges(s));
+            save_new_Bridges(s);
         }
-    } while(!is_valid_Bridges(s));
-    save_new_Bridges(s);
 }
