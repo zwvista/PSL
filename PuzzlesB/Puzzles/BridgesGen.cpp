@@ -51,18 +51,24 @@ void puz_generator::gen_bridge()
         int& num = nums[i];
         if (num != -1) break;
         vector<Position> rng;
-        for (auto p2 = p + os; cells(p2) == PUZ_SPACE; p2 += os)
-            // Islands should not be adjacent to each other.
-            if (boost::algorithm::none_of(offset, [&](const Position& os2) {
-                return cells(p2 + os2) == PUZ_ISLAND;
-            }))
+        {
+            auto p2 = p + os;
+            for (; cells(p2) == PUZ_SPACE; p2 += os)
+                // Islands should not be adjacent to each other.
+                if (boost::algorithm::none_of(offset, [&](const Position& os2) {
+                    return cells(p2 + os2) == PUZ_ISLAND;
+                }))
+                    rng.push_back(p2);
+            if (cells(p2) == PUZ_ISLAND)
                 rng.push_back(p2);
+        }
         num = rng.empty() ? 0 : (rand() % 5 + 1) / 2;
         if (num == 0) continue;
         char ch = is_horz ? num == 1 ? PUZ_HORZ_1 : PUZ_HORZ_2 :
             num == 1 ? PUZ_VERT_1 : PUZ_VERT_2;
         auto p3 = rng[rand() % rng.size()];
-        add_island(p3);
+        if (cells(p3) == PUZ_SPACE)
+            add_island(p3);
         m_pos2nums.at(p3)[(i + 2) % 4] = num;
         for (auto p2 = p + os; p2 != p3; p2 += os)
             cells(p2) = ch;
@@ -109,13 +115,13 @@ bool is_valid_Bridges(const string& s)
     return x != "Solution 1:";
 }
 
-void save_new_Bridges(const string& s)
+void save_new_Bridges(const string& id, const string& s)
 {
     xml_document doc;
     doc.load_file("Puzzles/BridgesGen.xml");
     auto levels = doc.child("puzzle").child("levels");
     auto level = levels.append_child("level");
-    level.append_attribute("id") = "test";
+    level.append_attribute("id") = id.c_str();
     level.append_child(node_cdata).set_value(s.c_str());
     doc.save_file("Puzzles/BridgesGen.xml");
 }
@@ -141,6 +147,8 @@ void gen_puz_Bridges()
                     }
                 }
             } while(!is_valid_Bridges(s));
-            save_new_Bridges(s);
+            stringstream ss;
+            ss << format("%d-%d") % i % (j + 1);
+            save_new_Bridges(ss.str(), s);
         }
 }
