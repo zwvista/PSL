@@ -41,9 +41,9 @@
 
 /* Begin PBXFileReference section */
 		8C6854311FF000D500C592FD /* Bridges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridges.h; sourceTree = "<group>"; };
-		8C6854331FF1CAAF00C592FD /* BridgesTest.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BridgesTest.xml; sourceTree = "<group>"; };
-		8C6854341FF1CAB000C592FD /* BridgesTest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BridgesTest.txt; sourceTree = "<group>"; };
 		8C6854351FF1FAB600C592FD /* BridgesGen.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BridgesGen.xml; sourceTree = "<group>"; };
+		8C9D44B01FFCDF8700BA6373 /* Test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test.txt; path = ../Test.txt; sourceTree = "<group>"; };
+		8C9D44B11FFCDF8800BA6373 /* Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Test.xml; path = ../Test.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesB; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -127,13 +127,15 @@
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
-				8CA23F1B1EA926F60055D6B1 /* PSL */,
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
+				8CA23EC51EA9233C0055D6B1 /* Products */,
+				8CA23F1B1EA926F60055D6B1 /* PSL */,
+				8CA23ECF1EA924380055D6B1 /* Puzzles */,
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
 				8CA23F181EA925F20055D6B1 /* stdafx.h */,
 				8CA23F191EA925F20055D6B1 /* targetver.h */,
-				8CA23ECF1EA924380055D6B1 /* Puzzles */,
-				8CA23EC51EA9233C0055D6B1 /* Products */,
+				8C9D44B01FFCDF8700BA6373 /* Test.txt */,
+				8C9D44B11FFCDF8800BA6373 /* Test.xml */,
 			);
 			sourceTree = "<group>";
 		};
@@ -183,8 +185,6 @@
 				8CA23FCF1EB479280055D6B1 /* Bridges.txt */,
 				8CA23FD01EB479280055D6B1 /* Bridges.xml */,
 				8CA23FD11EB479280055D6B1 /* BridgesGen.cpp */,
-				8C6854341FF1CAB000C592FD /* BridgesTest.txt */,
-				8C6854331FF1CAAF00C592FD /* BridgesTest.xml */,
 				8C6854351FF1FAB600C592FD /* BridgesGen.xml */,
 				8CA23FD21EB479280055D6B1 /* BusySeas.cpp */,
 				8CA23FD31EB479280055D6B1 /* BusySeas.txt */,

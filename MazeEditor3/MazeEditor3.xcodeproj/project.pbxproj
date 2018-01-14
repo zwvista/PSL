@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C2B769D1EBB5FBC000FF777 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2B769C1EBB5FBC000FF777 /* Position.swift */; };
 		8C6589811EBE06410005D93A /* MazeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6589801EBE06410005D93A /* MazeDelegate.swift */; };
+		8C75D704200B5C57003095BE /* MazeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C75D703200B5C57003095BE /* MazeWindow.swift */; };
 		8CA241DD1EB716AF0055D6B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241DC1EB716AF0055D6B1 /* AppDelegate.swift */; };
 		8CA241DF1EB716AF0055D6B1 /* MazeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241DE1EB716AF0055D6B1 /* MazeViewController.swift */; };
 		8CA241E11EB716AF0055D6B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CA241E01EB716AF0055D6B1 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		8C2B769C1EBB5FBC000FF777 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		8C6589801EBE06410005D93A /* MazeDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MazeDelegate.swift; sourceTree = "<group>"; };
+		8C75D703200B5C57003095BE /* MazeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeWindow.swift; sourceTree = "<group>"; };
 		8CA241D91EB716AE0055D6B1 /* MazeEditor3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazeEditor3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA241DC1EB716AF0055D6B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CA241DE1EB716AF0055D6B1 /* MazeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				8CA242071EB82CC80055D6B1 /* MazeView.swift */,
 				8CA241DE1EB716AF0055D6B1 /* MazeViewController.swift */,
 				8C2B769C1EBB5FBC000FF777 /* Position.swift */,
+				8C75D703200B5C57003095BE /* MazeWindow.swift */,
 			);
 			path = MazeEditor3;
 			sourceTree = "<group>";
@@ -215,17 +218,20 @@
 					8CA241D81EB716AE0055D6B1 = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = U259NHMY78;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					8CA241E91EB716AF0055D6B1 = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = U259NHMY78;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 8CA241D81EB716AE0055D6B1;
 					};
 					8CA241F41EB716AF0055D6B1 = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = U259NHMY78;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 8CA241D81EB716AE0055D6B1;
 					};
@@ -289,6 +295,7 @@
 				8CD36D731EBE172700F02FF8 /* StringExtensions.swift in Sources */,
 				8C2B769D1EBB5FBC000FF777 /* Position.swift in Sources */,
 				8CA241DD1EB716AF0055D6B1 /* AppDelegate.swift in Sources */,
+				8C75D704200B5C57003095BE /* MazeWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,7 +454,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -461,7 +469,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -476,7 +485,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MazeEditor3.app/Contents/MacOS/MazeEditor3";
 			};
 			name = Debug;
@@ -492,7 +502,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MazeEditor3.app/Contents/MacOS/MazeEditor3";
 			};
 			name = Release;
@@ -507,7 +518,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = MazeEditor3;
 			};
 			name = Debug;
@@ -522,7 +534,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zwstudio.MazeEditor3UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = MazeEditor3;
 			};
 			name = Release;

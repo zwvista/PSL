@@ -14,3 +14,5 @@ x64
 /*.db
 Default/
 .settings/
+*Test.txt
+*Test.xml

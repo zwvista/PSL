@@ -8,5 +8,5 @@ B 4 B 3 B +
 + B W B 3 B 
 Number of moves: 10
 Number of vertices examined: 11
-0.000484918 [s]
+0.003343 [s]
 

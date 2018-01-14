@@ -10,12 +10,13 @@ import Cocoa
 
 class MazeViewController: NSViewController, MazeDelegate {
     
-    let sizes = [Int](1...20)
+    var sizes = [Int](1...20)
     let movements = ["None", "Move Up", "Move Down", "Move Left", "Move Right"]
     var curMovement: MazeMovement {
         return MazeMovement(rawValue: movementPopup.indexOfSelectedItem)!
     }
     
+    @IBOutlet var arrayController: NSArrayController!
     @IBOutlet weak var heightPopup: NSPopUpButton!
     @IBOutlet weak var widthPopup: NSPopUpButton!
     @IBOutlet weak var mazeView: MazeView!
@@ -28,6 +29,7 @@ class MazeViewController: NSViewController, MazeDelegate {
     @IBOutlet weak var fillBorderLinesButton: NSButton!
     
     override func viewDidLoad() {
+        arrayController.content = sizes
         super.viewDidLoad()
         maze.delegate = self
         mazeView.delegate = self
@@ -53,11 +55,11 @@ class MazeViewController: NSViewController, MazeDelegate {
     }
 
     @IBAction func isSquareChanged(_ sender: NSButton) {
-        maze.isSquare = sender.state == NSOnState
+        maze.isSquare = sender.state == .on
     }
     
     @IBAction func hasWallChanged(_ sender: NSButton) {
-        maze.hasWall = sender.state == NSOnState
+        maze.hasWall = sender.state == .on
     }
     
     @IBAction func fillBorderLines(_ sender: NSButton) {
@@ -65,13 +67,13 @@ class MazeViewController: NSViewController, MazeDelegate {
     }
     
     @IBAction func copy(_ sender: NSButton) {
-        let pb = NSPasteboard.general()
+        let pb = NSPasteboard.general
         pb.clearContents()
-        pb.setString(maze.data, forType: NSPasteboardTypeString)
+        pb.setString(maze.data, forType: NSPasteboard.PasteboardType.string)
     }
     
     @IBAction func paste(_ sender: NSButton) {
-        maze.data = NSPasteboard.general().string(forType: NSPasteboardTypeString)!
+        maze.data = NSPasteboard.general.string(forType: NSPasteboard.PasteboardType.string)!
     }
     
     @IBAction func clearAll(_ sender: NSButton) {
@@ -108,7 +110,7 @@ class MazeViewController: NSViewController, MazeDelegate {
     }
     
     func updateIsSquare() {
-        isSquareCheckbox.state = maze.isSquare ? NSOnState : NSOffState
+        isSquareCheckbox.state = maze.isSquare ? .on : .off
         widthPopup.isEnabled = !maze.isSquare
     }
     
@@ -117,7 +119,7 @@ class MazeViewController: NSViewController, MazeDelegate {
     }
     
     func updateHasWall() {
-        hasWallCheckbox.state = maze.hasWall ? NSOnState : NSOffState
+        hasWallCheckbox.state = maze.hasWall ? .on : .off
         fillBorderLinesButton.isEnabled = maze.hasWall
     }
     

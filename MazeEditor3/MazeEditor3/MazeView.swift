@@ -18,11 +18,11 @@ class MazeView: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let options:NSTrackingAreaOptions = [
-            .mouseEnteredAndExited,
-            .mouseMoved,
-            .cursorUpdate,
-            .activeAlways
+        let options:NSTrackingArea.Options = [
+            NSTrackingArea.Options.mouseEnteredAndExited,
+            NSTrackingArea.Options.mouseMoved,
+            NSTrackingArea.Options.cursorUpdate,
+            NSTrackingArea.Options.activeAlways
         ]
         let trackingArea = NSTrackingArea(rect: bounds, options: options, owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
@@ -33,7 +33,7 @@ class MazeView: NSView {
         super.draw(dirtyRect)
 
         NSColor.white.setFill()
-        NSRectFill(dirtyRect)
+        dirtyRect.fill()
 
         NSColor.black.set()
         let rows = maze.height;
@@ -72,18 +72,18 @@ class MazeView: NSView {
         let color1 = NSColor(calibratedRed: 0, green: 200, blue: 0, alpha: 1)
         color1.setFill()
         let margin:CGFloat = 3
-        NSRectFill(NSRect(x: CGFloat(maze.curPos.col) * spacing + margin,
+        NSRect(x: CGFloat(maze.curPos.col) * spacing + margin,
                           y: CGFloat(maze.curPos.row) * spacing + margin,
-                          width: spacing - margin * 2, height: spacing - margin * 2))
+                          width: spacing - margin * 2, height: spacing - margin * 2).fill()
         
         let font = NSFont(name: "Helvetica Bold", size: 20.0)
-        let textStyle = NSMutableParagraphStyle.default().mutableCopy() as! NSMutableParagraphStyle
+        let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.center
         let textColor = NSColor.brown
-        let textFontAttributes: [String: Any] = [
-            NSFontAttributeName: font as Any,
-            NSForegroundColorAttributeName: textColor,
-            NSParagraphStyleAttributeName: textStyle
+        let textFontAttributes: [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey.font: font as Any,
+            NSAttributedStringKey.foregroundColor: textColor,
+            NSAttributedStringKey.paragraphStyle: textStyle
         ]
         for r in 0..<rows {
             for c in 0..<cols {
@@ -128,7 +128,7 @@ class MazeView: NSView {
             }
         }
         // http://stackoverflow.com/questions/9268045/how-can-i-detect-that-the-shift-key-has-been-pressed
-        var ch = Int(event.charactersIgnoringModifiers!.utf16[String.UTF16View.Index(0)])
+        var ch = Int(event.charactersIgnoringModifiers!.utf16[String.UTF16View.Index(encodedOffset: 0)])
         // let hasCommand = event.modifierFlags.contains(.command)
         switch ch {
         case NSLeftArrowFunctionKey:
@@ -147,7 +147,7 @@ class MazeView: NSView {
             moveNext()
         default:
 //            if isprint(Int32(ch)) != 0 {
-                ch = Int(event.characters!.utf16[String.UTF16View.Index(0)])
+                ch = Int(event.characters!.utf16[String.UTF16View.Index(encodedOffset: 0)])
                 maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
                 moveNext()
 //            }

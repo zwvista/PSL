@@ -106,9 +106,9 @@ bool is_valid_Bridges(const string& s)
     auto level = levels.append_child("level");
     level.append_attribute("id") = "test";
     level.append_child(node_cdata).set_value(s.c_str());
-    doc.save_file("Puzzles/BridgesTest.xml");
+    doc.save_file("../Test.xml");
     solve_puz_BridgesTest();
-    ifstream in("Puzzles/BridgesTest.txt");
+    ifstream in("../Test.txt");
     string x;
     getline(in, x);
     getline(in, x);
