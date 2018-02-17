@@ -20,7 +20,7 @@
     5. Board borders don't count as walls, so there you'll have two walls
        at most (or one in corners).
     6. To facilitate movement in the castle, the Bailey must have a single
-       continuous are (Garden).
+       continuous area (Garden).
 */
 
 namespace puzzles{ namespace CastleBailey{

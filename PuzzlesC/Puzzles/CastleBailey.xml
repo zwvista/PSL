@@ -7,7 +7,7 @@
 3. The number tells you how many pieces (squares) of wall it touches.
 4. So the number can go from 0 (no walls around the tower) to 4 (tower entirely surrounded by walls).
 5. Board borders don't count as walls, so there you'll have two walls at most (or one in corners).
-6. To facilitate movement in the castle, the Bailey must have a single continuous are (Garden).
+6. To facilitate movement in the castle, the Bailey must have a single continuous area (Garden).
   ]]>
 </help>
 <levels>
