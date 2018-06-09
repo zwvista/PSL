@@ -169,6 +169,7 @@
     <Text Include="Puzzles\Pharaoh_a.txt" />
     <Text Include="Puzzles\Pharaoh_ida.txt" />
     <Text Include="Puzzles\Planks.txt" />
+    <Text Include="Puzzles\PourWater.txt" />
     <Text Include="Puzzles\PowerGrid.txt" />
     <Text Include="Puzzles\ProductSentinels.txt" />
     <Text Include="Puzzles\PuzzleRetreat_Everest.txt" />
@@ -202,6 +203,7 @@
     <ClCompile Include="Puzzles\pegsolitary.cpp" />
     <ClCompile Include="Puzzles\Pharaoh.cpp" />
     <ClCompile Include="Puzzles\Planks.cpp" />
+    <ClCompile Include="Puzzles\PourWater.cpp" />
     <ClCompile Include="Puzzles\PowerGrid.cpp" />
     <ClCompile Include="Puzzles\ProductSentinels.cpp" />
     <ClCompile Include="Puzzles\PuzzleRetreat.cpp" />
@@ -227,6 +229,7 @@
     <Xml Include="Puzzles\pegsolitary.xml" />
     <Xml Include="Puzzles\Pharaoh.xml" />
     <Xml Include="Puzzles\Planks.xml" />
+    <Xml Include="Puzzles\PourWater.xml" />
     <Xml Include="Puzzles\PowerGrid.xml" />
     <Xml Include="Puzzles\ProductSentinels.xml" />
     <Xml Include="Puzzles\PuzzleRetreat_Everest.xml" />

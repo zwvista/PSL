@@ -140,7 +140,7 @@ struct puz_state : string
     void check_rowcol(puz_area& area);
 
     // solve_puzzle interface
-    bool is_goal_state() const {return get_heuristic() == 0;}
+    bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         return m_game->m_filled_total_count - boost::count_if(*this, [](char ch) {

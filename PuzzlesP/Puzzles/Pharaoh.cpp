@@ -97,7 +97,7 @@ struct puz_state
     }
 
     // solve_puzzle interface
-    bool is_goal_state() const {return get_heuristic() == 0;}
+    bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {return myabs(cols() - 3 - red_pos().second);}
     unsigned int get_distance(const puz_state& child) const{

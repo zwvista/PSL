@@ -159,7 +159,7 @@ struct puz_state : vector<int>
     void apply_ripple_effect(const Position& p, int n);
 
     //solve_puzzle interface
-    bool is_goal_state() const {return get_heuristic() == 0;}
+    bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return boost::count(*this, 0);}
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }

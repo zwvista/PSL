@@ -94,6 +94,9 @@
     <Text Include="Puzzles\PaintTheNurikabe.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\PourWater.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -164,6 +167,9 @@
     <ClCompile Include="Puzzles\PaintTheNurikabe.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\PourWater.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\pathfind.xml">
@@ -215,6 +221,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\PaintTheNurikabe.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\PourWater.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

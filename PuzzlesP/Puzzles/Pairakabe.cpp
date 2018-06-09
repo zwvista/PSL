@@ -175,7 +175,7 @@ struct puz_state
     bool is_valid_move() { return check_2x2() && is_continuous(); }
 
     //solve_puzzle interface
-    bool is_goal_state() const {return get_heuristic() == 0;}
+    bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }

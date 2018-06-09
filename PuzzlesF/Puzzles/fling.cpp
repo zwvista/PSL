@@ -60,7 +60,7 @@ struct puz_state
     bool make_move(const Position& p, int i);
 
     // solve_puzzle interface
-    bool is_goal_state() const {return get_heuristic() == 0;}
+    bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {return (int)m_balls.size() - 1;}
     unsigned int get_distance(const puz_state& child) const {return 1;}

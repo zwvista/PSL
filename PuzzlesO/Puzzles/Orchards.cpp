@@ -156,7 +156,7 @@ struct puz_state : string
     puz_area& get_area(const Position& p) { return m_areas[m_game->m_pos2area.at(p)]; }
 
     // solve_puzzle interface
-    bool is_goal_state() const {return get_heuristic() == 0;}
+    bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         return 2 * m_game->m_area_count - boost::count(*this, PUZ_TREE);

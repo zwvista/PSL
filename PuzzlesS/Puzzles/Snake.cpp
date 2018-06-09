@@ -107,7 +107,7 @@ struct puz_state
     bool dec(int& n) const { return n == PUZ_UNKNOWN ? false : (--n, true); }
 
     // solve_puzzle interface
-    bool is_goal_state() const {return get_heuristic() == 0;}
+    bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         return boost::accumulate(m_piece_counts_rows, 0, [](int acc, int n) {

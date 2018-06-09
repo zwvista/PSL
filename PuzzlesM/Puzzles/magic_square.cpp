@@ -53,7 +53,7 @@ struct puz_state : vector<int>
     }
 
     // solve_puzzle interface
-    bool is_goal_state() const {return get_heuristic() == 0;}
+    bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const;
     unsigned int get_distance(const puz_state& child) const {return 1;}
