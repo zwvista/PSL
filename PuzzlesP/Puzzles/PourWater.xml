@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. The game involves a finite collection of water jugs of known integer capacities (in terms of a liquid measure such as liters or gallons).
+2. Initially each jug contains a known integer volume of liquid, not necessarily equal to its capacity.
+3. Puzzles of this type ask how many steps of pouring water from one jug to another (until either one jug becomes empty or the other becomes full) are needed to reach a goal state, specified in terms of the volume of liquid that must be present in some jug or jugs.
+  ]]>
+</help>
+<levels>
+  <level id="1" start="0/4,0/3" goal="1,*" tap_sink="1">
+  </level>
+  <level id="2" start="0/8,0/10,0/5" goal="7,*,*" tap_sink="1">
+  </level>
+</levels>
+</puzzle>

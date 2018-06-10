@@ -1,0 +1,30 @@
+Level 1
+Sequence of moves: 
+0/4,0/3
+move: tap -> 1
+4/4,0/3
+move: 1 -> 2
+1/4,3/3
+Number of moves: 2
+Number of vertices examined: 5
+0.000622371 [s]
+
+Level 2
+Sequence of moves: 
+0/8,0/10,0/5
+move: tap -> 3
+0/8,0/10,5/5
+move: tap -> 2
+0/8,10/10,5/5
+move: 2 -> 1
+8/8,2/10,5/5
+move: 1 -> sink
+0/8,2/10,5/5
+move: 3 -> 2
+0/8,7/10,0/5
+move: 2 -> 1
+7/8,0/10,0/5
+Number of moves: 6
+Number of vertices examined: 219
+0.0051292 [s]
+
