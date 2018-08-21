@@ -40,6 +40,9 @@
     <Text Include="Puzzles\CarpentersSquare.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Cheese.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -80,6 +83,9 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Cheese.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Calcudoku.xml">
@@ -101,6 +107,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\CarpentersSquare.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Cheese.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
