@@ -4,6 +4,7 @@
 *.opensdf
 *.opendb
 /ipch
+xcuserdata/
 
 Debug
 Release

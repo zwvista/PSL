@@ -18,6 +18,7 @@
 		8CA23FFC1EB4793B0055D6B1 /* CastleBailey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FEE1EB4793B0055D6B1 /* CastleBailey.cpp */; };
 		8CA23FFD1EB4793B0055D6B1 /* Clouds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FF11EB4793B0055D6B1 /* Clouds.cpp */; };
 		8CA23FFE1EB4793B0055D6B1 /* Consecutives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FF61EB4793B0055D6B1 /* Consecutives.cpp */; };
+		95214E70212B9DB000EA7950 /* Cheese.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95214E6E212B9DB000EA7950 /* Cheese.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -80,6 +81,9 @@
 		8CA23FF61EB4793B0055D6B1 /* Consecutives.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Consecutives.cpp; sourceTree = "<group>"; };
 		8CA23FF71EB4793B0055D6B1 /* Consecutives.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Consecutives.txt; sourceTree = "<group>"; };
 		8CA23FF81EB4793B0055D6B1 /* Consecutives.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Consecutives.xml; sourceTree = "<group>"; };
+		95214E6D212B9DB000EA7950 /* Cheese.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Cheese.xml; sourceTree = "<group>"; };
+		95214E6E212B9DB000EA7950 /* Cheese.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cheese.cpp; sourceTree = "<group>"; };
+		95214E6F212B9DB000EA7950 /* Cheese.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cheese.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
+				95214E6E212B9DB000EA7950 /* Cheese.cpp */,
+				95214E6F212B9DB000EA7950 /* Cheese.txt */,
+				95214E6D212B9DB000EA7950 /* Cheese.xml */,
 				8CA23FE51EB4793B0055D6B1 /* Calcudoku.cpp */,
 				8CA23FE61EB4793B0055D6B1 /* Calcudoku.txt */,
 				8CA23FE71EB4793B0055D6B1 /* Calcudoku.xml */,
@@ -233,6 +240,7 @@
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA23FFE1EB4793B0055D6B1 /* Consecutives.cpp in Sources */,
 				8CA23FFA1EB4793B0055D6B1 /* CarpentersSquare.cpp in Sources */,
+				95214E70212B9DB000EA7950 /* Cheese.cpp in Sources */,
 				8CA23FFB1EB4793B0055D6B1 /* CarpentersWall.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
