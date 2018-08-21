@@ -21,13 +21,1092 @@ S..
 ..M
 Number of moves: 4
 Number of vertices examined: 8
-0.001992 [s]
+0.001925 [s]
 
 Level 2
-Number of vertices examined: 19
-0.000303 [s]
+Sequence of moves: 
+.X..1
+....X
+.XX.M
+.2.X.
+move: l
+.X..1
+....X
+.XXMS
+.2.X.
+move: u
+.X..1
+...MX
+.XX.S
+.2.X.
+move: u
+.X.M1
+....X
+.XX.S
+.2.X.
+move: r
+.X..M
+....X
+.XX.S
+.2.X.
+move: l
+.X.M.
+....X
+.XX.S
+.2.X.
+move: d
+.X...
+...MX
+.XX.S
+.2.X.
+move: l
+.X...
+..M.X
+.XX.S
+.2.X.
+move: l
+.X...
+.M..X
+.XX.S
+.2.X.
+move: l
+.X...
+M...X
+.XX.S
+.2.X.
+move: d
+.X...
+....X
+MXX.S
+.2.X.
+move: d
+.X...
+....X
+.XX.S
+M2.X.
+move: r
+.X...
+....X
+.XX.S
+.M.X.
+Number of moves: 12
+Number of vertices examined: 20
+0.000592 [s]
 
 Level 3
-Number of vertices examined: 68
-0.000742 [s]
+Sequence of moves: 
+.X...X.M.X
+6..5X..X1X
+...XXXX..X
+X..9X...X.
+8.X2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.SMX
+6..5X..X1X
+...XXXX..X
+X..9X...X.
+8.X2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..XMX
+...XXXX..X
+X..9X...X.
+8.X2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX.MX
+X..9X...X.
+8.X2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXXM.X
+X..9X...X.
+8.X2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X..MX.
+8.X2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X.M.X.
+8.X2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X2X.MX3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X2XM.X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X2X..X3X
+...XXMX4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X2X..X3X
+...XX.X4..
+XX...M7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X2X..X3X
+...XX.X4..
+XX..M.7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X2X..X3X
+...XX.X4..
+XX.M..7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X2X..X3X
+...XX.X4..
+XXM...7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X2X..X3X
+..MXX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X2X..X3X
+.M.XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8MX2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+XM.9X...X.
+8.X2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X.M9X...X.
+8.X2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..MX...X.
+8.X2X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.XMX..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..MX...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X.M9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+XM.9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8MX.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+.M.XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+..MXX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XXM...7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX.M..7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX..M.7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX...M7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X.MXX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...XMXX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X..M....
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X...M...
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X....M..
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.....M.
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XXM.
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7X..
+X..X..XXM.
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4..
+XX....7XM.
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X3X
+...XX.X4M.
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..XMX
+...XX.X4..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X4M.
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.XM..
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X.M.
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7XM.
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XXM.
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XXM.
+..X.......
+move: d
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.....M.
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X....M..
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X...M...
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X..M....
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...XMXX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X.MXX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..XM.XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX..M.7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX.M..7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XXM...7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+..MXX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+.M.XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X..9X...X.
+8MX.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+XM.9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+6..5X..X.X
+...XXXX..X
+X.M9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6..5X..X.X
+..MXXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+6.M5X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+6..MX..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6.M.X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+6M..X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+M...X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+.M..X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+....X..X.X
+.M.XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+....X..X.X
+...XXXX..X
+XM.9X...X.
+8.X.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8MX.X..X.X
+...XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+.M.XX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+..MXX.X...
+XX....7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: d
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XXM...7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX.M..7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX..M.7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX...M7X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX....MX..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX...M.X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX..M..X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XX.M...X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+...XX.X...
+XXM....X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+..MXX.X...
+XX.....X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8.X.X..X.X
+.M.XX.X...
+XX.....X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+8MX.X..X.X
+...XX.X...
+XX.....X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: l
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+M.X.X..X.X
+...XX.X...
+XX.....X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..9X...X.
+.MX.X..X.X
+...XX.X...
+XX.....X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: u
+.X...X.S.X
+....X..X.X
+...XXXX..X
+XM.9X...X.
+..X.X..X.X
+...XX.X...
+XX.....X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X.M9X...X.
+..X.X..X.X
+...XX.X...
+XX.....X..
+X..X..XX..
+X...X.XX..
+..X.......
+move: r
+.X...X.S.X
+....X..X.X
+...XXXX..X
+X..MX...X.
+..X.X..X.X
+...XX.X...
+XX.....X..
+X..X..XX..
+X...X.XX..
+..X.......
+Number of moves: 91
+Number of vertices examined: 243
+0.009487 [s]
 

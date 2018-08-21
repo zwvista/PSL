@@ -50,7 +50,7 @@ struct puz_game
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
     bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second <= cols();
+        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
     char cells(const Position& p) const { return m_start[p.first * cols() + p.second]; }
 };
@@ -77,24 +77,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cheese_count = m_cheese2pos.size();
 }
 
-struct puz_state : Position
+struct puz_state
 {
     puz_state() {}
     puz_state(const puz_game& g)
-        : Position(g.m_nest), m_game(&g), m_move() {}
+        : m_p(g.m_nest), m_game(&g), m_move() {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
+    bool operator<(const puz_state& x) const {
+        return make_pair(m_p, m_health) < make_pair(x.m_p, x.m_health);
+    }
     void make_move(int n);
 
     // solve_puzzle interface
     bool is_goal_state() const {
-        return m_health == m_game->m_cheese_count + 1 && *this == m_game->m_cheese2pos.at(m_game->m_cheese_count);
+        return m_health == m_game->m_cheese_count + 1 && m_p == m_game->m_cheese2pos.at(m_game->m_cheese_count);
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         unsigned int d = 0;
         for (int i = m_health; i <= m_game->m_cheese_count; ++i)
-            d += manhattan_distance(i == m_health ? *this : m_game->m_cheese2pos.at(i - 1), m_game->m_cheese2pos.at(i));
+            d += manhattan_distance(i == m_health ? m_p : m_game->m_cheese2pos.at(i - 1), m_game->m_cheese2pos.at(i));
         return d;
     }
     unsigned int get_distance(const puz_state& child) const {return 1;}
@@ -105,6 +108,7 @@ struct puz_state : Position
     }
 
     const puz_game* m_game;
+    Position m_p;
     int m_health = 1;
     char m_move;
 };
@@ -112,15 +116,14 @@ struct puz_state : Position
 void puz_state::make_move(int n)
 {
     m_move = dirs[n];
-    auto &p = static_cast<Position&>(*this);
-    auto it = m_game->m_pos2cheese.find(p = *this + offset[n]);
+    auto it = m_game->m_pos2cheese.find(m_p += offset[n]);
     if (it != m_game->m_pos2cheese.end() && it->second == m_health) ++m_health;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int i = 0; i < 4; i++) {
-        auto p = *this + offset[i];
+        auto p = m_p + offset[i];
         if (m_game->is_valid(p) && m_game->cells(p) != PUZ_BLOCK) {
             children.push_back(*this);
             children.back().make_move(i);
@@ -135,7 +138,13 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < rows(); ++r) {
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
-            out << (p == *this ? PUZ_MOUSE : m_game->cells(p));
+            if (p == m_p)
+                out << PUZ_MOUSE;
+            else {
+                auto it = m_game->m_pos2cheese.find(p);
+                out << (it == m_game->m_pos2cheese.end() || it->second >= m_health ?
+                        m_game->cells(p) : PUZ_SPACE);
+            }
         }
         out << endl;
     }
