@@ -121,9 +121,6 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
-				95214E6E212B9DB000EA7950 /* Cheese.cpp */,
-				95214E6F212B9DB000EA7950 /* Cheese.txt */,
-				95214E6D212B9DB000EA7950 /* Cheese.xml */,
 				8CA23FE51EB4793B0055D6B1 /* Calcudoku.cpp */,
 				8CA23FE61EB4793B0055D6B1 /* Calcudoku.txt */,
 				8CA23FE71EB4793B0055D6B1 /* Calcudoku.xml */,
@@ -136,6 +133,9 @@
 				8CA23FEE1EB4793B0055D6B1 /* CastleBailey.cpp */,
 				8CA23FEF1EB4793B0055D6B1 /* CastleBailey.txt */,
 				8CA23FF01EB4793B0055D6B1 /* CastleBailey.xml */,
+				95214E6E212B9DB000EA7950 /* Cheese.cpp */,
+				95214E6F212B9DB000EA7950 /* Cheese.txt */,
+				95214E6D212B9DB000EA7950 /* Cheese.xml */,
 				8CA23FF11EB4793B0055D6B1 /* Clouds.cpp */,
 				8CA23FF21EB4793B0055D6B1 /* Clouds.txt */,
 				8CA23FF31EB4793B0055D6B1 /* Clouds.xml */,

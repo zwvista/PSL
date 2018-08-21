@@ -24,8 +24,9 @@
 namespace puzzles{ namespace Cheese{
 
 #define PUZ_SPACE       '.'
-#define PUZ_HOME        'S'
-#define PUZ_STONE       'X'
+#define PUZ_NEST        'S'
+#define PUZ_BLOCK       'X'
+#define PUZ_MOUSE       'M'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -40,17 +41,23 @@ struct puz_game
     string m_id;
     Position m_size;
     string m_start;
-    Position m_home;
-    map<int, Position> m_pos2cheese;
+    Position m_nest;
+    map<int, Position> m_cheese2pos;
+    map<Position, int> m_pos2cheese;
+    int m_cheese_count;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second <= cols();
+    }
+    char cells(const Position& p) const { return m_start[p.first * cols() + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_size(strs.size() - 1, strs[0].length())
+    , m_size(strs.size() - 1, strs[1].length())
 {
     for (int r = 0; r < rows(); ++r) {
         auto& str = strs[r + 1];
@@ -58,25 +65,38 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             char ch = str[c];
             m_start.push_back(ch);
             Position p(r, c);
-            if (ch == PUZ_HOME)
-                m_home = p;
-            else if (isdigit(ch))
-                m_pos2cheese[ch - '0'] = p;
+            if (ch == PUZ_NEST)
+                m_nest = p;
+            else if (isdigit(ch)) {
+                int n = ch - '0';
+                m_cheese2pos[n] = p;
+                m_pos2cheese[p] = n;
+            }
         }
     }
+    m_cheese_count = m_cheese2pos.size();
 }
 
 struct puz_state : Position
 {
     puz_state() {}
     puz_state(const puz_game& g)
-        : Position(), m_game(&g), m_move() {}
-    bool make_move(int n);
+        : Position(g.m_nest), m_game(&g), m_move() {}
+    int rows() const {return m_game->rows();}
+    int cols() const {return m_game->cols();}
+    void make_move(int n);
 
     // solve_puzzle interface
-    bool is_goal_state() const {return m_health == m_game->m_pos2cheese.size() + 1;}
+    bool is_goal_state() const {
+        return m_health == m_game->m_cheese_count + 1 && *this == m_game->m_cheese2pos.at(m_game->m_cheese_count);
+    }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {return manhattan_distance(*this, m_game->m_home);}
+    unsigned int get_heuristic() const {
+        unsigned int d = 0;
+        for (int i = m_health; i <= m_game->m_cheese_count; ++i)
+            d += manhattan_distance(i == m_health ? *this : m_game->m_cheese2pos.at(i - 1), m_game->m_cheese2pos.at(i));
+        return d;
+    }
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {if(m_move) out << m_move;}
     ostream& dump(ostream& out) const;
@@ -89,17 +109,22 @@ struct puz_state : Position
     char m_move;
 };
 
-bool puz_state::make_move(int n)
+void puz_state::make_move(int n)
 {
-    return true;
+    m_move = dirs[n];
+    auto &p = static_cast<Position&>(*this);
+    auto it = m_game->m_pos2cheese.find(p = *this + offset[n]);
+    if (it != m_game->m_pos2cheese.end() && it->second == m_health) ++m_health;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int i = 0; i < 4; i++) {
-        children.push_back(*this);
-        if (!children.back().make_move(i))
-            children.pop_back();
+        auto p = *this + offset[i];
+        if (m_game->is_valid(p) && m_game->cells(p) != PUZ_BLOCK) {
+            children.push_back(*this);
+            children.back().make_move(i);
+        }
     }
 }
 
@@ -107,6 +132,13 @@ ostream& puz_state::dump(ostream& out) const
 {
     if (m_move)
         out << "move: " << m_move << endl;
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c) {
+            Position p(r, c);
+            out << (p == *this ? PUZ_MOUSE : m_game->cells(p));
+        }
+        out << endl;
+    }
     return out;
 }
 

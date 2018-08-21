@@ -1,1 +1,33 @@
+Level 1
+Sequence of moves: 
+M..
+...
+..1
+move: r
+SM.
+...
+..1
+move: d
+S..
+.M.
+..1
+move: d
+S..
+...
+.M1
+move: r
+S..
+...
+..M
+Number of moves: 4
+Number of vertices examined: 8
+0.001992 [s]
+
+Level 2
+Number of vertices examined: 19
+0.000303 [s]
+
+Level 3
+Number of vertices examined: 68
+0.000742 [s]
 
