@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. In Planets you are given an interesting Galaxy, where Suns only shine their light in horizontal and vertical lines.
+2. On the board you can see the Planets of this Galaxy. Each Planet is lit on some side (or not lit at all).
+3. You should place one Sun on each row and column, according to how the Planets are lit.
+4. You should also place one Nebula on each row and column.
+5. Nebulas block sunlight, so if there is a Nebula between a Sun and a Planet, the Planet won't be lit.
+6. Finally, Planets block sunlight too. So if there is a Planet between a Sun and another Planet, the further Planet won't be lit by that Sun.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ 8 4`
+    `
+0  9`
+  9 `
+    ]]>
+  </level>
+</levels>
+</puzzle>

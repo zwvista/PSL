@@ -12,6 +12,7 @@ extern void solve_puz_pathfind();
 extern void solve_puz_patternpuzzle();
 extern void solve_puz_pegsolitary();
 extern void solve_puz_Pharaoh();
+extern void solve_puz_Planets();
 extern void solve_puz_Planks();
 extern void solve_puz_PourWater();
 extern void solve_puz_PowerGrid();
@@ -33,7 +34,8 @@ int main(int argc, char **argv)
     cout << "a9: patternpuzzle" << endl;
     cout << "e: pegsolitary" << endl;
     cout << "h: Pharaoh" << endl;
-    cout << "l: Planks" << endl;
+    cout << "l1: Planets" << endl;
+    cout << "l2: Planks" << endl;
     cout << "o1: Pour Water" << endl;
     cout << "o2: Power Grid" << endl;
     cout << "r: Product Sentinels" << endl;
@@ -53,7 +55,8 @@ int main(int argc, char **argv)
     else if (str == "a9") solve_puz_patternpuzzle();
     else if (str == "e") solve_puz_pegsolitary();
     else if (str == "h") solve_puz_Pharaoh();
-    else if (str == "l") solve_puz_Planks();
+    else if (str == "l1") solve_puz_Planets();
+    else if (str == "l2") solve_puz_Planks();
     else if (str == "o1") solve_puz_PourWater();
     else if (str == "o2") solve_puz_PowerGrid();
     else if (str == "r") solve_puz_ProductSentinels();

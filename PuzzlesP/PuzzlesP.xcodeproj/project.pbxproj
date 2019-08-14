@@ -29,6 +29,7 @@
 		8CA2411A1EB47AC40055D6B1 /* PuzzleRetreat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2410C1EB47AC40055D6B1 /* PuzzleRetreat.cpp */; };
 		8CDAE7DA1F5ADE96000DE5AF /* PaintTheNurikabe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CDAE7D71F5ADE96000DE5AF /* PaintTheNurikabe.cpp */; };
 		950CA84E20FA08C10092A1D4 /* PourWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 950CA84C20FA08C10092A1D4 /* PourWater.cpp */; };
+		955BEDC12303AC1D00535B97 /* Planets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 955BEDBE2303AC1D00535B97 /* Planets.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -132,6 +133,9 @@
 		950CA84B20FA08C10092A1D4 /* PourWater.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PourWater.xml; sourceTree = "<group>"; };
 		950CA84C20FA08C10092A1D4 /* PourWater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PourWater.cpp; sourceTree = "<group>"; };
 		950CA84D20FA08C10092A1D4 /* PourWater.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PourWater.txt; sourceTree = "<group>"; };
+		955BEDBE2303AC1D00535B97 /* Planets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Planets.cpp; sourceTree = "<group>"; };
+		955BEDBF2303AC1D00535B97 /* Planets.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Planets.txt; sourceTree = "<group>"; };
+		955BEDC02303AC1D00535B97 /* Planets.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Planets.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,9 +173,6 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
-				950CA84C20FA08C10092A1D4 /* PourWater.cpp */,
-				950CA84D20FA08C10092A1D4 /* PourWater.txt */,
-				950CA84B20FA08C10092A1D4 /* PourWater.xml */,
 				8CDAE7D71F5ADE96000DE5AF /* PaintTheNurikabe.cpp */,
 				8CDAE7D81F5ADE96000DE5AF /* PaintTheNurikabe.txt */,
 				8CDAE7D91F5ADE96000DE5AF /* PaintTheNurikabe.xml */,
@@ -214,9 +215,15 @@
 				8CA240FA1EB47AC40055D6B1 /* Pharaoh.cpp */,
 				8CA240FB1EB47AC40055D6B1 /* Pharaoh.txt */,
 				8CA240FC1EB47AC40055D6B1 /* Pharaoh.xml */,
+				955BEDBE2303AC1D00535B97 /* Planets.cpp */,
+				955BEDBF2303AC1D00535B97 /* Planets.txt */,
+				955BEDC02303AC1D00535B97 /* Planets.xml */,
 				8CA240FD1EB47AC40055D6B1 /* Planks.cpp */,
 				8CA240FE1EB47AC40055D6B1 /* Planks.txt */,
 				8CA240FF1EB47AC40055D6B1 /* Planks.xml */,
+				950CA84C20FA08C10092A1D4 /* PourWater.cpp */,
+				950CA84D20FA08C10092A1D4 /* PourWater.txt */,
+				950CA84B20FA08C10092A1D4 /* PourWater.xml */,
 				8CA241001EB47AC40055D6B1 /* PowerGrid.cpp */,
 				8CA241011EB47AC40055D6B1 /* PowerGrid.txt */,
 				8CA241021EB47AC40055D6B1 /* PowerGrid.xml */,
@@ -305,6 +312,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 8CA23EBB1EA9233C0055D6B1;
@@ -324,6 +332,7 @@
 			files = (
 				8CA2410D1EB47AC40055D6B1 /* Pairakabe.cpp in Sources */,
 				8CDAE7DA1F5ADE96000DE5AF /* PaintTheNurikabe.cpp in Sources */,
+				955BEDC12303AC1D00535B97 /* Planets.cpp in Sources */,
 				8C5AE25B1EC0BAF5000F0949 /* Patchmania.cpp in Sources */,
 				8CA241151EB47AC40055D6B1 /* pegsolitary.cpp in Sources */,
 				8CA241181EB47AC40055D6B1 /* PowerGrid.cpp in Sources */,
