@@ -23,32 +23,32 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>PuzzlesP</RootNamespace>
     <ProjectName>PuzzlesP</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -168,6 +168,7 @@
     <Text Include="Puzzles\Pharaoh.txt" />
     <Text Include="Puzzles\Pharaoh_a.txt" />
     <Text Include="Puzzles\Pharaoh_ida.txt" />
+    <Text Include="Puzzles\Planets.txt" />
     <Text Include="Puzzles\Planks.txt" />
     <Text Include="Puzzles\PourWater.txt" />
     <Text Include="Puzzles\PowerGrid.txt" />
@@ -202,6 +203,7 @@
     <ClCompile Include="Puzzles\patternpuzzle.cpp" />
     <ClCompile Include="Puzzles\pegsolitary.cpp" />
     <ClCompile Include="Puzzles\Pharaoh.cpp" />
+    <ClCompile Include="Puzzles\Planets.cpp" />
     <ClCompile Include="Puzzles\Planks.cpp" />
     <ClCompile Include="Puzzles\PourWater.cpp" />
     <ClCompile Include="Puzzles\PowerGrid.cpp" />
@@ -228,6 +230,7 @@
     <Xml Include="Puzzles\patternpuzzle.xml" />
     <Xml Include="Puzzles\pegsolitary.xml" />
     <Xml Include="Puzzles\Pharaoh.xml" />
+    <Xml Include="Puzzles\Planets.xml" />
     <Xml Include="Puzzles\Planks.xml" />
     <Xml Include="Puzzles\PourWater.xml" />
     <Xml Include="Puzzles\PowerGrid.xml" />
