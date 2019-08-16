@@ -146,7 +146,7 @@ int puz_state::find_matches(bool init)
                     vi.push_back(i);
                     ch2 = ch1;
                 } else
-                    return false;
+                    return true;
             }
             for (int i : vi) {
                 int n1 = m_game->m_pos2lightness.at(area[i]);
@@ -160,8 +160,8 @@ int puz_state::find_matches(bool init)
                     if (ch != PUZ_EMPTY) break;
                 }
                 int n2 = is_horz ? PUZ_WEST : PUZ_NORTH;
-                if (lit && (n1 & n2 != n2) || !lit && (n1 & n2 != 0))
-                    return false;
+                if (lit && (n1 & n2) != n2 || !lit && (n1 & n2) != 0)
+                    return true;
                 lit = false;
                 for (int j = i + 1; j < sidelen(); ++j) {
                     char ch = perm[j];
@@ -172,10 +172,10 @@ int puz_state::find_matches(bool init)
                     if (ch != PUZ_EMPTY) break;
                 }
                 n2 = is_horz ? PUZ_EAST : PUZ_SOUTH;
-                if (lit && (n1 & n2 != n2) || !lit && (n1 & n2 != 0))
-                    return false;
+                if (lit && (n1 & n2) != n2 || !lit && (n1 & n2) != 0)
+                    return true;
             }
-            return true;
+            return false;
         });
 
         if (!init)
