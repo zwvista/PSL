@@ -230,8 +230,16 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c)
-            out << cells({r, c}) << ' ';
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            char ch = cells(p);
+            if (ch != PUZ_PLANET)
+                out << ch << ' ';
+            else {
+                int n = m_game->m_pos2lightness.at(p);
+                out << char(n < 10 ? n + '0' : n - 10 + 'A') << ' ';
+            }
+        }
         out << endl;
     }
     return out;

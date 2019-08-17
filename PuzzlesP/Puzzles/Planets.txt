@@ -1,10 +1,36 @@
 Level 1
 Sequence of moves: 
-S P N P 
+S 8 N 4 
 N . . S 
-P N S P 
-. S P N 
+0 N S 9 
+. S 9 N 
 Number of moves: 1
 Number of vertices examined: 2
-0.002638 [s]
+0.000974 [s]
+
+Level 2
+Sequence of moves: 
+0 N S C 
+N . . S 
+S C . N 
+3 S N 0 
+Number of moves: 1
+Number of vertices examined: 2
+0.000254 [s]
+
+Level 200
+Sequence of moves: 
+. 2 . . . S . . . N 
+. N . . . . . 2 . S 
+. S C . . . N . 4 . 
+. . S 8 . 1 4 N . . 
+6 . . . S N . . . . 
+. . . 0 N . S . . . 
+S . . N . . . . . . 
+N . . S . 8 . . . . 
+0 . N . 0 . 3 . S . 
+. . . . . . . S N 1 
+Number of moves: 9
+Number of vertices examined: 118
+0.061081 [s]
 

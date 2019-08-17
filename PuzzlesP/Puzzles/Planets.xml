@@ -19,5 +19,27 @@
   9 `
     ]]>
   </level>
+  <level id="2">
+    <![CDATA[
+0  C`
+    `
+ C  `
+3  0`
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+ 2        `
+       2  `
+  C     4 `
+   8 14   `
+6         `
+   0      `
+          `
+     8    `
+0   0 3   `
+         1`
+    ]]>
+  </level>
 </levels>
 </puzzle>
