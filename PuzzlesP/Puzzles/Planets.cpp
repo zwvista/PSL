@@ -76,6 +76,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
+    // 3. You should place one Sun on each row and column.
+    // 4. You should also place one Nebula on each row and column.
     auto perm = string(m_sidelen - 2, PUZ_EMPTY) + PUZ_NEBULAR + PUZ_SUN;
     do {
         m_perms.push_back(perm);
@@ -148,6 +150,12 @@ int puz_state::find_matches(bool init)
                 } else
                     return true;
             }
+            // 1. Suns only shine their light in horizontal and vertical lines.
+            // 2. Each Planet is lit on some side(or not lit at all).
+            // 5. Nebulas block sunlight, so if there is a Nebula between a Sunand
+            //    a Planet, the Planet won't be lit.
+            // 6. Planets block sunlight too. So if there is a Planet between a Sun
+            //    and another Planet, the further Planet won't be lit by that Sun.
             for (int i : vi) {
                 int n1 = m_game->m_pos2lightness.at(area[i]);
                 bool lit = false;

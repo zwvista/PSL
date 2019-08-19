@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. The board contains one Sapphire (Blue Gem) on each row and column.
+2. There are also a random amount of Pebbles (in White) on the board.
+3. A number on the border tells you how many stones you can see from there, up to and including the Sapphire.
+4. The Sapphire (blue) hide the Pebbles (white) behind them.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ 2321 `
+2    1`
+3    1`
+1    2`
+1    2`
+ 1112 `
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+ 1221 `
+1    3`
+1    1`
+3    1`
+1    2`
+ 2212 `
+    ]]>
+  </level>
+  <level id="5">
+    <![CDATA[
+ 22133 `
+2     2`
+1     4`
+4     1`
+1     4`
+1     2`
+ 1341  `
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+ 3165231  `
+4        1`
+         3`
+2        3`
+         3`
+1        2`
+1        2`
+6         `
+          `
+ 12 33311 `
+    ]]>
+  </level>
+</levels>
+</puzzle>
