@@ -54,11 +54,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_area2range[m_sidelen + c].push_back(p);
         }
 
+    // 1. The board contains one Sapphire (Blue Gem) on each row and column.
+    // 2. There are also a random amount of Pebbles (in White) on the board.
     for (int i = 0; i < m_sidelen - 2; ++i) {
         auto perm = string(m_sidelen - i - 2, PUZ_EMPTY) + PUZ_GEM + string(i, PUZ_PEBBLE) + PUZ_EMPTY;
         auto begin = next(perm.begin()), end = prev(perm.end());
         auto rbegin = next(perm.rbegin()), rend = prev(perm.rend());
         do {
+            // 3. A number on the border tells you how many stones you can see from
+            //    there, up toand including the Sapphire.
+            // 4. The Sapphire(blue) hide the Pebbles(white) behind them.
             int n = 0;
             for (auto it = begin;; ++it) {
                 if (*it == PUZ_GEM || *it == PUZ_PEBBLE)
