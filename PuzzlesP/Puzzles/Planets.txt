@@ -1,1 +1,58 @@
+Level 1
+Sequence of moves: 
+S 8 N 4 
+N . . S 
+0 N S 9 
+. S 9 N 
+Number of moves: 1
+Number of vertices examined: 2
+0.000967 [s]
+
+Level 2
+Sequence of moves: 
+0 N S C 
+N . . S 
+S C . N 
+3 S N 0 
+Number of moves: 1
+Number of vertices examined: 2
+0.000253 [s]
+
+Level 11
+Sequence of moves: 
+. . . N S 
+4 N 6 S 9 
+. . S . N 
+S C N 1 . 
+N S . . 8 
+Number of moves: 2
+Number of vertices examined: 3
+0.000508 [s]
+
+Level 12
+Sequence of moves: 
+6 S . 8 N 
+S N 4 . . 
+. 2 S N . 
+. . N 6 S 
+N 2 . S . 
+Number of moves: 2
+Number of vertices examined: 3
+0.000448 [s]
+
+Level 200
+Sequence of moves: 
+. 2 . . . S . . . N 
+. N . . . . . 2 . S 
+. S C . . . N . 4 . 
+. . S 8 . 1 4 N . . 
+6 . . . S N . . . . 
+. . . 0 N . S . . . 
+S . . N . . . . . . 
+N . . S . 8 . . . . 
+0 . N . 0 . 3 . S . 
+. . . . . . . S N 1 
+Number of moves: 9
+Number of vertices examined: 118
+0.059373 [s]
 
