@@ -70,15 +70,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\Programs\boost_1_70_0</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\Programs\boost_1_70_0</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\Programs\boost_1_70_0</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\Programs\boost_1_70_0</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -154,6 +158,7 @@
     <Text Include="Puzzles\Neighbours3.txt" />
     <Text Include="Puzzles\NorthPoleFishing.txt" />
     <Text Include="Puzzles\NoughtsAndCrosses.txt" />
+    <Text Include="Puzzles\NumberCrossing.txt" />
     <Text Include="Puzzles\NumberLink.txt" />
     <Text Include="Puzzles\NumberPath.txt" />
     <Text Include="Puzzles\NumberPath2.txt" />
@@ -177,6 +182,7 @@
     <ClCompile Include="Puzzles\Neighbours.cpp" />
     <ClCompile Include="Puzzles\NorthPoleFishing.cpp" />
     <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp" />
+    <ClCompile Include="Puzzles\NumberCrossing.cpp" />
     <ClCompile Include="Puzzles\NumberLink.cpp" />
     <ClCompile Include="Puzzles\NumberPath.cpp" />
     <ClCompile Include="Puzzles\NumberPath2.cpp" />
@@ -195,6 +201,7 @@
     <Xml Include="Puzzles\Neighbours3.xml" />
     <Xml Include="Puzzles\NorthPoleFishing.xml" />
     <Xml Include="Puzzles\NoughtsAndCrosses.xml" />
+    <Xml Include="Puzzles\NumberCrossing.xml" />
     <Xml Include="Puzzles\NumberLink.xml" />
     <Xml Include="Puzzles\NumberPath.xml" />
     <Xml Include="Puzzles\numeric_paranoia.xml" />

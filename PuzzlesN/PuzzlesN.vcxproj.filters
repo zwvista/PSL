@@ -49,6 +49,9 @@
     <Text Include="Puzzles\NumberPath2.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\NumberCrossing.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -95,6 +98,9 @@
     <ClCompile Include="Puzzles\NumberPath2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\NumberCrossing.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\numeric_paranoia.xml">
@@ -122,6 +128,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\NoughtsAndCrosses.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\NumberCrossing.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
