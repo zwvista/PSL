@@ -19,8 +19,8 @@
 
 namespace puzzles{ namespace NumberCrossing{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
+#define PUZ_EMPTY        0
+#define PUZ_UNKNOWN      -1
 
 struct puz_game
 {
@@ -50,7 +50,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             auto s = str.substr(c * 2, 2);
-            int n = s == "  " ? -1 : stoi(s);
+            int n = s != "  " ? stoi(s) : PUZ_UNKNOWN;
             m_start.push_back(n);
             m_area2range[r].push_back(p);
             m_area2range[m_sidelen + c].push_back(p);
@@ -127,7 +127,7 @@ int puz_state::find_matches(bool init)
 
         boost::remove_erase_if(perm_ids, [&](int id) {
             return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
-                return ch1 == PUZ_SPACE || ch1 == ch2;
+                return ch1 == PUZ_UNKNOWN || ch1 == ch2;
             });
         });
 
