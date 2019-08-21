@@ -31,11 +31,8 @@ struct puz_game
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_area2range;
     // all permutations
-    // A space A B C C
-    // A space A C B B
-    // ...
-    // C C B A space A
-    vector<string> m_perms;
+    map<int, vector<vector<int>>> m_area2perms;
+    int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -57,20 +54,49 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    string perm(m_sidelen, PUZ_EMPTY);
-    auto begin = next(perm.begin()), end = prev(perm.end());
-    auto rbegin = next(perm.rbegin()), rend = prev(perm.rend());
-    // 1. The goal is to put the letter A B and C in the board.
-    // 2. Each letter appear once in every row and column.
-    // space ... A B C
-    do {
-        // 3. The letters on the borders tell you what letter you see from there.
-        // determine the letter on the left and top borders
-        *perm.begin() = *find_if(begin, end, [](char ch) {return ch != PUZ_EMPTY;});
-        // determine the letter on the right and bottom borders
-        *perm.rbegin() = *find_if(rbegin, rend, [](char ch) {return ch != PUZ_EMPTY;});
-        m_perms.push_back(perm);
-    } while(next_permutation(begin, end));
+    for (int i = 1; i < m_sidelen - 1; ++i)
+        for (int j = 0; j < 2; ++j) {
+            int area_id = i + j * m_sidelen;
+            auto& area = m_area2range.at(area_id);
+            int count = cells(area.front()), sum = cells(area.back());
+            auto& perms = m_area2perms[area_id];
+            if (count == 0 || sum == 0)
+                perms.push_back(vector<int>(m_sidelen, PUZ_EMPTY));
+            else
+                for (int k = 1; k <= (m_sidelen - 1) / 2; ++k) {
+                    if (count != PUZ_UNKNOWN && count != k) continue;
+                    vector<int> digits(k, 1);
+                    set<vector<int>> digits_all;
+                    for (;;) {
+                        if (boost::accumulate(digits, 0) == sum) {
+                            auto digits2 = digits;
+                            boost::sort(digits2);
+                            if (digits_all.count(digits2) == 0) {
+                                digits_all.insert(digits2);
+                                vector<int> perm(m_sidelen - 2 - k, PUZ_EMPTY);
+                                perm.insert(perm.end(), digits2.begin(), digits2.end());
+                                perm.insert(perm.begin(), count);
+                                perm.insert(perm.end(), sum);
+                                auto begin = next(perm.begin()), end = prev(perm.end());
+                                do {
+                                    if ([&]{
+                                        for (int m = 2; m < m_sidelen - 2; ++m)
+                                            if (perm[m] != PUZ_EMPTY && (perm[m - 1] != PUZ_EMPTY || perm[m + 1] != PUZ_EMPTY))
+                                                return false;
+                                        return true;
+                                    }())
+                                        perms.push_back(perm);
+                                } while(next_permutation(begin, end));
+                            }
+                        }
+                        int m = 0;
+                        for (;m < k; digits[m++] = 1)
+                            if (++digits[m] < 10)
+                                break;
+                        if (m == k) break;
+                    }
+                }
+        }
 }
 
 struct puz_state
@@ -105,29 +131,30 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    vector<int> perm_ids(g.m_perms.size());
-    boost::iota(perm_ids, 0);
-
     for (int i = 1; i < sidelen() - 1; ++i)
-        m_matches[i] = m_matches[sidelen() + i] = perm_ids;
-
+        for (int j = 0; j < 2; ++j) {
+            int area_id = i + j * sidelen();
+            vector<int> perm_ids(g.m_area2perms.at(area_id).size());
+            boost::iota(perm_ids, 0);
+            m_matches[area_id] = perm_ids;
+        }
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    auto& perms = m_game->m_perms;
     for (auto& kv : m_matches) {
         int area_id = kv.first;
         auto& perm_ids = kv.second;
+        auto& perms = m_game->m_area2perms.at(area_id);
 
-        string chars;
+        vector<int> digits;
         for (auto& p : m_game->m_area2range[kv.first])
-            chars.push_back(cells(p));
+            digits.push_back(cells(p));
 
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
-                return ch1 == PUZ_UNKNOWN || ch1 == ch2;
+            return !boost::equal(digits, perms[id], [](int n1, int n2) {
+                return n1 == PUZ_UNKNOWN || n1 == n2;
             });
         });
 
@@ -145,7 +172,7 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int i, int j)
 {
     auto& range = m_game->m_area2range[i];
-    auto& perm = m_game->m_perms[j];
+    auto& perm = m_game->m_area2perms.at(i)[j];
 
     for (int k = 0; k < perm.size(); ++k)
         cells(range[k]) = perm[k];
@@ -180,8 +207,13 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c)
-            out << cells({r, c}) << ' ';
+        for (int c = 0; c < sidelen(); ++c) {
+            int n = cells({r, c});
+            if (n == PUZ_UNKNOWN || n == PUZ_EMPTY && r > 0 && c > 0 && r < sidelen() - 1 && c < sidelen() - 1)
+                out << "  ";
+            else
+                out << boost::format("%2d") % n;
+        }
         out << endl;
     }
     return out;

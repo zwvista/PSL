@@ -2,11 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
-1. The goal is to put the letter A B and C in the board.
-2. Each letter appears once in every row and column.
-3. The letters on the borders tell you what letter you see from there.
-4. Since most puzzles can contain empty spaces, the hint on the board doesn't always match the tile next to it.
-5. Bigger puzzles can contain the letter 'D'. In these cases, the name of the puzzle is 'Abcd'. Further on, you might also encounter 'E', 'F' etc.
+1. Find the numbers in the board.
+2. Numbers cannot touch each other, not even diagonally.
+3. On the top and left of the grid, you're given how many numbers are in that column or row.
+4. On the bottom and right of the grid, you're given the sum of the numbers on that column or row.
   ]]>
 </help>
 <levels>

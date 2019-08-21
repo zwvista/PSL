@@ -3,6 +3,7 @@
 extern void solve_puz_Neighbours();
 extern void solve_puz_NorthPoleFishing();
 extern void solve_puz_NoughtsAndCrosses();
+extern void solve_puz_NumberCrossing();
 extern void solve_puz_NumberPath();
 extern void solve_puz_NumberPath2();
 extern void solve_puz_NumberLink();
@@ -15,6 +16,7 @@ int main(int argc, char **argv)
     cout << "e: Neighbours" << endl;
     cout << "o1: North Pole Fishing" << endl;
     cout << "o2: Noughts & Crosses" << endl;
+    cout << "u0: Number Crossing" << endl;
     cout << "u1: Number Path" << endl;
     cout << "u12: Number Path 2" << endl;
     cout << "u2: NumberLink" << endl;
@@ -26,6 +28,7 @@ int main(int argc, char **argv)
     else if (str == "e") solve_puz_Neighbours();
     else if (str == "o1") solve_puz_NorthPoleFishing();
     else if (str == "o2") solve_puz_NoughtsAndCrosses();
+    else if (str == "u0") solve_puz_NumberCrossing();
     else if (str == "u1") solve_puz_NumberPath();
     else if (str == "u12") solve_puz_NumberPath2();
     else if (str == "u2") solve_puz_NumberLink();

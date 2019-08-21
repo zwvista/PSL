@@ -20,6 +20,7 @@
 		8CA240C61EB47A950055D6B1 /* numeric_paranoia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240BB1EB47A950055D6B1 /* numeric_paranoia.cpp */; };
 		8CA240C71EB47A950055D6B1 /* Nurikabe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240BE1EB47A950055D6B1 /* Nurikabe.cpp */; };
 		8CDAE7DD1F5AEA75000DE5AF /* NumberPath2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CDAE7DB1F5AEA75000DE5AF /* NumberPath2.cpp */; };
+		95D7B5C8230C4547001E005C /* NumberCrossing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5C5230C4546001E005C /* NumberCrossing.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,6 +90,9 @@
 		8CA240C01EB47A950055D6B1 /* Nurikabe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Nurikabe.xml; sourceTree = "<group>"; };
 		8CDAE7DB1F5AEA75000DE5AF /* NumberPath2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumberPath2.cpp; sourceTree = "<group>"; };
 		8CDAE7DC1F5AEA75000DE5AF /* NumberPath2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumberPath2.txt; sourceTree = "<group>"; };
+		95D7B5C5230C4546001E005C /* NumberCrossing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumberCrossing.cpp; sourceTree = "<group>"; };
+		95D7B5C6230C4546001E005C /* NumberCrossing.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NumberCrossing.xml; sourceTree = "<group>"; };
+		95D7B5C7230C4546001E005C /* NumberCrossing.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumberCrossing.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,9 @@
 				8CA240B21EB47A950055D6B1 /* NoughtsAndCrosses.cpp */,
 				8CA240B31EB47A950055D6B1 /* NoughtsAndCrosses.txt */,
 				8CA240B41EB47A950055D6B1 /* NoughtsAndCrosses.xml */,
+				95D7B5C5230C4546001E005C /* NumberCrossing.cpp */,
+				95D7B5C7230C4546001E005C /* NumberCrossing.txt */,
+				95D7B5C6230C4546001E005C /* NumberCrossing.xml */,
 				8CA240B51EB47A950055D6B1 /* NumberLink.cpp */,
 				8CA240B61EB47A950055D6B1 /* NumberLink.txt */,
 				8CA240B71EB47A950055D6B1 /* NumberLink.xml */,
@@ -228,6 +235,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 8CA23EBB1EA9233C0055D6B1;
@@ -245,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95D7B5C8230C4547001E005C /* NumberCrossing.cpp in Sources */,
 				8CA240C21EB47A950055D6B1 /* NorthPoleFishing.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA240C71EB47A950055D6B1 /* Nurikabe.cpp in Sources */,

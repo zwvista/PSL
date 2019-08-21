@@ -14,6 +14,7 @@
 		8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */; };
 		8CA2403D1EB479D40055D6B1 /* Galaxies.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240371EB479D40055D6B1 /* Galaxies.cpp */; };
 		8CA2403E1EB479D40055D6B1 /* Gardener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2403A1EB479D40055D6B1 /* Gardener.cpp */; };
+		95D7B5CC230C455C001E005C /* Gems.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5C9230C455C001E005C /* Gems.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,6 +63,9 @@
 		8CA2403A1EB479D40055D6B1 /* Gardener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gardener.cpp; sourceTree = "<group>"; };
 		8CA2403B1EB479D40055D6B1 /* Gardener.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gardener.txt; sourceTree = "<group>"; };
 		8CA2403C1EB479D40055D6B1 /* Gardener.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Gardener.xml; sourceTree = "<group>"; };
+		95D7B5C9230C455C001E005C /* Gems.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gems.cpp; sourceTree = "<group>"; };
+		95D7B5CA230C455C001E005C /* Gems.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gems.txt; sourceTree = "<group>"; };
+		95D7B5CB230C455C001E005C /* Gems.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Gems.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,9 @@
 				8CA2403A1EB479D40055D6B1 /* Gardener.cpp */,
 				8CA2403B1EB479D40055D6B1 /* Gardener.txt */,
 				8CA2403C1EB479D40055D6B1 /* Gardener.xml */,
+				95D7B5C9230C455C001E005C /* Gems.cpp */,
+				95D7B5CA230C455C001E005C /* Gems.txt */,
+				95D7B5CB230C455C001E005C /* Gems.xml */,
 			);
 			path = Puzzles;
 			sourceTree = "<group>";
@@ -180,6 +187,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 8CA23EBB1EA9233C0055D6B1;
@@ -202,6 +210,7 @@
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA2403E1EB479D40055D6B1 /* Gardener.cpp in Sources */,
+				95D7B5CC230C455C001E005C /* Gems.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA2403D1EB479D40055D6B1 /* Galaxies.cpp in Sources */,
 			);
