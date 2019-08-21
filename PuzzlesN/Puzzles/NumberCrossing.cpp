@@ -22,6 +22,17 @@ namespace puzzles{ namespace NumberCrossing{
 #define PUZ_EMPTY        0
 #define PUZ_UNKNOWN      -1
 
+const Position offset[] = {
+    {-1, 0},    // n
+    {-1, 1},    // ne
+    {0, 1},        // e
+    {1, 1},        // se
+    {1, 0},        // s
+    {1, -1},    // sw
+    {0, -1},    // w
+    {-1, -1},    // nw
+};
+
 struct puz_game
 {
     string m_id;
@@ -68,15 +79,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     vector<int> digits(k, 1);
                     set<vector<int>> digits_all;
                     for (;;) {
-                        if (boost::accumulate(digits, 0) == sum) {
+                        int sum2 = boost::accumulate(digits, 0);
+                        if (sum == PUZ_UNKNOWN || sum == sum2) {
                             auto digits2 = digits;
                             boost::sort(digits2);
                             if (digits_all.count(digits2) == 0) {
                                 digits_all.insert(digits2);
                                 vector<int> perm(m_sidelen - 2 - k, PUZ_EMPTY);
                                 perm.insert(perm.end(), digits2.begin(), digits2.end());
-                                perm.insert(perm.begin(), count);
-                                perm.insert(perm.end(), sum);
+                                perm.insert(perm.begin(), k);
+                                perm.insert(perm.end(), sum2);
                                 auto begin = next(perm.begin()), end = prev(perm.end());
                                 do {
                                     if ([&]{
@@ -106,6 +118,9 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first > 0 && p.first < sidelen() - 1 && p.second > 0 && p.second < sidelen() - 1;
+    }
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
     bool make_move(int i, int j);
     void make_move2(int i, int j);
@@ -174,8 +189,15 @@ void puz_state::make_move2(int i, int j)
     auto& range = m_game->m_area2range[i];
     auto& perm = m_game->m_area2perms.at(i)[j];
 
-    for (int k = 0; k < perm.size(); ++k)
-        cells(range[k]) = perm[k];
+    for (int k = 0; k < perm.size(); ++k) {
+        auto& p = range[k];
+        if ((cells(p) = perm[k]) != PUZ_EMPTY && is_valid(p))
+            for (auto& os : offset) {
+                auto p2 = p + os;
+                if (is_valid(p2))
+                    cells(p2) = PUZ_EMPTY;
+            }
+    }
 
     ++m_distance;
     m_matches.erase(i);
@@ -208,8 +230,9 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
-            int n = cells({r, c});
-            if (n == PUZ_UNKNOWN || n == PUZ_EMPTY && r > 0 && c > 0 && r < sidelen() - 1 && c < sidelen() - 1)
+            Position p(r, c);
+            int n = cells(p);
+            if (n == PUZ_UNKNOWN || n == PUZ_EMPTY && is_valid(p))
                 out << "  ";
             else
                 out << boost::format("%2d") % n;
