@@ -152,7 +152,7 @@ int puz_state::find_matches(bool init)
             }
             // 1. Suns only shine their light in horizontal and vertical lines.
             // 2. Each Planet is lit on some side(or not lit at all).
-            // 5. Nebulas block sunlight, so if there is a Nebula between a Sunand
+            // 5. Nebulas block sunlight, so if there is a Nebula between a Sun and
             //    a Planet, the Planet won't be lit.
             // 6. Planets block sunlight too. So if there is a Planet between a Sun
             //    and another Planet, the further Planet won't be lit by that Sun.
