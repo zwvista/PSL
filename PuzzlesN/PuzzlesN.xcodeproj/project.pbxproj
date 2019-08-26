@@ -93,6 +93,7 @@
 		95D7B5C5230C4546001E005C /* NumberCrossing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumberCrossing.cpp; sourceTree = "<group>"; };
 		95D7B5C6230C4546001E005C /* NumberCrossing.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NumberCrossing.xml; sourceTree = "<group>"; };
 		95D7B5C7230C4546001E005C /* NumberCrossing.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumberCrossing.txt; sourceTree = "<group>"; };
+		95D7B5CD2313FCBF001E005C /* NumberCrossing2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumberCrossing2.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +147,7 @@
 				95D7B5C5230C4546001E005C /* NumberCrossing.cpp */,
 				95D7B5C7230C4546001E005C /* NumberCrossing.txt */,
 				95D7B5C6230C4546001E005C /* NumberCrossing.xml */,
+				95D7B5CD2313FCBF001E005C /* NumberCrossing2.txt */,
 				8CA240B51EB47A950055D6B1 /* NumberLink.cpp */,
 				8CA240B61EB47A950055D6B1 /* NumberLink.txt */,
 				8CA240B71EB47A950055D6B1 /* NumberLink.xml */,
@@ -278,7 +280,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -332,7 +334,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
