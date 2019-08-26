@@ -73,6 +73,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int j = 0; j < 2; ++j) {
             int area_id = i + j * m_sidelen;
             auto& area = m_area2range.at(area_id);
+            // 3. On the top and left of the grid, you're given how many numbers are in that
+            // column or row.
+            // 4. On the bottom and right of the grid, you're given the sum of the numbers
+            // on that column or row.
             int count = cells(area.front()), sum = cells(area.back());
             if (count == 0 || sum == 0)
                 count = sum = 0;
@@ -89,7 +93,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if (count != PUZ_UNKNOWN && count != k) continue;
                 vector<int> digits(k, 1);
                 set<vector<int>> digits_all;
-                for (;;) {
+                for (int i = 0; i < k;) {
                     int sum2 = boost::accumulate(digits, 0);
                     if (sum == PUZ_UNKNOWN || sum == sum2) {
                         auto digits2 = digits;
@@ -103,6 +107,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             auto begin = next(perm.begin()), end = prev(perm.end());
                             do {
                                 if ([&]{
+                                    // 2. Numbers cannot touch each other, not even diagonally.
                                     for (int m = 2; m < m_sidelen - 2; ++m)
                                         if (perm[m] != PUZ_EMPTY && (perm[m - 1] != PUZ_EMPTY || perm[m + 1] != PUZ_EMPTY))
                                             return false;
@@ -112,11 +117,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             } while(next_permutation(begin, end));
                         }
                     }
-                    int m = 0;
-                    for (;m < k; digits[m++] = 1)
-                        if (++digits[m] < 10)
-                            break;
-                    if (m == k) break;
+                    for (i = 0; i < k && ++digits[i] == 10; ++i)
+                        digits[i] = 1;
                 }
             }
     }
@@ -203,6 +205,7 @@ void puz_state::make_move2(int i, int j)
     for (int k = 0; k < perm.size(); ++k) {
         auto& p = range[k];
         if ((cells(p) = perm[k]) != PUZ_EMPTY && is_valid(p))
+            // 2. Numbers cannot touch each other, not even diagonally.
             for (auto& os : offset) {
                 auto p2 = p + os;
                 if (is_valid(p2))

@@ -21,6 +21,7 @@
 		8CA240C71EB47A950055D6B1 /* Nurikabe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240BE1EB47A950055D6B1 /* Nurikabe.cpp */; };
 		8CDAE7DD1F5AEA75000DE5AF /* NumberPath2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CDAE7DB1F5AEA75000DE5AF /* NumberPath2.cpp */; };
 		95D7B5C8230C4547001E005C /* NumberCrossing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5C5230C4546001E005C /* NumberCrossing.cpp */; };
+		95D7B5D123140C1D001E005C /* NumberCrosswords.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5D023140C1D001E005C /* NumberCrosswords.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -94,6 +95,9 @@
 		95D7B5C6230C4546001E005C /* NumberCrossing.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NumberCrossing.xml; sourceTree = "<group>"; };
 		95D7B5C7230C4546001E005C /* NumberCrossing.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumberCrossing.txt; sourceTree = "<group>"; };
 		95D7B5CD2313FCBF001E005C /* NumberCrossing2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumberCrossing2.txt; sourceTree = "<group>"; };
+		95D7B5CE23140C1D001E005C /* NumberCrosswords.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NumberCrosswords.xml; sourceTree = "<group>"; };
+		95D7B5CF23140C1D001E005C /* NumberCrosswords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumberCrosswords.txt; sourceTree = "<group>"; };
+		95D7B5D023140C1D001E005C /* NumberCrosswords.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumberCrosswords.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +152,9 @@
 				95D7B5C7230C4546001E005C /* NumberCrossing.txt */,
 				95D7B5C6230C4546001E005C /* NumberCrossing.xml */,
 				95D7B5CD2313FCBF001E005C /* NumberCrossing2.txt */,
+				95D7B5D023140C1D001E005C /* NumberCrosswords.cpp */,
+				95D7B5CF23140C1D001E005C /* NumberCrosswords.txt */,
+				95D7B5CE23140C1D001E005C /* NumberCrosswords.xml */,
 				8CA240B51EB47A950055D6B1 /* NumberLink.cpp */,
 				8CA240B61EB47A950055D6B1 /* NumberLink.txt */,
 				8CA240B71EB47A950055D6B1 /* NumberLink.xml */,
@@ -259,6 +266,7 @@
 				8CA240C21EB47A950055D6B1 /* NorthPoleFishing.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA240C71EB47A950055D6B1 /* Nurikabe.cpp in Sources */,
+				95D7B5D123140C1D001E005C /* NumberCrosswords.cpp in Sources */,
 				8CA240C11EB47A950055D6B1 /* Neighbours.cpp in Sources */,
 				8CA240C31EB47A950055D6B1 /* NoughtsAndCrosses.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,

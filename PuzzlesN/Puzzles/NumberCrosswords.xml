@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Blacken some tiles, so that some of the numbers remain visible.
+2. Numbers outside the grid show the sums of the numbers in the remaining tiles in that row or column.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ 1 4 4 6 511`
+ 3 6 3 8 315`
+ 7 6 8 2 815`
+ 9 1 4 1 8 5`
+ 7 3 3 6 925`
+1716 71417  `
+    ]]>
+  </level>
+</levels>
+</puzzle>
