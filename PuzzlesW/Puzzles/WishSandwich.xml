@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Each row and column contains two Slices of Bread and a number of Pieces of Ham, which is given in the top right corner.
+2. A number at the edge indicates how many Pieces of Ham you managed to put between the two Slices of Bread in that row or column.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+    0`
+    1`
+    0`
+    0`
+0011 `
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+    0`
+    0`
+    0`
+    1`
+0101 `
+    ]]>
+  </level>
+</levels>
+</puzzle>

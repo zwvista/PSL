@@ -1,0 +1,22 @@
+Level 1
+Sequence of moves: 
+H B B . 0 
+B . H B 1 
+B B . H 0 
+. H B B 0 
+0 0 1 1   
+Number of moves: 2
+Number of vertices examined: 4
+0.001262 [s]
+
+Level 2
+Sequence of moves: 
+H B B . 0 
+. H B B 0 
+B B . H 0 
+B . H B 1 
+0 1 0 1   
+Number of moves: 1
+Number of vertices examined: 3
+0.000496 [s]
+

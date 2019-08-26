@@ -15,6 +15,7 @@
 		8CA241B11EB47B160055D6B1 /* Walls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241A61EB47B160055D6B1 /* Walls.cpp */; };
 		8CA241B21EB47B160055D6B1 /* WallSentinels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241A91EB47B160055D6B1 /* WallSentinels.cpp */; };
 		8CA241B31EB47B160055D6B1 /* Wriggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241AC1EB47B160055D6B1 /* Wriggle.cpp */; };
+		95D7B5D523142C3C001E005C /* WishSandwich.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5D423142C3C001E005C /* WishSandwich.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,6 +69,9 @@
 		8CA241AE1EB47B160055D6B1 /* Wriggle.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Wriggle.xml; sourceTree = "<group>"; };
 		8CA241AF1EB47B160055D6B1 /* Wriggle2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Wriggle2.txt; sourceTree = "<group>"; };
 		8CA241B01EB47B160055D6B1 /* Wriggle2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Wriggle2.xml; sourceTree = "<group>"; };
+		95D7B5D223142C3C001E005C /* WishSandwich.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = WishSandwich.xml; sourceTree = "<group>"; };
+		95D7B5D323142C3C001E005C /* WishSandwich.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WishSandwich.txt; sourceTree = "<group>"; };
+		95D7B5D423142C3C001E005C /* WishSandwich.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WishSandwich.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,9 @@
 				8CA241A91EB47B160055D6B1 /* WallSentinels.cpp */,
 				8CA241AA1EB47B160055D6B1 /* WallSentinels.txt */,
 				8CA241AB1EB47B160055D6B1 /* WallSentinels.xml */,
+				95D7B5D423142C3C001E005C /* WishSandwich.cpp */,
+				95D7B5D323142C3C001E005C /* WishSandwich.txt */,
+				95D7B5D223142C3C001E005C /* WishSandwich.xml */,
 				8CA241AC1EB47B160055D6B1 /* Wriggle.cpp */,
 				8CA241AD1EB47B160055D6B1 /* Wriggle.txt */,
 				8CA241AE1EB47B160055D6B1 /* Wriggle.xml */,
@@ -212,6 +219,7 @@
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA241B21EB47B160055D6B1 /* WallSentinels.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
+				95D7B5D523142C3C001E005C /* WishSandwich.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA241B11EB47B160055D6B1 /* Walls.cpp in Sources */,
 				8CA241B31EB47B160055D6B1 /* Wriggle.cpp in Sources */,
