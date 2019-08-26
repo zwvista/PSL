@@ -219,7 +219,10 @@ bool puz_state::make_move(int i, int j)
     m_distance = 0;
     make_move2(i, j);
     int m;
-    while ((m = find_matches(false)) == 1);
+    while ((m = find_matches(true)) == 1);
+    // The program will find another solution,
+    // if the parameter is changed to false like the following,
+    // while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
@@ -258,6 +261,10 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_NumberCrossing()
 {
     using namespace puzzles::NumberCrossing;
+    // when line 225 is commented out
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
         "Puzzles/NumberCrossing.xml", "Puzzles/NumberCrossing.txt", solution_format::GOAL_STATE_ONLY);
+    // when line 222 is commented out
+    //solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+    //    "Puzzles/NumberCrossing.xml", "Puzzles/NumberCrossing2.txt", solution_format::GOAL_STATE_ONLY);
 }
