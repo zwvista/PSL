@@ -107,7 +107,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (int i = 1; i < sidelen() - 1; ++i)
+    for (int i = 0; i < sidelen() - 1; ++i)
         for (int j = 0; j < 2; ++j) {
             int area_id = i + j * sidelen();
             vector<int> perm_ids(g.m_area2perms.at(area_id).size());
@@ -192,7 +192,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             int n = cells(p);
             if (n == PUZ_UNKNOWN || n == PUZ_EMPTY)
-                out << "  ";
+                out << (n == PUZ_UNKNOWN ? "  " : " .");
             else
                 out << boost::format("%2d") % n;
         }
