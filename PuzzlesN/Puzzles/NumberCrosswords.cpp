@@ -52,11 +52,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     int cnt = m_sidelen - 1;
+    vector<int> perm(m_sidelen, 0);
     for (int i = 0; i < cnt; ++i)
         for (int j = 0; j < 2; ++j) {
             int area_id = i + j * m_sidelen;
             auto& area = m_area2range.at(area_id);
             auto& perms = m_area2perms[area_id];
+            // 2. Numbers outside the grid show the sums of the numbers in the
+            // remaining tiles in that row or column.
             int sum = cells(area.back());
             // An index of 0 means the tile should be blackened.
             // An index of 1 means the tile should not be blackened.
@@ -67,8 +70,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 for (int m = 0; m < cnt; ++m)
                     if (indexes[m] == 1)
                         sum2 += cells(area[m]);
-                if (sum == PUZ_UNKNOWN || sum == sum2)
-                    perms.push_back(indexes);
+                if (sum == PUZ_UNKNOWN || sum == sum2) {
+                    for (int m = 0; m < cnt; ++m)
+                        perm[m] = indexes[m] == 0 ? 0 : cells(area[m]);
+                    perm.back() = sum2;
+                    perms.push_back(perm);
+                }
                 for (k = 0; k < cnt && ++indexes[k] == 2; ++k)
                     indexes[k] = 0;
             }
@@ -153,10 +160,8 @@ void puz_state::make_move2(int i, int j)
     auto& range = m_game->m_area2range[i];
     auto& perm = m_game->m_area2perms.at(i)[j];
 
-    for (int k = 0; k < perm.size(); ++k) {
-        auto& p = range[k];
-        cells(p) = perm[k] == 1 ? m_game->cells(p) : PUZ_EMPTY;
-    }
+    for (int k = 0; k < perm.size(); ++k)
+        cells(range[k]) = perm[k];
 
     ++m_distance;
     m_matches.erase(i);
