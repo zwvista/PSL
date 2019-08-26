@@ -42,8 +42,7 @@ namespace boost {
 
 
     template <class Graph, class CostType>
-    class idastar_heuristic : public std::unary_function<
-        typename graph_traits<Graph>::vertex_descriptor, CostType>
+    class idastar_heuristic
     {
     public:
         typedef typename graph_traits<Graph>::vertex_descriptor Vertex;

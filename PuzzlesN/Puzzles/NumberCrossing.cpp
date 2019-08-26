@@ -42,7 +42,11 @@ struct puz_game
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_area2range;
     // all permutations
-    map<int, vector<vector<int>>> m_area2perms;
+    map<int, pair<int, int>> m_area2info;
+    map<pair<int, int>, vector<vector<int>>> m_info2perms;
+    const vector<vector<int>>& area2perms(int area_id) const {
+        return m_info2perms.at(m_area2info.at(area_id));
+    }
     int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -70,45 +74,52 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             int area_id = i + j * m_sidelen;
             auto& area = m_area2range.at(area_id);
             int count = cells(area.front()), sum = cells(area.back());
-            auto& perms = m_area2perms[area_id];
             if (count == 0 || sum == 0)
-                perms.push_back(vector<int>(m_sidelen, PUZ_EMPTY));
-            else
-                for (int k = 1; k <= (m_sidelen - 1) / 2; ++k) {
-                    if (count != PUZ_UNKNOWN && count != k) continue;
-                    vector<int> digits(k, 1);
-                    set<vector<int>> digits_all;
-                    for (;;) {
-                        int sum2 = boost::accumulate(digits, 0);
-                        if (sum == PUZ_UNKNOWN || sum == sum2) {
-                            auto digits2 = digits;
-                            boost::sort(digits2);
-                            if (digits_all.count(digits2) == 0) {
-                                digits_all.insert(digits2);
-                                vector<int> perm(m_sidelen - 2 - k, PUZ_EMPTY);
-                                perm.insert(perm.end(), digits2.begin(), digits2.end());
-                                perm.insert(perm.begin(), k);
-                                perm.insert(perm.end(), sum2);
-                                auto begin = next(perm.begin()), end = prev(perm.end());
-                                do {
-                                    if ([&]{
-                                        for (int m = 2; m < m_sidelen - 2; ++m)
-                                            if (perm[m] != PUZ_EMPTY && (perm[m - 1] != PUZ_EMPTY || perm[m + 1] != PUZ_EMPTY))
-                                                return false;
-                                        return true;
-                                    }())
-                                        perms.push_back(perm);
-                                } while(next_permutation(begin, end));
-                            }
-                        }
-                        int m = 0;
-                        for (;m < k; digits[m++] = 1)
-                            if (++digits[m] < 10)
-                                break;
-                        if (m == k) break;
-                    }
-                }
+                count = sum = 0;
+            pair kv(count, sum);
+            m_area2info[area_id] = kv;
+            m_info2perms[kv];
         }
+    for (auto&& [info, perms] : m_info2perms) {
+        auto [count, sum] = info;
+        if (sum == 0 || sum == PUZ_UNKNOWN)
+            perms.push_back(vector<int>(m_sidelen, PUZ_EMPTY));
+        if (sum != 0)
+            for (int k = 1; k <= (m_sidelen - 1) / 2; ++k) {
+                if (count != PUZ_UNKNOWN && count != k) continue;
+                vector<int> digits(k, 1);
+                set<vector<int>> digits_all;
+                for (;;) {
+                    int sum2 = boost::accumulate(digits, 0);
+                    if (sum == PUZ_UNKNOWN || sum == sum2) {
+                        auto digits2 = digits;
+                        boost::sort(digits2);
+                        if (digits_all.count(digits2) == 0) {
+                            digits_all.insert(digits2);
+                            vector<int> perm(m_sidelen - 2 - k, PUZ_EMPTY);
+                            perm.insert(perm.end(), digits2.begin(), digits2.end());
+                            perm.insert(perm.begin(), k);
+                            perm.insert(perm.end(), sum2);
+                            auto begin = next(perm.begin()), end = prev(perm.end());
+                            do {
+                                if ([&]{
+                                    for (int m = 2; m < m_sidelen - 2; ++m)
+                                        if (perm[m] != PUZ_EMPTY && (perm[m - 1] != PUZ_EMPTY || perm[m + 1] != PUZ_EMPTY))
+                                            return false;
+                                    return true;
+                                }())
+                                    perms.push_back(perm);
+                            } while(next_permutation(begin, end));
+                        }
+                    }
+                    int m = 0;
+                    for (;m < k; digits[m++] = 1)
+                        if (++digits[m] < 10)
+                            break;
+                    if (m == k) break;
+                }
+            }
+    }
 }
 
 struct puz_state
@@ -149,7 +160,7 @@ puz_state::puz_state(const puz_game& g)
     for (int i = 1; i < sidelen() - 1; ++i)
         for (int j = 0; j < 2; ++j) {
             int area_id = i + j * sidelen();
-            vector<int> perm_ids(g.m_area2perms.at(area_id).size());
+            vector<int> perm_ids(g.area2perms(area_id).size());
             boost::iota(perm_ids, 0);
             m_matches[area_id] = perm_ids;
         }
@@ -161,7 +172,7 @@ int puz_state::find_matches(bool init)
     for (auto& kv : m_matches) {
         int area_id = kv.first;
         auto& perm_ids = kv.second;
-        auto& perms = m_game->m_area2perms.at(area_id);
+        auto& perms = m_game->area2perms(area_id);
 
         vector<int> digits;
         for (auto& p : m_game->m_area2range[kv.first])
@@ -187,7 +198,7 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int i, int j)
 {
     auto& range = m_game->m_area2range[i];
-    auto& perm = m_game->m_area2perms.at(i)[j];
+    auto& perm = m_game->area2perms(i)[j];
 
     for (int k = 0; k < perm.size(); ++k) {
         auto& p = range[k];
