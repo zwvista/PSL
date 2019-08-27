@@ -85,12 +85,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            for (int i = 0; i < tetrominoes.size(); ++i) {
-                auto& t1 = tetrominoes[i];
-                for (int j = 0; j < t1.size(); ++j) {
-                    auto& t2 = t1[j];
+            for (int i = 0; i < tetrominoes.size(); ++i)
+                for (auto& t : tetrominoes[i]) {
                     vector<Position> rng;
-                    for (auto& p2 : t2) {
+                    for (auto& p2 : t) {
                         auto p3 = p + p2;
                         if (is_valid(p3) && cells(p3) == PUZ_SPACE)
                             rng.push_back(p3);
@@ -100,7 +98,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     m_lits.emplace_back(i, rng);
                 next:;
                 }
-            }
         }
 }
 
@@ -115,7 +112,7 @@ struct puz_state : string
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(Position p, int i);
-    bool make_move2(Position p, int i);
+    void make_move2(Position p, int i);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -151,13 +148,13 @@ int puz_state::find_matches(bool init)
 
         boost::remove_erase_if(lit_ids, [&](int id) {
             auto& lit = m_game->m_lits[id];
-            for (auto& os : offset) {
-                auto p2 = os;
+            char ch = lit.first + '0';
+            for (auto& p2 : lit.second) {
                 if (cells(p2) != PUZ_SPACE)
                     return true;
-                for (auto& os2 : offset) {
-                    auto p3 = p2 + os2;
-                    if (is_valid(p3))
+                for (auto& os : offset) {
+                    auto p3 = p2 + os;
+                    if (is_valid(p3) && ch == cells(p3))
                         return true;
                 }
             }
@@ -169,39 +166,27 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, lit_ids.front()) ? 1 : 0;
+                return make_move2(p, lit_ids.front()), 1;
             }
     }
     return 2;
 }
 
-bool puz_state::make_move2(Position p, int i)
+void puz_state::make_move2(Position p, int i)
 {
     auto& lit = m_game->m_lits[i];
-    auto& t = lit.second;
 
-    for (int k = 0; k < t.size(); ++k)
-        cells(t[k]) = lit.first + '0';
+    for (auto& p2 : lit.second)
+        cells(p2) = lit.first + '0';
 
     ++m_distance;
     m_matches.erase(p);
-
-    for (int r = 0; r < sidelen() - 1; ++r)
-        for (int c = 0; c < sidelen() - 1; ++c) {
-            vector<Position> rng = {{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}};
-            if (boost::algorithm::all_of(rng, [&](const Position& p) {
-                return cells(p) != PUZ_SPACE;
-            }))
-                return false;
-        }
-    return !is_goal_state();
 }
 
 bool puz_state::make_move(Position p, int i)
 {
     m_distance = 0;
-    if (!make_move2(p, i))
-        return false;
+    make_move2(p, i);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
