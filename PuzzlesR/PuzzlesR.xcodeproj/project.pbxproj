@@ -18,6 +18,7 @@
 		8CA241301EB47AD70055D6B1 /* Rooms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241241EB47AD70055D6B1 /* Rooms.cpp */; };
 		8CA241311EB47AD70055D6B1 /* rotate9.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241271EB47AD70055D6B1 /* rotate9.cpp */; };
 		8CA241321EB47AD70055D6B1 /* rotationgame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2412A1EB47AD70055D6B1 /* rotationgame.cpp */; };
+		95D7B5D923154C11001E005C /* RunInALoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5D623154C11001E005C /* RunInALoop.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,6 +79,9 @@
 		8CA2412A1EB47AD70055D6B1 /* rotationgame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rotationgame.cpp; sourceTree = "<group>"; };
 		8CA2412B1EB47AD70055D6B1 /* rotationgame.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rotationgame.txt; sourceTree = "<group>"; };
 		8CA2412C1EB47AD70055D6B1 /* rotationgame.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rotationgame.xml; sourceTree = "<group>"; };
+		95D7B5D623154C11001E005C /* RunInALoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunInALoop.cpp; sourceTree = "<group>"; };
+		95D7B5D723154C11001E005C /* RunInALoop.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RunInALoop.txt; sourceTree = "<group>"; };
+		95D7B5D823154C11001E005C /* RunInALoop.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RunInALoop.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,9 @@
 				8CA2412A1EB47AD70055D6B1 /* rotationgame.cpp */,
 				8CA2412B1EB47AD70055D6B1 /* rotationgame.txt */,
 				8CA2412C1EB47AD70055D6B1 /* rotationgame.xml */,
+				95D7B5D623154C11001E005C /* RunInALoop.cpp */,
+				95D7B5D723154C11001E005C /* RunInALoop.txt */,
+				95D7B5D823154C11001E005C /* RunInALoop.xml */,
 			);
 			path = Puzzles;
 			sourceTree = "<group>";
@@ -232,6 +239,7 @@
 				8CA241311EB47AD70055D6B1 /* rotate9.cpp in Sources */,
 				8CA2412E1EB47AD70055D6B1 /* RobotCrosswords.cpp in Sources */,
 				8CA2412F1EB47AD70055D6B1 /* RobotFences.cpp in Sources */,
+				95D7B5D923154C11001E005C /* RunInALoop.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA2412D1EB47AD70055D6B1 /* RippleEffect.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,

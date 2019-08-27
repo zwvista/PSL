@@ -56,13 +56,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& boxes = info.m_boxes;
 
         for (int h = 1; h <= m_sidelen; ++h)
-            for (int w = 1; h <= m_sidelen; ++w) {
+            for (int w = 1; w <= m_sidelen; ++w) {
                 Position box_sz(h - 1, w - 1);
                 auto p2 = pn - box_sz;
                 //   - - - - 
                 //  |       |
                 //         - - - - 
-                //  |     |8|     |
+                //  |     |2|     |
                 //   - - - -      
                 //        |       |
                 //         - - - - 
@@ -71,6 +71,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         Position tl(r, c), br = tl + box_sz;
                         if (tl.first >= 0 && tl.second >= 0 &&
                             br.first < m_sidelen && br.second < m_sidelen &&
+                            box_hint == [&]{
+                                int n = 0;
+                                if (pn.first == tl.first) ++n;
+                                if (pn.second == tl.second) ++n;
+                                if (pn.first == br.first) ++n;
+                                if (pn.second == br.second) ++n;
+                                return n;
+                        }() &&
                             // All the other numbers should not be inside this box
                             boost::algorithm::none_of(m_pos2boxinfo, [&](
                                 const pair<const Position, puz_box_info>& kv) {
