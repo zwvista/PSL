@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Some of the cells have lakes in them.
+2. The aim is to divide the grid into square blocks such that each block contains exactly one lake.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+    L`
+L  LL`
+   L `
+     `
+L  LL`
+    ]]>
+  </level>
+</levels>
+</puzzle>

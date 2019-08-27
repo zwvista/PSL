@@ -23,6 +23,7 @@
 		8CA240A51EB47A710055D6B1 /* LineSweeper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240941EB47A710055D6B1 /* LineSweeper.cpp */; };
 		8CA240A61EB47A710055D6B1 /* Lits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240971EB47A710055D6B1 /* Lits.cpp */; };
 		8CA240A71EB47A710055D6B1 /* Loopy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2409A1EB47A710055D6B1 /* Loopy.cpp */; };
+		95D7B5E72315BD54001E005C /* LakesAndMeadows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5E22315BD53001E005C /* LakesAndMeadows.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -101,6 +102,11 @@
 		8CA2409A1EB47A710055D6B1 /* Loopy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Loopy.cpp; sourceTree = "<group>"; };
 		8CA2409B1EB47A710055D6B1 /* Loopy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Loopy.txt; sourceTree = "<group>"; };
 		8CA2409C1EB47A710055D6B1 /* Loopy.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Loopy.xml; sourceTree = "<group>"; };
+		95D7B5E22315BD53001E005C /* LakesAndMeadows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LakesAndMeadows.cpp; sourceTree = "<group>"; };
+		95D7B5E32315BD54001E005C /* LakesAndMeadows.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LakesAndMeadows.txt; sourceTree = "<group>"; };
+		95D7B5E42315BD54001E005C /* LightenUpTest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LightenUpTest.txt; sourceTree = "<group>"; };
+		95D7B5E52315BD54001E005C /* LightenUpTest.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LightenUpTest.xml; sourceTree = "<group>"; };
+		95D7B5E62315BD54001E005C /* LakesAndMeadows.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LakesAndMeadows.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +144,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
+				95D7B5E22315BD53001E005C /* LakesAndMeadows.cpp */,
+				95D7B5E32315BD54001E005C /* LakesAndMeadows.txt */,
+				95D7B5E62315BD54001E005C /* LakesAndMeadows.xml */,
 				8CA240791EB47A710055D6B1 /* Landscaper.cpp */,
 				8CA2407A1EB47A710055D6B1 /* Landscaper.txt */,
 				8CA2407B1EB47A710055D6B1 /* Landscaper.xml */,
@@ -153,6 +162,8 @@
 				8CA240851EB47A710055D6B1 /* LightenUp2.txt */,
 				8CA240861EB47A710055D6B1 /* LightenUp2.xml */,
 				8CA240871EB47A710055D6B1 /* LightenUpGen.cpp */,
+				95D7B5E42315BD54001E005C /* LightenUpTest.txt */,
+				95D7B5E52315BD54001E005C /* LightenUpTest.xml */,
 				8CA240881EB47A710055D6B1 /* Lighthouses.cpp */,
 				8CA240891EB47A710055D6B1 /* Lighthouses.txt */,
 				8CA2408A1EB47A710055D6B1 /* Lighthouses.xml */,
@@ -278,6 +289,7 @@
 				8CA240A41EB47A710055D6B1 /* lightsout.cpp in Sources */,
 				8CA240A61EB47A710055D6B1 /* Lits.cpp in Sources */,
 				8CA240A01EB47A710055D6B1 /* LightenUp.cpp in Sources */,
+				95D7B5E72315BD54001E005C /* LakesAndMeadows.cpp in Sources */,
 				8CA240A31EB47A710055D6B1 /* lightsout-int.cpp in Sources */,
 				8CA240A21EB47A710055D6B1 /* Lighthouses.cpp in Sources */,
 				8CA240A71EB47A710055D6B1 /* Loopy.cpp in Sources */,
