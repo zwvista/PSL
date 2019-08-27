@@ -11,5 +11,45 @@ B  - -  B
  -  B  -  
 Number of moves: 2
 Number of vertices examined: 3
-0.00506936 [s]
+0.00138695 [s]
+
+Level 2
+Sequence of moves: 
+B  - -  B 
+  |   |   
+ -  B  -  
+|       | 
+   -  B   
+| | |   | 
+     -    
+| |   | | 
+ -  B  -  
+Number of moves: 1
+Number of vertices examined: 2
+0.000427235 [s]
+
+Level 200
+Sequence of moves: 
+ - -   - - -  B  -  
+|   | |     |   | | 
+ -   -   - -   -    
+  |     |     |   | 
+ -  B  -  B  -   -  
+|     |     |   |   
+  B B   B  -   -  B 
+|     |   |   |     
+ - -    B  -   - -  
+    | |     |     | 
+B B    -   -  B B   
+    |   | |       | 
+ - -  B  -  B  - -  
+|             |     
+  B  -  B  -   -  B 
+|   | |   | |   |   
+   -    B    -   -  
+| |   |   |   |   | 
+ -  B  - -  B  - -  
+Number of moves: 2
+Number of vertices examined: 3
+0.000880639 [s]
 
