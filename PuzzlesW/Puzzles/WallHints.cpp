@@ -20,8 +20,8 @@ namespace puzzles{ namespace WallHints{
 
 struct puz_box_info
 {
-    // the area of the box
-    int m_area;
+    // the hint of the box
+    int m_hint;
     // top-left and bottom-right
     vector<pair<Position, Position>> m_boxes;
 };
@@ -42,10 +42,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
-            auto s = str.substr(c * 2, 2);
-            int n = stoi(s);
-            if (n != 0)
-                m_pos2boxinfo[{r, c}].m_area = n;
+            char ch = str[c];
+            if (ch != ' ')
+                m_pos2boxinfo[{r, c}].m_hint = ch - '0';
         }
     }
 
@@ -53,37 +52,36 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         // the position of the number
         const auto& pn = kv.first;
         auto& info = kv.second;
-        int box_area = info.m_area;
+        int box_hint = info.m_hint;
         auto& boxes = info.m_boxes;
 
-        for (int h = 1; h <= m_sidelen; ++h) {
-            int w = box_area / h;
-            if (h * w != box_area || w > m_sidelen) continue;
-            Position box_sz(h - 1, w - 1);
-            auto p2 = pn - box_sz;
-            //   - - - - 
-            //  |       |
-            //         - - - - 
-            //  |     |8|     |
-            //   - - - -      
-            //        |       |
-            //         - - - - 
-            for (int r = p2.first; r <= pn.first; ++r)
-                for (int c = p2.second; c <= pn.second; ++c) {
-                    Position tl(r, c), br = tl + box_sz;
-                    if (tl.first >= 0 && tl.second >= 0 &&
-                        br.first < m_sidelen && br.second < m_sidelen &&
-                        // All the other numbers should not be inside this box
-                        boost::algorithm::none_of(m_pos2boxinfo, [&](
-                        const pair<const Position, puz_box_info>& kv) {
-                        auto& p = kv.first;
-                        return p != pn &&
-                            p.first >= tl.first && p.second >= tl.second &&
-                            p.first <= br.first && p.second <= br.second;
-                    }))
-                        boxes.emplace_back(tl, br);
-                }
-        }
+        for (int h = 1; h <= m_sidelen; ++h)
+            for (int w = 1; h <= m_sidelen; ++w) {
+                Position box_sz(h - 1, w - 1);
+                auto p2 = pn - box_sz;
+                //   - - - - 
+                //  |       |
+                //         - - - - 
+                //  |     |8|     |
+                //   - - - -      
+                //        |       |
+                //         - - - - 
+                for (int r = p2.first; r <= pn.first; ++r)
+                    for (int c = p2.second; c <= pn.second; ++c) {
+                        Position tl(r, c), br = tl + box_sz;
+                        if (tl.first >= 0 && tl.second >= 0 &&
+                            br.first < m_sidelen && br.second < m_sidelen &&
+                            // All the other numbers should not be inside this box
+                            boost::algorithm::none_of(m_pos2boxinfo, [&](
+                                const pair<const Position, puz_box_info>& kv) {
+                            auto& p = kv.first;
+                            return p != pn &&
+                                p.first >= tl.first && p.second >= tl.second &&
+                                p.first <= br.first && p.second <= br.second;
+                        }))
+                            boxes.emplace_back(tl, br);
+                    }
+            }
     }
 }
 
@@ -228,7 +226,7 @@ ostream& puz_state::dump(ostream& out) const
             if (it == m_game->m_pos2boxinfo.end())
                 out << " .";
             else
-                out << format("%2d") % it->second.m_area;
+                out << format("%2d") % it->second.m_hint;
         }
         out << endl;
     }
