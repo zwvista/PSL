@@ -111,8 +111,8 @@ struct puz_state : string
     }
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move(Position p, int i);
-    void make_move2(Position p, int i);
+    bool make_move(int i);
+    void make_move2(int i);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -143,18 +143,17 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
-        const auto& p = kv.first;
         auto& lit_ids = kv.second;
 
         boost::remove_erase_if(lit_ids, [&](int id) {
             auto& lit = m_game->m_lits[id];
             char ch = lit.first + '0';
-            for (auto& p2 : lit.second) {
-                if (cells(p2) != PUZ_SPACE)
+            for (auto& p : lit.second) {
+                if (cells(p) != PUZ_SPACE)
                     return true;
                 for (auto& os : offset) {
-                    auto p3 = p2 + os;
-                    if (is_valid(p3) && ch == cells(p3))
+                    auto p2 = p + os;
+                    if (is_valid(p2) && ch == cells(p2))
                         return true;
                 }
             }
@@ -166,27 +165,26 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, lit_ids.front()), 1;
+                return make_move2(lit_ids.front()), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(Position p, int i)
+void puz_state::make_move2(int i)
 {
     auto& lit = m_game->m_lits[i];
-
-    for (auto& p2 : lit.second)
-        cells(p2) = lit.first + '0';
-
-    ++m_distance;
-    m_matches.erase(p);
+    for (auto p : lit.second) {
+        cells(p) = lit.first + '0';
+        ++m_distance;
+        m_matches.erase(p);
+    }
 }
 
-bool puz_state::make_move(Position p, int i)
+bool puz_state::make_move(int i)
 {
     m_distance = 0;
-    make_move2(p, i);
+    make_move2(i);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -201,7 +199,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
     for (int n : kv.second) {
         children.push_back(*this);
-        if (!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(n))
             children.pop_back();
     }
 }
