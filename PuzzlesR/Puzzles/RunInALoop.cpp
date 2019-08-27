@@ -93,15 +93,16 @@ struct puz_state : vector<puz_dot>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
+: vector<puz_dot>(g.m_dot_count), m_game(&g)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if (g.m_blocks.count(p) != 0)
+            auto& dt = dots(p);
+            if (g.m_blocks.count(p) != 0) {
                 m_finished.insert(p);
-            else {
-                auto& dt = dots(p);
+                dt.push_back(lineseg_off);
+            } else
                 for (int lineseg : linesegs_all)
                     if ([&] {
                         for (int i = 0; i < 4; ++i) {
@@ -116,7 +117,6 @@ puz_state::puz_state(const puz_game& g)
                         return true;
                     }())
                         dt.push_back(lineseg);
-            }
         }
 
     check_dots(true);
@@ -142,7 +142,7 @@ int puz_state::check_dots(bool init)
         for (const auto& p : newly_finished) {
             int lineseg = dots(p)[0];
             for (int i = 0; i < 4; ++i) {
-                auto p2 = p + offset[i * 2];
+                auto p2 = p + offset[i];
                 if (!is_valid(p2))
                     continue;
                 auto& dt = dots(p2);
@@ -179,7 +179,7 @@ bool puz_state::check_loop() const
             for (int i = 0; i < 4; ++i)
                 // go ahead if the line segment does not lead a way back
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
-                    p2 += offset[(n = i) * 2];
+                    p2 += offset[n = i];
                     break;
                 }
             if (p2 == p)
