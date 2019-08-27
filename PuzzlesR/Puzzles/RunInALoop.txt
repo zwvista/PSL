@@ -1,0 +1,15 @@
+Level 1
+Sequence of moves: 
+B  -    B 
+  |       
+    B     
+          
+          
+          
+    B     
+          
+    B     
+Number of moves: 19
+Number of vertices examined: 43
+0.0024246 [s]
+
