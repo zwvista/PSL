@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 4/Run in a Loop
+    iOS Game: Logic Games 2/Puzzle Set 3/Run in a Loop
 
     Summary
     Loop a loop

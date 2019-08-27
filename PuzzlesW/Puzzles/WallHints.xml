@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Divide the board in rectangular areas, each with a number in it.
+2. The number tells you how many sides on that tile are marked by a border, including the board external border.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+2  3`
+    `
+3  4`
+ 33 `
+    ]]>
+  </level>
+</levels>
+</puzzle>
