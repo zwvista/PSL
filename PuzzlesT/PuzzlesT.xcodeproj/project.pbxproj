@@ -28,6 +28,7 @@
 		8CA241A31EB47AFC0055D6B1 /* TurnTwice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2418C1EB47AFC0055D6B1 /* TurnTwice.cpp */; };
 		8CA241A41EB47AFC0055D6B1 /* turnz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2418F1EB47AFC0055D6B1 /* turnz.cpp */; };
 		8CA241A51EB47AFC0055D6B1 /* twinballs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241941EB47AFC0055D6B1 /* twinballs.cpp */; };
+		95D7B5E12315788F001E005C /* TetrominoPegs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5DF2315788F001E005C /* TetrominoPegs.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -118,6 +119,9 @@
 		8CA241931EB47AFC0055D6B1 /* twinballs_ida.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = twinballs_ida.txt; sourceTree = "<group>"; };
 		8CA241941EB47AFC0055D6B1 /* twinballs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = twinballs.cpp; sourceTree = "<group>"; };
 		8CA241951EB47AFC0055D6B1 /* twinballs.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = twinballs.xml; sourceTree = "<group>"; };
+		95D7B5DE2315788E001E005C /* TetrominoPegs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TetrominoPegs.txt; sourceTree = "<group>"; };
+		95D7B5DF2315788F001E005C /* TetrominoPegs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TetrominoPegs.cpp; sourceTree = "<group>"; };
+		95D7B5E02315788F001E005C /* TetrominoPegs.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TetrominoPegs.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,9 @@
 				8CA241801EB47AFC0055D6B1 /* Tents.cpp */,
 				8CA241811EB47AFC0055D6B1 /* Tents.txt */,
 				8CA241821EB47AFC0055D6B1 /* Tents.xml */,
+				95D7B5DF2315788F001E005C /* TetrominoPegs.cpp */,
+				95D7B5DE2315788E001E005C /* TetrominoPegs.txt */,
+				95D7B5E02315788F001E005C /* TetrominoPegs.xml */,
 				8CA241831EB47AFC0055D6B1 /* TheOddBrick.cpp */,
 				8CA241841EB47AFC0055D6B1 /* TheOddBrick.txt */,
 				8CA241851EB47AFC0055D6B1 /* TheOddBrick.xml */,
@@ -302,6 +309,7 @@
 				8CA241A01EB47AFC0055D6B1 /* TheOddBrick.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA241A51EB47AFC0055D6B1 /* twinballs.cpp in Sources */,
+				95D7B5E12315788F001E005C /* TetrominoPegs.cpp in Sources */,
 				8CA241A41EB47AFC0055D6B1 /* turnz.cpp in Sources */,
 				8CA241961EB47AFC0055D6B1 /* Tapa.cpp in Sources */,
 				8CA2419B1EB47AFC0055D6B1 /* Tatami.cpp in Sources */,
