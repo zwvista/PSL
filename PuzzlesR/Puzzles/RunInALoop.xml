@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Draw a loop that runs through all tiles.
+2. The loop cannot cross itself.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+B   B`
+  B  `
+     `
+  B  `
+  B  `
+    ]]>
+  </level>
+</levels>
+</puzzle>

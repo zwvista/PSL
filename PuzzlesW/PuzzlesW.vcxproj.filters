@@ -31,6 +31,9 @@
     <Text Include="Puzzles\WallSentinels.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\WishSandwich.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -62,6 +65,9 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\WishSandwich.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Walls.xml">
@@ -74,6 +80,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\WallSentinels.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\WishSandwich.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

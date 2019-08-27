@@ -163,6 +163,8 @@
     <Text Include="Puzzles\NorthPoleFishing.txt" />
     <Text Include="Puzzles\NoughtsAndCrosses.txt" />
     <Text Include="Puzzles\NumberCrossing.txt" />
+    <Text Include="Puzzles\NumberCrossing2.txt" />
+    <Text Include="Puzzles\NumberCrosswords.txt" />
     <Text Include="Puzzles\NumberLink.txt" />
     <Text Include="Puzzles\NumberPath.txt" />
     <Text Include="Puzzles\NumberPath2.txt" />
@@ -187,6 +189,7 @@
     <ClCompile Include="Puzzles\NorthPoleFishing.cpp" />
     <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp" />
     <ClCompile Include="Puzzles\NumberCrossing.cpp" />
+    <ClCompile Include="Puzzles\NumberCrosswords.cpp" />
     <ClCompile Include="Puzzles\NumberLink.cpp" />
     <ClCompile Include="Puzzles\NumberPath.cpp" />
     <ClCompile Include="Puzzles\NumberPath2.cpp" />
@@ -206,6 +209,7 @@
     <Xml Include="Puzzles\NorthPoleFishing.xml" />
     <Xml Include="Puzzles\NoughtsAndCrosses.xml" />
     <Xml Include="Puzzles\NumberCrossing.xml" />
+    <Xml Include="Puzzles\NumberCrosswords.xml" />
     <Xml Include="Puzzles\NumberLink.xml" />
     <Xml Include="Puzzles\NumberPath.xml" />
     <Xml Include="Puzzles\numeric_paranoia.xml" />

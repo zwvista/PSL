@@ -70,15 +70,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\Programs\boost_1_70_0</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\Programs\boost_1_70_0</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\Programs\boost_1_70_0</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\Programs\boost_1_70_0</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -159,6 +163,7 @@
     <Text Include="Puzzles\Rooms.txt" />
     <Text Include="Puzzles\rotate9.txt" />
     <Text Include="Puzzles\rotationgame.txt" />
+    <Text Include="Puzzles\RunInALoop.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +185,7 @@
     <ClCompile Include="Puzzles\Rooms.cpp" />
     <ClCompile Include="Puzzles\rotate9.cpp" />
     <ClCompile Include="Puzzles\rotationgame.cpp" />
+    <ClCompile Include="Puzzles\RunInALoop.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -194,6 +200,7 @@
     <Xml Include="Puzzles\Rooms.xml" />
     <Xml Include="Puzzles\rotate9.xml" />
     <Xml Include="Puzzles\rotationgame.xml" />
+    <Xml Include="Puzzles\RunInALoop.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

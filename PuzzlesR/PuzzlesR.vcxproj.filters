@@ -37,6 +37,9 @@
     <Text Include="Puzzles\Rooms.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\RunInALoop.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -77,6 +80,9 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\RunInALoop.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\rotate9.xml">
@@ -95,6 +101,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Rooms.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\RunInALoop.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
