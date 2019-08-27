@@ -14,7 +14,7 @@
        like the pieces of Tetris, that is: L, I, T, S or O.
     2. Wood cells are fixed pegs and aren't part of Tetrominoes.
     3. Tetrominoes may be rotated or mirrored.
-    4. Two tetrominoes sharing an edge must be different.
+    4. Two Tetrominoes sharing an edge must be different.
 */
 
 namespace puzzles{ namespace TetrominoPegs{
@@ -27,13 +27,6 @@ const Position offset[] = {
     {0, 1},        // e
     {1, 0},        // s
     {0, -1},        // w
-};
-
-const Position offset2[] = {
-    {0, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, 0},        // w
 };
 
 const vector<vector<vector<Position>>> tetrominoes = {
@@ -68,84 +61,27 @@ const vector<vector<vector<Position>>> tetrominoes = {
     },
 };
 
-struct puz_lit
-{
-    Position m_p;
-    int m_index1, m_index2;
-    puz_lit(const Position& p, int i, int j)
-        : m_p(p), m_index1(i), m_index2(j) {}
-};
+typedef pair<int, vector<Position>> puz_lit;
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_pos2area;
-    int m_area_count;
-    vector<vector<puz_lit>> m_lits;
+    string m_start;
+    vector<puz_lit> m_lits;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-};
-
-struct puz_state2 : Position
-{
-    puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
-        : m_horz_walls(&horz_walls), m_vert_walls(&vert_walls) {
-        make_move(p_start);
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
-
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state2>& children) const;
-
-    const set<Position> *m_horz_walls, *m_vert_walls;
+    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
-
-void puz_state2::gen_children(list<puz_state2>& children) const
-{
-    for (int i = 0; i < 4; ++i) {
-        auto p = *this + offset[i];
-        auto p_wall = *this + offset2[i];
-        auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
-        if (walls.count(p_wall) == 0) {
-            children.push_back(*this);
-            children.back().make_move(p);
-        }
-    }
-}
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size() / 2)
+, m_sidelen(strs.size())
 {
-    set<Position> horz_walls, vert_walls, rng;
-    for (int r = 0;; ++r) {
-        // horz-walls
-        auto& str_h = strs[r * 2];
-        for (int c = 0; c < m_sidelen; ++c)
-            if (str_h[c * 2 + 1] == '-')
-                horz_walls.insert({r, c});
-        if (r == m_sidelen) break;
-        auto& str_v = strs[r * 2 + 1];
-        for (int c = 0;; ++c) {
-            Position p(r, c);
-            // vert-walls
-            if (str_v[c * 2] == '|')
-                vert_walls.insert(p);
-            if (c == m_sidelen) break;
-            rng.insert(p);
-        }
-    }
-
-    for (m_area_count = 0; !rng.empty(); ++m_area_count) {
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({horz_walls, vert_walls, *rng.begin()}, smoves);
-        for (auto& p : smoves) {
-            m_pos2area[p] = m_area_count;
-            rng.erase(p);
-        }
-    }
-
-    m_lits.resize(m_area_count);
+    m_start = boost::accumulate(strs, string());
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
@@ -153,22 +89,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 auto& t1 = tetrominoes[i];
                 for (int j = 0; j < t1.size(); ++j) {
                     auto& t2 = t1[j];
-                    int n = [&]{
-                        int n = -1;
-                        for (auto& os : t2) {
-                            auto p2 = p + os;
-                            auto it = m_pos2area.find(p2);
-                            if (it == m_pos2area.end())
-                                return -1;
-                            if (n == -1)
-                                n = it->second;
-                            else if (n != it->second)
-                                return -1;
-                        }
-                        return n;
-                    }();
-                    if (n != -1)
-                        m_lits[n].emplace_back(p, i, j);
+                    vector<Position> rng;
+                    for (auto& p2 : t2) {
+                        auto p3 = p + p2;
+                        if (is_valid(p3) && cells(p3) == PUZ_SPACE)
+                            rng.push_back(p3);
+                        else
+                            goto next;
+                    }
+                    m_lits.emplace_back(i, rng);
+                next:;
                 }
             }
         }
@@ -184,9 +114,8 @@ struct puz_state : string
     }
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move(int i, int j);
-    bool make_move2(int i, int j);
-    bool is_continuous() const;
+    bool make_move(Position p, int i);
+    bool make_move2(Position p, int i);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -201,39 +130,34 @@ struct puz_state : string
     }
 
     const puz_game* m_game = nullptr;
-    map<int, vector<int>> m_matches;
+    map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+: string(g.m_start), m_game(&g)
 {
-    for (int i = 0; i < g.m_area_count; ++i) {
-        auto& perm_ids = m_matches[i];
-        perm_ids.resize(g.m_lits[i].size());
-        boost::iota(perm_ids, 0);
-    }
-
+    for (int i = 0; i < g.m_lits.size(); ++i)
+        for (auto& p : g.m_lits[i].second)
+            m_matches[p].push_back(i);
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
-        int area_id = kv.first;
+        const auto& p = kv.first;
         auto& lit_ids = kv.second;
 
         boost::remove_erase_if(lit_ids, [&](int id) {
-            auto& lit = m_game->m_lits[area_id][id];
-            auto& t = tetrominoes[lit.m_index1][lit.m_index2];
-            char ch = lit.m_index1 + '0';
-            for (auto& os : t) {
-                auto p2 = lit.m_p + os;
+            auto& lit = m_game->m_lits[id];
+            for (auto& os : offset) {
+                auto p2 = os;
                 if (cells(p2) != PUZ_SPACE)
                     return true;
                 for (auto& os2 : offset) {
                     auto p3 = p2 + os2;
-                    if (is_valid(p3) && ch == cells(p3))
+                    if (is_valid(p3))
                         return true;
                 }
             }
@@ -245,59 +169,22 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(area_id, lit_ids.front()) ? 1 : 0;
+                return make_move2(p, lit_ids.front()) ? 1 : 0;
             }
     }
     return 2;
 }
 
-struct puz_state3 : Position
+bool puz_state::make_move2(Position p, int i)
 {
-    puz_state3(const set<Position>& a) : m_area(&a) { make_move(*a.begin()); }
-
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state3>& children) const;
-
-    const set<Position>* m_area;
-};
-
-void puz_state3::gen_children(list<puz_state3>& children) const
-{
-    for (auto& os : offset) {
-        auto p = *this + os;
-        if (m_area->count(p) != 0) {
-            children.push_back(*this);
-            children.back().make_move(p);
-        }
-    }
-}
-
-// 5. All the shaded cells should form a valid Nurikabe.
-bool puz_state::is_continuous() const
-{
-    set<Position> area;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            if (cells(p) != PUZ_SPACE)
-                area.insert(p);
-        }
-
-    list<puz_state3> smoves;
-    puz_move_generator<puz_state3>::gen_moves(area, smoves);
-    return smoves.size() == area.size();
-}
-
-bool puz_state::make_move2(int i, int j)
-{
-    auto& lit = m_game->m_lits[i][j];
-    auto& t = tetrominoes[lit.m_index1][lit.m_index2];
+    auto& lit = m_game->m_lits[i];
+    auto& t = lit.second;
 
     for (int k = 0; k < t.size(); ++k)
-        cells(lit.m_p + t[k]) = lit.m_index1 + '0';
+        cells(t[k]) = lit.first + '0';
 
     ++m_distance;
-    m_matches.erase(i);
+    m_matches.erase(p);
 
     for (int r = 0; r < sidelen() - 1; ++r)
         for (int c = 0; c < sidelen() - 1; ++c) {
@@ -307,13 +194,13 @@ bool puz_state::make_move2(int i, int j)
             }))
                 return false;
         }
-    return !is_goal_state() || is_continuous();
+    return !is_goal_state();
 }
 
-bool puz_state::make_move(int i, int j)
+bool puz_state::make_move(Position p, int i)
 {
     m_distance = 0;
-    if (!make_move2(i, j))
+    if (!make_move2(p, i))
         return false;
     int m;
     while ((m = find_matches(false)) == 1);
@@ -323,8 +210,8 @@ bool puz_state::make_move(int i, int j)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
-        const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2) {
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
     for (int n : kv.second) {

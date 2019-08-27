@@ -5,7 +5,7 @@
 1. Divide the board into Tetrominoes, area of exactly four tiles, of a shape like the pieces of Tetris, that is: L, I, T, S or O.
 2. Wood cells are fixed pegs and aren't part of Tetrominoes.
 3. Tetrominoes may be rotated or mirrored.
-4. Two tetrominoes sharing an edge must be different.
+4. Two Tetrominoes sharing an edge must be different.
   ]]>
 </help>
 <levels>
