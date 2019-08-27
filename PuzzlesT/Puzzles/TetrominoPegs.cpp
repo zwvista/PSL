@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "astar_solver.h"
-#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -29,6 +28,7 @@ const Position offset[] = {
     {0, -1},        // w
 };
 
+// 3. Tetrominoes may be rotated or mirrored.
 const vector<vector<vector<Position>>> tetrominoes = {
     { // L
         {{0, 0}, {1, 0}, {2, 0}, {2, 1}},
@@ -151,6 +151,7 @@ int puz_state::find_matches(bool init)
             for (auto& p : lit.second) {
                 if (cells(p) != PUZ_SPACE)
                     return true;
+                // 4. Two Tetrominoes sharing an edge must be different.
                 for (auto& os : offset) {
                     auto p2 = p + os;
                     if (is_valid(p2) && ch == cells(p2))
