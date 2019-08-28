@@ -157,11 +157,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\LakesAndMeadows.txt" />
     <Text Include="Puzzles\Landscaper.txt" />
     <Text Include="Puzzles\Landscapes.txt" />
     <Text Include="Puzzles\LightBattleShips.txt" />
     <Text Include="Puzzles\LightenUp.txt" />
     <Text Include="Puzzles\LightenUp2.txt" />
+    <Text Include="Puzzles\LightenUpTest.txt" />
     <Text Include="Puzzles\Lighthouses.txt" />
     <Text Include="Puzzles\lightsout-int.txt" />
     <Text Include="Puzzles\lightsout_classic.txt" />
@@ -184,6 +186,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\LakesAndMeadows.cpp" />
     <ClCompile Include="Puzzles\Landscaper.cpp" />
     <ClCompile Include="Puzzles\Landscapes.cpp" />
     <ClCompile Include="Puzzles\LightBattleShips.cpp" />
@@ -203,6 +206,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\LakesAndMeadows.xml" />
     <Xml Include="Puzzles\Landscaper.xml" />
     <Xml Include="Puzzles\Landscapes.xml">
       <SubType>Designer</SubType>
@@ -210,6 +214,7 @@
     <Xml Include="Puzzles\LightBattleShips.xml" />
     <Xml Include="Puzzles\LightenUp.xml" />
     <Xml Include="Puzzles\LightenUp2.xml" />
+    <Xml Include="Puzzles\LightenUpTest.xml" />
     <Xml Include="Puzzles\Lighthouses.xml" />
     <Xml Include="Puzzles\lightsout-int.xml" />
     <Xml Include="Puzzles\lightsout_2000.xml" />

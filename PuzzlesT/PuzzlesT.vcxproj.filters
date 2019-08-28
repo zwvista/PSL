@@ -70,6 +70,9 @@
     <Text Include="Puzzles\TurnTwice.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\TetrominoPegs.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -140,6 +143,9 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\TetrominoPegs.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\turnz.xml">
@@ -185,6 +191,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\TurnTwice.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\TetrominoPegs.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

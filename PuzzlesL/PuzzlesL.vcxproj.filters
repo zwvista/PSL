@@ -55,6 +55,12 @@
     <Text Include="Puzzles\LightenUp2.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\LakesAndMeadows.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\LightenUpTest.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -110,6 +116,9 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\LakesAndMeadows.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\lightsout_2000.xml">
@@ -149,6 +158,12 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\LightenUp2.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\LakesAndMeadows.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\LightenUpTest.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

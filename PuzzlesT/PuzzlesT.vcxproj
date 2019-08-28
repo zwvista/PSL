@@ -167,6 +167,7 @@
     <Text Include="Puzzles\Tatamino2.txt" />
     <Text Include="Puzzles\TennerGrid.txt" />
     <Text Include="Puzzles\Tents.txt" />
+    <Text Include="Puzzles\TetrominoPegs.txt" />
     <Text Include="Puzzles\TheOddBrick.txt" />
     <Text Include="Puzzles\Thermometers.txt" />
     <Text Include="Puzzles\TierraDelFuego.txt" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Puzzles\Tatamino2.cpp" />
     <ClCompile Include="Puzzles\TennerGrid.cpp" />
     <ClCompile Include="Puzzles\Tents.cpp" />
+    <ClCompile Include="Puzzles\TetrominoPegs.cpp" />
     <ClCompile Include="Puzzles\TheOddBrick.cpp" />
     <ClCompile Include="Puzzles\Thermometers.cpp" />
     <ClCompile Include="Puzzles\TierraDelFuego.cpp" />
@@ -224,6 +226,7 @@
     </Xml>
     <Xml Include="Puzzles\TennerGrid.xml" />
     <Xml Include="Puzzles\Tents.xml" />
+    <Xml Include="Puzzles\TetrominoPegs.xml" />
     <Xml Include="Puzzles\TheOddBrick.xml" />
     <Xml Include="Puzzles\Thermometers.xml">
       <SubType>Designer</SubType>
