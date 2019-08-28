@@ -21,10 +21,12 @@
 namespace puzzles{ namespace IslandConnections{
 
 #define PUZ_SPACE             ' '
-#define PUZ_ISLAND            'N'
+#define PUZ_ISLAND            'O'
+#define PUZ_SHADED            'S'
 #define PUZ_HORZ              '-'
 #define PUZ_VERT              '|'
 #define PUZ_BOUNDARY          'B'
+#define PUZ_UNKNOWN           -1
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -45,21 +47,34 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size() + 2)
+, m_sidelen(strs.size() * 2 + 1)
 {
     m_start.append(m_sidelen, PUZ_BOUNDARY);
-    for (int r = 1; r < m_sidelen - 1; ++r) {
+    for (int r = 1; ; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            char ch = str[c - 1];
-            if (ch == PUZ_SPACE)
+        for (int c = 1; ; ++c) {
+            switch (char ch = str[c - 1]) {
+            case PUZ_SPACE:
+            case PUZ_SHADED:
                 m_start.push_back(ch);
-            else {
+                break;
+            case PUZ_ISLAND:
+                m_start.push_back(ch);
+                m_pos2num[{r * 2 - 1, c * 2 - 1}] = PUZ_UNKNOWN;
+                break;
+            default:
                 m_start.push_back(PUZ_ISLAND);
-                m_pos2num[{r, c}] = ch - '0';
+                m_pos2num[{r * 2 - 1, c * 2 - 1}] = ch - '0';
+                break;
             }
+            if (c == m_sidelen / 2) break;
+            m_start.push_back(PUZ_SPACE);
         }
+        m_start.push_back(PUZ_BOUNDARY);
+        if (r == m_sidelen / 2) break;
+        m_start.push_back(PUZ_BOUNDARY);
+        m_start.append(m_sidelen - 2, PUZ_SPACE);
         m_start.push_back(PUZ_BOUNDARY);
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
@@ -123,14 +138,11 @@ int puz_state::find_matches(bool init)
             for (auto p2 = p + os; ; p2 += os) {
                 char ch = cells(p2);
                 if (ch == PUZ_ISLAND && m_matches.count(p2) != 0)
-                    // one, two bridges or none
-                    nums = {0, 1, 2};
-                else if ((ch == PUZ_HORZ || ch == PUZ_HORZ) && is_horz)
+                    // one bridge or none
+                    nums = {0, 1};
+                else if (ch == PUZ_HORZ && is_horz || ch == PUZ_VERT && !is_horz)
                     // already connected
-                    nums = {ch == PUZ_HORZ ? 1 : 2};
-                else if ((ch == PUZ_VERT || ch == PUZ_VERT) && !is_horz)
-                    // already connected
-                    nums = {ch == PUZ_VERT ? 1 : 2};
+                    nums = {1};
                 if (ch != PUZ_SPACE)
                     break;
             }
@@ -139,9 +151,11 @@ int puz_state::find_matches(bool init)
         for (int n0 : dir_nums[0])
             for (int n1 : dir_nums[1])
                 for (int n2 : dir_nums[2])
-                    for (int n3 : dir_nums[3])
-                        if (n0 + n1 + n2 + n3 == sum)
+                    for (int n3 : dir_nums[3]) {
+                        int sum2 = n0 + n1 + n2 + n3;
+                        if (sum == PUZ_UNKNOWN && sum2 != 0 || sum == sum2)
                             perms.push_back({n0, n1, n2, n3});
+                    }
 
         if (!init)
             switch(perms.size()) {
@@ -179,8 +193,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         bool is_horz = i % 2 == 1;
         auto p2 = *this + os;
         char ch = m_state->cells(p2);
-        if (is_horz && (ch == PUZ_HORZ || ch == PUZ_HORZ) ||
-            !is_horz && (ch == PUZ_VERT || ch == PUZ_VERT)) {
+        if (is_horz && ch == PUZ_HORZ || !is_horz && ch == PUZ_VERT) {
             while (m_state->cells(p2) != PUZ_ISLAND)
                 p2 += os;
             children.push_back(*this);
@@ -208,8 +221,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
             char& ch = cells(p2);
             if (ch != PUZ_SPACE)
                 break;
-            ch = is_horz ? n == 1 ? PUZ_HORZ : PUZ_HORZ
-                : n == 1 ? PUZ_VERT : PUZ_VERT;
+            ch = is_horz ? PUZ_HORZ : PUZ_VERT;
         }
     }
 

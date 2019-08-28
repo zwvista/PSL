@@ -1,0 +1,4 @@
+Level 1
+Number of vertices examined: 5
+0.0142228 [s]
+
