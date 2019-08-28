@@ -80,13 +80,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
     bool make_move(const Position& p, const vector<int>& perm);
     bool make_move2(const Position& p, const vector<int>& perm);
     int find_matches(bool init);
@@ -104,6 +105,7 @@ struct puz_state : string
     }
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     // key: the position of the island
     // value.elem: the numbers of the bridges connected to the island
     //             in all four directions
@@ -112,7 +114,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
+: m_cells(g.m_start), m_game(&g)
 {
     for (auto& kv : g.m_pos2num)
         m_matches[kv.first];
@@ -182,7 +184,7 @@ struct puz_state2 : Position
 puz_state2::puz_state2(const puz_state& s)
 : m_state(&s)
 {
-    int i = s.find(PUZ_ISLAND);
+    int i = s.m_cells.find(PUZ_ISLAND);
     make_move({i / sidelen(), i % sidelen()});
 }
 
@@ -206,7 +208,7 @@ bool puz_state::is_connected() const
 {
     list<puz_state2> smoves;
     puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-    return smoves.size() == boost::count(*this, PUZ_ISLAND);
+    return smoves.size() == boost::count(m_cells, PUZ_ISLAND);
 }
 
 bool puz_state::make_move2(const Position& p, const vector<int>& perm)
@@ -263,7 +265,15 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_ISLAND)
-                out << format("%2d") % m_game->m_pos2num.at(p);
+                out << format("%2d") % [&]{
+                    int n = 0;
+                    for (auto& os : offset) {
+                        char ch = cells(p + os);
+                        if (ch == PUZ_HORZ || ch == PUZ_VERT)
+                            ++n;
+                    }
+                    return n;
+                }();
             else
                 out << ' ' << ch;
         }
