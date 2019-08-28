@@ -61,6 +61,9 @@
     <Text Include="Puzzles\LightenUpTest.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\LoopAndBlocks.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -119,6 +122,9 @@
     <ClCompile Include="Puzzles\LakesAndMeadows.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\LoopAndBlocks.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\lightsout_2000.xml">
@@ -164,6 +170,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\LightenUpTest.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\LoopAndBlocks.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
