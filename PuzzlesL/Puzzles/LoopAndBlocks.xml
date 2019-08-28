@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Draw a loop that passes through each clear tile.
+2. The loop must be a single one and can't intersect itself.
+3. A number in a cell shows how many cell must be shaded around its four sides.
+4. Not all cells that must be shaded are given with a hint. Two shaded cells can't touch orthogonally.
+5. The loop must pass over every cell that hasn't got a number or has not been shaded.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+0   0`
+  0  `
+   0 `
+     `
+ 1  0`
+    ]]>
+  </level>
+</levels>
+</puzzle>
