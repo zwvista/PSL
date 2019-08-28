@@ -69,6 +69,9 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Puzzles\Bridges.h">
+      <Filter>Puzzles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -161,6 +164,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\BoxItAgain.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\BridgesGen.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

@@ -22,6 +22,9 @@
     <Text Include="Puzzles\icedin.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\IslandConnections.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -47,9 +50,15 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\IslandConnections.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\icedin.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\IslandConnections.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

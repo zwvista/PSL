@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Connect the islands with bridges.
+2. All the islands must be connected between them, forming a single path.
+3. Bridges are horizontal or vertical straight lines and cannot cross each other.
+4. Islands with numbers tell you how many bridges depart from it.
+5. Islands without a number can have any number of bridges.
+6. Shaded islands cannot be connected and should be avoided.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+1 21O2`
+     2`
+  O3 O`
+      `
+1 O 12`
+1  2 2`
+    ]]>
+  </level>
+</levels>
+</puzzle>
