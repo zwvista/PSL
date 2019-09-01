@@ -24,6 +24,7 @@
 		8CA240A61EB47A710055D6B1 /* Lits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240971EB47A710055D6B1 /* Lits.cpp */; };
 		8CA240A71EB47A710055D6B1 /* Loopy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2409A1EB47A710055D6B1 /* Loopy.cpp */; };
 		95D7B5E72315BD54001E005C /* LakesAndMeadows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5E22315BD53001E005C /* LakesAndMeadows.cpp */; };
+		95D7B5EF2316E445001E005C /* LoopAndBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5ED2316E445001E005C /* LoopAndBlocks.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -107,6 +108,9 @@
 		95D7B5E42315BD54001E005C /* LightenUpTest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LightenUpTest.txt; sourceTree = "<group>"; };
 		95D7B5E52315BD54001E005C /* LightenUpTest.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LightenUpTest.xml; sourceTree = "<group>"; };
 		95D7B5E62315BD54001E005C /* LakesAndMeadows.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LakesAndMeadows.xml; sourceTree = "<group>"; };
+		95D7B5EC2316E445001E005C /* LoopAndBlocks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LoopAndBlocks.txt; sourceTree = "<group>"; };
+		95D7B5ED2316E445001E005C /* LoopAndBlocks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoopAndBlocks.cpp; sourceTree = "<group>"; };
+		95D7B5EE2316E445001E005C /* LoopAndBlocks.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LoopAndBlocks.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,9 @@
 				8CA240971EB47A710055D6B1 /* Lits.cpp */,
 				8CA240981EB47A710055D6B1 /* Lits.txt */,
 				8CA240991EB47A710055D6B1 /* Lits.xml */,
+				95D7B5ED2316E445001E005C /* LoopAndBlocks.cpp */,
+				95D7B5EC2316E445001E005C /* LoopAndBlocks.txt */,
+				95D7B5EE2316E445001E005C /* LoopAndBlocks.xml */,
 				8CA2409A1EB47A710055D6B1 /* Loopy.cpp */,
 				8CA2409B1EB47A710055D6B1 /* Loopy.txt */,
 				8CA2409C1EB47A710055D6B1 /* Loopy.xml */,
@@ -295,6 +302,7 @@
 				8CA240A71EB47A710055D6B1 /* Loopy.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA240A51EB47A710055D6B1 /* LineSweeper.cpp in Sources */,
+				95D7B5EF2316E445001E005C /* LoopAndBlocks.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

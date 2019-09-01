@@ -22,9 +22,6 @@
 
 namespace puzzles{ namespace LoopAndBlocks{
 
-#define PUZ_LINE_OFF        '0'
-#define PUZ_LINE_ON            '1'
-
 // n-e-s-w
 // 0 means line is off in this direction
 // 1,2,4,8 means line is on in this direction
@@ -78,75 +75,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto& kv : m_num2perms) {
         int n = kv.first;
-        // Find all line segment permutations in relation to a number
+        // Find all shaded permutations in relation to a number
         auto& perms = kv.second;
-        // pass/no pass permutations
-        // PUZ_LINE_OFF means an adjacent cell is not passed by the line
-        // PUZ_LINE_ON means an adjacent cell is passed by the line
-        auto indicator = string(8 - n, PUZ_LINE_OFF) + string(n, PUZ_LINE_ON);
+        // shaded/not shaded permutations
+        // 0 means an adjacent cell is not shaded
+        // 1 means an adjacent cell is shaded
+        vector perm(4 - n, 0);
+        perm.insert(perm.end(), n, 1);
         do {
-            vector<vector<int>> dir2linesegs(8);
-            for (int i = 0; i < 8; ++i)
-                // Find all line permutations from an adjacent cell
-                if (indicator[i] == PUZ_LINE_OFF)
-                    // This adjacent cell is not passed by the line
-                    dir2linesegs[i] = {lineseg_off};
-                else
-                    for (int lineseg : linesegs_all)
-                        if ([&]{
-                            for (int j = 0; j < 4; ++j) {
-                                if (!is_lineseg_on(lineseg, j))
-                                    continue;
-                                // compute the position that the line segment in an adjacent cell leads to
-                                auto p = offset[i] + offset[2 * j];
-                                // The line segment from an adjacent cell cannot lead to the number cell
-                                // or any adjacent cell not covered by the line
-                                if (p == Position(0, 0))
-                                    return false;
-                                int n = boost::find(offset, p) - offset;
-                                if (n < 8 && indicator[n] == PUZ_LINE_OFF)
-                                    return false;
-                            }
-                            return true;
-                        }())
-                            // This line segment permutation is possible for the adjacent cell
-                            dir2linesegs[i].push_back(lineseg);
-
-            // No line segment permutation from an adjacent cell means
-            // this pass/no pass permutation is impossible
-            if (boost::algorithm::any_of(dir2linesegs, [](const vector<int>& linesegs) {
-                return linesegs.empty();
-            }))
-                continue;
-
-            // Find all line permutations for this pass/no pass permutation
-            vector<int> indexes(8);
-            vector<int> perm(8);
-            for (int i = 0; i < 8;) {
-                for (int j = 0; j < 8; ++j)
-                    perm[j] = dir2linesegs[j][indexes[j]];
-                if ([&]{
-                    for (int j = 0; j < 8; ++j) {
-                        int lineseg = perm[j];
-                        for (int k = 0; k < 4; ++k) {
-                            if (!is_lineseg_on(lineseg, k))
-                                continue;
-                            auto p = offset[j] + offset[2 * k];
-                            int n = boost::find(offset, p) - offset;
-                            // If the line segment from an adjacent cell leads to another adjacent cell,
-                            // the line segment from the latter should also lead to the former
-                            if (n < 8 && !is_lineseg_on(perm[n], (k + 2) % 4))
-                                return false;
-                        }
-                    }
-                    return true;
-                }())
-                    perms.push_back(perm);
-                for (i = 0; i < 8 && ++indexes[i] == dir2linesegs[i].size(); ++i)
-                    indexes[i] = 0;
-            }
-
-        } while(boost::next_permutation(indicator));
+            perms.push_back(perm);
+        } while(boost::next_permutation(perm));
     }
 }
 
@@ -233,8 +171,8 @@ int puz_state::find_matches(bool init)
         auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
-            for (int i = 0; i < 8; ++i) {
-                auto p2 = p + offset[i];
+            for (int i = 0; i < 4; ++i) {
+                auto p2 = p + offset[i * 2];
                 int lineseg = perm[i];
                 if (!is_valid(p2)) {
                     if (lineseg != lineseg_off)
@@ -296,8 +234,8 @@ int puz_state::check_dots(bool init)
 void puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
-    for (int i = 0; i < 8; ++i) {
-        auto p2 = p + offset[i];
+    for (int i = 0; i < 4; ++i) {
+        auto p2 = p + offset[i * 2];
         if (is_valid(p2))
             dots(p2) = {perm[i]};
     }
