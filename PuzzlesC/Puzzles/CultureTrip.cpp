@@ -294,9 +294,23 @@ bool puz_state::check_loop() const
     bool has_branch = false;
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
-        for (int n = -1;;) {
+        set<int> area_ids;
+        for (int n = -1, first_visit_id = -1, last_visit_id = -1;;) {
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
+            char ch = m_game->cells(p2);
+            if (ch != PUZ_SPACE) {
+                int area_id = m_game->m_pos2area.at(p2);
+                if (area_ids.count(area_id) == 0) {
+                    area_ids.insert(area_id);
+                    int visit_id = ch == PUZ_MUSEUM ? PUZ_VISIT_MUSEUM : PUZ_VISIT_MONUMENT;
+                    if (first_visit_id == -1)
+                        first_visit_id = visit_id;
+                    if (last_visit_id != -1 && last_visit_id == visit_id)
+                        return false;
+                    last_visit_id = visit_id;
+                }
+            }
             for (int i = 0; i < 4; ++i)
                 // go ahead if the line segment does not lead a way back
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
@@ -306,7 +320,7 @@ bool puz_state::check_loop() const
             if (p2 == p)
                 // we have a loop here,
                 // so we should have exhausted the line segments 
-                return !has_branch && rng.empty();
+                return !has_branch && rng.empty() && last_visit_id != first_visit_id;
             if (rng.count(p2) == 0) {
                 has_branch = true;
                 break;

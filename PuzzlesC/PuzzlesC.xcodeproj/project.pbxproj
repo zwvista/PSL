@@ -19,6 +19,7 @@
 		8CA23FFD1EB4793B0055D6B1 /* Clouds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FF11EB4793B0055D6B1 /* Clouds.cpp */; };
 		8CA23FFE1EB4793B0055D6B1 /* Consecutives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FF61EB4793B0055D6B1 /* Consecutives.cpp */; };
 		95214E70212B9DB000EA7950 /* Cheese.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95214E6E212B9DB000EA7950 /* Cheese.cpp */; };
+		95D7B5F3231D523F001E005C /* CultureTrip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5F1231D523F001E005C /* CultureTrip.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -84,6 +85,9 @@
 		95214E6D212B9DB000EA7950 /* Cheese.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Cheese.xml; sourceTree = "<group>"; };
 		95214E6E212B9DB000EA7950 /* Cheese.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cheese.cpp; sourceTree = "<group>"; };
 		95214E6F212B9DB000EA7950 /* Cheese.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cheese.txt; sourceTree = "<group>"; };
+		95D7B5F0231D523F001E005C /* CultureTrip.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CultureTrip.xml; sourceTree = "<group>"; };
+		95D7B5F1231D523F001E005C /* CultureTrip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CultureTrip.cpp; sourceTree = "<group>"; };
+		95D7B5F2231D523F001E005C /* CultureTrip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CultureTrip.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,9 @@
 				8CA23FF61EB4793B0055D6B1 /* Consecutives.cpp */,
 				8CA23FF71EB4793B0055D6B1 /* Consecutives.txt */,
 				8CA23FF81EB4793B0055D6B1 /* Consecutives.xml */,
+				95D7B5F1231D523F001E005C /* CultureTrip.cpp */,
+				95D7B5F2231D523F001E005C /* CultureTrip.txt */,
+				95D7B5F0231D523F001E005C /* CultureTrip.xml */,
 			);
 			path = Puzzles;
 			sourceTree = "<group>";
@@ -243,6 +250,7 @@
 				8CA23FFA1EB4793B0055D6B1 /* CarpentersSquare.cpp in Sources */,
 				95214E70212B9DB000EA7950 /* Cheese.cpp in Sources */,
 				8CA23FFB1EB4793B0055D6B1 /* CarpentersWall.cpp in Sources */,
+				95D7B5F3231D523F001E005C /* CultureTrip.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
