@@ -70,7 +70,7 @@ struct puz_game
     string m_start;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return (*this)[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
@@ -129,6 +129,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_pos2area[p] = n;
             rng.erase(p);
         }
+        m_areas.emplace_back(smoves.begin(), smoves.end());
     }
 }
 
@@ -203,15 +204,16 @@ int puz_state::find_matches(bool init)
     for (auto& kv : m_matches) {
         int area_id = kv.first;
         auto& visit_ids = kv.second;
+        auto& area = m_game->m_areas[area_id];
 
         boost::remove_erase_if(visit_ids, [&](int id) {
-            return boost::algorithm::any_of(m_game->m_areas[id], [&](const Position& p) {
+            return boost::algorithm::any_of(area, [&](const Position& p) {
                 char ch = m_game->cells(p);
                 if (ch == PUZ_SPACE) return false;
                 auto& dt = dots(p);
                 bool b1 = ch == PUZ_MUSEUM, b2 = id == PUZ_VISIT_MUSEUM;
-                return b1 == b2 && (dt[0] != lineseg_off || dt.size() > 1) ||
-                    b1 != b2 && dt[0] == lineseg_off;
+                return b1 == b2 && dt[0] == lineseg_off && dt.size() == 1 ||
+                    b1 != b2 && dt[0] != lineseg_off;
             });
         });
 
@@ -265,13 +267,17 @@ int puz_state::check_dots(bool init)
 
 void puz_state::make_move_area2(int i, int n)
 {
-    //auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
-    //for (int i = 0; i < 4; ++i) {
-    //    auto p2 = p + offset[i];
-    //    if (is_valid(p2))
-    //        dots(p2) = {perm[i]};
-    //}
-    m_matches.erase(p);
+    auto& area = m_game->m_areas[i];
+    for (auto& p : area) {
+        char ch = m_game->cells(p);
+        if (ch == PUZ_SPACE) continue;
+        auto& dt = dots(p);
+        if ((n == PUZ_VISIT_MUSEUM) == (ch == PUZ_MUSEUM))
+            boost::remove_erase(dt, lineseg_off);
+        else
+            dt = {lineseg_off};
+    }
+    m_matches.erase(i);
 }
 
 bool puz_state::check_loop() const
@@ -313,7 +319,7 @@ bool puz_state::check_loop() const
 bool puz_state::make_move_area(int i, int n)
 {
     m_distance = 0;
-    make_move_area2(p, n);
+    make_move_area2(i, n);
     for (;;) {
         int m;
         while ((m = find_matches(false)) == 1);
@@ -372,17 +378,38 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
         // draw horz-lines
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            //auto it = m_game->m_pos2num.find(p);
-            //out << char(it == m_game->m_pos2num.end() ? ' ' : it->second + '0')
-            //    << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
+        for (int c = 0; ; ++c) {
+            out << ' ';
+            if (c == sidelen()) break;
+            out << (m_game->m_horz_walls.count({r, c}) == 1 ? "---" : "   ");
         }
         out << endl;
-        if (r == sidelen() - 1) break;
-        for (int c = 0; c < sidelen(); ++c)
+        if (r == sidelen()) break;
+        for (int c = 0;; ++c) {
+            Position p(r, c);
             // draw vert-lines
-            out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
+            out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+            if (c == sidelen()) break;
+            out << (is_lineseg_on(dots(p)[0], 0) ? " | " : "   ");
+        }
+        out << endl;
+        for (int c = 0;; ++c) {
+            Position p(r, c);
+            // draw vert-lines
+            out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+            if (c == sidelen()) break;
+            out << (is_lineseg_on(dots(p)[0], 3) ? '-' : ' ');
+            out << m_game->cells(p);
+            out << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
+        }
+        out << endl;
+        for (int c = 0;; ++c) {
+            Position p(r, c);
+            // draw vert-lines
+            out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+            if (c == sidelen()) break;
+            out << (is_lineseg_on(dots(p)[0], 2) ? " | " : "   ");
+        }
         out << endl;
     }
     return out;
