@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. The board represents a City of Art and Culture, divided in neighborhoods.
+2. During a Culture Trip, in order to make everybody happy, you devise a convoluted method to visit a city:
+3. All neighborhoods must be visited exactly and only once.
+4. You have to set foot in a neighborhood only once and can't come back after you leave it.
+5. In a neighborhood, you either visit All Museums or All Monuments.
+6. If you visit Monuments, you can't pass over Museums and vice-versa.
+7. You have to alternate between neighborhoods where you visit Museums and those where you visit Monuments.
+8. After visiting Museums, you should visit Monuments, then Museums again, etc.
+9. The Trip must form a closed loop, in the end returning to the starting neighborhood.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - `
+| |M M T|`
+   - - - `
+|T M|T  |`
+ - -     `
+|M M|M  |`
+         `
+|T  |   |`
+ - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>

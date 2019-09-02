@@ -7,6 +7,7 @@ extern void solve_puz_CastleBailey();
 extern void solve_puz_Cheese();
 extern void solve_puz_Clouds();
 extern void solve_puz_Consecutives();
+extern void solve_puz_CultureTrip();
 
 int main(int argc, char **argv)
 {
@@ -18,6 +19,7 @@ int main(int argc, char **argv)
     cout << "h: Cheese" << endl;
     cout << "l: Clouds" << endl;
     cout << "o: Consecutives" << endl;
+    cout << "u: Culture Trip" << endl;
     string str;
     getline(cin, str);
     if (str.empty());
@@ -28,6 +30,7 @@ int main(int argc, char **argv)
     else if (str == "h") solve_puz_Cheese();
     else if (str == "l") solve_puz_Clouds();
     else if (str == "o") solve_puz_Consecutives();
+    else if (str == "u") solve_puz_CultureTrip();
 
     return 0;
 }
