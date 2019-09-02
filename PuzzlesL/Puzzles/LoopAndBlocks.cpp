@@ -22,6 +22,9 @@
 
 namespace puzzles{ namespace LoopAndBlocks{
 
+#define PUZ_NOT_SHADED        ' '
+#define PUZ_SHADED            'X'
+
 // n-e-s-w
 // 0 means line is off in this direction
 // 1,2,4,8 means line is on in this direction
@@ -36,13 +39,9 @@ const vector<int> linesegs_all = {
 
 const Position offset[] = {
     {-1, 0},        // n
-    {-1, 1},        // ne
     {0, 1},        // e
-    {1, 1},        // se
     {1, 0},        // s
-    {1, -1},        // sw
     {0, -1},        // w
-    {-1, -1},    // nw
 };
 
 struct puz_game
@@ -51,7 +50,7 @@ struct puz_game
     int m_sidelen;
     int m_dot_count;
     map<Position, int> m_pos2num;
-    map<int, vector<vector<int>>> m_num2perms;
+    map<int, vector<string>> m_num2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -78,10 +77,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         // Find all shaded permutations in relation to a number
         auto& perms = kv.second;
         // shaded/not shaded permutations
-        // 0 means an adjacent cell is not shaded
-        // 1 means an adjacent cell is shaded
-        vector perm(4 - n, 0);
-        perm.insert(perm.end(), n, 1);
+        auto perm = string(4 - n, PUZ_NOT_SHADED) + string(n, PUZ_SHADED);
         do {
             perms.push_back(perm);
         } while(boost::next_permutation(perm));
@@ -101,7 +97,12 @@ struct puz_state : vector<puz_dot>
     const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move_hint(const Position& p, int n);
-    void make_move_hint2(const Position& p, int n);
+    bool make_move_hint2(const Position& p, int n);
+    bool check_shaded(const Position& p) {
+        return boost::algorithm::none_of(offset, [&](const Position& os) {
+            return m_shaded.count(p + os) != 0;
+        });
+    }
     bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
@@ -121,6 +122,7 @@ struct puz_state : vector<puz_dot>
     const puz_game* m_game = nullptr;
     map<Position, vector<int>> m_matches;
     set<Position> m_finished;
+    set<Position> m_shaded;
     unsigned int m_distance = 0;
 };
 
@@ -139,7 +141,7 @@ puz_state::puz_state(const puz_game& g)
                     for (int i = 0; i < 4; ++i) {
                         if (!is_lineseg_on(lineseg, i))
                             continue;
-                        auto p2 = p + offset[i * 2];
+                        auto p2 = p + offset[i];
                         // The line segment cannot lead to a position
                         // outside the board or cover any number cell
                         if (!is_valid(p2) || g.m_pos2num.count(p2) != 0)
@@ -168,27 +170,12 @@ int puz_state::find_matches(bool init)
         const auto& p = kv.first;
         auto& perm_ids = kv.second;
 
-        auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& perm = perms[id];
-            for (int i = 0; i < 4; ++i) {
-                auto p2 = p + offset[i * 2];
-                int lineseg = perm[i];
-                if (!is_valid(p2)) {
-                    if (lineseg != lineseg_off)
-                        return true;
-                } else if (boost::algorithm::none_of_equal(dots(p2), lineseg))
-                    return true;
-            }
-            return false;
-        });
-
         if (!init)
             switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move_hint2(p, perm_ids.front()), 1;
+                return make_move_hint2(p, perm_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -203,8 +190,14 @@ int puz_state::check_dots(bool init)
             for (int c = 0; c < sidelen(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
-                if (dt.size() == 1 && m_finished.count(p) == 0)
+                if (dt.size() == 1 && m_finished.count(p) == 0) {
                     newly_finished.insert(p);
+                    if (dt[0] == lineseg_off && m_shaded.count(p) == 0) {
+                        m_shaded.insert(p);
+                        if (!check_shaded(p))
+                            return false;
+                    }
+                }
             }
 
         if (newly_finished.empty())
@@ -214,7 +207,7 @@ int puz_state::check_dots(bool init)
         for (const auto& p : newly_finished) {
             int lineseg = dots(p)[0];
             for (int i = 0; i < 4; ++i) {
-                auto p2 = p + offset[i * 2];
+                auto p2 = p + offset[i];
                 if (!is_valid(p2))
                     continue;
                 auto& dt = dots(p2);
@@ -231,15 +224,22 @@ int puz_state::check_dots(bool init)
     }
 }
 
-void puz_state::make_move_hint2(const Position& p, int n)
+bool puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
     for (int i = 0; i < 4; ++i) {
-        auto p2 = p + offset[i * 2];
-        if (is_valid(p2))
-            dots(p2) = {perm[i]};
+        auto p2 = p + offset[i];
+        if (!is_valid(p2)) continue;
+        if (perm[i] == PUZ_SHADED) {
+            dots(p2) = { lineseg_off };
+            m_shaded.insert(p2);
+            if (!check_shaded(p2))
+                return false;
+        } else
+            boost::remove_erase(dots(p2), lineseg_off);
     }
     m_matches.erase(p);
+    return true;
 }
 
 bool puz_state::check_loop() const
@@ -262,7 +262,7 @@ bool puz_state::check_loop() const
             for (int i = 0; i < 4; ++i)
                 // go ahead if the line segment does not lead a way back
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
-                    p2 += offset[(n = i) * 2];
+                    p2 += offset[n = i];
                     break;
                 }
             if (p2 == p)
@@ -343,7 +343,8 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto it = m_game->m_pos2num.find(p);
-            out << char(it == m_game->m_pos2num.end() ? ' ' : it->second + '0')
+            out << char(it != m_game->m_pos2num.end() ? it->second + '0' :
+                m_shaded.count(p) != 0 ? PUZ_SHADED : '.')
                 << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }
         out << endl;
