@@ -1,0 +1,34 @@
+Level 1
+Sequence of moves: 
+ 1 - - - 2   1   1 - 2
+         |   |       |
+         |   |       2
+         |   |       |
+         3 - 3 - - - 3
+         |           |
+         |           |
+         |           |
+ 1 - - - 3 - - - 1   2
+                     |
+ 1 - - - - - 2 - - - 2
+Number of moves: 8
+Number of vertices examined: 11
+0.00306176 [s]
+
+Level 2
+Sequence of moves: 
+ 2 - - - 1           1
+ |                   |
+ |               2 - 3
+ |               |   |
+ 3 - - - 2 - 2   1   |
+ |           |       |
+ |           |   2 - 3
+ |           |   |   |
+ 2           1   |   1
+ |               |    
+ 2 - 2 - - - 2 - 3 - 1
+Number of moves: 6
+Number of vertices examined: 13
+0.00348501 [s]
+

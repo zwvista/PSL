@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Link the Coffee cup with two sugar cubes.
+2. The link should be T-shaped: two sugar cubes must be connected with a straight line and the cup forms the middle segment.
+3. In some levels (when notified in the top right corner), this variant means you can also link two coffees and one sugar. Both configurations are good.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+  C S`
+ S S `
+C    `
+ C   `
+S  SS`
+    ]]>
+  </level>
+</levels>
+</puzzle>

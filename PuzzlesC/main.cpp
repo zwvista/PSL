@@ -6,6 +6,7 @@ extern void solve_puz_CarpentersWall();
 extern void solve_puz_CastleBailey();
 extern void solve_puz_Cheese();
 extern void solve_puz_Clouds();
+extern void solve_puz_CoffeeAndSugar();
 extern void solve_puz_Consecutives();
 extern void solve_puz_CultureTrip();
 
@@ -18,7 +19,8 @@ int main(int argc, char **argv)
     cout << "a4: Castle Bailey" << endl;
     cout << "h: Cheese" << endl;
     cout << "l: Clouds" << endl;
-    cout << "o: Consecutives" << endl;
+    cout << "o1: Coffee And Sugar" << endl;
+    cout << "o2: Consecutives" << endl;
     cout << "u: Culture Trip" << endl;
     string str;
     getline(cin, str);
@@ -29,7 +31,8 @@ int main(int argc, char **argv)
     else if (str == "a4") solve_puz_CastleBailey();
     else if (str == "h") solve_puz_Cheese();
     else if (str == "l") solve_puz_Clouds();
-    else if (str == "o") solve_puz_Consecutives();
+    else if (str == "o1") solve_puz_CoffeeAndSugar();
+    else if (str == "o2") solve_puz_Consecutives();
     else if (str == "u") solve_puz_CultureTrip();
 
     return 0;
