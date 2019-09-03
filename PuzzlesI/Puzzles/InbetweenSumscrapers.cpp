@@ -21,7 +21,7 @@ namespace puzzles{ namespace InbetweenSumscrapers{
 
 #define PUZ_SKYSCRAPER      -1
 #define PUZ_SPACE           -2
-#define PUZ_SKYSCRAPER_S    " S"
+#define PUZ_SKYSCRAPER_S    " X"
 #define PUZ_SPACE_S         "  "
 
 struct puz_game
