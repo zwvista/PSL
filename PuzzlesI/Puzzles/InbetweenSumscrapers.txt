@@ -8,7 +8,20 @@ Sequence of moves:
  1 6 3 0 0  
 Number of moves: 3
 Number of vertices examined: 14
-0.00073159 [s]
+0.00125554 [s]
+
+Level 36
+Sequence of moves: 
+ 4 X 1 3 2 X 6
+ 3 1 X 4 X 2 4
+ 2 3 X X 1 4 0
+ 1 4 3 2 X X 0
+ X 2 4 X 3 1 6
+ X X 2 1 4 3 0
+ 010 0 2 1 6  
+Number of moves: 7
+Number of vertices examined: 74
+0.00239388 [s]
 
 Level 200
 Sequence of moves: 
@@ -23,5 +36,5 @@ Sequence of moves:
 1211 3 3 6 4 5 0  
 Number of moves: 13
 Number of vertices examined: 4029
-2.93659 [s]
+2.56429 [s]
 
