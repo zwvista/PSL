@@ -4,20 +4,20 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 12/FenceLits
+    iOS Game: Logic Games 2/Puzzle Set 6/Free Planks
 
     Summary
-    Fencing Tetris
+    Nail slavery
 
     Description
-    1. The goal is to divide the board into Tetris pieces, including the
-       square one (differently from LITS).
-    2. The number in a cell tells you how many of the sides are marked
-       (like slitherlink).
-    3. Please consider that the outside border of the board as marked.
+    1. Locate some pieces of wood (Planks).
+    2. Planks are areas of exactly three cells and can be straight or angled.
+    3. Each Plank contains one nail.
+    4. After finding all the Planks, it must be possible to move each piece
+       by one cell in at least one direction.
 */
 
-namespace puzzles::FenceLits{
+namespace puzzles::FreePlanks{
 
 #define PUZ_SPACE        ' '    
 #define PUZ_UNKNOWN        -1
@@ -36,34 +36,18 @@ const Position offset2[] = {
     {0, 0},        // w
 };
 
-const vector<vector<Position>> tetrominoes = {
+const vector<vector<Position>> planks = {
     // L
-    {{0, 0}, {1, 0}, {2, 0}, {2, 1}},
-    {{0, 1}, {1, 1}, {2, 0}, {2, 1}},
-    {{0, 0}, {0, 1}, {0, 2}, {1, 0}},
-    {{0, 0}, {0, 1}, {0, 2}, {1, 2}},
-    {{0, 0}, {0, 1}, {1, 0}, {2, 0}},
-    {{0, 0}, {0, 1}, {1, 1}, {2, 1}},
-    {{0, 0}, {1, 0}, {1, 1}, {1, 2}},
-    {{0, 2}, {1, 0}, {1, 1}, {1, 2}},
+    {{0, 0}, {0, 1}, {1, 0}},
+    {{0, 0}, {0, 1}, {1, 1}},
+    {{0, 0}, {1, 0}, {1, 1}},
+    {{0, 1}, {1, 0}, {1, 1}},
     // I
-    {{0, 0}, {1, 0}, {2, 0}, {3, 0}},
-    {{0, 0}, {0, 1}, {0, 2}, {0, 3}},
-    // T
-    {{0, 0}, {0, 1}, {0, 2}, {1, 1}},
-    {{0, 1}, {1, 0}, {1, 1}, {2, 1}},
-    {{0, 1}, {1, 0}, {1, 1}, {1, 2}},
-    {{0, 0}, {1, 0}, {1, 1}, {2, 0}},
-    // S
-    {{0, 0}, {0, 1}, {1, 1}, {1, 2}},
-    {{0, 1}, {0, 2}, {1, 0}, {1, 1}},
-    {{0, 0}, {1, 0}, {1, 1}, {2, 1}},
-    {{0, 1}, {1, 0}, {1, 1}, {2, 0}},
-    // O
-    {{0, 0}, {0, 1}, {1, 0}, {1, 1}},
+    {{0, 0}, {1, 0}, {2, 0}},
+    {{0, 0}, {0, 1}, {0, 2}},
 };
 
-struct puz_tetromino
+struct puz_plank
 {
     vector<Position> m_offset;
     vector<int> m_nums;
@@ -76,7 +60,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<puz_tetromino> m_tetros;
+    vector<puz_plank> m_planks;
     map<Position, int> m_pos2num;
     vector<puz_lit> m_lits;
 
@@ -86,11 +70,11 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
-, m_tetros(tetrominoes.size())
+, m_planks(planks.size())
 {
-    for (int i = 0; i < m_tetros.size(); ++i) {
-        auto& t = m_tetros[i];
-        t.m_offset = tetrominoes[i];
+    for (int i = 0; i < m_planks.size(); ++i) {
+        auto& t = m_planks[i];
+        t.m_offset = planks[i];
         t.m_nums.resize(4);
         for (int j = 0; j < 4; ++j) {
             int& n = t.m_nums[j];
@@ -114,8 +98,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            for (int i = 0; i < m_tetros.size(); ++i) {
-                auto& t = m_tetros[i];
+            for (int i = 0; i < m_planks.size(); ++i) {
+                auto& t = m_planks[i];
                 if ([&]{
                     for (int j = 0; j < 4; ++j) {
                         auto p2 = p + t.m_offset[j];
@@ -164,7 +148,7 @@ puz_state::puz_state(const puz_game& g)
     for (int i = 0; i < g.m_lits.size(); ++i) {
         auto& lit = g.m_lits[i];
         auto& p = lit.first;
-        for (auto& os : tetrominoes[lit.second])
+        for (auto& os : planks[lit.second])
             m_matches[p + os].push_back(i);
     }
 }
@@ -173,7 +157,7 @@ bool puz_state::make_move(int n)
 {
     auto& lit = m_game->m_lits[n];
     auto& p = lit.first;
-    auto& t = m_game->m_tetros[lit.second];
+    auto& t = m_game->m_planks[lit.second];
 
     for (auto& os : t.m_horz_walls)
         m_horz_walls.insert(p + os);
@@ -234,9 +218,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_FenceLits()
+void solve_puz_FreePlanks()
 {
-    using namespace puzzles::FenceLits;
+    using namespace puzzles::FreePlanks;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/FenceLits.xml", "Puzzles/FenceLits.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/FreePlanks.xml", "Puzzles/FreePlanks.txt", solution_format::GOAL_STATE_ONLY);
 }

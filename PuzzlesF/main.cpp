@@ -6,6 +6,7 @@ extern void solve_puz_FenceSentinels();
 extern void solve_puz_Fillomino();
 extern void solve_puz_fling();
 extern void solve_puz_FourMeNot();
+extern void solve_puz_FreePlanks();
 extern void solve_puz_fullsearch();
 extern void solve_puz_FussyWaiter();
 extern void solve_puz_Futoshiki();
@@ -19,6 +20,7 @@ int main(int argc, char **argv)
     cout << "i: Fillomino" << endl;
     cout << "l: fling" << endl;
     cout << "o: Four-Me-Not" << endl;
+    cout << "r: Free Planks" << endl;
     cout << "u1: fullsearch" << endl;
     cout << "u2: Fussy Waiter" << endl;
     cout << "u3: Futoshiki" << endl;
@@ -31,6 +33,7 @@ int main(int argc, char **argv)
     else if (str == "i") solve_puz_Fillomino();
     else if (str == "l") solve_puz_fling();
     else if (str == "o") solve_puz_FourMeNot();
+    else if (str == "r") solve_puz_FreePlanks();
     else if (str == "u1") solve_puz_fullsearch();
     else if (str == "u2") solve_puz_FussyWaiter();
     else if (str == "u3") solve_puz_Futoshiki();
