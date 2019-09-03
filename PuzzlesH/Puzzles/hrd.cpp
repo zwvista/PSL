@@ -3,7 +3,7 @@
 #include "idastar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace hrd{
+namespace puzzles::hrd{
 
 enum EBrickType {bt1X1, bt2X1, bt1X2, bt2X2};
 
@@ -171,7 +171,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_hrd()
 {

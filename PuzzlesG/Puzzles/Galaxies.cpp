@@ -20,7 +20,7 @@
        some Galaxy center will be cross two or four tiles.
 */
 
-namespace puzzles{ namespace Galaxies{
+namespace puzzles::Galaxies{
 
 #define PUZ_SPACE        ' '
 #define PUZ_BOUNDARY    '+'
@@ -279,7 +279,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Galaxies()
 {

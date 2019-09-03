@@ -14,7 +14,7 @@
        number horizontally, vertically or diagonally.
 */
 
-namespace puzzles{ namespace Minesweeper{
+namespace puzzles::Minesweeper{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -196,7 +196,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Minesweeper()
 {

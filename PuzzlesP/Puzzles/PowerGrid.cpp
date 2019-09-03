@@ -21,7 +21,7 @@
     7. On some levels, there are exactly two Posts in each diagonal too.
 */
 
-namespace puzzles{ namespace PowerGrid{
+namespace puzzles::PowerGrid{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -249,7 +249,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_PowerGrid()
 {

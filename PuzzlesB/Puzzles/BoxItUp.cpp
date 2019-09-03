@@ -14,7 +14,7 @@
        that Box.
 */
 
-namespace puzzles{ namespace BoxItUp{
+namespace puzzles::BoxItUp{
 
 #define PUZ_SPACE        ' '
 
@@ -235,7 +235,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_BoxItUp()
 {

@@ -22,7 +22,7 @@
        at all.
 */
 
-namespace puzzles{ namespace Rooms{
+namespace puzzles::Rooms{
 
 #define PUZ_SPACE            ' '
 #define PUZ_DOOR_UNKNOWN    '0'
@@ -271,7 +271,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Rooms()
 {

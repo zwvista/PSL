@@ -21,7 +21,7 @@
        -> all equal
 */
 
-namespace puzzles{ namespace ZenLandscaper{
+namespace puzzles::ZenLandscaper{
 
 #define PUZ_SPACE        ' '
 
@@ -192,7 +192,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_ZenLandscaper()
 {

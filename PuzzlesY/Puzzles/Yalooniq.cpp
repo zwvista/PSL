@@ -22,7 +22,7 @@
        a tile, that tile can contain a Square too!
 */
 
-namespace puzzles{ namespace Yalooniq{
+namespace puzzles::Yalooniq{
 
 #define PUZ_LINE_OFF        '0'
 #define PUZ_LINE_ON            '1'
@@ -376,7 +376,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Yalooniq()
 {

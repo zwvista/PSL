@@ -4,7 +4,7 @@
 #include "idastar_solver2.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace _8puzzle{
+namespace puzzles::_8puzzle{
 
 const Position offset[] = {
     {0, -1},
@@ -135,7 +135,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_8puzzle()
 {

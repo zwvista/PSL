@@ -2,7 +2,7 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace magic_square{
+namespace puzzles::magic_square{
 
 struct puz_game
 {
@@ -118,7 +118,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_magic_square()
 {

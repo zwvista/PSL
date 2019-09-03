@@ -16,7 +16,7 @@
     3. The goal is to jump on every tile, only once and reach the last tile.
 */
 
-namespace puzzles{ namespace Hidoku{
+namespace puzzles::Hidoku{
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -162,7 +162,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Hidoku()
 {

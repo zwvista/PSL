@@ -21,7 +21,7 @@
        vertically.
 */
 
-namespace puzzles{ namespace Tents{
+namespace puzzles::Tents{
 
 #define PUZ_SPACE        ' '
 #define PUZ_TREE        'T'
@@ -251,7 +251,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Tents()
 {

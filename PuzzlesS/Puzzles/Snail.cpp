@@ -24,7 +24,7 @@
        path) must have exactly one 1, one 2 and one 3.
 */
 
-namespace puzzles{ namespace Snail{
+namespace puzzles::Snail{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -247,7 +247,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Snail()
 {

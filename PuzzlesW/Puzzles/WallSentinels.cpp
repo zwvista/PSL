@@ -26,7 +26,7 @@
        contain 2*2 Wall tiles - just like Nurikabe.
 */
 
-namespace puzzles{ namespace WallSentinels{
+namespace puzzles::WallSentinels{
 
 #define PUZ_SPACE            ' '
 #define PUZ_LAND            '.'
@@ -333,7 +333,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_WallSentinels()
 {

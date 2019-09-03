@@ -23,7 +23,7 @@
     8. Empty tiles can have any number of sides touched by that path.
 */
 
-namespace puzzles{ namespace SlitherLink{
+namespace puzzles::SlitherLink{
 
 #define PUZ_UNKNOWN            -1
 #define PUZ_LINE_OFF        '0'
@@ -351,7 +351,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_SlitherLink()
 {

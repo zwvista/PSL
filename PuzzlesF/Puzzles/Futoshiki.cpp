@@ -24,7 +24,7 @@
     7. This Variation is a taste of a similar game: 'Consecutives'.
 */
 
-namespace puzzles{ namespace Futoshiki{
+namespace puzzles::Futoshiki{
 
 #define PUZ_SPACE        ' '
 #define PUZ_ROW_LT        '<'
@@ -201,7 +201,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Futoshiki()
 {

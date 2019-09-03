@@ -15,7 +15,7 @@
     3. There can't be any 2*2 of white or black cells.
 */
 
-namespace puzzles{ namespace BWTapa{
+namespace puzzles::BWTapa{
 
 #define PUZ_SPACE        ' '
 #define PUZ_QM            '?'
@@ -347,7 +347,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_BWTapa()
 {

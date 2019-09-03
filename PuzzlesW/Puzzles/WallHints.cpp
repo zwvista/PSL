@@ -14,7 +14,7 @@
        border, including the board external border.
 */
 
-namespace puzzles{ namespace WallHints{
+namespace puzzles::WallHints{
 
 #define PUZ_SPACE        ' '
 
@@ -241,7 +241,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_WallHints()
 {

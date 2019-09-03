@@ -27,7 +27,7 @@
 #include "idastar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace _15pegs{
+namespace puzzles::_15pegs{
 
 #define PUZ_PEG        '1'
 #define PUZ_SPACE    '0'
@@ -139,7 +139,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_15pegs()
 {

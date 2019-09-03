@@ -17,7 +17,7 @@
     3. In the end all the un-shaded squares must form a single continuous area.
 */
 
-namespace puzzles{ namespace Hitori{
+namespace puzzles::Hitori{
 
 #define PUZ_SHADED        100
 #define PUZ_BOUNDARY    0
@@ -196,7 +196,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Hitori()
 {

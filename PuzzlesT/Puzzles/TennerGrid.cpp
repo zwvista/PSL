@@ -16,7 +16,7 @@
        the same row.
 */
 
-namespace puzzles{ namespace TennerGrid{
+namespace puzzles::TennerGrid{
 
 #define PUZ_UNKNOWN        -1
     
@@ -239,7 +239,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_TennerGrid()
 {

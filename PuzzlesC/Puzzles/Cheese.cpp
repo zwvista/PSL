@@ -21,7 +21,7 @@
  すべてのチーズを食べ終えるまでにかかる最短時間（分）を表す整数を 1 行で出力せよ．
 */
 
-namespace puzzles{ namespace Cheese{
+namespace puzzles::Cheese{
 
 #define PUZ_SPACE       '.'
 #define PUZ_NEST        'S'
@@ -151,7 +151,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Cheese()
 {

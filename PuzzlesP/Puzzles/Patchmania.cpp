@@ -7,7 +7,7 @@
     iOS Game: Patchmania
 */
 
-namespace puzzles{ namespace Patchmania{
+namespace puzzles::Patchmania{
 
 #define PUZ_SPACE        ' '
 #define PUZ_HOLE         'O'
@@ -450,7 +450,7 @@ void dump_all(ostream& out, const list<puz_state>& spath)
     }
 }
 
-}}
+}
 
 void solve_puz_Patchmania()
 {

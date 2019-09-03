@@ -18,7 +18,7 @@
     5. All other cells can contain a number or be empty.
 */
 
-namespace puzzles{ namespace NoughtsAndCrosses{
+namespace puzzles::NoughtsAndCrosses{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -189,7 +189,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_NoughtsAndCrosses()
 {

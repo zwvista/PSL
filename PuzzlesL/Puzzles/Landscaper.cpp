@@ -27,7 +27,7 @@
        (i.e. 3 Flowers and 4 Trees, 4 Flowers and 5 Trees, etc).
 */
 
-namespace puzzles{ namespace Landscaper{
+namespace puzzles::Landscaper{
 
 #define PUZ_SPACE        ' '
 #define PUZ_TREE        'T'
@@ -204,7 +204,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Landscaper()
 {

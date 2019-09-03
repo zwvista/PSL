@@ -25,7 +25,7 @@
        neighborhood.
 */
 
-namespace puzzles{ namespace CultureTrip{
+namespace puzzles::CultureTrip{
 
 #define PUZ_MUSEUM          'M'
 #define PUZ_MONUMENT        'T'
@@ -429,7 +429,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_CultureTrip()
 {

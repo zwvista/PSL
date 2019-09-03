@@ -3,7 +3,7 @@
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace zgj{
+namespace puzzles::zgj{
 
 #define PUZ_WALL        '#'
 #define PUZ_MONKEY        '@'
@@ -202,7 +202,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_zgj()
 {

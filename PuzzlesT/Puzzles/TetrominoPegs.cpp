@@ -16,7 +16,7 @@
     4. Two Tetrominoes sharing an edge must be different.
 */
 
-namespace puzzles{ namespace TetrominoPegs{
+namespace puzzles::TetrominoPegs{
 
 #define PUZ_SPACE        ' '
 #define PUZ_PEG          '.'
@@ -215,7 +215,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_TetrominoPegs()
 {

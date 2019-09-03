@@ -15,7 +15,7 @@
     3. You can add digits before or after the given one.
 */
 
-namespace puzzles{ namespace Square100{
+namespace puzzles::Square100{
 
 #define PUZ_SPACE        0
 
@@ -203,7 +203,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Square100()
 {

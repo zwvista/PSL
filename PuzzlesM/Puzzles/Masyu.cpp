@@ -21,7 +21,7 @@
     5. Lines passing where there are no Pearls can do what they want.
 */
 
-namespace puzzles{ namespace Masyu{
+namespace puzzles::Masyu{
 
 #define PUZ_BLACK_PEARL        'B'
 #define PUZ_WHITE_PEARL        'W'
@@ -400,7 +400,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Masyu()
 {

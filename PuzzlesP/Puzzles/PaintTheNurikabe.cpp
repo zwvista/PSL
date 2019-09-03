@@ -18,7 +18,7 @@
     4. There can't be any 2*2 area of the same color(painted or empty).
 */
 
-namespace puzzles{ namespace PaintTheNurikabe{
+namespace puzzles::PaintTheNurikabe{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -368,7 +368,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_PaintTheNurikabe()
 {

@@ -17,7 +17,7 @@
     4. You can't have two identical numbers touching horizontally or vertically.
 */
 
-namespace puzzles{ namespace Tatami{
+namespace puzzles::Tatami{
 
 #define PUZ_SPACE        ' '
 
@@ -263,7 +263,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Tatami()
 {

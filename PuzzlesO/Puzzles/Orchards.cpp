@@ -20,7 +20,7 @@
        two Trees in it.
 */
 
-namespace puzzles{ namespace Orchards{
+namespace puzzles::Orchards{
 
 #define PUZ_TREE        'T'
 #define PUZ_SPACE        '.'
@@ -252,7 +252,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Orchards()
 {

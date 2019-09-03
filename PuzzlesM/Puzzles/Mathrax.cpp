@@ -20,7 +20,7 @@
        four tiles are either (E)ven or (O)dd numbers.
 */
 
-namespace puzzles{ namespace Mathrax{
+namespace puzzles::Mathrax{
 
 #define PUZ_SPACE    0
 #define PUZ_WRONG    -1
@@ -264,7 +264,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Mathrax()
 {

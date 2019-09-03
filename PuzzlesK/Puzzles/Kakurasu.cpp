@@ -16,7 +16,7 @@
        sum of the values mentioned above.
 */
 
-namespace puzzles{ namespace Kakurasu{
+namespace puzzles::Kakurasu{
 
 #define PUZ_UNKNOWN    -1
 
@@ -205,7 +205,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Kakurasu()
 {

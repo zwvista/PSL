@@ -16,7 +16,7 @@
        levels you only have numbers 1 to 8.
 */
 
-namespace puzzles{ namespace Skydoku{
+namespace puzzles::Skydoku{
 
 #define PUZ_SPACE        ' '
 
@@ -198,7 +198,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Skydoku()
 {

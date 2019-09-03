@@ -20,7 +20,7 @@
        not been shaded.
 */
 
-namespace puzzles{ namespace LoopAndBlocks{
+namespace puzzles::LoopAndBlocks{
 
 #define PUZ_NOT_SHADED        ' '
 #define PUZ_SHADED            'X'
@@ -357,7 +357,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_LoopAndBlocks()
 {

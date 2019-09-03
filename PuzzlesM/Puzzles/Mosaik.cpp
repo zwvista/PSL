@@ -19,7 +19,7 @@
        area are filled and some are not.
 */
 
-namespace puzzles{ namespace Mosaik{
+namespace puzzles::Mosaik{
 
 #define PUZ_UNKNOWN        10
 #define PUZ_SPACE        ' '
@@ -198,7 +198,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Mosaik()
 {

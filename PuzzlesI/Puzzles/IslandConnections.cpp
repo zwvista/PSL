@@ -18,7 +18,7 @@
     6. Shaded islands cannot be connected and should be avoided.
 */
 
-namespace puzzles{ namespace IslandConnections{
+namespace puzzles::IslandConnections{
 
 #define PUZ_SPACE             ' '
 #define PUZ_ISLAND            'O'
@@ -282,7 +282,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_IslandConnections()
 {

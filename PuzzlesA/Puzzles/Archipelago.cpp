@@ -20,7 +20,7 @@
     6. Finally, no 2*2 square can be occupied by water only (just like Nurikabe).
 */
 
-namespace puzzles{ namespace Archipelago{
+namespace puzzles::Archipelago{
 
 #define PUZ_SPACE        ' '
 #define PUZ_ISLAND        '.'
@@ -304,7 +304,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Archipelago()
 {

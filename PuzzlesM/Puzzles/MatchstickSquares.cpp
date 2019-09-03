@@ -6,7 +6,7 @@
     iOS Game: Matchstick Puzzles
 */
 
-namespace puzzles{ namespace MatchstickSquares{
+namespace puzzles::MatchstickSquares{
 
 #define PUZ_REMOVE        0
 #define PUZ_ADD           1
@@ -213,7 +213,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_MatchstickSquares()
 {

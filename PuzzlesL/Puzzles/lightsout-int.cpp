@@ -5,7 +5,7 @@
 #define PUZ_ON        '1'
 #define PUZ_OFF        '0'
 
-namespace puzzles{ namespace lightsout_int{
+namespace puzzles::lightsout_int{
 
 const Position offset[] = {
     {0, 0},
@@ -118,7 +118,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_lightsout_int()
 {

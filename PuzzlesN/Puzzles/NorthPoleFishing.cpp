@@ -18,7 +18,7 @@
     4. Ice blocks are just obstacles and don't count as piece of land.
 */
 
-namespace puzzles{ namespace NorthPoleFishing{
+namespace puzzles::NorthPoleFishing{
 
 #define PUZ_SPACE        ' '
 #define PUZ_BOUNDARY    '+'
@@ -279,7 +279,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_NorthPoleFishing()
 {

@@ -16,7 +16,7 @@
     4. The Sapphire (blue) hide the Pebbles (white) behind them.
 */
 
-namespace puzzles{ namespace Gems{
+namespace puzzles::Gems{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -197,7 +197,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Gems()
 {

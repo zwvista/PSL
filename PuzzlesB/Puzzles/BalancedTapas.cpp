@@ -15,7 +15,7 @@
     3. The filled cell count in both parts must be equal.
 */
 
-namespace puzzles{ namespace BalancedTapas{
+namespace puzzles::BalancedTapas{
 
 #define PUZ_SPACE        ' '
 #define PUZ_QM            '?'
@@ -358,7 +358,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_BalancedTapas()
 {

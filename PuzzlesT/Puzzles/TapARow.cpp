@@ -16,7 +16,7 @@
        of that row.
 */
 
-namespace puzzles{ namespace TapARow{
+namespace puzzles::TapARow{
 
 #define PUZ_SPACE        ' '
 #define PUZ_QM            '?'
@@ -372,7 +372,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_TapARow()
 {

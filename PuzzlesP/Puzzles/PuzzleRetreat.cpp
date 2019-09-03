@@ -7,7 +7,7 @@
     iOS Game: Puzzle Retreat
 */
 
-namespace puzzles{ namespace PuzzleRetreat{
+namespace puzzles::PuzzleRetreat{
 
 #define PUZ_HOLE_EMPTY        ' '
 #define PUZ_BLOCK_STOP        'S'
@@ -245,7 +245,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_PuzzleRetreat()
 {

@@ -18,7 +18,7 @@
     4. All the Planks form a ring, or a closed loop.
 */
 
-namespace puzzles{ namespace Planks{
+namespace puzzles::Planks{
 
 #define PUZ_SPACE       ' '
 #define PUZ_NAIL        'N'
@@ -263,7 +263,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Planks()
 {

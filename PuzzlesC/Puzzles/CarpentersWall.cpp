@@ -23,7 +23,7 @@
        and no hint given.
 */
 
-namespace puzzles{ namespace CarpentersWall{
+namespace puzzles::CarpentersWall{
 
 #define PUZ_SPACE       ' '
 #define PUZ_WALL        'W'
@@ -469,7 +469,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_CarpentersWall()
 {

@@ -16,7 +16,7 @@
        entirely covered by boxes.
 */
 
-namespace puzzles{ namespace BoxItAgain{
+namespace puzzles::BoxItAgain{
 
 #define PUZ_SPACE        ' '
 
@@ -226,7 +226,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_BoxItAgain()
 {

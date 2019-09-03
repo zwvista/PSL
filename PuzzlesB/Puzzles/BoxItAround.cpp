@@ -14,7 +14,7 @@
        the width and the height of that Box.
 */
 
-namespace puzzles{ namespace BoxItAround{
+namespace puzzles::BoxItAround{
 
 #define PUZ_SPACE        ' '
 
@@ -233,7 +233,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_BoxItAround()
 {

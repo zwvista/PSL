@@ -18,7 +18,7 @@
        size of that area in unit squares.
 */
 
-namespace puzzles{ namespace TapaIslands{
+namespace puzzles::TapaIslands{
 
 #define PUZ_SPACE        ' '
 #define PUZ_QM            '?'
@@ -401,7 +401,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_TapaIslands()
 {

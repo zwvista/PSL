@@ -18,7 +18,7 @@
     4. All the shaded cells should form a valid Nurikabe.
 */
 
-namespace puzzles{ namespace MiniLits{
+namespace puzzles::MiniLits{
 
 #define PUZ_SPACE        '.'    
 
@@ -323,7 +323,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_MiniLits()
 {

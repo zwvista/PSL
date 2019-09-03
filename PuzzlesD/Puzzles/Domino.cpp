@@ -24,7 +24,7 @@
        sixes, etc.
 */
 
-namespace puzzles{ namespace Domino{
+namespace puzzles::Domino{
 
 #define PUZ_SPACE        ' '
 
@@ -240,7 +240,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Domino()
 {

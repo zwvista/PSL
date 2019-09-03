@@ -20,7 +20,7 @@
     4. Some tiles are marked as squares and are just fixed blocks.
 */
 
-namespace puzzles{ namespace FourMeNot{
+namespace puzzles::FourMeNot{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -230,7 +230,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_FourMeNot()
 {

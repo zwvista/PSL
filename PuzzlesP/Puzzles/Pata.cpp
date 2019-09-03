@@ -19,7 +19,7 @@
     6. You can't have a 2*2 space of filled tiles.
 */
 
-namespace puzzles{ namespace Pata{
+namespace puzzles::Pata{
 
 #define PUZ_SPACE        ' '
 #define PUZ_QM            '?'
@@ -349,7 +349,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Pata()
 {

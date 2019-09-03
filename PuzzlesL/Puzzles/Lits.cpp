@@ -20,7 +20,7 @@
     5. All the shaded cells should form a valid Nurikabe (hence no fat guy).
 */
 
-namespace puzzles{ namespace Lits{
+namespace puzzles::Lits{
 
 #define PUZ_SPACE        '.'    
 
@@ -343,7 +343,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Lits()
 {

@@ -17,7 +17,7 @@
     3. The goal is to jump on every tile, only once and reach the last tile.
 */
 
-namespace puzzles{ namespace HiddenPath{
+namespace puzzles::HiddenPath{
 
 #define PUZ_UNKNOWN        0
 
@@ -119,7 +119,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_HiddenPath()
 {

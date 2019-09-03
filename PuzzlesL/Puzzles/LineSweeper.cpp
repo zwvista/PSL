@@ -18,7 +18,7 @@
     4. The loop doesn't need to cover all the board.
 */
 
-namespace puzzles{ namespace LineSweeper{
+namespace puzzles::LineSweeper{
 
 #define PUZ_LINE_OFF        '0'
 #define PUZ_LINE_ON            '1'
@@ -416,7 +416,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_LineSweeper()
 {

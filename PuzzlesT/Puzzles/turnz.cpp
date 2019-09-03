@@ -3,7 +3,7 @@
 #include "idastar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace turnz{
+namespace puzzles::turnz{
 
 #define PUZ_ROCK        '#'
 #define PUZ_FINISH        '.'
@@ -215,7 +215,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_turnz()
 {

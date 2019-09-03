@@ -25,7 +25,7 @@
        closest Treasure on that row or column.
 */
 
-namespace puzzles{ namespace BootyIsland{
+namespace puzzles::BootyIsland{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -238,7 +238,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_BootyIsland()
 {

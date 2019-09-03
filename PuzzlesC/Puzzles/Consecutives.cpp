@@ -25,7 +25,7 @@
     6. Even further, you will find levels that have NO areas.
 */
 
-namespace puzzles{ namespace Consecutives{
+namespace puzzles::Consecutives{
 
 #define PUZ_SPACE        ' '
 #define PUZ_ROW_LINE    '|'
@@ -279,7 +279,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Consecutives()
 {

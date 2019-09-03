@@ -20,7 +20,7 @@
        are on the outside of the loop.
 */
 
-namespace puzzles{ namespace FenceSentinels{
+namespace puzzles::FenceSentinels{
 
 #define PUZ_BOUNDARY        '+'
 #define PUZ_INSIDE            'I'
@@ -448,7 +448,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_FenceSentinels()
 {

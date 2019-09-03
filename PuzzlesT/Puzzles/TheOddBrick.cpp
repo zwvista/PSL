@@ -17,7 +17,7 @@
        the board.
 */
 
-namespace puzzles{ namespace TheOddBrick{
+namespace puzzles::TheOddBrick{
 
 #define PUZ_SPACE        ' '
 
@@ -250,7 +250,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_TheOddBrick()
 {

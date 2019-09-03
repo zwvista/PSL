@@ -3,7 +3,7 @@
 #include "idastar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace Pharaoh{
+namespace puzzles::Pharaoh{
 
 enum EBrickDir {mvLeft, mvRight, mvUp, mvDown};
 enum EBrickType {btRed, btBlue, btYellow};
@@ -185,7 +185,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     }
 }
 
-}}
+}
 
 void solve_puz_Pharaoh()
 {

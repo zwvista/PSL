@@ -17,7 +17,7 @@
        opposite colour. The two figures will have the same exact shape.
 */
 
-namespace puzzles{ namespace TapAlike{
+namespace puzzles::TapAlike{
 
 #define PUZ_SPACE        ' '
 #define PUZ_QM            '?'
@@ -358,7 +358,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_TapAlike()
 {

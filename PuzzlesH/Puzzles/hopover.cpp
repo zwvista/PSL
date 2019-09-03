@@ -9,7 +9,7 @@
     http://www.freeonlinepcgames.net/play/hop-over-puzzle-classic-puzzle-can-you-switch-t/flash-game/
 */
 
-namespace puzzles{ namespace hopover{
+namespace puzzles::hopover{
 
 #define PUZ_WALL    '#'
 #define PUZ_RED        '>'
@@ -107,7 +107,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_hopover()
 {

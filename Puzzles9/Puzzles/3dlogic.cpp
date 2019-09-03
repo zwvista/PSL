@@ -5,7 +5,7 @@
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace _3dlogic{
+namespace puzzles::_3dlogic{
 
 #define PUZ_NOENTRY        '#'
 #define PUZ_SPACE        ' '
@@ -313,7 +313,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_3dlogic()
 {

@@ -18,7 +18,7 @@
        on that Row or Column. 
 */
 
-namespace puzzles{ namespace Thermometers{
+namespace puzzles::Thermometers{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -255,7 +255,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Thermometers()
 {

@@ -14,7 +14,7 @@
        block contains exactly one lake.
 */
 
-namespace puzzles{ namespace LakesAndMeadows{
+namespace puzzles::LakesAndMeadows{
 
 #define PUZ_SPACE        ' '
 #define PUZ_LAKE         'L'
@@ -224,7 +224,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_LakesAndMeadows()
 {

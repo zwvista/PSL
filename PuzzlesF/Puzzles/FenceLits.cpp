@@ -17,7 +17,7 @@
     3. Please consider that the outside border of the board as marked.
 */
 
-namespace puzzles{ namespace FenceLits{
+namespace puzzles::FenceLits{
 
 #define PUZ_SPACE        ' '    
 #define PUZ_UNKNOWN        -1
@@ -232,7 +232,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_FenceLits()
 {

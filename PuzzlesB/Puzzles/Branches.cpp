@@ -18,7 +18,7 @@
        and can't make corners.
 */
 
-namespace puzzles{ namespace Branches{
+namespace puzzles::Branches{
 
 #define PUZ_SPACE        ' '
 #define PUZ_NUMBER        'N'
@@ -251,7 +251,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Branches()
 {

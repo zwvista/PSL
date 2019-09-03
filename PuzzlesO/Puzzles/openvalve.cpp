@@ -2,7 +2,7 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace openvalve{
+namespace puzzles::openvalve{
 
 #define PUZ_PIPE_L        'L'        // "┌","┐","└","┘"
 #define PUZ_PIPE_I        'I'        // "─","│"
@@ -184,7 +184,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_openvalve()
 {

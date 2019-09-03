@@ -18,7 +18,7 @@
     5. In some levels, a few numbers on the border can be hidden.
 */
 
-namespace puzzles{ namespace Magnets{
+namespace puzzles::Magnets{
 
 #define PUZ_HORZ        'H'
 #define PUZ_VERT        'V'
@@ -282,7 +282,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Magnets()
 {

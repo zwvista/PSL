@@ -17,7 +17,7 @@
        No lighthouse touches another lighthouse as well.
 */
 
-namespace puzzles{ namespace Lighthouses{
+namespace puzzles::Lighthouses{
 
 #define PUZ_SPACE            ' '
 #define PUZ_EMPTY            '.'
@@ -240,7 +240,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Lighthouses()
 {

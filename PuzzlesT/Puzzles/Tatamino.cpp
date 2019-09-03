@@ -16,7 +16,7 @@
     3. Please remember two areas of the same number size can't be touching.
 */
 
-namespace puzzles{ namespace Tatamino{
+namespace puzzles::Tatamino{
 
 #define PUZ_UNKNOWN            -1
 #define PUZ_WALL_UNKNOWN    '0'
@@ -344,7 +344,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Tatamino()
 {

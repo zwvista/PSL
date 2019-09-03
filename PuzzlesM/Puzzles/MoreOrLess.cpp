@@ -21,7 +21,7 @@
        All the other rules are the same.
 */
 
-namespace puzzles{ namespace MoreOrLess{
+namespace puzzles::MoreOrLess{
 
 #define PUZ_SPACE        ' '
 
@@ -265,7 +265,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_MoreOrLess()
 {

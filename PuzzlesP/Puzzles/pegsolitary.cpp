@@ -2,7 +2,7 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace pegsolitary{
+namespace puzzles::pegsolitary{
 
 #define PUZ_PEG        '$'
 #define PUZ_HOLE    ' '
@@ -124,7 +124,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_pegsolitary()
 {

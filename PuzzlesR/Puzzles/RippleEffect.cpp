@@ -18,7 +18,7 @@
        column by at least two tiles.
 */
 
-namespace puzzles{ namespace RippleEffect{
+namespace puzzles::RippleEffect{
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -252,7 +252,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_RippleEffect()
 {

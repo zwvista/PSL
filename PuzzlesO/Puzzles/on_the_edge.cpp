@@ -4,7 +4,7 @@
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace on_the_edge{
+namespace puzzles::on_the_edge{
 
 #define PUZ_HOLE        '#'
 #define PUZ_BLACK        '2'
@@ -189,7 +189,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_on_the_edge()
 {

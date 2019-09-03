@@ -21,7 +21,7 @@
     5. All the tiles in the board have to be part of a Carpenter's Square.
 */
 
-namespace puzzles{ namespace CarpentersSquare{
+namespace puzzles::CarpentersSquare{
 
 #define PUZ_SPACE       ' '
 #define PUZ_BOUNDARY    '+'
@@ -372,7 +372,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_CarpentersSquare()
 {

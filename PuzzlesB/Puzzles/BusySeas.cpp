@@ -16,7 +16,7 @@
     4. Lighthouses can touch boats and other lighthouses.
 */
 
-namespace puzzles{ namespace BusySeas{
+namespace puzzles::BusySeas{
 
 #define PUZ_SPACE            ' '
 #define PUZ_EMPTY            '.'
@@ -198,7 +198,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_BusySeas()
 {

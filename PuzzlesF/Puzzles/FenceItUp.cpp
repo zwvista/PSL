@@ -15,7 +15,7 @@
        of the perimeter of the area.
 */
 
-namespace puzzles{ namespace FenceItUp{
+namespace puzzles::FenceItUp{
 
 #define PUZ_SPACE        ' '
 #define PUZ_SINGLE        '.'
@@ -239,7 +239,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_FenceItUp()
 {

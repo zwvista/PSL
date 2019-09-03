@@ -21,7 +21,7 @@
        other Tents.
 */
 
-namespace puzzles{ namespace HolidayIsland{
+namespace puzzles::HolidayIsland{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -287,7 +287,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_HolidayIsland()
 {

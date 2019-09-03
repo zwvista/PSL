@@ -27,7 +27,7 @@
        (or none, of course)
 */
 
-namespace puzzles{ namespace Bridges{
+namespace puzzles::Bridges{
 
 #define PUZ_SPACE             ' '
 #define PUZ_ISLAND            'N'
@@ -44,7 +44,7 @@ const Position offset[] = {
     {0, -1},        // w
 };
 
-}}
+}
 
 extern void solve_puz_Bridges();
 extern void solve_puz_BridgesTest();

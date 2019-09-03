@@ -19,7 +19,7 @@
        all the wolves must be outside.
 */
 
-namespace puzzles{ namespace SheepAndWolves{
+namespace puzzles::SheepAndWolves{
 
 #define PUZ_UNKNOWN            -1
 #define PUZ_LINE_OFF        '0'
@@ -410,7 +410,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_SheepAndWolves()
 {

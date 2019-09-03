@@ -19,7 +19,7 @@
     4. Puzzle with side 9 or bigger have TWO plants in every row and column.
 */
 
-namespace puzzles{ namespace BotanicalPark{
+namespace puzzles::BotanicalPark{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -223,7 +223,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_BotanicalPark()
 {

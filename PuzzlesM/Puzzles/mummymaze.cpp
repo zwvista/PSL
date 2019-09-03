@@ -2,7 +2,7 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace mummymaze{
+namespace puzzles::mummymaze{
 
 enum EMazeDir {mvNone, mvLeft, mvRight, mvUp, mvDown};
 enum EMazeObject {moExplorer, moHorzCrab, moVertCrab, moHorzMummy, moVertMummy};
@@ -269,7 +269,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_mummymaze()
 {

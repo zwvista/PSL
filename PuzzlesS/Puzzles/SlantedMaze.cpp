@@ -21,7 +21,7 @@
        This also means very big loops, not just 2*2.
 */
 
-namespace puzzles{ namespace SlantedMaze{
+namespace puzzles::SlantedMaze{
 
 #define PUZ_UNKNOWN        5
 #define PUZ_SPACE        ' '
@@ -271,7 +271,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_SlantedMaze()
 {

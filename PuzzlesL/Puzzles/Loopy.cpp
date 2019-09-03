@@ -14,7 +14,7 @@
        the path cannot have branches or cross itself.
 */
 
-namespace puzzles{ namespace Loopy{
+namespace puzzles::Loopy{
 
 #define PUZ_LINE_UNKNOWN    "01"
 #define PUZ_LINE_OFF        '0'
@@ -256,7 +256,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Loopy()
 {

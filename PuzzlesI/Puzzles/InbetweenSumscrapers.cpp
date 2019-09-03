@@ -17,7 +17,7 @@
     5. Hints on the border give you the sums of the numbers between the skyscrapers.
 */
 
-namespace puzzles{ namespace InbetweenSumscrapers{
+namespace puzzles::InbetweenSumscrapers{
 
 #define PUZ_SKYSCRAPER      -1
 #define PUZ_SPACE           -2
@@ -195,7 +195,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_InbetweenSumscrapers()
 {

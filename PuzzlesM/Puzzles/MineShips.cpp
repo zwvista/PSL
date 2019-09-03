@@ -18,7 +18,7 @@
     4. Usual Battle Ships rules apply!
 */
 
-namespace puzzles{ namespace MineShips{
+namespace puzzles::MineShips{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -219,7 +219,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_MineShips()
 {

@@ -20,7 +20,7 @@
     7. Larger puzzles have TWO Trees in each park, each row and each column.
 */
 
-namespace puzzles{ namespace Parks{
+namespace puzzles::Parks{
 
 #define PUZ_TREE        'T'
 #define PUZ_SPACE        '.'
@@ -304,7 +304,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Parks()
 {

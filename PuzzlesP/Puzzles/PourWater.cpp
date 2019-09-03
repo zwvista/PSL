@@ -17,7 +17,7 @@
        specified in terms of the volume of liquid that must be present in some jug or jugs.
 */
 
-namespace puzzles{ namespace PourWater{
+namespace puzzles::PourWater{
 
 #define PUZ_UNKNOWN     -1
 
@@ -164,7 +164,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_PourWater()
 {

@@ -23,7 +23,7 @@
        continuous area (Garden).
 */
 
-namespace puzzles{ namespace CastleBailey{
+namespace puzzles::CastleBailey{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -259,7 +259,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_CastleBailey()
 {

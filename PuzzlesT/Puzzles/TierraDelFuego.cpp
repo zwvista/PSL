@@ -21,7 +21,7 @@
     6. Please note there are no hidden tribes or islands without a tribe on it.
 */
 
-namespace puzzles{ namespace TierraDelFuego{
+namespace puzzles::TierraDelFuego{
 
 #define PUZ_SPACE        ' '
 #define PUZ_ISLAND        '.'
@@ -223,7 +223,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_TierraDelFuego()
 {

@@ -16,7 +16,7 @@
     3. The region size must be between the two numbers.
 */
 
-namespace puzzles{ namespace OverUnder{
+namespace puzzles::OverUnder{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -264,7 +264,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_OverUnder()
 {

@@ -28,7 +28,7 @@
        In these cases, you must connect ALL the same numbers together.
 */
 
-namespace puzzles{ namespace NumberLink{
+namespace puzzles::NumberLink{
 
 #define PUZ_SPACE            ' '
 #define PUZ_NUMBER            'N'
@@ -287,7 +287,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_NumberLink()
 {

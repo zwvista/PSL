@@ -17,7 +17,7 @@
        on that column or row.
 */
 
-namespace puzzles{ namespace NumberCrossing{
+namespace puzzles::NumberCrossing{
 
 #define PUZ_EMPTY        0
 #define PUZ_UNKNOWN      -1
@@ -259,7 +259,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_NumberCrossing()
 {

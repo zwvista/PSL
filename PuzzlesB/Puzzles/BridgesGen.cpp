@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 #include "Bridges.h"
 
-namespace puzzles{ namespace Bridges{
+namespace puzzles::Bridges{
 
 struct puz_generator
 {
@@ -97,7 +97,7 @@ string puz_generator::to_string()
     return ss.str();
 }
 
-}}
+}
 
 bool is_valid_Bridges(const string& s)
 {

@@ -26,7 +26,7 @@
        1 Supertanker (5 squares)
 */
 
-namespace puzzles{ namespace BattleShips{
+namespace puzzles::BattleShips{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -315,7 +315,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_BattleShips()
 {

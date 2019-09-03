@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 #include "Bridges.h"
 
-namespace puzzles{ namespace Bridges{
+namespace puzzles::Bridges{
 
 struct puz_game
 {
@@ -233,7 +233,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Bridges()
 {

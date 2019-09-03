@@ -16,7 +16,7 @@
     3. No same number can appear in the same row or column.
 */
 
-namespace puzzles{ namespace RobotFences{
+namespace puzzles::RobotFences{
 
 #define PUZ_SPACE        ' '
 
@@ -273,7 +273,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_RobotFences()
 {

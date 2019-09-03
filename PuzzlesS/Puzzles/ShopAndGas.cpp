@@ -34,7 +34,7 @@
        station.
 */
 
-namespace puzzles{ namespace ShopAndGas{
+namespace puzzles::ShopAndGas{
 
 #define PUZ_LINE_OFF        '0'
 #define PUZ_LINE_ON            '1'
@@ -281,7 +281,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_ShopAndGas()
 {

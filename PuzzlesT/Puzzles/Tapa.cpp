@@ -33,7 +33,7 @@
     8. No Square Tapa - No 2*2 area of the board can be left empty.
 */
 
-namespace puzzles{ namespace Tapa{
+namespace puzzles::Tapa{
 
 #define PUZ_SPACE        ' '
 #define PUZ_QM            '?'
@@ -403,7 +403,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Tapa()
 {

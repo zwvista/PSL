@@ -15,7 +15,7 @@
     3. Each column must have a different number of filled cells.
 */
 
-namespace puzzles{ namespace TapDifferently{
+namespace puzzles::TapDifferently{
 
 #define PUZ_SPACE        ' '
 #define PUZ_QM            '?'
@@ -366,7 +366,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_TapDifferently()
 {

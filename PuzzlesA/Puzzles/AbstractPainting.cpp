@@ -15,7 +15,7 @@
     3. The region of the painting can be entirely hidden or revealed.
 */
 
-namespace puzzles{ namespace AbstractPainting{
+namespace puzzles::AbstractPainting{
 
 #define PUZ_PAINTING    'P'
 #define PUZ_SPACE       '.'
@@ -265,7 +265,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_AbstractPainting()
 {

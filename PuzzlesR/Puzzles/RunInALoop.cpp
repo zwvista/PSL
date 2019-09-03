@@ -14,7 +14,7 @@
     2. The loop cannot cross itself.
 */
 
-namespace puzzles{ namespace RunInALoop{
+namespace puzzles::RunInALoop{
 
 #define PUZ_BLOCK           'B'
 
@@ -241,7 +241,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_RunInALoop()
 {

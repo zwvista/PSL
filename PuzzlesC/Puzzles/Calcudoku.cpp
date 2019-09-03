@@ -27,7 +27,7 @@
        could be repeated in non-straight areas, like the L-shaped one.
 */
 
-namespace puzzles{ namespace Calcudoku{
+namespace puzzles::Calcudoku{
 
 #define PUZ_SPACE    0
 #define PUZ_ADD        '+'
@@ -225,7 +225,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Calcudoku()
 {

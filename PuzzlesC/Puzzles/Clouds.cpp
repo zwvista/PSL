@@ -17,7 +17,7 @@
     4. Clouds can't touch between themselves, not even diagonally. 
 */
 
-namespace puzzles{ namespace Clouds{
+namespace puzzles::Clouds{
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -281,7 +281,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Clouds()
 {

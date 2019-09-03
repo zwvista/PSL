@@ -92,7 +92,7 @@
        North-West one.
 */
 
-namespace puzzles{ namespace Hedgehog{
+namespace puzzles::Hedgehog{
 
 #define PUZ_SPACE            0
 #define PUZ_BOULDER            -1
@@ -353,7 +353,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Hedgehog()
 {

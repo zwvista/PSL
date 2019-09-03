@@ -20,7 +20,7 @@
        lightbulbs don't need to be adjacent to a wall.
 */
 
-namespace puzzles{ namespace LightenUp{
+namespace puzzles::LightenUp{
 
 #define PUZ_WALL        'W'
 #define PUZ_BULB        'B'
@@ -225,7 +225,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_LightenUp()
 {

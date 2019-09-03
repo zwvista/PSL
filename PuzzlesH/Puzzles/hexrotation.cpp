@@ -3,7 +3,7 @@
 #include "idastar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace hexrotation{
+namespace puzzles::hexrotation{
 
 #define PUZ_NOENTRY        '#'
 
@@ -134,7 +134,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_hexrotation()
 {

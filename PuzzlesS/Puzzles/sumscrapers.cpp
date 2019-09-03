@@ -19,7 +19,7 @@
     5. Each row and column can't have similar Skyscrapers.
 */
 
-namespace puzzles{ namespace sumscrapers{
+namespace puzzles::sumscrapers{
 
 #define PUZ_SPACE        0
 
@@ -194,7 +194,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_sumscrapers()
 {

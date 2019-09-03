@@ -4,7 +4,7 @@
 
 // iOS Game: pattern puzzle
 
-namespace puzzles{ namespace patternpuzzle{
+namespace puzzles::patternpuzzle{
 
 const Position offset[] = {
     {0, 1},
@@ -162,7 +162,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_patternpuzzle()
 {

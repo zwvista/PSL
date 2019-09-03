@@ -2,7 +2,7 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles{ namespace mazecat{
+namespace puzzles::mazecat{
 
 #define PUZ_MALE        'M'
 #define PUZ_FEMALE        'F'
@@ -132,7 +132,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_mazecat()
 {

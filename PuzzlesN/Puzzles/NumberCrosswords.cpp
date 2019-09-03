@@ -14,7 +14,7 @@
        remaining tiles in that row or column.
 */
 
-namespace puzzles{ namespace NumberCrosswords{
+namespace puzzles::NumberCrosswords{
 
 #define PUZ_EMPTY        0
 #define PUZ_UNKNOWN      -1
@@ -206,7 +206,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_NumberCrosswords()
 {

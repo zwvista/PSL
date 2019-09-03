@@ -14,7 +14,7 @@
        2-3-4-5), but in any order (i.e. 3-4-2-5).
 */
 
-namespace puzzles{ namespace RobotCrosswords{
+namespace puzzles::RobotCrosswords{
 
 #define PUZ_SPACE        ' '
 #define PUZ_SQUARE        '.'
@@ -203,7 +203,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_RobotCrosswords()
 {

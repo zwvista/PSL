@@ -14,7 +14,7 @@
        all the numbers between 1 and N, only once.
 */
 
-namespace puzzles{ namespace NumberPath{
+namespace puzzles::NumberPath{
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -129,7 +129,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_NumberPath()
 {

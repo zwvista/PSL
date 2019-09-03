@@ -15,7 +15,7 @@
     4. There is one arrow for each tile outside the board.
 */
 
-namespace puzzles{ namespace Arrows{
+namespace puzzles::Arrows{
 
 #define PUZ_CORNER    100
 #define PUZ_BORDER    99
@@ -264,7 +264,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Arrows()
 {

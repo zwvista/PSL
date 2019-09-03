@@ -30,7 +30,7 @@
     10.All Evens: There are only even numbers on the board.
 */
 
-namespace puzzles{ namespace Fillomino{
+namespace puzzles::Fillomino{
 
 #define PUZ_UNKNOWN            -1
 #define PUZ_WALL_UNKNOWN    '0'
@@ -418,7 +418,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_Fillomino()
 {
