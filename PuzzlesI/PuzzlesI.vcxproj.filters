@@ -25,6 +25,9 @@
     <Text Include="Puzzles\IslandConnections.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\InbetweenSumscrapers.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -53,12 +56,18 @@
     <ClCompile Include="Puzzles\IslandConnections.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\InbetweenSumscrapers.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\icedin.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\IslandConnections.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\InbetweenSumscrapers.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
