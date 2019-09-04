@@ -14,6 +14,7 @@ extern void solve_puz_pegsolitary();
 extern void solve_puz_Pharaoh();
 extern void solve_puz_Planets();
 extern void solve_puz_Planks();
+extern void solve_puz_PlugItIn();
 extern void solve_puz_PourWater();
 extern void solve_puz_PowerGrid();
 extern void solve_puz_ProductSentinels();
@@ -36,6 +37,7 @@ int main(int argc, char **argv)
     cout << "h: Pharaoh" << endl;
     cout << "l1: Planets" << endl;
     cout << "l2: Planks" << endl;
+    cout << "l3: Plug it in" << endl;
     cout << "o1: Pour Water" << endl;
     cout << "o2: Power Grid" << endl;
     cout << "r: Product Sentinels" << endl;
@@ -57,6 +59,7 @@ int main(int argc, char **argv)
     else if (str == "h") solve_puz_Pharaoh();
     else if (str == "l1") solve_puz_Planets();
     else if (str == "l2") solve_puz_Planks();
+    else if (str == "l3") solve_puz_PlugItIn();
     else if (str == "o1") solve_puz_PourWater();
     else if (str == "o2") solve_puz_PowerGrid();
     else if (str == "r") solve_puz_ProductSentinels();

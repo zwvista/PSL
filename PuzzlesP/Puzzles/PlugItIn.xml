@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Connect each battery with a lightbulb by a horizontal or vertical cable.
+2. Cables are not allowed to cross other cables.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+L   L`
+BB L `
+BLLBB`
+   LB`
+B  L `
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+LB B `
+ L L `
+ BBLL`
+B B  `
+ LL B`
+    ]]>
+  </level>
+</levels>
+</puzzle>
