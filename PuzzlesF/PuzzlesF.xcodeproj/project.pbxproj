@@ -21,6 +21,7 @@
 		8CA240341EB479B90055D6B1 /* fullsearch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240261EB479B90055D6B1 /* fullsearch.cpp */; };
 		8CA240351EB479B90055D6B1 /* FussyWaiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240281EB479B90055D6B1 /* FussyWaiter.cpp */; };
 		8CA240361EB479B90055D6B1 /* Futoshiki.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2402B1EB479B90055D6B1 /* Futoshiki.cpp */; };
+		95D7B5FB23201437001E005C /* FreePlanks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5FA23201437001E005C /* FreePlanks.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -94,6 +95,9 @@
 		8CA2402B1EB479B90055D6B1 /* Futoshiki.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Futoshiki.cpp; sourceTree = "<group>"; };
 		8CA2402C1EB479B90055D6B1 /* Futoshiki.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Futoshiki.txt; sourceTree = "<group>"; };
 		8CA2402D1EB479B90055D6B1 /* Futoshiki.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Futoshiki.xml; sourceTree = "<group>"; };
+		95D7B5F823201436001E005C /* FreePlanks.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FreePlanks.xml; sourceTree = "<group>"; };
+		95D7B5F923201437001E005C /* FreePlanks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FreePlanks.txt; sourceTree = "<group>"; };
+		95D7B5FA23201437001E005C /* FreePlanks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FreePlanks.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,9 @@
 				8CA240201EB479B90055D6B1 /* FourMeNot.cpp */,
 				8CA240211EB479B90055D6B1 /* FourMeNot.txt */,
 				8CA240221EB479B90055D6B1 /* FourMeNot.xml */,
+				95D7B5FA23201437001E005C /* FreePlanks.cpp */,
+				95D7B5F923201437001E005C /* FreePlanks.txt */,
+				95D7B5F823201436001E005C /* FreePlanks.xml */,
 				8CA240231EB479B90055D6B1 /* fullsearch_astar.txt */,
 				8CA240241EB479B90055D6B1 /* fullsearch_bfs.txt */,
 				8CA240251EB479B90055D6B1 /* fullsearch_dijkstra.txt */,
@@ -265,6 +272,7 @@
 				8CA240311EB479B90055D6B1 /* Fillomino.cpp in Sources */,
 				8CA240351EB479B90055D6B1 /* FussyWaiter.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
+				95D7B5FB23201437001E005C /* FreePlanks.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA240321EB479B90055D6B1 /* fling.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
