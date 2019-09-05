@@ -165,10 +165,10 @@ int puz_state::find_matches(bool init)
         auto& lits = m_game->m_nail2lits.at(p);
 
         boost::remove_erase_if(perms, [&](int id) {
-            auto& rng = m_game->m_planks[lits[id].second].m_offset;
+            auto& lit = lits[id];
+            auto& rng = m_game->m_planks[lit.second].m_offset;
             return boost::algorithm::any_of(rng, [&](const Position& os) {
-                auto p2 = p + os;
-                return is_valid(p2) && cells(p2) != PUZ_SPACE;
+                return cells(lit.first + os) != PUZ_SPACE;
             });
         });
 
@@ -188,14 +188,15 @@ bool puz_state::can_move_planks() const
     return boost::algorithm::all_of(m_lits, [&](const puz_lit& lit) {
         auto& p = lit.first;
         auto& rng = m_game->m_planks[lit.second].m_offset;
+        char ch = cells(p + rng[0]);
         return boost::algorithm::any_of(offset, [&](const Position& os) {
             auto p2 = p + os;
             return boost::algorithm::all_of(rng, [&](const Position& os2) {
                 auto p3 = p2 + os2;
                 if (!is_valid(p3))
-                    return true;
-                char ch = cells(p3);
-                return ch == PUZ_SPACE || ch == cells(p);
+                    return false;
+                char ch2 = cells(p3);
+                return ch2 == PUZ_SPACE || ch == ch;
             });
         });
     });
@@ -213,7 +214,7 @@ bool puz_state::make_move2(const Position& p, int n)
         m_vert_walls.insert(p2 + os);
     for (auto& os : t.m_offset)
         cells(p2 + os) = m_ch;
-    m_lits.emplace_back(p, n);
+    m_lits.emplace_back(p2, lit.second);
 
     ++m_ch, ++m_distance;
     m_matches.erase(p);
