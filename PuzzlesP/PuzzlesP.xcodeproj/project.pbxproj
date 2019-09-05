@@ -30,6 +30,7 @@
 		8CDAE7DA1F5ADE96000DE5AF /* PaintTheNurikabe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CDAE7D71F5ADE96000DE5AF /* PaintTheNurikabe.cpp */; };
 		950CA84E20FA08C10092A1D4 /* PourWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 950CA84C20FA08C10092A1D4 /* PourWater.cpp */; };
 		955BEDC12303AC1D00535B97 /* Planets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 955BEDBE2303AC1D00535B97 /* Planets.cpp */; };
+		95D7B5F7231D7351001E005C /* PlugItIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5F4231D7351001E005C /* PlugItIn.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -136,6 +137,9 @@
 		955BEDBE2303AC1D00535B97 /* Planets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Planets.cpp; sourceTree = "<group>"; };
 		955BEDBF2303AC1D00535B97 /* Planets.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Planets.txt; sourceTree = "<group>"; };
 		955BEDC02303AC1D00535B97 /* Planets.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Planets.xml; sourceTree = "<group>"; };
+		95D7B5F4231D7351001E005C /* PlugItIn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlugItIn.cpp; sourceTree = "<group>"; };
+		95D7B5F5231D7351001E005C /* PlugItIn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugItIn.txt; sourceTree = "<group>"; };
+		95D7B5F6231D7351001E005C /* PlugItIn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PlugItIn.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +225,9 @@
 				8CA240FD1EB47AC40055D6B1 /* Planks.cpp */,
 				8CA240FE1EB47AC40055D6B1 /* Planks.txt */,
 				8CA240FF1EB47AC40055D6B1 /* Planks.xml */,
+				95D7B5F4231D7351001E005C /* PlugItIn.cpp */,
+				95D7B5F5231D7351001E005C /* PlugItIn.txt */,
+				95D7B5F6231D7351001E005C /* PlugItIn.xml */,
 				950CA84C20FA08C10092A1D4 /* PourWater.cpp */,
 				950CA84D20FA08C10092A1D4 /* PourWater.txt */,
 				950CA84B20FA08C10092A1D4 /* PourWater.xml */,
@@ -339,6 +346,7 @@
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA241171EB47AC40055D6B1 /* Planks.cpp in Sources */,
+				95D7B5F7231D7351001E005C /* PlugItIn.cpp in Sources */,
 				8CA241101EB47AC40055D6B1 /* Parks.cpp in Sources */,
 				8CA2410E1EB47AC40055D6B1 /* ParkingLot.cpp in Sources */,
 				8CA2411A1EB47AC40055D6B1 /* PuzzleRetreat.cpp in Sources */,
