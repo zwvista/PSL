@@ -19,7 +19,8 @@
 
 namespace puzzles::FreePlanks{
 
-#define PUZ_SPACE        ' '    
+#define PUZ_SPACE        ' '
+#define PUZ_NAIL         'N'
 #define PUZ_UNKNOWN        -1
 
 const Position offset[] = {
@@ -50,7 +51,6 @@ const vector<vector<Position>> planks = {
 struct puz_plank
 {
     vector<Position> m_offset;
-    vector<int> m_nums;
     vector<Position> m_horz_walls, m_vert_walls;
 };
 
@@ -61,10 +61,14 @@ struct puz_game
     string m_id;
     int m_sidelen;
     vector<puz_plank> m_planks;
-    map<Position, int> m_pos2num;
-    vector<puz_lit> m_lits;
+    string m_start;
+    map<Position, vector<puz_lit>> m_nail2lits;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -75,24 +79,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int i = 0; i < m_planks.size(); ++i) {
         auto& t = m_planks[i];
         t.m_offset = planks[i];
-        t.m_nums.resize(4);
-        for (int j = 0; j < 4; ++j) {
-            int& n = t.m_nums[j];
-            auto& p = t.m_offset[j];
+        for (auto& p : t.m_offset)
             for (int k = 0; k < 4; ++k)
-                if (boost::algorithm::none_of_equal(t.m_offset, p + offset[k])) {
-                    ++n;
+                if (boost::algorithm::none_of_equal(t.m_offset, p + offset[k]))
                     (k % 2 == 0 ? t.m_horz_walls : t.m_vert_walls).push_back(p + offset2[k]);
-                }
-        }
     }
 
+    m_start = boost::accumulate(strs, string());
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
-            char ch = str[c];
-            m_pos2num[{r, c}] = ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
-        }
+        for (int c = 0; c < m_sidelen; ++c)
+            if (char ch = str[c]; ch == PUZ_NAIL)
+                m_nail2lits[{r, c}];
     }
 
     for (int r = 0; r < m_sidelen; ++r)
@@ -100,19 +98,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             for (int i = 0; i < m_planks.size(); ++i) {
                 auto& t = m_planks[i];
-                if ([&]{
-                    for (int j = 0; j < 4; ++j) {
-                        auto p2 = p + t.m_offset[j];
-                        auto it = m_pos2num.find(p2);
-                        if (it == m_pos2num.end() ||
-                            it->second != PUZ_UNKNOWN &&
-                            it->second != t.m_nums[j]
-                        )
-                            return false;
+                vector<Position> rng;
+                for (auto& os : t.m_offset) {
+                    auto p2 = p + os;
+                    if (!is_valid(p2)) {
+                        rng.clear();
+                        break;
                     }
-                    return true;
-                }())
-                    m_lits.emplace_back(p, i);
+                    if (cells(p2) == PUZ_NAIL)
+                        rng.push_back(p2);
+                }
+                if (rng.size() == 1)
+                    m_nail2lits[rng[0]].emplace_back(p, i);
             }
         }
 }
@@ -124,13 +121,19 @@ struct puz_state : string
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move(int n);
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+    }
+    bool make_move(const Position& p, int n);
+    bool make_move2(const Position& p, int n);
+    bool can_move_planks() const;
+    int find_matches(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE) / 4; }
-    unsigned int get_distance(const puz_state& child) const { return 1; }
+    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {
@@ -139,47 +142,93 @@ struct puz_state : string
 
     const puz_game* m_game = nullptr;
     map<Position, vector<int>> m_matches;
+    vector<puz_lit> m_lits;
     set<Position> m_horz_walls, m_vert_walls;
+    unsigned int m_distance = 0;
+    char m_ch = 'a';
 };
 
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (int i = 0; i < g.m_lits.size(); ++i) {
-        auto& lit = g.m_lits[i];
-        auto& p = lit.first;
-        for (auto& os : planks[lit.second])
-            m_matches[p + os].push_back(i);
-    }
+    for (auto&& [p, lits] : g.m_nail2lits)
+        for (int i = 0; i < lits.size(); ++i)
+            m_matches[p].push_back(i);
+    find_matches(true);
 }
 
-bool puz_state::make_move(int n)
+int puz_state::find_matches(bool init)
 {
-    auto& lit = m_game->m_lits[n];
-    auto& p = lit.first;
+    for (auto& kv : m_matches) {
+        const auto& p = kv.first;
+        auto& perms = kv.second;
+        auto& lits = m_game->m_nail2lits.at(p);
+
+        boost::remove_erase_if(perms, [&](int id) {
+            auto& rng = m_game->m_planks[lits[id].second].m_offset;
+            return boost::algorithm::any_of(rng, [&](const Position& os) {
+                auto p2 = p + os;
+                return is_valid(p2) && cells(p2) != PUZ_SPACE;
+            });
+        });
+
+        if (!init)
+            switch (perms.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(p, 0) ? 1 : 0;
+            }
+    }
+    return 2;
+}
+
+bool puz_state::can_move_planks() const
+{
+    return boost::algorithm::all_of(m_lits, [&](const puz_lit& lit) {
+        auto& p = lit.first;
+        auto& rng = m_game->m_planks[lit.second].m_offset;
+        return boost::algorithm::any_of(offset, [&](const Position& os) {
+            auto p2 = p + os;
+            return boost::algorithm::all_of(rng, [&](const Position& os2) {
+                auto p3 = p2 + os2;
+                if (!is_valid(p3))
+                    return true;
+                char ch = cells(p3);
+                return ch == PUZ_SPACE || ch == cells(p);
+            });
+        });
+    });
+}
+
+bool puz_state::make_move2(const Position& p, int n)
+{
+    auto& lit = m_game->m_nail2lits.at(p)[n];
+    auto& p2 = lit.first;
     auto& t = m_game->m_planks[lit.second];
 
     for (auto& os : t.m_horz_walls)
-        m_horz_walls.insert(p + os);
+        m_horz_walls.insert(p2 + os);
     for (auto& os : t.m_vert_walls)
-        m_vert_walls.insert(p + os);
+        m_vert_walls.insert(p2 + os);
+    for (auto& os : t.m_offset)
+        cells(p2 + os) = m_ch;
+    m_lits.emplace_back(p, n);
 
-    set<int> lit_ids;
-    for (int i = 0; i < 4; ++i) {
-        auto p2 = p + t.m_offset[i];
-        cells(p2) = t.m_nums[i] + '0';
-        auto& v = m_matches.at(p2);
-        lit_ids.insert(v.begin(), v.end());
-        m_matches.erase(p2);
-    }
-    for (auto& kv : m_matches) {
-        auto& v = kv.second;
-        for (int i : lit_ids)
-            boost::remove_erase(v, i);
-        if (v.empty())
-            return false;
-    }
-    return true;
+    ++m_ch, ++m_distance;
+    m_matches.erase(p);
+    
+    return can_move_planks();
+}
+
+bool puz_state::make_move(const Position& p, int n)
+{
+    m_distance = 0;
+    if (!make_move2(p, n))
+        return false;
+    int m;
+    while ((m = find_matches(false)) == 1);
+    return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -191,7 +240,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
     for (int n : kv.second) {
         children.push_back(*this);
-        if (!children.back().make_move(n))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
