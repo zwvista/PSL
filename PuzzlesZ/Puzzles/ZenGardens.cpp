@@ -24,10 +24,10 @@ namespace puzzles::ZenGardens{
 #define PUZ_NOLEAF       'S'
 
 const Position offset[] = {
-    {0, 1},        // e
-    {1, 1},        // se
-    {1, 0},        // s
-    {1, -1},       // sw
+    {-1, 0},        // n
+    {0, 1},         // e
+    {1, 0},         // s
+    {0, -1},        // w
 };
 
 const Position offset2[] = {
@@ -35,6 +35,13 @@ const Position offset2[] = {
     {0, 1},        // e
     {1, 0},        // s
     {0, 0},        // w
+};
+
+const Position offset3[] = {
+    {0, 1},        // e
+    {1, 1},        // se
+    {1, 0},        // s
+    {1, -1},       // sw
 };
 
 struct puz_game
@@ -123,7 +130,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             if (cells(p) != PUZ_STONE) continue;
-            for (auto& os : offset) {
+            for (auto& os : offset3) {
                 auto p2 = p + os, p3 = p2 + os;
                 if (is_valid(p2) && cells(p2) == PUZ_STONE && is_valid(p3) && cells(p3) == PUZ_STONE)
                     m_area2range.push_back({p, p2, p3});
