@@ -259,7 +259,7 @@ ostream& puz_state::dump(ostream& out) const
             if (ch == PUZ_TREBUCHET)
                 out << m_game->m_pos2obj.at(p).m_distance << ' ';
             else
-                out << ch << ' ';
+                out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
         }
         out << endl;
     }
