@@ -21,7 +21,6 @@ namespace puzzles::FreePlanks{
 
 #define PUZ_SPACE        ' '
 #define PUZ_NAIL         'N'
-#define PUZ_UNKNOWN        -1
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -178,7 +177,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, 0) ? 1 : 0;
+                return make_move2(p, perms[0]) ? 1 : 0;
             }
     }
     return 2;

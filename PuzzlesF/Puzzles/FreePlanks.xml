@@ -16,5 +16,34 @@
  N N`
     ]]>
   </level>
+  <level id="2">
+    <![CDATA[
+   N`
+   N`
+   N`
+   N`
+    ]]>
+  </level>
+  <level id="3">
+    <![CDATA[
+  NN`
+    `
+  N `
+  N `
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+        N`
+        N`
+        N`
+   NN    `
+NNN   N N`
+     N N `
+   N     `
+      N N`
+NNN NN   `
+    ]]>
+  </level>
 </levels>
 </puzzle>
