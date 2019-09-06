@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Put a leaf on every Zen Garden (area).
+2. A Leaf can only be on a Rock.
+3. Three Rocks in a row (horizontally, vertically or diagonally) can't have all the leaves or no leaves.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - - - `
+| |O O|O|O  |`
+   - -   - - `
+|O| |O  |O O|`
+ -   -   - - `
+| |O| | |O  |`
+   -   -   - `
+|O O  |O| | |`
+ - - -   -   `
+|  O O|O|O|O|`
+ - - - -     `
+|    O O| |O|`
+ - - - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>
