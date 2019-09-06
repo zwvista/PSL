@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -79,6 +80,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         int n = o.m_rng.size();
         auto& perms = m_num2perms[n];
         if (!perms.empty()) continue;
+        // 2. The number on a Trebuchet indicates the distance it shoots. Only one of
+        // the four directions can be marked with a target, the others should be empty.
         auto perm = string(n - 1, PUZ_EMPTY) + PUZ_TARGET;
         do
             perms.push_back(perm);
@@ -93,12 +96,16 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+    }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move2(const Position& p, int n);
     int find_matches(bool init);
+    bool is_continuous() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -153,29 +160,76 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids.front()), 1;
+                return make_move2(p, perm_ids.front()) ? 1 : 0;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+struct puz_state2 : Position
+{
+    puz_state2(const set<Position>& a): m_area(&a) { make_move(*a.begin()); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const set<Position>* m_area;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (auto& os : offset) {
+        auto p = *this + os;
+        if (m_area->count(p) != 0) {
+            children.push_back(*this);
+            children.back().make_move(p);
+        }
+    }
+}
+
+// 4. All of the non-targeted cells must be connected.
+bool puz_state::is_continuous() const
+{
+    set<Position> area;
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            if (cells(p) != PUZ_TARGET)
+                area.insert(p);
+        }
+
+    list<puz_state2> smoves;
+    puz_move_generator<puz_state2>::gen_moves(area, smoves);
+    return smoves.size() == area.size();
+}
+
+bool puz_state::make_move2(const Position& p, int n)
 {
     auto& o = m_game->m_pos2obj.at(p);
     auto& range = o.m_rng;
     auto& perm = m_game->m_num2perms.at(range.size())[n];
 
-    for (int k = 0; k < perm.size(); ++k)
-        cells(range[k]) = perm[k];
+    for (int k = 0; k < perm.size(); ++k) {
+        auto& p2 = range[k];
+        // 3. Two target cells must not be orthogonally adjacent.
+        if ((cells(p2) = perm[k]) == PUZ_TARGET &&
+            boost::algorithm::any_of(offset, [&](const Position& os){
+            auto p3 = p2 + os;
+            return is_valid(p3) && cells(p3) == PUZ_TARGET;
+        }))
+            return false;
+    }
 
     ++m_distance;
     m_matches.erase(p);
+    return is_continuous();
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    if (!make_move2(p, n))
+        return false;
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -198,8 +252,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c)
-            out << cells({r, c}) << ' ';
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            char ch = cells(p);
+            if (ch == PUZ_TREBUCHET)
+                out << m_game->m_pos2obj.at(p).m_distance << ' ';
+            else
+                out << ch << ' ';
+        }
         out << endl;
     }
     return out;
