@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. On the board you can see some trebuchets.
+2. The number on a Trebuchet indicates the distance it shoots. Only one of the four directions can be marked with a target, the others should be empty.
+3. Two target cells must not be orthogonally adjacent.
+4. All of the non-targeted cells must be connected.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+4  2 `
+23   `
+32   `
+  1 3`
+   24`
+    ]]>
+  </level>
+</levels>
+</puzzle>

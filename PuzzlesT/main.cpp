@@ -14,6 +14,7 @@ extern void solve_puz_TetrominoPegs();
 extern void solve_puz_TheOddBrick();
 extern void solve_puz_Thermometers();
 extern void solve_puz_TierraDelFuego();
+extern void solve_puz_Trebuchet();
 extern void solve_puz_TurnTwice();
 extern void solve_puz_turnz();
 extern void solve_puz_twinballs();
@@ -35,6 +36,7 @@ int main(int argc, char **argv)
     cout << "h1: The Odd Brick" << endl;
     cout << "h2: Thermometers" << endl;
     cout << "i: Tierra Del Fuego" << endl;
+    cout << "r: Trebuchet" << endl;
     cout << "u1: Turn Twice" << endl;
     cout << "u2: turnz" << endl;
     cout << "w: twinballs" << endl;
@@ -55,6 +57,7 @@ int main(int argc, char **argv)
     else if (str == "h1") solve_puz_TheOddBrick();
     else if (str == "h2") solve_puz_Thermometers();
     else if (str == "i") solve_puz_TierraDelFuego();
+    else if (str == "r") solve_puz_Trebuchet();
     else if (str == "u1") solve_puz_TurnTwice();
     else if (str == "u2") solve_puz_turnz();
     else if (str == "w") solve_puz_twinballs();
