@@ -62,7 +62,7 @@ struct puz_state
     int rows() const { return m_game->rows(); }
     int cols() const { return m_game->cols(); }
     bool operator<(const puz_state& x) const {
-        return make_pair(m_p, m_move) < make_pair(x.m_p, x.m_move);
+        return tie(m_p, m_move) < tie(x.m_p, x.m_move);
     }
     void make_move(int i);
 

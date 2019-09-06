@@ -77,8 +77,8 @@ struct puz_area
     int m_perimeter_len = 4;
     bool m_ready = false;
     bool operator<(const puz_area& x) const {
-        return make_pair(m_ready, m_perimeter_len) <
-            make_pair(x.m_ready, x.m_perimeter_len);
+        return tie(m_ready, m_perimeter_len) <
+            tie(x.m_ready, x.m_perimeter_len);
     }
 };
 

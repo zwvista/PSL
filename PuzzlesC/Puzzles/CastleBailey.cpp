@@ -85,7 +85,7 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return make_pair(m_cells, m_matches) < make_pair(x.m_cells, x.m_matches);
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
     bool make_move2(const Position& p, int n);

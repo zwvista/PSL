@@ -85,8 +85,8 @@ struct puz_area
     int m_cell_count;
     bool m_ready = false;
     bool operator<(const puz_area& x) const {
-        return make_pair(m_ready, m_outer.size()) <
-            make_pair(x.m_ready, x.m_outer.size());
+        return tie(m_ready, m_outer.size()) <
+            tie(x.m_ready, x.m_outer.size());
     }
 };
 
