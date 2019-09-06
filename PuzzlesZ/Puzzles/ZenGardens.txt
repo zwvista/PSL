@@ -1,1 +1,19 @@
+Level 1
+Sequence of moves: 
+ - - - - - -
+| |L S|S|L  |
+   - -   - -
+|O| |L  |S S|
+ -   -   - -
+| |L| | |L  |
+   -   -   -
+|S S  |L| | |
+ - - -   -  
+|  L S|S|L|L|
+ - - - -    
+|    S L| |S|
+ - - - - - -
+Number of moves: 7
+Number of vertices examined: 14
+0.003886 [s]
 
