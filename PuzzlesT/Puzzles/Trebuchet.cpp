@@ -46,6 +46,7 @@ struct puz_game
     map<int, vector<string>> m_num2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
@@ -65,18 +66,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_start.push_back(PUZ_TREBUCHET);
                 auto& o = m_pos2obj[p];
                 o.m_distance = ch - '0';
-                for (auto& os : offset) {
-                    auto p2 = p;
-                    for (int i = 0; i < o.m_distance; ++i)
-                        p2 += os;
-                    if (is_valid(p2))
-                        o.m_rng.push_back(p2);
-                }
             }
         }
     }
 
     for (auto&& [p, o] : m_pos2obj) {
+        for (auto& os : offset) {
+            auto p2 = p;
+            for (int i = 0; i < o.m_distance; ++i)
+                p2 += os;
+            if (is_valid(p2) && cells(p2) == PUZ_SPACE)
+                o.m_rng.push_back(p2);
+        }
         int n = o.m_rng.size();
         auto& perms = m_num2perms[n];
         if (!perms.empty()) continue;

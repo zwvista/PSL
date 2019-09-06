@@ -7,13 +7,43 @@ Sequence of moves:
 G . . 2 4 
 Number of moves: 3
 Number of vertices examined: 4
-0.0047 [s]
+0.003521 [s]
 
 Level 2
-Number of vertices examined: 1
-0.00013 [s]
+Sequence of moves: 
+3 3 . 1 G 
+1 G   .   
+1 . 2   G 
+G 1 .   4 
+4 . 2   G 
+Number of moves: 1
+Number of vertices examined: 2
+0.002706 [s]
 
 Level 3
-Number of vertices examined: 1
-0.000139 [s]
+Sequence of moves: 
+3 1 . 4   
+1 G   G 3 
+. . 2 2 G 
+G . . 2   
+  . 1 G 2 
+Number of moves: 2
+Number of vertices examined: 3
+0.002738 [s]
+
+Level 200
+Sequence of moves: 
+G .   G 3   3 G   2 
+4   G   G   G 5 2 G 
+4   4 . 4 . 2   G 4 
+G 4 5 1 . 4 . G 4 . 
+1 . 1 G   . .       
+5 . .   G 1 .   G 5 
+G   G   . . . .   G 
+  G   .   G     G 6 
+. 3 . 1 G   2 . . 2 
+1 G   . . 4 G 1 4 . 
+Number of moves: 12
+Number of vertices examined: 41
+0.138243 [s]
 
