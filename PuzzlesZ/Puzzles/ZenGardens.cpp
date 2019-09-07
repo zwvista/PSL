@@ -51,22 +51,26 @@ struct puz_game
     string m_start;
     // 1st dimension : area id
     // 2nd dimension : three contiguous tiles
-    vector<vector<Position>> m_area2range;
+    vector<vector<Position>> m_lines;
     // all permutations
     // L L S
     // L S L
     // ...
     // S S L
-    vector<string> m_perms;
-    vector<vector<Position>> m_garden2range;
+    vector<string> m_lineperms;
+    // 1st dimension : garden id
+    // 2nd dimension : all stone tiles in the garden
+    vector<vector<Position>> m_gardens;
     map<Position, int> m_pos2garden;
     set<Position> m_horz_walls, m_vert_walls;
+    map<int, vector<string>> m_num2gardenperms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
+    int garden_count() const { return m_gardens.size(); }
 };
 
 struct puz_state2 : Position
@@ -121,11 +125,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int n = 0; !rng.empty(); ++n) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
-        m_garden2range.emplace_back(smoves.begin(), smoves.end());
+        vector<Position> garden(smoves.begin(), smoves.end());
+        boost::remove_erase_if(garden, [&](const Position& p){
+            return cells(p) != PUZ_STONE;
+        });
+        m_gardens.push_back(garden);
+        m_num2gardenperms[garden.size()];
         for (auto& p : smoves) {
             m_pos2garden[p] = n;
             rng.erase(p);
         }
+    }
+    
+    for (auto&& [i, perms] : m_num2gardenperms) {
+        auto perm = PUZ_LEAF + string(i - 1, PUZ_NOLEAF);
+        do
+            perms.push_back(perm);
+        while(boost::next_permutation(perm));
     }
 
     for (int r = 0; r < m_sidelen; ++r)
@@ -135,14 +151,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (auto& os : offset3) {
                 auto p2 = p + os, p3 = p2 + os;
                 if (is_valid(p2) && cells(p2) == PUZ_STONE && is_valid(p3) && cells(p3) == PUZ_STONE)
-                    m_area2range.push_back({p, p2, p3});
+                    m_lines.push_back({p, p2, p3});
             }
         }
     
     for (int i = 1; i <= 2; i++) {
         auto perm = string(i, PUZ_LEAF) + string(3 - i, PUZ_NOLEAF);
         do
-            m_perms.push_back(perm);
+            m_lineperms.push_back(perm);
         while(boost::next_permutation(perm));
     }
 }
@@ -158,7 +174,7 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(int i, int j);
-    bool make_move2(int i, int j);
+    void make_move2(int i, int j);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -181,64 +197,82 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    vector<int> perm_ids(g.m_perms.size());
-    boost::iota(perm_ids, 0);
-
-    for (int i = 0; i < g.m_area2range.size(); ++i)
+    for (int i = 0; i < g.m_gardens.size(); ++i) {
+        auto& garden = g.m_gardens[i];
+        auto& perms = g.m_num2gardenperms.at(garden.size());
+        vector<int> perm_ids(perms.size());
+        boost::iota(perm_ids, 0);
         m_matches[i] = perm_ids;
+    }
+    vector<int> perm_ids(g.m_lineperms.size());
+    boost::iota(perm_ids, 0);
+    for (int i = 0; i < g.m_lines.size(); ++i)
+        m_matches[i + g.garden_count()] = perm_ids;
 
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    auto& perms = m_game->m_perms;
+    auto& perms = m_game->m_lineperms;
     for (auto& kv : m_matches) {
         int area_id = kv.first;
         auto& perm_ids = kv.second;
 
-        string chars;
-        for (auto& p : m_game->m_area2range[kv.first])
-            chars.push_back(cells(p));
+        if (area_id < m_game->garden_count()) {
+            auto& garden = m_game->m_gardens[area_id];
+            auto& perms = m_game->m_num2gardenperms.at(garden.size());
 
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
-                return ch1 == PUZ_STONE || ch1 == ch2;
+            string chars;
+            for (auto& p : garden)
+                chars.push_back(cells(p));
+            
+            boost::remove_erase_if(perm_ids, [&](int id) {
+                return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
+                    return ch1 == PUZ_STONE || ch1 == ch2;
+                });
             });
-        });
+        } else {
+            string chars;
+            for (auto& p : m_game->m_lines[area_id - m_game->garden_count()])
+                chars.push_back(cells(p));
+            
+            boost::remove_erase_if(perm_ids, [&](int id) {
+                return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
+                    return ch1 == PUZ_STONE || ch1 == ch2;
+                });
+            });
+        }
 
         if (!init)
             switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(area_id, perm_ids.front()) ? 1 : 0;
+                return make_move2(area_id, perm_ids.front()), 1;
             }
     }
     return 2;
 }
 
-bool puz_state::make_move2(int i, int j)
+void puz_state::make_move2(int i, int j)
 {
-    auto& range = m_game->m_area2range[i];
-    auto& perm = m_game->m_perms[j];
-
-    set<int> garden_ids;
-    for (int k = 0; k < perm.size(); ++k) {
-        auto& p = range[k];
-        cells(p) = perm[k];
-        garden_ids.insert(m_game->m_pos2garden.at(p));
+    if (i < m_game->garden_count()) {
+        auto& range = m_game->m_gardens[i];
+        auto& perm = m_game->m_num2gardenperms.at(range.size())[j];
+        
+        for (int k = 0; k < perm.size(); ++k)
+            cells(range[k]) = perm[k];
+    } else {
+        auto& range = m_game->m_lines[i - m_game->garden_count()];
+        auto& perm = m_game->m_lineperms[j];
+        
+        for (int k = 0; k < perm.size(); ++k)
+            cells(range[k]) = perm[k];
     }
-    if (boost::algorithm::any_of(garden_ids, [&](int id){
-        return boost::count_if(m_game->m_garden2range[id], [&](const Position& p2){
-            return cells(p2) == PUZ_LEAF;
-        }) > 1;
-    }))
-        return false;
 
     ++m_distance;
     m_matches.erase(i);
-    return true;
 }
 
 bool puz_state::make_move(int i, int j)
