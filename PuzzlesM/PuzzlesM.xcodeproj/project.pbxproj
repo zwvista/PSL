@@ -29,6 +29,7 @@
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
 		8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2B1EA926F60055D6B1 /* pugixml.cpp */; };
 		8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */; };
+		958FA6212323CD1900205831 /* MixedTatamis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA61F2323CD1900205831 /* MixedTatamis.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -123,6 +124,9 @@
 		8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F301EA926F60055D6B1 /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
 		8CA23F311EA926F60055D6B1 /* targetver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
+		958FA61E2323CD1900205831 /* MixedTatamis.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MixedTatamis.xml; sourceTree = "<group>"; };
+		958FA61F2323CD1900205831 /* MixedTatamis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixedTatamis.cpp; sourceTree = "<group>"; };
+		958FA6202323CD1900205831 /* MixedTatamis.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MixedTatamis.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +204,9 @@
 				8CA23EF51EA924380055D6B1 /* Mirrors.cpp */,
 				8CA23EF61EA924380055D6B1 /* Mirrors.txt */,
 				8CA23EF71EA924380055D6B1 /* Mirrors.xml */,
+				958FA61F2323CD1900205831 /* MixedTatamis.cpp */,
+				958FA6202323CD1900205831 /* MixedTatamis.txt */,
+				958FA61E2323CD1900205831 /* MixedTatamis.xml */,
 				8CA23EF81EA924380055D6B1 /* MoreOrLess.cpp */,
 				8CA23EF91EA924380055D6B1 /* MoreOrLess.txt */,
 				8CA23EFA1EA924380055D6B1 /* MoreOrLess.xml */,
@@ -317,6 +324,7 @@
 				8CA23F101EA924380055D6B1 /* MiniLits.cpp in Sources */,
 				8CA23F051EA924380055D6B1 /* magic_square.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
+				958FA6212323CD1900205831 /* MixedTatamis.cpp in Sources */,
 				8CA23F0A1EA924380055D6B1 /* MatchstickSquares.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA23F0C1EA924380055D6B1 /* Mathrax.cpp in Sources */,

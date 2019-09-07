@@ -13,6 +13,7 @@ extern void solve_puz_MineShips();
 extern void solve_puz_Minesweeper();
 extern void solve_puz_MiniLits();
 extern void solve_puz_Mirrors();
+extern void solve_puz_MixedTatamis();
 extern void solve_puz_MoreOrLess();
 extern void solve_puz_Mosaik();
 extern void solve_puz_MoveTheBox();
@@ -34,6 +35,7 @@ int main(int argc, char **argv)
     cout << "i2: Minesweeper" << endl;
     cout << "i3: Mini-Lits" << endl;
     cout << "i4: Mirrors" << endl;
+    cout << "i5: Mixed Tatamis" << endl;
     cout << "o1: More Or Less" << endl;
     cout << "o2: Mosaik" << endl;
     cout << "o3: Move the Box" << endl;
@@ -54,6 +56,7 @@ int main(int argc, char **argv)
     else if (str == "i2") solve_puz_Minesweeper();
     else if (str == "i3") solve_puz_MiniLits();
     else if (str == "i4") solve_puz_Mirrors();
+    else if (str == "i5") solve_puz_MixedTatamis();
     else if (str == "o1") solve_puz_MoreOrLess();
     else if (str == "o2") solve_puz_Mosaik();
     else if (str == "o3") solve_puz_MoveTheBox();

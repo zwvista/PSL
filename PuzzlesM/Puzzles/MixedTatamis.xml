@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Divide the board into areas (Tatami).
+2. Every Tatami must be exactly one cell wide and can be of length from 1 to 4 cells.
+3. A cell with a number indicates the length of the Tatami. Not all Tatamis have to be marked by a number.
+4. Two Tatamis of the same size must not be orthogonally adjacent.
+5. A grid dot must not be shared by the corners of four Tatamis (lines can't form 4-way crosses).
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+2   `
+ 13 `
+ 2 4`
+3 1 `
+    ]]>
+  </level>
+</levels>
+</puzzle>
