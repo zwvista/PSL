@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. The board represents a warehouse, packed with boxes which you must find.
+2. Each box contains a symbol:
+3. a cross means it's a square box.
+4. a horizontal bar means the box is wider than taller.
+5. a vertical bar means the box is taller than wider.
+6. A grid dot must not be shared by the corners of four boxes.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+    `
+   +`
+|   `
+ -++`
+    ]]>
+  </level>
+</levels>
+</puzzle>
