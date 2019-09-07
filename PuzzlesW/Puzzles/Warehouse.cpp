@@ -23,8 +23,8 @@ namespace puzzles::Warehouse{
 
 struct puz_box_info
 {
-    // the area of the box
-    int m_area;
+    // the symbol of the box
+    char m_symbol;
     // top-left and bottom-right
     vector<pair<Position, Position>> m_boxes;
 };
@@ -45,48 +45,47 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
-            auto s = str.substr(c * 2, 2);
-            int n = stoi(s);
-            if (n != 0)
-                m_pos2boxinfo[{r, c}].m_area = n;
+            char ch = str[c];
+            if (ch != ' ')
+                m_pos2boxinfo[{r, c}].m_symbol = ch;
         }
     }
 
     for (auto& kv : m_pos2boxinfo) {
-        // the position of the number
+        // the position of the symbol
         const auto& pn = kv.first;
         auto& info = kv.second;
-        int box_area = info.m_area;
+        char ch = info.m_symbol;
         auto& boxes = info.m_boxes;
 
-        for (int h = 1; h <= m_sidelen; ++h) {
-            int w = box_area / h;
-            if (h * w != box_area || w > m_sidelen) continue;
-            Position box_sz(h - 1, w - 1);
-            auto p2 = pn - box_sz;
-            //   - - - - 
-            //  |       |
-            //         - - - - 
-            //  |     |8|     |
-            //   - - - -      
-            //        |       |
-            //         - - - - 
-            for (int r = p2.first; r <= pn.first; ++r)
-                for (int c = p2.second; c <= pn.second; ++c) {
-                    Position tl(r, c), br = tl + box_sz;
-                    if (tl.first >= 0 && tl.second >= 0 &&
-                        br.first < m_sidelen && br.second < m_sidelen &&
-                        // All the other numbers should not be inside this box
-                        boost::algorithm::none_of(m_pos2boxinfo, [&](
-                        const pair<const Position, puz_box_info>& kv) {
-                        auto& p = kv.first;
-                        return p != pn &&
-                            p.first >= tl.first && p.second >= tl.second &&
-                            p.first <= br.first && p.second <= br.second;
-                    }))
-                        boxes.emplace_back(tl, br);
-                }
-        }
+        for (int h = 1; h < m_sidelen; ++h)
+            for (int w = 1; w < m_sidelen; ++w) {
+                if (!(ch == '|' && h > w || ch == '-' && h < w || ch == '+' && h == w)) continue;
+                Position box_sz(h - 1, w - 1);
+                auto p2 = pn - box_sz;
+                //   - - - -
+                //  |       |
+                //         - - - -
+                //  |     |8|     |
+                //   - - - -
+                //        |       |
+                //         - - - -
+                for (int r = p2.first; r <= pn.first; ++r)
+                    for (int c = p2.second; c <= pn.second; ++c) {
+                        Position tl(r, c), br = tl + box_sz;
+                        if (tl.first >= 0 && tl.second >= 0 &&
+                            br.first < m_sidelen && br.second < m_sidelen &&
+                            // All the other numbers should not be inside this box
+                            boost::algorithm::none_of(m_pos2boxinfo, [&](
+                            const pair<const Position, puz_box_info>& kv) {
+                            auto& p = kv.first;
+                            return p != pn &&
+                                p.first >= tl.first && p.second >= tl.second &&
+                                p.first <= br.first && p.second <= br.second;
+                        }))
+                            boxes.emplace_back(tl, br);
+                    }
+            }
     }
 }
 
@@ -219,7 +218,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horz-walls
         for (int c = 0; c < sidelen(); ++c)
-            out << (m_horz_walls.count({r, c}) == 1 ? " --" : "   ");
+            out << (m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
         out << endl;
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
@@ -229,9 +228,9 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen()) break;
             auto it = m_game->m_pos2boxinfo.find(p);
             if (it == m_game->m_pos2boxinfo.end())
-                out << " .";
+                out << '.';
             else
-                out << format("%2d") % it->second.m_area;
+                out << it->second.m_symbol;
         }
         out << endl;
     }
