@@ -99,6 +99,7 @@ struct puz_state : string
     bool make_move(const Position& p, int n);
     bool make_move2(const Position& p, int n);
     int find_matches(bool init);
+    bool check_four_boxes();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -130,6 +131,18 @@ puz_state::puz_state(const puz_game& g)
     }
 
     find_matches(true);
+}
+    
+bool puz_state::check_four_boxes()
+{
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c)
+            if (m_horz_walls.count({r + 1, c}) == 1 &&
+                m_horz_walls.count({r + 1, c + 1}) == 1 &&
+                m_vert_walls.count({r, c + 1}) == 1 &&
+                m_vert_walls.count({r + 1, c + 1}) == 1)
+                return false;
+    return true;
 }
 
 int puz_state::find_matches(bool init)
@@ -166,7 +179,7 @@ int puz_state::find_matches(bool init)
         }
     }
     // All the boxes added up should cover all the remaining spaces
-    return boost::count(*this, PUZ_SPACE) == spaces.size() ? 2 : 0;
+    return check_four_boxes() && boost::count(*this, PUZ_SPACE) == spaces.size() ? 2 : 0;
 }
 
 bool puz_state::make_move2(const Position& p, int n)
