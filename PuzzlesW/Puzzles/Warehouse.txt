@@ -5,30 +5,68 @@ Sequence of moves:
         
 |.|. . +|
         
-|||. . .|
+|V|. . .|
  - - - -
-|. -|+|+|
+|. H|+|+|
  - - - -
 Number of moves: 3
 Number of vertices examined: 4
-0.002428 [s]
+0.002364 [s]
 
 Level 2
-Number of vertices examined: 4
-0.000583 [s]
+Sequence of moves: 
+ - - - -
+|. . .|.|
+        
+|. + .|V|
+        
+|. . .|.|
+ - - -  
+|. H|+|.|
+ - - - -
+Number of moves: 4
+Number of vertices examined: 6
+0.000771 [s]
 
 Level 3
 Sequence of moves: 
  - - - -
-|.|+|||+|
+|.|+|V|+|
    -   -
-|||.|.|+|
+|V|.|.|+|
      - -
-|.|||. .|
+|.|V|. .|
  - -    
-|- .|+ .|
+|H .|+ .|
  - - - -
 Number of moves: 4
 Number of vertices examined: 5
-0.000851 [s]
+0.000969 [s]
+
+Level 200
+Sequence of moves: 
+ - - - - - - - - - -
+|V|V|. . H|. .|. .|+|
+     - - -         -
+|.|.|H . .|. +|. .|+|
+ -   - - - - -     -
+|V|.|+|. H .|+|. V|.|
+     - - - - - - -  
+|.|.|. H|. . H .|.|.|
+     - -            
+|.|.|. V|. . . .|V|V|
+         - - - -    
+|.|.|. .|+|.|. H|.|.|
+ - -     -   - -   -
+|. H|. .|V|.|. H|.|+|
+ - - - -     - -   -
+|. . . H|.|V|. H|.|+|
+ - - - - - - - -   -
+|. +|. . . . .|V|.|.|
+                 -  
+|. .|. . H . .|.|+|V|
+ - - - - - - - - - -
+Number of moves: 24
+Number of vertices examined: 44
+0.064753 [s]
 

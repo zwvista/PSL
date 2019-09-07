@@ -20,6 +20,9 @@
 namespace puzzles::Warehouse{
 
 #define PUZ_SPACE        ' '
+#define PUZ_HORZ         'H'
+#define PUZ_VERT         'V'
+#define PUZ_SQUARE       '+'
 
 struct puz_box_info
 {
@@ -58,15 +61,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         char ch = info.m_symbol;
         auto& boxes = info.m_boxes;
 
-        for (int h = 1; h < m_sidelen; ++h)
-            for (int w = 1; w < m_sidelen; ++w) {
-                if (!(ch == '|' && h > w || ch == '-' && h < w || ch == '+' && h == w)) continue;
+        for (int h = 1; h <= m_sidelen; ++h)
+            for (int w = 1; w <= m_sidelen; ++w) {
+                if (!(ch == PUZ_VERT && h > w || ch == PUZ_HORZ && h < w || ch == PUZ_SQUARE && h == w)) continue;
                 Position box_sz(h - 1, w - 1);
                 auto p2 = pn - box_sz;
                 //   - - - -
                 //  |       |
                 //         - - - -
-                //  |     |8|     |
+                //  |     |+|     |
                 //   - - - -
                 //        |       |
                 //         - - - -
@@ -75,7 +78,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         Position tl(r, c), br = tl + box_sz;
                         if (tl.first >= 0 && tl.second >= 0 &&
                             br.first < m_sidelen && br.second < m_sidelen &&
-                            // All the other numbers should not be inside this box
+                            // All the other symbols should not be inside this box
                             boost::algorithm::none_of(m_pos2boxinfo, [&](
                             const pair<const Position, puz_box_info>& kv) {
                             auto& p = kv.first;
@@ -89,13 +92,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(int r, int c) const { return (*this)[r * sidelen() + c]; }
-    char& cells(int r, int c) { return (*this)[r * sidelen() + c]; }
+    char cells(int r, int c) const { return m_cells[r * sidelen() + c]; }
+    char& cells(int r, int c) { return m_cells[r * sidelen() + c]; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
     bool make_move(const Position& p, int n);
     bool make_move2(const Position& p, int n);
     int find_matches(bool init);
@@ -104,7 +110,7 @@ struct puz_state : string
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
+    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -113,6 +119,7 @@ struct puz_state : string
     }
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     // key: the position of the number
     // value.elem: the index of the box
     map<Position, vector<int>> m_matches;
@@ -122,7 +129,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
     for (auto& kv : g.m_pos2boxinfo) {
         auto& box_ids = m_matches[kv.first];
@@ -157,7 +164,7 @@ int puz_state::find_matches(bool init)
             auto& box = boxes[id];
             for (int r = box.first.first; r <= box.second.first; ++r)
                 for (int c = box.first.second; c <= box.second.second; ++c)
-                    if (this->cells(r, c) != PUZ_SPACE)
+                    if (cells(r, c) != PUZ_SPACE)
                         return true;
             return false;
         });
@@ -179,7 +186,7 @@ int puz_state::find_matches(bool init)
         }
     }
     // All the boxes added up should cover all the remaining spaces
-    return check_four_boxes() && boost::count(*this, PUZ_SPACE) == spaces.size() ? 2 : 0;
+    return check_four_boxes() && boost::count(m_cells, PUZ_SPACE) == spaces.size() ? 2 : 0;
 }
 
 bool puz_state::make_move2(const Position& p, int n)

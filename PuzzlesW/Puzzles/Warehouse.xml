@@ -15,24 +15,38 @@
     <![CDATA[
     `
    +`
-|   `
- -++`
+V   `
+ H++`
     ]]>
   </level>
   <level id="2">
     <![CDATA[
     `
- + |`
+ + V`
     `
- -+ `
+ H+ `
     ]]>
   </level>
   <level id="3">
     <![CDATA[
- +|+`
-|  +`
- |  `
-- + `
+ +V+`
+V  +`
+ V  `
+H + `
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+VV  H    +`
+  H   +  +`
+V + H + V `
+   H  H   `
+   V    VV`
+    +  H  `
+ H  V  H +`
+   H V H +`
+ +     V  `
+    H   +V`
     ]]>
   </level>
 </levels>
