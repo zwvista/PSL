@@ -22,8 +22,8 @@ namespace puzzles::InsaneTatamis{
 
 struct puz_box_info
 {
-    // the symbol of the box
-    char m_symbol;
+    // the number of the box
+    int m_num;
     // top-left and bottom-right
     vector<pair<Position, Position>> m_boxes;
 };
@@ -46,25 +46,28 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
             if (ch != ' ')
-                m_pos2boxinfo[{r, c}].m_symbol = ch;
+                m_pos2boxinfo[{r, c}].m_num = ch - '0';
         }
     }
 
     for (auto& kv : m_pos2boxinfo) {
-        // the position of the symbol
+        // the position of the number
         const auto& pn = kv.first;
         auto& info = kv.second;
-        char ch = info.m_symbol;
+        int n = info.m_num;
         auto& boxes = info.m_boxes;
 
-        for (int h = 1; h <= m_sidelen; ++h)
-            for (int w = 1; w <= m_sidelen; ++w) {
+        for (int i = 1; i <= m_sidelen; ++i)
+            for (int j = 0; j < 2; ++j) {
+                int h = i, w = 1;
+                if (h == n) continue;
+                if (j == 1) ::swap(h, w);
                 Position box_sz(h - 1, w - 1);
                 auto p2 = pn - box_sz;
                 //   - - - -
                 //  |       |
                 //         - - - -
-                //  |     |+|     |
+                //  |     |4|     |
                 //   - - - -
                 //        |       |
                 //         - - - -
@@ -245,7 +248,7 @@ ostream& puz_state::dump(ostream& out) const
             if (it == m_game->m_pos2boxinfo.end())
                 out << '.';
             else
-                out << it->second.m_symbol;
+                out << it->second.m_num;
         }
         out << endl;
     }
