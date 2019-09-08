@@ -23,14 +23,27 @@ namespace puzzles::MixedTatamis{
 
 #define PUZ_SPACE        ' '
 
-typedef pair<Position, Position> puz_box;
+const Position offset[] = {
+    {-1, 0},        // n
+    {0, 1},         // e
+    {1, 0},         // s
+    {0, -1},        // w
+};
 
-    struct puz_game
+struct puz_box_info
+{
+    // the length of the tatami
+    char m_ch;
+    // top-left and bottom-right
+    pair<Position, Position> m_box;
+};
+
+struct puz_game
 {
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
-    map<Position, vector<puz_box>> m_pos2boxes;
+    map<Position, vector<puz_box_info>> m_pos2infos;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -42,7 +55,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
-            if (char ch = str[c]; ch != ' ')
+            if (char ch = str[c]; ch != PUZ_SPACE)
                 m_pos2num[{r, c}] = ch - '0';
     }
 
@@ -60,10 +73,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         for (int c2 = tl.second; c2 <= br.second; ++c2)
                             if (Position p(r2, c2); m_pos2num.count(p) == 1)
                                 rng.push_back(p);
+                    // 3. A cell with a number indicates the length of the Tatami.
+                    // Not all Tatamis have to be marked by a number.
                     if (int sz = rng.size(); sz == 0 || sz == 1 && m_pos2num.at(rng[0]) == i)
                         for (int r2 = tl.first; r2 <= br.first; ++r2)
-                            for (int c2 = tl.second; c2 <= br.second; ++c2)
-                                m_pos2boxes[{r2, c2}].emplace_back(tl, br);
+                            for (int c2 = tl.second; c2 <= br.second; ++c2) {
+                                puz_box_info info;
+                                info.m_ch = i + '0';
+                                info.m_box = {tl, br};
+                                m_pos2infos[{r2, c2}].push_back(info);
+                            }
                 }
 }
 
@@ -74,6 +93,9 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(int r, int c) const { return m_cells[r * sidelen() + c]; }
     char& cells(int r, int c) { return m_cells[r * sidelen() + c]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+    }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
@@ -100,13 +122,12 @@ struct puz_state
     map<Position, vector<int>> m_matches;
     set<Position> m_horz_walls, m_vert_walls;
     unsigned int m_distance = 0;
-    char m_ch = 'a';
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (auto& kv : g.m_pos2boxes) {
+    for (auto& kv : g.m_pos2infos) {
         auto& box_ids = m_matches[kv.first];
         box_ids.resize(kv.second.size());
         boost::iota(box_ids, 0);
@@ -133,13 +154,23 @@ int puz_state::find_matches(bool init)
         auto& p = kv.first;
         auto& box_ids = kv.second;
 
-        auto& boxes = m_game->m_pos2boxes.at(p);
+        auto& infos = m_game->m_pos2infos.at(p);
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& box = boxes[id];
+            auto& info = infos[id];
+            auto& box = info.m_box;
+            char ch = info.m_ch;
             for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c)
+                for (int c = box.first.second; c <= box.second.second; ++c) {
                     if (cells(r, c) != PUZ_SPACE)
                         return true;
+                    // 4. Two Tatamis of the same size must not be orthogonally adjacent.
+                    Position p(r, c);
+                    for (auto& os : offset) {
+                        auto p2 = p + os;
+                        if (is_valid(p2) && cells(p2.first, p2.second) == ch)
+                            return true;
+                    }
+                }
             return false;
         });
 
@@ -156,20 +187,20 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& box = m_game->m_pos2boxes.at(p)[n];
+    auto& info = m_game->m_pos2infos.at(p)[n];
+    auto& box = info.m_box;
+    char ch = info.m_ch;
 
     auto &tl = box.first, &br = box.second;
     for (int r = tl.first; r <= br.first; ++r)
         for (int c = tl.second; c <= br.second; ++c)
-            cells(r, c) = m_ch, ++m_distance, m_matches.erase({r, c});
+            cells(r, c) = ch, ++m_distance, m_matches.erase({r, c});
     for (int r = tl.first; r <= br.first; ++r)
         m_vert_walls.emplace(r, tl.second),
         m_vert_walls.emplace(r, br.second + 1);
     for (int c = tl.second; c <= br.second; ++c)
         m_horz_walls.emplace(tl.first, c),
         m_horz_walls.emplace(br.first + 1, c);
-
-    ++m_ch;
 }
 
 bool puz_state::make_move(const Position& p, int n)
