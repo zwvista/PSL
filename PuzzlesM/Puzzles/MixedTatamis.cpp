@@ -78,14 +78,14 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
-    bool make_move2(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
     bool check_four_boxes();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
+    unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -129,7 +129,6 @@ bool puz_state::check_four_boxes()
 
 int puz_state::find_matches(bool init)
 {
-    set<Position> spaces;
     for (auto& kv : m_matches) {
         auto& p = kv.first;
         auto& box_ids = kv.second;
@@ -149,29 +148,20 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, box_ids.front()) ? 1 : 0;
+                return make_move2(p, box_ids.front()), 1;
             }
-
-        // pruning
-        for (int id : box_ids) {
-            auto& box = boxes[id];
-            for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c)
-                    spaces.emplace(r, c);
-        }
     }
-    // All the boxes added up should cover all the remaining spaces
-    return check_four_boxes() && boost::count(m_cells, PUZ_SPACE) == spaces.size() ? 2 : 0;
+    return check_four_boxes() ? 2 : 0;
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(const Position& p, int n)
 {
     auto& box = m_game->m_pos2boxes.at(p)[n];
 
     auto &tl = box.first, &br = box.second;
     for (int r = tl.first; r <= br.first; ++r)
         for (int c = tl.second; c <= br.second; ++c)
-            cells(r, c) = m_ch, ++m_distance;
+            cells(r, c) = m_ch, ++m_distance, m_matches.erase({r, c});
     for (int r = tl.first; r <= br.first; ++r)
         m_vert_walls.emplace(r, tl.second),
         m_vert_walls.emplace(r, br.second + 1);
@@ -180,15 +170,12 @@ bool puz_state::make_move2(const Position& p, int n)
         m_horz_walls.emplace(br.first + 1, c);
 
     ++m_ch;
-    m_matches.erase(p);
-    return is_goal_state() || !m_matches.empty();
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move2(p, n))
-        return false;
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
