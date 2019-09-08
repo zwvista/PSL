@@ -23,19 +23,14 @@ namespace puzzles::MixedTatamis{
 
 #define PUZ_SPACE        ' '
 
-struct puz_box_info
-{
-    // the number of the box
-    int m_num;
-    // top-left and bottom-right
-    vector<pair<Position, Position>> m_boxes;
-};
+typedef pair<Position, Position> puz_box;
 
-struct puz_game
+    struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, puz_box_info> m_pos2boxinfo;
+    map<Position, int> m_pos2num;
+    map<Position, vector<puz_box>> m_pos2boxes;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -46,51 +41,30 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
-            char ch = str[c];
-            if (ch != ' ')
-                m_pos2boxinfo[{r, c}].m_num = ch - '0';
-        }
+        for (int c = 0; c < m_sidelen; ++c)
+            if (char ch = str[c]; ch != ' ')
+                m_pos2num[{r, c}] = ch - '0';
     }
 
-    for (auto& kv : m_pos2boxinfo) {
-        // the position of the number
-        const auto& pn = kv.first;
-        auto& info = kv.second;
-        int n = info.m_num;
-        auto& boxes = info.m_boxes;
-
-        for (int i = 1; i <= m_sidelen; ++i)
-            for (int j = 0; j < 2; ++j) {
-                int h = i, w = 1;
-                if (h == n) continue;
-                if (j == 1) ::swap(h, w);
-                Position box_sz(h - 1, w - 1);
-                auto p2 = pn - box_sz;
-                //   - - - -
-                //  |       |
-                //         - - - -
-                //  |     |4|     |
-                //   - - - -
-                //        |       |
-                //         - - - -
-                for (int r = p2.first; r <= pn.first; ++r)
-                    for (int c = p2.second; c <= pn.second; ++c) {
-                        Position tl(r, c), br = tl + box_sz;
-                        if (tl.first >= 0 && tl.second >= 0 &&
-                            br.first < m_sidelen && br.second < m_sidelen &&
-                            // All the other symbols should not be inside this box
-                            boost::algorithm::none_of(m_pos2boxinfo, [&](
-                            const pair<const Position, puz_box_info>& kv) {
-                            auto& p = kv.first;
-                            return p != pn &&
-                                p.first >= tl.first && p.second >= tl.second &&
-                                p.first <= br.first && p.second <= br.second;
-                        }))
-                            boxes.emplace_back(tl, br);
-                    }
-            }
-    }
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c)
+            for (int i = 1; i <= 4; ++i)
+                for (int j = 0; j < 2; ++j) {
+                    int h = i, w = 1;
+                    if (j == 1) ::swap(h, w);
+                    Position box_sz(h - 1, w - 1);
+                    Position tl(r, c), br = tl + box_sz;
+                    if (!(br.first < m_sidelen && br.second < m_sidelen)) continue;
+                    vector<Position> rng;
+                    for (int r2 = tl.first; r2 <= br.first; ++r2)
+                        for (int c2 = tl.second; c2 <= br.second; ++c2)
+                            if (Position p(r2, c2); m_pos2num.count(p) == 1)
+                                rng.push_back(p);
+                    if (int sz = rng.size(); sz == 0 || sz == 1 && m_pos2num.at(rng[0]) == i)
+                        for (int r2 = tl.first; r2 <= br.first; ++r2)
+                            for (int c2 = tl.second; c2 <= br.second; ++c2)
+                                m_pos2boxes[{r2, c2}].emplace_back(tl, br);
+                }
 }
 
 struct puz_state
@@ -132,9 +106,9 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (auto& kv : g.m_pos2boxinfo) {
+    for (auto& kv : g.m_pos2boxes) {
         auto& box_ids = m_matches[kv.first];
-        box_ids.resize(kv.second.m_boxes.size());
+        box_ids.resize(kv.second.size());
         boost::iota(box_ids, 0);
     }
 
@@ -160,7 +134,7 @@ int puz_state::find_matches(bool init)
         auto& p = kv.first;
         auto& box_ids = kv.second;
 
-        auto& boxes = m_game->m_pos2boxinfo.at(p).m_boxes;
+        auto& boxes = m_game->m_pos2boxes.at(p);
         boost::remove_erase_if(box_ids, [&](int id) {
             auto& box = boxes[id];
             for (int r = box.first.first; r <= box.second.first; ++r)
@@ -192,7 +166,7 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::make_move2(const Position& p, int n)
 {
-    auto& box = m_game->m_pos2boxinfo.at(p).m_boxes[n];
+    auto& box = m_game->m_pos2boxes.at(p)[n];
 
     auto &tl = box.first, &br = box.second;
     for (int r = tl.first; r <= br.first; ++r)
@@ -247,11 +221,11 @@ ostream& puz_state::dump(ostream& out) const
             // draw vert-walls
             out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
             if (c == sidelen()) break;
-            auto it = m_game->m_pos2boxinfo.find(p);
-            if (it == m_game->m_pos2boxinfo.end())
+            auto it = m_game->m_pos2num.find(p);
+            if (it == m_game->m_pos2num.end())
                 out << '.';
             else
-                out << it->second.m_num;
+                out << it->second;
         }
         out << endl;
     }
