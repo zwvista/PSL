@@ -1,0 +1,26 @@
+Level 1
+Sequence of moves: 
+ - - -
+|A B|A|
+ -    
+|B|C|B|
+   -  
+|B B|C|
+ - - -
+Number of moves: 3
+Number of vertices examined: 4
+0.00200249 [s]
+
+Level 2
+Sequence of moves: 
+ - - -
+|B A|B|
+ -    
+|A|C|B|
+   -  
+|A A|B|
+ - - -
+Number of moves: 3
+Number of vertices examined: 4
+0.00128512 [s]
+
