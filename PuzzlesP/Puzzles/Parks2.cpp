@@ -242,8 +242,10 @@ bool puz_state::make_move2(int i, int j)
         // no touching
         for (auto& os : offset) {
             auto p2 = p + os;
-            if (is_valid(p2) && cells(p2) == PUZ_TREE)
+            if (!is_valid(p2)) continue;
+            if (cells(p2) == PUZ_TREE)
                 return false;
+            cells(p2) = PUZ_EMPTY;
         }
     }
 

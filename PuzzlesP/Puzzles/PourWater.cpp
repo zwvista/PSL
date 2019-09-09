@@ -77,7 +77,7 @@ struct puz_state
     puz_state() {}
     puz_state(const puz_game& g);
     bool operator<(const puz_state& x) const { 
-        return tie(m_quantities, m_move) < tie(x.m_quantities, x.m_move);
+        return make_pair(m_quantities, m_move) < make_pair(x.m_quantities, x.m_move);
     }
     void make_move(int i, int j);
 
