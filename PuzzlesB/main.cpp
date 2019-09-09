@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "AIhelper.h"
-#include "Bridges.h"
+#include "Puzzles/Bridges.h"
 
 extern void solve_puz_BalancedTapas();
 extern void solve_puz_BattleShips();
