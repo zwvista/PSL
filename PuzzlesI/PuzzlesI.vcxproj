@@ -159,6 +159,7 @@
   <ItemGroup>
     <Text Include="Puzzles\icedin.txt" />
     <Text Include="Puzzles\InbetweenSumscrapers.txt" />
+    <Text Include="Puzzles\InsaneTatamis.txt" />
     <Text Include="Puzzles\IslandConnections.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -177,6 +178,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\icedin.cpp" />
     <ClCompile Include="Puzzles\InbetweenSumscrapers.cpp" />
+    <ClCompile Include="Puzzles\InsaneTatamis.cpp" />
     <ClCompile Include="Puzzles\IslandConnections.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -188,6 +190,7 @@
   <ItemGroup>
     <Xml Include="Puzzles\icedin.xml" />
     <Xml Include="Puzzles\InbetweenSumscrapers.xml" />
+    <Xml Include="Puzzles\InsaneTatamis.xml" />
     <Xml Include="Puzzles\IslandConnections.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

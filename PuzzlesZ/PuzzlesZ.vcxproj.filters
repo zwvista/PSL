@@ -28,6 +28,9 @@
     <Text Include="Puzzles\ZenLandscaper.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\ZenGardens.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -59,6 +62,9 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\ZenGardens.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\zafiro.xml">
@@ -68,6 +74,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\ZenLandscaper.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\ZenGardens.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

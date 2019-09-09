@@ -70,6 +70,12 @@
     <Text Include="Puzzles\MoveTheBox_NewYork.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Magic5gonRing.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\MixedTatamis.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -140,6 +146,12 @@
     <ClCompile Include="Puzzles\MatchstickEquation.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Magic5gonRing.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\MixedTatamis.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
@@ -194,6 +206,12 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\MoveTheBox_NewYork.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Magic5gonRing.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\MixedTatamis.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

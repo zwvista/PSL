@@ -37,6 +37,9 @@
     <Text Include="Puzzles\WallHints.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Warehouse.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -74,6 +77,9 @@
     <ClCompile Include="Puzzles\WallHints.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Warehouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Walls.xml">
@@ -93,6 +99,9 @@
     </Xml>
     <Xml Include="Puzzles\WallHints.xml">
       <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Warehouse.xml">
+      <Filter>Source Files</Filter>
     </Xml>
   </ItemGroup>
 </Project>

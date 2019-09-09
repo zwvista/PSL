@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\Magic5gonRing.txt" />
     <Text Include="Puzzles\magic_square.txt" />
     <Text Include="Puzzles\Magnets.txt" />
     <Text Include="Puzzles\Masyu.txt" />
@@ -169,6 +170,7 @@
     <Text Include="Puzzles\Minesweeper.txt" />
     <Text Include="Puzzles\MiniLits.txt" />
     <Text Include="Puzzles\Mirrors.txt" />
+    <Text Include="Puzzles\MixedTatamis.txt" />
     <Text Include="Puzzles\MoreOrLess.txt" />
     <Text Include="Puzzles\Mosaik.txt" />
     <Text Include="Puzzles\MoveTheBox_Boston.txt" />
@@ -189,6 +191,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\Magic5gonRing.cpp" />
     <ClCompile Include="Puzzles\magic_square.cpp" />
     <ClCompile Include="Puzzles\Magnets.cpp" />
     <ClCompile Include="Puzzles\Masyu.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="Puzzles\Minesweeper.cpp" />
     <ClCompile Include="Puzzles\MiniLits.cpp" />
     <ClCompile Include="Puzzles\Mirrors.cpp" />
+    <ClCompile Include="Puzzles\MixedTatamis.cpp" />
     <ClCompile Include="Puzzles\MoreOrLess.cpp" />
     <ClCompile Include="Puzzles\Mosaik.cpp" />
     <ClCompile Include="Puzzles\MoveTheBox.cpp" />
@@ -213,6 +217,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\Magic5gonRing.xml" />
     <Xml Include="Puzzles\magic_square.xml" />
     <Xml Include="Puzzles\magic_square2.xml" />
     <Xml Include="Puzzles\Magnets.xml" />
@@ -228,6 +233,7 @@
     <Xml Include="Puzzles\Minesweeper.xml" />
     <Xml Include="Puzzles\MiniLits.xml" />
     <Xml Include="Puzzles\Mirrors.xml" />
+    <Xml Include="Puzzles\MixedTatamis.xml" />
     <Xml Include="Puzzles\MoreOrLess.xml" />
     <Xml Include="Puzzles\Mosaik.xml" />
     <Xml Include="Puzzles\MoveTheBox_Boston.xml" />
