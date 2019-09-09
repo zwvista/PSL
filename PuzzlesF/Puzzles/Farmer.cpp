@@ -4,37 +4,27 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 1/Parks
+    iOS Game: Logic Games 2/Puzzle Set 2/Farmer
 
     Summary
-    Put one Tree in each Park, row and column.(two in bigger levels)
+    Vegetable Gardener
 
     Description
-    1. In Parks, you have many differently coloured areas(Parks) on the board.
-    2. The goal is to plant Trees, following these rules:
-    3. A Tree can't touch another Tree, not even diagonally.
-    4. Each park must have exactly ONE Tree.
-    5. There must be exactly ONE Tree in each row and each column.
-    6. Remember a Tree CANNOT touch another Tree diagonally,
-       but it CAN be on the same diagonal line.
-    7. Larger puzzles have TWO Trees in each park, each row and each column.
+    1. A Farmer has a scientific way to work his field:
+    2. He plants three types of fruits or vegetables (given randomly at each level).
+    3. Each area must contain either three identical plants or three different plants.
+    4. When two plants are orthogonally adjacent across an area, they must be different.
 */
 
-namespace puzzles::Parks2{
+namespace puzzles::Farmer{
 
-#define PUZ_TREE        'T'
 #define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
 
 const Position offset[] = {
-    {-1, 0},    // n
-    {-1, 1},    // ne
+    {-1, 0},       // n
     {0, 1},        // e
-    {1, 1},        // se
     {1, 0},        // s
-    {1, -1},    // sw
-    {0, -1},    // w
-    {-1, -1},    // nw
+    {0, -1},       // w
 };
 
 const Position offset2[] = {
@@ -44,21 +34,14 @@ const Position offset2[] = {
     {0, 0},        // w
 };
 
-struct puz_area_info
-{
-    vector<Position> m_range;
-    vector<string> m_perms;
-};
-
 struct puz_game    
 {
     string m_id;
     int m_sidelen;
-    int m_tree_count_area;
-    int m_tree_total_count;
     string m_start;
-    map<Position, int> m_pos2park;
-    vector<puz_area_info> m_area_info;
+    map<Position, int> m_pos2area;
+    vector<vector<Position>> m_areas;
+    vector<string> m_perms;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -93,9 +76,6 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() / 2)
-, m_tree_count_area(level.attribute("TreesInEachArea").as_int(1))
-, m_tree_total_count(m_tree_count_area * m_sidelen)
-, m_area_info(m_sidelen * 3)
 {
     set<Position> rng;
     for (int r = 0;; ++r) {
@@ -114,52 +94,28 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
             m_start.push_back(ch);
-            if (ch != PUZ_EMPTY) {
-                rng.insert(p);
-                m_area_info[r].m_range.push_back(p);
-                m_area_info[c + m_sidelen].m_range.push_back(p);
-            }
+            rng.insert(p);
         }
     }
 
     for (int n = 0; !rng.empty(); ++n) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+        m_areas.emplace_back();
         for (auto& p : smoves) {
-            m_pos2park[p] = n;
-            m_area_info[n + m_sidelen * 2].m_range.push_back(p);
+            m_pos2area[p] = n;
+            m_areas.back().push_back(p);
             rng.erase(p);
         }
     }
 
-    map<int, vector<string>> sz2perms;
-    for (auto& info : m_area_info) {
-        int ps_cnt = info.m_range.size();
-        auto& perms = sz2perms[ps_cnt];
-        if (perms.empty()) {
-            auto perm = string(ps_cnt - m_tree_count_area, PUZ_EMPTY)
-                + string(m_tree_count_area, PUZ_TREE);
-            do
-                perms.push_back(perm);
-            while (boost::next_permutation(perm));
-        }
-        for (const auto& perm : perms) {
-            vector<Position> ps_tree;
-            for (int i = 0; i < perm.size(); ++i)
-                if (perm[i] == PUZ_TREE)
-                    ps_tree.push_back(info.m_range[i]);
-
-            if ([&]{
-                // no touching
-                for (const auto& ps1 : ps_tree)
-                    for (const auto& ps2 : ps_tree)
-                        if (boost::algorithm::any_of_equal(offset, ps1 - ps2))
-                            return false;
-                return true;
-            }())
-                info.m_perms.push_back(perm);
-        }
-    }
+    m_perms.push_back("AAA");
+    m_perms.push_back("BBB");
+    m_perms.push_back("CCC");
+    string perm = "ABC";
+    do
+        m_perms.push_back(perm);
+    while (boost::next_permutation(perm));
 }
 
 struct puz_state
@@ -197,8 +153,10 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    for (int i = 0; i < sidelen() * 3; ++i)
-        m_matches[i];
+    vector<int> perm_ids(g.m_perms.size());
+    boost::iota(perm_ids, 0);
+    for (int i = 0; i < g.m_areas.size(); ++i)
+        m_matches[i] = perm_ids;
 
     find_matches(true);
 }
@@ -206,17 +164,18 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
-        auto& info = m_game->m_area_info[kv.first];
-        string area;
-        for (auto& p : info.m_range)
-            area.push_back(cells(p));
+        auto& area = m_game->m_areas[kv.first];
+        auto& perm_ids = kv.second;
 
-        kv.second.clear();
-        for (int i = 0; i < info.m_perms.size(); ++i)
-            if (boost::equal(area, info.m_perms[i], [](char ch1, char ch2) {
+        string chars;
+        for (auto& p : area)
+            chars.push_back(cells(p));
+
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            return !boost::equal(chars, m_game->m_perms[id], [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
-            }))
-                kv.second.push_back(i);
+            });
+        });
 
         if (!init)
             switch(kv.second.size()) {
@@ -231,19 +190,19 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::make_move2(int i, int j)
 {
-    auto& info = m_game->m_area_info[i];
-    auto& area = info.m_range;
-    auto& perm = info.m_perms[j];
+    auto& area = m_game->m_areas[i];
+    auto& perm = m_game->m_perms[j];
 
     for (int k = 0; k < perm.size(); ++k) {
         auto& p = area[k];
-        if ((cells(p) = perm[k]) != PUZ_TREE) continue;
+        char& ch = cells(p);
+        ch = perm[k];
 
-        // no touching
+        // 4. When two plants are orthogonally adjacent across an area, they must be different.
         for (auto& os : offset) {
             auto p2 = p + os;
-            if (is_valid(p2))
-                cells(p2) = PUZ_EMPTY;
+            if (is_valid(p2) && m_game->m_pos2area.at(p2) != i && cells(p2) == ch)
+                return false;
         }
     }
 
@@ -298,9 +257,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_Parks2()
+void solve_puz_Farmer()
 {
-    using namespace puzzles::Parks2;
+    using namespace puzzles::Farmer;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Parks.xml", "Puzzles/Parks2.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Farmer.xml", "Puzzles/Farmer.txt", solution_format::GOAL_STATE_ONLY);
 }

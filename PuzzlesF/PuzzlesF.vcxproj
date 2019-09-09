@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\Farmer.txt" />
     <Text Include="Puzzles\FenceItUp.txt" />
     <Text Include="Puzzles\FenceLits.txt" />
     <Text Include="Puzzles\FenceSentinels.txt" />
@@ -184,6 +185,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\Farmer.cpp" />
     <ClCompile Include="Puzzles\FenceItUp.cpp" />
     <ClCompile Include="Puzzles\FenceLits.cpp" />
     <ClCompile Include="Puzzles\FenceSentinels.cpp" />
@@ -202,6 +204,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\Farmer.xml" />
     <Xml Include="Puzzles\FenceItUp.xml" />
     <Xml Include="Puzzles\FenceLits.xml" />
     <Xml Include="Puzzles\FenceSentinels.xml" />

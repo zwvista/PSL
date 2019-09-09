@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. A Farmer has a scientific way to work his field:
+2. He plants three types of fruits or vegetables (given randomly at each level).
+3. Each area must contain either three identical plants or three different plants.
+4. When two plants are orthogonally adjacent across an area, they must be different.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - `
+|A  |A|`
+ -     `
+| | |B|`
+   -   `
+|B  | |`
+ - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+extern void solve_puz_Farmer();
 extern void solve_puz_FenceItUp();
 extern void solve_puz_FenceLits();
 extern void solve_puz_FenceSentinels();
@@ -14,6 +15,7 @@ extern void solve_puz_Futoshiki();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    cout << "a: Farmer" << endl;
     cout << "e1: Fence It Up" << endl;
     cout << "e2: FenceLits" << endl;
     cout << "e3: Fence Sentinels" << endl;
@@ -27,6 +29,7 @@ int main(int argc, char **argv)
     string str;
     getline(cin, str);
     if (str.empty());
+    else if (str == "a") solve_puz_Farmer();
     else if (str == "e1") solve_puz_FenceItUp();
     else if (str == "e2") solve_puz_FenceLits();
     else if (str == "e3") solve_puz_FenceSentinels();
