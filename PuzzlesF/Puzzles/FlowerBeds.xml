@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. The board represents a garden where flowers are scattered around.
+2. Your task as a gardener is to divide the garden in rectangular (or square) flower beds.
+3. Each flower bed should contain exactly one flower.
+4. Contiguous flower beds can't have the same area extension.
+5. Green squares are hedges that can't be included in flower beds.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+FFHF`
+H F `
+FF H`
+ H F`
+    ]]>
+  </level>
+</levels>
+</puzzle>

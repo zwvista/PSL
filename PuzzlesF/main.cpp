@@ -6,6 +6,7 @@ extern void solve_puz_FenceLits();
 extern void solve_puz_FenceSentinels();
 extern void solve_puz_Fillomino();
 extern void solve_puz_fling();
+extern void solve_puz_FlowerBeds();
 extern void solve_puz_FourMeNot();
 extern void solve_puz_FreePlanks();
 extern void solve_puz_fullsearch();
@@ -20,7 +21,8 @@ int main(int argc, char **argv)
     cout << "e2: FenceLits" << endl;
     cout << "e3: Fence Sentinels" << endl;
     cout << "i: Fillomino" << endl;
-    cout << "l: fling" << endl;
+    cout << "l1: fling" << endl;
+    cout << "l2: Flower Beds" << endl;
     cout << "o: Four-Me-Not" << endl;
     cout << "r: Free Planks" << endl;
     cout << "u1: fullsearch" << endl;
@@ -34,7 +36,8 @@ int main(int argc, char **argv)
     else if (str == "e2") solve_puz_FenceLits();
     else if (str == "e3") solve_puz_FenceSentinels();
     else if (str == "i") solve_puz_Fillomino();
-    else if (str == "l") solve_puz_fling();
+    else if (str == "l1") solve_puz_fling();
+    else if (str == "l2") solve_puz_FlowerBeds();
     else if (str == "o") solve_puz_FourMeNot();
     else if (str == "r") solve_puz_FreePlanks();
     else if (str == "u1") solve_puz_fullsearch();
