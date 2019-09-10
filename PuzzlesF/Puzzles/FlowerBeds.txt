@@ -1,4 +1,59 @@
 Level 1
-Number of vertices examined: 1
-0.0915853 [s]
+Sequence of moves: 
+ - -   -
+|F|F|H|F|
+ -   -  
+ H| |F| |
+ - -   -
+|F|F| |H 
+   -   -
+| |H| |F|
+ -   - -
+Number of moves: 5
+Number of vertices examined: 6
+0.00119068 [s]
+
+Level 2
+Sequence of moves: 
+   - -  
+ H|F  |H 
+ - - - -
+|F      |
+        
+|       |
+ - - - -
+ H|F  |H 
+   - -  
+Number of moves: 1
+Number of vertices examined: 2
+0.000373759 [s]
+
+Level 200
+Sequence of moves: 
+ -   - - - - - - - -  
+| |H|    F  |F|F|  F|H 
+   -         -       -
+| |F|       |H| |   | |
+     - - - - - -      
+|F| |H|         |   | |
+ -   -           - -  
+|F| | |      F  |H| |F|
+       - - - - - -   -
+| | |F|H|    F  |F|F|F|
+ - -   - - - - - - - -
+| |H| |F  |F    | |H| |
+   - - - - - - -   -  
+| | |  F      |H|F| |F|
+     - - - - - -      
+| | |H| |  F|F| | | | |
+     -   - - -   -    
+|F|F| |F|    F|F|H|F| |
+ -       - - - - -    
+|F| |F| |H| |   | | | |
+ -   - - -         - -
+ H| |F|F  |F|  F|F|H|F|
+   - - - - - - - -   -
+Number of moves: 29
+Number of vertices examined: 386
+0.0532394 [s]
 

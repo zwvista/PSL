@@ -18,5 +18,28 @@ FF H`
  H F`
     ]]>
   </level>
+  <level id="2">
+    <![CDATA[
+HF H`
+F   `
+    `
+HF H`
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+ H  F FF FH`
+ F    H    `
+F H        `
+F     F H F`
+  FH  F FFF`
+ H F F   H `
+   F   HF F`
+  H  FF    `
+FF F  FFHF `
+F F H      `
+H FF F FFHF`
+    ]]>
+  </level>
 </levels>
 </puzzle>
