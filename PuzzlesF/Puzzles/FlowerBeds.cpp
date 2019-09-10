@@ -31,21 +31,15 @@ const Position offset[] = {
     {0, -1},       // w
 };
 
-const Position offset2[] = {
-    {0, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, 0},        // w
-};
+typedef pair<Position, Position> puz_box;
 
 struct puz_game    
 {
     string m_id;
     int m_sidelen;
     string m_start;
-    map<Position, int> m_pos2area;
-    vector<vector<Position>> m_areas;
-    vector<string> m_perms;
+    vector<puz_box> m_boxes;
+    map<Position, vector<int>> m_pos2boxids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
@@ -65,9 +59,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     Position tl(r, c), br = tl + box_sz;
                     vector<Position> rng;
                     for (int r2 = tl.first; r2 <= br.first; ++r2)
-                        for (int c2 = tl.second; c2 <= br.second; ++c2)
-                            if (Position p(r2, c2); cells(p) == PUZ_SPACE)
+                        for (int c2 = tl.second; c2 <= br.second; ++c2) {
+                            Position p(r2, c2);
+                            if (char ch = cells(p); ch == PUZ_FLOWER) {
                                 rng.push_back(p);
+                                if (rng.size() > 1)
+                                    goto next;
+                            }
+                            else if (ch == PUZ_HEDGE)
+                                goto next;
+                        }
+                    if (rng.size() != 1) continue;
+                    int n = m_boxes.size();
+                    m_boxes.emplace_back(tl, br);
+                    for (int r2 = tl.first; r2 <= br.first; ++r2)
+                        for (int c2 = tl.second; c2 <= br.second; ++c2)
+                            m_pos2boxids[{r2, c2}].push_back(n);
+                next:;
                 }
 }
 
@@ -82,8 +90,8 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
-    bool make_move(int i, int j);
-    bool make_move2(int i, int j);
+    bool make_move(const Position& p, int n);
+    bool make_move2(const Position& p, int n);
     int find_matches(bool init);
 
     // solve_puzzle interface
@@ -100,17 +108,16 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     set<Position> m_horz_walls, m_vert_walls;
-    map<int, vector<int>> m_matches;
+    map<Position, vector<int>> m_matches;
+    map<char, int> m_ch2boxid;
     unsigned int m_distance = 0;
+    char m_ch = 'a';
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    vector<int> perm_ids(g.m_perms.size());
-    boost::iota(perm_ids, 0);
-    for (int i = 0; i < g.m_areas.size(); ++i)
-        m_matches[i] = perm_ids;
+    m_matches = g.m_pos2boxids;
 
     find_matches(true);
 }
@@ -118,17 +125,16 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
-        auto& area = m_game->m_areas[kv.first];
-        auto& perm_ids = kv.second;
+        auto& p = kv.first;
+        auto& box_ids = kv.second;
 
-        string chars;
-        for (auto& p : area)
-            chars.push_back(cells(p));
-
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, m_game->m_perms[id], [](char ch1, char ch2) {
-                return ch1 == PUZ_SPACE || ch1 == ch2;
-            });
+        boost::remove_erase_if(box_ids, [&](int id) {
+            auto& box = m_game->m_boxes[id];
+            for (int r = box.first.first; r <= box.second.first; ++r)
+                for (int c = box.first.second; c <= box.second.second; ++c)
+                    if (cells({r, c}) != PUZ_SPACE)
+                        return true;
+            return false;
         });
 
         if (!init)
@@ -142,33 +148,43 @@ int puz_state::find_matches(bool init)
     return 2;
 }
 
-bool puz_state::make_move2(int i, int j)
+bool puz_state::make_move2(const Position& p, int n)
 {
-    auto& area = m_game->m_areas[i];
-    auto& perm = m_game->m_perms[j];
+    auto f = [](const puz_box& box) {
+        return Position(box.second.first - box.first.first, box.second.second - box.first.second);
+    };
 
-    for (int k = 0; k < perm.size(); ++k) {
-        auto& p = area[k];
-        char& ch = cells(p);
-        ch = perm[k];
-
-        // 4. When two plants are orthogonally adjacent across an area, they must be different.
-        for (auto& os : offset) {
-            auto p2 = p + os;
-            if (is_valid(p2) && m_game->m_pos2area.at(p2) != i && cells(p2) == ch)
-                return false;
+    auto& box = m_game->m_boxes[n];
+    auto& tl = box.first, & br = box.second;
+    for (int r = tl.first; r <= br.first; ++r)
+        for (int c = tl.second; c <= br.second; ++c) {
+            Position p2(r, c);
+            cells(p) = m_ch, ++m_distance;
+            // Contiguous flower beds can't have the same area extension.
+            for (auto& os : offset) {
+                auto p3 = p2 + os;
+                if (!is_valid(p3)) continue;
+                char ch = cells(p3);
+                if (ch != PUZ_SPACE && ch != m_ch &&
+                    f(box) == f(m_game->m_boxes[m_ch2boxid.at(ch)]))
+                    return false;
+            }
         }
-    }
+    for (int r = tl.first; r <= br.first; ++r)
+        m_vert_walls.emplace(r, tl.second),
+        m_vert_walls.emplace(r, br.second + 1);
+    for (int c = tl.second; c <= br.second; ++c)
+        m_horz_walls.emplace(tl.first, c),
+        m_horz_walls.emplace(br.first + 1, c);
 
-    ++m_distance;
-    m_matches.erase(i);
-    return true;
+    m_ch2boxid[m_ch++] = n;
+    m_matches.erase(p);
 }
 
-bool puz_state::make_move(int i, int j)
+bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move2(i, j))
+    if (!make_move2(p, n))
         return false;
     int m;
     while ((m = find_matches(false)) == 1);
@@ -178,8 +194,8 @@ bool puz_state::make_move(int i, int j)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
-        const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2) {
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
     for (int n : kv.second) {
@@ -202,7 +218,7 @@ ostream& puz_state::dump(ostream& out) const
             // draw vert-walls
             out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
             if (c == sidelen()) break;
-            out << cells(p);
+            out << m_game->cells(p);
         }
         out << endl;
     }
