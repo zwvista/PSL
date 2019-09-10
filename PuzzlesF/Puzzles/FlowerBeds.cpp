@@ -152,7 +152,7 @@ int puz_state::find_matches(bool init)
 bool puz_state::make_move2(int n)
 {
     auto f = [](const puz_box& box) {
-        return Position(box.second.first - box.first.first, box.second.second - box.first.second);
+        return (box.second.first - box.first.first + 1) * (box.second.second - box.first.second + 1);
     };
 
     auto& box = m_game->m_boxes[n];
