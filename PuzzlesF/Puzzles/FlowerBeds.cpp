@@ -31,14 +31,18 @@ const Position offset[] = {
     {0, -1},       // w
 };
 
-typedef pair<Position, Position> puz_box;
+struct puz_box_info
+{
+    int m_area;
+    pair<Position, Position> m_box;
+};
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;
     string m_start;
-    vector<puz_box> m_boxes;
+    vector<puz_box_info> m_boxinfos;
     map<Position, vector<int>> m_pos2boxids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -69,12 +73,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             else if (ch == PUZ_HEDGE)
                                 goto next;
                         }
-                    if (rng.size() != 1) continue;
-                    int n = m_boxes.size();
-                    m_boxes.emplace_back(tl, br);
-                    for (int r2 = tl.first; r2 <= br.first; ++r2)
-                        for (int c2 = tl.second; c2 <= br.second; ++c2)
-                            m_pos2boxids[{r2, c2}].push_back(n);
+                    if (rng.size() == 1) {
+                        int n = m_boxinfos.size();
+                        puz_box_info info;
+                        info.m_area = h * w;
+                        info.m_box = {tl, br};
+                        m_boxinfos.push_back(info);
+                        for (int r2 = tl.first; r2 <= br.first; ++r2)
+                            for (int c2 = tl.second; c2 <= br.second; ++c2)
+                                m_pos2boxids[{r2, c2}].push_back(n);
+                    }
                 next:;
                 }
 }
@@ -130,7 +138,7 @@ int puz_state::find_matches(bool init)
         auto& box_ids = kv.second;
 
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& box = m_game->m_boxes[id];
+            auto& box = m_game->m_boxinfos[id].m_box;
             for (int r = box.first.first; r <= box.second.first; ++r)
                 for (int c = box.first.second; c <= box.second.second; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
@@ -151,11 +159,8 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::make_move2(int n)
 {
-    auto f = [](const puz_box& box) {
-        return (box.second.first - box.first.first + 1) * (box.second.second - box.first.second + 1);
-    };
-
-    auto& box = m_game->m_boxes[n];
+    auto& info = m_game->m_boxinfos[n];
+    auto& box = info.m_box;
     auto& tl = box.first, & br = box.second;
     for (int r = tl.first; r <= br.first; ++r)
         for (int c = tl.second; c <= br.second; ++c) {
@@ -166,7 +171,7 @@ bool puz_state::make_move2(int n)
                 auto p2 = p + os;
                 if (!is_valid(p2)) continue;
                 if (char ch = cells(p2); ch != PUZ_SPACE && ch != PUZ_HEDGE && ch != m_ch &&
-                    f(box) == f(m_game->m_boxes[m_ch2boxid.at(ch)]))
+                    info.m_area == m_game->m_boxinfos[m_ch2boxid.at(ch)].m_area)
                     return false;
             }
         }
