@@ -142,6 +142,7 @@ struct puz_state
     bool make_move(int i, int j);
     bool make_move2(int i, int j);
     int find_matches(bool init);
+    bool is_continuous() const;
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -201,6 +202,43 @@ int puz_state::find_matches(bool init)
     return 2;
 }
 
+struct puz_state3 : Position
+{
+    puz_state3(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state3>& children) const;
+
+    const set<Position>* m_rng;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    for (int i = 0; i < 4; ++i) {
+        auto p2 = *this + offset[i * 2];
+        if (m_rng->count(p2) != 0) {
+            children.push_back(*this);
+            children.back().make_move(p2);
+        }
+    }
+}
+
+bool puz_state::is_continuous() const
+{
+    set<Position> a;
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            char ch = cells(p);
+            if (ch != PUZ_EMPTY)
+                a.insert(p);
+        }
+
+    list<puz_state3> smoves;
+    puz_move_generator<puz_state3>::gen_moves(a, smoves);
+    return smoves.size() == a.size();
+}
+
 bool puz_state::make_move2(int i, int j)
 {
     auto& area = m_game->m_areas[i];
@@ -210,6 +248,7 @@ bool puz_state::make_move2(int i, int j)
         auto& p = area[k];
         char& ch = cells(p);
         ch = perm[k];
+        if (ch == PUZ_EMPTY) continue;
 
         // 3. The same plant cannot be placed in adjacent tiles, not even diagonally.
         for (auto& os : offset) {
@@ -221,7 +260,7 @@ bool puz_state::make_move2(int i, int j)
 
     ++m_distance;
     m_matches.erase(i);
-    return true;
+    return is_continuous();
 }
 
 bool puz_state::make_move(int i, int j)

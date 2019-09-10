@@ -9,7 +9,7 @@ Sequence of moves:
  - - -
 Number of moves: 3
 Number of vertices examined: 4
-0.00200249 [s]
+0.000449 [s]
 
 Level 2
 Sequence of moves: 
@@ -22,5 +22,36 @@ Sequence of moves:
  - - -
 Number of moves: 3
 Number of vertices examined: 4
-0.00128512 [s]
+0.000113 [s]
+
+Level 200
+Sequence of moves: 
+ - - - - - - - - - - - -
+|A B|C A B|A|B B|A B C|B|
+ -   - - -   -   - - -  
+|B|C|A|C C|B C|B|C|A|B B|
+   -   -   - - -     - -
+|B B|C B|C|A B|A B|A A|C|
+ - - - - - -   - - - -  
+|C|A A|C A B|C|B|A C|B A|
+   -   - - - -   -   - -
+|C C|A|B|C C|B|A C|B|C C|
+ - - -   -     - - - -  
+|A B|C|B B|C|B B|A A A|C|
+ -     - - - - - - - - -
+|B|C|B A|C|A A|C|B B B|A|
+   - - -   -     - - -  
+|B|A C|B|A B|A|B A|C|A A|
+   -     - - - - -   - -
+|B|C|B|A C|A B C|B|C C|B|
+ -   - - - - - -   - -  
+|A|B A|B|A B C|B|C A|B|A|
+   - -   - - -   - -    
+|B C|B B|C|A|B B|A|B B|C|
+ - - - -     - -   - - -
+|A A A|C C|A A|C B|A A A|
+ - - - - - - - - - - - -
+Number of moves: 44
+Number of vertices examined: 509319
+44.8606 [s]
 
