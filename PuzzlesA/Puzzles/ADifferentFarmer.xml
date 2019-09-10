@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. A Different Farmer plants fruits and vegetables in a different way.
+2. He places exactly one of each of the three fruits or vegetables in each field (marked area).
+3. The same plant cannot be placed in adjacent tiles, not even diagonally.
+4. All the plants must be connected horizontally or vertically.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - `
+| |A   B|`
+   - - - `
+|B  |  A|`
+         `
+|   |  C|`
+ - - - - `
+|    A  |`
+ - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>

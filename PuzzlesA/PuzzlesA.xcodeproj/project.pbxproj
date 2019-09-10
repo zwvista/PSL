@@ -17,6 +17,7 @@
 		8CA23F621EB475A70055D6B1 /* AbstractPainting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F581EB475A70055D6B1 /* AbstractPainting.cpp */; };
 		8CA23F631EB475A70055D6B1 /* Archipelago.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F5B1EB475A70055D6B1 /* Archipelago.cpp */; };
 		8CA23F641EB475A70055D6B1 /* Arrows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F5E1EB475A70055D6B1 /* Arrows.cpp */; };
+		958FA62D2327EA4B00205831 /* ADifferentFarmer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA62C2327EA4A00205831 /* ADifferentFarmer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,6 +75,9 @@
 		8CA23F5E1EB475A70055D6B1 /* Arrows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arrows.cpp; sourceTree = "<group>"; };
 		8CA23F5F1EB475A70055D6B1 /* Arrows.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Arrows.txt; sourceTree = "<group>"; };
 		8CA23F601EB475A70055D6B1 /* Arrows.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Arrows.xml; sourceTree = "<group>"; };
+		958FA62A2327EA4A00205831 /* ADifferentFarmer.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ADifferentFarmer.xml; sourceTree = "<group>"; };
+		958FA62B2327EA4A00205831 /* ADifferentFarmer.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ADifferentFarmer.txt; sourceTree = "<group>"; };
+		958FA62C2327EA4A00205831 /* ADifferentFarmer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADifferentFarmer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,9 @@
 				8CA23F581EB475A70055D6B1 /* AbstractPainting.cpp */,
 				8CA23F591EB475A70055D6B1 /* AbstractPainting.txt */,
 				8CA23F5A1EB475A70055D6B1 /* AbstractPainting.xml */,
+				958FA62C2327EA4A00205831 /* ADifferentFarmer.cpp */,
+				958FA62B2327EA4A00205831 /* ADifferentFarmer.txt */,
+				958FA62A2327EA4A00205831 /* ADifferentFarmer.xml */,
 				8CA23F5B1EB475A70055D6B1 /* Archipelago.cpp */,
 				8CA23F5C1EB475A70055D6B1 /* Archipelago.txt */,
 				8CA23F5D1EB475A70055D6B1 /* Archipelago.xml */,
@@ -228,6 +235,7 @@
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA23F631EB475A70055D6B1 /* Archipelago.cpp in Sources */,
+				958FA62D2327EA4B00205831 /* ADifferentFarmer.cpp in Sources */,
 				8C355CD31FE56966002FC9D6 /* ABCPath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
