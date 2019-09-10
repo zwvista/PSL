@@ -109,6 +109,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
+    // 3. Each area must contain either three identical plants or three different plants.
     m_perms.push_back("AAA");
     m_perms.push_back("BBB");
     m_perms.push_back("CCC");
@@ -174,20 +175,19 @@ int puz_state::find_matches(bool init)
 
         boost::remove_erase_if(perm_ids, [&](int j) {
             auto& perm = m_game->m_perms[j];
-            return !boost::equal(chars, perm, [](char ch1, char ch2) {
+            if (!boost::equal(chars, perm, [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
-            }) || [&]{
-                for (int k = 0; k < perm.size(); ++k) {
-                    auto& p = area[k];
-                    char ch = perm[k];
-                    for (auto& os : offset) {
-                        auto p2 = p + os;
-                        if (is_valid(p2) && m_game->m_pos2area.at(p2) != i && cells(p2) == ch)
-                            return true;
-                    }
-                }
-                return false;
-            }();
+            }))
+                return true;
+            // 4. When two plants are orthogonally adjacent across an area, they must be different.
+            for (int k = 0; k < perm.size(); ++k) {
+                auto& p = area[k];
+                char ch = perm[k];
+                for (auto& os : offset)
+                    if (auto p2 = p + os; is_valid(p2) && m_game->m_pos2area.at(p2) != i && cells(p2) == ch)
+                        return true;
+            }
+            return false;
         });
 
         if (!init)

@@ -176,8 +176,8 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
-        int n = kv.first;
-        auto& area = m_game->m_areas[n];
+        int i = kv.first;
+        auto& area = m_game->m_areas[i];
         auto& perm_ids = kv.second;
         auto& perms = m_game->m_num2perms.at(area.size());
 
@@ -185,10 +185,22 @@ int puz_state::find_matches(bool init)
         for (auto& p : area)
             chars.push_back(cells(p));
 
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
+        boost::remove_erase_if(perm_ids, [&](int j) {
+            auto& perm = perms[j];
+            if (!boost::equal(chars, perm, [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
-            });
+            }))
+                return true;
+            // 3. The same plant cannot be placed in adjacent tiles, not even diagonally.
+            for (int k = 0; k < perm.size(); ++k) {
+                auto& p = area[k];
+                char ch = perm[k];
+                if (ch == PUZ_EMPTY) continue;
+                for (auto& os : offset)
+                    if (auto p2 = p + os; is_valid(p2) && m_game->m_pos2area.at(p2) != i && cells(p2) == ch)
+                        return true;
+            }
+            return false;
         });
 
         if (!init)
@@ -196,7 +208,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(n, perm_ids.front()) ? 1 : 0;
+                return make_move2(i, perm_ids[0]) ? 1 : 0;
             }
     }
     return 2;
@@ -244,19 +256,8 @@ bool puz_state::make_move2(int i, int j)
     auto& area = m_game->m_areas[i];
     auto& perm = m_game->m_num2perms.at(area.size())[j];
 
-    for (int k = 0; k < perm.size(); ++k) {
-        auto& p = area[k];
-        char& ch = cells(p);
-        ch = perm[k];
-        if (ch == PUZ_EMPTY) continue;
-
-        // 3. The same plant cannot be placed in adjacent tiles, not even diagonally.
-        for (auto& os : offset) {
-            auto p2 = p + os;
-            if (is_valid(p2) && m_game->m_pos2area.at(p2) != i && cells(p2) == ch)
-                return false;
-        }
-    }
+    for (int k = 0; k < perm.size(); ++k)
+        cells(area[k]) = perm[k];
 
     ++m_distance;
     m_matches.erase(i);
