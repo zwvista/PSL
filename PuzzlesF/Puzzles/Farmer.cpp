@@ -130,7 +130,7 @@ struct puz_state
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i, int j);
-    bool make_move2(int i, int j);
+    void make_move2(int i, int j);
     int find_matches(bool init);
 
     // solve_puzzle interface
@@ -164,58 +164,59 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
-        auto& area = m_game->m_areas[kv.first];
+        int i = kv.first;
+        auto& area = m_game->m_areas[i];
         auto& perm_ids = kv.second;
 
         string chars;
         for (auto& p : area)
             chars.push_back(cells(p));
 
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, m_game->m_perms[id], [](char ch1, char ch2) {
+        boost::remove_erase_if(perm_ids, [&](int j) {
+            auto& perm = m_game->m_perms[j];
+            return !boost::equal(chars, perm, [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
-            });
+            }) || [&]{
+                for (int k = 0; k < perm.size(); ++k) {
+                    auto& p = area[k];
+                    char ch = perm[k];
+                    for (auto& os : offset) {
+                        auto p2 = p + os;
+                        if (is_valid(p2) && m_game->m_pos2area.at(p2) != i && cells(p2) == ch)
+                            return true;
+                    }
+                }
+                return false;
+            }();
         });
 
         if (!init)
-            switch(kv.second.size()) {
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(kv.first, kv.second.front()) ? 1 : 0;
+                return make_move2(i, perm_ids[0]), 1;
             }
     }
     return 2;
 }
 
-bool puz_state::make_move2(int i, int j)
+void puz_state::make_move2(int i, int j)
 {
     auto& area = m_game->m_areas[i];
     auto& perm = m_game->m_perms[j];
 
-    for (int k = 0; k < perm.size(); ++k) {
-        auto& p = area[k];
-        char& ch = cells(p);
-        ch = perm[k];
-
-        // 4. When two plants are orthogonally adjacent across an area, they must be different.
-        for (auto& os : offset) {
-            auto p2 = p + os;
-            if (is_valid(p2) && m_game->m_pos2area.at(p2) != i && cells(p2) == ch)
-                return false;
-        }
-    }
+    for (int k = 0; k < perm.size(); ++k)
+        cells(area[k]) = perm[k];
 
     ++m_distance;
     m_matches.erase(i);
-    return true;
 }
 
 bool puz_state::make_move(int i, int j)
 {
     m_distance = 0;
-    if (!make_move2(i, j))
-        return false;
+    make_move2(i, j);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;

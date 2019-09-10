@@ -7,9 +7,9 @@ Sequence of moves:
    -  
 |B B|C|
  - - -
-Number of moves: 3
-Number of vertices examined: 4
-0.000449 [s]
+Number of moves: 1
+Number of vertices examined: 2
+0.000906 [s]
 
 Level 2
 Sequence of moves: 
@@ -20,9 +20,9 @@ Sequence of moves:
    -  
 |A A|B|
  - - -
-Number of moves: 3
-Number of vertices examined: 4
-0.000113 [s]
+Number of moves: 1
+Number of vertices examined: 2
+0.000144 [s]
 
 Level 200
 Sequence of moves: 
@@ -51,7 +51,7 @@ Sequence of moves:
  - - - -     - -   - - -
 |A A A|C C|A A|C B|A A A|
  - - - - - - - - - - - -
-Number of moves: 44
-Number of vertices examined: 509319
-44.8606 [s]
+Number of moves: 14
+Number of vertices examined: 28
+0.026097 [s]
 
