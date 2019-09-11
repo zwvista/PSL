@@ -44,7 +44,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
-            if (auto s = str.substr(c * 2, 2);  s != "  ")
+            if (auto s = str.substr(c * 2, 2); s != "  ")
                 m_pos2num[{r, c}] = stoi(s);
     }
 
@@ -123,7 +123,6 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    set<Position> spaces;
     for (auto& kv : m_matches) {
         auto& p = kv.first;
         auto& box_ids = kv.second;

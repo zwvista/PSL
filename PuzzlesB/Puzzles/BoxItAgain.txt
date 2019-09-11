@@ -11,7 +11,7 @@ Sequence of moves:
  - - - -
 Number of moves: 2
 Number of vertices examined: 3
-0.000637592 [s]
+0.001624 [s]
 
 Level 250
 Sequence of moves: 
@@ -40,5 +40,5 @@ Sequence of moves:
  - - - - - - - - -   -
 Number of moves: 10
 Number of vertices examined: 23
-0.00263621 [s]
+0.004774 [s]
 

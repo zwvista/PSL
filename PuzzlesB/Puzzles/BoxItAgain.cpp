@@ -96,7 +96,7 @@ struct puz_state : string
     char cells(int r, int c) const { return (*this)[r * sidelen() + c]; }
     char& cells(int r, int c) { return (*this)[r * sidelen() + c]; }
     bool make_move(const Position& p, int n);
-    bool make_move2(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -142,7 +142,7 @@ int puz_state::find_matches(bool init)
             auto& box = boxes[id];
             for (int r = box.first.first; r <= box.second.first; ++r)
                 for (int c = box.first.second; c <= box.second.second; ++c)
-                    if (this->cells(r, c) != PUZ_SPACE)
+                    if (cells(r, c) != PUZ_SPACE)
                         return true;
             return false;
         });
@@ -152,13 +152,13 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, box_ids.front()) ? 1 : 0;
+                return make_move2(p, box_ids[0]), 1;
             }
     }
     return 2;
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(const Position& p, int n)
 {
     auto& box = m_game->m_pos2boxinfo.at(p).m_boxes[n];
 
@@ -175,14 +175,12 @@ bool puz_state::make_move2(const Position& p, int n)
 
     ++m_ch, ++m_distance;
     m_matches.erase(p);
-    return is_goal_state() || !m_matches.empty();
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move2(p, n))
-        return false;
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
