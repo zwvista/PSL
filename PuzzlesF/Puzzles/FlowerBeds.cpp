@@ -97,7 +97,9 @@ struct puz_state
     }
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
     bool make_move(int n);
     bool make_move2(int n);
     int find_matches(bool init);
@@ -123,10 +125,11 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_game(&g)
+, m_cells(g.m_start)
+, m_matches(g.m_pos2boxids)
 {
     boost::replace_all(m_cells, string(1, PUZ_FLOWER), string(1, PUZ_SPACE));
-    m_matches = g.m_pos2boxids;
 
     find_matches(true);
 }

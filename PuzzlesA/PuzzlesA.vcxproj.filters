@@ -34,6 +34,9 @@
     <Text Include="Puzzles\ABCPath.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\ADifferentFarmer.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -71,6 +74,9 @@
     <ClCompile Include="Puzzles\ABCPath.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\ADifferentFarmer.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Abc.xml">
@@ -86,6 +92,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\ABCPath.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\ADifferentFarmer.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

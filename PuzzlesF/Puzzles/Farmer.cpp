@@ -11,7 +11,7 @@
 
     Description
     1. A Farmer has a scientific way to work his field:
-    2. He plants three types of fruits or vegetables (given randomly at each level).
+    2. He plants three types of fruits or vegetables.
     3. Each area must contain either three identical plants or three different plants.
     4. When two plants are orthogonally adjacent across an area, they must be different.
 */
