@@ -23,14 +23,16 @@ struct puz_box_info
     // the hint of the box
     int m_hint;
     // top-left and bottom-right
-    vector<pair<Position, Position>> m_boxes;
+    pair<Position, Position> m_box;
 };
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, puz_box_info> m_pos2boxinfo;
+    map<Position, int> m_pos2num;
+    vector<puz_box_info> m_boxinfos;
+    map<Position, vector<int>> m_pos2boxids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -41,73 +43,66 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
-            char ch = str[c];
-            if (ch != ' ')
-                m_pos2boxinfo[{r, c}].m_hint = ch - '0';
-        }
+        for (int c = 0; c < m_sidelen; ++c)
+            if (char ch = str[c]; ch != ' ')
+                m_pos2num[{r, c}] = ch - '0';
     }
 
-    for (auto& kv : m_pos2boxinfo) {
-        // the position of the number
-        const auto& pn = kv.first;
-        auto& info = kv.second;
-        int box_hint = info.m_hint;
-        auto& boxes = info.m_boxes;
-
-        for (int h = 1; h <= m_sidelen; ++h)
-            for (int w = 1; w <= m_sidelen; ++w) {
-                Position box_sz(h - 1, w - 1);
-                auto p2 = pn - box_sz;
-                //   - - - - 
-                //  |       |
-                //         - - - - 
-                //  |     |2|     |
-                //   - - - -      
-                //        |       |
-                //         - - - - 
-                for (int r = p2.first; r <= pn.first; ++r)
-                    for (int c = p2.second; c <= pn.second; ++c) {
-                        Position tl(r, c), br = tl + box_sz;
-                        if (tl.first >= 0 && tl.second >= 0 &&
-                            br.first < m_sidelen && br.second < m_sidelen &&
-                            box_hint == [&]{
-                                int n = 0;
-                                if (pn.first == tl.first) ++n;
-                                if (pn.second == tl.second) ++n;
-                                if (pn.first == br.first) ++n;
-                                if (pn.second == br.second) ++n;
-                                return n;
-                        }() &&
-                            // All the other numbers should not be inside this box
-                            boost::algorithm::none_of(m_pos2boxinfo, [&](
-                                const pair<const Position, puz_box_info>& kv) {
-                            auto& p = kv.first;
-                            return p != pn &&
-                                p.first >= tl.first && p.second >= tl.second &&
-                                p.first <= br.first && p.second <= br.second;
-                        }))
-                            boxes.emplace_back(tl, br);
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c)
+            for (int h = 1; h <= m_sidelen - r; ++h)
+                for (int w = 1; w <= m_sidelen - c; ++w) {
+                    Position box_sz(h - 1, w - 1);
+                    Position tl(r, c), br = tl + box_sz;
+                    vector<Position> rng;
+                    for (int r2 = tl.first; r2 <= br.first; ++r2)
+                        for (int c2 = tl.second; c2 <= br.second; ++c2) {
+                            Position p(r2, c2);
+                            if (auto it = m_pos2num.find(p); it != m_pos2num.end()) {
+                                rng.push_back(p);
+                                if (rng.size() > 1 || it->second != [&]{
+                                    int n = 0;
+                                    if (p.first == tl.first) ++n;
+                                    if (p.second == tl.second) ++n;
+                                    if (p.first == br.first) ++n;
+                                    if (p.second == br.second) ++n;
+                                    return n;
+                                }())
+                                    goto next;
+                            }
+                        }
+                    if (rng.size() == 1) {
+                        int n = m_boxinfos.size();
+                        puz_box_info info;
+                        info.m_hint = 0;
+                        info.m_box = {tl, br};
+                        m_boxinfos.push_back(info);
+                        for (int r2 = tl.first; r2 <= br.first; ++r2)
+                            for (int c2 = tl.second; c2 <= br.second; ++c2)
+                                m_pos2boxids[{r2, c2}].push_back(n);
                     }
-            }
-    }
+                next:;
+                }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(int r, int c) const { return (*this)[r * sidelen() + c]; }
-    char& cells(int r, int c) { return (*this)[r * sidelen() + c]; }
-    bool make_move(const Position& p, int n);
-    bool make_move2(const Position& p, int n);
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
+    bool make_move(int n);
+    void make_move2(int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
+    unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -116,6 +111,7 @@ struct puz_state : string
     }
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     // key: the position of the number
     // value.elem: the index of the box
     map<Position, vector<int>> m_matches;
@@ -125,30 +121,24 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+: m_game(&g)
+, m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+, m_matches(g.m_pos2boxids)
 {
-    for (auto& kv : g.m_pos2boxinfo) {
-        auto& box_ids = m_matches[kv.first];
-        box_ids.resize(kv.second.m_boxes.size());
-        boost::iota(box_ids, 0);
-    }
-
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    set<Position> spaces;
     for (auto& kv : m_matches) {
         auto& p = kv.first;
         auto& box_ids = kv.second;
 
-        auto& boxes = m_game->m_pos2boxinfo.at(p).m_boxes;
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& box = boxes[id];
+            auto& box = m_game->m_boxinfos[id].m_box;
             for (int r = box.first.first; r <= box.second.first; ++r)
                 for (int c = box.first.second; c <= box.second.second; ++c)
-                    if (this->cells(r, c) != PUZ_SPACE)
+                    if (cells({r, c}) != PUZ_SPACE)
                         return true;
             return false;
         });
@@ -158,29 +148,22 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, box_ids.front()) ? 1 : 0;
+                return make_move2(box_ids[0]), 1;
             }
-
-        // pruning
-        for (int id : box_ids) {
-            auto& box = boxes[id];
-            for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c)
-                    spaces.emplace(r, c);
-        }
     }
-    // All the boxes added up should cover all the remaining spaces
-    return boost::count(*this, PUZ_SPACE) == spaces.size() ? 2 : 0;
+    return 2;
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(int n)
 {
-    auto& box = m_game->m_pos2boxinfo.at(p).m_boxes[n];
-
+    auto& info = m_game->m_boxinfos[n];
+    auto& box = info.m_box;
     auto &tl = box.first, &br = box.second;
     for (int r = tl.first; r <= br.first; ++r)
-        for (int c = tl.second; c <= br.second; ++c)
-            cells(r, c) = m_ch, ++m_distance;
+        for (int c = tl.second; c <= br.second; ++c) {
+            Position p(r, c);
+            cells(p) = m_ch, ++m_distance, m_matches.erase(p);
+        }
     for (int r = tl.first; r <= br.first; ++r)
         m_vert_walls.emplace(r, tl.second),
         m_vert_walls.emplace(r, br.second + 1);
@@ -189,15 +172,12 @@ bool puz_state::make_move2(const Position& p, int n)
         m_horz_walls.emplace(br.first + 1, c);
 
     ++m_ch;
-    m_matches.erase(p);
-    return is_goal_state() || !m_matches.empty();
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    if (!make_move2(p, n))
-        return false;
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -212,7 +192,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
     for (int n : kv.second) {
         children.push_back(*this);
-        if (!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(n))
             children.pop_back();
     }
 }
@@ -230,11 +210,11 @@ ostream& puz_state::dump(ostream& out) const
             // draw vert-walls
             out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
             if (c == sidelen()) break;
-            auto it = m_game->m_pos2boxinfo.find(p);
-            if (it == m_game->m_pos2boxinfo.end())
+            auto it = m_game->m_pos2num.find(p);
+            if (it == m_game->m_pos2num.end())
                 out << " .";
             else
-                out << format("%2d") % it->second.m_hint;
+                out << format("%2d") % it->second;
         }
         out << endl;
     }
