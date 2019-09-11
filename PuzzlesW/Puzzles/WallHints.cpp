@@ -18,20 +18,15 @@ namespace puzzles::WallHints{
 
 #define PUZ_SPACE        ' '
 
-struct puz_box_info
-{
-    // the hint of the box
-    int m_hint;
-    // top-left and bottom-right
-    pair<Position, Position> m_box;
-};
+// top-left and bottom-right
+typedef pair<Position, Position> puz_box;
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
-    vector<puz_box_info> m_boxinfos;
+    vector<puz_box> m_boxes;
     map<Position, vector<int>> m_pos2boxids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -72,11 +67,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             }
                         }
                     if (rng.size() == 1) {
-                        int n = m_boxinfos.size();
-                        puz_box_info info;
-                        info.m_hint = 0;
-                        info.m_box = {tl, br};
-                        m_boxinfos.push_back(info);
+                        int n = m_boxes.size();
+                        m_boxes.emplace_back(tl, br);
                         for (int r2 = tl.first; r2 <= br.first; ++r2)
                             for (int c2 = tl.second; c2 <= br.second; ++c2)
                                 m_pos2boxids[{r2, c2}].push_back(n);
@@ -135,7 +127,7 @@ int puz_state::find_matches(bool init)
         auto& box_ids = kv.second;
 
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& box = m_game->m_boxinfos[id].m_box;
+            auto& box = m_game->m_boxes[id];
             for (int r = box.first.first; r <= box.second.first; ++r)
                 for (int c = box.first.second; c <= box.second.second; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
@@ -156,8 +148,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& info = m_game->m_boxinfos[n];
-    auto& box = info.m_box;
+    auto& box = m_game->m_boxes[n];
     auto &tl = box.first, &br = box.second;
     for (int r = tl.first; r <= br.first; ++r)
         for (int c = tl.second; c <= br.second; ++c) {
