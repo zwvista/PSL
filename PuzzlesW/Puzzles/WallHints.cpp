@@ -193,7 +193,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horz-walls
         for (int c = 0; c < sidelen(); ++c)
-            out << (m_horz_walls.count({r, c}) == 1 ? " --" : "   ");
+            out << (m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
         out << endl;
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
@@ -201,11 +201,10 @@ ostream& puz_state::dump(ostream& out) const
             // draw vert-walls
             out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
             if (c == sidelen()) break;
-            auto it = m_game->m_pos2num.find(p);
-            if (it == m_game->m_pos2num.end())
-                out << " .";
+            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
+                out << '.';
             else
-                out << format("%2d") % it->second;
+                out << it->second;
         }
         out << endl;
     }
