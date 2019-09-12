@@ -101,7 +101,7 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(int n);
-    bool make_move2(int n);
+    void make_move2(int n);
     int find_matches(bool init);
 
     // solve_puzzle interface
@@ -141,11 +141,22 @@ int puz_state::find_matches(bool init)
         auto& box_ids = kv.second;
 
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& box = m_game->m_boxinfos[id].m_box;
+            auto& info = m_game->m_boxinfos[id];
+            auto& box = info.m_box;
             for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c)
-                    if (cells({r, c}) != PUZ_SPACE)
+                for (int c = box.first.second; c <= box.second.second; ++c) {
+                    Position p(r, c);
+                    if (cells(p) != PUZ_SPACE)
                         return true;
+                    // Contiguous flower beds can't have the same area extension.
+                    for (auto& os : offset) {
+                        auto p2 = p + os;
+                        if (!is_valid(p2)) continue;
+                        if (char ch = cells(p2); ch != PUZ_SPACE && ch != PUZ_HEDGE &&
+                            info.m_area == m_game->m_boxinfos[m_ch2boxid.at(ch)].m_area)
+                            return true;
+                    }
+                }
             return false;
         });
 
@@ -154,13 +165,13 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(box_ids.front()) ? 1 : 0;
+                return make_move2(box_ids[0]), 1;
             }
     }
     return 2;
 }
 
-bool puz_state::make_move2(int n)
+void puz_state::make_move2(int n)
 {
     auto& info = m_game->m_boxinfos[n];
     auto& box = info.m_box;
@@ -169,14 +180,6 @@ bool puz_state::make_move2(int n)
         for (int c = tl.second; c <= br.second; ++c) {
             Position p(r, c);
             cells(p) = m_ch, ++m_distance, m_matches.erase(p);
-            // Contiguous flower beds can't have the same area extension.
-            for (auto& os : offset) {
-                auto p2 = p + os;
-                if (!is_valid(p2)) continue;
-                if (char ch = cells(p2); ch != PUZ_SPACE && ch != PUZ_HEDGE && ch != m_ch &&
-                    info.m_area == m_game->m_boxinfos[m_ch2boxid.at(ch)].m_area)
-                    return false;
-            }
         }
     for (int r = tl.first; r <= br.first; ++r)
         m_vert_walls.emplace(r, tl.second),
@@ -186,14 +189,12 @@ bool puz_state::make_move2(int n)
         m_horz_walls.emplace(br.first + 1, c);
 
     m_ch2boxid[m_ch++] = n;
-    return true;
 }
 
 bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    if (!make_move2(n))
-        return false;
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
