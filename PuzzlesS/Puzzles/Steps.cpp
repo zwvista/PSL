@@ -41,7 +41,6 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_pos2num;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_areas;
@@ -102,8 +101,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             char ch = str_v[c * 2 + 1];
             m_start.push_back(ch);
             rng.insert(p);
-            if (ch != PUZ_SPACE)
-                m_pos2num[p] = ch - '0';
         }
     }
 
@@ -180,16 +177,36 @@ int puz_state::find_matches(bool init)
         int area_id = kv.first;
         auto& perm_ids = kv.second;
         auto& area = m_game->m_areas[area_id];
+        int area_size = area.size();
         auto& perms = m_game->m_size2perms.at(area.size());
 
         string chars;
-        for (auto& p : area)
+        Position pn;
+        for (auto& p : area) {
+            char ch = cells(p);
             chars.push_back(cells(p));
+            if (ch != PUZ_SPACE && ch != PUZ_EMPTY)
+                pn = p;
+        }
 
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
+            if (!boost::equal(chars, perms[id], [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
-            });
+            }))
+                return true;
+            // 3. The number of empty squares between any pair of numbers
+            // in the same row or column, must equal the difference between those numbers.
+            for (auto& os : offset) {
+                int n = 0;
+                for (auto p2 = pn + os; is_valid(p2); p2 += os)
+                    if (char ch = cells(pn); ch == PUZ_SPACE || ch == PUZ_EMPTY)
+                        ++n;
+                    else if (int sz2 = ch - '0'; abs(area_size - sz2) != n)
+                        return true;
+                    else
+                        break;
+            }
+            return false;
         });
 
         if (!init)
@@ -227,14 +244,14 @@ bool puz_state::make_move(int i, int j)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<vector<int>>>& kv1,
-        const pair<const Position, vector<vector<int>>>& kv2) {
+        const pair<const int, vector<int>>& kv1,
+        const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
 
-    for (auto& perm : kv.second) {
+    for (int n : kv.second) {
         children.push_back(*this);
-        if (!children.back().make_move(kv.first, perm))
+        if (!children.back().make_move(kv.first, n))
             children.pop_back();
     }
 }
