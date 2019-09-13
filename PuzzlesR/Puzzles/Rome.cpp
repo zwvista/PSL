@@ -216,15 +216,56 @@ int puz_state::find_matches(bool init)
     return check_lead_to_rome() ? 2 : 0;
 }
 
+struct puz_state3 : Position
+{
+    puz_state3(const puz_state& s, const Position& starting) : m_state(&s) {
+        make_move(starting);
+    }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state3>& children) const;
+
+    const puz_state* m_state;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    char ch = m_state->cells(*this);
+    if (ch == PUZ_SPACE || ch == PUZ_ROME)
+        return;
+    auto& os = offset[tool_dirs.find(ch)];
+    auto p2 = *this + os;
+    if (m_state->is_valid(p2)) {
+        children.push_back(*this);
+        children.back().make_move(p2);
+    }
+}
+
 bool puz_state::check_lead_to_rome()
 {
-
+    set<Position> rng;
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            if (char ch = cells(p); ch != PUZ_SPACE && ch != PUZ_ROME)
+                rng.insert(p);
+        }
+    while (!rng.empty()) {
+        list<puz_state3> smoves;
+        // find all tiles reachable from the first space tile
+        puz_move_generator<puz_state3>::gen_moves({*this, *rng.begin()}, smoves);
+        if (char ch = cells(smoves.back()); ch != PUZ_SPACE && ch != PUZ_ROME)
+            return false;
+        for (auto& p : smoves)
+            rng.erase(p);
+    }
+    return true;
 }
 
 void puz_state::make_move2(int i, int j)
 {
     auto& range = m_game->m_areas[i];
-    auto& perm = m_game->m_size2perms.at(range.size)[j];
+    auto& perm = m_game->m_size2perms.at(range.size())[j];
 
     for (int k = 0; k < perm.size(); ++k)
         cells(range[k]) = perm[k];
@@ -258,9 +299,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
+    for (int r = 0;; ++r) {
+        // draw horz-walls
         for (int c = 0; c < sidelen(); ++c)
-            out << cells({r, c}) << ' ';
+            out << (m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+        out << endl;
+        if (r == sidelen()) break;
+        for (int c = 0;; ++c) {
+            Position p(r, c);
+            // draw vert-walls
+            out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+            if (c == sidelen()) break;
+            out << cells(p);
+        }
         out << endl;
     }
     return out;
