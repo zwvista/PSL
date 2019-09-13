@@ -40,6 +40,9 @@
     <Text Include="Puzzles\RunInALoop.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Rome.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -83,6 +86,9 @@
     <ClCompile Include="Puzzles\RunInALoop.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Rome.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\rotate9.xml">
@@ -104,6 +110,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\RunInALoop.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Rome.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

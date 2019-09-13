@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. All the roads lead to Rome.
+2. Hence you should fill the remaining spaces with arrows and in the end, starting at any tile and following the arrows, you should get at the Rome icon.
+3. Arrows in an area should all be different, i.e. there can't be two similar arrows in an area.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - `
+|v >|R|<|`
+ -   -   `
+| |<|  ^|`
+   - - - `
+| |>|^  |`
+       - `
+| |>| | |`
+ - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>

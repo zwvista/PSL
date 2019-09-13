@@ -160,6 +160,7 @@
     <Text Include="Puzzles\RippleEffect.txt" />
     <Text Include="Puzzles\RobotCrosswords.txt" />
     <Text Include="Puzzles\RobotFences.txt" />
+    <Text Include="Puzzles\Rome.txt" />
     <Text Include="Puzzles\Rooms.txt" />
     <Text Include="Puzzles\rotate9.txt" />
     <Text Include="Puzzles\rotationgame.txt" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Puzzles\RippleEffect.cpp" />
     <ClCompile Include="Puzzles\RobotCrosswords.cpp" />
     <ClCompile Include="Puzzles\RobotFences.cpp" />
+    <ClCompile Include="Puzzles\Rome.cpp" />
     <ClCompile Include="Puzzles\Rooms.cpp" />
     <ClCompile Include="Puzzles\rotate9.cpp" />
     <ClCompile Include="Puzzles\rotationgame.cpp" />
@@ -197,6 +199,7 @@
     <Xml Include="Puzzles\RippleEffect.xml" />
     <Xml Include="Puzzles\RobotCrosswords.xml" />
     <Xml Include="Puzzles\RobotFences.xml" />
+    <Xml Include="Puzzles\Rome.xml" />
     <Xml Include="Puzzles\Rooms.xml" />
     <Xml Include="Puzzles\rotate9.xml" />
     <Xml Include="Puzzles\rotationgame.xml" />
