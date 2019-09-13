@@ -22,7 +22,6 @@
 namespace puzzles::TopArrow{
 
 #define PUZ_SPACE        ' '
-#define PUZ_ROME         'R'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -40,12 +39,19 @@ const Position offset2[] = {
 
 const string tool_dirs = "^>v<";
 
+struct puz_arrow_info
+{
+    Position m_arrow, m_max;
+    char m_ch;
+    vector<Position> m_rng;
+};
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     string m_start;
-    Position m_rome;
+    vector<puz_arrow_info> m_arrow_infos;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_areas;
@@ -55,6 +61,10 @@ struct puz_game
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
 
 struct puz_state2 : Position
@@ -104,9 +114,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
             m_start.push_back(ch);
-            if (ch == PUZ_ROME)
-                m_rome = p;
-            else
+            if (int n = tool_dirs.find(ch); n != -1) {
+                puz_arrow_info info;
+                info.m_ch = ch;
+                info.m_arrow = p;
+                info.m_max = p + offset[n];
+                for (auto& os : offset)
+                    if (auto p2 = p + os; is_valid(p2))
+                        info.m_rng.push_back(p2);
+                m_arrow_infos.push_back(info);
+            } else
                 rng.insert(p);
         }
     }
@@ -122,21 +139,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (auto& area : m_areas) {
-        int cnt = area.size();
-        auto& perms = m_size2perms[cnt];
+        int sz = area.size();
+        auto& perms = m_size2perms[sz];
         if (!perms.empty()) continue;
-        vector<int> indexes(cnt);
-        string perm(cnt, ' ');
-        for (int i = 0; i < cnt;) {
-            set<int> s(indexes.begin(), indexes.end());
-            if (s.size() == cnt) {
-                for (int j = 0; j < cnt; ++j)
-                    perm[j] = tool_dirs[indexes[j]];
-                perms.push_back(perm);
-            }
-            for (i = 0; i < cnt && ++indexes[i] == 4; ++i)
-                indexes[i] = 0;
-        }
+        string perm(sz, ' ');
+        boost::iota(perm, '1');
+        do
+            perms.push_back(perm);
+        while (boost::next_permutation(perm));
     }
 }
 
@@ -156,7 +166,7 @@ struct puz_state
     bool make_move(int i, int j);
     void make_move2(int i, int j);
     int find_matches(bool init);
-    bool check_lead_to_rome();
+    bool check_arrows() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -200,9 +210,22 @@ int puz_state::find_matches(bool init)
             chars.push_back(cells(p));
 
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
+            auto& perm = perms[id];
+            if (!boost::equal(chars, perm, [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
-            });
+            }))
+                return true;
+            for (int k = 0; k < perm.size(); ++k) {
+                auto& p = area[k];
+                char ch = perm[k];
+                for (auto& os : offset) {
+                    auto p2 = p + os;
+                    if (!is_valid(p2)) continue;
+                    if (char ch2 = cells(p2); tool_dirs.find(ch2) == -1 && m_game->m_pos2area.at(p2) != area_id && ch == ch2)
+                        return true;
+                }
+            }
+            return false;
         });
 
         if (!init)
@@ -210,54 +233,23 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(area_id, perm_ids.front()), 1;
+                return make_move2(area_id, perm_ids[0]), 1;
             }
     }
-    return check_lead_to_rome() ? 2 : 0;
+    return check_arrows() ? 2 : 0;
 }
-
-struct puz_state3 : Position
+    
+bool puz_state::check_arrows() const
 {
-    puz_state3(const puz_state& s, const Position& starting) : m_state(&s) {
-        make_move(starting);
-    }
-
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state3>& children) const;
-
-    const puz_state* m_state;
-};
-
-void puz_state3::gen_children(list<puz_state3>& children) const
-{
-    char ch = m_state->cells(*this);
-    if (ch == PUZ_SPACE || ch == PUZ_ROME)
-        return;
-    auto& os = offset[tool_dirs.find(ch)];
-    auto p2 = *this + os;
-    if (m_state->is_valid(p2)) {
-        children.push_back(*this);
-        children.back().make_move(p2);
-    }
-}
-
-bool puz_state::check_lead_to_rome()
-{
-    set<Position> rng;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            if (char ch = cells(p); ch != PUZ_SPACE && ch != PUZ_ROME)
-                rng.insert(p);
-        }
-    while (!rng.empty()) {
-        list<puz_state3> smoves;
-        // find all tiles reachable from the first space tile
-        puz_move_generator<puz_state3>::gen_moves({*this, *rng.begin()}, smoves);
-        if (char ch = cells(smoves.back()); ch != PUZ_SPACE && ch != PUZ_ROME)
+    for (auto& info : m_game->m_arrow_infos) {
+        char chMax = cells(info.m_max);
+        if (chMax == PUZ_SPACE) continue;
+        string chars;
+        for (auto& p : info.m_rng)
+            chars.push_back(cells(p));
+        char chMax2 = *boost::max_element(chars);
+        if (!(chMax == chMax2 && boost::count(chars, chMax2) == 1))
             return false;
-        for (auto& p : smoves)
-            rng.erase(p);
     }
     return true;
 }
