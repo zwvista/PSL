@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Each area has a single number in it, which is equal to the area size.
+2. Its position should be such that, by moving horizontally and vertically, the distance to another number should be the difference between the two numbers. 
+3. Or in other words: The number of empty squares between any pair of numbers in the same row or column, must equal the difference between those numbers.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - - `
+|   | |2| |`
+   -       `
+|3|   | | |`
+ - -   -   `
+| | | | | |`
+     -   - `
+|2| |     |`
+ -   - - - `
+|     |  2|`
+ - - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>

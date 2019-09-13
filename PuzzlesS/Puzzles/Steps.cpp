@@ -4,24 +4,24 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 2/Rome
+    iOS Game: Logic Games 2/Puzzle Set 6/Steps
 
     Summary
-    All roads lead to ...
+    Go up or down
 
     Description
-    1. All the roads lead to Rome.
-    2. Hence you should fill the remaining spaces with arrows and in the
-       end, starting at any tile and following the arrows, you should get
-       at the Rome icon.
-    3. Arrows in an area should all be different, i.e. there can't be two
-       similar arrows in an area.
+    1. Each area has a single number in it, which is equal to the area size.
+    2. Its position should be such that, by moving horizontally and vertically,
+       the distance to another number should be the difference between the two
+       numbers. 
+    3. Or in other words: The number of empty squares between any pair of numbers
+       in the same row or column, must equal the difference between those numbers.
 */
 
-namespace puzzles::Rome{
+namespace puzzles::Steps{
 
-#define PUZ_SPACE        ' '
-#define PUZ_ROME         'R'
+#define PUZ_SPACE            ' '
+#define PUZ_EMPTY            '.'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -37,18 +37,16 @@ const Position offset2[] = {
     {0, 0},        // w
 };
 
-const string tool_dirs = "^>v<";
-
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
-    Position m_rome;
+    map<Position, int> m_pos2num;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
+    string m_start;
     // all permutations
     map<int, vector<string>> m_size2perms;
     set<Position> m_horz_walls, m_vert_walls;
@@ -103,10 +101,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
             m_start.push_back(ch);
-            if (ch == PUZ_ROME)
-                m_rome = p;
-            else
-                rng.insert(p);
+            rng.insert(p);
+            if (ch != PUZ_SPACE)
+                m_pos2num[p] = ch - '0';
         }
     }
 
@@ -121,21 +118,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (auto& area : m_areas) {
-        int cnt = area.size();
-        auto& perms = m_size2perms[cnt];
+        int sz = area.size();
+        auto& perms = m_size2perms[sz];
         if (!perms.empty()) continue;
-        vector<int> indexes(cnt);
-        string perm(cnt, ' ');
-        for (int i = 0; i < cnt;) {
-            set<int> s(indexes.begin(), indexes.end());
-            if (s.size() == cnt) {
-                for (int j = 0; j < cnt; ++j)
-                    perm[j] = tool_dirs[indexes[j]];
-                perms.push_back(perm);
-            }
-            for (i = 0; i < cnt && ++indexes[i] == 4; ++i)
-                indexes[i] = 0;
-        }
+        auto perm = string(sz - 1, PUZ_EMPTY) + char('0' + sz);
+        do
+            perms.push_back(perm);
+        while (boost::next_permutation(perm));
     }
 }
 
@@ -155,7 +144,6 @@ struct puz_state
     bool make_move(int i, int j);
     void make_move2(int i, int j);
     int find_matches(bool init);
-    bool check_lead_to_rome();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -205,60 +193,14 @@ int puz_state::find_matches(bool init)
         });
 
         if (!init)
-            switch(perm_ids.size()) {
+            switch(perms.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(area_id, perm_ids.front()), 1;
+                return make_move2(area_id, perm_ids[0]), 1;
             }
     }
-    return check_lead_to_rome() ? 2 : 0;
-}
-
-struct puz_state3 : Position
-{
-    puz_state3(const puz_state& s, const Position& starting) : m_state(&s) {
-        make_move(starting);
-    }
-
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state3>& children) const;
-
-    const puz_state* m_state;
-};
-
-void puz_state3::gen_children(list<puz_state3>& children) const
-{
-    char ch = m_state->cells(*this);
-    if (ch == PUZ_SPACE || ch == PUZ_ROME)
-        return;
-    auto& os = offset[tool_dirs.find(ch)];
-    auto p2 = *this + os;
-    if (m_state->is_valid(p2)) {
-        children.push_back(*this);
-        children.back().make_move(p2);
-    }
-}
-
-bool puz_state::check_lead_to_rome()
-{
-    set<Position> rng;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            if (char ch = cells(p); ch != PUZ_SPACE && ch != PUZ_ROME)
-                rng.insert(p);
-        }
-    while (!rng.empty()) {
-        list<puz_state3> smoves;
-        // find all tiles reachable from the first space tile
-        puz_move_generator<puz_state3>::gen_moves({*this, *rng.begin()}, smoves);
-        if (char ch = cells(smoves.back()); ch != PUZ_SPACE && ch != PUZ_ROME)
-            return false;
-        for (auto& p : smoves)
-            rng.erase(p);
-    }
-    return true;
+    return 2;
 }
 
 void puz_state::make_move2(int i, int j)
@@ -285,13 +227,14 @@ bool puz_state::make_move(int i, int j)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
-        const pair<const int, vector<int>>& kv1, 
-        const pair<const int, vector<int>>& kv2) {
+        const pair<const Position, vector<vector<int>>>& kv1,
+        const pair<const Position, vector<vector<int>>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : kv.second) {
+
+    for (auto& perm : kv.second) {
         children.push_back(*this);
-        if (!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, perm))
             children.pop_back();
     }
 }
@@ -318,9 +261,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_Rome()
+void solve_puz_Steps()
 {
-    using namespace puzzles::Rome;
+    using namespace puzzles::Steps;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Rome.xml", "Puzzles/Rome.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Steps.xml", "Puzzles/Steps.txt", solution_format::GOAL_STATE_ONLY);
 }

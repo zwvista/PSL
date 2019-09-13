@@ -12,6 +12,7 @@ extern void solve_puz_Snail();
 extern void solve_puz_Snake();
 extern void solve_puz_sokoban();
 extern void solve_puz_Square100();
+extern void solve_puz_Steps();
 extern void solve_puz_strimko();
 extern void solve_puz_sumscrapers();
 
@@ -30,7 +31,8 @@ int main(int argc, char **argv)
     cout << "n2: Snake" << endl;
     cout << "o: sokoban" << endl;
     cout << "q: Square 100" << endl;
-    cout << "t: strimko" << endl;
+    cout << "t1: Steps" << endl;
+    cout << "t2: strimko" << endl;
     cout << "u: sumscrapers" << endl;
     string str;
     getline(cin, str);
@@ -47,7 +49,8 @@ int main(int argc, char **argv)
     else if (str == "n2") solve_puz_Snake();
     else if (str == "o") solve_puz_sokoban();
     else if (str == "q") solve_puz_Square100();
-    else if (str == "t") solve_puz_strimko();
+    else if (str == "t1") solve_puz_Steps();
+    else if (str == "t2") solve_puz_strimko();
     else if (str == "u") solve_puz_sumscrapers();
 
     return 0;
