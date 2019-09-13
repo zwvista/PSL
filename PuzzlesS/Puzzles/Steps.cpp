@@ -118,7 +118,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         int sz = area.size();
         auto& perms = m_size2perms[sz];
         if (!perms.empty()) continue;
-        auto perm = string(sz - 1, PUZ_EMPTY) + char('0' + sz);
+        auto perm = string(sz - 1, PUZ_EMPTY) + char(sz + '0');
         do
             perms.push_back(perm);
         while (boost::next_permutation(perm));
@@ -181,25 +181,22 @@ int puz_state::find_matches(bool init)
         auto& perms = m_game->m_size2perms.at(area.size());
 
         string chars;
-        Position pn;
-        for (auto& p : area) {
-            char ch = cells(p);
+        for (auto& p : area)
             chars.push_back(cells(p));
-            if (ch != PUZ_SPACE && ch != PUZ_EMPTY)
-                pn = p;
-        }
 
         boost::remove_erase_if(perm_ids, [&](int id) {
-            if (!boost::equal(chars, perms[id], [](char ch1, char ch2) {
+            auto& perm = perms[id];
+            if (!boost::equal(chars, perm, [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             }))
                 return true;
+            Position pn = area[perm.find(char(area_size + '0'))];
             // 3. The number of empty squares between any pair of numbers
             // in the same row or column, must equal the difference between those numbers.
             for (auto& os : offset) {
                 int n = 0;
                 for (auto p2 = pn + os; is_valid(p2); p2 += os)
-                    if (char ch = cells(pn); ch == PUZ_SPACE || ch == PUZ_EMPTY)
+                    if (char ch = cells(p2); ch == PUZ_SPACE || ch == PUZ_EMPTY)
                         ++n;
                     else if (int sz2 = ch - '0'; abs(area_size - sz2) != n)
                         return true;

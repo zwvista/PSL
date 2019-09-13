@@ -1,17 +1,17 @@
 Level 1
 Sequence of moves: 
  - - - - -
-|. .|4|2|.|
+|. .|.|2|.|
    -      
-|3|. .|.|.|
+|3|. 4|.|.|
  - -   -  
-|.|5|.|4|3|
+|.|5|.|.|3|
      -   -
-|2|.|. . .|
+|2|.|. 4 .|
  -   - - -
 |. . .|. 2|
  - - - - -
 Number of moves: 8
-Number of vertices examined: 12
-0.00757531 [s]
+Number of vertices examined: 9
+0.0114534 [s]
 
