@@ -20,7 +20,6 @@
 namespace puzzles::Stacks{
 
 #define PUZ_SPACE            ' '
-#define PUZ_EMPTY            '.'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -132,9 +131,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         boost::iota(perm_ids, 0);
         boost::remove_erase_if(perm_ids, [&](int j) {
             auto& perm = perms[j];
-            for (int k = 0; k < perm.size(); ++k)
-                for (int m = 0; m < perm.size(); ++m)
-                    return true;
+            for (int k = 0; k < area.size(); ++k) {
+                auto& p1 = area[k];
+                char ch1 = perm[k];
+                for (int m = 0; m < area.size(); ++m) {
+                    auto& p2 = area[m];
+                    char ch2 = perm[m];
+                    if (p1 - p2 == offset[0] && !(ch1 > ch2))
+                        return true;
+                }
+            }
+            return false;
         });
         m_area2permids[i] = perm_ids;
     }
@@ -175,14 +182,8 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_start), m_matches(g.m_area2permids)
 {
-    for (int i = 0; i < g.m_areas.size(); ++i) {
-        vector<int> perm_ids(g.m_size2perms.at(g.m_areas[i].size()).size());
-        boost::iota(perm_ids, 0);
-        m_matches[i] = perm_ids;
-    }
-
     find_matches(true);
 }
 
@@ -205,24 +206,22 @@ int puz_state::find_matches(bool init)
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             }))
                 return true;
-            Position pn = area[perm.find(char(area_size + '0'))];
-            // 3. The number of empty squares between any pair of numbers
-            // in the same row or column, must equal the difference between those numbers.
-            for (auto& os : offset) {
-                int n = 0;
-                for (auto p2 = pn + os; is_valid(p2); p2 += os)
-                    if (char ch = cells(p2); ch == PUZ_SPACE || ch == PUZ_EMPTY)
-                        ++n;
-                    else if (int sz2 = ch - '0'; abs(area_size - sz2) != n)
+            // 2. Two orthogonally adjacent numbers must be different.
+            for (int k = 0; k < area.size(); ++k) {
+                auto& p = area[k];
+                auto ch1 = chars[k];
+                for (auto& os : offset) {
+                    auto p2 = p + os;
+                    if (!is_valid(p2)) continue;
+                    if (char ch2 = cells(p2); m_game->m_pos2area.at(p2) != area_id && ch1 == ch2)
                         return true;
-                    else
-                        break;
+                }
             }
             return false;
         });
 
         if (!init)
-            switch(perms.size()) {
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:

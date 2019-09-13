@@ -18,6 +18,7 @@
 		8CA241301EB47AD70055D6B1 /* Rooms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241241EB47AD70055D6B1 /* Rooms.cpp */; };
 		8CA241311EB47AD70055D6B1 /* rotate9.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241271EB47AD70055D6B1 /* rotate9.cpp */; };
 		8CA241321EB47AD70055D6B1 /* rotationgame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2412A1EB47AD70055D6B1 /* rotationgame.cpp */; };
+		958FA631232BE14400205831 /* Rome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA630232BE14400205831 /* Rome.cpp */; };
 		95D7B5D923154C11001E005C /* RunInALoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5D623154C11001E005C /* RunInALoop.cpp */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,9 @@
 		8CA2412A1EB47AD70055D6B1 /* rotationgame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rotationgame.cpp; sourceTree = "<group>"; };
 		8CA2412B1EB47AD70055D6B1 /* rotationgame.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rotationgame.txt; sourceTree = "<group>"; };
 		8CA2412C1EB47AD70055D6B1 /* rotationgame.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rotationgame.xml; sourceTree = "<group>"; };
+		958FA62E232BE14400205831 /* Rome.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rome.txt; sourceTree = "<group>"; };
+		958FA62F232BE14400205831 /* Rome.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Rome.xml; sourceTree = "<group>"; };
+		958FA630232BE14400205831 /* Rome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rome.cpp; sourceTree = "<group>"; };
 		95D7B5D623154C11001E005C /* RunInALoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunInALoop.cpp; sourceTree = "<group>"; };
 		95D7B5D723154C11001E005C /* RunInALoop.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RunInALoop.txt; sourceTree = "<group>"; };
 		95D7B5D823154C11001E005C /* RunInALoop.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RunInALoop.xml; sourceTree = "<group>"; };
@@ -128,6 +132,9 @@
 				8CA241211EB47AD70055D6B1 /* RobotFences.cpp */,
 				8CA241221EB47AD70055D6B1 /* RobotFences.txt */,
 				8CA241231EB47AD70055D6B1 /* RobotFences.xml */,
+				958FA630232BE14400205831 /* Rome.cpp */,
+				958FA62E232BE14400205831 /* Rome.txt */,
+				958FA62F232BE14400205831 /* Rome.xml */,
 				8CA241241EB47AD70055D6B1 /* Rooms.cpp */,
 				8CA241251EB47AD70055D6B1 /* Rooms.txt */,
 				8CA241261EB47AD70055D6B1 /* Rooms.xml */,
@@ -243,6 +250,7 @@
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA2412D1EB47AD70055D6B1 /* RippleEffect.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
+				958FA631232BE14400205831 /* Rome.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 			);

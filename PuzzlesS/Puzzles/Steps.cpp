@@ -207,7 +207,7 @@ int puz_state::find_matches(bool init)
         });
 
         if (!init)
-            switch(perms.size()) {
+            switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
