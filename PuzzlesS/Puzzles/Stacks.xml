@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Fill each area with every number ranging from 1 to the size of the area.
+2. Two orthogonally adjacent numbers must be different. 
+3. In one area, if a number is right above another, the upper one must be higher than the lower one. This only applies to numbers on top of each other in the same area.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - `
+| |5|2  |`
+ -   - - `
+|3  |  2|`
+   - - - `
+| |5 3| |`
+       - `
+| |    4|`
+ - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>
