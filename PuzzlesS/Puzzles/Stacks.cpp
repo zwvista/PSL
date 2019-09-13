@@ -209,7 +209,7 @@ int puz_state::find_matches(bool init)
             // 2. Two orthogonally adjacent numbers must be different.
             for (int k = 0; k < area.size(); ++k) {
                 auto& p = area[k];
-                auto ch1 = chars[k];
+                auto ch1 = perm[k];
                 for (auto& os : offset) {
                     auto p2 = p + os;
                     if (!is_valid(p2)) continue;
