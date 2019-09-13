@@ -1,4 +1,30 @@
 Level 1
-Number of vertices examined: 1
-0.0143337 [s]
+Sequence of moves: 
+ - - - -
+|v >|R|<|
+ -   -  
+|v|<|> ^|
+   - - -
+|>|>|^ <|
+   -   -
+|^|>|>|^|
+ - - - -
+Number of moves: 5
+Number of vertices examined: 7
+0.00470072 [s]
+
+Level 2
+Sequence of moves: 
+ - - - -
+|>|v <|<|
+ -   -  
+|>|>|R|v|
+     - -
+|^|^|<|<|
+ - -    
+|^|> ^|^|
+ - - - -
+Number of moves: 6
+Number of vertices examined: 7
+0.00302193 [s]
 
