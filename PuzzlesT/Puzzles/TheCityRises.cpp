@@ -25,6 +25,7 @@ namespace puzzles::TheCityRises{
 #define PUZ_SPACE            ' '
 #define PUZ_EMPTY            '.'
 #define PUZ_BLOCK            'X'
+#define PUZ_UNKNOWN          -1
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -39,6 +40,13 @@ const Position offset2[] = {
     {1, 0},        // s
     {0, 0},        // w
 };
+    
+struct puz_area
+{
+    int m_num = PUZ_UNKNOWN;
+    vector<Position> m_rng;
+    int size() const { return m_rng.size(); }
+};
 
 struct puz_game
 {
@@ -47,10 +55,12 @@ struct puz_game
     map<Position, int> m_pos2num;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
-    vector<vector<Position>> m_areas;
+    vector<puz_area> m_areas;
     map<Position, int> m_pos2area;
-    // all permutations
-    map<int, vector<string>> m_size2perms;
+    // key.key : number of the blocks
+    // key.value : size of the area
+    // value : all permutations
+    map<pair<int, int>, vector<string>> m_info2perms;
     map<int, vector<int>> m_area2permids;
     set<Position> m_horz_walls, m_vert_walls;
 
@@ -77,6 +87,28 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
         if (walls.count(p_wall) == 0) {
+            children.push_back(*this);
+            children.back().make_move(p);
+        }
+    }
+}
+
+struct puz_state3 : Position
+{
+    puz_state3(const set<Position>& a, const Position& p_start)
+    : m_area(&a) { make_move(p_start); }
+    
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state3>& children) const;
+    
+    const set<Position>* m_area;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    for (auto& os : offset) {
+        auto p = *this + os;
+        if (m_area->count(p) != 0) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -111,42 +143,46 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int n = 0; !rng.empty(); ++n) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
-        m_areas.emplace_back(smoves.begin(), smoves.end());
+        auto& area = m_areas.emplace_back();
+        area.m_rng.assign(smoves.begin(), smoves.end());
         for (auto& p : smoves) {
             m_pos2area[p] = n;
             rng.erase(p);
+            if (auto it = m_pos2num.find(p); it != m_pos2num.end())
+                area.m_num = it->second;
         }
     }
 
     for (auto& area : m_areas) {
-        int sz = area.size();
-        auto& perms = m_size2perms[sz];
+        int sz = area.size(), num = area.m_num;
+        auto& perms = m_info2perms[{num, sz}];
         if (!perms.empty()) continue;
-        auto perm = string(sz, '0');
-        boost::iota(perm, '1');
-        do
-            perms.push_back(perm);
-        while (boost::next_permutation(perm));
+        // 5. Areas without number can have any number of blocks, but there can't be
+        // empty areas.
+        for (int n = 1; n <= sz; ++n) {
+            if (num != PUZ_UNKNOWN && n != num) continue;
+            auto perm = string(sz - n, PUZ_EMPTY) + string(n, PUZ_BLOCK);
+            do
+                perms.push_back(perm);
+            while (boost::next_permutation(perm));
+        }
     }
 
     for (int i = 0; i < m_areas.size(); ++i) {
         auto& area = m_areas[i];
-        auto& perms = m_size2perms.at(area.size());
+        int sz = area.size(), num = area.m_num;
+        auto& rng = area.m_rng;
+        auto& perms = m_info2perms.at({num, sz});
         vector<int> perm_ids(perms.size());
         boost::iota(perm_ids, 0);
+        // 3. Town blocks inside an area are horizontally or vertically contiguous.
         boost::remove_erase_if(perm_ids, [&](int j) {
             auto& perm = perms[j];
-            for (int k = 0; k < area.size(); ++k) {
-                auto& p1 = area[k];
-                char ch1 = perm[k];
-                for (int m = 0; m < area.size(); ++m) {
-                    auto& p2 = area[m];
-                    char ch2 = perm[m];
-                    if (p1 - p2 == offset[0] && !(ch1 > ch2))
-                        return true;
-                }
-            }
-            return false;
+            set<Position> a(rng.begin(), rng.end());
+            auto& p = rng[perm.find(PUZ_BLOCK)];
+            list<puz_state3> smoves;
+            puz_move_generator<puz_state3>::gen_moves({a, p}, smoves);
+            return smoves.size() != sz;
         });
         m_area2permids[i] = perm_ids;
     }
@@ -183,6 +219,7 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     map<int, vector<int>> m_matches;
+    map<int, int> m_area2num;
     unsigned int m_distance = 0;
 };
 
@@ -198,11 +235,12 @@ int puz_state::find_matches(bool init)
         int area_id = kv.first;
         auto& perm_ids = kv.second;
         auto& area = m_game->m_areas[area_id];
-        int area_size = area.size();
-        auto& perms = m_game->m_size2perms.at(area.size());
+        int sz = area.size(), num = area.m_num;
+        auto& rng = area.m_rng;
+        auto& perms = m_game->m_info2perms.at({num, sz});
 
         string chars;
-        for (auto& p : area)
+        for (auto& p : rng)
             chars.push_back(cells(p));
 
         boost::remove_erase_if(perm_ids, [&](int id) {
@@ -211,14 +249,20 @@ int puz_state::find_matches(bool init)
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             }))
                 return true;
-            // 2. Two orthogonally adjacent numbers must be different.
-            for (int k = 0; k < area.size(); ++k) {
-                auto& p = area[k];
+            // 4. Blocks in different areas cannot touch horizontally or vertically.
+            // 6. Two neighbouring areas can't have the same number of blocks in them.
+            for (int k = 0; k < sz; ++k) {
+                auto& p = rng[k];
                 auto ch1 = perm[k];
                 for (auto& os : offset) {
                     auto p2 = p + os;
                     if (!is_valid(p2)) continue;
-                    if (char ch2 = cells(p2); m_game->m_pos2area.at(p2) != area_id && ch1 == ch2)
+                    char ch2 = cells(p2);
+                    int area_id2 = m_game->m_pos2area.at(p2);
+                    if (area_id == area_id2) continue;
+                    if (ch1 == ch2)
+                        return true;
+                    if (auto it = m_area2num.find(area_id2); it != m_area2num.end() && it->second == sz)
                         return true;
                 }
             }
@@ -238,14 +282,17 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int i, int j)
 {
-    auto& range = m_game->m_areas[i];
-    auto& perm = m_game->m_size2perms.at(range.size())[j];
+    auto& area = m_game->m_areas[i];
+    int sz = area.size(), num = area.m_num;
+    auto& range = area.m_rng;
+    auto& perm = m_game->m_info2perms.at({num, sz})[j];
 
-    for (int k = 0; k < perm.size(); ++k)
+    for (int k = 0; k < sz; ++k)
         cells(range[k]) = perm[k];
 
     ++m_distance;
     m_matches.erase(i);
+    m_area2num[i] = boost::count(perm, PUZ_BLOCK);
 }
 
 bool puz_state::make_move(int i, int j)
