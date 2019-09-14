@@ -121,7 +121,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perms.front()), 1;
+                return make_move2(p, perms[0]), 1;
             }
     }
     return is_connected() ? 2 : 0;

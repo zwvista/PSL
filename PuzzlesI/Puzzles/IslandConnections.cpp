@@ -91,7 +91,7 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, const vector<int>& perm);
-    bool make_move2(const Position& p, const vector<int>& perm);
+    void make_move2(const Position& p, const vector<int>& perm);
     int find_matches(bool init);
     bool is_connected() const;
 
@@ -166,10 +166,10 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perms.front()) ? 1 : 0;
+                return make_move2(p, perms[0]), 1;
             }
     }
-    return 2;
+    return is_connected() ? 2 : 0;
 }
 
 struct puz_state2 : Position
@@ -202,6 +202,13 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                 p2 += os;
             children.push_back(*this);
             children.back().make_move(p2);
+        } else if (m_state->m_matches.count(*this) == 1 && ch == PUZ_SPACE) {
+            while (m_state->cells(p2) == PUZ_SPACE)
+                p2 += os;
+            if (m_state->cells(p2) == PUZ_ISLAND) {
+                children.push_back(*this);
+                children.back().make_move(p2);
+            }
         }
     }
 }
@@ -213,7 +220,7 @@ bool puz_state::is_connected() const
     return smoves.size() == boost::count(m_cells, PUZ_ISLAND);
 }
 
-bool puz_state::make_move2(const Position& p, const vector<int>& perm)
+void puz_state::make_move2(const Position& p, const vector<int>& perm)
 {
     for (int i = 0; i < 4; ++i) {
         bool is_horz = i % 2 == 1;
@@ -231,15 +238,12 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 
     ++m_distance;
     m_matches.erase(p);
-
-    return !is_goal_state() || is_connected();
 }
 
 bool puz_state::make_move(const Position& p, const vector<int>& perm)
 {
     m_distance = 0;
-    if (!make_move2(p, perm))
-        return false;
+    make_move2(p, perm);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
