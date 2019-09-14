@@ -178,11 +178,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         // 3. Town blocks inside an area are horizontally or vertically contiguous.
         boost::remove_erase_if(perm_ids, [&](int j) {
             auto& perm = perms[j];
-            set<Position> a(rng.begin(), rng.end());
+            set<Position> a;
+            for (int k = 0; k < sz; ++k)
+                if (perm[k] == PUZ_BLOCK)
+                    a.insert(rng[k]);
             auto& p = rng[perm.find(PUZ_BLOCK)];
             list<puz_state3> smoves;
             puz_move_generator<puz_state3>::gen_moves({a, p}, smoves);
-            return smoves.size() != sz;
+            return smoves.size() != a.size();
         });
         m_area2permids[i] = perm_ids;
     }
@@ -224,7 +227,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+: m_game(&g), m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_matches(g.m_area2permids)
 {
     find_matches(true);
 }
@@ -254,15 +257,16 @@ int puz_state::find_matches(bool init)
             for (int k = 0; k < sz; ++k) {
                 auto& p = rng[k];
                 auto ch1 = perm[k];
+                int num1 = boost::count(perm, PUZ_BLOCK);
                 for (auto& os : offset) {
                     auto p2 = p + os;
                     if (!is_valid(p2)) continue;
                     char ch2 = cells(p2);
                     int area_id2 = m_game->m_pos2area.at(p2);
                     if (area_id == area_id2) continue;
-                    if (ch1 == ch2)
+                    if (ch1 == PUZ_BLOCK && ch2 == PUZ_BLOCK)
                         return true;
-                    if (auto it = m_area2num.find(area_id2); it != m_area2num.end() && it->second == sz)
+                    if (auto it = m_area2num.find(area_id2); it != m_area2num.end() && it->second == num1)
                         return true;
                 }
             }
