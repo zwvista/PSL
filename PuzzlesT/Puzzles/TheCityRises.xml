@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. The board represents a piece of land where a new town should be built.
+2. Each area describes a section of land, where the town concil has decided to place as many city blocks as the number in it.
+3. Town blocks inside an area are horizontally or vertically contiguous.
+4. Blocks in different areas cannot touch horizontally or vertically.
+5. Areas without number can have any number of blocks, but there can't be empty areas.
+6. Lastly, two neighbouring areas can't have the same number of blocks in them.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - `
+|1| | | |`
+     -   `
+| | |3  |`
+ -   -   `
+|2    | |`
+ - -     `
+|1  | | |`
+ - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>
