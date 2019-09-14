@@ -1,0 +1,15 @@
+Level 1
+Sequence of moves: 
+ - - - -
+|W|. H W|
+   - - -
+|H .|H W|
+   - -  
+|.|W|B|.|
+     -  
+|.|H .|.|
+ - - - -
+Number of moves: 4
+Number of vertices examined: 8
+0.002436 [s]
+

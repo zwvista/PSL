@@ -21,6 +21,7 @@
 		8CA240621EB47A180055D6B1 /* HolidayIsland.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240521EB47A180055D6B1 /* HolidayIsland.cpp */; };
 		8CA240631EB47A180055D6B1 /* hopover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240551EB47A180055D6B1 /* hopover.cpp */; };
 		8CA240641EB47A180055D6B1 /* hrd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240591EB47A180055D6B1 /* hrd.cpp */; };
+		958FA645232CB1C100205831 /* HeliumAndIron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA643232CB1C100205831 /* HeliumAndIron.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -92,6 +93,9 @@
 		8CA240591EB47A180055D6B1 /* hrd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hrd.cpp; sourceTree = "<group>"; };
 		8CA2405A1EB47A180055D6B1 /* hrd.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hrd.txt; sourceTree = "<group>"; };
 		8CA2405B1EB47A180055D6B1 /* hrd.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = hrd.xml; sourceTree = "<group>"; };
+		958FA642232CB1C100205831 /* HeliumAndIron.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HeliumAndIron.xml; sourceTree = "<group>"; };
+		958FA643232CB1C100205831 /* HeliumAndIron.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeliumAndIron.cpp; sourceTree = "<group>"; };
+		958FA644232CB1C100205831 /* HeliumAndIron.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeliumAndIron.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,9 @@
 				8CA2403F1EB47A180055D6B1 /* Hedgehog.cpp */,
 				8CA240401EB47A180055D6B1 /* Hedgehog.txt */,
 				8CA240411EB47A180055D6B1 /* Hedgehog.xml */,
+				958FA643232CB1C100205831 /* HeliumAndIron.cpp */,
+				958FA644232CB1C100205831 /* HeliumAndIron.txt */,
+				958FA642232CB1C100205831 /* HeliumAndIron.xml */,
 				8CA240421EB47A180055D6B1 /* hexrotation_ida.txt */,
 				8CA240431EB47A180055D6B1 /* hexrotation.cpp */,
 				8CA240441EB47A180055D6B1 /* hexrotation.txt */,
@@ -264,6 +271,7 @@
 				8CA240611EB47A180055D6B1 /* Hitori.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
+				958FA645232CB1C100205831 /* HeliumAndIron.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
