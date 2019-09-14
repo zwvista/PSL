@@ -53,6 +53,7 @@ struct puz_game
     // key.value : size of the area
     // value : all permutations
     map<int, vector<string>> m_size2perms;
+    map<int, vector<int>> m_area2permids;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -130,6 +131,37 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             perms.push_back(perm);
         while (boost::next_permutation(perm));
     }
+    
+    for (int i = 0; i < m_areas.size(); ++i) {
+        auto& area = m_areas[i];
+        int sz = area.size();
+        auto& perms = m_size2perms.at(sz);
+        vector<int> perm_ids(perms.size());
+        boost::iota(perm_ids, 0);
+        // 3. A Balloon can be placed on the top of the board, under another Balloon,
+        // or under a Block.
+        // 4. A Weight can be placed on the bottom of the board, over another Weight,
+        // or over a Block.
+        boost::remove_erase_if(perm_ids, [&](int j) {
+            auto& perm = perms[j];
+            for (int k = 0; k < sz; ++k) {
+                auto& p1 = area[k];
+                char ch1 = perm[k];
+                for (int m = 0; m < sz; ++m) {
+                    auto& p2 = area[m];
+                    char ch2 = perm[m];
+                    if (p1 - p2 == offset[0] && (
+                        ch1 != PUZ_BALLOON && ch2 == PUZ_BALLOON ||
+                        ch1 == PUZ_WEIGHT && ch2 != PUZ_WEIGHT
+                    ))
+                        return true;
+                }
+            }
+            return false;
+        });
+        m_area2permids[i] = perm_ids;
+    }
+
 }
 
 struct puz_state
@@ -167,14 +199,8 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_start), m_matches(g.m_area2permids)
 {
-    for (int i = 0; i < g.m_areas.size(); ++i) {
-        auto& perm_ids = m_matches[i];
-        perm_ids.resize(g.m_size2perms.at(g.m_areas[i].size()).size());
-        boost::iota(perm_ids, 0);
-    }
-    
     find_matches(true);
 }
 

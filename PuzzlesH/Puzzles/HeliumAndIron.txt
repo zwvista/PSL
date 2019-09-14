@@ -1,15 +1,30 @@
 Level 1
 Sequence of moves: 
  - - - -
-|W|. H W|
-   - - -
-|H .|H W|
+|.|B|W H|
    - -  
-|.|W|B|.|
-     -  
-|.|H .|.|
+|. H W|.|
+   - - -
+|.|H W|.|
+   - -  
+|.|H W .|
  - - - -
-Number of moves: 4
-Number of vertices examined: 8
-0.002436 [s]
+Number of moves: 3
+Number of vertices examined: 6
+0.00059 [s]
+
+Level 2
+Sequence of moves: 
+ - - - -
+|H|. W H|
+   - - -
+|. .|W H|
+   - -  
+|.|.|B|.|
+     -  
+|W|W H|.|
+ - - - -
+Number of moves: 2
+Number of vertices examined: 4
+0.000301 [s]
 
