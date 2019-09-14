@@ -31,5 +31,19 @@ O 221 `
 22 2O1`
     ]]>
   </level>
+  <level id="200">
+    <![CDATA[
+O 1 2 O 11`
+O 1S3 2 2 `
+         O`
+O 2 O 2222`
+  1 O     `
+O    2 O2O`
+O 11S     `
+  S O1 O22`
+O O   1  O`
+11 OO 2 21`
+    ]]>
+  </level>
 </levels>
 </puzzle>
