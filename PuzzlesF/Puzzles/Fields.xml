@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Fill the board with either meadows or soil, creating a path of soil and a path of meadows, with the same rules for each of them.
+2. The path is continuous and connected horizontally or vertically, but cannot touch diagonally.
+3. The path can't form 2x2 squares.
+4. These type of paths are called Nurikabe.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+S SS`
+ S S`
+  MS`
+MS  `
+    ]]>
+  </level>
+</levels>
+</puzzle>

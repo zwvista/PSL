@@ -4,6 +4,7 @@ extern void solve_puz_Farmer();
 extern void solve_puz_FenceItUp();
 extern void solve_puz_FenceLits();
 extern void solve_puz_FenceSentinels();
+extern void solve_puz_Fields();
 extern void solve_puz_Fillomino();
 extern void solve_puz_fling();
 extern void solve_puz_FlowerBeds();
@@ -20,7 +21,8 @@ int main(int argc, char **argv)
     cout << "e1: Fence It Up" << endl;
     cout << "e2: FenceLits" << endl;
     cout << "e3: Fence Sentinels" << endl;
-    cout << "i: Fillomino" << endl;
+    cout << "i1: Fields" << endl;
+    cout << "i2: Fillomino" << endl;
     cout << "l1: fling" << endl;
     cout << "l2: Flower Beds" << endl;
     cout << "o: Four-Me-Not" << endl;
@@ -35,7 +37,8 @@ int main(int argc, char **argv)
     else if (str == "e1") solve_puz_FenceItUp();
     else if (str == "e2") solve_puz_FenceLits();
     else if (str == "e3") solve_puz_FenceSentinels();
-    else if (str == "i") solve_puz_Fillomino();
+    else if (str == "i1") solve_puz_Fields();
+    else if (str == "i2") solve_puz_Fillomino();
     else if (str == "l1") solve_puz_fling();
     else if (str == "l2") solve_puz_FlowerBeds();
     else if (str == "o") solve_puz_FourMeNot();
