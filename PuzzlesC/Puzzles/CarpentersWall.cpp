@@ -172,7 +172,7 @@ int puz_state::adjust_area(bool init)
             if (cells(p2) != PUZ_SPACE)
                 return 0;
             for (int i = 0; i < 4; ++i) {
-                char ch2 = this->cells(p2 + offset[i]);
+                char ch2 = cells(p2 + offset[i]);
                 if (ch2 != PUZ_BOUNDARY && ch2 != PUZ_SPACE &&
                     ch2 != PUZ_WALL && ch2 != ch)
                     return ~i;
@@ -206,7 +206,7 @@ int puz_state::adjust_area(bool init)
                 }
                 if (~n != i) continue;
                 auto p3 = p2 + os;
-                auto& t = get_tool(this->cells(p3));
+                auto& t = get_tool(cells(p3));
                 if (t.hint_type() == tool_hint_type::ARM_END &&
                     (t.dir() + 2) % 4 == i) {
                     arms[i].push_back(p2);
@@ -239,7 +239,7 @@ int puz_state::adjust_area(bool init)
                     a0.push_back(p2);
                 else {
                     auto p3 = p2 + os;
-                    auto& t = get_tool(this->cells(p3));
+                    auto& t = get_tool(cells(p3));
                     auto ht = t.hint_type();
                     if (ht == tool_hint_type::ARM_END) break;
                     if (ht == tool_hint_type::NUMBER)
@@ -263,7 +263,7 @@ int puz_state::adjust_area(bool init)
                         arm_lens.push_back(j);
                     if (~n == d2) {
                         auto p4 = p3 + offset[d2];
-                        char ch2 = this->cells(p4);
+                        char ch2 = cells(p4);
                         auto& t = get_tool(ch2);
                         if (t.hint_type() == tool_hint_type::ARM_END &&
                             (t.dir() + 2) % 4 == d2) {
@@ -283,7 +283,7 @@ int puz_state::adjust_area(bool init)
             n = ~n;
             if (n == d21 || n == d22) {
                 auto p3 = p2 + offset[n];
-                auto& t = get_tool(this->cells(p3));
+                auto& t = get_tool(cells(p3));
                 if (t.hint_type() == tool_hint_type::ARM_END &&
                     (t.dir() + 2) % 4 == n) {
                     a0.push_back(p2);

@@ -47,7 +47,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
         vector<vector<int>> dir_nums(4);
         for (int i = 0; i < 4; ++i) {
-            bool is_horz = i % 2 == 1;
             auto& os = offset[i];
             auto& nums = dir_nums[i];
             // none for the other cases

@@ -116,7 +116,6 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
-        auto& p = kv.first;
         auto& box_ids = kv.second;
 
         boost::remove_erase_if(box_ids, [&](int id) {

@@ -276,7 +276,7 @@ bool puz_state::is_valid_move() const
         puz_move_generator<puz_state2>::gen_moves(
             {*this, {i / sidelen(), i % sidelen()}, color}, smoves);
         return boost::count_if(smoves, [&](const Position& p) {
-            return boost::algorithm::any_of_equal(color, this->cells(p));
+            return boost::algorithm::any_of_equal(color, cells(p));
         }) == boost::count_if(*this, [&](char ch) {
             return boost::algorithm::any_of_equal(color, ch);
         });
@@ -284,7 +284,7 @@ bool puz_state::is_valid_move() const
 
     auto is_same_color = [&](const vector<Position>& rng, const vector<char>& color) {
         return boost::algorithm::all_of(rng, [&](const Position& p) {
-            return boost::algorithm::any_of_equal(color, this->cells(p));
+            return boost::algorithm::any_of_equal(color, cells(p));
         });
     };
 

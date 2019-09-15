@@ -230,7 +230,7 @@ bool puz_state::is_valid_square(const Position& p) const
 {
     auto f = [&](const vector<Position>& rng) {
         return boost::algorithm::all_of(rng, [&](const Position& p) {
-            char ch = this->cells(p);
+            char ch = cells(p);
             return ch == PUZ_WALL || ch == PUZ_WALL_S;
         });
     };

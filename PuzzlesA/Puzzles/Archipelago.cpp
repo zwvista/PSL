@@ -168,7 +168,7 @@ int puz_state::find_matches(bool init)
             auto& island = islands[id];
             for (int r = island.first.first; r <= island.second.first; ++r)
                 for (int c = island.first.second; c <= island.second.second; ++c)
-                    if (this->cells({r, c}) != PUZ_SPACE)
+                    if (cells({r, c}) != PUZ_SPACE)
                         return true;
             return false;
         });

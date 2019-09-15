@@ -301,13 +301,13 @@ bool puz_state::is_valid_move() const
         puz_move_generator<puz_state2>::gen_moves(
             {*this, {i / sidelen(), i % sidelen()}}, smoves);
         return boost::count_if(smoves, [&](const Position& p) {
-            return this->cells(p) == PUZ_FILLED;
+            return cells(p) == PUZ_FILLED;
         }) == boost::count(*this, PUZ_FILLED);
     };
 
     auto is_same_color = [&](const vector<Position>& rng, const vector<char>& color) {
         return boost::algorithm::all_of(rng, [&](const Position& p) {
-            return boost::algorithm::any_of_equal(color, this->cells(p));
+            return boost::algorithm::any_of_equal(color, cells(p));
         });
     };
 

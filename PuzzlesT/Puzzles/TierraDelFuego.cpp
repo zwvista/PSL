@@ -146,7 +146,7 @@ bool puz_state::make_move(int n)
     boost::remove_erase_if(m_waters, [&](int id) {
         auto& info = m_game->m_water_info[id];
         return boost::algorithm::any_of(info, [&](const Position& p) {
-            return this->cells(p) != PUZ_SPACE;
+            return cells(p) != PUZ_SPACE;
         });
     });
 

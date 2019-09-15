@@ -131,7 +131,7 @@ int puz_state::find_matches(bool init)
             auto& box = boxes[id];
             for (int r = box.first.first; r <= box.second.first; ++r)
                 for (int c = box.first.second; c <= box.second.second; ++c)
-                    if (this->cells(r, c) != PUZ_SPACE)
+                    if (cells(r, c) != PUZ_SPACE)
                         return true;
             return false;
         });
