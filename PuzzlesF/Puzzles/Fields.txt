@@ -6,5 +6,29 @@ M M M S
 M S S S 
 Number of moves: 3
 Number of vertices examined: 4
-0.003638 [s]
+0.001364 [s]
 
+Level 2
+Sequence of moves: 
+S S S S 
+S M S M 
+S M S M 
+M M M M 
+Number of moves: 6
+Number of vertices examined: 7
+0.0012 [s]
+
+Level 36
+Sequence of moves: 
+M M M M M M M 
+M S M S M S M 
+M S S S M S M 
+M M M S M S M 
+S M S S S S S 
+S M M M M M S 
+S S S S S S S 
+Number of moves: 20
+Number of vertices examined: 33
+0.019714 [s]
+
+Level 200

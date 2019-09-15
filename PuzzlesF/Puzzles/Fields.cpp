@@ -37,6 +37,16 @@ const Position offset2[] = {
     {1, 0},
     {1, 1},
 };
+const Position offset3[] = {
+    {-1, 0},
+    {-1, 1},
+    {0, 1},
+    {1, 1},
+    {1, 0},
+    {1, -1},
+    {0, -1},
+    {-1, -1},
+};
     
 struct puz_game
 {
@@ -206,8 +216,19 @@ bool puz_state::make_move(const Position& p, char ch)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    int i = m_cells.find(PUZ_SPACE);
-    Position p(i / sidelen(), i % sidelen());
+    map<Position, int> pos2num;
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            if (char ch = cells(p); ch != PUZ_SPACE) continue;
+            pos2num[p] = boost::count_if(offset3, [&](const Position& os){
+                char ch = cells(p + os);
+                return ch == PUZ_SOIL || PUZ_MEADOW;
+            });
+        }
+    auto p = boost::max_element(pos2num, [](const pair<const Position, int>& kv1, const pair<const Position, int>& kv2){
+        return kv1.second < kv2.second;
+    })->first;
     for (char ch : {PUZ_SOIL, PUZ_MEADOW}) {
         children.push_back(*this);
         if (!children.back().make_move(p, ch))
