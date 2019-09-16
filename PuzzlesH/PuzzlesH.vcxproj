@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\Hedgehog.txt" />
+    <Text Include="Puzzles\HeliumAndIron.txt" />
     <Text Include="Puzzles\hexrotation.txt" />
     <Text Include="Puzzles\hexrotation_ida.txt" />
     <Text Include="Puzzles\HiddenPath.txt" />
@@ -184,6 +185,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Hedgehog.cpp" />
+    <ClCompile Include="Puzzles\HeliumAndIron.cpp" />
     <ClCompile Include="Puzzles\hexrotation.cpp" />
     <ClCompile Include="Puzzles\HiddenPath.cpp" />
     <ClCompile Include="Puzzles\HiddenStars.cpp" />
@@ -203,6 +205,7 @@
     <Xml Include="Puzzles\Hedgehog.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Puzzles\HeliumAndIron.xml" />
     <Xml Include="Puzzles\hexrotation.xml" />
     <Xml Include="Puzzles\HiddenPath.xml" />
     <Xml Include="Puzzles\HiddenStars.xml" />

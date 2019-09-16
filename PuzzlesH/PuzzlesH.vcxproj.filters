@@ -52,6 +52,9 @@
     <Text Include="Puzzles\Hedgehog.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\HeliumAndIron.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -101,6 +104,9 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\HeliumAndIron.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\hexrotation.xml">
@@ -128,6 +134,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Hedgehog.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\HeliumAndIron.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

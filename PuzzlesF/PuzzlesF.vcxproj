@@ -161,6 +161,7 @@
     <Text Include="Puzzles\FenceItUp.txt" />
     <Text Include="Puzzles\FenceLits.txt" />
     <Text Include="Puzzles\FenceSentinels.txt" />
+    <Text Include="Puzzles\Fields.txt" />
     <Text Include="Puzzles\Fillomino.txt" />
     <Text Include="Puzzles\fling.txt" />
     <Text Include="Puzzles\FlowerBeds.txt" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Puzzles\FenceItUp.cpp" />
     <ClCompile Include="Puzzles\FenceLits.cpp" />
     <ClCompile Include="Puzzles\FenceSentinels.cpp" />
+    <ClCompile Include="Puzzles\Fields.cpp" />
     <ClCompile Include="Puzzles\Fillomino.cpp" />
     <ClCompile Include="Puzzles\fling.cpp" />
     <ClCompile Include="Puzzles\FlowerBeds.cpp" />
@@ -210,6 +212,7 @@
     <Xml Include="Puzzles\FenceItUp.xml" />
     <Xml Include="Puzzles\FenceLits.xml" />
     <Xml Include="Puzzles\FenceSentinels.xml" />
+    <Xml Include="Puzzles\Fields.xml" />
     <Xml Include="Puzzles\Fillomino.xml" />
     <Xml Include="Puzzles\fling.xml" />
     <Xml Include="Puzzles\fling2.xml" />

@@ -168,9 +168,11 @@
     <Text Include="Puzzles\TennerGrid.txt" />
     <Text Include="Puzzles\Tents.txt" />
     <Text Include="Puzzles\TetrominoPegs.txt" />
+    <Text Include="Puzzles\TheCityRises.txt" />
     <Text Include="Puzzles\TheOddBrick.txt" />
     <Text Include="Puzzles\Thermometers.txt" />
     <Text Include="Puzzles\TierraDelFuego.txt" />
+    <Text Include="Puzzles\TopArrow.txt" />
     <Text Include="Puzzles\Trebuchet.txt" />
     <Text Include="Puzzles\TurnTwice.txt" />
     <Text Include="Puzzles\turnz.txt" />
@@ -202,9 +204,11 @@
     <ClCompile Include="Puzzles\TennerGrid.cpp" />
     <ClCompile Include="Puzzles\Tents.cpp" />
     <ClCompile Include="Puzzles\TetrominoPegs.cpp" />
+    <ClCompile Include="Puzzles\TheCityRises.cpp" />
     <ClCompile Include="Puzzles\TheOddBrick.cpp" />
     <ClCompile Include="Puzzles\Thermometers.cpp" />
     <ClCompile Include="Puzzles\TierraDelFuego.cpp" />
+    <ClCompile Include="Puzzles\TopArrow.cpp" />
     <ClCompile Include="Puzzles\Trebuchet.cpp" />
     <ClCompile Include="Puzzles\TurnTwice.cpp" />
     <ClCompile Include="Puzzles\turnz.cpp" />
@@ -229,11 +233,13 @@
     <Xml Include="Puzzles\TennerGrid.xml" />
     <Xml Include="Puzzles\Tents.xml" />
     <Xml Include="Puzzles\TetrominoPegs.xml" />
+    <Xml Include="Puzzles\TheCityRises.xml" />
     <Xml Include="Puzzles\TheOddBrick.xml" />
     <Xml Include="Puzzles\Thermometers.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="Puzzles\TierraDelFuego.xml" />
+    <Xml Include="Puzzles\TopArrow.xml" />
     <Xml Include="Puzzles\Trebuchet.xml" />
     <Xml Include="Puzzles\TurnTwice.xml" />
     <Xml Include="Puzzles\turnz.xml" />

@@ -76,6 +76,12 @@
     <Text Include="Puzzles\Trebuchet.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\TheCityRises.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\TopArrow.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -152,6 +158,12 @@
     <ClCompile Include="Puzzles\Trebuchet.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\TheCityRises.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\TopArrow.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\turnz.xml">
@@ -203,6 +215,12 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Trebuchet.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\TheCityRises.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\TopArrow.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
