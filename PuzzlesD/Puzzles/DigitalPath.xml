@@ -2,41 +2,24 @@
 <puzzle>
 <help>
   <![CDATA[
-1. Fill each area with each of the digits from 1 to the size of the area itself.
-2. Arrows point to the biggest number around it in the four directions (up, left, down, right).
-3. When two numbers are orthogonally adjacent across areas, the numbers must be different.
-4. There can't be ties for the biggest number in the four directions.
+1. Fill some tiles with numbers. The numbers form a Nurikabe, that is a path interconnected horizontally or vertically and which can' t cover a 2x2 area.
+2. All numbers in an area must be the same and all of them must be equal to the number of those numbers in the area.
+3. All regions must have at least one number.
+4. Two orthogonally adjacent tiles across areas must be different.
   ]]>
 </help>
 <levels>
   <level id="1">
     <![CDATA[
- - - - - - `
-| |4  |  1|`
-           `
-|2|  1|2 3|`
- - - -   - `
-|v|2|>|4| |`
- -   - -   `
-|  3  |^| |`
- - - - - - `
-|  1|>|  1|`
- - - - - - `
-    ]]>
-  </level>
-  <level id="2">
-    <![CDATA[
- - - - - - `
-|>|3|1  | |`
- -   -     `
-|  2|>|5|2|`
- - - -     `
-|2|>|3  |3|`
-   - - - - `
-| |2|>| |<|`
- -   -   - `
-|   |2 1  |`
- - - - - - `
+ - - - - `
+| |  1  |`
+   - - - `
+|2|  3  |`
+ - - - - `
+| |    2|`
+   - - - `
+| |  3  |`
+ - - - - `
     ]]>
   </level>
 </levels>

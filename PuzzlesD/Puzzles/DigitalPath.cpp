@@ -13,7 +13,8 @@
     1. Fill some tiles with numbers. The numbers form a Nurikabe, that is
        a path interconnected horizontally or vertically and which can' t
        cover a 2x2 area.
-    2. All numbers in an area must be the same.
+    2. All numbers in an area must be the same and all of them must be
+       equal to the number of those numbers in the area.
     3. All regions must have at least one number.
     4. Two orthogonally adjacent tiles across areas must be different.
 */
@@ -21,6 +22,8 @@
 namespace puzzles::DigitalPath{
 
 #define PUZ_SPACE        ' '
+#define PUZ_EMPTY        '.'
+#define PUZ_UNKNOWN      -1
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -35,14 +38,12 @@ const Position offset2[] = {
     {1, 0},        // s
     {0, 0},        // w
 };
-
-const string tool_dirs = "^>v<";
-
-struct puz_arrow_info
+    
+struct puz_area
 {
-    Position m_arrow, m_max;
-    char m_ch;
+    int m_num = PUZ_UNKNOWN;
     vector<Position> m_rng;
+    int size() const { return m_rng.size(); }
 };
 
 struct puz_game
@@ -50,13 +51,15 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_start;
-    vector<puz_arrow_info> m_arrow_infos;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
-    vector<vector<Position>> m_areas;
+    vector<puz_area> m_areas;
     map<Position, int> m_pos2area;
+    // key.key : number of the numbers
+    // key.value : size of the area
     // all permutations
-    map<int, vector<string>> m_size2perms;
+    map<pair<int, int>, vector<string>> m_info2perms;
+    map<int, vector<int>> m_area2permids;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -113,39 +116,44 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
             m_start.push_back(ch);
-            if (int n = tool_dirs.find(ch); n != -1) {
-                puz_arrow_info info;
-                info.m_ch = ch;
-                info.m_arrow = p;
-                info.m_max = p + offset[n];
-                for (auto& os : offset)
-                    if (auto p2 = p + os; is_valid(p2))
-                        info.m_rng.push_back(p2);
-                m_arrow_infos.push_back(info);
-            } else
-                rng.insert(p);
+            rng.insert(p);
         }
     }
 
     for (int n = 0; !rng.empty(); ++n) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
-        m_areas.emplace_back(smoves.begin(), smoves.end());
+        auto& area = m_areas.emplace_back();
+        area.m_rng.assign(smoves.begin(), smoves.end());
         for (auto& p : smoves) {
             m_pos2area[p] = n;
             rng.erase(p);
+            if (char ch = cells(p); ch != PUZ_SPACE)
+                area.m_num = ch - '0';
         }
     }
 
     for (auto& area : m_areas) {
-        int sz = area.size();
-        auto& perms = m_size2perms[sz];
+        int sz = area.size(), num = area.m_num;
+        auto& perms = m_info2perms[{num, sz}];
         if (!perms.empty()) continue;
-        string perm(sz, ' ');
-        boost::iota(perm, '1');
-        do
-            perms.push_back(perm);
-        while (boost::next_permutation(perm));
+        for (int n = 1; n <= sz; ++n) {
+            if (num != PUZ_UNKNOWN && n != num) continue;
+            auto perm = string(sz - n, PUZ_EMPTY) + string(n, char(n + '0'));
+            do
+                perms.push_back(perm);
+            while (boost::next_permutation(perm));
+        }
+    }
+
+    for (int i = 0; i < m_areas.size(); ++i) {
+        auto& area = m_areas[i];
+        int sz = area.size(), num = area.m_num;
+        auto& rng = area.m_rng;
+        auto& perms = m_info2perms.at({num, sz});
+        vector<int> perm_ids(perms.size());
+        boost::iota(perm_ids, 0);
+        m_area2permids[i] = perm_ids;
     }
 }
 
@@ -165,7 +173,6 @@ struct puz_state
     bool make_move(int i, int j);
     void make_move2(int i, int j);
     int find_matches(bool init);
-    bool check_arrows() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -185,14 +192,8 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_start), m_matches(g.m_area2permids)
 {
-    for (int i = 0; i < g.m_areas.size(); ++i) {
-        vector<int> perm_ids(g.m_size2perms.at(g.m_areas[i].size()).size());
-        boost::iota(perm_ids, 0);
-        m_matches[i] = perm_ids;
-    }
-
     find_matches(true);
 }
 
@@ -202,10 +203,12 @@ int puz_state::find_matches(bool init)
         int area_id = kv.first;
         auto& perm_ids = kv.second;
         auto& area = m_game->m_areas[area_id];
-        auto& perms = m_game->m_size2perms.at(area.size());
+        int sz = area.size(), num = area.m_num;
+        auto& rng = area.m_rng;
+        auto& perms = m_game->m_info2perms.at({num, sz});
 
         string chars;
-        for (auto& p : area)
+        for (auto& p : rng)
             chars.push_back(cells(p));
 
         boost::remove_erase_if(perm_ids, [&](int id) {
@@ -214,16 +217,7 @@ int puz_state::find_matches(bool init)
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             }))
                 return true;
-            for (int k = 0; k < perm.size(); ++k) {
-                auto& p = area[k];
-                char ch = perm[k];
-                for (auto& os : offset) {
-                    auto p2 = p + os;
-                    if (!is_valid(p2)) continue;
-                    if (char ch2 = cells(p2); tool_dirs.find(ch2) == -1 && m_game->m_pos2area.at(p2) != area_id && ch == ch2)
-                        return true;
-                }
-            }
+            // 4. Two orthogonally adjacent tiles across areas must be different.
             return false;
         });
 
@@ -235,28 +229,15 @@ int puz_state::find_matches(bool init)
                 return make_move2(area_id, perm_ids[0]), 1;
             }
     }
-    return check_arrows() ? 2 : 0;
-}
-    
-bool puz_state::check_arrows() const
-{
-    for (auto& info : m_game->m_arrow_infos) {
-        char chMax = cells(info.m_max);
-        if (chMax == PUZ_SPACE) continue;
-        string chars;
-        for (auto& p : info.m_rng)
-            chars.push_back(cells(p));
-        char chMax2 = *boost::max_element(chars);
-        if (!(chMax == chMax2 && boost::count(chars, chMax2) == 1))
-            return false;
-    }
-    return true;
+    return 2;
 }
 
 void puz_state::make_move2(int i, int j)
 {
-    auto& range = m_game->m_areas[i];
-    auto& perm = m_game->m_size2perms.at(range.size())[j];
+    auto& area = m_game->m_areas[i];
+    int sz = area.size(), num = area.m_num;
+    auto& range = area.m_rng;
+    auto& perm = m_game->m_info2perms.at({num, sz})[j];
 
     for (int k = 0; k < perm.size(); ++k)
         cells(range[k]) = perm[k];

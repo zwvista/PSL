@@ -15,6 +15,7 @@
 		8CA240081EB479500055D6B1 /* DigitalBattleShips.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FFF1EB479500055D6B1 /* DigitalBattleShips.cpp */; };
 		8CA240091EB479500055D6B1 /* DisconnectFour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240021EB479500055D6B1 /* DisconnectFour.cpp */; };
 		8CA2400A1EB479500055D6B1 /* Domino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240051EB479500055D6B1 /* Domino.cpp */; };
+		958FA64D232FA02600205831 /* DigitalPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA64C232FA02600205831 /* DigitalPath.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,6 +67,9 @@
 		8CA240051EB479500055D6B1 /* Domino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Domino.cpp; sourceTree = "<group>"; };
 		8CA240061EB479500055D6B1 /* Domino.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Domino.txt; sourceTree = "<group>"; };
 		8CA240071EB479500055D6B1 /* Domino.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Domino.xml; sourceTree = "<group>"; };
+		958FA64A232FA02600205831 /* DigitalPath.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DigitalPath.txt; sourceTree = "<group>"; };
+		958FA64B232FA02600205831 /* DigitalPath.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DigitalPath.xml; sourceTree = "<group>"; };
+		958FA64C232FA02600205831 /* DigitalPath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DigitalPath.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,9 @@
 				8CA23FFF1EB479500055D6B1 /* DigitalBattleShips.cpp */,
 				8CA240001EB479500055D6B1 /* DigitalBattleShips.txt */,
 				8CA240011EB479500055D6B1 /* DigitalBattleShips.xml */,
+				958FA64C232FA02600205831 /* DigitalPath.cpp */,
+				958FA64A232FA02600205831 /* DigitalPath.txt */,
+				958FA64B232FA02600205831 /* DigitalPath.xml */,
 				8CA240021EB479500055D6B1 /* DisconnectFour.cpp */,
 				8CA240031EB479500055D6B1 /* DisconnectFour.txt */,
 				8CA240041EB479500055D6B1 /* DisconnectFour.xml */,
@@ -206,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CA240081EB479500055D6B1 /* DigitalBattleShips.cpp in Sources */,
+				958FA64D232FA02600205831 /* DigitalPath.cpp in Sources */,
 				8CA2400A1EB479500055D6B1 /* Domino.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
