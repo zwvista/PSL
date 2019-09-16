@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Fill each area with each of the digits from 1 to the size of the area itself.
+2. Arrows point to the biggest number around it in the four directions (up, left, down, right).
+3. When two numbers are orthogonally adjacent across areas, the numbers must be different.
+4. There can't be ties for the biggest number in the four directions.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - - `
+| |4  |  1|`
+           `
+|2|  1|2 3|`
+ - - -   - `
+|v|2|>|4| |`
+ -   - -   `
+|  3  |^| |`
+ - - - - - `
+|  1|>|  1|`
+ - - - - - `
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+ - - - - - `
+|>|3|1  | |`
+ -   -     `
+|  2|>|5|2|`
+ - - -     `
+|2|>|3  |3|`
+   - - - - `
+| |2|>| |<|`
+ -   -   - `
+|   |2 1  |`
+ - - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>
