@@ -23,6 +23,7 @@
 		8CA240A51EB47A710055D6B1 /* LineSweeper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240941EB47A710055D6B1 /* LineSweeper.cpp */; };
 		8CA240A61EB47A710055D6B1 /* Lits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240971EB47A710055D6B1 /* Lits.cpp */; };
 		8CA240A71EB47A710055D6B1 /* Loopy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2409A1EB47A710055D6B1 /* Loopy.cpp */; };
+		958FA6512331319A00205831 /* LiarLiar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA6502331319900205831 /* LiarLiar.cpp */; };
 		95D7B5E72315BD54001E005C /* LakesAndMeadows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5E22315BD53001E005C /* LakesAndMeadows.cpp */; };
 		95D7B5EF2316E445001E005C /* LoopAndBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5ED2316E445001E005C /* LoopAndBlocks.cpp */; };
 /* End PBXBuildFile section */
@@ -103,6 +104,9 @@
 		8CA2409A1EB47A710055D6B1 /* Loopy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Loopy.cpp; sourceTree = "<group>"; };
 		8CA2409B1EB47A710055D6B1 /* Loopy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Loopy.txt; sourceTree = "<group>"; };
 		8CA2409C1EB47A710055D6B1 /* Loopy.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Loopy.xml; sourceTree = "<group>"; };
+		958FA64E2331319900205831 /* LiarLiar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LiarLiar.txt; sourceTree = "<group>"; };
+		958FA64F2331319900205831 /* LiarLiar.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LiarLiar.xml; sourceTree = "<group>"; };
+		958FA6502331319900205831 /* LiarLiar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LiarLiar.cpp; sourceTree = "<group>"; };
 		95D7B5E22315BD53001E005C /* LakesAndMeadows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LakesAndMeadows.cpp; sourceTree = "<group>"; };
 		95D7B5E32315BD54001E005C /* LakesAndMeadows.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LakesAndMeadows.txt; sourceTree = "<group>"; };
 		95D7B5E42315BD54001E005C /* LightenUpTest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LightenUpTest.txt; sourceTree = "<group>"; };
@@ -157,6 +161,9 @@
 				8CA2407C1EB47A710055D6B1 /* Landscapes.cpp */,
 				8CA2407D1EB47A710055D6B1 /* Landscapes.txt */,
 				8CA2407E1EB47A710055D6B1 /* Landscapes.xml */,
+				958FA6502331319900205831 /* LiarLiar.cpp */,
+				958FA64E2331319900205831 /* LiarLiar.txt */,
+				958FA64F2331319900205831 /* LiarLiar.xml */,
 				8CA2407F1EB47A710055D6B1 /* LightBattleShips.cpp */,
 				8CA240801EB47A710055D6B1 /* LightBattleShips.txt */,
 				8CA240811EB47A710055D6B1 /* LightBattleShips.xml */,
@@ -296,6 +303,7 @@
 				8CA240A41EB47A710055D6B1 /* lightsout.cpp in Sources */,
 				8CA240A61EB47A710055D6B1 /* Lits.cpp in Sources */,
 				8CA240A01EB47A710055D6B1 /* LightenUp.cpp in Sources */,
+				958FA6512331319A00205831 /* LiarLiar.cpp in Sources */,
 				95D7B5E72315BD54001E005C /* LakesAndMeadows.cpp in Sources */,
 				8CA240A31EB47A710055D6B1 /* lightsout-int.cpp in Sources */,
 				8CA240A21EB47A710055D6B1 /* Lighthouses.cpp in Sources */,

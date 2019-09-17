@@ -11,7 +11,7 @@ Sequence of moves:
  - - - -
 Number of moves: 2
 Number of vertices examined: 3
-0.00110762 [s]
+0.001629 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,9 +26,13 @@ Sequence of moves:
  - - - -
 Number of moves: 2
 Number of vertices examined: 3
-0.00075207 [s]
+0.000772 [s]
+
+Level 16
+Number of vertices examined: 6
+0.003313 [s]
 
 Level 200
 Number of vertices examined: 1
-0.0009051 [s]
+0.002622 [s]
 
