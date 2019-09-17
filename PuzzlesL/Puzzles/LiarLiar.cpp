@@ -164,15 +164,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int i = 0; i < m_areas.size(); ++i) {
         auto& area = m_areas[i];
         int sz = area.size();
-        auto& o2 = m_size2perminfo.at(sz);
         for (int j = 0; j < sz; ++j)
             for (int k = 0; k < sz; ++k) {
                 auto& p = area[k];
                 auto& o = m_pos2hint.at(p);
-                if ((j == k) == (k == o.m_num)) continue;
                 auto& perm_ids = m_info2permids[tuple{i, j, k}];
-                for (int n = o2.m_counts[k]; n < o2.m_counts[k + 1]; ++n)
-                    perm_ids.push_back(n);
+                int sz2 = o.m_rng.size();
+                auto& o2 = m_size2perminfo.at(sz2);
+                for (int m = 0; m <= sz2; ++m)
+                    if ((j == k) != (m == o.m_num))
+                        for (int n = o2.m_counts[m]; n < o2.m_counts[m + 1]; ++n)
+                            perm_ids.push_back(n);
             }
     }
 }
