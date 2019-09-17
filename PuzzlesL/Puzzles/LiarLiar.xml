@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Mark some tiles according to these rules:
+2. Cells with numbers are never marked.
+3. A number in a cell indicates how many marked cells must be placed. adjacent to its four sides.
+4. However, in each region there is one (and only one) wrong number (it shows a wrong amount of marked cells).
+5. Two marked cells must not be orthogonally adjacent.
+6. All of the non-marked cells must be connected.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - `
+|2|0  | |`
+         `
+| |1 1| |`
+         `
+|2|   |0|`
+ - - -   `
+|0 0 1| |`
+ - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>
