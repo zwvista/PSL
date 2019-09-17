@@ -38,7 +38,14 @@ const Position offset2[] = {
     {1, 0},        // s
     {0, 0},        // w
 };
-    
+
+const Position offset3[] = {
+    {0, 0},
+    {0, 1},
+    {1, 0},
+    {1, 1},
+};
+
 struct puz_area
 {
     int m_num = PUZ_UNKNOWN;
@@ -174,6 +181,7 @@ struct puz_state
     void make_move2(int i, int j);
     int find_matches(bool init);
     bool is_continuous() const;
+    bool check_2x2();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -238,7 +246,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(area_id, perm_ids[0]), 1;
             }
     }
-    return 2;
+    return is_continuous() && check_2x2() ? 2 : 0;
 }
 
 struct puz_state3 : Position
@@ -274,6 +282,21 @@ bool puz_state::is_continuous() const
     list<puz_state3> smoves;
     puz_move_generator<puz_state3>::gen_moves(a, smoves);
     return smoves.size() == a.size();
+}
+
+// A Nurikabe can't cover a 2x2 area.
+bool puz_state::check_2x2()
+{
+    for (int r = 0; r < sidelen() - 1; ++r)
+        for (int c = 0; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            if (boost::algorithm::all_of(offset3, [&](const Position& os) {
+                char ch = cells(p + os);
+                return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+            }))
+                return false;
+        }
+    return true;
 }
 
 void puz_state::make_move2(int i, int j)
