@@ -230,7 +230,7 @@ int puz_state::find_matches(bool init)
             for (int k = 0; k < sz; ++k) {
                 auto& p = rng[k];
                 auto ch1 = perm[k];
-                if (ch1 == PUZ_SPACE) continue;
+                if (ch1 == PUZ_SPACE || ch1 == PUZ_EMPTY) continue;
                 for (auto& os : offset)
                     if (auto p2 = p + os; is_valid(p2) && area_id != m_game->m_pos2area.at(p2) && ch1 == cells(p2))
                         return true;
