@@ -143,11 +143,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& area : m_areas)
         for (auto& p : area) {
             auto& o = m_pos2hint.at(p);
-            for (auto& os : offset) {
-                auto p2 = p + os;
-                if (is_valid(p2) && cells(p2) == PUZ_SPACE)
-                    o.m_rng.push_back(p);
-            }
+            for (auto& os : offset)
+                if (auto p2 = p + os; is_valid(p2) && cells(p2) == PUZ_SPACE)
+                    o.m_rng.push_back(p2);
             int sz = o.m_rng.size();
             auto& o2 = m_size2perminfo[sz];
             if (!o2.m_perms.empty()) break;
@@ -289,7 +287,7 @@ bool puz_state::is_continuous() const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if (ch != PUZ_EMPTY)
+            if (ch != PUZ_MARKED)
                 a.insert(p);
         }
 
