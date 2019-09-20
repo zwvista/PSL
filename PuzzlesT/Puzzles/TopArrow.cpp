@@ -22,6 +22,7 @@
 namespace puzzles::TopArrow{
 
 #define PUZ_SPACE        ' '
+#define PUZ_BLOCK        'B'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -123,7 +124,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     if (auto p2 = p + os; is_valid(p2))
                         info.m_rng.push_back(p2);
                 m_arrow_infos.push_back(info);
-            } else
+            } else if (ch != PUZ_BLOCK)
                 rng.insert(p);
         }
     }
@@ -221,7 +222,7 @@ int puz_state::find_matches(bool init)
                 for (auto& os : offset) {
                     auto p2 = p + os;
                     if (!is_valid(p2)) continue;
-                    if (char ch2 = cells(p2); tool_dirs.find(ch2) == -1 && m_game->m_pos2area.at(p2) != area_id && ch == ch2)
+                    if (char ch2 = cells(p2); tool_dirs.find(ch2) == -1 && ch2 != PUZ_BLOCK && m_game->m_pos2area.at(p2) != area_id && ch == ch2)
                         return true;
                 }
             }

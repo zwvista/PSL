@@ -53,11 +53,6 @@ struct puz_perm_info
     vector<int> m_counts;
 };
 
-// elem 0 : area_id
-// elem 1 : liar_id
-// elem 2 : hint_id
-typedef tuple<int, int, int> puz_move_info;
-
 struct puz_game
 {
     string m_id;
@@ -179,8 +174,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(int area_id, int liar_id, const Position& p, int j);
-    void make_move2(int area_id, int liar_id, const Position& p, int j);
+    bool make_move(int area_id, int liar_id, const Position& p, int n);
+    void make_move2(int area_id, int liar_id, const Position& p, int n);
     int find_matches(bool init);
     bool is_continuous() const;
 
@@ -297,14 +292,14 @@ bool puz_state::is_continuous() const
     return smoves.size() == a.size();
 }
 
-void puz_state::make_move2(int area_id, int liar_id, const Position& p, int j)
+void puz_state::make_move2(int area_id, int liar_id, const Position& p, int n)
 {
     auto& o = m_game->m_pos2hint.at(p);
     int sz = m_game->m_areas[o.m_area_id].size();
     auto& range = o.m_rng;
     int sz2 = range.size();
     auto& o2 = m_game->m_size2perminfo.at(sz2);
-    auto& perm = o2.m_perms[j];
+    auto& perm = o2.m_perms[n];
 
     for (int k = 0; k < perm.size(); ++k)
         cells(range[k]) = perm[k];
@@ -314,10 +309,10 @@ void puz_state::make_move2(int area_id, int liar_id, const Position& p, int j)
     m_matches.erase(p);
 }
 
-bool puz_state::make_move(int area_id, int liar_id, const Position& p, int j)
+bool puz_state::make_move(int area_id, int liar_id, const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(area_id, liar_id, p, j);
+    make_move2(area_id, liar_id, p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
