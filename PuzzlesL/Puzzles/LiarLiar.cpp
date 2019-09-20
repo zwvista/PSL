@@ -220,7 +220,7 @@ int puz_state::find_matches(bool init)
         auto& p = kv.first;
         auto& perm_ids = kv.second;
         auto& o = m_game->m_pos2hint.at(p);
-        int sz = m_game->m_areas[o.m_area_id].size(), num = o.m_num;
+        int sz = m_game->m_areas[o.m_area_id].size();
         auto& rng = o.m_rng;
         int sz2 = rng.size();
         auto& o2 = m_game->m_size2perminfo.at(sz2);
@@ -237,7 +237,7 @@ int puz_state::find_matches(bool init)
             }))
                 return true;
             // 5. Two marked cells must not be orthogonally adjacent.
-            for (int k = 0; k < sz; ++k) {
+            for (int k = 0; k < sz2; ++k) {
                 auto& p = rng[k];
                 if (char ch1 = perm[k]; ch1 == PUZ_MARKED)
                     for (auto& os : offset)
@@ -248,7 +248,7 @@ int puz_state::find_matches(bool init)
             if (it != m_area2liar.end()) {
                 int liar_id = it->second;
                 return (o.m_hint_id == liar_id) ==
-                    (id >= o2.m_counts[o.m_hint_id] && id < o2.m_counts[o.m_hint_id + 1]);
+                    (o.m_num < o2.m_counts.size() - 1 && id >= o2.m_counts[o.m_num] && id < o2.m_counts[o.m_num + 1]);
             }
             return false;
         });
@@ -299,14 +299,17 @@ bool puz_state::is_continuous() const
 
 void puz_state::make_move2(int area_id, int liar_id, const Position& p, int j)
 {
-    //auto& area = m_game->m_areas[i];
-    //int sz = area.size(), num = area.m_num;
-    //auto& range = area.m_rng;
-    //auto& perm = m_game->m_info2perms.at({num, sz})[j];
+    auto& o = m_game->m_pos2hint.at(p);
+    int sz = m_game->m_areas[o.m_area_id].size();
+    auto& range = o.m_rng;
+    int sz2 = range.size();
+    auto& o2 = m_game->m_size2perminfo.at(sz2);
+    auto& perm = o2.m_perms[j];
 
-    //for (int k = 0; k < perm.size(); ++k)
-    //    cells(range[k]) = perm[k];
+    for (int k = 0; k < perm.size(); ++k)
+        cells(range[k]) = perm[k];
 
+    m_area2liar[area_id] = liar_id;
     ++m_distance;
     m_matches.erase(p);
 }
@@ -346,7 +349,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             auto perm_ids = kv.second;
             boost::remove_erase_if(perm_ids, [&](int n) {
                 return (o.m_hint_id == liar_id) ==
-                    (n >= o2.m_counts[o.m_hint_id] && n < o2.m_counts[o.m_hint_id + 1]);
+                    (o.m_num < o2.m_counts.size() - 1 && n >= o2.m_counts[o.m_num] && n < o2.m_counts[o.m_num + 1]);
             });
             f(liar_id, perm_ids);
         }
