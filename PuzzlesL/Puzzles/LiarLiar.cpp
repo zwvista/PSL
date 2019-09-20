@@ -154,7 +154,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     o.m_rng.push_back(p2);
             int sz = o.m_rng.size();
             auto& o2 = m_size2perminfo[sz];
-            if (!o2.m_perms.empty()) break;
+            if (!o2.m_perms.empty()) continue;
             for (int i = 0; i <= sz; ++i) {
                 o2.m_counts.push_back(o2.m_perms.size());
                 auto perm = string(sz - i, PUZ_EMPTY) + string(i, PUZ_MARKED);
