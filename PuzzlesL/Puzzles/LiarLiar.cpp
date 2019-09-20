@@ -179,8 +179,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(const Position& p, int j);
-    void make_move2(const Position& p, int j);
+    bool make_move(int area_id, int liar_id, const Position& p, int j);
+    void make_move2(int area_id, int liar_id, const Position& p, int j);
     int find_matches(bool init);
     bool is_continuous() const;
 
@@ -198,6 +198,7 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     map<Position, vector<int>> m_matches;
+    map<int, int> m_area2liar;
     unsigned int m_distance = 0;
 };
 
@@ -219,8 +220,7 @@ int puz_state::find_matches(bool init)
         auto& p = kv.first;
         auto& perm_ids = kv.second;
         auto& o = m_game->m_pos2hint.at(p);
-        auto& area = m_game->m_areas[o.m_area_id];
-        int sz = area.size(), num = o.m_num;
+        int sz = m_game->m_areas[o.m_area_id].size(), num = o.m_num;
         auto& rng = o.m_rng;
         int sz2 = rng.size();
         auto& o2 = m_game->m_size2perminfo.at(sz2);
@@ -230,30 +230,33 @@ int puz_state::find_matches(bool init)
         for (auto& p : rng)
             chars.push_back(cells(p));
 
-//        boost::remove_erase_if(perm_ids, [&](int id) {
-//            auto& perm = perms[id];
-//            if (!boost::equal(chars, perm, [](char ch1, char ch2) {
-//                return ch1 == PUZ_SPACE || ch1 == ch2;
-//            }))
-//                return true;
-//            // 4. Two marked cells must not be orthogonally adjacent.
-//            for (int k = 0; k < sz; ++k) {
-//                auto& p = rng[k];
-//                auto ch1 = perm[k];
-//                if (ch1 == PUZ_SPACE) continue;
-//                for (auto& os : offset)
-//                    if (auto p2 = p + os; is_valid(p2) && area_id != m_game->m_pos2area.at(p2) && ch1 == cells(p2))
-//                        return true;
-//            }
-//            return false;
-//        });
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            auto& perm = perms[id];
+            if (!boost::equal(chars, perm, [](char ch1, char ch2) {
+                return ch1 == PUZ_SPACE || ch1 == ch2;
+            }))
+                return true;
+            // 5. Two marked cells must not be orthogonally adjacent.
+            for (int k = 0; k < sz; ++k) {
+                auto& p = rng[k];
+                if (char ch1 = perm[k]; ch1 == PUZ_MARKED)
+                    for (auto& os : offset)
+                        if (auto p2 = p + os; is_valid(p2) && ch1 == cells(p2))
+                            return true;
+            }
+            auto it = m_area2liar.find(o.m_area_id);
+            if (it != m_area2liar.end()) {
+                int liar_id = it->second;
+                return (o.m_hint_id == liar_id) ==
+                    (id >= o2.m_counts[o.m_hint_id] && id < o2.m_counts[o.m_hint_id + 1]);
+            }
+            return false;
+        });
 
         if (!init)
             switch(perm_ids.size()) {
             case 0:
                 return 0;
-            case 1:
-                return make_move2(p, perm_ids[0]), 1;
             }
     }
     return is_continuous() ? 2 : 0;
@@ -294,7 +297,7 @@ bool puz_state::is_continuous() const
     return smoves.size() == a.size();
 }
 
-void puz_state::make_move2(const Position& p, int j)
+void puz_state::make_move2(int area_id, int liar_id, const Position& p, int j)
 {
     //auto& area = m_game->m_areas[i];
     //int sz = area.size(), num = area.m_num;
@@ -308,10 +311,10 @@ void puz_state::make_move2(const Position& p, int j)
     m_matches.erase(p);
 }
 
-bool puz_state::make_move(const Position& p, int j)
+bool puz_state::make_move(int area_id, int liar_id, const Position& p, int j)
 {
     m_distance = 0;
-    make_move2(p, j);
+    make_move2(area_id, liar_id, p, j);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -324,10 +327,29 @@ void puz_state::gen_children(list<puz_state>& children) const
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : kv.second) {
-        children.push_back(*this);
-        if (!children.back().make_move(kv.first, n))
-            children.pop_back();
+    auto& p = kv.first;
+    auto& o = m_game->m_pos2hint.at(p);
+    auto& o2 = m_game->m_size2perminfo.at(o.m_rng.size());
+    auto f = [&](int liar_id, const vector<int>& perm_ids) {
+        for (int n : perm_ids) {
+            children.push_back(*this);
+            if (!children.back().make_move(o.m_area_id, liar_id, p, n))
+                children.pop_back();
+        }
+    };
+    auto it = m_area2liar.find(o.m_area_id);
+    if (it != m_area2liar.end())
+        f(it->second, kv.second);
+    else {
+        int sz = m_game->m_areas[o.m_area_id].size();
+        for (int liar_id = 0; liar_id < sz; ++liar_id) {
+            auto perm_ids = kv.second;
+            boost::remove_erase_if(perm_ids, [&](int n) {
+                return (o.m_hint_id == liar_id) ==
+                    (n >= o2.m_counts[o.m_hint_id] && n < o2.m_counts[o.m_hint_id + 1]);
+            });
+            f(liar_id, perm_ids);
+        }
     }
 }
 
