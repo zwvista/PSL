@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8CA23EC31EA9233C0055D6B1"
-               BuildableName = "PuzzlesW"
-               BlueprintName = "PuzzlesW"
-               ReferencedContainer = "container:PuzzlesW.xcodeproj">
+               BuildableName = "PuzzlesC"
+               BlueprintName = "PuzzlesC"
+               ReferencedContainer = "container:PuzzlesC.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8CA23EC31EA9233C0055D6B1"
-            BuildableName = "PuzzlesU"
-            BlueprintName = "PuzzlesU"
-            ReferencedContainer = "container:../PuzzlesU/PuzzlesU.xcodeproj">
+            BuildableName = "PuzzlesC"
+            BlueprintName = "PuzzlesC"
+            ReferencedContainer = "container:PuzzlesC.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/zhaowei/Documents/Programs/Games/PSL/PuzzlesU"
+      customWorkingDirectory = "/Users/zhaowei/Documents/Programs/Games/PSL/PuzzlesC"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8CA23EC31EA9233C0055D6B1"
-            BuildableName = "PuzzlesU"
-            BlueprintName = "PuzzlesU"
-            ReferencedContainer = "container:../PuzzlesU/PuzzlesU.xcodeproj">
+            BuildableName = "PuzzlesC"
+            BlueprintName = "PuzzlesC"
+            ReferencedContainer = "container:PuzzlesC.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8CA23EC31EA9233C0055D6B1"
-            BuildableName = "PuzzlesW"
-            BlueprintName = "PuzzlesW"
-            ReferencedContainer = "container:PuzzlesW.xcodeproj">
+            BuildableName = "PuzzlesC"
+            BlueprintName = "PuzzlesC"
+            ReferencedContainer = "container:PuzzlesC.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

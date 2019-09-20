@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8CA23EC31EA9233C0055D6B1"
-               BuildableName = "PuzzlesW"
-               BlueprintName = "PuzzlesW"
-               ReferencedContainer = "container:PuzzlesW.xcodeproj">
+               BuildableName = "PuzzlesU"
+               BlueprintName = "PuzzlesU"
+               ReferencedContainer = "container:PuzzlesU.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "8CA23EC31EA9233C0055D6B1"
             BuildableName = "PuzzlesU"
             BlueprintName = "PuzzlesU"
-            ReferencedContainer = "container:../PuzzlesU/PuzzlesU.xcodeproj">
+            ReferencedContainer = "container:PuzzlesU.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -59,7 +59,7 @@
             BlueprintIdentifier = "8CA23EC31EA9233C0055D6B1"
             BuildableName = "PuzzlesU"
             BlueprintName = "PuzzlesU"
-            ReferencedContainer = "container:../PuzzlesU/PuzzlesU.xcodeproj">
+            ReferencedContainer = "container:PuzzlesU.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8CA23EC31EA9233C0055D6B1"
-            BuildableName = "PuzzlesW"
-            BlueprintName = "PuzzlesW"
-            ReferencedContainer = "container:PuzzlesW.xcodeproj">
+            BuildableName = "PuzzlesU"
+            BlueprintName = "PuzzlesU"
+            ReferencedContainer = "container:PuzzlesU.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

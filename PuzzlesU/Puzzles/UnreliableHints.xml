@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Shade some tiles according to the following rules:
+2. Shaded tiles must not be orthogonally connected.
+3. You can shade tiles with arrows and numbers.
+4. All tiles which are not shaded must form an orthogonally continuous area.
+5. A cell containing a number and an arrow tells you how many tiles are shaded in that direction.
+6. However not all tiles that are shaded tell you lies.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+1v  0>0<`
+  1^1>  `
+1^    1v`
+1>1^    `
+    ]]>
+  </level>
+</levels>
+</puzzle>

@@ -65,6 +65,9 @@
       location = "group:PuzzlesT/PuzzlesT.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:PuzzlesU/PuzzlesU.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:PuzzlesW/PuzzlesW.xcodeproj">
    </FileRef>
    <FileRef
