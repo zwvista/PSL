@@ -11,7 +11,7 @@ Sequence of moves:
  - - - -
 Number of moves: 5
 Number of vertices examined: 7
-0.00470072 [s]
+0.00634 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,5 +26,51 @@ Sequence of moves:
  - - - -
 Number of moves: 6
 Number of vertices examined: 7
-0.00302193 [s]
+0.004145 [s]
+
+Level 36
+Sequence of moves: 
+ - - - - - -
+|>|> v <|<|v|
+   - - - -  
+|^ v|> v <|<|
+ - - - - -  
+|v >|>|R|>|^|
+ - -   -   -
+|v <|^ v|^ <|
+   - -   - -
+|>|v ^|<|^ v|
+     - - -  
+|^|>|^|^ <|<|
+ - - - - - -
+Number of moves: 10
+Number of vertices examined: 23
+0.032665 [s]
+
+Level 200
+Sequence of moves: 
+ - - - - - - - - - -
+|>|>|v|> v|v >|> v <|
+ -     - - - - - - -
+|^ v|> ^|v|> ^|v < ^|
+ - - - - -   - -   -
+|^|v ^ < >|v|v|>|>|v|
+   - - - - -   - - -
+|>|> v ^ <|v|> ^|< v|
+ - - - - -   - -   -
+|v < >|v|v|>|v >|>|R|
+ -   - - - - -   - -
+|v|^|v|<|v < >|^ <|^|
+   -     - - - - - -
+|>|v|>|v|> v ^ <|>|^|
+     - - - - - -    
+|^|>|>|R|<|v ^|< ^|<|
+ - - - -       - - -
+|> v|>|^|^|< >|v|> ^|
+   -       - -   -  
+|^|>|^|>|>|> ^|> ^|<|
+ - - - - - - - - - -
+Number of moves: 31
+Number of vertices examined: 2989
+14.975 [s]
 

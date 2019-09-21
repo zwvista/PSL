@@ -44,7 +44,6 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_start;
-    Position m_rome;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_areas;
@@ -103,9 +102,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
             m_start.push_back(ch);
-            if (ch == PUZ_ROME)
-                m_rome = p;
-            else
+            if (ch != PUZ_ROME)
                 rng.insert(p);
         }
     }
