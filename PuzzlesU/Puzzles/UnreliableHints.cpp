@@ -76,11 +76,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& perms = m_info2perms[pair{o.m_num, sz}];
         if (!perms.empty()) continue;
         for (int i = 0; i < 3; ++i) {
-            char ch = i == 0 ? PUZ_SPACE : PUZ_SHADED;
+            char ch = i == 0 ? PUZ_EMPTY : PUZ_SHADED;
             bool is_lie = i == 2;
-            for (int j = 0; j < sz - 1; ++j) {
+            for (int j = 0; j <= sz - 1; ++j) {
                 if (is_lie == (j == o.m_num)) continue;
-                auto perm = ch + string(sz - j - 1, PUZ_EMPTY) + string(j, PUZ_SHADED);
+                auto perm = ch + string(sz - 1 - j, PUZ_EMPTY) + string(j, PUZ_SHADED);
                 auto begin = boost::next(perm.begin()), end = perm.end();
                 do {
                     for (int k = 0; k < sz - 1; ++k)
@@ -126,7 +126,6 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     map<Position, vector<int>> m_matches;
-    map<int, int> m_area2liar;
     unsigned int m_distance = 0;
 };
 
@@ -258,14 +257,20 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r <= sidelen(); ++r) {
-        for (int c = 0; c <= sidelen(); ++c) {
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             if (auto it = m_game->m_pos2hint.find(p); it == m_game->m_pos2hint.end())
                 out << "  ";
             else
                 out << it->second.m_num << tool_dirs[it->second.m_dir];
-            out << cells({r, c}) << ' ';
+        }
+        out << endl;
+    }
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
+            char ch = cells({r, c});
+            out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
         }
         out << endl;
     }
