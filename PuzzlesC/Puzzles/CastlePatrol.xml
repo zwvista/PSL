@@ -24,5 +24,28 @@
     7.    3W`
     ]]>
   </level>
+  <level id="36">
+    <![CDATA[
+    2.         `
+       4.    6W`
+ 3W            `
+       2W      `
+          8.   `
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+       9W       8W            `
+                      4.    2.`
+ 3.       7.                  `
+                              `
+         10W                  `
+    3.          9.      12W   `
+                              `
+       3.    7W               `
+                            2.`
+    9W       4.          8W   `
+    ]]>
+  </level>
 </levels>
 </puzzle>
