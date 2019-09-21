@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Make Cappuccino by linking each cup to one or more coffee beans and cows.
+2. Links must be straight lines, not crossing each other.
+3. To each cup there must be linked an equal number of beans and cows. At least one of each.
+4. When linking multiple beans and cows, you can also link cows to cows and beans to beans, other than linking them to the cup.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+B F W`
+     `
+ W   `
+  B W`
+ F B `
+    ]]>
+  </level>
+</levels>
+</puzzle>

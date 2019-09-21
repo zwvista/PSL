@@ -22,6 +22,7 @@
 		958FA6772335D3F600205831 /* CastlePatrol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA6762335D3F600205831 /* CastlePatrol.cpp */; };
 		95D7B5F3231D523F001E005C /* CultureTrip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5F1231D523F001E005C /* CultureTrip.cpp */; };
 		95D7B6032320146C001E005C /* CoffeeAndSugar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B6002320146B001E005C /* CoffeeAndSugar.cpp */; };
+		95E37B1A233647320054284F /* Caffelatte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E37B19233647320054284F /* Caffelatte.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -96,6 +97,9 @@
 		95D7B6002320146B001E005C /* CoffeeAndSugar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoffeeAndSugar.cpp; sourceTree = "<group>"; };
 		95D7B6012320146B001E005C /* CoffeeAndSugar.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CoffeeAndSugar.xml; sourceTree = "<group>"; };
 		95D7B6022320146B001E005C /* CoffeeAndSugar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CoffeeAndSugar.txt; sourceTree = "<group>"; };
+		95E37B17233647320054284F /* Caffelatte.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Caffelatte.xml; sourceTree = "<group>"; };
+		95E37B18233647320054284F /* Caffelatte.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Caffelatte.txt; sourceTree = "<group>"; };
+		95E37B19233647320054284F /* Caffelatte.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Caffelatte.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
+				95E37B19233647320054284F /* Caffelatte.cpp */,
+				95E37B18233647320054284F /* Caffelatte.txt */,
+				95E37B17233647320054284F /* Caffelatte.xml */,
 				8CA23FE51EB4793B0055D6B1 /* Calcudoku.cpp */,
 				8CA23FE61EB4793B0055D6B1 /* Calcudoku.txt */,
 				8CA23FE71EB4793B0055D6B1 /* Calcudoku.xml */,
@@ -272,6 +279,7 @@
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA23FFD1EB4793B0055D6B1 /* Clouds.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
+				95E37B1A233647320054284F /* Caffelatte.cpp in Sources */,
 				8CA23FF91EB4793B0055D6B1 /* Calcudoku.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
