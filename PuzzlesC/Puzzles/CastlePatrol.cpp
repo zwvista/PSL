@@ -44,6 +44,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     // key: position of the number (hint)
+    // value: the area
     map<Position, puz_area> m_pos2area;
     string m_start;
 
@@ -55,7 +56,7 @@ struct puz_game
 struct puz_state2 : set<Position>
 {
     puz_state2(const puz_game& game, const puz_area& area, const Position& p)
-        : m_game(&game), m_area(&area) {make_move(p);}
+        : m_game(&game), m_area(&area), m_ch(game.cells(p)) { make_move(p); }
 
     bool is_goal_state() const { return m_distance == m_area->m_num; }
     void make_move(const Position& p) { insert(p); ++m_distance; }
@@ -64,6 +65,7 @@ struct puz_state2 : set<Position>
 
     const puz_game* m_game;
     const puz_area* m_area;
+    char m_ch = PUZ_SPACE;
     int m_distance = 0;
 };
 
@@ -80,7 +82,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 char ch3 = m_game->cells(p3);
                 // no adjacent tile to it is of the same type as the area, because
                 // 3. Areas of the same type cannot share an edge.
-                return count(p3) == 0 && ch3 == ch2;
+                return count(p3) == 0 && ch3 == m_ch;
             })) {
                 children.push_back(*this);
                 children.back().make_move(p2);
@@ -172,6 +174,7 @@ int puz_state::find_matches(bool init)
     for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& perm_ids = kv.second;
+        char ch = cells(p);
 
         auto& perms = m_game->m_pos2area.at(p).m_perms;
         // remove any path if it contains a tile which belongs to another area
@@ -180,11 +183,10 @@ int puz_state::find_matches(bool init)
                 char ch2 = cells(p2);
                 return p != p2 && (ch2 != PUZ_SPACE ||
                     boost::algorithm::any_of(offset, [&](const Position& os) {
-                    auto p3 = p2 + os;
-                    char ch3 = cells(p3);
                     // no adjacent tile to it is of the same type as the area, because
                     // 3. Areas of the same type cannot share an edge.
-                    return ch3 == ch2;
+                    auto p3 = p2 + os;
+                    return p != p3 && cells(p3) == ch;
                 }));
             });
         });
@@ -240,9 +242,9 @@ ostream& puz_state::dump(ostream& out) const
             char ch = cells(p);
             auto it = m_game->m_pos2area.find(p);
             if (it == m_game->m_pos2area.end())
-                out << ". ";
+                out << "  ";
             else
-                out << format("%-2d") % it->second.m_num;
+                out << format("%2d") % it->second.m_num;
             out << ch;
         }
         out << endl;
