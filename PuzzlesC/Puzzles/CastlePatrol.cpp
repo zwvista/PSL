@@ -100,13 +100,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
-            auto s = str.substr(c * 3 - 3, 2);
-            char ch = str[c * 3 - 1];
-            m_start.push_back(ch);
-            if (s != "  ") {
+            char ch1 = str[c * 2 - 2], ch2 = str[c * 2 - 1];
+            m_start.push_back(ch2);
+            if (ch1 != ' ') {
                 Position p(r, c);
                 auto& area = m_pos2area[p];
-                area.m_num = stoi(s);
+                area.m_num = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
             }
         }
         m_start.push_back(PUZ_BOUNDARY);
