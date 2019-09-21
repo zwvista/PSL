@@ -221,9 +221,9 @@ void puz_state::make_move2(int n)
 {
     auto& o = m_game->m_links[n];
     bool is_horz = o.m_os1 == offset[1];
-    for (auto& p = o.m_t1 + o.m_os1; p != o.m_t2; p += o.m_os1)
+    for (auto p = o.m_t1 + o.m_os1; p != o.m_t2; p += o.m_os1)
         cells(p) = is_horz ? PUZ_HORZ : PUZ_VERT;
-    for (auto& p = o.m_t3 + o.m_os2; p != o.m_t4; p += o.m_os2)
+    for (auto p = o.m_t3 + o.m_os2; p != o.m_t4; p += o.m_os2)
         cells(p) = is_horz ? PUZ_VERT : PUZ_HORZ;
     cells(o.m_t3) = PUZ_INTERSECT;
 

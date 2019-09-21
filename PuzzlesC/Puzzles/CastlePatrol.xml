@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Divide the grid into walls and empty areas. Every area contains one number.
+2. The number indicates the size of the area. Numbers in wall tiles are part of wall areas; numbers in empty tiles are part of empty areas.
+3. Areas of the same type cannot share an edge.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+       2`
+ 8      `
+       4`
+     2  `
+    ]]>
+  </level>
+</levels>
+</puzzle>

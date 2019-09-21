@@ -19,6 +19,7 @@
 		8CA23FFD1EB4793B0055D6B1 /* Clouds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FF11EB4793B0055D6B1 /* Clouds.cpp */; };
 		8CA23FFE1EB4793B0055D6B1 /* Consecutives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FF61EB4793B0055D6B1 /* Consecutives.cpp */; };
 		95214E70212B9DB000EA7950 /* Cheese.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95214E6E212B9DB000EA7950 /* Cheese.cpp */; };
+		958FA6772335D3F600205831 /* CastlePatrol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA6762335D3F600205831 /* CastlePatrol.cpp */; };
 		95D7B5F3231D523F001E005C /* CultureTrip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5F1231D523F001E005C /* CultureTrip.cpp */; };
 		95D7B6032320146C001E005C /* CoffeeAndSugar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B6002320146B001E005C /* CoffeeAndSugar.cpp */; };
 /* End PBXBuildFile section */
@@ -86,6 +87,9 @@
 		95214E6D212B9DB000EA7950 /* Cheese.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Cheese.xml; sourceTree = "<group>"; };
 		95214E6E212B9DB000EA7950 /* Cheese.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cheese.cpp; sourceTree = "<group>"; };
 		95214E6F212B9DB000EA7950 /* Cheese.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cheese.txt; sourceTree = "<group>"; };
+		958FA6742335D3F600205831 /* CastlePatrol.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CastlePatrol.xml; sourceTree = "<group>"; };
+		958FA6752335D3F600205831 /* CastlePatrol.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CastlePatrol.txt; sourceTree = "<group>"; };
+		958FA6762335D3F600205831 /* CastlePatrol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CastlePatrol.cpp; sourceTree = "<group>"; };
 		95D7B5F0231D523F001E005C /* CultureTrip.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CultureTrip.xml; sourceTree = "<group>"; };
 		95D7B5F1231D523F001E005C /* CultureTrip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CultureTrip.cpp; sourceTree = "<group>"; };
 		95D7B5F2231D523F001E005C /* CultureTrip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CultureTrip.txt; sourceTree = "<group>"; };
@@ -141,6 +145,9 @@
 				8CA23FEE1EB4793B0055D6B1 /* CastleBailey.cpp */,
 				8CA23FEF1EB4793B0055D6B1 /* CastleBailey.txt */,
 				8CA23FF01EB4793B0055D6B1 /* CastleBailey.xml */,
+				958FA6762335D3F600205831 /* CastlePatrol.cpp */,
+				958FA6752335D3F600205831 /* CastlePatrol.txt */,
+				958FA6742335D3F600205831 /* CastlePatrol.xml */,
 				95214E6E212B9DB000EA7950 /* Cheese.cpp */,
 				95214E6F212B9DB000EA7950 /* Cheese.txt */,
 				95214E6D212B9DB000EA7950 /* Cheese.xml */,
@@ -260,6 +267,7 @@
 				95D7B5F3231D523F001E005C /* CultureTrip.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				95D7B6032320146C001E005C /* CoffeeAndSugar.cpp in Sources */,
+				958FA6772335D3F600205831 /* CastlePatrol.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA23FFD1EB4793B0055D6B1 /* Clouds.cpp in Sources */,
