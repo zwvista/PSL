@@ -19,26 +19,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\Walls.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\Wriggle.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\Wriggle2.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\WallSentinels.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\WishSandwich.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\WallHints.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\Warehouse.txt">
       <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="Puzzles\UnreliableHints.txt">
+      <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -59,49 +44,22 @@
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\Walls.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\Wriggle.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\WallSentinels.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\WishSandwich.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\WallHints.cpp">
-      <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\Warehouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\UnreliableHints.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\Walls.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\Wriggle.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\Wriggle2.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\WallSentinels.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\WishSandwich.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\WallHints.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\Warehouse.xml">
       <Filter>Source Files</Filter>
+    </Xml>
+    <Xml Include="Puzzles\UnreliableHints.xml">
+      <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
 </Project>
