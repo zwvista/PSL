@@ -19,9 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\Warehouse.txt">
-      <Filter>Source Files</Filter>
-    </Text>
     <Text Include="Puzzles\UnreliableHints.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -47,17 +44,11 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\Warehouse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\UnreliableHints.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\Warehouse.xml">
-      <Filter>Source Files</Filter>
-    </Xml>
     <Xml Include="Puzzles\UnreliableHints.xml">
       <Filter>Puzzles</Filter>
     </Xml>

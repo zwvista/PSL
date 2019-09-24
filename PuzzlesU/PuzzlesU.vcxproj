@@ -158,7 +158,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\UnreliableHints.txt" />
-    <Text Include="Puzzles\Warehouse.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -175,7 +174,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\UnreliableHints.cpp" />
-    <ClCompile Include="Puzzles\Warehouse.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -185,7 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\UnreliableHints.xml" />
-    <Xml Include="Puzzles\Warehouse.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

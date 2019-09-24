@@ -38,7 +38,7 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\Warehouse.txt">
-      <Filter>Source Files</Filter>
+      <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -78,7 +78,7 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\Warehouse.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +101,7 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Warehouse.xml">
-      <Filter>Source Files</Filter>
+      <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
 </Project>
