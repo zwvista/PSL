@@ -24,6 +24,8 @@
 
 namespace puzzles::StraightAndTurn{
 
+using boost::math::sign;
+
 #define PUZ_BLACK_GEM        'B'
 #define PUZ_WHITE_GEM        'W'
 
@@ -97,12 +99,25 @@ const puz_lineseg_info white_pearl_perms[][3] = {
     {{{0, 0}, 10}, {{0, 1}, 12}, {{0, -1}, 10}},        // e & w
 };
 
+struct puz_link
+{
+    char m_ch;
+    Position m_target, m_turn;
+    int m_dir1 = -1, m_dir2 = -1;
+};
+
+struct puz_gem
+{
+    char m_ch;
+    map<Position, puz_link> m_pos2link;
+};
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     int m_dot_count;
-    map<Position, char> m_pos2pearl;
+    map<Position, puz_gem> m_pos2gem;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -117,12 +132,49 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
-            char ch = str[c];
-            if (ch != ' ')
-                m_pos2pearl[{r, c}] = ch;
-        }
+        for (int c = 0; c < m_sidelen; ++c)
+            if (char ch = str[c]; ch != ' ')
+                m_pos2gem[{r, c}].m_ch = ch;
     }
+    for (auto&& [p1, gem1] : m_pos2gem)
+        for (auto&& [p2, gem2] : m_pos2gem) {
+            if (p1 == p2) continue;
+            if (p1.first == p2.first || p1.second == p2.second) {
+                if (gem1.m_ch != gem2.m_ch) continue;
+                auto pd = p2 - p1;
+                Position os(sign(pd.first), sign(pd.second));
+                for (auto p3 = p1 + os; p3 != p2; p3 += os)
+                    if (m_pos2gem.count(p3) != 0)
+                        goto next;
+                auto& o = gem1.m_pos2link[p2];
+                o.m_ch = gem2.m_ch;
+                o.m_target = p2;
+                o.m_dir1 = boost::find(offset, os) - offset;
+            next:;
+            } else {
+                if (gem1.m_ch == gem2.m_ch) continue;
+                auto pd = p2 - p1;
+                auto f = [&](const Position& pm, const Position& os1, const Position& os2) {
+                    if (m_pos2gem.count(pm) != 0) return;
+                    for (auto p3 = p1 + os1; p3 != pm; p3 += os1)
+                        if (m_pos2gem.count(p3) != 0)
+                            return;
+                    for (auto p3 = pm + os2; p3 != p2; p3 += os2)
+                        if (m_pos2gem.count(p3) != 0)
+                            return;
+                    auto& o = gem1.m_pos2link[p2];
+                    o.m_ch = gem2.m_ch;
+                    o.m_target = p2;
+                    o.m_turn = pm;
+                    o.m_dir1 = boost::find(offset, os1) - offset;
+                    o.m_dir2 = boost::find(offset, os2) - offset;
+                };
+                Position pm1(p1.first, p2.second), pm2(p1.second, p2.first);
+                Position os1(0, sign(pd.second)), os2(sign(pd.first), 0);
+                f(pm1, os1, os2);
+                f(pm2, os2, os1);
+            }
+        }
 }
 
 typedef vector<int> puz_dot;
@@ -174,13 +226,13 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = g.m_pos2pearl.find(p);
-            if (it == g.m_pos2pearl.end())
+            auto it = g.m_pos2gem.find(p);
+            if (it == g.m_pos2gem.end())
                 dt.push_back(lineseg_off);
 
             auto& linesegs_all2 = 
-                it == g.m_pos2pearl.end() ? linesegs_all :
-                it->second == PUZ_BLACK_GEM ? linesegs_all_black :
+                it == g.m_pos2gem.end() ? linesegs_all :
+                it->second.m_ch == PUZ_BLACK_GEM ? linesegs_all_black :
                 linesegs_all_white;
             for (int lineseg : linesegs_all2)
                 if ([&]{
@@ -193,9 +245,9 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& kv : g.m_pos2pearl) {
+    for (auto& kv : g.m_pos2gem) {
         auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(kv.second == PUZ_BLACK_GEM ? 4 : 16);
+        perm_ids.resize(kv.second.m_ch == PUZ_BLACK_GEM ? 4 : 16);
         boost::iota(perm_ids, 0);
     }
 
@@ -209,7 +261,7 @@ int puz_state::find_matches(bool init)
         const auto& p = kv.first;
         auto& perm_ids = kv.second;
 
-        auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_GEM ?
+        auto perms = m_game->m_pos2gem.at(p).m_ch == PUZ_BLACK_GEM ?
             black_pearl_perms : white_pearl_perms;
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto perm = perms[id];
@@ -277,7 +329,7 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::make_move_pearl2(const Position& p, int n)
 {
-    auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_GEM ?
+    auto perms = m_game->m_pos2gem.at(p).m_ch == PUZ_BLACK_GEM ?
         black_pearl_perms : white_pearl_perms;
     auto perm = perms[n];
     for (int i = 0; i < 3; ++i) {
@@ -387,8 +439,8 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = m_game->m_pos2pearl.find(p);
-            out << (it != m_game->m_pos2pearl.end() ? it->second : ' ')
+            auto it = m_game->m_pos2gem.find(p);
+            out << (it != m_game->m_pos2gem.end() ? it->second.m_ch : ' ')
                 << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         out << endl;
