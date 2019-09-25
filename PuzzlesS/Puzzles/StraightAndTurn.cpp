@@ -169,7 +169,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     o.m_dir1 = boost::find(offset, os1) - offset;
                     o.m_dir2 = boost::find(offset, os2) - offset;
                 };
-                Position pm1(p1.first, p2.second), pm2(p1.second, p2.first);
+                Position pm1(p1.first, p2.second), pm2(p2.first, p1.second);
                 Position os1(0, sign(pd.second)), os2(sign(pd.first), 0);
                 f(pm1, os1, os2);
                 f(pm2, os2, os1);
