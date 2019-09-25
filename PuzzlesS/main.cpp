@@ -14,6 +14,7 @@ extern void solve_puz_sokoban();
 extern void solve_puz_Square100();
 extern void solve_puz_Stacks();
 extern void solve_puz_Steps();
+extern void solve_puz_StraightAndTurn();
 extern void solve_puz_strimko();
 extern void solve_puz_sumscrapers();
 
@@ -34,7 +35,8 @@ int main(int argc, char **argv)
     cout << "q: Square 100" << endl;
     cout << "t1: Stacks" << endl;
     cout << "t2: Steps" << endl;
-    cout << "t3: strimko" << endl;
+    cout << "t3: Straight and Turn" << endl;
+    cout << "t4: strimko" << endl;
     cout << "u: sumscrapers" << endl;
     string str;
     getline(cin, str);
@@ -53,7 +55,8 @@ int main(int argc, char **argv)
     else if (str == "q") solve_puz_Square100();
     else if (str == "t1") solve_puz_Stacks();
     else if (str == "t2") solve_puz_Steps();
-    else if (str == "t3") solve_puz_strimko();
+    else if (str == "t3") solve_puz_StraightAndTurn();
+    else if (str == "t4") solve_puz_strimko();
     else if (str == "u") solve_puz_sumscrapers();
 
     return 0;
