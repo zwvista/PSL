@@ -180,8 +180,6 @@ int puz_state::find_matches(bool init)
                 switch(perm_ids.size()) {
                 case 0:
                     return 0;
-                case 1:
-                    return make_move2(matches, p, perm_ids[0]), 1;
                 }
         }
     return 2;
@@ -192,7 +190,7 @@ void puz_state::make_move2(const map<Position, vector<int>>& matches, const Posi
     auto f = [&](const Position& p, int i, const Position& p2) {
         auto& os = offset[i];
         char ch = i % 2 == 1 ? PUZ_HORZ : PUZ_VERT;
-        for (auto p3 = p; p3 != p2; p3 += os)
+        for (auto p3 = p + os; p3 != p2; p3 += os)
             cells(p3) = ch;
     };
     
