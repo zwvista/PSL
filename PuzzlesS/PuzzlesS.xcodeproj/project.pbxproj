@@ -28,6 +28,7 @@
 		8CA241651EB47AEC0055D6B1 /* sumscrapers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241561EB47AEC0055D6B1 /* sumscrapers.cpp */; };
 		958FA638232BE15B00205831 /* Steps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA634232BE15B00205831 /* Steps.cpp */; };
 		958FA639232BE15B00205831 /* Stacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA637232BE15B00205831 /* Stacks.cpp */; };
+		95E37B1F233BDDA20054284F /* StraightAndTurn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E37B1E233BDDA10054284F /* StraightAndTurn.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -117,6 +118,9 @@
 		958FA635232BE15B00205831 /* Steps.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Steps.txt; sourceTree = "<group>"; };
 		958FA636232BE15B00205831 /* Steps.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Steps.xml; sourceTree = "<group>"; };
 		958FA637232BE15B00205831 /* Stacks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Stacks.cpp; sourceTree = "<group>"; };
+		95E37B1C233BDDA10054284F /* StraightAndTurn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StraightAndTurn.txt; sourceTree = "<group>"; };
+		95E37B1D233BDDA10054284F /* StraightAndTurn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = StraightAndTurn.xml; sourceTree = "<group>"; };
+		95E37B1E233BDDA10054284F /* StraightAndTurn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StraightAndTurn.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +199,9 @@
 				958FA634232BE15B00205831 /* Steps.cpp */,
 				958FA635232BE15B00205831 /* Steps.txt */,
 				958FA636232BE15B00205831 /* Steps.xml */,
+				95E37B1E233BDDA10054284F /* StraightAndTurn.cpp */,
+				95E37B1C233BDDA10054284F /* StraightAndTurn.txt */,
+				95E37B1D233BDDA10054284F /* StraightAndTurn.xml */,
 				8CA241531EB47AEC0055D6B1 /* strimko.cpp */,
 				8CA241541EB47AEC0055D6B1 /* strimko.txt */,
 				8CA241551EB47AEC0055D6B1 /* strimko.xml */,
@@ -306,6 +313,7 @@
 				958FA638232BE15B00205831 /* Steps.cpp in Sources */,
 				8CA2415C1EB47AEC0055D6B1 /* Skydoku.cpp in Sources */,
 				8CA2415D1EB47AEC0055D6B1 /* Skyscrapers.cpp in Sources */,
+				95E37B1F233BDDA20054284F /* StraightAndTurn.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA241651EB47AEC0055D6B1 /* sumscrapers.cpp in Sources */,
 				958FA639232BE15B00205831 /* Stacks.cpp in Sources */,
