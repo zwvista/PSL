@@ -87,7 +87,7 @@
 		8CA23EBC1EA9233C0055D6B1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "趙偉";
 				TargetAttributes = {
 					8CA23EC31EA9233C0055D6B1 = {
@@ -239,6 +239,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_IDENTITY = "-";
 				DEVELOPMENT_TEAM = U259NHMY78;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -248,6 +249,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_IDENTITY = "-";
 				DEVELOPMENT_TEAM = U259NHMY78;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
