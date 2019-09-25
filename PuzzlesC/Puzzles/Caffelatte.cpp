@@ -22,11 +22,11 @@ namespace puzzles::Caffelatte{
 
 #define PUZ_SPACE             ' '
 #define PUZ_COFFEE            'F'
-#define PUZ_SUGAR             'S'
-#define PUZ_INTERSECT         'O'
+#define PUZ_COW               'W'
+#define PUZ_BEAN              'B'
 #define PUZ_HORZ              '-'
 #define PUZ_VERT              '|'
-#define PUZ_BOUNDARY          'B'
+#define PUZ_BOUNDARY          '+'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -34,25 +34,14 @@ const Position offset[] = {
     {1, 0},         // s
     {0, -1},        // w
 };
-
-// t1 --- t3 --- t2
-//        |
-//        |
-//        t4
-// t1 < t2
-struct puz_link
-{
-    Position m_t1, m_t2, m_os1;
-    Position m_t3, m_t4, m_os2;
-};
+    
+using puz_link = pair<int, Position>;
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<puz_link> m_links;
-    vector<Position> m_coffees, m_sugars;
-    set<Position> m_objects;
+    map<Position, vector<puz_link>> m_pos2links;
     string m_start;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -71,10 +60,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             char ch = str[c - 1];
             m_start.push_back(ch);
             Position p(r * 2 - 1, c * 2 - 1);
-            if (ch == PUZ_COFFEE)
-                m_coffees.push_back(p), m_objects.insert(p);
-            else if (ch == PUZ_SUGAR)
-                m_sugars.push_back(p), m_objects.insert(p);
+            if (ch != PUZ_SPACE)
+                m_pos2links[p];
             if (c == m_sidelen / 2) break;
             m_start.push_back(PUZ_SPACE);
         }
@@ -86,55 +73,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    auto f = [&](const vector<Position>& rng1, const vector<Position>& rng2) {
-        auto check_line = [&](const Position& p1, const Position& p2, const Position& os) {
-            for (auto p = p1 + os; p != p2; p += os)
-                if (cells(p) != PUZ_SPACE)
-                    return false;
-            return true;
-        };
-
-        for (int i = 0; i < rng1.size() - 1; ++i) {
-            Position t1 = rng1[i];
-            for (int j = i + 1; j < rng1.size(); ++j) {
-                Position t2 = rng1[j];
-                if (t1.first == t2.first) {
-                    auto& os1 = offset[1];
-                    if (!check_line(t1, t2, os1)) continue;
-                    auto rng3 = rng2;
-                    boost::remove_erase_if(rng3, [&](const Position& p) {
-                        return p.second <= t1.second || p.second >= t2.second;
-                    });
-                    for (auto& p : rng3) {
-                        Position t3(t1.first, p.second), t4(p);
-                        auto& os2 = offset[t3.first < t4.first ? 2 : 0];
-                        if (!check_line(t3, t4, os2)) continue;
-                        puz_link o;
-                        o.m_t1 = t1, o.m_t2 = t2, o.m_os1 = os1;
-                        o.m_t3 = t3, o.m_t4 = t4, o.m_os2 = os2;
-                        m_links.push_back(o);
-                    }
-                } else if (t1.second == t2.second) {
-                    auto& os1 = offset[2];
-                    if (!check_line(t1, t2, os1)) continue;
-                    auto rng3 = rng2;
-                    boost::remove_erase_if(rng3, [&](const Position& p) {
-                        return p.first <= t1.first || p.first >= t2.first;
-                    });
-                    for (auto& p : rng3) {
-                        Position t3(p.first, t1.second), t4(p);
-                        auto& os2 = offset[t3.second < t4.second ? 1 : 3];
-                        if (!check_line(t3, t4, os2)) continue;
-                        puz_link o;
-                        o.m_t1 = t1, o.m_t2 = t2, o.m_os1 = os1;
-                        o.m_t3 = t3, o.m_t4 = t4, o.m_os2 = os2;
-                        m_links.push_back(o);
-                    }
+    for (auto&& [p, links] : m_pos2links) {
+        char ch = cells(p);
+        for (int i = 0; i < 4; ++i) {
+            auto& os = offset[i];
+            for (auto p2 = p + os; ; p2 += os)
+                if (char ch2 = cells(p2); ch2 != PUZ_SPACE) {
+                    if (ch == PUZ_COFFEE && (ch2 == PUZ_COW || ch2 == PUZ_BEAN) ||
+                        ch2 == PUZ_COFFEE && (ch == PUZ_COW || ch == PUZ_BEAN) || ch == ch2)
+                        links.emplace_back(i, p2);
+                    break;
                 }
-            }
         }
-    };
-    f(m_sugars, m_coffees);
+    }
 }
 
 struct puz_state
@@ -174,12 +125,6 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    for (int i = 0; i < g.m_links.size(); ++i) {
-        auto& o = g.m_links[i];
-        m_matches[o.m_t1].push_back(i);
-        m_matches[o.m_t2].push_back(i);
-        m_matches[o.m_t4].push_back(i);
-    }
     
     find_matches(true);
 }
@@ -191,18 +136,7 @@ int puz_state::find_matches(bool init)
         auto& perms = kv.second;
 
         boost::remove_erase_if(perms, [&](int id) {
-            auto& o = m_game->m_links[id];
-            auto check_line = [&](const Position& p1, const Position& p2, const Position& os) {
-                for (auto p = p1 + os; p != p2; p += os)
-                    if (cells(p) != PUZ_SPACE)
-                        return false;
-                return true;
-            };
-            return m_matches.count(o.m_t1) == 0
-                || m_matches.count(o.m_t2) == 0
-                || m_matches.count(o.m_t4) == 0
-                || !check_line(o.m_t1, o.m_t2, o.m_os1)
-                || !check_line(o.m_t3, o.m_t4, o.m_os2);
+            return true;
         });
 
         if (!init)
@@ -218,18 +152,8 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& o = m_game->m_links[n];
-    bool is_horz = o.m_os1 == offset[1];
-    for (auto p = o.m_t1 + o.m_os1; p != o.m_t2; p += o.m_os1)
-        cells(p) = is_horz ? PUZ_HORZ : PUZ_VERT;
-    for (auto p = o.m_t3 + o.m_os2; p != o.m_t4; p += o.m_os2)
-        cells(p) = is_horz ? PUZ_VERT : PUZ_HORZ;
-    cells(o.m_t3) = PUZ_INTERSECT;
 
     m_distance += 3;
-    m_matches.erase(o.m_t1);
-    m_matches.erase(o.m_t2);
-    m_matches.erase(o.m_t4);
 }
 
 bool puz_state::make_move(int n)
