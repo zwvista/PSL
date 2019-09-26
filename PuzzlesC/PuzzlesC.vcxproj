@@ -157,10 +157,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\Caffelatte.txt" />
     <Text Include="Puzzles\Calcudoku.txt" />
     <Text Include="Puzzles\CarpentersSquare.txt" />
     <Text Include="Puzzles\CarpentersWall.txt" />
     <Text Include="Puzzles\CastleBailey.txt" />
+    <Text Include="Puzzles\CastlePatrol.txt" />
     <Text Include="Puzzles\Cheese.txt" />
     <Text Include="Puzzles\Clouds.txt" />
     <Text Include="Puzzles\Clouds2.txt" />
@@ -182,10 +184,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\Caffelatte.cpp" />
     <ClCompile Include="Puzzles\Calcudoku.cpp" />
     <ClCompile Include="Puzzles\CarpentersSquare.cpp" />
     <ClCompile Include="Puzzles\CarpentersWall.cpp" />
     <ClCompile Include="Puzzles\CastleBailey.cpp" />
+    <ClCompile Include="Puzzles\CastlePatrol.cpp" />
     <ClCompile Include="Puzzles\Cheese.cpp" />
     <ClCompile Include="Puzzles\Clouds.cpp" />
     <ClCompile Include="Puzzles\CoffeeAndSugar.cpp" />
@@ -199,12 +203,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\Caffelatte.xml" />
     <Xml Include="Puzzles\Calcudoku.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="Puzzles\CarpentersSquare.xml" />
     <Xml Include="Puzzles\CarpentersWall.xml" />
     <Xml Include="Puzzles\CastleBailey.xml" />
+    <Xml Include="Puzzles\CastlePatrol.xml" />
     <Xml Include="Puzzles\Cheese.xml" />
     <Xml Include="Puzzles\Clouds.xml" />
     <Xml Include="Puzzles\Clouds2.xml" />
