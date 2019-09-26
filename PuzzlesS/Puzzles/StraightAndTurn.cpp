@@ -136,21 +136,26 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (char ch = str[c]; ch != ' ')
                 m_pos2gem[{r, c}].m_ch = ch;
     }
-    for (auto&& [p1, gem1] : m_pos2gem)
-        for (auto&& [p2, gem2] : m_pos2gem) {
+    for (auto& kv1 : m_pos2gem) {
+        auto& p1 = kv1.first;
+        auto& gem1 = kv1.second;
+        for (auto& kv2 : m_pos2gem) {
+            auto& p2 = kv2.first;
+            auto& gem2 = kv2.second;
             if (p1 == p2) continue;
             if (p1.first == p2.first || p1.second == p2.second) {
                 if (gem1.m_ch != gem2.m_ch) continue;
                 auto pd = p2 - p1;
-                Position os(sign(pd.first), sign(pd.second));
-                for (auto p3 = p1 + os; p3 != p2; p3 += os)
-                    if (m_pos2gem.count(p3) != 0)
-                        goto next;
-                auto& o = gem1.m_pos2link[p2];
-                o.m_ch = gem2.m_ch;
-                o.m_target = p2;
-                o.m_dir1 = boost::find(offset, os) - offset;
-            next:;
+                [&]{
+                    Position os(sign(pd.first), sign(pd.second));
+                    for (auto p3 = p1 + os; p3 != p2; p3 += os)
+                        if (m_pos2gem.count(p3) != 0)
+                            return;
+                    auto& o = gem1.m_pos2link[p2];
+                    o.m_ch = gem2.m_ch;
+                    o.m_target = p2;
+                    o.m_dir1 = boost::find(offset, os) - offset;
+                }();
             } else {
                 if (gem1.m_ch == gem2.m_ch) continue;
                 auto pd = p2 - p1;
@@ -175,6 +180,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 f(pm2, os2, os1);
             }
         }
+    }
 }
 
 typedef vector<int> puz_dot;
