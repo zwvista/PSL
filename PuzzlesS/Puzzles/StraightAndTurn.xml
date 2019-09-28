@@ -21,5 +21,40 @@ W W  `
    BB`
     ]]>
   </level>
+  <level id="2">
+    <![CDATA[
+B BB `
+B W  `
+   B `
+BBBBW`
+B B  `
+    ]]>
+  </level>
+  <level id="36">
+    <![CDATA[
+B WW  W`
+  WBBBW`
+BW   B `
+BWW W  `
+ WWB BW`
+   WW  `
+BBB B  `
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+ BBB  B B  `
+W   WW W WW`
+BBW W  BBW `
+BB BBB   WB`
+ W  WBB W B`
+  B  BW   B`
+W B    BBB `
+BBB  B WW  `
+B BB   W BB`
+BWWWWBBW B `
+ WW BBB WWW`
+    ]]>
+  </level>
 </levels>
 </puzzle>

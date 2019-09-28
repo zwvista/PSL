@@ -48,7 +48,9 @@ struct puz_link
 {
     char m_ch;
     Position m_target, m_turn{-1, -1};
+    // the direction from this position to the target(or the turning point) and its reverse direction
     int m_dir11 = -1, m_dir12 = -1;
+    // the direction from the turning point to the target and its reverse direction
     int m_dir21 = -1, m_dir22 = -1;
 };
 
@@ -100,7 +102,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     auto& o = gem1.m_links.emplace_back();
                     o.m_ch = gem2.m_ch;
                     o.m_target = p2;
-                    o.m_dir11 = boost::find(offset, os) - offset, o.m_dir12 = (o.m_dir11 + 2) / 4;
+                    o.m_dir11 = boost::find(offset, os) - offset, o.m_dir12 = (o.m_dir11 + 2) % 4;
                 }();
             } else {
                 if (gem1.m_ch == gem2.m_ch) continue;
@@ -117,8 +119,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     o.m_ch = gem2.m_ch;
                     o.m_target = p2;
                     o.m_turn = pm;
-                    o.m_dir11 = boost::find(offset, os1) - offset, o.m_dir12 = (o.m_dir11 + 2) / 4;
-                    o.m_dir21 = boost::find(offset, os2) - offset, o.m_dir22 = (o.m_dir21 + 2) / 4;
+                    o.m_dir11 = boost::find(offset, os1) - offset, o.m_dir12 = (o.m_dir11 + 2) % 4;
+                    o.m_dir21 = boost::find(offset, os2) - offset, o.m_dir22 = (o.m_dir21 + 2) % 4;
                 };
                 Position pm1(p1.first, p2.second), pm2(p2.first, p1.second);
                 Position os1(0, sign(pd.second)), os2(sign(pd.first), 0);
@@ -143,7 +145,7 @@ struct puz_state
         return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches); 
     }
     bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    void make_move2(Position p, int n);
     int find_matches(bool init);
     bool check_loop() const;
 
@@ -151,14 +153,14 @@ struct puz_state
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_game->m_pos2gem.size() -
+        return m_game->m_pos2gem.size() * 2 -
         boost::accumulate(m_game->m_pos2gem, 0, [&](int acc, const pair<const Position, puz_gem>& kv){
             int dt = dots(kv.first);
             for (int i = 0; i < 4; ++i)
                 if (is_lineseg_on(dt, i))
                     ++acc;
             return acc;
-        }) / 2;
+        });
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
@@ -203,8 +205,9 @@ int puz_state::find_matches(bool init)
         auto perms = m_game->m_pos2gem.at(p).m_links;
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& o = perms[id];
-            return o.m_dir21 == -1 ? f(p, offset[o.m_dir11], o.m_target) :
-                dots(o.m_turn) != lineseg_off || f(p, offset[o.m_dir11], o.m_turn) || f(o.m_turn, offset[o.m_dir21], o.m_target);
+            return m_matches.count(o.m_target) == 0 ||
+                (o.m_dir21 == -1 ? f(p, offset[o.m_dir11], o.m_target) :
+                dots(o.m_turn) != lineseg_off || f(p, offset[o.m_dir11], o.m_turn) || f(o.m_turn, offset[o.m_dir21], o.m_target));
         });
 
         if (!init)
@@ -218,7 +221,7 @@ int puz_state::find_matches(bool init)
     return check_loop() ? 2 : 0;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(Position p, int n)
 {
     auto f = [&](const Position& p, int dir1, int dir2, const Position& p2) {
         auto& os = offset[dir1];
@@ -227,8 +230,9 @@ void puz_state::make_move2(const Position& p, int n)
     };
 
     auto& o = m_game->m_pos2gem.at(p).m_links[n];
-    bool finished = dots(p) != 0, finished2 = dots(o.m_target) != 0;
-    dots(p) |= o.m_dir11;
+    bool finished = dots(p) != lineseg_off;
+    bool finished2 = dots(o.m_target) != lineseg_off;
+    dots(p) |= 1 << o.m_dir11;
     if (o.m_dir21 == -1) {
         dots(o.m_target) |= 1 << o.m_dir12;
         f(p, o.m_dir11, o.m_dir12, o.m_target);
@@ -242,11 +246,14 @@ void puz_state::make_move2(const Position& p, int n)
     if (finished)
         m_matches.erase(p);
     else
-        boost::remove_erase(m_matches.at(p), o.m_dir11);
+        boost::remove_erase(m_matches.at(p), n);
     if (finished2)
         m_matches.erase(o.m_target);
     else
-        boost::remove_erase(m_matches.at(o.m_target), o.m_dir22);
+        boost::remove_erase_if(m_matches.at(o.m_target), [&](int n2){
+            return m_game->m_pos2gem.at(o.m_target).m_links[n2].m_target == p;
+        });
+    m_distance += 2;
 }
 
 bool puz_state::make_move(const Position& p, int n)
