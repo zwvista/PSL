@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 3/Straight and Turn
+    iOS Game: Logic Games 2/Puzzle Set 7/Straight and Turn
 
     Summary
     Straight and Turn
@@ -153,13 +153,8 @@ struct puz_state
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_game->m_pos2gem.size() * 2 -
-        boost::accumulate(m_game->m_pos2gem, 0, [&](int acc, const pair<const Position, puz_gem>& kv){
-            int dt = dots(kv.first);
-            for (int i = 0; i < 4; ++i)
-                if (is_lineseg_on(dt, i))
-                    ++acc;
-            return acc;
+        return boost::accumulate(m_matches, 0, [&](int acc, const pair<const Position, vector<int>>& kv){
+            return acc + (dots(kv.first) == lineseg_off ? 2 : 1);
         });
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }

@@ -11,7 +11,7 @@ W-  W-
  - - -B-B 
 Number of moves: 6
 Number of vertices examined: 9
-0.001925 [s]
+0.001972 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,7 +26,22 @@ B B-B-B W
 B- -B- -  
 Number of moves: 5
 Number of vertices examined: 6
-0.000953 [s]
+0.000989 [s]
+
+Level 6
+Sequence of moves: 
+B- -B- -  
+|       | 
+B B-      
+| | |   | 
+B   W-  W 
+| |   | | 
+B  -W B   
+|   | | | 
+B-B-   -W 
+Number of moves: 4
+Number of vertices examined: 6
+0.00105 [s]
 
 Level 36
 Sequence of moves: 
@@ -45,7 +60,7 @@ B W W   W-
 B-B-B  -B- -  
 Number of moves: 14
 Number of vertices examined: 31
-0.006829 [s]
+0.006446 [s]
 
 Level 200
 Sequence of moves: 
@@ -72,5 +87,5 @@ B W-W W-W B-B W   B-
  -W-W  -B-B-B-  W-W-W 
 Number of moves: 39
 Number of vertices examined: 1920
-1.04368 [s]
+1.0241 [s]
 
