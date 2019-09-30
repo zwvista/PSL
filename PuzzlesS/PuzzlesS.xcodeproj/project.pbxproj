@@ -29,6 +29,7 @@
 		958FA638232BE15B00205831 /* Steps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA634232BE15B00205831 /* Steps.cpp */; };
 		958FA639232BE15B00205831 /* Stacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA637232BE15B00205831 /* Stacks.cpp */; };
 		95E37B1F233BDDA20054284F /* StraightAndTurn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E37B1E233BDDA10054284F /* StraightAndTurn.cpp */; };
+		95E37B2323420D470054284F /* Sukrokuro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E37B2123420D470054284F /* Sukrokuro.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -121,6 +122,9 @@
 		95E37B1C233BDDA10054284F /* StraightAndTurn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StraightAndTurn.txt; sourceTree = "<group>"; };
 		95E37B1D233BDDA10054284F /* StraightAndTurn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = StraightAndTurn.xml; sourceTree = "<group>"; };
 		95E37B1E233BDDA10054284F /* StraightAndTurn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StraightAndTurn.cpp; sourceTree = "<group>"; };
+		95E37B2023420D470054284F /* Sukrokuro.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Sukrokuro.xml; sourceTree = "<group>"; };
+		95E37B2123420D470054284F /* Sukrokuro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sukrokuro.cpp; sourceTree = "<group>"; };
+		95E37B2223420D470054284F /* Sukrokuro.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Sukrokuro.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +209,9 @@
 				8CA241531EB47AEC0055D6B1 /* strimko.cpp */,
 				8CA241541EB47AEC0055D6B1 /* strimko.txt */,
 				8CA241551EB47AEC0055D6B1 /* strimko.xml */,
+				95E37B2123420D470054284F /* Sukrokuro.cpp */,
+				95E37B2223420D470054284F /* Sukrokuro.txt */,
+				95E37B2023420D470054284F /* Sukrokuro.xml */,
 				8CA241561EB47AEC0055D6B1 /* sumscrapers.cpp */,
 				8CA241571EB47AEC0055D6B1 /* sumscrapers.txt */,
 				8CA241581EB47AEC0055D6B1 /* sumscrapers.xml */,
@@ -307,6 +314,7 @@
 				8CA241591EB47AEC0055D6B1 /* Sentinels.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
+				95E37B2323420D470054284F /* Sukrokuro.cpp in Sources */,
 				8CA241621EB47AEC0055D6B1 /* sokoban.cpp in Sources */,
 				8CA2415A1EB47AEC0055D6B1 /* SheepAndWolves.cpp in Sources */,
 				8CA241601EB47AEC0055D6B1 /* SlitherLink2.cpp in Sources */,

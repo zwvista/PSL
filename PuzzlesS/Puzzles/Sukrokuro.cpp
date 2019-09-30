@@ -27,9 +27,7 @@ namespace puzzles::Sukrokuro{
 
 struct puz_area
 {
-    // elem.key : the position
-    // elem.value : whether there is a dot between the cell and the one next to it
-    vector<pair<Position, bool>> m_range;
+    vector<Position> m_range;
     int m_sum;
 };
 
@@ -77,27 +75,47 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for (auto& kv : m_pos2area) {
-        const auto& p = kv.first.first;
-        bool is_vert = kv.first.second;
-        auto os = is_vert ? Position(1, 0) : Position(0, 1);
-        auto& rng = kv.second.m_range;
-        for (auto p2 = p + os; m_blanks.count({p2, is_vert}) != 0; p2 += os)
-            rng.emplace_back(p2, m_blanks[{p2, is_vert}]);
-    }
-
     vector<int> perm(7);
     boost::iota(perm, 1);
     do
         m_perms.push_back(perm);
     while (boost::next_permutation(perm));
 
-    for (int i = 0; i < rows() + cols(); ++i) {
-        auto& rng = m_rowscols[i];
-        if (rng.size() != 7) continue;
-        auto& perm_ids = m_rc2permids[i];
+    for (int index = 0; index < rows() + cols(); ++index) {
+        bool is_vert = index >= rows();
+        auto& rc = m_rowscols[index];
+        if (rc.size() != 7) continue;
+        auto& perm_ids = m_rc2permids[index];
         perm_ids.resize(m_perms.size());
         boost::iota(perm_ids, 0);
+        boost::remove_erase_if(perm_ids, [&](int id){
+            auto& perm = m_perms[id];
+            for (int i = 0; i < 6; ++i)
+                if (m_blanks.at({rc[i], is_vert}) != (abs(perm[i] - perm[i + 1]) == 1))
+                    return true;
+            return false;
+        });
+    }
+    
+    for (auto& kv : m_pos2area) {
+        const auto& p = kv.first.first;
+        bool is_vert = kv.first.second;
+        auto& area = kv.second;
+        auto os = is_vert ? Position(1, 0) : Position(0, 1);
+        auto& rng = area.m_range;
+        for (auto p2 = p + os; m_blanks.count({p2, is_vert}) != 0; p2 += os)
+            rng.push_back(p2);
+        int index = is_vert ? rows() + p.second : p.first;
+        auto& perm_ids = m_rc2permids.at(index);
+        auto& rc = m_rowscols[index];
+        int n = boost::range::find(rc, rng[0]) - rc.begin(), sz = rng.size();
+        boost::remove_erase_if(perm_ids, [&](int id){
+            auto& perm = m_perms[id];
+            int sum = 0;
+            for (int i = n; i < n + sz; ++i)
+                sum += perm[i];
+            return sum != area.m_sum;
+        });
     }
 }
 
@@ -105,9 +123,11 @@ struct puz_state
 {
     puz_state() {}
     puz_state(const puz_game& g);
-    bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-    bool make_move(const puz_key& key, int j);
-    void make_move2(const puz_key& key, int j);
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
+    bool make_move(int i, int j);
+    void make_move2(int i, int j);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -123,68 +143,63 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     map<Position, int> m_cells;
-    map<Position, vector<int>> m_matches;
+    map<int, vector<int>> m_matches;
     int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-//: m_cells(g.m_blanks), m_game(&g)
+    : m_game(&g), m_matches(g.m_rc2permids)
 {
-    //for (auto& kv : g.m_pos2area) {
-    //    auto& perm_ids = m_matches[kv.first];
-    //    auto& area = kv.second;
-    //    perm_ids.resize(g.m_sum2perms.at({area.m_sum, area.m_range.size()}).size());
-    //    boost::iota(perm_ids, 0);
-    //}
-
+    for(auto&& [kv, isdiff1] : g.m_blanks)
+        m_cells[kv.first];
+        
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    //for (auto& kv : m_matches) {
-    //    const auto& key = kv.first;
-    //    auto& perm_ids = kv.second;
+    for (auto& kv : m_matches) {
+        int index = kv.first;
+        auto& perm_ids = kv.second;
 
-    //    vector<int> nums;
-    //    auto& area = m_game->m_pos2area.at(key);
-    //    for (auto& p : area.m_range)
-    //        nums.push_back(m_cells.at(p));
+        vector<int> nums;
+        for (auto& p : m_game->m_rowscols[index])
+            nums.push_back(m_cells.at(p));
 
-    //    auto& perms = m_game->m_sum2perms.at({area.m_sum, area.m_range.size()});
-    //    boost::remove_erase_if(perm_ids, [&](int id) {
-    //        return !boost::equal(nums, perms[id], [](int n1, int n2) {
-    //            return n1 == 0 || n1 == n2;
-    //        });
-    //    });
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            auto& perm = m_game->m_perms[id];
+            return !boost::equal(nums, perm, [](int n1, int n2) {
+                return n1 == 0 || n1 == n2;
+            });
+        });
 
-    //    if (!init)
-    //        switch(perm_ids.size()) {
-    //        case 0:
-    //            return 0;
-    //        //case 1:
-    //        //    return make_move2(key, perm_ids.front()), 1;
-    //        }
-    //}
+        if (!init)
+            switch(perm_ids.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(index, perm_ids[0]), 1;
+            }
+    }
     return 2;
 }
 
-void puz_state::make_move2(const puz_key& key, int j)
+void puz_state::make_move2(int i, int j)
 {
-    //auto& area = m_game->m_pos2area.at(key);
-    //auto& perm = m_game->m_sum2perms.at({area.m_sum, area.m_range.size()})[j];
+    auto& range = m_game->m_rowscols[i];
+    auto& perm = m_game->m_perms[j];
 
-    //for (int k = 0; k < perm.size(); ++k)
-    //    m_cells.at(area.m_range[k]) = perm[k];
+    for (int k = 0; k < perm.size(); ++k)
+        m_cells.at(range[k]) = perm[k];
 
-    //++m_distance;
-    //m_matches.erase(key);
+    ++m_distance;
+    m_matches.erase(i);
 }
 
-bool puz_state::make_move(const puz_key& key, int j)
+bool puz_state::make_move(int i, int j)
 {
     m_distance = 0;
-    make_move2(key, j);
+    make_move2(i, j);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -192,27 +207,27 @@ bool puz_state::make_move(const puz_key& key, int j)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    //auto& kv = *boost::min_element(m_matches, [](
-    //    const pair<const puz_key, vector<int>>& kv1,
-    //    const pair<const puz_key, vector<int>>& kv2) {
-    //    return kv1.second.size() < kv2.second.size();
-    //});
-    //for (int n : kv.second) {
-    //    children.push_back(*this);
-    //    if (!children.back().make_move(kv.first, n))
-    //        children.pop_back();
-    //}
+    auto& kv = *boost::min_element(m_matches, [](
+        const pair<const int, vector<int>>& kv1,
+        const pair<const int, vector<int>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (int n : kv.second) {
+        children.push_back(*this);
+        if (!children.back().make_move(kv.first, n))
+            children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    //for (int r = 0; r < sidelen(); ++r) {
-    //    for (int c = 0; c < sidelen(); ++c) {
-    //        Position p(r, c);
-    //        out << (m_game->m_blanks.count(p) != 0 ? char(m_cells.at(p) + '0') : '.') << ' ';
-    //    }
-    //    out << endl;
-    //}
+    for (int r = 0; r < m_game->rows(); ++r) {
+        for (int c = 0; c < m_game->cols(); ++c) {
+            Position p(r, c);
+            out << (m_game->m_blanks.count({p, true}) != 0 ? char(m_cells.at(p) + '0') : '.') << ' ';
+        }
+        out << endl;
+    }
     return out;
 }
 
