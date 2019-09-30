@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Sukrokuro combines Sudoku, Kropki and Kakuro.
+2. Fill in the white cells, one number in each, so that each column and row contains the nubmers 1 through 7 exactly once.
+3. Black cells contain clues, which tell you the sum of the number in consecutive cells at its right and downward.
+4. A dot separated tiles where the absolute difference between the numbers is 1.
+5. If a dot is absent between two cells, the difference between the numbers must be more than 1.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+00001000080000000000190009000000100016001800`
+0007 . .    00000007     .  0014   . .      `
+0003   .    08001011        0014       . .  `
+0019                 .  000028000509 .      `
+000010001114            1114 .         .    `
+0011   . .  2017   ,                12001000`
+0015       .    18000903   .    0010     .  `
+000000000025   .       .        1303   .    `
+000008000916   .        0812   .       .    `
+0013       .        0015     . . .  00000000`
+0017           .    0011   .        00000000`
+    ]]>
+  </level>
+</levels>
+</puzzle>

@@ -16,6 +16,7 @@ extern void solve_puz_Stacks();
 extern void solve_puz_Steps();
 extern void solve_puz_StraightAndTurn();
 extern void solve_puz_strimko();
+extern void solve_puz_Sukrokuro();
 extern void solve_puz_sumscrapers();
 
 int main(int argc, char **argv)
@@ -37,7 +38,8 @@ int main(int argc, char **argv)
     cout << "t2: Steps" << endl;
     cout << "t3: Straight and Turn" << endl;
     cout << "t4: strimko" << endl;
-    cout << "u: sumscrapers" << endl;
+    cout << "u1: Sukrokuro" << endl;
+    cout << "u2: sumscrapers" << endl;
     string str;
     getline(cin, str);
     if (str.empty());
@@ -57,7 +59,8 @@ int main(int argc, char **argv)
     else if (str == "t2") solve_puz_Steps();
     else if (str == "t3") solve_puz_StraightAndTurn();
     else if (str == "t4") solve_puz_strimko();
-    else if (str == "u") solve_puz_sumscrapers();
+    else if (str == "u1") solve_puz_Sukrokuro();
+    else if (str == "u2") solve_puz_sumscrapers();
 
     return 0;
 }
