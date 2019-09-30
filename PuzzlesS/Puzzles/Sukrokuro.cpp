@@ -88,13 +88,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& perm_ids = m_rc2permids[index];
         perm_ids.resize(m_perms.size());
         boost::iota(perm_ids, 0);
-        boost::remove_erase_if(perm_ids, [&](int id){
-            auto& perm = m_perms[id];
-            for (int i = 0; i < 6; ++i)
-                if (m_blanks.at({rc[i], is_vert}) != (abs(perm[i] - perm[i + 1]) == 1))
-                    return true;
-            return false;
-        });
     }
     
     for (auto& kv : m_pos2area) {
@@ -111,6 +104,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         int n = boost::range::find(rc, rng[0]) - rc.begin(), sz = rng.size();
         boost::remove_erase_if(perm_ids, [&](int id){
             auto& perm = m_perms[id];
+            for (int i = n; i < n + sz - 1; ++i)
+                if (m_blanks.at({rc[i], is_vert}) != (abs(perm[i] - perm[i + 1]) == 1))
+                    return true;
             int sum = 0;
             for (int i = n; i < n + sz; ++i)
                 sum += perm[i];
