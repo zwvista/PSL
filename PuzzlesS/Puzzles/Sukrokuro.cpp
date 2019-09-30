@@ -36,7 +36,7 @@ typedef pair<Position, bool> puz_key;
 struct puz_game
 {
     string m_id;
-    Position m_size;
+    int m_sidelen;
     map<puz_key, puz_area> m_pos2area;
     vector<vector<Position>> m_rowscols;
     map<puz_key, bool> m_blanks;
@@ -44,18 +44,16 @@ struct puz_game
     map<int, vector<int>> m_rc2permids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int rows() const { return m_size.first; }
-    int cols() const { return m_size.second; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_size(strs.size(), strs[0].length() / 4)
+, m_sidelen(strs.size())
 {
-    m_rowscols.resize(rows() + cols());
-    for (int r = 0; r < rows(); ++r) {
+    m_rowscols.resize(m_sidelen * 2);
+    for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < cols(); ++c) {
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             const string s1 = str.substr(c * 4, 2);
             const string s2 = str.substr(c * 4 + 2, 2);
@@ -63,7 +61,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_blanks[{p, true}] = s1[1] == PUZ_DOT;
                 m_blanks[{p, false}] = s2[1] == PUZ_DOT;
                 m_rowscols[r].push_back(p);
-                m_rowscols[rows() + c].push_back(p);
+                m_rowscols[m_sidelen + c].push_back(p);
             } else {
                 int n1 = stoi(s1);
                 if (n1 != 0)
@@ -81,8 +79,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_perms.push_back(perm);
     while (boost::next_permutation(perm));
 
-    for (int index = 0; index < rows() + cols(); ++index) {
-        bool is_vert = index >= rows();
+    for (int index = 0; index < m_sidelen * 2; ++index) {
+        bool is_vert = index >= m_sidelen;
         auto& rc = m_rowscols[index];
         if (rc.size() != 7) continue;
         auto& perm_ids = m_rc2permids[index];
@@ -98,7 +96,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& rng = area.m_range;
         for (auto p2 = p + os; m_blanks.count({p2, is_vert}) != 0; p2 += os)
             rng.push_back(p2);
-        int index = is_vert ? rows() + p.second : p.first;
+        int index = is_vert ? m_sidelen + p.second : p.first;
         auto& perm_ids = m_rc2permids.at(index);
         auto& rc = m_rowscols[index];
         int n = boost::range::find(rc, rng[0]) - rc.begin(), sz = rng.size();
@@ -217,8 +215,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < m_game->rows(); ++r) {
-        for (int c = 0; c < m_game->cols(); ++c) {
+    for (int r = 0; r < m_game->m_sidelen; ++r) {
+        for (int c = 0; c < m_game->m_sidelen; ++c) {
             Position p(r, c);
             out << (m_game->m_blanks.count({p, true}) != 0 ? char(m_cells.at(p) + '0') : '.') << ' ';
         }
