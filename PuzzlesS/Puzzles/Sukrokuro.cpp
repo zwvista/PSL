@@ -80,7 +80,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     while (boost::next_permutation(perm));
 
     for (int index = 0; index < m_sidelen * 2; ++index) {
-        bool is_vert = index >= m_sidelen;
         auto& rc = m_rowscols[index];
         if (rc.size() != 7) continue;
         auto& perm_ids = m_rc2permids[index];
