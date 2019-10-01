@@ -107,7 +107,7 @@ struct puz_state
     const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
     puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches);
+        return tie(m_dots, m_shaded, m_matches) < tie(x.m_dots, x.m_shaded, x.m_matches);
     }
     bool make_move_hint(const Position& p, int n);
     bool make_move_hint2(const Position& p, int n);
@@ -186,7 +186,7 @@ int puz_state::find_matches(bool init)
                 if (perm[k] == PUZ_SHADED) {
                     auto& p2 = o.m_range[k];
                     for (auto& os : offset)
-                        if (auto p3 = p2 + os; m_shaded.count(p) != 0)
+                        if (auto p3 = p2 + os; p3 != p && m_shaded.count(p3) != 0)
                             return true;
                 }
             return false;
@@ -216,15 +216,14 @@ int puz_state::check_dots(bool init)
                     newly_finished.insert(p);
                     if (dt[0] == lineseg_off && m_shaded.count(p) == 0) {
                         m_shaded.insert(p);
-                        if (boost::algorithm::any_of(offset, [&](const Position& os) {
-                            return m_shaded.count(p + os) != 0;
-                        }))
-                            return 0;
                         for (int j = 0; j < 4; ++j)
-                            if (auto p3 = p + offset[j]; is_valid(p3))
+                            if (auto p3 = p + offset[j]; is_valid(p3)) {
+                                if (m_shaded.count(p3) != 0)
+                                    return 0;
                                 boost::remove_erase_if(dots(p3), [&](int lineseg3) {
                                     return is_lineseg_on(lineseg3, (j + 2) % 4);
                                 });
+                            }
                     }
                 }
             }
