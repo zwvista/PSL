@@ -44,15 +44,25 @@ const Position offset[] = {
     {0, -1},        // w
 };
 
+struct puz_area
+{
+    int m_num;
+    vector<Position> m_range;
+    int size() const { return m_range.size(); }
+};
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     int m_dot_count;
-    map<Position, int> m_pos2num;
-    map<int, vector<string>> m_num2perms;
+    map<Position, puz_area> m_pos2area;
+    map<pair<int, int>, vector<string>> m_info2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -62,25 +72,25 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
-            char ch = str[c];
-            if (ch != ' ') {
-                int n = ch - '0';
-                m_num2perms[n];
-                m_pos2num[{r, c}] = n;
-            }
-        }
+        for (int c = 0; c < m_sidelen; ++c)
+            if (char ch = str[c]; ch != ' ')
+                m_pos2area[{r, c}].m_num = ch - '0';
     }
 
-    for (auto& kv : m_num2perms) {
-        int n = kv.first;
-        // Find all shaded permutations in relation to a number
-        auto& perms = kv.second;
+    for (auto&& [p, o] : m_pos2area) {
+        int n = o.m_num;
+        for (auto& os : offset)
+            if (auto p2 = p + os; is_valid(p2))
+                o.m_range.push_back(p2);
+        int sz = o.size();
+        // Find all shaded permutations in relation to a number-size pair
+        auto& perms = m_info2perms[{n, sz}];
+        if (!perms.empty()) continue;
         // shaded/not shaded permutations
-        auto perm = string(4 - n, PUZ_NOT_SHADED) + string(n, PUZ_SHADED);
-        do {
+        auto perm = string(sz - n, PUZ_NOT_SHADED) + string(n, PUZ_SHADED);
+        do
             perms.push_back(perm);
-        } while(boost::next_permutation(perm));
+        while(boost::next_permutation(perm));
     }
 }
 
@@ -132,7 +142,7 @@ puz_state::puz_state(const puz_game& g)
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if (g.m_pos2num.count(p) != 0)
+            if (g.m_pos2area.count(p) != 0)
                 continue;
 
             auto& dt = dots(p);
@@ -144,7 +154,7 @@ puz_state::puz_state(const puz_game& g)
                         auto p2 = p + offset[i];
                         // The line segment cannot lead to a position
                         // outside the board or cover any number cell
-                        if (!is_valid(p2) || g.m_pos2num.count(p2) != 0)
+                        if (!is_valid(p2) || g.m_pos2area.count(p2) != 0)
                             return false;
                     }
                     return true;
@@ -152,11 +162,10 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& kv : g.m_pos2num) {
-        auto& p = kv.first;
+    for (auto&& [p, o] : g.m_pos2area) {
         m_finished.insert(p);
         auto& perm_ids = m_matches[p];
-        perm_ids.resize(g.m_num2perms.at(kv.second).size());
+        perm_ids.resize(g.m_info2perms.at({o.m_num, o.size()}).size());
         boost::iota(perm_ids, 0);
     }
 
@@ -169,13 +178,19 @@ int puz_state::find_matches(bool init)
     for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& perm_ids = kv.second;
+        auto& o = m_game->m_pos2area.at(p);
+        auto& perms = m_game->m_info2perms.at({o.m_num, o.size()});
+
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            auto& perm = perms[id];
+        });
 
         if (!init)
             switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move_hint2(p, perm_ids.front()) ? 1 : 0;
+                return make_move_hint2(p, perm_ids[0]) ? 1 : 0;
             }
     }
     return 2;
@@ -226,10 +241,10 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::make_move_hint2(const Position& p, int n)
 {
-    auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
-    for (int i = 0; i < 4; ++i) {
-        auto p2 = p + offset[i];
-        if (!is_valid(p2)) continue;
+    auto& o = m_game->m_pos2area.at(p);
+    auto& perm = m_game->m_info2perms.at({o.m_num, o.size()})[n];
+    for (int i = 0; i < perm.size(); ++i) {
+        auto p2 = o.m_range[i];
         if (perm[i] == PUZ_SHADED) {
             dots(p2) = { lineseg_off };
             m_shaded.insert(p2);
@@ -342,8 +357,8 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-lines
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            auto it = m_game->m_pos2num.find(p);
-            out << char(it != m_game->m_pos2num.end() ? it->second + '0' :
+            auto it = m_game->m_pos2area.find(p);
+            out << char(it != m_game->m_pos2area.end() ? it->second.m_num + '0' :
                 m_shaded.count(p) != 0 ? PUZ_SHADED : '.')
                 << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }
