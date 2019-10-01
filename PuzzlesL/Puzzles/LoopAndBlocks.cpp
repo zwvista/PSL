@@ -186,7 +186,7 @@ int puz_state::find_matches(bool init)
                 if (perm[k] == PUZ_SHADED) {
                     auto& p2 = o.m_range[k];
                     for (auto& os : offset)
-                        if (auto p3 = p2 + os; p3 != p && m_shaded.count(p3) != 0)
+                        if (auto p3 = p2 + os; m_shaded.count(p3) != 0)
                             return true;
                 }
             return false;
@@ -217,13 +217,9 @@ int puz_state::check_dots(bool init)
                     if (dt[0] == lineseg_off && m_shaded.count(p) == 0) {
                         m_shaded.insert(p);
                         for (int j = 0; j < 4; ++j)
-                            if (auto p3 = p + offset[j]; is_valid(p3)) {
+                            if (auto p3 = p + offset[j]; is_valid(p3))
                                 if (m_shaded.count(p3) != 0)
                                     return 0;
-                                boost::remove_erase_if(dots(p3), [&](int lineseg3) {
-                                    return is_lineseg_on(lineseg3, (j + 2) % 4);
-                                });
-                            }
                     }
                 }
             }
