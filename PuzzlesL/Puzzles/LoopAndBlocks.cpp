@@ -107,7 +107,7 @@ struct puz_state
     const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
     puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_dots, m_shaded, m_matches) < tie(x.m_dots, x.m_shaded, x.m_matches);
+        return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches);
     }
     bool make_move_hint(const Position& p, int n);
     bool make_move_hint2(const Position& p, int n);
@@ -217,8 +217,8 @@ int puz_state::check_dots(bool init)
                     if (dt[0] == lineseg_off && m_shaded.count(p) == 0) {
                         m_shaded.insert(p);
                         for (int j = 0; j < 4; ++j)
-                            if (auto p3 = p + offset[j]; is_valid(p3))
-                                if (m_shaded.count(p3) != 0)
+                            if (auto p2 = p + offset[j]; is_valid(p2))
+                                if (m_shaded.count(p2) != 0)
                                     return 0;
                     }
                 }
@@ -255,7 +255,7 @@ bool puz_state::make_move_hint2(const Position& p, int n)
     for (int i = 0; i < perm.size(); ++i) {
         auto p2 = o.m_range[i];
         if (perm[i] == PUZ_SHADED) {
-            dots(p2) = { lineseg_off };
+            dots(p2) = {lineseg_off};
             m_shaded.insert(p2);
             for (int j = 0; j < 4; ++j)
                 if (auto p3 = p2 + offset[j]; is_valid(p3))

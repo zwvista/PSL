@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Find some chocolate bars following these rules:
+2. A Chocolate bar is a rectangular or a square.
+3. Chocolate tiles form bars independently of the area borders.
+4. Chocolate bars must not be orthogonally adjacent.
+5. A tile with a number indicates how many tiles in the area must be chocolate.
+6. An area without number can have any number of tiles of chocolate.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - `
+|1|0|2  |`
+   - - - `
+| |4  |1|`
+ -       `
+|     | |`
+     - - `
+|   |1  |`
+ - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>

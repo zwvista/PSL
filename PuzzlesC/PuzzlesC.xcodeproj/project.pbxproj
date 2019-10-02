@@ -23,6 +23,7 @@
 		95D7B5F3231D523F001E005C /* CultureTrip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5F1231D523F001E005C /* CultureTrip.cpp */; };
 		95D7B6032320146C001E005C /* CoffeeAndSugar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B6002320146B001E005C /* CoffeeAndSugar.cpp */; };
 		95E37B1A233647320054284F /* Caffelatte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E37B19233647320054284F /* Caffelatte.cpp */; };
+		95E37B27234455F90054284F /* Chocolate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E37B25234455F90054284F /* Chocolate.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -100,6 +101,9 @@
 		95E37B17233647320054284F /* Caffelatte.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Caffelatte.xml; sourceTree = "<group>"; };
 		95E37B18233647320054284F /* Caffelatte.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Caffelatte.txt; sourceTree = "<group>"; };
 		95E37B19233647320054284F /* Caffelatte.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Caffelatte.cpp; sourceTree = "<group>"; };
+		95E37B24234455F90054284F /* Chocolate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Chocolate.txt; sourceTree = "<group>"; };
+		95E37B25234455F90054284F /* Chocolate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chocolate.cpp; sourceTree = "<group>"; };
+		95E37B26234455F90054284F /* Chocolate.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Chocolate.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +162,9 @@
 				95214E6E212B9DB000EA7950 /* Cheese.cpp */,
 				95214E6F212B9DB000EA7950 /* Cheese.txt */,
 				95214E6D212B9DB000EA7950 /* Cheese.xml */,
+				95E37B25234455F90054284F /* Chocolate.cpp */,
+				95E37B24234455F90054284F /* Chocolate.txt */,
+				95E37B26234455F90054284F /* Chocolate.xml */,
 				8CA23FF11EB4793B0055D6B1 /* Clouds.cpp */,
 				8CA23FF21EB4793B0055D6B1 /* Clouds.txt */,
 				8CA23FF31EB4793B0055D6B1 /* Clouds.xml */,
@@ -277,6 +284,7 @@
 				958FA6772335D3F600205831 /* CastlePatrol.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
+				95E37B27234455F90054284F /* Chocolate.cpp in Sources */,
 				8CA23FFD1EB4793B0055D6B1 /* Clouds.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				95E37B1A233647320054284F /* Caffelatte.cpp in Sources */,
