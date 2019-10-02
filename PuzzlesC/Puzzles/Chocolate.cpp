@@ -42,7 +42,7 @@ const Position offset2[] = {
 
 struct puz_area
 {
-    int m_num;
+    int m_num = PUZ_UNKNOWN;
     vector<Position> m_range;
     vector<int> m_boxids;
 };
@@ -141,7 +141,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         for (int c2 = tl.second; c2 <= br.second; ++c2)
                             ++area2num[m_pos2area.at({r2, c2})];
                     if (boost::algorithm::all_of(area2num, [&](const pair<const int, int>& kv){
-                        return kv.second <= m_areas[kv.first].m_num;
+                        int num = m_areas[kv.first].m_num;
+                        return num == PUZ_UNKNOWN || kv.second <= num;
                     })) {
                         int n = m_boxes.size();
                         auto& o = m_boxes.emplace_back();
@@ -197,8 +198,9 @@ puz_state::puz_state(const puz_game& g)
 {
     for (int i = 0; i < m_area2num.size(); ++i) {
         auto& area = g.m_areas[i];
-        if ((m_area2num[i] = area.m_num) == 0) continue;
-        m_matches[i] = area.m_boxids;
+        m_area2num[i] = area.m_num;
+        if (area.m_num != 0 && area.m_num != PUZ_UNKNOWN)
+            m_matches[i] = area.m_boxids;
     }
     
     find_matches(true);
@@ -265,7 +267,7 @@ void puz_state::make_move2(int n)
     for (int c = box.first.second; c <= box.second.second; ++c)
         f({box.first.first - 1, c}), f({box.second.first + 1, c});
     for(auto&& [i, j] : o.m_area2num)
-        if ((m_area2num[i] -= j) == 0)
+        if (int& n = m_area2num[i]; n != PUZ_UNKNOWN && (n -= j) == 0)
             m_matches.erase(i), ++m_distance;
 }
 

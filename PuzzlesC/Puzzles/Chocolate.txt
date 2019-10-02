@@ -11,9 +11,20 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 4
 Number of vertices examined: 17
-0.002339 [s]
+4.52514 [s]
 
 Level 2
-Number of vertices examined: 1
-0.000141 [s]
+Sequence of moves: 
+ -- -- -- --
+| .|3C|1.  C|
+       -- --
+| .| C  .|2.|
+ -- --      
+|3C  .| C| C|
+       --   
+| C  .  C| C|
+ -- -- -- --
+Number of moves: 4
+Number of vertices examined: 15
+0.001292 [s]
 
