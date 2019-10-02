@@ -39,14 +39,18 @@ const Position offset2[] = {
     {0, 0},         // w
 };
 
-// top-left and bottom-right
-typedef pair<Position, Position> puz_box;
-    
 struct puz_area
 {
     int m_num;
     vector<Position> m_range;
     vector<int> m_boxids;
+};
+    
+struct puz_box
+{
+    // top-left and bottom-right
+    pair<Position, Position> m_box;
+    map<int, int> m_area2num;
 };
 
 struct puz_game
@@ -131,20 +135,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 for (int w = 1; w <= m_sidelen - c; ++w) {
                     Position box_sz(h - 1, w - 1);
                     Position tl(r, c), br = tl + box_sz;
-                    vector<Position> rng;
+                    map<int, int> area2num;
                     for (int r2 = tl.first; r2 <= br.first; ++r2)
-                        for (int c2 = tl.second; c2 <= br.second; ++c2) {
-                            Position p(r2, c2);
-                            
-                        }
-//                    if (rng.size() == 1) {
-//                        int n = m_boxes.size();
-//                        m_boxes.emplace_back(tl, br);
-//                        for (int r2 = tl.first; r2 <= br.first; ++r2)
-//                            for (int c2 = tl.second; c2 <= br.second; ++c2)
-//                                m_pos2boxids[{r2, c2}].push_back(n);
-//                    }
-                next:;
+                        for (int c2 = tl.second; c2 <= br.second; ++c2)
+                            ++area2num[m_pos2area.at({r2, c2})];
+                    if (boost::algorithm::all_of(area2num, [&](const pair<const int, int>& kv){
+                        return kv.second <= m_areas[kv.first].m_num;
+                    })) {
+                        int n = m_boxes.size();
+                        auto& o = m_boxes.emplace_back();
+                        o.m_box = {tl, br};
+                        o.m_area2num = area2num;
+                        for (auto&& [i, j] : area2num)
+                            m_areas[i].m_boxids.push_back(n);
+                    }
                 }
 }
 
@@ -153,6 +157,9 @@ struct puz_state
     puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+    }
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { 
@@ -175,32 +182,60 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    // key: the position of the number
+    // key: the index of the area
     // value.elem: the index of the box
-    map<Position, vector<int>> m_matches;
+    map<int, vector<int>> m_matches;
+    vector<int> m_area2num;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
-//, m_matches(g.m_pos2boxids)
+, m_area2num(g.m_areas.size())
 {
+    for (int i = 0; i < m_area2num.size(); ++i) {
+        auto& area = g.m_areas[i];
+        m_area2num[i] = area.m_num;
+        auto& perm_ids = m_matches[i];
+        perm_ids.resize(area.m_boxids.size());
+        boost::iota(perm_ids, 0);
+    }
+    
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
+    auto f = [&](const Position& p) {
+        if (!is_valid(p)) return false;
+        char ch1 = cells(p);
+        return ch1 != PUZ_SPACE && ch1 != PUZ_EMPTY;
+    };
+    
     for (auto& kv : m_matches) {
         auto& box_ids = kv.second;
 
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& box = m_game->m_boxes[id];
+            auto& o = m_game->m_boxes[id];
+            auto& box = o.m_box;
             for (int r = box.first.first; r <= box.second.first; ++r)
                 for (int c = box.first.second; c <= box.second.second; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
                         return true;
-            return false;
+            for (int r = box.first.first; r <= box.second.first; ++r) {
+                Position p1(r, box.first.second - 1), p2(r, box.second.second + 1);
+                if (f(p1) || f(p2))
+                    return true;
+            }
+            for (int c = box.first.second; c <= box.second.second; ++c) {
+                Position p1(box.first.first - 1, c), p2(box.second.first + 1, c);
+                if (f(p1) || f(p2))
+                    return true;
+            }
+            return boost::algorithm::any_of(o.m_area2num, [&](const pair<const int, int>& kv){
+                return kv.second > m_area2num[kv.first];
+            });
         });
 
         if (!init)
@@ -216,13 +251,23 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& box = m_game->m_boxes[n];
+    auto& o = m_game->m_boxes[n];
+    auto& box = o.m_box;
     auto &tl = box.first, &br = box.second;
     for (int r = tl.first; r <= br.first; ++r)
-        for (int c = tl.second; c <= br.second; ++c) {
-            Position p(r, c);
-            cells(p) = PUZ_CHOCOLATE, ++m_distance, m_matches.erase(p);
-        }
+        for (int c = tl.second; c <= br.second; ++c)
+            cells({r, c}) = PUZ_CHOCOLATE;
+    auto f = [&](const Position& p) {
+        if (is_valid(p))
+            cells(p) = PUZ_EMPTY;
+    };
+    for (int r = box.first.first; r <= box.second.first; ++r)
+        f({r, box.first.second - 1}), f({r, box.second.second + 1});
+    for (int c = box.first.second; c <= box.second.second; ++c)
+        f({box.first.first - 1, c}), f({box.second.first + 1, c});
+    for(auto&& [i, j] : o.m_area2num)
+        if ((m_area2num[i] -= j) == 0)
+            m_matches.erase(i), ++m_distance;
 }
 
 bool puz_state::make_move(int n)
@@ -237,8 +282,8 @@ bool puz_state::make_move(int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2) {
+        const pair<const int, vector<int>>& kv1,
+        const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
     for (int n : kv.second) {
