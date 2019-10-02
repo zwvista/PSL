@@ -31,6 +31,7 @@
 		950CA84E20FA08C10092A1D4 /* PourWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 950CA84C20FA08C10092A1D4 /* PourWater.cpp */; };
 		955BEDC12303AC1D00535B97 /* Planets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 955BEDBE2303AC1D00535B97 /* Planets.cpp */; };
 		95D7B5F7231D7351001E005C /* PlugItIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5F4231D7351001E005C /* PlugItIn.cpp */; };
+		95E37B2B2344BDD70054284F /* PouringWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E37B292344BDD70054284F /* PouringWater.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -140,6 +141,9 @@
 		95D7B5F4231D7351001E005C /* PlugItIn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlugItIn.cpp; sourceTree = "<group>"; };
 		95D7B5F5231D7351001E005C /* PlugItIn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugItIn.txt; sourceTree = "<group>"; };
 		95D7B5F6231D7351001E005C /* PlugItIn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PlugItIn.xml; sourceTree = "<group>"; };
+		95E37B282344BDD70054284F /* PouringWater.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PouringWater.xml; sourceTree = "<group>"; };
+		95E37B292344BDD70054284F /* PouringWater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PouringWater.cpp; sourceTree = "<group>"; };
+		95E37B2A2344BDD70054284F /* PouringWater.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PouringWater.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +232,9 @@
 				95D7B5F4231D7351001E005C /* PlugItIn.cpp */,
 				95D7B5F5231D7351001E005C /* PlugItIn.txt */,
 				95D7B5F6231D7351001E005C /* PlugItIn.xml */,
+				95E37B292344BDD70054284F /* PouringWater.cpp */,
+				95E37B2A2344BDD70054284F /* PouringWater.txt */,
+				95E37B282344BDD70054284F /* PouringWater.xml */,
 				950CA84C20FA08C10092A1D4 /* PourWater.cpp */,
 				950CA84D20FA08C10092A1D4 /* PourWater.txt */,
 				950CA84B20FA08C10092A1D4 /* PourWater.xml */,
@@ -357,6 +364,7 @@
 				8CA241141EB47AC40055D6B1 /* patternpuzzle.cpp in Sources */,
 				8CA241111EB47AC40055D6B1 /* Parks2.cpp in Sources */,
 				8CA241161EB47AC40055D6B1 /* Pharaoh.cpp in Sources */,
+				95E37B2B2344BDD70054284F /* PouringWater.cpp in Sources */,
 				8CA241191EB47AC40055D6B1 /* ProductSentinels.cpp in Sources */,
 				950CA84E20FA08C10092A1D4 /* PourWater.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,

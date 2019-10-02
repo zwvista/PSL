@@ -11,7 +11,7 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 4
 Number of vertices examined: 17
-4.52514 [s]
+0.001769 [s]
 
 Level 2
 Sequence of moves: 
@@ -25,6 +25,23 @@ Sequence of moves:
 | C  .  C| C|
  -- -- -- --
 Number of moves: 4
-Number of vertices examined: 15
-0.001292 [s]
+Number of vertices examined: 18
+0.001851 [s]
+
+Level 36
+Sequence of moves: 
+ -- -- -- -- --
+|3C| C  .|2C|2C|
+    -- --      
+| C  C| .| C| C|
+ -- --    --   
+|2C  C| .| .  .|
+             --
+| .  .| .| .|2C|
+    -- -- --   
+| .|2C  C  .| C|
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 21
+0.005435 [s]
 

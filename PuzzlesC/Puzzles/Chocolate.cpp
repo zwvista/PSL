@@ -140,6 +140,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     for (int r2 = tl.first; r2 <= br.first; ++r2)
                         for (int c2 = tl.second; c2 <= br.second; ++c2)
                             ++area2num[m_pos2area.at({r2, c2})];
+                    // 5. A tile with a number indicates how many tiles in the area must
+                    // be chocolate.
+                    // 6. An area without number can have any number of tiles of chocolate.
                     if (boost::algorithm::all_of(area2num, [&](const pair<const int, int>& kv){
                         int num = m_areas[kv.first].m_num;
                         return num == PUZ_UNKNOWN || kv.second <= num;
@@ -224,6 +227,7 @@ int puz_state::find_matches(bool init)
                 for (int c = box.first.second; c <= box.second.second; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
                         return true;
+            // 4. Chocolate bars must not be orthogonally adjacent.
             for (int r = box.first.first; r <= box.second.first; ++r) {
                 Position p1(r, box.first.second - 1), p2(r, box.second.second + 1);
                 if (f(p1) || f(p2))
@@ -234,8 +238,12 @@ int puz_state::find_matches(bool init)
                 if (f(p1) || f(p2))
                     return true;
             }
+            // 5. A tile with a number indicates how many tiles in the area must
+            // be chocolate.
+            // 6. An area without number can have any number of tiles of chocolate.
             return boost::algorithm::any_of(o.m_area2num, [&](const pair<const int, int>& kv){
-                return kv.second > m_area2num[kv.first];
+                int num = m_area2num[kv.first];
+                return num != PUZ_UNKNOWN && kv.second > num;
             });
         });
 
@@ -258,6 +266,7 @@ void puz_state::make_move2(int n)
     for (int r = tl.first; r <= br.first; ++r)
         for (int c = tl.second; c <= br.second; ++c)
             cells({r, c}) = PUZ_CHOCOLATE;
+    // 4. Chocolate bars must not be orthogonally adjacent.
     auto f = [&](const Position& p) {
         if (is_valid(p))
             cells(p) = PUZ_EMPTY;
@@ -266,6 +275,9 @@ void puz_state::make_move2(int n)
         f({r, box.first.second - 1}), f({r, box.second.second + 1});
     for (int c = box.first.second; c <= box.second.second; ++c)
         f({box.first.first - 1, c}), f({box.second.first + 1, c});
+    // 5. A tile with a number indicates how many tiles in the area must
+    // be chocolate.
+    // 6. An area without number can have any number of tiles of chocolate.
     for(auto&& [i, j] : o.m_area2num)
         if (int& n = m_area2num[i]; n != PUZ_UNKNOWN && (n -= j) == 0)
             m_matches.erase(i), ++m_distance;
