@@ -1,4 +1,19 @@
 Level 1
+Sequence of moves: 
+ -- -- -- --
+|1C|0.|2C  C|
+    -- -- --
+| .|4.  .|1.|
+ --         
+| C  C  .| C|
+       -- --
+| C  C|1.  C|
+ -- -- -- --
+Number of moves: 4
+Number of vertices examined: 17
+0.002339 [s]
+
+Level 2
 Number of vertices examined: 1
-0.000939 [s]
+0.000141 [s]
 

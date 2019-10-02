@@ -24,6 +24,7 @@ namespace puzzles::Chocolate{
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
 #define PUZ_CHOCOLATE    'C'
+#define PUZ_UNKNOWN      -1
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -192,14 +193,12 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
-, m_area2num(g.m_areas.size())
+, m_area2num(g.m_areas.size(), PUZ_UNKNOWN)
 {
     for (int i = 0; i < m_area2num.size(); ++i) {
         auto& area = g.m_areas[i];
-        m_area2num[i] = area.m_num;
-        auto& perm_ids = m_matches[i];
-        perm_ids.resize(area.m_boxids.size());
-        boost::iota(perm_ids, 0);
+        if ((m_area2num[i] = area.m_num) == 0) continue;
+        m_matches[i] = area.m_boxids;
     }
     
     find_matches(true);
@@ -209,8 +208,8 @@ int puz_state::find_matches(bool init)
 {
     auto f = [&](const Position& p) {
         if (!is_valid(p)) return false;
-        char ch1 = cells(p);
-        return ch1 != PUZ_SPACE && ch1 != PUZ_EMPTY;
+        char ch = cells(p);
+        return ch != PUZ_SPACE && ch != PUZ_EMPTY;
     };
     
     for (auto& kv : m_matches) {
@@ -307,9 +306,10 @@ ostream& puz_state::dump(ostream& out) const
             out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
             if (c == sidelen()) break;
             if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-                out << " .";
+                out << ' ';
             else
-                out << format("%2d") % it->second;
+                out << it->second;
+            out << cells({r, c});
         }
         out << endl;
     }
