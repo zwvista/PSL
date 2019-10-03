@@ -173,7 +173,7 @@ puz_state::puz_state(const puz_game& g)
     , m_rc2num(g.m_rc2num)
 {
     m_matches.resize(g.m_waters.size());
-    boost::iota(m_matches, 1);
+    boost::iota(m_matches, 0);
 }
 
 bool puz_state::make_move(int n)
