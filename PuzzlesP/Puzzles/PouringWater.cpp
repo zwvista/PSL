@@ -122,11 +122,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             puz_water o;
             for (auto& p2 : smoves) {
                 o.m_rng.insert(p2);
-                ++o.m_rc2num[p2.first];
-                ++o.m_rc2num[m_sidelen + p2.second];
+                auto f = [&](int i) {
+                    if (m_rc2num.count(i) != 0)
+                        ++o.m_rc2num[i];
+                };
+                f(p2.first);
+                f(p2.second + m_sidelen);
             }
             if (boost::algorithm::all_of(o.m_rc2num, [&](const pair<const int, int>& kv) {
-                return kv.second <= m_rc2num[kv.first];
+                return kv.second <= m_rc2num.at(kv.first);
             }))
                 m_waters.push_back(o);
         }
