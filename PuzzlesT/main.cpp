@@ -16,6 +16,7 @@ extern void solve_puz_TheOddBrick();
 extern void solve_puz_Thermometers();
 extern void solve_puz_TierraDelFuego();
 extern void solve_puz_TopArrow();
+extern void solve_puz_TraceNumbers();
 extern void solve_puz_Trebuchet();
 extern void solve_puz_TurnTwice();
 extern void solve_puz_turnz();
@@ -40,7 +41,8 @@ int main(int argc, char **argv)
     cout << "h3: Thermometers" << endl;
     cout << "i: Tierra Del Fuego" << endl;
     cout << "o: Top Arrow" << endl;
-    cout << "r: Trebuchet" << endl;
+    cout << "r1: Trace Numbers" << endl;
+    cout << "r2: Trebuchet" << endl;
     cout << "u1: Turn Twice" << endl;
     cout << "u2: turnz" << endl;
     cout << "w: twinballs" << endl;
@@ -63,7 +65,8 @@ int main(int argc, char **argv)
     else if (str == "h3") solve_puz_Thermometers();
     else if (str == "i") solve_puz_TierraDelFuego();
     else if (str == "o") solve_puz_TopArrow();
-    else if (str == "r") solve_puz_Trebuchet();
+    else if (str == "r1") solve_puz_TraceNumbers();
+    else if (str == "r2") solve_puz_Trebuchet();
     else if (str == "u1") solve_puz_TurnTwice();
     else if (str == "u2") solve_puz_turnz();
     else if (str == "w") solve_puz_twinballs();
