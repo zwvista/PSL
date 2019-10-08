@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
+#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 4/Trace Numbers
+    iOS Game: Logic Games 2/Puzzle Set 1/Trace Numbers
 
     Summary
     Trace Numbers
@@ -30,69 +31,78 @@ const Position offset[] = {
     {0, -1},        // w
 };
 
-struct puz_box_info
-{
-    // the length of the tatami
-    char m_ch;
-    // top-left and bottom-right
-    pair<Position, Position> m_box;
-};
-
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_pos2num;
-    vector<puz_box_info> m_boxinfos;
-    map<Position, vector<int>> m_pos2infoids;
+    map<char, vector<Position>> m_ch2rng;
+    string m_start;
+    char m_max_ch;
+    map<Position, vector<vector<Position>>> m_pos2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
+
+struct puz_state2 : vector<Position>
+{
+    puz_state2(const puz_game& game, const Position& p, char ch)
+        : m_game(&game), m_char(ch) {
+        make_move(p);
+    }
+
+    bool is_goal_state() const { return m_game->cells(back()) == m_char + 1; }
+    void make_move(const Position& p) { push_back(p); }
+    void gen_children(list<puz_state2>& children) const;
+    unsigned int get_distance(const puz_state2& child) const { return 1; }
+
+    const puz_game* m_game;
+    char m_char;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    auto& p = back();
+    for (auto& os : offset) {
+        auto p2 = p + os;
+        if (!m_game->is_valid(p2) || boost::find(*this, p2) != end()) continue;
+        char ch2 = m_game->cells(p2);
+        if (ch2 == PUZ_SPACE || ch2 == m_char + 1) {
+            children.push_back(*this);
+            children.back().make_move(p2);
+        }
+    }
+}
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
 {
+    m_start = boost::accumulate(strs, string());
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             if (char ch = str[c]; ch != PUZ_SPACE)
-                m_pos2num[{r, c}] = ch - '0';
+                m_ch2rng[ch].emplace_back(r, c);
     }
+    m_max_ch = m_ch2rng.rbegin()->first;
 
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c)
-            for (int i = 1; i <= 4; ++i)
-                for (int j = 0; j < 2; ++j) {
-                    int h = i, w = 1;
-                    if (j == 1) ::swap(h, w);
-                    Position box_sz(h - 1, w - 1);
-                    Position tl(r, c), br = tl + box_sz;
-                    if (!(br.first < m_sidelen && br.second < m_sidelen)) continue;
-                    vector<Position> rng;
-                    for (int r2 = tl.first; r2 <= br.first; ++r2)
-                        for (int c2 = tl.second; c2 <= br.second; ++c2) {
-                            Position p(r2, c2);
-                            if (auto it = m_pos2num.find(p); it != m_pos2num.end()) {
-                                rng.push_back(p);
-                                // 3. A cell with a number indicates the length of the Tatami.
-                                // Not all Tatamis have to be marked by a number.
-                                if (rng.size() > 1 || it->second != i)
-                                    goto next;
-                            }
-                        }
-                    if (rng.size() <= 1) {
-                        int n = m_boxinfos.size();
-                        puz_box_info info;
-                        info.m_ch = i + '0';
-                        info.m_box = {tl, br};
-                        m_boxinfos.push_back(info);
-                        for (int r2 = tl.first; r2 <= br.first; ++r2)
-                            for (int c2 = tl.second; c2 <= br.second; ++c2)
-                                m_pos2infoids[{r2, c2}].push_back(n);
-                    }
-                next:;
-                }
+    for (auto&& [ch, rng] : m_ch2rng) {
+        if (ch == m_max_ch) break;
+        for (auto& p : rng) {
+            puz_state2 sstart(*this, p, ch);
+            list<list<puz_state2>> spaths;
+            puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths);
+            // save all goal states as permutations
+            // A goal state is a line starting from N to N+1
+            auto& perms = m_pos2perms[p];
+            for (auto& spath : spaths)
+                perms.push_back(spath.back());
+        }
+    }
 }
 
 struct puz_state
@@ -136,7 +146,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen* g.m_sidelen, PUZ_SPACE)
-, m_matches(g.m_pos2infoids)
+//, m_matches(g.m_pos2infoids)
 {
     find_matches(true);
 }
@@ -160,19 +170,6 @@ int puz_state::find_matches(bool init)
         auto& box_ids = kv.second;
 
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& info = m_game->m_boxinfos[id];
-            auto& box = info.m_box;
-            char ch = info.m_ch;
-            for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c) {
-                    Position p(r, c);
-                    if (cells(p) != PUZ_SPACE)
-                        return true;
-                    // 4. Two Tatamis of the same size must not be orthogonally adjacent.
-                    for (auto& os : offset)
-                        if (auto p2 = p + os; is_valid(p2) && cells(p2) == ch)
-                            return true;
-                }
             return false;
         });
 
@@ -189,22 +186,6 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& info = m_game->m_boxinfos[n];
-    auto& box = info.m_box;
-    char ch = info.m_ch;
-
-    auto &tl = box.first, &br = box.second;
-    for (int r = tl.first; r <= br.first; ++r)
-        for (int c = tl.second; c <= br.second; ++c) {
-            Position p(r, c);
-            cells(p) = ch, ++m_distance, m_matches.erase(p);
-        }
-    for (int r = tl.first; r <= br.first; ++r)
-        m_vert_walls.emplace(r, tl.second),
-        m_vert_walls.emplace(r, br.second + 1);
-    for (int c = tl.second; c <= br.second; ++c)
-        m_horz_walls.emplace(tl.first, c),
-        m_horz_walls.emplace(br.first + 1, c);
 }
 
 bool puz_state::make_move(int n)
@@ -243,10 +224,7 @@ ostream& puz_state::dump(ostream& out) const
             // draw vert-walls
             out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
             if (c == sidelen()) break;
-            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-                out << '.';
-            else
-                out << it->second;
+            out << m_game->cells({r, c});
         }
         out << endl;
     }
