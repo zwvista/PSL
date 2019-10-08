@@ -50,40 +50,6 @@ struct puz_game
     puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-struct puz_state2 : set<Position>
-{
-    puz_state2(const puz_game& game, const Position& p, const Position& p2, int num)
-        : m_game(&game), m_p2(&p2), m_num(num) {make_move(p);}
-
-    bool is_goal_state() const { return m_distance == m_num; }
-    bool make_move(const Position& p) {
-        insert(p); ++m_distance;
-        return boost::algorithm::any_of(*this, [&](const Position& p2) {
-            // cannot go too far away
-            return manhattan_distance(p2, *m_p2) <= m_num - m_distance;
-        });
-    }
-    void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
-
-    const puz_game* m_game;
-    const Position* m_p2;
-    int m_num;
-    int m_distance = 0;
-};
-
-void puz_state2::gen_children(list<puz_state2>& children) const {
-    for (auto& p : *this)
-        for (auto& os : offset) {
-            auto p2 = p + os;
-            char ch2 = m_game->cells(p2);
-            if (ch2 != PUZ_SPACE && p2 != *m_p2 || count(p2) != 0) continue;
-            children.push_back(*this);
-            if (!children.back().make_move(p2))
-                children.pop_back();
-        }
-}
-
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
