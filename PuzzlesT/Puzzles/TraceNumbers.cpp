@@ -165,7 +165,7 @@ puz_state::puz_state(const puz_game& g)
     for (auto&& [ch, rng] : g.m_ch2rng)
         for (auto& p : rng) {
             char ch2 = m_game->cells(p);
-            m_pos2fromto[p] = ch2 != PUZ_ONE ? PUZ_FROM :
+            m_pos2fromto[p] = ch2 == PUZ_ONE ? PUZ_FROM :
                 ch2 == m_game->m_max_ch ? PUZ_TO : PUZ_FROMTO;
         }
 
@@ -213,11 +213,11 @@ void puz_state::make_move2(const Position& p, int n)
         int dir1 = i == sz - 1 ? -1 : boost::find(offset, perm[i + 1] - perm[i]) - offset;
         int dir2 = i == 0 ? -1 : boost::find(offset, perm[i] - perm[i - 1]) - offset;
         if (i == 0) {
-            dt = 1 << dir1;
+            dt |= 1 << dir1;
             if ((m_pos2fromto.at(p2) -= PUZ_FROM) == 0)
                 m_matches.erase(p2), ++m_distance;
         } else if (i == sz - 1) {
-            dt = 1 << dir2;
+            dt |= 1 << dir2;
             if ((m_pos2fromto.at(p2) -= PUZ_TO) == 0)
                 m_matches.erase(p2), ++m_distance;
         } else {
@@ -261,8 +261,8 @@ ostream& puz_state::dump(ostream& out) const
                 << (is_lineseg_on(dt, 1) ? '-' : ' ');
         }
         out << endl;
-        if (r == sidelen()) break;
-        for (int c = 0;; ++c)
+        if (r == sidelen() - 1) break;
+        for (int c = 0; c < sidelen(); ++c)
             // draw vert-walls
             out << (is_lineseg_on(dots({r, c}), 2) ? "| " : "  ");
         out << endl;
