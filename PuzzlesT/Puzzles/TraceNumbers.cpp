@@ -23,6 +23,10 @@
 namespace puzzles::TraceNumbers{
 
 #define PUZ_SPACE        ' '
+#define PUZ_ONE          '1'
+#define PUZ_FROM         1
+#define PUZ_TO           2
+#define PUZ_FROMTO       3
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -30,6 +34,12 @@ const Position offset[] = {
     {1, 0},         // s
     {0, -1},        // w
 };
+
+// n-e-s-w
+// 0 means line is off in this direction
+// 1,2,4,8 means line is on in this direction
+
+inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
 struct puz_game
 {
@@ -39,6 +49,7 @@ struct puz_game
     string m_start;
     char m_max_ch;
     map<Position, vector<vector<Position>>> m_pos2perms;
+    map<Position, vector<pair<Position, int>>> m_pos2perminfo;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
@@ -103,6 +114,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 perms.push_back(spath.back());
         }
     }
+
+    for (auto&& [p, perms] : m_pos2perms)
+        for (int i = 0; i < perms.size(); ++i) {
+            auto& perm = perms[i];
+            for (auto& p2 : perm)
+                m_pos2perminfo[p2].emplace_back(p, i);
+        }
 }
 
 struct puz_state
@@ -110,18 +128,14 @@ struct puz_state
     puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
-    }
+    int dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
+    int& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+        return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches);
     }
-    bool make_move(int n);
-    void make_move2(int n);
+    bool make_move(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
-    bool check_four_boxes();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -135,63 +149,54 @@ struct puz_state
     }
 
     const puz_game* m_game = nullptr;
-    string m_cells;
-    // key: the position of the number
-    // value.elem: the index of the box
-    map<Position, vector<int>> m_matches;
-    set<Position> m_horz_walls, m_vert_walls;
+    vector<int> m_dots;
+    map<Position, vector<pair<Position, int>>> m_matches;
+    map<Position, int> m_pos2fromto;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
-, m_cells(g.m_sidelen* g.m_sidelen, PUZ_SPACE)
-//, m_matches(g.m_pos2infoids)
+, m_dots(g.m_sidelen * g.m_sidelen)
+, m_matches(g.m_pos2perminfo)
 {
+    for (auto&& [ch, rng] : g.m_ch2rng)
+        for (auto& p : rng)
+            if (char ch2 = m_game->cells(p); ch2 != PUZ_ONE && ch2 != m_game->m_max_ch)
+                m_pos2fromto[p] = PUZ_FROMTO;
+
     find_matches(true);
-}
-    
-bool puz_state::check_four_boxes()
-{
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c)
-            if (m_horz_walls.count({r + 1, c}) == 1 &&
-                m_horz_walls.count({r + 1, c + 1}) == 1 &&
-                m_vert_walls.count({r, c + 1}) == 1 &&
-                m_vert_walls.count({r + 1, c + 1}) == 1)
-                return false;
-    return true;
 }
 
 int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
         auto& p = kv.first;
-        auto& box_ids = kv.second;
+        auto& infos = kv.second;
 
-        boost::remove_erase_if(box_ids, [&](int id) {
+        boost::remove_erase_if(infos, [&](auto& info) {
             return false;
         });
 
         if (!init)
-            switch(box_ids.size()) {
+            switch(infos.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(box_ids[0]), 1;
+                return make_move2(infos[0].first, infos[0].second), 1;
             }
     }
-    return check_four_boxes() ? 2 : 0;
+    return 2;
 }
 
-void puz_state::make_move2(int n)
+void puz_state::make_move2(const Position& p, int n)
 {
 }
 
-bool puz_state::make_move(int n)
+bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(n);
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -200,13 +205,13 @@ bool puz_state::make_move(int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2) {
+        const pair<const Position, vector<pair<Position, int>>>& kv1,
+        const pair<const Position, vector<pair<Position, int>>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : kv.second) {
+    for (auto& info : kv.second) {
         children.push_back(*this);
-        if (!children.back().make_move(n))
+        if (!children.back().make_move(info.first, info.second))
             children.pop_back();
     }
 }
@@ -215,17 +220,17 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
         // draw horz-walls
-        for (int c = 0; c < sidelen(); ++c)
-            out << (m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            int dt = dots(p);
+            out << m_game->cells(p)
+                << (is_lineseg_on(dt, 1) ? '-' : ' ');
+        }
         out << endl;
         if (r == sidelen()) break;
-        for (int c = 0;; ++c) {
-            Position p(r, c);
+        for (int c = 0;; ++c)
             // draw vert-walls
-            out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
-            if (c == sidelen()) break;
-            out << m_game->cells({r, c});
-        }
+            out << (is_lineseg_on(dots({r, c}), 2) ? "| " : "  ");
         out << endl;
     }
     return out;
