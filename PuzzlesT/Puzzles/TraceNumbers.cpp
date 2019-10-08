@@ -41,6 +41,8 @@ const Position offset[] = {
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
+const int lineseg_off = 0;
+
 struct puz_game
 {
     string m_id;
@@ -161,9 +163,11 @@ puz_state::puz_state(const puz_game& g)
 , m_matches(g.m_pos2perminfo)
 {
     for (auto&& [ch, rng] : g.m_ch2rng)
-        for (auto& p : rng)
-            if (char ch2 = m_game->cells(p); ch2 != PUZ_ONE && ch2 != m_game->m_max_ch)
-                m_pos2fromto[p] = PUZ_FROMTO;
+        for (auto& p : rng) {
+            char ch2 = m_game->cells(p);
+            m_pos2fromto[p] = ch2 != PUZ_ONE ? PUZ_FROM :
+                ch2 == m_game->m_max_ch ? PUZ_TO : PUZ_FROMTO;
+        }
 
     find_matches(true);
 }
@@ -174,7 +178,17 @@ int puz_state::find_matches(bool init)
         auto& p = kv.first;
         auto& infos = kv.second;
 
-        boost::remove_erase_if(infos, [&](auto& info) {
+        boost::remove_erase_if(infos, [&](const pair<Position, int>& info) {
+            auto& perm = m_game->m_pos2perms.at(info.first)[info.second];
+            int sz = perm.size();
+            for (int i = 0; i < sz; ++i) {
+                auto& p2 = perm[i];
+                int dt = dots(p2);
+                if (i > 0 && i < sz - 1 && dt != lineseg_off ||
+                    i == 0 && (m_pos2fromto.at(p2) & PUZ_FROM) == 0 ||
+                    i == sz - 1 && (m_pos2fromto.at(p2) & PUZ_TO) == 0)
+                    return true;
+            }
             return false;
         });
 
@@ -191,6 +205,26 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, int n)
 {
+    auto& perm = m_game->m_pos2perms.at(p)[n];
+    int sz = perm.size();
+    for (int i = 0; i < sz; ++i) {
+        auto& p2 = perm[i];
+        int& dt = dots(p2);
+        int dir1 = i == sz - 1 ? -1 : boost::find(offset, perm[i + 1] - perm[i]) - offset;
+        int dir2 = i == 0 ? -1 : boost::find(offset, perm[i] - perm[i - 1]) - offset;
+        if (i == 0) {
+            dt = 1 << dir1;
+            if ((m_pos2fromto.at(p2) -= PUZ_FROM) == 0)
+                m_matches.erase(p2), ++m_distance;
+        } else if (i == sz - 1) {
+            dt = 1 << dir2;
+            if ((m_pos2fromto.at(p2) -= PUZ_TO) == 0)
+                m_matches.erase(p2), ++m_distance;
+        } else {
+            dt = (1 << dir1) | (1 << dir2);
+            m_matches.erase(p2), ++m_distance;
+        }
+    }
 }
 
 bool puz_state::make_move(const Position& p, int n)
