@@ -134,13 +134,37 @@ class MazeView: NSView {
         let hasCommand = event.modifierFlags.contains(.command)
         switch ch {
         case NSLeftArrowFunctionKey:
-            moveLeft()
+            if !hasCommand {
+                moveLeft()
+            } else {
+                for p in maze.selectedPositions {
+                    maze.toggleVertWall(p: p)
+                }
+            }
         case NSRightArrowFunctionKey:
-            moveRight()
+            if !hasCommand {
+                moveRight()
+            } else {
+                for p in maze.selectedPositions {
+                    maze.toggleVertWall(p: Position(p.row, p.col + 1))
+                }
+            }
         case NSUpArrowFunctionKey:
-            moveUp()
+            if !hasCommand {
+                moveUp()
+            } else {
+                for p in maze.selectedPositions {
+                    maze.toggleHorzWall(p: p)
+                }
+            }
         case NSDownArrowFunctionKey:
-            moveDown()
+            if !hasCommand {
+                moveDown()
+            } else {
+                for p in maze.selectedPositions {
+                    maze.toggleHorzWall(p: Position(p.row + 1, p.col))
+                }
+            }
         case NSDeleteCharacter:
             maze.setObject(p: maze.selectedPosition, ch: Character(UnicodeScalar(" ")!))
             moveLeft()
