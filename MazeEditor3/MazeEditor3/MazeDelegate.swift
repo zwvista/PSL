@@ -15,7 +15,7 @@ enum MazeMovement: Int {
 protocol MazeDelegate: class {
     func updateMazeSize()
     func updateMazeView()
-    func updateCurPosition()
+    func updateSelectedPosition()
     func updateMousePosition(p: Position)
     func updateIsSquare()
     func updateCurObject()

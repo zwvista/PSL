@@ -101,8 +101,8 @@ class MazeViewController: NSViewController, MazeDelegate {
         return "\(p.row),\(p.col)"
     }
     
-    func updateCurPosition() {
-        positionTextField.stringValue = desc(p: maze.curPos)
+    func updateSelectedPosition() {
+        positionTextField.stringValue = desc(p: maze.selectedPosition)
     }
     
     func updateMousePosition(p: Position) {

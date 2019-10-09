@@ -72,9 +72,11 @@ class MazeView: NSView {
         let color1 = NSColor(calibratedRed: 0, green: 200, blue: 0, alpha: 1)
         color1.setFill()
         let margin:CGFloat = 3
-        NSRect(x: CGFloat(maze.curPos.col) * spacing + margin,
-                          y: CGFloat(maze.curPos.row) * spacing + margin,
-                          width: spacing - margin * 2, height: spacing - margin * 2).fill()
+        for p in maze.selectedPositions {
+            NSRect(x: CGFloat(p.col) * spacing + margin,
+                              y: CGFloat(p.row) * spacing + margin,
+                              width: spacing - margin * 2, height: spacing - margin * 2).fill()
+        }
         
         let font = NSFont(name: "Helvetica Bold", size: 20.0)
         let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
@@ -102,16 +104,16 @@ class MazeView: NSView {
     
     override func keyDown(with event: NSEvent) {
         func moveLeft() {
-            maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col - 1))
+            maze.setSelectedPosition(p: Position(maze.selectedPosition.row, maze.selectedPosition.col - 1))
         }
         func moveRight() {
-            maze.setCurPos(p: Position(maze.curPos.row, maze.curPos.col + 1))
+            maze.setSelectedPosition(p: Position(maze.selectedPosition.row, maze.selectedPosition.col + 1))
         }
         func moveUp() {
-            maze.setCurPos(p: Position(maze.curPos.row - 1, maze.curPos.col))
+            maze.setSelectedPosition(p: Position(maze.selectedPosition.row - 1, maze.selectedPosition.col))
         }
         func moveDown() {
-            maze.setCurPos(p: Position(maze.curPos.row + 1, maze.curPos.col))
+            maze.setSelectedPosition(p: Position(maze.selectedPosition.row + 1, maze.selectedPosition.col))
         }
         func moveNext() {
             switch delegate!.curMovement {
@@ -129,7 +131,7 @@ class MazeView: NSView {
         }
         // http://stackoverflow.com/questions/9268045/how-can-i-detect-that-the-shift-key-has-been-pressed
         var ch = Int(event.charactersIgnoringModifiers!.utf16[String.UTF16View.Index(encodedOffset: 0)])
-        // let hasCommand = event.modifierFlags.contains(.command)
+        let hasCommand = event.modifierFlags.contains(.command)
         switch ch {
         case NSLeftArrowFunctionKey:
             moveLeft()
@@ -140,15 +142,17 @@ class MazeView: NSView {
         case NSDownArrowFunctionKey:
             moveDown()
         case NSDeleteCharacter:
-            maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(" ")!))
+            maze.setObject(p: maze.selectedPosition, ch: Character(UnicodeScalar(" ")!))
             moveLeft()
         case NSCarriageReturnCharacter:
-            maze.setObject(p: maze.curPos, ch: maze.curObj)
+            maze.setObject(p: maze.selectedPosition, ch: maze.curObj)
             moveNext()
         default:
 //            if isprint(Int32(ch)) != 0 {
                 ch = Int(event.characters!.utf16[String.UTF16View.Index(encodedOffset: 0)])
-                maze.setObject(p: maze.curPos, ch: Character(UnicodeScalar(ch)!))
+                for p in maze.selectedPositions {
+                    maze.setObject(p: p, ch: Character(UnicodeScalar(ch)!))
+                }
                 moveNext()
 //            }
             super.keyDown(with: event)
@@ -165,8 +169,10 @@ class MazeView: NSView {
             maze.toggleVertWall(p: p2)
         } else if maze.hasWall && abs(y - CGFloat(p2.row) * spacing) < offset {
             maze.toggleHorzWall(p: p2)
+        } else if event.modifierFlags.contains(.command) {
+            maze.toggleSelectedPosition(p: p)
         } else {
-            maze.setCurPos(p: p)
+            maze.setSelectedPosition(p: p)
         }
     }
     

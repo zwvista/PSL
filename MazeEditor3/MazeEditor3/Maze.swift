@@ -36,12 +36,30 @@ class Maze: NSObject {
             if newValue {width = height}
         }
     }
-    var curPos = Position()
-    func setCurPos(p: Position) {
+    var selectedPositions = [Position()]
+    var selectedPosition: Position {
+        return selectedPositions.last!
+    }
+    private func adjustedPosition(p: Position) -> Position {
         let nArea = height * width
         let n = (p.row * width + p.col + nArea) % nArea
-        curPos = Position(n / width, n % width)
-        delegate?.updateCurPosition()
+        return Position(n / width, n % width)
+    }
+    func setSelectedPosition(p: Position) {
+        selectedPositions = [adjustedPosition(p: p)]
+        delegate?.updateSelectedPosition()
+        delegate?.updateMazeView()
+    }
+    func toggleSelectedPosition(p: Position) {
+        let p2 = adjustedPosition(p: p)
+        if let i = selectedPositions.index(of: p2) {
+            if selectedPositions.count > 1 {
+                selectedPositions.remove(at: i)
+            }
+        } else {
+            selectedPositions.append(p2)
+        }
+        delegate?.updateSelectedPosition()
         delegate?.updateMazeView()
     }
     private var pos2obj = [Position: Character]()
@@ -182,10 +200,10 @@ class Maze: NSObject {
     }
     
     func clearChars() {
-        curPos = Position()
+        selectedPositions = [Position()]
         pos2obj.removeAll()
         curObj = " "
-        delegate?.updateCurPosition()
+        delegate?.updateSelectedPosition()
         delegate?.updateCurObject()
         delegate?.updateMazeView()
     }
@@ -193,7 +211,7 @@ class Maze: NSObject {
     func updateMaze() {
         delegate?.updateMazeSize()
         delegate?.updateIsSquare()
-        delegate?.updateCurPosition()
+        delegate?.updateSelectedPosition()
         delegate?.updateMazeView()
         delegate?.updateHasWall()
     }
