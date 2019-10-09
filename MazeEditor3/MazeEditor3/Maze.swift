@@ -115,6 +115,17 @@ class Maze: NSObject {
         delegate?.updateMazeView()
     }
     
+    func encloseSelectedCells() {
+        guard hasWall else {return}
+        for p in selectedPositions {
+            if !selectedPositions.contains(Position(p.row - 1, p.col)) { horzWall.insert(p) }
+            if !selectedPositions.contains(Position(p.row + 1, p.col)) { horzWall.insert(Position(p.row + 1, p.col)) }
+            if !selectedPositions.contains(Position(p.row, p.col - 1)) { vertWall.insert(p) }
+            if !selectedPositions.contains(Position(p.row, p.col + 1)) { vertWall.insert(Position(p.row, p.col + 1)) }
+        }
+        delegate?.updateMazeView()
+    }
+    
     var data: String {
         get {
             var str = ""
