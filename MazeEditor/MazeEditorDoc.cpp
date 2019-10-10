@@ -175,14 +175,14 @@ CString CMazeEditorDoc::GetData()
 {
     CString str;
     if(m_bHasWall)
-        for(int r = 0;; r++){
-            for(int c = 0; c < MazeWidth(); c++){
+        for(int r = 0;; r++) {
+            for(int c = 0; c < MazeWidth(); c++) {
                 Position p(r, c);
                 str += IsHorzWall(p) ? _T(" -") : _T("  ");
             }
             str += " `\r\n";
             if(r == MazeHeight()) break;
-            for(int c = 0; ; c++){
+            for(int c = 0; ; c++) {
                 Position p(r, c);
                 str += IsVertWall(p) ? _T("|") : _T(" ");
                 if(c == MazeWidth()) break;
@@ -191,8 +191,8 @@ CString CMazeEditorDoc::GetData()
             str += "`\r\n";
         }
     else
-        for(int r = 0; r < MazeHeight(); ++r){
-            for(int c = 0; c < MazeWidth(); ++c){
+        for(int r = 0; r < MazeHeight(); ++r) {
+            for(int c = 0; c < MazeWidth(); ++c) {
                 Position p(r, c);
                 str += IsObject(p) ? CString(GetObject(p), 1) : _T(" ");
             }
@@ -322,9 +322,9 @@ void SplitString( const CString& strText, LPCTSTR pszDelim, vector<CString>& vst
 {
     CString str;
     vstrs.clear();
-    for(int p1 = 0, p2 = 0;;){
+    for(int p1 = 0, p2 = 0;;) {
         p2 = strText.Find(pszDelim, p1);
-        if(p2 == -1){
+        if(p2 == -1) {
             str = strText.Mid(p1);
             if(!str.IsEmpty())
                 vstrs.push_back(str);
@@ -341,16 +341,16 @@ void CMazeEditorDoc::SetData( const CString& strData )
 {
     vector<CString> vstrs;
     SplitString(strData, _T("`\r\n"), vstrs);
-    if(m_bHasWall){
+    if(m_bHasWall) {
         ResizeMaze(vstrs.size() / 2, vstrs[0].GetLength() / 2);
-        for(int r = 0;; r++){
+        for(int r = 0;; r++) {
             const CString& str1 = vstrs[2 * r];
             for(int c = 0; c < MazeWidth(); c++)
                 if(str1[2 * c + 1] == '-')
                     SetHorzWall({r, c}, false);
             if(r == MazeHeight()) break;
             const CString& str2 = vstrs[2 * r + 1];
-            for(int c = 0; ; c++){
+            for(int c = 0; ; c++) {
                 Position p(r, c);
                 if(str2[2 * c] == '|')
                     SetVertWall({r, c}, false);
@@ -363,9 +363,9 @@ void CMazeEditorDoc::SetData( const CString& strData )
     }
     else{
         ResizeMaze(vstrs.size(), vstrs[0].GetLength());
-        for(int r = 0; r < MazeHeight(); ++r){
+        for(int r = 0; r < MazeHeight(); ++r) {
             const CString& str = vstrs[r];
-            for(int c = 0; c < MazeWidth(); ++c){
+            for(int c = 0; c < MazeWidth(); ++c) {
                 char ch = str[c];
                 if(ch != ' ')
                     SetObject({r, c}, ch);
@@ -392,7 +392,7 @@ void CMazeEditorDoc::SetSelectedPosition(const Position& p)
 
 void CMazeEditorDoc::OnEnclosedSelected()
 {
-    for(const auto& p : m_vecSelectedPositions){
+    for(const auto& p : m_vecSelectedPositions) {
         auto p2 = p + offset[0];
         if(!IsSelectedPosition(p2))
             SetHorzWall(p, false);

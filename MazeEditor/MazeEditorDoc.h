@@ -33,7 +33,8 @@ public:
     bool HasWall() const { return m_bHasWall; }
     bool IsHorzWall(const Position& p) const {return IsWall(p, false);}
     bool IsVertWall(const Position& p) const { return IsWall(p, true); }
-    bool IsObject(const Position& p) {return m_mapObjects.count(p) != 0;}
+    bool IsObject(const Position& p) const {return m_mapObjects.count(p) != 0;}
+    bool IsDot(const Position& p) const { return m_bHasWall && m_setDots.count(p) != 0; }
 
 // Operations
 public:
@@ -74,7 +75,7 @@ public:
 protected:
     Position m_szMaze;
     bool m_bHasWall;
-    set<Position> m_setHorzWall, m_setVertWall;
+    set<Position> m_setHorzWall, m_setVertWall, m_setDots;
     vector<Position> m_vecSelectedPositions;
     map<Position, char> m_mapObjects;
     bool m_bIsSquare;
