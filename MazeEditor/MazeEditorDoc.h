@@ -41,6 +41,7 @@ public:
     void SetHasWall(bool bHasWall);
     void SetHorzWall(bool isDown, bool bReset);
     void SetVertWall(bool isRight, bool bReset);
+    void ToggleDot(const Position& p);
     char GetObject(const Position& p) {return IsObject(p) ? m_mapObjects[p] : ' ';}
     void SetObject(char ch);
     void ResizeMaze(int h, int w);

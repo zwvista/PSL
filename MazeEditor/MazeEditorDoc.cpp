@@ -174,25 +174,25 @@ void CMazeEditorDoc::Dump(CDumpContext& dc) const
 CString CMazeEditorDoc::GetData()
 {
     CString str;
-    if(m_bHasWall)
-        for(int r = 0;; r++) {
-            for(int c = 0; c < MazeWidth(); c++) {
+    if (m_bHasWall)
+        for (int r = 0;; r++) {
+            for (int c = 0; c < MazeWidth(); c++) {
                 Position p(r, c);
                 str += IsHorzWall(p) ? _T(" -") : _T("  ");
             }
             str += " `\r\n";
-            if(r == MazeHeight()) break;
-            for(int c = 0; ; c++) {
+            if (r == MazeHeight()) break;
+            for (int c = 0; ; c++) {
                 Position p(r, c);
                 str += IsVertWall(p) ? _T("|") : _T(" ");
-                if(c == MazeWidth()) break;
+                if (c == MazeWidth()) break;
                 str += IsObject(p) ? CString(GetObject(p), 1) : _T(" ");
             }
             str += "`\r\n";
         }
     else
-        for(int r = 0; r < MazeHeight(); ++r) {
-            for(int c = 0; c < MazeWidth(); ++c) {
+        for (int r = 0; r < MazeHeight(); ++r) {
+            for (int c = 0; c < MazeWidth(); ++c) {
                 Position p(r, c);
                 str += IsObject(p) ? CString(GetObject(p), 1) : _T(" ");
             }
@@ -208,22 +208,22 @@ bool CMazeEditorDoc::IsWall(const Position& p, bool bVert) const
 
 void CMazeEditorDoc::SetWall(bool isDownOrRight, bool bVert, bool bReset)
 {
-    if(!m_bHasWall) return;
-    for(auto& p : m_vecSelectedPositions)
+    if (!m_bHasWall) return;
+    for (auto& p : m_vecSelectedPositions)
         SetWall(p, isDownOrRight, bVert, bReset);
     UpdateAllViews(NULL);
 }
 
 void CMazeEditorDoc::SetHorzWall(bool isDown, bool bReset)
 {
-    if(!m_bHasWall) return;
+    if (!m_bHasWall) return;
     SetWall(isDown, false, bReset);
     UpdateAllViews(NULL);
 }
 
 void CMazeEditorDoc::SetVertWall(bool isRight, bool bReset)
 {
-    if(!m_bHasWall) return;
+    if (!m_bHasWall) return;
     SetWall(isRight, true, bReset);
     UpdateAllViews(NULL);
 }
@@ -231,7 +231,7 @@ void CMazeEditorDoc::SetVertWall(bool isRight, bool bReset)
 void CMazeEditorDoc::SetWall(Position p, bool isDownOrRight, bool bVert, bool bReset)
 {
     auto& rng = GetWallSet(bVert);
-    if(isDownOrRight)
+    if (isDownOrRight)
         p += bVert ? Position(0, 1) : Position(1, 0);
     bReset ? rng.erase(p) : (void)rng.insert(p);
 }
@@ -242,9 +242,18 @@ void CMazeEditorDoc::SetHasWall( bool bHasWall )
     UpdateAllViews(NULL);
 }
 
+void CMazeEditorDoc::ToggleDot(const Position& p)
+{
+    if (m_setDots.count(p) == 0)
+        m_setDots.insert(p);
+    else
+        m_setDots.erase(p);
+    UpdateAllViews(NULL);
+}
+
 void CMazeEditorDoc::SetObject( char ch )
 {
-    for(const auto& p : m_vecSelectedPositions)
+    for (const auto& p : m_vecSelectedPositions)
         SetObject(p, ch);
     UpdateAllViews(NULL);
 }
@@ -290,18 +299,18 @@ void CMazeEditorDoc::OnMazeHasWallChanged()
 
 void CMazeEditorDoc::OnMazeFillAll()
 {
-    for(int r = 0; r < MazeHeight(); ++r)
-        for(int c = 0; c < MazeWidth(); ++c)
+    for (int r = 0; r < MazeHeight(); ++r)
+        for (int c = 0; c < MazeWidth(); ++c)
             m_mapObjects[{r, c}] = m_chLast;
     UpdateAllViews(NULL);
 }
 
 void CMazeEditorDoc::OnMazeFillBorderCells()
 {
-    for(int r = 0; r < MazeHeight(); ++r)
+    for (int r = 0; r < MazeHeight(); ++r)
         m_mapObjects[{r, 0}] =
         m_mapObjects[{r, MazeWidth() - 1}] = m_chLast;
-    for(int c = 0; c < MazeWidth(); ++c)
+    for (int c = 0; c < MazeWidth(); ++c)
         m_mapObjects[{0, c}] =
         m_mapObjects[{MazeHeight() - 1, c}] = m_chLast;
     UpdateAllViews(NULL);
@@ -309,10 +318,10 @@ void CMazeEditorDoc::OnMazeFillBorderCells()
 
 void CMazeEditorDoc::OnMazeFillBorderLines()
 {
-    for(int r = 0; r < MazeHeight(); ++r)
+    for (int r = 0; r < MazeHeight(); ++r)
         m_setVertWall.insert({r, 0}),
         m_setVertWall.insert({r, MazeWidth()});
-    for(int c = 0; c < MazeWidth(); ++c)
+    for (int c = 0; c < MazeWidth(); ++c)
         m_setHorzWall.insert({0, c}),
         m_setHorzWall.insert({MazeHeight(), c});
     UpdateAllViews(NULL);
@@ -322,16 +331,16 @@ void SplitString( const CString& strText, LPCTSTR pszDelim, vector<CString>& vst
 {
     CString str;
     vstrs.clear();
-    for(int p1 = 0, p2 = 0;;) {
+    for (int p1 = 0, p2 = 0;;) {
         p2 = strText.Find(pszDelim, p1);
-        if(p2 == -1) {
+        if (p2 == -1) {
             str = strText.Mid(p1);
-            if(!str.IsEmpty())
+            if (!str.IsEmpty())
                 vstrs.push_back(str);
             break;
         }
         str = strText.Mid(p1, p2 - p1);
-        if(!str.IsEmpty())
+        if (!str.IsEmpty())
             vstrs.push_back(str);
         p1 = p2 + _tcslen(pszDelim);
     }
@@ -341,33 +350,33 @@ void CMazeEditorDoc::SetData( const CString& strData )
 {
     vector<CString> vstrs;
     SplitString(strData, _T("`\r\n"), vstrs);
-    if(m_bHasWall) {
+    if (m_bHasWall) {
         ResizeMaze(vstrs.size() / 2, vstrs[0].GetLength() / 2);
-        for(int r = 0;; r++) {
+        for (int r = 0;; r++) {
             const CString& str1 = vstrs[2 * r];
-            for(int c = 0; c < MazeWidth(); c++)
-                if(str1[2 * c + 1] == '-')
+            for (int c = 0; c < MazeWidth(); c++)
+                if (str1[2 * c + 1] == '-')
                     SetHorzWall({r, c}, false);
-            if(r == MazeHeight()) break;
+            if (r == MazeHeight()) break;
             const CString& str2 = vstrs[2 * r + 1];
-            for(int c = 0; ; c++) {
+            for (int c = 0; ; c++) {
                 Position p(r, c);
-                if(str2[2 * c] == '|')
+                if (str2[2 * c] == '|')
                     SetVertWall({r, c}, false);
-                if(c == MazeWidth()) break;
+                if (c == MazeWidth()) break;
                 char ch = str2[2 * c + 1];
-                if(ch != ' ')
+                if (ch != ' ')
                     SetObject({r, c}, ch);
             }
         }
     }
     else{
         ResizeMaze(vstrs.size(), vstrs[0].GetLength());
-        for(int r = 0; r < MazeHeight(); ++r) {
+        for (int r = 0; r < MazeHeight(); ++r) {
             const CString& str = vstrs[r];
-            for(int c = 0; c < MazeWidth(); ++c) {
+            for (int c = 0; c < MazeWidth(); ++c) {
                 char ch = str[c];
-                if(ch != ' ')
+                if (ch != ' ')
                     SetObject({r, c}, ch);
             }
         }
@@ -392,18 +401,18 @@ void CMazeEditorDoc::SetSelectedPosition(const Position& p)
 
 void CMazeEditorDoc::OnEnclosedSelected()
 {
-    for(const auto& p : m_vecSelectedPositions) {
+    for (const auto& p : m_vecSelectedPositions) {
         auto p2 = p + offset[0];
-        if(!IsSelectedPosition(p2))
+        if (!IsSelectedPosition(p2))
             SetHorzWall(p, false);
         p2 = p + offset[2];
-        if(!IsSelectedPosition(p2))
+        if (!IsSelectedPosition(p2))
             SetHorzWall(p2, false);
         p2 = p + offset[3];
-        if(!IsSelectedPosition(p2))
+        if (!IsSelectedPosition(p2))
             SetVertWall(p, false);
         p2 = p + offset[1];
-        if(!IsSelectedPosition(p2))
+        if (!IsSelectedPosition(p2))
             SetVertWall(p2, false);
     }
     UpdateAllViews(NULL);
@@ -411,6 +420,6 @@ void CMazeEditorDoc::OnEnclosedSelected()
 
 void CMazeEditorDoc::OnMazeSquare()
 {
-    if((m_bIsSquare = !m_bIsSquare) && MazeHeight() != MazeWidth())
+    if ((m_bIsSquare = !m_bIsSquare) && MazeHeight() != MazeWidth())
         ResizeMaze(MazeHeight(), MazeHeight());
 }
