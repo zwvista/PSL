@@ -65,7 +65,7 @@ CMazeEditorDoc::CMazeEditorDoc()
     , m_chLast(' ')
     , m_bIsSquare(true)
 {
-    m_setCurPoss.emplace(0, 0);
+    m_vecSelectedPositions.emplace_back(0, 0);
 }
 
 CMazeEditorDoc::~CMazeEditorDoc()
@@ -209,7 +209,7 @@ bool CMazeEditorDoc::IsWall(const Position& p, bool bVert) const
 void CMazeEditorDoc::SetWall(bool isDownOrRight, bool bVert, bool bReset)
 {
     if(!m_bHasWall) return;
-    for(auto& p : m_setCurPoss)
+    for(auto& p : m_vecSelectedPositions)
         SetWall(p, isDownOrRight, bVert, bReset);
     UpdateAllViews(NULL);
 }
@@ -244,7 +244,7 @@ void CMazeEditorDoc::SetHasWall( bool bHasWall )
 
 void CMazeEditorDoc::SetObject( char ch )
 {
-    for(const auto& p : m_setCurPoss)
+    for(const auto& p : m_vecSelectedPositions)
         SetObject(p, ch);
     UpdateAllViews(NULL);
 }
@@ -270,8 +270,8 @@ void CMazeEditorDoc::OnMazeClearWalls()
 void CMazeEditorDoc::OnMazeClearChars()
 {
     m_mapObjects.clear();
-    m_setCurPoss.clear();
-    m_setCurPoss.emplace(0, 0);
+    m_vecSelectedPositions.clear();
+    m_vecSelectedPositions.emplace_back(0, 0);
     m_chLast = ' ';
     UpdateAllViews(NULL);
 }
@@ -375,32 +375,35 @@ void CMazeEditorDoc::SetData( const CString& strData )
     UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::ToggleCurPos(const Position& p)
+void CMazeEditorDoc::ToggleSelectedPosition(const Position& p)
 {
-    IsCurPos(p) ? m_setCurPoss.erase(p) : (void)m_setCurPoss.insert(p);
+    if (!IsSelectedPosition(p))
+        m_vecSelectedPositions.push_back(p);
+    else if (m_vecSelectedPositions.size() > 1)
+        boost::remove_erase(m_vecSelectedPositions, p);
     UpdateAllViews(NULL);
 }
 
-void CMazeEditorDoc::SetCurPos(const Position& p)
+void CMazeEditorDoc::SetSelectedPosition(const Position& p)
 {
-    m_setCurPoss.clear();
-    ToggleCurPos(p);
+    m_vecSelectedPositions.clear();
+    ToggleSelectedPosition(p);
 }
 
 void CMazeEditorDoc::OnEnclosedSelected()
 {
-    for(const auto& p : m_setCurPoss){
+    for(const auto& p : m_vecSelectedPositions){
         auto p2 = p + offset[0];
-        if(!IsCurPos(p2))
+        if(!IsSelectedPosition(p2))
             SetHorzWall(p, false);
         p2 = p + offset[2];
-        if(!IsCurPos(p2))
+        if(!IsSelectedPosition(p2))
             SetHorzWall(p2, false);
         p2 = p + offset[3];
-        if(!IsCurPos(p2))
+        if(!IsSelectedPosition(p2))
             SetVertWall(p, false);
         p2 = p + offset[1];
-        if(!IsCurPos(p2))
+        if(!IsSelectedPosition(p2))
             SetVertWall(p2, false);
     }
     UpdateAllViews(NULL);

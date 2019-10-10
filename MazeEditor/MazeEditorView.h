@@ -53,7 +53,7 @@ protected:
     CMFCRibbonEdit* m_pEditHeight;
     CMFCRibbonEdit* m_pEditWidth;
     CMFCRibbonEdit* m_pEditChar;
-    CMFCRibbonEdit* m_pEditCurPos;
+    CMFCRibbonEdit* m_pEditSelectedPosition;
     CMFCRibbonComboBox* m_pComboMovement;
     CMFCRibbonEdit* m_pEditSideLen;
 
@@ -70,7 +70,7 @@ protected:
     void MoveDown();
     void MoveLeft();
     void MoveRight();
-    void SetCurPos(Position p);
+    void SetSelectedPosition(Position p);
 
 // Generated message map functions
 protected:

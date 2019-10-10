@@ -46,11 +46,11 @@ public:
     CString GetData();
     void SetData(const CString& strData);
 
-    void ToggleCurPos(const Position& p);
-    void SetCurPos(const Position& p);
-    const Position& GetCurPos() { return *m_setCurPoss.begin(); }
-    bool IsCurPos(const Position& p) {
-        return m_setCurPoss.count(p) != 0;
+    void ToggleSelectedPosition(const Position& p);
+    void SetSelectedPosition(const Position& p);
+    const Position& GetSelectedPosition() { return *m_vecSelectedPositions.begin(); }
+    bool IsSelectedPosition(const Position& p) {
+        return boost::algorithm::any_of_equal(m_vecSelectedPositions, p);
     }
     bool IsSquare() { return m_bIsSquare; }
 
@@ -75,7 +75,7 @@ protected:
     Position m_szMaze;
     bool m_bHasWall;
     set<Position> m_setHorzWall, m_setVertWall;
-    set<Position> m_setCurPoss;
+    vector<Position> m_vecSelectedPositions;
     map<Position, char> m_mapObjects;
     bool m_bIsSquare;
 

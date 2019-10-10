@@ -52,6 +52,11 @@
 #include <set>
 #include <map>
 #include <boost/signals2.hpp>
+#include <boost/range/algorithm.hpp>
+#include <boost/range/algorithm_ext.hpp>
+#include <boost/algorithm/cxx11/none_of.hpp>
+#include <boost/algorithm/cxx11/any_of.hpp>
+#include <boost/algorithm/cxx11/all_of.hpp>
 using namespace std;
 #include "Position.h"
 
