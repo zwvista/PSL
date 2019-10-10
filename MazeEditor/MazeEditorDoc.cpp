@@ -178,7 +178,7 @@ CString CMazeEditorDoc::GetData()
         for (int r = 0;; r++) {
             for (int c = 0; c < MazeWidth(); c++) {
                 Position p(r, c);
-                str += IsDot(p) ? _T(".") : _T(" ");
+                str += IsDot(p) ? _T("O") : _T(" ");
                 str += IsHorzWall(p) ? _T("-") : _T(" ");
             }
             str += " `\r\n";
@@ -358,7 +358,7 @@ void CMazeEditorDoc::SetData( const CString& strData )
         for (int r = 0;; r++) {
             const CString& str1 = vstrs[2 * r];
             for (int c = 0; c < MazeWidth(); c++) {
-                if (str1[2 * c] == '.')
+                if (str1[2 * c] == 'O')
                     ToggleDot({r, c});
                 if (str1[2 * c + 1] == '-')
                     SetHorzWall({r, c}, false);
