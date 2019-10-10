@@ -70,7 +70,13 @@ protected:
     void MoveDown();
     void MoveLeft();
     void MoveRight();
-    void SetSelectedPosition(Position p);
+    void DoSelectedPosition(Position p, function<void(const Position&)> f);
+    void SetSelectedPosition(Position p) {
+        DoSelectedPosition(p, [&](const Position& p2) { m_pDoc->SetSelectedPosition(p2); });
+    }
+    void ToggleSelectedPosition(Position p) {
+        DoSelectedPosition(p, [&](const Position& p2) { m_pDoc->ToggleSelectedPosition(p2); });
+    }
 
 // Generated message map functions
 protected:

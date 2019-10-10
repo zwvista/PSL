@@ -244,6 +244,7 @@ void CMazeEditorDoc::SetHasWall( bool bHasWall )
 
 void CMazeEditorDoc::ToggleDot(const Position& p)
 {
+    if (!m_bHasWall) return;
     if (m_setDots.count(p) == 0)
         m_setDots.insert(p);
     else

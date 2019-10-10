@@ -95,7 +95,7 @@ void CMazeEditorView::OnDraw(CDC* pDC)
     int save = memdc.SaveDC();
     memdc.SetBkMode(TRANSPARENT);
     for (int r = 0;; r++) {
-        for (int c = 0; c < m_pDoc->MazeWidth(); c++) {
+        for (int c = 0;; c++) {
             Position p(r, c);
             if (m_pDoc->IsSelectedPosition(p))
                 memdc.FillSolidRect(GetPosRect(p), clrFill);
@@ -118,6 +118,7 @@ void CMazeEditorView::OnDraw(CDC* pDC)
                 memdc.Ellipse(left, up, right, down);
             }
 
+            if (c == m_pDoc->MazeWidth()) break;
             memdc.SelectObject(&(m_pDoc->IsHorzWall(p) ? penWall : penNone));
             memdc.MoveTo(c * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen);
             memdc.LineTo((c + 1) * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen);
@@ -225,13 +226,13 @@ void CMazeEditorView::OnInitialUpdate()
 void CMazeEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
     const int offset = 10;
-    Position p(min((point.y + offset) / m_pDoc->m_nSideLen, m_pDoc->MazeHeight() - 1),
-        min((point.x + offset) / m_pDoc->m_nSideLen, m_pDoc->MazeWidth() - 1));
+    Position p(min((point.y + offset) / m_pDoc->m_nSideLen, m_pDoc->MazeHeight()),
+        min((point.x + offset) / m_pDoc->m_nSideLen, m_pDoc->MazeWidth()));
     bool bAlt = GetKeyState(VK_MENU) & 0x8000 ? true : false;
     bool bCtrl = GetKeyState(VK_CONTROL) & 0x8000 ? true : false;
     bool bShift = GetKeyState(VK_SHIFT) & 0x8000 ? true : false;
     if (bAlt)
-        m_pDoc->ToggleSelectedPosition(p);
+        ToggleSelectedPosition(p);
     else
         SetSelectedPosition(p);
     if (bCtrl)
@@ -268,16 +269,12 @@ void CMazeEditorView::MoveRight()
     SetSelectedPosition(m_pDoc->GetSelectedPosition() + Position(0, 1));
 }
 
-void CMazeEditorView::SetSelectedPosition(Position p)
+void CMazeEditorView::DoSelectedPosition(Position p, function<void(const Position&)> f)
 {
-    //if (p.first < 0 || p.first >= m_pDoc->MazeHeight() ||
-    //    p.second < 0 || p.second >= m_pDoc->MazeWidth()) return;
-
     int nArea = m_pDoc->MazeHeight() * m_pDoc->MazeWidth();
     int n = (p.first * m_pDoc->MazeWidth() + p.second + nArea) % nArea;
     p = {n / m_pDoc->MazeWidth(), n % m_pDoc->MazeWidth()};
-
-    m_pDoc->SetSelectedPosition(p);
+    f(p);
     CString strSelectedPosition;
     strSelectedPosition.Format(_T("%d,%d"), p.first, p.second);
     m_pEditSelectedPosition->SetEditText(strSelectedPosition);
