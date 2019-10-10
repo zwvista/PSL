@@ -31,6 +31,7 @@
 		958FA63D232BF25100205831 /* TopArrow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA63A232BF25100205831 /* TopArrow.cpp */; };
 		958FA641232C78BE00205831 /* TheCityRises.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA63E232C78BE00205831 /* TheCityRises.cpp */; };
 		95D7B5E12315788F001E005C /* TetrominoPegs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5DF2315788F001E005C /* TetrominoPegs.cpp */; };
+		95E37B2F234DD2C10054284F /* TraceNumbers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E37B2E234DD2C10054284F /* TraceNumbers.cpp */; };
 		95F39C06232271AE00E73A82 /* Trebuchet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95F39C03232271AE00E73A82 /* Trebuchet.cpp */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +132,9 @@
 		95D7B5DE2315788E001E005C /* TetrominoPegs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TetrominoPegs.txt; sourceTree = "<group>"; };
 		95D7B5DF2315788F001E005C /* TetrominoPegs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TetrominoPegs.cpp; sourceTree = "<group>"; };
 		95D7B5E02315788F001E005C /* TetrominoPegs.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TetrominoPegs.xml; sourceTree = "<group>"; };
+		95E37B2C234DD2C10054284F /* TraceNumbers.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TraceNumbers.xml; sourceTree = "<group>"; };
+		95E37B2D234DD2C10054284F /* TraceNumbers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TraceNumbers.txt; sourceTree = "<group>"; };
+		95E37B2E234DD2C10054284F /* TraceNumbers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TraceNumbers.cpp; sourceTree = "<group>"; };
 		95F39C03232271AE00E73A82 /* Trebuchet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trebuchet.cpp; sourceTree = "<group>"; };
 		95F39C04232271AE00E73A82 /* Trebuchet.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Trebuchet.xml; sourceTree = "<group>"; };
 		95F39C05232271AE00E73A82 /* Trebuchet.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Trebuchet.txt; sourceTree = "<group>"; };
@@ -218,6 +222,9 @@
 				958FA63A232BF25100205831 /* TopArrow.cpp */,
 				958FA63C232BF25100205831 /* TopArrow.txt */,
 				958FA63B232BF25100205831 /* TopArrow.xml */,
+				95E37B2E234DD2C10054284F /* TraceNumbers.cpp */,
+				95E37B2D234DD2C10054284F /* TraceNumbers.txt */,
+				95E37B2C234DD2C10054284F /* TraceNumbers.xml */,
 				95F39C03232271AE00E73A82 /* Trebuchet.cpp */,
 				95F39C05232271AE00E73A82 /* Trebuchet.txt */,
 				95F39C04232271AE00E73A82 /* Trebuchet.xml */,
@@ -332,6 +339,7 @@
 				8CA241A51EB47AFC0055D6B1 /* twinballs.cpp in Sources */,
 				95D7B5E12315788F001E005C /* TetrominoPegs.cpp in Sources */,
 				8CA241A41EB47AFC0055D6B1 /* turnz.cpp in Sources */,
+				95E37B2F234DD2C10054284F /* TraceNumbers.cpp in Sources */,
 				8CA241961EB47AFC0055D6B1 /* Tapa.cpp in Sources */,
 				8CA2419B1EB47AFC0055D6B1 /* Tatami.cpp in Sources */,
 				8CA2419F1EB47AFC0055D6B1 /* Tents.cpp in Sources */,

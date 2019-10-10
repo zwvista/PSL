@@ -27,7 +27,8 @@ class MazeViewController: NSViewController, MazeDelegate {
     @IBOutlet weak var charTextField: NSTextField!
     @IBOutlet weak var hasWallCheckbox: NSButton!
     @IBOutlet weak var fillBorderLinesButton: NSButton!
-    
+    @IBOutlet weak var encloseSelectedCellsButton: NSButton!
+
     override func viewDidLoad() {
         arrayController.content = sizes
         super.viewDidLoad()
@@ -66,6 +67,10 @@ class MazeViewController: NSViewController, MazeDelegate {
         maze.fillBorderLines()
     }
     
+    @IBAction func encloseSelectedCells(_ sender: NSButton) {
+        maze.encloseSelectedCells()
+    }
+
     @IBAction func copy(_ sender: NSButton) {
         let pb = NSPasteboard.general
         pb.clearContents()
@@ -101,8 +106,8 @@ class MazeViewController: NSViewController, MazeDelegate {
         return "\(p.row),\(p.col)"
     }
     
-    func updateCurPosition() {
-        positionTextField.stringValue = desc(p: maze.curPos)
+    func updateSelectedPosition() {
+        positionTextField.stringValue = desc(p: maze.selectedPosition)
     }
     
     func updateMousePosition(p: Position) {
@@ -121,6 +126,7 @@ class MazeViewController: NSViewController, MazeDelegate {
     func updateHasWall() {
         hasWallCheckbox.state = maze.hasWall ? .on : .off
         fillBorderLinesButton.isEnabled = maze.hasWall
+        encloseSelectedCellsButton.isEnabled = maze.hasWall
     }
     
     deinit {
