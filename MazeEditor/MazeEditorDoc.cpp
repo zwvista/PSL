@@ -178,7 +178,8 @@ CString CMazeEditorDoc::GetData()
         for (int r = 0;; r++) {
             for (int c = 0; c < MazeWidth(); c++) {
                 Position p(r, c);
-                str += IsHorzWall(p) ? _T(" -") : _T("  ");
+                str += IsDot(p) ? _T(".") : _T(" ");
+                str += IsHorzWall(p) ? _T("-") : _T(" ");
             }
             str += " `\r\n";
             if (r == MazeHeight()) break;
@@ -272,6 +273,7 @@ void CMazeEditorDoc::OnMazeClearAll()
 
 void CMazeEditorDoc::OnMazeClearWalls()
 {
+    m_setDots.clear();
     m_setHorzWall.clear();
     m_setVertWall.clear();
     UpdateAllViews(NULL);
@@ -355,9 +357,12 @@ void CMazeEditorDoc::SetData( const CString& strData )
         ResizeMaze(vstrs.size() / 2, vstrs[0].GetLength() / 2);
         for (int r = 0;; r++) {
             const CString& str1 = vstrs[2 * r];
-            for (int c = 0; c < MazeWidth(); c++)
+            for (int c = 0; c < MazeWidth(); c++) {
+                if (str1[2 * c] == '.')
+                    ToggleDot({r, c});
                 if (str1[2 * c + 1] == '-')
                     SetHorzWall({r, c}, false);
+            }
             if (r == MazeHeight()) break;
             const CString& str2 = vstrs[2 * r + 1];
             for (int c = 0; ; c++) {
