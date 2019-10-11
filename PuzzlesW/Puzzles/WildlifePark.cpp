@@ -26,6 +26,22 @@ namespace puzzles::WildlifePark{
 #define PUZ_SPACE            ' '
 #define PUZ_POST             'O'
 
+// n-e-s-w
+// 0 means line is off in this direction
+// 1,2,4,8 means line is on in this direction
+
+inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
+
+const int lineseg_off = 0;
+const vector<int> linesegs_all = {
+    // „¢  „Ÿ  „¡  „£  „   „¤
+    12, 10, 6, 9, 5, 3,
+};
+const vector<int> linesegs_all3 = {
+    // „¦  „§  „¨  „¥  „©
+    14, 13, 11, 7, 15,
+};
+
 const Position offset[] = {
     {-1, 0},        // n
     {0, 1},         // e
@@ -108,6 +124,24 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_dots(g.m_sidelen * g.m_sidelen)
 {
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            auto& dt = dots(p);
+            bool is_dot3 = g.m_posts.count(p) != 0;
+            if (!is_dot3 && r > 0 && c > 0 && r < sidelen() - 1 && c < sidelen() - 1)
+                dt.push_back(lineseg_off);
+            for (int lineseg : (is_dot3 ? linesegs_all3 : linesegs_all))
+                if ([&] {
+                    for (int i = 0; i < 4; ++i)
+                        // The line segment cannot lead to a position outside the board
+                        if (is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
+                            return false;
+                        return true;
+                }())
+                    dt.push_back(lineseg);
+        }
+
     find_matches(true);
 }
 
