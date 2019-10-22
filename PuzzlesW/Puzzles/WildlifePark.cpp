@@ -64,6 +64,7 @@ struct puz_game
     set<Position> m_posts;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_start[p.first * (m_sidelen - 1) + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -103,6 +104,7 @@ struct puz_state
     bool make_move(int i, int j);
     void make_move2(int i, int j);
     int find_matches(bool init);
+    int check_dots(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -118,6 +120,7 @@ struct puz_state
     const puz_game* m_game = nullptr;
     vector<puz_dot> m_dots;
     map<int, vector<int>> m_matches;
+    set<Position> m_finished;
     unsigned int m_distance = 0;
 };
 
@@ -129,20 +132,45 @@ puz_state::puz_state(const puz_game& g)
             Position p(r, c);
             auto& dt = dots(p);
             bool is_dot3 = g.m_posts.count(p) != 0;
-            if (!is_dot3 && r > 0 && c > 0 && r < sidelen() - 1 && c < sidelen() - 1)
-                dt.push_back(lineseg_off);
-            for (int lineseg : (is_dot3 ? linesegs_all3 : linesegs_all))
-                if ([&] {
-                    for (int i = 0; i < 4; ++i)
-                        // The line segment cannot lead to a position outside the board
-                        if (is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
-                            return false;
-                        return true;
-                }())
-                    dt.push_back(lineseg);
+            if (r > 0 && c > 0 && r < sidelen() - 1 && c < sidelen() - 1)
+                if (is_dot3)
+                    dt = linesegs_all3;
+                else {
+                    dt.push_back(lineseg_off);
+                    dt.insert(dt.end(), linesegs_all.begin(), linesegs_all.end());
+                }
+            else {
+                int n =
+                    r == 0 ? (c == 0 ? 6 : c == sidelen() - 1 ? 12 : is_dot3 ? 14 : 10) :
+                    r == sidelen() - 1 ? (c == 0 ? 3 : c == sidelen() - 1 ? 9 : is_dot3 ? 11 : 10) :
+                    c == 0 ? (is_dot3 ? 7 : 5) : (is_dot3 ? 13 : 5);
+                dt.push_back(n);
+            }
+        }
+
+    auto f = [&](int r, int c, bool b, int d) {
+        boost::remove_erase_if(dots({r, c}), [=](int lineseg) {
+            return b == is_lineseg_on(lineseg, d);
+        });
+    };
+    for (int r = 0; r < sidelen() - 2; ++r)
+        for (int c = 0; c < sidelen() - 2; ++c) {
+            Position p1(r, c), p2(r, c + 1), p3(r + 1, c);
+            char ch1 = g.cells(p1), ch2 = g.cells(p2), ch3 = g.cells(p3);
+            if (ch1 != PUZ_SPACE && ch2 != PUZ_SPACE) {
+                bool b = ch1 == ch2;
+                f(r, c + 1, b, 2);
+                f(r + 1, c + 1, b, 0);
+            }
+            if (ch1 != PUZ_SPACE && ch3 != PUZ_SPACE) {
+                bool b = ch1 == ch3;
+                f(r + 1, c, b, 1);
+                f(r + 1, c + 1, b, 3);
+            }
         }
 
     find_matches(true);
+    check_dots(true);
 }
 
 int puz_state::find_matches(bool init)
@@ -160,6 +188,43 @@ int puz_state::find_matches(bool init)
             }
     }
     return 2;
+}
+
+int puz_state::check_dots(bool init)
+{
+    int n = 2;
+    for (;;) {
+        set<Position> newly_finished;
+        for (int r = 0; r < sidelen(); ++r)
+            for (int c = 0; c < sidelen(); ++c) {
+                Position p(r, c);
+                const auto& dt = dots(p);
+                if (dt.size() == 1 && m_finished.count(p) == 0)
+                    newly_finished.insert(p);
+            }
+
+        if (newly_finished.empty())
+            return n;
+
+        n = 1;
+        for (const auto& p : newly_finished) {
+            int lineseg = dots(p)[0];
+            for (int i = 0; i < 4; ++i) {
+                auto p2 = p + offset[i];
+                if (!is_valid(p2))
+                    continue;
+                auto& dt = dots(p2);
+                // The line segments in adjacent cells must be connected
+                boost::remove_erase_if(dt, [=](int lineseg2) {
+                    return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
+                });
+                if (!init && dt.empty())
+                    return 0;
+            }
+            m_finished.insert(p);
+        }
+        m_distance += newly_finished.size();
+    }
 }
 
 void puz_state::make_move2(int i, int j)
