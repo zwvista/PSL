@@ -60,6 +60,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
+    int m_dot_count;
     string m_start;
     set<Position> m_posts;
 
@@ -68,8 +69,9 @@ struct puz_game
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
-: m_id(level.attribute("id").value())
-, m_sidelen(strs.size() / 2 + 1)
+    : m_id(level.attribute("id").value())
+    , m_sidelen(strs.size() / 2 + 1)
+    , m_dot_count(m_sidelen* m_sidelen)
 {
     for (int r = 0;; ++r) {
         auto& str_h = strs[r * 2];
@@ -88,28 +90,24 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 typedef vector<int> puz_dot;
 
-struct puz_state
+struct puz_state : vector<puz_dot>
 {
     puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
-    puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
+    const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+    puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    bool operator<(const puz_state& x) const {
-        return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches);
-    }
     bool make_move(int i, int j);
     void make_move2(int i, int j);
-    int find_matches(bool init);
     int check_dots(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const { return m_game->m_dot_count - m_finished.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -118,14 +116,12 @@ struct puz_state
     }
 
     const puz_game* m_game = nullptr;
-    vector<puz_dot> m_dots;
-    map<int, vector<int>> m_matches;
     set<Position> m_finished;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_dots(g.m_sidelen * g.m_sidelen)
+    : vector<puz_dot>(g.m_dot_count), m_game(&g)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
@@ -169,25 +165,7 @@ puz_state::puz_state(const puz_game& g)
             }
         }
 
-    find_matches(true);
     check_dots(true);
-}
-
-int puz_state::find_matches(bool init)
-{
-    for (auto& kv : m_matches) {
-        int area_id = kv.first;
-        auto& perm_ids = kv.second;
-
-        if (!init)
-            switch(perm_ids.size()) {
-            case 0:
-                return 0;
-            case 1:
-                return make_move2(area_id, perm_ids[0]), 1;
-            }
-    }
-    return 2;
 }
 
 int puz_state::check_dots(bool init)
@@ -231,7 +209,6 @@ void puz_state::make_move2(int i, int j)
 {
 
     ++m_distance;
-    m_matches.erase(i);
 }
 
 bool puz_state::make_move(int i, int j)
@@ -239,23 +216,25 @@ bool puz_state::make_move(int i, int j)
     m_distance = 0;
     make_move2(i, j);
     int m;
-    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& kv = *boost::min_element(m_matches, [](
-        const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-
-    for (int n : kv.second) {
-        children.push_back(*this);
-        if (!children.back().make_move(kv.first, n))
-            children.pop_back();
-    }
+    int i = boost::min_element(*this, [&](const puz_dot& dt1, const puz_dot& dt2) {
+        auto f = [](const puz_dot& dt) {
+            int sz = dt.size();
+            return sz == 1 ? 100 : sz;
+        };
+        return f(dt1) < f(dt2);
+    }) - begin();
+    auto& dt = (*this)[i];
+    Position p(i / sidelen(), i % sidelen());
+    //for (int n = 0; n < dt.size(); ++n) {
+    //    children.push_back(*this);
+    //    if (!children.back().make_move_dot(p, n))
+    //        children.pop_back();
+    //}
 }
 
 ostream& puz_state::dump(ostream& out) const
