@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,7 @@
 		958FA61923234E6100205831 /* Warehouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA61823234E6100205831 /* Warehouse.cpp */; };
 		95D7B5D523142C3C001E005C /* WishSandwich.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5D423142C3C001E005C /* WishSandwich.cpp */; };
 		95D7B5DD23154C24001E005C /* WallHints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5DC23154C24001E005C /* WallHints.cpp */; };
+		95E2B50E236877E800F4F95B /* WildlifePark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E2B50C236877E800F4F95B /* WildlifePark.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -80,6 +81,9 @@
 		95D7B5DA23154C24001E005C /* WallHints.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = WallHints.xml; sourceTree = "<group>"; };
 		95D7B5DB23154C24001E005C /* WallHints.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WallHints.txt; sourceTree = "<group>"; };
 		95D7B5DC23154C24001E005C /* WallHints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WallHints.cpp; sourceTree = "<group>"; };
+		95E2B50B236877E800F4F95B /* WildlifePark.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = WildlifePark.xml; sourceTree = "<group>"; };
+		95E2B50C236877E800F4F95B /* WildlifePark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WildlifePark.cpp; sourceTree = "<group>"; };
+		95E2B50D236877E800F4F95B /* WildlifePark.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WildlifePark.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,9 @@
 				958FA61823234E6100205831 /* Warehouse.cpp */,
 				958FA61623234E6100205831 /* Warehouse.txt */,
 				958FA61723234E6100205831 /* Warehouse.xml */,
+				95E2B50C236877E800F4F95B /* WildlifePark.cpp */,
+				95E2B50D236877E800F4F95B /* WildlifePark.txt */,
+				95E2B50B236877E800F4F95B /* WildlifePark.xml */,
 				95D7B5D423142C3C001E005C /* WishSandwich.cpp */,
 				95D7B5D323142C3C001E005C /* WishSandwich.txt */,
 				95D7B5D223142C3C001E005C /* WishSandwich.xml */,
@@ -208,7 +215,7 @@
 				};
 			};
 			buildConfigurationList = 8CA23EBF1EA9233C0055D6B1 /* Build configuration list for PBXProject "PuzzlesW" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -233,6 +240,7 @@
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA241B21EB47B160055D6B1 /* WallSentinels.cpp in Sources */,
 				958FA61923234E6100205831 /* Warehouse.cpp in Sources */,
+				95E2B50E236877E800F4F95B /* WildlifePark.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				95D7B5D523142C3C001E005C /* WishSandwich.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
