@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A30FE77A-7189-465A-9FBC-A97460B94882}</ProjectGuid>
+    <ProjectGuid>{3F5E21F6-9A62-44C6-8868-54AB75A97C0C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>PuzzlesN</RootNamespace>
-    <ProjectName>PuzzlesN</ProjectName>
+    <RootNamespace>PuzzlesB</RootNamespace>
+    <ProjectName>PuzzlesB</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,19 +70,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\boost_1_74_0</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\work\zw\boost_1_71_0</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\boost_1_74_0</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\work\zw\boost_1_71_0</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\boost_1_74_0</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\work\zw\boost_1_71_0</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\zw\boost_1_74_0</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\work\zw\boost_1_71_0</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -157,22 +157,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="Puzzles\Neighbours.txt" />
-    <Text Include="Puzzles\Neighbours2.txt" />
-    <Text Include="Puzzles\Neighbours3.txt" />
-    <Text Include="Puzzles\NorthPoleFishing.txt" />
-    <Text Include="Puzzles\NoughtsAndCrosses.txt" />
-    <Text Include="Puzzles\NumberCrossing.txt" />
-    <Text Include="Puzzles\NumberCrossing2.txt" />
-    <Text Include="Puzzles\NumberCrosswords.txt" />
-    <Text Include="Puzzles\NumberLink.txt" />
-    <Text Include="Puzzles\NumberPath.txt" />
-    <Text Include="Puzzles\NumberPath2.txt" />
-    <Text Include="Puzzles\numeric_paranoia.txt" />
-    <Text Include="Puzzles\Nurikabe.txt" />
+    <Text Include="Puzzles\BalancedTapas.txt" />
+    <Text Include="Puzzles\BattleShips.txt" />
+    <Text Include="Puzzles\bloc.txt" />
+    <Text Include="Puzzles\bloxorz_a.txt" />
+    <Text Include="Puzzles\bloxorz_ida.txt" />
+    <Text Include="Puzzles\BootyIsland.txt" />
+    <Text Include="Puzzles\BotanicalPark.txt" />
+    <Text Include="Puzzles\BoxItAgain.txt" />
+    <Text Include="Puzzles\BoxItAround.txt" />
+    <Text Include="Puzzles\BoxItUp.txt" />
+    <Text Include="Puzzles\Branches.txt" />
+    <Text Include="Puzzles\Bridges.txt" />
+    <Text Include="Puzzles\BusySeas.txt" />
+    <Text Include="Puzzles\BWTapa.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Puzzles\Bridges.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -185,16 +187,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Puzzles\Neighbours.cpp" />
-    <ClCompile Include="Puzzles\NorthPoleFishing.cpp" />
-    <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp" />
-    <ClCompile Include="Puzzles\NumberCrossing.cpp" />
-    <ClCompile Include="Puzzles\NumberCrosswords.cpp" />
-    <ClCompile Include="Puzzles\NumberLink.cpp" />
-    <ClCompile Include="Puzzles\NumberPath.cpp" />
-    <ClCompile Include="Puzzles\NumberPath2.cpp" />
-    <ClCompile Include="Puzzles\numeric_paranoia.cpp" />
-    <ClCompile Include="Puzzles\Nurikabe.cpp" />
+    <ClCompile Include="Puzzles\BalancedTapas.cpp" />
+    <ClCompile Include="Puzzles\BattleShips.cpp" />
+    <ClCompile Include="Puzzles\bloxorz.cpp" />
+    <ClCompile Include="Puzzles\BootyIsland.cpp" />
+    <ClCompile Include="Puzzles\BotanicalPark.cpp" />
+    <ClCompile Include="Puzzles\BoxItAgain.cpp" />
+    <ClCompile Include="Puzzles\BoxItAround.cpp" />
+    <ClCompile Include="Puzzles\BoxItUp.cpp" />
+    <ClCompile Include="Puzzles\Branches.cpp" />
+    <ClCompile Include="Puzzles\Bridges.cpp" />
+    <ClCompile Include="Puzzles\BridgesGen.cpp" />
+    <ClCompile Include="Puzzles\BusySeas.cpp" />
+    <ClCompile Include="Puzzles\BWTapa.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -203,17 +208,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\Neighbours.xml" />
-    <Xml Include="Puzzles\Neighbours2.xml" />
-    <Xml Include="Puzzles\Neighbours3.xml" />
-    <Xml Include="Puzzles\NorthPoleFishing.xml" />
-    <Xml Include="Puzzles\NoughtsAndCrosses.xml" />
-    <Xml Include="Puzzles\NumberCrossing.xml" />
-    <Xml Include="Puzzles\NumberCrosswords.xml" />
-    <Xml Include="Puzzles\NumberLink.xml" />
-    <Xml Include="Puzzles\NumberPath.xml" />
-    <Xml Include="Puzzles\numeric_paranoia.xml" />
-    <Xml Include="Puzzles\Nurikabe.xml" />
+    <Xml Include="Puzzles\BalancedTapas.xml" />
+    <Xml Include="Puzzles\BattleShips.xml" />
+    <Xml Include="Puzzles\bloc.xml" />
+    <Xml Include="Puzzles\bloxorz.xml" />
+    <Xml Include="Puzzles\BootyIsland.xml" />
+    <Xml Include="Puzzles\BotanicalPark.xml" />
+    <Xml Include="Puzzles\BoxItAgain.xml" />
+    <Xml Include="Puzzles\BoxItAround.xml" />
+    <Xml Include="Puzzles\BoxItUp.xml" />
+    <Xml Include="Puzzles\Branches.xml" />
+    <Xml Include="Puzzles\Bridges.xml" />
+    <Xml Include="Puzzles\BridgesGen.xml" />
+    <Xml Include="Puzzles\BusySeas.xml" />
+    <Xml Include="Puzzles\BWTapa.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
