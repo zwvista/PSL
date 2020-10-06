@@ -13,5 +13,22 @@ O-
  - - - -O- 
 Number of moves: 0
 Number of vertices examined: 1
-0.0036374 [s]
+0.0012175 [s]
+
+Level 2
+Sequence of moves: 
+ - -O- - - 
+|  A|  B B|
+O-   -     
+|C|   |B  |
+  O- -O    
+| |   |B  |
+       -   
+|C|D   D| |
+O-     -   
+|  D  |B B|
+ - - -O- - 
+Number of moves: 0
+Number of vertices examined: 1
+0.000465 [s]
 

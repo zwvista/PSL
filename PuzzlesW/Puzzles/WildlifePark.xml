@@ -25,5 +25,20 @@ O          `
  - - - -O- `
     ]]>
   </level>
+  <level id="2">
+    <![CDATA[
+ - -O- - - `
+|  A   B B|`
+O          `
+|C     B  |`
+  O   O    `
+|      B  |`
+           `
+|C D   D  |`
+O          `
+|  D   B B|`
+ - - -O- - `
+    ]]>
+  </level>
 </levels>
 </puzzle>
