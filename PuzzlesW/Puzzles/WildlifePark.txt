@@ -1,0 +1,17 @@
+Level 1
+Sequence of moves: 
+ - -O- - - 
+|A  |     |
+   -O  -   
+| |B| |C|D|
+     -O  -O
+|A|B  |C  |
+       -   
+| |B B B| |
+O-         
+|  B B  | |
+ - - - -O- 
+Number of moves: 0
+Number of vertices examined: 1
+0.0036374 [s]
+

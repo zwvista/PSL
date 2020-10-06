@@ -50,10 +50,10 @@ const Position offset[] = {
 };
 
 const Position offset2[] = {
-    {0, 0},        // n
+    {0, 0},        // o
     {0, 1},        // e
+    {1, 1},        // se
     {1, 0},        // s
-    {0, 0},        // w
 };
 
 struct puz_game
@@ -63,6 +63,7 @@ struct puz_game
     int m_dot_count;
     string m_start;
     set<Position> m_posts;
+    map<char, vector<Position>> m_ch2rng;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * (m_sidelen - 1) + p.second]; }
@@ -84,6 +85,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen - 1; ++c) {
             char ch = str_v[c * 2 + 1];
             m_start.push_back(ch);
+            if (ch != PUZ_SPACE)
+                m_ch2rng[ch].emplace_back(r, c);
         }
     }
 }
@@ -100,9 +103,9 @@ struct puz_state : vector<puz_dot>
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    bool make_move(int i, int j);
-    void make_move2(int i, int j);
+    bool make_move(const Position& p, int n);
     int check_dots(bool init);
+    bool is_connected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -205,18 +208,58 @@ int puz_state::check_dots(bool init)
     }
 }
 
-void puz_state::make_move2(int i, int j)
+struct puz_state2 : Position
 {
+    puz_state2(const puz_state& state, char ch, const Position& p_start) : m_state(&state), m_ch(ch) {
+        make_move(p_start);
+    }
 
-    ++m_distance;
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_state* m_state;
+    const char m_ch;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (int i = 0; i < 4; ++i) {
+        auto p_dots = *this + offset2[i];
+        int d = (i + 1) % 4;
+        if (boost::algorithm::all_of(m_state->dots(p_dots), [&](int dt) {
+            return is_lineseg_on(dt, d);
+        }))
+            return;
+        auto p = *this + offset[i];
+        char ch = m_state->m_game->cells(p);
+        if (ch == PUZ_SPACE || ch == m_ch) {
+            children.push_back(*this);
+            children.back().make_move(p);
+        }
+    }
 }
 
-bool puz_state::make_move(int i, int j)
+bool puz_state::is_connected() const
 {
-    m_distance = 0;
-    make_move2(i, j);
-    int m;
-    return m == 2;
+    set<Position> rng_all;
+    for (auto const& [ch, rng] : m_game->m_ch2rng) {
+        list<puz_state2> smoves;
+        puz_move_generator<puz_state2>::gen_moves({ *this, ch, *rng.begin() }, smoves);
+        int cnt = boost::accumulate(smoves, 0, [&, ch = ch](int acc, const puz_state2& s) {
+            return acc + (m_game->cells(s) == ch ? 1 : 0);
+        });
+        if (cnt != rng.size()) return false;
+        rng_all.insert(smoves.begin(), smoves.end());
+    }
+    return rng_all.size() == sidelen() * sidelen();
+}
+
+bool puz_state::make_move(const Position& p, int n)
+{
+    m_distance = 1;
+    dots(p) = { dots(p)[n] };
+    int m = check_dots(false);
+    return m == 2 && is_connected();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -229,31 +272,37 @@ void puz_state::gen_children(list<puz_state>& children) const
         return f(dt1) < f(dt2);
     }) - begin();
     auto& dt = (*this)[i];
+    int sz = dt.size();
+    if (sz == 1) return;
     Position p(i / sidelen(), i % sidelen());
-    //for (int n = 0; n < dt.size(); ++n) {
-    //    children.push_back(*this);
-    //    if (!children.back().make_move_dot(p, n))
-    //        children.pop_back();
-    //}
+    for (int n = 0; n < sz; ++n) {
+        children.push_back(*this);
+        if (!children.back().make_move(p, n))
+            children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    //for (int r = 0;; ++r) {
-    //    // draw horz-walls
-    //    for (int c = 0; c < sidelen(); ++c)
-    //        out << (m_game->m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
-    //    out << endl;
-    //    if (r == sidelen()) break;
-    //    for (int c = 0;; ++c) {
-    //        Position p(r, c);
-    //        // draw vert-walls
-    //        out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
-    //        if (c == sidelen()) break;
-    //        out << cells(p);
-    //    }
-    //    out << endl;
-    //}
+    for (int r = 0;; ++r) {
+        // draw horz-lines
+        for (int c = 0;; ++c) {
+            Position p(r, c);
+            out << (m_game->m_posts.count(p) != 0 ? PUZ_POST : ' ');
+            if (c == sidelen() - 1) break; 
+            out << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
+        }
+        out << endl;
+        if (r == sidelen() - 1) break;
+        for (int c = 0;; ++c) {
+            Position p(r, c);
+            // draw vert-lines
+            out << (is_lineseg_on(dots(p)[0], 2) ? '|' : ' ');
+            if (c == sidelen() - 1) break;
+            out << m_game->cells(p);
+        }
+        out << endl;
+    }
     return out;
 }
 
