@@ -55,5 +55,22 @@ O          `
  - -O- - - `
     ]]>
   </level>
+  <level id="17">
+    <![CDATA[
+ - -O-O- -O- `
+|A       B  |`
+             `
+|  A   C   D|`
+O O     O O O`
+|E   C      |`
+      O      `
+|E       F  |`
+O O O O      `
+|  G       I|`
+      O O    `
+|  H H   H I|`
+ - - - - -O- `
+    ]]>
+  </level>
 </levels>
 </puzzle>
