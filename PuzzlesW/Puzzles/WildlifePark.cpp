@@ -248,10 +248,11 @@ bool puz_state::is_connected() const
         int cnt = boost::accumulate(smoves, 0, [&, ch = ch](int acc, const puz_state2& s) {
             return acc + (m_game->cells(s) == ch ? 1 : 0);
         });
-        if (cnt != rng.size()) return false;
+        if (cnt != static_cast<int>(rng.size()))
+            return false;
         rng_all.insert(smoves.begin(), smoves.end());
     }
-    return rng_all.size() == (sidelen() -1) * (sidelen() - 1);
+    return rng_all.size() == (sidelen() - 1) * (sidelen() - 1);
 }
 
 bool puz_state::make_move(const Position& p, int n)
