@@ -229,7 +229,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         if (boost::algorithm::all_of(m_state->dots(p_dots), [&](int dt) {
             return is_lineseg_on(dt, d);
         }))
-            return;
+            continue;
         auto p = *this + offset[i];
         char ch = m_state->m_game->cells(p);
         if (ch == PUZ_SPACE || ch == m_ch) {
@@ -251,7 +251,7 @@ bool puz_state::is_connected() const
         if (cnt != rng.size()) return false;
         rng_all.insert(smoves.begin(), smoves.end());
     }
-    return rng_all.size() == sidelen() * sidelen();
+    return rng_all.size() == (sidelen() -1) * (sidelen() - 1);
 }
 
 bool puz_state::make_move(const Position& p, int n)
@@ -259,7 +259,7 @@ bool puz_state::make_move(const Position& p, int n)
     m_distance = 1;
     dots(p) = { dots(p)[n] };
     int m = check_dots(false);
-    return m == 2 && is_connected();
+    return m != 0 && is_connected();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
