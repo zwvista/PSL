@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "AIhelper.h"
+#include "Puzzles/BentBridges.h"
 #include "Puzzles/Bridges.h"
 
 extern void solve_puz_BalancedTapas();
@@ -20,6 +21,7 @@ int main(int argc, char **argv)
     srand(time(0));
     cout << "a1: Balanced Tapas" << endl;
     cout << "a2: Battle Ships" << endl;
+    cout << "e: Bent Bridges" << endl;
     cout << "l: bloxorz" << endl;
     cout << "o1: Booty Island" << endl;
     cout << "o2: Botanical Park" << endl;
@@ -36,6 +38,7 @@ int main(int argc, char **argv)
     if (str.empty());
     else if (str == "a1") solve_puz_BalancedTapas();
     else if (str == "a2") solve_puz_BattleShips();
+    else if (str == "e") solve_puz_BentBridges();
     else if (str == "l") solve_puz_bloxorz();
     else if (str == "o1") solve_puz_BootyIsland();
     else if (str == "o2") solve_puz_BotanicalPark();

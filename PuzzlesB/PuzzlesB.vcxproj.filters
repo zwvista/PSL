@@ -61,6 +61,9 @@
     <Text Include="Puzzles\BoxItAgain.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\BentBridges.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -70,6 +73,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Puzzles\Bridges.h">
+      <Filter>Puzzles</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzles\BentBridges.h">
       <Filter>Puzzles</Filter>
     </ClInclude>
   </ItemGroup>
@@ -125,6 +131,9 @@
     <ClCompile Include="Puzzles\BridgesGen.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\BentBridges.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\BattleShips.xml">
@@ -167,6 +176,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\BridgesGen.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\BentBridges.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
