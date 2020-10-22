@@ -6,15 +6,21 @@
 
 namespace puzzles::BentBridges{
 
+struct puz_bridge {
+    vector<pair<Position, char>> m_rng;
+    Position m_p1, m_p2;
+    bool m_is_bent = false;
+    Position m_p_bent;
+};
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
     string m_start;
-    // key: the position of the island
-    // value: the bridges connected to the island
-    map<Position, vector<vector<Position>>> m_pos2bridges;
+    vector<puz_bridge> m_bridges;
+    map<Position, vector<int>> m_pos2indexes;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
@@ -33,7 +39,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_start.push_back(ch);
             else {
                 m_start.push_back(PUZ_ISLAND);
-                m_pos2num[{r, c}] = ch - '0';
+                m_pos2num[{r * 2, c * 2}] = ch - '0';
             }
             if (c < sz - 1)
                 m_start.push_back(PUZ_SPACE);
@@ -44,7 +50,41 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto&& [p1, n1] : m_pos2num)
         for (auto&& [p2, n2] : m_pos2num) {
-            if (p1 > p2) continue;
+            if (p1 >= p2) continue;
+            puz_bridge b;
+
+            auto f = [&, p1 = p1, p2 = p2](const Position& p3, const Position& p4, const Position& os, char ch_hv) {
+                if (p1 == p3)
+                    b.m_rng.clear();
+                for (auto p = p3; p != p4;) {
+                    p += os; b.m_rng.emplace_back(p, ch_hv);
+                    char ch = cells(p += os);
+                    if (ch == PUZ_SPACE)
+                        b.m_rng.emplace_back(p, PUZ_BRIDGE);
+                    else if (p != p4 || p2 != p4)
+                        return false;
+                }
+                if (p2 == p4) {
+                    int sz = m_bridges.size();
+                    m_pos2indexes[b.m_p1 = p1].push_back(sz);
+                    m_pos2indexes[b.m_p2 = p2].push_back(sz);
+                    b.m_is_bent = p1 != p3;
+                    b.m_p_bent = b.m_is_bent ? p3 : Position(-1, -1);
+                    m_bridges.push_back(b);
+                }
+                return true;
+            };
+
+            if (p1.first == p2.first)
+                f(p1, p2, offset[1], PUZ_HORZ);
+            else if (p1.second == p2.second)
+                f(p1, p2, offset[2], PUZ_VERT);
+            else {
+                Position p3(p1.first, p2.second), p4(p2.first, p1.second);
+                int i = p1.second < p2.second ? 1 : 3;
+                f(p1, p3, offset[i], PUZ_HORZ) && f(p3, p2, offset[2], PUZ_VERT);
+                f(p1, p4, offset[2], PUZ_VERT) && f(p4, p2, offset[i], PUZ_HORZ);
+            }
         }
 }
 
@@ -81,14 +121,8 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_start), m_matches(g.m_pos2indexes)
 {
-    for (auto&& [p, perms] : g.m_pos2bridges) {
-        auto& perm_ids = m_matches[p];
-        perm_ids.resize(perms.size());
-        boost::iota(perm_ids, 0);
-    }
-    
     find_matches(true);
 }
 
@@ -97,7 +131,6 @@ int puz_state::find_matches(bool init)
     for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& perm_ids = kv.second;
-        auto& perms = m_game->m_pos2bridges.at(p);
 
         //boost::remove_erase_if(perm_ids, [&](int id) {
         //    auto& nums = perms[id];
@@ -186,18 +219,18 @@ bool puz_state::is_connected() const
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& perm = m_game->m_pos2bridges.at(p)[n];
-    for (int i = 0; i < 4; ++i) {
-        bool is_horz = i % 2 == 1;
-        auto& os = offset[i];
-        //if (int n2 = perm[i]; n2 != 0)
-        //    for (auto p2 = p + os; ; p2 += os) {
-        //        char& ch = cells(p2);
-        //        if (ch != PUZ_SPACE) break;
-        //        ch = is_horz ? n2 == 1 ? PUZ_HORZ_1 : PUZ_HORZ_2
-        //            : n2 == 1 ? PUZ_VERT_1 : PUZ_VERT_2;
-        //    }
-    }
+    //auto& perm = m_game->m_pos2bridges.at(p)[n];
+    //for (int i = 0; i < 4; ++i) {
+    //    bool is_horz = i % 2 == 1;
+    //    auto& os = offset[i];
+    //    if (int n2 = perm[i]; n2 != 0)
+    //        for (auto p2 = p + os; ; p2 += os) {
+    //            char& ch = cells(p2);
+    //            if (ch != PUZ_SPACE) break;
+    //            ch = is_horz ? n2 == 1 ? PUZ_HORZ_1 : PUZ_HORZ_2
+    //                : n2 == 1 ? PUZ_VERT_1 : PUZ_VERT_2;
+    //        }
+    //}
 
     ++m_distance;
     m_matches.erase(p);

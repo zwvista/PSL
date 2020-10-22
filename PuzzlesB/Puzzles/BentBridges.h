@@ -27,12 +27,9 @@ namespace puzzles::BentBridges{
 
 #define PUZ_SPACE             ' '
 #define PUZ_ISLAND            'N'
-#define PUZ_WE                '-'
-#define PUZ_NS                '|'
-//#define PUZ_WS                '┐'
-//#define PUZ_ES                '┌'
-//#define PUZ_NW                '┘'
-//#define PUZ_NE                '└'
+#define PUZ_BRIDGE            '.'
+#define PUZ_HORZ              '-'
+#define PUZ_VERT              '|'
 
 const Position offset[] = {
     {-1, 0},        // n
