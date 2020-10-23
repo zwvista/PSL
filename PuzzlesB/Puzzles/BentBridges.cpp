@@ -99,7 +99,7 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move2(const Position& p, int n);
     int find_matches(bool init);
     bool is_connected() const;
 
@@ -132,82 +132,39 @@ int puz_state::find_matches(bool init)
         const auto& p = kv.first;
         auto& perm_ids = kv.second;
 
-        //boost::remove_erase_if(perm_ids, [&](int id) {
-        //    auto& nums = perms[id];
-        //    for (int i = 0; i < 4; ++i) {
-        //        int n = nums[i];
-        //        auto& os = offset[i];
-        //        bool is_horz = i % 2 == 1;
-        //        auto p2 = p + os;
-        //        if (n == 0) {
-        //            if (char ch = cells(p2); is_horz && (ch == PUZ_HORZ_1 || ch == PUZ_HORZ_2) ||
-        //                !is_horz && (ch == PUZ_VERT_1 || ch == PUZ_VERT_2))
-        //                return true;
-        //        } else
-        //            for (; ; p2 += os) {
-        //                char ch = cells(p2);
-        //                if (ch == PUZ_ISLAND && m_matches.count(p2) == 1 ||
-        //                    is_horz && (ch == PUZ_HORZ_1 && n == 1 || ch == PUZ_HORZ_2 && n == 2) ||
-        //                    !is_horz && (ch == PUZ_VERT_1 && n == 1 || ch == PUZ_VERT_2 && n == 2))
-        //                    break;
-        //                if (ch != PUZ_SPACE)
-        //                    return true;
-        //            }
-        //    }
-        //    return false;
-        //});
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            auto& b = m_game->m_bridges[id];
+            return boost::algorithm::any_of(b.m_rng, [&](const pair<Position, char>& kv) {
+                return cells(kv.first) != PUZ_SPACE;
+            });
+        });
 
         if (!init)
             switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids[0]), 1;
+                return make_move2(p, perm_ids[0]) ? 1 : 0;
             }
     }
-    return is_connected() ? 2 : 0;
+    return 2;
 }
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s);
+    puz_state2(const puz_state& s) : m_state(&s) {
+        make_move(s.m_matches.begin()->first);
+    }
 
-    int sidelen() const { return m_state->sidelen(); }
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
 };
 
-puz_state2::puz_state2(const puz_state& s)
-: m_state(&s)
-{
-    int i = s.m_cells.find(PUZ_ISLAND);
-    make_move({i / sidelen(), i % sidelen()});
-}
-
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (int i = 0; i < 4; ++i) {
-        auto& os = offset[i];
-        bool is_horz = i % 2 == 1;
-        auto p2 = *this + os;
-        char ch = m_state->cells(p2);
-        //if (is_horz && (ch == PUZ_HORZ_1 || ch == PUZ_HORZ_2) ||
-        //    !is_horz && (ch == PUZ_VERT_1 || ch == PUZ_VERT_2)) {
-        //    while (m_state->cells(p2) != PUZ_ISLAND)
-        //        p2 += os;
-        //    children.push_back(*this);
-        //    children.back().make_move(p2);
-        //} else if (m_state->m_matches.count(*this) == 1 && ch == PUZ_SPACE) {
-        //    while (m_state->cells(p2) == PUZ_SPACE)
-        //        p2 += os;
-        //    if (m_state->cells(p2) == PUZ_ISLAND) {
-        //        children.push_back(*this);
-        //        children.back().make_move(p2);
-        //    }
-        //}
-    }
+    auto& b = m_state->m_game->m_bridges;
 }
 
 bool puz_state::is_connected() const
@@ -217,23 +174,15 @@ bool puz_state::is_connected() const
     return smoves.size() == boost::count(m_cells, PUZ_ISLAND);
 }
 
-void puz_state::make_move2(const Position& p, int n)
+bool puz_state::make_move2(const Position& p, int n)
 {
-    //auto& perm = m_game->m_pos2bridges.at(p)[n];
-    //for (int i = 0; i < 4; ++i) {
-    //    bool is_horz = i % 2 == 1;
-    //    auto& os = offset[i];
-    //    if (int n2 = perm[i]; n2 != 0)
-    //        for (auto p2 = p + os; ; p2 += os) {
-    //            char& ch = cells(p2);
-    //            if (ch != PUZ_SPACE) break;
-    //            ch = is_horz ? n2 == 1 ? PUZ_HORZ_1 : PUZ_HORZ_2
-    //                : n2 == 1 ? PUZ_VERT_1 : PUZ_VERT_2;
-    //        }
-    //}
+    auto& rng = m_game->m_bridges[n].m_rng;
+    for (auto&& [p2, ch] : rng)
+        cells(p2) = ch;
 
     ++m_distance;
     m_matches.erase(p);
+    return is_connected();
 }
 
 bool puz_state::make_move(const Position& p, int n)
