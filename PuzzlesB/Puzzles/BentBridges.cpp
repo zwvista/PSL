@@ -21,6 +21,7 @@ struct puz_game
     string m_start;
     vector<puz_bridge> m_bridges;
     map<Position, vector<int>> m_pos2indexes;
+    int m_bridge_count = 0;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
@@ -39,7 +40,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_start.push_back(ch);
             else {
                 m_start.push_back(PUZ_ISLAND);
-                m_pos2num[{r * 2, c * 2}] = ch - '0';
+                int n = ch - '0';
+                m_bridge_count += n;
+                m_pos2num[{r * 2, c * 2}] = n;
             }
             if (c < sz - 1)
                 m_start.push_back(PUZ_SPACE);
@@ -106,7 +109,11 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const {
+        return m_game->m_bridge_count - boost::accumulate(m_pos2indexes, 0, [](int acc, const pair<const Position, vector<int>>& kv) {
+            return acc + kv.second.size();
+        });
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -117,12 +124,15 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     map<Position, vector<int>> m_matches;
+    map<Position, vector<int>> m_pos2indexes;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start), m_matches(g.m_pos2indexes)
 {
+    for (auto&& [k, v] : g.m_pos2indexes)
+        m_pos2indexes[k];
     find_matches(true);
 }
 
@@ -153,7 +163,7 @@ int puz_state::find_matches(bool init)
 struct puz_state2 : Position
 {
     puz_state2(const puz_state& s) : m_state(&s) {
-        make_move(s.m_matches.begin()->first);
+        make_move(s.m_game->m_pos2num.begin()->first);
     }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
@@ -164,24 +174,37 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    auto& b = m_state->m_game->m_bridges;
+    auto f = [&](const vector<int>& indexes) {
+        for (int i : indexes) {
+            children.push_back(*this);
+            children.back().make_move(m_state->m_game->m_bridges[i].m_p2);
+        }
+    };
+    f(m_state->m_matches.at(*this));
+    f(m_state->m_pos2indexes.at(*this));
 }
 
 bool puz_state::is_connected() const
 {
     list<puz_state2> smoves;
     puz_move_generator<puz_state2>::gen_moves(*this, smoves);
-    return smoves.size() == boost::count(m_cells, PUZ_ISLAND);
+    return smoves.size() == m_game->m_pos2indexes.size();
 }
 
 bool puz_state::make_move2(const Position& p, int n)
 {
-    auto& rng = m_game->m_bridges[n].m_rng;
-    for (auto&& [p2, ch] : rng)
+    auto& b = m_game->m_bridges[n];
+    for (auto&& [p2, ch] : b.m_rng)
         cells(p2) = ch;
 
-    ++m_distance;
-    m_matches.erase(p);
+    auto f = [&](const Position& p2) {
+        boost::remove_erase(m_matches[p2], n);
+        m_pos2indexes[p2].push_back(n);
+    };
+    f(b.m_p1);
+    f(b.m_p2);
+    m_distance += 2;
+
     return is_connected();
 }
 
@@ -211,14 +234,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 1; r < sidelen() - 1; ++r) {
-        for (int c = 1; c < sidelen() - 1; ++c) {
+    for (int r = 0; r <= sidelen(); ++r) {
+        for (int c = 0; c <= sidelen(); ++c) {
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_ISLAND)
-                out << format("%2d") % m_game->m_pos2num.at(p);
+                out << m_game->m_pos2num.at(p);
             else
-                out << ' ' << ch;
+                out << ch;
         }
         out << endl;
     }
