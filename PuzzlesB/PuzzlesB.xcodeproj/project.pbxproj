@@ -42,8 +42,6 @@
 /* Begin PBXFileReference section */
 		8C6854311FF000D500C592FD /* Bridges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridges.h; sourceTree = "<group>"; };
 		8C6854351FF1FAB600C592FD /* BridgesGen.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BridgesGen.xml; sourceTree = "<group>"; };
-		8C9D44B01FFCDF8700BA6373 /* Test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test.txt; path = ../Test.txt; sourceTree = "<group>"; };
-		8C9D44B11FFCDF8800BA6373 /* Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Test.xml; path = ../../Test.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesB; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -111,6 +109,10 @@
 		8CA23FD51EB479280055D6B1 /* BWTapa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BWTapa.cpp; sourceTree = "<group>"; };
 		8CA23FD61EB479280055D6B1 /* BWTapa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BWTapa.txt; sourceTree = "<group>"; };
 		8CA23FD71EB479280055D6B1 /* BWTapa.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BWTapa.xml; sourceTree = "<group>"; };
+		95804A382544CA720022AF35 /* BentBridges.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = BentBridges.txt; sourceTree = "<group>"; };
+		95804A392544CA720022AF35 /* BentBridges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BentBridges.h; sourceTree = "<group>"; };
+		95804A3A2544CA720022AF35 /* BentBridges.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BentBridges.cpp; sourceTree = "<group>"; };
+		95804A3B2544CA720022AF35 /* BentBridges.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BentBridges.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,7 +136,6 @@
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
 				8CA23F181EA925F20055D6B1 /* stdafx.h */,
 				8CA23F191EA925F20055D6B1 /* targetver.h */,
-				8C9D44B01FFCDF8700BA6373 /* Test.txt */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,6 +156,10 @@
 				8CA23FB31EB479280055D6B1 /* BattleShips.cpp */,
 				8CA23FB41EB479280055D6B1 /* BattleShips.txt */,
 				8CA23FB51EB479280055D6B1 /* BattleShips.xml */,
+				95804A3A2544CA720022AF35 /* BentBridges.cpp */,
+				95804A392544CA720022AF35 /* BentBridges.h */,
+				95804A382544CA720022AF35 /* BentBridges.txt */,
+				95804A3B2544CA720022AF35 /* BentBridges.xml */,
 				8CA23FB61EB479280055D6B1 /* bloc.txt */,
 				8CA23FB71EB479280055D6B1 /* bloc.xml */,
 				8CA23FB81EB479280055D6B1 /* bloxorz_a.txt */,
@@ -190,7 +195,6 @@
 				8CA23FD41EB479280055D6B1 /* BusySeas.xml */,
 				8CA23FD51EB479280055D6B1 /* BWTapa.cpp */,
 				8CA23FD61EB479280055D6B1 /* BWTapa.txt */,
-				8C9D44B11FFCDF8800BA6373 /* Test.xml */,
 				8CA23FD71EB479280055D6B1 /* BWTapa.xml */,
 			);
 			path = Puzzles;
