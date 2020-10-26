@@ -138,27 +138,34 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+    int n = 2;
     for (auto& kv : m_matches) {
         const auto& p = kv.first;
         auto& bridge_ids = kv.second;
 
-        boost::remove_erase_if(bridge_ids, [&](int n) {
-            return boost::algorithm::any_of(m_game->m_bridges[n].m_rng, [&](const pair<Position, char>& kv) {
+        auto f = [&](int id) {
+            auto& b = m_game->m_bridges[id];
+            boost::remove_erase(m_matches[b.m_p1], id);
+            boost::remove_erase(m_matches[b.m_p2], id);
+            n = 1;
+        };
+
+        for (int id : bridge_ids)
+            if (boost::algorithm::any_of(m_game->m_bridges[id].m_rng, [&](const pair<Position, char>& kv) {
                 return cells(kv.first) != PUZ_SPACE;
-            });
-        });
+            }))
+                f(id);
 
         if (!init) {
             int sz = bridge_ids.size(), sz2 = m_moves[p].size(), sz3 = m_game->m_pos2num.at(p);
             if (sz2 == sz3)
-                bridge_ids.clear();
+                while (!bridge_ids.empty())
+                    f(bridge_ids[0]);
             else if (sz + sz2 < sz3)
                 return 0;
-            else if (sz == 1)
-                return make_move2(p, bridge_ids[0]) ? 1 : 0;
         }
     }
-    return 2;
+    return n;
 }
 
 struct puz_state2 : Position
