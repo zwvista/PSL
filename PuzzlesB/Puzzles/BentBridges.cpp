@@ -110,7 +110,7 @@ struct puz_state
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_game->m_bridge_count - boost::accumulate(m_pos2indexes, 0, [](int acc, const pair<const Position, vector<int>>& kv) {
+        return m_game->m_bridge_count - boost::accumulate(m_moves, 0, [](int acc, const pair<const Position, vector<int>>& kv) {
             return acc + kv.second.size();
         });
     }
@@ -124,7 +124,7 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     map<Position, vector<int>> m_matches;
-    map<Position, vector<int>> m_pos2indexes;
+    map<Position, vector<int>> m_moves;
     unsigned int m_distance = 0;
 };
 
@@ -132,7 +132,7 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start), m_matches(g.m_pos2indexes)
 {
     for (auto&& [k, v] : g.m_pos2indexes)
-        m_pos2indexes[k];
+        m_moves[k];
     find_matches(true);
 }
 
@@ -140,22 +140,23 @@ int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
         const auto& p = kv.first;
-        auto& perm_ids = kv.second;
+        auto& bridge_ids = kv.second;
 
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& b = m_game->m_bridges[id];
-            return boost::algorithm::any_of(b.m_rng, [&](const pair<Position, char>& kv) {
+        boost::remove_erase_if(bridge_ids, [&](int n) {
+            return boost::algorithm::any_of(m_game->m_bridges[n].m_rng, [&](const pair<Position, char>& kv) {
                 return cells(kv.first) != PUZ_SPACE;
             });
         });
 
-        if (!init)
-            switch(perm_ids.size()) {
-            case 0:
+        if (!init) {
+            int sz = bridge_ids.size(), sz2 = m_moves[p].size(), sz3 = m_game->m_pos2num.at(p);
+            if (sz2 == sz3)
+                bridge_ids.clear();
+            else if (sz + sz2 < sz3)
                 return 0;
-            case 1:
-                return make_move2(p, perm_ids[0]) ? 1 : 0;
-            }
+            else if (sz == 1)
+                return make_move2(p, bridge_ids[0]) ? 1 : 0;
+        }
     }
     return 2;
 }
@@ -181,7 +182,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         }
     };
     f(m_state->m_matches.at(*this));
-    f(m_state->m_pos2indexes.at(*this));
+    f(m_state->m_moves.at(*this));
 }
 
 bool puz_state::is_connected() const
@@ -197,12 +198,10 @@ bool puz_state::make_move2(const Position& p, int n)
     for (auto&& [p2, ch] : b.m_rng)
         cells(p2) = ch;
 
-    auto f = [&](const Position& p2) {
-        boost::remove_erase(m_matches[p2], n);
-        m_pos2indexes[p2].push_back(n);
-    };
-    f(b.m_p1);
-    f(b.m_p2);
+    boost::remove_erase(m_matches[b.m_p1], n);
+    m_moves[b.m_p1].push_back(n);
+    boost::remove_erase(m_matches[b.m_p2], n);
+    m_moves[b.m_p2].push_back(n);
     m_distance += 2;
 
     return is_connected();
@@ -219,10 +218,14 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& kv = *boost::min_element(m_matches, [](
+    auto f = [](const pair<const Position, vector<int>>& kv) {
+        int n = kv.second.size();
+        return n == 0 ? 100 : n;
+    };
+    auto& kv = *boost::min_element(m_matches, [&](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
+        return f(kv1) < f(kv2);
     });
 
     for (int n : kv.second) {
@@ -234,8 +237,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r <= sidelen(); ++r) {
-        for (int c = 0; c <= sidelen(); ++c) {
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_ISLAND)
