@@ -180,7 +180,7 @@ bool puz_state::make_move2(Position p_basket, Position p_blanket)
 {
     cells(p_blanket) = PUZ_BLANKET;
     for (auto& os : offset) {
-        char& ch = cells(p_basket + os);
+        char& ch = cells(p_blanket + os);
         if (ch != PUZ_BOUNDARY)
             ch = PUZ_EMPTY;
     }
@@ -218,8 +218,8 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            out << cells(p) << ' ';
+            char ch = cells({ r, c });
+            out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
         }
         out << endl;
     }
