@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. As usual, on the day of the National Holiday Picnic, the park is crowded.
+2. You brought your picnic basket (like everyone else) and your blanket (like everyone else).
+3. The object is to make space for everyone and to leave the park open for walking around.
+4. find a way to lay every picnic basket so that no blanket touches another one, horizontally or vertically.
+5. Also the remaining park should be accessible to everyone, so empty grass spaces should form a single continuous area.
+6. The number on top of the basket shows you how many tiles the basket must be flung.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+  21`
+   1`
+   2`
+    `
+    ]]>
+  </level>
+</levels>
+</puzzle>
