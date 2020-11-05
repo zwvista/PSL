@@ -4,26 +4,20 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 3/Puzzle Set 1/Picnic
+    iOS Game: Logic Games 3/Puzzle Set 1/Floor Plan
 
     Summary
-    Fling the Blanket
+    Blueprints to fill in
 
     Description
-    1. As usual, on the day of the National Holiday Picnic, the park is crowded.
-    2. You brought your picnic basket (like everyone else) and your blanket (like
-       everyone else).
-    3. The object is to make space for everyone and to leave the park open for
-       walking around.
-    4. find a way to lay every picnic basket so that no blanket touches another
-       one, horizontally or vertically.
-    5. Also the remaining park should be accessible to everyone, so empty grass
-       spaces should form a single continuous area.
-    6. The number on top of the basket shows you how many tiles the basket must
-       be flung.
+    1. The board represents a blueprin of an office floor.
+    2. Cells with a number represent an office. On the floor every office is
+       interconnected and can be reached by every other office.
+    3. The number on a cell indicates how many offices it connects to. No two
+       offices with the same number can be adjacent.
 */
 
-namespace puzzles::Picnic{
+namespace puzzles::FloorPlan{
 
 #define PUZ_BOUNDARY          '+'
 #define PUZ_SPACE             ' '
@@ -37,15 +31,13 @@ const Position offset[] = {
     {0, -1},        // w
 };
 
-char* dirs = "^>v<";
-
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
     string m_start;
-    map<Position, vector<pair<char, Position>>> m_pos2perms;
+    map<Position, vector<Position>> m_pos2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
@@ -72,14 +64,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto&& [p, n] : m_pos2num) {
         auto& perms = m_pos2perms[p];
-        for (int i = 0; i < 4; ++i) {
-            auto& os = offset[i];
+        for (auto& os : offset) {
             auto p2 = p;
-            for (int j = 0; j < n; ++j) {
+            for (int i = 0; i < n; ++i) {
                 if (cells(p2 += os) != PUZ_SPACE)
                     goto next;
             }
-            perms.emplace_back(dirs[i], p2);
+            perms.push_back(p2);
         next:;
         }
     }
@@ -95,8 +86,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(Position p_basket, int n);
-    bool make_move2(Position p_basket, int n);
+    bool make_move(Position p_basket, Position p_blanket);
+    bool make_move2(Position p_basket, Position p_blanket);
     int find_matches(bool init);
     bool is_continuous() const;
 
@@ -113,19 +104,13 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    map<Position, vector<int>> m_matches;
-    map<Position, char> m_pos2ch;
+    map<Position, vector<Position>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_start), m_matches(g.m_pos2perms)
 {
-    for (auto& kv : g.m_pos2perms) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(kv.second.size());
-        boost::iota(perm_ids, 0);
-    }
     find_matches(true);
 }
 
@@ -133,20 +118,18 @@ int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
         auto p_basket = kv.first;
-        auto& perms = m_game->m_pos2perms.at(p_basket);
-        auto& perm_ids = kv.second;
+        auto& perms = kv.second;
 
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& perm = perms[id];
-            return cells(perm.second) != PUZ_SPACE;
+        boost::remove_erase_if(perms, [&](const Position& p_blanket) {
+            return cells(p_blanket) != PUZ_SPACE;
         });
 
         if (!init)
-            switch(perm_ids.size()) {
+            switch(perms.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p_basket, perm_ids[0]) ? 1 : 0;
+                return make_move2(p_basket, perms[0]) ? 1 : 0;
             }
     }
     return 2;
@@ -187,10 +170,8 @@ bool puz_state::is_continuous() const
     });
 }
 
-bool puz_state::make_move2(Position p_basket, int n)
+bool puz_state::make_move2(Position p_basket, Position p_blanket)
 {
-    auto&& [ch_dir, p_blanket] = m_game->m_pos2perms.at(p_basket)[n];
-    m_pos2ch[p_basket] = ch_dir;
     cells(p_blanket) = PUZ_BLANKET;
     for (auto& os : offset) {
         char& ch = cells(p_blanket + os);
@@ -203,10 +184,10 @@ bool puz_state::make_move2(Position p_basket, int n)
     return is_continuous();
 }
 
-bool puz_state::make_move(Position p_basket, int n)
+bool puz_state::make_move(Position p_basket, Position p_blanket)
 {
     m_distance = 0;
-    make_move2(p_basket, n);
+    make_move2(p_basket, p_blanket);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -215,31 +196,20 @@ bool puz_state::make_move(Position p_basket, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& kv = *boost::min_element(m_matches, [](
-        const pair<const Position&, vector<int>>& kv1,
-        const pair<const Position&, vector<int>>& kv2) {
+        const pair<const Position&, vector<Position>>& kv1,
+        const pair<const Position&, vector<Position>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
 
-    for (int n : kv.second) {
+    for (auto& p_blanket : kv.second) {
         children.push_back(*this);
-        if (!children.back().make_move(kv.first, n))
+        if (!children.back().make_move(kv.first, p_blanket))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 1; r < sidelen() - 1; ++r) {
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            if (m_game->m_pos2num.count(p) == 0)
-                out << PUZ_EMPTY << ' ';
-            else
-                out << m_game->m_pos2num.at(p) << m_pos2ch.at(p);
-        }
-        out << endl;
-    }
-    out << endl;
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c) {
             char ch = cells({ r, c });
@@ -252,9 +222,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_Picnic()
+void solve_puz_FloorPlan()
 {
-    using namespace puzzles::Picnic;
+    using namespace puzzles::FloorPlan;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Picnic.xml", "Puzzles/Picnic.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/FloorPlan.xml", "Puzzles/FloorPlan.txt", solution_format::GOAL_STATE_ONLY);
 }

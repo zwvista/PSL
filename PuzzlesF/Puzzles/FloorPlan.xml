@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. The board represents a blueprin of an office floor.
+2. Cells with a number represent an office. On the floor every office is interconnected and can be reached by every other office.
+3. The number on a cell indicates how many offices it connects to. No two offices with the same number can be adjacent.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+  1 `
+   1`
+34 2`
+  2 `
+    ]]>
+  </level>
+</levels>
+</puzzle>
