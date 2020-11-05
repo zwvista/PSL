@@ -10,7 +10,7 @@
     Blueprints to fill in
 
     Description
-    1. The board represents a blueprin of an office floor.
+    1. The board represents a blueprint of an office floor.
     2. Cells with a number represent an office. On the floor every office is
        interconnected and can be reached by every other office.
     3. The number on a cell indicates how many offices it connects to. No two
@@ -19,10 +19,8 @@
 
 namespace puzzles::FloorPlan{
 
-#define PUZ_BOUNDARY          '+'
 #define PUZ_SPACE             ' '
 #define PUZ_EMPTY             '.'
-#define PUZ_BLANKET           'B'
 
 const Position offset[] = {
     {-1, 0},        // n
@@ -35,9 +33,8 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_pos2num;
     string m_start;
-    map<Position, vector<Position>> m_pos2perms;
+    map<Position, vector<vector<Position>>> m_pos2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
@@ -45,35 +42,30 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size() + 2)
+, m_sidelen(strs.size())
 {
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
-    for (int r = 1; r < m_sidelen - 1; ++r) {
-        auto& str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            Position p(r, c);
-            char ch = str[c - 1];
-            if (ch != ' ')
-                m_pos2num[p] = ch - '0';
-            m_start.push_back(PUZ_SPACE);
-        }
-        m_start.push_back(PUZ_BOUNDARY);
-    }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    //for (int r = 0; r < m_sidelen; ++r) {
+    //    auto& str = strs[r - 1];
+    //    for (int c = 0; c < m_sidelen; ++c) {
+    //        Position p(r, c);
+    //        char ch = str[c - 1];
+    //        if (ch != ' ')
+    //            m_pos2num[p] = ch - '0';
+    //    }
+    //}
 
-    for (auto&& [p, n] : m_pos2num) {
-        auto& perms = m_pos2perms[p];
-        for (auto& os : offset) {
-            auto p2 = p;
-            for (int i = 0; i < n; ++i) {
-                if (cells(p2 += os) != PUZ_SPACE)
-                    goto next;
-            }
-            perms.push_back(p2);
-        next:;
-        }
-    }
+    //for (auto&& [p, n] : m_pos2num) {
+    //    auto& perms = m_pos2perms[p];
+    //    for (auto& os : offset) {
+    //        auto p2 = p;
+    //        for (int i = 0; i < n; ++i) {
+    //            if (cells(p2 += os) != PUZ_SPACE)
+    //                goto next;
+    //        }
+    //        perms.push_back(p2);
+    //    next:;
+    //    }
+    //}
 }
 
 struct puz_state
@@ -109,7 +101,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start), m_matches(g.m_pos2perms)
+: m_game(&g), m_cells(g.m_start)
 {
     find_matches(true);
 }
@@ -172,12 +164,6 @@ bool puz_state::is_continuous() const
 
 bool puz_state::make_move2(Position p_basket, Position p_blanket)
 {
-    cells(p_blanket) = PUZ_BLANKET;
-    for (auto& os : offset) {
-        char& ch = cells(p_blanket + os);
-        if (ch != PUZ_BOUNDARY)
-            ch = PUZ_EMPTY;
-    }
 
     ++m_distance;
     m_matches.erase(p_basket);
