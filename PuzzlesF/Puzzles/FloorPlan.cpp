@@ -25,6 +25,12 @@ namespace puzzles::FloorPlan{
 #define PUZ_NUM               'N'
 
 const Position offset[] = {
+    {-1, 0},        // n
+    {0, 1},         // e
+    {1, 0},         // s
+    {0, -1},        // w
+};
+const Position offset2[] = {
     {0, 0},         // o
     {-1, 0},        // n
     {0, 1},         // e
@@ -58,7 +64,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    for (int i = 0; i <= 4; ++i) {
+    for (int i = 1; i <= 4; ++i) {
         vector<char> v(1, i == 0 ? PUZ_EMPTY : i + '0');
         v.insert(v.end(), 4 - i, PUZ_EMPTY);
         v.insert(v.end(), i, PUZ_NUM);
@@ -67,6 +73,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_perms.push_back(v);
         while (next_permutation(begin, end));
     }
+    auto vv = m_perms;
+    for (auto& v : vv)
+        v[0] = PUZ_EMPTY;
+    m_perms.emplace_back(5, PUZ_EMPTY);
+    m_perms.insert(m_perms.end(), vv.begin(), vv.end());
 }
 
 struct puz_state
@@ -80,8 +91,9 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(Position p, int n);
-    void make_move2(Position p, int n);
+    bool make_move2(Position p, int n);
     int find_matches(bool init);
+    bool is_continuous() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -118,14 +130,17 @@ int puz_state::find_matches(bool init)
         auto& perm_ids = kv.second;
 
         vector<char> chars;
-        for (auto& os : offset)
+        for (auto& os : offset2)
             chars.push_back(cells(p + os));
 
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = m_game->m_perms[id];
             return !boost::equal(chars, perm, [&](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2 || ch1 == PUZ_BOUNDARY && ch2 == PUZ_EMPTY ||
-                    ch1 == PUZ_NUM && isdigit(ch2);
+                    ch1 == PUZ_NUM && isdigit(ch2) || isdigit(ch1) && ch2 == PUZ_NUM;
+            }) || boost::algorithm::any_of(offset, [&](const Position& os) {
+                char ch1 = cells(p + os), ch2 = perm[0];
+                return isdigit(ch1) && isdigit(ch2) && ch1 == ch2;
             });
         });
 
@@ -134,17 +149,54 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids[0]), 1;
+                return make_move2(p, perm_ids[0]) ? 1 : 0;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(Position p, int n)
+struct puz_state2 : Position
+{
+    puz_state2(const puz_state* s, const Position& p_start) : m_state(s) {
+        make_move(p_start);
+    }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_state* m_state;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (auto& os : offset) {
+        auto p = *this + os;
+        if (char ch = m_state->cells(p); ch != PUZ_EMPTY && ch != PUZ_BOUNDARY) {
+            children.push_back(*this);
+            children.back().make_move(p);
+        }
+    }
+}
+
+bool puz_state::is_continuous() const
+{
+    int i = boost::range::find_if(m_cells, [&](char ch) {
+        return ch != PUZ_EMPTY && ch != PUZ_BOUNDARY;
+    }) - m_cells.begin();
+    list<puz_state2> smoves;
+    puz_move_generator<puz_state2>::gen_moves({ this, Position(i / sidelen(), i % sidelen()) }, smoves);
+    return boost::count_if(smoves, [&](const puz_state2& s2) {
+        return cells(s2) != PUZ_SPACE;
+    }) == boost::count_if(m_cells, [&](char ch) {
+        return ch != PUZ_SPACE && ch != PUZ_EMPTY && ch != PUZ_BOUNDARY;
+    });
+}
+
+bool puz_state::make_move2(Position p, int n)
 {
     auto& perm = m_game->m_perms[n];
     for (int i = 0; i < 5; ++i) {
-        auto& os = offset[i];
+        auto& os = offset2[i];
         char& ch = cells(p + os);
         if (ch == PUZ_SPACE || ch == PUZ_NUM)
             ch = perm[i];
@@ -152,6 +204,7 @@ void puz_state::make_move2(Position p, int n)
 
     ++m_distance;
     m_matches.erase(p);
+    return is_continuous();
 }
 
 bool puz_state::make_move(Position p, int n)
