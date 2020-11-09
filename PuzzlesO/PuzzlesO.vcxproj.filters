@@ -37,6 +37,9 @@
     <Text Include="Puzzles\OverUnder.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\OneUpOrDown.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -74,6 +77,9 @@
     <ClCompile Include="Puzzles\OverUnder.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\OneUpOrDown.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\on_the_edge.xml">
@@ -89,6 +95,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\OverUnder.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\OneUpOrDown.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

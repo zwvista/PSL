@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Fill the board like a Sudoku.
+2. If the difference between two adjacent numbers is 1 (1 and 2, 2 and 3, 3 and 4, etc) there will be a sign between them.
+3. If the sign is between two tiles on the same row:
+4. The plus sign means the tile on the right will be [number on the left] + 1.
+5. The minus sign means the tile on the right will be [number on the left] - 1.
+6. If the sign is between two tiles on the same column:
+7. The plus sign means the tile on the bottom will be [number on the top] + 1.
+8. The minus sign means the tile on the bottom will be [number on the top] - 1.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+    2+3`
+  - - -`
+4-   + `
+- -   -`
+ -    1`
+- - -  `
+ -   +4`
+    ]]>
+  </level>
+</levels>
+</puzzle>

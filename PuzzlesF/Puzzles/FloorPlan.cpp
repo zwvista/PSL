@@ -64,6 +64,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
+    // 2. Cells with a number represent an office.
+    // 3. The number on a cell indicates how many offices it connects to.
     for (int i = 1; i <= 4; ++i) {
         vector<char> v(1, i == 0 ? PUZ_EMPTY : i + '0');
         v.insert(v.end(), 4 - i, PUZ_EMPTY);
@@ -138,9 +140,11 @@ int puz_state::find_matches(bool init)
             return !boost::equal(chars, perm, [&](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2 || ch1 == PUZ_BOUNDARY && ch2 == PUZ_EMPTY ||
                     ch1 == PUZ_NUM && isdigit(ch2) || isdigit(ch1) && ch2 == PUZ_NUM;
-            }) || boost::algorithm::any_of(offset, [&](const Position& os) {
+            }) ||
+            // 2. No two offices with the same number can be adjacent.
+            boost::algorithm::any_of(offset, [&](const Position& os) {
                 char ch1 = cells(p + os), ch2 = perm[0];
-                return isdigit(ch1) && isdigit(ch2) && ch1 == ch2;
+                return isdigit(ch1) && ch1 == ch2;
             });
         });
 
@@ -185,6 +189,7 @@ bool puz_state::is_continuous() const
     }) - m_cells.begin();
     list<puz_state2> smoves;
     puz_move_generator<puz_state2>::gen_moves({ this, Position(i / sidelen(), i % sidelen()) }, smoves);
+    // 2. On the floor every office is interconnected and can be reached by every other office.
     return boost::count_if(smoves, [&](const puz_state2& s2) {
         return cells(s2) != PUZ_SPACE;
     }) == boost::count_if(m_cells, [&](char ch) {
