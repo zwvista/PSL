@@ -27,7 +27,7 @@ namespace puzzles::Pipemania{
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
-const int lineseg_off = 0;
+const int lineseg_cross = 15;
 const vector<int> linesegs_all = {
     // ┼ ┐  ─  ┌  ┘  │  └
     15, 12, 10, 6, 9, 5, 3,
@@ -163,23 +163,26 @@ bool puz_state::check_loop() const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (dt.size() == 1 && dt[0] != lineseg_off)
+            if (dt.size() == 1)
                 rng.insert(p);
         }
 
     bool has_branch = false;
     while (!rng.empty()) {
-        auto p = *rng.begin(), p2 = p;
+        auto p = *boost::find_if(rng, [&](const Position& p2) {
+            return dots(p2)[0] != lineseg_cross;
+        });
+        auto p2 = p;
         for (int n = -1;;) {
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
             for (int i = 0; i < 4; ++i)
                 // go ahead if the line segment does not lead a way back
-                if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
+                if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n && (lineseg != lineseg_cross || i == n)) {
                     p2 += offset[n = i];
                     break;
                 }
-            if (p2 == p)
+            if (p2 == p && lineseg != lineseg_cross)
                 // we have a loop here,
                 // so we should have exhausted the line segments 
                 return !has_branch && rng.empty();
@@ -224,8 +227,9 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horz-lines
         for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            out << ' ' << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
+            out << ' ';
+            if (c == sidelen() - 1) break;
+            out << (is_lineseg_on(dots({ r, c })[0], 1) ? '-' : ' ');
         }
         out << endl;
         if (r == sidelen() - 1) break;
