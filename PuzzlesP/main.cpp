@@ -13,6 +13,7 @@ extern void solve_puz_patternpuzzle();
 extern void solve_puz_pegsolitary();
 extern void solve_puz_Pharaoh();
 extern void solve_puz_Picnic();
+extern void solve_puz_Pipemania();
 extern void solve_puz_Planets();
 extern void solve_puz_Planks();
 extern void solve_puz_PlugItIn();
@@ -37,7 +38,8 @@ int main(int argc, char **argv)
     cout << "a9: patternpuzzle" << endl;
     cout << "e: pegsolitary" << endl;
     cout << "h: Pharaoh" << endl;
-    cout << "i: Picnic" << endl;
+    cout << "i1: Picnic" << endl;
+    cout << "i2: Pipemania" << endl;
     cout << "l1: Planets" << endl;
     cout << "l2: Planks" << endl;
     cout << "l3: Plug it in" << endl;
@@ -61,7 +63,8 @@ int main(int argc, char **argv)
     else if (str == "a9") solve_puz_patternpuzzle();
     else if (str == "e") solve_puz_pegsolitary();
     else if (str == "h") solve_puz_Pharaoh();
-    else if (str == "i") solve_puz_Picnic();
+    else if (str == "i1") solve_puz_Picnic();
+    else if (str == "i2") solve_puz_Pipemania();
     else if (str == "l1") solve_puz_Planets();
     else if (str == "l2") solve_puz_Planks();
     else if (str == "l3") solve_puz_PlugItIn();
