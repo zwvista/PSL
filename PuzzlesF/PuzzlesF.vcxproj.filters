@@ -67,6 +67,9 @@
     <Text Include="Puzzles\FloorPlan.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\FencingSheep.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -131,6 +134,9 @@
     <ClCompile Include="Puzzles\FloorPlan.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\FencingSheep.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\fling.xml">
@@ -179,6 +185,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\FloorPlan.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\FencingSheep.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
