@@ -46,7 +46,7 @@ const vector<vector<int>> linesegs_all_border = {
 };
 const vector<int> linesegs_all_inside = {
     // „© „Ÿ „ 
-    15, 10, 5,
+    0, 15, 10, 5,
 };
 const vector<int> linesegs_all_post = {
     // „© „¢  „Ÿ  „¡  „£  „   „¤
@@ -142,14 +142,8 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            bool is_dot_post = g.m_posts.count(p) != 0;
             if (r > 0 && c > 0 && r < sidelen() - 1 && c < sidelen() - 1)
-                if (is_dot_post)
-                    dt = linesegs_all_post;
-                else {
-                    dt.push_back(lineseg_off);
-                    dt.insert(dt.end(), linesegs_all_inside.begin(), linesegs_all_inside.end());
-                }
+                dt = g.m_posts.count(p) != 0 ? linesegs_all_post : linesegs_all_inside;
             else {
                 int n =
                     r == 0 ? (c == 0 ? 0 : c == sidelen() - 1 ? 1 : 2) :
