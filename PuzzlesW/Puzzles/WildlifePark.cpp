@@ -110,7 +110,7 @@ struct puz_state : vector<puz_dot>
     bool make_move(const Position& p, int n);
     int check_dots(bool init);
     bool is_connected() const;
-    bool is_not_connected() const;
+    void check_connected();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -152,34 +152,72 @@ puz_state::puz_state(const puz_game& g)
             }
         }
 
-    auto f = [&](int r, int c, bool b, int d) {
-        boost::remove_erase_if(dots({r, c}), [=](int lineseg) {
-            return b == is_lineseg_on(lineseg, d);
-        });
-    };
-    for (int r = 0; r < sidelen() - 2; ++r)
-        for (int c = 0; c < sidelen() - 2; ++c) {
-            Position p1(r, c), p2(r, c + 1), p3(r + 1, c);
-            char ch1 = g.cells(p1), ch2 = g.cells(p2), ch3 = g.cells(p3);
-            if (ch1 != PUZ_SPACE && ch2 != PUZ_SPACE) {
-                bool b = ch1 == ch2;
-                f(r, c + 1, b, 2);
-                f(r + 1, c + 1, b, 0);
-            }
-            if (ch1 != PUZ_SPACE && ch3 != PUZ_SPACE) {
-                bool b = ch1 == ch3;
-                f(r + 1, c, b, 1);
-                f(r + 1, c + 1, b, 3);
-            }
-        }
-
     check_dots(true);
+}
+
+struct puz_state3 : Position
+{
+    puz_state3(puz_state& state, char ch, const Position& p_start) : m_state(&state), m_ch(ch) {
+        make_move(p_start);
+    }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state3>& children) const;
+
+    puz_state* m_state;
+    const char m_ch;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    for (int i = 0; i < 4; ++i) {
+        auto p_dots = *this + offset2[i];
+        int d = (i + 1) % 4;
+        auto& dts = m_state->dots(p_dots);
+        if (boost::algorithm::all_of(dts, [&](int dt) {
+            return is_lineseg_on(dt, d);
+        }))
+            continue;
+        auto p = *this + offset[i];
+        char ch = m_state->m_game->cells(p);
+        auto f = [&] {
+            children.push_back(*this);
+            children.back().make_move(p);
+        };
+        if (ch == PUZ_SPACE) {
+            if (boost::algorithm::all_of(dts, [&](int dt) {
+                return !is_lineseg_on(dt, d);
+            }))
+                f();
+        } else {
+            bool b = ch == m_ch;
+            boost::remove_erase_if(dts, [=](int lineseg) {
+                return b == is_lineseg_on(lineseg, d);
+            });
+            if (b)
+                f();
+        }
+    }
+}
+
+void puz_state::check_connected()
+{
+    auto rng_all = m_game->m_chars_rng;
+    while (!rng_all.empty()) {
+        list<puz_state3> smoves;
+        auto& p = *rng_all.begin();
+        puz_move_generator<puz_state3>::gen_moves({ *this, m_game->cells(p), p }, smoves);
+        for (auto& p : smoves)
+            rng_all.erase(p);
+    }
 }
 
 int puz_state::check_dots(bool init)
 {
     int n = 2;
     for (;;) {
+        check_connected();
+
         set<Position> newly_finished;
         for (int r = 0; r < sidelen(); ++r)
             for (int c = 0; c < sidelen(); ++c) {
@@ -260,57 +298,12 @@ bool puz_state::is_connected() const
     return rng_all.size() == (sidelen() - 1) * (sidelen() - 1);
 }
 
-struct puz_state3 : Position
-{
-    puz_state3(const puz_state& state, const Position& p_start) : m_state(&state) {
-        make_move(p_start);
-    }
-
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state3>& children) const;
-
-    const puz_state* m_state;
-};
-
-void puz_state3::gen_children(list<puz_state3>& children) const
-{
-    for (int i = 0; i < 4; ++i) {
-        auto p_dots = *this + offset2[i];
-        int d = (i + 1) % 4;
-        if (boost::algorithm::any_of(m_state->dots(p_dots), [&](int dt) {
-            return is_lineseg_on(dt, d);
-        }))
-            continue;
-        auto p = *this + offset[i];
-        children.push_back(*this);
-        children.back().make_move(p);
-    }
-}
-
-bool puz_state::is_not_connected() const
-{
-    auto rng_all = m_game->m_chars_rng;
-    while (!rng_all.empty()) {
-        list<puz_state3> smoves;
-        puz_move_generator<puz_state3>::gen_moves({ *this, *rng_all.begin() }, smoves);
-        set<char> chars;
-        for (auto& p : smoves) {
-            rng_all.erase(p);
-            if (char ch = m_game->cells(p); ch != PUZ_SPACE)
-                chars.insert(ch);
-        }
-        if (chars.size() > 1)
-            return false;
-    }
-    return true;
-}
-
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 1;
     dots(p) = { dots(p)[n] };
     int m = check_dots(false);
-    return m != 0 && is_connected() && is_not_connected();
+    return m != 0 && is_connected();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
