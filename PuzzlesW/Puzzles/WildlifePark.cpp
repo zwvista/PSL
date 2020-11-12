@@ -80,7 +80,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         // posts
         for (int c = 0; c < m_sidelen; ++c)
             if (str_h[c * 2] == PUZ_POST)
-                m_posts.insert({r, c});
+                m_posts.emplace(r, c);
         if (r == m_sidelen - 1) break;
         auto& str_v = strs[r * 2 + 1];
         for (int c = 0; c < m_sidelen - 1; ++c) {
@@ -202,13 +202,13 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 
 void puz_state::check_connected()
 {
-    auto rng_all = m_game->m_chars_rng;
-    while (!rng_all.empty()) {
+    auto rng = m_game->m_chars_rng;
+    while (!rng.empty()) {
         list<puz_state3> smoves;
-        auto& p = *rng_all.begin();
+        auto& p = *rng.begin();
         puz_move_generator<puz_state3>::gen_moves({ *this, m_game->cells(p), p }, smoves);
         for (auto& p : smoves)
-            rng_all.erase(p);
+            rng.erase(p);
     }
 }
 

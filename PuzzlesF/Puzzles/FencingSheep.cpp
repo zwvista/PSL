@@ -74,7 +74,7 @@ struct puz_game
     int m_dot_count;
     string m_start;
     set<Position> m_posts;
-    map<char, vector<Position>> m_ch2rng;
+    set<Position> m_chars_rng;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * (m_sidelen - 1) + p.second]; }
@@ -90,14 +90,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         // posts
         for (int c = 0; c < m_sidelen; ++c)
             if (str_h[c * 2] == PUZ_POST)
-                m_posts.insert({r, c});
+                m_posts.emplace(r, c);
         if (r == m_sidelen - 1) break;
         auto& str_v = strs[r * 2 + 1];
         for (int c = 0; c < m_sidelen - 1; ++c) {
             char ch = str_v[c * 2 + 1];
             m_start.push_back(ch);
             if (ch != PUZ_SPACE)
-                m_ch2rng[ch].emplace_back(r, c);
+                m_chars_rng.emplace(r, c);
         }
     }
 }
@@ -117,6 +117,7 @@ struct puz_state : vector<puz_dot>
     bool make_move(const Position& p, int n);
     int check_dots(bool init);
     bool is_connected() const;
+    void check_connected();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -158,32 +159,65 @@ puz_state::puz_state(const puz_game& g)
             }
         }
 
-    auto f = [&](int r, int c, int d) {
-        boost::remove_erase_if(dots({r, c}), [=](int lineseg) {
-            return !is_lineseg_on(lineseg, d);
-        });
-    };
-    for (int r = 0; r < sidelen() - 2; ++r)
-        for (int c = 0; c < sidelen() - 2; ++c) {
-            Position p1(r, c), p2(r, c + 1), p3(r + 1, c);
-            char ch1 = g.cells(p1), ch2 = g.cells(p2), ch3 = g.cells(p3);
-            if (ch1 != PUZ_SPACE && ch2 != PUZ_SPACE && ch1 != ch2) {
-                f(r, c + 1, 2);
-                f(r + 1, c + 1, 0);
-            }
-            if (ch1 != PUZ_SPACE && ch3 != PUZ_SPACE && ch1 != ch2) {
-                f(r + 1, c, 1);
-                f(r + 1, c + 1, 3);
-            }
-        }
-
     check_dots(true);
+}
+
+struct puz_state3 : Position
+{
+    puz_state3(puz_state& state, char ch, const Position& p_start) : m_state(&state), m_ch(ch) {
+        make_move(p_start);
+    }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state3>& children) const;
+
+    puz_state* m_state;
+    const char m_ch;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    for (int i = 0; i < 4; ++i) {
+        auto p_dots = *this + offset2[i];
+        int d = (i + 1) % 4;
+        auto& dts = m_state->dots(p_dots);
+        if (boost::algorithm::all_of(dts, [&](int dt) {
+            return is_lineseg_on(dt, d);
+        }))
+            continue;
+        auto p = *this + offset[i];
+        char ch = m_state->m_game->cells(p);
+        if (ch != PUZ_SPACE && ch != m_ch)
+            boost::remove_erase_if(dts, [=](int lineseg) {
+                return !is_lineseg_on(lineseg, d);
+            });
+        else if (boost::algorithm::all_of(dts, [&](int dt) {
+            return !is_lineseg_on(dt, d);
+        })) {
+            children.push_back(*this);
+            children.back().make_move(p);
+        }
+    }
+}
+
+void puz_state::check_connected()
+{
+    auto rng = m_game->m_chars_rng;
+    while (!rng.empty()) {
+        list<puz_state3> smoves;
+        auto& p = *rng.begin();
+        puz_move_generator<puz_state3>::gen_moves({ *this, m_game->cells(p), p }, smoves);
+        for (auto& p : smoves)
+            rng.erase(p);
+    }
 }
 
 int puz_state::check_dots(bool init)
 {
     int n = 2;
     for (;;) {
+        check_connected();
+
         set<Position> newly_finished;
         for (int r = 0; r < sidelen(); ++r)
             for (int c = 0; c < sidelen(); ++c) {
@@ -251,15 +285,15 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 bool puz_state::is_connected() const
 {
     set<Position> rng_all;
-    for (auto const& [ch, rng] : m_game->m_ch2rng) {
+    auto rng = m_game->m_chars_rng;
+    while (!rng.empty()) {
         list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({ *this, ch, *rng.begin() }, smoves);
-        int cnt = boost::accumulate(smoves, 0, [&, ch = ch](int acc, const puz_state2& s) {
-            return acc + (m_game->cells(s) == ch ? 1 : 0);
-        });
-        if (cnt != static_cast<int>(rng.size()))
-            return false;
-        rng_all.insert(smoves.begin(), smoves.end());
+        auto& p = *rng.begin();
+        puz_move_generator<puz_state2>::gen_moves({ *this, m_game->cells(p), p }, smoves);
+        for (auto& p : smoves) {
+            rng.erase(p);
+            rng_all.insert(p);
+        }
     }
     return rng_all.size() == (sidelen() - 1) * (sidelen() - 1);
 }
