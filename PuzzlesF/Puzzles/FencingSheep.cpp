@@ -7,24 +7,25 @@
     iOS Game: Logic Games 2/Puzzle Set 4/Fencing Sheep
 
     Summary
-    One rises, the other falls
+    Fenceposts, Sheep and obviously wolves
 
     Description
-    1. At the last game of Wildlife Football, Lemurs accused Giraffes of cheating,
-       Monkeys ran away with the coin after the toss and Lions ate the ball.
-    2. So you're given the task to raise some fencing between the different species,
-       while spirits cool down.
-    3. Fences should encompass at least one animal of a certain species, and all
-       animals of a certain species must be in the same enclosure.
-    4. There can't be empty enclosures.
-    5. Where three or four fences meet, a fence post is put in place. On the Park
-       all posts are already marked with a dot.
+    1. Divide the field in enclosures, so that sheep are separated from wolves.
+    2. Each enclosure must contain either sheep or wolves (but not both) and
+       must not be empty.
+    3. The lines (fencing) of the enclosures start and end on the edges of the
+       grid.
+    4. Lines only turn at posts (dots).
+    5. Lines can cross each other except posts (dots).
+    6. Not all posts must be used.
 */
 
 namespace puzzles::FencingSheep{
 
 #define PUZ_SPACE            ' '
 #define PUZ_POST             'O'
+#define PUZ_SHEEP            'S'
+#define PUZ_WOLF             'W'
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -33,13 +34,23 @@ namespace puzzles::FencingSheep{
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
 const int lineseg_off = 0;
-const vector<int> linesegs_all = {
-    // „¢  „Ÿ  „¡  „£  „   „¤
-    12, 10, 6, 9, 5, 3,
+const vector<vector<int>> linesegs_all_border = {
+    {6}, // „¡
+    {12}, // „¢
+    {14, 10}, // „¦ „Ÿ
+    {3}, // „¤
+    {9}, // „£
+    {11, 10}, // „¨ „Ÿ
+    {7, 5}, // „¥ „ 
+    {13, 5}, // „§ „ 
 };
-const vector<int> linesegs_all3 = {
-    // „¦  „§  „¨  „¥  „©
-    14, 13, 11, 7, 15,
+const vector<int> linesegs_all_inside = {
+    // „© „Ÿ „ 
+    15, 10, 5,
+};
+const vector<int> linesegs_all_post = {
+    // „© „¢  „Ÿ  „¡  „£  „   „¤
+    15, 12, 10, 6, 9, 5, 3,
 };
 
 const Position offset[] = {
@@ -130,41 +141,39 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            bool is_dot3 = g.m_posts.count(p) != 0;
+            bool is_dot_post = g.m_posts.count(p) != 0;
             if (r > 0 && c > 0 && r < sidelen() - 1 && c < sidelen() - 1)
-                if (is_dot3)
-                    dt = linesegs_all3;
+                if (is_dot_post)
+                    dt = linesegs_all_post;
                 else {
                     dt.push_back(lineseg_off);
-                    dt.insert(dt.end(), linesegs_all.begin(), linesegs_all.end());
+                    dt.insert(dt.end(), linesegs_all_inside.begin(), linesegs_all_inside.end());
                 }
             else {
                 int n =
-                    r == 0 ? (c == 0 ? 6 : c == sidelen() - 1 ? 12 : is_dot3 ? 14 : 10) :
-                    r == sidelen() - 1 ? (c == 0 ? 3 : c == sidelen() - 1 ? 9 : is_dot3 ? 11 : 10) :
-                    c == 0 ? (is_dot3 ? 7 : 5) : (is_dot3 ? 13 : 5);
-                dt.push_back(n);
+                    r == 0 ? (c == 0 ? 0 : c == sidelen() - 1 ? 1 : 2) :
+                    r == sidelen() - 1 ? (c == 0 ? 3 : c == sidelen() - 1 ? 4 : 5) :
+                    c == 0 ? 6 : 7;
+                dt = linesegs_all_border[n];
             }
         }
 
-    auto f = [&](int r, int c, bool b, int d) {
+    auto f = [&](int r, int c, int d) {
         boost::remove_erase_if(dots({r, c}), [=](int lineseg) {
-            return b == is_lineseg_on(lineseg, d);
+            return !is_lineseg_on(lineseg, d);
         });
     };
     for (int r = 0; r < sidelen() - 2; ++r)
         for (int c = 0; c < sidelen() - 2; ++c) {
             Position p1(r, c), p2(r, c + 1), p3(r + 1, c);
             char ch1 = g.cells(p1), ch2 = g.cells(p2), ch3 = g.cells(p3);
-            if (ch1 != PUZ_SPACE && ch2 != PUZ_SPACE) {
-                bool b = ch1 == ch2;
-                f(r, c + 1, b, 2);
-                f(r + 1, c + 1, b, 0);
+            if (ch1 != PUZ_SPACE && ch2 != PUZ_SPACE && ch1 != ch2) {
+                f(r, c + 1, 2);
+                f(r + 1, c + 1, 0);
             }
-            if (ch1 != PUZ_SPACE && ch3 != PUZ_SPACE) {
-                bool b = ch1 == ch3;
-                f(r + 1, c, b, 1);
-                f(r + 1, c + 1, b, 3);
+            if (ch1 != PUZ_SPACE && ch3 != PUZ_SPACE && ch1 != ch2) {
+                f(r + 1, c, 1);
+                f(r + 1, c + 1, 3);
             }
         }
 

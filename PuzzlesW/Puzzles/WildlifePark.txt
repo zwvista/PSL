@@ -13,7 +13,7 @@ O-
  - - - -O- 
 Number of moves: 0
 Number of vertices examined: 1
-0.0006625 [s]
+0.0035115 [s]
 
 Level 2
 Sequence of moves: 
@@ -30,7 +30,7 @@ O-     -
  - - -O- - 
 Number of moves: 0
 Number of vertices examined: 1
-0.0007618 [s]
+0.002669 [s]
 
 Level 9
 Sequence of moves: 
@@ -47,7 +47,7 @@ Sequence of moves:
  - -O- - - 
 Number of moves: 1
 Number of vertices examined: 2
-0.0006903 [s]
+0.0111942 [s]
 
 Level 17
 Sequence of moves: 
@@ -65,6 +65,6 @@ O-O-O-O  -
 |  H H   H|I|
  - - - - -O- 
 Number of moves: 9
-Number of vertices examined: 21
-0.0114323 [s]
+Number of vertices examined: 11
+0.116986 [s]
 

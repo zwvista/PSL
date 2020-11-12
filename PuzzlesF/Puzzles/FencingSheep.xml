@@ -12,17 +12,17 @@
 <levels>
   <level id="1">
     <![CDATA[
- - -O- - - `
-|A        |`
+ - - - - - `
+|W     S W|`
     O      `
-|  B   C D|`
-      O   O`
-|A B   C  |`
+|  S      |`
            `
-|  B B B  |`
-O          `
-|  B B    |`
- - - - -O- `
+|W        |`
+    O      `
+|S     S  |`
+      O    `
+|W       S|`
+ - - - - - `
     ]]>
   </level>
 </levels>
