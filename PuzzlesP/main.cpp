@@ -17,6 +17,7 @@ extern void solve_puz_Pipemania();
 extern void solve_puz_Planets();
 extern void solve_puz_Planks();
 extern void solve_puz_PlugItIn();
+extern void solve_puz_Pointing();
 extern void solve_puz_PouringWater();
 extern void solve_puz_PourWater();
 extern void solve_puz_PowerGrid();
@@ -43,9 +44,10 @@ int main(int argc, char **argv)
     cout << "l1: Planets" << endl;
     cout << "l2: Planks" << endl;
     cout << "l3: Plug it in" << endl;
-    cout << "o1: Pouring Water" << endl;
-    cout << "o2: Pour Water" << endl;
-    cout << "o3: Power Grid" << endl;
+    cout << "o1: Pointing" << endl;
+    cout << "o2: Pouring Water" << endl;
+    cout << "o3: Pour Water" << endl;
+    cout << "o4: Power Grid" << endl;
     cout << "r: Product Sentinels" << endl;
     cout << "u: Puzzle Retreat" << endl;
     string str;
@@ -68,9 +70,10 @@ int main(int argc, char **argv)
     else if (str == "l1") solve_puz_Planets();
     else if (str == "l2") solve_puz_Planks();
     else if (str == "l3") solve_puz_PlugItIn();
-    else if (str == "o1") solve_puz_PouringWater();
-    else if (str == "o2") solve_puz_PourWater();
-    else if (str == "o3") solve_puz_PowerGrid();
+    else if (str == "o1") solve_puz_Pointing();
+    else if (str == "o2") solve_puz_PouringWater();
+    else if (str == "o3") solve_puz_PourWater();
+    else if (str == "o4") solve_puz_PowerGrid();
     else if (str == "r") solve_puz_ProductSentinels();
     else if (str == "u") solve_puz_PuzzleRetreat();
 

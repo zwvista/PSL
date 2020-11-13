@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Mark some arrows so that each arrow points to exactly one marked arrow.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+2435`
+1446`
+0450`
+2716`
+    ]]>
+  </level>
+</levels>
+</puzzle>

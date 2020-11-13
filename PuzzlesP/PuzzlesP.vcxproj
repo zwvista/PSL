@@ -181,6 +181,7 @@
     <Text Include="Puzzles\Planets.txt" />
     <Text Include="Puzzles\Planks.txt" />
     <Text Include="Puzzles\PlugItIn.txt" />
+    <Text Include="Puzzles\Pointing.txt" />
     <Text Include="Puzzles\PouringWater.txt" />
     <Text Include="Puzzles\PourWater.txt" />
     <Text Include="Puzzles\PowerGrid.txt" />
@@ -220,6 +221,7 @@
     <ClCompile Include="Puzzles\Planets.cpp" />
     <ClCompile Include="Puzzles\Planks.cpp" />
     <ClCompile Include="Puzzles\PlugItIn.cpp" />
+    <ClCompile Include="Puzzles\Pointing.cpp" />
     <ClCompile Include="Puzzles\PouringWater.cpp" />
     <ClCompile Include="Puzzles\PourWater.cpp" />
     <ClCompile Include="Puzzles\PowerGrid.cpp" />
@@ -251,6 +253,7 @@
     <Xml Include="Puzzles\Planets.xml" />
     <Xml Include="Puzzles\Planks.xml" />
     <Xml Include="Puzzles\PlugItIn.xml" />
+    <Xml Include="Puzzles\Pointing.xml" />
     <Xml Include="Puzzles\PouringWater.xml" />
     <Xml Include="Puzzles\PourWater.xml" />
     <Xml Include="Puzzles\PowerGrid.xml" />
