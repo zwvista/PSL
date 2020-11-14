@@ -13,5 +13,22 @@ Sequence of moves:
  - - - - - 
 Number of moves: 7
 Number of vertices examined: 46
-0.682575 [s]
+0.135339 [s]
+
+Level 2
+Sequence of moves: 
+ - - - - - 
+|  W|S  |W|
+ - - - -O  
+|  S|     |
+ - - - -O  
+|S  |  W| |
+ - - - - - 
+|W  |S  |S|
+ - - - -O  
+|  S|     |
+ - - - - - 
+Number of moves: 6
+Number of vertices examined: 14
+0.029091 [s]
 
