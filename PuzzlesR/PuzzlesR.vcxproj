@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\Rabbits.txt" />
     <Text Include="Puzzles\RippleEffect.txt" />
     <Text Include="Puzzles\RobotCrosswords.txt" />
     <Text Include="Puzzles\RobotFences.txt" />
@@ -180,6 +181,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\Rabbits.cpp" />
     <ClCompile Include="Puzzles\RippleEffect.cpp" />
     <ClCompile Include="Puzzles\RobotCrosswords.cpp" />
     <ClCompile Include="Puzzles\RobotFences.cpp" />
@@ -196,6 +198,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\Rabbits.xml" />
     <Xml Include="Puzzles\RippleEffect.xml" />
     <Xml Include="Puzzles\RobotCrosswords.xml" />
     <Xml Include="Puzzles\RobotFences.xml" />

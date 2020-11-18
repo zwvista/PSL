@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. The board represents a lawn where Rabbits are playing Hide 'n' Seek, behind Trees.
+2. Each number tells you how many Rabbits can be seen from that tile, in an horizontal and vertical line.
+3. Tree hide Rabbits, numbers don't.
+4. Each row and column has exactly one Tree and one Rabbit.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+   0 `
+1    `
+  222`
+   2 `
+01  1`
+    ]]>
+  </level>
+</levels>
+</puzzle>
