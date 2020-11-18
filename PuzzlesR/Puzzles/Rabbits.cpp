@@ -115,9 +115,11 @@ struct puz_state
     puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-    bool make_move(const Position& pTo);
-    void make_move2(const Position& pTo);
+    bool make_move(int r, int c, int i, int j);
+    void make_move2(int r, int c, int i, int j);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -132,13 +134,13 @@ struct puz_state
     }
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<Position, vector<pair<int, int>>> m_matches;
-    set<Position> m_marked;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_matches(g.m_pos2ids)
+: m_game(&g), m_cells(g.m_start), m_matches(g.m_pos2ids)
 {
     for (int i = 0; i < sidelen(); ++i) {
         for (int j = 0; j < g.m_perms.size(); ++j) {
@@ -153,27 +155,68 @@ int puz_state::find_matches(bool init)
 {
     for (auto& kv : m_matches) {
         auto& p = kv.first;
-        auto& perm_ids = kv.second;
+        auto& perm_id_pairs = kv.second;
+
+        string chars1, chars2;
+        if (p.first != -1)
+            for (auto& p2 : m_game->m_area2range.at(p.first))
+                chars1.push_back(cells(p2));
+        if (p.second != -1)
+            for (auto& p2 : m_game->m_area2range.at(sidelen() + p.second))
+                chars2.push_back(cells(p2));
+
+        boost::remove_erase_if(perm_id_pairs, [&](const pair<int, int>& id_pair) {
+            int id1 = id_pair.first, id2 = id_pair.second;
+            return id1 != -1 && !boost::equal(chars1, m_game->m_perms[id1].m_perm, [&](char ch1, char ch2) {
+                return ch1 == PUZ_SPACE || ch1 == ch2;
+            }) || id2 != -1 && !boost::equal(chars2, m_game->m_perms[id2].m_perm, [&](char ch1, char ch2) {
+                return ch1 == PUZ_SPACE || ch1 == ch2;
+            });
+        });
 
         if (!init)
-            switch(perm_ids.size()) {
+            switch(perm_id_pairs.size()) {
             case 0:
                 return 0;
-            //case 1:
-            //    return make_move2(*perm_ids.begin()), 1;
+            case 1:
+                return make_move2(p.first, p.second, perm_id_pairs[0].first, perm_id_pairs[0].second), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(const Position& pTo)
+void puz_state::make_move2(int r, int c, int i, int j)
 {
+    if (r != -1) {
+        auto& rng = m_game->m_area2range.at(r);
+        auto& perm = m_game->m_perms[i].m_perm;
+        for (int k = 0; k < rng.size(); ++k)
+            cells(rng[k]) = perm[k];
+    }
+    if (c != -1) {
+        auto& rng = m_game->m_area2range.at(sidelen() + c);
+        auto& perm = m_game->m_perms[j].m_perm;
+        for (int k = 0; k < rng.size(); ++k)
+            cells(rng[k]) = perm[k];
+    }
+    for (auto& [p, perm_id_pairs] : m_matches) {
+        if (r != -1 && r == p.first)
+            boost::remove_erase_if(perm_id_pairs, [&](const pair<int, int>& id_pair) {
+                return id_pair.first != i;
+            });
+        if (c != -1 && c == p.second)
+            boost::remove_erase_if(perm_id_pairs, [&](const pair<int, int>& id_pair) {
+                return id_pair.second != j;
+            });
+    }
+    m_distance++;
+    m_matches.erase({ r, c });
 }
 
-bool puz_state::make_move(const Position& pTo)
+bool puz_state::make_move(int r, int c, int i, int j)
 {
     m_distance = 0;
-    make_move2(pTo);
+    make_move2(r, c, i, j);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -186,10 +229,10 @@ void puz_state::gen_children(list<puz_state>& children) const
         const pair<const Position, vector<pair<int, int>>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (auto& pTo : kv.second) {
-        //children.push_back(*this);
-        //if (!children.back().make_move(pTo))
-        //    children.pop_back();
+    for (auto& id_pair : kv.second) {
+        children.push_back(*this);
+        if (!children.back().make_move(kv.first.first, kv.first.second, id_pair.first, id_pair.second))
+            children.pop_back();
     }
 }
 
@@ -198,6 +241,10 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
+            if (m_game->m_pos2num.count(p) == 1)
+                out << m_game->m_pos2num.at(p);
+            else
+                out << cells(p);
         }
         out << endl;
     }
