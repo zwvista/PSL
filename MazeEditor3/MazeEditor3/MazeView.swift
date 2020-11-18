@@ -10,8 +10,8 @@ import Cocoa
 
 class MazeView: NSView {
 
-    override var isFlipped: Bool { return true }
-    override var acceptsFirstResponder: Bool {return true}
+    override var isFlipped: Bool { true }
+    override var acceptsFirstResponder: Bool { true }
 
     var spacing:CGFloat = 0
     weak var delegate: MazeDelegate?
@@ -67,6 +67,15 @@ class MazeView: NSView {
                 bPath2.line(to: NSMakePoint(CGFloat(p.col) * spacing, CGFloat(p.row + 1) * spacing))
             }
             bPath2.stroke()
+            for p in maze.dots {
+                let context = NSGraphicsContext.current!.cgContext
+                context.saveGState()
+                context.setFillColor(NSColor.red.cgColor)
+                context.fillEllipse(in: NSRect(x: CGFloat(p.col) * spacing - 10,
+                                               y: CGFloat(p.row) * spacing - 10,
+                                               width: 20, height: 20))
+                context.restoreGState()
+            }
         }
         
         let color1 = NSColor(calibratedRed: 0, green: 200, blue: 0, alpha: 1)
@@ -188,8 +197,10 @@ class MazeView: NSView {
         let pt = event.locationInWindow
         let (x, y) = (pt.x, frame.size.height - pt.y)
         let p = Position(min(maze.height - 1, Int(y / spacing)), min(maze.width - 1, Int(x / spacing)))
-        let p2 = Position(min(maze.height - 1, Int((y + offset) / spacing)), min(maze.width - 1, Int((x + offset) / spacing)))
-        if maze.hasWall && abs(x - CGFloat(p2.col) * spacing) < offset {
+        let p2 = Position(min(maze.height, Int((y + offset) / spacing)), min(maze.width, Int((x + offset) / spacing)))
+        if maze.hasWall && abs(x - CGFloat(p2.col) * spacing) < offset && abs(y - CGFloat(p2.row) * spacing) < offset {
+            maze.toggleDot(p: p2)
+        } else if maze.hasWall && abs(x - CGFloat(p2.col) * spacing) < offset {
             maze.toggleVertWall(p: p2)
         } else if maze.hasWall && abs(y - CGFloat(p2.row) * spacing) < offset {
             maze.toggleHorzWall(p: p2)

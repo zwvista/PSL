@@ -166,7 +166,7 @@ struct puz_state3 : Position
     void gen_children(list<puz_state3>& children) const;
 
     puz_state* m_state;
-    const char m_ch;
+    char m_ch;
 };
 
 void puz_state3::gen_children(list<puz_state3>& children) const
@@ -247,7 +247,7 @@ int puz_state::check_dots(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& state, char ch, const Position& p_start) : m_state(&state), m_ch(ch) {
+    puz_state2(const puz_state& state, const char ch, const Position& p_start) : m_state(&state), m_ch(ch) {
         make_move(p_start);
     }
 
@@ -255,7 +255,7 @@ struct puz_state2 : Position
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
-    const char m_ch;
+    char m_ch;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const

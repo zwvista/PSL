@@ -21,6 +21,8 @@
 		8CA240341EB479B90055D6B1 /* fullsearch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240261EB479B90055D6B1 /* fullsearch.cpp */; };
 		8CA240351EB479B90055D6B1 /* FussyWaiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240281EB479B90055D6B1 /* FussyWaiter.cpp */; };
 		8CA240361EB479B90055D6B1 /* Futoshiki.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2402B1EB479B90055D6B1 /* Futoshiki.cpp */; };
+		95406C5D255FA37F00C87A0D /* FloorPlan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95406C3D255FA27900C87A0D /* FloorPlan.cpp */; };
+		95406C5F255FA38D00C87A0D /* FencingSheep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95406C37255FA1B600C87A0D /* FencingSheep.cpp */; };
 		958FA6282327E62400205831 /* FlowerBeds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA6242327E62300205831 /* FlowerBeds.cpp */; };
 		958FA6292327E62400205831 /* Farmer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA6262327E62300205831 /* Farmer.cpp */; };
 		958FA649232DE76E00205831 /* Fields.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA646232DE76D00205831 /* Fields.cpp */; };
@@ -98,6 +100,12 @@
 		8CA2402B1EB479B90055D6B1 /* Futoshiki.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Futoshiki.cpp; sourceTree = "<group>"; };
 		8CA2402C1EB479B90055D6B1 /* Futoshiki.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Futoshiki.txt; sourceTree = "<group>"; };
 		8CA2402D1EB479B90055D6B1 /* Futoshiki.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Futoshiki.xml; sourceTree = "<group>"; };
+		95406C36255FA1B600C87A0D /* FencingSheep.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FencingSheep.txt; sourceTree = "<group>"; };
+		95406C37255FA1B600C87A0D /* FencingSheep.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FencingSheep.cpp; sourceTree = "<group>"; };
+		95406C38255FA1B600C87A0D /* FencingSheep.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FencingSheep.xml; sourceTree = "<group>"; };
+		95406C3C255FA27900C87A0D /* FloorPlan.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FloorPlan.xml; sourceTree = "<group>"; };
+		95406C3D255FA27900C87A0D /* FloorPlan.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FloorPlan.cpp; sourceTree = "<group>"; };
+		95406C3E255FA27900C87A0D /* FloorPlan.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FloorPlan.txt; sourceTree = "<group>"; };
 		958FA6222327E62300205831 /* Farmer.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Farmer.xml; sourceTree = "<group>"; };
 		958FA6232327E62300205831 /* FlowerBeds.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FlowerBeds.xml; sourceTree = "<group>"; };
 		958FA6242327E62300205831 /* FlowerBeds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlowerBeds.cpp; sourceTree = "<group>"; };
@@ -159,6 +167,9 @@
 				8CA240151EB479B90055D6B1 /* FenceSentinels.cpp */,
 				8CA240161EB479B90055D6B1 /* FenceSentinels.txt */,
 				8CA240171EB479B90055D6B1 /* FenceSentinels.xml */,
+				95406C37255FA1B600C87A0D /* FencingSheep.cpp */,
+				95406C36255FA1B600C87A0D /* FencingSheep.txt */,
+				95406C38255FA1B600C87A0D /* FencingSheep.xml */,
 				958FA646232DE76D00205831 /* Fields.cpp */,
 				958FA647232DE76D00205831 /* Fields.txt */,
 				958FA648232DE76E00205831 /* Fields.xml */,
@@ -170,6 +181,9 @@
 				8CA2401D1EB479B90055D6B1 /* fling.xml */,
 				8CA2401E1EB479B90055D6B1 /* fling2.xml */,
 				8CA2401F1EB479B90055D6B1 /* fling3.xml */,
+				95406C3D255FA27900C87A0D /* FloorPlan.cpp */,
+				95406C3E255FA27900C87A0D /* FloorPlan.txt */,
+				95406C3C255FA27900C87A0D /* FloorPlan.xml */,
 				958FA6242327E62300205831 /* FlowerBeds.cpp */,
 				958FA6272327E62400205831 /* FlowerBeds.txt */,
 				958FA6232327E62300205831 /* FlowerBeds.xml */,
@@ -250,7 +264,7 @@
 		8CA23EBC1EA9233C0055D6B1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = "趙偉";
 				TargetAttributes = {
 					8CA23EC31EA9233C0055D6B1 = {
@@ -292,12 +306,14 @@
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA240361EB479B90055D6B1 /* Futoshiki.cpp in Sources */,
 				958FA6292327E62400205831 /* Farmer.cpp in Sources */,
+				95406C5D255FA37F00C87A0D /* FloorPlan.cpp in Sources */,
 				8CA240311EB479B90055D6B1 /* Fillomino.cpp in Sources */,
 				8CA240351EB479B90055D6B1 /* FussyWaiter.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				95D7B5FB23201437001E005C /* FreePlanks.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				958FA6282327E62400205831 /* FlowerBeds.cpp in Sources */,
+				95406C5F255FA38D00C87A0D /* FencingSheep.cpp in Sources */,
 				8CA240321EB479B90055D6B1 /* fling.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA240331EB479B90055D6B1 /* FourMeNot.cpp in Sources */,
@@ -332,6 +348,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -389,6 +406,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

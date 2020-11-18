@@ -12,7 +12,7 @@ class Maze: NSObject {
     private var size = Position(8, 8)
     weak var delegate: MazeDelegate?
     var height: Int {
-        get {return size.row}
+        get { size.row }
         set {
             size = Position(newValue, isSquare_ ? newValue : size.col)
             delegate?.updateMazeSize()
@@ -20,7 +20,7 @@ class Maze: NSObject {
         }
     }
     var width: Int {
-        get {return size.col}
+        get { size.col }
         set {
             size = Position(size.row, newValue)
             delegate?.updateMazeSize()
@@ -29,7 +29,7 @@ class Maze: NSObject {
     }
     private var isSquare_ = true
     var isSquare: Bool {
-        get {return isSquare_}
+        get { isSquare_ }
         set {
             isSquare_ = newValue
             delegate?.updateIsSquare()
@@ -65,7 +65,7 @@ class Maze: NSObject {
     private var pos2obj = [Position: Character]()
     private var hasWall_ = false
     var hasWall: Bool {
-        get {return hasWall_}
+        get { hasWall_ }
         set {
             hasWall_ = newValue
             delegate?.updateHasWall()
@@ -74,17 +74,19 @@ class Maze: NSObject {
     }
     var horzWall = Set<Position>()
     var vertWall = Set<Position>()
+    var dots = Set<Position>()
     var curObj: Character = " "
     
-    func getObject(p: Position) -> Character? {return pos2obj[p]}
+    func getObject(p: Position) -> Character? { pos2obj[p] }
     func setObject(p: Position, ch: Character) {
         pos2obj[p] = ch
         curObj = ch
         delegate?.updateCurObject()
         delegate?.updateMazeView()
     }
-    func isHorzWall(p: Position) -> Bool {return horzWall.contains(p)}
-    func isVertWall(p: Position) -> Bool {return vertWall.contains(p)}
+    func isHorzWall(p: Position) -> Bool { horzWall.contains(p) }
+    func isVertWall(p: Position) -> Bool { vertWall.contains(p) }
+    func isDot(p: Position) -> Bool { dots.contains(p) }
     func toggleHorzWall(p: Position) {
         if horzWall.contains(p) {
             horzWall.remove(p)
@@ -98,6 +100,14 @@ class Maze: NSObject {
             vertWall.remove(p)
         } else {
             vertWall.insert(p)
+        }
+        delegate?.updateMazeView()
+    }
+    func toggleDot(p: Position) {
+        if dots.contains(p) {
+            dots.remove(p)
+        } else {
+            dots.insert(p)
         }
         delegate?.updateMazeView()
     }
@@ -133,9 +143,11 @@ class Maze: NSObject {
                 for r in 0...height {
                     for c in 0..<width {
                         let p = Position(r, c)
-                        str += isHorzWall(p: p) ? " -" : "  "
+                        str += isDot(p: p) ? "O" : " "
+                        str += isHorzWall(p: p) ? "-" : " "
                     }
-                    str += " `\n"
+                    str += isDot(p: Position(r, width)) ? "O" : " "
+                    str += "`\n"
                     if r == height {break}
                     for c in 0...width {
                         let p = Position(r, c)
@@ -166,9 +178,15 @@ class Maze: NSObject {
                 for r in 0...height {
                     let str1 = strs[2 * r]
                     for c in 0..<width {
+                        if str1[2 * c] == "O" {
+                            dots.insert(Position(r, c))
+                        }
                         if str1[2 * c + 1] == "-" {
                             horzWall.insert(Position(r, c))
                         }
+                    }
+                    if str1[2 * width] == "O" {
+                        dots.insert(Position(r, width))
                     }
                     if r == height {break}
                     let str2 = strs[2 * r + 1]

@@ -29,6 +29,9 @@
 		8CA2411A1EB47AC40055D6B1 /* PuzzleRetreat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2410C1EB47AC40055D6B1 /* PuzzleRetreat.cpp */; };
 		8CDAE7DA1F5ADE96000DE5AF /* PaintTheNurikabe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CDAE7D71F5ADE96000DE5AF /* PaintTheNurikabe.cpp */; };
 		950CA84E20FA08C10092A1D4 /* PourWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 950CA84C20FA08C10092A1D4 /* PourWater.cpp */; };
+		95406C32255FA19900C87A0D /* Pipemania.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95406C29255FA19900C87A0D /* Pipemania.cpp */; };
+		95406C33255FA19900C87A0D /* Picnic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95406C2A255FA19900C87A0D /* Picnic.cpp */; };
+		95406C34255FA19900C87A0D /* Pointing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95406C2E255FA19900C87A0D /* Pointing.cpp */; };
 		955BEDC12303AC1D00535B97 /* Planets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 955BEDBE2303AC1D00535B97 /* Planets.cpp */; };
 		95D7B5F7231D7351001E005C /* PlugItIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5F4231D7351001E005C /* PlugItIn.cpp */; };
 		95E37B2B2344BDD70054284F /* PouringWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E37B292344BDD70054284F /* PouringWater.cpp */; };
@@ -135,6 +138,15 @@
 		950CA84B20FA08C10092A1D4 /* PourWater.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PourWater.xml; sourceTree = "<group>"; };
 		950CA84C20FA08C10092A1D4 /* PourWater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PourWater.cpp; sourceTree = "<group>"; };
 		950CA84D20FA08C10092A1D4 /* PourWater.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PourWater.txt; sourceTree = "<group>"; };
+		95406C29255FA19900C87A0D /* Pipemania.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pipemania.cpp; sourceTree = "<group>"; };
+		95406C2A255FA19900C87A0D /* Picnic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Picnic.cpp; sourceTree = "<group>"; };
+		95406C2B255FA19900C87A0D /* Pipemania.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pipemania.txt; sourceTree = "<group>"; };
+		95406C2C255FA19900C87A0D /* Pipemania.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Pipemania.xml; sourceTree = "<group>"; };
+		95406C2D255FA19900C87A0D /* Pointing.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Pointing.xml; sourceTree = "<group>"; };
+		95406C2E255FA19900C87A0D /* Pointing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pointing.cpp; sourceTree = "<group>"; };
+		95406C2F255FA19900C87A0D /* Picnic.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Picnic.xml; sourceTree = "<group>"; };
+		95406C30255FA19900C87A0D /* Picnic.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Picnic.txt; sourceTree = "<group>"; };
+		95406C31255FA19900C87A0D /* Pointing.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pointing.txt; sourceTree = "<group>"; };
 		955BEDBE2303AC1D00535B97 /* Planets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Planets.cpp; sourceTree = "<group>"; };
 		955BEDBF2303AC1D00535B97 /* Planets.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Planets.txt; sourceTree = "<group>"; };
 		955BEDC02303AC1D00535B97 /* Planets.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Planets.xml; sourceTree = "<group>"; };
@@ -223,6 +235,12 @@
 				8CA240FA1EB47AC40055D6B1 /* Pharaoh.cpp */,
 				8CA240FB1EB47AC40055D6B1 /* Pharaoh.txt */,
 				8CA240FC1EB47AC40055D6B1 /* Pharaoh.xml */,
+				95406C2A255FA19900C87A0D /* Picnic.cpp */,
+				95406C30255FA19900C87A0D /* Picnic.txt */,
+				95406C2F255FA19900C87A0D /* Picnic.xml */,
+				95406C29255FA19900C87A0D /* Pipemania.cpp */,
+				95406C2B255FA19900C87A0D /* Pipemania.txt */,
+				95406C2C255FA19900C87A0D /* Pipemania.xml */,
 				955BEDBE2303AC1D00535B97 /* Planets.cpp */,
 				955BEDBF2303AC1D00535B97 /* Planets.txt */,
 				955BEDC02303AC1D00535B97 /* Planets.xml */,
@@ -232,6 +250,9 @@
 				95D7B5F4231D7351001E005C /* PlugItIn.cpp */,
 				95D7B5F5231D7351001E005C /* PlugItIn.txt */,
 				95D7B5F6231D7351001E005C /* PlugItIn.xml */,
+				95406C2E255FA19900C87A0D /* Pointing.cpp */,
+				95406C31255FA19900C87A0D /* Pointing.txt */,
+				95406C2D255FA19900C87A0D /* Pointing.xml */,
 				95E37B292344BDD70054284F /* PouringWater.cpp */,
 				95E37B2A2344BDD70054284F /* PouringWater.txt */,
 				95E37B282344BDD70054284F /* PouringWater.xml */,
@@ -311,7 +332,7 @@
 		8CA23EBC1EA9233C0055D6B1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = "趙偉";
 				TargetAttributes = {
 					8CA23EC31EA9233C0055D6B1 = {
@@ -345,11 +366,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CA2410D1EB47AC40055D6B1 /* Pairakabe.cpp in Sources */,
+				95406C33255FA19900C87A0D /* Picnic.cpp in Sources */,
 				8CDAE7DA1F5ADE96000DE5AF /* PaintTheNurikabe.cpp in Sources */,
 				955BEDC12303AC1D00535B97 /* Planets.cpp in Sources */,
 				8C5AE25B1EC0BAF5000F0949 /* Patchmania.cpp in Sources */,
 				8CA241151EB47AC40055D6B1 /* pegsolitary.cpp in Sources */,
 				8CA241181EB47AC40055D6B1 /* PowerGrid.cpp in Sources */,
+				95406C32255FA19900C87A0D /* Pipemania.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA241171EB47AC40055D6B1 /* Planks.cpp in Sources */,
@@ -367,6 +390,7 @@
 				95E37B2B2344BDD70054284F /* PouringWater.cpp in Sources */,
 				8CA241191EB47AC40055D6B1 /* ProductSentinels.cpp in Sources */,
 				950CA84E20FA08C10092A1D4 /* PourWater.cpp in Sources */,
+				95406C34255FA19900C87A0D /* Pointing.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA241131EB47AC40055D6B1 /* pathfind.cpp in Sources */,
 			);
@@ -400,6 +424,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -457,6 +482,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

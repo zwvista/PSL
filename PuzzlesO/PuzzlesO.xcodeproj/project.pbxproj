@@ -75,6 +75,9 @@
 		8CDAE7DE1F5BE4E1000DE5AF /* OverUnder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OverUnder.cpp; sourceTree = "<group>"; };
 		8CDAE7DF1F5BE4E1000DE5AF /* OverUnder.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OverUnder.txt; sourceTree = "<group>"; };
 		8CDAE7E01F5BE4E1000DE5AF /* OverUnder.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = OverUnder.xml; sourceTree = "<group>"; };
+		95406C39255FA1E700C87A0D /* OneUpOrDown.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OneUpOrDown.cpp; sourceTree = "<group>"; };
+		95406C3A255FA1E700C87A0D /* OneUpOrDown.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OneUpOrDown.txt; sourceTree = "<group>"; };
+		95406C3B255FA1E700C87A0D /* OneUpOrDown.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OneUpOrDown.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,9 @@
 				8CA240CC1EB47AA70055D6B1 /* on_the_edge.cpp */,
 				8CA240CD1EB47AA70055D6B1 /* on_the_edge.txt */,
 				8CA240CE1EB47AA70055D6B1 /* on_the_edge.xml */,
+				95406C39255FA1E700C87A0D /* OneUpOrDown.cpp */,
+				95406C3A255FA1E700C87A0D /* OneUpOrDown.txt */,
+				95406C3B255FA1E700C87A0D /* OneUpOrDown.xml */,
 				8CA240CF1EB47AA70055D6B1 /* openvalve.cpp */,
 				8CA240D01EB47AA70055D6B1 /* openvalve.txt */,
 				8CA240D11EB47AA70055D6B1 /* openvalve.xml */,
@@ -188,7 +194,7 @@
 		8CA23EBC1EA9233C0055D6B1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = "趙偉";
 				TargetAttributes = {
 					8CA23EC31EA9233C0055D6B1 = {
@@ -262,6 +268,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -319,6 +326,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
