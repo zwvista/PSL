@@ -7,7 +7,7 @@ TR222
 01TR1
 Number of moves: 1
 Number of vertices examined: 2
-0.0006645 [s]
+0.0006052 [s]
 
 Level 300
 Sequence of moves: 
@@ -25,5 +25,5 @@ R2..22T.1...
 ........RT..
 Number of moves: 13
 Number of vertices examined: 13559
-0.900271 [s]
+0.865368 [s]
 
