@@ -109,12 +109,14 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(int i, int j);
-    void make_move2(int i, int j);
+    bool make_move2(int i, int j);
     int find_matches(bool init);
-    void remove_matches(int id1, int id2, int n) {
-        boost::remove_erase_if(m_matches[id1], [&](int id) {
+    bool remove_matches(int id1, int id2, int n) {
+        auto& v = m_matches[id1];
+        boost::remove_erase_if(v, [&](int id) {
             return m_game->m_perms[id].m_nums[id2] != n;
         });
+        return !v.empty();
     }
 
     //solve_puzzle interface
@@ -143,32 +145,17 @@ puz_state::puz_state(const puz_game& g)
     boost::iota(perm_ids, 0);
     for (int i = 0; i < sidelen() * 2; ++i)
         m_matches[i] = perm_ids;
-    for (auto& [p, n] : m_pos2num) {
-        auto& [r, c] = p;
-        if (n == 0) {
-            remove_matches(r, c, 0);
-            remove_matches(sidelen() + c, r, 0);
+    for (auto& [p, n] : m_pos2num)
+        if (n == 0 || n == 2) {
+            auto& [r, c] = p;
+            remove_matches(r, c, n / 2);
+            remove_matches(sidelen() + c, r, n / 2);
         }
-        if (n == 2) {
-            remove_matches(r, c, 1);
-            remove_matches(sidelen() + c, r, 1);
-        }
-    }
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, n] : m_pos2num)
-        if (n == 1) {
-            auto& [r, c] = p;
-            int cnt1 = m_matches.count(r), cnt2 = m_matches.count(sidelen() + c);
-            if (cnt1 == 1 && cnt2 == 0)
-                remove_matches(r, c, 1 - m_game->m_perms[m_rc2index.at(sidelen() + c)].m_nums[r]);
-            if (cnt1 == 0 && cnt2 == 1)
-                remove_matches(sidelen() + c, r, 1 - m_game->m_perms[m_rc2index.at(r)].m_nums[c]);
-        }
-
     for (auto& kv : m_matches) {
         int i = kv.first;
         auto& perm_ids = kv.second;
@@ -188,13 +175,13 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(i, perm_ids[0]), 1;
+                return make_move2(i, perm_ids[0]) ? 1 : 0;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(int i, int j)
+bool puz_state::make_move2(int i, int j)
 {
     auto& rng = m_game->m_area2range.at(i);
     auto& perm = m_game->m_perms[j].m_perm;
@@ -207,19 +194,27 @@ void puz_state::make_move2(int i, int j)
     for (auto it = m_pos2num.begin(); it != m_pos2num.end();) {
         auto& [p, n] = *it;
         auto& [r, c] = p;
-        if (m_rc2index.count(r) == 1 && m_rc2index.count(sidelen() + c) == 1) {
+        int cnt1 = m_matches.count(r), cnt2 = m_matches.count(sidelen() + c);
+        if (cnt1 == 0 && cnt2 == 0) {
             m_distance++;
             it = m_pos2num.erase(it);
         }
-        else
+        else {
+            if (n == 1 && (
+                cnt1 == 1 && cnt2 == 0 && !remove_matches(r, c, 1 - m_game->m_perms[m_rc2index.at(sidelen() + c)].m_nums[r]) ||
+                cnt1 == 0 && cnt2 == 1 && !remove_matches(sidelen() + c, r, 1 - m_game->m_perms[m_rc2index.at(r)].m_nums[c])))
+                return false;
             it++;
+        }
     }
+    return true;
 }
 
 bool puz_state::make_move(int i, int j)
 {
     m_distance = 0;
-    make_move2(i, j);
+    if (!make_move2(i, j))
+        return false;
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
