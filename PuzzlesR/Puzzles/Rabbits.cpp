@@ -107,7 +107,7 @@ struct puz_state
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
     bool make_move(int i, int j);
-    bool make_move2(int i, int j);
+    void make_move2(int i, int j);
     int find_matches(bool init);
     void remove_matches(int id1, int id2, int n) {
         boost::remove_erase_if(m_matches[id1], [&](int id) {
@@ -177,13 +177,22 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(i, perm_ids[0]) ? 1 : 0;
+                return make_move2(i, perm_ids[0]), 1;
             }
+    }
+    for (auto& [p, n] : m_game->m_pos2num) {
+        auto& [r, c] = p;
+        if (n == 1) {
+            if (m_rc2index.count(r) == 0 && m_rc2index.count(sidelen() + c) == 1)
+                remove_matches(r, c, 1 - m_game->m_perms[m_rc2index.at(sidelen() + c)].m_nums[r]);
+            if (m_rc2index.count(r) == 1 && m_rc2index.count(sidelen() + c) == 0)
+                remove_matches(sidelen() + c, r, 1 - m_game->m_perms[m_rc2index.at(r)].m_nums[c]);
+        }
     }
     return 2;
 }
 
-bool puz_state::make_move2(int i, int j)
+void puz_state::make_move2(int i, int j)
 {
     auto& rng = m_game->m_area2range.at(i);
     auto& perm = m_game->m_perms[j].m_perm;
@@ -196,22 +205,13 @@ bool puz_state::make_move2(int i, int j)
     for (auto it = m_rng_nums.begin(); it != m_rng_nums.end();) {
         auto& p = *it;
         auto& [r, c] = p;
-        bool b1 = m_rc2index.count(r) == 1, b2 = m_rc2index.count(sidelen() + c) == 1;
-        int n1 = b1 ? m_game->m_perms[m_rc2index[r]].m_nums[c] : 0, n2 = b2 ? m_game->m_perms[m_rc2index[sidelen() + c]].m_nums[r] : 0;
-        int n3 = n1 + n2, n4 = m_game->m_pos2num.at(p);
-        if (b1 && b2) {
-            if (n3 != n4)
-                return false;
+        if (m_rc2index.count(r) == 1 && m_rc2index.count(sidelen() + c) == 1) {
             m_distance++;
             it = m_rng_nums.erase(it);
         }
-        else {
-            if (n3 > n4)
-                return false;
+        else
             it++;
-        }
     }
-    return true;
 }
 
 bool puz_state::make_move(int i, int j)
