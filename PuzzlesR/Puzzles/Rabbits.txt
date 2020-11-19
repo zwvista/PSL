@@ -5,7 +5,7 @@ RT.0.
 TR222
 ..R2T
 01TR1
-Number of moves: 1
-Number of vertices examined: 2
-0.0112776 [s]
+Number of moves: 3
+Number of vertices examined: 4
+0.0008619 [s]
 
