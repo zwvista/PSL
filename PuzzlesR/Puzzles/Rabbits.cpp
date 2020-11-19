@@ -174,13 +174,13 @@ int puz_state::find_matches(bool init)
             });
         });
 
-        if (!init)
-            switch(perm_ids.size()) {
-            case 0:
-                return 0;
-            case 1:
-                return make_move2(i, perm_ids[0]), 1;
-            }
+        //if (!init)
+        //    switch(perm_ids.size()) {
+        //    case 0:
+        //        return 0;
+        //    case 1:
+        //        return make_move2(i, perm_ids[0]), 1;
+        //    }
     }
     for (auto& [p, n] : m_game->m_pos2num) {
         auto& [r, c] = p;
