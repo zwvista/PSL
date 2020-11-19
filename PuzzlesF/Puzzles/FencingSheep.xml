@@ -40,5 +40,47 @@
  - - - - - `
     ]]>
   </level>
+  <level id="36">
+    <![CDATA[
+ - - - - - - `
+|      W S  |`
+             `
+|    W      |`
+        O    `
+|  W   S   W|`
+        O O  `
+|           |`
+        O    `
+|  S       W|`
+        O    `
+|    W      |`
+ - - - - - - `
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+ - - - - - - - - - - `
+|  W W W   S   W   W|`
+                     `
+|W   W W S   W W S  |`
+        O O   O O    `
+|    S             W|`
+                     `
+|      W     W   W W|`
+    O           O    `
+|            W W    |`
+  O   O     O        `
+|W W             S  |`
+  O O             O  `
+|  S W     S       S|`
+                     `
+|  W           S    |`
+    O   O   O   O O  `
+|W     S            |`
+    O   O O          `
+|                   |`
+ - - - - - - - - - - `
+    ]]>
+  </level>
 </levels>
 </puzzle>
