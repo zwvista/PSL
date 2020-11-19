@@ -174,22 +174,23 @@ int puz_state::find_matches(bool init)
             });
         });
 
-        //if (!init)
-        //    switch(perm_ids.size()) {
-        //    case 0:
-        //        return 0;
-        //    case 1:
-        //        return make_move2(i, perm_ids[0]), 1;
-        //    }
-    }
-    for (auto& [p, n] : m_game->m_pos2num) {
-        auto& [r, c] = p;
-        if (n == 1) {
-            if (m_rc2index.count(r) == 0 && m_rc2index.count(sidelen() + c) == 1)
-                remove_matches(r, c, 1 - m_game->m_perms[m_rc2index.at(sidelen() + c)].m_nums[r]);
-            if (m_rc2index.count(r) == 1 && m_rc2index.count(sidelen() + c) == 0)
-                remove_matches(sidelen() + c, r, 1 - m_game->m_perms[m_rc2index.at(r)].m_nums[c]);
+        for (auto& [p, n] : m_game->m_pos2num) {
+            auto& [r, c] = p;
+            if (n == 1) {
+                if (i == r && m_rc2index.count(sidelen() + c) == 1)
+                    remove_matches(r, c, 1 - m_game->m_perms[m_rc2index.at(sidelen() + c)].m_nums[r]);
+                if (i == sidelen() + c && m_rc2index.count(r) == 1)
+                    remove_matches(sidelen() + c, r, 1 - m_game->m_perms[m_rc2index.at(r)].m_nums[c]);
+            }
         }
+
+        if (!init)
+            switch(perm_ids.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(i, perm_ids[0]), 1;
+            }
     }
     return 2;
 }
