@@ -164,6 +164,7 @@
     <Text Include="Puzzles\CastleBailey.txt" />
     <Text Include="Puzzles\CastlePatrol.txt" />
     <Text Include="Puzzles\Cheese.txt" />
+    <Text Include="Puzzles\Chocolate.txt" />
     <Text Include="Puzzles\Clouds.txt" />
     <Text Include="Puzzles\Clouds2.txt" />
     <Text Include="Puzzles\CoffeeAndSugar.txt" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Puzzles\CastleBailey.cpp" />
     <ClCompile Include="Puzzles\CastlePatrol.cpp" />
     <ClCompile Include="Puzzles\Cheese.cpp" />
+    <ClCompile Include="Puzzles\Chocolate.cpp" />
     <ClCompile Include="Puzzles\Clouds.cpp" />
     <ClCompile Include="Puzzles\CoffeeAndSugar.cpp" />
     <ClCompile Include="Puzzles\Consecutives.cpp" />
@@ -212,6 +214,7 @@
     <Xml Include="Puzzles\CastleBailey.xml" />
     <Xml Include="Puzzles\CastlePatrol.xml" />
     <Xml Include="Puzzles\Cheese.xml" />
+    <Xml Include="Puzzles\Chocolate.xml" />
     <Xml Include="Puzzles\Clouds.xml" />
     <Xml Include="Puzzles\Clouds2.xml" />
     <Xml Include="Puzzles\CoffeeAndSugar.xml" />
