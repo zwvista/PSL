@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29209.62
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MazeEditor", "MazeEditor\MazeEditor.vcxproj", "{6CEE0F90-6308-41D9-9511-C9CDD88366A1}"
 EndProject
@@ -595,8 +595,8 @@ Global
 		{9E2BDF32-7B23-4BB0-A0E6-57272A613278}.Release|x86.Build.0 = Release|Any CPU
 		{B196A072-AF89-486B-AB31-13EBAF59B46D}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{B196A072-AF89-486B-AB31-13EBAF59B46D}.Debug|ARM.ActiveCfg = Debug|Win32
-		{B196A072-AF89-486B-AB31-13EBAF59B46D}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{B196A072-AF89-486B-AB31-13EBAF59B46D}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{B196A072-AF89-486B-AB31-13EBAF59B46D}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{B196A072-AF89-486B-AB31-13EBAF59B46D}.Debug|Mixed Platforms.Build.0 = Debug|x64
 		{B196A072-AF89-486B-AB31-13EBAF59B46D}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B196A072-AF89-486B-AB31-13EBAF59B46D}.Debug|Win32.Build.0 = Debug|Win32
 		{B196A072-AF89-486B-AB31-13EBAF59B46D}.Debug|x64.ActiveCfg = Debug|x64
