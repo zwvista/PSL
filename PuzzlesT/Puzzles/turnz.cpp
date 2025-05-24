@@ -103,7 +103,7 @@ struct puz_state
 
 bool puz_state::make_move(int i)
 {
-    static char* dirs = ")(";
+    static char dirs[] = ")(";
     m_move = dirs[i];
     m_grav = (m_grav + (i == 0 ? 1 : 3)) % 4;
     Position os = offset[m_grav];

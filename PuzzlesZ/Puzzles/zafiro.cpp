@@ -115,7 +115,7 @@ struct puz_state : string
 
 bool puz_state::make_move(int i)
 {
-    static char* dirs = "drul";
+    static char dirs[] = "drul";
     int j = i == 4 ? m_grav :(i + m_grav) % 4;
     Position os = offset[j];
     bool moved = false;

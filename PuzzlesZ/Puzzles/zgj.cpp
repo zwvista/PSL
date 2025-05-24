@@ -122,7 +122,7 @@ struct puz_state2 : puz_state_base
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    static char* dirs = "lrud";
+    static char dirs[] = "lrud";
     for (int i = 0; i < 4; ++i) {
         Position p = m_monkey + offset[i];
         if (cells(p) == PUZ_SPACE) {
@@ -140,7 +140,7 @@ puz_state::puz_state(const puz_state2& x2)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    static char* dirs = "LRUD";
+    static char dirs[] = "LRUD";
     list<puz_state2> smoves;
     puz_move_generator<puz_state2>::gen_moves(*this, smoves);
     for (const puz_state2& s : smoves)

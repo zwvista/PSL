@@ -84,7 +84,7 @@ struct puz_state
 
 void puz_state::make_move(int i)
 {
-    static char* moves = "urdl";
+    static char moves[] = "urdl";
     m_p += offset[i];
     m_move = moves[i];
 }
