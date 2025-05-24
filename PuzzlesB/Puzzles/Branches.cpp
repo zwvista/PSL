@@ -239,7 +239,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             switch(char ch = cells({r, c})) {
             case PUZ_NUMBER:
-                out << boost::format("%2d") % m_game->m_pos2num.at(p);
+                out << format("{:2}", m_game->m_pos2num.at(p));
                 break;
             default:
                 out << ' ' << ch;

@@ -189,7 +189,7 @@ ostream& puz_state::dump(ostream& out) const
             if (n == PUZ_SHADED)
                 out << " .";
             else
-                out << boost::format("%2d") % n;
+                out << format("{:2}", n);
         }
         out << endl;
     }

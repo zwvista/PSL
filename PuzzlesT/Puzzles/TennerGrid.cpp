@@ -233,7 +233,7 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r <= rows(); ++r) {
         for (int c = 0; c < cols(); ++c)
-            out << boost::format("%3d") % cells({r, c});
+            out << format("{:3}", cells({r, c}));
         out << endl;
     }
     return out;

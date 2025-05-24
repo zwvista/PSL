@@ -152,7 +152,7 @@ ostream& puz_state::dump(ostream& out) const
             a = boost::lexical_cast<string>(i + 1);
             b = boost::lexical_cast<string>(j + 1);
         }
-        out << boost::format("move: %1% -> %2%\n") % a % b;
+        out << format("move: {} -> {}\n", a, b);
     }
     for (int i = 0; i < m_quantities.size(); i++) {
         if (i == 0 && m_game->m_has_tap_sink) continue;

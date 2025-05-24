@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/format.hpp>
+#include <format>
 #include <boost/operators.hpp>
 
 struct Position :
@@ -25,7 +25,15 @@ void parse_positions(const string& str, vector<Position>& vp);
 namespace std {
     inline ostream& operator<<(ostream& out, const Position& p)
     {
-        out << boost::format("(%1%,%2%)") % p.first % p.second;
+        out << std::format("{}", p);
         return out;
     }
+    template<>
+    struct formatter<Position> : formatter<string> {
+        auto format(Position p, format_context& ctx) const {
+            return formatter<string>::format(
+                std::format("({},{})", p.first, p.second),
+                ctx);
+        }
+    };
 }

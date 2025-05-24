@@ -93,7 +93,7 @@ ostream & operator<<(ostream &out, const puz_step &mi)
 {
     static string_view dirs = "LRUD";
     string head_tail = mi.is_head ? "head" : "tail";
-    out << boost::format("move: %1% %2% %3% %4%\n") % (mi.worm_index + 1) % head_tail % mi.p % dirs[mi.offset_index];
+    out << format("move: {} {} {} {}\n", (mi.worm_index + 1), head_tail, mi.p, dirs[mi.offset_index]);
     return out;
 }
 

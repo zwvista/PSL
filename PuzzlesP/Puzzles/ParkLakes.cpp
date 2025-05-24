@@ -314,7 +314,7 @@ ostream& puz_state::dump(ostream& out) const
                 int n = m_game->m_pos2hintinfo.at(p).m_sum;
                 if (n == -1)
                     n = get_hint(p);
-                out << boost::format("%2d") % n;
+                out << format("{:2}", n);
             } else
                 out << ' ' << (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
         }

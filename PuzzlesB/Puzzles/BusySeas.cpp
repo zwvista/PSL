@@ -189,7 +189,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_BOAT)
-                out << boost::format("%2d") % m_game->m_pos2num.at(p);
+                out << format("{:2}", m_game->m_pos2num.at(p));
             else
                 out << ' ' << ch;
         }

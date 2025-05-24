@@ -257,9 +257,9 @@ ostream& puz_state::dump(ostream& out) const
             if (r == sidelen() && c == sidelen())
                 break;
             else if (c == sidelen())
-                out << boost::format("%-2d") % f(r);
+                out << format("{:<2}", f(r));
             else if (r == sidelen())
-                out << boost::format("%-2d") % f(c + sidelen());
+                out << format("{:<2}", f(c + sidelen()));
             else
                 out << cells({r, c}) << ' ';
         out << endl;

@@ -220,7 +220,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int i = 0; i < sidelen(); ++i)
             if (cells(rc < sidelen() ? Position(rc, i) : Position(i, rc - sidelen())) == PUZ_WATER)
                 ++cnt;
-        out << boost::format(rc < sidelen() ? "%-2d" : "%2d") % cnt;
+        out << (rc < sidelen() ? format("{:<2}", cnt) : format("{:2}", cnt));
     };
     for (int r = 0;; ++r) {
         // draw horz-walls

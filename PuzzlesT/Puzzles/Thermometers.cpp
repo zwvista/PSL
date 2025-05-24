@@ -244,9 +244,9 @@ ostream& puz_state::dump(ostream& out) const
             if (r == sidelen() && c == sidelen())
                 break;
             if (c == sidelen())
-                out << boost::format("%-2d") % m_game->m_filled_counts_rows[r];
+                out << format("{:<2}", m_game->m_filled_counts_rows[r]);
             else if (r == sidelen())
-                out << boost::format("%-2d") % m_game->m_filled_counts_cols[c];
+                out << format("{:<2}", m_game->m_filled_counts_cols[c]);
             else
                 out << cells({r, c}) << ' ';
         }

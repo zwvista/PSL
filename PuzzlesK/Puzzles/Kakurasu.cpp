@@ -198,7 +198,7 @@ ostream& puz_state::dump(ostream& out) const
             if (n == PUZ_UNKNOWN || n == 0)
                 out << "  .";
             else
-                out << boost::format("%3d") % cells({r, c});
+                out << format("{:3}", cells({r, c}));
         }
         out << endl;
     }

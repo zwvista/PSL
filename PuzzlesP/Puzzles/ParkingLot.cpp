@@ -279,7 +279,7 @@ ostream& puz_state::dump(ostream& out) const
             if (it == m_game->m_pos2hintinfo.end())
                 out << " .";
             else
-                out << boost::format("%2d") % it->second.m_move_count;
+                out << format("{:2}", it->second.m_move_count);
         }
         out << endl;
     }
@@ -287,7 +287,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             char ch = cells({r, c});
-            out << boost::format("%-2s") % (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
+            out << format("{:<2}", ch == PUZ_SPACE ? PUZ_EMPTY : ch);
         }
         out << endl;
     }

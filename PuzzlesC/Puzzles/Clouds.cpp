@@ -271,9 +271,9 @@ ostream& puz_state::dump(ostream& out) const
             if (r == sidelen() - 1 && c == sidelen() - 1)
                 break;
             else if (c == sidelen() - 1)
-                out << boost::format("%-2d") % m_game->m_piece_counts_rows[r];
+                out << format("{:<2}", m_game->m_piece_counts_rows[r]);
             else if (r == sidelen() - 1)
-                out << boost::format("%-2d") % m_game->m_piece_counts_cols[c];
+                out << format("{:<2}", m_game->m_piece_counts_cols[c]);
             else
                 out << cells({r, c}) << ' ';
         out << endl;

@@ -214,7 +214,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_ARROW)
-                out << boost::format("%-2d") % m_game->m_pos2arrow.at(p);
+                out << format("{:<2}", m_game->m_pos2arrow.at(p));
             else
                 out << ch << " ";
         }

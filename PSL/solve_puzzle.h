@@ -39,7 +39,7 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
             int i = 1;
             for (auto& spath : spaths) {
                 if (spaths.size() > 1)
-                    out << boost::format("Solution %d:\n") % i++;
+                    out << format("Solution {}:\n", i++);
                 out << "Sequence of moves: ";
                 if (fmt != solution_format::MOVES_ONLY_SINGLE_LINE)
                     out << endl;

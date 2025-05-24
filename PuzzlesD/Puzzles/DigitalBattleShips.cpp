@@ -444,8 +444,8 @@ ostream& puz_state::dump(ostream& out) const
             if (r == sidelen() && c == sidelen())
                 break;
             else if (c == sidelen() || r == sidelen())
-                out << boost::format("%2d") % 
-                f(c == sidelen() ? r : c + sidelen())
+                out << format("{:2}",
+                f(c == sidelen() ? r : c + sidelen()))
                 << ' ';
             else {
                 Position p(r, c);

@@ -216,7 +216,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    auto f = [&](int n) { out << boost::format("%-2d") % n; };
+    auto f = [&](int n) { out << format("{:<2}", n); };
 
     for (int r = 0; r <= sidelen(); ++r) {
         for (int c = 0; c <= sidelen(); ++c)

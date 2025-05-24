@@ -187,9 +187,9 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             auto it = m_game->m_pos2num.find(p);
             if (it == m_game->m_pos2num.end())
-                out << boost::format("%-2s") % cells(p);
+                out << format("{:<2}", cells(p));
             else
-                out << boost::format("%-2d") % it->second;
+                out << format("{:<2}", it->second);
         }
         out << endl;
     }

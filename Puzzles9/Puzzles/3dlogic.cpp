@@ -57,7 +57,7 @@ typedef pair<char, Position3d> puz_step;
 
 ostream& operator<<(ostream& out, const puz_step& a)
 {
-    out << boost::format("%1%(%2%%3%%4%)") % a.first % a.second.first % a.second.second.first % a.second.second.second;
+    out << format("{}({}{}{})", a.first, a.second.first, a.second.second.first, a.second.second.second);
     return out;
 }
 

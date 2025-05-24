@@ -77,7 +77,7 @@ typedef pair<Position, EBrickDir> puz_step;
 ostream& operator<<(ostream& out, const puz_step& mi)
 {
     const string_view dirs = "LRUD";
-    out << boost::format("move: (%1%,%2%) %3%\n") % mi.first.first % mi.first.second % dirs[mi.second];
+    out << format("move: ({},{}) {}\n", mi.first.first, mi.first.second, dirs[mi.second]);
     return out;
 }
 

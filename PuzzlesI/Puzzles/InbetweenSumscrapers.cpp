@@ -189,7 +189,7 @@ ostream& puz_state::dump(ostream& out) const
             else if (n == PUZ_SKYSCRAPER)
                 out << PUZ_SKYSCRAPER_S;
             else
-                out << boost::format("%2d") % n;
+                out << format("{:2}", n);
         out << endl;
     }
     return out;

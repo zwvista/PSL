@@ -44,7 +44,7 @@ struct puz_step : pair<Position, int>
 
 ostream& operator<<(ostream &out, const puz_step &mi)
 {
-    out << boost::format("move: %1% %2%\n") % mi.first % dirs[mi.second];
+    out << format("move: {} {}\n", mi.first, dirs[mi.second]);
     return out;
 }
 

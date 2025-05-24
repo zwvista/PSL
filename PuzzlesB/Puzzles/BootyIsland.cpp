@@ -229,7 +229,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_MAP)
-                out << boost::format("%-2d") % m_game->m_pos2map.at(p);
+                out << format("{:<2}", m_game->m_pos2map.at(p));
             else
                 out << ch << " ";
         }

@@ -31,7 +31,6 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/bimap.hpp>
 #include <boost/foreach.hpp>
-#include <boost/format.hpp>
 #include <boost/optional.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/cxx11/none_of.hpp>
@@ -52,5 +51,4 @@ namespace ascii = boost::spirit::ascii;
 namespace phx = boost::phoenix;
 using namespace phx::arg_names;
 using namespace pugi;
-using boost::format;
 using boost::lexical_cast;

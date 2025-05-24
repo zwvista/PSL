@@ -245,7 +245,7 @@ ostream& puz_state::dump(ostream& out) const
             if (it == m_game->m_pos2area.end())
                 out << "  ";
             else
-                out << boost::format("%2d") % it->second.m_num;
+                out << format("{:2}", it->second.m_num);
             out << ch;
         }
         out << endl;

@@ -143,7 +143,7 @@ struct puz_step
 ostream& operator<<(ostream& out, const puz_step& mi)
 {
     const string_view dirs = "WLRUD";
-    out << boost::format("%-10s") % (mi.m_obj == moExplorer ? "Explorer:" : 
+    out << format("{:<10}", mi.m_obj == moExplorer ? "Explorer:" : 
         mi.m_obj <= moVertCrab ? "Crab:" : "Mummy:");
     Position pos2 = mi.m_pos - offset[mi.m_dir];
     out << " " << pos2 << " " << dirs[mi.m_dir] << " " << mi.m_pos << endl;

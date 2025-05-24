@@ -100,7 +100,7 @@ bool puz_state::make_move(int n, int dir, int step)
         return false;
     if (cells(p) == PUZ_SPACE && p != m_cats[n])
         m_cats[1 - n] = p;
-    m_move = (boost::format("%1%%2%%3%") % (n == 0 ? PUZ_MALE : PUZ_FEMALE) % moves[dir] % step).str();
+    m_move = format("{}{}{}", n == 0 ? PUZ_MALE : PUZ_FEMALE, moves[dir], step);
     return true;
 }
 
