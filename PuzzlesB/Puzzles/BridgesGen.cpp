@@ -142,13 +142,13 @@ void gen_puz_Bridges()
                     int k = i * i / 3 + (rand() % 5 - 2);
                     if (g.m_pos2nums.size() >= k) {
                         s = g.to_string();
-                        cout << s;
+                        print("{}", s);
                         break;
                     }
                 }
             } while(!is_valid_Bridges(s));
             stringstream ss;
-            ss << format("{}-{}", i, j + 1);
+            print(ss, "{}-{}", i, j + 1);
             save_new_Bridges(ss.str(), s);
         }
 }

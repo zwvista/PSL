@@ -281,7 +281,7 @@ namespace boost {
             }
             put(distance, s, zero);
 
-            std::cout << limit << std::endl;
+            std::println("{}", limit);
 
             depth_first_visit(g, s, dfs_vis, color, f);
 

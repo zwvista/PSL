@@ -91,7 +91,7 @@ public:
         list<puz_state> spath;
         spath.assign(1, sstart);
         for (;;) {
-            cout << cost_limit << endl;
+            println("{}", cost_limit);
             bool found = dfs(0, sstart, cost_limit, next_cost_limit, spath, examined);
             if (found) {
                 spaths.push_back(spath);

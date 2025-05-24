@@ -172,8 +172,8 @@ int main(int argc, char **argv)
     int sgoal[] = {1, 2, 3, 4, 5, 6, 7, 8, 0};
     smap.insert(StateMap::relation(start, pstate_t(3, 3, &sstart[0], &sstart[9])));
     pstate_t psgoal(3, 3, &sgoal[0], &sgoal[9]);
-    cout << "Start state:" << endl << smap.left.at(start) << endl;
-    cout << "Goal state:" << endl << psgoal << endl;
+    println("Start state:\n{}", smap.left.at(start));
+    println("Goal state:\n{}", psgoal);
     try {
         puz_visitor<default_astar_visitor> vis(psgoal, examine_seq, smap);
         astar_search(g, start, manhattan_dist(psgoal, smap),
@@ -191,11 +191,11 @@ int main(int argc, char **argv)
         }
         println("Sequence of moves:");
         for (vertex_t v : shortest_path)
-            cout << smap.left.at(v) << endl;
-        cout << "Number of moves: "
-            << shortest_path.size() - 1 << endl;
-        cout << "Number of vertices examined: "
-            << examine_seq.size() << endl;
+            println("{}", smap.left.at(v));
+        println("Number of moves: {}",
+            shortest_path.size() - 1);
+        println("Number of vertices examined: {}",
+            examine_seq.size())
     }
     return 0;
 }

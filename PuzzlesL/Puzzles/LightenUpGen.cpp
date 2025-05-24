@@ -165,6 +165,6 @@ void gen_puz_LightenUp()
         g.gen_lightbulbs();
         g.gen_nonhint(3);
         s = g.to_string();
-        cout << s;
+        print("{}", s);
     } while(!is_valid_LightenUp(s));
 }
