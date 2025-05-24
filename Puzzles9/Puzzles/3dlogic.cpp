@@ -1,3 +1,5 @@
+// https://omiplay.com/ja/games/3d-logic/
+
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "idastar_solver.h"
@@ -121,7 +123,6 @@ struct puz_state : puz_state_base
 {
     puz_state() {}
     puz_state(const puz_game& g) : m_cells(g.m_start), m_links(g.m_markers)
-        , m_index(0)
     {
         m_game = &g;
     }
@@ -150,7 +151,7 @@ struct puz_state : puz_state_base
     string m_cells;
     vector<Position3dPair> m_links;
     boost::optional<puz_step> m_move;
-    int m_index;
+    int m_index = 0;
 };
 
 struct puz_state2 : puz_state_base
