@@ -81,7 +81,7 @@ struct puz_state : Position
 
 bool puz_state::make_move(EDir dir)
 {
-    static char moves[] = "lrud";
+    static string_view moves = "lrud";
     Position p = *this + offset[dir];
     if (dir == mvLeft && m_game->is_vert_wall(*this) ||
         dir == mvRight && m_game->is_vert_wall(p) ||

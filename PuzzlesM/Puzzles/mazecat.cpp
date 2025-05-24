@@ -89,7 +89,7 @@ struct puz_state
 
 bool puz_state::make_move(int n, int dir, int step)
 {
-    static char moves[] = "lrud";
+    static string_view moves = "lrud";
     const Position& os = offset[dir];
     Position p = m_cats[n] + os;
     if (p == m_cats[1 - n] || cells(p) != PUZ_SPACE)

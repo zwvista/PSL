@@ -114,7 +114,7 @@ public:
 
 bool puz_state::make_move(size_t n, EDir dir)
 {
-    static char moves[] = "lrud";
+    static string_view moves = "lrud";
     Position& p = m_blocks[n];
     Position os = offset[dir];
     char& ch_push = cells(p - os);

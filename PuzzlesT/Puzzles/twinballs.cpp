@@ -95,7 +95,7 @@ struct puz_state
 
 bool puz_state::make_move(EDir dir)
 {
-    static char moves[] = "lrud";
+    static string_view moves = "lrud";
     bool moved = false;
     for (Position& ball : m_balls) {
         Position p2 = ball + offset[dir];

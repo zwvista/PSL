@@ -177,7 +177,7 @@ puz_state::puz_state(const puz_game& g)
 
 bool puz_state::make_move(int n, int dir)
 {
-    static char moves[] = "lrud";
+    static string_view moves = "lrud";
     const Position& os = offset[dir];
     bool triggered = false;
 

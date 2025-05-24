@@ -77,7 +77,7 @@ struct puz_state
 
 bool puz_state::make_move(const Position& p, int i)
 {
-    static char dirs[] = "lrud";
+    static string_view dirs = "lrud";
     Position os = offset[i];
     vector<Position> moved_balls;
 
