@@ -72,7 +72,7 @@ typedef pair<Position, int> puz_step;
 
 ostream& operator<<(ostream& out, const puz_step& a)
 {
-    char* dirs = "LRUD";
+    const string_view dirs = "LRUD";
     out << boost::format("(%1%,%2%)%3%") % a.first.first % a.first.second % dirs[a.second];
     return out;
 }

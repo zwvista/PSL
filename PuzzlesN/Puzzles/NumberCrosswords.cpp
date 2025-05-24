@@ -199,7 +199,7 @@ ostream& puz_state::dump(ostream& out) const
             if (n == PUZ_UNKNOWN || n == PUZ_EMPTY)
                 out << (n == PUZ_UNKNOWN ? "  " : " .");
             else
-                out << boost::boost::format("%2d") % n;
+                out << boost::format("%2d") % n;
         }
         out << endl;
     }

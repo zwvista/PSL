@@ -82,7 +82,7 @@ struct puz_state : string
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    char* dirs = "wens";
+    const string_view dirs = "wens";
     for (int i = 0; i < 4; ++i) {
         Position p = m_space + offset[i];
         if (is_valid(p)) {

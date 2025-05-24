@@ -84,7 +84,7 @@ struct puz_state : string
 
 bool puz_state::make_move(int i)
 {
-    char* dirs = "<>^v";
+    const string_view dirs = "<>^v";
     m_head += offset[i];
     if (!is_valid(m_head)) return false;
     char& ch = cells(m_head);

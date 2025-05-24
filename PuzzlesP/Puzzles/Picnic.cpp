@@ -37,7 +37,7 @@ const Position offset[] = {
     {0, -1},        // w
 };
 
-char* dirs = "^>v<";
+const string_view dirs = "^>v<";
 
 struct puz_game
 {

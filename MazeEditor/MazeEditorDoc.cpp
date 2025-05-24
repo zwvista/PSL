@@ -188,7 +188,7 @@ CString CMazeEditorDoc::GetData()
                 Position p(r, c);
                 str += IsVertWall(p) ? _T("|") : _T(" ");
                 if (c == MazeWidth()) break;
-                str += IsObject(p) ? CString(GetObject(p), 1) : _T(" ");
+                str += IsObject(p) ? CString(GetObject(p), 1) : CString(_T(" "));
             }
             str += "`\r\n";
         }
@@ -196,7 +196,7 @@ CString CMazeEditorDoc::GetData()
         for (int r = 0; r < MazeHeight(); ++r) {
             for (int c = 0; c < MazeWidth(); ++c) {
                 Position p(r, c);
-                str += IsObject(p) ? CString(GetObject(p), 1) : _T(" ");
+                str += IsObject(p) ? CString(GetObject(p), 1) : CString(_T(" "));
             }
             str += "`\r\n";
         }
@@ -235,7 +235,7 @@ void CMazeEditorDoc::SetWall(Position p, bool isDownOrRight, bool bVert, bool bR
     auto& rng = GetWallSet(bVert);
     if (isDownOrRight)
         p += bVert ? Position(0, 1) : Position(1, 0);
-    bReset ? rng.erase(p) : (void)rng.insert(p);
+    bReset ? (void)rng.erase(p) : (void)rng.insert(p);
 }
 
 void CMazeEditorDoc::SetHasWall( bool bHasWall )

@@ -142,7 +142,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::make_move(int i)
 {
-    char* dirs = "lrud";
+    const string_view dirs = "lrud";
 
     if (m_block != m_game->m_goal)
         cells(m_block) = cells(m_block) == PUZ_BLACK ? PUZ_WHITE : PUZ_HOLE;

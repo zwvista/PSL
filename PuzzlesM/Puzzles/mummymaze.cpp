@@ -142,7 +142,7 @@ struct puz_step
 
 ostream& operator<<(ostream& out, const puz_step& mi)
 {
-    char* dirs = "WLRUD";
+    const string_view dirs = "WLRUD";
     out << boost::format("%-10s") % (mi.m_obj == moExplorer ? "Explorer:" : 
         mi.m_obj <= moVertCrab ? "Crab:" : "Mummy:");
     Position pos2 = mi.m_pos - offset[mi.m_dir];
@@ -237,7 +237,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    char* objs = "ECDMN";
+    const string_view objs = "ECDMN";
     dump_move(out);
     const puz_game& g = *m_game;
     int rows = g.m_size.first;
