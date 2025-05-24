@@ -148,7 +148,7 @@ void gen_puz_Bridges()
                 }
             } while(!is_valid_Bridges(s));
             stringstream ss;
-            ss << format("%d-%d") % i % (j + 1);
+            ss << boost::format("%d-%d") % i % (j + 1);
             save_new_Bridges(ss.str(), s);
         }
 }

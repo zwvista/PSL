@@ -218,7 +218,7 @@ ostream& puz_state::dump(ostream& out) const
 {
     int operand1, operand2, result;
     prepare_equation(operand1, operand2, result);
-    out << format("%1%%2%%3%=%4%\n") % operand1 % m_operator % operand2 % result;
+    out << boost::format("%1%%2%%3%=%4%\n") % operand1 % m_operator % operand2 % result;
     return out;
 }
 

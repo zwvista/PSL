@@ -240,9 +240,9 @@ ostream& puz_state::dump(ostream& out) const
             if (r == sidelen() && c == sidelen())
                 break;
             if (c == sidelen())
-                out << format("%-2d") % m_game->m_tent_counts_rows[r];
+                out << boost::format("%-2d") % m_game->m_tent_counts_rows[r];
             else if (r == sidelen())
-                out << format("%-2d") % m_game->m_tent_counts_cols[c];
+                out << boost::format("%-2d") % m_game->m_tent_counts_cols[c];
             else
                 out << cells({r, c}) << ' ';
         }

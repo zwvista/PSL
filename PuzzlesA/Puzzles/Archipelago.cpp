@@ -297,7 +297,7 @@ ostream& puz_state::dump(ostream& out) const
             if (it == m_game->m_pos2islandinfo.end())
                 out << cells({r, c}) << ' ';
             else
-                out << format("%-2d") % it->second.m_area;
+                out << boost::format("%-2d") % it->second.m_area;
         }
         out << endl;
     }

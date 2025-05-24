@@ -389,7 +389,7 @@ ostream& puz_state::dump(ostream& out) const
                 if (it == m_game->m_pos2garden.end())
                     out << ". ";
                 else
-                    out << format("%-2d") % it->second.m_num;
+                    out << boost::format("%-2d") % it->second.m_num;
             }
         }
         out << endl;

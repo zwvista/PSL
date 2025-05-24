@@ -41,7 +41,7 @@ typedef pair<Position, char> puz_step;
 
 ostream& operator<<(ostream& out, const puz_step& a)
 {
-    out << format("(%1%,%2%)%3%") % a.first.first % a.first.second % a.second;
+    out << boost::format("(%1%,%2%)%3%") % a.first.first % a.first.second % a.second;
     return out;
 }
 

@@ -232,7 +232,7 @@ ostream& puz_state::dump(ostream& out) const
             if (it == m_game->m_pos2info.end())
                 out << (cells(p) == PUZ_SINGLE ? " 4" : " .");
             else
-                out << format("%2d") % it->second.second;
+                out << boost::format("%2d") % it->second.second;
         }
         out << endl;
     }

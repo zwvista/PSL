@@ -430,7 +430,7 @@ ostream& puz_state::dump(ostream& out) const
                 if (it == m_game->m_pos2num.end())
                     out << ". ";
                 else
-                    out << format("%-2d") % it->second;
+                    out << boost::format("%-2d") % it->second;
             }
         }
         out << endl;

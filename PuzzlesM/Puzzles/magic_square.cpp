@@ -35,7 +35,7 @@ struct puz_step
 
 ostream & operator<<(ostream &out, const puz_step &mi)
 {
-    out << format("move: %1% <=> %2%\n") % mi.m_p1 % mi.m_p2;
+    out << boost::format("move: %1% <=> %2%\n") % mi.m_p1 % mi.m_p2;
     return out;
 }
 
@@ -112,7 +112,7 @@ ostream& puz_state::dump(ostream& out) const
     dump_move(out);
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c)
-            out << format("%2d") % cells(r, c);
+            out << boost::format("%2d") % cells(r, c);
         out << endl;
     }
     return out;

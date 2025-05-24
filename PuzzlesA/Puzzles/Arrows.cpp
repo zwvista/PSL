@@ -257,7 +257,7 @@ ostream& puz_state::dump(ostream& out) const
             if (n == PUZ_CORNER)
                 out << "  ";
             else
-                out << format("%-2d") % n;
+                out << boost::format("%-2d") % n;
         }
         out << endl;
     }

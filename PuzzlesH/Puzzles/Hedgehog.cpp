@@ -346,7 +346,7 @@ ostream& puz_state::dump(ostream& out) const
             if (n == PUZ_BOULDER)
                 out << PUZ_BOULDER_STR;
             else
-                out << format("%3d") % n;
+                out << boost::format("%3d") % n;
         }
         out << endl;
     }

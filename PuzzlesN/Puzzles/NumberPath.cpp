@@ -116,7 +116,7 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-lines
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            out << format("%2d") % cells(p)
+            out << boost::format("%2d") % cells(p)
                 << (horz_lines.count(p) != 0 ? '-' : ' ');
         }
         out << endl;

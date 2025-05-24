@@ -297,7 +297,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_ISLAND)
-                out << format("%2d") % [&]{
+                out << boost::format("%2d") % [&]{
                     int n = 0;
                     for (auto& os : offset) {
                         char ch = cells(p + os);

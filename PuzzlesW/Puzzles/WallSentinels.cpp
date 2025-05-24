@@ -324,7 +324,7 @@ ostream& puz_state::dump(ostream& out) const
             char ch = cells(p);
             if (ch == PUZ_LAND_S || ch == PUZ_WALL_S)
                 out  << (ch == PUZ_LAND_S ? PUZ_LAND : PUZ_WALL)
-                << format("%-2d") % m_game->m_pos2num.at(p);
+                << boost::format("%-2d") % m_game->m_pos2num.at(p);
             else
                 out << ch << "  ";
         }

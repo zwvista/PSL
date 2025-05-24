@@ -131,7 +131,7 @@ ostream & operator<<(ostream &out, const puz_step &mi)
         out << "move: ";
         for (int i = 0; i < mi.size(); ++i) {
             auto& p = mi[i];
-            out << format("(%1%,%2%)") % (p.first + 1) % (p.second + 1);
+            out << boost::format("(%1%,%2%)") % (p.first + 1) % (p.second + 1);
             if (i < mi.size() - 1)
                 out << " -> ";
         }
@@ -404,7 +404,7 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
 {
     out << move;
     for (int c = 0; c < cols(); ++c)
-        out << format("%3d") % (c + 1);
+        out << boost::format("%3d") % (c + 1);
     out << endl;
     for (int r = 0;; ++r) {
         out << ' ';
@@ -426,7 +426,7 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
         out << (r + 1) << endl;
     }
     for (int c = 0; c < cols(); ++c)
-        out << format("%3d") % (c + 1);
+        out << boost::format("%3d") % (c + 1);
     out << endl;
     return out;
 }

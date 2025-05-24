@@ -68,7 +68,7 @@ struct puz_step
 
 ostream & operator<<(ostream &out, const puz_step &mi)
 {
-    out << format("move: %1% => %2%\n") % mi.m_p1 % mi.m_p2;
+    out << boost::format("move: %1% => %2%\n") % mi.m_p1 % mi.m_p2;
     return out;
 }
 

@@ -333,7 +333,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_LIGHT)
-                out << format("%-2d") % m_game->m_pos2light.at(p);
+                out << boost::format("%-2d") % m_game->m_pos2light.at(p);
             else
                 out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
         }

@@ -207,11 +207,11 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_NUMBER)
-                out << format("%-2d") % m_game->m_pos2num.at(p);
+                out << boost::format("%-2d") % m_game->m_pos2num.at(p);
             else {
                 if (ch == PUZ_SPACE)
                     ch = PUZ_EMPTY;
-                out << format("%-2s") % ch;
+                out << boost::format("%-2s") % ch;
             }
         }
         out << endl;
