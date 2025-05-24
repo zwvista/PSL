@@ -38,8 +38,8 @@ class MazeView: NSView {
         NSColor.black.set()
         let rows = maze.height;
         let cols = maze.width;
-        let vSpacing = dirtyRect.size.height / CGFloat(rows)
-        let hSpacing = dirtyRect.size.width / CGFloat(cols)
+        let vSpacing = frame.size.height / CGFloat(rows)
+        let hSpacing = frame.size.width / CGFloat(cols)
         spacing = min(vSpacing, hSpacing)
         let bPath:NSBezierPath = NSBezierPath()
         bPath.lineWidth = 2
