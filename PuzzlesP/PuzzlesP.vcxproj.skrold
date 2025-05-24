@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A30FE77A-7189-465A-9FBC-A97460B94882}</ProjectGuid>
+    <ProjectGuid>{02C96DE4-9922-4AB2-9461-D77B7E66733F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>PuzzlesN</RootNamespace>
-    <ProjectName>PuzzlesN</ProjectName>
+    <RootNamespace>PuzzlesP</RootNamespace>
+    <ProjectName>PuzzlesP</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm212</AdditionalOptions>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>-Zm212</AdditionalOptions>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm213 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,7 +147,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>-Zm213 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,19 +157,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="Puzzles\Neighbours.txt" />
-    <Text Include="Puzzles\Neighbours2.txt" />
-    <Text Include="Puzzles\Neighbours3.txt" />
-    <Text Include="Puzzles\NorthPoleFishing.txt" />
-    <Text Include="Puzzles\NoughtsAndCrosses.txt" />
-    <Text Include="Puzzles\NumberCrossing.txt" />
-    <Text Include="Puzzles\NumberCrossing2.txt" />
-    <Text Include="Puzzles\NumberCrosswords.txt" />
-    <Text Include="Puzzles\NumberLink.txt" />
-    <Text Include="Puzzles\NumberPath.txt" />
-    <Text Include="Puzzles\NumberPath2.txt" />
-    <Text Include="Puzzles\numeric_paranoia.txt" />
-    <Text Include="Puzzles\Nurikabe.txt" />
+    <Text Include="Puzzles\PaintTheNurikabe.txt" />
+    <Text Include="Puzzles\Pairakabe.txt" />
+    <Text Include="Puzzles\ParkingLot.txt" />
+    <Text Include="Puzzles\ParkLakes.txt" />
+    <Text Include="Puzzles\Parks.txt" />
+    <Text Include="Puzzles\Parks2.txt" />
+    <Text Include="Puzzles\Pata.txt" />
+    <Text Include="Puzzles\Patchmania.txt" />
+    <Text Include="Puzzles\pathfind_astar.txt" />
+    <Text Include="Puzzles\pathfind_bfs.txt" />
+    <Text Include="Puzzles\pathfind_dfs.txt" />
+    <Text Include="Puzzles\pathfind_dijkstra.txt" />
+    <Text Include="Puzzles\pathfind_idastar.txt" />
+    <Text Include="Puzzles\pathfind_idastar2.txt" />
+    <Text Include="Puzzles\patternpuzzle.txt" />
+    <Text Include="Puzzles\pegsolitary.txt" />
+    <Text Include="Puzzles\Pharaoh.txt" />
+    <Text Include="Puzzles\Pharaoh_a.txt" />
+    <Text Include="Puzzles\Pharaoh_ida.txt" />
+    <Text Include="Puzzles\Picnic.txt" />
+    <Text Include="Puzzles\Pipemania.txt" />
+    <Text Include="Puzzles\Planets.txt" />
+    <Text Include="Puzzles\Planks.txt" />
+    <Text Include="Puzzles\PlugItIn.txt" />
+    <Text Include="Puzzles\Pointing.txt" />
+    <Text Include="Puzzles\PouringWater.txt" />
+    <Text Include="Puzzles\PourWater.txt" />
+    <Text Include="Puzzles\PowerGrid.txt" />
+    <Text Include="Puzzles\ProductSentinels.txt" />
+    <Text Include="Puzzles\PuzzleRetreat_Everest.txt" />
+    <Text Include="Puzzles\PuzzleRetreat_Morning.txt" />
+    <Text Include="Puzzles\PuzzleRetreat_Welcome.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -185,16 +204,29 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Puzzles\Neighbours.cpp" />
-    <ClCompile Include="Puzzles\NorthPoleFishing.cpp" />
-    <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp" />
-    <ClCompile Include="Puzzles\NumberCrossing.cpp" />
-    <ClCompile Include="Puzzles\NumberCrosswords.cpp" />
-    <ClCompile Include="Puzzles\NumberLink.cpp" />
-    <ClCompile Include="Puzzles\NumberPath.cpp" />
-    <ClCompile Include="Puzzles\NumberPath2.cpp" />
-    <ClCompile Include="Puzzles\numeric_paranoia.cpp" />
-    <ClCompile Include="Puzzles\Nurikabe.cpp" />
+    <ClCompile Include="Puzzles\PaintTheNurikabe.cpp" />
+    <ClCompile Include="Puzzles\Pairakabe.cpp" />
+    <ClCompile Include="Puzzles\ParkingLot.cpp" />
+    <ClCompile Include="Puzzles\ParkLakes.cpp" />
+    <ClCompile Include="Puzzles\Parks.cpp" />
+    <ClCompile Include="Puzzles\Parks2.cpp" />
+    <ClCompile Include="Puzzles\Pata.cpp" />
+    <ClCompile Include="Puzzles\Patchmania.cpp" />
+    <ClCompile Include="Puzzles\pathfind.cpp" />
+    <ClCompile Include="Puzzles\patternpuzzle.cpp" />
+    <ClCompile Include="Puzzles\pegsolitary.cpp" />
+    <ClCompile Include="Puzzles\Pharaoh.cpp" />
+    <ClCompile Include="Puzzles\Picnic.cpp" />
+    <ClCompile Include="Puzzles\Pipemania.cpp" />
+    <ClCompile Include="Puzzles\Planets.cpp" />
+    <ClCompile Include="Puzzles\Planks.cpp" />
+    <ClCompile Include="Puzzles\PlugItIn.cpp" />
+    <ClCompile Include="Puzzles\Pointing.cpp" />
+    <ClCompile Include="Puzzles\PouringWater.cpp" />
+    <ClCompile Include="Puzzles\PourWater.cpp" />
+    <ClCompile Include="Puzzles\PowerGrid.cpp" />
+    <ClCompile Include="Puzzles\ProductSentinels.cpp" />
+    <ClCompile Include="Puzzles\PuzzleRetreat.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -203,17 +235,34 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\Neighbours.xml" />
-    <Xml Include="Puzzles\Neighbours2.xml" />
-    <Xml Include="Puzzles\Neighbours3.xml" />
-    <Xml Include="Puzzles\NorthPoleFishing.xml" />
-    <Xml Include="Puzzles\NoughtsAndCrosses.xml" />
-    <Xml Include="Puzzles\NumberCrossing.xml" />
-    <Xml Include="Puzzles\NumberCrosswords.xml" />
-    <Xml Include="Puzzles\NumberLink.xml" />
-    <Xml Include="Puzzles\NumberPath.xml" />
-    <Xml Include="Puzzles\numeric_paranoia.xml" />
-    <Xml Include="Puzzles\Nurikabe.xml" />
+    <Xml Include="Puzzles\PaintTheNurikabe.xml" />
+    <Xml Include="Puzzles\Pairakabe.xml" />
+    <Xml Include="Puzzles\ParkingLot.xml" />
+    <Xml Include="Puzzles\ParkLakes.xml" />
+    <Xml Include="Puzzles\Parks.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="Puzzles\Pata.xml" />
+    <Xml Include="Puzzles\Patchmania.xml" />
+    <Xml Include="Puzzles\pathfind.xml" />
+    <Xml Include="Puzzles\patternpuzzle.xml" />
+    <Xml Include="Puzzles\pegsolitary.xml" />
+    <Xml Include="Puzzles\Pharaoh.xml" />
+    <Xml Include="Puzzles\Picnic.xml" />
+    <Xml Include="Puzzles\Pipemania.xml" />
+    <Xml Include="Puzzles\Planets.xml" />
+    <Xml Include="Puzzles\Planks.xml" />
+    <Xml Include="Puzzles\PlugItIn.xml" />
+    <Xml Include="Puzzles\Pointing.xml" />
+    <Xml Include="Puzzles\PouringWater.xml" />
+    <Xml Include="Puzzles\PourWater.xml" />
+    <Xml Include="Puzzles\PowerGrid.xml" />
+    <Xml Include="Puzzles\ProductSentinels.xml" />
+    <Xml Include="Puzzles\PuzzleRetreat_Everest.xml" />
+    <Xml Include="Puzzles\PuzzleRetreat_Morning.xml" />
+    <Xml Include="Puzzles\PuzzleRetreat_Welcome.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

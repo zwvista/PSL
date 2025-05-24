@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm212</AdditionalOptions>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>-Zm212</AdditionalOptions>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm213 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,7 +147,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>-Zm213 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>..\PSL</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
