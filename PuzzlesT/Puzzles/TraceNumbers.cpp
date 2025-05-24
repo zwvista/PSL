@@ -179,8 +179,8 @@ int puz_state::find_matches(bool init)
             for (int i = 0, sz = perm.size(); i < sz; ++i) {
                 auto& p2 = perm[i];
                 int dt = dots(p2);
-                if (i < sz - 1 && m_matches.count({p2, PUZ_FROM}) == 0 ||
-                    i > 0 && m_matches.count({p2, PUZ_TO}) == 0)
+                if (i < sz - 1 && !m_matches.contains({p2, PUZ_FROM}) ||
+                    i > 0 && !m_matches.contains({p2, PUZ_TO}))
                     return true;
             }
             return false;

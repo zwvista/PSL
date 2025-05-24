@@ -209,7 +209,7 @@ int puz_state::adjust_area(bool init)
             char ch2;
             for (p2 = p + os; ; p2 += os) {
                 ch2 = cells(p2);
-                if (ch2 != PUZ_SPACE && m_matches.count(ch2) == 0) break;
+                if (ch2 != PUZ_SPACE && !m_matches.contains(ch2)) break;
                 if (ch2 == PUZ_SPACE)
                     a0.push_back(p2);
                 else {

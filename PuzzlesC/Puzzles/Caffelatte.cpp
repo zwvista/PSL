@@ -263,7 +263,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 auto& links = m_game->m_milk2links.at(p);
                 boost::remove_erase_if(perm_ids, [&](int id){
                     auto&& [i, p2] = links[id];
-                    return m_obj2cup.count(p2) == 0;
+                    return !m_obj2cup.contains(p2);
                 });
             }
             auto& kv = *boost::min_element(matches, [](

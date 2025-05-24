@@ -215,7 +215,7 @@ bool puz_state::make_move2(const Position& p, int n)
             }
         int sz = strNeighbors.size();
         if (sz > 2 || sz < 2 && (is_goal_state() || boost::algorithm::all_of(rngNeighbors, [&](const Position& p) {
-            return rngMatches.count(p) == 0;
+            return !rngMatches.contains(p);
         })))
             return false;
     }

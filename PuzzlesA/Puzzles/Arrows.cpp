@@ -192,7 +192,7 @@ int puz_state::find_matches(bool init)
                     // a negative direction means the arrow is not supposed
                     // to point to the number, so it should not be the only
                     // possible direction
-                    || n2 < 0 && (dirs.size() > 1 || dirs.count(~n2) == 0);
+                    || n2 < 0 && (dirs.size() > 1 || !dirs.contains(~n2));
             });
         });
 

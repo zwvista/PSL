@@ -218,7 +218,7 @@ int puz_state::check_dots(bool init)
             for (int c = 0; c < sidelen(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
-                if (dt.size() == 1 && m_finished.count(p) == 0)
+                if (dt.size() == 1 && !m_finished.contains(p))
                     newly_finished.insert(p);
             }
 
@@ -228,7 +228,7 @@ int puz_state::check_dots(bool init)
         n = 1;
         for (const auto& p : newly_finished) {
             int lineseg = dots(p)[0];
-            bool is_square = lineseg == lineseg_off && m_game->m_pos2info.count(p) == 0;
+            bool is_square = lineseg == lineseg_off && !m_game->m_pos2info.contains(p);
             for (int i = 0; i < 4; ++i) {
                 auto p2 = p + offset[i];
                 if (!is_valid(p2))
@@ -238,7 +238,7 @@ int puz_state::check_dots(bool init)
                 boost::remove_erase_if(dt, [=](int lineseg2) {
                     return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
                 });
-                if (is_square && m_game->m_pos2info.count(p2) == 0)
+                if (is_square && !m_game->m_pos2info.contains(p2))
                     boost::remove_erase(dt, lineseg_off);
                 if (!init && dt.empty())
                     return 0;

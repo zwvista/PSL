@@ -200,7 +200,7 @@ int puz_state::find_matches(bool init)
         auto perms = m_game->m_pos2gem.at(p).m_links;
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& o = perms[id];
-            return m_matches.count(o.m_target) == 0 ||
+            return !m_matches.contains(o.m_target) ||
                 (o.m_dir21 == -1 ? f(p, offset[o.m_dir11], o.m_target) :
                 dots(o.m_turn) != lineseg_off || f(p, offset[o.m_dir11], o.m_turn) || f(o.m_turn, offset[o.m_dir21], o.m_target));
         });

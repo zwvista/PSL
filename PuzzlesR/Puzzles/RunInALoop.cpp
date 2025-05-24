@@ -131,7 +131,7 @@ int puz_state::check_dots(bool init)
             for (int c = 0; c < sidelen(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
-                if (dt.size() == 1 && m_finished.count(p) == 0)
+                if (dt.size() == 1 && !m_finished.contains(p))
                     newly_finished.insert(p);
             }
 
@@ -228,7 +228,7 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-lines
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            out << char(m_game->m_blocks.count(p) == 0 ? ' ' : PUZ_BLOCK)
+            out << char(!m_game->m_blocks.contains(p) ? ' ' : PUZ_BLOCK)
                 << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }
         out << endl;

@@ -212,9 +212,9 @@ int puz_state::check_dots(bool init)
             for (int c = 0; c < sidelen(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
-                if (dt.size() == 1 && m_finished.count(p) == 0) {
+                if (dt.size() == 1 && !m_finished.contains(p)) {
                     newly_finished.insert(p);
-                    if (dt[0] == lineseg_off && m_shaded.count(p) == 0) {
+                    if (dt[0] == lineseg_off && !m_shaded.contains(p)) {
                         m_shaded.insert(p);
                         for (int j = 0; j < 4; ++j)
                             if (auto p2 = p + offset[j]; is_valid(p2))

@@ -252,7 +252,7 @@ int puz_state::check_dots(bool init)
             for (int c = 0; c < sidelen(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
-                if (dt.size() == 1 && m_finished_dots.count(p) == 0)
+                if (dt.size() == 1 && !m_finished_dots.contains(p))
                     newly_finished.insert(p);
             }
 

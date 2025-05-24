@@ -199,9 +199,9 @@ int puz_state::find_matches(bool init)
                         return false;
                 return true;
             };
-            return m_matches.count(o.m_t1) == 0
-                || m_matches.count(o.m_t2) == 0
-                || m_matches.count(o.m_t4) == 0
+            return !m_matches.contains(o.m_t1)
+                || !m_matches.contains(o.m_t2)
+                || !m_matches.contains(o.m_t4)
                 || !check_line(o.m_t1, o.m_t2, o.m_os1)
                 || !check_line(o.m_t3, o.m_t4, o.m_os2);
         });

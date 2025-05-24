@@ -136,7 +136,7 @@ struct puz_state
     bool operator==(const puz_state& x) const {
         return m_blocks == x.m_blocks && m_bridges == x.m_bridges;
     }
-    bool is_hole(const Position& p) const {return m_game->cells(p) == PUZ_HOLE && m_bridges.count(p) == 0;}
+    bool is_hole(const Position& p) const {return m_game->cells(p) == PUZ_HOLE && !m_bridges.contains(p);}
     bool is_orange(const Position& p) const {return m_game->cells(p) == PUZ_ORANGE;}
     bool make_move(int n, int dir);
     bool check_switch(const Position& p, bool heavy_included = false);

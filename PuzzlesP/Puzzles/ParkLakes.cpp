@@ -115,7 +115,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         for (int r = r1; r <= r2; ++r)
                             for (int c = c1; c <= c2; ++c) {
                                 Position p1(r, c);
-                                if (cells(p1) == PUZ_SPACE && hp.m_empty.count(p1) == 0)
+                                if (cells(p1) == PUZ_SPACE && !hp.m_empty.contains(p1))
                                     hp.m_water.insert(p1);
                                 else
                                     goto next_perm;
