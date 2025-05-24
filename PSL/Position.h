@@ -33,7 +33,7 @@ namespace std {
     };
     inline ostream& operator<<(ostream& out, const Position& p)
     {
-        out << std::format("{}", p);
+        out << format("{}", p);
         return out;
     }
 }

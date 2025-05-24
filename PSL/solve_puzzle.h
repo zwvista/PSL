@@ -27,9 +27,9 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
         util::high_resolution_timer t;
         puz_state sstart(game);
         list<list<puz_state>> spaths;
-        //out << "Start state:" << endl << sstart << endl;
-        out << "Level " << game.m_id << endl;
-        cout << "Level " << game.m_id << endl;
+        // println(out, "Start state:\n{}", sstart);
+        println(out, "Level {}", game.m_id);
+        println("Level {}", game.m_id);
         bool found;
         size_t vert_num;
         boost::tie(found, vert_num) = puz_solver::find_solution(sstart, spaths);
@@ -39,30 +39,30 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
             int i = 1;
             for (auto& spath : spaths) {
                 if (spaths.size() > 1)
-                    out << format("Solution {}:\n", i++);
-                out << "Sequence of moves: ";
+                    println(out, "Solution {}:", i++);
+                print(out, "Sequence of moves: ");
                 if (fmt != solution_format::MOVES_ONLY_SINGLE_LINE)
-                    out << endl;
+                    println(out);
                 if (fmt == solution_format::CUSTOM_STATES)
                     states_dumper(out, spath);
                 else if (fmt == solution_format::GOAL_STATE_ONLY)
-                    out << spath.back();
+                    print(out, spath.back());
                 else {
                     for (puz_state& s : spath) {
                         if (fmt == solution_format::MOVES_ONLY || fmt == solution_format::MOVES_ONLY_SINGLE_LINE)
                             s.dump_move(out);
                         else
-                            out << s;
+                            print(out, s);
                     }
                     if (fmt == solution_format::MOVES_ONLY_SINGLE_LINE)
-                        out << endl;
+                        println(out);
                 }
-                out << "Number of moves: " << spath.size() - 1 << endl;
+                println(out, "Number of moves: {}", spath.size() - 1);
             }
         }
-        out << "Number of vertices examined: " << vert_num << endl;
-        out << t.elapsed() << " [s]" << endl;
-        cout << t.elapsed() << " [s]" << endl;
-        out << endl;
+        println(out, "Number of vertices examined: {}", vert_num);
+        println(out, "{} [s]", t.elapsed());
+        println("{} [s]", t.elapsed());
+        println(out);
     }
 }
