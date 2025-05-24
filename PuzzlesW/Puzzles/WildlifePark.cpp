@@ -135,7 +135,7 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            bool is_dot3 = g.m_posts.count(p) != 0;
+            bool is_dot3 = g.m_posts.contains(p);
             if (r > 0 && c > 0 && r < sidelen() - 1 && c < sidelen() - 1)
                 if (is_dot3)
                     dt = linesegs_all3;
@@ -332,7 +332,7 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-lines
         for (int c = 0;; ++c) {
             Position p(r, c);
-            out << (m_game->m_posts.count(p) != 0 ? PUZ_POST : ' ');
+            out << (m_game->m_posts.contains(p) ? PUZ_POST : ' ');
             if (c == sidelen() - 1) break; 
             out << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }

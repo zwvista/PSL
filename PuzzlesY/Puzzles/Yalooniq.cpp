@@ -145,7 +145,7 @@ puz_state::puz_state(const puz_game& g)
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if (g.m_pos2info.count(p) != 0)
+            if (g.m_pos2info.contains(p))
                 continue;
 
             auto& dt = dots(p);
@@ -157,7 +157,7 @@ puz_state::puz_state(const puz_game& g)
                         auto p2 = p + offset[i];
                         // The line segment cannot lead to a position
                         // outside the board or cover any arrow cell
-                        if (!is_valid(p2) || g.m_pos2info.count(p2) != 0)
+                        if (!is_valid(p2) || g.m_pos2info.contains(p2))
                             return false;
                     }
                     return true;

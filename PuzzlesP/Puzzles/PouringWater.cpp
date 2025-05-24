@@ -114,7 +114,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             if (boost::algorithm::any_of(m_waters, [&](const puz_water& o) {
-                return o.m_rng.count(p) != 0;
+                return o.m_rng.contains(p);
             }))
                 continue;
             list<puz_state2> smoves;
@@ -123,7 +123,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (auto& p2 : smoves) {
                 o.m_rng.insert(p2);
                 auto f = [&](int i) {
-                    if (m_rc2num.count(i) != 0)
+                    if (m_rc2num.contains(i))
                         ++o.m_rc2num[i];
                 };
                 f(p2.first);
@@ -186,7 +186,7 @@ bool puz_state::make_move(int n)
     auto& o = m_game->m_waters[n];
     for (auto& p : o.m_rng) {
         auto f = [&](int rc) {
-            if (m_rc2num.count(rc) != 0)
+            if (m_rc2num.contains(rc))
                 --m_rc2num[rc], ++m_distance;
         };
         f(p.first);

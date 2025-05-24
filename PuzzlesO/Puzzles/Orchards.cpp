@@ -132,7 +132,7 @@ struct puz_area : pair<set<Position>, int>
     puz_area() : pair<set<Position>, int>({}, 2) {}
     void add_cell(const Position& p) { first.insert(p); }
     void remove_cell(const Position& p) { first.erase(p); }
-    bool can_plant_tree(const Position& p) { return first.count(p) != 0; }
+    bool can_plant_tree(const Position& p) { return first.contains(p); }
     void plant_tree(const Position& p) { first.erase(p); --second; }
     bool is_valid() const {
         // if second < 0, that means too many trees have been planted in this area

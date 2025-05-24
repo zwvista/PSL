@@ -97,7 +97,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 [&]{
                     Position os(sign(pd.first), sign(pd.second));
                     for (auto p3 = p1 + os; p3 != p2; p3 += os)
-                        if (m_pos2gem.count(p3) != 0)
+                        if (m_pos2gem.contains(p3))
                             return;
                     auto& o = gem1.m_links.emplace_back();
                     o.m_ch = gem2.m_ch;
@@ -108,12 +108,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if (gem1.m_ch == gem2.m_ch) continue;
                 auto pd = p2 - p1;
                 auto f = [&](const Position& pm, const Position& os1, const Position& os2) {
-                    if (m_pos2gem.count(pm) != 0) return;
+                    if (m_pos2gem.contains(pm)) return;
                     for (auto p3 = p1 + os1; p3 != pm; p3 += os1)
-                        if (m_pos2gem.count(p3) != 0)
+                        if (m_pos2gem.contains(p3))
                             return;
                     for (auto p3 = pm + os2; p3 != p2; p3 += os2)
-                        if (m_pos2gem.count(p3) != 0)
+                        if (m_pos2gem.contains(p3))
                             return;
                     auto& o = gem1.m_links.emplace_back();
                     o.m_ch = gem2.m_ch;

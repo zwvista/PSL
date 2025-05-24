@@ -305,7 +305,7 @@ bool puz_state::is_valid_move() const
             }
             if (has_space)
                 continue;
-            if (nums.count(n) != 0)
+            if (nums.contains(n))
                 return false;
             else
                 nums.insert(n);

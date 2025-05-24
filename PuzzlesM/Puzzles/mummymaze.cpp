@@ -38,8 +38,8 @@ struct puz_game
     set<Position> m_skull;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    bool is_horz_wall(const Position& p) const {return m_horz_wall.count(p) != 0;}
-    bool is_vert_wall(const Position& p) const {return m_vert_wall.count(p) != 0;}
+    bool is_horz_wall(const Position& p) const {return m_horz_wall.contains(p);}
+    bool is_vert_wall(const Position& p) const {return m_vert_wall.contains(p);}
     bool is_horz_gate(const Position& p) const {
         return m_key_gate && !m_key_gate->m_vert && p == m_key_gate->m_gate;
     }
@@ -52,7 +52,7 @@ struct puz_game
     bool is_vert_barrier(bool gate_open, const Position& p) const {
         return !gate_open && is_vert_gate(p) || is_vert_wall(p);
     }
-    bool is_skull(const Position& p) const {return m_skull.count(p) != 0;}
+    bool is_skull(const Position& p) const {return m_skull.contains(p);}
     bool is_key(const Position& p) const {return m_key_gate && p == m_key_gate->m_key;}
     bool can_move(bool gate_open, Position& p, EMazeDir dir, bool is_man = false) const {
         Position p2 = p + offset[dir];
@@ -191,7 +191,7 @@ struct puz_state
 
 bool puz_state::make_move(EMazeDir dir)
 {
-    if (!m_game->can_move(m_gate_open, m_man, dir, true) || m_obj_map.count(m_man) != 0) return false;
+    if (!m_game->can_move(m_gate_open, m_man, dir, true) || m_obj_map.contains(m_man)) return false;
     if (dir != mvNone && m_game->is_key(m_man)) m_gate_open = !m_gate_open;
     m_move.clear();
     m_move.push_back(puz_step(m_man, moExplorer, dir));
@@ -259,7 +259,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == cols) break;
             // draw man, mummy, crab or space
             out << (pos == m_man ? 'E' :
-                m_obj_map.count(pos) != 0 ? objs[m_obj_map.find(pos)->second] :
+                m_obj_map.contains(pos) ? objs[m_obj_map.find(pos)->second] :
                 g.is_skull(pos) ? 'X' :
                 g.is_key(pos) ? 'K' :
                 pos == g.m_goal ? 'G' : ' ');

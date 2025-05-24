@@ -131,7 +131,7 @@ puz_state::puz_state(const puz_game& g)
             if (it != g.m_pos2lineseg.end())
                 dt = {it->second};
             else {
-                auto& linesegs_all2 = g.m_spots.count(p) != 0 ? lines_spot : linesegs_all;
+                auto& linesegs_all2 = g.m_spots.contains(p) ? lines_spot : linesegs_all;
                 for (int lineseg : linesegs_all2)
                     if ([&]{
                         for (int i = 0; i < 4; ++i)
@@ -244,7 +244,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            out << (m_game->m_spots.count(p) != 0 ? PUZ_SPOT :
+            out << (m_game->m_spots.contains(p) ? PUZ_SPOT :
                 dt[0] == lineseg_off ? PUZ_BLOCK :
                 is_lineseg_on(dt[0], 1) ? " -" : "  ");
         }

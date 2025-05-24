@@ -69,7 +69,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto os = kv.first.second ? Position(1, 0) : Position(0, 1);
         auto& ps = kv.second.m_range;
         int cnt = 0;
-        for (auto p2 = p + os; m_blanks.count(p2) != 0; p2 += os)
+        for (auto p2 = p + os; m_blanks.contains(p2); p2 += os)
             ++cnt, ps.push_back(p2);
         m_sum2perms[{kv.second.m_sum, cnt}];
     }
@@ -199,7 +199,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            out << (m_game->m_blanks.count(p) != 0 ? char(m_cells.at(p) + '0') : '.') << ' ';
+            out << (m_game->m_blanks.contains(p) ? char(m_cells.at(p) + '0') : '.') << ' ';
         }
         out << endl;
     }

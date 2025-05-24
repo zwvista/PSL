@@ -99,7 +99,7 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (g.m_blocks.count(p) != 0) {
+            if (g.m_blocks.contains(p)) {
                 m_finished.insert(p);
                 dt.push_back(lineseg_off);
             } else
@@ -111,7 +111,7 @@ puz_state::puz_state(const puz_game& g)
                             auto p2 = p + offset[i];
                             // The line segment cannot lead to a position
                             // outside the board or cover any block cell
-                            if (!is_valid(p2) || g.m_blocks.count(p2) != 0)
+                            if (!is_valid(p2) || g.m_blocks.contains(p2))
                                 return false;
                         }
                         return true;

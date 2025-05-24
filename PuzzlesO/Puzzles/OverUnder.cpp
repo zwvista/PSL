@@ -206,7 +206,7 @@ bool puz_state::make_move(const Position& p, const Position& p2, int n)
                 auto& p2 = get<1>(t);
                 int id = get<2>(t);
                 auto& perm = m_game->m_pair2region.at({p, p2}).m_perms[id];
-                return perm.count(p3) != 0;
+                return perm.contains(p3);
             });
         }
 

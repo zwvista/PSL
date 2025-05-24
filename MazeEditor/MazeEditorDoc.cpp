@@ -205,7 +205,7 @@ CString CMazeEditorDoc::GetData()
 
 bool CMazeEditorDoc::IsWall(const Position& p, bool bVert) const
 {
-    return m_bHasWall && GetWallSet(bVert).count(p) != 0;
+    return m_bHasWall && GetWallSet(bVert).contains(p);
 }
 
 void CMazeEditorDoc::SetWall(bool isDownOrRight, bool bVert, bool bReset)

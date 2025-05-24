@@ -146,7 +146,7 @@ struct puz_state
     puz_state(const puz_game& g);
     int rows() const { return m_game->rows(); }
     int cols() const { return m_game->cols(); }
-    bool is_teleport(const Position& p) const { return m_game->m_teleports.count(p) != 0; }
+    bool is_teleport(const Position& p) const { return m_game->m_teleports.contains(p); }
     const pair<char, Position>& get_teleport(const Position& p) const {
         return m_game->m_teleports.at(p);
     }
@@ -210,7 +210,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             auto p = first + offset[i];
             auto p_wall = first + offset2[i];
             auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
-            if (walls.count(p_wall) != 0) continue;
+            if (walls.contains(p_wall)) continue;
             ch = m_state->cells(p);
             if (ch == m_info->m_food_name || ch == PUZ_MUSHROOM || ch == PUZ_SPACE &&
                 (!m_state->is_teleport(p) || m_state->cells(m_state->get_teleport(p).second) == PUZ_SPACE)) {
@@ -250,7 +250,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
             auto p = first + offset[i];
             auto p_wall = first + offset2[i];
             auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
-            if (walls.count(p_wall) != 0) continue;
+            if (walls.contains(p_wall)) continue;
             ch = m_state->cells(p);
             if (ch == PUZ_HOLE || ch == m_info->m_food_name || ch == PUZ_MUSHROOM ||
                 m_state->is_teleport(p) && p != m_last_teleport &&
@@ -293,7 +293,7 @@ void puz_state4::gen_children(list<puz_state4>& children) const
             auto p = first + offset[i];
             auto p_wall = first + offset2[i];
             auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
-            if (walls.count(p_wall) != 0) continue;
+            if (walls.contains(p_wall)) continue;
             if (p == *m_dest && !m_state->is_teleport(p) || m_state->cells(p) == PUZ_SPACE &&
                 (!m_state->is_teleport(p) || m_state->get_teleport(p).second == *m_dest)) {
                 children.push_back(*this);
@@ -387,7 +387,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             for (int i = 0; i < 4; ++i) {
                 auto p_wall = p1 + offset2[i];
                 auto& walls = i % 2 == 0 ? m_game->m_horz_walls : m_game->m_vert_walls;
-                if (walls.count(p_wall) != 0) continue;
+                if (walls.contains(p_wall)) continue;
                 auto p2 = p1 + offset[i];
                 char ch = cells(p2);
                 if (ch == PUZ_HOLE || ch == info.m_food_name || ch == PUZ_MUSHROOM ||

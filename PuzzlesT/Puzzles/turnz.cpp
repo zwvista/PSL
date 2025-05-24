@@ -124,7 +124,7 @@ bool puz_state::make_move(int i)
                 Position p2 = p;
                 char ch2;
                 for (;;) {
-                    if (ch == PUZ_BLOB && m_game->m_finishes.count(p2) != 0) {
+                    if (ch == PUZ_BLOB && m_game->m_finishes.contains(p2)) {
                         ch2 = PUZ_FINISH;
                         break;
                     }

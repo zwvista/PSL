@@ -185,7 +185,7 @@ bool puz_state::make_move(int n)
             a.erase(p);
             char ch = cells(p);
             if (isalpha(ch)) {
-                if (all_tribes.count(ch) != 0)
+                if (all_tribes.contains(ch))
                     return false;
                 tribes.insert(ch);
             }

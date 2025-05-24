@@ -97,7 +97,7 @@ void puz_generator::gen_lightbulbs()
         for (auto& os : offset) {
             [&]{
                 auto p2 = p + os;
-                if (cells(p2) == PUZ_WALL && m_pos2hint.count(p2) != 0)
+                if (cells(p2) == PUZ_WALL && m_pos2hint.contains(p2))
                     m_pos2hint[p2]++;
                 for (;; p2 += os)
                     switch(char& ch2 = cells(p2)) {

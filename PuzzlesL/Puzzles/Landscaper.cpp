@@ -140,7 +140,7 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(perm_ids, [&](int id) {
             return !boost::equal(chars, m_game->m_perms.at(id), [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
-            }) || ids.count(id) != 0;
+            }) || ids.contains(id);
         });
 
         if (!init)

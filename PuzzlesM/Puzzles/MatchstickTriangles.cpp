@@ -26,7 +26,7 @@ struct puz_game
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
     int cols() const { return m_size.second; }
-    bool is_valid_dot(const Position& p) const { return m_dots.count(p) != 0; }
+    bool is_valid_dot(const Position& p) const { return m_dots.contains(p); }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -83,7 +83,7 @@ struct puz_state
     int cols() const { return m_game->cols(); }
     bool operator<(const puz_state& x) const { return m_matchsticks < x.m_matchsticks; }
     bool is_valid_dot(const Position& p) const { return m_game->is_valid_dot(p); }
-    bool is_matchstick(const puz_matchstick& m) const { return m_matchsticks.count(m) != 0; }
+    bool is_matchstick(const puz_matchstick& m) const { return m_matchsticks.contains(m); }
     void check_triangles();
     void make_move(function<void()> f);
     void make_move_remove(const puz_matchstick& m) { make_move([&]{m_matchsticks.erase(m);}); }

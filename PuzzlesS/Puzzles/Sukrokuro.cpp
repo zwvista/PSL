@@ -93,7 +93,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& area = kv.second;
         auto os = is_vert ? Position(1, 0) : Position(0, 1);
         auto& rng = area.m_range;
-        for (auto p2 = p + os; m_blanks.count({p2, is_vert}) != 0; p2 += os)
+        for (auto p2 = p + os; m_blanks.contains({p2, is_vert}); p2 += os)
             rng.push_back(p2);
         int index = is_vert ? m_sidelen + p.second : p.first;
         auto& perm_ids = m_rc2permids.at(index);
@@ -217,7 +217,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < m_game->m_sidelen; ++r) {
         for (int c = 0; c < m_game->m_sidelen; ++c) {
             Position p(r, c);
-            out << (m_game->m_blanks.count({p, true}) != 0 ? char(m_cells.at(p) + '0') : '.') << ' ';
+            out << (m_game->m_blanks.contains({p, true}) ? char(m_cells.at(p) + '0') : '.') << ' ';
         }
         out << endl;
     }

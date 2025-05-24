@@ -169,7 +169,7 @@ puz_state::puz_state(const puz_game& g)
     for (int i = 0; i < g.m_regions.size(); ++i)
         for (auto& kv : g.m_regions[i].m_rc2count) {
             int rc = kv.first;
-            if (m_painting_counts.count(rc) != 0)
+            if (m_painting_counts.contains(rc))
                 m_matches[rc].push_back(i);
         }
 
@@ -189,7 +189,7 @@ bool puz_state::find_matches(bool init)
     for (auto& kv : m_matches) {
         auto& region_ids = kv.second;
         boost::remove_erase_if(region_ids, [&](int id) {
-            return hidden_ids.count(id) != 0;
+            return hidden_ids.contains(id);
         });
     }
     for (auto& kv : m_painting_counts)
@@ -206,7 +206,7 @@ bool puz_state::make_move(int n)
     auto& region = m_game->m_regions[n];
     for (auto& p : region.m_rng) {
         auto f = [&](int rc) {
-            if (m_painting_counts.count(rc) != 0)
+            if (m_painting_counts.contains(rc))
                 --m_painting_counts[rc], ++m_distance;
         };
         f(p.first);

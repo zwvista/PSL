@@ -229,7 +229,7 @@ void puz_state::make_move3(const Position& p, const pair<Position, Position>& is
             Position p2(r, c);
             cells(p2) = PUZ_ISLAND;
             boost::remove_erase_if(m_2by2waters, [&](const set<Position>& rng) {
-                return rng.count(p2) != 0;
+                return rng.contains(p2);
             });
         }
 

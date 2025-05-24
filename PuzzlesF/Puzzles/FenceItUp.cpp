@@ -94,7 +94,7 @@ struct puz_state : string
     int adjust_area(bool init);
     int get_perimeter_len(const puz_area& area, const Position& p) {
         int n = boost::count_if(offset, [&](const Position& os) {
-            return area.m_inner.count(p + os) != 0;
+            return area.m_inner.contains(p + os);
         });
         return area.m_perimeter_len - n + (4 - n);
     }

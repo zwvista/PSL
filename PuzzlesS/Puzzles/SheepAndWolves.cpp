@@ -219,7 +219,7 @@ int puz_state::check_cells(bool init)
         for (int c = 1; c < sidelen(); ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if (ch == PUZ_SPACE || m_finished_cells.count(p) != 0)
+            if (ch == PUZ_SPACE || m_finished_cells.contains(p))
                 continue;
             m_finished_cells.insert(p);
             for (int i = 0; i < 4; ++i) {

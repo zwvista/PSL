@@ -187,7 +187,7 @@ bool puz_state::make_move2(char id, Position p)
         auto p2 = p + os;
         char ch = cells(p2);
         if (ch == PUZ_SPACE || ch == PUZ_BOUNDARY ||
-            ch == id || area.m_neighbours.count(ch) != 0)
+            ch == id || area.m_neighbours.contains(ch))
             continue;
 
         char id2 = ch;

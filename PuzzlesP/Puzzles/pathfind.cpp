@@ -29,8 +29,8 @@ struct puz_game
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
-    bool is_horz_wall(const Position& p) const {return m_horz_wall.count(p) != 0;}
-    bool is_vert_wall(const Position& p) const {return m_vert_wall.count(p) != 0;}
+    bool is_horz_wall(const Position& p) const {return m_horz_wall.contains(p);}
+    bool is_vert_wall(const Position& p) const {return m_vert_wall.contains(p);}
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)

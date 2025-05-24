@@ -196,7 +196,7 @@ int puz_state::find_matches(bool init)
         for (int i = 0; i < 4; ++i) {
             auto p2 = p + offset[i];
             chars.push_back(cells(p2));
-            if (m_game->m_pos2area.count(p2) != 0)
+            if (m_game->m_pos2area.contains(p2))
                 area2dirs[m_game->m_pos2area.at(p2)].push_back(i);
         }
 
@@ -299,7 +299,7 @@ bool puz_state::make_move2(const Position& p, int n)
     map<int, vector<int>> area2dirs;
     for (int k = 0; k < perm.size(); ++k) {
         auto p2 = p + offset[k];
-        if (m_game->m_pos2area.count(p2) != 0)
+        if (m_game->m_pos2area.contains(p2))
             area2dirs[m_game->m_pos2area.at(p2)].push_back(k);
         char& ch = cells(p2);
         if (ch == PUZ_SPACE)

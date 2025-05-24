@@ -141,7 +141,7 @@ puz_state::puz_state(const puz_game& g)
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if (g.m_pos2area.count(p) != 0)
+            if (g.m_pos2area.contains(p))
                 continue;
 
             auto& dt = dots(p);
@@ -153,7 +153,7 @@ puz_state::puz_state(const puz_game& g)
                         auto p2 = p + offset[i];
                         // The line segment cannot lead to a position
                         // outside the board or cover any number cell
-                        if (!is_valid(p2) || g.m_pos2area.count(p2) != 0)
+                        if (!is_valid(p2) || g.m_pos2area.contains(p2))
                             return false;
                     }
                     return true;
@@ -186,7 +186,7 @@ int puz_state::find_matches(bool init)
                 if (perm[k] == PUZ_SHADED) {
                     auto& p2 = o.m_range[k];
                     for (auto& os : offset)
-                        if (auto p3 = p2 + os; m_shaded.count(p3) != 0)
+                        if (auto p3 = p2 + os; m_shaded.contains(p3))
                             return true;
                 }
             return false;
@@ -218,7 +218,7 @@ int puz_state::check_dots(bool init)
                         m_shaded.insert(p);
                         for (int j = 0; j < 4; ++j)
                             if (auto p2 = p + offset[j]; is_valid(p2))
-                                if (m_shaded.count(p2) != 0)
+                                if (m_shaded.contains(p2))
                                     return 0;
                     }
                 }
@@ -371,7 +371,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             auto it = m_game->m_pos2area.find(p);
             out << char(it != m_game->m_pos2area.end() ? it->second.m_num + '0' :
-                m_shaded.count(p) != 0 ? PUZ_SHADED : '.')
+                m_shaded.contains(p) ? PUZ_SHADED : '.')
                 << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }
         out << endl;

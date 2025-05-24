@@ -151,7 +151,7 @@ bool puz_state::make_move2(int i, int j)
             Position p(r, c);
             auto fd = paring(p);
             if (fd[0] != PUZ_SPACE && fd[1] != PUZ_SPACE) {
-                if (parings.count(fd) != 0)
+                if (parings.contains(fd))
                     return false;
                 parings.insert(fd);
             }

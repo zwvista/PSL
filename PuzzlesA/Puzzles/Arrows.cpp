@@ -188,7 +188,7 @@ int puz_state::find_matches(bool init)
             return !boost::equal(arrow_dirs, arrow.m_perms[id], [](const set<int>& dirs, int n2) {
                 // a positive or 0 direction means the arrow is supposed to
                 // point to the number, so it should be contained
-                return n2 >= 0 && dirs.count(n2) != 0
+                return n2 >= 0 && dirs.contains(n2)
                     // a negative direction means the arrow is not supposed
                     // to point to the number, so it should not be the only
                     // possible direction

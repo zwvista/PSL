@@ -304,7 +304,7 @@ bool puz_state::is_valid_move() const
                 if (ch == PUZ_HINT) {
                     auto hint = m_game->m_pos2hint.at(p);
                     if (boost::algorithm::any_of_equal(hint, PUZ_UNKNOWN)) {
-                        if (m_matches.count(p) != 0) {
+                        if (m_matches.contains(p)) {
                             has_hint = false;
                             break;
                         }

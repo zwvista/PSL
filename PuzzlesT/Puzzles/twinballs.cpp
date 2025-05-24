@@ -27,8 +27,8 @@ struct puz_game
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
-    bool is_horz_wall(const Position& p) const {return m_horz_wall.count(p) != 0;}
-    bool is_vert_wall(const Position& p) const {return m_vert_wall.count(p) != 0;}
+    bool is_horz_wall(const Position& p) const {return m_horz_wall.contains(p);}
+    bool is_vert_wall(const Position& p) const {return m_vert_wall.contains(p);}
     bool is_hole(const Position& p) const {return cells(p) == '#';}
     bool is_goal(const Position& p) const {return p == m_goals[0] || p == m_goals[1];}
     char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}

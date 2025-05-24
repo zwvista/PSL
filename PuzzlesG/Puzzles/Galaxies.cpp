@@ -204,7 +204,7 @@ bool puz_state::adjust_galaxies()
             char ch = cells(p);
             if (ch == PUZ_SPACE)
                 rng2.push_back(p); // space tiles
-            else if (m_galaxies.count(ch) != 0)
+            else if (m_galaxies.contains(ch))
                 ids1.insert(ch); // galaxies
         }
         // For each space tile, there should exist at least one galaxy

@@ -177,7 +177,7 @@ bool puz_state::make_move2(const Position& p, Position os, bool is_test)
     for (auto p2 = p + os;; p2 += os)
         switch(char& ch = cells(p2)) {
         case PUZ_BLOCK_ARROW:
-            if (p_arrows.count(p2) != 0)
+            if (p_arrows.contains(p2))
                 return false;
             os = offset[m_game->m_pos2dir.at(p2)];
             p_arrows.insert(p2);

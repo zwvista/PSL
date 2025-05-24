@@ -28,7 +28,7 @@ struct puz_game
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
     int cols() const {return m_size.second;}
-    bool is_goal(const Position& p) const {return m_goals.count(p) != 0;}
+    bool is_goal(const Position& p) const {return m_goals.contains(p);}
     char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
 };
 
@@ -77,7 +77,7 @@ struct puz_state
         return state.dump(out);
     }
 
-    bool is_ball(const Position& p) const {return m_balls.count(p) != 0;}
+    bool is_ball(const Position& p) const {return m_balls.contains(p);}
     bool make_move(int i);
     const puz_game* m_game = nullptr;
     set<Position> m_balls;
@@ -97,7 +97,7 @@ bool puz_state::make_move(int i)
         Position b = *m_balls.begin();
         int n = 1;
 
-        while (m_balls.count(b - os) != 0)
+        while (m_balls.contains(b - os))
             b -= os;
 
         for (;;n++) {

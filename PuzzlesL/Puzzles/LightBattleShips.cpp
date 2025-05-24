@@ -287,7 +287,7 @@ bool puz_state::make_move(const Position& p_piece, const Position& p, int n, boo
 
     if (!m_pos2piece.empty())
         return boost::algorithm::all_of(m_pos2piece, [&](const pair<const Position, char>& kv) {
-            return m_pos_matches.count(kv.first) != 0;
+            return m_pos_matches.contains(kv.first);
         });
     else if (!is_goal_state())
         return boost::algorithm::all_of(m_ship2num, [&](const pair<const int, int>& kv) {

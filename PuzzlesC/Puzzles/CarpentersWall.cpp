@@ -372,7 +372,7 @@ bool puz_state::make_move2(char ch, int n)
                 ch2 = PUZ_WALL;
         }
         boost::remove_erase_if(m_2by2walls, [&](const set<Position>& rng2) {
-            return rng2.count(p) != 0;
+            return rng2.contains(p);
         });
     }
     for (char ch2 : chars) {
@@ -436,7 +436,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         // pruning
         if (boost::algorithm::any_of(m_2by2walls, [&](const set<Position>& rng2) {
             return boost::algorithm::none_of(rng2, [&](const Position& p) {
-                return rng.count(p) != 0;
+                return rng.contains(p);
             });
         }))
             children.clear();

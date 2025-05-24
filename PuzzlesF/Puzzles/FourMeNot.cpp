@@ -172,7 +172,7 @@ bool puz_state::make_move(Position p)
 {
     vector<int> nums;
     for (auto& kv : m_num2outer)
-        if (kv.second.count(p) != 0)
+        if (kv.second.contains(p))
             nums.push_back(kv.first);
 
     m_distance = 0;

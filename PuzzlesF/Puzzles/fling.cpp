@@ -51,7 +51,7 @@ struct puz_state
     puz_state(const puz_game& g)
         : m_game(&g), m_balls(g.m_balls) {}
     bool operator<(const puz_state& x) const {return m_balls < x.m_balls;}
-    bool is_ball(const Position& p) const {return m_balls.count(p) != 0;}
+    bool is_ball(const Position& p) const {return m_balls.contains(p);}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
     bool is_valid(const Position& p) const {

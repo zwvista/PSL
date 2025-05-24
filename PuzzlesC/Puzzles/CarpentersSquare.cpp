@@ -234,7 +234,7 @@ int puz_state::adjust_area(bool init)
                     int j;
                     for (j = 1; j <= a1.size(); ++j)
                         arm_lens.push_back(j);
-                    if (m_matches.count(ch2) != 0) {
+                    if (m_matches.contains(ch2)) {
                         auto& t = get_tool(ch2);
                         if (t.hint_type() == tool_hint_type::ARM_END &&
                             (t.dir() + 2) % 4 == d2) {
