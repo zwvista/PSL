@@ -299,7 +299,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c)
             out << cells({r, c});
-        out << endl;
+        println(out);
     }
     return out;
 }

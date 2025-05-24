@@ -190,7 +190,7 @@ ostream& puz_state::dump(ostream& out) const
                 out << PUZ_SKYSCRAPER_S;
             else
                 out << format("{:2}", n);
-        out << endl;
+        println(out);
     }
     return out;
 }

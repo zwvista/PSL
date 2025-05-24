@@ -310,7 +310,7 @@ ostream& puz_state::dump(ostream& out) const
 {
     if (m_move)
         out << "move: " << *m_move << endl;
-    out << endl;
+    println(out);
     return out;
 }
 

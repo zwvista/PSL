@@ -330,7 +330,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen() - 1) break; 
             out << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
@@ -339,7 +339,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen() - 1) break;
             out << m_game->cells(p);
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

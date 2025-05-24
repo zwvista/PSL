@@ -248,7 +248,7 @@ ostream& puz_state::dump(ostream& out) const
                 out << char(n < 10 ? n + '0' : n - 10 + 'A') << ' ';
             }
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

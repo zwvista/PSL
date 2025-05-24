@@ -374,12 +374,12 @@ ostream& puz_state::dump(ostream& out) const
                 m_shaded.contains(p) ? PUZ_SHADED : '.')
                 << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
             // draw vert-lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
-        out << endl;
+        println(out);
     }
     return out;
 }

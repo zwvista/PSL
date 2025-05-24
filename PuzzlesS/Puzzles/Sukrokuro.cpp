@@ -219,7 +219,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             out << (m_game->m_blanks.contains({p, true}) ? char(m_cells.at(p) + '0') : '.') << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

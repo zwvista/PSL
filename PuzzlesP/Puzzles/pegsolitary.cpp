@@ -119,7 +119,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 1; r < rows() -1 ; ++r) {
         for (int c = 0; c < cols() - 1; ++c)
             out << cells({r, c}) << " ";
-        out << endl;
+        println(out);
     }
     return out;
 }

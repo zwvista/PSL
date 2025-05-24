@@ -127,7 +127,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (p == m_cats[0] ? PUZ_MALE:
                 p == m_cats[1] ? PUZ_FEMALE : cells(p));
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

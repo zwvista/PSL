@@ -271,12 +271,12 @@ ostream& puz_state::dump(ostream& out) const
             out << (it != m_game->m_pos2object.end() ? it->second : ' ')
                 << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
             // draw vert-lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
-        out << endl;
+        println(out);
     }
     return out;
 }

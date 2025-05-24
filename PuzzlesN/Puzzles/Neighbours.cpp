@@ -243,7 +243,7 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-walls
         for (int c = 1; c < sidelen() - 1; ++c)
             out << (horz_walls.contains({r, c}) ? " -" : "  ");
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
@@ -257,7 +257,7 @@ ostream& puz_state::dump(ostream& out) const
             else
                 out << m_id2area.at(id).m_neighbours.size();
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

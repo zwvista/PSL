@@ -164,7 +164,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int i = 0, n = 0; i < rows(); i++) {
         for (int j = 0; j < cols(); j++, n++)
             out << m_cells[n];
-        out << endl;
+        println(out);
     }
     return out;
 }

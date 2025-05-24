@@ -201,14 +201,14 @@ ostream& puz_state::dump(ostream& out) const
             if (c == cols() - 1) break;
             out << (is_matchstick({p, Position(r, c + 1)}) ? '-' : ' ');
         }
-        out << endl;
+        println(out);
         if (r == rows() - 1) break;
         for (int c = 0;; ++c) {
             out << (is_matchstick({Position(r, c), Position(r + 1, c)}) ? '|' : ' ');
             if (c == cols() - 1) break;
             out << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

@@ -95,7 +95,7 @@ struct puz_state
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const;
     unsigned int get_distance(const puz_state& child) const {return 1;}
-    void dump_move(ostream& out) const {out << endl;}
+    void dump_move(ostream& out) const {println(out);}
     ostream& dump(ostream& out) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {
         return state.dump(out);

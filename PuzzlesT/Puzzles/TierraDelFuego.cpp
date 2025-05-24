@@ -218,7 +218,7 @@ ostream& puz_state::dump(ostream& out) const
             char ch = cells({r, c});
             out << (ch == PUZ_SPACE ? PUZ_ISLAND : ch) << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

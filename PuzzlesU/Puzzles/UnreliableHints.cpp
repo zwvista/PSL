@@ -265,14 +265,14 @@ ostream& puz_state::dump(ostream& out) const
             else
                 out << it->second.m_num << tool_dirs[it->second.m_dir];
         }
-        out << endl;
+        println(out);
     }
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             char ch = cells({r, c});
             out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

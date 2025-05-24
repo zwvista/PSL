@@ -262,7 +262,7 @@ ostream& puz_state::dump(ostream& out) const
                 out << format("{:<2}", f(c + sidelen()));
             else
                 out << cells({r, c}) << ' ';
-        out << endl;
+        println(out);
     }
     return out;
 }

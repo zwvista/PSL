@@ -184,7 +184,7 @@ ostream& puz_state::dump(ostream& out) const
             p == m_game->m_goal ? PUZ_GOAL :
             cells(p)) << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

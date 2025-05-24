@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -253,7 +253,7 @@ ostream& puz_state::dump(ostream& out) const
             else
                 out << ch;
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

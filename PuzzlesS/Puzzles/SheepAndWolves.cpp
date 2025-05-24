@@ -391,7 +391,7 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-lines
         for (int c = 0; c < sidelen(); ++c)
             out << (is_lineseg_on(dots({r, c})[0], 1) ? " -" : "  ");
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
@@ -405,7 +405,7 @@ ostream& puz_state::dump(ostream& out) const
             else
                 out << n;
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

@@ -220,7 +220,7 @@ ostream& puz_state::dump(ostream& out) const
             auto i = m_game->m_walls.find(p);
             out << (i == m_game->m_walls.end() ? cells(p) : char(i->second + '0')) << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

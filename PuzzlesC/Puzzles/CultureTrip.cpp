@@ -397,7 +397,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen()) break;
             out << (m_game->m_horz_walls.contains({r, c}) ? "---" : "   ");
         }
-        out << endl;
+        println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
@@ -406,7 +406,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen()) break;
             out << (is_lineseg_on(dots(p)[0], 0) ? " | " : "   ");
         }
-        out << endl;
+        println(out);
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-lines
@@ -416,7 +416,7 @@ ostream& puz_state::dump(ostream& out) const
             out << m_game->cells(p);
             out << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }
-        out << endl;
+        println(out);
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-lines
@@ -424,7 +424,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen()) break;
             out << (is_lineseg_on(dots(p)[0], 2) ? " | " : "   ");
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

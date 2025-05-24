@@ -262,7 +262,7 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-walls
         for (int c = 1; c < sidelen() - 1; ++c)
             out << (horz_walls.contains({r, c}) ? " -" : "  ");
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
@@ -274,7 +274,7 @@ ostream& puz_state::dump(ostream& out) const
                 m_game->m_id2hole.at(ch) == p ? PUZ_HOLE : PUZ_SPACE
             );
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

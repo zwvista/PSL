@@ -94,7 +94,7 @@ ostream& puz_state::dump(ostream& out) const
         out << "move: " << m_move << endl;
     for (size_t i = 0; i < length(); ++i)
         cout << at(i) << ' ';
-    cout << endl;
+    cprintln(out);
     return out;
 }
 

@@ -248,7 +248,7 @@ ostream& puz_state::dump(ostream& out) const
                 out << format("{:2}", it->second.m_num);
             out << ch;
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

@@ -243,7 +243,7 @@ ostream& puz_state::dump(ostream& out) const
             char ch = cells({ r, c });
             out << ch << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

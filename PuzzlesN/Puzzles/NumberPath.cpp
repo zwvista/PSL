@@ -119,12 +119,12 @@ ostream& puz_state::dump(ostream& out) const
             out << format("{:2}", cells(p))
                 << (horz_lines.contains(p) ? '-' : ' ');
         }
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
             // draw vert-lines
             out << (vert_lines.contains({r, c}) ? " | " : "   ");
-        out << endl;
+        println(out);
     }
     return out;
 }

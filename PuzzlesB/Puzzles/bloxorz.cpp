@@ -300,7 +300,7 @@ ostream& puz_state::dump(ostream& out) const
                 p == m_blocks[0] || p == m_blocks[1] ? PUZ_ONE :
                 p == goal() ? PUZ_GOAL : m_game->cells(p));
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

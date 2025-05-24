@@ -246,7 +246,7 @@ ostream& puz_state::dump(ostream& out) const
                 break;
             };
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

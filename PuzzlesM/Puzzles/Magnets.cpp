@@ -277,7 +277,7 @@ ostream& puz_state::dump(ostream& out) const
             }
             out << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

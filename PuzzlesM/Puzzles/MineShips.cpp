@@ -214,7 +214,7 @@ ostream& puz_state::dump(ostream& out) const
                 out << format("{:<2}", ch);
             }
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

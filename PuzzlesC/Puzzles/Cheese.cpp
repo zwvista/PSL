@@ -146,7 +146,7 @@ ostream& puz_state::dump(ostream& out) const
                         m_game->cells(p) : PUZ_SPACE);
             }
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

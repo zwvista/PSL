@@ -43,7 +43,7 @@ ostream & operator<<(ostream &out, const puz_step &mi)
         out << "twice";
     else
         out << mi.m_n << " times";
-    out << endl;
+    println(out);
     return out;
 }
 
@@ -122,7 +122,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < rows(); ++r) {
         for (int c = 0; c < cols(); ++c)
             out << cells(r, c) << " ";
-        out << endl;
+        println(out);
     }
     return out;
 }

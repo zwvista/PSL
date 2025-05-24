@@ -456,7 +456,7 @@ ostream& puz_state::dump(ostream& out) const
                     out << ch << m_game->m_pos2num.at(p);
                 out << ' ';
             }
-        out << endl;
+        println(out);
     }
     return out;
 }

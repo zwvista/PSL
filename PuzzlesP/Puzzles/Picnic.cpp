@@ -237,15 +237,15 @@ ostream& puz_state::dump(ostream& out) const
             else
                 out << m_game->m_pos2num.at(p) << m_pos2ch.at(p);
         }
-        out << endl;
+        println(out);
     }
-    out << endl;
+    println(out);
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c) {
             char ch = cells({ r, c });
             out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

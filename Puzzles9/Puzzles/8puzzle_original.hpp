@@ -52,7 +52,7 @@ ostream & operator<<(ostream &out, const pstate_t &p)
             else
                 out << "  ";
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

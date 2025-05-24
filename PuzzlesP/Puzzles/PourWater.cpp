@@ -160,7 +160,7 @@ ostream& puz_state::dump(ostream& out) const
         if (i < m_quantities.size() - 1)
             out << ",";
     }
-    out << endl;
+    println(out);
     return out;
 }
 

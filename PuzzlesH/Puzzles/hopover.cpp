@@ -103,7 +103,7 @@ ostream& puz_state::dump(ostream& out) const
     dump_move(out);
     for (size_t j = 1; j < first.size() - 1; ++j)
         out << first[j] << " ";
-    out << endl;
+    println(out);
     return out;
 }
 

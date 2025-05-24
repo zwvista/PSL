@@ -196,7 +196,7 @@ ostream& puz_state::dump(ostream& out) const
                     ch == PUZ_ROW_CS ? PUZ_COL_CS : ch;
             out << ch << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

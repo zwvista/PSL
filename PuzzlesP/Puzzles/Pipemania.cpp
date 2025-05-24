@@ -231,7 +231,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen() - 1) break;
             out << (is_lineseg_on(dots({ r, c })[0], 1) ? '-' : ' ');
         }
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0;; ++c) {
             // draw vert-lines
@@ -239,7 +239,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen() - 1) break;
             out << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

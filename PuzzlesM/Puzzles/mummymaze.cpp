@@ -249,7 +249,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (g.is_horz_gate(pos) ? m_gate_open ? "  " : " =" :
                 g.is_horz_wall(pos) ? " -" : "  ");
         }
-        out << endl;
+        println(out);
         if (r == rows) break;
         for (int c = 0; ; ++c) {
             Position pos(r, c);
@@ -264,7 +264,7 @@ ostream& puz_state::dump(ostream& out) const
                 g.is_key(pos) ? 'K' :
                 pos == g.m_goal ? 'G' : ' ');
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

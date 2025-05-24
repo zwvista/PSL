@@ -240,7 +240,7 @@ ostream& puz_state::dump(ostream& out) const
                 ch == PUZ_BLOCK_ARROW ? arrows[m_game->m_pos2dir.at(p)] :
                 ch == PUZ_HOLE_EMPTY ? '.' : ch) << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

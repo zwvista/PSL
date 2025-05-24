@@ -281,15 +281,15 @@ ostream& puz_state::dump(ostream& out) const
             else
                 out << format("{:2}", it->second.m_move_count);
         }
-        out << endl;
+        println(out);
     }
-    out << endl;
+    println(out);
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             char ch = cells({r, c});
             out << format("{:<2}", ch == PUZ_SPACE ? PUZ_EMPTY : ch);
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

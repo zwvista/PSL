@@ -348,7 +348,7 @@ ostream& puz_state::dump(ostream& out) const
             else
                 out << format("{:3}", n);
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

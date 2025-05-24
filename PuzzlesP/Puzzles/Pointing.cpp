@@ -156,7 +156,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             out << m_game->cells(p) << (!m_marked.contains(p) ? ' ' : '*');
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

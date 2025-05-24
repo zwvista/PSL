@@ -193,7 +193,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             out << food(p) << drinks(p) << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

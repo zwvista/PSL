@@ -318,7 +318,7 @@ ostream& puz_state::dump(ostream& out) const
             } else
                 out << ' ' << (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

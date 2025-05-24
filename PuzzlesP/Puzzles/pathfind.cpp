@@ -111,7 +111,7 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz wall
         for (int c = 0; c < m_game->cols(); ++c)
             out << (m_game->is_horz_wall(Position(r, c)) ? " -" : "  ");
-        out << endl;
+        println(out);
         if (r == m_game->rows()) break;
         for (int c = 0; ; ++c) {
             Position pos(r, c);
@@ -122,7 +122,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (pos == *this ? '@' : 
                 pos == m_game->m_goal ? '.' : ' ');
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

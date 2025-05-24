@@ -226,7 +226,7 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-walls
         for (int c = 0; c < cols(); ++c)
             out << (m_horz_walls.contains({r, c}) ? " -" : "  ");
-        out << endl;
+        println(out);
         if (r == rows()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
@@ -235,7 +235,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == cols()) break;
             out << m_game->cells(p);
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

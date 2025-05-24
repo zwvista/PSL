@@ -232,14 +232,14 @@ ostream& puz_state::dump(ostream& out) const
             } else
                 out << "  ";
         }
-        out << endl;
+        println(out);
         if (r == rows() - 1) break;
         for (int c = 0; c < cols(); ++c) {
             out << ' ';
             out << (is_matchstick({Position(r, c + 1), Position(r + 1, c)}) ? '/' :
                 is_matchstick({Position(r, c), Position(r + 1, c + 1)}) ? '\\' : ' ');
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

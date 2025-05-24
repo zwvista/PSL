@@ -195,7 +195,7 @@ ostream& puz_state::dump(ostream& out) const
             char ch = cells(p);
             out << (ch == PUZ_SPACE ? '.' : ch) << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

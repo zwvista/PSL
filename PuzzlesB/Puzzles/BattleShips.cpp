@@ -310,7 +310,7 @@ ostream& puz_state::dump(ostream& out) const
                 out << m_game->m_piece_counts_cols[c] << ' ';
             else
                 out << cells({r, c}) << ' ';
-        out << endl;
+        println(out);
     }
     return out;
 }

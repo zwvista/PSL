@@ -258,7 +258,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             out << cells(p) << m_game->cells(p);
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

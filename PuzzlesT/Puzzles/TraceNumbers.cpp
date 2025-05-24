@@ -247,12 +247,12 @@ ostream& puz_state::dump(ostream& out) const
             out << m_game->cells(p)
                 << (is_lineseg_on(dots(p), 1) ? '-' : ' ');
         }
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
             // draw vert-walls
             out << (is_lineseg_on(dots({r, c}), 2) ? "| " : "  ");
-        out << endl;
+        println(out);
     }
     return out;
 }

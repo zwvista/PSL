@@ -257,7 +257,7 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-doors
         for (int c = 0; c < sidelen(); ++c)
             out << (m_horz_doors.at({r, c}) == PUZ_DOOR_CLOSED ? " -" : "  ");
-        out << endl;
+        println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
@@ -266,7 +266,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen()) break;
             out << m_game->cells(p);
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

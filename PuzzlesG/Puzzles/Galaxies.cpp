@@ -264,7 +264,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (r > 1 && c > 1 && m_game->cells({r - 2, c - 2}) == PUZ_GALAXY_RC ? PUZ_GALAXY : ' ')
             << (cells({r - 1, c}) != cells({r, c}) ? '-' :
             r > 1 && m_game->cells({r - 2, c - 1}) == PUZ_GALAXY_C ? PUZ_GALAXY : ' ');
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
@@ -274,7 +274,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen() - 1) break;
             out << (m_game->cells({r - 1, c - 1}) == PUZ_GALAXY ? PUZ_GALAXY : '.');
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

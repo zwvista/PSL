@@ -167,7 +167,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (p == m_man ? 
                 ch == PUZ_FLOOR ? PUZ_MAN : PUZ_MAN_GOAL : ch);
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

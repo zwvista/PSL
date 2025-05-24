@@ -191,7 +191,7 @@ ostream& puz_state::dump(ostream& out) const
             else
                 out << format("{:<2}", it->second);
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

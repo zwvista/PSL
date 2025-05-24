@@ -134,7 +134,7 @@ ostream& puz_state::dump(ostream& out) const
             out << " ";
         for (int c = 0; c <= r; ++c)
             out << cells({r, c}) << " ";
-        out << endl;
+        println(out);
     }
     return out;
 }

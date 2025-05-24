@@ -249,7 +249,7 @@ ostream& puz_state::dump(ostream& out) const
                 PUZ_SWITCH
             );
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

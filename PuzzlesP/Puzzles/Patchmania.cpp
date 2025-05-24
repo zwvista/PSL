@@ -135,7 +135,7 @@ ostream & operator<<(ostream &out, const puz_step &mi)
             if (i < mi.size() - 1)
                 out << " -> ";
         }
-        out << endl;
+        println(out);
     }
     return out;
 }
@@ -405,13 +405,13 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
     out << move;
     for (int c = 0; c < cols(); ++c)
         out << format("{:3}", c + 1);
-    out << endl;
+    println(out);
     for (int r = 0;; ++r) {
         out << ' ';
         // draw horz-walls
         for (int c = 0; c < cols(); ++c)
             out << (m_game->m_horz_walls.contains({r, c}) ? " --" : "   ");
-        out << endl;
+        println(out);
         if (r == rows()) break;
         out << (r + 1);
         for (int c = 0;; ++c) {
@@ -427,7 +427,7 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
     }
     for (int c = 0; c < cols(); ++c)
         out << format("{:3}", c + 1);
-    out << endl;
+    println(out);
     return out;
 }
 

@@ -124,7 +124,7 @@ ostream& puz_state::dump(ostream& out) const
             Position pos(r, c);
             out << (is_ball(pos) ? PUZ_BALL : ' ');
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

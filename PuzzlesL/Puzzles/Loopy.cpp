@@ -244,14 +244,14 @@ ostream& puz_state::dump(ostream& out) const
         // draw horz-lines
         for (int c = 0; c < sidelen() - 1; ++c)
             out << (dots({r, c})[0][1] == PUZ_LINE_ON ? " -" : "  ");
-        out << endl;
+        println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             // draw vert-lines
             out << (dots(p)[0][2] == PUZ_LINE_ON ? "| " : "  ");
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

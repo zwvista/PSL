@@ -157,7 +157,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (is_ball(pos) ? '@' : 
                 m_game->is_goal(pos) ? '.' : m_game->cells(pos));
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

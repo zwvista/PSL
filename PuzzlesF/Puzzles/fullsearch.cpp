@@ -112,7 +112,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (p == m_p ? PUZ_BALL : 
                 ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
         }
-        out << endl;
+        println(out);
     }
     return out;
 }

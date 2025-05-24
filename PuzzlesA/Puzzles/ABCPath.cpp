@@ -121,7 +121,7 @@ ostream& puz_state::dump(ostream& out) const
                 out << m_game->m_pos2ch.at(Position(r, c)) << ' ';
             else
                 out << cells(Position(r - 1, c - 1)) << ' ';
-        out << endl;
+        println(out);
     }
     return out;
 }

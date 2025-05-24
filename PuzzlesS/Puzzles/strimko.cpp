@@ -59,7 +59,7 @@ struct puz_state
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
-    void dump_move(ostream& out) const { out << endl; }
+    void dump_move(ostream& out) const { println(out); }
     ostream& dump(ostream& out) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {
         return state.dump(out);
@@ -151,12 +151,12 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c)
             out << cells({r, c});
-        out << endl;
+        println(out);
     }
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c)
             out << char(m_game->m_pos2area.at({r, c}) + 'a');
-        out << endl;
+        println(out);
     }
     return out;
 }
