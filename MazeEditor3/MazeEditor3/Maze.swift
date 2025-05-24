@@ -174,7 +174,7 @@ class Maze: NSObject {
             clearAll()
             let strs = newValue.components(separatedBy: "`\n").filter{$0 != ""}
             if hasWall {
-                size = Position(strs.count / 2, strs[0].length / 2)
+                size = Position(strs.count / 2, strs[0].count / 2)
                 for r in 0...height {
                     let str1 = strs[2 * r]
                     for c in 0..<width {
