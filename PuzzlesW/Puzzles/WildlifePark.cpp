@@ -165,7 +165,7 @@ struct puz_state3 : Position
     void gen_children(list<puz_state3>& children) const;
 
     puz_state* m_state;
-    const char m_ch;
+    char m_ch;
 };
 
 void puz_state3::gen_children(list<puz_state3>& children) const
@@ -261,7 +261,7 @@ struct puz_state2 : Position
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
-    const char m_ch;
+    char m_ch;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const

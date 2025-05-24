@@ -64,7 +64,7 @@ struct puz_state2 : Position
     void gen_children(list<puz_state2>& children) const;
 
     const set<Position> *m_horz_walls, *m_vert_walls;
-    const Position m_p_start;
+    Position m_p_start;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const

@@ -2,6 +2,7 @@
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
+#include <boost/math/special_functions/sign.hpp>
 
 /*
     iOS Game: Logic Games 2/Puzzle Set 7/Straight and Turn

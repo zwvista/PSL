@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C7412242DE25B6400E23098 /* OneUpOrDown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95406C39255FA1E700C87A0D /* OneUpOrDown.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -228,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C7412242DE25B6400E23098 /* OneUpOrDown.cpp in Sources */,
 				8CDAE7E11F5BE4E1000DE5AF /* OverUnder.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA240D71EB47AA70055D6B1 /* openvalve.cpp in Sources */,

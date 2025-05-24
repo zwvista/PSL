@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C7412232DE25B1800E23098 /* Rabbits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C7412202DE25B1800E23098 /* Rabbits.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -35,6 +36,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C7412202DE25B1800E23098 /* Rabbits.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rabbits.cpp; sourceTree = "<group>"; };
+		8C7412212DE25B1800E23098 /* Rabbits.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rabbits.txt; sourceTree = "<group>"; };
+		8C7412222DE25B1800E23098 /* Rabbits.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Rabbits.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesR */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesR; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -123,6 +127,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
+				8C7412202DE25B1800E23098 /* Rabbits.cpp */,
+				8C7412212DE25B1800E23098 /* Rabbits.txt */,
+				8C7412222DE25B1800E23098 /* Rabbits.xml */,
 				8CA2411B1EB47AD70055D6B1 /* RippleEffect.cpp */,
 				8CA2411C1EB47AD70055D6B1 /* RippleEffect.txt */,
 				8CA2411D1EB47AD70055D6B1 /* RippleEffect.xml */,
@@ -248,6 +255,7 @@
 				8CA2412E1EB47AD70055D6B1 /* RobotCrosswords.cpp in Sources */,
 				8CA2412F1EB47AD70055D6B1 /* RobotFences.cpp in Sources */,
 				95D7B5D923154C11001E005C /* RunInALoop.cpp in Sources */,
+				8C7412232DE25B1800E23098 /* Rabbits.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA2412D1EB47AD70055D6B1 /* RippleEffect.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,

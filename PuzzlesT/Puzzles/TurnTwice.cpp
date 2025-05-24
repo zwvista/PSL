@@ -3,6 +3,7 @@
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 #include <boost/math/special_functions/sign.hpp>
+
 /*
     iOS Game: Logic Games/Puzzle Set 15/Turn Twice
 
@@ -22,6 +23,8 @@
 */
 
 namespace puzzles::TurnTwice{
+
+using boost::math::sign;
 
 #define PUZ_SPACE        ' '
 #define PUZ_EMPTY        '.'
@@ -78,8 +81,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (int k = 0; k < sz2; ++k) {
                 vector<Position> path;
                 for (auto p = p1;;) {
-                    Position os1(boost::math::sign(p2.first - p.first), 0);
-                    Position os2(0, boost::math::sign(p2.second - p.second));
+                    Position os1(sign(p2.first - p.first), 0);
+                    Position os2(0, sign(p2.second - p.second));
                     Position os = k == 0 && os1 != os0 || k == 1 && os2 == os0 ? os1 : os2;
                     p += os;
                     if (p == p2) break;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C74121F2DE25A7600E23098 /* BentBridges.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95804A3A2544CA720022AF35 /* BentBridges.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -297,6 +298,7 @@
 				8CA23FD91EB479280055D6B1 /* BattleShips.cpp in Sources */,
 				8CA23FDA1EB479280055D6B1 /* bloxorz.cpp in Sources */,
 				8CA23FE31EB479280055D6B1 /* BusySeas.cpp in Sources */,
+				8C74121F2DE25A7600E23098 /* BentBridges.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA23FDD1EB479280055D6B1 /* BoxItAgain.cpp in Sources */,
 				8CA23FE11EB479280055D6B1 /* Bridges.cpp in Sources */,
