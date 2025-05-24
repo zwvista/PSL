@@ -70,7 +70,7 @@ struct puz_state : string
     bool make_move(const Position& p, char ch);
     int get_id() const {
         for (int i = 0;; ++i)
-            if (m_id2area.count(i) == 0)
+            if (!m_id2area.contains(i))
                 return i;
     }
     // remove the possibility of filling the position p with char ch

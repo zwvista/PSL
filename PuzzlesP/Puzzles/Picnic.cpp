@@ -232,7 +232,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            if (m_game->m_pos2num.count(p) == 0)
+            if (!m_game->m_pos2num.contains(p))
                 out << PUZ_EMPTY << ' ';
             else
                 out << m_game->m_pos2num.at(p) << m_pos2ch.at(p);

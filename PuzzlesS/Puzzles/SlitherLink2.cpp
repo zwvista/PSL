@@ -194,7 +194,7 @@ bool puz_state::check_loop() const
     //                has_loop = true;
     //                break;
     //            }
-    //        if (rng.count(p2) == 0)
+    //        if (!rng.contains(p2))
     //            break;
     //    }
     //}

@@ -215,7 +215,7 @@ bool puz_state::check_loop() const
                 // we have a loop here,
                 // so we should have exhausted the line segments 
                 return rng.empty() && m_game->m_spots.empty();
-            if (rng.count(p2) == 0)
+            if (!rng.contains(p2))
                 break;
         }
     }

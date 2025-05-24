@@ -253,7 +253,7 @@ ostream& puz_state::dump(ostream& out) const
                 auto p2 = p + offset[i];
                 auto p_wall = p + offset2[i];
                 auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
-                if (area.m_inner.count(p2) == 0)
+                if (!area.m_inner.contains(p2))
                     walls.insert(p_wall);
             }
     }

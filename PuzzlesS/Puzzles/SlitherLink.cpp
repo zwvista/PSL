@@ -204,7 +204,7 @@ int puz_state::check_dots(bool init)
                 Position p(r, c);
                 const auto& dt = dots(p);
                 for (int i = 0; i < 4; ++i)
-                    if (m_finished.count({p, i}) == 0 && (
+                    if (!m_finished.contains({p, i}) && (
                         boost::algorithm::all_of(dt, [=](int lineseg) {
                         return is_lineseg_on(lineseg, i);
                     }) || boost::algorithm::all_of(dt, [=](int lineseg) {
@@ -285,7 +285,7 @@ bool puz_state::check_loop() const
                 // we have a loop here,
                 // so we should have exhausted the line segments 
                 return !has_branch && rng.empty();
-            if (rng.count(p2) == 0) {
+            if (!rng.contains(p2)) {
                 has_branch = true;
                 break;
             }

@@ -189,7 +189,7 @@ void puz_state::make_move2(int i, int j)
             auto p3 = p + offset[i];
             auto p_wall = p + offset2[i];
             auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
-            if (rng.count(p3) == 0)
+            if (!rng.contains(p3))
                 walls.insert(p_wall);
         }
 

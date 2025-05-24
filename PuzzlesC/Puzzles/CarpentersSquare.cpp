@@ -180,7 +180,7 @@ int puz_state::adjust_area(bool init)
                     arms[i].push_back(p2);
                     arm_lens[i].push_back(j++);
                 }
-                if (m_matches.count(ch2) == 0) continue;
+                if (!m_matches.contains(ch2)) continue;
                 auto& t = get_tool(ch2);
                 if (t.hint_type() == tool_hint_type::ARM_END &&
                     (t.dir() + 2) % 4 == i) {

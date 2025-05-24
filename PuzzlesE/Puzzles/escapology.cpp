@@ -108,7 +108,7 @@ bool puz_state::make_move(int i)
                 dirs.find(chb) != -1 && chb != dir ||
                 dirs.find(ch2) != -1 && ch2 != dir)
                 break;
-            if (m_balls.count(b = p2) == 0) {
+            if (!m_balls.contains(b = p2)) {
                 can_move = true;
                 break;
             }

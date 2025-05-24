@@ -93,7 +93,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
         auto& os = offset[square_dirs.find(info.m_dir)];
         for (auto p2 = p + os; is_valid(p2); p2 += os)
-            if (m_pos2info.count(p2) == 0)
+            if (!m_pos2info.contains(p2))
                 info.m_rng.push_back(p2);
 
         auto perm = string(info.m_rng.size() - info.m_num, PUZ_SQUARE_OFF) + string(info.m_num, PUZ_SQUARE_ON);
@@ -315,7 +315,7 @@ bool puz_state::check_loop() const
                 // we have a loop here,
                 // so we should have exhausted the line segments 
                 return rng.empty();
-            if (rng.count(p2) == 0)
+            if (!rng.contains(p2))
                 break;
         }
     }

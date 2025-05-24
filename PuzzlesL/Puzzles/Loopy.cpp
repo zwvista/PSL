@@ -206,7 +206,7 @@ bool puz_state::check_loop() const
                 }
             if (p2 == p)
                 return cnt == m_game->m_dot_count;
-            if (rng.count(p2) == 0)
+            if (!rng.contains(p2))
                 break;
         }
     }

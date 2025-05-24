@@ -90,7 +90,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
-        if (walls.count(p_wall) == 0) {
+        if (!walls.contains(p_wall)) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -301,7 +301,7 @@ bool puz_state::check_loop() const
             char ch = m_game->cells(p2);
             if (ch != PUZ_SPACE) {
                 int area_id = m_game->m_pos2area.at(p2);
-                if (area_ids.count(area_id) == 0) {
+                if (!area_ids.contains(area_id)) {
                     area_ids.insert(area_id);
                     int visit_id = ch == PUZ_MUSEUM ? PUZ_VISIT_MUSEUM : PUZ_VISIT_MONUMENT;
                     if (first_visit_id == -1)
@@ -321,7 +321,7 @@ bool puz_state::check_loop() const
                 // we have a loop here,
                 // so we should have exhausted the line segments 
                 return !has_branch && rng.empty() && last_visit_id != first_visit_id;
-            if (rng.count(p2) == 0) {
+            if (!rng.contains(p2)) {
                 has_branch = true;
                 break;
             }

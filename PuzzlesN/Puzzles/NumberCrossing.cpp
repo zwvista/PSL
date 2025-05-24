@@ -98,7 +98,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     if (sum == PUZ_UNKNOWN || sum == sum2) {
                         auto digits2 = digits;
                         boost::sort(digits2);
-                        if (digits_all.count(digits2) == 0) {
+                        if (!digits_all.contains(digits2)) {
                             digits_all.insert(digits2);
                             vector<int> perm(m_sidelen - 2 - k, PUZ_EMPTY);
                             perm.insert(perm.end(), digits2.begin(), digits2.end());
