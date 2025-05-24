@@ -194,15 +194,15 @@ bool puz_state::make_move2(int i, int j)
     for (auto it = m_pos2num.begin(); it != m_pos2num.end();) {
         auto& [p, n] = *it;
         auto& [r, c] = p;
-        int cnt1 = m_matches.count(r), cnt2 = m_matches.count(sidelen() + c);
-        if (cnt1 == 0 && cnt2 == 0) {
+        bool hasR = m_matches.contains(r), hasC = m_matches.contains(sidelen() + c);
+        if (!hasR && !hasC) {
             m_distance++;
             it = m_pos2num.erase(it);
         }
         else {
             if (n == 1 && (
-                cnt1 == 1 && cnt2 == 0 && !remove_matches(r, c, 1 - m_game->m_perms[m_rc2index.at(sidelen() + c)].m_nums[r]) ||
-                cnt1 == 0 && cnt2 == 1 && !remove_matches(sidelen() + c, r, 1 - m_game->m_perms[m_rc2index.at(r)].m_nums[c])))
+                hasR && !hasC && !remove_matches(r, c, 1 - m_game->m_perms[m_rc2index.at(sidelen() + c)].m_nums[r]) ||
+                !hasR && hasC && !remove_matches(sidelen() + c, r, 1 - m_game->m_perms[m_rc2index.at(r)].m_nums[c])))
                 return false;
             it++;
         }
