@@ -67,7 +67,7 @@ struct puz_state : pair<string, boost::optional<puz_step>>
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
 };
 
 void puz_state::gen_children(list<puz_state>& children) const

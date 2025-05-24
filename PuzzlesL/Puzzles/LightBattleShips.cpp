@@ -150,7 +150,7 @@ struct puz_state : string
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     map<int, int> m_ship2num;
     map<Position, char> m_pos2piece;
     map<Position, int> m_pos2light;

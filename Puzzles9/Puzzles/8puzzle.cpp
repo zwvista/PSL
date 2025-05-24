@@ -75,7 +75,7 @@ struct puz_state : string
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     Position m_space;
     char m_move;
 };

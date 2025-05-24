@@ -132,7 +132,7 @@ struct puz_state
     bool can_move(int i, int j, int k) const;
     void make_move(int i, int j, int k);
     void calc_layout();
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     vector<vector<Position>> m_worms;
     boost::optional<puz_step> m_move;
     string m_layout;

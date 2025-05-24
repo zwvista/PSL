@@ -131,7 +131,7 @@ struct puz_state : string
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     vector<int> m_piece_counts_rows, m_piece_counts_cols;
     set<Position> m_pieces;
     vector<int> m_matches, m_matches2;

@@ -107,7 +107,7 @@ struct puz_state : string
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     Position m_zafiro;
     int m_grav;
     boost::optional<puz_step> m_move;

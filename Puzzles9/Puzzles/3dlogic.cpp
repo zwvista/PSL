@@ -67,7 +67,7 @@ struct puz_state_base
     bool is_valid(Position3d& p) const;
     unsigned int manhattan_distance3d(const Position3d& p31, const Position3d& p32) const;
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
 };
 
 bool puz_state_base::is_valid(Position3d& p) const

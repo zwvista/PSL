@@ -228,7 +228,7 @@ struct puz_state
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     map<int, int> m_ship2num;
     map<int, vector<pair<Position, bool>>> m_ship_matches;
     map<int, pair<int, vector<int>>> m_area_matches;

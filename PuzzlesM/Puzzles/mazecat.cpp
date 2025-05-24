@@ -82,7 +82,7 @@ struct puz_state
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     array<Position, 2> m_cats;
     string m_move;
 };

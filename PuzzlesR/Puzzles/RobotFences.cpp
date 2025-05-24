@@ -169,7 +169,7 @@ struct puz_state
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     string m_cells;
     map<int, vector<int>> m_matches;
     int m_distance = 0;

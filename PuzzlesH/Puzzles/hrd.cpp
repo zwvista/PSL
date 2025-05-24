@@ -113,7 +113,7 @@ struct puz_state
     }
 
     bool make_move(const Position& pos, EBrickType bt, const brick_info& bi, int i);
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     vector<char> m_cells;
     brick_map m_brick_map;
     Position m_caocao;

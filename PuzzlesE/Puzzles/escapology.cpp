@@ -79,7 +79,7 @@ struct puz_state
 
     bool is_ball(const Position& p) const {return m_balls.count(p) != 0;}
     bool make_move(int i);
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     set<Position> m_balls;
     char m_move;
 };

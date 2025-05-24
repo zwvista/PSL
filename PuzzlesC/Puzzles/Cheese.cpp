@@ -107,7 +107,7 @@ struct puz_state
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     Position m_p;
     int m_health = 1;
     char m_move;

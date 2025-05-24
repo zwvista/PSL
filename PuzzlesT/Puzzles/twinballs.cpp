@@ -88,7 +88,7 @@ struct puz_state
 
     bool is_ball(const Position& p) const {return p == m_balls[0] || p == m_balls[1];}
     bool make_move(EDir dir);
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     array<Position, 2> m_balls;
     char m_move;
 };

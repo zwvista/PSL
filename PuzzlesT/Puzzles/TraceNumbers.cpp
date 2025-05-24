@@ -72,7 +72,7 @@ struct puz_state2 : vector<Position>
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     char m_char;
 };
 

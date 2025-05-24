@@ -107,7 +107,7 @@ public:
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     vector<Position> m_blocks;
     boost::optional<puz_step> m_move;
 };

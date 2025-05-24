@@ -63,7 +63,7 @@ struct puz_state : vector<int>
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     boost::optional<puz_step> m_move;
 };
 

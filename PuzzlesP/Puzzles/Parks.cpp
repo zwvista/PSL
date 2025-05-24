@@ -197,7 +197,7 @@ struct puz_groups
     }
     const puz_area& get_best_candidate_area() const;
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     puz_group m_parks;
     puz_group m_rows;
     puz_group m_cols;

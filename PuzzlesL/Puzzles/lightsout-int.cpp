@@ -94,7 +94,7 @@ struct puz_state
     }
 
     unsigned int m_data;
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     boost::optional<puz_step> m_move;
 };
 

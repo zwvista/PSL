@@ -182,7 +182,7 @@ struct puz_state
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     Position m_man;
     mm_obj_map m_obj_map;
     bool m_gate_open;

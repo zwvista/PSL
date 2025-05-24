@@ -70,7 +70,7 @@ struct puz_state
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     set<Position> m_balls;
     boost::optional<puz_step> m_move;
 };

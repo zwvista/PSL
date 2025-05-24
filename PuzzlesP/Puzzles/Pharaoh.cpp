@@ -119,7 +119,7 @@ struct puz_state
 
     Position red_pos() const;
     bool make_move(const Position& pos, EBrickType bt, const vector<Position>& units, EBrickDir dir);
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     vector<char> m_cells;
     brick_map m_brick_map;
     boost::optional<puz_step> m_move;

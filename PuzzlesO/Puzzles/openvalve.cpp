@@ -101,7 +101,7 @@ struct puz_state
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     string m_cells;
     bool m_connected;
     list<pipe_info> m_frontier;

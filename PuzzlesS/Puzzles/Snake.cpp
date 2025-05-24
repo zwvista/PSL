@@ -123,7 +123,7 @@ struct puz_state
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     string m_cells;
     vector<int> m_piece_counts_rows, m_piece_counts_cols;
     map<int, vector<int>> m_matches;

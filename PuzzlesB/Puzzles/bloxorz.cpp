@@ -157,7 +157,7 @@ struct puz_state
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     array<Position, 2> m_blocks;
     bool m_split;
     vector<bool> m_bridge_states;

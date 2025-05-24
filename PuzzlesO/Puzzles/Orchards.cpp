@@ -168,7 +168,7 @@ struct puz_state : string
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     vector<puz_area> m_areas;
 };
 

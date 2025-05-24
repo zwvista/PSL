@@ -67,7 +67,7 @@ struct puz_state_base
         return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     Position m_block;
 };
 

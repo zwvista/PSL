@@ -48,7 +48,7 @@ struct puz_state_base
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     Position m_man;
     string m_move;
 };

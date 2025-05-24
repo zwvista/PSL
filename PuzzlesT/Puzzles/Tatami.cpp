@@ -179,7 +179,7 @@ struct puz_state : string
         return state.dump(out);
     }
 
-    const puz_game* m_game;
+    const puz_game* m_game = nullptr;
     puz_group m_grp_tatamis;
     puz_group m_grp_rows;
     puz_group m_grp_cols;
