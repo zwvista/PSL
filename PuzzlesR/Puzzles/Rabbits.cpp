@@ -239,7 +239,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if (m_game->m_pos2num.count(p) == 1)
+            if (m_game->m_pos2num.contains(p))
                 out << m_game->m_pos2num.at(p);
             else
                 out << cells(p);

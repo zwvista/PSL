@@ -101,7 +101,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         rng.clear();
                         break;
                     }
-                    if (m_nail2lits.count(p2) == 1)
+                    if (m_nail2lits.contains(p2))
                         rng.push_back(p2);
                 }
                 if (rng.size() == 1)
@@ -251,13 +251,13 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horz-walls
         for (int c = 0; c < sidelen(); ++c)
-            out << (m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+            out << (m_horz_walls.contains({r, c}) ? " -" : "  ");
         out << endl;
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-walls
-            out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
+            out << (m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             out << cells(p);
         }

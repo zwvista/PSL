@@ -395,14 +395,14 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; ; ++c) {
             out << ' ';
             if (c == sidelen()) break;
-            out << (m_game->m_horz_walls.count({r, c}) == 1 ? "---" : "   ");
+            out << (m_game->m_horz_walls.contains({r, c}) ? "---" : "   ");
         }
         out << endl;
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-lines
-            out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+            out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             out << (is_lineseg_on(dots(p)[0], 0) ? " | " : "   ");
         }
@@ -410,7 +410,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-lines
-            out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+            out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             out << (is_lineseg_on(dots(p)[0], 3) ? '-' : ' ');
             out << m_game->cells(p);
@@ -420,7 +420,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-lines
-            out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+            out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             out << (is_lineseg_on(dots(p)[0], 2) ? " | " : "   ");
         }

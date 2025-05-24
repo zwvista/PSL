@@ -225,13 +225,13 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horz-walls
         for (int c = 0; c < cols(); ++c)
-            out << (m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+            out << (m_horz_walls.contains({r, c}) ? " -" : "  ");
         out << endl;
         if (r == rows()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-walls
-            out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
+            out << (m_vert_walls.contains(p) ? '|' : ' ');
             if (c == cols()) break;
             out << m_game->cells(p);
         }

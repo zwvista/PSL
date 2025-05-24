@@ -410,18 +410,18 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
         out << ' ';
         // draw horz-walls
         for (int c = 0; c < cols(); ++c)
-            out << (m_game->m_horz_walls.count({r, c}) == 1 ? " --" : "   ");
+            out << (m_game->m_horz_walls.contains({r, c}) ? " --" : "   ");
         out << endl;
         if (r == rows()) break;
         out << (r + 1);
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-walls
-            out << (m_game->m_vert_walls.count(p) == 1 ? '|' : ' ');
+            out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == cols()) break;
             char ch = cells(p);
             out << (ch != PUZ_SPACE ? ch : is_teleport(p) ? get_teleport(p).first : ch)
-                << (pos2dir.count(p) == 1 ? pos2dir.at(p) : ' ');
+                << (pos2dir.contains(p) ? pos2dir.at(p) : ' ');
         }
         out << (r + 1) << endl;
     }

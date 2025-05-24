@@ -146,10 +146,10 @@ bool puz_state::check_four_boxes()
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c)
-            if (m_horz_walls.count({r + 1, c}) == 1 &&
-                m_horz_walls.count({r + 1, c + 1}) == 1 &&
-                m_vert_walls.count({r, c + 1}) == 1 &&
-                m_vert_walls.count({r + 1, c + 1}) == 1)
+            if (m_horz_walls.contains({r + 1, c}) &&
+                m_horz_walls.contains({r + 1, c + 1}) &&
+                m_vert_walls.contains({r, c + 1}) &&
+                m_vert_walls.contains({r + 1, c + 1}))
                 return false;
     return true;
 }
@@ -236,13 +236,13 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horz-walls
         for (int c = 0; c < sidelen(); ++c)
-            out << (m_horz_walls.count({r, c}) == 1 ? " -" : "  ");
+            out << (m_horz_walls.contains({r, c}) ? " -" : "  ");
         out << endl;
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-walls
-            out << (m_vert_walls.count(p) == 1 ? '|' : ' ');
+            out << (m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
                 out << '.';

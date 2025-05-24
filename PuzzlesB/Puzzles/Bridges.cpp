@@ -135,7 +135,7 @@ int puz_state::find_matches(bool init)
                 } else
                     for (; ; p2 += os) {
                         char ch = cells(p2);
-                        if (ch == PUZ_ISLAND && m_matches.count(p2) == 1 ||
+                        if (ch == PUZ_ISLAND && m_matches.contains(p2) ||
                             is_horz && (ch == PUZ_HORZ_1 && n == 1 || ch == PUZ_HORZ_2 && n == 2) ||
                             !is_horz && (ch == PUZ_VERT_1 && n == 1 || ch == PUZ_VERT_2 && n == 2))
                             break;
@@ -188,7 +188,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                 p2 += os;
             children.push_back(*this);
             children.back().make_move(p2);
-        } else if (m_state->m_matches.count(*this) == 1 && ch == PUZ_SPACE) {
+        } else if (m_state->m_matches.contains(*this) && ch == PUZ_SPACE) {
             while (m_state->cells(p2) == PUZ_SPACE)
                 p2 += os;
             if (m_state->cells(p2) == PUZ_ISLAND) {

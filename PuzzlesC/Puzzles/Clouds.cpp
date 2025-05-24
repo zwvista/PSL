@@ -191,7 +191,7 @@ bool puz_state::find_matches()
         for (int id : m_matches) {
             auto& o = m_game->m_clouds[id];
             if (boost::algorithm::any_of(m_pieces, [&](const Position& p) {
-                return o.m_body.count(p) == 1;
+                return o.m_body.contains(p);
             }))
                 m_matches2.push_back(id);
         } else {

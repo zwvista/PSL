@@ -174,7 +174,7 @@ puz_state::puz_state(const puz_game& g)
                     auto p2 = p + offset[i];
                     auto p_wall = p + offset2[i];
                     auto& walls = i % 2 == 0 ? m_horz_walls : m_vert_walls;
-                    walls.at(p_wall) = area.m_inner.count(p2) == 1 ?
+                    walls.at(p_wall) = area.m_inner.contains(p2) ?
                         PUZ_WALL_OFF : PUZ_WALL_ON;
                 }
     }
@@ -235,7 +235,7 @@ bool puz_state::make_move2(const Position& p, int n)
     for (auto& kv : m_id2area) {
         int id = kv.first;
         auto& area = kv.second;
-        if (area.m_cell_count == n && area.m_outer.count(p) == 1)
+        if (area.m_cell_count == n && area.m_outer.contains(p))
             ids.push_back(id);
     }
 
@@ -260,7 +260,7 @@ bool puz_state::make_move2(const Position& p, int n)
             auto p3 = p2 + offset[i];
             auto p_wall2 = p2 + offset2[i];
             auto& walls2 = i % 2 == 0 ? m_horz_walls : m_vert_walls;
-            if (area.m_inner.count(p3) == 1)
+            if (area.m_inner.contains(p3))
                 walls2.at(p_wall2) = PUZ_WALL_OFF;
             else if (area.m_ready)
                 walls2.at(p_wall2) = PUZ_WALL_ON;

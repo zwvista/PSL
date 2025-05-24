@@ -111,7 +111,7 @@ void puz_state::make_move2(const Position& pTo)
 {
     set<Position> rngFrom, rngTo;
     for (auto& [pFrom, rng] : m_matches)
-        if (rng.count(pTo) == 1) {
+        if (rng.contains(pTo)) {
             rngFrom.insert(pFrom);
             rngTo.insert(rng.begin(), rng.end());
         }

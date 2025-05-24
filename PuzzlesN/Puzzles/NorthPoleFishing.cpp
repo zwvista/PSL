@@ -261,13 +261,13 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 1;; ++r) {
         // draw horz-walls
         for (int c = 1; c < sidelen() - 1; ++c)
-            out << (horz_walls.count({r, c}) == 1 ? " -" : "  ");
+            out << (horz_walls.contains({r, c}) ? " -" : "  ");
         out << endl;
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vert-walls
-            out << (vert_walls.count(p) == 1 ? '|' : ' ');
+            out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             char ch = cells(p);
             out << (ch == PUZ_BLOCK ? ch :
