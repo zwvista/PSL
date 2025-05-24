@@ -14,16 +14,16 @@ extern void solve_puz_hrd();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "e1: Hedgehog" << endl;
-    cout << "e2: Helium And Iron" << endl;
-    cout << "e3: hexrotation" << endl;
-    cout << "i1: HiddenPath" << endl;
-    cout << "i2: HiddenStars" << endl;
-    cout << "i3: Hidoku" << endl;
-    cout << "i4: Hitori" << endl;
-    cout << "o1: Holiday Island" << endl;
-    cout << "o2: hopover" << endl;
-    cout << "r: hrd" << endl;
+    println("e1: Hedgehog");
+    println("e2: Helium And Iron");
+    println("e3: hexrotation");
+    println("i1: HiddenPath");
+    println("i2: HiddenStars");
+    println("i3: Hidoku");
+    println("i4: Hitori");
+    println("o1: Holiday Island");
+    println("o2: hopover");
+    println("r: hrd");
     string str;
     getline(cin, str);
     if (str.empty());

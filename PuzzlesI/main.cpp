@@ -8,10 +8,10 @@ extern void solve_puz_IslandConnections();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "c: icedin" << endl;
-    cout << "n1: Inbetween Sumscrapers" << endl;
-    cout << "n2: Insane Tatamis" << endl;
-    cout << "s: Island Connections" << endl;
+    println("c: icedin");
+    println("n1: Inbetween Sumscrapers");
+    println("n2: Insane Tatamis");
+    println("s: Island Connections");
     string str;
     getline(cin, str);
     if (str.empty());

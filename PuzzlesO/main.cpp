@@ -10,12 +10,12 @@ extern void solve_puz_OverUnder();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "d: Odds Are Even" << endl;
-    cout << "n1: on_the_edge" << endl;
-    cout << "n2: One Up or Down" << endl;
-    cout << "p: openvalve" << endl;
-    cout << "r: Orchards" << endl;
-    cout << "v: Over Under" << endl;
+    println("d: Odds Are Even");
+    println("n1: on_the_edge");
+    println("n2: One Up or Down");
+    println("p: openvalve");
+    println("r: Orchards");
+    println("v: Over Under");
     string str;
     getline(cin, str);
     if (str.empty());

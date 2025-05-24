@@ -7,9 +7,9 @@ extern void solve_puz_Gems();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "a1: Galaxies" << endl;
-    cout << "a2: Gardener" << endl;
-    cout << "e: Gems" << endl;
+    println("a1: Galaxies");
+    println("a2: Gardener");
+    println("e: Gems");
     string str;
     getline(cin, str);
     if (str.empty());

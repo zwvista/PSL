@@ -14,16 +14,16 @@ extern void solve_puz_Nurikabe();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "e: Neighbours" << endl;
-    cout << "o1: North Pole Fishing" << endl;
-    cout << "o2: Noughts & Crosses" << endl;
-    cout << "u1: Number Crossing" << endl;
-    cout << "u2: Number Crosswords" << endl;
-    cout << "u3: Number Path" << endl;
-    cout << "u32: Number Path 2" << endl;
-    cout << "u4: NumberLink" << endl;
-    cout << "u5: numeric_paranoia" << endl;
-    cout << "u6: Nurikabe" << endl;
+    println("e: Neighbours");
+    println("o1: North Pole Fishing");
+    println("o2: Noughts & Crosses");
+    println("u1: Number Crossing");
+    println("u2: Number Crosswords");
+    println("u3: Number Path");
+    println("u32: Number Path 2");
+    println("u4: NumberLink");
+    println("u5: numeric_paranoia");
+    println("u6: Nurikabe");
     string str;
     getline(cin, str);
     if (str.empty());

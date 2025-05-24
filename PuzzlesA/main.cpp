@@ -10,12 +10,12 @@ extern void solve_puz_Arrows();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "b1: Abc" << endl;
-    cout << "b2: ABC Path" << endl;
-    cout << "b3: Abstract Painting" << endl;
-    cout << "d: A Different Farmer" << endl;
-    cout << "r1: Archipelago" << endl;
-    cout << "r2: Arrows" << endl;
+    println("b1: Abc");
+    println("b2: ABC Path");
+    println("b3: Abstract Painting");
+    println("d: A Different Farmer");
+    println("r1: Archipelago");
+    println("r2: Arrows");
     string str;
     getline(cin, str);
     if (str.empty());

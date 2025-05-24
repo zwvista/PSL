@@ -5,7 +5,7 @@ extern void solve_puz_UnreliableHints();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "n: Unreliable Hints" << endl;
+    println("n: Unreliable Hints");
     string str;
     getline(cin, str);
     if (str.empty());

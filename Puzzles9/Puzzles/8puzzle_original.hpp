@@ -189,7 +189,7 @@ int main(int argc, char **argv)
             if (p[v] == v)
                 break;
         }
-        cout << "Sequence of moves:" << endl;
+        println("Sequence of moves:");
         for (vertex_t v : shortest_path)
             cout << smap.left.at(v) << endl;
         cout << "Number of moves: "

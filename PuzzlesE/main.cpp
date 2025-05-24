@@ -5,7 +5,7 @@ extern void solve_puz_escapology();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "s: escapology" << endl;
+    println("s: escapology");
     string str;
     getline(cin, str);
     if (str.empty());

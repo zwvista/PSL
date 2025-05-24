@@ -11,13 +11,13 @@ extern void solve_puz_Wriggle();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "a1: Walls" << endl;
-    cout << "a2: Wall Hints" << endl;
-    cout << "a3: Wall Sentinels" << endl;
-    cout << "a4: Warehouse" << endl;
-    cout << "i1: Wildlife Park" << endl;
-    cout << "i2: Wish Sandwich" << endl;
-    cout << "r: Wriggle" << endl;
+    println("a1: Walls");
+    println("a2: Wall Hints");
+    println("a3: Wall Sentinels");
+    println("a4: Warehouse");
+    println("i1: Wildlife Park");
+    println("i2: Wish Sandwich");
+    println("r: Wriggle");
     string str;
     getline(cin, str);
     if (str.empty());

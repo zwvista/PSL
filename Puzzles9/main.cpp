@@ -7,9 +7,9 @@ extern void solve_puz_8puzzle();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "1: 15pegs" << endl;
-    cout << "3: 3dlogic" << endl;
-    cout << "8: 8puzzle" << endl;
+    println("1: 15pegs");
+    println("3: 3dlogic");
+    println("8: 8puzzle");
     string str;
     getline(cin, str);
     if (str.empty());

@@ -13,15 +13,15 @@ extern void solve_puz_RunInALoop();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "a: Rabbits" << endl;
-    cout << "i: Ripple Effect" << endl;
-    cout << "o1: Robot Crosswords" << endl;
-    cout << "o2: Robot Fences" << endl;
-    cout << "o3: Rome" << endl;
-    cout << "o4: Rooms" << endl;
-    cout << "o5: rotate9" << endl;
-    cout << "o6: rotation game" << endl;
-    cout << "u: Run in a Loop" << endl;
+    println("a: Rabbits");
+    println("i: Ripple Effect");
+    println("o1: Robot Crosswords");
+    println("o2: Robot Fences");
+    println("o3: Rome");
+    println("o4: Rooms");
+    println("o5: rotate9");
+    println("o6: rotation game");
+    println("u: Run in a Loop");
     string str;
     getline(cin, str);
     if (str.empty());

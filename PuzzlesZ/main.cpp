@@ -8,10 +8,10 @@ extern void solve_puz_zgj();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    cout << "a: zafiro" << endl;
-    cout << "e1: Zen Gardens" << endl;
-    cout << "e2: Zen Landscaper" << endl;
-    cout << "g: zgj" << endl;
+    println("a: zafiro");
+    println("e1: Zen Gardens");
+    println("e2: Zen Landscaper");
+    println("g: zgj");
     string str;
     getline(cin, str);
     if (str.empty());
