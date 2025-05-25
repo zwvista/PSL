@@ -32,7 +32,7 @@
      Using the numbers 1 to 10, and depending on arrangements, it is possible to form 16- and 17-digit strings. What is the maximum 16-digit string for a "magic" 5-gon ring?
 */
 
-namespace puzzles{ namespace Magic5gonRing{
+namespace puzzles::Magic5gonRing{
 
 struct puz_game
 {
@@ -158,7 +158,7 @@ void dump_all(ostream& out, const list<list<puz_state>>& spaths)
         out << "The maximum " << kv.first << "-digit string is: " << kv.second << endl;
 }
 
-}}
+}
 
 void solve_puz_Magic5gonRing()
 {

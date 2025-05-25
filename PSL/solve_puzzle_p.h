@@ -56,9 +56,7 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
         // println(out, "Start state:\n{}", sstart);
         println(out, "Level {}", game.m_id);
         println("Level {}", game.m_id);
-        bool found;
-        size_t vert_num;
-        boost::tie(found, vert_num) = puz_solver::find_solution(sstart, spaths);
+        const auto [found, vert_num] = puz_solver::find_solution(sstart, spaths);
         if (fmt == solution_format::CUSTOM_SOLUTIONS)
             solutions_dumper(out, spaths);
         else {

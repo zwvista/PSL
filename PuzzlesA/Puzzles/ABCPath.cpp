@@ -13,7 +13,7 @@
     3.  The clues around the edge tell you which row, column or diagonal each letter is in.
 */
 
-namespace puzzles{ namespace ABCPath{
+namespace puzzles::ABCPath{
 
 #define PUZ_SPACE       ' '
 
@@ -123,7 +123,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_ABCPath()
 {

@@ -14,7 +14,7 @@
     2. Cables are not allowed to cross other cables.
 */
 
-namespace puzzles{ namespace PlugItIn{
+namespace puzzles::PlugItIn{
 
 #define PUZ_SPACE             ' '
 #define PUZ_LIGHTBULB         'L'
@@ -201,7 +201,7 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
-}}
+}
 
 void solve_puz_PlugItIn()
 {
