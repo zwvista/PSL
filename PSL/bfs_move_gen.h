@@ -1,6 +1,12 @@
 #pragma once
 
-template<class puz_state, bool directed = true>
+template<typename T>
+concept puz_state_move_generator = copyable<T> && requires(const T& t, list<T>& children)
+{
+    { t.gen_children(children) } -> same_as<void>;
+};
+
+template<puz_state_move_generator puz_state, bool directed = true>
 class puz_move_generator
 {
     typedef boost::property<boost::vertex_color_t, boost::default_color_type> vert_prop;
