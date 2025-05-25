@@ -4,10 +4,10 @@
 
 namespace puzzles::openvalve{
 
-constexpr auto PUZ_PIPE_L = 'L'        // "┌","┐","└","┘";
-constexpr auto PUZ_PIPE_I = 'I'        // "─","│";
-constexpr auto PUZ_PIPE_3 = '3'        // "├","┤","┬","┴";
-constexpr auto PUZ_PIPE_4 = '4'        // "┼";
+constexpr auto PUZ_PIPE_L = 'L';        // "┌","┐","└","┘"
+constexpr auto PUZ_PIPE_I = 'I';        // "─","│"
+constexpr auto PUZ_PIPE_3 = '3';        // "├","┤","┬","┴"
+constexpr auto PUZ_PIPE_4 = '4';        // "┼"
 
 constexpr Position offset[] = {
     {0, -1},
