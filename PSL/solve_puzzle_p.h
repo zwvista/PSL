@@ -12,7 +12,12 @@ enum class solution_format
     CUSTOM_SOLUTIONS,
 };
 
-template<class puz_game, class puz_state, class puz_solver>
+template<typename T>
+concept puz_game_solve_puzzle = puz_game_load_xml<T> && requires(const T& t) {
+    { t.m_id } -> same_as<const string&>;
+};
+
+template<puz_game_solve_puzzle puz_game, class puz_state, class puz_solver>
 void solve_puzzle(const string& fn_in, const string& fn_out,
                   solution_format fmt = solution_format::ALL_STATES,
                   function<void(ostream&, const list<puz_state>&)> states_dumper = {},

@@ -12,7 +12,12 @@ inline unsigned int manhattan_distance(const Position& p1, const Position& p2)
     return myabs(p1.first - p2.first) + myabs(p1.second - p2.second);
 }
 
-template<class puz_game>
+template<typename T>
+concept puz_game_load_xml = requires(const vector<string>& strs, const xml_node& node) {
+    T{ strs, node };
+};
+
+template<puz_game_load_xml puz_game>
 void load_xml(list<puz_game>& games, const string& fn_in)
 {
     xml_document doc;
