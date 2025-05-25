@@ -91,10 +91,7 @@ struct puz_state
     unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
-    ostream& dump(ostream& out) const;
-    friend ostream& operator<<(ostream& out, const puz_state& state) {
-        return state.dump(out);
-    }
+    void format_to_string(back_insert_iterator<string> it) const;
 
     const puz_game* m_game = nullptr;
     string m_cells;
@@ -174,33 +171,15 @@ void puz_state::gen_children(list<puz_state>& children) const
     }
 }
 
-ostream& puz_state::dump(ostream& out) const
+void puz_state::format_to_string(back_insert_iterator<string> it) const
 {
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c)
-            out << cells({r, c}) << ' ';
-        println(out);
+            format_to(it, "{} ", cells({r, c}));
+        format_to(it, "\n");
     }
-    return out;
 }
 
-}
-
-namespace std {
-    using namespace puzzles::Abc;
-    template<>
-    struct formatter<puz_state> : formatter<string> {
-        auto format(const puz_state& p, format_context& ctx) const {
-            string temp;
-            auto it = back_inserter(temp);
-            for (int r = 0; r < p.sidelen(); ++r) {
-                for (int c = 0; c < p.sidelen(); ++c)
-                    format_to(it, "{} ", p.cells({r, c}));
-                format_to(it, "\n");
-            }
-            return formatter<string>::format(temp, ctx);
-        }
-    };
 }
 
 void solve_puz_Abc()

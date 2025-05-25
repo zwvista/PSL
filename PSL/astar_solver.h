@@ -3,12 +3,13 @@
 #include "stdafx.h"
 
 template<typename T>
-concept puz_state_solver_astar = requires(const T& t, list<T>& children, const T& child)
+concept puz_state_solver_astar = requires(const T& t, list<T>& children, const T& child, const T& t2)
 {
     { t.is_goal_state() } -> same_as<bool>;
     { t.gen_children(children) } -> same_as<void>;
     { t.get_heuristic() } -> same_as<unsigned int>;
     { t.get_distance(child) } -> same_as<unsigned int>;
+    { t < t2 } -> same_as<bool>;
 };
 
 template<puz_state_solver_astar puz_state, bool directed = true, bool shortest_paths_only = true, bool first_paths_only = true>

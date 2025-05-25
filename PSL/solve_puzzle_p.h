@@ -17,13 +17,19 @@ concept puz_game_solve_puzzle = puz_game_load_xml<T> && requires(const T& t) {
     { t.m_id } -> same_as<const string&>;
 };
 
+template<typename T>
+concept puz_state_format_to_string = requires(const T& t, back_insert_iterator<string> it) {
+    { t.format_to_string(it) } -> same_as<void>;
+};
+
 template<typename T, typename G>
-concept puz_state_solve_puzzle = puz_game_solve_puzzle<G> && requires(const G& g) {
+concept puz_state_solve_puzzle = puz_game_solve_puzzle<G> && puz_state_format_to_string<T> &&
+    requires(const G& g) {
     T{ g };
 };
 
 template<typename T, typename S>
-concept puz_solver_solve_puzzle = requires(const T& t, const S& sstart, list<list<S>>&state_paths) {
+concept puz_solver_solve_puzzle = requires(const T& t, const S& sstart, list<list<S>>& state_paths) {
     { t.find_solution(sstart, state_paths) } -> same_as<pair<bool, size_t>>;
 };
 
@@ -84,4 +90,15 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
         println("{} [s]", t.elapsed());
         println(out);
     }
+}
+
+namespace std {
+    template<puz_state_format_to_string puz_state>
+    struct formatter<puz_state> : formatter<string> {
+        auto format(const puz_state& p, format_context& ctx) const {
+            string temp;
+            p.format_to_string(back_inserter(temp));
+            return formatter<string>::format(temp, ctx);
+        }
+    };
 }
