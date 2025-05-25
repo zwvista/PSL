@@ -24,8 +24,9 @@ concept puz_state_format_to_string = requires(const T& t, back_insert_iterator<s
 
 template<typename T, typename G>
 concept puz_state_solve_puzzle = puz_game_solve_puzzle<G> && puz_state_format_to_string<T> &&
-    requires(const G& g) {
+    requires(const G& g, const T& t, ostream& out) {
     T{ g };
+    { t.dump_move(out) } -> same_as<void>;
 };
 
 template<typename T, typename S>

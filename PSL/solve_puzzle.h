@@ -17,9 +17,16 @@ concept puz_game_solve_puzzle = puz_game_load_xml<T> && requires(const T& t) {
     { t.m_id } -> same_as<const string&>;
 };
 
+template<typename T>
+concept puz_state_dump_to_ostream = requires(const T& t, ostream& out) {
+    { t.dump(out) } -> same_as<ostream&>;
+};
+
 template<typename T, typename G>
-concept puz_state_solve_puzzle = puz_game_solve_puzzle<G> && requires(const G& g) {
+concept puz_state_solve_puzzle = puz_game_solve_puzzle<G> &&
+    requires(const G& g, const T& t, ostream& out) {
     T{ g };
+    { t.dump_move(out) } -> same_as<void>;
 };
 
 template<typename T, typename S>
@@ -83,5 +90,12 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
         out << t.elapsed() << " [s]" << endl;
         cout << t.elapsed() << " [s]" << endl;
         out << endl;
+    }
+}
+
+namespace std {
+    template<puz_state_dump_to_ostream puz_state>
+    ostream& operator<<(ostream& out, const puz_state& state) {
+        return state.dump(out);
     }
 }
