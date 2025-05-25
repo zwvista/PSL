@@ -13,11 +13,25 @@ enum class solution_format
 };
 
 template<typename T>
-concept puz_game_solve_puzzle = puz_game_load_xml<T> && requires(const T & t) {
+concept puz_game_solve_puzzle = puz_game_load_xml<T> && requires(const T& t) {
     { t.m_id } -> same_as<const string&>;
 };
 
-template<puz_game_solve_puzzle puz_game, class puz_state, class puz_solver>
+template<typename T, typename G>
+concept puz_state_solve_puzzle = puz_game_solve_puzzle<G> && requires(const G& g) {
+    T{ g };
+};
+
+template<typename T, typename S>
+concept puz_solver_solve_puzzle = requires(const T& t, const S& sstart, list<list<S>>& state_paths) {
+    { t.find_solution(sstart, state_paths) } -> same_as<pair<bool, size_t>>;
+};
+
+template<
+    puz_game_solve_puzzle puz_game,
+    puz_state_solve_puzzle<puz_game> puz_state,
+    puz_solver_solve_puzzle<puz_state> puz_solver
+>
 void solve_puzzle(const string& fn_in, const string& fn_out,
                   solution_format fmt = solution_format::ALL_STATES,
                   function<void(ostream&, const list<puz_state>&)> states_dumper = {},
