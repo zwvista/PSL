@@ -28,7 +28,7 @@ namespace puzzles::Magnets{
 #define PUZ_EMPTY        '.'
 #define PUZ_UNKNOWN        9999
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, 1},
     {1, 0},
     {0, -1},

@@ -29,14 +29,14 @@ namespace puzzles::Rooms{
 #define PUZ_DOOR_OPEN        '1'
 #define PUZ_DOOR_CLOSED        '2'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s
     {0, -1},        // w
 };
 
-const Position door_offset[] = {
+constexpr Position door_offset[] = {
     {0, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

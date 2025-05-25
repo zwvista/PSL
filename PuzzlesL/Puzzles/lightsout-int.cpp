@@ -7,7 +7,7 @@
 
 namespace puzzles::lightsout_int{
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, 0},
     {0, -1},
     {0, 1},

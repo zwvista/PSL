@@ -47,7 +47,7 @@ const vector<int> lines_spot = {
     1, 2, 4, 8,
 };
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

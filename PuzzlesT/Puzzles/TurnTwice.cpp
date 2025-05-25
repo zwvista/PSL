@@ -31,7 +31,7 @@ using boost::math::sign;
 #define PUZ_SIGNPOST    'S'
 #define PUZ_WALL        'W'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},         // e
     {1, 0},         // s

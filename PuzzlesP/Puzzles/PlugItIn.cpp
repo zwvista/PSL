@@ -23,7 +23,7 @@ namespace puzzles::PlugItIn{
 #define PUZ_VERT              '|'
 #define PUZ_BOUNDARY          'X'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},         // e
     {1, 0},         // s

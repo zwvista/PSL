@@ -7,7 +7,7 @@ namespace puzzles::hexrotation{
 
 #define PUZ_NOENTRY        '#'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, 2},
     {-1, 1},
     {-1, -1},

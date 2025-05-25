@@ -27,7 +27,7 @@ namespace puzzles::HiddenStars{
 #define PUZ_ARROW        'A'
 #define PUZ_STAR        'S'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},    // n
     {-1, 1},    // ne
     {0, 1},        // e

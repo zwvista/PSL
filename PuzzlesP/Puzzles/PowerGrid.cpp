@@ -29,7 +29,7 @@ namespace puzzles::PowerGrid{
 
 #define PUZ_UNKNOWN        0
     
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {-1, 1},        // ne
     {0, 1},        // e

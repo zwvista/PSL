@@ -26,14 +26,14 @@ namespace puzzles::NorthPoleFishing{
 #define PUZ_HOLE        'H'
 #define PUZ_PIECE_SIZE    4
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s
     {0, -1},        // w
 };
 
-const Position offset2[] = {
+constexpr Position offset2[] = {
     {0, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

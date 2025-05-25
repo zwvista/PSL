@@ -32,7 +32,7 @@ namespace puzzles::BootyIsland{
 #define PUZ_MAP            'M'
 #define PUZ_TREASURE    'X'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {-1, 1},        // ne
     {0, 1},        // e

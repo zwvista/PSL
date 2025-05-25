@@ -21,7 +21,7 @@ namespace puzzles::Minesweeper{
 #define PUZ_MINE        'M'
 #define PUZ_BOUNDARY    'B'
     
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},    // n
     {-1, 1},    // ne
     {0, 1},        // e

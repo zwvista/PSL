@@ -12,7 +12,7 @@ namespace puzzles::sokoban{
 #define PUZ_BOX            '$'
 #define PUZ_BOX_GOAL    '*'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

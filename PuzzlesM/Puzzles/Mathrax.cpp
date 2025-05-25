@@ -31,7 +31,7 @@ namespace puzzles::Mathrax{
 #define PUZ_EVEN    'E'
 #define PUZ_ODD        'O'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, 0},    // nw
     {0, 1},    // ne
     {1, 1},    // se

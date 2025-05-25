@@ -35,7 +35,7 @@ namespace puzzles::WallSentinels{
 #define PUZ_WALL_S            'S'
 #define PUZ_BOUNDARY        '+'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

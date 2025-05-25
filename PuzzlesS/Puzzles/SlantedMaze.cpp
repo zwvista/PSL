@@ -31,14 +31,14 @@ namespace puzzles::SlantedMaze{
 #define PUZ_TOUCHED        1
 #define PUZ_UNTOUCHED    0
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, 0},    // nw
     {0, 1},    // ne
     {1, 1},    // se
     {1, 0},    // sw
 };
 
-const Position offset2[] = {
+constexpr Position offset2[] = {
     {-1, -1},    // nw
     {-1, 1},        // ne
     {1, 1},        // se

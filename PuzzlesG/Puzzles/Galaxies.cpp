@@ -29,7 +29,7 @@ namespace puzzles::Galaxies{
 #define PUZ_GALAXY_C    'v'
 #define PUZ_GALAXY_RC    'x'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

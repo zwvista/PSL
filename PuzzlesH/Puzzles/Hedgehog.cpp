@@ -99,7 +99,7 @@ namespace puzzles::Hedgehog{
 #define PUZ_BOULDER_STR        " OO"
 #define PUZ_FOREST_DEST        -1
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {-1, 1},        // ne
     {0, 1},        // e

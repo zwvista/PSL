@@ -14,7 +14,7 @@ namespace puzzles::zgj{
 #define PUZ_GOAL        '.'
 #define PUZ_SPACE        ' '
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

@@ -30,7 +30,7 @@ namespace puzzles::Picnic{
 #define PUZ_EMPTY             '.'
 #define PUZ_BLANKET           'B'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},         // e
     {1, 0},         // s

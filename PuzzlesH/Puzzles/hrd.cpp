@@ -7,7 +7,7 @@ namespace puzzles::hrd{
 
 enum EBrickType {bt1X1, bt2X1, bt1X2, bt2X2};
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

@@ -9,7 +9,7 @@ namespace puzzles::openvalve{
 #define PUZ_PIPE_3        '3'        // "├","┤","┬","┴"
 #define PUZ_PIPE_4        '4'        // "┼"
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

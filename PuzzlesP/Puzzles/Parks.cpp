@@ -25,7 +25,7 @@ namespace puzzles::Parks{
 #define PUZ_TREE        'T'
 #define PUZ_SPACE        '.'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {-1, 1},        // ne
     {0, 1},         // e
@@ -36,7 +36,7 @@ const Position offset[] = {
     {-1, -1},       // nw
 };
 
-const Position offset2[] = {
+constexpr Position offset2[] = {
     {0, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

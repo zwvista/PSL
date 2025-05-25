@@ -27,7 +27,7 @@ namespace puzzles::CarpentersSquare{
 #define PUZ_BOUNDARY    '+'
 #define PUZ_CORNER      'O'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},         // e
     {1, 0},         // s

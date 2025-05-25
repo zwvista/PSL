@@ -8,7 +8,7 @@ namespace puzzles::Pharaoh{
 enum EBrickDir {mvLeft, mvRight, mvUp, mvDown};
 enum EBrickType {btRed, btBlue, btYellow};
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

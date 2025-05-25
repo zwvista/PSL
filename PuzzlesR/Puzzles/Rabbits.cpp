@@ -24,7 +24,7 @@ namespace puzzles::Rabbits{
 #define PUZ_RABBIT       'R'
 #define PUZ_TREE         'T'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},    // n
     {0, 1},     // e
     {1, 0},     // s

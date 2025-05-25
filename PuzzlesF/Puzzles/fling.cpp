@@ -7,7 +7,7 @@ namespace puzzles::fling{
 
 #define PUZ_BALL        '@'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

@@ -6,7 +6,7 @@
 
 namespace puzzles::_8puzzle{
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

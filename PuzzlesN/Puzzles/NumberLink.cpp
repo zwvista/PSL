@@ -38,7 +38,7 @@ namespace puzzles::NumberLink{
 
 const string lineseg_off = "0000";
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

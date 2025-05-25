@@ -29,7 +29,7 @@ namespace puzzles::CoffeeAndSugar{
 #define PUZ_VERT              '|'
 #define PUZ_BOUNDARY          'B'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},         // e
     {1, 0},         // s

@@ -31,7 +31,7 @@ namespace puzzles::BentBridges{
 #define PUZ_HORZ              '-'
 #define PUZ_VERT              '|'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},         // e
     {1, 0},         // s

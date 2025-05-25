@@ -23,14 +23,14 @@ namespace puzzles::Planks{
 #define PUZ_SPACE       ' '
 #define PUZ_NAIL        'N'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s
     {0, -1},        // w
 };
 
-const Position planks_offset[][3] = {
+constexpr Position planks_offset[][3] = {
     {{-2, 0}, {-1, 0}, {0, 0}},
     {{-1, 0}, {0, 0}, {1, 0}},
     {{0, 0}, {1, 0}, {2, 0}},

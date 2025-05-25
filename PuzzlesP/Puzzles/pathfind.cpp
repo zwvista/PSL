@@ -11,7 +11,7 @@ namespace puzzles::pathfind{
 
 enum EDir {mvLeft, mvRight, mvUp, mvDown};
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

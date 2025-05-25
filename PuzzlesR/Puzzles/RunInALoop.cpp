@@ -30,7 +30,7 @@ const vector<int> linesegs_all = {
     12, 10, 6, 9, 5, 3,
 };
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

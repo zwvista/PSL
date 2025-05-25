@@ -23,7 +23,7 @@ namespace puzzles::PuzzleRetreat{
 #define PUZ_BLOCK_ARROW        'A'
 #define PUZ_BLOCK_USED        '*'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

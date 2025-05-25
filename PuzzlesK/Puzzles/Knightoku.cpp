@@ -29,21 +29,21 @@ namespace puzzles::Knightoku{
 #define PUZ_ROW_LINE    '|'
 #define PUZ_COL_LINE    '-'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s
     {0, -1},        // w
 };
 
-const Position offset2[] = {
+constexpr Position offset2[] = {
     {0, 0},        // n
     {0, 1},        // e
     {1, 0},        // s
     {0, 0},        // w
 };
 
-const Position offset_knight[] = {
+constexpr Position offset_knight[] = {
     {-2, -1},    // nw
     {-2, 1},    // ne
     {-1, 2},    // en

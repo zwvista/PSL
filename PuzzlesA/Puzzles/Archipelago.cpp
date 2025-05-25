@@ -26,7 +26,7 @@ namespace puzzles::Archipelago{
 #define PUZ_ISLAND        '.'
 #define PUZ_WATER        'W'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {-1, 1},        // ne
     {0, 1},        // e

@@ -20,7 +20,7 @@ namespace puzzles::Loopy{
 #define PUZ_LINE_OFF        '0'
 #define PUZ_LINE_ON            '1'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

@@ -21,7 +21,7 @@ namespace puzzles::TetrominoPegs{
 #define PUZ_SPACE        ' '
 #define PUZ_PEG          '.'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

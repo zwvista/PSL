@@ -37,7 +37,7 @@ namespace puzzles::LightBattleships{
 #define PUZ_MIDDLE        '+'
 #define PUZ_BOAT        'o'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {-1, 1},        // ne
     {0, 1},        // e

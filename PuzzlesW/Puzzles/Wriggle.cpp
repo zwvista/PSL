@@ -8,7 +8,7 @@ namespace puzzles::Wriggle{
 #define PUZ_SPACE        ' '
 #define PUZ_GOAL        '.'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

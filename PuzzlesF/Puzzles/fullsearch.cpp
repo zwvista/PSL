@@ -12,7 +12,7 @@ namespace puzzles::fullsearch{
 #define PUZ_GOAL        'x'
 #define PUZ_WALL        '#'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

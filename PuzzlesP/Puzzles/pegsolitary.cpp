@@ -8,7 +8,7 @@ namespace puzzles::pegsolitary{
 #define PUZ_HOLE    ' '
 #define PUZ_NONE    '#'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

@@ -32,14 +32,14 @@ namespace puzzles::Kropki{
 #define PUZ_WHITE        'W'
 #define PUZ_NOT_BH        '.'
     
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s
     {0, -1},        // w
 };
 
-const Position offset2[] = {
+constexpr Position offset2[] = {
     {0, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

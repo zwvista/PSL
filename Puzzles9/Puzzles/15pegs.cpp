@@ -32,7 +32,7 @@ namespace puzzles::_15pegs{
 #define PUZ_PEG        '1'
 #define PUZ_SPACE    '0'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

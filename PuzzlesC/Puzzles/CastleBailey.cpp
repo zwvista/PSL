@@ -30,14 +30,14 @@ namespace puzzles::CastleBailey{
 #define PUZ_WALL        'W'
 #define PUZ_BOUNDARY    'B'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, 0},    // nw
     {0, 1},    // ne
     {1, 1},    // se
     {1, 0},    // sw
 };
 
-const Position offset2[] = {
+constexpr Position offset2[] = {
     {-1, 0},        // n
     {0, 1},        // e
     {1, 0},        // s

@@ -12,7 +12,7 @@ namespace puzzles::on_the_edge{
 #define PUZ_BLOCK        '@'
 #define PUZ_GOAL        '.'
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, -1},
     {0, 1},
     {-1, 0},

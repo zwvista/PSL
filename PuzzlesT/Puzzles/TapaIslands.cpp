@@ -28,7 +28,7 @@ namespace puzzles::TapaIslands{
 #define PUZ_BOUNDARY    'B'
 #define PUZ_UNKNOWN        -1
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {-1, 0},        // n
     {-1, 1},        // ne
     {0, 1},        // e

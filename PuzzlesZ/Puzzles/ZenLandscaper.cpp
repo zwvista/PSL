@@ -25,7 +25,7 @@ namespace puzzles::ZenLandscaper{
 
 #define PUZ_SPACE        ' '
 
-const Position offset[] = {
+constexpr Position offset[] = {
     {0, 1},        // e
     {1, 1},        // se
     {1, 0},        // s
