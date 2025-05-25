@@ -48,6 +48,8 @@
 		8C2964031FA4339E0017A812 /* Magic5gonRing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Magic5gonRing.cpp; sourceTree = "<group>"; };
 		8C2964041FA4339E0017A812 /* Magic5gonRing.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Magic5gonRing.txt; sourceTree = "<group>"; };
 		8C2964051FA4339F0017A812 /* Magic5gonRing.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Magic5gonRing.xml; sourceTree = "<group>"; };
+		8C5F129F2DE378BF00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
+		8C5F12A02DE378BF00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesM; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23ED01EA924380055D6B1 /* magic_square.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = magic_square.cpp; sourceTree = "<group>"; };
@@ -102,7 +104,6 @@
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F181EA925F20055D6B1 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
 		8CA23F191EA925F20055D6B1 /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
-		8CA23F1C1EA926F60055D6B1 /* AIhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AIhelper.h; sourceTree = "<group>"; };
 		8CA23F1D1EA926F60055D6B1 /* astar_solver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = astar_solver.h; sourceTree = "<group>"; };
 		8CA23F1E1EA926F60055D6B1 /* bfs_move_gen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bfs_move_gen.h; sourceTree = "<group>"; };
 		8CA23F1F1EA926F60055D6B1 /* bfs_solver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bfs_solver.h; sourceTree = "<group>"; };
@@ -226,7 +227,6 @@
 		8CA23F1B1EA926F60055D6B1 /* PSL */ = {
 			isa = PBXGroup;
 			children = (
-				8CA23F1C1EA926F60055D6B1 /* AIhelper.h */,
 				8CA23F1D1EA926F60055D6B1 /* astar_solver.h */,
 				8CA23F1E1EA926F60055D6B1 /* bfs_move_gen.h */,
 				8CA23F1F1EA926F60055D6B1 /* bfs_solver.h */,
@@ -238,15 +238,17 @@
 				8CA23F251EA926F60055D6B1 /* iddfs_solver.h */,
 				8CA23F261EA926F60055D6B1 /* nonconst_bfs.hpp */,
 				8CA23F271EA926F60055D6B1 /* nonconst_dfs.hpp */,
-				8CA23F281EA926F60055D6B1 /* Position.cpp */,
 				8CA23F291EA926F60055D6B1 /* Position.h */,
+				8CA23F281EA926F60055D6B1 /* Position.cpp */,
+				8C5F129F2DE378BF00BB3341 /* PSLhelper.h */,
 				8CA23F2A1EA926F60055D6B1 /* pugiconfig.hpp */,
-				8CA23F2B1EA926F60055D6B1 /* pugixml.cpp */,
 				8CA23F2C1EA926F60055D6B1 /* pugixml.hpp */,
+				8CA23F2B1EA926F60055D6B1 /* pugixml.cpp */,
 				8CA23F2D1EA926F60055D6B1 /* ReadMe.txt */,
 				8CA23F2E1EA926F60055D6B1 /* solve_puzzle.h */,
-				8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */,
+				8C5F12A02DE378BF00BB3341 /* solve_puzzle_p.h */,
 				8CA23F301EA926F60055D6B1 /* stdafx.h */,
+				8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */,
 				8CA23F311EA926F60055D6B1 /* targetver.h */,
 			);
 			name = PSL;
