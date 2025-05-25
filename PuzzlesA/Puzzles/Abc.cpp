@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
-#include "solve_puzzle.h"
+#include "solve_puzzle_p.h"
 
 /*
     iOS Game: Logic Games/Puzzle Set 1/Abc
@@ -76,7 +76,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
@@ -185,6 +184,23 @@ ostream& puz_state::dump(ostream& out) const
     return out;
 }
 
+}
+
+namespace std {
+    using namespace puzzles::Abc;
+    template<>
+    struct formatter<puz_state> : formatter<string> {
+        auto format(const puz_state& p, format_context& ctx) const {
+            string temp;
+            auto it = back_inserter(temp);
+            for (int r = 0; r < p.sidelen(); ++r) {
+                for (int c = 0; c < p.sidelen(); ++c)
+                    format_to(it, "{} ", p.cells({r, c}));
+                format_to(it, "\n");
+            }
+            return formatter<string>::format(temp, ctx);
+        }
+    };
 }
 
 void solve_puz_Abc()

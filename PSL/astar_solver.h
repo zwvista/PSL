@@ -2,7 +2,16 @@
 
 #include "stdafx.h"
 
-template<class puz_state, bool directed = true, bool shortest_paths_only = true, bool first_paths_only = true>
+template<typename T>
+concept puz_state_solver_astar = requires(const T& t, list<T>& children, const T& child)
+{
+    { t.is_goal_state() } -> same_as<bool>;
+    { t.gen_children(children) } -> same_as<void>;
+    { t.get_heuristic() } -> same_as<unsigned int>;
+    { t.get_distance(child) } -> same_as<unsigned int>;
+};
+
+template<puz_state_solver_astar puz_state, bool directed = true, bool shortest_paths_only = true, bool first_paths_only = true>
 class puz_solver_astar
 {
     typedef boost::property<boost::vertex_color_t, boost::default_color_type,
