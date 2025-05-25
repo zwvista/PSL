@@ -82,9 +82,6 @@ struct puz_state : puz_state_base
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {if(!m_move.empty()) out << m_move;}
     ostream& dump(ostream& out) const;
-    friend ostream& operator<<(ostream& out, const puz_state& state) {
-        return state.dump(out);
-    }
 
     string m_cells;
 };

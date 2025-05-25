@@ -90,9 +90,6 @@ struct puz_state
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
-    friend ostream& operator<<(ostream& out, const puz_state& state) {
-        return state.dump(out);
-    }
 
     const puz_game* m_game = nullptr;
     string m_cells;

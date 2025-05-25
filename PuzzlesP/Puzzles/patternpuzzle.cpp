@@ -90,9 +90,6 @@ struct puz_state
         out << m_curpos << " " << dir_strs[m_index] << " " << next_pos() << endl;
     }
     ostream& dump(ostream& out) const;
-    friend ostream& operator<<(ostream& out, const puz_state& state) {
-        return state.dump(out);
-    }
 
     const puz_game* m_game = nullptr;
     string m_cells;

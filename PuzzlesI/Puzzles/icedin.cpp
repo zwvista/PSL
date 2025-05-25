@@ -103,9 +103,6 @@ public:
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {if(m_move) out << *m_move;}
     ostream& dump(ostream& out) const;
-    friend ostream& operator<<(ostream& out, const puz_state& state) {
-        return state.dump(out);
-    }
 
     const puz_game* m_game = nullptr;
     vector<Position> m_blocks;

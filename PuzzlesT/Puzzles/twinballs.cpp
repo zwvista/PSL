@@ -82,9 +82,6 @@ struct puz_state
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {if(m_move) out << m_move;}
     ostream& dump(ostream& out) const;
-    friend ostream& operator<<(ostream& out, const puz_state& state) {
-        return state.dump(out);
-    }
 
     bool is_ball(const Position& p) const {return p == m_balls[0] || p == m_balls[1];}
     bool make_move(EDir dir);
