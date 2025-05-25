@@ -23,10 +23,10 @@
 
 namespace puzzles::Tents{
 
-#define PUZ_SPACE        ' '
-#define PUZ_TREE        'T'
-#define PUZ_EMPTY        '.'
-#define PUZ_TENT        'E'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_TREE = 'T';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_TENT = 'E';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

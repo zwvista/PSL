@@ -4,9 +4,9 @@
 
 namespace puzzles::Wriggle{
 
-#define PUZ_BOX            '#'
-#define PUZ_SPACE        ' '
-#define PUZ_GOAL        '.'
+constexpr auto PUZ_BOX = '#';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_GOAL = '.';
 
 constexpr Position offset[] = {
     {0, -1},

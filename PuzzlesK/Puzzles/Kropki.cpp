@@ -27,10 +27,10 @@
 
 namespace puzzles::Kropki{
 
-#define PUZ_SPACE        ' '
-#define PUZ_BLACK        'B'
-#define PUZ_WHITE        'W'
-#define PUZ_NOT_BH        '.'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_BLACK = 'B';
+constexpr auto PUZ_WHITE = 'W';
+constexpr auto PUZ_NOT_BH = '.';
     
 constexpr Position offset[] = {
     {-1, 0},        // n

@@ -20,13 +20,13 @@
 
 namespace puzzles::Caffelatte{
 
-#define PUZ_SPACE             ' '
-#define PUZ_CUP               'C'
-#define PUZ_MILK              'M'
-#define PUZ_BEAN              'B'
-#define PUZ_HORZ              '-'
-#define PUZ_VERT              '|'
-#define PUZ_BOUNDARY          '+'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_CUP = 'C';
+constexpr auto PUZ_MILK = 'M';
+constexpr auto PUZ_BEAN = 'B';
+constexpr auto PUZ_HORZ = '-';
+constexpr auto PUZ_VERT = '|';
+constexpr auto PUZ_BOUNDARY = '+';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

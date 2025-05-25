@@ -18,7 +18,7 @@
 
 namespace puzzles::Kakurasu{
 
-#define PUZ_UNKNOWN    -1
+constexpr auto PUZ_UNKNOWN = -1;
 
 struct puz_game
 {

@@ -16,9 +16,9 @@
 
 namespace puzzles::Loopy{
 
-#define PUZ_LINE_UNKNOWN    "01"
-#define PUZ_LINE_OFF        '0'
-#define PUZ_LINE_ON            '1'
+constexpr auto PUZ_LINE_UNKNOWN = "01";
+constexpr auto PUZ_LINE_OFF = '0';
+constexpr auto PUZ_LINE_ON = '1';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

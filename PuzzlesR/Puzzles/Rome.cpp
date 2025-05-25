@@ -20,8 +20,8 @@
 
 namespace puzzles::Rome{
 
-#define PUZ_SPACE        ' '
-#define PUZ_ROME         'R'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ROME = 'R';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

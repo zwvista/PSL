@@ -23,10 +23,10 @@
 
 namespace puzzles::OneUpOrDown{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_PLUS         '+'
-#define PUZ_MINUS        '-'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_PLUS = '+';
+constexpr auto PUZ_MINUS = '-';
     
 constexpr Position offset[] = {
     {-1, 0},        // n

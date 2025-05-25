@@ -29,9 +29,9 @@
 
 namespace puzzles::Landscaper{
 
-#define PUZ_SPACE        ' '
-#define PUZ_TREE        'T'
-#define PUZ_FLOWER        'F'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_TREE = 'T';
+constexpr auto PUZ_FLOWER = 'F';
 
 struct puz_game
 {

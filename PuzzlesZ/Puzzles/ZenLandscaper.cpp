@@ -23,7 +23,7 @@
 
 namespace puzzles::ZenLandscaper{
 
-#define PUZ_SPACE        ' '
+constexpr auto PUZ_SPACE = ' ';
 
 constexpr Position offset[] = {
     {0, 1},        // e

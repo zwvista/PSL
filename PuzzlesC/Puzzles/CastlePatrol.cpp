@@ -19,10 +19,10 @@
 
 namespace puzzles::CastlePatrol{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_WALL         'W'
-#define PUZ_BOUNDARY     '+'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_WALL = 'W';
+constexpr auto PUZ_BOUNDARY = '+';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

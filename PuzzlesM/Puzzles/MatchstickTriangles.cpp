@@ -8,9 +8,9 @@
 
 namespace puzzles::MatchstickTriangles{
 
-#define PUZ_REMOVE        0
-#define PUZ_ADD           1
-#define PUZ_MOVE          2
+constexpr auto PUZ_REMOVE = 0;
+constexpr auto PUZ_ADD = 1;
+constexpr auto PUZ_MOVE = 2;
 
 typedef pair<Position, Position> puz_matchstick;
 

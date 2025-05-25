@@ -21,13 +21,13 @@
 
 namespace puzzles::CoffeeAndSugar{
 
-#define PUZ_SPACE             ' '
-#define PUZ_COFFEE            'C'
-#define PUZ_SUGAR             'S'
-#define PUZ_INTERSECT         'O'
-#define PUZ_HORZ              '-'
-#define PUZ_VERT              '|'
-#define PUZ_BOUNDARY          'B'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_COFFEE = 'C';
+constexpr auto PUZ_SUGAR = 'S';
+constexpr auto PUZ_INTERSECT = 'O';
+constexpr auto PUZ_HORZ = '-';
+constexpr auto PUZ_VERT = '|';
+constexpr auto PUZ_BOUNDARY = 'B';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

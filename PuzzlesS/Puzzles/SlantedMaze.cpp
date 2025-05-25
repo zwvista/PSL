@@ -23,13 +23,13 @@
 
 namespace puzzles::SlantedMaze{
 
-#define PUZ_UNKNOWN        5
-#define PUZ_SPACE        ' '
-#define PUZ_SLASH        '/'
-#define PUZ_BACKSLASH    '\\'
-#define PUZ_BOUNDARY    'B'
-#define PUZ_TOUCHED        1
-#define PUZ_UNTOUCHED    0
+constexpr auto PUZ_UNKNOWN = 5;
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_SLASH = '/';
+constexpr auto PUZ_BACKSLASH = '\\';
+constexpr auto PUZ_BOUNDARY = 'B';
+constexpr auto PUZ_TOUCHED = 1;
+constexpr auto PUZ_UNTOUCHED = 0;
 
 constexpr Position offset[] = {
     {0, 0},    // nw

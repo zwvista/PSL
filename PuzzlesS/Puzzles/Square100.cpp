@@ -17,7 +17,7 @@
 
 namespace puzzles::Square100{
 
-#define PUZ_SPACE        0
+constexpr auto PUZ_SPACE = 0;
 
 // a row or a column
 struct puz_area

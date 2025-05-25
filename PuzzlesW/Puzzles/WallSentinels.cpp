@@ -28,12 +28,12 @@
 
 namespace puzzles::WallSentinels{
 
-#define PUZ_SPACE            ' '
-#define PUZ_LAND            '.'
-#define PUZ_LAND_S            's'
-#define PUZ_WALL            'W'
-#define PUZ_WALL_S            'S'
-#define PUZ_BOUNDARY        '+'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_LAND = '.';
+constexpr auto PUZ_LAND_S = 's';
+constexpr auto PUZ_WALL = 'W';
+constexpr auto PUZ_WALL_S = 'S';
+constexpr auto PUZ_BOUNDARY = '+';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

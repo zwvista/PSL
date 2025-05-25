@@ -16,12 +16,12 @@
 
 namespace puzzles::PlugItIn{
 
-#define PUZ_SPACE             ' '
-#define PUZ_LIGHTBULB         'L'
-#define PUZ_BATTERY           'B'
-#define PUZ_HORZ              '-'
-#define PUZ_VERT              '|'
-#define PUZ_BOUNDARY          'X'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_LIGHTBULB = 'L';
+constexpr auto PUZ_BATTERY = 'B';
+constexpr auto PUZ_HORZ = '-';
+constexpr auto PUZ_VERT = '|';
+constexpr auto PUZ_BOUNDARY = 'X';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

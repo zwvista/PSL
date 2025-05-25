@@ -5,16 +5,16 @@
 
 namespace puzzles::turnz{
 
-#define PUZ_ROCK        '#'
-#define PUZ_FINISH        '.'
-#define PUZ_BLOB        '$'
-#define PUZ_BLUB        '!'
-#define PUZ_SPACE        ' '
-#define PUZ_KEY_Y        'y'
-#define PUZ_LOCK_Y        'Y'
-#define PUZ_BREAK2        '2'
-#define PUZ_BREAK1        '1'
-#define PUZ_DEATH        'x'
+constexpr auto PUZ_ROCK = '#';
+constexpr auto PUZ_FINISH = '.';
+constexpr auto PUZ_BLOB = '$';
+constexpr auto PUZ_BLUB = '!';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_KEY_Y = 'y';
+constexpr auto PUZ_LOCK_Y = 'Y';
+constexpr auto PUZ_BREAK2 = '2';
+constexpr auto PUZ_BREAK1 = '1';
+constexpr auto PUZ_DEATH = 'x';
 
 constexpr Position offset[] = {
     {1, 0},

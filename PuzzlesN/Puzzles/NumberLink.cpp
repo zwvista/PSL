@@ -30,11 +30,11 @@
 
 namespace puzzles::NumberLink{
 
-#define PUZ_SPACE            ' '
-#define PUZ_NUMBER            'N'
-#define PUZ_BOUNDARY        '+'
-#define PUZ_LINE_OFF        '0'
-#define PUZ_LINE_ON            '1'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_NUMBER = 'N';
+constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_LINE_OFF = '0';
+constexpr auto PUZ_LINE_ON = '1';
 
 const string lineseg_off = "0000";
 

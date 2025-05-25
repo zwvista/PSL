@@ -20,9 +20,9 @@
 
 namespace puzzles::MineShips{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_NUMBER        'N'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_NUMBER = 'N';
 
 struct puz_ship_info {
     // symbols that represent the ship

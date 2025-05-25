@@ -20,10 +20,10 @@
 
 namespace puzzles::NoughtsAndCrosses{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_CIRCLE       'O'
-#define PUZ_CROSS        'X'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_CIRCLE = 'O';
+constexpr auto PUZ_CROSS = 'X';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

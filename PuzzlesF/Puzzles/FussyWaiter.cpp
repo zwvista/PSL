@@ -23,7 +23,7 @@
 
 namespace puzzles::FussyWaiter{
 
-#define PUZ_SPACE        ' '
+constexpr auto PUZ_SPACE = ' ';
 
 struct puz_game
 {

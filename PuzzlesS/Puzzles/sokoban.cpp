@@ -5,12 +5,12 @@
 
 namespace puzzles::sokoban{
 
-#define PUZ_MAN            '@'
-#define PUZ_MAN_GOAL    '+'
-#define PUZ_FLOOR        ' '
-#define PUZ_GOAL        '.'
-#define PUZ_BOX            '$'
-#define PUZ_BOX_GOAL    '*'
+constexpr auto PUZ_MAN = '@';
+constexpr auto PUZ_MAN_GOAL = '+';
+constexpr auto PUZ_FLOOR = ' ';
+constexpr auto PUZ_GOAL = '.';
+constexpr auto PUZ_BOX = '$';
+constexpr auto PUZ_BOX_GOAL = '*';
 
 constexpr Position offset[] = {
     {0, -1},

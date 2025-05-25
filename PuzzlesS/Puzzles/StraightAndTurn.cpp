@@ -27,8 +27,8 @@ namespace puzzles::StraightAndTurn{
 
 using boost::math::sign;
 
-#define PUZ_BLACK_GEM        'B'
-#define PUZ_WHITE_GEM        'W'
+constexpr auto PUZ_BLACK_GEM = 'B';
+constexpr auto PUZ_WHITE_GEM = 'W';
 
 // n-e-s-w
 // 0 means line is off in this direction

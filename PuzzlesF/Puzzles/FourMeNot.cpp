@@ -22,11 +22,11 @@
 
 namespace puzzles::FourMeNot{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_FIXED        'F'
-#define PUZ_ADDED        'f'
-#define PUZ_BLOCK        'B'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_FIXED = 'F';
+constexpr auto PUZ_ADDED = 'f';
+constexpr auto PUZ_BLOCK = 'B';
 
 bool is_flower(char ch) { return ch == PUZ_FIXED || ch == PUZ_ADDED; }
 

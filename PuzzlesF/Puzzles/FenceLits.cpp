@@ -19,8 +19,8 @@
 
 namespace puzzles::FenceLits{
 
-#define PUZ_SPACE        ' '    
-#define PUZ_UNKNOWN        -1
+constexpr auto PUZ_SPACE = ' '    ;
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
     {-1, 0},        // n

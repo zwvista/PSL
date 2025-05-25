@@ -23,10 +23,10 @@
 
 namespace puzzles::HolidayIsland{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_TENT        'T'
-#define PUZ_WATER        'W'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_TENT = 'T';
+constexpr auto PUZ_WATER = 'W';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

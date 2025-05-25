@@ -21,12 +21,12 @@
 
 namespace puzzles::SheepAndWolves{
 
-#define PUZ_UNKNOWN            -1
-#define PUZ_LINE_OFF        '0'
-#define PUZ_LINE_ON            '1'
-#define PUZ_SPACE            ' '
-#define PUZ_SHEEP            'S'
-#define PUZ_WOLF            'W'
+constexpr auto PUZ_UNKNOWN = -1;
+constexpr auto PUZ_LINE_OFF = '0';
+constexpr auto PUZ_LINE_ON = '1';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_SHEEP = 'S';
+constexpr auto PUZ_WOLF = 'W';
 
 // n-e-s-w
 // 0 means line is off in this direction

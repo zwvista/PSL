@@ -23,8 +23,8 @@
 
 namespace puzzles::Masyu{
 
-#define PUZ_BLACK_PEARL        'B'
-#define PUZ_WHITE_PEARL        'W'
+constexpr auto PUZ_BLACK_PEARL = 'B';
+constexpr auto PUZ_WHITE_PEARL = 'W';
 
 // n-e-s-w
 // 0 means line is off in this direction

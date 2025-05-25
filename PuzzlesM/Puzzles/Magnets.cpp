@@ -20,13 +20,13 @@
 
 namespace puzzles::Magnets{
 
-#define PUZ_HORZ        'H'
-#define PUZ_VERT        'V'
-#define PUZ_SPACE        ' '
-#define PUZ_POSITIVE    '+'
-#define PUZ_NEGATIVE    '-'
-#define PUZ_EMPTY        '.'
-#define PUZ_UNKNOWN        9999
+constexpr auto PUZ_HORZ = 'H';
+constexpr auto PUZ_VERT = 'V';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_POSITIVE = '+';
+constexpr auto PUZ_NEGATIVE = '-';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_UNKNOWN = 9999;
 
 constexpr Position offset[] = {
     {0, 1},

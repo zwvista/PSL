@@ -28,17 +28,17 @@
 
 namespace puzzles::DigitalBattleships{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_TOP            '^'
-#define PUZ_BOTTOM        'v'
-#define PUZ_LEFT        '<'
-#define PUZ_RIGHT        '>'
-#define PUZ_MIDDLE        '+'
-#define PUZ_BOAT        'o'
-#define PUZ_PIECE        'x'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_TOP = '^';
+constexpr auto PUZ_BOTTOM = 'v';
+constexpr auto PUZ_LEFT = '<';
+constexpr auto PUZ_RIGHT = '>';
+constexpr auto PUZ_MIDDLE = '+';
+constexpr auto PUZ_BOAT = 'o';
+constexpr auto PUZ_PIECE = 'x';
 
-#define PUZ_UNKNOWN        -1
+constexpr auto PUZ_UNKNOWN = -1;
 
 struct puz_ship_info {
     // symbols that represent the ship

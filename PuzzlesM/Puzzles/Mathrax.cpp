@@ -22,14 +22,14 @@
 
 namespace puzzles::Mathrax{
 
-#define PUZ_SPACE    0
-#define PUZ_WRONG    -1
-#define PUZ_ADD        '+'
-#define PUZ_SUB        '-'
-#define PUZ_MUL        '*'
-#define PUZ_DIV        '/'
-#define PUZ_EVEN    'E'
-#define PUZ_ODD        'O'
+constexpr auto PUZ_SPACE = 0;
+constexpr auto PUZ_WRONG = -1;
+constexpr auto PUZ_ADD = '+';
+constexpr auto PUZ_SUB = '-';
+constexpr auto PUZ_MUL = '*';
+constexpr auto PUZ_DIV = '/';
+constexpr auto PUZ_EVEN = 'E';
+constexpr auto PUZ_ODD = 'O';
 
 constexpr Position offset[] = {
     {0, 0},    // nw

@@ -22,11 +22,11 @@
 
 namespace puzzles::LightenUp{
 
-#define PUZ_WALL        'W'
-#define PUZ_BULB        'B'
-#define PUZ_SPACE       ' '
-#define PUZ_UNLIT       '.'
-#define PUZ_LIT         '+'
+constexpr auto PUZ_WALL = 'W';
+constexpr auto PUZ_BULB = 'B';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_UNLIT = '.';
+constexpr auto PUZ_LIT = '+';
 
 constexpr Position offset[] = {
     {-1, 0},    // n

@@ -24,10 +24,10 @@
 
 namespace puzzles::Rooms{
 
-#define PUZ_SPACE            ' '
-#define PUZ_DOOR_UNKNOWN    '0'
-#define PUZ_DOOR_OPEN        '1'
-#define PUZ_DOOR_CLOSED        '2'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_DOOR_UNKNOWN = '0';
+constexpr auto PUZ_DOOR_OPEN = '1';
+constexpr auto PUZ_DOOR_CLOSED = '2';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

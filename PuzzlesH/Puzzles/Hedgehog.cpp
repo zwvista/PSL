@@ -94,10 +94,10 @@
 
 namespace puzzles::Hedgehog{
 
-#define PUZ_SPACE            0
-#define PUZ_BOULDER            -1
-#define PUZ_BOULDER_STR        " OO"
-#define PUZ_FOREST_DEST        -1
+constexpr auto PUZ_SPACE = 0;
+constexpr auto PUZ_BOULDER = -1;
+constexpr auto PUZ_BOULDER_STR = " OO";
+constexpr auto PUZ_FOREST_DEST = -1;
 
 constexpr Position offset[] = {
     {-1, 0},        // n

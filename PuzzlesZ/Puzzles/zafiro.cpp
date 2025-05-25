@@ -5,12 +5,12 @@
 
 namespace puzzles::zafiro{
 
-#define PUZ_FIXED        '#'
-#define PUZ_GOAL        '.'
-#define PUZ_ZAFIRO        '$'
-#define PUZ_GLASS        '!'
-#define PUZ_COLORED        'o'
-#define PUZ_SPACE        ' '
+constexpr auto PUZ_FIXED = '#';
+constexpr auto PUZ_GOAL = '.';
+constexpr auto PUZ_ZAFIRO = '$';
+constexpr auto PUZ_GLASS = '!';
+constexpr auto PUZ_COLORED = 'o';
+constexpr auto PUZ_SPACE = ' ';
 
 constexpr Position offset[] = {
     {1, 0},

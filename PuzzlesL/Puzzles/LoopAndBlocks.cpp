@@ -22,8 +22,8 @@
 
 namespace puzzles::LoopAndBlocks{
 
-#define PUZ_NOT_SHADED        ' '
-#define PUZ_SHADED            'X'
+constexpr auto PUZ_NOT_SHADED = ' ';
+constexpr auto PUZ_SHADED = 'X';
 
 // n-e-s-w
 // 0 means line is off in this direction

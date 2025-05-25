@@ -25,11 +25,11 @@
 
 namespace puzzles::ProductSentinels{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_SENTINEL    'S'
-#define PUZ_TOWER        'T'
-#define PUZ_BOUNDARY    '+'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_SENTINEL = 'S';
+constexpr auto PUZ_TOWER = 'T';
+constexpr auto PUZ_BOUNDARY = '+';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

@@ -4,11 +4,11 @@
 
 namespace puzzles::escapology{
 
-#define PUZ_STONE        '#'
-#define PUZ_SPACE        ' '
-#define PUZ_BALL        '@'
-#define PUZ_GOAL        '.'
-#define PUZ_BLUE        '!'
+constexpr auto PUZ_STONE = '#';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_BALL = '@';
+constexpr auto PUZ_GOAL = '.';
+constexpr auto PUZ_BLUE = '!';
 
 constexpr Position offset[] = {
     {0, -1},

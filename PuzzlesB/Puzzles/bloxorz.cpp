@@ -5,12 +5,12 @@
 
 namespace puzzles::bloxorz{
 
-#define PUZ_HOLE        '#'
-#define PUZ_SPACE        ' '
-#define PUZ_GOAL        '.'
-#define PUZ_ONE            '1'
-#define PUZ_TWO            '2'
-#define PUZ_ORANGE        '!'
+constexpr auto PUZ_HOLE = '#';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_GOAL = '.';
+constexpr auto PUZ_ONE = '1';
+constexpr auto PUZ_TWO = '2';
+constexpr auto PUZ_ORANGE = '!';
 
 enum ESwitchActionType {stSwap, stOn, stOff};
 

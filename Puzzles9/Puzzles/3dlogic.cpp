@@ -9,9 +9,9 @@
 
 namespace puzzles::_3dlogic{
 
-#define PUZ_NOENTRY        '#'
-#define PUZ_SPACE        ' '
-#define PUZ_FOUND        '!'
+constexpr auto PUZ_NOENTRY = '#';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_FOUND = '!';
 
 constexpr Position offset[] = {
     {0, -1},

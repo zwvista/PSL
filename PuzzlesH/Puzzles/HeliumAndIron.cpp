@@ -21,11 +21,11 @@
 
 namespace puzzles::HeliumAndIron{
 
-#define PUZ_SPACE            ' '
-#define PUZ_EMPTY            '.'
-#define PUZ_BLOCK            'B'
-#define PUZ_BALLOON          'H'
-#define PUZ_WEIGHT           'W'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_BLOCK = 'B';
+constexpr auto PUZ_BALLOON = 'H';
+constexpr auto PUZ_WEIGHT = 'W';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

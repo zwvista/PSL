@@ -19,8 +19,8 @@
 
 namespace puzzles::Hitori{
 
-#define PUZ_SHADED        100
-#define PUZ_BOUNDARY    0
+constexpr auto PUZ_SHADED = 100;
+constexpr auto PUZ_BOUNDARY = 0;
 
 constexpr Position offset[] = {
     {-1, 0},        // n

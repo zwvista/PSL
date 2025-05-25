@@ -17,10 +17,10 @@
 
 namespace puzzles::WishSandwich{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_BREAD        'B'
-#define PUZ_HAM          'H'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_BREAD = 'B';
+constexpr auto PUZ_HAM = 'H';
 
 struct puz_game
 {

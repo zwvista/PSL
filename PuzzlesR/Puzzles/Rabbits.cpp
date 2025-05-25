@@ -19,10 +19,10 @@
 
 namespace puzzles::Rabbits{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_RABBIT       'R'
-#define PUZ_TREE         'T'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_RABBIT = 'R';
+constexpr auto PUZ_TREE = 'T';
 
 constexpr Position offset[] = {
     {-1, 0},    // n

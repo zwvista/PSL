@@ -4,11 +4,11 @@
 
 namespace puzzles::mazecat{
 
-#define PUZ_MALE        'M'
-#define PUZ_FEMALE        'F'
-#define PUZ_WALL        '#'
-#define PUZ_THORN        '!'
-#define PUZ_SPACE        ' '
+constexpr auto PUZ_MALE = 'M';
+constexpr auto PUZ_FEMALE = 'F';
+constexpr auto PUZ_WALL = '#';
+constexpr auto PUZ_THORN = '!';
+constexpr auto PUZ_SPACE = ' ';
 
 constexpr Position offset[] = {
     {0, -1},

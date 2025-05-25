@@ -9,19 +9,19 @@
 
 namespace puzzles::PuzzleRetreat{
 
-#define PUZ_HOLE_EMPTY        ' '
-#define PUZ_BLOCK_STOP        'S'
-#define PUZ_BLOCK_FIRE        'F'
-#define PUZ_BLOCK_FIXED        '#'
-#define PUZ_HOLE_BONSAI        'b'
+constexpr auto PUZ_HOLE_EMPTY = ' ';
+constexpr auto PUZ_BLOCK_STOP = 'S';
+constexpr auto PUZ_BLOCK_FIRE = 'F';
+constexpr auto PUZ_BLOCK_FIXED = '#';
+constexpr auto PUZ_HOLE_BONSAI = 'b';
 
-#define PUZ_BLOCK_ICE        'O'
-#define PUZ_HOLE_ICE        'o'
-#define PUZ_HOLE_STOP        's'
-#define PUZ_HOLE_FIRE        'f'
-#define PUZ_HOLE_TREE        't'
-#define PUZ_BLOCK_ARROW        'A'
-#define PUZ_BLOCK_USED        '*'
+constexpr auto PUZ_BLOCK_ICE = 'O';
+constexpr auto PUZ_HOLE_ICE = 'o';
+constexpr auto PUZ_HOLE_STOP = 's';
+constexpr auto PUZ_HOLE_FIRE = 'f';
+constexpr auto PUZ_HOLE_TREE = 't';
+constexpr auto PUZ_BLOCK_ARROW = 'A';
+constexpr auto PUZ_BLOCK_USED = '*';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

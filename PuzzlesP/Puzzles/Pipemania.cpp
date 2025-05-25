@@ -19,7 +19,7 @@
 
 namespace puzzles::Pipemania{
 
-#define PUZ_BLOCK           'B'
+constexpr auto PUZ_BLOCK = 'B';
 
 // n-e-s-w
 // 0 means line is off in this direction

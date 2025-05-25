@@ -18,10 +18,10 @@
 
 namespace puzzles::Tatamino{
 
-#define PUZ_UNKNOWN            -1
-#define PUZ_WALL_UNKNOWN    '0'
-#define PUZ_WALL_ON            '1'
-#define PUZ_WALL_OFF        '2'
+constexpr auto PUZ_UNKNOWN = -1;
+constexpr auto PUZ_WALL_UNKNOWN = '0';
+constexpr auto PUZ_WALL_ON = '1';
+constexpr auto PUZ_WALL_OFF = '2';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

@@ -20,11 +20,11 @@
 
 namespace puzzles::NorthPoleFishing{
 
-#define PUZ_SPACE        ' '
-#define PUZ_BOUNDARY    '+'
-#define PUZ_BLOCK        'B'
-#define PUZ_HOLE        'H'
-#define PUZ_PIECE_SIZE    4
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_BLOCK = 'B';
+constexpr auto PUZ_HOLE = 'H';
+constexpr auto PUZ_PIECE_SIZE = 4;
 
 constexpr Position offset[] = {
     {-1, 0},        // n

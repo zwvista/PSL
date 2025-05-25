@@ -17,8 +17,8 @@
 
 namespace puzzles::Arrows{
 
-#define PUZ_CORNER    100
-#define PUZ_BORDER    99
+constexpr auto PUZ_CORNER = 100;
+constexpr auto PUZ_BORDER = 99;
 
 constexpr Position offset[] = {
     {-1, 0},    // n

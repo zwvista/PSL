@@ -26,14 +26,14 @@
 
 namespace puzzles::Futoshiki{
 
-#define PUZ_SPACE        ' '
-#define PUZ_ROW_LT        '<'
-#define PUZ_ROW_GT        '>'
-#define PUZ_ROW_CS        '|'
-#define PUZ_COL_LT        '^'
-#define PUZ_COL_GT        'v'
-#define PUZ_COL_CS        '-'
-#define PUZ_NOT_CS        '.'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ROW_LT = '<';
+constexpr auto PUZ_ROW_GT = '>';
+constexpr auto PUZ_ROW_CS = '|';
+constexpr auto PUZ_COL_LT = '^';
+constexpr auto PUZ_COL_GT = 'v';
+constexpr auto PUZ_COL_CS = '-';
+constexpr auto PUZ_NOT_CS = '.';
 
 struct puz_game
 {

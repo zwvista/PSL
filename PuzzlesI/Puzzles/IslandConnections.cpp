@@ -20,13 +20,13 @@
 
 namespace puzzles::IslandConnections{
 
-#define PUZ_SPACE             ' '
-#define PUZ_ISLAND            'O'
-#define PUZ_SHADED            'S'
-#define PUZ_HORZ              '-'
-#define PUZ_VERT              '|'
-#define PUZ_BOUNDARY          'B'
-#define PUZ_UNKNOWN           -1
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ISLAND = 'O';
+constexpr auto PUZ_SHADED = 'S';
+constexpr auto PUZ_HORZ = '-';
+constexpr auto PUZ_VERT = '|';
+constexpr auto PUZ_BOUNDARY = 'B';
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
     {-1, 0},        // n

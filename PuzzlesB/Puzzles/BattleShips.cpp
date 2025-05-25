@@ -28,14 +28,14 @@
 
 namespace puzzles::BattleShips{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_TOP            '^'
-#define PUZ_BOTTOM        'v'
-#define PUZ_LEFT        '<'
-#define PUZ_RIGHT        '>'
-#define PUZ_MIDDLE        '+'
-#define PUZ_BOAT        'o'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_TOP = '^';
+constexpr auto PUZ_BOTTOM = 'v';
+constexpr auto PUZ_LEFT = '<';
+constexpr auto PUZ_RIGHT = '>';
+constexpr auto PUZ_MIDDLE = '+';
+constexpr auto PUZ_BOAT = 'o';
 
 struct puz_ship_info {
     // symbols that represent the ship

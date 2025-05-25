@@ -23,8 +23,8 @@
 
 namespace puzzles::WildlifePark{
 
-#define PUZ_SPACE            ' '
-#define PUZ_POST             'O'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_POST = 'O';
 
 // n-e-s-w
 // 0 means line is off in this direction

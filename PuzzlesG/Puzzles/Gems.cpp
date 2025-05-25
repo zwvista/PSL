@@ -18,10 +18,10 @@
 
 namespace puzzles::Gems{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_GEM          'G'
-#define PUZ_PEBBLE       'P'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_GEM = 'G';
+constexpr auto PUZ_PEBBLE = 'P';
 
 struct puz_game
 {

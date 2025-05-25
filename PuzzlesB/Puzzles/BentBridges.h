@@ -25,11 +25,11 @@
 
 namespace puzzles::BentBridges{
 
-#define PUZ_SPACE             ' '
-#define PUZ_ISLAND            'N'
-#define PUZ_BRIDGE            '.'
-#define PUZ_HORZ              '-'
-#define PUZ_VERT              '|'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ISLAND = 'N';
+constexpr auto PUZ_BRIDGE = '.';
+constexpr auto PUZ_HORZ = '-';
+constexpr auto PUZ_VERT = '|';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

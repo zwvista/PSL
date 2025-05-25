@@ -6,11 +6,11 @@
 
 namespace puzzles::on_the_edge{
 
-#define PUZ_HOLE        '#'
-#define PUZ_BLACK        '2'
-#define PUZ_WHITE        ' '
-#define PUZ_BLOCK        '@'
-#define PUZ_GOAL        '.'
+constexpr auto PUZ_HOLE = '#';
+constexpr auto PUZ_BLACK = '2';
+constexpr auto PUZ_WHITE = ' ';
+constexpr auto PUZ_BLOCK = '@';
+constexpr auto PUZ_GOAL = '.';
 
 constexpr Position offset[] = {
     {0, -1},

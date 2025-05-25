@@ -21,10 +21,10 @@
 
 namespace puzzles::ParkLakes{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_NUM          'N'
-#define PUZ_WATER        'L'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_NUM = 'N';
+constexpr auto PUZ_WATER = 'L';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

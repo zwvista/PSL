@@ -25,9 +25,9 @@
 
 namespace puzzles::Knightoku{
 
-#define PUZ_SPACE        ' '
-#define PUZ_ROW_LINE    '|'
-#define PUZ_COL_LINE    '-'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ROW_LINE = '|';
+constexpr auto PUZ_COL_LINE = '-';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

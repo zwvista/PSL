@@ -20,11 +20,11 @@
 
 namespace puzzles::Walls{
 
-#define PUZ_SPACE            ' '
-#define PUZ_NUMBER            'N'
-#define PUZ_HORZ            '-'
-#define PUZ_VERT            '|'
-#define PUZ_BOUNDARY        'B'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_NUMBER = 'N';
+constexpr auto PUZ_HORZ = '-';
+constexpr auto PUZ_VERT = '|';
+constexpr auto PUZ_BOUNDARY = 'B';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

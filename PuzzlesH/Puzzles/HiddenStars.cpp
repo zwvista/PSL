@@ -22,10 +22,10 @@
 
 namespace puzzles::HiddenStars{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_ARROW        'A'
-#define PUZ_STAR        'S'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_ARROW = 'A';
+constexpr auto PUZ_STAR = 'S';
 
 constexpr Position offset[] = {
     {-1, 0},    // n

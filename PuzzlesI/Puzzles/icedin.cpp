@@ -4,18 +4,18 @@
 
 namespace puzzles::icedin{
 
-#define PUZ_GROUND        '!'
-#define PUZ_SPACE        ' '
-#define PUZ_STONE        '$'
-#define PUZ_BLOCK        'b'
-#define PUZ_SWITCH        '.'
-#define PUZ_BLOCK_ON_SWITCH        'B'
-#define PUZ_ICE3        '3'
-#define PUZ_ICE2        '2'
-#define PUZ_ICE1        '1'
-#define PUZ_HOLE        'X'
-#define PUZ_BLOCK_ON_ICE2        'd'
-#define PUZ_BLOCK_ON_ICE1        'c'
+constexpr auto PUZ_GROUND = '!';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_STONE = '$';
+constexpr auto PUZ_BLOCK = 'b';
+constexpr auto PUZ_SWITCH = '.';
+constexpr auto PUZ_BLOCK_ON_SWITCH = 'B';
+constexpr auto PUZ_ICE3 = '3';
+constexpr auto PUZ_ICE2 = '2';
+constexpr auto PUZ_ICE1 = '1';
+constexpr auto PUZ_HOLE = 'X';
+constexpr auto PUZ_BLOCK_ON_ICE2 = 'd';
+constexpr auto PUZ_BLOCK_ON_ICE1 = 'c';
 
 enum EDir {mvLeft, mvRight, mvUp, mvDown};
 

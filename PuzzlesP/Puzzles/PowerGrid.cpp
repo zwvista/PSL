@@ -23,11 +23,11 @@
 
 namespace puzzles::PowerGrid{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_POST        'P'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_POST = 'P';
 
-#define PUZ_UNKNOWN        0
+constexpr auto PUZ_UNKNOWN = 0;
     
 constexpr Position offset[] = {
     {-1, 0},        // n

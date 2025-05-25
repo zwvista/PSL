@@ -20,11 +20,11 @@
 
 namespace puzzles::PaintTheNurikabe{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_PAINTED      'P'
-#define PUZ_BOUNDARY     '+'
-#define PUZ_UNKNOWN       5
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_PAINTED = 'P';
+constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_UNKNOWN = 5;
     
 constexpr Position offset[] = {
     {-1, 0},    // n

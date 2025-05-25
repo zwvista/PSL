@@ -21,9 +21,9 @@
 
 namespace puzzles::UnreliableHints{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_SHADED       'X'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_SHADED = 'X';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

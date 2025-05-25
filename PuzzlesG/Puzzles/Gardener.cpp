@@ -28,12 +28,12 @@
 
 namespace puzzles::Gardener{
 
-#define PUZ_SPACE       ' '
-#define PUZ_EMPTY       '.'
-#define PUZ_FLOWER      'F'
-#define PUZ_BOUNDARY    'B'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_FLOWER = 'F';
+constexpr auto PUZ_BOUNDARY = 'B';
 
-#define PUZ_FLOWER_COUNT_UNKNOWN        -1
+constexpr auto PUZ_FLOWER_COUNT_UNKNOWN = -1;
 
 bool is_empty(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY; }
 

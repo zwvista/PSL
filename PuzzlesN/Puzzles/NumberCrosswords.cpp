@@ -16,8 +16,8 @@
 
 namespace puzzles::NumberCrosswords{
 
-#define PUZ_EMPTY        0
-#define PUZ_UNKNOWN      -1
+constexpr auto PUZ_EMPTY = 0;
+constexpr auto PUZ_UNKNOWN = -1;
 
 struct puz_game
 {

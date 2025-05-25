@@ -19,10 +19,10 @@
 
 namespace puzzles::InbetweenSumscrapers{
 
-#define PUZ_SKYSCRAPER      -1
-#define PUZ_SPACE           -2
-#define PUZ_SKYSCRAPER_S    " X"
-#define PUZ_SPACE_S         "  "
+constexpr auto PUZ_SKYSCRAPER = -1;
+constexpr auto PUZ_SPACE = -2;
+constexpr auto PUZ_SKYSCRAPER_S = " X";
+constexpr auto PUZ_SPACE_S = "  ";
 
 struct puz_game
 {

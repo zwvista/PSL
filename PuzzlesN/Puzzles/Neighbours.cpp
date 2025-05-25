@@ -24,10 +24,10 @@
 
 namespace puzzles::Neighbours{
 
-#define PUZ_SPACE        ' '
-#define PUZ_BOUNDARY    'B'
-#define PUZ_QM            '?'
-#define PUZ_UNKNOWN        0
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_BOUNDARY = 'B';
+constexpr auto PUZ_QM = '?';
+constexpr auto PUZ_UNKNOWN = 0;
 
 constexpr Position offset[] = {
     {-1, 0},        // n

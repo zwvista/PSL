@@ -19,10 +19,10 @@
 
 namespace puzzles::Clouds{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_CLOUD        'C'
-#define PUZ_BOUNDARY    'B'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_CLOUD = 'C';
+constexpr auto PUZ_BOUNDARY = 'B';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

@@ -4,9 +4,9 @@
 
 namespace puzzles::pegsolitary{
 
-#define PUZ_PEG        '$'
-#define PUZ_HOLE    ' '
-#define PUZ_NONE    '#'
+constexpr auto PUZ_PEG = '$';
+constexpr auto PUZ_HOLE = ' ';
+constexpr auto PUZ_NONE = '#';
 
 constexpr Position offset[] = {
     {0, -1},

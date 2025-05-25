@@ -21,8 +21,8 @@
 
 namespace puzzles::PouringWater{
 
-#define PUZ_WATER       'X'
-#define PUZ_SPACE       ' '
+constexpr auto PUZ_WATER = 'X';
+constexpr auto PUZ_SPACE = ' ';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

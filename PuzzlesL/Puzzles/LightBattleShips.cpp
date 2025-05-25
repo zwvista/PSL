@@ -27,15 +27,15 @@
 
 namespace puzzles::LightBattleships{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_LIGHT        'L'
-#define PUZ_TOP            '^'
-#define PUZ_BOTTOM        'v'
-#define PUZ_LEFT        '<'
-#define PUZ_RIGHT        '>'
-#define PUZ_MIDDLE        '+'
-#define PUZ_BOAT        'o'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_LIGHT = 'L';
+constexpr auto PUZ_TOP = '^';
+constexpr auto PUZ_BOTTOM = 'v';
+constexpr auto PUZ_LEFT = '<';
+constexpr auto PUZ_RIGHT = '>';
+constexpr auto PUZ_MIDDLE = '+';
+constexpr auto PUZ_BOAT = 'o';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

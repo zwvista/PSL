@@ -16,8 +16,8 @@
 
 namespace puzzles::LakesAndMeadows{
 
-#define PUZ_SPACE        ' '
-#define PUZ_LAKE         'L'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_LAKE = 'L';
 
 // top-left and bottom-right
 typedef pair<Position, Position> puz_box;

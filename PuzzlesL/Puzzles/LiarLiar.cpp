@@ -22,9 +22,9 @@
 
 namespace puzzles::LiarLiar{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_MARKED       'X'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_MARKED = 'X';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

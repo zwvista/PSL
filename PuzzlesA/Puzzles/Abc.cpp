@@ -21,8 +21,8 @@
 
 namespace puzzles::Abc{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
 
 struct puz_game
 {

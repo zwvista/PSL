@@ -18,7 +18,7 @@
 
 namespace puzzles::Landscapes{
 
-#define PUZ_SPACE       ' '
+constexpr auto PUZ_SPACE = ' ';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

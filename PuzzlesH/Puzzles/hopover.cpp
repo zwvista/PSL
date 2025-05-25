@@ -11,10 +11,10 @@
 
 namespace puzzles::hopover{
 
-#define PUZ_WALL    '#'
-#define PUZ_RED        '>'
-#define PUZ_BLUE    '<'
-#define PUZ_SPACE    ' '
+constexpr auto PUZ_WALL = '#';
+constexpr auto PUZ_RED = '>';
+constexpr auto PUZ_BLUE = '<';
+constexpr auto PUZ_SPACE = ' ';
 
 struct puz_game
 {

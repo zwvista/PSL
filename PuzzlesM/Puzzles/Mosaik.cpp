@@ -21,11 +21,11 @@
 
 namespace puzzles::Mosaik{
 
-#define PUZ_UNKNOWN        10
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_MOSAIK        'M'
-#define PUZ_BOUNDARY    'B'
+constexpr auto PUZ_UNKNOWN = 10;
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_MOSAIK = 'M';
+constexpr auto PUZ_BOUNDARY = 'B';
     
 constexpr Position offset[] = {
     {-1, 0},        // n

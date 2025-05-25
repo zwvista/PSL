@@ -23,9 +23,9 @@
 
 namespace puzzles::ParkingLot{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_CAR          'x'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_CAR = 'x';
 
 struct puz_car_kind
 {

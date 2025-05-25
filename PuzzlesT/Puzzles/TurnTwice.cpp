@@ -26,10 +26,10 @@ namespace puzzles::TurnTwice{
 
 using boost::math::sign;
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_SIGNPOST    'S'
-#define PUZ_WALL        'W'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_SIGNPOST = 'S';
+constexpr auto PUZ_WALL = 'W';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

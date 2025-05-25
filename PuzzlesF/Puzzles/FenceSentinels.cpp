@@ -22,10 +22,10 @@
 
 namespace puzzles::FenceSentinels{
 
-#define PUZ_BOUNDARY        '+'
-#define PUZ_INSIDE            'I'
-#define PUZ_OUTSIDE            'O'
-#define PUZ_SPACE            ' '
+constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_INSIDE = 'I';
+constexpr auto PUZ_OUTSIDE = 'O';
+constexpr auto PUZ_SPACE = ' ';
 
 inline bool is_inside(char ch) { return ch == PUZ_INSIDE; }
 

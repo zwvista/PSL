@@ -25,15 +25,15 @@
 
 namespace puzzles::Planets{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_SUN          'S'
-#define PUZ_NEBULAR      'N'
-#define PUZ_PLANET       'P'
-#define PUZ_NORTH        1
-#define PUZ_EAST         2
-#define PUZ_SOUTH        4
-#define PUZ_WEST         8
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_SUN = 'S';
+constexpr auto PUZ_NEBULAR = 'N';
+constexpr auto PUZ_PLANET = 'P';
+constexpr auto PUZ_NORTH = 1;
+constexpr auto PUZ_EAST = 2;
+constexpr auto PUZ_SOUTH = 4;
+constexpr auto PUZ_WEST = 8;
 
 struct puz_game
 {

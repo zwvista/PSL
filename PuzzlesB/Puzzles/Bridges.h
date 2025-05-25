@@ -29,13 +29,13 @@
 
 namespace puzzles::Bridges{
 
-#define PUZ_SPACE             ' '
-#define PUZ_ISLAND            'N'
-#define PUZ_HORZ_1            '-'
-#define PUZ_VERT_1            '|'
-#define PUZ_HORZ_2            '='
-#define PUZ_VERT_2            'H'
-#define PUZ_BOUNDARY          'B'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ISLAND = 'N';
+constexpr auto PUZ_HORZ_1 = '-';
+constexpr auto PUZ_VERT_1 = '|';
+constexpr auto PUZ_HORZ_2 = '=';
+constexpr auto PUZ_VERT_2 = 'H';
+constexpr auto PUZ_BOUNDARY = 'B';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

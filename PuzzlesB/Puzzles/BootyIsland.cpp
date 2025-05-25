@@ -27,10 +27,10 @@
 
 namespace puzzles::BootyIsland{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_MAP            'M'
-#define PUZ_TREASURE    'X'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_MAP = 'M';
+constexpr auto PUZ_TREASURE = 'X';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

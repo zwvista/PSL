@@ -4,8 +4,8 @@
 
 namespace puzzles::lightsout{
 
-#define PUZ_OFF        '0'
-#define PUZ_NONE    '#'
+constexpr auto PUZ_OFF = '0';
+constexpr auto PUZ_NONE = '#';
 
 enum EWrapAround {waNone, waLeftRight, waUpDown, waBoth};
 

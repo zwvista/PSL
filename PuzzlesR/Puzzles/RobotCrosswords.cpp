@@ -16,8 +16,8 @@
 
 namespace puzzles::RobotCrosswords{
 
-#define PUZ_SPACE        ' '
-#define PUZ_SQUARE        '.'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_SQUARE = '.';
 
 struct puz_area
 {

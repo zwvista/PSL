@@ -22,10 +22,10 @@
 
 namespace puzzles::TheCityRises{
 
-#define PUZ_SPACE            ' '
-#define PUZ_EMPTY            '.'
-#define PUZ_BLOCK            'X'
-#define PUZ_UNKNOWN          -1
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_BLOCK = 'X';
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
     {-1, 0},        // n

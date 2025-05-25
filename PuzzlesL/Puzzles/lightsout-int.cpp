@@ -2,8 +2,8 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
-#define PUZ_ON        '1'
-#define PUZ_OFF        '0'
+constexpr auto PUZ_ON = '1';
+constexpr auto PUZ_OFF = '0';
 
 namespace puzzles::lightsout_int{
 

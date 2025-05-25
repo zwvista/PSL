@@ -36,11 +36,11 @@
 
 namespace puzzles::ShopAndGas{
 
-#define PUZ_LINE_OFF        '0'
-#define PUZ_LINE_ON            '1'
-#define PUZ_HOME            'H'
-#define PUZ_SHOP            'S'
-#define PUZ_GAS                'G'
+constexpr auto PUZ_LINE_OFF = '0';
+constexpr auto PUZ_LINE_ON = '1';
+constexpr auto PUZ_HOME = 'H';
+constexpr auto PUZ_SHOP = 'S';
+constexpr auto PUZ_GAS = 'G';
 
 // n-e-s-w
 // 0 means line is off in this direction

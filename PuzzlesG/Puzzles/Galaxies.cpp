@@ -22,12 +22,12 @@
 
 namespace puzzles::Galaxies{
 
-#define PUZ_SPACE        ' '
-#define PUZ_BOUNDARY    '+'
-#define PUZ_GALAXY        'o'
-#define PUZ_GALAXY_R    '>'
-#define PUZ_GALAXY_C    'v'
-#define PUZ_GALAXY_RC    'x'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_GALAXY = 'o';
+constexpr auto PUZ_GALAXY_R = '>';
+constexpr auto PUZ_GALAXY_C = 'v';
+constexpr auto PUZ_GALAXY_RC = 'x';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

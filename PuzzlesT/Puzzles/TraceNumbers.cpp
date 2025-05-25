@@ -22,11 +22,11 @@
 
 namespace puzzles::TraceNumbers{
 
-#define PUZ_SPACE        ' '
-#define PUZ_ONE          '1'
-#define PUZ_FROM         1
-#define PUZ_TO           2
-#define PUZ_FROMTO       3
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ONE = '1';
+constexpr auto PUZ_FROM = 1;
+constexpr auto PUZ_TO = 2;
+constexpr auto PUZ_FROMTO = 3;
 
 constexpr Position offset[] = {
     {-1, 0},        // n

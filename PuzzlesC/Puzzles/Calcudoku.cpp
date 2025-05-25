@@ -29,11 +29,11 @@
 
 namespace puzzles::Calcudoku{
 
-#define PUZ_SPACE    0
-#define PUZ_ADD        '+'
-#define PUZ_SUB        '-'
-#define PUZ_MUL        '*'
-#define PUZ_DIV        '/'
+constexpr auto PUZ_SPACE = 0;
+constexpr auto PUZ_ADD = '+';
+constexpr auto PUZ_SUB = '-';
+constexpr auto PUZ_MUL = '*';
+constexpr auto PUZ_DIV = '/';
 
 struct puz_area_info
 {

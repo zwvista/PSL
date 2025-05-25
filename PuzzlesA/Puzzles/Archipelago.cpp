@@ -22,9 +22,9 @@
 
 namespace puzzles::Archipelago{
 
-#define PUZ_SPACE        ' '
-#define PUZ_ISLAND        '.'
-#define PUZ_WATER        'W'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ISLAND = '.';
+constexpr auto PUZ_WATER = 'W';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

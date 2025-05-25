@@ -18,10 +18,10 @@
 
 namespace puzzles::ZenGardens{
 
-#define PUZ_SPACE        ' '
-#define PUZ_STONE        'O'
-#define PUZ_LEAF         'L'
-#define PUZ_NOLEAF       'S'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_STONE = 'O';
+constexpr auto PUZ_LEAF = 'L';
+constexpr auto PUZ_NOLEAF = 'S';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

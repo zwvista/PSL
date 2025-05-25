@@ -27,12 +27,12 @@
 
 namespace puzzles::Consecutives{
 
-#define PUZ_SPACE        ' '
-#define PUZ_ROW_LINE    '|'
-#define PUZ_COL_LINE    '-'
-#define PUZ_ROW_LINEC    'H'
-#define PUZ_COL_LINEC    '='
-#define PUZ_CONSECUTIVE    '.'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ROW_LINE = '|';
+constexpr auto PUZ_COL_LINE = '-';
+constexpr auto PUZ_ROW_LINEC = 'H';
+constexpr auto PUZ_COL_LINEC = '=';
+constexpr auto PUZ_CONSECUTIVE = '.';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

@@ -18,7 +18,7 @@
 
 namespace puzzles::InsaneTatamis{
 
-#define PUZ_SPACE        ' '
+constexpr auto PUZ_SPACE = ' ';
 
 // top-left and bottom-right
 typedef pair<Position, Position> puz_box;

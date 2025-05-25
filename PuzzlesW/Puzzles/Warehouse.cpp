@@ -19,10 +19,10 @@
 
 namespace puzzles::Warehouse{
 
-#define PUZ_SPACE        ' '
-#define PUZ_HORZ         'H'
-#define PUZ_VERT         'V'
-#define PUZ_SQUARE       '+'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_HORZ = 'H';
+constexpr auto PUZ_VERT = 'V';
+constexpr auto PUZ_SQUARE = '+';
 
 // top-left and bottom-right
 typedef pair<Position, Position> puz_box;

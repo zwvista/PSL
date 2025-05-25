@@ -22,8 +22,8 @@
 
 namespace puzzles::Orchards{
 
-#define PUZ_TREE        'T'
-#define PUZ_SPACE        '.'
+constexpr auto PUZ_TREE = 'T';
+constexpr auto PUZ_SPACE = '.';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

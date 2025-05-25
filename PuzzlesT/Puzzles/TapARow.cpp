@@ -18,13 +18,13 @@
 
 namespace puzzles::TapARow{
 
-#define PUZ_SPACE        ' '
-#define PUZ_QM            '?'
-#define PUZ_FILLED        'F'
-#define PUZ_EMPTY        '.'
-#define PUZ_HINT        'H'
-#define PUZ_BOUNDARY    'B'
-#define PUZ_UNKNOWN        -1
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_QM = '?';
+constexpr auto PUZ_FILLED = 'F';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_HINT = 'H';
+constexpr auto PUZ_BOUNDARY = 'B';
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
     {-1, 0},        // n

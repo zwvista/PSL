@@ -21,8 +21,8 @@
 
 namespace puzzles::TopArrow{
 
-#define PUZ_SPACE        ' '
-#define PUZ_BLOCK        'B'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_BLOCK = 'B';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

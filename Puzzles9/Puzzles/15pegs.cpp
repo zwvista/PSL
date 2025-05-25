@@ -29,8 +29,8 @@
 
 namespace puzzles::_15pegs{
 
-#define PUZ_PEG        '1'
-#define PUZ_SPACE    '0'
+constexpr auto PUZ_PEG = '1';
+constexpr auto PUZ_SPACE = '0';
 
 constexpr Position offset[] = {
     {0, -1},

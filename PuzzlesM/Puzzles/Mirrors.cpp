@@ -26,10 +26,10 @@
 
 namespace puzzles::Mirrors{
 
-#define PUZ_LINE_OFF        '0'
-#define PUZ_LINE_ON            '1'
-#define PUZ_BLOCK            "B "
-#define PUZ_SPOT            "S "
+constexpr auto PUZ_LINE_OFF = '0';
+constexpr auto PUZ_LINE_ON = '1';
+constexpr auto PUZ_BLOCK = "B ";
+constexpr auto PUZ_SPOT = "S ";
 
 // n-e-s-w
 // 0 means line is off in this direction

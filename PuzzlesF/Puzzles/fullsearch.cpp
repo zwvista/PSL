@@ -6,11 +6,11 @@
 
 namespace puzzles::fullsearch{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
-#define PUZ_BALL        '@'
-#define PUZ_GOAL        'x'
-#define PUZ_WALL        '#'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_BALL = '@';
+constexpr auto PUZ_GOAL = 'x';
+constexpr auto PUZ_WALL = '#';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

@@ -19,7 +19,7 @@
 
 namespace puzzles::HiddenPath{
 
-#define PUZ_UNKNOWN        0
+constexpr auto PUZ_UNKNOWN = 0;
 
 constexpr Position offset[] = {
     {-1, 0},        // n

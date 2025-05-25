@@ -23,10 +23,10 @@
 
 namespace puzzles::Cheese{
 
-#define PUZ_SPACE       '.'
-#define PUZ_NEST        'S'
-#define PUZ_BLOCK       'X'
-#define PUZ_MOUSE       'M'
+constexpr auto PUZ_SPACE = '.';
+constexpr auto PUZ_NEST = 'S';
+constexpr auto PUZ_BLOCK = 'X';
+constexpr auto PUZ_MOUSE = 'M';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

@@ -23,7 +23,7 @@
 
 namespace puzzles::MoreOrLess{
 
-#define PUZ_SPACE        ' '
+constexpr auto PUZ_SPACE = ' ';
 
 const string op_walls_gt = "^>v<";
 const string op_walls_lt = "v<^>";

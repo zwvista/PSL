@@ -20,9 +20,9 @@
 
 namespace puzzles::FlowerBeds{
 
-#define PUZ_SPACE        ' '
-#define PUZ_FLOWER       'F'
-#define PUZ_HEDGE        'H'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_FLOWER = 'F';
+constexpr auto PUZ_HEDGE = 'H';
 
 constexpr Position offset[] = {
     {-1, 0},       // n

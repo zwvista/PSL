@@ -18,8 +18,8 @@
 
 namespace puzzles::TetrominoPegs{
 
-#define PUZ_SPACE        ' '
-#define PUZ_PEG          '.'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_PEG = '.';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

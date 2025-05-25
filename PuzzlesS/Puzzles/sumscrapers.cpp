@@ -21,7 +21,7 @@
 
 namespace puzzles::sumscrapers{
 
-#define PUZ_SPACE        0
+constexpr auto PUZ_SPACE = 0;
 
 struct puz_game
 {

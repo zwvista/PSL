@@ -24,10 +24,10 @@
 
 namespace puzzles::Yalooniq{
 
-#define PUZ_LINE_OFF        '0'
-#define PUZ_LINE_ON            '1'
-#define PUZ_SQUARE_OFF        '0'
-#define PUZ_SQUARE_ON        '1'
+constexpr auto PUZ_LINE_OFF = '0';
+constexpr auto PUZ_LINE_ON = '1';
+constexpr auto PUZ_SQUARE_OFF = '0';
+constexpr auto PUZ_SQUARE_ON = '1';
 
 // n-e-s-w
 // 0 means line is off in this direction

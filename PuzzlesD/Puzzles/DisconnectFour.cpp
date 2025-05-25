@@ -18,12 +18,12 @@
 
 namespace puzzles::DisconnectFour{
 
-#define PUZ_SPACE        ' '
-#define PUZ_R_FIXED        'R'
-#define PUZ_R_ADDED        'r'
-#define PUZ_Y_FIXED        'Y'
-#define PUZ_Y_ADDED        'y'
-#define PUZ_BOUNDARY    '+'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_R_FIXED = 'R';
+constexpr auto PUZ_R_ADDED = 'r';
+constexpr auto PUZ_Y_FIXED = 'Y';
+constexpr auto PUZ_Y_ADDED = 'y';
+constexpr auto PUZ_BOUNDARY = '+';
 
 const string RY = {PUZ_R_ADDED, PUZ_Y_ADDED};
 

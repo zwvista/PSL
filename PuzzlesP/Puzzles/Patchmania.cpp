@@ -9,9 +9,9 @@
 
 namespace puzzles::Patchmania{
 
-#define PUZ_SPACE        ' '
-#define PUZ_HOLE         'O'
-#define PUZ_MUSHROOM     'm'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_HOLE = 'O';
+constexpr auto PUZ_MUSHROOM = 'm';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

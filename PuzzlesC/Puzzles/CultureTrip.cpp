@@ -27,11 +27,11 @@
 
 namespace puzzles::CultureTrip{
 
-#define PUZ_MUSEUM          'M'
-#define PUZ_MONUMENT        'T'
-#define PUZ_SPACE           ' '
-#define PUZ_VISIT_MUSEUM    0
-#define PUZ_VISIT_MONUMENT  1
+constexpr auto PUZ_MUSEUM = 'M';
+constexpr auto PUZ_MONUMENT = 'T';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_VISIT_MUSEUM = 0;
+constexpr auto PUZ_VISIT_MONUMENT = 1;
 
     // n-e-s-w
 // 0 means line is off in this direction

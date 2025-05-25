@@ -26,8 +26,8 @@
 
 namespace puzzles::Snail{
 
-#define PUZ_SPACE        ' '
-#define PUZ_EMPTY        '.'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

@@ -22,8 +22,8 @@
 
 namespace puzzles::Sukrokuro{
 
-#define PUZ_SPACE        ' '
-#define PUZ_DOT          '.'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_DOT = '.';
 
 struct puz_area
 {

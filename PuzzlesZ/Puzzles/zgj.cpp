@@ -5,14 +5,14 @@
 
 namespace puzzles::zgj{
 
-#define PUZ_WALL        '#'
-#define PUZ_MONKEY        '@'
-#define PUZ_STONE        'S'
-#define PUZ_TRUNK        'T'
-#define PUZ_MUD            'M'
-#define PUZ_ICE            'I'
-#define PUZ_GOAL        '.'
-#define PUZ_SPACE        ' '
+constexpr auto PUZ_WALL = '#';
+constexpr auto PUZ_MONKEY = '@';
+constexpr auto PUZ_STONE = 'S';
+constexpr auto PUZ_TRUNK = 'T';
+constexpr auto PUZ_MUD = 'M';
+constexpr auto PUZ_ICE = 'I';
+constexpr auto PUZ_GOAL = '.';
+constexpr auto PUZ_SPACE = ' ';
 
 constexpr Position offset[] = {
     {0, -1},

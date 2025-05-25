@@ -22,10 +22,10 @@
 
 namespace puzzles::FencingSheep{
 
-#define PUZ_SPACE            ' '
-#define PUZ_POST             'O'
-#define PUZ_SHEEP            'S'
-#define PUZ_WOLF             'W'
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_POST = 'O';
+constexpr auto PUZ_SHEEP = 'S';
+constexpr auto PUZ_WOLF = 'W';
 
 // n-e-s-w
 // 0 means line is off in this direction
