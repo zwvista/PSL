@@ -20,6 +20,7 @@
 #include <unordered_set>
 #include <string>
 #include <array>
+#include <print>
 
 #include <boost/config/warning_disable.hpp>
 #include "nonconst_bfs.hpp" // so we can modify the graph
