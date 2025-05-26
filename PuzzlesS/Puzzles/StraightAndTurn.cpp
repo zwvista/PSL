@@ -36,7 +36,7 @@ constexpr auto PUZ_WHITE_GEM = 'W';
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
-const int lineseg_off = 0;
+constexpr int lineseg_off = 0;
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -85,18 +85,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (char ch = str[c]; ch != ' ')
                 m_pos2gem[{r, c}].m_ch = ch;
     }
-    for (auto& kv1 : m_pos2gem) {
-        auto& p1 = kv1.first;
-        auto& gem1 = kv1.second;
-        for (auto& kv2 : m_pos2gem) {
-            auto& p2 = kv2.first;
-            auto& gem2 = kv2.second;
+    for (auto& [p1, gem1] : m_pos2gem)
+        for (auto& [p2, gem2] : m_pos2gem) {
+            // skip when the two gems are the same one
             if (p1 == p2) continue;
             if (p1.first == p2.first || p1.second == p2.second) {
+                // the two gems are in the same row/column
+                // 3. The line cannot cross two adjacent gems if they are of different color.
+                // 6. The line should go straight in the space between two gems of the same colour.
                 if (gem1.m_ch != gem2.m_ch) continue;
                 auto pd = p2 - p1;
                 [&]{
                     Position os(sign(pd.first), sign(pd.second));
+                    // verify that the straight line does not cross a third gem
                     for (auto p3 = p1 + os; p3 != p2; p3 += os)
                         if (m_pos2gem.contains(p3))
                             return;
@@ -106,9 +107,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     o.m_dir11 = boost::find(offset, os) - offset, o.m_dir12 = (o.m_dir11 + 2) % 4;
                 }();
             } else {
+                // the two gems are not in the same row/column
+                // 3. The line cannot cross two adjacent gems if they are of different color.
+                // 6. The line should go straight in the space between two gems of the same colour.
                 if (gem1.m_ch == gem2.m_ch) continue;
                 auto pd = p2 - p1;
+                // 7. The line should make a single 90 degree turn in the space between
+                // two gems of different colour.
                 auto f = [&](const Position& pm, const Position& os1, const Position& os2) {
+                    // verify that the line before/after the turning point does not cross a third gem
                     if (m_pos2gem.contains(pm)) return;
                     for (auto p3 = p1 + os1; p3 != pm; p3 += os1)
                         if (m_pos2gem.contains(p3))
@@ -123,13 +130,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     o.m_dir11 = boost::find(offset, os1) - offset, o.m_dir12 = (o.m_dir11 + 2) % 4;
                     o.m_dir21 = boost::find(offset, os2) - offset, o.m_dir22 = (o.m_dir21 + 2) % 4;
                 };
+                // two possible turning points
                 Position pm1(p1.first, p2.second), pm2(p2.first, p1.second);
+                // two directions before/after the turning point
                 Position os1(0, sign(pd.second)), os2(sign(pd.first), 0);
                 f(pm1, os1, os2);
                 f(pm2, os2, os1);
             }
         }
-    }
 }
 
 struct puz_state
@@ -173,7 +181,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
     : m_dots(g.m_dot_count), m_game(&g)
 {
-    for (auto&& [p, gem] : g.m_pos2gem) {
+    for (auto& [p, gem] : g.m_pos2gem) {
         auto& perm_ids = m_matches[p];
         perm_ids.resize(gem.m_links.size());
         boost::iota(perm_ids, 0);
@@ -184,6 +192,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+    // check if the only possible line between the two gems crosses an existing line
     auto f = [&](const Position& p, const Position& os, const Position& p2) {
         for (auto p3 = p + os; p3 != p2; p3 += os)
             if (dots(p3) != lineseg_off)
@@ -191,15 +200,15 @@ int puz_state::find_matches(bool init)
         return false;
     };
     
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         auto perms = m_game->m_pos2gem.at(p).m_links;
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& o = perms[id];
+            // remove the option if the target gem has been used or
             return !m_matches.contains(o.m_target) ||
+                // the straight line crosses an existing line or
                 (o.m_dir21 == -1 ? f(p, offset[o.m_dir11], o.m_target) :
+                // the line before/after the turning point crosses an existing line
                 dots(o.m_turn) != lineseg_off || f(p, offset[o.m_dir11], o.m_turn) || f(o.m_turn, offset[o.m_dir21], o.m_target));
         });
 
@@ -216,6 +225,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(Position p, int n)
 {
+    // connect the positions between the two positions with a line segment
     auto f = [&](const Position& p, int dir1, int dir2, const Position& p2) {
         auto& os = offset[dir1];
         for (auto p3 = p + os; p3 != p2; p3 += os)
@@ -225,13 +235,17 @@ void puz_state::make_move2(Position p, int n)
     auto& o = m_game->m_pos2gem.at(p).m_links[n];
     bool finished = dots(p) != lineseg_off;
     bool finished2 = dots(o.m_target) != lineseg_off;
+    // connect the starting position
     dots(p) |= 1 << o.m_dir11;
     if (o.m_dir21 == -1) {
+        // connect the target position
         dots(o.m_target) |= 1 << o.m_dir12;
         f(p, o.m_dir11, o.m_dir12, o.m_target);
     } else {
+        // connect the turing point
         dots(o.m_turn) = (1 << o.m_dir12) | (1 << o.m_dir21);
         f(p, o.m_dir11, o.m_dir12, o.m_turn);
+        // connect the target position
         dots(o.m_target) |= 1 << o.m_dir22;
         f(o.m_turn, o.m_dir21, o.m_dir22, o.m_target);
     }
@@ -275,14 +289,14 @@ bool puz_state::check_loop() const
             rng.erase(p2);
             int lineseg = dots(p2);
             for (int i = 0; i < 4; ++i)
-                // go ahead if the line segment does not lead a way back
+                // proceed only if the line segment does not revisit the previous position
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
                     p2 += offset[n = i];
                     break;
                 }
             if (p2 == p)
                 // we have a loop here,
-                // so we should have exhausted the line segments 
+                // and we are supposed to have exhausted the line segments
                 return !has_branch && rng.empty();
             if (!rng.contains(p2)) {
                 has_branch = true;

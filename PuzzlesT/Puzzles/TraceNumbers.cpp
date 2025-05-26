@@ -41,7 +41,7 @@ constexpr Position offset[] = {
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
-const int lineseg_off = 0;
+constexpr int lineseg_off = 0;
 
 struct puz_game
 {

@@ -174,14 +174,14 @@ bool puz_state::check_loop() const
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
             for (int i = 0; i < 4; ++i)
-                // go ahead if the line segment does not lead a way back
+                // proceed only if the line segment does not revisit the previous position
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n && (lineseg != lineseg_cross || i == n)) {
                     p2 += offset[n = i];
                     break;
                 }
             if (p2 == p && lineseg != lineseg_cross)
                 // we have a loop here,
-                // so we should have exhausted the line segments 
+                // and we are supposed to have exhausted the line segments
                 return !has_branch && rng.empty();
             if (!rng.contains(p2)) {
                 has_branch = true;

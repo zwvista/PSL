@@ -32,7 +32,7 @@ constexpr auto PUZ_POST = 'O';
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
-const int lineseg_off = 0;
+constexpr int lineseg_off = 0;
 const vector<int> linesegs_all = {
     // „¢  „Ÿ  „¡  „£  „   „¤
     12, 10, 6, 9, 5, 3,
