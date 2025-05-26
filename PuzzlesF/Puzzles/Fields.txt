@@ -6,7 +6,7 @@ M M M S
 M S S S 
 Number of moves: 3
 Number of vertices examined: 4
-0.00229034 [s]
+0.0009218 [s]
 
 Level 2
 Sequence of moves: 
@@ -16,7 +16,7 @@ S M S M
 M M M M 
 Number of moves: 8
 Number of vertices examined: 9
-0.00203605 [s]
+0.0014908 [s]
 
 Level 36
 Sequence of moves: 
@@ -29,7 +29,7 @@ S M M M M M S
 S S S S S S S 
 Number of moves: 24
 Number of vertices examined: 38
-0.0223544 [s]
+0.0232069 [s]
 
 Level 72
 Sequence of moves: 
@@ -43,6 +43,6 @@ S M S M S M S M
 S M M M M M M M 
 Number of moves: 33
 Number of vertices examined: 353
-0.264502 [s]
+0.241923 [s]
 
 Level 200

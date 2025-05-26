@@ -235,7 +235,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset) {
         auto p2 = *this + os;
-        if (m_rng->count(p2) != 0) {
+        if (m_rng->contains(p2)) {
             children.push_back(*this);
             children.back().make_move(p2);
         }

@@ -117,10 +117,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     auto& perms = m_game->m_perms;
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         string chars;
         for (auto& os : offset2)
             chars.push_back(cells(p + os));
@@ -156,7 +153,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset) {
         auto p2 = *this + os;
-        if (m_rng->count(p2) != 0) {
+        if (m_rng->contains(p2)) {
             children.push_back(*this);
             children.back().make_move(p2);
         }
@@ -194,7 +191,7 @@ int puz_state::adjust_area()
             return 0;
     }
     int n = 2;
-    for (auto&& [p, kinds] : pos2kinds)
+    for (auto& [p, kinds] : pos2kinds)
         if (kinds.size() == 1)
             cells(p) = kinds[0], n = 1;
     return n;

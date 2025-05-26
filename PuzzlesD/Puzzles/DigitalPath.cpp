@@ -258,7 +258,7 @@ struct puz_state3 : Position
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset)
-        if (auto p2 = *this + os; m_rng->count(p2) != 0) {
+        if (auto p2 = *this + os; m_rng->contains(p2)) {
             children.push_back(*this);
             children.back().make_move(p2);
         }
