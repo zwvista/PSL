@@ -84,7 +84,6 @@ ostream & operator<<(ostream &out, const puz_step &mi)
 class puz_state : public string
 {
 public:
-    puz_state() {}
     puz_state(const puz_game& g)
         : string(g.m_start), m_game(&g), m_blocks(g.m_blocks) {}
     int rows() const {return m_game->rows();}

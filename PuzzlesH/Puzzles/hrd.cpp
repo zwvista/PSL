@@ -79,7 +79,6 @@ ostream& operator<<(ostream& out, const puz_step& a)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : m_game(&g), m_cells(g.m_cells), m_caocao(g.m_caocao),
         m_brick_map(g.m_brick_map) {}

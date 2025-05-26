@@ -48,7 +48,6 @@ void puz_game::compute_heuristic()
 
 struct puz_state : string
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : string(g.m_start), m_game(&g), m_space(g.m_space), m_move(0) {}
     int rows() const {return m_game->rows();}

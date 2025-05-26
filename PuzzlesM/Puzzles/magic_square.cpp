@@ -41,7 +41,6 @@ ostream & operator<<(ostream &out, const puz_step &mi)
 
 struct puz_state : vector<int>
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : vector<int>(g.m_start), m_game(&g) {}
     int sidelen() const {return m_game->sidelen();}

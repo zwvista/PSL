@@ -43,7 +43,6 @@ ostream & operator<<(ostream &out, const puz_step &mi)
 
 struct puz_state : pair<string, boost::optional<puz_step>>
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : pair<string, boost::optional<puz_step>>{g.m_start, {}}, m_game(&g) {}
     void make_move(int i, int j) {

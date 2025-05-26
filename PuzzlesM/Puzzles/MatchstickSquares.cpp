@@ -70,7 +70,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     int rows() const { return m_game->rows(); }
     int cols() const { return m_game->cols(); }

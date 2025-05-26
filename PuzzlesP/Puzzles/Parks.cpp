@@ -205,7 +205,6 @@ struct puz_groups
 
 struct puz_state : string
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const { return m_groups.m_game->m_sidelen; }
     bool is_valid(const Position& p) const {

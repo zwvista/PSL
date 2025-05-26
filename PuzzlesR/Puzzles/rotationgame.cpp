@@ -22,7 +22,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_state : string
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : string(g.m_start), m_move(0) {}
     void make_rotation(int n, bool reverse, char m);

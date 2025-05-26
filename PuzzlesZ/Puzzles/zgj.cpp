@@ -76,7 +76,6 @@ struct puz_state2;
 
 struct puz_state : puz_state_base
 {
-    puz_state() {}
     puz_state(const puz_game& g) : m_cells(g.m_cells) {
         m_game = &g, m_monkey = g.m_monkey;
     }

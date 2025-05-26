@@ -67,7 +67,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 // second: the current position
 struct puz_state : pair<vector<int>, Position>
 {
-    puz_state() {}
     puz_state(const puz_game& g) 
         : pair<vector<int>, Position>(g.m_nums, g.m_start)
         , m_game(&g) {}

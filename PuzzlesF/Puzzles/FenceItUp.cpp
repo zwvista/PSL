@@ -84,7 +84,6 @@ struct puz_area
 
 struct puz_state : string
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }

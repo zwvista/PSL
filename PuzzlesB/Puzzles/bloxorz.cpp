@@ -126,7 +126,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     const Position& goal() const {return m_game->m_goal;}
     bool operator<(const puz_state& x) const {

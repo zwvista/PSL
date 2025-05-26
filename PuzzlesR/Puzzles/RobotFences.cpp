@@ -148,7 +148,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }

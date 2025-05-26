@@ -60,7 +60,6 @@ struct puz_step : Position
 
 struct puz_state : string
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : string(g.m_start), m_game(&g) {}
     int rows() const {return m_game->rows();}

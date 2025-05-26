@@ -99,7 +99,6 @@ typedef vector<int> puz_dot;
 
 struct puz_state : vector<puz_dot>
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }

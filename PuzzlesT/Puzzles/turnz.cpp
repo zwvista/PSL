@@ -67,7 +67,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : m_cells(g.m_start), m_game(&g), m_blobs(g.m_blobs)
         , m_grav(0), m_move(0) {}

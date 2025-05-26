@@ -74,7 +74,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     bool operator<(const puz_state& x) const { 
         return make_pair(m_quantities, m_move) < make_pair(x.m_quantities, x.m_move);

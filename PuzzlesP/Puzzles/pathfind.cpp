@@ -59,7 +59,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_state : Position
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : Position(g.m_start), m_game(&g), m_move() {}
     bool make_move(EDir dir);

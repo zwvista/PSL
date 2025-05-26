@@ -77,7 +77,6 @@ using puz_area = pair<vector<Position>, vector<string>>;
 
 struct puz_state : pair<string, vector<puz_area>>
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
     char cells(const Position& p) const { return first.at(p.first * sidelen() + p.second); }

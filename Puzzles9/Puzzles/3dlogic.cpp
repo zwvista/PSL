@@ -121,7 +121,6 @@ unsigned int puz_state_base::manhattan_distance3d(const Position3d& p31, const P
 
 struct puz_state : puz_state_base
 {
-    puz_state() {}
     puz_state(const puz_game& g) : m_cells(g.m_start), m_links(g.m_markers)
     {
         m_game = &g;

@@ -99,7 +99,6 @@ ostream & operator<<(ostream &out, const puz_step &mi)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : m_game(&g), m_worms(g.m_worms) {calc_layout();}
     bool operator<(const puz_state& x) const {

@@ -47,7 +47,6 @@ ostream& operator<<(ostream& out, const puz_step& a)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : m_game(&g), m_balls(g.m_balls) {}
     bool operator<(const puz_state& x) const {return m_balls < x.m_balls;}

@@ -115,7 +115,6 @@ typedef vector<int> puz_dot;
 
 struct puz_state : vector<puz_dot>
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool is_valid(const Position& p) const {

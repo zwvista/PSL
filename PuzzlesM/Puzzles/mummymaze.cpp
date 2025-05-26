@@ -159,7 +159,6 @@ ostream& operator<<(ostream& out, const list<puz_step>& m_move)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : m_game(&g), m_man(g.m_man), m_obj_map(g.m_obj_map), m_gate_open(false) {}
     bool make_move(EMazeDir dir);

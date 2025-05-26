@@ -50,7 +50,6 @@ ostream& operator<<(ostream &out, const puz_step &mi)
 
 struct puz_state : string
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     int rows() const { return m_game->rows(); }
     int cols() const { return m_game->cols(); }

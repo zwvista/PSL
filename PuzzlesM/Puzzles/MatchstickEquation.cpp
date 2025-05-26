@@ -101,7 +101,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_state
 {
-    puz_state() {}
     puz_state(const puz_game& g);
     bool operator<(const puz_state& x) const { 
         return tie(m_digits, m_operator, m_index) < tie(x.m_digits, x.m_operator, x.m_index);

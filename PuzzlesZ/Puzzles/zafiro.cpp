@@ -85,7 +85,6 @@ ostream& operator<<(ostream& out, const puz_step& act)
 
 struct puz_state : string
 {
-    puz_state() {}
     puz_state(const puz_game& g)
         : string(g.m_start), m_game(&g), m_zafiro(g.m_zafiro)
         , m_grav(0) {}
