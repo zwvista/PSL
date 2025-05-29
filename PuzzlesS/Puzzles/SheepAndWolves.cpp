@@ -35,7 +35,7 @@ constexpr auto PUZ_WOLF = 'W';
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
 constexpr int lineseg_off = 0;
-const vector<int> linesegs_all = {
+constexpr int linesegs_all[] = {
     // ┐  ─  ┌  ┘  │  └
     12, 10, 6, 9, 5, 3,
 };
@@ -55,7 +55,7 @@ constexpr Position offset2[] = {
 };
 
 typedef pair<Position, int> puz_line_info;
-const puz_line_info lines_info[] = {
+constexpr puz_line_info lines_info[] = {
     {{-1, -1}, 1}, {{-1, 0}, 3},         // n
     {{-1, 0}, 2}, {{0, 0}, 0},         // e
     {{0, 0}, 3}, {{0, -1}, 1},         // s
@@ -94,7 +94,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen + 1, PUZ_WOLF);
 
-    // Each number tells you on how many of its four sides are touched
+    // 3. Each number tells you on how many of its four sides are touched
     // by the path.
     auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
     for (int i = 0; i < 4; ++i) {
@@ -157,7 +157,7 @@ puz_state::puz_state(const puz_game& g)
             for (int lineseg : linesegs_all)
                 if ([&]{
                     for (int i = 0; i < 4; ++i)
-                        // The line segment cannot lead to a position outside the board
+                        // A line segment cannot go beyond the boundaries of the board
                         if (is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
                             return false;
                     return true;
@@ -165,9 +165,9 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& kv : g.m_pos2num) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(g.m_num2perms.at(kv.second).size());
+    for (auto& [p, n] : g.m_pos2num) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(g.m_num2perms.at(n).size());
         boost::iota(perm_ids, 0);
     }
 
@@ -177,10 +177,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];

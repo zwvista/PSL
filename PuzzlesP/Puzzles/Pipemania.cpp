@@ -104,7 +104,7 @@ puz_state::puz_state(const puz_game& g)
                 for (int lineseg : linesegs_all)
                     if ([&] {
                         for (int i = 0; i < 4; ++i)
-                            // The line segment cannot lead to a position outside the board 
+                            // A line segment cannot go beyond the boundaries of the board 
                             if (is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
                                 return false;
                         return true;
