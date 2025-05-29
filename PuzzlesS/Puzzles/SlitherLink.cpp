@@ -48,8 +48,19 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+/*
+    dot(0,0) -> 1  3 <- dot(0,1)
+      |                      |
+      v                      v
+      2                      2
+              cell(0,0)
+      0                      0
+      ^                      ^
+      |                      |
+    dot(1,0) -> 1  3 <- dot(1,1)
+*/
 typedef pair<Position, int> puz_line_info;
-const puz_line_info lines_info[] = {
+constexpr puz_line_info lines_info[] = {
     {{0, 0}, 1}, {{0, 1}, 3},         // n
     {{0, 1}, 2}, {{1, 1}, 0},         // e
     {{1, 1}, 3}, {{1, 0}, 1},         // s

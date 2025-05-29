@@ -35,31 +35,47 @@ constexpr auto PUZ_WOLF = 'W';
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
 constexpr int lineseg_off = 0;
-constexpr int linesegs_all[] = {
+const vector<int> linesegs_all = {
     // ┐  ─  ┌  ┘  │  └
     12, 10, 6, 9, 5, 3,
 };
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
+/*
+    cell(0,0)        cell(0,1)
+             dot(0,0)
+    cell(1,0)        cell(1,1)
+*/
 constexpr Position offset2[] = {
     {0, 0}, {0, 1},    // n
-    {0, 1}, {1, 1},        // e
-    {1, 1}, {1, 0},        // s
+    {0, 1}, {1, 1},    // e
+    {1, 1}, {1, 0},    // s
     {1, 0}, {0, 0},    // w
 };
 
+/*
+    dot(-1,-1) -> 1  3 <- dot(-1, 0)
+      |                          |
+      v                          v
+      2                          2
+                cell(0,0)
+      0                          0
+      ^                          ^
+      |                          |
+    dot( 0,-1) -> 1  3 <- dot( 0, 0)
+*/
 typedef pair<Position, int> puz_line_info;
 constexpr puz_line_info lines_info[] = {
-    {{-1, -1}, 1}, {{-1, 0}, 3},         // n
+    {{-1, -1}, 1}, {{-1, 0}, 3},       // n
     {{-1, 0}, 2}, {{0, 0}, 0},         // e
     {{0, 0}, 3}, {{0, -1}, 1},         // s
-    {{0, -1}, 0}, {{-1, -1}, 2},         // w
+    {{0, -1}, 0}, {{-1, -1}, 2},       // w
 };
 
 struct puz_game
@@ -80,6 +96,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 1)
 , m_dot_count(m_sidelen * m_sidelen)
 {
+    // 5. In the end all the sheep must be corralled inside the loop, while
+    // all the wolves must be outside.
     m_start.append(m_sidelen + 1, PUZ_WOLF);
     for (int r = 1; r < m_sidelen; ++r) {
         auto& str = strs[r - 1];
@@ -273,9 +291,12 @@ int puz_state::check_dots(bool init)
                 char& ch1 = cells(p + offset2[i * 2]);
                 char& ch2 = cells(p + offset2[i * 2 + 1]);
                 bool is_on = is_lineseg_on(lineseg, i);
-                auto f = [=](char& ch1, char& ch2) {
-                    ch1 = !is_on ? ch2 :
-                        ch2 == PUZ_SHEEP ? PUZ_WOLF : PUZ_SHEEP;
+                auto f = [=](char& chA, char& chB) {
+                    // If the line segment is on,
+                    // the two adjacent cells bordering it must belong to the same group
+                    // Otherwise, they must belong to the two different groups
+                    chA = !is_on ? chB :
+                        chB == PUZ_SHEEP ? PUZ_WOLF : PUZ_SHEEP;
                 };
                 if ((ch1 == PUZ_SPACE) != (ch2 == PUZ_SPACE))
                     ch1 == PUZ_SPACE ? f(ch1, ch2) : f(ch2, ch1);
