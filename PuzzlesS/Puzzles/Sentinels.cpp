@@ -93,7 +93,7 @@ struct puz_state
     string m_cells;
     // key: the position of the number that represents the sentinel
     // value.elem: respective numbers of the tiles visible from the position of
-    //             the sentinel in all the four directions
+    //             the sentinel in all four directions
     map<Position, vector<vector<int>>> m_matches;
     unsigned int m_distance = 0;
 };
@@ -101,8 +101,8 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    for (auto& kv : g.m_pos2num)
-        m_matches[kv.first];
+    for (auto& [p, n] : g.m_pos2num)
+        m_matches[p];
 
     find_matches(true);
 }

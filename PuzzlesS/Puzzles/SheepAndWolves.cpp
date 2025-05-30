@@ -200,10 +200,9 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
             for (int i = 0; i < 8; ++i) {
-                auto& info = lines_info[i];
-                const auto& dt = dots(p + info.first);
+                auto& [os, j] = lines_info[i];
+                const auto& dt = dots(p + os);
                 bool is_on = is_lineseg_on(perm, i / 2);
-                int j = info.second;
                 if (boost::algorithm::none_of(dt, [=](int lineseg) {
                     return is_lineseg_on(lineseg, j) == is_on;
                 }))
@@ -240,9 +239,8 @@ int puz_state::check_cells(bool init)
                 n = 1;
                 bool is_on = ch != ch2;
                 for (int j = 0; j < 2; ++j) {
-                    auto& info = lines_info[i * 2 + j];
-                    auto& dt = dots(p + info.first);
-                    int k = info.second;
+                    auto& [os, k] = lines_info[i * 2 + j];
+                    auto& dt = dots(p + os);
                     boost::remove_erase_if(dt, [=](int lineseg) {
                         return is_lineseg_on(lineseg, k) != is_on;
                     });
@@ -310,10 +308,9 @@ bool puz_state::make_move2(const Position& p, int n)
 {
     auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
     for (int i = 0; i < 8; ++i) {
-        auto& info = lines_info[i];
-        auto& dt = dots(p + info.first);
+        auto& [os, j] = lines_info[i];
+        auto& dt = dots(p + os);
         bool is_on = is_lineseg_on(perm, i / 2);
-        int j = info.second;
         boost::remove_erase_if(dt, [=](int lineseg) {
             return is_lineseg_on(lineseg, j) != is_on;
         });
