@@ -150,8 +150,8 @@ puz_state::puz_state(const puz_game& g)
 , m_vert_walls(g.m_vert_walls)
 {
     set<Position> rng;
-    for (auto& kv : g.m_pos2num)
-        rng.insert(kv.first);
+    for (auto& [p, n] : g.m_pos2num)
+        rng.insert(p);
 
     for (int i = 0; !rng.empty(); ++i) {
         auto& p_start = *rng.begin();

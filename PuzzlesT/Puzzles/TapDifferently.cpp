@@ -105,15 +105,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
         auto hint = compute_hint(filled);
 
-        for (auto& kv : m_hint2perms) {
-            auto& hint2 = kv.first;
+        for (auto& [hint2, perms] : m_hint2perms) {
             if (hint2 == hint)
-                kv.second.push_back(perm);
+                perms.push_back(perm);
             else if (boost::algorithm::any_of_equal(hint2, PUZ_UNKNOWN) && hint2.size() == hint.size()) {
                 auto hint3 = hint2;
                 boost::remove_erase(hint3, PUZ_UNKNOWN);
                 if (boost::includes(hint, hint3))
-                    kv.second.push_back(perm);
+                    perms.push_back(perm);
             }
         }
     }
@@ -181,9 +180,9 @@ int puz_state::find_matches(bool init)
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-    for (auto& kv : g.m_pos2hint) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(g.m_hint2perms.at(kv.second).size());
+    for (auto& [p, hint] : g.m_pos2hint) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(g.m_hint2perms.at(hint).size());
         boost::iota(perm_ids, 0);
     }
 

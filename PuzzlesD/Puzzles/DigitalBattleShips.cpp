@@ -415,7 +415,8 @@ void puz_state::gen_children(list<puz_state>& children) const
             children.push_back(*this);
             if (!children.back().make_move_ship(kv2.first, kv_ship_ptr->first, kv2.second))
                 children.pop_back();
-        } else
+        }
+    else
         for (int i = 0; i < kv_area_ptr->second.second.size(); ++i) {
             children.push_back(*this);
             if (!children.back().make_move_area(kv_area_ptr->first, i))

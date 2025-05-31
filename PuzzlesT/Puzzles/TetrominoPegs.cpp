@@ -138,9 +138,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& lit_ids = kv.second;
-
+    for (auto& [p, lit_ids] : m_matches) {
         boost::remove_erase_if(lit_ids, [&](int id) {
             auto& lit = m_game->m_lits[id];
             char ch = lit.first + '0';
