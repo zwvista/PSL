@@ -139,7 +139,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
     : m_game(&g), m_matches(g.m_rc2permids)
 {
-    for(auto&& [kv, isdiff1] : g.m_blanks)
+    for(auto& [kv, isdiff1] : g.m_blanks)
         m_cells[kv.first];
         
     find_matches(true);

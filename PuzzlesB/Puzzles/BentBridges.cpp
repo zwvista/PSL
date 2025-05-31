@@ -51,8 +51,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_start.append(m_sidelen, PUZ_SPACE);
     }
 
-    for (auto&& [p1, n1] : m_pos2num)
-        for (auto&& [p2, n2] : m_pos2num) {
+    for (auto& [p1, n1] : m_pos2num)
+        for (auto& [p2, n2] : m_pos2num) {
             if (p1 >= p2) continue;
             puz_bridge b;
 
@@ -127,7 +127,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start), m_matches(g.m_pos2indexes)
 {
-    for (auto&& [k, v] : g.m_pos2indexes)
+    for (auto& [k, v] : g.m_pos2indexes)
         m_moves[k];
     find_matches(true);
 }
@@ -195,7 +195,7 @@ bool puz_state::is_connected() const
 bool puz_state::make_move2(const Position& p, int n)
 {
     auto& b = m_game->m_bridges[n];
-    for (auto&& [p2, ch] : b.m_rng)
+    for (auto& [p2, ch] : b.m_rng)
         cells(p2) = ch;
 
     boost::remove_erase(m_matches[b.m_p1], n);

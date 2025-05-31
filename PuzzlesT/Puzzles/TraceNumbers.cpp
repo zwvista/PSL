@@ -103,7 +103,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_max_ch = m_ch2rng.rbegin()->first;
 
-    for (auto&& [ch, rng] : m_ch2rng) {
+    for (auto& [ch, rng] : m_ch2rng) {
         if (ch == m_max_ch) break;
         for (auto& p : rng) {
             puz_state2 sstart(*this, p, ch);
@@ -117,7 +117,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for (auto&& [p, perms] : m_pos2perms)
+    for (auto& [p, perms] : m_pos2perms)
         for (int i = 0; i < perms.size(); ++i) {
             auto& perm = perms[i];
             for (int j = 0, sz = perm.size(); j < sz; ++j) {

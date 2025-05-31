@@ -106,9 +106,9 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (auto& kv : g.m_pos2boxes) {
-        auto& box_ids = m_matches[kv.first];
-        box_ids.resize(kv.second.size());
+    for (auto& [p, boxes] : g.m_pos2boxes) {
+        auto& box_ids = m_matches[p];
+        box_ids.resize(boxes.size());
         boost::iota(box_ids, 0);
     }
 

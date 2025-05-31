@@ -196,7 +196,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto&& [p, o] : g.m_pos2hint) {
+    for (auto& [p, o] : g.m_pos2hint) {
         auto& perm_ids = m_matches[p];
         perm_ids.resize(g.m_size2perminfo.at(o.m_rng.size()).m_perms.size());
         boost::iota(perm_ids, 0);

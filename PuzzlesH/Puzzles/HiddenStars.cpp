@@ -153,9 +153,8 @@ puz_state::puz_state(const puz_game& g)
 , m_grp_cols(g.m_star_counts_cols)
 {
     int i = 0;
-    for (auto& kv : g.m_pos2arrow) {
-        auto& p = kv.first;
-        auto& os = offset[kv.second];
+    for (auto& [p, arrow] : g.m_pos2arrow) {;
+        auto& os = offset[arrow];
         for (auto p2 = p + os; is_valid(p2); p2 += os)
             if (cells(p2) == PUZ_EMPTY) {
                 m_grp_rows[p2.first].add_cell(p2);

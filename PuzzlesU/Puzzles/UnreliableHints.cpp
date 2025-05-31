@@ -71,7 +71,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for (auto&& [p, o] : m_pos2hint) {
+    for (auto& [p, o] : m_pos2hint) {
         int sz = o.m_rng.size();
         auto& perms = m_info2perms[pair{o.m_num, sz}];
         if (!perms.empty()) continue;
@@ -128,7 +128,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 {
-    for (auto&& [p, o] : g.m_pos2hint) {
+    for (auto& [p, o] : g.m_pos2hint) {
         auto& perm_ids = m_matches[p];
         perm_ids.resize(g.m_info2perms.at(pair{o.m_num, o.m_rng.size()}).size());
         boost::iota(perm_ids, 0);

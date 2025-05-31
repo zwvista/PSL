@@ -137,7 +137,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
     
-    for (auto&& [i, perms] : m_num2gardenperms) {
+    for (auto& [i, perms] : m_num2gardenperms) {
         auto perm = PUZ_LEAF + string(i - 1, PUZ_NOLEAF);
         do
             perms.push_back(perm);

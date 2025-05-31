@@ -77,7 +77,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_pos2area[{r, c}].m_num = ch - '0';
     }
 
-    for (auto&& [p, o] : m_pos2area) {
+    for (auto& [p, o] : m_pos2area) {
         int n = o.m_num;
         for (auto& os : offset)
             if (auto p2 = p + os; is_valid(p2))
@@ -157,7 +157,7 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto&& [p, o] : g.m_pos2area) {
+    for (auto& [p, o] : g.m_pos2area) {
         m_finished.insert(p);
         auto& perm_ids = m_matches[p];
         perm_ids.resize(g.m_info2perms.at({o.m_num, o.size()}).size());

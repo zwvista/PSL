@@ -116,9 +116,8 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_blanks), m_game(&g)
 {
-    for (auto& kv : g.m_pos2area) {
-        auto& perm_ids = m_matches[kv.first];
-        auto& area = kv.second;
+    for (auto& [p, area] : g.m_pos2area) {
+        auto& perm_ids = m_matches[p];
         perm_ids.resize(g.m_sum2perms.at({area.m_sum, area.m_range.size()}).size());
         boost::iota(perm_ids, 0);
     }
@@ -128,10 +127,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& key = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [key, perm_ids] : m_matches) {
         vector<int> nums;
         auto& area = m_game->m_pos2area.at(key);
         for (auto& p : area.m_range)

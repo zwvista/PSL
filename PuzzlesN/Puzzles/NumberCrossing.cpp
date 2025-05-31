@@ -84,7 +84,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_area2info[area_id] = kv;
             m_info2perms[kv];
         }
-    for (auto&& [info, perms] : m_info2perms) {
+    for (auto& [info, perms] : m_info2perms) {
         auto [count, sum] = info;
         if (sum == 0 || sum == PUZ_UNKNOWN)
             perms.push_back(vector<int>(m_sidelen, PUZ_EMPTY));

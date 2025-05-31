@@ -70,7 +70,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for (auto&& [p, o] : m_pos2obj) {
+    for (auto& [p, o] : m_pos2obj) {
         for (auto& os : offset) {
             auto p2 = p;
             for (int i = 0; i < o.m_distance; ++i)
@@ -124,7 +124,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto&& [p, o] : g.m_pos2obj) {
+    for (auto& [p, o] : g.m_pos2obj) {
         auto& perms = g.m_num2perms.at(o.m_rng.size());
         vector<int> perm_ids(perms.size());
         boost::iota(perm_ids, 0);

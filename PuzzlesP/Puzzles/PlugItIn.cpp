@@ -65,7 +65,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
     
-    for (auto&& [p, dirs] : m_pos2dirs) {
+    for (auto& [p, dirs] : m_pos2dirs) {
         char ch = cells(p);
         for (int i = 0; i < 4; ++i) {
             auto& os = offset[i];

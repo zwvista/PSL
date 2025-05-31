@@ -147,7 +147,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (auto&& [p, lits] : g.m_nail2lits)
+    for (auto& [p, lits] : g.m_nail2lits)
         for (int i = 0; i < lits.size(); ++i)
             m_matches[p].push_back(i);
     find_matches(true);

@@ -70,7 +70,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    for (auto&& [p, n] : m_pos2num) {
+    for (auto& [p, n] : m_pos2num) {
         auto& perms = m_pos2perms[p];
         for (int i = 0; i < 4; ++i) {
             auto& os = offset[i];
@@ -185,7 +185,7 @@ bool puz_state::is_continuous() const
 
 bool puz_state::make_move2(Position p_basket, int n)
 {
-    auto&& [ch_dir, p_blanket] = m_game->m_pos2perms.at(p_basket)[n];
+    auto& [ch_dir, p_blanket] = m_game->m_pos2perms.at(p_basket)[n];
     m_pos2ch[p_basket] = ch_dir;
     cells(p_blanket) = PUZ_BLANKET;
     for (auto& os : offset) {

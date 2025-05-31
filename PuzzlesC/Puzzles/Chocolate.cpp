@@ -151,7 +151,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         auto& o = m_boxes.emplace_back();
                         o.m_box = {tl, br};
                         o.m_area2num = area2num;
-                        for (auto&& [i, j] : area2num)
+                        for (auto& [i, j] : area2num)
                             m_areas[i].m_boxids.push_back(n);
                     }
                 }
@@ -272,7 +272,7 @@ void puz_state::make_move2(int n)
     // 5. A tile with a number indicates how many tiles in the area must
     // be chocolate.
     // 6. An area without number can have any number of tiles of chocolate.
-    for(auto&& [i, j] : o.m_area2num)
+    for(auto& [i, j] : o.m_area2num)
         if (int& n = m_area2num[i]; n != PUZ_UNKNOWN && (n -= j) == 0)
             m_matches.erase(i), ++m_distance;
 }

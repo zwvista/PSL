@@ -137,7 +137,7 @@ puz_state::puz_state(const puz_game& g)
         return;
     
     auto f = [&](const map<Position, vector<puz_link>>& pos2links, map<Position, vector<int>>& matches) {
-        for (auto&& [p, links] : pos2links) {
+        for (auto& [p, links] : pos2links) {
             auto& perm_ids = matches[p];
             perm_ids.resize(links.size());
             boost::iota(perm_ids, 0);
@@ -190,26 +190,26 @@ void puz_state::make_move2(const map<Position, vector<int>>& matches, const Posi
     };
     
     if (matches == m_matches_cup2milk) {
-        auto&& [i, p2] = m_game->m_cup2milklinks.at(p)[n];
+        auto& [i, p2] = m_game->m_cup2milklinks.at(p)[n];
         f(p, i, p2);
         m_distance += 2;
         m_obj2cup[p] = p, m_obj2cup[p2] = p;
         m_last_cup = p;
         m_matches_cup2milk.erase(p), m_matches_milk.erase(p2);
     } else if (matches == m_matches_cup2bean) {
-        auto&& [i, p2] = m_game->m_cup2beanlinks.at(p)[n];
+        auto& [i, p2] = m_game->m_cup2beanlinks.at(p)[n];
         f(p, i, p2);
         m_distance += 2;
         m_obj2cup[p] = p, m_obj2cup[p2] = p;
         m_matches_cup2bean.erase(p), m_matches_bean.erase(p2);
     } else if (matches == m_matches_milk) {
-        auto&& [i, p2] = m_game->m_milk2links.at(p)[n];
+        auto& [i, p2] = m_game->m_milk2links.at(p)[n];
         f(p, i, p2);
         ++m_distance;
         m_obj2cup[p] = m_last_cup = m_obj2cup.at(p2);
         m_matches_milk.erase(p);
     } else {
-        auto&& [i, p2] = m_game->m_bean2links.at(p)[n];
+        auto& [i, p2] = m_game->m_bean2links.at(p)[n];
         f(p, i, p2);
         ++m_distance;
         m_obj2cup[p] = m_obj2cup.at(p2);
@@ -255,7 +255,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             for (auto& [p, perm_ids] : matches) {
                 auto& links = m_game->m_milk2links.at(p);
                 boost::remove_erase_if(perm_ids, [&](int id){
-                    auto&& [i, p2] = links[id];
+                    auto& [i, p2] = links[id];
                     return !m_obj2cup.contains(p2);
                 });
             }

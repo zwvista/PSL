@@ -103,18 +103,14 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-    for (auto& kv : g.m_pos2num) {
-        auto& pnum = kv.first;
+    for (auto& [pnum, n] : g.m_pos2num)
         m_pos2area[pnum].m_inner.insert(pnum);
-    }
     adjust_area(true);
 }
 
 int puz_state::adjust_area(bool init)
 {
-    for (auto& kv : m_pos2area) {
-        const auto& pnum = kv.first;
-        auto& area = kv.second;
+    for (auto& [pnum, area] : m_pos2area) {
         auto& outer = area.m_outer;
 
         outer.clear();

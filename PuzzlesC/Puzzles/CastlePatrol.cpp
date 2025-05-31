@@ -112,7 +112,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
     
-    for (auto&& [p, area] : m_pos2area) {
+    for (auto& [p, area] : m_pos2area) {
         puz_state2 sstart(*this, area, p);
         list<list<puz_state2>> spaths;
         // Areas can have any form.
@@ -199,7 +199,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const pair<Position, int>& kv)
 {
-    auto&& [p, n] = kv;
+    auto& [p, n] = kv;
     auto& perm = m_game->m_pos2area.at(p).m_perms[n];
 
     char ch = cells(p);
