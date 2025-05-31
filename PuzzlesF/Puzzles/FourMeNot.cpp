@@ -202,12 +202,12 @@ bool puz_state::make_move(Position p)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& kv = *boost::min_element(m_num2outer, [](
+    auto& [n, outer] = *boost::min_element(m_num2outer, [](
         const pair<const int, set<Position>>& kv1,
         const pair<const int, set<Position>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (auto& p : kv.second) {
+    for (auto& p : outer) {
         children.push_back(*this);
         if (!children.back().make_move(p))
             children.pop_back();

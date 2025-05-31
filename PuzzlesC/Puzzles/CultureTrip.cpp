@@ -353,15 +353,15 @@ bool puz_state::make_move_dot(const Position& p, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_matches.empty()) {
-        auto& kv = *boost::min_element(m_matches, [](
+        auto& [area_id, visit_ids] = *boost::min_element(m_matches, [](
             const pair<int, vector<int>>& kv1,
             const pair<int, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
 
-        for (int n : kv.second) {
+        for (int n : visit_ids) {
             children.push_back(*this);
-            if (!children.back().make_move_area(kv.first, n))
+            if (!children.back().make_move_area(area_id, n))
                 children.pop_back();
         }
     } else {

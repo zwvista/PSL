@@ -233,15 +233,15 @@ bool puz_state::make_move(const Position& p, const vector<int>& perm)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& kv = *boost::min_element(m_matches, [](
+    auto& [p, perms] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<vector<int>>>& kv1,
         const pair<const Position, vector<vector<int>>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
 
-    for (auto& perm : kv.second) {
+    for (auto& perm : perms) {
         children.push_back(*this);
-        if (!children.back().make_move(kv.first, perm))
+        if (!children.back().make_move(p, perm))
             children.pop_back();
     }
 }

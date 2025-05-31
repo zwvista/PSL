@@ -216,14 +216,14 @@ bool puz_state::make_move(int i, const vector<int>& nums)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& kv = *boost::min_element(m_room2info, [](
+    auto& [i, info] = *boost::min_element(m_room2info, [](
         const pair<const int, puz_room_info>& kv1,
         const pair<const int, puz_room_info>& kv2) {
         return kv1.second.second.size() < kv2.second.second.size();
     });
-    for (auto& nums : kv.second.second) {
+    for (auto& nums : info.second) {
         children.push_back(*this);
-        if (!children.back().make_move(kv.first, nums))
+        if (!children.back().make_move(i, nums))
             children.pop_back();
     }
 }

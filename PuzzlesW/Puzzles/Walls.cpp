@@ -105,7 +105,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    bool matches_changed = false;
+    bool matches_changed = init;
     set<Position> spaces;
     for (auto& [p, perms] : m_matches) {
         auto perms_old = perms;
@@ -169,7 +169,7 @@ int puz_state::find_matches(bool init)
             auto f = [=](const vector<int>& v1, const vector<int>& v2) {
                 return v1[i] < v2[i];
             };
-            auto perm = *boost::min_element(perms, f);
+            const auto& perm = *boost::min_element(perms, f);
             int n = boost::max_element(perms, f)->at(i);
             make_move3(p, perm, i, perm[i] == n);
         }
@@ -211,14 +211,14 @@ bool puz_state::make_move(const Position& p, const vector<int>& perm)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& kv = *boost::min_element(m_matches, [](
+    auto& [p, perms] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<vector<int>>>& kv1,
         const pair<const Position, vector<vector<int>>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (auto& perm : kv.second) {
+    for (auto& perm : perms) {
         children.push_back(*this);
-        if (!children.back().make_move(kv.first, perm))
+        if (!children.back().make_move(p, perm))
             children.pop_back();
     }
 }

@@ -314,12 +314,11 @@ bool puz_state::make_move(int area_id, int liar_id, const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& kv = *boost::min_element(m_matches, [](
+    auto& [p, perm_ids2] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    auto& p = kv.first;
     auto& o = m_game->m_pos2hint.at(p);
     auto& o2 = m_game->m_size2perminfo.at(o.m_rng.size());
     auto f = [&](int liar_id, const vector<int>& perm_ids) {
@@ -331,11 +330,11 @@ void puz_state::gen_children(list<puz_state>& children) const
     };
     auto it = m_area2liar.find(o.m_area_id);
     if (it != m_area2liar.end())
-        f(it->second, kv.second);
+        f(it->second, perm_ids2);
     else {
         int sz = m_game->m_areas[o.m_area_id].size();
         for (int liar_id = 0; liar_id < sz; ++liar_id) {
-            auto perm_ids = kv.second;
+            auto perm_ids = perm_ids2;
             boost::remove_erase_if(perm_ids, [&](int n) {
                 return (o.m_hint_id == liar_id) ==
                     (o.m_num < o2.m_counts.size() - 1 && n >= o2.m_counts[o.m_num] && n < o2.m_counts[o.m_num + 1]);

@@ -402,15 +402,15 @@ bool puz_state::make_move_dot(const Position& p, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_matches.empty()) {
-        auto& kv = *boost::min_element(m_matches, [](
+        auto& [p, perms] = *boost::min_element(m_matches, [](
             const pair<const Position, vector<vector<int>>>& kv1,
             const pair<const Position, vector<vector<int>>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
 
-        for (int i = 0; i < kv.second.size(); ++i) {
+        for (int i = 0; i < perms.size(); ++i) {
             children.push_back(*this);
-            if (!children.back().make_move_hint(kv.first, i))
+            if (!children.back().make_move_hint(p, i))
                 children.pop_back();
         }
     } else {

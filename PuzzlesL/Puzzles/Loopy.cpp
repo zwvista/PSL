@@ -219,15 +219,16 @@ bool puz_state::make_move(const Position& p, bool is_vert, char ch)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& kv = *boost::min_element(m_matches, [](
+    auto& [kv, str] = *boost::min_element(m_matches, [](
         const pair<const pair<Position, bool>, string>& kv1,
         const pair<const pair<Position, bool>, string>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
+    auto& [p, is_vert] = kv;
 
-    for (char ch : kv.second) {
+    for (char ch : str) {
         children.push_back(*this);
-        if (!children.back().make_move(kv.first.first, kv.first.second, ch))
+        if (!children.back().make_move(p, is_vert, ch))
             children.pop_back();
     }
 }

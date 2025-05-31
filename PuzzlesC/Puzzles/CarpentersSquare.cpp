@@ -309,14 +309,14 @@ bool puz_state::make_move_hidden(char ch, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_matches.empty()) {
-        auto& kv = *boost::min_element(m_matches, [](
+        auto& [ch, ranges] = *boost::min_element(m_matches, [](
             const pair<const char, vector<vector<Position>>>& kv1,
             const pair<const char, vector<vector<Position>>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (int i = 0; i < kv.second.size(); ++i) {
+        for (int i = 0; i < ranges.size(); ++i) {
             children.push_back(*this);
-            if (!children.back().make_move(kv.first, i))
+            if (!children.back().make_move(ch, i))
                 children.pop_back();
         }
     } else {
@@ -328,12 +328,12 @@ void puz_state::gen_children(list<puz_state>& children) const
                 if (ch != PUZ_SPACE) continue;
                 auto s = *this;
                 s.add_tool(p);
-                auto& kv = *s.m_matches.begin();
-                for (auto& rng2 : kv.second)
+                auto& [ch2, ranges] = *s.m_matches.begin();
+                for (auto& rng2 : ranges)
                     rng.insert(rng2.begin(), rng2.end());
-                for (int i = 0; i < kv.second.size(); ++i) {
+                for (int i = 0; i < ranges.size(); ++i) {
                     children.push_back(s);
-                    if (!children.back().make_move_hidden(kv.first, i))
+                    if (!children.back().make_move_hidden(ch, i))
                         children.pop_back();
                 }
             }
