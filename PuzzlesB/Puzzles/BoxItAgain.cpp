@@ -50,10 +50,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for (auto& kv : m_pos2boxinfo) {
-        // the position of the number
-        const auto& pn = kv.first;
-        auto& info = kv.second;
+    for (auto& [pn, info] : m_pos2boxinfo) {
         int box_area = info.m_area;
         auto& boxes = info.m_boxes;
 
@@ -122,9 +119,9 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 {
-    for (auto& kv : g.m_pos2boxinfo) {
-        auto& box_ids = m_matches[kv.first];
-        box_ids.resize(kv.second.m_boxes.size());
+    for (auto& [p, info] : g.m_pos2boxinfo) {
+        auto& box_ids = m_matches[p];
+        box_ids.resize(info.m_boxes.size());
         boost::iota(box_ids, 0);
     }
 
@@ -133,10 +130,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& box_ids = kv.second;
-
+    for (auto& [p, box_ids] : m_matches) {
         auto& boxes = m_game->m_pos2boxinfo.at(p).m_boxes;
         boost::remove_erase_if(box_ids, [&](int id) {
             auto& box = boxes[id];

@@ -176,8 +176,7 @@ void puz_state::find_matches()
 {
     m_pos_matches.clear();
     m_ship_matches.clear();
-    for (const auto& kv : m_ship2num) {
-        int i = kv.first;
+    for (const auto& [i, n] : m_ship2num) {
         for (int j = 0; j < 2; ++j) {
             bool vert = j == 1;
             if (i == 1 && vert)
@@ -197,13 +196,11 @@ void puz_state::find_matches()
             };
 
             if (!m_pos2piece.empty())
-                for (const auto& kv : m_pos2piece) {
-                    const auto& p = kv.first;
+                for (const auto& [p, ch] : m_pos2piece) {
                     if (!vert && m_piece_counts_rows[p.first] < len ||
                         vert && m_piece_counts_cols[p.second] < len)
                         continue;
 
-                    char ch = kv.second;
                     // 0
                     // < + + >
                     //       len-1

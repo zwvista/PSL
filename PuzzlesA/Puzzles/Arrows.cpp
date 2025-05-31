@@ -144,9 +144,9 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    for (auto& kv : g.m_pos2arrows) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(kv.second.m_perms.size());
+    for (auto& [p, arrows] : g.m_pos2arrows) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(arrows.m_perms.size());
         boost::iota(perm_ids, 0);
     }
 
@@ -155,7 +155,7 @@ puz_state::puz_state(const puz_game& g)
     auto f = [&](int r, int c) {
         Position p(r, c);
         auto& dirs = m_arrow_dirs[p];
-        for (int i = 0; i <= 8; ++i) {
+        for (int i = 0; i < 8; ++i) {
             auto p2 = p + offset[i];
             // the arrow must point to a tile inside the board
             if (p2.first > 0 && p2.second > 0 &&
@@ -171,10 +171,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         auto& arrow = m_game->m_pos2arrows.at(p);
         vector<set<int>> arrow_dirs;
         for (auto& p2 : arrow.m_range)

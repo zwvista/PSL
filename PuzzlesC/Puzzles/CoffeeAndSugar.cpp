@@ -183,10 +183,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perms = kv.second;
-
+    for (auto& [p, perms] : m_matches) {
         boost::remove_erase_if(perms, [&](int id) {
             auto& o = m_game->m_links[id];
             auto check_line = [&](const Position& p1, const Position& p2, const Position& os) {

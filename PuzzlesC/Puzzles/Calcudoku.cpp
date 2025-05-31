@@ -78,14 +78,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         vector<vector<int>> groups;
         map<int, vector<int>> grp_rows, grp_cols;
         for (int i = 0; i < rng.size(); ++i) {
-            auto& p = rng[i];
-            grp_rows[p.first].push_back(i);
-            grp_cols[p.second].push_back(i);
+            auto& [r, c] = rng[i];
+            grp_rows[r].push_back(i);
+            grp_cols[c].push_back(i);
         }
         for (auto& m : {grp_rows, grp_cols})
-            for (auto& kv : m)
-                if (kv.second.size() > 1)
-                    groups.push_back(kv.second);
+            for (auto& [rc, grp] : m)
+                if (grp.size() > 1)
+                    groups.push_back(grp);
         return groups;
     };
 
@@ -173,9 +173,7 @@ bool puz_state::make_move(int i, int j)
 
     m_matches.erase(i);
 
-    for (auto& kv : m_matches) {
-        int area_id = kv.first;
-        auto& perm_ids = kv.second;
+    for (auto& [area_id, perm_ids] : m_matches) {;
         auto& info2 = m_game->m_area_info[area_id];
         auto area2 = info2.m_range;
 

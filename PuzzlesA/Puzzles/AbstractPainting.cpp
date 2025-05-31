@@ -202,8 +202,8 @@ bool puz_state::make_move(int n)
         f(p.second + sidelen());
         cells(p) = PUZ_PAINTING;
     }
-    for (auto& kv : m_matches)
-        boost::remove_erase(kv.second, n);
+    for (auto& [rc, region_ids] : m_matches)
+        boost::remove_erase(region_ids, n);
     return find_matches(false);
 }
 

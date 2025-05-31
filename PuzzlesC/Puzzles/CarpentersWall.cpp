@@ -149,17 +149,15 @@ puz_state::puz_state(const puz_game& g)
                 m_2by2walls.push_back(rng);
         }
 
-    for (auto& kv : g.m_ch2tool)
-        m_matches[kv.first];
+    for (auto& [ch, tool] : g.m_ch2tool)
+        m_matches[ch];
 
     adjust_area(true);
 }
 
 int puz_state::adjust_area(bool init)
 {
-    for (auto& kv : m_matches) {
-        char ch = kv.first;
-        auto& ranges = kv.second;
+    for (auto& [ch, ranges] : m_matches) {
         ranges.clear();
         auto& t = get_tool(ch);
         auto& p = t.m_hint_pos;

@@ -213,9 +213,7 @@ int puz_state::find_matches(bool init)
         return ch != PUZ_SPACE && ch != PUZ_EMPTY;
     };
     
-    for (auto& kv : m_matches) {
-        auto& box_ids = kv.second;
-
+    for (auto& [area_id, box_ids] : m_matches) {
         boost::remove_erase_if(box_ids, [&](int id) {
             auto& o = m_game->m_boxes[id];
             auto& box = o.m_box;

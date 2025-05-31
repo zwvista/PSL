@@ -154,9 +154,8 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& matches: {m_matches_cup2milk, m_matches_cup2bean, m_matches_milk, m_matches_bean})
-        for (auto& kv : matches) {
-            const auto& p = kv.first;
-            auto& perm_ids = const_cast<vector<int>&>(kv.second);
+        for (auto& [p, perm_ids2] : matches) {
+            auto& perm_ids = const_cast<vector<int>&>(perm_ids2);
             auto& links =
                 (matches == m_matches_cup2milk ? m_game->m_cup2milklinks :
                 matches == m_matches_cup2bean ? m_game->m_cup2beanlinks :
@@ -253,9 +252,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         sz1 = m_matches_milk.size(), sz2 = m_matches_bean.size();
         if (sz1 == sz2) {
             auto matches = m_matches_milk;
-            for (auto& kv : matches) {
-                auto& p = kv.first;
-                auto& perm_ids = kv.second;
+            for (auto& [p, perm_ids] : matches) {
                 auto& links = m_game->m_milk2links.at(p);
                 boost::remove_erase_if(perm_ids, [&](int id){
                     auto&& [i, p2] = links[id];
@@ -274,11 +271,10 @@ void puz_state::gen_children(list<puz_state>& children) const
                     children.pop_back();
             }
         } else
-            for (auto& kv : m_matches_bean) {
-                auto& p = kv.first;
+            for (auto& [p, perm_ids] : m_matches_bean) {
                 auto& links = m_game->m_bean2links.at(p);
-                for (int n : kv.second) {
-                    auto&& [i, p2] = links[n];
+                for (int n : perm_ids) {
+                    auto& [i, p2] = links[n];
                     auto it = m_obj2cup.find(p2);
                     if (it != m_obj2cup.end() && it->second == m_last_cup) {
                         children.push_back(*this);

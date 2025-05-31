@@ -135,10 +135,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     int n = 2;
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& bridge_ids = kv.second;
-
+    for (auto& [p, bridge_ids] : m_matches) {
         auto f = [&](int id) {
             auto& b = m_game->m_bridges[id];
             boost::remove_erase(m_matches[b.m_p1], id);
