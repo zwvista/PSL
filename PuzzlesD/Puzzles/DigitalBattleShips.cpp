@@ -366,9 +366,9 @@ bool puz_state::make_move_area(int i, int j)
     int id = m_area_matches.at(i).second[j];
     auto& ai = m_game->m_area2info[i];
     auto& perm = ai.m_perms[id];
-    for (auto& kv : perm)
-        for (int k = 0; k < kv.second; ++k)
-            v[k + kv.first] = PUZ_PIECE;
+    for (auto& [pos, length] : perm)
+        for (int k = 0; k < length; ++k)
+            v[k + pos] = PUZ_PIECE;
     for (int k = 0; k < sidelen(); ++k) {
         auto& p = ai.m_rng[k];
         char& ch = cells(p);

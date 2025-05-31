@@ -173,14 +173,13 @@ int puz_state::adjust_area(bool init)
 
     // pruning
     map<Position, set<char>> space2ids;
-    for (const auto& kv : m_id2area) {
-        auto& area = kv.second;
+    for (const auto& [id, area] : m_id2area) {
         int d = PUZ_PIECE_SIZE - area.m_inner.size();
         for (auto& p : area.m_outer) {
             list<puz_state2> smoves;
             puz_move_generator<puz_state2>::gen_moves({*this, p, d}, smoves);
             for (auto& p2 : smoves)
-                space2ids[p2].insert(kv.first);
+                space2ids[p2].insert(id);
         }
     }
     if (space2ids.size() != boost::count(*this, PUZ_SPACE))

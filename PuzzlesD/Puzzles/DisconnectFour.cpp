@@ -105,10 +105,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& str = kv.second;
-
+    for (auto& [p, str] : m_matches) {
         boost::remove_erase_if(str, [&](char ch) {
             auto f = ch == PUZ_R_ADDED ? is_token_r : is_token_y;
             vector<int> counts;

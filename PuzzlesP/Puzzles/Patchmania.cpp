@@ -362,8 +362,7 @@ bool puz_state::make_move(const Position& p1, const Position& p2, bool teleporte
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (m_curr_bunny == 0)
-        for (auto& kv : m_bunny2info) {
-            auto& info = kv.second;
+        for (auto& [bunny, info] : m_bunny2info) {
             list<puz_state2> smoves;
             puz_move_generator<puz_state2>::gen_moves({*this, info}, smoves);
             smoves.remove_if([&](const puz_state2& kv) {
