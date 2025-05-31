@@ -87,10 +87,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         boost::iota(perm_ids, 0);
     }
     
-    for (auto& kv : m_pos2area) {
-        const auto& p = kv.first.first;
-        bool is_vert = kv.first.second;
-        auto& area = kv.second;
+    for (auto& [kv, area] : m_pos2area) {
+        auto& [p, is_vert] = kv;
         auto os = is_vert ? Position(1, 0) : Position(0, 1);
         auto& rng = area.m_range;
         for (auto p2 = p + os; m_blanks.contains({p2, is_vert}); p2 += os)
@@ -147,10 +145,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        int index = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [index, perm_ids] : m_matches) {
         vector<int> nums;
         for (auto& p : m_game->m_rowscols[index])
             nums.push_back(m_cells.at(p));

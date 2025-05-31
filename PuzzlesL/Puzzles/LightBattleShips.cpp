@@ -160,9 +160,9 @@ puz_state::puz_state(const puz_game& g)
 , m_pos2light(g.m_pos2light)
 {
     // 3. Ships cannot touch Lighthouses. Not even diagonally.
-    for (auto& kv : g.m_pos2light)
+    for (auto& [p2, light] : g.m_pos2light)
         for (auto& os : offset) {
-            auto p = kv.first + os;
+            auto p = p2 + os;
             if (!is_valid(p)) continue;
             char& ch = cells(p);
             if (ch == PUZ_SPACE)
@@ -180,12 +180,12 @@ void puz_state::check_area()
             ch = PUZ_EMPTY;
     };
 
-    for (auto& kv : m_pos2light)
-        if (kv.second == 0) {
+    for (auto& [p, light] : m_pos2light)
+        if (light == 0) {
             for (int r = 0; r < sidelen(); ++r)
-                f(cells({r, kv.first.second}));
+                f(cells({r, p.second}));
             for (int c = 0; c < sidelen(); ++c)
-                f(cells({kv.first.first, c}));
+                f(cells({p.first, c}));
         }
 }
 
@@ -193,8 +193,7 @@ void puz_state::find_matches()
 {
     m_pos_matches.clear();
     m_ship_matches.clear();
-    for (const auto& kv : m_ship2num) {
-        int i = kv.first;
+    for (const auto& [i, n] : m_ship2num) {
         for (int j = 0; j < 2; ++j) {
             bool vert = j == 1;
             if (i == 1 && vert)
@@ -214,9 +213,8 @@ void puz_state::find_matches()
             };
 
             if (!m_pos2piece.empty())
-                for (const auto& kv : m_pos2piece) {
-                    auto& p = kv.first;
-                    int r = p.first, c = p.second;
+                for (const auto& [p, ch] : m_pos2piece) {
+                    auto& [r, c] = p;
                     if (!vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
                         return kv.first.first == r && kv.second < len;
                     }) || vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
@@ -224,7 +222,6 @@ void puz_state::find_matches()
                     }))
                         continue;
 
-                    char ch = kv.second;
                     // 0
                     // < + + >
                     //       len-1
@@ -267,9 +264,9 @@ bool puz_state::make_move(const Position& p_piece, const Position& p, int n, boo
             char ch2 = info.m_area[r2][c2];
             if (ch2 == ' ') {
                 ch = info.m_pieces[!vert ? 0 : 1][c2 - 1];
-                for (auto& kv : m_pos2light)
-                    if (kv.first.first == p2.first || kv.first.second == p2.second)
-                        --kv.second;
+                for (auto& [p3, light] : m_pos2light)
+                    if (p3.first == p2.first || p3.second == p2.second)
+                        --light;
             } else if (ch == PUZ_SPACE)
                 ch = PUZ_EMPTY;
         }

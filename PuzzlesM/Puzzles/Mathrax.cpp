@@ -177,10 +177,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        int index = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [index, perm_ids] : m_matches) {
         auto f = [&](const vector<Position>& rng, const vector<vector<int>>& perms) {
             vector<int> nums;
             for (auto& p : rng)

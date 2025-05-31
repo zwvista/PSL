@@ -42,11 +42,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_pos2boxes[{r, c}];
     }
 
-    for (auto& kv : m_pos2boxes) {
-        // the position of the lake
-        const auto& pn = kv.first;
-        auto& boxes = kv.second;
-
+    for (auto& [pn, boxes] : m_pos2boxes)
         for (int n = 1; n < m_sidelen; ++n) {
             Position box_sz(n - 1, n - 1);
             auto p2 = pn - box_sz;
@@ -73,7 +69,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         boxes.emplace_back(tl, br);
                 }
         }
-    }
 }
 
 struct puz_state : string
@@ -118,10 +113,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     set<Position> spaces;
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& box_ids = kv.second;
-
+    for (auto& [p, box_ids] : m_matches) {
         auto& boxes = m_game->m_pos2boxes.at(p);
         boost::remove_erase_if(box_ids, [&](int id) {
             auto& box = boxes[id];

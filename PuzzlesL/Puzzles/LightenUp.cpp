@@ -105,9 +105,7 @@ puz_state::puz_state(const puz_game& g)
 : pair<string, vector<puz_area>>(g.m_start, {})
 , m_game(&g)
 {
-    for (auto& kv : g.m_walls) {
-        auto& p = kv.first;
-        int n = kv.second;
+    for (auto& [p, n] : g.m_walls) {
         vector<Position> rng;
         for (auto& os : offset) {
             auto p2 = p + os;

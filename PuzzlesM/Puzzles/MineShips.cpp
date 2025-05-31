@@ -110,8 +110,7 @@ puz_state::puz_state(const puz_game& g)
 void puz_state::find_matches()
 {
     m_matches.clear();
-    for (const auto& kv : m_ship2num) {
-        int i = kv.first;
+    for (const auto& [i, n] : m_ship2num) {
         for (int j = 0; j < 2; ++j) {
             bool vert = j == 1;
             if (i == 1 && vert)

@@ -155,9 +155,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perms = kv.second;
+    for (auto& [p, perms] : m_matches) {
         auto& lits = m_game->m_nail2lits.at(p);
 
         boost::remove_erase_if(perms, [&](int id) {

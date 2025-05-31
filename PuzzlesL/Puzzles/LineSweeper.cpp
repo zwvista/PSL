@@ -74,10 +74,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for (auto& kv : m_num2perms) {
-        int n = kv.first;
+    for (auto& [n, perms] : m_num2perms) {
         // Find all line segment permutations in relation to a number
-        auto& perms = kv.second;
         // pass/no pass permutations
         // PUZ_LINE_OFF means an adjacent cell is not passed by the line
         // PUZ_LINE_ON means an adjacent cell is passed by the line
@@ -206,11 +204,10 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& kv : g.m_pos2num) {
-        auto& p = kv.first;
+    for (auto& [p, n] : g.m_pos2num) {
         m_finished.insert(p);
         auto& perm_ids = m_matches[p];
-        perm_ids.resize(g.m_num2perms.at(kv.second).size());
+        perm_ids.resize(g.m_num2perms.at(n).size());
         boost::iota(perm_ids, 0);
     }
 
@@ -220,10 +217,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];

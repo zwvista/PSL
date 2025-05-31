@@ -103,9 +103,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     puz_hint_perm hp;
-    for (auto& kv : m_pos2hintinfo) {
-        const auto& pn = kv.first;
-        auto& info = kv.second;
+    for (auto& [pn, info] : m_pos2hintinfo) {
         int n = info.m_move_count;
 
         for (auto& ck : car_kinds) {
@@ -168,9 +166,9 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-    for (auto& kv : g.m_pos2hintinfo) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(kv.second.m_hint_perms.size());
+    for (auto& [p, info] : g.m_pos2hintinfo) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(info.m_hint_perms.size());
         boost::iota(perm_ids, 0);
     }
 
@@ -179,10 +177,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         auto& hint_perms = m_game->m_pos2hintinfo.at(p).m_hint_perms;
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& hp = hint_perms[id];
@@ -233,9 +228,9 @@ bool puz_state::make_move2(const Position& p, int n)
             if (cells(p2) == PUZ_CAR)
                 rng1.insert(p2);
         }
-    for (auto& kv : m_matches) {
-        auto& hint_perms = m_game->m_pos2hintinfo.at(kv.first).m_hint_perms;
-        for (int id : kv.second)
+    for (auto& [p, perm_ids] : m_matches) {
+        auto& hint_perms = m_game->m_pos2hintinfo.at(p).m_hint_perms;
+        for (int id : perm_ids)
             for (auto& p2 : hint_perms[id].m_car)
                 rng2.insert(p2);
     }

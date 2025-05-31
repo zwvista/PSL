@@ -201,25 +201,25 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& info = m_game->m_area_info[kv.first];
+    for (auto& [p, v] : m_matches) {
+        auto& info = m_game->m_area_info[p];
         string area;
         for (auto& p : info.m_range)
             area.push_back(cells(p));
 
-        kv.second.clear();
+        v.clear();
         for (int i = 0; i < info.m_perms.size(); ++i)
             if (boost::equal(area, info.m_perms[i], [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             }))
-                kv.second.push_back(i);
+                v.push_back(i);
 
         if (!init)
-            switch(kv.second.size()) {
+            switch(v.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(kv.first, kv.second.front()) ? 1 : 0;
+                return make_move2(p, v.front()) ? 1 : 0;
             }
     }
     return 2;

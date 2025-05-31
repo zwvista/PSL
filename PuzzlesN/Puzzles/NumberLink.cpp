@@ -80,8 +80,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    for (auto& kv : m_num2targets) {
-        auto& targets = kv.second;
+    for (auto& [n, targets] : m_num2targets) {
         int sz = targets.size();
         unsigned int dist = 100;
         for (int i = 0; i < sz - 1; ++i)
@@ -90,7 +89,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if (d < dist)
                     dist = d;
             }
-        m_num2dist.emplace_back(kv.first, dist);
+        m_num2dist.emplace_back(n, dist);
     }
     boost::sort(m_num2dist, [&](
         const pair<const char, int>& kv1,
@@ -141,8 +140,8 @@ puz_state::puz_state(const puz_game& g)
     for (int i = 0; i < size(); ++i)
         (*this)[i] = g.m_start[i] + lineseg_off;
     
-    for (auto& kv : g.m_num2dist)
-        m_num2targets.emplace_back(kv.first, g.m_num2targets.at(kv.first));
+    for (auto& [n, dist] : g.m_num2dist)
+        m_num2targets.emplace_back(n, g.m_num2targets.at(n));
 
     new_link();
 }
@@ -185,9 +184,7 @@ bool puz_state::check_board() const
 {
     set<Position> area = get_area(PUZ_SPACE), area2;
 
-    for (auto& kv : m_num2targets) {
-        char num = kv.first;
-        auto& targets = kv.second;
+    for (auto& [num, targets] : m_num2targets) {
         set<Position> area3 = area, area4;
         if (m_game->m_num2targets.at(num).size() > 2)
             area4 = get_area(num);

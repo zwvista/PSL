@@ -110,10 +110,10 @@ bool puz_state::make_move(int i, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for (auto& kv : m_game->m_num2perms) {
-        int n = kv.first, n2 = total();
+    for (auto& [n, perms] : m_game->m_num2perms) {
+        int n2 = total();
         if (n2 != 0 && n != n2) continue;
-        for (int i = 0; i < kv.second.size(); ++i) {
+        for (int i = 0; i < perms.size(); ++i) {
             children.push_back(*this);
             if (!children.back().make_move(i, n))
                 children.pop_back();
@@ -151,8 +151,8 @@ void dump_all(ostream& out, const list<list<puz_state>>& spaths)
         auto& s2 = num2str[s.length()];
         s2 = max(s2, s);
     }
-    for (auto& kv : num2str)
-        out << "The maximum " << kv.first << "-digit string is: " << kv.second << endl;
+    for (auto& [n, str] : num2str)
+        out << "The maximum " << n << "-digit string is: " << str << endl;
 }
 
 }

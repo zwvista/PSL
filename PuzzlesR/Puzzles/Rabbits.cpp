@@ -152,10 +152,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        int i = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [i, perm_ids] : m_matches) {
         string chars;
         for (auto& p2 : m_game->m_area2range.at(i))
             chars.push_back(cells(p2));

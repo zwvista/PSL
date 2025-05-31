@@ -159,17 +159,17 @@ void puz_state::check_field()
             // more than 3 flowers will line up horizontally and/or vertically
             // so this tile must be empty.
             cells(p) = PUZ_EMPTY;
-            for (auto& kv : m_num2outer)
-                kv.second.erase(p);
+            for (auto& [n, outer] : m_num2outer)
+                outer.erase(p);
         }
 }
 
 bool puz_state::make_move(Position p)
 {
     vector<int> nums;
-    for (auto& kv : m_num2outer)
-        if (kv.second.contains(p))
-            nums.push_back(kv.first);
+    for (auto& [n, outer] : m_num2outer)
+        if (outer.contains(p))
+            nums.push_back(n);
 
     m_distance = 0;
     // merge all the flowerbeds adjacent to p

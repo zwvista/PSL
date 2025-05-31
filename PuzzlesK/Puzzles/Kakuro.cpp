@@ -64,20 +64,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for (auto& kv : m_pos2area) {
-        const auto& p = kv.first.first;
-        auto os = kv.first.second ? Position(1, 0) : Position(0, 1);
-        auto& ps = kv.second.m_range;
+    for (auto& [key, area] : m_pos2area) {
+        const auto& p = key.first;
+        auto os = key.second ? Position(1, 0) : Position(0, 1);
+        auto& ps = area.m_range;
         int cnt = 0;
         for (auto p2 = p + os; m_blanks.contains(p2); p2 += os)
             ++cnt, ps.push_back(p2);
-        m_sum2perms[{kv.second.m_sum, cnt}];
+        m_sum2perms[{area.m_sum, cnt}];
     }
 
-    for (auto& kv : m_sum2perms) {
-        int sum = kv.first.first;
-        int cnt = kv.first.second;
-        auto& perms = kv.second;
+    for (auto& [kv, perms] : m_sum2perms) {
+        auto& [sum, cnt] = kv;
 
         vector<int> perm(cnt, 1);
         for (int i = 0; i < cnt;) {

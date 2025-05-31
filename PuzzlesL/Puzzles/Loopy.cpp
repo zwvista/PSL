@@ -134,10 +134,8 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first.first;
-        bool is_vert = kv.first.second;
-        auto& str = kv.second;
+    for (auto& [kv, str] : m_matches) {
+        auto& [p, is_vert] = kv;
 
         int index = is_vert ? 2 : 0;
         auto &info1 = lines_info[index], &info2 = lines_info[index + 1];

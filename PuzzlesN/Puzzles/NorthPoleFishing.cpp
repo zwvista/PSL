@@ -110,8 +110,8 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
     : string(g.m_start), m_game(&g)
 {
-    for (auto& kv : g.m_id2hole)
-        make_move2(kv.first, kv.second);
+    for (auto& [id, hole] : g.m_id2hole)
+        make_move2(id, hole);
 
     adjust_area(true);
 }
@@ -150,9 +150,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 int puz_state::adjust_area(bool init)
 {
-    for (auto& kv : m_id2area) {
-        char id = kv.first;
-        auto& area = kv.second;
+    for (auto& [id, area] : m_id2area) {
         auto& outer = area.m_outer;
         outer.clear();
         if (area.m_ready) continue;
@@ -242,8 +240,7 @@ ostream& puz_state::dump(ostream& out) const
                 vert_walls.insert(p + offset2[1]);
             }
         }
-    for (auto& kv : m_id2area) {
-        auto& area = kv.second;
+    for (auto& [id, area] : m_id2area)
         for (auto& p : area.m_inner)
             for (int i = 0; i < 4; ++i) {
                 auto p2 = p + offset[i];
@@ -252,7 +249,6 @@ ostream& puz_state::dump(ostream& out) const
                 if (!area.m_inner.contains(p2))
                     walls.insert(p_wall);
             }
-    }
 
     for (int r = 1;; ++r) {
         // draw horz-walls

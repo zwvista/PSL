@@ -184,8 +184,7 @@ bool puz_state::make_move(int n)
         lit_ids.insert(v.begin(), v.end());
         m_matches.erase(p2);
     }
-    for (auto& kv : m_matches) {
-        auto& v = kv.second;
+    for (auto& [p, v] : m_matches) {
         for (int i : lit_ids)
             boost::remove_erase(v, i);
         if (v.empty())

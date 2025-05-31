@@ -108,24 +108,22 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
     // 4. No boat touches another boat or lighthouse, not even diagonally.
-    for (auto& kv : g.m_pos2num)
+    for (auto& [p, n] : g.m_pos2num)
         for (auto& os : offset) {
-            char& ch = cells(kv.first + os);
+            char& ch = cells(p + os);
             if (ch == PUZ_SPACE)
                 ch = PUZ_EMPTY;
         }
 
-    for (auto& kv : g.m_pos2num)
-        m_matches[kv.first];
+    for (auto& [p, n] : g.m_pos2num)
+        m_matches[p];
     
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& area = kv.second;
+    for (auto& [p, area] : m_matches) {
         auto& rng_space = area.m_rng;
         rng_space.clear();
         auto& perms = area.m_perms;

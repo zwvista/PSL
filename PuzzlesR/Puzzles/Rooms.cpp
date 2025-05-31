@@ -128,9 +128,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perms = kv.second;
+    for (auto& [p, perms] : m_matches) {
         perms.clear();
 
         int sum = m_game->m_pos2num.at(p);

@@ -177,8 +177,8 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (auto& kv : g.m_pos2info)
-        m_pos2nums[kv.first] = kv.second.m_nums;
+    for (auto& [p, info] : g.m_pos2info)
+        m_pos2nums[p] = info.m_nums;
 
     for (int r = 0; r < g.m_sidelen; ++r)
         for (int c = 0; c < g.m_sidelen; ++c) {

@@ -114,20 +114,16 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-    for (auto& kv : g.m_pos2info) {
-        auto& pnum = kv.first;
+    for (auto& [pnum, info] : g.m_pos2info)
         m_pos2area[pnum].m_inner.insert(pnum);
-    }
     adjust_area(true);
 }
 
 int puz_state::adjust_area(bool init)
 {
-    for (auto& kv : m_pos2area) {
-        const auto& pnum = kv.first;
+    for (auto& [pnum, area] : m_pos2area) {
         auto& info = m_game->m_pos2info.at(pnum);
 
-        auto& area = kv.second;
         auto& outer = area.m_outer;
         if (area.m_ready && outer.empty()) continue;
 
@@ -201,8 +197,7 @@ ostream& puz_state::dump(ostream& out) const
                 }
             }
         }
-    for (auto& kv : m_pos2area) {
-        auto& area = kv.second;
+    for (auto& [p, area] : m_pos2area)
         for (auto& p : area.m_inner)
             for (int i = 0; i < 4; ++i) {
                 auto p2 = p + offset[i];
@@ -211,7 +206,6 @@ ostream& puz_state::dump(ostream& out) const
                 if (!area.m_inner.contains(p2))
                     walls.insert(p_wall);
             }
-    }
 
     for (int r = 1;; ++r) {
         // draw horz-walls

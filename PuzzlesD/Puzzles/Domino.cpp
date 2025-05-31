@@ -139,9 +139,9 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.rows() * g.cols(), PUZ_SPACE), m_game(&g)
 {
-    for (auto& kv : g.m_combid2dominoes) {
-        auto& domino_ids = m_matches[kv.first];
-        domino_ids.resize(kv.second.size());
+    for (auto& [comb_id, dominoes] : g.m_combid2dominoes) {
+        auto& domino_ids = m_matches[comb_id];
+        domino_ids.resize(dominoes.size());
         boost::iota(domino_ids, 0);
     }
 
@@ -150,10 +150,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        int comb_id = kv.first;
-        auto& domino_ids = kv.second;
-
+    for (auto& [comb_id, domino_ids] : m_matches) {
         auto& dominos = m_game->m_combid2dominoes.at(comb_id);
         boost::remove_erase_if(domino_ids, [&](int id) {
             auto& d = dominos[id];

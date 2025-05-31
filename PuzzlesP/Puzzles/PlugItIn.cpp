@@ -119,10 +119,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& dirs = kv.second;
-        
+    for (auto& [p, dirs] : m_matches) {
         boost::remove_erase_if(dirs, [&](int i){
             auto& os = offset[i];
             for (auto p2 = p + os; ; p2 += os) {

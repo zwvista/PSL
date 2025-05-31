@@ -273,8 +273,7 @@ bool puz_state::find_matches()
             ++it;
 
     m_ship_matches.clear();
-    for (const auto& kv : m_ship2num) {
-        int i = kv.first;
+    for (const auto& [i, n] : m_ship2num) {
         m_ship_matches[i];
         for (int j = 0; j < 2; ++j) {
             bool vert = j == 1;

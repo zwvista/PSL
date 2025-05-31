@@ -124,15 +124,12 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         string chars;
-        for (auto& p2 : m_game->m_area2range[kv.first])
+        for (auto& p2 : m_game->m_area2range[p])
             chars.push_back(cells(p2));
 
-        auto& ids = kv.first < sidelen() ? m_perm_id_rows : m_perm_id_cols;
+        auto& ids = p < sidelen() ? m_perm_id_rows : m_perm_id_cols;
         boost::remove_erase_if(perm_ids, [&](int id) {
             return !boost::equal(chars, m_game->m_perms.at(id), [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;

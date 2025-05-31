@@ -129,9 +129,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_start.push_back(PUZ_BOUNDARY);
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
-    for (auto& kv : m_pos2garden) {
-        auto& p = kv.first;
-        auto& garden = kv.second;
+    for (auto& [p, garden] : m_pos2garden) {
         if (garden.m_num == 1)
             garden.m_perms = {{p}};
         else {
@@ -181,9 +179,9 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto& kv : g.m_pos2garden) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(kv.second.m_perms.size());
+    for (auto& [p, garden] : g.m_pos2garden) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(garden.m_perms.size());
         boost::iota(perm_ids, 0);
     }
 
@@ -204,10 +202,7 @@ int puz_state::find_matches(bool init)
                 space2hints[p];
         }
 
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         auto& perms = m_game->m_pos2garden.at(p).m_perms;
         // remove any path if it contains a tile which belongs to another garden
         boost::remove_erase_if(perm_ids, [&](int id) {
@@ -230,9 +225,7 @@ int puz_state::find_matches(bool init)
             }
     }
     bool changed = false;
-    for (auto& kv : space2hints) {
-        const auto& p = kv.first;
-        auto& h = kv.second;
+    for (auto& [p, h] : space2hints) {
         if (!h.empty()) continue;
         // Cells that cannot be reached by any garden can be nothing but a wall
         char& ch = cells(p);
@@ -243,9 +236,7 @@ int puz_state::find_matches(bool init)
     }
     if (changed) {
         if (!check_2x2()) return 0;
-        for (auto& kv : space2hints) {
-            const auto& p = kv.first;
-            auto& h = kv.second;
+        for (auto& [p, h] : space2hints) {
             if (h.size() != 1) continue;
             char ch = cells(p);
             if (ch == PUZ_SPACE) continue;
@@ -258,12 +249,9 @@ int puz_state::find_matches(bool init)
             });
         }
         if (!init) {
-            for (auto& kv : m_matches) {
-                const auto& p = kv.first;
-                auto& perm_ids = kv.second;
+            for (auto& [p, perm_ids] : m_matches)
                 if (perm_ids.size() == 1)
                     return make_move2(p, perm_ids.front()) ? 1 : 0;
-            }
             if (!is_continuous())
                 return 0;
         }

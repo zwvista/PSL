@@ -102,9 +102,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        int area_id = kv.first;
-        auto& perm_ids = kv.second;
+    for (auto& [area_id, perm_ids] : m_matches) {
         bool is_food = area_id < sidelen() * 2;
         auto& perms = is_food ? m_game->m_perms_food : m_game->m_perms_drink;
 
