@@ -139,9 +139,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& perm_ids = kv.second;
+    for (auto& [p, perm_ids] : m_matches) {
         auto& o = m_game->m_pos2hint.at(p);
         auto& rng = o.m_rng;
         int sz = rng.size();

@@ -93,7 +93,7 @@ struct puz_state
     string m_cells;
     // key: the position of the number that represents the sentinel
     // value.elem: respective numbers of the tiles visible from the position of
-    //             the sentinel in all the four directions
+    //             the sentinel in all four directions
     map<Position, vector<vector<int>>> m_matches;
     unsigned int m_distance = 0;
 };

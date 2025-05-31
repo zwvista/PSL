@@ -211,10 +211,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     auto& perms = m_game->m_lineperms;
-    for (auto& kv : m_matches) {
-        int area_id = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [area_id, perm_ids] : m_matches) {
         if (area_id < m_game->garden_count()) {
             auto& garden = m_game->m_gardens[area_id];
             auto& perms = m_game->m_num2gardenperms.at(garden.size());

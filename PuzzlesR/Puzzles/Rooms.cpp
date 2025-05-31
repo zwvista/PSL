@@ -100,7 +100,7 @@ struct puz_state
     unsigned int m_distance = 0;
     // key: the position of the room
     // value.elem: respective numbers of the rooms visible from the room
-    //             in all the four directions
+    //             in all four directions
     map<Position, vector<vector<int>>> m_matches;
     // key: the position of the door
     // value: the status of the door: unknown, open, closed

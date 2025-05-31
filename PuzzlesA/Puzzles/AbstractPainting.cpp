@@ -163,11 +163,9 @@ puz_state::puz_state(const puz_game& g)
     , m_painting_counts(g.m_painting_counts)
 {
     for (int i = 0; i < g.m_regions.size(); ++i)
-        for (auto& kv : g.m_regions[i].m_rc2count) {
-            int rc = kv.first;
+        for (auto& [rc, n] : g.m_regions[i].m_rc2count)
             if (m_painting_counts.contains(rc))
                 m_matches[rc].push_back(i);
-        }
 
     find_matches(true);
 }
@@ -175,22 +173,17 @@ puz_state::puz_state(const puz_game& g)
 bool puz_state::find_matches(bool init)
 {
     set<int> hidden_ids;
-    for (auto& kv : m_matches) {
-        int rc = kv.first;
-        auto& region_ids = kv.second;
+    for (auto& [rc, region_ids] : m_matches)
         for (int id : region_ids)
             if (m_painting_counts[rc] < m_game->m_regions[id].m_rc2count.at(rc))
                 hidden_ids.insert(id);
-    }
-    for (auto& kv : m_matches) {
-        auto& region_ids = kv.second;
+    for (auto& [rc, region_ids] : m_matches) 
         boost::remove_erase_if(region_ids, [&](int id) {
             return hidden_ids.contains(id);
         });
-    }
-    for (auto& kv : m_painting_counts)
-        if (kv.second == 0)
-            m_matches.erase(kv.first);
+    for (auto& [rc, n] : m_painting_counts)
+        if (n == 0)
+            m_matches.erase(rc);
     return boost::algorithm::none_of(m_matches, [](const pair<const int, vector<int>>& kv) {
         return kv.second.empty();
     });

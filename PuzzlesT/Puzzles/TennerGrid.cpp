@@ -151,10 +151,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        int area_id = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [area_id, perm_ids] : m_matches) {
         auto& info = m_game->m_area_info[area_id];
         vector<int> nums;
         for (auto& p : info.m_range)

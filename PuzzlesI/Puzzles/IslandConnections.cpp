@@ -43,7 +43,7 @@ struct puz_game
     string m_start;
     // key: the position of the island
     // value.elem: the numbers of the bridges connected to the island
-    //             in all the four directions
+    //             in all four directions
     map<Position, vector<vector<int>>> m_pos2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);

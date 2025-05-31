@@ -87,10 +87,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for (auto& kv : m_pos2info) {
-        auto& p = kv.first;
-        auto& info = kv.second;
-
+    for (auto& [p, info] : m_pos2info) {
         auto& os = offset[square_dirs.find(info.m_dir)];
         for (auto p2 = p + os; is_valid(p2); p2 += os)
             if (!m_pos2info.contains(p2))
@@ -161,9 +158,7 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& kv : g.m_pos2info) {
-        auto& p = kv.first;
-        auto& info = kv.second;
+    for (auto& [p, info] : g.m_pos2info) {
         m_finished.insert(p);
         auto& perm_ids = m_matches[p];
         perm_ids.resize(info.m_perms.size());
@@ -176,10 +171,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         auto& info = m_game->m_pos2info.at(p);
         auto& rng = info.m_rng;
         boost::remove_erase_if(perm_ids, [&](int id) {

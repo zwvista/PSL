@@ -91,7 +91,7 @@ struct puz_state
     string m_cells;
     // key: the position of the number
     // value.elem: respective lengths of the branches that stem from
-    //             the number in all the four directions
+    //             the number in all four directions
     map<Position, vector<vector<int>>> m_matches;
     unsigned int m_distance = 0;
 };
@@ -99,8 +99,8 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto& kv : g.m_pos2num)
-        m_matches[kv.first];
+    for (auto& [p, n] : g.m_pos2num)
+        m_matches[p];
     
     find_matches(true);
 }
@@ -109,9 +109,7 @@ int puz_state::find_matches(bool init)
 {
     bool matches_changed = false;
     set<Position> spaces;
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perms = kv.second;
+    for (auto& [p, perms] : m_matches) {
         auto perms_old = perms;
         perms.clear();
 
@@ -166,9 +164,7 @@ int puz_state::find_matches(bool init)
     if (!matches_changed)
         return 2;
 
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perms = kv.second;
+    for (auto& [p, perms] : m_matches)
         for (int i = 0; i < 4; ++i) {
             auto f = [=](const vector<int>& v1, const vector<int>& v2) {
                 return v1[i] < v2[i];
@@ -177,7 +173,6 @@ int puz_state::find_matches(bool init)
             int n = boost::max_element(perms, f)->at(i);
             make_move3(p, perm, i, perm[i] == n);
         }
-    }
     return 1;
 }
 

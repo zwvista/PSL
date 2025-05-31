@@ -14,7 +14,7 @@ struct puz_game
     string m_start;
     // key: the position of the island
     // value.elem: the numbers of the bridges connected to the island
-    //             in all the four directions
+    //             in all four directions
     map<Position, vector<vector<int>>> m_pos2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -42,7 +42,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    for (auto&& [p, sum] : m_pos2num) {
+    for (auto& [p, sum] : m_pos2num) {
         auto& perms = m_pos2perms[p];
 
         vector<vector<int>> dir_nums(4);
@@ -101,7 +101,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto&& [p, perms] : g.m_pos2perms) {
+    for (auto& [p, perms] : g.m_pos2perms) {
         auto& perm_ids = m_matches[p];
         perm_ids.resize(perms.size());
         boost::iota(perm_ids, 0);
@@ -112,9 +112,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perm_ids = kv.second;
+    for (auto& [p, perm_ids] : m_matches) {
         auto& perms = m_game->m_pos2perms.at(p);
 
         boost::remove_erase_if(perm_ids, [&](int id) {

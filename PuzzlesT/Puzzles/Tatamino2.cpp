@@ -101,8 +101,8 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c)
             m_pos2nums[{r, c}] = "123";
 
-    for (auto& kv : m_game->m_pos2num)
-        make_move(kv.first, kv.second);
+    for (auto& [p, ch] : m_game->m_pos2num)
+        make_move(p, ch);
 }
 
 bool puz_state::make_move(const Position& p, char ch)

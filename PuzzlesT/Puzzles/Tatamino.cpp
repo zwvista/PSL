@@ -192,10 +192,7 @@ bool puz_state::check_cell_count(const Position& p, function<bool(int)> f)
 
 int puz_state::adjust_area(bool init)
 {
-    for (auto& kv : m_id2area) {
-        int id = kv.first;
-        auto& area = kv.second;
-
+    for (auto& [id, area] : m_id2area) {
         auto& outer = area.m_outer;
         outer.clear();
         if (area.m_ready) continue;
@@ -228,12 +225,9 @@ bool puz_state::make_move2(const Position& p, int n)
     cells(p) = n;
 
     vector<int> ids;
-    for (auto& kv : m_id2area) {
-        int id = kv.first;
-        auto& area = kv.second;
+    for (auto& [id, area] : m_id2area)
         if (area.m_cell_count == n && area.m_outer.contains(p))
             ids.push_back(id);
-    }
 
     int id = ids.front();
     auto& area = m_id2area.at(id);

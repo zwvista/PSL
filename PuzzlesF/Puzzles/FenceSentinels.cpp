@@ -48,6 +48,11 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+/*
+    cell(0,0)        cell(0,1)
+             dot(0,0)
+    cell(1,0)        cell(1,1)
+*/
 constexpr Position offset2[] = {
     {0, 0}, {0, 1},    // n
     {0, 1}, {1, 1},        // e
@@ -55,6 +60,17 @@ constexpr Position offset2[] = {
     {1, 0}, {0, 0},    // w
 };
 
+/*
+    dot(-1,-1) -> 1  3 <- dot(-1, 0)
+      |                          |
+      v                          v
+      2                          2
+                cell(0,0)
+      0                          0
+      ^                          ^
+      |                          |
+    dot( 0,-1) -> 1  3 <- dot( 0, 0)
+*/
 typedef pair<Position, int> puz_line_info;
 const puz_line_info lines_info[] = {
     {{-1, -1}, 1}, {{-1, 0}, 3},         // n
@@ -153,8 +169,8 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& kv : g.m_pos2num)
-        m_matches[kv.first];
+    for (auto& [p, n] : g.m_pos2num)
+        m_matches[p];
 
     find_matches(true);
     while ((check_cells(true), check_dots(true)) == 1);
@@ -162,9 +178,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perms = kv.second;
+    for (auto& [p, perms] : m_matches) {
         perms.clear();
 
         int sum = m_game->m_pos2num.at(p) - 1;
@@ -175,9 +189,8 @@ int puz_state::find_matches(bool init)
             auto& nums = dir_nums[i];
             for (auto p2 = p; n <= sum; p2 += os) {
                 auto f = [&](bool is_on) {
-                    auto& info = lines_info[i * 2];
-                    const auto& dt = dots(p2 + info.first);
-                    int j = info.second;
+                    auto& [os2, j] = lines_info[i * 2];
+                    const auto& dt = dots(p2 + os2);
                     return boost::algorithm::all_of(dt, [=](int lineseg) {
                         return is_lineseg_on(lineseg, j) == is_on;
                     });
@@ -233,9 +246,8 @@ int puz_state::check_cells(bool init)
                 n = 1;
                 bool is_on = is_inside(ch) != is_inside(ch2);
                 for (int j = 0; j < 2; ++j) {
-                    auto& info = lines_info[i * 2 + j];
-                    auto& dt = dots(p + info.first);
-                    int k = info.second;
+                    auto& [os, k] = lines_info[i * 2 + j];
+                    auto& dt = dots(p + os);
                     boost::remove_erase_if(dt, [=](int lineseg) {
                         return is_lineseg_on(lineseg, k) != is_on;
                     });
@@ -284,10 +296,10 @@ int puz_state::check_dots(bool init)
                 char& ch1 = cells(p + offset2[i * 2]);
                 char& ch2 = cells(p + offset2[i * 2 + 1]);
                 bool is_on = is_lineseg_on(lineseg, i);
-                auto f = [=](char& ch1, char& ch2) {
-                    ch1 = !is_on ? 
-                        is_inside(ch2) ? PUZ_INSIDE : PUZ_OUTSIDE :
-                        is_inside(ch2) ? PUZ_OUTSIDE : PUZ_INSIDE;
+                auto f = [=](char& chA, char& chB) {
+                    chA = !is_on ? 
+                        is_inside(chB) ? PUZ_INSIDE : PUZ_OUTSIDE :
+                        is_inside(chB) ? PUZ_OUTSIDE : PUZ_INSIDE;
                 };
                 if ((ch1 == PUZ_SPACE) != (ch2 == PUZ_SPACE))
                     ch1 == PUZ_SPACE ? f(ch1, ch2) : f(ch2, ch1);
@@ -308,11 +320,11 @@ bool puz_state::make_move_hint2(const Position& p, int n)
             if (j == m && m_game->m_inside_outside && cells(p2 + os) == PUZ_BOUNDARY)
                 break;
             for (int k = 0; k < 2; ++k) {
-                auto& info = lines_info[i * 2 + k];
-                auto& dt = dots(p2 + info.first);
+                auto& [os2, l] = lines_info[i * 2 + k];
+                auto& dt = dots(p2 + os2);
                 bool is_on = j == m;
                 boost::remove_erase_if(dt, [&](int lineseg) {
-                    return is_lineseg_on(lineseg, info.second) != is_on;
+                    return is_lineseg_on(lineseg, l) != is_on;
                 });
                 if (dt.empty())
                     return 0;

@@ -69,11 +69,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for (auto& kv : m_pos2islandinfo) {
-        const auto& pn = kv.first;
-        auto& info = kv.second;
-        int island_area = info.m_area;
-        auto& islands = info.m_islands;
+    for (auto& [pn, info] : m_pos2islandinfo) {
+        auto& [island_area, islands] = info;
 
         for (int i = 1; i <= m_sidelen; ++i) {
             int j = island_area / i;
@@ -144,9 +141,9 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < g.m_sidelen - 1; ++c)
             m_2by2waters.push_back({{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}});
 
-    for (auto& kv : g.m_pos2islandinfo) {
-        auto& island_ids = m_matches[kv.first];
-        island_ids.resize(kv.second.m_islands.size());
+    for (auto& [p, info] : g.m_pos2islandinfo) {
+        auto& island_ids = m_matches[p];
+        island_ids.resize(info.m_islands.size());
         boost::iota(island_ids, 0);
     }
 
@@ -155,10 +152,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& island_ids = kv.second;
-
+    for (auto& [p, island_ids] : m_matches) {
         auto& islands = m_game->m_pos2islandinfo.at(p).m_islands;
         boost::remove_erase_if(island_ids, [&](int id) {
             auto& island = islands[id];
