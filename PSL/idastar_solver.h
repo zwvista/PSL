@@ -95,10 +95,10 @@ public:
             bool found = dfs(0, sstart, cost_limit, next_cost_limit, spath, examined);
             if (found) {
                 spaths.push_back(spath);
-                return make_pair(true, examined);
+                return {true, examined};
             }
             if (next_cost_limit == inf)
-                return make_pair(false, examined);
+                return {false, examined};
             cost_limit = next_cost_limit, next_cost_limit = inf;
         }
     }

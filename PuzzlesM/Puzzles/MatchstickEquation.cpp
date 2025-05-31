@@ -75,7 +75,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if (b1 && !b2) ++n1;
                 else if (!b1 && b2) ++n2;
             }
-            v = make_pair(n1, n2);
+            v = {n1, n2};
         }
     }
     string equation = level.attribute("equation").value();

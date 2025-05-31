@@ -65,7 +65,7 @@ struct puz_state
 {
     puz_state(const puz_game& g) 
         : m_game(&g), m_cells(g.m_start), m_connected(false)
-        , m_frontier(1, make_pair(m_game->m_entrance, 'e')) {}
+        , m_frontier(1, {m_game->m_entrance, 'e'}) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
     int cell_offset(const Position& p) const {return m_game->cell_offset(p) * 3;}
@@ -85,7 +85,7 @@ struct puz_state
     }
     bool can_move(const Position& p, char dir, vector<int>& offset_vec) const;
     void remove_dir(const Position& p, char dir) {
-        boost::range::remove_erase(m_frontier, make_pair(p, dir));
+        boost::range::remove_erase(m_frontier, pipe_info{p, dir});
     }
     void make_move(const Position& p, char dir, int i);
 
@@ -114,7 +114,7 @@ bool puz_state::can_move(const Position& p, char dir, vector<int>& offset_vec) c
 
     char dir2 = dirs[n + 4];
     if (get_cells(p2) != "...")
-        return boost::algorithm::any_of_equal(m_frontier, make_pair(p2, dir2));
+        return boost::algorithm::any_of_equal(m_frontier, pipe_info{p2, dir2});
 
     n = pipes.find(m_game->pipe(p2));
     for (int i = pipe_offset[n]; i < pipe_offset[n + 1]; ++i)
@@ -138,7 +138,7 @@ void puz_state::make_move(const Position& p, char dir, int i)
         set_cells(p2, m_game->pipe(p2) + pipe_cells[i]);
         for (char dir3 : pipe_dirss[i])
             if (dir3 != dir2)
-                m_frontier.push_back(make_pair(p2, dir3));
+                m_frontier.emplace_back(p2, dir3);
     }
 }
 

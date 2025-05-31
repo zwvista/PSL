@@ -124,7 +124,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             // The region size must be between the two numbers.
             // cannot make a pairing with a tile too far away
             if (n4 - n3 < 2 || manhattan_distance(p, p2) + 1 >= n4) continue;
-            auto kv3 = make_pair(p, p2);
+            auto kv3 = pair{p, p2};
             auto& region = m_pair2region[kv3];
             region.m_name = cells(p);
             for (int i = n3 + 1; i < n4; ++i) {

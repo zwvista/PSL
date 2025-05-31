@@ -97,6 +97,6 @@ public:
             for (vertex_t v : shortest_path)
                 spath.push_back(smap.left.at(v));
         }
-        return make_pair(found, examine_seq.size());
+        return {found, examine_seq.size()};
     }
 };

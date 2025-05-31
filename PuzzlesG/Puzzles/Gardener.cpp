@@ -142,7 +142,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& info : m_fb_info) {
         int pos_cnt = info.m_range.size();
         int flower_cnt = info.m_flower_count;
-        auto& perms = pair2perms[make_pair(pos_cnt, flower_cnt)];
+        auto& perms = pair2perms[{pos_cnt, flower_cnt}];
         if (perms.empty())
             for (int i = 0; i <= pos_cnt; ++i) {
                 if (flower_cnt != PUZ_FLOWER_COUNT_UNKNOWN && flower_cnt != i) continue;

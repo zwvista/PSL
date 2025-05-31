@@ -154,6 +154,6 @@ public:
                 }
             }
         }
-        return make_pair(found, context.m_vertices_examined);
+        return {found, context.m_vertices_examined};
     }
 };

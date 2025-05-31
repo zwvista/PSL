@@ -44,7 +44,7 @@ class puz_solver_idastar2
                     continue;
                 unsigned int dist = cur.get_distance(child);
                 vertex_t v = add_vertex(vert_prop(boost::white_color), g);
-                m_smap.insert(make_pair(v, child));
+                m_smap.emplace(v, child);
                 dmap[v] = numeric_limits<unsigned int>::max();
                 add_edge(u, v, edge_prop(dist), g);
             }
@@ -89,8 +89,8 @@ public:
         mygraph_t g;
         StateMap smap;
         vertex_t start = add_vertex(vert_prop(boost::white_color), g);
-        pair<size_t, vertex_t> examine_seq = make_pair(0, start);
-        smap.insert(make_pair(start, sstart));
+        pair<size_t, vertex_t> examine_seq = {0, start};
+        smap.emplace(start, sstart);
         try {
             boost::idastar_search(g, start, puz_heuristic(smap),
                 visitor(puz_visitor(examine_seq, smap)).
@@ -111,6 +111,6 @@ public:
                 spath.push_back(smap.at(v));
             spaths.push_back(spath);
         }
-        return make_pair(found, examine_seq.first);
+        return {found, examine_seq.first};
     }
 };

@@ -136,7 +136,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             int n3 = n + n2;
             // cannot make a pairing with a tile too far away
             if (manhattan_distance(p, p2) + 1 > n3) continue;
-            auto kv3 = make_pair(p, p2);
+            auto kv3 = pair{p, p2};
             auto& garden = m_pair2garden[kv3];
             garden.m_name = cells(p);
             garden.m_num = n3;
@@ -229,7 +229,7 @@ int puz_state::find_matches(bool init)
         });
         for (auto& kv2 : v) {
             auto& p2 = kv2.first;
-            auto k = make_pair(min(p, p2), max(p, p2));
+            auto k = pair{min(p, p2), max(p, p2)};
             auto& perm = m_game->m_pair2garden.at(k).m_perms[kv2.second];
             for (auto& p3 : perm)
                 if (p3 != p && p3 != p2)

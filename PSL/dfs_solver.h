@@ -93,6 +93,6 @@ public:
                 spath.push_back(smap.left.at(v));
             spaths.push_back(spath);
         }
-        return make_pair(found, examine_seq.size());
+        return {found, examine_seq.size()};
     }
 };
