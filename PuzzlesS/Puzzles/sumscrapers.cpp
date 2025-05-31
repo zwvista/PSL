@@ -115,12 +115,9 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     auto& perms = m_game->m_perms;
-    for (auto& kv : m_matches) {
-        int area_id = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [area_id, perm_ids] : m_matches) {
         vector<int> nums;
-        for (auto& p : m_game->m_area2range[kv.first])
+        for (auto& p : m_game->m_area2range[area_id])
             nums.push_back(cells(p));
 
         boost::remove_erase_if(perm_ids, [&](int id) {

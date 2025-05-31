@@ -117,9 +117,9 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto& kv : g.m_pos2perms) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(kv.second.size());
+    for (auto& [p, perms] : g.m_pos2perms) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(perms.size());
         boost::iota(perm_ids, 0);
     }
     find_matches(true);
@@ -127,10 +127,8 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto p_basket = kv.first;
+    for (auto& [p_basket, perm_ids] : m_matches) {
         auto& perms = m_game->m_pos2perms.at(p_basket);
-        auto& perm_ids = kv.second;
 
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];

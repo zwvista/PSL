@@ -158,9 +158,9 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& kv : g.m_pos2num) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(g.m_num2perms.at(kv.second).size());
+    for (auto& [p, n] : g.m_pos2num) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(g.m_num2perms.at(n).size());
         boost::iota(perm_ids, 0);
     }
 
@@ -170,10 +170,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
@@ -225,8 +222,7 @@ int puz_state::check_dots(bool init)
 
         n = 1;
         for (const auto& kv : newly_finished) {
-            auto& p = kv.first;
-            int i = kv.second;
+            auto& [p, i] = kv;
             int lineseg = dots(p)[0];
             auto p2 = p + offset[i];
             if (is_valid(p2)) {

@@ -82,9 +82,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             (m_num2perms[PUZ_UNKNOWN], PUZ_UNKNOWN);
     
     string perm_empty(m_sidelen, PUZ_EMPTY), perm;
-    for (auto& kv : m_num2perms) {
-        int n = kv.first;
-        auto& perms = kv.second;
+    for (auto& [n2, perms] : m_num2perms) {
+        int n = n2;
         auto g = [&]{
             for (int i = 0; i < m_sidelen - n - 1; ++i) {
                 perm = perm_empty;
@@ -144,10 +143,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        int area_id = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [area_id, perm_ids] : m_matches) {
         auto& info = m_game->m_area2info[area_id];
         string area;
         for (auto& p : info.first)

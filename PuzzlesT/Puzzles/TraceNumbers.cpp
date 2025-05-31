@@ -167,9 +167,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& infos = kv.second;
-
+    for (auto& [p, infos] : m_matches) {
         boost::remove_erase_if(infos, [&](const pair<Position, int>& info) {
             auto& perm = m_game->m_pos2perms.at(info.first)[info.second];
             for (int i = 0, sz = perm.size(); i < sz; ++i) {

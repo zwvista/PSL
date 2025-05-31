@@ -67,9 +67,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_pos2planks[{r, c}];
         }
     }
-    for (auto& kv : m_pos2planks) {
-        const auto& p = kv.first;
-        auto& vs = kv.second;
+    for (auto& [p, vs] : m_pos2planks)
         for (auto& po : planks_offset) {
             vector<Position> v;
             for (auto& os : po)
@@ -77,7 +75,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (boost::algorithm::all_of(v, [&](const Position& p2) {return p == p2 || is_valid(p2) && cells(p2) != PUZ_NAIL;}))
                 vs.push_back(v);
         }
-    }
 }
 
 struct puz_state
@@ -114,9 +111,9 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto& kv : g.m_pos2planks) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(kv.second.size());
+    for (auto& [p, planks] : g.m_pos2planks) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(planks.size());
         boost::iota(perm_ids, 0);
     }
     
@@ -125,10 +122,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        const auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& range = m_game->m_pos2planks.at(p)[id];
             return boost::algorithm::any_of(range, [&](const Position& p2) {
@@ -178,9 +172,9 @@ bool puz_state::make_move2(const Position& p, int n)
     m_matches.erase(p);
 
     set<Position> rngMatches;
-    for (auto& kv : m_matches) {
-        auto& rng = m_game->m_pos2planks.at(kv.first);
-        for (int n : kv.second)
+    for (auto& [p, perm_ids] : m_matches) {
+        auto& rng = m_game->m_pos2planks.at(p);
+        for (int n : perm_ids)
             for (auto& p : rng[n])
                 rngMatches.insert(p);
     }
@@ -195,11 +189,10 @@ bool puz_state::make_move2(const Position& p, int n)
             area.insert(p);
             ch2plank[ch].push_back(p);
         }
-    for (auto& kv : ch2plank) {
-        char ch = kv.first;
+    for (auto& [ch, plank] : ch2plank) {
         string strNeighbors;
         vector<Position> rngNeighbors;
-        for (auto& p : kv.second)
+        for (auto& p : plank)
             for (auto& os : offset) {
                 auto p2 = p + os;
                 if (!is_valid(p2)) continue;

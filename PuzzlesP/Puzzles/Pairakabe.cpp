@@ -129,14 +129,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    for (auto& kv : m_pos2num) {
-        auto& p = kv.first;
-        int n = kv.second;
-        for (auto& kv2 : m_pos2num) {
-            auto p2 = kv2.first;
+    for (auto& [p, n] : m_pos2num)
+        for (auto& [p2, n2] : m_pos2num) {
             // only make a pairing with a tile greater than itself
             if (p2 <= p) continue;
-            int n3 = n + kv2.second;
+            int n3 = n + n2;
             // cannot make a pairing with a tile too far away
             if (manhattan_distance(p, p2) + 1 > n3) continue;
             auto kv3 = make_pair(p, p2);
@@ -154,7 +151,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (garden.m_perms.empty())
                 m_pair2garden.erase(kv3);
         }
-    }
 }
 
 struct puz_state
@@ -193,9 +189,9 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto& kv : g.m_pair2garden) {
-        auto &p = kv.first.first, &p2 = kv.first.second;
-        auto sz = kv.second.m_perms.size();
+    for (auto& [kv, garden] : g.m_pair2garden) {
+        auto& [p, p2] = kv;
+        auto sz = garden.m_perms.size();
         auto& v = m_matches[p];
         auto& v2 = m_matches[p2];
         for (int i = 0; i < sz; i++) {
@@ -221,9 +217,7 @@ int puz_state::find_matches(bool init)
                 space2hints[p];
         }
 
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& v = kv.second;
+    for (auto& [p, v] : m_matches) {
         // remove any path if it contains a tile which belongs to another garden
         boost::remove_erase_if(v, [&](auto& kv2) {
             auto& p2 = kv2.first;
@@ -251,9 +245,7 @@ int puz_state::find_matches(bool init)
             }
     }
     bool changed = false;
-    for (auto& kv : space2hints) {
-        const auto& p = kv.first;
-        auto& h = kv.second;
+    for (auto& [p, h] : space2hints) {
         if (!h.empty()) continue;
         // Cells that cannot be reached by any garden can be nothing but a wall
         char& ch = cells(p);
@@ -264,9 +256,7 @@ int puz_state::find_matches(bool init)
     }
     if (changed) {
         if (!check_2x2()) return 0;
-        for (auto& kv : space2hints) {
-            const auto& p = kv.first;
-            auto& h = kv.second;
+        for (auto& [p, h] : space2hints) {
             if (h.size() != 1) continue;
             char ch = cells(p);
             if (ch == PUZ_SPACE) continue;
@@ -282,12 +272,9 @@ int puz_state::find_matches(bool init)
             });
         }
         if (!init) {
-            for (auto& kv : m_matches) {
-                const auto& p = kv.first;
-                auto& v = kv.second;
+            for (auto& [p, v] : m_matches)
                 if (v.size() == 1)
                     return make_move2(p, v[0].first, v[0].second) ? 1 : 0;
-            }
             if (!is_continuous())
                 return 0;
         }
@@ -373,10 +360,8 @@ bool puz_state::make_move2(Position p, Position p2, int n)
             case PUZ_EMPTY: return false;
             }
 
-    for (auto& kv : m_matches) {
-        auto& p3 = kv.first;
+    for (auto& [p3, v] : m_matches) {
         if (p3 == p || p3 == p2) continue;
-        auto &v = kv.second;
         boost::remove_erase_if(v, [&](auto& kv2) {
             auto &p4 = kv2.first;
             return p == p4 || p2 == p4;

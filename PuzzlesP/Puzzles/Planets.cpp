@@ -124,10 +124,8 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     auto& perms = m_game->m_perms;
-    for (auto& kv : m_matches) {
-        int area_id = kv.first;
+    for (auto& [area_id, perm_ids] : m_matches) {
         bool is_horz = area_id < sidelen();
-        auto& perm_ids = kv.second;
 
         auto& area = m_game->m_area2range[area_id];
         string chars;

@@ -117,13 +117,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    for (auto& kv : m_pos2num) {
-        auto& p = kv.first;
-        int n = kv.second;
-        for (auto& kv2 : m_pos2num) {
-            auto p2 = kv2.first;
+    for (auto& [p, n] : m_pos2num)
+        for (auto& [p2, n2] : m_pos2num) {
             if (p2 <= p) continue;
-            int n2 = kv2.second;
             int n3 = min(n, n2), n4 = max(n, n2);
             // The region size must be between the two numbers.
             // cannot make a pairing with a tile too far away
@@ -141,7 +137,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (region.m_perms.empty())
                 m_pair2region.erase(kv3);
         }
-    }
 }
 
 struct puz_state
@@ -176,9 +171,9 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto& kv : g.m_pair2region) {
-        auto &p = kv.first.first, &p2 = kv.first.second;
-        auto& perms = kv.second.m_perms;
+    for (auto& [kv, region] : g.m_pair2region) {
+        auto& [p, p2] = kv;
+        auto& perms = region.m_perms;
         for (int i = 0; i < perms.size(); i++)
             for (auto& p3 : perms[i])
                 m_matches[p3].emplace_back(p, p2, i);
@@ -195,8 +190,7 @@ bool puz_state::make_move(const Position& p, const Position& p2, int n)
     }
     m_distance = perm.size();
     for (auto& p3 : perm)
-        for (auto& kv : m_matches) {
-            auto& v = kv.second;
+        for (auto& [p4, v] : m_matches)
             boost::remove_erase_if(v, [&](auto& t) {
                 auto& p = get<0>(t);
                 auto& p2 = get<1>(t);
@@ -204,7 +198,6 @@ bool puz_state::make_move(const Position& p, const Position& p2, int n)
                 auto& perm = m_game->m_pair2region.at({p, p2}).m_perms[id];
                 return perm.contains(p3);
             });
-        }
 
     return boost::algorithm::none_of(m_matches, [&](auto& kv) {
         return kv.second.empty();

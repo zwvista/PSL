@@ -110,8 +110,8 @@ puz_state::puz_state(const puz_game& g)
 {
     vector<int> v(g.m_perms.size());
     boost::iota(v, 0);
-    for (auto& kv : g.m_index2area)
-        m_matches[kv.first] = v;
+    for (auto& [index, area] : g.m_index2area)
+        m_matches[index] = v;
     find_matches(false);
 }
 

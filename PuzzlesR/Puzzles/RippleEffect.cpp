@@ -174,11 +174,11 @@ puz_state::puz_state(const puz_game& g)
 : vector<int>(g.m_sidelen * g.m_sidelen)
 , m_game(&g), m_room2info(g.m_room2info)
 {
-    for (const auto& kv : g.m_start)
-        cells(kv.first) = kv.second;
+    for (auto& [p, n] : g.m_start)
+        cells(p) = n;
 
-    for (const auto& kv : g.m_start)
-        apply_ripple_effect(kv.first, kv.second);
+    for (auto& [p, n] : g.m_start)
+        apply_ripple_effect(p, n);
 }
 
 void puz_state::apply_ripple_effect(const Position& p, int n)

@@ -111,9 +111,9 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen * 2, PUZ_LINE_UNKNOWN), m_game(&g)
 {
-    for (auto& kv : g.m_pos2num) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(g.m_num2perms.at(kv.second).size());
+    for (auto& [p, n] : g.m_pos2num) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(g.m_num2perms.at(n).size());
         boost::iota(perm_ids, 0);
     }
 

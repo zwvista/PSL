@@ -150,12 +150,9 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        int area_id = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [area_id, perm_ids] : m_matches) {
         string chars;
-        for (auto& p : m_game->m_area2range[kv.first])
+        for (auto& p : m_game->m_area2range[area_id])
             chars.push_back(cells(p));
 
         int n = area_id < sidelen() ? m_game->m_piece_counts_rows[area_id] :

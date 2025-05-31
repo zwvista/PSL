@@ -88,10 +88,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& perms = kv.second;
-
+    for (auto& [p, perms] : m_matches) {
         if (!init)
             switch(perms.size()) {
             case 0:

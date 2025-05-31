@@ -120,8 +120,8 @@ puz_state::puz_state(const puz_game& g)
                     PUZ_DOOR_CLOSED : PUZ_DOOR_UNKNOWN;
         }
 
-    for (auto& kv : g.m_pos2num)
-        m_matches[kv.first];
+    for (auto& [p, n] : g.m_pos2num)
+        m_matches[p];
 
     find_matches(true);
 }

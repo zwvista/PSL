@@ -172,9 +172,9 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    for (auto& kv : g.m_pos2num) {
-        auto& perm_ids = m_matches[kv.first];
-        perm_ids.resize(g.m_num2perms[kv.second].size());
+    for (auto& [p, n] : g.m_pos2num) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(g.m_num2perms[n].size());
         boost::iota(perm_ids, 0);
     }
 
@@ -183,10 +183,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& kv : m_matches) {
-        auto& p = kv.first;
-        auto& perm_ids = kv.second;
-
+    for (auto& [p, perm_ids] : m_matches) {
         map<int, vector<int>> area2dirs;
         string chars;
         for (int i = 0; i < 4; ++i) {
@@ -301,9 +298,9 @@ bool puz_state::make_move2(const Position& p, int n)
         if (ch == PUZ_SPACE)
             ch = perm[k];
     }
-    for (auto& kv : area2dirs) {
-        int k = kv.second[0];
-        for (auto& p2 : m_game->m_areas[kv.first]) {
+    for (auto& [area_id, dirs] : area2dirs) {
+        int k = dirs[0];
+        for (auto& p2 : m_game->m_areas[area_id]) {
             char& ch = cells(p2);
             if (ch == PUZ_SPACE)
                 ch = perm[k];
