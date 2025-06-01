@@ -127,8 +127,9 @@ struct puz_state : vector<puz_dot>
     puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     char cells(const Position& p) const { return m_cells[p.first * (sidelen() + 1) + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * (sidelen() + 1) + p.second]; }
-    bool make_move_hint(const Position& p, int n);
-    bool make_move_hint2(const Position& p, int n);
+    bool make_move_hint(const Position& p, const puz_dot& perm);
+    bool make_move_hint2(const Position& p, const puz_dot& perm);
+    bool make_move_hint3(const Position& p, const puz_dot& perm, int i, bool stopped);
     bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_cells(bool init);
@@ -178,7 +179,9 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+    bool matches_changed = init;
     for (auto& [p, perms] : m_matches) {
+        auto perms_old = perms;
         perms.clear();
 
         int sum = m_game->m_pos2num.at(p) - 1;
@@ -223,10 +226,26 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move_hint2(p, 0) ? 1 : 0;
+                return make_move_hint2(p, perms.front()) ? 1 : 0;
+            default:
+                matches_changed = matches_changed || perms != perms_old;
+                break;
             }
     }
-    return 2;
+    if (!matches_changed)
+        return 2;
+
+    for (auto& [p, perms] : m_matches)
+        for (int i = 0; i < 4; ++i) {
+            auto f = [=](const vector<int>& v1, const vector<int>& v2) {
+                return v1[i] < v2[i];
+            };
+            const auto& perm = *boost::min_element(perms, f);
+            int n = boost::max_element(perms, f)->at(i);
+            if (!make_move_hint3(p, perm, i, perm[i] == n))
+                return 0;
+        }
+    return 1;
 }
 
 int puz_state::check_cells(bool init)
@@ -309,28 +328,34 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::make_move_hint2(const Position& p, int n)
+bool puz_state::make_move_hint3(const Position& p, const puz_dot& perm, int i, bool stopped)
 {
-    auto& perm = m_matches.at(p)[n];
-    for (int i = 0; i < 4; ++i) {
-        int m = perm[i];
-        auto p2 = p;
-        auto& os = offset[i];
-        for (int j = 0; j <= m; ++j, p2 += os) {
-            if (j == m && m_game->m_inside_outside && cells(p2 + os) == PUZ_BOUNDARY)
-                break;
-            for (int k = 0; k < 2; ++k) {
-                auto& [os2, l] = lines_info[i * 2 + k];
-                auto& dt = dots(p2 + os2);
-                bool is_on = j == m;
-                boost::remove_erase_if(dt, [&](int lineseg) {
-                    return is_lineseg_on(lineseg, l) != is_on;
-                });
-                if (dt.empty())
-                    return 0;
-            }
+    int m = perm[i];
+    auto p2 = p;
+    auto& os = offset[i];
+    for (int j = 0; j <= m; ++j, p2 += os) {
+        bool is_on = j == m;
+        if (is_on && (!stopped || 
+            m_game->m_inside_outside && cells(p2 + os) == PUZ_BOUNDARY))
+            break;
+        for (int k = 0; k < 2; ++k) {
+            auto& [os2, l] = lines_info[i * 2 + k];
+            auto& dt = dots(p2 + os2);
+            boost::remove_erase_if(dt, [&](int lineseg) {
+                return is_lineseg_on(lineseg, l) != is_on;
+            });
+            if (dt.empty())
+                return false;
         }
     }
+    return true;
+}
+
+bool puz_state::make_move_hint2(const Position& p, const puz_dot& perm)
+{
+    for (int i = 0; i < 4; ++i)
+        if (!make_move_hint3(p, perm, i, true))
+            return false;
 
     m_matches.erase(p);
     return check_loop();
@@ -369,10 +394,10 @@ bool puz_state::check_loop() const
     return true;
 }
 
-bool puz_state::make_move_hint(const Position& p, int n)
+bool puz_state::make_move_hint(const Position& p, const puz_dot& perm)
 {
     m_distance = 0;
-    if (!make_move_hint2(p, n))
+    if (!make_move_hint2(p, perm))
         return false;
     for (;;) {
         int m;
@@ -408,9 +433,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             return kv1.second.size() < kv2.second.size();
         });
 
-        for (int i = 0; i < perms.size(); ++i) {
+        for (auto& perm : perms) {
             children.push_back(*this);
-            if (!children.back().make_move_hint(p, i))
+            if (!children.back().make_move_hint(p, perm))
                 children.pop_back();
         }
     } else {
