@@ -189,13 +189,12 @@ void puz_state::gen_children(list<puz_state>& children) const
 unsigned int puz_state::get_heuristic() const
 {
     if (m_blobs.empty()) return 0;
-    int ir, ic, jr, jc;
     bool ar1 = false, ar2 = false, ac1 = false, ac2 = false;
     for (const Position& p : m_blobs) {
-        boost::tie(ir, ic) = p;
+        auto& [ir, ic] = p;
         bool r1 = true, r2 = true, c1 = true, c2 = true;
         for (const Position& p2 : m_game->m_finishes) {
-            boost::tie(jr, jc) = p2;
+            auto& [jr, jc] = p2;
             if (ir < jr)
                 r2 = false;
             else if (ir > jr)

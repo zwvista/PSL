@@ -174,9 +174,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 unsigned int puz_state::get_heuristic() const
 {
-    int ir, ic, jr, jc;
-    boost::tie(ir, ic) = m_zafiro;
-    boost::tie(jr, jc) = m_game->m_portal;
+    auto& [ir, ic] = m_zafiro;
+    auto& [jr, jc] = m_game->m_portal;
     if (ir == jr && ic == jc) return 0;
     if (ir != jr && ic != jc) return 2;
     //int num_glass = 0;
