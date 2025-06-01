@@ -227,10 +227,9 @@ int puz_state::find_matches(bool init)
                 return p3 != p && p3 != p2 && ch != PUZ_SPACE && ch != PUZ_EMPTY;
             });
         });
-        for (auto& kv2 : v) {
-            auto& p2 = kv2.first;
+        for (auto& [p2, perm_id] : v) {
             auto k = pair{min(p, p2), max(p, p2)};
-            auto& perm = m_game->m_pair2garden.at(k).m_perms[kv2.second];
+            auto& perm = m_game->m_pair2garden.at(k).m_perms[perm_id];
             for (auto& p3 : perm)
                 if (p3 != p && p3 != p2)
                     space2hints.at(p3).insert(k);

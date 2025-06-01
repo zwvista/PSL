@@ -407,9 +407,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 
     if (kv_ship_ptr != nullptr && (kv_area_ptr == nullptr ||
         kv_ship_ptr->second.size() < kv_area_ptr->second.second.size()))
-        for (auto& kv2 : kv_ship_ptr->second) {
+        for (auto& [p, vert] : kv_ship_ptr->second) {
             children.push_back(*this);
-            if (!children.back().make_move_ship(kv2.first, kv_ship_ptr->first, kv2.second))
+            if (!children.back().make_move_ship(p, kv_ship_ptr->first, vert))
                 children.pop_back();
         }
     else
