@@ -116,10 +116,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     for (int i = 0; i < teleports.size(); ++i) {
         auto& v = teleports[i];
-        for (int j = 0; j < 2; ++j) {
-            auto& kv = m_teleports[v[j]];
-            kv.first = i + '1', kv.second = v[1 - j];
-        }
+        for (int j = 0; j < 2; ++j)
+            m_teleports[v[j]] = {i + '1', v[1 - j]};
     }
 }
 

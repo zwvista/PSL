@@ -220,12 +220,12 @@ bool puz_state::find_matches()
 
         if (!m_matches.empty()) {
             // find the group that has the fewest number of clouds
-            auto& kv = *boost::min_element(rc_indexes, [](
+            auto& [rc, indexes] = *boost::min_element(rc_indexes, [](
                 const pair<const int, set<int>>& kv1,
                 const pair<const int, set<int>>& kv2) {
                 return kv1.second.size() < kv2.second.size();
             });
-            for (int id : kv.second)
+            for (int id : indexes)
                 m_matches2.push_back(id);
         }
     }

@@ -267,25 +267,25 @@ bool puz_state::make_move(const Position& p_piece, const Position& p, int n, boo
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_pos2piece.empty()) {
-        auto& kv = *boost::min_element(m_pos_matches, [](
+        auto& [p_piece, infos] = *boost::min_element(m_pos_matches, [](
             const puz_pos_match::value_type& kv1,
             const puz_pos_match::value_type& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (auto& tp : m_pos_matches.at(kv.first)) {
+        for (auto& [i, p, vert] : infos) {
             children.push_back(*this);
-            if (!children.back().make_move(kv.first, get<1>(tp), get<0>(tp), get<2>(tp)))
+            if (!children.back().make_move(p_piece, p, i, vert))
                 children.pop_back();
         }
     } else {
-        auto& kv = *boost::min_element(m_ship_matches, [](
+        auto& [n, infos] = *boost::min_element(m_ship_matches, [](
             const puz_ship_match::value_type& kv1,
             const puz_ship_match::value_type& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (auto& kv2 : m_ship_matches.at(kv.first)) {
+        for (auto& [p, vert] : infos) {
             children.push_back(*this);
-            if (!children.back().make_move(kv2.first, kv2.first, kv.first, kv2.second))
+            if (!children.back().make_move(p, p, n, vert))
                 children.pop_back();
         }
     }

@@ -48,7 +48,7 @@ class puz_solver_idastar
         vector<StateInfo> stack;
         list<puz_state> children;
         cur.gen_children(children);
-        stack.push_back(boost::make_tuple(start_cost, cur, children));
+        stack.emplace_back(start_cost, cur, children);
         while (!stack.empty()) {
             boost::tie(start_cost, cur, children) = stack.back();
             stack.pop_back();
@@ -59,7 +59,7 @@ class puz_solver_idastar
                     ++i;
                     continue;
                 }
-                stack.push_back(boost::make_tuple(start_cost, cur, list<puz_state>(++i, children.end())));
+                stack.emplace_back(start_cost, cur, list<puz_state>(++i, children.end()));
                 spath.push_back(child);
                 start_cost += cur.get_distance(child);
                 cur = child;

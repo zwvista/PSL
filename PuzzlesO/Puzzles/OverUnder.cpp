@@ -192,9 +192,7 @@ bool puz_state::make_move(const Position& p, const Position& p2, int n)
     for (auto& p3 : perm)
         for (auto& [p4, v] : m_matches)
             boost::remove_erase_if(v, [&](auto& t) {
-                auto& p = get<0>(t);
-                auto& p2 = get<1>(t);
-                int id = get<2>(t);
+                auto& [p, p2, id] = t;
                 auto& perm = m_game->m_pair2region.at({p, p2}).m_perms[id];
                 return perm.contains(p3);
             });

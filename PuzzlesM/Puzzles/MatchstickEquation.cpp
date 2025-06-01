@@ -169,8 +169,8 @@ void puz_state::make_move(int digit_to)
 {
     auto d = get_heuristic();
     int& digit_from = m_digits[m_index++];
-    auto& kv = m_game->m_digit2digit[digit_from * 10 + digit_to];
-    m_remove_count -= kv.first, m_add_count -= kv.second;
+    auto& [remove_count, add_count] = m_game->m_digit2digit[digit_from * 10 + digit_to];
+    m_remove_count -= remove_count, m_add_count -= add_count;
     digit_from = digit_to;
     m_distance = d - get_heuristic();
 }
@@ -180,8 +180,8 @@ void puz_state::make_move(char op_to)
     auto d = get_heuristic();
     ++m_index;
     if (m_operator != op_to) {
-        auto& t = op2op.at(m_operator);
-        m_remove_count -= get<1>(t), m_add_count -= get<2>(t);
+        auto& [op_to2, remove_count, add_count] = op2op.at(m_operator);
+        m_remove_count -= remove_count, m_add_count -= add_count;
         m_operator = op_to;
     }
     m_distance = d - get_heuristic();
@@ -193,16 +193,16 @@ void puz_state::gen_children(list<puz_state>& children) const
     if (m_index == sz) {
         children.push_back(*this);
         children.back().make_move(m_operator);
-        auto& t = op2op.at(m_operator);
-        if (get<1>(t) <= m_remove_count && get<2>(t) <= m_add_count) {
+        auto& [op_to, remove_count, add_count] = op2op.at(m_operator);
+        if (remove_count <= m_remove_count && add_count <= m_add_count) {
             children.push_back(*this);
-            children.back().make_move(get<0>(t));
+            children.back().make_move(op_to);
         }
     } else if (m_index < sz) {
         int digit_from = m_digits[m_index];
         for (int digit_to = 0; digit_to < 10; ++digit_to) {
-            auto& kv = m_game->m_digit2digit[digit_from * 10 + digit_to];
-            if (kv.first <= m_remove_count && kv.second <= m_add_count) {
+            auto& [remove_count, add_count] = m_game->m_digit2digit[digit_from * 10 + digit_to];
+            if (remove_count <= m_remove_count && add_count <= m_add_count) {
                 children.push_back(*this);
                 children.back().make_move(digit_to);
             }

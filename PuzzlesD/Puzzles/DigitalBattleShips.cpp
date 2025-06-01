@@ -122,10 +122,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     queue.emplace_back(0, v);
                 }
         while (!queue.empty()) {
-            auto& kv = queue.front();
-            auto& v = kv.second;
+            auto& [sum, v] = queue.front();
             auto& kv2 = v.back();
-            int sum = kv.first;
             for (int i = 0; i < kv2.second; ++i)
                 sum += m_pos2num.at(ai.m_rng[kv2.first + i]);
             if (sum == ai.m_sum)
@@ -239,9 +237,8 @@ puz_state::puz_state(const puz_game& g)
     for (int i = 0; i < g.m_area2info.size(); ++i) {
         auto& ai = g.m_area2info[i];
         if (ai.m_sum == PUZ_UNKNOWN) continue;
-        auto& kv = m_area_matches[i];
-        kv.first = ai.m_sum;
-        auto& v = kv.second;
+        auto& [sum, v] = m_area_matches[i];
+        sum = ai.m_sum;
         v.resize(ai.m_perms.size());
         boost::iota(v, 0);
     }
