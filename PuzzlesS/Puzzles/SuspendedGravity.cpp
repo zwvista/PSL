@@ -25,7 +25,7 @@ namespace puzzles::SuspendedGravity{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
-constexpr auto PUZ_STONE = 'S';
+constexpr auto PUZ_STONE = 'O';
 constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
@@ -46,14 +46,16 @@ struct puz_area
 {
     int m_num = PUZ_UNKNOWN;
     vector<Position> m_range;
+    vector<string> m_perms;
 };
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, char> m_pos2num;
+    map<Position, int> m_pos2num;
     vector<puz_area> m_areas;
+    map<Position, int> m_pos2area;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -85,6 +87,27 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     }
 }
 
+struct puz_state3 : Position
+{
+    puz_state3(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state3>& children) const;
+
+    const set<Position>* m_rng;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    for (int i = 0; i < 4; ++i) {
+        auto p2 = *this + offset[i * 2];
+        if (m_rng->contains(p2)) {
+            children.push_back(*this);
+            children.back().make_move(p2);
+        }
+    }
+}
+
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() / 2)
@@ -106,7 +129,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
             if (ch != PUZ_SPACE)
-                m_pos2num[p] = ch;
+                m_pos2num[p] = ch - '0';
             rng.insert(p);
         }
     }
@@ -116,11 +139,33 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
         auto& area = m_areas.emplace_back();
         for (auto& p : smoves) {
+            m_pos2area[p] = n;
             rng.erase(p);
             area.m_range.push_back(p);
             if (auto it = m_pos2num.find(p); it != m_pos2num.end())
                 area.m_num = it->second;
         }
+    }
+
+    for (auto& area : m_areas) {
+        auto& [num, rng, perms] = area;
+        int sz = rng.size();
+        if (!perms.empty()) continue;
+        // 1. Each region contains the number of stones, which can be indicated by a number.
+        auto perm = string(sz - num, PUZ_EMPTY) + string(num, PUZ_STONE);
+        do {
+            // 3. Stones inside a region are all connected either vertically or horizontally.
+            list<puz_state3> smoves;
+            set<Position> rng2;
+            for (int i = 0; i < sz; ++i)
+                if (perm[i] == PUZ_STONE)
+                    rng2.insert(rng[i]);
+            puz_move_generator<puz_state3>::gen_moves(rng2, smoves);
+            if (smoves.size() != rng2.size())
+                continue;
+
+            perms.push_back(perm);
+        } while (boost::next_permutation(perm));
     }
 }
 
