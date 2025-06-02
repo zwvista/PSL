@@ -18,12 +18,12 @@ constexpr auto PUZ_ORANGE = '!';
 
 enum ESwitchActionType {stSwap, stOn, stOff};
 
-typedef pair<bool,        // heavy or not
+using puz_switch = pair<bool,        // heavy or not
     vector<pair<int,    // bridge index
-    ESwitchActionType> > > puz_switch;
-typedef pair<vector<Position>,
+    ESwitchActionType> > > ;
+using puz_bridge = pair<vector<Position>,
     bool                // on or off
-    > puz_bridge;
+    >;
 using puz_splitter = vector<Position>;
 
 constexpr Position offset[] = {
@@ -239,7 +239,7 @@ bool puz_state::check_switch(const Position& p, bool heavy_included)
     const puz_switch& switch_ = i->second;
     if (!heavy_included && switch_.first) return false;
 
-    typedef pair<int, ESwitchActionType> pair_type;
+    using pair_type = pair<int, ESwitchActionType>;
     for (const pair_type& pr : switch_.second) {
         int index = pr.first;
         ESwitchActionType type = pr.second;

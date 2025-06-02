@@ -1,13 +1,12 @@
 #include <algorithm>
 #include <iostream>
 #include <list>
+#include <print>
 
 #include "nonconst_bfs.hpp" // so we can modify the graph
 #include <boost/graph/astar_search.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/bimap.hpp>
-#include <boost/foreach.hpp>
-#include <boost/optional.hpp>
 using namespace boost;
 using namespace std;
 
@@ -15,7 +14,7 @@ class pstate_t : public vector<int>
 {
 public:
     int m_r, m_c;
-    optional<char> m_mi;
+    std::optional<char> m_mi;
     pstate_t() {}
     pstate_t(int rows, int cols)
         : vector<int>(m_r * m_c), m_r(rows), m_c(cols) {}
@@ -80,10 +79,10 @@ void gen_children(const pstate_t &p, list<pstate_t>& children)
     }
 }
 
-typedef property<vertex_color_t, default_color_type,
+using vert_prop = property<vertex_color_t, default_color_type,
     property<vertex_rank_t, unsigned int,
     property<vertex_distance_t, unsigned int,
-    property<vertex_predecessor_t, unsigned int> > > > vert_prop;
+    property<vertex_predecessor_t, unsigned int> > > >;
 using edge_prop = property<edge_weight_t, unsigned int>;
 using mygraph_t = adjacency_list<listS, vecS, undirectedS, vert_prop, edge_prop>;
 using vertex_t = mygraph_t::vertex_descriptor;
@@ -195,7 +194,7 @@ int main(int argc, char **argv)
         println("Number of moves: {}",
             shortest_path.size() - 1);
         println("Number of vertices examined: {}",
-            examine_seq.size())
+            examine_seq.size());
     }
     return 0;
 }

@@ -15,18 +15,18 @@ concept puz_state_solver_idastar2 = copyable<T> && requires(const T & t, list<T>
 template<puz_state_solver_idastar2 puz_state>
 class puz_solver_idastar2
 {
-    typedef boost::property<boost::vertex_color_t, boost::default_color_type,
+    using vert_prop = boost::property<boost::vertex_color_t, boost::default_color_type,
         boost::property<boost::vertex_distance_t, unsigned int,
-        boost::property<boost::vertex_predecessor_t, unsigned int> > > vert_prop;
-    typedef boost::property<boost::edge_weight_t, unsigned int> edge_prop;
-    typedef typename boost::mpl::if_c<true, boost::directedS, boost::undirectedS>::type directedSOrUndirectedS;
-    typedef boost::adjacency_list<boost::listS, boost::vecS, directedSOrUndirectedS, vert_prop, edge_prop> mygraph_t;
-    typedef typename mygraph_t::vertex_descriptor vertex_t;
-    typedef typename mygraph_t::vertex_iterator vertex_iterator_t;
-    typedef map<vertex_t, puz_state> StateMap;
-    typedef set<puz_state> StateSet;
-    typedef typename boost::property_map<mygraph_t, boost::vertex_predecessor_t>::type PredMap;
-    typedef typename boost::property_map<mygraph_t, boost::vertex_distance_t>::type DistMap;
+        boost::property<boost::vertex_predecessor_t, unsigned int> > >;
+    using edge_prop = boost::property<boost::edge_weight_t, unsigned int>;
+    using directedSOrUndirectedS = typename boost::mpl::if_c<true, boost::directedS, boost::undirectedS>::type;
+    using mygraph_t = boost::adjacency_list<boost::listS, boost::vecS, directedSOrUndirectedS, vert_prop, edge_prop>;
+    using vertex_t = typename mygraph_t::vertex_descriptor;
+    using vertex_iterator_t = typename mygraph_t::vertex_iterator;
+    using StateMap = map<vertex_t, puz_state>;
+    using StateSet = set<puz_state>;
+    using PredMap = typename boost::property_map<mygraph_t, boost::vertex_predecessor_t>::type;
+    using DistMap = typename boost::property_map<mygraph_t, boost::vertex_distance_t>::type;
 
     struct found_goal {};
 
@@ -61,7 +61,7 @@ class puz_solver_idastar2
         }
         template <class Vertex, class Graph>
         void finish_vertex(Vertex u, Graph& g) {
-            typedef typename boost::graph_traits<Graph>::out_edge_iterator Iter;
+            using Iter = typename boost::graph_traits<Graph>::out_edge_iterator;
             Iter ei, ei_end;
             vector<Vertex> vv;
             for (std::tie(ei, ei_end) = out_edges(u, g); ei != ei_end; ++ei) {

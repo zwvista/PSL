@@ -14,18 +14,18 @@ concept puz_state_solver_dijkstra = copyable<T> && requires(const T & t, list<T>
 template<puz_state_solver_dijkstra puz_state, bool directed = true, bool shortest_paths_only = true, bool first_paths_only = true>
 class puz_solver_dijkstra
 {
-    typedef boost::property<boost::vertex_color_t, boost::default_color_type,
+    using vert_prop = boost::property<boost::vertex_color_t, boost::default_color_type,
         boost::property<boost::vertex_rank_t, unsigned int,
         boost::property<boost::vertex_distance_t, unsigned int,
-        boost::property<boost::vertex_predecessor_t, unsigned int> > > > vert_prop;
-    typedef boost::property<boost::edge_weight_t, unsigned int> edge_prop;
-    typedef typename boost::mpl::if_c<directed, boost::directedS, boost::undirectedS>::type directedSOrUndirectedS;
-    typedef boost::adjacency_list<boost::listS, boost::vecS, directedSOrUndirectedS, vert_prop, edge_prop> mygraph_t;
-    typedef typename mygraph_t::vertex_descriptor vertex_t;
-    typedef unordered_multimap<vertex_t, unsigned int> MultiPredMap;
-    typedef typename boost::bimap<vertex_t, puz_state> StateMap;
-    typedef typename boost::property_map<mygraph_t, boost::vertex_predecessor_t>::type PredMap;
-    typedef typename boost::property_map<mygraph_t, boost::vertex_distance_t>::type DistMap;
+        boost::property<boost::vertex_predecessor_t, unsigned int> > > >;
+    using edge_prop = boost::property<boost::edge_weight_t, unsigned int>;
+    using directedSOrUndirectedS = typename boost::mpl::if_c<directed, boost::directedS, boost::undirectedS>::type;
+    using mygraph_t = boost::adjacency_list<boost::listS, boost::vecS, directedSOrUndirectedS, vert_prop, edge_prop>;
+    using vertex_t = typename mygraph_t::vertex_descriptor;
+    using MultiPredMap = unordered_multimap<vertex_t, unsigned int>;
+    using StateMap = typename boost::bimap<vertex_t, puz_state>;
+    using PredMap = typename boost::property_map<mygraph_t, boost::vertex_predecessor_t>::type;
+    using DistMap = typename boost::property_map<mygraph_t, boost::vertex_distance_t>::type;
 
     static const bool first_solution_only = shortest_paths_only && first_paths_only;
 

@@ -117,7 +117,7 @@ unsigned int puz_state::get_heuristic() const
         if (ch != PUZ_NOENTRY)
             m2[ch] += Position(i / cols(), i % cols());
     }
-    typedef pair<char, Position> pair_type;
+    using pair_type = pair<char, Position>;
     for (const pair_type& pr : m1) {
         const Position& p1 = pr.second;
         const Position& p2 = m2.at(pr.first);

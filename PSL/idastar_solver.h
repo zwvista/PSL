@@ -54,7 +54,7 @@ class puz_solver_idastar
         if (cur.is_goal_state())
             return next_cost_limit = cost_limit, true;
 
-        typedef boost::tuple<unsigned int, puz_state, list<puz_state> > StateInfo;
+        using StateInfo = boost::tuple<unsigned int, puz_state, list<puz_state> >;
         vector<StateInfo> stack;
         list<puz_state> children;
         cur.gen_children(children);

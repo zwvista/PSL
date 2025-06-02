@@ -9,11 +9,11 @@ concept puz_state_move_generator = copyable<T> && requires(const T& t, list<T>& 
 template<puz_state_move_generator puz_state, bool directed = true>
 class puz_move_generator
 {
-    typedef boost::property<boost::vertex_color_t, boost::default_color_type> vert_prop;
-    typedef typename boost::mpl::if_c<directed, boost::directedS, boost::undirectedS>::type directedSOrUndirectedS;
-    typedef boost::adjacency_list<boost::listS, boost::vecS, directedSOrUndirectedS, vert_prop> mygraph_t;
-    typedef typename mygraph_t::vertex_descriptor vertex_t;
-    typedef typename boost::bimap<vertex_t, puz_state> StateMap;
+    using vert_prop = boost::property<boost::vertex_color_t, boost::default_color_type>;
+    using directedSOrUndirectedS = typename boost::mpl::if_c<directed, boost::directedS, boost::undirectedS>::type;
+    using mygraph_t = boost::adjacency_list<boost::listS, boost::vecS, directedSOrUndirectedS, vert_prop>;
+    using vertex_t = typename mygraph_t::vertex_descriptor;
+    using StateMap = typename boost::bimap<vertex_t, puz_state>;
 
     struct puz_visitor : boost::default_bfs_visitor
     {
