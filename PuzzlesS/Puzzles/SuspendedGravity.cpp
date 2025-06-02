@@ -99,8 +99,8 @@ struct puz_state3 : Position
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
-    for (int i = 0; i < 4; ++i) {
-        auto p2 = *this + offset[i * 2];
+    for (auto& os : offset) {
+        auto p2 = *this + os;
         if (m_rng->contains(p2)) {
             children.push_back(*this);
             children.back().make_move(p2);
@@ -186,50 +186,134 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move(const Position& p, char ch);
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
+    bool make_move(int i, int j);
+    bool make_move2(int i, int j);
+    int find_matches(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {return boost::range::count(*this, PUZ_SPACE);}
-    unsigned int get_distance(const puz_state& child) const {return 1;}
+    unsigned int get_heuristic() const {return m_matches.size();}
+    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
+    // key: the index of the area
+    // value.elem: the index of the permutations
+    map<int, vector<int>> m_matches;
+    unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+    : m_game(&g)
+    , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 {
+    for (int i = 0; i < g.m_areas.size(); ++i) {
+        vector<int> perm_ids(g.m_areas[i].m_perms.size());
+        boost::iota(perm_ids, 0);
+        m_matches[i] = perm_ids;
+    }
 }
 
-bool puz_state::make_move(const Position& p, char ch)
+int puz_state::find_matches(bool init)
 {
+    for (auto& [i, perm_ids] : m_matches) {
+        auto& [num, rng, perms] = m_game->m_areas[i];
+
+        string chars;
+        for (auto& p : rng)
+            chars.push_back(cells(p));
+
+        boost::remove_erase_if(perm_ids, [&](int j) {
+            auto& perm = perms[j];
+            if (!boost::equal(chars, perm, [](char ch1, char ch2) {
+                return ch1 == PUZ_SPACE || ch1 == ch2;
+            }))
+                return true;
+            // Stones in two adjacent regions cannot touch horizontally or vertically.
+            for (int k = 0; k < perm.size(); ++k) {
+                auto& p = rng[k];
+                char ch = perm[k];
+                if (ch == PUZ_EMPTY) continue;
+                for (auto& os : offset)
+                    if (auto p2 = p + os; is_valid(p2) && m_game->m_pos2area.at(p2) != i && cells(p2) == ch)
+                        return true;
+            }
+            return false;
+        });
+
+        if (!init)
+            switch (perm_ids.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(i, perm_ids[0]) ? 1 : 0;
+            }
+    }
+    return 2;
+}
+
+bool puz_state::make_move2(int i, int j)
+{
+    auto& [num, rng, perms] = m_game->m_areas[i];
+    auto& perm = perms[j];
+
+    for (int k = 0; k < perm.size(); ++k)
+        cells(rng[k]) = perm[k];
+
+    ++m_distance;
+    m_matches.erase(i);
+    
+    // 5. Lastly, if we apply gravity to the puzzle and the stones fall down to
+    // the bottom of the board they fit together exactly and cover the bottom
+    // half of the board.
+    for (int c = 0; c < sidelen(); ++c) {
+        int cnt = 0;
+        for (int r = 0; r < sidelen(); ++r)
+            if (cells({ r, c }) == PUZ_STONE)
+                ++cnt;
+        if (cnt > sidelen() / 2)
+            return false;
+    }
     return true;
+}
+
+bool puz_state::make_move(int i, int j)
+{
+    m_distance = 0;
+    if (!make_move2(i, j))
+        return false;
+    int m;
+    while ((m = find_matches(false)) == 1);
+    return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    //auto& [p, nums] = *boost::min_element(m_pos2nums, [](
-    //    const pair<const Position, puz_numbers>& kv1,
-    //    const pair<const Position, puz_numbers>& kv2) {
-    //    return kv1.second.size() < kv2.second.size();
-    //});
-    //for (char ch : nums) {
-    //    children.push_back(*this);
-    //    if (!children.back().make_move(p, ch))
-    //        children.pop_back();
-    //}
+    auto& [i, perm_ids] = *boost::min_element(m_matches, [](
+        const pair<const int, vector<int>>& kv1,
+        const pair<const int, vector<int>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (int n : perm_ids) {
+        children.push_back(*this);
+        if (!children.back().make_move(i, n))
+            children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
