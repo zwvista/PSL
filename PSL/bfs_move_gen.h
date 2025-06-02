@@ -1,7 +1,7 @@
 #pragma once
 
 template<typename T>
-concept puz_state_move_generator = copyable<T> && requires(const T& t, list<T>& children)
+concept puz_state_move_generator = regular<T> && requires(const T& t, list<T>& children)
 {
     { t.gen_children(children) } -> same_as<void>;
 };
