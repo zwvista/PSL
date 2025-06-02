@@ -284,7 +284,7 @@ bool puz_state::make_move2(int i, int j)
     for (int c = 0; c < sidelen(); ++c) {
         int cnt = 0;
         for (int r = 0; r < sidelen(); ++r)
-            if (cells({ r, c }) == PUZ_STONE)
+            if (cells({r, c}) == PUZ_STONE)
                 ++cnt;
         if (cnt > sidelen() / 2)
             return false;
