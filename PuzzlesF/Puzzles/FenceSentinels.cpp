@@ -71,7 +71,7 @@ constexpr Position offset2[] = {
       |                          |
     dot( 0,-1) -> 1  3 <- dot( 0, 0)
 */
-typedef pair<Position, int> puz_line_info;
+using puz_line_info = pair<Position, int>;
 const puz_line_info lines_info[] = {
     {{-1, -1}, 1}, {{-1, 0}, 3},         // n
     {{-1, 0}, 2}, {{0, 0}, 0},         // e
@@ -114,7 +114,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start.append(m_sidelen + 1, PUZ_BOUNDARY);
 }
 
-typedef vector<int> puz_dot;
+using puz_dot = vector<int>;
 
 struct puz_state
 {

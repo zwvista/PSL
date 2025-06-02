@@ -27,7 +27,7 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-typedef pair<Position, int> puz_line_info;
+using puz_line_info = pair<Position, int>;
 const puz_line_info lines_info[] = {
     {{0, 0}, 1}, {{0, 1}, 3},         // horz-line
     {{0, 0}, 2}, {{1, 0}, 0},         // vert-line
@@ -63,7 +63,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-typedef vector<string> puz_dot;
+using puz_dot = vector<string>;
 
 struct puz_state : vector<puz_dot>
 {

@@ -28,7 +28,7 @@ struct puz_area
     int m_sum;
 };
 
-typedef pair<Position, bool> puz_key;
+using puz_key = pair<Position, bool>;
 
 struct puz_game
 {

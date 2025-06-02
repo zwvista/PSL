@@ -53,7 +53,7 @@ struct puz_plank
     vector<Position> m_horz_walls, m_vert_walls;
 };
 
-typedef pair<Position, int> puz_lit;
+using puz_lit = pair<Position, int>;
 
 struct puz_game
 {

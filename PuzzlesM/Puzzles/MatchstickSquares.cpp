@@ -12,7 +12,7 @@ constexpr auto PUZ_REMOVE = 0;
 constexpr auto PUZ_ADD = 1;
 constexpr auto PUZ_MOVE = 2;
 
-typedef pair<Position, Position> puz_matchstick;
+using puz_matchstick = pair<Position, Position>;
 
 struct puz_game
 {

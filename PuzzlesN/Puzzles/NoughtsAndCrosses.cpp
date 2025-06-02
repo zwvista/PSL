@@ -73,7 +73,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 // first: the index of the area
 // second : all char numbers used to fill a position
-typedef pair<int, puz_numbers> puz_area;
+using puz_area = pair<int, puz_numbers>;
 
 struct puz_group : vector<puz_area>
 {

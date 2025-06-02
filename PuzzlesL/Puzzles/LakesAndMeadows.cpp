@@ -20,7 +20,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_LAKE = 'L';
 
 // top-left and bottom-right
-typedef pair<Position, Position> puz_box;
+using puz_box = pair<Position, Position>;
     
 struct puz_game
 {

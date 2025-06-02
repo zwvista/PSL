@@ -59,7 +59,7 @@ constexpr Position offset[] = {
 
 // first: the offset of the line segment
 // second: an integer that depicts the line segment
-typedef pair<Position, int> puz_lineseg_info;
+using puz_lineseg_info = pair<Position, int>;
 
 // permutations of line segments for a black pearl and its two adjacent cells
 // they must go straight in the next tile in both directions.
@@ -124,7 +124,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-typedef vector<int> puz_dot;
+using puz_dot = vector<int>;
 
 struct puz_state
 {

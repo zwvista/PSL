@@ -22,8 +22,8 @@ constexpr Position offset[] = {
     {1, 0},
 };
 
-typedef pair<int, Position> Position3d;
-typedef pair<Position3d, Position3d> Position3dPair;
+using Position3d = pair<int, Position>;
+using Position3dPair = pair<Position3d, Position3d>;
 
 struct puz_game
 {
@@ -55,7 +55,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-typedef pair<char, Position3d> puz_step;
+using puz_step = pair<char, Position3d>;
 
 ostream& operator<<(ostream& out, const puz_step& a)
 {

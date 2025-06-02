@@ -35,7 +35,7 @@ constexpr Position offset[] = {
     {-1, 0},
 };
 
-typedef vector<char> puz_chars;
+using puz_chars = vector<char>;
 const puz_chars all_chars = {PUZ_POSITIVE, PUZ_NEGATIVE, PUZ_EMPTY};
 
 struct puz_game

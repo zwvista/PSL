@@ -100,7 +100,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-typedef vector<int> puz_dot;
+using puz_dot = vector<int>;
 
 struct puz_state : vector<puz_dot>
 {

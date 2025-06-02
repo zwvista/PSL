@@ -13,7 +13,7 @@ constexpr Position offset[] = {
     {1, 0},
 };
 
-typedef unordered_map<char, pair<vector<int>, vector<int> > > group_map;
+using group_map = unordered_map<char, pair<vector<int>, vector<int> > >;
 
 struct puz_game
 {

@@ -33,7 +33,7 @@ constexpr Position offset[] = {
 //            The index will be added by the side length of the board 
 //            if it represents a column.
 // key.second: a number that appears on the board
-typedef map<pair<int, int>, vector<Position>> puz_shaded;
+using puz_shaded = map<pair<int, int>, vector<Position>>;
 
 struct puz_game
 {

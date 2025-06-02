@@ -106,11 +106,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 // value.elem.0: the kind of the ship
 // value.elem.1: the position of the ship
 // value.elem.2: false if the ship is horizontal, true if vertical
-typedef map<Position, vector<tuple<int, Position, bool>>> puz_pos_match;
+using puz_pos_match = map<Position, vector<tuple<int, Position, bool>>>;
 // key: the kind of the ship
 // value.elem.first: the position of the ship
 // value.elem.second: false if the ship is horizontal, true if vertical
-typedef map<int, vector<pair<Position, bool>>> puz_ship_match;
+using puz_ship_match = map<int, vector<pair<Position, bool>>>;
 
 struct puz_state : string
 {

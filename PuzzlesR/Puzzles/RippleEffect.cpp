@@ -36,7 +36,7 @@ constexpr Position offset2[] = {
 
 // first: the remaining positions in the room that should be filled
 // second: all permutations of the remaining numbers that should be used to fill the room
-typedef pair<vector<Position>, vector<vector<int>>> puz_room_info;
+using puz_room_info = pair<vector<Position>, vector<vector<int>>>;
 
 struct puz_game
 {

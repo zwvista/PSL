@@ -49,7 +49,7 @@ const vector<vector<Position>> triominos = {
 
 // first: the position where the triomino will be placed
 // second: the triomino id
-typedef pair<Position, int> puz_lit;
+using puz_lit = pair<Position, int>;
 
 struct puz_game
 {

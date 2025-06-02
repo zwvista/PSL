@@ -19,8 +19,8 @@ constexpr Position offset[] = {
     {1, 0},
 };
 
-typedef map<Position, EBrickType> brick_map;
-typedef pair<const Position, EBrickType> brick_pair;
+using brick_map = map<Position, EBrickType>;
+using brick_pair = pair<const Position, EBrickType>;
 
 struct brick_info
 {
@@ -76,7 +76,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-typedef pair<Position, EBrickDir> puz_step;
+using puz_step = pair<Position, EBrickDir>;
 
 ostream& operator<<(ostream& out, const puz_step& mi)
 {

@@ -24,7 +24,7 @@ typedef pair<bool,        // heavy or not
 typedef pair<vector<Position>,
     bool                // on or off
     > puz_bridge;
-typedef vector<Position> puz_splitter;
+using puz_splitter = vector<Position>;
 
 constexpr Position offset[] = {
     {0, -1},

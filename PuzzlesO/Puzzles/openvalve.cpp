@@ -34,7 +34,7 @@ const string pipe_cells[] = {
     "-e", "-w", "-n", "-s",
     "--"
 };
-typedef pair<Position, char> pipe_info;
+using pipe_info = pair<Position, char>;
 
 struct puz_game
 {

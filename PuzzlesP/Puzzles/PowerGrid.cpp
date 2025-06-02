@@ -42,7 +42,7 @@ constexpr Position offset[] = {
 
 // first: the positions in the area (a row, column, or diagonal)
 // second: the length of the cables between the two Posts
-typedef pair<vector<Position>, int> puz_area_info;
+using puz_area_info = pair<vector<Position>, int>;
 
 struct puz_game
 {

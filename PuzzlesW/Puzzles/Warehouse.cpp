@@ -25,7 +25,7 @@ constexpr auto PUZ_VERT = 'V';
 constexpr auto PUZ_SQUARE = '+';
 
 // top-left and bottom-right
-typedef pair<Position, Position> puz_box;
+using puz_box = pair<Position, Position>;
 
 struct puz_game
 {

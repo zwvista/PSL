@@ -42,7 +42,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-typedef pair<Position, char> puz_step;
+using puz_step = pair<Position, char>;
 
 ostream& operator<<(ostream& out, const puz_step& a)
 {

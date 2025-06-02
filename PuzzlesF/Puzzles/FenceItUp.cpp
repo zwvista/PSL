@@ -37,7 +37,7 @@ constexpr Position offset2[] = {
 
 // first: a char used to represent the area: a, b, c...
 // second: the length of the perimeter of the area
-typedef pair<char, int> puz_area_info;
+using puz_area_info = pair<char, int>;
 
 struct puz_game
 {

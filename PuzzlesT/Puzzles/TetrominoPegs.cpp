@@ -61,7 +61,7 @@ const vector<vector<vector<Position>>> tetrominoes = {
     },
 };
 
-typedef pair<int, vector<Position>> puz_lit;
+using puz_lit = pair<int, vector<Position>>;
 
 struct puz_game
 {

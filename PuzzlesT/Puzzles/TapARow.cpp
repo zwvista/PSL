@@ -37,7 +37,7 @@ constexpr Position offset[] = {
     {-1, -1},    // nw
 };
 
-typedef vector<int> puz_hint;
+using puz_hint = vector<int>;
 
 puz_hint compute_hint(const vector<int>& filled)
 {
@@ -126,7 +126,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-typedef pair<vector<Position>, int> puz_path;
+using puz_path = pair<vector<Position>, int>;
 
 struct puz_state : string
 {

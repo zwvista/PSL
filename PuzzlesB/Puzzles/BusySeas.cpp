@@ -63,7 +63,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 }
 
-typedef pair<vector<Position>, string> puz_move;
+using puz_move = pair<vector<Position>, string>;
 
 struct puz_state
 {

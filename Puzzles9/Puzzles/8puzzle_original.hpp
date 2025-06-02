@@ -84,14 +84,14 @@ typedef property<vertex_color_t, default_color_type,
     property<vertex_rank_t, unsigned int,
     property<vertex_distance_t, unsigned int,
     property<vertex_predecessor_t, unsigned int> > > > vert_prop;
-typedef property<edge_weight_t, unsigned int> edge_prop;
-typedef adjacency_list<listS, vecS, undirectedS, vert_prop, edge_prop> mygraph_t;
-typedef mygraph_t::vertex_descriptor vertex_t;
-typedef mygraph_t::vertex_iterator vertex_iterator_t;
-typedef bimap<vertex_t, pstate_t> StateMap;
-typedef property_map<mygraph_t, edge_weight_t>::type WeightMap;
-typedef property_map<mygraph_t, vertex_predecessor_t>::type PredMap;
-typedef property_map<mygraph_t, vertex_distance_t>::type DistMap;
+using edge_prop = property<edge_weight_t, unsigned int>;
+using mygraph_t = adjacency_list<listS, vecS, undirectedS, vert_prop, edge_prop>;
+using vertex_t = mygraph_t::vertex_descriptor;
+using vertex_iterator_t = mygraph_t::vertex_iterator;
+using StateMap = bimap<vertex_t, pstate_t>;
+using WeightMap = property_map<mygraph_t, edge_weight_t>::type;
+using PredMap = property_map<mygraph_t, vertex_predecessor_t>::type;
+using DistMap = property_map<mygraph_t, vertex_distance_t>::type;
 
 struct found_goal {};
 template <class VisitorType>

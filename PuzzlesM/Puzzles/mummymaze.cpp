@@ -19,8 +19,8 @@ constexpr Position offset[] = {
     {1, 0},
 };
 
-typedef map<Position, EMazeObject> mm_obj_map;
-typedef pair<Position, EMazeObject> mm_obj_pair;
+using mm_obj_map = map<Position, EMazeObject>;
+using mm_obj_pair = pair<Position, EMazeObject>;
 
 struct mm_key_gate
 {
