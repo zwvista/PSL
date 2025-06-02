@@ -10,10 +10,10 @@ template<puz_state_move_generator puz_state, bool directed = true>
 class puz_move_generator
 {
     using vert_prop = boost::property<boost::vertex_color_t, boost::default_color_type>;
-    using directedSOrUndirectedS = typename boost::mpl::if_c<directed, boost::directedS, boost::undirectedS>::type;
+    using directedSOrUndirectedS = boost::mpl::if_c<directed, boost::directedS, boost::undirectedS>::type;
     using mygraph_t = boost::adjacency_list<boost::listS, boost::vecS, directedSOrUndirectedS, vert_prop>;
-    using vertex_t = typename mygraph_t::vertex_descriptor;
-    using StateMap = typename boost::bimap<vertex_t, puz_state>;
+    using vertex_t = mygraph_t::vertex_descriptor;
+    using StateMap = boost::bimap<vertex_t, puz_state>;
 
     struct puz_visitor : boost::default_bfs_visitor
     {

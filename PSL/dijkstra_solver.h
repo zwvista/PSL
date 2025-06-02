@@ -19,13 +19,13 @@ class puz_solver_dijkstra
         boost::property<boost::vertex_distance_t, unsigned int,
         boost::property<boost::vertex_predecessor_t, unsigned int> > > >;
     using edge_prop = boost::property<boost::edge_weight_t, unsigned int>;
-    using directedSOrUndirectedS = typename boost::mpl::if_c<directed, boost::directedS, boost::undirectedS>::type;
+    using directedSOrUndirectedS = boost::mpl::if_c<directed, boost::directedS, boost::undirectedS>::type;
     using mygraph_t = boost::adjacency_list<boost::listS, boost::vecS, directedSOrUndirectedS, vert_prop, edge_prop>;
-    using vertex_t = typename mygraph_t::vertex_descriptor;
+    using vertex_t = mygraph_t::vertex_descriptor;
     using MultiPredMap = unordered_multimap<vertex_t, unsigned int>;
-    using StateMap = typename boost::bimap<vertex_t, puz_state>;
-    using PredMap = typename boost::property_map<mygraph_t, boost::vertex_predecessor_t>::type;
-    using DistMap = typename boost::property_map<mygraph_t, boost::vertex_distance_t>::type;
+    using StateMap = boost::bimap<vertex_t, puz_state>;
+    using PredMap = boost::property_map<mygraph_t, boost::vertex_predecessor_t>::type;
+    using DistMap = boost::property_map<mygraph_t, boost::vertex_distance_t>::type;
 
     static const bool first_solution_only = shortest_paths_only && first_paths_only;
 
