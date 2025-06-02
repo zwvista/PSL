@@ -7,6 +7,10 @@ namespace puzzles::hexrotation{
 
 constexpr auto PUZ_NOENTRY = '#';
 
+/*
+    iOS Game: Hex Rotation
+*/
+
 constexpr Position offset[] = {
     {0, 2},
     {-1, 1},

@@ -2,6 +2,10 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    iOS Game: Magic Square -Swap Puzzle-
+*/
+
 namespace puzzles::magic_square{
 
 struct puz_game

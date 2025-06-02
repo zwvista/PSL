@@ -3,6 +3,10 @@
 #include "idastar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    iOS Game: PharaohÅfs Puzzle
+*/
+
 namespace puzzles::Pharaoh{
 
 enum EBrickDir {mvLeft, mvRight, mvUp, mvDown};

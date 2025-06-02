@@ -1,7 +1,12 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
+
+/*
+    https://flasharch.com/zh-CN/archive/play/63a250d04bf8853f63fdd76aace0bbf0
+    Monkey Sokoban 捉龟记
+*/
 
 namespace puzzles::zgj{
 
@@ -12,7 +17,7 @@ constexpr auto PUZ_TRUNK = 'T';
 constexpr auto PUZ_MUD = 'M';
 constexpr auto PUZ_ICE = 'I';
 constexpr auto PUZ_GOAL = '.';
-constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_SPACE = ' '; 
 
 constexpr Position offset[] = {
     {0, -1},

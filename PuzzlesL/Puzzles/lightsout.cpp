@@ -2,6 +2,10 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    iOS Game: Lights Out Free - The Best Puzzle
+*/
+
 namespace puzzles::lightsout{
 
 constexpr auto PUZ_OFF = '0';

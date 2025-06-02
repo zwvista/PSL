@@ -2,6 +2,10 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    iOS Game: Numeric Paranoia
+*/
+
 namespace puzzles::numeric_paranoia{
 
 constexpr Position offset[] = {

@@ -3,6 +3,10 @@
 #include "idastar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    https://www.fupa.com/play/Puzzles-free-games/twinballs.html
+*/
+
 namespace puzzles::twinballs{
 
 enum EDir {mvLeft, mvRight, mvUp, mvDown};

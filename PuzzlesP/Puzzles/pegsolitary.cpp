@@ -2,6 +2,10 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    pegsolitary
+*/
+
 namespace puzzles::pegsolitary{
 
 constexpr auto PUZ_PEG = '$';

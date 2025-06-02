@@ -3,6 +3,10 @@
 #include "idastar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    https://www.kongregate.com/games/FarGD/zafiro
+*/
+
 namespace puzzles::zafiro{
 
 constexpr auto PUZ_FIXED = '#';

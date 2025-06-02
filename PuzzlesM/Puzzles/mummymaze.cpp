@@ -2,6 +2,10 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    iOS Game: Mummy Maze
+*/
+
 namespace puzzles::mummymaze{
 
 enum EMazeDir {mvNone, mvLeft, mvRight, mvUp, mvDown};

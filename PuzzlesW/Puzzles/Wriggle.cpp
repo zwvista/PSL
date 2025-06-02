@@ -2,6 +2,10 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    iOS Game: Wriggle
+*/
+
 namespace puzzles::Wriggle{
 
 constexpr auto PUZ_BOX = '#';

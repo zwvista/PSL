@@ -4,6 +4,10 @@
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
+/*
+    https://tl.y8.com/games/on_the_edge
+*/
+
 namespace puzzles::on_the_edge{
 
 constexpr auto PUZ_HOLE = '#';

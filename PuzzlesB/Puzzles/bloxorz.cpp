@@ -3,6 +3,10 @@
 #include "idastar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    https://bloxorz.org/
+*/
+
 namespace puzzles::bloxorz{
 
 constexpr auto PUZ_HOLE = '#';

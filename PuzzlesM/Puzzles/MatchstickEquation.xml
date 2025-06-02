@@ -5,7 +5,7 @@
   ]]>
 </help>
 <levels>
-  <level id="1-2" action="remove" matchsticks="1" equation="9-1=2" />
+  <level id="1-3" action="remove" matchsticks="1" equation="9-1=2" />
   <level id="1-6" action="add" matchsticks="3" equation="2*1=6" />
   <level id="1-9" action="remove" matchsticks="2" equation="7+4=8" />
   <level id="1-12" action="add" matchsticks="2" equation="2+1=5" />

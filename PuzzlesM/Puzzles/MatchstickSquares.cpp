@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Matchstick Puzzles
+    iOS Game: Smart Matches ~ Puzzle Games
 */
 
 namespace puzzles::MatchstickSquares{

@@ -2,7 +2,9 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
-// iOS Game: pattern puzzle
+/*
+    iOS Game: pattern puzzle
+*/
 
 namespace puzzles::patternpuzzle{
 

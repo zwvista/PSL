@@ -1,11 +1,13 @@
-// https://omiplay.com/ja/games/3d-logic/
-
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "idastar_solver.h"
 #include "dfs_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
+
+/*
+    https://omiplay.com/ja/games/3d-logic/
+*/
 
 namespace puzzles::_3dlogic{
 

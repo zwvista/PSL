@@ -3,6 +3,11 @@
 #include "idastar_solver.h"
 #include "solve_puzzle.h"
 
+/*
+    iOS Game: Fling!
+    https://apps.apple.com/jp/app/fling/id325815008
+*/
+
 namespace puzzles::fling{
 
 constexpr auto PUZ_BALL = '@';
