@@ -27,7 +27,6 @@
 #include "nonconst_dfs.hpp" // so we can modify the graph
 #include <boost/graph/astar_search.hpp>
 #include "idastar_search.hpp"
-#include <boost/tuple/tuple.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/bimap.hpp>
@@ -43,7 +42,7 @@
 #include <boost/range/numeric.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/karma.hpp>
-#include <boost/spirit/include/phoenix.hpp>
+#include <boost/phoenix.hpp>
 #include <libs/spirit/workbench/high_resolution_timer.hpp>
 using namespace std;
 namespace qi = boost::spirit::qi;
