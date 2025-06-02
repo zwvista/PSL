@@ -153,6 +153,7 @@ puz_state::puz_state(const puz_game& g)
 
 bool puz_state::make_move(const Position& p, char ch)
 {
+    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

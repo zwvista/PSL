@@ -73,7 +73,7 @@
     <Text Include="Puzzles\Sukrokuro.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="..\PuzzlesT\Puzzles\SuspendedGravity.txt">
+    <Text Include="Puzzles\SuspendedGravity.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -152,7 +152,7 @@
     <ClCompile Include="Puzzles\Sukrokuro.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="..\PuzzlesT\Puzzles\SuspendedGravity.cpp">
+    <ClCompile Include="Puzzles\SuspendedGravity.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -208,7 +208,7 @@
     <Xml Include="Puzzles\Sukrokuro.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="..\PuzzlesT\Puzzles\SuspendedGravity.xml">
+    <Xml Include="Puzzles\SuspendedGravity.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

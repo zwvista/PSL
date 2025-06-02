@@ -157,7 +157,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="..\PuzzlesT\Puzzles\SuspendedGravity.txt" />
     <Text Include="Puzzles\Sentinels.txt" />
     <Text Include="Puzzles\SheepAndWolves.txt" />
     <Text Include="Puzzles\ShopAndGas.txt" />
@@ -176,6 +175,7 @@
     <Text Include="Puzzles\strimko.txt" />
     <Text Include="Puzzles\Sukrokuro.txt" />
     <Text Include="Puzzles\sumscrapers.txt" />
+    <Text Include="Puzzles\SuspendedGravity.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +190,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\PuzzlesT\Puzzles\SuspendedGravity.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Sentinels.cpp" />
     <ClCompile Include="Puzzles\SheepAndWolves.cpp" />
@@ -210,6 +209,7 @@
     <ClCompile Include="Puzzles\strimko.cpp" />
     <ClCompile Include="Puzzles\Sukrokuro.cpp" />
     <ClCompile Include="Puzzles\sumscrapers.cpp" />
+    <ClCompile Include="Puzzles\SuspendedGravity.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -218,7 +218,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\PuzzlesT\Puzzles\SuspendedGravity.xml" />
     <Xml Include="Puzzles\Sentinels.xml" />
     <Xml Include="Puzzles\SheepAndWolves.xml" />
     <Xml Include="Puzzles\ShopAndGas.xml" />
@@ -236,6 +235,7 @@
     <Xml Include="Puzzles\strimko.xml" />
     <Xml Include="Puzzles\Sukrokuro.xml" />
     <Xml Include="Puzzles\sumscrapers.xml" />
+    <Xml Include="Puzzles\SuspendedGravity.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
