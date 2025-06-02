@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Each region contains the number of stones, which can be indicated by a number.
+2. Regions without a number contain at least one stone.
+3. Stones inside a region are all connected either vertically or horizontally.
+4. Stones in two adjacent regions cannot touch horizontally or vertically.
+5. Lastly, if we apply gravity to the puzzle and the stones fall down to the bottom of the board they fit together exactly and cover the bottom half of the board.
+6. Think "Tetris": all the blocks will fall as they are (they won't break into single stones)
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - `
+|4|4    |`
+   -     `
+|   |   |`
+         `
+|   |   |`
+         `
+|   |   |`
+ - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>

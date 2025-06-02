@@ -18,6 +18,7 @@ extern void solve_puz_StraightAndTurn();
 extern void solve_puz_strimko();
 extern void solve_puz_Sukrokuro();
 extern void solve_puz_sumscrapers();
+extern void solve_puz_SuspendedGravity();
 
 int main(int argc, char **argv)
 {
@@ -40,6 +41,7 @@ int main(int argc, char **argv)
     println("t4: strimko");
     println("u1: Sukrokuro");
     println("u2: sumscrapers");
+    println("u3: SuspendedGravity");
     string str;
     getline(cin, str);
     if (str.empty());
@@ -61,6 +63,7 @@ int main(int argc, char **argv)
     else if (str == "t4") solve_puz_strimko();
     else if (str == "u1") solve_puz_Sukrokuro();
     else if (str == "u2") solve_puz_sumscrapers();
+    else if (str == "u3") solve_puz_SuspendedGravity();
 
     return 0;
 }
