@@ -151,21 +151,38 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& [num, rng, perms] = area;
         int sz = rng.size();
         if (!perms.empty()) continue;
-        // 1. Each region contains the number of stones, which can be indicated by a number.
-        auto perm = string(sz - num, PUZ_EMPTY) + string(num, PUZ_STONE);
-        do {
-            // 3. Stones inside a region are all connected either vertically or horizontally.
-            list<puz_state3> smoves;
-            set<Position> rng2;
-            for (int i = 0; i < sz; ++i)
-                if (perm[i] == PUZ_STONE)
-                    rng2.insert(rng[i]);
-            puz_move_generator<puz_state3>::gen_moves(rng2, smoves);
-            if (smoves.size() != rng2.size())
+        for (int i = 1; i <= sz; ++i) {
+            // 2. Regions without a number contain at least one stone.
+            if (num != PUZ_UNKNOWN && num != i)
                 continue;
+            // 1. Each region contains the number of stones, which can be indicated by a number.
+            auto perm = string(sz - i, PUZ_EMPTY) + string(i, PUZ_STONE);
+            do {
+                // 3. Stones inside a region are all connected either vertically or horizontally.
+                list<puz_state3> smoves;
+                set<Position> rng2;
+                for (int j = 0; j < sz; ++j)
+                    if (perm[j] == PUZ_STONE)
+                        rng2.insert(rng[j]);
+                puz_move_generator<puz_state3>::gen_moves(rng2, smoves);
+                if (smoves.size() != rng2.size())
+                    continue;
 
-            perms.push_back(perm);
-        } while (boost::next_permutation(perm));
+                // 5. Lastly, if we apply gravity to the puzzle and the stones fall down to
+                // the bottom of the board they fit together exactly and cover the bottom
+                // half of the board.
+                vector<int> v;
+                v.resize(m_sidelen);
+                for (auto& p : rng2)
+                    v[p.second]++;
+                if (boost::algorithm::any_of(v, [&](int n) {
+                    return n > m_sidelen / 2;
+                }))
+                    continue;
+
+                perms.push_back(perm);
+            } while (boost::next_permutation(perm));
+        }
     }
 }
 
