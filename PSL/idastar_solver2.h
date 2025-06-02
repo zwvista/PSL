@@ -2,7 +2,17 @@
 
 #include "stdafx.h"
 
-template<class puz_state>
+template<typename T>
+concept puz_state_solver_idastar2 = copyable<T> && requires(const T & t, list<T>&children, const T & child, const T & t2)
+{
+    { t.is_goal_state() } -> same_as<bool>;
+    { t.gen_children(children) } -> same_as<void>;
+    { t.get_heuristic() } -> same_as<unsigned int>;
+    { t.get_distance(child) } -> same_as<unsigned int>;
+    { t < t2 } -> same_as<bool>;
+};
+
+template<puz_state_solver_idastar2 puz_state>
 class puz_solver_idastar2
 {
     typedef boost::property<boost::vertex_color_t, boost::default_color_type,
