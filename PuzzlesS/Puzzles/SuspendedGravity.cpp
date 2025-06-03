@@ -52,13 +52,15 @@ struct puz_area
 struct puz_game
 {
     string m_id;
-    int m_sidelen;
+    Position m_size;
     map<Position, int> m_pos2num;
     vector<puz_area> m_areas;
     map<Position, int> m_pos2area;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    int rows() const { return m_size.first; }
+    int cols() const { return m_size.second; }
 };
 
 struct puz_state2 : Position
@@ -110,23 +112,23 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size() / 2)
+    , m_size(strs.size() / 2, strs[0].length() / 2)
 {
     set<Position> rng;
     for (int r = 0;; ++r) {
         // horz-walls
         auto& str_h = strs[r * 2];
-        for (int c = 0; c < m_sidelen; ++c)
+        for (int c = 0; c < cols(); ++c)
             if (str_h[c * 2 + 1] == '-')
                 m_horz_walls.insert({r, c});
-        if (r == m_sidelen) break;
+        if (r == rows()) break;
         auto& str_v = strs[r * 2 + 1];
         for (int c = 0;; ++c) {
             Position p(r, c);
             // vert-walls
             if (str_v[c * 2] == '|')
                 m_vert_walls.insert(p);
-            if (c == m_sidelen) break;
+            if (c == cols()) break;
             char ch = str_v[c * 2 + 1];
             if (ch != PUZ_SPACE)
                 m_pos2num[p] = ch - '0';
@@ -172,11 +174,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 // the bottom of the board they fit together exactly and cover the bottom
                 // half of the board.
                 vector<int> v;
-                v.resize(m_sidelen);
+                v.resize(cols());
                 for (auto& p : rng2)
                     v[p.second]++;
                 if (boost::algorithm::any_of(v, [&](int n) {
-                    return n > m_sidelen / 2;
+                    return n > rows() / 2;
                 }))
                     continue;
 
@@ -189,12 +191,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 struct puz_state
 {
     puz_state(const puz_game& g);
-    int sidelen() const { return m_game->m_sidelen; }
+    int rows() const { return m_game->rows(); }
+    int cols() const { return m_game->cols(); }
     bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
-    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
@@ -220,7 +223,7 @@ struct puz_state
 
 puz_state::puz_state(const puz_game& g)
     : m_game(&g)
-    , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+    , m_cells(g.rows() * g.cols(), PUZ_SPACE)
 {
     for (int i = 0; i < g.m_areas.size(); ++i) {
         vector<int> perm_ids(g.m_areas[i].m_perms.size());
@@ -281,12 +284,12 @@ bool puz_state::make_move2(int i, int j)
     // 5. Lastly, if we apply gravity to the puzzle and the stones fall down to
     // the bottom of the board they fit together exactly and cover the bottom
     // half of the board.
-    for (int c = 0; c < sidelen(); ++c) {
+    for (int c = 0; c < cols(); ++c) {
         int cnt = 0;
-        for (int r = 0; r < sidelen(); ++r)
+        for (int r = 0; r < rows(); ++r)
             if (cells({r, c}) == PUZ_STONE)
                 ++cnt;
-        if (cnt > sidelen() / 2)
+        if (cnt > rows() / 2)
             return false;
     }
     return true;
@@ -320,15 +323,15 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
         // draw horz-walls
-        for (int c = 0; c < sidelen(); ++c)
+        for (int c = 0; c < cols(); ++c)
             out << (m_game->m_horz_walls.contains({r, c}) ? " -" : "  ");
         println(out);
-        if (r == sidelen()) break;
+        if (r == rows()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vert-walls
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
-            if (c == sidelen()) break;
+            if (c == cols()) break;
             out << cells(p);
         }
         println(out);
