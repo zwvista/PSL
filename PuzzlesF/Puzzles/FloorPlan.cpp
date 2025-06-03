@@ -67,7 +67,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     // 2. Cells with a number represent an office.
     // 3. The number on a cell indicates how many offices it connects to.
     for (int i = 1; i <= 4; ++i) {
-        vector<char> v(1, i == 0 ? PUZ_EMPTY : i + '0');
+        vector<char> v(1, i + '0');
         v.insert(v.end(), 4 - i, PUZ_EMPTY);
         v.insert(v.end(), i, PUZ_NUM);
         auto begin = v.begin() + 1, end = v.end();
@@ -194,8 +194,7 @@ bool puz_state::make_move2(Position p, int n)
 {
     auto& perm = m_game->m_perms[n];
     for (int i = 0; i < 5; ++i) {
-        auto& os = offset2[i];
-        char& ch = cells(p + os);
+        char& ch = cells(p + offset2[i]);
         if (ch == PUZ_SPACE || ch == PUZ_NUM)
             ch = perm[i];
     }
@@ -233,7 +232,7 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c) {
-            char ch = cells({ r, c });
+            char ch = cells({r, c});
             out << ch << ' ';
         }
         println(out);
