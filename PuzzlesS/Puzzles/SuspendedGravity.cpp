@@ -204,6 +204,7 @@ struct puz_state
     bool make_move(int i, int j);
     bool make_move2(int i, int j);
     int find_matches(bool init);
+    bool check_gravity();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -280,18 +281,87 @@ bool puz_state::make_move2(int i, int j)
 
     ++m_distance;
     m_matches.erase(i);
-    
-    // 5. Lastly, if we apply gravity to the puzzle and the stones fall down to
-    // the bottom of the board they fit together exactly and cover the bottom
-    // half of the board.
+    return check_gravity();
+}
+
+// 5. Lastly, if we apply gravity to the puzzle and the stones fall down to
+// the bottom of the board they fit together exactly and cover the bottom
+// half of the board.
+bool puz_state::check_gravity()
+{
+    auto cellsTemp = m_cells;
+
+    // key: index of the area
+    // value.elem: position of the stone
+    map<int, set<Position>> area2stones;
+    // key: index of the area where stones should fall later
+    // value.elem: index of the area where stones should fall sooner
+    map<int, set<int>> area2areas;
     for (int c = 0; c < cols(); ++c) {
-        int cnt = 0;
-        for (int r = 0; r < rows(); ++r)
-            if (cells({r, c}) == PUZ_STONE)
-                ++cnt;
-        if (cnt > rows() / 2)
-            return false;
+        int n1 = -1;
+        for (int r = 0; r < rows(); ++r) {
+            Position p(r, c);
+            if (cells(p) != PUZ_STONE) continue;
+            int n2 = m_game->m_pos2area.at(p);
+            area2stones[n2].insert(p);
+            if (n1 == -1)
+                n1 = n2;
+            else if (n1 != n2) {
+                area2areas[n1].insert(n2);
+                n1 = n2;
+            }
+        }
     }
+
+    // make the stones fall down
+    while (!area2stones.empty()) {
+        for (auto& [i, stones] : area2stones) {
+            if (area2areas.contains(i)) continue;
+
+            int j = 0;
+            for (;; ++j) {
+                for (auto& [r, c] : stones) {
+                    Position p2(r + j + 1, c);
+                    if (!stones.contains(p2) && (!is_valid(p2) || cells(p2) == PUZ_STONE))
+                        goto cantfall;
+                }
+            }
+        cantfall:
+            if (j > 0) {
+                for (auto& p : stones)
+                    cells(p) = PUZ_EMPTY;
+                for (auto& [r, c] : stones)
+                    cells({r + j, c}) = PUZ_STONE;
+            }
+
+            for (auto it = area2areas.begin(); it != area2areas.end();) {
+                auto& v = it->second;
+                v.erase(i);
+                if (v.empty())
+                    it = area2areas.erase(it);
+                else
+                    it++;
+            }
+            area2stones.erase(i);
+            break;
+        }
+    }
+
+    // After falling down, they fit together exactly and
+    // cover the bottom half of the board.
+    for (int c = 0; c < cols(); ++c) {
+        int r = 0;
+        for (; r < rows() / 2; ++r)
+            if (cells({r, c}) == PUZ_STONE)
+                return false;
+        bool hasStone = false;
+        for (; r < rows(); ++r)
+            if (cells({r, c}) == PUZ_STONE)
+                hasStone = true;
+            else if (hasStone)
+                return false;
+    }
+    m_cells = cellsTemp;
     return true;
 }
 
