@@ -106,7 +106,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_game(&g), m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+    : m_game(&g), m_cells(g.m_start)
 {
     vector<int> v(g.m_perms.size());
     boost::iota(v, 0);
@@ -179,7 +179,7 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c)
-            out << cells({ r, c });
+            out << cells({r, c});
         println(out);
     }
 
