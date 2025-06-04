@@ -14,6 +14,8 @@ class MazeView: NSView {
     override var acceptsFirstResponder: Bool { true }
 
     var spacing:CGFloat = 0
+    var deltaX:CGFloat = 0
+    var deltaY:CGFloat = 0
     weak var delegate: MazeDelegate?
     
     override func awakeFromNib() {
@@ -35,12 +37,18 @@ class MazeView: NSView {
         NSColor.white.setFill()
         dirtyRect.fill()
 
-        NSColor.black.set()
+        guard let context = NSGraphicsContext.current?.cgContext else { return }
+
         let rows = maze.height;
         let cols = maze.width;
         let vSpacing = frame.size.height / CGFloat(rows)
         let hSpacing = frame.size.width / CGFloat(cols)
         spacing = min(vSpacing, hSpacing)
+        deltaX = (frame.size.width - CGFloat(cols) * spacing) / 2
+        deltaY = (frame.size.height - CGFloat(rows) * spacing) / 2
+        context.translateBy(x: deltaX, y: deltaY)
+
+        NSColor.black.set()
         let bPath:NSBezierPath = NSBezierPath()
         bPath.lineWidth = 2
         for i in 0...rows {
@@ -195,9 +203,9 @@ class MazeView: NSView {
     override func mouseDown(with event: NSEvent) {
         let offset:CGFloat = 10
         let pt = event.locationInWindow
-        let (x, y) = (pt.x, frame.size.height - pt.y)
-        let p = Position(min(maze.height - 1, Int(y / spacing)), min(maze.width - 1, Int(x / spacing)))
-        let p2 = Position(min(maze.height, Int((y + offset) / spacing)), min(maze.width, Int((x + offset) / spacing)))
+        let (x, y) = (pt.x - deltaX, frame.size.height - pt.y - deltaY)
+        let p = Position(min(maze.height - 1, max(0, Int(y / spacing))), min(maze.width - 1, max(0, Int(x / spacing))))
+        let p2 = Position(min(maze.height, max(0, Int((y + offset) / spacing))), min(maze.width, max(0, Int((x + offset) / spacing))))
         if maze.hasWall && abs(x - CGFloat(p2.col) * spacing) < offset && abs(y - CGFloat(p2.row) * spacing) < offset {
             maze.toggleDot(p: p2)
         } else if maze.hasWall && abs(x - CGFloat(p2.col) * spacing) < offset {
@@ -213,8 +221,8 @@ class MazeView: NSView {
     
     override func mouseMoved(with event: NSEvent) {
         let pt = event.locationInWindow
-        let (x, y) = (pt.x, frame.size.height - pt.y)
-        let p = Position(min(maze.height - 1, Int(y / spacing)), min(maze.width - 1, Int(x / spacing)))
+        let (x, y) = (pt.x - deltaX, frame.size.height - pt.y - deltaY)
+        let p = Position(min(maze.height - 1, max(0, Int(y / spacing))), min(maze.width - 1, max(0, Int(x / spacing))))
         delegate?.updateMousePosition(p: p)
     }
     
