@@ -15,6 +15,7 @@ extern void solve_puz_TheCityRises();
 extern void solve_puz_TheOddBrick();
 extern void solve_puz_Thermometers();
 extern void solve_puz_TierraDelFuego();
+extern void solve_puz_TierraDelFuego2();
 extern void solve_puz_TopArrow();
 extern void solve_puz_TraceNumbers();
 extern void solve_puz_Trebuchet();
@@ -40,6 +41,7 @@ int main(int argc, char **argv)
     println("h2: The Odd Brick");
     println("h3: Thermometers");
     println("i: Tierra Del Fuego");
+    println("i2: Tierra Del Fuego2");
     println("o: Top Arrow");
     println("r1: Trace Numbers");
     println("r2: Trebuchet");
@@ -64,6 +66,7 @@ int main(int argc, char **argv)
     else if (str == "h2") solve_puz_TheOddBrick();
     else if (str == "h3") solve_puz_Thermometers();
     else if (str == "i") solve_puz_TierraDelFuego();
+    else if (str == "i2") solve_puz_TierraDelFuego2();
     else if (str == "o") solve_puz_TopArrow();
     else if (str == "r1") solve_puz_TraceNumbers();
     else if (str == "r2") solve_puz_Trebuchet();

@@ -209,6 +209,7 @@
     <ClCompile Include="Puzzles\TheOddBrick.cpp" />
     <ClCompile Include="Puzzles\Thermometers.cpp" />
     <ClCompile Include="Puzzles\TierraDelFuego.cpp" />
+    <ClCompile Include="Puzzles\TierraDelFuego2.cpp" />
     <ClCompile Include="Puzzles\TopArrow.cpp" />
     <ClCompile Include="Puzzles\TraceNumbers.cpp" />
     <ClCompile Include="Puzzles\Trebuchet.cpp" />
