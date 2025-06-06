@@ -24,7 +24,7 @@
 namespace puzzles::TierraDelFuego2{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_WATER = '=';
+constexpr auto PUZ_WATER = 'W';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -38,6 +38,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_start;
+    set<Position> m_chars;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -47,6 +48,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size())
 {
     m_start = boost::accumulate(strs, string());
+    for (int r = 0; r < m_sidelen; ++r) {
+        auto& str = strs[r];
+        for (int c = 0; c < m_sidelen; ++c) {
+            Position p(r, c);
+            char ch = str[c];
+            if (ch != PUZ_SPACE)
+                m_chars.insert(p);
+        }
+    }
 }
 
 struct puz_state
@@ -61,8 +71,9 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(int n);
-    bool check_land() const;
+    bool make_move(const Position& p, char ch);
+    bool make_move2(Position p, char ch);
+    int find_matches(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -78,10 +89,18 @@ struct puz_state
     int m_distance = 0;
 };
 
+puz_state::puz_state(const puz_game& g)
+: m_game(&g), m_cells(g.m_start)
+{
+    find_matches(false);
+}
+
 struct puz_state2 : Position
 {
     puz_state2(const puz_state& state, const set<Position>& spaces)
-        : m_state(&state), m_spaces(&spaces) { make_move(*spaces.begin()); }
+        : m_state(&state), m_spaces(&spaces) {
+        make_move(*spaces.begin());
+    }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -95,23 +114,27 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     if (!m_spaces->contains(*this)) return;
     for (auto& os : offset) {
         auto p = *this + os;
-        if (m_state->is_valid(p)) {
+        if (!m_state->is_valid(p)) continue;
+        if (m_state->cells(p) != PUZ_WATER) {
             children.push_back(*this);
             children.back().make_move(p);
         }
     }
 }
 
-puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
-{
+int puz_state::find_matches(bool init) {
     set<Position> spaces;
+    m_matches.clear();
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             if (cells(p) != PUZ_SPACE) continue;
             set<char>& chars = m_matches[p];
             set<char> chars2;
+            bool notWater = boost::algorithm::any_of(offset, [&](auto& os2) {
+                auto p2 = p + os2;
+                return is_valid(p2) && cells(p2) == PUZ_WATER;
+            });
             for (int i = 0; i < 4; ++i) {
                 auto& os = offset[i];
                 auto p2 = p + os;
@@ -119,9 +142,13 @@ puz_state::puz_state(const puz_game& g)
                 char ch2 = cells(p2);
                 // 3. The archipelago is peculiar because all bodies of water separating the
                 // islands are identical in shape and occupied a 2 * 1 or 1 * 2 space.
-                if (ch2 == PUZ_SPACE)
-                    chars.insert(i + '0');
-                else
+                if (ch2 == PUZ_SPACE) {
+                    if (!notWater && boost::algorithm::none_of(offset, [&](auto& os2) {
+                        auto p3 = p2 + os2;
+                        return is_valid(p3) && cells(p3) == PUZ_WATER;
+                    }))
+                        chars.insert(i + '0');
+                } else if (ch2 != PUZ_WATER)
                     chars2.insert(ch2);
             }
             if (int sz = chars2.size(); sz == 0)
@@ -130,7 +157,7 @@ puz_state::puz_state(const puz_game& g)
                 chars.insert(*chars2.begin());
         }
 
-    while (!spaces.empty()) {       
+    while (!spaces.empty()) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves({ *this, spaces }, smoves);
         set<Position> spaces2;
@@ -148,99 +175,62 @@ puz_state::puz_state(const puz_game& g)
         for (auto& p2 : spaces2)
             spaces.erase(p2);
     }
+
+    if (!init)
+        for (auto& [p, chars] : m_matches) {
+            switch (chars.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(p, *chars.begin()) ? 1 : 0;
+            }
+        }
+    return 2;
 }
 
-bool puz_state::make_move(int n)
+bool puz_state::make_move(const Position& p, char ch)
 {
-    //for (auto& p : m_game->m_water_info[n]) {
-    //    cells(p) = PUZ_WATER;
-    //    for (auto& os : offset) {
-    //        auto p2 = p + os;
-    //        if (!is_valid(p2)) continue;
-    //        char& ch = cells(p2);
-    //        if (ch == PUZ_SPACE)
-    //            ch = PUZ_ISLAND;
-    //    }
-    //}
-
-    //// 4. These bodies of water can only touch diagonally.
-    //boost::remove_erase_if(m_water_ids, [&](int id) {
-    //    auto& info = m_game->m_water_info[id];
-    //    return boost::algorithm::any_of(info, [&](const Position& p) {
-    //        return cells(p) != PUZ_SPACE;
-    //    });
-    //});
-
-    //set<Position> a;
-    //for (int i = 0; i < length(); ++i) {
-    //    char ch = (*this)[i];
-    //    if (ch != PUZ_WATER && ch != PUZ_SPACE)
-    //        a.insert({i / sidelen(), i % sidelen()});
-    //}
-    //while (!a.empty()) {
-    //    list<puz_state2> smoves;
-    //    puz_move_generator<puz_state2>::gen_moves(a, smoves);
-    //    set<char> tribes;
-    //    for (auto& p : smoves) {
-    //        a.erase(p);
-    //        char ch = cells(p);
-    //        if (isalpha(ch))
-    //            tribes.insert(ch);
-    //    }
-    //    if (tribes.size() > 1)
-    //        return false;
-    //}
-
-    //for (int i = 0; i < length(); ++i) {
-    //    char ch = (*this)[i];
-    //    if (ch != PUZ_WATER)
-    //        a.insert({i / sidelen(), i % sidelen()});
-    //}
-    //int tribes_index = 0;
-    //set<char> all_tribes;
-    //while (!a.empty()) {
-    //    list<puz_state2> smoves;
-    //    puz_move_generator<puz_state2>::gen_moves(a, smoves);
-    //    set<char> tribes;
-    //    for (auto& p : smoves) {
-    //        a.erase(p);
-    //        char ch = cells(p);
-    //        if (isalpha(ch)) {
-    //            if (all_tribes.contains(ch))
-    //                return false;
-    //            tribes.insert(ch);
-    //        }
-    //    }
-    //    all_tribes.insert(tribes.begin(), tribes.end());
-    //    if (tribes.empty())
-    //        return false;
-    //    int n = tribes.size();
-    //    tribes_index += n * n;
-    //}
-
-    //return is_goal_state() || !m_water_ids.empty();
-    return true;
+    m_distance = 0;
+    if (!make_move2(p, ch))
+        return false;
+    int m;
+    while ((m = find_matches(false)) == 1);
+    return m == 2;
 }
 
-bool puz_state::check_land() const {
+bool puz_state::make_move2(Position p, char ch)
+{
+    if (isdigit(ch)) {
+        auto p2 = p + offset[ch - '0'];
+        cells(p) = cells(p2) = PUZ_WATER, ++m_distance;
+    }
+    else
+        cells(p) = ch, m_distance += 2;
     return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    //for (int n : m_water_ids) {
-    //    children.push_back(*this);
-    //    if (!children.back().make_move(n))
-    //        children.pop_back();
-    //}
+    auto& [p, chars] = *boost::min_element(m_matches, [](
+        const pair<const Position, set<char>>& kv1,
+        const pair<const Position, set<char>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (char ch : chars) {
+        children.push_back(*this);
+        if (!children.back().make_move(p, ch))
+            children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
-            char ch = cells({r, c});
-            out << ch << ' ';
+            Position p(r, c);
+            char ch = cells(p);
+            out << (ch != PUZ_WATER && isalpha(ch) &&
+                !m_game->m_chars.contains(p) ? '.' : ch) << ' ';
         }
         println(out);
     }
