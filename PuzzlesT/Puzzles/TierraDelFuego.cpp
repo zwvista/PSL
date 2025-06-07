@@ -72,7 +72,7 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, char ch);
-    bool make_move2(Position p, char ch);
+    void make_move2(const Position& p, char ch);
     int find_matches(bool init);
     bool check_tribes() const;
 
@@ -194,7 +194,7 @@ int puz_state::find_matches(bool init) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, *chars.begin()) ? 1 : 0;
+                return make_move2(p, *chars.begin()), 1;
             }
         }
     return 2;
@@ -203,22 +203,18 @@ int puz_state::find_matches(bool init) {
 bool puz_state::make_move(const Position& p, char ch)
 {
     m_distance = 0;
-    if (!make_move2(p, ch))
-        return false;
+    make_move2(p, ch);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
-bool puz_state::make_move2(Position p, char ch)
+void puz_state::make_move2(const Position& p, char ch)
 {
-    if (isdigit(ch)) {
-        auto p2 = p + offset[ch - '0'];
-        cells(p) = cells(p2) = PUZ_WATER, ++m_distance;
-    }
+    if (isdigit(ch))
+        cells(p) = cells(p + offset[ch - '0']) = PUZ_WATER, ++m_distance;
     else
         cells(p) = ch, m_distance += 2;
-    return true;
 }
 
 struct puz_state3 : Position
