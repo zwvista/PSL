@@ -86,6 +86,9 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
+    // key: position of the cell
+    // value.elem: direction of the water if it is '0' ~ '3'
+    //             letter of the tribe if it is 'A' ~ 'Z'
     map<Position, set<char>> m_matches;
     int m_distance = 0;
 };
@@ -131,7 +134,8 @@ int puz_state::find_matches(bool init) {
             if (cells(p) != PUZ_SPACE) continue;
             set<char>& chars = m_matches[p];
             set<char> chars2;
-            bool notWater = boost::algorithm::any_of(offset, [&](auto& os2) {
+            // 4. These bodies of water can only touch diagonally.
+            bool canBeWater = boost::algorithm::none_of(offset, [&](auto& os2) {
                 auto p2 = p + os2;
                 return is_valid(p2) && cells(p2) == PUZ_WATER;
             });
@@ -144,18 +148,22 @@ int puz_state::find_matches(bool init) {
                 // islands are identical in shape and occupied a 2 * 1 or 1 * 2 space.
                 if (ch2 == PUZ_SPACE) {
                     // 4. These bodies of water can only touch diagonally.
-                    if (!notWater && boost::algorithm::none_of(offset, [&](auto& os2) {
+                    bool canBeWater2 = boost::algorithm::none_of(offset, [&](auto& os2) {
                         auto p3 = p2 + os2;
                         return is_valid(p3) && cells(p3) == PUZ_WATER;
-                    }))
+                    });
+                    if (canBeWater && canBeWater2)
                         chars.insert(i + '0');
                 } else if (ch2 != PUZ_WATER)
                     chars2.insert(ch2);
             }
             if (int sz = chars2.size(); sz == 0)
+                // space not adjacent to any letter(tribe)
                 spaces.insert(p);
             else if (sz == 1)
+                // space adjacent to the same letter(tribe)
                 chars.insert(*chars2.begin());
+            // space adjacent to different letters(tribes)
         }
 
     while (!spaces.empty()) {
@@ -171,6 +179,7 @@ int puz_state::find_matches(bool init) {
                     if (isalpha(ch2))
                         chars2.insert(ch2);
         }
+        // find all letters(tribes) that are reachable to the space
         for (auto& p2 : spaces2)
             m_matches.at(p2).insert(chars2.begin(), chars2.end());
         for (auto& p2 : spaces2)
@@ -235,16 +244,19 @@ void puz_state3::gen_children(list<puz_state3>& children) const
     }
 }
 
+// 2. Being organized in tribes, each tribe, marked with a different letter,
+// has occupied an island in the archipelago.
 bool puz_state::check_tribes() const
 {
-    for (auto& [ch, rng] : m_game->m_ch2rng) {
-        set<Position> area;
-        for (int r = 0; r < sidelen(); ++r)
-            for (int c = 0; c < sidelen(); ++c) {
-                Position p(r, c);
-                if (cells(p) == ch)
-                    area.insert(p);
-            }
+    map<char, set<Position>> ch2area;
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            char ch = cells(p);
+            if (isalpha(ch))
+                ch2area[ch].insert(p);
+        }
+    for (auto& [ch, area] : ch2area) {
         for (auto& [p, chars] : m_matches)
             if (chars.contains(ch))
                 area.insert(p);
