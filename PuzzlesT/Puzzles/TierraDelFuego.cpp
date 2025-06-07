@@ -212,9 +212,9 @@ bool puz_state::make_move(const Position& p, char ch)
 void puz_state::make_move2(const Position& p, char ch)
 {
     if (isdigit(ch))
-        cells(p) = cells(p + offset[ch - '0']) = PUZ_WATER, ++m_distance;
+        cells(p) = cells(p + offset[ch - '0']) = PUZ_WATER, m_distance += 2;
     else
-        cells(p) = ch, m_distance += 2;
+        cells(p) = ch, ++m_distance;
 }
 
 struct puz_state3 : Position
