@@ -94,7 +94,7 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
-    bool make_move2(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
     bool check_oases();
 
@@ -175,7 +175,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids.front()) ? 1 : 0;
+                return make_move2(p, perm_ids.front()), 1;
             }
     }
     return check_oases() ? 2 : 0;
@@ -186,7 +186,9 @@ bool puz_state::check_oases()
     for (auto& [p, num] : m_game->m_pos2num) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves({ *this, p }, smoves);
-        int num2 = smoves.size() - 1;
+        int num2 = boost::accumulate(smoves, 0, [&](int acc, const Position& p2) {
+            return acc + (cells(p2) == PUZ_OASIS ? 1 : 0);
+        }) - 1;
         if (num2 < num || m_matches.empty() && num2 > num)
             return false;
         m_pos2num[p] = num2;
@@ -203,7 +205,7 @@ bool puz_state::make_move(const Position& p, int n)
     return m == 2;
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(const Position& p, int n)
 {
     auto& perm = perms2x2[n];
     for (int i = 0; i < 4; ++i) {
@@ -213,7 +215,6 @@ bool puz_state::make_move2(const Position& p, int n)
     }
     ++m_distance;
     m_matches.erase(p);
-    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -236,7 +237,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            out << (ch == PUZ_OASIS ? m_pos2num.at(p) + '0' : ch) << ' ';
+            out << (ch == PUZ_OASIS ? char(m_pos2num.at(p) + '0') : ch) << ' ';
         }
         println(out);
     }
