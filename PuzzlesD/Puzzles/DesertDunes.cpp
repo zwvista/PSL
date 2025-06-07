@@ -131,25 +131,28 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& state, const set<Position>& spaces)
-        : m_state(&state), m_spaces(&spaces) {
-        make_move(*spaces.begin());
+    puz_state2(const puz_state& state, const Position& p_start)
+        : m_state(&state), m_p_start(&p_start) {
+        make_move(p_start);
     }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
-    const set<Position>* m_spaces;
+    const Position* m_p_start;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    if (!m_spaces->contains(*this)) return;
+    if (*this != *m_p_start && m_state->cells(*this) == PUZ_OASIS) return;
     for (auto& os : offset) {
         auto p = *this + os;
+        char ch = m_state->cells(p);
+        if (ch != PUZ_BOUNDARY && ch != PUZ_DUNE) {
             children.push_back(*this);
             children.back().make_move(p);
+        }
     }
 }
 
@@ -175,11 +178,19 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, perm_ids.front()) ? 1 : 0;
             }
     }
-    return 2;
+    return check_oases() ? 2 : 0;
 }
 
 bool puz_state::check_oases()
 {
+    for (auto& [p, num] : m_game->m_pos2num) {
+        list<puz_state2> smoves;
+        puz_move_generator<puz_state2>::gen_moves({ *this, p }, smoves);
+        int num2 = smoves.size() - 1;
+        if (num2 < num || m_matches.empty() && num2 > num)
+            return false;
+        m_pos2num[p] = num2;
+    }
     return true;
 }
 
@@ -200,6 +211,8 @@ bool puz_state::make_move2(const Position& p, int n)
         if (ch == PUZ_SPACE)
             ch = perm[i];
     }
+    ++m_distance;
+    m_matches.erase(p);
     return true;
 }
 
@@ -223,6 +236,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
+            out << (ch == PUZ_OASIS ? m_pos2num.at(p) + '0' : ch) << ' ';
         }
         println(out);
     }
