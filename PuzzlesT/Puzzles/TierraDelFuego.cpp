@@ -128,7 +128,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     }
 }
 
-int puz_state::find_matches(bool init) {
+int puz_state::find_matches(bool init)
+{
     set<Position> spaces;
     m_matches.clear();
     for (int r = 1; r < sidelen() - 1; ++r)

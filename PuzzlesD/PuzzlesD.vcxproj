@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\DesertDunes.txt" />
     <Text Include="Puzzles\DigitalBattleShips.txt" />
     <Text Include="Puzzles\DigitalPath.txt" />
     <Text Include="Puzzles\DisconnectFour.txt" />
@@ -176,6 +177,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\DesertDunes.cpp" />
     <ClCompile Include="Puzzles\DigitalBattleShips.cpp" />
     <ClCompile Include="Puzzles\DigitalPath.cpp" />
     <ClCompile Include="Puzzles\DisconnectFour.cpp" />
@@ -188,6 +190,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\DesertDunes.xml" />
     <Xml Include="Puzzles\DigitalBattleShips.xml" />
     <Xml Include="Puzzles\DigitalPath.xml" />
     <Xml Include="Puzzles\DisconnectFour.xml" />

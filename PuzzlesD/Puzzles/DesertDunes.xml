@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<puzzle>
+    <help>
+        <![CDATA[
+1. Put some dunes on the desert so that each Oasis dweller can reach the number of Oases marked on it.
+2. The desert among dunes (including oases) should be all connected horizontally or vertically.
+3. Dwellers can move horizontally or vertically.
+4. Dunes cannot touch each other horizontally or vertically.
+5. No area of desert of 2x2 should be empty of Dunes.
+  ]]>
+    </help>
+    <levels>
+        <level id="1">
+            <![CDATA[
+2  12`
+  1 2`
+ 34 3`
+  1 1`
+ 2   `
+    ]]>
+        </level>
+    </levels>
+</puzzle>
