@@ -134,9 +134,6 @@
     <ClCompile Include="Puzzles\Tatami.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\TierraDelFuego.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\TapaIslands.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -170,7 +167,7 @@
     <ClCompile Include="Puzzles\TraceNumbers.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\TierraDelFuego2.cpp">
+    <ClCompile Include="Puzzles\TierraDelFuego.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
