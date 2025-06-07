@@ -24,7 +24,7 @@
 namespace puzzles::TierraDelFuego2{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_WATER = 'W';
+constexpr auto PUZ_WATER = '=';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -229,8 +229,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             char ch = cells(p);
-            out << (ch != PUZ_WATER && isalpha(ch) &&
-                !m_game->m_chars.contains(p) ? '.' : ch) << ' ';
+            out << (isalpha(ch) && !m_game->m_chars.contains(p) ? '.' : ch) << ' ';
         }
         println(out);
     }

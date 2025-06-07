@@ -1,270 +1,270 @@
 Level 1
 Sequence of moves: 
-. W . . W 
-C W D . W 
-. C W W . 
-W W A . . 
-B . W W A 
+. = . . = 
+C = D . = 
+. C = = . 
+= = A . . 
+B . = = A 
 Number of moves: 5
 Number of vertices examined: 9
 0.0300913 [s]
 
 Level 2
 Sequence of moves: 
-C W . . A 
-. W A W W 
-W D W . B 
-W . W B . 
-D . D W W 
+C = . . A 
+. = A = = 
+= D = . B 
+= . = B . 
+D . D = = 
 Number of moves: 5
 Number of vertices examined: 9
 0.00713407 [s]
 
 Level 3
 Sequence of moves: 
-A A . W C 
-W W A W C 
-B . W C . 
-. B W . C 
-B . B W W 
+A A . = C 
+= = A = C 
+B . = C . 
+. B = . C 
+B . B = = 
 Number of moves: 4
 Number of vertices examined: 6
 0.00488522 [s]
 
 Level 4
 Sequence of moves: 
-W . W W A . 
-W . D . W . 
-. W W . W A 
-. . . W . W 
-B . B W C W 
-. W W C . C 
+= . = = A . 
+= . D . = . 
+. = = . = A 
+. . . = . = 
+B . B = C = 
+. = = C . C 
 Number of moves: 7
 Number of vertices examined: 15
 0.0505686 [s]
 
 Level 5
 Sequence of moves: 
-B . W . . W 
-W B W . D W 
-W . B W W C 
-A W W . C . 
-. . A W . . 
-. A . W . C 
+B . = . . = 
+= B = . D = 
+= . B = = C 
+A = = . C . 
+. . A = . . 
+. A . = . C 
 Number of moves: 6
 Number of vertices examined: 248
 0.341222 [s]
 
 Level 6
 Sequence of moves: 
-W . E . W W 
-W E W W . B 
-. W D . W . 
-. W . D W B 
-. A W W . W 
-W W C . C W 
+= . E . = = 
+= E = = . B 
+. = D . = . 
+. = . D = B 
+. A = = . = 
+= = C . C = 
 Number of moves: 8
 Number of vertices examined: 15
 0.0345849 [s]
 
 Level 7
 Sequence of moves: 
-W B . B W W 
-W . W W . C 
-A W C . C . 
-. W . . W W 
-A . W W . D 
-W W D . D . 
+= B . B = = 
+= . = = . C 
+A = C . C . 
+. = . . = = 
+A . = = . D 
+= = D . D . 
 Number of moves: 7
 Number of vertices examined: 13
 0.0367911 [s]
 
 Level 8
 Sequence of moves: 
-C . C . W W 
-. C W W . D 
-W W D . . . 
-. . W W . D 
-B W A . W W 
-. W . A . A 
+C . C . = = 
+. C = = . D 
+= = D . . . 
+. . = = . D 
+B = A . = = 
+. = . A . A 
 Number of moves: 6
 Number of vertices examined: 10
 0.024374 [s]
 
 Level 9
 Sequence of moves: 
-A W W . . . 
-. . . W . W 
-W W A W D W 
-. . W . W C 
-. B W . W . 
-W W . C . . 
+A = = . . . 
+. . . = . = 
+= = A = D = 
+. . = . = C 
+. B = . = . 
+= = . C . . 
 Number of moves: 7
 Number of vertices examined: 729
 1.05062 [s]
 
 Level 10
 Sequence of moves: 
-. D . D W W 
-D . . W . . 
-W W D W B . 
-. . W C W W 
-A . W . . C 
-. . A W W . 
+. D . D = = 
+D . . = . . 
+= = D = B . 
+. . = C = = 
+A . = . . C 
+. . A = = . 
 Number of moves: 6
 Number of vertices examined: 550
 0.803387 [s]
 
 Level 11
 Sequence of moves: 
-W . C . W W 
-W C W W D . 
-. W . A W D 
-. W . . W . 
-. B W . A W 
-B . W . . W 
+= . C . = = 
+= C = = D . 
+. = . A = D 
+. = . . = . 
+. B = . A = 
+B . = . . = 
 Number of moves: 7
 Number of vertices examined: 209
 0.296464 [s]
 
 Level 12
 Sequence of moves: 
-. W W C . C 
-D . D W W . 
-. W W B . W 
-W A . W B W 
-W . . W . . 
-. . . A W W 
+. = = C . C 
+D . D = = . 
+. = = B . = 
+= A . = B = 
+= . . = . . 
+. . . A = = 
 Number of moves: 7
 Number of vertices examined: 679
 0.904346 [s]
 
 Level 13
 Sequence of moves: 
-W . B W C . C 
-W B . W . . W 
-E W W . C . W 
-. E . W . W . 
-E . E W . W D 
-. . W A W D . 
-E . W . W . . 
+= . B = C . C 
+= B . = . . = 
+E = = . C . = 
+. E . = . = . 
+E . E = . = D 
+. . = A = D . 
+E . = . = . . 
 Number of moves: 8
 Number of vertices examined: 304
 0.690868 [s]
 
 Level 14
 Sequence of moves: 
-. A W D . . W 
-A . W . D . W 
-W W . . W W . 
-E . W W . . B 
-. W C . W W . 
-. W . C . . W 
-E . W W . C W 
+. A = D . . = 
+A . = . D . = 
+= = . . = = . 
+E . = = . . B 
+. = C . = = . 
+. = . C . . = 
+E . = = . C = 
 Number of moves: 9
 Number of vertices examined: 1081
 2.3612 [s]
 
 Level 15
 Sequence of moves: 
-W . W W . A . 
-W C . C W W A 
-. W C W . . W 
-B W . W . D W 
-. B W . W W E 
-. . W . . E . 
-W W . . E . E 
+= . = = . A . 
+= C . C = = A 
+. = C = . . = 
+B = . = . D = 
+. B = . = = E 
+. . = . . E . 
+= = . . E . E 
 Number of moves: 9
 Number of vertices examined: 196
 0.45403 [s]
 
 Level 16
 Sequence of moves: 
-F W . . C W W 
-. W C W W E . 
-W A W . B W E 
-W . W B . W . 
-A . A W W . E 
-. A W D . W W 
-A . W . . D . 
+F = . . C = = 
+. = C = = E . 
+= A = . B = E 
+= . = B . = . 
+A . A = = . E 
+. A = D . = = 
+A . = . . D . 
 Number of moves: 9
 Number of vertices examined: 49
 0.123021 [s]
 
 Level 17
 Sequence of moves: 
-B W . C . C W 
-. W C W W . W 
-B . W . A W . 
-W . W . . W E 
-W B . W W . . 
-. W W D . W E 
-. . D . D W . 
+B = . C . C = 
+. = C = = . = 
+B . = . A = . 
+= . = . . = E 
+= B . = = . . 
+. = = D . = E 
+. . D . D = . 
 Number of moves: 9
 Number of vertices examined: 2070
 4.14127 [s]
 
 Level 18
 Sequence of moves: 
-. W W B . . W 
-C . C W W B W 
-. W W . E W . 
-W . . W . W D 
-W F . W . E W 
-. W W . W . W 
-. A . A W . . 
+. = = B . . = 
+C . C = = B = 
+. = = . E = . 
+= . . = . = D 
+= F . = . E = 
+. = = . = . = 
+. A . A = . . 
 Number of moves: 10
 Number of vertices examined: 643
 1.44528 [s]
 
 Level 19
 Sequence of moves: 
-D W W . E W W 
-. . . W W B . 
-. W . . . W W 
-D W . W W . F 
-W A W C . W . 
-W . W . . W . 
-A . . W W . F 
+D = = . E = = 
+. . . = = B . 
+. = . . . = = 
+D = . = = . F 
+= A = C . = . 
+= . = . . = . 
+A . . = = . F 
 Number of moves: 10
 Number of vertices examined: 3459
 7.10474 [s]
 
 Level 20
 Sequence of moves: 
-W W . C . W . 
-. A W W C W B 
-A W . . W . . 
-. W . . W B . 
-W D W . E W B 
-W . W . . W . 
-D . D W W . B 
+= = . C . = . 
+. A = = C = B 
+A = . . = . . 
+. = . . = B . 
+= D = . E = B 
+= . = . . = . 
+D . D = = . B 
 Number of moves: 9
 Number of vertices examined: 3316
 7.65214 [s]
 
 Level 21
 Sequence of moves: 
-W W . D . . D 
-E . W W . W W 
-W W . . W A . 
-. B W F W . A 
-B . W . F W W 
-. W C W W . . 
-B W . C . . C 
+= = . D . . D 
+E . = = . = = 
+= = . . = A . 
+. B = F = . A 
+B . = . F = = 
+. = C = = . . 
+B = . C . . C 
 Number of moves: 9
 Number of vertices examined: 208
 0.585019 [s]
 
 Level 22
 Sequence of moves: 
-. A . W W . . 
-. W W . . W C 
-W . . . D W . 
-W D . W W B W 
-. W W . B . W 
-E . E W W . . 
-. W W F . W W 
+. A . = = . . 
+. = = . . = C 
+= . . . D = . 
+= D . = = B = 
+. = = . B . = 
+E . E = = . . 
+. = = F . = = 
 Number of moves: 10
 Number of vertices examined: 18
 0.129334 [s]
