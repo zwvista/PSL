@@ -237,7 +237,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            out << (ch == PUZ_OASIS ? char(m_pos2num.at(p) + '0') : ch) << ' ';
+            out << char(ch == PUZ_OASIS ? m_pos2num.at(p) + '0' : ch) << ' ';
         }
         println(out);
     }

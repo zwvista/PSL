@@ -7,5 +7,30 @@ Sequence of moves:
 . 2 D . . 
 Number of moves: 6
 Number of vertices examined: 13
-0.0389227 [s]
+0.0066265 [s]
 
+Level 2
+Sequence of moves: 
+1 2 3 . 2 
+D . D 4 D 
+1 D 3 . . 
+2 3 . D . 
+D 1 D . 2 
+Number of moves: 5
+Number of vertices examined: 6
+0.0040302 [s]
+
+Level 36
+Sequence of moves: 
+2 3 . . 3 D . 
+1 D 3 D . 3 1 
+D . . . D 1 D 
+. D 4 D 1 D 3 
+3 . . 5 5 . . 
+D 5 D . D . D 
+2 . . 4 4 . 3 
+Number of moves: 10
+Number of vertices examined: 19
+0.0396106 [s]
+
+Level 180
