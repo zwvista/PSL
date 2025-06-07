@@ -25,6 +25,7 @@ namespace puzzles::TierraDelFuego{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_WATER = '=';
+constexpr auto PUZ_BOUNDARY = '+';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -45,18 +46,22 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size())
+, m_sidelen(strs.size() + 2)
 {
-    m_start = boost::accumulate(strs, string());
-    for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
+    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    for (int r = 1; r < m_sidelen - 1; ++r) {
+        auto& str = strs[r - 1];
+        m_start.push_back(PUZ_BOUNDARY);
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
-            char ch = str[c];
+            char ch = str[c - 1];
+            m_start.push_back(ch);
             if (ch != PUZ_SPACE)
                 m_ch2rng[ch].insert(p);
         }
+        m_start.push_back(PUZ_BOUNDARY);
     }
+    m_start.append(m_sidelen, PUZ_BOUNDARY);
 }
 
 struct puz_state
@@ -65,9 +70,6 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
-    }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
@@ -118,7 +120,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     if (!m_spaces->contains(*this)) return;
     for (auto& os : offset) {
         auto p = *this + os;
-        if (m_state->is_valid(p) && m_state->cells(p) != PUZ_WATER) {
+        char ch = m_state->cells(p);
+        if (ch != PUZ_BOUNDARY && ch != PUZ_WATER) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -128,33 +131,30 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 int puz_state::find_matches(bool init) {
     set<Position> spaces;
     m_matches.clear();
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             if (cells(p) != PUZ_SPACE) continue;
             set<char>& chars = m_matches[p];
             set<char> chars2;
             // 4. These bodies of water can only touch diagonally.
             bool canBeWater = boost::algorithm::none_of(offset, [&](auto& os2) {
-                auto p2 = p + os2;
-                return is_valid(p2) && cells(p2) == PUZ_WATER;
+                return cells(p + os2) == PUZ_WATER;
             });
             for (int i = 0; i < 4; ++i) {
                 auto& os = offset[i];
                 auto p2 = p + os;
-                if (!is_valid(p2)) continue;
                 char ch2 = cells(p2);
                 // 3. The archipelago is peculiar because all bodies of water separating the
                 // islands are identical in shape and occupied a 2 * 1 or 1 * 2 space.
                 if (ch2 == PUZ_SPACE) {
                     // 4. These bodies of water can only touch diagonally.
                     bool canBeWater2 = boost::algorithm::none_of(offset, [&](auto& os2) {
-                        auto p3 = p2 + os2;
-                        return is_valid(p3) && cells(p3) == PUZ_WATER;
+                        return cells(p2 + os2) == PUZ_WATER;
                     });
                     if (canBeWater && canBeWater2)
                         chars.insert(i + '0');
-                } else if (ch2 != PUZ_WATER)
+                } else if (ch2 != PUZ_BOUNDARY && ch2 != PUZ_WATER)
                     chars2.insert(ch2);
             }
             if (int sz = chars2.size(); sz == 0)
@@ -245,8 +245,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 bool puz_state::check_tribes() const
 {
     map<char, set<Position>> ch2area;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
             if (isalpha(ch))
@@ -280,8 +280,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
             out << (isalpha(ch) &&
