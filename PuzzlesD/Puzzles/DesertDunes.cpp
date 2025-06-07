@@ -24,6 +24,7 @@ namespace puzzles::DesertDunes{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_DUNE = 'D';
+constexpr auto PUZ_OASIS = 'S';
 constexpr auto PUZ_BOUNDARY = '+';
 
 constexpr Position offset[] = {
@@ -46,8 +47,8 @@ constexpr string_view perms2x2[] = {
     "..D.",
     ".D..",
     "D...",
-    ".D.D",
-    "D.D.",
+    ".DD.",
+    "D..D",
 };
 
 struct puz_game
@@ -55,6 +56,8 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_start;
+    // key: position of the oasis
+    // elem: number of oases that the Oasis dweller can reach
     map<Position, int> m_pos2num;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -71,9 +74,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
             char ch = str[c - 1];
-            m_start.push_back(ch);
-            if (ch != PUZ_SPACE)
-                m_pos2num[p] = ch - '0';
+            if (ch == PUZ_SPACE)
+                m_start.push_back(ch);
+            else
+                m_start.push_back(PUZ_OASIS), m_pos2num[p] = ch - '0';
         }
         m_start.push_back(PUZ_BOUNDARY);
     }
@@ -90,8 +94,9 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move2(const Position& p, int n);
     int find_matches(bool init);
+    bool check_oases();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -106,18 +111,22 @@ struct puz_state
     // key: position of the cell
     // value.elem: index of the perms
     map<Position, vector<int>> m_matches;
+    // key: position of the oasis
+    // elem: number of oases that the Oasis dweller can reach
+    map<Position, int> m_pos2num;
     int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto& [p, n] : m_game->m_pos2num) {
-        auto& perm_ids = m_matches[p];
-        perm_ids.resize(size(perms2x2));
-        boost::iota(perm_ids, 0);
-    }
-    find_matches(false);
+    for (int r = 1; r < sidelen() - 2; ++r)
+        for (int c = 1; c < sidelen() - 2; ++c) {
+            auto& perm_ids = m_matches[{r, c}];
+            perm_ids.resize(size(perms2x2));
+            boost::iota(perm_ids, 0);
+        }
+    find_matches(true);
 }
 
 struct puz_state2 : Position
@@ -153,8 +162,8 @@ int puz_state::find_matches(bool init)
 
         boost::remove_erase_if(perm_ids, [&](int id) {
             return !boost::equal(chars, perms2x2[id], [](char ch1, char ch2) {
-                return ch1 == PUZ_BOUNDARY && ch2 == PUZ_EMPTY ||
-                    ch1 == PUZ_SPACE || ch1 == ch2;
+                return ch1 == PUZ_SPACE || ch1 == ch2 ||
+                    ch1 == PUZ_OASIS && ch2 == PUZ_EMPTY;
             });
         });
 
@@ -169,6 +178,11 @@ int puz_state::find_matches(bool init)
     return 2;
 }
 
+bool puz_state::check_oases()
+{
+    return true;
+}
+
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
@@ -178,8 +192,15 @@ bool puz_state::make_move(const Position& p, int n)
     return m == 2;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+bool puz_state::make_move2(const Position& p, int n)
 {
+    auto& perm = perms2x2[n];
+    for (int i = 0; i < 4; ++i) {
+        char& ch = cells(p + offset2[i]);
+        if (ch == PUZ_SPACE)
+            ch = perm[i];
+    }
+    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
