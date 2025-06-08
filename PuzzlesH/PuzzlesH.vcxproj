@@ -161,6 +161,7 @@
     <Text Include="Puzzles\HeliumAndIron.txt" />
     <Text Include="Puzzles\hexrotation.txt" />
     <Text Include="Puzzles\hexrotation_ida.txt" />
+    <Text Include="Puzzles\HiddenClouds.txt" />
     <Text Include="Puzzles\HiddenPath.txt" />
     <Text Include="Puzzles\HiddenStars.txt" />
     <Text Include="Puzzles\Hidoku.txt" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Puzzles\Hedgehog.cpp" />
     <ClCompile Include="Puzzles\HeliumAndIron.cpp" />
     <ClCompile Include="Puzzles\hexrotation.cpp" />
+    <ClCompile Include="Puzzles\HiddenClouds.cpp" />
     <ClCompile Include="Puzzles\HiddenPath.cpp" />
     <ClCompile Include="Puzzles\HiddenStars.cpp" />
     <ClCompile Include="Puzzles\Hidoku.cpp" />
@@ -207,6 +209,7 @@
     </Xml>
     <Xml Include="Puzzles\HeliumAndIron.xml" />
     <Xml Include="Puzzles\hexrotation.xml" />
+    <Xml Include="Puzzles\HiddenClouds.xml" />
     <Xml Include="Puzzles\HiddenPath.xml" />
     <Xml Include="Puzzles\HiddenStars.xml" />
     <Xml Include="Puzzles\Hidoku.xml" />

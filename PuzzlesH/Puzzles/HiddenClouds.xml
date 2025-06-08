@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Try to find the clouds.
+2. Clouds have a square form (even of one single tile) and can't touch each other horizontally or vertically.
+3. Clouds of the same size cannot see each other horizontally or vertically, that is, there must be other Clouds between them (horizontally or vertically).
+4. Numbers indicate the total number of clouds tiles in the tile itself and in the four tiles around it (up down left right)
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+12   `
+3 31 `
+ 3  1`
+2  3 `
+111 3`
+    ]]>
+  </level>
+</levels>
+</puzzle>
