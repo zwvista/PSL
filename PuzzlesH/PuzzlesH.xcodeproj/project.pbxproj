@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689C842DF6482600A2BCCC /* HiddenClouds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C812DF6482600A2BCCC /* HiddenClouds.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -39,6 +40,9 @@
 /* Begin PBXFileReference section */
 		8C5F12972DE3789100BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12982DE3789100BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689C812DF6482600A2BCCC /* HiddenClouds.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HiddenClouds.cpp; sourceTree = "<group>"; };
+		8C689C822DF6482600A2BCCC /* HiddenClouds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = HiddenClouds.txt; sourceTree = "<group>"; };
+		8C689C832DF6482600A2BCCC /* HiddenClouds.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HiddenClouds.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesH */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesH; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -113,13 +117,13 @@
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
-				8CA23F1B1EA926F60055D6B1 /* PSL */,
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
-				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
-				8CA23F181EA925F20055D6B1 /* stdafx.h */,
-				8CA23F191EA925F20055D6B1 /* targetver.h */,
-				8CA23ECF1EA924380055D6B1 /* Puzzles */,
 				8CA23EC51EA9233C0055D6B1 /* Products */,
+				8CA23F1B1EA926F60055D6B1 /* PSL */,
+				8CA23ECF1EA924380055D6B1 /* Puzzles */,
+				8CA23F181EA925F20055D6B1 /* stdafx.h */,
+				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
+				8CA23F191EA925F20055D6B1 /* targetver.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,6 +138,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
+				8C689C812DF6482600A2BCCC /* HiddenClouds.cpp */,
+				8C689C822DF6482600A2BCCC /* HiddenClouds.txt */,
+				8C689C832DF6482600A2BCCC /* HiddenClouds.xml */,
 				8CA2403F1EB47A180055D6B1 /* Hedgehog.cpp */,
 				8CA240401EB47A180055D6B1 /* Hedgehog.txt */,
 				8CA240411EB47A180055D6B1 /* Hedgehog.xml */,
@@ -268,6 +275,7 @@
 				8CA240621EB47A180055D6B1 /* HolidayIsland.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA240641EB47A180055D6B1 /* hrd.cpp in Sources */,
+				8C689C842DF6482600A2BCCC /* HiddenClouds.cpp in Sources */,
 				8CA2405F1EB47A180055D6B1 /* HiddenStars.cpp in Sources */,
 				8CA240601EB47A180055D6B1 /* Hidoku.cpp in Sources */,
 				8CA2405C1EB47A180055D6B1 /* Hedgehog.cpp in Sources */,

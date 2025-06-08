@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689C882DF64BFA00A2BCCC /* DesertDunes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C852DF64BFA00A2BCCC /* DesertDunes.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -33,6 +34,9 @@
 /* Begin PBXFileReference section */
 		8C5F128F2DE3780E00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12902DE3780E00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689C852DF64BFA00A2BCCC /* DesertDunes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DesertDunes.cpp; sourceTree = "<group>"; };
+		8C689C862DF64BFA00A2BCCC /* DesertDunes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DesertDunes.txt; sourceTree = "<group>"; };
+		8C689C872DF64BFA00A2BCCC /* DesertDunes.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DesertDunes.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesD */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesD; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -108,6 +112,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
+				8C689C852DF64BFA00A2BCCC /* DesertDunes.cpp */,
+				8C689C862DF64BFA00A2BCCC /* DesertDunes.txt */,
+				8C689C872DF64BFA00A2BCCC /* DesertDunes.xml */,
 				8CA23FFF1EB479500055D6B1 /* DigitalBattleShips.cpp */,
 				8CA240001EB479500055D6B1 /* DigitalBattleShips.txt */,
 				8CA240011EB479500055D6B1 /* DigitalBattleShips.xml */,
@@ -215,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C689C882DF64BFA00A2BCCC /* DesertDunes.cpp in Sources */,
 				8CA240081EB479500055D6B1 /* DigitalBattleShips.cpp in Sources */,
 				958FA64D232FA02600205831 /* DigitalPath.cpp in Sources */,
 				8CA2400A1EB479500055D6B1 /* Domino.cpp in Sources */,
