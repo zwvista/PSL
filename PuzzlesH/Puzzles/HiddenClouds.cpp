@@ -36,7 +36,10 @@ constexpr Position offset[] = {
 struct puz_hint
 {
     int m_num = 0;
-    vector<int> m_boxids;
+    vector<int> m_box_ids;
+    bool operator<(const puz_hint& x) const {
+        return tie(m_num, m_box_ids) < tie(x.m_num, x.m_box_ids);
+    }
 };
 
 struct puz_box
@@ -68,6 +71,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_pos2hint[{r, c}].m_num = ch - '0';
         }
     }
+    // 2. Clouds have a square form (even of one single tile)
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c)
             for (int h = 1; h <= m_sidelen - r; ++h)
@@ -96,7 +100,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         o.m_box = {tl, br};
                         o.m_pos2num = pos2num;
                         for (auto& [p, n2] : pos2num)
-                            m_pos2hint.at(p).m_boxids.push_back(n);
+                            m_pos2hint.at(p).m_box_ids.push_back(n);
                     }
                 next_box:;
                 }
@@ -128,9 +132,9 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    // key: the index of the area
-    // value.elem: the index of the box
-    map<int, vector<int>> m_matches;
+    // key: the position of the hint
+    // value: the hint
+    map<Position, puz_hint> m_matches;
     vector<int> m_area2num;
     unsigned int m_distance = 0;
 };
@@ -139,13 +143,7 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 {
-    //for (int i = 0; i < m_area2num.size(); ++i) {
-    //    auto& area = g.m_areas[i];
-    //    m_area2num[i] = area.m_num;
-    //    if (area.m_num != 0 && area.m_num != PUZ_UNKNOWN)
-    //        m_matches[i] = area.m_boxids;
-    //}
-    
+    m_matches = g.m_pos2hint;
     find_matches(true);
 }
 
@@ -157,40 +155,32 @@ int puz_state::find_matches(bool init)
         return ch != PUZ_SPACE && ch != PUZ_EMPTY;
     };
     
-    for (auto& [area_id, box_ids] : m_matches) {
-        //boost::remove_erase_if(box_ids, [&](int id) {
-        //    auto& o = m_game->m_boxes[id];
-        //    auto& box = o.m_box;
-        //    for (int r = box.first.first; r <= box.second.first; ++r)
-        //        for (int c = box.first.second; c <= box.second.second; ++c)
-        //            if (cells({r, c}) != PUZ_SPACE)
-        //                return true;
-        //    // 4. HiddenClouds bars must not be orthogonally adjacent.
-        //    for (int r = box.first.first; r <= box.second.first; ++r) {
-        //        Position p1(r, box.first.second - 1), p2(r, box.second.second + 1);
-        //        if (f(p1) || f(p2))
-        //            return true;
-        //    }
-        //    for (int c = box.first.second; c <= box.second.second; ++c) {
-        //        Position p1(box.first.first - 1, c), p2(box.second.first + 1, c);
-        //        if (f(p1) || f(p2))
-        //            return true;
-        //    }
-        //    // 5. A tile with a number indicates how many tiles in the area must
-        //    // be chocolate.
-        //    // 6. An area without number can have any number of tiles of chocolate.
-        //    return boost::algorithm::any_of(o.m_area2num, [&](const pair<const int, int>& kv){
-        //        int num = m_area2num[kv.first];
-        //        return num != PUZ_UNKNOWN && kv.second > num;
-        //    });
-        //});
+    for (auto& [p, hint] : m_matches) {
+        boost::remove_erase_if(hint.m_box_ids, [&](int id) {
+            auto& [box, pos2num] = m_game->m_boxes[id];
+            for (int r = box.first.first; r <= box.second.first; ++r)
+                for (int c = box.first.second; c <= box.second.second; ++c)
+                    if (cells({r, c}) != PUZ_SPACE)
+                        return true;
+            // 2. Clouds can't touch each other horizontally or vertically.
+            for (int r = box.first.first; r <= box.second.first; ++r) {
+                Position p1(r, box.first.second - 1), p2(r, box.second.second + 1);
+                if (f(p1) || f(p2))
+                    return true;
+            }
+            for (int c = box.first.second; c <= box.second.second; ++c) {
+                Position p1(box.first.first - 1, c), p2(box.second.first + 1, c);
+                if (f(p1) || f(p2))
+                    return true;
+            }
+        });
 
         if (!init)
-            switch(box_ids.size()) {
+            switch(hint.m_box_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(box_ids[0]), 1;
+                return make_move2(hint.m_box_ids[0]), 1;
             }
     }
     return 2;
@@ -198,27 +188,20 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    //auto& o = m_game->m_boxes[n];
-    //auto& box = o.m_box;
-    //auto &tl = box.first, &br = box.second;
-    //for (int r = tl.first; r <= br.first; ++r)
-    //    for (int c = tl.second; c <= br.second; ++c)
-    //        cells({r, c}) = PUZ_CHOCOLATE;
-    //// 4. HiddenClouds bars must not be orthogonally adjacent.
-    //auto f = [&](const Position& p) {
-    //    if (is_valid(p))
-    //        cells(p) = PUZ_EMPTY;
-    //};
-    //for (int r = box.first.first; r <= box.second.first; ++r)
-    //    f({r, box.first.second - 1}), f({r, box.second.second + 1});
-    //for (int c = box.first.second; c <= box.second.second; ++c)
-    //    f({box.first.first - 1, c}), f({box.second.first + 1, c});
-    //// 5. A tile with a number indicates how many tiles in the area must
-    //// be chocolate.
-    //// 6. An area without number can have any number of tiles of chocolate.
-    //for(auto& [i, j] : o.m_area2num)
-    //    if (int& n = m_area2num[i]; n != PUZ_UNKNOWN && (n -= j) == 0)
-    //        m_matches.erase(i), ++m_distance;
+    auto& [box, pos2num] = m_game->m_boxes[n];
+    auto &tl = box.first, &br = box.second;
+    for (int r = tl.first; r <= br.first; ++r)
+        for (int c = tl.second; c <= br.second; ++c)
+            cells({r, c}) = PUZ_CLOUD;
+    // 2. Clouds can't touch each other horizontally or vertically.
+    auto f = [&](const Position& p) {
+        if (is_valid(p))
+            cells(p) = PUZ_EMPTY;
+    };
+    for (int r = box.first.first; r <= box.second.first; ++r)
+        f({r, box.first.second - 1}), f({r, box.second.second + 1});
+    for (int c = box.first.second; c <= box.second.second; ++c)
+        f({box.first.first - 1, c}), f({box.second.first + 1, c});
 }
 
 bool puz_state::make_move(int n)
@@ -232,12 +215,12 @@ bool puz_state::make_move(int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [area_id, box_ids] = *boost::min_element(m_matches, [](
-        const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
+    auto& [p, hint] = *boost::min_element(m_matches, [](
+        const pair<const Position, puz_hint>& kv1,
+        const pair<const Position, puz_hint>& kv2) {
+        return kv1.second.m_box_ids.size() < kv2.second.m_box_ids.size();
     });
-    for (int n : box_ids) {
+    for (int n : hint.m_box_ids) {
         children.push_back(*this);
         if (!children.back().make_move(n))
             children.pop_back();
@@ -246,25 +229,13 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    //for (int r = 0;; ++r) {
-    //    // draw horz-walls
-    //    for (int c = 0; c < sidelen(); ++c)
-    //        out << (m_game->m_horz_walls.contains({r, c}) ? " --" : "   ");
-    //    println(out);
-    //    if (r == sidelen()) break;
-    //    for (int c = 0;; ++c) {
-    //        Position p(r, c);
-    //        // draw vert-walls
-    //        out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
-    //        if (c == sidelen()) break;
-    //        if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-    //            out << ' ';
-    //        else
-    //            out << it->second;
-    //        out << cells({r, c});
-    //    }
-    //    println(out);
-    //}
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            out << format("{:02}", cells(p)) << " ";
+        }
+        println(out);
+    }
     return out;
 }
 

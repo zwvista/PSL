@@ -44,7 +44,7 @@ struct puz_area
 {
     int m_num = PUZ_UNKNOWN;
     vector<Position> m_range;
-    vector<int> m_boxids;
+    vector<int> m_box_ids;
 };
     
 struct puz_box
@@ -152,7 +152,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         o.m_box = {tl, br};
                         o.m_area2num = area2num;
                         for (auto& [i, j] : area2num)
-                            m_areas[i].m_boxids.push_back(n);
+                            m_areas[i].m_box_ids.push_back(n);
                     }
                 }
 }
@@ -199,7 +199,7 @@ puz_state::puz_state(const puz_game& g)
         auto& area = g.m_areas[i];
         m_area2num[i] = area.m_num;
         if (area.m_num != 0 && area.m_num != PUZ_UNKNOWN)
-            m_matches[i] = area.m_boxids;
+            m_matches[i] = area.m_box_ids;
     }
     
     find_matches(true);
