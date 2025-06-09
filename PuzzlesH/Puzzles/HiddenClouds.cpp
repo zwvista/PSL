@@ -118,8 +118,8 @@ struct puz_state
     bool operator<(const puz_state& x) const { 
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches); 
     }
-    bool make_move(int n);
-    void make_move2(int n);
+    bool make_move(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -180,13 +180,13 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(hint.m_box_ids[0]), 1;
+                return make_move2(p, hint.m_box_ids[0]), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(int n)
+void puz_state::make_move2(const Position& p, int n)
 {
     auto& [box, pos2num] = m_game->m_boxes[n];
     auto &tl = box.first, &br = box.second;
@@ -202,12 +202,15 @@ void puz_state::make_move2(int n)
         f({r, box.first.second - 1}), f({r, box.second.second + 1});
     for (int c = box.first.second; c <= box.second.second; ++c)
         f({box.first.first - 1, c}), f({box.second.first + 1, c});
+
+    ++m_distance;
+    m_matches.erase(p);
 }
 
-bool puz_state::make_move(int n)
+bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(n);
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -222,7 +225,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
     for (int n : hint.m_box_ids) {
         children.push_back(*this);
-        if (!children.back().make_move(n))
+        if (!children.back().make_move(p, n))
             children.pop_back();
     }
 }
