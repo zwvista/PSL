@@ -37,9 +37,6 @@ struct puz_hint
 {
     int m_num = 0;
     vector<int> m_box_ids;
-    bool operator<(const puz_hint& x) const {
-        return tie(m_num, m_box_ids) < tie(x.m_num, x.m_box_ids);
-    }
 };
 
 struct puz_box
@@ -114,8 +111,8 @@ struct puz_state
     bool operator<(const puz_state& x) const { 
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches); 
     }
-    bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move(int n);
+    void make_move2(int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -129,8 +126,9 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     // key: the position of the hint
-    // value: the hint
-    map<Position, puz_hint> m_matches;
+    // value.elem: the index of the box
+    map<Position, vector<int>> m_matches;
+    map<Position, int> m_pos2num;
     unsigned int m_distance = 0;
 };
 
@@ -138,7 +136,8 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 {
-    m_matches = g.m_pos2hint;
+    for (auto& [p, hint] : g.m_pos2hint)
+        m_matches[p] = hint.m_box_ids, m_pos2num[p] = hint.m_num;
     find_matches(true);
 }
 
@@ -150,8 +149,7 @@ int puz_state::find_matches(bool init)
         return ch != PUZ_SPACE && ch != PUZ_EMPTY;
     };
     
-    for (auto& [p, hint] : m_matches) {
-        auto& [num, box_ids] = hint;
+    for (auto& [p, box_ids] : m_matches) {
         boost::remove_erase_if(box_ids, [&](int id) {
             auto& [box, pos2num] = m_game->m_boxes[id];
             auto& [tl, br] = box;
@@ -175,7 +173,7 @@ int puz_state::find_matches(bool init)
             // 4. Numbers indicate the total number of clouds tiles in the tile itself
             // and in the four tiles around it (up down left right)
             return boost::algorithm::any_of(pos2num, [&](const pair<const Position, int>& kv) {
-                return kv.second > num;
+                return kv.second > m_pos2num.at(kv.first);
             });
         });
 
@@ -184,13 +182,13 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, box_ids[0]), 1;
+                return make_move2(box_ids[0]), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(int n)
 {
     auto& [box, pos2num] = m_game->m_boxes[n];
     auto& [tl, br] = box;
@@ -209,20 +207,20 @@ void puz_state::make_move2(const Position& p, int n)
     for (int c = c1; c <= c2; ++c)
         f({r1 - 1, c}), f({r2 + 1, c});
 
-    for (auto& [p2, hint] : m_matches)
-        boost::remove_erase(hint.m_box_ids, n);
+    for (auto& [p, box_ids] : m_matches)
+        boost::remove_erase(box_ids, n);
 
     // 4. Numbers indicate the total number of clouds tiles in the tile itself
     // and in the four tiles around it (up down left right)
     for (auto& [p, i] : pos2num)
-        if (auto it = m_matches.find(p); it != m_matches.end() && (it->second.m_num -= i) == 0)
+        if (m_matches.contains(p) && (m_pos2num.at(p) -= i) == 0)
             m_matches.erase(p), ++m_distance;
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -230,14 +228,14 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, hint] = *boost::min_element(m_matches, [](
-        const pair<const Position, puz_hint>& kv1,
-        const pair<const Position, puz_hint>& kv2) {
-        return kv1.second.m_box_ids.size() < kv2.second.m_box_ids.size();
+    auto& [p, box_ids] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
     });
-    for (int n : hint.m_box_ids) {
+    for (int n : box_ids) {
         children.push_back(*this);
-        if (!children.back().make_move(p, n))
+        if (!children.back().make_move(n))
             children.pop_back();
     }
 }

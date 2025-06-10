@@ -1,11 +1,11 @@
 Level 1
 Sequence of moves: 
-C1.2C . . 
-.3C .3.1C 
-C .3C . .1
-C2. . C3C 
-.1C1.1C C3
-Number of moves: 7
-Number of vertices examined: 32
-0.0068344 [s]
+.1.2C .   
+C3C .3C1. 
+C C3. . .1
+.2. . C3C 
+C1.1.1C C3
+Number of moves: 4
+Number of vertices examined: 14
+0.0124051 [s]
 
