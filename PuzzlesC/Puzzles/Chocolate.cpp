@@ -217,18 +217,21 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(box_ids, [&](int id) {
             auto& o = m_game->m_boxes[id];
             auto& box = o.m_box;
-            for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c)
+            auto& [tl, br] = box;
+            auto& [r1, c1] = tl;
+            auto& [r2, c2] = br;
+            for (int r = r1; r <= r2; ++r)
+                for (int c = c1; c <= c2; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
                         return true;
             // 4. Chocolate bars must not be orthogonally adjacent.
-            for (int r = box.first.first; r <= box.second.first; ++r) {
-                Position p1(r, box.first.second - 1), p2(r, box.second.second + 1);
+            for (int r = r1; r <= r2; ++r) {
+                Position p1(r, c1 - 1), p2(r, c2 + 1);
                 if (f(p1) || f(p2))
                     return true;
             }
-            for (int c = box.first.second; c <= box.second.second; ++c) {
-                Position p1(box.first.first - 1, c), p2(box.second.first + 1, c);
+            for (int c = c1; c <= c2; ++c) {
+                Position p1(r1 - 1, c), p2(r2 + 1, c);
                 if (f(p1) || f(p2))
                     return true;
             }
@@ -254,25 +257,26 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& o = m_game->m_boxes[n];
-    auto& box = o.m_box;
-    auto &tl = box.first, &br = box.second;
-    for (int r = tl.first; r <= br.first; ++r)
-        for (int c = tl.second; c <= br.second; ++c)
+    auto& [box, area2num] = m_game->m_boxes[n];
+    auto& [tl, br] = box;
+    auto& [r1, c1] = tl;
+    auto& [r2, c2] = br;
+    for (int r = r1; r <= r2; ++r)
+        for (int c = c1; c <= c2; ++c)
             cells({r, c}) = PUZ_CHOCOLATE;
     // 4. Chocolate bars must not be orthogonally adjacent.
     auto f = [&](const Position& p) {
         if (is_valid(p))
             cells(p) = PUZ_EMPTY;
     };
-    for (int r = box.first.first; r <= box.second.first; ++r)
-        f({r, box.first.second - 1}), f({r, box.second.second + 1});
-    for (int c = box.first.second; c <= box.second.second; ++c)
-        f({box.first.first - 1, c}), f({box.second.first + 1, c});
+    for (int r = r1; r <= r2; ++r)
+        f({ r, c1 - 1 }), f({ r, c2 + 1 });
+    for (int c = c1; c <= c2; ++c)
+        f({ r1 - 1, c }), f({ r2 + 1, c });
     // 5. A tile with a number indicates how many tiles in the area must
     // be chocolate.
     // 6. An area without number can have any number of tiles of chocolate.
-    for(auto& [i, j] : o.m_area2num)
+    for(auto& [i, j] : area2num)
         if (int& n = m_area2num[i]; n != PUZ_UNKNOWN && (n -= j) == 0)
             m_matches.erase(i), ++m_distance;
 }

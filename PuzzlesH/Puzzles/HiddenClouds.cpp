@@ -158,21 +158,25 @@ int puz_state::find_matches(bool init)
     for (auto& [p, hint] : m_matches) {
         boost::remove_erase_if(hint.m_box_ids, [&](int id) {
             auto& [box, pos2num] = m_game->m_boxes[id];
-            for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c)
+            auto& [tl, br] = box;
+            auto& [r1, c1] = tl;
+            auto& [r2, c2] = br;
+            for (int r = r1; r <= r2; ++r)
+                for (int c = c1; c <= c2; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
                         return true;
             // 2. Clouds can't touch each other horizontally or vertically.
-            for (int r = box.first.first; r <= box.second.first; ++r) {
-                Position p1(r, box.first.second - 1), p2(r, box.second.second + 1);
+            for (int r = r1; r <= r2; ++r) {
+                Position p1(r, c1 - 1), p2(r, c2 + 1);
                 if (f(p1) || f(p2))
                     return true;
             }
-            for (int c = box.first.second; c <= box.second.second; ++c) {
-                Position p1(box.first.first - 1, c), p2(box.second.first + 1, c);
+            for (int c = c1; c <= c2; ++c) {
+                Position p1(r1 - 1, c), p2(r2 + 1, c);
                 if (f(p1) || f(p2))
                     return true;
             }
+            return false;
         });
 
         if (!init)
@@ -189,19 +193,24 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(const Position& p, int n)
 {
     auto& [box, pos2num] = m_game->m_boxes[n];
-    auto &tl = box.first, &br = box.second;
-    for (int r = tl.first; r <= br.first; ++r)
-        for (int c = tl.second; c <= br.second; ++c)
+    auto& [tl, br] = box;
+    auto& [r1, c1] = tl;
+    auto& [r2, c2] = br;
+    for (int r = r1; r <= r2; ++r)
+        for (int c = c1; c <= c2; ++c)
             cells({r, c}) = PUZ_CLOUD;
     // 2. Clouds can't touch each other horizontally or vertically.
     auto f = [&](const Position& p) {
         if (is_valid(p))
             cells(p) = PUZ_EMPTY;
     };
-    for (int r = box.first.first; r <= box.second.first; ++r)
-        f({r, box.first.second - 1}), f({r, box.second.second + 1});
-    for (int c = box.first.second; c <= box.second.second; ++c)
-        f({box.first.first - 1, c}), f({box.second.first + 1, c});
+    for (int r = r1; r <= r2; ++r)
+        f({r, c1 - 1}), f({r, c2 + 1});
+    for (int c = c1; c <= c2; ++c)
+        f({r1 - 1, c}), f({r2 + 1, c});
+
+    for (auto& [p2, hint] : m_matches)
+        boost::remove_erase(hint.m_box_ids, n);
 
     ++m_distance;
     m_matches.erase(p);
