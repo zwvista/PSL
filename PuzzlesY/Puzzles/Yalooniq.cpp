@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 6/Yalooniq
+    iOS Game: 100 Logic Games/Puzzle Set 6/Yalooniq
 
     Summary
     Loops, Arrows and Squares

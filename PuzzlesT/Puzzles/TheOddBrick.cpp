@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 14/The Odd Brick
+    iOS Game: 100 Logic Games/Puzzle Set 14/The Odd Brick
 
     Summary
     Even Bricks are strange, sometimes

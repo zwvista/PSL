@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 7/Odds Are Even
+    iOS Game: 100 Logic Games/Puzzle Set 7/Odds Are Even
 
     Summary
     This ... looks familiar ... I thought you didi't like Sudokus?

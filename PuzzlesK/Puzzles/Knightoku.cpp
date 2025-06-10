@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 8/Knightoku
+    iOS Game: 100 Logic Games/Puzzle Set 8/Knightoku
 
     Summary
     I believe you two already met ??

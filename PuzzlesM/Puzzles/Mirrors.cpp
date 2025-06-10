@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 10/Mirrors
+    iOS Game: 100 Logic Games/Puzzle Set 10/Mirrors
 
     Summary
     Zip, swish, zoom! Lasers on mirrors!

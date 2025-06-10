@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 5/Lakes and Meadows
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Lakes and Meadows
 
     Summary
     Lakes and Meadows

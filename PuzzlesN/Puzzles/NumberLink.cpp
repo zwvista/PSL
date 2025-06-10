@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 3/NumberLink
+    iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink
 
     Summary
     Connect the same numbers without the crossing paths

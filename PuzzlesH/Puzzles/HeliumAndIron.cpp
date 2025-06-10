@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 2/Helium And Iron
+    iOS Game: 100 Logic Games 2/Puzzle Set 2/Helium And Iron
 
     Summary
     One rises, the other falls

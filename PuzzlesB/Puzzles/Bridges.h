@@ -10,7 +10,7 @@
 #define Bridges_h
 
 /*
-    iOS Game: Logic Games/Puzzle Set 7/Bridges
+    iOS Game: 100 Logic Games/Puzzle Set 7/Bridges
 
     Summary
     Enough Sudoku, let's build!

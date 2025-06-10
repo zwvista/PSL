@@ -5,7 +5,7 @@
 #include <boost/math/special_functions/sign.hpp>
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 7/Straight and Turn
+    iOS Game: 100 Logic Games 2/Puzzle Set 7/Straight and Turn
 
     Summary
     Straight and Turn

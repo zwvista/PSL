@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 3/Puzzle Set 1/One Up or Down
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/One Up or Down
 
     Summary
     Plus or minus

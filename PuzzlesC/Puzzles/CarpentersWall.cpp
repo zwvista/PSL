@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 12/Carpenter's Wall
+    iOS Game: 100 Logic Games/Puzzle Set 12/Carpenter's Wall
 
     Summary
     Angled Walls

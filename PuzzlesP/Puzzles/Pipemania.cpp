@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 5/Pipemania
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Pipemania
 
     Summary
     Back to the 80s
@@ -13,7 +13,7 @@
     1. The former contractor for your present client left the work unfinished.
        In order not to waste what has bee done, you should complete the pipe
        loop, using the pieces available.
-    2. Complete the board using all the tiles adn form a single closed loop.
+    2. Complete the board using all the tiles and form a single closed loop.
     3. The loop can cross itself.
 */
 

@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 9/Four-Me-Not
+    iOS Game: 100 Logic Games/Puzzle Set 9/Four-Me-Not
 
     Summary
     It seems we do a lot of gardening in this game! 

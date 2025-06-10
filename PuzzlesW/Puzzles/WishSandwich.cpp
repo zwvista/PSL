@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 3/Wish Sandwich
+    iOS Game: 100 Logic Games 2/Puzzle Set 3/Wish Sandwich
 
     Summary
     ...ever heard of it ?

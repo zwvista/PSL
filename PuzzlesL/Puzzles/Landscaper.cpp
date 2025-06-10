@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 4/Landscaper
+    iOS Game: 100 Logic Games/Puzzle Set 4/Landscaper
 
     Summary
     Plant Trees and Flowers with enough variety 

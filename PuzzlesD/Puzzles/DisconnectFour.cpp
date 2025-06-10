@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 11/Disconnect Four
+    iOS Game: 100 Logic Games/Puzzle Set 11/Disconnect Four
 
     Summary
     Win by not winning!

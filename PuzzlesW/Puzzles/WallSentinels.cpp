@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 11/Wall Sentinels
+    iOS Game: 100 Logic Games/Puzzle Set 11/Wall Sentinels
 
     Summary
     It's midnight and all is well!

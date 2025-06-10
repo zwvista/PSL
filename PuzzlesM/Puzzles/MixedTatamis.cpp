@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 4/Mixed Tatamis
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Mixed Tatamis
 
     Summary
     Just that long

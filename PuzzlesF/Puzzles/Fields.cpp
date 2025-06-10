@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 1/Fields
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Fields
 
     Summary
     Twice of the blessings of a Nurikabe

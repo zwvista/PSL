@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 14/Mini-Lits
+    iOS Game: 100 Logic Games/Puzzle Set 14/Mini-Lits
 
     Summary
     Lits Jr.

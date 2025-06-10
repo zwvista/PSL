@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 15/Number Path
+    iOS Game: 100 Logic Games/Puzzle Set 15/Number Path
 
     Summary
     Tangled, Scrambled Path

@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 16/Planks
+    iOS Game: 100 Logic Games/Puzzle Set 16/Planks
 
     Summary
     Planks and Nails

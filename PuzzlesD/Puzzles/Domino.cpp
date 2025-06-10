@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 5/Domino
+    iOS Game: 100 Logic Games/Puzzle Set 5/Domino
 
     Summary
     Find all the Domino tiles

@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 2/Tatami
+    iOS Game: 100 Logic Games/Puzzle Set 2/Tatami
 
     Summary
     1,2,3... 1,2,3... Fill the mats

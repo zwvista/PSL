@@ -5,7 +5,7 @@
 #include <boost/math/special_functions/sign.hpp>
 
 /*
-    iOS Game: Logic Games/Puzzle Set 15/Turn Twice
+    iOS Game: 100 Logic Games/Puzzle Set 15/Turn Twice
 
     Summary
     Think and Turn Twice (or more)

@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 1/Number Crosswords
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Number Crosswords
 
     Summary
     More crosswords for Robots

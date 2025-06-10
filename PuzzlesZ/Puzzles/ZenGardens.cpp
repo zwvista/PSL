@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 3/Zen Gardens
+    iOS Game: 100 Logic Games 2/Puzzle Set 3/Zen Gardens
 
     Summary
     Many Zen Masters

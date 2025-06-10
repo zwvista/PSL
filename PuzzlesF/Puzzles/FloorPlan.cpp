@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 3/Puzzle Set 1/Floor Plan
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/Floor Plan
 
     Summary
     Blueprints to fill in

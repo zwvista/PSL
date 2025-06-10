@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 5/Rooms
+    iOS Game: 100 Logic Games/Puzzle Set 5/Rooms
 
     Summary
     Close the doors between Rooms

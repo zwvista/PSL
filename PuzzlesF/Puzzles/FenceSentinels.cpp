@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 12/Fence Sentinels
+    iOS Game: 100 Logic Games/Puzzle Set 12/Fence Sentinels
 
     Summary
     We used to guard a castle, you know?

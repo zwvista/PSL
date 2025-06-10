@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 15/Box It Again
+    iOS Game: 100 Logic Games/Puzzle Set 15/Box It Again
 
     Summary
     Harder Boxes

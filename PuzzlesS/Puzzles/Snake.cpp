@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 16/Snake
+    iOS Game: 100 Logic Games/Puzzle Set 16/Snake
 
     Summary
     Still lives inside your pocket-sized computer

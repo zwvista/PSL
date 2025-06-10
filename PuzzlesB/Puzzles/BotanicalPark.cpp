@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 12/Botanical Park
+    iOS Game: 100 Logic Games/Puzzle Set 12/Botanical Park
 
     Summary
     Excuse me sir ? Do you know where the Harpagophytum Procumbens is ?

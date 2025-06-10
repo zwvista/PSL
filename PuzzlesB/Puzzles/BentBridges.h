@@ -10,7 +10,7 @@
 #define BentBridges_h
 
 /*
-    iOS Game: Logic Games 3/Puzzle Set 1/BentBridges
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/BentBridges
 
     Summary
     One turn at most

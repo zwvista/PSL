@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 3/Hidden Path
+    iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path
 
     Summary
     Jump once on every tile, following the arrows

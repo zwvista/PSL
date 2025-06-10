@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 1/Gems
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Gems
 
     Summary
     Gemscraper

@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 2/Hitori
+    iOS Game: 100 Logic Games/Puzzle Set 2/Hitori
 
     Summary
     Darken some tiles so no number appears in a row or column more than once

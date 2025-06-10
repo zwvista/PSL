@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 14/North Pole Fishing
+    iOS Game: 100 Logic Games/Puzzle Set 14/North Pole Fishing
 
     Summary
     Fishing Neighbours

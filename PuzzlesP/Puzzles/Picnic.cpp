@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 3/Puzzle Set 1/Picnic
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/Picnic
 
     Summary
     Fling the Blanket

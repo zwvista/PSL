@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 17/Desert Dunes
+    iOS Game: 100 Logic Games/Puzzle Set 17/Desert Dunes
 
     Summary
     Hide and seek in the desert

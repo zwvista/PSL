@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 16/Abstract Painting
+    iOS Game: 100 Logic Games/Puzzle Set 16/Abstract Painting
 
     Summary
     Abstract Logic

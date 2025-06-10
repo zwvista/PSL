@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 13/Castle Bailey
+    iOS Game: 100 Logic Games/Puzzle Set 13/Castle Bailey
 
     Summary
     Towers, keeps and curtain walls

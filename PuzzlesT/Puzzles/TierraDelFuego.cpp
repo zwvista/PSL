@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 11/Tierra Del Fuego
+    iOS Game: 100 Logic Games/Puzzle Set 11/Tierra Del Fuego
 
     Summary
     Fuegians!

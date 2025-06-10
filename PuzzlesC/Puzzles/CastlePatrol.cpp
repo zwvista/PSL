@@ -5,7 +5,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 4/Castle Patrol
+    iOS Game: 100 Logic Games/Puzzle Set 4/Castle Patrol
 
     Summary
     Don't fall down the wall

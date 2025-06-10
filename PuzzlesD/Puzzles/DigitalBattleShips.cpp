@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 13/Digital Battle Ships
+    iOS Game: 100 Logic Games/Puzzle Set 13/Digital Battle Ships
 
     Summary
     Please divert your course 12+1+2 to avoid collision

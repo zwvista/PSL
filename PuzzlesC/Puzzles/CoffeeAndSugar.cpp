@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 17/Coffee And Sugar
+    iOS Game: 100 Logic Games/Puzzle Set 17/Coffee And Sugar
 
     Summary
     How many ?

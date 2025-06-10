@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 4/Sukrokuro
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Sukrokuro
 
     Summary
     All mixed up!

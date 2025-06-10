@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 3/Sentinels
+    iOS Game: 100 Logic Games/Puzzle Set 3/Sentinels
 
     Summary
     This time it's one Garden and many Towers

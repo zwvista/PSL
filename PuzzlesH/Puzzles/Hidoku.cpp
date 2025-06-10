@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 4/Hidoku
+    iOS Game: 100 Logic Games/Puzzle Set 4/Hidoku
 
     Summary
     Jump from one neighboring tile to another and fill the board

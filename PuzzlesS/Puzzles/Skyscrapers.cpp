@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 1/Skyscrapers
+    iOS Game: 100 Logic Games/Puzzle Set 1/Skyscrapers
 
     Summary
     Guess skyscrapers heights, judging from the skyline

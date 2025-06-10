@@ -3,7 +3,7 @@
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 /*
-    iOS Game: Logic Games/Puzzle Set 15/Park Lakes
+    iOS Game: 100 Logic Games/Puzzle Set 15/Park Lakes
 
     Summary
     Find the Lakes

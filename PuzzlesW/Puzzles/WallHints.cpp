@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 4/Wall Hints
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Wall Hints
 
     Summary
     Corner numbers

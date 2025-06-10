@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 15/Fussy Waiter
+    iOS Game: 100 Logic Games/Puzzle Set 15/Fussy Waiter
 
     Summary
     Won't give you what you asked for

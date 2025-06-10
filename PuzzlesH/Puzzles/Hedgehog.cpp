@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 1/Hedgehog Back Garden
+    iOS Game: 100 Logic Games/Puzzle Set 1/Hedgehog Back Garden
 
     Summary
     Vegetable Assault!
@@ -21,7 +21,7 @@
     6. On the last day the Hedgehog needs to be able to correctly reach n.1,
        closing the trip.
 
-    iOS Game: Logic Games/Puzzle Set 1/Hedgehog Orchard
+    iOS Game: 100 Logic Games/Puzzle Set 1/Hedgehog Orchard
 
     What's up?
     Cider Party!
@@ -37,7 +37,7 @@
     5. On the last day the Hedgehog needs to be able to correctly reach n.1,
        closing the trip.
 
-    iOS Game: Logic Games/Puzzle Set 1/Hedgehog Forest
+    iOS Game: 100 Logic Games/Puzzle Set 1/Hedgehog Forest
 
     What's up?
     Lost in the Woods
@@ -59,7 +59,7 @@
     8. Numbers go from 1 to 73 and there's no need to loop back to n.1.
        Boulders can be ignored.
 
-    iOS Game: Logic Games/Puzzle Set 1/Hedgehog City
+    iOS Game: 100 Logic Games/Puzzle Set 1/Hedgehog City
 
     What's up?
     Mr. Hedgehog goes to Washington
@@ -75,7 +75,7 @@
        Orchard, he moves Clockwise and Counterclockwise.
     5. He also needs to close the trip.
 
-    iOS Game: Logic Games/Puzzle Set 1/Hedgehog Enchanted Forest
+    iOS Game: 100 Logic Games/Puzzle Set 1/Hedgehog Enchanted Forest
 
     What's up?
     Back to Nature!

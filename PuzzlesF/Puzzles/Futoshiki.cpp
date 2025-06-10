@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 2/Futoshiki
+    iOS Game: 100 Logic Games/Puzzle Set 2/Futoshiki
 
     Summary
     Fill the rows and columns with numbers, respecting the relations

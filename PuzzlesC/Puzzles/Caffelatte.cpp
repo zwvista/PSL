@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 7/Caffelatte
+    iOS Game: 100 Logic Games 2/Puzzle Set 7/Caffelatte
 
     Summary
     Cows and Coffee

@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 13/Booty Island
+    iOS Game: 100 Logic Games/Puzzle Set 13/Booty Island
 
     Summary
     Overcrowded Piracy

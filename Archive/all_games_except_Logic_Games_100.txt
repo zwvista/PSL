@@ -1,13 +1,13 @@
 ﻿✅ 查找 .cpp 文件
 ✅ 文件路径中 包含 "Puzzles"
-✅ 文件内容中 不包含 "iOS Game: Logic Games"
+✅ 文件内容中 不包含 "iOS Game: 100 Logic Games"
 ✅ 文件名不是 main.cpp 或 stdafx.cpp
 
 Get-ChildItem -Path . -Recurse -Filter *.cpp | Where-Object {
     $_.FullName -like "*Puzzles*" -and
     $_.Name -ne "main.cpp" -and
     $_.Name -ne "stdafx.cpp" -and
-    -not (Select-String -Path $_.FullName -Pattern "iOS Game: Logic Games" -Quiet)
+    -not (Select-String -Path $_.FullName -Pattern "iOS Game: 100 Logic Games" -Quiet)
 } | Select-Object -ExpandProperty FullName | Out-File all_games_except_Logic_Games_100.txt -Encoding UTF8
 
 Puzzles9\Puzzles\15pegs.cpp

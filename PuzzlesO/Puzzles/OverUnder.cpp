@@ -5,7 +5,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 15/Over Under
+    iOS Game: 100 Logic Games/Puzzle Set 15/Over Under
 
     Summary
     Over and Under regions

@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 5/Insane Tatamis
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Insane Tatamis
 
     Summary
     Not that long

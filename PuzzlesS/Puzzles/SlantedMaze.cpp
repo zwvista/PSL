@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 6/Slanted Maze
+    iOS Game: 100 Logic Games/Puzzle Set 6/Slanted Maze
 
     Summary
     Maze of Slants!

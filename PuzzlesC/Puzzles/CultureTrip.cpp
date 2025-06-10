@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 1/Culture Trip
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Culture Trip
 
     Summary
     Or how to make a culture trip complicated

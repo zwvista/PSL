@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 17/Number Crossing
+    iOS Game: 100 Logic Games/Puzzle Set 17/Number Crossing
 
     Summary
     Digital Crosswords

@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 5/Loopy
+    iOS Game: 100 Logic Games/Puzzle Set 5/Loopy
 
     Summary
     Loop a loop! And touch all the dots!

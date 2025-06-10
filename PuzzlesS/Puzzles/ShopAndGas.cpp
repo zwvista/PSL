@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 10/Shop & Gas
+    iOS Game: 100 Logic Games/Puzzle Set 10/Shop & Gas
 
     Summary
     A Hard day at shopping!

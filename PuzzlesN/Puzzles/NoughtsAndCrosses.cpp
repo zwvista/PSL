@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 16/Noughts & Crosses
+    iOS Game: 100 Logic Games/Puzzle Set 16/Noughts & Crosses
 
     Summary
     Spot the Number

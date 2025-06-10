@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 14/Busy Seas
+    iOS Game: 100 Logic Games/Puzzle Set 14/Busy Seas
 
     Summary
     More seafaring puzzles

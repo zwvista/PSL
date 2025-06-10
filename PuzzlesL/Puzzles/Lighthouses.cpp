@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 9/Lighthouses
+    iOS Game: 100 Logic Games/Puzzle Set 9/Lighthouses
 
     Summary
     Lighten Up at Sea

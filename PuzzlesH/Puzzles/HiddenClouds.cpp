@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games 2/Puzzle Set 7/Hidden Clouds
+    iOS Game: 100 Logic Games 2/Puzzle Set 7/Hidden Clouds
 
     Summary
     Hide and Seek in the sky

@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 6/Minesweeper
+    iOS Game: 100 Logic Games/Puzzle Set 6/Minesweeper
 
     Summary
     You know the drill :)

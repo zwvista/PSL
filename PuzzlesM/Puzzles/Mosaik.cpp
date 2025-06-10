@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 4/Mosaik
+    iOS Game: 100 Logic Games/Puzzle Set 4/Mosaik
 
     Summary
     Paint the mosaic, filling squares with the numbered hints

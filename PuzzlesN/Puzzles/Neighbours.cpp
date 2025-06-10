@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Logic Games/Puzzle Set 8/Neighbours
+    iOS Game: 100 Logic Games/Puzzle Set 8/Neighbours
 
     Summary
     Neighbours, yes, but not equally sociable
