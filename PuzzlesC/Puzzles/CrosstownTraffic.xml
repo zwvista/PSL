@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Draw a circuit (looping road)
+2. The road may cross itself, but otherwise does not touch or retrace itself.
+3. The numbers along the edge indicate the stretch of the nearest section of road from that point, in corresponding row or column.
+4. For example if the first stretch of road is curve, straight and curve the number of that hint is 3.
+5. Another example: if the first stretch of road is curve and curve, the number of that hint is 2.
+6. Not all tiles should be used. In some levels some part of the board can remain unused.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ 23225 `
+3     2`
+2     2`
+4     4`
+2     2`
+3     2`
+ 33235 `
+    ]]>
+  </level>
+</levels>
+</puzzle>

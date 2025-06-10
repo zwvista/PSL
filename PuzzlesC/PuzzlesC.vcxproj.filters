@@ -58,6 +58,9 @@
     <Text Include="Puzzles\Chocolate.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\CrosstownTraffic.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -116,6 +119,9 @@
     <ClCompile Include="Puzzles\Chocolate.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\CrosstownTraffic.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Calcudoku.xml">
@@ -155,6 +161,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Chocolate.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\CrosstownTraffic.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

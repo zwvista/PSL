@@ -11,6 +11,7 @@ extern void solve_puz_Chocolate();
 extern void solve_puz_Clouds();
 extern void solve_puz_CoffeeAndSugar();
 extern void solve_puz_Consecutives();
+extern void solve_puz_CrosstownTraffic();
 extern void solve_puz_CultureTrip();
 
 int main(int argc, char **argv)
@@ -27,6 +28,7 @@ int main(int argc, char **argv)
     println("l: Clouds");
     println("o1: Coffee And Sugar");
     println("o2: Consecutives");
+    println("r: Crosstown Traffic");
     println("u: Culture Trip");
     string str;
     getline(cin, str);
@@ -42,6 +44,7 @@ int main(int argc, char **argv)
     else if (str == "l") solve_puz_Clouds();
     else if (str == "o1") solve_puz_CoffeeAndSugar();
     else if (str == "o2") solve_puz_Consecutives();
+    else if (str == "r") solve_puz_CrosstownTraffic();
     else if (str == "u") solve_puz_CultureTrip();
 
     return 0;
