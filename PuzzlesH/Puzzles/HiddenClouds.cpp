@@ -68,8 +68,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c)
             for (int sz = 1; sz <= min(m_sidelen - r, m_sidelen - c); ++sz) {
-                Position box_sz(sz - 1, sz - 1);
-                Position tl(r, c), br = tl + box_sz;
+                Position tl(r, c), br = tl + Position(sz - 1, sz - 1);
                 if (map<Position, int> pos2num; [&] {
                     for (auto& [p, num] : m_pos2num) {
                         int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
@@ -176,30 +175,30 @@ int puz_state::find_matches(bool init)
                 auto it = m_pos2size.find(p);
                 return it == m_pos2size.end() ? 1 : it->second == sz ? 0 : 2;
             };
-            //for (int r = r1; r <= r2; ++r) {
-            //    for (int c = c1 - 2; c >= 0; --c)
-            //        if (int n = ff({r, c}); n == 0)
-            //            return true;
-            //        else if (n == 2)
-            //            break;
-            //    for (int c = c2 + 2; c < sidelen(); ++c)
-            //        if (int n = ff({r, c}); n == 0)
-            //            return true;
-            //        else if (n == 2)
-            //            break;
-            //}
-            //for (int c = c1; c <= c2; ++c) {
-            //    for (int r = r1 - 2; r >= 0; --r)
-            //        if (int n = ff({r, c}); n == 0)
-            //            return true;
-            //        else if (n == 2)
-            //            break;
-            //    for (int r = r2 + 2; r < sidelen(); ++r)
-            //        if (int n = ff({r, c}); n == 0)
-            //            return true;
-            //        else if (n == 2)
-            //            break;
-            //}
+            for (int r = r1; r <= r2; ++r) {
+                for (int c = c1 - 2; c >= 0; --c)
+                    if (int n = ff({r, c}); n == 0)
+                        return true;
+                    else if (n == 2)
+                        break;
+                for (int c = c2 + 2; c < sidelen(); ++c)
+                    if (int n = ff({r, c}); n == 0)
+                        return true;
+                    else if (n == 2)
+                        break;
+            }
+            for (int c = c1; c <= c2; ++c) {
+                for (int r = r1 - 2; r >= 0; --r)
+                    if (int n = ff({r, c}); n == 0)
+                        return true;
+                    else if (n == 2)
+                        break;
+                for (int r = r2 + 2; r < sidelen(); ++r)
+                    if (int n = ff({r, c}); n == 0)
+                        return true;
+                    else if (n == 2)
+                        break;
+            }
             // 4. Numbers indicate the total number of clouds tiles in the tile itself
             // and in the four tiles around it (up down left right)
             return boost::algorithm::any_of(pos2num, [&](const pair<const Position, int>& kv) {
@@ -226,12 +225,14 @@ void puz_state::make_move2(int n)
     auto& [r2, c2] = br;
     int sz = r2 - r1 + 1;
     for (int r = r1; r <= r2; ++r)
-        for (int c = c1; c <= c2; ++c)
-            cells({r, c}) = PUZ_CLOUD;
+        for (int c = c1; c <= c2; ++c) {
+            Position p(r, c);
+            cells(p) = PUZ_CLOUD, m_pos2size[p] = sz;
+        }
     // 2. Clouds can't touch each other horizontally or vertically.
     auto f = [&](const Position& p) {
         if (is_valid(p))
-            cells(p) = PUZ_EMPTY, m_pos2size[p] = sz;
+            cells(p) = PUZ_EMPTY;
     };
     for (int r = r1; r <= r2; ++r)
         f({r, c1 - 1}), f({r, c2 + 1});

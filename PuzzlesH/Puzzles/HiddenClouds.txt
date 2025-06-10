@@ -11,9 +11,9 @@ Sequence of moves:
  -- -- -- -- --
 |1C|1.|1.| C|3C|
  -- -- -- -- --
-Number of moves: 3
-Number of vertices examined: 7
-0.0009105 [s]
+Number of moves: 1
+Number of vertices examined: 2
+0.000749 [s]
 
 Level 2
 Sequence of moves: 
@@ -28,7 +28,7 @@ Sequence of moves:
  -- -- -- -- --
 |3C|3C| .| .|1C|
  -- -- -- -- --
-Number of moves: 3
-Number of vertices examined: 5
-0.0004853 [s]
+Number of moves: 1
+Number of vertices examined: 2
+0.0003205 [s]
 
