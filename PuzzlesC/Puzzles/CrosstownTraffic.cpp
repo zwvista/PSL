@@ -24,7 +24,7 @@
 
 namespace puzzles::CrosstownTraffic{
 
-constexpr auto PUZ_BLOCK = 'B';
+constexpr auto PUZ_UNKNOWN = -1;
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -32,7 +32,8 @@ constexpr auto PUZ_BLOCK = 'B';
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
-const int lineseg_cross = 15;
+constexpr int lineseg_off = 0;
+constexpr int lineseg_cross = 15;
 const vector<int> linesegs_all = {
     // ┼ ┐  ─  ┌  ┘  │  └
     15, 12, 10, 6, 9, 5, 3,
@@ -45,26 +46,81 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+struct puz_hint
+{
+    int m_num;
+    map<int, vector<Position>> m_num2rng;
+};
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     int m_dot_count;
-    map<Position, int> m_pos2dot;
+    // key: 0 -- sidelen - 1: row left
+    //      sidelen -- sidelen * 2 - 1: row right 
+    //      sidelen * 2 -- sidelen * 3 - 1: column top 
+    //      sidelen * 3 -- sidelen * 4 - 1: column bottom
+    map<int, puz_hint> m_rc2hint;
+    // key: is_row, num, is_left
+    map<tuple<bool, int, bool>, vector<vector<int>>> m_pattern2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size())
+    , m_sidelen(strs.size() - 2)
     , m_dot_count(m_sidelen * m_sidelen)
 {
-    for (int r = 0; r < m_sidelen; ++r) {
+    for (int r = 0; r < m_sidelen + 2; ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c)
+        for (int c = 0; c < m_sidelen + 2; ++c)
             if (char ch = str[c]; ch != ' ')
-                m_pos2dot[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                if (c == 0 || c == m_sidelen + 1) {
+                    int idx = r - 1 + (c == 0 ? 0 : m_sidelen);
+                    auto& [num, num2rng] = m_rc2hint[idx];
+                    num = ch - '0';
+                    for (int i = num == 0 ? m_sidelen : num; i <= m_sidelen; ++i) {
+                        auto& rng = num2rng[i];
+                        for (int j = 0; j < i; ++j)
+                            rng.emplace_back(r - 1, c == 0 ? j : j + m_sidelen - i);
+                    }
+                } else if (r == 0 || r == m_sidelen + 1) {
+                    int idx = c - 1 + m_sidelen * 2 + (r == 0 ? 0 : m_sidelen);
+                    auto& [num, num2rng] = m_rc2hint[idx];
+                    num = ch - '0';
+                    for (int i = num == 0 ? m_sidelen : num; i <= m_sidelen; ++i) {
+                        auto& rng = num2rng[i];
+                        for (int j = 0; j < i; ++j)
+                            rng.emplace_back(r == 0 ? j : j + m_sidelen - i, c - 1);
+                    }
+                }
+    }
+    for (auto& [rc, hint] : m_rc2hint) {
+        auto& [num, num2rng] = hint;
+        bool is_row = rc < m_sidelen * 2;
+        bool is_left = rc - (is_row ? 0 : m_sidelen * 2) < m_sidelen;
+        auto& perms = m_pattern2perms[{is_row, num, is_left}];
+        if (!perms.empty()) continue;
+        for (auto& [num2, rng] : num2rng) {
+            for (int i = 0; i < (1 << num2); ++i) {
+                vector<int> perm;
+                for (int j = 0; j < num2; ++j) {
+                    bool is_not_road = is_left ? j >= num : j < num2 - num;
+                    bool is_road_left = j == (is_left ? 0 : num2 - num);
+                    bool is_road_right = j == (is_left ? num - 1 : num2 - 1);
+                    bool is_on = (i & (1 << j)) != 0;
+                    perm.push_back(
+                        is_not_road ? is_on ? lineseg_off : is_row ? 5 : 10 :
+                        is_road_left ? is_on ? 6 : is_row ? 3 : 12 :
+                        is_road_right ? is_on ? 9 : is_row ? 12 : 3 :
+                        is_on ? 15 : is_row ? 10 : 5
+                    );
+                }
+                perms.push_back(perm);
+            }
+        }
     }
 }
 
@@ -103,18 +159,15 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (g.m_pos2dot.contains(p))
-                dt.push_back(g.m_pos2dot.at(p));
-            else
-                for (int lineseg : linesegs_all)
-                    if ([&] {
-                        for (int i = 0; i < 4; ++i)
-                            // A line segment cannot go beyond the boundaries of the board 
-                            if (is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
-                                return false;
-                        return true;
-                    }())
-                        dt.push_back(lineseg);
+            for (int lineseg : linesegs_all)
+                if ([&] {
+                    for (int i = 0; i < 4; ++i)
+                        // A line segment cannot go beyond the boundaries of the board 
+                        if (is_lineseg_on(lineseg, i) && !is_valid(p + offset[i]))
+                            return false;
+                    return true;
+                }())
+                    dt.push_back(lineseg);
         }
 
     check_dots(true);

@@ -19,15 +19,13 @@
 
 namespace puzzles::Pipemania{
 
-constexpr auto PUZ_BLOCK = 'B';
-
 // n-e-s-w
 // 0 means line is off in this direction
 // 1,2,4,8 means line is on in this direction
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
-const int lineseg_cross = 15;
+constexpr int lineseg_cross = 15;
 const vector<int> linesegs_all = {
     // ┼ ┐  ─  ┌  ┘  │  └
     15, 12, 10, 6, 9, 5, 3,
