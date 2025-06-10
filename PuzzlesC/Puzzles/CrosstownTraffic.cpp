@@ -274,7 +274,7 @@ bool puz_state::check_loop() const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (dt.size() == 1)
+            if (dt.size() == 1 && dt[0] != lineseg_off)
                 rng.insert(p);
         }
 
@@ -353,7 +353,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 return sz == 1 ? 100 : sz;
                 };
             return f(dt1) < f(dt2);
-            }) - begin();
+        }) - begin();
         auto& dt = (*this)[i];
         Position p(i / sidelen(), i % sidelen());
         for (int n = 0; n < dt.size(); ++n) {
@@ -371,13 +371,13 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             out << ' ';
             if (c == sidelen() - 1) break;
-            out << (is_lineseg_on(dots({ r, c })[0], 1) ? '-' : ' ');
+            out << (is_lineseg_on(dots({r, c})[0], 1) ? '-' : ' ');
         }
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0;; ++c) {
             // draw vert-lines
-            out << (is_lineseg_on(dots({ r, c })[0], 2) ? '|' : ' ');
+            out << (is_lineseg_on(dots({r, c})[0], 2) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             out << ' ';
         }

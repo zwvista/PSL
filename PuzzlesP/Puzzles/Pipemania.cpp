@@ -223,13 +223,13 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             out << ' ';
             if (c == sidelen() - 1) break;
-            out << (is_lineseg_on(dots({ r, c })[0], 1) ? '-' : ' ');
+            out << (is_lineseg_on(dots({r, c})[0], 1) ? '-' : ' ');
         }
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0;; ++c) {
             // draw vert-lines
-            out << (is_lineseg_on(dots({ r, c })[0], 2) ? '|' : ' ');
+            out << (is_lineseg_on(dots({r, c})[0], 2) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             out << ' ';
         }
