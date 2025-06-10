@@ -109,9 +109,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (int i = 0; i < (1 << num2); ++i) {
                 vector<int> perm;
                 for (int j = 0; j < num2; ++j) {
-                    bool is_not_road = is_left ? j >= num : j < num2 - num;
-                    bool is_road_left = j == (is_left ? 0 : num2 - num);
-                    bool is_road_right = j == (is_left ? num - 1 : num2 - 1);
+                    bool is_not_road = is_left ? j < num2 - num : j >= num;
+                    bool is_road_left = j == (is_left ? num2 - num : 0);
+                    bool is_road_right = j == (is_left ? num2 - 1 : num - 1);
                     bool is_on = (i & (1 << j)) != 0;
                     perm.push_back(
                         is_not_road ? is_on ? lineseg_off : is_row ? 5 : 10 :
