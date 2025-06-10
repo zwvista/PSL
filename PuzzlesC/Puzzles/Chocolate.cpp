@@ -267,9 +267,9 @@ void puz_state::make_move2(int n)
             cells(p) = PUZ_EMPTY;
     };
     for (int r = r1; r <= r2; ++r)
-        f({ r, c1 - 1 }), f({ r, c2 + 1 });
+        f({r, c1 - 1}), f({r, c2 + 1});
     for (int c = c1; c <= c2; ++c)
-        f({ r1 - 1, c }), f({ r2 + 1, c });
+        f({r1 - 1, c}), f({r2 + 1, c});
     // 5. A tile with a number indicates how many tiles in the area must
     // be chocolate.
     // 6. An area without number can have any number of tiles of chocolate.

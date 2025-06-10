@@ -67,32 +67,31 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     // 2. Clouds have a square form (even of one single tile)
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c)
-            for (int h = 1; h <= m_sidelen - r; ++h)
-                for (int w = 1; w <= m_sidelen - c; ++w) {
-                    Position box_sz(h - 1, w - 1);
-                    Position tl(r, c), br = tl + box_sz;
-                    if (map<Position, int> pos2num; [&] {
-                        for (auto& [p, num] : m_pos2num) {
-                            int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
-                                auto p2 = p + os;
-                                return acc + (p2.first >= tl.first && p2.first <= br.first &&
-                                    p2.second >= tl.second && p2.second <= br.second ? 1 : 0);
-                            });
-                            // 4. Numbers indicate the total number of clouds tiles in the tile itself
-                            // and in the four tiles around it (up down left right)
-                            if (n > num)
-                                return false;
-                            if (n > 0)
-                                pos2num[p] = n;
-                        }
-                        return true;
-                    }()) {
-                        int n = m_boxes.size();
-                        m_boxes.emplace_back(pair{tl, br}, pos2num);
-                        for (auto& [p, n2] : pos2num)
-                            m_pos2boxids.at(p).push_back(n);
+            for (int sz = 1; sz <= min(m_sidelen - r, m_sidelen - c); ++sz) {
+                Position box_sz(sz - 1, sz - 1);
+                Position tl(r, c), br = tl + box_sz;
+                if (map<Position, int> pos2num; [&] {
+                    for (auto& [p, num] : m_pos2num) {
+                        int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
+                            auto p2 = p + os;
+                            return acc + (p2.first >= tl.first && p2.first <= br.first &&
+                                p2.second >= tl.second && p2.second <= br.second ? 1 : 0);
+                        });
+                        // 4. Numbers indicate the total number of clouds tiles in the tile itself
+                        // and in the four tiles around it (up down left right)
+                        if (n > num)
+                            return false;
+                        if (n > 0)
+                            pos2num[p] = n;
                     }
+                    return true;
+                }()) {
+                    int n = m_boxes.size();
+                    m_boxes.emplace_back(pair{tl, br}, pos2num);
+                    for (auto& [p, n2] : pos2num)
+                        m_pos2boxids.at(p).push_back(n);
                 }
+            }
 }
 
 struct puz_state
@@ -124,7 +123,12 @@ struct puz_state
     // key: the position of the hint
     // value.elem: the index of the box
     map<Position, vector<int>> m_matches;
+    // key: the position of the hint
+    // value: the value of the hint
     map<Position, int> m_pos2num;
+    // key: the position of the cloud
+    // value: the size of the cloud
+    map<Position, int> m_pos2size;
     unsigned int m_distance = 0;
 };
 
@@ -144,13 +148,14 @@ int puz_state::find_matches(bool init)
         char ch = cells(p);
         return ch != PUZ_SPACE && ch != PUZ_EMPTY;
     };
-    
+
     for (auto& [p, box_ids] : m_matches) {
         boost::remove_erase_if(box_ids, [&](int id) {
             auto& [box, pos2num] = m_game->m_boxes[id];
             auto& [tl, br] = box;
             auto& [r1, c1] = tl;
             auto& [r2, c2] = br;
+            int sz = r2 - r1 + 1;
             for (int r = r1; r <= r2; ++r)
                 for (int c = c1; c <= c2; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
@@ -166,6 +171,35 @@ int puz_state::find_matches(bool init)
                 if (f(p1) || f(p2))
                     return true;
             }
+            // 3. Clouds of the same size cannot see each other horizontally or vertically
+            auto ff = [&](const Position& p) {
+                auto it = m_pos2size.find(p);
+                return it == m_pos2size.end() ? 1 : it->second == sz ? 0 : 2;
+            };
+            //for (int r = r1; r <= r2; ++r) {
+            //    for (int c = c1 - 2; c >= 0; --c)
+            //        if (int n = ff({r, c}); n == 0)
+            //            return true;
+            //        else if (n == 2)
+            //            break;
+            //    for (int c = c2 + 2; c < sidelen(); ++c)
+            //        if (int n = ff({r, c}); n == 0)
+            //            return true;
+            //        else if (n == 2)
+            //            break;
+            //}
+            //for (int c = c1; c <= c2; ++c) {
+            //    for (int r = r1 - 2; r >= 0; --r)
+            //        if (int n = ff({r, c}); n == 0)
+            //            return true;
+            //        else if (n == 2)
+            //            break;
+            //    for (int r = r2 + 2; r < sidelen(); ++r)
+            //        if (int n = ff({r, c}); n == 0)
+            //            return true;
+            //        else if (n == 2)
+            //            break;
+            //}
             // 4. Numbers indicate the total number of clouds tiles in the tile itself
             // and in the four tiles around it (up down left right)
             return boost::algorithm::any_of(pos2num, [&](const pair<const Position, int>& kv) {
@@ -190,13 +224,14 @@ void puz_state::make_move2(int n)
     auto& [tl, br] = box;
     auto& [r1, c1] = tl;
     auto& [r2, c2] = br;
+    int sz = r2 - r1 + 1;
     for (int r = r1; r <= r2; ++r)
         for (int c = c1; c <= c2; ++c)
             cells({r, c}) = PUZ_CLOUD;
     // 2. Clouds can't touch each other horizontally or vertically.
     auto f = [&](const Position& p) {
         if (is_valid(p))
-            cells(p) = PUZ_EMPTY;
+            cells(p) = PUZ_EMPTY, m_pos2size[p] = sz;
     };
     for (int r = r1; r <= r2; ++r)
         f({r, c1 - 1}), f({r, c2 + 1});

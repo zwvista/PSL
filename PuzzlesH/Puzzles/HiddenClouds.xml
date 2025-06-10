@@ -18,5 +18,14 @@
 111 3`
     ]]>
   </level>
+  <level id="2">
+    <![CDATA[
+2 21 `
+ 3 31`
+2 3  `
+3  1 `
+33  1`
+    ]]>
+  </level>
 </levels>
 </puzzle>
