@@ -33,12 +33,6 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-struct puz_hint
-{
-    int m_num = 0;
-    vector<int> m_box_ids;
-};
-
 struct puz_box
 {
     // top-left and bottom-right
@@ -50,7 +44,8 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, puz_hint> m_pos2hint;
+    map<Position, int> m_pos2num;
+    map<Position, vector<int>> m_pos2boxids;
     vector<puz_box> m_boxes;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -64,8 +59,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
+            Position p(r, c);
             if (ch != PUZ_SPACE)
-                m_pos2hint[{r, c}].m_num = ch - '0';
+                m_pos2num[p] = ch - '0', m_pos2boxids[p];
         }
     }
     // 2. Clouds have a square form (even of one single tile)
@@ -76,7 +72,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     Position box_sz(h - 1, w - 1);
                     Position tl(r, c), br = tl + box_sz;
                     if (map<Position, int> pos2num; [&] {
-                        for (auto& [p, hint] : m_pos2hint) {
+                        for (auto& [p, num] : m_pos2num) {
                             int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
                                 auto p2 = p + os;
                                 return acc + (p2.first >= tl.first && p2.first <= br.first &&
@@ -84,7 +80,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             });
                             // 4. Numbers indicate the total number of clouds tiles in the tile itself
                             // and in the four tiles around it (up down left right)
-                            if (n > hint.m_num)
+                            if (n > num)
                                 return false;
                             if (n > 0)
                                 pos2num[p] = n;
@@ -94,7 +90,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         int n = m_boxes.size();
                         m_boxes.emplace_back(pair{tl, br}, pos2num);
                         for (auto& [p, n2] : pos2num)
-                            m_pos2hint.at(p).m_box_ids.push_back(n);
+                            m_pos2boxids.at(p).push_back(n);
                     }
                 }
 }
@@ -136,8 +132,8 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 {
-    for (auto& [p, hint] : g.m_pos2hint)
-        m_matches[p] = hint.m_box_ids, m_pos2num[p] = hint.m_num;
+    for (auto& [p, num] : g.m_pos2num)
+        m_matches[p] = g.m_pos2boxids.at(p), m_pos2num[p] = num;
     find_matches(true);
 }
 
@@ -242,12 +238,22 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 0;; ++r) {
+        // draw horz-walls
+        for (int c = 0; c < sidelen(); ++c)
+            out << " --";
+        println(out);
+        if (r == sidelen()) break;
+        for (int c = 0;; ++c) {
             Position p(r, c);
-            auto it = m_game->m_pos2hint.find(p);
-            out << cells(p) <<
-                char(it == m_game->m_pos2hint.end() ? ' ' : it->second.m_num + '0');
+            // draw vert-walls
+            out << '|';
+            if (c == sidelen()) break;
+            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
+                out << ' ';
+            else
+                out << it->second;
+            out << cells({r, c});
         }
         println(out);
     }
