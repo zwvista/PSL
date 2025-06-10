@@ -108,6 +108,7 @@ struct puz_state
     bool make_move(int n);
     void make_move2(int n);
     int find_matches(bool init);
+    char& sizes(const Position& p) { return m_sizes[p.first * sidelen() + p.second]; }
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -118,22 +119,20 @@ struct puz_state
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    string m_cells;
+    string m_cells, m_sizes;
     // key: the position of the hint
     // value.elem: the index of the box
     map<Position, vector<int>> m_matches;
     // key: the position of the hint
     // value: the value of the hint
     map<Position, int> m_pos2num;
-    // key: the position of the cloud
-    // value: the size of the cloud
-    map<Position, int> m_pos2size;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+, m_sizes(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 {
     for (auto& [p, num] : g.m_pos2num)
         m_matches[p] = g.m_pos2boxids.at(p), m_pos2num[p] = num;
@@ -172,8 +171,8 @@ int puz_state::find_matches(bool init)
             }
             // 3. Clouds of the same size cannot see each other horizontally or vertically
             auto ff = [&](const Position& p) {
-                auto it = m_pos2size.find(p);
-                return it == m_pos2size.end() ? 1 : it->second == sz ? 0 : 2;
+                char ch = sizes(p);
+                return ch == PUZ_SPACE ? 1 : ch == sz + '0' ? 0 : 2;
             };
             for (int r = r1; r <= r2; ++r) {
                 for (int c = c1 - 2; c >= 0; --c)
@@ -227,7 +226,7 @@ void puz_state::make_move2(int n)
     for (int r = r1; r <= r2; ++r)
         for (int c = c1; c <= c2; ++c) {
             Position p(r, c);
-            cells(p) = PUZ_CLOUD, m_pos2size[p] = sz;
+            cells(p) = PUZ_CLOUD, sizes(p) = sz + '0';
         }
     // 2. Clouds can't touch each other horizontally or vertically.
     auto f = [&](const Position& p) {
