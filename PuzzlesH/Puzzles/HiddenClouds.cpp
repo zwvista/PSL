@@ -135,7 +135,8 @@ puz_state::puz_state(const puz_game& g)
 , m_sizes(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 {
     for (auto& [p, num] : g.m_pos2num)
-        m_matches[p] = g.m_pos2boxids.at(p), m_pos2num[p] = num;
+        if ((m_pos2num[p] = num) != 0)
+            m_matches[p] = g.m_pos2boxids.at(p);
     find_matches(true);
 }
 
@@ -182,7 +183,7 @@ int puz_state::find_matches(bool init)
                             return n;
                     return 1;
                 }());
-            if (s.size() == 1 && s.contains(0))
+            if (!s.contains(2) && s.contains(0))
                 return true;
             s.clear();
             for (int r = r1; r <= r2; ++r)
@@ -192,7 +193,7 @@ int puz_state::find_matches(bool init)
                             return n;
                     return 1;
                 }());
-            if (s.size() == 1 && s.contains(0))
+            if (!s.contains(2) && s.contains(0))
                 return true;
             s.clear();
             for (int c = c1; c <= c2; ++c)
@@ -202,7 +203,7 @@ int puz_state::find_matches(bool init)
                             return n;
                     return 1;
                 }());
-            if (s.size() == 1 && s.contains(0))
+            if (!s.contains(2) && s.contains(0))
                 return true;
             s.clear();
             for (int c = c1; c <= c2; ++c)
@@ -212,7 +213,7 @@ int puz_state::find_matches(bool init)
                             return n;
                     return 1;
                 }());
-            if (s.size() == 1 && s.contains(0))
+            if (!s.contains(2) && s.contains(0))
                 return true;
             s.clear();
             // 4. Numbers indicate the total number of clouds tiles in the tile itself
