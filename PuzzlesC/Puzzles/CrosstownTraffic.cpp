@@ -182,6 +182,8 @@ puz_state::puz_state(const puz_game& g)
         perm_ids.resize(perms.size());
         boost::iota(perm_ids, 0);
     }
+
+    find_matches(true);
     check_dots(true);
 }
 
@@ -204,7 +206,7 @@ int puz_state::find_matches(bool init)
         });
 
         if (!init)
-            switch (perms.size()) {
+            switch (perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
@@ -304,10 +306,10 @@ bool puz_state::check_loop() const
     return true;
 }
 
-bool puz_state::make_move_hint(int i, int j)
+bool puz_state::make_move_hint(int rc, int n)
 {
     m_distance = 0;
-    make_move_hint2(i, j);
+    make_move_hint2(rc, n);
     for (;;) {
         int m;
         while ((m = find_matches(false)) == 1);
