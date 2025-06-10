@@ -174,30 +174,47 @@ int puz_state::find_matches(bool init)
                 char ch = sizes(p);
                 return ch == PUZ_SPACE ? 1 : ch == sz + '0' ? 0 : 2;
             };
-            for (int r = r1; r <= r2; ++r) {
-                for (int c = c1 - 2; c >= 0; --c)
-                    if (int n = ff({r, c}); n == 0)
-                        return true;
-                    else if (n == 2)
-                        break;
-                for (int c = c2 + 2; c < sidelen(); ++c)
-                    if (int n = ff({r, c}); n == 0)
-                        return true;
-                    else if (n == 2)
-                        break;
-            }
-            for (int c = c1; c <= c2; ++c) {
-                for (int r = r1 - 2; r >= 0; --r)
-                    if (int n = ff({r, c}); n == 0)
-                        return true;
-                    else if (n == 2)
-                        break;
-                for (int r = r2 + 2; r < sidelen(); ++r)
-                    if (int n = ff({r, c}); n == 0)
-                        return true;
-                    else if (n == 2)
-                        break;
-            }
+            set<int> s;
+            for (int r = r1; r <= r2; ++r)
+                s.insert([&] {
+                    for (int c = c1 - 2; c >= 0; --c)
+                        if (int n = ff({r, c}); n != 1)
+                            return n;
+                    return 1;
+                }());
+            if (s.size() == 1 && s.contains(0))
+                return true;
+            s.clear();
+            for (int r = r1; r <= r2; ++r)
+                s.insert([&] {
+                    for (int c = c2 + 2; c < sidelen(); ++c)
+                        if (int n = ff({r, c}); n != 1)
+                            return n;
+                    return 1;
+                }());
+            if (s.size() == 1 && s.contains(0))
+                return true;
+            s.clear();
+            for (int c = c1; c <= c2; ++c)
+                s.insert([&] {
+                    for (int r = r1 - 2; r >= 0; --r)
+                        if (int n = ff({r, c}); n != 1)
+                            return n;
+                    return 1;
+                }());
+            if (s.size() == 1 && s.contains(0))
+                return true;
+            s.clear();
+            for (int c = c1; c <= c2; ++c)
+                s.insert([&] {
+                    for (int r = r2 + 2; r < sidelen(); ++r)
+                        if (int n = ff({r, c}); n != 1)
+                            return n;
+                    return 1;
+                }());
+            if (s.size() == 1 && s.contains(0))
+                return true;
+            s.clear();
             // 4. Numbers indicate the total number of clouds tiles in the tile itself
             // and in the four tiles around it (up down left right)
             return boost::algorithm::any_of(pos2num, [&](const pair<const Position, int>& kv) {

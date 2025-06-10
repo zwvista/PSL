@@ -13,7 +13,7 @@ Sequence of moves:
  -- -- -- -- --
 Number of moves: 1
 Number of vertices examined: 2
-0.0003628 [s]
+0.0009226 [s]
 
 Level 2
 Sequence of moves: 
@@ -30,7 +30,7 @@ Sequence of moves:
  -- -- -- -- --
 Number of moves: 1
 Number of vertices examined: 2
-0.0006469 [s]
+0.001734 [s]
 
 Level 36
 Sequence of moves: 
@@ -49,11 +49,34 @@ Sequence of moves:
  -- -- -- -- -- -- --
 | C| C|1.|1.|  | .|1C|
  -- -- -- -- -- -- --
-Number of moves: 1
-Number of vertices examined: 2
-0.000259 [s]
+Number of moves: 2
+Number of vertices examined: 3
+0.000495 [s]
 
 Level 200
-Number of vertices examined: 58
-0.0018936 [s]
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+| C|1.|  | .|  |  |  |1.| .|  |
+ -- -- -- -- -- -- -- -- -- --
+|2.| .|1.| C| .|  |1.| C| C| .|
+ -- -- -- -- -- -- -- -- -- --
+| C| C| .| .| C| .| .| C| C| .|
+ -- -- -- -- -- -- -- -- -- --
+| C|3C| .|  |1.| .|  |1.| .|  |
+ -- -- -- -- -- -- -- -- -- --
+| .| .|1.|  |1.|1C| .|  | .| .|
+ -- -- -- -- -- -- -- -- -- --
+|  | .| C| .|  | .| .| .| C| C|
+ -- -- -- -- -- -- -- -- -- --
+|  |1.|1.|  |1.| C| C| .|3C| C|
+ -- -- -- -- -- -- -- -- -- --
+| .| C| .| .| .| C| C|2.| .|1.|
+ -- -- -- -- -- -- -- -- -- --
+|  |2.|3C| C| .| .| .| C| .| .|
+ -- -- -- -- -- -- -- -- -- --
+|  | .| C| C| .|  |  |1.| .|1C|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 19
+0.0020755 [s]
 
