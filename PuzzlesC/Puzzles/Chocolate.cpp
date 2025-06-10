@@ -148,9 +148,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         return num == PUZ_UNKNOWN || kv.second <= num;
                     })) {
                         int n = m_boxes.size();
-                        auto& o = m_boxes.emplace_back();
-                        o.m_box = {tl, br};
-                        o.m_area2num = area2num;
+                        m_boxes.emplace_back(pair{tl, br}, area2num);
                         for (auto& [i, j] : area2num)
                             m_areas[i].m_box_ids.push_back(n);
                     }
@@ -215,8 +213,7 @@ int puz_state::find_matches(bool init)
     
     for (auto& [area_id, box_ids] : m_matches) {
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& o = m_game->m_boxes[id];
-            auto& box = o.m_box;
+            auto& [box, area2num] = m_game->m_boxes[id];
             auto& [tl, br] = box;
             auto& [r1, c1] = tl;
             auto& [r2, c2] = br;
@@ -238,7 +235,7 @@ int puz_state::find_matches(bool init)
             // 5. A tile with a number indicates how many tiles in the area must
             // be chocolate.
             // 6. An area without number can have any number of tiles of chocolate.
-            return boost::algorithm::any_of(o.m_area2num, [&](const pair<const int, int>& kv){
+            return boost::algorithm::any_of(area2num, [&](const pair<const int, int>& kv){
                 int num = m_area2num[kv.first];
                 return num != PUZ_UNKNOWN && kv.second > num;
             });

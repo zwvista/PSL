@@ -78,31 +78,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 for (int w = 1; w <= m_sidelen - c; ++w) {
                     Position box_sz(h - 1, w - 1);
                     Position tl(r, c), br = tl + box_sz;
-                    map<Position, int> pos2num;
-                    for (auto& [p, hint]: m_pos2hint) {
-                        int n = 0;
-                        for (auto& os : offset) {
-                            auto p2 = p + os;
-                            if (p2.first >= tl.first && p2.first <= br.first &&
-                                p2.second >= tl.second && p2.second <= br.second)
-                                ++n;
+                    if (map<Position, int> pos2num; [&] {
+                        for (auto& [p, hint] : m_pos2hint) {
+                            int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
+                                auto p2 = p + os;
+                                return acc + (p2.first >= tl.first && p2.first <= br.first &&
+                                    p2.second >= tl.second && p2.second <= br.second ? 1 : 0);
+                            });
+                            // 4. Numbers indicate the total number of clouds tiles in the tile itself
+                            // and in the four tiles around it (up down left right)
+                            if (n > hint.m_num)
+                                return false;
+                            if (n > 0)
+                                pos2num[p] = n;
                         }
-                        // 4. Numbers indicate the total number of clouds tiles in the tile itself
-                        // and in the four tiles around it (up down left right)
-                        if (n > hint.m_num)
-                            goto next_box;
-                        if (n > 0)
-                            pos2num[p] = n;
-                    }
-                    {
+                        return true;
+                    }()) {
                         int n = m_boxes.size();
-                        auto& o = m_boxes.emplace_back();
-                        o.m_box = {tl, br};
-                        o.m_pos2num = pos2num;
+                        m_boxes.emplace_back(pair{tl, br}, pos2num);
                         for (auto& [p, n2] : pos2num)
                             m_pos2hint.at(p).m_box_ids.push_back(n);
                     }
-                next_box:;
                 }
 }
 
@@ -135,7 +131,6 @@ struct puz_state
     // key: the position of the hint
     // value: the hint
     map<Position, puz_hint> m_matches;
-    vector<int> m_area2num;
     unsigned int m_distance = 0;
 };
 
@@ -156,7 +151,8 @@ int puz_state::find_matches(bool init)
     };
     
     for (auto& [p, hint] : m_matches) {
-        boost::remove_erase_if(hint.m_box_ids, [&](int id) {
+        auto& [num, box_ids] = hint;
+        boost::remove_erase_if(box_ids, [&](int id) {
             auto& [box, pos2num] = m_game->m_boxes[id];
             auto& [tl, br] = box;
             auto& [r1, c1] = tl;
@@ -176,15 +172,19 @@ int puz_state::find_matches(bool init)
                 if (f(p1) || f(p2))
                     return true;
             }
-            return false;
+            // 4. Numbers indicate the total number of clouds tiles in the tile itself
+            // and in the four tiles around it (up down left right)
+            return boost::algorithm::any_of(pos2num, [&](const pair<const Position, int>& kv) {
+                return kv.second > num;
+            });
         });
 
         if (!init)
-            switch(hint.m_box_ids.size()) {
+            switch(box_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, hint.m_box_ids[0]), 1;
+                return make_move2(p, box_ids[0]), 1;
             }
     }
     return 2;
@@ -212,8 +212,11 @@ void puz_state::make_move2(const Position& p, int n)
     for (auto& [p2, hint] : m_matches)
         boost::remove_erase(hint.m_box_ids, n);
 
-    ++m_distance;
-    m_matches.erase(p);
+    // 4. Numbers indicate the total number of clouds tiles in the tile itself
+    // and in the four tiles around it (up down left right)
+    for (auto& [p, i] : pos2num)
+        if (auto it = m_matches.find(p); it != m_matches.end() && (it->second.m_num -= i) == 0)
+            m_matches.erase(p), ++m_distance;
 }
 
 bool puz_state::make_move(const Position& p, int n)
@@ -244,7 +247,9 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            out << format("{:02}", cells(p)) << " ";
+            auto it = m_game->m_pos2hint.find(p);
+            out << cells(p) <<
+                char(it == m_game->m_pos2hint.end() ? ' ' : it->second.m_num + '0');
         }
         println(out);
     }
