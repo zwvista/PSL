@@ -221,13 +221,15 @@ bool puz_state::check_loop() const
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
         set<int> area_ids;
-        for (int n = -1;;) {
+        for (int n = -1, last_area_id = -1;;) {
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
             int area_id = m_game->m_pos2area.at(p2);
-            if (!area_ids.contains(area_id)) {
+            if (!area_ids.contains(area_id))
                 area_ids.insert(area_id);
-            }
+            else if (last_area_id != area_id)
+                return false;
+            last_area_id = area_id;
             for (int i = 0; i < 4; ++i)
                 // proceed only if the line segment does not revisit the previous position
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
