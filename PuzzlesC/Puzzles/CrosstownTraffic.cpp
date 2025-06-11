@@ -366,23 +366,48 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    for (int c = 0; c < sidelen(); ++c)
+        if (auto it = m_game->m_rc2hint.find(c + m_game->m_sidelen * 2);
+            it != m_game->m_rc2hint.end())
+            out << ' ' << it->second.m_num;
+        else
+            out << "  ";
+    println(out);
     for (int r = 0;; ++r) {
+        if (auto it = m_game->m_rc2hint.find(r);
+            it != m_game->m_rc2hint.end())
+            out << it->second.m_num;
+        else
+            out << ' ';
         // draw horz-lines
         for (int c = 0; c < sidelen(); ++c) {
-            out << ' ';
+            out << '.';
             if (c == sidelen() - 1) break;
             out << (is_lineseg_on(dots({r, c})[0], 1) ? '-' : ' ');
         }
+        if (auto it = m_game->m_rc2hint.find(r + m_game->m_sidelen);
+            it != m_game->m_rc2hint.end())
+            out << it->second.m_num;
+        else
+            out << ' ';
+            out << ' ';
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0;; ++c) {
+            out << ' ';
             // draw vert-lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? '|' : ' ');
             if (c == sidelen() - 1) break;
-            out << ' ';
         }
         println(out);
     }
+    for (int c = 0; c < sidelen(); ++c)
+        if (auto it = m_game->m_rc2hint.find(c + m_game->m_sidelen * 3);
+            it != m_game->m_rc2hint.end())
+            out << ' ' << it->second.m_num;
+        else
+            out << "  ";
+    println(out);
     return out;
 }
 
