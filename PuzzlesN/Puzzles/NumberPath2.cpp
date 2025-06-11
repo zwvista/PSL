@@ -106,7 +106,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out, const set<Position>& horz_lines, const set<Position>& vert_lines) const
 {
     for (int r = 0;; ++r) {
-        // draw horz-lines
+        // draw horizontal lines
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             out << format("{:2}", cells(p))
@@ -115,7 +115,7 @@ ostream& puz_state::dump(ostream& out, const set<Position>& horz_lines, const se
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
-            // draw vert-lines
+            // draw vertical lines
             out << (vert_lines.contains({r, c}) ? " | " : "   ");
         println(out);
     }

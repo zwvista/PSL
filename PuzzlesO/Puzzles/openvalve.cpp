@@ -21,7 +21,7 @@ constexpr Position offset[] = {
 };
 const string dirs = "wensewsn";
 const string pipes = "LI34";
-const int pipe_offset[] = {0, 4, 6, 10, 11};
+constexpr int pipe_offset[] = {0, 4, 6, 10, 11};
 const string pipe_dirss[] = {
     "se", "sw", "ne", "nw",
     "we", "ns",

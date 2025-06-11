@@ -235,7 +235,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
-        // draw horz-walls
+        // draw horizontal walls
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             out << m_game->cells(p)
@@ -244,7 +244,7 @@ ostream& puz_state::dump(ostream& out) const
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
-            // draw vert-walls
+            // draw vertical walls
             out << (is_lineseg_on(dots({r, c}), 2) ? "| " : "  ");
         println(out);
     }

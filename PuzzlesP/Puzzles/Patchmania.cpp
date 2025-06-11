@@ -59,7 +59,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     vector<vector<Position>> teleports;
     for (int r = 0;; ++r) {
-        // horz-walls
+        // horizontal walls
         auto& str_h = strs[r * 2];
         for (int c = 0; c < cols(); ++c)
             if (str_h[c * 2 + 1] == '-')
@@ -404,7 +404,7 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
     println(out);
     for (int r = 0;; ++r) {
         out << ' ';
-        // draw horz-walls
+        // draw horizontal walls
         for (int c = 0; c < cols(); ++c)
             out << (m_game->m_horz_walls.contains({r, c}) ? " --" : "   ");
         println(out);
@@ -412,7 +412,7 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
         out << (r + 1);
         for (int c = 0;; ++c) {
             Position p(r, c);
-            // draw vert-walls
+            // draw vertical walls
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == cols()) break;
             char ch = cells(p);

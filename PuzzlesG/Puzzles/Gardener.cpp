@@ -102,7 +102,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     set<Position> rng;
     for (int r = 1;; ++r) {
-        // horz-walls
+        // horizontal walls
         auto& str_h = strs[r * 2 - 2];
         for (int c = 1; c < m_sidelen - 1; ++c)
             if (str_h[c * 2 - 1] == '-')
@@ -111,7 +111,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& str_v = strs[r * 2 - 1];
         for (int c = 1;; ++c) {
             Position p(r, c);
-            // vert-walls
+            // vertical walls
             if (str_v[c * 2 - 2] == '|')
                 m_vert_walls.insert(p);
             if (c == m_sidelen - 1) break;
@@ -315,14 +315,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 1;; ++r) {
-        // draw horz-walls
+        // draw horizontal walls
         for (int c = 1; c < sidelen() - 1; ++c)
             out << (m_game->m_horz_walls.contains({r, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
-            // draw vert-walls
+            // draw vertical walls
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             out << cells(p);

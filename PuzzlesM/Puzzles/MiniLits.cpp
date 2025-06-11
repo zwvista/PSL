@@ -96,7 +96,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     set<Position> horz_walls, vert_walls, rng;
     for (int r = 0;; ++r) {
-        // horz-walls
+        // horizontal walls
         auto& str_h = strs[r * 2];
         for (int c = 0; c < m_sidelen; ++c)
             if (str_h[c * 2 + 1] == '-')
@@ -105,7 +105,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& str_v = strs[r * 2 + 1];
         for (int c = 0;; ++c) {
             Position p(r, c);
-            // vert-walls
+            // vertical walls
             if (str_v[c * 2] == '|')
                 vert_walls.insert(p);
             if (c == m_sidelen) break;

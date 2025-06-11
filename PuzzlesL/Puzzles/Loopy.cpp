@@ -29,8 +29,8 @@ constexpr Position offset[] = {
 
 using puz_line_info = pair<Position, int>;
 const puz_line_info lines_info[] = {
-    {{0, 0}, 1}, {{0, 1}, 3},         // horz-line
-    {{0, 0}, 2}, {{1, 0}, 0},         // vert-line
+    {{0, 0}, 1}, {{0, 1}, 3},         // horizontal line
+    {{0, 0}, 2}, {{1, 0}, 0},         // vertical line
 };
 
 struct puz_game
@@ -50,13 +50,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     for (int r = 0;; ++r) {
         auto& str_horz = strs[2 * r];
-        // horz-lines
+        // horizontal lines
         for (int c = 0; c < m_sidelen - 1; ++c)
             if (str_horz[2 * c + 1] == '-')
                 m_horz_lines.emplace(r, c);
         if (r == m_sidelen - 1) break;
         auto& str_vert = strs[2 * r + 1];
-        // vert-lines
+        // vertical lines
         for (int c = 0; c <= m_sidelen - 1; ++c)
             if (str_vert[2 * c] == '|')
                 m_vert_lines.emplace(r, c);
@@ -236,14 +236,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
-        // draw horz-lines
+        // draw horizontal lines
         for (int c = 0; c < sidelen() - 1; ++c)
             out << (dots({r, c})[0][1] == PUZ_LINE_ON ? " -" : "  ");
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            // draw vert-lines
+            // draw vertical lines
             out << (dots(p)[0][2] == PUZ_LINE_ON ? "| " : "  ");
         }
         println(out);

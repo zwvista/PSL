@@ -25,8 +25,6 @@ namespace puzzles::CrossroadBlocks{
 
 constexpr auto PUZ_LINE_OFF = '0';
 constexpr auto PUZ_LINE_ON = '1';
-constexpr auto PUZ_SQUARE_OFF = '0';
-constexpr auto PUZ_SQUARE_ON = '1';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -94,10 +92,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (!m_pos2info.contains(p2))
                 info.m_rng.push_back(p2);
 
-        auto perm = string(info.m_rng.size() - info.m_num, PUZ_SQUARE_OFF) + string(info.m_num, PUZ_SQUARE_ON);
-        do
-            info.m_perms.push_back(perm);
-        while (boost::next_permutation(perm));
+        //auto perm = string(info.m_rng.size() - info.m_num, PUZ_SQUARE_OFF) + string(info.m_num, PUZ_SQUARE_ON);
+        //do
+        //    info.m_perms.push_back(perm);
+        //while (boost::next_permutation(perm));
     }
 }
 
@@ -177,13 +175,6 @@ int puz_state::find_matches(bool init)
         auto& rng = info.m_rng;
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = info.m_perms[id];
-            for (int i = 0; i < rng.size(); ++i) {
-                char ch = perm[i];
-                const auto& dt = dots(rng[i]);
-                if (ch == PUZ_SQUARE_OFF && dt.size() == 1 && dt[0] == lineseg_off ||
-                    ch == PUZ_SQUARE_ON && dt[0] != lineseg_off)
-                    return true;
-            }
             return false;
         });
 
@@ -246,11 +237,6 @@ void puz_state::make_move_square2(const Position& p, int n)
     for (int i = 0; i < rng.size(); ++i) {
         const auto& p2 = rng[i];
         auto& dt = dots(p2);
-        if (perm[i] == PUZ_SQUARE_OFF) {
-            if (dt[0] == lineseg_off)
-                dt.erase(dt.begin());
-        } else
-            dt = {lineseg_off};
     }
     m_matches.erase(p);
 }
@@ -343,7 +329,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
-        // draw horz-lines
+        // draw horizontal lines
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
@@ -358,7 +344,7 @@ ostream& puz_state::dump(ostream& out) const
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
-            // draw vert-lines
+            // draw vertical lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "|  " : "   ");
         println(out);
     }

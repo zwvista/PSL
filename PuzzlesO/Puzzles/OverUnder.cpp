@@ -230,14 +230,14 @@ ostream& puz_state::dump(ostream& out) const
         }
 
     for (int r = 1;; ++r) {
-        // draw horz-walls
+        // draw horizontal walls
         for (int c = 1; c < sidelen() - 1; ++c)
             out << (horz_walls.contains({r, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
-            // draw vert-walls
+            // draw vertical walls
             out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             auto it = m_game->m_pos2num.find(p);

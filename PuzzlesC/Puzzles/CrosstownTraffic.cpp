@@ -379,7 +379,7 @@ ostream& puz_state::dump(ostream& out) const
             out << it->second.m_num;
         else
             out << ' ';
-        // draw horz-lines
+        // draw horizontal lines
         for (int c = 0; c < sidelen(); ++c) {
             out << '.';
             if (c == sidelen() - 1) break;
@@ -395,7 +395,7 @@ ostream& puz_state::dump(ostream& out) const
         if (r == sidelen() - 1) break;
         for (int c = 0;; ++c) {
             out << ' ';
-            // draw vert-lines
+            // draw vertical lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? '|' : ' ');
             if (c == sidelen() - 1) break;
         }

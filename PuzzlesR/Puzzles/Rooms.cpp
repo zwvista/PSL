@@ -248,14 +248,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
-        // draw horz-doors
+        // draw horizontal doors
         for (int c = 0; c < sidelen(); ++c)
             out << (m_horz_doors.at({r, c}) == PUZ_DOOR_CLOSED ? " -" : "  ");
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
-            // draw vert-doors
+            // draw vertical doors
             out << (m_vert_doors.at(p) == PUZ_DOOR_CLOSED ? '|' : ' ');
             if (c == sidelen()) break;
             out << m_game->cells(p);

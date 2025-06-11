@@ -17,7 +17,7 @@ constexpr auto PUZ_MOVE = 2;
 //  . - .8
 //16|   |32
 //  . - .64
-const int matchstick_digits[] = {
+constexpr int matchstick_digits[] = {
     0b1110111, // 0
     0b0100100, // 1
     0b1011101, // 2

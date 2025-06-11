@@ -102,7 +102,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     if (!m_bNoAreas) {
         set<Position> rng;
         for (int r = 0;; ++r) {
-            // horz-walls
+            // horizontal walls
             auto& str_h = strs[r * 2];
             for (int c = 0; c < m_sidelen; ++c)
                 m_horz_walls[{r, c}] = str_h[c * 2 + 1];
@@ -110,7 +110,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             auto& str_v = strs[r * 2 + 1];
             for (int c = 0;; ++c) {
                 Position p(r, c);
-                // vert-walls
+                // vertical walls
                 m_vert_walls[p] = str_v[c * 2];
                 if (c == m_sidelen) break;
                 rng.insert(p);
@@ -242,14 +242,14 @@ ostream& puz_state::dump(ostream& out) const
 {
     if (!m_game->m_bNoAreas)
         for (int r = 0;; ++r) {
-            // draw horz-walls
+            // draw horizontal walls
             for (int c = 0; c < sidelen(); ++c)
                 out << ' ' << m_game->m_horz_walls.at({r, c});
             println(out);
             if (r == sidelen()) break;
             for (int c = 0;; ++c) {
                 Position p(r, c);
-                // draw vert-walls
+                // draw vertical walls
                 out << m_game->m_vert_walls.at(p);
                 if (c == sidelen()) break;
                 out << cells(p);

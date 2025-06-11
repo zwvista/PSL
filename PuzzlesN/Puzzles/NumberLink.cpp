@@ -262,7 +262,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 1;; ++r) {
-        // draw horz-lines
+        // draw horizontal lines
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             auto str = cells(p);
@@ -273,7 +273,7 @@ ostream& puz_state::dump(ostream& out) const
         println(out);
         if (r == sidelen() - 2) break;
         for (int c = 1; c < sidelen() - 1; ++c)
-            // draw vert-lines
+            // draw vertical lines
             out << (cells({r, c})[3] == PUZ_LINE_ON ? "| " : "  ");
         println(out);
     }
