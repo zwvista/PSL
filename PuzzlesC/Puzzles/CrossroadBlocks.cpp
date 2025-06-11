@@ -34,7 +34,7 @@ const vector<int> linesegs_all = {
     // ┐  ─  ┌  ┘  │  └
     12, 10, 6, 9, 5, 3,
 };
-constexpr string_view border_dirs = "^>v<";
+constexpr string_view hint_dirs = "^>v<";
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -43,14 +43,13 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-struct puz_square_info
+struct puz_hint_info
 {
     bool m_is_black;
     int m_num;
     char m_dir;
     vector<Position> m_rng;
-    // key: is_row, num
-    map<pair<bool, int>, vector<vector<int>>> m_pattern2perms;
+    vector<vector<int>> m_perms;
 };
 
 struct puz_game
@@ -58,7 +57,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     int m_dot_count;
-    map<Position, puz_square_info> m_pos2info;
+    map<Position, puz_hint_info> m_pos2info;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -85,15 +84,31 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (auto& [p, info] : m_pos2info) {
-        auto& os = offset[border_dirs.find(info.m_dir)];
+        auto& [is_black, num, dir_str, rng, perms] = info;
+        auto dir = hint_dirs.find(dir_str);
+        auto& os = offset[dir];
         for (auto p2 = p + os; is_valid(p2); p2 += os)
-            if (!m_pos2info.contains(p2))
-                info.m_rng.push_back(p2);
-
-        //auto perm = string(info.m_rng.size() - info.m_num, PUZ_SQUARE_OFF) + string(info.m_num, PUZ_SQUARE_ON);
-        //do
-        //    info.m_perms.push_back(perm);
-        //while (boost::next_permutation(perm));
+            rng.push_back(p2);
+        bool is_row = dir % 2 == 1;
+        int num2 = rng.size();
+        for (int k = 0; k <= num2 - num; ++k)
+            for (int i = 0; i < (1 << num2); ++i) {
+                vector<int> perm;
+                for (int j = 0; j < num2; ++j) {
+                    bool is_not_road = j < k || j >= k + num;
+                    bool is_road_left = j == k;
+                    bool is_road_right = j == k + num - 1;
+                    bool is_on = (i & (1 << j)) != 0;
+                    if (j > k && j < k + num - 1 && is_on) continue;
+                    perm.push_back(
+                        is_not_road ? is_on ? lineseg_off : is_row ? 5 : 10 :
+                        is_road_left ? is_on ? 6 : is_row ? 3 : 12 :
+                        is_road_right ? is_on ? 9 : is_row ? 12 : 3 :
+                        is_row ? 10 : 5
+                    );
+                }
+                perms.push_back(perm);
+            }
     }
 }
 
@@ -108,8 +123,8 @@ struct puz_state : vector<puz_dot>
     }
     const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move_square(const Position& p, int n);
-    void make_move_square2(const Position& p, int n);
+    bool make_move_hint(const Position& p, int n);
+    void make_move_hint2(const Position& p, int n);
     bool make_move_line(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
@@ -158,7 +173,7 @@ puz_state::puz_state(const puz_game& g)
     for (auto& [p, info] : g.m_pos2info) {
         m_finished.insert(p);
         auto& perm_ids = m_matches[p];
-        perm_ids.resize(info.m_pattern2perms.size());
+        perm_ids.resize(info.m_perms.size());
         boost::iota(perm_ids, 0);
     }
 
@@ -170,18 +185,21 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [p, perm_ids] : m_matches) {
         auto& info = m_game->m_pos2info.at(p);
-        auto& rng = info.m_rng;
-        //boost::remove_erase_if(perm_ids, [&](int id) {
-        //    auto& perm = info.m_pattern2perms[id];
-        //    return false;
-        //});
+        auto& [is_black, num, dir_str, rng, perms] = info;
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            auto& perm = perms[id];
+            for (int i = 0; i < perm.size(); ++i)
+                if (boost::algorithm::none_of_equal(dots(rng[i]), perm[i]))
+                    return true;
+            return false;
+        });
 
         if (!init)
             switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move_square2(p, perm_ids.front()), 1;
+                return make_move_hint2(p, perm_ids.front()), 1;
             }
     }
     return 2;
@@ -206,7 +224,6 @@ int puz_state::check_dots(bool init)
         n = 1;
         for (const auto& p : newly_finished) {
             int lineseg = dots(p)[0];
-            bool is_square = lineseg == lineseg_off && !m_game->m_pos2info.contains(p);
             for (int i = 0; i < 4; ++i) {
                 auto p2 = p + offset[i];
                 if (!is_valid(p2))
@@ -216,8 +233,6 @@ int puz_state::check_dots(bool init)
                 boost::remove_erase_if(dt, [=](int lineseg2) {
                     return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
                 });
-                if (is_square && !m_game->m_pos2info.contains(p2))
-                    boost::remove_erase(dt, lineseg_off);
                 if (!init && dt.empty())
                     return 0;
             }
@@ -227,11 +242,11 @@ int puz_state::check_dots(bool init)
     }
 }
 
-void puz_state::make_move_square2(const Position& p, int n)
+void puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& info = m_game->m_pos2info.at(p);
     auto& rng = info.m_rng;
-    //auto& perm = info.m_pattern2perms[n];
+    //auto& perm = info.m_perms[n];
     for (int i = 0; i < rng.size(); ++i) {
         const auto& p2 = rng[i];
         auto& dt = dots(p2);
@@ -239,10 +254,10 @@ void puz_state::make_move_square2(const Position& p, int n)
     m_matches.erase(p);
 }
 
-bool puz_state::make_move_square(const Position& p, int n)
+bool puz_state::make_move_hint(const Position& p, int n)
 {
     m_distance = 0;
-    make_move_square2(p, n);
+    make_move_hint2(p, n);
     for (;;) {
         int m;
         while ((m = find_matches(false)) == 1);
@@ -306,7 +321,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
         for (int n : perm_ids) {
             children.push_back(*this);
-            if (!children.back().make_move_square(p, n))
+            if (!children.back().make_move_hint(p, n))
                 children.pop_back();
         }
     } else {
