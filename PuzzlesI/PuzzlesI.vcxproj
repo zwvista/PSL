@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\icedin.txt" />
+    <Text Include="Puzzles\InbetweenNurikabe.txt" />
     <Text Include="Puzzles\InbetweenSumscrapers.txt" />
     <Text Include="Puzzles\InsaneTatamis.txt" />
     <Text Include="Puzzles\IslandConnections.txt" />
@@ -177,6 +178,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\icedin.cpp" />
+    <ClCompile Include="Puzzles\InbetweenNurikabe.cpp" />
     <ClCompile Include="Puzzles\InbetweenSumscrapers.cpp" />
     <ClCompile Include="Puzzles\InsaneTatamis.cpp" />
     <ClCompile Include="Puzzles\IslandConnections.cpp" />
@@ -189,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\icedin.xml" />
+    <Xml Include="Puzzles\InbetweenNurikabe.xml" />
     <Xml Include="Puzzles\InbetweenSumscrapers.xml" />
     <Xml Include="Puzzles\InsaneTatamis.xml" />
     <Xml Include="Puzzles\IslandConnections.xml" />
