@@ -31,10 +31,10 @@ public:
     int MazeWidth() const {return m_szMaze.second;}
     int MazeHeight() const { return m_szMaze.first; }
     bool HasWall() const { return m_bHasWall; }
-    bool IsHorzWall(const Position& p) const {return IsWall(p, false);}
+    bool IsHorzWall(const Position& p) const { return IsWall(p, false); }
     bool IsVertWall(const Position& p) const { return IsWall(p, true); }
-    bool IsObject(const Position& p) const {return m_mapObjects.count(p) != 0;}
-    bool IsDot(const Position& p) const { return m_bHasWall && m_setDots.count(p) != 0; }
+    bool IsObject(const Position& p) const { return m_mapObjects.contains(p); }
+    bool IsDot(const Position& p) const { return m_bHasWall && m_setDots.contains(p); }
 
 // Operations
 public:

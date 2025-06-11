@@ -78,12 +78,12 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
             char ch2 = m_game->cells(p2);
             // An adjacent tile can be occupied by the area
             // if it is a space tile and has not been occupied by the area and
-            if (ch2 == PUZ_SPACE && count(p2) == 0 && boost::algorithm::none_of(offset, [&](const Position& os2) {
+            if (ch2 == PUZ_SPACE && !contains(p2) && boost::algorithm::none_of(offset, [&](const Position& os2) {
                 auto p3 = p2 + os2;
                 char ch3 = m_game->cells(p3);
                 // no adjacent tile to it is of the same type as the area, because
                 // 3. Areas of the same type cannot share an edge.
-                return count(p3) == 0 && ch3 == m_ch;
+                return !contains(p3) && ch3 == m_ch;
             })) {
                 children.push_back(*this);
                 children.back().make_move(p2);

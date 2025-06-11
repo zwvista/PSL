@@ -91,7 +91,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
             // An adjacent tile cannot be occupied by the garden
             // if it belongs to another garden or
             // it is already in the garden or
-            if (ch2 != PUZ_SPACE && p2 != *m_p2 || count(p2) != 0 ||
+            if (ch2 != PUZ_SPACE && p2 != *m_p2 || contains(p2) ||
                 boost::algorithm::any_of(offset, [&](const Position& os2) {
                 auto p3 = p2 + os2;
                 char ch3 = m_game->cells(p3);

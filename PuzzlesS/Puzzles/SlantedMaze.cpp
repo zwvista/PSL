@@ -196,7 +196,7 @@ void puz_state2::make_move(int n, const Position& p)
 {
     m_last_dir = n;
     static_cast<Position&>(*this) = p;
-    if (m_path->count(p) == 0)
+    if (!m_path->contains(p))
         m_path->insert(p);
     else
         *m_has_loop = true;
