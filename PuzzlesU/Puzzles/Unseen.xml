@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Divide the board to include one 'eye' (a number) in each region.
+2. The eye can see in all four directions up to region borders.
+3. The number tells you how many tiles the eye does NOT see in the region.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+    `
+2   `
+    `
+23  `
+    ]]>
+  </level>
+</levels>
+</puzzle>
