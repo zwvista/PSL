@@ -126,10 +126,7 @@ struct puz_state : vector<puz_dot>
     }
     const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move_area(int i, int n);
-    void make_move_area2(int i, int n);
     bool make_move_dot(const Position& p, int n);
-    int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
 
@@ -142,7 +139,6 @@ struct puz_state : vector<puz_dot>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    map<int, vector<int>> m_matches;
     set<Position> m_finished;
     unsigned int m_distance = 0;
 };
@@ -170,30 +166,7 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    find_matches(true);
     check_dots(true);
-}
-
-int puz_state::find_matches(bool init)
-{
-    for (auto& [area_id, visit_ids] : m_matches) {
-        auto& area = m_game->m_areas[area_id];
-
-        boost::remove_erase_if(visit_ids, [&](int id) {
-            return boost::algorithm::any_of(area, [&](const Position& p) {
-                return false;
-            });
-        });
-
-        if (!init)
-            switch(visit_ids.size()) {
-            case 0:
-                return 0;
-            case 1:
-                return make_move_area2(area_id, visit_ids.front()), 1;
-            }
-    }
-    return 2;
 }
 
 int puz_state::check_dots(bool init)
@@ -233,14 +206,6 @@ int puz_state::check_dots(bool init)
     }
 }
 
-void puz_state::make_move_area2(int i, int n)
-{
-    auto& area = m_game->m_areas[i];
-    for (auto& p : area) {
-    }
-    m_matches.erase(i);
-}
-
 bool puz_state::check_loop() const
 {
     set<Position> rng;
@@ -256,22 +221,13 @@ bool puz_state::check_loop() const
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
         set<int> area_ids;
-        for (int n = -1, first_visit_id = -1, last_visit_id = -1;;) {
+        for (int n = -1;;) {
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
-            //char ch = m_game->cells(p2);
-            //if (ch != PUZ_SPACE) {
-            //    int area_id = m_game->m_pos2area.at(p2);
-            //    if (!area_ids.contains(area_id)) {
-            //        area_ids.insert(area_id);
-            //        int visit_id = ch == PUZ_MUSEUM ? PUZ_VISIT_MUSEUM : PUZ_VISIT_MONUMENT;
-            //        if (first_visit_id == -1)
-            //            first_visit_id = visit_id;
-            //        if (last_visit_id != -1 && last_visit_id == visit_id)
-            //            return false;
-            //        last_visit_id = visit_id;
-            //    }
-            //}
+            int area_id = m_game->m_pos2area.at(p2);
+            if (!area_ids.contains(area_id)) {
+                area_ids.insert(area_id);
+            }
             for (int i = 0; i < 4; ++i)
                 // proceed only if the line segment does not revisit the previous position
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
@@ -281,7 +237,7 @@ bool puz_state::check_loop() const
             if (p2 == p)
                 // we have a loop here,
                 // and we are supposed to have exhausted the line segments
-                return !has_branch && rng.empty() && last_visit_id != first_visit_id;
+                return !has_branch && rng.empty();
             if (!rng.contains(p2)) {
                 has_branch = true;
                 break;
@@ -289,23 +245,6 @@ bool puz_state::check_loop() const
         }
     }
     return true;
-}
-
-bool puz_state::make_move_area(int i, int n)
-{
-    m_distance = 0;
-    make_move_area2(i, n);
-    for (;;) {
-        int m;
-        while ((m = find_matches(false)) == 1);
-        if (m == 0)
-            return false;
-        m = check_dots(false);
-        if (m != 1)
-            return m == 2;
-        if (!check_loop())
-            return false;
-    }
 }
 
 bool puz_state::make_move_dot(const Position& p, int n)
@@ -319,33 +258,19 @@ bool puz_state::make_move_dot(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if (!m_matches.empty()) {
-        auto& [area_id, visit_ids] = *boost::min_element(m_matches, [](
-            const pair<int, vector<int>>& kv1,
-            const pair<int, vector<int>>& kv2) {
-            return kv1.second.size() < kv2.second.size();
-        });
-
-        for (int n : visit_ids) {
-            children.push_back(*this);
-            if (!children.back().make_move_area(area_id, n))
-                children.pop_back();
-        }
-    } else {
-        int i = boost::min_element(*this, [&](const puz_dot& dt1, const puz_dot& dt2) {
-            auto f = [](const puz_dot& dt) {
-                int sz = dt.size();
-                return sz == 1 ? 100 : sz;
-            };
-            return f(dt1) < f(dt2);
-        }) - begin();
-        auto& dt = (*this)[i];
-        Position p(i / sidelen(), i % sidelen());
-        for (int n = 0; n < dt.size(); ++n) {
-            children.push_back(*this);
-            if (!children.back().make_move_dot(p, n))
-                children.pop_back();
-        }
+    int i = boost::min_element(*this, [&](const puz_dot& dt1, const puz_dot& dt2) {
+        auto f = [](const puz_dot& dt) {
+            int sz = dt.size();
+            return sz == 1 ? 100 : sz;
+        };
+        return f(dt1) < f(dt2);
+    }) - begin();
+    auto& dt = (*this)[i];
+    Position p(i / sidelen(), i % sidelen());
+    for (int n = 0; n < dt.size(); ++n) {
+        children.push_back(*this);
+        if (!children.back().make_move_dot(p, n))
+            children.pop_back();
     }
 }
 
