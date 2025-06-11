@@ -64,6 +64,9 @@
     <Text Include="Puzzles\CrossroadBlocks.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\CleaningPath.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -128,6 +131,9 @@
     <ClCompile Include="Puzzles\CrossroadBlocks.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\CleaningPath.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Calcudoku.xml">
@@ -173,6 +179,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\CrossroadBlocks.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\CleaningPath.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

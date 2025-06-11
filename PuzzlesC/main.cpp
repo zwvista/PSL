@@ -8,6 +8,7 @@ extern void solve_puz_CastleBailey();
 extern void solve_puz_CastlePatrol();
 extern void solve_puz_Cheese();
 extern void solve_puz_Chocolate();
+extern void solve_puz_CleaningPath();
 extern void solve_puz_Clouds();
 extern void solve_puz_CoffeeAndSugar();
 extern void solve_puz_Consecutives();
@@ -26,7 +27,8 @@ int main(int argc, char **argv)
     println("a6: Castle Patrol");
     println("h1: Cheese");
     println("h2: Chocolate");
-    println("l: Clouds");
+    println("l1: Cleaning Path");
+    println("l2: Clouds");
     println("o1: Coffee And Sugar");
     println("o2: Consecutives");
     println("r1: Crossroad Blocks");
@@ -43,7 +45,8 @@ int main(int argc, char **argv)
     else if (str == "a6") solve_puz_CastlePatrol();
     else if (str == "h1") solve_puz_Cheese();
     else if (str == "h2") solve_puz_Chocolate();
-    else if (str == "l") solve_puz_Clouds();
+    else if (str == "l1") solve_puz_CleaningPath();
+    else if (str == "l2") solve_puz_Clouds();
     else if (str == "o1") solve_puz_CoffeeAndSugar();
     else if (str == "o2") solve_puz_Consecutives();
     else if (str == "r1") solve_puz_CrossroadBlocks();
