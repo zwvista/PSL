@@ -134,6 +134,7 @@ struct puz_state : vector<puz_dot>
     int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
+    bool check_black_white() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -207,7 +208,7 @@ int puz_state::find_matches(bool init)
                 return make_move_hint2(p, perm_ids.front()), 1;
             }
     }
-    return 2;
+    return !m_matches.empty() || check_black_white() ? 2 : 0;
 }
 
 int puz_state::check_dots(bool init)
@@ -309,6 +310,22 @@ bool puz_state::check_loop() const
             if (!rng.contains(p2))
                 break;
         }
+    }
+    return true;
+}
+
+// 5. Black cells must be inside the loop. White cells must be outside the loop.
+bool puz_state::check_black_white() const
+{
+    for (auto& [p, info] : m_game->m_pos2info) {
+        auto& [is_black, num, dir_str, rng, perms] = info;
+        if (is_black != boost::algorithm::all_of(offset, [&](const Position& os) {
+            for (auto p2 = p + os; is_valid(p2); p2 += os)
+                if (dots(p2)[0] != lineseg_off)
+                    return true;
+            return false;
+        }))
+            return false;
     }
     return true;
 }
