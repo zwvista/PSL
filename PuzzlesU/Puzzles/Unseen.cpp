@@ -27,6 +27,12 @@ constexpr Position offset[] = {
     {1, 0},        // s
     {0, -1},        // w
 };
+constexpr Position offset2[] = {
+    {0, 0},        // n
+    {0, 1},        // e
+    {1, 0},        // s
+    {0, 0},        // w
+};
 
 struct puz_region
 {
@@ -125,8 +131,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(int n);
-    void make_move2(int n);
+    bool make_move(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -140,48 +146,61 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     // key: the position of the number
-    // value.elem: the index of the box
+    // value.elem: the index of the permutations
     map<Position, vector<int>> m_matches;
-    set<Position> m_horz_walls, m_vert_walls;
     unsigned int m_distance = 0;
-    char m_ch = 'a';
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
-, m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+, m_cells(g.m_start)
 {
+    for (auto& [p, region] : m_game->m_pos2region) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(region.m_perms.size());
+        boost::iota(perm_ids, 0);
+    }
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    return 2;
+    set<Position> rng;
+    for (auto& [p, perm_ids] : m_matches) {
+        auto& [ch, num, perms] = m_game->m_pos2region.at(p);
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            return boost::algorithm::any_of(perms[id], [&](const Position& p2) {
+                char ch2 = cells(p2);
+                return ch2 != PUZ_SPACE && ch2 != ch;
+            });
+        });
+        if (!init)
+            switch (perm_ids.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(p, perm_ids.front()), 1;
+            }
+        for (int id : perm_ids) {
+            auto& perm = perms[id];
+            rng.insert(perm.begin(), perm.end());
+        }
+    }
+    return rng.size() == boost::count(m_cells, PUZ_SPACE) + m_matches.size() ? 2 : 0;
 }
 
-void puz_state::make_move2(int n)
+void puz_state::make_move2(const Position& p, int n)
 {
-    //auto& box = m_game->m_boxes[n];
-    //auto &tl = box.first, &br = box.second;
-    //for (int r = tl.first; r <= br.first; ++r)
-    //    for (int c = tl.second; c <= br.second; ++c) {
-    //        Position p(r, c);
-    //        cells(p) = m_ch, ++m_distance, m_matches.erase(p);
-    //    }
-    //for (int r = tl.first; r <= br.first; ++r)
-    //    m_vert_walls.emplace(r, tl.second),
-    //    m_vert_walls.emplace(r, br.second + 1);
-    //for (int c = tl.second; c <= br.second; ++c)
-    //    m_horz_walls.emplace(tl.first, c),
-    //    m_horz_walls.emplace(br.first + 1, c);
-
-    ++m_ch;
+    auto& [ch, num, perms] = m_game->m_pos2region.at(p);
+    for (auto& p2 : perms[n])
+        cells(p2) = ch;
+    m_matches.erase(p), ++m_distance;
 }
 
-bool puz_state::make_move(int n)
+bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(n);
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -189,38 +208,51 @@ bool puz_state::make_move(int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, box_ids] = *boost::min_element(m_matches, [](
+    auto& [p, region_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : box_ids) {
+    for (int n : region_ids) {
         children.push_back(*this);
-        if (!children.back().make_move(n))
+        if (!children.back().make_move(p, n))
             children.pop_back();
     }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    //for (int r = 0;; ++r) {
-    //    // draw horz-walls
-    //    for (int c = 0; c < sidelen(); ++c)
-    //        out << (m_horz_walls.contains({r, c}) ? " --" : "   ");
-    //    println(out);
-    //    if (r == sidelen()) break;
-    //    for (int c = 0;; ++c) {
-    //        Position p(r, c);
-    //        // draw vert-walls
-    //        out << (m_vert_walls.contains(p) ? '|' : ' ');
-    //        if (c == sidelen()) break;
-    //        if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-    //            out << " .";
-    //        else
-    //            out << format("{:2}", it->second);
-    //    }
-    //    println(out);
-    //}
+    set<Position> horz_walls, vert_walls;
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            for (int i = 0; i < 4; ++i) {
+                auto p2 = p + offset[i];
+                auto p_wall = p + offset2[i];
+                auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
+                if (cells(p) != cells(p2))
+                    walls.insert(p_wall);
+            }
+        }
+
+    for (int r = 1;; ++r) {
+        // draw horz-walls
+        for (int c = 1; c < sidelen() - 1; ++c)
+            out << (horz_walls.contains({r, c}) ? " -" : "  ");
+        println(out);
+        if (r == sidelen() - 1) break;
+        for (int c = 1;; ++c) {
+            Position p(r, c);
+            // draw vert-walls
+            out << (vert_walls.contains(p) ? '|' : ' ');
+            if (c == sidelen() - 1) break;
+            if (auto it = m_game->m_pos2region.find(p); it == m_game->m_pos2region.end())
+                out << ' ';
+            else
+                out << it->second.m_num;
+        }
+        println(out);
+    }
     return out;
 }
 
