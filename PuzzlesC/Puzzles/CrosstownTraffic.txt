@@ -13,7 +13,7 @@ Sequence of moves:
  3 3 2 3 5
 Number of moves: 1
 Number of vertices examined: 2
-0.0005265 [s]
+0.0007908 [s]
 
 Level 2
 Sequence of moves: 
@@ -30,5 +30,22 @@ Sequence of moves:
  3 5 3 2 5
 Number of moves: 2
 Number of vertices examined: 3
-0.0006521 [s]
+0.0007227 [s]
+
+Level 3
+Sequence of moves: 
+   3   2 4
+2.-. . .-.2 
+ | |   | |
+4.-.-.-. .4 
+   |     |
+2.-. .-. .2 
+ |   | | |
+2.-. . .-.2 
+   | |    
+2. .-. . .2 
+ 2 2 3 2 4
+Number of moves: 3
+Number of vertices examined: 10
+0.0022676 [s]
 
