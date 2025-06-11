@@ -29,8 +29,8 @@ constexpr Position offset[] = {
     {1, 0},        // s
     {0, -1},        // w
 };
-const string arrows = "^>v<";
-const string dirs = "urdl";
+constexpr string_view arrows = "^>v<";
+constexpr string_view dirs = "urdl";
 
 enum class puz_block_type
 {

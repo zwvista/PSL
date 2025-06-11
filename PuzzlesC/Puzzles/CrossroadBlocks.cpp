@@ -39,7 +39,7 @@ const vector<int> linesegs_all = {
     // ┐  ─  ┌  ┘  │  └
     12, 10, 6, 9, 5, 3,
 };
-const string square_dirs = "^>v<";
+constexpr string_view border_dirs = "^>v<";
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -89,7 +89,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (auto& [p, info] : m_pos2info) {
-        auto& os = offset[square_dirs.find(info.m_dir)];
+        auto& os = offset[border_dirs.find(info.m_dir)];
         for (auto p2 = p + os; is_valid(p2); p2 += os)
             if (!m_pos2info.contains(p2))
                 info.m_rng.push_back(p2);

@@ -40,7 +40,7 @@ const vector<int> linesegs_all = {
     // ┐  ─  ┌  ┘  │  └
     12, 10, 6, 9, 5, 3,
 };
-const string square_dirs = "^>v<";
+constexpr string_view square_dirs = "^>v<";
 
 constexpr Position offset[] = {
     {-1, 0},        // n

@@ -25,10 +25,10 @@ namespace puzzles::MoreOrLess{
 
 constexpr auto PUZ_SPACE = ' ';
 
-const string op_walls_gt = "^>v<";
-const string op_walls_lt = "v<^>";
-const string op_walls_gt2 = "GGLL";
-const string op_walls_lt2 = "LLGG";
+constexpr string_view op_walls_gt = "^>v<";
+constexpr string_view op_walls_lt = "v<^>";
+constexpr string_view op_walls_gt2 = "GGLL";
+constexpr string_view op_walls_lt2 = "LLGG";
 
 enum class OP_WALLS_TYPE
 {

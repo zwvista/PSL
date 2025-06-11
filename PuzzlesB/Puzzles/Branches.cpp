@@ -32,7 +32,7 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-const string str_branch = "|-|-^>v<";
+constexpr string_view str_branch = "|-|-^>v<";
 
 struct puz_game
 {

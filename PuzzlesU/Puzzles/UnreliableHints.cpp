@@ -32,7 +32,7 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-const string tool_dirs = "^>v<";
+constexpr string_view tool_dirs = "^>v<";
 
 struct puz_hint
 {

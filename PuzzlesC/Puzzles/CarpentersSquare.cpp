@@ -38,7 +38,7 @@ const vector<vector<int>> tool_dirs2 = {
     {0, 1}, {0, 3}, {1, 2}, {2, 3}
 };
 
-const string tool_dirs = "^>v<";
+constexpr string_view tool_dirs = "^>v<";
 
 enum class tool_hint_type {
     CORNER,

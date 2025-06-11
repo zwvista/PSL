@@ -38,7 +38,7 @@ constexpr Position offset2[] = {
     {0, 0},        // w
 };
 
-const string tool_dirs = "^>v<";
+constexpr string_view tool_dirs = "^>v<";
 
 struct puz_arrow_info
 {

@@ -27,7 +27,7 @@ constexpr Position offset2[] = {
     {0, 0},        // w
 };
 
-const string dirs = "^>v<o";
+constexpr string_view dirs = "^>v<o";
 
 struct puz_bunny_info
 {

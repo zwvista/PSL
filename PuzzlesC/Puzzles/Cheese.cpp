@@ -47,7 +47,7 @@ constexpr Position offset[] = {
     {1, 0},         // s
     {0, -1},        // w
 };
-const string dirs = "urdl";
+constexpr string_view dirs = "urdl";
 
 struct puz_game
 {
