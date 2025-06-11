@@ -23,9 +23,6 @@
 
 namespace puzzles::CrossroadBlocks{
 
-constexpr auto PUZ_LINE_OFF = '0';
-constexpr auto PUZ_LINE_ON = '1';
-
 // n-e-s-w
 // 0 means line is off in this direction
 // 1,2,4,8 means line is on in this direction
@@ -52,7 +49,8 @@ struct puz_square_info
     int m_num;
     char m_dir;
     vector<Position> m_rng;
-    vector<string> m_perms;
+    // key: is_row, num
+    map<pair<bool, int>, vector<vector<int>>> m_pattern2perms;
 };
 
 struct puz_game
@@ -160,7 +158,7 @@ puz_state::puz_state(const puz_game& g)
     for (auto& [p, info] : g.m_pos2info) {
         m_finished.insert(p);
         auto& perm_ids = m_matches[p];
-        perm_ids.resize(info.m_perms.size());
+        perm_ids.resize(info.m_pattern2perms.size());
         boost::iota(perm_ids, 0);
     }
 
@@ -173,10 +171,10 @@ int puz_state::find_matches(bool init)
     for (auto& [p, perm_ids] : m_matches) {
         auto& info = m_game->m_pos2info.at(p);
         auto& rng = info.m_rng;
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& perm = info.m_perms[id];
-            return false;
-        });
+        //boost::remove_erase_if(perm_ids, [&](int id) {
+        //    auto& perm = info.m_pattern2perms[id];
+        //    return false;
+        //});
 
         if (!init)
             switch(perm_ids.size()) {
@@ -233,7 +231,7 @@ void puz_state::make_move_square2(const Position& p, int n)
 {
     auto& info = m_game->m_pos2info.at(p);
     auto& rng = info.m_rng;
-    auto& perm = info.m_perms[n];
+    //auto& perm = info.m_pattern2perms[n];
     for (int i = 0; i < rng.size(); ++i) {
         const auto& p2 = rng[i];
         auto& dt = dots(p2);

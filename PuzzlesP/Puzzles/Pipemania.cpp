@@ -163,9 +163,10 @@ bool puz_state::check_loop() const
 
     bool has_branch = false;
     while (!rng.empty()) {
-        auto p = *boost::find_if(rng, [&](const Position& p2) {
+        auto it = boost::find_if(rng, [&](const Position& p2) {
             return dots(p2)[0] != lineseg_cross;
         });
+        auto p = it == rng.end() ? *rng.begin() : *it;
         auto p2 = p;
         for (int n = -1;;) {
             rng.erase(p2);

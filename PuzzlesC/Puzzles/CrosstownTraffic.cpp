@@ -50,6 +50,7 @@ struct puz_hint
 {
     int m_num;
     map<int, vector<Position>> m_num2rng;
+    vector<vector<int>> m_perms;
 };
 
 using puz_dot = vector<int>;
@@ -64,8 +65,6 @@ struct puz_game
     //      sidelen * 2 -- sidelen * 3 - 1: column top 
     //      sidelen * 3 -- sidelen * 4 - 1: column bottom
     map<int, puz_hint> m_rc2hint;
-    // key: is_row, num, is_left
-    map<tuple<bool, int, bool>, vector<vector<int>>> m_pattern2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -81,7 +80,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (char ch = str[c]; ch != ' ')
                 if (c == 0 || c == m_sidelen + 1) {
                     int idx = r - 1 + (c == 0 ? 0 : m_sidelen);
-                    auto& [num, num2rng] = m_rc2hint[idx];
+                    auto& [num, num2rng, perms] = m_rc2hint[idx];
                     num = ch - '0';
                     for (int i = num == 0 ? m_sidelen : num; i <= m_sidelen; ++i) {
                         auto& rng = num2rng[i];
@@ -90,7 +89,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     }
                 } else if (r == 0 || r == m_sidelen + 1) {
                     int idx = c - 1 + m_sidelen * 2 + (r == 0 ? 0 : m_sidelen);
-                    auto& [num, num2rng] = m_rc2hint[idx];
+                    auto& [num, num2rng, perms] = m_rc2hint[idx];
                     num = ch - '0';
                     for (int i = num == 0 ? m_sidelen : num; i <= m_sidelen; ++i) {
                         auto& rng = num2rng[i];
@@ -100,11 +99,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 }
     }
     for (auto& [rc, hint] : m_rc2hint) {
-        auto& [num, num2rng] = hint;
+        auto& [num, num2rng, perms] = hint;
         bool is_row = rc < m_sidelen * 2;
         bool is_left = rc - (is_row ? 0 : m_sidelen * 2) < m_sidelen;
-        auto& perms = m_pattern2perms[{is_row, num, is_left}];
-        if (!perms.empty()) continue;
         for (auto& [num2, rng] : num2rng)
             for (int i = 0; i < (1 << num2); ++i) {
                 vector<int> perm;
@@ -174,10 +171,7 @@ puz_state::puz_state(const puz_game& g)
         }
 
     for (auto& [rc, hint] : g.m_rc2hint) {
-        auto& [num, num2rng] = hint;
-        bool is_row = rc < sidelen() * 2;
-        bool is_left = rc - (is_row ? 0 : sidelen() * 2) < sidelen();
-        auto& perms = g.m_pattern2perms.at({is_row, num, is_left});
+        auto& [num, num2rng, perms] = hint;
         auto& perm_ids = m_matches[rc];
         perm_ids.resize(perms.size());
         boost::iota(perm_ids, 0);
@@ -190,10 +184,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [rc, perm_ids] : m_matches) {
-        auto& [num, num2rng] = m_game->m_rc2hint.at(rc);
-        bool is_row = rc < sidelen() * 2;
-        bool is_left = rc - (is_row ? 0 : sidelen() * 2) < sidelen();
-        auto& perms = m_game->m_pattern2perms.at({is_row, num, is_left});
+        auto& [num, num2rng, perms] = m_game->m_rc2hint.at(rc);
 
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
@@ -218,10 +209,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move_hint2(int rc, int n)
 {
-    auto& [num, num2rng] = m_game->m_rc2hint.at(rc);
-    bool is_row = rc < sidelen() * 2;
-    bool is_left = rc - (is_row ? 0 : sidelen() * 2) < sidelen();
-    auto& perms = m_game->m_pattern2perms.at({is_row, num, is_left});
+    auto& [num, num2rng, perms] = m_game->m_rc2hint.at(rc);
     auto& perm = perms[n];
     int sz = perm.size();
     auto& rng = num2rng.at(sz);
@@ -280,9 +268,10 @@ bool puz_state::check_loop() const
 
     bool has_branch = false;
     while (!rng.empty()) {
-        auto p = *boost::find_if(rng, [&](const Position& p2) {
+        auto it = boost::find_if(rng, [&](const Position& p2) {
             return dots(p2)[0] != lineseg_cross;
         });
+        auto p = it == rng.end() ? *rng.begin() : *it;
         auto p2 = p;
         for (int n = -1;;) {
             rng.erase(p2);
