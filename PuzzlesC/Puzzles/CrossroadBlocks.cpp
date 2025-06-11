@@ -91,38 +91,29 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& os = offset[dir];
         for (auto p2 = p + os; is_valid(p2); p2 += os)
             rng.push_back(p2);
+        boost::sort(rng);
         bool is_row = dir % 2 == 1;
         int num = num3 == 0 ? 0 : num3 + 1, num2 = rng.size();
-        if (num == 0)
+        for (int k = 0; k <= (num == 0 ? 0 : num2 - num); ++k)
             for (int i = 0; i < (1 << num2); ++i) {
                 vector<int> perm;
                 for (int j = 0; j < num2; ++j) {
+                    bool is_not_road = num == 0 || j < k || j >= k + num;
+                    bool is_road_left = num != 0 && j == k;
+                    bool is_road_right = num != 0 && j == k + num - 1;
                     bool is_on = (i & (1 << j)) != 0;
-                    perm.push_back(is_on ? lineseg_off : is_row ? 5 : 10);
+                    if (num != 0 && j > k && j < k + num - 1 && is_on)
+                        goto next_perm;
+                    perm.push_back(
+                        is_not_road ? is_on ? lineseg_off : is_row ? 5 : 10 :
+                        is_road_left ? is_on ? 6 : is_row ? 3 : 12 :
+                        is_road_right ? is_on ? 9 : is_row ? 12 : 3 :
+                        is_row ? 10 : 5
+                    );
                 }
                 perms.push_back(perm);
+            next_perm:;
             }
-        else
-            for (int k = 0; k <= num2 - num; ++k)
-                for (int i = 0; i < (1 << num2); ++i) {
-                    vector<int> perm;
-                    for (int j = 0; j < num2; ++j) {
-                        bool is_not_road = j < k || j >= k + num;
-                        bool is_road_left = j == k;
-                        bool is_road_right = j == k + num - 1;
-                        bool is_on = (i & (1 << j)) != 0;
-                        if (j > k && j < k + num - 1 && is_on)
-                            goto next_perm;
-                        perm.push_back(
-                            is_not_road ? is_on ? lineseg_off : is_row ? 5 : 10 :
-                            is_road_left ? is_on ? 6 : is_row ? 3 : 12 :
-                            is_road_right ? is_on ? 9 : is_row ? 12 : 3 :
-                            is_row ? 10 : 5
-                        );
-                    }
-                    perms.push_back(perm);
-                next_perm:;
-                }
     }
 }
 
