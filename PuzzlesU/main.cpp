@@ -11,8 +11,8 @@ int main(int argc, char **argv)
     string str;
     getline(cin, str);
     if (str.empty());
-    else if (str == "n") solve_puz_UnreliableHints();
-    else if (str == "n") solve_puz_Unseen();
+    else if (str == "n1") solve_puz_UnreliableHints();
+    else if (str == "n2") solve_puz_Unseen();
 
     return 0;
 }

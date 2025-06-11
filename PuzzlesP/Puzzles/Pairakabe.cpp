@@ -97,7 +97,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 char ch3 = m_game->cells(p3);
                 // any adjacent tile to it belongs to another garden, because
                 // Gardens are separated by a wall. They cannot touch each other orthogonally.
-                return p3 != *m_p2 && count(p3) == 0 && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY;
+                return p3 != *m_p2 && !contains(p3) && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY;
             })) continue;
             children.push_back(*this);
             if (!children.back().make_move(p2))
