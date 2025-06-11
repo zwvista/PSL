@@ -1,0 +1,17 @@
+Level 1
+Sequence of moves: 
+ -- -- -- -- --
+| .  .  4  .  .|
+ -- -- -- -- --
+| .  .  2  .| .|
+               
+| .  .  .  .| 1|
+ -- -- -- -- --
+| .  .  .  .| .|
+               
+| .  .  .  2| 1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.0013359 [s]
+

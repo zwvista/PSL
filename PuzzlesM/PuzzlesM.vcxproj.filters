@@ -76,6 +76,9 @@
     <Text Include="Puzzles\MixedTatamis.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\MaketheDifference.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -152,6 +155,9 @@
     <ClCompile Include="Puzzles\MixedTatamis.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\MaketheDifference.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
@@ -212,6 +218,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\MixedTatamis.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\MaketheDifference.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
