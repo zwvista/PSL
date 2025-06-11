@@ -42,7 +42,7 @@ struct puz_garden
     // character that represents the garden. 'a', 'b' and so on
     char m_name;
     // number of the tiles occupied by the garden
-    int m_num;
+    int m_num1, m_num2;
     // all permutations (forms) of the garden
     vector<set<Position>> m_perms;
 };
@@ -66,12 +66,14 @@ struct puz_state2 : set<Position>
     puz_state2(const puz_game& game, const puz_garden& garden, const Position& p, const Position& p2)
         : m_game(&game), m_garden(&garden), m_p2(&p2) {make_move(p);}
 
-    bool is_goal_state() const { return m_distance == m_garden->m_num; }
+    bool is_goal_state() const { 
+        return m_distance > m_garden->m_num1 && m_distance < m_garden->m_num2;
+    }
     bool make_move(const Position& p) {
         insert(p); ++m_distance;
         // cannot go too far away
         return boost::algorithm::any_of(*this, [&](const Position& p2) {
-            return manhattan_distance(p2, *m_p2) <= m_garden->m_num - m_distance;
+            return manhattan_distance(p2, *m_p2) < m_garden->m_num2 - m_distance;
         });
     }
     void gen_children(list<puz_state2>& children) const;
@@ -134,13 +136,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (auto& [p2, n2] : m_pos2num) {
             // only make a pairing with a tile greater than itself
             if (p2 <= p) continue;
-            int n3 = n + n2;
+            int n3 = min(n, n2), n4 = max(n, n2);
             // cannot make a pairing with a tile too far away
-            if (manhattan_distance(p, p2) + 1 > n3) continue;
+            if (manhattan_distance(p, p2) + 1 > n4 - 1) continue;
             auto kv3 = pair{p, p2};
             auto& garden = m_pair2garden[kv3];
             garden.m_name = cells(p);
-            garden.m_num = n3;
+            garden.m_num1 = n3;
+            garden.m_num2 = n4;
             puz_state2 sstart(*this, garden, p, p2);
             list<list<puz_state2>> spaths;
             // Gardens can have any form.
