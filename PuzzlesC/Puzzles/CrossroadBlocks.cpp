@@ -19,6 +19,8 @@
     4. Also on the top left, the road goes through 2 cells and so it crosses
        one cell border.
     5. Black cells must be inside the loop. White cells must be outside the loop.
+    6. The number tells you the total tiles crossed in that direction.
+       So that could be split in two stretches or more.
 */
 
 namespace puzzles::CrossroadBlocks{
@@ -84,31 +86,43 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (auto& [p, info] : m_pos2info) {
-        auto& [is_black, num, dir_str, rng, perms] = info;
+        auto& [is_black, num3, dir_str, rng, perms] = info;
         auto dir = hint_dirs.find(dir_str);
         auto& os = offset[dir];
         for (auto p2 = p + os; is_valid(p2); p2 += os)
             rng.push_back(p2);
         bool is_row = dir % 2 == 1;
-        int num2 = rng.size();
-        for (int k = 0; k <= num2 - num; ++k)
+        int num = num3 == 0 ? 0 : num3 + 1, num2 = rng.size();
+        if (num == 0)
             for (int i = 0; i < (1 << num2); ++i) {
                 vector<int> perm;
                 for (int j = 0; j < num2; ++j) {
-                    bool is_not_road = j < k || j >= k + num;
-                    bool is_road_left = j == k;
-                    bool is_road_right = j == k + num - 1;
                     bool is_on = (i & (1 << j)) != 0;
-                    if (j > k && j < k + num - 1 && is_on) continue;
-                    perm.push_back(
-                        is_not_road ? is_on ? lineseg_off : is_row ? 5 : 10 :
-                        is_road_left ? is_on ? 6 : is_row ? 3 : 12 :
-                        is_road_right ? is_on ? 9 : is_row ? 12 : 3 :
-                        is_row ? 10 : 5
-                    );
+                    perm.push_back(is_on ? lineseg_off : is_row ? 5 : 10);
                 }
                 perms.push_back(perm);
             }
+        else
+            for (int k = 0; k <= num2 - num; ++k)
+                for (int i = 0; i < (1 << num2); ++i) {
+                    vector<int> perm;
+                    for (int j = 0; j < num2; ++j) {
+                        bool is_not_road = j < k || j >= k + num;
+                        bool is_road_left = j == k;
+                        bool is_road_right = j == k + num - 1;
+                        bool is_on = (i & (1 << j)) != 0;
+                        if (j > k && j < k + num - 1 && is_on)
+                            goto next_perm;
+                        perm.push_back(
+                            is_not_road ? is_on ? lineseg_off : is_row ? 5 : 10 :
+                            is_road_left ? is_on ? 6 : is_row ? 3 : 12 :
+                            is_road_right ? is_on ? 9 : is_row ? 12 : 3 :
+                            is_row ? 10 : 5
+                        );
+                    }
+                    perms.push_back(perm);
+                next_perm:;
+                }
     }
 }
 
@@ -245,12 +259,10 @@ int puz_state::check_dots(bool init)
 void puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& info = m_game->m_pos2info.at(p);
-    auto& rng = info.m_rng;
-    //auto& perm = info.m_perms[n];
-    for (int i = 0; i < rng.size(); ++i) {
-        const auto& p2 = rng[i];
-        auto& dt = dots(p2);
-    }
+    auto& [is_black, num, dir_str, rng, perms] = info;
+    auto& perm = perms[n];
+    for (int i = 0; i < rng.size(); ++i)
+        dots(rng[i]) = {perm[i]};
     m_matches.erase(p);
 }
 

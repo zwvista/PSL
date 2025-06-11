@@ -7,6 +7,7 @@
 3. In the example, looking at the top stretch, the road goes through 4 cells, hence it crosses 3 cell borders.
 4. Also on the top left, the road goes through 2 cells and so it crosses one cell border.
 5. Black cells must be inside the loop. White cells must be outside the loop.
+6. The number tells you the total tiles crossed in that direction. So that could be split in two stretches or more.
   ]]>
 </help>
 <levels>
