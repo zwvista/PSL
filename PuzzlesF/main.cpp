@@ -10,6 +10,7 @@ extern void solve_puz_Fillomino();
 extern void solve_puz_fling();
 extern void solve_puz_FloorPlan();
 extern void solve_puz_FlowerBeds();
+extern void solve_puz_FlowerbedShrubs();
 extern void solve_puz_FourMeNot();
 extern void solve_puz_FreePlanks();
 extern void solve_puz_fullsearch();
@@ -29,6 +30,7 @@ int main(int argc, char **argv)
     println("l1: fling");
     println("l2: Floor Plan");
     println("l3: Flower Beds");
+    println("l4: Flowerbed Shrubs");
     println("o: Four-Me-Not");
     println("o: Four-Me-Not");
     println("r: Free Planks");
@@ -48,6 +50,7 @@ int main(int argc, char **argv)
     else if (str == "l1") solve_puz_fling();
     else if (str == "l2") solve_puz_FloorPlan();
     else if (str == "l3") solve_puz_FlowerBeds();
+    else if (str == "l4") solve_puz_FlowerbedShrubs();
     else if (str == "o") solve_puz_FourMeNot();
     else if (str == "r") solve_puz_FreePlanks();
     else if (str == "u1") solve_puz_fullsearch();
