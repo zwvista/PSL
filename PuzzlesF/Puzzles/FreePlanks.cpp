@@ -36,7 +36,7 @@ constexpr Position offset2[] = {
     {0, 0},        // w
 };
 
-const vector<vector<Position>> planks = {
+const vector<vector<Position>> planks_offset = {
     // L
     {{0, 0}, {0, 1}, {1, 0}},
     {{0, 0}, {0, 1}, {1, 1}},
@@ -47,13 +47,13 @@ const vector<vector<Position>> planks = {
     {{0, 0}, {0, 1}, {0, 2}},
 };
 
-using puz_lit = pair<Position, int>;
+using puz_plank = pair<Position, int>;
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, vector<puz_lit>> m_nail2lits;
+    map<Position, vector<puz_plank>> m_nail2planks;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -69,25 +69,25 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             if (char ch = str[c]; ch == PUZ_NAIL)
-                m_nail2lits[{r, c}];
+                m_nail2planks[{r, c}];
     }
 
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            for (int i = 0; i < planks.size(); ++i) {
+            for (int i = 0; i < planks_offset.size(); ++i) {
                 vector<Position> rng;
-                for (auto& os : planks[i]) {
+                for (auto& os : planks_offset[i]) {
                     auto p2 = p + os;
                     if (!is_valid(p2)) {
                         rng.clear();
                         break;
                     }
-                    if (m_nail2lits.contains(p2))
+                    if (m_nail2planks.contains(p2))
                         rng.push_back(p2);
                 }
                 if (rng.size() == 1)
-                    m_nail2lits.at(rng[0]).emplace_back(p, i);
+                    m_nail2planks.at(rng[0]).emplace_back(p, i);
             }
         }
 }
@@ -119,7 +119,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     map<Position, vector<int>> m_matches;
-    vector<puz_lit> m_lits;
+    vector<puz_plank> m_planks;
     string m_cells;
     unsigned int m_distance = 0;
     char m_ch = 'a';
@@ -128,8 +128,8 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (auto& [p, lits] : g.m_nail2lits)
-        for (int i = 0; i < lits.size(); ++i)
+    for (auto& [p, planks] : g.m_nail2planks)
+        for (int i = 0; i < planks.size(); ++i)
             m_matches[p].push_back(i);
     find_matches(true);
 }
@@ -137,13 +137,13 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, perms] : m_matches) {
-        auto& lits = m_game->m_nail2lits.at(p);
+        auto& planks = m_game->m_nail2planks.at(p);
 
         boost::remove_erase_if(perms, [&](int id) {
-            auto& lit = lits[id];
-            auto& rng = planks[lit.second];
+            auto& plank = planks[id];
+            auto& rng = planks_offset[plank.second];
             return boost::algorithm::any_of(rng, [&](const Position& os) {
-                return cells(lit.first + os) != PUZ_SPACE;
+                return cells(plank.first + os) != PUZ_SPACE;
             });
         });
 
@@ -160,9 +160,9 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::can_move_planks() const
 {
-    return boost::algorithm::all_of(m_lits, [&](const puz_lit& lit) {
-        auto& p = lit.first;
-        auto& rng = planks[lit.second];
+    return boost::algorithm::all_of(m_planks, [&](const puz_plank& plank) {
+        auto& p = plank.first;
+        auto& rng = planks_offset[plank.second];
         char ch = cells(p + rng[0]);
         return boost::algorithm::any_of(offset, [&](const Position& os) {
             auto p2 = p + os;
@@ -179,11 +179,11 @@ bool puz_state::can_move_planks() const
 
 bool puz_state::make_move2(const Position& p, int n)
 {
-    auto& lit = m_game->m_nail2lits.at(p)[n];
-    auto& p2 = lit.first;
-    for (auto& os : planks[lit.second])
+    auto& plank = m_game->m_nail2planks.at(p)[n];
+    auto& p2 = plank.first;
+    for (auto& os : planks_offset[plank.second])
         cells(p2 + os) = m_ch;
-    m_lits.emplace_back(p2, lit.second);
+    m_planks.emplace_back(p2, plank.second);
 
     ++m_ch, ++m_distance;
     m_matches.erase(p);
