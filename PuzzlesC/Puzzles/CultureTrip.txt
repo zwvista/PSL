@@ -2,46 +2,46 @@ Level 1
 Sequence of moves: 
  --- --- --- --- 
 |   |           |
-|  -|-M- -M   T |
-| | |     |     |
+|  =|=M= =M   T |
+| I |     I     |
      --- --- --- 
-| |     | |     |
-| T   M | T- -  |
-| |     |     | |
+| I     | I     |
+| T   M | T= =  |
+| I     |     I |
  --- ---         
-| |     |     | |
-| M- -M | M     |
-|     | |     | |
+| I     |     I |
+| M= =M | M     |
+|     I |     I |
                  
-|     | |     | |
-| T    -|- - -  |
+|     I |     I |
+| T    =|= = =  |
 |       |       |
  --- --- --- --- 
 Number of moves: 1
 Number of vertices examined: 3
-0.0008539 [s]
+0.0004316 [s]
 
 Level 2
 Sequence of moves: 
  --- --- --- --- 
 |   |       |   |
-|  -|- - -M | T |
-| | |     | |   |
+|  =|= = =M | T |
+| I |     I |   |
      --- ---     
-| |     | | |   |
-| T- -T | T-|-M |
-|     | |   | | |
+| I     | I |   |
+| T= =T | T=|=M |
+|     I |   | I |
  --- ---     --- 
-|     | |   | | |
-| M- -M | M | T |
-| |     |   | | |
+|     I |   | I |
+| M= =M | M | T |
+| I     |   | I |
  --- --- ---     
-| | |   |     | |
-| T-|-M-|- - -  |
+| I |   |     I |
+| T=|=M=|= = =  |
 |   |   |       |
  --- --- --- --- 
 Number of moves: 5
 Number of vertices examined: 9
-0.0007731 [s]
+0.0005248 [s]
 
 Level 200
