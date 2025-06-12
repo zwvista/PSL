@@ -1,54 +1,54 @@
 Level 1
 Sequence of moves: 
+ - - - -
+| |a a a|
    - - -
-  |a a a|
-   - - -
-  |c c c|
+| |c c c|
  - - - -
 |d| |b b|
    - -  
 |d d| |b|
- - -   -
+ - - - -
 Number of moves: 3
 Number of vertices examined: 5
-0.001766 [s]
+0.0007862 [s]
 
 Level 2
 Sequence of moves: 
+ - - - -
+| |a a a|
    - - -
-  |a a a|
+| |b b b|
    - - -
-  |b b b|
+| |c c c|
    - - -
-  |c c c|
-   - - -
-  |d d d|
-   - - -
+| |d d d|
+ - - - -
 Number of moves: 3
 Number of vertices examined: 4
-0.000557 [s]
+0.0002058 [s]
 
 Level 3
 Sequence of moves: 
  - - - -
 |c c c|a|
  - - -  
-      |a|
+|     |a|
  - - -  
 |d d d|a|
  - - - -
-|b b b|  
- - - -  
+|b b b| |
+ - - - -
 Number of moves: 4
 Number of vertices examined: 9
-0.001575 [s]
+0.0002659 [s]
 
 Level 200
 Sequence of moves: 
-             - - -
-            |a a a|
+ - - - - - - - - -
+|           |a a a|
        - -   - - -
-      |p|s| |b b b|
+|     |p|s| |b b b|
  - - -       - - -
 |f|i|o|p|s| |e e e|
            - - - -
@@ -56,15 +56,15 @@ Sequence of moves:
        - -   - -  
 |f|i|o|q|t|r r| |k|
  - - -     - - - -
-      |q|t t| |m|l|
+|     |q|t t| |m|l|
  - - -   - - -    
 |c|d|g|q|   |n|m|l|
        - - -      
 |c|d|g| |j|n n|m|l|
        -   - - - -
-|c|d|g|j j|h h h|  
- - - - - - - - -  
+|c|d|g|j j|h h h| |
+ - - - - - - - - -
 Number of moves: 20
 Number of vertices examined: 4506
-3.2867 [s]
+0.0797706 [s]
 

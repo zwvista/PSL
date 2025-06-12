@@ -47,19 +47,12 @@ const vector<vector<Position>> planks = {
     {{0, 0}, {0, 1}, {0, 2}},
 };
 
-struct puz_plank
-{
-    vector<Position> m_offset;
-    vector<Position> m_horz_walls, m_vert_walls;
-};
-
 using puz_lit = pair<Position, int>;
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<puz_plank> m_planks;
     map<Position, vector<puz_lit>> m_nail2lits;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -71,17 +64,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
-, m_planks(planks.size())
 {
-    for (int i = 0; i < m_planks.size(); ++i) {
-        auto& t = m_planks[i];
-        t.m_offset = planks[i];
-        for (auto& p : t.m_offset)
-            for (int k = 0; k < 4; ++k)
-                if (boost::algorithm::none_of_equal(t.m_offset, p + offset[k]))
-                    (k % 2 == 0 ? t.m_horz_walls : t.m_vert_walls).push_back(p + offset2[k]);
-    }
-
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
@@ -92,10 +75,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            for (int i = 0; i < m_planks.size(); ++i) {
-                auto& t = m_planks[i];
+            for (int i = 0; i < planks.size(); ++i) {
                 vector<Position> rng;
-                for (auto& os : t.m_offset) {
+                for (auto& os : planks[i]) {
                     auto p2 = p + os;
                     if (!is_valid(p2)) {
                         rng.clear();
@@ -138,7 +120,6 @@ struct puz_state
     const puz_game* m_game = nullptr;
     map<Position, vector<int>> m_matches;
     vector<puz_lit> m_lits;
-    set<Position> m_horz_walls, m_vert_walls;
     string m_cells;
     unsigned int m_distance = 0;
     char m_ch = 'a';
@@ -160,7 +141,7 @@ int puz_state::find_matches(bool init)
 
         boost::remove_erase_if(perms, [&](int id) {
             auto& lit = lits[id];
-            auto& rng = m_game->m_planks[lit.second].m_offset;
+            auto& rng = planks[lit.second];
             return boost::algorithm::any_of(rng, [&](const Position& os) {
                 return cells(lit.first + os) != PUZ_SPACE;
             });
@@ -181,7 +162,7 @@ bool puz_state::can_move_planks() const
 {
     return boost::algorithm::all_of(m_lits, [&](const puz_lit& lit) {
         auto& p = lit.first;
-        auto& rng = m_game->m_planks[lit.second].m_offset;
+        auto& rng = planks[lit.second];
         char ch = cells(p + rng[0]);
         return boost::algorithm::any_of(offset, [&](const Position& os) {
             auto p2 = p + os;
@@ -200,13 +181,7 @@ bool puz_state::make_move2(const Position& p, int n)
 {
     auto& lit = m_game->m_nail2lits.at(p)[n];
     auto& p2 = lit.first;
-    auto& t = m_game->m_planks[lit.second];
-
-    for (auto& os : t.m_horz_walls)
-        m_horz_walls.insert(p2 + os);
-    for (auto& os : t.m_vert_walls)
-        m_vert_walls.insert(p2 + os);
-    for (auto& os : t.m_offset)
+    for (auto& os : planks[lit.second])
         cells(p2 + os) = m_ch;
     m_lits.emplace_back(p2, lit.second);
 
@@ -242,16 +217,29 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    set<Position> horz_walls, vert_walls;
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            for (int i = 0; i < 4; ++i) {
+                auto p2 = p + offset[i];
+                auto p_wall = p + offset2[i];
+                auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
+                if (!is_valid(p2) || cells(p) != cells(p2))
+                    walls.insert(p_wall);
+            }
+        }
+
     for (int r = 0;; ++r) {
         // draw horizontal walls
         for (int c = 0; c < sidelen(); ++c)
-            out << (m_horz_walls.contains({r, c}) ? " -" : "  ");
+            out << (horz_walls.contains({r, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical walls
-            out << (m_vert_walls.contains(p) ? '|' : ' ');
+            out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             out << cells(p);
         }
