@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Divide the board in areas of three tiles (planks).
+2. Each plank contains one number and the number tells you how many directions the Plank can move, when the board is completed.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+2   `
+   1`
+   0`
+  1 `
+    ]]>
+  </level>
+</levels>
+</puzzle>

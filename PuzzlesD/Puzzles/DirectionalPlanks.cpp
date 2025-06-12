@@ -4,23 +4,20 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games 2/Puzzle Set 6/Free Planks
+    iOS Game: 100 Logic Games 3/Puzzle Set 5/Directional Planks
 
     Summary
-    Nail slavery
+    Can't move
 
     Description
-    1. Locate some pieces of wood (Planks).
-    2. Planks are areas of exactly three cells and can be straight or angled.
-    3. Each Plank contains one nail.
-    4. After finding all the Planks, it must be possible to move each piece
-       by one cell in at least one direction.
+    1. Divide the board in areas of three tiles (planks).
+    2. Each plank contains one number and the number tells you how many
+       directions the Plank can move, when the board is completed.
 */
 
-namespace puzzles::FreePlanks{
+namespace puzzles::DirectionalPlanks{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_NAIL = 'N';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -53,7 +50,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, vector<puz_plank>> m_pos2planks;
+    map<Position, pair<int, vector<puz_plank>>> m_pos2info;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -68,8 +65,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
-            if (char ch = str[c]; ch == PUZ_NAIL)
-                m_pos2planks[{r, c}];
+            if (char ch = str[c]; ch != ' ')
+                m_pos2info[{r, c}].first = ch - '0';
     }
 
     for (int r = 0; r < m_sidelen; ++r)
@@ -83,11 +80,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         rng.clear();
                         break;
                     }
-                    if (m_pos2planks.contains(p2))
+                    if (m_pos2info.contains(p2))
                         rng.push_back(p2);
                 }
                 if (rng.size() == 1)
-                    m_pos2planks.at(rng[0]).emplace_back(p, i);
+                    m_pos2info.at(rng[0]).second.emplace_back(p, i);
             }
         }
 }
@@ -128,8 +125,8 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (auto& [p, planks] : g.m_pos2planks)
-        for (int i = 0; i < planks.size(); ++i)
+    for (auto& [p, info] : g.m_pos2info)
+        for (int i = 0; i < info.second.size(); ++i)
             m_matches[p].push_back(i);
     find_matches(true);
 }
@@ -137,7 +134,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, perms] : m_matches) {
-        auto& planks = m_game->m_pos2planks.at(p);
+        auto& [num, planks] = m_game->m_pos2info.at(p);
 
         boost::remove_erase_if(perms, [&](int id) {
             auto& [p2, index] = planks[id];
@@ -179,7 +176,7 @@ bool puz_state::can_move_planks() const
 
 bool puz_state::make_move2(const Position& p, int n)
 {
-    auto& [p2, index] = m_game->m_pos2planks.at(p)[n];
+    auto& [p2, index] = m_game->m_pos2info.at(p).second[n];
     for (auto& os : planks_offset[index])
         cells(p2 + os) = m_ch;
     m_planks.emplace_back(p2, index);
@@ -249,9 +246,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_FreePlanks()
+void solve_puz_DirectionalPlanks()
 {
-    using namespace puzzles::FreePlanks;
+    using namespace puzzles::DirectionalPlanks;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/FreePlanks.xml", "Puzzles/FreePlanks.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/DirectionalPlanks.xml", "Puzzles/DirectionalPlanks.txt", solution_format::GOAL_STATE_ONLY);
 }
