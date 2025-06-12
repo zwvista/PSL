@@ -165,16 +165,14 @@ bool puz_state::check_move_planks() const
         auto& rng = planks_offset[index];
         char ch = cells(p + rng[0]);
         int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
-            int n2 = 0;
-            for (auto p2 = p + os; boost::algorithm::all_of(rng, [&](const Position& os2) {
+            auto p2 = p + os; 
+            return acc + (boost::algorithm::all_of(rng, [&](const Position& os2) {
                 auto p3 = p2 + os2;
                 if (!is_valid(p3))
                     return false;
                 char ch2 = cells(p3);
                 return ch2 == PUZ_SPACE || ch == ch2;
-            }); p2 += os)
-                ++n2;
-            return acc + n2;
+            }) ? 1 : 0);
         });
         if (m_matches.empty() && n != num || n < num)
             return false;
