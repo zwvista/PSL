@@ -150,8 +150,11 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
+            int area_id = m_game->m_pos2area.at(p);
+            bool has_single_cell = m_game->m_areas[area_id].size() == 1;
             for (int lineseg : linesegs_all)
                 if ([&]{
+                    set<int> area_ids;
                     for (int i = 0; i < 4; ++i) {
                         if (!is_lineseg_on(lineseg, i))
                             continue;
@@ -160,8 +163,10 @@ puz_state::puz_state(const puz_game& g)
                         // outside the board
                         if (!is_valid(p2))
                             return false;
+                        area_ids.insert(m_game->m_pos2area.at(p2));
                     }
-                    return true;
+                    // 2. You can enter (and exit) the room only once.
+                    return has_single_cell || area_ids.contains(area_id);
                 }())
                     dt.push_back(lineseg);
         }
@@ -224,18 +229,18 @@ bool puz_state::check_loop() const
         for (int n = -1, last_area_id = -1;;) {
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
-            int area_id = m_game->m_pos2area.at(p2);
-            if (!area_ids.contains(area_id))
-                area_ids.insert(area_id);
-            else if (last_area_id != area_id)
-                return false;
-            last_area_id = area_id;
             for (int i = 0; i < 4; ++i)
                 // proceed only if the line segment does not revisit the previous position
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
                     p2 += offset[n = i];
                     break;
                 }
+            int area_id = m_game->m_pos2area.at(p2);
+            if (!area_ids.contains(area_id))
+                area_ids.insert(area_id);
+            else if (last_area_id != area_id && area_ids.size() != m_game->m_areas.size())
+                return false;
+            last_area_id = area_id;
             if (p2 == p)
                 // we have a loop here,
                 // and we are supposed to have exhausted the line segments

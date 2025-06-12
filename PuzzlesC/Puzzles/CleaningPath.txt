@@ -17,11 +17,30 @@ Sequence of moves:
 |  -|-  |  - -  |
 |   |   |       |
  --- --- --- --- 
-Number of moves: 3
-Number of vertices examined: 6
-0.0024779 [s]
+Number of moves: 1
+Number of vertices examined: 2
+0.0004786 [s]
 
 Level 2
-Number of vertices examined: 12
-0.003477 [s]
+Sequence of moves: 
+ --- --- --- --- 
+|           |   |
+|  - - - - -|-  |
+| |         | | |
+     --- ---     
+| | |   |   | | |
+|  -|- -|-  |   |
+|   |   | | | | |
+ --- ---         
+|   |     | | | |
+|  -|- - -  |   |
+| | |       | | |
+ --- --- ---     
+| |         | | |
+|  - - - - -|-  |
+|           |   |
+ --- --- --- --- 
+Number of moves: 1
+Number of vertices examined: 2
+0.0002683 [s]
 
