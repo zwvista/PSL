@@ -147,8 +147,8 @@ puz_state::puz_state(const puz_game& g)
                         if (!is_lineseg_on(lineseg, i))
                             continue;
                         auto p2 = p + offset[i];
-                        // The line segment cannot lead to a position
-                        // outside the board or cover any number cell
+                        // A line segment cannot go beyond the boundaries of the board
+                        // or cover any number cell
                         if (!is_valid(p2) || g.m_pos2area.contains(p2))
                             return false;
                     }
