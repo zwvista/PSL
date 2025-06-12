@@ -155,11 +155,13 @@ int puz_state::find_matches(bool init)
     return check_move_planks() ? 2 : 0;
 }
 
+// 2. Each plank contains one number and the number tells you how many
+// directions the Plank can move, when the board is completed.
 bool puz_state::check_move_planks() const
 {
     for (auto& [pn, plank] : m_pos2planks) {
-        auto& [p, index] = plank;
         int num = m_game->m_pos2info.at(pn).first;
+        auto& [p, index] = plank;
         auto& rng = planks_offset[index];
         char ch = cells(p + rng[0]);
         int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
@@ -174,7 +176,7 @@ bool puz_state::check_move_planks() const
                 ++n2;
             return acc + n2;
         });
-        if (!m_matches.empty() && n < num || n != num)
+        if (m_matches.empty() && n != num || n < num)
             return false;
     }
     return true;
