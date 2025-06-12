@@ -232,7 +232,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horizontal walls
         for (int c = 0; c < sidelen(); ++c)
-            out << (horz_walls.contains({r, c}) ? " -" : "  ");
+            out << (horz_walls.contains({r, c}) ? " --" : "   ");
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
@@ -240,7 +240,12 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical walls
             out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
-            out << cells(p);
+            char ch = cells(p);
+            out << ch;
+            if (auto it = m_game->m_pos2info.find(p); it != m_game->m_pos2info.end())
+                out << it->second.first;
+            else
+                out << ' ';
         }
         println(out);
     }
