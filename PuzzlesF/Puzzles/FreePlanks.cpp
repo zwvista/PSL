@@ -105,7 +105,7 @@ struct puz_state
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
     bool make_move(const Position& p, int n);
-    bool make_move2(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     bool can_move_planks() const;
     int find_matches(bool init);
 
@@ -152,10 +152,10 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perms[0]) ? 1 : 0;
+                return make_move2(p, perms[0]), 1;
             }
     }
-    return 2;
+    return can_move_planks() ? 2 : 0;
 }
 
 bool puz_state::can_move_planks() const
@@ -177,7 +177,7 @@ bool puz_state::can_move_planks() const
     });
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(const Position& p, int n)
 {
     auto& [p2, index] = m_game->m_pos2planks.at(p)[n];
     for (auto& os : planks_offset[index])
@@ -186,15 +186,12 @@ bool puz_state::make_move2(const Position& p, int n)
 
     ++m_ch, ++m_distance;
     m_matches.erase(p);
-    
-    return can_move_planks();
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move2(p, n))
-        return false;
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
