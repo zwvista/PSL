@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Place a number in each region from 0 to 9.
+2. When four regions borders intersect (a spot where four lines meet), the sum of those 4 regions must be 10.
+3. No two orthogonally adjacent regions can have the same number.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - `
+| |7|9| |`
+     -   `
+| |   | |`
+ - -     `
+|0 1| | |`
+ - - - - `
+|   |0|2|`
+ - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>

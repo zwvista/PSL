@@ -171,6 +171,7 @@
     <Text Include="Puzzles\CoffeeAndSugar.txt" />
     <Text Include="Puzzles\Consecutives.txt" />
     <Text Include="Puzzles\CrossroadBlocks.txt" />
+    <Text Include="Puzzles\CrossroadsX.txt" />
     <Text Include="Puzzles\CrosstownTraffic.txt" />
     <Text Include="Puzzles\CultureTrip.txt" />
     <Text Include="ReadMe.txt" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Puzzles\CoffeeAndSugar.cpp" />
     <ClCompile Include="Puzzles\Consecutives.cpp" />
     <ClCompile Include="Puzzles\CrossroadBlocks.cpp" />
+    <ClCompile Include="Puzzles\CrossroadsX.cpp" />
     <ClCompile Include="Puzzles\CrosstownTraffic.cpp" />
     <ClCompile Include="Puzzles\CultureTrip.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -229,6 +231,7 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="Puzzles\CrossroadBlocks.xml" />
+    <Xml Include="Puzzles\CrossroadsX.xml" />
     <Xml Include="Puzzles\CrosstownTraffic.xml" />
     <Xml Include="Puzzles\CultureTrip.xml" />
   </ItemGroup>
