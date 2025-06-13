@@ -25,6 +25,7 @@
 namespace puzzles::PathOnTheHills{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_UNKNOWN = -1;
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -32,6 +33,7 @@ constexpr auto PUZ_SPACE = ' ';
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
+constexpr int lineseg_off = 0;
 const vector<int> linesegs_all = {
     // ┐  ─  ┌  ┘  │  └
     12, 10, 6, 9, 5, 3,
@@ -57,7 +59,8 @@ struct puz_game
     int m_sidelen;
     int m_dot_count;
     set<Position> m_horz_walls, m_vert_walls;
-    vector<vector<Position>> m_areas;
+    map<Position, int> m_pos2num;
+    vector<pair<int, vector<Position>>> m_areas;
     map<Position, int> m_pos2area;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -108,17 +111,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
             rng.insert(p);
+            if (char ch = str_v[c * 2 + 1]; ch != ' ')
+                m_pos2num[p] = ch - '0';
         }
     }
 
     for (int n = 0; !rng.empty(); ++n) {
         list<puz_state2> smoves;
         puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+        int num = PUZ_UNKNOWN;
         for (auto& p : smoves) {
             m_pos2area[p] = n;
             rng.erase(p);
+            if (auto it = m_pos2num.find(p); it != m_pos2num.end())
+                num = it->second;
         }
-        m_areas.emplace_back(smoves.begin(), smoves.end());
+        m_areas.push_back({num, {smoves.begin(), smoves.end()}});
     }
 }
 
@@ -151,14 +159,14 @@ struct puz_state : vector<puz_dot>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count), m_game(&g)
+: vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             int area_id = m_game->m_pos2area.at(p);
-            bool has_single_cell = m_game->m_areas[area_id].size() == 1;
+            bool has_single_cell = m_game->m_areas[area_id].second.size() == 1;
             for (int lineseg : linesegs_all)
                 if ([&]{
                     set<int> area_ids;
