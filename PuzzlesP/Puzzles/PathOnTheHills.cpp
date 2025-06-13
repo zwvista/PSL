@@ -242,9 +242,11 @@ bool puz_state::check_loop() const
     map<int, int> area2num;
     for (auto& p : rng)
         area2num[m_game->m_pos2area.at(p)]++;
+    if (is_goal_state() && area2num.size() != m_game->m_areas.size())
+        return false;
     for (auto& [id, num] : area2num) {
         int num2 = m_game->m_areas[id].first;
-        if (is_goal_state() && (num2 == PUZ_UNKNOWN && num == 0 || num != num2) ||
+        if (is_goal_state() && num2 != PUZ_UNKNOWN && num != num2 ||
             num2 != PUZ_UNKNOWN && num > num2)
             return false;
     }
