@@ -1,0 +1,30 @@
+Level 1
+Sequence of moves: 
+ -- -- -- --
+|= |c  c |= |
+ --    -- --
+|a |c4|= |d |
+    -- --   
+|a |= |b |d2|
+    --      
+|a2|b2 b |d |
+ -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.0013862 [s]
+
+Level 2
+Sequence of moves: 
+ -- -- -- --
+|= |c  c4|= |
+ --    -- --
+|d |c |= |b |
+    -- --   
+|d2|= |b  b3|
+    -- -- --
+|d |a  a  a1|
+ -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.0010484 [s]
+

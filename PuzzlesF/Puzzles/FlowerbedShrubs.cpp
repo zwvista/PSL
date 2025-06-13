@@ -125,7 +125,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                                 for (auto& p2 : rng2)
                                     if (boost::algorithm::any_of_equal(offset, p1 - p2))
                                         return false;
-                                        return true;
+                            return true;
                         }())
                             perms.emplace_back(perm);
                     } while (boost::next_permutation(perm));
@@ -209,12 +209,8 @@ int puz_state::find_matches(bool init)
                 auto p3 = p2 + shrubs[i];
                 if (!is_valid(p3)) continue;
                 char ch = cells(p3), ch2 = perm[i];
-                if (ch2 == PUZ_EMPTY && ch != PUZ_SPACE && ch != PUZ_EMPTY ||
-                    ch2 == PUZ_SHRUB && ch != PUZ_SPACE &&
-                    boost::algorithm::any_of(offset, [&](auto& os) {
-                    auto p3 = p2 + os;
-                    return is_valid(p3) && cells(p3) != PUZ_SPACE;
-                }))
+                if (ch2 == PUZ_EMPTY && ch == PUZ_SHRUB ||
+                    ch2 == PUZ_SHRUB && ch != PUZ_SPACE && ch != ch2)
                     return true;
             }
             return false;
@@ -242,10 +238,11 @@ void puz_state::make_move2(const Position& p, int n)
     for (int i = 0; i < shrubs.size(); ++i) {
         auto p3 = p2 + shrubs[i];
         if (!is_valid(p3)) continue;
-        if ((cells(p3) = perm[i]) == PUZ_SHRUB)
+        char& ch = cells(p3), ch2 = perm[i];
+        if (ch == PUZ_SPACE && (ch = ch2) == PUZ_SHRUB)
             for (auto& os : offset) {
                 auto p4 = p3 + os;
-                if (is_valid(p4))
+                if (is_valid(p4) && cells(p4) == PUZ_SPACE)
                     cells(p4) = PUZ_EMPTY;
             }
     }
