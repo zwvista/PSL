@@ -246,8 +246,7 @@ bool puz_state::check_loop() const
         return false;
     for (auto& [id, num] : area2num) {
         int num2 = m_game->m_areas[id].first;
-        if (is_goal_state() && num2 != PUZ_UNKNOWN && num != num2 ||
-            num2 != PUZ_UNKNOWN && num > num2)
+        if (num2 != PUZ_UNKNOWN && (is_goal_state() && num != num2 || num > num2))
             return false;
     }
     
@@ -326,7 +325,11 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
-            out << (is_lineseg_on(dots(p)[0], 0) ? " I " : "   ");
+            if (auto it = m_game->m_pos2num.find(p); it != m_game->m_pos2num.end())
+                out << it->second;
+            else
+                out << ' ';
+            out << (is_lineseg_on(dots(p)[0], 0) ? "I " : "  ");
         }
         println(out);
         for (int c = 0;; ++c) {
