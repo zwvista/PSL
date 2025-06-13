@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games/Puzzle Set 3/Path on the Mountains
+    iOS Game: 100 Logic Games 3/Puzzle Set 5/Path on the Mountains
 
     Summary
     Turn on the peak, turn on the plain
@@ -20,6 +20,7 @@ namespace puzzles::PathOnTheMountains{
 
 constexpr auto PUZ_BLACK_PEARL = 'B';
 constexpr auto PUZ_WHITE_PEARL = 'W';
+constexpr auto PUZ_WHITE_SPOT = 'O';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -94,27 +95,26 @@ const puz_lineseg_info white_pearl_perms[][3] = {
 struct puz_game
 {
     string m_id;
-    int m_sidelen;
+    Position m_size;
     int m_dot_count;
-    map<Position, char> m_pos2pearl;
+    map<Position, char> m_pos2spot;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
-    }
+    int rows() const { return m_size.first; }
+    int cols() const { return m_size.second; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size())
-    , m_dot_count(m_sidelen * m_sidelen)
+    , m_size(strs.size(), strs[0].length())
+    , m_dot_count(rows() * cols())
 {
-    for (int r = 0; r < m_sidelen; ++r) {
+    for (int r = 0; r < rows(); ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
+        for (int c = 0; c < cols(); ++c) {
             char ch = str[c];
             if (ch != ' ')
-                m_pos2pearl[{r, c}] = ch;
+                m_pos2spot[{r, c}] = ch;
         }
     }
 }
@@ -124,12 +124,13 @@ using puz_dot = vector<int>;
 struct puz_state
 {
     puz_state(const puz_game& g);
-    int sidelen() const {return m_game->m_sidelen;}
+    int rows() const { return m_game->rows(); }
+    int cols() const { return m_game->cols(); }
     bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
-    const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
-    puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
+    const puz_dot& dots(const Position& p) const { return m_dots[p.first * cols() + p.second]; }
+    puz_dot& dots(const Position& p) { return m_dots[p.first * cols() + p.second]; }
     bool operator<(const puz_state& x) const {
         return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches); 
     }
@@ -160,16 +161,16 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
     : m_dots(g.m_dot_count), m_game(&g)
 {
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = g.m_pos2pearl.find(p);
-            if (it == g.m_pos2pearl.end())
+            auto it = g.m_pos2spot.find(p);
+            if (it == g.m_pos2spot.end())
                 dt.push_back(lineseg_off);
 
             auto& linesegs_all2 = 
-                it == g.m_pos2pearl.end() ? linesegs_all :
+                it == g.m_pos2spot.end() ? linesegs_all :
                 it->second == PUZ_BLACK_PEARL ? linesegs_all_black :
                 linesegs_all_white;
             for (int lineseg : linesegs_all2)
@@ -183,7 +184,7 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& [p, pearl] : g.m_pos2pearl) {
+    for (auto& [p, pearl] : g.m_pos2spot) {
         auto& perm_ids = m_matches[p];
         perm_ids.resize(pearl == PUZ_BLACK_PEARL ? 4 : 16);
         boost::iota(perm_ids, 0);
@@ -196,7 +197,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, perm_ids] : m_matches) {
-        auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
+        auto perms = m_game->m_pos2spot.at(p) == PUZ_BLACK_PEARL ?
             black_pearl_perms : white_pearl_perms;
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto perm = perms[id];
@@ -224,8 +225,8 @@ int puz_state::check_dots(bool init)
     int n = 2;
     for (;;) {
         set<pair<Position, int>> newly_finished;
-        for (int r = 0; r < sidelen(); ++r)
-            for (int c = 0; c < sidelen(); ++c) {
+        for (int r = 0; r < rows(); ++r)
+            for (int c = 0; c < cols(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
                 for (int i = 0; i < 4; ++i)
@@ -263,7 +264,7 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::make_move_pearl2(const Position& p, int n)
 {
-    auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
+    auto perms = m_game->m_pos2spot.at(p) == PUZ_BLACK_PEARL ?
         black_pearl_perms : white_pearl_perms;
     auto perm = perms[n];
     for (int i = 0; i < 3; ++i) {
@@ -304,8 +305,8 @@ bool puz_state::make_move_line(const Position& p, int n)
 bool puz_state::check_loop() const
 {
     set<Position> rng;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             if (dt.size() == 1 && dt[0] != lineseg_off)
@@ -356,7 +357,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             auto f = [](int sz) {return sz == 1 ? 1000 : sz;};
             return f(dt1.size()) < f(dt2.size());
         }) - m_dots.begin();
-        Position p(n / sidelen(), n % sidelen());
+        Position p(n / cols(), n % cols());
         auto& dt = dots(p);
         for (int i = 0; i < dt.size(); ++i) {
             children.push_back(*this);
@@ -370,16 +371,16 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
         // draw horizontal lines
-        for (int c = 0; c < sidelen(); ++c) {
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = m_game->m_pos2pearl.find(p);
-            out << (it != m_game->m_pos2pearl.end() ? it->second : ' ')
+            auto it = m_game->m_pos2spot.find(p);
+            out << (it != m_game->m_pos2spot.end() ? it->second : ' ')
                 << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         println(out);
-        if (r == sidelen() - 1) break;
-        for (int c = 0; c < sidelen(); ++c)
+        if (r == rows() - 1) break;
+        for (int c = 0; c < cols(); ++c)
             // draw vertical lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
         println(out);
