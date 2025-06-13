@@ -2,6 +2,7 @@
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
+#include <boost/math/special_functions/sign.hpp>
 
 /*
     iOS Game: 100 Logic Games 3/Puzzle Set 5/Path on the Mountains
@@ -18,9 +19,11 @@
 
 namespace puzzles::PathOnTheMountains{
 
+using boost::math::sign;
+
 constexpr auto PUZ_BLACK_PEARL = 'B';
 constexpr auto PUZ_WHITE_PEARL = 'W';
-constexpr auto PUZ_WHITE_SPOT = 'O';
+constexpr auto PUZ_SPOT = 'O';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -28,22 +31,28 @@ constexpr auto PUZ_WHITE_SPOT = 'O';
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
-constexpr int lineseg_off = 0;
 const vector<int> linesegs_all = {
     // ┐  ─  ┌  ┘  │  └
     12, 10, 6, 9, 5, 3,
 };
-// All line segments for a Black Pearl
-// Lines passing through Black Pearls must do a 90 degree turn in them.
-const vector<int> linesegs_all_black = {
+// All line segments for a spot
+// 2. The path should make 90 degrees turns on the spots.
+const vector<int> linesegs_all_spot = {
     // └  ┌  ┐  ┘
     3, 6, 12, 9,
 };
-// All line segments for a White Pearl
-// Lines passing through White Pearls must go straight through them.
-const vector<int> linesegs_all_white = {
-    // │  ─
-    5, 10,
+
+const vector<vector<vector<int>>> linesegs_all_path = {
+    {
+        {9, 12, 6, 12},
+        {6, 6, 9, 9},
+        {3, 9, 3, 6},
+    },
+    {
+        {3, 6, 6, 12},
+        {12, 12, 3, 3},
+        {3, 9, 9, 12},
+    },
 };
 
 constexpr Position offset[] = {
@@ -53,51 +62,15 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-// first: the offset of the line segment
-// second: an integer that depicts the line segment
-using puz_lineseg_info = pair<Position, int>;
-
-// permutations of line segments for a black pearl and its two adjacent cells
-// they must go straight in the next tile in both directions.
-const puz_lineseg_info black_pearl_perms[][3] = {
-    // │  ┌─ ─┐  │
-    // └─ │   │ ─┘
-    {{{0, 0}, 3}, {{-1, 0}, 5}, {{0, 1}, 10}},        // n & e
-    {{{0, 0}, 6}, {{0, 1}, 10}, {{1, 0}, 5}},        // e & s
-    {{{0, 0}, 12}, {{1, 0}, 5}, {{0, -1}, 10}},        // s & w
-    {{{0, 0}, 9}, {{0, -1}, 10}, {{-1, 0}, 5}},    // w & n
-};
-// permutations of line segments for a white pearl and its two adjacent cells
-// at least at one side of the White Pearl(or both), they must do a 90 degree turn.
-const puz_lineseg_info white_pearl_perms[][3] = {
-    // │ │ ┌ ┌ ┌ ┐ ┐ ┐
-    // │ │ │ │ │ │ │ │
-    // └ ┘ │ └ ┘ │ └ ┘
-    {{{0, 0}, 5}, {{-1, 0}, 5}, {{1, 0}, 3}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 5}, {{1, 0}, 9}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 6}, {{1, 0}, 3}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 6}, {{1, 0}, 5}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 6}, {{1, 0}, 9}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 12}, {{1, 0}, 3}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 12}, {{1, 0}, 5}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 12}, {{1, 0}, 9}},        // n & s
-    // └─┘ ┌─┘ ──┘ └── ┌── └─┐ ┌─┐ ──┐
-    {{{0, 0}, 10}, {{0, 1}, 9}, {{0, -1}, 3}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 9}, {{0, -1}, 6}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 9}, {{0, -1}, 10}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 10}, {{0, -1}, 3}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 10}, {{0, -1}, 6}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 12}, {{0, -1}, 3}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 12}, {{0, -1}, 6}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 12}, {{0, -1}, 10}},        // e & w
-};
+using puz_path = pair<vector<Position>, vector<int>>;
 
 struct puz_game
 {
     string m_id;
     Position m_size;
     int m_dot_count;
-    map<Position, char> m_pos2spot;
+    set<Position> m_spots;
+    map<Position, vector<puz_path>> m_pos2paths;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
@@ -111,12 +84,53 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     for (int r = 0; r < rows(); ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < cols(); ++c) {
-            char ch = str[c];
-            if (ch != ' ')
-                m_pos2spot[{r, c}] = ch;
-        }
+        for (int c = 0; c < cols(); ++c)
+            if (char ch = str[c];  ch != ' ')
+                m_spots.emplace(r, c);
     }
+    Position os0;
+    for (auto& p1 : m_spots)
+        for (auto& p2 : m_spots) {
+            auto& [r1, c1] = p1;
+            auto& [r2, c2] = p2;
+            // only make a pairing with a tile in the bottom left or bottom right
+            if (r2 <= r1 || c2 == c1) continue;
+            Position os1(1, 0);
+            Position os2(0, sign(c2 - c1));
+            bool is_left = c2 < c1;
+            auto& linesegs_path = linesegs_all_path[is_left ? 0 : 1];
+            for (int k = 0; k < 4; ++k) {
+                // bottom left, k = 0,1: ┌──
+                // ┐  ┘ -> ─ -> ┌ -> │ ->  └  ┘
+                // [9, 12] -> 10 -> 6 -> 5 -> [3, 9]
+                // bottom left, k = 2,3: ──┘
+                // ┌  ┐ -> │ -> ┘ -> ─ ->  └  ┌
+                // [6, 12] -> 5 -> 9 -> 10 -> [3, 6]
+                // bottom right, k = 0,1: ──┐
+                // └  ┌ -> ─ -> ┐ -> │ ->  └  ┘
+                // [3, 6] -> 10 -> 12 -> 5 -> [3, 9]
+                // bottom right, k = 2,3: └── 
+                // ┌  ┐ -> │ -> └ -> ─ ->  ┐  ┘
+                // [6, 12] -> 5 -> 3 -> 10 -> [9, 12]
+                Position p3(k < 2 ? r1 : r2, k < 2 ? c2 : c1);
+                vector<Position> rng;
+                vector<int> line;
+                for (auto p = p1;;
+                    p += (p == p3 ? k < 2 ? os1 : os2 : p.first == p3.first ? os2 : os1)) {
+                    rng.push_back(p);
+                    line.push_back(
+                        p == p1 ? linesegs_path[0][k] :
+                        p == p3 ? linesegs_path[1][k] :
+                        p == p2 ? linesegs_path[2][k] :
+                        p.first == p3.first ? 10 : 5
+                    );
+                    if (p == p2) break;
+                    if (p != p1 && m_spots.contains(p)) goto next_k;
+                }
+                m_pos2paths[p1].emplace_back(rng, line);
+            next_k:;
+            }
+        }
 }
 
 using puz_dot = vector<int>;
@@ -134,9 +148,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches); 
     }
-    bool make_move_pearl(const Position& p, int n);
-    bool make_move_pearl2(const Position& p, int n);
-    bool make_move_line(const Position& p, int n);
+    bool make_move(const Position& p, int n);
+    bool make_move2(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
@@ -165,14 +178,8 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = g.m_pos2spot.find(p);
-            if (it == g.m_pos2spot.end())
-                dt.push_back(lineseg_off);
-
-            auto& linesegs_all2 = 
-                it == g.m_pos2spot.end() ? linesegs_all :
-                it->second == PUZ_BLACK_PEARL ? linesegs_all_black :
-                linesegs_all_white;
+            auto& linesegs_all2 =
+                g.m_spots.contains(p) ? linesegs_all : linesegs_all_spot;
             for (int lineseg : linesegs_all2)
                 if ([&]{
                     for (int i = 0; i < 4; ++i)
@@ -184,11 +191,9 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& [p, pearl] : g.m_pos2spot) {
-        auto& perm_ids = m_matches[p];
-        perm_ids.resize(pearl == PUZ_BLACK_PEARL ? 4 : 16);
-        boost::iota(perm_ids, 0);
-    }
+    for (auto& [p, paths] : g.m_pos2paths)
+        for (int i = 0; i < paths.size(); ++i)
+            m_matches[p].push_back(i);
 
     find_matches(true);
     check_dots(true);
@@ -196,25 +201,22 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, perm_ids] : m_matches) {
-        auto perms = m_game->m_pos2spot.at(p) == PUZ_BLACK_PEARL ?
-            black_pearl_perms : white_pearl_perms;
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto perm = perms[id];
-            for (int i = 0; i < 3; ++i) {
-                auto& info = perm[i];
-                if (boost::algorithm::none_of_equal(dots(p + info.first), info.second))
+    for (auto& [p, path_ids] : m_matches) {
+        auto& paths = m_game->m_pos2paths.at(p);
+        boost::remove_erase_if(path_ids, [&](int id) {
+            auto& [rng, line] = paths[id];
+            for (int i = 0; i < rng.size(); ++i)
+                if (boost::algorithm::none_of_equal(dots(rng[i]), line[i]))
                     return true;
-            }
             return false;
         });
 
         if (!init)
-            switch(perm_ids.size()) {
+            switch(path_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move_pearl2(p, perm_ids.front()) ? 1 : 0;
+                return make_move2(p, path_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -262,23 +264,18 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::make_move_pearl2(const Position& p, int n)
+bool puz_state::make_move2(const Position& p, int n)
 {
-    auto perms = m_game->m_pos2spot.at(p) == PUZ_BLACK_PEARL ?
-        black_pearl_perms : white_pearl_perms;
-    auto perm = perms[n];
-    for (int i = 0; i < 3; ++i) {
-        auto& info = perm[i];
-        dots(p + info.first) = {info.second};
-    }
-    m_matches.erase(p);
+    auto& [rng, line] = m_game->m_pos2paths.at(p)[n];
+    for (int i = 0; i < rng.size(); ++i)
+        dots(rng[i]) = {line[i]};
     return check_loop();
 }
 
-bool puz_state::make_move_pearl(const Position& p, int n)
+bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move_pearl2(p, n))
+    if (!make_move2(p, n))
         return false;
     for (;;) {
         int m;
@@ -293,15 +290,6 @@ bool puz_state::make_move_pearl(const Position& p, int n)
     }
 }
 
-bool puz_state::make_move_line(const Position& p, int n)
-{
-    m_distance = 0;
-    auto& dt = dots(p);
-    dt = {dt[n]};
-    int m = check_dots(false);
-    return m == 1 ? check_loop() : m == 2;
-}
-
 bool puz_state::check_loop() const
 {
     set<Position> rng;
@@ -309,7 +297,7 @@ bool puz_state::check_loop() const
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (dt.size() == 1 && dt[0] != lineseg_off)
+            if (dt.size() == 1)
                 rng.insert(p);
         }
 
@@ -340,30 +328,16 @@ bool puz_state::check_loop() const
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if (!m_matches.empty()) {
-        auto& [p, perm_ids] = *boost::min_element(m_matches, [](
-            const pair<const Position, vector<int>>& kv1,
-            const pair<const Position, vector<int>>& kv2) {
+    auto& [p, perm_ids] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
 
-        for (int n : perm_ids) {
-            children.push_back(*this);
-            if (!children.back().make_move_pearl(p, n))
-                children.pop_back();
-        }
-    } else {
-        int n = boost::min_element(m_dots, [](const puz_dot& dt1, const puz_dot& dt2) {
-            auto f = [](int sz) {return sz == 1 ? 1000 : sz;};
-            return f(dt1.size()) < f(dt2.size());
-        }) - m_dots.begin();
-        Position p(n / cols(), n % cols());
-        auto& dt = dots(p);
-        for (int i = 0; i < dt.size(); ++i) {
-            children.push_back(*this);
-            if (!children.back().make_move_line(p, i))
-                children.pop_back();
-        }
+    for (int n : perm_ids) {
+        children.push_back(*this);
+        if (!children.back().make_move(p, n))
+            children.pop_back();
     }
 }
 
@@ -374,8 +348,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = m_game->m_pos2spot.find(p);
-            out << (it != m_game->m_pos2spot.end() ? it->second : ' ')
+            out << (m_game->m_spots.contains(p) ? PUZ_SPOT : ' ')
                 << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         println(out);
