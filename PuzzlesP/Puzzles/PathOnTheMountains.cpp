@@ -21,8 +21,6 @@ namespace puzzles::PathOnTheMountains{
 
 using boost::math::sign;
 
-constexpr auto PUZ_BLACK_PEARL = 'B';
-constexpr auto PUZ_WHITE_PEARL = 'W';
 constexpr auto PUZ_SPOT = 'O';
 
 // n-e-s-w
@@ -44,14 +42,14 @@ const vector<int> linesegs_all_spot = {
 
 const vector<vector<vector<int>>> linesegs_all_path = {
     {
-        {9, 12, 6, 12},
-        {6, 6, 9, 9},
-        {3, 9, 3, 6},
+        {9, 9, 12, 12, 6, 6, 12, 12},
+        {6, 6, 6, 6, 9, 9, 9, 9},
+        {3, 9, 3, 9, 3, 6, 3, 6},
     },
     {
-        {3, 6, 6, 12},
-        {12, 12, 3, 3},
-        {3, 9, 9, 12},
+        {3, 3, 6, 6, 6, 6, 12, 12},
+        {12, 12, 12, 12, 3, 3, 3, 3},
+        {3, 9, 3, 9, 9, 12, 9, 12},
     },
 };
 
@@ -62,7 +60,12 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-using puz_path = pair<vector<Position>, vector<int>>;
+struct puz_path
+{
+    Position m_p_start, m_p_end;
+    vector<Position> m_rng;
+    vector<int> m_line;
+};
 
 struct puz_game
 {
@@ -70,7 +73,7 @@ struct puz_game
     Position m_size;
     int m_dot_count;
     set<Position> m_spots;
-    map<Position, vector<puz_path>> m_pos2paths;
+    vector<puz_path> m_paths;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
@@ -97,26 +100,25 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (r2 <= r1 || c2 == c1) continue;
             Position os1(1, 0);
             Position os2(0, sign(c2 - c1));
-            bool is_left = c2 < c1;
-            auto& linesegs_path = linesegs_all_path[is_left ? 0 : 1];
-            for (int k = 0; k < 4; ++k) {
-                // bottom left, k = 0,1: ┌──
+            auto& linesegs_path = linesegs_all_path[c2 < c1 ? 0 : 1];
+            for (int k = 0; k < 8; ++k) {
+                // bottom left, k = 0,1,2,3: ┌── p3(r1, c2)
                 // ┐  ┘ -> ─ -> ┌ -> │ ->  └  ┘
                 // [9, 12] -> 10 -> 6 -> 5 -> [3, 9]
-                // bottom left, k = 2,3: ──┘
+                // bottom left, k = 4,5,6,7: ──┘ p3(r2, c1)
                 // ┌  ┐ -> │ -> ┘ -> ─ ->  └  ┌
                 // [6, 12] -> 5 -> 9 -> 10 -> [3, 6]
-                // bottom right, k = 0,1: ──┐
+                // bottom right, k = 0,1,2,3: ──┐ p3(r1, c2)
                 // └  ┌ -> ─ -> ┐ -> │ ->  └  ┘
                 // [3, 6] -> 10 -> 12 -> 5 -> [3, 9]
-                // bottom right, k = 2,3: └── 
+                // bottom right, k = 4,5,6,7: └── p3(r2, c1) 
                 // ┌  ┐ -> │ -> └ -> ─ ->  ┐  ┘
                 // [6, 12] -> 5 -> 3 -> 10 -> [9, 12]
-                Position p3(k < 2 ? r1 : r2, k < 2 ? c2 : c1);
+                Position p3(k < 4 ? r1 : r2, k < 4 ? c2 : c1);
                 vector<Position> rng;
                 vector<int> line;
                 for (auto p = p1;;
-                    p += (p == p3 ? k < 2 ? os1 : os2 : p.first == p3.first ? os2 : os1)) {
+                    p += (p == p3 ? k < 4 ? os1 : os2 : p.first == p3.first ? os2 : os1)) {
                     rng.push_back(p);
                     line.push_back(
                         p == p1 ? linesegs_path[0][k] :
@@ -127,7 +129,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     if (p == p2) break;
                     if (p != p1 && m_spots.contains(p)) goto next_k;
                 }
-                m_pos2paths[p1].emplace_back(rng, line);
+                m_paths.emplace_back(p1, p2, rng, line);
             next_k:;
             }
         }
@@ -148,8 +150,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches); 
     }
-    bool make_move(const Position& p, int n);
-    bool make_move2(const Position& p, int n);
+    bool make_move(int n);
+    bool make_move2(int n);
     int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
@@ -167,6 +169,7 @@ struct puz_state
     // key: the position of the dot
     // value: the index of the permutation
     map<Position, vector<int>> m_matches;
+    map<Position, int> m_pos2count;
     set<pair<Position, int>> m_finished;
     unsigned int m_distance = 0;
 };
@@ -179,7 +182,7 @@ puz_state::puz_state(const puz_game& g)
             Position p(r, c);
             auto& dt = dots(p);
             auto& linesegs_all2 =
-                g.m_spots.contains(p) ? linesegs_all : linesegs_all_spot;
+                g.m_spots.contains(p) ? linesegs_all_spot : linesegs_all;
             for (int lineseg : linesegs_all2)
                 if ([&]{
                     for (int i = 0; i < 4; ++i)
@@ -191,10 +194,10 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& [p, paths] : g.m_pos2paths)
-        for (int i = 0; i < paths.size(); ++i)
-            m_matches[p].push_back(i);
-
+    for (int i = 0; i < g.m_paths.size(); ++i) {
+        auto& [p1, p2, rng, line] = g.m_paths[i];
+        m_matches[p1].push_back(i), m_matches[p2].push_back(i);
+    }
     find_matches(true);
     check_dots(true);
 }
@@ -202,9 +205,8 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, path_ids] : m_matches) {
-        auto& paths = m_game->m_pos2paths.at(p);
         boost::remove_erase_if(path_ids, [&](int id) {
-            auto& [rng, line] = paths[id];
+            auto& [p1, p2, rng, line] = m_game->m_paths[id];
             for (int i = 0; i < rng.size(); ++i)
                 if (boost::algorithm::none_of_equal(dots(rng[i]), line[i]))
                     return true;
@@ -216,7 +218,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, path_ids.front()) ? 1 : 0;
+                return make_move2(path_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -264,18 +266,32 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+bool puz_state::make_move2(int n)
 {
-    auto& [rng, line] = m_game->m_pos2paths.at(p)[n];
+    auto& [p1, p2, rng, line] = m_game->m_paths[n];
     for (int i = 0; i < rng.size(); ++i)
         dots(rng[i]) = {line[i]};
+
+    auto f = [&](int n2) {
+        for (auto& [p3, path_ids] : m_matches)
+            boost::remove_erase(path_ids, n2);
+    };
+
+    f(n);
+    for (auto& p3 : {p1, p2})
+        if (++m_pos2count[p3] == 2) {
+            for (int n2 : m_matches.at(p3))
+                f(n2);
+            m_matches.erase(p3);
+        }
+
     return check_loop();
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    if (!make_move2(p, n))
+    if (!make_move2(n))
         return false;
     for (;;) {
         int m;
@@ -328,15 +344,15 @@ bool puz_state::check_loop() const
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, perm_ids] = *boost::min_element(m_matches, [](
+    auto& [p, path_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
 
-    for (int n : perm_ids) {
+    for (int n : path_ids) {
         children.push_back(*this);
-        if (!children.back().make_move(p, n))
+        if (!children.back().make_move(n))
             children.pop_back();
     }
 }
