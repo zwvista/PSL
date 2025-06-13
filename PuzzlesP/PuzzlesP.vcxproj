@@ -172,6 +172,7 @@
     <Text Include="Puzzles\pathfind_idastar.txt" />
     <Text Include="Puzzles\pathfind_idastar2.txt" />
     <Text Include="Puzzles\PathOnTheHills.txt" />
+    <Text Include="Puzzles\PathOnTheMountains.txt" />
     <Text Include="Puzzles\patternpuzzle.txt" />
     <Text Include="Puzzles\pegsolitary.txt" />
     <Text Include="Puzzles\Pharaoh.txt" />
@@ -215,6 +216,7 @@
     <ClCompile Include="Puzzles\Patchmania.cpp" />
     <ClCompile Include="Puzzles\pathfind.cpp" />
     <ClCompile Include="Puzzles\PathOnTheHills.cpp" />
+    <ClCompile Include="Puzzles\PathOnTheMountains.cpp" />
     <ClCompile Include="Puzzles\patternpuzzle.cpp" />
     <ClCompile Include="Puzzles\pegsolitary.cpp" />
     <ClCompile Include="Puzzles\Pharaoh.cpp" />
@@ -248,6 +250,7 @@
     <Xml Include="Puzzles\Patchmania.xml" />
     <Xml Include="Puzzles\pathfind.xml" />
     <Xml Include="Puzzles\PathOnTheHills.xml" />
+    <Xml Include="Puzzles\PathOnTheMountains.xml" />
     <Xml Include="Puzzles\patternpuzzle.xml" />
     <Xml Include="Puzzles\pegsolitary.xml" />
     <Xml Include="Puzzles\Pharaoh.xml" />
