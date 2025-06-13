@@ -10,6 +10,7 @@ extern void solve_puz_Pata();
 extern void solve_puz_Patchmania();
 extern void solve_puz_pathfind();
 extern void solve_puz_PathOnTheHills();
+extern void solve_puz_PathOnTheMountains();
 extern void solve_puz_patternpuzzle();
 extern void solve_puz_pegsolitary();
 extern void solve_puz_Pharaoh();
@@ -38,7 +39,8 @@ int main(int argc, char **argv)
     println("a7: Patchmania");
     println("a8: pathfind");
     println("a9: Path on the Hills");
-    println("aa: patternpuzzle");
+    println("aa: Path on the Mountains");
+    println("ab: patternpuzzle");
     println("e: pegsolitary");
     println("h: Pharaoh");
     println("i1: Picnic");
@@ -65,7 +67,8 @@ int main(int argc, char **argv)
     else if (str == "a7") solve_puz_Patchmania();
     else if (str == "a8") solve_puz_pathfind();
     else if (str == "a9") solve_puz_PathOnTheHills();
-    else if (str == "aa") solve_puz_patternpuzzle();
+    else if (str == "aa") solve_puz_PathOnTheMountains();
+    else if (str == "ab") solve_puz_patternpuzzle();
     else if (str == "e") solve_puz_pegsolitary();
     else if (str == "h") solve_puz_Pharaoh();
     else if (str == "i1") solve_puz_Picnic();
