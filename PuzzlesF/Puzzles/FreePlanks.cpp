@@ -47,13 +47,13 @@ const vector<vector<Position>> planks_offset = {
     {{0, 0}, {0, 1}, {0, 2}},
 };
 
-using puz_plank = pair<Position, int>;
+using puz_piece = pair<Position, int>;
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, vector<puz_plank>> m_pos2planks;
+    map<Position, vector<puz_piece>> m_pos2pieces;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -69,7 +69,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             if (char ch = str[c]; ch == PUZ_NAIL)
-                m_pos2planks[{r, c}];
+                m_pos2pieces[{r, c}];
     }
 
     for (int r = 0; r < m_sidelen; ++r)
@@ -83,11 +83,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         rng.clear();
                         break;
                     }
-                    if (m_pos2planks.contains(p2))
+                    if (m_pos2pieces.contains(p2))
                         rng.push_back(p2);
                 }
                 if (rng.size() == 1)
-                    m_pos2planks.at(rng[0]).emplace_back(p, i);
+                    m_pos2pieces.at(rng[0]).emplace_back(p, i);
             }
         }
 }
@@ -119,7 +119,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     map<Position, vector<int>> m_matches;
-    vector<puz_plank> m_planks;
+    vector<puz_piece> m_pieces;
     string m_cells;
     unsigned int m_distance = 0;
     char m_ch = 'a';
@@ -128,19 +128,19 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (auto& [p, planks] : g.m_pos2planks)
-        for (int i = 0; i < planks.size(); ++i)
+    for (auto& [p, pieces] : g.m_pos2pieces)
+        for (int i = 0; i < pieces.size(); ++i)
             m_matches[p].push_back(i);
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, plank_ids] : m_matches) {
-        auto& planks = m_game->m_pos2planks.at(p);
+    for (auto& [p, piece_ids] : m_matches) {
+        auto& pieces = m_game->m_pos2pieces.at(p);
 
-        boost::remove_erase_if(plank_ids, [&](int id) {
-            auto& [p2, index] = planks[id];
+        boost::remove_erase_if(piece_ids, [&](int id) {
+            auto& [p2, index] = pieces[id];
             auto& rng = planks_offset[index];
             return boost::algorithm::any_of(rng, [&](const Position& os) {
                 return cells(p2 + os) != PUZ_SPACE;
@@ -148,11 +148,11 @@ int puz_state::find_matches(bool init)
         });
 
         if (!init)
-            switch (plank_ids.size()) {
+            switch (piece_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, plank_ids[0]), 1;
+                return make_move2(p, piece_ids[0]), 1;
             }
     }
     return can_move_planks() ? 2 : 0;
@@ -160,8 +160,8 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::can_move_planks() const
 {
-    return boost::algorithm::all_of(m_planks, [&](const puz_plank& plank) {
-        auto& [p, index] = plank;
+    return boost::algorithm::all_of(m_pieces, [&](const puz_piece& piece) {
+        auto& [p, index] = piece;
         auto& rng = planks_offset[index];
         char ch = cells(p + rng[0]);
         return boost::algorithm::any_of(offset, [&](const Position& os) {
@@ -179,10 +179,10 @@ bool puz_state::can_move_planks() const
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& [p2, index] = m_game->m_pos2planks.at(p)[n];
+    auto& [p2, index] = m_game->m_pos2pieces.at(p)[n];
     for (auto& os : planks_offset[index])
         cells(p2 + os) = m_ch;
-    m_planks.emplace_back(p2, index);
+    m_pieces.emplace_back(p2, index);
 
     ++m_ch, ++m_distance;
     m_matches.erase(p);
@@ -199,12 +199,12 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, plank_ids] = *boost::min_element(m_matches, [](
+    auto& [p, piece_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : plank_ids) {
+    for (int n : piece_ids) {
         children.push_back(*this);
         if (!children.back().make_move(p, n))
             children.pop_back();

@@ -10,7 +10,7 @@
     Can't move
 
     Description
-    1. Divide the board in areas of three tiles (planks).
+    1. Divide the board in areas of three tiles (planks_offset).
     2. Each plank contains one number and the number tells you how many
        directions the Plank can move, when the board is completed.
 */
@@ -44,13 +44,13 @@ const vector<vector<Position>> planks_offset = {
     {{0, 0}, {0, 1}, {0, 2}},
 };
 
-using puz_plank = pair<Position, int>;
+using puz_piece = pair<Position, int>;
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, pair<int, vector<puz_plank>>> m_pos2info;
+    map<Position, pair<int, vector<puz_piece>>> m_pos2info;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -116,7 +116,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     map<Position, vector<int>> m_matches;
-    map<Position, puz_plank> m_pos2planks;
+    map<Position, puz_piece> m_pos2pieces;
     string m_cells;
     unsigned int m_distance = 0;
     char m_ch = 'a';
@@ -133,11 +133,11 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, plank_ids] : m_matches) {
-        auto& [num, planks] = m_game->m_pos2info.at(p);
+    for (auto& [p, piece_ids] : m_matches) {
+        auto& [num, pieces] = m_game->m_pos2info.at(p);
 
-        boost::remove_erase_if(plank_ids, [&](int id) {
-            auto& [p2, index] = planks[id];
+        boost::remove_erase_if(piece_ids, [&](int id) {
+            auto& [p2, index] = pieces[id];
             auto& rng = planks_offset[index];
             return boost::algorithm::any_of(rng, [&](const Position& os) {
                 return cells(p2 + os) != PUZ_SPACE;
@@ -145,11 +145,11 @@ int puz_state::find_matches(bool init)
         });
 
         if (!init)
-            switch (plank_ids.size()) {
+            switch (piece_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, plank_ids[0]), 1;
+                return make_move2(p, piece_ids[0]), 1;
             }
     }
     return check_move_planks() ? 2 : 0;
@@ -159,9 +159,9 @@ int puz_state::find_matches(bool init)
 // directions the Plank can move, when the board is completed.
 bool puz_state::check_move_planks() const
 {
-    for (auto& [pn, plank] : m_pos2planks) {
+    for (auto& [pn, piece] : m_pos2pieces) {
         int num = m_game->m_pos2info.at(pn).first;
-        auto& [p, index] = plank;
+        auto& [p, index] = piece;
         auto& rng = planks_offset[index];
         char ch = cells(p + rng[0]);
         int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
@@ -185,7 +185,7 @@ void puz_state::make_move2(const Position& p, int n)
     auto& [p2, index] = m_game->m_pos2info.at(p).second[n];
     for (auto& os : planks_offset[index])
         cells(p2 + os) = m_ch;
-    m_pos2planks[p] = {p2, index};
+    m_pos2pieces[p] = {p2, index};
 
     ++m_ch, ++m_distance;
     m_matches.erase(p);
@@ -202,12 +202,12 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, plank_ids] = *boost::min_element(m_matches, [](
+    auto& [p, piece_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : plank_ids) {
+    for (int n : piece_ids) {
         children.push_back(*this);
         if (!children.back().make_move(p, n))
             children.pop_back();
