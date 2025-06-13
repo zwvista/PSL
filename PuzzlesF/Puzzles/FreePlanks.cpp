@@ -136,10 +136,10 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, perms] : m_matches) {
+    for (auto& [p, plank_ids] : m_matches) {
         auto& planks = m_game->m_pos2planks.at(p);
 
-        boost::remove_erase_if(perms, [&](int id) {
+        boost::remove_erase_if(plank_ids, [&](int id) {
             auto& [p2, index] = planks[id];
             auto& rng = planks_offset[index];
             return boost::algorithm::any_of(rng, [&](const Position& os) {
@@ -148,11 +148,11 @@ int puz_state::find_matches(bool init)
         });
 
         if (!init)
-            switch (perms.size()) {
+            switch (plank_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perms[0]), 1;
+                return make_move2(p, plank_ids[0]), 1;
             }
     }
     return can_move_planks() ? 2 : 0;
@@ -199,12 +199,12 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, perms] = *boost::min_element(m_matches, [](
+    auto& [p, plank_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : perms) {
+    for (int n : plank_ids) {
         children.push_back(*this);
         if (!children.back().make_move(p, n))
             children.pop_back();
