@@ -232,10 +232,23 @@ bool puz_state::check_loop() const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (dt.size() == 1)
+            if (dt.size() == 1 && dt[0] != lineseg_off)
                 rng.insert(p);
         }
 
+    // 3. the number on the Field tells you how many tiles you should go through it.
+    // 4. A Field with no number can be passed through in any number of tiles,
+    // at least one.
+    map<int, int> area2num;
+    for (auto& p : rng)
+        area2num[m_game->m_pos2area.at(p)]++;
+    for (auto& [id, num] : area2num) {
+        int num2 = m_game->m_areas[id].first;
+        if (is_goal_state() && (num2 == PUZ_UNKNOWN && num == 0 || num != num2) ||
+            num2 != PUZ_UNKNOWN && num > num2)
+            return false;
+    }
+    
     bool has_branch = false;
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
