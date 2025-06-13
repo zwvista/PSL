@@ -13,7 +13,7 @@
     Description
     1. Fill the board with a loop that passes through all tiles.
     2. The path should make 90 degrees turns on the spots.
-    3. Between spots, the path makes one more 90 turn.
+    3. Between spots, the path makes one more 90 degrees turn.
     4. So the path alternates turning on spots and outside them.
 */
 

@@ -11,5 +11,20 @@ O- -   -O
 O- - -  O-  
 Number of moves: 2
 Number of vertices examined: 3
-0.0130424 [s]
+0.0014344 [s]
+
+Level 2
+Sequence of moves: 
+O-  O- - -  
+| | |     | 
+       -O   
+| | | | | | 
+         -O 
+| | | |     
+  O-  O- -  
+|         | 
+ - - - - -O 
+Number of moves: 1
+Number of vertices examined: 2
+0.0005594 [s]
 
