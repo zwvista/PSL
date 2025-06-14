@@ -63,6 +63,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             else {
                 m_start.push_back(toupper(ch));
                 auto& rng = m_area2range.emplace_back();
+                rng.push_back(p);
                 for (auto& os : offset)
                     rng.push_back(p + os);
             }
@@ -79,6 +80,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     while (boost::next_permutation(perm));
 
     for (char ch = 'A'; ch <= 'C'; ++ch) {
+        string ch_str(1, ch);
         auto& perms = m_ch2perms_around[ch];
         for (int i = 0; i <= 4; ++i) {
             string perm2;
@@ -86,7 +88,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if (ch2 != ch)
                     perm2 += perm2.empty() ? string(4 - i, ch2) : string(i, ch2);
             do
-                perms.push_back(perm2);
+                perms.push_back(ch_str + perm2);
             while (boost::next_permutation(perm2));
         }
     }
@@ -114,7 +116,6 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     map<int, vector<int>> m_matches;
-    set<int> m_perm_id_rows, m_perm_id_cols;
     unsigned int m_distance = 0;
 };
 
@@ -123,25 +124,31 @@ puz_state::puz_state(const puz_game& g)
 {
     vector<int> perm_ids(g.m_perms_rc.size());
     boost::iota(perm_ids, 0);
-
-    for (int i = 0; i < sidelen(); ++i)
+    for (int i = 1; i < sidelen() - 1; ++i)
         m_matches[i] = m_matches[sidelen() + i] = perm_ids;
+
+    vector<int> perm_ids2(g.m_ch2perms_around.at('A').size());
+    boost::iota(perm_ids2, 0);
+    for (int i = sidelen() * 2; i < g.m_area2range.size(); ++i)
+        m_matches[i] = perm_ids2;
 
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, perm_ids] : m_matches) {
+    for (auto& [i, perm_ids] : m_matches) {
         string chars;
-        for (auto& p2 : m_game->m_area2range[p])
+        for (auto& p2 : m_game->m_area2range[i])
             chars.push_back(cells(p2));
 
-        auto& ids = p < sidelen() ? m_perm_id_rows : m_perm_id_cols;
+        auto& perms = i < sidelen() * 2 ? m_game->m_perms_rc :
+            m_game->m_ch2perms_around.at(chars[0]);
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, m_game->m_perms_rc.at(id), [](char ch1, char ch2) {
+            auto& perm = perms[id];
+            return !boost::equal(chars, perm, [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
-            }) || ids.contains(id);
+            });
         });
 
         if (!init)
@@ -149,7 +156,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids.front()), 1;
+                return make_move2(i, perm_ids.front()), 1;
             }
     }
     return 2;
@@ -157,14 +164,12 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int i, int j)
 {
-    auto& area = m_game->m_area2range[i];
-    auto& perm = m_game->m_perms_rc[j];
+    auto& rng = m_game->m_area2range[i];
+    auto& perm = (i < sidelen() * 2 ? m_game->m_perms_rc :
+        m_game->m_ch2perms_around.at(cells(rng[0])))[j];
 
     for (int k = 0; k < perm.size(); ++k)
-        cells(area[k]) = perm[k];
-
-    auto& ids = i < sidelen() ? m_perm_id_rows : m_perm_id_cols;
-    ids.insert(j);
+        cells(rng[k]) = perm[k];
 
     ++m_distance;
     m_matches.erase(i);
@@ -181,14 +186,14 @@ bool puz_state::make_move(int i, int j)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, perm_ids] = *boost::min_element(m_matches, [](
+    auto& [i, perm_ids] = *boost::min_element(m_matches, [](
         const pair<const int, vector<int>>& kv1,
         const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
     for (int n : perm_ids) {
         children.push_back(*this);
-        if (!children.back().make_move(p, n))
+        if (!children.back().make_move(i, n))
             children.pop_back();
     }
 }
