@@ -169,6 +169,7 @@
     <Text Include="Puzzles\Tents.txt" />
     <Text Include="Puzzles\TetrominoPegs.txt" />
     <Text Include="Puzzles\TheCityRises.txt" />
+    <Text Include="Puzzles\TheMagicNumber.txt" />
     <Text Include="Puzzles\TheOddBrick.txt" />
     <Text Include="Puzzles\Thermometers.txt" />
     <Text Include="Puzzles\TierraDelFuego.txt" />
@@ -206,6 +207,7 @@
     <ClCompile Include="Puzzles\Tents.cpp" />
     <ClCompile Include="Puzzles\TetrominoPegs.cpp" />
     <ClCompile Include="Puzzles\TheCityRises.cpp" />
+    <ClCompile Include="Puzzles\TheMagicNumber.cpp" />
     <ClCompile Include="Puzzles\TheOddBrick.cpp" />
     <ClCompile Include="Puzzles\Thermometers.cpp" />
     <ClCompile Include="Puzzles\TierraDelFuego.cpp" />
@@ -236,6 +238,7 @@
     <Xml Include="Puzzles\Tents.xml" />
     <Xml Include="Puzzles\TetrominoPegs.xml" />
     <Xml Include="Puzzles\TheCityRises.xml" />
+    <Xml Include="Puzzles\TheMagicNumber.xml" />
     <Xml Include="Puzzles\TheOddBrick.xml" />
     <Xml Include="Puzzles\Thermometers.xml">
       <SubType>Designer</SubType>

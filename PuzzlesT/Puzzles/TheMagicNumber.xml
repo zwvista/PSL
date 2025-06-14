@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Fill the board with 3 different symbols.
+2. On side-6 boards there will be 2 of each on any row or column.
+3. On side-9 boards there will be 3 of each on any row or column.
+4. On side-12 boards there will be 4 of each on any row or column.
+5. When a tile has a shaded background, the symbols around it must be different.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ B  b `
+ BaB C`
+C B  A`
+A CC B`
+B   C `
+ c c b`
+    ]]>
+  </level>
+</levels>
+</puzzle>

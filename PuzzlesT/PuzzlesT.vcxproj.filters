@@ -85,6 +85,9 @@
     <Text Include="Puzzles\TraceNumbers.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\TheMagicNumber.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -170,6 +173,9 @@
     <ClCompile Include="Puzzles\TierraDelFuego.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\TheMagicNumber.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\turnz.xml">
@@ -230,6 +236,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\TraceNumbers.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\TheMagicNumber.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
