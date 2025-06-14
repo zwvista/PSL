@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. A number tells you how many mines are around that tile.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+123`
+222`
+343`
+    ]]>
+  </level>
+</levels>
+</puzzle>

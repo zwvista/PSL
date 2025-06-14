@@ -79,6 +79,9 @@
     <Text Include="Puzzles\MaketheDifference.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\MineSlither.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -158,6 +161,9 @@
     <ClCompile Include="Puzzles\MaketheDifference.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\MineSlither.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
@@ -221,6 +227,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\MaketheDifference.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\MineSlither.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
