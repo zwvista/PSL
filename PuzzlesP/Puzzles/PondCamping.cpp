@@ -30,6 +30,12 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+struct puz_hike
+{
+    set<Position> m_empties;
+    set<Position> m_ponds;
+};
+
 struct puz_game
 {
     string m_id;
@@ -37,7 +43,7 @@ struct puz_game
     map<Position, int> m_pos2num;
     string m_start;
     // key: position of the number (hint)
-    map<Position, vector<set<Position>>> m_pos2perms;
+    map<Position, vector<puz_hike>> m_pos2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
@@ -97,9 +103,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         // save all goal states as permutations
         auto& perms = m_pos2perms[p];
         for (auto& spath : spaths) {
-            auto& s = spath.back();
-            s.erase(p);
-            perms.push_back(s);
+            auto& [empties, ponds] = perms.emplace_back();
+            empties = spath.back();
+            for (auto& p2 : empties)
+                for (auto& os : offset) {
+                    auto p3 = p2 + os;
+                    if (!empties.contains(p3) && cells(p3) == PUZ_SPACE)
+                        ponds.insert(p3);
+                }
+            empties.erase(p);
         }
     }
 }
@@ -150,7 +162,11 @@ int puz_state::find_matches(bool init)
     for (auto& [p, perm_ids] : m_matches) {
         auto& perms = m_game->m_pos2perms.at(p);
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return boost::algorithm::any_of(perms[id], [&](const Position& p2) {
+            auto& [empties, ponds] = perms[id];
+            return boost::algorithm::any_of(empties, [&](const Position& p2) {
+                char ch = cells(p2);
+                return !(ch == PUZ_SPACE || ch == PUZ_EMPTY);
+            }) && boost::algorithm::any_of(ponds, [&](const Position& p2) {
                 char ch = cells(p2);
                 return !(ch == PUZ_SPACE || ch == PUZ_POND);
             });
@@ -169,8 +185,13 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& perm = m_game->m_pos2perms.at(p)[n];
-    for (auto& p2 : perm) {
+    auto& [empties, ponds] = m_game->m_pos2perms.at(p)[n];
+    for (auto& p2 : empties) {
+        char& ch = cells(p2);
+        if (ch == PUZ_SPACE)
+            ch = PUZ_EMPTY, ++m_distance;
+    }
+    for (auto& p2 : ponds) {
         char& ch = cells(p2);
         if (ch == PUZ_SPACE)
             ch = PUZ_POND, ++m_distance;
@@ -204,9 +225,15 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c)
-            out << cells({r, c}) << ' ';
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            if (auto it = m_game->m_pos2num.find(p); it != m_game->m_pos2num.end())
+                out << it->second;
+            else
+                out << cells(p);
+            out << ' ';
+        }
         println(out);
     }
     return out;
