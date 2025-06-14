@@ -20,58 +20,76 @@
 namespace puzzles::TheMagicNumber{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_TREE = 'T';
-constexpr auto PUZ_FLOWER = 'F';
+constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_SYMBOL1 = '1';
+constexpr auto PUZ_SYMBOL2 = '2';
+
+constexpr Position offset[] = {
+    {-1, 0},        // n
+    {0, 1},         // e
+    {1, 0},         // s
+    {0, -1},        // w
+};
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
+    int m_num_symbols;
     string m_start;
     vector<vector<Position>> m_area2range;
-    vector<string> m_perms;
+    vector<string> m_perms_rc;
+    map<char, vector<string>> m_ch2perms_around;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size())
+, m_sidelen(strs.size() + 2)
+, m_num_symbols(strs.size() / 3)
 , m_area2range(m_sidelen * 2)
 {
-    m_start = boost::accumulate(strs, string());
-
-    for (int r = 0; r < m_sidelen; ++r) {
-        for (int c = 0; c < m_sidelen; ++c) {
+    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    for (int r = 1; r < m_sidelen - 1; ++r) {
+        auto& str = strs[r - 1];
+        m_start.push_back(PUZ_BOUNDARY);
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
             m_area2range[r].push_back(p);
             m_area2range[m_sidelen + c].push_back(p);
+            if (char ch = str[c - 1]; !islower(ch))
+                m_start.push_back(ch);
+            else {
+                m_start.push_back(toupper(ch));
+                auto& rng = m_area2range.emplace_back();
+                for (auto& os : offset)
+                    rng.push_back(p + os);
+            }
+        }
+        m_start.push_back(PUZ_BOUNDARY);
+    }
+    m_start.append(m_sidelen, PUZ_BOUNDARY);
+
+    string perm;
+    for (char ch = 'A'; ch <= 'C'; ++ch)
+        perm += string(m_num_symbols, ch);
+    do
+        m_perms_rc.push_back(perm);
+    while (boost::next_permutation(perm));
+
+    for (char ch = 'A'; ch <= 'C'; ++ch) {
+        auto& perms = m_ch2perms_around[ch];
+        for (int i = 0; i <= 4; ++i) {
+            string perm2;
+            for (char ch2 = 'A'; ch2 <= 'C'; ++ch2)
+                if (ch2 != ch)
+                    perm2 += perm2.empty() ? string(4 - i, ch2) : string(i, ch2);
+            do
+                perms.push_back(perm2);
+            while (boost::next_permutation(perm2));
         }
     }
-
-    string perm(m_sidelen, PUZ_SPACE);
-    auto f = [&](int n1, int n2) {
-        for (int i = 0; i < n1; ++i)
-            perm[i] = PUZ_FLOWER;
-        for (int i = 0; i < n2; ++i)
-            perm[i + n1] = PUZ_TREE;
-        do {
-            bool no_more_than_two = true;
-            for (int i = 1, n = 1; i < m_sidelen; ++i) {
-                n = perm[i] == perm[i - 1] ? n + 1 : 1;
-                if (n > 2) {
-                    no_more_than_two = false;
-                    break;
-                }
-            }
-            if (no_more_than_two)
-                m_perms.push_back(perm);
-        } while(boost::next_permutation(perm));
-    };
-    if (m_sidelen % 2 == 0)
-        f(m_sidelen / 2, m_sidelen / 2);
-    else
-        f(m_sidelen / 2, m_sidelen / 2 + 1);
 }
 
 struct puz_state
@@ -103,7 +121,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    vector<int> perm_ids(g.m_perms.size());
+    vector<int> perm_ids(g.m_perms_rc.size());
     boost::iota(perm_ids, 0);
 
     for (int i = 0; i < sidelen(); ++i)
@@ -121,7 +139,7 @@ int puz_state::find_matches(bool init)
 
         auto& ids = p < sidelen() ? m_perm_id_rows : m_perm_id_cols;
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, m_game->m_perms.at(id), [](char ch1, char ch2) {
+            return !boost::equal(chars, m_game->m_perms_rc.at(id), [](char ch1, char ch2) {
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             }) || ids.contains(id);
         });
@@ -140,7 +158,7 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int i, int j)
 {
     auto& area = m_game->m_area2range[i];
-    auto& perm = m_game->m_perms[j];
+    auto& perm = m_game->m_perms_rc[j];
 
     for (int k = 0; k < perm.size(); ++k)
         cells(area[k]) = perm[k];
