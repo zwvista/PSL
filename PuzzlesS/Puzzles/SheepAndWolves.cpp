@@ -160,7 +160,8 @@ struct puz_state : vector<puz_dot>
     const puz_game* m_game = nullptr;
     string m_cells;
     map<Position, vector<int>> m_matches;
-    set<Position> m_finished_dots, m_finished_cells;
+    set<pair<Position, int>> m_finished_dots;
+    set<Position> m_finished_cells;
     unsigned int m_distance = 0;
 };
 
@@ -256,25 +257,30 @@ int puz_state::check_dots(bool init)
 {
     int n = 2;
     for (;;) {
-        set<Position> newly_finished;
+        set<pair<Position, int>> newly_finished;
         for (int r = 0; r < sidelen(); ++r)
             for (int c = 0; c < sidelen(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
-                if (dt.size() == 1 && !m_finished_dots.contains(p))
-                    newly_finished.insert(p);
+                for (int i = 0; i < 4; ++i)
+                    if (!m_finished_dots.contains({p, i}) && (
+                        boost::algorithm::all_of(dt, [=](int lineseg) {
+                        return is_lineseg_on(lineseg, i);
+                    }) || boost::algorithm::all_of(dt, [=](int lineseg) {
+                        return !is_lineseg_on(lineseg, i);
+                    })))
+                        newly_finished.emplace(p, i);
             }
 
         if (newly_finished.empty())
             return n;
 
         n = 1;
-        for (const auto& p : newly_finished) {
+        for (const auto& kv : newly_finished) {
+            auto& [p, i] = kv;
             int lineseg = dots(p)[0];
-            for (int i = 0; i < 4; ++i) {
-                auto p2 = p + offset[i];
-                if (!is_valid(p2))
-                    continue;
+            auto p2 = p + offset[i];
+            if (is_valid(p2)) {
                 auto& dt = dots(p2);
                 // The line segments in adjacent cells must be connected
                 boost::remove_erase_if(dt, [=](int lineseg2) {
@@ -283,22 +289,20 @@ int puz_state::check_dots(bool init)
                 if (!init && dt.empty())
                     return 0;
             }
-            m_finished_dots.insert(p);
+            m_finished_dots.insert(kv);
 
-            for (int i = 0; i < 4; ++i) {
-                char& ch1 = cells(p + offset2[i * 2]);
-                char& ch2 = cells(p + offset2[i * 2 + 1]);
-                bool is_on = is_lineseg_on(lineseg, i);
-                auto f = [=](char& chA, char& chB) {
-                    // If the line segment is on,
-                    // the two adjacent cells bordering it must belong to the same group
-                    // Otherwise, they must belong to the two different groups
-                    chA = !is_on ? chB :
-                        chB == PUZ_SHEEP ? PUZ_WOLF : PUZ_SHEEP;
-                };
-                if ((ch1 == PUZ_SPACE) != (ch2 == PUZ_SPACE))
-                    ch1 == PUZ_SPACE ? f(ch1, ch2) : f(ch2, ch1);
-            }
+            char& ch1 = cells(p + offset2[i * 2]);
+            char& ch2 = cells(p + offset2[i * 2 + 1]);
+            bool is_on = is_lineseg_on(lineseg, i);
+            auto f = [=](char& chA, char& chB) {
+                // If the line segment is on,
+                // the two adjacent cells bordering it must belong to the same group
+                // Otherwise, they must belong to the two different groups
+                chA = !is_on ? chB :
+                    chB == PUZ_SHEEP ? PUZ_WOLF : PUZ_SHEEP;
+            };
+            if ((ch1 == PUZ_SPACE) != (ch2 == PUZ_SPACE))
+                ch1 == PUZ_SPACE ? f(ch1, ch2) : f(ch2, ch1);
         }
         //m_distance += newly_finished.size();
     }

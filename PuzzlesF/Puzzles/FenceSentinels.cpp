@@ -143,7 +143,7 @@ struct puz_state
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_matches.size() + m_game->m_dot_count - m_finished_dots.size();
+        return m_matches.size() + m_game->m_dot_count * 4 - m_finished_dots.size();
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
@@ -153,7 +153,8 @@ struct puz_state
     string m_cells;
     vector<puz_dot> m_dots;
     map<Position, vector<vector<int>>> m_matches;
-    set<Position> m_finished_dots, m_finished_cells;
+    set<pair<Position, int>> m_finished_dots;
+    set<Position> m_finished_cells;
     unsigned int m_distance = 0;
 };
 
@@ -288,25 +289,30 @@ int puz_state::check_dots(bool init)
 {
     int n = 2;
     for (;;) {
-        set<Position> newly_finished;
+        set<pair<Position, int>> newly_finished;
         for (int r = 0; r < sidelen(); ++r)
             for (int c = 0; c < sidelen(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
-                if (dt.size() == 1 && !m_finished_dots.contains(p))
-                    newly_finished.insert(p);
+                for (int i = 0; i < 4; ++i)
+                    if (!m_finished_dots.contains({p, i}) && (
+                        boost::algorithm::all_of(dt, [=](int lineseg) {
+                        return is_lineseg_on(lineseg, i);
+                    }) || boost::algorithm::all_of(dt, [=](int lineseg) {
+                        return !is_lineseg_on(lineseg, i);
+                    })))
+                        newly_finished.emplace(p, i);
             }
 
         if (newly_finished.empty())
             return n;
 
         n = 1;
-        for (const auto& p : newly_finished) {
+        for (const auto& kv : newly_finished) {
+            auto& [p, i] = kv;
             int lineseg = dots(p)[0];
-            for (int i = 0; i < 4; ++i) {
-                auto p2 = p + offset[i];
-                if (!is_valid(p2))
-                    continue;
+            auto p2 = p + offset[i];
+            if (is_valid(p2)) {
                 auto& dt = dots(p2);
                 // The line segments in adjacent cells must be connected
                 boost::remove_erase_if(dt, [&, i](int lineseg2) {
@@ -315,20 +321,18 @@ int puz_state::check_dots(bool init)
                 if (!init && dt.empty())
                     return 0;
             }
-            m_finished_dots.insert(p);
+            m_finished_dots.insert(kv);
 
-            for (int i = 0; i < 4; ++i) {
-                char& ch1 = cells(p + offset2[i * 2]);
-                char& ch2 = cells(p + offset2[i * 2 + 1]);
-                bool is_on = is_lineseg_on(lineseg, i);
-                auto f = [=](char& chA, char& chB) {
-                    chA = !is_on ? 
-                        is_inside(chB) ? PUZ_INSIDE : PUZ_OUTSIDE :
-                        is_inside(chB) ? PUZ_OUTSIDE : PUZ_INSIDE;
-                };
-                if ((ch1 == PUZ_SPACE) != (ch2 == PUZ_SPACE))
-                    ch1 == PUZ_SPACE ? f(ch1, ch2) : f(ch2, ch1);
-            }
+            char& ch1 = cells(p + offset2[i * 2]);
+            char& ch2 = cells(p + offset2[i * 2 + 1]);
+            bool is_on = is_lineseg_on(lineseg, i);
+            auto f = [=](char& chA, char& chB) {
+                chA = !is_on ? 
+                    is_inside(chB) ? PUZ_INSIDE : PUZ_OUTSIDE :
+                    is_inside(chB) ? PUZ_OUTSIDE : PUZ_INSIDE;
+            };
+            if ((ch1 == PUZ_SPACE) != (ch2 == PUZ_SPACE))
+                ch1 == PUZ_SPACE ? f(ch1, ch2) : f(ch2, ch1);
         }
         m_distance += newly_finished.size();
     }
