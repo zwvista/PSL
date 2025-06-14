@@ -161,11 +161,6 @@ struct puz_state : string
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(const Position& p, char ch);
-    void remove_pair(const Position& p, char ch) {
-        auto i = m_pos2nums.find(p);
-        if (i != m_pos2nums.end())
-            i->second.erase(ch);
-    }
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -206,16 +201,19 @@ bool puz_state::make_move(const Position& p, char ch)
         &m_grp_rows[p.first],
         &m_grp_cols[p.second]
     };
+
     for (puz_area* a : areas)
         if (a->fill_cells(p, ch) == 0)
             for (auto& p2 : m_game->m_area_pos[a->first])
-                remove_pair(p2, ch);
+                if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end())
+                    it->second.erase(ch);
 
     // no touch
     for (auto& os : offset) {
         auto p2 = p + os;
         if (is_valid(p2))
-            remove_pair(p2, ch);
+            if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end())
+                it->second.erase(ch);
     }
 
     return boost::algorithm::none_of(m_pos2nums, [](const pair<const Position, puz_numbers>& kv) {
