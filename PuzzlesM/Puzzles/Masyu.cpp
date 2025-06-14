@@ -240,7 +240,7 @@ int puz_state::check_dots(bool init)
                     }) || boost::algorithm::all_of(dt, [=](int lineseg) {
                         return !is_lineseg_on(lineseg, i);
                     })))
-                        newly_finished.insert({p, i});
+                        newly_finished.emplace(p, i);
             }
 
         if (newly_finished.empty())
