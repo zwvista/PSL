@@ -17,8 +17,6 @@
 
 namespace puzzles::CleaningPath{
 
-constexpr auto PUZ_SPACE = ' ';
-
 // n-e-s-w
 // 0 means line is off in this direction
 // 1,2,4,8 means line is on in this direction
@@ -47,13 +45,15 @@ constexpr Position offset2[] = {
 struct puz_game
 {
     string m_id;
-    int m_sidelen;
+    Position m_size;
     int m_dot_count;
     set<Position> m_horz_walls, m_vert_walls;
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    int rows() const { return m_size.first; }
+    int cols() const { return m_size.second; }
 };
 
 struct puz_state2 : Position
@@ -82,24 +82,24 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size() / 2)
-    , m_dot_count(m_sidelen * m_sidelen)
+    , m_size(strs.size() / 2, strs[0].length() / 2)
+    , m_dot_count(rows() * cols())
 {
     set<Position> rng;
     for (int r = 0;; ++r) {
         // horizontal walls
         auto& str_h = strs[r * 2];
-        for (int c = 0; c < m_sidelen; ++c)
+        for (int c = 0; c < cols(); ++c)
             if (str_h[c * 2 + 1] == '-')
                 m_horz_walls.insert({r, c});
-        if (r == m_sidelen) break;
+        if (r == rows()) break;
         auto& str_v = strs[r * 2 + 1];
         for (int c = 0;; ++c) {
             Position p(r, c);
             // vertical walls
             if (str_v[c * 2] == '|')
                 m_vert_walls.insert(p);
-            if (c == m_sidelen) break;
+            if (c == cols()) break;
             rng.insert(p);
         }
     }
@@ -120,12 +120,13 @@ using puz_dot = vector<int>;
 struct puz_state : vector<puz_dot>
 {
     puz_state(const puz_game& g);
-    int sidelen() const {return m_game->m_sidelen;}
+    int rows() const { return m_game->rows(); }
+    int cols() const { return m_game->cols(); }
     bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
-    const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    const puz_dot& dots(const Position& p) const { return (*this)[p.first * cols() + p.second]; }
+    puz_dot& dots(const Position& p) { return (*this)[p.first * cols() + p.second]; }
     bool make_move_dot(const Position& p, int n);
     int check_dots(bool init);
     bool check_loop() const;
@@ -146,8 +147,8 @@ struct puz_state : vector<puz_dot>
 puz_state::puz_state(const puz_game& g)
 : vector<puz_dot>(g.m_dot_count), m_game(&g)
 {
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             int area_id = m_game->m_pos2area.at(p);
@@ -178,8 +179,8 @@ int puz_state::check_dots(bool init)
     int n = 2;
     for (;;) {
         set<pair<Position, int>> newly_finished;
-        for (int r = 0; r < sidelen(); ++r)
-            for (int c = 0; c < sidelen(); ++c) {
+        for (int r = 0; r < rows(); ++r)
+            for (int c = 0; c < cols(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
                 for (int i = 0; i < 4; ++i)
@@ -218,8 +219,8 @@ int puz_state::check_dots(bool init)
 bool puz_state::check_loop() const
 {
     set<Position> rng;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             if (dt.size() == 1)
@@ -277,7 +278,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return f(dt1) < f(dt2);
     }) - begin();
     auto& dt = (*this)[i];
-    Position p(i / sidelen(), i % sidelen());
+    Position p(i / cols(), i % cols());
     for (int n = 0; n < dt.size(); ++n) {
         children.push_back(*this);
         if (!children.back().make_move_dot(p, n))
@@ -291,16 +292,16 @@ ostream& puz_state::dump(ostream& out) const
         // draw horizontal lines
         for (int c = 0; ; ++c) {
             out << ' ';
-            if (c == sidelen()) break;
+            if (c == cols()) break;
             out << (m_game->m_horz_walls.contains({r, c}) ? "---" : "   ");
         }
         println(out);
-        if (r == sidelen()) break;
+        if (r == rows()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical lines
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
-            if (c == sidelen()) break;
+            if (c == cols()) break;
             out << (is_lineseg_on(dots(p)[0], 0) ? " I " : "   ");
         }
         println(out);
@@ -308,7 +309,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             // draw vertical lines
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
-            if (c == sidelen()) break;
+            if (c == cols()) break;
             out << (is_lineseg_on(dots(p)[0], 3) ? '=' : ' ');
             out << ' ';
             out << (is_lineseg_on(dots(p)[0], 1) ? '=' : ' ');
@@ -318,7 +319,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             // draw vertical lines
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
-            if (c == sidelen()) break;
+            if (c == cols()) break;
             out << (is_lineseg_on(dots(p)[0], 2) ? " I " : "   ");
         }
         println(out);
