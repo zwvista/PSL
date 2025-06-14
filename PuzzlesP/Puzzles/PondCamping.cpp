@@ -43,7 +43,7 @@ struct puz_game
     map<Position, int> m_pos2num;
     string m_start;
     // key: position of the number (hint)
-    map<Position, vector<puz_hike>> m_pos2perms;
+    map<Position, vector<puz_hike>> m_pos2hikes;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
@@ -101,9 +101,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         list<list<puz_state2>> spaths;
         puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
         // save all goal states as permutations
-        auto& perms = m_pos2perms[p];
+        auto& hikes = m_pos2hikes[p];
         for (auto& spath : spaths) {
-            auto& [empties, ponds] = perms.emplace_back();
+            auto& [empties, ponds] = hikes.emplace_back();
             empties = spath.back();
             for (auto& p2 : empties)
                 for (auto& os : offset) {
@@ -148,10 +148,10 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
-    for (auto& [p, perms] : g.m_pos2perms) {
-        auto& perm_ids = m_matches[p];
-        perm_ids.resize(perms.size());
-        boost::iota(perm_ids, 0);
+    for (auto& [p, hikes] : g.m_pos2hikes) {
+        auto& hike_ids = m_matches[p];
+        hike_ids.resize(hikes.size());
+        boost::iota(hike_ids, 0);
     }
 
     find_matches(true);
@@ -159,25 +159,25 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, perm_ids] : m_matches) {
-        auto& perms = m_game->m_pos2perms.at(p);
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& [empties, ponds] = perms[id];
+    for (auto& [p, hike_ids] : m_matches) {
+        auto& hikes = m_game->m_pos2hikes.at(p);
+        boost::remove_erase_if(hike_ids, [&](int id) {
+            auto& [empties, ponds] = hikes[id];
             return boost::algorithm::any_of(empties, [&](const Position& p2) {
                 char ch = cells(p2);
                 return !(ch == PUZ_SPACE || ch == PUZ_EMPTY);
-            }) && boost::algorithm::any_of(ponds, [&](const Position& p2) {
+            }) || boost::algorithm::any_of(ponds, [&](const Position& p2) {
                 char ch = cells(p2);
                 return !(ch == PUZ_SPACE || ch == PUZ_POND);
             });
         });
 
         if (!init)
-            switch(perm_ids.size()) {
+            switch(hike_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids.front()), 1;
+                return make_move2(p, hike_ids.front()), 1;
             }
     }
     return 2;
@@ -185,7 +185,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& [empties, ponds] = m_game->m_pos2perms.at(p)[n];
+    auto& [empties, ponds] = m_game->m_pos2hikes.at(p)[n];
     for (auto& p2 : empties) {
         char& ch = cells(p2);
         if (ch == PUZ_SPACE)
@@ -211,12 +211,12 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, perm_ids] = *boost::min_element(m_matches, [](
+    auto& [p, hike_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : perm_ids) {
+    for (int n : hike_ids) {
         children.push_back(*this);
         if (!children.back().make_move(p, n))
             children.pop_back();
