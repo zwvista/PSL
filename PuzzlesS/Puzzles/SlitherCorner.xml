@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Draw a path like a SlitherLink (non intercepting loop) with the following hints:
+2. The number in a cell tells you how many tiles the path turn by 90 degrees around it.
+3. Note that around 0s that can be a line but it just don't won't turn.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+23 12`
+12  1`
+ 2 31`
+2 44 `
+ 3  3`
+    ]]>
+  </level>
+  <level id="1">
+    <![CDATA[
+1  31`
+112 3`
+ 1023`
+22  3`
+  2  `
+    ]]>
+  </level>
+</levels>
+</puzzle>

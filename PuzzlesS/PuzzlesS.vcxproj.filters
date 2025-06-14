@@ -76,6 +76,9 @@
     <Text Include="Puzzles\SuspendedGravity.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\SlitherCorner.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -155,6 +158,9 @@
     <ClCompile Include="Puzzles\SuspendedGravity.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\SlitherCorner.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\sokoban.xml">
@@ -209,6 +215,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\SuspendedGravity.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\SlitherCorner.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
