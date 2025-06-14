@@ -1,0 +1,47 @@
+Level 1
+Sequence of moves: 
+ - - - -
+|2|7|9|1|
+     -  
+|2|7 7|1|
+ - -    
+|0|1|7|1|
+ - - - -
+|2 2|0|2|
+ - - - -
+Number of moves: 1
+Number of vertices examined: 2
+0.0007623 [s]
+
+Level 2
+Sequence of moves: 
+ - - - -
+|0 0|9|7|
+        
+|0 0|9|7|
+ -     -
+|9|0|9|1|
+ - - -  
+|0|1|0|1|
+ - - - -
+Number of moves: 1
+Number of vertices examined: 2
+0.0009777 [s]
+
+Level 36
+Sequence of moves: 
+ - - - - -
+|0 0|5 5|1|
+ - - - - -
+|6|4 4|2|7|
+ - - - - -
+|0|5|9|0|6|
+ - - - - -
+|9|1 1|5|4|
+   - - -  
+|9 9|2|7|4|
+ - - - - -
+Number of moves: 2
+Number of vertices examined: 4
+0.0018149 [s]
+

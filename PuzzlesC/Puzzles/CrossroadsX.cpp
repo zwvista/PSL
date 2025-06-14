@@ -53,7 +53,8 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<vector<int>> m_10_perms;
+    int m_sum;
+    vector<vector<int>> m_sum_perms;
     set<Position> m_horz_walls, m_vert_walls;
     map<Position, int> m_pos2num;
     vector<puz_area> m_areas;
@@ -92,13 +93,14 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() / 2)
+    , m_sum(level.attribute("sum").as_int(10))
 {
     for (int n1 = 0; n1 < 10; ++n1)
         for (int n2 = 0; n2 < 10; ++n2)
             for (int n3 = 0; n3 < 10; ++n3)
                 for (int n4 = 0; n4 < 10; ++n4)
-                    if (n1 + n2 + n3 + n4 == 10)
-                        m_10_perms.push_back({n1, n2, n3, n4});
+                    if (n1 + n2 + n3 + n4 == m_sum)
+                        m_sum_perms.push_back({n1, n2, n3, n4});
 
     set<Position> rng;
     for (int r = 0;; ++r) {
@@ -198,8 +200,8 @@ puz_state::puz_state(const puz_game& g)
     for (int i = 0; i < g.m_crossroads.size(); ++i) {
         auto& ids = g.m_crossroads[i];
         auto& v = m_matches[i];
-        for (int j = 0; j < g.m_10_perms.size(); ++j) {
-            auto& perm = g.m_10_perms[j];
+        for (int j = 0; j < g.m_sum_perms.size(); ++j) {
+            auto& perm = g.m_sum_perms[j];
             if ([&] {
                 for (int k = 0; k < 3; ++k)
                     for (int m = k + 1; m < 4; ++m)
@@ -227,13 +229,13 @@ int puz_state::find_matches(bool init)
         auto& area_ids = m_game->m_crossroads[i];
 
         boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& perm = m_game->m_10_perms[id];
+            auto& perm = m_game->m_sum_perms[id];
             for (int i = 0; i < 4; ++i) {
                 auto& nums = m_area2nums.at(area_ids[i]);
                 if (boost::algorithm::none_of_equal(nums, perm[i]))
-                    return false;
+                    return true;
             }
-            return true;
+            return false;
         });
 
         if (!init)
@@ -250,10 +252,11 @@ int puz_state::find_matches(bool init)
 bool puz_state::make_move_crossroad2(int i, int n)
 {
     auto& ids = m_game->m_crossroads[i];
-    auto& perm = m_game->m_10_perms[n];
+    auto& perm = m_game->m_sum_perms[n];
     for (int i = 0; i < 4; ++i)
         if (!make_move_area(ids[i], perm[i]))
             return false;
+    m_matches.erase(i);
     return true;
 }
 
@@ -270,7 +273,7 @@ bool puz_state::make_move_area(int i, int n)
 
     // 3. No two orthogonally adjacent regions can have the same number.
     for (int id : ids)
-        if (auto it = m_area2nums.find(i); it != m_area2nums.end())
+        if (auto it = m_area2nums.find(id); it != m_area2nums.end())
             it->second.erase(n);
 
     return boost::algorithm::none_of(m_area2nums, [](const pair<const int, set<int>>& kv) {
@@ -307,7 +310,11 @@ void puz_state::gen_children(list<puz_state>& children) const
         auto& [i, nums] = *boost::min_element(m_area2nums, [](
             const pair<const int, set<int>>& kv1,
             const pair<const int, set<int>>& kv2) {
-            return kv1.second.size() < kv2.second.size();
+            auto f = [](const pair<const int, set<int>>& kv) {
+                int sz = kv.second.size();
+                return sz == 1 ? 100 : sz;
+            };
+            return f(kv1) < f(kv2);
         });
         for (char n : nums) {
             children.push_back(*this);
