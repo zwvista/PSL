@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
+#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -10,55 +11,96 @@
     Splash!
 
     Description
-    1. The numbers are Ponds. From each Pond you can have a hike of that many tiles as the number marked on it.  ]]>
+    1. The numbers are Ponds. From each Pond you can have a hike of that many
+       tiles as the number marked on it.
 */
 
 namespace puzzles::PondCamping{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
-constexpr auto PUZ_MINE = 'M';
-constexpr auto PUZ_UNKNOWN = 5;
+constexpr auto PUZ_POND = '=';
+constexpr auto PUZ_CAMPER = 'C';
+constexpr auto PUZ_BOUNDARY = '+';
 
 constexpr Position offset[] = {
-    {0, 0},    // nw
-    {0, 1},    // ne
-    {1, 1},    // se
-    {1, 0},    // sw
+    {-1, 0},        // n
+    {0, 1},         // e
+    {1, 0},         // s
+    {0, -1},        // w
 };
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_nums;
-    vector<vector<string>> m_num2perms;
+    map<Position, int> m_pos2num;
+    string m_start;
+    // key: position of the number (hint)
+    map<Position, vector<set<Position>>> m_pos2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int nums(const Position& p) const { return m_nums[p.first * (m_sidelen - 1) + p.second]; }
+    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
+
+struct puz_state2 : set<Position>
+{
+    puz_state2(const puz_game& game, const Position& p, int num)
+        : m_game(&game), m_num(num) {
+        make_move(p);
+    }
+
+    bool is_goal_state() const { return m_distance == m_num + 1; }
+    void make_move(const Position& p) { insert(p); ++m_distance; }
+    void gen_children(list<puz_state2>& children) const;
+    unsigned int get_distance(const puz_state2& child) const { return 1; }
+
+    const puz_game* m_game = nullptr;
+    int m_num;
+    int m_distance = 0;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const {
+    for (auto& p : *this)
+        for (auto& os : offset) {
+            auto p2 = p + os;
+            if (!contains(p2) && m_game->cells(p2) == PUZ_SPACE) {
+                children.push_back(*this);
+                children.back().make_move(p2);
+            }
+        }
+}
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size() + 1)
-, m_num2perms(6)
+, m_sidelen(strs.size() + 2)
 {
-    for (int r = 0; r < m_sidelen - 1; ++r) {
-        auto& str = strs[r];
-        for (int c = 0; c < m_sidelen - 1; ++c) {
-            char ch = str[c];
-            m_nums.push_back(ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0');
-        }
+    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    for (int r = 1; r < m_sidelen - 1; ++r) {
+        auto& str = strs[r - 1];
+        m_start.push_back(PUZ_BOUNDARY);
+        for (int c = 1; c < m_sidelen - 1; ++c)
+            if (char ch = str[c - 1]; ch == PUZ_SPACE)
+                m_start.push_back(PUZ_SPACE);
+            else {
+                m_start.push_back(PUZ_CAMPER);
+                m_pos2num[{r, c}] = ch - '0';
+            }
+        m_start.push_back(PUZ_BOUNDARY);
     }
+    m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    auto& perms_all = m_num2perms[PUZ_UNKNOWN];
-    for (int i = 0; i <= 4; ++i) {
-        auto& perms = m_num2perms[i];
-        auto perm = string(4 - i, PUZ_EMPTY) + string(i, PUZ_MINE);
-        do {
-            perms.push_back(perm);
-            perms_all.push_back(perm);
-        } while (boost::next_permutation(perm));
+    for (auto& [p, num] : m_pos2num) {
+        puz_state2 sstart(*this, p, num);
+        list<list<puz_state2>> spaths;
+        puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
+        // save all goal states as permutations
+        auto& perms = m_pos2perms[p];
+        for (auto& spath : spaths) {
+            auto& s = spath.back();
+            s.erase(p);
+            perms.push_back(s);
+        }
     }
 }
 
@@ -92,15 +134,13 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+: m_cells(g.m_start), m_game(&g)
 {
-    for (int r = 0; r < sidelen() - 1; ++r)
-        for (int c = 0; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            auto& perm_ids = m_matches[p];
-            perm_ids.resize(g.m_num2perms.at(g.nums(p)).size());
-            boost::iota(perm_ids, 0);
-        }
+    for (auto& [p, perms] : g.m_pos2perms) {
+        auto& perm_ids = m_matches[p];
+        perm_ids.resize(perms.size());
+        boost::iota(perm_ids, 0);
+    }
 
     find_matches(true);
 }
@@ -112,12 +152,12 @@ int puz_state::find_matches(bool init)
         for (auto& os : offset)
             chars.push_back(cells(p + os));
 
-        auto& perms = m_game->m_num2perms[m_game->nums(p)];
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
-                return ch1 == PUZ_SPACE || ch1 == ch2;
-            });
-        });
+        //auto& perms = m_game->m_num2perms[m_game->nums(p)];
+        //boost::remove_erase_if(perm_ids, [&](int id) {
+        //    return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
+        //        return ch1 == PUZ_SPACE || ch1 == ch2;
+        //    });
+        //});
 
         if (!init)
             switch(perm_ids.size()) {
@@ -132,16 +172,16 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& perm = m_game->m_num2perms[m_game->nums(p)][n];
+    //auto& perm = m_game->m_num2perms[m_game->nums(p)][n];
 
-    for (int k = 0; k < perm.size(); ++k) {
-        char& ch = cells(p + offset[k]);
-        if (ch == PUZ_SPACE)
-            ch = perm[k], ++m_distance;
-    }
+    //for (int k = 0; k < perm.size(); ++k) {
+    //    char& ch = cells(p + offset[k]);
+    //    if (ch == PUZ_SPACE)
+    //        ch = perm[k], ++m_distance;
+    //}
 
-    ++m_distance;
-    m_matches.erase(p);
+    //++m_distance;
+    //m_matches.erase(p);
 }
 
 bool puz_state::make_move(const Position& p, int n)
@@ -169,13 +209,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0;; ++r) {
+    for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c)
             out << cells({r, c}) << ' ';
-        println(out);
-        if (r == sidelen() - 1) break;
-        for (int c = 0; c < sidelen() - 1; ++c)
-            out << ' ' << m_game->nums({r, c});
         println(out);
     }
     return out;

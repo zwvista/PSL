@@ -2,7 +2,8 @@
 <puzzle>
 <help>
   <![CDATA[
-1. The numbers are Ponds. From each Pond you can have a hike of that many tiles as the number marked on it.  ]]>
+1. The numbers are Ponds. From each Pond you can have a hike of that many tiles as the number marked on it.
+  ]]>
 </help>
 <levels>
   <level id="1">

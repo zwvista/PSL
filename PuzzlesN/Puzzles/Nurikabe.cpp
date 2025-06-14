@@ -114,9 +114,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            char ch = str[c - 1];
-            if (ch == PUZ_SPACE)
+        for (int c = 1; c < m_sidelen - 1; ++c)
+            if (char ch = str[c - 1]; ch == PUZ_SPACE)
                 m_start.push_back(PUZ_SPACE);
             else {
                 int n = ch - '0';
@@ -125,10 +124,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 garden.m_num = n;
                 m_start.push_back(garden.m_name = n == 1 ? PUZ_ONE : ch_g++);
             }
-        }
         m_start.push_back(PUZ_BOUNDARY);
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
+
     for (auto& [p, garden] : m_pos2garden) {
         if (garden.m_num == 1)
             garden.m_perms = {{p}};
