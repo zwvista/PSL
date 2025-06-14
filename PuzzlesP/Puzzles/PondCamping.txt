@@ -7,5 +7,20 @@ Sequence of moves:
 3 . . = . 
 Number of moves: 2
 Number of vertices examined: 3
-0.0013438 [s]
+0.0009437 [s]
+
+Level 2
+Sequence of moves: 
+= . . 3 . 
+= 2 = 1 = 
+. 2 1 . 1 
+. 2 = 2 = 
+= = 1 . 1 
+Number of moves: 2
+Number of vertices examined: 3
+0.0001801 [s]
+
+Level 36
+Number of vertices examined: 8
+0.000729 [s]
 
