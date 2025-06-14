@@ -20,6 +20,7 @@ extern void solve_puz_Planets();
 extern void solve_puz_Planks();
 extern void solve_puz_PlugItIn();
 extern void solve_puz_Pointing();
+extern void solve_puz_PondCamping();
 extern void solve_puz_PouringWater();
 extern void solve_puz_PourWater();
 extern void solve_puz_PowerGrid();
@@ -49,9 +50,10 @@ int main(int argc, char **argv)
     println("l2: Planks");
     println("l3: Plug it in");
     println("o1: Pointing");
-    println("o2: Pouring Water");
-    println("o3: Pour Water");
-    println("o4: Power Grid");
+    println("o2: Pond camping");
+    println("o3: Pouring Water");
+    println("o4: Pour Water");
+    println("o5: Power Grid");
     println("r: Product Sentinels");
     println("u: Puzzle Retreat");
     string str;
@@ -77,9 +79,10 @@ int main(int argc, char **argv)
     else if (str == "l2") solve_puz_Planks();
     else if (str == "l3") solve_puz_PlugItIn();
     else if (str == "o1") solve_puz_Pointing();
-    else if (str == "o2") solve_puz_PouringWater();
-    else if (str == "o3") solve_puz_PourWater();
-    else if (str == "o4") solve_puz_PowerGrid();
+    else if (str == "o2") solve_puz_PondCamping();
+    else if (str == "o3") solve_puz_PouringWater();
+    else if (str == "o4") solve_puz_PourWater();
+    else if (str == "o5") solve_puz_PowerGrid();
     else if (str == "r") solve_puz_ProductSentinels();
     else if (str == "u") solve_puz_PuzzleRetreat();
 

@@ -4,16 +4,16 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games 4/Puzzle Set 3/MineSlither
+    iOS Game: 100 Logic Games 3/Puzzle Set 5/Pond camping
 
     Summary
-    MineSweeper, meet corners
+    Splash!
 
     Description
-    1. A number tells you how many mines are around that tile.
+    1. The numbers are Ponds. From each Pond you can have a hike of that many tiles as the number marked on it.  ]]>
 */
 
-namespace puzzles::MineSlither{
+namespace puzzles::PondCamping{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
@@ -183,9 +183,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_MineSlither()
+void solve_puz_PondCamping()
 {
-    using namespace puzzles::MineSlither;
+    using namespace puzzles::PondCamping;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/MineSlither.xml", "Puzzles/MineSlither.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/PondCamping.xml", "Puzzles/PondCamping.txt", solution_format::GOAL_STATE_ONLY);
 }
