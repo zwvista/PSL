@@ -125,8 +125,9 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move_hike(const Position& p, int n);
+    void make_move_hike2(const Position& p, int n);
+    void make_move_pond(const Position& p) { cells(p) = PUZ_POND; }
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -177,13 +178,13 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, hike_ids.front()), 1;
+                return make_move_hike2(p, hike_ids.front()), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move_hike2(const Position& p, int n)
 {
     auto& [empties, ponds] = m_game->m_pos2hikes.at(p)[n];
     for (auto& p2 : empties) {
@@ -200,10 +201,10 @@ void puz_state::make_move2(const Position& p, int n)
     m_matches.erase(p);
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move_hike(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    make_move_hike2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -211,15 +212,22 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, hike_ids] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (int n : hike_ids) {
+    if (!m_matches.empty()) {
+        auto& [p, hike_ids] = *boost::min_element(m_matches, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        for (int n : hike_ids) {
+            children.push_back(*this);
+            if (!children.back().make_move_hike(p, n))
+                children.pop_back();
+        }
+    } else {
+        int i = m_cells.find(PUZ_SPACE);
+        Position p(i / sidelen(), i % sidelen());
         children.push_back(*this);
-        if (!children.back().make_move(p, n))
-            children.pop_back();
+        children.back().make_move_pond(p);
     }
 }
 
