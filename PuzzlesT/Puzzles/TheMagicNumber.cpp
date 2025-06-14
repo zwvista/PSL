@@ -40,6 +40,7 @@ struct puz_game
     vector<vector<Position>> m_area2range;
     vector<string> m_perms_rc;
     map<char, vector<string>> m_ch2perms_around;
+    map<Position, char> m_pos2char;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -62,6 +63,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_start.push_back(ch);
             else {
                 m_start.push_back(toupper(ch));
+                m_pos2char.emplace(p, ch);
                 auto& rng = m_area2range.emplace_back();
                 rng.push_back(p);
                 for (auto& os : offset)
@@ -82,11 +84,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (char ch = 'A'; ch <= 'C'; ++ch) {
         string ch_str(1, ch);
         auto& perms = m_ch2perms_around[ch];
+        vector<char> v{'A', 'B', 'C'};
+        boost::remove_erase(v, ch);
         for (int i = 0; i <= 4; ++i) {
-            string perm2;
-            for (char ch2 = 'A'; ch2 <= 'C'; ++ch2)
-                if (ch2 != ch)
-                    perm2 += perm2.empty() ? string(4 - i, ch2) : string(i, ch2);
+            string perm2 = string(4 - i, v[0]) + string(i, v[1]);
             do
                 perms.push_back(ch_str + perm2);
             while (boost::next_permutation(perm2));
@@ -108,7 +109,9 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const {
+        return boost::count(m_cells, PUZ_SPACE) + m_matches.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -147,7 +150,7 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
             return !boost::equal(chars, perm, [](char ch1, char ch2) {
-                return ch1 == PUZ_SPACE || ch1 == ch2;
+                return ch1 == PUZ_SPACE || ch1 == PUZ_BOUNDARY || ch1 == ch2;
             });
         });
 
@@ -168,8 +171,11 @@ void puz_state::make_move2(int i, int j)
     auto& perm = (i < sidelen() * 2 ? m_game->m_perms_rc :
         m_game->m_ch2perms_around.at(cells(rng[0])))[j];
 
-    for (int k = 0; k < perm.size(); ++k)
-        cells(rng[k]) = perm[k];
+    for (int k = 0; k < perm.size(); ++k) {
+        char& ch = cells(rng[k]);
+        if (ch == PUZ_SPACE)
+            ch = perm[k], ++m_distance;
+    }
 
     ++m_distance;
     m_matches.erase(i);
@@ -200,10 +206,15 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c) {
-            char ch = cells({r, c});
-            out << ch << ' ';
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            char ch = cells(p);
+            if (auto it = m_game->m_pos2char.find(p); it != m_game->m_pos2char.end())
+                out << it->second;
+            else
+                out << ch;
+            out << ' ';
         }
         println(out);
     }
