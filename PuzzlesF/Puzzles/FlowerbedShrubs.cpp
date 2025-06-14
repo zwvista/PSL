@@ -175,7 +175,7 @@ struct puz_state
     map<Position, vector<int>> m_matches;
     string m_cells;
     unsigned int m_distance = 0;
-    char m_ch = 'a';
+    char m_ch = 'A';
 };
 
 puz_state::puz_state(const puz_game& g)

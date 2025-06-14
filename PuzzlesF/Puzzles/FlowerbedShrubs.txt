@@ -1,30 +1,59 @@
 Level 1
 Sequence of moves: 
  -- -- -- --
-|= |c  c |= |
+|= |C  C |= |
  --    -- --
-|a |c4|= |d |
+|A |C4|= |D |
     -- --   
-|a |= |b |d2|
+|A |= |B |D2|
     --      
-|a2|b2 b |d |
+|A2|B2 B |D |
  -- -- -- --
 Number of moves: 2
 Number of vertices examined: 3
-0.0013862 [s]
+0.0004069 [s]
 
 Level 2
 Sequence of moves: 
  -- -- -- --
-|= |c  c4|= |
+|= |C  C4|= |
  --    -- --
-|d |c |= |b |
+|D |C |= |B |
     -- --   
-|d2|= |b  b3|
+|D2|= |B  B3|
     -- -- --
-|d |a  a  a1|
+|D |A  A  A1|
  -- -- -- --
 Number of moves: 2
 Number of vertices examined: 3
-0.0010484 [s]
+0.0001802 [s]
+
+Level 300
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |F |= |H  H  H3|= |U3 U  U |= |
+ --    -- -- -- -- -- -- -- -- --
+|E |F |G4 G  G |= |T |= |V  V3 V |
+       -- -- -- --    -- -- -- --
+|E3|F4|= |I |= |T  T5|X  X3|= |W2|
+    -- --    -- -- -- --    --   
+|E |= |I  I3|S3|= |[ |= |X |W  W |
+ -- -- -- --    --    -- -- -- --
+|= |D |N  N |S  S |[3|Y  Y3 Y |= |
+ --    --    -- --    -- -- -- --
+|D  D4|= |N2|= |] |[ |= |Z3 Z  Z |
+ -- -- -- -- --    -- -- -- -- --
+|= |C |J  J |M |] |^ |\  \3 \ |= |
+ --       --          -- -- -- --
+|B |C |J3|= |M |]1|^  ^1|= |_2|R |
+       -- --    -- -- -- --      
+|B3|C3|= |K3|M3|A0 A  A |_  _ |R |
+    -- --    -- -- -- -- -- --   
+|B |= |L3|K |= |P  P3 P |= |Q |R2|
+ -- --       -- -- -- -- --    --
+|= |L  L |K |O2 O  O |= |Q3 Q |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 22
+Number of vertices examined: 673
+0.0331223 [s]
 
