@@ -21,6 +21,7 @@ namespace puzzles::Venice{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_HOUSE = 'H';
+constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_CANAL = '=';
 constexpr auto PUZ_BOUNDARY = '`';
 
@@ -83,6 +84,7 @@ struct puz_state
     bool make_move2(const Position& p, const vector<int>& perm);
     bool make_move3(const Position& p, const vector<int>& perm, int i, bool stopped);
     int find_matches(bool init);
+    bool is_continuous() const;
     bool is_valid_square(const Position& p) const;
 
     //solve_puzzle interface
@@ -181,6 +183,54 @@ int puz_state::find_matches(bool init)
     return 1;
 }
 
+struct puz_state2 : Position
+{
+    puz_state2(const set<Position>& rng, const Position& p_start) : m_rng(&rng){
+        make_move(p_start);
+    }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const set<Position>* m_rng;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (auto& os : offset) {
+        auto p2 = *this + os;
+        if (m_rng->contains(p2)) {
+            children.push_back(*this);
+            children.back().make_move(p2);
+        }
+    }
+}
+
+// 3. The Canal forms a single connected area
+bool puz_state::is_continuous() const
+{
+    set<Position> rng;
+    for (int r = 1; r < sidelen(); ++r)
+        for (int c = 1; c < sidelen(); ++c) {
+            Position p(r, c);
+            if (char ch = cells(p); ch == PUZ_SPACE || ch == PUZ_CANAL)
+                rng.insert(p);
+        }
+    
+    Position p_start = *boost::find_if(rng, [&](const Position& p) {
+        return cells(p) == PUZ_CANAL;
+    });
+
+    list<puz_state2> smoves;
+    puz_move_generator<puz_state2>::gen_moves({rng, p_start}, smoves);
+    for (auto& p : smoves)
+        rng.erase(p);
+
+    return boost::algorithm::all_of(rng, [&](const Position& p) {
+        return cells(p) == PUZ_SPACE;
+    });
+}
+
 // 3. The Canal cannot contain a 2x2 area
 bool puz_state::is_valid_square(const Position& p) const
 {
@@ -200,12 +250,12 @@ bool puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bo
     auto p2 = p + os;
     for (int j = 0, n = perm[i]; j < n; ++j, p2 += os)
         if (char& ch = cells(p2); ch == PUZ_SPACE)
-            if (ch = PUZ_CANAL, ++m_distance; is_valid_square(p2))
+            if (ch = PUZ_CANAL, ++m_distance; !is_valid_square(p2))
                 return false;
 
     if (char& ch = cells(p2); stopped && ch == PUZ_SPACE)
         // we choose to stop here, so it must be in other direction
-        ch = PUZ_HOUSE, ++m_distance;
+        ch = PUZ_EMPTY, ++m_distance;
 
     return true;
 }

@@ -194,19 +194,15 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& rng, const Position& p_start);
+    puz_state2(const set<Position>& rng, const Position& p_start) : m_rng(&rng) {
+        make_move(p_start);
+    }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const set<Position>* m_rng;
 };
-
-puz_state2::puz_state2(const set<Position>& rng, const Position& p_start)
-: m_rng(&rng)
-{
-    make_move(p_start);
-}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
@@ -226,8 +222,8 @@ bool puz_state::is_continuous() const
     for (int r = 1; r < sidelen(); ++r)
         for (int c = 1; c < sidelen(); ++c) {
             Position p(r, c);
-            char ch = cells(p);
-            if (ch == PUZ_SPACE || ch == PUZ_WALL || ch == PUZ_WALL_S)
+            if (char ch = cells(p);
+                ch == PUZ_SPACE || ch == PUZ_WALL || ch == PUZ_WALL_S)
                 rng.insert(p);
         }
     

@@ -1,4 +1,11 @@
 Level 1
-Number of vertices examined: 1
-0.0026966 [s]
+Sequence of moves: 
+ 8 = = = =
+ = H 5 = 5
+ = H = H =
+ = = = 5 =
+ = 5 = = =
+Number of moves: 2
+Number of vertices examined: 4
+0.002676 [s]
 
