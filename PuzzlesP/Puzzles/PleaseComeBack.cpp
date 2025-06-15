@@ -224,16 +224,21 @@ bool puz_state::check_loop() const
 
     // 1. Draw a single path which passes in each area exactly twice.
     map<int, int> area2num;
-    //for (auto& p : rng)
-    //    if (is_lineseg_turn(dots(p)[0]))
-    //        area2num[m_game->m_pos2area.at(p)]++;
-    //if (is_goal_state() && area2num.size() != m_game->m_areas.size())
-    //    return false;
-    //for (auto& [id, num] : area2num) {
-    //    int num2 = m_game->m_areas[id].first;
-    //    if (num2 != PUZ_UNKNOWN && (is_goal_state() && num != num2 || num > num2))
-    //        return false;
-    //}
+    for (auto& p : rng) {
+        int area_id = m_game->m_pos2area.at(p);
+        int lineseg = dots(p)[0];
+        for (int i = 0; i < 4; ++i)
+            if (is_lineseg_on(lineseg, i)) {
+                int area_id2 = m_game->m_pos2area.at(p + offset[i]);
+                if (area_id != area_id2)
+                    area2num[area_id]++;
+            }
+    }
+    if (is_goal_state() && area2num.size() != m_game->m_areas.size())
+        return false;
+    for (auto& [id, num] : area2num)
+        if (is_goal_state() && num != 4 || num > 4)
+            return false;
     
     bool has_branch = false;
     while (!rng.empty()) {
