@@ -118,8 +118,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     // A cell with a 0 means all its surrounding cells are empty.
-    auto it = m_hint2perms.find({0});
-    if (it != m_hint2perms.end())
+    if (auto it = m_hint2perms.find({0}); it != m_hint2perms.end())
         it->second = {string(8, PUZ_EMPTY)};
 }
 

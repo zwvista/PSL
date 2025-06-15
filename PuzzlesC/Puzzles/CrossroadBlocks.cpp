@@ -372,8 +372,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = m_game->m_pos2info.find(p);
-            if (it != m_game->m_pos2info.end()) {
+            if (auto it = m_game->m_pos2info.find(p); it != m_game->m_pos2info.end()) {
                 auto& info = it->second;
                 out << (info.m_is_black ? 'B' : 'W') << info.m_num << info.m_dir;
             } else

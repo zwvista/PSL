@@ -178,8 +178,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            auto it = m_game->m_pos2num.find(p);
-            if (it == m_game->m_pos2num.end())
+            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
                 out << format("{:<2}", cells(p));
             else
                 out << format("{:<2}", it->second);

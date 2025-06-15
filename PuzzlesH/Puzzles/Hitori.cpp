@@ -146,8 +146,7 @@ bool puz_state::make_move(const pair<int, int>& key, const Position& p)
 
     m_distance = 0;
     auto f = [&](const pair<int, int>& k) {
-        auto it = m_shaded.find(k);
-        if (it != m_shaded.end()) {
+        if (auto it = m_shaded.find(k); it != m_shaded.end()) {
             ++m_distance;
             boost::remove_erase(it->second, p);
             if (it->second.size() == 1)

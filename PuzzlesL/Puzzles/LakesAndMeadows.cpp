@@ -201,8 +201,7 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical walls
             out << (m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
-            auto it = m_game->m_pos2boxes.find(p);
-            if (it == m_game->m_pos2boxes.end())
+            if (auto it = m_game->m_pos2boxes.find(p); it == m_game->m_pos2boxes.end())
                 out << " .";
             else
                 out << ' ' << PUZ_LAKE;

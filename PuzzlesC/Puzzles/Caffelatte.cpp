@@ -274,9 +274,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             for (auto& [p, perm_ids] : m_matches_bean) {
                 auto& links = m_game->m_bean2links.at(p);
                 for (int n : perm_ids) {
-                    auto& [i, p2] = links[n];
-                    auto it = m_obj2cup.find(p2);
-                    if (it != m_obj2cup.end() && it->second == m_last_cup) {
+                    auto& [i, p2] = links[n];                   
+                    if (auto it = m_obj2cup.find(p2);
+                        it != m_obj2cup.end() && it->second == m_last_cup) {
                         children.push_back(*this);
                         if (!children.back().make_move(m_matches_bean, p, n))
                             children.pop_back();

@@ -229,8 +229,7 @@ bool puz_state::check_loop() const
                     break;
                 }
 
-            auto it = m_game->m_pos2object.find(p2);
-            if (it != m_game->m_pos2object.end()) {
+            if (auto it = m_game->m_pos2object.find(p2); it != m_game->m_pos2object.end()) {
                 char obj = it->second;
                 if (last_obj != ' ' && (last_obj == PUZ_GAS) == (obj == PUZ_GAS))
                     return false;

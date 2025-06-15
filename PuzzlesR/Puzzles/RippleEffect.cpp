@@ -126,8 +126,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
         vector<Position> filled;
         for (const auto& p : room) {
-            auto it = m_start.find(p);
-            if (it != m_start.end()) {
+            if (auto it = m_start.find(p); it != m_start.end()) {
                 filled.push_back(p);
                 boost::range::remove_erase(perm, it->second);
             }

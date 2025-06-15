@@ -122,11 +122,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     // A cell with a 0 means all its surrounding cells are filled.
-    for (int n : {0, PUZ_UNKNOWN}) {
-        auto it = m_hint2perms.find({n});
-        if (it != m_hint2perms.end())
+    for (int n : {0, PUZ_UNKNOWN})
+        if (auto it = m_hint2perms.find({n}); it != m_hint2perms.end())
             it->second.emplace_back(8, PUZ_FILLED);
-    }
 }
 
 using puz_path = pair<vector<Position>, int>;

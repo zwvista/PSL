@@ -123,8 +123,7 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = g.m_pos2lineseg.find(p);
-            if (it != g.m_pos2lineseg.end())
+            if (auto it = g.m_pos2lineseg.find(p); it != g.m_pos2lineseg.end())
                 dt = {it->second};
             else {
                 auto& linesegs_all2 = g.m_spots.contains(p) ? lines_spot : linesegs_all;

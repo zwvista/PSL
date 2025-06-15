@@ -350,8 +350,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             out << cells(p);
-            auto it = m_game->m_pos2num.find(p);
-            if (it == m_game->m_pos2num.end())
+            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
                 out << ' ';
             else
                 out << it->second;

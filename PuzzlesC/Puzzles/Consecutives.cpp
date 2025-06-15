@@ -209,8 +209,7 @@ bool puz_state::make_move(const Position& p, char ch)
     auto& info = m_game->m_pos2info.at(p);
 
     auto f = [&](const Position& p2, function<bool(char)> g) {
-        auto it = m_pos2nums.find(p2);
-        if (it != m_pos2nums.end())
+        if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end())
             boost::remove_erase_if(it->second, g);
     };
     vector<const vector<Position>*> area_ptrs = {&areas[p.first], &areas[sidelen() + p.second]};

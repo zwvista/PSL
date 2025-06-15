@@ -218,8 +218,7 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical walls
             out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen() - 1) break;
-            auto it = m_game->m_pos2info.find(p);
-            if (it == m_game->m_pos2info.end())
+            if (auto it = m_game->m_pos2info.find(p); it == m_game->m_pos2info.end())
                 out << (cells(p) == PUZ_SINGLE ? " 4" : " .");
             else
                 out << format("{:2}", it->second.second);

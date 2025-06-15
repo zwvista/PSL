@@ -336,8 +336,7 @@ bool puz_state::make_move_ship(const Position& p, int n, bool vert)
                     vert ? p2.second : p2.first, 1);
 
                 auto f = [&](int id) {
-                    auto it = m_area_matches.find(id);
-                    if (it != m_area_matches.end())
+                    if (auto it = m_area_matches.find(id); it != m_area_matches.end())
                         it->second.first -= n2;
                 };
                 f(p2.first);

@@ -119,8 +119,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if ([&]{
                     for (int j = 0; j < 4; ++j) {
                         auto p2 = p + t.m_offset[j];
-                        auto it = m_pos2num.find(p2);
-                        if (it == m_pos2num.end() ||
+                        if (auto it = m_pos2num.find(p2); 
+                            it == m_pos2num.end() ||
                             it->second != PUZ_UNKNOWN &&
                             it->second != t.m_nums[j]
                         )

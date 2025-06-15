@@ -127,8 +127,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& p_start = *rng.begin();
         puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p_start}, smoves);
         m_fb_info.resize(n + 1);
-        auto it = m_pos2num.find(p_start);
-        if (it != m_pos2num.end())
+        if (auto it = m_pos2num.find(p_start); it != m_pos2num.end())
             m_fb_info[n].m_flower_count = it->second;
         for (auto& p : smoves) {
             m_fb_info[n].m_range.push_back(p);

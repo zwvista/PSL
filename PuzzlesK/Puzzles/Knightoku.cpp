@@ -206,21 +206,20 @@ bool puz_state::make_move(const Position& p, char ch)
 {
     cells(p) = ch;
     auto& areas = m_game->m_areas;
-    auto& info = m_game->m_pos2info.at(p);
+    auto& [area_id, knight_jumps] = m_game->m_pos2info.at(p);
 
     auto f = [&](const Position& p2, function<bool(char)> g) {
-        auto it = m_pos2nums.find(p2);
-        if (it != m_pos2nums.end())
+        if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end())
             boost::remove_erase_if(it->second, g);
     };
-    vector<const vector<Position>*> area_ptrs = {&areas[p.first], &areas[sidelen() + p.second]};
+    vector area_ptrs = {&areas[p.first], &areas[sidelen() + p.second]};
     if (!m_game->m_bNoAreas)
-        area_ptrs.emplace_back(&areas[info.m_area_id]);
+        area_ptrs.emplace_back(&areas[area_id]);
     for (auto* area : area_ptrs)
         for (auto& p2 : *area)
             if (p2 != p)
                 f(p2, [ch](char ch2) { return ch2 == ch; });
-    for (auto& p2 : info.m_knight_jumps)
+    for (auto& p2 : knight_jumps)
         f(p2, [ch](char ch2) { return ch2 == ch; });
 
     m_pos2nums.erase(p);

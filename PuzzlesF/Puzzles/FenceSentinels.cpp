@@ -481,8 +481,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (is_lineseg_on(dots(p)[0], 2) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             auto p2 = p + Position(1, 1);
-            auto it = m_game->m_pos2num.find(p2);
-            if (it == m_game->m_pos2num.end())
+            if (auto it = m_game->m_pos2num.find(p2); it == m_game->m_pos2num.end())
                 out << "  ";
             else
                 out << format("{:2}", it->second);

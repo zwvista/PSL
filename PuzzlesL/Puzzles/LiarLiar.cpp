@@ -233,8 +233,7 @@ int puz_state::find_matches(bool init)
                         if (auto p2 = p + os; is_valid(p2) && ch1 == cells(p2))
                             return true;
             }
-            auto it = m_area2liar.find(o.m_area_id);
-            if (it != m_area2liar.end()) {
+            if (auto it = m_area2liar.find(o.m_area_id); it != m_area2liar.end()) {
                 int liar_id = it->second;
                 return (o.m_hint_id == liar_id) ==
                     (o.m_num < o2.m_counts.size() - 1 && id >= o2.m_counts[o.m_num] && id < o2.m_counts[o.m_num + 1]);
@@ -328,8 +327,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 children.pop_back();
         }
     };
-    auto it = m_area2liar.find(o.m_area_id);
-    if (it != m_area2liar.end())
+    if (auto it = m_area2liar.find(o.m_area_id); it != m_area2liar.end())
         f(it->second, perm_ids2);
     else {
         int sz = m_game->m_areas[o.m_area_id].size();

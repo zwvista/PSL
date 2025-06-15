@@ -234,8 +234,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            auto it = m_game->m_pos2area.find(p);
-            if (it == m_game->m_pos2area.end())
+            if (auto it = m_game->m_pos2area.find(p); it == m_game->m_pos2area.end())
                 out << "  ";
             else
                 out << format("{:2}", it->second.m_num);

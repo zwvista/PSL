@@ -125,8 +125,9 @@ struct puz_state
 void puz_state::make_move(int n)
 {
     m_move = dirs[n];
-    auto it = m_game->m_pos2cheese.find(m_p += offset[n]);
-    if (it != m_game->m_pos2cheese.end() && it->second == m_health) ++m_health;
+    if (auto it = m_game->m_pos2cheese.find(m_p += offset[n]);
+        it != m_game->m_pos2cheese.end() && it->second == m_health)
+        ++m_health;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

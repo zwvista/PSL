@@ -31,7 +31,7 @@ constexpr auto PUZ_MUSEUM = 'M';
 constexpr auto PUZ_MONUMENT = 'T';
 constexpr auto PUZ_SPACE = ' ';
 
-    // n-e-s-w
+// n-e-s-w
 // 0 means line is off in this direction
 // 1,2,4,8 means line is on in this direction
 

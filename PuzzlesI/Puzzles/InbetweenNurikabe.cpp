@@ -409,13 +409,10 @@ ostream& puz_state::dump(ostream& out) const
             char ch = cells(p);
             if (ch == PUZ_WALL)
                 out << PUZ_WALL << ' ';
-            else {
-                auto it = m_game->m_pos2num.find(p);
-                if (it == m_game->m_pos2num.end())
-                    out << ". ";
-                else
-                    out << format("{:<2}", it->second);
-            }
+            else if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
+                out << ". ";
+            else
+                out << format("{:<2}", it->second);
         }
         println(out);
     }
