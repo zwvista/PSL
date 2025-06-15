@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Each number identifies a house in Venice.
+2. The number on it tells you how many tiles of Canal that house sees, horizontally and vertically in the four directions, up to the next empty cell.
+3. The Canal forms a single connected area which cannot contain a 2x2 area (like a Nurikabe).
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+8    `
+  5 5`
+     `
+   5 `
+ 5   `
+    ]]>
+  </level>
+</levels>
+</puzzle>
