@@ -85,6 +85,7 @@ struct puz_state
     }
     bool make_move_sentinel(const Position& p, const vector<int>& perm);
     bool make_move_sentinel2(const Position& p, const vector<int>& perm);
+    bool make_move_sentinel3(const Position& p, const vector<int>& perm, int i, bool stopped);
     bool make_move_space(const Position& p, char ch);
     int find_matches(bool init);
     bool is_continuous() const;
@@ -118,7 +119,9 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+    bool matches_changed = init;
     for (auto& [p, perms] : m_matches) {
+        auto perms_old = perms;
         perms.clear();
         bool is_wall = cells(p) == PUZ_WALL_S;
 
@@ -161,9 +164,25 @@ int puz_state::find_matches(bool init)
                 return 0;
             case 1:
                 return make_move_sentinel2(p, perms.front()) ? 1 : 0;
+            default:
+                matches_changed = matches_changed || perms != perms_old;
+                break;
             }
     }
-    return 2;
+    if (!matches_changed)
+        return 2;
+
+    for (auto& [p, perms] : m_matches)
+        for (int i = 0; i < 4; ++i) {
+            auto f = [=](const vector<int>& v1, const vector<int>& v2) {
+                return v1[i] < v2[i];
+            };
+            const auto& perm = *boost::min_element(perms, f);
+            int n = boost::max_element(perms, f)->at(i);
+            if (!make_move_sentinel3(p, perm, i, perm[i] == n))
+                return 0;
+        }
+    return 1;
 }
 
 struct puz_state2 : Position
@@ -238,31 +257,36 @@ bool puz_state::is_valid_square(const Position& p) const
     return true;
 }
 
-bool puz_state::make_move_sentinel2(const Position& p, const vector<int>& perm)
+bool puz_state::make_move_sentinel3(const Position& p, const vector<int>& perm, int i, bool stopped)
 {
     bool is_wall = cells(p) == PUZ_WALL_S;
-    for (int i = 0; i < 4; ++i) {
-        auto& os = offset[i];
-        int n = perm[i];
-        auto p2 = p + os;
-        for (int j = 0; j < n; ++j) {
-            char& ch = cells(p2);
-            if (ch == PUZ_SPACE) {
-                ch = is_wall ? PUZ_WALL : PUZ_LAND;
-                if (ch == PUZ_WALL && !is_valid_square(p2))
-                    return false;
-                ++m_distance;
-            }
-            p2 += os;
-        }
+    auto& os = offset[i];
+    int n = perm[i];
+    auto p2 = p + os;
+    for (int j = 0; j < n; ++j) {
         char& ch = cells(p2);
         if (ch == PUZ_SPACE) {
-            // we choose to stop here, so it must be of other type
-            ch = is_wall ? PUZ_LAND : PUZ_WALL;
+            ch = is_wall ? PUZ_WALL : PUZ_LAND;
             if (ch == PUZ_WALL && !is_valid_square(p2))
                 return false;
+            ++m_distance;
         }
+        p2 += os;
     }
+    if (char& ch = cells(p2); stopped && ch == PUZ_SPACE) {
+        // we choose to stop here, so it must be of other type
+        ch = is_wall ? PUZ_LAND : PUZ_WALL;
+        if (ch == PUZ_WALL && !is_valid_square(p2))
+            return false;
+    }
+    return true;
+}
+
+bool puz_state::make_move_sentinel2(const Position& p, const vector<int>& perm)
+{
+    for (int i = 0; i < 4; ++i)
+        if (!make_move_sentinel3(p, perm, i, true))
+            return false;
 
     m_matches.erase(p);
     return is_continuous();

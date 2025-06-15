@@ -79,6 +79,7 @@ struct puz_state
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
     bool make_move(const Position& p, const vector<int>& perm);
     bool make_move2(const Position& p, const vector<int>& perm);
+    void make_move3(const Position& p, const vector<int>& perm, int i, bool stopped);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -109,7 +110,9 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+    bool matches_changed = init;
     for (auto& [p, perms] : m_matches) {
+        auto perms_old = perms;
         perms.clear();
 
         // Exclude the tile where the sentinel is located
@@ -150,9 +153,24 @@ int puz_state::find_matches(bool init)
                 return 0;
             case 1:
                 return make_move2(p, perms.front()) ? 1 : 0;
+            default:
+                matches_changed = matches_changed || perms != perms_old;
+                break;
             }
     }
-    return 2;
+    if (!matches_changed)
+        return 2;
+
+    for (auto& [p, perms] : m_matches)
+        for (int i = 0; i < 4; ++i) {
+            auto f = [=](const vector<int>& v1, const vector<int>& v2) {
+                return v1[i] < v2[i];
+                };
+            const auto& perm = *boost::min_element(perms, f);
+            int n = boost::max_element(perms, f)->at(i);
+            make_move3(p, perm, i, perm[i] == n);
+        }
+    return 1;
 }
 
 struct puz_state2 : Position
@@ -187,29 +205,33 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     }
 }
 
-bool puz_state::make_move2(const Position& p, const vector<int>& perm)
+void puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bool stopped)
 {
-    for (int i = 0; i < 4; ++i) {
-        auto& os = offset[i];
-        int n = perm[i];
-        auto p2 = p + os;
-        for (int j = 0; j < n; ++j) {
-            char& ch = cells(p2);
-            if (ch == PUZ_SPACE)
-                ch = PUZ_EMPTY;
-            p2 += os;
-        }
+    auto& os = offset[i];
+    int n = perm[i];
+    auto p2 = p + os;
+    for (int j = 0; j < n; ++j) {
         char& ch = cells(p2);
-        if (ch == PUZ_SPACE) {
-            ch = PUZ_TOWER;
-            // Two Towers can't touch horizontally or vertically
-            for (auto& os2 : offset) {
-                char& ch2 = cells(p2 + os2);
-                if (ch2 == PUZ_SPACE)
-                    ch2 = PUZ_EMPTY;
-            }
+        if (ch == PUZ_SPACE)
+            ch = PUZ_EMPTY;
+        p2 += os;
+    }
+    if (char& ch = cells(p2); stopped && ch == PUZ_SPACE) {
+        // we choose to stop here, so it must be in other direction
+        ch = PUZ_TOWER;
+        // Two Towers can't touch horizontally or vertically
+        for (auto& os2 : offset) {
+            char& ch2 = cells(p2 + os2);
+            if (ch2 == PUZ_SPACE)
+                ch2 = PUZ_EMPTY;
         }
     }
+}
+
+bool puz_state::make_move2(const Position& p, const vector<int>& perm)
+{
+    for (int i = 0; i < 4; ++i)
+        make_move3(p, perm, i, true);
 
     ++m_distance;
     m_matches.erase(p);
