@@ -158,18 +158,15 @@ struct puz_state : vector<puz_dot>
 
 puz_state::puz_state(const puz_game& g)
 // Do we need to fill the board?
-: vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
-//: vector<puz_dot>(g.m_dot_count), m_game(&g)
+//: vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
+: vector<puz_dot>(g.m_dot_count), m_game(&g)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            int area_id = m_game->m_pos2area.at(p);
-            bool has_single_cell = m_game->m_areas[area_id].second.size() == 1;
             for (int lineseg : linesegs_all)
                 if ([&]{
-                    set<int> area_ids;
                     for (int i = 0; i < 4; ++i) {
                         if (!is_lineseg_on(lineseg, i))
                             continue;
@@ -177,10 +174,8 @@ puz_state::puz_state(const puz_game& g)
                         // A line segment cannot go beyond the boundaries of the board
                         if (!is_valid(p2))
                             return false;
-                        area_ids.insert(m_game->m_pos2area.at(p2));
                     }
-                    // 2. You can enter (and exit) the room only once.
-                    return has_single_cell || area_ids.contains(area_id);
+                    return true;
                 }())
                     dt.push_back(lineseg);
         }
@@ -258,8 +253,7 @@ bool puz_state::check_loop() const
     bool has_branch = false;
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
-        set<int> area_ids;
-        for (int n = -1, last_area_id = -1;;) {
+        for (int n = -1;;) {
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
             for (int i = 0; i < 4; ++i)
@@ -268,12 +262,6 @@ bool puz_state::check_loop() const
                     p2 += offset[n = i];
                     break;
                 }
-            int area_id = m_game->m_pos2area.at(p2);
-            if (!area_ids.contains(area_id))
-                area_ids.insert(area_id);
-            else if (last_area_id != area_id && area_ids.size() != m_game->m_areas.size())
-                return false;
-            last_area_id = area_id;
             if (p2 == p)
                 // we have a loop here,
                 // and we are supposed to have exhausted the line segments

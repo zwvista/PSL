@@ -2,26 +2,45 @@ Level 1
 Sequence of moves: 
  --- --- --- --- 
 |5      |3      |
-|      =|= = =  |
-|     I |     I |
+|  = = =|= = =  |
+| I     |     I |
                  
-|     I |     I |
+| I     |     I |
 |  = =  |  = =  |
-| I     | I     |
+|     I | I     |
          --- --- 
-| I     |4I     |
+|     I |4I     |
 |  = =  |  = =  |
-|     I |     I |
+| I     |     I |
  --- ---         
-|     I       I |
-|      = = = =  |
+| I           I |
+|  = = = = = =  |
 |               |
  --- --- --- --- 
-Number of moves: 7
-Number of vertices examined: 14
-0.0012106 [s]
+Number of moves: 3
+Number of vertices examined: 10
+0.0011467 [s]
 
 Level 2
-Number of vertices examined: 18
-0.0008678 [s]
+Sequence of moves: 
+ --- --- --- --- 
+|3      |1      |
+|  = = =|= = =  |
+| I     |     I |
+         --- --- 
+| I           I |
+|  = = = =      |
+|         I   I |
+ --- --- --- --- 
+|1      |1I |1I |
+|  = = =|=  |   |
+| I     |   | I |
+ --- ---         
+|1I     |   | I |
+|  = = =|= =|=  |
+|       |   |   |
+ --- --- --- --- 
+Number of moves: 5
+Number of vertices examined: 8
+0.0008895 [s]
 
