@@ -31,6 +31,13 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+constexpr Position offset2[] = {
+    {0, 0},        // 2*2 nw
+    {0, 1},        // 2*2 ne
+    {1, 0},        // 2*2 sw
+    {1, 1},        // 2*2 se
+};
+
 struct puz_game
 {
     string m_id;
@@ -69,16 +76,21 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
     bool make_move(const Position& p, const vector<int>& perm);
-    void make_move2(const Position& p, const vector<int>& perm);
-    void make_move3(const Position& p, const vector<int>& perm, int i, bool stopped);
+    bool make_move2(const Position& p, const vector<int>& perm);
+    bool make_move3(const Position& p, const vector<int>& perm, int i, bool stopped);
     int find_matches(bool init);
+    bool is_valid_square(const Position& p) const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const {
+        return boost::count(m_cells, PUZ_SPACE) + m_matches.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -163,38 +175,57 @@ int puz_state::find_matches(bool init)
             };
             const auto& perm = *boost::min_element(perms, f);
             int n = boost::max_element(perms, f)->at(i);
-            make_move3(p, perm, i, perm[i] == n);
+            if (!make_move3(p, perm, i, perm[i] == n))
+                return 0;
         }
     return 1;
 }
 
-void puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bool stopped)
+// 3. The Canal cannot contain a 2x2 area
+bool puz_state::is_valid_square(const Position& p) const
 {
-    auto& os = offset[i];
-    int n = perm[i];
-    auto p2 = p + os;
-    for (int j = 0; j < n; ++j) {
-        cells(p2) = PUZ_CANAL;
-        p2 += os;
-    }
-    if (stopped && cells(p2) == PUZ_SPACE)
-        // we choose to stop here, so it must be in other direction
-        cells(p2) = PUZ_HOUSE;
+    for (int dr = -1; dr <= 0; ++dr)
+        for (int dc = -1; dc <= 0; ++dc)
+            if (Position p2(p.first + dr, p.second + dc);
+                boost::algorithm::all_of(offset2, [&](const Position& os) {
+                    return cells(p2 + os) == PUZ_CANAL;
+            }))
+                return false;
+    return true;
 }
 
-void puz_state::make_move2(const Position& p, const vector<int>& perm)
+bool puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bool stopped)
+{
+    auto& os = offset[i];
+    auto p2 = p + os;
+    for (int j = 0, n = perm[i]; j < n; ++j, p2 += os)
+        if (char& ch = cells(p2); ch == PUZ_SPACE)
+            if (ch = PUZ_CANAL, ++m_distance; is_valid_square(p2))
+                return false;
+
+    if (char& ch = cells(p2); stopped && ch == PUZ_SPACE)
+        // we choose to stop here, so it must be in other direction
+        ch = PUZ_HOUSE, ++m_distance;
+
+    return true;
+}
+
+bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 {
     for (int i = 0; i < 4; ++i)
-        make_move3(p, perm, i, true);
+        if (!make_move3(p, perm, i, true))
+            return false;
 
     ++m_distance;
     m_matches.erase(p);
+    return true;
 }
 
 bool puz_state::make_move(const Position& p, const vector<int>& perm)
 {
     m_distance = 0;
-    make_move2(p, perm);
+    if (!make_move2(p, perm))
+        return false;
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
