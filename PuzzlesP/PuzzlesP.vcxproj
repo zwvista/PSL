@@ -182,6 +182,7 @@
     <Text Include="Puzzles\Pipemania.txt" />
     <Text Include="Puzzles\Planets.txt" />
     <Text Include="Puzzles\Planks.txt" />
+    <Text Include="Puzzles\PleaseComeBack.txt" />
     <Text Include="Puzzles\PlugItIn.txt" />
     <Text Include="Puzzles\Pointing.txt" />
     <Text Include="Puzzles\PondCamping.txt" />
@@ -225,6 +226,7 @@
     <ClCompile Include="Puzzles\Pipemania.cpp" />
     <ClCompile Include="Puzzles\Planets.cpp" />
     <ClCompile Include="Puzzles\Planks.cpp" />
+    <ClCompile Include="Puzzles\PleaseComeBack.cpp" />
     <ClCompile Include="Puzzles\PlugItIn.cpp" />
     <ClCompile Include="Puzzles\Pointing.cpp" />
     <ClCompile Include="Puzzles\PondCamping.cpp" />
@@ -260,6 +262,7 @@
     <Xml Include="Puzzles\Pipemania.xml" />
     <Xml Include="Puzzles\Planets.xml" />
     <Xml Include="Puzzles\Planks.xml" />
+    <Xml Include="Puzzles\PleaseComeBack.xml" />
     <Xml Include="Puzzles\PlugItIn.xml" />
     <Xml Include="Puzzles\Pointing.xml" />
     <Xml Include="Puzzles\PondCamping.xml" />

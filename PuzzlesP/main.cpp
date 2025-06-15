@@ -18,6 +18,7 @@ extern void solve_puz_Picnic();
 extern void solve_puz_Pipemania();
 extern void solve_puz_Planets();
 extern void solve_puz_Planks();
+extern void solve_puz_PleaseComeBack();
 extern void solve_puz_PlugItIn();
 extern void solve_puz_Pointing();
 extern void solve_puz_PondCamping();
@@ -48,7 +49,8 @@ int main(int argc, char **argv)
     println("i2: Pipemania");
     println("l1: Planets");
     println("l2: Planks");
-    println("l3: Plug it in");
+    println("l3: Please come back");
+    println("l4: Plug it in");
     println("o1: Pointing");
     println("o2: Pond camping");
     println("o3: Pouring Water");
@@ -77,7 +79,8 @@ int main(int argc, char **argv)
     else if (str == "i2") solve_puz_Pipemania();
     else if (str == "l1") solve_puz_Planets();
     else if (str == "l2") solve_puz_Planks();
-    else if (str == "l3") solve_puz_PlugItIn();
+    else if (str == "l3") solve_puz_PleaseComeBack();
+    else if (str == "l4") solve_puz_PlugItIn();
     else if (str == "o1") solve_puz_Pointing();
     else if (str == "o2") solve_puz_PondCamping();
     else if (str == "o3") solve_puz_PouringWater();

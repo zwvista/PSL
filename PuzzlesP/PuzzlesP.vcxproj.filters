@@ -124,6 +124,9 @@
     <Text Include="Puzzles\PondCamping.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\PleaseComeBack.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -224,6 +227,9 @@
     <ClCompile Include="Puzzles\PondCamping.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\PleaseComeBack.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\pathfind.xml">
@@ -305,6 +311,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\PondCamping.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\PleaseComeBack.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
