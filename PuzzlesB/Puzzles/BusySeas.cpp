@@ -104,30 +104,24 @@ int puz_state::find_matches(bool init)
     for (auto& [p, perms] : m_matches) {
         perms.clear();
 
-        vector<Position> rng_s, rng_l;
+        vector<Position> rng;
+        int m = m_game->m_pos2num.at(p);
         for (auto& os : offset)
             for (auto p2 = p + os; ; p2 += os) {
                 char ch = cells(p2);
                 if (ch == PUZ_SPACE)
-                    rng_s.push_back(p2);
+                    rng.push_back(p2);
                 else if (ch == PUZ_LIGHTHOUSE)
-                    rng_l.push_back(p2);
+                    --m;
                 else if (ch == PUZ_BOUNDARY || ch == PUZ_BOAT)
                     break;
             }
 
-        int ns = rng_s.size(), nl = rng_l.size();
-        int n = m_game->m_pos2num.at(p), m = n - nl;
-
-        if (m >= 0 && m <= ns) {
-            auto perm = string(ns - m, PUZ_EMPTY) + string(m, PUZ_LIGHTHOUSE);
-            vector<Position> rng(m);
-            do {
-                for (int i = 0, j = 0; i < perm.length(); ++i)
-                    if (perm[i] == PUZ_LIGHTHOUSE)
-                        rng[j++] = rng_s[i];
-                perms.emplace_back(rng_s, perm);
-            } while(boost::next_permutation(perm));
+        if (int n = rng.size(); m >= 0 && m <= n) {
+            auto perm = string(n - m, PUZ_EMPTY) + string(m, PUZ_LIGHTHOUSE);
+            do
+                perms.emplace_back(rng, perm);
+            while(boost::next_permutation(perm));
         }
 
         if (!init)
@@ -143,10 +137,9 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, const puz_move& kv)
 {
-    auto& rng = kv.first;
-    auto& str = kv.second;
+    auto& [rng, perm] = kv;
     for (int i = 0; i < rng.size(); ++i)
-        cells(rng[i]) = str[i];
+        cells(rng[i]) = perm[i];
 
     ++m_distance;
     m_matches.erase(p);
