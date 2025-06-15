@@ -227,11 +227,28 @@ bool puz_state::check_loop() const
                 rng.insert(p);
         }
 
+    // 2. You can enter (and exit) the room only once.
+    map<int, int> area2num;
+    for (auto& p : rng) {
+        int area_id = m_game->m_pos2area.at(p);
+        int lineseg = dots(p)[0];
+        for (int i = 0; i < 4; ++i)
+            if (is_lineseg_on(lineseg, i)) {
+                int area_id2 = m_game->m_pos2area.at(p + offset[i]);
+                if (area_id != area_id2)
+                    area2num[area_id]++;
+            }
+    }
+    if (is_goal_state() && area2num.size() != m_game->m_areas.size())
+        return false;
+    for (auto& [id, num] : area2num)
+        if (is_goal_state() && num != 2 || num > 2)
+            return false;
+
     bool has_branch = false;
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
-        set<int> area_ids;
-        for (int n = -1, last_area_id = -1;;) {
+        for (int n = -1;;) {
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
             for (int i = 0; i < 4; ++i)
@@ -240,12 +257,6 @@ bool puz_state::check_loop() const
                     p2 += offset[n = i];
                     break;
                 }
-            int area_id = m_game->m_pos2area.at(p2);
-            if (!area_ids.contains(area_id))
-                area_ids.insert(area_id);
-            else if (last_area_id != area_id && area_ids.size() != m_game->m_areas.size())
-                return false;
-            last_area_id = area_id;
             if (p2 == p)
                 // we have a loop here,
                 // and we are supposed to have exhausted the line segments
