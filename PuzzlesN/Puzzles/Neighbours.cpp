@@ -25,7 +25,7 @@
 namespace puzzles::Neighbours{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_BOUNDARY = 'B';
+constexpr auto PUZ_BOUNDARY = '"';
 constexpr auto PUZ_QM = '?';
 constexpr auto PUZ_UNKNOWN = 0;
 

@@ -20,7 +20,7 @@
 namespace puzzles::TheMagicNumber{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_BOUNDARY = '"';
 constexpr auto PUZ_SYMBOL1 = '1';
 constexpr auto PUZ_SYMBOL2 = '2';
 

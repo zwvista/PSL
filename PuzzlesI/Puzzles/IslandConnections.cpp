@@ -25,7 +25,7 @@ constexpr auto PUZ_ISLAND = 'O';
 constexpr auto PUZ_SHADED = 'S';
 constexpr auto PUZ_HORZ = '-';
 constexpr auto PUZ_VERT = '|';
-constexpr auto PUZ_BOUNDARY = 'B';
+constexpr auto PUZ_BOUNDARY = '"';
 constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {

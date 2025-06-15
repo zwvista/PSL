@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games/Puzzle Set 13/Venice
+    iOS Game: 100 Logic Games 3/Puzzle Set 2/Venice
 
     Summary
     Gondolas and Canals
@@ -21,8 +21,8 @@ namespace puzzles::Venice{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
-constexpr auto PUZ_WALL = 'W';
-constexpr auto PUZ_BOUNDARY = 'B';
+constexpr auto PUZ_CANAL = 'W';
+constexpr auto PUZ_BOUNDARY = '"';
 
 constexpr Position offset[] = {
     {0, 0},    // nw
@@ -64,7 +64,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (int i = 0; i <= 4; ++i) {
         auto& perms = m_num2perms[i];
-        auto perm = string(4 - i, PUZ_EMPTY) + string(i, PUZ_WALL);
+        auto perm = string(4 - i, PUZ_EMPTY) + string(i, PUZ_CANAL);
         do
             perms.push_back(perm);
         while (boost::next_permutation(perm));
@@ -228,7 +228,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     } else {
         int i = m_cells.find(PUZ_SPACE);
         Position p(i / sidelen(), i % sidelen());
-        for (char ch : {PUZ_EMPTY, PUZ_WALL}) {
+        for (char ch : {PUZ_EMPTY, PUZ_CANAL}) {
             children.push_back(*this);
             if (!children.back().make_move_space(p, ch))
                 children.pop_back();

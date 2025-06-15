@@ -35,7 +35,7 @@ constexpr auto PUZ_HORZ_1 = '-';
 constexpr auto PUZ_VERT_1 = '|';
 constexpr auto PUZ_HORZ_2 = '=';
 constexpr auto PUZ_VERT_2 = 'H';
-constexpr auto PUZ_BOUNDARY = 'B';
+constexpr auto PUZ_BOUNDARY = '"';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

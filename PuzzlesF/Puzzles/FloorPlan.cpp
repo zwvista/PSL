@@ -19,7 +19,7 @@
 
 namespace puzzles::FloorPlan{
 
-constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_BOUNDARY = '"';
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_NUM = 'N';

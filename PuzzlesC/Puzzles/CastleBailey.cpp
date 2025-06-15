@@ -28,7 +28,7 @@ namespace puzzles::CastleBailey{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_WALL = 'W';
-constexpr auto PUZ_BOUNDARY = 'B';
+constexpr auto PUZ_BOUNDARY = '"';
 
 constexpr Position offset[] = {
     {0, 0},    // nw

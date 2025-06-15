@@ -25,7 +25,7 @@ namespace puzzles::TierraDelFuego{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_WATER = '=';
-constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_BOUNDARY = '"';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

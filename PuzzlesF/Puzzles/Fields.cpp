@@ -23,7 +23,7 @@ namespace puzzles::Fields{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_SOIL = 'S';
 constexpr auto PUZ_MEADOW = 'M';
-constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_BOUNDARY = '"';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

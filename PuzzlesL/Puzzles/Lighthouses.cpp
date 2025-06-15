@@ -23,7 +23,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_BOAT = 'T';
 constexpr auto PUZ_LIGHTHOUSE = 'L';
-constexpr auto PUZ_BOUNDARY = 'B';
+constexpr auto PUZ_BOUNDARY = '"';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

@@ -23,7 +23,7 @@
 namespace puzzles::Galaxies{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_BOUNDARY = '"';
 constexpr auto PUZ_GALAXY = 'o';
 constexpr auto PUZ_GALAXY_R = '>';
 constexpr auto PUZ_GALAXY_C = 'v';

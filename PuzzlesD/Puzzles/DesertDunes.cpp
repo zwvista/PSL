@@ -25,7 +25,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_DUNE = 'D';
 constexpr auto PUZ_OASIS = 'S';
-constexpr auto PUZ_BOUNDARY = '+';
+constexpr auto PUZ_BOUNDARY = '"';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
