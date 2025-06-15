@@ -25,7 +25,7 @@ constexpr auto PUZ_QM = '?';
 constexpr auto PUZ_FILLED = 'F';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_HINT = 'H';
-constexpr auto PUZ_BOUNDARY = '"';
+constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {

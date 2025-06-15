@@ -23,7 +23,7 @@ namespace puzzles::PaintTheNurikabe{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_PAINTED = 'P';
-constexpr auto PUZ_BOUNDARY = '"';
+constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_UNKNOWN = 5;
     
 constexpr Position offset[] = {

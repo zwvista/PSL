@@ -26,7 +26,7 @@ constexpr auto PUZ_MILK = 'M';
 constexpr auto PUZ_BEAN = 'B';
 constexpr auto PUZ_HORZ = '-';
 constexpr auto PUZ_VERT = '|';
-constexpr auto PUZ_BOUNDARY = '"';
+constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
     {-1, 0},        // n

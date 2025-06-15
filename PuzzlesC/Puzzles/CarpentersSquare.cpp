@@ -24,7 +24,7 @@
 namespace puzzles::CarpentersSquare{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_BOUNDARY = '"';
+constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_CORNER = 'O';
 
 constexpr Position offset[] = {

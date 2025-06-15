@@ -27,7 +27,7 @@ constexpr auto PUZ_UNKNOWN = 5;
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_SLASH = '/';
 constexpr auto PUZ_BACKSLASH = '\\';
-constexpr auto PUZ_BOUNDARY = '"';
+constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_TOUCHED = 1;
 constexpr auto PUZ_UNTOUCHED = 0;
 

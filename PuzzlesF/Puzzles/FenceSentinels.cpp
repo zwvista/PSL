@@ -22,7 +22,7 @@
 
 namespace puzzles::FenceSentinels{
 
-constexpr auto PUZ_BOUNDARY = '"';
+constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_INSIDE = 'I';
 constexpr auto PUZ_OUTSIDE = 'O';
 constexpr auto PUZ_SPACE = ' ';

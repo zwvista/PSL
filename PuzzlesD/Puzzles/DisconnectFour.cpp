@@ -23,7 +23,7 @@ constexpr auto PUZ_R_FIXED = 'R';
 constexpr auto PUZ_R_ADDED = 'r';
 constexpr auto PUZ_Y_FIXED = 'Y';
 constexpr auto PUZ_Y_ADDED = 'y';
-constexpr auto PUZ_BOUNDARY = '"';
+constexpr auto PUZ_BOUNDARY = '`';
 
 const string RY = {PUZ_R_ADDED, PUZ_Y_ADDED};
 

@@ -31,7 +31,7 @@ namespace puzzles::Gardener{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_FLOWER = 'F';
-constexpr auto PUZ_BOUNDARY = '"';
+constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr auto PUZ_FLOWER_COUNT_UNKNOWN = -1;
 

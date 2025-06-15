@@ -22,7 +22,7 @@ namespace puzzles::Venice{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_CANAL = 'W';
-constexpr auto PUZ_BOUNDARY = '"';
+constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
     {0, 0},    // nw

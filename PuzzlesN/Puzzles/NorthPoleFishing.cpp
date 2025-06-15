@@ -21,7 +21,7 @@
 namespace puzzles::NorthPoleFishing{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_BOUNDARY = '"';
+constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_BLOCK = 'B';
 constexpr auto PUZ_HOLE = 'H';
 constexpr auto PUZ_PIECE_SIZE = 4;
