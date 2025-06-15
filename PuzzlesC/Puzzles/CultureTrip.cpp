@@ -30,8 +30,6 @@ namespace puzzles::CultureTrip{
 constexpr auto PUZ_MUSEUM = 'M';
 constexpr auto PUZ_MONUMENT = 'T';
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_VISIT_MUSEUM = 0;
-constexpr auto PUZ_VISIT_MONUMENT = 1;
 
     // n-e-s-w
 // 0 means line is off in this direction
@@ -144,8 +142,8 @@ struct puz_state : vector<puz_dot>
     }
     const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move_area(int i, int n);
-    void make_move_area2(int i, int n);
+    bool make_move_area(int i, char ch2);
+    void make_move_area2(int i, char ch2);
     bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
@@ -160,7 +158,7 @@ struct puz_state : vector<puz_dot>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    map<int, vector<int>> m_matches;
+    map<int, vector<char>> m_matches;
     set<pair<Position, int>> m_finished;
     unsigned int m_distance = 0;
 };
@@ -188,7 +186,7 @@ puz_state::puz_state(const puz_game& g)
         }
 
     for (int i = 0; i < g.m_areas.size(); ++i)
-        m_matches[i] = {PUZ_VISIT_MUSEUM, PUZ_VISIT_MONUMENT};
+        m_matches[i] = {PUZ_MUSEUM, PUZ_MONUMENT};
 
     find_matches(true);
     check_dots(true);
@@ -196,26 +194,25 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [area_id, visit_ids] : m_matches) {
+    for (auto& [area_id, visit_chars] : m_matches) {
         auto& area = m_game->m_areas[area_id];
 
-        boost::remove_erase_if(visit_ids, [&](int id) {
+        boost::remove_erase_if(visit_chars, [&](char ch2) {
             return boost::algorithm::any_of(area, [&](const Position& p) {
                 char ch = m_game->cells(p);
                 if (ch == PUZ_SPACE) return false;
                 auto& dt = dots(p);
-                bool b1 = ch == PUZ_MUSEUM, b2 = id == PUZ_VISIT_MUSEUM;
-                return b1 == b2 && dt[0] == lineseg_off && dt.size() == 1 ||
-                    b1 != b2 && dt[0] != lineseg_off;
+                return ch == ch2 && dt[0] == lineseg_off && dt.size() == 1 ||
+                    ch != ch2 && dt[0] != lineseg_off;
             });
         });
 
         if (!init)
-            switch(visit_ids.size()) {
+            switch(visit_chars.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move_area2(area_id, visit_ids.front()), 1;
+                return make_move_area2(area_id, visit_chars.front()), 1;
             }
     }
     return 2;
@@ -263,14 +260,14 @@ int puz_state::check_dots(bool init)
     }
 }
 
-void puz_state::make_move_area2(int i, int n)
+void puz_state::make_move_area2(int i, char ch2)
 {
     auto& area = m_game->m_areas[i];
     for (auto& p : area) {
         char ch = m_game->cells(p);
         if (ch == PUZ_SPACE) continue;
         auto& dt = dots(p);
-        if ((n == PUZ_VISIT_MUSEUM) == (ch == PUZ_MUSEUM))
+        if (ch == ch2)
             boost::remove_erase(dt, lineseg_off);
         else
             dt = {lineseg_off};
@@ -289,11 +286,32 @@ bool puz_state::check_loop() const
                 rng.insert(p);
         }
 
+    // 3. All neighborhoods must be visited exactly and only once.
+    // 4. You have to set foot in a neighborhood only once and can't come back after
+    // you leave it.
+    map<int, int> area2num;
+    for (auto& p : rng) {
+        int area_id = m_game->m_pos2area.at(p);
+        int lineseg = dots(p)[0];
+        for (int i = 0; i < 4; ++i)
+            if (is_lineseg_on(lineseg, i)) {
+                int area_id2 = m_game->m_pos2area.at(p + offset[i]);
+                if (area_id != area_id2)
+                    area2num[area_id]++;
+            }
+    }
+    if (is_goal_state() && area2num.size() != m_game->m_areas.size())
+        return false;
+    for (auto& [id, num] : area2num)
+        if (is_goal_state() && num != 2 || num > 2)
+            return false;
+
     bool has_branch = false;
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
         set<int> area_ids;
-        for (int n = -1, first_visit_id = -1, last_visit_id = -1;;) {
+        char first_visit_char = PUZ_SPACE, last_visit_char = PUZ_SPACE;
+        for (int n = -1;;) {
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
             char ch = m_game->cells(p2);
@@ -301,12 +319,11 @@ bool puz_state::check_loop() const
                 int area_id = m_game->m_pos2area.at(p2);
                 if (!area_ids.contains(area_id)) {
                     area_ids.insert(area_id);
-                    int visit_id = ch == PUZ_MUSEUM ? PUZ_VISIT_MUSEUM : PUZ_VISIT_MONUMENT;
-                    if (first_visit_id == -1)
-                        first_visit_id = visit_id;
-                    if (last_visit_id != -1 && last_visit_id == visit_id)
+                    if (first_visit_char == PUZ_SPACE)
+                        first_visit_char = ch;
+                    if (last_visit_char == ch)
                         return false;
-                    last_visit_id = visit_id;
+                    last_visit_char = ch;
                 }
             }
             for (int i = 0; i < 4; ++i)
@@ -318,7 +335,7 @@ bool puz_state::check_loop() const
             if (p2 == p)
                 // we have a loop here,
                 // and we are supposed to have exhausted the line segments
-                return !has_branch && rng.empty() && last_visit_id != first_visit_id;
+                return !has_branch && rng.empty() && last_visit_char != first_visit_char;
             if (!rng.contains(p2)) {
                 has_branch = true;
                 break;
@@ -328,10 +345,10 @@ bool puz_state::check_loop() const
     return true;
 }
 
-bool puz_state::make_move_area(int i, int n)
+bool puz_state::make_move_area(int i, char ch2)
 {
     m_distance = 0;
-    make_move_area2(i, n);
+    make_move_area2(i, ch2);
     for (;;) {
         int m;
         while ((m = find_matches(false)) == 1);
@@ -357,15 +374,15 @@ bool puz_state::make_move_dot(const Position& p, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_matches.empty()) {
-        auto& [area_id, visit_ids] = *boost::min_element(m_matches, [](
-            const pair<int, vector<int>>& kv1,
-            const pair<int, vector<int>>& kv2) {
+        auto& [area_id, visit_chars] = *boost::min_element(m_matches, [](
+            const pair<int, vector<char>>& kv1,
+            const pair<int, vector<char>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
 
-        for (int n : visit_ids) {
+        for (int ch2 : visit_chars) {
             children.push_back(*this);
-            if (!children.back().make_move_area(area_id, n))
+            if (!children.back().make_move_area(area_id, ch2))
                 children.pop_back();
         }
     } else {
