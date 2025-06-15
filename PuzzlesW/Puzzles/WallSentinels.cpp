@@ -42,6 +42,13 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+constexpr Position offset2[] = {
+    {0, 0},        // 2*2 nw
+    {0, 1},        // 2*2 ne
+    {1, 0},        // 2*2 sw
+    {1, 1},        // 2*2 se
+};
+
 struct puz_game
 {
     string m_id;
@@ -60,15 +67,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            auto s = str.substr(c * 2 - 2, 2);
-            if (s == "  ")
+        for (int c = 1; c < m_sidelen - 1; ++c)
+            if (auto s = str.substr(c * 2 - 2, 2); s == "  ")
                 m_start.push_back(PUZ_SPACE);
             else {
                 m_start.push_back(s[0] == PUZ_LAND ? PUZ_LAND_S : PUZ_WALL_S);
                 m_pos2num[{r, c}] = isdigit(s[1]) ? s[1] - '0' : s[1] - 'A' + 10;
             }
-        }
         m_start.push_back(PUZ_BOUNDARY);
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
@@ -94,7 +99,9 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
+    unsigned int get_heuristic() const {
+        return boost::count(m_cells, PUZ_SPACE) + m_matches.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -241,19 +248,14 @@ bool puz_state::is_continuous() const
 // The wall cannot contain 2*2 wall tiles
 bool puz_state::is_valid_square(const Position& p) const
 {
-    auto f = [&](const vector<Position>& rng) {
-        return boost::algorithm::all_of(rng, [&](const Position& p) {
-            char ch = cells(p);
-            return ch == PUZ_WALL || ch == PUZ_WALL_S;
-        });
-    };
-
     for (int dr = -1; dr <= 0; ++dr)
-        for (int dc = -1; dc <= 0; ++dc) {
-            Position p2(p.first + dr, p.second + dc);
-            if (f({p2, p2 + Position{0, 1}, p2 + Position{1, 0}, p2 + Position(1, 1)}))
+        for (int dc = -1; dc <= 0; ++dc)
+            if (Position p2(p.first + dr, p.second + dc);
+                boost::algorithm::all_of(offset2, [&](const Position& os) {
+                    char ch = cells(p2 + os);
+                    return ch == PUZ_WALL || ch == PUZ_WALL_S;
+            }))
                 return false;
-        }
     return true;
 }
 
@@ -261,24 +263,19 @@ bool puz_state::make_move_sentinel3(const Position& p, const vector<int>& perm, 
 {
     bool is_wall = cells(p) == PUZ_WALL_S;
     auto& os = offset[i];
-    int n = perm[i];
     auto p2 = p + os;
-    for (int j = 0; j < n; ++j) {
-        char& ch = cells(p2);
-        if (ch == PUZ_SPACE) {
-            ch = is_wall ? PUZ_WALL : PUZ_LAND;
-            if (ch == PUZ_WALL && !is_valid_square(p2))
+    for (int j = 0, n = perm[i]; j < n; ++j, p2 += os)
+        if (char& ch = cells(p2); ch == PUZ_SPACE)
+            if (ch = is_wall ? PUZ_WALL : PUZ_LAND, ++m_distance;
+                ch == PUZ_WALL && !is_valid_square(p2))
                 return false;
-            ++m_distance;
-        }
-        p2 += os;
-    }
-    if (char& ch = cells(p2); stopped && ch == PUZ_SPACE) {
+
+    if (char& ch = cells(p2); stopped && ch == PUZ_SPACE)
         // we choose to stop here, so it must be of other type
-        ch = is_wall ? PUZ_LAND : PUZ_WALL;
-        if (ch == PUZ_WALL && !is_valid_square(p2))
+        if (ch = is_wall ? PUZ_LAND : PUZ_WALL, ++m_distance;
+            ch == PUZ_WALL && !is_valid_square(p2))
             return false;
-    }
+
     return true;
 }
 
@@ -288,6 +285,7 @@ bool puz_state::make_move_sentinel2(const Position& p, const vector<int>& perm)
         if (!make_move_sentinel3(p, perm, i, true))
             return false;
 
+    ++m_distance;
     m_matches.erase(p);
     return is_continuous();
 }

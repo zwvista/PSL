@@ -40,10 +40,10 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 constexpr Position offset2[] = {
-    {0, 0},
-    {0, 1},
-    {1, 0},
-    {1, 1},
+    {0, 0},        // 2*2 nw
+    {0, 1},        // 2*2 ne
+    {1, 0},        // 2*2 sw
+    {1, 1},        // 2*2 se
 };
 
 struct puz_garden
