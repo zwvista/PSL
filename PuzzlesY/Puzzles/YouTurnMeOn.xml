@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Draw a single, no intersecting loop.
+2. The number on each region tells you how many turns the path does in that region.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - `
+|5  |3  |`
+         `
+|   |   |`
+     - - `
+|   |4  |`
+ - -     `
+|       |`
+ - - - - `
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+ - - - - `
+|3  |1  |`
+     - - `
+|       |`
+ - - - - `
+|1  |1|1|`
+ - -     `
+|1  | | |`
+ - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>

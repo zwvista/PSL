@@ -22,6 +22,7 @@
     <Text Include="Puzzles\Yalooniq.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\YouTurnMeOn.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -47,10 +48,14 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\YouTurnMeOn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Yalooniq.xml">
       <Filter>Puzzles</Filter>
     </Xml>
+    <Xml Include="Puzzles\YouTurnMeOn.xml" />
   </ItemGroup>
 </Project>
