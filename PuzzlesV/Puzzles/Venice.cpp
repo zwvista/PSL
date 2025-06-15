@@ -112,7 +112,6 @@ int puz_state::find_matches(bool init)
         int sum = m_game->m_pos2num.at(p);
         vector<vector<int>> dir_nums(4);
         for (int i = 0; i < 4; ++i) {
-            bool is_horz = i % 2 == 1;
             auto& os = offset[i];
             int n = 0;
             auto& nums = dir_nums[i];
@@ -122,8 +121,7 @@ int puz_state::find_matches(bool init)
                     // we can stop here
                     nums.push_back(n++);
                     spaces.insert(p2);
-                } else if (is_horz && ch == PUZ_CANAL ||
-                    !is_horz && ch == PUZ_CANAL)
+                } else if (ch == PUZ_CANAL)
                     // we cannot stop here
                     ++n;
                 else {
@@ -172,17 +170,16 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bool stopped)
 {
-    bool is_horz = i % 2 == 1;
     auto& os = offset[i];
     int n = perm[i];
     auto p2 = p + os;
     for (int j = 0; j < n; ++j) {
-        cells(p2) = is_horz ? PUZ_CANAL : PUZ_CANAL;
+        cells(p2) = PUZ_CANAL;
         p2 += os;
     }
     if (stopped && cells(p2) == PUZ_SPACE)
         // we choose to stop here, so it must be in other direction
-        cells(p2) = is_horz ? PUZ_CANAL : PUZ_CANAL;
+        cells(p2) = PUZ_HOUSE;
 }
 
 void puz_state::make_move2(const Position& p, const vector<int>& perm)
@@ -223,10 +220,12 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if (ch == PUZ_HOUSE)
-                out << format("{:2}", m_game->m_pos2num.at(p));
-            else
+            if (ch != PUZ_HOUSE)
                 out << ' ' << ch;
+            else if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
+                out << ' ' << ch;
+            else
+                out << format("{:2}", it->second);
         }
         println(out);
     }
