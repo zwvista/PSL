@@ -53,9 +53,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_WALL);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            Position p(r, c);
-            switch(char ch = str[c - 1]) {
+        for (int c = 1; c < m_sidelen - 1; ++c)
+            switch(Position p(r, c); char ch = str[c - 1]) {
             case PUZ_SPACE:
             case PUZ_WALL:
                 m_start.push_back(ch);
@@ -65,7 +64,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_walls[p] = ch - '0';
                 break;
             }
-        }
         m_start.push_back(PUZ_WALL);
     }
     m_start.append(m_sidelen, PUZ_WALL);

@@ -91,9 +91,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     for (int r = 0; ; ++r) {
         const string& hstr = strs[2 * r];
-        for (size_t i = 0; i < hstr.length(); i++) {
-            Position p(r, i / 2);
-            switch(hstr[i]) {
+        for (size_t i = 0; i < hstr.length(); i++)
+            switch(Position p(r, i / 2); hstr[i]) {
             case '-': m_horz_wall.insert(p); break;
             case '=':
                 if (!m_key_gate) m_key_gate = mm_key_gate();
@@ -101,12 +100,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_key_gate->m_gate = p;
                 break;
             }
-        }
         if (r == m_size.first) break;
         const string& vstr = strs[2 * r + 1];
-        for (size_t i = 0; i < vstr.length(); i++) {
-            Position p(r, i / 2);
-            switch(vstr[i]) {
+        for (size_t i = 0; i < vstr.length(); i++)
+            switch(Position p(r, i / 2); vstr[i]) {
             case '|': m_vert_wall.insert(p); break;
             case 'E': m_man = p; break;
             case 'M': m_obj_map[p] = moHorzMummy; break;
@@ -125,7 +122,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_key_gate->m_gate = p;
                 break;
             }
-        }
     }
 }
 

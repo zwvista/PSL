@@ -46,14 +46,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         if (r == rows()) break;
 
         const string& vstr = strs.at(2 * r + 1);
-        for (size_t i = 0; i < vstr.length(); ++i) {
-            Position p(r, i / 2);
-            switch(vstr[i]) {
+        for (size_t i = 0; i < vstr.length(); ++i)
+            switch(Position p(r, i / 2); vstr[i]) {
             case '|': m_vert_wall.insert(p); break;
             case '@': m_start = p; break;
             case '.': m_goal = p; break;
             }
-        }
     }
 }
 

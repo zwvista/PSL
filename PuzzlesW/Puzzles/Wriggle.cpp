@@ -46,9 +46,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < rows() - 1; ++r, n += cols()) {
         m_cells[n] = m_cells[n + cols() - 1] = PUZ_BOX;
         const string& vstr = strs.at(r - 1);
-        for (int c = 1; c < cols() - 1; ++c) {
-            Position p(r, c);
-            switch(char ch = vstr[c * 2 - 2]) {
+        for (int c = 1; c < cols() - 1; ++c)
+            switch(Position p(r, c); char ch = vstr[c * 2 - 2]) {
             case PUZ_GOAL:
                 m_goal = p;
             case PUZ_BOX:
@@ -68,7 +67,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     m_worms[nw][ch - 'a'] = p;
                 }
             }
-        }
     }
 
     for (vector<Position>& w : m_worms) {

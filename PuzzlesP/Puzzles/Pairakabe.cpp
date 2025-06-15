@@ -330,13 +330,11 @@ bool puz_state::check_2x2()
         for (int c = 1; c < sidelen() - 2; ++c) {
             Position p(r, c);
             vector<Position> rng1, rng2;
-            for (auto& os : offset2) {
-                auto p2 = p + os;
-                switch(cells(p2)) {
+            for (auto& os : offset2)
+                switch(auto p2 = p + os; cells(p2)) {
                 case PUZ_WALL: rng1.push_back(p2); break;
                 case PUZ_SPACE: rng2.push_back(p2); break;
                 }
-            }
             if (rng1.size() == 4) return false;
             if (rng1.size() == 3 && rng2.size() == 1)
                 cells(rng2[0]) = PUZ_EMPTY;

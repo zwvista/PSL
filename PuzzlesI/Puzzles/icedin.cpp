@@ -169,8 +169,7 @@ unsigned int puz_state::slide_distance2(int i, int j1, int j2, bool i_is_r) cons
 {
     unsigned int d = 2;
     int j_push = j1 < j2 ? j1 - 1 : j1 + 1;
-    switch(cells(i_is_r ? Position(i, j_push) : Position(j_push, i)))
-    {
+    switch(cells(i_is_r ? Position(i, j_push) : Position(j_push, i))) {
     case PUZ_BLOCK:
     case PUZ_BLOCK_ON_ICE1:
     case PUZ_BLOCK_ON_ICE2:
@@ -180,8 +179,7 @@ unsigned int puz_state::slide_distance2(int i, int j1, int j2, bool i_is_r) cons
         return 3;
     }
     int j_stop = j1 < j2 ? j2 + 1 : j2 - 1;
-    switch(cells(i_is_r ? Position(i, j_stop) : Position(j_stop, i)))
-    {
+    switch(cells(i_is_r ? Position(i, j_stop) : Position(j_stop, i))) {
     case PUZ_BLOCK:
     case PUZ_BLOCK_ON_ICE1:
     case PUZ_BLOCK_ON_ICE2:

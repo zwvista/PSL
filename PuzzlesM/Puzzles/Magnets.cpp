@@ -63,9 +63,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start = boost::accumulate(strs, string());
     for (int r = 0, n = 0; r < m_sidelen + 2; ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < m_sidelen + 2; ++c) {
-            Position p(r, c);
-            switch(char ch = str[c]) {
+        for (int c = 0; c < m_sidelen + 2; ++c)
+            switch(Position p(r, c); char ch = str[c]) {
             case PUZ_POSITIVE:
             case PUZ_NEGATIVE:
             case PUZ_EMPTY:
@@ -89,7 +88,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
                 break;
             }
-        }
     }
 }
 

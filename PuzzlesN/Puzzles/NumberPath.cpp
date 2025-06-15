@@ -99,15 +99,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     set<Position> horz_lines, vert_lines;
-    for (int i = 0; i < size() - 1; ++i) {
-        auto &p1 = (*this)[i], &p2 = (*this)[i + 1];
-        switch(boost::range::find(offset, p2 - p1) - offset) {
+    for (int i = 0; i < size() - 1; ++i)
+        switch(auto& p1 = (*this)[i], &p2 = (*this)[i + 1];
+            boost::range::find(offset, p2 - p1) - offset) {
         case 0: vert_lines.insert(p2);  break;
         case 1: horz_lines.insert(p1);  break;
         case 2: vert_lines.insert(p1);  break;
         case 3: horz_lines.insert(p2);  break;
         }
-    }
 
     for (int r = 0;; ++r) {
         // draw horizontal lines

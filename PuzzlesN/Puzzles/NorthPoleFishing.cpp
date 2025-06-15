@@ -59,14 +59,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < m_sidelen - 1; ++r) {
         auto& str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            char ch = str[c - 1];
-            if (ch == PUZ_HOLE) {
+        for (int c = 1; c < m_sidelen - 1; ++c)
+            if (char ch = str[c - 1]; ch == PUZ_HOLE) {
                 m_start.push_back(PUZ_SPACE);
                 m_id2hole[id++] = {r, c};
             } else
                 m_start.push_back(ch);
-        }
         m_start.push_back(PUZ_BOUNDARY);
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);

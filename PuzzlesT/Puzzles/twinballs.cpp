@@ -59,15 +59,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_cells[n] = m_cells[n + cols() - 1] = '#';
 
         const string& vstr = strs.at(2 * r - 1);
-        for (size_t i = 0; i < vstr.length(); i++) {
-            Position p(r, i / 2 + 1);
-            switch(vstr[i]) {
+        for (size_t i = 0; i < vstr.length(); i++)
+            switch(Position p(r, i / 2 + 1); vstr[i]) {
             case '|': m_vert_wall.insert(p); break;
             case '@': m_balls[ball_count++] = p; break;
             case '.': m_goals[goal_count++] = p; break;
             case '#': m_cells[n + p.second] = '#'; break;
             }
-        }
     }
 }
 

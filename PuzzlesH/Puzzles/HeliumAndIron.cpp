@@ -231,7 +231,7 @@ int puz_state::find_matches(bool init)
                     if (auto p2 = p + offset[2]; is_valid(p2))
                         if (cells(p2) == PUZ_BALLOON)
                             return true;
-                break;
+                    break;
                 case PUZ_BALLOON:
                     if (auto p2 = p + offset[0]; is_valid(p2))
                         if (char ch2 = cells(p2); ch2 == PUZ_EMPTY || ch2 == PUZ_WEIGHT)

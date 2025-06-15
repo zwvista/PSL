@@ -123,9 +123,8 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < g.m_sidelen; ++c)
             m_pos2nums[{r, c}] = g.m_numbers;
     for (int r = 0; r < g.m_sidelen; ++r)
-        for (int c = 0; c < g.m_sidelen; ++c) {
-            Position p(r, c);
-            switch(char ch = g.cells(p)) {
+        for (int c = 0; c < g.m_sidelen; ++c)
+            switch(Position p(r, c); char ch = g.cells(p)) {
             case PUZ_SPACE:
                 break;
             case PUZ_CIRCLE:
@@ -138,7 +137,6 @@ puz_state::puz_state(const puz_game& g)
                 make_move(p, ch);
                 break;
             }
-        }
 }
 
 bool puz_state::make_move(const Position& p, char ch)

@@ -263,14 +263,12 @@ bool puz_state::check_2x2()
         for (int c = 1; c < sidelen() - 2; ++c) {
             Position p(r, c);
             vector<Position> rngPainted, rngSpace, rngEmpty;
-            for (auto& os : offset3) {
-                auto p2 = p + os;
-                switch(cells(p2)) {
+            for (auto& os : offset3)
+                switch(auto p2 = p + os; cells(p2)) {
                 case PUZ_PAINTED: rngPainted.push_back(p2); break;
                 case PUZ_SPACE: rngSpace.push_back(p2); break;
                 case PUZ_EMPTY: rngEmpty.push_back(p2); break;
                 }
-            }
             if (rngPainted.size() == 4 || rngEmpty.size() == 4)
                 return false;
             auto f = [&](const Position& p, char ch) {
