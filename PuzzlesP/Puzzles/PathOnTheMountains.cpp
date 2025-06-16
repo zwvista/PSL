@@ -106,13 +106,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 for (auto p = p1;
                     (p += (p == p3 ? k == 0 ? os1 : os2 :
                         p.first == p3.first ? os2 : os1)) != p2;) {
+                    if (m_spots.contains(p)) goto next_k;
                     rng.push_back(p);
                     line.push_back(
                         p == p3 ? c2 < c1 ? k == 0 ? 6 : 9 : k == 0 ? 12 : 3 :
                         p.first == p3.first ? 10 : 5
                     );
-                    if (p == p2) break;
-                    if (p != p1 && m_spots.contains(p)) goto next_k;
                 }
                 m_paths.emplace_back(p1, p2, rng, line);
             next_k:;
