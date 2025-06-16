@@ -185,49 +185,37 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& rng, const Position& p_start) : m_rng(&rng){
+    puz_state2(const puz_state& s, const Position& p_start) : m_state(&s) {
         make_move(p_start);
     }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>* m_rng;
+    const puz_state* m_state;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& os : offset) {
-        auto p2 = *this + os;
-        if (m_rng->contains(p2)) {
+    for (auto& os : offset)
+        switch (auto p2 = *this + os; m_state->cells(p2)) {
+        case PUZ_SPACE:
+        case PUZ_CANAL:
             children.push_back(*this);
             children.back().make_move(p2);
+            break;
         }
-    }
 }
 
 // 3. The Canal forms a single connected area
 bool puz_state::is_continuous() const
 {
-    set<Position> rng;
-    for (int r = 1; r < sidelen(); ++r)
-        for (int c = 1; c < sidelen(); ++c) {
-            Position p(r, c);
-            if (char ch = cells(p); ch == PUZ_SPACE || ch == PUZ_CANAL)
-                rng.insert(p);
-        }
-    
-    Position p_start = *boost::find_if(rng, [&](const Position& p) {
+    int i = m_cells.find(PUZ_CANAL);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        {*this, {i / sidelen(), i % sidelen()}});
+    return boost::count_if(smoves, [&](const Position& p) {
         return cells(p) == PUZ_CANAL;
-    });
-
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({rng, p_start});
-    for (auto& p : smoves)
-        rng.erase(p);
-
-    return boost::algorithm::all_of(rng, [&](const Position& p) {
-        return cells(p) == PUZ_SPACE;
-    });
+    }) == boost::count(m_cells, PUZ_CANAL);
 }
 
 // 3. The Canal cannot contain a 2x2 area
@@ -267,7 +255,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
 
     ++m_distance;
     m_matches.erase(p);
-    return true;
+    return is_continuous();
 }
 
 bool puz_state::make_move(const Position& p, const vector<int>& perm)
