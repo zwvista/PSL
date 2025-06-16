@@ -176,37 +176,38 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& a) : m_area(&a) { make_move(*a.begin()); }
+    puz_state2(const puz_state& s, const Position& p_start) : m_state(&s) {
+        make_move(p_start);
+    }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>* m_area;
+    const puz_state* m_state;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& os : offset) {
-        auto p = *this + os;
-        if (m_area->contains(p)) {
+    for (auto& os : offset)
+        if (auto p2 = *this + os;
+            m_state->is_valid(p2) && m_state->cells(p2) == PUZ_ISLAND) {
             children.push_back(*this);
-            children.back().make_move(p);
+            children.back().make_move(p2);
         }
-    }
 }
 
+// 3. Islands can only touch each other diagonally and by touching they
+// must form a network where no island is isolated from the others.
+// 4. In other words, every island must be touching another island diagonally
+// and no group of islands must be separated from the others.
 bool puz_state::is_connected() const
 {
-    set<Position> area;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            if (cells(p) == PUZ_ISLAND)
-                area.insert(p);
-        }
-
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(area);
-    return smoves.size() == area.size();
+    int i = this->find(PUZ_ISLAND);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        {*this, {i / sidelen(), i % sidelen()}});
+    return boost::count_if(smoves, [&](const Position& p) {
+        return cells(p) == PUZ_ISLAND;
+    }) == boost::count(*this, PUZ_ISLAND);
 }
 
 void puz_state::make_move3(const Position& p, const pair<Position, Position>& island)
@@ -282,9 +283,9 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            auto it = m_game->m_pos2islandinfo.find(p);
-            if (it == m_game->m_pos2islandinfo.end())
-                out << cells({r, c}) << ' ';
+            if (auto it = m_game->m_pos2islandinfo.find(p);
+                it == m_game->m_pos2islandinfo.end())
+                out << cells(p) << ' ';
             else
                 out << format("{:<2}", it->second.m_area);
         }

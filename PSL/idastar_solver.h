@@ -3,7 +3,7 @@
 #include "stdafx.h"
 
 template<typename T>
-concept puz_state_solver_idastar = copyable<T> && requires(const T & t, list<T>&children, const T & child, const T & t2)
+concept puz_state_solver_idastar = copyable<T> && requires(const T& t, list<T>&children, const T& child, const T& t2)
 {
     { t.is_goal_state() } -> same_as<bool>;
     { t.gen_children(children) } -> same_as<void>;

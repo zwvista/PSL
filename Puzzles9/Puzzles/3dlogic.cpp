@@ -226,7 +226,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                         found = true;
                         vector<int> connects(marker_count());
                         auto smoves = puz_move_generator<puz_state2>::gen_moves(
-                            puz_state2(*this, connects, p));
+                            {*this, connects, p});
                         connects_all.push_back(connects);
                         int n = (int)connects_all.size() - 1;
                         for (const puz_state2& s : smoves) {

@@ -187,10 +187,10 @@ int puz_state::find_matches(bool init)
 struct puz_state2 : Position
 {
     puz_state2(const puz_state& s, const Position& p_start) : m_state(&s) {
-        make_move_hint(p_start);
+        make_move(p_start);
     }
 
-    void make_move_hint(const Position& p) { static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
@@ -203,7 +203,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         case PUZ_SPACE:
         case PUZ_CANAL:
             children.push_back(*this);
-            children.back().make_move_hint(p2);
+            children.back().make_move(p2);
         }
 }
 
