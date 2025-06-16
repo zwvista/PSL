@@ -12,7 +12,6 @@
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
 		8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2B1EA926F60055D6B1 /* pugixml.cpp */; };
 		8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */; };
-		8CA241B71EB47B280055D6B1 /* Yalooniq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241B41EB47B280055D6B1 /* Yalooniq.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,6 +29,9 @@
 /* Begin PBXFileReference section */
 		8C5F12B12DE3790F00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12B22DE3790F00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689CEA2E003E3900A2BCCC /* Venice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Venice.cpp; sourceTree = "<group>"; };
+		8C689CEB2E003E3900A2BCCC /* Venice.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Venice.txt; sourceTree = "<group>"; };
+		8C689CEC2E003E3900A2BCCC /* Venice.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Venice.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesV */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesV; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -56,9 +58,6 @@
 		8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F301EA926F60055D6B1 /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
 		8CA23F311EA926F60055D6B1 /* targetver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
-		8CA241B41EB47B280055D6B1 /* Yalooniq.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Yalooniq.cpp; sourceTree = "<group>"; };
-		8CA241B51EB47B280055D6B1 /* Yalooniq.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Yalooniq.txt; sourceTree = "<group>"; };
-		8CA241B61EB47B280055D6B1 /* Yalooniq.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Yalooniq.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +95,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
-				8CA241B41EB47B280055D6B1 /* Yalooniq.cpp */,
-				8CA241B51EB47B280055D6B1 /* Yalooniq.txt */,
-				8CA241B61EB47B280055D6B1 /* Yalooniq.xml */,
+				8C689CEA2E003E3900A2BCCC /* Venice.cpp */,
+				8C689CEB2E003E3900A2BCCC /* Venice.txt */,
+				8C689CEC2E003E3900A2BCCC /* Venice.xml */,
 			);
 			path = Puzzles;
 			sourceTree = "<group>";
@@ -199,7 +198,6 @@
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
-				8CA241B71EB47B280055D6B1 /* Yalooniq.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
