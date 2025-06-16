@@ -157,32 +157,35 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::check_loop() const
 {
-    set<Position> rng;
+    map<Position, int> rng;
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             if (dt.size() == 1)
-                rng.insert(p);
+                rng.emplace(p, dt[0]);
         }
 
     bool has_branch = false;
     while (!rng.empty()) {
-        auto it = boost::find_if(rng, [&](const Position& p2) {
-            return dots(p2)[0] != lineseg_cross;
-        });
-        auto p = it == rng.end() ? *rng.begin() : *it;
-        auto p2 = p;
+        auto it = boost::find_if(rng, [&](auto& kv) {
+            return kv.second != lineseg_cross;
+            });
+        if (it == rng.end()) return true;
+        auto p = it->first, p2 = p;
         for (int n = -1;;) {
-            rng.erase(p2);
-            auto& lineseg = dots(p2)[0];
+            auto& lineseg = rng.at(p2);
+            if (lineseg != lineseg_cross)
+                rng.erase(p2);
             for (int i = 0; i < 4; ++i)
                 // proceed only if the line segment does not revisit the previous position
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n && (lineseg != lineseg_cross || i == n)) {
                     p2 += offset[n = i];
+                    if (lineseg == lineseg_cross)
+                        lineseg = i % 2 == 0 ? 10 : 5;
                     break;
                 }
-            if (p2 == p && lineseg != lineseg_cross)
+            if (p2 == p)
                 // we have a loop here,
                 // and we are supposed to have exhausted the line segments
                 return !has_branch && rng.empty();

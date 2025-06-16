@@ -64,7 +64,7 @@ struct puz_game
     //      sidelen -- sidelen * 2 - 1: row right 
     //      sidelen * 2 -- sidelen * 3 - 1: column top 
     //      sidelen * 3 -- sidelen * 4 - 1: column bottom
-    map<int, puz_hint> m_rc2hint;
+    map<int, puz_hint> m_area2hint;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -80,7 +80,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (char ch = str[c]; ch != ' ')
                 if (c == 0 || c == m_sidelen + 1) {
                     int idx = r - 1 + (c == 0 ? 0 : m_sidelen);
-                    auto& [num, num2rng, perms] = m_rc2hint[idx];
+                    auto& [num, num2rng, perms] = m_area2hint[idx];
                     num = ch - '0';
                     for (int i = num == 0 ? m_sidelen : num; i <= m_sidelen; ++i) {
                         auto& rng = num2rng[i];
@@ -89,7 +89,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     }
                 } else if (r == 0 || r == m_sidelen + 1) {
                     int idx = c - 1 + m_sidelen * 2 + (r == 0 ? 0 : m_sidelen);
-                    auto& [num, num2rng, perms] = m_rc2hint[idx];
+                    auto& [num, num2rng, perms] = m_area2hint[idx];
                     num = ch - '0';
                     for (int i = num == 0 ? m_sidelen : num; i <= m_sidelen; ++i) {
                         auto& rng = num2rng[i];
@@ -98,7 +98,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     }
                 }
     }
-    for (auto& [rc, hint] : m_rc2hint) {
+    for (auto& [rc, hint] : m_area2hint) {
         auto& [num, num2rng, perms] = hint;
         bool is_row = rc < m_sidelen * 2;
         bool is_left = rc - (is_row ? 0 : m_sidelen * 2) < m_sidelen;
@@ -122,15 +122,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_state : vector<puz_dot>
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
+    puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots);
+    }
     bool make_move_hint(int rc, int n);
     void make_move_hint2(int rc, int n);
     bool make_move_dot(const Position& p, int n);
@@ -141,19 +144,22 @@ struct puz_state : vector<puz_dot>
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_game->m_dot_count * 4 - m_finished.size(); }
+    unsigned int get_heuristic() const {
+        return m_matches.size() + m_game->m_dot_count * 4 - m_finished.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<puz_dot> m_dots;
     map<int, vector<int>> m_matches;
     set<pair<Position, int>> m_finished;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
+: m_game(&g), m_dots(g.m_dot_count, {lineseg_off})
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
@@ -170,7 +176,7 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& [rc, hint] : g.m_rc2hint) {
+    for (auto& [rc, hint] : g.m_area2hint) {
         auto& [num, num2rng, perms] = hint;
         auto& perm_ids = m_matches[rc];
         perm_ids.resize(perms.size());
@@ -184,7 +190,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [rc, perm_ids] : m_matches) {
-        auto& [num, num2rng, perms] = m_game->m_rc2hint.at(rc);
+        auto& [num, num2rng, perms] = m_game->m_area2hint.at(rc);
 
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
@@ -209,12 +215,13 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move_hint2(int rc, int n)
 {
-    auto& [num, num2rng, perms] = m_game->m_rc2hint.at(rc);
+    auto& [num, num2rng, perms] = m_game->m_area2hint.at(rc);
     auto& perm = perms[n];
     int sz = perm.size();
     auto& rng = num2rng.at(sz);
     for (int i = 0; i < sz; ++i)
         dots(rng[i]) = {perm[i]};
+    ++m_distance;
     m_matches.erase(rc);
 }
 
@@ -262,32 +269,35 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::check_loop() const
 {
-    set<Position> rng;
+    map<Position, int> rng;
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             if (dt.size() == 1 && dt[0] != lineseg_off)
-                rng.insert(p);
+                rng.emplace(p, dt[0]);
         }
 
     bool has_branch = false;
     while (!rng.empty()) {
-        auto it = boost::find_if(rng, [&](const Position& p2) {
-            return dots(p2)[0] != lineseg_cross;
+        auto it = boost::find_if(rng, [&](auto& kv) {
+            return kv.second != lineseg_cross;
         });
-        auto p = it == rng.end() ? *rng.begin() : *it;
-        auto p2 = p;
+        if (it == rng.end()) return true;
+        auto p = it->first, p2 = p;
         for (int n = -1;;) {
-            rng.erase(p2);
-            auto& lineseg = dots(p2)[0];
+            auto& lineseg = rng.at(p2);
+            if (lineseg != lineseg_cross)
+                rng.erase(p2);
             for (int i = 0; i < 4; ++i)
                 // proceed only if the line segment does not revisit the previous position
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n && (lineseg != lineseg_cross || i == n)) {
                     p2 += offset[n = i];
+                    if (lineseg == lineseg_cross)
+                        lineseg = i % 2 == 0 ? 10 : 5;
                     break;
                 }
-            if (p2 == p && lineseg != lineseg_cross)
+            if (p2 == p)
                 // we have a loop here,
                 // and we are supposed to have exhausted the line segments
                 return !has_branch && rng.empty();
@@ -341,14 +351,14 @@ void puz_state::gen_children(list<puz_state>& children) const
                 children.pop_back();
         }
     } else {
-        int i = boost::min_element(*this, [&](const puz_dot& dt1, const puz_dot& dt2) {
+        int i = boost::min_element(m_dots, [&](const puz_dot& dt1, const puz_dot& dt2) {
             auto f = [](const puz_dot& dt) {
                 int sz = dt.size();
                 return sz == 1 ? 100 : sz;
                 };
             return f(dt1) < f(dt2);
-        }) - begin();
-        auto& dt = (*this)[i];
+        }) - m_dots.begin();
+        auto& dt = m_dots[i];
         Position p(i / sidelen(), i % sidelen());
         for (int n = 0; n < dt.size(); ++n) {
             children.push_back(*this);
@@ -361,15 +371,15 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int c = 0; c < sidelen(); ++c)
-        if (auto it = m_game->m_rc2hint.find(c + m_game->m_sidelen * 2);
-            it != m_game->m_rc2hint.end())
+        if (auto it = m_game->m_area2hint.find(c + m_game->m_sidelen * 2);
+            it != m_game->m_area2hint.end())
             out << ' ' << it->second.m_num;
         else
             out << "  ";
     println(out);
     for (int r = 0;; ++r) {
-        if (auto it = m_game->m_rc2hint.find(r);
-            it != m_game->m_rc2hint.end())
+        if (auto it = m_game->m_area2hint.find(r);
+            it != m_game->m_area2hint.end())
             out << it->second.m_num;
         else
             out << ' ';
@@ -379,8 +389,8 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen() - 1) break;
             out << (is_lineseg_on(dots({r, c})[0], 1) ? '-' : ' ');
         }
-        if (auto it = m_game->m_rc2hint.find(r + m_game->m_sidelen);
-            it != m_game->m_rc2hint.end())
+        if (auto it = m_game->m_area2hint.find(r + m_game->m_sidelen);
+            it != m_game->m_area2hint.end())
             out << it->second.m_num;
         else
             out << ' ';
@@ -396,8 +406,8 @@ ostream& puz_state::dump(ostream& out) const
         println(out);
     }
     for (int c = 0; c < sidelen(); ++c)
-        if (auto it = m_game->m_rc2hint.find(c + m_game->m_sidelen * 3);
-            it != m_game->m_rc2hint.end())
+        if (auto it = m_game->m_area2hint.find(c + m_game->m_sidelen * 3);
+            it != m_game->m_area2hint.end())
             out << ' ' << it->second.m_num;
         else
             out << "  ";
