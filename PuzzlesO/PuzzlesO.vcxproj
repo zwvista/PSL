@@ -159,6 +159,8 @@
   <ItemGroup>
     <Text Include="Puzzles\OddsAreEven.txt" />
     <Text Include="Puzzles\OneUpOrDown.txt" />
+    <Text Include="Puzzles\OnlyBends.txt" />
+    <Text Include="Puzzles\OnlyStraights.txt" />
     <Text Include="Puzzles\on_the_edge.txt" />
     <Text Include="Puzzles\on_the_edge_dfs.txt" />
     <Text Include="Puzzles\openvalve.txt" />
@@ -181,6 +183,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\OddsAreEven.cpp" />
     <ClCompile Include="Puzzles\OneUpOrDown.cpp" />
+    <ClCompile Include="Puzzles\OnlyBends.cpp" />
+    <ClCompile Include="Puzzles\OnlyStraights.cpp" />
     <ClCompile Include="Puzzles\on_the_edge.cpp" />
     <ClCompile Include="Puzzles\openvalve.cpp" />
     <ClCompile Include="Puzzles\Orchards.cpp" />
@@ -195,6 +199,8 @@
   <ItemGroup>
     <Xml Include="Puzzles\OddsAreEven.xml" />
     <Xml Include="Puzzles\OneUpOrDown.xml" />
+    <Xml Include="Puzzles\OnlyBends.xml" />
+    <Xml Include="Puzzles\OnlyStraights.xml" />
     <Xml Include="Puzzles\on_the_edge.xml" />
     <Xml Include="Puzzles\openvalve.xml" />
     <Xml Include="Puzzles\Orchards.xml" />

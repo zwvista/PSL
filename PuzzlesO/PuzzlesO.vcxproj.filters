@@ -40,6 +40,12 @@
     <Text Include="Puzzles\OneUpOrDown.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\OnlyStraights.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\OnlyBends.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -80,6 +86,12 @@
     <ClCompile Include="Puzzles\OneUpOrDown.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\OnlyStraights.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\OnlyBends.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\on_the_edge.xml">
@@ -98,6 +110,12 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\OneUpOrDown.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\OnlyStraights.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\OnlyBends.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
