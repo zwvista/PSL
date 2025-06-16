@@ -78,7 +78,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, paths] : m_town2paths) {
         for (int i = 0; i < 2; ++i) {
             auto &os1 = offset[i == 0 ? 3 : 0], &os2 = offset[i == 0 ? 1 : 2];
-            int lineseg = i == 0 ? 5 : 10;
+            int lineseg = i == 0 ? 10 : 5;
             vector<Position> rng_on;
             for (auto p1 = p, p2 = p;; p1 += os1, p2 += os2) {
                 auto p3 = p1 + os1, p4 = p2 + os2;
