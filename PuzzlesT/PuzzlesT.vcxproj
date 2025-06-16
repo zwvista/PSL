@@ -175,6 +175,8 @@
     <Text Include="Puzzles\TierraDelFuego.txt" />
     <Text Include="Puzzles\TopArrow.txt" />
     <Text Include="Puzzles\TraceNumbers.txt" />
+    <Text Include="Puzzles\TrafficWarden.txt" />
+    <Text Include="Puzzles\TrafficWardenRevenge.txt" />
     <Text Include="Puzzles\Trebuchet.txt" />
     <Text Include="Puzzles\TurnTwice.txt" />
     <Text Include="Puzzles\turnz.txt" />
@@ -213,6 +215,8 @@
     <ClCompile Include="Puzzles\TierraDelFuego.cpp" />
     <ClCompile Include="Puzzles\TopArrow.cpp" />
     <ClCompile Include="Puzzles\TraceNumbers.cpp" />
+    <ClCompile Include="Puzzles\TrafficWarden.cpp" />
+    <ClCompile Include="Puzzles\TrafficWardenRevenge.cpp" />
     <ClCompile Include="Puzzles\Trebuchet.cpp" />
     <ClCompile Include="Puzzles\TurnTwice.cpp" />
     <ClCompile Include="Puzzles\turnz.cpp" />
@@ -246,6 +250,8 @@
     <Xml Include="Puzzles\TierraDelFuego.xml" />
     <Xml Include="Puzzles\TopArrow.xml" />
     <Xml Include="Puzzles\TraceNumbers.xml" />
+    <Xml Include="Puzzles\TrafficWarden.xml" />
+    <Xml Include="Puzzles\TrafficWardenRevenge.xml" />
     <Xml Include="Puzzles\Trebuchet.xml" />
     <Xml Include="Puzzles\TurnTwice.xml" />
     <Xml Include="Puzzles\turnz.xml" />

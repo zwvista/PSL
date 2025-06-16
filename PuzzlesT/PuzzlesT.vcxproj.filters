@@ -88,6 +88,12 @@
     <Text Include="Puzzles\TheMagicNumber.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\TrafficWarden.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\TrafficWardenRevenge.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -176,6 +182,12 @@
     <ClCompile Include="Puzzles\TheMagicNumber.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\TrafficWarden.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\TrafficWardenRevenge.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\turnz.xml">
@@ -239,6 +251,12 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\TheMagicNumber.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\TrafficWarden.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\TrafficWardenRevenge.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

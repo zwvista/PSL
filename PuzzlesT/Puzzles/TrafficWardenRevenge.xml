@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Draw a single non intersecting loop passing through all traffic lights.
+2. Green light means the road that extends from there is of equal length in both directions.
+3. Red light means they are not.
+4. A number tells you the sum of the length or road extending from that traffic light, be it green or red.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+  R3  R3R5`
+          `
+    G2    `
+R4  G2    `
+    R3G2R6`
+    ]]>
+  </level>
+</levels>
+</puzzle>

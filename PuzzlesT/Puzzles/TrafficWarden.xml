@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Draw a single non intersecting, continuous looping path which must follow these rules at every traffic light:
+2. While passing on green lights, the road must go straight, it can't turn.
+3. While passing on red lights, the road must turn 90 degrees.
+4. While passing on yellow lights, the road might turn 90 degrees or go straight.
+5. A number on the light tells you the length of the straights coming out of that tile.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+R4  G3    `
+        R2`
+      G2  `
+  Y2      `
+    G3    `
+    ]]>
+  </level>
+</levels>
+</puzzle>
