@@ -342,8 +342,7 @@ bool puz_state::is_continuous() const
                 a.insert(p);
         }
 
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(a, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(a);
     return smoves.size() == a.size();
 }
 

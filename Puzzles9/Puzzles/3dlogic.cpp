@@ -224,10 +224,9 @@ void puz_state::gen_children(list<puz_state>& children) const
                     Position3d p(face, Position(r, c));
                     if (connects_indexes[p2i(p)] == -1 && cells(p) == PUZ_SPACE) {
                         found = true;
-                        list<puz_state2> smoves;
                         vector<int> connects(marker_count());
-                        puz_move_generator<puz_state2>::gen_moves(
-                            puz_state2(*this, connects, p), smoves);
+                        auto smoves = puz_move_generator<puz_state2>::gen_moves(
+                            puz_state2(*this, connects, p));
                         connects_all.push_back(connects);
                         int n = (int)connects_all.size() - 1;
                         for (const puz_state2& s : smoves) {

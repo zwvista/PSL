@@ -123,8 +123,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (int n = 0; !rng.empty(); ++n) {
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
         for (auto& p : smoves) {
             m_pos2park[p] = n;
             m_area_info[n + m_sidelen * 2].m_range.push_back(p);

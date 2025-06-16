@@ -108,8 +108,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (int n = 0; !rng.empty(); ++n) {
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
         m_areas.emplace_back(smoves.begin(), smoves.end());
         for (auto& p : smoves) {
             m_pos2area[p] = n;
@@ -241,9 +240,8 @@ bool puz_state::check_lead_to_rome()
                 rng.insert(p);
         }
     while (!rng.empty()) {
-        list<puz_state3> smoves;
         // find all tiles reachable from the first space tile
-        puz_move_generator<puz_state3>::gen_moves({*this, *rng.begin()}, smoves);
+        auto smoves = puz_move_generator<puz_state3>::gen_moves({*this, *rng.begin()});
         if (char ch = cells(smoves.back()); ch != PUZ_SPACE && ch != PUZ_ROME)
             return false;
         for (auto& p : smoves)

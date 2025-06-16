@@ -177,8 +177,7 @@ int puz_state::adjust_area()
                         starting = p;
                 }
             }
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({a, starting}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({a, starting});
         
         int n2 = 0;
         for (auto& p : smoves)

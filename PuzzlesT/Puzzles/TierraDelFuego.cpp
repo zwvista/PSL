@@ -168,8 +168,7 @@ int puz_state::find_matches(bool init)
         }
 
     while (!spaces.empty()) {
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({ *this, spaces }, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({ *this, spaces });
         set<Position> spaces2;
         set<char> chars2;
         for (auto& p2 : smoves) {
@@ -257,8 +256,7 @@ bool puz_state::check_tribes() const
         for (auto& [p, chars] : m_matches)
             if (chars.contains(ch))
                 area.insert(p);
-        list<puz_state3> smoves;
-        puz_move_generator<puz_state3>::gen_moves(area, smoves);
+        auto smoves = puz_move_generator<puz_state3>::gen_moves(area);
         if (area.size() != smoves.size())
             return false;
     }

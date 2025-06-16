@@ -43,7 +43,7 @@ class puz_move_generator
     };
 
 public:
-    static void gen_moves(const puz_state& sstart, list<puz_state>& smoves)
+    static list<puz_state> gen_moves(const puz_state& sstart)
     {
         mygraph_t g;
         list<vertex_t> examine_seq;
@@ -55,7 +55,9 @@ public:
             visitor(puz_visitor(examine_seq, smap)).
             color_map(get(boost::vertex_color, g)));
 
+        list<puz_state> smoves;
         for (vertex_t v : examine_seq)
             smoves.push_back(smap.left.at(v));
+        return smoves;
     }
 };

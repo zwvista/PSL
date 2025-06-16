@@ -104,8 +104,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     vector<vector<Position>> rooms;
     for (int n = 0; !rng.empty(); ++n) {
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
         rooms.resize(n + 1);
         for (auto& p : smoves) {
             m_pos2info[p].first = n;

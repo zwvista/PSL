@@ -229,8 +229,7 @@ bool puz_state::is_continuous() const
                 rng1.insert(p);
         }
 
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves({rng1, m_game->m_pos2hintinfo.begin()->first}, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves({rng1, m_game->m_pos2hintinfo.begin()->first});
     set<Position> rng2(smoves.begin(), smoves.end()), rng3;
     boost::set_difference(rng1, rng2, inserter(rng3, rng3.end()));
     return boost::algorithm::all_of(rng3, [this](const Position& p) {

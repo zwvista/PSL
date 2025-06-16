@@ -265,9 +265,8 @@ bool puz_state::is_valid_move() const
         int i = find(PUZ_FILLED);
         if (i == -1)
             return true;
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves(
-            {*this, {i / sidelen(), i % sidelen()}}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves(
+            {*this, {i / sidelen(), i % sidelen()}});
         return boost::count_if(smoves, [&](const Position& p) {
             return cells(p) == PUZ_FILLED;
         }) == boost::count(*this, PUZ_FILLED);

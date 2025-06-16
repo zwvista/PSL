@@ -105,9 +105,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
     for (int n = 0; !rng.empty(); ++n) {
-        list<puz_state2> smoves;
         auto p0 = *rng.begin();
-        puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p0}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p0});
         puz_region region;
         for (auto& p : smoves) {
             m_pos2region[p] = n;

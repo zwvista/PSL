@@ -127,9 +127,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
     for (int n = 0; !rng.empty(); ++n) {
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls,
-            *rng.begin(), OP_WALLS_TYPE::NOT_LINE}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls,
+            *rng.begin(), OP_WALLS_TYPE::NOT_LINE});
         int id = m_sidelen * 2 + n;
         auto& area = m_areas[id];
         for (auto& p : smoves) {
@@ -145,9 +144,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             auto& info = m_pos2info[p];
             for (int i = 0; i < 2; ++i) {
                 auto& v = i == 0 ? info.m_smallers : info.m_greaters;
-                list<puz_state2> smoves;
-                puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls,
-                    p, i == 0 ? OP_WALLS_TYPE::GT : OP_WALLS_TYPE::LT}, smoves);
+                auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls,
+                    p, i == 0 ? OP_WALLS_TYPE::GT : OP_WALLS_TYPE::LT});
                 for (auto& p2 : smoves)
                     if (p2 != p)
                         v.push_back(p2);

@@ -142,8 +142,7 @@ puz_state::puz_state(const puz_state2& x2)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     static string_view dirs = "LRUD";
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
     for (const puz_state2& s : smoves)
         if (s.m_monkey == m_game->m_goal)
             children.push_back(s);

@@ -238,8 +238,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
     m_matches.erase(p);
 
     // each Room must be reachable from the others
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
     return smoves.size() == sidelen() * sidelen();
 }
 

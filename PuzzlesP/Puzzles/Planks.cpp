@@ -211,8 +211,7 @@ bool puz_state::make_move2(const Position& p, int n)
 
     if (!is_goal_state()) return true;
 
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(area, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(area);
     return smoves.size() == area.size();
 }
 

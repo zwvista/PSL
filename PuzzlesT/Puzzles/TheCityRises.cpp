@@ -141,8 +141,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (int n = 0; !rng.empty(); ++n) {
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
         auto& area = m_areas.emplace_back();
         area.m_rng.assign(smoves.begin(), smoves.end());
         for (auto& p : smoves) {
@@ -183,8 +182,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if (perm[k] == PUZ_BLOCK)
                     a.insert(rng[k]);
             auto& p = rng[perm.find(PUZ_BLOCK)];
-            list<puz_state3> smoves;
-            puz_move_generator<puz_state3>::gen_moves({a, p}, smoves);
+            auto smoves = puz_move_generator<puz_state3>::gen_moves({a, p});
             return smoves.size() != a.size();
         });
         m_area2permids[i] = perm_ids;

@@ -191,9 +191,8 @@ bool puz_state::adjust_galaxies()
 
     set<set<char>> idss;
     while (!rng.empty()) {
-        list<puz_state2> smoves;
         // find all tiles reachable from the first space tile
-        puz_move_generator<puz_state2>::gen_moves({*this, *rng.begin()}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, *rng.begin()});
         vector<Position> rng2;
         set<char> ids1;
         for (auto& p : smoves) {

@@ -195,9 +195,8 @@ bool puz_state::check_board() const
         }
 
         area3.insert(area4.begin(), area4.end());
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves(
-            {area3, targets.empty() ? m_link.back() : targets[0]}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves(
+            {area3, targets.empty() ? m_link.back() : targets[0]});
         set<Position> area5(smoves.begin(), smoves.end()), area6, area7;
         boost::set_difference(area5, area, inserter(area6, area6.end()));
         // ALL the same numbers must be reachable by the same line

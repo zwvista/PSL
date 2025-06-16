@@ -157,8 +157,7 @@ bool puz_state::is_continuous() const
                 area.insert(p);
         }
 
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(area, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(area);
     return smoves.size() == area.size();
 }
 

@@ -123,9 +123,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (int n = 0; !rng.empty(); ++n) {
-        list<puz_state2> smoves;
         auto& p_start = *rng.begin();
-        puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p_start}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p_start});
         m_fb_info.resize(n + 1);
         if (auto it = m_pos2num.find(p_start); it != m_pos2num.end())
             m_fb_info[n].m_flower_count = it->second;
@@ -289,8 +288,7 @@ bool puz_state::make_move(int i)
     }
 
     // interconnected spaces
-    list<puz_state3> smoves;
-    puz_move_generator<puz_state3>::gen_moves(*this, smoves);
+    auto smoves = puz_move_generator<puz_state3>::gen_moves(*this);
     if (smoves.size() != boost::count_if(*this, [](char ch) {
         return is_empty(ch);
     }))

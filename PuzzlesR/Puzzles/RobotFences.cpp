@@ -105,8 +105,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (int n = 0; !rng.empty(); ++n) {
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
         m_areas.resize(m_sidelen * 2 + n + 1);
         for (auto& p : smoves) {
             auto areas = {&m_areas[p.first], &m_areas[m_sidelen + p.second], &m_areas.back()};

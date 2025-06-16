@@ -195,8 +195,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::is_connected() const
 {
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
     return smoves.size() == boost::count(m_cells, PUZ_ISLAND);
 }
 

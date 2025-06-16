@@ -318,8 +318,7 @@ bool puz_state::is_continuous() const
                 a.insert(p);
         }
 
-    list<puz_state3> smoves;
-    puz_move_generator<puz_state3>::gen_moves(a, smoves);
+    auto smoves = puz_move_generator<puz_state3>::gen_moves(a);
     for (auto& p : smoves)
         a.erase(p);
     return boost::algorithm::all_of(a, [&](auto& p) {

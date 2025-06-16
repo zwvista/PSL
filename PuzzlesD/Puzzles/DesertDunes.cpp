@@ -184,8 +184,7 @@ int puz_state::find_matches(bool init)
 bool puz_state::check_oases()
 {
     for (auto& [p, num] : m_game->m_pos2num) {
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({ *this, p }, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({ *this, p });
         int num2 = boost::accumulate(smoves, 0, [&](int acc, const Position& p2) {
             return acc + (cells(p2) == PUZ_OASIS ? 1 : 0);
         }) - 1;

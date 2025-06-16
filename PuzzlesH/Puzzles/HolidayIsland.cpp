@@ -194,8 +194,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 bool puz_state::make_move2(const Position& p)
 {
     cells(m_starting = p) = PUZ_EMPTY;
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
     vector<Position> rng_tent, rng_empty;
     for (const auto& p2 : smoves)
         (cells(p2) == PUZ_TENT ? rng_tent : rng_empty).push_back(p2);
@@ -221,8 +220,7 @@ bool puz_state::make_move2(const Position& p)
     }
 
     // There is only one, continuous island.
-    list<puz_state3> smoves2;
-    puz_move_generator<puz_state3>::gen_moves(*this, smoves2);
+    auto smoves2 = puz_move_generator<puz_state3>::gen_moves(*this);
     set<Position> rng1(smoves2.begin(), smoves2.end());
 
     set<Position> rng2, rng3;

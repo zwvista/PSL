@@ -121,8 +121,7 @@ puz_state::puz_state(const puz_game& g)
 
     int n = 0;
     while (!rng.empty()) {
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves(rng, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves(rng);
 
         auto& outer = m_num2outer[n++];
         for (auto& p : smoves) {

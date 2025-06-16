@@ -223,8 +223,7 @@ bool puz_state::check_loop() const
     while (!dots.empty()) {
         bool has_loop = false;
         set<Position> path;
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({*this, dots, path, has_loop}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, dots, path, has_loop});
         if (has_loop)
             return false;
     }

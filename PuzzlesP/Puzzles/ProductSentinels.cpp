@@ -235,8 +235,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
     m_matches.erase(p);
 
     // There must be a single continuous garden
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
     return smoves.size() == boost::count_if(m_cells, [](char ch) {
         return ch != PUZ_BOUNDARY && ch != PUZ_TOWER;
     });

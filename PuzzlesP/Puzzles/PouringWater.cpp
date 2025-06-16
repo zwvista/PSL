@@ -117,8 +117,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 return o.m_rng.contains(p);
             }))
                 continue;
-            list<puz_state2> smoves;
-            puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p}, smoves);
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p});
             puz_water o;
             for (auto& p2 : smoves) {
                 o.m_rng.insert(p2);

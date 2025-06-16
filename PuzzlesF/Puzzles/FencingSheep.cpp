@@ -194,9 +194,8 @@ void puz_state::check_connected()
 {
     auto rng = m_game->m_chars_rng;
     while (!rng.empty()) {
-        list<puz_state3> smoves;
         auto& p = *rng.begin();
-        puz_move_generator<puz_state3>::gen_moves({ *this, m_game->cells(p), p }, smoves);
+        auto smoves = puz_move_generator<puz_state3>::gen_moves({ *this, m_game->cells(p), p });
         for (auto& p : smoves)
             rng.erase(p);
     }
@@ -282,9 +281,8 @@ bool puz_state::is_connected() const
     set<Position> rng_all;
     auto rng = m_game->m_chars_rng;
     while (!rng.empty()) {
-        list<puz_state2> smoves;
         auto& p = *rng.begin();
-        puz_move_generator<puz_state2>::gen_moves({ *this, m_game->cells(p), p }, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({ *this, m_game->cells(p), p });
         for (auto& p : smoves) {
             rng.erase(p);
             rng_all.insert(p);

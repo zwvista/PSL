@@ -124,8 +124,7 @@ puz_state::puz_state(const puz_state2& x2)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     static string_view dirs = "LRUD";
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
     for (const puz_state2& s : smoves)
         for (int i = 0; i < 4; ++i) {
             Position p1 = s.m_man + offset[i];

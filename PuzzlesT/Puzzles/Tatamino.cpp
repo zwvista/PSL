@@ -157,8 +157,7 @@ puz_state::puz_state(const puz_game& g)
         auto& area = m_id2area[i];
         area.m_cell_count = cells(p_start);
 
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({*this, p_start}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, p_start});
         for (auto& p : smoves) {
             area.m_inner.insert(p);
             rng.erase(p);
@@ -302,8 +301,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         if (it == end()) return;
         int i = it - begin();
         Position p(i / sidelen(), i % sidelen());
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves({*this, p}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, p});
         int sz = min(3, static_cast<int>(smoves.size()));
         for (int n = 1; n <= sz; ++n) {
             children.push_back(*this);

@@ -221,8 +221,7 @@ bool puz_state::is_continuous() const
         return cells(p) == PUZ_CANAL;
     });
 
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves({rng, p_start}, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves({rng, p_start});
     for (auto& p : smoves)
         rng.erase(p);
 

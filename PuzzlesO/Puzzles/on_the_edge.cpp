@@ -156,8 +156,7 @@ bool puz_state::make_move(int i)
         m_block = it->second;
     }
 
-    list<puz_state2> smoves;
-    puz_move_generator<puz_state2>::gen_moves(*this, smoves);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
     if (get_spaces() != smoves.size()) return false;
 
     m_move = dirs[i];

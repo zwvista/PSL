@@ -339,8 +339,7 @@ bool puz_state::make_move(const Position& p1, const Position& p2, bool teleporte
     // pruning
     if (m_curr_bunny != 0) {
         auto& info = m_bunny2info.at(m_curr_bunny);
-        list<puz_state3> smoves;
-        puz_move_generator<puz_state3>::gen_moves({*this, info}, smoves);
+        auto smoves = puz_move_generator<puz_state3>::gen_moves({*this, info});
         // 1. The bunny must reach one of the holes after taking all its own food
         //    and/or some mushrooms.
         // 2. The bunny must take all mushrooms if he is the last bunny.
@@ -361,8 +360,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     if (m_curr_bunny == 0)
         for (auto& [bunny, info] : m_bunny2info) {
-            list<puz_state2> smoves;
-            puz_move_generator<puz_state2>::gen_moves({*this, info}, smoves);
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, info});
             smoves.remove_if([&](const puz_state2& kv) {
                 char ch = cells(kv.first);
                 return !(ch == info.m_food_name || ch == PUZ_MUSHROOM || kv.second && kv.first != info.m_bunny);

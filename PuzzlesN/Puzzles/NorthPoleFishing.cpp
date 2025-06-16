@@ -174,8 +174,7 @@ int puz_state::adjust_area(bool init)
     for (const auto& [id, area] : m_id2area) {
         int d = PUZ_PIECE_SIZE - area.m_inner.size();
         for (auto& p : area.m_outer) {
-            list<puz_state2> smoves;
-            puz_move_generator<puz_state2>::gen_moves({*this, p, d}, smoves);
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, p, d});
             for (auto& p2 : smoves)
                 space2ids[p2].insert(id);
         }

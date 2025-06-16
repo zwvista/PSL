@@ -262,9 +262,8 @@ bool puz_state::is_valid_move() const
         }) - begin();
         if (i == size())
             return true;
-        list<puz_state2> smoves;
-        puz_move_generator<puz_state2>::gen_moves(
-            {*this, {i / sidelen(), i % sidelen()}, color}, smoves);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves(
+            {*this, {i / sidelen(), i % sidelen()}, color});
         return boost::count_if(smoves, [&](const Position& p) {
             return boost::algorithm::any_of_equal(color, cells(p));
         }) == boost::count_if(*this, [&](char ch) {
