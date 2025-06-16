@@ -286,7 +286,7 @@ bool puz_state::is_connected() const
 {
     set<Position> rng_all;
     for (auto const& [ch, rng] : m_game->m_ch2rng) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({ *this, ch, *rng.begin() });
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, ch, *rng.begin()});
         int cnt = boost::accumulate(smoves, 0, [&, ch = ch](int acc, const puz_state2& s) {
             return acc + (m_game->cells(s) == ch ? 1 : 0);
         });

@@ -168,7 +168,7 @@ int puz_state::find_matches(bool init)
         }
 
     while (!spaces.empty()) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({ *this, spaces });
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, spaces});
         set<Position> spaces2;
         set<char> chars2;
         for (auto& p2 : smoves) {

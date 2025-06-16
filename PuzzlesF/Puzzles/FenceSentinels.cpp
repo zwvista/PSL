@@ -383,6 +383,7 @@ bool puz_state::check_loop() const
                 rng.insert(p);
         }
 
+    bool has_branch = false;
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
         for (int n = -1;;) {
@@ -397,9 +398,11 @@ bool puz_state::check_loop() const
             if (p2 == p)
                 // we have a loop here,
                 // and we are supposed to have exhausted the line segments
-                return rng.empty();
-            if (!rng.contains(p2))
+                return !has_branch && rng.empty();
+            if (!rng.contains(p2)) {
+                has_branch = true;
                 break;
+            }
         }
     }
     return true;

@@ -282,7 +282,7 @@ bool puz_state::is_connected() const
     auto rng = m_game->m_chars_rng;
     while (!rng.empty()) {
         auto& p = *rng.begin();
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({ *this, m_game->cells(p), p });
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, m_game->cells(p), p});
         for (auto& p : smoves) {
             rng.erase(p);
             rng_all.insert(p);

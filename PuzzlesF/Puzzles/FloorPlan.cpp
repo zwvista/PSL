@@ -177,10 +177,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::is_continuous() const
 {
-    int i = boost::range::find_if(m_cells, [&](char ch) {
+    int i = boost::find_if(m_cells, [&](char ch) {
         return ch != PUZ_EMPTY && ch != PUZ_BOUNDARY;
     }) - m_cells.begin();
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({ this, Position(i / sidelen(), i % sidelen()) });
+    auto smoves = puz_move_generator<puz_state2>::gen_moves({this, Position(i / sidelen(), i % sidelen())});
     // 2. On the floor every office is interconnected and can be reached by every other office.
     return boost::count_if(smoves, [&](const puz_state2& s2) {
         return cells(s2) != PUZ_SPACE;
