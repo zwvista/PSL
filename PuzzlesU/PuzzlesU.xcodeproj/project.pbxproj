@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689CE52E003C9A00A2BCCC /* Unseen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CE22E003C9A00A2BCCC /* Unseen.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -30,6 +31,9 @@
 /* Begin PBXFileReference section */
 		8C5F12AD2DE3790100BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12AE2DE3790100BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689CE22E003C9A00A2BCCC /* Unseen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Unseen.cpp; sourceTree = "<group>"; };
+		8C689CE32E003C9A00A2BCCC /* Unseen.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unseen.txt; sourceTree = "<group>"; };
+		8C689CE42E003C9A00A2BCCC /* Unseen.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Unseen.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesU */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesU; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -99,6 +103,9 @@
 				958FA66023353F6D00205831 /* UnreliableHints.cpp */,
 				958FA65E23353F6D00205831 /* UnreliableHints.txt */,
 				958FA65F23353F6D00205831 /* UnreliableHints.xml */,
+				8C689CE22E003C9A00A2BCCC /* Unseen.cpp */,
+				8C689CE32E003C9A00A2BCCC /* Unseen.txt */,
+				8C689CE42E003C9A00A2BCCC /* Unseen.xml */,
 			);
 			path = Puzzles;
 			sourceTree = "<group>";
@@ -196,6 +203,7 @@
 			files = (
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
+				8C689CE52E003C9A00A2BCCC /* Unseen.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				958FA66123353F6D00205831 /* UnreliableHints.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,

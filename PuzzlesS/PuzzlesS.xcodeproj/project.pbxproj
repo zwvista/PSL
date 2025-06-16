@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C269F401F66809100489ADC /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C269F3D1F66809100489ADC /* Snake.cpp */; };
 		8C689C802DEEB75500A2BCCC /* SuspendedGravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */; };
+		8C689CDD2E003BFC00A2BCCC /* SlitherCorner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CDA2E003BFC00A2BCCC /* SlitherCorner.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -54,6 +55,9 @@
 		8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SuspendedGravity.cpp; sourceTree = "<group>"; };
 		8C689C7E2DEEB75500A2BCCC /* SuspendedGravity.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SuspendedGravity.txt; sourceTree = "<group>"; };
 		8C689C7F2DEEB75500A2BCCC /* SuspendedGravity.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SuspendedGravity.xml; sourceTree = "<group>"; };
+		8C689CDA2E003BFC00A2BCCC /* SlitherCorner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SlitherCorner.cpp; sourceTree = "<group>"; };
+		8C689CDB2E003BFC00A2BCCC /* SlitherCorner.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SlitherCorner.txt; sourceTree = "<group>"; };
+		8C689CDC2E003BFC00A2BCCC /* SlitherCorner.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SlitherCorner.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesS; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -185,6 +189,9 @@
 				8CA241421EB47AEC0055D6B1 /* SlantedMaze.cpp */,
 				8CA241431EB47AEC0055D6B1 /* SlantedMaze.txt */,
 				8CA241441EB47AEC0055D6B1 /* SlantedMaze.xml */,
+				8C689CDA2E003BFC00A2BCCC /* SlitherCorner.cpp */,
+				8C689CDB2E003BFC00A2BCCC /* SlitherCorner.txt */,
+				8C689CDC2E003BFC00A2BCCC /* SlitherCorner.xml */,
 				8CA241451EB47AEC0055D6B1 /* SlitherLink.cpp */,
 				8CA241461EB47AEC0055D6B1 /* SlitherLink.txt */,
 				8CA241471EB47AEC0055D6B1 /* SlitherLink.xml */,
@@ -333,6 +340,7 @@
 				8CA2415D1EB47AEC0055D6B1 /* Skyscrapers.cpp in Sources */,
 				95E37B1F233BDDA20054284F /* StraightAndTurn.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
+				8C689CDD2E003BFC00A2BCCC /* SlitherCorner.cpp in Sources */,
 				8CA241651EB47AEC0055D6B1 /* sumscrapers.cpp in Sources */,
 				958FA639232BE15B00205831 /* Stacks.cpp in Sources */,
 				8CA2415E1EB47AEC0055D6B1 /* SlantedMaze.cpp in Sources */,

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689CB52E00383900A2BCCC /* FlowerbedShrubs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CB22E00383900A2BCCC /* FlowerbedShrubs.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -44,6 +45,9 @@
 /* Begin PBXFileReference section */
 		8C5F12932DE3786000BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12942DE3786000BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689CB22E00383900A2BCCC /* FlowerbedShrubs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FlowerbedShrubs.cpp; sourceTree = "<group>"; };
+		8C689CB32E00383900A2BCCC /* FlowerbedShrubs.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FlowerbedShrubs.txt; sourceTree = "<group>"; };
+		8C689CB42E00383900A2BCCC /* FlowerbedShrubs.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FlowerbedShrubs.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesF */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesF; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -156,6 +160,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
+				8C689CB22E00383900A2BCCC /* FlowerbedShrubs.cpp */,
+				8C689CB32E00383900A2BCCC /* FlowerbedShrubs.txt */,
+				8C689CB42E00383900A2BCCC /* FlowerbedShrubs.xml */,
 				958FA6262327E62300205831 /* Farmer.cpp */,
 				958FA6252327E62300205831 /* Farmer.txt */,
 				958FA6222327E62300205831 /* Farmer.xml */,
@@ -302,6 +309,7 @@
 			files = (
 				958FA649232DE76E00205831 /* Fields.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
+				8C689CB52E00383900A2BCCC /* FlowerbedShrubs.cpp in Sources */,
 				8CA240301EB479B90055D6B1 /* FenceSentinels.cpp in Sources */,
 				8CA2402F1EB479B90055D6B1 /* FenceLits.cpp in Sources */,
 				8CA2402E1EB479B90055D6B1 /* FenceItUp.cpp in Sources */,

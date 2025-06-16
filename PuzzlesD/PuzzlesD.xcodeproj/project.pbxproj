@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C689C882DF64BFA00A2BCCC /* DesertDunes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C852DF64BFA00A2BCCC /* DesertDunes.cpp */; };
+		8C689C9C2E0037A500A2BCCC /* DirectionalPlanks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C992E0037A500A2BCCC /* DirectionalPlanks.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -37,6 +38,9 @@
 		8C689C852DF64BFA00A2BCCC /* DesertDunes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DesertDunes.cpp; sourceTree = "<group>"; };
 		8C689C862DF64BFA00A2BCCC /* DesertDunes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DesertDunes.txt; sourceTree = "<group>"; };
 		8C689C872DF64BFA00A2BCCC /* DesertDunes.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DesertDunes.xml; sourceTree = "<group>"; };
+		8C689C992E0037A500A2BCCC /* DirectionalPlanks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DirectionalPlanks.cpp; sourceTree = "<group>"; };
+		8C689C9A2E0037A500A2BCCC /* DirectionalPlanks.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DirectionalPlanks.txt; sourceTree = "<group>"; };
+		8C689C9B2E0037A500A2BCCC /* DirectionalPlanks.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DirectionalPlanks.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesD */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesD; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -121,6 +125,9 @@
 				958FA64C232FA02600205831 /* DigitalPath.cpp */,
 				958FA64A232FA02600205831 /* DigitalPath.txt */,
 				958FA64B232FA02600205831 /* DigitalPath.xml */,
+				8C689C992E0037A500A2BCCC /* DirectionalPlanks.cpp */,
+				8C689C9A2E0037A500A2BCCC /* DirectionalPlanks.txt */,
+				8C689C9B2E0037A500A2BCCC /* DirectionalPlanks.xml */,
 				8CA240021EB479500055D6B1 /* DisconnectFour.cpp */,
 				8CA240031EB479500055D6B1 /* DisconnectFour.txt */,
 				8CA240041EB479500055D6B1 /* DisconnectFour.xml */,
@@ -232,6 +239,7 @@
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA240091EB479500055D6B1 /* DisconnectFour.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
+				8C689C9C2E0037A500A2BCCC /* DirectionalPlanks.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689CC82E003A9F00A2BCCC /* OnlyStraights.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CC52E003A9F00A2BCCC /* OnlyStraights.cpp */; };
+		8C689CC92E003A9F00A2BCCC /* OnlyBends.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CC22E003A9F00A2BCCC /* OnlyBends.cpp */; };
 		8C7412242DE25B6400E23098 /* OneUpOrDown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95406C39255FA1E700C87A0D /* OneUpOrDown.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
@@ -35,6 +37,12 @@
 /* Begin PBXFileReference section */
 		8C5F12A32DE378D000BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12A42DE378D000BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689CC22E003A9F00A2BCCC /* OnlyBends.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OnlyBends.cpp; sourceTree = "<group>"; };
+		8C689CC32E003A9F00A2BCCC /* OnlyBends.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OnlyBends.txt; sourceTree = "<group>"; };
+		8C689CC42E003A9F00A2BCCC /* OnlyBends.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OnlyBends.xml; sourceTree = "<group>"; };
+		8C689CC52E003A9F00A2BCCC /* OnlyStraights.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OnlyStraights.cpp; sourceTree = "<group>"; };
+		8C689CC62E003A9F00A2BCCC /* OnlyStraights.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OnlyStraights.txt; sourceTree = "<group>"; };
+		8C689CC72E003A9F00A2BCCC /* OnlyStraights.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OnlyStraights.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesO */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesO; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -120,13 +128,19 @@
 				8CA240C81EB47AA70055D6B1 /* OddsAreEven.cpp */,
 				8CA240C91EB47AA70055D6B1 /* OddsAreEven.txt */,
 				8CA240CA1EB47AA70055D6B1 /* OddsAreEven.xml */,
-				8CA240CB1EB47AA70055D6B1 /* on_the_edge_dfs.txt */,
 				8CA240CC1EB47AA70055D6B1 /* on_the_edge.cpp */,
 				8CA240CD1EB47AA70055D6B1 /* on_the_edge.txt */,
 				8CA240CE1EB47AA70055D6B1 /* on_the_edge.xml */,
+				8CA240CB1EB47AA70055D6B1 /* on_the_edge_dfs.txt */,
 				95406C39255FA1E700C87A0D /* OneUpOrDown.cpp */,
 				95406C3A255FA1E700C87A0D /* OneUpOrDown.txt */,
 				95406C3B255FA1E700C87A0D /* OneUpOrDown.xml */,
+				8C689CC22E003A9F00A2BCCC /* OnlyBends.cpp */,
+				8C689CC32E003A9F00A2BCCC /* OnlyBends.txt */,
+				8C689CC42E003A9F00A2BCCC /* OnlyBends.xml */,
+				8C689CC52E003A9F00A2BCCC /* OnlyStraights.cpp */,
+				8C689CC62E003A9F00A2BCCC /* OnlyStraights.txt */,
+				8C689CC72E003A9F00A2BCCC /* OnlyStraights.xml */,
 				8CA240CF1EB47AA70055D6B1 /* openvalve.cpp */,
 				8CA240D01EB47AA70055D6B1 /* openvalve.txt */,
 				8CA240D11EB47AA70055D6B1 /* openvalve.xml */,
@@ -236,6 +250,8 @@
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA240D71EB47AA70055D6B1 /* openvalve.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
+				8C689CC82E003A9F00A2BCCC /* OnlyStraights.cpp in Sources */,
+				8C689CC92E003A9F00A2BCCC /* OnlyBends.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA240D81EB47AA70055D6B1 /* Orchards.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,

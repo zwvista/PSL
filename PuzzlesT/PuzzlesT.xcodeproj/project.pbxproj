@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689CE12E003C8200A2BCCC /* TheMagicNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CDE2E003C8200A2BCCC /* TheMagicNumber.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -50,6 +51,9 @@
 /* Begin PBXFileReference section */
 		8C5F12AB2DE378F300BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12AC2DE378F300BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689CDE2E003C8200A2BCCC /* TheMagicNumber.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TheMagicNumber.cpp; sourceTree = "<group>"; };
+		8C689CDF2E003C8200A2BCCC /* TheMagicNumber.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TheMagicNumber.txt; sourceTree = "<group>"; };
+		8C689CE02E003C8200A2BCCC /* TheMagicNumber.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TheMagicNumber.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesT; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -211,6 +215,9 @@
 				958FA63E232C78BE00205831 /* TheCityRises.cpp */,
 				958FA640232C78BE00205831 /* TheCityRises.txt */,
 				958FA63F232C78BE00205831 /* TheCityRises.xml */,
+				8C689CDE2E003C8200A2BCCC /* TheMagicNumber.cpp */,
+				8C689CDF2E003C8200A2BCCC /* TheMagicNumber.txt */,
+				8C689CE02E003C8200A2BCCC /* TheMagicNumber.xml */,
 				8CA241831EB47AFC0055D6B1 /* TheOddBrick.cpp */,
 				8CA241841EB47AFC0055D6B1 /* TheOddBrick.txt */,
 				8CA241851EB47AFC0055D6B1 /* TheOddBrick.xml */,
@@ -235,10 +242,10 @@
 				8CA2418F1EB47AFC0055D6B1 /* turnz.cpp */,
 				8CA241901EB47AFC0055D6B1 /* turnz.txt */,
 				8CA241911EB47AFC0055D6B1 /* turnz.xml */,
-				8CA241921EB47AFC0055D6B1 /* twinballs_a.txt */,
-				8CA241931EB47AFC0055D6B1 /* twinballs_ida.txt */,
 				8CA241941EB47AFC0055D6B1 /* twinballs.cpp */,
 				8CA241951EB47AFC0055D6B1 /* twinballs.xml */,
+				8CA241921EB47AFC0055D6B1 /* twinballs_a.txt */,
+				8CA241931EB47AFC0055D6B1 /* twinballs_ida.txt */,
 			);
 			path = Puzzles;
 			sourceTree = "<group>";
@@ -352,6 +359,7 @@
 				958FA641232C78BE00205831 /* TheCityRises.cpp in Sources */,
 				8CA241A31EB47AFC0055D6B1 /* TurnTwice.cpp in Sources */,
 				8CA2419E1EB47AFC0055D6B1 /* TennerGrid.cpp in Sources */,
+				8C689CE12E003C8200A2BCCC /* TheMagicNumber.cpp in Sources */,
 				8CA2419D1EB47AFC0055D6B1 /* Tatamino2.cpp in Sources */,
 				8CA241A11EB47AFC0055D6B1 /* Thermometers.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,

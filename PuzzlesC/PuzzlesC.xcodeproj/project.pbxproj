@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689C952E00375900A2BCCC /* CrossroadsX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C8F2E00375900A2BCCC /* CrossroadsX.cpp */; };
+		8C689C962E00375900A2BCCC /* CrossroadBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C8C2E00375900A2BCCC /* CrossroadBlocks.cpp */; };
+		8C689C972E00375900A2BCCC /* CrosstownTraffic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C922E00375900A2BCCC /* CrosstownTraffic.cpp */; };
+		8C689C982E00375900A2BCCC /* CleaningPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C892E00375900A2BCCC /* CleaningPath.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -41,6 +45,18 @@
 /* Begin PBXFileReference section */
 		8C5F128D2DE377ED00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F128E2DE377ED00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689C892E00375900A2BCCC /* CleaningPath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CleaningPath.cpp; sourceTree = "<group>"; };
+		8C689C8A2E00375900A2BCCC /* CleaningPath.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CleaningPath.txt; sourceTree = "<group>"; };
+		8C689C8B2E00375900A2BCCC /* CleaningPath.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CleaningPath.xml; sourceTree = "<group>"; };
+		8C689C8C2E00375900A2BCCC /* CrossroadBlocks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CrossroadBlocks.cpp; sourceTree = "<group>"; };
+		8C689C8D2E00375900A2BCCC /* CrossroadBlocks.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CrossroadBlocks.txt; sourceTree = "<group>"; };
+		8C689C8E2E00375900A2BCCC /* CrossroadBlocks.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CrossroadBlocks.xml; sourceTree = "<group>"; };
+		8C689C8F2E00375900A2BCCC /* CrossroadsX.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CrossroadsX.cpp; sourceTree = "<group>"; };
+		8C689C902E00375900A2BCCC /* CrossroadsX.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CrossroadsX.txt; sourceTree = "<group>"; };
+		8C689C912E00375900A2BCCC /* CrossroadsX.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CrossroadsX.xml; sourceTree = "<group>"; };
+		8C689C922E00375900A2BCCC /* CrosstownTraffic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CrosstownTraffic.cpp; sourceTree = "<group>"; };
+		8C689C932E00375900A2BCCC /* CrosstownTraffic.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CrosstownTraffic.txt; sourceTree = "<group>"; };
+		8C689C942E00375900A2BCCC /* CrosstownTraffic.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CrosstownTraffic.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesC; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -166,6 +182,9 @@
 				95E37B25234455F90054284F /* Chocolate.cpp */,
 				95E37B24234455F90054284F /* Chocolate.txt */,
 				95E37B26234455F90054284F /* Chocolate.xml */,
+				8C689C892E00375900A2BCCC /* CleaningPath.cpp */,
+				8C689C8A2E00375900A2BCCC /* CleaningPath.txt */,
+				8C689C8B2E00375900A2BCCC /* CleaningPath.xml */,
 				8CA23FF11EB4793B0055D6B1 /* Clouds.cpp */,
 				8CA23FF21EB4793B0055D6B1 /* Clouds.txt */,
 				8CA23FF31EB4793B0055D6B1 /* Clouds.xml */,
@@ -177,6 +196,15 @@
 				8CA23FF61EB4793B0055D6B1 /* Consecutives.cpp */,
 				8CA23FF71EB4793B0055D6B1 /* Consecutives.txt */,
 				8CA23FF81EB4793B0055D6B1 /* Consecutives.xml */,
+				8C689C8C2E00375900A2BCCC /* CrossroadBlocks.cpp */,
+				8C689C8D2E00375900A2BCCC /* CrossroadBlocks.txt */,
+				8C689C8E2E00375900A2BCCC /* CrossroadBlocks.xml */,
+				8C689C8F2E00375900A2BCCC /* CrossroadsX.cpp */,
+				8C689C902E00375900A2BCCC /* CrossroadsX.txt */,
+				8C689C912E00375900A2BCCC /* CrossroadsX.xml */,
+				8C689C922E00375900A2BCCC /* CrosstownTraffic.cpp */,
+				8C689C932E00375900A2BCCC /* CrosstownTraffic.txt */,
+				8C689C942E00375900A2BCCC /* CrosstownTraffic.xml */,
 				95D7B5F1231D523F001E005C /* CultureTrip.cpp */,
 				95D7B5F2231D523F001E005C /* CultureTrip.txt */,
 				95D7B5F0231D523F001E005C /* CultureTrip.xml */,
@@ -283,6 +311,10 @@
 				8CA23FFB1EB4793B0055D6B1 /* CarpentersWall.cpp in Sources */,
 				95D7B5F3231D523F001E005C /* CultureTrip.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
+				8C689C952E00375900A2BCCC /* CrossroadsX.cpp in Sources */,
+				8C689C962E00375900A2BCCC /* CrossroadBlocks.cpp in Sources */,
+				8C689C972E00375900A2BCCC /* CrosstownTraffic.cpp in Sources */,
+				8C689C982E00375900A2BCCC /* CleaningPath.cpp in Sources */,
 				95D7B6032320146C001E005C /* CoffeeAndSugar.cpp in Sources */,
 				958FA6772335D3F600205831 /* CastlePatrol.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
