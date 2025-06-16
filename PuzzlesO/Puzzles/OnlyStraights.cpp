@@ -46,7 +46,8 @@ constexpr Position offset[] = {
 
 struct puz_path
 {
-    vector<Position> m_rng;
+    vector<Position> m_rng_on;
+    vector<Position> m_rng_off;
     int m_lineseg;
 };
 
@@ -78,12 +79,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int i = 0; i < 2; ++i) {
             auto &os1 = offset[i == 0 ? 3 : 0], &os2 = offset[i == 0 ? 1 : 2];
             int lineseg = i == 0 ? 5 : 10;
-            vector rng{p};
-            paths.emplace_back(rng, lineseg);
-            for (auto p1 = p, p2 = p; is_valid(p1 += os1) && is_valid(p2 += os2);) {
-                rng.insert(rng.begin(), p1);
-                rng.push_back(p2);
-                paths.emplace_back(rng, lineseg);
+            vector<Position> rng_on{p}, rng_off;
+            for (auto p1 = p, p2 = p;; p1 += os1, p2 += os2) {
+                bool b1 = is_valid(p1), b2 = is_valid(p2);
+                if (b1 && b2) {
+                    if (p1 != p2)
+                        rng_on.insert(rng_on.begin(), p1);
+                    rng_on.push_back(p2);
+                } else if (b1 || b2) {
+                    // the line segment in one cell further must be off
+                    if (auto p3 = p1 + os1 + os1; is_valid(p3))
+                        rng_off.push_back(p1);
+                    if (auto p3 = p2 + os2 + os2; is_valid(p3))
+                        rng_off.push_back(p2);
+                    paths.emplace_back(rng_on, rng_off, lineseg);
+                } else
+                    break;
             }
         }
     }
@@ -163,9 +174,11 @@ int puz_state::find_matches(bool init)
     for (auto& [p, path_ids] : m_matches) {
         auto& paths = m_game->m_town2paths.at(p);
         boost::remove_erase_if(path_ids, [&](int id) {
-            auto& [rng, lineseg] = paths[id];
-            return boost::algorithm::any_of(rng, [&](const Position& p2) {
+            auto& [rng_on, rng_off, lineseg] = paths[id];
+            return boost::algorithm::any_of(rng_on, [&](const Position& p2) {
                 return boost::algorithm::none_of_equal(dots(p2), lineseg);
+            }) || boost::algorithm::any_of(rng_off, [&](const Position& p2) {
+                return dots(p2)[0] != lineseg_off;
             });
         });
 
@@ -224,9 +237,11 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::make_move_town2(const Position& p, int n)
 {
-    auto& [rng, lineseg] = m_game->m_town2paths.at(p)[n];
-    for (int i = 0; i < rng.size(); ++i)
-        dots(rng[i]) = {lineseg};
+    auto& [rng_on, rng_off, lineseg] = m_game->m_town2paths.at(p)[n];
+    for (int i = 0; i < rng_on.size(); ++i)
+        dots(rng_on[i]) = {lineseg};
+    for (int i = 0; i < rng_off.size(); ++i)
+        dots(rng_off[i]) = {lineseg_off};
 
     ++m_distance;
     m_matches.erase(p);
@@ -258,7 +273,7 @@ bool puz_state::check_loop() const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (dt.size() == 1)
+            if (dt.size() == 1 && dt[0] != lineseg_off)
                 rng.insert(p);
         }
 

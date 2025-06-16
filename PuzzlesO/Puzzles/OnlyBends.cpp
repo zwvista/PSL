@@ -19,8 +19,7 @@
 
 namespace puzzles::OnlyBends{
 
-constexpr auto PUZ_BLACK_PEARL = 'B';
-constexpr auto PUZ_WHITE_PEARL = 'W';
+constexpr auto PUZ_HOUSE = 'O';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -30,20 +29,14 @@ inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0
 
 constexpr int lineseg_off = 0;
 const vector<int> linesegs_all = {
-    // ┐  ─  ┌  ┘  │  └
-    12, 10, 6, 9, 5, 3,
+    // ┐  ┌  ┘  └
+    12, 6, 9, 3,
 };
-// All line segments for a Black Pearl
-// Lines passing through Black Pearls must do a 90 degree turn in them.
-const vector<int> linesegs_all_black = {
-    // └  ┌  ┐  ┘
-    3, 6, 12, 9,
-};
-// All line segments for a White Pearl
-// Lines passing through White Pearls must go straight through them.
-const vector<int> linesegs_all_white = {
-    // │  ─
-    5, 10,
+// All line segments for a house
+// 2. This time you must have go straight while passing a house.
+const vector<int> linesegs_all_house = {
+    // ─  │
+    1, 2, 4, 8
 };
 
 constexpr Position offset[] = {
@@ -53,51 +46,12 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-// first: the offset of the line segment
-// second: an integer that depicts the line segment
-using puz_lineseg_info = pair<Position, int>;
-
-// permutations of line segments for a black pearl and its two adjacent cells
-// they must go straight in the next tile in both directions.
-const puz_lineseg_info black_pearl_perms[][3] = {
-    // │  ┌─ ─┐  │
-    // └─ │   │ ─┘
-    {{{0, 0}, 3}, {{-1, 0}, 5}, {{0, 1}, 10}},        // n & e
-    {{{0, 0}, 6}, {{0, 1}, 10}, {{1, 0}, 5}},        // e & s
-    {{{0, 0}, 12}, {{1, 0}, 5}, {{0, -1}, 10}},        // s & w
-    {{{0, 0}, 9}, {{0, -1}, 10}, {{-1, 0}, 5}},    // w & n
-};
-// permutations of line segments for a white pearl and its two adjacent cells
-// at least at one side of the White Pearl(or both), they must do a 90 degree turn.
-const puz_lineseg_info white_pearl_perms[][3] = {
-    // │ │ ┌ ┌ ┌ ┐ ┐ ┐
-    // │ │ │ │ │ │ │ │
-    // └ ┘ │ └ ┘ │ └ ┘
-    {{{0, 0}, 5}, {{-1, 0}, 5}, {{1, 0}, 3}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 5}, {{1, 0}, 9}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 6}, {{1, 0}, 3}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 6}, {{1, 0}, 5}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 6}, {{1, 0}, 9}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 12}, {{1, 0}, 3}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 12}, {{1, 0}, 5}},        // n & s
-    {{{0, 0}, 5}, {{-1, 0}, 12}, {{1, 0}, 9}},        // n & s
-    // └─┘ ┌─┘ ──┘ └── ┌── └─┐ ┌─┐ ──┐
-    {{{0, 0}, 10}, {{0, 1}, 9}, {{0, -1}, 3}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 9}, {{0, -1}, 6}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 9}, {{0, -1}, 10}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 10}, {{0, -1}, 3}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 10}, {{0, -1}, 6}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 12}, {{0, -1}, 3}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 12}, {{0, -1}, 6}},        // e & w
-    {{{0, 0}, 10}, {{0, 1}, 12}, {{0, -1}, 10}},        // e & w
-};
-
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     int m_dot_count;
-    map<Position, char> m_pos2pearl;
+    set<Position> m_houses;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -112,11 +66,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
-            char ch = str[c];
-            if (ch != ' ')
-                m_pos2pearl[{r, c}] = ch;
-        }
+        for (int c = 0; c < m_sidelen; ++c)
+            if (char ch = str[c];  ch != ' ')
+                m_houses.emplace(r, c);
     }
 }
 
@@ -125,18 +77,14 @@ using puz_dot = vector<int>;
 struct puz_state
 {
     puz_state(const puz_game& g);
-    int sidelen() const {return m_game->m_sidelen;}
+    int sidelen() const { return m_game->m_sidelen; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
     const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
     puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const {
-        return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches); 
-    }
-    bool make_move_pearl(const Position& p, int n);
-    bool make_move_pearl2(const Position& p, int n);
-    bool make_move_line(const Position& p, int n);
+    bool operator<(const puz_state& x) const { return m_dots < x.m_dots; }
+    bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
@@ -144,35 +92,28 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_game->m_dot_count * 4 - m_finished.size(); }
+    unsigned int get_heuristic() const {
+        return m_game->m_dot_count * 4 - m_finished.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
     vector<puz_dot> m_dots;
-    // key: the position of the dot
-    // value: the index of the permutation
-    map<Position, vector<int>> m_matches;
     set<pair<Position, int>> m_finished;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_dots(g.m_dot_count), m_game(&g)
+: m_game(&g), m_dots(g.m_dot_count, {lineseg_off})
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = g.m_pos2pearl.find(p);
-            if (it == g.m_pos2pearl.end())
-                dt.push_back(lineseg_off);
-
-            auto& linesegs_all2 = 
-                it == g.m_pos2pearl.end() ? linesegs_all :
-                it->second == PUZ_BLACK_PEARL ? linesegs_all_black :
-                linesegs_all_white;
+            auto& linesegs_all2 =
+                g.m_houses.contains(p) ? linesegs_all_house : linesegs_all;
             for (int lineseg : linesegs_all2)
                 if ([&]{
                     for (int i = 0; i < 4; ++i)
@@ -184,40 +125,7 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
-    for (auto& [p, pearl] : g.m_pos2pearl) {
-        auto& perm_ids = m_matches[p];
-        perm_ids.resize(pearl == PUZ_BLACK_PEARL ? 4 : 16);
-        boost::iota(perm_ids, 0);
-    }
-
-    find_matches(true);
     check_dots(true);
-}
-
-int puz_state::find_matches(bool init)
-{
-    for (auto& [p, perm_ids] : m_matches) {
-        auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
-            black_pearl_perms : white_pearl_perms;
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto perm = perms[id];
-            for (int i = 0; i < 3; ++i) {
-                auto& info = perm[i];
-                if (boost::algorithm::none_of_equal(dots(p + info.first), info.second))
-                    return true;
-            }
-            return false;
-        });
-
-        if (!init)
-            switch(perm_ids.size()) {
-            case 0:
-                return 0;
-            case 1:
-                return make_move_pearl2(p, perm_ids.front()) ? 1 : 0;
-            }
-    }
-    return 2;
 }
 
 int puz_state::check_dots(bool init)
@@ -262,46 +170,6 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::make_move_pearl2(const Position& p, int n)
-{
-    auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
-        black_pearl_perms : white_pearl_perms;
-    auto perm = perms[n];
-    for (int i = 0; i < 3; ++i) {
-        auto& info = perm[i];
-        dots(p + info.first) = {info.second};
-    }
-    m_matches.erase(p);
-    return check_loop();
-}
-
-bool puz_state::make_move_pearl(const Position& p, int n)
-{
-    m_distance = 0;
-    if (!make_move_pearl2(p, n))
-        return false;
-    for (;;) {
-        int m;
-        while ((m = find_matches(false)) == 1);
-        if (m == 0)
-            return false;
-        m = check_dots(false);
-        if (m != 1)
-            return m == 2;
-        if (!check_loop())
-            return false;
-    }
-}
-
-bool puz_state::make_move_line(const Position& p, int n)
-{
-    m_distance = 0;
-    auto& dt = dots(p);
-    dt = {dt[n]};
-    int m = check_dots(false);
-    return m == 1 ? check_loop() : m == 2;
-}
-
 bool puz_state::check_loop() const
 {
     set<Position> rng;
@@ -313,7 +181,6 @@ bool puz_state::check_loop() const
                 rng.insert(p);
         }
 
-    bool has_branch = false;
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
         for (int n = -1;;) {
@@ -326,44 +193,39 @@ bool puz_state::check_loop() const
                     break;
                 }
             if (p2 == p)
-                // we have a loop here,
-                // and we are supposed to have exhausted the line segments
-                return !has_branch && rng.empty();
-            if (!rng.contains(p2)) {
-                has_branch = true;
+                // loop is not allowed
+                return false;
+            if (!rng.contains(p2))
                 break;
-            }
         }
     }
     return true;
 }
 
+bool puz_state::make_move_dot(const Position& p, int n)
+{
+    m_distance = 0;
+    auto& dt = dots(p);
+    dt = {dt[n]};
+    int m = check_dots(false);
+    return m == 1 ? check_loop() : m == 2;
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if (!m_matches.empty()) {
-        auto& [p, perm_ids] = *boost::min_element(m_matches, [](
-            const pair<const Position, vector<int>>& kv1,
-            const pair<const Position, vector<int>>& kv2) {
-            return kv1.second.size() < kv2.second.size();
-        });
-
-        for (int n : perm_ids) {
-            children.push_back(*this);
-            if (!children.back().make_move_pearl(p, n))
-                children.pop_back();
-        }
-    } else {
-        int n = boost::min_element(m_dots, [](const puz_dot& dt1, const puz_dot& dt2) {
-            auto f = [](int sz) {return sz == 1 ? 1000 : sz;};
-            return f(dt1.size()) < f(dt2.size());
-        }) - m_dots.begin();
-        Position p(n / sidelen(), n % sidelen());
-        auto& dt = dots(p);
-        for (int i = 0; i < dt.size(); ++i) {
-            children.push_back(*this);
-            if (!children.back().make_move_line(p, i))
-                children.pop_back();
-        }
+    int i = boost::min_element(m_dots, [&](const puz_dot& dt1, const puz_dot& dt2) {
+        auto f = [](const puz_dot& dt) {
+            int sz = dt.size();
+            return sz == 1 ? 100 : sz;
+        };
+        return f(dt1) < f(dt2);
+    }) - m_dots.begin();
+    auto& dt = m_dots[i];
+    Position p(i / sidelen(), i % sidelen());
+    for (int n = 0; n < dt.size(); ++n) {
+        children.push_back(*this);
+        if (!children.back().make_move_dot(p, n))
+            children.pop_back();
     }
 }
 
@@ -374,8 +236,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = m_game->m_pos2pearl.find(p);
-            out << (it != m_game->m_pos2pearl.end() ? it->second : ' ')
+            out << (m_game->m_houses.contains(p) ? PUZ_HOUSE : ' ')
                 << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         println(out);
