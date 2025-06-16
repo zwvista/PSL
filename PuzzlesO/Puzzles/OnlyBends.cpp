@@ -27,7 +27,6 @@ constexpr auto PUZ_HOUSE = 'O';
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
-constexpr int lineseg_off = 0;
 const vector<int> linesegs_all = {
     // ┐  ┌  ┘  └
     12, 6, 9, 3,
@@ -35,7 +34,7 @@ const vector<int> linesegs_all = {
 // All line segments for a house
 // 2. This time you must have go straight while passing a house.
 const vector<int> linesegs_all_house = {
-    // ─  │
+    // ╵(up) ╶(right) ╷(down) ╴(left)
     1, 2, 4, 8
 };
 
@@ -106,7 +105,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_dots(g.m_dot_count, {lineseg_off})
+: m_game(&g), m_dots(g.m_dot_count)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
@@ -177,7 +176,7 @@ bool puz_state::check_loop() const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (dt.size() == 1 && dt[0] != lineseg_off)
+            if (dt.size() == 1)
                 rng.insert(p);
         }
 
