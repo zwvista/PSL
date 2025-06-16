@@ -40,19 +40,6 @@ const vector<int> linesegs_all_spot = {
     3, 6, 12, 9,
 };
 
-const vector<vector<vector<int>>> linesegs_all_path = {
-    {
-        {9, 9, 12, 12, 6, 6, 12, 12},
-        {6, 6, 6, 6, 9, 9, 9, 9},
-        {3, 9, 3, 9, 3, 6, 3, 6},
-    },
-    {
-        {3, 3, 6, 6, 6, 6, 12, 12},
-        {12, 12, 12, 12, 3, 3, 3, 3},
-        {3, 9, 3, 9, 9, 12, 9, 12},
-    },
-};
-
 constexpr Position offset[] = {
     {-1, 0},        // n
     {0, 1},        // e
@@ -100,30 +87,28 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (r2 <= r1 || c2 == c1) continue;
             Position os1(1, 0);
             Position os2(0, sign(c2 - c1));
-            auto& linesegs_path = linesegs_all_path[c2 < c1 ? 0 : 1];
-            for (int k = 0; k < 8; ++k) {
-                // bottom left, k = 0,1,2,3: ┌── p3(r1, c2)
-                // ┐  ┘ -> ─ -> ┌ -> │ ->  └  ┘
-                // [9, 12] -> 10 -> 6 -> 5 -> [3, 9]
-                // bottom left, k = 4,5,6,7: ──┘ p3(r2, c1)
-                // ┌  ┐ -> │ -> ┘ -> ─ ->  └  ┌
-                // [6, 12] -> 5 -> 9 -> 10 -> [3, 6]
-                // bottom right, k = 0,1,2,3: ──┐ p3(r1, c2)
-                // └  ┌ -> ─ -> ┐ -> │ ->  └  ┘
-                // [3, 6] -> 10 -> 12 -> 5 -> [3, 9]
-                // bottom right, k = 4,5,6,7: └── p3(r2, c1) 
-                // ┌  ┐ -> │ -> └ -> ─ ->  ┐  ┘
-                // [6, 12] -> 5 -> 3 -> 10 -> [9, 12]
-                Position p3(k < 4 ? r1 : r2, k < 4 ? c2 : c1);
+            for (int k = 0; k < 2; ++k) {
+                // bottom left, k = 0: ┌── p3(r1, c2)
+                //  ─ -> ┌ -> │ 
+                // 10 -> 6 -> 5
+                // bottom left, k = 1: ──┘ p3(r2, c1)
+                //  │ -> ┘ -> ─
+                // 5 -> 9 -> 10
+                // bottom right, k = 0: ──┐ p3(r1, c2)
+                //  ─ -> ┐ -> │
+                // 10 -> 12 -> 5
+                // bottom right, k = 1: └── p3(r2, c1) 
+                //  │ -> └ -> ─ 
+                // 5 -> 3 -> 10
+                Position p3(k == 0 ? r1 : r2, k == 0 ? c2 : c1);
                 vector<Position> rng;
                 vector<int> line;
-                for (auto p = p1;;
-                    p += (p == p3 ? k < 4 ? os1 : os2 : p.first == p3.first ? os2 : os1)) {
+                for (auto p = p1;
+                    (p += (p == p3 ? k == 0 ? os1 : os2 :
+                        p.first == p3.first ? os2 : os1)) != p2;) {
                     rng.push_back(p);
                     line.push_back(
-                        p == p1 ? linesegs_path[0][k] :
-                        p == p3 ? linesegs_path[1][k] :
-                        p == p2 ? linesegs_path[2][k] :
+                        p == p3 ? c2 < c1 ? k == 0 ? 6 : 9 : k == 0 ? 12 : 3 :
                         p.first == p3.first ? 10 : 5
                     );
                     if (p == p2) break;
