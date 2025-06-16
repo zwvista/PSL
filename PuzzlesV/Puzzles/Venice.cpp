@@ -80,9 +80,10 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(const Position& p, const vector<int>& perm);
-    bool make_move2(const Position& p, const vector<int>& perm);
-    bool make_move3(const Position& p, const vector<int>& perm, int i, bool stopped);
+    bool make_move_hint(const Position& p, const vector<int>& perm);
+    bool make_move_hint2(const Position& p, const vector<int>& perm);
+    bool make_move_hint3(const Position& p, const vector<int>& perm, int i, bool stopped);
+    void make_move_canal(const Position& p) { cells(p) = PUZ_CANAL; }
     int find_matches(bool init);
     bool is_continuous() const;
     bool is_valid_square(const Position& p) const;
@@ -160,7 +161,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perms.front()), 1;
+                return make_move_hint2(p, perms.front()) ? 1 : 0;
             default:
                 matches_changed = matches_changed || perms != perms_old;
                 break;
@@ -177,7 +178,7 @@ int puz_state::find_matches(bool init)
             };
             const auto& perm = *boost::min_element(perms, f);
             int n = boost::max_element(perms, f)->at(i);
-            if (!make_move3(p, perm, i, perm[i] == n))
+            if (!make_move_hint3(p, perm, i, perm[i] == n))
                 return 0;
         }
     return 1;
@@ -186,10 +187,10 @@ int puz_state::find_matches(bool init)
 struct puz_state2 : Position
 {
     puz_state2(const puz_state& s, const Position& p_start) : m_state(&s) {
-        make_move(p_start);
+        make_move_hint(p_start);
     }
 
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void make_move_hint(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
@@ -202,8 +203,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         case PUZ_SPACE:
         case PUZ_CANAL:
             children.push_back(*this);
-            children.back().make_move(p2);
-            break;
+            children.back().make_move_hint(p2);
         }
 }
 
@@ -231,7 +231,7 @@ bool puz_state::is_valid_square(const Position& p) const
     return true;
 }
 
-bool puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bool stopped)
+bool puz_state::make_move_hint3(const Position& p, const vector<int>& perm, int i, bool stopped)
 {
     auto& os = offset[i];
     auto p2 = p + os;
@@ -247,10 +247,10 @@ bool puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bo
     return true;
 }
 
-bool puz_state::make_move2(const Position& p, const vector<int>& perm)
+bool puz_state::make_move_hint2(const Position& p, const vector<int>& perm)
 {
     for (int i = 0; i < 4; ++i)
-        if (!make_move3(p, perm, i, true))
+        if (!make_move_hint3(p, perm, i, true))
             return false;
 
     ++m_distance;
@@ -258,10 +258,10 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
     return is_continuous();
 }
 
-bool puz_state::make_move(const Position& p, const vector<int>& perm)
+bool puz_state::make_move_hint(const Position& p, const vector<int>& perm)
 {
     m_distance = 0;
-    if (!make_move2(p, perm))
+    if (!make_move_hint2(p, perm))
         return false;
     int m;
     while ((m = find_matches(false)) == 1);
@@ -270,15 +270,21 @@ bool puz_state::make_move(const Position& p, const vector<int>& perm)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, perms] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<vector<int>>>& kv1,
-        const pair<const Position, vector<vector<int>>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (auto& perm : perms) {
+    if (!m_matches.empty()) {
+        auto& [p, perms] = *boost::min_element(m_matches, [](
+            const pair<const Position, vector<vector<int>>>& kv1,
+            const pair<const Position, vector<vector<int>>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        for (auto& perm : perms) {
+            children.push_back(*this);
+            if (!children.back().make_move_hint(p, perm))
+                children.pop_back();
+        }
+    } else {
+        int i = m_cells.find(PUZ_SPACE);
         children.push_back(*this);
-        if (!children.back().make_move(p, perm))
-            children.pop_back();
+        children.back().make_move_canal({i / sidelen(), i % sidelen()});
     }
 }
 

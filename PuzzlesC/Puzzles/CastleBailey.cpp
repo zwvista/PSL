@@ -165,8 +165,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset2) {
         auto p2 = *this + os;
-        char ch = m_state->cells(p2);
-        if (ch == PUZ_SPACE || ch == PUZ_EMPTY) {
+        if (char ch = m_state->cells(p2); ch == PUZ_SPACE || ch == PUZ_EMPTY) {
             children.push_back(*this);
             children.back().make_move(p2);
         }

@@ -194,49 +194,40 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& rng, const Position& p_start) : m_rng(&rng) {
+    puz_state2(const puz_state& s, const Position& p_start) : m_state(&s) {
         make_move(p_start);
     }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>* m_rng;
+    const puz_state* m_state;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& os : offset) {
-        auto p2 = *this + os;
-        if (m_rng->contains(p2)) {
+    for (auto& os : offset)
+        switch (auto p2 = *this + os; m_state->cells(p2)) {
+        case PUZ_SPACE:
+        case PUZ_WALL:
+        case PUZ_WALL_S:
             children.push_back(*this);
             children.back().make_move(p2);
         }
-    }
 }
 
 // There is a single, orthogonally contiguous, Wall
 bool puz_state::is_continuous() const
 {
-    set<Position> rng;
-    for (int r = 1; r < sidelen(); ++r)
-        for (int c = 1; c < sidelen(); ++c) {
-            Position p(r, c);
-            if (char ch = cells(p);
-                ch == PUZ_SPACE || ch == PUZ_WALL || ch == PUZ_WALL_S)
-                rng.insert(p);
-        }
-    
-    Position p_start = *boost::find_if(rng, [&](const Position& p) {
-        return cells(p) != PUZ_SPACE;
-    });
-
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({rng, p_start});
-    for (auto& p : smoves)
-        rng.erase(p);
-
-    return boost::algorithm::all_of(rng, [&](const Position& p) {
-        return cells(p) == PUZ_SPACE;
+    int i = m_cells.find(PUZ_WALL);
+    if (i == -1) i = m_cells.find(PUZ_WALL_S);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        {*this, {i / sidelen(), i % sidelen()}});
+    return boost::count_if(smoves, [&](const Position& p) {
+        char ch = cells(p);
+        return ch == PUZ_WALL || ch == PUZ_WALL_S;
+    }) == boost::count_if(m_cells, [](char ch) {
+        return ch == PUZ_WALL || ch == PUZ_WALL_S;
     });
 }
 
