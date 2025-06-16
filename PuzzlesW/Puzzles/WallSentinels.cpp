@@ -219,16 +219,15 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 // There is a single, orthogonally contiguous, Wall
 bool puz_state::is_continuous() const
 {
-    int i = m_cells.find(PUZ_WALL);
-    if (i == -1) i = m_cells.find(PUZ_WALL_S);
+    auto is_wall = [](char ch) {
+        return ch == PUZ_WALL || ch == PUZ_WALL_S;
+    };
+    int i = boost::find_if(m_cells, is_wall) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
         {*this, {i / sidelen(), i % sidelen()}});
     return boost::count_if(smoves, [&](const Position& p) {
-        char ch = cells(p);
-        return ch == PUZ_WALL || ch == PUZ_WALL_S;
-    }) == boost::count_if(m_cells, [](char ch) {
-        return ch == PUZ_WALL || ch == PUZ_WALL_S;
-    });
+        return is_wall(cells(p));
+    }) == boost::count_if(m_cells, is_wall);
 }
 
 // The wall cannot contain 2*2 wall tiles
