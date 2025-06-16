@@ -312,38 +312,36 @@ int puz_state::adjust_area(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+    puz_state2(const puz_state& s, const Position& p_start) : m_state(&s) {
+        make_move(p_start);
+    }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>* m_rng;
+    const puz_state* m_state;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& os : offset) {
-        auto p2 = *this + os;
-        if (m_rng->contains(p2)) {
+    for (auto& os : offset)
+        switch (auto p2 = *this + os; m_state->cells(p2)) {
+        case PUZ_SPACE:
+        case PUZ_WALL:
             children.push_back(*this);
             children.back().make_move(p2);
         }
-    }
 }
 
 bool puz_state::is_continuous() const
 {
-    set<Position> a;
-    for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            char ch = cells(p);
-            if (ch == PUZ_SPACE || ch == PUZ_WALL)
-                a.insert(p);
-        }
-
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(a);
-    return smoves.size() == a.size();
+    auto is_wall = [](char ch) {
+        return ch == PUZ_SPACE || ch == PUZ_WALL;
+    };
+    int i = boost::find_if(*this, is_wall) - begin();
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        {*this, {i / sidelen(), i % sidelen()}});
+    return smoves.size() == boost::count_if(*this, is_wall);
 }
 
 bool puz_state::make_move2(char ch, int n)
@@ -421,7 +419,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                     rng.insert(rng2.begin(), rng2.end());
                 for (int i = 0; i < ranges.size(); ++i) {
                     children.push_back(s);
-                    if (!children.back().make_move_hidden(ch, i))
+                    if (!children.back().make_move_hidden(ch2, i))
                         children.pop_back();
                 }
             }

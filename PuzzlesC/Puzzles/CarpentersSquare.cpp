@@ -333,7 +333,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                     rng.insert(rng2.begin(), rng2.end());
                 for (int i = 0; i < ranges.size(); ++i) {
                     children.push_back(s);
-                    if (!children.back().make_move_hidden(ch, i))
+                    if (!children.back().make_move_hidden(ch2, i))
                         children.pop_back();
                 }
             }
