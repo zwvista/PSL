@@ -25,6 +25,7 @@ constexpr auto PUZ_TOWN = 'O';
 
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
+constexpr int lineseg_off = 0;
 const vector<int> linesegs_all = {
     // ┐  ─  ┌  ┘  │  └
     12, 10, 6, 9, 5, 3,
@@ -102,8 +103,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches); 
     }
-    bool make_move_hint(const Position& p, int n);
-    bool make_move_hint2(const Position& p, int n);
+    bool make_move_town(const Position& p, int n);
+    bool make_move_town2(const Position& p, int n);
     bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
@@ -129,7 +130,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_dots(g.m_dot_count), m_game(&g)
+: m_game(&g), m_dots(g.m_dot_count, {lineseg_off})
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
@@ -173,7 +174,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move_hint2(p, path_ids.front()) ? 1 : 0;
+                return make_move_town2(p, path_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -221,7 +222,7 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::make_move_hint2(const Position& p, int n)
+bool puz_state::make_move_town2(const Position& p, int n)
 {
     auto& [rng, lineseg] = m_game->m_town2paths.at(p)[n];
     for (int i = 0; i < rng.size(); ++i)
@@ -232,10 +233,10 @@ bool puz_state::make_move_hint2(const Position& p, int n)
     return check_loop();
 }
 
-bool puz_state::make_move_hint(const Position& p, int n)
+bool puz_state::make_move_town(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move_hint2(p, n))
+    if (!make_move_town2(p, n))
         return false;
     for (;;) {
         int m;
@@ -306,7 +307,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
         for (int n : path_ids) {
             children.push_back(*this);
-            if (!children.back().make_move_hint(p, n))
+            if (!children.back().make_move_town(p, n))
                 children.pop_back();
         }
     } else {
@@ -315,7 +316,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 int sz = dt.size();
                 return sz == 1 ? 100 : sz;
             };
-        return f(dt1) < f(dt2);
+            return f(dt1) < f(dt2);
         }) - m_dots.begin();
         auto& dt = m_dots[i];
         Position p(i / sidelen(), i % sidelen());
