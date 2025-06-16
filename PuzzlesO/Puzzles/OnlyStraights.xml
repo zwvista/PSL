@@ -3,7 +3,7 @@
 <help>
   <![CDATA[
 1. Draw a non-intersecting loop that visits all towns.
-2. This time you must have go straight while passing a town.
+2. This time, you must go straight while passing a town.
 3. Branches of a road coming off a town must be of equal length.
   ]]>
 </help>
