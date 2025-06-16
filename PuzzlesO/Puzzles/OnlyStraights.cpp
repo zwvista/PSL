@@ -79,22 +79,24 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int i = 0; i < 2; ++i) {
             auto &os1 = offset[i == 0 ? 3 : 0], &os2 = offset[i == 0 ? 1 : 2];
             int lineseg = i == 0 ? 5 : 10;
-            vector<Position> rng_on{p}, rng_off;
+            vector<Position> rng_on;
             for (auto p1 = p, p2 = p;; p1 += os1, p2 += os2) {
-                bool b1 = is_valid(p1), b2 = is_valid(p2);
-                if (b1 && b2) {
-                    if (p1 != p2)
-                        rng_on.insert(rng_on.begin(), p1);
-                    rng_on.push_back(p2);
-                } else if (b1 || b2) {
-                    // the line segment in one cell further must be off
-                    if (auto p3 = p1 + os1 + os1; is_valid(p3))
-                        rng_off.push_back(p1);
-                    if (auto p3 = p2 + os2 + os2; is_valid(p3))
-                        rng_off.push_back(p2);
-                    paths.emplace_back(rng_on, rng_off, lineseg);
-                } else
+                auto p3 = p1 + os1, p4 = p2 + os2;
+                if (!is_valid(p3) || !is_valid(p4))
                     break;
+                if (p1 != p2)
+                    rng_on.insert(rng_on.begin(), p1);
+                rng_on.push_back(p2);
+                // the line segment in one cell further must be off
+                auto p5 = p3 + os1, p6 = p4 + os2;
+                if (m_town2paths.contains(p5) || m_town2paths.contains(p6))
+                    break;
+                vector<Position> rng_off;
+                if (is_valid(p5))
+                    rng_off.push_back(p5);
+                if (is_valid(p6))
+                    rng_off.push_back(p6);
+                paths.emplace_back(rng_on, rng_off, lineseg);
             }
         }
     }
