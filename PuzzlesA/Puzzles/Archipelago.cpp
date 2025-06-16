@@ -205,9 +205,7 @@ bool puz_state::is_connected() const
     int i = this->find(PUZ_ISLAND);
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
         {*this, {i / sidelen(), i % sidelen()}});
-    return boost::count_if(smoves, [&](const Position& p) {
-        return cells(p) == PUZ_ISLAND;
-    }) == boost::count(*this, PUZ_ISLAND);
+    return smoves.size() == boost::count(*this, PUZ_ISLAND);
 }
 
 void puz_state::make_move3(const Position& p, const pair<Position, Position>& island)
