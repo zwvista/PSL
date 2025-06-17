@@ -1,47 +1,54 @@
 Level 1
 Sequence of moves: 
- --- --- --- --- 
-|   |           |
-|  =|=M= =M   T |
-| I |     I     |
-     --- --- --- 
-| I     | I     |
-| T   M | T= =  |
-| I     |     I |
- --- ---         
-| I     |     I |
-| M= =M | M     |
-|     I |     I |
-                 
-|     I |     I |
-| T    =|= = =  |
-|       |       |
- --- --- --- --- 
-Number of moves: 1
-Number of vertices examined: 3
-0.0004316 [s]
+ --- --- --- --- --- 
+|       |       |   |
+|  = =  | T   O=|=  |
+| I   I |     I | I |
+ ---                 
+| I | I |     I | I |
+| O | O | O= =O | O |
+| I | I | I     | I |
+                     
+| I | I | I     | I |
+|   | O |     T | O |
+| I | I | I     | I |
+     --- --- ---     
+| I   I | I     | I |
+| O    =|=    O=|=  |
+| I     |     I |   |
+ --- --- --- ---     
+| I     |     I |   |
+| O= = =|=O= =  | T |
+|       |       |   |
+ --- --- --- --- --- 
+Number of moves: 3
+Number of vertices examined: 4
+0.0013239 [s]
 
 Level 2
 Sequence of moves: 
- --- --- --- --- 
-|   |       |   |
-|  =|= = =M | T |
-| I |     I |   |
-     --- ---     
-| I     | I |   |
-| T= =T | T=|=M |
-|     I |   | I |
- --- ---     --- 
-|     I |   | I |
-| M= =M | M | T |
-| I     |   | I |
- --- --- ---     
-| I |   |     I |
-| T=|=M=|= = =  |
-|   |   |       |
- --- --- --- --- 
-Number of moves: 5
-Number of vertices examined: 9
-0.0005248 [s]
+ --- --- --- --- --- 
+|       |           |
+|  = =O=|= = = = =O |
+| I     |         I |
+         ---         
+| I         |     I |
+| O   T    =|= = =O |
+| I       I |       |
+         ---         
+| I     | I         |
+|  = =  | O= = = =O |
+|     I |         I |
+ --- --- --- --- --- 
+|     I |       | I |
+| T     |  = =O | O |
+|     I | I   I | I |
+         --- --- --- 
+|     I   I | I   I |
+| T   O= =O | O= =O |
+|           |       |
+ --- --- --- --- --- 
+Number of moves: 3
+Number of vertices examined: 4
+0.0006135 [s]
 
-Level 200

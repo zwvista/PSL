@@ -74,7 +74,7 @@ struct puz_game
     int m_dot_count;
     set<Position> m_horz_walls, m_vert_walls;
     vector<puz_area> m_areas;
-    vector<Position> m_trees;
+    set<Position> m_trees;
     map<Position, int> m_pos2area;
     string m_start;
 
@@ -139,7 +139,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_pos2area[p] = n;
             rng.erase(p);
             switch (cells(p)) {
-            case PUZ_TREE: m_trees.push_back(p); break;
+            case PUZ_TREE: m_trees.insert(p); break;
             case PUZ_HOUSE: houses.push_back(p); break;
             }
         }
@@ -170,7 +170,9 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_game->m_dot_count * 4 - m_finished.size(); }
+    unsigned int get_heuristic() const {
+        return m_matches.size() + m_game->m_dot_count * 4 - m_finished.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -183,12 +185,16 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_dots(g.m_dot_count, {lineseg_off}), m_game(&g)
+: m_dots(g.m_dot_count), m_game(&g)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
+            if (g.m_trees.contains(p)) {
+                dt = {lineseg_off};
+                continue;
+            }
             for (int lineseg : linesegs_all)
                 if ([&]{
                     for (int i = 0; i < 4; ++i) {
@@ -213,25 +219,25 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [area_id, path_type] : m_matches) {
-        auto& area = m_game->m_areas[area_id];
+    for (auto& [area_id, path_types] : m_matches) {
+        auto& [rng, houses] = m_game->m_areas[area_id];
 
-        //boost::remove_erase_if(path_type, [&](char ch2) {
-        //    return boost::algorithm::any_of(area, [&](const Position& p) {
-        //        char ch = m_game->cells(p);
-        //        if (ch == PUZ_SPACE) return false;
-        //        auto& dt = dots(p);
-        //        return ch == ch2 && dt[0] == lineseg_off && dt.size() == 1 ||
-        //            ch != ch2 && dt[0] != lineseg_off;
-        //    });
-        //});
+        boost::remove_erase_if(path_types, [&](int n) {
+            auto& linesegs_all2 =
+                n == PUZ_STRAIGHT ? linesegs_all_straight : linesegs_all_turn;
+            return boost::algorithm::any_of(houses, [&](const Position& p) {
+                return boost::algorithm::none_of(dots(p), [&](int lineseg) {
+                    return boost::algorithm::any_of_equal(linesegs_all2, lineseg);
+                });
+            });
+        });
 
         if (!init)
-            switch(path_type.size()) {
+            switch(path_types.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move_area2(area_id, path_type.front()), 1;
+                return make_move_area2(area_id, path_types.front()), 1;
             }
     }
     return 2;
@@ -281,16 +287,16 @@ int puz_state::check_dots(bool init)
 
 void puz_state::make_move_area2(int i, int n)
 {
-    //auto& area = m_game->m_areas[i];
-    //for (auto& p : area) {
-    //    char ch = m_game->cells(p);
-    //    if (ch == PUZ_SPACE) continue;
-    //    auto& dt = dots(p);
-    //    if (ch == ch2)
-    //        boost::remove_erase(dt, lineseg_off);
-    //    else
-    //        dt = {lineseg_off};
-    //}
+    auto& [rng, houses] = m_game->m_areas[i];
+    auto& linesegs_all2 =
+        n == PUZ_STRAIGHT ? linesegs_all_straight : linesegs_all_turn;
+    for (auto& p : houses) {
+        auto& dt = dots(p);
+        boost::remove_erase_if(dt, [&](int lineseg) {
+            return boost::algorithm::none_of_equal(linesegs_all2, lineseg);
+        });
+    }
+    ++m_distance;
     m_matches.erase(i);
 }
 
