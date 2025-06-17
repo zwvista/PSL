@@ -77,8 +77,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         auto& str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
-            if (char ch = str[c];  ch != ' ')
-                m_pos2paths[{r, c}];
+            if (auto s = str.substr(c * 2, 2); s != "  ")
+                m_pos2light[{r, c}] = {s[0], s[1] - '0'};
     }
     for (auto& [p, light] : m_pos2light) {
         auto& [kind, sum] = light;
@@ -375,15 +375,19 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = m_game->m_pos2light.find(p);
-            out << (it == m_game->m_pos2light.end() ? it->second.m_kind : ' ')
-                << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
+            if (auto it = m_game->m_pos2light.find(p); it == m_game->m_pos2light.end())
+                out << "..";
+            else {
+                auto& [kind, sum] = it->second;
+                out << kind << sum;
+            }
+            out << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
             // draw vertical lines
-            out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
+            out << (is_lineseg_on(dots({r, c})[0], 2) ? " | " : "   ");
         println(out);
     }
     return out;
