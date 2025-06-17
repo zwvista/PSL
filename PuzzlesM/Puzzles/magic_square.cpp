@@ -24,9 +24,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_start(sidelen() * sidelen())
 {
     for (int r = 0, n = 0; r < sidelen(); ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < sidelen(); ++c)
-            m_start[n++] = stoi(str.substr(c * 2, 2));
+            m_start[n++] = stoi(string(str.substr(c * 2, 2)));
     }
 }
 

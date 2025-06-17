@@ -89,13 +89,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_ship2num[5] = 1;
 
     for (int r = 0; r <= m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c <= m_sidelen; ++c) {
             Position p(r, c);
             if (r == m_sidelen && c == m_sidelen)
                 break;
             auto s = str.substr(c * 2, 2);
-            int n = s == "  " ? PUZ_UNKNOWN : stoi(s);
+            int n = s == "  " ? PUZ_UNKNOWN : stoi(string(s));
             if (r == m_sidelen || c == m_sidelen)
                 m_area2info[c == m_sidelen ? r : c + m_sidelen].m_sum = n;
             else {

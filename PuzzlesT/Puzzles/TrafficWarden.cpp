@@ -97,7 +97,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_dot_count(m_sidelen * m_sidelen)
 {
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             if (auto s = str.substr(c * 2, 2); s != "  ")
                 m_pos2light[{r, c}] = {s[0], s[1] - '0'};

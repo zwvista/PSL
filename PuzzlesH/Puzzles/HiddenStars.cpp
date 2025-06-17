@@ -59,7 +59,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_star_counts_cols(m_sidelen)
 {
     for (int r = 0, n = 0; r < m_sidelen + 1; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen + 1; c++) {
             char ch = str[c];
             if (ch == PUZ_SPACE)

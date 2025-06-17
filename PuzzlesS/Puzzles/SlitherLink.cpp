@@ -84,7 +84,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_dot_count(m_sidelen * m_sidelen)
 {
     for (int r = 0; r < m_sidelen - 1; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen - 1; ++c) {
             char ch = str[c];
             m_pos2num[{r, c}] = ch != ' ' ? ch - '0' : PUZ_UNKNOWN;

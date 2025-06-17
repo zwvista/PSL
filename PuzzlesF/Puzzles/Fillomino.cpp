@@ -90,7 +90,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         puz_game_type::NORMAL;
 
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
             int n = ch == ' ' ? PUZ_UNKNOWN : ch - '0';

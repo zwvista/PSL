@@ -44,10 +44,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_area2range(m_sidelen * 2)
 {
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             auto s = str.substr(c * 2, 2);
-            int n = s == "  " ? PUZ_SPACE : stoi(s);
+            int n = s == "  " ? PUZ_SPACE : stoi(string(s));
             m_start.push_back(n);
             Position p(r, c);
             m_area2range[r].push_back(p);

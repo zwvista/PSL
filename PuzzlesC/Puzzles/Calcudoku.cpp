@@ -58,7 +58,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size())
 {
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             auto s = str.substr(c * 4, 4);
@@ -70,7 +70,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             info.m_range.push_back(p);
             if (s.substr(1) == "   ") continue;
             info.m_operator = s[3];
-            info.m_result = stoi(s.substr(1, 2));
+            info.m_result = stoi(string(s.substr(1, 2)));
         }
     }
 

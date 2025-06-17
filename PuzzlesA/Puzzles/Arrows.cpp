@@ -61,7 +61,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start.insert(m_start.end(), m_sidelen - 2, PUZ_BORDER);
     m_start.push_back(PUZ_CORNER);
     for (int r = 1; r < m_sidelen - 1; ++r) {
-        auto& str = strs[r - 1];
+        string_view str = strs[r - 1];
         m_start.push_back(PUZ_BORDER);
         for (int c = 1; c < m_sidelen - 1; ++c)
             m_start.push_back(str[c - 1] - '0');

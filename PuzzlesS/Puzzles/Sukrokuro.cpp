@@ -52,21 +52,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     m_rowscols.resize(m_sidelen * 2);
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            const string s1 = str.substr(c * 4, 2);
-            const string s2 = str.substr(c * 4 + 2, 2);
+            auto s1 = str.substr(c * 4, 2);
+            auto s2 = str.substr(c * 4 + 2, 2);
             if (s1[0] == ' ') {
                 m_blanks[{p, true}] = s1[1] == PUZ_DOT;
                 m_blanks[{p, false}] = s2[1] == PUZ_DOT;
                 m_rowscols[r].push_back(p);
                 m_rowscols[m_sidelen + c].push_back(p);
             } else {
-                int n1 = stoi(s1);
+                int n1 = stoi(string(s1));
                 if (n1 != 0)
                     m_pos2area[{p, true}].m_sum = n1;
-                int n2 = stoi(s2);
+                int n2 = stoi(string(s2));
                 if (n2 != 0)
                     m_pos2area[{p, false}].m_sum = n2;
             }

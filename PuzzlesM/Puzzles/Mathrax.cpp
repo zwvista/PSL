@@ -67,7 +67,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_area_rc2range(m_sidelen * 2)
 {
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
             m_start.push_back(ch == ' ' ? PUZ_SPACE : ch - '0');
@@ -84,7 +84,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     while (boost::next_permutation(perm));
 
     for (int r = 0; r < m_sidelen - 1; ++r) {
-        auto& str = strs[r + m_sidelen];
+        string_view str = strs[r + m_sidelen];
         for (int c = 0; c < m_sidelen - 1; ++c) {
             auto s = str.substr(c * 3, 3);
             if (s == "   ") continue;
@@ -94,7 +94,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (auto& os : offset)
                 info.m_range.push_back(p + os);
             info.m_operator = s[2];
-            info.m_result = stoi(s.substr(0, 2));
+            info.m_result = stoi(string(s.substr(0, 2)));
         }
     }
     m_area_count = m_sidelen * 2 + m_area_diag_info.size();

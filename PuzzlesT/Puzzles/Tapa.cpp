@@ -104,7 +104,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     m_start.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
-        auto& str = strs[r - 1];
+        string_view str = strs[r - 1];
         m_start.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             auto s = str.substr(c * 4 - 4, 4);

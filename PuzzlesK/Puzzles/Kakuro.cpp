@@ -46,18 +46,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size())
 {
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen * 4; c += 4) {
             Position p(r, c / 4);
-            const string s1 = str.substr(c, 2);
-            const string s2 = str.substr(c + 2, 2);
+            auto s1 = str.substr(c, 2);
+            auto s2 = str.substr(c + 2, 2);
             if (s1 == "  ")
                 m_blanks[p] = 0;
             else {
-                int n1 = stoi(s1);
+                int n1 = stoi(string(s1));
                 if (n1 != 0)
                     m_pos2area[{p, true}].m_sum = n1;
-                int n2 = stoi(s2);
+                int n2 = stoi(string(s2));
                 if (n2 != 0)
                     m_pos2area[{p, false}].m_sum = n2;
             }

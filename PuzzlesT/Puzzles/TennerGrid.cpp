@@ -59,11 +59,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_area_info(rows() + cols())
 {
     for (int r = 0; r <= rows(); ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto s = str.substr(c * 2, 2);
-            int n = s == "  " ? PUZ_UNKNOWN : stoi(s);
+            int n = s == "  " ? PUZ_UNKNOWN : stoi(string(s));
             m_start.push_back(n);
 
             if (n == PUZ_UNKNOWN)

@@ -57,7 +57,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_num2perms(11)
 {
     for (int r = 1; r < m_sidelen - 1; ++r) {
-        auto& str = strs[r - 1];
+        string_view str = strs[r - 1];
         for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
             m_pos2num[{r, c}] = ch != ' ' ? ch - '0' : PUZ_UNKNOWN;

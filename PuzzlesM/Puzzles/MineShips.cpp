@@ -60,7 +60,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_ship2num[5] = 1;
 
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
             m_start.push_back(ch == PUZ_SPACE ? PUZ_SPACE : PUZ_NUMBER);

@@ -53,7 +53,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     m_start = boost::accumulate(strs, string());
     for (int r = 1; r < m_sidelen - 1; ++r) {
-        auto& str = strs[r - 1];
+        string_view str = strs[r - 1];
         for (int c = 1; c < m_sidelen - 1; ++c)
             switch(str[c - 1]) {
             case PUZ_GALAXY:

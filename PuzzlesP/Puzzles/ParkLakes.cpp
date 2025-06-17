@@ -64,14 +64,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     map<int, vector<vector<int>>> num2perms;
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             auto s = str.substr(c * 2, 2);
             if (s == "  ")
                 m_start.push_back(PUZ_SPACE);
             else {
                 m_start.push_back(PUZ_NUM);
-                num2perms[m_pos2hintinfo[{r, c}].m_sum = s == " ?" ? -1 : stoi(s)];
+                num2perms[m_pos2hintinfo[{r, c}].m_sum = s == " ?" ? -1 : stoi(string(s))];
             }
         }
     }

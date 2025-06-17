@@ -37,10 +37,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size())
 {
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             if (auto s = str.substr(c * 2, 2); s != "  ")
-                m_pos2num[{r, c}] = stoi(s);
+                m_pos2num[{r, c}] = stoi(string(s));
     }
 
     for (int r = 0; r < m_sidelen; ++r)

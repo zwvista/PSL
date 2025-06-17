@@ -35,7 +35,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(Position(strs.size(), strs[0].length()))
 {
     for (int r = 0; r < rows(); r++) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < cols(); c++)
             if (str[c] == PUZ_BALL)
                 m_balls.insert(Position(r, c));

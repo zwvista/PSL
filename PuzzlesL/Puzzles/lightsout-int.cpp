@@ -32,7 +32,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_start(0)
 {
     for (int r = 0, n = 0; r < rows(); ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < cols(); ++c, ++n)
             if (str[c] == PUZ_ON)
                 m_start |= 1 << n;

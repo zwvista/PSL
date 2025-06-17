@@ -52,7 +52,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size())
 {
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
             m_start.push_back(r % 2 == 0 && c % 2 == 0 || ch != PUZ_SPACE ? ch : PUZ_EMPTY);

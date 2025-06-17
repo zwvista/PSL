@@ -75,7 +75,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_dot_count(m_sidelen * m_sidelen)
 {
     for (int r = 0; r < m_sidelen + 2; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen + 2; ++c)
             if (char ch = str[c]; ch != ' ')
                 if (c == 0 || c == m_sidelen + 1) {

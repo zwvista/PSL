@@ -57,7 +57,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_start(m_sidelen * m_sidelen, PUZ_SPACE)
 {
     for (int r = 0, n = 0; r <= m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c <= m_sidelen; c++) {
             Position p(r, c);
             char ch = str[c];

@@ -73,7 +73,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size() - 1, strs[1].length())
 {
     for (int r = 0; r < rows(); ++r) {
-        auto& str = strs[r + 1];
+        string_view str = strs[r + 1];
         for (int c = 0; c < cols(); ++c) {
             char ch = str[c];
             m_start.push_back(ch);

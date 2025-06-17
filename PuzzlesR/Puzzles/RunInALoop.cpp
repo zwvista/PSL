@@ -53,7 +53,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_dot_count(m_sidelen * m_sidelen)
 {
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             if (str[c] == PUZ_BLOCK)
                 m_blocks.emplace(r, c);

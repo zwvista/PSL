@@ -37,7 +37,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     m_cells.append(cols(), PUZ_WALL);
     for (int r = 1; r < rows() - 1; ++r) {
-        auto& str = strs[r - 1];
+        string_view str = strs[r - 1];
         m_cells.push_back(PUZ_WALL);
         for (int c = 1; c < cols() - 1; ++c)
             switch(Position p(r, c); char ch = str[c - 1]) {

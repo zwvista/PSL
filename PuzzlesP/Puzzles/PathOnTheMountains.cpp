@@ -73,7 +73,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_dot_count(rows() * cols())
 {
     for (int r = 0; r < rows(); ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < cols(); ++c)
             if (char ch = str[c];  ch != ' ')
                 m_spots.emplace(r, c);

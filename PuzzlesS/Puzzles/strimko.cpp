@@ -25,7 +25,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start = accumulate(strs.begin(), strs.begin() + m_sidelen, string());
     m_areas.resize(m_sidelen * 3);
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r + m_sidelen];
+        string_view str = strs[r + m_sidelen];
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             int n = str[c] - 'a';

@@ -44,7 +44,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_num2perms(6)
 {
     for (int r = 0; r < m_sidelen - 1; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen - 1; ++c) {
             char ch = str[c];
             m_nums.push_back(ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0');

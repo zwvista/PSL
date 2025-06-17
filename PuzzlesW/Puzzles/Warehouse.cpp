@@ -43,7 +43,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size())
 {
     for (int r = 0; r < m_sidelen; ++r) {
-        auto& str = strs[r];
+        string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             if (char ch = str[c]; ch != ' ')
                 m_pos2symbol[{r, c}] = ch;
