@@ -11,5 +11,20 @@ R4=..=G3=.. ..
 .. ..=G3=..=.. 
 Number of moves: 3
 Number of vertices examined: 5
-0.0009174 [s]
+0.0012264 [s]
+
+Level 2
+Sequence of moves: 
+..=.. Y2=.. .. 
+|| || || ||    
+.. R2=.. R2=.. 
+||          || 
+.. .. .. .. .. 
+||          || 
+.. R3=..=.. G3 
+|| ||    || || 
+R5=.. .. ..=.. 
+Number of moves: 5
+Number of vertices examined: 9
+0.0007524 [s]
 

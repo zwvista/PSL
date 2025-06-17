@@ -18,5 +18,14 @@ R4  G2    `
     R3G2R6`
     ]]>
   </level>
+  <level id="2">
+    <![CDATA[
+  R3  R3  `
+        R4`
+    R3    `
+  G2G2G2  `
+  G2R3    `
+    ]]>
+  </level>
 </levels>
 </puzzle>

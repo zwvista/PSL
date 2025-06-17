@@ -52,14 +52,14 @@ struct puz_path
 {
     // elem 1: first direction
     // elem 2: second direction
-    vector<vector<Position>> m_rng2D_straight;
+    vector<vector<Position>> m_rng2D_straight = vector<vector<Position>>(2);
     // elem 1: first direction
     // elem 2: second direction
-    vector<Position> m_rng_turn;
+    vector<Position> m_rng_turn = vector<Position>(2);
     int m_lineseg_light;
     // elem 1: first direction
     // elem 2: second direction
-    vector<int> m_linesegs_straight;
+    vector<int> m_linesegs_straight = vector<int>(2);
 };
 
 struct puz_game

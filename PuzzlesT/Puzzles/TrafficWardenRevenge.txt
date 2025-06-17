@@ -1,4 +1,30 @@
 Level 1
-Number of vertices examined: 1
-0.0003183 [s]
+Sequence of moves: 
+..=R3 .. R3=R5 
+|| ||    || || 
+.. .. .. .. .. 
+|| ||    || || 
+.. ..=G2=.. .. 
+||          || 
+R4 ..=G2 .. .. 
+|| || ||    || 
+..=.. R3=G2=R6 
+Number of moves: 1
+Number of vertices examined: 2
+0.0006746 [s]
+
+Level 2
+Sequence of moves: 
+.. R3=..=R3 .. 
+   ||    ||    
+..=.. .. ..=R4 
+||          || 
+.. .. R3=.. .. 
+||    || || || 
+..=G2 G2 G2 .. 
+   || || || || 
+.. G2=R3 ..=.. 
+Number of moves: 4
+Number of vertices examined: 9
+0.0010889 [s]
 
