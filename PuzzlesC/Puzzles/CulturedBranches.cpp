@@ -37,7 +37,7 @@ constexpr Position offset[] = {
 
 constexpr string_view str_branch = "|-|-^>v<";
 
-using puz_perms = vector<vector<int>>;
+using puz_2d = vector<vector<int>>;
 
 struct puz_game
 {
@@ -46,7 +46,6 @@ struct puz_game
     map<Position, char> m_pos2char;
     map<char, vector<Position>> m_char2rng;
     string m_start;
-    int m_max_sum;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -54,7 +53,6 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
-, m_max_sum((m_sidelen - 3) * 2)
 {
     m_start.append(m_sidelen, PUZ_WALL);
     for (int r = 1; r < m_sidelen - 1; ++r) {
@@ -83,9 +81,9 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-    bool make_move(char ch, const vector<int>& perm);
-    void make_move2(char ch, const vector<int>& perm);
-    void make_move3(char ch, const vector<int>& perm, int i, bool stopped);
+    bool make_move(char ch, const puz_2d& perm);
+    void make_move2(char ch, const puz_2d& perm);
+    void make_move3(char ch, const puz_2d& perm, int i, int j, bool stopped);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -103,7 +101,7 @@ struct puz_state
     //             the letter in all four directions
     // value.value.elem: respective lengths of the branches that stem from
     //             the letter in all four directions
-    map<char, puz_perms> m_matches;
+    map<char, vector<puz_2d>> m_matches;
     set<int> m_used_sums;
     unsigned int m_distance = 0;
 };
@@ -123,65 +121,82 @@ int puz_state::find_matches(bool init)
     set<Position> spaces;
     for (auto& [ch, perms] : m_matches) {
         auto perms_old = perms;
-        perms.clear();
 
-        for (int sum = 1; sum <= m_game->m_max_sum; ++sum) {
-            if (m_used_sums.contains(sum))
-                continue;
-            vector<vector<int>> perms;
-            auto& rng = m_game->m_char2rng.at(ch);
-
-            auto f = [&](const Position& p) {
-                vector<set<int>> dir_nums2(4);
-                for (int i = 0; i < 4; ++i) {
-                    auto& os = offset[i];
-                    int n = 0;
-                    auto& nums = dir_nums2[i];
-                    for (auto p2 = p + os; n <= sum; p2 += os)
-                        if (char ch = cells(p2); ch == PUZ_SPACE)
-                            // we can stop here
-                            nums.insert(n++);
-                        else if (ch == str_branch[i] || ch == str_branch[i + 4])
-                            // we cannot stop here
-                            ++n;
-                        else {
-                            // we have to stop here
-                            nums.insert(n);
-                            break;
-                        }
-                }
-                return dir_nums2;
-            };
-
-            auto dir_nums = f(rng[0]);
-            for (int i = 1; i < rng.size(); ++i) {
-                auto dir_nums2 = f(rng[i]);
-                for (int j = 0; j < 4; ++j) {
-                    set<int> s;
-                    boost::set_intersection(dir_nums[j], dir_nums2[j], inserter(s, s.end()));
-                    dir_nums[j] = s;
-                }
+        auto& rng = m_game->m_char2rng.at(ch);
+        vector<puz_2d> perms2;
+        for (auto& p : rng) {
+            auto& perm = perms2.emplace_back();
+            puz_2d dir_nums(4);
+            for (int i = 0; i < 4; ++i) {
+                auto& os = offset[i];
+                int n = 0;
+                auto& nums = dir_nums[i];
+                for (auto p2 = p + os;; p2 += os)
+                    if (char ch = cells(p2); ch == PUZ_SPACE)
+                        // we can stop here
+                        nums.push_back(n++);
+                    else if (ch == str_branch[i] || ch == str_branch[i + 4])
+                        // we cannot stop here
+                        ++n;
+                    else {
+                        // we have to stop here
+                        nums.push_back(n);
+                        break;
+                    }
             }
-
             // Compute the total length of the branches connected to the letter
             // Record the combination if the sum is equal to the given number
             for (int n0 : dir_nums[0])
                 for (int n1 : dir_nums[1])
                     for (int n2 : dir_nums[2])
                         for (int n3 : dir_nums[3])
-                            if (n0 + n1 + n2 + n3 == sum) {
-                                vector v = {n0, n1, n2, n3, sum};
-                                perms.push_back(v);
-                                for (auto& p : rng)
-                                    for (int i = 0; i < 4; ++i) {
-                                        auto& os = offset[i];
-                                        auto p2 = p;
-                                        for (int j = 1; j <= v[i]; ++j)
-                                            if (cells(p2 += os) == PUZ_SPACE)
-                                                spaces.insert(p2);
-                                    }
-                            }
+                            if (int sum = n0 + n1 + n2 + n3;
+                                sum > 0 && !m_used_sums.contains(sum))
+                                perm.push_back({n0, n1, n2, n3, sum});
         }
+
+        // 3. The number tells you the total length of the Branches coming out of
+        // that Tree.
+        // 5. Every Tree having the same number must have a different number of Branches
+        // (1 to 4 in the possible directions around it).
+        perms = [&]() {
+            auto& input = perms2;
+            vector<puz_2d> result;
+            puz_2d path;
+            set<vector<int>> used;
+
+            function<void(int)> backtrack = [&](int index) {
+                if (index == input.size()) {
+                    result.push_back(path);
+                    return;
+                }
+
+                for (auto nums : input[index]) {
+                    if (used.contains(nums) || !path.empty() &&
+                        nums.back() != path.front().back()) continue;
+                    path.push_back(nums);
+                    used.insert(nums);
+                    backtrack(index + 1);
+                    path.pop_back();
+                    used.erase(nums);
+                }
+            };
+            backtrack(0);
+            return result;
+        }();
+
+        for (auto& perm : perms)
+            for (int k = 0; k < rng.size(); ++k) {
+                auto& p = rng[k];
+                auto& v = perm[k];
+                for (int i = 0; i < 4; ++i) {
+                    auto& os = offset[i];
+                    auto p2 = p;
+                    for (int j = 1; j <= v[i]; ++j)
+                        if (cells(p2 += os) == PUZ_SPACE)
+                            spaces.insert(p2);
+                }
+            }
 
         if (!init)
             switch(perms.size()) {
@@ -203,43 +218,45 @@ int puz_state::find_matches(bool init)
         return 2;
 
     for (auto& [ch, perms] : m_matches)
-        for (int i = 0; i < 4; ++i) {
-            auto f = [=](const vector<int>& v1, const vector<int>& v2) {
-                return v1[i] < v2[i];
-            };
-            const auto& perm = *boost::min_element(perms, f);
-            int n = boost::max_element(perms, f)->at(i);
-            make_move3(ch, perm, i, perm[i] == n);
-        }
+        for (int i = 0; i < perms[0].size(); ++i)
+            for (int j = 0; j < 4; ++j) {
+                auto f = [=](const puz_2d& v1, const puz_2d& v2) {
+                    return v1[i][j] < v2[i][j];
+                };
+                const auto& perm = *boost::min_element(perms, f);
+                int n = boost::max_element(perms, f)->at(i)[j];
+                make_move3(ch, perm, i, j, perm[i][j] == n);
+            }
     return 1;
 }
 
-void puz_state::make_move3(char ch, const vector<int>& perm, int i, bool stopped)
+void puz_state::make_move3(char ch, const puz_2d& perm, int i, int j, bool stopped)
 {
-    for (auto& p : m_game->m_char2rng.at(ch)) {
-        auto& os = offset[i];
-        int n = perm[i];
-        auto p2 = p + os;
-        for (int j = 0; j < n - 1; ++j) {
-            cells(p2) = str_branch[i];
-            p2 += os;
-        }
-        if (stopped && n > 0)
-            // branch head
-            cells(p2) = str_branch[i + 4];
+    auto& p = m_game->m_char2rng.at(ch)[i];
+    auto& os = offset[i];
+    int n = perm[i][j];
+    auto p2 = p + os;
+    for (int j = 0; j < n - 1; ++j) {
+        cells(p2) = str_branch[i];
+        p2 += os;
     }
+    if (stopped && n > 0)
+        // branch head
+        cells(p2) = str_branch[i + 4];
 }
 
-void puz_state::make_move2(char ch, const vector<int>& perm)
+void puz_state::make_move2(char ch, const puz_2d& perm)
 {
-    for (int i = 0; i < 4; ++i)
-        make_move3(ch, perm, i, true);
+    auto& rng = m_game->m_char2rng.at(ch);
+    for (int i = 0; i < rng.size(); ++i)
+        for (int j = 0; j < 4; ++j)
+            make_move3(ch, perm, i, j, true);
 
     ++m_distance;
     m_matches.erase(ch);
 }
 
-bool puz_state::make_move(char ch, const vector<int>& perm)
+bool puz_state::make_move(char ch, const puz_2d& perm)
 {
     m_distance = 0;
     make_move2(ch, perm);
@@ -251,8 +268,8 @@ bool puz_state::make_move(char ch, const vector<int>& perm)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& [ch, perms] = *boost::min_element(m_matches, [](
-        const pair<const char, vector<vector<int>>>& kv1,
-        const pair<const char, vector<vector<int>>>& kv2) {
+        const pair<const char, vector<puz_2d>>& kv1,
+        const pair<const char, vector<puz_2d>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
 
@@ -286,3 +303,67 @@ void solve_puz_CulturedBranches()
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
         "Puzzles/CulturedBranches.xml", "Puzzles/CulturedBranches.txt", solution_format::GOAL_STATE_ONLY);
 }
+
+// Given a 2D array vector<vector<int>>, select one number from each
+// sub-array to form a combination (the length of each combination equals
+// the number of sub-arrays). All numbers in each combination must be
+// distinct. Output all such valid combinations as a 2D array
+// vector<vector<int>>.
+
+// Sample input:
+// vector<vector<int>> input = {{1, 2, 3}, {2, 3}, {3, 4}};
+
+// Sample output:
+// {
+//     {1, 2, 3},
+//     {1, 2, 4},
+//     {1, 3, 4},
+//     {2, 3, 4},
+//     {3, 2, 4}
+// }
+
+// Solution given by ChatGPT
+
+// #include <iostream>
+// #include <vector>
+// #include <unordered_set>
+// using namespace std;
+// 
+// vector<vector<int>> generateUniqueCombinations(const vector<vector<int>>& input) {
+//     vector<vector<int>> result;
+//     vector<int> path;
+//     unordered_set<int> used;
+// 
+//     function<void(int)> backtrack = [&](int index) {
+//         if (index == input.size()) {
+//             result.push_back(path);
+//             return;
+//         }
+// 
+//         for (int num : input[index]) {
+//             if (used.count(num)) continue;
+//             path.push_back(num);
+//             used.insert(num);
+//             backtrack(index + 1);
+//             path.pop_back();
+//             used.erase(num);
+//         }
+//     };
+// 
+//     backtrack(0);
+//     return result;
+// }
+// 
+// int main() {
+//     vector<vector<int>> input = {{1, 2, 3}, {2, 3}, {3, 4}};
+//     vector<vector<int>> output = generateUniqueCombinations(input);
+// 
+//     for (const auto& comb : output) {
+//         for (int num : comb) {
+//             cout << num << " ";
+//         }
+//         cout << endl;
+//     }
+// 
+//     return 0;
+// }
