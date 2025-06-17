@@ -50,9 +50,16 @@ struct puz_light
 
 struct puz_path
 {
-    vector<Position> m_rng_straight;
+    // elem 1: first direction
+    // elem 2: second direction
+    vector<vector<Position>> m_rng2D_straight;
+    // elem 1: first direction
+    // elem 2: second direction
     vector<Position> m_rng_turn;
-    int m_lineseg_light, m_lineseg_straight;
+    int m_lineseg_light;
+    // elem 1: first direction
+    // elem 2: second direction
+    vector<int> m_linesegs_straight;
 };
 
 struct puz_game
@@ -99,22 +106,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     dirs.push_back(i);
             for (auto& perm : perms) {
                 puz_path path;
-                auto& [rng_straight, rng_turn, ls_light, ls_straight] = path;
+                auto& [rng2D_straight, rng_turn, ls_light, lss_straight] = path;
                 ls_light = lineseg;
                 if ([&] {
                     for (int i = 0; i < 2; ++i) {
                         int dir = dirs[i], n = perm[i];
+                        lss_straight[i] = dir % 2 == 0 ? 5 : 10;
                         auto& os = offset[dir];
                         auto p2 = p + os;
                         for (int j = 1; j <= n; ++j, p2 += os) {
                             if (!is_valid(p2))
                                 return false;
-                            rng_straight.push_back(p2);
-                            ls_straight = dir % 2 == 0 ? 5 : 10;
+                            rng2D_straight[i].push_back(p2);
                         }
                         if (is_valid(p2))
-                            rng_turn.push_back(p2);
-                        else if (p2 == p + os || p2 == p + os + os)
+                            rng_turn[i] = p2;
+                        else if (rng2D_straight[i].size() < 2)
                             return false;
                     }
                     return true;
@@ -197,13 +204,13 @@ int puz_state::find_matches(bool init)
     for (auto& [p, path_ids] : m_matches) {
         auto& paths = m_game->m_pos2paths.at(p);
         boost::remove_erase_if(path_ids, [&](int id) {
-            auto& [rng_straight, rng_turn, ls_light, ls_straight] = paths[id];
-            return boost::algorithm::none_of_equal(dots(p), ls_light) ||
-                boost::algorithm::any_of(rng_straight, [&](const Position& p2) {
-                    return boost::algorithm::none_of_equal(dots(p2), ls_straight);
-                }) || boost::algorithm::any_of(rng_turn, [&](const Position& p2) {
-                    return boost::algorithm::all_of_equal(dots(p2), ls_straight);
-                });
+            auto& [rng2D_straight, rng_turn, ls_light, lss_straight] = paths[id];
+            for (int i = 0; i < 2; ++i)
+                if (boost::algorithm::any_of(rng2D_straight[i], [&](const Position& p2) {
+                    return boost::algorithm::none_of_equal(dots(p2), lss_straight[i]);
+                }) || boost::algorithm::all_of_equal(dots(rng_turn[i]), lss_straight[i]))
+                    return true;
+            return boost::algorithm::none_of_equal(dots(p), ls_light);
         });
 
         if (!init)
@@ -261,12 +268,14 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::make_move_light2(const Position& p, int n)
 {
-    auto& [rng_straight, rng_turn, ls_light, ls_straight] = m_game->m_pos2paths.at(p)[n];
+    auto& [rng2D_straight, rng_turn, ls_light, lss_straight] = m_game->m_pos2paths.at(p)[n];
     dots(p) = {ls_light};
-    for (auto& p2 : rng_straight)
-        dots(p2) = {ls_straight};
-    for (auto& p2 : rng_turn)
-        boost::remove_erase(dots(p2), ls_straight);
+    for (int i = 0; i < 2; ++i) {
+        int lineseg = lss_straight[i];
+        for (auto& p2 : rng2D_straight[i])
+            dots(p2) = {lineseg};
+        boost::remove_erase(dots(rng_turn[i]), lineseg);
+    }
 
     ++m_distance;
     m_matches.erase(p);
@@ -381,13 +390,13 @@ ostream& puz_state::dump(ostream& out) const
                 auto& [kind, sum] = it->second;
                 out << kind << sum;
             }
-            out << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
+            out << (is_lineseg_on(dt[0], 1) ? '=' : ' ');
         }
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
             // draw vertical lines
-            out << (is_lineseg_on(dots({r, c})[0], 2) ? " | " : "   ");
+            out << (is_lineseg_on(dots({r, c})[0], 2) ? "|| " : "   ");
         println(out);
     }
     return out;

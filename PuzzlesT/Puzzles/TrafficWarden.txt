@@ -1,15 +1,15 @@
 Level 1
 Sequence of moves: 
-R4-..-G3-.. .. 
- |        |    
-.. .. .. ..-R2 
- |           | 
-.. .. ..-G2-.. 
- |     |       
-..-Y2 ..-..-.. 
-    |        | 
-.. ..-G3-..-.. 
-Number of moves: 1
-Number of vertices examined: 2
-0.0008246 [s]
+R4=..=G3=.. .. 
+||       ||    
+..=.. .. ..=R2 
+   ||       || 
+..=.. ..=G2=.. 
+||    ||       
+..=Y2 ..=..=.. 
+   ||       || 
+.. ..=G3=..=.. 
+Number of moves: 3
+Number of vertices examined: 5
+0.0009174 [s]
 
