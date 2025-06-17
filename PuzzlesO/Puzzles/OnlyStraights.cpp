@@ -240,10 +240,10 @@ int puz_state::check_dots(bool init)
 bool puz_state::make_move_town2(const Position& p, int n)
 {
     auto& [rng_on, rng_off, lineseg] = m_game->m_town2paths.at(p)[n];
-    for (int i = 0; i < rng_on.size(); ++i)
-        dots(rng_on[i]) = {lineseg};
-    for (int i = 0; i < rng_off.size(); ++i)
-        dots(rng_off[i]) = {lineseg_off};
+    for (auto& p2 : rng_on)
+        dots(p2) = {lineseg};
+    for (auto& p2 : rng_off)
+        dots(p2) = {lineseg_off};
 
     ++m_distance;
     m_matches.erase(p);

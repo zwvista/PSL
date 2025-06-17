@@ -34,12 +34,6 @@ const vector<int> linesegs_all = {
     // ┐  ─  ┌  ┘  │  └
     12, 10, 6, 9, 5, 3,
 };
-// All line segments for a town
-// 2. This time you must have go straight while passing a town.
-const vector<int> linesegs_all_town = {
-    // ─  │
-    10, 5,
-};
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -58,7 +52,7 @@ struct puz_path
 {
     vector<Position> m_rng_straight;
     vector<Position> m_rng_turn;
-    int m_lineseg_light, m_lineseg_straight, m_lineseg_turn;
+    int m_lineseg_light, m_lineseg_straight;
 };
 
 struct puz_game
@@ -86,28 +80,46 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (char ch = str[c];  ch != ' ')
                 m_pos2paths[{r, c}];
     }
-    for (auto& [p, paths] : m_pos2paths) {
-        for (int i = 0; i < 2; ++i) {
-            auto &os1 = offset[i == 0 ? 3 : 0], &os2 = offset[i == 0 ? 1 : 2];
-            int lineseg = i == 0 ? 10 : 5;
-            vector<Position> rng_on;
-            for (auto p1 = p, p2 = p;; p1 += os1, p2 += os2) {
-                auto p3 = p1 + os1, p4 = p2 + os2;
-                if (!is_valid(p3) || !is_valid(p4))
-                    break;
-                if (p1 != p2)
-                    rng_on.insert(rng_on.begin(), p1);
-                rng_on.push_back(p2);
-                // the line segment in one cell further must be off
-                auto p5 = p3 + os1, p6 = p4 + os2;
-                if (m_pos2paths.contains(p5) || m_pos2paths.contains(p6))
-                    break;
-                vector<Position> rng_off;
-                if (is_valid(p5))
-                    rng_off.push_back(p5);
-                if (is_valid(p6))
-                    rng_off.push_back(p6);
-                paths.emplace_back(rng_on, rng_off, lineseg);
+    for (auto& [p, light] : m_pos2light) {
+        auto& [kind, sum] = light;
+        auto& paths = m_pos2paths[p];
+        vector<vector<int>> perms;
+        int sum2 = sum - 2;
+        // 2. Green light means the road that extends from there is of equal length
+        // in both directions.
+        // 3. Red light means they are not.
+        for (int n1 = 0; n1 <= sum2; ++n1)
+            for (int n2 = 0; n2 <= sum2; ++n2)
+                if (n1 + n2 == sum2 && (n1 == n2) == (kind == PUZ_GREEN))
+                    perms.push_back({n1, n2});
+        for (int lineseg : linesegs_all) {
+            vector<int> dirs;
+            for (int i = 0; i < 4; ++i)
+                if (is_lineseg_on(lineseg, i))
+                    dirs.push_back(i);
+            for (auto& perm : perms) {
+                puz_path path;
+                auto& [rng_straight, rng_turn, ls_light, ls_straight] = path;
+                ls_light = lineseg;
+                if ([&] {
+                    for (int i = 0; i < 2; ++i) {
+                        int dir = dirs[i], n = perm[i];
+                        auto& os = offset[dir];
+                        auto p2 = p + os;
+                        for (int j = 1; j <= n; ++j, p2 += os) {
+                            if (!is_valid(p2))
+                                return false;
+                            rng_straight.push_back(p2);
+                            ls_straight = dir % 2 == 0 ? 10 : 5;
+                        }
+                        if (is_valid(p2))
+                            rng_turn.push_back(p2);
+                        else if (p2 == p + os)
+                            return false;
+                    }
+                    return true;
+                }())
+                    paths.push_back(path);
             }
         }
     }
@@ -127,8 +139,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches); 
     }
-    bool make_move_town(const Position& p, int n);
-    bool make_move_town2(const Position& p, int n);
+    bool make_move_light(const Position& p, int n);
+    bool make_move_light2(const Position& p, int n);
     bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
@@ -160,9 +172,7 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto& linesegs_all2 =
-                g.m_pos2paths.contains(p) ? linesegs_all_town : linesegs_all;
-            for (int lineseg : linesegs_all2)
+            for (int lineseg : linesegs_all)
                 if ([&]{
                     for (int i = 0; i < 4; ++i)
                         // A line segment cannot go beyond the boundaries of the board
@@ -186,21 +196,22 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [p, path_ids] : m_matches) {
         auto& paths = m_game->m_pos2paths.at(p);
-        //boost::remove_erase_if(path_ids, [&](int id) {
-        //    auto& [rng_on, rng_off, lineseg] = paths[id];
-        //    return boost::algorithm::any_of(rng_on, [&](const Position& p2) {
-        //        return boost::algorithm::none_of_equal(dots(p2), lineseg);
-        //    }) || boost::algorithm::any_of(rng_off, [&](const Position& p2) {
-        //        return dots(p2)[0] != lineseg_off;
-        //    });
-        //});
+        boost::remove_erase_if(path_ids, [&](int id) {
+            auto& [rng_straight, rng_turn, ls_light, ls_straight] = paths[id];
+            return boost::algorithm::none_of_equal(dots(p), ls_light) ||
+                boost::algorithm::any_of(rng_straight, [&](const Position& p2) {
+                    return boost::algorithm::none_of_equal(dots(p2), ls_straight);
+                }) || boost::algorithm::any_of(rng_turn, [&](const Position& p2) {
+                    return boost::algorithm::all_of_equal(dots(p2), ls_straight);
+                });
+        });
 
         if (!init)
             switch(path_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move_town2(p, path_ids.front()) ? 1 : 0;
+                return make_move_light2(p, path_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -248,23 +259,24 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::make_move_town2(const Position& p, int n)
+bool puz_state::make_move_light2(const Position& p, int n)
 {
-    //auto& [rng_on, rng_off, lineseg] = m_game->m_pos2paths.at(p)[n];
-    //for (int i = 0; i < rng_on.size(); ++i)
-    //    dots(rng_on[i]) = {lineseg};
-    //for (int i = 0; i < rng_off.size(); ++i)
-    //    dots(rng_off[i]) = {lineseg_off};
+    auto& [rng_straight, rng_turn, ls_light, ls_straight] = m_game->m_pos2paths.at(p)[n];
+    dots(p) = {ls_light};
+    for (auto& p2 : rng_straight)
+        dots(p2) = {ls_straight};
+    for (auto& p2 : rng_turn)
+        boost::remove_erase(dots(p2), ls_straight);
 
     ++m_distance;
     m_matches.erase(p);
     return check_loop();
 }
 
-bool puz_state::make_move_town(const Position& p, int n)
+bool puz_state::make_move_light(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move_town2(p, n))
+    if (!make_move_light2(p, n))
         return false;
     for (;;) {
         int m;
@@ -335,7 +347,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
         for (int n : path_ids) {
             children.push_back(*this);
-            if (!children.back().make_move_town(p, n))
+            if (!children.back().make_move_light(p, n))
                 children.pop_back();
         }
     } else {
