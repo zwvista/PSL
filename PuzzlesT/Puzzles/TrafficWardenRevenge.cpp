@@ -114,7 +114,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         }
                         if (is_valid(p2))
                             rng_turn.push_back(p2);
-                        else if (p2 == p + os)
+                        else if (p2 == p + os || p2 == p + os + os)
                             return false;
                     }
                     return true;
