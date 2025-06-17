@@ -79,6 +79,9 @@
     <Text Include="Puzzles\SlitherCorner.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\StraightAndBendLands.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -161,6 +164,9 @@
     <ClCompile Include="Puzzles\SlitherCorner.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\StraightAndBendLands.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\sokoban.xml">
@@ -218,6 +224,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\SlitherCorner.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\StraightAndBendLands.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
