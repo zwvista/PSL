@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8C689CE12E003C8200A2BCCC /* TheMagicNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CDE2E003C8200A2BCCC /* TheMagicNumber.cpp */; };
+		8C689CF42E01262800A2BCCC /* TrafficWarden.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CEE2E01262800A2BCCC /* TrafficWarden.cpp */; };
+		8C689CF52E01262800A2BCCC /* TrafficWardenRevenge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CF12E01262800A2BCCC /* TrafficWardenRevenge.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -54,6 +56,12 @@
 		8C689CDE2E003C8200A2BCCC /* TheMagicNumber.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TheMagicNumber.cpp; sourceTree = "<group>"; };
 		8C689CDF2E003C8200A2BCCC /* TheMagicNumber.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TheMagicNumber.txt; sourceTree = "<group>"; };
 		8C689CE02E003C8200A2BCCC /* TheMagicNumber.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TheMagicNumber.xml; sourceTree = "<group>"; };
+		8C689CEE2E01262800A2BCCC /* TrafficWarden.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TrafficWarden.cpp; sourceTree = "<group>"; };
+		8C689CEF2E01262800A2BCCC /* TrafficWarden.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TrafficWarden.txt; sourceTree = "<group>"; };
+		8C689CF02E01262800A2BCCC /* TrafficWarden.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TrafficWarden.xml; sourceTree = "<group>"; };
+		8C689CF12E01262800A2BCCC /* TrafficWardenRevenge.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TrafficWardenRevenge.cpp; sourceTree = "<group>"; };
+		8C689CF22E01262800A2BCCC /* TrafficWardenRevenge.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TrafficWardenRevenge.txt; sourceTree = "<group>"; };
+		8C689CF32E01262800A2BCCC /* TrafficWardenRevenge.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TrafficWardenRevenge.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesT; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -233,6 +241,12 @@
 				95E37B2E234DD2C10054284F /* TraceNumbers.cpp */,
 				95E37B2D234DD2C10054284F /* TraceNumbers.txt */,
 				95E37B2C234DD2C10054284F /* TraceNumbers.xml */,
+				8C689CEE2E01262800A2BCCC /* TrafficWarden.cpp */,
+				8C689CEF2E01262800A2BCCC /* TrafficWarden.txt */,
+				8C689CF02E01262800A2BCCC /* TrafficWarden.xml */,
+				8C689CF12E01262800A2BCCC /* TrafficWardenRevenge.cpp */,
+				8C689CF22E01262800A2BCCC /* TrafficWardenRevenge.txt */,
+				8C689CF32E01262800A2BCCC /* TrafficWardenRevenge.xml */,
 				95F39C03232271AE00E73A82 /* Trebuchet.cpp */,
 				95F39C05232271AE00E73A82 /* Trebuchet.txt */,
 				95F39C04232271AE00E73A82 /* Trebuchet.xml */,
@@ -368,6 +382,8 @@
 				8CA2419A1EB47AFC0055D6B1 /* TapDifferently.cpp in Sources */,
 				8CA2419C1EB47AFC0055D6B1 /* Tatamino.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
+				8C689CF42E01262800A2BCCC /* TrafficWarden.cpp in Sources */,
+				8C689CF52E01262800A2BCCC /* TrafficWardenRevenge.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
