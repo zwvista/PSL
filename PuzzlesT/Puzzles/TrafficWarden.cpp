@@ -137,7 +137,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                                 it->second.m_kind == PUZ_RED)
                                 return false;
                             rng_straight.push_back(p2);
-                            ls_straight = dir % 2 == 0 ? 10 : 5;
+                            ls_straight = dir % 2 == 0 ? 5 : 10;
                         }
                         if (is_valid(p2)) {
                             if (auto it = m_pos2light.find(p2);
@@ -412,15 +412,19 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            auto it = m_game->m_pos2light.find(p);
-            out << (it == m_game->m_pos2light.end() ? it->second.m_kind : ' ')
-                << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
+            if (auto it = m_game->m_pos2light.find(p); it == m_game->m_pos2light.end())
+                out << "..";
+            else {
+                auto& [kind, sum] = it->second;
+                out << kind << sum;
+            }
+            out << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
             // draw vertical lines
-            out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
+            out << (is_lineseg_on(dots({r, c})[0], 2) ? " | " : "   ");
         println(out);
     }
     return out;

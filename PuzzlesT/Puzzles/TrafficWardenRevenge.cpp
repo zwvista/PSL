@@ -110,7 +110,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             if (!is_valid(p2))
                                 return false;
                             rng_straight.push_back(p2);
-                            ls_straight = dir % 2 == 0 ? 10 : 5;
+                            ls_straight = dir % 2 == 0 ? 5 : 10;
                         }
                         if (is_valid(p2))
                             rng_turn.push_back(p2);
