@@ -63,15 +63,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 using puz_dot = vector<int>;
 
-struct puz_state : vector<puz_dot>
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
+    puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_dots < x.m_dots; }
     bool make_move_dot(const Position& p, int n);
     int check_dots(bool init);
     bool check_loop() const;
@@ -85,12 +86,13 @@ struct puz_state : vector<puz_dot>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<puz_dot> m_dots;
     set<pair<Position, int>> m_finished;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count), m_game(&g)
+: m_dots(g.m_dot_count), m_game(&g)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
@@ -209,14 +211,14 @@ bool puz_state::make_move_dot(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    int i = boost::min_element(*this, [&](const puz_dot& dt1, const puz_dot& dt2) {
+    int i = boost::min_element(m_dots, [&](const puz_dot& dt1, const puz_dot& dt2) {
         auto f = [](const puz_dot& dt) {
             int sz = dt.size();
             return sz == 1 ? 100 : sz;
         };
         return f(dt1) < f(dt2);
-    }) - begin();
-    auto& dt = (*this)[i];
+    }) - m_dots.begin();
+    auto& dt = m_dots[i];
     Position p(i / sidelen(), i % sidelen());
     for (int n = 0; n < dt.size(); ++n) {
         children.push_back(*this);

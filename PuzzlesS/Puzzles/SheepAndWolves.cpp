@@ -131,17 +131,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 using puz_dot = vector<int>;
 
-struct puz_state : vector<puz_dot>
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
+    puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
     char cells(const Position& p) const { return m_cells[p.first * (sidelen() + 1) + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * (sidelen() + 1) + p.second]; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots);
+    }
     bool make_move(const Position& p, int n);
     bool make_move2(const Position& p, int n);
     int find_matches(bool init);
@@ -159,6 +162,7 @@ struct puz_state : vector<puz_dot>
 
     const puz_game* m_game = nullptr;
     string m_cells;
+    vector<puz_dot> m_dots;
     map<Position, vector<int>> m_matches;
     set<pair<Position, int>> m_finished_dots;
     set<Position> m_finished_cells;
@@ -166,7 +170,7 @@ struct puz_state : vector<puz_dot>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
+: m_dots(g.m_dot_count, {lineseg_off}), m_game(&g)
 , m_cells(g.m_start)
 {
     for (int r = 0; r < sidelen(); ++r)

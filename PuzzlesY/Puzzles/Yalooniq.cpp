@@ -102,15 +102,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 using puz_dot = vector<int>;
 
-struct puz_state : vector<puz_dot>
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    const puz_dot& dots(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    puz_dot& dots(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
+    puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots);
+    }
     bool make_move_square(const Position& p, int n);
     void make_move_square2(const Position& p, int n);
     bool make_move_line(const Position& p, int n);
@@ -127,13 +130,14 @@ struct puz_state : vector<puz_dot>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<puz_dot> m_dots;
     map<Position, vector<int>> m_matches;
     set<pair<Position, int>> m_finished;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<puz_dot>(g.m_dot_count, {lineseg_off}), m_game(&g)
+: m_dots(g.m_dot_count, {lineseg_off}), m_game(&g)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
@@ -331,10 +335,10 @@ void puz_state::gen_children(list<puz_state>& children) const
                 children.pop_back();
         }
     } else {
-        int n = boost::min_element(*this, [](const puz_dot& dt1, const puz_dot& dt2) {
+        int n = boost::min_element(m_dots, [](const puz_dot& dt1, const puz_dot& dt2) {
             auto f = [](int sz) {return sz == 1 ? 1000 : sz;};
             return f(dt1.size()) < f(dt2.size());
-        }) - begin();
+        }) - m_dots.begin();
         Position p(n / sidelen(), n % sidelen());
         auto& dt = dots(p);
         for (int i = 0; i < dt.size(); ++i) {

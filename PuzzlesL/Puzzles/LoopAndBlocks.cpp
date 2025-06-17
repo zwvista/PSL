@@ -106,7 +106,7 @@ struct puz_state
     const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
     puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches);
+        return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots);
     }
     bool make_move_hint(const Position& p, int n);
     bool make_move_hint2(const Position& p, int n);

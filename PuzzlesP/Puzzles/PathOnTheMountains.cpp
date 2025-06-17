@@ -132,7 +132,7 @@ struct puz_state
     const puz_dot& dots(const Position& p) const { return m_dots[p.first * cols() + p.second]; }
     puz_dot& dots(const Position& p) { return m_dots[p.first * cols() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_dots, m_matches) < tie(x.m_dots, x.m_matches); 
+        return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots); 
     }
     bool make_move(int n);
     bool make_move2(int n);
