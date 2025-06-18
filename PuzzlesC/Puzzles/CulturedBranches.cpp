@@ -155,10 +155,6 @@ int puz_state::find_matches(bool init)
                                 perm.push_back({n0, n1, n2, n3, sum});
         }
 
-        // 3. The number tells you the total length of the Branches coming out of
-        // that Tree.
-        // 5. Every Tree having the same number must have a different number of Branches
-        // (1 to 4 in the possible directions around it).
         perms = [&]() {
             auto& input = perms2;
             vector<puz_2d> result;
@@ -188,8 +184,19 @@ int puz_state::find_matches(bool init)
                 }
 
                 for (auto nums : input[index]) {
-                    if (used.contains(nums) || !path.empty() &&
-                        nums.back() != path.front().back()) continue;
+                    if (used.contains(nums)) continue;
+                    // 3. The number tells you the total length of the Branches coming out of
+                    // that Tree.
+                    if (!path.empty() && nums.back() != path.front().back())
+                        continue;
+                    // 5. Every Tree having the same number must have a different number of Branches
+                    // (1 to 4 in the possible directions around it).
+                    int n = boost::count(nums, 0);
+                    if (boost::algorithm::any_of(path, [&](const vector<int> v) {
+                        return boost::count(v, 0) == n;
+                    }))
+                        continue;
+
                     path.push_back(nums);
                     used.insert(nums);
                     backtrack(index + 1);

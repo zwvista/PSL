@@ -1,10 +1,10 @@
 Level 1
 Sequence of moves: 
  < B - >
- A | ^ ^
- v v A |
- < - - B
+ A v ^ ^
+ | < A |
+ v < - B
 Number of moves: 1
-Number of vertices examined: 3
-0.0363963 [s]
+Number of vertices examined: 2
+0.0115547 [s]
 
