@@ -139,17 +139,19 @@ puz_state::puz_state(const puz_game& g)
 {
     find_matches(true);
 }
-    
+
+// 6. A grid dot must not be shared by the corners of four boxes.
 bool puz_state::check_four_boxes()
 {
     for (int r = 0; r < sidelen() - 1; ++r)
         for (int c = 0; c < sidelen() - 1; ++c) {
-            set<char> s;
+            vector<char> v;
             Position p(r, c);
             for (auto& os : offset3)
-                if (char ch = cells(p + os))
-                    s.insert(ch);
-            if (s.size() == 4)
+                v.push_back(cells(p + os));
+            // 0 1
+            // 2 3
+            if (v[0] != v[1] && v[0] != v[2] && v[3] != v[1] && v[3] != v[2])
                 return false;
         }
     return true;

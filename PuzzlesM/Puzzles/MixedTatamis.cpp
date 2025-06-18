@@ -31,6 +31,20 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+constexpr Position offset2[] = {
+    {0, 0},        // n
+    {0, 1},        // e
+    {1, 0},        // s
+    {0, 0},        // w
+};
+
+constexpr Position offset3[] = {
+    {0, 0},        // 2*2 nw
+    {0, 1},        // 2*2 ne
+    {1, 0},        // 2*2 sw
+    {1, 1},        // 2*2 se
+};
+
 struct puz_box_info
 {
     // the length of the tatami
@@ -126,7 +140,6 @@ struct puz_state
     // key: the position of the number
     // value.elem: the index of the box
     map<Position, vector<int>> m_matches;
-    set<Position> m_horz_walls, m_vert_walls;
     unsigned int m_distance = 0;
 };
 
@@ -137,16 +150,22 @@ puz_state::puz_state(const puz_game& g)
 {
     find_matches(true);
 }
-    
+
+// 5. A grid dot must not be shared by the corners of four Tatamis
+// (lines can't form 4-way crosses).
 bool puz_state::check_four_boxes()
 {
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c)
-            if (m_horz_walls.contains({r + 1, c}) &&
-                m_horz_walls.contains({r + 1, c + 1}) &&
-                m_vert_walls.contains({r, c + 1}) &&
-                m_vert_walls.contains({r + 1, c + 1}))
+    for (int r = 0; r < sidelen() - 1; ++r)
+        for (int c = 0; c < sidelen() - 1; ++c) {
+            vector<char> v;
+            Position p(r, c);
+            for (auto& os : offset3)
+                v.push_back(cells(p + os));
+            // 0 1
+            // 2 3
+            if (v[0] != v[1] && v[0] != v[2] && v[3] != v[1] && v[3] != v[2])
                 return false;
+        }
     return true;
 }
 
@@ -193,12 +212,6 @@ void puz_state::make_move2(int n)
             Position p(r, c);
             cells(p) = ch, ++m_distance, m_matches.erase(p);
         }
-    for (int r = tl.first; r <= br.first; ++r)
-        m_vert_walls.emplace(r, tl.second),
-        m_vert_walls.emplace(r, br.second + 1);
-    for (int c = tl.second; c <= br.second; ++c)
-        m_horz_walls.emplace(tl.first, c),
-        m_horz_walls.emplace(br.first + 1, c);
 }
 
 bool puz_state::make_move(int n)
@@ -226,17 +239,31 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    set<Position> horz_walls, vert_walls;
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            for (int i = 0; i < 4; ++i) {
+                auto p2 = p + offset[i];
+                auto p_wall = p + offset2[i];
+                auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
+                if (!is_valid(p2) || cells(p) != cells(p2))
+                    walls.insert(p_wall);
+            }
+        }
+
     for (int r = 0;; ++r) {
         // draw horizontal walls
         for (int c = 0; c < sidelen(); ++c)
-            out << (m_horz_walls.contains({r, c}) ? " -" : "  ");
+            out << (horz_walls.contains({r, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical walls
-            out << (m_vert_walls.contains(p) ? '|' : ' ');
+            out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
+            //out << cells(p);
             if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
                 out << '.';
             else
