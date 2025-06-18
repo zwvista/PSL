@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. You are a gardener. you've been employed by a sour weird lady.
+2. This lady, after years of having her garden grow wild with flowers and without enclosures, decided that those are way too many flowers and too few enclosures.
+3. So now being an avid fan of Tetris, she asked you to divide the garden in many Tetris shaped mini-gardens.
+4. And while doing that they HAVE to tread, destroy and plow as many flowers as you can, provide you leave just the one in each Tetris mini-garden.
+5. Divide the board in tetrominos (4-tile pieces). Each tetromino should have only one flower inside it.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+Hd  `
+  H `
+ Hr `
+rr H`
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+H  d`
+r H `
+ r H`
+Hr  `
+    ]]>
+  </level>
+</levels>
+</puzzle>

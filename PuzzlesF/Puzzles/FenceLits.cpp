@@ -13,7 +13,7 @@
     1. The goal is to divide the board into Tetris pieces, including the
        square one (differently from LITS).
     2. The number in a cell tells you how many of the sides are marked
-       (like slitherlink).
+       (like spieceherlink).
     3. Please consider that the outside border of the board as marked.
 */
 
@@ -70,7 +70,7 @@ struct puz_tetromino
     vector<Position> m_horz_walls, m_vert_walls;
 };
 
-using puz_lit = pair<Position, int>;
+using puz_piece = pair<Position, int>;
 
 struct puz_game
 {
@@ -78,7 +78,7 @@ struct puz_game
     int m_sidelen;
     vector<puz_tetromino> m_tetros;
     map<Position, int> m_pos2num;
-    vector<puz_lit> m_lits;
+    vector<puz_piece> m_pieces;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -128,7 +128,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     }
                     return true;
                 }())
-                    m_lits.emplace_back(p, i);
+                    m_pieces.emplace_back(p, i);
             }
         }
 }
@@ -157,35 +157,35 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (int i = 0; i < g.m_lits.size(); ++i) {
-        auto& lit = g.m_lits[i];
-        auto& p = lit.first;
-        for (auto& os : tetrominoes[lit.second])
+    for (int i = 0; i < g.m_pieces.size(); ++i) {
+        auto& piece = g.m_pieces[i];
+        auto& p = piece.first;
+        for (auto& os : tetrominoes[piece.second])
             m_matches[p + os].push_back(i);
     }
 }
 
 bool puz_state::make_move(int n)
 {
-    auto& lit = m_game->m_lits[n];
-    auto& p = lit.first;
-    auto& t = m_game->m_tetros[lit.second];
+    auto& piece = m_game->m_pieces[n];
+    auto& p = piece.first;
+    auto& t = m_game->m_tetros[piece.second];
 
     for (auto& os : t.m_horz_walls)
         m_horz_walls.insert(p + os);
     for (auto& os : t.m_vert_walls)
         m_vert_walls.insert(p + os);
 
-    set<int> lit_ids;
+    set<int> piece_ids;
     for (int i = 0; i < 4; ++i) {
         auto p2 = p + t.m_offset[i];
         cells(p2) = t.m_nums[i] + '0';
         auto& v = m_matches.at(p2);
-        lit_ids.insert(v.begin(), v.end());
+        piece_ids.insert(v.begin(), v.end());
         m_matches.erase(p2);
     }
     for (auto& [p, v] : m_matches) {
-        for (int i : lit_ids)
+        for (int i : piece_ids)
             boost::remove_erase(v, i);
         if (v.empty())
             return false;

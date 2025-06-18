@@ -73,6 +73,9 @@
     <Text Include="Puzzles\FlowerbedShrubs.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\FlowerOMino.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -143,6 +146,9 @@
     <ClCompile Include="Puzzles\FlowerbedShrubs.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\FlowerOMino.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\fling.xml">
@@ -197,6 +203,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\FlowerbedShrubs.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\FlowerOMino.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

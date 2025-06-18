@@ -49,7 +49,7 @@ const vector<vector<Position>> triominos = {
 
 // first: the position where the triomino will be placed
 // second: the triomino id
-using puz_lit = pair<Position, int>;
+using puz_piece = pair<Position, int>;
 
 struct puz_game
 {
@@ -59,7 +59,7 @@ struct puz_game
     int m_area_count;
     // Dimension 1: area id
     // Dimension 2: all possible combinations
-    vector<vector<puz_lit>> m_Lits;
+    vector<vector<puz_piece>> m_Lits;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };

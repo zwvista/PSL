@@ -168,6 +168,7 @@
     <Text Include="Puzzles\FloorPlan.txt" />
     <Text Include="Puzzles\FlowerBeds.txt" />
     <Text Include="Puzzles\FlowerbedShrubs.txt" />
+    <Text Include="Puzzles\FlowerOMino.txt" />
     <Text Include="Puzzles\FourMeNot.txt" />
     <Text Include="Puzzles\FreePlanks.txt" />
     <Text Include="Puzzles\fullsearch_astar.txt" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Puzzles\FloorPlan.cpp" />
     <ClCompile Include="Puzzles\FlowerBeds.cpp" />
     <ClCompile Include="Puzzles\FlowerbedShrubs.cpp" />
+    <ClCompile Include="Puzzles\FlowerOMino.cpp" />
     <ClCompile Include="Puzzles\FourMeNot.cpp" />
     <ClCompile Include="Puzzles\FreePlanks.cpp" />
     <ClCompile Include="Puzzles\fullsearch.cpp" />
@@ -227,6 +229,7 @@
     <Xml Include="Puzzles\FloorPlan.xml" />
     <Xml Include="Puzzles\FlowerBeds.xml" />
     <Xml Include="Puzzles\FlowerbedShrubs.xml" />
+    <Xml Include="Puzzles\FlowerOMino.xml" />
     <Xml Include="Puzzles\FourMeNot.xml" />
     <Xml Include="Puzzles\FreePlanks.xml" />
     <Xml Include="Puzzles\fullsearch.xml" />
