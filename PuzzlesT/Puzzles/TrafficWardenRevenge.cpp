@@ -147,7 +147,7 @@ struct puz_state
         return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots); 
     }
     bool make_move_light(const Position& p, int n);
-    bool make_move_light2(const Position& p, int n);
+    void make_move_light2(const Position& p, int n);
     bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
@@ -218,7 +218,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move_light2(p, path_ids.front()) ? 1 : 0;
+                return make_move_light2(p, path_ids.front()), 1;
             }
     }
     return 2;
@@ -266,7 +266,7 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::make_move_light2(const Position& p, int n)
+void puz_state::make_move_light2(const Position& p, int n)
 {
     auto& [rng2D_straight, rng_turn, ls_light, lss_straight] = m_game->m_pos2paths.at(p)[n];
     dots(p) = {ls_light};
@@ -279,14 +279,12 @@ bool puz_state::make_move_light2(const Position& p, int n)
 
     ++m_distance;
     m_matches.erase(p);
-    return check_loop();
 }
 
 bool puz_state::make_move_light(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move_light2(p, n))
-        return false;
+    make_move_light2(p, n);
     for (;;) {
         int m;
         while ((m = find_matches(false)) == 1);

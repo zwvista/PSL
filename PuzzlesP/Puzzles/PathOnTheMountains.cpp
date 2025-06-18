@@ -135,7 +135,7 @@ struct puz_state
         return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots); 
     }
     bool make_move(int n);
-    bool make_move2(int n);
+    void make_move2(int n);
     int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
@@ -143,7 +143,9 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_game->m_dot_count * 4 - m_finished.size(); }
+    unsigned int get_heuristic() const {
+        return m_matches.size() + m_game->m_dot_count * 4 - m_finished.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -202,7 +204,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(path_ids.front()) ? 1 : 0;
+                return make_move2(path_ids.front()), 1;
             }
     }
     return 2;
@@ -250,7 +252,7 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::make_move2(int n)
+void puz_state::make_move2(int n)
 {
     auto& [p1, p2, rng, line] = m_game->m_paths[n];
     for (int i = 0; i < rng.size(); ++i)
@@ -266,17 +268,15 @@ bool puz_state::make_move2(int n)
         if (++m_pos2count[p3] == 2) {
             for (int n2 : m_matches.at(p3))
                 f(n2);
+            ++m_distance;
             m_matches.erase(p3);
         }
-
-    return check_loop();
 }
 
 bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    if (!make_move2(n))
-        return false;
+    make_move2(n);
     for (;;) {
         int m;
         while ((m = find_matches(false)) == 1);

@@ -170,7 +170,9 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_game->m_dot_count * 4 - m_finished.size(); }
+    unsigned int get_heuristic() const {
+        return m_matches.size() + m_game->m_dot_count * 4 - m_finished.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -299,6 +301,7 @@ void puz_state::make_move_hint2(const Position& p, int n)
         if (is_valid(p2))
             dots(p2) = {perm[i]};
     }
+    ++m_distance;
     m_matches.erase(p);
 }
 

@@ -139,7 +139,7 @@ struct puz_state
         return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots); 
     }
     bool make_move_pearl(const Position& p, int n);
-    bool make_move_pearl2(const Position& p, int n);
+    void make_move_pearl2(const Position& p, int n);
     bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
@@ -148,7 +148,9 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_game->m_dot_count * 4 - m_finished.size(); }
+    unsigned int get_heuristic() const {
+        return m_matches.size() + m_game->m_dot_count * 4 - m_finished.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -218,7 +220,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move_pearl2(p, perm_ids.front()) ? 1 : 0;
+                return make_move_pearl2(p, perm_ids.front()), 1;
             }
     }
     return 2;
@@ -266,7 +268,7 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::make_move_pearl2(const Position& p, int n)
+void puz_state::make_move_pearl2(const Position& p, int n)
 {
     auto perms = m_game->m_pos2pearl.at(p) == PUZ_BLACK_PEARL ?
         black_pearl_perms : white_pearl_perms;
@@ -275,15 +277,14 @@ bool puz_state::make_move_pearl2(const Position& p, int n)
         auto& info = perm[i];
         dots(p + info.first) = {info.second};
     }
+    ++m_distance;
     m_matches.erase(p);
-    return check_loop();
 }
 
 bool puz_state::make_move_pearl(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move_pearl2(p, n))
-        return false;
+    make_move_pearl2(p, n);
     for (;;) {
         int m;
         while ((m = find_matches(false)) == 1);
