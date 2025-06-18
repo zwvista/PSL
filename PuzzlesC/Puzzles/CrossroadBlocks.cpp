@@ -140,11 +140,11 @@ struct puz_state
     }
     bool make_move_hint(const Position& p, int n);
     void make_move_hint2(const Position& p, int n);
-    bool make_move_line(const Position& p, int n);
+    bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
-    bool check_black_white() const;
+    bool check_inside_loop() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -190,11 +190,12 @@ puz_state::puz_state(const puz_game& g)
         }
 
     for (auto& [p, info] : g.m_pos2info) {
-        for (int i = 0; i < 4; ++i)
-            m_finished.emplace(p, i);
-        auto& perm_ids = m_matches[p];
-        perm_ids.resize(info.m_perms.size());
-        boost::iota(perm_ids, 0);
+        auto& [is_black, num, dir_str, rng, perms] = info;
+        if (num != PUZ_UNKNOWN) {
+            auto& perm_ids = m_matches[p];
+            perm_ids.resize(perms.size());
+            boost::iota(perm_ids, 0);
+        }
     }
 
     find_matches(true);
@@ -223,7 +224,7 @@ int puz_state::find_matches(bool init)
                 return make_move_hint2(p, perm_ids.front()), 1;
             }
     }
-    return !m_matches.empty() || check_black_white() ? 2 : 0;
+    return !is_goal_state() || check_inside_loop() ? 2 : 0;
 }
 
 int puz_state::check_dots(bool init)
@@ -296,12 +297,13 @@ bool puz_state::make_move_hint(const Position& p, int n)
     }
 }
 
-bool puz_state::make_move_line(const Position& p, int n)
+bool puz_state::make_move_dot(const Position& p, int n)
 {
     m_distance = 0;
     auto& dt = dots(p);
     dt = {dt[n]};
-    return check_dots(false) != 0 && check_loop();
+    return check_dots(false) != 0 && check_loop() &&
+        (!is_goal_state() || check_inside_loop());
 }
 
 bool puz_state::check_loop() const
@@ -338,18 +340,19 @@ bool puz_state::check_loop() const
 }
 
 // 5. Black cells must be inside the loop. White cells must be outside the loop.
-bool puz_state::check_black_white() const
+bool puz_state::check_inside_loop() const
 {
-    for (auto& [p, info] : m_game->m_pos2info) {
-        auto& [is_black, num, dir_str, rng, perms] = info;
-        if (is_black != boost::algorithm::all_of(offset, [&](const Position& os) {
+    for (auto& [p, info] : m_game->m_pos2info)
+        if (info.m_is_black != [&] {
+            auto& os = offset[0];
+            int n = 0;
             for (auto p2 = p + os; is_valid(p2); p2 += os)
-                if (dots(p2)[0] != lineseg_off)
-                    return true;
+                if (int lineseg = dots(p2)[0];
+                    is_lineseg_on(lineseg, 1) || is_lineseg_on(lineseg, 3))
+                    ++n;
+            return n % 2 == 1;
+        }())
             return false;
-        }))
-            return false;
-    }
     return true;
 }
 
@@ -376,7 +379,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         auto& dt = dots(p);
         for (int i = 0; i < dt.size(); ++i) {
             children.push_back(*this);
-            if (!children.back().make_move_line(p, i))
+            if (!children.back().make_move_dot(p, i))
                 children.pop_back();
         }
     }
@@ -390,8 +393,12 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             auto& dt = dots(p);
             if (auto it = m_game->m_pos2info.find(p); it != m_game->m_pos2info.end()) {
-                auto& info = it->second;
-                out << (info.m_is_black ? 'B' : 'W') << info.m_num << info.m_dir;
+                auto& [is_black, num, dir_str, rng, perms] = it->second;
+                out << (is_black ? PUZ_BLACK : PUZ_WHITE);
+                if (num == PUZ_UNKNOWN)
+                    out << "  ";
+                else
+                    out << num << dir_str;
             } else
                 out << (dt[0] == lineseg_off ? "S  " :
                     is_lineseg_on(dt[0], 1) ? " --" : "   ");
