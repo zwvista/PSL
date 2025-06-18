@@ -25,12 +25,7 @@
 namespace puzzles::FlowerOMino{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_HEDGE = 'H';
-constexpr auto PUZ_CENTER = 'o';
-constexpr auto PUZ_RIGHT = 'r';
-constexpr auto PUZ_DOWN = 'd';
-constexpr auto PUZ_CENTER_RIGHT = 'R';
-constexpr auto PUZ_CENTER_DOWN = 'D';
+constexpr auto PUZ_HEDGE = '=';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -94,26 +89,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            switch (char ch = str[c]) {
-            case PUZ_HEDGE:
+            if (char ch = str[c]; ch == PUZ_HEDGE)
                 cells(p) = ch;
-                break;
-            case PUZ_CENTER:
-                m_flowers.push_back({p});
-                break;
-            case PUZ_RIGHT:
-                m_flowers.push_back({p, p + offset[1]});
-                break;
-            case PUZ_DOWN:
-                m_flowers.push_back({p, p + offset[2]});
-                break;
-            case PUZ_CENTER_RIGHT:
-                m_flowers.push_back({p});
-                m_flowers.push_back({p, p + offset[1]});
-                break;
-            case PUZ_CENTER_DOWN:
-                m_flowers.push_back({p});
-                m_flowers.push_back({p, p + offset[2]});
+            else if (ch != PUZ_SPACE) {
+                int n = ch - '0';
+                if (n & 1) m_flowers.push_back({p});
+                if (n & 2) m_flowers.push_back({p, p + offset[1]});
+                if (n & 4) m_flowers.push_back({p, p + offset[2]});
             }
         }
     }
