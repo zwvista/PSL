@@ -224,9 +224,17 @@ int puz_state::find_matches(bool init)
         auto& perms = m_game->m_config2perms.at({num, rng.size()});
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
-            return boost::algorithm::all_of(perm, [&](char ch) {
-                return ch == PUZ_START_END && boost::a
-            });
+            for (int k = 0; k < rng.size(); ++k) {
+                char ch = perm[k];
+                auto& p = rng[k];
+                auto& linesegs_all2 =
+                    ch == PUZ_START_END ? linesegs_all_middle : linesegs_all_start_end;
+                if (boost::algorithm::all_of(dots(p), [&](int lineseg) {
+                    return boost::algorithm::any_of_equal(linesegs_all2, lineseg);
+                }))
+                    return true;
+            }
+            return false;
         });
 
         if (!init)
@@ -284,12 +292,16 @@ int puz_state::check_dots(bool init)
 
 void puz_state::make_move_hint2(int i, int n)
 {
-    //auto& info = m_game->m_pos2info.at(p);
-    //auto& [is_black, num, dir_str, rng, perms] = info;
-    //auto& perm = perms[n];
-    //for (int i = 0; i < rng.size(); ++i)
-    //    dots(rng[i]) = {perm[i]};
-    //m_matches.erase(p);
+    auto& [num, rng] = m_game->m_areas[i];
+    auto& perm = m_game->m_config2perms.at({num, rng.size()})[n];
+    for (int k = 0; k < rng.size(); ++k) {
+        char ch = perm[k];
+        auto& p = rng[k];
+        auto& linesegs_all2 =
+            ch == PUZ_START_END ? linesegs_all_middle : linesegs_all_start_end;
+        for (int lineseg : linesegs_all2)
+            boost::remove_erase(dots(p), lineseg);
+    }
 }
 
 bool puz_state::make_move_hint(int i, int n)
