@@ -1,6 +1,17 @@
 Level 1
-Number of vertices examined: 1
-0.0006445 [s]
+Sequence of moves: 
+W3> -- -- --   
+   |        |  
+ --   B1< --   
+|        |     
+   B0>S     W0<
+|        |     
+ --   B1< --   
+   |        |  
+W3> -- -- --   
+Number of moves: 1
+Number of vertices examined: 2
+0.0012237 [s]
 
 Level 2
 Sequence of moves: 
@@ -15,5 +26,5 @@ W   -- --
  -- -- -- --   
 Number of moves: 7
 Number of vertices examined: 23
-0.001919 [s]
+0.0035025 [s]
 

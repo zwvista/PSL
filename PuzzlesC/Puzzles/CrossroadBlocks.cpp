@@ -345,12 +345,13 @@ bool puz_state::check_inside_loop() const
     for (auto& [p, info] : m_game->m_pos2info)
         if (info.m_is_black != [&] {
             auto& os = offset[0];
-            int n = 0;
-            for (auto p2 = p + os; is_valid(p2); p2 += os)
-                if (int lineseg = dots(p2)[0];
-                    is_lineseg_on(lineseg, 1) || is_lineseg_on(lineseg, 3))
-                    ++n;
-            return n % 2 == 1;
+            int n1 = 0, n3 = 0;
+            for (auto p2 = p + os; is_valid(p2); p2 += os) {
+                int lineseg = dots(p2)[0];
+                if (is_lineseg_on(lineseg, 1)) ++n1;
+                if (is_lineseg_on(lineseg, 3)) ++n3;
+            }
+            return min(n1, n3) % 2 == 1;
         }())
             return false;
     return true;
