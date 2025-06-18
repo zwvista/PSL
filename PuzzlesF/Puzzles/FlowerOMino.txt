@@ -1,0 +1,8 @@
+Level 1
+Number of vertices examined: 1
+0.0010799 [s]
+
+Level 2
+Number of vertices examined: 1
+0.0003147 [s]
+
