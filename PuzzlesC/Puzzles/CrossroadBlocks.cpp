@@ -294,6 +294,8 @@ bool puz_state::make_move_hint(const Position& p, int n)
         m = check_dots(false);
         if (m != 1)
             return m == 2;
+        if (!check_loop())
+            return false;
     }
 }
 
