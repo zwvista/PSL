@@ -23,6 +23,8 @@ namespace puzzles::GardenTunnels{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_UNKNOWN = -1;
+constexpr auto PUZ_START_END = '0';
+constexpr auto PUZ_MIDDLE = '1';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -67,6 +69,7 @@ struct puz_game
     map<Position, int> m_pos2num;
     vector<pair<int, vector<Position>>> m_areas;
     map<Position, int> m_pos2area;
+    map<pair<int, int>, vector<string>> m_config2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -131,6 +134,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 num = it->second;
         }
         m_areas.push_back({num, {smoves.begin(), smoves.end()}});
+
+        int sz = smoves.size();
+        auto& perms = m_config2perms[{num, sz}];
+        if (!perms.empty()) continue;
+        auto perm = string(num, PUZ_START_END) + string(num, PUZ_MIDDLE);
+        do
+            perms.push_back(perm);
+        while (boost::next_permutation(perm));
     }
 }
 
@@ -146,7 +157,10 @@ struct puz_state
     const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
     puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_dots < x.m_dots; }
+    bool make_move_hint(int i, int n);
+    void make_move_hint2(int i, int n);
     bool make_move_dot(const Position& p, int n);
+    int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
 
@@ -160,6 +174,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     vector<puz_dot> m_dots;
+    map<int, vector<int>> m_matches;
     set<pair<Position, int>> m_finished;
     unsigned int m_distance = 0;
 };
@@ -167,6 +182,13 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_dots(g.m_dot_count), m_game(&g)
 {
+    for (int i = 0; i < g.m_areas.size(); ++i) {
+        auto& [num, rng] = g.m_areas[i];
+        vector<int> perm_ids(g.m_config2perms.at({num, rng.size()}).size());
+        boost::iota(perm_ids, 0);
+        m_matches[i] = perm_ids;
+    }
+
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
@@ -191,7 +213,31 @@ puz_state::puz_state(const puz_game& g)
                     dt.push_back(lineseg);
         }
 
+    find_matches(true);
     check_dots(true);
+}
+
+int puz_state::find_matches(bool init)
+{
+    for (auto& [area_id, perm_ids] : m_matches) {
+        auto& [num, rng] = m_game->m_areas[area_id];
+        auto& perms = m_game->m_config2perms.at({num, rng.size()});
+        boost::remove_erase_if(perm_ids, [&](int id) {
+            auto& perm = perms[id];
+            return boost::algorithm::all_of(perm, [&](char ch) {
+                return ch == PUZ_START_END && boost::a
+            });
+        });
+
+        if (!init)
+            switch (perm_ids.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move_hint2(area_id, perm_ids.front()), 1;
+            }
+    }
+    return 2;
 }
 
 int puz_state::check_dots(bool init)
@@ -233,6 +279,31 @@ int puz_state::check_dots(bool init)
             m_finished.insert(kv);
         }
         m_distance += newly_finished.size();
+    }
+}
+
+void puz_state::make_move_hint2(int i, int n)
+{
+    //auto& info = m_game->m_pos2info.at(p);
+    //auto& [is_black, num, dir_str, rng, perms] = info;
+    //auto& perm = perms[n];
+    //for (int i = 0; i < rng.size(); ++i)
+    //    dots(rng[i]) = {perm[i]};
+    //m_matches.erase(p);
+}
+
+bool puz_state::make_move_hint(int i, int n)
+{
+    m_distance = 0;
+    make_move_hint2(i, n);
+    for (;;) {
+        int m;
+        while ((m = find_matches(false)) == 1);
+        if (m == 0)
+            return false;
+        m = check_dots(false);
+        if (m != 1)
+            return m == 2;
     }
 }
 
@@ -279,19 +350,33 @@ bool puz_state::make_move_dot(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    int i = boost::min_element(m_dots, [&](const puz_dot& dt1, const puz_dot& dt2) {
-        auto f = [](const puz_dot& dt) {
-            int sz = dt.size();
-            return sz == 1 ? 100 : sz;
-        };
-        return f(dt1) < f(dt2);
-    }) - m_dots.begin();
-    auto& dt = m_dots[i];
-    Position p(i / sidelen(), i % sidelen());
-    for (int n = 0; n < dt.size(); ++n) {
-        children.push_back(*this);
-        if (!children.back().make_move_dot(p, n))
-            children.pop_back();
+    if (!m_matches.empty()) {
+        auto& [i, perm_ids] = *boost::min_element(m_matches, [](
+            const pair<const int, vector<int>>& kv1,
+            const pair<const int, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+
+        for (int n : perm_ids) {
+            children.push_back(*this);
+            if (!children.back().make_move_hint(i, n))
+                children.pop_back();
+        }
+    } else {
+        int i = boost::min_element(m_dots, [&](const puz_dot& dt1, const puz_dot& dt2) {
+            auto f = [](const puz_dot& dt) {
+                int sz = dt.size();
+                return sz == 1 ? 100 : sz;
+            };
+            return f(dt1) < f(dt2);
+        }) - m_dots.begin();
+        auto& dt = m_dots[i];
+        Position p(i / sidelen(), i% sidelen());
+        for (int n = 0; n < dt.size(); ++n) {
+            children.push_back(*this);
+            if (!children.back().make_move_dot(p, n))
+                children.pop_back();
+        }
     }
 }
 
