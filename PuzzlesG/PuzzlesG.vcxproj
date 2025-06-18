@@ -159,6 +159,7 @@
   <ItemGroup>
     <Text Include="Puzzles\Galaxies.txt" />
     <Text Include="Puzzles\Gardener.txt" />
+    <Text Include="Puzzles\GardenTunnels.txt" />
     <Text Include="Puzzles\Gems.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -177,6 +178,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Galaxies.cpp" />
     <ClCompile Include="Puzzles\Gardener.cpp" />
+    <ClCompile Include="Puzzles\GardenTunnels.cpp" />
     <ClCompile Include="Puzzles\Gems.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -188,6 +190,7 @@
   <ItemGroup>
     <Xml Include="Puzzles\Galaxies.xml" />
     <Xml Include="Puzzles\Gardener.xml" />
+    <Xml Include="Puzzles\GardenTunnels.xml" />
     <Xml Include="Puzzles\Gems.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
