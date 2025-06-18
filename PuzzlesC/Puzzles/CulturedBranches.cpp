@@ -167,7 +167,23 @@ int puz_state::find_matches(bool init)
 
             function<void(int)> backtrack = [&](int index) {
                 if (index == input.size()) {
-                    result.push_back(path);
+                    if ([&] {
+                        set<Position> s;
+                        for (int i = 0; i < rng.size(); ++i) {
+                            auto& p = rng[i];
+                            auto& v = path[i];
+                            for (int j = 0; j < 4; ++j) {
+                                auto& os = offset[j];
+                                auto p2 = p + os;
+                                int n = v[j];
+                                for (int k = 1; k <= n; ++k, p2 += os)
+                                    if (auto [it, success] = s.insert(p2); !success)
+                                        return false;
+                            }
+                        }
+                        return true;
+                    }())
+                        result.push_back(path);
                     return;
                 }
 
