@@ -83,7 +83,7 @@ struct puz_state
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
     bool make_move(char ch, const puz_2d& perm);
     void make_move2(char ch, const puz_2d& perm);
-    void make_move3(char ch, const puz_2d& perm, int i, int j, bool stopped);
+    void make_move3(const Position& p, const puz_2d& perm, int i, int j, bool stopped);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -163,15 +163,16 @@ int puz_state::find_matches(bool init)
 
             function<void(int)> backtrack = [&](int index) {
                 if (index == input.size()) {
+                    // All Trees having the same number must not cover each other
                     if ([&] {
                         set<Position> s;
                         for (int i = 0; i < rng.size(); ++i) {
                             auto& p = rng[i];
-                            auto& v = path[i];
+                            auto& nums = path[i];
                             for (int j = 0; j < 4; ++j) {
                                 auto& os = offset[j];
                                 auto p2 = p + os;
-                                int n = v[j];
+                                int n = nums[j];
                                 for (int k = 1; k <= n; ++k, p2 += os)
                                     if (auto [it, success] = s.insert(p2); !success)
                                         return false;
@@ -192,8 +193,8 @@ int puz_state::find_matches(bool init)
                     // 5. Every Tree having the same number must have a different number of Branches
                     // (1 to 4 in the possible directions around it).
                     int n = boost::count(nums, 0);
-                    if (boost::algorithm::any_of(path, [&](const vector<int> v) {
-                        return boost::count(v, 0) == n;
+                    if (boost::algorithm::any_of(path, [&](const vector<int> nums2) {
+                        return boost::count(nums2, 0) == n;
                     }))
                         continue;
 
@@ -211,11 +212,11 @@ int puz_state::find_matches(bool init)
         for (auto& perm : perms)
             for (int k = 0; k < rng.size(); ++k) {
                 auto& p = rng[k];
-                auto& v = perm[k];
+                auto& nums = perm[k];
                 for (int i = 0; i < 4; ++i) {
                     auto& os = offset[i];
                     auto p2 = p;
-                    for (int j = 1; j <= v[i]; ++j)
+                    for (int j = 1; j <= nums[i]; ++j)
                         if (cells(p2 += os) == PUZ_SPACE)
                             spaces.insert(p2);
                 }
@@ -240,22 +241,23 @@ int puz_state::find_matches(bool init)
     if (!matches_changed)
         return 2;
 
-    for (auto& [ch, perms] : m_matches)
-        for (int i = 0; i < perms[0].size(); ++i)
+    for (auto& [ch, perms] : m_matches) {
+        auto& rng = m_game->m_char2rng.at(ch);
+        for (int i = 0; i < rng.size(); ++i)
             for (int j = 0; j < 4; ++j) {
-                auto f = [=](const puz_2d& v1, const puz_2d& v2) {
-                    return v1[i][j] < v2[i][j];
+                auto f = [=](const puz_2d& perm1, const puz_2d& perm2) {
+                    return perm1[i][j] < perm2[i][j];
                 };
                 const auto& perm = *boost::min_element(perms, f);
                 int n = boost::max_element(perms, f)->at(i)[j];
-                make_move3(ch, perm, i, j, perm[i][j] == n);
+                make_move3(rng[i], perm, i, j, perm[i][j] == n);
             }
+    }
     return 1;
 }
 
-void puz_state::make_move3(char ch, const puz_2d& perm, int i, int j, bool stopped)
+void puz_state::make_move3(const Position& p, const puz_2d& perm, int i, int j, bool stopped)
 {
-    auto& p = m_game->m_char2rng.at(ch)[i];
     auto& os = offset[j];
     int n = perm[i][j];
     auto p2 = p + os;
@@ -271,7 +273,7 @@ void puz_state::make_move2(char ch, const puz_2d& perm)
     auto& rng = m_game->m_char2rng.at(ch);
     for (int i = 0; i < rng.size(); ++i)
         for (int j = 0; j < 4; ++j)
-            make_move3(ch, perm, i, j, true);
+            make_move3(rng[i], perm, i, j, true);
 
     m_used_sums.insert(perm.front().back());
     ++m_distance;
