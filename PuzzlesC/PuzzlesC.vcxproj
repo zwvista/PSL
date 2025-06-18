@@ -173,6 +173,7 @@
     <Text Include="Puzzles\CrossroadBlocks.txt" />
     <Text Include="Puzzles\CrossroadsX.txt" />
     <Text Include="Puzzles\CrosstownTraffic.txt" />
+    <Text Include="Puzzles\CulturedBranches.txt" />
     <Text Include="Puzzles\CultureTrip.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -204,6 +205,7 @@
     <ClCompile Include="Puzzles\CrossroadBlocks.cpp" />
     <ClCompile Include="Puzzles\CrossroadsX.cpp" />
     <ClCompile Include="Puzzles\CrosstownTraffic.cpp" />
+    <ClCompile Include="Puzzles\CulturedBranches.cpp" />
     <ClCompile Include="Puzzles\CultureTrip.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -233,6 +235,7 @@
     <Xml Include="Puzzles\CrossroadBlocks.xml" />
     <Xml Include="Puzzles\CrossroadsX.xml" />
     <Xml Include="Puzzles\CrosstownTraffic.xml" />
+    <Xml Include="Puzzles\CulturedBranches.xml" />
     <Xml Include="Puzzles\CultureTrip.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

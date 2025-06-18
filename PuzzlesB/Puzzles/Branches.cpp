@@ -119,9 +119,8 @@ int puz_state::find_matches(bool init)
             auto& os = offset[i];
             int n = 0;
             auto& nums = dir_nums[i];
-            for (auto p2 = p + os; n <= sum; p2 += os) {
-                char ch = cells(p2);
-                if (ch == PUZ_SPACE) {
+            for (auto p2 = p + os; n <= sum; p2 += os)
+                if (char ch = cells(p2); ch == PUZ_SPACE) {
                     // we can stop here
                     nums.push_back(n++);
                     spaces.insert(p2);
@@ -133,7 +132,6 @@ int puz_state::find_matches(bool init)
                     nums.push_back(n);
                     break;
                 }
-            }
         }
 
         // Compute the total length of the branches connected to the number
@@ -181,10 +179,8 @@ void puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bo
     auto& os = offset[i];
     int n = perm[i];
     auto p2 = p + os;
-    for (int j = 0; j < n - 1; ++j) {
+    for (int j = 1; j < n; ++j, p2 += os)
         cells(p2) = str_branch[i];
-        p2 += os;
-    }
     if (stopped && n > 0)
         // branch head
         cells(p2) = str_branch[i + 4];

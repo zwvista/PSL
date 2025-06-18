@@ -1,0 +1,32 @@
+Level 1
+Sequence of moves: 
+ < B - >
+ A v ^ ^
+ | < A |
+ v < - B
+Number of moves: 1
+Number of vertices examined: 2
+0.0012955 [s]
+
+Level 2
+Sequence of moves: 
+ < - - A
+ ^ < B >
+ C - - >
+ < A - >
+Number of moves: 3
+Number of vertices examined: 12
+0.0018576 [s]
+
+Level 36
+Sequence of moves: 
+ A ^ ^ ^ ^ ^
+ | | C | | |
+ | | v | C |
+ | | < A > |
+ | B - - > |
+ v v < - - B
+Number of moves: 2
+Number of vertices examined: 5
+0.102757 [s]
+

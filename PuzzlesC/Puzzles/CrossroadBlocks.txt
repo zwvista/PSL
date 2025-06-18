@@ -11,5 +11,35 @@ W3> -- -- --
 W3> -- -- --   
 Number of moves: 1
 Number of vertices examined: 2
-0.0011744 [s]
+0.0008696 [s]
+
+Level 2
+Sequence of moves: 
+W3> -- -- --   
+   |        |  
+W   -- --      
+         |  |  
+ --   W1<      
+|  |     |  |  
+    -- --      
+|           |  
+ -- -- -- --   
+Number of moves: 7
+Number of vertices examined: 23
+0.0016741 [s]
+
+Level 11
+Sequence of moves: 
+ --   W1> --   
+|  |     |  |  
+    -- --      
+|           |  
+   B  S  B     
+|           |  
+ --   B1< --   
+   |     |     
+W3^ -- --   W2<
+Number of moves: 1
+Number of vertices examined: 2
+0.0014539 [s]
 

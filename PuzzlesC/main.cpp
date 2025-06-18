@@ -15,6 +15,7 @@ extern void solve_puz_Consecutives();
 extern void solve_puz_CrossroadBlocks();
 extern void solve_puz_CrossroadsX();
 extern void solve_puz_CrosstownTraffic();
+extern void solve_puz_CulturedBranches();
 extern void solve_puz_CultureTrip();
 
 int main(int argc, char **argv)
@@ -35,7 +36,8 @@ int main(int argc, char **argv)
     println("r1: Crossroad Blocks");
     println("r2: Crossroads X");
     println("r3: Crosstown Traffic");
-    println("u: Culture Trip");
+    println("u1: Cultured Branches");
+    println("u2: Culture Trip");
     string str;
     getline(cin, str);
     if (str.empty());
@@ -54,7 +56,8 @@ int main(int argc, char **argv)
     else if (str == "r1") solve_puz_CrossroadBlocks();
     else if (str == "r2") solve_puz_CrossroadsX();
     else if (str == "r3") solve_puz_CrosstownTraffic();
-    else if (str == "u") solve_puz_CultureTrip();
+    else if (str == "u1") solve_puz_CulturedBranches();
+    else if (str == "u2") solve_puz_CultureTrip();
 
     return 0;
 }

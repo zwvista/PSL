@@ -70,6 +70,9 @@
     <Text Include="Puzzles\CrossroadsX.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\CulturedBranches.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -140,6 +143,9 @@
     <ClCompile Include="Puzzles\CrossroadsX.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\CulturedBranches.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Calcudoku.xml">
@@ -191,6 +197,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\CrossroadsX.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\CulturedBranches.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
