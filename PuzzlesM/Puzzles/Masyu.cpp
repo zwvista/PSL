@@ -140,7 +140,7 @@ struct puz_state
     }
     bool make_move_pearl(const Position& p, int n);
     bool make_move_pearl2(const Position& p, int n);
-    bool make_move_line(const Position& p, int n);
+    bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
@@ -297,7 +297,7 @@ bool puz_state::make_move_pearl(const Position& p, int n)
     }
 }
 
-bool puz_state::make_move_line(const Position& p, int n)
+bool puz_state::make_move_dot(const Position& p, int n)
 {
     m_distance = 0;
     auto& dt = dots(p);
@@ -365,7 +365,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         auto& dt = dots(p);
         for (int i = 0; i < dt.size(); ++i) {
             children.push_back(*this);
-            if (!children.back().make_move_line(p, i))
+            if (!children.back().make_move_dot(p, i))
                 children.pop_back();
         }
     }
