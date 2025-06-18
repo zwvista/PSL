@@ -59,7 +59,7 @@ struct puz_game
     int m_area_count;
     // Dimension 1: area id
     // Dimension 2: all possible combinations
-    vector<vector<puz_piece>> m_Lits;
+    vector<vector<puz_piece>> m_pieces;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -121,7 +121,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    m_Lits.resize(m_area_count);
+    m_pieces.resize(m_area_count);
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
@@ -145,7 +145,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     return n;
                 }();
                 if (n != -1)
-                    m_Lits[n].emplace_back(p, i);
+                    m_pieces[n].emplace_back(p, i);
             }
         }
 }
@@ -182,7 +182,7 @@ puz_state::puz_state(const puz_game& g)
 {
     for (int i = 0; i < g.m_area_count; ++i) {
         auto& perm_ids = m_matches[i];
-        perm_ids.resize(g.m_Lits[i].size());
+        perm_ids.resize(g.m_pieces[i].size());
         boost::iota(perm_ids, 0);
     }
 
@@ -191,13 +191,13 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [area_id, lit_ids] : m_matches) {
-        boost::remove_erase_if(lit_ids, [&](int id) {
-            auto& lit = m_game->m_Lits[area_id][id];
-            auto& t = triominos[lit.second];
-            char ch = lit.second + '0';
+    for (auto& [area_id, piece_ids] : m_matches) {
+        boost::remove_erase_if(piece_ids, [&](int id) {
+            auto& piece = m_game->m_pieces[area_id][id];
+            auto& t = triominos[piece.second];
+            char ch = piece.second + '0';
             for (auto& os : t) {
-                auto p2 = lit.first + os;
+                auto p2 = piece.first + os;
                 if (cells(p2) != PUZ_SPACE)
                     return true;
                 // No two adjacent (touching horizontally / vertically) triominos should
@@ -212,11 +212,11 @@ int puz_state::find_matches(bool init)
         });
 
         if (!init)
-            switch(lit_ids.size()) {
+            switch(piece_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(area_id, lit_ids.front()) ? 1 : 0;
+                return make_move2(area_id, piece_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -260,11 +260,11 @@ bool puz_state::is_continuous() const
 
 bool puz_state::make_move2(int i, int j)
 {
-    auto& lit = m_game->m_Lits[i][j];
-    auto& t = triominos[lit.second];
+    auto& piece = m_game->m_pieces[i][j];
+    auto& t = triominos[piece.second];
 
     for (int k = 0; k < t.size(); ++k)
-        cells(lit.first + t[k]) = lit.second + '0';
+        cells(piece.first + t[k]) = piece.second + '0';
 
     ++m_distance;
     m_matches.erase(i);
@@ -292,12 +292,12 @@ bool puz_state::make_move(int i, int j)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [area_id, lit_ids] = *boost::min_element(m_matches, [](
+    auto& [area_id, piece_ids] = *boost::min_element(m_matches, [](
         const pair<const int, vector<int>>& kv1,
         const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : lit_ids) {
+    for (int n : piece_ids) {
         children.push_back(*this);
         if (!children.back().make_move(area_id, n))
             children.pop_back();

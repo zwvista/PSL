@@ -1,37 +1,37 @@
 Level 1
 Sequence of moves: 
- - -   -
+ - - - -
 |F|F|H|F|
  -   -  
- H| |F| |
+|H| |F| |
  - -   -
-|F|F| |H 
+|F|F| |H|
    -   -
 | |H| |F|
- -   - -
+ - - - -
 Number of moves: 1
 Number of vertices examined: 2
-0.000774825 [s]
+0.0011075 [s]
 
 Level 2
 Sequence of moves: 
-   - -  
- H|F  |H 
+ - - - -
+|H|F  |H|
  - - - -
 |F      |
         
 |       |
  - - - -
- H|F  |H 
-   - -  
+|H|F  |H|
+ - - - -
 Number of moves: 1
 Number of vertices examined: 2
-0.000445439 [s]
+0.0004623 [s]
 
 Level 200
 Sequence of moves: 
- -   - - - - - - - -  
-| |H|    F  |F|F|  F|H 
+ - - - - - - - - - - -
+| |H|    F  |F|F|  F|H|
    -         -       -
 | |F|       |H| |   | |
      - - - - - -      
@@ -51,9 +51,9 @@ Sequence of moves:
  -       - - -   -    
 |F| |F| |H|   | | | | |
  -   - - -     -   - -
- H| |F|F  |F  |F|F|H|F|
-   - - - - - - - -   -
+|H| |F|F  |F  |F|F|H|F|
+ - - - - - - - - - - -
 Number of moves: 22
 Number of vertices examined: 51
-0.00967394 [s]
+0.0043111 [s]
 

@@ -13,7 +13,7 @@
     1. The goal is to divide the board into Tetris pieces, including the
        square one (differently from LITS).
     2. The number in a cell tells you how many of the sides are marked
-       (like spieceherlink).
+       (like SlitherLink).
     3. Please consider that the outside border of the board as marked.
 */
 
