@@ -184,7 +184,7 @@ int puz_state::find_matches(bool init)
                     return;
                 }
 
-                for (auto nums : input[index]) {
+                for (auto& nums : input[index]) {
                     if (used.contains(nums)) continue;
                     // 3. The number tells you the total length of the Branches coming out of
                     // that Tree.
