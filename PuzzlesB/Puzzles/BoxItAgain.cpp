@@ -20,6 +20,20 @@ namespace puzzles::BoxItAgain{
 
 constexpr auto PUZ_SPACE = ' ';
 
+constexpr Position offset[] = {
+    {-1, 0},        // n
+    {0, 1},        // e
+    {1, 0},        // s
+    {0, -1},        // w
+};
+
+constexpr Position offset2[] = {
+    {0, 0},        // n
+    {0, 1},        // e
+    {1, 0},        // s
+    {0, 0},        // w
+};
+
 struct puz_box_info
 {
     // the area of the box
@@ -89,8 +103,11 @@ struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(int r, int c) const { return m_cells[r * sidelen() + c]; }
-    char& cells(int r, int c) { return m_cells[r * sidelen() + c]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+    }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
@@ -111,7 +128,6 @@ struct puz_state
     // key: the position of the number
     // value.elem: the index of the box
     map<Position, vector<int>> m_matches;
-    set<Position> m_horz_walls, m_vert_walls;
     unsigned int m_distance = 0;
     char m_ch = 'a';
 };
@@ -136,7 +152,7 @@ int puz_state::find_matches(bool init)
             auto& box = boxes[id];
             for (int r = box.first.first; r <= box.second.first; ++r)
                 for (int c = box.first.second; c <= box.second.second; ++c)
-                    if (cells(r, c) != PUZ_SPACE)
+                    if (cells({r, c}) != PUZ_SPACE)
                         return true;
             return false;
         });
@@ -159,14 +175,7 @@ void puz_state::make_move2(const Position& p, int n)
     auto &tl = box.first, &br = box.second;
     for (int r = tl.first; r <= br.first; ++r)
         for (int c = tl.second; c <= br.second; ++c)
-            cells(r, c) = m_ch;
-    for (int r = tl.first; r <= br.first; ++r)
-        m_vert_walls.emplace(r, tl.second),
-        m_vert_walls.emplace(r, br.second + 1);
-    for (int c = tl.second; c <= br.second; ++c)
-        m_horz_walls.emplace(tl.first, c),
-        m_horz_walls.emplace(br.first + 1, c);
-
+            cells({r, c}) = m_ch;
     ++m_ch, ++m_distance;
     m_matches.erase(p);
 }
@@ -196,16 +205,29 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    set<Position> horz_walls, vert_walls;
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            for (int i = 0; i < 4; ++i) {
+                auto p2 = p + offset[i];
+                auto p_wall = p + offset2[i];
+                auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
+                if (!is_valid(p2) || cells(p) != cells(p2))
+                    walls.insert(p_wall);
+            }
+        }
+
     for (int r = 0;; ++r) {
         // draw horizontal walls
         for (int c = 0; c < sidelen(); ++c)
-            out << (m_horz_walls.contains({r, c}) ? " -" : "  ");
+            out << (horz_walls.contains({r, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical walls
-            out << (m_vert_walls.contains(p) ? '|' : ' ');
+            out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             if (auto it = m_game->m_pos2boxinfo.find(p); it == m_game->m_pos2boxinfo.end())
                 out << ".";
