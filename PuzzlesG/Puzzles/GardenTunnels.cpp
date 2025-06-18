@@ -193,11 +193,8 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            int area_id = m_game->m_pos2area.at(p);
-            bool has_single_cell = m_game->m_areas[area_id].second.size() == 1;
             for (int lineseg : linesegs_all)
                 if ([&]{
-                    set<int> area_ids;
                     for (int i = 0; i < 4; ++i) {
                         if (!is_lineseg_on(lineseg, i))
                             continue;
@@ -205,10 +202,8 @@ puz_state::puz_state(const puz_game& g)
                         // A line segment cannot go beyond the boundaries of the board
                         if (!is_valid(p2))
                             return false;
-                        area_ids.insert(m_game->m_pos2area.at(p2));
                     }
-                    // 2. You can enter (and exit) the room only once.
-                    return has_single_cell || area_ids.contains(area_id);
+                    return true;
                 }())
                     dt.push_back(lineseg);
         }
@@ -316,6 +311,8 @@ bool puz_state::make_move_hint(int i, int n)
         m = check_dots(false);
         if (m != 1)
             return m == 2;
+        if (!check_loop())
+            return false;
     }
 }
 
