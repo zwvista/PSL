@@ -233,16 +233,14 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move3(char ch, const puz_2d& perm, int i, int j, bool stopped)
 {
     auto& p = m_game->m_char2rng.at(ch)[i];
-    auto& os = offset[i];
+    auto& os = offset[j];
     int n = perm[i][j];
     auto p2 = p + os;
-    for (int j = 0; j < n - 1; ++j) {
-        cells(p2) = str_branch[i];
-        p2 += os;
-    }
+    for (int k = 1; k < n; ++k, p2 += os)
+        cells(p2) = str_branch[j];
     if (stopped && n > 0)
         // branch head
-        cells(p2) = str_branch[i + 4];
+        cells(p2) = str_branch[j + 4];
 }
 
 void puz_state::make_move2(char ch, const puz_2d& perm)
@@ -252,6 +250,7 @@ void puz_state::make_move2(char ch, const puz_2d& perm)
         for (int j = 0; j < 4; ++j)
             make_move3(ch, perm, i, j, true);
 
+    m_used_sums.insert(perm.front().back());
     ++m_distance;
     m_matches.erase(ch);
 }
@@ -286,7 +285,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             if (char ch = cells(p); ch == PUZ_NUMBER)
-                out << format("{:2}", m_game->m_pos2char.at(p));
+                out << ' ' << m_game->m_pos2char.at(p);
             else
                 out << ' ' << ch;
         }
