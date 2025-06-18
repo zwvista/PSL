@@ -11,5 +11,9 @@ W3> -- -- --
 W3> -- -- --   
 Number of moves: 1
 Number of vertices examined: 2
-0.0011744 [s]
+0.0012273 [s]
+
+Level 2
+Number of vertices examined: 1
+0.0001262 [s]
 

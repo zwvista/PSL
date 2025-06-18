@@ -25,6 +25,11 @@
 
 namespace puzzles::CrossroadBlocks{
 
+constexpr auto PUZ_BLACK = 'B';
+constexpr auto PUZ_WHITE = 'W';
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_UNKNOWN = -1;
+
 // n-e-s-w
 // 0 means line is off in this direction
 // 1,2,4,8 means line is on in this direction
@@ -78,8 +83,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             auto s = str.substr(3 * c, 3);
             if (s != "   ") {
                 auto& info = m_pos2info[{r, c}];
-                info.m_is_black = s[0] == 'B';
-                info.m_num = s[1] - '0';
+                info.m_is_black = s[0] == PUZ_BLACK;
+                info.m_num = s[1] == PUZ_SPACE ? PUZ_UNKNOWN : s[1] - '0';
                 info.m_dir = s[2];
             }
         }
@@ -87,6 +92,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto& [p, info] : m_pos2info) {
         auto& [is_black, num3, dir_str, rng, perms] = info;
+        if (num3 == PUZ_UNKNOWN)
+            continue;
         auto dir = hint_dirs.find(dir_str);
         auto& os = offset[dir];
         for (auto p2 = p + os; is_valid(p2); p2 += os)
@@ -142,7 +149,9 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_game->m_dot_count * 4 - m_finished.size(); }
+    unsigned int get_heuristic() const {
+        return m_matches.size() + m_game->m_dot_count * 4 - m_finished.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -197,13 +206,14 @@ int puz_state::find_matches(bool init)
     for (auto& [p, perm_ids] : m_matches) {
         auto& info = m_game->m_pos2info.at(p);
         auto& [is_black, num, dir_str, rng, perms] = info;
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& perm = perms[id];
-            for (int i = 0; i < perm.size(); ++i)
-                if (boost::algorithm::none_of_equal(dots(rng[i]), perm[i]))
-                    return true;
-            return false;
-        });
+        if (num != PUZ_UNKNOWN)
+            boost::remove_erase_if(perm_ids, [&](int id) {
+                auto& perm = perms[id];
+                for (int i = 0; i < perm.size(); ++i)
+                    if (boost::algorithm::none_of_equal(dots(rng[i]), perm[i]))
+                        return true;
+                return false;
+            });
 
         if (!init)
             switch(perm_ids.size()) {
@@ -262,9 +272,12 @@ void puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& info = m_game->m_pos2info.at(p);
     auto& [is_black, num, dir_str, rng, perms] = info;
-    auto& perm = perms[n];
-    for (int i = 0; i < rng.size(); ++i)
-        dots(rng[i]) = {perm[i]};
+    if (num != PUZ_UNKNOWN) {
+        auto& perm = perms[n];
+        for (int i = 0; i < rng.size(); ++i)
+            dots(rng[i]) = {perm[i]};
+    }
+    ++m_distance;
     m_matches.erase(p);
 }
 
