@@ -29,5 +29,14 @@ W              `
                `
     ]]>
   </level>
+  <level id="11">
+    <![CDATA[
+      W1>      `
+               `
+   B     B     `
+      B1<      `
+W3^         W2<`
+    ]]>
+  </level>
 </levels>
 </puzzle>
