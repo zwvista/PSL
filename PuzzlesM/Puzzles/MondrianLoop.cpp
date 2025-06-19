@@ -24,6 +24,7 @@
 namespace puzzles::MondrianLoop{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_UNKNOWN_CHAR = 'O';
 constexpr auto PUZ_UNKNOWN = -1;
 
@@ -136,13 +137,33 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+    auto f = [&](const Position& p) {
+        if (!is_valid(p)) return false;
+        char ch = cells(p);
+        return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+    };
+
     for (auto& [p, box_ids] : m_matches) {
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& box = m_game->m_boxes[id];
-            for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c)
+            auto& [tl, br] = m_game->m_boxes[id];
+            auto& [r1, c1] = tl;
+            auto& [r2, c2] = br;
+            for (int r = r1; r <= r2; ++r)
+                for (int c = c1; c <= c2; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
                         return true;
+            // 3. The rectangles/squares can't touch each other with their sides
+            // (they can't share a side), 
+            for (int r = r1; r <= r2; ++r) {
+                Position p1(r, c1 - 1), p2(r, c2 + 1);
+                if (f(p1) || f(p2))
+                    return true;
+            }
+            for (int c = c1; c <= c2; ++c) {
+                Position p1(r1 - 1, c), p2(r2 + 1, c);
+                if (f(p1) || f(p2))
+                    return true;
+            }
             return false;
         });
 
@@ -159,13 +180,24 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& box = m_game->m_boxes[n];
-    auto &tl = box.first, &br = box.second;
-    for (int r = tl.first; r <= br.first; ++r)
-        for (int c = tl.second; c <= br.second; ++c) {
+    auto& [tl, br] = m_game->m_boxes[n];
+    auto& [r1, c1] = tl;
+    auto& [r2, c2] = br;
+    // 3. The rectangles/squares can't touch each other with their sides
+    // (they can't share a side), 
+    for (int r = r1; r <= r2; ++r)
+        for (int c = c1; c <= c2; ++c) {
             Position p(r, c);
             cells(p) = m_ch, ++m_distance, m_matches.erase(p);
         }
+    auto f = [&](const Position& p) {
+        if (is_valid(p))
+            cells(p) = PUZ_EMPTY;
+        };
+    for (int r = r1; r <= r2; ++r)
+        f({r, c1 - 1}), f({r, c2 + 1});
+    for (int c = c1; c <= c2; ++c)
+        f({r1 - 1, c}), f({r2 + 1, c});
     ++m_ch;
 }
 
@@ -210,7 +242,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horizontal lines
         for (int c = 0; c < sidelen(); ++c)
-            out << (horz_walls.contains({r, c}) ? " --" : "   ");
+            out << (horz_walls.contains({r, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
@@ -219,9 +251,11 @@ ostream& puz_state::dump(ostream& out) const
             out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-                out << " .";
+                out << ' ';
+            else if (int num = it->second; num == PUZ_UNKNOWN)
+                out << PUZ_UNKNOWN_CHAR;
             else
-                out << format("{:2}", it->second);
+                out << num;
         }
         println(out);
     }

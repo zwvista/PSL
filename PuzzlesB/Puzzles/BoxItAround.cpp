@@ -129,9 +129,11 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [p, box_ids] : m_matches) {
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& box = m_game->m_boxes[id];
-            for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c)
+            auto& [tl, br] = m_game->m_boxes[id];
+            auto& [r1, c1] = tl;
+            auto& [r2, c2] = br;
+            for (int r = r1; r <= r2; ++r)
+                for (int c = c1; c <= c2; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
                         return true;
             return false;
@@ -150,10 +152,11 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& box = m_game->m_boxes[n];
-    auto &tl = box.first, &br = box.second;
-    for (int r = tl.first; r <= br.first; ++r)
-        for (int c = tl.second; c <= br.second; ++c) {
+    auto& [tl, br] = m_game->m_boxes[n];
+    auto& [r1, c1] = tl;
+    auto& [r2, c2] = br;
+    for (int r = r1; r <= r2; ++r)
+        for (int c = c1; c <= c2; ++c) {
             Position p(r, c);
             cells(p) = m_ch, ++m_distance, m_matches.erase(p);
         }
