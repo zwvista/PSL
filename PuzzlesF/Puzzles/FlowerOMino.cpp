@@ -174,11 +174,12 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, piece_ids] : m_matches) {
-        //boost::remove_erase_if(piece_ids, [&](int id) {
-        //    return boost::algorithm::any_of(rng2D[id], [&](const Position& p) {
-        //        return cells(p) != PUZ_SPACE;
-        //    });
-        //});
+        boost::remove_erase_if(piece_ids, [&](int id) {
+            auto& rng = m_game->m_pieces[id];
+            return boost::algorithm::any_of(rng, [&](const Position& p) {
+                return cells(p) != PUZ_SPACE;
+            });
+        });
 
         if (!init)
             switch(piece_ids.size()) {

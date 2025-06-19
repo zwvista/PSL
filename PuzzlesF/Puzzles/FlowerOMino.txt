@@ -1,30 +1,30 @@
 Level 1
 Sequence of moves: 
  - - - -
-|=|c c c|
+|=|b b b|
  -   - -
-|a|c|=|b|
+|a|b|=|c|
    - -  
-|a|=|b b|
+|a|=|c c|
    -   -
-|a a|b|=|
+|a a|c|=|
  - - - -
-Number of moves: 2
-Number of vertices examined: 4
-0.0057277 [s]
+Number of moves: 1
+Number of vertices examined: 2
+0.0008943 [s]
 
 Level 2
 Sequence of moves: 
  - - - -
 |=|a a a|
  - - -  
-|c c|=|a|
-   - - -
-|c|d d|=|
+|b b|=|a|
+     - -
+|b b|c|=|
  - -   -
-|=|b|d d|
+|=|c c c|
  - - - -
-Number of moves: 4
-Number of vertices examined: 7
-0.0020453 [s]
+Number of moves: 2
+Number of vertices examined: 3
+0.0020736 [s]
 
