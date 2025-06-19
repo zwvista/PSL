@@ -124,6 +124,7 @@ struct puz_state
     // key: the position of the number
     // value.elem: the index of the box
     map<Position, vector<int>> m_matches;
+    vector<puz_box> m_used_boxes;
     unsigned int m_distance = 0;
     char m_ch = 'a';
 };
@@ -165,15 +166,7 @@ int puz_state::find_matches(bool init)
                 if (f(p1) || f(p2))
                     return true;
             }
-            // 3. The rectangles/squares have to form a loop by
-            // connecting with their corners.
-            vector<Position> rng = {
-                {r1 - 1, c1 - 1}, {r1 - 1, c2 + 1},
-                {r2 + 1, c1 - 1}, {r2 + 1, c2 + 1}
-            };
-            return boost::algorithm::any_of(rng, [&](const Position& p2) {
-                return is_valid(p) && cells(p) == PUZ_EMPTY;
-            });
+            return false;
         });
 
         if (!init)
@@ -184,7 +177,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(box_ids[0]), 1;
             }
     }
-    return 2;
+    return !is_goal_state() || check_mondrian_loop() ? 2 : 0;
 }
 
 void puz_state::make_move2(int n)
@@ -202,12 +195,13 @@ void puz_state::make_move2(int n)
     auto f = [&](const Position& p) {
         if (is_valid(p))
             cells(p) = PUZ_EMPTY;
-        };
+    };
     for (int r = r1; r <= r2; ++r)
         f({r, c1 - 1}), f({r, c2 + 1});
     for (int c = c1; c <= c2; ++c)
         f({r1 - 1, c}), f({r2 + 1, c});
     ++m_ch;
+    m_used_boxes.push_back({tl, br});
 }
 
 bool puz_state::make_move(int n)
@@ -223,7 +217,26 @@ bool puz_state::make_move(int n)
 // connecting with their corners.
 bool puz_state::check_mondrian_loop()
 {
-
+    // A cycle graph where every vertex has a degree of 2 is simply a cycle.
+    // In a cycle graph, every vertex is connected to exactly two other vertices,
+    // forming a closed loop or circuit. 
+    for (auto& [tl, br] : m_used_boxes) {
+        auto& [r1, c1] = tl;
+        auto& [r2, c2] = br;
+        vector<Position> v = {
+            {r1 - 1, c1 - 1},
+            {r1 - 1, c2 + 1},
+            {r2 + 1, c1 - 1},
+            {r2 + 1, c2 + 1},
+        };
+        if (boost::count_if(v, [&](const Position & p) {
+            return boost::algorithm::any_of(m_used_boxes, [&](const puz_box& box) {
+                auto& [tl2, br2] = box;
+                return tl2 == p || br2 == p;
+            });
+        }) != 2)
+            return false;
+    }
     replace(m_cells.begin(), m_cells.end(), PUZ_SPACE, PUZ_EMPTY);
     return true;
 }
