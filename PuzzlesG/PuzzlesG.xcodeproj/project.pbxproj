@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689D032E03F0F200A2BCCC /* GardenTunnels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D002E03F0F200A2BCCC /* GardenTunnels.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -32,6 +33,9 @@
 /* Begin PBXFileReference section */
 		8C5F12952DE3787700BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12962DE3787700BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689D002E03F0F200A2BCCC /* GardenTunnels.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GardenTunnels.cpp; sourceTree = "<group>"; };
+		8C689D012E03F0F200A2BCCC /* GardenTunnels.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = GardenTunnels.txt; sourceTree = "<group>"; };
+		8C689D022E03F0F200A2BCCC /* GardenTunnels.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = GardenTunnels.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesG */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesG; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -110,6 +114,9 @@
 				8CA2403A1EB479D40055D6B1 /* Gardener.cpp */,
 				8CA2403B1EB479D40055D6B1 /* Gardener.txt */,
 				8CA2403C1EB479D40055D6B1 /* Gardener.xml */,
+				8C689D002E03F0F200A2BCCC /* GardenTunnels.cpp */,
+				8C689D012E03F0F200A2BCCC /* GardenTunnels.txt */,
+				8C689D022E03F0F200A2BCCC /* GardenTunnels.xml */,
 				95D7B5C9230C455C001E005C /* Gems.cpp */,
 				95D7B5CA230C455C001E005C /* Gems.txt */,
 				95D7B5CB230C455C001E005C /* Gems.xml */,
@@ -216,6 +223,7 @@
 				95D7B5CC230C455C001E005C /* Gems.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA2403D1EB479D40055D6B1 /* Galaxies.cpp in Sources */,
+				8C689D032E03F0F200A2BCCC /* GardenTunnels.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

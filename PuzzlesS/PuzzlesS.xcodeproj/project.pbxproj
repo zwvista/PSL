@@ -10,6 +10,7 @@
 		8C269F401F66809100489ADC /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C269F3D1F66809100489ADC /* Snake.cpp */; };
 		8C689C802DEEB75500A2BCCC /* SuspendedGravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */; };
 		8C689CDD2E003BFC00A2BCCC /* SlitherCorner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CDA2E003BFC00A2BCCC /* SlitherCorner.cpp */; };
+		8C689D0E2E04023200A2BCCC /* StraightAndBendLands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D0B2E04023200A2BCCC /* StraightAndBendLands.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -58,6 +59,9 @@
 		8C689CDA2E003BFC00A2BCCC /* SlitherCorner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SlitherCorner.cpp; sourceTree = "<group>"; };
 		8C689CDB2E003BFC00A2BCCC /* SlitherCorner.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SlitherCorner.txt; sourceTree = "<group>"; };
 		8C689CDC2E003BFC00A2BCCC /* SlitherCorner.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SlitherCorner.xml; sourceTree = "<group>"; };
+		8C689D0B2E04023200A2BCCC /* StraightAndBendLands.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StraightAndBendLands.cpp; sourceTree = "<group>"; };
+		8C689D0C2E04023200A2BCCC /* StraightAndBendLands.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = StraightAndBendLands.txt; sourceTree = "<group>"; };
+		8C689D0D2E04023200A2BCCC /* StraightAndBendLands.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StraightAndBendLands.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesS; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -215,6 +219,9 @@
 				958FA634232BE15B00205831 /* Steps.cpp */,
 				958FA635232BE15B00205831 /* Steps.txt */,
 				958FA636232BE15B00205831 /* Steps.xml */,
+				8C689D0B2E04023200A2BCCC /* StraightAndBendLands.cpp */,
+				8C689D0C2E04023200A2BCCC /* StraightAndBendLands.txt */,
+				8C689D0D2E04023200A2BCCC /* StraightAndBendLands.xml */,
 				95E37B1E233BDDA10054284F /* StraightAndTurn.cpp */,
 				95E37B1C233BDDA10054284F /* StraightAndTurn.txt */,
 				95E37B1D233BDDA10054284F /* StraightAndTurn.xml */,
@@ -328,6 +335,7 @@
 				8CA241631EB47AEC0055D6B1 /* Square100.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA2415F1EB47AEC0055D6B1 /* SlitherLink.cpp in Sources */,
+				8C689D0E2E04023200A2BCCC /* StraightAndBendLands.cpp in Sources */,
 				8CA241591EB47AEC0055D6B1 /* Sentinels.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,

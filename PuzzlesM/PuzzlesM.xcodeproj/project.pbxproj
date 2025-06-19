@@ -10,6 +10,7 @@
 		8C2964061FA4339F0017A812 /* Magic5gonRing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C2964031FA4339E0017A812 /* Magic5gonRing.cpp */; };
 		8C689CC02E003A2600A2BCCC /* MineSlither.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CBD2E003A2600A2BCCC /* MineSlither.cpp */; };
 		8C689CC12E003A2600A2BCCC /* MaketheDifference.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CBA2E003A2600A2BCCC /* MaketheDifference.cpp */; };
+		8C689D072E03F17700A2BCCC /* MondrianLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D042E03F17700A2BCCC /* MondrianLoop.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F051EA924380055D6B1 /* magic_square.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ED01EA924380055D6B1 /* magic_square.cpp */; };
 		8CA23F061EA924380055D6B1 /* Magnets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ED41EA924380055D6B1 /* Magnets.cpp */; };
@@ -58,6 +59,9 @@
 		8C689CBD2E003A2600A2BCCC /* MineSlither.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MineSlither.cpp; sourceTree = "<group>"; };
 		8C689CBE2E003A2600A2BCCC /* MineSlither.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = MineSlither.txt; sourceTree = "<group>"; };
 		8C689CBF2E003A2600A2BCCC /* MineSlither.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MineSlither.xml; sourceTree = "<group>"; };
+		8C689D042E03F17700A2BCCC /* MondrianLoop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MondrianLoop.cpp; sourceTree = "<group>"; };
+		8C689D052E03F17700A2BCCC /* MondrianLoop.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = MondrianLoop.txt; sourceTree = "<group>"; };
+		8C689D062E03F17700A2BCCC /* MondrianLoop.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MondrianLoop.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesM; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23ED01EA924380055D6B1 /* magic_square.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = magic_square.cpp; sourceTree = "<group>"; };
@@ -222,6 +226,9 @@
 				958FA61F2323CD1900205831 /* MixedTatamis.cpp */,
 				958FA6202323CD1900205831 /* MixedTatamis.txt */,
 				958FA61E2323CD1900205831 /* MixedTatamis.xml */,
+				8C689D042E03F17700A2BCCC /* MondrianLoop.cpp */,
+				8C689D052E03F17700A2BCCC /* MondrianLoop.txt */,
+				8C689D062E03F17700A2BCCC /* MondrianLoop.xml */,
 				8CA23EF81EA924380055D6B1 /* MoreOrLess.cpp */,
 				8CA23EF91EA924380055D6B1 /* MoreOrLess.txt */,
 				8CA23EFA1EA924380055D6B1 /* MoreOrLess.xml */,
@@ -340,6 +347,7 @@
 				8CA23F121EA924380055D6B1 /* MoreOrLess.cpp in Sources */,
 				8CA23F071EA924380055D6B1 /* Masyu.cpp in Sources */,
 				8CA23F0B1EA924380055D6B1 /* MatchstickTriangles.cpp in Sources */,
+				8C689D072E03F17700A2BCCC /* MondrianLoop.cpp in Sources */,
 				8CA23F101EA924380055D6B1 /* MiniLits.cpp in Sources */,
 				8CA23F051EA924380055D6B1 /* magic_square.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,

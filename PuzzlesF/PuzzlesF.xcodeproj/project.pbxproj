@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C689CB52E00383900A2BCCC /* FlowerbedShrubs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CB22E00383900A2BCCC /* FlowerbedShrubs.cpp */; };
+		8C689CFF2E03F0A700A2BCCC /* FlowerOMino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CFC2E03F0A700A2BCCC /* FlowerOMino.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -48,6 +49,9 @@
 		8C689CB22E00383900A2BCCC /* FlowerbedShrubs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FlowerbedShrubs.cpp; sourceTree = "<group>"; };
 		8C689CB32E00383900A2BCCC /* FlowerbedShrubs.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FlowerbedShrubs.txt; sourceTree = "<group>"; };
 		8C689CB42E00383900A2BCCC /* FlowerbedShrubs.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FlowerbedShrubs.xml; sourceTree = "<group>"; };
+		8C689CFC2E03F0A700A2BCCC /* FlowerOMino.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FlowerOMino.cpp; sourceTree = "<group>"; };
+		8C689CFD2E03F0A700A2BCCC /* FlowerOMino.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FlowerOMino.txt; sourceTree = "<group>"; };
+		8C689CFE2E03F0A700A2BCCC /* FlowerOMino.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FlowerOMino.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesF */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesF; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -160,9 +164,6 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
-				8C689CB22E00383900A2BCCC /* FlowerbedShrubs.cpp */,
-				8C689CB32E00383900A2BCCC /* FlowerbedShrubs.txt */,
-				8C689CB42E00383900A2BCCC /* FlowerbedShrubs.xml */,
 				958FA6262327E62300205831 /* Farmer.cpp */,
 				958FA6252327E62300205831 /* Farmer.txt */,
 				958FA6222327E62300205831 /* Farmer.xml */,
@@ -195,17 +196,23 @@
 				958FA6242327E62300205831 /* FlowerBeds.cpp */,
 				958FA6272327E62400205831 /* FlowerBeds.txt */,
 				958FA6232327E62300205831 /* FlowerBeds.xml */,
+				8C689CB22E00383900A2BCCC /* FlowerbedShrubs.cpp */,
+				8C689CB32E00383900A2BCCC /* FlowerbedShrubs.txt */,
+				8C689CB42E00383900A2BCCC /* FlowerbedShrubs.xml */,
+				8C689CFC2E03F0A700A2BCCC /* FlowerOMino.cpp */,
+				8C689CFD2E03F0A700A2BCCC /* FlowerOMino.txt */,
+				8C689CFE2E03F0A700A2BCCC /* FlowerOMino.xml */,
 				8CA240201EB479B90055D6B1 /* FourMeNot.cpp */,
 				8CA240211EB479B90055D6B1 /* FourMeNot.txt */,
 				8CA240221EB479B90055D6B1 /* FourMeNot.xml */,
 				95D7B5FA23201437001E005C /* FreePlanks.cpp */,
 				95D7B5F923201437001E005C /* FreePlanks.txt */,
 				95D7B5F823201436001E005C /* FreePlanks.xml */,
+				8CA240261EB479B90055D6B1 /* fullsearch.cpp */,
+				8CA240271EB479B90055D6B1 /* fullsearch.xml */,
 				8CA240231EB479B90055D6B1 /* fullsearch_astar.txt */,
 				8CA240241EB479B90055D6B1 /* fullsearch_bfs.txt */,
 				8CA240251EB479B90055D6B1 /* fullsearch_dijkstra.txt */,
-				8CA240261EB479B90055D6B1 /* fullsearch.cpp */,
-				8CA240271EB479B90055D6B1 /* fullsearch.xml */,
 				8CA240281EB479B90055D6B1 /* FussyWaiter.cpp */,
 				8CA240291EB479B90055D6B1 /* FussyWaiter.txt */,
 				8CA2402A1EB479B90055D6B1 /* FussyWaiter.xml */,
@@ -322,6 +329,7 @@
 				8CA240351EB479B90055D6B1 /* FussyWaiter.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				95D7B5FB23201437001E005C /* FreePlanks.cpp in Sources */,
+				8C689CFF2E03F0A700A2BCCC /* FlowerOMino.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				958FA6282327E62400205831 /* FlowerBeds.cpp in Sources */,
 				95406C5F255FA38D00C87A0D /* FencingSheep.cpp in Sources */,

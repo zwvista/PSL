@@ -11,6 +11,7 @@
 		8C689C962E00375900A2BCCC /* CrossroadBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C8C2E00375900A2BCCC /* CrossroadBlocks.cpp */; };
 		8C689C972E00375900A2BCCC /* CrosstownTraffic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C922E00375900A2BCCC /* CrosstownTraffic.cpp */; };
 		8C689C982E00375900A2BCCC /* CleaningPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C892E00375900A2BCCC /* CleaningPath.cpp */; };
+		8C689CFB2E03F03C00A2BCCC /* CulturedBranches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CF92E03F03C00A2BCCC /* CulturedBranches.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -57,6 +58,9 @@
 		8C689C922E00375900A2BCCC /* CrosstownTraffic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CrosstownTraffic.cpp; sourceTree = "<group>"; };
 		8C689C932E00375900A2BCCC /* CrosstownTraffic.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CrosstownTraffic.txt; sourceTree = "<group>"; };
 		8C689C942E00375900A2BCCC /* CrosstownTraffic.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CrosstownTraffic.xml; sourceTree = "<group>"; };
+		8C689CF82E03F02000A2BCCC /* CulturedBranches.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CulturedBranches.xml; sourceTree = "<group>"; };
+		8C689CF92E03F03C00A2BCCC /* CulturedBranches.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CulturedBranches.cpp; sourceTree = "<group>"; };
+		8C689CFA2E03F03C00A2BCCC /* CulturedBranches.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CulturedBranches.txt; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesC; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -205,6 +209,9 @@
 				8C689C922E00375900A2BCCC /* CrosstownTraffic.cpp */,
 				8C689C932E00375900A2BCCC /* CrosstownTraffic.txt */,
 				8C689C942E00375900A2BCCC /* CrosstownTraffic.xml */,
+				8C689CF92E03F03C00A2BCCC /* CulturedBranches.cpp */,
+				8C689CFA2E03F03C00A2BCCC /* CulturedBranches.txt */,
+				8C689CF82E03F02000A2BCCC /* CulturedBranches.xml */,
 				95D7B5F1231D523F001E005C /* CultureTrip.cpp */,
 				95D7B5F2231D523F001E005C /* CultureTrip.txt */,
 				95D7B5F0231D523F001E005C /* CultureTrip.xml */,
@@ -308,6 +315,7 @@
 				8CA23FFE1EB4793B0055D6B1 /* Consecutives.cpp in Sources */,
 				8CA23FFA1EB4793B0055D6B1 /* CarpentersSquare.cpp in Sources */,
 				95214E70212B9DB000EA7950 /* Cheese.cpp in Sources */,
+				8C689CFB2E03F03C00A2BCCC /* CulturedBranches.cpp in Sources */,
 				8CA23FFB1EB4793B0055D6B1 /* CarpentersWall.cpp in Sources */,
 				95D7B5F3231D523F001E005C /* CultureTrip.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
