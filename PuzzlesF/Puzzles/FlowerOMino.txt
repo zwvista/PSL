@@ -1,8 +1,30 @@
 Level 1
-Number of vertices examined: 1
-0.0010799 [s]
+Sequence of moves: 
+ - - - -
+|=|c c c|
+ -   - -
+|a|c|=|b|
+   - -  
+|a|=|b b|
+   -   -
+|a a|b|=|
+ - - - -
+Number of moves: 2
+Number of vertices examined: 4
+0.0057277 [s]
 
 Level 2
-Number of vertices examined: 1
-0.0003147 [s]
+Sequence of moves: 
+ - - - -
+|=|a a a|
+ - - -  
+|c c|=|a|
+   - - -
+|c|d d|=|
+ - -   -
+|=|b|d d|
+ - - - -
+Number of moves: 4
+Number of vertices examined: 7
+0.0020453 [s]
 
