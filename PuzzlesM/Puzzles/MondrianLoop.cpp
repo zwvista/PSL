@@ -109,6 +109,7 @@ struct puz_state
     bool make_move(int n);
     void make_move2(int n);
     int find_matches(bool init);
+    bool check_mondrian_loop();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -164,7 +165,15 @@ int puz_state::find_matches(bool init)
                 if (f(p1) || f(p2))
                     return true;
             }
-            return false;
+            // 3. The rectangles/squares have to form a loop by
+            // connecting with their corners.
+            vector<Position> rng = {
+                {r1 - 1, c1 - 1}, {r1 - 1, c2 + 1},
+                {r2 + 1, c1 - 1}, {r2 + 1, c2 + 1}
+            };
+            return boost::algorithm::any_of(rng, [&](const Position& p2) {
+                return is_valid(p) && cells(p) == PUZ_EMPTY;
+            });
         });
 
         if (!init)
@@ -208,6 +217,15 @@ bool puz_state::make_move(int n)
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
+}
+
+// 3. The rectangles/squares have to form a loop by
+// connecting with their corners.
+bool puz_state::check_mondrian_loop()
+{
+
+    replace(m_cells.begin(), m_cells.end(), PUZ_SPACE, PUZ_EMPTY);
+    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
