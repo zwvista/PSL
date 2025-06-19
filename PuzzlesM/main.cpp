@@ -16,6 +16,7 @@ extern void solve_puz_Minesweeper();
 extern void solve_puz_MiniLits();
 extern void solve_puz_Mirrors();
 extern void solve_puz_MixedTatamis();
+extern void solve_puz_MondrianLoop();
 extern void solve_puz_MoreOrLess();
 extern void solve_puz_Mosaik();
 extern void solve_puz_MoveTheBox();
@@ -40,9 +41,10 @@ int main(int argc, char **argv)
     println("i4: Mini-Lits");
     println("i5: Mirrors");
     println("i6: Mixed Tatamis");
-    println("o1: More Or Less");
-    println("o2: Mosaik");
-    println("o3: Move the Box");
+    println("o1: Mondrian Loop");
+    println("o2: More Or Less");
+    println("o3: Mosaik");
+    println("o4: Move the Box");
     println("u: mummymaze");
     string str;
     getline(cin, str);
@@ -63,9 +65,10 @@ int main(int argc, char **argv)
     else if (str == "i4") solve_puz_MiniLits();
     else if (str == "i5") solve_puz_Mirrors();
     else if (str == "i6") solve_puz_MixedTatamis();
-    else if (str == "o1") solve_puz_MoreOrLess();
-    else if (str == "o2") solve_puz_Mosaik();
-    else if (str == "o3") solve_puz_MoveTheBox();
+    else if (str == "o1") solve_puz_MondrianLoop();
+    else if (str == "o2") solve_puz_MoreOrLess();
+    else if (str == "o3") solve_puz_Mosaik();
+    else if (str == "o4") solve_puz_MoveTheBox();
     else if (str == "u") solve_puz_mummymaze();
 
     return 0;

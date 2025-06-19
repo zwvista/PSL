@@ -82,6 +82,9 @@
     <Text Include="Puzzles\MineSlither.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\MondrianLoop.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -164,6 +167,9 @@
     <ClCompile Include="Puzzles\MineSlither.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\MondrianLoop.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\magic_square.xml">
@@ -230,6 +236,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\MineSlither.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\MondrianLoop.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

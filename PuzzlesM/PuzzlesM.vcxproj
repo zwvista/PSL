@@ -173,6 +173,7 @@
     <Text Include="Puzzles\MiniLits.txt" />
     <Text Include="Puzzles\Mirrors.txt" />
     <Text Include="Puzzles\MixedTatamis.txt" />
+    <Text Include="Puzzles\MondrianLoop.txt" />
     <Text Include="Puzzles\MoreOrLess.txt" />
     <Text Include="Puzzles\Mosaik.txt" />
     <Text Include="Puzzles\MoveTheBox_Boston.txt" />
@@ -209,6 +210,7 @@
     <ClCompile Include="Puzzles\MiniLits.cpp" />
     <ClCompile Include="Puzzles\Mirrors.cpp" />
     <ClCompile Include="Puzzles\MixedTatamis.cpp" />
+    <ClCompile Include="Puzzles\MondrianLoop.cpp" />
     <ClCompile Include="Puzzles\MoreOrLess.cpp" />
     <ClCompile Include="Puzzles\Mosaik.cpp" />
     <ClCompile Include="Puzzles\MoveTheBox.cpp" />
@@ -240,6 +242,7 @@
     <Xml Include="Puzzles\MiniLits.xml" />
     <Xml Include="Puzzles\Mirrors.xml" />
     <Xml Include="Puzzles\MixedTatamis.xml" />
+    <Xml Include="Puzzles\MondrianLoop.xml" />
     <Xml Include="Puzzles\MoreOrLess.xml" />
     <Xml Include="Puzzles\Mosaik.xml" />
     <Xml Include="Puzzles\MoveTheBox_Boston.xml" />
