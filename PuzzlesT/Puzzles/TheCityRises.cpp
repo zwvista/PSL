@@ -318,14 +318,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
-        // draw horizontal walls
+        // draw horizontal lines
         for (int c = 0; c < sidelen(); ++c)
             out << (m_game->m_horz_walls.contains({r, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
-            // draw vertical walls
+            // draw vertical lines
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             out << cells(p);

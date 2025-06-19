@@ -254,7 +254,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 1;; ++r) {
-        // draw horizontal walls
+        // draw horizontal lines
         for (int c = 1; c < sidelen() - 1; ++c)
             out << (r > 1 && c > 1 && m_game->cells({r - 2, c - 2}) == PUZ_GALAXY_RC ? PUZ_GALAXY : ' ')
             << (cells({r - 1, c}) != cells({r, c}) ? '-' :
@@ -263,7 +263,7 @@ ostream& puz_state::dump(ostream& out) const
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
-            // draw vertical walls
+            // draw vertical lines
             out << (cells({r, c - 1}) != cells({r, c}) ? '|' :
                 c > 1 && m_game->cells({r - 1, c - 2}) == PUZ_GALAXY_R ? PUZ_GALAXY : ' ');
             if (c == sidelen() - 1) break;

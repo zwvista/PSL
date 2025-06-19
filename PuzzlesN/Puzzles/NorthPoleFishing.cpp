@@ -247,14 +247,14 @@ ostream& puz_state::dump(ostream& out) const
             }
 
     for (int r = 1;; ++r) {
-        // draw horizontal walls
+        // draw horizontal lines
         for (int c = 1; c < sidelen() - 1; ++c)
             out << (horz_walls.contains({r, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
-            // draw vertical walls
+            // draw vertical lines
             out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             char ch = cells(p);

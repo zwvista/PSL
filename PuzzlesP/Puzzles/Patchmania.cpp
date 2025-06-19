@@ -402,7 +402,7 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
     println(out);
     for (int r = 0;; ++r) {
         out << ' ';
-        // draw horizontal walls
+        // draw horizontal lines
         for (int c = 0; c < cols(); ++c)
             out << (m_game->m_horz_walls.contains({r, c}) ? " --" : "   ");
         println(out);
@@ -410,7 +410,7 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
         out << (r + 1);
         for (int c = 0;; ++c) {
             Position p(r, c);
-            // draw vertical walls
+            // draw vertical lines
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == cols()) break;
             char ch = cells(p);

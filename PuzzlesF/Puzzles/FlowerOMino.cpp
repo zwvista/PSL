@@ -245,17 +245,41 @@ ostream& puz_state::dump(ostream& out) const
 
 
     for (int r = 0;; ++r) {
-        // draw horizontal walls
-        for (int c = 0; c < sidelen(); ++c)
-            out << (horz_walls.contains({r, c}) ? " -" : "  ");
+        // draw horizontal lines
+        for (int c = 0; ; ++c) {
+            Position p(r, c);
+            out << ' ';
+            if (c == sidelen()) break;
+            out << (horz_walls.contains(p) ? '-' : ' ');
+            out << (m_game->m_flowers.contains({p + offset[0], p}) ? '*' :
+                horz_walls.contains(p) ? '-' : ' ');
+            out << (horz_walls.contains(p) ? '-' : ' ');
+        }
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
-            // draw vertical walls
+            // draw vertical lines
             out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
-            out << cells(p);
+            out << "   ";
+        }
+        println(out);
+        for (int c = 0;; ++c) {
+            Position p(r, c);
+            // draw vertical lines
+            out << (m_game->m_flowers.contains({p + offset[3], p}) ? '*' :
+                vert_walls.contains(p) ? '|' : ' ');
+            if (c == sidelen()) break;
+            out << ' ' << cells(p) << (m_game->m_flowers.contains({p}) ? '*' : ' ');
+        }
+        println(out);
+        for (int c = 0;; ++c) {
+            Position p(r, c);
+            // draw vertical lines
+            out << (vert_walls.contains(p) ? '|' : ' ');
+            if (c == sidelen()) break;
+            out << "   ";
         }
         println(out);
     }
