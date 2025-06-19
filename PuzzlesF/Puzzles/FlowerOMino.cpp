@@ -71,7 +71,8 @@ struct puz_game
     //   one position: The flower is at the center of the tile.
     //   two positions: The flower is on a edge shared by that two tiles.
     vector<vector<Position>> m_flowers;
-    map<Position, vector<vector<Position>>> m_piece2rng;
+    vector<vector<Position>> m_pieces;
+    map<Position, vector<int>> m_pos2piece_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -119,8 +120,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     return boost::algorithm::all_of(v, [&](const Position& p) {
                         return boost::algorithm::any_of_equal(rng, p);
                     });
-                }) == 1)
-                    m_piece2rng[p].push_back(rng);
+                }) == 1) {
+                    int n = m_pieces.size();
+                    m_pieces.push_back(rng);
+                    for (auto& p2 : rng)
+                        m_pos2piece_ids[p2].push_back(n);
+                }
             }
         }
 }
@@ -155,30 +160,26 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-    for (auto& [p, rng2D] : g.m_piece2rng) {
-        auto& v = m_matches[p];
-        v.resize(rng2D.size());
-        boost::iota(v, 0);
-    }
+    m_matches = g.m_pos2piece_ids;
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, rng_ids] : m_matches) {
-        auto& rng2D = m_game->m_piece2rng.at(p);
-        boost::remove_erase_if(rng_ids, [&](int id) {
-            return boost::algorithm::any_of(rng2D[id], [&](const Position& p) {
-                return cells(p) != PUZ_SPACE;
-            });
-        });
+    for (auto& [p, piece_ids] : m_matches) {
+        //auto& rng2D = m_game->m_pos2rng.at(p);
+        //boost::remove_erase_if(rng_ids, [&](int id) {
+        //    return boost::algorithm::any_of(rng2D[id], [&](const Position& p) {
+        //        return cells(p) != PUZ_SPACE;
+        //    });
+        //});
 
         if (!init)
-            switch(rng_ids.size()) {
+            switch(piece_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, rng_ids.front()), 1;
+                return make_move2(p, piece_ids.front()), 1;
             }
     }
     return 2;
@@ -186,9 +187,9 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, int i)
 {
-    auto& rng = m_game->m_piece2rng.at(p)[i];
-    for (auto& p2 : rng)
-        cells(p2) = m_ch;
+    //auto& rng = m_game->m_pos2rng.at(p)[i];
+    //for (auto& p2 : rng)
+    //    cells(p2) = m_ch;
     ++m_distance;
     m_matches.erase(p);
     ++m_ch;
