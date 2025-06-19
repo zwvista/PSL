@@ -177,7 +177,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(box_ids[0]), 1;
             }
     }
-    return !is_goal_state() || check_mondrian_loop() ? 2 : 0;
+    return check_mondrian_loop() ? 2 : 0;
 }
 
 void puz_state::make_move2(int n)
@@ -229,15 +229,21 @@ bool puz_state::check_mondrian_loop()
             {r2 + 1, c1 - 1},
             {r2 + 1, c2 + 1},
         };
-        if (boost::count_if(v, [&](const Position & p) {
+        if (boost::algorithm::any_of(v, [&](const Position& p) {
+            return is_valid(p) && cells(p) == PUZ_EMPTY;
+        }))
+            return false;
+        int n = boost::count_if(v, [&](const Position & p) {
             return boost::algorithm::any_of(m_used_boxes, [&](const puz_box& box) {
                 auto& [tl2, br2] = box;
                 return tl2 == p || br2 == p;
             });
-        }) != 2)
+        });
+        if (is_goal_state() && n != 2 || n > 2)
             return false;
     }
-    replace(m_cells.begin(), m_cells.end(), PUZ_SPACE, PUZ_EMPTY);
+    if (is_goal_state())
+        replace(m_cells.begin(), m_cells.end(), PUZ_SPACE, PUZ_EMPTY);
     return true;
 }
 

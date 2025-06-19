@@ -10,6 +10,6 @@ Sequence of moves:
 |   |O| |
  - - - -
 Number of moves: 3
-Number of vertices examined: 8
-0.0015746 [s]
+Number of vertices examined: 6
+0.0014702 [s]
 
