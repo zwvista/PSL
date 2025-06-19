@@ -34,6 +34,13 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+constexpr Position offset2[] = {
+    {0, 0},        // n
+    {0, 1},        // e
+    {1, 0},        // s
+    {0, 0},        // w
+};
+
 const vector<vector<Position>> tetrominoes = {
     // L
     {{0, 0}, {1, 0}, {2, 0}, {2, 1}},
@@ -70,7 +77,7 @@ struct puz_game
     // value: 
     //   one position: The flower is at the center of the tile.
     //   two positions: The flower is on a edge shared by that two tiles.
-    vector<vector<Position>> m_flowers;
+    set<vector<Position>> m_flowers;
     vector<vector<Position>> m_pieces;
     map<Position, vector<int>> m_pos2piece_ids;
 
@@ -94,9 +101,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 cells(p) = ch;
             else if (ch != PUZ_SPACE) {
                 int n = ch - '0';
-                if (n & 1) m_flowers.push_back({p});
-                if (n & 2) m_flowers.push_back({p, p + offset[1]});
-                if (n & 4) m_flowers.push_back({p, p + offset[2]});
+                if (n & 1) m_flowers.emplace(p);
+                if (n & 2) m_flowers.emplace(p, p + offset[1]);
+                if (n & 4) m_flowers.emplace(p, p + offset[2]);
             }
         }
     }
@@ -220,9 +227,33 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
+    set<Position> horz_walls, vert_walls;
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            for (int i = 0; i < 4; ++i) {
+                auto p2 = p + offset[i];
+                auto p_wall = p + offset2[i];
+                auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
+                if (!is_valid(p2) || cells(p) != cells(p2))
+                    walls.insert(p_wall);
+            }
+        }
+
+
+    for (int r = 0;; ++r) {
+        // draw horizontal walls
         for (int c = 0; c < sidelen(); ++c)
-            out << cells({r, c}) << ' ';
+            out << (horz_walls.contains({r, c}) ? " -" : "  ");
+        println(out);
+        if (r == sidelen()) break;
+        for (int c = 0;; ++c) {
+            Position p(r, c);
+            // draw vertical walls
+            out << (vert_walls.contains(p) ? '|' : ' ');
+            if (c == sidelen()) break;
+            out << cells(p);
+        }
         println(out);
     }
     return out;
