@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Divide the board in Hexominos or regions of 6 tiles, of any shape.
+2. Each Hexomino contains two numbers. Each number tells you how many tiles of the region are orthogonally adjacent to that tile.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ 1   2`
+ 211  `
+3   2 `
+   2  `
+  21  `
+   22 `
+    ]]>
+  </level>
+</levels>
+</puzzle>

@@ -159,6 +159,7 @@
   <ItemGroup>
     <Text Include="Puzzles\Hedgehog.txt" />
     <Text Include="Puzzles\HeliumAndIron.txt" />
+    <Text Include="Puzzles\Hexotris.txt" />
     <Text Include="Puzzles\hexrotation.txt" />
     <Text Include="Puzzles\hexrotation_ida.txt" />
     <Text Include="Puzzles\HiddenClouds.txt" />
@@ -187,6 +188,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Hedgehog.cpp" />
     <ClCompile Include="Puzzles\HeliumAndIron.cpp" />
+    <ClCompile Include="Puzzles\Hexotris.cpp" />
     <ClCompile Include="Puzzles\hexrotation.cpp" />
     <ClCompile Include="Puzzles\HiddenClouds.cpp" />
     <ClCompile Include="Puzzles\HiddenPath.cpp" />
@@ -208,6 +210,7 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="Puzzles\HeliumAndIron.xml" />
+    <Xml Include="Puzzles\Hexotris.xml" />
     <Xml Include="Puzzles\hexrotation.xml" />
     <Xml Include="Puzzles\HiddenClouds.xml" />
     <Xml Include="Puzzles\HiddenPath.xml" />
