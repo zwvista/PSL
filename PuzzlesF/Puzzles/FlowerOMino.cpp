@@ -166,8 +166,8 @@ struct puz_state : string
 
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
+, m_matches(g.m_pos2piece_ids)
 {
-    m_matches = g.m_pos2piece_ids;
     find_matches(true);
 }
 

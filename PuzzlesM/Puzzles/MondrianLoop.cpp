@@ -12,19 +12,20 @@
     1. Enough with impressionists, time for a nice geometric painting
        called Squarism!
     2. Divide the board in many rectangles or squares. Each
-       rectangle/square can contain only one number, but it can also
-       contain none. 
+       rectangle/square can contain only one number, which represents
+       its area, but it can also contain none. 
     3. The rectangles/squares can't touch each other with their sides
        (they can't share a side), but they have to form a loop by
        connecting with their corners.
     4. In the end there must be a single loop that connects all
        rectangles/squares by corners.
-    5. If a rectangle/square contains a number, that represents its area.
 */
 
 namespace puzzles::MondrianLoop{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_UNKNOWN_CHAR = 'O';
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -61,8 +62,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
-            if (auto s = str.substr(c * 2, 2); s != "  ")
-                m_pos2num[{r, c}] = stoi(string(s));
+            if (char ch = str[c]; ch != PUZ_SPACE)
+                m_pos2num[{r, c}] = 
+                    ch == PUZ_UNKNOWN_CHAR ? PUZ_UNKNOWN : ch - '0';
     }
 
     for (int r = 0; r < m_sidelen; ++r)
@@ -76,17 +78,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         for (int c2 = tl.second; c2 <= br.second; ++c2) {
                             Position p(r2, c2);
                             if (auto it = m_pos2num.find(p); it != m_pos2num.end()) {
+                                int num = it->second;
                                 rng.push_back(p);
-                                if (rng.size() > 1 || it->second != h * w)
+                                if (rng.size() > 1 || num != PUZ_UNKNOWN && num != h * w)
                                     goto next;
                             }
                         }
                     if (rng.size() == 1) {
                         int n = m_boxes.size();
                         m_boxes.emplace_back(tl, br);
-                        for (int r2 = tl.first; r2 <= br.first; ++r2)
-                            for (int c2 = tl.second; c2 <= br.second; ++c2)
-                                m_pos2boxids[{r2, c2}].push_back(n);
+                        m_pos2boxids[rng[0]].push_back(n);
                     }
                 next:;
                 }
