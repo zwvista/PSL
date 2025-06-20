@@ -199,11 +199,11 @@ struct puz_state2 : Position
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset)
-        switch (auto p2 = *this + os; m_state->cells(p2)) {
+        switch (auto p = *this + os; m_state->cells(p)) {
         case PUZ_SPACE:
         case PUZ_CANAL:
             children.push_back(*this);
-            children.back().make_move(p2);
+            children.back().make_move(p);
         }
 }
 

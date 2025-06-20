@@ -163,19 +163,22 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& a): m_area(&a) { make_move(*a.begin()); }
+    puz_state2(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>* m_area;
+    const puz_state* m_state;
 };
+
+inline bool is_nontargeted(char ch) { return ch != PUZ_TARGET; }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset) {
-        auto p = *this + os;
-        if (m_area->contains(p)) {
+        if (auto p = *this + os;
+            m_state->is_valid(p) && is_nontargeted(m_state->cells(p))) {
             children.push_back(*this);
             children.back().make_move(p);
         }
@@ -185,16 +188,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 // 4. All of the non-targeted cells must be connected.
 bool puz_state::is_interconnected() const
 {
-    set<Position> area;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            if (cells(p) != PUZ_TARGET)
-                area.insert(p);
-        }
-
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(area);
-    return smoves.size() == area.size();
+    int i = boost::find_if(m_cells, is_nontargeted) - m_cells.begin();
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return smoves.size() == boost::count_if(m_cells, is_nontargeted);
 }
 
 bool puz_state::make_move2(const Position& p, int n)

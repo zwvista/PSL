@@ -148,9 +148,8 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state* s, const Position& p_start) : m_state(s) {
-        make_move(p_start);
-    }
+    puz_state2(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -158,26 +157,24 @@ struct puz_state2 : Position
     const puz_state* m_state;
 };
 
+inline bool is_park(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY; }
+
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (int i = 0; i < 4; ++i) {
-        auto p = *this + offset[i];
-        if (char ch = m_state->cells(p); ch == PUZ_SPACE || ch == PUZ_EMPTY) {
+    for (auto& os : offset)
+        if (auto p = *this + os; is_park(m_state->cells(p))) {
             children.push_back(*this);
             children.back().make_move(p);
         }
-    }
 }
 
+// 5. Also the remaining park should be accessible to everyone, so empty grass
+// spaces should form a single continuous area.
 bool puz_state::is_interconnected() const
 {
-    int i = boost::find_if(m_cells, [&](char ch) {
-        return ch == PUZ_SPACE || ch == PUZ_EMPTY;
-    }) - m_cells.begin();
+    int i = boost::find_if(m_cells, is_park) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state2>::gen_moves({this, {i / sidelen(), i % sidelen()}});
-    return smoves.size() == boost::count_if(m_cells, [&](char ch) {
-        return ch == PUZ_SPACE || ch == PUZ_EMPTY;
-    });
+    return smoves.size() == boost::count_if(m_cells, is_park);
 }
 
 bool puz_state::make_move2(Position p_basket, int n)
