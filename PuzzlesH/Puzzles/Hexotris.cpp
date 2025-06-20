@@ -164,8 +164,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move(int n);
+    void make_move2(int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -207,25 +207,26 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, v[0]), 1;
+                return make_move2(v[0]), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(int n)
 {
     auto& [name, _1, _2, perm] = m_game->m_regions[n];
-    for (auto& p3 : perm)
-        cells(p3) = name;
-    ++m_distance;
-    m_matches.erase(p);
+    for (auto& p : perm) {
+        cells(p) = name;
+        ++m_distance;
+        m_matches.erase(p);
+    }
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -240,7 +241,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
     for (auto& n : v) {
         children.push_back(*this);
-        if (!children.back().make_move(p, n))
+        if (!children.back().make_move(n))
             children.pop_back();
     }
 }
@@ -269,12 +270,13 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vertical lines
-            out << (vert_walls.contains(p) ? '|' : ' ');
+            out << (vert_walls.contains({r, c}) ? '|' : ' ');
             if (c == sidelen() - 1) break;
-            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-                out << " .";
-            else
-                out << format("{:2}", it->second);
+            //if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
+            //    out << " .";
+            //else
+            //    out << format("{:2}", it->second);
+            out << cells(p) << ' ';
         }
         println(out);
     }

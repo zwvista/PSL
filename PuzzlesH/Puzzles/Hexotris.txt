@@ -1,4 +1,19 @@
 Level 1
-Number of vertices examined: 1
-0.000892 [s]
+Sequence of moves: 
+ -- -- -- -- -- --
+ c |a  a  a  a  a |
+    -- -- -- --   
+ c |c |d |e  e |a |
+          --    --
+ c |c |d |h |e  e |
+    --       --   
+ c |d  d |h |h |e |
+ --       --      
+ j |d |d |j |h |e |
+    -- --       --
+ j |j |j  j |h |h |
+ -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 8
+0.0131153 [s]
 
