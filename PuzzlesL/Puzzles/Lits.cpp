@@ -71,8 +71,6 @@ struct puz_piece
 {
     Position m_p;
     int m_index1, m_index2;
-    puz_piece(const Position& p, int i, int j)
-        : m_p(p), m_index1(i), m_index2(j) {}
 };
 
 struct puz_game

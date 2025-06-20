@@ -1,25 +1,29 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games 2/Puzzle Set 5/TetrominoPegs
+    iOS Game: 100 Logic Games 3/Puzzle Set 3/Guesstris
 
     Summary
-    Stuck in Tetris
+    Encoded Tetris
 
     Description
-    1. Divide the board into Tetrominoes, area of exactly four tiles, of a shape
-       like the pieces of Tetris, that is: L, I, T, S or O.
-    2. Wood cells are fixed pegs and aren't part of Tetrominoes.
-    3. Tetrominoes may be rotated or mirrored.
-    4. Two Tetrominoes sharing an edge must be different.
+    1. Divide the board in Tetriminos (Tetris-like shapes of four cells).
+    2. Each Tetrimino contains two different symbols.
+    3. Tetraminos of the same shape have the same couple of symbols inside
+       them, although not necessarily in the same positions.
+    4. Tetriminos with the same symbols can be rotated or mirrored.
 */
 
-namespace puzzles::TetrominoPegs{
+namespace puzzles::Guesstris{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_PEG = '.';
+constexpr auto PUZ_SQUARE = 'S';
+constexpr auto PUZ_TRIANGLE = 'T';
+constexpr auto PUZ_CIRCLE = 'C';
+constexpr auto PUZ_DIAMOND = 'D';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -208,32 +212,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    set<Position> horz_walls, vert_walls;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            for (int i = 0; i < 4; ++i) {
-                auto p2 = p + offset[i];
-                auto p_wall = p + offset2[i];
-                auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
-                if (!is_valid(p2) || cells(p) != cells(p2))
-                    walls.insert(p_wall);
-            }
-        }
-
-    for (int r = 0;; ++r) {
-        // draw horizontal lines
+    for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c)
-            out << (horz_walls.contains({r, c}) ? " -" : "  ");
-        println(out);
-        if (r == sidelen()) break;
-        for (int c = 0;; ++c) {
-            Position p(r, c);
-            // draw vertical lines
-            out << (vert_walls.contains(p) ? '|' : ' ');
-            if (c == sidelen()) break;
-            out << cells(p);
-        }
+            out << cells({r, c}) << ' ';
         println(out);
     }
     return out;
@@ -241,9 +222,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_TetrominoPegs()
+void solve_puz_Guesstris()
 {
-    using namespace puzzles::TetrominoPegs;
+    using namespace puzzles::Guesstris;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/TetrominoPegs.xml", "Puzzles/TetrominoPegs.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Guesstris.xml", "Puzzles/Guesstris.txt", solution_format::GOAL_STATE_ONLY);
 }

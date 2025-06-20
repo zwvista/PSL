@@ -4,6 +4,7 @@ extern void solve_puz_Galaxies();
 extern void solve_puz_Gardener();
 extern void solve_puz_GardenTunnels();
 extern void solve_puz_Gems();
+extern void solve_puz_Guesstris();
 
 int main(int argc, char **argv)
 {
@@ -12,6 +13,7 @@ int main(int argc, char **argv)
     println("a2: Gardener");
     println("a3: Garden Tunnels");
     println("e: Gems");
+    println("u: Guesstris");
     string str;
     getline(cin, str);
     if (str.empty());
@@ -19,6 +21,7 @@ int main(int argc, char **argv)
     else if (str == "a2") solve_puz_Gardener();
     else if (str == "a3") solve_puz_GardenTunnels();
     else if (str == "e") solve_puz_Gems();
+    else if (str == "u") solve_puz_Guesstris();
 
     return 0;
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Divide the board in Tetriminos (Tetris-like shapes of four cells).
+2. Each Tetrimino contains two different symbols.
+3. Tetraminos of the same shape have the same couple of symbols inside them, although not necessarily in the same positions.
+4. Tetriminos with the same symbols can be rotated or mirrored.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+  SS`
+TSTT`
+ S  `
+   T`
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+D   `
+S C `
+ CDD`
+ CS `
+    ]]>
+  </level>
+</levels>
+</puzzle>
