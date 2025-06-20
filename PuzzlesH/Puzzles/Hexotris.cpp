@@ -19,7 +19,6 @@
 namespace puzzles::Hexotris{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
@@ -39,8 +38,8 @@ struct puz_region
 {
     // character that represents the region. 'a', 'b' and so on
     char m_name;
-    // number of the tiles occupied by the region
-    int m_num;
+    // position of the hints
+    Position m_p1, m_p2;
     // all permutations (forms) of the region
     set<Position> m_perm;
 };
@@ -99,12 +98,12 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
             auto p2 = p + os;
             char ch2 = m_game->cells(p2);
             // An adjacent tile cannot be occupied by the region
-            // if it belongs to another region or
-            // it is already in the region
-            if (ch2 != PUZ_SPACE && p2 != *m_p2 || contains(p2)) continue;
-            children.push_back(*this);
-            if (!children.back().make_move(p2))
-                children.pop_back();
+            // if it is a space tile and has not been occupied by the region and
+            if ((ch2 == PUZ_SPACE || p2 == *m_p2) && !contains(p2)) {
+                children.push_back(*this);
+                if (!children.back().make_move(p2))
+                    children.pop_back();
+            }
         }
 }
 
@@ -140,7 +139,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             // cannot make a pairing with a tile too far away
             if (manhattan_distance(p, p2) + 1 > n3) continue;
             auto kv3 = pair{p, p2};
-            puz_region region;
             puz_state2 sstart(*this, n3, p, p2);
             list<list<puz_state2>> spaths;
             // Regions can have any form.
@@ -150,7 +148,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (auto& spath : spaths) {
                 int n = m_regions.size();
                 set<Position> perm = spath.back();
-                m_regions.push_back({cells(p), n3, perm});
+                m_regions.push_back({cells(p), p, p2, perm});
                 for (auto& p : perm)
                     m_pos2region_ids[p].push_back(n);
             }
@@ -167,7 +165,7 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(int n);
-    bool make_move2(int n);
+    void make_move2(int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -197,21 +195,14 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [p, v] : m_matches) {
         // remove any path if it contains a tile which belongs to another region
-        //boost::remove_erase_if(v, [&](auto& kv2) {
-        //    auto& p2 = kv2.first;
-        //    auto& perm = m_game->m_pair2region.at({min(p, p2), max(p, p2)}).m_perms[kv2.second];
-        //    return boost::algorithm::any_of(perm, [&](auto& p3) {
-        //        char ch = cells(p3);
-        //        return p3 != p && p3 != p2 && ch != PUZ_SPACE && ch != PUZ_EMPTY;
-        //    });
-        //});
-        //for (auto& [p2, perm_id] : v) {
-        //    auto k = pair{min(p, p2), max(p, p2)};
-        //    auto& perm = m_game->m_pair2region.at(k).m_perms[perm_id];
-        //    for (auto& p3 : perm)
-        //        if (p3 != p && p3 != p2)
-        //            space2hints.at(p3).insert(k);
-        //}
+        boost::remove_erase_if(v, [&](int region_id) {
+            auto& [_1, p, p2, perm] = m_game->m_regions[region_id];
+            return boost::algorithm::any_of(perm, [&](auto& p3) {
+                char ch = cells(p3);
+                return p3 != p && p3 != p2 && ch != PUZ_SPACE;
+            });
+        });
+
         if (!init)
             switch (v.size()) {
             case 0:
@@ -223,16 +214,17 @@ int puz_state::find_matches(bool init)
     return 2;
 }
 
-bool puz_state::make_move2(int n)
+void puz_state::make_move2(int n)
 {
-    return true;
+    auto& [name, _1, _2, perm] = m_game->m_regions[n];
+    for (auto& p3 : perm)
+        cells(p3) = name;
 }
 
 bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    if (!make_move2(n))
-        return false;
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -240,7 +232,9 @@ bool puz_state::make_move(int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, v] = *boost::min_element(m_matches, [](auto& kv1, auto& kv2) {
+    auto& [p, v] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
     for (auto& n : v) {
@@ -252,14 +246,34 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 1; r < sidelen() - 1; ++r) {
+    set<Position> horz_walls, vert_walls;
+    for (int r = 1; r < sidelen() - 1; ++r)
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            char ch = cells(p);
+            for (int i = 0; i < 4; ++i) {
+                auto p2 = p + offset[i];
+                auto p_wall = p + offset2[i];
+                auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
+                if (cells(p) != cells(p2))
+                    walls.insert(p_wall);
+            }
+        }
+
+    for (int r = 1;; ++r) {
+        // draw horizontal lines
+        for (int c = 1; c < sidelen() - 1; ++c)
+            out << (horz_walls.contains({r, c}) ? " --" : "   ");
+        println(out);
+        if (r == sidelen() - 1) break;
+        for (int c = 1;; ++c) {
+            Position p(r, c);
+            // draw vertical lines
+            out << (vert_walls.contains(p) ? '|' : ' ');
+            if (c == sidelen() - 1) break;
             if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-                out << ". ";
+                out << " .";
             else
-                out << format("{:<2}", it->second);
+                out << format("{:2}", it->second);
         }
         println(out);
     }
