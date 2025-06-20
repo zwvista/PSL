@@ -85,7 +85,7 @@ struct puz_state
     bool make_move_hint3(const Position& p, const vector<int>& perm, int i, bool stopped);
     void make_move_canal(const Position& p) { cells(p) = PUZ_CANAL; }
     int find_matches(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
     bool is_valid_square(const Position& p) const;
 
     //solve_puzzle interface
@@ -208,7 +208,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 // 3. The Canal forms a single connected area
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     int i = m_cells.find(PUZ_CANAL);
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
@@ -255,7 +255,7 @@ bool puz_state::make_move_hint2(const Position& p, const vector<int>& perm)
 
     ++m_distance;
     m_matches.erase(p);
-    return is_continuous();
+    return is_interconnected();
 }
 
 bool puz_state::make_move_hint(const Position& p, const vector<int>& perm)

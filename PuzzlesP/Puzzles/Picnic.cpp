@@ -97,7 +97,7 @@ struct puz_state
     bool make_move(Position p_basket, int n);
     bool make_move2(Position p_basket, int n);
     int find_matches(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -169,7 +169,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     }
 }
 
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     int i = boost::find_if(m_cells, [&](char ch) {
         return ch == PUZ_SPACE || ch == PUZ_EMPTY;
@@ -193,7 +193,7 @@ bool puz_state::make_move2(Position p_basket, int n)
 
     ++m_distance;
     m_matches.erase(p_basket);
-    return is_continuous();
+    return is_interconnected();
 }
 
 bool puz_state::make_move(Position p_basket, int n)

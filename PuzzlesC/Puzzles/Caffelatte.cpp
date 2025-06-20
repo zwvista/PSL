@@ -107,7 +107,7 @@ struct puz_state
     bool make_move(const map<Position, vector<int>>& matches, const Position& p, int n);
     void make_move2(const map<Position, vector<int>>& matches, const Position& p, int n);
     int find_matches(bool init);
-    bool is_connected() const;
+    bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }

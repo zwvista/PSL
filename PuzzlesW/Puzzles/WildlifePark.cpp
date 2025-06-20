@@ -109,8 +109,8 @@ struct puz_state
     bool operator<(const puz_state& x) const { return m_dots < x.m_dots; }
     bool make_move(const Position& p, int n);
     int check_dots(bool init);
-    bool is_connected() const;
-    void check_connected();
+    bool is_interconnected() const;
+    void check_interconnected();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -198,7 +198,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
     }
 }
 
-void puz_state::check_connected()
+void puz_state::check_interconnected()
 {
     auto rng = m_game->m_chars_rng;
     while (!rng.empty()) {
@@ -213,7 +213,7 @@ int puz_state::check_dots(bool init)
 {
     int n = 2;
     for (;;) {
-        check_connected();
+        check_interconnected();
 
         set<pair<Position, int>> newly_finished;
         for (int r = 0; r < sidelen(); ++r)
@@ -284,7 +284,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     }
 }
 
-bool puz_state::is_connected() const
+bool puz_state::is_interconnected() const
 {
     set<Position> rng_all;
     for (auto const& [ch, rng] : m_game->m_ch2rng) {
@@ -304,7 +304,7 @@ bool puz_state::make_move(const Position& p, int n)
     m_distance = 1;
     dots(p) = { dots(p)[n] };
     int m = check_dots(false);
-    return m != 0 && is_connected();
+    return m != 0 && is_interconnected();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

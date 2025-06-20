@@ -183,7 +183,7 @@ struct puz_state : string
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(int i, int j);
     bool make_move2(int i, int j);
-    bool is_continuous() const;
+    bool is_interconnected() const;
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -266,7 +266,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 }
 
 // 5. All the shaded cells should form a valid Nurikabe.
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     int i = boost::find_if(*this, is_piece) - begin();
     auto smoves = puz_move_generator<puz_state3>::gen_moves(
@@ -293,7 +293,7 @@ bool puz_state::make_move2(int i, int j)
             }))
                 return false;
         }
-    return !is_goal_state() || is_continuous();
+    return !is_goal_state() || is_interconnected();
 }
 
 bool puz_state::make_move(int i, int j)

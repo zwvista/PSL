@@ -109,7 +109,7 @@ struct puz_state : string
     bool make_move2(char ch, int n);
     bool make_move_hidden(char ch, int n);
     int adjust_area(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
     const puz_tool& get_tool(char ch) const {
         auto it = m_game->m_ch2tool.find(ch);
         return it == m_game->m_ch2tool.end() ? m_next_tool : it->second;
@@ -332,7 +332,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         }
 }
 
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     int i = boost::find(*this, PUZ_WALL) - begin();
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
@@ -369,7 +369,7 @@ bool puz_state::make_move2(char ch, int n)
         ++m_distance;
     }
 
-    return is_continuous();
+    return is_interconnected();
 }
 
 bool puz_state::make_move(char ch, int n)

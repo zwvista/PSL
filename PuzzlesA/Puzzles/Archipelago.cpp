@@ -117,10 +117,10 @@ struct puz_state : string
     }
     void make_move3(const Position& p, const pair<Position, Position>& island);
     int find_matches(bool init);
-    bool is_connected() const;
+    bool is_interconnected() const;
 
     //solve_puzzle interface
-    bool is_goal_state() const { return get_heuristic() == 0 && is_connected(); }
+    bool is_goal_state() const { return get_heuristic() == 0 && is_interconnected(); }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return m_matches.size() + m_2by2waters.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
@@ -200,7 +200,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 // must form a network where no island is isolated from the others.
 // 4. In other words, every island must be touching another island diagonally
 // and no group of islands must be separated from the others.
-bool puz_state::is_connected() const
+bool puz_state::is_interconnected() const
 {
     int i = this->find(PUZ_ISLAND);
     auto smoves = puz_move_generator<puz_state2>::gen_moves(

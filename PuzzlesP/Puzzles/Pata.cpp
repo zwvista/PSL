@@ -262,7 +262,7 @@ puz_hint puz_state::compute_hint(const Position& p) const
 
 bool puz_state::is_valid_move() const
 {
-    auto is_continuous = [&]{
+    auto is_interconnected = [&]{
         int i = find(PUZ_FILLED);
         if (i == -1)
             return true;
@@ -287,7 +287,7 @@ bool puz_state::is_valid_move() const
         return true;
     };
 
-    return is_continuous() && is_valid_square({PUZ_FILLED});
+    return is_interconnected() && is_valid_square({PUZ_FILLED});
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

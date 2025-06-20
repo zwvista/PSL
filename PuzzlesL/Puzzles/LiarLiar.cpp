@@ -175,7 +175,7 @@ struct puz_state
     bool make_move(int area_id, int liar_id, const Position& p, int n);
     void make_move2(int area_id, int liar_id, const Position& p, int n);
     int find_matches(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -246,7 +246,7 @@ int puz_state::find_matches(bool init)
                 return 0;
             }
     }
-    return is_continuous() ? 2 : 0;
+    return is_interconnected() ? 2 : 0;
 }
 
 struct puz_state3 : Position
@@ -273,7 +273,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 }
 
 // 6. All of the non-marked cells must be connected.
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     int i = boost::find_if(m_cells, is_unmarked) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state3>::gen_moves(

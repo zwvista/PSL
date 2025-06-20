@@ -256,7 +256,7 @@ puz_hint puz_state::compute_hint(const Position& p) const
 
 bool puz_state::is_valid_move() const
 {
-    auto is_continuous = [&](const vector<char>& color) {
+    auto is_interconnected = [&](const vector<char>& color) {
         int i = boost::find_if(*this, [&](char ch) {
             return boost::algorithm::any_of_equal(color, ch);
         }) - begin();
@@ -285,7 +285,7 @@ bool puz_state::is_valid_move() const
         return true;
     };
 
-    return is_continuous({PUZ_FILLED}) && is_continuous({PUZ_HINT, PUZ_EMPTY}) &&
+    return is_interconnected({PUZ_FILLED}) && is_interconnected({PUZ_HINT, PUZ_EMPTY}) &&
         is_valid_square({PUZ_FILLED}) && is_valid_square({PUZ_HINT, PUZ_EMPTY});
 }
 

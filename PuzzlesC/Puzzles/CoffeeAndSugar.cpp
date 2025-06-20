@@ -150,7 +150,7 @@ struct puz_state
     bool make_move(int n);
     void make_move2(int n);
     int find_matches(bool init);
-    bool is_connected() const;
+    bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }

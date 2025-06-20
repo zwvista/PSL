@@ -178,7 +178,7 @@ struct puz_state
     bool make_move(int i, int j);
     void make_move2(int i, int j);
     int find_matches(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
     bool check_2x2();
 
     //solve_puzzle interface
@@ -239,7 +239,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(area_id, perm_ids[0]), 1;
             }
     }
-    return is_continuous() && check_2x2() ? 2 : 0;
+    return is_interconnected() && check_2x2() ? 2 : 0;
 }
 
 struct puz_state3 : Position
@@ -265,7 +265,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 
 // 1. The numbers form a Nurikabe, that is a path interconnected
 // horizontally or vertically
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     auto is_number = [](char ch) {
         return ch != PUZ_SPACE && ch != PUZ_EMPTY;

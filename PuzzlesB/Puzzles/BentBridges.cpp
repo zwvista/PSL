@@ -103,7 +103,7 @@ struct puz_state
     bool make_move(const Position& p, int n);
     bool make_move2(const Position& p, int n);
     int find_matches(bool init);
-    bool is_connected() const;
+    bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -185,7 +185,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     f(m_state->m_moves.at(*this));
 }
 
-bool puz_state::is_connected() const
+bool puz_state::is_interconnected() const
 {
     auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
     return smoves.size() == m_game->m_pos2indexes.size();
@@ -203,7 +203,7 @@ bool puz_state::make_move2(const Position& p, int n)
     m_moves[b.m_p2].push_back(n);
     m_distance += 2;
 
-    return is_connected();
+    return is_interconnected();
 }
 
 bool puz_state::make_move(const Position& p, int n)

@@ -84,7 +84,7 @@ struct puz_state : vector<int>
     int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(const pair<int, int>& key, const Position& p);
-    bool is_continuous() const;
+    bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -126,7 +126,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 // 3. All the un-shaded squares must form a single continuous area.
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     int i = boost::find_if(*this, is_unshaded) - begin();
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
@@ -153,7 +153,7 @@ bool puz_state::make_move(const pair<int, int>& key, const Position& p)
     // 2. Shaded squares don't touch horizontally or vertically between them.
     return (boost::algorithm::none_of(offset, [&](const Position& os) {
         return cells(p + os) == PUZ_SHADED;
-    })) && is_continuous();
+    })) && is_interconnected();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

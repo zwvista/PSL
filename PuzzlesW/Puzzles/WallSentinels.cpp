@@ -93,7 +93,7 @@ struct puz_state
     bool make_move_sentinel3(const Position& p, const vector<int>& perm, int i, bool stopped);
     bool make_move_space(const Position& p, char ch);
     int find_matches(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
     bool is_valid_square(const Position& p) const;
 
     //solve_puzzle interface
@@ -216,7 +216,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 // There is a single, orthogonally contiguous, Wall
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     auto is_wall = [](char ch) {
         return ch == PUZ_WALL || ch == PUZ_WALL_S;
@@ -271,7 +271,7 @@ bool puz_state::make_move_sentinel2(const Position& p, const vector<int>& perm)
 
     ++m_distance;
     m_matches.erase(p);
-    return is_continuous();
+    return is_interconnected();
 }
 
 bool puz_state::make_move_sentinel(const Position& p, const vector<int>& perm)
@@ -290,7 +290,7 @@ bool puz_state::make_move_space(const Position& p, char ch)
     if (ch == PUZ_WALL && !is_valid_square(p))
         return false;
     m_distance = 1;
-    return is_continuous();
+    return is_interconnected();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

@@ -261,7 +261,7 @@ puz_hint puz_state::compute_hint(const Position& p) const
 
 bool puz_state::is_valid_move() const
 {
-    auto is_continuous = [&]{
+    auto is_interconnected = [&]{
         int i = find(PUZ_FILLED);
         if (i == -1)
             return true;
@@ -295,7 +295,7 @@ bool puz_state::is_valid_move() const
         return n;
     };
 
-    return is_continuous() && is_valid_square({PUZ_FILLED}) && (!is_goal_state() ||
+    return is_interconnected() && is_valid_square({PUZ_FILLED}) && (!is_goal_state() ||
         filled_in_part(1, m_game->m_left) == filled_in_part(m_game->m_right, sidelen() - 2));
 }
 

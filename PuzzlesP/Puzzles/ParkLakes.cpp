@@ -143,7 +143,7 @@ struct puz_state
     bool make_move(const Position& p, int n);
     bool make_move2(const Position& p, int n);
     int find_matches(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
     int get_hint(const Position& p) const;
 
     //solve_puzzle interface
@@ -219,7 +219,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 // 5. All the land tiles are connected horizontally or vertically.
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     set<Position> rng1;
     for (int r = 0; r < sidelen(); ++r)
@@ -244,7 +244,7 @@ bool puz_state::make_move2(const Position& p, int n)
         cells(p2) = PUZ_WATER;
     for (auto& p2 : hp.m_empty)
         cells(p2) = PUZ_EMPTY;
-    if (!is_continuous())
+    if (!is_interconnected())
         return false;
 
     ++m_distance;

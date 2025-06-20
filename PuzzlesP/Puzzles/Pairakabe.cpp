@@ -165,9 +165,9 @@ struct puz_state
     bool make_move(const Position& p, const Position& p2, int n);
     bool make_move2(Position p, Position p2, int n);
     int find_matches(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
     bool check_2x2();
-    bool is_valid_move() { return check_2x2() && is_continuous(); }
+    bool is_valid_move() { return check_2x2() && is_interconnected(); }
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -273,7 +273,7 @@ int puz_state::find_matches(bool init)
             for (auto& [p, v] : m_matches)
                 if (v.size() == 1)
                     return make_move2(p, v[0].first, v[0].second) ? 1 : 0;
-            if (!is_continuous())
+            if (!is_interconnected())
                 return 0;
         }
     }
@@ -303,7 +303,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 }
 
 // All wall tiles on the board must be connected horizontally or vertically.
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     int i = boost::find(m_cells, PUZ_WALL) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state3>::gen_moves(

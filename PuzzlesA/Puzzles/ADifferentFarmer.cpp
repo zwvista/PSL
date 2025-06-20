@@ -140,7 +140,7 @@ struct puz_state
     bool make_move(int i, int j);
     bool make_move2(int i, int j);
     int find_matches(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -229,7 +229,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 }
 
 // 4. All the plants must be connected horizontally or vertically.
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     auto is_plant = [](char ch) {
         return ch != PUZ_SPACE && ch != PUZ_EMPTY;
@@ -252,7 +252,7 @@ bool puz_state::make_move2(int i, int j)
 
     ++m_distance;
     m_matches.erase(i);
-    return is_continuous();
+    return is_interconnected();
 }
 
 bool puz_state::make_move(int i, int j)

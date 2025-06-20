@@ -156,7 +156,7 @@ struct puz_state
     bool make_move(const Position& p, int n);
     bool make_move2(Position p, int n);
     int find_matches(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
     bool check_2x2();
 
     //solve_puzzle interface
@@ -251,7 +251,7 @@ int puz_state::find_matches(bool init)
             for (auto& [p, perm_ids] : m_matches)
                 if (perm_ids.size() == 1)
                     return make_move2(p, perm_ids.front()) ? 1 : 0;
-            if (!is_continuous())
+            if (!is_interconnected())
                 return 0;
         }
     }
@@ -280,7 +280,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 }
 
 // All wall tiles on the board must be connected horizontally or vertically.
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     set<Position> a;
     for (int r = 1; r < sidelen() - 1; ++r)
@@ -331,7 +331,7 @@ bool puz_state::make_move2(Position p, int n)
     ++m_distance;
     m_matches.erase(p);
 
-    return check_2x2() && is_continuous();
+    return check_2x2() && is_interconnected();
 }
 
 bool puz_state::make_move(const Position& p, int n)

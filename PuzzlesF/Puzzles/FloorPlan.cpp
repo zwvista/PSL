@@ -94,7 +94,7 @@ struct puz_state
     bool make_move(Position p, int n);
     bool make_move2(Position p, int n);
     int find_matches(bool init);
-    bool is_continuous() const;
+    bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -176,7 +176,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 // 2. Cells with a number represent an office. On the floor every office is
 // interconnected and can be reached by every other office.
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     auto is_number = [](char ch) {
         return ch != PUZ_SPACE && ch != PUZ_EMPTY && ch != PUZ_BOUNDARY;
@@ -200,7 +200,7 @@ bool puz_state::make_move2(Position p, int n)
 
     ++m_distance;
     m_matches.erase(p);
-    return is_continuous();
+    return is_interconnected();
 }
 
 bool puz_state::make_move(Position p, int n)

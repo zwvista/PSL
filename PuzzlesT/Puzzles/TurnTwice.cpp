@@ -104,7 +104,7 @@ struct puz_state
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p);
-    bool is_continuous() const;
+    bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -149,7 +149,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 // 5. All the signposts and empty spaces must form an orthogonally continuous area.
-bool puz_state::is_continuous() const
+bool puz_state::is_interconnected() const
 {
     int i = boost::find_if(m_cells, is_not_wall) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
@@ -160,7 +160,7 @@ bool puz_state::is_continuous() const
 bool puz_state::make_move(const Position& p)
 {
     cells(p) = PUZ_WALL;
-    if (!is_continuous())
+    if (!is_interconnected())
         return false;
 
     int sz = m_paths.size();
