@@ -62,24 +62,35 @@ struct puz_game
 struct puz_state2 : set<Position>
 {
     puz_state2(const puz_game& game, int num, const Position& p, const Position& p2)
-        : m_game(&game), m_num(num), m_p2(&p2) {make_move(p);}
+        : m_game(&game), m_num(num), m_p(&p), m_p2(&p2) { make_move(p); }
 
     bool is_goal_state() const { return m_distance == m_num; }
-    bool make_move(const Position& p) {
-        insert(p); ++m_distance;
-        // cannot go too far away
-        return boost::algorithm::any_of(*this, [&](const Position& p2) {
-            return manhattan_distance(p2, *m_p2) <= m_num - m_distance;
-        });
-    }
+    bool make_move(const Position& p);
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game = nullptr;
     int m_num;
+    const Position* m_p;
     const Position* m_p2;
     int m_distance = 0;
 };
+
+bool puz_state2::make_move(const Position& p)
+{
+    insert(p); ++m_distance;
+    // cannot go too far away
+    return boost::algorithm::any_of(*this, [&](const Position& p2) {
+        return manhattan_distance(p2, *m_p2) <= m_num - m_distance;
+    }) && (!is_goal_state() || boost::algorithm::all_of(vector{m_p, m_p2},
+        [&](const Position* ptr) {
+        // 2. Each number tells you how many tiles of the region
+        // are orthogonally adjacent to that tile.
+        return boost::count_if(offset, [&](const Position& os) {
+            return contains(*ptr + os);
+        }) == m_game->m_pos2num.at(*ptr);
+    }));
+}
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
     for (auto& p : *this)
@@ -90,7 +101,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
             // An adjacent tile cannot be occupied by the region
             // if it belongs to another region or
             // it is already in the region
-            if (ch2 != PUZ_SPACE && p2 != *m_p2) continue;
+            if (ch2 != PUZ_SPACE && p2 != *m_p2 || contains(p2)) continue;
             children.push_back(*this);
             if (!children.back().make_move(p2))
                 children.pop_back();

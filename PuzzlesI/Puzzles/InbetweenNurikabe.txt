@@ -7,5 +7,5 @@ W 5 W W .
 W W W 6 . 
 Number of moves: 3
 Number of vertices examined: 5
-0.0060423 [s]
+0.003014 [s]
 
