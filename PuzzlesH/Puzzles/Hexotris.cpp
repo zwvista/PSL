@@ -164,8 +164,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(int n);
-    void make_move2(int n);
+    bool make_move(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -197,9 +197,8 @@ int puz_state::find_matches(bool init)
         // remove any path if it contains a tile which belongs to another region
         boost::remove_erase_if(v, [&](int region_id) {
             auto& [_1, p, p2, perm] = m_game->m_regions[region_id];
-            return boost::algorithm::any_of(perm, [&](auto& p3) {
-                char ch = cells(p3);
-                return p3 != p && p3 != p2 && ch != PUZ_SPACE;
+            return boost::algorithm::any_of(perm, [&](const Position& p3) {
+                return p3 != p && p3 != p2 && cells(p3) != PUZ_SPACE;
             });
         });
 
@@ -208,23 +207,25 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(v[0]), 1;
+                return make_move2(p, v[0]), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(int n)
+void puz_state::make_move2(const Position& p, int n)
 {
     auto& [name, _1, _2, perm] = m_game->m_regions[n];
     for (auto& p3 : perm)
         cells(p3) = name;
+    ++m_distance;
+    m_matches.erase(p);
 }
 
-bool puz_state::make_move(int n)
+bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(n);
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -239,7 +240,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
     for (auto& n : v) {
         children.push_back(*this);
-        if (!children.back().make_move(n))
+        if (!children.back().make_move(p, n))
             children.pop_back();
     }
 }
