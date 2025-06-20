@@ -98,11 +98,11 @@ struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
@@ -179,36 +179,34 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+    puz_state2(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>* m_rng;
+    const puz_state* m_state;
 };
+
+inline bool is_not_shaded(char ch) { return ch != PUZ_SHADED; }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset)
-        if (auto p2 = *this + os; m_rng->contains(p2)) {
+        if (auto p2 = *this + os;
+            m_state->is_valid(p2) && is_not_shaded(m_state->cells(p2))) {
             children.push_back(*this);
             children.back().make_move(p2);
         }
 }
 
+// 4. All tiles which are not shaded must form an orthogonally continuous area.
 bool puz_state::is_continuous() const
 {
-    set<Position> a;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            char ch = cells(p);
-            if (ch != PUZ_SHADED)
-                a.insert(p);
-        }
-
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(a);
-    return smoves.size() == a.size();
+    int i = boost::find_if(m_cells, is_not_shaded) - m_cells.begin();
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return smoves.size() == boost::count_if(m_cells, is_not_shaded);
 }
 
 void puz_state::make_move2(const Position& p, int n)

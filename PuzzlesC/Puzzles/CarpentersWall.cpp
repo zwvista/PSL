@@ -312,9 +312,8 @@ int puz_state::adjust_area(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s, const Position& p_start) : m_state(&s) {
-        make_move(p_start);
-    }
+    puz_state2(const puz_state& s, const Position& p)
+        : m_state(&s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -335,13 +334,12 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::is_continuous() const
 {
-    auto is_wall = [](char ch) {
-        return ch == PUZ_SPACE || ch == PUZ_WALL;
-    };
-    int i = boost::find_if(*this, is_wall) - begin();
+    int i = boost::find(*this, PUZ_WALL) - begin();
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
         {*this, {i / sidelen(), i % sidelen()}});
-    return smoves.size() == boost::count_if(*this, is_wall);
+    return boost::count_if(smoves, [&](const Position& p) {
+        return cells(p) == PUZ_WALL;
+    }) == boost::count(*this, PUZ_WALL);
 }
 
 bool puz_state::make_move2(char ch, int n)

@@ -154,9 +154,8 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state* s, const Position& p_start) : m_state(s) {
-        make_move(p_start);
-    }
+    puz_state2(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -167,26 +166,27 @@ struct puz_state2 : Position
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset) {
-        auto p = *this + os;
-        if (char ch = m_state->cells(p); ch != PUZ_EMPTY && ch != PUZ_BOUNDARY) {
+        auto p2 = *this + os;
+        if (char ch = m_state->cells(p2); ch != PUZ_EMPTY && ch != PUZ_BOUNDARY) {
             children.push_back(*this);
-            children.back().make_move(p);
+            children.back().make_move(p2);
         }
     }
 }
 
+// 2. Cells with a number represent an office. On the floor every office is
+// interconnected and can be reached by every other office.
 bool puz_state::is_continuous() const
 {
-    int i = boost::find_if(m_cells, [&](char ch) {
-        return ch != PUZ_EMPTY && ch != PUZ_BOUNDARY;
-    }) - m_cells.begin();
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({this, Position(i / sidelen(), i % sidelen())});
-    // 2. On the floor every office is interconnected and can be reached by every other office.
-    return boost::count_if(smoves, [&](const puz_state2& s2) {
-        return cells(s2) != PUZ_SPACE;
-    }) == boost::count_if(m_cells, [&](char ch) {
+    auto is_number = [](char ch) {
         return ch != PUZ_SPACE && ch != PUZ_EMPTY && ch != PUZ_BOUNDARY;
-    });
+    };
+    int i = boost::find_if(m_cells, is_number) - m_cells.begin();
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        {this, Position(i / sidelen(), i % sidelen())});
+    return boost::count_if(smoves, [&](const puz_state2& s2) {
+        return is_number(cells(s2));
+    }) == boost::count_if(m_cells, is_number);
 }
 
 bool puz_state::make_move2(Position p, int n)

@@ -194,9 +194,8 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s, const Position& p_start) : m_state(&s) {
-        make_move(p_start);
-    }
+    puz_state2(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -224,7 +223,7 @@ bool puz_state::is_continuous() const
     };
     int i = boost::find_if(m_cells, is_wall) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
-        {*this, {i / sidelen(), i % sidelen()}});
+        {this, {i / sidelen(), i % sidelen()}});
     return boost::count_if(smoves, [&](const Position& p) {
         return is_wall(cells(p));
     }) == boost::count_if(m_cells, is_wall);
@@ -237,8 +236,8 @@ bool puz_state::is_valid_square(const Position& p) const
         for (int dc = -1; dc <= 0; ++dc)
             if (Position p2(p.first + dr, p.second + dc);
                 boost::algorithm::all_of(offset2, [&](const Position& os) {
-                    char ch = cells(p2 + os);
-                    return ch == PUZ_WALL || ch == PUZ_WALL_S;
+                char ch = cells(p2 + os);
+                return ch == PUZ_WALL || ch == PUZ_WALL_S;
             }))
                 return false;
     return true;

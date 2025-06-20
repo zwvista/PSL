@@ -163,15 +163,17 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& os : offset2) {
-        auto p2 = *this + os;
-        if (char ch = m_state->cells(p2); ch == PUZ_SPACE || ch == PUZ_EMPTY) {
+    for (auto& os : offset2)
+        switch(auto p2 = *this + os; m_state->cells(p2)) {
+        case PUZ_SPACE:
+        case PUZ_EMPTY:
             children.push_back(*this);
             children.back().make_move(p2);
         }
-    }
 }
 
+// 6. To facilitate movement in the castle, the Bailey must have a single
+// continuous area(Garden).
 bool puz_state::is_continuous() const
 {
     int i = m_cells.find(PUZ_EMPTY);

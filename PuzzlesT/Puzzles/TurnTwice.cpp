@@ -127,21 +127,23 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& a) : m_area(&a) { make_move(*a.begin()); }
+    puz_state2(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>* m_area;
+    const puz_state* m_state;
 };
+
+inline bool is_not_wall(char ch) { return ch != PUZ_WALL; }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset) {
-        auto p = *this + os;
-        if (m_area->contains(p)) {
+        if (auto p2 = *this + os; is_not_wall(m_state->cells(p2))) {
             children.push_back(*this);
-            children.back().make_move(p);
+            children.back().make_move(p2);
         }
     }
 }
@@ -149,16 +151,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 // 5. All the signposts and empty spaces must form an orthogonally continuous area.
 bool puz_state::is_continuous() const
 {
-    set<Position> area;
-    for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            if (cells(p) != PUZ_WALL)
-                area.insert(p);
-        }
-
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(area);
-    return smoves.size() == area.size();
+    int i = boost::find_if(m_cells, is_not_wall) - m_cells.begin();
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return smoves.size() == boost::count_if(m_cells, is_not_wall);
 }
 
 bool puz_state::make_move(const Position& p)
@@ -175,8 +171,7 @@ bool puz_state::make_move(const Position& p)
     // 4. Walls can't touch horizontally or vertically.
     for (auto& os : offset) {
         auto p2 = p + os;
-        char& ch = cells(p2);
-        if (ch == PUZ_SPACE) {
+        if (char& ch = cells(p2); ch == PUZ_SPACE) {
             ch = PUZ_EMPTY;
             for (auto& path : m_paths)
                 boost::remove_erase(path, p2);

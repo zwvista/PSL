@@ -105,38 +105,33 @@ struct puz_state : vector<int>
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& a): m_area(&a) { make_move(*a.begin()); }
+    puz_state2(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>* m_area;
+    const puz_state* m_state;
 };
+
+inline bool is_unshaded(char ch) { return ch != PUZ_SHADED && ch != PUZ_BOUNDARY; }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& os : offset) {
-        auto p = *this + os;
-        if (m_area->contains(p)) {
+    for (auto& os : offset)
+        if (auto p2 = *this + os; is_unshaded(m_state->cells(p2))) {
             children.push_back(*this);
-            children.back().make_move(p);
+            children.back().make_move(p2);
         }
-    }
 }
 
 // 3. All the un-shaded squares must form a single continuous area.
 bool puz_state::is_continuous() const
 {
-    set<Position> area;
-    for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            if (cells(p) != PUZ_SHADED)
-                area.insert(p);
-        }
-
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(area);
-    return smoves.size() == area.size();
+    int i = boost::find_if(*this, is_unshaded) - begin();
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return smoves.size() == boost::count_if(*this, is_unshaded);
 }
 
 bool puz_state::make_move(const pair<int, int>& key, const Position& p)

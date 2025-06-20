@@ -225,7 +225,7 @@ bool puz_state::is_valid_square(const Position& p) const
         for (int dc = -1; dc <= 0; ++dc)
             if (Position p2(p.first + dr, p.second + dc);
                 boost::algorithm::all_of(offset2, [&](const Position& os) {
-                    return cells(p2 + os) == PUZ_CANAL;
+                return cells(p2 + os) == PUZ_CANAL;
             }))
                 return false;
     return true;

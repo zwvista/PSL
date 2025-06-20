@@ -209,38 +209,37 @@ int puz_state::find_matches(bool init)
 
 struct puz_state3 : Position
 {
-    puz_state3(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+    puz_state3(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state3>& children) const;
 
-    const set<Position>* m_rng;
+    const puz_state* m_state;
 };
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
-    for (int i = 0; i < 4; ++i) {
-        auto p2 = *this + offset[i * 2];
-        if (m_rng->contains(p2)) {
+    for (int i = 0; i < 4; ++i)
+        if (auto p2 = *this + offset[i * 2];
+            m_state->is_valid(p2) && m_state->cells(p2) != PUZ_EMPTY) {
             children.push_back(*this);
             children.back().make_move(p2);
         }
-    }
 }
 
+// 4. All the plants must be connected horizontally or vertically.
 bool puz_state::is_continuous() const
 {
-    set<Position> a;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            char ch = cells(p);
-            if (ch != PUZ_EMPTY)
-                a.insert(p);
-        }
-
-    auto smoves = puz_move_generator<puz_state3>::gen_moves(a);
-    return smoves.size() == a.size();
+    auto is_plant = [](char ch) {
+        return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+    };
+    int i = boost::find_if(m_cells, is_plant) - m_cells.begin();
+    auto smoves = puz_move_generator<puz_state3>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return boost::count_if(smoves, [&](const Position& p) {
+        return is_plant(cells(p));
+    }) == boost::count_if(m_cells, is_plant);
 }
 
 bool puz_state::make_move2(int i, int j)
