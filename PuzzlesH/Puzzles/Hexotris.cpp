@@ -27,7 +27,15 @@ constexpr Position offset[] = {
     {1, 0},        // s
     {0, -1},        // w
 };
+
 constexpr Position offset2[] = {
+    {0, 0},         // n
+    {0, 1},         // e
+    {1, 0},         // s
+    {0, 0},         // w
+};
+
+constexpr Position offset3[] = {
     {0, 0},        // 2*2 nw
     {0, 1},        // 2*2 ne
     {1, 0},        // 2*2 sw
@@ -272,11 +280,11 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (vert_walls.contains({r, c}) ? '|' : ' ');
             if (c == sidelen() - 1) break;
-            //if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-            //    out << " .";
-            //else
-            //    out << format("{:2}", it->second);
-            out << cells(p) << ' ';
+            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
+                out << " .";
+            else
+                out << format("{:2}", it->second);
+            //out << cells(p) << ' ';
         }
         println(out);
     }

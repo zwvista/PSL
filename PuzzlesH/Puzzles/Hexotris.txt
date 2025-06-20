@@ -1,19 +1,38 @@
 Level 1
 Sequence of moves: 
  -- -- -- -- -- --
- c |a  a  a  a  a |
+| .| 1  .  .  .  2|
     -- -- -- --   
- c |c |d |e  e |a |
+| .  2| 1| 1  .| .|
           --    --
- c |c |d |h |e  e |
+| 3  .| .| .| 2  .|
     --       --   
- c |d  d |h |h |e |
+| .| .  .| 2  .| .|
  --       --      
- j |d |d |j |h |e |
+| .| .  2| 1| .| .|
     -- --       --
- j |j |j  j |h |h |
+| .  .  .  2| 2  .|
  -- -- -- -- -- --
 Number of moves: 4
 Number of vertices examined: 8
-0.0131153 [s]
+0.0019029 [s]
+
+Level 2
+Sequence of moves: 
+ -- -- -- -- -- --
+| 1  .  .  .| 2  2|
+ -- -- --         
+| .  3  .| .| .  .|
+ --               
+| .| .  .| 1| .  .|
+       -- -- -- --
+| 2| 1| 1| .  2  .|
+    --    -- --   
+| 3  .| 3  .  .| .|
+             --   
+| .  .| .  .| .  2|
+ -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 8
+0.0005642 [s]
 
