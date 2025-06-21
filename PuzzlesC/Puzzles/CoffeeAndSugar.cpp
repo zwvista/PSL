@@ -111,11 +111,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     for (auto& p : rng3) {
                         Position t3(t1.first, p.second), t4(p);
                         auto& os2 = offset[t3.first < t4.first ? 2 : 0];
-                        if (!check_line(t3, t4, os2)) continue;
-                        puz_link o;
-                        o.m_t1 = t1, o.m_t2 = t2, o.m_os1 = os1;
-                        o.m_t3 = t3, o.m_t4 = t4, o.m_os2 = os2;
-                        m_links.push_back(o);
+                        if (check_line(t3, t4, os2))
+                            m_links.emplace_back(t1, t2, os1, t3, t4, os2);
                     }
                 } else if (t1.second == t2.second) {
                     auto& os1 = offset[2];
@@ -127,11 +124,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     for (auto& p : rng3) {
                         Position t3(p.first, t1.second), t4(p);
                         auto& os2 = offset[t3.second < t4.second ? 1 : 3];
-                        if (!check_line(t3, t4, os2)) continue;
-                        puz_link o;
-                        o.m_t1 = t1, o.m_t2 = t2, o.m_os1 = os1;
-                        o.m_t3 = t3, o.m_t4 = t4, o.m_os2 = os2;
-                        m_links.push_back(o);
+                        if (check_line(t3, t4, os2))
+                            m_links.emplace_back(t1, t2, os1, t3, t4, os2);
                     }
                 }
             }
@@ -176,10 +170,10 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_start), m_game(&g)
 {
     for (int i = 0; i < g.m_links.size(); ++i) {
-        auto& o = g.m_links[i];
-        m_matches[o.m_t1].push_back(i);
-        m_matches[o.m_t2].push_back(i);
-        m_matches[o.m_t4].push_back(i);
+        auto& [t1, t2, os1, t3, t4, os2] = g.m_links[i];
+        m_matches[t1].push_back(i);
+        m_matches[t2].push_back(i);
+        m_matches[t4].push_back(i);
     }
     
     find_matches(true);
@@ -189,18 +183,18 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [p, perms] : m_matches) {
         boost::remove_erase_if(perms, [&](int id) {
-            auto& o = m_game->m_links[id];
+            auto& [t1, t2, os1, t3, t4, os2] = m_game->m_links[id];
             auto check_line = [&](const Position& p1, const Position& p2, const Position& os) {
                 for (auto p = p1 + os; p != p2; p += os)
                     if (cells(p) != PUZ_SPACE)
                         return false;
                 return true;
             };
-            return !m_matches.contains(o.m_t1)
-                || !m_matches.contains(o.m_t2)
-                || !m_matches.contains(o.m_t4)
-                || !check_line(o.m_t1, o.m_t2, o.m_os1)
-                || !check_line(o.m_t3, o.m_t4, o.m_os2);
+            return !m_matches.contains(t1)
+                || !m_matches.contains(t2)
+                || !m_matches.contains(t4)
+                || !check_line(t1, t2, os1)
+                || !check_line(t3, t4, os2);
         });
 
         if (!init)
@@ -216,18 +210,18 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& o = m_game->m_links[n];
-    bool is_horz = o.m_os1 == offset[1];
-    for (auto p = o.m_t1 + o.m_os1; p != o.m_t2; p += o.m_os1)
+    auto& [t1, t2, os1, t3, t4, os2] = m_game->m_links[n];
+    bool is_horz = os1 == offset[1];
+    for (auto p = t1 + os1; p != t2; p += os1)
         cells(p) = is_horz ? PUZ_HORZ : PUZ_VERT;
-    for (auto p = o.m_t3 + o.m_os2; p != o.m_t4; p += o.m_os2)
+    for (auto p = t3 + os2; p != t4; p += os2)
         cells(p) = is_horz ? PUZ_VERT : PUZ_HORZ;
-    cells(o.m_t3) = PUZ_INTERSECT;
+    cells(t3) = PUZ_INTERSECT;
 
     m_distance += 3;
-    m_matches.erase(o.m_t1);
-    m_matches.erase(o.m_t2);
-    m_matches.erase(o.m_t4);
+    m_matches.erase(t1);
+    m_matches.erase(t2);
+    m_matches.erase(t4);
 }
 
 bool puz_state::make_move(int n)
