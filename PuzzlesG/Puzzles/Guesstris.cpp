@@ -154,7 +154,7 @@ struct puz_state : string
     map<Position, vector<int>> m_matches;
     // value.first: index of the tetorminoes
     // value.second: the symbols
-    set<pair<int, set<char>>> m_used_configs;
+    map<int, set<char>> m_index2symbols;
     unsigned int m_distance = 0;
     char m_ch = 'a';
 };
@@ -171,9 +171,14 @@ int puz_state::find_matches(bool init)
     for (auto& [_1, piece_ids] : m_matches) {
         boost::remove_erase_if(piece_ids, [&](int id) {
             auto& [index, rng, symbols] = m_game->m_pieces[id];
-            return boost::algorithm::any_of(rng, [&](const Position& p) {
+            if(boost::algorithm::any_of(rng, [&](const Position& p) {
                 return cells(p) != PUZ_SPACE;
-            }) || m_used_configs.contains({index, symbols});
+            }))
+                return true;
+            // 3. Tetraminos of the same shape have the same couple of symbols inside
+            // them, although not necessarily in the same positions.
+            auto it = m_index2symbols.find(index);
+            return it != m_index2symbols.end() && it->second != symbols;
         });
 
         if (!init)
@@ -196,7 +201,7 @@ void puz_state::make_move2(int i)
         m_matches.erase(p);
     }
     ++m_ch;
-    m_used_configs.emplace(index, symbols);
+    m_index2symbols[index] = symbols;
 }
 
 bool puz_state::make_move(int i)
@@ -248,8 +253,8 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
-            out << cells(p);
-            //out << m_game->cells(p);
+            //out << cells(p);
+            out << m_game->cells(p);
         }
         println(out);
     }
