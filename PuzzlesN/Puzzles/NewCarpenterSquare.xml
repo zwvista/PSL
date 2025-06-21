@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Divide the board in 'L'-shaped figures, with one cell wide 'legs'.
+2. Every symbol on the board represents the corner of an L. there are no hidden L's.
+3. A = symbol tells you that the legs have equal length.
+4. A ≠ symbol tells you that the legs have different lengths.
+5. A ? symbol tells you that the legs could have different lengths or equal length.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+    <`
+    O`
+     `
+  3  `
+7  4 `
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+>3  7`
+v    `
+  O  `
+ >   `
+O    `
+    ]]>
+  </level>
+</levels>
+</puzzle>

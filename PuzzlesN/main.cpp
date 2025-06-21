@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 extern void solve_puz_Neighbours();
+extern void solve_puz_NewCarpenterSquare();
 extern void solve_puz_NorthPoleFishing();
 extern void solve_puz_NoughtsAndCrosses();
 extern void solve_puz_NumberCrossing();
@@ -14,7 +15,8 @@ extern void solve_puz_Nurikabe();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    println("e: Neighbours");
+    println("e1: Neighbours");
+    println("e2: New Carpenter Square");
     println("o1: North Pole Fishing");
     println("o2: Noughts & Crosses");
     println("u1: Number Crossing");
@@ -27,7 +29,8 @@ int main(int argc, char **argv)
     string str;
     getline(cin, str);
     if (str.empty());
-    else if (str == "e") solve_puz_Neighbours();
+    else if (str == "e1") solve_puz_Neighbours();
+    else if (str == "e2") solve_puz_NewCarpenterSquare();
     else if (str == "o1") solve_puz_NorthPoleFishing();
     else if (str == "o2") solve_puz_NoughtsAndCrosses();
     else if (str == "u1") solve_puz_NumberCrossing();
