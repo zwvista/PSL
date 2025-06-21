@@ -159,6 +159,7 @@
   <ItemGroup>
     <Text Include="Puzzles\WallHints.txt" />
     <Text Include="Puzzles\Walls.txt" />
+    <Text Include="Puzzles\Walls2.txt" />
     <Text Include="Puzzles\WallSentinels.txt" />
     <Text Include="Puzzles\Warehouse.txt" />
     <Text Include="Puzzles\WildlifePark.txt" />

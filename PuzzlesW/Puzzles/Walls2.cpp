@@ -122,8 +122,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     moves.emplace_back(p2, is_horz ? PUZ_HORZ : PUZ_VERT);
                     m_pos2perm_ids[p2].push_back(n);
                 }
-                if (cells(p2) == PUZ_SPACE)
+                // 4. Not every wall piece must be connected with a number
+                if (cells(p2) == PUZ_SPACE) {
                     moves.emplace_back(p2, is_horz ? PUZ_VERT : PUZ_HORZ);
+                    m_pos2perm_ids[p2].push_back(n);
+                }
             }
             m_perms.emplace_back(p, v, moves);
         }
@@ -244,5 +247,5 @@ void solve_puz_Walls2()
 {
     using namespace puzzles::Walls2;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Walls.xml", "Puzzles/Walls.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Walls.xml", "Puzzles/Walls2.txt", solution_format::GOAL_STATE_ONLY);
 }
