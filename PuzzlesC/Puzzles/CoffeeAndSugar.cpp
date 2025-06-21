@@ -36,11 +36,17 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+// t1 < t2
+// 
 // t1 --- t3 --- t2
 //        |
 //        |
-//        t4
-// t1 < t2
+//        t4 
+// t1
+// |
+// t3 --- t4
+// |
+// t2
 struct puz_link
 {
     Position m_t1, m_t2, m_os1;
@@ -53,7 +59,6 @@ struct puz_game
     int m_sidelen;
     vector<puz_link> m_links;
     vector<Position> m_coffees, m_sugars;
-    set<Position> m_objects;
     string m_start;
     bool m_is_double_espresso_variant;
 
@@ -75,9 +80,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_start.push_back(ch);
             Position p(r * 2 - 1, c * 2 - 1);
             if (ch == PUZ_COFFEE)
-                m_coffees.push_back(p), m_objects.insert(p);
+                m_coffees.push_back(p);
             else if (ch == PUZ_SUGAR)
-                m_sugars.push_back(p), m_objects.insert(p);
+                m_sugars.push_back(p);
             if (c == m_sidelen / 2) break;
             m_start.push_back(PUZ_SPACE);
         }
