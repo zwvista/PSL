@@ -182,6 +182,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\WallHints.cpp" />
     <ClCompile Include="Puzzles\Walls.cpp" />
+    <ClCompile Include="Puzzles\Walls2.cpp" />
     <ClCompile Include="Puzzles\WallSentinels.cpp" />
     <ClCompile Include="Puzzles\Warehouse.cpp" />
     <ClCompile Include="Puzzles\WildlifePark.cpp" />
