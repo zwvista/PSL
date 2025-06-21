@@ -18,7 +18,7 @@
        and can't make corners.
 */
 
-namespace puzzles::Branches{
+namespace puzzles::Branches2{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_NUMBER = 'N';
@@ -33,26 +33,14 @@ constexpr Position offset[] = {
 
 constexpr string_view str_branch = "|-|-^>v<";
 
-using puz_move = pair<Position, char>;
-
-struct puz_perm
-{
-    Position m_p_hint;
-    vector<int> m_nums = vector<int>(4);
-    vector<puz_move> m_moves;
-};
-
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
     string m_start;
-    vector<puz_perm> m_perms;
-    map<Position, vector<int>> m_pos2perm_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -76,54 +64,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_start.push_back(PUZ_BOUNDARY);
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
-
-    for (auto& [p, sum] : m_pos2num) {
-        vector<vector<int>> dir_nums(4);
-        for (int i = 0; i < 4; ++i) {
-            bool is_horz = i % 2 == 1;
-            auto& os = offset[i];
-            int n = 0;
-            auto& nums = dir_nums[i];
-            for (auto p2 = p + os; n <= sum; p2 += os)
-                if (char ch = cells(p2); ch == PUZ_SPACE)
-                    // we can stop here
-                    nums.push_back(n++);
-                else {
-                    // we have to stop here
-                    nums.push_back(n);
-                    break;
-                }
-        }
-
-        // Compute the total length of the branches connected to the number
-        // Record the combination if the sum is equal to the given number
-        vector<vector<int>> nums2D;
-        for (int n0 : dir_nums[0])
-            for (int n1 : dir_nums[1])
-                for (int n2 : dir_nums[2])
-                    for (int n3 : dir_nums[3])
-                        if (n0 + n1 + n2 + n3 == sum)
-                            nums2D.push_back({n0, n1, n2, n3});
-
-        for (auto& v : nums2D) {
-            int n = m_perms.size();
-            vector<puz_move> moves;
-            m_pos2perm_ids[p].push_back(n);
-            for (int i = 0; i < 4; ++i) {
-                auto& os = offset[i];
-                auto p2 = p + os;
-                if (v[i] == 0) continue;
-                for (int j = 1; j < v[i]; ++j, p2 += os) {
-                    moves.emplace_back(p2, str_branch[i]);
-                    m_pos2perm_ids[p2].push_back(n);
-                }
-                // branch head
-                moves.emplace_back(p2, str_branch[i + 4]);
-                m_pos2perm_ids[p2].push_back(n);
-            }
-            m_perms.emplace_back(p, v, moves);
-        }
-    }
 }
 
 struct puz_state
@@ -133,8 +73,9 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-    bool make_move(int i);
-    void make_move2(int i);
+    bool make_move(const Position& p, const vector<int>& perm);
+    void make_move2(const Position& p, const vector<int>& perm);
+    void make_move3(const Position& p, const vector<int>& perm, int i, bool stopped);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -148,55 +89,115 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     // key: the position of the number
-    // value.elem: index of the permutations
-    map<Position, vector<int>> m_matches;
+    // value.elem: respective lengths of the branches that stem from
+    //             the number in all four directions
+    map<Position, vector<vector<int>>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
-, m_matches(g.m_pos2perm_ids)
 {
+    for (auto& [p, n] : g.m_pos2num)
+        m_matches[p];
+    
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [_1, perm_ids] : m_matches) {
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& [_2, _3, moves] = m_game->m_perms[id];
-            return !boost::algorithm::all_of(moves, [&](const puz_move& move) {
-                auto& [p2, ch2] = move;
-                char ch = cells(p2);
-                return ch == PUZ_SPACE || ch == ch2;
-            });
-        });
+    bool matches_changed = init;
+    set<Position> spaces;
+    for (auto& [p, perms] : m_matches) {
+        auto perms_old = perms;
+        perms.clear();
+
+        int sum = m_game->m_pos2num.at(p);
+        vector<vector<int>> dir_nums(4);
+        for (int i = 0; i < 4; ++i) {
+            auto& os = offset[i];
+            int n = 0;
+            auto& nums = dir_nums[i];
+            for (auto p2 = p + os; n <= sum; p2 += os)
+                if (char ch = cells(p2); ch == PUZ_SPACE) {
+                    // we can stop here
+                    nums.push_back(n++);
+                    spaces.insert(p2);
+                } else if (ch == str_branch[i] || ch == str_branch[i + 4])
+                    // we cannot stop here
+                    ++n;
+                else {
+                    // we have to stop here
+                    nums.push_back(n);
+                    break;
+                }
+        }
+
+        // Compute the total length of the branches connected to the number
+        // Record the combination if the sum is equal to the given number
+        for (int n0 : dir_nums[0])
+            for (int n1 : dir_nums[1])
+                for (int n2 : dir_nums[2])
+                    for (int n3 : dir_nums[3])
+                        if (n0 + n1 + n2 + n3 == sum)
+                            perms.push_back({n0, n1, n2, n3});
 
         if (!init)
-            switch(perm_ids.size()) {
+            switch(perms.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(perm_ids.front()), 1;
+                return make_move2(p, perms.front()), 1;
+            default:
+                matches_changed = matches_changed || perms != perms_old;
+                break;
             }
     }
-    return 2;
+    // pruning
+    // All the branches added up should cover all the remaining spaces
+    if (boost::count(m_cells, PUZ_SPACE) != spaces.size())
+        return 0;
+
+    if (!matches_changed)
+        return 2;
+
+    for (auto& [p, perms] : m_matches)
+        for (int i = 0; i < 4; ++i) {
+            auto f = [=](const vector<int>& v1, const vector<int>& v2) {
+                return v1[i] < v2[i];
+            };
+            const auto& perm = *boost::min_element(perms, f);
+            int n = boost::max_element(perms, f)->at(i);
+            make_move3(p, perm, i, perm[i] == n);
+        }
+    return 1;
 }
 
-void puz_state::make_move2(int i)
+void puz_state::make_move3(const Position& p, const vector<int>& perm, int i, bool stopped)
 {
-    auto& [p, _1, moves] = m_game->m_perms[i];
-    for (auto& [p2, ch2] : moves)
-        if (cells(p2) = ch2; m_matches.erase(p2))
-            ++m_distance;
-    if (m_matches.erase(p))
-        ++m_distance;
+    auto& os = offset[i];
+    int n = perm[i];
+    auto p2 = p + os;
+    for (int j = 1; j < n; ++j, p2 += os)
+        cells(p2) = str_branch[i];
+    if (stopped && n > 0)
+        // branch head
+        cells(p2) = str_branch[i + 4];
 }
 
-bool puz_state::make_move(int i)
+void puz_state::make_move2(const Position& p, const vector<int>& perm)
+{
+    for (int i = 0; i < 4; ++i)
+        make_move3(p, perm, i, true);
+
+    ++m_distance;
+    m_matches.erase(p);
+}
+
+bool puz_state::make_move(const Position& p, const vector<int>& perm)
 {
     m_distance = 0;
-    make_move2(i);
+    make_move2(p, perm);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -204,15 +205,15 @@ bool puz_state::make_move(int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [_1, perm_ids] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2) {
+    auto& [p, perms] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<vector<int>>>& kv1,
+        const pair<const Position, vector<vector<int>>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
 
-    for (auto& n : perm_ids) {
+    for (auto& perm : perms) {
         children.push_back(*this);
-        if (!children.back().make_move(n))
+        if (!children.back().make_move(p, perm))
             children.pop_back();
     }
 }
@@ -234,9 +235,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_Branches()
+void solve_puz_Branches2()
 {
-    using namespace puzzles::Branches;
+    using namespace puzzles::Branches2;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Branches.xml", "Puzzles/Branches.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Branches.xml", "Puzzles/Branches2.txt", solution_format::GOAL_STATE_ONLY);
 }
