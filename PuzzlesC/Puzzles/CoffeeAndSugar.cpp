@@ -41,10 +41,10 @@ constexpr Position offset[] = {
 // t1 --- t3 --- t2
 //        |
 //        |
-//        t4 
+//        t4
 // t1
 // |
-// t3 --- t4
+// t3 ---------- t4
 // |
 // t2
 struct puz_link
