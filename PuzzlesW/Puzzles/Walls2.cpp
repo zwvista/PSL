@@ -83,9 +83,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             auto& os = offset[i];
             int n = 0;
             auto& nums = dir_nums[i];
-            for (auto p2 = p + os; n <= sum; p2 += os) {
-                char ch = cells(p2);
-                if (ch == PUZ_SPACE)
+            for (auto p2 = p + os; n <= sum; p2 += os)
+                if (char ch = cells(p2); ch == PUZ_SPACE)
                     // we can stop here
                     nums.push_back(n++);
                 else {
@@ -93,7 +92,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     nums.push_back(n);
                     break;
                 }
-            }
         }
 
         // Compute the total length of the wall segments connected to the number
@@ -165,7 +163,6 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    set<Position> spaces;
     for (auto& [_1, perm_ids] : m_matches) {
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& [_2, _3, moves] = m_game->m_perms[id];

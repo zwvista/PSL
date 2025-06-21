@@ -64,6 +64,9 @@
     <Text Include="Puzzles\BentBridges.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Branches2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -132,6 +135,9 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\BentBridges.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Branches2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>

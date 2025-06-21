@@ -169,6 +169,7 @@
     <Text Include="Puzzles\BoxItAround.txt" />
     <Text Include="Puzzles\BoxItUp.txt" />
     <Text Include="Puzzles\Branches.txt" />
+    <Text Include="Puzzles\Branches2.txt" />
     <Text Include="Puzzles\Bridges.txt" />
     <Text Include="Puzzles\BusySeas.txt" />
     <Text Include="Puzzles\BWTapa.txt" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Puzzles\BoxItAround.cpp" />
     <ClCompile Include="Puzzles\BoxItUp.cpp" />
     <ClCompile Include="Puzzles\Branches.cpp" />
+    <ClCompile Include="Puzzles\Branches2.cpp" />
     <ClCompile Include="Puzzles\Bridges.cpp" />
     <ClCompile Include="Puzzles\BridgesGen.cpp" />
     <ClCompile Include="Puzzles\BusySeas.cpp" />
