@@ -33,11 +33,7 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-struct puz_move
-{
-    Position m_p;
-    char m_char;
-};
+using puz_move = pair<Position, char>;
 
 struct puz_perm
 {
@@ -194,11 +190,9 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int i)
 {
     auto& [p, _1, moves] = m_game->m_perms[i];
-    for (auto& [p2, ch2] : moves) {
-        cells(p2) = ch2;
-        if (m_matches.erase(p2))
+    for (auto& [p2, ch2] : moves)
+        if (cells(p2) = ch2; m_matches.erase(p2))
             ++m_distance;
-    }
     if (m_matches.erase(p))
         ++m_distance;
 }
