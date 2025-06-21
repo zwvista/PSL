@@ -196,11 +196,11 @@ void puz_state::make_move2(int i)
     auto& [p, _1, moves] = m_game->m_perms[i];
     for (auto& [p2, ch2] : moves) {
         cells(p2) = ch2;
-        if (m_matches.contains(p2))
-            ++m_distance, m_matches.erase(p2);
+        if (m_matches.erase(p2))
+            ++m_distance;
     }
-    if (m_matches.contains(p))
-        ++m_distance, m_matches.erase(p);
+    if (m_matches.erase(p))
+        ++m_distance;
 }
 
 bool puz_state::make_move(int i)
