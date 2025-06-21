@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689D202E07753100A2BCCC /* NewCarpenterSquare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D1D2E07753100A2BCCC /* NewCarpenterSquare.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -39,6 +40,9 @@
 /* Begin PBXFileReference section */
 		8C5F12A12DE378C700BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12A22DE378C700BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689D1D2E07753100A2BCCC /* NewCarpenterSquare.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NewCarpenterSquare.cpp; sourceTree = "<group>"; };
+		8C689D1E2E07753100A2BCCC /* NewCarpenterSquare.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NewCarpenterSquare.txt; sourceTree = "<group>"; };
+		8C689D1F2E07753100A2BCCC /* NewCarpenterSquare.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NewCarpenterSquare.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesN */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesN; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -143,6 +147,9 @@
 				8CA240AC1EB47A950055D6B1 /* Neighbours2.xml */,
 				8CA240AD1EB47A950055D6B1 /* Neighbours3.txt */,
 				8CA240AE1EB47A950055D6B1 /* Neighbours3.xml */,
+				8C689D1D2E07753100A2BCCC /* NewCarpenterSquare.cpp */,
+				8C689D1E2E07753100A2BCCC /* NewCarpenterSquare.txt */,
+				8C689D1F2E07753100A2BCCC /* NewCarpenterSquare.xml */,
 				8CA240AF1EB47A950055D6B1 /* NorthPoleFishing.cpp */,
 				8CA240B01EB47A950055D6B1 /* NorthPoleFishing.txt */,
 				8CA240B11EB47A950055D6B1 /* NorthPoleFishing.xml */,
@@ -271,6 +278,7 @@
 				8CA240C71EB47A950055D6B1 /* Nurikabe.cpp in Sources */,
 				95D7B5D123140C1D001E005C /* NumberCrosswords.cpp in Sources */,
 				8CA240C11EB47A950055D6B1 /* Neighbours.cpp in Sources */,
+				8C689D202E07753100A2BCCC /* NewCarpenterSquare.cpp in Sources */,
 				8CA240C31EB47A950055D6B1 /* NoughtsAndCrosses.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,

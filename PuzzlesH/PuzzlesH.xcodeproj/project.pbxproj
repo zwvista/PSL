@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C689C842DF6482600A2BCCC /* HiddenClouds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C812DF6482600A2BCCC /* HiddenClouds.cpp */; };
+		8C689D122E05134F00A2BCCC /* Hexotris.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D0F2E05134F00A2BCCC /* Hexotris.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -43,6 +44,9 @@
 		8C689C812DF6482600A2BCCC /* HiddenClouds.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HiddenClouds.cpp; sourceTree = "<group>"; };
 		8C689C822DF6482600A2BCCC /* HiddenClouds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = HiddenClouds.txt; sourceTree = "<group>"; };
 		8C689C832DF6482600A2BCCC /* HiddenClouds.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HiddenClouds.xml; sourceTree = "<group>"; };
+		8C689D0F2E05134F00A2BCCC /* Hexotris.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Hexotris.cpp; sourceTree = "<group>"; };
+		8C689D102E05134F00A2BCCC /* Hexotris.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hexotris.txt; sourceTree = "<group>"; };
+		8C689D112E05134F00A2BCCC /* Hexotris.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Hexotris.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesH */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesH; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -138,19 +142,22 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
-				8C689C812DF6482600A2BCCC /* HiddenClouds.cpp */,
-				8C689C822DF6482600A2BCCC /* HiddenClouds.txt */,
-				8C689C832DF6482600A2BCCC /* HiddenClouds.xml */,
 				8CA2403F1EB47A180055D6B1 /* Hedgehog.cpp */,
 				8CA240401EB47A180055D6B1 /* Hedgehog.txt */,
 				8CA240411EB47A180055D6B1 /* Hedgehog.xml */,
 				958FA643232CB1C100205831 /* HeliumAndIron.cpp */,
 				958FA644232CB1C100205831 /* HeliumAndIron.txt */,
 				958FA642232CB1C100205831 /* HeliumAndIron.xml */,
-				8CA240421EB47A180055D6B1 /* hexrotation_ida.txt */,
+				8C689D0F2E05134F00A2BCCC /* Hexotris.cpp */,
+				8C689D102E05134F00A2BCCC /* Hexotris.txt */,
+				8C689D112E05134F00A2BCCC /* Hexotris.xml */,
 				8CA240431EB47A180055D6B1 /* hexrotation.cpp */,
 				8CA240441EB47A180055D6B1 /* hexrotation.txt */,
 				8CA240451EB47A180055D6B1 /* hexrotation.xml */,
+				8CA240421EB47A180055D6B1 /* hexrotation_ida.txt */,
+				8C689C812DF6482600A2BCCC /* HiddenClouds.cpp */,
+				8C689C822DF6482600A2BCCC /* HiddenClouds.txt */,
+				8C689C832DF6482600A2BCCC /* HiddenClouds.xml */,
 				8CA240461EB47A180055D6B1 /* HiddenPath.cpp */,
 				8CA240471EB47A180055D6B1 /* HiddenPath.txt */,
 				8CA240481EB47A180055D6B1 /* HiddenPath.xml */,
@@ -169,10 +176,10 @@
 				8CA240551EB47A180055D6B1 /* hopover.cpp */,
 				8CA240561EB47A180055D6B1 /* hopover.txt */,
 				8CA240571EB47A180055D6B1 /* hopover.xml */,
-				8CA240581EB47A180055D6B1 /* hrd_ida.txt */,
 				8CA240591EB47A180055D6B1 /* hrd.cpp */,
 				8CA2405A1EB47A180055D6B1 /* hrd.txt */,
 				8CA2405B1EB47A180055D6B1 /* hrd.xml */,
+				8CA240581EB47A180055D6B1 /* hrd_ida.txt */,
 			);
 			path = Puzzles;
 			sourceTree = "<group>";
@@ -280,6 +287,7 @@
 				8CA240601EB47A180055D6B1 /* Hidoku.cpp in Sources */,
 				8CA2405C1EB47A180055D6B1 /* Hedgehog.cpp in Sources */,
 				8CA240611EB47A180055D6B1 /* Hitori.cpp in Sources */,
+				8C689D122E05134F00A2BCCC /* Hexotris.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				958FA645232CB1C100205831 /* HeliumAndIron.cpp in Sources */,

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689D152E07740000A2BCCC /* Branches2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D132E07740000A2BCCC /* Branches2.cpp */; };
 		8C74121F2DE25A7600E23098 /* BentBridges.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95804A3A2544CA720022AF35 /* BentBridges.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
@@ -45,6 +46,8 @@
 		8C5F128C2DE377CE00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C6854311FF000D500C592FD /* Bridges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridges.h; sourceTree = "<group>"; };
 		8C6854351FF1FAB600C592FD /* BridgesGen.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BridgesGen.xml; sourceTree = "<group>"; };
+		8C689D132E07740000A2BCCC /* Branches2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Branches2.cpp; sourceTree = "<group>"; };
+		8C689D142E07740000A2BCCC /* Branches2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Branches2.txt; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesB; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -158,16 +161,16 @@
 				8CA23FB31EB479280055D6B1 /* BattleShips.cpp */,
 				8CA23FB41EB479280055D6B1 /* BattleShips.txt */,
 				8CA23FB51EB479280055D6B1 /* BattleShips.xml */,
-				95804A3A2544CA720022AF35 /* BentBridges.cpp */,
 				95804A392544CA720022AF35 /* BentBridges.h */,
+				95804A3A2544CA720022AF35 /* BentBridges.cpp */,
 				95804A382544CA720022AF35 /* BentBridges.txt */,
 				95804A3B2544CA720022AF35 /* BentBridges.xml */,
 				8CA23FB61EB479280055D6B1 /* bloc.txt */,
 				8CA23FB71EB479280055D6B1 /* bloc.xml */,
-				8CA23FB81EB479280055D6B1 /* bloxorz_a.txt */,
-				8CA23FB91EB479280055D6B1 /* bloxorz_ida.txt */,
 				8CA23FBA1EB479280055D6B1 /* bloxorz.cpp */,
 				8CA23FBB1EB479280055D6B1 /* bloxorz.xml */,
+				8CA23FB81EB479280055D6B1 /* bloxorz_a.txt */,
+				8CA23FB91EB479280055D6B1 /* bloxorz_ida.txt */,
 				8CA23FBC1EB479280055D6B1 /* BootyIsland.cpp */,
 				8CA23FBD1EB479280055D6B1 /* BootyIsland.txt */,
 				8CA23FBE1EB479280055D6B1 /* BootyIsland.xml */,
@@ -186,8 +189,10 @@
 				8CA23FCB1EB479280055D6B1 /* Branches.cpp */,
 				8CA23FCC1EB479280055D6B1 /* Branches.txt */,
 				8CA23FCD1EB479280055D6B1 /* Branches.xml */,
-				8CA23FCE1EB479280055D6B1 /* Bridges.cpp */,
+				8C689D132E07740000A2BCCC /* Branches2.cpp */,
+				8C689D142E07740000A2BCCC /* Branches2.txt */,
 				8C6854311FF000D500C592FD /* Bridges.h */,
+				8CA23FCE1EB479280055D6B1 /* Bridges.cpp */,
 				8CA23FCF1EB479280055D6B1 /* Bridges.txt */,
 				8CA23FD01EB479280055D6B1 /* Bridges.xml */,
 				8CA23FD11EB479280055D6B1 /* BridgesGen.cpp */,
@@ -307,6 +312,7 @@
 				8CA23FE21EB479280055D6B1 /* BridgesGen.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA23FDB1EB479280055D6B1 /* BootyIsland.cpp in Sources */,
+				8C689D152E07740000A2BCCC /* Branches2.cpp in Sources */,
 				8CA23FDF1EB479280055D6B1 /* BoxItUp.cpp in Sources */,
 				8CA23FE41EB479280055D6B1 /* BWTapa.cpp in Sources */,
 				8CA23FD81EB479280055D6B1 /* BalancedTapas.cpp in Sources */,

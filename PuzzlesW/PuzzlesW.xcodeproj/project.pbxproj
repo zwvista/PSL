@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689D182E07742200A2BCCC /* Walls2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D162E07742200A2BCCC /* Walls2.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -36,6 +37,8 @@
 /* Begin PBXFileReference section */
 		8C5F12AF2DE3790800BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12B02DE3790800BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689D162E07742200A2BCCC /* Walls2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Walls2.cpp; sourceTree = "<group>"; };
+		8C689D172E07742200A2BCCC /* Walls2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Walls2.txt; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesW */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesW; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 				8CA241A61EB47B160055D6B1 /* Walls.cpp */,
 				8CA241A71EB47B160055D6B1 /* Walls.txt */,
 				8CA241A81EB47B160055D6B1 /* Walls.xml */,
+				8C689D162E07742200A2BCCC /* Walls2.cpp */,
+				8C689D172E07742200A2BCCC /* Walls2.txt */,
 				8CA241A91EB47B160055D6B1 /* WallSentinels.cpp */,
 				8CA241AA1EB47B160055D6B1 /* WallSentinels.txt */,
 				8CA241AB1EB47B160055D6B1 /* WallSentinels.xml */,
@@ -242,6 +247,7 @@
 			files = (
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA241B21EB47B160055D6B1 /* WallSentinels.cpp in Sources */,
+				8C689D182E07742200A2BCCC /* Walls2.cpp in Sources */,
 				958FA61923234E6100205831 /* Warehouse.cpp in Sources */,
 				95E2B50E236877E800F4F95B /* WildlifePark.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
