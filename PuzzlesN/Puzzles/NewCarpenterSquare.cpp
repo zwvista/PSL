@@ -38,26 +38,10 @@ const vector<vector<int>> tool_dirs2 = {
     {0, 1}, {0, 3}, {1, 2}, {2, 3}
 };
 
-constexpr string_view tool_dirs = "^>v<";
-
-enum class tool_hint_type {
-    CORNER,
-    NUMBER,
-    ARM_END
-};
-
 struct puz_tool
 {
     Position m_hint_pos;
-    char m_hint = PUZ_CORNER;
-    puz_tool() {}
-    puz_tool(const Position& p, char ch) : m_hint_pos(p), m_hint(ch) {}
-    tool_hint_type hint_type() const {
-        return m_hint == PUZ_CORNER ? tool_hint_type::CORNER :
-            dir() != -1 ? tool_hint_type::ARM_END : tool_hint_type::NUMBER;
-    }
-    int len() const { return isdigit(m_hint) ? m_hint - '0' : m_hint - 'A' + 10; }
-    int dir() const { return tool_dirs.find(m_hint); }
+    char m_hint;
 };
 
 struct puz_game
@@ -109,11 +93,6 @@ struct puz_state : string
     const puz_tool& get_tool(char ch) const {
         auto it = m_game->m_ch2tool.find(ch);
         return it == m_game->m_ch2tool.end() ? m_next_tool : it->second;
-    }
-    void add_tool(const Position& p) {
-        m_next_tool.m_hint_pos = p;
-        m_matches[m_next_ch];
-        adjust_area(true);
     }
 
     //solve_puzzle interface
@@ -176,11 +155,6 @@ int puz_state::adjust_area(bool init)
                 }
                 if (!m_matches.contains(ch2)) continue;
                 auto& t = get_tool(ch2);
-                if (t.hint_type() == tool_hint_type::ARM_END &&
-                    (t.dir() + 2) % 4 == i) {
-                    arms[i].push_back(p2);
-                    arm_lens[i].push_back(j);
-                }
             }
             for (auto& dirs : tool_dirs2) {
                 auto &a0 = arms[dirs[0]], &a1 = arms[dirs[1]];
@@ -188,73 +162,13 @@ int puz_state::adjust_area(bool init)
                 if (a0.empty() || a1.empty()) continue;
                 for (int i : lens0)
                     for (int j : lens1)
-                        if (len == -1 || i + j + 1 == len)
+                        if (t.m_hint == PUZ_UNKNOWN ||
+                            (t.m_hint == PUZ_EQUAL) == (i == j))
                             f(a0, a1, i, j);
             }
         };
 
-        // start from an arm end
-        auto g2 = [&](int d) {
-            vector<Position> a0, a1;
-            auto& os = offset[d];
-            int d21 = (d + 3) % 4, d22 = (d + 1) % 4;
-            Position p2;
-            int len = -1;
-            char ch2;
-            for (p2 = p + os; ; p2 += os) {
-                ch2 = cells(p2);
-                if (ch2 != PUZ_SPACE && !m_matches.contains(ch2)) break;
-                if (ch2 == PUZ_SPACE)
-                    a0.push_back(p2);
-                else {
-                    auto& t = get_tool(ch2);
-                    auto ht = t.hint_type();
-                    if (ht == tool_hint_type::ARM_END) break;
-                    if (ht == tool_hint_type::NUMBER)
-                        len = t.len();
-                    a0.push_back(p2);
-                }
-                char ch_corner = cells(p2);
-                int i = a0.size();
-                for (int d2 : {d21, d22}) {
-                    auto& os2 = offset[d2];
-                    a1.clear();
-                    Position p3;
-                    cells(p2) = ch;
-                    for (p3 = p2 + os2; (ch2 = cells(p3)) == PUZ_SPACE; p3 += os2)
-                        a1.push_back(p3);
-                    cells(p2) = ch_corner;
-                    vector<int> arm_lens;
-                    int j;
-                    for (j = 1; j <= a1.size(); ++j)
-                        arm_lens.push_back(j);
-                    if (m_matches.contains(ch2)) {
-                        auto& t = get_tool(ch2);
-                        if (t.hint_type() == tool_hint_type::ARM_END &&
-                            (t.dir() + 2) % 4 == d2) {
-                            a1.push_back(p3);
-                            arm_lens.push_back(++j);
-                        }
-                    }
-                    if (a1.empty()) continue;
-                    for (int j : arm_lens)
-                        if (len == -1 || i + j + 1 == len)
-                            f(a0, a1, i, j);
-                }
-            }
-        };
-
-        switch(t.hint_type()) {
-        case tool_hint_type::CORNER:
-            g1(-1);
-            break;
-        case tool_hint_type::NUMBER:
-            g1(t.len());
-            break;
-        case tool_hint_type::ARM_END:
-            g2(t.dir());
-            break;
-        }
+        g1(-1);
 
         if (!init)
             switch(ranges.size()) {
@@ -308,37 +222,15 @@ bool puz_state::make_move_hidden(char ch, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if (!m_matches.empty()) {
-        auto& [ch, ranges] = *boost::min_element(m_matches, [](
-            const pair<const char, vector<vector<Position>>>& kv1,
-            const pair<const char, vector<vector<Position>>>& kv2) {
-            return kv1.second.size() < kv2.second.size();
-        });
-        for (int i = 0; i < ranges.size(); ++i) {
-            children.push_back(*this);
-            if (!children.back().make_move(ch, i))
-                children.pop_back();
-        }
-    } else {
-        set<Position> rng;
-        for (int r = 1; r < sidelen() - 1; ++r)
-            for (int c = 1; c < sidelen() - 1; ++c) {
-                Position p(r, c);
-                char ch = cells(p);
-                if (ch != PUZ_SPACE) continue;
-                auto s = *this;
-                s.add_tool(p);
-                auto& [ch2, ranges] = *s.m_matches.begin();
-                for (auto& rng2 : ranges)
-                    rng.insert(rng2.begin(), rng2.end());
-                for (int i = 0; i < ranges.size(); ++i) {
-                    children.push_back(s);
-                    if (!children.back().make_move_hidden(ch2, i))
-                        children.pop_back();
-                }
-            }
-
-        // pruning
+    auto& [ch, ranges] = *boost::min_element(m_matches, [](
+        const pair<const char, vector<vector<Position>>>& kv1,
+        const pair<const char, vector<vector<Position>>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (int i = 0; i < ranges.size(); ++i) {
+        children.push_back(*this);
+        if (!children.back().make_move(ch, i))
+            children.pop_back();
     }
 }
 
