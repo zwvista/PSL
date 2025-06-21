@@ -55,6 +55,7 @@ struct puz_game
     vector<Position> m_coffees, m_sugars;
     set<Position> m_objects;
     string m_start;
+    bool m_is_double_espresso_variant;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
@@ -63,6 +64,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() * 2 + 1)
+, m_is_double_espresso_variant(level.attribute("DoubleEspressoVariant").as_int() == 1)
 {
     m_start.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; ; ++r) {
@@ -136,6 +138,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     };
     f(m_sugars, m_coffees);
+    if (m_is_double_espresso_variant)
+        f(m_coffees, m_sugars);
 }
 
 struct puz_state

@@ -296,7 +296,8 @@ void puz_state::gen_children(list<puz_state>& children) const
             children.push_back(*this);
             if (!children.back().make_move(p, area.m_cell_count))
                 children.pop_back();
-        } else {
+        }
+    else {
         auto it = boost::find(*this, PUZ_UNKNOWN);
         if (it == end()) return;
         int i = it - begin();

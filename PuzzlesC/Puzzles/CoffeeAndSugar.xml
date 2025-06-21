@@ -26,5 +26,43 @@ S   S`
   C  `
     ]]>
   </level>
+  <level id="36">
+    <![CDATA[
+S    S `
+    S S`
+   C   `
+ SS  CS`
+C   CC `
+ SS C S`
+  S   S`
+    ]]>
+  </level>
+  <level id="72">
+    <![CDATA[
+S   SS S`
+  CS S  `
+    CS S`
+    C C `
+    CS  `
+  C     `
+   S SC `
+S   S  S`
+    ]]>
+  </level>
+  <level id="200" DoubleEspressoVariant="1">
+    <![CDATA[
+C CC CCS  S`
+ S  S   SC `
+C S    C  C`
+ S C  C C S`
+ S  SC C C `
+          S`
+C S   S   S`
+     S S   `
+ C   C   C `
+  S   C C  `
+C  C   S  S`
+    ]]>
+  </level>
 </levels>
 </puzzle>
