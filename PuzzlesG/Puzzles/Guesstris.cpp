@@ -10,11 +10,11 @@
     Encoded Tetris
 
     Description
-    1. Divide the board in Tetriminos (Tetris-like shapes of four cells).
-    2. Each Tetrimino contains two different symbols.
-    3. Tetraminos of the same shape have the same couple of symbols inside
+    1. Divide the board in Tetrominoes (Tetris-like shapes of four cells).
+    2. Each Tetromino contains two different symbols.
+    3. Tetrominoes of the same shape have the same couple of symbols inside
        them, although not necessarily in the same positions.
-    4. Tetriminos with the same symbols can be rotated or mirrored.
+    4. Tetrominoes with the same symbols can be rotated or mirrored.
 */
 
 namespace puzzles::Guesstris{
@@ -74,7 +74,7 @@ const vector<vector<vector<Position>>> tetrominoes = {
 
 struct puz_piece
 {
-    int m_index1;
+    int m_index;
     vector<Position> m_rng;
     set<char> m_symbols;
 };
@@ -114,6 +114,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         if (char ch = cells(p3); ch != PUZ_SPACE)
                             symbols.push_back(ch);
                     }
+                    // 2. Each Tetromino contains two different symbols.
+                    // 3. Tetrominoes of the same shape have the same couple of symbols inside
+                    // them, although not necessarily in the same positions.
                     if (symbols.size() == 2) {
                         set<char> symbols2(symbols.begin(), symbols.end());
                         if (symbols2.size() == 2) {
@@ -152,7 +155,7 @@ struct puz_state : string
 
     const puz_game* m_game = nullptr;
     map<Position, vector<int>> m_matches;
-    // value.first: index of the tetorminoes
+    // value.first: index of the tetrominoes
     // value.second: the symbols
     map<int, set<char>> m_index2symbols;
     unsigned int m_distance = 0;
@@ -175,8 +178,7 @@ int puz_state::find_matches(bool init)
                 return cells(p) != PUZ_SPACE;
             }))
                 return true;
-            // 3. Tetraminos of the same shape have the same couple of symbols inside
-            // them, although not necessarily in the same positions.
+            // 3. Tetrominoes of the same shape have the same couple of symbols inside them
             auto it = m_index2symbols.find(index);
             return it != m_index2symbols.end() && it->second != symbols;
         });
