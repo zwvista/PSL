@@ -12,20 +12,11 @@
 <levels>
   <level id="1">
     <![CDATA[
-    <`
-    O`
-     `
-  3  `
-7  4 `
-    ]]>
-  </level>
-  <level id="2">
-    <![CDATA[
->3  7`
-v    `
-  O  `
- >   `
-O    `
+   / `
+/    `
+=    `
+ =   `
+    ?`
     ]]>
   </level>
 </levels>

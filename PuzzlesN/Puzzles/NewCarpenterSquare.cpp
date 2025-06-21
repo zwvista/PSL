@@ -88,7 +88,6 @@ struct puz_state : string
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(char ch, int n);
     bool make_move2(char ch, int n);
-    bool make_move_hidden(char ch, int n);
     int adjust_area(bool init);
     const puz_tool& get_tool(char ch) const {
         auto it = m_game->m_ch2tool.find(ch);
@@ -129,46 +128,38 @@ int puz_state::adjust_area(bool init)
         auto& t = get_tool(ch);
         auto& p = t.m_hint_pos;
 
-        auto f = [&](const vector<Position>& a0, const vector<Position>& a1, int i, int j) {
-            vector<Position> rng;
-            for (int k = 0; k < i; ++k)
-                rng.push_back(a0[k]);
-            for (int k = 0; k < j; ++k)
-                rng.push_back(a1[k]);
-            rng.push_back(p);
-            boost::sort(rng);
-            ranges.push_back(rng);
-        };
-
-        // start from an arm corner
-        auto g1 = [&](int len) {
-            vector<vector<Position>> arms(4);
-            vector<vector<int>> arm_lens(4);
-            Position p2;
-            char ch2;
-            for (int i = 0; i < 4; ++i) {
-                auto& os = offset[i];
-                int j = 1;
-                for (p2 = p + os; (ch2 = cells(p2)) == PUZ_SPACE; p2 += os) {
-                    arms[i].push_back(p2);
-                    arm_lens[i].push_back(j++);
-                }
-                if (!m_matches.contains(ch2)) continue;
-                auto& t = get_tool(ch2);
+        vector<vector<Position>> arms(4);
+        vector<vector<int>> arm_lens(4);
+        Position p2;
+        char ch2;
+        for (int i = 0; i < 4; ++i) {
+            auto& os = offset[i];
+            int j = 1;
+            for (p2 = p + os; (ch2 = cells(p2)) == PUZ_SPACE; p2 += os) {
+                arms[i].push_back(p2);
+                arm_lens[i].push_back(j++);
             }
-            for (auto& dirs : tool_dirs2) {
-                auto &a0 = arms[dirs[0]], &a1 = arms[dirs[1]];
-                auto &lens0 = arm_lens[dirs[0]], &lens1 = arm_lens[dirs[1]];
-                if (a0.empty() || a1.empty()) continue;
-                for (int i : lens0)
-                    for (int j : lens1)
-                        if (t.m_hint == PUZ_UNKNOWN ||
-                            (t.m_hint == PUZ_EQUAL) == (i == j))
-                            f(a0, a1, i, j);
-            }
-        };
-
-        g1(-1);
+            if (!m_matches.contains(ch2)) continue;
+            auto& t = get_tool(ch2);
+        }
+        for (auto& dirs : tool_dirs2) {
+            auto &a0 = arms[dirs[0]], &a1 = arms[dirs[1]];
+            auto &lens0 = arm_lens[dirs[0]], &lens1 = arm_lens[dirs[1]];
+            if (a0.empty() || a1.empty()) continue;
+            for (int i : lens0)
+                for (int j : lens1)
+                    if (t.m_hint == PUZ_UNKNOWN ||
+                        (t.m_hint == PUZ_EQUAL) == (i == j)) {
+                        vector<Position> rng;
+                        for (int k = 0; k < i; ++k)
+                            rng.push_back(a0[k]);
+                        for (int k = 0; k < j; ++k)
+                            rng.push_back(a1[k]);
+                        rng.push_back(p);
+                        boost::sort(rng);
+                        ranges.push_back(rng);
+                    }
+        }
 
         if (!init)
             switch(ranges.size()) {
@@ -210,14 +201,6 @@ bool puz_state::make_move(char ch, int n)
     int m;
     while ((m = adjust_area(false)) == 1);
     return m == 2;
-}
-
-bool puz_state::make_move_hidden(char ch, int n)
-{
-    if (!make_move2(ch, n))
-        return false;
-    m_next_ch++;
-    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
