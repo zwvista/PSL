@@ -108,21 +108,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     vector<char> symbols;
                     for (auto& p2 : t) {
                         auto p3 = p + p2;
-                        if (is_valid(p3))
-                            rng.push_back(p3);
+                        if (!is_valid(p3))
+                            goto next;
+                        rng.push_back(p3);
                         if (char ch = cells(p3); ch != PUZ_SPACE)
                             symbols.push_back(ch);
                     }
-                    if (symbols.size() != 2) 
-                        continue;
-                    set<char> symbols2(symbols.begin(), symbols.end());
-                    if (symbols2.size() != 2) 
-                        continue;
-                    int n = m_pieces.size();
-                    boost::sort(symbols);
-                    m_pieces.emplace_back(i, rng, symbols2);
-                    for (auto& p2 : rng)
-                        m_pos2piece_ids[p2].push_back(n);
+                    if (symbols.size() == 2) {
+                        set<char> symbols2(symbols.begin(), symbols.end());
+                        if (symbols2.size() == 2) {
+                            int n = m_pieces.size();
+                            boost::sort(symbols);
+                            m_pieces.emplace_back(i, rng, symbols2);
+                            for (auto& p2 : rng)
+                                m_pos2piece_ids[p2].push_back(n);
+                        }
+                    }
+                next:;
                 }
         }
 }
@@ -208,7 +210,7 @@ bool puz_state::make_move(int i)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, piece_ids] = *boost::min_element(m_matches, [](
+    auto& [_1, piece_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
@@ -246,8 +248,8 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
-            //out << cells(p);
-            out << m_game->cells(p);
+            out << cells(p);
+            //out << m_game->cells(p);
         }
         println(out);
     }
