@@ -22,7 +22,7 @@ namespace puzzles::Warehouse{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_HORZ = 'H';
 constexpr auto PUZ_VERT = 'V';
-constexpr auto PUZ_SQUARE = '+';
+constexpr auto PUZ_CROSS = '+';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -63,31 +63,38 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_pos2symbol[{r, c}] = ch;
     }
 
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c)
-            for (int h = 1; h <= m_sidelen - r; ++h)
-                for (int w = 1; w <= m_sidelen - c; ++w) {
+    for (int r1 = 0; r1 < m_sidelen; ++r1)
+        for (int c1 = 0; c1 < m_sidelen; ++c1)
+            for (int h = 1; h <= m_sidelen - r1; ++h)
+                for (int w = 1; w <= m_sidelen - c1; ++w) {
                     Position box_sz(h - 1, w - 1);
-                    Position tl(r, c), br = tl + box_sz;
-                    vector<Position> rng;
-                    for (int r2 = tl.first; r2 <= br.first; ++r2)
-                        for (int c2 = tl.second; c2 <= br.second; ++c2) {
-                            Position p(r2, c2);
-                            if (auto it = m_pos2symbol.find(p); it != m_pos2symbol.end()) {
-                                rng.push_back(p);
-                                if (char ch = it->second; rng.size() > 1 ||
-                                    !(ch == PUZ_VERT && h > w || ch == PUZ_HORZ && h < w || ch == PUZ_SQUARE && h == w))
-                                    goto next;
+                    Position tl(r1, c1), br = tl + box_sz;
+                    auto& [r2, c2] = br;
+                    if (vector<Position> rng; [&] {
+                        for (int r = r1; r <= r2; ++r)
+                            for (int c = c1; c <= c2; ++c) {
+                                Position p(r, c);
+                                if (auto it = m_pos2symbol.find(p); it != m_pos2symbol.end()) {
+                                    rng.push_back(p);
+                                    // 2. Each box contains a symbol:
+                                    // 3. a cross means it's a square box.
+                                    // 4. a horizontal bar means the box is wider than taller.
+                                    // 5. a vertical bar means the box is taller than wider.
+                                    if (char ch = it->second; rng.size() > 1 ||
+                                        !(ch == PUZ_VERT && h > w ||
+                                            ch == PUZ_HORZ && h < w ||
+                                            ch == PUZ_CROSS && h == w))
+                                        return false;
+                                }
                             }
-                        }
-                    if (rng.size() == 1) {
+                        return true;
+                    }() && rng.size() == 1) {
                         int n = m_boxes.size();
                         m_boxes.emplace_back(tl, br);
-                        for (int r2 = tl.first; r2 <= br.first; ++r2)
-                            for (int c2 = tl.second; c2 <= br.second; ++c2)
-                                m_pos2boxids[{r2, c2}].push_back(n);
+                        for (int r = r1; r <= r2; ++r)
+                            for (int c = c1; c <= c2; ++c)
+                                m_pos2boxids[{r, c}].push_back(n);
                     }
-                next:;
                 }
 }
 
@@ -154,9 +161,11 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [p, box_ids] : m_matches) {
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& box = m_game->m_boxes[id];
-            for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c)
+            auto& [tl, br] = m_game->m_boxes[id];
+            auto& [r1, c1] = tl;
+            auto& [r2, c2] = br;
+            for (int r = r1; r <= r2; ++r)
+                for (int c = c1; c <= c2; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
                         return true;
             return false;
@@ -175,10 +184,11 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& box = m_game->m_boxes[n];
-    auto &tl = box.first, &br = box.second;
-    for (int r = tl.first; r <= br.first; ++r)
-        for (int c = tl.second; c <= br.second; ++c) {
+    auto& [tl, br] = m_game->m_boxes[n];
+    auto& [r1, c1] = tl;
+    auto& [r2, c2] = br;
+    for (int r = r1; r <= r2; ++r)
+        for (int c = c1; c <= c2; ++c) {
             Position p(r, c);
             cells(p) = m_ch, ++m_distance, m_matches.erase(p);
         }

@@ -129,16 +129,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c)
-            for (int h = 1; h <= m_sidelen - r; ++h)
-                for (int w = 1; w <= m_sidelen - c; ++w) {
+    for (int r1 = 0; r1 < m_sidelen; ++r1)
+        for (int c1 = 0; c1 < m_sidelen; ++c1)
+            for (int h = 1; h <= m_sidelen - r1; ++h)
+                for (int w = 1; w <= m_sidelen - c1; ++w) {
                     Position box_sz(h - 1, w - 1);
-                    Position tl(r, c), br = tl + box_sz;
+                    Position tl(r1, c1), br = tl + box_sz;
+                    auto& [r2, c2] = br;
                     map<int, int> area2num;
-                    for (int r2 = tl.first; r2 <= br.first; ++r2)
-                        for (int c2 = tl.second; c2 <= br.second; ++c2)
-                            ++area2num[m_pos2area.at({r2, c2})];
+                    for (int r = r1; r <= r2; ++r)
+                        for (int c = c1; c <= c2; ++c)
+                            ++area2num[m_pos2area.at({r, c})];
                     // 5. A tile with a number indicates how many tiles in the area must
                     // be chocolate.
                     // 6. An area without number can have any number of tiles of chocolate.

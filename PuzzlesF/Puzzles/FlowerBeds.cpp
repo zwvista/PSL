@@ -31,7 +31,7 @@ constexpr Position offset[] = {
     {0, -1},       // w
 };
 
-struct puz_box_info
+struct puz_box
 {
     int m_area;
     pair<Position, Position> m_box;
@@ -42,7 +42,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_start;
-    vector<puz_box_info> m_boxinfos;
+    vector<puz_box> m_boxes;
     map<Position, vector<int>> m_pos2boxids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -55,35 +55,34 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     m_start = boost::accumulate(strs, string());
 
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c)
-            for (int h = 1; h <= m_sidelen - r; ++h)
-                for (int w = 1; w <= m_sidelen - c; ++w) {
+    for (int r1 = 0; r1 < m_sidelen; ++r1)
+        for (int c1 = 0; c1 < m_sidelen; ++c1)
+            for (int h = 1; h <= m_sidelen - r1; ++h)
+                for (int w = 1; w <= m_sidelen - c1; ++w) {
                     Position box_sz(h - 1, w - 1);
-                    Position tl(r, c), br = tl + box_sz;
-                    vector<Position> rng;
-                    for (int r2 = tl.first; r2 <= br.first; ++r2)
-                        for (int c2 = tl.second; c2 <= br.second; ++c2) {
-                            Position p(r2, c2);
-                            if (char ch = cells(p); ch == PUZ_FLOWER) {
-                                rng.push_back(p);
-                                if (rng.size() > 1)
-                                    goto next;
-                            }
-                            else if (ch == PUZ_HEDGE)
-                                goto next;
-                        }
-                    if (rng.size() == 1) {
-                        int n = m_boxinfos.size();
-                        puz_box_info info;
-                        info.m_area = h * w;
-                        info.m_box = {tl, br};
-                        m_boxinfos.push_back(info);
-                        for (int r2 = tl.first; r2 <= br.first; ++r2)
-                            for (int c2 = tl.second; c2 <= br.second; ++c2)
-                                m_pos2boxids[{r2, c2}].push_back(n);
+                    Position tl(r1, c1), br = tl + box_sz;
+                    auto& [r2, c2] = br;
+                    if (vector<Position> rng; [&] {
+                        for (int r = r1; r <= r2; ++r)
+                            for (int c = c1; c <= c2; ++c)
+                                switch (Position p(r, c); cells(p)) {
+                                case PUZ_HEDGE:
+                                    // 5. Green squares are hedges that can't be included in flower beds.
+                                    return false;
+                                case PUZ_FLOWER:
+                                    // 3. Each flower bed should contain exactly one flower.
+                                    rng.push_back(p);
+                                    if (rng.size() > 1)
+                                        return false;
+                                }
+                        return true;
+                    }() && rng.size() == 1) {
+                        int n = m_boxes.size();
+                        m_boxes.push_back({h * w, {tl, br}});
+                        for (int r = r1; r <= r2; ++r)
+                            for (int c = c1; c <= c2; ++c)
+                                m_pos2boxids[{r, c}].push_back(n);
                     }
-                next:;
                 }
 }
 
@@ -133,19 +132,21 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [p, box_ids] : m_matches) {
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& info = m_game->m_boxinfos[id];
-            auto& box = info.m_box;
-            for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c) {
+            auto& [area, box] = m_game->m_boxes[id];
+            auto& [tl, br] = box;
+            auto& [r1, c1] = tl;
+            auto& [r2, c2] = br;
+            for (int r = r1; r <= r2; ++r)
+                for (int c = c1; c <= c2; ++c) {
                     Position p(r, c);
                     if (cells(p) != PUZ_SPACE)
                         return true;
-                    // Contiguous flower beds can't have the same area extension.
+                    // 4. Contiguous flower beds can't have the same area extension.
                     for (auto& os : offset) {
                         auto p2 = p + os;
                         if (!is_valid(p2)) continue;
                         if (char ch = cells(p2); ch != PUZ_SPACE && ch != PUZ_HEDGE &&
-                            info.m_area == m_game->m_boxinfos[m_ch2boxid.at(ch)].m_area)
+                            area == m_game->m_boxes[m_ch2boxid.at(ch)].m_area)
                             return true;
                     }
                 }
@@ -165,11 +166,11 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& info = m_game->m_boxinfos[n];
-    auto& box = info.m_box;
-    auto& tl = box.first, & br = box.second;
-    for (int r = tl.first; r <= br.first; ++r)
-        for (int c = tl.second; c <= br.second; ++c) {
+    auto& [tl, br] = m_game->m_boxes[n].m_box;
+    auto& [r1, c1] = tl;
+    auto& [r2, c2] = br;
+    for (int r = r1; r <= r2; ++r)
+        for (int c = c1; c <= c2; ++c) {
             Position p(r, c);
             cells(p) = m_ch, ++m_distance, m_matches.erase(p);
         }

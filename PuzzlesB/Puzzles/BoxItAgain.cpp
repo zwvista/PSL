@@ -27,19 +27,16 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-struct puz_box_info
-{
-    // the area of the box
-    int m_area;
-    // top-left and bottom-right
-    vector<pair<Position, Position>> m_boxes;
-};
+// top-left and bottom-right
+using puz_box = pair<Position, Position>;
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, puz_box_info> m_pos2boxinfo;
+    map<Position, int> m_pos2num;
+    vector<puz_box> m_boxes;
+    map<Position, vector<int>> m_pos2boxids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -53,43 +50,38 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
             if (ch != PUZ_SPACE)
-                m_pos2boxinfo[{r, c}].m_area = ch - '0';
+                m_pos2num[{r, c}] = ch - '0';
         }
     }
 
-    for (auto& [pn, info] : m_pos2boxinfo) {
-        int box_area = info.m_area;
-        auto& boxes = info.m_boxes;
-
-        for (int h = 1; h <= m_sidelen; ++h) {
-            int w = box_area / h;
-            if (h * w != box_area || w > m_sidelen) continue;
-            Position box_sz(h - 1, w - 1);
-            auto p2 = pn - box_sz;
-            //   - - - - 
-            //  |       |
-            //         - - - - 
-            //  |     |8|     |
-            //   - - - -      
-            //        |       |
-            //         - - - - 
-            for (int r = p2.first; r <= pn.first; ++r)
-                for (int c = p2.second; c <= pn.second; ++c) {
-                    Position tl(r, c), br = tl + box_sz;
-                    if (tl.first >= 0 && tl.second >= 0 &&
-                        br.first < m_sidelen && br.second < m_sidelen &&
-                        // All the other numbers should not be inside this box
-                        boost::algorithm::none_of(m_pos2boxinfo, [&](
-                        const pair<const Position, puz_box_info>& kv) {
-                        auto& p = kv.first;
-                        return p != pn &&
-                            p.first >= tl.first && p.second >= tl.second &&
-                            p.first <= br.first && p.second <= br.second;
-                    }))
-                        boxes.emplace_back(tl, br);
+    for (int r1 = 0; r1 < m_sidelen; ++r1)
+        for (int c1 = 0; c1 < m_sidelen; ++c1)
+            for (int h = 1; h <= m_sidelen - r1; ++h)
+                for (int w = 1; w <= m_sidelen - c1; ++w) {
+                    Position box_sz(h - 1, w - 1);
+                    Position tl(r1, c1), br = tl + box_sz;
+                    auto& [r2, c2] = br;
+                    if (vector<Position> rng; [&] {
+                        for (int r = r1; r <= r2; ++r)
+                            for (int c = c1; c <= c2; ++c) {
+                                Position p(r, c);
+                                if (auto it = m_pos2num.find(p); it != m_pos2num.end()) {
+                                    rng.push_back(p);
+                                    // 2. Each Box must contain one number and the number represents the area of
+                                    // that Box.
+                                    if (rng.size() > 1 || it->second != h * w)
+                                        return false;
+                                }
+                            }
+                        return true;
+                    }() && rng.size() == 1) {
+                        int n = m_boxes.size();
+                        m_boxes.emplace_back(tl, br);
+                        // 3. However this time, some tiles can be left unboxed, the board isn't 
+                        // entirely covered by boxes.
+                        m_pos2boxids[rng.front()].push_back(n);
+                    }
                 }
-        }
-    }
 }
 
 struct puz_state
@@ -127,24 +119,20 @@ struct puz_state
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+, m_matches(g.m_pos2boxids)
 {
-    for (auto& [p, info] : g.m_pos2boxinfo) {
-        auto& box_ids = m_matches[p];
-        box_ids.resize(info.m_boxes.size());
-        boost::iota(box_ids, 0);
-    }
-
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, box_ids] : m_matches) {
-        auto& boxes = m_game->m_pos2boxinfo.at(p).m_boxes;
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& box = boxes[id];
-            for (int r = box.first.first; r <= box.second.first; ++r)
-                for (int c = box.first.second; c <= box.second.second; ++c)
+            auto& [tl, br] = m_game->m_boxes[id];
+            auto& [r1, c1] = tl;
+            auto& [r2, c2] = br;
+            for (int r = r1; r <= r2; ++r)
+                for (int c = c1; c <= c2; ++c)
                     if (cells({r, c}) != PUZ_SPACE)
                         return true;
             return false;
@@ -163,11 +151,11 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& box = m_game->m_pos2boxinfo.at(p).m_boxes[n];
-
-    auto &tl = box.first, &br = box.second;
-    for (int r = tl.first; r <= br.first; ++r)
-        for (int c = tl.second; c <= br.second; ++c)
+    auto& [tl, br] = m_game->m_boxes[n];
+    auto& [r1, c1] = tl;
+    auto& [r2, c2] = br;
+    for (int r = r1; r <= r2; ++r)
+        for (int c = c1; c <= c2; ++c)
             cells({r, c}) = m_ch;
     ++m_ch, ++m_distance;
     m_matches.erase(p);
@@ -212,10 +200,10 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == sidelen()) break;
-            if (auto it = m_game->m_pos2boxinfo.find(p); it == m_game->m_pos2boxinfo.end())
+            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
                 out << ".";
             else
-                out << it->second.m_area;
+                out << it->second;
         }
         println(out);
     }
