@@ -70,8 +70,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                                         return false;
                                 }
                             }
-                        return true;
-                    }() && rng.size() == 1) {
+                        return rng.size() == 1;
+                    }()) {
                         int n = m_boxes.size();
                         m_boxes.emplace_back(tl, br);
                         for (int r = r1; r <= r2; ++r)
