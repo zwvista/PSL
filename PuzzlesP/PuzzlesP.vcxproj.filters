@@ -19,24 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\pathfind_astar.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\pathfind_bfs.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\pathfind_dfs.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\pathfind_dijkstra.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\pathfind_idastar.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\pathfind_idastar2.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\patternpuzzle.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -146,9 +128,6 @@
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\pathfind.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\patternpuzzle.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -232,9 +211,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\pathfind.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\patternpuzzle.xml">
       <Filter>Puzzles</Filter>
     </Xml>
