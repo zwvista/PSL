@@ -11,6 +11,8 @@ namespace puzzles::pathfind{
 
 enum EDir {mvLeft, mvRight, mvUp, mvDown};
 
+string_view moves = "lrud";
+
 constexpr Position offset[] = {
     {0, -1},
     {0, 1},
@@ -38,14 +40,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(strs.size() / 2, strs[0].length() / 2)
 {
     for (int r = 0; ; ++r) {
-        const string& hstr = strs.at(2 * r);
+        string_view hstr = strs[2 * r];
         for (size_t i = 0; i < hstr.length(); ++i)
             if (hstr[i] == '-')
                 m_horz_wall.insert(Position(r, i / 2));
 
         if (r == rows()) break;
 
-        const string& vstr = strs.at(2 * r + 1);
+        string_view vstr = strs[2 * r + 1];
         for (size_t i = 0; i < vstr.length(); ++i)
             switch(Position p(r, i / 2); vstr[i]) {
             case '|': m_vert_wall.insert(p); break;
@@ -58,7 +60,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 struct puz_state : Position
 {
     puz_state(const puz_game& g)
-        : Position(g.m_start), m_game(&g), m_move() {}
+        : Position(g.m_start), m_game(&g) {}
     bool make_move(EDir dir);
 
     // solve_puzzle interface
@@ -70,12 +72,11 @@ struct puz_state : Position
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    char m_move;
+    char m_move = 0;
 };
 
 bool puz_state::make_move(EDir dir)
 {
-    static string_view moves = "lrud";
     Position p = *this + offset[dir];
     if (dir == mvLeft && m_game->is_vert_wall(*this) ||
         dir == mvRight && m_game->is_vert_wall(p) ||
@@ -83,7 +84,7 @@ bool puz_state::make_move(EDir dir)
         dir == mvDown && m_game->is_horz_wall(p))
         return false;
 
-    dynamic_cast<Position&>(*this) = p;
+    static_cast<Position&>(*this) = p;
     m_move = moves[dir];
     return true;
 }
