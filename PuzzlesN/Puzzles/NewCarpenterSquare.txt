@@ -13,7 +13,7 @@ Sequence of moves:
  - - - - -
 Number of moves: 4
 Number of vertices examined: 5
-0.0007834 [s]
+0.0010286 [s]
 
 Level 2
 Sequence of moves: 
@@ -25,10 +25,10 @@ Sequence of moves:
 |.|.|.|.|.|
        -  
 |.|.|= .|.|
- -   - -  
-|. /|. . /|
+     - -  
+|.|/ .|. /|
  - - - - -
 Number of moves: 4
-Number of vertices examined: 6
-0.0006729 [s]
+Number of vertices examined: 7
+0.0008312 [s]
 

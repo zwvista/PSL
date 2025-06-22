@@ -87,6 +87,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, hint] : m_pos2hint) {
         auto [symbol, name] = hint;
 
+        // 2. Every symbol on the board represents the corner of an L.
+        // there are no hidden L's.
         vector<vector<Position>> arms(4);
         vector<vector<int>> arm_lens(4);
         Position p2;
@@ -106,6 +108,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (a0.empty() || a1.empty()) continue;
             for (int i : lens0)
                 for (int j : lens1)
+                    // 3. A = symbol tells you that the legs have equal length.
+                    // 4. A ÅÇ symbol tells you that the legs have different lengths.
+                    // 5. A ? symbol tells you that the legs could have different lengths
+                    // or equal length.
                     if (symbol == PUZ_UNKNOWN ||
                         (symbol == PUZ_EQUAL) == (i == j)) {
                         vector<Position> rng;
@@ -161,10 +167,9 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [_1, perm_ids] : m_matches) {
         boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& [_2, rng, ch2] = m_game->m_perms[id];
+            auto& [p, rng, _2] = m_game->m_perms[id];
             return !boost::algorithm::all_of(rng, [&](const Position& p2) {
-                char ch = cells(p2);
-                return ch == PUZ_SPACE || ch == ch2;
+                return cells(p2) == PUZ_SPACE || p == p2;
             });
         });
 
@@ -226,6 +231,7 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (cells({r, c}) != cells({r, c - 1}) ? '|' : ' ');
             if (c == sidelen() - 1) break;
+            //out << cells(p);
             if (auto it = m_game->m_pos2hint.find(p); it == m_game->m_pos2hint.end())
                 out << ".";
             else
