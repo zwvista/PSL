@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\BalancedTapas.txt" />
+    <Text Include="Puzzles\Banquet.txt" />
     <Text Include="Puzzles\BattleShips.txt" />
     <Text Include="Puzzles\BentBridges.txt" />
     <Text Include="Puzzles\bloc.txt" />
@@ -191,6 +192,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\BalancedTapas.cpp" />
+    <ClCompile Include="Puzzles\Banquet.cpp" />
     <ClCompile Include="Puzzles\BattleShips.cpp" />
     <ClCompile Include="Puzzles\BentBridges.cpp" />
     <ClCompile Include="Puzzles\bloxorz.cpp" />
@@ -214,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\BalancedTapas.xml" />
+    <Xml Include="Puzzles\Banquet.xml" />
     <Xml Include="Puzzles\BattleShips.xml" />
     <Xml Include="Puzzles\BentBridges.xml" />
     <Xml Include="Puzzles\bloc.xml" />

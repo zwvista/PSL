@@ -67,6 +67,9 @@
     <Text Include="Puzzles\Branches2.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Banquet.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -140,6 +143,9 @@
     <ClCompile Include="Puzzles\Branches2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Banquet.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\BattleShips.xml">
@@ -185,6 +191,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\BentBridges.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Banquet.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

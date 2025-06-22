@@ -4,26 +4,23 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games 3/Puzzle Set 1/Picnic
+    iOS Game: 100 Logic Games 3/Puzzle Set 2/Banquet
 
     Summary
-    Fling the Blanket
+    A table here, please
 
     Description
-    1. As usual, on the day of the National Holiday Picnic, the park is crowded.
-    2. You brought your picnic basket (like everyone else) and your blanket (like
-       everyone else).
-    3. The object is to make space for everyone and to leave the park open for
-       walking around.
-    4. find a way to lay every picnic basket so that no blanket touches another
-       one, horizontally or vertically.
-    5. Also the remaining park should be accessible to everyone, so empty grass
-       spaces should form a single continuous area.
-    6. The number on top of the basket shows you how many tiles the basket must
-       be flung.
+    1. Join the tables in order to form "banquets" of at least two tables.
+    2. The number on the table tells you how many tiles it must be moved.
+       Tables without numbers must stay put.
+    3. Tables can't cross other tables, nor cross other tables paths after
+       they moved.
+    4. Banquets cannot touch each other horizontally or vertically
+       (they can touch diagonally).
+    5. Banquets can't be L-shaped but can be more than one table wide.
 */
 
-namespace puzzles::Picnic{
+namespace puzzles::Banquet{
 
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_SPACE = ' ';
@@ -239,9 +236,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_Picnic()
+void solve_puz_Banquet()
 {
-    using namespace puzzles::Picnic;
+    using namespace puzzles::Banquet;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Picnic.xml", "Puzzles/Picnic.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Banquet.xml", "Puzzles/Banquet.txt", solution_format::GOAL_STATE_ONLY);
 }

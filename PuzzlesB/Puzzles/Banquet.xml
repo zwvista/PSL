@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Join the tables in order to form "banquets" of at least two tables.
+2. The number on the table tells you how many tiles it must be moved. Tables without numbers must stay put.
+3. Tables can't cross other tables, nor cross other tables paths after they moved.
+4. Banquets cannot touch each other horizontally or vertically (they can touch diagonally).
+5. Banquets can't be L-shaped but can be more than one table wide.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+11 1 `
+     `
+ 2   `
+3    `
+3    `
+    ]]>
+  </level>
+</levels>
+</puzzle>
