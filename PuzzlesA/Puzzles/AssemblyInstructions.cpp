@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -21,6 +22,7 @@
 namespace puzzles::AssemblyInstructions{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -30,55 +32,99 @@ constexpr Position offset[] = {
 };
 
 // top-left and bottom-right
-using puz_box = pair<Position, Position>;
+using puz_area = vector<vector<Position>>;
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_pos2num;
-    vector<puz_box> m_boxes;
-    map<Position, vector<int>> m_pos2boxids;
+    map<Position, char> m_pos2letter;
+    map<char, vector<Position>> m_letter2rng;
+    vector<puz_area> m_areas;
+    map<Position, vector<int>> m_pos2area_ids;
+    string m_start;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
+
+struct puz_state2 : vector<vector<Position>>
+{
+    puz_state2(const puz_game& game, const vector<Position>& rng)
+        : vector<vector<Position>>(rng.size()), m_game(&game) { make_move(rng); }
+
+    bool is_goal_state() const { return true; }
+    void make_move(const vector<Position>& rng) {
+        for (int i = 0; i < rng.size(); ++i)
+            (*this)[i].push_back(rng[i]);
+    }
+    void gen_children(list<puz_state2>& children) const;
+    unsigned int get_distance(const puz_state2& child) const { return 1; }
+
+    const puz_game* m_game = nullptr;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const {
+    int sz = front().size();
+    for (int j = 0; j < sz; ++j)
+        for (auto& os : offset) {
+            vector<Position> rng(sz);
+            for (int i = 0; i < size(); ++i)
+                // Areas extend horizontally or vertically
+                rng.push_back((*this)[i][j] + os);
+            if (boost::algorithm::all_of(rng, [&](const Position& p) {
+                // An adjacent tile can be occupied by the area
+                // if it is a space tile and has not been occupied by the area
+                return m_game->cells(p) == PUZ_SPACE ||
+                    boost::algorithm::none_of(*this, [&](const vector<Position>& rng2) {
+                        return boost::algorithm::none_of_equal(rng2, p);
+                    });
+            })) {
+                children.push_back(*this);
+                children.back().make_move(rng);
+            }
+        }
+}
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size())
+, m_sidelen(strs.size() + 2)
 {
-    for (int r = 0; r < m_sidelen; ++r) {
-        string_view str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c)
-            if (auto s = str.substr(c * 2, 2); s != "  ")
-                m_pos2num[{r, c}] = stoi(string(s));
+    char name = 'a';
+    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    for (int r = 1; r < m_sidelen - 1; ++r) {
+        string_view str = strs[r - 1];
+        m_start.push_back(PUZ_BOUNDARY);
+        for (int c = 1; c < m_sidelen - 1; ++c) {
+            Position p(r, c);
+            if (char ch = str[c - 1]; ch == PUZ_SPACE)
+                m_start.push_back(PUZ_SPACE);
+            else {
+                m_pos2letter[p] = ch;
+                m_letter2rng[ch].push_back(p);
+                m_start.push_back(name++);
+            }
+            m_start.push_back(PUZ_BOUNDARY);
+        }
     }
+    m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c)
-            for (int h = 1; h <= m_sidelen - r; ++h)
-                for (int w = 1; w <= m_sidelen - c; ++w) {
-                    Position box_sz(h - 1, w - 1);
-                    Position tl(r, c), br = tl + box_sz;
-                    vector<Position> rng;
-                    for (int r2 = tl.first; r2 <= br.first; ++r2)
-                        for (int c2 = tl.second; c2 <= br.second; ++c2) {
-                            Position p(r2, c2);
-                            if (auto it = m_pos2num.find(p); it != m_pos2num.end()) {
-                                rng.push_back(p);
-                                if (rng.size() > 1 || it->second != h + w)
-                                    goto next;
-                            }
-                        }
-                    if (rng.size() == 1) {
-                        int n = m_boxes.size();
-                        m_boxes.emplace_back(tl, br);
-                        for (int r2 = tl.first; r2 <= br.first; ++r2)
-                            for (int c2 = tl.second; c2 <= br.second; ++c2)
-                                m_pos2boxids[{r2, c2}].push_back(n);
-                    }
-                next:;
-                }
+    for (auto& [letter, rng] : m_letter2rng) {
+        puz_state2 sstart(*this, rng);
+        list<list<puz_state2>> spaths;
+        // Areas can have any form.
+        puz_solver_bfs<puz_state2, false, false, false>::find_solution(sstart, spaths);
+        // save all goal states as permutations
+        // A goal state is an area formed from the letter(s)
+        for (auto& spath : spaths) {
+            int n = m_areas.size();
+            puz_area area(spath.back().begin(), spath.back().end());
+            m_areas.push_back(area);
+            for (auto& rng : area)
+                for (auto& p : rng)
+                    m_pos2area_ids[p].push_back(n);
+        }
+    }
 }
 
 struct puz_state
@@ -117,7 +163,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
-, m_matches(g.m_pos2boxids)
+, m_matches(g.m_pos2area_ids)
 {
     find_matches(true);
 }
@@ -126,13 +172,6 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [p, box_ids] : m_matches) {
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& [tl, br] = m_game->m_boxes[id];
-            auto& [r1, c1] = tl;
-            auto& [r2, c2] = br;
-            for (int r = r1; r <= r2; ++r)
-                for (int c = c1; c <= c2; ++c)
-                    if (cells({r, c}) != PUZ_SPACE)
-                        return true;
             return false;
         });
 
@@ -149,15 +188,6 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& [tl, br] = m_game->m_boxes[n];
-    auto& [r1, c1] = tl;
-    auto& [r2, c2] = br;
-    for (int r = r1; r <= r2; ++r)
-        for (int c = c1; c <= c2; ++c) {
-            Position p(r, c);
-            cells(p) = m_ch, ++m_distance, m_matches.erase(p);
-        }
-    ++m_ch;
 }
 
 bool puz_state::make_move(int n)
@@ -191,7 +221,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horizontal lines
         for (int c = 0; c < sidelen(); ++c)
-            out << (f({r, c}, {r - 1, c}) ? " --" : "   ");
+            out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
@@ -199,10 +229,10 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == sidelen()) break;
-            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-                out << " .";
+            if (auto it = m_game->m_pos2letter.find(p); it == m_game->m_pos2letter.end())
+                out << ".";
             else
-                out << format("{:2}", it->second);
+                out << it->second;
         }
         println(out);
     }
