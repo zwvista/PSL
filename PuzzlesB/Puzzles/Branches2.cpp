@@ -150,6 +150,7 @@ struct puz_state
     // key: the position of the number
     // value.elem: index of the permutations
     map<Position, vector<int>> m_matches;
+    set<Position> m_used_hints;
     unsigned int m_distance = 0;
 };
 
@@ -164,12 +165,12 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [_1, perm_ids] : m_matches) {
         boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& [_2, _3, moves] = m_game->m_perms[id];
-            return !boost::algorithm::all_of(moves, [&](const puz_move& move) {
-                auto& [p2, ch2] = move;
-                char ch = cells(p2);
-                return ch == PUZ_SPACE || ch == ch2;
-            });
+            auto& [p, _2, moves] = m_game->m_perms[id];
+            return m_used_hints.contains(p) ||
+                !boost::algorithm::all_of(moves, [&](const puz_move& move) {
+                    auto& [p2, _3] = move;
+                    return cells(p2) == PUZ_SPACE;
+                });
         });
 
         if (!init)
@@ -191,6 +192,7 @@ void puz_state::make_move2(int i)
             ++m_distance;
     if (m_matches.erase(p))
         ++m_distance;
+    m_used_hints.insert(p);
 }
 
 bool puz_state::make_move(int i)

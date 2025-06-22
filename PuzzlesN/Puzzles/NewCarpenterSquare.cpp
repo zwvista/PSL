@@ -141,9 +141,7 @@ struct puz_state : string
     int find_matches(bool init);
 
     //solve_puzzle interface
-    bool is_goal_state() const {
-        return get_heuristic() == 0 && find(PUZ_SPACE) == string::npos;
-    }
+    bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
@@ -152,7 +150,7 @@ struct puz_state : string
 
     const puz_game* m_game = nullptr;
     map<Position, vector<int>> m_matches;
-    char m_next_ch;
+    set<Position> m_used_hints;
     unsigned int m_distance = 0;
 };
 
@@ -168,9 +166,10 @@ int puz_state::find_matches(bool init)
     for (auto& [_1, perm_ids] : m_matches) {
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& [p, rng, _2] = m_game->m_perms[id];
-            return !boost::algorithm::all_of(rng, [&](const Position& p2) {
-                return cells(p2) == PUZ_SPACE || p == p2;
-            });
+            return m_used_hints.contains(p) ||
+                !boost::algorithm::all_of(rng, [&](const Position& p2) {
+                    return cells(p2) == PUZ_SPACE || p == p2;
+                });
         });
 
         if (!init)
@@ -186,12 +185,13 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int i)
 {
-    auto& [_1, rng, ch2] = m_game->m_perms[i];
-    for (auto& p : rng) {
-        cells(p) = ch2;
-        if (m_matches.erase(p))
+    auto& [p, rng, ch] = m_game->m_perms[i];
+    for (auto& p2 : rng) {
+        cells(p2) = ch;
+        if (m_matches.erase(p2))
             ++m_distance;
     }
+    m_used_hints.insert(p);
 }
 
 bool puz_state::make_move(int i)
