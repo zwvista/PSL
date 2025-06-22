@@ -76,13 +76,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_dot_count(m_sidelen* m_sidelen)
 {
     for (int r = 0;; ++r) {
-        auto& str_h = strs[r * 2];
+        string_view str_h = strs[r * 2];
         // posts
         for (int c = 0; c < m_sidelen; ++c)
             if (str_h[c * 2] == PUZ_POST)
                 m_posts.emplace(r, c);
         if (r == m_sidelen - 1) break;
-        auto& str_v = strs[r * 2 + 1];
+        string_view str_v = strs[r * 2 + 1];
         for (int c = 0; c < m_sidelen - 1; ++c) {
             char ch = str_v[c * 2 + 1];
             m_start.push_back(ch);

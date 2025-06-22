@@ -103,11 +103,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         set<Position> rng;
         for (int r = 0;; ++r) {
             // horizontal walls
-            auto& str_h = strs[r * 2];
+            string_view str_h = strs[r * 2];
             for (int c = 0; c < m_sidelen; ++c)
                 m_horz_walls[{r, c}] = str_h[c * 2 + 1];
             if (r == m_sidelen) break;
-            auto& str_v = strs[r * 2 + 1];
+            string_view str_v = strs[r * 2 + 1];
             for (int c = 0;; ++c) {
                 Position p(r, c);
                 // vertical walls

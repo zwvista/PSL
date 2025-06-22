@@ -154,12 +154,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         set<Position> rng;
         for (int r = 0;; ++r) {
             // horizontal walls
-            auto& str_h = strs[(r + m_sidelen) * 2 - 1];
+            string_view str_h = strs[(r + m_sidelen) * 2 - 1];
             for (int c = 0; c < m_sidelen; ++c)
                 if (str_h[c * 2 + 1] == '-')
                     m_horz_walls.emplace(r, c);
             if (r == m_sidelen) break;
-            auto& str_v = strs[(r + m_sidelen) * 2];
+            string_view str_v = strs[(r + m_sidelen) * 2];
             for (int c = 0;; ++c) {
                 // vertical walls
                 if (str_v[c * 2] == '|')

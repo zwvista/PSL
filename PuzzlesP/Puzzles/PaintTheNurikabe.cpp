@@ -97,13 +97,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1;; ++r) {
         // horizontal walls
-        auto& str_h = strs[r * 2 - 2];
+        string_view str_h = strs[r * 2 - 2];
         for (int c = 1; c < m_sidelen - 1; ++c)
             if (str_h[c * 2 - 1] == '-')
                 m_horz_walls.insert({r, c});
         if (r == m_sidelen - 1) break;
         m_start.push_back(PUZ_BOUNDARY);
-        auto& str_v = strs[r * 2 - 1];
+        string_view str_v = strs[r * 2 - 1];
         for (int c = 1;; ++c) {
             Position p(r, c);
             // vertical walls

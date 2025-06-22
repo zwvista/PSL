@@ -38,7 +38,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     string action = level.attribute("action").value();
     m_action = action == "add" ? PUZ_ADD : action == "move" ? PUZ_MOVE : PUZ_REMOVE;
     for (int r = 0;; ++r) {
-        auto& str_h = strs[r * 2];
+        string_view str_h = strs[r * 2];
         for (int c = 0; c < cols(); ++c) {
             char ch = str_h[c];
             if (ch == ' ' || ch == '-') {
@@ -51,7 +51,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             }
         }
         if (r == rows() - 1) break;
-        auto& str_v = strs[r * 2 + 1];
+        string_view str_v = strs[r * 2 + 1];
         for (int c = 0; c < cols(); ++c)
             switch(str_v[c]) {
             case '\\':
