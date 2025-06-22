@@ -370,7 +370,8 @@ void puz_state::gen_children(list<puz_state>& children) const
                 if (!children.back().make_move(info.m_bunny, kv.first, kv.second))
                     children.pop_back();
             }
-        } else {
+        }
+    else {
         auto& info = m_bunny2info.at(m_curr_bunny);
         auto& p1 = info.m_bunny;
         if (!info.m_teleported && is_teleport(p1)) {
