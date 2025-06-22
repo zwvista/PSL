@@ -66,21 +66,20 @@ struct puz_game
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
-    char& cells(const Position& p) { return m_start[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : set<Position>
 {
-    puz_state2(const puz_game& game, const puz_garden& garden, const Position& p)
-        : m_game(&game), m_garden(&garden) {make_move(p);}
+    puz_state2(const puz_game& game, int num, const Position& p)
+        : m_game(&game), m_num(num) {make_move(p);}
 
-    bool is_goal_state() const { return m_distance == m_garden->m_num; }
+    bool is_goal_state() const { return m_distance == m_num; }
     void make_move(const Position& p) { insert(p); ++m_distance; }
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game = nullptr;
-    const puz_garden* m_garden;
+    int m_num;
     int m_distance = 0;
 };
 
@@ -129,17 +128,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [p, garden] : m_pos2garden) {
-        if (garden.m_num == 1)
-            garden.m_perms = {{p}};
+        auto& [_1, num, perms] = garden;
+        if (num == 1)
+            perms = {{p}};
         else {
-            puz_state2 sstart(*this, garden, p);
+            puz_state2 sstart(*this, num, p);
             list<list<puz_state2>> spaths;
             // Gardens can have any form.
             puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
             // save all goal states as permutations
             // A goal state is a garden formed from the number
             for (auto& spath : spaths)
-                garden.m_perms.push_back(spath.back());
+                perms.push_back(spath.back());
         }
     }
 }
