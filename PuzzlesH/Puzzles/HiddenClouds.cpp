@@ -65,16 +65,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
     // 2. Clouds have a square form (even of one single tile)
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c)
-            for (int sz = 1; sz <= min(m_sidelen - r, m_sidelen - c); ++sz) {
-                Position tl(r, c), br = tl + Position(sz - 1, sz - 1);
+    for (int r1 = 0; r1 < m_sidelen; ++r1)
+        for (int c1 = 0; c1 < m_sidelen; ++c1)
+            for (int sz = 1; sz <= min(m_sidelen - r1, m_sidelen - c1); ++sz) {
+                Position tl(r1, c1), br = tl + Position(sz - 1, sz - 1);
+                auto& [r2, c2] = br;
                 if (map<Position, int> pos2num; [&] {
                     for (auto& [p, num] : m_pos2num) {
                         int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
-                            auto p2 = p + os;
-                            return acc + (p2.first >= tl.first && p2.first <= br.first &&
-                                p2.second >= tl.second && p2.second <= br.second ? 1 : 0);
+                            auto [r, c] = p + os;
+                            return acc + (r >= r1 && r <= r2 && c >= c1 && c <= c2 ? 1 : 0);
                         });
                         // 4. Numbers indicate the total number of clouds tiles in the tile itself
                         // and in the four tiles around it (up down left right)
@@ -87,7 +87,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 }()) {
                     int n = m_boxes.size();
                     m_boxes.emplace_back(pair{tl, br}, pos2num);
-                    for (auto& [p, n2] : pos2num)
+                    for (auto& [p, _1] : pos2num)
                         m_pos2boxids.at(p).push_back(n);
                 }
             }

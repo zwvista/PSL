@@ -61,29 +61,32 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     ch == PUZ_UNKNOWN_CHAR ? PUZ_UNKNOWN : ch - '0';
     }
 
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c)
-            for (int h = 1; h <= m_sidelen - r; ++h)
-                for (int w = 1; w <= m_sidelen - c; ++w) {
+    for (int r1 = 0; r1 < m_sidelen; ++r1)
+        for (int c1 = 0; c1 < m_sidelen; ++c1)
+            for (int h = 1; h <= m_sidelen - r1; ++h)
+                for (int w = 1; w <= m_sidelen - c1; ++w) {
                     Position box_sz(h - 1, w - 1);
-                    Position tl(r, c), br = tl + box_sz;
-                    vector<Position> rng;
-                    for (int r2 = tl.first; r2 <= br.first; ++r2)
-                        for (int c2 = tl.second; c2 <= br.second; ++c2) {
-                            Position p(r2, c2);
-                            if (auto it = m_pos2num.find(p); it != m_pos2num.end()) {
-                                int num = it->second;
-                                rng.push_back(p);
-                                if (rng.size() > 1 || num != PUZ_UNKNOWN && num != h * w)
-                                    goto next;
+                    Position tl(r1, c1), br = tl + box_sz;
+                    auto& [r2, c2] = br;
+                    if (vector<Position> rng; [&] {
+                        for (int r = r1; r <= r2; ++r)
+                            for (int c = c1; c <= c2; ++c) {
+                                Position p(r, c);
+                                if (auto it = m_pos2num.find(p); it != m_pos2num.end()) {
+                                    int num = it->second;
+                                    rng.push_back(p);
+                                    // 2. Each rectangle/square can contain only one number, which represents
+                                    // its area, but it can also contain none. 
+                                    if (rng.size() > 1 || num != PUZ_UNKNOWN && num != h * w)
+                                        return false;
+                                }
                             }
-                        }
-                    if (rng.size() == 1) {
+                        return rng.size() == 1;
+                    }()) {
                         int n = m_boxes.size();
                         m_boxes.emplace_back(tl, br);
-                        m_pos2boxids[rng[0]].push_back(n);
+                        m_pos2boxids[rng.front()].push_back(n);
                     }
-                next:;
                 }
 }
 
