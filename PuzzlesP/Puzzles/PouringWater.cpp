@@ -41,14 +41,14 @@ constexpr Position offset2[] = {
 struct puz_water
 {
     set<Position> m_rng;
-    map<int, int> m_rc2num;
+    map<int, int> m_area2num;
 };
 
 struct puz_game    
 {
     string m_id;
     int m_sidelen;
-    map<int, int> m_rc2num;
+    map<int, int> m_area2num;
     vector<puz_water> m_waters;
     set<Position> m_horz_walls, m_vert_walls;
 
@@ -101,9 +101,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    auto f = [&](int rc, char ch) {
+    auto f = [&](int area_id, char ch) {
         if (ch != ' ')
-            m_rc2num[rc] = ch - '0';
+            m_area2num[area_id] = ch - '0';
     };
     for (int i = 0; i < m_sidelen; ++i) {
         f(i, strs[i * 2 + 1][m_sidelen * 2 + 1]);
@@ -122,14 +122,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (auto& p2 : smoves) {
                 o.m_rng.insert(p2);
                 auto f = [&](int i) {
-                    if (m_rc2num.contains(i))
-                        ++o.m_rc2num[i];
+                    if (m_area2num.contains(i))
+                        ++o.m_area2num[i];
                 };
                 f(p2.first);
                 f(p2.second + m_sidelen);
             }
-            if (boost::algorithm::all_of(o.m_rc2num, [&](const pair<const int, int>& kv) {
-                return kv.second <= m_rc2num.at(kv.first);
+            if (boost::algorithm::all_of(o.m_area2num, [&](const pair<const int, int>& kv) {
+                return kv.second <= m_area2num.at(kv.first);
             }))
                 m_waters.push_back(o);
         }
@@ -150,7 +150,7 @@ struct puz_state : string
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::accumulate(m_rc2num, 0,
+        return boost::accumulate(m_area2num, 0,
             [](int acc, const pair<const int, int>& kv) {
             return acc + kv.second;
         });
@@ -160,7 +160,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    map<int, int> m_rc2num;
+    map<int, int> m_area2num;
     // value.elem: index of the water
     vector<int> m_matches;
     unsigned int m_distance = 0;
@@ -169,7 +169,7 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
     : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
     , m_game(&g)
-    , m_rc2num(g.m_rc2num)
+    , m_area2num(g.m_area2num)
 {
     m_matches.resize(g.m_waters.size());
     boost::iota(m_matches, 0);
@@ -180,9 +180,9 @@ bool puz_state::make_move(int n)
     m_distance = 0;
     auto& o = m_game->m_waters[n];
     for (auto& p : o.m_rng) {
-        auto f = [&](int rc) {
-            if (m_rc2num.contains(rc))
-                --m_rc2num[rc], ++m_distance;
+        auto f = [&](int area_id) {
+            if (m_area2num.contains(area_id))
+                --m_area2num[area_id], ++m_distance;
         };
         f(p.first);
         f(p.second + sidelen());
@@ -191,8 +191,8 @@ bool puz_state::make_move(int n)
     
     boost::remove_erase_if(m_matches, [&](int id) {
         auto& o = m_game->m_waters[id];
-        return boost::algorithm::any_of(o.m_rc2num, [&](const pair<const int, int>& kv) {
-            return kv.second > m_rc2num.at(kv.first);
+        return boost::algorithm::any_of(o.m_area2num, [&](const pair<const int, int>& kv) {
+            return kv.second > m_area2num.at(kv.first);
         });
     });
 
@@ -210,12 +210,12 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    auto f = [&](int rc) {
+    auto f = [&](int area_id) {
         int cnt = 0;
         for (int i = 0; i < sidelen(); ++i)
-            if (cells(rc < sidelen() ? Position(rc, i) : Position(i, rc - sidelen())) == PUZ_WATER)
+            if (cells(area_id < sidelen() ? Position(area_id, i) : Position(i, area_id - sidelen())) == PUZ_WATER)
                 ++cnt;
-        out << (rc < sidelen() ? format("{:<2}", cnt) : format("{:2}", cnt));
+        out << (area_id < sidelen() ? format("{:<2}", cnt) : format("{:2}", cnt));
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines

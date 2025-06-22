@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games 2/Puzzle Set 3/Funny Numbers
+    iOS Game: 100 Logic Games 4/Puzzle Set 2/Funny Numbers
 
     Summary
     Hahaha ... haha ... ehm ...
@@ -34,18 +34,20 @@ constexpr Position offset2[] = {
     {0, 0},         // w
 };
 
-struct puz_water
+struct puz_numbers : set<char>
 {
-    set<Position> m_rng;
-    map<int, int> m_rc2num;
+    puz_numbers() {}
+    puz_numbers(int num) {
+        for (int i = 0; i < num; ++i)
+            insert(i + '1');
+    }
 };
 
 struct puz_game    
 {
     string m_id;
     int m_sidelen;
-    map<int, int> m_rc2num;
-    vector<puz_water> m_waters;
+    map<int, int> m_area2num;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -97,38 +99,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    auto f = [&](int rc, char ch) {
-        if (ch != ' ')
-            m_rc2num[rc] = ch - '0';
+    auto f = [&](int area_id, string s) {
+        if (s != "  ")
+            m_area2num[area_id] = stoi(s);
     };
     for (int i = 0; i < m_sidelen; ++i) {
-        f(i, strs[i * 2 + 1][m_sidelen * 2 + 1]);
-        f(i + m_sidelen, strs[m_sidelen * 2 + 1][i * 2 + 1]);
+        f(i, strs[i * 2 + 1].substr(m_sidelen * 2 + 1, 2));
+        f(i + m_sidelen, strs[m_sidelen * 2 + 1].substr(i * 2, 2));
     }
 
-    for (int r = m_sidelen - 1; r >= 0; --r)
-        for (int c = 0; c < m_sidelen; ++c) {
-            Position p(r, c);
-            if (boost::algorithm::any_of(m_waters, [&](const puz_water& o) {
-                return o.m_rng.contains(p);
-            }))
-                continue;
-            auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p});
-            puz_water o;
-            for (auto& p2 : smoves) {
-                o.m_rng.insert(p2);
-                auto f = [&](int i) {
-                    if (m_rc2num.contains(i))
-                        ++o.m_rc2num[i];
-                };
-                f(p2.first);
-                f(p2.second + m_sidelen);
-            }
-            if (boost::algorithm::all_of(o.m_rc2num, [&](const pair<const int, int>& kv) {
-                return kv.second <= m_rc2num.at(kv.first);
-            }))
-                m_waters.push_back(o);
-        }
 }
 
 struct puz_state : string
@@ -146,7 +125,7 @@ struct puz_state : string
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::accumulate(m_rc2num, 0,
+        return boost::accumulate(m_area2num, 0,
             [](int acc, const pair<const int, int>& kv) {
             return acc + kv.second;
         });
@@ -156,7 +135,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    map<int, int> m_rc2num;
+    map<int, int> m_area2num;
     // value.elem: index of the water
     vector<int> m_matches;
     unsigned int m_distance = 0;
@@ -165,32 +144,14 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
     : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
     , m_game(&g)
-    , m_rc2num(g.m_rc2num)
+    , m_area2num(g.m_area2num)
 {
-    m_matches.resize(g.m_waters.size());
     boost::iota(m_matches, 0);
 }
 
 bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    auto& o = m_game->m_waters[n];
-    for (auto& p : o.m_rng) {
-        auto f = [&](int rc) {
-            if (m_rc2num.contains(rc))
-                --m_rc2num[rc], ++m_distance;
-        };
-        f(p.first);
-        f(p.second + sidelen());
-        cells(p) = PUZ_WATER;
-    }
-    
-    boost::remove_erase_if(m_matches, [&](int id) {
-        auto& o = m_game->m_waters[id];
-        return boost::algorithm::any_of(o.m_rc2num, [&](const pair<const int, int>& kv) {
-            return kv.second > m_rc2num.at(kv.first);
-        });
-    });
 
     return is_goal_state() || !m_matches.empty();
 }
@@ -206,12 +167,12 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    auto f = [&](int rc) {
+    auto f = [&](int area_id) {
         int cnt = 0;
         for (int i = 0; i < sidelen(); ++i)
-            if (cells(rc < sidelen() ? Position(rc, i) : Position(i, rc - sidelen())) == PUZ_WATER)
+            if (cells(area_id < sidelen() ? Position(area_id, i) : Position(i, area_id - sidelen())) == PUZ_WATER)
                 ++cnt;
-        out << (rc < sidelen() ? format("{:<2}", cnt) : format("{:2}", cnt));
+        out << (area_id < sidelen() ? format("{:<2}", cnt) : format("{:2}", cnt));
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines
