@@ -16,5 +16,23 @@ A B `
  B A`
     ]]>
   </level>
+  <level id="2">
+    <![CDATA[
+A   `
+   B`
+ A  `
+B   `
+    ]]>
+  </level>
+  <level id="36">
+    <![CDATA[
+      `
+A BC  `
+      `
+  B BA`
+      `
+C   B `
+    ]]>
+  </level>
 </levels>
 </puzzle>

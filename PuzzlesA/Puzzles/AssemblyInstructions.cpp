@@ -31,8 +31,14 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-// top-left and bottom-right
-using puz_area = vector<vector<Position>>;
+using puz_rng2D = vector<vector<Position>>;
+
+struct puz_area
+{
+    vector<Position> m_rng_hints;
+    vector<char> m_names;
+    puz_rng2D m_rng2D;
+};
 
 struct puz_game
 {
@@ -48,10 +54,10 @@ struct puz_game
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
-struct puz_state2 : puz_area
+struct puz_state2 : puz_rng2D
 {
     puz_state2(const puz_game& game, const vector<Position>& rng)
-        : puz_area(rng.size()), m_game(&game) { make_move(rng); }
+        : puz_rng2D(rng.size()), m_game(&game) { make_move(rng); }
 
     void make_move(const vector<Position>& rng) {
         for (int i = 0; i < rng.size(); ++i)
@@ -109,17 +115,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto& [letter, rng] : m_letter2rng) {
         puz_state2 sstart(*this, rng);
+        vector<char> names;
+        for (auto& p : rng)
+            names.push_back(cells(p));
         list<list<puz_state2>> spaths;
         // Areas can have any form.
         auto smoves = puz_move_generator<puz_state2>::gen_moves(sstart);
         // save all goal states as permutations
         // A goal state is an area formed from the letter(s)
-        for (auto& area : smoves) {
+        for (auto& rng2D : smoves) {
             int n = m_areas.size();
-            m_areas.push_back(area);
-            for (auto& rng : area)
-                for (auto& p : rng)
-                    m_pos2area_ids[p].push_back(n);
+            m_areas.emplace_back(rng, names, rng2D);
+            for (auto& rng2 : rng2D)
+                for (auto& p2 : rng2)
+                    m_pos2area_ids[p2].push_back(n);
         }
     }
 }
@@ -167,17 +176,23 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, box_ids] : m_matches) {
-        boost::remove_erase_if(box_ids, [&](int id) {
-            return false;
+    for (auto& [_1, area_ids] : m_matches) {
+        boost::remove_erase_if(area_ids, [&](int id) {
+            auto& [rng, _2, rng2D] = m_game->m_areas[id];
+            return !boost::algorithm::all_of(rng2D, [&](const vector<Position>& rng2) {
+                return boost::algorithm::all_of(rng2, [&](const Position& p2) {
+                    return cells(p2) == PUZ_SPACE ||
+                        boost::algorithm::any_of_equal(rng, p2);
+                });
+            });
         });
 
         if (!init)
-            switch(box_ids.size()) {
+            switch(area_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(box_ids[0]), 1;
+                return make_move2(area_ids[0]), 1;
             }
     }
     return 2;
@@ -185,6 +200,13 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
+    auto& [rng, names, rng2D] = m_game->m_areas[n];
+    for (int i = 0; i < names.size(); ++i) {
+        auto& rng2 = rng2D[i];
+        char ch2 = names[i];
+        for (auto& p2 : rng2)
+            cells(p2) = ch2, ++m_distance, m_matches.erase(p2);
+    }
 }
 
 bool puz_state::make_move(int n)
@@ -198,12 +220,12 @@ bool puz_state::make_move(int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, box_ids] = *boost::min_element(m_matches, [](
+    auto& [p, area_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : box_ids) {
+    for (int n : area_ids) {
         children.push_back(*this);
         if (!children.back().make_move(n))
             children.pop_back();
@@ -215,17 +237,17 @@ ostream& puz_state::dump(ostream& out) const
     auto f = [&](const Position& p1, const Position& p2) {
         return !is_valid(p1) || !is_valid(p2) || cells(p1) != cells(p2);
     };
-    for (int r = 0;; ++r) {
+    for (int r = 1;; ++r) {
         // draw horizontal lines
-        for (int c = 0; c < sidelen(); ++c)
+        for (int c = 1; c < sidelen() - 1; ++c)
             out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
         println(out);
-        if (r == sidelen()) break;
-        for (int c = 0;; ++c) {
+        if (r == sidelen() - 1) break;
+        for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
-            if (c == sidelen()) break;
+            if (c == sidelen() - 1) break;
             if (auto it = m_game->m_pos2letter.find(p); it == m_game->m_pos2letter.end())
                 out << ".";
             else
