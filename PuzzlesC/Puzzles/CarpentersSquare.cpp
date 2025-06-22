@@ -344,16 +344,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    auto f = [&](const Position& p1, const Position& p2) {
+        return cells(p1) != cells(p2);
+    };
     for (int r = 1;; ++r) {
         // draw horizontal lines
         for (int c = 1; c < sidelen() - 1; ++c)
-            out << (cells({r, c}) != cells({r - 1, c}) ? " -" : "  ");
+            out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vertical lines
-            out << (cells({r, c}) != cells({r, c - 1}) ? '|' : ' ');
+            out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             auto it = m_game->m_pos2ch.find(p);
             if (it == m_game->m_pos2ch.end())

@@ -36,13 +36,6 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-constexpr Position offset2[] = {
-    {0, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, 0},        // w
-};
-
 struct puz_area_info
 {
     puz_area_info(const Position& p, int cnt)
@@ -219,27 +212,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    set<Position> horz_walls, vert_walls;
-    for (auto& [id, area] : m_id2area)
-        for (auto& p : area.m_inner)
-            for (int i = 0; i < 4; ++i) {
-                auto p2 = p + offset[i];
-                auto p_wall = p + offset2[i];
-                auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
-                if (!area.m_inner.contains(p2))
-                    walls.insert(p_wall);
-            }
-
+    auto f = [&](const Position& p1, const Position& p2) {
+        return cells(p1) != cells(p2);
+    };
     for (int r = 1;; ++r) {
         // draw horizontal lines
         for (int c = 1; c < sidelen() - 1; ++c)
-            out << (horz_walls.contains({r, c}) ? " -" : "  ");
+            out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vertical lines
-            out << (vert_walls.contains(p) ? '|' : ' ');
+            out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             char id = cells(p);
             auto& info = m_game->m_id2info.at(id);

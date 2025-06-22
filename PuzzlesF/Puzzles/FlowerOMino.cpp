@@ -34,13 +34,6 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-constexpr Position offset2[] = {
-    {0, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, 0},        // w
-};
-
 const vector<vector<Position>> tetrominoes = {
     // L
     {{0, 0}, {1, 0}, {2, 0}, {2, 1}},
@@ -230,37 +223,27 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    set<Position> horz_walls, vert_walls;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            for (int i = 0; i < 4; ++i) {
-                auto p2 = p + offset[i];
-                auto p_wall = p + offset2[i];
-                auto& walls = i % 2 == 0 ? horz_walls : vert_walls;
-                if (!is_valid(p2) || cells(p) != cells(p2))
-                    walls.insert(p_wall);
-            }
-        }
-
-
+    auto f = [&](const Position& p1, const Position& p2) {
+        return !is_valid(p1) || !is_valid(p2) || cells(p1) != cells(p2);
+    };
     for (int r = 0;; ++r) {
         // draw horizontal lines
         for (int c = 0; ; ++c) {
             Position p(r, c);
             out << ' ';
             if (c == sidelen()) break;
-            out << (horz_walls.contains(p) ? '-' : ' ');
+            bool has_horz_wall = f(p, p + offset[0]);
+            out << (has_horz_wall ? '-' : ' ');
             out << (m_game->m_flowers.contains({p + offset[0], p}) ? '*' :
-                horz_walls.contains(p) ? '-' : ' ');
-            out << (horz_walls.contains(p) ? '-' : ' ');
+                has_horz_wall ? '-' : ' ');
+            out << (has_horz_wall ? '-' : ' ');
         }
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical lines
-            out << (vert_walls.contains(p) ? '|' : ' ');
+            out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == sidelen()) break;
             out << "   ";
         }
@@ -269,7 +252,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             // draw vertical lines
             out << (m_game->m_flowers.contains({p + offset[3], p}) ? '*' :
-                vert_walls.contains(p) ? '|' : ' ');
+                f(p, p + offset[3]) ? '|' : ' ');
             if (c == sidelen()) break;
             out << ' ' << cells(p) << (m_game->m_flowers.contains({p}) ? '*' : ' ');
         }
@@ -277,7 +260,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical lines
-            out << (vert_walls.contains(p) ? '|' : ' ');
+            out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == sidelen()) break;
             out << "   ";
         }
