@@ -6,6 +6,7 @@ extern void solve_puz_AbstractPainting();
 extern void solve_puz_ADifferentFarmer();
 extern void solve_puz_Archipelago();
 extern void solve_puz_Arrows();
+extern void solve_puz_AssemblyInstructions();
 
 int main(int argc, char **argv)
 {
@@ -16,6 +17,7 @@ int main(int argc, char **argv)
     println("d: A Different Farmer");
     println("r1: Archipelago");
     println("r2: Arrows");
+    println("s: Assembly Instructions");
     string str;
     getline(cin, str);
     if (str.empty());
@@ -25,6 +27,7 @@ int main(int argc, char **argv)
     else if (str == "d") solve_puz_ADifferentFarmer();
     else if (str == "r1") solve_puz_Archipelago();
     else if (str == "r2") solve_puz_Arrows();
+    else if (str == "s") solve_puz_AssemblyInstructions();
 
     return 0;
 }

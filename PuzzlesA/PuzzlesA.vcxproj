@@ -163,6 +163,7 @@
     <Text Include="Puzzles\ADifferentFarmer.txt" />
     <Text Include="Puzzles\Archipelago.txt" />
     <Text Include="Puzzles\Arrows.txt" />
+    <Text Include="Puzzles\AssemblyInstructions.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +185,7 @@
     <ClCompile Include="Puzzles\ADifferentFarmer.cpp" />
     <ClCompile Include="Puzzles\Archipelago.cpp" />
     <ClCompile Include="Puzzles\Arrows.cpp" />
+    <ClCompile Include="Puzzles\AssemblyInstructions.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -198,6 +200,7 @@
     <Xml Include="Puzzles\ADifferentFarmer.xml" />
     <Xml Include="Puzzles\Archipelago.xml" />
     <Xml Include="Puzzles\Arrows.xml" />
+    <Xml Include="Puzzles\AssemblyInstructions.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
