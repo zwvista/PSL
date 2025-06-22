@@ -171,9 +171,7 @@
     <Text Include="Puzzles\FlowerOMino.txt" />
     <Text Include="Puzzles\FourMeNot.txt" />
     <Text Include="Puzzles\FreePlanks.txt" />
-    <Text Include="Puzzles\fullsearch_astar.txt" />
-    <Text Include="Puzzles\fullsearch_bfs.txt" />
-    <Text Include="Puzzles\fullsearch_dijkstra.txt" />
+    <Text Include="Puzzles\FunnyNumbers.txt" />
     <Text Include="Puzzles\FussyWaiter.txt" />
     <Text Include="Puzzles\Futoshiki.txt" />
     <Text Include="ReadMe.txt" />
@@ -205,7 +203,7 @@
     <ClCompile Include="Puzzles\FlowerOMino.cpp" />
     <ClCompile Include="Puzzles\FourMeNot.cpp" />
     <ClCompile Include="Puzzles\FreePlanks.cpp" />
-    <ClCompile Include="Puzzles\fullsearch.cpp" />
+    <ClCompile Include="Puzzles\FunnyNumbers.cpp" />
     <ClCompile Include="Puzzles\FussyWaiter.cpp" />
     <ClCompile Include="Puzzles\Futoshiki.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -232,7 +230,7 @@
     <Xml Include="Puzzles\FlowerOMino.xml" />
     <Xml Include="Puzzles\FourMeNot.xml" />
     <Xml Include="Puzzles\FreePlanks.xml" />
-    <Xml Include="Puzzles\fullsearch.xml" />
+    <Xml Include="Puzzles\FunnyNumbers.xml" />
     <Xml Include="Puzzles\FussyWaiter.xml" />
     <Xml Include="Puzzles\Futoshiki.xml" />
   </ItemGroup>

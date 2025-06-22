@@ -25,6 +25,9 @@
     <Text Include="Puzzles\pathfind_dijkstra.txt" />
     <Text Include="Puzzles\pathfind_idastar.txt" />
     <Text Include="Puzzles\pathfind_idastar2.txt" />
+    <Text Include="Puzzles\fullsearch_astar.txt" />
+    <Text Include="Puzzles\fullsearch_bfs.txt" />
+    <Text Include="Puzzles\fullsearch_dijkstra.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -50,8 +53,12 @@
     <ClCompile Include="Puzzles\pathfind.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\fullsearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\pathfind.xml" />
+    <Xml Include="Puzzles\fullsearch.xml" />
   </ItemGroup>
 </Project>

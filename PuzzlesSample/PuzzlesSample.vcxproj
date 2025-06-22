@@ -157,6 +157,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\fullsearch_astar.txt" />
+    <Text Include="Puzzles\fullsearch_bfs.txt" />
+    <Text Include="Puzzles\fullsearch_dijkstra.txt" />
     <Text Include="Puzzles\pathfind_astar.txt" />
     <Text Include="Puzzles\pathfind_bfs.txt" />
     <Text Include="Puzzles\pathfind_dfs.txt" />
@@ -178,6 +181,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\fullsearch.cpp" />
     <ClCompile Include="Puzzles\pathfind.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -187,6 +191,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\fullsearch.xml" />
     <Xml Include="Puzzles\pathfind.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

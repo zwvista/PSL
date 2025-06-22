@@ -14,7 +14,7 @@ extern void solve_puz_FlowerbedShrubs();
 extern void solve_puz_FlowerOMino();
 extern void solve_puz_FourMeNot();
 extern void solve_puz_FreePlanks();
-extern void solve_puz_fullsearch();
+extern void solve_puz_FunnyNumbers();
 extern void solve_puz_FussyWaiter();
 extern void solve_puz_Futoshiki();
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv)
     println("l5: Flower-O-Mino");
     println("o: Four-Me-Not");
     println("r: Free Planks");
-    println("u1: fullsearch");
+    println("u1: Funny Numbers");
     println("u2: Fussy Waiter");
     println("u3: Futoshiki");
     string str;
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
     else if (str == "l5") solve_puz_FlowerOMino();
     else if (str == "o") solve_puz_FourMeNot();
     else if (str == "r") solve_puz_FreePlanks();
-    else if (str == "u1") solve_puz_fullsearch();
+    else if (str == "u1") solve_puz_FunnyNumbers();
     else if (str == "u2") solve_puz_FussyWaiter();
     else if (str == "u3") solve_puz_Futoshiki();
 

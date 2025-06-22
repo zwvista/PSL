@@ -43,15 +43,6 @@
     <Text Include="Puzzles\FussyWaiter.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\fullsearch_astar.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\fullsearch_bfs.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\fullsearch_dijkstra.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\FreePlanks.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -74,6 +65,9 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\FlowerOMino.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\FunnyNumbers.txt">
       <Filter>Puzzles</Filter>
     </Text>
   </ItemGroup>
@@ -119,9 +113,6 @@
     <ClCompile Include="Puzzles\FussyWaiter.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\fullsearch.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -147,6 +138,9 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\FlowerOMino.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\FunnyNumbers.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -181,9 +175,6 @@
     <Xml Include="Puzzles\FussyWaiter.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\fullsearch.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\FreePlanks.xml">
       <Filter>Puzzles</Filter>
     </Xml>
@@ -206,6 +197,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\FlowerOMino.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\FunnyNumbers.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
