@@ -47,7 +47,10 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
+    map<Position, char> m_pos2num;
     map<int, int> m_area2num;
+    vector<vector<Position>> m_area_pos;
+    map<Position, int> m_pos2area;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -81,7 +84,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() / 2 - 1)
+    , m_area_pos(m_sidelen * 2)
 {
+    set<Position> rng;
     for (int r = 0;; ++r) {
         // horizontal walls
         string_view str_h = strs[r * 2];
@@ -96,6 +101,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (str_v[c * 2] == '|')
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
+            char ch = str_v[c * 2 + 1];
+            if (ch != PUZ_SPACE)
+                m_pos2num[p] = ch;
+            rng.insert(p);
         }
     }
 
@@ -108,6 +117,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         f(i + m_sidelen, strs[m_sidelen * 2 + 1].substr(i * 2, 2));
     }
 
+    for (int n = 0; !rng.empty(); ++n) {
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
+        m_area_pos.emplace_back();
+        for (auto& p : smoves) {
+            m_pos2area[p] = n;
+            m_area_pos.back().push_back(p);
+            m_area_pos[p.first].push_back(p);
+            m_area_pos[m_sidelen + p.second].push_back(p);
+            rng.erase(p);
+        }
+    }
 }
 
 struct puz_state : string
