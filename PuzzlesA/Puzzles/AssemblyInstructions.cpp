@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
-#include "bfs_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -48,26 +48,21 @@ struct puz_game
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
-struct puz_state2 : vector<vector<Position>>
+struct puz_state2 : puz_area
 {
     puz_state2(const puz_game& game, const vector<Position>& rng)
-        : vector<vector<Position>>(rng.size()), m_game(&game) { make_move(rng); }
+        : puz_area(rng.size()), m_game(&game) { make_move(rng); }
 
-    bool is_goal_state() const { return need_stop; }
     void make_move(const vector<Position>& rng) {
         for (int i = 0; i < rng.size(); ++i)
             (*this)[i].push_back(rng[i]);
     }
-    void make_move_all_found() { need_stop = true; }
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game = nullptr;
-    bool need_stop = false;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
-    bool all_found = true;
     int sz = front().size();
     for (int j = 0; j < sz; ++j)
         for (auto& os : offset) {
@@ -83,15 +78,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                         return boost::algorithm::none_of_equal(rng2, p);
                     });
             })) {
-                all_found = false;
                 children.push_back(*this);
                 children.back().make_move(rng);
             }
         }
-    if (all_found) {
-        children.push_back(*this);
-        children.back().make_move_all_found();
-    }
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -112,8 +102,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_letter2rng[ch].push_back(p);
                 m_start.push_back(name++);
             }
-            m_start.push_back(PUZ_BOUNDARY);
         }
+        m_start.push_back(PUZ_BOUNDARY);
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
@@ -121,12 +111,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         puz_state2 sstart(*this, rng);
         list<list<puz_state2>> spaths;
         // Areas can have any form.
-        puz_solver_bfs<puz_state2>::find_solution(sstart, spaths);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves(sstart);
         // save all goal states as permutations
         // A goal state is an area formed from the letter(s)
-        for (auto& spath : spaths) {
+        for (auto& area : smoves) {
             int n = m_areas.size();
-            puz_area area(spath.back().begin(), spath.back().end());
             m_areas.push_back(area);
             for (auto& rng : area)
                 for (auto& p : rng)
