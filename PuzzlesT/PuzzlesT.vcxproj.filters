@@ -94,6 +94,9 @@
     <Text Include="Puzzles\TrafficWardenRevenge.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\TurnMeUp.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -188,6 +191,9 @@
     <ClCompile Include="Puzzles\TrafficWardenRevenge.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\TurnMeUp.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\turnz.xml">
@@ -257,6 +263,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\TrafficWardenRevenge.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\TurnMeUp.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

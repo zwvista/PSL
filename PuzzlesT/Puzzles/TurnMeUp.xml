@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Connect the circles between them, in pairs.
+2. The number on the circle tells you how many turns the connection does between circles.
+3. Two circles without numbers can have any number of turns.
+4. All tiles on the board must be used and all circles must be connected.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ 100`
+1  3`
+0   `
+0003`
+    ]]>
+  </level>
+</levels>
+</puzzle>

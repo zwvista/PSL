@@ -22,6 +22,7 @@ extern void solve_puz_TrafficWarden();
 extern void solve_puz_TrafficWardenRevenge();
 extern void solve_puz_Trebuchet();
 extern void solve_puz_TurnTwice();
+extern void solve_puz_TurnMeUp();
 extern void solve_puz_turnz();
 extern void solve_puz_twinballs();
 
@@ -49,8 +50,9 @@ int main(int argc, char **argv)
     println("r2: Traffic Warden");
     println("r3: Traffic Warden Revenge");
     println("r4: Trebuchet");
-    println("u1: Turn Twice");
-    println("u2: turnz");
+    println("u1: Turn me up");
+    println("u2: Turn Twice");
+    println("u3: turnz");
     println("w: twinballs");
     string str;
     getline(cin, str);
@@ -76,8 +78,9 @@ int main(int argc, char **argv)
     else if (str == "r2") solve_puz_TrafficWarden();
     else if (str == "r3") solve_puz_TrafficWardenRevenge();
     else if (str == "r4") solve_puz_Trebuchet();
-    else if (str == "u1") solve_puz_TurnTwice();
-    else if (str == "u2") solve_puz_turnz();
+    else if (str == "u1") solve_puz_TurnMeUp();
+    else if (str == "u2") solve_puz_TurnTwice();
+    else if (str == "u3") solve_puz_turnz();
     else if (str == "w") solve_puz_twinballs();
 
     return 0;
