@@ -17,8 +17,8 @@
 
 namespace puzzles::FunnyNumbers{
 
-constexpr auto PUZ_WATER = 'X';
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -109,8 +109,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     auto f = [&](int area_id, string s) {
-        if (s != "  ")
-            m_area2num[area_id] = stoi(s);
+         m_area2num[area_id] = s == "  " ? PUZ_UNKNOWN : stoi(s);
     };
     for (int i = 0; i < m_sidelen; ++i) {
         f(i, strs[i * 2 + 1].substr(m_sidelen * 2 + 1, 2));
@@ -205,6 +204,7 @@ bool puz_state::make_move(const Position& p, char ch)
             nums2D.push_back(m_pos2nums.at(p2));
 
         int& sum = m_area2sum.at(area_id);
+        if (sum == PUZ_UNKNOWN) continue;
         sum -= ch - '0';
 
         auto nums2D_result = [&] {
@@ -265,7 +265,11 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](int area_id) {
-        out << format("{:2}", m_game->m_area2num.at(area_id));
+        int sum = m_game->m_area2num.at(area_id);
+        if (sum == PUZ_UNKNOWN)
+            out << "  ";
+        else
+            out << format("{:2}", sum);
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines
