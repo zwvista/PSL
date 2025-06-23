@@ -13,12 +13,15 @@
     1. Connect the different patches with one stitch (more in later levels).
     2. The numbers on the outside tell you how many stitches you can see from
        there in the row/column.
+    3. A cell can contain only one stitch.
+    4. Later levels will show you in the top right how many stitches you have
+       to put between patches.
 */
 
 namespace puzzles::JoinMe{
 
-constexpr auto PUZ_WATER = 'X';
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -34,21 +37,28 @@ constexpr Position offset2[] = {
     {0, 0},         // w
 };
 
-struct puz_water
+struct puz_stitch
 {
-    set<Position> m_rng;
+    Position m_p1, m_p2;
+    int m_area1, m_area2;
     map<int, int> m_area2num;
 };
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;
+    int m_num_stitches;
     map<int, int> m_area2num;
-    vector<puz_water> m_waters;
+    vector<vector<Position>> m_area_pos;
+    map<Position, int> m_pos2area;
     set<Position> m_horz_walls, m_vert_walls;
+    vector<puz_stitch> m_stitches;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
 
 struct puz_state2 : Position
@@ -79,7 +89,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() / 2 - 1)
+    , m_num_stitches(level.attribute("Stitches").as_int())
 {
+    set<Position> rng;
     for (int r = 0;; ++r) {
         // horizontal walls
         string_view str_h = strs[r * 2];
@@ -94,40 +106,39 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (str_v[c * 2] == '|')
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
+            rng.insert(p);
         }
     }
 
     auto f = [&](int area_id, char ch) {
-        if (ch != ' ')
-            m_area2num[area_id] = ch - '0';
+        m_area2num[area_id] = ch = PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
     };
     for (int i = 0; i < m_sidelen; ++i) {
         f(i, strs[i * 2 + 1][m_sidelen * 2 + 1]);
         f(i + m_sidelen, strs[m_sidelen * 2 + 1][i * 2 + 1]);
     }
 
-    for (int r = m_sidelen - 1; r >= 0; --r)
+    for (int n = 0; !rng.empty(); ++n) {
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
+        m_area_pos.emplace_back();
+        for (auto& p : smoves) {
+            m_pos2area[p] = n;
+            m_area_pos.back().push_back(p);
+            rng.erase(p);
+        }
+    }
+
+    for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
-            Position p(r, c);
-            if (boost::algorithm::any_of(m_waters, [&](const puz_water& o) {
-                return o.m_rng.contains(p);
-            }))
-                continue;
-            auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, p});
-            puz_water o;
-            for (auto& p2 : smoves) {
-                o.m_rng.insert(p2);
-                auto f = [&](int i) {
-                    if (m_area2num.contains(i))
-                        ++o.m_area2num[i];
-                };
-                f(p2.first);
-                f(p2.second + m_sidelen);
-            }
-            if (boost::algorithm::all_of(o.m_area2num, [&](const pair<const int, int>& kv) {
-                return kv.second <= m_area2num.at(kv.first);
-            }))
-                m_waters.push_back(o);
+            Position p1(r, c);
+            for (auto& os : {offset[1], offset[2]})
+                if (auto p2 = p1 + os; is_valid(p2))
+                    if (int n1 = m_pos2area.at(p1), n2 = m_pos2area.at(p2); n1 != n2) {
+                        map<int, int> area2num;
+                        for (auto& p3 : {p1, p2})
+                            area2num[p3.first]++, area2num[p3.second + m_sidelen]++;
+                        m_stitches.emplace_back(p1, p2, n1, n2, area2num);
+                    }
         }
 }
 
@@ -157,8 +168,7 @@ struct puz_state : string
 
     const puz_game* m_game = nullptr;
     map<int, int> m_area2num;
-    // value.elem: index of the water
-    vector<int> m_matches;
+    map<int, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
@@ -167,51 +177,38 @@ puz_state::puz_state(const puz_game& g)
     , m_game(&g)
     , m_area2num(g.m_area2num)
 {
-    m_matches.resize(g.m_waters.size());
-    boost::iota(m_matches, 0);
+    for (int i = 0; i < g.m_stitches.size(); ++i) {
+        auto& [_1, _2, _3, _4, area2num] = g.m_stitches[i];
+        for (auto& [area_id, num] : area2num)
+            if (num <= g.m_area2num.at(area_id))
+                m_matches[area_id].push_back(i);
+    }
 }
 
 bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    auto& o = m_game->m_waters[n];
-    for (auto& p : o.m_rng) {
-        auto f = [&](int area_id) {
-            if (m_area2num.contains(area_id))
-                --m_area2num[area_id], ++m_distance;
-        };
-        f(p.first);
-        f(p.second + sidelen());
-        cells(p) = PUZ_WATER;
-    }
-    
-    boost::remove_erase_if(m_matches, [&](int id) {
-        auto& o = m_game->m_waters[id];
-        return boost::algorithm::any_of(o.m_area2num, [&](const pair<const int, int>& kv) {
-            return kv.second > m_area2num.at(kv.first);
-        });
-    });
 
     return is_goal_state() || !m_matches.empty();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for (int n : m_matches) {
-        children.push_back(*this);
-        if (!children.back().make_move(n))
-            children.pop_back();
-    }
+    //for (int n : m_matches) {
+    //    children.push_back(*this);
+    //    if (!children.back().make_move(n))
+    //        children.pop_back();
+    //}
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](int area_id) {
-        int cnt = 0;
-        for (int i = 0; i < sidelen(); ++i)
-            if (cells(area_id < sidelen() ? Position(area_id, i) : Position(i, area_id - sidelen())) == PUZ_WATER)
-                ++cnt;
-        out << (area_id < sidelen() ? format("{:<2}", cnt) : format("{:2}", cnt));
+        //int cnt = 0;
+        //for (int i = 0; i < sidelen(); ++i)
+        //    if (cells(area_id < sidelen() ? Position(area_id, i) : Position(i, area_id - sidelen())) == PUZ_WATER)
+        //        ++cnt;
+        //out << (area_id < sidelen() ? format("{:<2}", cnt) : format("{:2}", cnt));
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines

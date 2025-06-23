@@ -4,10 +4,12 @@
   <![CDATA[
 1. Connect the different patches with one stitch (more in later levels).
 2. The numbers on the outside tell you how many stitches you can see from there in the row/column.
+3. A cell can contain only one stitch.
+4. Later levels will show you in the top right how many stitches you have to put between patches.
   ]]>
 </help>
 <levels>
-  <level id="1">
+  <level id="1" Stitches="1">
     <![CDATA[
  - - - - -  `
 | |       |3`
