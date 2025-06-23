@@ -21,6 +21,7 @@
 namespace puzzles::JoinMe{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_STITCH = '+';
 constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
@@ -40,7 +41,6 @@ constexpr Position offset2[] = {
 struct puz_stitch
 {
     Position m_p1, m_p2;
-    int m_area1, m_area2;
     map<int, int> m_area2num;
 };
 
@@ -50,11 +50,11 @@ struct puz_game
     int m_sidelen;
     int m_num_stitches;
     map<int, int> m_area2num;
-    vector<vector<Position>> m_area_pos;
-    map<Position, int> m_pos2area;
+    vector<vector<Position>> m_regions;
+    map<Position, int> m_pos2region;
+    map<pair<int, int>, int> m_patch2area;
     set<Position> m_horz_walls, m_vert_walls;
     vector<puz_stitch> m_stitches;
-    map<pair<int, int>, int> m_patches2num;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -112,7 +112,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     auto f = [&](int area_id, char ch) {
-        m_area2num[area_id] = ch = PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
+        if (ch != PUZ_SPACE)
+            m_area2num[area_id] = ch - '0';
     };
     for (int i = 0; i < m_sidelen; ++i) {
         f(i, strs[i * 2 + 1][m_sidelen * 2 + 1]);
@@ -121,25 +122,31 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (int n = 0; !rng.empty(); ++n) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
-        m_area_pos.emplace_back();
+        auto& rng2 = m_regions.emplace_back();
         for (auto& p : smoves) {
-            m_pos2area[p] = n;
-            m_area_pos.back().push_back(p);
+            m_pos2region[p] = n;
+            rng2.push_back(p);
             rng.erase(p);
         }
     }
 
+    int next_area_id = m_sidelen * 2;
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p1(r, c);
             for (auto& os : {offset[1], offset[2]})
                 if (auto p2 = p1 + os; is_valid(p2))
-                    if (int n1 = m_pos2area.at(p1), n2 = m_pos2area.at(p2); n1 != n2) {
-                        m_patches2num[{min(n1, n2), max(n1, n2)}] = m_num_stitches;
+                    if (int n1 = m_pos2region.at(p1), n2 = m_pos2region.at(p2); n1 != n2) {
+                        pair patch = {min(n1, n2), max(n1, n2)};
+                        auto it = m_patch2area.find(patch);
+                        int area_id = it != m_patch2area.end() ? it->second :
+                            (m_patch2area[patch] = next_area_id++);
+                        m_area2num[area_id] = m_num_stitches;
                         map<int, int> area2num;
+                        area2num[area_id] = 1;
                         for (auto& p3 : {p1, p2})
                             area2num[p3.first]++, area2num[p3.second + m_sidelen]++;
-                        m_stitches.emplace_back(p1, p2, n1, n2, area2num);
+                        m_stitches.emplace_back(p1, p2, area2num);
                     }
         }
 }
@@ -153,8 +160,8 @@ struct puz_state : string
     }
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move(int i, int j);
-    void make_move2(int i, int j);
+    bool make_move(int n);
+    void make_move2(int n);
     int find_matches(bool init);
 
     // solve_puzzle interface
@@ -182,7 +189,7 @@ puz_state::puz_state(const puz_game& g)
     , m_area2num(g.m_area2num)
 {
     for (int i = 0; i < g.m_stitches.size(); ++i) {
-        auto& [_1, _2, _3, _4, area2num] = g.m_stitches[i];
+        auto& [_1, _2, area2num] = g.m_stitches[i];
         for (auto& [area_id, num] : area2num)
             if (num <= g.m_area2num.at(area_id))
                 m_matches[area_id].push_back(i);
@@ -193,45 +200,40 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [area_id, perm_ids] : m_matches) {
-        //vector<int> nums;
-        //for (auto& p : m_game->m_area2range[area_id])
-        //    nums.push_back(cells(p));
-
-        //auto& perms = area_id < sidelen() ? m_game->m_perms_rows : m_game->m_perms_cols;
-        //boost::remove_erase_if(perm_ids, [&](int id) {
-        //    return !boost::equal(nums, perms[id], [](int n1, int n2) {
-        //        return n1 == PUZ_UNKNOWN || n1 == n2;
-        //    });
-        //});
+    for (auto& [_1, stitch_ids] : m_matches) {
+        boost::remove_erase_if(stitch_ids, [&](int id) {
+            auto& [p1, p2, area2num] = m_game->m_stitches[id];
+            return cells(p1) != PUZ_SPACE || cells(p2) != PUZ_SPACE ||
+                !boost::algorithm::all_of(area2num, [&](const pair<const int, int>& kv) {
+                    auto& [area_id, num] = kv;
+                    return num == PUZ_UNKNOWN || m_area2num[area_id] < num;
+                });
+        });
 
         if (!init)
-            switch(perm_ids.size()) {
+            switch(stitch_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(area_id, perm_ids.front()), 1;
+                return make_move2(stitch_ids.front()), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(int i, int j)
+void puz_state::make_move2(int n)
 {
-    //auto& range = m_game->m_area2range[i];
-    //auto& perm = (i < sidelen() ? m_game->m_perms_rows : m_game->m_perms_cols)[j];
-
-    //for (int k = 0; k < perm.size(); ++k)
-    //    cells(range[k]) = perm[k];
-
-    ++m_distance;
-    m_matches.erase(i);
+    auto& [p1, p2, area2num] = m_game->m_stitches[n];
+    cells(p1) = PUZ_STITCH, cells(p2) = PUZ_STITCH;
+    for (auto& [area_id, num] : area2num)
+        if ((m_area2num[area_id] -= num) == 0)
+            ++m_distance, m_matches.erase(area_id);
 }
 
-bool puz_state::make_move(int i, int j)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    make_move2(i, j);
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -239,11 +241,16 @@ bool puz_state::make_move(int i, int j)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    //for (int n : m_matches) {
-    //    children.push_back(*this);
-    //    if (!children.back().make_move(n))
-    //        children.pop_back();
-    //}
+    auto& [_1, stitch_ids] = *boost::min_element(m_matches, [](
+        const pair<const int, vector<int>>& kv1,
+        const pair<const int, vector<int>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (int n : stitch_ids) {
+        children.push_back(*this);
+        if (!children.back().make_move(n))
+            children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
