@@ -194,6 +194,10 @@ bool puz_state::make_move(const Position& p, char ch)
 
     auto& [r, c] = p;
     for (int area_id : {r, c + sidelen()}) {
+        int& sum = m_area2sum.at(area_id);
+        if (sum == PUZ_UNKNOWN) continue;
+        sum -= ch - '0';
+
         auto rng = m_game->m_area_pos[area_id];
         boost::remove_erase_if(rng, [&](const Position& p2) {
             return cells(p2) != PUZ_SPACE;
@@ -202,10 +206,6 @@ bool puz_state::make_move(const Position& p, char ch)
         vector<puz_numbers> nums2D;
         for (auto& p2 : rng)
             nums2D.push_back(m_pos2nums.at(p2));
-
-        int& sum = m_area2sum.at(area_id);
-        if (sum == PUZ_UNKNOWN) continue;
-        sum -= ch - '0';
 
         auto nums2D_result = [&] {
             auto& input = nums2D;
@@ -265,11 +265,16 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](int area_id) {
-        int sum = m_game->m_area2num.at(area_id);
-        if (sum == PUZ_UNKNOWN)
-            out << "  ";
-        else
-            out << format("{:2}", sum);
+        //int sum = m_game->m_area2num.at(area_id);
+        //if (sum == PUZ_UNKNOWN)
+        //    out << "  ";
+        //else
+        //    out << format("{:2}", sum);
+        auto& rng = m_game->m_area_pos[area_id];
+        int sum = boost::accumulate(rng, 0, [&](int acc, const Position& p) {
+            return acc + (cells(p) - '0');
+        });
+        out << format("{:2}", sum);
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines
