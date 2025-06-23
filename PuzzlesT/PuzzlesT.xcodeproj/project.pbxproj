@@ -10,6 +10,7 @@
 		8C689CE12E003C8200A2BCCC /* TheMagicNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CDE2E003C8200A2BCCC /* TheMagicNumber.cpp */; };
 		8C689CF42E01262800A2BCCC /* TrafficWarden.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CEE2E01262800A2BCCC /* TrafficWarden.cpp */; };
 		8C689CF52E01262800A2BCCC /* TrafficWardenRevenge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CF12E01262800A2BCCC /* TrafficWardenRevenge.cpp */; };
+		8C689D3F2E08CB5E00A2BCCC /* TurnMeUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D3C2E08CB5E00A2BCCC /* TurnMeUp.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -62,6 +63,9 @@
 		8C689CF12E01262800A2BCCC /* TrafficWardenRevenge.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TrafficWardenRevenge.cpp; sourceTree = "<group>"; };
 		8C689CF22E01262800A2BCCC /* TrafficWardenRevenge.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TrafficWardenRevenge.txt; sourceTree = "<group>"; };
 		8C689CF32E01262800A2BCCC /* TrafficWardenRevenge.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TrafficWardenRevenge.xml; sourceTree = "<group>"; };
+		8C689D3C2E08CB5E00A2BCCC /* TurnMeUp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TurnMeUp.cpp; sourceTree = "<group>"; };
+		8C689D3D2E08CB5E00A2BCCC /* TurnMeUp.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TurnMeUp.txt; sourceTree = "<group>"; };
+		8C689D3E2E08CB5E00A2BCCC /* TurnMeUp.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TurnMeUp.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesT; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -250,6 +254,9 @@
 				95F39C03232271AE00E73A82 /* Trebuchet.cpp */,
 				95F39C05232271AE00E73A82 /* Trebuchet.txt */,
 				95F39C04232271AE00E73A82 /* Trebuchet.xml */,
+				8C689D3C2E08CB5E00A2BCCC /* TurnMeUp.cpp */,
+				8C689D3D2E08CB5E00A2BCCC /* TurnMeUp.txt */,
+				8C689D3E2E08CB5E00A2BCCC /* TurnMeUp.xml */,
 				8CA2418C1EB47AFC0055D6B1 /* TurnTwice.cpp */,
 				8CA2418D1EB47AFC0055D6B1 /* TurnTwice.txt */,
 				8CA2418E1EB47AFC0055D6B1 /* TurnTwice.xml */,
@@ -366,6 +373,7 @@
 				95E37B2F234DD2C10054284F /* TraceNumbers.cpp in Sources */,
 				8CA241961EB47AFC0055D6B1 /* Tapa.cpp in Sources */,
 				8CA2419B1EB47AFC0055D6B1 /* Tatami.cpp in Sources */,
+				8C689D3F2E08CB5E00A2BCCC /* TurnMeUp.cpp in Sources */,
 				8CA2419F1EB47AFC0055D6B1 /* Tents.cpp in Sources */,
 				8CA241971EB47AFC0055D6B1 /* TapaIslands.cpp in Sources */,
 				8CA241A21EB47AFC0055D6B1 /* TierraDelFuego.cpp in Sources */,

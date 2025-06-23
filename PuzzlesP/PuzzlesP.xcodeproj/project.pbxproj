@@ -23,7 +23,6 @@
 		8CA241101EB47AC40055D6B1 /* Parks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240E21EB47AC40055D6B1 /* Parks.cpp */; };
 		8CA241111EB47AC40055D6B1 /* Parks2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240E51EB47AC40055D6B1 /* Parks2.cpp */; };
 		8CA241121EB47AC40055D6B1 /* Pata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240E71EB47AC40055D6B1 /* Pata.cpp */; };
-		8CA241131EB47AC40055D6B1 /* pathfind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240F01EB47AC40055D6B1 /* pathfind.cpp */; };
 		8CA241141EB47AC40055D6B1 /* patternpuzzle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240F21EB47AC40055D6B1 /* patternpuzzle.cpp */; };
 		8CA241151EB47AC40055D6B1 /* pegsolitary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240F51EB47AC40055D6B1 /* pegsolitary.cpp */; };
 		8CA241161EB47AC40055D6B1 /* Pharaoh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240FA1EB47AC40055D6B1 /* Pharaoh.cpp */; };
@@ -114,14 +113,6 @@
 		8CA240E71EB47AC40055D6B1 /* Pata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pata.cpp; sourceTree = "<group>"; };
 		8CA240E81EB47AC40055D6B1 /* Pata.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pata.txt; sourceTree = "<group>"; };
 		8CA240E91EB47AC40055D6B1 /* Pata.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Pata.xml; sourceTree = "<group>"; };
-		8CA240EA1EB47AC40055D6B1 /* pathfind_astar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pathfind_astar.txt; sourceTree = "<group>"; };
-		8CA240EB1EB47AC40055D6B1 /* pathfind_bfs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pathfind_bfs.txt; sourceTree = "<group>"; };
-		8CA240EC1EB47AC40055D6B1 /* pathfind_dfs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pathfind_dfs.txt; sourceTree = "<group>"; };
-		8CA240ED1EB47AC40055D6B1 /* pathfind_dijkstra.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pathfind_dijkstra.txt; sourceTree = "<group>"; };
-		8CA240EE1EB47AC40055D6B1 /* pathfind_idastar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pathfind_idastar.txt; sourceTree = "<group>"; };
-		8CA240EF1EB47AC40055D6B1 /* pathfind_idastar2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pathfind_idastar2.txt; sourceTree = "<group>"; };
-		8CA240F01EB47AC40055D6B1 /* pathfind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pathfind.cpp; sourceTree = "<group>"; };
-		8CA240F11EB47AC40055D6B1 /* pathfind.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pathfind.xml; sourceTree = "<group>"; };
 		8CA240F21EB47AC40055D6B1 /* patternpuzzle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = patternpuzzle.cpp; sourceTree = "<group>"; };
 		8CA240F31EB47AC40055D6B1 /* patternpuzzle.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patternpuzzle.txt; sourceTree = "<group>"; };
 		8CA240F41EB47AC40055D6B1 /* patternpuzzle.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = patternpuzzle.xml; sourceTree = "<group>"; };
@@ -233,14 +224,6 @@
 				8C5AE2581EC0BAF5000F0949 /* Patchmania.cpp */,
 				8C5AE2591EC0BAF5000F0949 /* Patchmania.txt */,
 				8C5AE25A1EC0BAF5000F0949 /* Patchmania.xml */,
-				8CA240F01EB47AC40055D6B1 /* pathfind.cpp */,
-				8CA240F11EB47AC40055D6B1 /* pathfind.xml */,
-				8CA240EA1EB47AC40055D6B1 /* pathfind_astar.txt */,
-				8CA240EB1EB47AC40055D6B1 /* pathfind_bfs.txt */,
-				8CA240EC1EB47AC40055D6B1 /* pathfind_dfs.txt */,
-				8CA240ED1EB47AC40055D6B1 /* pathfind_dijkstra.txt */,
-				8CA240EE1EB47AC40055D6B1 /* pathfind_idastar.txt */,
-				8CA240EF1EB47AC40055D6B1 /* pathfind_idastar2.txt */,
 				8C689CCA2E003B5700A2BCCC /* PathOnTheHills.cpp */,
 				8C689CCB2E003B5700A2BCCC /* PathOnTheHills.txt */,
 				8C689CCC2E003B5700A2BCCC /* PathOnTheHills.xml */,
@@ -427,7 +410,6 @@
 				8C689CD82E003B5700A2BCCC /* PondCamping.cpp in Sources */,
 				8C689CD92E003B5700A2BCCC /* PleaseComeBack.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
-				8CA241131EB47AC40055D6B1 /* pathfind.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

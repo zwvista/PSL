@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8C689CED2E003F3D00A2BCCC /* Venice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CEA2E003E3900A2BCCC /* Venice.cpp */; };
+		8C689D432E090AE200A2BCCC /* JoinMe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D402E090A8500A2BCCC /* JoinMe.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -30,9 +30,9 @@
 /* Begin PBXFileReference section */
 		8C5F12B12DE3790F00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12B22DE3790F00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
-		8C689CEA2E003E3900A2BCCC /* Venice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Venice.cpp; sourceTree = "<group>"; };
-		8C689CEB2E003E3900A2BCCC /* Venice.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Venice.txt; sourceTree = "<group>"; };
-		8C689CEC2E003E3900A2BCCC /* Venice.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Venice.xml; sourceTree = "<group>"; };
+		8C689D402E090A8500A2BCCC /* JoinMe.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = JoinMe.cpp; sourceTree = "<group>"; };
+		8C689D412E090A8500A2BCCC /* JoinMe.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = JoinMe.txt; sourceTree = "<group>"; };
+		8C689D422E090A8500A2BCCC /* JoinMe.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = JoinMe.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesJ */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesJ; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -96,9 +96,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
-				8C689CEA2E003E3900A2BCCC /* Venice.cpp */,
-				8C689CEB2E003E3900A2BCCC /* Venice.txt */,
-				8C689CEC2E003E3900A2BCCC /* Venice.xml */,
+				8C689D402E090A8500A2BCCC /* JoinMe.cpp */,
+				8C689D412E090A8500A2BCCC /* JoinMe.txt */,
+				8C689D422E090A8500A2BCCC /* JoinMe.xml */,
 			);
 			path = Puzzles;
 			sourceTree = "<group>";
@@ -197,9 +197,9 @@
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
+				8C689D432E090AE200A2BCCC /* JoinMe.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
-				8C689CED2E003F3D00A2BCCC /* Venice.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
