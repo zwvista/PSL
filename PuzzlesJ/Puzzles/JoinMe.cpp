@@ -137,11 +137,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (auto& os : {offset[1], offset[2]})
                 if (auto p2 = p1 + os; is_valid(p2))
                     if (int n1 = m_pos2region.at(p1), n2 = m_pos2region.at(p2); n1 != n2) {
-                        pair patch = {min(n1, n2), max(n1, n2)};
-                        auto it = m_patch2area.find(patch);
-                        int area_id = it != m_patch2area.end() ? it->second :
-                            (m_patch2area[patch] = next_area_id++);
-                        m_area2num[area_id] = m_num_stitches;
+                        int area_id = [&] {
+                            pair patch = {min(n1, n2), max(n1, n2)};
+                            if (auto it = m_patch2area.find(patch); it != m_patch2area.end())
+                                return it->second;
+                            int id = next_area_id++;
+                            m_patch2area[patch] = id;
+                            m_area2num[id] = m_num_stitches;
+                            return id;
+                        }();
                         map<int, int> area2num;
                         area2num[area_id] = 1;
                         for (auto& p3 : {p1, p2})
@@ -190,9 +194,8 @@ puz_state::puz_state(const puz_game& g)
 {
     for (int i = 0; i < g.m_stitches.size(); ++i) {
         auto& [_1, _2, area2num] = g.m_stitches[i];
-        for (auto& [area_id, num] : area2num)
-            if (num <= g.m_area2num.at(area_id))
-                m_matches[area_id].push_back(i);
+        for (auto& [area_id, _3] : area2num)
+            m_matches[area_id].push_back(i);
     }
 
     find_matches(true);
