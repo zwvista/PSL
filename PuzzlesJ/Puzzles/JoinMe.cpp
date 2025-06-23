@@ -171,12 +171,7 @@ struct puz_state : string
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {
-        return boost::accumulate(m_area2num, 0,
-            [](int acc, const pair<const int, int>& kv) {
-            return acc + kv.second;
-        });
-    }
+    unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const {return m_distance;}
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -209,7 +204,7 @@ int puz_state::find_matches(bool init)
             return cells(p1) != PUZ_SPACE || cells(p2) != PUZ_SPACE ||
                 !boost::algorithm::all_of(area2num, [&](const pair<const int, int>& kv) {
                     auto& [area_id, num] = kv;
-                    return num == PUZ_UNKNOWN || m_area2num[area_id] < num;
+                    return num <= m_area2num[area_id];
                 });
         });
 
