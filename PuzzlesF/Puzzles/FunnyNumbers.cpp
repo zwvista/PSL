@@ -49,7 +49,7 @@ struct puz_game
     int m_sidelen;
     map<Position, char> m_pos2num;
     map<int, int> m_area2num;
-    vector<vector<Position>> m_area_pos;
+    vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
     set<Position> m_horz_walls, m_vert_walls;
 
@@ -84,7 +84,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() / 2 - 1)
-    , m_area_pos(m_sidelen * 2)
+    , m_areas(m_sidelen * 2)
 {
     set<Position> rng;
     for (int r = 0;; ++r) {
@@ -118,12 +118,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (int n = m_sidelen * 2; !rng.empty(); ++n) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
-        m_area_pos.emplace_back();
+        m_areas.emplace_back();
         for (auto& p : smoves) {
             m_pos2area[p] = n;
-            m_area_pos.back().push_back(p);
-            m_area_pos[p.first].push_back(p);
-            m_area_pos[m_sidelen + p.second].push_back(p);
+            m_areas.back().push_back(p);
+            m_areas[p.first].push_back(p);
+            m_areas[m_sidelen + p.second].push_back(p);
             rng.erase(p);
         }
     }
@@ -160,7 +160,7 @@ puz_state::puz_state(const puz_game& g)
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            m_pos2nums[p] = puz_numbers(g.m_area_pos[g.m_pos2area.at(p)].size());
+            m_pos2nums[p] = puz_numbers(g.m_areas[g.m_pos2area.at(p)].size());
         }
 
     for (int i = 0; i < sidelen() * 2; ++i)
@@ -183,7 +183,7 @@ bool puz_state::make_move(const Position& p, char ch)
         return true;
     };
 
-    for (auto& p2 : m_game->m_area_pos[m_game->m_pos2area.at(p)])
+    for (auto& p2 : m_game->m_areas[m_game->m_pos2area.at(p)])
         if (p2 != p && !f(p2, ch))
             return false;
 
@@ -198,7 +198,7 @@ bool puz_state::make_move(const Position& p, char ch)
         if (sum == PUZ_UNKNOWN) continue;
         sum -= ch - '0';
 
-        auto rng = m_game->m_area_pos[area_id];
+        auto rng = m_game->m_areas[area_id];
         boost::remove_erase_if(rng, [&](const Position& p2) {
             return cells(p2) != PUZ_SPACE;
         });
@@ -270,7 +270,7 @@ ostream& puz_state::dump(ostream& out) const
         //    out << "  ";
         //else
         //    out << format("{:2}", sum);
-        auto& rng = m_game->m_area_pos[area_id];
+        auto& rng = m_game->m_areas[area_id];
         int sum = boost::accumulate(rng, 0, [&](int acc, const Position& p) {
             return acc + (cells(p) - '0');
         });

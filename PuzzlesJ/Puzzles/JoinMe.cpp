@@ -51,8 +51,8 @@ struct puz_game
     int m_sidelen;
     int m_num_stitches;
     map<int, int> m_area2num;
-    vector<vector<Position>> m_regions;
-    map<Position, int> m_pos2region;
+    vector<vector<Position>> m_areas;
+    map<Position, int> m_pos2area;
     map<pair<int, int>, int> m_patch2area;
     set<Position> m_horz_walls, m_vert_walls;
     vector<puz_stitch> m_stitches;
@@ -92,6 +92,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() / 2 - 1)
     , m_num_stitches(level.attribute("Stitches").as_int())
+    , m_areas(m_sidelen * 2)
 {
     set<Position> rng;
     for (int r = 0;; ++r) {
@@ -121,23 +122,25 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         f(i + m_sidelen, strs[m_sidelen * 2 + 1][i * 2 + 1]);
     }
 
-    for (int n = 0; !rng.empty(); ++n) {
+    for (int n = m_areas.size(); !rng.empty(); ++n) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
-        auto& rng2 = m_regions.emplace_back();
+        auto& rng2 = m_areas.emplace_back();
         for (auto& p : smoves) {
-            m_pos2region[p] = n;
+            m_pos2area[p] = n;
             rng2.push_back(p);
+            m_areas[p.first].push_back(p);
+            m_areas[m_sidelen + p.second].push_back(p);
             rng.erase(p);
         }
     }
 
-    int next_area_id = m_sidelen * 2;
+    int next_area_id = m_areas.size();
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p1(r, c);
             for (auto& os : {offset[1], offset[2]})
                 if (auto p2 = p1 + os; is_valid(p2))
-                    if (int n1 = m_pos2region.at(p1), n2 = m_pos2region.at(p2); n1 != n2) {
+                    if (int n1 = m_pos2area.at(p1), n2 = m_pos2area.at(p2); n1 != n2) {
                         int area_id = [&] {
                             pair patch = {min(n1, n2), max(n1, n2)};
                             if (auto it = m_patch2area.find(patch); it != m_patch2area.end())
@@ -256,18 +259,18 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](int area_id) {
-        int sum = m_game->m_area2num.at(area_id);
-        if (auto it = m_game->m_area2num.find(area_id); it == m_game->m_area2num.end())
-            out << "  ";
-        else {
-            int sum = it->second;
-            out << (area_id < sidelen() ? format("{:<2}", sum) : format("{:2}", sum));
-        }
-        //auto& rng = m_game->m_regions[area_id];
-        //int sum = boost::accumulate(rng, 0, [&](int acc, const Position& p) {
-        //    return acc + (cells(p) - '0');
-        //});
-        //out << format("{:2}", sum);
+        //int sum = m_game->m_area2num.at(area_id);
+        //if (auto it = m_game->m_area2num.find(area_id); it == m_game->m_area2num.end())
+        //    out << "  ";
+        //else {
+        //    int sum = it->second;
+        //    out << (area_id < sidelen() ? format("{:<2}", sum) : format("{:2}", sum));
+        //}
+        auto& rng = m_game->m_areas[area_id];
+        int sum = boost::accumulate(rng, 0, [&](int acc, const Position& p) {
+            return acc + (cells(p) == PUZ_SPACE ? 0 : 1);
+        });
+        out << (area_id < sidelen() ? format("{:<2}", sum) : format("{:2}", sum));
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines
