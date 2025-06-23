@@ -1,0 +1,48 @@
+Level 1
+Sequence of moves: 
+ - - - -
+| |X|   |1 
+ -   -  
+|X X X| |3 
+ -   -  
+|X|X| |X|3 
+   -    
+|X| |X|X|3 
+ - - - -
+ 3 3 2 2
+Number of moves: 4
+Number of vertices examined: 13
+0.0166115 [s]
+
+Level 2
+Sequence of moves: 
+ - - - -
+|X|     |1 
+ -   -  
+|   |X|X|2 
+   - - -
+| |X X X|3 
+   - - -
+| |X X|X|3 
+ - - - -
+ 1 2 3 3
+Number of moves: 6
+Number of vertices examined: 12
+0.010694 [s]
+
+Level 3
+Sequence of moves: 
+ - - - -
+| |X X| |2 
+   -   -
+| | |X X|2 
+   - -  
+|   | |X|1 
+     -  
+|X|   |X|2 
+ - - - -
+ 1 1 2 3
+Number of moves: 2
+Number of vertices examined: 9
+0.00433265 [s]
+
