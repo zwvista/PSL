@@ -30,9 +30,7 @@ struct puz_game
     puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-struct puz_step : pair<int, int> {
-    puz_step(int n1, int n2) : pair<int, int>(n1, n2) {}
-};
+struct puz_step : pair<int, int> { using pair::pair; };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())

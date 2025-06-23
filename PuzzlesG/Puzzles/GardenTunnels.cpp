@@ -138,10 +138,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         int sz = smoves.size();
         auto& perms = m_config2perms[{num, sz}];
         if (!perms.empty()) continue;
-        auto perm = string(num, PUZ_START_END) + string(num, PUZ_MIDDLE);
-        do
-            perms.push_back(perm);
-        while (boost::next_permutation(perm));
+        for (int i = 0; i <= sz; i++) {
+            if (num != PUZ_UNKNOWN && num != i) continue;
+            // 3. The number in the garden tells you how many tunnels start/end in that
+            // garden.
+            auto perm = string(i, PUZ_START_END) + string(sz - i, PUZ_MIDDLE);
+            do
+                perms.push_back(perm);
+            while (boost::next_permutation(perm));
+        }
     }
 }
 

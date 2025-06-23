@@ -10,7 +10,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_BALL = '@';
 constexpr auto PUZ_GOAL = 'x';
-constexpr auto PUZ_WALL = '#';
+constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -35,19 +35,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size() + 2, strs[0].length() + 2)
 {
-    m_cells.append(cols(), PUZ_WALL);
+    m_cells.append(cols(), PUZ_BOUNDARY);
     for (int r = 1; r < rows() - 1; ++r) {
         string_view str = strs[r - 1];
-        m_cells.push_back(PUZ_WALL);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < cols() - 1; ++c)
             switch(Position p(r, c); char ch = str[c - 1]) {
             case PUZ_BALL: m_start = p; m_cells.push_back(PUZ_SPACE); break;
             case PUZ_GOAL: m_goal = p; m_cells.push_back(ch); break;
             default: m_cells.push_back(ch); break;
             }
-        m_cells.push_back(PUZ_WALL);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_cells.append(cols(), PUZ_WALL);
+    m_cells.append(cols(), PUZ_BOUNDARY);
 }
 
 struct puz_state
