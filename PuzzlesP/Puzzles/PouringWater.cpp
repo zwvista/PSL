@@ -11,7 +11,7 @@
 
     Description
     1. The board represents some communicating vessels.
-    2. You have fill some water in it, considering that water pours down
+    2. You have to fill some water in it, considering that water pours down
        and levels itself like in reality.
     3. Areas of the same level which are horizontally connected will have
        the same water level.

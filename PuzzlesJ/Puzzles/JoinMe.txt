@@ -14,5 +14,9 @@ Sequence of moves:
  4 4 2 1 1
 Number of moves: 1
 Number of vertices examined: 2
-0.00212 [s]
+0.0025259 [s]
+
+Level 36
+Number of vertices examined: 1
+0.0002413 [s]
 
