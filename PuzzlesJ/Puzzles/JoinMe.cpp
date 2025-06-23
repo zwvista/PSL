@@ -21,7 +21,8 @@
 namespace puzzles::JoinMe{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_STITCH = '+';
+constexpr auto PUZ_HORZ_STITCH = '=';
+constexpr auto PUZ_VERT_STITCH = 'I';
 constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
@@ -222,7 +223,8 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int n)
 {
     auto& [p1, p2, area2num] = m_game->m_stitches[n];
-    cells(p1) = PUZ_STITCH, cells(p2) = PUZ_STITCH;
+    char ch = p1.first == p2.first ? PUZ_HORZ_STITCH : PUZ_VERT_STITCH;
+    cells(p1) = cells(p2) = ch;
     for (auto& [area_id, num] : area2num)
         if ((m_area2num[area_id] -= num) == 0)
             ++m_distance, m_matches.erase(area_id);
@@ -254,11 +256,18 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](int area_id) {
-        //int cnt = 0;
-        //for (int i = 0; i < sidelen(); ++i)
-        //    if (cells(area_id < sidelen() ? Position(area_id, i) : Position(i, area_id - sidelen())) == PUZ_WATER)
-        //        ++cnt;
-        //out << (area_id < sidelen() ? format("{:<2}", cnt) : format("{:2}", cnt));
+        int sum = m_game->m_area2num.at(area_id);
+        if (auto it = m_game->m_area2num.find(area_id); it == m_game->m_area2num.end())
+            out << "  ";
+        else {
+            int sum = it->second;
+            out << (area_id < sidelen() ? format("{:<2}", sum) : format("{:2}", sum));
+        }
+        //auto& rng = m_game->m_regions[area_id];
+        //int sum = boost::accumulate(rng, 0, [&](int acc, const Position& p) {
+        //    return acc + (cells(p) - '0');
+        //});
+        //out << format("{:2}", sum);
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines

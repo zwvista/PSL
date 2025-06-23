@@ -1,18 +1,18 @@
 Level 1
 Sequence of moves: 
  - - - - -
-|+|+ +    |
+|=|= I    |3 
    - - - -
-|+  |+    |
+|I  |I    |2 
  -   - -  
-|+|+    | |
+|I|I    | |2 
    -      
-| |+|  +|+|
+| |I|  =|=|3 
           
-|+|+|   | |
+|=|=|   | |2 
  - - - - -
-
+ 4 4 2 1 1
 Number of moves: 1
 Number of vertices examined: 2
-12.9498 [s]
+0.00212 [s]
 
