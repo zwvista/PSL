@@ -172,8 +172,8 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_game(&g)
 {
-    for (int r = 0; r < g.m_sidelen; ++r)
-        for (int c = 0; c < g.m_sidelen; ++c) {
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             if (g.cells(p) == PUZ_EMPTY)
                 cells(p) = PUZ_EMPTY;
@@ -181,15 +181,15 @@ puz_state::puz_state(const puz_game& g)
                 m_pos2chars[p] = all_chars;
         }
 
-    for (int i = 0; i < g.m_sidelen; i++) {
+    for (int i = 0; i < sidelen(); i++) {
         auto& np = g.m_num_poles_rows[i];
-        m_grp_rows.emplace_back(i + g.m_rect_count, np[0], np[1], g.m_sidelen);
+        m_grp_rows.emplace_back(i + g.m_rect_count, np[0], np[1], sidelen());
         for (char ch : all_chars)
             check_area(m_grp_rows.back(), ch);
     }
-    for (int i = 0; i < g.m_sidelen; i++) {
+    for (int i = 0; i < sidelen(); i++) {
         auto& np = g.m_num_poles_cols[i];
-        m_grp_cols.emplace_back(i + g.m_rect_count + g.m_sidelen, np[0], np[1], g.m_sidelen);
+        m_grp_cols.emplace_back(i + g.m_rect_count + sidelen(), np[0], np[1], sidelen());
         for (char ch : all_chars)
             check_area(m_grp_cols.back(), ch);
     }

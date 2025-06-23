@@ -192,8 +192,8 @@ puz_state::puz_state(const puz_game& g)
     for (auto& [p, info] : g.m_pos2info)
         m_pos2nums[p] = "123456789";
 
-    for (int r = 0; r < g.m_sidelen; ++r)
-        for (int c = 0; c < g.m_sidelen; ++c) {
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             char ch = g.cells(p);
             if (ch != PUZ_SPACE)

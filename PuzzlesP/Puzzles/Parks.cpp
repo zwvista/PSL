@@ -230,8 +230,8 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_groups(&g)
 {
-    for (int r = 0; r < g.m_sidelen; ++r)
-        for (int c = 0; c < g.m_sidelen; ++c)
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c)
             m_groups.add_cell({r, c});
 
     for (auto& p : g.m_spaces)

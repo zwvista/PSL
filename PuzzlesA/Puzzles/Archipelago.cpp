@@ -137,8 +137,8 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (int r = 0; r < g.m_sidelen - 1; ++r)
-        for (int c = 0; c < g.m_sidelen - 1; ++c)
+    for (int r = 0; r < sidelen() - 1; ++r)
+        for (int c = 0; c < sidelen() - 1; ++c)
             m_2by2waters.push_back({{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}});
 
     for (auto& [p, info] : g.m_pos2islandinfo) {

@@ -117,7 +117,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         f(i + m_sidelen, strs[m_sidelen * 2 + 1].substr(i * 2, 2));
     }
 
-    for (int n = 0; !rng.empty(); ++n) {
+    for (int n = m_sidelen * 2; !rng.empty(); ++n) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
         m_area_pos.emplace_back();
         for (auto& p : smoves) {
@@ -139,48 +139,125 @@ struct puz_state : string
     }
     char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move(int n);
+    bool make_move(const Position& p, char ch);
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {
-        return boost::accumulate(m_area2num, 0,
-            [](int acc, const pair<const int, int>& kv) {
-            return acc + kv.second;
-        });
-    }
-    unsigned int get_distance(const puz_state& child) const {return m_distance;}
+    unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
+    unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    map<int, int> m_area2num;
-    // value.elem: index of the water
-    vector<int> m_matches;
-    unsigned int m_distance = 0;
+    map<int, int> m_area2sum;
+    map<Position, puz_numbers> m_pos2nums;
 };
 
 puz_state::puz_state(const puz_game& g)
     : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
     , m_game(&g)
-    , m_area2num(g.m_area2num)
 {
-    boost::iota(m_matches, 0);
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            m_pos2nums[p] = puz_numbers(g.m_area_pos[g.m_pos2area.at(p)].size());
+        }
+
+    for (int i = 0; i < sidelen() * 2; ++i)
+        m_area2sum[i] = g.m_area2num.at(i);
+
+    for (auto& [p, ch] : g.m_pos2num)
+        make_move(p, ch);
 }
 
-bool puz_state::make_move(int n)
+bool puz_state::make_move(const Position& p, char ch)
 {
-    m_distance = 0;
+    cells(p) = ch;
+    m_pos2nums.erase(p);
 
-    return is_goal_state() || !m_matches.empty();
+    auto f = [&](const Position& p2, char ch2) {
+        if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end()) {
+            it->second.erase(ch2);
+            return !it->second.empty();
+        }
+        return true;
+    };
+
+    for (auto& p2 : m_game->m_area_pos[m_game->m_pos2area.at(p)])
+        if (p2 != p && !f(p2, ch))
+            return false;
+
+    // 2. Same numbers can't touch each other horizontally or vertically across regions.
+    for (auto& os : offset)
+        if (auto p2 = p + os; is_valid(p2) && !f(p2, ch))
+            return false;
+
+    auto& [r, c] = p;
+    for (int area_id : {r, c + sidelen()}) {
+        auto rng = m_game->m_area_pos[area_id];
+        boost::remove_erase_if(rng, [&](const Position& p2) {
+            return cells(p2) != PUZ_SPACE;
+        });
+        int sz = rng.size();
+        vector<puz_numbers> nums2D;
+        for (auto& p2 : rng)
+            nums2D.push_back(m_pos2nums.at(p2));
+
+        int& sum = m_area2sum.at(area_id);
+        sum -= ch - '0';
+
+        auto nums2D_result = [&] {
+            auto& input = nums2D;
+            vector<vector<int>> result_nums;
+            vector<puz_numbers> result(sz);
+            vector<int> path;
+
+            function<void(int)> backtrack = [&](int index) {
+                if (index == input.size()) {
+                    if (boost::accumulate(path, 0, [&](int acc, char ch2) {
+                        return acc + (ch2 - '0');
+                    }) == sum) {
+                        result_nums.push_back(path);
+                        for (int i = 0; i < sz; ++i)
+                            result[i].insert(path[i]);
+                    }
+                    return;
+                }
+
+                for (int num : input[index]) {
+                    path.push_back(num);
+                    backtrack(index + 1);
+                    path.pop_back();
+                }
+            };
+
+            backtrack(0);
+            return result;
+        }();
+
+        for (int i = 0; i < sz; ++i) {
+            set<int> s;
+            boost::set_difference(nums2D[i], nums2D_result[i], inserter(s, s.end()));
+            for (char ch2 : s)
+                if (!f(rng[i], ch2))
+                    return false;
+        }
+    }
+
+    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for (int n : m_matches) {
+    auto& [p, nums] = *boost::min_element(m_pos2nums, [](
+        const pair<const Position, puz_numbers>& kv1,
+        const pair<const Position, puz_numbers>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (char ch : nums) {
         children.push_back(*this);
-        if (!children.back().make_move(n))
+        if (!children.back().make_move(p, ch))
             children.pop_back();
     }
 }
@@ -188,11 +265,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](int area_id) {
-        int cnt = 0;
-        for (int i = 0; i < sidelen(); ++i)
-            if (cells(area_id < sidelen() ? Position(area_id, i) : Position(i, area_id - sidelen())) == PUZ_WATER)
-                ++cnt;
-        out << (area_id < sidelen() ? format("{:<2}", cnt) : format("{:2}", cnt));
+        out << format("{:2}", m_game->m_area2num.at(area_id));
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines

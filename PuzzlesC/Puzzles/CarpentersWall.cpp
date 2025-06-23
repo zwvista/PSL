@@ -140,8 +140,8 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 , m_next_ch('a' + g.m_ch2tool.size())
 {
-    for (int r = 1; r < g.m_sidelen - 2; ++r)
-        for (int c = 1; c < g.m_sidelen - 2; ++c) {
+    for (int r = 1; r < sidelen() - 2; ++r)
+        for (int c = 1; c < sidelen() - 2; ++c) {
             set<Position> rng{{r, c}, {r, c + 1}, {r + 1, c}, {r + 1, c + 1}};
             if (boost::algorithm::all_of(rng, [&](const Position& p) {
                 return cells(p) == PUZ_SPACE;

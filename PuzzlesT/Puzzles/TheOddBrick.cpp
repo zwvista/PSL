@@ -176,8 +176,8 @@ puz_state::puz_state(const puz_game& g)
     , m_grp_rows(0, g.m_sidelen, g.m_numbers)
     , m_grp_cols(g.m_sidelen, g.m_sidelen, g.m_numbers)
 {
-    for (int r = 0; r < g.m_sidelen; ++r)
-        for (int c = 0; c < g.m_sidelen; ++c)
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c)
             m_pos2nums[{r, c}] = g.m_numbers;
 
     for (auto& [p, ch] : g.m_pos2num)

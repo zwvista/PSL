@@ -103,7 +103,7 @@ struct puz_state : string
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {return boost::range::count(*this, PUZ_SPACE);}
+    unsigned int get_heuristic() const {return boost::count(*this, PUZ_SPACE);}
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -119,11 +119,11 @@ puz_state::puz_state(const puz_game& g)
     , m_grp_rows(0, g.m_sidelen, g.m_numbers)
     , m_grp_cols(g.m_sidelen, g.m_sidelen, g.m_numbers)
 {
-    for (int r = 0; r < g.m_sidelen; ++r)
-        for (int c = 0; c < g.m_sidelen; ++c)
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c)
             m_pos2nums[{r, c}] = g.m_numbers;
-    for (int r = 0; r < g.m_sidelen; ++r)
-        for (int c = 0; c < g.m_sidelen; ++c)
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c)
             switch(Position p(r, c); char ch = g.cells(p)) {
             case PUZ_SPACE:
                 break;

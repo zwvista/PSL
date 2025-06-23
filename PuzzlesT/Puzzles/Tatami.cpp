@@ -132,9 +132,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 // second.value : the number of remaining times that the key char number can be used in the area
 struct puz_area : pair<int, map<char, int>>
 {
-    puz_area() {}
     puz_area(int index, const puz_numbers& numbers, int num_times_appear)
-        : pair<int, map<char, int>>(index, map<char, int>()) {
+        : pair<int, map<char, int>>(index, {}) {
         for (char ch : numbers)
             second.emplace(ch, num_times_appear);
     }
@@ -143,7 +142,6 @@ struct puz_area : pair<int, map<char, int>>
 
 struct puz_group : vector<puz_area>
 {
-    puz_group() {}
     puz_group(int index, int sz, const puz_numbers& numbers, int num_times_appear) {
         for (int i = 0; i < sz; i++)
             emplace_back(index++, numbers, num_times_appear);
@@ -164,7 +162,7 @@ struct puz_state : string
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {return boost::range::count(*this, PUZ_SPACE);}
+    unsigned int get_heuristic() const {return boost::count(*this, PUZ_SPACE);}
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -182,8 +180,8 @@ puz_state::puz_state(const puz_game& g)
     , m_grp_rows(0, g.m_sidelen, g.m_numbers, g.m_sidelen / g.m_size_of_tatami)
     , m_grp_cols(g.m_sidelen, g.m_sidelen, g.m_numbers, g.m_sidelen / g.m_size_of_tatami)
 {
-    for (int r = 0; r < g.m_sidelen; ++r)
-        for (int c = 0; c < g.m_sidelen; ++c)
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c)
             m_pos2nums[{r, c}] = g.m_numbers;
 
     for (auto& [p, ch] : g.m_pos2num)
@@ -207,13 +205,11 @@ bool puz_state::make_move(const Position& p, char ch)
                 if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end())
                     it->second.erase(ch);
 
-    // no touch
-    for (auto& os : offset) {
-        auto p2 = p + os;
-        if (is_valid(p2))
+    // 4. You can't have two identical numbers touching horizontally or vertically.
+    for (auto& os : offset)
+        if (auto p2 = p + os; is_valid(p2))
             if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end())
                 it->second.erase(ch);
-    }
 
     return boost::algorithm::none_of(m_pos2nums, [](const pair<const Position, puz_numbers>& kv) {
         return kv.second.empty();

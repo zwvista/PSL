@@ -94,7 +94,7 @@ puz_state::puz_state(const puz_game& g)
 {
     vector<int> perm_ids(g.m_perms_food.size());
     boost::iota(perm_ids, 0);
-    for (int i = 0; i < g.m_sidelen * 4; ++i)
+    for (int i = 0; i < sidelen() * 4; ++i)
         m_matches[i] = perm_ids;
 
     find_matches(true);

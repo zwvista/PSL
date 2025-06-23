@@ -93,8 +93,8 @@ struct puz_state : string
 puz_state::puz_state(const puz_game& g)
 : string(g.m_start), m_game(&g)
 {
-    for (int r = 1; r < g.m_sidelen - 1; ++r)
-        for (int c = 1; c < g.m_sidelen - 1; ++c) {
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             if (cells(p) == PUZ_SPACE)
                 m_matches[p] = RY;

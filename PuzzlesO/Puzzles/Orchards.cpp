@@ -171,8 +171,8 @@ puz_state::puz_state(const puz_game& g)
 : string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_game(&g), m_areas(g.m_area_count)
 {
-    for (int r = 0; r < g.m_sidelen; ++r)
-        for (int c = 0; c < g.m_sidelen; ++c) {
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             get_area(p).add_cell(p);
         }
