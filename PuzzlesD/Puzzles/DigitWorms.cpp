@@ -40,9 +40,9 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_start;
-    map<Position, pair<int, int>> m_pos2info;
-    map<int, puz_room_info> m_room2info;
+    map<Position, int> m_pos2num;
+    vector<vector<Position>> m_areas;
+    map<Position, int> m_pos2area;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -95,50 +95,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
             if (ch != ' ')
-                m_start[{r, c}] = ch - '0';
+                m_pos2num[{r, c}] = ch - '0';
             rng.insert(p);
         }
     }
 
-    vector<vector<Position>> rooms;
     for (int n = 0; !rng.empty(); ++n) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
-        rooms.resize(n + 1);
+        auto& area = m_areas.emplace_back();
         for (auto& p : smoves) {
-            m_pos2info[p].first = n;
-            rooms[n].push_back(p);
+            m_pos2area[p] = n;
+            area.push_back(p);
             rng.erase(p);
         }
     }
 
-    for (int i = 0; i < rooms.size(); ++i) {
-        const auto& room = rooms[i];
-        auto& info = m_room2info[i];
-        auto& ps = info.first;
-        auto& perms = info.second;
-
-        vector<int> perm;
-        perm.resize(room.size());
-        boost::iota(perm, 1);
-
-        vector<Position> filled;
-        for (const auto& p : room) {
-            if (auto it = m_start.find(p); it != m_start.end()) {
-                filled.push_back(p);
-                boost::range::remove_erase(perm, it->second);
-            }
-        }
-        boost::set_difference(room, filled, back_inserter(ps));
-        for (int j = 0; j < ps.size(); ++j)
-            m_pos2info[ps[j]].second = j;
-
-        if (info.first.empty())
-            m_room2info.erase(i);
-        else
-            do
-                perms.push_back(perm);
-            while (boost::next_permutation(perm));
-    }
 }
 
 struct puz_state : vector<int>
@@ -150,8 +121,9 @@ struct puz_state : vector<int>
     }
     int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move(int i, const vector<int>& nums);
-    void apply_ripple_effect(const Position& p, int n);
+    bool make_move(int i, int j);
+    void make_move2(int i, int j);
+    int find_matches(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -162,64 +134,73 @@ struct puz_state : vector<int>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    map<int, puz_room_info> m_room2info;
+    map<int, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : vector<int>(g.m_sidelen * g.m_sidelen)
-, m_game(&g), m_room2info(g.m_room2info)
+, m_game(&g)
 {
-    for (auto& [p, n] : g.m_start)
+    for (auto& [p, n] : g.m_pos2num)
         cells(p) = n;
-
-    for (auto& [p, n] : g.m_start)
-        apply_ripple_effect(p, n);
 }
 
-void puz_state::apply_ripple_effect(const Position& p, int n)
+int puz_state::find_matches(bool init)
 {
-    for (auto& os : offset) {
-        auto p2 = p;
-        for (int k = 0; k < n; ++k) {
-            p2 += os;
-            if (!is_valid(p2)) break;
-            if (cells(p2) != 0) continue;
-            int i, j;
-            tie(i, j) = m_game->m_pos2info.at(p2);
-            boost::range::remove_erase_if(m_room2info.at(i).second, [=](const vector<int>& nums) {
-                return nums[j] == n;
-            });
-        }
+    for (auto& [area_id, perm_ids] : m_matches) {
+        //string chars;
+        //for (auto& p : m_game->m_area2range[area_id])
+        //    chars.push_back(cells(p));
+
+        //boost::remove_erase_if(perm_ids, [&](int id) {
+        //    return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
+        //        return ch1 == PUZ_SPACE || ch1 == ch2;
+        //        });
+        //    });
+
+        if (!init)
+            switch (perm_ids.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(area_id, perm_ids.front()), 1;
+            }
     }
+    return 2;
 }
 
-bool puz_state::make_move(int i, const vector<int>& nums)
+void puz_state::make_move2(int i, int j)
 {
-    const auto& info = m_room2info.at(i);
-    m_distance = nums.size();
-    for (int j = 0; j < m_distance; ++j) {
-        const auto& p = info.first[j];
-        int n = nums[j];
-        cells(p) = n;
-        apply_ripple_effect(p, n);
-    }
-    m_room2info.erase(i);
-    return boost::algorithm::none_of(m_room2info, [](const pair<const int, puz_room_info>& kv) {
-        return kv.second.second.empty();
-    });
+    //auto& range = m_game->m_area2range[i];
+    //auto& perm = m_game->m_perms[j];
+
+    //for (int k = 0; k < perm.size(); ++k)
+    //    cells(range[k]) = perm[k];
+
+    ++m_distance;
+    m_matches.erase(i);
+}
+
+bool puz_state::make_move(int i, int j)
+{
+    m_distance = 0;
+    make_move2(i, j);
+    int m;
+    while ((m = find_matches(false)) == 1);
+    return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [i, info] = *boost::min_element(m_room2info, [](
-        const pair<const int, puz_room_info>& kv1,
-        const pair<const int, puz_room_info>& kv2) {
-        return kv1.second.second.size() < kv2.second.second.size();
-    });
-    for (auto& nums : info.second) {
+    auto& [area_id, perm_ids] = *boost::min_element(m_matches, [](
+        const pair<const int, vector<int>>& kv1,
+        const pair<const int, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+    for (int n : perm_ids) {
         children.push_back(*this);
-        if (!children.back().make_move(i, nums))
+        if (!children.back().make_move(area_id, n))
             children.pop_back();
     }
 }
