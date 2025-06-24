@@ -1,10 +1,21 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
     iOS Game: Patchmania
+
+    Patchmania is a fun and colorful puzzle game where you guide hungry bunnies through a farmer's vegetable garden to eat all the crops.
+    Objective: Guide the bunny from its burrow through the garden to eat all the vegetables in a single continuous path, without retracing steps or leaving any crops behind.
+    Gameplay Rules:
+    1. Single Path Movement: The bunny must move in one continuous path — once it leaves the burrow, it must eat all the vegetables without crossing over the same space twice.
+    2. Vegetables Must Be Eaten: The level is complete when all vegetables in the garden have been eaten. If any are left, you’ll need to try again.
+    3. Obstacles and Puzzles: As you progress, you’ll encounter obstacles like fences, gates, and limited space, which make planning your path more challenging.
+    4. Multiple Bunnies: Some levels introduce more than one bunny, each needing its own path from its respective burrow, with the same goal — eat all the vegetables without overlap.
+    5. Teleport Tunnels (Rabbit Tunnels): Unique “tunnel” portals appear later in the game. Once a bunny enters a tunnel, it instantly exits from the matching paired tunnel — effectively teleporting the bunny to another section of the level. Tunnels add complexity by allowing non-linear paths: you might enter one area, then pop out in a distant corner to continue your chain.
+    6. Mushrooms: Neutral items that any bunny can eat. Useful for connecting disjointed areas.
+    7. Multiple Bunnies & Food Preferences: Each bunny has a specific food type: carrot, cabbage, squash, etc. Mushrooms can bridge between paths, but are limited in number.
 */
 
 namespace puzzles::Patchmania{
@@ -84,10 +95,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 info.m_bunny = p;
                 break;
             }
-            case 'c':
-            case 't':
-            case 'p':
-            case 'd':
+            case 'c': // Carrots
+            case 't': // Cabbage
+            case 'p': // Squash
+            case 'd': // Pink-colored vegetables? (likely beet-like)
             {
                 auto& info = m_bunny2info[toupper(ch)];
                 info.m_food_name = ch;

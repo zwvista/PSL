@@ -44,7 +44,7 @@
 		8C689D2B2E08BE6400A2BCCC /* pathfind_dijkstra.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = pathfind_dijkstra.txt; sourceTree = "<group>"; };
 		8C689D2C2E08BE6400A2BCCC /* pathfind_idastar.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = pathfind_idastar.txt; sourceTree = "<group>"; };
 		8C689D2D2E08BE6400A2BCCC /* pathfind_idastar2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = pathfind_idastar2.txt; sourceTree = "<group>"; };
-		8CA23EC41EA9233C0055D6B1 /* PuzzlesSample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesSample; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CA23EC41EA9233C0055D6B1 /* Puzzles_Complicated */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Puzzles_Complicated; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F181EA925F20055D6B1 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 		8CA23EC51EA9233C0055D6B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8CA23EC41EA9233C0055D6B1 /* PuzzlesSample */,
+				8CA23EC41EA9233C0055D6B1 /* Puzzles_Complicated */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,9 +158,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8CA23EC31EA9233C0055D6B1 /* PuzzlesSample */ = {
+		8CA23EC31EA9233C0055D6B1 /* Puzzles_Complicated */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8CA23ECB1EA9233C0055D6B1 /* Build configuration list for PBXNativeTarget "PuzzlesSample" */;
+			buildConfigurationList = 8CA23ECB1EA9233C0055D6B1 /* Build configuration list for PBXNativeTarget "Puzzles_Complicated" */;
 			buildPhases = (
 				8CA23EC01EA9233C0055D6B1 /* Sources */,
 				8CA23EC11EA9233C0055D6B1 /* Frameworks */,
@@ -170,9 +170,9 @@
 			);
 			dependencies = (
 			);
-			name = PuzzlesSample;
+			name = Puzzles_Complicated;
 			productName = PuzzlesM;
-			productReference = 8CA23EC41EA9233C0055D6B1 /* PuzzlesSample */;
+			productReference = 8CA23EC41EA9233C0055D6B1 /* Puzzles_Complicated */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -192,7 +192,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8CA23EBF1EA9233C0055D6B1 /* Build configuration list for PBXProject "PuzzlesSample" */;
+			buildConfigurationList = 8CA23EBF1EA9233C0055D6B1 /* Build configuration list for PBXProject "Puzzles_Complicated" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -205,7 +205,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8CA23EC31EA9233C0055D6B1 /* PuzzlesSample */,
+				8CA23EC31EA9233C0055D6B1 /* Puzzles_Complicated */,
 			);
 		};
 /* End PBXProject section */
@@ -362,7 +362,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8CA23EBF1EA9233C0055D6B1 /* Build configuration list for PBXProject "PuzzlesSample" */ = {
+		8CA23EBF1EA9233C0055D6B1 /* Build configuration list for PBXProject "Puzzles_Complicated" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8CA23EC91EA9233C0055D6B1 /* Debug */,
@@ -371,7 +371,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8CA23ECB1EA9233C0055D6B1 /* Build configuration list for PBXNativeTarget "PuzzlesSample" */ = {
+		8CA23ECB1EA9233C0055D6B1 /* Build configuration list for PBXNativeTarget "Puzzles_Complicated" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8CA23ECC1EA9233C0055D6B1 /* Debug */,

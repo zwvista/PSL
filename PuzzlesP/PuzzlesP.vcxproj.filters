@@ -70,9 +70,6 @@
     <Text Include="Puzzles\Planks.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\Patchmania.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\PaintTheNurikabe.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -170,9 +167,6 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\Patchmania.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\PaintTheNurikabe.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -251,9 +245,6 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Planks.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\Patchmania.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\PaintTheNurikabe.xml">

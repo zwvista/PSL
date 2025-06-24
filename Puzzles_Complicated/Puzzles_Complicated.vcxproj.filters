@@ -19,15 +19,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\pathfind_astar.txt" />
-    <Text Include="Puzzles\pathfind_bfs.txt" />
-    <Text Include="Puzzles\pathfind_dfs.txt" />
-    <Text Include="Puzzles\pathfind_dijkstra.txt" />
-    <Text Include="Puzzles\pathfind_idastar.txt" />
-    <Text Include="Puzzles\pathfind_idastar2.txt" />
-    <Text Include="Puzzles\fullsearch_astar.txt" />
-    <Text Include="Puzzles\fullsearch_bfs.txt" />
-    <Text Include="Puzzles\fullsearch_dijkstra.txt" />
+    <Text Include="Puzzles\Patchmania.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\mummymaze.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -50,15 +47,19 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\pathfind.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Puzzles\Patchmania.cpp">
+      <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\fullsearch.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Puzzles\mummymaze.cpp">
+      <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\pathfind.xml" />
-    <Xml Include="Puzzles\fullsearch.xml" />
+    <Xml Include="Puzzles\Patchmania.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\mummymaze.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

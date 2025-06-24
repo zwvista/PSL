@@ -164,7 +164,6 @@
     <Text Include="Puzzles\Parks.txt" />
     <Text Include="Puzzles\Parks2.txt" />
     <Text Include="Puzzles\Pata.txt" />
-    <Text Include="Puzzles\Patchmania.txt" />
     <Text Include="Puzzles\PathOnTheHills.txt" />
     <Text Include="Puzzles\PathOnTheMountains.txt" />
     <Text Include="Puzzles\patternpuzzle.txt" />
@@ -209,7 +208,6 @@
     <ClCompile Include="Puzzles\Parks.cpp" />
     <ClCompile Include="Puzzles\Parks2.cpp" />
     <ClCompile Include="Puzzles\Pata.cpp" />
-    <ClCompile Include="Puzzles\Patchmania.cpp" />
     <ClCompile Include="Puzzles\PathOnTheHills.cpp" />
     <ClCompile Include="Puzzles\PathOnTheMountains.cpp" />
     <ClCompile Include="Puzzles\patternpuzzle.cpp" />
@@ -244,7 +242,6 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="Puzzles\Pata.xml" />
-    <Xml Include="Puzzles\Patchmania.xml" />
     <Xml Include="Puzzles\PathOnTheHills.xml" />
     <Xml Include="Puzzles\PathOnTheMountains.xml" />
     <Xml Include="Puzzles\patternpuzzle.xml" />

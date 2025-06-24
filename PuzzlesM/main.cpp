@@ -20,21 +20,20 @@ extern void solve_puz_MondrianLoop();
 extern void solve_puz_MoreOrLess();
 extern void solve_puz_Mosaik();
 extern void solve_puz_MoveTheBox();
-extern void solve_puz_mummymaze();
 
 int main(int argc, char **argv)
 {
     srand(time(0));
-    println("a1: magic_square");
-    println("a2: Magic 5-gon ring");
-    println("a3: Magnets");
-    println("a4: Make the Difference");
-    println("a5: Masyu");
-    println("a6: Matchstick Equation");
-    println("a7: Matchstick Squares");
-    println("a8: Matchstick Triangles");
-    println("a9: Mathrax");
-    println("aa: mazecat");
+    println("ag1: magic_square");
+    println("ag2: Magic 5-gon ring");
+    println("ag3: Magnets");
+    println("ak: Make the Difference");
+    println("as: Masyu");
+    println("at1: Matchstick Equation");
+    println("at2: Matchstick Squares");
+    println("at3: Matchstick Triangles");
+    println("at4: Mathrax");
+    println("az: mazecat");
     println("i1: Mine Ships");
     println("i2: MineSlither");
     println("i3: Minesweeper");
@@ -45,20 +44,19 @@ int main(int argc, char **argv)
     println("o2: More Or Less");
     println("o3: Mosaik");
     println("o4: Move the Box");
-    println("u: mummymaze");
     string str;
     getline(cin, str);
     if (str.empty());
-    else if (str == "a1") solve_puz_magic_square();
-    else if (str == "a2") solve_puz_Magic5gonRing();
-    else if (str == "a3") solve_puz_Magnets();
-    else if (str == "a4") solve_puz_MaketheDifference();
-    else if (str == "a5") solve_puz_Masyu();
-    else if (str == "a6") solve_puz_MatchstickEquation();
-    else if (str == "a7") solve_puz_MatchstickSquares();
-    else if (str == "a8") solve_puz_MatchstickTriangles();
-    else if (str == "a9") solve_puz_Mathrax();
-    else if (str == "aa") solve_puz_mazecat();
+    else if (str == "ag1") solve_puz_magic_square();
+    else if (str == "ag2") solve_puz_Magic5gonRing();
+    else if (str == "ag3") solve_puz_Magnets();
+    else if (str == "ak") solve_puz_MaketheDifference();
+    else if (str == "as") solve_puz_Masyu();
+    else if (str == "at1") solve_puz_MatchstickEquation();
+    else if (str == "at2") solve_puz_MatchstickSquares();
+    else if (str == "at3") solve_puz_MatchstickTriangles();
+    else if (str == "at4") solve_puz_Mathrax();
+    else if (str == "az") solve_puz_mazecat();
     else if (str == "i1") solve_puz_MineShips();
     else if (str == "i2") solve_puz_MineSlither();
     else if (str == "i3") solve_puz_Minesweeper();
@@ -69,7 +67,6 @@ int main(int argc, char **argv)
     else if (str == "o2") solve_puz_MoreOrLess();
     else if (str == "o3") solve_puz_Mosaik();
     else if (str == "o4") solve_puz_MoveTheBox();
-    else if (str == "u") solve_puz_mummymaze();
 
     return 0;
 }

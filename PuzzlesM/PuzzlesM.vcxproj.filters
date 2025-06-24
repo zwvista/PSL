@@ -25,9 +25,6 @@
     <Text Include="Puzzles\mazecat.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\mummymaze.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\Mathrax.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -110,9 +107,6 @@
     <ClCompile Include="Puzzles\mazecat.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\mummymaze.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\Mathrax.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -179,9 +173,6 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\mazecat.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\mummymaze.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Mathrax.xml">
