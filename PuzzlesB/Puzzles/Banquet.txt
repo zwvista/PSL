@@ -1,17 +1,11 @@
 Level 1
 Sequence of moves: 
-1>1v. 1<. 
-. . . . . 
-. 2>. . . 
-3>. . . . 
-3>. . . . 
-
-> v O < . 
-. O . . . 
-. > > O . 
-> > > O . 
-> > > O . 
+v1v1. v1. 
+O O . O . 
+. >2> O . 
+>3> > O . 
+>3> > O . 
 Number of moves: 3
-Number of vertices examined: 6
-0.0026471 [s]
+Number of vertices examined: 5
+0.001486 [s]
 
