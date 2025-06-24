@@ -34,5 +34,20 @@ A BC  `
 C   B `
     ]]>
   </level>
+  <level id="400">
+    <![CDATA[
+F      H G `
+ IC        `
+       D L `
+H  J L    K`
+   D   B   `
+ G   IK E M`
+   A  J J  `
+ A       BM`
+          H`
+     C     `
+E  F       `
+    ]]>
+  </level>
 </levels>
 </puzzle>

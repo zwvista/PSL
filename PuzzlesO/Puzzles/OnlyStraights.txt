@@ -19,5 +19,6 @@ O               O
  - - - -O- - - -  
 Number of moves: 1
 Number of vertices examined: 2
-0.0188047 [s]
+0.0215319 [s]
 
+Level 400

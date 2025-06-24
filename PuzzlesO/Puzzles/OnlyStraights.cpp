@@ -66,14 +66,18 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size())
+    , m_sidelen(strs.size() * 2 - 1)
     , m_dot_count(m_sidelen * m_sidelen)
 {
-    for (int r = 0; r < m_sidelen; ++r) {
+    for (int r = 0; r <= m_sidelen / 2; ++r) {
         string_view str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c)
-            if (char ch = str[c];  ch != ' ')
-                m_town2paths[{r, c}];
+        for (int c = 0; c <= m_sidelen / 2; ++c)
+            if (char ch = str[c];  ch != ' ') {
+                int n = ch - '0';
+                if (n & 1) m_town2paths[{r * 2, c * 2}];
+                if (n & 2) m_town2paths[{r * 2, c * 2 + 1}];
+                if (n & 4) m_town2paths[{r * 2 + 1, c * 2}];
+            }
     }
     for (auto& [p, paths] : m_town2paths)
         for (int i = 0; i < 2; ++i) {

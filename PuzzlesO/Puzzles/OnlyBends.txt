@@ -11,5 +11,30 @@ O O  -O O
 O-O  -O O 
 Number of moves: 1
 Number of vertices examined: 2
-0.0042914 [s]
+0.0017722 [s]
+
+Level 400
+Sequence of moves: 
+ -  O-O  -   -  O-  
+| |     | | | |   | 
+O O O-  O  -   -  O 
+      |         |   
+ -   -   -  O-O  -  
+| | |   | |       | 
+O O  -  O  -  O-  O 
+      |     |   |   
+ -   -  O  -  O-  O 
+| | |   | |       | 
+O O  -   -   -  O-  
+      |     | |     
+ -  O  -  O-   -  O 
+| | |   |       | | 
+O  -  O  -   -   -  
+      |   | | |     
+ -   -  O  -   -O O 
+| | |   |         | 
+O O  -O  -O O-O O-  
+Number of moves: 0
+Number of vertices examined: 1
+0.0016067 [s]
 
