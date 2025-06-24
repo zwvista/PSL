@@ -36,13 +36,19 @@ constexpr Position offset[] = {
 
 const string_view dirs = "^>v<";
 
+struct puz_path
+{
+    char dir;
+    vector<Position> m_rng;
+};
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
     string m_start;
-    map<Position, vector<pair<char, Position>>> m_pos2perms;
+    map<Position, vector<puz_path>> m_pos2paths;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
@@ -67,16 +73,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [p, n] : m_pos2num) {
-        auto& perms = m_pos2perms[p];
+        auto& paths = m_pos2paths[p];
         for (int i = 0; i < 4; ++i) {
             auto& os = offset[i];
-            auto p2 = p;
-            for (int j = 0; j < n; ++j) {
-                if (cells(p2 += os) != PUZ_SPACE)
-                    goto next;
-            }
-            perms.emplace_back(dirs[i], p2);
-        next:;
+            vector<Position> rng(1, p);
+            if ([&] {
+                auto p2 = p;
+                for (int j = 0; j < n; ++j)
+                    if (rng.push_back(p2 += os); cells(p2) != PUZ_SPACE)
+                        return false;
+                return true;
+            }())
+                paths.emplace_back(dirs[i], rng);
         }
     }
 }
@@ -113,30 +121,30 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto& [p, perms] : g.m_pos2perms) {
-        auto& perm_ids = m_matches[p];
-        perm_ids.resize(perms.size());
-        boost::iota(perm_ids, 0);
+    for (auto& [p, perms] : g.m_pos2paths) {
+        auto& path_ids = m_matches[p];
+        path_ids.resize(perms.size());
+        boost::iota(path_ids, 0);
     }
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p_basket, perm_ids] : m_matches) {
-        auto& perms = m_game->m_pos2perms.at(p_basket);
+    for (auto& [p_basket, path_ids] : m_matches) {
+        auto& perms = m_game->m_pos2paths.at(p_basket);
 
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& perm = perms[id];
-            return cells(perm.second) != PUZ_SPACE;
-        });
+        //boost::remove_erase_if(path_ids, [&](int id) {
+        //    auto& perm = perms[id];
+        //    return cells(perm.second) != PUZ_SPACE;
+        //});
 
         if (!init)
-            switch(perm_ids.size()) {
+            switch(path_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p_basket, perm_ids[0]) ? 1 : 0;
+                return make_move2(p_basket, path_ids[0]) ? 1 : 0;
             }
     }
     return 2;
@@ -175,15 +183,15 @@ bool puz_state::is_interconnected() const
 
 bool puz_state::make_move2(Position p_basket, int n)
 {
-    auto& [ch_dir, p_blanket] = m_game->m_pos2perms.at(p_basket)[n];
-    m_pos2ch[p_basket] = ch_dir;
-    cells(p_blanket) = PUZ_BLANKET;
-    for (auto& os : offset)
-        if (char& ch = cells(p_blanket + os); ch != PUZ_BOUNDARY)
-            ch = PUZ_EMPTY;
+    //auto& [ch_dir, p_blanket] = m_game->m_pos2paths.at(p_basket)[n];
+    //m_pos2ch[p_basket] = ch_dir;
+    //cells(p_blanket) = PUZ_BLANKET;
+    //for (auto& os : offset)
+    //    if (char& ch = cells(p_blanket + os); ch != PUZ_BOUNDARY)
+    //        ch = PUZ_EMPTY;
 
-    ++m_distance;
-    m_matches.erase(p_basket);
+    //++m_distance;
+    //m_matches.erase(p_basket);
     return is_interconnected();
 }
 
@@ -198,13 +206,13 @@ bool puz_state::make_move(Position p_basket, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p_basket, perm_ids] = *boost::min_element(m_matches, [](
+    auto& [p_basket, path_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
 
-    for (int n : perm_ids) {
+    for (int n : path_ids) {
         children.push_back(*this);
         if (!children.back().make_move(p_basket, n))
             children.pop_back();
