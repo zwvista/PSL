@@ -11,7 +11,7 @@ R4 ..=G2 .. ..
 ..=.. R3=G2=R6 
 Number of moves: 1
 Number of vertices examined: 2
-0.0006746 [s]
+0.0015576 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,5 +26,24 @@ Sequence of moves:
 .. G2=R3 ..=.. 
 Number of moves: 4
 Number of vertices examined: 9
-0.0010889 [s]
+0.0019633 [s]
+
+Level 36
+Sequence of moves: 
+..=G2=R5 .. R5=..=.. 
+||    ||    ||    || 
+..=.. .. .. .. G2=.. 
+   || ||    || ||    
+R5=.. .. .. .. ..=.. 
+||    ||    ||    || 
+.. .. ..=G2=.. .. G2 
+||                || 
+.. G4=G2=.. R3=..=.. 
+|| ||    || ||       
+.. .. .. .. ..=..=.. 
+|| ||    ||       || 
+R5=R3 .. R5=..=..=R4 
+Number of moves: 4
+Number of vertices examined: 5
+0.0034032 [s]
 
