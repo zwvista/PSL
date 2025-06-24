@@ -23,9 +23,13 @@ constexpr auto PUZ_SPACE = ' ';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
+    {-1, 1},        // ne
+    {0, 1},         // e
+    {1, 1},         // se
+    {1, 0},         // s
+    {1, -1},        // sw
     {0, -1},        // w
+    {-1, -1},       // nw
 };
 
 constexpr Position offset2[] = {
@@ -70,7 +74,7 @@ struct puz_state2 : Position
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (int i = 0; i < 4; ++i) {
-        auto p = *this + offset[i];
+        auto p = *this + offset[i * 2];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
         if (!walls.contains(p_wall)) {
@@ -95,8 +99,8 @@ struct puz_state3 : vector<Position>
 };
 
 void puz_state3::gen_children(list<puz_state3>& children) const {
-    for (auto& os : offset) {
-        auto p2 = back() + os;
+    for (int i = 0; i < 4; ++i) {
+        auto p2 = back() + offset[i * 2];
         if (boost::algorithm::none_of_equal(*this, p2) && m_area->contains(p2)) {
             children.push_back(*this);
             children.back().make_move(p2);
@@ -141,7 +145,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& area : m_areas) {
         auto& [nums, perms] = m_area2moves.emplace_back();
         nums.resize(area.size());
-        boost::iota(nums, '0');
+        boost::iota(nums, '1');
         for (auto& p : area) {
             puz_state3 sstart(*this, area, p);
             list<list<puz_state3>> spaths;
@@ -185,6 +189,7 @@ puz_state::puz_state(const puz_game& g)
         v.resize(g.m_area2moves[i].m_perms.size());
         boost::iota(v, 0);
     }
+    find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
@@ -193,6 +198,13 @@ int puz_state::find_matches(bool init)
         auto& [nums, perms] = m_game->m_area2moves[area_id];
         boost::remove_erase_if(perm_ids, [&](int id) {
             return !boost::equal(perms[id], nums, [&](const Position& p, char ch2) {
+                // 2. No number must be orthogonally or diagonally touching the same number
+                // from another area.
+                if (boost::algorithm::none_of(offset, [&](const Position& os) {
+                    auto p2 = p + os;
+                    return is_valid(p2) && cells(p2) == ch2;
+                }))
+                    return true;
                 char ch1 = cells(p);
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             });
