@@ -37,6 +37,9 @@
     <Text Include="Puzzles\DirectionalPlanks.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\DigitWorms.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -77,6 +80,9 @@
     <ClCompile Include="Puzzles\DirectionalPlanks.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\DigitWorms.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Domino.xml">
@@ -95,6 +101,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\DirectionalPlanks.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\DigitWorms.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

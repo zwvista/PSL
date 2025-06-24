@@ -26,7 +26,7 @@ constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_TABLE = 'O';
-constexpr auto PUZ_UNKNOWN_Q = '?';
+constexpr auto PUZ_QM = '?';
 constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
@@ -71,7 +71,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_start.push_back(PUZ_SPACE);
             else {
                 m_start.push_back(PUZ_TABLE);
-                m_pos2num[p] = ch == PUZ_UNKNOWN_Q ? PUZ_UNKNOWN : ch - '0';
+                m_pos2num[p] = ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0';
             }
         }
         m_start.push_back(PUZ_BOUNDARY);
@@ -260,7 +260,7 @@ ostream& puz_state::dump(ostream& out) const
             if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
                 out << ' ';
             else if (int num = it->second; num == PUZ_UNKNOWN)
-                out << PUZ_UNKNOWN_Q;
+                out << PUZ_QM;
             else
                 out << num;
         }

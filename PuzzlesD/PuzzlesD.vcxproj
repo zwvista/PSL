@@ -160,6 +160,7 @@
     <Text Include="Puzzles\DesertDunes.txt" />
     <Text Include="Puzzles\DigitalBattleShips.txt" />
     <Text Include="Puzzles\DigitalPath.txt" />
+    <Text Include="Puzzles\DigitWorms.txt" />
     <Text Include="Puzzles\DirectionalPlanks.txt" />
     <Text Include="Puzzles\DisconnectFour.txt" />
     <Text Include="Puzzles\Domino.txt" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Puzzles\DesertDunes.cpp" />
     <ClCompile Include="Puzzles\DigitalBattleShips.cpp" />
     <ClCompile Include="Puzzles\DigitalPath.cpp" />
+    <ClCompile Include="Puzzles\DigitWorms.cpp" />
     <ClCompile Include="Puzzles\DirectionalPlanks.cpp" />
     <ClCompile Include="Puzzles\DisconnectFour.cpp" />
     <ClCompile Include="Puzzles\Domino.cpp" />
@@ -195,6 +197,7 @@
     <Xml Include="Puzzles\DesertDunes.xml" />
     <Xml Include="Puzzles\DigitalBattleShips.xml" />
     <Xml Include="Puzzles\DigitalPath.xml" />
+    <Xml Include="Puzzles\DigitWorms.xml" />
     <Xml Include="Puzzles\DirectionalPlanks.xml" />
     <Xml Include="Puzzles\DisconnectFour.xml" />
     <Xml Include="Puzzles\Domino.xml" />

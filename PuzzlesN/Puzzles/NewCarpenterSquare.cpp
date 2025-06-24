@@ -25,7 +25,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_NOT_EQUAL = '/';
 constexpr auto PUZ_EQUAL = '=';
-constexpr auto PUZ_UNKNOWN = '?';
+constexpr auto PUZ_QM = '?';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -112,7 +112,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     // 4. A ÅÇ symbol tells you that the legs have different lengths.
                     // 5. A ? symbol tells you that the legs could have different lengths
                     // or equal length.
-                    if (symbol == PUZ_UNKNOWN ||
+                    if (symbol == PUZ_QM ||
                         (symbol == PUZ_EQUAL) == (i == j)) {
                         vector<Position> rng;
                         for (int k = 0; k < i; ++k)
