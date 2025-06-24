@@ -26,6 +26,8 @@ constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_TABLE = 'O';
+constexpr auto PUZ_UNKNOWN_Q = '?';
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -69,7 +71,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_start.push_back(PUZ_SPACE);
             else {
                 m_start.push_back(PUZ_TABLE);
-                m_pos2num[p] = ch - '0';
+                m_pos2num[p] = ch == PUZ_UNKNOWN_Q ? PUZ_UNKNOWN : ch - '0';
             }
         }
         m_start.push_back(PUZ_BOUNDARY);
@@ -81,16 +83,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int i = 0; i < 4; ++i) {
             auto& os = offset[i];
             vector<Position> rng(1, p);
-            Position p_goal;
-            if ([&] {
-                auto p2 = p;
-                for (int j = 0; j < n; ++j)
-                    if (rng.push_back(p2 += os); cells(p2) != PUZ_SPACE)
-                        return false;
-                p_goal = rng.back(), rng.pop_back();
-                return true;
-            }())
-                paths.emplace_back(dirs[i], rng, p_goal);
+            Position p2 = p + os;
+            for (int j = 1;; ++j, p2 += os) {
+                if (cells(p2) != PUZ_SPACE)
+                    break;
+                if (n == PUZ_UNKNOWN || j == n) {
+                    paths.emplace_back(dirs[i], rng, p2);
+                    if (n != PUZ_UNKNOWN)
+                        break;
+                }
+                rng.push_back(p2);
+            }
         }
     }
 }
@@ -176,6 +179,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         }
 }
 
+// 4. Banquets cannot touch each other horizontally or vertically
+// (they can touch diagonally).
+// 5. Banquets can't be L-shaped but can be more than one table wide.
 bool puz_state::check_tables() const
 {
     set<Position> rng;
@@ -252,8 +258,10 @@ ostream& puz_state::dump(ostream& out) const
             out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch);
             if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
                 out << ' ';
+            else if (int num = it->second; num == PUZ_UNKNOWN)
+                out << PUZ_UNKNOWN_Q;
             else
-                out << it->second;
+                out << num;
         }
         println(out);
     }
