@@ -25,7 +25,7 @@ namespace puzzles::Banquet{
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
-constexpr auto PUZ_BLANKET = 'B';
+constexpr auto PUZ_TABLE = 'O';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -98,10 +98,10 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(Position p_basket, int n);
-    bool make_move2(Position p_basket, int n);
+    bool make_move(Position p, int n);
+    bool make_move2(Position p, int n);
     int find_matches(bool init);
-    bool is_interconnected() const;
+    bool check_tables() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -114,16 +114,15 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     map<Position, vector<int>> m_matches;
-    map<Position, char> m_pos2ch;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_start)
 {
-    for (auto& [p, perms] : g.m_pos2paths) {
+    for (auto& [p, paths] : g.m_pos2paths) {
         auto& path_ids = m_matches[p];
-        path_ids.resize(perms.size());
+        path_ids.resize(paths.size());
         boost::iota(path_ids, 0);
     }
     find_matches(true);
@@ -131,74 +130,46 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p_basket, path_ids] : m_matches) {
-        auto& perms = m_game->m_pos2paths.at(p_basket);
-
-        //boost::remove_erase_if(path_ids, [&](int id) {
-        //    auto& perm = perms[id];
-        //    return cells(perm.second) != PUZ_SPACE;
-        //});
+    for (auto& [p, path_ids] : m_matches) {
+        auto& paths = m_game->m_pos2paths.at(p);
+        boost::remove_erase_if(path_ids, [&](int id) {
+            auto& [ch, rng] = paths[id];
+            return !boost::algorithm::all_of(rng, [&](const Position& p2) {
+                return cells(p2) == PUZ_SPACE || p2 == p;
+            });
+        });
 
         if (!init)
             switch(path_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p_basket, path_ids[0]) ? 1 : 0;
+                return make_move2(p, path_ids[0]) ? 1 : 0;
             }
     }
     return 2;
 }
 
-struct puz_state2 : Position
+bool puz_state::check_tables() const
 {
-    puz_state2(const puz_state* s, const Position& p)
-        : m_state(s) { make_move(p); }
-
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state2>& children) const;
-
-    const puz_state* m_state;
-};
-
-inline bool is_park(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY; }
-
-void puz_state2::gen_children(list<puz_state2>& children) const
-{
-    for (auto& os : offset)
-        if (auto p = *this + os; is_park(m_state->cells(p))) {
-            children.push_back(*this);
-            children.back().make_move(p);
-        }
+    return true;
 }
 
-// 5. Also the remaining park should be accessible to everyone, so empty grass
-// spaces should form a single continuous area.
-bool puz_state::is_interconnected() const
+bool puz_state::make_move2(Position p, int n)
 {
-    int i = boost::find_if(m_cells, is_park) - m_cells.begin();
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({this, {i / sidelen(), i % sidelen()}});
-    return smoves.size() == boost::count_if(m_cells, is_park);
+    auto& [ch, rng] = m_game->m_pos2paths.at(p)[n];
+    for (auto& p2 : rng)
+        cells(p2) = ch;
+    cells(rng.back()) = PUZ_TABLE;
+    ++m_distance;
+    m_matches.erase(p);
+    return check_tables();
 }
 
-bool puz_state::make_move2(Position p_basket, int n)
-{
-    //auto& [ch_dir, p_blanket] = m_game->m_pos2paths.at(p_basket)[n];
-    //m_pos2ch[p_basket] = ch_dir;
-    //cells(p_blanket) = PUZ_BLANKET;
-    //for (auto& os : offset)
-    //    if (char& ch = cells(p_blanket + os); ch != PUZ_BOUNDARY)
-    //        ch = PUZ_EMPTY;
-
-    //++m_distance;
-    //m_matches.erase(p_basket);
-    return is_interconnected();
-}
-
-bool puz_state::make_move(Position p_basket, int n)
+bool puz_state::make_move(Position p, int n)
 {
     m_distance = 0;
-    make_move2(p_basket, n);
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -224,10 +195,10 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            if (!m_game->m_pos2num.contains(p))
+            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
                 out << PUZ_EMPTY << ' ';
             else
-                out << m_game->m_pos2num.at(p) << m_pos2ch.at(p);
+                out << it->second << cells(p);
         }
         println(out);
     }
