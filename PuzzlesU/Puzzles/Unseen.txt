@@ -11,5 +11,26 @@ Sequence of moves:
  - - - -
 Number of moves: 3
 Number of vertices examined: 5
-0.0025677 [s]
+0.0008731 [s]
+
+Level 300
+Sequence of moves: 
+ - - - - - - -
+|       |     |
+   -   - -   -
+| | | |5|0|2|0|
+     -   - - -
+|4|       |   |
+ -   - - - -  
+|2| |0| |5  |1|
+   - -   -   -
+|   |0| |0|   |
+ -   -   - -  
+| | |2  |   | |
+   - - -   -  
+|      3  |   |
+ - - - - - - -
+Number of moves: 8
+Number of vertices examined: 7941
+8.27904 [s]
 
