@@ -1,0 +1,11 @@
+Level 1
+Sequence of moves: 
+@ . v < . 
+^ v < ^ < 
+^ < > v ^ 
+. > ^ v ^ 
+. ^ <*> ^ 
+Number of moves: 20
+Number of vertices examined: 1646
+0.0305869 [s]
+
