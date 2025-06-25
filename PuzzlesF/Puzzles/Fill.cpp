@@ -82,8 +82,8 @@ struct puz_state : string
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s, const Position& p)
-        : m_state(&s) { make_move(p); }
+    puz_state2(const puz_state& s)
+        : m_state(&s) { make_move(*s.m_area.begin()); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -100,15 +100,15 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         }
 }
 
-bool puz_state::make_move(int i, Position p2)
+bool puz_state::make_move(int n, Position p2)
 {
-    cells(m_p) = dirs[i];
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, p2});
-    if (smoves.size() != m_area.size())
-        return false;
+    cells(m_p) = dirs[n];
     m_area.erase(m_p = p2);
     cells(m_p) = PUZ_OBJECT;
-    return true;
+    if (is_goal_state())
+        return true;
+    auto smoves = puz_move_generator<puz_state2>::gen_moves({*this});
+    return smoves.size() == m_area.size();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
