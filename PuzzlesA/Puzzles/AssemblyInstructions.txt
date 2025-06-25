@@ -9,9 +9,9 @@ Sequence of moves:
         
 |. B .|A|
  - - - -
-Number of moves: 1
-Number of vertices examined: 2
-0.0009999 [s]
+Number of moves: 2
+Number of vertices examined: 4
+0.000705 [s]
 
 Level 2
 Sequence of moves: 
@@ -24,9 +24,9 @@ Sequence of moves:
         
 |B|. . .|
  - - - -
-Number of moves: 1
-Number of vertices examined: 2
-0.00083 [s]
+Number of moves: 2
+Number of vertices examined: 3
+0.0001364 [s]
 
 Level 36
 Sequence of moves: 
@@ -43,7 +43,36 @@ Sequence of moves:
             
 |C . .|. B|.|
  - - - - - -
-Number of moves: 1
-Number of vertices examined: 2
-0.0006972 [s]
+Number of moves: 3
+Number of vertices examined: 4
+0.0002099 [s]
+
+Level 400
+Sequence of moves: 
+ - - - - - - - - - - -
+|F . .|. . .|.|H|. G .|
+ - - -               -
+|. I|C . . .|.|.|. .|.|
+     -     -   - - -  
+|. .|.|. .|. . D|. L|.|
+ -     - - - -        
+|H|.|.|J|. L|.|.|. .|K|
+   -   -       - - - -
+|.|. . D|. .|.|B|.|. .|
+ - - -   - -       -  
+|. G .|.|. I|K|.|E .|M|
+     - -     -   - - -
+|. .|. A|. .|J|.|J|. .|
+ - -     -   -   - -  
+|. A|. . .|.|. . .|B|M|
+     -     - - - -   -
+|. . .|. . .|. . .|.|H|
+ -     -   -          
+|.|. . .|.|C . . .|.|.|
+   -   - - -     -   -
+|E .|.|F . .|. .|. . .|
+ - - - - - - - - - - -
+Number of moves: 13
+Number of vertices examined: 1749
+582.36 [s]
 

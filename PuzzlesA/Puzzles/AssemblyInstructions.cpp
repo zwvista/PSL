@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -32,12 +31,13 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+using puz_rng2D = vector<set<Position>>;
 
 struct puz_area
 {
     vector<Position> m_rng_hints;
     vector<char> m_names;
-    vector<set<Position>> m_rng;
+    puz_rng2D m_rng2D;
 };
 
 struct puz_game
@@ -45,8 +45,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<Position, char> m_pos2letter;
-    map<char, vector<Position>> m_letter2rng_start, m_letter2rng_goal;
-    map<Position, vector<char>> m_pos2letters;
+    map<char, vector<Position>> m_letter2rng;
     vector<puz_area> m_areas;
     map<Position, vector<int>> m_pos2area_ids;
     string m_start;
@@ -55,72 +54,34 @@ struct puz_game
     char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
 };
 
-struct puz_state2 : vector<Position>
+struct puz_state2 : puz_rng2D
 {
     puz_state2(const puz_game& game, const vector<Position>& rng)
-        : m_game(&game) { make_move(rng); }
+        : puz_rng2D(rng.size()), m_game(&game) { make_move(rng); }
 
     void make_move(const vector<Position>& rng) {
-        static_cast<vector<Position>&>(*this) = rng;
+        for (int i = 0; i < rng.size(); ++i)
+            (*this)[i].insert(rng[i]);
     }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_game* m_game = nullptr;
 };
 
-void puz_state2::gen_children(list<puz_state2>& children) const
-{
-    for (auto& os : offset) {
-        vector<Position> rng;
-        for (auto& p : *this)
-            rng.push_back(p + os);
-        if (boost::algorithm::all_of(rng, [&](const Position& p) {
-            return m_game->cells(p) == PUZ_SPACE;
-        })) {
-            children.push_back(*this);
-            children.back().make_move(rng);
-        }
-    }
-}
-
-struct puz_state3 : vector<vector<Position>>
-{
-    puz_state3(const puz_game& game, const vector<Position>& rng_start, const vector<Position>& rng_goal)
-        : vector<vector<Position>>(rng_start.size()), m_game(&game), m_rng_goal(&rng_goal) { make_move(rng_start); }
-
-    bool is_goal_state() const { 
-        return boost::algorithm::all_of(*m_rng_goal, [&](const Position& p) {
-            return boost::algorithm::any_of(*this, [&](const vector<Position>& rng) {
-                return boost::algorithm::any_of_equal(rng, p);
-            });
-        });
-    }
-    void make_move(const vector<Position>& rng) {
-        for (int i = 0; i < rng.size(); ++i)
-            (*this)[i].push_back(rng[i]);
-    }
-    void gen_children(list<puz_state3>& children) const;
-    unsigned int get_distance(const puz_state3& child) const { return 1; }
-
-    const puz_game* m_game = nullptr;
-    const vector<Position>* m_rng_goal;
-};
-
-void puz_state3::gen_children(list<puz_state3>& children) const
-{
+void puz_state2::gen_children(list<puz_state2>& children) const {
     int sz = front().size();
     for (int j = 0; j < sz; ++j)
         for (auto& os : offset) {
             vector<Position> rng;
             for (int i = 0; i < size(); ++i)
                 // Areas extend horizontally or vertically
-                rng.push_back((*this)[i][j] + os);
+                rng.push_back(*next((*this)[i].begin(), j) + os);
             if (boost::algorithm::all_of(rng, [&](const Position& p) {
                 // An adjacent tile can be occupied by the area
                 // if it is a space tile and has not been occupied by the area
                 return m_game->cells(p) == PUZ_SPACE &&
-                    boost::algorithm::all_of(*this, [&](const vector<Position>& rng2) {
-                        return boost::algorithm::none_of_equal(rng2, p);
+                    boost::algorithm::all_of(*this, [&](const set<Position>& rng2) {
+                        return !rng2.contains(p);
                     });
             })) {
                 children.push_back(*this);
@@ -144,7 +105,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_start.push_back(PUZ_SPACE);
             else {
                 m_pos2letter[p] = ch;
-                m_letter2rng_start[ch].push_back(p);
+                m_letter2rng[ch].push_back(p);
                 m_start.push_back(name++);
             }
         }
@@ -152,47 +113,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_start.append(m_sidelen, PUZ_BOUNDARY);
 
-    for (auto& [letter, rng] : m_letter2rng_start) {
+    for (auto& [letter, rng] : m_letter2rng) {
         puz_state2 sstart(*this, rng);
+        vector<char> names;
+        for (auto& p : rng)
+            names.push_back(cells(p));
         list<list<puz_state2>> spaths;
         // Areas can have any form.
         auto smoves = puz_move_generator<puz_state2>::gen_moves(sstart);
         // save all goal states as permutations
         // A goal state is an area formed from the letter(s)
-        for (auto& rng : smoves)
-            for (auto& p : rng)
-                m_pos2letters[p].push_back(letter);
-    }
-    for (auto& [p, letters] : m_pos2letters)
-        if (letters.size() == 1)
-            m_letter2rng_goal[letters.front()].push_back(p);
-
-    for (auto& [letter, rng_start] : m_letter2rng_start) {
-        vector<char> names;
-        for (auto& p : rng_start)
-            names.push_back(cells(p));
-        auto& rng_goal = m_letter2rng_goal.at(letter);
-        puz_state3 sstart(*this, rng_start, rng_goal);
-        list<list<puz_state3>> spaths;
-        // Areas can have any form.
-        if (auto [found, _1] = puz_solver_bfs<puz_state3, false, false>::find_solution(sstart, spaths); found) {
-            // save all goal states as permutations
-            // A goal state is an area formed from the letter(s)
-            set<vector<set<Position>>> rng3D;
-            for (auto& spath : spaths) {
-                auto& rng2D_goal = spath.back();
-                int sz = rng_start.size();
-                vector<set<Position>> rng2D(rng2D_goal.size());
-                for (int i = 0; i < sz; ++i)
-                    rng2D[i].insert_range(rng2D_goal[i]);
-                if (auto [_2, success] = rng3D.insert(rng2D); success) {
-                    int n = m_areas.size();
-                    m_areas.emplace_back(rng_start, names, rng2D);
-                    for (auto& rng2 : rng2D)
-                        for (auto& p2 : rng2)
-                            m_pos2area_ids[p2].push_back(n);
-                }
-            }
+        for (auto& rng2D : smoves) {
+            int n = m_areas.size();
+            m_areas.emplace_back(rng, names, rng2D);
+            for (auto& rng2 : rng2D)
+                for (auto& p2 : rng2)
+                    m_pos2area_ids[p2].push_back(n);
         }
     }
 }

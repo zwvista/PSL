@@ -34,7 +34,7 @@ A BC  `
 C   B `
     ]]>
   </level>
-  <!--<level id="400">
+  <level id="400">
     <![CDATA[
 F      H G `
  IC        `
@@ -48,6 +48,6 @@ H  J L    K`
      C     `
 E  F       `
     ]]>
-  </level>-->
+  </level>
 </levels>
 </puzzle>
