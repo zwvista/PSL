@@ -3,6 +3,15 @@
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
+/*
+    iOS Game: Fill
+
+    Summary
+    One stroke drawing
+
+    Description
+*/
+
 namespace puzzles::Fill{
 
 constexpr auto PUZ_SPACE = ' ';
@@ -104,14 +113,12 @@ bool puz_state::make_move(int i, Position p2)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for (int i = 0; i < 4; ++i) {
-        auto p2 = m_p + offset[i];
-        if (m_area.contains(p2)) {
+    for (int i = 0; i < 4; ++i)
+        if (auto p2 = m_p + offset[i]; m_area.contains(p2)) {
             children.push_back(*this);
             if (!children.back().make_move(i, p2))
                 children.pop_back();
         }
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

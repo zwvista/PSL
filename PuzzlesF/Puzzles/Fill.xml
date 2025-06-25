@@ -5,13 +5,31 @@
   ]]>
 </help>
 <levels>
-  <level id="1">
+  <level id="2-46">
    <![CDATA[
 O.OO.`
 OOOOO`
 OOOOO`
 .OOOO`
 .O@OO`
+  ]]>
+ </level>
+  <level id="2-47">
+   <![CDATA[
+OOO..`
+OOOOO`
+OO.@.`
+OOOOO`
+OOOOO`
+  ]]>
+ </level>
+  <level id="2-48">
+   <![CDATA[
+OO@O.`
+OOOOO`
+OOOOO`
+.OOOO`
+.OO.O`
   ]]>
  </level>
 </levels>
