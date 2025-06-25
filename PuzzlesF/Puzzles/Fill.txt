@@ -6,6 +6,6 @@ Sequence of moves:
 . > ^ v ^ 
 . ^ <*> ^ 
 Number of moves: 20
-Number of vertices examined: 1646
-0.0305869 [s]
+Number of vertices examined: 130
+0.0172096 [s]
 

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 namespace puzzles::Fill{
@@ -55,7 +56,7 @@ struct puz_state : string
     int cols() const { return m_game->cols(); }
     char cells(const Position& p) const { return (*this)[p.first * rows() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * cols() + p.second]; }
-    bool make_move(int i);
+    bool make_move(int i, Position p2);
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -70,11 +71,33 @@ struct puz_state : string
     Position m_p;
 };
 
-bool puz_state::make_move(int i)
+struct puz_state2 : Position
+{
+    puz_state2(const puz_state& s, const Position& p)
+        : m_state(&s) { make_move(p); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_state* m_state;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (auto& os : offset)
+        if (auto p2 = *this + os; m_state->m_area.contains(p2)) {
+            children.push_back(*this);
+            children.back().make_move(p2);
+        }
+}
+
+bool puz_state::make_move(int i, Position p2)
 {
     cells(m_p) = dirs[i];
-    if (m_area.erase(m_p += offset[i]) == 0)
+    auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, p2});
+    if (smoves.size() != m_area.size())
         return false;
+    m_area.erase(m_p = p2);
     cells(m_p) = PUZ_OBJECT;
     return true;
 }
@@ -82,9 +105,12 @@ bool puz_state::make_move(int i)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int i = 0; i < 4; ++i) {
-        children.push_back(*this);
-        if (!children.back().make_move(i))
-            children.pop_back();
+        auto p2 = m_p + offset[i];
+        if (m_area.contains(p2)) {
+            children.push_back(*this);
+            if (!children.back().make_move(i, p2))
+                children.pop_back();
+        }
     }
 }
 
