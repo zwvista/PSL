@@ -10,6 +10,7 @@
     One stroke drawing
 
     Description
+    Fill all squares in one stroke, starting from the marked one.
 */
 
 namespace puzzles::Fill{
@@ -44,16 +45,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size(), strs[0].length())
 {
+    m_cells = boost::accumulate(strs, string());
     for (int r = 0; r < rows(); ++r) {
         string_view str = strs[r];
-        for (int c = 0; c < cols(); ++c) {
-            char ch = str[c];
-            m_cells.push_back(ch);
-            switch (Position p(r, c); ch) {
+        for (int c = 0; c < cols(); ++c)
+            switch (Position p(r, c); str[c]) {
             case PUZ_AREA: m_area.insert(p); break;
             case PUZ_OBJECT: m_start = p; break;
             }
-        }
     }
 }
 

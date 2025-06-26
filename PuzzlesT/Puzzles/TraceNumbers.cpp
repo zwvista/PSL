@@ -23,7 +23,6 @@
 namespace puzzles::TraceNumbers{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_ONE = '1';
 constexpr auto PUZ_FROM = 1;
 constexpr auto PUZ_TO = 2;
 constexpr auto PUZ_FROMTO = 3;
@@ -63,9 +62,7 @@ struct puz_game
 struct puz_state2 : vector<Position>
 {
     puz_state2(const puz_game& game, const Position& p, char ch)
-        : m_game(&game), m_char(ch) {
-        make_move(p);
-    }
+        : m_game(&game), m_char(ch) { make_move(p); }
 
     bool is_goal_state() const { return m_game->cells(back()) == m_char + 1; }
     void make_move(const Position& p) { push_back(p); }
@@ -78,16 +75,13 @@ struct puz_state2 : vector<Position>
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    auto& p = back();
-    for (auto& os : offset) {
-        auto p2 = p + os;
-        if (!m_game->is_valid(p2) || boost::find(*this, p2) != end()) continue;
-        char ch2 = m_game->cells(p2);
-        if (ch2 == PUZ_SPACE || ch2 == m_char + 1) {
-            children.push_back(*this);
-            children.back().make_move(p2);
-        }
-    }
+    for (auto& p = back(); auto& os : offset)
+        if (auto p2 = p + os; 
+            m_game->is_valid(p2) && boost::algorithm::none_of_equal(*this, p2))
+            if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE || ch2 == m_char + 1) {
+                children.push_back(*this);
+                children.back().make_move(p2);
+            }
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
