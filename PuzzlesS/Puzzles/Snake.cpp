@@ -35,7 +35,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_piece_counts_rows, m_piece_counts_cols;
+    vector<int> m_area2piece_count;
     Position m_head_tail[2];
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
@@ -51,8 +51,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() - 1)
-    , m_piece_counts_rows(m_sidelen)
-    , m_piece_counts_cols(m_sidelen)
+    , m_area2piece_count(m_sidelen * 2)
     , m_area2range(m_sidelen * 2)
     , m_start(m_sidelen * m_sidelen, PUZ_SPACE)
 {
@@ -65,7 +64,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 cells(m_head_tail[n++] = p) = ch;
             else if (c == m_sidelen || r == m_sidelen) {
                 if (c == m_sidelen && r == m_sidelen) continue;
-                (c == m_sidelen ? m_piece_counts_rows[r] : m_piece_counts_cols[c])
+                m_area2piece_count[c == m_sidelen ? r : c + m_sidelen]
                 = isdigit(ch) ? ch - '0' : PUZ_UNKNOWN;
             }
         }
@@ -109,9 +108,7 @@ struct puz_state
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::accumulate(m_piece_counts_rows, 0, [](int acc, int n) {
-            return acc + (n == PUZ_UNKNOWN ? 0 : n);
-        }) + boost::accumulate(m_piece_counts_cols, 0, [](int acc, int n) {
+        return boost::accumulate(m_area2piece_count, 0, [](int acc, int n) {
             return acc + (n == PUZ_UNKNOWN ? 0 : n);
         }) + m_matches.size();
     }
@@ -121,29 +118,24 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    vector<int> m_piece_counts_rows, m_piece_counts_cols;
+    vector<int> m_area2piece_count;
     map<int, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
     : m_cells(g.m_start), m_game(&g)
-    , m_piece_counts_rows(g.m_piece_counts_rows)
-    , m_piece_counts_cols(g.m_piece_counts_cols)
+    , m_area2piece_count(g.m_area2piece_count)
 {
-    auto f = [&](int n) {
-        vector<int> perm_ids(g.m_num2perms.at(n).size());
+    for (int i = 0; i < sidelen() * 2; ++i) {
+        auto& perm_ids = m_matches[i];
+        perm_ids.resize(g.m_num2perms.at(m_area2piece_count[i]).size());
         boost::iota(perm_ids, 0);
-        return perm_ids;
-    };
-
-    for (int i = 0; i < sidelen(); ++i) {
-        m_matches[i] = f(g.m_piece_counts_rows[i]);
-        m_matches[sidelen() + i] = f(g.m_piece_counts_cols[i]);
     }
-    
+
     for (auto& p : g.m_head_tail)
-        dec(m_piece_counts_rows[p.first]), dec(m_piece_counts_cols[p.second]);
+        for (int i : {p.first, p.second + sidelen()})
+            dec(m_area2piece_count[i]);
 
     find_matches(true);
 }
@@ -155,8 +147,7 @@ int puz_state::find_matches(bool init)
         for (auto& p : m_game->m_area2range[area_id])
             chars.push_back(cells(p));
 
-        int n = area_id < sidelen() ? m_game->m_piece_counts_rows[area_id] :
-            m_game->m_piece_counts_cols[area_id - sidelen()];
+        int n = m_game->m_area2piece_count[area_id];
         auto& perms = m_game->m_num2perms.at(n);
 
         boost::remove_erase_if(perm_ids, [&](int id) {
@@ -178,18 +169,16 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::make_move2(int i, int j)
 {
-    int n = i < sidelen() ? m_game->m_piece_counts_rows[i] :
-        m_game->m_piece_counts_cols[i - sidelen()];
+    int n = m_game->m_area2piece_count[i];
     auto& range = m_game->m_area2range[i];
     auto& perm = m_game->m_num2perms.at(n)[j];
 
     for (int k = 0; k < perm.size(); ++k) {
         auto& p = range[k];
         char& ch = cells(p);
-        if (ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE) {
-            if (dec(m_piece_counts_rows[p.first])) ++m_distance;
-            if (dec(m_piece_counts_cols[p.second])) ++m_distance;
-        }
+        if (ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE)
+            for (int i : {p.first, p.second + sidelen()})
+                if (dec(m_area2piece_count[i])) ++m_distance;
     }
     m_matches.erase(i); ++m_distance;
     
