@@ -6,8 +6,8 @@ Sequence of moves:
   |     
 0  - -  
 |     | 
-0-0-0 3 
+0 0-0 3 
 Number of moves: 1
 Number of vertices examined: 2
-0.0008985 [s]
+0.0019636 [s]
 

@@ -25,7 +25,6 @@ namespace puzzles::TraceNumbers{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_FROM = 1;
 constexpr auto PUZ_TO = 2;
-constexpr auto PUZ_FROMTO = 3;
 
 constexpr Position offset[] = {
     {-1, 0},        // n
