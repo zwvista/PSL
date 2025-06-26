@@ -135,11 +135,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             puz_state2 sstart(*this, num, p);
             list<list<puz_state2>> spaths;
             // Gardens can have any form.
-            puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
-            // save all goal states as permutations
-            // A goal state is a garden formed from the number
-            for (auto& spath : spaths)
-                perms.push_back(spath.back());
+            if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
+                // save all goal states as permutations
+                // A goal state is a garden formed from the number
+                for (auto& spath : spaths)
+                    perms.push_back(spath.back());
         }
     }
 }

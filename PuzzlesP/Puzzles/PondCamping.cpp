@@ -99,19 +99,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, num] : m_pos2num) {
         puz_state2 sstart(*this, p, num);
         list<list<puz_state2>> spaths;
-        puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
-        // save all goal states as permutations
-        auto& hikes = m_pos2hikes[p];
-        for (auto& spath : spaths) {
-            auto& [empties, ponds] = hikes.emplace_back();
-            empties = spath.back();
-            for (auto& p2 : empties)
-                for (auto& os : offset) {
-                    auto p3 = p2 + os;
-                    if (!empties.contains(p3) && cells(p3) == PUZ_SPACE)
-                        ponds.insert(p3);
-                }
-            empties.erase(p);
+        if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found) {
+            // save all goal states as permutations
+            auto& hikes = m_pos2hikes[p];
+            for (auto& spath : spaths) {
+                auto& [empties, ponds] = hikes.emplace_back();
+                empties = spath.back();
+                for (auto& p2 : empties)
+                    for (auto& os : offset) {
+                        auto p3 = p2 + os;
+                        if (!empties.contains(p3) && cells(p3) == PUZ_SPACE)
+                            ponds.insert(p3);
+                    }
+                empties.erase(p);
+            }
         }
     }
 }

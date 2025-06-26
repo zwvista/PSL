@@ -101,12 +101,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (auto& p : rng) {
             puz_state2 sstart(*this, p, ch);
             list<list<puz_state2>> spaths;
-            puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths);
-            // save all goal states as permutations
-            // A goal state is a line starting from N to N+1
-            auto& perms = m_pos2perms[p];
-            for (auto& spath : spaths)
-                perms.push_back(spath.back());
+            if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found)
+                // save all goal states as permutations
+                // A goal state is a line starting from N to N+1
+                for (auto& perms = m_pos2perms[p]; auto& spath : spaths)
+                    perms.push_back(spath.back());
         }
     }
 

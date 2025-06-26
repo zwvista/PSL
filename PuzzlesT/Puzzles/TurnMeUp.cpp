@@ -123,13 +123,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, ch] : m_pos2ch) {
         puz_state2 sstart(*this, p, ch);
         list<list<puz_state2>> spaths;
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found) {
+        if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found)
             // save all goal states as permutations
             // A goal state is a line starting from N to N
-            auto& perms = m_pos2perms[p];
-            for (auto& spath : spaths)
+            for (auto& perms = m_pos2perms[p]; auto& spath : spaths)
                 perms.push_back(spath.back());
-        }
     }
 
     for (auto& [p, perms] : m_pos2perms)
@@ -180,10 +178,9 @@ int puz_state::find_matches(bool init)
     for (auto& [p, infos] : m_matches) {
         boost::remove_erase_if(infos, [&](const pair<Position, int>& info) {
             auto& perm = m_game->m_pos2perms.at(info.first)[info.second];
-            for (auto& p2 : perm)
-                if (!m_matches.contains(p2))
-                    return true;
-            return false;
+            return !boost::algorithm::all_of(perm, [&](const Position& p2) {
+                return m_matches.contains(p2);
+            });
         });
 
         if (!init)

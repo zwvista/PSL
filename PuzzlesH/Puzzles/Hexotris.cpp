@@ -136,15 +136,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             puz_state2 sstart(*this, n3, p, p2);
             list<list<puz_state2>> spaths;
             // Regions can have any form.
-            puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
-            // save all goal states as permutations
-            // A goal state is a region formed from two numbers
-            for (auto& spath : spaths) {
-                int n = m_regions.size();
-                set<Position> perm = spath.back();
-                m_regions.push_back({cells(p), p, p2, perm});
-                for (auto& p : perm)
-                    m_pos2region_ids[p].push_back(n);
+            if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found) {
+                // save all goal states as permutations
+                // A goal state is a region formed from two numbers
+                for (auto& spath : spaths) {
+                    int n = m_regions.size();
+                    set<Position> perm = spath.back();
+                    m_regions.push_back({cells(p), p, p2, perm});
+                    for (auto& p : perm)
+                        m_pos2region_ids[p].push_back(n);
+                }
             }
         }
 }

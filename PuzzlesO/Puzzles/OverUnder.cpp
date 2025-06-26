@@ -124,9 +124,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (int i = n3 + 1; i < n4; ++i) {
                 puz_state2 sstart(*this, p, p2, i);
                 list<list<puz_state2>> spaths;
-                puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
-                for (auto& spath : spaths)
-                    region.m_perms.push_back(spath.back());
+                if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
+                    for (auto& spath : spaths)
+                        region.m_perms.push_back(spath.back());
             }
             if (region.m_perms.empty())
                 m_pair2region.erase(kv3);

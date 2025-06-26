@@ -116,16 +116,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         puz_state2 sstart(*this, PUZ_PIECE_SIZE, p);
         list<list<puz_state2>> spaths;
         // Pieces can have any form.
-        puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
-        // save all goal states as permutations
-        // A goal state is a piece formed from the hole and has 4 tiles
-        for (auto& spath : spaths) {
-            int n = m_pieces.size();
-            set<Position> rng = spath.back();
-            for (auto& p2 : rng)
-                m_pos2piece_ids[p2].push_back(n);
-            m_pieces.emplace_back(p, name, rng);
-        }
+        if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
+            // save all goal states as permutations
+            // A goal state is a piece formed from the hole and has 4 tiles
+            for (auto& spath : spaths) {
+                int n = m_pieces.size();
+                set<Position> rng = spath.back();
+                for (auto& p2 : rng)
+                    m_pos2piece_ids[p2].push_back(n);
+                m_pieces.emplace_back(p, name, rng);
+            }
     }
 }
 
