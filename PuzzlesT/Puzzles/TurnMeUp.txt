@@ -9,7 +9,7 @@ Sequence of moves:
 0 0-0 3 
 Number of moves: 1
 Number of vertices examined: 2
-0.0011113 [s]
+0.0002893 [s]
 
 Level 18
 Sequence of moves: 
@@ -24,9 +24,20 @@ Sequence of moves:
 1  - -5 5 
 Number of moves: 2
 Number of vertices examined: 3
-0.0021976 [s]
+0.000417 [s]
 
 Level 36
-Number of vertices examined: 1
-0.0006478 [s]
+Sequence of moves: 
+0- -0 1-  
+        | 
+5- - -    
+      | | 
+? 5  -  ? 
+| | |     
+0  -  0-0 
+          
+0-0 0- -? 
+Number of moves: 1
+Number of vertices examined: 2
+0.0032867 [s]
 

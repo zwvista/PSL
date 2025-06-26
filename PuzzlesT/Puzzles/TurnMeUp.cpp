@@ -69,7 +69,9 @@ struct puz_state2 : vector<Position>
     }
 
     bool is_goal_state() const {
-        return size() > 1 && m_game->cells(back()) == m_char;
+        if (size() == 1) return false;
+        char ch2 = m_game->cells(back());
+        return m_char == PUZ_QM || ch2 == PUZ_QM || m_char == ch2;
     }
     void make_move(int i, Position p2);
     void gen_children(list<puz_state2>& children) const;
