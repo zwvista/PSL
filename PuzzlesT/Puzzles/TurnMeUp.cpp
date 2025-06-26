@@ -21,6 +21,7 @@
 namespace puzzles::TurnMeUp{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_QM = '?';
 
 constexpr Position offset[] = {
     {-1, 0},        // n
@@ -57,7 +58,15 @@ struct puz_state2 : vector<Position>
 {
     puz_state2(const puz_game& game, const Position& p, char ch)
         : m_game(&game), m_p(p), m_char(ch) { make_move(-1, p); }
-    int goal_turn_count() const { return m_char - '0'; }
+    bool cannot_turn() const {
+        return m_char != PUZ_QM && m_char - '0' == m_turn_count;
+    }
+    bool is_goal_number(char ch2, int turn_count) const {
+        return m_char == PUZ_QM && ch2 == PUZ_QM ||
+            (m_char == PUZ_QM || ch2 == PUZ_QM) &&
+            (m_char != PUZ_QM ? m_char : ch2) - '0' == turn_count ||
+            m_char == ch2 && m_char - '0' == turn_count;
+    }
 
     bool is_goal_state() const {
         return size() > 1 && m_game->cells(back()) == m_char;
@@ -85,12 +94,12 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     auto& p = back();
     for (int i = 0; i < 4; ++i) {
         if (m_last_dir == (i + 2) % 4) continue;
-        if (m_last_dir != -1 && m_last_dir != i && goal_turn_count() == m_turn_count) continue;
+        if (m_last_dir != -1 && m_last_dir != i && cannot_turn()) continue;
         if (auto p2 = p + offset[i];
             m_game->is_valid(p2) && boost::algorithm::none_of_equal(*this, p2))
             if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE ||
-                goal_turn_count() == m_turn_count + (m_last_dir == -1 || m_last_dir == i ? 0 : 1) &&
-                p2 > m_p && ch2 == m_char) {
+                p2 > m_p && is_goal_number(ch2,
+                    m_turn_count + (m_last_dir == -1 || m_last_dir == i ? 0 : 1))) {
                 children.push_back(*this);
                 children.back().make_move(i, p2);
             }
