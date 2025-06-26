@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. A mix between Nurikabe and Snake, with the some rules from one game and some from the other.
+2. Nurikabe Rules: Each number on the grid indicates a garden, occupying as many tiles as the number itself.
+3. Gardens can have any form, extending horizontally and vertically but can't extend diagonally.
+4. The gardens are separated by a single, continuous wall. This means all wall tiles on the board must be connected horizontally or vertically. There can't be isolated walls
+5. Additionally, not all the gardens in the puzzle may be numbered at the start. There could be some hidden gardens.
+6. The wall can't form 2x2 squares.
+7. Snake Rules: Two circles are the head and tail of the snake (it is irrelevant which is which).
+8. A snake can't touch its body orthogonally, but it CAN touch itself diagonally. However a snake head can touch its tail.
+9. Snakes cannot cross each other.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+6  S `
+     `
+     `
+   S9`
+     `
+    ]]>
+  </level>
+</levels>
+</puzzle>

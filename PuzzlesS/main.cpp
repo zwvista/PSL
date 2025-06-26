@@ -11,6 +11,7 @@ extern void solve_puz_SlitherLink();
 extern void solve_puz_SlitherLink2();
 extern void solve_puz_Snail();
 extern void solve_puz_Snake();
+extern void solve_puz_SnakeIslands();
 extern void solve_puz_sokoban();
 extern void solve_puz_Square100();
 extern void solve_puz_Stacks();
@@ -36,6 +37,7 @@ int main(int argc, char **argv)
     println("l4: SlitherLink2");
     println("n1: Snail");
     println("n2: Snake");
+    println("n3: Snake Islands");
     println("o: sokoban");
     println("q: Square 100");
     println("t1: Stacks");
@@ -60,6 +62,7 @@ int main(int argc, char **argv)
     else if (str == "l4") solve_puz_SlitherLink2();
     else if (str == "n1") solve_puz_Snail();
     else if (str == "n2") solve_puz_Snake();
+    else if (str == "n3") solve_puz_SnakeIslands();
     else if (str == "o") solve_puz_sokoban();
     else if (str == "q") solve_puz_Square100();
     else if (str == "t1") solve_puz_Stacks();
