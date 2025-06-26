@@ -45,7 +45,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     fill(m_start.rbegin(), m_start.rbegin() + cols(), PUZ_FIXED);
 
     for (int r = 1, n = cols(); r < rows() - 1; ++r) {
-        const string& str = strs[r - 1];
+        string_view str = strs[r - 1];
         m_start[n++] = PUZ_FIXED;
         for (int c = 1; c < cols() - 1; ++c) {
             char ch = str[c - 1];

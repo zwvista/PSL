@@ -60,7 +60,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     fill(m_cells.rbegin(), m_cells.rbegin() + 2 * cols(), PUZ_HOLE);
 
     for (int r = 2, n = 2 * cols(); r < rows() - 2; ++r) {
-        const string& str = strs[r - 2];
+        string_view str = strs[r - 2];
         m_cells[n++] = PUZ_HOLE;
         m_cells[n++] = PUZ_HOLE;
         for (int c = 2; c < cols() - 2; ++c) {

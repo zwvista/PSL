@@ -90,7 +90,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         sscanf(level.attribute("key").value(), "(%d,%d)", &m_key_gate->m_key.first, &m_key_gate->m_key.second);
     }
     for (int r = 0; ; ++r) {
-        const string& hstr = strs[2 * r];
+        string_view hstr = strs[2 * r];
         for (size_t i = 0; i < hstr.length(); i++)
             switch(Position p(r, i / 2); hstr[i]) {
             case '-': m_horz_wall.insert(p); break;

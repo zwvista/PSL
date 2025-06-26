@@ -49,7 +49,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     int n = cols();
     int ball_count = 0, goal_count = 0;
     for (int r = 1; ; ++r, n+= cols()) {
-        const string& hstr = strs.at(2 * r - 2);
+        string_view hstr = strs.at(2 * r - 2);
         for (size_t i = 0; i < hstr.length(); i++)
             if (hstr[i] == '-')
                 m_horz_wall.insert(Position(r, i / 2 + 1));
@@ -58,7 +58,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
         m_cells[n] = m_cells[n + cols() - 1] = '#';
 
-        const string& vstr = strs.at(2 * r - 1);
+        string_view vstr = strs.at(2 * r - 1);
         for (size_t i = 0; i < vstr.length(); i++)
             switch(Position p(r, i / 2 + 1); vstr[i]) {
             case '|': m_vert_wall.insert(p); break;

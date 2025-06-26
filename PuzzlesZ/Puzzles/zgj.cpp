@@ -48,7 +48,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     int n = cols();
     for (int r = 1; r < rows() - 1; ++r, n += cols()) {
-        const string& str = strs[r - 1];
+        string_view str = strs[r - 1];
         m_cells[n] = m_cells[n + cols() - 1] = PUZ_WALL;
         for (int c = 1; c < cols() - 1; ++c) {
             char ch = str[c - 1];

@@ -43,7 +43,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     int n = cols();
     for (int r = 1; r < rows() - 1; ++r, n += cols()) {
         m_cells[n] = m_cells[n + cols() - 1] = PUZ_STONE;
-        const string& vstr = strs.at(r - 1);
+        string_view vstr = strs.at(r - 1);
         for (int c = 1; c < cols() - 1; ++c) {
             Position p(r, c);
             switch(char ch = vstr[c - 1]) {
