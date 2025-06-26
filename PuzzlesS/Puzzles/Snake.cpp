@@ -38,7 +38,7 @@ struct puz_game
     vector<int> m_area2piece_count;
     Position m_head_tail[2];
     // 1st dimension : the index of the area(rows and columns)
-    // 2nd dimension : all the positions that the area is composed of
+    // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_area2range;
     map<int, vector<string>> m_num2perms;
     string m_start;
@@ -59,8 +59,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c <= m_sidelen; c++) {
             Position p(r, c);
-            char ch = str[c];
-            if (ch == PUZ_SNAKE)
+            if (char ch = str[c]; ch == PUZ_SNAKE)
                 cells(m_head_tail[n++] = p) = ch;
             else if (c == m_sidelen || r == m_sidelen) {
                 if (c == m_sidelen && r == m_sidelen) continue;
@@ -143,15 +142,11 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [area_id, perm_ids] : m_matches) {
-        string chars;
-        for (auto& p : m_game->m_area2range[area_id])
-            chars.push_back(cells(p));
-
-        int n = m_game->m_area2piece_count[area_id];
-        auto& perms = m_game->m_num2perms.at(n);
-
+        auto& range = m_game->m_area2range[area_id];
+        auto& perms = m_game->m_num2perms.at(m_game->m_area2piece_count[area_id]);
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
+            return !boost::equal(range, perms[id], [&](const Position& p, char ch2) {
+                char ch1 = cells(p);
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             });
         });
@@ -169,16 +164,15 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::make_move2(int i, int j)
 {
-    int n = m_game->m_area2piece_count[i];
     auto& range = m_game->m_area2range[i];
-    auto& perm = m_game->m_num2perms.at(n)[j];
+    auto& perm = m_game->m_num2perms.at(m_game->m_area2piece_count[i])[j];
 
     for (int k = 0; k < perm.size(); ++k) {
         auto& p = range[k];
-        char& ch = cells(p);
-        if (ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE)
+        if (char& ch = cells(p); ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE)
             for (int i : {p.first, p.second + sidelen()})
-                if (dec(m_area2piece_count[i])) ++m_distance;
+                if (dec(m_area2piece_count[i]))
+                    ++m_distance;
     }
     m_matches.erase(i); ++m_distance;
     
@@ -188,11 +182,11 @@ bool puz_state::make_move2(int i, int j)
             Position p(r, c);
             if (cells(p) != PUZ_SNAKE) continue;
             int n1 = boost::count_if(offset, [&](const Position& os) {
-                Position p2 = p + os;
+                auto p2 = p + os;
                 return is_valid(p2) && cells(p2) == PUZ_SNAKE;
             });
             int n2 = boost::count_if(offset, [&](const Position& os) {
-                Position p2 = p + os;
+                auto p2 = p + os;
                 return !is_valid(p2) || cells(p2) == PUZ_EMPTY;
             });
             bool b2 = p == m_game->m_head_tail[0] || p == m_game->m_head_tail[1];
