@@ -44,7 +44,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<char, vector<Position>> m_ch2rng;
+    map<Position, char> m_pos2ch;
     string m_start;
     map<Position, vector<vector<Position>>> m_pos2perms;
     map<pair<Position, int>, vector<pair<Position, int>>> m_posinfo2perminfo;
@@ -59,26 +59,45 @@ struct puz_game
 struct puz_state2 : vector<Position>
 {
     puz_state2(const puz_game& game, const Position& p, char ch)
-        : m_game(&game), m_char(ch) { make_move(p); }
+        : m_game(&game), m_p(p), m_char(ch) { make_move(-1, p); }
+    int goal_turn_count() const { return m_char - '0'; }
 
-    bool is_goal_state() const { return m_game->cells(back()) == m_char + 1; }
-    void make_move(const Position& p) { push_back(p); }
+    bool is_goal_state() const {
+        return size() > 1 && m_game->cells(back()) == m_char;
+    }
+    void make_move(int i, Position p2);
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game = nullptr;
+    Position m_p;
     char m_char;
+    int m_last_dir = -1;
+    int m_turn_count = 0;
 };
+
+void puz_state2::make_move(int i, Position p2)
+{
+    if (m_last_dir != -1 && m_last_dir != i) ++m_turn_count;
+    m_last_dir = i;
+    push_back(p2);
+}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& p = back(); auto& os : offset)
-        if (auto p2 = p + os;
+    auto& p = back();
+    for (int i = 0; i < 4; ++i) {
+        if (m_last_dir == (i + 2) % 4) continue;
+        if (m_last_dir != -1 && m_last_dir != i && goal_turn_count() == m_turn_count) continue;
+        if (auto p2 = p + offset[i];
             m_game->is_valid(p2) && boost::algorithm::none_of_equal(*this, p2))
-            if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE || ch2 == m_char + 1) {
+            if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE ||
+                goal_turn_count() == m_turn_count + (m_last_dir == -1 || m_last_dir == i ? 0 : 1) &&
+                p2 > m_p && ch2 == m_char) {
                 children.push_back(*this);
-                children.back().make_move(p2);
+                children.back().make_move(i, p2);
             }
+    }
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -90,16 +109,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             if (char ch = str[c]; ch != PUZ_SPACE)
-                m_ch2rng[ch].emplace_back(r, c);
+                m_pos2ch[{r, c}] = ch;
     }
 
-    for (auto& [ch, rng] : m_ch2rng) {
-        for (auto& p : rng) {
-            puz_state2 sstart(*this, p, ch);
-            list<list<puz_state2>> spaths;
-            puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths);
+    for (auto& [p, ch] : m_pos2ch) {
+        puz_state2 sstart(*this, p, ch);
+        list<list<puz_state2>> spaths;
+        if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found) {
             // save all goal states as permutations
-            // A goal state is a line starting from N to N+1
+            // A goal state is a line starting from N to N
             auto& perms = m_pos2perms[p];
             for (auto& spath : spaths)
                 perms.push_back(spath.back());
