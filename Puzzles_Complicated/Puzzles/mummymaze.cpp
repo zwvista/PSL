@@ -163,11 +163,10 @@ struct puz_state
         : m_game(&g), m_man(g.m_man), m_obj_map(g.m_obj_map), m_gate_open(false) {}
     bool make_move(EMazeDir dir);
     bool operator==(const puz_state& x) const {
-        return m_man == x.m_man && m_gate_open == x.m_gate_open && m_obj_map == x.m_obj_map && m_move == x.m_move;
+        return tie(m_man, m_gate_open, m_obj_map, m_move) == tie(x.m_man, x.m_gate_open, x.m_obj_map, x.m_move);
     }
     bool operator<(const puz_state& x) const {
-        return m_man < x.m_man || m_man == x.m_man && m_gate_open < x.m_gate_open ||
-            m_man == x.m_man && m_gate_open == x.m_gate_open && m_obj_map < x.m_obj_map;
+        return tie(m_man, m_gate_open, m_obj_map) < tie(x.m_man, x.m_gate_open, x.m_obj_map);
     }
 
     // solve_puzzle interface
@@ -195,10 +194,9 @@ bool puz_state::make_move(EMazeDir dir)
     puz_obj_map obj_map2;
     for (int k = 0; k < 2; ++k) {
         while (!m_obj_map.empty()) {
-            puz_obj_pair obj_pair = *m_obj_map.begin();
-            m_obj_map.erase(m_obj_map.begin());
-            Position pos = obj_pair.first;
-            EMazeObject obj = obj_pair.second;
+            auto it = m_obj_map.begin();
+            auto [pos, obj] = static_cast<pair<Position, EMazeObject>>(*it);
+            m_obj_map.erase(it);
             EMazeDir dir = mvNone;
             if (!(k == 1 && (obj == moHorzCrab || obj == moVertCrab)) &&
                 (obj == moHorzCrab || obj == moHorzMummy ?
