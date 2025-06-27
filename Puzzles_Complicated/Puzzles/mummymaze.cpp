@@ -19,10 +19,10 @@ constexpr Position offset[] = {
     {1, 0},
 };
 
-using mm_obj_map = map<Position, EMazeObject>;
-using mm_obj_pair = pair<Position, EMazeObject>;
+using puz_obj_map = map<Position, EMazeObject>;
+using puz_obj_pair = pair<Position, EMazeObject>;
 
-struct mm_key_gate
+struct puz_key_gate
 {
     Position m_key;
     Position m_gate;
@@ -34,9 +34,9 @@ struct puz_game
     string m_id;
     Position m_size;
     Position m_man;
-    mm_obj_map m_obj_map;
+    puz_obj_map m_obj_map;
     Position m_goal;
-    boost::optional<mm_key_gate> m_key_gate;
+    boost::optional<puz_key_gate> m_key_gate;
     set<Position> m_horz_wall;
     set<Position> m_vert_wall;
     set<Position> m_skull;
@@ -86,7 +86,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     if (!level.attribute("goal").empty())
         sscanf(level.attribute("goal").value(), "(%d,%d)", &m_goal.first, &m_goal.second);
     if (!level.attribute("key").empty()) {
-        m_key_gate = mm_key_gate();
+        m_key_gate = puz_key_gate();
         sscanf(level.attribute("key").value(), "(%d,%d)", &m_key_gate->m_key.first, &m_key_gate->m_key.second);
     }
     for (int r = 0; ; ++r) {
@@ -95,13 +95,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             switch(Position p(r, i / 2); hstr[i]) {
             case '-': m_horz_wall.insert(p); break;
             case '=':
-                if (!m_key_gate) m_key_gate = mm_key_gate();
+                if (!m_key_gate) m_key_gate = puz_key_gate();
                 m_key_gate->m_vert = false;
                 m_key_gate->m_gate = p;
                 break;
             }
         if (r == m_size.first) break;
-        const string& vstr = strs[2 * r + 1];
+        string_view vstr = strs[2 * r + 1];
         for (size_t i = 0; i < vstr.length(); i++)
             switch(Position p(r, i / 2); vstr[i]) {
             case '|': m_vert_wall.insert(p); break;
@@ -113,11 +113,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             case 'X': m_skull.insert(p); break;
             case 'G': m_goal = p; break;
             case 'K': 
-                if (!m_key_gate) m_key_gate = mm_key_gate();
+                if (!m_key_gate) m_key_gate = puz_key_gate();
                 m_key_gate->m_key = p;
                 break;
             case '&':
-                if (!m_key_gate) m_key_gate = mm_key_gate();
+                if (!m_key_gate) m_key_gate = puz_key_gate();
                 m_key_gate->m_vert = true;
                 m_key_gate->m_gate = p;
                 break;
@@ -180,7 +180,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     Position m_man;
-    mm_obj_map m_obj_map;
+    puz_obj_map m_obj_map;
     bool m_gate_open;
     list<puz_step> m_move;
 };
@@ -192,10 +192,10 @@ bool puz_state::make_move(EMazeDir dir)
     m_move.clear();
     m_move.push_back(puz_step(m_man, moExplorer, dir));
 
-    mm_obj_map obj_map2;
+    puz_obj_map obj_map2;
     for (int k = 0; k < 2; ++k) {
         while (!m_obj_map.empty()) {
-            mm_obj_pair obj_pair = *m_obj_map.begin();
+            puz_obj_pair obj_pair = *m_obj_map.begin();
             m_obj_map.erase(m_obj_map.begin());
             Position pos = obj_pair.first;
             EMazeObject obj = obj_pair.second;
@@ -210,8 +210,7 @@ bool puz_state::make_move(EMazeDir dir)
                 if (m_game->is_key(pos)) m_gate_open = !m_gate_open;
                 m_move.push_back(puz_step(pos, obj, dir));
             }
-            mm_obj_map::iterator it = obj_map2.find(pos);
-            if (it == obj_map2.end())
+            if (auto it = obj_map2.find(pos); it == obj_map2.end())
                 obj_map2[pos] = obj;
             else
                 it->second = max(it->second, obj);
