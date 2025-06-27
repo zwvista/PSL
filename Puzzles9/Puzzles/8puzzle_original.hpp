@@ -116,7 +116,7 @@ public:
             try{
                 vertex_t v = m_smap.right.at(child);
                 //add_edge(u, v, edge_prop(1), g);
-            } catch(out_of_range&) {
+            } catch (out_of_range&) {
                 vertex_t v = add_vertex(vert_prop(white_color), g);
                 m_smap.insert(StateMap::relation(v, child));
                 dmap[v] = numeric_limits<unsigned int>::max();
@@ -180,7 +180,7 @@ int main(int argc, char **argv)
             rank_map(get(vertex_rank, g)).
             distance_map(get(vertex_distance, g)).
             predecessor_map(get(vertex_predecessor, g)));
-    } catch(found_goal&) {
+    } catch (found_goal&) {
         PredMap p = get(vertex_predecessor, g);
         list<vertex_t> shortest_path;
         for (vertex_t v = examine_seq.back();; v = p[v]) {

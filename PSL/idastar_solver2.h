@@ -50,7 +50,7 @@ class puz_solver_idastar2
             cur.gen_children(children);
             for (puz_state& child : children) {
                 // full cycle checking
-                if (m_sset.count(child) != 0)
+                if (m_sset.contains(child))
                     continue;
                 unsigned int dist = cur.get_distance(child);
                 vertex_t v = add_vertex(vert_prop(boost::white_color), g);
@@ -107,7 +107,7 @@ public:
                 color_map(get(boost::vertex_color, g)).
                 distance_map(get(boost::vertex_distance, g)).
                 predecessor_map(get(boost::vertex_predecessor, g)));
-        } catch(found_goal&) {
+        } catch (found_goal&) {
             found = true;
             PredMap p = get(boost::vertex_predecessor, g);
             list<vertex_t> shortest_path;

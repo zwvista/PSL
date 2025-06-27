@@ -55,7 +55,7 @@ class puz_solver_dfs
                     //    pmap[v] = u;
                     //    m_smap.left.replace_data(m_smap.left.find(v), child);
                     //}
-                } catch(out_of_range&) {
+                } catch (out_of_range&) {
                     vertex_t v = add_vertex(vert_prop(boost::white_color), g);
                     add_edge(u, v, edge_prop(dist), g);
                     dmap[v] = dmap[u] + dist;
@@ -88,7 +88,7 @@ public:
                 color_map(get(boost::vertex_color, g)).
                 distance_map(get(boost::vertex_distance, g)).
                 predecessor_map(get(boost::vertex_predecessor, g)));
-        } catch(found_goal&) {
+        } catch (found_goal&) {
             found = true;
             PredMap p = get(boost::vertex_predecessor, g);
             list<vertex_t> shortest_path;

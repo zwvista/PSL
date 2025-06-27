@@ -30,7 +30,7 @@ class puz_move_generator
             for (puz_state& child : children) {
                 try{
                     m_smap.right.at(child);
-                } catch(out_of_range&) {
+                } catch (out_of_range&) {
                     vertex_t v = add_vertex(vert_prop(boost::white_color), g);
                     m_smap.insert(typename StateMap::relation(v, child));
                     add_edge(u, v, g);

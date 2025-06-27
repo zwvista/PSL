@@ -364,7 +364,7 @@ void solve_puz_CulturedBranches()
 //         }
 // 
 //         for (int num : input[index]) {
-//             if (used.count(num)) continue;
+//             if (used.contains(num)) continue;
 //             path.push_back(num);
 //             used.insert(num);
 //             backtrack(index + 1);

@@ -82,7 +82,7 @@ class puz_solver_bfs
                         }
                     } else if (!first_solution_only && new_dist == dmap[v])
                         mpmap.emplace(v, u);
-                } catch(out_of_range&) {
+                } catch (out_of_range&) {
                     vertex_t v = add_vertex(vert_prop(boost::white_color), g);
                     add_edge(u, v, edge_prop(dist), g);
                     dmap[v] = new_dist;
@@ -115,7 +115,7 @@ public:
                 color_map(get(boost::vertex_color, g)).
                 distance_map(get(boost::vertex_distance, g)).
                 predecessor_map(get(boost::vertex_predecessor, g)));
-        } catch(found_goal&) {}
+        } catch (found_goal&) {}
         bool found = !context.m_goal_vertices.empty();
         if (found) {
             list<vertex_t> vertex_path;
