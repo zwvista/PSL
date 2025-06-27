@@ -27,7 +27,6 @@
 		8CA23F121EA924380055D6B1 /* MoreOrLess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23EF81EA924380055D6B1 /* MoreOrLess.cpp */; };
 		8CA23F131EA924380055D6B1 /* Mosaik.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23EFB1EA924380055D6B1 /* Mosaik.cpp */; };
 		8CA23F141EA924380055D6B1 /* MoveTheBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23EFE1EA924380055D6B1 /* MoveTheBox.cpp */; };
-		8CA23F151EA924380055D6B1 /* mummymaze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F011EA924380055D6B1 /* mummymaze.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
 		8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2B1EA926F60055D6B1 /* pugixml.cpp */; };
@@ -110,9 +109,6 @@
 		8CA23EFE1EA924380055D6B1 /* MoveTheBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoveTheBox.cpp; sourceTree = "<group>"; };
 		8CA23EFF1EA924380055D6B1 /* MoveTheBox_Boston.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MoveTheBox_Boston.txt; sourceTree = "<group>"; };
 		8CA23F001EA924380055D6B1 /* MoveTheBox_Boston.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MoveTheBox_Boston.xml; sourceTree = "<group>"; };
-		8CA23F011EA924380055D6B1 /* mummymaze.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mummymaze.cpp; sourceTree = "<group>"; };
-		8CA23F021EA924380055D6B1 /* mummymaze.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mummymaze.txt; sourceTree = "<group>"; };
-		8CA23F031EA924380055D6B1 /* mummymaze.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mummymaze.xml; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F181EA925F20055D6B1 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
 		8CA23F191EA925F20055D6B1 /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
@@ -238,9 +234,6 @@
 				8CA23EFE1EA924380055D6B1 /* MoveTheBox.cpp */,
 				8CA23EFF1EA924380055D6B1 /* MoveTheBox_Boston.txt */,
 				8CA23F001EA924380055D6B1 /* MoveTheBox_Boston.xml */,
-				8CA23F011EA924380055D6B1 /* mummymaze.cpp */,
-				8CA23F021EA924380055D6B1 /* mummymaze.txt */,
-				8CA23F031EA924380055D6B1 /* mummymaze.xml */,
 			);
 			path = Puzzles;
 			sourceTree = "<group>";
@@ -342,7 +335,6 @@
 				8CA23F0D1EA924380055D6B1 /* mazecat.cpp in Sources */,
 				8C689CC02E003A2600A2BCCC /* MineSlither.cpp in Sources */,
 				8C689CC12E003A2600A2BCCC /* MaketheDifference.cpp in Sources */,
-				8CA23F151EA924380055D6B1 /* mummymaze.cpp in Sources */,
 				8CA23F061EA924380055D6B1 /* Magnets.cpp in Sources */,
 				8CA23F121EA924380055D6B1 /* MoreOrLess.cpp in Sources */,
 				8CA23F071EA924380055D6B1 /* Masyu.cpp in Sources */,

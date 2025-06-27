@@ -10,6 +10,7 @@
 		8C689CB52E00383900A2BCCC /* FlowerbedShrubs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CB22E00383900A2BCCC /* FlowerbedShrubs.cpp */; };
 		8C689CFF2E03F0A700A2BCCC /* FlowerOMino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CFC2E03F0A700A2BCCC /* FlowerOMino.cpp */; };
 		8C689D392E08C2E500A2BCCC /* FunnyNumbers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D362E08C2E500A2BCCC /* FunnyNumbers.cpp */; };
+		8C689D532E0CFEB000A2BCCC /* Fill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D502E0CFEB000A2BCCC /* Fill.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -55,6 +56,9 @@
 		8C689D362E08C2E500A2BCCC /* FunnyNumbers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FunnyNumbers.cpp; sourceTree = "<group>"; };
 		8C689D372E08C2E500A2BCCC /* FunnyNumbers.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FunnyNumbers.txt; sourceTree = "<group>"; };
 		8C689D382E08C2E500A2BCCC /* FunnyNumbers.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FunnyNumbers.xml; sourceTree = "<group>"; };
+		8C689D502E0CFEB000A2BCCC /* Fill.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Fill.cpp; sourceTree = "<group>"; };
+		8C689D512E0CFEB000A2BCCC /* Fill.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fill.txt; sourceTree = "<group>"; };
+		8C689D522E0CFEB000A2BCCC /* Fill.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Fill.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesF */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesF; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -180,6 +184,9 @@
 				958FA646232DE76D00205831 /* Fields.cpp */,
 				958FA647232DE76D00205831 /* Fields.txt */,
 				958FA648232DE76E00205831 /* Fields.xml */,
+				8C689D502E0CFEB000A2BCCC /* Fill.cpp */,
+				8C689D512E0CFEB000A2BCCC /* Fill.txt */,
+				8C689D522E0CFEB000A2BCCC /* Fill.xml */,
 				8CA240181EB479B90055D6B1 /* Fillomino.cpp */,
 				8CA240191EB479B90055D6B1 /* Fillomino.txt */,
 				8CA2401A1EB479B90055D6B1 /* Fillomino.xml */,
@@ -318,6 +325,7 @@
 				8CA2402E1EB479B90055D6B1 /* FenceItUp.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA240361EB479B90055D6B1 /* Futoshiki.cpp in Sources */,
+				8C689D532E0CFEB000A2BCCC /* Fill.cpp in Sources */,
 				958FA6292327E62400205831 /* Farmer.cpp in Sources */,
 				95406C5D255FA37F00C87A0D /* FloorPlan.cpp in Sources */,
 				8CA240311EB479B90055D6B1 /* Fillomino.cpp in Sources */,

@@ -11,6 +11,7 @@
 		8C689C802DEEB75500A2BCCC /* SuspendedGravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */; };
 		8C689CDD2E003BFC00A2BCCC /* SlitherCorner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CDA2E003BFC00A2BCCC /* SlitherCorner.cpp */; };
 		8C689D0E2E04023200A2BCCC /* StraightAndBendLands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D0B2E04023200A2BCCC /* StraightAndBendLands.cpp */; };
+		8C689D572E0EA2E500A2BCCC /* SnakeIslands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D542E0EA2E500A2BCCC /* SnakeIslands.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -62,6 +63,9 @@
 		8C689D0B2E04023200A2BCCC /* StraightAndBendLands.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StraightAndBendLands.cpp; sourceTree = "<group>"; };
 		8C689D0C2E04023200A2BCCC /* StraightAndBendLands.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = StraightAndBendLands.txt; sourceTree = "<group>"; };
 		8C689D0D2E04023200A2BCCC /* StraightAndBendLands.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StraightAndBendLands.xml; sourceTree = "<group>"; };
+		8C689D542E0EA2E500A2BCCC /* SnakeIslands.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeIslands.cpp; sourceTree = "<group>"; };
+		8C689D552E0EA2E500A2BCCC /* SnakeIslands.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SnakeIslands.txt; sourceTree = "<group>"; };
+		8C689D562E0EA2E500A2BCCC /* SnakeIslands.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SnakeIslands.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesS; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -207,6 +211,9 @@
 				8C269F3D1F66809100489ADC /* Snake.cpp */,
 				8C269F3E1F66809100489ADC /* Snake.txt */,
 				8C269F3F1F66809100489ADC /* Snake.xml */,
+				8C689D542E0EA2E500A2BCCC /* SnakeIslands.cpp */,
+				8C689D552E0EA2E500A2BCCC /* SnakeIslands.txt */,
+				8C689D562E0EA2E500A2BCCC /* SnakeIslands.xml */,
 				8CA2414D1EB47AEC0055D6B1 /* sokoban.cpp */,
 				8CA2414E1EB47AEC0055D6B1 /* sokoban.txt */,
 				8CA2414F1EB47AEC0055D6B1 /* sokoban.xml */,
@@ -333,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CA241631EB47AEC0055D6B1 /* Square100.cpp in Sources */,
+				8C689D572E0EA2E500A2BCCC /* SnakeIslands.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA2415F1EB47AEC0055D6B1 /* SlitherLink.cpp in Sources */,
 				8C689D0E2E04023200A2BCCC /* StraightAndBendLands.cpp in Sources */,

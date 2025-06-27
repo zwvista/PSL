@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8C689D3A2E08C3E200A2BCCC /* fullsearch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D212E08BE6400A2BCCC /* fullsearch.cpp */; };
-		8C689D3B2E08C3E700A2BCCC /* pathfind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D262E08BE6400A2BCCC /* pathfind.cpp */; };
+		8C689D4A2E0CFE0400A2BCCC /* mummymaze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D442E0CFDFC00A2BCCC /* mummymaze.cpp */; };
+		8C689D4B2E0CFE0A00A2BCCC /* Patchmania.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D472E0CFDFC00A2BCCC /* Patchmania.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -31,19 +31,12 @@
 /* Begin PBXFileReference section */
 		8C5F12B12DE3790F00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12B22DE3790F00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
-		8C689D212E08BE6400A2BCCC /* fullsearch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fullsearch.cpp; sourceTree = "<group>"; };
-		8C689D222E08BE6400A2BCCC /* fullsearch.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = fullsearch.xml; sourceTree = "<group>"; };
-		8C689D232E08BE6400A2BCCC /* fullsearch_astar.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = fullsearch_astar.txt; sourceTree = "<group>"; };
-		8C689D242E08BE6400A2BCCC /* fullsearch_bfs.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = fullsearch_bfs.txt; sourceTree = "<group>"; };
-		8C689D252E08BE6400A2BCCC /* fullsearch_dijkstra.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = fullsearch_dijkstra.txt; sourceTree = "<group>"; };
-		8C689D262E08BE6400A2BCCC /* pathfind.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pathfind.cpp; sourceTree = "<group>"; };
-		8C689D272E08BE6400A2BCCC /* pathfind.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = pathfind.xml; sourceTree = "<group>"; };
-		8C689D282E08BE6400A2BCCC /* pathfind_astar.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = pathfind_astar.txt; sourceTree = "<group>"; };
-		8C689D292E08BE6400A2BCCC /* pathfind_bfs.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = pathfind_bfs.txt; sourceTree = "<group>"; };
-		8C689D2A2E08BE6400A2BCCC /* pathfind_dfs.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = pathfind_dfs.txt; sourceTree = "<group>"; };
-		8C689D2B2E08BE6400A2BCCC /* pathfind_dijkstra.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = pathfind_dijkstra.txt; sourceTree = "<group>"; };
-		8C689D2C2E08BE6400A2BCCC /* pathfind_idastar.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = pathfind_idastar.txt; sourceTree = "<group>"; };
-		8C689D2D2E08BE6400A2BCCC /* pathfind_idastar2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = pathfind_idastar2.txt; sourceTree = "<group>"; };
+		8C689D442E0CFDFC00A2BCCC /* mummymaze.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mummymaze.cpp; sourceTree = "<group>"; };
+		8C689D452E0CFDFC00A2BCCC /* mummymaze.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = mummymaze.txt; sourceTree = "<group>"; };
+		8C689D462E0CFDFC00A2BCCC /* mummymaze.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = mummymaze.xml; sourceTree = "<group>"; };
+		8C689D472E0CFDFC00A2BCCC /* Patchmania.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Patchmania.cpp; sourceTree = "<group>"; };
+		8C689D482E0CFDFC00A2BCCC /* Patchmania.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Patchmania.txt; sourceTree = "<group>"; };
+		8C689D492E0CFDFC00A2BCCC /* Patchmania.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Patchmania.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* Puzzles_Complicated */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Puzzles_Complicated; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -107,19 +100,12 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
-				8C689D212E08BE6400A2BCCC /* fullsearch.cpp */,
-				8C689D222E08BE6400A2BCCC /* fullsearch.xml */,
-				8C689D232E08BE6400A2BCCC /* fullsearch_astar.txt */,
-				8C689D242E08BE6400A2BCCC /* fullsearch_bfs.txt */,
-				8C689D252E08BE6400A2BCCC /* fullsearch_dijkstra.txt */,
-				8C689D262E08BE6400A2BCCC /* pathfind.cpp */,
-				8C689D272E08BE6400A2BCCC /* pathfind.xml */,
-				8C689D282E08BE6400A2BCCC /* pathfind_astar.txt */,
-				8C689D292E08BE6400A2BCCC /* pathfind_bfs.txt */,
-				8C689D2A2E08BE6400A2BCCC /* pathfind_dfs.txt */,
-				8C689D2B2E08BE6400A2BCCC /* pathfind_dijkstra.txt */,
-				8C689D2C2E08BE6400A2BCCC /* pathfind_idastar.txt */,
-				8C689D2D2E08BE6400A2BCCC /* pathfind_idastar2.txt */,
+				8C689D442E0CFDFC00A2BCCC /* mummymaze.cpp */,
+				8C689D452E0CFDFC00A2BCCC /* mummymaze.txt */,
+				8C689D462E0CFDFC00A2BCCC /* mummymaze.xml */,
+				8C689D472E0CFDFC00A2BCCC /* Patchmania.cpp */,
+				8C689D482E0CFDFC00A2BCCC /* Patchmania.txt */,
+				8C689D492E0CFDFC00A2BCCC /* Patchmania.xml */,
 			);
 			path = Puzzles;
 			sourceTree = "<group>";
@@ -218,10 +204,10 @@
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
-				8C689D3B2E08C3E700A2BCCC /* pathfind.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
-				8C689D3A2E08C3E200A2BCCC /* fullsearch.cpp in Sources */,
+				8C689D4A2E0CFE0400A2BCCC /* mummymaze.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
+				8C689D4B2E0CFE0A00A2BCCC /* Patchmania.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

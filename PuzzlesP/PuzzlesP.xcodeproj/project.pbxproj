@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8C5AE25B1EC0BAF5000F0949 /* Patchmania.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C5AE2581EC0BAF5000F0949 /* Patchmania.cpp */; };
 		8C689CD62E003B5700A2BCCC /* PathOnTheHills.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CCA2E003B5700A2BCCC /* PathOnTheHills.cpp */; };
 		8C689CD72E003B5700A2BCCC /* PathOnTheMountains.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CCD2E003B5700A2BCCC /* PathOnTheMountains.cpp */; };
 		8C689CD82E003B5700A2BCCC /* PondCamping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CD32E003B5700A2BCCC /* PondCamping.cpp */; };
@@ -53,9 +52,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8C5AE2581EC0BAF5000F0949 /* Patchmania.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Patchmania.cpp; sourceTree = "<group>"; };
-		8C5AE2591EC0BAF5000F0949 /* Patchmania.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Patchmania.txt; sourceTree = "<group>"; };
-		8C5AE25A1EC0BAF5000F0949 /* Patchmania.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Patchmania.xml; sourceTree = "<group>"; };
 		8C5F12A52DE378DA00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12A62DE378DA00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C689CCA2E003B5700A2BCCC /* PathOnTheHills.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PathOnTheHills.cpp; sourceTree = "<group>"; };
@@ -221,9 +217,6 @@
 				8CA240E71EB47AC40055D6B1 /* Pata.cpp */,
 				8CA240E81EB47AC40055D6B1 /* Pata.txt */,
 				8CA240E91EB47AC40055D6B1 /* Pata.xml */,
-				8C5AE2581EC0BAF5000F0949 /* Patchmania.cpp */,
-				8C5AE2591EC0BAF5000F0949 /* Patchmania.txt */,
-				8C5AE25A1EC0BAF5000F0949 /* Patchmania.xml */,
 				8C689CCA2E003B5700A2BCCC /* PathOnTheHills.cpp */,
 				8C689CCB2E003B5700A2BCCC /* PathOnTheHills.txt */,
 				8C689CCC2E003B5700A2BCCC /* PathOnTheHills.xml */,
@@ -383,7 +376,6 @@
 				95406C33255FA19900C87A0D /* Picnic.cpp in Sources */,
 				8CDAE7DA1F5ADE96000DE5AF /* PaintTheNurikabe.cpp in Sources */,
 				955BEDC12303AC1D00535B97 /* Planets.cpp in Sources */,
-				8C5AE25B1EC0BAF5000F0949 /* Patchmania.cpp in Sources */,
 				8CA241151EB47AC40055D6B1 /* pegsolitary.cpp in Sources */,
 				8CA241181EB47AC40055D6B1 /* PowerGrid.cpp in Sources */,
 				95406C32255FA19900C87A0D /* Pipemania.cpp in Sources */,
