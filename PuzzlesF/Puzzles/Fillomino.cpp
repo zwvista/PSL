@@ -68,11 +68,11 @@ struct puz_game
     int m_sidelen;
     puz_game_type m_game_type;
     map<Position, int> m_pos2num;
-    vector<int> m_start;
+    vector<int> m_cells;
     map<Position, char> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -94,7 +94,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
             int n = ch == ' ' ? PUZ_UNKNOWN : ch - '0';
-            m_start.push_back(n);
+            m_cells.push_back(n);
             if (n != PUZ_UNKNOWN)
                 m_pos2num[{r, c}] = n;
         }
@@ -180,7 +180,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 puz_state::puz_state(const puz_game& g)
-: vector<int>(g.m_start), m_game(&g)
+: vector<int>(g.m_cells), m_game(&g)
 , m_horz_walls(g.m_horz_walls)
 , m_vert_walls(g.m_vert_walls)
 {

@@ -65,10 +65,10 @@ struct puz_game
     set<Position> m_horz_walls, m_vert_walls;
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
@@ -116,7 +116,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
             rng.insert(p);
-            m_start.push_back(str_v[c * 2 + 1]);
+            m_cells.push_back(str_v[c * 2 + 1]);
         }
     }
 

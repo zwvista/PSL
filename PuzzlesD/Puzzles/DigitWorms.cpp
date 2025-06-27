@@ -49,7 +49,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     vector<set<Position>> m_areas;
     map<Position, int> m_pos2area;
     vector<puz_moves> m_area2moves;
@@ -127,7 +127,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (str_v[c * 2] == '|')
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
-            m_start.push_back(str_v[c * 2 + 1]);
+            m_cells.push_back(str_v[c * 2 + 1]);
             rng.insert(p);
         }
     }
@@ -182,7 +182,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
+: string(g.m_cells), m_game(&g)
 {
     for (int i = 0; i < g.m_area2moves.size(); ++i) {
         auto& v = m_matches[i];

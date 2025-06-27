@@ -23,7 +23,7 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
@@ -34,7 +34,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size(), strs[0].length())
 {
-    m_start = boost::accumulate(strs, string());
+    m_cells = boost::accumulate(strs, string());
 }
 
 struct puz_step : pair<Position, int>
@@ -75,7 +75,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_start), m_game(&g)
+    : string(g.m_cells), m_game(&g)
 {
 }
 

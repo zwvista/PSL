@@ -40,7 +40,7 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    string m_pipes, m_start;
+    string m_pipes, m_cells;
     Position m_entrance, m_exit;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -53,7 +53,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size(), strs[0].length() - 2)
-    , m_start(rows() * cols() * 3, '.')
+    , m_cells(rows() * cols() * 3, '.')
 {
     for (int r = 0; r < rows(); ++r) {
         const string& s = strs[r];
@@ -68,7 +68,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 struct puz_state
 {
     puz_state(const puz_game& g) 
-        : m_game(&g), m_cells(g.m_start), m_connected(false)
+        : m_game(&g), m_cells(g.m_cells), m_connected(false)
         , m_frontier(1, {m_game->m_entrance, 'e'}) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}

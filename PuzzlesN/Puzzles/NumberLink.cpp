@@ -53,7 +53,7 @@ struct puz_game
     map<char, vector<Position>> m_num2targets;
     vector<pair<char, int>> m_num2dist;
     bool m_no_board_fill;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -63,22 +63,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 2)
 , m_no_board_fill(level.attribute("NoBoardFill").as_int() == 1)
 {
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
-            m_start.push_back(ch);
+            m_cells.push_back(ch);
             if (ch != PUZ_SPACE) {
                 Position p(r, c);
                 m_pos2num[p] = ch;
                 m_num2targets[ch].push_back(p);
             }
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [n, targets] : m_num2targets) {
         int sz = targets.size();
@@ -135,10 +135,10 @@ struct puz_state : vector<string>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<string>(g.m_start.size()), m_game(&g)
+: vector<string>(g.m_cells.size()), m_game(&g)
 {
     for (int i = 0; i < size(); ++i)
-        (*this)[i] = g.m_start[i] + lineseg_off;
+        (*this)[i] = g.m_cells[i] + lineseg_off;
     
     for (auto& [n, dist] : g.m_num2dist)
         m_num2targets.emplace_back(n, g.m_num2targets.at(n));

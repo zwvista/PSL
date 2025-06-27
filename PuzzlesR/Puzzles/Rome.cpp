@@ -43,7 +43,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_areas;
@@ -101,7 +101,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
-            m_start.push_back(ch);
+            m_cells.push_back(ch);
             if (ch != PUZ_ROME)
                 rng.insert(p);
         }
@@ -167,7 +167,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_cells)
 {
     for (int i = 0; i < g.m_areas.size(); ++i) {
         vector<int> perm_ids(g.m_size2perms.at(g.m_areas[i].size()).size());

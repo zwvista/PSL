@@ -65,7 +65,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     // key: the position of flower
     // value: 
     //   one position: The flower is at the center of the tile.
@@ -78,13 +78,13 @@ struct puz_game
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
-    char& cells(const Position& p) { return m_start[p.first * m_sidelen + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
-, m_start(m_sidelen * m_sidelen, PUZ_SPACE)
+, m_cells(m_sidelen * m_sidelen, PUZ_SPACE)
 {
     for (int r = 0; r < m_sidelen; ++r) {
         string_view str = strs[r];
@@ -158,7 +158,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
+: string(g.m_cells), m_game(&g)
 , m_matches(g.m_pos2piece_ids)
 {
     find_matches(true);

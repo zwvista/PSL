@@ -51,7 +51,7 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    string m_start;
+    string m_cells;
     map<Position, puz_block> m_pos2block;
     map<Position, int> m_pos2dir;
 
@@ -64,40 +64,40 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size() + 2, strs[0].length() + 2)
 {
-    m_start.append(cols(), PUZ_BLOCK_FIXED);
+    m_cells.append(cols(), PUZ_BLOCK_FIXED);
     for (int r = 1; r < rows() - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BLOCK_FIXED);
+        m_cells.push_back(PUZ_BLOCK_FIXED);
         for (int c = 1; c < cols() - 1; ++c)
             switch(Position p(r, c); char ch = str[c - 1]) {
             case PUZ_HOLE_EMPTY:
             case PUZ_HOLE_BONSAI:
             case PUZ_BLOCK_FIXED:
-                m_start.push_back(ch);
+                m_cells.push_back(ch);
                 break;
             case PUZ_BLOCK_STOP:
-                m_start.push_back(ch);
+                m_cells.push_back(ch);
                 m_pos2block[p] = {puz_block_type::STOP, 1};
                 break;
             case PUZ_BLOCK_FIRE:
-                m_start.push_back(ch);
+                m_cells.push_back(ch);
                 m_pos2block[p] = {puz_block_type::FIRE, 1};
                 break;
             default:
                 if (isdigit(ch)) {
                     m_pos2block[p] = {puz_block_type::ICE, ch - '0'};
-                    m_start.push_back(PUZ_BLOCK_ICE);
+                    m_cells.push_back(PUZ_BLOCK_ICE);
                 } else {
                     int n = arrows.find(ch);
                     if (n != -1) {
                         m_pos2dir[p] = n;
-                        m_start.push_back(PUZ_BLOCK_ARROW);
+                        m_cells.push_back(PUZ_BLOCK_ARROW);
                     }
                 }
             }
-        m_start.push_back(PUZ_BLOCK_FIXED);
+        m_cells.push_back(PUZ_BLOCK_FIXED);
     }
-    m_start.append(cols(), PUZ_BLOCK_FIXED);
+    m_cells.append(cols(), PUZ_BLOCK_FIXED);
 }
 
 struct puz_step : pair<Position, int>
@@ -139,7 +139,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_start), m_game(&g), m_pos2block(g.m_pos2block)
+    : string(g.m_cells), m_game(&g), m_pos2block(g.m_pos2block)
 {
 }
 

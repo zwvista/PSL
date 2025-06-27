@@ -23,13 +23,13 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_start;
+    vector<int> m_cells;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_area2range;
     // all permutations
     map<int, vector<vector<int>>> m_area2perms;
-    int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -45,7 +45,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             auto s = str.substr(c * 2, 2);
             int n = s != "  " ? stoi(string(s)) : PUZ_UNKNOWN;
-            m_start.push_back(n);
+            m_cells.push_back(n);
             m_area2range[r].push_back(p);
             m_area2range[m_sidelen + c].push_back(p);
         }
@@ -108,7 +108,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_cells)
 {
     for (int i = 0; i < sidelen() - 1; ++i)
         for (int j = 0; j < 2; ++j) {

@@ -85,10 +85,10 @@ struct puz_game
     int m_dot_count;
     map<Position, int> m_pos2num;
     map<int, vector<int>> m_num2perms;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * (m_sidelen + 1) + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * (m_sidelen + 1) + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -98,19 +98,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     // 5. In the end all the sheep must be corralled inside the loop, while
     // all the wolves must be outside.
-    m_start.append(m_sidelen + 1, PUZ_WOLF);
+    m_cells.append(m_sidelen + 1, PUZ_WOLF);
     for (int r = 1; r < m_sidelen; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_WOLF);
+        m_cells.push_back(PUZ_WOLF);
         for (int c = 1; c < m_sidelen; ++c) {
             char ch = str[c - 1];
             bool b = isdigit(ch);
-            m_start.push_back(b ? PUZ_SPACE : ch);
+            m_cells.push_back(b ? PUZ_SPACE : ch);
             m_pos2num[{r, c}] = b ? ch - '0' : PUZ_UNKNOWN;
         }
-        m_start.push_back(PUZ_WOLF);
+        m_cells.push_back(PUZ_WOLF);
     }
-    m_start.append(m_sidelen + 1, PUZ_WOLF);
+    m_cells.append(m_sidelen + 1, PUZ_WOLF);
 
     // 3. Each number tells you on how many of its four sides are touched
     // by the path.
@@ -171,7 +171,7 @@ struct puz_state
 
 puz_state::puz_state(const puz_game& g)
 : m_dots(g.m_dot_count, {lineseg_off}), m_game(&g)
-, m_cells(g.m_start)
+, m_cells(g.m_cells)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {

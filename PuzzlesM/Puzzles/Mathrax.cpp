@@ -50,7 +50,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_start;
+    vector<int> m_cells;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_area_rc2range;
@@ -70,7 +70,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            m_start.push_back(ch == ' ' ? PUZ_SPACE : ch - '0');
+            m_cells.push_back(ch == ' ' ? PUZ_SPACE : ch - '0');
             Position p(r, c);
             m_area_rc2range[r].push_back(p);
             m_area_rc2range[m_sidelen + c].push_back(p);
@@ -163,7 +163,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     for (int i = 0; i < g.m_area_count; ++i) {
         auto& perm_ids = m_matches[i];

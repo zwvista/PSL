@@ -29,7 +29,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     vector<Position3dPair> m_markers;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -39,9 +39,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs[0].length())
 {
-    m_start = boost::accumulate(strs, string());
-    for (size_t i = 0; i < m_start.length(); ++i) {
-        char ch = m_start[i];
+    m_cells = boost::accumulate(strs, string());
+    for (size_t i = 0; i < m_cells.length(); ++i) {
+        char ch = m_cells[i];
         if (islower(ch)) {
             Position3d* pv;
             int n = ch - 'a';
@@ -123,7 +123,7 @@ unsigned int puz_state_base::manhattan_distance3d(const Position3d& p31, const P
 
 struct puz_state : puz_state_base
 {
-    puz_state(const puz_game& g) : m_cells(g.m_start), m_links(g.m_markers)
+    puz_state(const puz_game& g) : m_cells(g.m_cells), m_links(g.m_markers)
     {
         m_game = &g;
     }

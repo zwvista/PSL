@@ -9,21 +9,21 @@ namespace puzzles::rotationgame{
 struct puz_game
 {
     string m_id;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_start(boost::erase_all_copy(strs[0], " "))
+    , m_cells(boost::erase_all_copy(strs[0], " "))
 {
 }
 
 struct puz_state : string
 {
     puz_state(const puz_game& g)
-        : string(g.m_start), m_move(0) {}
+        : string(g.m_cells), m_move(0) {}
     void make_rotation(int n, bool reverse, char m);
 
     // solve_puzzle interface

@@ -46,30 +46,30 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_start;
+    vector<int> m_cells;
     map<Position, puz_arrow> m_pos2arrows;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    m_start.push_back(PUZ_CORNER);
-    m_start.insert(m_start.end(), m_sidelen - 2, PUZ_BORDER);
-    m_start.push_back(PUZ_CORNER);
+    m_cells.push_back(PUZ_CORNER);
+    m_cells.insert(m_cells.end(), m_sidelen - 2, PUZ_BORDER);
+    m_cells.push_back(PUZ_CORNER);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BORDER);
+        m_cells.push_back(PUZ_BORDER);
         for (int c = 1; c < m_sidelen - 1; ++c)
-            m_start.push_back(str[c - 1] - '0');
-        m_start.push_back(PUZ_BORDER);
+            m_cells.push_back(str[c - 1] - '0');
+        m_cells.push_back(PUZ_BORDER);
     }
-    m_start.push_back(PUZ_CORNER);
-    m_start.insert(m_start.end(), m_sidelen - 2, PUZ_BORDER);
-    m_start.push_back(PUZ_CORNER);
+    m_cells.push_back(PUZ_CORNER);
+    m_cells.insert(m_cells.end(), m_sidelen - 2, PUZ_BORDER);
+    m_cells.push_back(PUZ_CORNER);
 
     for (int r = 1; r < m_sidelen - 1; ++r)
         for (int c = 1; c < m_sidelen - 1; ++c) {
@@ -142,7 +142,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     for (auto& [p, arrows] : g.m_pos2arrows) {
         auto& perm_ids = m_matches[p];

@@ -45,11 +45,11 @@ struct puz_game
     vector<int> m_piece_counts_rows, m_piece_counts_cols;
     vector<puz_cloud> m_clouds;
     set<Position> m_pieces;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
-    char& cells(const Position& p) { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -57,7 +57,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size() + 1)
     , m_piece_counts_rows(m_sidelen)
     , m_piece_counts_cols(m_sidelen)
-    , m_start(m_sidelen * m_sidelen, PUZ_SPACE)
+    , m_cells(m_sidelen * m_sidelen, PUZ_SPACE)
 {
     for (int i = 0; i < m_sidelen; ++i)
         cells({i, 0}) = cells({i, m_sidelen - 1}) =
@@ -135,7 +135,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_start), m_game(&g)
+    : string(g.m_cells), m_game(&g)
     , m_piece_counts_rows(g.m_piece_counts_rows)
     , m_piece_counts_cols(g.m_piece_counts_cols)
     , m_pieces(g.m_pieces)

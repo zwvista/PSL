@@ -39,7 +39,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_start;
+    vector<int> m_cells;
     puz_shaded m_shaded;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -49,21 +49,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
+    m_cells.insert(m_cells.end(), m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
             char ch = str[c - 1];
             int n = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
-            m_start.push_back(n);
+            m_cells.push_back(n);
             m_shaded[{r, n}].push_back(p);
             m_shaded[{m_sidelen + c, n}].push_back(p);
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.insert(m_start.end(), m_sidelen, PUZ_BOUNDARY);
+    m_cells.insert(m_cells.end(), m_sidelen, PUZ_BOUNDARY);
 
     // All numbers that appear only once in a row or column are removed
     // as they are not the targets to be shaded
@@ -77,7 +77,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 struct puz_state : vector<int>
 {
     puz_state(const puz_game& g)
-        : vector<int>(g.m_start), m_game(&g), m_shaded(g.m_shaded)
+        : vector<int>(g.m_cells), m_game(&g), m_shaded(g.m_shaded)
     {}
 
     int sidelen() const {return m_game->m_sidelen;}

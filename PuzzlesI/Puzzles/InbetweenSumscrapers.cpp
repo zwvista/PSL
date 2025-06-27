@@ -28,7 +28,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_start;
+    vector<int> m_cells;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_area2range;
@@ -48,7 +48,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             auto s = str.substr(c * 2, 2);
             int n = s == "  " ? PUZ_SPACE : stoi(string(s));
-            m_start.push_back(n);
+            m_cells.push_back(n);
             Position p(r, c);
             m_area2range[r].push_back(p);
             m_area2range[m_sidelen + c].push_back(p);
@@ -102,7 +102,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_cells)
 {
     vector<int> perm_ids(g.m_perms.size());
     boost::iota(perm_ids, 0);

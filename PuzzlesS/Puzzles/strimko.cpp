@@ -10,7 +10,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     map<Position, char> m_pos2area;
     vector<vector<Position>> m_areas;
     vector<string> m_perms;
@@ -22,7 +22,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() / 2)
 {
-    m_start = accumulate(strs.begin(), strs.begin() + m_sidelen, string());
+    m_cells = accumulate(strs.begin(), strs.begin() + m_sidelen, string());
     m_areas.resize(m_sidelen * 3);
     for (int r = 0; r < m_sidelen; ++r) {
         string_view str = strs[r + m_sidelen];
@@ -68,7 +68,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     for (int i = 0; i < sidelen() * 3; ++i) {
         auto& perm_ids = m_matches[i];

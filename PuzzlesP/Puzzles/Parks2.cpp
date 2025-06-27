@@ -56,7 +56,7 @@ struct puz_game
     int m_sidelen;
     int m_tree_count_area;
     int m_tree_total_count;
-    string m_start;
+    string m_cells;
     map<Position, int> m_pos2park;
     vector<puz_area_info> m_area_info;
     set<Position> m_horz_walls, m_vert_walls;
@@ -113,7 +113,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
-            m_start.push_back(ch);
+            m_cells.push_back(ch);
             if (ch != PUZ_EMPTY) {
                 rng.insert(p);
                 m_area_info[r].m_range.push_back(p);
@@ -190,7 +190,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     for (int i = 0; i < sidelen() * 3; ++i)
         m_matches[i];

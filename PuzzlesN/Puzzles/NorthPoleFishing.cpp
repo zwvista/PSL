@@ -55,12 +55,12 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<Position, char> m_pos2hole;
-    string m_start;
+    string m_cells;
     vector<puz_piece> m_pieces;
     map<Position, vector<int>> m_pos2piece_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : set<Position>
@@ -98,19 +98,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size() + 2)
 {
     char name = 'a';
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c)
             if (char ch = str[c - 1]; ch == PUZ_HOLE) {
-                m_start.push_back(PUZ_SPACE);
+                m_cells.push_back(PUZ_SPACE);
                 m_pos2hole[{r, c}] = name++;
             } else
-                m_start.push_back(ch);
-        m_start.push_back(PUZ_BOUNDARY);
+                m_cells.push_back(ch);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [p, name] : m_pos2hole) {
         puz_state2 sstart(*this, PUZ_PIECE_SIZE, p);
@@ -156,7 +156,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_start), m_game(&g)
+    : string(g.m_cells), m_game(&g)
     , m_matches(g.m_pos2piece_ids)
 {
     find_matches(true);

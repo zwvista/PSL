@@ -40,9 +40,9 @@ struct puz_generator
 {
     int m_sidelen;
     map<Position, int> m_pos2hint;
-    string m_start;
-    char cells(const Position& p) const { return m_start.at(p.first * m_sidelen + p.second); }
-    char& cells(const Position& p) { return m_start[p.first * m_sidelen + p.second]; }
+    string m_cells;
+    char cells(const Position& p) const { return m_cells.at(p.first * m_sidelen + p.second); }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 
     puz_generator(int n);
     Position gen_elem(int n, char ch_old, char ch_new);
@@ -55,13 +55,13 @@ struct puz_generator
 puz_generator::puz_generator(int n)
     : m_sidelen(n + 2)
 {
-    m_start.append(m_sidelen, PUZ_WALL);
+    m_cells.append(m_sidelen, PUZ_WALL);
     for (int r = 1; r < m_sidelen - 1; ++r) {
-        m_start.push_back(PUZ_WALL);
-        m_start.append(m_sidelen - 2, PUZ_SPACE);
-        m_start.push_back(PUZ_WALL);
+        m_cells.push_back(PUZ_WALL);
+        m_cells.append(m_sidelen - 2, PUZ_SPACE);
+        m_cells.push_back(PUZ_WALL);
     }
-    m_start.append(m_sidelen, PUZ_WALL);
+    m_cells.append(m_sidelen, PUZ_WALL);
 }
 
 Position puz_generator::gen_elem(int n, char ch_old, char ch_new)
@@ -81,7 +81,7 @@ Position puz_generator::gen_elem(int n, char ch_old, char ch_new)
 void puz_generator::gen_walls(int n)
 {
     for (int i = 0; i < n; i++) {
-        int m = rand() % boost::count(m_start, PUZ_SPACE);
+        int m = rand() % boost::count(m_cells, PUZ_SPACE);
         auto p = gen_elem(m, PUZ_SPACE, PUZ_WALL);
         m_pos2hint[p] = 0;
     }
@@ -90,7 +90,7 @@ void puz_generator::gen_walls(int n)
 void puz_generator::gen_lightbulbs()
 {
     for (;;) {
-        int n = boost::count(m_start, PUZ_SPACE);
+        int n = boost::count(m_cells, PUZ_SPACE);
         if (n == 0) return;
         int m = rand() % n;
         auto p = gen_elem(m, PUZ_SPACE, PUZ_BULB);

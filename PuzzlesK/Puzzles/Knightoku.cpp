@@ -68,13 +68,13 @@ struct puz_game
     map<Position, char> m_horz_walls, m_vert_walls;
     vector<vector<Position>> m_areas;
     map<Position, puz_pos_info> m_pos2info;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
@@ -128,7 +128,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 rng.insert(p);
                 m_areas[p.first].push_back(p);
                 m_areas[m_sidelen + p.second].push_back(p);
-                m_start.push_back(str_v[c * 2 + 1]);
+                m_cells.push_back(str_v[c * 2 + 1]);
             }
         }
         for (int n = 0; !rng.empty(); ++n) {
@@ -144,7 +144,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             boost::sort(area);
         }
     } else {
-        m_start = boost::accumulate(strs, string());
+        m_cells = boost::accumulate(strs, string());
         for (int r = 0; r < m_sidelen; ++r)
             for (int c = 0; c < m_sidelen; ++c) {
                 Position p(r, c);

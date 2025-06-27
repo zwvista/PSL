@@ -41,11 +41,11 @@ struct puz_game
     // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_area2range;
     map<int, vector<string>> m_num2perms;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
-    char& cells(const Position& p) { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -53,7 +53,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size() - 1)
     , m_area2piece_count(m_sidelen * 2)
     , m_area2range(m_sidelen * 2)
-    , m_start(m_sidelen * m_sidelen, PUZ_SPACE)
+    , m_cells(m_sidelen * m_sidelen, PUZ_SPACE)
 {
     for (int r = 0, n = 0; r <= m_sidelen; ++r) {
         string_view str = strs[r];
@@ -123,7 +123,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_cells(g.m_start), m_game(&g)
+    : m_cells(g.m_cells), m_game(&g)
     , m_area2piece_count(g.m_area2piece_count)
 {
     for (int i = 0; i < sidelen() * 2; ++i) {

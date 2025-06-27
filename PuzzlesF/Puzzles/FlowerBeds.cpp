@@ -41,19 +41,19 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     vector<puz_box> m_boxes;
     map<Position, vector<int>> m_pos2boxids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
 {
-    m_start = boost::accumulate(strs, string());
+    m_cells = boost::accumulate(strs, string());
 
     for (int r1 = 0; r1 < m_sidelen; ++r1)
         for (int c1 = 0; c1 < m_sidelen; ++c1)
@@ -120,7 +120,7 @@ struct puz_state
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
-, m_cells(g.m_start)
+, m_cells(g.m_cells)
 , m_matches(g.m_pos2boxids)
 {
     boost::replace_all(m_cells, string(1, PUZ_FLOWER), string(1, PUZ_SPACE));

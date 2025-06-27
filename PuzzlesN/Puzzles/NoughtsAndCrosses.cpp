@@ -49,10 +49,10 @@ struct puz_game
     int m_num;
     puz_numbers m_numbers;
     vector<vector<Position>> m_area_pos;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -62,7 +62,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_area_pos(m_sidelen * 2)
     , m_numbers(m_num)
 {
-    m_start = boost::accumulate(strs, string());
+    m_cells = boost::accumulate(strs, string());
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);

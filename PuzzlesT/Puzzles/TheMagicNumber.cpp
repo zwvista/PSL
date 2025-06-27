@@ -36,7 +36,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     int m_num_symbols;
-    string m_start;
+    string m_cells;
     vector<vector<Position>> m_area2range;
     vector<string> m_perms_rc;
     map<char, vector<string>> m_ch2perms_around;
@@ -51,18 +51,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_num_symbols(strs.size() / 3)
 , m_area2range(m_sidelen * 2)
 {
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
             m_area2range[r].push_back(p);
             m_area2range[m_sidelen + c].push_back(p);
             if (char ch = str[c - 1]; !islower(ch))
-                m_start.push_back(ch);
+                m_cells.push_back(ch);
             else {
-                m_start.push_back(toupper(ch));
+                m_cells.push_back(toupper(ch));
                 m_pos2char.emplace(p, ch);
                 auto& rng = m_area2range.emplace_back();
                 rng.push_back(p);
@@ -70,9 +70,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     rng.push_back(p + os);
             }
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     string perm;
     for (char ch = 'A'; ch <= 'C'; ++ch)
@@ -125,7 +125,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     vector<int> perm_ids(g.m_perms_rc.size());
     boost::iota(perm_ids, 0);

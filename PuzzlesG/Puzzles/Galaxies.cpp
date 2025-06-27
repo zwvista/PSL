@@ -40,18 +40,18 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     vector<Position> m_galaxies;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * (m_sidelen - 2) + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * (m_sidelen - 2) + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    m_start = boost::accumulate(strs, string());
+    m_cells = boost::accumulate(strs, string());
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
         for (int c = 1; c < m_sidelen - 1; ++c)

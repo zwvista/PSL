@@ -27,10 +27,10 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_start;
+    vector<int> m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
@@ -45,7 +45,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             int n = stoi(string(str.substr(c * 2, 2)));
-            m_start.push_back(n);
+            m_cells.push_back(n);
         }
     }
 }
@@ -58,7 +58,7 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_p, m_nums) < tie(x.m_p, x.m_nums);
     }
-    int count() const { return m_game->m_start.back(); }
+    int count() const { return m_game->m_cells.back(); }
     bool make_move(const Position& p);
 
     // solve_puzzle interface
@@ -78,7 +78,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_game(&g), m_p{}, m_nums{g.m_start[0]}
+    : m_game(&g), m_p{}, m_nums{g.m_cells[0]}
 {
 }
 

@@ -53,7 +53,7 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    string m_start;
+    string m_cells;
     Position m_nest;
     map<int, Position> m_cheese2pos;
     map<Position, int> m_pos2cheese;
@@ -65,7 +65,7 @@ struct puz_game
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
-    char cells(const Position& p) const { return m_start[p.first * cols() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -76,7 +76,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r + 1];
         for (int c = 0; c < cols(); ++c) {
             char ch = str[c];
-            m_start.push_back(ch);
+            m_cells.push_back(ch);
             Position p(r, c);
             if (ch == PUZ_NEST)
                 m_nest = p;

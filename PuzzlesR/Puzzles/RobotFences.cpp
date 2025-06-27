@@ -46,11 +46,11 @@ struct puz_game
     string m_id;
     int m_sidelen;
     vector<puz_area> m_areas;
-    string m_start;
+    string m_cells;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
@@ -99,7 +99,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
-            m_start.push_back(ch);
+            m_cells.push_back(ch);
             rng.insert(p);
         }
     }
@@ -171,7 +171,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     for (int i = 0; i < g.m_areas.size(); ++i) {
         auto& perm_ids = m_matches[i];

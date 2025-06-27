@@ -29,11 +29,11 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_start;
+    vector<int> m_cells;
     map<Position, set<Position>> m_pos2rng;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
@@ -47,7 +47,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             int n = str[c] - '0';
-            m_start.push_back(n);
+            m_cells.push_back(n);
             Position p(r, c);
             auto& rng = m_pos2rng[p];
             auto& os = offset[n];

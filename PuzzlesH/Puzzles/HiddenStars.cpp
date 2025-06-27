@@ -46,7 +46,7 @@ struct puz_game
     map<Position, int> m_pos2arrow;
     vector<int> m_star_counts_rows, m_star_counts_cols;
     int m_star_total_count;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -63,7 +63,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen + 1; c++) {
             char ch = str[c];
             if (ch == PUZ_SPACE)
-                m_start.push_back(PUZ_EMPTY);
+                m_cells.push_back(PUZ_EMPTY);
             else {
                 n = ch - '0';
                 if (c == m_sidelen)
@@ -72,7 +72,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     m_star_counts_cols[c] = n;
                 else {
                     m_pos2arrow[{r, c}] = n;
-                    m_start.push_back(PUZ_ARROW);
+                    m_cells.push_back(PUZ_ARROW);
                 }
             }
         }
@@ -147,7 +147,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
+: string(g.m_cells), m_game(&g)
 , m_grp_arrows(vector<int>(g.m_pos2arrow.size(), 1))
 , m_grp_rows(g.m_star_counts_rows)
 , m_grp_cols(g.m_star_counts_cols)

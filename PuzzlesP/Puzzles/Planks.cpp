@@ -45,13 +45,13 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<Position, vector<vector<Position>>> m_pos2planks;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -62,7 +62,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            m_start.push_back(ch);
+            m_cells.push_back(ch);
             if (ch == PUZ_NAIL)
                 m_pos2planks[{r, c}];
         }
@@ -109,7 +109,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_cells)
 {
     for (auto& [p, planks] : g.m_pos2planks) {
         auto& perm_ids = m_matches[p];

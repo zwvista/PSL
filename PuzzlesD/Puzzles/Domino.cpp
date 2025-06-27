@@ -70,14 +70,14 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    vector<int> m_start;
+    vector<int> m_cells;
     map<vector<int>, int> m_comb2id;
     map<int, vector<puz_domino>> m_combid2dominoes;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
     int cols() const { return m_size.second; }
-    int cells(const Position& p) const { return m_start[p.first * cols() + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -87,7 +87,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < rows(); ++r) {
         string_view str = strs[r];
         for (int c = 0; c < cols(); ++c)
-            m_start.push_back(str[c] - '0');
+            m_cells.push_back(str[c] - '0');
     }
 
     for (int i = 0, n = 0; i < rows(); ++i)

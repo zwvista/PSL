@@ -49,10 +49,10 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<Position, puz_hint_info> m_pos2hintinfo;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
@@ -68,9 +68,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             auto s = str.substr(c * 2, 2);
             if (s == "  ")
-                m_start.push_back(PUZ_SPACE);
+                m_cells.push_back(PUZ_SPACE);
             else {
-                m_start.push_back(PUZ_NUM);
+                m_cells.push_back(PUZ_NUM);
                 num2perms[m_pos2hintinfo[{r, c}].m_sum = s == " ?" ? -1 : stoi(string(s))];
             }
         }
@@ -161,7 +161,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g) ,m_cells(g.m_start)
+: m_game(&g) ,m_cells(g.m_cells)
 {
     for (auto& [p, info] : g.m_pos2hintinfo) {
         auto& perm_ids = m_matches[p];

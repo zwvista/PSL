@@ -72,12 +72,12 @@ struct puz_game
     string m_id;
     int m_sidelen;
     int m_dot_count;
-    string m_start;
+    string m_cells;
     set<Position> m_posts;
     set<Position> m_chars_rng;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * (m_sidelen - 1) + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * (m_sidelen - 1) + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -95,7 +95,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str_v = strs[r * 2 + 1];
         for (int c = 0; c < m_sidelen - 1; ++c) {
             char ch = str_v[c * 2 + 1];
-            m_start.push_back(ch);
+            m_cells.push_back(ch);
             if (ch != PUZ_SPACE)
                 m_chars_rng.emplace(r, c);
         }

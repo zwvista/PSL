@@ -60,7 +60,7 @@ struct puz_game
     bool m_has_supertanker;
     map<int, int> m_ship2num{{1, 4},{2, 3},{3, 2},{4, 1}};
     map<Position, char> m_pos2piece;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -83,7 +83,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             switch(char ch = str[c]) {
             case PUZ_SPACE:
             case PUZ_EMPTY:
-                m_start.push_back(ch);
+                m_cells.push_back(ch);
                 break;
             case PUZ_BOAT:
             case PUZ_TOP:
@@ -91,7 +91,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             case PUZ_LEFT:
             case PUZ_RIGHT:
             case PUZ_MIDDLE:
-                m_start.push_back(PUZ_SPACE);
+                m_cells.push_back(PUZ_SPACE);
                 m_pos2piece[{r, c}] = ch;
                 break;
             default:
@@ -146,7 +146,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_start), m_game(&g)
+    : string(g.m_cells), m_game(&g)
     , m_piece_counts_rows(g.m_piece_counts_rows)
     , m_piece_counts_cols(g.m_piece_counts_cols)
     , m_ship2num(g.m_ship2num), m_pos2piece(g.m_pos2piece)

@@ -34,7 +34,7 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    string m_start;
+    string m_cells;
     vector<Position> m_blocks, m_switches;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -49,22 +49,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size(), strs[0].length())
 {
-    m_start.resize(rows() * cols());
+    m_cells.resize(rows() * cols());
     for (int r = 0, n = 0; r < rows(); ++r) {
         string_view str = strs[r];
         for (int c = 0; c < cols(); ++c, ++n) {
             Position p(r, c);
             switch(char ch = str[c]) {
             case PUZ_BLOCK:
-                m_start[n] = ch;
+                m_cells[n] = ch;
                 m_blocks.push_back(p);
                 break;
             case PUZ_SWITCH:
-                m_start[n] = PUZ_SPACE;
+                m_cells[n] = PUZ_SPACE;
                 m_switches.push_back(p);
                 break;
             default:
-                m_start[n] = ch;
+                m_cells[n] = ch;
                 break;
             }
         }
@@ -89,7 +89,7 @@ class puz_state : public string
 {
 public:
     puz_state(const puz_game& g)
-        : string(g.m_start), m_game(&g), m_blocks(g.m_blocks) {}
+        : string(g.m_cells), m_game(&g), m_blocks(g.m_blocks) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
     char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}

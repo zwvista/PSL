@@ -11,9 +11,9 @@ struct puz_generator
     int m_sidelen;
     map<Position, vector<int>> m_pos2nums;
     vector<Position> m_islands;
-    string m_start;
-    char cells(const Position& p) const { return m_start.at(p.first * m_sidelen + p.second); }
-    char& cells(const Position& p) { return m_start[p.first * m_sidelen + p.second]; }
+    string m_cells;
+    char cells(const Position& p) const { return m_cells.at(p.first * m_sidelen + p.second); }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 
     puz_generator(int n);
     void add_island(const Position& p) {
@@ -28,13 +28,13 @@ struct puz_generator
 puz_generator::puz_generator(int n)
     : m_sidelen(n + 2)
 {
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
-        m_start.push_back(PUZ_BOUNDARY);
-        m_start.append(m_sidelen - 2, PUZ_SPACE);
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
+        m_cells.append(m_sidelen - 2, PUZ_SPACE);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     int i = rand() % (n * n);
     Position p(i / n + 1, i % n + 1);
     add_island(p);

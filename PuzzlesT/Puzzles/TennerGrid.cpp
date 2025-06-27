@@ -44,13 +44,13 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    vector<int> m_start;
+    vector<int> m_cells;
     vector<puz_area_info> m_area_info;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
     int cols() const { return m_size.second; }
-    int cells(const Position& p) const { return m_start[p.first * cols() + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -64,7 +64,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             auto s = str.substr(c * 2, 2);
             int n = s == "  " ? PUZ_UNKNOWN : stoi(string(s));
-            m_start.push_back(n);
+            m_cells.push_back(n);
 
             if (n == PUZ_UNKNOWN)
                 m_area_info[c].m_range.push_back(p);
@@ -136,7 +136,7 @@ struct puz_state : vector<int>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<int>(g.m_start), m_game(&g)
+: vector<int>(g.m_cells), m_game(&g)
 {
     for (int i = 0; i < g.m_area_info.size(); ++i) {
         auto& info = g.m_area_info[i];

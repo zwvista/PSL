@@ -48,10 +48,10 @@ struct puz_game
     map<char, vector<Position>> m_letter2rng;
     vector<puz_area> m_areas;
     map<Position, vector<int>> m_pos2area_ids;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : puz_rng2D
@@ -95,23 +95,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 2)
 {
     char name = 'a';
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
             if (char ch = str[c - 1]; ch == PUZ_SPACE)
-                m_start.push_back(PUZ_SPACE);
+                m_cells.push_back(PUZ_SPACE);
             else {
                 m_pos2letter[p] = ch;
                 m_letter2rng[ch].push_back(p);
-                m_start.push_back(name++);
+                m_cells.push_back(name++);
             }
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [letter, rng] : m_letter2rng) {
         puz_state2 sstart(*this, rng);

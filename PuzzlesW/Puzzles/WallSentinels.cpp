@@ -54,7 +54,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -63,20 +63,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c)
             if (auto s = str.substr(c * 2 - 2, 2); s == "  ")
-                m_start.push_back(PUZ_SPACE);
+                m_cells.push_back(PUZ_SPACE);
             else {
-                m_start.push_back(s[0] == PUZ_LAND ? PUZ_LAND_S : PUZ_WALL_S);
+                m_cells.push_back(s[0] == PUZ_LAND ? PUZ_LAND_S : PUZ_WALL_S);
                 m_pos2num[{r, c}] = isdigit(s[1]) ? s[1] - '0' : s[1] - 'A' + 10;
             }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 }
 
 struct puz_state
@@ -116,7 +116,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     for (auto& [p, n] : g.m_pos2num)
         m_matches[p];

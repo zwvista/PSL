@@ -126,7 +126,7 @@ struct puz_game
     puz_game_type m_game_type;
     map<int, Position> m_num2pos;
     int m_boulder_count = 0;
-    vector<int> m_start;
+    vector<int> m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_forest_game() const {
@@ -154,7 +154,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             auto s = str.substr(c * 3, 3);
             int n = s == PUZ_BOULDER_STR ? PUZ_BOULDER : s == "   " ? PUZ_SPACE : stoi(string(s));
-            m_start.push_back(n);
+            m_cells.push_back(n);
             if (n == PUZ_BOULDER)
                 ++m_boulder_count;
             else if (n != PUZ_SPACE)
@@ -199,7 +199,7 @@ struct puz_state : vector<int>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<int>(g.m_start), m_game(&g)
+: vector<int>(g.m_cells), m_game(&g)
 {
     auto f = [&](const pair<const int, Position>& kv_cur, const pair<const int, Position>& kv_next) {
         if (kv_next.first != PUZ_FOREST_DEST && kv_next.first - kv_cur.first != 1 ||

@@ -38,7 +38,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     map<Position, int> m_pos2area;
     vector<vector<Position>> m_areas;
     vector<string> m_perms;
@@ -93,7 +93,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
-            m_start.push_back(ch);
+            m_cells.push_back(ch);
             rng.insert(p);
         }
     }
@@ -147,7 +147,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     vector<int> perm_ids(g.m_perms.size());
     boost::iota(perm_ids, 0);

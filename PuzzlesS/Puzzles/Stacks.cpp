@@ -43,7 +43,7 @@ struct puz_game
     // 2nd dimension : all the positions that the area is composed of
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
-    string m_start;
+    string m_cells;
     // all permutations
     map<int, vector<string>> m_size2perms;
     map<int, vector<int>> m_area2permids;
@@ -98,7 +98,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
-            m_start.push_back(ch);
+            m_cells.push_back(ch);
             rng.insert(p);
         }
     }
@@ -177,7 +177,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start), m_matches(g.m_area2permids)
+: m_game(&g), m_cells(g.m_cells), m_matches(g.m_area2permids)
 {
     find_matches(true);
 }

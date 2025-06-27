@@ -50,7 +50,7 @@ struct puz_game
     int m_treasure_count_area;
     int m_treasure_total_count;
     map<Position, int> m_pos2map;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -67,7 +67,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             char ch = str[c];
             if (ch != PUZ_SPACE)
                 m_pos2map[{r, c}] = ch - '0';
-            m_start.push_back(ch == PUZ_SPACE ? PUZ_EMPTY : PUZ_MAP);
+            m_cells.push_back(ch == PUZ_SPACE ? PUZ_EMPTY : PUZ_MAP);
         }
     }
 }
@@ -137,7 +137,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_start), m_game(&g)
+    : string(g.m_cells), m_game(&g)
     , m_grp_maps(g.m_pos2map.size(), 1)
     , m_grp_rows(g.m_sidelen, g.m_treasure_count_area)
     , m_grp_cols(g.m_sidelen, g.m_treasure_count_area)

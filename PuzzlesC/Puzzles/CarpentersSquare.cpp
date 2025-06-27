@@ -66,7 +66,7 @@ struct puz_game
     int m_sidelen;
     map<Position, char> m_pos2ch;
     map<char, puz_tool> m_ch2tool;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -76,24 +76,24 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 2)
 {
     char ch_t = 'a';
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
             if (ch == PUZ_SPACE)
-                m_start.push_back(PUZ_SPACE);
+                m_cells.push_back(PUZ_SPACE);
             else {
                 Position p(r, c);
                 m_pos2ch[p] = ch;
                 m_ch2tool[ch_t] = {p, ch};
-                m_start.push_back(ch_t++);
+                m_cells.push_back(ch_t++);
             }
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 }
 
 struct puz_state : string
@@ -134,7 +134,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
+: string(g.m_cells), m_game(&g)
 , m_next_ch('a' + g.m_ch2tool.size())
 {
     for (auto& [ch, tool] : g.m_ch2tool)

@@ -37,7 +37,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     vector<vector<Position>> m_area2range;
     vector<string> m_perms;
 
@@ -49,7 +49,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size())
 , m_area2range(m_sidelen * 2)
 {
-    m_start = boost::accumulate(strs, string());
+    m_cells = boost::accumulate(strs, string());
 
     for (int r = 0; r < m_sidelen; ++r) {
         for (int c = 0; c < m_sidelen; ++c) {
@@ -111,7 +111,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     vector<int> perm_ids(g.m_perms.size());
     boost::iota(perm_ids, 0);

@@ -40,49 +40,49 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
-    string m_start;
+    string m_cells;
     // key: the position of the island
     // value.elem: the numbers of the bridges connected to the island
     //             in all four directions
     map<Position, vector<vector<int>>> m_pos2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() * 2 + 1)
 {
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; ; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; ; ++c) {
             switch (char ch = str[c - 1]) {
             case PUZ_SPACE:
             case PUZ_SHADED:
-                m_start.push_back(ch);
+                m_cells.push_back(ch);
                 break;
             case PUZ_ISLAND:
-                m_start.push_back(ch);
+                m_cells.push_back(ch);
                 m_pos2num[{r * 2 - 1, c * 2 - 1}] = PUZ_UNKNOWN;
                 break;
             default:
-                m_start.push_back(PUZ_ISLAND);
+                m_cells.push_back(PUZ_ISLAND);
                 m_pos2num[{r * 2 - 1, c * 2 - 1}] = ch - '0';
                 break;
             }
             if (c == m_sidelen / 2) break;
-            m_start.push_back(PUZ_SPACE);
+            m_cells.push_back(PUZ_SPACE);
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         if (r == m_sidelen / 2) break;
-        m_start.push_back(PUZ_BOUNDARY);
-        m_start.append(m_sidelen - 2, PUZ_SPACE);
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
+        m_cells.append(m_sidelen - 2, PUZ_SPACE);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [p, sum] : m_pos2num) {
         auto& perms = m_pos2perms[p];
@@ -144,7 +144,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_cells)
 {
     for (auto& [p, perms] : g.m_pos2perms) {
         auto& perm_ids = m_matches[p];

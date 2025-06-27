@@ -47,11 +47,11 @@ struct puz_game
     // value: the area
     map<Position, puz_area> m_pos2area;
     map<Position, vector<pair<Position, int>>> m_pos2perminfos;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
-    char& cells(const Position& p) { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : set<Position>
@@ -95,22 +95,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch1 = str[c * 2 - 2], ch2 = str[c * 2 - 1];
-            m_start.push_back(ch2);
+            m_cells.push_back(ch2);
             if (ch1 != ' ') {
                 Position p(r, c);
                 auto& area = m_pos2area[p];
                 area.m_num = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
             }
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     
     for (auto& [p, area] : m_pos2area) {
         puz_state2 sstart(*this, area, p);
@@ -161,7 +161,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start), m_matches(g.m_pos2perminfos)
+: m_game(&g), m_cells(g.m_cells), m_matches(g.m_pos2perminfos)
 {
     find_matches(true);
 }

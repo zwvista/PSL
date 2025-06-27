@@ -17,7 +17,7 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    string m_start;
+    string m_cells;
     char m_on;
     vector<Position> m_offset;
     EWrapAround m_wraparound;
@@ -57,7 +57,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         wraparound == "up-down" ? waUpDown :
         waNone;
 
-    m_start = boost::accumulate(strs, string());
+    m_cells = boost::accumulate(strs, string());
     m_on = string(level.attribute("on").as_string("1"))[0];
 }
 
@@ -77,7 +77,7 @@ ostream & operator<<(ostream &out, const puz_step &mi)
 struct puz_state : string
 {
     puz_state(const puz_game& g)
-        : string(g.m_start), m_game(&g) {}
+        : string(g.m_cells), m_game(&g) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
     char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}

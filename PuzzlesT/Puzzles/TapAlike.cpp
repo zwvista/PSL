@@ -60,7 +60,7 @@ struct puz_game
     int m_sidelen;
     map<Position, puz_hint> m_pos2hint;
     map<puz_hint, vector<string>> m_hint2perms;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -69,16 +69,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             auto s = str.substr(c * 4 - 4, 4);
             if (s == "    ")
-                m_start.push_back(PUZ_SPACE);
+                m_cells.push_back(PUZ_SPACE);
             else {
-                m_start.push_back(PUZ_HINT);
+                m_cells.push_back(PUZ_HINT);
                 auto& hint = m_pos2hint[{r, c}];
                 for (int i = 0; i < 4; ++i) {
                     char ch = s[i];
@@ -88,9 +88,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_hint2perms[hint];
             }
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     // A tile is surrounded by at most 8 tiles, each of which has two states:
     // filled or empty. So all combinations of the states of the
@@ -180,7 +180,7 @@ int puz_state::find_matches(bool init)
 }
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
+: string(g.m_cells), m_game(&g)
 {
     for ( auto& [p, hint] : g.m_pos2hint) {
         auto& perm_ids = m_matches[p];

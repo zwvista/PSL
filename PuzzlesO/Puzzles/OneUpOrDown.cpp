@@ -39,12 +39,12 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     map<int, vector<Position>> m_index2area;
     vector<string> m_perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -55,7 +55,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            m_start.push_back(r % 2 == 0 && c % 2 == 0 || ch != PUZ_SPACE ? ch : PUZ_EMPTY);
+            m_cells.push_back(r % 2 == 0 && c % 2 == 0 || ch != PUZ_SPACE ? ch : PUZ_EMPTY);
             Position p(r, c);
             if (r % 2 == 0)
                 m_index2area[r].push_back(p);
@@ -106,7 +106,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_game(&g), m_cells(g.m_start)
+    : m_game(&g), m_cells(g.m_cells)
 {
     vector<int> v(g.m_perms.size());
     boost::iota(v, 0);

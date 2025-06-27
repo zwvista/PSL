@@ -43,7 +43,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     map<Position, int> m_pos2num;
     // all permutations
     vector<vector<string>> m_num2perms;

@@ -54,11 +54,11 @@ struct puz_game
     map<Position, int> m_pos2num;
     // key: positions of the two numbers (hints)
     map<pair<Position, Position>, puz_garden> m_pair2garden;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
-    char& cells(const Position& p) { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : set<Position>
@@ -113,24 +113,24 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 , m_sidelen(strs.size() + 2)
 {
     char ch_g = 'a';
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
             if (ch == PUZ_SPACE)
-                m_start.push_back(PUZ_SPACE);
+                m_cells.push_back(PUZ_SPACE);
             else {
                 int n = ch - '0';
                 Position p(r, c);
                 m_pos2num[p] = n;
-                m_start.push_back(ch_g++);
+                m_cells.push_back(ch_g++);
             }
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [p, n] : m_pos2num)
         for (auto& [p2, n2] : m_pos2num) {
@@ -190,7 +190,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_cells)
 {
     for (auto& [kv, garden] : g.m_pair2garden) {
         auto& [p, p2] = kv;

@@ -34,7 +34,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<int, Position> m_num2pos;
-    vector<int> m_start;
+    vector<int> m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -48,7 +48,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             int n = stoi(string(str.substr(c * 3, 3)));
-            m_start.push_back(n);
+            m_cells.push_back(n);
             if (n != 0)
                 m_num2pos[n] = p;
         }
@@ -90,7 +90,7 @@ struct puz_state : vector<int>
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<int>(g.m_start), m_game(&g)
+: vector<int>(g.m_cells), m_game(&g)
 {
     for (auto prev = m_game->m_num2pos.begin(), first = std::next(prev),
         last = m_game->m_num2pos.end(); first != last; ++prev, ++first)

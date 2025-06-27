@@ -86,7 +86,7 @@ struct puz_game
     int m_dot_count;
     bool m_inside_outside;
     map<Position, int> m_pos2num;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -97,21 +97,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_sidelen(strs.size() + 1)
     , m_dot_count(m_sidelen * m_sidelen)
 {
-    m_start.append(m_sidelen + 1, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen + 1, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen; ++c) {
             char ch = str[c - 1];
             if (ch != ' ') {
                 m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
-                m_start.push_back(m_inside_outside ? PUZ_SPACE : PUZ_INSIDE);
+                m_cells.push_back(m_inside_outside ? PUZ_SPACE : PUZ_INSIDE);
             } else
-                m_start.push_back(PUZ_SPACE);
+                m_cells.push_back(PUZ_SPACE);
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen + 1, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen + 1, PUZ_BOUNDARY);
 }
 
 using puz_dot = vector<int>;
@@ -159,7 +159,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_cells)
 , m_dots(g.m_dot_count, {lineseg_off})
 {
     for (int r = 0; r < sidelen(); ++r)

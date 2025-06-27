@@ -44,7 +44,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     bool m_has_supertanker;
-    string m_start;
+    string m_cells;
     map<int, int> m_ship2num{{1, 4},{2, 3},{3, 2},{4, 1}};
     map<Position, int> m_pos2num;
 
@@ -63,7 +63,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            m_start.push_back(ch == PUZ_SPACE ? PUZ_SPACE : PUZ_NUMBER);
+            m_cells.push_back(ch == PUZ_SPACE ? PUZ_SPACE : PUZ_NUMBER);
             if (ch != PUZ_SPACE)
                 m_pos2num[{r, c}] = ch - '0';
         }
@@ -101,7 +101,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
+: string(g.m_cells), m_game(&g)
 , m_ship2num(g.m_ship2num), m_pos2num(g.m_pos2num)
 {
     find_matches();

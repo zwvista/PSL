@@ -53,7 +53,7 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    string m_start;
+    string m_cells;
     map<char, puz_bunny_info> m_bunny2info;
     set<Position> m_holes, m_mushrooms;
     set<Position> m_horz_walls, m_vert_walls;
@@ -83,7 +83,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_vert_walls.insert(p);
             if (c == cols()) break;
             char ch = str_v[c * 2 + 1];
-            m_start.push_back(ch);
+            m_cells.push_back(ch);
             switch(ch) {
             case 'C': // Calvin
             case 'T': // Otto
@@ -113,7 +113,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 int n = ch - '0';
                 if (teleports.size() < n) teleports.resize(n);
                 teleports[n - 1].push_back(p);
-                m_start.back() = PUZ_SPACE;
+                m_cells.back() = PUZ_SPACE;
                 break;
             }
             case PUZ_MUSHROOM:
@@ -311,7 +311,7 @@ void puz_state4::gen_children(list<puz_state4>& children) const
 }
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start)
+: m_game(&g), m_cells(g.m_cells)
 , m_bunny2info(g.m_bunny2info), m_mushrooms(g.m_mushrooms)
 {
 }

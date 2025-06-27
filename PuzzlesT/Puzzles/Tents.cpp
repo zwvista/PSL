@@ -47,10 +47,10 @@ struct puz_game
     map<Position, vector<int>> m_pos2trees;
     vector<int> m_tent_counts_rows, m_tent_counts_cols;
     int m_tent_total_count;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
@@ -69,10 +69,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_pos2trees[{r, c}];
             switch(char ch = str[c]) {
             case PUZ_SPACE:
-                m_start.push_back(PUZ_EMPTY);
+                m_cells.push_back(PUZ_EMPTY);
                 break;
             case PUZ_TREE:
-                m_start.push_back(PUZ_TREE);
+                m_cells.push_back(PUZ_TREE);
                 trees.emplace_back(r, c);
                 break;
             default:
@@ -81,7 +81,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             }
         }
     }
-    m_start.pop_back();
+    m_cells.pop_back();
     m_tent_total_count = boost::accumulate(m_tent_counts_rows, 0);
 
     m_tree_info.resize(trees.size());
@@ -165,7 +165,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_start), m_game(&g)
+    : string(g.m_cells), m_game(&g)
     , m_grp_trees(vector<int>(g.m_tree_info.size(), 1))
     , m_grp_rows(g.m_tent_counts_rows)
     , m_grp_cols(g.m_tent_counts_cols)

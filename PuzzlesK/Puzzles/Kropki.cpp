@@ -63,13 +63,13 @@ struct puz_game
     string m_id;
     int m_sidelen;
     bool m_bordered;
-    string m_start;
+    string m_cells;
     vector<puz_area> m_areas;
     vector<string> m_perms;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
@@ -139,7 +139,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             char ch = str[c];
-            m_start.push_back(ch == PUZ_SPACE ? PUZ_NOT_BH : ch);
+            m_cells.push_back(ch == PUZ_SPACE ? PUZ_NOT_BH : ch);
         }
     }
 

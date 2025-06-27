@@ -44,7 +44,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<Position, puz_area_info> m_pos2info;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -53,22 +53,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     char ch = 'a';
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             auto s = str.substr(c * 2 - 2, 2);
             int n = stoi(string(s));
             if (n > 4)
                 m_pos2info[{r, c}] = {ch, n};
-            m_start.push_back(n == 0 ? PUZ_SPACE :
+            m_cells.push_back(n == 0 ? PUZ_SPACE :
                 n == 4 ? PUZ_SINGLE : ch++);
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 }
 
 struct puz_area
@@ -112,7 +112,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
+: string(g.m_cells), m_game(&g)
 {
     for (auto& [pnum, info] : g.m_pos2info)
         m_pos2area[pnum].m_inner.insert(pnum);

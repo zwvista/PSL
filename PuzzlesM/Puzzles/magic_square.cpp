@@ -12,7 +12,7 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    vector<int> m_start;
+    vector<int> m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int sidelen() const {return m_size.first;}
@@ -21,12 +21,12 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size(), strs.size())
-    , m_start(sidelen() * sidelen())
+    , m_cells(sidelen() * sidelen())
 {
     for (int r = 0, n = 0; r < sidelen(); ++r) {
         string_view str = strs[r];
         for (int c = 0; c < sidelen(); ++c)
-            m_start[n++] = stoi(string(str.substr(c * 2, 2)));
+            m_cells[n++] = stoi(string(str.substr(c * 2, 2)));
     }
 }
 
@@ -46,7 +46,7 @@ ostream & operator<<(ostream &out, const puz_step &mi)
 struct puz_state : vector<int>
 {
     puz_state(const puz_game& g)
-        : vector<int>(g.m_start), m_game(&g) {}
+        : vector<int>(g.m_cells), m_game(&g) {}
     int sidelen() const {return m_game->sidelen();}
     int cells(int r, int c) const {return (*this)[r * sidelen() + c];}
     int& cells(int r, int c) {return (*this)[r * sidelen() + c];}

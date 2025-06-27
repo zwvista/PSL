@@ -18,13 +18,13 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<Position, int> m_pos2num;
-    string m_start;
+    string m_cells;
     vector<puz_bridge> m_bridges;
     map<Position, vector<int>> m_pos2indexes;
     int m_bridge_count = 0;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_start[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -37,18 +37,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < sz; ++c) {
             char ch = str[c];
             if (ch == PUZ_SPACE)
-                m_start.push_back(ch);
+                m_cells.push_back(ch);
             else {
-                m_start.push_back(PUZ_ISLAND);
+                m_cells.push_back(PUZ_ISLAND);
                 int n = ch - '0';
                 m_bridge_count += n;
                 m_pos2num[{r * 2, c * 2}] = n;
             }
             if (c < sz - 1)
-                m_start.push_back(PUZ_SPACE);
+                m_cells.push_back(PUZ_SPACE);
         }
         if (r < sz - 1)
-            m_start.append(m_sidelen, PUZ_SPACE);
+            m_cells.append(m_sidelen, PUZ_SPACE);
     }
 
     for (auto& [p1, n1] : m_pos2num)
@@ -125,7 +125,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_start), m_matches(g.m_pos2indexes)
+: m_game(&g), m_cells(g.m_cells), m_matches(g.m_pos2indexes)
 {
     for (auto& [k, v] : g.m_pos2indexes)
         m_moves[k];

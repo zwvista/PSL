@@ -27,7 +27,7 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const {return m_size.first;}
@@ -38,16 +38,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size() + 2, strs[0].length() + 2)
 {
-    m_start = string(rows() * cols(), ' ');
-    fill(m_start.begin(), m_start.begin() + cols(), PUZ_NONE);
-    fill(m_start.rbegin(), m_start.rbegin() + cols(), PUZ_NONE);
+    m_cells = string(rows() * cols(), ' ');
+    fill(m_cells.begin(), m_cells.begin() + cols(), PUZ_NONE);
+    fill(m_cells.rbegin(), m_cells.rbegin() + cols(), PUZ_NONE);
 
     int n = cols();
     for (int r = 1; r < rows() - 1; ++r, n += cols()) {
         string_view str = strs[r - 1];
-        m_start[n] = m_start[n + cols() - 1] = PUZ_NONE;
+        m_cells[n] = m_cells[n + cols() - 1] = PUZ_NONE;
         for (int c = 1; c < cols() - 1; ++c)
-            m_start[n + c] = str[c - 1];
+            m_cells[n + c] = str[c - 1];
     }
 }
 
@@ -67,7 +67,7 @@ ostream & operator<<(ostream &out, const puz_step &mi)
 struct puz_state : public string
 {
     puz_state(const puz_game& g)
-        : string(g.m_start), m_game(&g) {}
+        : string(g.m_cells), m_game(&g) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
     char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}

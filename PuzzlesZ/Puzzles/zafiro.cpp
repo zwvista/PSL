@@ -27,7 +27,7 @@ struct puz_game
 {
     string m_id;
     Position m_size;
-    string m_start;
+    string m_cells;
     Position m_zafiro, m_portal;
     set<Position> m_glasses;
 
@@ -40,13 +40,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_size(strs.size() + 2, strs[0].length() + 2)
 {
-    m_start = string(rows() * cols(), PUZ_SPACE);
-    fill(m_start.begin(), m_start.begin() + cols(), PUZ_FIXED);
-    fill(m_start.rbegin(), m_start.rbegin() + cols(), PUZ_FIXED);
+    m_cells = string(rows() * cols(), PUZ_SPACE);
+    fill(m_cells.begin(), m_cells.begin() + cols(), PUZ_FIXED);
+    fill(m_cells.rbegin(), m_cells.rbegin() + cols(), PUZ_FIXED);
 
     for (int r = 1, n = cols(); r < rows() - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start[n++] = PUZ_FIXED;
+        m_cells[n++] = PUZ_FIXED;
         for (int c = 1; c < cols() - 1; ++c) {
             char ch = str[c - 1];
             Position p(r, c);
@@ -62,9 +62,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_glasses.insert(p);
                 break;
             }
-            m_start[n++] = ch;
+            m_cells[n++] = ch;
         }
-        m_start[n++] = PUZ_FIXED;
+        m_cells[n++] = PUZ_FIXED;
     }
 }
 
@@ -90,7 +90,7 @@ ostream& operator<<(ostream& out, const puz_step& act)
 struct puz_state : string
 {
     puz_state(const puz_game& g)
-        : string(g.m_start), m_game(&g), m_zafiro(g.m_zafiro)
+        : string(g.m_cells), m_game(&g), m_zafiro(g.m_zafiro)
         , m_grav(0) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}

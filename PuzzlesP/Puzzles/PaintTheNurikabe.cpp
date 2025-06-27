@@ -51,7 +51,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
     map<Position, int> m_pos2num;
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
@@ -94,7 +94,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_num2perms(5)
 {
     set<Position> rng;
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1;; ++r) {
         // horizontal walls
         string_view str_h = strs[r * 2 - 2];
@@ -102,7 +102,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (str_h[c * 2 - 1] == '-')
                 m_horz_walls.insert({r, c});
         if (r == m_sidelen - 1) break;
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
         string_view str_v = strs[r * 2 - 1];
         for (int c = 1;; ++c) {
             Position p(r, c);
@@ -111,14 +111,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_vert_walls.insert(p);
             if (c == m_sidelen - 1) break;
             char ch = str_v[c * 2 - 1];
-            m_start.push_back(PUZ_SPACE);
+            m_cells.push_back(PUZ_SPACE);
             rng.insert(p);
             if (ch != PUZ_SPACE)
                 m_pos2num[p] = ch - '0';
         }
-        m_start.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_start.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (int n = 0; !rng.empty(); ++n) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
@@ -169,7 +169,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_start), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     for (auto& [p, n] : g.m_pos2num) {
         auto& perm_ids = m_matches[p];

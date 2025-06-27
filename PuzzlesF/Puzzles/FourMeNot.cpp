@@ -41,7 +41,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_start;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -50,15 +50,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    m_start.append(m_sidelen, PUZ_BLOCK);
+    m_cells.append(m_sidelen, PUZ_BLOCK);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_start.push_back(PUZ_BLOCK);
+        m_cells.push_back(PUZ_BLOCK);
         for (int c = 1; c < m_sidelen - 1; ++c)
-            m_start.push_back(str[c - 1]);
-        m_start.push_back(PUZ_BLOCK);
+            m_cells.push_back(str[c - 1]);
+        m_cells.push_back(PUZ_BLOCK);
     }
-    m_start.append(m_sidelen, PUZ_BLOCK);
+    m_cells.append(m_sidelen, PUZ_BLOCK);
 }
 
 struct puz_state : string
@@ -109,7 +109,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_start), m_game(&g)
+: string(g.m_cells), m_game(&g)
 {
     set<Position> rng;
     for (int r = 1; r < sidelen() - 1; ++r)
