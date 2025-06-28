@@ -6,7 +6,7 @@ v > ^ 1
 > ^ 2 < 
 Number of moves: 4
 Number of vertices examined: 5
-0.0021033 [s]
+0.0005469 [s]
 
 Level 2
 Sequence of moves: 
@@ -16,5 +16,16 @@ B 5 v B
 > ^ 5 < 
 Number of moves: 2
 Number of vertices examined: 4
-0.0073399 [s]
+0.0009992 [s]
+
+Level 36
+Sequence of moves: 
+B 5 < v B 
+> ^ B 4 < 
+^ < > ^ v 
+B v < v < 
+3 < > 4 B 
+Number of moves: 4
+Number of vertices examined: 6
+0.0004517 [s]
 

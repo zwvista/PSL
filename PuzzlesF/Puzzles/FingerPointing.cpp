@@ -30,7 +30,6 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
-using puz_paths = vector<vector<Position>>;
 using puz_move = map<Position, char>;
 
 struct puz_game
