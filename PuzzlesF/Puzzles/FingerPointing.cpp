@@ -108,51 +108,69 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 dir_nums[i].resize(sum + 1);
                 boost::iota(dir_nums[i], 0);
             }
+        vector<vector<int>> perms;
         for (int n0 : dir_nums[0])
             for (int n1 : dir_nums[1])
                 for (int n2 : dir_nums[2])
                     for (int n3 : dir_nums[3])
-                        if (n0 + n1 + n2 + n3 == sum) {
-                            vector v = {n0, n1, n2, n3};
-                            vector<puz_paths> dir_paths(4);
-                            for (int i = 0; i < 4; ++i) {
-                                int n = v[i];
-                                if (n == 0)
-                                    dir_paths[i].push_back({invalid_pos});
-                                else {
-                                    puz_state2 sstart(*this, p + offset[i], i, n);
-                                    list<list<puz_state2>> spaths;
-                                    if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found)
-                                        for (auto& spath : spaths)
-                                            dir_paths[i].push_back(spath.back());
+                        if (n0 + n1 + n2 + n3 == sum)
+                            perms.push_back({n0, n1, n2, n3});
+                                
+        for (auto& v : perms) {
+            vector<puz_paths> dir_paths(4);
+            for (int i = 0; i < 4; ++i) {
+                int n = v[i];
+                if (n == 0)
+                    dir_paths[i].push_back({invalid_pos});
+                else {
+                    puz_state2 sstart(*this, p + offset[i], i, n);
+                    list<list<puz_state2>> spaths;
+                    if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found)
+                        for (auto& spath : spaths)
+                            dir_paths[i].push_back(spath.back());
+                }
+            }
+            for (auto& path0 : dir_paths[0])
+                for (auto& path1 : dir_paths[1])
+                    for (auto& path2 : dir_paths[2])
+                        for (auto& path3 : dir_paths[3]) {
+                            puz_paths paths = {path0, path1, path2, path3};
+
+                            puz_move move(4);
+                            if ([&] {
+                                vector<puz_pointer> pointersAll;
+                                set<Position> rng;
+                                for (auto& path : paths) {
+                                    auto& pointers = move.emplace_back();
+                                    boost::remove_erase(path, invalid_pos);
+                                    for (int i = 0; i < path.size(); ++i) {
+                                        auto& p2 = path[i];
+                                        if (auto [_1, success] = rng.insert(p2); !success)
+                                            return false;
+                                        auto os2 = (i == 0 ? p : path[i - 1]) - p2;
+                                        pointers.emplace_back(p2, dirs[boost::find(offset, os2) - offset]);
+                                        pointersAll.push_back(pointers.back());
+                                    }
                                 }
+                                for (auto& pointer1 : pointersAll) {
+                                    auto& [p1, ch1] = pointer1;
+                                    for (auto& pointer2 : pointersAll) {
+                                        auto& [p2, ch2] = pointer2;
+                                        if (p1 < p2 && ch1 == ch2 &&
+                                            boost::algorithm::any_of_equal(offset, p2 - p1))
+                                            return false;
+                                    }
+                                }
+                                return true;
+                            }()) {
+                                int n = m_moves.size();
+                                m_moves.push_back(move);
+                                for (auto& pointers : move)
+                                    for (auto& pointer: pointers)
+                                        m_pos2move_id[pointer.first].push_back(n);
                             }
-                            for (auto& path0 : dir_paths[0])
-                                for (auto& path1 : dir_paths[1])
-                                    for (auto& path2 : dir_paths[2])
-                                        for (auto& path3 : dir_paths[3]) {
-                                            puz_paths paths = {path0, path1, path2, path3};
-                                            vector<Position> rng;
-                                            for (auto& path : paths)
-                                                rng.append_range(path);
-                                            boost::remove_erase(rng, invalid_pos);
-                                            set<Position> s(rng.begin(), rng.end());
-                                            if (s.size() != rng.size()) continue;
-                                            for (auto& path : paths)
-                                                boost::remove_erase(path, invalid_pos);
-                                            int n = m_moves.size();
-                                            auto& move = m_moves.emplace_back();
-                                            for (auto& path : paths) {
-                                                auto& pointers = move.emplace_back();
-                                                for (int i = 0; i < path.size(); ++i) {
-                                                    auto& p2 = path[i];
-                                                    auto os2 = (i == 0 ? p : path[i - 1]) - p2;
-                                                    pointers.emplace_back(p2, dirs[boost::find(offset, os2) - offset]);
-                                                    m_pos2move_id[p2].push_back(n);
-                                                }
-                                            }
-                                        }
                         }
+        }
     }
 }
 
