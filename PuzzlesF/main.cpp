@@ -8,6 +8,7 @@ extern void solve_puz_FencingSheep();
 extern void solve_puz_Fields();
 extern void solve_puz_Fill();
 extern void solve_puz_Fillomino();
+extern void solve_puz_FingerPointing();
 extern void solve_puz_fling();
 extern void solve_puz_FloorPlan();
 extern void solve_puz_FlowerBeds();
@@ -30,6 +31,7 @@ int main(int argc, char **argv)
     println("i1: Fields");
     println("i2: Fill");
     println("i3: Fillomino");
+    println("i4: Finger Pointing");
     println("l1: fling");
     println("l2: Floor Plan");
     println("l3: Flower Beds");
@@ -51,6 +53,7 @@ int main(int argc, char **argv)
     else if (str == "i1") solve_puz_Fields();
     else if (str == "i2") solve_puz_Fill();
     else if (str == "i3") solve_puz_Fillomino();
+    else if (str == "i4") solve_puz_FingerPointing();
     else if (str == "l1") solve_puz_fling();
     else if (str == "l2") solve_puz_FloorPlan();
     else if (str == "l3") solve_puz_FlowerBeds();

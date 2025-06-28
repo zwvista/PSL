@@ -73,6 +73,9 @@
     <Text Include="Puzzles\Fill.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\FingerPointing.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -149,6 +152,9 @@
     <ClCompile Include="Puzzles\Fill.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\FingerPointing.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\fling.xml">
@@ -209,6 +215,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Fill.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\FingerPointing.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Fill the board with fingers. Two fingers pointing in the same direction can't be orthogonally adjacent.
+2. the number tells you how many fingers and finger 'trails' point to that tile.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+B3  `
+   1`
+4  B`
+  2 `
+    ]]>
+  </level>
+</levels>
+</puzzle>

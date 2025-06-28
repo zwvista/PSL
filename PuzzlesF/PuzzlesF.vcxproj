@@ -165,6 +165,7 @@
     <Text Include="Puzzles\Fields.txt" />
     <Text Include="Puzzles\Fill.txt" />
     <Text Include="Puzzles\Fillomino.txt" />
+    <Text Include="Puzzles\FingerPointing.txt" />
     <Text Include="Puzzles\fling.txt" />
     <Text Include="Puzzles\FloorPlan.txt" />
     <Text Include="Puzzles\FlowerBeds.txt" />
@@ -198,6 +199,7 @@
     <ClCompile Include="Puzzles\Fields.cpp" />
     <ClCompile Include="Puzzles\Fill.cpp" />
     <ClCompile Include="Puzzles\Fillomino.cpp" />
+    <ClCompile Include="Puzzles\FingerPointing.cpp" />
     <ClCompile Include="Puzzles\fling.cpp" />
     <ClCompile Include="Puzzles\FloorPlan.cpp" />
     <ClCompile Include="Puzzles\FlowerBeds.cpp" />
@@ -224,6 +226,7 @@
     <Xml Include="Puzzles\Fields.xml" />
     <Xml Include="Puzzles\Fill.xml" />
     <Xml Include="Puzzles\Fillomino.xml" />
+    <Xml Include="Puzzles\FingerPointing.xml" />
     <Xml Include="Puzzles\fling.xml" />
     <Xml Include="Puzzles\fling2.xml" />
     <Xml Include="Puzzles\fling3.xml" />
