@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
+#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -32,14 +33,53 @@ constexpr Position offset[] = {
     {0, -1},        // w
 };
 
+constexpr Position invalid_pos = {-1, -1};
+
+using puz_move = vector<vector<Position>>;
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     string m_cells;
+    map<Position, int> m_pos2num;
+    map<Position, vector<puz_move>> m_pos2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
+
+struct puz_state2 : vector<Position>
+{
+    puz_state2(const puz_game& game, const Position& p, int i, int n)
+        : m_game(&game), m_last_dir(i), m_num(n) { make_move(i, p); }
+
+    bool is_goal_state() const { return m_distance == m_num; }
+    void make_move(int i, Position p2) {
+        push_back(p2), m_last_dir = i, ++m_distance;
+    }
+    void gen_children(list<puz_state2>& children) const;
+    unsigned int get_distance(const puz_state2& child) const { return 1; }
+
+    const puz_game* m_game = nullptr;
+    int m_last_dir;
+    int m_num;
+    int m_distance = 0;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    auto& p = back();
+    for (int i = 0; i < 4; ++i) {
+        if (m_last_dir == (i + 2) % 4 || m_last_dir == i) continue;
+        if (auto p2 = p + offset[i];
+            boost::algorithm::none_of_equal(*this, p2))
+            if (m_game->cells(p2) == PUZ_SPACE) {
+                children.push_back(*this);
+                children.back().make_move(i, p2);
+            }
+    }
+}
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
@@ -49,11 +89,62 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
         m_cells.push_back(PUZ_BLOCK);
-        for (int c = 1; c < m_sidelen - 1; ++c)
-            m_cells.push_back(str[c - 1]);
+        for (int c = 1; c < m_sidelen - 1; ++c) {
+            char ch = str[c - 1];
+            m_cells.push_back(ch);
+            if (isdigit(ch))
+                m_pos2num[{r, c}] = ch - '0';
+        }
         m_cells.push_back(PUZ_BLOCK);
     }
     m_cells.append(m_sidelen, PUZ_BLOCK);
+
+    for (auto& [p, sum] : m_pos2num) {
+        vector<vector<int>> dir_nums(4);
+        for (int i = 0; i < 4; ++i)
+            if (cells(p + offset[i]) != PUZ_SPACE)
+                dir_nums[i] = {0};
+            else {
+                dir_nums[i].resize(sum + 1);
+                boost::iota(dir_nums[i], 0);
+            }
+        for (int n0 : dir_nums[0])
+            for (int n1 : dir_nums[1])
+                for (int n2 : dir_nums[2])
+                    for (int n3 : dir_nums[3])
+                        if (n0 + n1 + n2 + n3 == sum) {
+                            vector v = {n0, n1, n2, n3};
+                            vector<puz_move> moves(4);
+                            for (int i = 0; i < 4; ++i) {
+                                int n = v[i];
+                                if (n == 0)
+                                    moves[i].push_back({invalid_pos});
+                                else {
+                                    puz_state2 sstart(*this, p + offset[i], i, n);
+                                    list<list<puz_state2>> spaths;
+                                    if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found)
+                                        for (auto& spath : spaths)
+                                            moves[i].push_back(spath.back());
+                                }
+                            }
+                            for (auto& m0 : moves[0])
+                                for (auto& m1 : moves[1])
+                                    for (auto& m2 : moves[2])
+                                        for (auto& m3 : moves[3]) {
+                                            puz_move move = {m0, m1, m2, m3};
+                                            vector<Position> v2;
+                                            for (auto& m : move)
+                                                v2.append_range(m);
+                                            boost::remove_erase(v2, invalid_pos);
+                                            set<Position> s(v2.begin(), v2.end());
+                                            if (s.size() == v2.size()) {
+                                                for (auto& m : move)
+                                                    boost::remove_erase(m, invalid_pos);
+                                                m_pos2moves[p].push_back(move);
+                                            }
+                                        }
+                        }
+    }
 }
 
 struct puz_state : string
@@ -80,29 +171,6 @@ struct puz_state : string
     unsigned int m_distance = 0;
 };
 
-struct puz_state2 : Position
-{
-    puz_state2(const set<Position>& rng) : m_rng(&rng) {
-        make_move(*rng.begin());
-    }
-
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state2>& children) const;
-
-    const set<Position>* m_rng;
-};
-
-void puz_state2::gen_children(list<puz_state2>& children) const
-{
-    for (auto& os : offset) {
-        auto p2 = *this + os;
-        if (m_rng->contains(p2)) {
-            children.push_back(*this);
-            children.back().make_move(p2);
-        }
-    }
-}
-
 puz_state::puz_state(const puz_game& g)
 : string(g.m_cells), m_game(&g)
 {
@@ -113,21 +181,6 @@ puz_state::puz_state(const puz_game& g)
             if (is_flower(cells(p)))
                 rng.insert(p);
         }
-
-    int n = 0;
-    while (!rng.empty()) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves(rng);
-
-        auto& outer = m_num2outer[n++];
-        for (auto& p : smoves) {
-            rng.erase(p);
-            for (auto& os : offset) {
-                auto p2 = p + os;
-                if (cells(p2) == PUZ_SPACE)
-                    outer.insert(p2);
-            }
-        }
-    }
 
     check_field();
 }

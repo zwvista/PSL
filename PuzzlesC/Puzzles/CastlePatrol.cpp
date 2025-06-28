@@ -116,16 +116,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         puz_state2 sstart(*this, area, p);
         list<list<puz_state2>> spaths;
         // Areas can have any form.
-        puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths);
-        // save all goal states as permutations
-        // A goal state is a area formed from the number
-        for (auto& spath : spaths) {
-            auto& rng = spath.back();
-            int n = area.m_perms.size();
-            area.m_perms.push_back(rng);
-            for (auto& p2 : rng)
-                m_pos2perminfos[p2].emplace_back(p, n);
-        }
+        if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
+            // save all goal states as permutations
+            // A goal state is a area formed from the number
+            for (auto& spath : spaths) {
+                auto& rng = spath.back();
+                int n = area.m_perms.size();
+                area.m_perms.push_back(rng);
+                for (auto& p2 : rng)
+                    m_pos2perminfos[p2].emplace_back(p, n);
+            }
     }
 }
 
