@@ -4,11 +4,17 @@ B 3 < v
 v > ^ 1 
 4 < v B 
 > ^ 2 < 
-Number of moves: 3
-Number of vertices examined: 4
-0.0044362 [s]
+Number of moves: 4
+Number of vertices examined: 5
+0.0021033 [s]
 
 Level 2
-Number of vertices examined: 1
-0.0003144 [s]
+Sequence of moves: 
+B 5 v B 
+> ^ < 1 
+^ > v ^ 
+> ^ 5 < 
+Number of moves: 2
+Number of vertices examined: 4
+0.0073399 [s]
 
