@@ -104,6 +104,11 @@ bool puz_state::make_move(Position p, int n)
 {
     cells(p) = n;
     m_num2rng.erase(n);
+
+    for (auto& [_1, rng2] : m_num2rng)
+        if (rng2.erase(p) && rng2.empty())
+            return false;
+
     auto& rng = m_game->m_pos2rng.at(p);
     auto f = [&](int n2) {
         auto it = m_num2rng.find(n2);
@@ -143,7 +148,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            out << format("{:2}", cells(p));
+            out << format("{:3}", cells(p));
         }
         println(out);
     }

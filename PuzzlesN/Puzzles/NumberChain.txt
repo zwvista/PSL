@@ -1,11 +1,11 @@
 Level 1
 Sequence of moves: 
-10 0 0-1-1
- 911 0 0 0
- 0 812-1 0
- 0 4 722 0
- 5 6 01415
+ 10 12 13 -1 -1
+  9 11 22 14 15
+  8  7 21 -1 16
+  6  4 20  1 17
+  5  3  2 19 18
 Number of moves: 16
-Number of vertices examined: 32
-0.0302331 [s]
+Number of vertices examined: 64
+0.0158621 [s]
 
