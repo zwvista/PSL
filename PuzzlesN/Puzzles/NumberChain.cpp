@@ -32,7 +32,7 @@ constexpr Position offset[] = {
 struct puz_game
 {
     string m_id;
-    int m_sidelen;
+    Position m_size;
     vector<int> m_cells;
     set<Position> m_area;
     map<Position, int> m_pos2num;
@@ -40,17 +40,19 @@ struct puz_game
     map<Position, set<Position>> m_pos2rng;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
+    int& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
+    int rows() const { return m_size.first; }
+    int cols() const { return m_size.second; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size())
-    , m_cells(m_sidelen * m_sidelen)
+    , m_size(strs.size(), strs[0].length() / 2)
+    , m_cells(rows() * cols())
 {
-    for (int r = 0; r < m_sidelen; ++r) {
+    for (int r = 0; r < rows(); ++r) {
         string_view str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             if (auto s = str.substr(c * 2, 2); s == PUZ_EMPTY)
                 cells(p) = -1;
@@ -72,9 +74,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 struct puz_state : vector<int>
 {
     puz_state(const puz_game& g);
-    int sidelen() const { return m_game->m_sidelen; }
-    int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    int rows() const { return m_game->rows(); }
+    int cols() const { return m_game->cols(); }
+    int cells(const Position& p) const { return (*this)[p.first * cols() + p.second]; }
+    int& cells(const Position& p) { return (*this)[p.first * cols() + p.second]; }
     bool make_move(Position p, int n);
 
     // solve_puzzle interface
@@ -105,11 +108,11 @@ bool puz_state::make_move(Position p, int n)
 {
     cells(p) = n;
     m_num2rng.erase(n);
-
+    // other numbers cannot be at this position
     for (auto& [_1, rng2] : m_num2rng)
         if (rng2.erase(p) && rng2.empty())
             return false;
-
+    // the number plus/minus 1 can only be at an adjacent position 
     auto& rng = m_game->m_pos2rng.at(p);
     auto f = [&](int n2) {
         auto it = m_num2rng.find(n2);
@@ -154,14 +157,14 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             int n = cells(p);
             out << (n == -1 ? PUZ_EMPTY : format("{:2}", n));
-            if (c == sidelen() - 1) break;
+            if (c == cols() - 1) break;
             out << (f(p, {r, c + 1}) ? '-' : ' ');
         }
         println(out);
-        if (r == sidelen() - 1) break;
+        if (r == rows() - 1) break;
         for (int c = 0;; ++c) {
             out << (f({r, c}, {r + 1, c}) ? " |" : "  ");
-            if (c == sidelen() - 1) break;
+            if (c == cols() - 1) break;
             bool b1 = f({r, c + 1}, {r + 1, c}), b2 = f({r, c}, {r + 1, c + 1});
             out << (b1 && b2 ? 'X' : b1 ? '/' : b2 ? '\\' : ' ');
         }

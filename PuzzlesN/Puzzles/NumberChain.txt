@@ -11,5 +11,25 @@ Sequence of moves:
  5  3- 2 19-18
 Number of moves: 16
 Number of vertices examined: 64
-0.0174673 [s]
+0.0043783 [s]
 
+Level 2
+Sequence of moves: 
+35-34 47-46 31-30-29
+ |   \     X     /  
+36 40 33-32 45 28 25
+  X  \     /  /  / |
+39 37 41 44 27-26 24
+ |/     X          |
+38  9 43-42 xx 22-23
+  /  \        /     
+ 8- 7 10  1 21-20 17
+  /     X     /  / |
+ 6- 5  2 11 19-18 16
+     X    |        |
+xx  3- 4 12-13-14-15
+Number of moves: 35
+Number of vertices examined: 70
+0.0138647 [s]
+
+Level 3
