@@ -63,12 +63,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-// first: the numbers on the board
-// second: the current position
-struct puz_state : pair<vector<int>, Position>
+struct puz_state
 {
     puz_state(const puz_game& g) 
-        : pair<vector<int>, Position>(g.m_nums, g.m_start)
+        : m_cells(g.m_nums), m_p(g.m_start)
         , m_game(&g) {}
     int sidelen() const { return m_game->m_sidelen; }
     bool is_valid(const Position& p) const {
@@ -76,28 +74,34 @@ struct puz_state : pair<vector<int>, Position>
     }
     int index(const Position& p) const { return p.first * sidelen() + p.second; }
     int dirs(const Position& p) const { return m_game->m_dirs[index(p)]; }
-    int cells(const Position& p) const { return first[index(p)]; }
-    int& cells(const Position& p) { return first[index(p)]; }
-    void make_move(const Position& p, int n) { cells(second = p) = n; }
+    int cells(const Position& p) const { return m_cells[index(p)]; }
+    int& cells(const Position& p) { return m_cells[index(p)]; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_p) < tie(x.m_cells, x.m_p);
+    }
+    void make_move(const Position& p, int n) { cells(m_p = p) = n; }
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return first.size() - cells(second); }
+    unsigned int get_heuristic() const { return m_cells.size() - cells(m_p); }
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<int> m_cells;
+    // the current position
+    Position m_p;
 };
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    int n = cells(second) + 1;
+    int n = cells(m_p) + 1;
     auto it = m_game->m_num2pos.find(n);
     bool found = it != m_game->m_num2pos.end();
-    auto& os = offset[dirs(second)];
-    for (auto p = second + os; is_valid(p); p += os)
+    auto& os = offset[dirs(m_p)];
+    for (auto p = m_p + os; is_valid(p); p += os)
         if (found && p == it->second || !found && cells(p) == PUZ_UNKNOWN) {
             children.push_back(*this);
             children.back().make_move(p, n);

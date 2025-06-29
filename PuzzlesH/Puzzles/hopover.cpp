@@ -31,23 +31,24 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
 }
 
-struct puz_step : pair<int, int> {
-    puz_step(int n1, int n2) : pair<int, int>(n1, n2) {}
-};
+struct puz_move : pair<int, int> { using pair::pair; };
 
-ostream & operator<<(ostream &out, const puz_step &mi)
+ostream& operator<<(ostream &out, const puz_move &mi)
 {
     out << format("move: {} -> {}\n", mi.first, mi.second);
     return out;
 }
 
-struct puz_state : pair<string, boost::optional<puz_step>>
+struct puz_state
 {
     puz_state(const puz_game& g)
-        : pair<string, boost::optional<puz_step>>{g.m_start, {}}, m_game(&g) {}
+        : m_cells(g.m_start), m_game(&g) {}
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_move) < tie(x.m_cells, x.m_move);
+    }
     void make_move(int i, int j) {
-        ::swap(first[i], first[j]);
-        second = puz_step(i, j);
+        ::swap(m_cells[i], m_cells[j]);
+        m_move = puz_move(i, j);
     }
 
     // solve_puzzle interface
@@ -55,34 +56,36 @@ struct puz_state : pair<string, boost::optional<puz_step>>
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         int n = 0;
-        for (size_t i = 1; i < first.length() - 1; ++i)
-            n += myabs(first[i] - m_game->m_goal[i]);
+        for (size_t i = 1; i < m_cells.length() - 1; ++i)
+            n += myabs(m_cells[i] - m_game->m_goal[i]);
         return n;
     }
     unsigned int get_distance(const puz_state& child) const {return 1;}
-    void dump_move(ostream& out) const {if(second) out << *second;}
+    void dump_move(ostream& out) const {if(m_move) out << *m_move;}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
+    optional<puz_move> m_move;
 };
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for (size_t i = 1; i < first.length() - 1; ++i) {
-        char n = first[i];
+    for (size_t i = 1; i < m_cells.length() - 1; ++i) {
+        char n = m_cells[i];
         if (n == PUZ_RED || n == PUZ_BLUE) {
             bool can_move = false;
             // Red frogs move rightward and blue ones, leftward.
             int delta = n == PUZ_RED ? 1 : -1;
             int j = i + delta;
-            char n2 = first[j];
+            char n2 = m_cells[j];
             // A frog can move forward
             if (n2 == PUZ_SPACE)
                 can_move = true;
             // or jump a frog in front of it
             else if (n2 == PUZ_RED || n2 == PUZ_BLUE) {
                 j += delta;
-                n2 = first[j];
+                n2 = m_cells[j];
                 if (n2 == PUZ_SPACE)
                     can_move = true;
             }
@@ -97,8 +100,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     dump_move(out);
-    for (size_t j = 1; j < first.size() - 1; ++j)
-        out << first[j] << " ";
+    for (size_t j = 1; j < m_cells.size() - 1; ++j)
+        out << m_cells[j] << " ";
     println(out);
     return out;
 }
