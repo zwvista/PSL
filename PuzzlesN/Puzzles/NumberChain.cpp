@@ -15,10 +15,6 @@
 
 namespace puzzles::NumberChain{
 
-constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_AREA = 'O';
-constexpr auto PUZ_OBJECT = '@';
-
 constexpr Position offset[] = {
     {-1, 0},       // n
     {-1, 1},       // ne
@@ -35,39 +31,42 @@ const string_view dirs = "^>v<";
 struct puz_game
 {
     string m_id;
-    Position m_size;
-    string m_cells;
+    int m_sidelen;
+    vector<int> m_cells;
     set<Position> m_area;
-    Position m_start;
+    map<Position, int> m_pos2num;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int rows() const {return m_size.first;}
-    int cols() const {return m_size.second;}
+    int& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_size(strs.size(), strs[0].length())
+    , m_sidelen(strs.size())
+    , m_cells(m_sidelen * m_sidelen)
 {
-    m_cells = boost::accumulate(strs, string());
-    for (int r = 0; r < rows(); ++r) {
+    for (int r = 0; r < m_sidelen; ++r) {
         string_view str = strs[r];
-        for (int c = 0; c < cols(); ++c)
-            switch (Position p(r, c); str[c]) {
-            case PUZ_AREA: m_area.insert(p); break;
-            case PUZ_OBJECT: m_start = p; break;
+        for (int c = 0; c < m_sidelen; ++c) {
+            Position p(r, c);
+            if (auto s = str.substr(c * 2, 2); s == "xx")
+                cells(p) = -1;
+            else {
+                m_area.insert(p);
+                if (s != "..")
+                    m_pos2num[p] = stoi(string(s));
             }
+        }
     }
 }
 
-struct puz_state : string
+struct puz_state : vector<int>
 {
     puz_state(const puz_game& g)
-        : string(g.m_cells), m_game(&g), m_area(g.m_area), m_p(g.m_start) { }
-    int rows() const { return m_game->rows(); }
-    int cols() const { return m_game->cols(); }
-    char cells(const Position& p) const { return (*this)[p.first * cols() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * cols() + p.second]; }
+        : vector<int>(g.m_cells), m_game(&g), m_area(g.m_area) { }
+    int sidelen() const { return m_game->m_sidelen; }
+    int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
+    int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
     bool make_move(int i, Position p2);
 
     // solve_puzzle interface
@@ -80,7 +79,6 @@ struct puz_state : string
 
     const puz_game* m_game = nullptr;
     set<Position> m_area;
-    Position m_p;
 };
 
 struct puz_state2 : Position
@@ -105,9 +103,6 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::make_move(int n, Position p2)
 {
-    cells(m_p) = dirs[n];
-    m_area.erase(m_p = p2);
-    cells(m_p) = PUZ_OBJECT;
     if (is_goal_state())
         return true;
     auto smoves = puz_move_generator<puz_state2>::gen_moves({*this});
@@ -116,20 +111,17 @@ bool puz_state::make_move(int n, Position p2)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for (int i = 0; i < 4; ++i)
-        if (auto p2 = m_p + offset[i]; m_area.contains(p2)) {
-            children.push_back(*this);
-            if (!children.back().make_move(i, p2))
-                children.pop_back();
-        }
+            //children.push_back(*this);
+            //if (!children.back().make_move(i, p2))
+            //    children.pop_back();
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < rows(); ++r) {
-        for (int c = 0; c < cols(); ++c) {
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            out << cells({r, c}) << (p == m_game->m_start ? '*' : ' ');
+            out << cells({r, c}) << ' ';
         }
         println(out);
     }
