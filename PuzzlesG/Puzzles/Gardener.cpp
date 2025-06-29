@@ -172,12 +172,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     });
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i);
     void count_unbalanced();
 
@@ -192,13 +193,14 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     int m_fb_index = 0;
     unsigned int m_distance = 0;
     unsigned int m_unbalanced = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_game(&g)
 {
     for (int i = 0; i < sidelen(); ++i)
@@ -251,9 +253,9 @@ struct puz_state3 : Position
 puz_state3::puz_state3(const puz_state& s)
 : m_state(&s)
 {
-    int i = boost::find_if(s, [](char ch) {
+    int i = boost::find_if(s.m_cells, [](char ch) {
         return is_empty(ch);
-    }) - s.begin();
+    }) - s.m_cells.begin();
 
     make_move({i / sidelen(), i % sidelen()});
 }
@@ -289,7 +291,7 @@ bool puz_state::make_move(int i)
 
     // interconnected spaces
     auto smoves = puz_move_generator<puz_state3>::gen_moves(*this);
-    if (smoves.size() != boost::count_if(*this, [](char ch) {
+    if (smoves.size() != boost::count_if(m_cells, [](char ch) {
         return is_empty(ch);
     }))
         return false;

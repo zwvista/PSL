@@ -111,13 +111,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int rows() const { return m_game->rows(); }
     int cols() const { return m_game->cols(); }
-    char cells(const Position& p) const { return (*this)[p.first * cols() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * cols() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i, int j);
     void make_move2(int i, int j);
     int find_matches(bool init);
@@ -131,13 +132,14 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<int, vector<int>> m_matches;
     set<Position> m_horz_walls, m_vert_walls;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.rows() * g.cols(), PUZ_SPACE), m_game(&g)
+: m_cells(g.rows() * g.cols(), PUZ_SPACE), m_game(&g)
 {
     for (auto& [comb_id, dominoes] : g.m_combid2dominoes) {
         auto& domino_ids = m_matches[comb_id];

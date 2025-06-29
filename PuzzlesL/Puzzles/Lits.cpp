@@ -170,15 +170,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i, int j);
     bool make_move2(int i, int j);
     bool is_interconnected() const;
@@ -193,12 +194,13 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<int, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
     for (int i = 0; i < g.m_area_count; ++i) {
         auto& perm_ids = m_matches[i];
@@ -266,10 +268,10 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 // 5. All the shaded cells should form a valid Nurikabe.
 bool puz_state::is_interconnected() const
 {
-    int i = boost::find_if(*this, is_piece) - begin();
+    int i = boost::find_if(m_cells, is_piece) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state3>::gen_moves(
         {this, {i / sidelen(), i % sidelen()}});
-    return smoves.size() == boost::count_if(*this, is_piece);
+    return smoves.size() == boost::count_if(m_cells, is_piece);
 }
 
 bool puz_state::make_move2(int i, int j)

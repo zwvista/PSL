@@ -34,6 +34,7 @@ constexpr Position offset[] = {
     {1, -1},       // sw
     {0, -1},       // w
     {-1, -1},      // nw
+};
 
 using puz_hint = vector<int>;
 
@@ -130,12 +131,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 using puz_path = pair<vector<Position>, int>;
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move_hint(const Position& p, int n);
     bool make_move_hint2(const Position& p, int n);
     bool make_move_space(const Position& p, char ch);
@@ -146,12 +148,13 @@ struct puz_state : string
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
+    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
@@ -183,7 +186,7 @@ int puz_state::find_matches(bool init)
 }
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_cells), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     for (auto& [p, hint] : g.m_pos2hint) {
         auto& perm_ids = m_matches[p];
@@ -261,14 +264,14 @@ puz_hint puz_state::compute_hint(const Position& p) const
 bool puz_state::is_valid_move() const
 {
     auto is_interconnected = [&]{
-        int i = find(PUZ_FILLED);
+        int i = m_cells.find(PUZ_FILLED);
         if (i == -1)
             return true;
         auto smoves = puz_move_generator<puz_state2>::gen_moves(
             {*this, {i / sidelen(), i % sidelen()}});
         return boost::count_if(smoves, [&](const Position& p) {
             return cells(p) == PUZ_FILLED;
-        }) == boost::count(*this, PUZ_FILLED);
+        }) == boost::count(m_cells, PUZ_FILLED);
     };
 
     auto is_same_color = [&](const vector<Position>& rng, const vector<char>& color) {
@@ -313,7 +316,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 children.pop_back();
         }
     } else {
-        int n = find(PUZ_SPACE);
+        int n = m_cells.find(PUZ_SPACE);
         if (n == -1)
             return;
         Position p(n / sidelen(), n % sidelen());

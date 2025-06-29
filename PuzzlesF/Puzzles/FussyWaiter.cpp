@@ -63,15 +63,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     while (boost::next_permutation(perm));
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char food(const Position& p) const { return (*this)[p.first * sidelen() * 2 + p.second * 2]; }
-    char& food(const Position& p) { return (*this)[p.first * sidelen() * 2 + p.second * 2]; }
-    char drinks(const Position& p) const { return (*this)[p.first * sidelen() * 2 + p.second * 2 + 1]; }
-    char& drinks(const Position& p) { return (*this)[p.first * sidelen() * 2 + p.second * 2 + 1]; }
-    string paring(const Position& p) const { return substr(p.first * sidelen() * 2 + p.second * 2, 2); }
+    char food(const Position& p) const { return m_cells[p.first * sidelen() * 2 + p.second * 2]; }
+    char& food(const Position& p) { return m_cells[p.first * sidelen() * 2 + p.second * 2]; }
+    char drinks(const Position& p) const { return m_cells[p.first * sidelen() * 2 + p.second * 2 + 1]; }
+    char& drinks(const Position& p) { return m_cells[p.first * sidelen() * 2 + p.second * 2 + 1]; }
+    string paring(const Position& p) const { return m_cells.substr(p.first * sidelen() * 2 + p.second * 2, 2); }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i, int j);
     bool make_move2(int i, int j);
     int find_matches(bool init);
@@ -85,12 +86,13 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<int, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_cells), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     vector<int> perm_ids(g.m_perms_food.size());
     boost::iota(perm_ids, 0);

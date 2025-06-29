@@ -20,10 +20,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g)
-        : string(g.m_cells), m_move(0) {}
+        : m_cells(g.m_cells), m_move(0) {}
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     void make_rotation(int n, bool reverse, char m);
 
     // solve_puzzle interface
@@ -34,6 +35,7 @@ struct puz_state : string
     void dump_move(ostream& out) const {if(m_move) out << m_move;}
     ostream& dump(ostream& out) const;
 
+    string m_cells;
     char m_move;
 };
 
@@ -63,10 +65,10 @@ void puz_state::make_rotation(int n, bool reverse, char m)
     };
     static vector<char> v(7);
     for (int i = 0; i < 7; ++i)
-        v[i] = (*this)[offset[n][i]];
+        v[i] = m_cells[offset[n][i]];
     rotate(v.begin(), reverse ? v.begin() + 1 : v.end() - 1, v.end());
     for (int i = 0; i < 7; ++i)
-        (*this)[offset[n][i]] = v[i];
+        m_cells[offset[n][i]] = v[i];
     m_move = m;
 }
 
@@ -75,7 +77,7 @@ unsigned int puz_state::get_heuristic() const
     static int offset[8] = {6, 7, 8, 11, 12, 15, 16, 17};
     static vector<char> v(8);
     for (int i = 0; i < 8; ++i)
-        v[i] = (*this)[offset[i]];
+        v[i] = m_cells[offset[i]];
     map<int, char> groups;
     for (char ch = '1'; ch <= '3'; ++ch)
         groups[boost::count(v, ch)] = ch;
@@ -88,8 +90,8 @@ ostream& puz_state::dump(ostream& out) const
 {
     if (m_move)
         out << "move: " << m_move << endl;
-    for (size_t i = 0; i < length(); ++i)
-        print("{} ", at(i));
+    for (size_t i = 0; i < m_cells.length(); ++i)
+        print("{} ", m_cells[i]);
     println();
     return out;
 }

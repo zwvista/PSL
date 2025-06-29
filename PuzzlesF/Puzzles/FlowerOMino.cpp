@@ -130,15 +130,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i);
     void make_move2(int i);
     int find_matches(bool init);
@@ -152,13 +153,14 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
     char m_ch = 'a';
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_cells), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 , m_matches(g.m_pos2piece_ids)
 {
     find_matches(true);

@@ -89,11 +89,11 @@ class puz_state : public string
 {
 public:
     puz_state(const puz_game& g)
-        : string(g.m_cells), m_game(&g), m_blocks(g.m_blocks) {}
+        : m_cells(g.m_cells), m_game(&g), m_blocks(g.m_blocks) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
-    char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
-    char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
+    char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+    char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
     bool make_move(size_t n, EDir dir);
 private:
     unsigned int slide_distance(int r1, int c1, int r2, int c2) const;
@@ -108,6 +108,7 @@ public:
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     vector<Position> m_blocks;
     boost::optional<puz_step> m_move;
 };

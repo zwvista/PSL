@@ -111,19 +111,20 @@ ostream& operator<<(ostream &out, const puz_step &mi)
     return out;
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int rows() const { return m_game->rows(); }
     int cols() const { return m_game->cols(); }
-    char cells(const Position& p) const { return (*this)[p.first * cols() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * cols() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p, int n);
     bool make_move2(const Position& p, Position os, bool is_test);
 
     //solve_puzzle interface
     bool is_goal_state() const {
-        return get_heuristic() == 0 && boost::count_if(*this, [](char ch) {
+        return get_heuristic() == 0 && boost::count_if(m_cells, [](char ch) {
             return ch == PUZ_HOLE_EMPTY || ch == PUZ_HOLE_BONSAI;
         }) == 0;
     }
@@ -134,12 +135,13 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
     
     const puz_game* m_game = nullptr;
+    string m_cells;
     boost::optional<puz_step> m_move;
     map<Position, puz_block> m_pos2block;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_cells), m_game(&g), m_pos2block(g.m_pos2block)
+    : m_cells(g.m_cells), m_game(&g), m_pos2block(g.m_pos2block)
 {
 }
 

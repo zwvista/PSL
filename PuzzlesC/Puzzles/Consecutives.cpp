@@ -166,28 +166,30 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p, char ch);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
+    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
     unsigned int get_distance(const puz_state& child) const { return 1; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<Position, string> m_pos2nums;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
     for (auto& [p, info] : g.m_pos2info)
         m_pos2nums[p] = "123456789";

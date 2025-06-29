@@ -46,23 +46,24 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g)
-        : string(g.m_cells), m_game(&g), m_head(g.m_nums[0])
+        : m_cells(g.m_cells), m_game(&g), m_head(g.m_nums[0])
         , m_next(1), m_move(0) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
-    char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
-    char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
+    char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+    char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool is_unvisited(char ch) const {return ch == ' ' || isupper(ch);}
     int num_unvisited() const {
         int n = 0;
-        for (size_t i = 0; i < length(); ++i)
-            if (is_unvisited(at(i)))
+        for (size_t i = 0; i < m_cells.length(); ++i)
+            if (is_unvisited(m_cells[i]))
                 ++n;
         return n;
     }
@@ -77,6 +78,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     Position m_head;
     int m_next;
     char m_move;

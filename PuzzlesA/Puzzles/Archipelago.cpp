@@ -101,15 +101,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p, int n);
     void make_move2(const Position& p, int n) {
         auto& island = m_game->m_pos2islandinfo.at(p).m_islands[n];
@@ -128,6 +129,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<Position, vector<int>> m_matches;
     vector<set<Position>> m_2by2waters;
     vector<pair<Position, Position>> m_islands;
@@ -135,7 +137,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
     for (int r = 0; r < sidelen() - 1; ++r)
         for (int c = 0; c < sidelen() - 1; ++c)
@@ -202,10 +204,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 // and no group of islands must be separated from the others.
 bool puz_state::is_interconnected() const
 {
-    int i = this->find(PUZ_ISLAND);
+    int i = m_cells.find(PUZ_ISLAND);
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
         {*this, {i / sidelen(), i % sidelen()}});
-    return smoves.size() == boost::count(*this, PUZ_ISLAND);
+    return smoves.size() == boost::count(m_cells, PUZ_ISLAND);
 }
 
 void puz_state::make_move3(const Position& p, const pair<Position, Position>& island)
@@ -258,8 +260,8 @@ void puz_state::gen_children(list<puz_state>& children) const
                 children.pop_back();
         }
     } else
-        for (int i = 0; i < length(); ++i) {
-            if ((*this)[i] != PUZ_SPACE) continue;
+        for (int i = 0; i < m_cells.length(); ++i) {
+            if (m_cells[i] != PUZ_SPACE) continue;
             Position p(i / sidelen(), i % sidelen());
             for (int r = p.first; r < sidelen(); ++r)
                 for (int c = p.second; c < sidelen(); ++c)

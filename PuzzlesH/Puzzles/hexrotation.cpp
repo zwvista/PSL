@@ -62,18 +62,20 @@ struct puz_step : Position
         : Position(p + Position(1, 1)) {}
 };
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g)
-        : string(g.m_start), m_game(&g) {}
+        : m_cells(g.m_start), m_game(&g) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
-    char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
-    char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
+    char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+    char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool operator==(const puz_state& x) const { return m_cells == x.m_cells; }
     void click(const Position& p);
 
     // solve_puzzle interface
-    bool is_goal_state() const {return *this == m_game->m_goal;}
+    bool is_goal_state() const {return m_cells == m_game->m_goal;}
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const;
     unsigned int get_distance(const puz_state& child) const {return 6;}
@@ -81,6 +83,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     boost::optional<puz_step> m_move;
 };
 
@@ -107,12 +110,12 @@ unsigned int puz_state::get_heuristic() const
 {
     unsigned int md = 0;
     map<char, Position> m1, m2;
-    for (size_t i = 0; i < length(); ++i) {
-        char ch = at(i);
+    for (size_t i = 0; i < m_cells.length(); ++i) {
+        char ch = m_cells[i];
         if (ch != PUZ_NOENTRY)
             m1[ch] += Position(i / cols(), i % cols());
     }
-    for (size_t i = 0; i < length(); ++i) {
+    for (size_t i = 0; i < m_cells.length(); ++i) {
         char ch = m_game->m_goal[i];
         if (ch != PUZ_NOENTRY)
             m2[ch] += Position(i / cols(), i % cols());

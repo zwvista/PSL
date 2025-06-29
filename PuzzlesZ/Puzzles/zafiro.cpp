@@ -87,15 +87,16 @@ ostream& operator<<(ostream& out, const puz_step& act)
     return out;
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g)
-        : string(g.m_cells), m_game(&g), m_zafiro(g.m_zafiro)
+        : m_cells(g.m_cells), m_game(&g), m_zafiro(g.m_zafiro)
         , m_grav(0) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
-    char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
-    char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
+    char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+    char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i);
     void click(const Position& p);
 
@@ -108,6 +109,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     Position m_zafiro;
     int m_grav;
     boost::optional<puz_step> m_move;

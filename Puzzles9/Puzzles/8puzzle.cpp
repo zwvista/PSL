@@ -46,14 +46,16 @@ void puz_game::compute_heuristic()
         m_groups[m_goal[i]].first.push_back(i);
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g)
-        : string(g.m_start), m_game(&g), m_space(g.m_space), m_move(0) {}
+        : m_cells(g.m_start), m_game(&g), m_space(g.m_space), m_move(0) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
-    char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
-    char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
+    char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+    char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool operator==(const puz_state& x) const { return m_cells == x.m_cells; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
@@ -64,7 +66,7 @@ struct puz_state : string
     }
 
     //solve_puzzle interface
-    bool is_goal_state() const {return *this == m_game->m_goal;}
+    bool is_goal_state() const {return m_cells == m_game->m_goal;}
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const;
     unsigned int get_distance(const puz_state& child) const {return 1;}
@@ -72,6 +74,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     Position m_space;
     char m_move;
 };
@@ -106,8 +109,8 @@ unsigned int puz_state::get_heuristic() const
     unsigned int md = 0;
 
     group_map& g = m_game->m_groups;
-    for (size_t i = 0; i < size(); ++i)
-        g[at(i)].second.push_back(i);
+    for (size_t i = 0; i < m_cells.size(); ++i)
+        g[m_cells[i]].second.push_back(i);
     for (group_map::iterator i = g.begin(); i != g.end(); ++i) {
         vector<int>& v0 = i->second.first;
         vector<int>& v1 = i->second.second;

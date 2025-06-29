@@ -71,12 +71,13 @@ struct puz_area
     set<Position> m_inner, m_outer;
 };
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p);
     bool make_move2(const Position& p);
     int adjust_area(bool init);
@@ -95,13 +96,14 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     unsigned int m_distance = 0;
     map<Position, puz_area> m_pos2area;
     Position m_starting;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_cells), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     for (auto& [pnum, n] : g.m_pos2num)
         m_pos2area[pnum].m_inner.insert(pnum);

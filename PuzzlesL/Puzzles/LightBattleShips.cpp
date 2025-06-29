@@ -121,15 +121,16 @@ using puz_pos_match = map<Position, vector<tuple<int, Position, bool>>>;
 // value.elem.second: false if the ship is horizontal, true if vertical
 using puz_ship_match = map<int, vector<pair<Position, bool>>>;
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p_piece, const Position& p, int n, bool vert);
     void check_area();
     void find_matches();
@@ -147,6 +148,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<int, int> m_ship2num;
     map<Position, char> m_pos2piece;
     map<Position, int> m_pos2light;
@@ -155,7 +157,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_cells), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 , m_ship2num(g.m_ship2num), m_pos2piece(g.m_pos2piece)
 , m_pos2light(g.m_pos2light)
 {

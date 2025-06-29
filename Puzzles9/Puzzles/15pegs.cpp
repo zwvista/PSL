@@ -76,14 +76,15 @@ class puz_state : public string
 {
 public:
     puz_state(const puz_game& g)
-        : string(g.m_cells), m_game(&g) {}
+        : m_cells(g.m_cells), m_game(&g) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
-    char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
-    char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second <= p.first;
     }
+    char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+    char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     void make_move(const Position& p1, const Position& p2, const Position& p3) {
         cells(p1) = cells(p2) = PUZ_SPACE;
         cells(p3) = PUZ_PEG;
@@ -101,6 +102,7 @@ public:
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     boost::optional<puz_step> m_move;
 };
 

@@ -77,7 +77,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
@@ -85,11 +85,12 @@ struct puz_state : string
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
     char line(const Position& p, bool is_vert) const {
-        return (*this)[(p.first * sidelen() + p.second) * 2 + (is_vert ? 1 : 0)];
+        return m_cells[(p.first * sidelen() + p.second) * 2 + (is_vert ? 1 : 0)];
     }
     char& line(const Position& p, bool is_vert) {
-        return (*this)[(p.first * sidelen() + p.second) * 2 + (is_vert ? 1 : 0)];
+        return m_cells[(p.first * sidelen() + p.second) * 2 + (is_vert ? 1 : 0)];
     }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p, int n);
     bool make_move2(const Position& p, int n);
     int find_matches(bool init);
@@ -104,12 +105,13 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen * 2, PUZ_LINE_UNKNOWN), m_game(&g)
+: m_cells(g.m_sidelen * g.m_sidelen * 2, PUZ_LINE_UNKNOWN), m_game(&g)
 {
     for (auto& [p, n] : g.m_pos2num) {
         auto& perm_ids = m_matches[p];

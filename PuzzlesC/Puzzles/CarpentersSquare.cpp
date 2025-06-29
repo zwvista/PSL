@@ -96,12 +96,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(char ch, int n);
     bool make_move2(char ch, int n);
     bool make_move_hidden(char ch, int n);
@@ -118,7 +119,7 @@ struct puz_state : string
 
     //solve_puzzle interface
     bool is_goal_state() const {
-        return get_heuristic() == 0 && find(PUZ_SPACE) == string::npos;
+        return get_heuristic() == 0 && m_cells.find(PUZ_SPACE) == string::npos;
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return m_matches.size(); }
@@ -127,6 +128,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<char, vector<vector<Position>>> m_matches;
     puz_tool m_next_tool;
     char m_next_ch;
@@ -134,7 +136,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_cells), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 , m_next_ch('a' + g.m_ch2tool.size())
 {
     for (auto& [ch, tool] : g.m_ch2tool)

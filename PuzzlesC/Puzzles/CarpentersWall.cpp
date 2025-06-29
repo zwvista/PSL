@@ -99,12 +99,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(char ch, int n);
     bool make_move2(char ch, int n);
     bool make_move_hidden(char ch, int n);
@@ -129,6 +130,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     map<char, vector<vector<Position>>> m_matches;
     vector<set<Position>> m_2by2walls;
     puz_tool m_next_tool;
@@ -137,7 +139,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_cells), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 , m_next_ch('a' + g.m_ch2tool.size())
 {
     for (int r = 1; r < sidelen() - 2; ++r)
@@ -334,12 +336,12 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::is_interconnected() const
 {
-    int i = boost::find(*this, PUZ_WALL) - begin();
+    int i = boost::find(m_cells, PUZ_WALL) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
         {*this, {i / sidelen(), i % sidelen()}});
     return boost::count_if(smoves, [&](const Position& p) {
         return cells(p) == PUZ_WALL;
-    }) == boost::count(*this, PUZ_WALL);
+    }) == boost::count(m_cells, PUZ_WALL);
 }
 
 bool puz_state::make_move2(char ch, int n)

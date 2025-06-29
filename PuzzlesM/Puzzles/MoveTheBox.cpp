@@ -48,13 +48,14 @@ ostream& operator<<(ostream &out, const puz_step &mi)
     return out;
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int rows() const { return m_game->rows(); }
     int cols() const { return m_game->cols(); }
-    char cells(const Position& p) const { return (*this)[p.first * cols() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * cols() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p, int n);
     bool clear_boxes();
     bool fall_boxes();
@@ -62,7 +63,7 @@ struct puz_state : string
 
     //solve_puzzle interface
     bool is_goal_state() const {
-        return boost::count(*this, PUZ_SPACE) == rows() * cols();
+        return boost::count(m_cells, PUZ_SPACE) == rows() * cols();
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return 1; }
@@ -71,11 +72,12 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
     
     const puz_game* m_game = nullptr;
+    string m_cells;
     boost::optional<puz_step> m_move;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : string(g.m_cells), m_game(&g)
+    : m_cells(g.m_cells), m_game(&g)
 {
 }
 

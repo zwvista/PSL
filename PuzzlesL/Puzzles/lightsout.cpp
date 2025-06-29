@@ -74,15 +74,16 @@ ostream & operator<<(ostream &out, const puz_step &mi)
     return out;
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g)
-        : string(g.m_cells), m_game(&g) {}
+        : m_cells(g.m_cells), m_game(&g) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
-    char cells(const Position& p) const {return (*this)[p.first * cols() + p.second];}
-    char& cells(const Position& p) {return (*this)[p.first * cols() + p.second];}
     bool is_valid(Position& p) const;
+    char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
+    char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     void click(const Position& p);
 
     //solve_puzzle interface
@@ -91,10 +92,10 @@ struct puz_state : string
     unsigned int get_heuristic() const {
         // not an admissible heuristic
         int n = 0;
-        for (size_t i = 0; i < length(); ++i) {
-            char ch = at(i);
+        for (size_t i = 0; i < m_cells.length(); ++i) {
+            char ch = m_cells[i];
             if (ch != PUZ_NONE)
-                n += at(i) - PUZ_OFF;
+                n += ch - PUZ_OFF;
         }
         return n;
     }
@@ -103,6 +104,7 @@ struct puz_state : string
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     boost::optional<puz_step> m_move;
 };
 

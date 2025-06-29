@@ -78,15 +78,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
 }
 
-struct puz_state : string
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    char cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p, int n);
     bool make_move2(const Position& p, int n);
     int find_matches(bool init);
@@ -94,12 +95,13 @@ struct puz_state : string
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(*this, PUZ_SPACE); }
+    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    string m_cells;
     // key: the position of the number
     // value.elem: the index of the box
     map<Position, vector<int>> m_matches;
@@ -108,7 +110,7 @@ struct puz_state : string
 };
 
 puz_state::puz_state(const puz_game& g)
-: string(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
     for (auto& [p, boxes] : g.m_pos2boxes) {
         auto& box_ids = m_matches[p];
@@ -150,7 +152,7 @@ int puz_state::find_matches(bool init)
         }
     }
     // All the boxes added up should cover all the remaining spaces
-    return boost::count(*this, PUZ_SPACE) == spaces.size() ? 2 : 0;
+    return boost::count(m_cells, PUZ_SPACE) == spaces.size() ? 2 : 0;
 }
 
 bool puz_state::make_move2(const Position& p, int n)
