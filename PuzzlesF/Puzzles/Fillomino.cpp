@@ -125,15 +125,16 @@ struct puz_area
     }
 };
 
-struct puz_state : vector<int>
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p, int n);
     bool make_move2(const Position& p, int n);
     bool make_move_hidden(const Position& p, int n);
@@ -143,12 +144,13 @@ struct puz_state : vector<int>
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(*this, PUZ_UNKNOWN); }
+    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_UNKNOWN); }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<int> m_cells;
     map<int, puz_area> m_id2area;
     map<Position, char> m_horz_walls, m_vert_walls;
     unsigned int m_distance = 0;
@@ -180,7 +182,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 puz_state::puz_state(const puz_game& g)
-: vector<int>(g.m_cells), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 , m_horz_walls(g.m_horz_walls)
 , m_vert_walls(g.m_vert_walls)
 {
@@ -373,9 +375,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             if (!children.back().make_move(p, area.m_cell_count))
                 children.pop_back();
         } else {
-        auto it = boost::find(*this, PUZ_UNKNOWN);
-        if (it == end()) return;
-        int i = it - begin();
+        auto it = boost::find(m_cells, PUZ_UNKNOWN);
+        if (it == m_cells.end()) return;
+        int i = it - m_cells.begin();
         Position p(i / sidelen(), i % sidelen());
         auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, p});
         for (int n = 1; n <= smoves.size(); ++n) {

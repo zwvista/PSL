@@ -43,13 +43,14 @@ ostream & operator<<(ostream &out, const puz_step &mi)
     return out;
 }
 
-struct puz_state : vector<int>
+struct puz_state
 {
     puz_state(const puz_game& g)
-        : vector<int>(g.m_cells), m_game(&g) {}
+        : m_cells(g.m_cells), m_game(&g) {}
     int sidelen() const {return m_game->sidelen();}
-    int cells(int r, int c) const {return (*this)[r * sidelen() + c];}
-    int& cells(int r, int c) {return (*this)[r * sidelen() + c];}
+    int cells(int r, int c) const {return m_cells[r * sidelen() + c];}
+    int& cells(int r, int c) {return m_cells[r * sidelen() + c];}
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     void make_move(int r1, int c1, int r2, int c2) {
         std::swap(cells(r1, c1), cells(r2, c2));
         m_move = puz_step(Position(r1, c1), Position(r2, c2));
@@ -64,6 +65,7 @@ struct puz_state : vector<int>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<int> m_cells;
     boost::optional<puz_step> m_move;
 };
 

@@ -169,15 +169,16 @@ struct puz_segment
     vector<Position> m_next;
 };
 
-struct puz_state : vector<int>
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     void segment_next(puz_segment& o) const;
     bool make_move(int i, int j);
     vector<int> get_dirs(const Position& p) const;
@@ -195,11 +196,12 @@ struct puz_state : vector<int>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<int> m_cells;
     vector<puz_segment> m_segments;
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<int>(g.m_cells), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     auto f = [&](const pair<const int, Position>& kv_cur, const pair<const int, Position>& kv_next) {
         if (kv_next.first != PUZ_FOREST_DEST && kv_next.first - kv_cur.first != 1 ||

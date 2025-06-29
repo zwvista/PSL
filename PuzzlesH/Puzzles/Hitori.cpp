@@ -74,15 +74,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         it = m_shaded.erase(it);
 }
 
-struct puz_state : vector<int>
+struct puz_state
 {
     puz_state(const puz_game& g)
-        : vector<int>(g.m_cells), m_game(&g), m_shaded(g.m_shaded)
+        : m_cells(g.m_cells), m_game(&g), m_shaded(g.m_shaded)
     {}
 
     int sidelen() const {return m_game->m_sidelen;}
-    int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const pair<int, int>& key, const Position& p);
     bool is_interconnected() const;
 
@@ -99,6 +100,7 @@ struct puz_state : vector<int>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<int> m_cells;
     puz_shaded m_shaded;
     int m_distance = 0;
 };
@@ -128,10 +130,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 // 3. All the un-shaded squares must form a single continuous area.
 bool puz_state::is_interconnected() const
 {
-    int i = boost::find_if(*this, is_unshaded) - begin();
+    int i = boost::find_if(m_cells, is_unshaded) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
         {this, {i / sidelen(), i % sidelen()}});
-    return smoves.size() == boost::count_if(*this, is_unshaded);
+    return smoves.size() == boost::count_if(m_cells, is_unshaded);
 }
 
 bool puz_state::make_move(const pair<int, int>& key, const Position& p)

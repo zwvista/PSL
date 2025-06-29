@@ -71,13 +71,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 rng.insert(p2);
 }
 
-struct puz_state : vector<int>
+struct puz_state
 {
     puz_state(const puz_game& g);
     int rows() const { return m_game->rows(); }
     int cols() const { return m_game->cols(); }
-    int cells(const Position& p) const { return (*this)[p.first * cols() + p.second]; }
-    int& cells(const Position& p) { return (*this)[p.first * cols() + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
+    int& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(Position p, int n);
 
     // solve_puzzle interface
@@ -89,13 +90,14 @@ struct puz_state : vector<int>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<int> m_cells;
     // key: the number
     // value: the possible positions of the number
     map<int, set<Position>> m_num2rng;
 };
 
 puz_state::puz_state(const puz_game & g)
-: vector<int>(g.m_cells), m_game(&g)
+: m_cells(g.m_cells), m_game(&g)
 {
     for (int i = 1; i <= g.m_max_num; ++i)
         m_num2rng[i] = g.m_area;

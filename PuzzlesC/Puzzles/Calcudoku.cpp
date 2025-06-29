@@ -129,13 +129,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_state : vector<int>
+struct puz_state
 {
     puz_state(const puz_game& g);
 
     int sidelen() const {return m_game->m_sidelen;}
-    int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i, int j);
 
     //solve_puzzle interface
@@ -147,11 +148,12 @@ struct puz_state : vector<int>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<int> m_cells;
     map<int, vector<int>> m_matches;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : vector<int>(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+    : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
     , m_game(&g)
 {
     for (int i = 0; i < g.m_area_info.size(); ++i) {
