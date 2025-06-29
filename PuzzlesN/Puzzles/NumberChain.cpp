@@ -79,20 +79,19 @@ struct puz_state : vector<int>
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {return m_area.size();}
+    unsigned int get_heuristic() const {return m_num2rng.size();}
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    set<Position> m_area;
     // key: the number
     // value: the possible positions of the number
     map<int, set<Position>> m_num2rng;
 };
 
 puz_state::puz_state(const puz_game & g)
-: vector<int>(g.m_cells), m_game(&g), m_area(g.m_area)
+: vector<int>(g.m_cells), m_game(&g)
 {
     for (int i = 1; i <= g.m_max_num; ++i)
         m_num2rng[i] = g.m_area;
@@ -104,10 +103,14 @@ puz_state::puz_state(const puz_game & g)
 bool puz_state::make_move(Position p, int n)
 {
     cells(p) = n;
+    m_num2rng.erase(n);
     auto& rng = m_game->m_pos2rng.at(p);
     auto f = [&](int n2) {
+        auto it = m_num2rng.find(n2);
+        if (it == m_num2rng.end())
+            return true;
+        auto& rng2 = it->second;
         set<Position> rng3;
-        auto& rng2 = m_num2rng.at(n2);
         boost::set_intersection(rng, rng2, inserter(rng3, rng3.end()));
         if (rng3.empty())
             return false;
