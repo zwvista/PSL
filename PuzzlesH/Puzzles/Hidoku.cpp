@@ -144,11 +144,9 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
     int i = it - m_segments.begin();
 
-    for (int j = 0; j < it->m_next.size(); ++j) {
-        children.push_back(*this);
-        if (!children.back().make_move(i, j))
+    for (int j = 0; j < it->m_next.size(); ++j)
+        if (children.push_back(*this); !children.back().make_move(i, j))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

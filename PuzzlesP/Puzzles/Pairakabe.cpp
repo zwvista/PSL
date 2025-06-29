@@ -97,11 +97,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 // no adjacent tile to it belongs to another garden, because
                 // Gardens are separated by a wall. They cannot touch each other orthogonally.
                 return p3 != *m_p2 && !contains(p3) && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY;
-            })) {
-                children.push_back(*this);
-                if (!children.back().make_move(p2))
+            }))
+                if (children.push_back(*this); !children.back().make_move(p2))
                     children.pop_back();
-            }
         }
 }
 
@@ -379,11 +377,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         const pair<const Position, vector<pair<Position, int>>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (auto& [p2, n] : v) {
-        children.push_back(*this);
-        if (!children.back().make_move(p, p2, n))
+    for (auto& [p2, n] : v)
+        if (children.push_back(*this); !children.back().make_move(p, p2, n))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

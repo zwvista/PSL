@@ -147,11 +147,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         const Position& p = bp.first;
         EBrickType bt = bp.second;
         const brick_info& bi = bis[bt];
-        for (int i = 0; i < 4; ++i) {
-            children.push_back(*this);
-            if (!children.back().make_move(p, bt, bi, i))
+        for (int i = 0; i < 4; ++i)
+            if (children.push_back(*this); !children.back().make_move(p, bt, bi, i))
                 children.pop_back();
-        }
     }
 }
 

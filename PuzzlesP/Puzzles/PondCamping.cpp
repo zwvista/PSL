@@ -219,11 +219,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (int n : hike_ids) {
-            children.push_back(*this);
-            if (!children.back().make_move_hike(p, n))
+        for (int n : hike_ids)
+            if (children.push_back(*this); !children.back().make_move_hike(p, n))
                 children.pop_back();
-        }
     } else {
         int i = m_cells.find(PUZ_SPACE);
         Position p(i / sidelen(), i % sidelen());

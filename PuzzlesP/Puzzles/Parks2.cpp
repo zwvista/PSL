@@ -264,11 +264,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : v) {
-        children.push_back(*this);
-        if (!children.back().make_move(p, n))
+    for (int n : v)
+        if (children.push_back(*this); !children.back().make_move(p, n))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

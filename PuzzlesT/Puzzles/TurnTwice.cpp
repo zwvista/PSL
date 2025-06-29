@@ -192,11 +192,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         return path1.size() < path2.size();
     });
 
-    for (auto& p : path) {
-        children.push_back(*this);
-        if (!children.back().make_move(p))
+    for (auto& p : path)
+        if (children.push_back(*this); !children.back().make_move(p))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

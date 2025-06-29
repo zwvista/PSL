@@ -222,11 +222,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         return f(a1) < f(a2);
     });
     for (auto& p : a.first)
-        for (int i = 0; i < 4; ++i) {
-            children.push_back(*this);
-            if (!children.back().make_move(p, i))
+        for (int i = 0; i < 4; ++i)
+            if (children.push_back(*this); !children.back().make_move(p, i))
                 children.pop_back();
-        }
 }
 
 ostream& puz_state::dump(ostream& out) const

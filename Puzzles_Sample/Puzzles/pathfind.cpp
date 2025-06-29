@@ -94,11 +94,9 @@ bool puz_state::make_move(EDir dir)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for (int i = 0; i < 4; i++) {
-        children.push_back(*this);
-        if (!children.back().make_move(EDir(i)))
+    for (int i = 0; i < 4; i++)
+        if (children.push_back(*this); !children.back().make_move(EDir(i)))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

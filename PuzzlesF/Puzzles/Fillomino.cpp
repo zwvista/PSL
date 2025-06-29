@@ -380,11 +380,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         int i = it - m_cells.begin();
         Position p(i / sidelen(), i % sidelen());
         auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, p});
-        for (int n = 1; n <= smoves.size(); ++n) {
-            children.push_back(*this);
-            if (!children.back().make_move_hidden(p, n))
+        for (int n = 1; n <= smoves.size(); ++n)
+            if (children.push_back(*this); !children.back().make_move_hidden(p, n))
                 children.pop_back();
-        }
     }
 }
 

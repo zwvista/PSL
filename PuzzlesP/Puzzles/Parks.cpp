@@ -275,11 +275,9 @@ bool puz_state::make_move(const Position& p)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& a = m_groups.get_best_candidate_area();
-    for (auto& p : a.first) {
-        children.push_back(*this);
-        if (!children.back().make_move(p))
+    for (auto& p : a.first)
+        if (children.push_back(*this); !children.back().make_move(p))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

@@ -294,11 +294,9 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
 
     if (!area.m_ready)
-        for (auto& p : area.m_outer) {
-            children.push_back(*this);
-            if (!children.back().make_move(p, area.m_cell_count))
+        for (auto& p : area.m_outer)
+            if (children.push_back(*this); !children.back().make_move(p, area.m_cell_count))
                 children.pop_back();
-        }
     else {
         auto it = boost::find(m_cells, PUZ_UNKNOWN);
         if (it == m_cells.end()) return;
@@ -306,11 +304,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         Position p(i / sidelen(), i % sidelen());
         auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, p});
         int sz = min(3, static_cast<int>(smoves.size()));
-        for (int n = 1; n <= sz; ++n) {
-            children.push_back(*this);
-            if (!children.back().make_move_hidden(p, n))
+        for (int n = 1; n <= sz; ++n)
+            if (children.push_back(*this); !children.back().make_move_hidden(p, n))
                 children.pop_back();
-        }
     }
 }
 

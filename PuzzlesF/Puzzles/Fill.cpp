@@ -115,11 +115,9 @@ bool puz_state::make_move(int n, Position p2)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int i = 0; i < 4; ++i)
-        if (auto p2 = m_p + offset[i]; m_area.contains(p2)) {
-            children.push_back(*this);
-            if (!children.back().make_move(i, p2))
+        if (auto p2 = m_p + offset[i]; m_area.contains(p2))
+            if (children.push_back(*this); !children.back().make_move(i, p2))
                 children.pop_back();
-        }
 }
 
 ostream& puz_state::dump(ostream& out) const

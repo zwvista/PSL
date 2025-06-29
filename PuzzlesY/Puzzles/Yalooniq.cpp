@@ -334,11 +334,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             return kv1.second.size() < kv2.second.size();
         });
 
-        for (int n : perm_ids) {
-            children.push_back(*this);
-            if (!children.back().make_move_square(p, n))
+        for (int n : perm_ids)
+            if (children.push_back(*this); !children.back().make_move_square(p, n))
                 children.pop_back();
-        }
     } else {
         int n = boost::min_element(m_dots, [](const puz_dot& dt1, const puz_dot& dt2) {
             auto f = [](int sz) {return sz == 1 ? 1000 : sz;};
@@ -346,11 +344,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         }) - m_dots.begin();
         Position p(n / sidelen(), n % sidelen());
         auto& dt = dots(p);
-        for (int i = 0; i < dt.size(); ++i) {
-            children.push_back(*this);
-            if (!children.back().make_move_dot(p, i))
+        for (int i = 0; i < dt.size(); ++i)
+            if (children.push_back(*this); !children.back().make_move_dot(p, i))
                 children.pop_back();
-        }
     }
 }
 

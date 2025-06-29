@@ -254,11 +254,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (int n : island_ids) {
-            children.push_back(*this);
-            if (!children.back().make_move(p, n))
+        for (int n : island_ids)
+            if (children.push_back(*this); !children.back().make_move(p, n))
                 children.pop_back();
-        }
     } else
         for (int i = 0; i < m_cells.length(); ++i) {
             if (m_cells[i] != PUZ_SPACE) continue;

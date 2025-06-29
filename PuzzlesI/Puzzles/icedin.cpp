@@ -158,11 +158,9 @@ bool puz_state::make_move(size_t n, EDir dir)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int i = 0; i < 4; ++i)
-        for (size_t n = 0; n < m_blocks.size(); ++n) {
-            children.push_back(*this);
-            if (!children.back().make_move(n, EDir(i)))
+        for (size_t n = 0; n < m_blocks.size(); ++n)
+            if (children.push_back(*this); !children.back().make_move(n, EDir(i)))
                 children.pop_back();
-        }
 }
 
 unsigned int puz_state::slide_distance2(int i, int j1, int j2, bool i_is_r) const

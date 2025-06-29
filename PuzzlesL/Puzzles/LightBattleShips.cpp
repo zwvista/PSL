@@ -302,22 +302,18 @@ void puz_state::gen_children(list<puz_state>& children) const
             const puz_pos_match::value_type& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (auto& [i, p, vert] : infos) {
-            children.push_back(*this);
-            if (!children.back().make_move(p_piece, p, i, vert))
+        for (auto& [i, p, vert] : infos)
+            if (children.push_back(*this); !children.back().make_move(p_piece, p, i, vert))
                 children.pop_back();
-        }
     } else {
         auto& [n, infos] = *boost::min_element(m_ship_matches, [](
             const puz_ship_match::value_type& kv1,
             const puz_ship_match::value_type& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (auto& [p, vert] : infos) {
-            children.push_back(*this);
-            if (!children.back().make_move(p, p, n, vert))
+        for (auto& [p, vert] : infos)
+            if (children.push_back(*this); !children.back().make_move(p, p, n, vert))
                 children.pop_back();
-        }
     }
 }
 

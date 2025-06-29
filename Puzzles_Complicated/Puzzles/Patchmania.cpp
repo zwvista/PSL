@@ -376,11 +376,9 @@ void puz_state::gen_children(list<puz_state>& children) const
                 char ch = cells(kv.first);
                 return !(ch == info.m_food_name || ch == PUZ_MUSHROOM || kv.second && kv.first != info.m_bunny);
             });
-            for (auto& kv : smoves) {
-                children.push_back(*this);
-                if (!children.back().make_move(info.m_bunny, kv.first, kv.second))
+            for (auto& kv : smoves)
+                if (children.push_back(*this); !children.back().make_move(info.m_bunny, kv.first, kv.second))
                     children.pop_back();
-            }
         }
     else {
         auto& info = m_bunny2info.at(m_curr_bunny);
@@ -397,11 +395,9 @@ void puz_state::gen_children(list<puz_state>& children) const
                 auto p2 = p1 + offset[i];
                 char ch = cells(p2);
                 if (ch == PUZ_HOLE || ch == info.m_food_name || ch == PUZ_MUSHROOM ||
-                    is_teleport(p2) && p2 != m_last_teleport) {
-                    children.push_back(*this);
-                    if (!children.back().make_move(p1, p2, false))
+                    is_teleport(p2) && p2 != m_last_teleport)
+                    if (children.push_back(*this); !children.back().make_move(p1, p2, false))
                         children.pop_back();
-                }
             }
     }
 }

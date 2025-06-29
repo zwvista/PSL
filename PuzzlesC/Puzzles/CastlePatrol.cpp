@@ -221,11 +221,9 @@ void puz_state::gen_children(list<puz_state>& children) const
     auto& [p, infos] = *boost::min_element(m_matches, [](auto& kv1, auto& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (auto& kv : infos) {
-        children.push_back(*this);
-        if (!children.back().make_move(kv))
+    for (auto& kv : infos)
+        if (children.push_back(*this); !children.back().make_move(kv))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

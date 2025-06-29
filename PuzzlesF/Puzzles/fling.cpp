@@ -109,11 +109,9 @@ bool puz_state::make_move(const Position& p, int i)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (const Position& p : m_balls)
-        for (int i = 0; i < 4; i++) {
-            children.push_back(*this);
-            if (!children.back().make_move(p, i))
+        for (int i = 0; i < 4; i++)
+            if (children.push_back(*this); !children.back().make_move(p, i))
                 children.pop_back();
-        }
 }
 
 ostream& puz_state::dump(ostream& out) const

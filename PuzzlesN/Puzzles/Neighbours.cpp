@@ -205,11 +205,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second < kv2.second;
     });
     if (area.m_ready) return;
-    for (auto& p : area.m_outer) {
-        children.push_back(*this);
-        if (!children.back().make_move(id, p))
+    for (auto& p : area.m_outer)
+        if (children.push_back(*this); !children.back().make_move(id, p))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

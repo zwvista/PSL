@@ -178,11 +178,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         const pair<const Position, puz_area>& kv2) {
         return kv1.second < kv2.second;
     });
-    for (auto& p : area.m_outer) {
-        children.push_back(*this);
-        if (!children.back().make_move(pnum, p))
+    for (auto& p : area.m_outer)
+        if (children.push_back(*this); !children.back().make_move(pnum, p))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

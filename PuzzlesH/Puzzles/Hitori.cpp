@@ -165,11 +165,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         const puz_shaded::value_type& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (auto& p : v) {
-        children.push_back(*this);
-        if (!children.back().make_move(key, p))
+    for (auto& p : v)
+        if (children.push_back(*this); !children.back().make_move(key, p))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

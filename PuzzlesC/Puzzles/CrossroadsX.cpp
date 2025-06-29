@@ -301,11 +301,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             return kv1.second.size() < kv2.second.size();
         });
 
-        for (auto& n : perm_ids) {
-            children.push_back(*this);
-            if (!children.back().make_move_crossroad(i, n))
+        for (auto& n : perm_ids)
+            if (children.push_back(*this); !children.back().make_move_crossroad(i, n))
                 children.pop_back();
-        }
     }
     else {
         auto& [i, nums] = *boost::min_element(m_area2nums, [](
@@ -317,11 +315,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             };
             return f(kv1) < f(kv2);
         });
-        for (char n : nums) {
-            children.push_back(*this);
-            if (!children.back().make_move_area(i, n))
+        for (char n : nums)
+            if (children.push_back(*this); !children.back().make_move_area(i, n))
                 children.pop_back();
-        }
     }
 }
 

@@ -228,11 +228,9 @@ void puz_state::gen_children(list<puz_state>& children) const
     auto& area = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2) {
         return a1->second < a2->second;
     });
-    for (auto& p : area.first) {
-        children.push_back(*this);
-        if (!children.back().make_move(p))
+    for (auto& p : area.first)
+        if (children.push_back(*this); !children.back().make_move(p))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

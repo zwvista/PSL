@@ -276,11 +276,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             const pair<const Position, vector<vector<int>>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (auto& perm : perms) {
-            children.push_back(*this);
-            if (!children.back().make_move_hint(p, perm))
+        for (auto& perm : perms)
+            if (children.push_back(*this); !children.back().make_move_hint(p, perm))
                 children.pop_back();
-        }
     } else {
         int i = m_cells.find(PUZ_SPACE);
         children.push_back(*this);

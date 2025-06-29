@@ -192,20 +192,16 @@ void puz_state::gen_children(list<puz_state>& children) const
                 if (cells(p) == PUZ_SPACE)
                     rng.push_back(p);
             }
-        for (const Position& p : rng) {
-            children.push_back(*this);
-            if (!children.back().make_move_space(p))
+        for (const Position& p : rng)
+            if (children.push_back(*this); !children.back().make_move_space(p))
                 children.pop_back();
-        }
     } else {
         int i = boost::min_element(m_areas, [](const puz_area& a1, const puz_area& a2) {
             return a1.second.size() < a2.second.size();
         }) - m_areas.begin();
-        for (auto& perm : m_areas[i].second) {
-            children.push_back(*this);
-            if (!children.back().make_move_area(i, perm))
+        for (auto& perm : m_areas[i].second)
+            if (children.push_back(*this); !children.back().make_move_area(i, perm))
                 children.pop_back();
-        }
     }
 }
 

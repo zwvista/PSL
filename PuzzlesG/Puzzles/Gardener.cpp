@@ -304,11 +304,9 @@ bool puz_state::make_move(int i)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     int sz = m_game->m_fb_info[m_fb_index].m_perms.size();
-    for (int i = 0; i < sz; ++i) {
-        children.push_back(*this);
-        if (!children.back().make_move(i))
+    for (int i = 0; i < sz; ++i)
+        if (children.push_back(*this); !children.back().make_move(i))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

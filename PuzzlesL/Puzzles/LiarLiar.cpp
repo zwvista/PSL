@@ -317,11 +317,9 @@ void puz_state::gen_children(list<puz_state>& children) const
     auto& o = m_game->m_pos2hint.at(p);
     auto& o2 = m_game->m_size2perminfo.at(o.m_rng.size());
     auto f = [&](int liar_id, const vector<int>& perm_ids) {
-        for (int n : perm_ids) {
-            children.push_back(*this);
-            if (!children.back().make_move(o.m_area_id, liar_id, p, n))
+        for (int n : perm_ids)
+            if (children.push_back(*this); !children.back().make_move(o.m_area_id, liar_id, p, n))
                 children.pop_back();
-        }
     };
     if (auto it = m_area2liar.find(o.m_area_id); it != m_area2liar.end())
         f(it->second, perm_ids2);

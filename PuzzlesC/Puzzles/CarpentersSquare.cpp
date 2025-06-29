@@ -316,11 +316,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             const pair<const char, vector<vector<Position>>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (int i = 0; i < ranges.size(); ++i) {
-            children.push_back(*this);
-            if (!children.back().make_move(ch, i))
+        for (int i = 0; i < ranges.size(); ++i)
+            if (children.push_back(*this); !children.back().make_move(ch, i))
                 children.pop_back();
-        }
     } else {
         set<Position> rng;
         for (int r = 1; r < sidelen() - 1; ++r)

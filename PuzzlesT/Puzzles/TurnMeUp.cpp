@@ -228,11 +228,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         const pair<const Position, vector<pair<Position, int>>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (auto& info : infos) {
-        children.push_back(*this);
-        if (!children.back().make_move(info.first, info.second))
+    for (auto& info : infos)
+        if (children.push_back(*this); !children.back().make_move(info.first, info.second))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

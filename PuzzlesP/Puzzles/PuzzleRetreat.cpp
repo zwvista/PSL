@@ -218,11 +218,9 @@ bool puz_state::make_move2(const Position& p, Position os, bool is_test)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (auto& [p, block] : m_pos2block)
-        for (int n = 0; n < 4; ++n) {
-            children.push_back(*this);
-            if (!children.back().make_move(p, n))
+        for (int n = 0; n < 4; ++n)
+            if (children.push_back(*this); !children.back().make_move(p, n))
                 children.pop_back();
-        }
 }
 
 ostream& puz_state::dump(ostream& out) const

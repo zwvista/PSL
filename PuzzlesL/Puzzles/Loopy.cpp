@@ -230,11 +230,9 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
     auto& [p, is_vert] = kv;
 
-    for (char ch : str) {
-        children.push_back(*this);
-        if (!children.back().make_move(p, is_vert, ch))
+    for (char ch : str)
+        if (children.push_back(*this); !children.back().make_move(p, is_vert, ch))
             children.pop_back();
-    }
 }
 
 ostream& puz_state::dump(ostream& out) const

@@ -237,17 +237,13 @@ void puz_state::gen_children(list<puz_state>& children) const
                 return kv1.second.size() < kv2.second.size();
             });
 
-            for (int n : perm_ids) {
-                children.push_back(*this);
-                if (!children.back().make_move(m_matches_cup2milk, p, n))
+            for (int n : perm_ids)
+                if (children.push_back(*this); !children.back().make_move(m_matches_cup2milk, p, n))
                     children.pop_back();
-            }
         } else
-            for (int n : m_matches_cup2bean.at(m_last_cup)) {
-                children.push_back(*this);
-                if (!children.back().make_move(m_matches_cup2bean, m_last_cup, n))
+            for (int n : m_matches_cup2bean.at(m_last_cup))
+                if (children.push_back(*this); !children.back().make_move(m_matches_cup2bean, m_last_cup, n))
                     children.pop_back();
-            }
     else {
         sz1 = m_matches_milk.size(), sz2 = m_matches_bean.size();
         if (sz1 == sz2) {
@@ -265,22 +261,18 @@ void puz_state::gen_children(list<puz_state>& children) const
                 return kv1.second.size() < kv2.second.size();
             });
 
-            for (int n : perm_ids) {
-                children.push_back(*this);
-                if (!children.back().make_move(m_matches_milk, p, n))
+            for (int n : perm_ids)
+                if (children.push_back(*this); !children.back().make_move(m_matches_milk, p, n))
                     children.pop_back();
-            }
         } else
             for (auto& [p, perm_ids] : m_matches_bean) {
                 auto& links = m_game->m_bean2links.at(p);
                 for (int n : perm_ids) {
                     auto& [i, p2] = links[n];                   
                     if (auto it = m_obj2cup.find(p2);
-                        it != m_obj2cup.end() && it->second == m_last_cup) {
-                        children.push_back(*this);
-                        if (!children.back().make_move(m_matches_bean, p, n))
+                        it != m_obj2cup.end() && it->second == m_last_cup)
+                        if (children.push_back(*this); !children.back().make_move(m_matches_bean, p, n))
                             children.pop_back();
-                    }
                 }
             }
     }
