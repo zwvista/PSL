@@ -39,10 +39,10 @@ constexpr auto PUZ_LINE_ON = '1';
 const string lineseg_off = "0000";
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 struct puz_game

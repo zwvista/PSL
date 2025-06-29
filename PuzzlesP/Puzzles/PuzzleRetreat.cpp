@@ -24,10 +24,10 @@ constexpr auto PUZ_BLOCK_ARROW = 'A';
 constexpr auto PUZ_BLOCK_USED = '*';
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 constexpr string_view arrows = "^>v<";
 constexpr string_view dirs = "urdl";

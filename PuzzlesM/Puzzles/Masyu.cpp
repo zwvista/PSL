@@ -51,10 +51,10 @@ const vector<int> linesegs_all_white = {
 };
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 // first: the offset of the line segment

@@ -23,10 +23,10 @@ constexpr auto PUZ_SHADED = 100;
 constexpr auto PUZ_BOUNDARY = 0;
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 // key.first: the index of a row or column where a number appears on the board

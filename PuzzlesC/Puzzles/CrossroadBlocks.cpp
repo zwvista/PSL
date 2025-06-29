@@ -44,10 +44,10 @@ const vector<int> linesegs_all = {
 constexpr string_view hint_dirs = "^>v<";
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 struct puz_hint_info

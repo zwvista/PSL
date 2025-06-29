@@ -22,14 +22,14 @@ namespace puzzles::DigitWorms{
 constexpr auto PUZ_SPACE = ' ';
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
-    {-1, 1},        // ne
-    {0, 1},         // e
-    {1, 1},         // se
-    {1, 0},         // s
-    {1, -1},        // sw
-    {0, -1},        // w
-    {-1, -1},       // nw
+    {-1, 0},       // n
+    {-1, 1},       // ne
+    {0, 1},        // e
+    {1, 1},        // se
+    {1, 0},        // s
+    {1, -1},       // sw
+    {0, -1},       // w
+    {-1, -1},      // nw
 };
 
 constexpr Position offset2[] = {

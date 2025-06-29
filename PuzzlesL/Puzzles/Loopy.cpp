@@ -21,10 +21,10 @@ constexpr auto PUZ_LINE_OFF = '0';
 constexpr auto PUZ_LINE_ON = '1';
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 using puz_line_info = pair<Position, int>;

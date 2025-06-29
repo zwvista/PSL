@@ -30,10 +30,10 @@ constexpr auto PUZ_GALAXY_C = 'v';
 constexpr auto PUZ_GALAXY_RC = 'x';
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 struct puz_game

@@ -38,10 +38,10 @@ constexpr auto PUZ_VERT_2 = 'H';
 constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},         // e
     {1, 0},         // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 }

@@ -28,10 +28,10 @@ constexpr auto PUZ_EQUAL = '=';
 constexpr auto PUZ_QM = '?';
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},         // e
     {1, 0},         // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 const vector<vector<int>> tool_dirs2 = {

@@ -30,10 +30,10 @@ constexpr auto PUZ_QM = '?';
 constexpr auto PUZ_UNKNOWN = 0;
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 struct puz_area_info

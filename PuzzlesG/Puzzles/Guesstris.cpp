@@ -26,10 +26,10 @@ constexpr auto PUZ_CIRCLE = 'C';
 constexpr auto PUZ_DIAMOND = 'D';
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 // 5. Tetrominoes with the same symbols can be rotated or mirrored.

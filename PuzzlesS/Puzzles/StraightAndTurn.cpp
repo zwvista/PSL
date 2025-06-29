@@ -39,10 +39,10 @@ inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0
 constexpr int lineseg_off = 0;
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 struct puz_link

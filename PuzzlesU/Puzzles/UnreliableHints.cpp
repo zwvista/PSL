@@ -26,10 +26,10 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_SHADED = 'X';
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},         // e
     {1, 0},         // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 constexpr string_view tool_dirs = "^>v<";

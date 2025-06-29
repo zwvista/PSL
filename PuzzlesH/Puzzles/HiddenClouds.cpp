@@ -27,10 +27,10 @@ constexpr auto PUZ_CLOUD = 'C';
 
 constexpr Position offset[] = {
     {0, 0},         // o
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},         // e
     {1, 0},         // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 struct puz_box

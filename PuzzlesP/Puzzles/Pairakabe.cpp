@@ -24,10 +24,10 @@ constexpr auto PUZ_WALL = 'W';
 constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 constexpr Position offset2[] = {
     {0, 0},        // 2*2 nw

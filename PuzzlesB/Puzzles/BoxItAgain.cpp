@@ -21,10 +21,10 @@ namespace puzzles::BoxItAgain{
 constexpr auto PUZ_SPACE = ' ';
 
 constexpr Position offset[] = {
-    {-1, 0},        // n
+    {-1, 0},       // n
     {0, 1},        // e
     {1, 0},        // s
-    {0, -1},        // w
+    {0, -1},       // w
 };
 
 // top-left and bottom-right
