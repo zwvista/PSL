@@ -35,6 +35,8 @@ struct puz_game
     vector<int> m_cells;
     set<Position> m_area;
     map<Position, int> m_pos2num;
+    int m_max_num;
+    map<Position, set<Position>> m_pos2rng;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
@@ -58,16 +60,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             }
         }
     }
+    m_max_num = m_area.size();
+
+    for (auto& p : m_area)
+        for (auto& rng = m_pos2rng[p]; auto& os : offset)
+            if (auto p2 = p + os; m_area.contains(p2))
+                rng.insert(p2);
 }
 
 struct puz_state : vector<int>
 {
-    puz_state(const puz_game& g)
-        : vector<int>(g.m_cells), m_game(&g), m_area(g.m_area) { }
+    puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
     int cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
     int& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
-    bool make_move(int i, Position p2);
+    bool make_move(Position p, int n);
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -79,41 +86,53 @@ struct puz_state : vector<int>
 
     const puz_game* m_game = nullptr;
     set<Position> m_area;
+    // key: the number
+    // value: the possible positions of the number
+    map<int, set<Position>> m_num2rng;
 };
 
-struct puz_state2 : Position
+puz_state::puz_state(const puz_game & g)
+: vector<int>(g.m_cells), m_game(&g), m_area(g.m_area)
 {
-    puz_state2(const puz_state& s)
-        : m_state(&s) { make_move(*s.m_area.begin()); }
+    for (int i = 1; i <= g.m_max_num; ++i)
+        m_num2rng[i] = g.m_area;
 
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state2>& children) const;
-
-    const puz_state* m_state;
-};
-
-void puz_state2::gen_children(list<puz_state2>& children) const
-{
-    for (auto& os : offset)
-        if (auto p2 = *this + os; m_state->m_area.contains(p2)) {
-            children.push_back(*this);
-            children.back().make_move(p2);
-        }
+    for (auto& [p, n] : g.m_pos2num)
+        make_move(p, n);
 }
 
-bool puz_state::make_move(int n, Position p2)
+bool puz_state::make_move(Position p, int n)
 {
-    if (is_goal_state())
+    cells(p) = n;
+    auto& rng = m_game->m_pos2rng.at(p);
+    auto f = [&](int n2) {
+        set<Position> rng3;
+        auto& rng2 = m_num2rng.at(n2);
+        boost::set_intersection(rng, rng2, inserter(rng3, rng3.end()));
+        if (rng3.empty())
+            return false;
+        rng2 = rng3;
         return true;
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({*this});
-    return smoves.size() == m_area.size();
+    };
+    if (n < m_game->m_max_num && !f(n + 1))
+        return false;
+    if (n > 1 && !f(n - 1))
+        return false;
+    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-            //children.push_back(*this);
-            //if (!children.back().make_move(i, p2))
-            //    children.pop_back();
+    auto& [n, rng] = *boost::min_element(m_num2rng, [](
+        const pair<const int, set<Position>>& kv1,
+        const pair<const int, set<Position>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (auto& p : rng) {
+        children.push_back(*this);
+        if (!children.back().make_move(p, n))
+            children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
@@ -121,7 +140,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            out << cells({r, c}) << ' ';
+            out << format("{:2}", cells(p));
         }
         println(out);
     }
