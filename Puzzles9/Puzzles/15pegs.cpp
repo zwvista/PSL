@@ -59,22 +59,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells = boost::accumulate(strs, string());
 }
 
-struct puz_step
+struct puz_move
 {
     Position m_p1, m_p2;
-    puz_step(const Position& p1, const Position& p2)
+    puz_move(const Position& p1, const Position& p2)
         : m_p1(p1), m_p2(p2) {}
 };
 
-ostream & operator<<(ostream &out, const puz_step &mi)
+ostream & operator<<(ostream &out, const puz_move &mi)
 {
     out << format("move: {} => {}\n", mi.m_p1, mi.m_p2);
     return out;
 }
 
-class puz_state : public string
+struct puz_state
 {
-public:
     puz_state(const puz_game& g)
         : m_cells(g.m_cells), m_game(&g) {}
     int rows() const {return m_game->rows();}
@@ -85,17 +84,18 @@ public:
     char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
     char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool operator==(const puz_state& x) const { return m_cells == x.m_cells; }
     void make_move(const Position& p1, const Position& p2, const Position& p3) {
         cells(p1) = cells(p2) = PUZ_SPACE;
         cells(p3) = PUZ_PEG;
-        m_move = puz_step(p1, p3);
+        m_move = puz_move(p1, p3);
     }
 
     // solve_puzzle interface
     bool is_goal_state() const {return get_heuristic() == 1;}
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::count_if(*this, arg1 == PUZ_PEG);
+        return boost::count_if(m_cells, arg1 == PUZ_PEG);
     }
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {if(m_move) out << *m_move;}
@@ -103,7 +103,7 @@ public:
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 void puz_state::gen_children(list<puz_state>& children) const

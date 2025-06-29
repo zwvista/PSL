@@ -39,14 +39,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_step
+struct puz_move
 {
     Position m_p;
-    puz_step(const Position& p)
+    puz_move(const Position& p)
         : m_p(p + Position(1, 1)) {}
 };
 
-ostream & operator<<(ostream &out, const puz_step &mi)
+ostream & operator<<(ostream &out, const puz_move &mi)
 {
     out << "click " << mi.m_p << endl;;
     return out;
@@ -68,7 +68,7 @@ struct puz_state
             if (is_valid(p2))
                 m_data ^= 1 << (p2.first * cols() + p2.second);
         }
-        m_move = puz_step(p);
+        m_move = puz_move(p);
     }
     inline bool operator<(const puz_state& x) const {
         return m_data < x.m_data;
@@ -91,7 +91,7 @@ struct puz_state
 
     unsigned int m_data;
     const puz_game* m_game = nullptr;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 void puz_state::gen_children(list<puz_state>& children) const

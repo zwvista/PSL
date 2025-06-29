@@ -23,17 +23,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_goal = accumulate(strs.begin() + rows(), strs.end(), string());
 }
 
-struct puz_step
+struct puz_move
 {
     bool m_is_row;
     int m_rc;
     int m_n;
-    puz_step(bool is_row, int rc, int n)
+    puz_move(bool is_row, int rc, int n)
         : m_is_row(is_row), m_rc(rc), m_n(n) {}
 
 };
 
-ostream & operator<<(ostream &out, const puz_step &mi)
+ostream & operator<<(ostream &out, const puz_move &mi)
 {
     out << (mi.m_is_row ? "rotate row " : "rotate col ")
         << mi.m_rc + 1 << " ";
@@ -63,7 +63,7 @@ struct puz_state
         rotate(v.begin(), v.end() - n, v.end());
         for (int c = 0; c < cols(); ++c)
             cells(r, c) = v[c];
-        m_move = puz_step(true, r, n);
+        m_move = puz_move(true, r, n);
     }
     void rotate_col(int c, int n) {
         vector<int> v(rows());
@@ -72,7 +72,7 @@ struct puz_state
         rotate(v.begin(), v.end() - n, v.end());
         for (int r = 0; r < rows(); ++r)
             cells(r, c) = v[r];
-        m_move = puz_step(false, c, n);
+        m_move = puz_move(false, c, n);
     }
 
     // solve_puzzle interface
@@ -85,7 +85,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 void puz_state::gen_children(list<puz_state>& children) const

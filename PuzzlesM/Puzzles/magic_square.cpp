@@ -30,14 +30,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_step
+struct puz_move
 {
     Position m_p1, m_p2;
-    puz_step(const Position& p1, const Position& p2)
+    puz_move(const Position& p1, const Position& p2)
         : m_p1(p1 + Position(1, 1)), m_p2(p2 + Position(1, 1)) {}
 };
 
-ostream & operator<<(ostream &out, const puz_step &mi)
+ostream & operator<<(ostream &out, const puz_move &mi)
 {
     out << format("move: {} <=> {}\n", mi.m_p1, mi.m_p2);
     return out;
@@ -53,7 +53,7 @@ struct puz_state
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     void make_move(int r1, int c1, int r2, int c2) {
         std::swap(cells(r1, c1), cells(r2, c2));
-        m_move = puz_step(Position(r1, c1), Position(r2, c2));
+        m_move = puz_move(Position(r1, c1), Position(r2, c2));
     }
 
     // solve_puzzle interface
@@ -66,7 +66,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     vector<int> m_cells;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 void puz_state::gen_children(list<puz_state>& children) const

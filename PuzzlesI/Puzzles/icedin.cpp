@@ -71,34 +71,33 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_step
+struct puz_move
 {
     Position m_p;
     char m_dir;
-    puz_step(const Position& p, char dir)
+    puz_move(const Position& p, char dir)
         : m_p(p), m_dir(dir) {}
 };
 
-ostream & operator<<(ostream &out, const puz_step &mi)
+ostream & operator<<(ostream &out, const puz_move &mi)
 {
     out << format("move: {} {}\n", mi.m_p, mi.m_dir);
     return out;
 }
 
-class puz_state : public string
+struct puz_state
 {
-public:
     puz_state(const puz_game& g)
         : m_cells(g.m_cells), m_game(&g), m_blocks(g.m_blocks) {}
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
     char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
     char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(size_t n, EDir dir);
-private:
     unsigned int slide_distance(int r1, int c1, int r2, int c2) const;
     unsigned int slide_distance2(int i, int j1, int j2, bool i_is_r) const;
-public:
+
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
@@ -110,7 +109,7 @@ public:
     const puz_game* m_game = nullptr;
     string m_cells;
     vector<Position> m_blocks;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 bool puz_state::make_move(size_t n, EDir dir)
@@ -139,7 +138,7 @@ bool puz_state::make_move(size_t n, EDir dir)
         return false;
     if (ch_push == PUZ_ICE3 || ch_push == PUZ_ICE2)
         ch_push--;
-    m_move = puz_step(p - os, moves[dir]);
+    m_move = puz_move(p - os, moves[dir]);
     char& chSrc = cells(p);
     chSrc = chSrc == PUZ_BLOCK ? PUZ_SPACE : chSrc - PUZ_BLOCK + '0';
     char& chDest = cells(p = p2);

@@ -68,9 +68,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_bricks_info[3].assign(pos, pos + 4);
 }
 
-using puz_step = pair<Position, int>;
+using puz_move = pair<Position, int>;
 
-ostream& operator<<(ostream& out, const puz_step& a)
+ostream& operator<<(ostream& out, const puz_move& a)
 {
     const string_view dirs = "LRUD";
     out << format("({},{}){}", a.first.first, a.first.second, dirs[a.second]);
@@ -113,7 +113,7 @@ struct puz_state
     vector<char> m_cells;
     brick_map m_brick_map;
     Position m_caocao;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 bool puz_state::make_move(const Position& p, EBrickType bt, const brick_info& bi, int i)
@@ -133,7 +133,7 @@ bool puz_state::make_move(const Position& p, EBrickType bt, const brick_info& bi
     for (size_t j = 0; j < vch.size(); ++j)
         cells(p2 + bi[j]) = vch[j];
     m_brick_map.erase(p);
-    m_move = puz_step(p, i);
+    m_move = puz_move(p, i);
     m_brick_map[p2] = bt;
     if (m_caocao == p)
         m_caocao = p2;

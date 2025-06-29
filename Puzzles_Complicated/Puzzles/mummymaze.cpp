@@ -125,22 +125,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_step
+struct puz_move
 {
     Position m_pos;
     EMazeObject m_obj;
     EMazeDir m_dir;
-    puz_step(const Position& pos, EMazeObject obj, EMazeDir dir)
+    puz_move(const Position& pos, EMazeObject obj, EMazeDir dir)
         : m_pos(pos), m_obj(obj), m_dir(dir) {}
-    bool operator==(const puz_step& x) const {
+    bool operator==(const puz_move& x) const {
         return m_pos == x.m_pos && m_dir == x.m_dir;
     }
-    bool operator<(const puz_step& x) const {
+    bool operator<(const puz_move& x) const {
         return m_pos < x.m_pos || m_pos == x.m_pos &&  m_dir < x.m_dir;
     }
 };
 
-ostream& operator<<(ostream& out, const puz_step& mi)
+ostream& operator<<(ostream& out, const puz_move& mi)
 {
     const string_view dirs = "WLRUD";
     out << format("{:<10}", mi.m_obj == moExplorer ? "Explorer:" : 
@@ -150,9 +150,9 @@ ostream& operator<<(ostream& out, const puz_step& mi)
     return out;
 }
 
-ostream& operator<<(ostream& out, const list<puz_step>& m_move)
+ostream& operator<<(ostream& out, const list<puz_move>& m_move)
 {
-    for (const puz_step& mi : m_move)
+    for (const puz_move& mi : m_move)
         out << mi;
     return out;
 }
@@ -174,14 +174,14 @@ struct puz_state
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {return manhattan_distance(m_man, m_game->m_goal);}
     unsigned int get_distance(const puz_state& child) const {return 1;}
-    void dump_move(ostream& out) const {for(const puz_step& m : m_move) out << m;}
+    void dump_move(ostream& out) const {for(const puz_move& m : m_move) out << m;}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
     Position m_man;
     puz_obj_map m_obj_map;
     bool m_gate_open;
-    list<puz_step> m_move;
+    list<puz_move> m_move;
 };
 
 bool puz_state::make_move(EMazeDir dir)
@@ -189,7 +189,7 @@ bool puz_state::make_move(EMazeDir dir)
     if (!m_game->can_move(m_gate_open, m_man, dir, true) || m_obj_map.contains(m_man)) return false;
     if (dir != mvNone && m_game->is_key(m_man)) m_gate_open = !m_gate_open;
     m_move.clear();
-    m_move.push_back(puz_step(m_man, moExplorer, dir));
+    m_move.push_back(puz_move(m_man, moExplorer, dir));
 
     puz_obj_map obj_map2;
     for (int k = 0; k < 2; ++k) {
@@ -206,7 +206,7 @@ bool puz_state::make_move(EMazeDir dir)
                 m_game->can_move_horz(m_man, m_gate_open, pos, dir))) {
                 if (pos == m_man) return false;
                 if (m_game->is_key(pos)) m_gate_open = !m_gate_open;
-                m_move.push_back(puz_step(pos, obj, dir));
+                m_move.push_back(puz_move(pos, obj, dir));
             }
             if (auto it = obj_map2.find(pos); it == obj_map2.end())
                 obj_map2[pos] = obj;

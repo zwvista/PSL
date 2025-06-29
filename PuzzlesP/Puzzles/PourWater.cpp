@@ -30,7 +30,7 @@ struct puz_game
     puz_game(const vector<string>& strs, const xml_node& level);
 };
 
-struct puz_step : pair<int, int> { using pair::pair; };
+struct puz_move : pair<int, int> { using pair::pair; };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
@@ -92,7 +92,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     vector<int> m_quantities;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -120,7 +120,7 @@ void puz_state::make_move(int i, int j)
             // fill the second jug and leave some water in the first one
             q1 -= n, q2 = c2;
     }
-    m_move = puz_step(i, j);
+    m_move = puz_move(i, j);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

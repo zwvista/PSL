@@ -100,12 +100,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(cols(), PUZ_BLOCK_FIXED);
 }
 
-struct puz_step : pair<Position, int>
+struct puz_move : pair<Position, int>
 {
-    puz_step(const Position& p, int n) : pair<Position, int>(p, n) {}
+    puz_move(const Position& p, int n) : pair<Position, int>(p, n) {}
 };
 
-ostream& operator<<(ostream &out, const puz_step &mi)
+ostream& operator<<(ostream &out, const puz_move &mi)
 {
     out << format("move: {} {}\n", mi.first, dirs[mi.second]);
     return out;
@@ -136,7 +136,7 @@ struct puz_state
     
     const puz_game* m_game = nullptr;
     string m_cells;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
     map<Position, puz_block> m_pos2block;
 };
 
@@ -150,7 +150,7 @@ bool puz_state::make_move(const Position& p, int n)
     if (!make_move2(p, offset[n], false))
         return false;
 
-    m_move = puz_step(p, n);
+    m_move = puz_move(p, n);
     m_pos2block.erase(p);
 
     return boost::algorithm::any_of(m_pos2block, [&](const pair<const Position, puz_block>& kv) {

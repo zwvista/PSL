@@ -37,12 +37,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells = boost::accumulate(strs, string());
 }
 
-struct puz_step : pair<Position, int>
+struct puz_move : pair<Position, int>
 {
-    puz_step(const Position& p, int n) : pair<Position, int>(p + Position(1, 1), n) {}
+    puz_move(const Position& p, int n) : pair<Position, int>(p + Position(1, 1), n) {}
 };
 
-ostream& operator<<(ostream &out, const puz_step &mi)
+ostream& operator<<(ostream &out, const puz_move &mi)
 {
     out << format("move: {} {}\n", mi.first, dirs[mi.second]);
     return out;
@@ -73,7 +73,7 @@ struct puz_state
     
     const puz_game* m_game = nullptr;
     string m_cells;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -154,7 +154,7 @@ bool puz_state::check_boxes() const
 
 bool puz_state::make_move(const Position& p, int n)
 {
-    m_move = puz_step(p, n);
+    m_move = puz_move(p, n);
     auto p2 = p + offset[n];
     ::swap(cells(p), cells(p2));
     while (clear_boxes() | fall_boxes());

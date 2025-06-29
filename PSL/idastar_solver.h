@@ -9,7 +9,7 @@ concept puz_state_solver_idastar = copyable<T> && requires(const T& t, list<T>&c
     { t.gen_children(children) } -> same_as<void>;
     { t.get_heuristic() } -> same_as<unsigned int>;
     { t.get_distance(child) } -> same_as<unsigned int>;
-    { t < t2 } -> same_as<bool>;
+    { t == t2 } -> same_as<bool>;
 };
 
 template<puz_state_solver_idastar puz_state>

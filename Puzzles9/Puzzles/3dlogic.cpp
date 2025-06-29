@@ -55,9 +55,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-using puz_step = pair<char, Position3d>;
+using puz_move = pair<char, Position3d>;
 
-ostream& operator<<(ostream& out, const puz_step& a)
+ostream& operator<<(ostream& out, const puz_move& a)
 {
     out << format("{}({}{}{})", a.first, a.second.first, a.second.second.first, a.second.second.second);
     return out;
@@ -148,7 +148,7 @@ struct puz_state : puz_state_base
 
     string m_cells;
     vector<Position3dPair> m_links;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
     int m_index = 0;
 };
 
@@ -200,7 +200,7 @@ void puz_state::make_move(int i, bool is_link1, const Position3d& p)
     int cnt = marker_count();
     m_index = ((is_link1 ? 0 : cnt) + i + 1) % (cnt * 2);
     cells(link1 = p) = ch;
-    m_move = puz_step(ch, p);
+    m_move = puz_move(ch, p);
 
     for (const Position& os : offset) {
         Position3d p2(p.first, p.second + os);

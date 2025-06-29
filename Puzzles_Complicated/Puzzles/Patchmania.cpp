@@ -132,9 +132,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_step : vector<Position> { using vector::vector; };
+struct puz_move : vector<Position> { using vector::vector; };
 
-ostream & operator<<(ostream &out, const puz_step &mi)
+ostream & operator<<(ostream &out, const puz_move &mi)
 {
     if (!mi.empty()) {
         out << "move: ";
@@ -177,7 +177,7 @@ struct puz_state
     }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
-    ostream& dump(ostream& out, const map<Position, char>& pos2dir, const puz_step& move) const;
+    ostream& dump(ostream& out, const map<Position, char>& pos2dir, const puz_move& move) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {
         return state.dump(out, {}, {});
     }
@@ -189,7 +189,7 @@ struct puz_state
     char m_curr_bunny = 0;
     Position m_last_teleport{-1, -1};
     unsigned int m_distance = 0;
-    puz_step m_move;
+    puz_move m_move;
 };
 
 struct puz_state2 : pair<Position, bool>
@@ -406,7 +406,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     }
 }
 
-ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const puz_step& move) const
+ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const puz_move& move) const
 {
     out << move;
     for (int c = 0; c < cols(); ++c)
@@ -440,7 +440,7 @@ ostream& puz_state::dump(ostream& out, const map<Position, char>& pos2dir, const
 void dump_all(ostream& out, const list<puz_state>& spath)
 {
     map<Position, char> pos2dir;
-    puz_step move(2);
+    puz_move move(2);
     for (auto it_last = spath.cbegin(), it = next(it_last); it != spath.cend(); it++) {
         auto& m = it->m_move;
         if (pos2dir.empty()) move[0] = m[0];

@@ -61,14 +61,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_on = string(level.attribute("on").as_string("1"))[0];
 }
 
-struct puz_step
+struct puz_move
 {
     Position m_p;
-    puz_step(const Position& p)
+    puz_move(const Position& p)
         : m_p(p + Position(1, 1)) {}
 };
 
-ostream & operator<<(ostream &out, const puz_step &mi)
+ostream & operator<<(ostream &out, const puz_move &mi)
 {
     out << "click " << mi.m_p << endl;;
     return out;
@@ -105,7 +105,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 bool puz_state::is_valid(Position& p) const
@@ -129,7 +129,7 @@ void puz_state::click(const Position& p)
             // with "dim" state
             cells(p2) = cells(p2) == PUZ_OFF ? m_game->m_on : cells(p2) - 1;
     }
-    m_move = puz_step(p);
+    m_move = puz_move(p);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const

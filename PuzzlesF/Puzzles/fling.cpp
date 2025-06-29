@@ -42,9 +42,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-using puz_step = pair<Position, char>;
+using puz_move = pair<Position, char>;
 
-ostream& operator<<(ostream& out, const puz_step& a)
+ostream& operator<<(ostream& out, const puz_move& a)
 {
     out << format("({},{}){}", a.first.first, a.first.second, a.second);
     return out;
@@ -73,7 +73,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     set<Position> m_balls;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 bool puz_state::make_move(const Position& p, int i)
@@ -101,7 +101,7 @@ bool puz_state::make_move(const Position& p, int i)
             break;
     }
 
-    m_move = puz_step(p, dirs[i]);
+    m_move = puz_move(p, dirs[i]);
     m_balls.insert(moved_balls.begin(), moved_balls.end());
     return true;
 }

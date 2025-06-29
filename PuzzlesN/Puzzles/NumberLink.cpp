@@ -98,12 +98,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     });
 }
 
-struct puz_state : vector<string>
+struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
-    string cells(const Position& p) const { return (*this)[p.first * sidelen() + p.second]; }
-    string& cells(const Position& p) { return (*this)[p.first * sidelen() + p.second]; }
+    string cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    string& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int n);
     void new_link() {
         if (m_num2targets.empty()) return;
@@ -121,7 +122,7 @@ struct puz_state : vector<string>
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         return (sidelen() - 2) * (sidelen() - 2) - 
-            boost::count_if(*this, [](const string& s) {
+            boost::count_if(m_cells, [](const string& s) {
             return s.substr(1) != lineseg_off;
         });
     }
@@ -130,15 +131,16 @@ struct puz_state : vector<string>
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    vector<string> m_cells;
     vector<pair<char, vector<Position>>> m_num2targets;
     vector<Position> m_link;
 };
 
 puz_state::puz_state(const puz_game& g)
-: vector<string>(g.m_cells.size()), m_game(&g)
+: m_cells(g.m_cells.size()), m_game(&g)
 {
-    for (int i = 0; i < size(); ++i)
-        (*this)[i] = g.m_cells[i] + lineseg_off;
+    for (int i = 0; i < m_cells.size(); ++i)
+        m_cells[i] = g.m_cells[i] + lineseg_off;
     
     for (auto& [n, dist] : g.m_num2dist)
         m_num2targets.emplace_back(n, g.m_num2targets.at(n));

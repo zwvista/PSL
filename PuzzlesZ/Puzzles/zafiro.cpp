@@ -68,17 +68,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_step
+struct puz_move
 {
     char m_dir;
     Position m_p;
     bool m_is_click;
 
-    puz_step(char dir) : m_is_click(false), m_dir(dir) {}
-    puz_step(const Position& p) : m_is_click(true), m_p(p) {}
+    puz_move(char dir) : m_is_click(false), m_dir(dir) {}
+    puz_move(const Position& p) : m_is_click(true), m_p(p) {}
 };
 
-ostream& operator<<(ostream& out, const puz_step& act)
+ostream& operator<<(ostream& out, const puz_move& act)
 {
     if (act.m_is_click)
         out << act.m_p;
@@ -112,7 +112,7 @@ struct puz_state
     string m_cells;
     Position m_zafiro;
     int m_grav;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 bool puz_state::make_move(int i)
@@ -146,7 +146,7 @@ bool puz_state::make_move(int i)
         }
     }
     if (moved && i != 4) {
-        m_move = puz_step(dirs[i]);
+        m_move = puz_move(dirs[i]);
         m_grav = j;
     }
     return moved;
@@ -160,7 +160,7 @@ void puz_state::click(const Position& p)
         m_grav == 2 ? Position(rows() - 1 - p.first, cols() - 1 - p.second) :
         m_grav == 3 ? Position(cols() - 1 - p.second, p.first) :
         p;
-    m_move = puz_step(p2);
+    m_move = puz_move(p2);
     make_move(4);
 }
 

@@ -75,14 +75,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_step
+struct puz_move
 {
-    puz_step(int i, int j, int k, const Position& p)
+    puz_move(int i, int j, int k, const Position& p)
         :worm_index(i), is_head(j == 0), offset_index(k), p(p) {}
-    bool operator<(const puz_step& x) const {
+    bool operator<(const puz_move& x) const {
         return p < x.p;
     }
-    bool same_move(const puz_step& x) const {
+    bool same_move(const puz_move& x) const {
         return worm_index == x.worm_index && is_head == x.is_head;
     }
     int worm_index;
@@ -91,7 +91,7 @@ struct puz_step
     int offset_index;
 };
 
-ostream & operator<<(ostream &out, const puz_step &mi)
+ostream & operator<<(ostream &out, const puz_move &mi)
 {
     static string_view dirs = "LRUD";
     string head_tail = mi.is_head ? "head" : "tail";
@@ -135,7 +135,7 @@ struct puz_state
     void calc_layout();
     const puz_game* m_game = nullptr;
     vector<vector<Position>> m_worms;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
     string m_layout;
 };
 
@@ -155,7 +155,7 @@ void puz_state::make_move(int i, int j, int k)
     vector<Position>& w = m_worms[i];
     Position p1 = j == 0 ? w.front() : w.back();
     Position p2 = p1 + offset[k];
-    m_move = puz_step(i, j, k, p1);
+    m_move = puz_move(i, j, k, p1);
     if (j == 0) {
         w.back() = p2;
         boost::rotate(w, std::prev(w.end()));

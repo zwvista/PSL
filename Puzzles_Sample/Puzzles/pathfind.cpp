@@ -57,34 +57,37 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-struct puz_state : Position
+struct puz_state
 {
     puz_state(const puz_game& g)
-        : Position(g.m_start), m_game(&g) {}
+        : m_p(g.m_start), m_game(&g) {}
+    bool operator<(const puz_state& x) const { return m_p < x.m_p; }
+    bool operator==(const puz_state& x) const { return m_p == x.m_p; }
     bool make_move(EDir dir);
 
     // solve_puzzle interface
-    bool is_goal_state() const {return *this == m_game->m_goal;}
+    bool is_goal_state() const {return m_p == m_game->m_goal;}
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {return manhattan_distance(*this, m_game->m_goal);}
+    unsigned int get_heuristic() const {return manhattan_distance(m_p, m_game->m_goal);}
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {if(m_move) out << m_move;}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
+    Position m_p;
     char m_move = 0;
 };
 
 bool puz_state::make_move(EDir dir)
 {
-    Position p = *this + offset[dir];
-    if (dir == mvLeft && m_game->is_vert_wall(*this) ||
+    Position p = m_p + offset[dir];
+    if (dir == mvLeft && m_game->is_vert_wall(m_p) ||
         dir == mvRight && m_game->is_vert_wall(p) ||
-        dir == mvUp && m_game->is_horz_wall(*this) ||
+        dir == mvUp && m_game->is_horz_wall(m_p) ||
         dir == mvDown && m_game->is_horz_wall(p))
         return false;
 
-    static_cast<Position&>(*this) = p;
+    m_p = p;
     m_move = moves[dir];
     return true;
 }
@@ -114,7 +117,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (m_game->is_vert_wall(pos) ? "|" : " ");
             if (c == m_game->cols()) break;
             // draw balls and goals
-            out << (pos == *this ? '@' : 
+            out << (pos == m_p ? '@' :
                 pos == m_game->m_goal ? '.' : ' ');
         }
         println(out);

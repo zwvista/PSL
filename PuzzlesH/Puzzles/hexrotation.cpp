@@ -56,9 +56,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
 }
 
-struct puz_step : Position
+struct puz_move : Position
 {
-    puz_step(const Position& p)
+    puz_move(const Position& p)
         : Position(p + Position(1, 1)) {}
 };
 
@@ -84,7 +84,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    boost::optional<puz_step> m_move;
+    boost::optional<puz_move> m_move;
 };
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -103,7 +103,7 @@ void puz_state::click(const Position& p)
     rotate(v.begin(), v.end() - 1, v.end());
     for (int i = 0; i < 6; ++i)
         cells(p + offset[i]) = v[i];
-    m_move = puz_step(p);
+    m_move = puz_move(p);
 }
 
 unsigned int puz_state::get_heuristic() const
