@@ -81,8 +81,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
         for (auto& os : offset) {
             auto p2 = p + os;
             if (contains(p2) || m_game->cells(p2) != PUZ_SPACE) continue;
-            children.push_back(*this);
-            if (!children.back().make_move(p2))
+            if (children.push_back(*this); !children.back().make_move(p2))
                 children.pop_back();
         }
 }

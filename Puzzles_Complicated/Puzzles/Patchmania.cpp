@@ -384,8 +384,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         auto& info = m_bunny2info.at(m_curr_bunny);
         auto& p1 = info.m_bunny;
         if (!info.m_teleported && is_teleport(p1)) {
-            children.push_back(*this);
-            if (!children.back().make_move(p1, get_teleport(p1).second, true))
+            if (children.push_back(*this); !children.back().make_move(p1, get_teleport(p1).second, true))
                 children.pop_back();
         } else
             for (int i = 0; i < 4; ++i) {

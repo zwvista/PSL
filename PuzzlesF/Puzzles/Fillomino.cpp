@@ -371,8 +371,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 
     if (!area.m_ready)
         for (auto& p : area.m_outer) {
-            children.push_back(*this);
-            if (!children.back().make_move(p, area.m_cell_count))
+            if (children.push_back(*this); !children.back().make_move(p, area.m_cell_count))
                 children.pop_back();
         } else {
         auto it = boost::find(m_cells, PUZ_UNKNOWN);
