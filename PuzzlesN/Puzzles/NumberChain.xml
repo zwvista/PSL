@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Connect the numbers in order using Sudoku and Hidato mechanics.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+   <![CDATA[
+10OOOO    `
+ 9OOOOOOOO`
+OOOO21  OO`
+OOOOOO 1OO`
+ 5 3OOOOOO`
+  ]]>
+ </level>
+</levels>
+</puzzle>
