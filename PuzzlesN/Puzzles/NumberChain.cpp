@@ -15,6 +15,9 @@
 
 namespace puzzles::NumberChain{
 
+constexpr string_view PUZ_SPACE = "..";
+constexpr string_view PUZ_EMPTY = "xx";
+
 constexpr Position offset[] = {
     {-1, 0},       // n
     {-1, 1},       // ne
@@ -25,8 +28,6 @@ constexpr Position offset[] = {
     {0, -1},       // w
     {-1, -1},      // nw
 };
-
-const string_view dirs = "^>v<";
 
 struct puz_game
 {
@@ -51,11 +52,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            if (auto s = str.substr(c * 2, 2); s == "xx")
+            if (auto s = str.substr(c * 2, 2); s == PUZ_EMPTY)
                 cells(p) = -1;
             else {
                 m_area.insert(p);
-                if (s != "..")
+                if (s != PUZ_SPACE)
                     m_pos2num[p] = stoi(string(s));
             }
         }
@@ -145,10 +146,24 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c) {
+    auto f = [&](const Position& p1, const Position& p2) {
+        return abs(cells(p1) - cells(p2)) == 1;
+    };
+    for (int r = 0;; ++r) {
+        for (int c = 0;; ++c) {
             Position p(r, c);
-            out << format("{:3}", cells(p));
+            int n = cells(p);
+            out << (n == -1 ? PUZ_EMPTY : format("{:2}", n));
+            if (c == sidelen() - 1) break;
+            out << (f(p, {r, c + 1}) ? '-' : ' ');
+        }
+        println(out);
+        if (r == sidelen() - 1) break;
+        for (int c = 0;; ++c) {
+            out << (f({r, c}, {r + 1, c}) ? " |" : "  ");
+            if (c == sidelen() - 1) break;
+            bool b1 = f({r, c + 1}, {r + 1, c}), b2 = f({r, c}, {r + 1, c + 1});
+            out << (b1 && b2 ? 'X' : b1 ? '/' : b2 ? '\\' : ' ');
         }
         println(out);
     }
