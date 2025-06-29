@@ -64,7 +64,7 @@ ostream & operator<<(ostream &out, const puz_step &mi)
     return out;
 }
 
-struct puz_state : public string
+struct puz_state
 {
     puz_state(const puz_game& g)
         : m_cells(g.m_cells), m_game(&g) {}
@@ -72,6 +72,7 @@ struct puz_state : public string
     int cols() const {return m_game->cols();}
     char cells(const Position& p) const {return m_cells[p.first * cols() + p.second];}
     char& cells(const Position& p) {return m_cells[p.first * cols() + p.second];}
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     void make_move(const Position& p1, const Position& p2, const Position& p3) {
         cells(p1) = cells(p2) = PUZ_HOLE;
         cells(p3) = PUZ_PEG;
@@ -83,8 +84,8 @@ struct puz_state : public string
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         int n = 0;
-        for (size_t i = 0; i < length(); i++)
-            if (at(i) == PUZ_PEG)
+        for (size_t i = 0; i < m_cells.length(); i++)
+            if (m_cells[i] == PUZ_PEG)
                 ++n;
         return n;
     }
