@@ -7,7 +7,7 @@ Sequence of moves:
 . ^ <*> ^ 
 Number of moves: 20
 Number of vertices examined: 77
-0.007064 [s]
+0.0072677 [s]
 
 Level 2-47
 Sequence of moves: 
@@ -18,7 +18,7 @@ Sequence of moves:
 ^ < ^ < < 
 Number of moves: 20
 Number of vertices examined: 39
-0.0032774 [s]
+0.0032341 [s]
 
 Level 2-48
 Sequence of moves: 
@@ -29,5 +29,16 @@ v ^ < > v
 . > ^ . @ 
 Number of moves: 20
 Number of vertices examined: 83
-0.0072215 [s]
+0.0071221 [s]
+
+Level 4-9
+Sequence of moves: 
+> v . @ . . 
+^ v > ^ > v 
+^ > ^ > ^ v 
+^ < >*^ . v 
+. ^ < < < < 
+Number of moves: 24
+Number of vertices examined: 362
+0.0357338 [s]
 

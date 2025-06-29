@@ -62,7 +62,7 @@ struct puz_state : string
         : string(g.m_cells), m_game(&g), m_area(g.m_area), m_p(g.m_start) { }
     int rows() const { return m_game->rows(); }
     int cols() const { return m_game->cols(); }
-    char cells(const Position& p) const { return (*this)[p.first * rows() + p.second]; }
+    char cells(const Position& p) const { return (*this)[p.first * cols() + p.second]; }
     char& cells(const Position& p) { return (*this)[p.first * cols() + p.second]; }
     bool make_move(int i, Position p2);
 

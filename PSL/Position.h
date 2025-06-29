@@ -8,7 +8,7 @@ struct Position :
     boost::additive<Position>
 {
     constexpr Position() {}
-    constexpr Position(int v1, int v2) : std::pair<int, int>(v1, v2) {}
+    using std::pair<int, int>::pair;
     constexpr Position& operator+=(const Position& x) {
         first += x.first, second += x.second;
         return *this;
