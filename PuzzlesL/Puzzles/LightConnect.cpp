@@ -25,7 +25,8 @@ constexpr auto PUZ_BATTERY_B = 'B';
 constexpr auto PUZ_LAMP_Y = 'y';
 constexpr auto PUZ_LAMP_R = 'r';
 constexpr auto PUZ_LAMP_B = 'b';
-constexpr auto PUZ_TELEPORT = 'T';
+constexpr auto PUZ_JUMPER_VERT = 'V';
+constexpr auto PUZ_JUMPER_HORZ = 'H';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -63,7 +64,7 @@ struct puz_game
     string m_cells;
     map<char, set<Position>> m_color2rng;
     vector<puz_dot> m_dots;
-    set<Position> m_teleports;
+    map<int, set<Position>> m_area2jumpers;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
@@ -94,14 +95,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             case PUZ_LAMP_B:
                 m_color2rng[toupper(ch)].insert(p);
                 break;
-            case PUZ_TELEPORT:
-                m_teleports.insert(p);
+            case PUZ_JUMPER_HORZ:
+                m_area2jumpers[r].insert(p);
+                break;
+            case PUZ_JUMPER_VERT:
+                m_area2jumpers[c + rows()].insert(p);
                 break;
             }
 
             char ch2 = str[c * 2 + 1];
             auto& dt = m_dots.emplace_back();
-            if (ch == PUZ_TELEPORT)
+            if (ch == PUZ_JUMPER_HORZ || ch == PUZ_JUMPER_VERT)
                 dt = {ch2 - '0'};
             else {
                 auto& linesegs_all2 = linesegs_all[
@@ -217,8 +221,10 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    if (m_state->m_game->cells(*this) == PUZ_TELEPORT)
-        for (auto& p2 : m_state->m_game->m_teleports)
+    auto g = *m_state->m_game;
+    if (char ch = g.cells(*this); ch == PUZ_JUMPER_HORZ || ch == PUZ_JUMPER_VERT)
+        for (int n = ch == PUZ_JUMPER_HORZ ? first : second + g.rows();
+            auto& p2 : g.m_area2jumpers.at(n))
             if (p2 != *this) {
                 children.push_back(*this);
                 children.back().make_move(p2);
