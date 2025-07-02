@@ -10,6 +10,9 @@
     Connect Lamps and Batteries
 
     Description
+    1. Hint:Moves and secures several elements in the correct position.
+    1. Warp: The Light appears moving to the opposite side.
+    2. Fixing: Secures elements in the correct position.
 */
 
 namespace puzzles::LightConnect{
@@ -25,8 +28,9 @@ constexpr auto PUZ_BATTERY_B = 'B';
 constexpr auto PUZ_LAMP_Y = 'y';
 constexpr auto PUZ_LAMP_R = 'r';
 constexpr auto PUZ_LAMP_B = 'b';
-constexpr auto PUZ_JUMPER_VERT = 'V';
-constexpr auto PUZ_JUMPER_HORZ = 'H';
+constexpr auto PUZ_WARP_VERT = 'V';
+constexpr auto PUZ_WARP_HORZ = 'H';
+constexpr auto PUZ_FIXING = 'F';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -95,18 +99,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             case PUZ_LAMP_B:
                 m_color2rng[toupper(ch)].insert(p);
                 break;
-            case PUZ_JUMPER_HORZ:
+            case PUZ_WARP_HORZ:
                 m_area2jumpers[r].insert(p);
                 break;
-            case PUZ_JUMPER_VERT:
+            case PUZ_WARP_VERT:
                 m_area2jumpers[c + rows()].insert(p);
                 break;
             }
 
             char ch2 = str[c * 2 + 1];
             auto& dt = m_dots.emplace_back();
-            if (ch == PUZ_JUMPER_HORZ || ch == PUZ_JUMPER_VERT)
-                dt = {ch2 - '0'};
+            if (ch == PUZ_WARP_HORZ || ch == PUZ_WARP_VERT || ch == PUZ_FIXING)
+                dt = {isdigit(ch2) ? ch2 - '0' : ch2 - 'A' + 10};
             else {
                 auto& linesegs_all2 = linesegs_all[
                     ch2 == PUZ_PIPE_1 ? 1 :
@@ -221,23 +225,27 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    auto g = *m_state->m_game;
-    if (char ch = g.cells(*this); ch == PUZ_JUMPER_HORZ || ch == PUZ_JUMPER_VERT)
-        for (int n = ch == PUZ_JUMPER_HORZ ? first : second + g.rows();
+    switch (auto g = *m_state->m_game; char ch = g.cells(*this)) {
+    case PUZ_WARP_HORZ:
+    case PUZ_WARP_VERT:
+        for (int n = ch == PUZ_WARP_HORZ ? first : second + g.rows();
             auto& p2 : g.m_area2jumpers.at(n))
             if (p2 != *this) {
                 children.push_back(*this);
                 children.back().make_move(p2);
             }
-    else
+        break;
+    default:
         for (int i = 0; i < 4; ++i)
             if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
                 return is_lineseg_on(lineseg, i);
-                })) {
+            })) {
                 auto p2 = *this + offset[i];
                 children.push_back(*this);
                 children.back().make_move(p2);
             }
+        break;
+    }
 }
 
 bool puz_state::check_connected() const
