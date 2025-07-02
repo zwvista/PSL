@@ -19,8 +19,10 @@ constexpr auto PUZ_PIPE_I = 'I';
 constexpr auto PUZ_PIPE_L = 'L';
 constexpr auto PUZ_PIPE_3 = '3';
 constexpr auto PUZ_BATTERY_1 = 'B';
-constexpr auto PUZ_BATTERY_2 = 'C';
+constexpr auto PUZ_BATTERY_I = 'i';
+constexpr auto PUZ_BATTERY_L = 'l';
 constexpr auto PUZ_LAMP = 'P';
+constexpr string_view PUZ_BATTERY_OR_LAMP = "BilP";
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -33,10 +35,10 @@ const vector<vector<int>> linesegs_all = {
     {lineseg_off},
     // ╵(up) ╶(right) ╷(down) ╴(left)
     {1, 2, 4, 8},
-    // └  ┌  ┐  ┘
-    {3, 6, 12, 9},
     // │  ─
     {5, 10},
+    // └  ┌  ┐  ┘
+    {3, 6, 12, 9},
     // ┴  ├  ┬  ┤
     {11, 7, 14, 13},
 };
@@ -56,7 +58,7 @@ struct puz_game
     int m_sidelen;
     int m_dot_count;
     string m_cells;
-    set<Position> m_batteries1, m_batteries2, m_lamps;
+    set<Position> m_batteries, m_lamps;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
@@ -72,8 +74,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             switch (Position p(r, c);  str[c]) {
-            case PUZ_BATTERY_1: m_batteries1.insert(p); break;
-            case PUZ_BATTERY_2: m_batteries2.insert(p); break;
+            case PUZ_BATTERY_1:
+            case PUZ_BATTERY_I: 
+            case PUZ_BATTERY_L: 
+                m_batteries.insert(p); break;
             case PUZ_LAMP: m_lamps.insert(p); break;
             }
     }
@@ -116,8 +120,8 @@ puz_state::puz_state(const puz_game& g)
             char ch = m_game->cells(p);
             auto& linesegs_all2 = linesegs_all[
                 ch == PUZ_BATTERY_1 || ch == PUZ_LAMP ? 1 :
-                ch == PUZ_PIPE_L ? 2 :
-                ch == PUZ_BATTERY_2 || ch == PUZ_PIPE_I ? 3 :
+                ch == PUZ_BATTERY_I || ch == PUZ_PIPE_I ? 2 :
+                ch == PUZ_BATTERY_L || ch == PUZ_PIPE_L ? 3 :
                 ch == PUZ_PIPE_3 ? 4 :
                 0];
             auto& dt = dots(p);
@@ -247,7 +251,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             auto& dt = dots(p);
             char ch = m_game->cells(p);
-            ch = ch == PUZ_BATTERY_1 || ch == PUZ_BATTERY_2 || ch == PUZ_LAMP ? ch : '.';
+            ch = PUZ_BATTERY_OR_LAMP.contains(ch) ? ch : '.';
             out << ch << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         println(out);

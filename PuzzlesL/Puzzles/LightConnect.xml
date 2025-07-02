@@ -5,17 +5,50 @@
   ]]>
 </help>
 <levels>
-  <level id="1">
+  <level id="9">
     <![CDATA[
-0P`
-BL`
+LI3L`
+PP3I`
+LLPI`
+PLiL`
     ]]>
   </level>
-  <level id="2">
+  <level id="8">
     <![CDATA[
-LIL`
-PPI`
-B3L`
+LPlL`
+L3LI`
+PLPI`
+LIIL`
+    ]]>
+  </level>
+  <level id="7">
+    <![CDATA[
+L3IL`
+IPPL`
+3PPB`
+LI3L`
+    ]]>
+  </level>
+  <level id="6">
+    <![CDATA[
+P3IL`
+LLL3`
+PPPI`
+B3IL`
+    ]]>
+  </level>
+  <level id="5">
+    <![CDATA[
+LLP`
+I3L`
+BLP`
+    ]]>
+  </level>
+  <level id="4">
+    <![CDATA[
+PLL`
+3Li`
+PPL`
     ]]>
   </level>
   <level id="3">
@@ -25,18 +58,17 @@ LLB`
 P3P`
     ]]>
   </level>
-  <level id="4">
+  <level id="2">
     <![CDATA[
-PLL`
-3LC`
-PPL`
+LIL`
+PPI`
+B3L`
     ]]>
   </level>
-  <level id="5">
+  <level id="1">
     <![CDATA[
-LLP`
-I3L`
-BLP`
+0P`
+BL`
     ]]>
   </level>
 </levels>
