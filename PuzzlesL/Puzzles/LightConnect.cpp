@@ -42,13 +42,9 @@ const vector<vector<int>> linesegs_all = {
 
 constexpr Position offset[] = {
     {-1, 0},       // n
-    {-1, 1},       // ne
     {0, 1},        // e
-    {1, 1},        // se
     {1, 0},        // s
-    {1, -1},       // sw
     {0, -1},       // w
-    {-1, -1},      // nw
 };
 
 using puz_dot = vector<int>;
@@ -250,8 +246,9 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            out << m_game->cells(p)
-                << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
+            char ch = m_game->cells(p);
+            ch = ch == PUZ_BATTERY || ch == PUZ_LAMP ? ch : '.';
+            out << ch << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         println(out);
         if (r == sidelen() - 1) break;
