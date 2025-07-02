@@ -162,6 +162,7 @@
     <Text Include="Puzzles\Landscapes.txt" />
     <Text Include="Puzzles\LiarLiar.txt" />
     <Text Include="Puzzles\LightBattleShips.txt" />
+    <Text Include="Puzzles\LightConnect.txt" />
     <Text Include="Puzzles\LightenUp.txt" />
     <Text Include="Puzzles\LightenUp2.txt" />
     <Text Include="Puzzles\LightenUpTest.txt" />
@@ -193,6 +194,7 @@
     <ClCompile Include="Puzzles\Landscapes.cpp" />
     <ClCompile Include="Puzzles\LiarLiar.cpp" />
     <ClCompile Include="Puzzles\LightBattleShips.cpp" />
+    <ClCompile Include="Puzzles\LightConnect.cpp" />
     <ClCompile Include="Puzzles\LightenUp.cpp" />
     <ClCompile Include="Puzzles\LightenUpGen.cpp" />
     <ClCompile Include="Puzzles\Lighthouses.cpp" />
@@ -217,6 +219,7 @@
     </Xml>
     <Xml Include="Puzzles\LiarLiar.xml" />
     <Xml Include="Puzzles\LightBattleShips.xml" />
+    <Xml Include="Puzzles\LightConnect.xml" />
     <Xml Include="Puzzles\LightenUp.xml" />
     <Xml Include="Puzzles\LightenUp2.xml" />
     <Xml Include="Puzzles\LightenUpTest.xml" />

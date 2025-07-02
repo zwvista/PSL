@@ -67,6 +67,9 @@
     <Text Include="Puzzles\LiarLiar.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\LightConnect.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -131,6 +134,9 @@
     <ClCompile Include="Puzzles\LiarLiar.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\LightConnect.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\lightsout_2000.xml">
@@ -182,6 +188,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\LiarLiar.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\LightConnect.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
