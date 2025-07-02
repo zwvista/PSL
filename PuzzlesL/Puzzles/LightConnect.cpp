@@ -18,7 +18,8 @@ constexpr auto PUZ_PIPE_OFF = '0';
 constexpr auto PUZ_PIPE_I = 'I';
 constexpr auto PUZ_PIPE_L = 'L';
 constexpr auto PUZ_PIPE_3 = '3';
-constexpr auto PUZ_BATTERY = 'B';
+constexpr auto PUZ_BATTERY_1 = 'B';
+constexpr auto PUZ_BATTERY_2 = 'C';
 constexpr auto PUZ_LAMP = 'P';
 
 // n-e-s-w
@@ -55,7 +56,7 @@ struct puz_game
     int m_sidelen;
     int m_dot_count;
     string m_cells;
-    set<Position> m_batteries, m_lamps;
+    set<Position> m_batteries1, m_batteries2, m_lamps;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
@@ -71,7 +72,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             switch (Position p(r, c);  str[c]) {
-            case PUZ_BATTERY: m_batteries.insert(p); break;
+            case PUZ_BATTERY_1: m_batteries1.insert(p); break;
+            case PUZ_BATTERY_2: m_batteries2.insert(p); break;
             case PUZ_LAMP: m_lamps.insert(p); break;
             }
     }
@@ -89,7 +91,7 @@ struct puz_state
     bool operator<(const puz_state& x) const { return m_dots < x.m_dots; }
     bool make_move_dot(const Position& p, int n);
     int check_dots(bool init);
-    bool check_loop() const;
+    bool check_connected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -113,9 +115,9 @@ puz_state::puz_state(const puz_game& g)
             Position p(r, c);
             char ch = m_game->cells(p);
             auto& linesegs_all2 = linesegs_all[
-                ch == PUZ_BATTERY || ch == PUZ_LAMP ? 1 :
+                ch == PUZ_BATTERY_1 || ch == PUZ_LAMP ? 1 :
                 ch == PUZ_PIPE_L ? 2 :
-                ch == PUZ_PIPE_I ? 3 :
+                ch == PUZ_BATTERY_2 || ch == PUZ_PIPE_I ? 3 :
                 ch == PUZ_PIPE_3 ? 4 :
                 0];
             auto& dt = dots(p);
@@ -179,39 +181,37 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::check_loop() const
+struct puz_state2 : Position
 {
-    set<Position> rng;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            auto& dt = dots(p);
-            if (dt.size() == 1 && dt[0] != lineseg_off)
-                rng.insert(p);
-        }
+    puz_state2(const puz_state* s, const Position& p) : m_state(s) { make_move(p); }
 
-    bool has_branch = false;
-    while (!rng.empty()) {
-        auto p = *rng.begin(), p2 = p;
-        for (int n = -1;;) {
-            rng.erase(p2);
-            auto& lineseg = dots(p2)[0];
-            for (int i = 0; i < 4; ++i)
-                // proceed only if the line segment does not revisit the previous position
-                if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
-                    p2 += offset[n = i];
-                    break;
-                }
-            if (p2 == p)
-                // loop is not allowed here
-                return false;
-            if (!rng.contains(p2)) {
-                has_branch = true;
-                break;
-            }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_state* m_state;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (int i = 0; i < 4; ++i)
+        if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
+            return is_lineseg_on(lineseg, i);
+        })) {
+            auto p2 = *this + offset[i];
+            children.push_back(*this);
+            children.back().make_move(p2);
         }
-    }
-    return true;
+}
+
+bool puz_state::check_connected() const
+{
+    auto is_not_lineseg_off = [&](const puz_dot& dt) {
+        return dt[0] != lineseg_off;
+    };
+    int i = boost::find_if(m_dots, is_not_lineseg_off) - m_dots.begin();
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return smoves.size() == boost::count_if(m_dots, is_not_lineseg_off);
 }
 
 bool puz_state::make_move_dot(const Position& p, int n)
@@ -220,7 +220,7 @@ bool puz_state::make_move_dot(const Position& p, int n)
     auto& dt = dots(p);
     dt = {dt[n]};
     int m = check_dots(false);
-    return m == 1 ? check_loop() : m == 2;
+    return m == 1 ? check_connected() : m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -247,7 +247,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             auto& dt = dots(p);
             char ch = m_game->cells(p);
-            ch = ch == PUZ_BATTERY || ch == PUZ_LAMP ? ch : '.';
+            ch = ch == PUZ_BATTERY_1 || ch == PUZ_BATTERY_2 || ch == PUZ_LAMP ? ch : '.';
             out << ch << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         println(out);

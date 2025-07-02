@@ -5,5 +5,49 @@ Sequence of moves:
 B-. 
 Number of moves: 0
 Number of vertices examined: 1
-0.0011405 [s]
+0.0014457 [s]
+
+Level 2
+Sequence of moves: 
+.-.-. 
+|   | 
+P P . 
+  | | 
+B-.-. 
+Number of moves: 0
+Number of vertices examined: 1
+0.0007901 [s]
+
+Level 3
+Sequence of moves: 
+.-.-. 
+|   | 
+.-. B 
+  |   
+P-.-P 
+Number of moves: 0
+Number of vertices examined: 1
+0.0007759 [s]
+
+Level 4
+Sequence of moves: 
+P .-. 
+| | | 
+.-. C 
+|   | 
+P P-. 
+Number of moves: 0
+Number of vertices examined: 1
+0.0007592 [s]
+
+Level 5
+Sequence of moves: 
+.-. P 
+| | | 
+. .-. 
+| |   
+B .-P 
+Number of moves: 0
+Number of vertices examined: 1
+0.0008853 [s]
 
