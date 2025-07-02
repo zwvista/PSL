@@ -25,6 +25,7 @@ constexpr auto PUZ_BATTERY_B = 'B';
 constexpr auto PUZ_LAMP_Y = 'y';
 constexpr auto PUZ_LAMP_R = 'r';
 constexpr auto PUZ_LAMP_B = 'b';
+constexpr auto PUZ_TELEPORT = 'T';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -57,27 +58,30 @@ using puz_dot = vector<int>;
 struct puz_game
 {
     string m_id;
-    int m_sidelen;
+    Position m_size;
     int m_dot_count;
     string m_cells;
     map<char, set<Position>> m_color2rng;
     vector<puz_dot> m_dots;
+    set<Position> m_teleports;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    int rows() const { return m_size.first; }
+    int cols() const { return m_size.second; }
     bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size())
-    , m_dot_count(m_sidelen * m_sidelen)
+    , m_size(Position(strs.size(), strs[0].length() / 2))
+    , m_dot_count(rows() * cols())
 {
-    for (int r = 0; r < m_sidelen; ++r) {
+    for (int r = 0; r < rows(); ++r) {
         string_view str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             char ch = str[c * 2];
             m_cells.push_back(ch);
@@ -90,28 +94,36 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             case PUZ_LAMP_B:
                 m_color2rng[toupper(ch)].insert(p);
                 break;
+            case PUZ_TELEPORT:
+                m_teleports.insert(p);
+                break;
             }
+
             char ch2 = str[c * 2 + 1];
-            auto& linesegs_all2 = linesegs_all[
-                ch2 == PUZ_PIPE_1 ? 1 :
-                ch2 == PUZ_PIPE_I ? 2 :
-                ch2 == PUZ_PIPE_L ? 3 :
-                ch2 == PUZ_PIPE_3 ? 4 :
-                0];
             auto& dt = m_dots.emplace_back();
-            for (int lineseg : linesegs_all2)
-                if ([&] {
-                    for (int i = 0; i < 4; ++i) {
-                        if (!is_lineseg_on(lineseg, i))
-                            continue;
-                        auto p2 = p + offset[i];
-                        // A line segment cannot go beyond the boundaries of the board
-                        if (!is_valid(p2))
-                            return false;
-                    }
-                    return true;
-                }())
-                    dt.push_back(lineseg);
+            if (ch == PUZ_TELEPORT)
+                dt = {ch2 - '0'};
+            else {
+                auto& linesegs_all2 = linesegs_all[
+                    ch2 == PUZ_PIPE_1 ? 1 :
+                    ch2 == PUZ_PIPE_I ? 2 :
+                    ch2 == PUZ_PIPE_L ? 3 :
+                    ch2 == PUZ_PIPE_3 ? 4 :
+                    0];
+                for (int lineseg : linesegs_all2)
+                    if ([&] {
+                        for (int i = 0; i < 4; ++i) {
+                            if (!is_lineseg_on(lineseg, i))
+                                continue;
+                            auto p2 = p + offset[i];
+                            // A line segment cannot go beyond the boundaries of the board
+                            if (!is_valid(p2))
+                                return false;
+                        }
+                        return true;
+                    }())
+                        dt.push_back(lineseg);
+            }
         }
     }
 }
@@ -119,12 +131,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 struct puz_state
 {
     puz_state(const puz_game& g);
-    int sidelen() const {return m_game->m_sidelen;}
+    int rows() const { return m_game->rows(); }
+    int cols() const { return m_game->cols(); }
     bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
-    const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
-    puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
+    const puz_dot& dots(const Position& p) const { return m_dots[p.first * cols() + p.second]; }
+    puz_dot& dots(const Position& p) { return m_dots[p.first * cols() + p.second]; }
     bool operator<(const puz_state& x) const { return m_dots < x.m_dots; }
     bool make_move_dot(const Position& p, int n);
     int check_dots(bool init);
@@ -155,8 +168,8 @@ int puz_state::check_dots(bool init)
     int n = 2;
     for (;;) {
         set<pair<Position, int>> newly_finished;
-        for (int r = 0; r < sidelen(); ++r)
-            for (int c = 0; c < sidelen(); ++c) {
+        for (int r = 0; r < rows(); ++r)
+            for (int c = 0; c < cols(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
                 for (int i = 0; i < 4; ++i)
@@ -204,27 +217,35 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (int i = 0; i < 4; ++i)
-        if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
-            return is_lineseg_on(lineseg, i);
-        })) {
-            auto p2 = *this + offset[i];
-            children.push_back(*this);
-            children.back().make_move(p2);
-        }
+    if (m_state->m_game->cells(*this) == PUZ_TELEPORT)
+        for (auto& p2 : m_state->m_game->m_teleports)
+            if (p2 != *this) {
+                children.push_back(*this);
+                children.back().make_move(p2);
+            }
+    else
+        for (int i = 0; i < 4; ++i)
+            if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
+                return is_lineseg_on(lineseg, i);
+                })) {
+                auto p2 = *this + offset[i];
+                children.push_back(*this);
+                children.back().make_move(p2);
+            }
 }
 
 bool puz_state::check_connected() const
 {
-    return boost::algorithm::all_of(m_game->m_color2rng, [&](const pair<const char, set<Position>>& kv) {
-        auto& [ch, rng] = kv;
+    for (auto& [ch, rng] : m_game->m_color2rng) {
         int i = m_game->m_cells.find(ch);
         auto smoves = puz_move_generator<puz_state2>::gen_moves(
-            {this, {i / sidelen(), i % sidelen()}});
-        return boost::count_if(smoves, [&](const Position& p) {
+            {this, {i / cols(), i % cols()}});
+        if (boost::count_if(smoves, [&](const Position& p) {
             return toupper(m_game->cells(p)) == ch;
-        }) == rng.size();
-    });
+        }) != rng.size())
+            return false;
+    }
+    return true;
 }
 
 bool puz_state::make_move_dot(const Position& p, int n)
@@ -246,7 +267,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return f(dt1) < f(dt2);
     }) - m_dots.begin();
     auto& dt = m_dots[i];
-    Position p(i / sidelen(), i % sidelen());
+    Position p(i / cols(), i % cols());
     for (int n = 0; n < dt.size(); ++n)
         if (children.push_back(*this); !children.back().make_move_dot(p, n))
             children.pop_back();
@@ -256,14 +277,14 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
         // draw horizontal lines
-        for (int c = 0; c < sidelen(); ++c) {
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             out << m_game->cells(p) << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         println(out);
-        if (r == sidelen() - 1) break;
-        for (int c = 0; c < sidelen(); ++c)
+        if (r == rows() - 1) break;
+        for (int c = 0; c < cols(); ++c)
             // draw vertical lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
         println(out);
