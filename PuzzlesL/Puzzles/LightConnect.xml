@@ -5,6 +5,32 @@
   ]]>
 </help>
 <levels>
+  <level id="19">
+    <![CDATA[
+Y1 I Ly1`
+b1y1 L I`
+ L I 3 L`
+r1R1BLb1`
+    ]]>
+  </level>
+  <level id="18">
+    <![CDATA[
+ 0B1 Lb1 L 0`
+H2 L 3b1 LH8`
+ 0 I IY1y1 0`
+ 0 L 3 Ib1 0`
+    ]]>
+  </level>
+  <level id="17">
+    <![CDATA[
+ 0 0V4 0 0 0`
+ 0y1y1 Ly1 0`
+ 0 I L 3y1 0`
+H2 3 I I LH8`
+ 0 LY3 Ly1 0`
+ 0 0V1 0 0 0`
+    ]]>
+  </level>
   <level id="16">
     <![CDATA[
 y1 3 I L`
