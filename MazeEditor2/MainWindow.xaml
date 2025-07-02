@@ -25,18 +25,34 @@
                     <RibbonApplicationMenuItem Header="Exit" ImageSource="Images\quit.png" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
-            <RibbonTab Header="Home" KeyTip="H">
+            <RibbonTab Header="Home" KeyTip="H" Margin="0,0,0,-14">
                 <RibbonGroup Header="Clipboard">
                     <RibbonButton x:Name="PasteButton" Label="Paste" LargeImageSource="Images\paste.png" Command="Paste" />
                     <RibbonButton x:Name="CopyButton" Label="Copy" SmallImageSource="Images\copy.png" Command="Copy" />
                 </RibbonGroup>
                 <RibbonGroup Header="Grid" KeyTip="G">
-                    <RibbonTextBox Text="" Label="Rows:     " />
-                    <RibbonTextBox Text="" Label="Columns:"/>
+                    <RibbonTextBox Text="" Label="Height:" />
+                    <RibbonTextBox Text="" Label="Width:"/>
+                    <RibbonCheckBox Label="Square"/>
                 </RibbonGroup>
                 <RibbonGroup Header="Walls" KeyTip="W">
                     <RibbonCheckBox Label="Has Walls"/>
-                    <RibbonButton Content="ClearButton" Label="Clear"/>
+                    <RibbonButton Label="Fill Border Lines"/>
+                    <RibbonButton Label="Enclose Selected" />
+                </RibbonGroup>
+                <RibbonGroup Header="Chars" KeyTip="C">
+                    <RibbonTextBox Text="" Label="Char:" />
+                    <RibbonButton Label="Fill All"/>
+                    <RibbonButton Label="Fill Border Cells" />
+                </RibbonGroup>
+                <RibbonGroup Header="Info" KeyTip="I">
+                    <RibbonTextBox Text="" Label="Pos:" />
+                    <RibbonComboBox Label="Movement:"/>
+                </RibbonGroup>
+                <RibbonGroup Header="Clear" KeyTip="E">
+                    <RibbonButton Label="Clear All"/>
+                    <RibbonButton Label="Clear Walls"/> 
+                    <RibbonButton Label="Clear Chars" />
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
