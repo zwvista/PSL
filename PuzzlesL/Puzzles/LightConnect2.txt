@@ -1,0 +1,15 @@
+Level 51
+Sequence of moves: 
+y- -Y- -  
+    |   | 
+y  -  y-  
+| |     | 
+ -F b F-  
+    | |   
+ -B-  g-  
+|   |   | 
+b b- - -  
+Number of moves: 0
+Number of vertices examined: 1
+0.0030438 [s]
+
