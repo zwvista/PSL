@@ -227,12 +227,15 @@ int puz_state::check_dots(bool init)
         n = 1;
         for (const auto& kv : newly_finished) {
             auto& [p, i] = kv;
-            int lineseg = dots(p)[0];
+            auto& dt = dots(p);
+            if (dt.empty())
+                return 0;
+            int lineseg = dt[0];
             auto p2 = p + offset[i];
             if (is_valid(p2)) {
-                auto& dt = dots(p2);
+                auto& dt2 = dots(p2);
                 // The line segments in adjacent cells must be connected
-                boost::remove_erase_if(dt, [=](int lineseg2) {
+                boost::remove_erase_if(dt2, [=](int lineseg2) {
                     return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
                 });
                 if (!init && dt.empty())
