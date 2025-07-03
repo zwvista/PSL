@@ -8,7 +8,7 @@ int main(int argc, char **argv)
     println("o: Join Me!");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_JoinMe();
     else if (str == "o") solve_puz_JoinMe();
 
     return 0;

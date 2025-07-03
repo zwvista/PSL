@@ -50,7 +50,7 @@ int main(int argc, char **argv)
     println("u3: SuspendedGravity");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_Sentinels();
     else if (str == "e") solve_puz_Sentinels();
     else if (str == "h1") solve_puz_SheepAndWolves();
     else if (str == "h2") solve_puz_ShopAndGas();

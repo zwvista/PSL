@@ -12,7 +12,7 @@ int main(int argc, char **argv)
     println("8: 8puzzle");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_15pegs();
     else if (str == "1") solve_puz_15pegs();
     else if (str == "3") solve_puz_3dlogic();
     else if (str == "8") solve_puz_8puzzle();

@@ -36,7 +36,7 @@ int main(int argc, char **argv)
     println("o2: Loopy");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_LakesAndMeadows();
     else if (str == "a1") solve_puz_LakesAndMeadows();
     else if (str == "a2") solve_puz_Landscaper();
     else if (str == "a3") solve_puz_Landscapes();

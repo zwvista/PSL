@@ -10,7 +10,7 @@ int main(int argc, char **argv)
     println("o: You Turn me on");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_Yalooniq();
     else if (str == "a") solve_puz_Yalooniq();
     else if (str == "o") solve_puz_YouTurnMeOn();
 

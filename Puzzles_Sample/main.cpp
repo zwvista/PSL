@@ -10,7 +10,7 @@ int main(int argc, char **argv)
     println("p: pathfind");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_fullsearch();
     else if (str == "f") solve_puz_fullsearch();
     else if (str == "p") solve_puz_pathfind();
 

@@ -40,7 +40,7 @@ int main(int argc, char **argv)
     println("u2: Culture Trip");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_Caffelatte();
     else if (str == "a1") solve_puz_Caffelatte();
     else if (str == "a2") solve_puz_Calcudoku();
     else if (str == "a3") solve_puz_CarpentersSquare();

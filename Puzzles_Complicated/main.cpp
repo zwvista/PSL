@@ -10,7 +10,7 @@ int main(int argc, char **argv)
     println("p: Patchmania");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_mummymaze();
     else if (str == "m") solve_puz_mummymaze();
     else if (str == "p") solve_puz_Patchmania();
 

@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     println("u: Run in a Loop");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_Rabbits();
     else if (str == "a") solve_puz_Rabbits();
     else if (str == "i") solve_puz_RippleEffect();
     else if (str == "o1") solve_puz_RobotCrosswords();

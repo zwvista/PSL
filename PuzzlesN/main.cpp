@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     println("u7: Nurikabe");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_Neighbours();
     else if (str == "e1") solve_puz_Neighbours();
     else if (str == "e2") solve_puz_NewCarpenterSquare();
     else if (str == "o1") solve_puz_NorthPoleFishing();

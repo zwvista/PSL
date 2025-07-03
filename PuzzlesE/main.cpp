@@ -8,7 +8,7 @@ int main(int argc, char **argv)
     println("s: escapology");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_escapology();
     else if (str == "s") solve_puz_escapology();
 
     return 0;

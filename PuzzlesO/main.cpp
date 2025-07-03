@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     println("v: Over Under");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_OddsAreEven();
     else if (str == "d") solve_puz_OddsAreEven();
     else if (str == "n1") solve_puz_on_the_edge();
     else if (str == "n2") solve_puz_OneUpOrDown();

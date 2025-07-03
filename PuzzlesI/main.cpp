@@ -16,7 +16,7 @@ int main(int argc, char **argv)
     println("s: Island Connections");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_icedin();
     else if (str == "c") solve_puz_icedin();
     else if (str == "n1") solve_puz_InbetweenNurikabe();
     else if (str == "n2") solve_puz_InbetweenSumscrapers();

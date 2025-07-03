@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     println("s: Assembly Instructions");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_Abc();
     else if (str == "b1") solve_puz_Abc();
     else if (str == "b2") solve_puz_ABCPath();
     else if (str == "b3") solve_puz_AbstractPainting();

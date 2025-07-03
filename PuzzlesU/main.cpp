@@ -10,7 +10,7 @@ int main(int argc, char **argv)
     println("n2: Unseen");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_UnreliableHints();
     else if (str == "n1") solve_puz_UnreliableHints();
     else if (str == "n2") solve_puz_Unseen();
 

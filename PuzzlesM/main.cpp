@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     println("o4: Move the Box");
     string str;
     getline(cin, str);
-    if (str.empty());
+    if (str.empty()) solve_puz_magic_square();
     else if (str == "ag1") solve_puz_magic_square();
     else if (str == "ag2") solve_puz_Magic5gonRing();
     else if (str == "ag3") solve_puz_Magnets();
