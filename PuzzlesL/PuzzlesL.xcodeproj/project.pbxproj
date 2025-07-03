@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C689D632E166B3100A2BCCC /* LightConnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D602E166B3100A2BCCC /* LightConnect.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -43,6 +44,9 @@
 /* Begin PBXFileReference section */
 		8C5F129D2DE378B500BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F129E2DE378B500BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C689D602E166B3100A2BCCC /* LightConnect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LightConnect.cpp; sourceTree = "<group>"; };
+		8C689D612E166B3100A2BCCC /* LightConnect.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LightConnect.txt; sourceTree = "<group>"; };
+		8C689D622E166B3100A2BCCC /* LightConnect.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LightConnect.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesL; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -168,6 +172,9 @@
 				8CA2407F1EB47A710055D6B1 /* LightBattleShips.cpp */,
 				8CA240801EB47A710055D6B1 /* LightBattleShips.txt */,
 				8CA240811EB47A710055D6B1 /* LightBattleShips.xml */,
+				8C689D602E166B3100A2BCCC /* LightConnect.cpp */,
+				8C689D612E166B3100A2BCCC /* LightConnect.txt */,
+				8C689D622E166B3100A2BCCC /* LightConnect.xml */,
 				8CA240821EB47A710055D6B1 /* LightenUp.cpp */,
 				8CA240831EB47A710055D6B1 /* LightenUp.txt */,
 				8CA240841EB47A710055D6B1 /* LightenUp.xml */,
@@ -179,6 +186,7 @@
 				8CA240881EB47A710055D6B1 /* Lighthouses.cpp */,
 				8CA240891EB47A710055D6B1 /* Lighthouses.txt */,
 				8CA2408A1EB47A710055D6B1 /* Lighthouses.xml */,
+				8CA240931EB47A710055D6B1 /* lightsout.cpp */,
 				8CA2408B1EB47A710055D6B1 /* lightsout_2000.xml */,
 				8CA2408C1EB47A710055D6B1 /* lightsout_classic.txt */,
 				8CA2408D1EB47A710055D6B1 /* lightsout_classic.xml */,
@@ -187,7 +195,6 @@
 				8CA240901EB47A710055D6B1 /* lightsout-int.cpp */,
 				8CA240911EB47A710055D6B1 /* lightsout-int.txt */,
 				8CA240921EB47A710055D6B1 /* lightsout-int.xml */,
-				8CA240931EB47A710055D6B1 /* lightsout.cpp */,
 				8CA240941EB47A710055D6B1 /* LineSweeper.cpp */,
 				8CA240951EB47A710055D6B1 /* LineSweeper.txt */,
 				8CA240961EB47A710055D6B1 /* LineSweeper.xml */,
@@ -306,6 +313,7 @@
 				8CA240A41EB47A710055D6B1 /* lightsout.cpp in Sources */,
 				8CA240A61EB47A710055D6B1 /* Lits.cpp in Sources */,
 				8CA240A01EB47A710055D6B1 /* LightenUp.cpp in Sources */,
+				8C689D632E166B3100A2BCCC /* LightConnect.cpp in Sources */,
 				958FA6512331319A00205831 /* LiarLiar.cpp in Sources */,
 				95D7B5E72315BD54001E005C /* LakesAndMeadows.cpp in Sources */,
 				8CA240A31EB47A710055D6B1 /* lightsout-int.cpp in Sources */,

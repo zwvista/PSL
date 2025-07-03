@@ -95,7 +95,8 @@ class MazeView: NSView {
                               width: spacing - margin * 2, height: spacing - margin * 2).fill()
         }
         
-        let font = NSFont(name: "Helvetica Bold", size: 20.0)
+        let baseFont = NSFont(name: "Courier New", size: 20.0)!
+        let font = NSFontManager.shared.convert(baseFont, toHaveTrait: .boldFontMask)
         let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.center
         let textColor = NSColor.brown
@@ -108,12 +109,17 @@ class MazeView: NSView {
             for c in 0..<cols {
                 let p = Position(r, c)
                 if let ch = maze.getObject(p: p) {
-                    let str = "\(ch)" as NSString
-                    str.draw(
-                        in: NSRect(x: CGFloat(c) * spacing,
-                                   y: CGFloat(r) * spacing,
-                                   width: spacing, height: spacing),
-                        withAttributes: textFontAttributes)
+                    let text = "\(ch)"
+                    let textSize = text.size(withAttributes: textFontAttributes)
+                    let bounds = NSRect(
+                        x: CGFloat(c) * spacing,
+                        y: CGFloat(r) * spacing,
+                        width: spacing, height: spacing)
+                    let textOrigin = NSPoint(
+                        x: bounds.midX - textSize.width / 2,
+                        y: bounds.midY - textSize.height / 2
+                    )
+                    text.draw(at: textOrigin, withAttributes: textFontAttributes)
                 }
             }
         }
