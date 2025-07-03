@@ -5,6 +5,57 @@
   ]]>
 </help>
 <levels>
+  <level id="40">
+    <![CDATA[
+Y1 L I 3b1`
+ Ib1BL LR1`
+ 3y1b1 L L`
+ Iy1y1 Ir1`
+ L 3 L L L`
+    ]]>
+  </level>
+  <level id="39">
+    <![CDATA[
+ 0 0 0 0 0W4 0 0`
+ 0 L I IY1 3b1 0`
+W2 Lb1b1 IBLF6W8`
+W2y1 Iy1 I I 3W8`
+ 0b1 3 I I Lb1 0`
+ 0b1F6 Ib1F3 3 0`
+ 0 L 3 I I 3 L 0`
+ 0 0 0 0 0W1 0 0`
+    ]]>
+  </level>
+  <level id="38">
+    <![CDATA[
+ 0W4W4 0 0`
+ L L 3 Lb1`
+ L 3F9 L 3`
+b1b1F6B1 I`
+ 3b1 Ib1 L`
+ LFC 3 Ib1`
+ 0W1W1 0 0`
+    ]]>
+  </level>
+  <level id="37">
+    <![CDATA[
+ 0b1 LR1r1B1 0`
+W2 L L LY1 LW8`
+ 0 I L L Iy1 0`
+ 0 3 Ly1 3 3 0`
+ 0 L Ib1y1 L 0`
+    ]]>
+  </level>
+  <level id="36">
+    <![CDATA[
+r1 3 I I 3 L`
+ L Lr1 L Lr1`
+ 3FC I L I L`
+ I LFD LFA 3`
+ L Lr1 LRLr1`
+r1 3r1r1 3r1`
+    ]]>
+  </level>
   <level id="35">
     <![CDATA[
  0 0W4 0 0`
