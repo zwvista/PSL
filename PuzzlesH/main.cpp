@@ -16,33 +16,33 @@ extern void solve_puz_hrd();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    string str;
-    println("e1: Hedgehog");
-    println("e2: Helium And Iron");
-    println("e3: Hexotris");
-    println("e4: hexrotation");
-    println("i1: HiddenClouds");
-    println("i2: HiddenPath");
-    println("i3: HiddenStars");
-    println("i4: Hidoku");
-    println("i5: Hitori");
-    println("o1: Holiday Island");
-    println("o2: hopover");
-    println("r: hrd");
-    getline(cin, str);
-    if (str.empty()) solve_puz_Hedgehog();
-    else if (str == "e1") solve_puz_Hedgehog();
-    else if (str == "e2") solve_puz_HeliumAndIron();
-    else if (str == "e3") solve_puz_Hexotris();
-    else if (str == "e4") solve_puz_hexrotation();
-    else if (str == "i1") solve_puz_HiddenClouds();
-    else if (str == "i2") solve_puz_HiddenPath();
-    else if (str == "i3") solve_puz_HiddenStars();
-    else if (str == "i4") solve_puz_Hidoku();
-    else if (str == "i5") solve_puz_Hitori();
-    else if (str == "o1") solve_puz_HolidayIsland();
-    else if (str == "o2") solve_puz_hopover();
-    else if (str == "r") solve_puz_hrd();
-
+    for(string str; str.empty();) {
+        println("e1: Hedgehog");
+        println("e2: Helium And Iron");
+        println("e3: Hexotris");
+        println("e4: hexrotation");
+        println("i1: HiddenClouds");
+        println("i2: HiddenPath");
+        println("i3: HiddenStars");
+        println("i4: Hidoku");
+        println("i5: Hitori");
+        println("o1: Holiday Island");
+        println("o2: hopover");
+        println("r: hrd");
+        getline(cin, str);
+        if (str.empty()) solve_puz_Hedgehog();
+        else if (str == "e1") solve_puz_Hedgehog();
+        else if (str == "e2") solve_puz_HeliumAndIron();
+        else if (str == "e3") solve_puz_Hexotris();
+        else if (str == "e4") solve_puz_hexrotation();
+        else if (str == "i1") solve_puz_HiddenClouds();
+        else if (str == "i2") solve_puz_HiddenPath();
+        else if (str == "i3") solve_puz_HiddenStars();
+        else if (str == "i4") solve_puz_Hidoku();
+        else if (str == "i5") solve_puz_Hitori();
+        else if (str == "o1") solve_puz_HolidayIsland();
+        else if (str == "o2") solve_puz_hopover();
+        else if (str == "r") solve_puz_hrd();
+    }
     return 0;
 }

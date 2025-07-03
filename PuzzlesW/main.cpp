@@ -12,15 +12,15 @@ extern void solve_puz_Wriggle();
 int main(int argc, char **argv)
 {
     srand(time(0));
-    string str;
-    println("a1: Walls");
-    println("a12: Walls2");
-    println("a2: Wall Hints");
-    println("a3: Wall Sentinels");
-    println("a4: Warehouse");
-    println("i1: Wildlife Park");
-    println("i2: Wish Sandwich");
-    println("r: Wriggle");
+    for(string str; str.empty();) {
+        println("a1: Walls");
+        println("a12: Walls2");
+        println("a2: Wall Hints");
+        println("a3: Wall Sentinels");
+        println("a4: Warehouse");
+        println("i1: Wildlife Park");
+        println("i2: Wish Sandwich");
+        println("r: Wriggle");
     getline(cin, str);
     if (str.empty()) solve_puz_Walls();
     else if (str == "a1") solve_puz_Walls();
@@ -31,6 +31,6 @@ int main(int argc, char **argv)
     else if (str == "i1") solve_puz_WildlifePark();
     else if (str == "i2") solve_puz_WishSandwich();
     else if (str == "r") solve_puz_Wriggle();
-
+    }
     return 0;
 }
