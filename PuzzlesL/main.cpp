@@ -19,6 +19,7 @@ extern void solve_puz_Loopy();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("a1: Lakes and Meadows");
     println("a2: Landscaper");
     println("a3: Landscapes");
@@ -34,7 +35,6 @@ int main(int argc, char **argv)
     println("i3: Lits");
     println("o1: Loop and Blocks");
     println("o2: Loopy");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_LakesAndMeadows();
     else if (str == "a1") solve_puz_LakesAndMeadows();

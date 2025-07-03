@@ -12,6 +12,7 @@ extern void solve_puz_OverUnder();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("d: Odds Are Even");
     println("n1: on_the_edge");
     println("n2: One Up or Down");
@@ -20,7 +21,6 @@ int main(int argc, char **argv)
     println("p: openvalve");
     println("r: Orchards");
     println("v: Over Under");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_OddsAreEven();
     else if (str == "d") solve_puz_OddsAreEven();

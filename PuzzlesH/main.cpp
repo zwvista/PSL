@@ -16,6 +16,7 @@ extern void solve_puz_hrd();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("e1: Hedgehog");
     println("e2: Helium And Iron");
     println("e3: Hexotris");
@@ -28,7 +29,6 @@ int main(int argc, char **argv)
     println("o1: Holiday Island");
     println("o2: hopover");
     println("r: hrd");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Hedgehog();
     else if (str == "e1") solve_puz_Hedgehog();

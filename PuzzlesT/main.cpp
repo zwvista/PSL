@@ -29,6 +29,7 @@ extern void solve_puz_twinballs();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("a1: Tapa");
     println("a2: Tapa Islands");
     println("a3: Tap-Alike");
@@ -54,7 +55,6 @@ int main(int argc, char **argv)
     println("u2: Turn Twice");
     println("u3: turnz");
     println("w: twinballs");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Tapa();
     else if (str == "a1") solve_puz_Tapa();

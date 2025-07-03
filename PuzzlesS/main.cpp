@@ -26,6 +26,7 @@ extern void solve_puz_SuspendedGravity();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("e: Sentinels");
     println("h1: Sheep & Wolves");
     println("h2: Shop & Gas");
@@ -48,7 +49,6 @@ int main(int argc, char **argv)
     println("u1: Sukrokuro");
     println("u2: sumscrapers");
     println("u3: SuspendedGravity");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Sentinels();
     else if (str == "e") solve_puz_Sentinels();

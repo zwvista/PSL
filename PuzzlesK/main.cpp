@@ -8,11 +8,11 @@ extern void solve_puz_Kropki();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("a1: Kakurasu");
     println("a2: Kakuro");
     println("n: Knightoku");
     println("r: Kropki");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Kakurasu();
     else if (str == "a1") solve_puz_Kakurasu();

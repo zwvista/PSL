@@ -12,6 +12,7 @@ extern void solve_puz_Wriggle();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("a1: Walls");
     println("a12: Walls2");
     println("a2: Wall Hints");
@@ -20,7 +21,6 @@ int main(int argc, char **argv)
     println("i1: Wildlife Park");
     println("i2: Wish Sandwich");
     println("r: Wriggle");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Walls();
     else if (str == "a1") solve_puz_Walls();

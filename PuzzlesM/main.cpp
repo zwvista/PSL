@@ -24,6 +24,7 @@ extern void solve_puz_MoveTheBox();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("ag1: magic_square");
     println("ag2: Magic 5-gon ring");
     println("ag3: Magnets");
@@ -44,7 +45,6 @@ int main(int argc, char **argv)
     println("o2: More Or Less");
     println("o3: Mosaik");
     println("o4: Move the Box");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_magic_square();
     else if (str == "ag1") solve_puz_magic_square();

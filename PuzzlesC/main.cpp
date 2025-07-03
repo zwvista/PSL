@@ -21,6 +21,7 @@ extern void solve_puz_CultureTrip();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("a1: Caffelatte");
     println("a2: Calcudoku");
     println("a3: Carpenter's Square");
@@ -38,7 +39,6 @@ int main(int argc, char **argv)
     println("r3: Crosstown Traffic");
     println("u1: Cultured Branches");
     println("u2: Culture Trip");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Caffelatte();
     else if (str == "a1") solve_puz_Caffelatte();

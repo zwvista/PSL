@@ -8,11 +8,11 @@ extern void solve_puz_zgj();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("a: zafiro");
     println("e1: Zen Gardens");
     println("e2: Zen Landscaper");
     println("g: zgj");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_zafiro();
     else if (str == "a") solve_puz_zafiro();

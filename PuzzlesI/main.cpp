@@ -9,12 +9,12 @@ extern void solve_puz_IslandConnections();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("c: icedin");
     println("n1: Inbetween Nurikabe");
     println("n2: Inbetween Sumscrapers");
     println("n3: Insane Tatamis");
     println("s: Island Connections");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_icedin();
     else if (str == "c") solve_puz_icedin();

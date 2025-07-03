@@ -29,6 +29,7 @@ extern void solve_puz_PuzzleRetreat();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("ai1: Paint The Nurikabe");
     println("ai2: Pairakabe");
     println("ar1: Parking Lot");
@@ -54,7 +55,6 @@ int main(int argc, char **argv)
     println("o5: Power Grid");
     println("r: Product Sentinels");
     println("u: Puzzle Retreat");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_PaintTheNurikabe();
     else if (str == "ai1") solve_puz_PaintTheNurikabe();

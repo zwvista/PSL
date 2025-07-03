@@ -11,6 +11,7 @@ extern void solve_puz_Domino();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("e: Desert Dunes");
     println("i1: Digital Battle Ships");
     println("i2: Digital Path");
@@ -18,7 +19,6 @@ int main(int argc, char **argv)
     println("i4: Directional Planks");
     println("i5: Disconnect Four");
     println("o: Domino");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_DesertDunes();
     else if (str == "e") solve_puz_DesertDunes();

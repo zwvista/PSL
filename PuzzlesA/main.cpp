@@ -11,6 +11,7 @@ extern void solve_puz_AssemblyInstructions();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("b1: Abc");
     println("b2: ABC Path");
     println("b3: Abstract Painting");
@@ -18,7 +19,6 @@ int main(int argc, char **argv)
     println("r1: Archipelago");
     println("r2: Arrows");
     println("s: Assembly Instructions");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Abc();
     else if (str == "b1") solve_puz_Abc();

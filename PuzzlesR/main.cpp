@@ -13,6 +13,7 @@ extern void solve_puz_RunInALoop();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("a: Rabbits");
     println("i: Ripple Effect");
     println("o1: Robot Crosswords");
@@ -22,7 +23,6 @@ int main(int argc, char **argv)
     println("o5: rotate9");
     println("o6: rotation game");
     println("u: Run in a Loop");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Rabbits();
     else if (str == "a") solve_puz_Rabbits();

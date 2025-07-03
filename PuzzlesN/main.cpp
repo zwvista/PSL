@@ -16,6 +16,7 @@ extern void solve_puz_Nurikabe();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("e1: Neighbours");
     println("e2: New Carpenter Square");
     println("o1: North Pole Fishing");
@@ -28,7 +29,6 @@ int main(int argc, char **argv)
     println("u5: NumberLink");
     println("u6: numeric_paranoia");
     println("u7: Nurikabe");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Neighbours();
     else if (str == "e1") solve_puz_Neighbours();

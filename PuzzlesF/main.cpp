@@ -23,6 +23,7 @@ extern void solve_puz_Futoshiki();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("a: Farmer");
     println("e1: Fence It Up");
     println("e2: FenceLits");
@@ -42,7 +43,6 @@ int main(int argc, char **argv)
     println("u1: Funny Numbers");
     println("u2: Fussy Waiter");
     println("u3: Futoshiki");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Farmer();
     else if (str == "a") solve_puz_Farmer();

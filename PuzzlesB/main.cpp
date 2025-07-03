@@ -21,6 +21,7 @@ extern void solve_puz_BWTapa();
 int main(int argc, char **argv)
 {
     srand(time(0));
+    string str;
     println("a1: Banquet");
     println("a2: Balanced Tapas");
     println("a3: Battle Ships");
@@ -37,7 +38,6 @@ int main(int argc, char **argv)
     println("r2g: Bridges Gen");
     println("u: Busy Seas");
     println("w: B&W Tapa");
-    string str;
     getline(cin, str);
     if (str.empty()) solve_puz_Banquet();
     else if (str == "a1") solve_puz_Banquet();
