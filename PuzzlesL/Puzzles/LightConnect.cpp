@@ -11,8 +11,9 @@
 
     Description
     1. Hint:Moves and secures several elements in the correct position.
-    1. Warp: The Light appears moving to the opposite side.
-    2. Fixing: Secures elements in the correct position.
+    2. Warp: The Light appears moving to the opposite side.
+    3. Fixing: Secures elements in the correct position.
+    4. Color Mix: Mixing two colors to create a new color.
 */
 
 namespace puzzles::LightConnect{
@@ -22,12 +23,15 @@ constexpr auto PUZ_PIPE_1 = '1';
 constexpr auto PUZ_PIPE_I = 'I';
 constexpr auto PUZ_PIPE_L = 'L';
 constexpr auto PUZ_PIPE_3 = '3';
+// yellow, red, blue
 constexpr auto PUZ_BATTERY_Y = 'Y';
 constexpr auto PUZ_BATTERY_R = 'R';
 constexpr auto PUZ_BATTERY_B = 'B';
-constexpr auto PUZ_LAMP_Y = 'y';
-constexpr auto PUZ_LAMP_R = 'r';
-constexpr auto PUZ_LAMP_B = 'b';
+constexpr auto PUZ_BULB_Y = 'y';
+constexpr auto PUZ_BULB_R = 'r';
+constexpr auto PUZ_BULB_B = 'b';
+// yellow + red = red orange
+constexpr auto PUZ_BULB_O = 'o';
 constexpr auto PUZ_WARP = 'W';
 constexpr auto PUZ_FIXING = 'F';
 
@@ -57,6 +61,13 @@ constexpr Position offset[] = {
     {0, -1},       // w
 };
 
+const map<char, set<char>> bulb2batteries = {
+    {PUZ_BULB_Y, {PUZ_BATTERY_Y}},
+    {PUZ_BULB_R, {PUZ_BATTERY_R}},
+    {PUZ_BULB_B, {PUZ_BATTERY_B}},
+    {PUZ_BULB_O, {PUZ_BATTERY_Y, PUZ_BATTERY_R}},
+};
+
 using puz_dot = vector<int>;
 
 struct puz_game
@@ -65,9 +76,10 @@ struct puz_game
     Position m_size;
     int m_dot_count;
     string m_cells;
-    map<char, set<Position>> m_color2rng;
+    map<char, Position> m_color2battery;
+    map<char, set<Position>> m_color2bulbs;
     vector<puz_dot> m_dots;
-    map<int, set<Position>> m_area2jumpers;
+    map<int, set<Position>> m_area2warps;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
@@ -93,13 +105,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             case PUZ_BATTERY_Y:
             case PUZ_BATTERY_R:
             case PUZ_BATTERY_B:
-            case PUZ_LAMP_Y:
-            case PUZ_LAMP_R:
-            case PUZ_LAMP_B:
-                m_color2rng[toupper(ch)].insert(p);
+                m_color2battery[ch] = p;
+                break;
+            case PUZ_BULB_Y:
+            case PUZ_BULB_R:
+            case PUZ_BULB_B:
+            case PUZ_BULB_O:
+                m_color2bulbs[ch].insert(p);
                 break;
             case PUZ_WARP:
-                m_area2jumpers[c == 0 || c == rows() - 1 ? r : c + rows()].insert(p);
+                m_area2warps[c == 0 || c == rows() - 1 ? r : c + rows()].insert(p);
                 break;
             }
 
@@ -224,7 +239,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     switch (auto g = *m_state->m_game; char ch = g.cells(*this)) {
     case PUZ_WARP:
         for (int n = second == 0 || second == g.rows() - 1 ? first : second + g.rows();
-            auto& p2 : g.m_area2jumpers.at(n))
+            auto& p2 : g.m_area2warps.at(n))
             if (p2 != *this) {
                 children.push_back(*this);
                 children.back().make_move(p2);
@@ -245,13 +260,15 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::check_connected() const
 {
-    for (auto& [ch, rng] : m_game->m_color2rng) {
-        int i = m_game->m_cells.find(ch);
+    for (auto& [color1, bulbs] : m_game->m_color2bulbs) {
+        auto& colors2 = bulb2batteries.at(color1);
+        int i = m_game->m_cells.find(color1);
         auto smoves = puz_move_generator<puz_state2>::gen_moves(
             {this, {i / cols(), i % cols()}});
         if (boost::count_if(smoves, [&](const Position& p) {
-            return toupper(m_game->cells(p)) == ch;
-        }) != rng.size())
+            char ch = m_game->cells(p);
+            return ch == color1 || colors2.contains(ch);
+        }) != bulbs.size() + colors2.size())
             return false;
     }
     return true;
@@ -306,6 +323,8 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_LightConnect()
 {
     using namespace puzzles::LightConnect;
+    //solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+    //    "Puzzles/LightConnect2.xml", "Puzzles/LightConnect2.txt", solution_format::GOAL_STATE_ONLY);
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
         "Puzzles/LightConnect.xml", "Puzzles/LightConnect.txt", solution_format::GOAL_STATE_ONLY);
 }

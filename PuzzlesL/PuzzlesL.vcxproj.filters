@@ -70,6 +70,9 @@
     <Text Include="Puzzles\LightConnect.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\LightConnect2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -191,6 +194,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\LightConnect.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\LightConnect2.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

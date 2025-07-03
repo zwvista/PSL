@@ -163,6 +163,7 @@
     <Text Include="Puzzles\LiarLiar.txt" />
     <Text Include="Puzzles\LightBattleShips.txt" />
     <Text Include="Puzzles\LightConnect.txt" />
+    <Text Include="Puzzles\LightConnect2.txt" />
     <Text Include="Puzzles\LightenUp.txt" />
     <Text Include="Puzzles\LightenUp2.txt" />
     <Text Include="Puzzles\LightenUpTest.txt" />
@@ -220,6 +221,7 @@
     <Xml Include="Puzzles\LiarLiar.xml" />
     <Xml Include="Puzzles\LightBattleShips.xml" />
     <Xml Include="Puzzles\LightConnect.xml" />
+    <Xml Include="Puzzles\LightConnect2.xml" />
     <Xml Include="Puzzles\LightenUp.xml" />
     <Xml Include="Puzzles\LightenUp2.xml" />
     <Xml Include="Puzzles\LightenUpTest.xml" />
