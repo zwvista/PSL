@@ -24,14 +24,16 @@ constexpr auto PUZ_PIPE_I = 'I';
 constexpr auto PUZ_PIPE_L = 'L';
 constexpr auto PUZ_PIPE_3 = '3';
 // yellow, red, blue
-constexpr auto PUZ_BATTERY_Y = 'Y';
-constexpr auto PUZ_BATTERY_R = 'R';
-constexpr auto PUZ_BATTERY_B = 'B';
-constexpr auto PUZ_BULB_Y = 'y';
-constexpr auto PUZ_BULB_R = 'r';
-constexpr auto PUZ_BULB_B = 'b';
+constexpr auto PUZ_BATTERY_YELLOW = 'Y';
+constexpr auto PUZ_BATTERY_RED = 'R';
+constexpr auto PUZ_BATTERY_BLUE = 'B';
+constexpr auto PUZ_BULB_YELLOW = 'y';
+constexpr auto PUZ_BULB_RED = 'r';
+constexpr auto PUZ_BULB_BLUE = 'b';
 // yellow + red = red orange
-constexpr auto PUZ_BULB_O = 'o';
+constexpr auto PUZ_BULB_ORANGE = 'o';
+// yellow + blue = green
+constexpr auto PUZ_BULB_GREEN = 'g';
 constexpr auto PUZ_WARP = 'W';
 constexpr auto PUZ_FIXING = 'F';
 
@@ -62,10 +64,11 @@ constexpr Position offset[] = {
 };
 
 const map<char, set<char>> bulb2batteries = {
-    {PUZ_BULB_Y, {PUZ_BATTERY_Y}},
-    {PUZ_BULB_R, {PUZ_BATTERY_R}},
-    {PUZ_BULB_B, {PUZ_BATTERY_B}},
-    {PUZ_BULB_O, {PUZ_BATTERY_Y, PUZ_BATTERY_R}},
+    {PUZ_BULB_YELLOW, {PUZ_BATTERY_YELLOW}},
+    {PUZ_BULB_RED, {PUZ_BATTERY_RED}},
+    {PUZ_BULB_BLUE, {PUZ_BATTERY_BLUE}},
+    {PUZ_BULB_ORANGE, {PUZ_BATTERY_YELLOW, PUZ_BATTERY_RED}},
+    {PUZ_BULB_GREEN, {PUZ_BATTERY_YELLOW, PUZ_BATTERY_BLUE}},
 };
 
 using puz_dot = vector<int>;
@@ -102,15 +105,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             char ch = str[c * 2];
             m_cells.push_back(ch);
             switch (ch) {
-            case PUZ_BATTERY_Y:
-            case PUZ_BATTERY_R:
-            case PUZ_BATTERY_B:
+            case PUZ_BATTERY_YELLOW:
+            case PUZ_BATTERY_RED:
+            case PUZ_BATTERY_BLUE:
                 m_color2battery[ch] = p;
                 break;
-            case PUZ_BULB_Y:
-            case PUZ_BULB_R:
-            case PUZ_BULB_B:
-            case PUZ_BULB_O:
+            case PUZ_BULB_YELLOW:
+            case PUZ_BULB_RED:
+            case PUZ_BULB_BLUE:
+            case PUZ_BULB_ORANGE:
+            case PUZ_BULB_GREEN:
                 m_color2bulbs[ch].insert(p);
                 break;
             case PUZ_WARP:
@@ -324,7 +328,7 @@ void solve_puz_LightConnect()
 {
     using namespace puzzles::LightConnect;
     //solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-    //    "Puzzles/LightConnect2.xml", "Puzzles/LightConnect2.txt", solution_format::GOAL_STATE_ONLY);
+    //    "Puzzles/LightConnect.xml", "Puzzles/LightConnect.txt", solution_format::GOAL_STATE_ONLY);
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/LightConnect.xml", "Puzzles/LightConnect.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/LightConnect2.xml", "Puzzles/LightConnect2.txt", solution_format::GOAL_STATE_ONLY);
 }
