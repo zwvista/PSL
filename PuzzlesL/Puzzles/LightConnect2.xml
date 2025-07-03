@@ -5,6 +5,15 @@
   ]]>
 </help>
 <levels>
+  <level id="52">
+    <![CDATA[
+p1 3 I 3p1`
+ L 3p1 L L`
+p1p1B1p1 I`
+p1 3 L 3 L`
+ L 3 I 3R1`
+    ]]>
+  </level>
   <level id="51">
     <![CDATA[
 y1 IY3 I L`

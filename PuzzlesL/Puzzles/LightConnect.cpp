@@ -18,11 +18,14 @@
 
 namespace puzzles::LightConnect{
 
+// pipes
 constexpr auto PUZ_PIPE_OFF = '0';
 constexpr auto PUZ_PIPE_1 = '1';
 constexpr auto PUZ_PIPE_I = 'I';
 constexpr auto PUZ_PIPE_L = 'L';
 constexpr auto PUZ_PIPE_3 = '3';
+// space, battery, bulb
+constexpr auto PUZ_SPACE = ' ';
 // yellow, red, blue
 constexpr auto PUZ_BATTERY_YELLOW = 'Y';
 constexpr auto PUZ_BATTERY_RED = 'R';
@@ -34,6 +37,8 @@ constexpr auto PUZ_BULB_BLUE = 'b';
 constexpr auto PUZ_BULB_ORANGE = 'o';
 // yellow + blue = green
 constexpr auto PUZ_BULB_GREEN = 'g';
+// red + blue = red purple
+constexpr auto PUZ_BULB_PURPLE = 'p';
 constexpr auto PUZ_WARP = 'W';
 constexpr auto PUZ_FIXING = 'F';
 
@@ -69,6 +74,7 @@ const map<char, set<char>> bulb2batteries = {
     {PUZ_BULB_BLUE, {PUZ_BATTERY_BLUE}},
     {PUZ_BULB_ORANGE, {PUZ_BATTERY_YELLOW, PUZ_BATTERY_RED}},
     {PUZ_BULB_GREEN, {PUZ_BATTERY_YELLOW, PUZ_BATTERY_BLUE}},
+    {PUZ_BULB_PURPLE, {PUZ_BATTERY_RED, PUZ_BATTERY_BLUE}},
 };
 
 using puz_dot = vector<int>;
@@ -249,7 +255,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                 children.back().make_move(p2);
             }
         break;
-    default:
+    case PUZ_SPACE:
         for (int i = 0; i < 4; ++i)
             if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
                 return is_lineseg_on(lineseg, i);
@@ -259,22 +265,21 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                 children.back().make_move(p2);
             }
         break;
+    default:
+        return;
     }
 }
 
 bool puz_state::check_connected() const
 {
-    for (auto& [color1, bulbs] : m_game->m_color2bulbs) {
-        auto& colors2 = bulb2batteries.at(color1);
-        int i = m_game->m_cells.find(color1);
-        auto smoves = puz_move_generator<puz_state2>::gen_moves(
-            {this, {i / cols(), i % cols()}});
-        if (boost::count_if(smoves, [&](const Position& p) {
-            char ch = m_game->cells(p);
-            return ch == color1 || colors2.contains(ch);
-        }) != bulbs.size() + colors2.size())
-            return false;
-    }
+    for (auto& [color1, bulbs] : m_game->m_color2bulbs)
+        for (auto& colors2 = bulb2batteries.at(color1); auto& p : bulbs) {
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
+            if (boost::count_if(smoves, [&](const Position& p) {
+                return colors2.contains(m_game->cells(p));
+            }) != colors2.size())
+                return false;
+        }
     return true;
 }
 
