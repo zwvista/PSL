@@ -5,6 +5,15 @@
   ]]>
 </help>
 <levels>
+  <level id="21">
+    <![CDATA[
+ L 3 3 Lb1`
+b1F5BIF3 L`
+ L 3F7 Lb1`
+b1b1 I 3 L`
+b1 I L Lb1`
+    ]]>
+  </level>
   <level id="20">
     <![CDATA[
  L 3 LF6y1`
@@ -25,19 +34,19 @@ r1R1BLb1`
   <level id="18">
     <![CDATA[
  0B1 Lb1 L 0`
-H2 L 3b1 LH8`
+W2 L 3b1 LW8`
  0 I IY1y1 0`
  0 L 3 Ib1 0`
     ]]>
   </level>
   <level id="17">
     <![CDATA[
- 0 0V4 0 0 0`
+ 0 0W4 0 0 0`
  0y1y1 Ly1 0`
  0 I L 3y1 0`
-H2 3 I I LH8`
+W2 3 I I LW8`
  0 LY3 Ly1 0`
- 0 0V1 0 0 0`
+ 0 0W1 0 0 0`
     ]]>
   </level>
   <level id="16">
@@ -58,22 +67,22 @@ b1 3 3 3`
   </level>
   <level id="14">
     <![CDATA[
- 0 0V4 0`
+ 0 0W4 0`
 R1y1 Lr1`
  L I I L`
 Y1 L Iy1`
  L 3 3y1`
- 0 0V1 0`
+ 0 0W1 0`
     ]]>
   </level>
   <level id="13">
     <![CDATA[
- 0 0V4 0`
+ 0 0W4 0`
  Lr1r1r1`
  3R1 L 3`
  I L L I`
  L 3 Lr1`
- 0 0V1 0`
+ 0 0W1 0`
     ]]>
   </level>
   <level id="12">
@@ -86,13 +95,13 @@ b1 IB3 L`
   </level>
   <level id="11">
     <![CDATA[
-V4`
+W4`
  I`
 Y1`
  0`
 y1`
  I`
-V1`
+W1`
     ]]>
   </level>
   <level id="10">
