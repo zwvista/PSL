@@ -7,16 +7,17 @@
     iOS Game: 100 Logic Games 2/Puzzle Set 7/Snake Maze
 
     Summary
-    New screw legs 'A' to seat 'C' using bolts 'J'...
+    Find the snakes using the given hints.
 
     Description
-    1. Divide the board so that every letter corresponds to a 'part' which
-       has the same shape and orientation everywhere it is found.
-    2. So for example if letter 'A' is a 2x3 rectangle, every 'A' on the board
-       will correspond to a 2x3 rectangle and 'A' will appear in the same position
-       in the rectangle itself.
-    3. If letter 'B' has an L shape with the letter on the top left, every 'B'
-       will have an L shape with the letter on the top left, etc.
+    1. A Snake is a path of five tiles, numbered 1-2-3-4-5, where 1 is the head and 5 the tail.
+       The snake's body segments are connected horizontally or vertically.
+    2. A snake cannot see another snake or it would attack it. A snake sees straight in the
+       direction 2-1, that is to say it sees in front of the number 1.
+    3. A snake cannot touch another snake horizontally or vertically.
+    4. Arrows show you the closest piece of Snake in that direction (before another arrow or the edge).
+    5. Arrows with zero mean that there is no Snake in that direction.
+    6. arrows block snake sight and also block other arrows hints.
 */
 
 namespace puzzles::SnakeMaze{

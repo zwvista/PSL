@@ -7,16 +7,18 @@
     iOS Game: 100 Logic Games 2/Puzzle Set 4/Snake-omino
 
     Summary
-    New screw legs 'A' to seat 'C' using bolts 'J'...
+    Snakes on a Plain
 
     Description
-    1. Divide the board so that every letter corresponds to a 'part' which
-       has the same shape and orientation everywhere it is found.
-    2. So for example if letter 'A' is a 2x3 rectangle, every 'A' on the board
-       will correspond to a 2x3 rectangle and 'A' will appear in the same position
-       in the rectangle itself.
-    3. If letter 'B' has an L shape with the letter on the top left, every 'B'
-       will have an L shape with the letter on the top left, etc.
+    1. find Snakes by numbering them:
+    2. A snake is a one-cell-wide path at least two cells long. A snake cannot touch itself,
+       not even diagonally.
+    3. A cell with a circle must be at one of the ends of a snake. A snake may contain one
+       circled cell, two circled cells, or no circled cells at all.
+    3. A cell with a number must be part of a snake with a length of exactly that number of cells.
+    4. Two snakes of the same length must not be orthogonally adjacent.
+    5. A cell with a cross cannot be an end of a snake.
+    6. every cell in the board is part of a snake.
 */
 
 namespace puzzles::Snakeomino{
