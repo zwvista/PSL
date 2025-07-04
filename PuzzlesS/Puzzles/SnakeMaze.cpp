@@ -77,7 +77,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
     auto f = [&](int n, const Position& p) {
         for (int i = 0; i < 4; ++i)
             if (auto p2 = p + offset[i]; 
-                m_game->cells(p) == PUZ_SPACE && !m_empties->contains(p2) && !is_self(p2) &&
+                m_game->cells(p2) == PUZ_SPACE && !m_empties->contains(p2) && !is_self(p2) &&
                 boost::algorithm::all_of(offset, [&](const Position& os) {
                 auto p3 = p2 + os;
                 return p3 == p || !is_self(p3);
@@ -111,6 +111,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 break;
             default:
                 m_pos2hint[p] = {ch - '0', offset[dirs.find(str[c * 2 - 1])]};
+                m_cells.push_back(PUZ_HINT);
+                break;
             }
         }
         m_cells.push_back(PUZ_BLOCK);
