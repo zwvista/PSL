@@ -57,7 +57,7 @@ struct puz_state2 : set<Position>
     puz_state2(const puz_game& game, int num, const Position& p, const Position& p2)
         : m_game(&game), m_num(num), m_p(&p), m_p2(&p2) { make_move(p); }
 
-    bool is_goal_state() const { return m_distance == m_num; }
+    bool is_goal_state() const { return size() == m_num; }
     bool make_move(const Position& p);
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
@@ -66,15 +66,14 @@ struct puz_state2 : set<Position>
     int m_num;
     const Position* m_p;
     const Position* m_p2;
-    int m_distance = 0;
 };
 
 bool puz_state2::make_move(const Position& p)
 {
-    insert(p); ++m_distance;
+    insert(p);
     // cannot go too far away
     return boost::algorithm::any_of(*this, [&](const Position& p2) {
-        return manhattan_distance(p2, *m_p2) <= m_num - m_distance;
+        return manhattan_distance(p2, *m_p2) <= m_num - size();
     }) && (!is_goal_state() || boost::algorithm::all_of(vector{m_p, m_p2},
         [&](const Position* ptr) {
         // 2. Each number tells you how many tiles of the region

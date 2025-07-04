@@ -79,7 +79,6 @@ struct puz_state2 : set<Position>
     const puz_game* m_game = nullptr;
     int m_num;
     const Position* m_p2;
-    int m_distance = 0;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {

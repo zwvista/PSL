@@ -25,8 +25,9 @@ namespace puzzles::SnakeMaze{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
-constexpr auto PUZ_BLOCK = 'O';
+constexpr auto PUZ_BLOCK = 'B';
 constexpr auto PUZ_HINT = 'H';
+constexpr auto PUZ_SNAKE_SIZE = 5;
 
 constexpr Position offset[] = {
     {-1, 0},       // n
@@ -37,7 +38,7 @@ constexpr Position offset[] = {
 
 const string_view dirs = "^>v<";
 
-using puz_hint = pair<int, int>;
+using puz_hint = pair<int, Position>;
 
 struct puz_game
 {
@@ -45,24 +46,53 @@ struct puz_game
     int m_sidelen;
     string m_cells;
     map<Position, puz_hint> m_pos2hint;
+    vector<vector<Position>> m_snakes;
+    map<Position, vector<int>> m_pos2snake_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
-struct puz_state2 : vector<Position>
+struct puz_state2 : map<int, Position>
 {
-    puz_state2(const puz_game& game, const Position& p)
-        : m_game(&game), m_p(p) { make_move(p); }
+    puz_state2(const puz_game& game, int n, const Position& p, const set<Position>& empties)
+        : m_game(&game), m_empties(&empties) { make_move(n, p); }
+    bool is_self(const Position& p) const {
+        return boost::algorithm::any_of(*this, [&](const pair<const int, Position>& kv) {
+            return kv.second == p;
+        });
+    }
 
-    void make_move(const Position& p) { push_back(m_p = p); }
+    bool is_goal_state() const { return size() == PUZ_SNAKE_SIZE; }
+    void make_move(int n, const Position& p) { emplace(n, p); }
     void gen_children(list<puz_state2>& children) const;
+    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game = nullptr;
-    Position m_p;
+    const set<Position>* m_empties;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
+    auto f = [&](int n, const Position& p) {
+        for (int i = 0; i < 4; ++i)
+            if (auto p2 = p + offset[i]; 
+                m_game->cells(p) == PUZ_SPACE && !m_empties->contains(p2) && !is_self(p2) &&
+                boost::algorithm::all_of(offset, [&](const Position& os) {
+                auto p3 = p2 + os;
+                return p3 == p || !is_self(p3);
+            })) {
+                children.push_back(*this);
+                children.back().make_move(n, p2);
+            }
+    };
+    auto& [n, p] = *begin();
+    if (n > 1)
+        f(n - 1, p);
+    else {
+        auto& [n, p] = *rbegin();
+        f(n + 1, p);
+    }
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -80,13 +110,37 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_cells.push_back(ch);
                 break;
             default:
-                m_pos2hint[p] = {ch - '0', dirs.find(str[c * 2 - 1])};
+                m_pos2hint[p] = {ch - '0', offset[dirs.find(str[c * 2 - 1])]};
             }
         }
         m_cells.push_back(PUZ_BLOCK);
     }
     m_cells.append(m_sidelen, PUZ_BLOCK);
 
+    for (auto& [p, hint] : m_pos2hint) {
+        auto& [n, os] = hint;
+        vector<Position> rng;
+        for (auto p2 = p + os; cells(p2) == PUZ_SPACE; p2 += os)
+            rng.push_back(p2);
+        if (n == 0)
+            for (auto& p2 : rng)
+                cells(p2) = PUZ_EMPTY;
+        else
+            for (auto it = rng.begin(); it != rng.end(); ++it) {
+                set<Position> empties(rng.begin(), it);
+                puz_state2 sstart(*this, n, *it, empties);
+                list<list<puz_state2>> spaths;
+                if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
+                    // save all goal states as permutations
+                    // A goal state is a snake formed from the number
+                    for (auto& spath : spaths) {
+                        int n2 = m_snakes.size();
+                        for (auto& v = m_snakes.emplace_back(); auto& [_1, p2] : spath.back())
+                            v.push_back(p2);
+                        m_pos2snake_ids[p].push_back(n2);
+                    }
+            }
+    }
 }
 
 struct puz_state
