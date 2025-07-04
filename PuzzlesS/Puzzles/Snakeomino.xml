@@ -2,13 +2,13 @@
 <puzzle>
 <help>
   <![CDATA[
-1. find Snakes by numbering them:
+1. Find Snakes by numbering them:
 2. A snake is a one-cell-wide path at least two cells long. A snake cannot touch itself, not even diagonally.
 3. A cell with a circle must be at one of the ends of a snake. A snake may contain one circled cell, two circled cells, or no circled cells at all.
-3. A cell with a number must be part of a snake with a length of exactly that number of cells.
-4. Two snakes of the same length must not be orthogonally adjacent.
-5. A cell with a cross cannot be an end of a snake.
-6. every cell in the board is part of a snake.
+4. A cell with a number must be part of a snake with a length of exactly that number of cells.
+5. Two snakes of the same length must not be orthogonally adjacent.
+6. A cell with a cross cannot be an end of a snake.
+7. every cell in the board is part of a snake.
   ]]>
 </help>
 <levels>
