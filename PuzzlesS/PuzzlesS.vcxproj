@@ -167,6 +167,8 @@
     <Text Include="Puzzles\SlitherLink.txt" />
     <Text Include="Puzzles\SlitherLink2.txt" />
     <Text Include="Puzzles\Snail.txt" />
+    <Text Include="Puzzles\SnakeMaze.txt" />
+    <Text Include="Puzzles\Snakeomino.txt" />
     <Text Include="Puzzles\Snake.txt" />
     <Text Include="Puzzles\SnakeIslands.txt" />
     <Text Include="Puzzles\sokoban.txt" />
@@ -204,6 +206,8 @@
     <ClCompile Include="Puzzles\SlitherLink.cpp" />
     <ClCompile Include="Puzzles\SlitherLink2.cpp" />
     <ClCompile Include="Puzzles\Snail.cpp" />
+    <ClCompile Include="Puzzles\SnakeMaze.cpp" />
+    <ClCompile Include="Puzzles\Snakeomino.cpp" />
     <ClCompile Include="Puzzles\Snake.cpp" />
     <ClCompile Include="Puzzles\SnakeIslands.cpp" />
     <ClCompile Include="Puzzles\sokoban.cpp" />
@@ -233,6 +237,8 @@
     <Xml Include="Puzzles\SlitherCorner.xml" />
     <Xml Include="Puzzles\SlitherLink.xml" />
     <Xml Include="Puzzles\Snail.xml" />
+    <Xml Include="Puzzles\SnakeMaze.xml" />
+    <Xml Include="Puzzles\Snakeomino.xml" />
     <Xml Include="Puzzles\Snake.xml" />
     <Xml Include="Puzzles\SnakeIslands.xml" />
     <Xml Include="Puzzles\sokoban.xml" />
