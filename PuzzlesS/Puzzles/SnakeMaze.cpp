@@ -40,14 +40,20 @@ const string_view dirs = "^>v<";
 
 using puz_hint = pair<int, Position>;
 
+struct puz_move
+{
+    vector<Position> m_snake;
+    set<Position> m_empties;
+};
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     string m_cells;
     map<Position, puz_hint> m_pos2hint;
-    vector<vector<Position>> m_snakes;
-    map<Position, vector<int>> m_pos2snake_ids;
+    vector<puz_move> m_moves;
+    map<Position, vector<int>> m_pos2move_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
@@ -129,17 +135,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 cells(p2) = PUZ_EMPTY;
         else
             for (auto it = rng.begin(); it != rng.end(); ++it) {
-                set<Position> empties(rng.begin(), it);
-                puz_state2 sstart(*this, n, *it, empties);
+                set<Position> empties2(rng.begin(), it);
+                puz_state2 sstart(*this, n, *it, empties2);
                 list<list<puz_state2>> spaths;
                 if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
                     // save all goal states as permutations
                     // A goal state is a snake formed from the number
                     for (auto& spath : spaths) {
-                        int n2 = m_snakes.size();
-                        for (auto& v = m_snakes.emplace_back(); auto& [_1, p2] : spath.back())
-                            v.push_back(p2);
-                        m_pos2snake_ids[p].push_back(n2);
+                        int n2 = m_moves.size();
+                        auto& [snake, empties] = m_moves.emplace_back();
+                        for (auto& [_1, p2] : spath.back())
+                            snake.push_back(p2);
+                        auto &p0 = snake[0], &p1 = snake[1], os2 = p0 - p1;
+                        for (auto p2 = p0 + os2; cells(p2) == PUZ_SPACE; p2 += os2)
+                            empties.insert(p2);
+                        m_pos2move_ids[p].push_back(n2);
                     }
             }
     }
@@ -179,8 +189,8 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g)
-, m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+: m_game(&g), m_cells(g.m_cells)
+, m_matches(g.m_pos2move_ids)
 {
     find_matches(true);
 }
