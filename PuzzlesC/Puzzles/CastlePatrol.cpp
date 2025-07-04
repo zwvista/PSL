@@ -59,15 +59,14 @@ struct puz_state2 : set<Position>
     puz_state2(const puz_game& game, const puz_area& area, const Position& p)
         : m_game(&game), m_area(&area), m_ch(game.cells(p)) { make_move(p); }
 
-    bool is_goal_state() const { return m_distance == m_area->m_num; }
-    void make_move(const Position& p) { insert(p); ++m_distance; }
+    bool is_goal_state() const { return size() == m_area->m_num; }
+    void make_move(const Position& p) { insert(p); }
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game = nullptr;
     const puz_area* m_area;
     char m_ch = PUZ_SPACE;
-    int m_distance = 0;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {

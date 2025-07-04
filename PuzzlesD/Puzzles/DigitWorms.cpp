@@ -95,7 +95,6 @@ struct puz_state3 : vector<Position>
     unsigned int get_distance(const puz_state3& child) const { return 1; }
 
     const puz_game* m_game = nullptr;
-    string m_cells;
     const set<Position>* m_area;
 };
 

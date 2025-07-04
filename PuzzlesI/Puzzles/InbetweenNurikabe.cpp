@@ -67,13 +67,13 @@ struct puz_state2 : set<Position>
         : m_game(&game), m_num1(num1), m_num2(num2), m_p2(&p2) { make_move(p); }
 
     bool is_goal_state() const { 
-        return m_distance > m_num1 && m_distance < m_num2;
+        return size() > m_num1 && size() < m_num2;
     }
     bool make_move(const Position& p) {
-        insert(p); ++m_distance;
+        insert(p);
         // cannot go too far away
         return boost::algorithm::any_of(*this, [&](const Position& p2) {
-            return manhattan_distance(p2, *m_p2) < m_num2 - m_distance;
+            return manhattan_distance(p2, *m_p2) < m_num2 - size();
         });
     }
     void gen_children(list<puz_state2>& children) const;
@@ -82,7 +82,6 @@ struct puz_state2 : set<Position>
     const puz_game* m_game = nullptr;
     int m_num1, m_num2;
     const Position* m_p2;
-    int m_distance = 0;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {

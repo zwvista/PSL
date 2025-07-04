@@ -65,12 +65,12 @@ struct puz_state2 : set<Position>
     puz_state2(const puz_game& game, int num, const Position& p, const Position& p2)
         : m_game(&game), m_num(num), m_p2(&p2) {make_move(p);}
 
-    bool is_goal_state() const { return m_distance == m_num; }
+    bool is_goal_state() const { return size() == m_num; }
     bool make_move(const Position& p) {
-        insert(p); ++m_distance;
+        insert(p);
         // cannot go too far away
         return boost::algorithm::any_of(*this, [&](const Position& p2) {
-            return manhattan_distance(p2, *m_p2) <= m_num - m_distance;
+            return manhattan_distance(p2, *m_p2) <= m_num - size();
         });
     }
     void gen_children(list<puz_state2>& children) const;

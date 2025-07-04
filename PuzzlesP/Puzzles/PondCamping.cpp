@@ -56,14 +56,13 @@ struct puz_state2 : set<Position>
         make_move(p);
     }
 
-    bool is_goal_state() const { return m_distance == m_num + 1; }
-    void make_move(const Position& p) { insert(p); ++m_distance; }
+    bool is_goal_state() const { return size() == m_num + 1; }
+    void make_move(const Position& p) { insert(p); }
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game = nullptr;
     int m_num;
-    int m_distance = 0;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
