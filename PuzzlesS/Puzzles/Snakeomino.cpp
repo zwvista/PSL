@@ -77,12 +77,12 @@ struct puz_state2 : vector<Position>
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
     auto f = [&](const Position& p, bool at_front) {
-        for (int i = 0; i < 4; ++i) {
-            auto p2 = p + offset[i];
+        for (auto& os : offset) {
+            auto p2 = p + os;
             if (char ch = m_game->cells(p2);
                 !is_self(p2) && (ch == PUZ_SPACE || ch == m_num) &&
-                boost::algorithm::none_of(offset, [&](const Position& os) {
-                auto p3 = p2 + os;
+                boost::algorithm::none_of(offset, [&](const Position& os2) {
+                auto p3 = p2 + os2;
                 return p3 != p && is_self(p3);
             })) {
                 children.push_back(*this);
@@ -157,7 +157,7 @@ struct puz_state
     bool make_move_hint(const Position& p, int n);
     void make_move_hint2(const Position& p, int n);
     int find_matches(bool init);
-    bool make_move_hidden(int num, const vector<Position>& snake);
+    bool make_move_hidden(char num, const vector<Position>& snake);
     set<Position> get_spaces() const;
     bool check_spaces(const set<Position> spaces) const;
 
@@ -305,12 +305,12 @@ struct puz_state5 : vector<Position>
 
 void puz_state5::gen_children(list<puz_state5>& children) const {
     auto f = [&](const Position& p, bool at_front) {
-        for (int i = 0; i < 4; ++i) {
-            auto p2 = p + offset[i];
+        for (auto& os : offset) {
+            auto p2 = p + os;
             if (char ch = m_state->cells(p2);
                 !is_self(p2) && ch == PUZ_SPACE &&
-                boost::algorithm::none_of(offset, [&](const Position& os) {
-                auto p3 = p2 + os;
+                boost::algorithm::none_of(offset, [&](const Position& os2) {
+                auto p3 = p2 + os2;
                 return p3 != p && is_self(p3) || m_state->cells(p3) == m_num;
             })) {
                 children.push_back(*this);
@@ -322,11 +322,10 @@ void puz_state5::gen_children(list<puz_state5>& children) const {
     f(back(), false);
 }
 
-bool puz_state::make_move_hidden(int num, const vector<Position>& snake)
+bool puz_state::make_move_hidden(char num, const vector<Position>& snake)
 {
     for (auto& p : snake)
-        if (char& ch = cells(p); ch == PUZ_SPACE)
-            ch = num, ++m_distance;
+        cells(p) = num, ++m_distance;
     auto spaces = get_spaces();
     return check_spaces(spaces);
 }
@@ -346,22 +345,26 @@ void puz_state::gen_children(list<puz_state>& children) const
         int i = m_cells.find(PUZ_SPACE);
         Position p(i / sidelen(), i % sidelen());
         auto smoves = puz_move_generator<puz_state4>::gen_moves({this, p});
-        int num_max = smoves.size();
-        for (int num = 2; num <= num_max; ++num) {
+        char num_max = smoves.size() + '0';
+        for (char num = '2'; num <= num_max; ++num) {
+            if (boost::algorithm::any_of(offset, [&](const Position& os) {
+                return cells(p + os) == num;
+            }))
+                continue;
             vector<vector<Position>> snakes;
             puz_state5 sstart(this, p, num);
             list<list<puz_state5>> spaths;
-            if (auto [found, _1] = puz_solver_bfs<puz_state5, false, false>::find_solution(sstart, spaths); !found)
-                break;
-            for (auto& spath : spaths) {
-                auto& s = spath.back();
-                auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
-                if (boost::algorithm::none_of_equal(snakes, v))
-                    snakes.push_back(v);
+            if (auto [found, _1] = puz_solver_bfs<puz_state5, false, false>::find_solution(sstart, spaths); found) {
+                for (auto& spath : spaths) {
+                    auto& s = spath.back();
+                    auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
+                    if (boost::algorithm::none_of_equal(snakes, v))
+                        snakes.push_back(v);
+                }
+                for (auto& snake : snakes)
+                    if (children.push_back(*this); !children.back().make_move_hidden(num, snake))
+                        children.pop_back();
             }
-            for (auto& snake : snakes)
-                if (children.push_back(*this); !children.back().make_move_hidden(num, snake))
-                    children.pop_back();
         }
     }
 }

@@ -1,4 +1,15 @@
 Level 1
-Number of vertices examined: 1
-0.0011397 [s]
+Sequence of moves: 
+ - - - -
+|4 4 4|3|
+   - -  
+|4|3|2|3|
+ -      
+|3 3|2|3|
+ - - - -
+|4 4 4 4|
+ - - - -
+Number of moves: 4
+Number of vertices examined: 7
+0.0158728 [s]
 
