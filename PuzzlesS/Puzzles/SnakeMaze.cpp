@@ -68,6 +68,9 @@ struct puz_game
     char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
+// 1. A Snake is a path of five tiles, numbered 1-2-3-4-5, where 1 is the head and 5 the tail.
+// The snake's body segments are connected horizontally or vertically.
+// 4. Arrows show you the closest piece of Snake in that direction(before another arrow or the edge).
 struct puz_state2 : map<int, Position>
 {
     puz_state2(const puz_game& game, int n, const Position& p, const set<Position>& empties)
@@ -117,7 +120,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
         m_cells.push_back(PUZ_BLOCK);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
+        for (int c = 1; c < m_sidelen - 1; ++c)
             switch (Position p(r, c); char ch = str[c * 2 - 2]) {
             case PUZ_SPACE:
             case PUZ_BLOCK:
@@ -131,7 +134,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 }
                 break;
             }
-        }
         m_cells.push_back(PUZ_BLOCK);
     }
     m_cells.append(m_sidelen, PUZ_BLOCK);
@@ -139,12 +141,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, hint] : m_pos2hint) {
         auto& [n, _1, os] = hint;
         if (n != 0) continue;
+        // 6. Arrows block snake sight and also block other arrows hints.
+        // 5. Arrows with zero mean that there is no Snake in that direction.
         for (auto p2 = p + os; cells(p2) == PUZ_SPACE; p2 += os)
             cells(p2) = PUZ_EMPTY;
     }
     for (auto& [p, hint] : m_pos2hint) {
         auto& [n, _1, os] = hint;
         if (n == 0) continue;
+        // 6. Arrows block snake sight and also block other arrows hints.
         vector<Position> rng;
         for (auto p2 = p + os; cells(p2) == PUZ_SPACE; p2 += os)
             rng.push_back(p2);
