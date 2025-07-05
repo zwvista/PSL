@@ -59,13 +59,13 @@ struct puz_game
 struct puz_state2 : vector<Position>
 {
     puz_state2(const puz_game& game, const Position& p, char num)
-        : m_game(&game), m_num(num) { make_move(p, false); }
+        : m_game(&game), m_num(num) { make_move_hint(p, false); }
     bool is_self(const Position& p) const {
         return boost::algorithm::any_of_equal(*this, p);
     }
 
     bool is_goal_state() const { return size() == m_num - '0'; }
-    void make_move(const Position& p, bool at_front) {
+    void make_move_hint(const Position& p, bool at_front) {
         at_front ? (void)insert(begin(), p) : push_back(p);
     }
     void gen_children(list<puz_state2>& children) const;
@@ -86,7 +86,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                     return p3 != p && is_self(p3);
             })) {
                 children.push_back(*this);
-                children.back().make_move(p2, at_front);
+                children.back().make_move_hint(p2, at_front);
             }
         }
     };
@@ -154,14 +154,17 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move_hint(const Position& p, int n);
+    void make_move_hint2(const Position& p, int n);
     int find_matches(bool init);
+    bool check_hidden();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const {
+        return boost::count(m_cells, PUZ_SPACE) + m_matches.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -203,26 +206,41 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, snake_ids[0]), 1;
+                return make_move_hint2(p, snake_ids[0]), 1;
             }
     }
-    return 2;
+    return check_hidden() ? 2 : 0;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+bool puz_state::check_hidden()
+{
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            if (char ch = cells(p); ch == PUZ_SPACE &&
+                boost::algorithm::none_of(offset, [&](const Position& os) {
+                return cells(p + os) == PUZ_SPACE;
+            }))
+                return false;
+        }
+    return true;
+}
+
+void puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& [num, snakes] = m_game->m_pos2moves.at(p);
     auto& snake = snakes[n];
     for (auto& p2 : snake)
-        cells(p2) = num;
+        if (char& ch = cells(p2); ch == PUZ_SPACE)
+            ch = num, ++m_distance;
     ++m_distance;
     m_matches.erase(p);
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move_hint(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    make_move_hint2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -230,14 +248,18 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, snake_ids] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (int n : snake_ids)
-        if (children.push_back(*this); !children.back().make_move(p, n))
-            children.pop_back();
+    if (!m_matches.empty()) {
+        auto& [p, snake_ids] = *boost::min_element(m_matches, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        for (int n : snake_ids)
+            if (children.push_back(*this); !children.back().make_move_hint(p, n))
+                children.pop_back();
+    } else {
+
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
