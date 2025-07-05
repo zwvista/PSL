@@ -94,9 +94,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
     // circled cell, two circled cells, or no circled cells at all.
     // 6. A cell with a cross cannot be an end of a snake.
     char ch_f = m_game->hints(front()), ch_b = m_game->hints(back());
-    if (ch_f != PUZ_END && ch_b != PUZ_NOT_END)
+    if (size() == 1 || ch_f != PUZ_END && ch_b != PUZ_NOT_END)
         f(front(), true);
-    if (ch_f != PUZ_NOT_END && ch_b != PUZ_END)
+    if (size() == 1 || ch_f != PUZ_NOT_END && ch_b != PUZ_END)
         f(back(), false);
 }
 
@@ -129,8 +129,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found) 
             // save all goal states as permutations
             // A goal state is a snake formed from the hint
-            for (auto& spath : spaths)
-                snakes.push_back(spath.back());
+            for (auto& spath : spaths) {
+                auto& s = spath.back();
+                auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
+                if (boost::algorithm::none_of_equal(snakes, v) &&
+                    boost::algorithm::all_of(v, [&](const Position& p2) {
+                    return boost::algorithm::all_of(offset, [&](const Position& os) {
+                        auto p3 = p2 + os;
+                        return boost::algorithm::any_of_equal(v, p3) ||
+                            cells(p3) != num;
+                    });
+                }))
+                    snakes.push_back(v);
+            }
     }
 }
 
