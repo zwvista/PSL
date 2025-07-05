@@ -36,10 +36,10 @@ constexpr Position offset[] = {
     {0, -1},       // w
 };
 
-struct puz_moves
+struct puz_move
 {
     char m_num;
-    vector<vector<Position>> m_snakes;
+    vector<Position> m_snake;
 };
 
 struct puz_game
@@ -47,7 +47,8 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_hints, m_cells;
-    map<Position, puz_moves> m_pos2moves;
+    map<Position, char> m_pos2num;
+    map<Position, vector<puz_move>> m_pos2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char hints(const Position& p) const { return m_hints[p.first * m_sidelen + p.second]; }
@@ -75,7 +76,8 @@ struct puz_state2 : vector<Position>
     char m_num;
 };
 
-void puz_state2::gen_children(list<puz_state2>& children) const {
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
     auto f = [&](const Position& p, bool at_front) {
         for (auto& os : offset) {
             auto p2 = p + os;
@@ -94,7 +96,55 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
     // circled cell, two circled cells, or no circled cells at all.
     // 6. A cell with a cross cannot be an end of a snake.
     char ch_f = m_game->hints(front()), ch_b = m_game->hints(back());
-    if (size() == 1 || ch_f != PUZ_END && ch_b != PUZ_NOT_END)
+    if (size() > 1 && ch_f != PUZ_END && ch_b != PUZ_NOT_END)
+        f(front(), true);
+    if (size() == 1 || ch_f != PUZ_NOT_END && ch_b != PUZ_END)
+        f(back(), false);
+}
+
+struct puz_state3 : vector<Position>
+{
+    puz_state3(const puz_game& game, const Position& p)
+        : m_game(&game) { make_move(PUZ_SPACE, p, false); }
+    bool is_self(const Position& p) const {
+        return boost::algorithm::any_of_equal(*this, p);
+    }
+
+    void make_move(char num, const Position& p, bool at_front) {
+        if (m_num == PUZ_SPACE)
+            m_num = num;
+        at_front ? (void)insert(begin(), p) : push_back(p);
+    }
+    void gen_children(list<puz_state3>& children) const;
+
+    const puz_game* m_game = nullptr;
+    char m_num = PUZ_SPACE;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    if (m_num != PUZ_SPACE && size() == m_num - '0')
+        return;
+
+    auto f = [&](const Position& p, bool at_front) {
+        for (auto& os : offset) {
+            auto p2 = p + os;
+            if (char ch = m_game->cells(p2);
+                !is_self(p2) && (ch == PUZ_SPACE || ch == m_num) &&
+                boost::algorithm::none_of(offset, [&](const Position& os2) {
+                auto p3 = p2 + os2;
+                return p3 != p && is_self(p3);
+            })) {
+                children.push_back(*this);
+                children.back().make_move(ch, p2, at_front);
+            }
+        }
+    };
+    // 3. A cell with a circle must be at one of the ends of a snake. A snake may contain one
+    // circled cell, two circled cells, or no circled cells at all.
+    // 6. A cell with a cross cannot be an end of a snake.
+    char ch_f = m_game->hints(front()), ch_b = m_game->hints(back());
+    if (size() > 1 && ch_f != PUZ_END && ch_b != PUZ_NOT_END)
         f(front(), true);
     if (size() == 1 || ch_f != PUZ_NOT_END && ch_b != PUZ_END)
         f(back(), false);
@@ -116,32 +166,47 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r - 1];
         for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
-            hints(p) = str[c * 2 - 2];
-            if (char ch = cells(p) = str[c * 2 - 1]; ch != PUZ_SPACE)
-                m_pos2moves[p].m_num = cells(p) = ch;
+            char ch_h = hints(p) = str[c * 2 - 2];
+            char ch_c = cells(p) = str[c * 2 - 1];
+            if (ch_h != PUZ_SPACE || ch_c != PUZ_SPACE)
+                m_pos2num[p] = cells(p) = ch_c;
         }
     }
 
-    for (auto& [p, moves] : m_pos2moves) {
-        auto& [num, snakes] = moves;
-        puz_state2 sstart(*this, p, num);
-        list<list<puz_state2>> spaths;
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found) 
-            // save all goal states as permutations
-            // A goal state is a snake formed from the hint
-            for (auto& spath : spaths) {
-                auto& s = spath.back();
+    for (auto& [p, num] : m_pos2num) {
+        auto& moves = m_pos2moves[p];
+        auto f = [&](const vector<Position>& v, char num2) {
+            return boost::algorithm::none_of(moves, [&](const puz_move& move) {
+                return move.m_snake == v;
+            }) && boost::algorithm::all_of(v, [&](const Position& p2) {
+                return boost::algorithm::all_of(offset, [&](const Position& os) {
+                    auto p3 = p2 + os;
+                    return boost::algorithm::any_of_equal(v, p3) ||
+                        cells(p3) != num2;
+                });
+            });
+        };
+        if (num != PUZ_SPACE) {
+            puz_state2 sstart(*this, p, num);
+            list<list<puz_state2>> spaths;
+            if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
+                // save all goal states as permutations
+                // A goal state is a snake formed from the hint
+                for (auto& spath : spaths) {
+                    auto& s = spath.back();
+                    auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
+                    if (f(v, num))
+                        moves.emplace_back(num, v);
+                }
+        } else {
+            auto smoves = puz_move_generator<puz_state3>::gen_moves({*this, p});
+            for (auto& s : smoves) {
+                if (s.size() == 1) continue;
                 auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
-                if (boost::algorithm::none_of_equal(snakes, v) &&
-                    boost::algorithm::all_of(v, [&](const Position& p2) {
-                    return boost::algorithm::all_of(offset, [&](const Position& os) {
-                        auto p3 = p2 + os;
-                        return boost::algorithm::any_of_equal(v, p3) ||
-                            cells(p3) != num;
-                    });
-                }))
-                    snakes.push_back(v);
+                if (char num = v.size() + '0'; f(v, num))
+                    moves.emplace_back(num, v);
             }
+        }
     }
 }
 
@@ -185,9 +250,8 @@ puz_state::puz_state(const puz_game& g)
 , m_cells(g.m_cells)
 {
     for (auto& [p, moves] : g.m_pos2moves) {
-        auto& [num, snakes] = moves;
         auto& v = m_matches[p];
-        v.resize(snakes.size());
+        v.resize(moves.size());
         boost::iota(v, 0);
     }
     find_matches(true);
@@ -215,28 +279,28 @@ bool puz_state::check_spaces(const set<Position> spaces) const
 int puz_state::find_matches(bool init)
 {
     auto spaces = get_spaces();
-    for (auto& [p, snake_ids] : m_matches) {
-        auto& [num, snakes] = m_game->m_pos2moves.at(p);
-        boost::remove_erase_if(snake_ids, [&](int id) {
-            auto& snake = snakes[id];
+    for (auto& [p, move_ids] : m_matches) {
+        auto& moves = m_game->m_pos2moves.at(p);
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [num, snake] = moves[id];
             return boost::algorithm::any_of(snake, [&](const Position& p2) {
-                return m_finished.contains(p2);
-            }) || !boost::algorithm::all_of(snake, [&](const Position& p2) {
+                if (m_finished.contains(p2))
+                    return true;
                 char ch = cells(p2);
-                return ch == PUZ_SPACE || ch == num;
+                return ch != PUZ_SPACE && ch != num;
             });
         });
 
-        for (auto& snake : snakes)
+        for (auto& [num, snake] : moves)
             for (auto& p2 : snake)
                 spaces.erase(p2);
 
         if (!init)
-            switch(snake_ids.size()) {
+            switch(move_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move_hint2(p, snake_ids[0]), 1;
+                return make_move_hint2(p, move_ids[0]), 1;
             }
     }
     return check_spaces(spaces) ? 2 : 0;
@@ -244,8 +308,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move_hint2(const Position& p, int n)
 {
-    auto& [num, snakes] = m_game->m_pos2moves.at(p);
-    auto& snake = snakes[n];
+    auto& [num, snake] = m_game->m_pos2moves.at(p)[n];
     for (auto& p2 : snake) {
         if (char& ch = cells(p2); ch == PUZ_SPACE)
             ch = num, ++m_distance;
@@ -318,7 +381,8 @@ void puz_state5::gen_children(list<puz_state5>& children) const {
             }
         }
     };
-    f(front(), true);
+    if (size() > 1)
+        f(front(), true);
     f(back(), false);
 }
 
@@ -333,12 +397,12 @@ bool puz_state::make_move_hidden(char num, const vector<Position>& snake)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_matches.empty()) {
-        auto& [p, snake_ids] = *boost::min_element(m_matches, [](
+        auto& [p, move_ids] = *boost::min_element(m_matches, [](
             const pair<const Position, vector<int>>& kv1,
             const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (int n : snake_ids)
+        for (int n : move_ids)
             if (children.push_back(*this); !children.back().make_move_hint(p, n))
                 children.pop_back();
     } else {
