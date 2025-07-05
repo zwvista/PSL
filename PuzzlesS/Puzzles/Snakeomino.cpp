@@ -149,16 +149,13 @@ struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
-    }
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(int n);
-    void make_move2(int n);
+    bool make_move(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -181,48 +178,51 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 {
+    for (auto& [p, moves] : g.m_pos2moves) {
+        auto& [num, snakes] = moves;
+        auto& v = m_matches[p];
+        v.resize(snakes.size());
+        boost::iota(v, 0);
+    }
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [_1, area_ids] : m_matches) {
-        //boost::remove_erase_if(area_ids, [&](int id) {
-        //    auto& [rng, _2, rng2D] = m_game->m_areas[id];
-        //    return !boost::algorithm::all_of(rng2D, [&](const set<Position>& rng2) {
-        //        return boost::algorithm::all_of(rng2, [&](const Position& p2) {
-        //            return cells(p2) == PUZ_SPACE ||
-        //                boost::algorithm::any_of_equal(rng, p2);
-        //        });
-        //    });
-        //});
+    for (auto& [p, snake_ids] : m_matches) {
+        auto& [num, snakes] = m_game->m_pos2moves.at(p);
+        boost::remove_erase_if(snake_ids, [&](int id) {
+            return !boost::algorithm::all_of(snakes[id], [&](const Position& p2) {
+                char ch = cells(p2);
+                return ch == PUZ_SPACE || ch == num;
+            });
+        });
 
         if (!init)
-            switch(area_ids.size()) {
+            switch(snake_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(area_ids[0]), 1;
+                return make_move2(p, snake_ids[0]), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(int n)
+void puz_state::make_move2(const Position& p, int n)
 {
-    //auto& [rng, names, rng2D] = m_game->m_areas[n];
-    //for (int i = 0; i < names.size(); ++i) {
-    //    auto& rng2 = rng2D[i];
-    //    char ch2 = names[i];
-    //    for (auto& p2 : rng2)
-    //        cells(p2) = ch2, ++m_distance, m_matches.erase(p2);
-    //}
+    auto& [num, snakes] = m_game->m_pos2moves.at(p);
+    auto& snake = snakes[n];
+    for (auto& p2 : snake)
+        cells(p2) = num;
+    ++m_distance;
+    m_matches.erase(p);
 }
 
-bool puz_state::make_move(int n)
+bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(n);
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -230,20 +230,20 @@ bool puz_state::make_move(int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, area_ids] = *boost::min_element(m_matches, [](
+    auto& [p, snake_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : area_ids)
-        if (children.push_back(*this); !children.back().make_move(n))
+    for (int n : snake_ids)
+        if (children.push_back(*this); !children.back().make_move(p, n))
             children.pop_back();
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](const Position& p1, const Position& p2) {
-        return !is_valid(p1) || !is_valid(p2) || cells(p1) != cells(p2);
+        return cells(p1) != cells(p2);
     };
     for (int r = 1;; ++r) {
         // draw horizontal lines
@@ -256,6 +256,7 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == sidelen() - 1) break;
+            out << cells(p);
         }
         println(out);
     }
