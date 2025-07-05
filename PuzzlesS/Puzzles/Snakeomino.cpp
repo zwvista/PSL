@@ -166,15 +166,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r - 1];
         for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
-            char ch_h = hints(p) = str[c * 2 - 2];
-            char ch_c = cells(p) = str[c * 2 - 1];
-            if (ch_h != PUZ_SPACE || ch_c != PUZ_SPACE)
-                m_pos2num[p] = cells(p) = ch_c;
+            char ch_c = cells(p) = str[c * 2 - 2];
+            char ch_h = hints(p) = str[c * 2 - 1];
+            if (ch_c != PUZ_SPACE || ch_h != PUZ_SPACE)
+                m_pos2num[p] = ch_c;
         }
     }
 
     for (auto& [p, num] : m_pos2num) {
         auto& moves = m_pos2moves[p];
+        // 5. Two snakes of the same length must not be orthogonally adjacent.
         auto f = [&](const vector<Position>& v, char num2) {
             return boost::algorithm::none_of(moves, [&](const puz_move& move) {
                 return move.m_snake == v;
@@ -366,6 +367,7 @@ struct puz_state5 : vector<Position>
     char m_num;
 };
 
+// 5. Two snakes of the same length must not be orthogonally adjacent.
 void puz_state5::gen_children(list<puz_state5>& children) const {
     auto f = [&](const Position& p, bool at_front) {
         for (auto& os : offset) {
@@ -406,11 +408,14 @@ void puz_state::gen_children(list<puz_state>& children) const
             if (children.push_back(*this); !children.back().make_move_hint(p, n))
                 children.pop_back();
     } else {
+        // 7. every cell in the board is part of a snake.
         int i = m_cells.find(PUZ_SPACE);
         Position p(i / sidelen(), i % sidelen());
         auto smoves = puz_move_generator<puz_state4>::gen_moves({this, p});
         char num_max = smoves.size() + '0';
+        // 2. A snake is a one-cell-wide path at least two cells long. 
         for (char num = '2'; num <= num_max; ++num) {
+            // 5. Two snakes of the same length must not be orthogonally adjacent.
             if (boost::algorithm::any_of(offset, [&](const Position& os) {
                 return cells(p + os) == num;
             }))

@@ -14,10 +14,20 @@
 <levels>
   <level id="1">
     <![CDATA[
-    O   `
-O4     3`
-    O2  `
- 4 4  O4`
+     O  `
+4O    3 `
+    2O  `
+4 4   4O`
+    ]]>
+  </level>
+  <level id="36">
+    <![CDATA[
+3O    6   6 `
+    5     6O`
+3O  5O  5   `
+4O    3     `
+        4O  `
+   O  3     `
     ]]>
   </level>
 </levels>
