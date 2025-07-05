@@ -20,6 +20,16 @@
 5^      4<`
     ]]>
   </level>
+  <level id="36">
+    <![CDATA[
+    0<  0v  `
+5>          `
+    0<      `
+  0<    0^  `
+      2^    `
+1>        4<`
+    ]]>
+  </level>
   <level id="72">
     <![CDATA[
   BB    5>    `
@@ -29,6 +39,18 @@
         0>    `
       2^      `
   BB  BB  1<  `
+    ]]>
+  </level>
+  <level id="108">
+    <![CDATA[
+          2v    `
+  5v0^  4<    BB`
+        BB  BB  `
+    2>      0>  `
+1^      1^BB    `
+      4<    BB  `
+                `
+BB  2^    BB    `
     ]]>
   </level>
   <level id="200">
