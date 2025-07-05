@@ -283,7 +283,7 @@ ostream& puz_state::dump(ostream& out) const
                 auto& [n, ch2] = m_game->m_pos2hint.at(p);
                 out << n << ch2;
             } else
-                out << ch << (isdigit(ch) ? PUZ_SNAKE : ' ');
+                out << ch << (isdigit(ch) ? PUZ_SNAKE : ch);
             out << ' ';
         }
         println(out);

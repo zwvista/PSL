@@ -20,5 +20,30 @@
 5^      4<`
     ]]>
   </level>
+  <level id="72">
+    <![CDATA[
+  BB    5>    `
+  0>      BB  `
+      BB      `
+5v2^    1^  BB`
+        0>    `
+      2^      `
+  BB  BB  1<  `
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+        0<    BB  BB`
+BB  BB      BB      `
+      BB5^    BBBB  `
+    BB    BB        `
+2^    BB      4<BB  `
+        BB  BB      `
+BB  BB0v  BB  BB    `
+  5^      5<      4^`
+      2>      2>    `
+5>          BB    0^`
+    ]]>
+  </level>
 </levels>
 </puzzle>
