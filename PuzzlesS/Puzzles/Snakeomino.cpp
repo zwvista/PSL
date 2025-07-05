@@ -176,6 +176,7 @@ struct puz_state
     // key: the position of the hint
     // value.elem: the index of the move
     map<Position, vector<int>> m_matches;
+    set<Position> m_finished;
     unsigned int m_distance = 0;
 };
 
@@ -217,7 +218,10 @@ int puz_state::find_matches(bool init)
     for (auto& [p, snake_ids] : m_matches) {
         auto& [num, snakes] = m_game->m_pos2moves.at(p);
         boost::remove_erase_if(snake_ids, [&](int id) {
-            return !boost::algorithm::all_of(snakes[id], [&](const Position& p2) {
+            auto& snake = snakes[id];
+            return boost::algorithm::any_of(snake, [&](const Position& p2) {
+                return m_finished.contains(p2);
+            }) || !boost::algorithm::all_of(snake, [&](const Position& p2) {
                 char ch = cells(p2);
                 return ch == PUZ_SPACE || ch == num;
             });
@@ -242,11 +246,13 @@ void puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& [num, snakes] = m_game->m_pos2moves.at(p);
     auto& snake = snakes[n];
-    for (auto& p2 : snake)
+    for (auto& p2 : snake) {
         if (char& ch = cells(p2); ch == PUZ_SPACE)
             ch = num, ++m_distance;
-    ++m_distance;
-    m_matches.erase(p);
+        ++m_distance;
+        m_matches.erase(p2);
+        m_finished.insert(p2);
+    }
 }
 
 bool puz_state::make_move_hint(const Position& p, int n)
@@ -330,7 +336,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
                 if (boost::algorithm::none_of_equal(snakes, v))
                     snakes.push_back(v);
-                }
+            }
             for (auto& snake : snakes)
                 if (children.push_back(*this); !children.back().make_move_hidden(num, snake))
                     children.pop_back();
