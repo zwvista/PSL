@@ -74,7 +74,7 @@ struct puz_game
 struct puz_state2 : map<int, Position>
 {
     puz_state2(const puz_game& game, int n, const Position& p, const set<Position>& empties)
-        : m_game(&game), m_empties(&empties) { make_move(n, p); }
+        : m_game(&game), m_empties(&empties) { make_move_hint(n, p); }
     bool is_self(const Position& p) const {
         return boost::algorithm::any_of(*this, [&](const pair<const int, Position>& kv) {
             return kv.second == p;
@@ -82,7 +82,7 @@ struct puz_state2 : map<int, Position>
     }
 
     bool is_goal_state() const { return size() == PUZ_SNAKE_SIZE; }
-    void make_move(int n, const Position& p) { emplace(n, p); }
+    void make_move_hint(int n, const Position& p) { emplace(n, p); }
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
@@ -100,7 +100,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 return p3 != p && is_self(p3);
             })) {
                 children.push_back(*this);
-                children.back().make_move(n, p2);
+                children.back().make_move_hint(n, p2);
             }
     };
     auto& [n, p] = *begin();
@@ -204,14 +204,17 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move_hint(const Position& p, int n);
+    void make_move_hint2(const Position& p, int n);
     int find_matches(bool init);
+    bool check_hidden();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const {
+        return boost::count(m_cells, PUZ_SPACE) + m_matches.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -251,13 +254,18 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, move_ids[0]), 1;
+                return make_move_hint2(p, move_ids[0]), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+bool puz_state::check_hidden()
+{
+    int i = m_cells.find(PUZ_SPACE) - m_cells.begin();
+}
+
+void puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& [snake, empties] = m_game->m_moves[n];
     for (int i = 0; i < snake.size(); ++i)
@@ -268,10 +276,10 @@ void puz_state::make_move2(const Position& p, int n)
     m_matches.erase(p);
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move_hint(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    make_move_hint2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -279,14 +287,18 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, move_ids] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (int n : move_ids)
-        if (children.push_back(*this); !children.back().make_move(p, n))
-            children.pop_back();
+    if (!m_matches.empty()) {
+        auto& [p, move_ids] = *boost::min_element(m_matches, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        for (int n : move_ids)
+            if (children.push_back(*this); !children.back().make_move_hint(p, n))
+                children.pop_back();
+    } else {
+
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const

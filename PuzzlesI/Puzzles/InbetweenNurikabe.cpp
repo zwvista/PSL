@@ -305,7 +305,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 // All wall tiles on the board must be connected horizontally or vertically.
 bool puz_state::is_interconnected() const
 {
-    int i = boost::find(m_cells, PUZ_WALL) - m_cells.begin();
+    int i = m_cells.find(PUZ_WALL);
     auto smoves = puz_move_generator<puz_state3>::gen_moves(
         {this, {i / sidelen(), i % sidelen()}});
     return boost::count_if(smoves, [&](const Position& p) {
