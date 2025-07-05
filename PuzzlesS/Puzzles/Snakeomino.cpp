@@ -118,7 +118,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             hints(p) = str[c * 2 - 2];
             if (char ch = cells(p) = str[c * 2 - 1]; ch != PUZ_SPACE)
-                m_pos2moves[p].m_num = ch;
+                m_pos2moves[p].m_num = cells(p) = ch;
         }
     }
 
@@ -157,8 +157,9 @@ struct puz_state
     bool make_move_hint(const Position& p, int n);
     void make_move_hint2(const Position& p, int n);
     int find_matches(bool init);
-    bool check_hidden();
     bool make_move_hidden(int num, const vector<Position>& snake);
+    set<Position> get_spaces() const;
+    bool check_spaces(const set<Position> spaces) const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -191,8 +192,28 @@ puz_state::puz_state(const puz_game& g)
     find_matches(true);
 }
 
+set<Position> puz_state::get_spaces() const
+{
+    set<Position> spaces;
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c)
+            if (Position p(r, c); cells(p) == PUZ_SPACE)
+                spaces.insert(p);
+    return spaces;
+}
+
+bool puz_state::check_spaces(const set<Position> spaces) const
+{
+    return boost::algorithm::all_of(spaces, [&](const Position& p) {
+        return boost::algorithm::any_of(offset, [&](const Position& os) {
+            return cells(p + os) == PUZ_SPACE;
+        });
+    });
+}
+
 int puz_state::find_matches(bool init)
 {
+    auto spaces = get_spaces();
     for (auto& [p, snake_ids] : m_matches) {
         auto& [num, snakes] = m_game->m_pos2moves.at(p);
         boost::remove_erase_if(snake_ids, [&](int id) {
@@ -202,6 +223,10 @@ int puz_state::find_matches(bool init)
             });
         });
 
+        for (auto& snake : snakes)
+            for (auto& p2 : snake)
+                spaces.erase(p2);
+
         if (!init)
             switch(snake_ids.size()) {
             case 0:
@@ -210,21 +235,7 @@ int puz_state::find_matches(bool init)
                 return make_move_hint2(p, snake_ids[0]), 1;
             }
     }
-    return check_hidden() ? 2 : 0;
-}
-
-bool puz_state::check_hidden()
-{
-    for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            if (char ch = cells(p); ch == PUZ_SPACE &&
-                boost::algorithm::none_of(offset, [&](const Position& os) {
-                return cells(p + os) == PUZ_SPACE;
-            }))
-                return false;
-        }
-    return true;
+    return check_spaces(spaces) ? 2 : 0;
 }
 
 void puz_state::make_move_hint2(const Position& p, int n)
@@ -290,7 +301,8 @@ bool puz_state::make_move_hidden(int num, const vector<Position>& snake)
     for (auto& p : snake)
         if (char& ch = cells(p); ch == PUZ_SPACE)
             ch = num, ++m_distance;
-    return check_hidden();
+    auto spaces = get_spaces();
+    return check_spaces(spaces);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
