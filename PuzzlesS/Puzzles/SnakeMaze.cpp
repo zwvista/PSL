@@ -18,7 +18,7 @@
     3. A snake cannot touch another snake horizontally or vertically.
     4. Arrows show you the closest piece of Snake in that direction (before another arrow or the edge).
     5. Arrows with zero mean that there is no Snake in that direction.
-    6. arrows block snake sight and also block other arrows hints.
+    6. Arrows block snake sight and also block other arrows hints.
 */
 
 namespace puzzles::SnakeMaze{
