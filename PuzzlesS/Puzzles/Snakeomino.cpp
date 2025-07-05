@@ -36,10 +36,10 @@ constexpr Position offset[] = {
     {0, -1},       // w
 };
 
-struct puz_snake
+struct puz_moves
 {
     char m_num;
-    vector<Position> m_rng;
+    vector<vector<Position>> m_snakes;
 };
 
 struct puz_game
@@ -47,6 +47,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_hints, m_cells;
+    map<Position, puz_moves> m_pos2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char hints(const Position& p) const { return m_hints[p.first * m_sidelen + p.second]; }
@@ -64,7 +65,9 @@ struct puz_state2 : vector<Position>
     }
 
     bool is_goal_state() const { return size() == m_num - '0'; }
-    void make_move(const Position& p, bool at_front) { push_back(p); }
+    void make_move(const Position& p, bool at_front) {
+        at_front ? (void)insert(begin(), p) : push_back(p);
+    }
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
@@ -74,17 +77,27 @@ struct puz_state2 : vector<Position>
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
     auto f = [&](const Position& p, bool at_front) {
-        for (int i = 0; i < 4; ++i)
-            if (auto p2 = p + offset[i];
-                m_game->cells(p2) == PUZ_SPACE && !is_self(p2) &&
+        for (int i = 0; i < 4; ++i) {
+            auto p2 = p + offset[i];
+            if (char ch = m_game->cells(p2);
+                !is_self(p2) && (ch == PUZ_SPACE || ch == m_num) &&
                 boost::algorithm::none_of(offset, [&](const Position& os) {
                     auto p3 = p2 + os;
                     return p3 != p && is_self(p3);
-                    })) {
-            children.push_back(*this);
-            children.back().make_move(p2, at_front);
+            })) {
+                children.push_back(*this);
+                children.back().make_move(p2, at_front);
+            }
         }
     };
+    // 3. A cell with a circle must be at one of the ends of a snake. A snake may contain one
+    // circled cell, two circled cells, or no circled cells at all.
+    // 6. A cell with a cross cannot be an end of a snake.
+    char ch_f = m_game->hints(front()), ch_b = m_game->hints(back());
+    if (ch_f != PUZ_END && ch_b != PUZ_NOT_END)
+        f(front(), true);
+    if (ch_f != PUZ_NOT_END && ch_b != PUZ_END)
+        f(back(), false);
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -103,10 +116,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r - 1];
         for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
-            hints(p) = str[c * 2 - 2], cells(p) = str[c * 2 - 1];
+            hints(p) = str[c * 2 - 2];
+            if (char ch = cells(p) = str[c * 2 - 1]; ch != PUZ_SPACE)
+                m_pos2moves[p].m_num = ch;
         }
     }
 
+    for (auto& [p, moves] : m_pos2moves) {
+        auto& [num, snakes] = moves;
+        puz_state2 sstart(*this, p, num);
+        list<list<puz_state2>> spaths;
+        if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found) 
+            // save all goal states as permutations
+            // A goal state is a snake formed from the hint
+            for (auto& spath : spaths)
+                snakes.push_back(spath.back());
+    }
 }
 
 struct puz_state
@@ -136,7 +161,7 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     // key: the position of the hint
-    // value.elem: the index of the box
+    // value.elem: the index of the move
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
