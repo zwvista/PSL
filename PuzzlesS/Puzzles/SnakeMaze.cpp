@@ -41,7 +41,12 @@ const string_view dirs = "^>v<";
 const string_view space_str = "     ";
 const string_view snake_str = "12345";
 
-using puz_hint = pair<int, char>;
+struct puz_hint
+{
+    int m_num;
+    char m_dir;
+    Position m_os;
+};
 
 struct puz_move
 {
@@ -119,8 +124,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_cells.push_back(ch);
                 break;
             default:
-                m_pos2hint[p] = {ch - '0', str[c * 2 - 1]};
-                m_cells.push_back(PUZ_HINT);
+                {
+                    char ch2 = str[c * 2 - 1];
+                    m_pos2hint[p] = {ch - '0', ch2, offset[dirs.find(ch2)]};
+                    m_cells.push_back(PUZ_HINT);
+                }
                 break;
             }
         }
@@ -129,51 +137,53 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BLOCK);
 
     for (auto& [p, hint] : m_pos2hint) {
-        auto& [n, ch] = hint;
-        auto& os = offset[dirs.find(ch)];
+        auto& [n, _1, os] = hint;
+        if (n != 0) continue;
+        for (auto p2 = p + os; cells(p2) == PUZ_SPACE; p2 += os)
+            cells(p2) = PUZ_EMPTY;
+    }
+    for (auto& [p, hint] : m_pos2hint) {
+        auto& [n, _1, os] = hint;
+        if (n == 0) continue;
         vector<Position> rng;
         for (auto p2 = p + os; cells(p2) == PUZ_SPACE; p2 += os)
             rng.push_back(p2);
-        if (n == 0)
-            for (auto& p2 : rng)
-                cells(p2) = PUZ_EMPTY;
-        else
-            for (auto it = rng.begin(); it != rng.end(); ++it) {
-                set<Position> empties2(rng.begin(), it);
-                puz_state2 sstart(*this, n, *it, empties2);
-                list<list<puz_state2>> spaths;
-                if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
-                    // save all goal states as permutations
-                    // A goal state is a snake formed from the hint
-                    for (auto& spath : spaths) {
-                        vector<Position> snake;
-                        for (auto& [_1, p2] : spath.back())
-                            snake.push_back(p2);
-                        if (int n2 = boost::find_if(m_moves, [&](const puz_move& move) {
-                            return move.m_snake == snake;
-                        }) - m_moves.begin(); n2 != m_moves.size())
-                            m_pos2move_ids[p].push_back(n2);
-                        else {
-                            auto empties = empties2;
-                            // 3. A snake cannot touch another snake horizontally or vertically.
-                            for (auto& p2 : snake)
-                                for (auto& os2 : offset)
-                                    if (auto p3 = p2 + os2;
-                                        cells(p3) == PUZ_SPACE &&
-                                        boost::algorithm::none_of_equal(snake, p3))
-                                        empties.insert(p3);
-                            // 2. A snake cannot see another snake or it would attack it. A snake sees straight in the
-                            // direction 2-1, that is to say it sees in front of the number 1.
-                            auto &p0 = snake[0], &p1 = snake[1], os2 = p0 - p1;
-                            for (auto p2 = p0 + os2; cells(p2) == PUZ_SPACE; p2 += os2)
-                                empties.insert(p2);
+        for (auto it = rng.begin(); it != rng.end(); ++it) {
+            set<Position> empties2(rng.begin(), it);
+            puz_state2 sstart(*this, n, *it, empties2);
+            list<list<puz_state2>> spaths;
+            if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
+                // save all goal states as permutations
+                // A goal state is a snake formed from the hint
+                for (auto& spath : spaths) {
+                    vector<Position> snake;
+                    for (auto& [_1, p2] : spath.back())
+                        snake.push_back(p2);
+                    if (int n2 = boost::find_if(m_moves, [&](const puz_move& move) {
+                        return move.m_snake == snake;
+                    }) - m_moves.begin(); n2 != m_moves.size())
+                        m_pos2move_ids[p].push_back(n2);
+                    else {
+                        auto empties = empties2;
+                        // 3. A snake cannot touch another snake horizontally or vertically.
+                        for (auto& p2 : snake)
+                            for (auto& os2 : offset)
+                                if (auto p3 = p2 + os2;
+                                    cells(p3) == PUZ_SPACE &&
+                                    boost::algorithm::none_of_equal(snake, p3))
+                                    empties.insert(p3);
+                        // 2. A snake cannot see another snake or it would attack it. A snake sees straight in the
+                        // direction 2-1, that is to say it sees in front of the number 1.
+                        auto &p0 = snake[0], &p1 = snake[1], os2 = p0 - p1;
+                        for (auto p2 = p0 + os2; cells(p2) == PUZ_SPACE; p2 += os2)
+                            empties.insert(p2);
 
-                            n2 = m_moves.size();
-                            m_moves.emplace_back(snake, empties);
-                            m_pos2move_ids[p].push_back(n2);
-                        }
+                        n2 = m_moves.size();
+                        m_moves.emplace_back(snake, empties);
+                        m_pos2move_ids[p].push_back(n2);
                     }
-            }
+                }
+        }
     }
 }
 
@@ -280,7 +290,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             if (char ch = cells(p); ch == PUZ_HINT) {
-                auto& [n, ch2] = m_game->m_pos2hint.at(p);
+                auto& [n, ch2, _1] = m_game->m_pos2hint.at(p);
                 out << n << ch2;
             } else
                 out << ch << (isdigit(ch) ? PUZ_SNAKE : ch);
