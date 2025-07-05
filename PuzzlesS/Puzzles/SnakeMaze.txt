@@ -1,4 +1,11 @@
 Level 1
-Number of vertices examined: 1
-0.0046651 [s]
+Sequence of moves: 
+   .  0> .  .  
+4v 2S 1S .  .  
+4S 3S 1^ 1S 1< 
+5S 3> 3S 2S .  
+5^ 5S 4S .  4< 
+Number of moves: 2
+Number of vertices examined: 3
+0.0023513 [s]
 

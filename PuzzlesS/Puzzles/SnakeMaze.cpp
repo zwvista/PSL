@@ -219,7 +219,8 @@ int puz_state::find_matches(bool init)
                 chars.push_back(cells(p2));
             return !((chars == space_str || chars == snake_str) &&
                 boost::algorithm::all_of(empties, [&](const Position& p2) {
-                    return cells(p2) == PUZ_EMPTY;
+                    char ch = cells(p2);
+                    return ch == PUZ_SPACE || ch == PUZ_EMPTY;
                 }));
         });
 
@@ -268,14 +269,15 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             if (char ch = cells(p); ch == PUZ_HINT) {
                 auto& [n, ch2] = m_game->m_pos2hint.at(p);
                 out << n << ch2;
             } else
-                out << ch << ' ';
+                out << ch << (isdigit(ch) ? 'S' : ' ');
+            out << ' ';
         }
         println(out);
     }
