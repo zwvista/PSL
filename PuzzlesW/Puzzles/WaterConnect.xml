@@ -5,6 +5,33 @@
   ]]>
 </help>
 <levels>
+  <level id="10" column-warps="3,4">
+    <![CDATA[
+ L 3 3 3 L`
+ I I L L I`
+ I L 3a1 I`
+ Ia1 La1 3`
+ La1a1a1A1`
+    ]]>
+  </level>
+  <level id="9" column-warps="3">
+    <![CDATA[
+ L L 3 3a1`
+ I L 3a1a1`
+a1a1 3a1 I`
+a1 L La1 I`
+ L IA3 3 L`
+    ]]>
+  </level>
+  <level id="8">
+    <![CDATA[
+ LALb1 I L`
+a1a1 L I 3`
+c1C1b1 L L`
+ LB1b1 L L`
+ L I 3 I L`
+    ]]>
+  </level>
   <level id="7" column-warps="3">
     <![CDATA[
  La1a1a1`

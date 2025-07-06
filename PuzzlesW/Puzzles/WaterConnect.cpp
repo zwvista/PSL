@@ -288,22 +288,23 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    if (m_game->m_has_column_warps) {
-        if (m_game->m_has_row_warps)
-            out << ' ';
-        for (int c = 0; c < cols(); ++c)
-            out << (!m_game->m_warp2warp.contains({{0, c}, 1}) ? ' ' :
-                PUZ_WARP) << ' ';
-        if (m_game->m_has_row_warps)
-            out << ' ';
-        println(out);
-    }
+    if (m_game->m_has_column_warps)
+        for (int i = 0; i < 2; ++i) {
+            if (m_game->m_has_row_warps)
+                out << "  ";
+            for (int c = 0; c < cols(); ++c)
+                out << (!m_game->m_warp2warp.contains({{0, c}, 1}) ? ' ' :
+                    i == 0 ? PUZ_WARP : '|') << ' ';
+            if (m_game->m_has_row_warps)
+                out << "  ";
+            println(out);
+        }
     for (int r = 0;; ++r) {
         if (m_game->m_has_row_warps)
             if (!m_game->m_warp2warp.contains({{r, 0}, 8}))
-                out << ' ';
+                out << "  ";
             else
-                out << PUZ_WARP;
+                out << PUZ_WARP << '-';
         // draw horizontal lines
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
@@ -312,9 +313,9 @@ ostream& puz_state::dump(ostream& out) const
         }
         if (m_game->m_has_row_warps)
             if (!m_game->m_warp2warp.contains({{r, cols() - 1}, 2}))
-                out << ' ';
+                out << "  ";
             else
-                out << PUZ_WARP;
+                out << PUZ_WARP << ' ';
         println(out);
         if (r == rows() - 1) break;
         for (int c = 0; c < cols(); ++c)
@@ -322,16 +323,17 @@ ostream& puz_state::dump(ostream& out) const
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
         println(out);
     }
-    if (m_game->m_has_column_warps) {
-        if (m_game->m_has_row_warps)
-            out << ' ';
-        for (int c = 0; c < cols(); ++c)
-            out << (!m_game->m_warp2warp.contains({{rows() - 1, c}, 4}) ? ' ' :
-                PUZ_WARP) << ' ';
-        if (m_game->m_has_row_warps)
-            out << ' ';
-        println(out);
-    }
+    if (m_game->m_has_column_warps)
+        for (int i = 0; i < 2; ++i) {
+            if (m_game->m_has_row_warps)
+                out << "  ";
+            for (int c = 0; c < cols(); ++c)
+                out << (!m_game->m_warp2warp.contains({{rows() - 1, c}, 4}) ? ' ' :
+                    i == 1 ? PUZ_WARP : '|') << ' ';
+            if (m_game->m_has_row_warps)
+                out << "  ";
+            println(out);
+        }
     return out;
 }
 
