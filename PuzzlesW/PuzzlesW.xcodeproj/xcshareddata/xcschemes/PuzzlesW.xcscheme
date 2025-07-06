@@ -27,6 +27,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "8CA23EC31EA9233C0055D6B1"
+            BuildableName = "PuzzlesW"
+            BlueprintName = "PuzzlesW"
+            ReferencedContainer = "container:PuzzlesW.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
       </Testables>
    </TestAction>
@@ -46,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8CA23EC31EA9233C0055D6B1"
-            BuildableName = "PuzzlesU"
-            BlueprintName = "PuzzlesU"
-            ReferencedContainer = "container:../PuzzlesU/PuzzlesU.xcodeproj">
+            BuildableName = "PuzzlesW"
+            BlueprintName = "PuzzlesW"
+            ReferencedContainer = "container:PuzzlesW.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
