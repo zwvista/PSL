@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\Underground.txt" />
     <Text Include="Puzzles\UnreliableHints.txt" />
     <Text Include="Puzzles\Unseen.txt" />
     <Text Include="ReadMe.txt" />
@@ -174,6 +175,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\Underground.cpp" />
     <ClCompile Include="Puzzles\UnreliableHints.cpp" />
     <ClCompile Include="Puzzles\Unseen.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -184,6 +186,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\Underground.xml" />
     <Xml Include="Puzzles\UnreliableHints.xml" />
     <Xml Include="Puzzles\Unseen.xml" />
   </ItemGroup>

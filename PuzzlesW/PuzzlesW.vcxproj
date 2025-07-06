@@ -162,6 +162,7 @@
     <Text Include="Puzzles\Walls2.txt" />
     <Text Include="Puzzles\WallSentinels.txt" />
     <Text Include="Puzzles\Warehouse.txt" />
+    <Text Include="Puzzles\WaterConnect.txt" />
     <Text Include="Puzzles\WildlifePark.txt" />
     <Text Include="Puzzles\WishSandwich.txt" />
     <Text Include="Puzzles\Wriggle.txt" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Puzzles\Walls2.cpp" />
     <ClCompile Include="Puzzles\WallSentinels.cpp" />
     <ClCompile Include="Puzzles\Warehouse.cpp" />
+    <ClCompile Include="Puzzles\WaterConnect.cpp" />
     <ClCompile Include="Puzzles\WildlifePark.cpp" />
     <ClCompile Include="Puzzles\WishSandwich.cpp" />
     <ClCompile Include="Puzzles\Wriggle.cpp" />
@@ -201,6 +203,7 @@
     <Xml Include="Puzzles\Walls.xml" />
     <Xml Include="Puzzles\WallSentinels.xml" />
     <Xml Include="Puzzles\Warehouse.xml" />
+    <Xml Include="Puzzles\WaterConnect.xml" />
     <Xml Include="Puzzles\WildlifePark.xml" />
     <Xml Include="Puzzles\WishSandwich.xml" />
     <Xml Include="Puzzles\Wriggle.xml" />

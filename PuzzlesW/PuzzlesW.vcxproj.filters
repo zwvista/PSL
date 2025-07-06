@@ -44,6 +44,9 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\Walls2.txt" />
+    <Text Include="Puzzles\WaterConnect.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -90,6 +93,9 @@
     <ClCompile Include="Puzzles\Walls2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\WaterConnect.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Walls.xml">
@@ -114,6 +120,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\WildlifePark.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\WaterConnect.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

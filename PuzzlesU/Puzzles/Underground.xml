@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. On the board there are a few number sets. Those numbers are sequences all starting from 1 up to a number N.
+2. You should draw as many lines into the grid as number sets: a line starts with the number 1, goes through the numbers in order up to the highest, where it ends.
+3. In doing this, you have to pass through all tiles on the board. Lines cannot cross.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+ - - - - - `
+|   |  v  |`
+ - -   - - `
+|   | |  v|`
+ - - - - - `
+|     |^  |`
+ - - - -   `
+|>| | | | |`
+     -   - `
+| |     | |`
+ - - - - - `
+    ]]>
+  </level>
+</levels>
+</puzzle>

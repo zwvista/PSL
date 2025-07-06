@@ -31,6 +31,9 @@
     <Text Include="Puzzles\ZenGardens.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\ZenSolitaire.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -65,6 +68,9 @@
     <ClCompile Include="Puzzles\ZenGardens.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\ZenSolitaire.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\zafiro.xml">
@@ -77,6 +83,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\ZenGardens.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\ZenSolitaire.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

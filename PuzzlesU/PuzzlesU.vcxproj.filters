@@ -25,6 +25,9 @@
     <Text Include="Puzzles\Unseen.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Underground.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -53,12 +56,18 @@
     <ClCompile Include="Puzzles\Unseen.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Underground.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\UnreliableHints.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Unseen.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Underground.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
