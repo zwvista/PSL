@@ -8,16 +8,18 @@
     iOS Game: 100 Logic Games 2/Puzzle Set 2/Zen Solitaire
 
     Summary
-    Trace Numbers
+    Pick up stones
 
     Description
-    1. On the board there are a few number sets. Those numbers are
-       sequences all starting from 1 up to a number N.
-    2. You should draw as many lines into the grid as number sets:
-       a line starts with the number 1, goes through the numbers in
-       order up to the highest, where it ends.
-    3. In doing this, you have to pass through all tiles on the board.
-       Lines cannot cross.
+     1. A favorite Zen Master pastime, scattering stones on the sand and picking them up.
+     2. You can start at any stone and pick it up (just to click on it and it will be numbered
+        in the order you pick it up).
+     3. From a stone, you can move horizontally or vertically to the next stone. You can't
+        jump over stones, if you encounter it, you have to pick it up.
+     4. When moving from a stone to another, you can change direction, but you cannot reverse it.
+     5. when a stone has been picked up, you can pass away it if you encounter it again
+        (it's not there anymore).
+     6. The goal is to pick up every stone.
 */
 
 namespace puzzles::ZenSolitaire{

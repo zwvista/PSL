@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C689D182E07742200A2BCCC /* Walls2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D162E07742200A2BCCC /* Walls2.cpp */; };
+		8C94E0BC2E1A1ABA00382560 /* WaterConnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C94E0B92E1A1ABA00382560 /* WaterConnect.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -39,6 +40,9 @@
 		8C5F12B02DE3790800BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C689D162E07742200A2BCCC /* Walls2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Walls2.cpp; sourceTree = "<group>"; };
 		8C689D172E07742200A2BCCC /* Walls2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Walls2.txt; sourceTree = "<group>"; };
+		8C94E0B92E1A1ABA00382560 /* WaterConnect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WaterConnect.cpp; sourceTree = "<group>"; };
+		8C94E0BA2E1A1ABA00382560 /* WaterConnect.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = WaterConnect.txt; sourceTree = "<group>"; };
+		8C94E0BB2E1A1ABA00382560 /* WaterConnect.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WaterConnect.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesW */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesW; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -139,6 +143,9 @@
 				958FA61823234E6100205831 /* Warehouse.cpp */,
 				958FA61623234E6100205831 /* Warehouse.txt */,
 				958FA61723234E6100205831 /* Warehouse.xml */,
+				8C94E0B92E1A1ABA00382560 /* WaterConnect.cpp */,
+				8C94E0BA2E1A1ABA00382560 /* WaterConnect.txt */,
+				8C94E0BB2E1A1ABA00382560 /* WaterConnect.xml */,
 				95E2B50C236877E800F4F95B /* WildlifePark.cpp */,
 				95E2B50D236877E800F4F95B /* WildlifePark.txt */,
 				95E2B50B236877E800F4F95B /* WildlifePark.xml */,
@@ -257,6 +264,7 @@
 				95D7B5DD23154C24001E005C /* WallHints.cpp in Sources */,
 				8CA241B31EB47B160055D6B1 /* Wriggle.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
+				8C94E0BC2E1A1ABA00382560 /* WaterConnect.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

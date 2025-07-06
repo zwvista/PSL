@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C94E0C02E1A1ACD00382560 /* ZenSolitaire.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C94E0BD2E1A1ACD00382560 /* ZenSolitaire.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -33,6 +34,9 @@
 /* Begin PBXFileReference section */
 		8C5F12B32DE3791700BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12B42DE3791700BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C94E0BD2E1A1ACD00382560 /* ZenSolitaire.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ZenSolitaire.cpp; sourceTree = "<group>"; };
+		8C94E0BE2E1A1ACD00382560 /* ZenSolitaire.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ZenSolitaire.txt; sourceTree = "<group>"; };
+		8C94E0BF2E1A1ACD00382560 /* ZenSolitaire.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ZenSolitaire.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesZ */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesZ; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -117,6 +121,9 @@
 				8CA241BB1EB47B390055D6B1 /* ZenLandscaper.cpp */,
 				8CA241BC1EB47B390055D6B1 /* ZenLandscaper.txt */,
 				8CA241BD1EB47B390055D6B1 /* ZenLandscaper.xml */,
+				8C94E0BD2E1A1ACD00382560 /* ZenSolitaire.cpp */,
+				8C94E0BE2E1A1ACD00382560 /* ZenSolitaire.txt */,
+				8C94E0BF2E1A1ACD00382560 /* ZenSolitaire.xml */,
 				8CA241BE1EB47B390055D6B1 /* zgj.cpp */,
 				8CA241BF1EB47B390055D6B1 /* zgj.txt */,
 				8CA241C01EB47B390055D6B1 /* zgj.xml */,
@@ -217,6 +224,7 @@
 			files = (
 				8CA241C21EB47B390055D6B1 /* ZenLandscaper.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
+				8C94E0C02E1A1ACD00382560 /* ZenSolitaire.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				95F39C0A2322ADF600E73A82 /* ZenGardens.cpp in Sources */,
 				8CA241C31EB47B390055D6B1 /* zgj.cpp in Sources */,

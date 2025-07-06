@@ -8,16 +8,15 @@
     iOS Game: 100 Logic Games 3/Puzzle Set 2/Underground
 
     Summary
-    Trace Numbers
+    Subway entrances
 
     Description
-    1. On the board there are a few number sets. Those numbers are
-       sequences all starting from 1 up to a number N.
-    2. You should draw as many lines into the grid as number sets:
-       a line starts with the number 1, goes through the numbers in
-       order up to the highest, where it ends.
-    3. In doing this, you have to pass through all tiles on the board.
-       Lines cannot cross.
+    1. Each neighborough contains one entrance to the Underground.
+    2. For each entrance there is a corresponding entrance in a different neighborough.
+    3. The arrows of two corresponding entrances must point to each other.
+    4. Between two corresponding entrances there cannot be any other entrance.
+    5. Two corresponding entrances cannot be in adjacent neighborough, i.e.
+       there must be at least the one neighborough between them.
 */
 
 namespace puzzles::Underground{
