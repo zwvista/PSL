@@ -13,38 +13,32 @@
  L 3 3 L`
     ]]>
   </level>
-  <level id="49">
+  <level id="49" column-warps="2,3">
     <![CDATA[
- 0W4W4 0 0`
 R1r1 Ir1 L`
  3r1 L 3 3`
  L Lr1 3r1`
  L 3r1 3 L`
 r1 3 Lr1 L`
- 0W1W1 0 0`
     ]]>
   </level>
-  <level id="48">
+  <level id="48" row-warps="2,3" column-warps="3">
     <![CDATA[
- 0 0 0W4 0 0 0 0`
- 0y1y1B1y1 3FC 0`
-W2 3 3 3FCy1YLW8`
-W2 Iy1y1 L I IW8`
- 0b1 3b1 L I L 0`
- 0 LFB LF3b1 I 0`
- 0 Lb1 3 I I L 0`
- 0 0 0W1 0 0 0 0`
+y1y1B1y1 3FC`
+ 3 3 3FCy1YL`
+ Iy1y1 L I I`
+b1 3b1 L I L`
+ LFB LF3b1 I`
+ Lb1 3 I I L`
     ]]>
   </level>
-  <level id="47">
+  <level id="47" column-warps="2,4">
     <![CDATA[
- 0W4 0W4 0`
 b1 3 L 3 L`
  LF9 L L I`
  Ib1B1 3 I`
  3 Lb1 LF5`
 b1 L I Lb1`
- 0W1 0W1 0`
     ]]>
   </level>
   <level id="46">
@@ -66,44 +60,42 @@ r1r1r1 Ir1 I`
 y1 L 3 Ly1`
     ]]>
   </level>
-  <level id="44">
+  <level id="44" row-warps="2,5" column-warps="5">
     <![CDATA[
- 0 0 0 0 0W4 0 0`
- 0 Lb1F6b1 Ib1 0`
-W2 3 I 3YL L LW8`
- 0r1R1B1y1 L L 0`
- 0 L 3 Ly1F5r1 0`
-W2 3FD L L L IW8`
- 0r1 Lr1 L 3y1 0`
- 0 0 0 0 0W1 0 0`
+ Lb1F6b1 Ib1`
+ 3 I 3YL L L`
+r1R1B1y1 L L`
+ L 3 Ly1F5r1`
+ 3FD L L L I`
+r1 Lr1 L 3y1`
     ]]>
   </level>
-  <level id="43">
+  <level id="43" row-warps="2">
     <![CDATA[
- 0 L I L L L 0`
-W2 Lb1R1 I LW8`
- 0b1 3r1FBr1 0`
- 0b1B3 L Lb1 0`
- 0b1 3 L L L 0`
+ L I L L L`
+ Lb1R1 I L`
+b1 3r1FBr1`
+b1B3 L Lb1`
+b1 3 L L L`
     ]]>
   </level>
-  <level id="42">
+  <level id="42" row-warps="3">
     <![CDATA[
- 0 L Lb1 3 3 L 0`
- 0 Ib1b1b1 Ib1 0`
-W2 3 LBL L 3 IW8`
- 0b1F3 IF9 Ib1 0`
- 0 L I I 3FB 3 0`
- 0b1 IFA Lb1 L 0`
+ L Lb1 3 3 L`
+ Ib1b1b1 Ib1`
+ 3 LBL L 3 I`
+b1F3 IF9 Ib1`
+ L I I 3FB 3`
+b1 IFA Lb1 L`
     ]]>
   </level>
-  <level id="41">
+  <level id="41" row-warps="4">
     <![CDATA[
- 0 L L L 3r1 0`
- 0r1 L LR3r1 0`
- 0y1FEy1 3r1 0`
-W2 L IY1r1 LW8`
- 0 LF9 L I L 0`
+ L L L 3r1`
+r1 L LR3r1`
+y1FEy1 3r1`
+ L IY1r1 L`
+ LF9 L I L`
     ]]>
   </level>
   <level id="40">
@@ -115,36 +107,32 @@ Y1 L I 3b1`
  L 3 L L L`
     ]]>
   </level>
-  <level id="39">
+  <level id="39" row-warps="2,3" column-warps="5">
     <![CDATA[
- 0 0 0 0 0W4 0 0`
- 0 L I IY1 3b1 0`
-W2 Lb1b1 IBLF6W8`
-W2y1 Iy1 I I 3W8`
- 0b1 3 I I Lb1 0`
- 0b1F6 Ib1F3 3 0`
- 0 L 3 I I 3 L 0`
- 0 0 0 0 0W1 0 0`
+ L I IY1 3b1`
+ Lb1b1 IBLF6`
+y1 Iy1 I I 3`
+b1 3 I I Lb1`
+b1F6 Ib1F3 3`
+ L 3 I I 3 L`
     ]]>
   </level>
-  <level id="38">
+  <level id="38" column-warps="2,3">
     <![CDATA[
- 0W4W4 0 0`
  L L 3 Lb1`
  L 3F9 L 3`
 b1b1F6B1 I`
  3b1 Ib1 L`
  LFC 3 Ib1`
- 0W1W1 0 0`
     ]]>
   </level>
-  <level id="37">
+  <level id="37" row-warps="2">
     <![CDATA[
- 0b1 LR1r1B1 0`
-W2 L L LY1 LW8`
- 0 I L L Iy1 0`
- 0 3 Ly1 3 3 0`
- 0 L Ib1y1 L 0`
+b1 LR1r1B1`
+ L L LY1 L`
+ I L L Iy1`
+ 3 Ly1 3 3`
+ L Ib1y1 L`
     ]]>
   </level>
   <level id="36">
@@ -157,15 +145,13 @@ r1 3 I I 3 L`
 r1 3r1r1 3r1`
     ]]>
   </level>
-  <level id="35">
+  <level id="35" column-warps="3">
     <![CDATA[
- 0 0W4 0 0`
  LFE 3 Ly1`
  I LFCY1 I`
  3y1y1y1 3`
  I Ly1y1 I`
  L LF6 3 L`
- 0 0W1 0 0`
     ]]>
   </level>
   <level id="34">
@@ -187,13 +173,13 @@ RLr1b1 3 L`
  L 3 Ib1 L L`
     ]]>
   </level>
-  <level id="32">
+  <level id="32" row-warps="2,4">
     <![CDATA[
- 0 L 3r1 LY1 0`
-W2FD I LF9r1W8`
- 0R1 Iy1r1b1 0`
-W2 LF3 3 L 3W8`
- 0b1r1 LB1 L 0`
+ L 3r1 LY1`
+FD I LF9r1`
+R1 Iy1r1b1`
+ LF3 3 L 3`
+b1r1 LB1 L`
     ]]>
   </level>
   <level id="31">
@@ -224,15 +210,13 @@ Y1y1b1 L L`
  L I 3 I L`
     ]]>
   </level>
-  <level id="28">
+  <level id="28" column-warps="3,4">
     <![CDATA[
- 0 0W4W4 0`
  L 3 3FB L`
  I I L L I`
  I LFDr1 I`
  Ir1 Lr1 3`
  Lr1r1r1R1`
- 0 0W1W1 0`
     ]]>
   </level>
   <level id="27">
@@ -244,15 +228,13 @@ b1 LFB L I`
  L LB1 3 L`
     ]]>
   </level>
-  <level id="26">
+  <level id="26" row-warps="3" column-warps="3">
     <![CDATA[
- 0 0 0W4 0 0 0`
- 0 Lb1F3 I L 0`
- 0 I LY1 L L 0`
-W2F9 Ib1 3 IW8`
- 0 LFD LFA L 0`
- 0y1y1 IB1 L 0`
- 0 0 0W1 0 0 0`
+ Lb1F3 I L`
+ I LY1 L L`
+F9 Ib1 3 I`
+ LFD LFA L`
+y1y1 IB1 L`
     ]]>
   </level>
   <level id="25">
@@ -264,13 +246,13 @@ r1 LYIFEy1`
 r1 IF9r1y1`
     ]]>
   </level>
-  <level id="24">
+  <level id="24" row-warps="2">
     <![CDATA[
- 0b1b1 3 Ib1 0`
-W2FB LF7b1 LW8`
- 0 L 3 L L L 0`
- 0 IB1F6 3 L 0`
- 0 L Lb1b1 L 0`
+b1b1 3 Ib1`
+FB LF7b1 L`
+ L 3 L L L`
+ IB1F6 3 L`
+ L Lb1b1 L`
     ]]>
   </level>
   <level id="23">
@@ -282,15 +264,13 @@ y1y1 Ly1 L`
  Ly1 L Ly1`
     ]]>
   </level>
-  <level id="22">
+  <level id="22" column-warps="4">
     <![CDATA[
- 0 0 0W4 0`
 r1 I I 3r1`
  LFE Lr1 L`
  I I LR3 3`
 r1r1 LFD I`
 r1 I L Ir1`
- 0 0 0W1 0`
     ]]>
   </level>
   <level id="21">
@@ -319,22 +299,20 @@ b1y1 L I`
 r1R1BLb1`
     ]]>
   </level>
-  <level id="18">
+  <level id="18" row-warps="2">
     <![CDATA[
- 0B1 Lb1 L 0`
-W2 L 3b1 LW8`
- 0 I IY1y1 0`
- 0 L 3 Ib1 0`
+B1 Lb1 L`
+ L 3b1 L`
+ I IY1y1`
+ L 3 Ib1`
     ]]>
   </level>
-  <level id="17">
+  <level id="17" row-warps="3" column-warps="2">
     <![CDATA[
- 0 0W4 0 0 0`
- 0y1y1 Ly1 0`
- 0 I L 3y1 0`
-W2 3 I I LW8`
- 0 LY3 Ly1 0`
- 0 0W1 0 0 0`
+y1y1 Ly1`
+ I L 3y1`
+ 3 I I L`
+ LY3 Ly1`
     ]]>
   </level>
   <level id="16">
@@ -353,24 +331,20 @@ b1 3 3 3`
  L I Lb1`
     ]]>
   </level>
-  <level id="14">
+  <level id="14" column-warps="3">
     <![CDATA[
- 0 0W4 0`
 R1y1 Lr1`
  L I I L`
 Y1 L Iy1`
  L 3 3y1`
- 0 0W1 0`
     ]]>
   </level>
-  <level id="13">
+  <level id="13" column-warps="3">
     <![CDATA[
- 0 0W4 0`
  Lr1r1r1`
  3R1 L 3`
  I L L I`
  L 3 Lr1`
- 0 0W1 0`
     ]]>
   </level>
   <level id="12">
@@ -381,15 +355,13 @@ b1 Lb1 I`
 b1 IB3 L`
     ]]>
   </level>
-  <level id="11">
+  <level id="11" column-warps="1">
     <![CDATA[
-W4`
  I`
 Y1`
  0`
 y1`
  I`
-W1`
     ]]>
   </level>
   <level id="10">

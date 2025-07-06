@@ -88,7 +88,8 @@ struct puz_game
     map<char, Position> m_color2battery;
     map<char, set<Position>> m_color2bulbs;
     vector<puz_dot> m_dots;
-    map<int, set<Position>> m_area2warps;
+    map<pair<Position, int>, Position> m_warp2warp;
+    bool m_has_row_warps, m_has_column_warps;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
@@ -104,6 +105,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(Position(strs.size(), strs[0].length() / 2))
     , m_dot_count(rows() * cols())
 {
+    auto f = [&](const char_t* name, bool& has_warps) {
+        vector<int> warps;
+        const string str = level.attribute(name).value();
+        if (has_warps = !str.empty())
+            qi::phrase_parse(str.begin(), str.end(),
+                qi::int_[phx::push_back(phx::ref(warps), qi::_1 - 1)] >>
+                *(
+                    qi::lit(',') >>
+                    qi::int_[phx::push_back(phx::ref(warps), qi::_1 - 1)]
+                 ), ascii::space);
+        return warps;
+    };
+    auto g = [&](int r1, int c1, int n1, int r2, int c2, int n2) {
+        m_warp2warp[{{r1, c1}, n1}] = {r2, c2};
+        m_warp2warp[{{r2, c2}, n2}] = {r1, c1};
+    };
+    for (int r : f("row-warps", m_has_row_warps))
+        g(r, 0, 8, r, cols() - 1, 2);
+    for (int c : f("column-warps", m_has_column_warps))
+        g(0, c, 1, rows() - 1, c, 4);
+
     for (int r = 0; r < rows(); ++r) {
         string_view str = strs[r];
         for (int c = 0; c < cols(); ++c) {
@@ -123,14 +145,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             case PUZ_BULB_GREEN:
                 m_color2bulbs[ch].insert(p);
                 break;
-            case PUZ_WARP:
-                m_area2warps[c == 0 || c == rows() - 1 ? r : c + rows()].insert(p);
-                break;
             }
 
             char ch2 = str[c * 2 + 1];
             auto& dt = m_dots.emplace_back();
-            if (ch == PUZ_WARP || ch == PUZ_FIXING)
+            if (ch == PUZ_FIXING)
                 dt = {isdigit(ch2) ? ch2 - '0' : ch2 - 'A' + 10};
             else {
                 auto& linesegs_all2 = linesegs_all[
@@ -146,7 +165,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                                 continue;
                             auto p2 = p + offset[i];
                             // A line segment cannot go beyond the boundaries of the board
-                            if (!is_valid(p2))
+                            if (!is_valid(p2) && !m_warp2warp.contains({p, 1 << i}))
                                 return false;
                         }
                         return true;
@@ -173,7 +192,7 @@ struct puz_state
     bool check_connected() const;
 
     //solve_puzzle interface
-    bool is_goal_state() const { return get_heuristic() == 0; }
+    bool is_goal_state() const { return get_heuristic() == 0 && m_is_connected; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return m_game->m_dot_count * 4 - m_finished.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
@@ -183,6 +202,7 @@ struct puz_state
     const puz_game* m_game = nullptr;
     vector<puz_dot> m_dots;
     set<pair<Position, int>> m_finished;
+    bool m_is_connected = false;
     unsigned int m_distance = 0;
 };
 
@@ -190,6 +210,7 @@ puz_state::puz_state(const puz_game& g)
 : m_dots(g.m_dots), m_game(&g)
 {
     check_dots(true);
+    m_is_connected = check_connected();
 }
 
 int puz_state::check_dots(bool init)
@@ -239,39 +260,32 @@ int puz_state::check_dots(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state* s, const Position& p) : m_state(s) { make_move(p); }
+    puz_state2(const puz_state* s, const Position& p)
+        : m_state(s), m_p(p) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
+    Position m_p;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     auto& g = *m_state->m_game;
-    switch (char ch = g.cells(*this)) {
-    case PUZ_WARP:
-        for (int n = second == 0 || second == g.rows() - 1 ? first : second + g.rows();
-            auto& p2 : g.m_area2warps.at(n))
-            if (p2 != *this) {
-                children.push_back(*this);
-                children.back().make_move(p2);
-            }
-        break;
-    case PUZ_SPACE:
-        for (int i = 0; i < 4; ++i)
-            if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
-                return is_lineseg_on(lineseg, i);
-            })) {
-                auto p2 = *this + offset[i];
-                children.push_back(*this);
-                children.back().make_move(p2);
-            }
-        break;
-    default:
+    if (char ch = g.cells(*this);
+        !(*this == m_p || ch == PUZ_SPACE || ch == PUZ_FIXING))
         return;
-    }
+    for (int i = 0; i < 4; ++i)
+        if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
+            return is_lineseg_on(lineseg, i);
+        })) {
+            auto p2 = *this + offset[i];
+            if (!g.is_valid(p2))
+                p2 = g.m_warp2warp.at({*this, 1 << i});
+            children.push_back(*this);
+            children.back().make_move(p2);
+        }
 }
 
 bool puz_state::check_connected() const
@@ -293,11 +307,13 @@ bool puz_state::make_move_dot(const Position& p, int n)
     auto& dt = dots(p);
     dt = {dt[n]};
     int m = check_dots(false);
-    return m == 1 ? check_connected() : m == 2;
+    return m == 1 ? (m_is_connected = check_connected()) : m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
+    if (get_heuristic() == 0 && !m_is_connected)
+        return;
     int i = boost::min_element(m_dots, [&](const puz_dot& dt1, const puz_dot& dt2) {
         auto f = [](const puz_dot& dt) {
             int sz = dt.size();
@@ -314,20 +330,56 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    if (m_game->m_has_column_warps)
+        for (int i = 0; i < 2; ++i) {
+            if (m_game->m_has_row_warps)
+                out << "  ";
+            for (int c = 0; c < cols(); ++c)
+                out << (!m_game->m_warp2warp.contains({{0, c}, 1}) ? ' ' :
+                    i == 0 ? PUZ_WARP : '|') << ' ';
+            if (m_game->m_has_row_warps)
+                out << "  ";
+            println(out);
+        }
     for (int r = 0;; ++r) {
+        if (m_game->m_has_row_warps)
+            if (!m_game->m_warp2warp.contains({{r, 0}, 8}))
+                out << "  ";
+            else
+                out << PUZ_WARP << '-';
         // draw horizontal lines
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             out << m_game->cells(p) << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
+        if (m_game->m_has_row_warps)
+            if (!m_game->m_warp2warp.contains({{r, cols() - 1}, 2}))
+                out << "  ";
+            else
+                out << PUZ_WARP << ' ';
         println(out);
         if (r == rows() - 1) break;
+        if (m_game->m_has_row_warps)
+            out << "  ";
         for (int c = 0; c < cols(); ++c)
             // draw vertical lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
+        if (m_game->m_has_row_warps)
+            out << "  ";
         println(out);
     }
+    if (m_game->m_has_column_warps)
+        for (int i = 0; i < 2; ++i) {
+            if (m_game->m_has_row_warps)
+                out << "  ";
+            for (int c = 0; c < cols(); ++c)
+                out << (!m_game->m_warp2warp.contains({{0, c}, 1}) ? ' ' :
+                    i == 1 ? PUZ_WARP : '|') << ' ';
+            if (m_game->m_has_row_warps)
+                out << "  ";
+            println(out);
+        }
     return out;
 }
 
@@ -336,8 +388,8 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_LightConnect()
 {
     using namespace puzzles::LightConnect;
-    //solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-    //    "Puzzles/LightConnect.xml", "Puzzles/LightConnect.txt", solution_format::GOAL_STATE_ONLY);
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/LightConnect2.xml", "Puzzles/LightConnect2.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/LightConnect.xml", "Puzzles/LightConnect.txt", solution_format::GOAL_STATE_ONLY);
+    //solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+    //    "Puzzles/LightConnect2.xml", "Puzzles/LightConnect2.txt", solution_format::GOAL_STATE_ONLY);
 }
