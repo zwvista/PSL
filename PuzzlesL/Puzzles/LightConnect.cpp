@@ -249,7 +249,8 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    switch (auto g = *m_state->m_game; char ch = g.cells(*this)) {
+    auto& g = *m_state->m_game;
+    switch (char ch = g.cells(*this)) {
     case PUZ_WARP:
         for (int n = second == 0 || second == g.rows() - 1 ? first : second + g.rows();
             auto& p2 : g.m_area2warps.at(n))

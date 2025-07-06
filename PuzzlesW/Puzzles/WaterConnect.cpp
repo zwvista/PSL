@@ -24,23 +24,10 @@ constexpr auto PUZ_PIPE_1 = '1';
 constexpr auto PUZ_PIPE_I = 'I';
 constexpr auto PUZ_PIPE_L = 'L';
 constexpr auto PUZ_PIPE_3 = '3';
-// space, battery, bulb
+// space, water, tree
 constexpr auto PUZ_SPACE = ' ';
-// yellow, red, blue
-constexpr auto PUZ_BATTERY_YELLOW = 'Y';
-constexpr auto PUZ_BATTERY_RED = 'R';
-constexpr auto PUZ_BATTERY_BLUE = 'B';
-constexpr auto PUZ_BULB_YELLOW = 'y';
-constexpr auto PUZ_BULB_RED = 'r';
-constexpr auto PUZ_BULB_BLUE = 'b';
-// yellow + red = red orange
-constexpr auto PUZ_BULB_ORANGE = 'o';
-// yellow + blue = green
-constexpr auto PUZ_BULB_GREEN = 'g';
-// red + blue = red purple
-constexpr auto PUZ_BULB_PURPLE = 'p';
-constexpr auto PUZ_WARP = 'W';
-constexpr auto PUZ_FIXING = 'F';
+constexpr auto PUZ_WATER = 'W';
+constexpr auto PUZ_TREE = 'T';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -68,15 +55,6 @@ constexpr Position offset[] = {
     {0, -1},       // w
 };
 
-const map<char, set<char>> bulb2batteries = {
-    {PUZ_BULB_YELLOW, {PUZ_BATTERY_YELLOW}},
-    {PUZ_BULB_RED, {PUZ_BATTERY_RED}},
-    {PUZ_BULB_BLUE, {PUZ_BATTERY_BLUE}},
-    {PUZ_BULB_ORANGE, {PUZ_BATTERY_YELLOW, PUZ_BATTERY_RED}},
-    {PUZ_BULB_GREEN, {PUZ_BATTERY_YELLOW, PUZ_BATTERY_BLUE}},
-    {PUZ_BULB_PURPLE, {PUZ_BATTERY_RED, PUZ_BATTERY_BLUE}},
-};
-
 using puz_dot = vector<int>;
 
 struct puz_game
@@ -85,10 +63,8 @@ struct puz_game
     Position m_size;
     int m_dot_count;
     string m_cells;
-    map<char, Position> m_color2battery;
-    map<char, set<Position>> m_color2bulbs;
     vector<puz_dot> m_dots;
-    map<int, set<Position>> m_area2warps;
+    set<Position> m_trees, m_waters;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
@@ -111,48 +87,35 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             char ch = str[c * 2];
             m_cells.push_back(ch);
             switch (ch) {
-            case PUZ_BATTERY_YELLOW:
-            case PUZ_BATTERY_RED:
-            case PUZ_BATTERY_BLUE:
-                m_color2battery[ch] = p;
+            case PUZ_TREE:
+                m_trees.insert(p);
                 break;
-            case PUZ_BULB_YELLOW:
-            case PUZ_BULB_RED:
-            case PUZ_BULB_BLUE:
-            case PUZ_BULB_ORANGE:
-            case PUZ_BULB_GREEN:
-                m_color2bulbs[ch].insert(p);
-                break;
-            case PUZ_WARP:
-                m_area2warps[c == 0 || c == rows() - 1 ? r : c + rows()].insert(p);
+            case PUZ_WATER:
+                m_waters.insert(p);
                 break;
             }
 
             char ch2 = str[c * 2 + 1];
             auto& dt = m_dots.emplace_back();
-            if (ch == PUZ_WARP || ch == PUZ_FIXING)
-                dt = {isdigit(ch2) ? ch2 - '0' : ch2 - 'A' + 10};
-            else {
-                auto& linesegs_all2 = linesegs_all[
-                    ch2 == PUZ_PIPE_1 ? 1 :
-                    ch2 == PUZ_PIPE_I ? 2 :
-                    ch2 == PUZ_PIPE_L ? 3 :
-                    ch2 == PUZ_PIPE_3 ? 4 :
-                    0];
-                for (int lineseg : linesegs_all2)
-                    if ([&] {
-                        for (int i = 0; i < 4; ++i) {
-                            if (!is_lineseg_on(lineseg, i))
-                                continue;
-                            auto p2 = p + offset[i];
-                            // A line segment cannot go beyond the boundaries of the board
-                            if (!is_valid(p2))
-                                return false;
-                        }
-                        return true;
-                    }())
-                        dt.push_back(lineseg);
-            }
+            auto& linesegs_all2 = linesegs_all[
+                ch2 == PUZ_PIPE_1 ? 1 :
+                ch2 == PUZ_PIPE_I ? 2 :
+                ch2 == PUZ_PIPE_L ? 3 :
+                ch2 == PUZ_PIPE_3 ? 4 :
+                0];
+            for (int lineseg : linesegs_all2)
+                if ([&] {
+                    for (int i = 0; i < 4; ++i) {
+                        if (!is_lineseg_on(lineseg, i))
+                            continue;
+                        auto p2 = p + offset[i];
+                        // A line segment cannot go beyond the boundaries of the board
+                        if (!is_valid(p2))
+                            return false;
+                    }
+                    return true;
+                }())
+                    dt.push_back(lineseg);
         }
     }
 }
@@ -220,17 +183,17 @@ int puz_state::check_dots(bool init)
             auto& dt = dots(p);
             if (dt.empty())
                 return 0;
-            int lineseg = dt[0];
-            auto p2 = p + offset[i];
-            if (is_valid(p2)) {
-                auto& dt2 = dots(p2);
-                // The line segments in adjacent cells must be connected
-                boost::remove_erase_if(dt2, [=](int lineseg2) {
-                    return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
-                });
-                if (!init && dt.empty())
-                    return 0;
-            }
+            //int lineseg = dt[0];
+            //auto p2 = p + offset[i];
+            //if (is_valid(p2)) {
+            //    auto& dt2 = dots(p2);
+            //    // The line segments in adjacent cells must be connected
+            //    boost::remove_erase_if(dt2, [=](int lineseg2) {
+            //        return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
+            //    });
+            //    if (!init && dt.empty())
+            //        return 0;
+            //}
             m_finished.insert(kv);
         }
         m_distance += newly_finished.size();
@@ -249,15 +212,8 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    switch (auto g = *m_state->m_game; char ch = g.cells(*this)) {
-    case PUZ_WARP:
-        for (int n = second == 0 || second == g.rows() - 1 ? first : second + g.rows();
-            auto& p2 : g.m_area2warps.at(n))
-            if (p2 != *this) {
-                children.push_back(*this);
-                children.back().make_move(p2);
-            }
-        break;
+    auto& g = *m_state->m_game;
+    switch (char ch = g.cells(*this)) {
     case PUZ_SPACE:
         for (int i = 0; i < 4; ++i)
             if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
@@ -275,14 +231,13 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::check_connected() const
 {
-    for (auto& [color1, bulbs] : m_game->m_color2bulbs)
-        for (auto& colors2 = bulb2batteries.at(color1); auto& p : bulbs) {
-            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
-            if (boost::count_if(smoves, [&](const Position& p) {
-                return colors2.contains(m_game->cells(p));
-            }) != colors2.size())
-                return false;
-        }
+    for (auto& p : m_game->m_trees) {
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
+        if (boost::count_if(smoves, [&](const Position& p) {
+            return m_game->cells(p) == PUZ_WATER;
+        }) != 1)
+            return false;
+    }
     return true;
 }
 
@@ -335,8 +290,6 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_WaterConnect()
 {
     using namespace puzzles::WaterConnect;
-    //solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-    //    "Puzzles/WaterConnect.xml", "Puzzles/WaterConnect.txt", solution_format::GOAL_STATE_ONLY);
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/WaterConnect2.xml", "Puzzles/WaterConnect2.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/WaterConnect.xml", "Puzzles/WaterConnect.txt", solution_format::GOAL_STATE_ONLY);
 }

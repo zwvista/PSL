@@ -24,7 +24,7 @@ int main(int argc, char **argv)
         println("i2: Wish Sandwich");
         println("r: Wriggle");
         getline(cin, str);
-        if (str.empty()) solve_puz_Walls();
+        if (str.empty()) solve_puz_WaterConnect();
         else if (str == "a1") solve_puz_Walls();
         else if (str == "a12") solve_puz_Walls2();
         else if (str == "a2") solve_puz_WallHints();
