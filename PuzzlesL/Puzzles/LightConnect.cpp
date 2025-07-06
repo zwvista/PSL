@@ -374,7 +374,7 @@ ostream& puz_state::dump(ostream& out) const
             if (m_game->m_has_row_warps)
                 out << "  ";
             for (int c = 0; c < cols(); ++c)
-                out << (!m_game->m_warp2warp.contains({{0, c}, 1}) ? ' ' :
+                out << (!m_game->m_warp2warp.contains({{rows() - 1, c}, 4}) ? ' ' :
                     i == 1 ? PUZ_WARP : '|') << ' ';
             if (m_game->m_has_row_warps)
                 out << "  ";

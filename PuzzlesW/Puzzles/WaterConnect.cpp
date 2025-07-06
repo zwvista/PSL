@@ -26,6 +26,7 @@ constexpr auto PUZ_PIPE_L = 'L';
 constexpr auto PUZ_PIPE_3 = '3';
 // space, water, tree
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_WARP = 'O';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -64,6 +65,8 @@ struct puz_game
     map<char, Position> m_color2water;
     map<char, set<Position>> m_color2trees;
     vector<puz_dot> m_dots;
+    map<pair<Position, int>, Position> m_warp2warp;
+    bool m_has_row_warps, m_has_column_warps;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
@@ -79,6 +82,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     , m_size(Position(strs.size(), strs[0].length() / 2))
     , m_dot_count(rows() * cols())
 {
+    auto f = [&](const char_t* name, bool& has_warps) {
+        vector<int> warps;
+        const string str = level.attribute(name).value();
+        if (has_warps = !str.empty())
+            qi::phrase_parse(str.begin(), str.end(),
+                qi::int_[phx::push_back(phx::ref(warps), qi::_1 - 1)] >>
+                *(
+                    qi::lit(',') >>
+                    qi::int_[phx::push_back(phx::ref(warps), qi::_1 - 1)]
+                 ), ascii::space);
+        return warps;
+    };
+    auto g = [&](int r1, int c1, int n1, int r2, int c2, int n2) {
+        m_warp2warp[{{r1, c1}, n1}] = {r2, c2};
+        m_warp2warp[{{r2, c2}, n2}] = {r1, c1};
+    };
+    for (int r : f("row-warps", m_has_row_warps))
+        g(r, 0, 8, r, cols() - 1, 2);
+    for (int c : f("column-warps", m_has_column_warps))
+        g(0, c, 1, rows() - 1, c, 4);
+
     for (int r = 0; r < rows(); ++r) {
         string_view str = strs[r];
         for (int c = 0; c < cols(); ++c) {
@@ -105,7 +129,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             continue;
                         auto p2 = p + offset[i];
                         // A line segment cannot go beyond the boundaries of the board
-                        if (!is_valid(p2))
+                        if (!is_valid(p2) && !m_warp2warp.contains({p, 1 << i}))
                             return false;
                     }
                     return true;
@@ -197,31 +221,31 @@ int puz_state::check_dots(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state* s, const Position& p) : m_state(s) { make_move(p); }
+    puz_state2(const puz_state* s, const Position& p)
+        : m_state(s), m_p(p) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
+    Position m_p;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     auto& g = *m_state->m_game;
-    switch (char ch = g.cells(*this)) {
-    case PUZ_SPACE:
-        for (int i = 0; i < 4; ++i)
-            if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
-                return is_lineseg_on(lineseg, i);
-            })) {
-                auto p2 = *this + offset[i];
-                children.push_back(*this);
-                children.back().make_move(p2);
-            }
-        break;
-    default:
+    if (char ch = g.cells(*this); !(*this == m_p || ch == PUZ_SPACE))
         return;
-    }
+    for (int i = 0; i < 4; ++i)
+        if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
+            return is_lineseg_on(lineseg, i);
+        })) {
+            auto p2 = *this + offset[i];
+            if (!g.is_valid(p2))
+                p2 = g.m_warp2warp.at({*this, 1 << i});
+            children.push_back(*this);
+            children.back().make_move(p2);
+        }
 }
 
 bool puz_state::check_connected() const
@@ -264,18 +288,48 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    if (m_game->m_has_column_warps) {
+        if (m_game->m_has_row_warps)
+            out << ' ';
+        for (int c = 0; c < cols(); ++c)
+            out << (!m_game->m_warp2warp.contains({{0, c}, 1}) ? ' ' :
+                PUZ_WARP) << ' ';
+        if (m_game->m_has_row_warps)
+            out << ' ';
+        println(out);
+    }
     for (int r = 0;; ++r) {
+        if (m_game->m_has_row_warps)
+            if (!m_game->m_warp2warp.contains({{r, 0}, 8}))
+                out << ' ';
+            else
+                out << PUZ_WARP;
         // draw horizontal lines
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             out << m_game->cells(p) << (is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
+        if (m_game->m_has_row_warps)
+            if (!m_game->m_warp2warp.contains({{r, cols() - 1}, 2}))
+                out << ' ';
+            else
+                out << PUZ_WARP;
         println(out);
         if (r == rows() - 1) break;
         for (int c = 0; c < cols(); ++c)
             // draw vertical lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
+        println(out);
+    }
+    if (m_game->m_has_column_warps) {
+        if (m_game->m_has_row_warps)
+            out << ' ';
+        for (int c = 0; c < cols(); ++c)
+            out << (!m_game->m_warp2warp.contains({{rows() - 1, c}, 4}) ? ' ' :
+                PUZ_WARP) << ' ';
+        if (m_game->m_has_row_warps)
+            out << ' ';
         println(out);
     }
     return out;
