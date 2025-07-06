@@ -1,3 +1,53 @@
+Level 6
+Sequence of moves: 
+ -  A a 
+| | | | 
+a  - -  
+  |   | 
+ -  a   
+|   | | 
+ - -  a 
+Number of moves: 0
+Number of vertices examined: 1
+0.0035367 [s]
+
+Level 5
+Sequence of moves: 
+ - - -  
+|   | | 
+a a-    
+    | | 
+ -  a   
+| |   | 
+a  -A-  
+Number of moves: 0
+Number of vertices examined: 1
+0.0016239 [s]
+
+Level 4
+Sequence of moves: 
+a- - -  
+    | | 
+a  -A a 
+| |     
+ - - -  
+|     | 
+a a- -  
+Number of moves: 0
+Number of vertices examined: 1
+0.0015762 [s]
+
+Level 3
+Sequence of moves: 
+A  -B 
+| |   
+   -  
+|   | 
+a b-  
+Number of moves: 0
+Number of vertices examined: 1
+0.0013592 [s]
+
 Level 2
 Sequence of moves: 
  - -  
@@ -7,7 +57,7 @@ Sequence of moves:
 a- -a 
 Number of moves: 0
 Number of vertices examined: 1
-0.0030695 [s]
+0.0014741 [s]
 
 Level 1
 Sequence of moves: 
@@ -18,5 +68,5 @@ a a
 A- -  
 Number of moves: 0
 Number of vertices examined: 1
-0.0013164 [s]
+0.0014913 [s]
 
