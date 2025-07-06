@@ -11,12 +11,12 @@
     Subway entrances
 
     Description
-    1. Each neighborough contains one entrance to the Underground.
-    2. For each entrance there is a corresponding entrance in a different neighborough.
+    1. Each neighbourhood contains one entrance to the Underground.
+    2. For each entrance there is a corresponding entrance in a different neighbourhood.
     3. The arrows of two corresponding entrances must point to each other.
     4. Between two corresponding entrances there cannot be any other entrance.
-    5. Two corresponding entrances cannot be in adjacent neighborough, i.e.
-       there must be at least the one neighborough between them.
+    5. Two corresponding entrances cannot be in adjacent neighbourhood, i.e.
+       there must be at least one neighbourhood between them.
 */
 
 namespace puzzles::Underground{
