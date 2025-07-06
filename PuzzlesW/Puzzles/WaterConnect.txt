@@ -1,11 +1,22 @@
+Level 2
+Sequence of moves: 
+ - -  
+|   | 
+ -  A 
+  |   
+a- -a 
+Number of moves: 0
+Number of vertices examined: 1
+0.0030695 [s]
+
 Level 1
 Sequence of moves: 
  - -  
 |   | 
-T T   
+a a   
   | | 
-W- -  
+A- -  
 Number of moves: 0
 Number of vertices examined: 1
-0.0140702 [s]
+0.0013164 [s]
 

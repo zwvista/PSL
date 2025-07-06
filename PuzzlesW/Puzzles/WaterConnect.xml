@@ -5,11 +5,18 @@
   ]]>
 </help>
 <levels>
+  <level id="2">
+    <![CDATA[
+ L I L`
+ L LA1`
+a1 3a1`
+    ]]>
+  </level>
   <level id="1">
     <![CDATA[
  L I L`
-T1T1 I`
-W1 3 L`
+a1a1 I`
+A1 3 L`
     ]]>
   </level>
 </levels>

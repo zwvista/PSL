@@ -26,8 +26,6 @@ constexpr auto PUZ_PIPE_L = 'L';
 constexpr auto PUZ_PIPE_3 = '3';
 // space, water, tree
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_WATER = 'W';
-constexpr auto PUZ_TREE = 'T';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -63,8 +61,9 @@ struct puz_game
     Position m_size;
     int m_dot_count;
     string m_cells;
+    map<char, Position> m_color2water;
+    map<char, set<Position>> m_color2trees;
     vector<puz_dot> m_dots;
-    set<Position> m_trees, m_waters;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int rows() const { return m_size.first; }
@@ -86,14 +85,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             char ch = str[c * 2];
             m_cells.push_back(ch);
-            switch (ch) {
-            case PUZ_TREE:
-                m_trees.insert(p);
-                break;
-            case PUZ_WATER:
-                m_waters.insert(p);
-                break;
-            }
+            if (isupper(ch))
+                m_color2water[ch] = p;
+            else if (islower(ch))
+                m_color2trees[ch].insert(p);
 
             char ch2 = str[c * 2 + 1];
             auto& dt = m_dots.emplace_back();
@@ -231,13 +226,14 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::check_connected() const
 {
-    for (auto& p : m_game->m_trees) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
-        if (boost::count_if(smoves, [&](const Position& p) {
-            return m_game->cells(p) == PUZ_WATER;
-        }) != 1)
-            return false;
-    }
+    for (auto& [color1, trees] : m_game->m_color2trees)
+        for (auto color2 = toupper(color1); auto& p : trees) {
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
+            if (boost::count_if(smoves, [&](const Position& p) {
+                return m_game->cells(p) == color2;
+            }) == 0)
+                return false;
+        }
     return true;
 }
 
