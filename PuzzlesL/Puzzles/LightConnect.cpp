@@ -388,8 +388,8 @@ ostream& puz_state::dump(ostream& out) const
 void solve_puz_LightConnect()
 {
     using namespace puzzles::LightConnect;
-    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/LightConnect.xml", "Puzzles/LightConnect.txt", solution_format::GOAL_STATE_ONLY);
     //solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-    //    "Puzzles/LightConnect2.xml", "Puzzles/LightConnect2.txt", solution_format::GOAL_STATE_ONLY);
+    //    "Puzzles/LightConnect.xml", "Puzzles/LightConnect.txt", solution_format::GOAL_STATE_ONLY);
+    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
+        "Puzzles/LightConnect2.xml", "Puzzles/LightConnect2.txt", solution_format::GOAL_STATE_ONLY);
 }
