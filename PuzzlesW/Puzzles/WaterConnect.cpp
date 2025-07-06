@@ -7,13 +7,12 @@
     iOS Game: Water Connect
 
     Summary
-    Connect Lamps and Batteries
+    Connect Waters and Trees
 
     Description
     1. Hint:Moves and secures several elements in the correct position.
     2. Warp: The Water appears moving to the opposite side.
     3. Fixing: Secures elements in the correct position.
-    4. Color Mix: Mixing two colors to create a new color.
 */
 
 namespace puzzles::WaterConnect{
@@ -27,6 +26,7 @@ constexpr auto PUZ_PIPE_3 = '3';
 // space, water, tree
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_WARP = 'O';
+constexpr auto PUZ_FIXING = 'F';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -116,25 +116,29 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
             char ch2 = str[c * 2 + 1];
             auto& dt = m_dots.emplace_back();
-            auto& linesegs_all2 = linesegs_all[
-                ch2 == PUZ_PIPE_1 ? 1 :
-                ch2 == PUZ_PIPE_I ? 2 :
-                ch2 == PUZ_PIPE_L ? 3 :
-                ch2 == PUZ_PIPE_3 ? 4 :
-                0];
-            for (int lineseg : linesegs_all2)
-                if ([&] {
-                    for (int i = 0; i < 4; ++i) {
-                        if (!is_lineseg_on(lineseg, i))
-                            continue;
-                        auto p2 = p + offset[i];
-                        // A line segment cannot go beyond the boundaries of the board
-                        if (!is_valid(p2) && !m_warp2warp.contains({p, 1 << i}))
-                            return false;
-                    }
-                    return true;
-                }())
-                    dt.push_back(lineseg);
+            if (ch == PUZ_FIXING)
+                dt = {isdigit(ch2) ? ch2 - '0' : ch2 - 'A' + 10};
+            else {
+                auto& linesegs_all2 = linesegs_all[
+                    ch2 == PUZ_PIPE_1 ? 1 :
+                    ch2 == PUZ_PIPE_I ? 2 :
+                    ch2 == PUZ_PIPE_L ? 3 :
+                    ch2 == PUZ_PIPE_3 ? 4 :
+                    0];
+                for (int lineseg : linesegs_all2)
+                    if ([&] {
+                        for (int i = 0; i < 4; ++i) {
+                            if (!is_lineseg_on(lineseg, i))
+                                continue;
+                            auto p2 = p + offset[i];
+                            // A line segment cannot go beyond the boundaries of the board
+                            if (!is_valid(p2) && !m_warp2warp.contains({p, 1 << i}))
+                                return false;
+                        }
+                        return true;
+                    }())
+                        dt.push_back(lineseg);
+            }
         }
     }
 }
@@ -234,7 +238,8 @@ struct puz_state2 : Position
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     auto& g = *m_state->m_game;
-    if (char ch = g.cells(*this); !(*this == m_p || ch == PUZ_SPACE))
+    if (char ch = g.cells(*this);
+        !(*this == m_p || ch == PUZ_SPACE || ch == PUZ_FIXING))
         return;
     for (int i = 0; i < 4; ++i)
         if (boost::algorithm::any_of(m_state->dots(*this), [&](int lineseg) {
@@ -318,9 +323,13 @@ ostream& puz_state::dump(ostream& out) const
                 out << PUZ_WARP << ' ';
         println(out);
         if (r == rows() - 1) break;
+        if (m_game->m_has_row_warps)
+            out << "  ";
         for (int c = 0; c < cols(); ++c)
             // draw vertical lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
+        if (m_game->m_has_row_warps)
+            out << "  ";
         println(out);
     }
     if (m_game->m_has_column_warps)
