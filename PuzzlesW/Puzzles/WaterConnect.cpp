@@ -54,6 +54,11 @@ constexpr Position offset[] = {
     {0, -1},       // w
 };
 
+const map<char, set<char>> tree2waters = {
+    // yellow + blue = green
+    {'g', {'Y', 'B'}},
+};
+
 using puz_dot = vector<int>;
 
 struct puz_game
@@ -255,14 +260,18 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::check_connected() const
 {
-    for (auto& [color1, trees] : m_game->m_color2trees)
-        for (auto color2 = toupper(color1); auto& p : trees) {
+    for (auto& [color1, trees] : m_game->m_color2trees) {
+        char color2 = toupper(color1);
+        auto colors2 = m_game->m_color2water.contains(color2) ? set{color2} :
+            tree2waters.at(color1);
+        for (auto& p : trees) {
             auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
             if (boost::count_if(smoves, [&](const Position& p) {
-                return m_game->cells(p) == color2;
-            }) == 0)
+                return colors2.contains(m_game->cells(p));
+            }) != colors2.size())
                 return false;
         }
+    }
     return true;
 }
 

@@ -24,21 +24,7 @@ constexpr auto PUZ_PIPE_1 = '1';
 constexpr auto PUZ_PIPE_I = 'I';
 constexpr auto PUZ_PIPE_L = 'L';
 constexpr auto PUZ_PIPE_3 = '3';
-// space, battery, bulb
 constexpr auto PUZ_SPACE = ' ';
-// yellow, red, blue
-constexpr auto PUZ_BATTERY_YELLOW = 'Y';
-constexpr auto PUZ_BATTERY_RED = 'R';
-constexpr auto PUZ_BATTERY_BLUE = 'B';
-constexpr auto PUZ_BULB_YELLOW = 'y';
-constexpr auto PUZ_BULB_RED = 'r';
-constexpr auto PUZ_BULB_BLUE = 'b';
-// yellow + red = red orange
-constexpr auto PUZ_BULB_ORANGE = 'o';
-// yellow + blue = green
-constexpr auto PUZ_BULB_GREEN = 'g';
-// red + blue = red purple
-constexpr auto PUZ_BULB_PURPLE = 'p';
 constexpr auto PUZ_WARP = 'W';
 constexpr auto PUZ_FIXING = 'F';
 
@@ -69,12 +55,12 @@ constexpr Position offset[] = {
 };
 
 const map<char, set<char>> bulb2batteries = {
-    {PUZ_BULB_YELLOW, {PUZ_BATTERY_YELLOW}},
-    {PUZ_BULB_RED, {PUZ_BATTERY_RED}},
-    {PUZ_BULB_BLUE, {PUZ_BATTERY_BLUE}},
-    {PUZ_BULB_ORANGE, {PUZ_BATTERY_YELLOW, PUZ_BATTERY_RED}},
-    {PUZ_BULB_GREEN, {PUZ_BATTERY_YELLOW, PUZ_BATTERY_BLUE}},
-    {PUZ_BULB_PURPLE, {PUZ_BATTERY_RED, PUZ_BATTERY_BLUE}},
+    // yellow + red = red orange
+    {'o', {'Y', 'R'}},
+    // yellow + blue = green
+    {'g', {'Y', 'B'}},
+    // red + blue = red purple
+    {'p', {'R', 'B'}},
 };
 
 using puz_dot = vector<int>;
@@ -132,20 +118,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             char ch = str[c * 2];
             m_cells.push_back(ch);
-            switch (ch) {
-            case PUZ_BATTERY_YELLOW:
-            case PUZ_BATTERY_RED:
-            case PUZ_BATTERY_BLUE:
+            if (isupper(ch))
                 m_color2battery[ch] = p;
-                break;
-            case PUZ_BULB_YELLOW:
-            case PUZ_BULB_RED:
-            case PUZ_BULB_BLUE:
-            case PUZ_BULB_ORANGE:
-            case PUZ_BULB_GREEN:
+            else if (islower(ch))
                 m_color2bulbs[ch].insert(p);
-                break;
-            }
 
             char ch2 = str[c * 2 + 1];
             auto& dt = m_dots.emplace_back();
@@ -290,14 +266,18 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::check_connected() const
 {
-    for (auto& [color1, bulbs] : m_game->m_color2bulbs)
-        for (auto& colors2 = bulb2batteries.at(color1); auto& p : bulbs) {
+    for (auto& [color1, bulbs] : m_game->m_color2bulbs) {
+        char color2 = toupper(color1);
+        auto colors2 = m_game->m_color2battery.contains(color2) ? set{color2} :
+            bulb2batteries.at(color1);
+        for (auto& p : bulbs) {
             auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
             if (boost::count_if(smoves, [&](const Position& p) {
                 return colors2.contains(m_game->cells(p));
             }) != colors2.size())
                 return false;
         }
+    }
     return true;
 }
 
