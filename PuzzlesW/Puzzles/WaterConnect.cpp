@@ -183,17 +183,17 @@ int puz_state::check_dots(bool init)
             auto& dt = dots(p);
             if (dt.empty())
                 return 0;
-            //int lineseg = dt[0];
-            //auto p2 = p + offset[i];
-            //if (is_valid(p2)) {
-            //    auto& dt2 = dots(p2);
-            //    // The line segments in adjacent cells must be connected
-            //    boost::remove_erase_if(dt2, [=](int lineseg2) {
-            //        return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
-            //    });
-            //    if (!init && dt.empty())
-            //        return 0;
-            //}
+            int lineseg = dt[0];
+            auto p2 = p + offset[i];
+            if (is_valid(p2)) {
+                auto& dt2 = dots(p2);
+                // The line segments in adjacent cells must be connected
+                boost::remove_erase_if(dt2, [=](int lineseg2) {
+                    return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
+                });
+                if (!init && dt.empty())
+                    return 0;
+            }
             m_finished.insert(kv);
         }
         m_distance += newly_finished.size();
