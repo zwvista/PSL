@@ -37,18 +37,20 @@ constexpr Position offset2[] = {
     {0, 0},        // w
 };
 
+constexpr string_view dirs = "^>v<";
+
 using puz_area = vector<Position>;
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<char, vector<Position>> m_ch2rng;
     string m_cells;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions that the area is composed of
     vector<puz_area> m_areas;
     map<Position, int> m_pos2area;
+    map<Position, char> m_pos2dir;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -86,7 +88,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size())
+, m_sidelen(strs.size() / 2 - 1)
 {
     set<Position> rng;
     for (int r = 0;; ++r) {
@@ -94,7 +96,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str_h = strs[r * 2];
         for (int c = 0; c < m_sidelen; ++c)
             if (str_h[c * 2 + 1] == '-')
-                m_horz_walls.insert({ r, c });
+                m_horz_walls.insert({r, c});
         if (r == m_sidelen) break;
         string_view str_v = strs[r * 2 + 1];
         for (int c = 0;; ++c) {
@@ -105,14 +107,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
             m_cells.push_back(ch);
+            if (ch != PUZ_SPACE)
+                m_pos2dir[p] = ch;
             rng.insert(p);
         }
     }
 
     for (int n = 0; !rng.empty(); ++n) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({ m_horz_walls, m_vert_walls, *rng.begin() });
-        auto& area = m_areas.emplace_back();
-        area.assign(smoves.begin(), smoves.end());
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
+        m_areas.push_back({smoves.begin(), smoves.end()});
         for (auto& p : smoves) {
             m_pos2area[p] = n;
             rng.erase(p);
