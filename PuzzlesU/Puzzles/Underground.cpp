@@ -63,9 +63,7 @@ struct puz_game
 struct puz_state2 : Position
 {
     puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
-        : m_horz_walls(&horz_walls), m_vert_walls(&vert_walls) {
-        make_move(p_start);
-    }
+        : m_horz_walls(&horz_walls), m_vert_walls(&vert_walls) { make_move(p_start); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -88,7 +86,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size() / 2 - 1)
+, m_sidelen(strs.size() / 2)
 {
     set<Position> rng;
     for (int r = 0;; ++r) {
