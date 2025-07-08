@@ -1,11 +1,1 @@
 Level 1
-Sequence of moves: 
- 5 ..  4 .. .. 
-.. .. ..  1 .. 
-.. .. .. .. .. 
- 6 ..  3  2  7 
-.. .. .. ..  8 
-Number of moves: 7
-Number of vertices examined: 128
-0.0026516 [s]
-

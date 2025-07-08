@@ -85,57 +85,67 @@ struct puz_state
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool operator<(const puz_state& x) const {
-        return tie(m_stones, m_path) < tie(x.m_stones, x.m_path);
+        return tie(m_stone2move_ids, m_path) < tie(x.m_stone2move_ids, x.m_path);
     }
-    void make_move(const Position& p, int n);
+    bool make_move(const Position& p, int n);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_stones.size(); }
+    unsigned int get_heuristic() const { return m_stone2move_ids.size(); }
     unsigned int get_distance(const puz_state& child) const {
-        return m_path.empty() ? 2 : 1;
+        return m_stone2move_ids.empty() ? 2 : 1;
     }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    set<Position> m_stones;
+    map<Position, vector<int>> m_stone2move_ids;
     vector<Position> m_path; // path from the first stone to the current stone
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
-, m_stones(g.m_stones)
 {
+    for (auto& [p, moves] : g.m_stone2moves) {
+        auto& ids = m_stone2move_ids[p];
+        for (int i = 0; i < moves.size(); ++i)
+            if (auto& [_1, on_path] = moves[i]; on_path.empty())
+                ids.push_back(i);
+    }
 }
 
-void puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move(const Position& p, int n)
 {
-    auto f = [&](const Position& p2) {
-        m_stones.erase(p2);
-        m_path.push_back(p2);
-    };
     if (m_path.empty())
-        f(p); // first stone picked up
-
+        m_path.push_back(p); // first stone picked up
+    m_stone2move_ids.erase(p);
     auto& [to, _1] = m_game->m_stone2moves.at(p)[n];
-    f(to);
+    m_path.push_back(to);
+
+    for (auto& [p2, move_ids] : m_stone2move_ids) {
+        auto& moves = m_game->m_stone2moves.at(p2);
+        for (int i = 0; i < moves.size(); ++i)
+            if (auto& [to2, on_path2] = moves[i]; to2 == to || to2 == p)
+                boost::remove_erase(move_ids, i);
+            else if (boost::algorithm::none_of(on_path2, [&](const Position& p2) {
+                return m_stone2move_ids.contains(p2);
+            }))
+                move_ids.push_back(i);
+        if (move_ids.empty())
+            return false; // no more moves available for this stone
+    }
+    if (m_stone2move_ids.size() == 1)
+        m_stone2move_ids.clear(); // only one stone left, no more moves available
+    return true; // move successful
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
     auto f = [&](const Position& p) {
-        auto& moves = m_game->m_stone2moves.at(p);
-        for (int n = 0; n < moves.size(); ++n)
-            if (auto& [to, on_path] = moves[n];
-                m_stones.contains(to) &&
-                boost::algorithm::none_of(on_path, [&](const Position& p2) {
-                    return m_stones.contains(p2);
-            })) {
-                children.push_back(*this);
-                children.back().make_move(p, n);
-            }
+        for (int n : m_stone2move_ids.at(p))
+            if (children.push_back(*this); !children.back().make_move(p, n))
+                children.pop_back();
     };
     if (m_path.empty())
         for (auto& p : m_game->m_stones)
