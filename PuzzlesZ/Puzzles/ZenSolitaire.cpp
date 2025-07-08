@@ -34,49 +34,26 @@ constexpr Position offset[] = {
     {0, -1},       // w
 };
 
+struct puz_move
+{
+    Position m_to;
+    set<Position> m_on_path; // stones on the path
+};
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     string m_cells;
     set<Position> m_stones;
-    map<Position, vector<Position>> m_stone2stones;
+    map<Position, vector<puz_move>> m_stone2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
-    bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
-    }
 };
-
-struct puz_state2 : vector<Position>
-{
-    puz_state2(const puz_game& game, const Position& p, char ch)
-        : m_game(&game), m_char(ch) { make_move(p); }
-
-    bool is_goal_state() const { return m_game->cells(back()) == m_char + 1; }
-    void make_move(const Position& p) { push_back(p); }
-    void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
-
-    const puz_game* m_game = nullptr;
-    char m_char;
-};
-
-void puz_state2::gen_children(list<puz_state2>& children) const
-{
-    for (auto& p = back(); auto& os : offset)
-        if (auto p2 = p + os; 
-            m_game->is_valid(p2) && boost::algorithm::none_of_equal(*this, p2))
-            if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE || ch2 == m_char + 1) {
-                children.push_back(*this);
-                children.back().make_move(p2);
-            }
-}
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
-: m_id(level.attribute("id").value())
-, m_sidelen(strs.size())
+    : m_id(level.attribute("id").value())
+    , m_sidelen(strs.size())
 {
     m_cells = boost::accumulate(strs, string());
     for (int r = 0; r < m_sidelen; ++r) {
@@ -89,9 +66,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& p1 : m_stones)
         for (auto& [r1, c1] = p1; auto& p2 : m_stones)
             if (p1 < p2)
-                if (auto& [r2, c2] = p2; r1 == r2 || c1 == c2)
-                    m_stone2stones[p1].push_back(p2),
-                    m_stone2stones[p2].push_back(p1);
+                if (auto& [r2, c2] = p2; r1 == r2 || c1 == c2) {
+                    set<Position> on_path;
+                    if (r1 == r2)
+                        for (int c = c1 + 1; c < c2; ++c)
+                            if (Position p3(r1, c); m_stones.contains(p3))
+                                on_path.insert(p3);
+                    else
+                        for (int r = r1 + 1; r < r2; ++c)
+                            if (Position p3(r, c1); m_stones.contains(p3))
+                                on_path.insert(p3);
+                    m_stone2moves[p1].emplace_back(p2, on_path);
+                    m_stone2moves[p2].emplace_back(p1, on_path);
+                }
 }
 
 struct puz_state
@@ -117,6 +104,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
+    set<Position> m_stones;
     map<pair<Position, int>, vector<pair<Position, int>>> m_matches;
     unsigned int m_distance = 0;
 };
