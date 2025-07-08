@@ -31,7 +31,7 @@ struct puz_game
     string m_cells;
     char m_letter_max;
     // 1st dimension : the index of the area(rows and columns)
-    // 2nd dimension : all the positions that the area is composed of
+    // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_area2range;
     // all permutations
     // A space A B C C

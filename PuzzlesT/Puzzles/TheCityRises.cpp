@@ -54,7 +54,7 @@ struct puz_game
     int m_sidelen;
     map<Position, int> m_pos2num;
     // 1st dimension : the index of the area(rows and columns)
-    // 2nd dimension : all the positions that the area is composed of
+    // 2nd dimension : all the positions forming the area
     vector<puz_area> m_areas;
     map<Position, int> m_pos2area;
     // key.key : number of the blocks

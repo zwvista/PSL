@@ -53,17 +53,17 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_cells;
-    // 1st dimension : the index of the area(rows and columns)
-    // 2nd dimension : all the positions that the area is composed of
+    // 1st dimension : the index of the area
+    // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
     map<Position, char> m_pos2dir;
     set<Position> m_horz_walls, m_vert_walls;
     vector<puz_move> m_moves;
+    set<pair<int, int>> m_area_pairs;
     map<int, vector<int>> m_area2move_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
@@ -131,7 +131,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
+            Position p1(r, c);
+            int area_id1 = m_pos2area.at(p1);
+            for (auto& os : offset)
+                if (auto p2 = p1 + os; is_valid(p2))
+                    if (int area_id2 = m_pos2area.at(p2); area_id1 != area_id2)
+                        m_area_pairs.insert({min(area_id1, area_id2), max(area_id1, area_id2)});
+        }
+
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
+            // 1. Each neighbourhood contains one entrance to the Underground.
             int area_id1 = m_pos2area.at(p);
             for (int i : {1, 2}) {
                 auto& os = offset[i];
@@ -140,12 +151,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     rng.push_back(p2);
                 if (rng.size() < 2) continue;
                 for (auto it = rng.begin() + 1; it != rng.end(); ++it)
-                    if (int area_id2 = m_pos2area.at(*it); area_id1 != area_id2) {
+                    // 2. For each entrance there is a corresponding entrance in a different neighbourhood.
+                    // 5. Two corresponding entrances cannot be in adjacent neighbourhood, i.e.
+                    // there must be at least one neighbourhood between them.
+                    if (int area_id2 = m_pos2area.at(*it);
+                        area_id1 != area_id2 &&
+                        !m_area_pairs.contains({min(area_id1, area_id2), max(area_id1, area_id2)})) {
                         int n = m_moves.size();
                         auto& [a1, a2, e1, e2, d1, d2, empties] = m_moves.emplace_back();
                         a1 = area_id1, a2 = area_id2;
                         e1 = p, e2 = *it;
+                        // 3. The arrows of two corresponding entrances must point to each other.
                         d1 = dirs[i], d2 = dirs[(i + 2) % 4];
+                        // 4. Between two corresponding entrances there cannot be any other entrance.
                         empties.insert(rng.begin(), it);
                         empties.insert_range(m_areas[area_id1]);
                         empties.insert_range(m_areas[area_id2]);

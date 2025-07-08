@@ -40,7 +40,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     // 1st dimension : the index of the area(rows and columns)
-    // 2nd dimension : all the positions that the area is composed of
+    // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
     string m_cells;

@@ -29,7 +29,7 @@ struct puz_game
     int m_sidelen;
     string m_cells;
     // 1st dimension : the index of the area(rows and columns)
-    // 2nd dimension : all the positions that the area is composed of
+    // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_area2range;
     // all permutations
     // 4 1 2 3 4 1
