@@ -172,6 +172,7 @@
     <Text Include="Puzzles\Minesweeper.txt" />
     <Text Include="Puzzles\MiniLits.txt" />
     <Text Include="Puzzles\Mirrors.txt" />
+    <Text Include="Puzzles\MirrorsExtended.txt" />
     <Text Include="Puzzles\MixedTatamis.txt" />
     <Text Include="Puzzles\MondrianLoop.txt" />
     <Text Include="Puzzles\MoreOrLess.txt" />
@@ -208,6 +209,7 @@
     <ClCompile Include="Puzzles\Minesweeper.cpp" />
     <ClCompile Include="Puzzles\MiniLits.cpp" />
     <ClCompile Include="Puzzles\Mirrors.cpp" />
+    <ClCompile Include="Puzzles\MirrorsExtended.cpp" />
     <ClCompile Include="Puzzles\MixedTatamis.cpp" />
     <ClCompile Include="Puzzles\MondrianLoop.cpp" />
     <ClCompile Include="Puzzles\MoreOrLess.cpp" />
@@ -239,6 +241,7 @@
     <Xml Include="Puzzles\Minesweeper.xml" />
     <Xml Include="Puzzles\MiniLits.xml" />
     <Xml Include="Puzzles\Mirrors.xml" />
+    <Xml Include="Puzzles\MirrorsExtended.xml" />
     <Xml Include="Puzzles\MixedTatamis.xml" />
     <Xml Include="Puzzles\MondrianLoop.xml" />
     <Xml Include="Puzzles\MoreOrLess.xml" />

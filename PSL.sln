@@ -63,7 +63,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PuzzlesJ", "PuzzlesJ\Puzzle
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Puzzles_Sample", "Puzzles_Sample\Puzzles_Sample.vcxproj", "{7FF851E9-93F4-4F30-8EA2-E38A35A2415B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Puzzles_Complicated", "Puzzles_Complicated\Puzzles_Complicated.vcxproj", "{DD7A582B-603A-41C0-9BA1-40FB7EA3CFC7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Puzzles_Deep", "Puzzles_Deep\Puzzles_Deep.vcxproj", "{DD7A582B-603A-41C0-9BA1-40FB7EA3CFC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

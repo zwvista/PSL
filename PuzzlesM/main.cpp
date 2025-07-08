@@ -15,6 +15,7 @@ extern void solve_puz_MineSlither();
 extern void solve_puz_Minesweeper();
 extern void solve_puz_MiniLits();
 extern void solve_puz_Mirrors();
+extern void solve_puz_MirrorsExtended();
 extern void solve_puz_MixedTatamis();
 extern void solve_puz_MondrianLoop();
 extern void solve_puz_MoreOrLess();
@@ -40,7 +41,8 @@ int main(int argc, char **argv)
         println("i3: Minesweeper");
         println("i4: Mini-Lits");
         println("i5: Mirrors");
-        println("i6: Mixed Tatamis");
+        println("i6: Mirrors, extended");
+        println("i7: Mixed Tatamis");
         println("o1: Mondrian Loop");
         println("o2: More Or Less");
         println("o3: Mosaik");
@@ -62,7 +64,8 @@ int main(int argc, char **argv)
         else if (str == "i3") solve_puz_Minesweeper();
         else if (str == "i4") solve_puz_MiniLits();
         else if (str == "i5") solve_puz_Mirrors();
-        else if (str == "i6") solve_puz_MixedTatamis();
+        else if (str == "i6") solve_puz_MirrorsExtended();
+        else if (str == "i7") solve_puz_MixedTatamis();
         else if (str == "o1") solve_puz_MondrianLoop();
         else if (str == "o2") solve_puz_MoreOrLess();
         else if (str == "o3") solve_puz_Mosaik();
