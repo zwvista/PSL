@@ -184,8 +184,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(int i, int j);
-    void make_move2(int i, int j);
+    bool make_move(int move_id);
+    void make_move2(int move_id);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -212,9 +212,9 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [i, move_ids] : m_matches) {
+    for (auto& [_1, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
-            auto& [_1, _2, e1, e2, d1, d2, empties] = m_game->m_moves[id];
+            auto& [_2, _3, e1, e2, d1, d2, empties] = m_game->m_moves[id];
             char ch1 = cells(e1), ch2 = cells(e2);
             return ch1 != PUZ_SPACE && ch1 != d1 ||
                 ch2 != PUZ_SPACE && ch2 != d2 ||
@@ -229,25 +229,25 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(i, move_ids[0]), 1;
+                return make_move2(move_ids[0]), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(int i, int j)
+void puz_state::make_move2(int move_id)
 {
-    auto& [a1, a2, e1, e2, d1, d2, empties] = m_game->m_moves[j];
+    auto& [a1, a2, e1, e2, d1, d2, empties] = m_game->m_moves[move_id];
     cells(e1) = d1, cells(e2) = d2;
     for (auto& p : empties)
         cells(p) = PUZ_EMPTY;
     m_distance += 2, m_matches.erase(a1), m_matches.erase(a2);
 }
 
-bool puz_state::make_move(int i, int j)
+bool puz_state::make_move(int move_id)
 {
     m_distance = 0;
-    make_move2(i, j);
+    make_move2(move_id);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -255,13 +255,13 @@ bool puz_state::make_move(int i, int j)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [i, move_ids] = *boost::min_element(m_matches, [](
+    auto& [_1, move_ids] = *boost::min_element(m_matches, [](
         const pair<const int, vector<int>>& kv1,
         const pair<const int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (auto& j : move_ids)
-        if (children.push_back(*this); !children.back().make_move(i, j))
+    for (auto& move_id : move_ids)
+        if (children.push_back(*this); !children.back().make_move(move_id))
             children.pop_back();
 }
 
