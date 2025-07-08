@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DD7A582B-603A-41C0-9BA1-40FB7EA3CFC7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Puzzles_Complicated</RootNamespace>
-    <ProjectName>Puzzles_Complicated</ProjectName>
+    <RootNamespace>Puzzles_Deep</RootNamespace>
+    <ProjectName>Puzzles_Deep</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
