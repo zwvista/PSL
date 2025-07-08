@@ -131,10 +131,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
-            Position p1(r, c);
-            int area_id1 = m_pos2area.at(p1);
-            for (auto& os : offset)
-                if (auto p2 = p1 + os; is_valid(p2))
+            Position p(r, c);
+            int area_id1 = m_pos2area.at(p);
+            for (auto& os : {offset[1], offset[2]})
+                if (auto p2 = p + os; is_valid(p2))
                     if (int area_id2 = m_pos2area.at(p2); area_id1 != area_id2)
                         m_area_pairs.insert({min(area_id1, area_id2), max(area_id1, area_id2)});
         }
