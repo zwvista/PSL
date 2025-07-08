@@ -76,7 +76,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             if (Position p3(r1, c); m_stones.contains(p3))
                                 on_path.insert(p3);
                     else
-                        for (int r = r1 + 1; r < r2; ++c)
+                        for (int r = r1 + 1; r < r2; ++r)
                             if (Position p3(r, c1); m_stones.contains(p3))
                                 on_path.insert(p3);
                     m_stone2moves[p1].emplace_back(dir, p2, on_path);

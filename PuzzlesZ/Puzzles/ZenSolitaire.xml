@@ -29,5 +29,28 @@ O OOO`
 O OOO`
     ]]>
   </level>
+  <level id="36">
+    <![CDATA[
+OOOOO`
+OOO  `
+     `
+O O  `
+   O `
+    ]]>
+  </level>
+  <level id="200">
+    <![CDATA[
+         O`
+OO     O  `
+         O`
+O    OO   `
+OOO   O   `
+       O  `
+     O   O`
+O   OO   O`
+   O     O`
+   OO    O`
+    ]]>
+  </level>
 </levels>
 </puzzle>

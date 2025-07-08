@@ -7,7 +7,7 @@ Sequence of moves:
 .. .. .. ..  8 
 Number of moves: 7
 Number of vertices examined: 32
-0.0011448 [s]
+0.0009236 [s]
 
 Level 2
 Sequence of moves: 
@@ -18,5 +18,32 @@ Sequence of moves:
  9 ..  3  4  8 
 Number of moves: 8
 Number of vertices examined: 77
-0.000956 [s]
+0.0017732 [s]
+
+Level 36
+Sequence of moves: 
+10  4  3  2 11 
+ 9  5  6 .. .. 
+.. .. .. .. .. 
+ 8 ..  7 .. .. 
+.. .. ..  1 .. 
+Number of moves: 10
+Number of vertices examined: 33
+0.0012486 [s]
+
+Level 200
+Sequence of moves: 
+.. .. .. .. .. .. .. .. ..  1 
+21 22 .. .. .. .. .. 23 .. .. 
+.. .. .. .. .. .. .. .. ..  2 
+20 .. .. .. .. 19 18 .. .. .. 
+14 15 16 .. .. .. 17 .. .. .. 
+.. .. .. .. .. .. .. 24 .. .. 
+.. .. .. .. .. 10 .. .. ..  9 
+13 .. .. .. 12 11 .. .. ..  8 
+.. .. ..  6 .. .. .. .. ..  7 
+.. .. ..  5  4 .. .. .. ..  3 
+Number of moves: 23
+Number of vertices examined: 269
+0.007778 [s]
 
