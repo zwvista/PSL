@@ -8,13 +8,13 @@
       location = "group:MazeEditor3/MazeEditor3.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Puzzles9/Puzzles9.xcodeproj">
+      location = "group:Puzzles_Deep/Puzzles_Deep.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Puzzles_Sample/Puzzles_Sample.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Puzzles_Deep/Puzzles_Deep.xcodeproj">
+      location = "group:Puzzles9/Puzzles9.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:PuzzlesA/PuzzlesA.xcodeproj">

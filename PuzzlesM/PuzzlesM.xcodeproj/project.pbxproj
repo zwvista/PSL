@@ -31,6 +31,7 @@
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
 		8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2B1EA926F60055D6B1 /* pugixml.cpp */; };
 		8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */; };
+		8CDAF8132E1D49F400ED90A3 /* MirrorsExtended.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CDAF8102E1D49F400ED90A3 /* MirrorsExtended.cpp */; };
 		958FA6212323CD1900205831 /* MixedTatamis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA61F2323CD1900205831 /* MixedTatamis.cpp */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +134,9 @@
 		8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F301EA926F60055D6B1 /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
 		8CA23F311EA926F60055D6B1 /* targetver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
+		8CDAF8102E1D49F400ED90A3 /* MirrorsExtended.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MirrorsExtended.cpp; sourceTree = "<group>"; };
+		8CDAF8112E1D49F400ED90A3 /* MirrorsExtended.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = MirrorsExtended.txt; sourceTree = "<group>"; };
+		8CDAF8122E1D49F400ED90A3 /* MirrorsExtended.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MirrorsExtended.xml; sourceTree = "<group>"; };
 		958FA61E2323CD1900205831 /* MixedTatamis.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MixedTatamis.xml; sourceTree = "<group>"; };
 		958FA61F2323CD1900205831 /* MixedTatamis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixedTatamis.cpp; sourceTree = "<group>"; };
 		958FA6202323CD1900205831 /* MixedTatamis.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MixedTatamis.txt; sourceTree = "<group>"; };
@@ -219,6 +223,9 @@
 				8CA23EF51EA924380055D6B1 /* Mirrors.cpp */,
 				8CA23EF61EA924380055D6B1 /* Mirrors.txt */,
 				8CA23EF71EA924380055D6B1 /* Mirrors.xml */,
+				8CDAF8102E1D49F400ED90A3 /* MirrorsExtended.cpp */,
+				8CDAF8112E1D49F400ED90A3 /* MirrorsExtended.txt */,
+				8CDAF8122E1D49F400ED90A3 /* MirrorsExtended.xml */,
 				958FA61F2323CD1900205831 /* MixedTatamis.cpp */,
 				958FA6202323CD1900205831 /* MixedTatamis.txt */,
 				958FA61E2323CD1900205831 /* MixedTatamis.xml */,
@@ -334,6 +341,7 @@
 				8CA23F091EA924380055D6B1 /* MatchstickEquation.cpp in Sources */,
 				8CA23F0D1EA924380055D6B1 /* mazecat.cpp in Sources */,
 				8C689CC02E003A2600A2BCCC /* MineSlither.cpp in Sources */,
+				8CDAF8132E1D49F400ED90A3 /* MirrorsExtended.cpp in Sources */,
 				8C689CC12E003A2600A2BCCC /* MaketheDifference.cpp in Sources */,
 				8CA23F061EA924380055D6B1 /* Magnets.cpp in Sources */,
 				8CA23F121EA924380055D6B1 /* MoreOrLess.cpp in Sources */,

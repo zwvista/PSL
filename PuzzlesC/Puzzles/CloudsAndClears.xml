@@ -2,12 +2,9 @@
 <puzzle>
 <help>
   <![CDATA[
-1. A favorite Zen Master pastime, scattering stones on the sand and picking them up.
-2. You can start at any stone and pick it up (just to click on it and it will be numbered in the order you pick it up).
-3. From a stone, you can move horizontally or vertically to the next stone. You can't jump over stones, if you encounter it, you have to pick it up.
-4. When moving from a stone to another, you can change direction, but you cannot reverse it.
-5. when a stone has been picked up, you can pass away it if you encounter it again (it's not there anymore).
-6. The goal is to pick up every stone.
+1. Paint the clouds according to the numbers.
+2. Each cloud or empty Sky patch contains a single number that is the extension of the region itself.
+3. On a region there can be other numbers. These will indicate how many empty (non-cloud) tiles around it (diagonal too) including itself.
   ]]>
 </help>
 <levels>

@@ -8,15 +8,16 @@
     iOS Game: 100 Logic Games 2/Puzzle Set 4/Mirrors, extended
 
     Summary
-    Subway entrances
+    with lasers, of course
 
     Description
-    1. Each neighbourhood contains one entrance to the MirrorsExtended.
-    2. For each entrance there is a corresponding entrance in a different neighbourhood.
-    3. The arrows of two corresponding entrances must point to each other.
-    4. Between two corresponding entrances there cannot be any other entrance.
-    5. Two corresponding entrances cannot be in adjacent neighbourhood, i.e.
-       there must be at least one neighbourhood between them.
+    1. On the border there are some lasers, marked with the letter and number.
+    2. The letter tells you where that laser beam will start and end (it is paired with the same
+       letter somewhere else).
+    3. The number tells you how many mirrors the laser beam will bounce off before reaching the
+       other letter.
+    4. Each area contains one mirror.
+    5. Each mirror reflects at least one laser beam.
 */
 
 namespace puzzles::MirrorsExtended{

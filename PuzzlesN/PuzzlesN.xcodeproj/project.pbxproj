@@ -22,6 +22,7 @@
 		8CA240C61EB47A950055D6B1 /* numeric_paranoia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240BB1EB47A950055D6B1 /* numeric_paranoia.cpp */; };
 		8CA240C71EB47A950055D6B1 /* Nurikabe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240BE1EB47A950055D6B1 /* Nurikabe.cpp */; };
 		8CDAE7DD1F5AEA75000DE5AF /* NumberPath2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CDAE7DB1F5AEA75000DE5AF /* NumberPath2.cpp */; };
+		8CDAF8172E1D4C8400ED90A3 /* Nooks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CDAF8142E1D4C8400ED90A3 /* Nooks.cpp */; };
 		95D7B5C8230C4547001E005C /* NumberCrossing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5C5230C4546001E005C /* NumberCrossing.cpp */; };
 		95D7B5D123140C1D001E005C /* NumberCrosswords.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5D023140C1D001E005C /* NumberCrosswords.cpp */; };
 /* End PBXBuildFile section */
@@ -100,6 +101,9 @@
 		8CA240C01EB47A950055D6B1 /* Nurikabe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Nurikabe.xml; sourceTree = "<group>"; };
 		8CDAE7DB1F5AEA75000DE5AF /* NumberPath2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumberPath2.cpp; sourceTree = "<group>"; };
 		8CDAE7DC1F5AEA75000DE5AF /* NumberPath2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumberPath2.txt; sourceTree = "<group>"; };
+		8CDAF8142E1D4C8400ED90A3 /* Nooks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Nooks.cpp; sourceTree = "<group>"; };
+		8CDAF8152E1D4C8400ED90A3 /* Nooks.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Nooks.txt; sourceTree = "<group>"; };
+		8CDAF8162E1D4C8400ED90A3 /* Nooks.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Nooks.xml; sourceTree = "<group>"; };
 		95D7B5C5230C4546001E005C /* NumberCrossing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumberCrossing.cpp; sourceTree = "<group>"; };
 		95D7B5C6230C4546001E005C /* NumberCrossing.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NumberCrossing.xml; sourceTree = "<group>"; };
 		95D7B5C7230C4546001E005C /* NumberCrossing.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumberCrossing.txt; sourceTree = "<group>"; };
@@ -154,6 +158,9 @@
 				8C689D1D2E07753100A2BCCC /* NewCarpenterSquare.cpp */,
 				8C689D1E2E07753100A2BCCC /* NewCarpenterSquare.txt */,
 				8C689D1F2E07753100A2BCCC /* NewCarpenterSquare.xml */,
+				8CDAF8142E1D4C8400ED90A3 /* Nooks.cpp */,
+				8CDAF8152E1D4C8400ED90A3 /* Nooks.txt */,
+				8CDAF8162E1D4C8400ED90A3 /* Nooks.xml */,
 				8CA240AF1EB47A950055D6B1 /* NorthPoleFishing.cpp */,
 				8CA240B01EB47A950055D6B1 /* NorthPoleFishing.txt */,
 				8CA240B11EB47A950055D6B1 /* NorthPoleFishing.xml */,
@@ -295,6 +302,7 @@
 				8CA240C51EB47A950055D6B1 /* NumberPath.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA240C41EB47A950055D6B1 /* NumberLink.cpp in Sources */,
+				8CDAF8172E1D4C8400ED90A3 /* Nooks.cpp in Sources */,
 				8CA240C61EB47A950055D6B1 /* numeric_paranoia.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,12 +2,10 @@
 <puzzle>
 <help>
   <![CDATA[
-1. A favorite Zen Master pastime, scattering stones on the sand and picking them up.
-2. You can start at any stone and pick it up (just to click on it and it will be numbered in the order you pick it up).
-3. From a stone, you can move horizontally or vertically to the next stone. You can't jump over stones, if you encounter it, you have to pick it up.
-4. When moving from a stone to another, you can change direction, but you cannot reverse it.
-5. when a stone has been picked up, you can pass away it if you encounter it again (it's not there anymore).
-6. The goal is to pick up every stone.
+1. Fill some tiles with hedges, so that each number (where someone is playing hide and seek) finds itself in the nook.
+2. a Nook is a dead end, one tile wide, with a number in it.
+3. a Nook contains a number that shows you how many tiles can be seen in a straight line from there, including the tile itself.
+4. The resulting maze should be a single one-tile path connected horizontally or vertically where there are no 2x2 areas of the same type (hedge or path).
   ]]>
 </help>
 <levels>
