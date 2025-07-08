@@ -126,17 +126,20 @@ bool puz_state::make_move(const Position& p, int n)
     for (auto& [p2, move_ids] : m_stone2move_ids) {
         auto& moves = m_game->m_stone2moves.at(p2);
         for (int i = 0; i < moves.size(); ++i)
-            if (auto& [to2, on_path2] = moves[i]; to2 == to || to2 == p)
+            if (auto& [to2, on_path2] = moves[i]; !m_stone2move_ids.contains(to2))
                 boost::remove_erase(move_ids, i);
-            else if (boost::algorithm::none_of(on_path2, [&](const Position& p2) {
+            else if (!on_path2.empty() && boost::algorithm::none_of(on_path2, [&](const Position& p2) {
                 return m_stone2move_ids.contains(p2);
             }))
                 move_ids.push_back(i);
-        if (move_ids.empty())
-            return false; // no more moves available for this stone
     }
     if (m_stone2move_ids.size() == 1)
         m_stone2move_ids.clear(); // only one stone left, no more moves available
+    else if (boost::algorithm::any_of(m_stone2move_ids,
+        [](const pair<const Position, vector<int>>& kv) {
+        return kv.second.empty();
+    }))
+        return false; // no more moves available for some stones
     return true; // move successful
 }
 
