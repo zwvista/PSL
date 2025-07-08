@@ -10,6 +10,7 @@ extern void solve_puz_Cheese();
 extern void solve_puz_Chocolate();
 extern void solve_puz_CleaningPath();
 extern void solve_puz_Clouds();
+extern void solve_puz_CloudsAndClears();
 extern void solve_puz_CoffeeAndSugar();
 extern void solve_puz_Consecutives();
 extern void solve_puz_CrossroadBlocks();
@@ -32,6 +33,7 @@ int main(int argc, char **argv)
     println("h2: Chocolate");
     println("l1: Cleaning Path");
     println("l2: Clouds");
+    println("l3: Clouds and Clears");
     println("o1: Coffee And Sugar");
     println("o2: Consecutives");
     println("r1: Crossroad Blocks");
@@ -51,6 +53,7 @@ int main(int argc, char **argv)
         else if (str == "h2") solve_puz_Chocolate();
         else if (str == "l1") solve_puz_CleaningPath();
         else if (str == "l2") solve_puz_Clouds();
+        else if (str == "l3") solve_puz_CloudsAndClears();
         else if (str == "o1") solve_puz_CoffeeAndSugar();
         else if (str == "o2") solve_puz_Consecutives();
         else if (str == "r1") solve_puz_CrossroadBlocks();

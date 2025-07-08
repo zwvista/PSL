@@ -168,6 +168,7 @@
     <Text Include="Puzzles\CleaningPath.txt" />
     <Text Include="Puzzles\Clouds.txt" />
     <Text Include="Puzzles\Clouds2.txt" />
+    <Text Include="Puzzles\CloudsAndClears.txt" />
     <Text Include="Puzzles\CoffeeAndSugar.txt" />
     <Text Include="Puzzles\Consecutives.txt" />
     <Text Include="Puzzles\CrossroadBlocks.txt" />
@@ -200,6 +201,7 @@
     <ClCompile Include="Puzzles\Chocolate.cpp" />
     <ClCompile Include="Puzzles\CleaningPath.cpp" />
     <ClCompile Include="Puzzles\Clouds.cpp" />
+    <ClCompile Include="Puzzles\CloudsAndClears.cpp" />
     <ClCompile Include="Puzzles\CoffeeAndSugar.cpp" />
     <ClCompile Include="Puzzles\Consecutives.cpp" />
     <ClCompile Include="Puzzles\CrossroadBlocks.cpp" />
@@ -228,6 +230,7 @@
     <Xml Include="Puzzles\CleaningPath.xml" />
     <Xml Include="Puzzles\Clouds.xml" />
     <Xml Include="Puzzles\Clouds2.xml" />
+    <Xml Include="Puzzles\CloudsAndClears.xml" />
     <Xml Include="Puzzles\CoffeeAndSugar.xml" />
     <Xml Include="Puzzles\Consecutives.xml">
       <SubType>Designer</SubType>

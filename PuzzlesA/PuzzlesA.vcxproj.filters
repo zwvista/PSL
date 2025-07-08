@@ -40,6 +40,9 @@
     <Text Include="Puzzles\AssemblyInstructions.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\AbstractMirrorPainting.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -83,6 +86,9 @@
     <ClCompile Include="Puzzles\AssemblyInstructions.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\AbstractMirrorPainting.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Abc.xml">
@@ -104,6 +110,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\AssemblyInstructions.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\AbstractMirrorPainting.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

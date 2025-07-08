@@ -159,6 +159,7 @@
   <ItemGroup>
     <Text Include="Puzzles\Abc.txt" />
     <Text Include="Puzzles\ABCPath.txt" />
+    <Text Include="Puzzles\AbstractMirrorPainting.txt" />
     <Text Include="Puzzles\AbstractPainting.txt" />
     <Text Include="Puzzles\ADifferentFarmer.txt" />
     <Text Include="Puzzles\Archipelago.txt" />
@@ -181,6 +182,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Abc.cpp" />
     <ClCompile Include="Puzzles\ABCPath.cpp" />
+    <ClCompile Include="Puzzles\AbstractMirrorPainting.cpp" />
     <ClCompile Include="Puzzles\AbstractPainting.cpp" />
     <ClCompile Include="Puzzles\ADifferentFarmer.cpp" />
     <ClCompile Include="Puzzles\Archipelago.cpp" />
@@ -196,6 +198,7 @@
   <ItemGroup>
     <Xml Include="Puzzles\Abc.xml" />
     <Xml Include="Puzzles\ABCPath.xml" />
+    <Xml Include="Puzzles\AbstractMirrorPainting.xml" />
     <Xml Include="Puzzles\AbstractPainting.xml" />
     <Xml Include="Puzzles\ADifferentFarmer.xml" />
     <Xml Include="Puzzles\Archipelago.xml" />

@@ -161,6 +161,7 @@
     <Text Include="Puzzles\Neighbours2.txt" />
     <Text Include="Puzzles\Neighbours3.txt" />
     <Text Include="Puzzles\NewCarpenterSquare.txt" />
+    <Text Include="Puzzles\Nooks.txt" />
     <Text Include="Puzzles\NorthPoleFishing.txt" />
     <Text Include="Puzzles\NoughtsAndCrosses.txt" />
     <Text Include="Puzzles\NumberChain.txt" />
@@ -189,6 +190,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\Neighbours.cpp" />
     <ClCompile Include="Puzzles\NewCarpenterSquare.cpp" />
+    <ClCompile Include="Puzzles\Nooks.cpp" />
     <ClCompile Include="Puzzles\NorthPoleFishing.cpp" />
     <ClCompile Include="Puzzles\NoughtsAndCrosses.cpp" />
     <ClCompile Include="Puzzles\NumberChain.cpp" />
@@ -211,6 +213,7 @@
     <Xml Include="Puzzles\Neighbours2.xml" />
     <Xml Include="Puzzles\Neighbours3.xml" />
     <Xml Include="Puzzles\NewCarpenterSquare.xml" />
+    <Xml Include="Puzzles\Nooks.xml" />
     <Xml Include="Puzzles\NorthPoleFishing.xml" />
     <Xml Include="Puzzles\NoughtsAndCrosses.xml" />
     <Xml Include="Puzzles\NumberChain.xml" />

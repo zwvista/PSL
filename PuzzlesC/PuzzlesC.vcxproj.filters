@@ -73,6 +73,9 @@
     <Text Include="Puzzles\CulturedBranches.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\CloudsAndClears.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -146,6 +149,9 @@
     <ClCompile Include="Puzzles\CulturedBranches.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\CloudsAndClears.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Calcudoku.xml">
@@ -200,6 +206,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\CulturedBranches.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\CloudsAndClears.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
