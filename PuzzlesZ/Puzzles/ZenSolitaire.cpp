@@ -106,17 +106,21 @@ struct puz_state
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
+, m_stones(g.m_stones)
 {
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
-    int index = m_path.size();
-    if (index == 0)
-        m_stones.erase(m_path[index++] = p); // first stone picked up
+    auto f = [&](const Position& p2) {
+        m_stones.erase(p2);
+        m_path.push_back(p2);
+    };
+    if (m_path.empty())
+        f(p); // first stone picked up
 
     auto& [to, on_path] = m_game->m_stone2moves.at(p)[n];
-    m_stones.erase(m_path[index] = to);
+    f(to);
     return true;
 }
 
@@ -126,9 +130,10 @@ void puz_state::gen_children(list<puz_state>& children) const
         auto& moves = m_game->m_stone2moves.at(p);
         for (int n = 0; n < moves.size(); ++n)
             if (auto& [to, on_path] = m_game->m_stone2moves.at(p)[n];
+                m_stones.contains(to) &&
                 boost::algorithm::none_of(on_path, [&](const Position& p2) {
                     return m_stones.contains(p2);
-                }))
+            }))
                 if (children.push_back(*this); !children.back().make_move(p, n))
                     children.pop_back();
     };
@@ -146,7 +151,7 @@ ostream& puz_state::dump(ostream& out) const
             if (Position p(r, c); !m_game->m_stones.contains(p))
                 out << "   ";
             else {
-                int n = boost::find(m_path, p) - m_path.begin();
+                int n = boost::find(m_path, p) - m_path.begin() + 1;
                 out << format("{:2}", n) << ' ';
             }
         println(out);
