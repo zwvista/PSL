@@ -71,14 +71,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if (auto& [r2, c2] = p2; r1 == r2 || c1 == c2) {
                     set<Position> on_path;
                     int dir = r1 == r2 ? 1 : 2;
-                    if (r1 == r2)
+                    if (r1 == r2) {
                         for (int c = c1 + 1; c < c2; ++c)
                             if (Position p3(r1, c); m_stones.contains(p3))
                                 on_path.insert(p3);
-                    else
+                    } else {
                         for (int r = r1 + 1; r < r2; ++r)
                             if (Position p3(r, c1); m_stones.contains(p3))
                                 on_path.insert(p3);
+                    }
                     m_stone2moves[p1].emplace_back(dir, p2, on_path);
                     m_stone2moves[p2].emplace_back((dir + 2) % 4, p1, on_path);
                 }
