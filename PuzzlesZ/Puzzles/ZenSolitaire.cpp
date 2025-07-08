@@ -44,18 +44,17 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_cells;
     set<Position> m_stones;
     map<Position, vector<puz_move>> m_stone2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    int stone_count() const { return m_stones.size(); }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
 {
-    m_cells = boost::accumulate(strs, string());
     for (int r = 0; r < m_sidelen; ++r) {
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
@@ -85,111 +84,71 @@ struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+        return m_stones < x.m_stones;
     }
     bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
-    int find_matches(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
-    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
+    unsigned int get_heuristic() const { return m_stones.size(); }
+    unsigned int get_distance(const puz_state& child) const {
+        return m_path.empty() ? 2 : 1;
+    }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    string m_cells;
     set<Position> m_stones;
-    map<pair<Position, int>, vector<pair<Position, int>>> m_matches;
-    unsigned int m_distance = 0;
+    vector<Position> m_path; // path from the first stone to the current stone
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 {
-    find_matches(true);
-}
-
-int puz_state::find_matches(bool init)
-{
-    for (auto& [p, infos] : m_matches) {
-        //boost::remove_erase_if(infos, [&](const pair<Position, int>& info) {
-        //    auto& perm = m_game->m_pos2perms.at(info.first)[info.second];
-        //    for (int i = 0, sz = perm.size(); i < sz; ++i) {
-        //        auto& p2 = perm[i];
-        //        int dt = dots(p2);
-        //        if (i < sz - 1 && !m_matches.contains({p2, PUZ_FROM}) ||
-        //            i > 0 && !m_matches.contains({p2, PUZ_TO}))
-        //            return true;
-        //    }
-        //    return false;
-        //});
-
-        if (!init)
-            switch(infos.size()) {
-            case 0:
-                return 0;
-            case 1:
-                return make_move2(infos[0].first, infos[0].second), 1;
-            }
-    }
-    return 2;
-}
-
-void puz_state::make_move2(const Position& p, int n)
-{
-    //auto& perm = m_game->m_pos2perms.at(p)[n];
-    //for (int i = 0, sz = perm.size(); i < sz; ++i) {
-    //    auto& p2 = perm[i];
-    //    auto f = [&](const Position& p3, int fromto) {
-    //        int dir = boost::find(offset, p3 - p2) - offset;
-    //        dots(p2) |= 1 << dir;
-    //        dots(p3) |= 1 << (dir + 2) % 4;
-    //        m_matches.erase({p2, fromto}), ++m_distance;
-    //    };
-    //    if (i < sz - 1)
-    //        f(perm[i + 1], PUZ_FROM);
-    //    if (i > 0)
-    //        f(perm[i - 1], PUZ_TO);
-    //}
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
-    m_distance = 0;
-    make_move2(p, n);
-    int m;
-    while ((m = find_matches(false)) == 1);
-    return m == 2;
+    int index = m_path.size();
+    if (index == 0)
+        m_stones.erase(m_path[index++] = p); // first stone picked up
+
+    auto& [to, on_path] = m_game->m_stone2moves.at(p)[n];
+    m_stones.erase(m_path[index] = to);
+    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, infos] = *boost::min_element(m_matches, [](
-        const pair<const pair<Position, int>, vector<pair<Position, int>>>& kv1,
-        const pair<const pair<Position, int>, vector<pair<Position, int>>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (auto& info : infos)
-        if (children.push_back(*this); !children.back().make_move(info.first, info.second))
-            children.pop_back();
+    auto f = [&](const Position& p) {
+        auto& moves = m_game->m_stone2moves.at(p);
+        for (int n = 0; n < moves.size(); ++n)
+            if (auto& [to, on_path] = m_game->m_stone2moves.at(p)[n];
+                boost::algorithm::none_of(on_path, [&](const Position& p2) {
+                    return m_stones.contains(p2);
+                }))
+                if (children.push_back(*this); !children.back().make_move(p, n))
+                    children.pop_back();
+    };
+    if (m_path.empty())
+        for (auto& p : m_game->m_stones)
+            f(p);
+    else
+        f(m_path.back());
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            if (char ch = cells(p); ch == PUZ_STONE)
-                out << format("{:2}", 2);
-            else
-                out << ' ' << ch;
-        }
+        for (int c = 0; c < sidelen(); ++c)
+            if (Position p(r, c); !m_game->m_stones.contains(p))
+                out << "   ";
+            else {
+                int n = boost::find(m_path, p) - m_path.begin();
+                out << format("{:2}", n) << ' ';
+            }
         println(out);
     }
     return out;
