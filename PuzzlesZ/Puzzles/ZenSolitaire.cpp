@@ -25,8 +25,7 @@
 namespace puzzles::ZenSolitaire{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_FROM = 1;
-constexpr auto PUZ_TO = 2;
+constexpr auto PUZ_STONE = 'O';
 
 constexpr Position offset[] = {
     {-1, 0},       // n
@@ -35,20 +34,13 @@ constexpr Position offset[] = {
     {0, -1},       // w
 };
 
-// n-e-s-w
-// 0 means line is off in this direction
-// 1,2,4,8 means line is on in this direction
-
-inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
-
-constexpr int lineseg_off = 0;
-
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     string m_cells;
     set<Position> m_stones;
+    map<Position, vector<Position>> m_stone2stones;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
@@ -94,16 +86,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_stones.emplace(r, c);
     }
 
+    for (auto& p1 : m_stones)
+        for (auto& [r1, c1] = p1; auto& p2 : m_stones)
+            if (p1 < p2)
+                if (auto& [r2, c2] = p2; r1 == r2 || c1 == c2)
+                    m_stone2stones[p1].push_back(p2),
+                    m_stone2stones[p2].push_back(p1);
 }
 
 struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    int dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
-    int& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots);
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
     void make_move2(const Position& p, int n);
@@ -118,14 +116,13 @@ struct puz_state
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    vector<int> m_dots;
+    string m_cells;
     map<pair<Position, int>, vector<pair<Position, int>>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
-, m_dots(g.m_sidelen * g.m_sidelen)
 {
     find_matches(true);
 }
@@ -197,18 +194,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0;; ++r) {
-        // draw horizontal lines
+    for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            out << m_game->cells(p)
-                << (is_lineseg_on(dots(p), 1) ? '-' : ' ');
+            if (char ch = cells(p); ch == PUZ_STONE)
+                out << format("{:2}", 2);
+            else
+                out << ' ' << ch;
         }
-        println(out);
-        if (r == sidelen() - 1) break;
-        for (int c = 0; c < sidelen(); ++c)
-            // draw vertical lines
-            out << (is_lineseg_on(dots({r, c}), 2) ? "| " : "  ");
         println(out);
     }
     return out;
