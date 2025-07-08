@@ -85,9 +85,9 @@ struct puz_state
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
     bool operator<(const puz_state& x) const {
-        return m_stones < x.m_stones;
+        return tie(m_stones, m_path) < tie(x.m_stones, x.m_path);
     }
-    bool make_move(const Position& p, int n);
+    void make_move(const Position& p, int n);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -110,7 +110,7 @@ puz_state::puz_state(const puz_game& g)
 {
 }
 
-bool puz_state::make_move(const Position& p, int n)
+void puz_state::make_move(const Position& p, int n)
 {
     auto f = [&](const Position& p2) {
         m_stones.erase(p2);
@@ -119,9 +119,8 @@ bool puz_state::make_move(const Position& p, int n)
     if (m_path.empty())
         f(p); // first stone picked up
 
-    auto& [to, on_path] = m_game->m_stone2moves.at(p)[n];
+    auto& [to, _1] = m_game->m_stone2moves.at(p)[n];
     f(to);
-    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -129,13 +128,14 @@ void puz_state::gen_children(list<puz_state>& children) const
     auto f = [&](const Position& p) {
         auto& moves = m_game->m_stone2moves.at(p);
         for (int n = 0; n < moves.size(); ++n)
-            if (auto& [to, on_path] = m_game->m_stone2moves.at(p)[n];
+            if (auto& [to, on_path] = moves[n];
                 m_stones.contains(to) &&
                 boost::algorithm::none_of(on_path, [&](const Position& p2) {
                     return m_stones.contains(p2);
-            }))
-                if (children.push_back(*this); !children.back().make_move(p, n))
-                    children.pop_back();
+            })) {
+                children.push_back(*this);
+                children.back().make_move(p, n);
+            }
     };
     if (m_path.empty())
         for (auto& p : m_game->m_stones)
@@ -149,7 +149,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c)
             if (Position p(r, c); !m_game->m_stones.contains(p))
-                out << "   ";
+                out << ".. ";
             else {
                 int n = boost::find(m_path, p) - m_path.begin() + 1;
                 out << format("{:2}", n) << ' ';
