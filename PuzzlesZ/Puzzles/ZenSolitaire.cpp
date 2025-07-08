@@ -29,8 +29,8 @@ constexpr auto PUZ_STONE = 'O';
 
 constexpr Position offset[] = {
     {-1, 0},       // n
-    {0, 1},         // e
-    {1, 0},         // s
+    {0, 1},        // e
+    {1, 0},        // s
     {0, -1},       // w
 };
 
@@ -67,7 +67,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     // jump over stones, if you encounter it, you have to pick it up.
     for (auto& p1 : m_stones)
         for (auto& [r1, c1] = p1; auto& p2 : m_stones)
-            if (p1 < p2)
+            if (p1 < p2) // without loss of generality
                 if (auto& [r2, c2] = p2; r1 == r2 || c1 == c2) {
                     set<Position> on_path;
                     int dir = r1 == r2 ? 1 : 2;

@@ -55,8 +55,8 @@ const vector<int> linesegs_all_post = {
 
 constexpr Position offset[] = {
     {-1, 0},       // n
-    {0, 1},         // e
-    {1, 0},         // s
+    {0, 1},        // e
+    {1, 0},        // s
     {0, -1},       // w
 };
 

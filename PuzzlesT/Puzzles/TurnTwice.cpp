@@ -33,8 +33,8 @@ constexpr auto PUZ_WALL = 'W';
 
 constexpr Position offset[] = {
     {-1, 0},       // n
-    {0, 1},         // e
-    {1, 0},         // s
+    {0, 1},        // e
+    {1, 0},        // s
     {0, -1},       // w
 };
 

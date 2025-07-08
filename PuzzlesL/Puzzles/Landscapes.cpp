@@ -32,10 +32,10 @@ constexpr Position offset[] = {
 };
 
 constexpr Position offset2[] = {
-    {0, 0},         // n
-    {0, 1},         // e
-    {1, 0},         // s
-    {0, 0},         // w
+    {0, 0},        // n
+    {0, 1},        // e
+    {1, 0},        // s
+    {0, 0},        // w
 };
 
 struct puz_region
