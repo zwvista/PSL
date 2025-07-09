@@ -50,12 +50,10 @@ struct puz_game
     // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
-    map<Position, char> m_pos2num;
+    map<Position, int> m_pos2num;
     vector<int> m_area2num;
     set<Position> m_horz_walls, m_vert_walls;
-    vector<puz_move> m_moves;
-    set<pair<int, int>> m_area_pairs;
-    map<int, vector<int>> m_area2move_ids;
+    map<pair<int, int>, vector<set<Position>>> m_area_pair2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -123,14 +121,26 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (m_area2num.resize(m_areas.size()); auto& [p, num] : m_pos2num)
         m_area2num[m_pos2area.at(p)] = num;
 
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c) {
-            Position p(r, c);
-            int area_id1 = m_pos2area.at(p);
+    for (int r1 = 0; r1 < m_sidelen; ++r1)
+        for (int c1 = 0; c1 < m_sidelen; ++c1) {
+            Position p1(r1, c1);
+            int area_id1 = m_pos2area.at(p1);
             for (auto& os : {offset[1], offset[2]})
-                if (auto p2 = p + os; is_valid(p2))
-                    if (int area_id2 = m_pos2area.at(p2); area_id1 != area_id2)
-                        m_area_pairs.insert({min(area_id1, area_id2), max(area_id1, area_id2)});
+                if (auto p2 = p1 + os; is_valid(p2))
+                    if (int area_id2 = m_pos2area.at(p2); area_id1 != area_id2) {
+                        auto& [r2, c2] = p2;
+                        auto& moves = m_area_pair2moves[{min(area_id1, area_id2), max(area_id1, area_id2)}];
+                        auto& move = moves.emplace_back();
+                        move.insert(p1), move.insert(p2);
+                        auto& os1 = offset[r1 == r2 ? 3 : 0];
+                        auto& os2 = offset[r1 == r2 ? 1 : 2];
+                        for (auto p3 = p1 + os1, p4 = p2 + os2;
+                            is_valid(p3) && is_valid(p4) &&
+                            m_pos2area.at(p3) == area_id1 &&
+                            m_pos2area.at(p4) == area_id2;
+                            p3 += os1, p4 += os2)
+                            move.insert(p3), move.insert(p4);
+                    }
         }
 
 }
@@ -166,7 +176,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
-, m_matches(g.m_area2move_ids)
+, m_area2num(g.m_area2num)
 {
     find_matches(true);
 }
