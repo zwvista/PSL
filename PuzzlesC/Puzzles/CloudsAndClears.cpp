@@ -21,6 +21,9 @@
 namespace puzzles::CloudsAndClears{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_CLOUD = 'C';
+constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
     {-1, 0},       // n
@@ -44,20 +47,69 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
+    string m_cells;
     map<Position, int> m_pos2num;
+    map<Position, vector<set<Position>>> m_pos2patches;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
+
+struct puz_state2 : set<Position>
+{
+    puz_state2(const puz_game& game, int num, const Position& p)
+        : m_game(&game), m_num(num) {make_move(p);}
+
+    bool is_goal_state() const { return size() == m_num; }
+    void make_move(const Position& p) { insert(p); }
+    void gen_children(list<puz_state2>& children) const;
+    unsigned int get_distance(const puz_state2& child) const { return 1; }
+
+    const puz_game* m_game = nullptr;
+    int m_num;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const {
+    for (auto& p : *this)
+        for (auto& os : offset) {
+            auto p2 = p + os;
+            if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE && !contains(p2)) {
+                children.push_back(*this);
+                children.back().make_move(p2);
+            }
+        }
+}
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size())
+    , m_sidelen(strs.size() + 2)
 {
-    for (int r = 0; r < m_sidelen; ++r) {
-        string_view str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c)
-            if (char ch = str[c]; ch != PUZ_SPACE)
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    for (int r = 1; r < m_sidelen - 1; ++r) {
+        string_view str = strs[r - 1];
+        m_cells.push_back(PUZ_BOUNDARY);
+        for (int c = 1; c < m_sidelen - 1; ++c) {
+            if (char ch = str[c - 1]; ch != PUZ_SPACE)
                 m_pos2num[{r, c}] = ch - '0';
+            m_cells.push_back(PUZ_SPACE);
+        }
+        m_cells.push_back(PUZ_BOUNDARY);
+    }
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
+
+    for (auto& [p, num] : m_pos2num) {
+        auto& patches = m_pos2patches[p];
+        if (num == 1)
+            patches = {{p}};
+        else {
+            puz_state2 sstart(*this, num, p);
+            list<list<puz_state2>> spaths;
+            if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
+                for (auto& spath : spaths) {
+                    auto& s = spath.back();
+                    patches.push_back({s.begin(), s.end()});
+                }
+        }
     }
 }
 
