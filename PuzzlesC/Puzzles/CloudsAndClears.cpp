@@ -23,7 +23,6 @@ namespace puzzles::CloudsAndClears{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_CLOUD = 'C';
-constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
     {-1, 0},       // n
@@ -44,86 +43,96 @@ constexpr Position offset2[] = {
     {-1, -1},      // nw
 };
 
-struct puz_move
+struct puz_patch
 {
-    int m_dir; // direction to the next stone
-    Position m_to;
-    set<Position> m_on_path; // stones on the path
+    set<Position> m_rng;
+    bool m_is_cloud = false;
+    set<Position> m_clouds, m_empties;
 };
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_cells;
     map<Position, int> m_pos2num;
     map<int, vector<string>> m_num2perms;
-    map<Position, vector<set<Position>>> m_pos2patches;
+    map<Position, vector<puz_patch>> m_pos2patches;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
 
-// first: true if the patch is a cloud, false if it is an empty sky patch
-// second: the positions of the patch
-struct puz_state2 : pair<bool, set<Position>>
+struct puz_state2 : set<Position>
 {
     puz_state2(const puz_game& game, int num, bool is_cloud, const Position& p)
-        : m_game(&game), m_num(num) { first = is_cloud, make_move(p, num, -1); }
+        : m_game(&game), m_num(num), m_is_cloud(is_cloud) { make_move(p, num, -1); }
 
-    bool is_goal_state() const { return second.size() == m_num; }
+    bool is_goal_state() const { return size() == m_num; }
     bool make_move(const Position& p, int num, int perm_id);
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game = nullptr;
     int m_num;
+    bool m_is_cloud;
     set<Position> m_clouds, m_empties;
 };
 
 bool puz_state2::make_move(const Position& p, int num, int perm_id)
 {
-    second.insert(p);
+    insert(p);
+    (m_is_cloud ? m_clouds : m_empties).erase(p);
     if (perm_id != -1) {
+        auto& perm = m_game->m_num2perms.at(num)[perm_id];
+        for (int i = 0; i < 9; ++i) {
+            auto p2 = p + offset2[i];
+            bool is_inside = contains(p2), is_cloud = perm[i] == PUZ_CLOUD;
+            if (is_cloud != (is_inside && m_is_cloud ||
+                !is_inside && (m_is_cloud ? m_clouds : m_empties).contains(p2)))
+                return false; // invalid move
+            if (!is_inside)
+                (is_cloud ? m_clouds : m_empties).insert(p2);
+        }
     }
     if (is_goal_state())
-        for (auto& p : second)
-            for (auto& os : offset) {
-                auto p2 = p + os;
-                if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE && !second.contains(p2))
-                    (first ? m_empties : m_clouds).insert(p2);
-            }
-    return true; // move successful
+        for (auto& p : *this)
+            for (auto& os : offset)
+                if (auto p2 = p + os; m_game->is_valid(p2) && !contains(p2))
+                    (m_is_cloud ? m_empties : m_clouds).insert(p2);
+    return true;
 }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    //for (auto& p : *this)
-    //    for (auto& os : offset) {
-    //        auto p2 = p + os;
-    //        if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE && !contains(p2)) {
-    //            children.push_back(*this);
-    //            children.back().make_move(p2);
-    //        }
-    //    }
+    for (auto& p : *this)
+        for (auto& os : offset)
+            if (auto p2 = p + os;
+                m_game->is_valid(p2) && !contains(p2) &&
+                !(m_is_cloud ? m_empties : m_clouds).contains(p2))
+                if (auto it = m_game->m_pos2num.find(p2); it == m_game->m_pos2num.end()) {
+                    children.push_back(*this);
+                    children.back().make_move(p2, -1, -1);
+                } else {
+                    int num = it->second;
+                    auto& perms = m_game->m_num2perms.at(num);
+                    for (int i = 0; i < perms.size(); ++i)
+                        if (children.push_back(*this); !children.back().make_move(p2, num, i))
+                            children.pop_back();
+                }
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size() + 2)
+    , m_sidelen(strs.size())
 {
-    m_cells.append(m_sidelen, PUZ_BOUNDARY);
-    for (int r = 1; r < m_sidelen - 1; ++r) {
-        string_view str = strs[r - 1];
-        m_cells.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            if (char ch = str[c - 1]; ch != PUZ_SPACE)
+    for (int r = 0; r < m_sidelen; ++r) {
+        string_view str = strs[r];
+        for (int c = 0; c < m_sidelen; ++c)
+            if (char ch = str[c]; ch != PUZ_SPACE)
                 m_pos2num[{r, c}] = ch - '0';
-            m_cells.push_back(PUZ_SPACE);
-        }
-        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [_1, num] : m_pos2num) {
         auto& perms = m_num2perms[num];
@@ -138,12 +147,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, num] : m_pos2num) {
         auto& patches = m_pos2patches[p];
         for (int i = 0; i < 2; ++i) {
-            puz_state2 sstart(*this, num, i == 0, p);
+            bool is_cloud = i == 0;
+            puz_state2 sstart(*this, num, is_cloud, p);
             list<list<puz_state2>> spaths;
             if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
                 for (auto& spath : spaths) {
                     auto& s = spath.back();
-                    //patches.push_back({s.begin(), s.end()});
+                    patches.push_back({{s.begin(), s.end()}, is_cloud, s.m_clouds, s.m_empties});
                 }
         }
     }
