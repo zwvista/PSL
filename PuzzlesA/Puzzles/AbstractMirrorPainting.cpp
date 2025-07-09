@@ -22,6 +22,7 @@ namespace puzzles::AbstractMirrorPainting{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_PAINTED = 'P';
 
 constexpr Position offset[] = {
     {-1, 0},       // n
@@ -48,7 +49,7 @@ struct puz_move
     set<Position> m_painting; // the positions that are painted in the move
     set<Position> m_empties; // the positions that should be empty after the move
     // the number of cells in both areas that are painted
-    int painting_size() { return m_painting.size() / 2; }
+    int painting_size() const { return m_painting.size() / 2; }
 };
 
 struct puz_game
@@ -219,16 +220,20 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
-        //boost::remove_erase_if(move_ids, [&](int id) {
-        //    auto& [_2, _3, e1, e2, d1, d2, empties] = m_game->m_moves[id];
-        //    char ch1 = cells(e1), ch2 = cells(e2);
-        //    return ch1 != PUZ_SPACE && ch1 != d1 ||
-        //        ch2 != PUZ_SPACE && ch2 != d2 ||
-        //        boost::algorithm::any_of(empties, [&](const Position& p) {
-        //            char ch3 = cells(p);
-        //            return ch3 != PUZ_SPACE && ch3 != PUZ_EMPTY;
-        //        });
-        //});
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& move = m_game->m_moves[id];
+            auto& [config, painting, empties] = move;
+            auto& [area_id1, area_id2, _2] = config;
+            if (boost::algorithm::any_of(painting, [&](const Position& p) {
+                return cells(p) != PUZ_SPACE;
+            }) || boost::algorithm::any_of(empties, [&](const Position& p) {
+                char ch = cells(p);
+                return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+            }))
+                return true;
+            int sz = move.painting_size();
+            return sz > m_area2num.at(area_id1) || sz > m_area2num.at(area_id2);
+        });
 
         if (!init)
             switch(move_ids.size()) {
@@ -243,11 +248,18 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int move_id)
 {
-    //auto& [a1, a2, e1, e2, d1, d2, empties] = m_game->m_moves[move_id];
-    //cells(e1) = d1, cells(e2) = d2;
-    //for (auto& p : empties)
-    //    cells(p) = PUZ_EMPTY;
-    //m_distance += 2, m_matches.erase(a1), m_matches.erase(a2);
+    auto& move = m_game->m_moves[move_id];
+    auto& [config, painting, empties] = move;
+    auto& [area_id1, area_id2, _1] = config;
+    int sz = move.painting_size();
+    for (auto& p : painting)
+        cells(p) = PUZ_PAINTED;
+    for (auto& p : empties)
+        cells(p) = PUZ_EMPTY;
+    for (int area_id : {area_id1, area_id2})
+        if ((m_area2num[area_id] -= sz) == 0)
+            m_matches.erase(area_id);
+    m_distance += sz * 2;
 }
 
 bool puz_state::make_move(int move_id)
@@ -276,7 +288,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horizontal lines
         for (int c = 0; c < sidelen(); ++c)
-            out << (m_game->m_horz_walls.contains({r, c}) ? " -" : "  ");
+            out << (m_game->m_horz_walls.contains({r, c}) ? " --" : "   ");
         println(out);
         if (r == sidelen()) break;
         for (int c = 0;; ++c) {
@@ -285,6 +297,10 @@ ostream& puz_state::dump(ostream& out) const
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             out << cells(p);
+            if (auto it = m_game->m_pos2num.find(p); it != m_game->m_pos2num.end())
+                out << it->second;
+            else
+                out << ' ';
         }
         println(out);
     }
