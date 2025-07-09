@@ -37,14 +37,9 @@ constexpr Position offset2[] = {
     {0, 0},        // w
 };
 
-constexpr string_view dirs = "^>v<";
-
 struct puz_move
 {
     int m_area_id1, m_area_id2;
-    Position m_entrance1, m_entrance2;
-    char m_dir1, m_dir2;
-    set<Position> m_empties;
 };
 
 struct puz_game
@@ -56,6 +51,7 @@ struct puz_game
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
     map<Position, char> m_pos2num;
+    vector<int> m_area2num;
     set<Position> m_horz_walls, m_vert_walls;
     vector<puz_move> m_moves;
     set<pair<int, int>> m_area_pairs;
@@ -111,7 +107,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
             if (char ch = str_v[c * 2 + 1]; ch != PUZ_SPACE)
-                m_pos2num[p] = ch;
+                m_pos2num[p] = ch - '0';
             rng.insert(p);
         }
     }
@@ -124,6 +120,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             rng.erase(p);
         }
     }
+    for (m_area2num.resize(m_areas.size()); auto& [p, num] : m_pos2num)
+        m_area2num[m_pos2area.at(p)] = num;
 
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
@@ -161,6 +159,7 @@ struct puz_state
     const puz_game* m_game = nullptr;
     string m_cells;
     map<int, vector<int>> m_matches;
+    vector<int> m_area2num;
     unsigned int m_distance = 0;
 };
 
@@ -175,16 +174,16 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
-        boost::remove_erase_if(move_ids, [&](int id) {
-            auto& [_2, _3, e1, e2, d1, d2, empties] = m_game->m_moves[id];
-            char ch1 = cells(e1), ch2 = cells(e2);
-            return ch1 != PUZ_SPACE && ch1 != d1 ||
-                ch2 != PUZ_SPACE && ch2 != d2 ||
-                boost::algorithm::any_of(empties, [&](const Position& p) {
-                    char ch3 = cells(p);
-                    return ch3 != PUZ_SPACE && ch3 != PUZ_EMPTY;
-                });
-        });
+        //boost::remove_erase_if(move_ids, [&](int id) {
+        //    auto& [_2, _3, e1, e2, d1, d2, empties] = m_game->m_moves[id];
+        //    char ch1 = cells(e1), ch2 = cells(e2);
+        //    return ch1 != PUZ_SPACE && ch1 != d1 ||
+        //        ch2 != PUZ_SPACE && ch2 != d2 ||
+        //        boost::algorithm::any_of(empties, [&](const Position& p) {
+        //            char ch3 = cells(p);
+        //            return ch3 != PUZ_SPACE && ch3 != PUZ_EMPTY;
+        //        });
+        //});
 
         if (!init)
             switch(move_ids.size()) {
@@ -199,11 +198,11 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int move_id)
 {
-    auto& [a1, a2, e1, e2, d1, d2, empties] = m_game->m_moves[move_id];
-    cells(e1) = d1, cells(e2) = d2;
-    for (auto& p : empties)
-        cells(p) = PUZ_EMPTY;
-    m_distance += 2, m_matches.erase(a1), m_matches.erase(a2);
+    //auto& [a1, a2, e1, e2, d1, d2, empties] = m_game->m_moves[move_id];
+    //cells(e1) = d1, cells(e2) = d2;
+    //for (auto& p : empties)
+    //    cells(p) = PUZ_EMPTY;
+    //m_distance += 2, m_matches.erase(a1), m_matches.erase(a2);
 }
 
 bool puz_state::make_move(int move_id)
