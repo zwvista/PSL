@@ -27,6 +27,14 @@ constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
     {-1, 0},       // n
+    {0, 1},        // e
+    {1, 0},        // s
+    {0, -1},       // w
+};
+
+constexpr Position offset2[] = {
+    {0, 0},        // o
+    {-1, 0},       // n
     {-1, 1},       // ne
     {0, 1},        // e
     {1, 1},        // se
@@ -49,35 +57,55 @@ struct puz_game
     int m_sidelen;
     string m_cells;
     map<Position, int> m_pos2num;
+    map<int, vector<string>> m_num2perms;
     map<Position, vector<set<Position>>> m_pos2patches;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
-struct puz_state2 : set<Position>
+// first: true if the patch is a cloud, false if it is an empty sky patch
+// second: the positions of the patch
+struct puz_state2 : pair<bool, set<Position>>
 {
-    puz_state2(const puz_game& game, int num, const Position& p)
-        : m_game(&game), m_num(num) {make_move(p);}
+    puz_state2(const puz_game& game, int num, bool is_cloud, const Position& p)
+        : m_game(&game), m_num(num) { first = is_cloud, make_move(p, num, -1); }
 
-    bool is_goal_state() const { return size() == m_num; }
-    void make_move(const Position& p) { insert(p); }
+    bool is_goal_state() const { return second.size() == m_num; }
+    bool make_move(const Position& p, int num, int perm_id);
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game = nullptr;
     int m_num;
+    set<Position> m_clouds, m_empties;
 };
 
-void puz_state2::gen_children(list<puz_state2>& children) const {
-    for (auto& p : *this)
-        for (auto& os : offset) {
-            auto p2 = p + os;
-            if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE && !contains(p2)) {
-                children.push_back(*this);
-                children.back().make_move(p2);
+bool puz_state2::make_move(const Position& p, int num, int perm_id)
+{
+    second.insert(p);
+    if (perm_id != -1) {
+    }
+    if (is_goal_state())
+        for (auto& p : second)
+            for (auto& os : offset) {
+                auto p2 = p + os;
+                if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE && !second.contains(p2))
+                    (first ? m_empties : m_clouds).insert(p2);
             }
-        }
+    return true; // move successful
+}
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    //for (auto& p : *this)
+    //    for (auto& os : offset) {
+    //        auto p2 = p + os;
+    //        if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE && !contains(p2)) {
+    //            children.push_back(*this);
+    //            children.back().make_move(p2);
+    //        }
+    //    }
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -97,17 +125,25 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
+    for (auto& [_1, num] : m_pos2num) {
+        auto& perms = m_num2perms[num];
+        if (!perms.empty())
+            continue;
+        auto perm = string(num, PUZ_EMPTY) + string(9 - num, PUZ_CLOUD);
+        do
+            perms.push_back(perm);
+        while (boost::next_permutation(perm));
+    }
+
     for (auto& [p, num] : m_pos2num) {
         auto& patches = m_pos2patches[p];
-        if (num == 1)
-            patches = {{p}};
-        else {
-            puz_state2 sstart(*this, num, p);
+        for (int i = 0; i < 2; ++i) {
+            puz_state2 sstart(*this, num, i == 0, p);
             list<list<puz_state2>> spaths;
             if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
                 for (auto& spath : spaths) {
                     auto& s = spath.back();
-                    patches.push_back({s.begin(), s.end()});
+                    //patches.push_back({s.begin(), s.end()});
                 }
         }
     }
