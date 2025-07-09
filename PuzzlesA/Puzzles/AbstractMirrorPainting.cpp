@@ -37,9 +37,15 @@ constexpr Position offset2[] = {
     {0, 0},        // w
 };
 
-struct puz_move
+// elem.0: area id (the smaller one)
+// elem.1: area id (the bigger one)
+// elem.2: true if the painting is horizontal
+using puz_mirror_config = tuple<int, int, bool>;
+
+struct puz_mirror_info
 {
-    int m_area_id1, m_area_id2;
+    map<Position, set<Position>> m_mirror2rng;
+    vector<set<Position>> m_moves;
 };
 
 struct puz_game
@@ -53,7 +59,7 @@ struct puz_game
     map<Position, int> m_pos2num;
     vector<int> m_area2num;
     set<Position> m_horz_walls, m_vert_walls;
-    map<pair<int, int>, vector<set<Position>>> m_area_pair2moves;
+    map<puz_mirror_config, puz_mirror_info> m_config2info;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -129,20 +135,33 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if (auto p2 = p1 + os; is_valid(p2))
                     if (int area_id2 = m_pos2area.at(p2); area_id1 != area_id2) {
                         auto& [r2, c2] = p2;
-                        auto& moves = m_area_pair2moves[{min(area_id1, area_id2), max(area_id1, area_id2)}];
-                        auto& move = moves.emplace_back();
-                        move.insert(p1), move.insert(p2);
-                        auto& os1 = offset[r1 == r2 ? 3 : 0];
-                        auto& os2 = offset[r1 == r2 ? 1 : 2];
+                        bool is_horz_painting = r1 == r2;
+                        auto& [mirror2rng, moves] = m_config2info[{min(area_id1, area_id2), max(area_id1, area_id2), is_horz_painting}];
+                        set rng2{p1, p2};
+                        auto& os1 = offset[is_horz_painting ? 3 : 0];
+                        auto& os2 = offset[is_horz_painting ? 1 : 2];
                         for (auto p3 = p1 + os1, p4 = p2 + os2;
                             is_valid(p3) && is_valid(p4) &&
                             m_pos2area.at(p3) == area_id1 &&
                             m_pos2area.at(p4) == area_id2;
                             p3 += os1, p4 += os2)
-                            move.insert(p3), move.insert(p4);
+                            rng2.insert(p3), rng2.insert(p4);
+                        mirror2rng[p1] = rng2;
                     }
         }
 
+    for (auto& [config, info] : m_config2info) {
+        auto& [_1, _2, is_horz_painting] = config;
+        auto& [mirror2rng, moves] = info;
+        for (auto& [p, _3] : mirror2rng) {
+            set<Position> rng3;
+            auto& os3 = offset[is_horz_painting ? 2 : 1];
+            for (auto p2 = p; mirror2rng.contains(p2); p2 += os3) {
+                rng3.insert(p2);
+                moves.push_back(rng3);
+            }
+        }
+    }
 }
 
 struct puz_state
@@ -178,6 +197,8 @@ puz_state::puz_state(const puz_game& g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_area2num(g.m_area2num)
 {
+    for (auto& [config, info] : g.m_config2info) {
+    }
     find_matches(true);
 }
 
