@@ -8,9 +8,9 @@ int main(int argc, char **argv)
 {
     srand(time(0));
     for(string str; str.empty();) {
-    println("n1: Underground");
-    println("n2: Unreliable Hints");
-    println("n3: Unseen");
+        println("n1: Underground");
+        println("n2: Unreliable Hints");
+        println("n3: Unseen");
         getline(cin, str);
         if (str.empty()) solve_puz_Underground();
         else if (str == "n1") solve_puz_Underground();

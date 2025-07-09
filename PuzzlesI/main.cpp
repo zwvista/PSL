@@ -17,11 +17,11 @@ int main(int argc, char **argv)
         println("s: Island Connections");
         getline(cin, str);
         if (str.empty()) solve_puz_icedin();
-    else if (str == "c") solve_puz_icedin();
-    else if (str == "n1") solve_puz_InbetweenNurikabe();
-    else if (str == "n2") solve_puz_InbetweenSumscrapers();
-    else if (str == "n3") solve_puz_InsaneTatamis();
-    else if (str == "s") solve_puz_IslandConnections();
+        else if (str == "c") solve_puz_icedin();
+        else if (str == "n1") solve_puz_InbetweenNurikabe();
+        else if (str == "n2") solve_puz_InbetweenSumscrapers();
+        else if (str == "n3") solve_puz_InsaneTatamis();
+        else if (str == "s") solve_puz_IslandConnections();
     }
     return 0;
 }

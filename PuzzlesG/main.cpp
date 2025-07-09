@@ -10,11 +10,11 @@ int main(int argc, char **argv)
 {
     srand(time(0));
     for(string str; str.empty();) {
-    println("a1: Galaxies");
-    println("a2: Gardener");
-    println("a3: Garden Tunnels");
-    println("e: Gems");
-    println("u: Guesstris");
+        println("a1: Galaxies");
+        println("a2: Gardener");
+        println("a3: Garden Tunnels");
+        println("e: Gems");
+        println("u: Guesstris");
         getline(cin, str);
         if (str.empty()) solve_puz_Galaxies();
         else if (str == "a1") solve_puz_Galaxies();

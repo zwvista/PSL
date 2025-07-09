@@ -51,12 +51,11 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_cells;
     // 1st dimension : the index of the area
     // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
-    map<Position, char> m_pos2dir;
+    map<Position, char> m_pos2num;
     set<Position> m_horz_walls, m_vert_walls;
     vector<puz_move> m_moves;
     set<pair<int, int>> m_area_pairs;
@@ -111,10 +110,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (str_v[c * 2] == '|')
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
-            char ch = str_v[c * 2 + 1];
-            m_cells.push_back(ch);
-            if (ch != PUZ_SPACE)
-                m_pos2dir[p] = ch;
+            if (char ch = str_v[c * 2 + 1]; ch != PUZ_SPACE)
+                m_pos2num[p] = ch;
             rng.insert(p);
         }
     }
@@ -138,40 +135,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         m_area_pairs.insert({min(area_id1, area_id2), max(area_id1, area_id2)});
         }
 
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c) {
-            Position p(r, c);
-            // 1. Each neighbourhood contains one entrance to the AbstractMirrorPainting.
-            int area_id1 = m_pos2area.at(p);
-            for (int i : {1, 2}) {
-                auto& os = offset[i];
-                vector<Position> rng;
-                for (auto p2 = p + os; is_valid(p2); p2 += os)
-                    rng.push_back(p2);
-                if (rng.size() < 2) continue;
-                for (auto it = rng.begin() + 1; it != rng.end(); ++it)
-                    // 2. For each entrance there is a corresponding entrance in a different neighbourhood.
-                    // 5. Two corresponding entrances cannot be in adjacent neighbourhood, i.e.
-                    // there must be at least one neighbourhood between them.
-                    if (int area_id2 = m_pos2area.at(*it);
-                        area_id1 != area_id2 &&
-                        !m_area_pairs.contains({min(area_id1, area_id2), max(area_id1, area_id2)})) {
-                        int n = m_moves.size();
-                        auto& [a1, a2, e1, e2, d1, d2, empties] = m_moves.emplace_back();
-                        a1 = area_id1, a2 = area_id2;
-                        e1 = p, e2 = *it;
-                        // 3. The arrows of two corresponding entrances must point to each other.
-                        d1 = dirs[i], d2 = dirs[(i + 2) % 4];
-                        // 4. Between two corresponding entrances there cannot be any other entrance.
-                        empties.insert(rng.begin(), it);
-                        empties.insert_range(m_areas[area_id1]);
-                        empties.insert_range(m_areas[area_id2]);
-                        empties.erase(e1), empties.erase(e2);
-                        m_area2move_ids[area_id1].push_back(n);
-                        m_area2move_ids[area_id2].push_back(n);
-                    }
-            }
-        }
 }
 
 struct puz_state
@@ -203,7 +166,7 @@ struct puz_state
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
-, m_cells(g.m_cells)
+, m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_matches(g.m_area2move_ids)
 {
     find_matches(true);
