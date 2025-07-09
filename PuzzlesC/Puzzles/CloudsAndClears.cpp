@@ -97,10 +97,10 @@ bool puz_state2::make_move(const Position& p, int num, int perm_id)
         }
     }
     if (is_goal_state())
-        for (auto& p : *this)
+        for (auto& p2 : *this)
             for (auto& os : offset)
-                if (auto p2 = p + os; m_game->is_valid(p2) && !contains(p2))
-                    (m_is_cloud ? m_empties : m_clouds).insert(p2);
+                if (auto p3 = p2 + os; m_game->is_valid(p3) && !contains(p3))
+                    (m_is_cloud ? m_empties : m_clouds).insert(p3);
     return true;
 }
 
