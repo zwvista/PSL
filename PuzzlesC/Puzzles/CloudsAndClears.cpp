@@ -12,7 +12,7 @@
 
     Description
     1. Paint the clouds according to the numbers.
-    2. Each cloud or empty Sky patch contains a single number that is the extension of the region
+    2. Each cloud or empty Sky move contains a single number that is the extension of the region
        itself.
     3. On a region there can be other numbers. These will indicate how many empty (non-cloud) tiles
        around it (diagonal too) including itself.
@@ -43,7 +43,7 @@ constexpr Position offset2[] = {
     {-1, -1},      // nw
 };
 
-struct puz_patch
+struct puz_move
 {
     set<Position> m_rng;
     bool m_is_cloud = false;
@@ -56,7 +56,7 @@ struct puz_game
     int m_sidelen;
     map<Position, int> m_pos2num;
     map<int, vector<string>> m_num2perms;
-    map<Position, vector<puz_patch>> m_pos2patches;
+    map<Position, vector<puz_move>> m_pos2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -145,7 +145,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (auto& [p, num] : m_pos2num) {
-        auto& patches = m_pos2patches[p];
+        auto& moves = m_pos2moves[p];
         for (int i = 0; i < 2; ++i) {
             bool is_cloud = i == 0;
             puz_state2 sstart(*this, num, is_cloud, p);
@@ -153,7 +153,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
                 for (auto& spath : spaths) {
                     auto& s = spath.back();
-                    patches.push_back({{s.begin(), s.end()}, is_cloud, s.m_clouds, s.m_empties});
+                    moves.push_back({{s.begin(), s.end()}, is_cloud, s.m_clouds, s.m_empties});
                 }
         }
     }
@@ -163,58 +163,119 @@ struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    bool operator<(const puz_state& x) const {
-        return tie(m_stone2move_ids, m_path) < tie(x.m_stone2move_ids, x.m_path);
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    bool make_move(const Position& p, int n);
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
+    bool make_move(const Position& p, int move_id);
+    void make_move2(const Position& p, int move_id);
+    int find_matches(bool init);
 
     //solve_puzzle interface
     // 6. The goal is to pick up every stone.
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_stone2move_ids.size(); }
-    unsigned int get_distance(const puz_state& child) const {
-        return m_stone2move_ids.empty() ? 2 : 1;
-    }
+    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    map<Position, vector<int>> m_stone2move_ids;
-    vector<Position> m_path; // path from the first stone to the current stone
+    string m_cells;
+    map<Position, vector<int>> m_matches;
+    unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
+, m_cells(g.m_sidelen* g.m_sidelen, PUZ_SPACE)
 {
+    for (auto& [p, moves] : m_game->m_pos2moves) {
+        auto& v = m_matches[p];
+        v.resize(moves.size());
+        boost::iota(v, 0);
+    }
+    find_matches(true);
 }
 
-bool puz_state::make_move(const Position& p, int n)
+int puz_state::find_matches(bool init)
 {
-    return true; // move successful
+    for (auto& [p, move_ids] : m_matches) {
+        auto& moves = m_game->m_pos2moves.at(p);
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [rng, is_cloud, clouds, empties] = moves[id];
+            return boost::algorithm::any_of(rng, [&](const Position& p) {
+                char ch = cells(p);
+                return ch != PUZ_SPACE && ch != (is_cloud ? PUZ_CLOUD : PUZ_EMPTY);
+            }) || boost::algorithm::any_of(clouds, [&](const Position& p) {
+                char ch = cells(p);
+                return ch != PUZ_SPACE && ch != PUZ_CLOUD;
+            }) || boost::algorithm::any_of(empties, [&](const Position& p) {
+                char ch = cells(p);
+                return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+            });
+        });
+
+        if (!init)
+            switch(move_ids.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(p, move_ids[0]), 1;
+            }
+    }
+    return 2;
+}
+
+void puz_state::make_move2(const Position& p, int move_id)
+{
+    auto& [rng, is_cloud, clouds, empties] = m_game->m_pos2moves.at(p)[move_id];
+    for (auto& p2 : rng)
+        cells(p2) = is_cloud ? PUZ_CLOUD : PUZ_EMPTY, ++m_distance, m_matches.erase(p);
+    for (auto& p2 : clouds)
+        cells(p2) = PUZ_CLOUD;
+    for (auto& p2 : empties)
+        cells(p2) = PUZ_EMPTY;
+}
+
+bool puz_state::make_move(const Position& p, int move_id)
+{
+    m_distance = 0;
+    make_move2(p, move_id);
+    int m;
+    while ((m = find_matches(false)) == 1);
+    return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto f = [&](const Position& p) {
-        for (int n : m_stone2move_ids.at(p))
-            if (children.push_back(*this); !children.back().make_move(p, n))
-                children.pop_back();
-    };
+    auto& [p, move_ids] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (auto& move_id : move_ids)
+        if (children.push_back(*this); !children.back().make_move(p, move_id))
+            children.pop_back();
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    //for (int r = 0; r < sidelen(); ++r) {
-    //    for (int c = 0; c < sidelen(); ++c)
-    //        if (Position p(r, c); !m_game->m_stones.contains(p))
-    //            out << ".. ";
-    //        else {
-    //            int n = boost::find(m_path, p) - m_path.begin() + 1;
-    //            out << format("{:2} ", n);
-    //        }
-    //    println(out);
-    //}
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            out << cells(p);
+            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
+                out << "  ";
+            else
+                out << it->second << ' ';
+        }
+        println(out);
+    }
     return out;
 }
 
