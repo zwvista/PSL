@@ -11,8 +11,8 @@
     Snakes and Nurikabes
 
     Description
-    1. A mix between Nurikabe and Snake, with the some rules from one game
-       and some from the other.
+    1. A mix between Nurikabe and Snake, with some rules from one game and
+       some from the other.
     2. Nurikabe Rules: Each number on the grid indicates a garden, occupying
        as many tiles as the number itself.
     3. Gardens can have any form, extending horizontally and vertically but
@@ -34,7 +34,7 @@ namespace puzzles::SnakeIslands{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_ONE = '1';
-constexpr auto PUZ_WALL = 'W';
+constexpr auto PUZ_SNAKE = 'S';
 constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
@@ -67,6 +67,7 @@ struct puz_game
     // key: position of the number (hint)
     map<Position, puz_garden> m_pos2garden;
     string m_cells;
+    Position m_head_tail[2];
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
@@ -99,7 +100,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 char ch3 = m_game->cells(p3);
                 // no adjacent tile to it belongs to another garden, because
                 // Gardens are separated by a wall. They cannot touch each other orthogonally.
-                return !contains(p3) && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY;
+                return !contains(p3) && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY && ch3 != PUZ_SNAKE;
             })) {
                 children.push_back(*this);
                 children.back().make_move(p2);
@@ -113,18 +114,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     char ch_g = 'a';
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
-    for (int r = 1; r < m_sidelen - 1; ++r) {
+    for (int r = 1, n1 = 0; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
         m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c)
-            if (char ch = str[c - 1]; ch == PUZ_SPACE)
-                m_cells.push_back(PUZ_SPACE);
-            else {
-                int n = ch - '0';
-                Position p(r, c);
+            switch (Position p(r, c); char ch = str[c - 1]) {
+            case PUZ_SPACE:
+            case PUZ_SNAKE:
+                m_cells.push_back(ch);
+                if (ch == PUZ_SNAKE)
+                    m_head_tail[n1++] = p;
+                break;
+            default:
+                int n2 = ch - '0';
                 auto& garden = m_pos2garden[p];
-                garden.m_num = n;
-                m_cells.push_back(garden.m_name = n == 1 ? PUZ_ONE : ch_g++);
+                garden.m_num = n2;
+                m_cells.push_back(garden.m_name = n2 == 1 ? PUZ_ONE : ch_g++);
             }
         m_cells.push_back(PUZ_BOUNDARY);
     }
@@ -233,7 +238,7 @@ int puz_state::find_matches(bool init)
         char& ch = cells(p);
         if (ch == PUZ_EMPTY)
             return false;
-        ch = PUZ_WALL;
+        ch = PUZ_SNAKE;
         changed = true;
     }
     if (changed) {
@@ -290,7 +295,7 @@ bool puz_state::is_interconnected() const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if (ch == PUZ_SPACE || ch == PUZ_WALL)
+            if (ch == PUZ_SPACE || ch == PUZ_SNAKE)
                 a.insert(p);
         }
 
@@ -307,7 +312,7 @@ bool puz_state::check_2x2()
             vector<Position> rng1, rng2;
             for (auto& os : offset2)
                 switch(auto p2 = p + os; cells(p2)) {
-                case PUZ_WALL: rng1.push_back(p2); break;
+                case PUZ_SNAKE: rng1.push_back(p2); break;
                 case PUZ_SPACE: rng2.push_back(p2); break;
                 }
             if (rng1.size() == 4) return false;
@@ -328,7 +333,7 @@ bool puz_state::make_move2(Position p, int n)
         // Gardens are separated by a wall.
         for (auto& os : offset)
             switch(char& ch2 = cells(p2 + os)) {
-            case PUZ_SPACE: ch2 = PUZ_WALL; break;
+            case PUZ_SPACE: ch2 = PUZ_SNAKE; break;
             case PUZ_EMPTY: return false;
             }
     ++m_distance;
@@ -363,8 +368,8 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if (ch == PUZ_WALL)
-                out << PUZ_WALL << ' ';
+            if (ch == PUZ_SNAKE)
+                out << PUZ_SNAKE << ' ';
             else {
                 auto it = m_game->m_pos2garden.find(p);
                 if (it == m_game->m_pos2garden.end())

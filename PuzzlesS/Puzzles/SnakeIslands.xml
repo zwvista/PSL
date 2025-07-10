@@ -2,7 +2,7 @@
 <puzzle>
 <help>
   <![CDATA[
-1. A mix between Nurikabe and Snake, with the some rules from one game and some from the other.
+1. A mix between Nurikabe and Snake, with some rules from one game and some from the other.
 2. Nurikabe Rules: Each number on the grid indicates a garden, occupying as many tiles as the number itself.
 3. Gardens can have any form, extending horizontally and vertically but can't extend diagonally.
 4. The gardens are separated by a single, continuous wall. This means all wall tiles on the board must be connected horizontally or vertically. There can't be isolated walls
