@@ -90,11 +90,15 @@ bool puz_state2::make_move(const Position& p, int num, int perm_id)
         auto& perm = m_game->m_num2perms.at(num)[perm_id];
         for (int i = 0; i < 9; ++i) {
             auto p2 = p + offset2[i];
+            bool is_cloud = perm[i] == PUZ_CLOUD;
             if (!m_game->is_valid(p2))
-                continue;
-            bool is_inside = contains(p2), is_cloud = perm[i] == PUZ_CLOUD;
-            if (is_cloud != (is_inside && m_is_cloud ||
-                !is_inside && (m_is_cloud ? m_clouds : m_empties).contains(p2)))
+                if (is_cloud)
+                    continue;
+                else
+                    return false;
+            bool is_inside = contains(p2);
+            if (is_inside && is_cloud != m_is_cloud ||
+                !is_inside && (is_cloud ? m_empties : m_clouds).contains(p2))
                 return false; // invalid move
             if (!is_inside)
                 (is_cloud ? m_clouds : m_empties).insert(p2);
