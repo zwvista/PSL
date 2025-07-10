@@ -88,11 +88,13 @@ bool puz_state2::make_move(const Position& p, int num, int perm_id)
         auto& perm = m_game->m_num2perms.at(num)[perm_id];
         for (int i = 0; i < 9; ++i) {
             auto p2 = p + offset2[i];
-            bool is_inside = contains(p2), is_cloud = perm[i] == PUZ_CLOUD;
+            bool is_inside = contains(p2);
+            bool is_valid = m_game->is_valid(p2);
+            bool is_cloud = perm[i] == PUZ_CLOUD;
             if (is_cloud != (is_inside && m_is_cloud ||
-                !is_inside && (m_is_cloud ? m_clouds : m_empties).contains(p2)))
+                !is_inside && is_valid && (m_is_cloud ? m_clouds : m_empties).contains(p2)))
                 return false; // invalid move
-            if (!is_inside)
+            if (!is_inside && is_valid)
                 (is_cloud ? m_clouds : m_empties).insert(p2);
         }
     }
@@ -208,14 +210,14 @@ int puz_state::find_matches(bool init)
         auto& moves = m_game->m_pos2moves.at(p);
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& [rng, is_cloud, clouds, empties] = moves[id];
-            return boost::algorithm::any_of(rng, [&](const Position& p) {
-                char ch = cells(p);
+            return boost::algorithm::any_of(rng, [&](const Position& p2) {
+                char ch = cells(p2);
                 return ch != PUZ_SPACE && ch != (is_cloud ? PUZ_CLOUD : PUZ_EMPTY);
-            }) || boost::algorithm::any_of(clouds, [&](const Position& p) {
-                char ch = cells(p);
+            }) || boost::algorithm::any_of(clouds, [&](const Position& p2) {
+                char ch = cells(p2);
                 return ch != PUZ_SPACE && ch != PUZ_CLOUD;
-            }) || boost::algorithm::any_of(empties, [&](const Position& p) {
-                char ch = cells(p);
+            }) || boost::algorithm::any_of(empties, [&](const Position& p2) {
+                char ch = cells(p2);
                 return ch != PUZ_SPACE && ch != PUZ_EMPTY;
             });
         });
