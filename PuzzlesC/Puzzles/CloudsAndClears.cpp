@@ -45,6 +45,7 @@ constexpr Position offset2[] = {
 
 struct puz_move
 {
+    Position m_p_num;
     set<Position> m_rng;
     bool m_is_cloud = false;
     set<Position> m_clouds, m_empties;
@@ -56,7 +57,8 @@ struct puz_game
     int m_sidelen;
     map<Position, int> m_pos2num;
     map<int, vector<string>> m_num2perms;
-    map<Position, vector<puz_move>> m_pos2moves;
+    vector<puz_move> m_moves;
+    map<Position, vector<int>> m_pos2move_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -147,7 +149,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (auto& [p, num] : m_pos2num) {
-        auto& moves = m_pos2moves[p];
         for (int i = 0; i < 2; ++i) {
             bool is_cloud = i == 0;
             puz_state2 sstart(*this, num, is_cloud, p);
@@ -155,7 +156,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
                 for (auto& spath : spaths) {
                     auto& s = spath.back();
-                    moves.push_back({{s.begin(), s.end()}, is_cloud, s.m_clouds, s.m_empties});
+                    int n = m_moves.size();
+                    m_moves.push_back({p, {s.begin(), s.end()}, is_cloud, s.m_clouds, s.m_empties});
+                    for (auto& p2 : s)
+                        m_pos2move_ids[p2].push_back(n);
                 }
         }
     }
@@ -173,8 +177,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(const Position& p, int move_id);
-    void make_move2(const Position& p, int move_id);
+    bool make_move(int move_id);
+    void make_move2(int move_id);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -195,21 +199,16 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen* g.m_sidelen, PUZ_SPACE)
+, m_matches(g.m_pos2move_ids)
 {
-    for (auto& [p, moves] : m_game->m_pos2moves) {
-        auto& v = m_matches[p];
-        v.resize(moves.size());
-        boost::iota(v, 0);
-    }
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, move_ids] : m_matches) {
-        auto& moves = m_game->m_pos2moves.at(p);
+    for (auto& [_1, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
-            auto& [rng, is_cloud, clouds, empties] = moves[id];
+            auto& [_2, rng, is_cloud, clouds, empties] = m_game->m_moves[id];
             return boost::algorithm::any_of(rng, [&](const Position& p2) {
                 char ch = cells(p2);
                 return ch != PUZ_SPACE && ch != (is_cloud ? PUZ_CLOUD : PUZ_EMPTY);
@@ -227,27 +226,27 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, move_ids[0]), 1;
+                return make_move2(move_ids[0]), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(const Position& p, int move_id)
+void puz_state::make_move2(int move_id)
 {
-    auto& [rng, is_cloud, clouds, empties] = m_game->m_pos2moves.at(p)[move_id];
+    auto& [_1, rng, is_cloud, clouds, empties] = m_game->m_moves[move_id];
     for (auto& p2 : rng)
-        cells(p2) = is_cloud ? PUZ_CLOUD : PUZ_EMPTY, ++m_distance, m_matches.erase(p);
+        cells(p2) = is_cloud ? PUZ_CLOUD : PUZ_EMPTY, ++m_distance, m_matches.erase(p2);
     for (auto& p2 : clouds)
         cells(p2) = PUZ_CLOUD;
     for (auto& p2 : empties)
         cells(p2) = PUZ_EMPTY;
 }
 
-bool puz_state::make_move(const Position& p, int move_id)
+bool puz_state::make_move(int move_id)
 {
     m_distance = 0;
-    make_move2(p, move_id);
+    make_move2(move_id);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -255,13 +254,13 @@ bool puz_state::make_move(const Position& p, int move_id)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, move_ids] = *boost::min_element(m_matches, [](
+    auto& [_1, move_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
     for (auto& move_id : move_ids)
-        if (children.push_back(*this); !children.back().make_move(p, move_id))
+        if (children.push_back(*this); !children.back().make_move(move_id))
             children.pop_back();
 }
 
