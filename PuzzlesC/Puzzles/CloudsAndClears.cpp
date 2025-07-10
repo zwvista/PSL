@@ -66,12 +66,15 @@ struct puz_game
     }
 };
 
-struct puz_state2 : set<Position>
+struct puz_state2
 {
     puz_state2(const puz_game& game, int num, bool is_cloud, const Position& p)
         : m_game(&game), m_num(num), m_is_cloud(is_cloud) { make_move(p, num, -1); }
+    bool operator<(const puz_state2& x) const {
+        return tie(m_rng, m_clouds, m_empties) < tie(x.m_rng, x.m_clouds, x.m_empties);
+    }
 
-    bool is_goal_state() const { return size() == m_num; }
+    bool is_goal_state() const { return m_rng.size() == m_num; }
     bool make_move(const Position& p, int num, int perm_id);
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
@@ -79,12 +82,12 @@ struct puz_state2 : set<Position>
     const puz_game* m_game = nullptr;
     int m_num;
     bool m_is_cloud;
-    set<Position> m_clouds, m_empties;
+    set<Position> m_rng, m_clouds, m_empties;
 };
 
 bool puz_state2::make_move(const Position& p, int num, int perm_id)
 {
-    insert(p);
+    m_rng.insert(p);
     (m_is_cloud ? m_clouds : m_empties).erase(p);
     if (perm_id != -1) {
         auto& perm = m_game->m_num2perms.at(num)[perm_id];
@@ -96,7 +99,7 @@ bool puz_state2::make_move(const Position& p, int num, int perm_id)
                     continue;
                 else
                     return false;
-            bool is_inside = contains(p2);
+            bool is_inside = m_rng.contains(p2);
             if (is_inside && is_cloud != m_is_cloud ||
                 !is_inside && (is_cloud ? m_empties : m_clouds).contains(p2))
                 return false; // invalid move
@@ -105,19 +108,19 @@ bool puz_state2::make_move(const Position& p, int num, int perm_id)
         }
     }
     if (is_goal_state())
-        for (auto& p2 : *this)
+        for (auto& p2 : m_rng)
             for (auto& os : offset)
-                if (auto p3 = p2 + os; m_game->is_valid(p3) && !contains(p3))
+                if (auto p3 = p2 + os; m_game->is_valid(p3) && !m_rng.contains(p3))
                     (m_is_cloud ? m_empties : m_clouds).insert(p3);
     return true;
 }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& p : *this)
+    for (auto& p : m_rng)
         for (auto& os : offset)
             if (auto p2 = p + os;
-                m_game->is_valid(p2) && !contains(p2) &&
+                m_game->is_valid(p2) && !m_rng.contains(p2) &&
                 !(m_is_cloud ? m_empties : m_clouds).contains(p2))
                 if (auto it = m_game->m_pos2num.find(p2); it == m_game->m_pos2num.end()) {
                     children.push_back(*this);
@@ -161,8 +164,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 for (auto& spath : spaths) {
                     auto& s = spath.back();
                     int n = m_moves.size();
-                    m_moves.push_back({p, is_cloud, {s.begin(), s.end()}, s.m_clouds, s.m_empties});
-                    for (auto& p2 : s)
+                    m_moves.emplace_back(p, is_cloud, s.m_rng, s.m_clouds, s.m_empties);
+                    for (auto& p2 : s.m_rng)
                         m_pos2move_ids[p2].push_back(n);
                 }
         }
@@ -274,7 +277,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             out << cells(p);
             if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-                out << "  ";
+                out << ". ";
             else
                 out << it->second << ' ';
         }
