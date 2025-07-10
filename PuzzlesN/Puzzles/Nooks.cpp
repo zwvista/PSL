@@ -46,14 +46,16 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_cells;
-    map<Position, vector<puz_move>> m_nook2moves;
+    map<Position, int> m_pos2num;
+    map<Position, vector<puz_move>> m_pos2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size())
+    , m_sidelen(strs.size() + 2)
 {
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
     for (int r = 1; r < m_sidelen - 1; ++r) {
@@ -65,13 +67,32 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_cells.push_back(PUZ_SPACE);
             else {
                 m_cells.push_back(PUZ_NOOK);
-                m_nook2moves[p];
+                m_pos2num[p] = ch - '0';
             }
         }
         m_cells.push_back(PUZ_BOUNDARY);
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
+    for (auto& [p, num] : m_pos2num) {
+        auto& moves = m_pos2moves[p];
+        for (int i = 0; i < 4; ++i) {
+            auto& os = offset[i];
+            if (set<Position> hedges, empties; [&] {
+                for (int j = 0; j < 4; ++j) {
+                    if (j == i) continue;
+                    Position p2 = p + offset[j];
+                    if (char ch = cells(p2); ch != PUZ_BOUNDARY)
+                        hedges.insert(p2);
+                }
+                int n = 1;
+                for (auto p2 = p + os; cells(p2) != PUZ_BOUNDARY && n <= num; p2 += os, ++n)
+                    empties.insert(p2);
+                return n == num;
+            }())
+                moves.push_back({i, hedges, empties});
+        }
+    }
 }
 
 struct puz_state
