@@ -46,8 +46,8 @@ constexpr Position offset2[] = {
 struct puz_move
 {
     Position m_p_num;
-    set<Position> m_rng;
     bool m_is_cloud = false;
+    set<Position> m_rng;
     set<Position> m_clouds, m_empties;
 };
 
@@ -148,7 +148,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         while (boost::next_permutation(perm));
     }
 
-    for (auto& [p, num] : m_pos2num) {
+    for (auto& [p, num] : m_pos2num)
         for (int i = 0; i < 2; ++i) {
             bool is_cloud = i == 0;
             puz_state2 sstart(*this, num, is_cloud, p);
@@ -157,12 +157,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 for (auto& spath : spaths) {
                     auto& s = spath.back();
                     int n = m_moves.size();
-                    m_moves.push_back({p, {s.begin(), s.end()}, is_cloud, s.m_clouds, s.m_empties});
+                    m_moves.push_back({p, is_cloud, {s.begin(), s.end()}, s.m_clouds, s.m_empties});
                     for (auto& p2 : s)
                         m_pos2move_ids[p2].push_back(n);
                 }
         }
-    }
 }
 
 struct puz_state
@@ -208,7 +207,7 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
-            auto& [_2, rng, is_cloud, clouds, empties] = m_game->m_moves[id];
+            auto& [_2, is_cloud, rng, clouds, empties] = m_game->m_moves[id];
             return boost::algorithm::any_of(rng, [&](const Position& p2) {
                 char ch = cells(p2);
                 return ch != PUZ_SPACE && ch != (is_cloud ? PUZ_CLOUD : PUZ_EMPTY);
@@ -234,7 +233,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int move_id)
 {
-    auto& [_1, rng, is_cloud, clouds, empties] = m_game->m_moves[move_id];
+    auto& [_1, is_cloud, rng, clouds, empties] = m_game->m_moves[move_id];
     for (auto& p2 : rng)
         cells(p2) = is_cloud ? PUZ_CLOUD : PUZ_EMPTY, ++m_distance, m_matches.erase(p2);
     for (auto& p2 : clouds)
