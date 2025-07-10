@@ -23,7 +23,10 @@
 namespace puzzles::Nooks{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_STONE = 'O';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_NOOK = 'N';
+constexpr auto PUZ_HEDGE = '=';
+constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr Position offset[] = {
     {-1, 0},       // n
@@ -34,149 +37,171 @@ constexpr Position offset[] = {
 
 struct puz_move
 {
-    int m_dir; // direction to the next stone
-    Position m_to;
-    set<Position> m_on_path; // stones on the path
+    int m_dir;
+    set<Position> m_hedge, m_empties;
 };
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    set<Position> m_stones;
-    map<Position, vector<puz_move>> m_stone2moves;
+    string m_cells;
+    map<Position, vector<puz_move>> m_nook2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int stone_count() const { return m_stones.size(); }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size())
 {
-    for (int r = 0; r < m_sidelen; ++r) {
-        string_view str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c)
-            if (char ch = str[c]; ch != PUZ_SPACE)
-                m_stones.emplace(r, c);
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    for (int r = 1; r < m_sidelen - 1; ++r) {
+        string_view str = strs[r - 1];
+        m_cells.push_back(PUZ_BOUNDARY);
+        for (int c = 1; c < m_sidelen - 1; ++c) {
+            Position p(r, c);
+            if (char ch = str[c - 1]; ch == PUZ_SPACE)
+                m_cells.push_back(PUZ_SPACE);
+            else {
+                m_cells.push_back(PUZ_NOOK);
+                m_nook2moves[p];
+            }
+        }
+        m_cells.push_back(PUZ_BOUNDARY);
     }
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
-    // 3. From a stone, you can move horizontally or vertically to the next stone. You can't
-    // jump over stones, if you encounter it, you have to pick it up.
-    for (auto& p1 : m_stones)
-        for (auto& [r1, c1] = p1; auto& p2 : m_stones)
-            if (p1 < p2) // without loss of generality
-                if (auto& [r2, c2] = p2; r1 == r2 || c1 == c2) {
-                    set<Position> on_path;
-                    int dir = r1 == r2 ? 1 : 2;
-                    if (r1 == r2) {
-                        for (int c = c1 + 1; c < c2; ++c)
-                            if (Position p3(r1, c); m_stones.contains(p3))
-                                on_path.insert(p3);
-                    } else {
-                        for (int r = r1 + 1; r < r2; ++r)
-                            if (Position p3(r, c1); m_stones.contains(p3))
-                                on_path.insert(p3);
-                    }
-                    m_stone2moves[p1].emplace_back(dir, p2, on_path);
-                    m_stone2moves[p2].emplace_back((dir + 2) % 4, p1, on_path);
-                }
 }
 
 struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_stone2move_ids, m_path) < tie(x.m_stone2move_ids, x.m_path);
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
+    void make_move2(const Position& p, int n);
+    int find_matches(bool init);
+    bool is_interconnected() const;
 
     //solve_puzzle interface
-    // 6. The goal is to pick up every stone.
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_stone2move_ids.size(); }
-    unsigned int get_distance(const puz_state& child) const {
-        return m_stone2move_ids.empty() ? 2 : 1;
-    }
+    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game = nullptr;
-    map<Position, vector<int>> m_stone2move_ids;
-    vector<Position> m_path; // path from the first stone to the current stone
+    string m_cells;
+    map<Position, vector<int>> m_matches;
+    unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 {
-    for (auto& [p, moves] : g.m_stone2moves) {
-        auto& ids = m_stone2move_ids[p];
-        for (int i = 0; i < moves.size(); ++i)
-            if (auto& [_1, _2, on_path] = moves[i]; on_path.empty())
-                ids.push_back(i);
+    find_matches(true);
+}
+
+int puz_state::find_matches(bool init)
+{
+    for (auto& [p, move_ids] : m_matches) {
+        //boost::remove_erase_if(area_ids, [&](int id) {
+        //    auto& [rng, _2, rng2D] = m_game->m_areas[id];
+        //    return !boost::algorithm::all_of(rng2D, [&](const set<Position>& rng2) {
+        //        return boost::algorithm::all_of(rng2, [&](const Position& p2) {
+        //            return cells(p2) == PUZ_SPACE ||
+        //                boost::algorithm::any_of_equal(rng, p2);
+        //        });
+        //    });
+        //});
+
+        if (!init)
+            switch(move_ids.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(p, move_ids[0]), 1;
+            }
     }
+    return 2;
+}
+
+struct puz_state2 : Position
+{
+    puz_state2(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_state* m_state;
+};
+
+inline bool is_maze(char ch) { return ch != PUZ_HEDGE && ch != PUZ_BOUNDARY; }
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (auto& os : offset)
+        if (auto p2 = *this + os; is_maze(m_state->cells(p2))) {
+            children.push_back(*this);
+            children.back().make_move(p2);
+        }
+}
+
+// 4. The resulting maze should be a single one-tile path connected horizontally or vertically
+bool puz_state::is_interconnected() const
+{
+    int i = m_cells.find(PUZ_NOOK);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+        { this, {i / sidelen(), i % sidelen()} });
+    return boost::count_if(smoves, [&](const Position& p) {
+        return is_maze(cells(p));
+    }) == boost::count_if(m_cells, is_maze);
+}
+
+void puz_state::make_move2(const Position& p, int n)
+{
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
-    if (m_path.empty())
-        m_path.push_back(p); // first stone picked up
-    m_stone2move_ids.erase(p);
-    auto& [dir, to, _1] = m_game->m_stone2moves.at(p)[n];
-    m_path.push_back(to);
-
-    if (m_stone2move_ids.size() == 1)
-        m_stone2move_ids.clear(); // only one stone left, no more moves available
-    else
-        for (auto& [p2, move_ids] : m_stone2move_ids) {
-            auto& moves = m_game->m_stone2moves.at(p2);
-            for (int i = 0; i < moves.size(); ++i)
-                // 4. When moving from a stone to another, you can change direction, but you cannot reverse it.
-                if (auto& [dir2, to2, on_path2] = moves[i];
-                    !m_stone2move_ids.contains(to2) || p2 == to && dir2 == (dir + 2) % 4)
-                    boost::remove_erase(move_ids, i);
-                // 5. when a stone has been picked up, you can pass away it if you encounter it again
-                // (it's not there anymore).
-                else if (!on_path2.empty() && boost::algorithm::none_of(on_path2, [&](const Position& p2) {
-                    return m_stone2move_ids.contains(p2);
-                }))
-                    move_ids.push_back(i);
-            if (move_ids.empty())
-                return false; // no more moves available for this stone
-        }
-    return true; // move successful
+    m_distance = 0;
+    make_move2(p, n);
+    int m;
+    while ((m = find_matches(false)) == 1);
+    return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto f = [&](const Position& p) {
-        for (int n : m_stone2move_ids.at(p))
-            if (children.push_back(*this); !children.back().make_move(p, n))
-                children.pop_back();
-    };
-    // 2. You can start at any stone and pick it up (just to click on it and it will be numbered
-    // in the order you pick it up).
-    if (m_path.empty())
-        for (auto& p : m_game->m_stones)
-            f(p);
-    else
-        f(m_path.back());
+    auto& [p, move_ids] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (int n : move_ids)
+        if (children.push_back(*this); !children.back().make_move(p, n))
+            children.pop_back();
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c)
-            if (Position p(r, c); !m_game->m_stones.contains(p))
-                out << ".. ";
-            else {
-                int n = boost::find(m_path, p) - m_path.begin() + 1;
-                out << format("{:2} ", n);
-            }
-        println(out);
-    }
+    //for (int r = 0; r < sidelen(); ++r) {
+    //    for (int c = 0; c < sidelen(); ++c)
+    //        if (Position p(r, c); !m_game->m_stones.contains(p))
+    //            out << ".. ";
+    //        else {
+    //            int n = boost::find(m_path, p) - m_path.begin() + 1;
+    //            out << format("{:2} ", n);
+    //        }
+    //    println(out);
+    //}
     return out;
 }
 
