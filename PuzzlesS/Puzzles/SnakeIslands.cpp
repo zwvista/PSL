@@ -67,7 +67,7 @@ struct puz_game
     // key: position of the number (hint)
     map<Position, puz_garden> m_pos2garden;
     string m_cells;
-    Position m_head_tail[2];
+    set<Position> m_snakes;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
@@ -114,7 +114,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     char ch_g = 'a';
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
-    for (int r = 1, n1 = 0; r < m_sidelen - 1; ++r) {
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
         m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c)
@@ -123,7 +123,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             case PUZ_SNAKE:
                 m_cells.push_back(ch);
                 if (ch == PUZ_SNAKE)
-                    m_head_tail[n1++] = p;
+                    m_snakes.insert(p);
                 break;
             default:
                 int n2 = ch - '0';

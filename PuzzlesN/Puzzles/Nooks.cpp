@@ -79,16 +79,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int i = 0; i < 4; ++i) {
             auto& os = offset[i];
             if (set<Position> hedges, empties; [&] {
-                for (int j = 0; j < 4; ++j) {
-                    if (j == i) continue;
-                    Position p2 = p + offset[j];
-                    if (char ch = cells(p2); ch != PUZ_BOUNDARY)
-                        hedges.insert(p2);
-                }
-                int n = 1;
-                for (auto p2 = p + os; cells(p2) != PUZ_BOUNDARY && n <= num; p2 += os, ++n)
+                for (int j = 0; j < 4; ++j)
+                    if (j != i)
+                        if (auto p2 = p + offset[j]; cells(p2) != PUZ_BOUNDARY)
+                            hedges.insert(p2);
+                for (auto p2 = p + os; cells(p2) != PUZ_BOUNDARY && empties.size() < num - 1; p2 += os)
                     empties.insert(p2);
-                return n == num;
+                return empties.size() == num - 1;
             }())
                 moves.push_back({i, hedges, empties});
         }
@@ -180,7 +177,7 @@ bool puz_state::is_interconnected() const
 {
     int i = m_cells.find(PUZ_NOOK);
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
-        { this, {i / sidelen(), i % sidelen()} });
+        {this, {i / sidelen(), i % sidelen()}});
     return boost::count_if(smoves, [&](const Position& p) {
         return is_maze(cells(p));
     }) == boost::count_if(m_cells, is_maze);
