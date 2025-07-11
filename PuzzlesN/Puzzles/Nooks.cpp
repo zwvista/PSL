@@ -35,10 +35,10 @@ constexpr Position offset[] = {
 };
 
 constexpr Position offset2[] = {
-    {0, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, 0},        // w
+    {0, 0},
+    {0, 1},
+    {1, 0},
+    {1, 1},
 };
 
 struct puz_move
@@ -118,7 +118,7 @@ struct puz_state
     bool make_move_hint(const Position& p, int n);
     void make_move_hint2(const Position& p, int n);
     bool make_move_square(const Position& p, int n);
-    void make_move_square2(const Position& p, int n);
+    map<Position, vector<int>>::iterator make_move_square2(const Position& p, int n);
     int find_matches(bool init);
     bool is_interconnected() const;
     bool check_square();
@@ -219,7 +219,8 @@ bool puz_state::is_interconnected() const
 
 bool puz_state::check_square()
 {
-    for (auto& [p, perm_ids] : m_matches_square) {
+    for (auto it = m_matches_square.begin(); it != m_matches_square.end();) {
+        auto& [p, perm_ids] = *it;
         boost::remove_erase_if(perm_ids, [&](int n) {
             auto& perm = m_game->m_perms[n];
             return !boost::equal(offset2, perm, [&](const Position& os, char ch2) {
@@ -231,7 +232,11 @@ bool puz_state::check_square()
         case 0:
             return false;
         case 1:
-            make_move_square2(p, perm_ids[0]);
+            it = make_move_square2(p, perm_ids[0]);
+            break;
+        default:
+            ++it;
+            break;
         }
     }
     return is_interconnected();
@@ -243,7 +248,8 @@ void puz_state::make_move_hint2(const Position& p, int n)
     for (auto& p2 : hedges)
         cells(p2) = PUZ_HEDGE;
     for (auto& p2 : empties)
-        cells(p2) = PUZ_EMPTY;
+        if (char& ch = cells(p2); ch == PUZ_SPACE)
+            ch = PUZ_EMPTY;
     ++m_distance, m_matches_hint.erase(p);
 }
 
@@ -256,15 +262,15 @@ bool puz_state::make_move_hint(const Position& p, int n)
     return m == 2;
 }
 
-void puz_state::make_move_square2(const Position& p, int n)
+map<Position, vector<int>>::iterator puz_state::make_move_square2(const Position& p, int n)
 {
     auto& perm = m_game->m_perms[n];
     for (int i = 0; i < 4; ++i) {
         Position p2 = p + offset2[i];
-        if (char& ch = cells(p2); ch == PUZ_EMPTY)
+        if (char& ch = cells(p2); ch == PUZ_SPACE)
             ch = perm[i];
     }
-    ++m_distance, m_matches_square.erase(p);
+    return ++m_distance, m_matches_square.erase(m_matches_square.find(p));
 }
 
 bool puz_state::make_move_square(const Position& p, int n)

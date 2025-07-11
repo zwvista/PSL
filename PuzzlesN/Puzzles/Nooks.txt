@@ -1,4 +1,10 @@
 Level 1
-Number of vertices examined: 1
-0.0048644 [s]
+Sequence of moves: 
+== == N4 == 
+N2 == .. == 
+.. .. .. N4 
+== == N4 == 
+Number of moves: 2
+Number of vertices examined: 3
+0.0072285 [s]
 
