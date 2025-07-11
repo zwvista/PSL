@@ -121,6 +121,7 @@ struct puz_state
     bool make_move_2x2(const Position& p, int n);
     int find_matches(bool init);
     bool is_interconnected() const;
+    bool check_2x2();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -132,8 +133,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    map<Position, vector<int>> m_matches_hint;
-    map<Position, vector<int>> m_matches_2x2;
+    map<Position, vector<int>> m_matches_hint, m_matches_2x2;
     unsigned int m_distance = 0;
 };
 
@@ -158,15 +158,17 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, move_ids] : m_matches_hint) {
-        //boost::remove_erase_if(area_ids, [&](int id) {
-        //    auto& [rng, _2, rng2D] = m_game->m_areas[id];
-        //    return !boost::algorithm::all_of(rng2D, [&](const set<Position>& rng2) {
-        //        return boost::algorithm::all_of(rng2, [&](const Position& p2) {
-        //            return cells(p2) == PUZ_SPACE ||
-        //                boost::algorithm::any_of_equal(rng, p2);
-        //        });
-        //    });
-        //});
+        auto& moves = m_game->m_pos2moves.at(p);
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [_1, hedges, empties] = moves[id];
+            return boost::algorithm::any_of(hedges, [&](const Position& p2) {
+                char ch = cells(p2);
+                return ch != PUZ_SPACE && ch != PUZ_HEDGE;
+            }) || boost::algorithm::any_of(empties, [&](const Position& p2) {
+                char ch = cells(p2);
+                return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+            });
+        });
 
         if (!init)
             switch(move_ids.size()) {
@@ -176,7 +178,7 @@ int puz_state::find_matches(bool init)
                 return make_move_hint2(p, move_ids[0]), 1;
             }
     }
-    return 2;
+    return check_2x2() && is_interconnected() ? 2 : 0;
 }
 
 struct puz_state2 : Position
@@ -212,6 +214,26 @@ bool puz_state::is_interconnected() const
     }) == boost::count_if(m_cells, is_maze);
 }
 
+bool puz_state::check_2x2()
+{
+    for (auto& [p, perm_ids] : m_matches_2x2) {
+        boost::remove_erase_if(perm_ids, [&](int n) {
+            auto& perm = m_game->m_perms[n];
+            return !boost::equal(offset2, perm, [&](const Position& os, char ch2) {
+                char ch = cells(p + os);
+                return ch == PUZ_SPACE || ch == ch2 || ch == PUZ_NOOK && ch2 == PUZ_EMPTY;
+            });
+        });
+        switch (perm_ids.size()) {
+        case 0:
+            return false;
+        case 1:
+            make_move_2x2(p, perm_ids[0]);
+        }
+    }
+    return true;
+}
+
 void puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& [_1, hedges, empties] = m_game->m_pos2moves.at(p)[n];
@@ -244,14 +266,17 @@ bool puz_state::make_move_2x2(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, move_ids] = *boost::min_element(m_matches_hint, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (int n : move_ids)
-        if (children.push_back(*this); !children.back().make_move_hint(p, n))
-            children.pop_back();
+    if (!m_matches_hint.empty()) {
+        auto& [p, move_ids] = *boost::min_element(m_matches_hint, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        for (int n : move_ids)
+            if (children.push_back(*this); !children.back().make_move_hint(p, n))
+                children.pop_back();
+    } else {
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
@@ -263,6 +288,7 @@ ostream& puz_state::dump(ostream& out) const
                 out << ch << m_game->m_pos2num.at(p);
             else
                 out << ch << ch;
+            out << ' ';
         }
         println(out);
     }
