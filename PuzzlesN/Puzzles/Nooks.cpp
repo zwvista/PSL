@@ -117,16 +117,17 @@ struct puz_state
     }
     bool make_move_hint(const Position& p, int n);
     void make_move_hint2(const Position& p, int n);
-    bool make_move_2x2(const Position& p, int n, bool need_check);
+    bool make_move_square(const Position& p, int n);
+    void make_move_square2(const Position& p, int n);
     int find_matches(bool init);
     bool is_interconnected() const;
-    bool check_2x2();
+    bool check_square();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_matches_hint.size() + m_matches_2x2.size();
+        return m_matches_hint.size() + m_matches_square.size();
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
@@ -134,7 +135,7 @@ struct puz_state
 
     const puz_game* m_game = nullptr;
     string m_cells;
-    map<Position, vector<int>> m_matches_hint, m_matches_2x2;
+    map<Position, vector<int>> m_matches_hint, m_matches_square;
     unsigned int m_distance = 0;
 };
 
@@ -152,7 +153,7 @@ puz_state::puz_state(const puz_game& g)
     boost::iota(v2, 0);
     for (int r = 1; r < g.m_sidelen - 2; ++r)
         for (int c = 1; c < g.m_sidelen - 2; ++c)
-            m_matches_2x2[{r, c}] = v2;
+            m_matches_square[{r, c}] = v2;
 
     find_matches(true);
 }
@@ -168,7 +169,7 @@ int puz_state::find_matches(bool init)
                 return ch != PUZ_SPACE && ch != PUZ_HEDGE;
             }) || boost::algorithm::any_of(empties, [&](const Position& p2) {
                 char ch = cells(p2);
-                return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+                return ch != PUZ_SPACE && ch != PUZ_EMPTY && ch != PUZ_NOOK;
             });
         });
 
@@ -180,7 +181,7 @@ int puz_state::find_matches(bool init)
                 return make_move_hint2(p, move_ids[0]), 1;
             }
     }
-    return check_2x2() ? 2 : 0;
+    return init || check_square() ? 2 : 0;
 }
 
 struct puz_state2 : Position
@@ -216,9 +217,9 @@ bool puz_state::is_interconnected() const
     }) == boost::count_if(m_cells, is_maze);
 }
 
-bool puz_state::check_2x2()
+bool puz_state::check_square()
 {
-    for (auto& [p, perm_ids] : m_matches_2x2) {
+    for (auto& [p, perm_ids] : m_matches_square) {
         boost::remove_erase_if(perm_ids, [&](int n) {
             auto& perm = m_game->m_perms[n];
             return !boost::equal(offset2, perm, [&](const Position& os, char ch2) {
@@ -230,7 +231,7 @@ bool puz_state::check_2x2()
         case 0:
             return false;
         case 1:
-            make_move_2x2(p, perm_ids[0], false);
+            make_move_square2(p, perm_ids[0]);
         }
     }
     return is_interconnected();
@@ -255,7 +256,7 @@ bool puz_state::make_move_hint(const Position& p, int n)
     return m == 2;
 }
 
-bool puz_state::make_move_2x2(const Position& p, int n, bool need_check)
+void puz_state::make_move_square2(const Position& p, int n)
 {
     auto& perm = m_game->m_perms[n];
     for (int i = 0; i < 4; ++i) {
@@ -263,8 +264,14 @@ bool puz_state::make_move_2x2(const Position& p, int n, bool need_check)
         if (char& ch = cells(p2); ch == PUZ_EMPTY)
             ch = perm[i];
     }
-    ++m_distance, m_matches_2x2.erase(p);
-    return !need_check || is_interconnected();
+    ++m_distance, m_matches_square.erase(p);
+}
+
+bool puz_state::make_move_square(const Position& p, int n)
+{
+    m_distance = 0;
+    make_move_square2(p, n);
+    return is_interconnected();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -279,13 +286,13 @@ void puz_state::gen_children(list<puz_state>& children) const
             if (children.push_back(*this); !children.back().make_move_hint(p, n))
                 children.pop_back();
     } else {
-        auto& [p, perm_ids] = *boost::min_element(m_matches_2x2, [](
+        auto& [p, perm_ids] = *boost::min_element(m_matches_square, [](
             const pair<const Position, vector<int>>& kv1,
             const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
         for (int n : perm_ids)
-            if (children.push_back(*this); !children.back().make_move_2x2(p, n, true))
+            if (children.push_back(*this); !children.back().make_move_square(p, n))
                 children.pop_back();
     }
 }
