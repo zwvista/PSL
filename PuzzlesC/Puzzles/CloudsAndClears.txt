@@ -7,5 +7,16 @@ C3 .. C. C6 C.
 C1 .3 .4 .4 .3 
 Number of moves: 3
 Number of vertices examined: 19
-0.266738 [s]
+0.267319 [s]
+
+Level 2
+Sequence of moves: 
+C4 C. .. C7 .2 
+C. C4 .2 C4 .. 
+.. .6 C. C4 C2 
+.. .. .4 C. .2 
+.7 C1 .. C. .2 
+Number of moves: 3
+Number of vertices examined: 6
+0.171505 [s]
 
