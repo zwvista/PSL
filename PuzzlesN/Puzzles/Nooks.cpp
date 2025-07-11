@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -118,7 +117,7 @@ struct puz_state
     }
     bool make_move_hint(const Position& p, int n);
     void make_move_hint2(const Position& p, int n);
-    bool make_move_2x2(const Position& p, int n);
+    bool make_move_2x2(const Position& p, int n, bool need_check);
     int find_matches(bool init);
     bool is_interconnected() const;
     bool check_2x2();
@@ -126,7 +125,9 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches_hint.size(); }
+    unsigned int get_heuristic() const {
+        return m_matches_hint.size() + m_matches_2x2.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -139,6 +140,7 @@ struct puz_state
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
+, m_cells(g.m_cells)
 {
     for (auto& [p, moves] : g.m_pos2moves) {
         auto& v = m_matches_hint[p];
@@ -178,7 +180,7 @@ int puz_state::find_matches(bool init)
                 return make_move_hint2(p, move_ids[0]), 1;
             }
     }
-    return check_2x2() && is_interconnected() ? 2 : 0;
+    return check_2x2() ? 2 : 0;
 }
 
 struct puz_state2 : Position
@@ -228,10 +230,10 @@ bool puz_state::check_2x2()
         case 0:
             return false;
         case 1:
-            make_move_2x2(p, perm_ids[0]);
+            make_move_2x2(p, perm_ids[0], false);
         }
     }
-    return true;
+    return is_interconnected();
 }
 
 void puz_state::make_move_hint2(const Position& p, int n)
@@ -253,7 +255,7 @@ bool puz_state::make_move_hint(const Position& p, int n)
     return m == 2;
 }
 
-bool puz_state::make_move_2x2(const Position& p, int n)
+bool puz_state::make_move_2x2(const Position& p, int n, bool need_check)
 {
     auto& perm = m_game->m_perms[n];
     for (int i = 0; i < 4; ++i) {
@@ -261,7 +263,8 @@ bool puz_state::make_move_2x2(const Position& p, int n)
         if (char& ch = cells(p2); ch == PUZ_EMPTY)
             ch = perm[i];
     }
-    return true;
+    ++m_distance, m_matches_2x2.erase(p);
+    return !need_check || is_interconnected();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -276,6 +279,14 @@ void puz_state::gen_children(list<puz_state>& children) const
             if (children.push_back(*this); !children.back().make_move_hint(p, n))
                 children.pop_back();
     } else {
+        auto& [p, perm_ids] = *boost::min_element(m_matches_2x2, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        for (int n : perm_ids)
+            if (children.push_back(*this); !children.back().make_move_2x2(p, n, true))
+                children.pop_back();
     }
 }
 
