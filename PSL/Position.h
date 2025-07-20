@@ -19,8 +19,8 @@ struct Position :
     }
 };
 
-void parse_position(const string& str, Position& p);
-void parse_positions(const string& str, vector<Position>& vp);
+Position parse_position(const std::string& str);
+std::vector<Position> parse_positions(const std::string& str);
 
 namespace std {
     template<>

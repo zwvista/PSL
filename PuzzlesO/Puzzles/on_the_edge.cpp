@@ -55,9 +55,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             }
     for (auto v : level.children())
         if (string(v.name()) == "teleporter") {
-            Position p1, p2;
-            parse_position(v.attribute("position1").value(), p1);
-            parse_position(v.attribute("position2").value(), p2);
+            auto p1 = parse_position(v.attribute("position1").value());
+            auto p2 = parse_position(v.attribute("position2").value());
             m_teleporters[p1] = p2;
             m_teleporters[p2] = p1;
         }

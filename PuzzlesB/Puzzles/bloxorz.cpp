@@ -95,16 +95,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     Position os(2, 2);
     for (auto v : level.children()) {
-        if (string(v.name()) == "switch") {
-            Position p;
+        if (string_view name = v.name(); name == "switch") {
             puz_switch switch_;
-            parse_position(v.attribute("position").value(), p);
+            auto p = parse_position(v.attribute("position").value());
             switch_.first = string(v.attribute("type").value()) == "heavy";
             {
-                const string& action = v.attribute("action").value();
+                string action = v.attribute("action").value();
                 pair<int, ESwitchActionType> pr;
-                string::const_iterator first = action.begin();
-                qi::phrase_parse(first, action.end(), 
+                qi::phrase_parse(action.begin(), action.end(),
                     +(
                         qi::int_[phx::ref(pr.first) = qi::_1] >>
                         (
@@ -116,25 +114,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 );
             }
             m_switches[p + os] = switch_;
-        } else if (string(v.name()) == "bridge") {
-            puz_bridge bridge;
-            parse_positions(v.attribute("position").value(), bridge.first);
-            bridge.second = string(v.attribute("state").value()) == "on";
-            for (Position& p2 : bridge.first)
+        } else if (name == "bridge") {
+            puz_bridge bridge = {
+                parse_positions(v.attribute("position").value()),
+                string(v.attribute("state").value()) == "on"
+            };
+            for (auto& p2 : bridge.first)
                 p2 += os;
             m_bridges.push_back(bridge);
-        } else if (string(v.name()) == "splitter") {
-            Position p;
-            parse_position(v.attribute("position").value(), p);
-            puz_splitter splitter;
-            parse_positions(v.attribute("locations").value(), splitter);
-            for (Position& p2 : splitter)
+        } else if (name == "splitter") {
+            auto p = parse_position(v.attribute("position").value());
+            auto splitter = parse_positions(v.attribute("locations").value());
+            for (auto& p2 : splitter)
                 p2 += os;
             m_splitters[p + os] = splitter;
-        } else if (string(v.name()) == "teleporter") {
-            Position p, p2;
-            parse_position(v.attribute("position").value(), p);
-            parse_position(v.attribute("location").value(), p2);
+        } else if (name == "teleporter") {
+            auto p = parse_position(v.attribute("position").value());
+            auto p2 = parse_position(v.attribute("location").value());
             m_teleporters[p + os] = p2 + os;
         }
     }
@@ -145,11 +141,10 @@ struct puz_state
     puz_state(const puz_game& g);
     const Position& goal() const {return m_game->m_goal;}
     bool operator<(const puz_state& x) const {
-        return m_blocks < x.m_blocks ||
-            m_blocks == x.m_blocks && m_bridges < x.m_bridges;
+        return tie(m_blocks, m_bridges) < tie(x.m_blocks, x.m_bridges);
     }
     bool operator==(const puz_state& x) const {
-        return m_blocks == x.m_blocks && m_bridges == x.m_bridges;
+        return tie(m_blocks, m_bridges) == tie(x.m_blocks, x.m_bridges);
     }
     bool is_hole(const Position& p) const {return m_game->cells(p) == PUZ_HOLE && !m_bridges.contains(p);}
     bool is_orange(const Position& p) const {return m_game->cells(p) == PUZ_ORANGE;}
@@ -180,7 +175,7 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
     : m_game(&g), m_blocks(g.m_blocks), m_split(false)
 {
-    for (const puz_bridge& bridge : m_game->m_bridges) {
+    for (auto& bridge : m_game->m_bridges) {
         m_bridge_states.push_back(bridge.second);
         if (bridge.second)
             m_bridges.insert(bridge.first.begin(), bridge.first.end());
@@ -245,27 +240,24 @@ bool puz_state::make_move(int n, int dir)
 
 bool puz_state::check_switch(const Position& p, bool heavy_included)
 {
-    map<Position, puz_switch>::const_iterator i = m_game->m_switches.find(p);
+    auto i = m_game->m_switches.find(p);
     if (i == m_game->m_switches.end()) return false;
 
-    const puz_switch& switch_ = i->second;
+    auto& switch_ = i->second;
     if (!heavy_included && switch_.first) return false;
 
-    using pair_type = pair<int, ESwitchActionType>;
-    for (const pair_type& pr : switch_.second) {
-        int index = pr.first;
-        ESwitchActionType type = pr.second;
+    for (auto& [index, type] : switch_.second) {
         bool on = 
             type == stOn ? true :
             type == stOff ? false :
             !m_bridge_states[index];
         if (on == m_bridge_states[index]) continue;
 
-        const puz_bridge& bridge = m_game->m_bridges[index];
-        if (m_bridge_states[index] = on)
+        auto& bridge = m_game->m_bridges[index];
+        if ((m_bridge_states[index] = on))
             m_bridges.insert(bridge.first.begin(), bridge.first.end());
         else
-            for (const Position& p : bridge.first)
+            for (auto& p : bridge.first)
                 m_bridges.erase(p);
     }
     return true;
@@ -273,7 +265,7 @@ bool puz_state::check_switch(const Position& p, bool heavy_included)
 
 bool puz_state::check_splitter(const Position& p)
 {
-    map<Position, puz_splitter>::const_iterator i = m_game->m_splitters.find(p);
+    auto i = m_game->m_splitters.find(p);
     if (i == m_game->m_splitters.end()) return false;
     m_split = true;
     m_blocks[0] = i->second[0];
@@ -283,7 +275,7 @@ bool puz_state::check_splitter(const Position& p)
 
 bool puz_state::check_teleporter(const Position& p)
 {
-    map<Position, Position>::const_iterator i = m_game->m_teleporters.find(p);
+    auto i = m_game->m_teleporters.find(p);
     if (i == m_game->m_teleporters.end()) return false;
     m_blocks[0] = m_blocks[1] = i->second;
     return true;
