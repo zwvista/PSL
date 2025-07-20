@@ -52,6 +52,8 @@
 		8C689D322E08BF6200A2BCCC /* Banquet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Banquet.cpp; sourceTree = "<group>"; };
 		8C689D332E08BF6200A2BCCC /* Banquet.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Banquet.txt; sourceTree = "<group>"; };
 		8C689D342E08BF6200A2BCCC /* Banquet.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Banquet.xml; sourceTree = "<group>"; };
+		8C884F712E2D2BF9005310E2 /* BlockEscape.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = BlockEscape.txt; sourceTree = "<group>"; };
+		8C884F722E2D2BF9005310E2 /* BlockEscape.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BlockEscape.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesB; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -174,6 +176,8 @@
 				95804A3B2544CA720022AF35 /* BentBridges.xml */,
 				8CA23FB61EB479280055D6B1 /* bloc.txt */,
 				8CA23FB71EB479280055D6B1 /* bloc.xml */,
+				8C884F712E2D2BF9005310E2 /* BlockEscape.txt */,
+				8C884F722E2D2BF9005310E2 /* BlockEscape.xml */,
 				8CA23FBA1EB479280055D6B1 /* bloxorz.cpp */,
 				8CA23FBB1EB479280055D6B1 /* bloxorz.xml */,
 				8CA23FB81EB479280055D6B1 /* bloxorz_a.txt */,
