@@ -73,7 +73,7 @@ struct puz_state2 : set<Position>
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     int m_num;
 };
 
@@ -147,7 +147,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     string m_cells;
     // key: the position of the board
     // value.elem: index of the pieces

@@ -175,7 +175,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     vector<puz_dot> m_dots;
     set<pair<Position, int>> m_finished;
     bool m_is_connected = false;

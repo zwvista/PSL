@@ -72,7 +72,7 @@ struct puz_state2 : vector<Position>
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     char m_num;
 };
 
@@ -117,7 +117,7 @@ struct puz_state3 : vector<Position>
     }
     void gen_children(list<puz_state3>& children) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     char m_num = PUZ_SPACE;
 };
 
@@ -200,7 +200,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         moves.emplace_back(num, v);
                 }
         } else {
-            auto smoves = puz_move_generator<puz_state3>::gen_moves({*this, p});
+            auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p});
             for (auto& s : smoves) {
                 if (s.size() == 1) continue;
                 auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
@@ -237,7 +237,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     string m_cells;
     // key: the position of the hint
     // value.elem: the index of the move

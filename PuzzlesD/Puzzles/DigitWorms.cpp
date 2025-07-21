@@ -94,7 +94,7 @@ struct puz_state3 : vector<Position>
     void gen_children(list<puz_state3>& children) const;
     unsigned int get_distance(const puz_state3& child) const { return 1; }
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     const set<Position>* m_area;
 };
 
@@ -147,7 +147,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         nums.resize(area.size());
         boost::iota(nums, '1');
         for (auto& p : area) {
-            puz_state3 sstart(*this, area, p);
+            puz_state3 sstart(this, area, p);
             list<list<puz_state3>> spaths;
             if (auto [found, _1] = puz_solver_bfs<puz_state3, false, false>::find_solution(sstart, spaths); found)
                 perms.push_back(spaths.back().back());
@@ -177,7 +177,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     string m_cells;
     map<int, vector<int>> m_matches;
     unsigned int m_distance = 0;

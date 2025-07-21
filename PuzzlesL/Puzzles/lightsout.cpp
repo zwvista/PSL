@@ -103,7 +103,7 @@ struct puz_state
     void dump_move(ostream& out) const {if(m_move) out << *m_move;}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     string m_cells;
     boost::optional<puz_move> m_move;
 };

@@ -57,14 +57,14 @@ struct puz_game
 struct puz_state2 : set<Position>
 {
     puz_state2(const puz_game* game, const puz_area& area, const Position& p)
-        : m_game(game), m_area(&area), m_ch(game.cells(p)) { make_move(p); }
+        : m_game(game), m_area(&area), m_ch(game->cells(p)) { make_move(p); }
 
     bool is_goal_state() const { return size() == m_area->m_num; }
     void make_move(const Position& p) { insert(p); }
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     const puz_area* m_area;
     char m_ch = PUZ_SPACE;
 };
@@ -149,7 +149,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     string m_cells;
     // key: the position occupied by an area
     // value.key : the hint position of the area

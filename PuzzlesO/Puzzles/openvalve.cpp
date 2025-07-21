@@ -101,7 +101,7 @@ struct puz_state
     void dump_move(ostream& out) const {println(out);}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     string m_cells;
     bool m_connected;
     list<pipe_info> m_frontier;

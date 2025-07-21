@@ -110,7 +110,7 @@ struct puz_state
     void dump_move(ostream& out) const {if(m_move) out << m_move;}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     set<Position> m_blobs;
     string m_cells;
     int m_grav;

@@ -97,7 +97,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     unsigned int m_distance = 0;
     // key: the position of the room
     // value.elem: respective numbers of the rooms visible from the room

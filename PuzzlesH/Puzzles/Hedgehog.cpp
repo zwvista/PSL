@@ -195,7 +195,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     vector<int> m_cells;
     vector<puz_segment> m_segments;
 };

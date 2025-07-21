@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C689D202E07753100A2BCCC /* NewCarpenterSquare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D1D2E07753100A2BCCC /* NewCarpenterSquare.cpp */; };
 		8C689D5F2E128A6000A2BCCC /* NumberChain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D5C2E128A6000A2BCCC /* NumberChain.cpp */; };
+		8C884F762E2E4561005310E2 /* NumberConnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C884F732E2E4561005310E2 /* NumberConnect.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
@@ -48,6 +49,9 @@
 		8C689D5C2E128A6000A2BCCC /* NumberChain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NumberChain.cpp; sourceTree = "<group>"; };
 		8C689D5D2E128A6000A2BCCC /* NumberChain.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NumberChain.txt; sourceTree = "<group>"; };
 		8C689D5E2E128A6000A2BCCC /* NumberChain.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NumberChain.xml; sourceTree = "<group>"; };
+		8C884F732E2E4561005310E2 /* NumberConnect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NumberConnect.cpp; sourceTree = "<group>"; };
+		8C884F742E2E4561005310E2 /* NumberConnect.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NumberConnect.txt; sourceTree = "<group>"; };
+		8C884F752E2E4561005310E2 /* NumberConnect.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NumberConnect.xml; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesN */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesN; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
@@ -170,6 +174,9 @@
 				8C689D5C2E128A6000A2BCCC /* NumberChain.cpp */,
 				8C689D5D2E128A6000A2BCCC /* NumberChain.txt */,
 				8C689D5E2E128A6000A2BCCC /* NumberChain.xml */,
+				8C884F732E2E4561005310E2 /* NumberConnect.cpp */,
+				8C884F742E2E4561005310E2 /* NumberConnect.txt */,
+				8C884F752E2E4561005310E2 /* NumberConnect.xml */,
 				95D7B5C5230C4546001E005C /* NumberCrossing.cpp */,
 				95D7B5C7230C4546001E005C /* NumberCrossing.txt */,
 				95D7B5C6230C4546001E005C /* NumberCrossing.xml */,
@@ -298,6 +305,7 @@
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
+				8C884F762E2E4561005310E2 /* NumberConnect.cpp in Sources */,
 				8CDAE7DD1F5AEA75000DE5AF /* NumberPath2.cpp in Sources */,
 				8CA240C51EB47A950055D6B1 /* NumberPath.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,

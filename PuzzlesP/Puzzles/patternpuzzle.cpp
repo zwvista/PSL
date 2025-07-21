@@ -92,7 +92,7 @@ struct puz_state
     }
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     string m_cells;
     vector<int> m_dirs;
     Position m_curpos;

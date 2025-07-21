@@ -120,7 +120,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     int m_remove_count, m_add_count;
     vector<int> m_digits;
     char m_operator;

@@ -105,7 +105,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     map<Position, vector<int>> m_stone2move_ids;
     vector<Position> m_path; // path from the first stone to the current stone
 };

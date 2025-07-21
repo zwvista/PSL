@@ -177,7 +177,7 @@ struct puz_state
     void dump_move(ostream& out) const {for(const puz_move& m : m_move) out << m;}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     Position m_man;
     puz_obj_map m_obj_map;
     bool m_gate_open;

@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -72,7 +72,7 @@ struct puz_state_base
     int rows() const {return m_game->rows();}
     int cols() const {return m_game->cols();}
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     Position m_monkey;
     string m_move;
 };

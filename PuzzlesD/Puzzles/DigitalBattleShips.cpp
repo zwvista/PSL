@@ -222,7 +222,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     map<int, int> m_ship2num;
     map<int, vector<pair<Position, bool>>> m_ship_matches;
     map<int, pair<int, vector<int>>> m_area_matches;

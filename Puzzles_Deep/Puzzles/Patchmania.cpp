@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
@@ -182,7 +182,7 @@ struct puz_state
         return state.dump(out, {}, {});
     }
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     string m_cells;
     map<char, puz_bunny_info> m_bunny2info;
     set<Position> m_mushrooms;

@@ -150,7 +150,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     vector<puz_dot> m_dots;
     // key: the position of the dot
     // value: the index of the permutation

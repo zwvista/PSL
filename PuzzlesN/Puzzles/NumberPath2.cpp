@@ -72,7 +72,7 @@ struct puz_state
         return state.dump(out, {}, {});
     }
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     Position m_p;
     vector<int> m_nums;
 };

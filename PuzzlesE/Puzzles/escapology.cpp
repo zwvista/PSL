@@ -75,7 +75,7 @@ struct puz_state
 
     bool is_ball(const Position& p) const {return m_balls.contains(p);}
     bool make_move(int i);
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     set<Position> m_balls;
     char m_move;
 };

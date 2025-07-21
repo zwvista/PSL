@@ -90,7 +90,7 @@ struct puz_state
     ostream& dump(ostream& out) const;
 
     unsigned int m_data;
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     boost::optional<puz_move> m_move;
 };
 

@@ -130,7 +130,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     vector<string> m_cells;
     vector<pair<char, vector<Position>>> m_num2targets;
     vector<Position> m_link;

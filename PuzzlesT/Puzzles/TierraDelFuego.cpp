@@ -86,7 +86,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     string m_cells;
     // key: position of the cell
     // value.elem: direction of the water if it is '0' ~ '3'

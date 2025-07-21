@@ -119,7 +119,7 @@ struct puz_state
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
-    const puz_game* m_game = nullptr;
+    const puz_game* m_game;
     string m_cells;
     // key: the position of the object
     // value.elem: the id of link that connects the object at this position
