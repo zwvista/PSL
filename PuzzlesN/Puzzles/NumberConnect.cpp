@@ -15,12 +15,6 @@
 namespace puzzles::NumberConnect{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_NUMBER = 'N';
-constexpr auto PUZ_BOUNDARY = '`';
-constexpr auto PUZ_LINE_OFF = '0';
-constexpr auto PUZ_LINE_ON = '1';
-
-const string lineseg_off = "0000";
 
 constexpr Position offset[] = {
     {-1, 0},       // n
@@ -29,57 +23,50 @@ constexpr Position offset[] = {
     {0, -1},       // w
 };
 
+struct puz_line
+{
+    Position m_start, m_end;
+    int m_num;
+};
+
+using puz_cell = pair<char, int>;
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, char> m_pos2num;
-    map<char, vector<Position>> m_num2targets;
-    vector<pair<char, int>> m_num2dist;
-    bool m_no_board_fill;
-    string m_cells;
+    map<char, puz_line> m_pos2line;
+    vector<puz_cell> m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size() + 2)
-, m_no_board_fill(level.attribute("NoBoardFill").as_int() == 1)
+, m_sidelen(strs.size())
 {
-    m_cells.append(m_sidelen, PUZ_BOUNDARY);
-    for (int r = 1; r < m_sidelen - 1; ++r) {
-        string_view str = strs[r - 1];
-        m_cells.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            char ch = str[c - 1];
-            m_cells.push_back(ch);
-            if (ch != PUZ_SPACE) {
-                Position p(r, c);
-                m_pos2num[p] = ch;
-                m_num2targets[ch].push_back(p);
+    for (int r = 0; r < m_sidelen; ++r) {
+        string_view str = strs[r];
+        for (int c = 0; c < m_sidelen; ++c) {
+            Position p(r, c);
+            if (auto s = str.substr(c * 3, 3); s == "   ")
+                m_cells.emplace_back(PUZ_SPACE, -1);
+            else {
+                char ch = s[0];
+                auto& line = m_pos2line[ch];
+                int n = stoi(string(s.substr(1)));
+                if (line.m_num == 0)
+                    line.m_start = p;
+                else
+                    line.m_end = p, line.m_num = n;
+                m_cells.emplace_back(ch, n);
             }
         }
-        m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
-    for (auto& [n, targets] : m_num2targets) {
-        int sz = targets.size();
-        unsigned int dist = 100;
-        for (int i = 0; i < sz - 1; ++i)
-            for (int j = i + 1; j < sz; ++j) {
-                unsigned int d = manhattan_distance(targets[i], targets[j]);
-                if (d < dist)
-                    dist = d;
-            }
-        m_num2dist.emplace_back(n, dist);
-    }
-    boost::sort(m_num2dist, [&](
-        const pair<const char, int>& kv1,
-        const pair<const char, int>& kv2) {
-        return kv1.second < kv2.second;
-    });
 }
 
 struct puz_state
@@ -96,20 +83,14 @@ struct puz_state
         m_link = {targets.back()};
         targets.pop_back();
     }
-    bool check_board() const;
     set<Position> get_area(char ch) const;
 
     //solve_puzzle interface
     bool is_goal_state() const {
-        return m_num2targets.empty() && (m_game->m_no_board_fill || get_heuristic() == 0);
+        return m_num2targets.empty() && get_heuristic() == 0;
     }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {
-        return (sidelen() - 2) * (sidelen() - 2) - 
-            boost::count_if(m_cells, [](const string& s) {
-            return s.substr(1) != lineseg_off;
-        });
-    }
+    unsigned int get_heuristic() const { return 0; }
     unsigned int get_distance(const puz_state& child) const { return 1; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -123,11 +104,6 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_cells.size()), m_game(&g)
 {
-    for (int i = 0; i < m_cells.size(); ++i)
-        m_cells[i] = g.m_cells[i] + lineseg_off;
-    
-    for (auto& [n, dist] : g.m_num2dist)
-        m_num2targets.emplace_back(n, g.m_num2targets.at(n));
 
     new_link();
 }
@@ -166,66 +142,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     }
 }
 
-bool puz_state::check_board() const
-{
-    set<Position> area = get_area(PUZ_SPACE), area2;
-
-    for (auto& [num, targets] : m_num2targets) {
-        set<Position> area3 = area, area4;
-        if (m_game->m_num2targets.at(num).size() > 2)
-            area4 = get_area(num);
-        else {
-            area4.insert(targets.begin(), targets.end());
-            if (targets.size() == 1)
-                area4.insert(m_link.back());
-        }
-
-        area3.insert(area4.begin(), area4.end());
-        auto smoves = puz_move_generator<puz_state2>::gen_moves(
-            {area3, targets.empty() ? m_link.back() : targets[0]});
-        set<Position> area5(smoves.begin(), smoves.end()), area6, area7;
-        boost::set_difference(area5, area, inserter(area6, area6.end()));
-        // ALL the same numbers must be reachable by the same line
-        if (area4.size() != area6.size())
-            return false;
-        if (!m_game->m_no_board_fill) {
-            boost::set_intersection(area, area5, inserter(area7, area7.end()));
-            area2.insert(area7.begin(), area7.end());
-        }
-    }
-    // ALL the squares must be reachable by lines
-    return m_game->m_no_board_fill || area.size() == area2.size();
-}
-
 bool puz_state::make_move(int n)
 {
-    auto p = m_link.back();
-    auto p2 = p + offset[n];
-    m_link.push_back(p2);
 
-    if (m_link.size() >= 4) {
-        // no line can cover a 2*2 area
-        vector<Position> v(m_link.rbegin(), m_link.rbegin() + 4);
-        boost::sort(v);
-        if (v[1] - v[0] == offset[1] && v[3] - v[2] == offset[1] &&
-            v[2] - v[0] == offset[2] && v[3] - v[1] == offset[2])
-            return false;
-    }
-
-    auto &str = cells(p), &str2 = cells(p2);
-
-    str2[(2 + n) % 4 + 1] = str[n + 1] = PUZ_LINE_ON;
-    if (str2[0] == PUZ_SPACE)
-        str2[0] = str[0];
-    else {
-        auto& targets = m_num2targets.back().second;
-        boost::remove_erase(targets, p2);
-        if (targets.empty())
-            m_num2targets.pop_back();
-        new_link();
-    }
-
-    return check_board();
+    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -244,22 +164,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 1;; ++r) {
-        // draw horizontal lines
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            auto str = cells(p);
-            auto it = m_game->m_pos2num.find(p);
-            out << (it != m_game->m_pos2num.end() ? it->second : ' ')
-                << (str[2] == PUZ_LINE_ON ? '-' : ' ');
-        }
-        println(out);
-        if (r == sidelen() - 2) break;
-        for (int c = 1; c < sidelen() - 1; ++c)
-            // draw vertical lines
-            out << (cells({r, c})[3] == PUZ_LINE_ON ? "| " : "  ");
-        println(out);
-    }
+    //for (int r = 1;; ++r) {
+    //    // draw horizontal lines
+    //    for (int c = 1; c < sidelen() - 1; ++c) {
+    //        Position p(r, c);
+    //        auto str = cells(p);
+    //        auto it = m_game->m_pos2num.find(p);
+    //        out << (it != m_game->m_pos2num.end() ? it->second : ' ')
+    //            ;
+    //    }
+    //    println(out);
+    //    if (r == sidelen() - 2) break;
+    //    println(out);
+    //}
     return out;
 }
 
