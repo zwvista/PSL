@@ -61,7 +61,7 @@ struct puz_state2 : vector<Position>
     puz_state2(const puz_game* game, const puz_line* line)
         : m_game(game), m_line(line) {make_move(line->m_start);}
 
-    bool is_goal_state() const { return size() == m_line->m_num + 1; }
+    bool is_goal_state() const { return size() == m_line->m_num + 1 && back() == m_line->m_end; }
     void make_move(const Position& p) { push_back(p); }
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
@@ -71,18 +71,19 @@ struct puz_state2 : vector<Position>
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
+    if (size() >= m_line->m_num + 1)
+        return;
     auto& p = back();
     if (manhattan_distance(m_line->m_end, p) > m_line->m_num + 1 - size())
         return; // too far away from the end
-    for (auto& os : offset) {
-        auto p2 = p + os;
-        auto& [ch, num] = m_game->cells(p2);
-        if (ch == m_line->m_letter && num == m_line->m_num ||
-            ch == PUZ_SPACE && boost::algorithm::none_of_equal(*this, p2)) {
-            children.push_back(*this);
-            children.back().make_move(p2);
-        }
-    }
+    for (auto& os : offset)
+        if (auto p2 = p + os; m_game->is_valid(p2))
+            if (auto& [ch, num] = m_game->cells(p2);
+                p2 == m_line->m_end ||
+                ch == PUZ_SPACE && boost::algorithm::none_of_equal(*this, p2)) {
+                children.push_back(*this);
+                children.back().make_move(p2);
+            }
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -97,7 +98,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_cells.emplace_back(PUZ_SPACE, PUZ_UNKNOWN);
             else {
                 char ch = s[0];
-                auto& [_1, start, end, num] = m_letter2line[ch];
+                auto& [letter, start, end, num] = m_letter2line[ch];
+                letter = ch;
                 int n = stoi(string(s.substr(1)));
                 if (n == 0)
                     start = p;
