@@ -156,8 +156,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (auto& spath : spaths) {
                 auto& s = spath.back();
                 int n = m_moves.size();
-                m_moves.emplace_back(letter, s);
-                for (auto& p2 : s)
+                vector v(s.begin() + 1, s.end() - 1);
+                m_moves.emplace_back(letter, v);
+                for (auto& p2 : v)
                     m_pos2move_ids[p2].push_back(n);
             }
     }
@@ -200,15 +201,12 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
-        //boost::remove_erase_if(move_ids, [&](int id) {
-        //    auto& [rng, _2, rng2D] = m_game->m_areas[id];
-        //    return !boost::algorithm::all_of(rng2D, [&](const set<Position>& rng2) {
-        //        return boost::algorithm::all_of(rng2, [&](const Position& p2) {
-        //            return cells(p2) == PUZ_SPACE ||
-        //                boost::algorithm::any_of_equal(rng, p2);
-        //            });
-        //        });
-        //    });
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [_2, path] = m_game->m_moves[id];
+            return !boost::algorithm::all_of(path, [&](const Position& p2) {
+                return cells(p2).first == PUZ_SPACE;
+            });
+        });
 
         if (!init)
             switch (move_ids.size()) {
@@ -223,6 +221,9 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
+    auto& [letter, path] = m_game->m_moves[n];
+    for (int i = 1; auto& p : path)
+        cells(p) = {letter, i++}, ++m_distance, m_matches.erase(p);
 }
 
 bool puz_state::make_move(int n)
@@ -248,17 +249,14 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    //for (int r = 0; r < sidelen(); ++r) {
-    //    for (int c = 0; c < sidelen(); ++c) {
-    //        Position p(r, c);
-    //        out << cells(p);
-    //        if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-    //            out << ". ";
-    //        else
-    //            out << it->second << ' ';
-    //    }
-    //    println(out);
-    //}
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            auto& [letter, n] = cells(p);
+            out << format("{}{:02} ", letter, n);
+        }
+        println(out);
+    }
     return out;
 }
 
