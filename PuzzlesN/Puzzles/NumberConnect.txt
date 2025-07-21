@@ -1,4 +1,13 @@
 Level 1
-Number of vertices examined: 1
-0.0060792 [s]
+Sequence of moves: 
+b10 b11 b12 b13 b14 b15 b16 
+b09 a11 a12 a13 a14 a15 b17 
+b08 a10 c00 d00 d01 d02 c06 
+b07 a09 c01 c02 c03 c04 c05 
+b06 a08 a07 a06 a05 a04 a03 
+b05 e00 e01 e02 e03 e04 a02 
+b04 b03 b02 b01 b00 a00 a01 
+Number of moves: 1
+Number of vertices examined: 2
+0.0031521 [s]
 
