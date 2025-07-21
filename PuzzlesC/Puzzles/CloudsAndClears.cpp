@@ -68,8 +68,8 @@ struct puz_game
 
 struct puz_state2
 {
-    puz_state2(const puz_game& game, int num, bool is_cloud, const Position& p)
-        : m_game(&game), m_num(num), m_is_cloud(is_cloud) { make_move(p, num, -1); }
+    puz_state2(const puz_game* game, int num, bool is_cloud, const Position& p)
+        : m_game(game), m_num(num), m_is_cloud(is_cloud) { make_move(p, num, -1); }
     bool operator<(const puz_state2& x) const {
         return tie(m_rng, m_clouds, m_empties) < tie(x.m_rng, x.m_clouds, x.m_empties);
     }
@@ -158,7 +158,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, num] : m_pos2num)
         for (int i = 0; i < 2; ++i) {
             bool is_cloud = i == 0;
-            puz_state2 sstart(*this, num, is_cloud, p);
+            puz_state2 sstart(this, num, is_cloud, p);
             list<list<puz_state2>> spaths;
             if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
                 for (auto& spath : spaths) {

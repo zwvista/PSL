@@ -73,8 +73,8 @@ struct puz_game
 // 4. Arrows show you the closest piece of Snake in that direction(before another arrow or the edge).
 struct puz_state2 : map<int, Position>
 {
-    puz_state2(const puz_game& game, int n, const Position& p, const set<Position>& empties)
-        : m_game(&game), m_empties(&empties) { make_move(n, p); }
+    puz_state2(const puz_game* game, int n, const Position& p, const set<Position>& empties)
+        : m_game(game), m_empties(&empties) { make_move(n, p); }
     bool is_self(const Position& p) const {
         return boost::algorithm::any_of(*this, [&](const pair<const int, Position>& kv) {
             return kv.second == p;
@@ -155,7 +155,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             rng.push_back(p2);
         for (auto it = rng.begin(); it != rng.end(); ++it) {
             set<Position> empties2(rng.begin(), it);
-            puz_state2 sstart(*this, n, *it, empties2);
+            puz_state2 sstart(this, n, *it, empties2);
             list<list<puz_state2>> spaths;
             if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
                 // save all goal states as permutations

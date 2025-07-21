@@ -59,8 +59,8 @@ struct puz_game
 
 struct puz_state2 : vector<Position>
 {
-    puz_state2(const puz_game& game, const Position& p, char num)
-        : m_game(&game), m_num(num) { make_move(p, false); }
+    puz_state2(const puz_game* game, const Position& p, char num)
+        : m_game(game), m_num(num) { make_move(p, false); }
     bool is_self(const Position& p) const {
         return boost::algorithm::any_of_equal(*this, p);
     }
@@ -104,8 +104,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 struct puz_state3 : vector<Position>
 {
-    puz_state3(const puz_game& game, const Position& p)
-        : m_game(&game) { make_move(PUZ_SPACE, p, false); }
+    puz_state3(const puz_game* game, const Position& p)
+        : m_game(game) { make_move(PUZ_SPACE, p, false); }
     bool is_self(const Position& p) const {
         return boost::algorithm::any_of_equal(*this, p);
     }
@@ -188,7 +188,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             });
         };
         if (num != PUZ_SPACE) {
-            puz_state2 sstart(*this, p, num);
+            puz_state2 sstart(this, p, num);
             list<list<puz_state2>> spaths;
             if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
                 // save all goal states as permutations

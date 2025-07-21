@@ -51,8 +51,8 @@ struct puz_game
 
 struct puz_state2 : set<Position>
 {
-    puz_state2(const puz_game& game, const Position& p, int num)
-        : m_game(&game), m_num(num) {
+    puz_state2(const puz_game* game, const Position& p, int num)
+        : m_game(game), m_num(num) {
         make_move(p);
     }
 
@@ -96,7 +96,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [p, num] : m_pos2num) {
-        puz_state2 sstart(*this, p, num);
+        puz_state2 sstart(this, p, num);
         list<list<puz_state2>> spaths;
         if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found) {
             // save all goal states as permutations

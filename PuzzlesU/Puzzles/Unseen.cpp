@@ -53,8 +53,8 @@ struct puz_game
 
 struct puz_state2 : set<Position>
 {
-    puz_state2(const puz_game& game, const Position& p, int num)
-        : m_game(&game), m_p(p), m_num(num) {
+    puz_state2(const puz_game* game, const Position& p, int num)
+        : m_game(game), m_p(p), m_num(num) {
         make_move(p);
     }
 
@@ -107,7 +107,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [p, region] : m_pos2region) {
-        puz_state2 sstart(*this, p, region.m_num);
+        puz_state2 sstart(this, p, region.m_num);
         list<list<puz_state2>> spaths;
         if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
             for (auto& spath : spaths)

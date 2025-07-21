@@ -56,8 +56,8 @@ struct puz_game
 
 struct puz_state2 : puz_rng2D
 {
-    puz_state2(const puz_game& game, const vector<Position>& rng)
-        : puz_rng2D(rng.size()), m_game(&game) { make_move(rng); }
+    puz_state2(const puz_game* game, const vector<Position>& rng)
+        : puz_rng2D(rng.size()), m_game(game) { make_move(rng); }
 
     void make_move(const vector<Position>& rng) {
         for (int i = 0; i < rng.size(); ++i)
@@ -114,7 +114,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [letter, rng] : m_letter2rng) {
-        puz_state2 sstart(*this, rng);
+        puz_state2 sstart(this, rng);
         vector<char> names;
         for (auto& p : rng)
             names.push_back(cells(p));

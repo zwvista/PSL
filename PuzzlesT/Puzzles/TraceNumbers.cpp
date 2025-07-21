@@ -60,8 +60,8 @@ struct puz_game
 
 struct puz_state2 : vector<Position>
 {
-    puz_state2(const puz_game& game, const Position& p, char ch)
-        : m_game(&game), m_char(ch) { make_move(p); }
+    puz_state2(const puz_game* game, const Position& p, char ch)
+        : m_game(game), m_char(ch) { make_move(p); }
 
     bool is_goal_state() const { return m_game->cells(back()) == m_char + 1; }
     void make_move(const Position& p) { push_back(p); }
@@ -99,7 +99,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [ch, rng] : m_ch2rng) {
         if (ch == m_max_ch) break;
         for (auto& p : rng) {
-            puz_state2 sstart(*this, p, ch);
+            puz_state2 sstart(this, p, ch);
             list<list<puz_state2>> spaths;
             if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found)
                 // save all goal states as permutations

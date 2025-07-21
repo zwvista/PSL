@@ -62,8 +62,8 @@ struct puz_game
 
 struct puz_state2 : set<Position>
 {
-    puz_state2(const puz_game& game, int num, const Position& p, const Position& p2)
-        : m_game(&game), m_num(num), m_p2(&p2) {make_move(p);}
+    puz_state2(const puz_game* game, int num, const Position& p, const Position& p2)
+        : m_game(game), m_num(num), m_p2(&p2) {make_move(p);}
 
     bool is_goal_state() const { return size() == m_num; }
     bool make_move(const Position& p) {
@@ -134,7 +134,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             // cannot make a pairing with a tile too far away
             if (manhattan_distance(p, p2) + 1 > n3) continue;
             auto kv3 = pair{p, p2};
-            puz_state2 sstart(*this, n3, p, p2);
+            puz_state2 sstart(this, n3, p, p2);
             list<list<puz_state2>> spaths;
             // Gardens can have any form.
             if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found) {

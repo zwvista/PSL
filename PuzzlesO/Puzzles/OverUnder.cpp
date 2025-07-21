@@ -55,8 +55,8 @@ struct puz_game
 
 struct puz_state2 : set<Position>
 {
-    puz_state2(const puz_game& game, const Position& p, const Position& p2, int num)
-        : m_game(&game), m_p2(&p2), m_num(num) {make_move(p);}
+    puz_state2(const puz_game* game, const Position& p, const Position& p2, int num)
+        : m_game(game), m_p2(&p2), m_num(num) {make_move(p);}
 
     bool is_goal_state() const { return size() == m_num; }
     bool make_move(const Position& p) {
@@ -120,7 +120,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             auto& region = m_pair2region[kv3];
             region.m_name = cells(p);
             for (int i = n3 + 1; i < n4; ++i) {
-                puz_state2 sstart(*this, p, p2, i);
+                puz_state2 sstart(this, p, p2, i);
                 list<list<puz_state2>> spaths;
                 if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
                     for (auto& spath : spaths)

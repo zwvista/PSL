@@ -86,8 +86,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 struct puz_state3 : vector<Position>
 {
-    puz_state3(const puz_game& game, const set<Position>& area, const Position& p)
-        : m_game(&game), m_area(&area) {make_move(p);}
+    puz_state3(const puz_game* game, const set<Position>& area, const Position& p)
+        : m_game(game), m_area(&area) {make_move(p);}
 
     bool is_goal_state() const { return size() == m_area->size(); }
     void make_move(const Position& p) { push_back(p); }
