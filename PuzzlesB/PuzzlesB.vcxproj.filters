@@ -70,6 +70,9 @@
     <Text Include="Puzzles\Banquet.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\BlockEscape.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -194,6 +197,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Banquet.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\BlockEscape.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

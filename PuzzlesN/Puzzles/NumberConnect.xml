@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+                     `
+               a15b17`
+      c00d00   d02c06`
+                     `
+                     `
+   e00         e04   `
+            b00a00   `
+    ]]>
+  </level>
+</levels>
+</puzzle>

@@ -67,6 +67,9 @@
     <Text Include="Puzzles\Nooks.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\NumberConnect.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -128,6 +131,9 @@
     <ClCompile Include="Puzzles\Nooks.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\NumberConnect.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\numeric_paranoia.xml">
@@ -170,6 +176,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Nooks.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\NumberConnect.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
