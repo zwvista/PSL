@@ -12,6 +12,7 @@ extern void solve_puz_CleaningPath();
 extern void solve_puz_Clouds();
 extern void solve_puz_CloudsAndClears();
 extern void solve_puz_CoffeeAndSugar();
+extern void solve_puz_ConnectPuzzle();
 extern void solve_puz_Consecutives();
 extern void solve_puz_CrossroadBlocks();
 extern void solve_puz_CrossroadsX();
@@ -35,7 +36,8 @@ int main(int argc, char **argv)
         println("l2: Clouds");
         println("l3: Clouds and Clears");
         println("o1: Coffee And Sugar");
-        println("o2: Consecutives");
+        println("o2: Connect Puzzle");
+        println("o3: Consecutives");
         println("r1: Crossroad Blocks");
         println("r2: Crossroads X");
         println("r3: Crosstown Traffic");
@@ -55,7 +57,8 @@ int main(int argc, char **argv)
         else if (str == "l2") solve_puz_Clouds();
         else if (str == "l3") solve_puz_CloudsAndClears();
         else if (str == "o1") solve_puz_CoffeeAndSugar();
-        else if (str == "o2") solve_puz_Consecutives();
+        else if (str == "o2") solve_puz_ConnectPuzzle();
+        else if (str == "o3") solve_puz_Consecutives();
         else if (str == "r1") solve_puz_CrossroadBlocks();
         else if (str == "r2") solve_puz_CrossroadsX();
         else if (str == "r3") solve_puz_CrosstownTraffic();
