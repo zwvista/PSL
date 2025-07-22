@@ -134,18 +134,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            if (auto s = str.substr(c * 3, 3); s == "   ")
+            if (auto s = str.substr(c * 2, 2); s == "  ")
                 m_cells.emplace_back(PUZ_SPACE, PUZ_UNKNOWN);
             else {
-                char ch = s[0];
-                auto& [letter, start, end, num] = m_letter2line[ch];
-                letter = ch;
-                int n = stoi(string(s.substr(1)));
+                char ch0 = s[0], ch1 = s[1];
+                auto& [letter, start, end, num] = m_letter2line[ch0];
+                letter = ch0;
+                int n = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
                 if (n == 0)
                     start = p;
                 else
                     end = p, num = n;
-                m_cells.emplace_back(ch, n);
+                m_cells.emplace_back(ch0, n);
             }
         }
     }
@@ -253,7 +253,7 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& [letter, n] = cells(p);
-            out << format("{}{:02} ", letter, n);
+            out << format("{}{:2} ", letter, n);
         }
         println(out);
     }

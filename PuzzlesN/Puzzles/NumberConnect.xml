@@ -7,13 +7,24 @@
 <levels>
   <level id="1">
     <![CDATA[
-                     `
-               a15b17`
-      c00d00   d02c06`
-                     `
-                     `
-   e00         e04   `
-            b00a00   `
+              `
+          aFbH`
+    c0d0  d2c6`
+              `
+              `
+  e0      e4  `
+        b0a0  `
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+a6bB          `
+  c2d4  e9    `
+    c0        `
+      a0d0    `
+        f7    `
+  g0    g3    `
+  f0e0      b0`
     ]]>
   </level>
 </levels>

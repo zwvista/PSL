@@ -1,13 +1,26 @@
 Level 1
 Sequence of moves: 
 b10 b11 b12 b13 b14 b15 b16 
-b09 a11 a12 a13 a14 a15 b17 
-b08 a10 c00 d00 d01 d02 c06 
-b07 a09 c01 c02 c03 c04 c05 
-b06 a08 a07 a06 a05 a04 a03 
-b05 e00 e01 e02 e03 e04 a02 
-b04 b03 b02 b01 b00 a00 a01 
+b 9 a11 a12 a13 a14 a15 b17 
+b 8 a10 c 0 d 0 d 1 d 2 c 6 
+b 7 a 9 c 1 c 2 c 3 c 4 c 5 
+b 6 a 8 a 7 a 6 a 5 a 4 a 3 
+b 5 e 0 e 1 e 2 e 3 e 4 a 2 
+b 4 b 3 b 2 b 1 b 0 a 0 a 1 
 Number of moves: 1
 Number of vertices examined: 2
-0.0031521 [s]
+0.0016176 [s]
+
+Level 2
+Sequence of moves: 
+a 6 b11 b10 b 9 b 8 b 7 b 6 
+a 5 c 2 d 4 d 3 e 9 e 8 b 5 
+a 4 c 1 c 0 d 2 d 1 e 7 b 4 
+a 3 a 2 a 1 a 0 d 0 e 6 b 3 
+f 3 f 4 f 5 f 6 f 7 e 5 b 2 
+f 2 g 0 g 1 g 2 g 3 e 4 b 1 
+f 1 f 0 e 0 e 1 e 2 e 3 b 0 
+Number of moves: 1
+Number of vertices examined: 2
+0.000717 [s]
 
