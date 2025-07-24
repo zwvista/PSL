@@ -5,10 +5,10 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Number Connect
+    iOS Game: Number Connect(Voodoo)
 
     Summary
-    Connect the numbers 
+    Connect the numbers with the same color by drawing a path between them.
 
     Description
 */

@@ -5,10 +5,10 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Number Connect
+    iOS Game: Connect Puzzle: Color Lights(ONETAP VIET NAM TECHNOLOGY COMPANY LIMITED)
 
     Summary
-    Connect the numbers 
+    Touch and drag the lights with the same color to connect them.
 
     Description
 */
