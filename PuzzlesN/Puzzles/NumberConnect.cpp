@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -60,14 +59,18 @@ struct puz_state2 : vector<Position>
 {
     puz_state2(const puz_game* game, const puz_line* line)
         : m_game(game), m_line(line) {make_move(line->m_start);}
-
-    bool is_goal_state() const { return size() == m_line->m_num + 1 && back() == m_line->m_end; }
     bool make_move(const Position& p);
+
+    bool is_goal_state() const { return get_heuristic() == 0; }
+    unsigned int get_heuristic() const {
+        return myabs(m_line->m_num + 1 - size()) + manhattan_distance(back(), m_line->m_end);
+    }
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
+    unsigned int get_distance(const puz_state2& child) const { return m_distance; }
 
     const puz_game* m_game;
     const puz_line* m_line;
+    unsigned int m_distance = 0;
 };
 
 struct puz_state3 : Position
@@ -100,6 +103,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 
 bool puz_state2::make_move(const Position& p)
 {
+    int d1 = empty() ? 0 : get_heuristic();
     push_back(p);
     if (is_goal_state())
         return true;
@@ -112,6 +116,7 @@ bool puz_state2::make_move(const Position& p)
         if (auto [found, _1] = puz_solver_astar<puz_state3>::find_solution(sstart, spaths); !found)
             return false;
     }
+    m_distance = size() == 1 ? 1 : d1 - get_heuristic();
     return true;
 }
 
@@ -152,7 +157,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [letter, line] : m_letter2line) {
         puz_state2 sstart(this, &line);
         list<list<puz_state2>> spaths;
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false>::find_solution(sstart, spaths); found)
+        if (auto [found, _1] = puz_solver_astar<puz_state2, true, false>::find_solution(sstart, spaths); found)
             for (auto& spath : spaths) {
                 auto& s = spath.back();
                 int n = m_moves.size();

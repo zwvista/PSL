@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -16,7 +15,6 @@
 namespace puzzles::ConnectPuzzle{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr Position offset[] = {
     {-1, 0},       // n
@@ -29,10 +27,8 @@ struct puz_line
 {
     char m_letter;
     Position m_start, m_end;
-    int m_num;
+    int m_count = 0;
 };
-
-using puz_cell = pair<char, int>;
 
 struct puz_move
 {
@@ -45,7 +41,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     map<char, puz_line> m_letter2line;
-    vector<puz_cell> m_cells;
+    string m_cells;
     vector<puz_move> m_moves;
     map<Position, vector<int>> m_pos2move_ids;
 
@@ -53,21 +49,23 @@ struct puz_game
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
-    const puz_cell& cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : vector<Position>
 {
     puz_state2(const puz_game* game, const puz_line* line)
         : m_game(game), m_line(line) {make_move(line->m_start);}
-
-    bool is_goal_state() const { return size() == m_line->m_num + 1 && back() == m_line->m_end; }
     bool make_move(const Position& p);
+
+    bool is_goal_state() const { return get_heuristic() == 0; }
+    unsigned int get_heuristic() const { return manhattan_distance(back(), m_line->m_end); }
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
+    unsigned int get_distance(const puz_state2& child) const { return m_distance; }
 
     const puz_game* m_game;
     const puz_line* m_line;
+    unsigned int m_distance = 0;
 };
 
 struct puz_state3 : Position
@@ -92,7 +90,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
     for (auto& os : offset)
         if (auto p2 = *this + os;
             game().is_valid(p2) && boost::algorithm::none_of_equal(*m_state, p2))
-            if (auto& [ch, _1] = game().cells(p2); ch == PUZ_SPACE || p2 == m_line->m_end) {
+            if (char ch = game().cells(p2); ch == PUZ_SPACE || p2 == m_line->m_end) {
                 children.push_back(*this);
                 children.back().make_move(p2);
             }
@@ -100,18 +98,15 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 
 bool puz_state2::make_move(const Position& p)
 {
+    int d1 = empty() ? 0 : get_heuristic();
     push_back(p);
-    if (is_goal_state())
-        return true;
-    if (size() == m_line->m_num + 1 ||
-        manhattan_distance(m_line->m_end, p) > m_line->m_num + 1 - size())
-        return false;
     for (auto& [letter, line] : m_game->m_letter2line) {
         puz_state3 sstart(this, &line);
         list<list<puz_state3>> spaths;
         if (auto [found, _1] = puz_solver_astar<puz_state3>::find_solution(sstart, spaths); !found)
             return false;
     }
+    m_distance = size() == 1 ? 1 : d1 - get_heuristic();
     return true;
 }
 
@@ -119,7 +114,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& p = back(); auto& os : offset)
         if (auto p2 = p + os; m_game->is_valid(p2))
-            if (auto& [ch, num] = m_game->cells(p2);
+            if (char ch = m_game->cells(p2);
                 p2 == m_line->m_end ||
                 ch == PUZ_SPACE && boost::algorithm::none_of_equal(*this, p2))
                 if (children.push_back(*this); !children.back().make_move(p2))
@@ -134,25 +129,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            if (auto s = str.substr(c * 2, 2); s == "  ")
-                m_cells.emplace_back(PUZ_SPACE, PUZ_UNKNOWN);
-            else {
-                char ch0 = s[0], ch1 = s[1];
-                auto& [letter, start, end, num] = m_letter2line[ch0];
-                letter = ch0;
-                int n = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
-                if (n == 0)
-                    start = p;
-                else
-                    end = p, num = n;
-                m_cells.emplace_back(ch0, n);
+            char ch = str[c];
+            if (ch != PUZ_SPACE) {
+                auto& [letter, start, end, count] = m_letter2line[ch];
+                letter = ch;
+                (count++ == 0 ? start : end) = p;
             }
+            m_cells.push_back(ch);
         }
     }
     for (auto& [letter, line] : m_letter2line) {
         puz_state2 sstart(this, &line);
         list<list<puz_state2>> spaths;
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false>::find_solution(sstart, spaths); found)
+        if (auto [found, _1] = puz_solver_astar<puz_state2, true, false>::find_solution(sstart, spaths); found)
             for (auto& spath : spaths) {
                 auto& s = spath.back();
                 int n = m_moves.size();
@@ -168,8 +157,8 @@ struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
-    const puz_cell& cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    puz_cell& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
@@ -186,7 +175,7 @@ struct puz_state
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
-    vector<puz_cell> m_cells;
+    string m_cells;
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
@@ -204,7 +193,7 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& [_2, path] = m_game->m_moves[id];
             return !boost::algorithm::all_of(path, [&](const Position& p2) {
-                return cells(p2).first == PUZ_SPACE;
+                return cells(p2) == PUZ_SPACE;
             });
         });
 
@@ -222,8 +211,8 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int n)
 {
     auto& [letter, path] = m_game->m_moves[n];
-    for (int i = 1; auto& p : path)
-        cells(p) = {letter, i++}, ++m_distance, m_matches.erase(p);
+    for (auto& p : path)
+        cells(p) = letter, ++m_distance, m_matches.erase(p);
 }
 
 bool puz_state::make_move(int n)
@@ -250,11 +239,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            auto& [letter, n] = cells(p);
-            out << format("{}{:2} ", letter, n);
-        }
+        for (int c = 0; c < sidelen(); ++c)
+            out << format("{} ", cells({r, c}));
         println(out);
     }
     return out;

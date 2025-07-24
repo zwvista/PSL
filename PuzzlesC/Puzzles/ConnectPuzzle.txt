@@ -1,0 +1,11 @@
+Level 1
+Sequence of moves: 
+a b b b b 
+a a a a b 
+c d d d d 
+c c c c e 
+e e e e e 
+Number of moves: 2
+Number of vertices examined: 3
+0.0017366 [s]
+
