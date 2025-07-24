@@ -1,11 +1,11 @@
 Level 1
 Sequence of moves: 
-a b b b b 
-a a a a b 
-c d d d d 
-c c c c e 
-e e e e e 
-Number of moves: 2
-Number of vertices examined: 3
-0.0017366 [s]
+av b> b> b> bv 
+a> a> a> a. b. 
+cv d> d> d> d. 
+c> c> c> c. ev 
+e. e< e< e< e< 
+Number of moves: 1
+Number of vertices examined: 2
+0.0012532 [s]
 
