@@ -105,19 +105,19 @@ void puz_state::make_move(const Position& p, bool clockwise)
     // 2 0
     // 3 1
     auto d1 = get_heuristic();
-    auto p1 = p + offset2[1], p2 = p + offset2[2], p3 = p + offset2[3];
+    char &ch0 = cells(p), &ch1 = cells(p + offset2[1]), &ch2 = cells(p + offset2[2]), &ch3 = cells(p + offset2[3]);
     if (!clockwise)
-        cells(p1) = exchange(cells(p3), exchange(cells(p2), exchange(cells(p), cells(p1))));
+        ch1 = exchange(ch3, exchange(ch2, exchange(ch0, ch1)));
     else
-        cells(p2) = exchange(cells(p3), exchange(cells(p1), exchange(cells(p), cells(p2))));
+        ch2 = exchange(ch3, exchange(ch1, exchange(ch0, ch2)));
     m_move = puz_move(p, clockwise);
     m_distance = d1 - get_heuristic();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 0; r < sidelen() - 1; ++r)
+        for (int c = 0; c < sidelen() - 1; ++c) {
             Position p(r, c);
             for (int i = 0; i < 2; ++i) {
                 children.push_back(*this);
