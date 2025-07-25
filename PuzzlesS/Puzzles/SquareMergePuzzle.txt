@@ -4,92 +4,67 @@ cbdc
 acab
 dcbd
 adba
-move: (0,2)l
+move: (3,3)r
+cbdc
+acab
+dcbb
+adad
+move: (3,2)l
+cbdc
+acab
+dbab
+acdd
+move: (2,2)l
+cbdc
+aaab
+dcbb
+acdd
+move: (1,3)l
 cbcb
-acda
-dcbd
-adba
-move: (2,0)r
+aada
+dcbb
+acdd
+move: (2,3)l
 cbcb
-acda
-adbd
-dcba
+aaab
+dcdb
+acdd
+move: (1,2)r
+cabb
+aacb
+dcdb
+acdd
 move: (1,1)l
-cbcb
-adba
-acdd
-dcba
-move: (0,1)l
-ccbb
-abda
-acdd
-dcba
-move: (2,0)r
-ccbb
-abda
-dadd
-ccba
-move: (1,1)r
-ccbb
-aaba
-dddd
-ccba
-move: (0,0)l
-cabb
-caba
-dddd
-ccba
-move: (2,2)r
-cabb
-caba
-ddbd
-ccad
-move: (2,1)l
-cabb
-caba
-dbad
-cdcd
-move: (1,0)l
-cabb
-abba
-cdad
-cdcd
-move: (0,2)l
-caba
-abbb
-cdad
-cdcd
-move: (0,0)l
-abba
-cabb
-cdad
-cdcd
-move: (0,2)l
-abab
-cabb
-cdad
-cdcd
-move: (1,0)l
-abab
-adbb
-ccad
-cdcd
-move: (0,1)l
 aabb
-abdb
-ccad
-cdcd
+cacb
+dcdb
+acdd
+move: (3,1)r
+aabb
+cacb
+addb
+ccdd
+move: (2,2)l
+aabb
+ccdb
+aadb
+ccdd
+move: (2,3)l
+aabb
+ccbb
+aadd
+ccdd
 move: (2,1)l
 aabb
-abdb
-cacd
+cabb
+cadd
 ccdd
-move: (1,1)r
+move: (2,1)l
 aabb
 aabb
 ccdd
 ccdd
-Number of moves: 17
-Number of vertices examined: 1267
-35.4216 [s]
+Number of moves: 12
+Number of vertices examined: 45253
+3.04113 [s]
 

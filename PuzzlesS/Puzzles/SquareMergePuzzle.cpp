@@ -66,7 +66,7 @@ struct puz_state
     bool is_goal_state() const {return get_heuristic() == 0;}
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const;
-    unsigned int get_distance(const puz_state& child) const { return m_distance; }
+    unsigned int get_distance(const puz_state& child) const { return 4; }
     //unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {if(m_move) out << *m_move;}
     ostream& dump(ostream& out) const;
@@ -74,7 +74,6 @@ struct puz_state
     const puz_game* m_game;
     string m_cells;
     optional<puz_move> m_move;
-    unsigned int m_distance = 0;
 };
 
 unsigned int puz_state::get_heuristic() const
@@ -104,14 +103,12 @@ void puz_state::make_move(const Position& p, bool clockwise)
     // clockwise
     // 2 0
     // 3 1
-    auto d1 = get_heuristic();
     char &ch0 = cells(p), &ch1 = cells(p + offset2[1]), &ch2 = cells(p + offset2[2]), &ch3 = cells(p + offset2[3]);
     if (!clockwise)
         ch1 = exchange(ch3, exchange(ch2, exchange(ch0, ch1)));
     else
         ch2 = exchange(ch3, exchange(ch1, exchange(ch0, ch2)));
-    m_move = puz_move(p, clockwise);
-    m_distance = d1 - get_heuristic();
+    m_move = puz_move(p + Position(1, 1), clockwise);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
