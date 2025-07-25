@@ -1,11 +1,10 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games/Puzzle Set 4/Castle Patrol
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Castle Patrol
 
     Summary
     Don't fall down the wall
@@ -33,6 +32,7 @@ constexpr Position offset[] = {
 
 struct puz_area
 {
+    Position m_start;
     // number of the tiles occupied by the area
     int m_num;
     // all permutations (forms) of the area
@@ -58,9 +58,10 @@ struct puz_state2 : set<Position>
 {
     puz_state2(const puz_game* game, const puz_area& area, const Position& p)
         : m_game(game), m_area(&area), m_ch(game->cells(p)) { make_move(p); }
+    bool make_move(const Position& p);
 
-    bool is_goal_state() const { return size() == m_area->m_num; }
-    void make_move(const Position& p) { insert(p); }
+    bool is_goal_state() const { return get_heuristic() == 0; }
+    unsigned int get_heuristic() const { return m_area->m_num - size(); }
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
@@ -68,6 +69,48 @@ struct puz_state2 : set<Position>
     const puz_area* m_area;
     char m_ch = PUZ_SPACE;
 };
+
+//struct puz_state3 : Position
+//{
+//    puz_state3(const puz_state2* s, const puz_area* area) : m_state(s), m_area(area) {
+//        make_move(s->m_area == area ? s->back() : area->m_start);
+//    }
+//    const puz_game& game() const { return *m_state->m_game; }
+//    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+//
+//    bool is_goal_state() const { return get_heuristic() == 0; }
+//    unsigned int get_heuristic() const { return manhattan_distance(*this, m_line->m_end); }
+//    void gen_children(list<puz_state3>& children) const;
+//    unsigned int get_distance(const puz_state3& child) const { return 1; }
+//
+//    const puz_state2* m_state;
+//    const puz_area* m_area;
+//};
+//
+//void puz_state3::gen_children(list<puz_state3>& children) const
+//{
+//    for (auto& os : offset)
+//        if (auto p2 = *this + os;
+//            game().is_valid(p2) && boost::algorithm::none_of_equal(*m_state, p2))
+//            if (char ch = game().cells(p2); ch == PUZ_SPACE || p2 == m_line->m_end) {
+//                children.push_back(*this);
+//                children.back().make_move(p2);
+//            }
+//}
+//
+//bool puz_state2::make_move(const Position& p)
+//{
+//    int d1 = empty() ? 0 : get_heuristic();
+//    push_back(p);
+//    for (auto& [letter, line] : m_game->m_letter2line) {
+//        puz_state3 sstart(this, &line);
+//        list<list<puz_state3>> spaths;
+//        if (auto [found, _1] = puz_solver_astar<puz_state3>::find_solution(sstart, spaths); !found)
+//            return false;
+//    }
+//    m_distance = size() == 1 ? 1 : d1 - get_heuristic();
+//    return true;
+//}
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
     for (auto& p : *this)
@@ -103,8 +146,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_cells.push_back(ch2);
             if (ch1 != ' ') {
                 Position p(r, c);
-                auto& area = m_pos2area[p];
-                area.m_num = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
+                auto& [start, num, _1] = m_pos2area[p];
+                start = p;
+                num = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
             }
         }
         m_cells.push_back(PUZ_BOUNDARY);
@@ -115,7 +159,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         puz_state2 sstart(this, area, p);
         list<list<puz_state2>> spaths;
         // Areas can have any form.
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
+        if (auto [found, _1] = puz_solver_astar<puz_state2, false, false>::find_solution(sstart, spaths); found)
             // save all goal states as permutations
             // A goal state is a area formed from the number
             for (auto& spath : spaths) {
