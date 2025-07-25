@@ -16,6 +16,7 @@ extern void solve_puz_SnakeMaze();
 extern void solve_puz_Snakeomino();
 extern void solve_puz_sokoban();
 extern void solve_puz_Square100();
+extern void solve_puz_SquareMergePuzzle();
 extern void solve_puz_Stacks();
 extern void solve_puz_Steps();
 extern void solve_puz_StraightAndBendLands();
@@ -44,7 +45,8 @@ int main(int argc, char **argv)
         println("n4: Snake Maze");
         println("n5: Snake-omino");
         println("o: sokoban");
-        println("q: Square 100");
+        println("q1: Square 100");
+        println("q2: Square Merge Puzzle");
         println("t1: Stacks");
         println("t2: Steps");
         println("t3: Straight and Bend Lands");
@@ -70,7 +72,8 @@ int main(int argc, char **argv)
         else if (str == "n4") solve_puz_SnakeMaze();
         else if (str == "n5") solve_puz_Snakeomino();
         else if (str == "o") solve_puz_sokoban();
-        else if (str == "q") solve_puz_Square100();
+        else if (str == "q1") solve_puz_Square100();
+        else if (str == "q2") solve_puz_SquareMergePuzzle();
         else if (str == "t1") solve_puz_Stacks();
         else if (str == "t2") solve_puz_Steps();
         else if (str == "t3") solve_puz_StraightAndBendLands();

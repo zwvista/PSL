@@ -173,6 +173,7 @@
     <Text Include="Puzzles\SnakeIslands.txt" />
     <Text Include="Puzzles\sokoban.txt" />
     <Text Include="Puzzles\Square100.txt" />
+    <Text Include="Puzzles\SquareMergePuzzle.txt" />
     <Text Include="Puzzles\Stacks.txt" />
     <Text Include="Puzzles\Steps.txt" />
     <Text Include="Puzzles\StraightAndBendLands.txt" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Puzzles\SnakeIslands.cpp" />
     <ClCompile Include="Puzzles\sokoban.cpp" />
     <ClCompile Include="Puzzles\Square100.cpp" />
+    <ClCompile Include="Puzzles\SquareMergePuzzle.cpp" />
     <ClCompile Include="Puzzles\Stacks.cpp" />
     <ClCompile Include="Puzzles\Steps.cpp" />
     <ClCompile Include="Puzzles\StraightAndBendLands.cpp" />
@@ -243,6 +245,7 @@
     <Xml Include="Puzzles\SnakeIslands.xml" />
     <Xml Include="Puzzles\sokoban.xml" />
     <Xml Include="Puzzles\Square100.xml" />
+    <Xml Include="Puzzles\SquareMergePuzzle.xml" />
     <Xml Include="Puzzles\Stacks.xml" />
     <Xml Include="Puzzles\Steps.xml" />
     <Xml Include="Puzzles\StraightAndBendLands.xml" />
