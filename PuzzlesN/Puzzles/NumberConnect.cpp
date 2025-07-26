@@ -66,11 +66,10 @@ struct puz_state2 : vector<Position>
         return myabs(m_line->m_num + 1 - size()) + manhattan_distance(back(), m_line->m_end);
     }
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return m_distance; }
+    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
     const puz_line* m_line;
-    unsigned int m_distance = 0;
 };
 
 struct puz_state3 : Position
@@ -103,7 +102,6 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 
 bool puz_state2::make_move(const Position& p)
 {
-    int d1 = empty() ? 0 : get_heuristic();
     push_back(p);
     if (is_goal_state())
         return true;
@@ -116,7 +114,6 @@ bool puz_state2::make_move(const Position& p)
         if (auto [found, _1] = puz_solver_astar<puz_state3>::find_solution(sstart, spaths); !found)
             return false;
     }
-    m_distance = size() == 1 ? 1 : d1 - get_heuristic();
     return true;
 }
 

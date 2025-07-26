@@ -33,6 +33,7 @@ constexpr Position offset[] = {
 struct puz_area
 {
     Position m_start;
+    char m_ch;
     // number of the tiles occupied by the area
     int m_num;
     // all permutations (forms) of the area
@@ -57,7 +58,7 @@ struct puz_game
 struct puz_state2 : set<Position>
 {
     puz_state2(const puz_game* game, const puz_area& area, const Position& p)
-        : m_game(game), m_area(&area), m_ch(game->cells(p)) { make_move(p); }
+        : m_game(game), m_area(&area) { make_move(p); }
     bool make_move(const Position& p);
 
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -67,50 +68,61 @@ struct puz_state2 : set<Position>
 
     const puz_game* m_game;
     const puz_area* m_area;
-    char m_ch = PUZ_SPACE;
 };
 
-//struct puz_state3 : Position
-//{
-//    puz_state3(const puz_state2* s, const puz_area* area) : m_state(s), m_area(area) {
-//        make_move(s->m_area == area ? s->back() : area->m_start);
-//    }
-//    const puz_game& game() const { return *m_state->m_game; }
-//    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-//
-//    bool is_goal_state() const { return get_heuristic() == 0; }
-//    unsigned int get_heuristic() const { return manhattan_distance(*this, m_line->m_end); }
-//    void gen_children(list<puz_state3>& children) const;
-//    unsigned int get_distance(const puz_state3& child) const { return 1; }
-//
-//    const puz_state2* m_state;
-//    const puz_area* m_area;
-//};
-//
-//void puz_state3::gen_children(list<puz_state3>& children) const
-//{
-//    for (auto& os : offset)
-//        if (auto p2 = *this + os;
-//            game().is_valid(p2) && boost::algorithm::none_of_equal(*m_state, p2))
-//            if (char ch = game().cells(p2); ch == PUZ_SPACE || p2 == m_line->m_end) {
-//                children.push_back(*this);
-//                children.back().make_move(p2);
-//            }
-//}
-//
-//bool puz_state2::make_move(const Position& p)
-//{
-//    int d1 = empty() ? 0 : get_heuristic();
-//    push_back(p);
-//    for (auto& [letter, line] : m_game->m_letter2line) {
-//        puz_state3 sstart(this, &line);
-//        list<list<puz_state3>> spaths;
-//        if (auto [found, _1] = puz_solver_astar<puz_state3>::find_solution(sstart, spaths); !found)
-//            return false;
-//    }
-//    m_distance = size() == 1 ? 1 : d1 - get_heuristic();
-//    return true;
-//}
+struct puz_state3 : Position
+{
+    puz_state3(const puz_state2* s, const puz_area* area, const Position& p) : m_state(s), m_area(area) {
+        bool is_same_area = area == &*s->m_area;
+        m_remaining = is_same_area ? area->m_num - s->size() : area->m_num;
+        m_can_share_edge = is_same_area || s->m_area->m_ch != m_area->m_ch;
+        make_move(is_same_area ? p : area->m_start);
+    }
+    const puz_game& game() const { return *m_state->m_game; }
+    void make_move(const Position& p) {
+        static_cast<Position&>(*this) = p;
+        --m_remaining;
+    }
+
+    bool is_goal_state() const { return get_heuristic() == 0; }
+    unsigned int get_heuristic() const { return m_remaining; }
+    void gen_children(list<puz_state3>& children) const;
+    unsigned int get_distance(const puz_state3& child) const { return 1; }
+
+    const puz_state2* m_state;
+    const puz_area* m_area;
+    bool m_can_share_edge;
+    int m_remaining;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    for (auto& os : offset)
+        if (auto p2 = *this + os;
+            game().cells(p2) == PUZ_SPACE && !m_state->contains(p2) &&
+            boost::algorithm::none_of(offset, [&](const Position& os2) {
+            auto p3 = p2 + os2;
+            return !m_can_share_edge && m_state->contains(p3) ||
+                p3 != m_area->m_start && game().cells(p3) == m_area->m_ch;
+        })) {
+            children.push_back(*this);
+            children.back().make_move(p2);
+        }
+}
+
+bool puz_state2::make_move(const Position& p)
+{
+    if (!empty())
+        for (auto& [p2, area] : m_game->m_pos2area) {
+            auto& [_1, ch, num, _2] = area;
+            puz_state3 sstart(this, &area, p);
+            list<list<puz_state3>> spaths;
+            if (auto [found, _3] = puz_solver_astar<puz_state3>::find_solution(sstart, spaths); !found)
+                return false;
+        }
+    insert(p);
+    return true;
+}
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
     for (auto& p : *this)
@@ -125,11 +137,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 char ch3 = m_game->cells(p3);
                 // no adjacent tile to it is of the same type as the area, because
                 // 3. Areas of the same type cannot share an edge.
-                return !contains(p3) && ch3 == m_ch;
-            })) {
-                children.push_back(*this);
-                children.back().make_move(p2);
-            }
+                return !contains(p3) && ch3 == m_area->m_ch;
+            }))
+                if (children.push_back(*this); !children.back().make_move(p2))
+                    children.pop_back();
         }
 }
 
@@ -146,8 +157,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_cells.push_back(ch2);
             if (ch1 != ' ') {
                 Position p(r, c);
-                auto& [start, num, _1] = m_pos2area[p];
-                start = p;
+                auto& [start, ch, num, _1] = m_pos2area[p];
+                start = p, ch = ch2;
                 num = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
             }
         }

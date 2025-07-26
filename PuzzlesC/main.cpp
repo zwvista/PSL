@@ -44,7 +44,7 @@ int main(int argc, char **argv)
         println("u1: Cultured Branches");
         println("u2: Culture Trip");
         getline(cin, str);
-        if (str.empty()) solve_puz_ConnectPuzzle();
+        if (str.empty()) solve_puz_CastlePatrol();
         else if (str == "a1") solve_puz_Caffelatte();
         else if (str == "a2") solve_puz_Calcudoku();
         else if (str == "a3") solve_puz_CarpentersSquare();
