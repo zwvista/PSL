@@ -4,9 +4,9 @@ Sequence of moves:
  8W  W  W  W
   W  .  . 4.
   W  . 2W  W
-Number of moves: 2
-Number of vertices examined: 3
-0.001553 [s]
+Number of moves: 1
+Number of vertices examined: 2
+0.0020806 [s]
 
 Level 2
 Sequence of moves: 
@@ -16,7 +16,7 @@ Sequence of moves:
   . 7.  . 3W
 Number of moves: 2
 Number of vertices examined: 4
-0.0003978 [s]
+0.0005997 [s]
 
 Level 36
 Sequence of moves: 
@@ -27,5 +27,5 @@ Sequence of moves:
   .  .  . 8.  .
 Number of moves: 5
 Number of vertices examined: 7
-0.0008509 [s]
+0.0009153 [s]
 

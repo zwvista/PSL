@@ -38,7 +38,7 @@ struct puz_area
     char m_ch;
     // number of the tiles occupied by the area
     int m_num;
-    // all permutations (forms) of the area
+    set<Position> m_must_reach_rng;
 };
 
 struct puz_move 
@@ -125,6 +125,18 @@ bool puz_state2::make_move(const Position& p)
                     return false;
             }
     insert(p);
+    if (size() > 1 && !m_area->m_must_reach_rng.empty()) {
+        auto h = get_heuristic();
+        if (!boost::algorithm::all_of(m_area->m_must_reach_rng, [&](const Position& p2) {
+            if (contains(p2))
+                return true;
+            auto it = boost::min_element(*this, [&](const Position& p3, const Position& p4) {
+                return manhattan_distance(p3, p2) < manhattan_distance(p4, p2);
+            });
+            return manhattan_distance(*it, p2) <= h;
+        }))
+            return false;
+    }
     return true;
 }
 
@@ -161,7 +173,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_cells.push_back(ch2);
             if (ch1 != ' ') {
                 Position p(r, c);
-                auto& [start, ch, num] = m_pos2area[p];
+                auto& [start, ch, num, _1] = m_pos2area[p];
                 start = p, ch = ch2;
                 num = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
             }
@@ -169,7 +181,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_cells.push_back(PUZ_BOUNDARY);
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
-    
+
+    for (int r = 1; r < m_sidelen - 1; ++r)
+        for (int c = 1; c < m_sidelen - 1; ++c)
+            if (Position p(r, c); !m_pos2area.contains(p)) {
+                set<Position> rng;
+                for (auto& [p2, area] : m_pos2area)
+                    if (manhattan_distance(p, p2) < area.m_num)
+                        rng.insert(p2);
+                if (rng.size() == 1)
+                    m_pos2area.at(*rng.begin()).m_must_reach_rng.insert(p);
+            }
+
     for (auto& [p, area] : m_pos2area) {
         puz_state2 sstart(this, &area);
         list<list<puz_state2>> spaths;
