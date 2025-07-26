@@ -32,22 +32,31 @@ constexpr Position offset[] = {
 
 struct puz_area
 {
+    // key: position of the number (hint)
     Position m_start;
+    // empty or wall area
     char m_ch;
     // number of the tiles occupied by the area
     int m_num;
     // all permutations (forms) of the area
-    vector<set<Position>> m_perms;
+};
+
+struct puz_move 
+{
+    // key: position of the number (hint)
+    Position m_start;
+    // empty or wall area
+    char m_ch;
+    set<Position> m_rng;
 };
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    // key: position of the number (hint)
-    // value: the area
     map<Position, puz_area> m_pos2area;
-    map<Position, vector<pair<Position, int>>> m_pos2perminfos;
+    vector<puz_move> m_moves;
+    map<Position, vector<int>> m_pos2move_ids;
     string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -57,8 +66,8 @@ struct puz_game
 
 struct puz_state2 : set<Position>
 {
-    puz_state2(const puz_game* game, const puz_area& area, const Position& p)
-        : m_game(game), m_area(&area) { make_move(p); }
+    puz_state2(const puz_game* game, const puz_area* area)
+        : m_game(game), m_area(area) { make_move(area->m_start); }
     bool make_move(const Position& p);
 
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -152,7 +161,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_cells.push_back(ch2);
             if (ch1 != ' ') {
                 Position p(r, c);
-                auto& [start, ch, num, _1] = m_pos2area[p];
+                auto& [start, ch, num] = m_pos2area[p];
                 start = p, ch = ch2;
                 num = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
             }
@@ -162,7 +171,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
     
     for (auto& [p, area] : m_pos2area) {
-        puz_state2 sstart(this, area, p);
+        puz_state2 sstart(this, &area);
         list<list<puz_state2>> spaths;
         // Areas can have any form.
         if (auto [found, _1] = puz_solver_astar<puz_state2, false, false>::find_solution(sstart, spaths); found)
@@ -170,10 +179,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             // A goal state is a area formed from the number
             for (auto& spath : spaths) {
                 auto& rng = spath.back();
-                int n = area.m_perms.size();
-                area.m_perms.push_back(rng);
+                int n = m_moves.size();
+                m_moves.emplace_back(p, area.m_ch, rng);
                 for (auto& p2 : rng)
-                    m_pos2perminfos[p2].emplace_back(p, n);
+                    m_pos2move_ids[p2].push_back(n);
             }
     }
 }
@@ -187,8 +196,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(const pair<Position, int>& kv);
-    void make_move2(const pair<Position, int>& kv);
+    bool make_move(int n);
+    void make_move2(int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -201,65 +210,55 @@ struct puz_state
 
     const puz_game* m_game;
     string m_cells;
-    // key: the position occupied by an area
-    // value.key : the hint position of the area
-    // value.value: index into the permutations (forms) of the area
-    map<Position, vector<pair<Position, int>>> m_matches;
-    set<Position> m_hints;
+    // key: the position of the number (hint)
+    // value : the index of the move
+    map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_cells), m_matches(g.m_pos2perminfos)
+: m_game(&g), m_cells(g.m_cells), m_matches(g.m_pos2move_ids)
 {
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p2, infos] : m_matches) {
-        boost::remove_erase_if(infos, [&](const pair<Position, int>& kv2) {
-            auto& p = kv2.first;
-            int n = kv2.second;
-            char ch = cells(p);
-            auto& perm = m_game->m_pos2area.at(p).m_perms[n];
-            // remove any path if it contains a tile which belongs to another area
-            return boost::algorithm::any_of(perm, [&](const Position& p2) {
-                char ch2 = cells(p2);
-                return p != p2 && (ch2 != PUZ_SPACE ||
-                    boost::algorithm::any_of(offset, [&](const Position& os) {
+    for (auto& [_1, move_ids] : m_matches) {
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [start, ch, rng] = m_game->m_moves[id];
+            return !boost::algorithm::all_of(rng, [&](const Position& p2) {
+                return cells(p2) == PUZ_SPACE &&
+                    boost::algorithm::none_of(offset, [&](const Position& os) {
                     // no adjacent tile to it is of the same type as the area, because
                     // 3. Areas of the same type cannot share an edge.
                     auto p3 = p2 + os;
-                    return p != p3 && cells(p3) == ch;
-                }));
+                    return start != p3 && cells(p3) == ch;
+                }) || start == p2;
             });
         });
         if (!init)
-            switch(infos.size()) {
+            switch(move_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(infos[0]), 1;
+                return make_move2(move_ids[0]), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(const pair<Position, int>& kv)
+void puz_state::make_move2(int n)
 {
-    auto& [p, n] = kv;
-    auto& perm = m_game->m_pos2area.at(p).m_perms[n];
-
-    char ch = cells(p);
-    for (auto& p2 : perm)
+    auto& [_1, ch, rng] = m_game->m_moves[n];
+    for (auto& p2 : rng)
         cells(p2) = ch, ++m_distance, m_matches.erase(p2);
 }
 
-bool puz_state::make_move(const pair<Position, int>& kv)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    make_move2(kv);
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -267,11 +266,13 @@ bool puz_state::make_move(const pair<Position, int>& kv)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, infos] = *boost::min_element(m_matches, [](auto& kv1, auto& kv2) {
+    auto& [_1, move_ids] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (auto& kv : infos)
-        if (children.push_back(*this); !children.back().make_move(kv))
+    for (int n : move_ids)
+        if (children.push_back(*this); !children.back().make_move(n))
             children.pop_back();
 }
 
