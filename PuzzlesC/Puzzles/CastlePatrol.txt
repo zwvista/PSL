@@ -6,7 +6,7 @@ Sequence of moves:
   W  . 2W  W
 Number of moves: 2
 Number of vertices examined: 3
-0.001 [s]
+0.001553 [s]
 
 Level 2
 Sequence of moves: 
@@ -15,8 +15,8 @@ Sequence of moves:
   .  .  W  W
   . 7.  . 3W
 Number of moves: 2
-Number of vertices examined: 3
-0.00111 [s]
+Number of vertices examined: 4
+0.0003978 [s]
 
 Level 36
 Sequence of moves: 
@@ -27,5 +27,5 @@ Sequence of moves:
   .  .  . 8.  .
 Number of moves: 5
 Number of vertices examined: 7
-0.006144 [s]
+0.0008509 [s]
 

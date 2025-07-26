@@ -72,11 +72,10 @@ struct puz_state2 : set<Position>
 
 struct puz_state3 : pair<Position, unsigned int>
 {
-    puz_state3(const puz_state2* s, const puz_area* area, const Position& p) : m_state(s), m_area(area) {
-        bool is_same_area = area == &*s->m_area;
-        second = is_same_area ? area->m_num - s->size() : area->m_num;
-        m_can_share_edge = is_same_area || s->m_area->m_ch != m_area->m_ch;
-        make_move(is_same_area ? p : area->m_start);
+    puz_state3(const puz_state2* s, const puz_area* area)
+        : m_state(s), m_area(area), m_can_share_edge(s->m_area->m_ch != m_area->m_ch) {
+        second = area->m_num;
+        make_move(area->m_start);
     }
     const puz_game& game() const { return *m_state->m_game; }
     void make_move(const Position& p) { first = p, --second; }
@@ -109,13 +108,13 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 bool puz_state2::make_move(const Position& p)
 {
     if (!empty())
-        for (auto& [p2, area] : m_game->m_pos2area) {
-            auto& [_1, ch, num, _2] = area;
-            puz_state3 sstart(this, &area, p);
-            list<list<puz_state3>> spaths;
-            if (auto [found, _3] = puz_solver_astar<puz_state3>::find_solution(sstart, spaths); !found)
-                return false;
-        }
+        for (auto& [p2, area] : m_game->m_pos2area)
+            if (m_area != &area) {
+                puz_state3 sstart(this, &area);
+                list<list<puz_state3>> spaths;
+                if (auto [found, _3] = puz_solver_astar<puz_state3>::find_solution(sstart, spaths); !found)
+                    return false;
+            }
     insert(p);
     return true;
 }
