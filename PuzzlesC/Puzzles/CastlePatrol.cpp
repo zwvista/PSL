@@ -70,35 +70,31 @@ struct puz_state2 : set<Position>
     const puz_area* m_area;
 };
 
-struct puz_state3 : Position
+struct puz_state3 : pair<Position, unsigned int>
 {
     puz_state3(const puz_state2* s, const puz_area* area, const Position& p) : m_state(s), m_area(area) {
         bool is_same_area = area == &*s->m_area;
-        m_remaining = is_same_area ? area->m_num - s->size() : area->m_num;
+        second = is_same_area ? area->m_num - s->size() : area->m_num;
         m_can_share_edge = is_same_area || s->m_area->m_ch != m_area->m_ch;
         make_move(is_same_area ? p : area->m_start);
     }
     const puz_game& game() const { return *m_state->m_game; }
-    void make_move(const Position& p) {
-        static_cast<Position&>(*this) = p;
-        --m_remaining;
-    }
+    void make_move(const Position& p) { first = p, --second; }
 
     bool is_goal_state() const { return get_heuristic() == 0; }
-    unsigned int get_heuristic() const { return m_remaining; }
+    unsigned int get_heuristic() const { return second; }
     void gen_children(list<puz_state3>& children) const;
     unsigned int get_distance(const puz_state3& child) const { return 1; }
 
     const puz_state2* m_state;
     const puz_area* m_area;
     bool m_can_share_edge;
-    int m_remaining;
 };
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset)
-        if (auto p2 = *this + os;
+        if (auto p2 = first + os;
             game().cells(p2) == PUZ_SPACE && !m_state->contains(p2) &&
             boost::algorithm::none_of(offset, [&](const Position& os2) {
             auto p3 = p2 + os2;
