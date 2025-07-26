@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C269F401F66809100489ADC /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C269F3D1F66809100489ADC /* Snake.cpp */; };
+		8C3B8EF92E352DC200DB05CA /* SquareMergePuzzle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C3B8EF62E352DC200DB05CA /* SquareMergePuzzle.cpp */; };
 		8C689C802DEEB75500A2BCCC /* SuspendedGravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */; };
 		8C689CDD2E003BFC00A2BCCC /* SlitherCorner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CDA2E003BFC00A2BCCC /* SlitherCorner.cpp */; };
 		8C689D0E2E04023200A2BCCC /* StraightAndBendLands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D0B2E04023200A2BCCC /* StraightAndBendLands.cpp */; };
@@ -54,6 +55,9 @@
 		8C269F3D1F66809100489ADC /* Snake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Snake.cpp; sourceTree = "<group>"; };
 		8C269F3E1F66809100489ADC /* Snake.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Snake.txt; sourceTree = "<group>"; };
 		8C269F3F1F66809100489ADC /* Snake.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Snake.xml; sourceTree = "<group>"; };
+		8C3B8EF62E352DC200DB05CA /* SquareMergePuzzle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SquareMergePuzzle.cpp; sourceTree = "<group>"; };
+		8C3B8EF72E352DC200DB05CA /* SquareMergePuzzle.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SquareMergePuzzle.txt; sourceTree = "<group>"; };
+		8C3B8EF82E352DC200DB05CA /* SquareMergePuzzle.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SquareMergePuzzle.xml; sourceTree = "<group>"; };
 		8C5F12A92DE378EA00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12AA2DE378EA00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SuspendedGravity.cpp; sourceTree = "<group>"; };
@@ -234,6 +238,9 @@
 				8CA241501EB47AEC0055D6B1 /* Square100.cpp */,
 				8CA241511EB47AEC0055D6B1 /* Square100.txt */,
 				8CA241521EB47AEC0055D6B1 /* Square100.xml */,
+				8C3B8EF62E352DC200DB05CA /* SquareMergePuzzle.cpp */,
+				8C3B8EF72E352DC200DB05CA /* SquareMergePuzzle.txt */,
+				8C3B8EF82E352DC200DB05CA /* SquareMergePuzzle.xml */,
 				958FA637232BE15B00205831 /* Stacks.cpp */,
 				958FA632232BE15B00205831 /* Stacks.txt */,
 				958FA633232BE15B00205831 /* Stacks.xml */,
@@ -366,6 +373,7 @@
 				8CA2415A1EB47AEC0055D6B1 /* SheepAndWolves.cpp in Sources */,
 				8CA241601EB47AEC0055D6B1 /* SlitherLink2.cpp in Sources */,
 				958FA638232BE15B00205831 /* Steps.cpp in Sources */,
+				8C3B8EF92E352DC200DB05CA /* SquareMergePuzzle.cpp in Sources */,
 				8CA2415C1EB47AEC0055D6B1 /* Skydoku.cpp in Sources */,
 				8CA2415D1EB47AEC0055D6B1 /* Skyscrapers.cpp in Sources */,
 				95E37B1F233BDDA20054284F /* StraightAndTurn.cpp in Sources */,

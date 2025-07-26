@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C3B8EF52E352C9000DB05CA /* ConnectPuzzle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C3B8EF22E352C9000DB05CA /* ConnectPuzzle.cpp */; };
 		8C689C952E00375900A2BCCC /* CrossroadsX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C8F2E00375900A2BCCC /* CrossroadsX.cpp */; };
 		8C689C962E00375900A2BCCC /* CrossroadBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C8C2E00375900A2BCCC /* CrossroadBlocks.cpp */; };
 		8C689C972E00375900A2BCCC /* CrosstownTraffic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C922E00375900A2BCCC /* CrosstownTraffic.cpp */; };
@@ -45,6 +46,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C3B8EF22E352C9000DB05CA /* ConnectPuzzle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConnectPuzzle.cpp; sourceTree = "<group>"; };
+		8C3B8EF32E352C9000DB05CA /* ConnectPuzzle.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ConnectPuzzle.txt; sourceTree = "<group>"; };
+		8C3B8EF42E352C9000DB05CA /* ConnectPuzzle.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ConnectPuzzle.xml; sourceTree = "<group>"; };
 		8C5F128D2DE377ED00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F128E2DE377ED00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C689C892E00375900A2BCCC /* CleaningPath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CleaningPath.cpp; sourceTree = "<group>"; };
@@ -204,6 +208,9 @@
 				95D7B6002320146B001E005C /* CoffeeAndSugar.cpp */,
 				95D7B6022320146B001E005C /* CoffeeAndSugar.txt */,
 				95D7B6012320146B001E005C /* CoffeeAndSugar.xml */,
+				8C3B8EF22E352C9000DB05CA /* ConnectPuzzle.cpp */,
+				8C3B8EF32E352C9000DB05CA /* ConnectPuzzle.txt */,
+				8C3B8EF42E352C9000DB05CA /* ConnectPuzzle.xml */,
 				8CA23FF61EB4793B0055D6B1 /* Consecutives.cpp */,
 				8CA23FF71EB4793B0055D6B1 /* Consecutives.txt */,
 				8CA23FF81EB4793B0055D6B1 /* Consecutives.xml */,
@@ -339,6 +346,7 @@
 				8CA23FFD1EB4793B0055D6B1 /* Clouds.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				95E37B1A233647320054284F /* Caffelatte.cpp in Sources */,
+				8C3B8EF52E352C9000DB05CA /* ConnectPuzzle.cpp in Sources */,
 				8CA23FF91EB4793B0055D6B1 /* Calcudoku.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
