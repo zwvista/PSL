@@ -163,6 +163,7 @@
     <Text Include="Puzzles\CarpentersWall.txt" />
     <Text Include="Puzzles\CastleBailey.txt" />
     <Text Include="Puzzles\CastlePatrol.txt" />
+    <Text Include="Puzzles\CastlePatrol2.txt" />
     <Text Include="Puzzles\Cheese.txt" />
     <Text Include="Puzzles\Chocolate.txt" />
     <Text Include="Puzzles\CleaningPath.txt" />
@@ -198,6 +199,7 @@
     <ClCompile Include="Puzzles\CarpentersWall.cpp" />
     <ClCompile Include="Puzzles\CastleBailey.cpp" />
     <ClCompile Include="Puzzles\CastlePatrol.cpp" />
+    <ClCompile Include="Puzzles\CastlePatrol2.cpp" />
     <ClCompile Include="Puzzles\Cheese.cpp" />
     <ClCompile Include="Puzzles\Chocolate.cpp" />
     <ClCompile Include="Puzzles\CleaningPath.cpp" />

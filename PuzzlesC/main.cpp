@@ -6,6 +6,7 @@ extern void solve_puz_CarpentersSquare();
 extern void solve_puz_CarpentersWall();
 extern void solve_puz_CastleBailey();
 extern void solve_puz_CastlePatrol();
+extern void solve_puz_CastlePatrol2();
 extern void solve_puz_Cheese();
 extern void solve_puz_Chocolate();
 extern void solve_puz_CleaningPath();
@@ -30,6 +31,7 @@ int main(int argc, char **argv)
         println("a4: Carpenter's Wall");
         println("a5: Castle Bailey");
         println("a6: Castle Patrol");
+        println("a62: Castle Patrol2");
         println("h1: Cheese");
         println("h2: Chocolate");
         println("l1: Cleaning Path");
@@ -51,6 +53,7 @@ int main(int argc, char **argv)
         else if (str == "a4") solve_puz_CarpentersWall();
         else if (str == "a5") solve_puz_CastleBailey();
         else if (str == "a6") solve_puz_CastlePatrol();
+        else if (str == "a62") solve_puz_CastlePatrol();
         else if (str == "h1") solve_puz_Cheese();
         else if (str == "h2") solve_puz_Chocolate();
         else if (str == "l1") solve_puz_CleaningPath();
