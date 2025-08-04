@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,59 +15,42 @@ namespace MazeEditor2
         MoveRight
     }
 
-    public interface IMazeDelegate
+    public class Maze : ReactiveObject
     {
-        void UpdateMazeSize();
-        void UpdateMazeView();
-        void UpdateSelectedPosition();
-        void UpdateMousePosition(Position p);
-        void UpdateIsSquare();
-        void UpdateCurObject();
-        void UpdateHasWall();
-        MazeMovement CurMovement { get; }
-    }
+        [Reactive]
+        public Position Size { get; set; } = new Position(8, 8);
+        [Reactive]
+        public MazeMovement CurMovement { get; set; } = MazeMovement.MoveRight;
 
-    public class Maze
-    {
-        private Position size = new Position(8, 8);
-        public IMazeDelegate? Delegate { get; set; }
-
+        [Reactive]
         public int Height
         {
-            get => size.Row;
-            set
-            {
-                size = new Position(value, isSquare_ ? value : size.Col);
-                Delegate?.UpdateMazeSize();
-                Delegate?.UpdateMazeView();
-            }
+            get => Size.Row;
+            set => Size = new Position(value, isSquare_ ? value : Size.Col);
         }
 
+        [Reactive]
         public int Width
         {
-            get => size.Col;
-            set
-            {
-                size = new Position(size.Row, value);
-                Delegate?.UpdateMazeSize();
-                Delegate?.UpdateMazeView();
-            }
+            get => Size.Col;
+            set => Size = new Position(Size.Row, value);
         }
 
         private bool isSquare_ = true;
+        [Reactive]
         public bool IsSquare
         {
             get => isSquare_;
             set
             {
                 isSquare_ = value;
-                Delegate?.UpdateIsSquare();
                 if (value)
                     Width = Height;
             }
         }
 
-        public List<Position> SelectedPositions { get; private set; } = new List<Position> { new Position() };
+        [Reactive]
+        public List<Position> SelectedPositions { get; private set; } = [new Position()];
 
         public Position SelectedPosition => SelectedPositions.Last();
 
@@ -76,12 +61,8 @@ namespace MazeEditor2
             return new Position(n / Width, n % Width);
         }
 
-        public void SetSelectedPosition(Position p)
-        {
-            SelectedPositions = new List<Position> { AdjustedPosition(p) };
-            Delegate?.UpdateSelectedPosition();
-            Delegate?.UpdateMazeView();
-        }
+        public void SetSelectedPosition(Position p) =>
+            SelectedPositions = [AdjustedPosition(p)];
 
         public void ToggleSelectedPosition(Position p)
         {
@@ -96,39 +77,30 @@ namespace MazeEditor2
             {
                 SelectedPositions.Add(p2);
             }
-            Delegate?.UpdateSelectedPosition();
-            Delegate?.UpdateMazeView();
         }
 
-        private Dictionary<Position, char> pos2obj = new Dictionary<Position, char>();
-        private bool hasWall_ = false;
+        private Dictionary<Position, char> pos2obj = [];
 
-        public bool HasWall
-        {
-            get => hasWall_;
-            set
-            {
-                hasWall_ = value;
-                Delegate?.UpdateHasWall();
-                Delegate?.UpdateMazeView();
-            }
-        }
+        [Reactive]
+        public bool HasWall { get; set; } = false;
 
-        public HashSet<Position> HorzWall { get; private set; } = new HashSet<Position>();
-        public HashSet<Position> VertWall { get; private set; } = new HashSet<Position>();
-        public HashSet<Position> Dots { get; private set; } = new HashSet<Position>();
+        [Reactive]
+        public HashSet<Position> HorzWall { get; private set; } = [];
+        [Reactive]
+        public HashSet<Position> VertWall { get; private set; } = [];
+        [Reactive]
+        public HashSet<Position> Dots { get; private set; } = [];
 
+        [Reactive]
         public char CurObj { get; private set; } = ' ';
 
         public char? GetObject(Position p) =>
-            pos2obj.TryGetValue(p, out var ch) ? ch : (char?)null;
+            pos2obj.TryGetValue(p, out var ch) ? ch : null;
 
         public void SetObject(Position p, char ch)
         {
             pos2obj[p] = ch;
             CurObj = ch;
-            Delegate?.UpdateCurObject();
-            Delegate?.UpdateMazeView();
         }
 
         public bool IsHorzWall(Position p) => HorzWall.Contains(p);
@@ -139,21 +111,18 @@ namespace MazeEditor2
         {
             if (!HorzWall.Remove(p))
                 HorzWall.Add(p);
-            Delegate?.UpdateMazeView();
         }
 
         public void ToggleVertWall(Position p)
         {
             if (!VertWall.Remove(p))
                 VertWall.Add(p);
-            Delegate?.UpdateMazeView();
         }
 
         public void ToggleDot(Position p)
         {
             if (!Dots.Remove(p))
                 Dots.Add(p);
-            Delegate?.UpdateMazeView();
         }
 
         public void FillBorderLines()
@@ -169,7 +138,6 @@ namespace MazeEditor2
                 HorzWall.Add(new Position(0, c));
                 HorzWall.Add(new Position(Height, c));
             }
-            Delegate?.UpdateMazeView();
         }
 
         public void EncloseSelectedCells()
@@ -186,7 +154,6 @@ namespace MazeEditor2
                 if (!SelectedPositions.Contains(new Position(p.Row, p.Col + 1)))
                     VertWall.Add(new Position(p.Row, p.Col + 1));
             }
-            Delegate?.UpdateMazeView();
         }
 
         public string Data
@@ -236,11 +203,11 @@ namespace MazeEditor2
             set
             {
                 ClearAll();
-                var strs = value.Split(new[] { "`\n" }, StringSplitOptions.None)
+                var strs = value.Split(["`\n"], StringSplitOptions.None)
                                 .Where(s => s != "").ToList();
                 if (HasWall)
                 {
-                    size = new Position(strs.Count / 2, strs[0].Length / 2);
+                    Size = new Position(strs.Count / 2, strs[0].Length / 2);
                     for (int r = 0; r <= Height; r++)
                     {
                         var str1 = strs[2 * r];
@@ -268,7 +235,7 @@ namespace MazeEditor2
                 }
                 else
                 {
-                    size = new Position(strs.Count, strs[0].Length);
+                    Size = new Position(strs.Count, strs[0].Length);
                     for (int r = 0; r < Height; r++)
                     {
                         var str = strs[r];
@@ -280,7 +247,6 @@ namespace MazeEditor2
                         }
                     }
                 }
-                UpdateMaze();
             }
         }
 
@@ -294,7 +260,6 @@ namespace MazeEditor2
         {
             HorzWall.Clear();
             VertWall.Clear();
-            Delegate?.UpdateMazeView();
         }
 
         public void ClearChars()
@@ -302,18 +267,7 @@ namespace MazeEditor2
             SelectedPositions = new List<Position> { new Position() };
             pos2obj.Clear();
             CurObj = ' ';
-            Delegate?.UpdateSelectedPosition();
-            Delegate?.UpdateCurObject();
-            Delegate?.UpdateMazeView();
         }
 
-        public void UpdateMaze()
-        {
-            Delegate?.UpdateMazeSize();
-            Delegate?.UpdateIsSquare();
-            Delegate?.UpdateSelectedPosition();
-            Delegate?.UpdateMazeView();
-            Delegate?.UpdateHasWall();
-        }
     }
 }
