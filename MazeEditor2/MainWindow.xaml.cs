@@ -21,6 +21,7 @@ namespace MazeEditor2
     /// </summary>
     public partial class MainWindow : RibbonWindow
     {
+        Maze maze = new();
         public MainWindow()
         {
             InitializeComponent();
