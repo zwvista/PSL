@@ -18,12 +18,6 @@
           }
         }
       },
-      "Fody/6.8.0": {
-        "type": "package",
-        "build": {
-          "build/Fody.targets": {}
-        }
-      },
       "ReactiveUI/20.4.1": {
         "type": "package",
         "dependencies": {
@@ -42,46 +36,14 @@
           }
         }
       },
-      "ReactiveUI.Fody/19.5.41": {
+      "ReactiveUI.SourceGenerators/2.3.1": {
         "type": "package",
         "dependencies": {
-          "Fody": "6.8.0",
-          "ReactiveUI": "19.5.41"
-        },
-        "compile": {
-          "lib/net8.0/ReactiveUI.Fody.Helpers.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/ReactiveUI.Fody.Helpers.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "build/ReactiveUI.Fody.props": {}
+          "ReactiveUI.SourceGenerators.Analyzers.CodeFixes": "2.3.1"
         }
       },
-      "ReactiveUI.WPF/20.4.1": {
-        "type": "package",
-        "dependencies": {
-          "DynamicData": "9.4.1",
-          "ReactiveUI": "20.4.1",
-          "Splat": "15.3.1",
-          "System.ComponentModel.Annotations": "5.0.0",
-          "System.Text.Json": "9.0.5",
-          "System.ValueTuple": "4.6.1"
-        },
-        "compile": {
-          "lib/net462/ReactiveUI.Wpf.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net462/ReactiveUI.Wpf.dll": {
-            "related": ".xml"
-          }
-        }
+      "ReactiveUI.SourceGenerators.Analyzers.CodeFixes/2.3.1": {
+        "type": "package"
       },
       "Splat/15.3.1": {
         "type": "package",
@@ -124,31 +86,6 @@
         "build": {
           "buildTransitive/net6.0/_._": {}
         }
-      },
-      "System.Text.Json/9.0.5": {
-        "type": "package",
-        "compile": {
-          "lib/net9.0/System.Text.Json.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0/System.Text.Json.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/System.Text.Json.targets": {}
-        }
-      },
-      "System.ValueTuple/4.6.1": {
-        "type": "package",
-        "compile": {
-          "lib/netcoreapp2.0/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.0/_._": {}
-        }
       }
     }
   },
@@ -177,39 +114,6 @@
         "lib/netstandard2.0/DynamicData.dll",
         "lib/netstandard2.0/DynamicData.xml",
         "logo.png"
-      ]
-    },
-    "Fody/6.8.0": {
-      "sha512": "hfZ/f8Mezt8aTkgv9nsvFdYoQ809/AqwsJlOGOPYIfBcG2aAIG3v3ex9d8ZqQuFYyMoucjRg4eKy3VleeGodKQ==",
-      "type": "package",
-      "path": "fody/6.8.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "License.txt",
-        "build/Fody.targets",
-        "fody.6.8.0.nupkg.sha512",
-        "fody.nuspec",
-        "netclassictask/Fody.dll",
-        "netclassictask/FodyCommon.dll",
-        "netclassictask/FodyHelpers.dll",
-        "netclassictask/FodyIsolated.dll",
-        "netclassictask/Mono.Cecil.Pdb.dll",
-        "netclassictask/Mono.Cecil.Pdb.pdb",
-        "netclassictask/Mono.Cecil.Rocks.dll",
-        "netclassictask/Mono.Cecil.Rocks.pdb",
-        "netclassictask/Mono.Cecil.dll",
-        "netclassictask/Mono.Cecil.pdb",
-        "netstandardtask/Fody.dll",
-        "netstandardtask/FodyCommon.dll",
-        "netstandardtask/FodyHelpers.dll",
-        "netstandardtask/FodyIsolated.dll",
-        "netstandardtask/Mono.Cecil.Pdb.dll",
-        "netstandardtask/Mono.Cecil.Pdb.pdb",
-        "netstandardtask/Mono.Cecil.Rocks.dll",
-        "netstandardtask/Mono.Cecil.Rocks.pdb",
-        "netstandardtask/Mono.Cecil.dll",
-        "netstandardtask/Mono.Cecil.pdb"
       ]
     },
     "ReactiveUI/20.4.1": {
@@ -264,67 +168,35 @@
         "reactiveui.nuspec"
       ]
     },
-    "ReactiveUI.Fody/19.5.41": {
-      "sha512": "bh6OH1WsSHf/ryUVaPnI6LWl1+lrCvq4L/AoHpzPXCKxtR4p0ogPVONnkq0jYgSQ55x7YNCVkthBKeb6uUSbpg==",
+    "ReactiveUI.SourceGenerators/2.3.1": {
+      "sha512": "d0F13STHGTsSRhQKq39GzKM3lNzZul7R2WzhpcQ29awFXWB5bARwtrwrBcMFo67ESGK7Eulc8oJhKJ50aaUj7A==",
       "type": "package",
-      "path": "reactiveui.fody/19.5.41",
+      "path": "reactiveui.sourcegenerators/2.3.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE/LICENSE",
         "README.md",
-        "build/ReactiveUI.Fody.props",
-        "lib/monoandroid13.0/ReactiveUI.Fody.Helpers.dll",
-        "lib/monoandroid13.0/ReactiveUI.Fody.Helpers.pdb",
-        "lib/monoandroid13.0/ReactiveUI.Fody.Helpers.xml",
-        "lib/net462/ReactiveUI.Fody.Helpers.dll",
-        "lib/net462/ReactiveUI.Fody.Helpers.xml",
-        "lib/net472/ReactiveUI.Fody.Helpers.dll",
-        "lib/net472/ReactiveUI.Fody.Helpers.xml",
-        "lib/net6.0/ReactiveUI.Fody.Helpers.dll",
-        "lib/net6.0/ReactiveUI.Fody.Helpers.xml",
-        "lib/net7.0/ReactiveUI.Fody.Helpers.dll",
-        "lib/net7.0/ReactiveUI.Fody.Helpers.xml",
-        "lib/net8.0/ReactiveUI.Fody.Helpers.dll",
-        "lib/net8.0/ReactiveUI.Fody.Helpers.xml",
-        "lib/netstandard2.0/ReactiveUI.Fody.Helpers.dll",
-        "lib/netstandard2.0/ReactiveUI.Fody.Helpers.xml",
-        "lib/xamarinios10/ReactiveUI.Fody.Helpers.dll",
-        "lib/xamarinios10/ReactiveUI.Fody.Helpers.xml",
-        "lib/xamarinmac20/ReactiveUI.Fody.Helpers.dll",
-        "lib/xamarinmac20/ReactiveUI.Fody.Helpers.xml",
-        "lib/xamarintvos10/ReactiveUI.Fody.Helpers.dll",
-        "lib/xamarintvos10/ReactiveUI.Fody.Helpers.xml",
+        "analyzers/dotnet/roslyn4.12/cs/ReactiveUI.SourceGenerators.dll",
+        "analyzers/dotnet/roslyn4.8/cs/ReactiveUI.SourceGenerators.dll",
         "logo.png",
-        "reactiveui.fody.19.5.41.nupkg.sha512",
-        "reactiveui.fody.nuspec",
-        "weaver/ReactiveUI.Fody.dll"
+        "reactiveui.sourcegenerators.2.3.1.nupkg.sha512",
+        "reactiveui.sourcegenerators.nuspec"
       ]
     },
-    "ReactiveUI.WPF/20.4.1": {
-      "sha512": "5LZNWPSfNrtxbYzas5Vyah8cwpJv6nS+/PxHPUVzfNWWyNfpLDxrY/6gFSclX301qpIRu9N1UrK3UMu6gYaI5Q==",
+    "ReactiveUI.SourceGenerators.Analyzers.CodeFixes/2.3.1": {
+      "sha512": "ump4/Yes7e0OPY/4vGqm2/CD9qd1/sCCzmZ/UsbQLYEV73MYeO7U/8oRezrY5/UqraqgIyI5J2WCu0UfFGCA9w==",
       "type": "package",
-      "path": "reactiveui.wpf/20.4.1",
+      "path": "reactiveui.sourcegenerators.analyzers.codefixes/2.3.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE/LICENSE",
         "README.md",
-        "lib/net462/ReactiveUI.Wpf.dll",
-        "lib/net462/ReactiveUI.Wpf.xml",
-        "lib/net472/ReactiveUI.Wpf.dll",
-        "lib/net472/ReactiveUI.Wpf.xml",
-        "lib/net8.0-windows10.0.17763/ReactiveUI.Wpf.dll",
-        "lib/net8.0-windows10.0.17763/ReactiveUI.Wpf.xml",
-        "lib/net8.0-windows10.0.19041/ReactiveUI.Wpf.dll",
-        "lib/net8.0-windows10.0.19041/ReactiveUI.Wpf.xml",
-        "lib/net9.0-windows10.0.17763/ReactiveUI.Wpf.dll",
-        "lib/net9.0-windows10.0.17763/ReactiveUI.Wpf.xml",
-        "lib/net9.0-windows10.0.19041/ReactiveUI.Wpf.dll",
-        "lib/net9.0-windows10.0.19041/ReactiveUI.Wpf.xml",
+        "analyzers/dotnet/cs/ReactiveUI.SourceGenerators.Analyzers.CodeFixes.dll",
         "logo.png",
-        "reactiveui.wpf.20.4.1.nupkg.sha512",
-        "reactiveui.wpf.nuspec"
+        "reactiveui.sourcegenerators.analyzers.codefixes.2.3.1.nupkg.sha512",
+        "reactiveui.sourcegenerators.analyzers.codefixes.nuspec"
       ]
     },
     "Splat/15.3.1": {
@@ -464,107 +336,12 @@
         "system.reactive.6.0.1.nupkg.sha512",
         "system.reactive.nuspec"
       ]
-    },
-    "System.Text.Json/9.0.5": {
-      "sha512": "rnP61ZfloTgPQPe7ecr36loNiGX3g1PocxlKHdY/FUpDSsExKkTxpMAlB4X35wNEPr1X7mkYZuQvW3Lhxmu7KA==",
-      "type": "package",
-      "path": "system.text.json/9.0.5",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "PACKAGE.md",
-        "THIRD-PARTY-NOTICES.TXT",
-        "analyzers/dotnet/roslyn3.11/cs/System.Text.Json.SourceGeneration.dll",
-        "analyzers/dotnet/roslyn3.11/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/de/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/es/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/it/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/System.Text.Json.SourceGeneration.dll",
-        "analyzers/dotnet/roslyn4.0/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/de/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/es/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/it/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/System.Text.Json.SourceGeneration.dll",
-        "analyzers/dotnet/roslyn4.4/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/de/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/es/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/it/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
-        "buildTransitive/net461/System.Text.Json.targets",
-        "buildTransitive/net462/System.Text.Json.targets",
-        "buildTransitive/net8.0/System.Text.Json.targets",
-        "buildTransitive/netcoreapp2.0/System.Text.Json.targets",
-        "buildTransitive/netstandard2.0/System.Text.Json.targets",
-        "lib/net462/System.Text.Json.dll",
-        "lib/net462/System.Text.Json.xml",
-        "lib/net8.0/System.Text.Json.dll",
-        "lib/net8.0/System.Text.Json.xml",
-        "lib/net9.0/System.Text.Json.dll",
-        "lib/net9.0/System.Text.Json.xml",
-        "lib/netstandard2.0/System.Text.Json.dll",
-        "lib/netstandard2.0/System.Text.Json.xml",
-        "system.text.json.9.0.5.nupkg.sha512",
-        "system.text.json.nuspec",
-        "useSharedDesignerContext.txt"
-      ]
-    },
-    "System.ValueTuple/4.6.1": {
-      "sha512": "+RJT4qaekpZ7DDLhf+LTjq+E48jieKiY9ulJ+BoxKmZblIJfIJT8Ufcaa/clQqnYvWs8jugfGSMu8ylS0caG0w==",
-      "type": "package",
-      "path": "system.valuetuple/4.6.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "PACKAGE.md",
-        "build/net471/System.ValueTuple.targets",
-        "buildTransitive/net461/System.ValueTuple.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net471/System.ValueTuple.targets",
-        "lib/net462/System.ValueTuple.dll",
-        "lib/net462/System.ValueTuple.xml",
-        "lib/net47/System.ValueTuple.dll",
-        "lib/net47/System.ValueTuple.xml",
-        "lib/net471/_._",
-        "lib/netcoreapp2.0/_._",
-        "lib/netstandard2.0/_._",
-        "system.valuetuple.4.6.1.nupkg.sha512",
-        "system.valuetuple.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     "net9.0-windows7.0": [
-      "ReactiveUI.Fody >= 19.5.41",
-      "ReactiveUI.WPF >= 20.4.1"
+      "ReactiveUI >= 20.4.1",
+      "ReactiveUI.SourceGenerators >= 2.3.1"
     ]
   },
   "packageFolders": {
@@ -618,13 +395,15 @@
       "net9.0-windows7.0": {
         "targetAlias": "net9.0-windows",
         "dependencies": {
-          "ReactiveUI.Fody": {
-            "target": "Package",
-            "version": "[19.5.41, )"
-          },
-          "ReactiveUI.WPF": {
+          "ReactiveUI": {
             "target": "Package",
             "version": "[20.4.1, )"
+          },
+          "ReactiveUI.SourceGenerators": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[2.3.1, )"
           }
         },
         "imports": [
@@ -649,17 +428,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "パッケージ 'ReactiveUI.WPF 20.4.1' はプロジェクトのターゲット フレームワーク 'net9.0-windows7.0' ではなく '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' を使用して復元されました。このパッケージは、使用しているプロジェクトとの完全な互換性がない可能性があります。",
-      "libraryId": "ReactiveUI.WPF",
-      "targetGraphs": [
-        "net9.0-windows7.0"
-      ]
-    }
-  ]
+  }
 }

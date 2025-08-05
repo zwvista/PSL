@@ -51,13 +51,15 @@
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "dependencies": {
-            "ReactiveUI.Fody": {
-              "target": "Package",
-              "version": "[19.5.41, )"
-            },
-            "ReactiveUI.WPF": {
+            "ReactiveUI": {
               "target": "Package",
               "version": "[20.4.1, )"
+            },
+            "ReactiveUI.SourceGenerators": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.3.1, )"
             }
           },
           "imports": [

@@ -13,7 +13,4 @@
     <SourceRoot Include="C:\Users\NSW00_912080\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
-  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)reactiveui.fody\19.5.41\build\ReactiveUI.Fody.props" Condition="Exists('$(NuGetPackageRoot)reactiveui.fody\19.5.41\build\ReactiveUI.Fody.props')" />
-  </ImportGroup>
 </Project>

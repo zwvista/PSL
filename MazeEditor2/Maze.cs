@@ -1,5 +1,5 @@
 ﻿using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using ReactiveUI.SourceGenerators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +15,18 @@ namespace MazeEditor2
         MoveRight
     }
 
-    public class Maze : ReactiveObject
+    public partial class Maze : ReactiveObject
     {
         [Reactive]
-        public Position Size { get; set; } = new Position(8, 8);
+        public partial Position Size { get; set; } = new Position(8, 8);
         [Reactive]
-        public MazeMovement CurMovement { get; set; } = MazeMovement.MoveRight;
+        public partial MazeMovement CurMovement { get; set; } = MazeMovement.MoveRight;
 
         [Reactive]
         public int Height
         {
             get => Size.Row;
-            set => Size = new Position(value, isSquare_ ? value : Size.Col);
+            set => Size = new Position(value, IsSquare ? value : Size.Col);
         }
 
         [Reactive]
@@ -36,21 +36,20 @@ namespace MazeEditor2
             set => Size = new Position(Size.Row, value);
         }
 
-        private bool isSquare_ = true;
         [Reactive]
         public bool IsSquare
         {
-            get => isSquare_;
+            get;
             set
             {
-                isSquare_ = value;
+                field = value;
                 if (value)
                     Width = Height;
             }
         }
 
         [Reactive]
-        public List<Position> SelectedPositions { get; private set; } = [new Position()];
+        public partial List<Position> SelectedPositions { get; private set; } = [new Position()];
 
         public Position SelectedPosition => SelectedPositions.Last();
 
@@ -82,17 +81,17 @@ namespace MazeEditor2
         private Dictionary<Position, char> pos2obj = [];
 
         [Reactive]
-        public bool HasWall { get; set; } = false;
+        public partial bool HasWall { get; set; } = false;
 
         [Reactive]
-        public HashSet<Position> HorzWall { get; private set; } = [];
+        public partial HashSet<Position> HorzWall { get; private set; } = [];
         [Reactive]
-        public HashSet<Position> VertWall { get; private set; } = [];
+        public partial HashSet<Position> VertWall { get; private set; } = [];
         [Reactive]
-        public HashSet<Position> Dots { get; private set; } = [];
+        public partial HashSet<Position> Dots { get; private set; } = [];
 
         [Reactive]
-        public char CurObj { get; private set; } = ' ';
+        public partial char CurObj { get; private set; } = ' ';
 
         public char? GetObject(Position p) =>
             pos2obj.TryGetValue(p, out var ch) ? ch : null;
