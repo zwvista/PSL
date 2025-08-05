@@ -22,21 +22,18 @@ namespace MazeEditor2
         [Reactive]
         public partial MazeMovement CurMovement { get; set; } = MazeMovement.MoveRight;
 
-        [Reactive]
         public int Height
         {
             get => Size.Row;
             set => Size = new Position(value, IsSquare ? value : Size.Col);
         }
 
-        [Reactive]
         public int Width
         {
             get => Size.Col;
             set => Size = new Position(Size.Row, value);
         }
 
-        [Reactive]
         public bool IsSquare
         {
             get;
@@ -45,6 +42,7 @@ namespace MazeEditor2
                 field = value;
                 if (value)
                     Width = Height;
+                this.RaiseAndSetIfChanged(ref field, value);
             }
         }
 

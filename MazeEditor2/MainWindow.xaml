@@ -56,6 +56,6 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-        <Canvas Grid.Row="1" x:Name="ChessBoardCanvas" KeyDown="Canvas_KeyDown"/>
+        <Canvas Grid.Row="1" x:Name="MazeCanvas" KeyDown="Canvas_KeyDown"/>
     </Grid>
 </RibbonWindow>
