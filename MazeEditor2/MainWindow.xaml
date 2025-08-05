@@ -31,8 +31,8 @@
                     <RibbonButton x:Name="CopyButton" Label="Copy" SmallImageSource="Images\copy.png" Command="Copy" />
                 </RibbonGroup>
                 <RibbonGroup Header="Grid" KeyTip="G">
-                    <RibbonTextBox Text="" Label="Height:" />
-                    <RibbonTextBox Text="" Label="Width:"/>
+                    <RibbonTextBox Text="{Binding Height}" Label="Height:" TextBoxWidth="100" />
+                    <RibbonTextBox Text="{Binding Width}" Label="Width:" TextBoxWidth="100"/>
                     <RibbonCheckBox Label="Square"/>
                 </RibbonGroup>
                 <RibbonGroup Header="Walls" KeyTip="W">

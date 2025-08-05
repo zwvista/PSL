@@ -27,6 +27,7 @@ namespace MazeEditor2
             InitializeComponent();
             this.Loaded += (s, e) => DrawMaze();
             MazeCanvas.SizeChanged += (s, e) => DrawMaze();
+            this.DataContext = maze;
         }
 
         private void Canvas_KeyDown(object sender, KeyEventArgs e)
@@ -43,8 +44,8 @@ namespace MazeEditor2
             double canvasHeight = MazeCanvas.ActualHeight;
 
             // 定义棋盘参数
-            int rows = 3;
-            int cols = 3;
+            int rows = maze.Height;
+            int cols = maze.Width;
             double cellSize = Math.Min(canvasWidth, canvasHeight) * 0.8 / Math.Max(rows, cols);
             double boardWidth = cols * cellSize;
             double boardHeight = rows * cellSize;
