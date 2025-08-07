@@ -49,8 +49,8 @@
                 </RibbonGroup>
                 <RibbonGroup Header="Chars" KeyTip="C">
                     <RibbonTextBox Label="Char:" Text="{x:Bind CurObj, Mode=TwoWay}" />
-                    <RibbonButton Label="Fill All"/>
-                    <RibbonButton Label="Fill Border Cells" />
+                    <RibbonButton Label="Fill All" Command="{x:Bind FillAll}" />
+                    <RibbonButton Label="Fill Border Cells" Command="{x:Bind FillBorderCells}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Info" KeyTip="I">
                     <RibbonTextBox Text="" Label="Pos:" />

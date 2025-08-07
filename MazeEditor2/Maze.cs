@@ -102,6 +102,9 @@ namespace MazeEditor2
             CurObj = ch;
         }
 
+        public ReactiveCommand<Unit, Unit> FillAll { get; set; }
+        public ReactiveCommand<Unit, Unit> FillBorderCells { get; set; }
+
         public bool IsHorzWall(Position p) => HorzWall.Contains(p);
         public bool IsVertWall(Position p) => VertWall.Contains(p);
         public bool IsDot(Position p) => Dots.Contains(p);
@@ -257,6 +260,19 @@ namespace MazeEditor2
                         VertWall.Add(new Position(p.Row, p.Col + 1));
                 }
             }, hasWall);
+            FillAll = ReactiveCommand.Create(() =>
+            {
+                for (int r = 0; r < Height; r++)
+                    for (int c = 0; c < Width; c++)
+                        pos2obj[new Position(r, c)] = CurObj;
+            });
+            FillBorderCells = ReactiveCommand.Create(() =>
+            {
+                for (int r = 0; r < Height; r++)
+                    pos2obj[new Position(r, 0)] = pos2obj[new Position(r, Width - 1)] = CurObj;
+                for (int c = 0; c < Width; c++)
+                    pos2obj[new Position(0, c)] = pos2obj[new Position(Height - 1, c)] = CurObj;
+            });
             ClearWalls = ReactiveCommand.Create(() =>
             {
                 HorzWall.Clear();
@@ -264,7 +280,7 @@ namespace MazeEditor2
             });
             ClearChars = ReactiveCommand.Create(() =>
             {
-                SelectedPositions = new List<Position> { new Position() };
+                SelectedPositions = [new Position()];
                 pos2obj.Clear();
                 CurObj = ' ';
             });
