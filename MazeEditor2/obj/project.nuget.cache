@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "RdkTXaHN0eA=",
+  "dgSpecHash": "PNr4ylL5UgQ=",
   "success": true,
   "projectFilePath": "C:\\zw\\Programs\\PSL\\MazeEditor2\\MazeEditor2.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\NSW00_912080\\.nuget\\packages\\compiledbindings.wpf\\1.0.18\\compiledbindings.wpf.1.0.18.nupkg.sha512",
     "C:\\Users\\NSW00_912080\\.nuget\\packages\\dynamicdata\\9.4.1\\dynamicdata.9.4.1.nupkg.sha512",
     "C:\\Users\\NSW00_912080\\.nuget\\packages\\reactiveui\\20.4.1\\reactiveui.20.4.1.nupkg.sha512",
     "C:\\Users\\NSW00_912080\\.nuget\\packages\\reactiveui.sourcegenerators\\2.3.1\\reactiveui.sourcegenerators.2.3.1.nupkg.sha512",

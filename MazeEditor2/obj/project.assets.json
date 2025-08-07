@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     "net9.0-windows7.0": {
+      "CompiledBindings.WPF/1.0.18": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/CompiledBindings.WPF.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/CompiledBindings.WPF.dll": {}
+        },
+        "build": {
+          "build/CompiledBindings.WPF.targets": {}
+        }
+      },
       "DynamicData/9.4.1": {
         "type": "package",
         "dependencies": {
@@ -90,6 +102,21 @@
     }
   },
   "libraries": {
+    "CompiledBindings.WPF/1.0.18": {
+      "sha512": "k+MrzkKmJHsAb5OX6xj1N8F/k4WW4R0CY7NquNt87URkUYQheqAX3jHjTCVjSmXb3deKZlnw3WpSN9HJ69yrxA==",
+      "type": "package",
+      "path": "compiledbindings.wpf/1.0.18",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/CompiledBindings.WPF.BuildTasks.merged.dll",
+        "build/CompiledBindings.WPF.targets",
+        "compiledbindings.wpf.1.0.18.nupkg.sha512",
+        "compiledbindings.wpf.nuspec",
+        "lib/net40/CompiledBindings.WPF.dll",
+        "lib/netcoreapp3.0/CompiledBindings.WPF.dll"
+      ]
+    },
     "DynamicData/9.4.1": {
       "sha512": "+SoDTbuzY9j0K+sZfRbbVpGjjylkVMhUQnw6qiPhxzYLBJlwxFpmunXSaNBtTxwC2C9d/XIp0kO7VhMAVuUt7w==",
       "type": "package",
@@ -340,6 +367,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0-windows7.0": [
+      "CompiledBindings.WPF >= 1.0.18",
       "ReactiveUI >= 20.4.1",
       "ReactiveUI.SourceGenerators >= 2.3.1"
     ]
@@ -395,6 +423,10 @@
       "net9.0-windows7.0": {
         "targetAlias": "net9.0-windows",
         "dependencies": {
+          "CompiledBindings.WPF": {
+            "target": "Package",
+            "version": "[1.0.18, )"
+          },
           "ReactiveUI": {
             "target": "Package",
             "version": "[20.4.1, )"

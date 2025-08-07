@@ -1,6 +1,13 @@
 ﻿<RibbonWindow x:Class="MazeEditor2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MazeEditor2"
+        xmlns:mx="http://compiledbindings.com/x"
+        mc:Ignorable="d mx"
+        d:DataContext="{d:DesignInstance Type=local:Maze}"
+        mx:DataType="local:Maze"
         Title="PSEditor" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -31,17 +38,17 @@
                     <RibbonButton x:Name="CopyButton" Label="Copy" SmallImageSource="Images\copy.png" Command="Copy" />
                 </RibbonGroup>
                 <RibbonGroup Header="Grid" KeyTip="G">
-                    <RibbonTextBox Text="{Binding Height}" Label="Height:" TextBoxWidth="100" />
-                    <RibbonTextBox Text="{Binding Width}" Label="Width:" TextBoxWidth="100"/>
-                    <RibbonCheckBox Label="Square"/>
+                    <RibbonTextBox Label="Height:" Text="{x:Bind Height, Mode=TwoWay}" />
+                    <RibbonTextBox Label="Width:" Text="{x:Bind Width, Mode=TwoWay}" IsEnabled="{x:Bind not IsSquare, Mode=OneWay}" />
+                    <RibbonCheckBox Label="Square" IsChecked="{x:Bind IsSquare, Mode=TwoWay}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Walls" KeyTip="W">
-                    <RibbonCheckBox Label="Has Walls"/>
-                    <RibbonButton Label="Fill Border Lines"/>
-                    <RibbonButton Label="Enclose Selected" />
+                    <RibbonCheckBox Label="Has Walls" IsChecked="{x:Bind HasWall, Mode=TwoWay}" />
+                    <RibbonButton Label="Fill Border Lines" Command="{x:Bind FillBorderLines}" />
+                    <RibbonButton Label="Enclose Selected" Command="{x:Bind EncloseSelectedCells}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Chars" KeyTip="C">
-                    <RibbonTextBox Text="" Label="Char:" />
+                    <RibbonTextBox Label="Char:" Text="{x:Bind CurObj, Mode=TwoWay}" />
                     <RibbonButton Label="Fill All"/>
                     <RibbonButton Label="Fill Border Cells" />
                 </RibbonGroup>
@@ -50,9 +57,9 @@
                     <RibbonComboBox Label="Movement:"/>
                 </RibbonGroup>
                 <RibbonGroup Header="Clear" KeyTip="E">
-                    <RibbonButton Label="Clear All"/>
-                    <RibbonButton Label="Clear Walls"/> 
-                    <RibbonButton Label="Clear Chars" />
+                    <RibbonButton Label="Clear All" Command="{x:Bind ClearAll}" />
+                    <RibbonButton Label="Clear Walls" Command="{x:Bind ClearWalls}" />
+                    <RibbonButton Label="Clear Chars" Command="{x:Bind ClearChars}" />
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

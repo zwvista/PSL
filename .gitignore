@@ -8,8 +8,11 @@ xcuserdata/
 
 Debug
 Release
-packages
 x64
+packages
+ipch
+bin
+obj
 /MazeEditor/*.aps
 /PSL.sln.ide
 .vs

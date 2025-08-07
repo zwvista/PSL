@@ -80,6 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CompiledBindings.WPF" Version="1.0.18" />
     <PackageReference Include="ReactiveUI" Version="20.4.1" />
     <PackageReference Include="ReactiveUI.SourceGenerators" Version="2.3.1">
       <PrivateAssets>all</PrivateAssets>

@@ -51,6 +51,10 @@
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "dependencies": {
+            "CompiledBindings.WPF": {
+              "target": "Package",
+              "version": "[1.0.18, )"
+            },
             "ReactiveUI": {
               "target": "Package",
               "version": "[20.4.1, )"

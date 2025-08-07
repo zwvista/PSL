@@ -3,6 +3,8 @@ using ReactiveUI.SourceGenerators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 
 namespace MazeEditor2
 {
@@ -39,10 +41,10 @@ namespace MazeEditor2
             get;
             set
             {
-                field = value;
                 if (value)
                     Width = Height;
                 this.RaiseAndSetIfChanged(ref field, value);
+                this.RaisePropertyChanged(nameof(Width));
             }
         }
 
@@ -89,7 +91,7 @@ namespace MazeEditor2
         public partial HashSet<Position> Dots { get; private set; } = [];
 
         [Reactive]
-        public partial char CurObj { get; private set; } = ' ';
+        public partial char CurObj { get; set; } = ' ';
 
         public char? GetObject(Position p) =>
             pos2obj.TryGetValue(p, out var ch) ? ch : null;
@@ -122,36 +124,8 @@ namespace MazeEditor2
                 Dots.Add(p);
         }
 
-        public void FillBorderLines()
-        {
-            if (!HasWall) return;
-            for (int r = 0; r < Height; r++)
-            {
-                VertWall.Add(new Position(r, 0));
-                VertWall.Add(new Position(r, Width));
-            }
-            for (int c = 0; c < Width; c++)
-            {
-                HorzWall.Add(new Position(0, c));
-                HorzWall.Add(new Position(Height, c));
-            }
-        }
-
-        public void EncloseSelectedCells()
-        {
-            if (!HasWall) return;
-            foreach (var p in SelectedPositions)
-            {
-                if (!SelectedPositions.Contains(new Position(p.Row - 1, p.Col)))
-                    HorzWall.Add(p);
-                if (!SelectedPositions.Contains(new Position(p.Row + 1, p.Col)))
-                    HorzWall.Add(new Position(p.Row + 1, p.Col));
-                if (!SelectedPositions.Contains(new Position(p.Row, p.Col - 1)))
-                    VertWall.Add(p);
-                if (!SelectedPositions.Contains(new Position(p.Row, p.Col + 1)))
-                    VertWall.Add(new Position(p.Row, p.Col + 1));
-            }
-        }
+        public ReactiveCommand<Unit, Unit> FillBorderLines { get; set; }
+        public ReactiveCommand<Unit, Unit> EncloseSelectedCells { get; set; }
 
         public string Data
         {
@@ -199,7 +173,7 @@ namespace MazeEditor2
             }
             set
             {
-                ClearAll();
+                ClearAll.Execute();
                 var strs = value.Split(["`\n"], StringSplitOptions.None)
                                 .Where(s => s != "").ToList();
                 if (HasWall)
@@ -247,24 +221,58 @@ namespace MazeEditor2
             }
         }
 
-        public void ClearAll()
-        {
-            ClearWalls();
-            ClearChars();
-        }
+        public ReactiveCommand<Unit, Unit> ClearAll { get; set; }
+        public ReactiveCommand<Unit, Unit> ClearWalls { get; set; }
+        public ReactiveCommand<Unit, Unit> ClearChars { get; set; }
 
-        public void ClearWalls()
+        public Maze()
         {
-            HorzWall.Clear();
-            VertWall.Clear();
+            var hasWall = this.WhenAnyValue(x => x.HasWall)
+                .Select(v => v)
+                .DistinctUntilChanged();
+            FillBorderLines = ReactiveCommand.Create(() =>
+            {
+                for (int r = 0; r < Height; r++)
+                {
+                    VertWall.Add(new Position(r, 0));
+                    VertWall.Add(new Position(r, Width));
+                }
+                for (int c = 0; c < Width; c++)
+                {
+                    HorzWall.Add(new Position(0, c));
+                    HorzWall.Add(new Position(Height, c));
+                }
+            }, hasWall);
+            EncloseSelectedCells = ReactiveCommand.Create(() =>
+            {
+                foreach (var p in SelectedPositions)
+                {
+                    if (!SelectedPositions.Contains(new Position(p.Row - 1, p.Col)))
+                        HorzWall.Add(p);
+                    if (!SelectedPositions.Contains(new Position(p.Row + 1, p.Col)))
+                        HorzWall.Add(new Position(p.Row + 1, p.Col));
+                    if (!SelectedPositions.Contains(new Position(p.Row, p.Col - 1)))
+                        VertWall.Add(p);
+                    if (!SelectedPositions.Contains(new Position(p.Row, p.Col + 1)))
+                        VertWall.Add(new Position(p.Row, p.Col + 1));
+                }
+            }, hasWall);
+            ClearWalls = ReactiveCommand.Create(() =>
+            {
+                HorzWall.Clear();
+                VertWall.Clear();
+            });
+            ClearChars = ReactiveCommand.Create(() =>
+            {
+                SelectedPositions = new List<Position> { new Position() };
+                pos2obj.Clear();
+                CurObj = ' ';
+            });
+            ClearAll = ReactiveCommand.Create(() =>
+            {
+                ClearWalls.Execute();
+                ClearChars.Execute();
+            });
         }
-
-        public void ClearChars()
-        {
-            SelectedPositions = new List<Position> { new Position() };
-            pos2obj.Clear();
-            CurObj = ' ';
-        }
-
     }
 }

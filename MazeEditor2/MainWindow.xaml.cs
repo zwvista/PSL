@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Controls.Ribbon;
+using ReactiveUI;
+using System.Reactive.Linq;
 
 namespace MazeEditor2
 {
@@ -28,6 +30,12 @@ namespace MazeEditor2
             this.Loaded += (s, e) => DrawMaze();
             MazeCanvas.SizeChanged += (s, e) => DrawMaze();
             this.DataContext = maze;
+            maze.WhenAnyValue(x => x.Size)
+                .Subscribe(v =>
+                {
+                    maze.IsSquare = v.Row == v.Col;
+                    DrawMaze();
+                });
         }
 
         private void Canvas_KeyDown(object sender, KeyEventArgs e)
@@ -47,6 +55,8 @@ namespace MazeEditor2
             int rows = maze.Height;
             int cols = maze.Width;
             double cellSize = Math.Min(canvasWidth, canvasHeight) * 0.8 / Math.Max(rows, cols);
+            // 确保cellSize不小于10
+            cellSize = Math.Max(cellSize, 10);
             double boardWidth = cols * cellSize;
             double boardHeight = rows * cellSize;
 
@@ -88,9 +98,10 @@ namespace MazeEditor2
             {
                 for (int j = 0; j < cols; j++)
                 {
+                    var ch = maze.GetObject(new Position(i, j)) ?? ' ';
                     TextBlock textBlock = new()
                     {
-                        Text = "O",
+                        Text = ch.ToString(),
                         FontSize = cellSize * 0.4,
                         FontWeight = FontWeights.Bold,
                         HorizontalAlignment = HorizontalAlignment.Center,
