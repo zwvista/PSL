@@ -1,7 +1,10 @@
-﻿using ReactiveUI;
+﻿using DynamicData;
+using DynamicData.Binding;
+using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -11,10 +14,10 @@ namespace MazeEditor2
     public enum MazeMovement
     {
         None,
-        MoveUp,
-        MoveDown,
-        MoveLeft,
-        MoveRight
+        Up,
+        Down,
+        Left,
+        Right
     }
 
     public partial class Maze : ReactiveObject
@@ -22,7 +25,7 @@ namespace MazeEditor2
         [Reactive]
         public partial Position Size { get; set; } = new Position(8, 8);
         [Reactive]
-        public partial MazeMovement CurMovement { get; set; } = MazeMovement.MoveRight;
+        public partial MazeMovement CurMovement { get; set; } = MazeMovement.Right;
 
         public int Height
         {
@@ -41,17 +44,16 @@ namespace MazeEditor2
             get;
             set
             {
+                this.RaiseAndSetIfChanged(ref field, value);
                 if (value)
                     Width = Height;
-                this.RaiseAndSetIfChanged(ref field, value);
                 this.RaisePropertyChanged(nameof(Width));
             }
         }
 
+        public ObservableCollection<Position> SelectedPositions { get; private set; } = [new Position()];
         [Reactive]
-        public partial List<Position> SelectedPositions { get; private set; } = [new Position()];
-
-        public Position SelectedPosition => SelectedPositions.Last();
+        public partial Position SelectedPosition { get; private set; }
 
         private Position AdjustedPosition(Position p)
         {
@@ -60,8 +62,11 @@ namespace MazeEditor2
             return new Position(n / Width, n % Width);
         }
 
-        public void SetSelectedPosition(Position p) =>
-            SelectedPositions = [AdjustedPosition(p)];
+        public void SetSelectedPosition(Position p)
+        {
+            SelectedPositions.Clear();
+            SelectedPositions.Add(AdjustedPosition(p));
+        }
 
         public void ToggleSelectedPosition(Position p)
         {
@@ -231,7 +236,6 @@ namespace MazeEditor2
         public Maze()
         {
             var hasWall = this.WhenAnyValue(x => x.HasWall)
-                .Select(v => v)
                 .DistinctUntilChanged();
             FillBorderLines = ReactiveCommand.Create(() =>
             {
@@ -280,7 +284,7 @@ namespace MazeEditor2
             });
             ClearChars = ReactiveCommand.Create(() =>
             {
-                SelectedPositions = [new Position()];
+                SetSelectedPosition(new Position());
                 pos2obj.Clear();
                 CurObj = ' ';
             });
@@ -289,6 +293,8 @@ namespace MazeEditor2
                 ClearWalls.Execute();
                 ClearChars.Execute();
             });
+            SelectedPositions.ToObservableChangeSet()
+                .Subscribe(_ => SelectedPosition = SelectedPositions.FirstOrDefault());
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Xml.Linq;
 
 namespace MazeEditor2
 {
@@ -36,5 +38,7 @@ namespace MazeEditor2
         public static bool operator >=(Position a, Position b) =>
             a > b || a == b;
 
+        public override string ToString() =>
+            $"({Row},{Col})";
     }
 }

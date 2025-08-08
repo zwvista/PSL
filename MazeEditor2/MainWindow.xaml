@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeEditor2"
         xmlns:mx="http://compiledbindings.com/x"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d mx"
         d:DataContext="{d:DesignInstance Type=local:Maze}"
         mx:DataType="local:Maze"
-        Title="PSEditor" Height="600" Width="800">
+        Title="MazeEditor2" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -53,8 +54,12 @@
                     <RibbonButton Label="Fill Border Cells" Command="{x:Bind FillBorderCells}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Info" KeyTip="I">
-                    <RibbonTextBox Text="" Label="Pos:" />
-                    <RibbonComboBox Label="Movement:"/>
+                    <RibbonTextBox Label="Pos:" Text="{x:Bind SelectedPosition.ToString()}" IsReadOnly="True" />
+                    <RibbonComboBox Label="Movement:">
+                        <RibbonGallery SelectedValue="{x:Bind CurMovement, Mode=TwoWay}">
+                            <RibbonGalleryCategory ItemsSource="{x:Bind sys:Enum.GetValues(typeof(local:MazeMovement))}" />
+                        </RibbonGallery>
+                    </RibbonComboBox>
                 </RibbonGroup>
                 <RibbonGroup Header="Clear" KeyTip="E">
                     <RibbonButton Label="Clear All" Command="{x:Bind ClearAll}" />
