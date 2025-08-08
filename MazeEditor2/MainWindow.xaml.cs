@@ -65,7 +65,7 @@ namespace MazeEditor2
             double startY = (canvasHeight - boardHeight) / 2;
 
             // 绘制棋盘格子
-            for (int i = 0; i <= rows; i++)
+            for (int r = 0; r <= rows; r++)
             {
                 Line horizontalLine = new Line
                 {
@@ -73,20 +73,20 @@ namespace MazeEditor2
                     StrokeThickness = 2,
                     X1 = startX,
                     X2 = startX + boardWidth,
-                    Y1 = startY + i * cellSize,
-                    Y2 = startY + i * cellSize
+                    Y1 = startY + r * cellSize,
+                    Y2 = startY + r * cellSize
                 };
                 MazeCanvas.Children.Add(horizontalLine);
             }
 
-            for (int j = 0; j <= cols; j++)
+            for (int c = 0; c <= cols; c++)
             {
                 Line verticalLine = new Line
                 {
                     Stroke = Brushes.Black,
                     StrokeThickness = 2,
-                    X1 = startX + j * cellSize,
-                    X2 = startX + j * cellSize,
+                    X1 = startX + c * cellSize,
+                    X2 = startX + c * cellSize,
                     Y1 = startY,
                     Y2 = startY + boardHeight
                 };
@@ -94,11 +94,11 @@ namespace MazeEditor2
             }
 
             // 在每个格子中央添加字符"O"
-            for (int i = 0; i < rows; i++)
+            for (int r = 0; r < rows; r++)
             {
-                for (int j = 0; j < cols; j++)
+                for (int c = 0; c < cols; c++)
                 {
-                    var ch = maze.GetObject(new Position(i, j)) ?? ' ';
+                    var ch = maze.GetObject(new Position(r, c)) ?? ' ';
                     TextBlock textBlock = new()
                     {
                         Text = ch.ToString(),
@@ -113,8 +113,8 @@ namespace MazeEditor2
                     textBlock.Arrange(new Rect(0, 0, textBlock.DesiredSize.Width, textBlock.DesiredSize.Height));
 
                     // 计算中心位置
-                    double centerX = startX + j * cellSize + cellSize / 2;
-                    double centerY = startY + i * cellSize + cellSize / 2;
+                    double centerX = startX + c * cellSize + cellSize / 2;
+                    double centerY = startY + r * cellSize + cellSize / 2;
 
                     // 设置位置（考虑文本自身大小）
                     Canvas.SetLeft(textBlock, centerX - textBlock.DesiredSize.Width / 2);
@@ -126,9 +126,9 @@ namespace MazeEditor2
 
             // 在所有顶点处绘制小圆
             double circleRadius = cellSize * 0.1;
-            for (int i = 0; i <= rows; i++)
+            for (int r = 0; r <= rows; r++)
             {
-                for (int j = 0; j <= cols; j++)
+                for (int c = 0; c <= cols; c++)
                 {
                     Ellipse circle = new Ellipse
                     {
@@ -139,45 +139,48 @@ namespace MazeEditor2
                         StrokeThickness = 1
                     };
 
-                    Canvas.SetLeft(circle, startX + j * cellSize - circleRadius);
-                    Canvas.SetTop(circle, startY + i * cellSize - circleRadius);
+                    Canvas.SetLeft(circle, startX + c * cellSize - circleRadius);
+                    Canvas.SetTop(circle, startY + r * cellSize - circleRadius);
                     MazeCanvas.Children.Add(circle);
                 }
             }
 
-            // 为每个格子添加可点击的透明按钮
-            for (int row = 0; row < rows; row++)
-            {
-                for (int col = 0; col < cols; col++)
-                {
-                    Button cellButton = new Button
-                    {
-                        Width = cellSize,
-                        Height = cellSize,
-                        Background = Brushes.Transparent,
-                        BorderBrush = Brushes.Transparent,
-                        BorderThickness = new Thickness(0),
-                        Tag = new Point(col, row) // 存储格子坐标
-                    };
-
-                    cellButton.Click += CellButton_Click;
-
-                    Canvas.SetLeft(cellButton, startX + col * cellSize);
-                    Canvas.SetTop(cellButton, startY + row * cellSize);
-
-                    MazeCanvas.Children.Add(cellButton);
-                }
-            }
+            // 启用鼠标事件
+            MazeCanvas.MouseDown += MazeCanvas_MouseDown;
         }
-        private void CellButton_Click(object sender, RoutedEventArgs e)
+
+        private void MazeCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Button clickedButton = sender as Button;
-            Point position = (Point)clickedButton.Tag;
+            Point clickPosition = e.GetPosition(MazeCanvas);
 
-            int col = (int)position.X;
-            int row = (int)position.Y;
+            // 计算点击位置相对于棋盘的坐标
+            double canvasWidth = MazeCanvas.ActualWidth;
+            double canvasHeight = MazeCanvas.ActualHeight;
 
-            MessageBox.Show($"点击了格子: 行 {row + 1}, 列 {col + 1}");
+            int rows = maze.Height;
+            int cols = maze.Width;
+            double cellSize = Math.Min(canvasWidth, canvasHeight) * 0.8 / Math.Max(rows, cols);
+            // 确保cellSize不小于10
+            cellSize = Math.Max(cellSize, 10);
+            double boardWidth = cols * cellSize;
+            double boardHeight = rows * cellSize;
+
+            double startX = (canvasWidth - boardWidth) / 2;
+            double startY = (canvasHeight - boardHeight) / 2;
+
+            // 检查是否点击在棋盘区域内
+            if (clickPosition.X >= startX && clickPosition.X <= startX + boardWidth &&
+                clickPosition.Y >= startY && clickPosition.Y <= startY + boardHeight)
+            {
+                int col = (int)((clickPosition.X - startX) / cellSize);
+                int row = (int)((clickPosition.Y - startY) / cellSize);
+
+                // 确保索引在有效范围内
+                col = Math.Min(Math.Max(col, 0), cols - 1);
+                row = Math.Min(Math.Max(row, 0), rows - 1);
+
+                MessageBox.Show($"点击了格子: 行 {row + 1}, 列 {col + 1}");
+            }
         }
     }
 }
