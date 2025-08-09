@@ -68,6 +68,7 @@ namespace MazeEditor2
         {
             SelectedPositions.Clear();
             SelectedPositions.Add(AdjustedPosition(p));
+            Refresh();
         }
 
         public void ToggleSelectedPosition(Position p)
@@ -83,6 +84,7 @@ namespace MazeEditor2
             {
                 SelectedPositions.Add(p2);
             }
+            Refresh();
         }
 
         private Dictionary<Position, char> pos2obj = [];
@@ -99,6 +101,8 @@ namespace MazeEditor2
 
         [Reactive]
         public partial char CurObj { get; set; } = ' ';
+        [Reactive]
+        public partial int RefreshCount { get; set; }
 
         public char? GetObject(Position p) =>
             pos2obj.TryGetValue(p, out var ch) ? ch : null;
@@ -120,18 +124,21 @@ namespace MazeEditor2
         {
             if (!HorzWall.Remove(p))
                 HorzWall.Add(p);
+            Refresh();
         }
 
         public void ToggleVertWall(Position p)
         {
             if (!VertWall.Remove(p))
                 VertWall.Add(p);
+            Refresh();
         }
 
         public void ToggleDot(Position p)
         {
             if (!Dots.Remove(p))
                 Dots.Add(p);
+            Refresh();
         }
 
         public ReactiveCommand<Unit, Unit> FillBorderLines { get; set; }
@@ -228,6 +235,7 @@ namespace MazeEditor2
                         }
                     }
                 }
+                Refresh();
             }
         }
 
@@ -271,6 +279,7 @@ namespace MazeEditor2
                 for (int r = 0; r < Height; r++)
                     for (int c = 0; c < Width; c++)
                         pos2obj[new Position(r, c)] = CurObj;
+                Refresh();
             });
             FillBorderCells = ReactiveCommand.Create(() =>
             {
@@ -278,25 +287,36 @@ namespace MazeEditor2
                     pos2obj[new Position(r, 0)] = pos2obj[new Position(r, Width - 1)] = CurObj;
                 for (int c = 0; c < Width; c++)
                     pos2obj[new Position(0, c)] = pos2obj[new Position(Height - 1, c)] = CurObj;
+                Refresh();
             });
             ClearWalls = ReactiveCommand.Create(() =>
             {
                 HorzWall.Clear();
                 VertWall.Clear();
+                Refresh();
             });
             ClearChars = ReactiveCommand.Create(() =>
             {
                 SetSelectedPosition(new Position());
                 pos2obj.Clear();
                 CurObj = ' ';
+                Refresh();
             });
             ClearAll = ReactiveCommand.Create(() =>
             {
                 ClearWalls.Execute();
                 ClearChars.Execute();
+                Refresh();
             });
             SelectedPositions.ToObservableChangeSet()
                 .Subscribe(_ => SelectedPosition = SelectedPositions.FirstOrDefault());
+            this.WhenAnyValue(x => x.Size).Subscribe(sz =>
+            {
+                IsSquare = sz.Row == sz.Col;
+                Refresh();
+            });
         }
+
+        void Refresh() => ++RefreshCount;
     }
 }

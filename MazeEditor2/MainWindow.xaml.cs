@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Controls.Ribbon;
 using ReactiveUI;
 using System.Reactive.Linq;
+using DynamicData.Binding;
 
 namespace MazeEditor2
 {
@@ -30,12 +31,8 @@ namespace MazeEditor2
             this.Loaded += (s, e) => DrawMaze();
             MazeCanvas.SizeChanged += (s, e) => DrawMaze();
             this.DataContext = maze;
-            maze.WhenAnyValue(x => x.Size)
-                .Subscribe(v =>
-                {
-                    maze.IsSquare = v.Row == v.Col;
-                    DrawMaze();
-                });
+            maze.WhenAnyValue(x => x.RefreshCount)
+                .Subscribe(_ =>DrawMaze());
         }
         void DrawMaze()
         {
@@ -58,36 +55,41 @@ namespace MazeEditor2
 
             // 绘制棋盘格子
             for (int r = 0; r <= rows; r++)
-            {
-                Line horizontalLine = new Line
+                for (int c = 0; c < cols; c++)
                 {
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 2,
-                    X1 = startX,
-                    X2 = startX + boardWidth,
-                    Y1 = startY + r * cellSize,
-                    Y2 = startY + r * cellSize
-                };
-                MazeCanvas.Children.Add(horizontalLine);
-            }
+                    var p = new Position(r, c);
+                    var hasWall = maze.HasWall && maze.HorzWall.Contains(p);
+                    var horizontalLine = new Line
+                    {
+                        Stroke = hasWall ? Brushes.Brown : Brushes.Black,
+                        StrokeThickness = hasWall ? 4 : 2,
+                        X1 = startX + c * cellSize,
+                        X2 = startX + (c + 1) * cellSize,
+                        Y1 = startY + r * cellSize,
+                        Y2 = startY + r * cellSize
+                    };
+                    MazeCanvas.Children.Add(horizontalLine);
+                }
 
             for (int c = 0; c <= cols; c++)
-            {
-                Line verticalLine = new Line
+                for (int r = 0; r < rows; r++)
                 {
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 2,
-                    X1 = startX + c * cellSize,
-                    X2 = startX + c * cellSize,
-                    Y1 = startY,
-                    Y2 = startY + boardHeight
-                };
-                MazeCanvas.Children.Add(verticalLine);
-            }
+                    var p = new Position(r, c);
+                    var hasWall = maze.HasWall && maze.VertWall.Contains(p);
+                    var verticalLine = new Line
+                    {
+                        Stroke = hasWall ? Brushes.Brown : Brushes.Black,
+                        StrokeThickness = hasWall ? 4 : 2,
+                        X1 = startX + c * cellSize,
+                        X2 = startX + c * cellSize,
+                        Y1 = startY + r * cellSize,
+                        Y2 = startY + (r + 1) * cellSize
+                    };
+                    MazeCanvas.Children.Add(verticalLine);
+                }
 
             // 绘制所有格子背景和交互区域
             for (int r = 0; r < rows; r++)
-            {
                 for (int c = 0; c < cols; c++)
                 {
                     var p = new Position(r, c);
@@ -105,7 +107,6 @@ namespace MazeEditor2
                     Canvas.SetTop(cellBackground, startY + r * cellSize);
                     MazeCanvas.Children.Add(cellBackground);
                 }
-            }
 
             // 在每个格子中央添加字符"O"
             for (int r = 0; r < rows; r++)
@@ -144,6 +145,9 @@ namespace MazeEditor2
             {
                 for (int c = 0; c <= cols; c++)
                 {
+                    var p = new Position(r, c);
+                    if (!(maze.HasWall && maze.Dots.Contains(p)))
+                        continue;
                     Ellipse circle = new Ellipse
                     {
                         Width = circleRadius * 2,
@@ -187,23 +191,31 @@ namespace MazeEditor2
 
             // 确定点击区域类型
             ClickAreaType areaType = DetermineClickAreaType(clickPosition, startX, startY, cellSize, rows, cols);
+            if (areaType == ClickAreaType.Vertex)
+            {
+                // 获取顶点坐标（如果是顶点）
+                int vertexCol = (int)Math.Round((clickPosition.X - startX) / cellSize);
+                int vertexRow = (int)Math.Round((clickPosition.Y - startY) / cellSize);
+                vertexCol = Math.Min(Math.Max(vertexCol, 0), cols);
+                vertexRow = Math.Min(Math.Max(vertexRow, 0), rows);
+            }
+            else
+            {
+                // 获取格子坐标（如果是格子内部或线段）
+                int col = (int)((clickPosition.X - startX) / cellSize);
+                int row = (int)((clickPosition.Y - startY) / cellSize);
+                col = Math.Min(Math.Max(col, 0), cols - 1);
+                row = Math.Min(Math.Max(row, 0), rows - 1);
+                var p = new Position(row, col);
 
-            // 获取格子坐标（如果是格子内部或线段）
-            int col = (int)((clickPosition.X - startX) / cellSize);
-            int row = (int)((clickPosition.Y - startY) / cellSize);
-            col = Math.Min(Math.Max(col, 0), cols - 1);
-            row = Math.Min(Math.Max(row, 0), rows - 1);
-
-            // 获取顶点坐标（如果是顶点）
-            int vertexCol = (int)Math.Round((clickPosition.X - startX) / cellSize);
-            int vertexRow = (int)Math.Round((clickPosition.Y - startY) / cellSize);
-            vertexCol = Math.Min(Math.Max(vertexCol, 0), cols);
-            vertexRow = Math.Min(Math.Max(vertexRow, 0), rows);
-
-            // 构建消息
-            string message = BuildClickMessage(areaType, row, col, vertexRow, vertexCol, isCtrlPressed, isAltPressed, isShiftPressed);
-
-            MessageBox.Show(message);
+                if (areaType == ClickAreaType.Cell)
+                {
+                    if (isAltPressed)
+                        maze.ToggleSelectedPosition(p);
+                    else
+                        maze.SetSelectedPosition(p);
+                }
+            }
         }
 
         bool IsPointInBoard(Point point, double startX, double startY, double width, double height)
@@ -255,37 +267,6 @@ namespace MazeEditor2
 
             // 4. 默认是格子内部
             return ClickAreaType.Cell;
-        }
-
-        string BuildClickMessage(ClickAreaType areaType, int row, int col,
-                                       int vertexRow, int vertexCol,
-                                       bool ctrl, bool alt, bool shift)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            // 添加区域类型信息
-            switch (areaType)
-            {
-                case ClickAreaType.Cell:
-                    sb.AppendLine($"点击了格子内部: 行 {row + 1}, 列 {col + 1}");
-                    break;
-                case ClickAreaType.HorizontalLine:
-                    sb.AppendLine($"点击了水平线段: 行 {row + 1}");
-                    break;
-                case ClickAreaType.VerticalLine:
-                    sb.AppendLine($"点击了垂直线段: 列 {col + 1}");
-                    break;
-                case ClickAreaType.Vertex:
-                    sb.AppendLine($"点击了顶点: 行 {vertexRow}, 列 {vertexCol}");
-                    break;
-            }
-
-            // 添加修饰键信息
-            sb.AppendLine($"Ctrl键: {(ctrl ? "按下" : "未按下")}");
-            sb.AppendLine($"Alt键: {(alt ? "按下" : "未按下")}");
-            sb.AppendLine($"Shift键: {(shift ? "按下" : "未按下")}");
-
-            return sb.ToString();
         }
 
         // 点击区域类型枚举
