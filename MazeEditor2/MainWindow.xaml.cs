@@ -23,7 +23,7 @@ namespace MazeEditor2
     /// </summary>
     public partial class MainWindow : RibbonWindow
     {
-        private readonly Maze maze = new();
+        readonly Maze maze = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -37,12 +37,7 @@ namespace MazeEditor2
                     DrawMaze();
                 });
         }
-
-        private void Canvas_KeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
-        private void DrawMaze()
+        void DrawMaze()
         {
             // 清除Canvas上已有的元素
             MazeCanvas.Children.Clear();
@@ -95,12 +90,14 @@ namespace MazeEditor2
             {
                 for (int c = 0; c < cols; c++)
                 {
+                    var p = new Position(r, c);
+                    bool isSelected = maze.SelectedPositions.Contains(p);
                     // 创建格子背景矩形
                     Rectangle cellBackground = new Rectangle
                     {
                         Width = cellSize,
                         Height = cellSize,
-                        Fill = (r == 1 && c == 1) ? Brushes.Green : Brushes.Transparent, // 中央格子设为绿色
+                        Fill = isSelected ? Brushes.Green : Brushes.Transparent, // 中央格子设为绿色
                         Opacity = 0.3 // 设置透明度使背景不太突兀
                     };
 
@@ -161,12 +158,9 @@ namespace MazeEditor2
                     MazeCanvas.Children.Add(circle);
                 }
             }
-
-            // 启用鼠标事件
-            MazeCanvas.MouseDown += MazeCanvas_MouseDown;
         }
 
-        private void MazeCanvas_MouseDown(object sender, MouseButtonEventArgs e)
+        void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             // 只处理左键点击
             if (e.ChangedButton != MouseButton.Left) return;
@@ -212,13 +206,13 @@ namespace MazeEditor2
             MessageBox.Show(message);
         }
 
-        private bool IsPointInBoard(Point point, double startX, double startY, double width, double height)
+        bool IsPointInBoard(Point point, double startX, double startY, double width, double height)
         {
             return point.X >= startX && point.X <= startX + width &&
                    point.Y >= startY && point.Y <= startY + height;
         }
 
-        private ClickAreaType DetermineClickAreaType(Point clickPos, double startX, double startY, double cellSize, int rows, int cols)
+        ClickAreaType DetermineClickAreaType(Point clickPos, double startX, double startY, double cellSize, int rows, int cols)
         {
             const double lineTolerance = 3.0; // 线段点击容差范围（像素）
             const double vertexTolerance = 5.0; // 顶点点击容差范围（像素）
@@ -263,7 +257,7 @@ namespace MazeEditor2
             return ClickAreaType.Cell;
         }
 
-        private string BuildClickMessage(ClickAreaType areaType, int row, int col,
+        string BuildClickMessage(ClickAreaType areaType, int row, int col,
                                        int vertexRow, int vertexCol,
                                        bool ctrl, bool alt, bool shift)
         {
@@ -301,6 +295,39 @@ namespace MazeEditor2
             HorizontalLine, // 水平线段
             VerticalLine,   // 垂直线段
             Vertex          // 顶点
+        }
+
+        void Canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point mousePos = e.GetPosition(MazeCanvas);
+
+            // 棋盘参数
+            int rows = maze.Height;
+            int cols = maze.Width;
+            double cellSize = Math.Min(MazeCanvas.ActualWidth, MazeCanvas.ActualHeight) * 0.8 / Math.Max(rows, cols);
+            cellSize = Math.Max(cellSize, 10);
+            double boardWidth = cols * cellSize;
+            double boardHeight = rows * cellSize;
+            double startX = (MazeCanvas.ActualWidth - boardWidth) / 2;
+            double startY = (MazeCanvas.ActualHeight - boardHeight) / 2;
+
+            // 检查是否点击在棋盘区域内
+            if (!IsPointInBoard(mousePos, startX, startY, boardWidth, boardHeight))
+                maze.MousePosition = new Position(-1, -1);
+            else
+            {
+                // 计算当前所在方格
+                int col = (int)((mousePos.X - startX) / cellSize);
+                int row = (int)((mousePos.Y - startY) / cellSize);
+                col = Math.Min(Math.Max(col, 0), cols - 1);
+                row = Math.Min(Math.Max(row, 0), rows - 1);
+                maze.MousePosition = new Position(row, col);
+            }
+        }
+
+        void Canvas_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

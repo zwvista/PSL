@@ -55,6 +55,7 @@
                 </RibbonGroup>
                 <RibbonGroup Header="Info" KeyTip="I">
                     <RibbonTextBox Label="Pos:" Text="{x:Bind SelectedPosition.ToString()}" IsReadOnly="True" />
+                    <RibbonTextBox Label="Mouse:" Text="{x:Bind MousePosition.ToString()}" IsReadOnly="True" />
                     <RibbonComboBox Label="Movement:">
                         <RibbonGallery SelectedValue="{x:Bind CurMovement, Mode=TwoWay}">
                             <RibbonGalleryCategory ItemsSource="{x:Bind sys:Enum.GetValues(typeof(local:MazeMovement))}" />
@@ -68,6 +69,7 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-        <Canvas Grid.Row="1" x:Name="MazeCanvas" KeyDown="Canvas_KeyDown"/>
+        <Canvas Grid.Row="1" x:Name="MazeCanvas" KeyDown="Canvas_KeyDown" MouseDown="Canvas_MouseDown"
+                MouseMove="Canvas_MouseMove"/>
     </Grid>
 </RibbonWindow>

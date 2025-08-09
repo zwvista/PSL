@@ -25,6 +25,8 @@ namespace MazeEditor2
         [Reactive]
         public partial Position Size { get; set; } = new Position(8, 8);
         [Reactive]
+        public partial Position MousePosition { get; set; } = new Position(-1, -1);
+        [Reactive]
         public partial MazeMovement CurMovement { get; set; } = MazeMovement.Right;
 
         public int Height
