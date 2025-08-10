@@ -245,8 +245,7 @@ namespace MazeEditor2
 
         public Maze()
         {
-            var hasWall = this.WhenAnyValue(x => x.HasWall)
-                .DistinctUntilChanged();
+            var hasWall = this.WhenAnyValue(x => x.HasWall);
             FillBorderLines = ReactiveCommand.Create(() =>
             {
                 for (int r = 0; r < Height; r++)
@@ -259,6 +258,7 @@ namespace MazeEditor2
                     HorzWall.Add(new Position(0, c));
                     HorzWall.Add(new Position(Height, c));
                 }
+                Refresh();
             }, hasWall);
             EncloseSelectedCells = ReactiveCommand.Create(() =>
             {
@@ -273,6 +273,7 @@ namespace MazeEditor2
                     if (!SelectedPositions.Contains(new Position(p.Row, p.Col + 1)))
                         VertWall.Add(new Position(p.Row, p.Col + 1));
                 }
+                Refresh();
             }, hasWall);
             FillAll = ReactiveCommand.Create(() =>
             {
@@ -304,9 +305,8 @@ namespace MazeEditor2
             });
             ClearAll = ReactiveCommand.Create(() =>
             {
-                ClearWalls.Execute();
-                ClearChars.Execute();
-                Refresh();
+                ClearWalls.Execute().Subscribe();
+                ClearChars.Execute().Subscribe();
             });
             SelectedPositions.ToObservableChangeSet()
                 .Subscribe(_ => SelectedPosition = SelectedPositions.FirstOrDefault());

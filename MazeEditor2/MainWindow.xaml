@@ -10,6 +10,9 @@
         d:DataContext="{d:DesignInstance Type=local:Maze}"
         mx:DataType="local:Maze"
         Title="MazeEditor2" Height="600" Width="800">
+    <RibbonWindow.Resources>
+        <local:CharToStringConverter x:Key="CharToStringConverter" />
+    </RibbonWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -49,12 +52,12 @@
                     <RibbonButton Label="Enclose Selected" Command="{x:Bind EncloseSelectedCells}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Chars" KeyTip="C">
-                    <RibbonTextBox Label="Char:" Text="{x:Bind CurObj, Mode=TwoWay}" />
+                    <RibbonTextBox Label="Char:" Text="{x:Bind CurObj, Mode=TwoWay, Converter={StaticResource CharToStringConverter}}" />
                     <RibbonButton Label="Fill All" Command="{x:Bind FillAll}" />
                     <RibbonButton Label="Fill Border Cells" Command="{x:Bind FillBorderCells}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Info" KeyTip="I">
-                    <RibbonTextBox Label="Pos:" Text="{x:Bind SelectedPosition.ToString()}" IsReadOnly="True" />
+                    <RibbonTextBox Label="Position:" Text="{x:Bind SelectedPosition.ToString()}" IsReadOnly="True" />
                     <RibbonTextBox Label="Mouse:" Text="{x:Bind MousePosition.ToString()}" IsReadOnly="True" />
                     <RibbonComboBox Label="Movement:">
                         <RibbonGallery SelectedValue="{x:Bind CurMovement, Mode=TwoWay}">

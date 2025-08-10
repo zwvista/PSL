@@ -81,11 +81,11 @@
 
   <ItemGroup>
     <PackageReference Include="CompiledBindings.WPF" Version="1.0.18" />
-    <PackageReference Include="ReactiveUI" Version="20.4.1" />
     <PackageReference Include="ReactiveUI.SourceGenerators" Version="2.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="ReactiveUI.WPF" Version="20.4.1" />
   </ItemGroup>
 
 </Project>
