@@ -28,6 +28,14 @@ namespace MazeEditor2
         public partial Position MousePosition { get; set; } = new Position(-1, -1);
         [Reactive]
         public partial MazeMovement CurMovement { get; set; } = MazeMovement.Right;
+        public Position CurOffset => CurMovement switch
+        {
+            MazeMovement.Up => Position.Up,
+            MazeMovement.Down => Position.Down,
+            MazeMovement.Left => Position.Left,
+            MazeMovement.Right => Position.Right,
+            _ => Position.Zero
+        };
 
         public int Height
         {
@@ -264,13 +272,13 @@ namespace MazeEditor2
             {
                 foreach (var p in SelectedPositions)
                 {
-                    if (!SelectedPositions.Contains(new Position(p.Row - 1, p.Col)))
+                    if (!SelectedPositions.Contains(p + Position.Up))
                         HorzWall.Add(p);
-                    if (!SelectedPositions.Contains(new Position(p.Row + 1, p.Col)))
+                    if (!SelectedPositions.Contains(p + Position.Down))
                         HorzWall.Add(new Position(p.Row + 1, p.Col));
-                    if (!SelectedPositions.Contains(new Position(p.Row, p.Col - 1)))
+                    if (!SelectedPositions.Contains(p + Position.Left))
                         VertWall.Add(p);
-                    if (!SelectedPositions.Contains(new Position(p.Row, p.Col + 1)))
+                    if (!SelectedPositions.Contains(p + Position.Right))
                         VertWall.Add(new Position(p.Row, p.Col + 1));
                 }
                 Refresh();
@@ -317,6 +325,9 @@ namespace MazeEditor2
             });
         }
 
-        void Refresh() => ++RefreshCount;
+        public void Refresh() => ++RefreshCount;
+
+        public void MoveSelectedPosition(Position os) =>
+            SetSelectedPosition(SelectedPosition + os);
     }
 }

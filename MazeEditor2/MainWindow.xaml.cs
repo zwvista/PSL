@@ -29,7 +29,7 @@ namespace MazeEditor2
         {
             InitializeComponent();
             this.Loaded += (s, e) => DrawMaze();
-            MazeCanvas.SizeChanged += (s, e) => DrawMaze();
+            Canvas.SizeChanged += (s, e) => DrawMaze();
             this.DataContext = maze;
             maze.WhenAnyValue(x => x.RefreshCount)
                 .Subscribe(_ =>DrawMaze());
@@ -37,21 +37,21 @@ namespace MazeEditor2
         void DrawMaze()
         {
             // 清除Canvas上已有的元素
-            MazeCanvas.Children.Clear();
+            Canvas.Children.Clear();
 
             // 获取Canvas的实际尺寸
-            double canvasWidth = MazeCanvas.ActualWidth;
-            double canvasHeight = MazeCanvas.ActualHeight;
+            double canvasWidth = Canvas.ActualWidth;
+            double canvasHeight = Canvas.ActualHeight;
 
             // 定义棋盘参数
             int rows = maze.Height;
             int cols = maze.Width;
-            double cellSize = Math.Min(MazeCanvas.ActualWidth, MazeCanvas.ActualHeight) * 0.8 / Math.Max(rows, cols);
+            double cellSize = Math.Min(Canvas.ActualWidth, Canvas.ActualHeight) * 0.8 / Math.Max(rows, cols);
             cellSize = Math.Max(cellSize, 10);
             double boardWidth = cols * cellSize;
             double boardHeight = rows * cellSize;
-            double startX = (MazeCanvas.ActualWidth - boardWidth) / 2;
-            double startY = (MazeCanvas.ActualHeight - boardHeight) / 2;
+            double startX = (Canvas.ActualWidth - boardWidth) / 2;
+            double startY = (Canvas.ActualHeight - boardHeight) / 2;
 
             // 绘制棋盘格子
             for (int r = 0; r <= rows; r++)
@@ -68,7 +68,7 @@ namespace MazeEditor2
                         Y1 = startY + r * cellSize,
                         Y2 = startY + r * cellSize
                     };
-                    MazeCanvas.Children.Add(horizontalLine);
+                    Canvas.Children.Add(horizontalLine);
                 }
 
             for (int c = 0; c <= cols; c++)
@@ -85,7 +85,7 @@ namespace MazeEditor2
                         Y1 = startY + r * cellSize,
                         Y2 = startY + (r + 1) * cellSize
                     };
-                    MazeCanvas.Children.Add(verticalLine);
+                    Canvas.Children.Add(verticalLine);
                 }
 
             // 绘制所有格子背景和交互区域
@@ -105,7 +105,7 @@ namespace MazeEditor2
 
                     Canvas.SetLeft(cellBackground, startX + c * cellSize);
                     Canvas.SetTop(cellBackground, startY + r * cellSize);
-                    MazeCanvas.Children.Add(cellBackground);
+                    Canvas.Children.Add(cellBackground);
                 }
 
             // 在每个格子中央添加字符"O"
@@ -135,7 +135,7 @@ namespace MazeEditor2
                     Canvas.SetLeft(textBlock, centerX - textBlock.DesiredSize.Width / 2);
                     Canvas.SetTop(textBlock, centerY - textBlock.DesiredSize.Height / 2);
 
-                    MazeCanvas.Children.Add(textBlock);
+                    Canvas.Children.Add(textBlock);
                 }
             }
 
@@ -159,7 +159,7 @@ namespace MazeEditor2
 
                     Canvas.SetLeft(circle, startX + c * cellSize - circleRadius);
                     Canvas.SetTop(circle, startY + r * cellSize - circleRadius);
-                    MazeCanvas.Children.Add(circle);
+                    Canvas.Children.Add(circle);
                 }
             }
         }
@@ -169,17 +169,17 @@ namespace MazeEditor2
             // 只处理左键点击
             if (e.ChangedButton != MouseButton.Left) return;
 
-            Point clickPosition = e.GetPosition(MazeCanvas);
+            Point clickPosition = e.GetPosition(Canvas);
 
             // 棋盘参数
             int rows = maze.Height;
             int cols = maze.Width;
-            double cellSize = Math.Min(MazeCanvas.ActualWidth, MazeCanvas.ActualHeight) * 0.8 / Math.Max(rows, cols);
+            double cellSize = Math.Min(Canvas.ActualWidth, Canvas.ActualHeight) * 0.8 / Math.Max(rows, cols);
             cellSize = Math.Max(cellSize, 10);
             double boardWidth = cols * cellSize;
             double boardHeight = rows * cellSize;
-            double startX = (MazeCanvas.ActualWidth - boardWidth) / 2;
-            double startY = (MazeCanvas.ActualHeight - boardHeight) / 2;
+            double startX = (Canvas.ActualWidth - boardWidth) / 2;
+            double startY = (Canvas.ActualHeight - boardHeight) / 2;
 
             // 检查是否点击在棋盘区域内
             if (!IsPointInBoard(clickPosition, startX, startY, boardWidth, boardHeight)) return;
@@ -280,17 +280,17 @@ namespace MazeEditor2
 
         void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            Point mousePos = e.GetPosition(MazeCanvas);
+            Point mousePos = e.GetPosition(Canvas);
 
             // 棋盘参数
             int rows = maze.Height;
             int cols = maze.Width;
-            double cellSize = Math.Min(MazeCanvas.ActualWidth, MazeCanvas.ActualHeight) * 0.8 / Math.Max(rows, cols);
+            double cellSize = Math.Min(Canvas.ActualWidth, Canvas.ActualHeight) * 0.8 / Math.Max(rows, cols);
             cellSize = Math.Max(cellSize, 10);
             double boardWidth = cols * cellSize;
             double boardHeight = rows * cellSize;
-            double startX = (MazeCanvas.ActualWidth - boardWidth) / 2;
-            double startY = (MazeCanvas.ActualHeight - boardHeight) / 2;
+            double startX = (Canvas.ActualWidth - boardWidth) / 2;
+            double startY = (Canvas.ActualHeight - boardHeight) / 2;
 
             // 检查是否点击在棋盘区域内
             if (!IsPointInBoard(mousePos, startX, startY, boardWidth, boardHeight))
@@ -306,9 +306,45 @@ namespace MazeEditor2
             }
         }
 
-        void Canvas_KeyDown(object sender, KeyEventArgs e)
+        void Canvas_PreviewKeyDown(object sender, KeyEventArgs e)
         {
 
+            // 检测修饰键状态
+            bool isCtrlPressed = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
+            bool isAltPressed = Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
+            bool isShiftPressed = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
+
+            switch (e.Key)
+            {
+                case Key.Left:
+                    maze.MoveSelectedPosition(Position.Left);
+                    e.Handled = true;
+                    break;
+                case Key.Right:
+                    maze.MoveSelectedPosition(Position.Right);
+                    e.Handled = true;
+                    break;
+                case Key.Up:
+                    maze.MoveSelectedPosition(Position.Up);
+                    e.Handled = true;
+                    break;
+                case Key.Down:
+                    maze.MoveSelectedPosition(Position.Down);
+                    e.Handled = true;
+                    break;
+                default:
+                    char ch = e.Key == Key.Enter ? maze.CurObj : e.Key.ToString().FirstOrDefault();
+                    maze.SetObject(maze.SelectedPosition, ch);
+                    maze.MoveSelectedPosition(maze.CurOffset);
+                    e.Handled = true;
+                    break;
+            }
+        }
+
+        private void Canvas_Loaded(object sender, RoutedEventArgs e)
+        {
+            Canvas.Focus();
+            Keyboard.Focus(Canvas);
         }
     }
 }

@@ -40,5 +40,11 @@ namespace MazeEditor2
 
         public override string ToString() =>
             $"({Row},{Col})";
+
+        public static readonly Position Zero = new(0, 0);
+        public static readonly Position Up = new(-1, 0);
+        public static readonly Position Down = new(1, 0);
+        public static readonly Position Left = new(0, -1);
+        public static readonly Position Right = new(0, 1);
     }
 }
