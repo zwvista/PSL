@@ -72,7 +72,7 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-        <Canvas Grid.Row="1" x:Name="Canvas" PreviewKeyDown="Canvas_PreviewKeyDown" MouseDown="Canvas_MouseDown"
-                MouseMove="Canvas_MouseMove" Focusable="True" Loaded="Canvas_Loaded" />
+        <Canvas Grid.Row="1" x:Name="Canvas" KeyDown="Canvas_KeyDown" MouseDown="Canvas_MouseDown"
+                MouseMove="Canvas_MouseMove" Focusable="True" Loaded="Canvas_Loaded" TextInput="Canvas_TextInput" />
     </Grid>
 </RibbonWindow>

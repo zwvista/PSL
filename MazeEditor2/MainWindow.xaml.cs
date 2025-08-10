@@ -25,6 +25,7 @@ namespace MazeEditor2
     public partial class MainWindow : RibbonWindow
     {
         readonly Maze maze = new();
+        readonly double tolerance = 8.0; // 点击容差范围（像素）
         public MainWindow()
         {
             InitializeComponent();
@@ -190,83 +191,72 @@ namespace MazeEditor2
             bool isShiftPressed = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
 
             // 确定点击区域类型
-            ClickAreaType areaType = DetermineClickAreaType(clickPosition, startX, startY, cellSize, rows, cols);
-            if (areaType == ClickAreaType.Vertex)
+            var (areaType, p) = GetClickInfo(clickPosition, startX, startY, cellSize, rows, cols);
+            switch (areaType)
             {
-                // 获取顶点坐标（如果是顶点）
-                int vertexCol = (int)Math.Round((clickPosition.X - startX) / cellSize);
-                int vertexRow = (int)Math.Round((clickPosition.Y - startY) / cellSize);
-                vertexCol = Math.Min(Math.Max(vertexCol, 0), cols);
-                vertexRow = Math.Min(Math.Max(vertexRow, 0), rows);
-            }
-            else
-            {
-                // 获取格子坐标（如果是格子内部或线段）
-                int col = (int)((clickPosition.X - startX) / cellSize);
-                int row = (int)((clickPosition.Y - startY) / cellSize);
-                col = Math.Min(Math.Max(col, 0), cols - 1);
-                row = Math.Min(Math.Max(row, 0), rows - 1);
-                var p = new Position(row, col);
-
-                if (areaType == ClickAreaType.Cell)
-                {
+                case ClickAreaType.Cell:
+                    // 如果点击在格子内部
                     if (isAltPressed)
                         maze.ToggleSelectedPosition(p);
                     else
                         maze.SetSelectedPosition(p);
-                }
+                    break;
+                case ClickAreaType.HorizontalLine:
+                    // 如果点击在水平线段上
+                    maze.ToggleHorzWall(p);
+                    break;
+                case ClickAreaType.VerticalLine:
+                    // 如果点击在垂直线段上
+                    maze.ToggleVertWall(p);
+                    break;
+                case ClickAreaType.Vertex:
+                    // 如果点击在顶点上
+                    maze.ToggleDot(p);
+                    break;
             }
         }
 
         bool IsPointInBoard(Point point, double startX, double startY, double width, double height)
         {
-            return point.X >= startX && point.X <= startX + width &&
-                   point.Y >= startY && point.Y <= startY + height;
+            var t = maze.HasWall ? tolerance : 0.0;
+            return point.X >= startX - t && point.X <= startX + width + t &&
+                   point.Y >= startY - t && point.Y <= startY + height + t;
         }
 
-        ClickAreaType DetermineClickAreaType(Point clickPos, double startX, double startY, double cellSize, int rows, int cols)
+        (ClickAreaType, Position) GetClickInfo(Point clickPos, double startX, double startY, double cellSize, int rows, int cols)
         {
-            const double lineTolerance = 3.0; // 线段点击容差范围（像素）
-            const double vertexTolerance = 5.0; // 顶点点击容差范围（像素）
-
-            // 1. 检查是否点击在顶点上
             for (int r = 0; r <= rows; r++)
-            {
                 for (int c = 0; c <= cols; c++)
                 {
-                    double vertexX = startX + c * cellSize;
-                    double vertexY = startY + r * cellSize;
+                    var t = maze.HasWall ? tolerance : 0.0;
+                    double x1 = startX + c * cellSize - t;
+                    double x2 = startX + c * cellSize + t;
+                    double x3 = startX + (c + 1) * cellSize - t;
+                    double y1 = startY + r * cellSize - t;
+                    double y2 = startY + r * cellSize + t;
+                    double y3 = startY + (r + 1) * cellSize - t;
 
-                    if (Math.Abs(clickPos.X - vertexX) < vertexTolerance &&
-                        Math.Abs(clickPos.Y - vertexY) < vertexTolerance)
-                    {
-                        return ClickAreaType.Vertex;
-                    }
+                    if (!(clickPos.X >= x1 && clickPos.X <= x3 &&
+                          clickPos.Y >= y1 && clickPos.Y <= y3))
+                        continue;
+
+                    Position p = new Position(r, c);
+                    // 1. 检查是否点击在顶点上
+                    if (clickPos.X >= x1 && clickPos.X <= x2 &&
+                        clickPos.Y >= y1 && clickPos.Y <= y2)
+                        return (ClickAreaType.Vertex, p);
+                    // 2. 检查是否点击在水平线上
+                    if (clickPos.X >= x1 && clickPos.X <= x2)
+                        return (ClickAreaType.VerticalLine, p);
+                    // 3. 检查是否点击在垂直线上
+                    if (clickPos.Y >= y1 && clickPos.Y <= y2)
+                        return (ClickAreaType.HorizontalLine, p);
+                    // 4. 默认是格子内部
+                    if (r < rows && c < cols)
+                        return (ClickAreaType.Cell, p);
                 }
-            }
-
-            // 2. 检查是否点击在水平线上
-            for (int r = 0; r <= rows; r++)
-            {
-                double lineY = startY + r * cellSize;
-                if (Math.Abs(clickPos.Y - lineY) < lineTolerance)
-                {
-                    return ClickAreaType.HorizontalLine;
-                }
-            }
-
-            // 3. 检查是否点击在垂直线上
-            for (int c = 0; c <= cols; c++)
-            {
-                double lineX = startX + c * cellSize;
-                if (Math.Abs(clickPos.X - lineX) < lineTolerance)
-                {
-                    return ClickAreaType.VerticalLine;
-                }
-            }
-
-            // 4. 默认是格子内部
-            return ClickAreaType.Cell;
+            // 修复：确保所有路径都返回一个值
+            return (ClickAreaType.Cell, new Position(0, 0));
         }
 
         // 点击区域类型枚举
@@ -306,9 +296,8 @@ namespace MazeEditor2
             }
         }
 
-        void Canvas_PreviewKeyDown(object sender, KeyEventArgs e)
+        void Canvas_KeyDown(object sender, KeyEventArgs e)
         {
-
             // 检测修饰键状态
             bool isCtrlPressed = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
             bool isAltPressed = Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
@@ -317,24 +306,35 @@ namespace MazeEditor2
             switch (e.Key)
             {
                 case Key.Left:
-                    maze.MoveSelectedPosition(Position.Left);
+                    if (!isCtrlPressed)
+                        maze.MoveSelectedPosition(Position.Left);
+                    else
+                        maze.SetVertWall(maze.SelectedPosition, isShiftPressed);
                     e.Handled = true;
                     break;
                 case Key.Right:
-                    maze.MoveSelectedPosition(Position.Right);
+                    if (!isCtrlPressed)
+                        maze.MoveSelectedPosition(Position.Right);
+                    else
+                        maze.SetVertWall(maze.SelectedPosition + Position.Right, isShiftPressed);
                     e.Handled = true;
                     break;
                 case Key.Up:
-                    maze.MoveSelectedPosition(Position.Up);
+                    if (!isCtrlPressed)
+                        maze.MoveSelectedPosition(Position.Up);
+                    else
+                        maze.SetHorzWall(maze.SelectedPosition, isShiftPressed);
                     e.Handled = true;
                     break;
                 case Key.Down:
-                    maze.MoveSelectedPosition(Position.Down);
+                    if (!isCtrlPressed)
+                        maze.MoveSelectedPosition(Position.Down);
+                    else
+                        maze.SetHorzWall(maze.SelectedPosition + Position.Down, isShiftPressed);
                     e.Handled = true;
                     break;
-                default:
-                    char ch = e.Key == Key.Enter ? maze.CurObj : e.Key.ToString().FirstOrDefault();
-                    maze.SetObject(maze.SelectedPosition, ch);
+                case Key.Enter:
+                    maze.SetObject(maze.SelectedPosition, maze.CurObj);
                     maze.MoveSelectedPosition(maze.CurOffset);
                     e.Handled = true;
                     break;
@@ -345,6 +345,16 @@ namespace MazeEditor2
         {
             Canvas.Focus();
             Keyboard.Focus(Canvas);
+        }
+
+        private void Canvas_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            // 处理可打印字符
+            if (!string.IsNullOrEmpty(e.Text))
+            {
+                maze.SetObject(maze.SelectedPosition, e.Text[0]);
+                maze.MoveSelectedPosition(maze.CurOffset);
+            }
         }
     }
 }

@@ -128,15 +128,41 @@ namespace MazeEditor2
         public bool IsVertWall(Position p) => VertWall.Contains(p);
         public bool IsDot(Position p) => Dots.Contains(p);
 
+        public void SetHorzWall(Position p, bool isRemove = false)
+        {
+            if (!HasWall)
+                return;
+            if (isRemove)
+                HorzWall.Remove(p);
+            else
+                HorzWall.Add(p);
+            Refresh();
+        }
+
         public void ToggleHorzWall(Position p)
         {
+            if (!HasWall)
+                return;
             if (!HorzWall.Remove(p))
                 HorzWall.Add(p);
             Refresh();
         }
 
+        public void SetVertWall(Position p, bool isRemove = false)
+        {
+            if (!HasWall)
+                return;
+            if (isRemove)
+                VertWall.Remove(p);
+            else
+                VertWall.Add(p);
+            Refresh();
+        }
+
         public void ToggleVertWall(Position p)
         {
+            if (!HasWall)
+                return;
             if (!VertWall.Remove(p))
                 VertWall.Add(p);
             Refresh();
