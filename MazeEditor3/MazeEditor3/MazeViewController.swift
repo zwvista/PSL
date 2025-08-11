@@ -11,7 +11,7 @@ import Cocoa
 class MazeViewController: NSViewController, MazeDelegate {
     
     var sizes = [Int](1...20)
-    let movements = ["None", "Move Up", "Move Down", "Move Left", "Move Right"]
+    let movements = ["None", "Up", "Down", "Left", "Right"]
     var curMovement: MazeMovement {
         return MazeMovement(rawValue: movementPopup.indexOfSelectedItem)!
     }
