@@ -225,7 +225,7 @@ namespace MazeEditor2
             set
             {
                 ClearAll.Execute();
-                var strs = value.Split(["`\n"], StringSplitOptions.None)
+                var strs = value.Split(["`\r\n"], StringSplitOptions.None)
                                 .Where(s => s != "").ToList();
                 if (HasWall)
                 {
@@ -349,6 +349,8 @@ namespace MazeEditor2
                 IsSquare = sz.Row == sz.Col;
                 Refresh();
             });
+            this.WhenAnyValue(x => x.HasWall).Subscribe(_ =>
+                ClearWalls.Execute().Subscribe());
         }
 
         public void Refresh() => ++RefreshCount;

@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using System.Windows.Controls.Ribbon;
 using ReactiveUI;
 using System.Reactive.Linq;
-using DynamicData.Binding;
 
 namespace MazeEditor2
 {
@@ -34,6 +33,8 @@ namespace MazeEditor2
             this.DataContext = maze;
             maze.WhenAnyValue(x => x.RefreshCount)
                 .Subscribe(_ =>DrawMaze());
+            CommandManager.AddExecutedHandler(Canvas, OnExecuted);
+            CommandManager.AddCanExecuteHandler(Canvas, OnCanExecute);
         }
         void DrawMaze()
         {
@@ -341,19 +342,47 @@ namespace MazeEditor2
             }
         }
 
-        private void Canvas_Loaded(object sender, RoutedEventArgs e)
+        void Canvas_Loaded(object sender, RoutedEventArgs e)
         {
             Canvas.Focus();
             Keyboard.Focus(Canvas);
         }
 
-        private void Canvas_TextInput(object sender, TextCompositionEventArgs e)
+        void Canvas_TextInput(object sender, TextCompositionEventArgs e)
         {
             // 处理可打印字符
             if (!string.IsNullOrEmpty(e.Text))
             {
                 maze.SetObject(maze.SelectedPosition, e.Text[0]);
                 maze.MoveSelectedPosition(maze.CurOffset);
+            }
+        }
+        void OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (e.Command == ApplicationCommands.Copy)
+            {
+                Clipboard.SetData(DataFormats.Text, maze.Data);
+                e.Handled = true;
+            }
+            else if (e.Command == ApplicationCommands.Paste)
+            {
+                if (Clipboard.ContainsText())
+                    maze.Data = Clipboard.GetText();
+                e.Handled = true;
+            }
+        }
+
+        void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (e.Command == ApplicationCommands.Copy)
+            {
+                e.CanExecute = true;
+                e.Handled = true;
+            }
+            else if (e.Command == ApplicationCommands.Paste)
+            {
+                e.CanExecute = Clipboard.ContainsText();
+                e.Handled = true;
             }
         }
     }
