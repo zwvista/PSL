@@ -49,6 +49,7 @@ BEGIN_MESSAGE_MAP(CMazeEditorView, CView)
     ON_COMMAND(ID_EDIT_COPY, &CMazeEditorView::OnEditCopy)
     ON_COMMAND(ID_EDIT_PASTE, &CMazeEditorView::OnEditPaste)
     ON_UPDATE_COMMAND_UI(ID_MAZE_MOVEMENT, &CMazeEditorView::OnUpdateMovement)
+    ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CMazeEditorView construction/destruction
@@ -210,6 +211,7 @@ void CMazeEditorView::OnInitialUpdate()
     m_pEditWidth = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_WIDTH);
     m_pEditChar = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_CHAR);
     m_pEditSelectedPosition = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_CURPOS);
+    m_pEditMousePosition = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_MOUSEPOS);
     OnMazeResized();
     m_pComboMovement = (CMFCRibbonComboBox*)m_pBar->FindByID(ID_MAZE_MOVEMENT);
     m_pEditSideLen = (CMFCRibbonEdit*)m_pBar->FindByID(ID_MAZE_SIDELEN);
@@ -415,4 +417,9 @@ void CMazeEditorView::OnMazeResized()
     m_pEditHeight->SetEditText(str);
     str.Format(_T("%d"), m_pDoc->MazeWidth());
     m_pEditWidth->SetEditText(str);
+}
+
+void CMazeEditorView::OnMouseMove(UINT nFlags, CPoint point)
+{
+
 }
