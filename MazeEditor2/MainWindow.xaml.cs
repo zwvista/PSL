@@ -26,6 +26,9 @@ namespace MazeEditor2
         readonly Maze maze = new();
         readonly double tolerance = 8.0; // 点击容差范围（像素）
         double cellSize, boardWidth, boardHeight, startX, startY;
+        // 棋盘参数
+        int rows => maze.Height;
+        int cols => maze.Width;
         public MainWindow()
         {
             InitializeComponent();
@@ -47,8 +50,6 @@ namespace MazeEditor2
             double canvasHeight = Canvas.ActualHeight;
 
             // 定义棋盘参数
-            int rows = maze.Height;
-            int cols = maze.Width;
             cellSize = Math.Max(Math.Min(canvasWidth, canvasHeight) * 0.8 / Math.Max(rows, cols), 10);
             boardWidth = cols * cellSize;
             boardHeight = rows * cellSize;
@@ -173,12 +174,8 @@ namespace MazeEditor2
 
             Point clickPosition = e.GetPosition(Canvas);
 
-            // 棋盘参数
-            int rows = maze.Height;
-            int cols = maze.Width;
-
             // 检查是否点击在棋盘区域内
-            if (!IsPointInBoard(clickPosition, startX, startY, boardWidth, boardHeight)) return;
+            if (!IsPointInBoard(clickPosition)) return;
 
             // 检测修饰键状态
             bool isCtrlPressed = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
@@ -186,7 +183,7 @@ namespace MazeEditor2
             bool isShiftPressed = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
 
             // 确定点击区域类型
-            var (areaType, p) = GetClickInfo(clickPosition, startX, startY, cellSize, rows, cols);
+            var (areaType, p) = GetClickInfo(clickPosition);
             switch (areaType)
             {
                 case ClickAreaType.Cell:
@@ -211,31 +208,31 @@ namespace MazeEditor2
             }
         }
 
-        bool IsPointInBoard(Point point, double startX, double startY, double width, double height)
+        bool IsPointInBoard(Point point)
         {
             var t = maze.HasWall ? tolerance : 0.0;
-            return point.X >= startX - t && point.X <= startX + width + t &&
-                   point.Y >= startY - t && point.Y <= startY + height + t;
+            return point.X >= startX - t && point.X <= startX + boardWidth + t &&
+                   point.Y >= startY - t && point.Y <= startY + boardHeight + t;
         }
 
-        (ClickAreaType, Position) GetClickInfo(Point clickPos, double startX, double startY, double cellSize, int rows, int cols)
+        (ClickAreaType, Position) GetClickInfo(Point clickPos)
         {
             for (int r = 0; r <= rows; r++)
                 for (int c = 0; c <= cols; c++)
                 {
                     var t = maze.HasWall ? tolerance : 0.0;
-                    double x1 = startX + c * cellSize - t;
-                    double x2 = startX + c * cellSize + t;
-                    double x3 = startX + (c + 1) * cellSize - t;
-                    double y1 = startY + r * cellSize - t;
-                    double y2 = startY + r * cellSize + t;
-                    double y3 = startY + (r + 1) * cellSize - t;
+                    var x1 = startX + c * cellSize - t;
+                    var x2 = startX + c * cellSize + t;
+                    var x3 = startX + (c + 1) * cellSize - t;
+                    var y1 = startY + r * cellSize - t;
+                    var y2 = startY + r * cellSize + t;
+                    var y3 = startY + (r + 1) * cellSize - t;
 
                     if (!(clickPos.X >= x1 && clickPos.X <= x3 &&
                           clickPos.Y >= y1 && clickPos.Y <= y3))
                         continue;
 
-                    Position p = new Position(r, c);
+                    var p = new Position(r, c);
                     // 1. 检查是否点击在顶点上
                     if (clickPos.X >= x1 && clickPos.X <= x2 &&
                         clickPos.Y >= y1 && clickPos.Y <= y2)
@@ -267,12 +264,8 @@ namespace MazeEditor2
         {
             Point mousePos = e.GetPosition(Canvas);
 
-            // 棋盘参数
-            int rows = maze.Height;
-            int cols = maze.Width;
-
             // 检查是否点击在棋盘区域内
-            if (!IsPointInBoard(mousePos, startX, startY, boardWidth, boardHeight))
+            if (!IsPointInBoard(mousePos))
                 maze.MousePosition = new Position(-1, -1);
             else
             {
