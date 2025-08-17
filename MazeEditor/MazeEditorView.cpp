@@ -22,6 +22,9 @@
 #include "MazeEditorDoc.h"
 #include "MazeEditorView.h"
 #include "MemDC.h"
+#undef min
+#undef max
+#include <algorithm>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -84,6 +87,18 @@ BOOL CMazeEditorView::PreCreateWindow(CREATESTRUCT& cs)
 void CMazeEditorView::OnDraw(CDC* pDC)
 {
     if (!m_pDoc) return;
+
+    CRect clientRect;
+    GetClientRect(&clientRect); // Get the client area dimensions
+
+    int canvasWidth = clientRect.Width();
+    int canvasHeight = clientRect.Height();
+    cellSize = max(min(canvasWidth, canvasHeight) * 0.8 / max(rows(), cols()), 10.0);
+    boardWidth = cols() * cellSize;
+    boardHeight = rows() * cellSize;
+    startX = (canvasWidth - boardWidth) / 2;
+    startY = (canvasHeight - boardHeight) / 2;
+
     CMemDC2 memdc(pDC);
 
     COLORREF clrFill = RGB(0, 200, 0);
@@ -98,37 +113,38 @@ void CMazeEditorView::OnDraw(CDC* pDC)
     for (int r = 0;; r++) {
         for (int c = 0;; c++) {
             Position p(r, c);
+            CRect posRect(startX + c * cellSize, startY + r * cellSize,
+                startX + (c + 1) * cellSize, startY + (r + 1) * cellSize);
             if (m_pDoc->IsSelectedPosition(p))
-                memdc.FillSolidRect(GetPosRect(p), clrFill);
+                memdc.FillSolidRect(posRect, clrFill);
 
             if (m_pDoc->IsObject(p)) {
                 char ch = m_pDoc->GetObject(p);
                 if (ch == '#' && !m_pDoc->IsSelectedPosition(p))
-                    memdc.FillSolidRect(GetPosRect(p), clrFill2);
+                    memdc.FillSolidRect(posRect, clrFill2);
                 CString str(ch, 1);
-                memdc.DrawText(str, GetPosRect(p), DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                memdc.DrawText(str, posRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
             }
 
             if (m_pDoc->IsDot(p)) {
-                int offset = 10;
-                int up = p.first * m_pDoc->m_nSideLen - offset;
-                int left = p.second * m_pDoc->m_nSideLen - offset;
-                int down = p.first * m_pDoc->m_nSideLen + offset;
-                int right = p.second * m_pDoc->m_nSideLen + offset;
+                int up = startY + p.first * cellSize - tolerance;
+                int left = startX + p.second * cellSize - tolerance;
+                int down = startY + p.first * cellSize + tolerance;
+                int right = startX + p.second * cellSize + tolerance;
                 memdc.SelectObject(penWall);
                 memdc.Ellipse(left, up, right, down);
             }
 
-            if (c == m_pDoc->MazeWidth()) break;
+            if (c == cols()) break;
             memdc.SelectObject(&(m_pDoc->IsHorzWall(p) ? penWall : penNone));
-            memdc.MoveTo(c * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen);
-            memdc.LineTo((c + 1) * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen);
+            memdc.MoveTo(startX + c * cellSize, startY + r * cellSize);
+            memdc.LineTo(startX + (c + 1) * cellSize, startY + r * cellSize);
         }
-        if (r == m_pDoc->MazeHeight()) break;
-        for (int c = 0; c < m_pDoc->MazeWidth() + 1; c++) {
+        if (r == rows()) break;
+        for (int c = 0; c < cols() + 1; c++) {
             memdc.SelectObject(&(m_pDoc->IsVertWall(Position(r, c)) ? penWall : penNone));
-            memdc.MoveTo(c * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen);
-            memdc.LineTo(c * m_pDoc->m_nSideLen, (r + 1) * m_pDoc->m_nSideLen);
+            memdc.MoveTo(startX + c * cellSize, startY + r * cellSize);
+            memdc.LineTo(startX + c * cellSize, startY + (r + 1) * cellSize);
         }
     }
     memdc.RestoreDC(save);
@@ -221,33 +237,34 @@ void CMazeEditorView::OnInitialUpdate()
     m_pComboMovement->SelectItem(4);
 
     CString str;
-    str.Format(_T("%d"), m_pDoc->m_nSideLen);
+    str.Format(_T("%d"), cellSize);
     m_pEditSideLen->SetEditText(str);
 }
 
 void CMazeEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
-    const int offset = 10;
-    Position p(min((point.y + offset) / m_pDoc->m_nSideLen, m_pDoc->MazeHeight()),
-        min((point.x + offset) / m_pDoc->m_nSideLen, m_pDoc->MazeWidth()));
-    bool bAlt = GetKeyState(VK_MENU) & 0x8000 ? true : false;
-    bool bCtrl = GetKeyState(VK_CONTROL) & 0x8000 ? true : false;
-    bool bShift = GetKeyState(VK_SHIFT) & 0x8000 ? true : false;
+    int pointX = point.x - startX;
+    int pointY = point.y - startY;
+    Position p(min((pointY + tolerance) / cellSize, cols()),
+        min((pointX + tolerance) / cellSize, rows()));
+    bool bAlt = (GetKeyState(VK_MENU) & 0x8000) != 0;
+    bool bCtrl = (GetKeyState(VK_CONTROL) & 0x8000) != 0;
+    bool bShift = (GetKeyState(VK_SHIFT) & 0x8000) != 0;
     if (bAlt)
         ToggleSelectedPosition(p);
     else
         SetSelectedPosition(p);
     if (bCtrl)
-        if (abs(point.y - p.first * m_pDoc->m_nSideLen) < offset &&
-            abs(point.x - p.second * m_pDoc->m_nSideLen) < offset)
+        if (abs(pointY - p.first * cellSize) < tolerance &&
+            abs(pointX - p.second * cellSize) < tolerance)
             m_pDoc->ToggleDot(p);
-        else if (abs(point.y - p.first * m_pDoc->m_nSideLen) < offset)
+        else if (abs(pointY - p.first * cellSize) < tolerance)
             m_pDoc->SetHorzWall(false, bShift);
-        else if (abs(point.x - p.second * m_pDoc->m_nSideLen) < offset)
+        else if (abs(pointX - p.second * cellSize) < tolerance)
             m_pDoc->SetVertWall(false, bShift);
-        else if (abs(point.y - (p.first + 1) * m_pDoc->m_nSideLen) < offset)
+        else if (abs(pointY - (p.first + 1) * cellSize) < tolerance)
             m_pDoc->SetHorzWall(true, bShift);
-        else if (abs(point.x - (p.second + 1) * m_pDoc->m_nSideLen) < offset)
+        else if (abs(pointX - (p.second + 1) * cellSize) < tolerance)
             m_pDoc->SetVertWall(true, bShift);
 }
 
@@ -273,9 +290,9 @@ void CMazeEditorView::MoveRight()
 
 void CMazeEditorView::DoSelectedPosition(Position p, function<void(const Position&)> f)
 {
-    int nArea = m_pDoc->MazeHeight() * m_pDoc->MazeWidth();
-    int n = (p.first * m_pDoc->MazeWidth() + p.second + nArea) % nArea;
-    p = {n / m_pDoc->MazeWidth(), n % m_pDoc->MazeWidth()};
+    int nArea = cols() * rows();
+    int n = (p.first * rows() + p.second + nArea) % nArea;
+    p = {n / rows(), n % rows()};
     f(p);
     CString strSelectedPosition;
     strSelectedPosition.Format(_T("%d,%d"), p.first, p.second);
@@ -285,8 +302,8 @@ void CMazeEditorView::DoSelectedPosition(Position p, function<void(const Positio
 
 void CMazeEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {                      
-    bool bShift = GetKeyState(VK_SHIFT) & 0x8000 ? true : false;
-    bool bCtrl = GetKeyState(VK_CONTROL) & 0x8000 ? true : false;
+    bool bShift = (GetKeyState(VK_SHIFT) & 0x8000) != 0;
+    bool bCtrl = (GetKeyState(VK_CONTROL) & 0x8000) != 0;
     switch (nChar) {
     case VK_UP:
         if (bCtrl)
@@ -365,7 +382,7 @@ void CMazeEditorView::OnMazeChar()
 
 void CMazeEditorView::OnMazeSideLen()
 {
-    m_pDoc->m_nSideLen = _ttoi(m_pEditSideLen->GetEditText());
+    cellSize = _ttoi(m_pEditSideLen->GetEditText());
     Invalidate();
 }
 
@@ -413,9 +430,9 @@ void CMazeEditorView::OnEditPaste()
 void CMazeEditorView::OnMazeResized()
 {
     CString str;
-    str.Format(_T("%d"), m_pDoc->MazeHeight());
+    str.Format(_T("%d"), cols());
     m_pEditHeight->SetEditText(str);
-    str.Format(_T("%d"), m_pDoc->MazeWidth());
+    str.Format(_T("%d"), rows());
     m_pEditWidth->SetEditText(str);
 }
 

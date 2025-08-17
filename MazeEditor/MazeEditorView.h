@@ -54,16 +54,15 @@ protected:
     CMFCRibbonEdit* m_pEditWidth;
     CMFCRibbonEdit* m_pEditChar;
     CMFCRibbonEdit* m_pEditSelectedPosition;
+    CMFCRibbonEdit* m_pEditMousePosition;
     CMFCRibbonComboBox* m_pComboMovement;
     CMFCRibbonEdit* m_pEditSideLen;
+    int cellSize, boardWidth, boardHeight, startX, startY;
+    const int tolerance = 8;
 
-    CRect GetPosRect(int r, int c) {
-        return CRect(c * m_pDoc->m_nSideLen, r * m_pDoc->m_nSideLen,
-            (c + 1) * m_pDoc->m_nSideLen, (r + 1) * m_pDoc->m_nSideLen);
-    }
-    CRect GetPosRect(const Position& p) {return GetPosRect(p.first, p.second);}
+    int rows() const { return m_pDoc->MazeHeight(); }
+    int cols() const { return m_pDoc->MazeWidth(); }
     void OnMazeChanged() {Invalidate();}
-    void OnMazeCleared();
     void OnMazeResized();
 
     void MoveUp();
@@ -92,6 +91,7 @@ protected:
     afx_msg void OnEditCopy();
     afx_msg void OnEditPaste();
     afx_msg void OnUpdateMovement(CCmdUI* pCmdUI) {pCmdUI->Enable();}
+    afx_msg void OnMouseMove(UINT nFlags, CPoint point);
     DECLARE_MESSAGE_MAP()
 };
 

@@ -25,6 +25,7 @@ namespace MazeEditor2
     {
         readonly Maze maze = new();
         readonly double tolerance = 8.0; // 点击容差范围（像素）
+        double cellSize, boardWidth, boardHeight, startX, startY;
         public MainWindow()
         {
             InitializeComponent();
@@ -48,12 +49,11 @@ namespace MazeEditor2
             // 定义棋盘参数
             int rows = maze.Height;
             int cols = maze.Width;
-            double cellSize = Math.Min(Canvas.ActualWidth, Canvas.ActualHeight) * 0.8 / Math.Max(rows, cols);
-            cellSize = Math.Max(cellSize, 10);
-            double boardWidth = cols * cellSize;
-            double boardHeight = rows * cellSize;
-            double startX = (Canvas.ActualWidth - boardWidth) / 2;
-            double startY = (Canvas.ActualHeight - boardHeight) / 2;
+            cellSize = Math.Max(Math.Min(canvasWidth, canvasHeight) * 0.8 / Math.Max(rows, cols), 10);
+            boardWidth = cols * cellSize;
+            boardHeight = rows * cellSize;
+            startX = (canvasWidth - boardWidth) / 2;
+            startY = (canvasHeight - boardHeight) / 2;
 
             // 绘制棋盘格子
             for (int r = 0; r <= rows; r++)
@@ -176,12 +176,6 @@ namespace MazeEditor2
             // 棋盘参数
             int rows = maze.Height;
             int cols = maze.Width;
-            double cellSize = Math.Min(Canvas.ActualWidth, Canvas.ActualHeight) * 0.8 / Math.Max(rows, cols);
-            cellSize = Math.Max(cellSize, 10);
-            double boardWidth = cols * cellSize;
-            double boardHeight = rows * cellSize;
-            double startX = (Canvas.ActualWidth - boardWidth) / 2;
-            double startY = (Canvas.ActualHeight - boardHeight) / 2;
 
             // 检查是否点击在棋盘区域内
             if (!IsPointInBoard(clickPosition, startX, startY, boardWidth, boardHeight)) return;
@@ -276,12 +270,6 @@ namespace MazeEditor2
             // 棋盘参数
             int rows = maze.Height;
             int cols = maze.Width;
-            double cellSize = Math.Min(Canvas.ActualWidth, Canvas.ActualHeight) * 0.8 / Math.Max(rows, cols);
-            cellSize = Math.Max(cellSize, 10);
-            double boardWidth = cols * cellSize;
-            double boardHeight = rows * cellSize;
-            double startX = (Canvas.ActualWidth - boardWidth) / 2;
-            double startY = (Canvas.ActualHeight - boardHeight) / 2;
 
             // 检查是否点击在棋盘区域内
             if (!IsPointInBoard(mousePos, startX, startY, boardWidth, boardHeight))

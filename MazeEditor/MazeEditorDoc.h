@@ -26,7 +26,6 @@ protected: // create from serialization only
 public:
     boost::signals2::signal<void()> m_sigMazeResized;
     char m_chLast;
-    int m_nSideLen;
 
     int MazeWidth() const {return m_szMaze.second;}
     int MazeHeight() const { return m_szMaze.first; }

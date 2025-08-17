@@ -61,7 +61,6 @@ END_MESSAGE_MAP()
 CMazeEditorDoc::CMazeEditorDoc()
     : m_szMaze(8, 8)
     , m_bHasWall(false)
-    , m_nSideLen(40)
     , m_chLast(' ')
     , m_bIsSquare(true)
 {
