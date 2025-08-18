@@ -143,7 +143,7 @@ namespace MazeEditor2
             }
 
             // 在所有顶点处绘制小圆
-            double circleRadius = cellSize * 0.1;
+            double circleRadius = cellSize * 0.2;
             for (int r = 0; r <= rows; r++)
             {
                 for (int c = 0; c <= cols; c++)
@@ -173,105 +173,67 @@ namespace MazeEditor2
             if (e.ChangedButton != MouseButton.Left) return;
 
             Point clickPosition = e.GetPosition(Canvas);
+            var pointX = clickPosition.X - startX;
+            var pointY = clickPosition.Y - startY;
+            var t = maze.HasWall ? tolerance : 0.0;
 
             // 检查是否点击在棋盘区域内
-            if (!IsPointInBoard(clickPosition)) return;
+            if (!(pointX >= -t && pointX <= boardWidth + t &&
+                pointY >= -t && pointY <= boardHeight + t)) return;
 
             // 检测修饰键状态
             bool isCtrlPressed = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
             bool isAltPressed = Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
             bool isShiftPressed = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
 
-            // 确定点击区域类型
-            var (areaType, p) = GetClickInfo(clickPosition);
-            switch (areaType)
+            // 计算当前所在方格
+            int col = (int)((pointX + t) / cellSize);
+            int row = (int)((pointY + t) / cellSize);
+            col = Math.Min(Math.Max(col, 0), cols);
+            row = Math.Min(Math.Max(row, 0), rows);
+            var onHorzLine = pointY >= row * cellSize - t && pointY <= row * cellSize + t;
+            var onVertLine = pointX >= col * cellSize - t && pointX <= col * cellSize + t;
+
+            // 检查是否点击在顶点、水平线或垂直线上
+            if (onHorzLine || onVertLine)
             {
-                case ClickAreaType.Cell:
-                    // 如果点击在格子内部
-                    if (isAltPressed)
-                        maze.ToggleSelectedPosition(p);
-                    else
-                        maze.SetSelectedPosition(p);
-                    break;
-                case ClickAreaType.HorizontalLine:
-                    // 如果点击在水平线段上
-                    maze.ToggleHorzWall(p);
-                    break;
-                case ClickAreaType.VerticalLine:
-                    // 如果点击在垂直线段上
-                    maze.ToggleVertWall(p);
-                    break;
-                case ClickAreaType.Vertex:
-                    // 如果点击在顶点上
+                var p = new Position(row, col);
+                // 1. 检查是否点击在顶点上
+                if (onHorzLine && onVertLine)
                     maze.ToggleDot(p);
-                    break;
+                // 2. 检查是否点击在水平线上
+                else if (onHorzLine)
+                    maze.ToggleHorzWall(p);
+                // 3. 检查是否点击在垂直线上
+                else if (onVertLine)
+                    maze.ToggleVertWall(p);
             }
-        }
-
-        bool IsPointInBoard(Point point)
-        {
-            var t = maze.HasWall ? tolerance : 0.0;
-            return point.X >= startX - t && point.X <= startX + boardWidth + t &&
-                   point.Y >= startY - t && point.Y <= startY + boardHeight + t;
-        }
-
-        (ClickAreaType, Position) GetClickInfo(Point clickPos)
-        {
-            for (int r = 0; r <= rows; r++)
-                for (int c = 0; c <= cols; c++)
-                {
-                    var t = maze.HasWall ? tolerance : 0.0;
-                    var x1 = startX + c * cellSize - t;
-                    var x2 = startX + c * cellSize + t;
-                    var x3 = startX + (c + 1) * cellSize - t;
-                    var y1 = startY + r * cellSize - t;
-                    var y2 = startY + r * cellSize + t;
-                    var y3 = startY + (r + 1) * cellSize - t;
-
-                    if (!(clickPos.X >= x1 && clickPos.X <= x3 &&
-                          clickPos.Y >= y1 && clickPos.Y <= y3))
-                        continue;
-
-                    var p = new Position(r, c);
-                    // 1. 检查是否点击在顶点上
-                    if (clickPos.X >= x1 && clickPos.X <= x2 &&
-                        clickPos.Y >= y1 && clickPos.Y <= y2)
-                        return (ClickAreaType.Vertex, p);
-                    // 2. 检查是否点击在水平线上
-                    if (clickPos.X >= x1 && clickPos.X <= x2)
-                        return (ClickAreaType.VerticalLine, p);
-                    // 3. 检查是否点击在垂直线上
-                    if (clickPos.Y >= y1 && clickPos.Y <= y2)
-                        return (ClickAreaType.HorizontalLine, p);
-                    // 4. 默认是格子内部
-                    if (r < rows && c < cols)
-                        return (ClickAreaType.Cell, p);
-                }
-            // 修复：确保所有路径都返回一个值
-            return (ClickAreaType.Cell, new Position(0, 0));
-        }
-
-        // 点击区域类型枚举
-        public enum ClickAreaType
-        {
-            Cell,           // 格子内部
-            HorizontalLine, // 水平线段
-            VerticalLine,   // 垂直线段
-            Vertex          // 顶点
+            else
+            {
+                var p = new Position(Math.Min(row, rows - 1), Math.Min(col, cols - 1));
+                // 4. 默认是格子内部
+                if (isAltPressed)
+                    maze.ToggleSelectedPosition(p);
+                else
+                    maze.SetSelectedPosition(p);
+            }
         }
 
         void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
             Point mousePos = e.GetPosition(Canvas);
+            var pointX = mousePos.X - startX;
+            var pointY = mousePos.Y - startY;
 
             // 检查是否点击在棋盘区域内
-            if (!IsPointInBoard(mousePos))
+            if (!(pointX >= 0 && pointX <= boardWidth &&
+                  pointY >= 0 && pointY <= boardHeight))
                 maze.MousePosition = new Position(-1, -1);
             else
             {
                 // 计算当前所在方格
-                int col = (int)((mousePos.X - startX) / cellSize);
-                int row = (int)((mousePos.Y - startY) / cellSize);
+                int col = (int)(pointX / cellSize);
+                int row = (int)(pointY / cellSize);
                 col = Math.Min(Math.Max(col, 0), cols - 1);
                 row = Math.Min(Math.Max(row, 0), rows - 1);
                 maze.MousePosition = new Position(row, col);

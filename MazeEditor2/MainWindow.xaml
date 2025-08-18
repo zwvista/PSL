@@ -72,7 +72,7 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-        <Canvas Grid.Row="1" x:Name="Canvas" KeyDown="Canvas_KeyDown" MouseDown="Canvas_MouseDown"
+        <Canvas Grid.Row="1" x:Name="Canvas" Background="Azure"  KeyDown="Canvas_KeyDown" MouseDown="Canvas_MouseDown"
                 MouseMove="Canvas_MouseMove" Focusable="True" Loaded="Canvas_Loaded" TextInput="Canvas_TextInput">
             <Canvas.InputBindings>
                 <KeyBinding Command="Copy" Gesture="Ctrl+C"/>
