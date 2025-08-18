@@ -245,27 +245,38 @@ void CMazeEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
     int pointX = point.x - startX;
     int pointY = point.y - startY;
-    Position p(min((pointY + tolerance) / cellSize, cols()),
-        min((pointX + tolerance) / cellSize, rows()));
+    int t = m_pDoc->HasWall() ? tolerance : 0;
+    if (!(pointX >= -t && pointX <= boardWidth + t &&
+        pointY >= -t && pointY <= boardHeight + t)) return;
+
+    int col = (int)((pointX + t) / cellSize);
+    int row = (int)((pointY + t) / cellSize);
+    col = min(max(col, 0), cols());
+    row = min(max(row, 0), rows());
+    bool onHorzLine = pointY >= row * cellSize - t && pointY <= row * cellSize + t;
+    bool onVertLine = pointX >= col * cellSize - t && pointX <= col * cellSize + t;
+
     bool bAlt = (GetKeyState(VK_MENU) & 0x8000) != 0;
     bool bCtrl = (GetKeyState(VK_CONTROL) & 0x8000) != 0;
     bool bShift = (GetKeyState(VK_SHIFT) & 0x8000) != 0;
-    if (bAlt)
-        ToggleSelectedPosition(p);
-    else
-        SetSelectedPosition(p);
-    if (bCtrl)
-        if (abs(pointY - p.first * cellSize) < tolerance &&
-            abs(pointX - p.second * cellSize) < tolerance)
-            m_pDoc->ToggleDot(p);
-        else if (abs(pointY - p.first * cellSize) < tolerance)
-            m_pDoc->SetHorzWall(false, bShift);
-        else if (abs(pointX - p.second * cellSize) < tolerance)
-            m_pDoc->SetVertWall(false, bShift);
-        else if (abs(pointY - (p.first + 1) * cellSize) < tolerance)
-            m_pDoc->SetHorzWall(true, bShift);
-        else if (abs(pointX - (p.second + 1) * cellSize) < tolerance)
-            m_pDoc->SetVertWall(true, bShift);
+
+    if (onHorzLine || onVertLine) {
+        Position p(row, col);
+        if (onHorzLine && onVertLine) {
+            if (bCtrl)
+                m_pDoc->ToggleDot(p);
+        } else if (onHorzLine) {
+            m_pDoc->SetHorzWall(p, bCtrl ? bShift : m_pDoc->IsHorzWall(p));
+        } else if (onVertLine) {
+            m_pDoc->SetVertWall(p, bCtrl ? bShift : m_pDoc->IsVertWall(p));
+        }
+    } else {
+        Position p(min(row, rows() - 1), min(col, cols() - 1));
+        if (bCtrl)
+            ToggleSelectedPosition(p);
+        else
+            SetSelectedPosition(p);
+    }
 }
 
 void CMazeEditorView::MoveUp()
@@ -307,25 +318,25 @@ void CMazeEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     switch (nChar) {
     case VK_UP:
         if (bCtrl)
-            m_pDoc->SetHorzWall(false, bShift);
+            m_pDoc->SetHorzWall(m_pDoc->GetSelectedPosition(), bShift);
         else
             MoveUp();
         break;
     case VK_DOWN:
         if (bCtrl)
-            m_pDoc->SetHorzWall(true, bShift);
+            m_pDoc->SetHorzWall(m_pDoc->GetSelectedPosition() + Position(1, 0), bShift);
         else
             MoveDown();
         break;
     case VK_LEFT:
         if (bCtrl)
-            m_pDoc->SetVertWall(false, bShift);
+            m_pDoc->SetVertWall(m_pDoc->GetSelectedPosition(), bShift);
         else
             MoveLeft();
         break;
     case VK_RIGHT:
         if (bCtrl)
-            m_pDoc->SetVertWall(true, bShift);
+            m_pDoc->SetVertWall(m_pDoc->GetSelectedPosition() + Position(0, 1), bShift);
         else
             MoveRight();
         break;
@@ -438,5 +449,19 @@ void CMazeEditorView::OnMazeResized()
 
 void CMazeEditorView::OnMouseMove(UINT nFlags, CPoint point)
 {
-
+    int pointX = point.x - startX;
+    int pointY = point.y - startY;
+    auto p = [&] {
+        if (!(pointX >= -0 && pointX <= boardWidth &&
+            pointY >= 0 && pointY <= boardHeight))
+            return Position(-1, -1);
+        int col = (int)(pointX / cellSize);
+        int row = (int)(pointY / cellSize);
+        col = min(max(col, 0), cols() - 1);
+        row = min(max(row, 0), rows() - 1);
+        return Position(row, col);
+    }();
+    CString strMousePosition;
+    strMousePosition.Format(_T("%d,%d"), p.first, p.second);
+    m_pEditMousePosition->SetEditText(strMousePosition);
 }

@@ -207,34 +207,11 @@ bool CMazeEditorDoc::IsWall(const Position& p, bool bVert) const
     return m_bHasWall && GetWallSet(bVert).contains(p);
 }
 
-void CMazeEditorDoc::SetWall(bool isDownOrRight, bool bVert, bool bReset)
-{
-    if (!m_bHasWall) return;
-    for (auto& p : m_vecSelectedPositions)
-        SetWall(p, isDownOrRight, bVert, bReset);
-    UpdateAllViews(NULL);
-}
-
-void CMazeEditorDoc::SetHorzWall(bool isDown, bool bReset)
-{
-    if (!m_bHasWall) return;
-    SetWall(isDown, false, bReset);
-    UpdateAllViews(NULL);
-}
-
-void CMazeEditorDoc::SetVertWall(bool isRight, bool bReset)
-{
-    if (!m_bHasWall) return;
-    SetWall(isRight, true, bReset);
-    UpdateAllViews(NULL);
-}
-
-void CMazeEditorDoc::SetWall(Position p, bool isDownOrRight, bool bVert, bool bReset)
+void CMazeEditorDoc::SetWall(const Position& p, bool bVert, bool bReset)
 {
     auto& rng = GetWallSet(bVert);
-    if (isDownOrRight)
-        p += bVert ? Position(0, 1) : Position(1, 0);
     bReset ? (void)rng.erase(p) : (void)rng.insert(p);
+    UpdateAllViews(NULL);
 }
 
 void CMazeEditorDoc::SetHasWall( bool bHasWall )

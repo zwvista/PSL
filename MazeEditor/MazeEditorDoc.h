@@ -38,8 +38,8 @@ public:
 // Operations
 public:
     void SetHasWall(bool bHasWall);
-    void SetHorzWall(bool isDown, bool bReset);
-    void SetVertWall(bool isRight, bool bReset);
+    void SetHorzWall(const Position& p, bool bReset) { SetWall(p, false, bReset); }
+    void SetVertWall(const Position& p, bool bReset) { SetWall(p, true, bReset); }
     void ToggleDot(const Position& p);
     char GetObject(const Position& p) {return IsObject(p) ? m_mapObjects[p] : ' ';}
     void SetObject(char ch);
@@ -83,10 +83,7 @@ protected:
     const set<Position>& GetWallSet(bool bVert) const { return bVert ? m_setVertWall : m_setHorzWall; }
     set<Position>& GetWallSet(bool bVert) { return bVert ? m_setVertWall : m_setHorzWall; }
     bool IsWall(const Position& p, bool bVert) const;
-    void SetHorzWall(const Position& p, bool bReset) { SetWall(p, false, false, bReset); }
-    void SetVertWall(const Position& p, bool bReset) { SetWall(p, false, true, bReset); }
-    void SetWall(bool isDownOrRight, bool bVert, bool bReset);
-    void SetWall(Position p, bool isDownOrRight, bool bVert, bool bReset);
+    void SetWall(const Position&, bool bVert, bool bReset);
     void SetObject(const Position& p, char ch);
     bool IsValid(const Position& p) const {
         return p.first >= 0 && p.first < MazeHeight() && p.second >= 0 && p.second < MazeWidth();
