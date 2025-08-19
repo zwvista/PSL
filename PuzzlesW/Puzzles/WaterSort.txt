@@ -11,7 +11,7 @@ move: 1 -> 2
 . g 
 Number of moves: 1
 Number of vertices examined: 2
-0.0023521 [s]
+0.0040161 [s]
 
 Level 2
 Sequence of moves: 
@@ -31,7 +31,7 @@ move: 1 -> 3
 . r g 
 Number of moves: 2
 Number of vertices examined: 3
-0.0011155 [s]
+0.0005684 [s]
 
 Level 3
 Sequence of moves: 
@@ -39,77 +39,42 @@ r g y . .
 r g y . . 
 g r y . . 
 y g r . . 
-move: 3 -> 5
+move: 3 -> 4
 r g . . . 
-r g . . y 
-g r . . y 
-y g r . y 
-move: 2 -> 4
-r . . . . 
-r . . . y 
-g r . g y 
-y g r g y 
-move: 2 -> 3
-r . . . . 
-r . . . y 
-g . r g y 
-y g r g y 
-move: 2 -> 4
-r . . . . 
-r . . g y 
-g . r g y 
-y . r g y 
-move: 1 -> 2
-. . . . . 
-. . . g y 
-g r r g y 
-y r r g y 
-move: 1 -> 4
-. . . g . 
-. . . g y 
-. r r g y 
-y r r g y 
+r g . y . 
+g r . y . 
+y g r y . 
+move: 1 -> 3
+. g . . . 
+. g r y . 
+g r r y . 
+y g r y . 
 move: 1 -> 5
-. . . g y 
-. . . g y 
-. r r g y 
-. r r g y 
-move: 2 -> 3
-. . r g y 
-. . r g y 
-. . r g y 
-. . r g y 
-Number of moves: 8
-Number of vertices examined: 24
-0.0045505 [s]
-
-Level 4
-Sequence of moves: 
-r . . . . 
-r . . g y 
-g . r g y 
-y . r g y 
-move: 1 -> 2
-. . . . . 
-. . . g y 
-g r r g y 
-y r r g y 
+. g . . . 
+. g r y . 
+. r r y . 
+y g r y g 
 move: 1 -> 4
-. . . g . 
-. . . g y 
-. r r g y 
-y r r g y 
-move: 1 -> 5
-. . . g y 
-. . . g y 
-. r r g y 
-. r r g y 
+. g . y . 
+. g r y . 
+. r r y . 
+. g r y g 
+move: 2 -> 5
+. . . y . 
+. . r y g 
+. r r y g 
+. g r y g 
 move: 2 -> 3
-. . r g y 
-. . r g y 
-. . r g y 
-. . r g y 
-Number of moves: 4
-Number of vertices examined: 5
-0.0010039 [s]
+. . r y . 
+. . r y g 
+. . r y g 
+. g r y g 
+move: 2 -> 5
+. . r y g 
+. . r y g 
+. . r y g 
+. . r y g 
+Number of moves: 7
+Number of vertices examined: 11
+0.0026425 [s]
 

@@ -99,7 +99,7 @@ void puz_state::make_move(int i, int j)
     if (auto it = tube1.begin(); tube2.empty()) {
         tube2.push_back(*it);
         tube1.erase(it);
-    } else if (int n = rows() - tube1.length(); it->size() <= n) {
+    } else if (int n = rows() - tube2.length(); it->size() <= n) {
         tube2.front().append(*it);
         tube1.erase(it);
     } else {
