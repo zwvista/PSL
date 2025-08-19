@@ -71,7 +71,7 @@ struct puz_state
     string digit_string() const {
         return boost::accumulate(m_matches, string(), [](auto&& acc, auto&& v) {
             return boost::accumulate(v, acc, [](auto&& acc2, int i) {
-                return acc2 + boost::lexical_cast<string>(i);
+                return acc2 + to_string(i);
             });
         });
     }

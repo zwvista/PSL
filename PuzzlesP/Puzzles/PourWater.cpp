@@ -139,12 +139,12 @@ ostream& puz_state::dump(ostream& out) const
         int i = m_move->first, j = m_move->second;
         string a, b;
         if (m_game->m_has_tap_sink) {
-            a = i == 0 ? "tap" : boost::lexical_cast<string>(i);
-            b = j == 0 ? "sink" : boost::lexical_cast<string>(j);
+            a = i == 0 ? "tap" : to_string(i);
+            b = j == 0 ? "sink" : to_string(j);
         }
         else {
-            a = boost::lexical_cast<string>(i + 1);
-            b = boost::lexical_cast<string>(j + 1);
+            a = to_string(i + 1);
+            b = to_string(j + 1);
         }
         out << format("move: {} -> {}\n", a, b);
     }

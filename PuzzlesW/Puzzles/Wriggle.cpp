@@ -135,7 +135,7 @@ struct puz_state
     void calc_layout();
     const puz_game* m_game;
     vector<vector<Position>> m_worms;
-    boost::optional<puz_move> m_move;
+    optional<puz_move> m_move;
     string m_layout;
 };
 

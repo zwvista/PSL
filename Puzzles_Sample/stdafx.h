@@ -51,4 +51,3 @@ namespace ascii = boost::spirit::ascii;
 namespace phx = boost::phoenix;
 using namespace phx::arg_names;
 using namespace pugi;
-using boost::lexical_cast;
