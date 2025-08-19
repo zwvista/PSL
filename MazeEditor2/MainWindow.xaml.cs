@@ -169,6 +169,9 @@ namespace MazeEditor2
 
         void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            Canvas.Focus();
+            Keyboard.Focus(Canvas);
+
             // 只处理左键点击
             if (e.ChangedButton != MouseButton.Left) return;
 
