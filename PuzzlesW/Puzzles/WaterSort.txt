@@ -1,15 +1,35 @@
 Level 1
 Sequence of moves: 
-    
-    
+. . 
+. . 
 g g 
 g g 
 move: 1 -> 2
-  g 
-  g 
-  g 
-  g 
+. g 
+. g 
+. g 
+. g 
 Number of moves: 1
 Number of vertices examined: 2
-0.0073366 [s]
+0.0006276 [s]
+
+Level 2
+Sequence of moves: 
+. . . 
+. r r 
+g r g 
+g r g 
+move: 3 -> 2
+. r . 
+. r . 
+g r g 
+g r g 
+move: 1 -> 3
+. r g 
+. r g 
+. r g 
+. r g 
+Number of moves: 2
+Number of vertices examined: 4
+0.0008372 [s]
 

@@ -14,6 +14,7 @@
 namespace puzzles::WaterSort{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
 
 struct puz_tube : vector<string>
 {
@@ -128,7 +129,7 @@ ostream& puz_state::dump(ostream& out) const
     vector<string> strs;
     for (int c = 0; c < cols(); c++) {
         auto str = m_tubes[c].to_string();
-        strs.push_back(string(rows() - str.size(), PUZ_SPACE) + str);
+        strs.push_back(string(rows() - str.size(), PUZ_EMPTY) + str);
     }
     for (int r = 0; r < rows(); ++r) {
         for (int c = 0; c < cols(); ++c) {
