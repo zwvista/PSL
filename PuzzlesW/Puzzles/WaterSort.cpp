@@ -74,7 +74,11 @@ struct puz_state
         });
     }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return is_goal_state() ? 0 : 1; }
+    unsigned int get_heuristic() const {
+        return (boost::accumulate(m_tubes, 0, [&](int acc, const puz_tube& tube) {
+            return acc + (is_finished(tube) ? 0 : tube.size());
+        }) + 1) / 2;
+    }
     unsigned int get_distance(const puz_state& child) const { return 1; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
