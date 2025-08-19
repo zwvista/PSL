@@ -14,10 +14,10 @@ namespace MazeEditor2
         public Position() : this(0, 0) { }
 
         public static Position operator +(Position a, Position b) =>
-            new Position(a.Row + b.Row, a.Col + b.Col);
+            new(a.Row + b.Row, a.Col + b.Col);
 
         public static Position operator -(Position a, Position b) =>
-            new Position(a.Row - b.Row, a.Col - b.Col);
+            new(a.Row - b.Row, a.Col - b.Col);
 
         public int CompareTo(Position other)
         {

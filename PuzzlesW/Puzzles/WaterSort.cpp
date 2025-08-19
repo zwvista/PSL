@@ -9,64 +9,41 @@
     Water pouring puzzle
       
     Description
-    1. The game involves a finite collection of water jugs of known integer capacities
-       (in terms of a liquid measure such as liters or gallons).
-    2. Initially each jug contains a known integer volume of liquid, not necessarily equal to its capacity.
-    3. Puzzles of this type ask how many steps of pouring water from one jug to another
-       (until either one jug becomes empty or the other becomes full) are needed to reach a goal state,
-       specified in terms of the volume of liquid that must be present in some jug or jugs.
 */
 
 namespace puzzles::WaterSort{
 
-constexpr auto PUZ_UNKNOWN = -1;
+constexpr auto PUZ_SPACE = ' ';
+
+using puz_tube = vector<string>;
 
 struct puz_game
 {
     string m_id;
-    vector<int> m_quantities, m_capacities, m_goals;
-    bool m_has_tap_sink;
+    Position m_size;
+    vector<puz_tube> m_tubes;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    int rows() const { return m_size.first; }
+    int cols() const { return m_size.second; }
 };
 
 struct puz_move : pair<int, int> { using pair::pair; };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_has_tap_sink(level.attribute("tap_sink").as_int() != 0)
+    , m_size(Position(strs.size(), strs[0].length()))
+    , m_tubes(cols())
 {
-    using qi::lit;
-    using qi::int_;
-    using ascii::space;
-    {
-        const string start = level.attribute("start").value();
-        string::const_iterator first = start.begin();
-        qi::phrase_parse(first, start.end(),
-            int_[phx::push_back(phx::ref(m_quantities), qi::_1)] >> '/' >>
-            int_[phx::push_back(phx::ref(m_capacities), qi::_1)] >>
-            *(
-                lit(',') >>
-                int_[phx::push_back(phx::ref(m_quantities), qi::_1)] >> '/' >>
-                int_[phx::push_back(phx::ref(m_capacities), qi::_1)]
-             ), space);
-    }
-    {
-        const string goal = level.attribute("goal").value();
-        string::const_iterator first = goal.begin();
-        qi::phrase_parse(first, goal.end(),
-            (int_[phx::push_back(phx::ref(m_goals), qi::_1)] |
-                lit('*')[phx::push_back(phx::ref(m_goals), PUZ_UNKNOWN)]) >>
-            *(
-                lit(',') >>
-                (int_[phx::push_back(phx::ref(m_goals), qi::_1)] |
-                lit('*')[phx::push_back(phx::ref(m_goals), PUZ_UNKNOWN)])
-             ), space);
-    }
-    if (m_has_tap_sink) {
-        m_quantities.insert(m_quantities.begin(), PUZ_UNKNOWN);
-        m_capacities.insert(m_capacities.begin(), PUZ_UNKNOWN);
-        m_goals.insert(m_goals.begin(), PUZ_UNKNOWN);
+    for (int r = 0; r < rows(); ++r) {
+        string_view str = strs[r];
+        for (int c = 0; c < cols(); ++c)
+            if (char ch = str[c]; ch == PUZ_SPACE)
+                ;
+            else if (m_tubes[c].empty() || m_tubes[c].back().back() != ch)
+                m_tubes[c].push_back(string(1, ch));
+            else
+                m_tubes[c].back().push_back(ch);
     }
 }
 
@@ -80,9 +57,7 @@ struct puz_state
 
     //solve_puzzle interface
     bool is_goal_state() const {
-        return boost::equal(m_quantities, m_game->m_goals, [](int a, int b) {
-            return b == PUZ_UNKNOWN || a == b;
-        });
+        return true;
     }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return is_goal_state() ? 0 : 1; }
@@ -96,31 +71,12 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_game(&g), m_quantities(g.m_quantities)
+    : m_game(&g)
 {
 }
 
 void puz_state::make_move(int i, int j)
 {
-    int &q1 = m_quantities[i], &q2 = m_quantities[j];
-    int c1 = m_game->m_capacities[i], c2 = m_game->m_capacities[j];
-    if (q1 == PUZ_UNKNOWN)
-        // fill the jug with water from the tap
-        q2 = c2;
-    else if (q2 == PUZ_UNKNOWN)
-        // empty the jug by pouring water into the sink
-        q1 = 0;
-    else {
-        // pour water from one jug to another
-        int n = c2 - q2;
-        if (q1 < n)
-            // not enough water to fill the second jug
-            q2 += q1, q1 = 0;
-        else
-            // fill the second jug and leave some water in the first one
-            q1 -= n, q2 = c2;
-    }
-    m_move = puz_move(i, j);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -136,23 +92,6 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     if (m_move) {
-        int i = m_move->first, j = m_move->second;
-        string a, b;
-        if (m_game->m_has_tap_sink) {
-            a = i == 0 ? "tap" : boost::lexical_cast<string>(i);
-            b = j == 0 ? "sink" : boost::lexical_cast<string>(j);
-        }
-        else {
-            a = boost::lexical_cast<string>(i + 1);
-            b = boost::lexical_cast<string>(j + 1);
-        }
-        out << format("move: {} -> {}\n", a, b);
-    }
-    for (int i = 0; i < m_quantities.size(); i++) {
-        if (i == 0 && m_game->m_has_tap_sink) continue;
-        out << m_quantities[i] << "/" << m_game->m_capacities[i];
-        if (i < m_quantities.size() - 1)
-            out << ",";
     }
     println(out);
     return out;
