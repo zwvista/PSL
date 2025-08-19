@@ -3,10 +3,10 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: Water pouring puzzle
+    iOS Game: SortedPuz
 
     Summary
-    Water pouring puzzle
+    Water Sort puzzle
       
     Description
 */
