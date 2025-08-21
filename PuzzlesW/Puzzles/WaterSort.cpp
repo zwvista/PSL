@@ -136,9 +136,8 @@ ostream& puz_state::dump(ostream& out) const
         strs.push_back(string(rows() - str.size(), PUZ_EMPTY) + str);
     }
     for (int r = 0; r < rows(); ++r) {
-        for (int c = 0; c < cols(); ++c) {
+        for (int c = 0; c < cols(); ++c)
             out << strs[c][r] << PUZ_SPACE;
-        }
         println(out);
     }
     return out;
