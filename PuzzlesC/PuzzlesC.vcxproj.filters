@@ -82,6 +82,9 @@
     <Text Include="Puzzles\CastlePatrol2.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\ColorMaze.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -164,6 +167,9 @@
     <ClCompile Include="Puzzles\CastlePatrol2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\ColorMaze.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Calcudoku.xml">
@@ -224,6 +230,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\ConnectPuzzle.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\ColorMaze.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
