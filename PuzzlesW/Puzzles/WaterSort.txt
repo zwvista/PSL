@@ -11,7 +11,7 @@ move: 1 -> 2
 . g 
 Number of moves: 1
 Number of vertices examined: 2
-0.0031792 [s]
+0.0010353 [s]
 
 Level 2
 Sequence of moves: 
@@ -31,7 +31,7 @@ move: 1 -> 3
 . r g 
 Number of moves: 2
 Number of vertices examined: 3
-0.0004022 [s]
+0.0004059 [s]
 
 Level 3
 Sequence of moves: 
@@ -76,7 +76,7 @@ move: 2 -> 5
 . . r y g 
 Number of moves: 7
 Number of vertices examined: 11
-0.0024983 [s]
+0.0024198 [s]
 
 Level 4
 Sequence of moves: 
@@ -141,5 +141,120 @@ move: 3 -> 7
 . y . r p b g 
 Number of moves: 11
 Number of vertices examined: 18
-0.005376 [s]
+0.0051741 [s]
+
+Level 5
+Sequence of moves: 
+p a g r p r g . . 
+b r a b c p y . . 
+y b c r a g y . . 
+g a c c p b y . . 
+move: 7 -> 8
+p a g r p r . . . 
+b r a b c p y . . 
+y b c r a g y . . 
+g a c c p b y g . 
+move: 3 -> 8
+p a . r p r . . . 
+b r a b c p y . . 
+y b c r a g y g . 
+g a c c p b y g . 
+move: 2 -> 3
+p . a r p r . . . 
+b r a b c p y . . 
+y b c r a g y g . 
+g a c c p b y g . 
+move: 3 -> 9
+p . . r p r . . . 
+b r . b c p y . . 
+y b c r a g y g a 
+g a c c p b y g a 
+move: 6 -> 2
+p r . r p . . . . 
+b r . b c p y . . 
+y b c r a g y g a 
+g a c c p b y g a 
+move: 5 -> 6
+p r . r . p . . . 
+b r . b c p y . . 
+y b c r a g y g a 
+g a c c p b y g a 
+move: 5 -> 3
+p r . r . p . . . 
+b r c b . p y . . 
+y b c r a g y g a 
+g a c c p b y g a 
+move: 5 -> 9
+p r . r . p . . . 
+b r c b . p y . a 
+y b c r . g y g a 
+g a c c p b y g a 
+move: 1 -> 5
+. r . r . p . . . 
+b r c b . p y . a 
+y b c r p g y g a 
+g a c c p b y g a 
+move: 6 -> 5
+. r . r p . . . . 
+b r c b p . y . a 
+y b c r p g y g a 
+g a c c p b y g a 
+move: 6 -> 8
+. r . r p . . . . 
+b r c b p . y g a 
+y b c r p . y g a 
+g a c c p b y g a 
+move: 1 -> 6
+. r . r p . . . . 
+. r c b p . y g a 
+y b c r p b y g a 
+g a c c p b y g a 
+move: 1 -> 7
+. r . r p . y . . 
+. r c b p . y g a 
+. b c r p b y g a 
+g a c c p b y g a 
+move: 1 -> 8
+. r . r p . y g . 
+. r c b p . y g a 
+. b c r p b y g a 
+. a c c p b y g a 
+move: 2 -> 1
+. . . r p . y g . 
+. . c b p . y g a 
+r b c r p b y g a 
+r a c c p b y g a 
+move: 2 -> 6
+. . . r p . y g . 
+. . c b p b y g a 
+r . c r p b y g a 
+r a c c p b y g a 
+move: 2 -> 9
+. . . r p . y g a 
+. . c b p b y g a 
+r . c r p b y g a 
+r . c c p b y g a 
+move: 4 -> 1
+. . . . p . y g a 
+r . c b p b y g a 
+r . c r p b y g a 
+r . c c p b y g a 
+move: 4 -> 6
+. . . . p b y g a 
+r . c . p b y g a 
+r . c r p b y g a 
+r . c c p b y g a 
+move: 4 -> 1
+r . . . p b y g a 
+r . c . p b y g a 
+r . c . p b y g a 
+r . c c p b y g a 
+move: 3 -> 4
+r . . c p b y g a 
+r . . c p b y g a 
+r . . c p b y g a 
+r . . c p b y g a 
+Number of moves: 21
+Number of vertices examined: 40
+0.0159464 [s]
 

@@ -18,7 +18,7 @@ constexpr auto PUZ_EMPTY = '.';
 
 struct puz_tube : vector<string>
 {
-    int length() const {
+    int water_size() const {
         return boost::accumulate(*this, 0, [](int sum, const string& s) {
             return sum + s.length();
         });
@@ -99,7 +99,7 @@ void puz_state::make_move(int i, int j)
     if (auto it = tube1.begin(); tube2.empty()) {
         tube2.push_back(*it);
         tube1.erase(it);
-    } else if (int n = rows() - tube2.length(); it->size() <= n) {
+    } else if (int n = rows() - tube2.water_size(); it->size() <= n) {
         tube2.front().append(*it);
         tube1.erase(it);
     } else {
@@ -116,7 +116,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         if (tube1.empty() || is_finished(tube1)) continue; // cannot pour from an empty tube or a finished tube
         for (int j = 0; j < m_tubes.size(); j++) {
             auto& tube2 = m_tubes[j];
-            if (i == j || tube2.length() == rows()) continue;
+            if (i == j || tube2.water_size() == rows()) continue;
             if (!tube2.empty() && tube1.front().back() != tube2.front().back()) continue; // cannot pour if colors do not match
             children.push_back(*this);
             children.back().make_move(i, j);
