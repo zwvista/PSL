@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C002FAA2E5765E40052FA07 /* WaterSort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C002FA72E5765E40052FA07 /* WaterSort.cpp */; };
 		8C689D182E07742200A2BCCC /* Walls2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D162E07742200A2BCCC /* Walls2.cpp */; };
 		8C94E0BC2E1A1ABA00382560 /* WaterConnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C94E0B92E1A1ABA00382560 /* WaterConnect.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
@@ -36,6 +37,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C002FA72E5765E40052FA07 /* WaterSort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WaterSort.cpp; sourceTree = "<group>"; };
+		8C002FA82E5765E40052FA07 /* WaterSort.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = WaterSort.txt; sourceTree = "<group>"; };
+		8C002FA92E5765E40052FA07 /* WaterSort.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WaterSort.xml; sourceTree = "<group>"; };
 		8C5F12AF2DE3790800BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12B02DE3790800BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C689D162E07742200A2BCCC /* Walls2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Walls2.cpp; sourceTree = "<group>"; };
@@ -146,6 +150,9 @@
 				8C94E0B92E1A1ABA00382560 /* WaterConnect.cpp */,
 				8C94E0BA2E1A1ABA00382560 /* WaterConnect.txt */,
 				8C94E0BB2E1A1ABA00382560 /* WaterConnect.xml */,
+				8C002FA72E5765E40052FA07 /* WaterSort.cpp */,
+				8C002FA82E5765E40052FA07 /* WaterSort.txt */,
+				8C002FA92E5765E40052FA07 /* WaterSort.xml */,
 				95E2B50C236877E800F4F95B /* WildlifePark.cpp */,
 				95E2B50D236877E800F4F95B /* WildlifePark.txt */,
 				95E2B50B236877E800F4F95B /* WildlifePark.xml */,
@@ -262,6 +269,7 @@
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA241B11EB47B160055D6B1 /* Walls.cpp in Sources */,
 				95D7B5DD23154C24001E005C /* WallHints.cpp in Sources */,
+				8C002FAA2E5765E40052FA07 /* WaterSort.cpp in Sources */,
 				8CA241B31EB47B160055D6B1 /* Wriggle.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8C94E0BC2E1A1ABA00382560 /* WaterConnect.cpp in Sources */,

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C002FA52E5761E80052FA07 /* ColorMaze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C002FA22E5761E80052FA07 /* ColorMaze.cpp */; };
+		8C002FA62E5761E80052FA07 /* CastlePatrol2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C002FA02E5761E80052FA07 /* CastlePatrol2.cpp */; };
 		8C3B8EF52E352C9000DB05CA /* ConnectPuzzle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C3B8EF22E352C9000DB05CA /* ConnectPuzzle.cpp */; };
 		8C689C952E00375900A2BCCC /* CrossroadsX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C8F2E00375900A2BCCC /* CrossroadsX.cpp */; };
 		8C689C962E00375900A2BCCC /* CrossroadBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C8C2E00375900A2BCCC /* CrossroadBlocks.cpp */; };
@@ -46,6 +48,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C002FA02E5761E80052FA07 /* CastlePatrol2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CastlePatrol2.cpp; sourceTree = "<group>"; };
+		8C002FA12E5761E80052FA07 /* CastlePatrol2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CastlePatrol2.txt; sourceTree = "<group>"; };
+		8C002FA22E5761E80052FA07 /* ColorMaze.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ColorMaze.cpp; sourceTree = "<group>"; };
+		8C002FA32E5761E80052FA07 /* ColorMaze.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ColorMaze.txt; sourceTree = "<group>"; };
+		8C002FA42E5761E80052FA07 /* ColorMaze.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ColorMaze.xml; sourceTree = "<group>"; };
 		8C3B8EF22E352C9000DB05CA /* ConnectPuzzle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConnectPuzzle.cpp; sourceTree = "<group>"; };
 		8C3B8EF32E352C9000DB05CA /* ConnectPuzzle.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ConnectPuzzle.txt; sourceTree = "<group>"; };
 		8C3B8EF42E352C9000DB05CA /* ConnectPuzzle.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ConnectPuzzle.xml; sourceTree = "<group>"; };
@@ -188,6 +195,8 @@
 				958FA6762335D3F600205831 /* CastlePatrol.cpp */,
 				958FA6752335D3F600205831 /* CastlePatrol.txt */,
 				958FA6742335D3F600205831 /* CastlePatrol.xml */,
+				8C002FA02E5761E80052FA07 /* CastlePatrol2.cpp */,
+				8C002FA12E5761E80052FA07 /* CastlePatrol2.txt */,
 				95214E6E212B9DB000EA7950 /* Cheese.cpp */,
 				95214E6F212B9DB000EA7950 /* Cheese.txt */,
 				95214E6D212B9DB000EA7950 /* Cheese.xml */,
@@ -208,6 +217,9 @@
 				95D7B6002320146B001E005C /* CoffeeAndSugar.cpp */,
 				95D7B6022320146B001E005C /* CoffeeAndSugar.txt */,
 				95D7B6012320146B001E005C /* CoffeeAndSugar.xml */,
+				8C002FA22E5761E80052FA07 /* ColorMaze.cpp */,
+				8C002FA32E5761E80052FA07 /* ColorMaze.txt */,
+				8C002FA42E5761E80052FA07 /* ColorMaze.xml */,
 				8C3B8EF22E352C9000DB05CA /* ConnectPuzzle.cpp */,
 				8C3B8EF32E352C9000DB05CA /* ConnectPuzzle.txt */,
 				8C3B8EF42E352C9000DB05CA /* ConnectPuzzle.xml */,
@@ -333,6 +345,8 @@
 				8CA23FFB1EB4793B0055D6B1 /* CarpentersWall.cpp in Sources */,
 				95D7B5F3231D523F001E005C /* CultureTrip.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
+				8C002FA52E5761E80052FA07 /* ColorMaze.cpp in Sources */,
+				8C002FA62E5761E80052FA07 /* CastlePatrol2.cpp in Sources */,
 				8C689C952E00375900A2BCCC /* CrossroadsX.cpp in Sources */,
 				8CDAF80F2E1D496900ED90A3 /* CloudsAndClears.cpp in Sources */,
 				8C689C962E00375900A2BCCC /* CrossroadBlocks.cpp in Sources */,
