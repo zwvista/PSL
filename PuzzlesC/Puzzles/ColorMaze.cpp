@@ -75,6 +75,8 @@ struct puz_state
     puz_state(const puz_game& g);
     int rows() const { return m_game->rows(); }
     int cols() const { return m_game->cols(); }
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_ball) < tie(x.m_cells, m_ball); 
     }
@@ -84,7 +86,7 @@ struct puz_state
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
-    unsigned int get_distance(const puz_state& child) const { return 1; }
+    unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const { if (m_move) out << *m_move; }
     ostream& dump(ostream& out) const;
 
@@ -92,23 +94,36 @@ struct puz_state
     Position m_ball;
     string m_cells;
     optional<char> m_move;
+    unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_game(&g)
+    : m_game(&g), m_cells(g.m_cells), m_ball(g.m_ball)
 {
 }
 
 void puz_state::make_move(int n)
 {
+    auto& os = offset[n];
+    for (auto p = m_ball + os;; p += os) {
+        char& ch = cells(p);
+        if (ch == PUZ_SPACE)
+            ++m_distance, ch = PUZ_PAINTED, m_ball = p;
+        else if (ch == PUZ_PAINTED)
+            m_ball = p;
+        else
+            break;
+    }
+    m_move = dirs[n];
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    for (int i = 0; i < 4; i++) {
-        children.push_back(*this);
-        children.back().make_move(i);
-    }
+    for (int i = 0; i < 4; i++)
+        if (auto p = m_ball + offset[i]; cells(p) != PUZ_BLOCK) {
+            children.push_back(*this);
+            children.back().make_move(i);
+        }
 }
 
 ostream& puz_state::dump(ostream& out) const
