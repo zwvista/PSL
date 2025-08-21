@@ -22,12 +22,7 @@ namespace puzzles::Hitori{
 constexpr auto PUZ_SHADED = 100;
 constexpr auto PUZ_BOUNDARY = 0;
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 // key.first: the index of a row or column where a number appears on the board
 //            The index will be added by the side length of the board 

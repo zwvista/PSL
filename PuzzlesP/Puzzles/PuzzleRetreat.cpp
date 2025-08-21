@@ -23,12 +23,7 @@ constexpr auto PUZ_HOLE_TREE = 't';
 constexpr auto PUZ_BLOCK_ARROW = 'A';
 constexpr auto PUZ_BLOCK_USED = '*';
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 constexpr string_view arrows = "^>v<";
 constexpr string_view dirs = "urdl";
 

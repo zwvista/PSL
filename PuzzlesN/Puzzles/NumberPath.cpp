@@ -16,12 +16,7 @@
 
 namespace puzzles::NumberPath{
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_game    
 {
@@ -103,7 +98,7 @@ ostream& puz_state::dump(ostream& out) const
     set<Position> horz_lines, vert_lines;
     for (int i = 0; i < m_area.size() - 1; ++i)
         switch(auto& p1 = m_area[i], &p2 = m_area[i + 1];
-            boost::range::find(offset, p2 - p1) - offset) {
+            boost::range::find(offset, p2 - p1) - offset.begin()) {
         case 0: vert_lines.insert(p2);  break;
         case 1: horz_lines.insert(p1);  break;
         case 2: vert_lines.insert(p1);  break;

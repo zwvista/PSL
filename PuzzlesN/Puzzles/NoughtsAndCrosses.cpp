@@ -25,12 +25,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_CIRCLE = 'O';
 constexpr auto PUZ_CROSS = 'X';
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_numbers : set<char>
 {

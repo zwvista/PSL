@@ -25,23 +25,9 @@ namespace puzzles::Parks{
 constexpr auto PUZ_TREE = 'T';
 constexpr auto PUZ_SPACE = '.';
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {-1, 1},       // ne
-    {0, 1},        // e
-    {1, 1},        // se
-    {1, 0},        // s
-    {1, -1},       // sw
-    {0, -1},       // w
-    {-1, -1},      // nw
-};
+constexpr array<Position, 8> offset = Position::Directions8;
 
-constexpr Position offset2[] = {
-    {0, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, 0},        // w
-};
+constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 struct puz_game    
 {

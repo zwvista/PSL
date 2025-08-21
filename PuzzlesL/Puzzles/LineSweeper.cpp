@@ -35,16 +35,7 @@ const vector<int> linesegs_all = {
     12, 10, 6, 9, 5, 3,
 };
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {-1, 1},       // ne
-    {0, 1},        // e
-    {1, 1},        // se
-    {1, 0},        // s
-    {1, -1},       // sw
-    {0, -1},       // w
-    {-1, -1},      // nw
-};
+constexpr array<Position, 8> offset = Position::Directions8;
 
 struct puz_game
 {
@@ -99,7 +90,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                                 // or any adjacent cell not covered by the line
                                 if (p == Position(0, 0))
                                     return false;
-                                int n = boost::find(offset, p) - offset;
+                                int n = boost::find(offset, p) - offset.begin();
                                 if (n < 8 && indicator[n] == PUZ_LINE_OFF)
                                     return false;
                             }
@@ -128,7 +119,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             if (!is_lineseg_on(lineseg, k))
                                 continue;
                             auto p = offset[j] + offset[2 * k];
-                            int n = boost::find(offset, p) - offset;
+                            int n = boost::find(offset, p) - offset.begin();
                             // If the line segment from an adjacent cell leads to another adjacent cell,
                             // the line segment from the latter should also lead to the former
                             if (n < 8 && !is_lineseg_on(perm[n], (k + 2) % 4))

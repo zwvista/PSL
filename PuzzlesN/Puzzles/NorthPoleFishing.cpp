@@ -27,19 +27,9 @@ constexpr auto PUZ_BLOCK = 'B';
 constexpr auto PUZ_HOLE = 'H';
 constexpr auto PUZ_PIECE_SIZE = 4;
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
-constexpr Position offset2[] = {
-    {0, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, 0},        // w
-};
+constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 struct puz_piece
 {

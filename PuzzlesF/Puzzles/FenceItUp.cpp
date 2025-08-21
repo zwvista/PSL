@@ -21,19 +21,9 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_SINGLE = '.';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
-constexpr Position offset2[] = {
-    {0, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, 0},        // w
-};
+constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 // first: a char used to represent the area: a, b, c...
 // second: the length of the perimeter of the area

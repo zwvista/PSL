@@ -26,16 +26,7 @@ constexpr auto PUZ_HINT = 'H';
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_UNKNOWN = -1;
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {-1, 1},       // ne
-    {0, 1},        // e
-    {1, 1},        // se
-    {1, 0},        // s
-    {1, -1},       // sw
-    {0, -1},       // w
-    {-1, -1},      // nw
-};
+constexpr array<Position, 8> offset = Position::Directions8;
 
 using puz_hint = vector<int>;
 

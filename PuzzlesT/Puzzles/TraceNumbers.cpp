@@ -26,12 +26,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_FROM = 1;
 constexpr auto PUZ_TO = 2;
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -189,7 +184,7 @@ void puz_state::make_move2(const Position& p, int n)
     for (int i = 0, sz = perm.size(); i < sz; ++i) {
         auto& p2 = perm[i];
         auto f = [&](const Position& p3, int fromto) {
-            int dir = boost::find(offset, p3 - p2) - offset;
+            int dir = boost::find(offset, p3 - p2) - offset.begin();
             dots(p2) |= 1 << dir;
             dots(p3) |= 1 << (dir + 2) % 4;
             m_matches.erase({p2, fromto}), ++m_distance;

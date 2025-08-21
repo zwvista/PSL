@@ -24,19 +24,9 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_HOLE = 'O';
 constexpr auto PUZ_MUSHROOM = 'm';
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
-constexpr Position offset2[] = {
-    {0, 0},        // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, 0},        // w
-};
+constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 constexpr string_view dirs = "^>v<o";
 
@@ -440,7 +430,7 @@ void dump_all(ostream& out, const list<puz_state>& spath)
         auto& m = it->m_move;
         if (pos2dir.empty()) move[0] = m[0];
         for (int i = 0; i < m.size() - 1; ++i)
-            pos2dir[m[i]] = dirs[boost::find(offset, m[i + 1] - m[i]) - offset];
+            pos2dir[m[i]] = dirs[boost::find(offset, m[i + 1] - m[i]) - offset.begin()];
         if (it->m_curr_bunny == 0 &&
             (next(it) == spath.end() || next(it)->m_move[0] != m.back())) {
             pos2dir[move[1] = m.back()] = '#';

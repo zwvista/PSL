@@ -16,12 +16,7 @@ namespace puzzles::ConnectPuzzle{
 
 constexpr auto PUZ_SPACE = ' ';
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 const string_view dirs = "^>v<";
 
@@ -148,7 +143,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 vector<puz_step> v(s.size());
                 for (int i = 0; i < s.size(); ++i) {
                     char dir = i == s.size() - 1 ? '.' :
-                        dirs[boost::find(offset, s[i + 1] - s[i]) - offset];
+                        dirs[boost::find(offset, s[i + 1] - s[i]) - offset.begin()];
                     v[i] = {s[i], dir};
                 }
                 m_moves.emplace_back(letter, v);

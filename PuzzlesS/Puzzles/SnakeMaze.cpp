@@ -30,12 +30,7 @@ constexpr auto PUZ_HINT = 'H';
 constexpr auto PUZ_SNAKE = 'S';
 constexpr auto PUZ_SNAKE_SIZE = 5;
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 const string_view dirs = "^>v<";
 const string_view space_str = "     ";

@@ -47,12 +47,7 @@ const vector<vector<int>> linesegs_all = {
     {11, 7, 14, 13},
 };
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 const map<char, set<char>> tree2waters = {
     // yellow + blue = green

@@ -26,16 +26,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_ARROW = 'A';
 constexpr auto PUZ_PLANT = 'P';
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {-1, 1},       // ne
-    {0, 1},        // e
-    {1, 1},        // se
-    {1, 0},        // s
-    {1, -1},       // sw
-    {0, -1},       // w
-    {-1, -1},      // nw
-};
+constexpr array<Position, 8> offset = Position::Directions8;
 
 struct puz_game    
 {

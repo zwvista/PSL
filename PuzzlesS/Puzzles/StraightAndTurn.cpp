@@ -38,12 +38,7 @@ inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0
 
 constexpr int lineseg_off = 0;
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_link
 {
@@ -104,7 +99,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     auto& o = gem1.m_links.emplace_back();
                     o.m_ch = gem2.m_ch;
                     o.m_target = p2;
-                    o.m_dir11 = boost::find(offset, os) - offset, o.m_dir12 = (o.m_dir11 + 2) % 4;
+                    o.m_dir11 = boost::find(offset, os) - offset.begin(), o.m_dir12 = (o.m_dir11 + 2) % 4;
                 }();
             } else {
                 // the two gems are not in the same row/column
@@ -127,8 +122,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     o.m_ch = gem2.m_ch;
                     o.m_target = p2;
                     o.m_turn = pm;
-                    o.m_dir11 = boost::find(offset, os1) - offset, o.m_dir12 = (o.m_dir11 + 2) % 4;
-                    o.m_dir21 = boost::find(offset, os2) - offset, o.m_dir22 = (o.m_dir21 + 2) % 4;
+                    o.m_dir11 = boost::find(offset, os1) - offset.begin(), o.m_dir12 = (o.m_dir11 + 2) % 4;
+                    o.m_dir21 = boost::find(offset, os2) - offset.begin(), o.m_dir22 = (o.m_dir21 + 2) % 4;
                 };
                 // two possible turning points
                 Position pm1(p1.first, p2.second), pm2(p2.first, p1.second);

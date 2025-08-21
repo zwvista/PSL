@@ -23,12 +23,7 @@ constexpr auto PUZ_POND = '=';
 constexpr auto PUZ_CAMPER = 'C';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_hike
 {

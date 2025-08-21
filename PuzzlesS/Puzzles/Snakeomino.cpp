@@ -29,12 +29,7 @@ constexpr auto PUZ_END = 'O';
 constexpr auto PUZ_NOT_END = 'X';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr Position offset[] = {
-    {-1, 0},       // n
-    {0, 1},        // e
-    {1, 0},        // s
-    {0, -1},       // w
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_move
 {
