@@ -12,6 +12,9 @@
         Title="MazeEditor2" Height="600" Width="800">
     <RibbonWindow.Resources>
         <local:CharToStringConverter x:Key="CharToStringConverter" />
+        <Style TargetType="{x:Type RibbonTextBox}">
+            <Setter Property="TextBoxWidth" Value="50" />
+        </Style>
     </RibbonWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -36,15 +39,17 @@
                     <RibbonApplicationMenuItem Header="Exit" ImageSource="Images\quit.png" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
-            <RibbonTab Header="Home" KeyTip="H" Margin="0,0,0,-14">
+            <RibbonTab Header="Home" KeyTip="H">
                 <RibbonGroup Header="Clipboard">
                     <RibbonButton x:Name="PasteButton" Label="Paste" LargeImageSource="Images\paste.png" Command="Paste" />
                     <RibbonButton x:Name="CopyButton" Label="Copy" SmallImageSource="Images\copy.png" Command="Copy" />
                 </RibbonGroup>
                 <RibbonGroup Header="Grid" KeyTip="G">
-                    <RibbonTextBox Label="Height:" Text="{x:Bind Height, Mode=TwoWay}" TextBoxWidth="50" />
-                    <RibbonTextBox Label="Width:" Text="{x:Bind Width, Mode=TwoWay}" TextBoxWidth="50" IsEnabled="{x:Bind not IsSquare, Mode=OneWay}" />
-                    <RibbonCheckBox Label="Square" IsChecked="{x:Bind IsSquare, Mode=TwoWay}" />
+                    <StackPanel Orientation="Vertical">
+                        <RibbonTextBox Label="Height:" Text="{x:Bind Height, Mode=TwoWay}" />
+                        <RibbonTextBox Label="Width:" Text="{x:Bind Width, Mode=TwoWay}" IsEnabled="{x:Bind not IsSquare, Mode=OneWay}" />
+                        <RibbonCheckBox Label="Square" IsChecked="{x:Bind IsSquare, Mode=TwoWay}" HorizontalAlignment="Left" />
+                    </StackPanel>
                 </RibbonGroup>
                 <RibbonGroup Header="Walls" KeyTip="W">
                     <RibbonCheckBox Label="Has Walls" IsChecked="{x:Bind HasWall, Mode=TwoWay}" />
@@ -57,13 +62,15 @@
                     <RibbonButton Label="Fill Border Cells" Command="{x:Bind FillBorderCells}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Info" KeyTip="I">
-                    <RibbonTextBox Label="Position:" Text="{x:Bind SelectedPosition.ToString()}" IsReadOnly="True" />
-                    <RibbonTextBox Label="Mouse:" Text="{x:Bind MousePosition.ToString()}" IsReadOnly="True" />
-                    <RibbonComboBox Label="Movement:">
-                        <RibbonGallery SelectedValue="{x:Bind CurMovement, Mode=TwoWay}">
-                            <RibbonGalleryCategory ItemsSource="{x:Bind sys:Enum.GetValues(typeof(local:MazeMovement))}" />
-                        </RibbonGallery>
-                    </RibbonComboBox>
+                    <StackPanel Orientation="Vertical">
+                        <RibbonTextBox Label="Position:" Text="{x:Bind SelectedPosition.ToString()}" IsReadOnly="True" />
+                        <RibbonTextBox Label="Mouse:" Text="{x:Bind MousePosition.ToString()}" IsReadOnly="True" />
+                        <RibbonComboBox Label="Movement:" SelectionBoxWidth="50">
+                            <RibbonGallery SelectedValue="{x:Bind CurMovement, Mode=TwoWay}">
+                                <RibbonGalleryCategory ItemsSource="{x:Bind sys:Enum.GetValues(typeof(local:MazeMovement))}" />
+                            </RibbonGallery>
+                        </RibbonComboBox>
+                    </StackPanel>
                 </RibbonGroup>
                 <RibbonGroup Header="Clear" KeyTip="E">
                     <RibbonButton Label="Clear All" Command="{x:Bind ClearAll}" />

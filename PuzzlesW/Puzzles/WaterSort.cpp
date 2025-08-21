@@ -9,6 +9,10 @@
     Water Sort puzzle
       
     Description
+    1. Now try to pour the water in different colors and sort the water in the same color into the same bottles.
+    2. Tap a bottle first, then tap another bottle, and pour water from the first bottle to the second one.
+    3. You can pour when two bottles have the same water color on the top, and there's enough space for the second bottle to be poured.
+    4. Each bottle could only hold a certain amount of water. If it's full, no more could be poured.
 */
 
 namespace puzzles::WaterSort{
