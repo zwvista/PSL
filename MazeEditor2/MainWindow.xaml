@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MazeEditor2"
         xmlns:mx="http://compiledbindings.com/x"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d mx"
         d:DataContext="{d:DesignInstance Type=local:Maze}"
         mx:DataType="local:Maze"
@@ -45,11 +46,25 @@
                     <RibbonButton x:Name="CopyButton" Label="Copy" SmallImageSource="Images\copy.png" Command="Copy" />
                 </RibbonGroup>
                 <RibbonGroup Header="Grid" KeyTip="G">
-                    <StackPanel Orientation="Vertical">
-                        <RibbonTextBox Label="Height:" Text="{x:Bind Height, Mode=TwoWay}" />
-                        <RibbonTextBox Label="Width:" Text="{x:Bind Width, Mode=TwoWay}" IsEnabled="{x:Bind not IsSquare, Mode=OneWay}" />
-                        <RibbonCheckBox Label="Square" IsChecked="{x:Bind IsSquare, Mode=TwoWay}" HorizontalAlignment="Left" />
-                    </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Height:" />
+                        <xctk:ButtonSpinner Grid.Column="1" Spin="ButtonSpinner_Spin">
+                            <RibbonTextBox Text="{x:Bind Height, Mode=TwoWay}" />
+                        </xctk:ButtonSpinner>
+                        <Label Content="Width:" Grid.Row="1" />
+                        <xctk:ButtonSpinner Grid.Row="1" Grid.Column="1" Spin="ButtonSpinner_Spin" IsEnabled="{x:Bind not IsSquare, Mode=OneWay}">
+                            <RibbonTextBox Text="{x:Bind Width, Mode=TwoWay}" />
+                        </xctk:ButtonSpinner>
+                    </Grid>
+                    <RibbonCheckBox Grid.Row="2" Grid.ColumnSpan="2" Label="Square" IsChecked="{x:Bind IsSquare, Mode=TwoWay}" HorizontalAlignment="Left" MinHeight="30" />
                 </RibbonGroup>
                 <RibbonGroup Header="Walls" KeyTip="W">
                     <RibbonCheckBox Label="Has Walls" IsChecked="{x:Bind HasWall, Mode=TwoWay}" />

@@ -1,10 +1,13 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Ribbon;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -12,9 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Controls.Ribbon;
-using ReactiveUI;
-using System.Reactive.Linq;
+using Xceed.Wpf.Toolkit;
 
 namespace MazeEditor2
 {
@@ -330,6 +331,18 @@ namespace MazeEditor2
                 e.CanExecute = Clipboard.ContainsText();
                 e.Handled = true;
             }
+        }
+        private void ButtonSpinner_Spin(object sender, SpinEventArgs e)
+        {
+            ButtonSpinner spinner = (ButtonSpinner)sender;
+            TextBox txtBox = (TextBox)spinner.Content;
+
+            int value = String.IsNullOrEmpty(txtBox.Text) ? 0 : Convert.ToInt32(txtBox.Text);
+            if (e.Direction == SpinDirection.Increase)
+                value++;
+            else
+                value--;
+            txtBox.Text = value.ToString();
         }
     }
 }
