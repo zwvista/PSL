@@ -2,17 +2,23 @@ Level 1
 Sequence of moves: ^>v<^
 Number of moves: 5
 Number of vertices examined: 6
-0.0011556 [s]
+0.0082425 [s]
 
 Level 2
 Sequence of moves: ^>v<
 Number of moves: 4
 Number of vertices examined: 8
-0.0008439 [s]
+0.0006403 [s]
 
 Level 3
 Sequence of moves: >^<v>v<^>v
 Number of moves: 10
 Number of vertices examined: 11
-0.0008685 [s]
+0.0006353 [s]
+
+Level 4
+Sequence of moves: ^>v<>^<v
+Number of moves: 8
+Number of vertices examined: 17
+0.0011153 [s]
 
