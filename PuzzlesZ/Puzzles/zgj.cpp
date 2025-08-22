@@ -20,6 +20,7 @@ constexpr auto PUZ_GOAL = '.';
 constexpr auto PUZ_SPACE = ' '; 
 
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr string_view dirs = "urdl";
 
 struct puz_game
 {
@@ -118,7 +119,6 @@ struct puz_state2 : puz_state_base
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    static string_view dirs = "lrud";
     for (int i = 0; i < 4; ++i) {
         Position p = m_monkey + offset[i];
         if (cells(p) == PUZ_SPACE) {

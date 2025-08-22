@@ -17,6 +17,7 @@ constexpr auto PUZ_BLOCK = '@';
 constexpr auto PUZ_GOAL = '.';
 
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr string_view dirs = "urdl";
 
 struct puz_game
 {
@@ -136,7 +137,6 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::make_move(int i)
 {
-    const string_view dirs = "lrud";
 
     if (m_block != m_game->m_goal)
         cells(m_block) = cells(m_block) == PUZ_BLACK ? PUZ_WHITE : PUZ_HOLE;

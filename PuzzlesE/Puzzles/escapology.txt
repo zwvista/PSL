@@ -1,60 +1,60 @@
 Level Bonus-1
 Sequence of moves: lddllurrrrrlddu
 Number of moves: 15
-Number of vertices examined: 26268
-1.30821 [s]
+Number of vertices examined: 27332
+0.383027 [s]
 
 Level Bonus-2
-Sequence of moves: uuluddurrdl
+Sequence of moves: udluuurrdlu
 Number of moves: 11
-Number of vertices examined: 1540
-0.0564359 [s]
+Number of vertices examined: 1464
+0.018343 [s]
 
 Level Bonus-3
 Sequence of moves: uluudrruruul
 Number of moves: 12
-Number of vertices examined: 5232
-0.238854 [s]
+Number of vertices examined: 3593
+0.0548159 [s]
 
 Level Bonus-4
 Sequence of moves: uuuddllduruuud
 Number of moves: 14
-Number of vertices examined: 2878
-0.134547 [s]
+Number of vertices examined: 2952
+0.0441723 [s]
 
 Level Bonus-5
 Sequence of moves: drduddlluru
 Number of moves: 11
-Number of vertices examined: 1491
-0.0699346 [s]
+Number of vertices examined: 2711
+0.0372871 [s]
 
 Level Bonus-6
 Sequence of moves: rurulddllrd
 Number of moves: 11
-Number of vertices examined: 5114
-0.238309 [s]
+Number of vertices examined: 7031
+0.0874849 [s]
 
 Level Bonus-7
 Sequence of moves: ddrdldluulluuu
 Number of moves: 14
-Number of vertices examined: 23145
-1.59589 [s]
+Number of vertices examined: 22930
+0.38042 [s]
 
 Level Bonus-8
 Sequence of moves: lululdllulldlu
 Number of moves: 14
-Number of vertices examined: 18245
-0.857441 [s]
+Number of vertices examined: 17334
+0.224071 [s]
 
 Level Bonus-9
 Sequence of moves: rrurrlulr
 Number of moves: 9
-Number of vertices examined: 109
-0.0046802 [s]
+Number of vertices examined: 108
+0.0017346 [s]
 
 Level Bonus-10
-Sequence of moves: uurrluu
+Sequence of moves: uullruu
 Number of moves: 7
-Number of vertices examined: 43
-0.00477044 [s]
+Number of vertices examined: 50
+0.0008754 [s]
 

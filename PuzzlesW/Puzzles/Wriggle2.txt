@@ -109,7 +109,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 47
 Number of vertices examined: 3069
-0.0548158 [s]
+0.0237888 [s]
 
 Level 42
 Sequence of moves: 
@@ -233,7 +233,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 22
 Number of vertices examined: 66
-0.00193508 [s]
+0.000961 [s]
 
 Level 43
 Sequence of moves: 
@@ -350,8 +350,8 @@ move: 1 tail (5,5) D
     1a1b1c
 ########1d
 Number of moves: 28
-Number of vertices examined: 1951
-0.0364055 [s]
+Number of vertices examined: 1929
+0.0156224 [s]
 
 Level 44
 Sequence of moves: 
@@ -470,7 +470,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 35
 Number of vertices examined: 634
-0.0120977 [s]
+0.005716 [s]
 
 Level 45
 Sequence of moves: 
@@ -512,60 +512,60 @@ move: 3 head (1,3) L
 move: 2 tail (3,2) R
 move: 2 tail (3,3) R
 move: 2 tail (3,4) R
-move: 2 tail (3,5) D
-move: 2 tail (4,5) D
-  3a3b##  
-  ##3c##  
+move: 2 tail (3,5) U
+move: 2 tail (2,5) U
+  3a3b##2d
+  ##3c##2c
       2a2b
-4a######2c
-4b1a1b##2d
+4a######  
+4b1a1b##  
 ########..
 move: 4 head (4,1) U
 move: 4 head (3,1) U
 move: 4 head (2,1) U
-4a3a3b##  
-4b##3c##  
+4a3a3b##2d
+4b##3c##2c
       2a2b
-  ######2c
-  1a1b##2d
+  ######  
+  1a1b##  
 ########..
 move: 1 head (5,2) L
 move: 1 head (5,1) U
 move: 1 head (4,1) U
 move: 1 head (3,1) R
 move: 1 head (3,2) R
-4a3a3b##  
-4b##3c##  
+4a3a3b##2d
+4b##3c##2c
   1b1a2a2b
-  ######2c
-      ##2d
+  ######  
+      ##  
 ########..
 move: 4 tail (2,1) D
 move: 4 tail (3,1) D
 move: 4 tail (4,1) D
 move: 4 tail (5,1) R
 move: 4 tail (5,2) R
-  3a3b##  
-  ##3c##  
+  3a3b##2d
+  ##3c##2c
   1b1a2a2b
-  ######2c
-  4a4b##2d
+  ######  
+  4a4b##  
 ########..
 move: 3 head (1,2) L
 move: 3 head (1,1) D
-3b3c  ##  
-3a##  ##  
+3b3c  ##2d
+3a##  ##2c
   1b1a2a2b
-  ######2c
-  4a4b##2d
+  ######  
+  4a4b##  
 ########..
 move: 1 head (3,3) U
 move: 1 head (2,3) U
-3b3c1a##  
-3a##1b##  
+3b3c1a##2d
+3a##1b##2c
       2a2b
-  ######2c
-  4a4b##2d
+  ######  
+  4a4b##  
 ########..
 move: 2 head (3,4) L
 move: 2 head (3,3) L
@@ -592,7 +592,7 @@ move: 1 tail (5,5) D
 ########1b
 Number of moves: 44
 Number of vertices examined: 9471
-0.222229 [s]
+0.0898301 [s]
 
 Level 46
 Sequence of moves: 
@@ -701,10 +701,10 @@ move: 1 head (2,5) U
 2d2e2f2g2h
 ########..
 move: 2 head (3,2) R
-move: 2 head (3,3) R
+move: 2 head (3,3) U
   ######1a
-  ##  ##1b
-2d2c2b2a1c
+  ##2a##1b
+2d2c2b  1c
 2e######  
 2f2g2h2i  
 ########..
@@ -712,14 +712,14 @@ move: 1 tail (3,5) D
 move: 1 tail (4,5) D
 move: 1 tail (5,5) D
   ######  
-  ##  ##  
-2d2c2b2a  
+  ##2a##  
+2d2c2b    
 2e######1a
 2f2g2h2i1b
 ########1c
 Number of moves: 25
 Number of vertices examined: 108
-0.00236061 [s]
+0.0012111 [s]
 
 Level 47
 Sequence of moves: 
@@ -826,8 +826,8 @@ move: 1 tail (5,5) D
 ##2d2e1a1b
 ########1c
 Number of moves: 24
-Number of vertices examined: 739
-0.0135599 [s]
+Number of vertices examined: 741
+0.005414 [s]
 
 Level 48
 Sequence of moves: 
@@ -856,18 +856,12 @@ move: 4 head (4,3) D
 1c##4b####
 ####4a2b2a
 ########..
-move: 1 head (2,1) R
-move: 1 head (2,2) U
-move: 1 head (1,2) L
-1a1b3a3b  
-  1c  3c##
-  4d4c3d3e
-  ##4b####
-####4a2b2a
-########..
-move: 1 tail (2,2) R
-  1a3a3b  
-  1b1c3c##
+move: 1 head (2,1) U
+move: 1 head (1,1) R
+move: 1 head (1,2) D
+move: 1 head (2,2) R
+  1c3a3b  
+  1b1a3c##
   4d4c3d3e
   ##4b####
 ####4a2b2a
@@ -875,20 +869,20 @@ move: 1 tail (2,2) R
 move: 4 tail (3,2) L
 move: 4 tail (3,1) U
 move: 4 tail (2,1) U
-4d1a3a3b  
-4c1b1c3c##
+4d1c3a3b  
+4c1b1a3c##
 4b4a  3d3e
   ##  ####
 ####  2b2a
 ########..
-move: 1 tail (2,3) D
-move: 1 tail (3,3) D
-move: 1 tail (4,3) D
+move: 1 head (2,3) D
+move: 1 head (3,3) D
+move: 1 head (4,3) D
 4d  3a3b  
 4c    3c##
-4b4a1a3d3e
+4b4a1c3d3e
   ##1b####
-####1c2b2a
+####1a2b2a
 ########..
 move: 3 head (1,3) L
 move: 3 head (1,2) D
@@ -898,25 +892,25 @@ move: 3 head (2,4) U
 move: 3 head (1,4) R
 4d    3b3a
 4c3e3d3c##
-4b4a1a    
+4b4a1c    
   ##1b####
-####1c2b2a
+####1a2b2a
 ########..
 move: 4 tail (1,1) R
 move: 4 tail (1,2) R
 4b4c4d3b3a
 4a3e3d3c##
-    1a    
+    1c    
   ##1b####
-####1c2b2a
+####1a2b2a
 ########..
-move: 1 head (3,3) L
-move: 1 head (3,2) L
-move: 1 head (3,1) D
+move: 1 tail (3,3) L
+move: 1 tail (3,2) L
+move: 1 tail (3,1) D
 4b4c4d3b3a
 4a3e3d3c##
-1b1c      
-1a##  ####
+1b1a      
+1c##  ####
 ####  2b2a
 ########..
 move: 2 tail (5,4) L
@@ -926,25 +920,25 @@ move: 2 tail (3,3) R
 move: 2 tail (3,4) R
 4b4c4d3b3a
 4a3e3d3c##
-1b1c  2a2b
-1a##  ####
+1b1a  2a2b
+1c##  ####
 ####      
 ########..
-move: 1 tail (3,2) R
-move: 1 tail (3,3) D
-move: 1 tail (4,3) D
-move: 1 tail (5,3) R
-move: 1 tail (5,4) R
-move: 1 tail (5,5) D
+move: 1 head (3,2) R
+move: 1 head (3,3) D
+move: 1 head (4,3) D
+move: 1 head (5,3) R
+move: 1 head (5,4) R
+move: 1 head (5,5) D
 4b4c4d3b3a
 4a3e3d3c##
       2a2b
   ##  ####
-####  1a1b
-########1c
+####  1c1b
+########1a
 Number of moves: 39
-Number of vertices examined: 13165
-0.360678 [s]
+Number of vertices examined: 9524
+0.107257 [s]
 
 Level 49
 Sequence of moves: 
@@ -1032,7 +1026,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 34
 Number of vertices examined: 4044
-0.079312 [s]
+0.0319132 [s]
 
 Level 50
 Sequence of moves: 
@@ -1143,7 +1137,7 @@ move: 1 tail (5,5) D
 ########1e
 Number of moves: 27
 Number of vertices examined: 409
-0.00842982 [s]
+0.0036712 [s]
 
 Level 51
 Sequence of moves: 
@@ -1267,8 +1261,8 @@ move: 1 tail (5,5) D
 ##    1a1b
 ########1c
 Number of moves: 47
-Number of vertices examined: 8626
-0.195332 [s]
+Number of vertices examined: 8628
+0.080981 [s]
 
 Level 52
 Sequence of moves: 
@@ -1382,7 +1376,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 24
 Number of vertices examined: 262
-0.00448548 [s]
+0.0026648 [s]
 
 Level 53
 Sequence of moves: 
@@ -1490,8 +1484,8 @@ move: 1 head (5,5) D
 ####  1c1b
 ########1a
 Number of moves: 25
-Number of vertices examined: 23188
-0.602773 [s]
+Number of vertices examined: 23257
+0.273089 [s]
 
 Level 54
 Sequence of moves: 
@@ -1624,7 +1618,7 @@ move: 1 tail (5,5) D
 ########1d
 Number of moves: 43
 Number of vertices examined: 882
-0.0157613 [s]
+0.0075735 [s]
 
 Level 55
 Sequence of moves: 
@@ -1734,8 +1728,8 @@ move: 1 head (5,5) D
   1e1d1c1b
 ########1a
 Number of moves: 45
-Number of vertices examined: 812
-0.0162266 [s]
+Number of vertices examined: 810
+0.0064144 [s]
 
 Level 56
 Sequence of moves: 
@@ -1752,16 +1746,16 @@ move: 3 head (1,2) L
     3f##2c
   ##  2a2b
 ########..
-move: 2 head (5,4) L
-3a3b3c1a1b
-####3d##  
-####3e##2e
-    3f##2d
-  ##2a2b2c
-########..
 move: 3 tail (4,3) L
 move: 3 tail (4,2) L
 move: 3 tail (4,1) D
+      1a1b
+####3a##2e
+####3b##2d
+3e3d3c##2c
+3f##  2a2b
+########..
+move: 2 head (5,4) L
       1a1b
 ####3a##  
 ####3b##2e
@@ -1903,7 +1897,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 48
 Number of vertices examined: 635
-0.0118341 [s]
+0.0047969 [s]
 
 Level 57
 Sequence of moves: 
@@ -2010,8 +2004,8 @@ move: 1 tail (5,5) D
         1a
 ########1b
 Number of moves: 36
-Number of vertices examined: 1999
-0.0412249 [s]
+Number of vertices examined: 1996
+0.0228359 [s]
 
 Level 58
 Sequence of moves: 
@@ -2028,14 +2022,14 @@ move: 2 tail (3,4) L
 ##4c##2b##
 ##4d  2a  
 ########..
-move: 4 tail (5,2) R
+move: 2 head (5,4) R
 3c3b3a1d1c
 3d##  ##1b
-  4a2d2c1a
-##4b##2b##
-##4c4d2a  
+4a4b  2d1a
+##4c##2c##
+##4d  2b2a
 ########..
-move: 2 head (5,4) R
+move: 4 tail (5,2) R
 3c3b3a1d1c
 3d##  ##1b
   4a  2d1a
@@ -2115,7 +2109,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 20
 Number of vertices examined: 519
-0.00996062 [s]
+0.0041764 [s]
 
 Level 59
 Sequence of moves: 
@@ -2224,7 +2218,7 @@ move: 1 tail (5,5) D
 ########1d
 Number of moves: 25
 Number of vertices examined: 2727
-0.0472165 [s]
+0.0254544 [s]
 
 Level 60
 Sequence of moves: 
@@ -2346,8 +2340,8 @@ move: 1 tail (5,5) D
 ####2g2h1g
 ########1h
 Number of moves: 45
-Number of vertices examined: 1742
-0.0297589 [s]
+Number of vertices examined: 1741
+0.0160694 [s]
 
 Level 61
 Sequence of moves: 
@@ -2502,8 +2496,8 @@ move: 1 tail (5,5) D
 ##3c3b##1a
 ########1b
 Number of moves: 66
-Number of vertices examined: 4028
-0.0772087 [s]
+Number of vertices examined: 4027
+0.0316444 [s]
 
 Level 62
 Sequence of moves: 
@@ -2615,7 +2609,7 @@ move: 1 tail (5,5) D
 ########1e
 Number of moves: 16
 Number of vertices examined: 85
-0.0026082 [s]
+0.0008408 [s]
 
 Level 63
 Sequence of moves: 
@@ -2740,8 +2734,8 @@ move: 1 tail (5,5) D
 3f3g  1d1e
 ########1f
 Number of moves: 36
-Number of vertices examined: 5465
-0.108592 [s]
+Number of vertices examined: 5467
+0.0461064 [s]
 
 Level 64
 Sequence of moves: 
@@ -2838,21 +2832,21 @@ move: 2 tail (4,3) D
 ########..
 move: 1 tail (3,1) R
 move: 1 tail (3,2) D
-1i1h1e1d1c
-1j1g1f1a1b
-1k1l2a    
-##1m2b####
-##  2c3b3a
+move: 1 tail (4,2) D
+1h1g1d1c1b
+1i1f1e  1a
+1j1k2a    
+##1l2b####
+##1m2c3b3a
 ########..
 move: 2 head (3,3) R
 move: 2 head (3,4) R
-1i1h1e1d1c
-1j1g1f1a1b
-1k1l2c2b2a
-##1m  ####
-##    3b3a
+1h1g1d1c1b
+1i1f1e  1a
+1j1k2c2b2a
+##1l  ####
+##1m  3b3a
 ########..
-move: 1 tail (4,2) D
 move: 1 tail (5,2) R
 move: 1 tail (5,3) U
 1f1e1b1a  
@@ -2897,8 +2891,8 @@ move: 1 tail (5,5) D
 ##1i1j1k1l
 ########1m
 Number of moves: 49
-Number of vertices examined: 13498
-0.256759 [s]
+Number of vertices examined: 13499
+0.108721 [s]
 
 Level 65
 Sequence of moves: 
@@ -2992,21 +2986,21 @@ move: 2 head (3,2) L
   ######3a
 ########..
 move: 1 head (2,3) R
-move: 1 head (2,4) U
-2e2f2g1a##
-2d2c1c1b##
-2a2b1d1e##
-    1g1f3b
+2e2f2g  ##
+2d2c1b1a##
+2a2b1c1d##
+  1g1f1e3b
   ######3a
 ########..
 move: 2 head (3,1) D
 move: 2 head (4,1) D
-2g    1a##
-2f2e1c1b##
-2c2d1d1e##
-2b  1g1f3b
+2g      ##
+2f2e1b1a##
+2c2d1c1d##
+2b1g1f1e3b
 2a######3a
 ########..
+move: 1 head (2,4) U
 move: 1 head (1,4) L
 move: 1 head (1,3) L
 2g1a1b1c##
@@ -3035,8 +3029,8 @@ move: 1 tail (5,5) D
 2a######1f
 ########1g
 Number of moves: 36
-Number of vertices examined: 5601
-0.100912 [s]
+Number of vertices examined: 5598
+0.0442682 [s]
 
 Level 66
 Sequence of moves: 
@@ -3217,7 +3211,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 55
 Number of vertices examined: 1466
-0.0274464 [s]
+0.0110475 [s]
 
 Level 67
 Sequence of moves: 
@@ -3392,7 +3386,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 31
 Number of vertices examined: 397
-0.00733013 [s]
+0.0031631 [s]
 
 Level 68
 Sequence of moves: 
@@ -3552,7 +3546,7 @@ move: 1 tail (5,5) D
 ########1e
 Number of moves: 40
 Number of vertices examined: 1567
-0.0311755 [s]
+0.0128945 [s]
 
 Level 69
 Sequence of moves: 
@@ -3688,7 +3682,7 @@ move: 1 tail (5,5) D
 ########1c
 Number of moves: 34
 Number of vertices examined: 2557
-0.0433425 [s]
+0.023196 [s]
 
 Level 70
 Sequence of moves: 
@@ -3972,28 +3966,28 @@ move: 2 head (1,3) R
 3a##4a4b6b
 5a5b5c4c6a
 ########..
+move: 2 tail (1,2) L
+2c2b2a  1a
+##  ##1c1b
+3b3c####6c
+3a##4a4b6b
+5a5b5c4c6a
+########..
 move: 3 tail (3,2) U
-  2c2b2a1a
+2c2b2a  1a
 ##3c##1c1b
 3a3b####6c
   ##4a4b6b
 5a5b5c4c6a
 ########..
 move: 5 head (5,1) U
-  2c2b2a1a
+2c2b2a  1a
 ##3c##1c1b
 3a3b####6c
 5a##4a4b6b
 5b5c  4c6a
 ########..
 move: 4 head (4,3) D
-  2c2b2a1a
-##3c##1c1b
-3a3b####6c
-5a##4b4c6b
-5b5c4a  6a
-########..
-move: 2 tail (1,2) L
 2c2b2a  1a
 ##3c##1c1b
 3a3b####6c
@@ -4007,72 +4001,72 @@ move: 6 head (5,5) L
 5a##4b4c6c
 5b5c4a6a6b
 ########..
-move: 1 head (1,5) L
-2c2b2a1a1b
-##3c##  1c
+move: 1 tail (2,4) U
+2c2b2a1c  
+##3c##1b1a
 3a3b####  
 5a##4b4c6c
 5b5c4a6a6b
 ########..
-move: 1 tail (2,5) D
-2c2b2a  1a
-##3c##  1b
-3a3b####1c
+move: 1 head (2,5) D
+2c2b2a    
+##3c##1c1b
+3a3b####1a
 5a##4b4c6c
 5b5c4a6a6b
 ########..
 move: 2 head (1,3) R
-move: 2 head (1,4) D
-    2c2b1a
-##3c##2a1b
-3a3b####1c
+move: 2 head (1,4) R
+    2c2b2a
+##3c##1c1b
+3a3b####1a
 5a##4b4c6c
 5b5c4a6a6b
 ########..
 move: 3 tail (2,2) U
 move: 3 tail (1,2) L
-3c3b2c2b1a
-##3a##2a1b
-    ####1c
+3c3b2c2b2a
+##3a##1c1b
+    ####1a
 5a##4b4c6c
 5b5c4a6a6b
 ########..
 move: 5 head (4,1) U
 move: 5 head (3,1) R
-3c3b2c2b1a
-##3a##2a1b
-5b5a####1c
+3c3b2c2b2a
+##3a##1c1b
+5b5a####1a
 5c##4b4c6c
     4a6a6b
 ########..
 move: 4 head (5,3) L
 move: 4 head (5,2) L
-3c3b2c2b1a
-##3a##2a1b
-5b5a####1c
+3c3b2c2b2a
+##3a##1c1b
+5b5a####1a
 5c##    6c
 4a4b4c6a6b
 ########..
 move: 6 head (5,4) U
 move: 6 head (4,4) L
-3c3b2c2b1a
-##3a##2a1b
-5b5a####1c
+3c3b2c2b2a
+##3a##1c1b
+5b5a####1a
 5c##6a6b  
 4a4b4c6c  
 ########..
-move: 1 tail (3,5) D
-move: 1 tail (4,5) D
-move: 1 tail (5,5) D
-3c3b2c2b  
-##3a##2a  
+move: 1 head (3,5) D
+move: 1 head (4,5) D
+move: 1 head (5,5) D
+3c3b2c2b2a
+##3a##    
 5b5a####  
-5c##6a6b1a
+5c##6a6b1c
 4a4b4c6c1b
-########1c
+########1a
 Number of moves: 66
 Number of vertices examined: 1573
-0.0322212 [s]
+0.0126214 [s]
 
 Level 71
 Sequence of moves: 
@@ -4225,8 +4219,8 @@ move: 1 head (5,5) D
 ####  1c1b
 ########1a
 Number of moves: 46
-Number of vertices examined: 4991
-0.106846 [s]
+Number of vertices examined: 4993
+0.0440268 [s]
 
 Level 72
 Sequence of moves: 
@@ -4414,7 +4408,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 62
 Number of vertices examined: 1839
-0.0313653 [s]
+0.0126401 [s]
 
 Level 73
 Sequence of moves: 
@@ -4612,8 +4606,8 @@ move: 1 head (5,5) D
 3f3g    1b
 ########1a
 Number of moves: 43
-Number of vertices examined: 1199
-0.0212974 [s]
+Number of vertices examined: 1200
+0.0138033 [s]
 
 Level 74
 Sequence of moves: 
@@ -4807,8 +4801,8 @@ move: 1 tail (5,5) D
 3c##4b##1b
 ########1c
 Number of moves: 51
-Number of vertices examined: 48269
-1.32848 [s]
+Number of vertices examined: 47981
+0.567729 [s]
 
 Level 75
 Sequence of moves: 
@@ -5019,8 +5013,8 @@ move: 1 head (5,5) D
 2c2b##  1b
 ########1a
 Number of moves: 56
-Number of vertices examined: 4222
-0.0840534 [s]
+Number of vertices examined: 4220
+0.0353981 [s]
 
 Level 76
 Sequence of moves: 
@@ -5077,11 +5071,11 @@ move: 2 head (2,5) D
 5a5b5c4b4a
 ########..
 move: 1 tail (3,2) U
-move: 1 tail (2,2) L
-move: 1 tail (2,1) U
-move: 1 tail (1,1) R
-1b1c##3b3a
-1a  2d2c2b
+move: 1 tail (2,2) U
+move: 1 tail (1,2) L
+move: 1 tail (1,1) D
+1b1a##3b3a
+1c  2d2c2b
 ##  ##4d2a
     ##4c##
 5a5b5c4b4a
@@ -5090,16 +5084,16 @@ move: 2 tail (2,3) L
 move: 2 tail (2,2) D
 move: 2 tail (3,2) D
 move: 2 tail (4,2) L
-1b1c##3b3a
-1a2a      
+1b1a##3b3a
+1c2a      
 ##2b##4d  
 2d2c##4c##
 5a5b5c4b4a
 ########..
 move: 3 tail (1,4) D
 move: 3 tail (2,4) L
-1b1c##    
-1a2a3b3a  
+1b1a##    
+1c2a3b3a  
 ##2b##4d  
 2d2c##4c##
 5a5b5c4b4a
@@ -5108,8 +5102,8 @@ move: 4 tail (3,4) R
 move: 4 tail (3,5) U
 move: 4 tail (2,5) U
 move: 4 tail (1,5) L
-1b1c##4d4c
-1a2a3b3a4b
+1b1a##4d4c
+1c2a3b3a4b
 ##2b##  4a
 2d2c##  ##
 5a5b5c    
@@ -5117,8 +5111,8 @@ move: 4 tail (1,5) L
 move: 5 tail (5,3) R
 move: 5 tail (5,4) U
 move: 5 tail (4,4) U
-1b1c##4d4c
-1a2a3b3a4b
+1b1a##4d4c
+1c2a3b3a4b
 ##2b##5c4a
 2d2c##5b##
       5a  
@@ -5126,8 +5120,8 @@ move: 5 tail (4,4) U
 move: 2 tail (4,1) D
 move: 2 tail (5,1) R
 move: 2 tail (5,2) R
-1b1c##4d4c
-1a  3b3a4b
+1b1a##4d4c
+1c  3b3a4b
 ##  ##5c4a
 2a  ##5b##
 2b2c2d5a  
@@ -5135,20 +5129,20 @@ move: 2 tail (5,2) R
 move: 3 tail (2,3) L
 move: 3 tail (2,2) D
 move: 3 tail (3,2) D
-1b1c##4d4c
-1a      4b
+1b1a##4d4c
+1c      4b
 ##3a##5c4a
 2a3b##5b##
 2b2c2d5a  
 ########..
 move: 5 head (5,4) R
-1b1c##4d4c
-1a      4b
+1b1a##4d4c
+1c      4b
 ##3a##  4a
 2a3b##5c##
 2b2c2d5b5a
 ########..
-move: 1 head (2,1) R
+move: 1 head (1,2) D
 move: 1 head (2,2) R
 move: 1 head (2,3) R
 move: 1 head (2,4) D
@@ -5159,78 +5153,78 @@ move: 1 head (2,4) D
 2b2c2d5b5a
 ########..
 move: 3 head (3,2) U
-move: 3 head (2,2) U
-move: 3 head (1,2) L
-3a3b##4d4c
-    1c1b4b
+move: 3 head (2,2) L
+move: 3 head (2,1) U
+3a  ##4d4c
+3b  1c1b4b
 ##  ##1a4a
 2a  ##5c##
 2b2c2d5b5a
 ########..
 move: 1 tail (2,3) L
-3a3b##4d4c
-  1c1b1a4b
+3a  ##4d4c
+3b1c1b1a4b
 ##  ##  4a
 2a  ##5c##
 2b2c2d5b5a
 ########..
 move: 5 tail (4,4) U
-3a3b##4d4c
-  1c1b1a4b
+3a  ##4d4c
+3b1c1b1a4b
 ##  ##5c4a
 2a  ##5b##
 2b2c2d5a  
 ########..
 move: 2 head (4,1) R
 move: 2 head (4,2) U
-3a3b##4d4c
-  1c1b1a4b
+3a  ##4d4c
+3b1c1b1a4b
 ##2a##5c4a
 2c2b##5b##
 2d    5a  
 ########..
 move: 5 head (5,4) L
 move: 5 head (5,3) L
-3a3b##4d4c
-  1c1b1a4b
+3a  ##4d4c
+3b1c1b1a4b
 ##2a##  4a
 2c2b##  ##
 2d5a5b5c  
 ########..
 move: 1 head (2,4) D
-3a3b##4d4c
-    1c1b4b
-##2a##1a4a
-2c2b##  ##
+move: 1 head (3,4) D
+3a  ##4d4c
+3b    1c4b
+##2a##1b4a
+2c2b##1a##
 2d5a5b5c  
 ########..
 move: 2 head (3,2) U
-3a3b##4d4c
-  2a1c1b4b
-##2b##1a4a
-2d2c##  ##
+3a  ##4d4c
+3b2a  1c4b
+##2b##1b4a
+2d2c##1a##
   5a5b5c  
 ########..
 move: 5 head (5,2) L
-3a3b##4d4c
-  2a1c1b4b
-##2b##1a4a
-2d2c##  ##
+3a  ##4d4c
+3b2a  1c4b
+##2b##1b4a
+2d2c##1a##
 5a5b5c    
 ########..
-move: 1 head (3,4) D
 move: 1 head (4,4) D
 move: 1 head (5,4) R
 move: 1 head (5,5) D
-3a3b##4d4c
-  2a    4b
+3a  ##4d4c
+3b2a    4b
 ##2b##  4a
 2d2c##  ##
 5a5b5c1c1b
 ########1a
 Number of moves: 60
-Number of vertices examined: 63681
-1.70626 [s]
+Number of vertices examined: 64315
+0.721926 [s]
 
 Level 77
 Sequence of moves: 
@@ -5439,7 +5433,7 @@ move: 1 tail (5,5) D
 ########1c
 Number of moves: 41
 Number of vertices examined: 1375
-0.0245589 [s]
+0.0104125 [s]
 
 Level 78
 Sequence of moves: 
@@ -5604,7 +5598,7 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 33
 Number of vertices examined: 1336
-0.0225277 [s]
+0.0093014 [s]
 
 Level 79
 Sequence of moves: 
@@ -5614,24 +5608,24 @@ Sequence of moves:
 1c1b1a##6b
     ##  6c
 ########..
+move: 5 tail (2,5) U
+move: 5 tail (1,5) L
+2b2a##5b5a
+3c3b3a    
+##4b4a##6a
+1c1b1a##6b
+    ##  6c
+########..
 move: 1 tail (4,1) D
 move: 1 tail (5,1) R
-2b2a##    
-3c3b3a5a5b
+2b2a##5b5a
+3c3b3a    
 ##4b4a##6a
 1a    ##6b
 1b1c##  6c
 ########..
 move: 4 head (3,3) D
 move: 4 head (4,3) L
-2b2a##    
-3c3b3a5a5b
-##    ##6a
-1a4a4b##6b
-1b1c##  6c
-########..
-move: 5 tail (2,5) U
-move: 5 tail (1,5) L
 2b2a##5b5a
 3c3b3a    
 ##    ##6a
@@ -5700,14 +5694,14 @@ move: 1 head (3,3) U
     ##5a5b
 ########..
 move: 3 tail (3,2) D
-move: 3 tail (4,2) D
-move: 3 tail (5,2) L
-move: 3 tail (5,1) U
+move: 3 tail (4,2) L
+move: 3 tail (4,1) D
+move: 3 tail (5,1) R
 2b2a##4a4b
     1a  6a
 ##  1b##6b
-3c  1c##6c
-3b3a##5a5b
+3a  1c##6c
+3b3c##5a5b
 ########..
 move: 2 head (1,2) D
 move: 2 head (2,2) D
@@ -5715,8 +5709,8 @@ move: 2 head (3,2) D
     ##4a4b
     1a  6a
 ##2b1b##6b
-3c2a1c##6c
-3b3a##5a5b
+3a2a1c##6c
+3b3c##5a5b
 ########..
 move: 1 head (2,3) L
 move: 1 head (2,2) L
@@ -5725,15 +5719,15 @@ move: 1 head (1,1) R
 1b1a##4a4b
 1c      6a
 ##2b  ##6b
-3c2a  ##6c
-3b3a##5a5b
+3a2a  ##6c
+3b3c##5a5b
 ########..
 move: 2 tail (3,2) U
 1b1a##4a4b
 1c2b    6a
 ##2a  ##6b
-3c    ##6c
-3b3a##5a5b
+3a    ##6c
+3b3c##5a5b
 ########..
 move: 6 head (2,5) L
 move: 6 head (2,4) L
@@ -5743,8 +5737,8 @@ move: 6 head (4,3) L
 1b1a##4a4b
 1c2b      
 ##2a6c##  
-3c6a6b##  
-3b3a##5a5b
+3a6a6b##  
+3b3c##5a5b
 ########..
 move: 2 tail (2,2) R
 move: 2 tail (2,3) R
@@ -5754,8 +5748,8 @@ move: 2 tail (3,5) D
 1b1a##4a4b
 1c        
 ##  6c##2a
-3c6a6b##2b
-3b3a##5a5b
+3a6a6b##2b
+3b3c##5a5b
 ########..
 move: 1 head (1,2) D
 move: 1 head (2,2) R
@@ -5764,8 +5758,8 @@ move: 1 head (2,4) R
     ##4a4b
     1c1b1a
 ##  6c##2a
-3c6a6b##2b
-3b3a##5a5b
+3a6a6b##2b
+3b3c##5a5b
 ########..
 move: 6 tail (3,3) L
 move: 6 tail (3,2) U
@@ -5775,8 +5769,8 @@ move: 6 tail (1,1) R
 6b6c##4a4b
 6a  1c1b1a
 ##    ##2a
-3c    ##2b
-3b3a##5a5b
+3a    ##2b
+3b3c##5a5b
 ########..
 move: 1 tail (2,3) L
 move: 1 tail (2,2) D
@@ -5784,8 +5778,8 @@ move: 1 tail (3,2) D
 6b6c##4a4b
 6a1a      
 ##1b  ##2a
-3c1c  ##2b
-3b3a##5a5b
+3a1c  ##2b
+3b3c##5a5b
 ########..
 move: 2 head (3,5) U
 move: 2 head (2,5) L
@@ -5795,8 +5789,8 @@ move: 2 head (3,3) D
 6b6c##4a4b
 6a1a      
 ##1b2b##  
-3c1c2a##  
-3b3a##5a5b
+3a1c2a##  
+3b3c##5a5b
 ########..
 move: 1 head (2,2) R
 move: 1 head (2,3) R
@@ -5806,8 +5800,8 @@ move: 1 head (3,5) D
 6b6c##4a4b
 6a      1c
 ##  2b##1b
-3c  2a##1a
-3b3a##5a5b
+3a  2a##1a
+3b3c##5a5b
 ########..
 move: 4 head (1,4) D
 move: 4 head (2,4) L
@@ -5817,8 +5811,8 @@ move: 4 head (3,2) D
 6b6c##    
 6a      1c
 ##4b2b##1b
-3c4a2a##1a
-3b3a##5a5b
+3a4a2a##1a
+3b3c##5a5b
 ########..
 move: 1 tail (2,5) L
 move: 1 tail (2,4) L
@@ -5826,8 +5820,8 @@ move: 1 tail (2,3) L
 6b6c##    
 6a1c1b1a  
 ##4b2b##  
-3c4a2a##  
-3b3a##5a5b
+3a4a2a##  
+3b3c##5a5b
 ########..
 move: 5 tail (5,5) U
 move: 5 tail (4,5) U
@@ -5837,8 +5831,8 @@ move: 5 tail (1,5) L
 6b6c##5b5a
 6a1c1b1a  
 ##4b2b##  
-3c4a2a##  
-3b3a##    
+3a4a2a##  
+3b3c##    
 ########..
 move: 1 head (2,4) R
 move: 1 head (2,5) D
@@ -5848,12 +5842,12 @@ move: 1 head (5,5) D
 6b6c##5b5a
 6a        
 ##4b2b##  
-3c4a2a##1c
-3b3a##  1b
+3a4a2a##1c
+3b3c##  1b
 ########1a
 Number of moves: 93
-Number of vertices examined: 423668
-16 [s]
+Number of vertices examined: 423676
+7.29207 [s]
 
 Level 80
 Sequence of moves: 
@@ -6146,14 +6140,14 @@ move: 3 tail (3,1) U
 ##3b####4c
   3a  4a4b
 ########..
-move: 3 head (5,2) L
-1a1b1c##2a
-  ##1d2c2b
-3e3d  ##4d
-##3c####4c
-3a3b  4a4b
-########..
 move: 4 head (5,4) L
+1a1b1c##2a
+3e##1d2c2b
+3d3c  ##  
+##3b####4d
+  3a4a4b4c
+########..
+move: 3 head (5,2) L
 1a1b1c##2a
   ##1d2c2b
 3e3d  ##  
@@ -6364,5 +6358,5 @@ move: 1 head (5,5) D
 ########1a
 Number of moves: 91
 Number of vertices examined: 1373
-0.0255562 [s]
+0.0103523 [s]
 

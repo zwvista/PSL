@@ -13,6 +13,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_GOAL = '.';
 
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr string_view dirs = "URDL";
 
 struct puz_game
 {
@@ -88,7 +89,6 @@ struct puz_move
 
 ostream & operator<<(ostream &out, const puz_move &mi)
 {
-    static string_view dirs = "LRUD";
     string head_tail = mi.is_head ? "head" : "tail";
     out << format("move: {} {} {} {}\n", (mi.worm_index + 1), head_tail, mi.p, dirs[mi.offset_index]);
     return out;

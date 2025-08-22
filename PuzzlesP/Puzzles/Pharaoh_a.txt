@@ -244,5 +244,5 @@ move: (3,5) R
 ######## 
 Number of moves: 26
 Number of vertices examined: 29439
-3.76366 [s]
+0.572265 [s]
 

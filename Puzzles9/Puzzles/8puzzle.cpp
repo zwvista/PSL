@@ -7,6 +7,7 @@
 namespace puzzles::_8puzzle{
 
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr string_view dirs = "nesw";
 
 using group_map = unordered_map<char, pair<vector<int>, vector<int> > >;
 
@@ -76,7 +77,6 @@ struct puz_state
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    const string_view dirs = "wens";
     for (int i = 0; i < 4; ++i) {
         Position p = m_space + offset[i];
         if (is_valid(p)) {

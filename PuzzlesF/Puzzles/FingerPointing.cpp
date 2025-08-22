@@ -21,9 +21,8 @@ namespace puzzles::FingerPointing{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_BLOCK = 'B';
 
-const string_view dirs = "^>v<";
-
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr string_view dirs = "^>v<";
 
 using puz_move = map<Position, char>;
 

@@ -8,7 +8,8 @@
 
 namespace puzzles::numeric_paranoia{
 
-    constexpr array<Position, 4> offset = Position::Directions4;
+constexpr array<Position, 4> offset = Position::Directions4;
+constexpr string_view dirs = "^>v<";
 
 struct puz_game
 {
@@ -81,7 +82,6 @@ struct puz_state
 
 bool puz_state::make_move(int i)
 {
-    const string_view dirs = "<>^v";
     m_head += offset[i];
     if (!is_valid(m_head)) return false;
     char& ch = cells(m_head);

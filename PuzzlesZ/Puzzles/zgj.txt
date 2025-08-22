@@ -9,7 +9,7 @@ Sequence of moves:
 # I #
 #. S#
 #####
-move: rD
+move: rU
 #####
 #   #
 #T@T#
@@ -19,7 +19,7 @@ move: rD
 # I #
 #. S#
 #####
-move: ulD
+move: ulU
 #####
 #   #
 #@ T#
@@ -29,7 +29,7 @@ move: ulD
 # I #
 #. S#
 #####
-move: rdrD
+move: rdrU
 #####
 #   #
 #  T#
@@ -39,7 +39,7 @@ move: rdrD
 # I #
 #. S#
 #####
-move: D
+move: U
 #####
 #   #
 #  T#
@@ -49,7 +49,7 @@ move: D
 # IS#
 #. S#
 #####
-move: lD
+move: lU
 #####
 #   #
 #  T#
@@ -70,7 +70,7 @@ move: ld
 #@SS#
 #####
 Number of moves: 6
-Number of vertices examined: 15
-0.00567783 [s]
+Number of vertices examined: 11
+0.0010424 [s]
 
 Level 2

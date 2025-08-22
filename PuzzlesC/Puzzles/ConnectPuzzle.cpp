@@ -17,8 +17,7 @@ namespace puzzles::ConnectPuzzle{
 constexpr auto PUZ_SPACE = ' ';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
-const string_view dirs = "^>v<";
+constexpr string_view dirs = "^>v<";
 
 struct puz_line
 {

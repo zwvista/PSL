@@ -8,6 +8,7 @@ namespace puzzles::hrd{
 enum EBrickType {bt1X1, bt2X1, bt1X2, bt2X2};
 
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr string_view dirs = "URDL";
 
 using brick_map = map<Position, EBrickType>;
 using brick_pair = pair<const Position, EBrickType>;
@@ -67,7 +68,6 @@ using puz_move = pair<Position, int>;
 
 ostream& operator<<(ostream& out, const puz_move& a)
 {
-    const string_view dirs = "LRUD";
     out << format("({},{}){}", a.first.first, a.first.second, dirs[a.second]);
     return out;
 }
@@ -151,7 +151,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     if (m_move)
-        out << "move: " << *m_move << endl;
+        out << "action: " << *m_move << endl;
     for (int r = 0; r < rows(); ++r) {
         for (int c = 0; c < cols(); ++c)
             out << cells(r, c);

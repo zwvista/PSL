@@ -9,10 +9,11 @@
 
 namespace puzzles::Pharaoh{
 
-enum EBrickDir {mvLeft, mvRight, mvUp, mvDown};
+enum EBrickDir {mvUp, mvRight, mvDown, mvLeft};
 enum EBrickType {btRed, btBlue, btYellow};
 
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr string_view dirs = "URDL";
 
 using brick_map = map<Position, EBrickType>;
 using brick_pair = pair<const Position, EBrickType>;
@@ -75,7 +76,6 @@ using puz_move = pair<Position, EBrickDir>;
 
 ostream& operator<<(ostream& out, const puz_move& mi)
 {
-    const string_view dirs = "LRUD";
     out << format("move: ({},{}) {}\n", mi.first.first, mi.first.second, dirs[mi.second]);
     return out;
 }

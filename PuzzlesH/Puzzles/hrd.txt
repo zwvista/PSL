@@ -7,953 +7,953 @@ Sequence of moves:
 #bAAb#
 #A  A#
 ######
-action: (5,1)R
+action: (5,4)L
 ######
 #BDdB#
 #bddb#
 #BCcB#
 #bAAb#
-# A A#
+#A A #
+######
+action: (3,4)D
+######
+#BDdB#
+#bddb#
+#BCc #
+#bAAB#
+#A Ab#
+######
+action: (3,2)R
+######
+#BDdB#
+#bddb#
+#B Cc#
+#bAAB#
+#A Ab#
+######
+action: (4,2)D
+######
+#BDdB#
+#bddb#
+#B Cc#
+#b AB#
+#AAAb#
+######
+action: (3,1)R
+######
+#BDdB#
+#bddb#
+# BCc#
+# bAB#
+#AAAb#
+######
+action: (5,1)U
+######
+#BDdB#
+#bddb#
+# BCc#
+#AbAB#
+# AAb#
+######
+action: (5,2)L
+######
+#BDdB#
+#bddb#
+# BCc#
+#AbAB#
+#A Ab#
+######
+action: (3,2)D
+######
+#BDdB#
+#bddb#
+#  Cc#
+#ABAB#
+#AbAb#
+######
+action: (3,3)L
+######
+#BDdB#
+#bddb#
+# Cc #
+#ABAB#
+#AbAb#
+######
+action: (3,2)L
+######
+#BDdB#
+#bddb#
+#Cc  #
+#ABAB#
+#AbAb#
+######
+action: (4,3)U
+######
+#BDdB#
+#bddb#
+#CcA #
+#AB B#
+#AbAb#
+######
+action: (3,3)R
+######
+#BDdB#
+#bddb#
+#Cc A#
+#AB B#
+#AbAb#
+######
+action: (5,3)U
+######
+#BDdB#
+#bddb#
+#Cc A#
+#ABAB#
+#Ab b#
+######
+action: (4,3)U
+######
+#BDdB#
+#bddb#
+#CcAA#
+#AB B#
+#Ab b#
+######
+action: (4,2)R
+######
+#BDdB#
+#bddb#
+#CcAA#
+#A BB#
+#A bb#
+######
+action: (4,1)R
+######
+#BDdB#
+#bddb#
+#CcAA#
+# ABB#
+#A bb#
+######
+action: (4,2)D
+######
+#BDdB#
+#bddb#
+#CcAA#
+#  BB#
+#AAbb#
 ######
 action: (3,1)D
 ######
 #BDdB#
 #bddb#
-# CcB#
-#BAAb#
-#bA A#
+#  AA#
+#CcBB#
+#AAbb#
 ######
-action: (4,3)D
+action: (3,3)L
 ######
 #BDdB#
 #bddb#
-# CcB#
-#BA b#
-#bAAA#
+# A A#
+#CcBB#
+#AAbb#
 ######
 action: (3,2)L
 ######
 #BDdB#
 #bddb#
-#Cc B#
-#BA b#
-#bAAA#
+#A  A#
+#CcBB#
+#AAbb#
 ######
 action: (3,4)L
 ######
 #BDdB#
 #bddb#
-#CcB #
-#BAb #
-#bAAA#
+#A A #
+#CcBB#
+#AAbb#
 ######
-action: (5,4)U
+action: (3,3)L
 ######
 #BDdB#
 #bddb#
-#CcB #
-#BAbA#
-#bAA #
+#AA  #
+#CcBB#
+#AAbb#
+######
+action: (4,3)U
+######
+#BDdB#
+#bddb#
+#AAB #
+#CcbB#
+#AA b#
+######
+action: (4,4)U
+######
+#BDdB#
+#bddb#
+#AABB#
+#Ccbb#
+#AA  #
+######
+action: (5,2)R
+######
+#BDdB#
+#bddb#
+#AABB#
+#Ccbb#
+#A A #
 ######
 action: (5,3)R
 ######
 #BDdB#
 #bddb#
-#CcB #
-#BAbA#
-#bA A#
-######
-action: (3,3)D
-######
-#BDdB#
-#bddb#
-#Cc  #
-#BABA#
-#bAbA#
-######
-action: (3,1)R
-######
-#BDdB#
-#bddb#
-# Cc #
-#BABA#
-#bAbA#
-######
-action: (3,2)R
-######
-#BDdB#
-#bddb#
-#  Cc#
-#BABA#
-#bAbA#
-######
-action: (4,2)U
-######
-#BDdB#
-#bddb#
-# ACc#
-#B BA#
-#bAbA#
-######
-action: (3,2)L
-######
-#BDdB#
-#bddb#
-#A Cc#
-#B BA#
-#bAbA#
-######
-action: (5,2)U
-######
-#BDdB#
-#bddb#
-#A Cc#
-#BABA#
-#b bA#
-######
-action: (4,2)U
-######
-#BDdB#
-#bddb#
-#AACc#
-#B BA#
-#b bA#
-######
-action: (4,3)L
-######
-#BDdB#
-#bddb#
-#AACc#
-#BB A#
-#bb A#
-######
-action: (4,4)L
-######
-#BDdB#
-#bddb#
-#AACc#
-#BBA #
-#bb A#
-######
-action: (4,3)D
-######
-#BDdB#
-#bddb#
-#AACc#
-#BB  #
-#bbAA#
-######
-action: (3,3)D
-######
-#BDdB#
-#bddb#
-#AA  #
-#BBCc#
-#bbAA#
-######
-action: (3,2)R
-######
-#BDdB#
-#bddb#
-#A A #
-#BBCc#
-#bbAA#
-######
-action: (3,3)R
-######
-#BDdB#
-#bddb#
+#AABB#
+#Ccbb#
 #A  A#
-#BBCc#
-#bbAA#
-######
-action: (3,1)R
-######
-#BDdB#
-#bddb#
-# A A#
-#BBCc#
-#bbAA#
-######
-action: (3,2)R
-######
-#BDdB#
-#bddb#
-#  AA#
-#BBCc#
-#bbAA#
-######
-action: (4,2)U
-######
-#BDdB#
-#bddb#
-# BAA#
-#BbCc#
-#b AA#
-######
-action: (4,1)U
-######
-#BDdB#
-#bddb#
-#BBAA#
-#bbCc#
-#  AA#
-######
-action: (5,3)L
-######
-#BDdB#
-#bddb#
-#BBAA#
-#bbCc#
-# A A#
-######
-action: (5,2)L
-######
-#BDdB#
-#bddb#
-#BBAA#
-#bbCc#
-#A  A#
-######
-action: (5,4)L
-######
-#BDdB#
-#bddb#
-#BBAA#
-#bbCc#
-#A A #
-######
-action: (5,3)L
-######
-#BDdB#
-#bddb#
-#BBAA#
-#bbCc#
-#AA  #
-######
-action: (4,3)D
-######
-#BDdB#
-#bddb#
-#BBAA#
-#bb  #
-#AACc#
-######
-action: (3,3)D
-######
-#BDdB#
-#bddb#
-#BB A#
-#bbA #
-#AACc#
-######
-action: (4,3)R
-######
-#BDdB#
-#bddb#
-#BB A#
-#bb A#
-#AACc#
-######
-action: (3,2)R
-######
-#BDdB#
-#bddb#
-#B BA#
-#b bA#
-#AACc#
-######
-action: (3,1)R
-######
-#BDdB#
-#bddb#
-# BBA#
-# bbA#
-#AACc#
-######
-action: (1,1)D
-######
-# DdB#
-#Bddb#
-#bBBA#
-# bbA#
-#AACc#
-######
-action: (2,1)D
-######
-# DdB#
-# ddb#
-#BBBA#
-#bbbA#
-#AACc#
-######
-action: (1,2)L
-######
-#Dd B#
-#dd b#
-#BBBA#
-#bbbA#
-#AACc#
-######
-action: (1,4)L
-######
-#DdB #
-#ddb #
-#BBBA#
-#bbbA#
-#AACc#
-######
-action: (3,4)U
-######
-#DdB #
-#ddbA#
-#BBB #
-#bbbA#
-#AACc#
-######
-action: (2,4)U
-######
-#DdBA#
-#ddb #
-#BBB #
-#bbbA#
-#AACc#
-######
-action: (4,4)U
-######
-#DdBA#
-#ddb #
-#BBBA#
-#bbb #
-#AACc#
-######
-action: (3,4)U
-######
-#DdBA#
-#ddbA#
-#BBB #
-#bbb #
-#AACc#
-######
-action: (3,3)R
-######
-#DdBA#
-#ddbA#
-#BB B#
-#bb b#
-#AACc#
-######
-action: (1,3)D
-######
-#Dd A#
-#ddBA#
-#BBbB#
-#bb b#
-#AACc#
-######
-action: (2,3)D
-######
-#Dd A#
-#dd A#
-#BBBB#
-#bbbb#
-#AACc#
-######
-action: (1,1)R
-######
-# DdA#
-# ddA#
-#BBBB#
-#bbbb#
-#AACc#
-######
-action: (3,1)U
-######
-# DdA#
-#BddA#
-#bBBB#
-# bbb#
-#AACc#
-######
-action: (2,1)U
-######
-#BDdA#
-#bddA#
-# BBB#
-# bbb#
-#AACc#
-######
-action: (3,2)L
-######
-#BDdA#
-#bddA#
-#B BB#
-#b bb#
-#AACc#
-######
-action: (5,2)U
-######
-#BDdA#
-#bddA#
-#B BB#
-#bAbb#
-#A Cc#
-######
-action: (4,2)U
-######
-#BDdA#
-#bddA#
-#BABB#
-#b bb#
-#A Cc#
 ######
 action: (5,1)R
 ######
-#BDdA#
-#bddA#
-#BABB#
-#b bb#
-# ACc#
-######
-action: (5,2)U
-######
-#BDdA#
-#bddA#
-#BABB#
-#bAbb#
-#  Cc#
-######
-action: (5,3)L
-######
-#BDdA#
-#bddA#
-#BABB#
-#bAbb#
-# Cc #
-######
-action: (5,2)L
-######
-#BDdA#
-#bddA#
-#BABB#
-#bAbb#
-#Cc  #
-######
-action: (3,3)D
-######
-#BDdA#
-#bddA#
-#BA B#
-#bABb#
-#Ccb #
-######
-action: (3,4)D
-######
-#BDdA#
-#bddA#
-#BA  #
-#bABB#
+#BDdB#
+#bddb#
+#AABB#
 #Ccbb#
+# A A#
 ######
-action: (3,2)R
+action: (5,2)R
 ######
-#BDdA#
-#bddA#
-#B A #
-#bABB#
+#BDdB#
+#bddb#
+#AABB#
 #Ccbb#
+#  AA#
 ######
-action: (3,3)R
+action: (4,1)D
 ######
-#BDdA#
-#bddA#
-#B  A#
-#bABB#
-#Ccbb#
+#BDdB#
+#bddb#
+#AABB#
+#  bb#
+#CcAA#
 ######
-action: (1,2)D
+action: (3,2)D
 ######
-#B  A#
-#bDdA#
-#BddA#
-#bABB#
-#Ccbb#
+#BDdB#
+#bddb#
+#A BB#
+# Abb#
+#CcAA#
 ######
-action: (1,4)L
+action: (4,2)L
 ######
-#B A #
-#bDdA#
-#BddA#
-#bABB#
-#Ccbb#
+#BDdB#
+#bddb#
+#A BB#
+#A bb#
+#CcAA#
 ######
-action: (1,3)L
+action: (3,3)L
 ######
-#BA  #
-#bDdA#
-#BddA#
-#bABB#
-#Ccbb#
+#BDdB#
+#bddb#
+#AB B#
+#Ab b#
+#CcAA#
 ######
-action: (2,4)U
+action: (3,4)L
 ######
-#BA A#
-#bDd #
-#BddA#
-#bABB#
-#Ccbb#
+#BDdB#
+#bddb#
+#ABB #
+#Abb #
+#CcAA#
 ######
-action: (1,4)L
+action: (1,4)D
 ######
-#BAA #
-#bDd #
-#BddA#
-#bABB#
-#Ccbb#
-######
-action: (3,4)U
-######
-#BAA #
-#bDdA#
-#Bdd #
-#bABB#
-#Ccbb#
-######
-action: (2,4)U
-######
-#BAAA#
-#bDd #
-#Bdd #
-#bABB#
-#Ccbb#
-######
-action: (4,4)U
-######
-#BAAA#
-#bDd #
-#BddB#
-#bABb#
-#Ccb #
-######
-action: (3,4)U
-######
-#BAAA#
-#bDdB#
-#Bddb#
-#bAB #
-#Ccb #
-######
-action: (4,3)R
-######
-#BAAA#
-#bDdB#
-#Bddb#
-#bA B#
-#Cc b#
-######
-action: (4,2)R
-######
-#BAAA#
-#bDdB#
-#Bddb#
-#b AB#
-#Cc b#
-######
-action: (4,3)D
-######
-#BAAA#
-#bDdB#
-#Bddb#
-#b  B#
-#CcAb#
-######
-action: (2,2)D
-######
-#BAAA#
-#b  B#
-#BDdb#
+#BDd #
 #bddB#
-#CcAb#
+#ABBb#
+#Abb #
+#CcAA#
 ######
-action: (1,2)D
+action: (2,4)D
 ######
-#B AA#
-#bA B#
-#BDdb#
-#bddB#
-#CcAb#
+#BDd #
+#bdd #
+#ABBB#
+#Abbb#
+#CcAA#
 ######
-action: (2,2)R
+action: (1,2)R
 ######
-#B AA#
-#b AB#
-#BDdb#
-#bddB#
-#CcAb#
+#B Dd#
+#b dd#
+#ABBB#
+#Abbb#
+#CcAA#
 ######
 action: (1,1)R
 ######
-# BAA#
-# bAB#
-#BDdb#
-#bddB#
-#CcAb#
+# BDd#
+# bdd#
+#ABBB#
+#Abbb#
+#CcAA#
 ######
 action: (3,1)U
 ######
-# BAA#
-#BbAB#
-#bDdb#
-# ddB#
-#CcAb#
+# BDd#
+#Abdd#
+# BBB#
+#Abbb#
+#CcAA#
 ######
 action: (2,1)U
 ######
-#BBAA#
-#bbAB#
-# Ddb#
-# ddB#
-#CcAb#
+#ABDd#
+# bdd#
+# BBB#
+#Abbb#
+#CcAA#
+######
+action: (4,1)U
+######
+#ABDd#
+# bdd#
+#ABBB#
+# bbb#
+#CcAA#
+######
+action: (3,1)U
+######
+#ABDd#
+#Abdd#
+# BBB#
+# bbb#
+#CcAA#
 ######
 action: (3,2)L
 ######
-#BBAA#
-#bbAB#
-#Dd b#
-#dd B#
-#CcAb#
-######
-action: (2,3)D
-######
-#BBAA#
-#bb B#
-#DdAb#
-#dd B#
-#CcAb#
-######
-action: (3,3)D
-######
-#BBAA#
-#bb B#
-#Dd b#
-#ddAB#
-#CcAb#
-######
-action: (1,3)D
-######
-#BB A#
-#bbAB#
-#Dd b#
-#ddAB#
-#CcAb#
-######
-action: (1,4)L
-######
-#BBA #
-#bbAB#
-#Dd b#
-#ddAB#
-#CcAb#
-######
-action: (2,4)U
-######
-#BBAB#
-#bbAb#
-#Dd  #
-#ddAB#
-#CcAb#
-######
-action: (4,4)U
-######
-#BBAB#
-#bbAb#
-#Dd B#
-#ddAb#
-#CcA #
-######
-action: (5,3)R
-######
-#BBAB#
-#bbAb#
-#Dd B#
-#ddAb#
-#Cc A#
-######
-action: (4,3)D
-######
-#BBAB#
-#bbAb#
-#Dd B#
-#dd b#
+#ABDd#
+#Abdd#
+#B BB#
+#b bb#
 #CcAA#
 ######
-action: (3,1)R
+action: (1,2)D
 ######
-#BBAB#
-#bbAb#
-# DdB#
-# ddb#
+#A Dd#
+#ABdd#
+#BbBB#
+#b bb#
 #CcAA#
 ######
-action: (1,1)D
+action: (2,2)D
 ######
-# BAB#
-#BbAb#
-#bDdB#
-# ddb#
-#CcAA#
-######
-action: (2,1)D
-######
-# BAB#
-# bAb#
-#BDdB#
-#bddb#
-#CcAA#
-######
-action: (1,2)L
-######
-#B AB#
-#b Ab#
-#BDdB#
-#bddb#
-#CcAA#
-######
-action: (2,3)L
-######
-#B AB#
-#bA b#
-#BDdB#
-#bddb#
+#A Dd#
+#A dd#
+#BBBB#
+#bbbb#
 #CcAA#
 ######
 action: (1,3)L
 ######
-#BA B#
-#bA b#
-#BDdB#
-#bddb#
-#CcAA#
-######
-action: (1,4)L
-######
-#BAB #
-#bAb #
-#BDdB#
-#bddb#
+#ADd #
+#Add #
+#BBBB#
+#bbbb#
 #CcAA#
 ######
 action: (3,4)U
 ######
-#BAB #
-#bAbB#
-#BDdb#
-#bdd #
+#ADd #
+#AddB#
+#BBBb#
+#bbb #
 #CcAA#
 ######
 action: (2,4)U
+######
+#ADdB#
+#Addb#
+#BBB #
+#bbb #
+#CcAA#
+######
+action: (3,3)R
+######
+#ADdB#
+#Addb#
+#BB B#
+#bb b#
+#CcAA#
+######
+action: (5,3)U
+######
+#ADdB#
+#Addb#
+#BB B#
+#bbAb#
+#Cc A#
+######
+action: (4,3)U
+######
+#ADdB#
+#Addb#
+#BBAB#
+#bb b#
+#Cc A#
+######
+action: (5,4)L
+######
+#ADdB#
+#Addb#
+#BBAB#
+#bb b#
+#CcA #
+######
+action: (5,3)U
+######
+#ADdB#
+#Addb#
+#BBAB#
+#bbAb#
+#Cc  #
+######
+action: (5,1)R
+######
+#ADdB#
+#Addb#
+#BBAB#
+#bbAb#
+# Cc #
+######
+action: (5,2)R
+######
+#ADdB#
+#Addb#
+#BBAB#
+#bbAb#
+#  Cc#
+######
+action: (3,2)D
+######
+#ADdB#
+#Addb#
+#B AB#
+#bBAb#
+# bCc#
+######
+action: (3,1)D
+######
+#ADdB#
+#Addb#
+#  AB#
+#BBAb#
+#bbCc#
+######
+action: (3,3)L
+######
+#ADdB#
+#Addb#
+# A B#
+#BBAb#
+#bbCc#
+######
+action: (3,2)L
+######
+#ADdB#
+#Addb#
+#A  B#
+#BBAb#
+#bbCc#
+######
+action: (1,2)D
+######
+#A  B#
+#ADdb#
+#AddB#
+#BBAb#
+#bbCc#
+######
+action: (1,1)R
+######
+# A B#
+#ADdb#
+#AddB#
+#BBAb#
+#bbCc#
+######
+action: (1,2)R
+######
+#  AB#
+#ADdb#
+#AddB#
+#BBAb#
+#bbCc#
+######
+action: (2,1)U
+######
+#A AB#
+# Ddb#
+#AddB#
+#BBAb#
+#bbCc#
+######
+action: (1,1)R
+######
+# AAB#
+# Ddb#
+#AddB#
+#BBAb#
+#bbCc#
+######
+action: (3,1)U
+######
+# AAB#
+#ADdb#
+# ddB#
+#BBAb#
+#bbCc#
+######
+action: (2,1)U
+######
+#AAAB#
+# Ddb#
+# ddB#
+#BBAb#
+#bbCc#
+######
+action: (4,1)U
+######
+#AAAB#
+# Ddb#
+#BddB#
+#bBAb#
+# bCc#
+######
+action: (3,1)U
+######
+#AAAB#
+#BDdb#
+#bddB#
+# BAb#
+# bCc#
+######
+action: (4,2)L
+######
+#AAAB#
+#BDdb#
+#bddB#
+#B Ab#
+#b Cc#
+######
+action: (4,3)L
+######
+#AAAB#
+#BDdb#
+#bddB#
+#BA b#
+#b Cc#
+######
+action: (4,2)D
+######
+#AAAB#
+#BDdb#
+#bddB#
+#B  b#
+#bACc#
+######
+action: (2,2)D
+######
+#AAAB#
+#B  b#
+#bDdB#
+#Bddb#
+#bACc#
+######
+action: (1,3)D
+######
+#AA B#
+#B Ab#
+#bDdB#
+#Bddb#
+#bACc#
+######
+action: (2,3)L
+######
+#AA B#
+#BA b#
+#bDdB#
+#Bddb#
+#bACc#
+######
+action: (1,4)L
+######
+#AAB #
+#BAb #
+#bDdB#
+#Bddb#
+#bACc#
+######
+action: (3,4)U
+######
+#AAB #
+#BAbB#
+#bDdb#
+#Bdd #
+#bACc#
+######
+action: (2,4)U
+######
+#AABB#
+#BAbb#
+#bDd #
+#Bdd #
+#bACc#
+######
+action: (3,2)R
+######
+#AABB#
+#BAbb#
+#b Dd#
+#B dd#
+#bACc#
+######
+action: (2,2)D
+######
+#AABB#
+#B bb#
+#bADd#
+#B dd#
+#bACc#
+######
+action: (3,2)D
+######
+#AABB#
+#B bb#
+#b Dd#
+#BAdd#
+#bACc#
+######
+action: (1,2)D
+######
+#A BB#
+#BAbb#
+#b Dd#
+#BAdd#
+#bACc#
+######
+action: (1,1)R
+######
+# ABB#
+#BAbb#
+#b Dd#
+#BAdd#
+#bACc#
+######
+action: (2,1)U
+######
+#BABB#
+#bAbb#
+#  Dd#
+#BAdd#
+#bACc#
+######
+action: (4,1)U
+######
+#BABB#
+#bAbb#
+#B Dd#
+#bAdd#
+# ACc#
+######
+action: (5,2)L
+######
+#BABB#
+#bAbb#
+#B Dd#
+#bAdd#
+#A Cc#
+######
+action: (4,2)D
+######
+#BABB#
+#bAbb#
+#B Dd#
+#b dd#
+#AACc#
+######
+action: (3,3)L
 ######
 #BABB#
 #bAbb#
 #BDd #
 #bdd #
-#CcAA#
+#AACc#
 ######
-action: (3,2)R
+action: (1,4)D
 ######
-#BABB#
-#bAbb#
-#B Dd#
-#b dd#
-#CcAA#
+#BAB #
+#bAbB#
+#BDdb#
+#bdd #
+#AACc#
 ######
-action: (2,2)D
+action: (2,4)D
 ######
-#BABB#
-#b bb#
-#BADd#
-#b dd#
-#CcAA#
+#BAB #
+#bAb #
+#BDdB#
+#bddb#
+#AACc#
 ######
-action: (3,2)D
+action: (1,3)R
 ######
-#BABB#
-#b bb#
-#B Dd#
-#bAdd#
-#CcAA#
+#BA B#
+#bA b#
+#BDdB#
+#bddb#
+#AACc#
 ######
-action: (1,2)D
+action: (2,2)R
 ######
-#B BB#
-#bAbb#
-#B Dd#
-#bAdd#
-#CcAA#
+#BA B#
+#b Ab#
+#BDdB#
+#bddb#
+#AACc#
 ######
-action: (2,2)D
+action: (1,2)R
 ######
-#B BB#
-#b bb#
-#BADd#
-#bAdd#
-#CcAA#
+#B AB#
+#b Ab#
+#BDdB#
+#bddb#
+#AACc#
 ######
 action: (1,1)R
 ######
-# BBB#
-# bbb#
-#BADd#
-#bAdd#
-#CcAA#
+# BAB#
+# bAb#
+#BDdB#
+#bddb#
+#AACc#
 ######
 action: (3,1)U
 ######
-# BBB#
-#Bbbb#
-#bADd#
-# Add#
-#CcAA#
+# BAB#
+#BbAb#
+#bDdB#
+# ddb#
+#AACc#
 ######
 action: (2,1)U
 ######
-#BBBB#
-#bbbb#
-# ADd#
-# Add#
-#CcAA#
+#BBAB#
+#bbAb#
+# DdB#
+# ddb#
+#AACc#
 ######
-action: (4,2)L
+action: (3,2)L
 ######
-#BBBB#
-#bbbb#
-# ADd#
-#A dd#
-#CcAA#
+#BBAB#
+#bbAb#
+#Dd B#
+#dd b#
+#AACc#
 ######
-action: (4,1)U
+action: (2,3)D
 ######
-#BBBB#
-#bbbb#
-#AADd#
-#  dd#
-#CcAA#
-######
-action: (5,1)U
-######
-#BBBB#
-#bbbb#
-#AADd#
-#Ccdd#
-#  AA#
-######
-action: (5,3)L
-######
-#BBBB#
-#bbbb#
-#AADd#
-#Ccdd#
-# A A#
-######
-action: (5,2)L
-######
-#BBBB#
-#bbbb#
-#AADd#
-#Ccdd#
-#A  A#
-######
-action: (5,4)L
-######
-#BBBB#
-#bbbb#
-#AADd#
-#Ccdd#
-#A A #
-######
-action: (5,3)L
-######
-#BBBB#
-#bbbb#
-#AADd#
-#Ccdd#
-#AA  #
+#BBAB#
+#bb b#
+#DdAB#
+#dd b#
+#AACc#
 ######
 action: (3,3)D
 ######
+#BBAB#
+#bb b#
+#Dd B#
+#ddAb#
+#AACc#
+######
+action: (1,3)D
+######
+#BB B#
+#bbAb#
+#Dd B#
+#ddAb#
+#AACc#
+######
+action: (2,3)D
+######
+#BB B#
+#bb b#
+#DdAB#
+#ddAb#
+#AACc#
+######
+action: (1,4)L
+######
+#BBB #
+#bbb #
+#DdAB#
+#ddAb#
+#AACc#
+######
+action: (3,4)U
+######
+#BBB #
+#bbbB#
+#DdAb#
+#ddA #
+#AACc#
+######
+action: (2,4)U
+######
 #BBBB#
 #bbbb#
+#DdA #
+#ddA #
+#AACc#
+######
+action: (4,3)R
+######
+#BBBB#
+#bbbb#
+#DdA #
+#dd A#
+#AACc#
+######
+action: (4,4)U
+######
+#BBBB#
+#bbbb#
+#DdAA#
+#dd  #
+#AACc#
+######
+action: (5,3)U
+######
+#BBBB#
+#bbbb#
+#DdAA#
+#ddCc#
 #AA  #
-#CcDd#
-#AAdd#
 ######
-action: (3,2)R
+action: (5,2)R
 ######
 #BBBB#
 #bbbb#
+#DdAA#
+#ddCc#
 #A A #
-#CcDd#
-#AAdd#
 ######
-action: (3,3)R
+action: (5,3)R
 ######
 #BBBB#
 #bbbb#
+#DdAA#
+#ddCc#
 #A  A#
-#CcDd#
-#AAdd#
 ######
-action: (3,1)R
+action: (5,1)R
 ######
 #BBBB#
 #bbbb#
+#DdAA#
+#ddCc#
 # A A#
-#CcDd#
-#AAdd#
 ######
-action: (3,2)R
+action: (5,2)R
+######
+#BBBB#
+#bbbb#
+#DdAA#
+#ddCc#
+#  AA#
+######
+action: (3,1)D
 ######
 #BBBB#
 #bbbb#
 #  AA#
-#CcDd#
-#AAdd#
+#DdCc#
+#ddAA#
 ######
-action: (4,1)U
-######
-#BBBB#
-#bbbb#
-#CcAA#
-#  Dd#
-#AAdd#
-######
-action: (5,2)U
+action: (3,3)L
 ######
 #BBBB#
 #bbbb#
-#CcAA#
-# ADd#
-#A dd#
+# A A#
+#DdCc#
+#ddAA#
 ######
-action: (4,2)L
-######
-#BBBB#
-#bbbb#
-#CcAA#
-#A Dd#
-#A dd#
-######
-action: (4,3)L
+action: (3,2)L
 ######
 #BBBB#
 #bbbb#
-#CcAA#
-#ADd #
-#Add #
+#A  A#
+#DdCc#
+#ddAA#
+######
+action: (3,4)L
+######
+#BBBB#
+#bbbb#
+#A A #
+#DdCc#
+#ddAA#
+######
+action: (3,3)L
+######
+#BBBB#
+#bbbb#
+#AA  #
+#DdCc#
+#ddAA#
+######
+action: (4,3)U
+######
+#BBBB#
+#bbbb#
+#AACc#
+#Dd  #
+#ddAA#
+######
+action: (5,3)U
+######
+#BBBB#
+#bbbb#
+#AACc#
+#DdA #
+#dd A#
+######
+action: (4,3)R
+######
+#BBBB#
+#bbbb#
+#AACc#
+#Dd A#
+#dd A#
+######
+action: (4,1)R
+######
+#BBBB#
+#bbbb#
+#AACc#
+# DdA#
+# ddA#
 ######
 Number of moves: 118
-Number of vertices examined: 77345
-16.7779 [s]
+Number of vertices examined: 77351
+2.28832 [s]
 
 Level 19
 Sequence of moves: 
@@ -964,1273 +964,1273 @@ Sequence of moves:
 #ACcA#
 # Cc #
 ######
-action: (5,2)L
+action: (5,2)R
 ######
 #ADdA#
 #BddB#
 #bCcb#
 #ACcA#
-#Cc  #
+#  Cc#
+######
+action: (4,1)D
+######
+#ADdA#
+#BddB#
+#bCcb#
+# CcA#
+#A Cc#
+######
+action: (5,1)R
+######
+#ADdA#
+#BddB#
+#bCcb#
+# CcA#
+# ACc#
+######
+action: (2,1)D
+######
+#ADdA#
+# ddB#
+#BCcb#
+#bCcA#
+# ACc#
+######
+action: (3,1)D
+######
+#ADdA#
+# ddB#
+# Ccb#
+#BCcA#
+#bACc#
+######
+action: (1,1)D
+######
+# DdA#
+#AddB#
+# Ccb#
+#BCcA#
+#bACc#
+######
+action: (2,1)D
+######
+# DdA#
+# ddB#
+#ACcb#
+#BCcA#
+#bACc#
+######
+action: (1,2)L
+######
+#Dd A#
+#dd B#
+#ACcb#
+#BCcA#
+#bACc#
+######
+action: (1,4)L
+######
+#DdA #
+#dd B#
+#ACcb#
+#BCcA#
+#bACc#
+######
+action: (2,4)U
+######
+#DdAB#
+#dd b#
+#ACc #
+#BCcA#
+#bACc#
+######
+action: (3,2)R
+######
+#DdAB#
+#dd b#
+#A Cc#
+#BCcA#
+#bACc#
+######
+action: (3,1)R
+######
+#DdAB#
+#dd b#
+# ACc#
+#BCcA#
+#bACc#
+######
+action: (4,1)U
+######
+#DdAB#
+#dd b#
+#BACc#
+#bCcA#
+# ACc#
+######
+action: (5,2)L
+######
+#DdAB#
+#dd b#
+#BACc#
+#bCcA#
+#A Cc#
+######
+action: (5,3)L
+######
+#DdAB#
+#dd b#
+#BACc#
+#bCcA#
+#ACc #
 ######
 action: (4,4)D
 ######
-#ADdA#
+#DdAB#
+#dd b#
+#BACc#
+#bCc #
+#ACcA#
+######
+action: (4,2)R
+######
+#DdAB#
+#dd b#
+#BACc#
+#b Cc#
+#ACcA#
+######
+action: (3,2)D
+######
+#DdAB#
+#dd b#
+#B Cc#
+#bACc#
+#ACcA#
+######
+action: (3,3)L
+######
+#DdAB#
+#dd b#
+#BCc #
+#bACc#
+#ACcA#
+######
+action: (1,4)D
+######
+#DdA #
+#dd B#
+#BCcb#
+#bACc#
+#ACcA#
+######
+action: (1,3)R
+######
+#Dd A#
+#dd B#
+#BCcb#
+#bACc#
+#ACcA#
+######
+action: (1,1)R
+######
+# DdA#
+# ddB#
+#BCcb#
+#bACc#
+#ACcA#
+######
+action: (3,1)U
+######
+# DdA#
 #BddB#
 #bCcb#
+# ACc#
+#ACcA#
+######
+action: (2,1)U
+######
+#BDdA#
+#bddB#
+# Ccb#
+# ACc#
+#ACcA#
+######
+action: (4,2)L
+######
+#BDdA#
+#bddB#
+# Ccb#
+#A Cc#
+#ACcA#
+######
+action: (4,3)L
+######
+#BDdA#
+#bddB#
+# Ccb#
 #ACc #
+#ACcA#
+######
+action: (5,4)U
+######
+#BDdA#
+#bddB#
+# Ccb#
+#ACcA#
+#ACc #
+######
+action: (5,2)R
+######
+#BDdA#
+#bddB#
+# Ccb#
+#ACcA#
+#A Cc#
+######
+action: (5,1)R
+######
+#BDdA#
+#bddB#
+# Ccb#
+#ACcA#
+# ACc#
+######
+action: (4,1)D
+######
+#BDdA#
+#bddB#
+# Ccb#
+# CcA#
+#AACc#
+######
+action: (3,2)L
+######
+#BDdA#
+#bddB#
+#Cc b#
+# CcA#
+#AACc#
+######
+action: (4,2)L
+######
+#BDdA#
+#bddB#
+#Cc b#
 #Cc A#
+#AACc#
 ######
-action: (5,4)L
+action: (4,4)L
 ######
-#ADdA#
-#BddB#
-#bCcb#
-#ACc #
+#BDdA#
+#bddB#
+#Cc b#
+#CcA #
+#AACc#
+######
+action: (4,3)U
+######
+#BDdA#
+#bddB#
+#CcAb#
+#Cc  #
+#AACc#
+######
+action: (5,3)U
+######
+#BDdA#
+#bddB#
+#CcAb#
+#CcCc#
+#AA  #
+######
+action: (5,2)R
+######
+#BDdA#
+#bddB#
+#CcAb#
+#CcCc#
+#A A #
+######
+action: (5,3)R
+######
+#BDdA#
+#bddB#
+#CcAb#
+#CcCc#
+#A  A#
+######
+action: (5,1)R
+######
+#BDdA#
+#bddB#
+#CcAb#
+#CcCc#
+# A A#
+######
+action: (5,2)R
+######
+#BDdA#
+#bddB#
+#CcAb#
+#CcCc#
+#  AA#
+######
+action: (4,1)D
+######
+#BDdA#
+#bddB#
+#CcAb#
+#  Cc#
+#CcAA#
+######
+action: (4,3)L
+######
+#BDdA#
+#bddB#
+#CcAb#
+# Cc #
+#CcAA#
+######
+action: (4,2)L
+######
+#BDdA#
+#bddB#
+#CcAb#
+#Cc  #
+#CcAA#
+######
+action: (5,4)U
+######
+#BDdA#
+#bddB#
+#CcAb#
+#Cc A#
+#CcA #
+######
+action: (4,4)L
+######
+#BDdA#
+#bddB#
+#CcAb#
+#CcA #
 #CcA #
 ######
 action: (2,4)D
 ######
-#ADdA#
-#Bdd #
-#bCcB#
-#ACcb#
+#BDdA#
+#bdd #
+#CcAB#
+#CcAb#
 #CcA #
 ######
 action: (3,4)D
 ######
-#ADdA#
-#Bdd #
-#bCc #
-#ACcB#
-#CcAb#
-######
-action: (1,4)D
-######
-#ADd #
-#BddA#
-#bCc #
-#ACcB#
-#CcAb#
-######
-action: (2,4)D
-######
-#ADd #
-#Bdd #
-#bCcA#
-#ACcB#
-#CcAb#
-######
-action: (1,2)R
-######
-#A Dd#
-#B dd#
-#bCcA#
-#ACcB#
-#CcAb#
-######
-action: (1,1)R
-######
-# ADd#
-#B dd#
-#bCcA#
-#ACcB#
-#CcAb#
-######
-action: (2,1)U
-######
-#BADd#
-#b dd#
-# CcA#
-#ACcB#
-#CcAb#
-######
-action: (3,2)L
-######
-#BADd#
-#b dd#
-#Cc A#
-#ACcB#
-#CcAb#
-######
-action: (3,4)L
-######
-#BADd#
-#b dd#
+#BDdA#
+#bdd #
 #CcA #
-#ACcB#
+#CcAB#
+#CcAb#
+######
+action: (3,3)R
+######
+#BDdA#
+#bdd #
+#Cc A#
+#CcAB#
+#CcAb#
+######
+action: (3,4)U
+######
+#BDdA#
+#bddA#
+#Cc  #
+#CcAB#
+#CcAb#
+######
+action: (4,3)U
+######
+#BDdA#
+#bddA#
+#CcA #
+#Cc B#
 #CcAb#
 ######
 action: (4,4)U
 ######
-#BADd#
-#b dd#
+#BDdA#
+#bddA#
 #CcAB#
-#ACcb#
+#Cc b#
+#CcA #
+######
+action: (5,3)U
+######
+#BDdA#
+#bddA#
+#CcAB#
+#CcAb#
+#Cc  #
+######
+action: (5,1)R
+######
+#BDdA#
+#bddA#
+#CcAB#
+#CcAb#
+# Cc #
+######
+action: (5,2)R
+######
+#BDdA#
+#bddA#
+#CcAB#
+#CcAb#
+#  Cc#
+######
+action: (4,1)D
+######
+#BDdA#
+#bddA#
+#CcAB#
+#  Ab#
+#CcCc#
+######
+action: (4,3)L
+######
+#BDdA#
+#bddA#
+#CcAB#
+# A b#
+#CcCc#
+######
+action: (4,2)L
+######
+#BDdA#
+#bddA#
+#CcAB#
+#A  b#
+#CcCc#
+######
+action: (3,3)D
+######
+#BDdA#
+#bddA#
+#Cc B#
+#A Ab#
+#CcCc#
+######
+action: (3,1)R
+######
+#BDdA#
+#bddA#
+# CcB#
+#A Ab#
+#CcCc#
+######
+action: (4,1)U
+######
+#BDdA#
+#bddA#
+#ACcB#
+#  Ab#
+#CcCc#
+######
+action: (5,1)U
+######
+#BDdA#
+#bddA#
+#ACcB#
+#CcAb#
+#  Cc#
+######
+action: (5,3)L
+######
+#BDdA#
+#bddA#
+#ACcB#
+#CcAb#
+# Cc #
+######
+action: (5,2)L
+######
+#BDdA#
+#bddA#
+#ACcB#
+#CcAb#
+#Cc  #
+######
+action: (4,3)D
+######
+#BDdA#
+#bddA#
+#ACcB#
+#Cc b#
+#CcA #
+######
+action: (4,1)R
+######
+#BDdA#
+#bddA#
+#ACcB#
+# Ccb#
+#CcA #
+######
+action: (3,4)D
+######
+#BDdA#
+#bddA#
+#ACc #
+# CcB#
+#CcAb#
+######
+action: (3,2)R
+######
+#BDdA#
+#bddA#
+#A Cc#
+# CcB#
+#CcAb#
+######
+action: (3,1)R
+######
+#BDdA#
+#bddA#
+# ACc#
+# CcB#
+#CcAb#
+######
+action: (1,1)D
+######
+# DdA#
+#BddA#
+#bACc#
+# CcB#
+#CcAb#
+######
+action: (2,1)D
+######
+# DdA#
+# ddA#
+#BACc#
+#bCcB#
+#CcAb#
+######
+action: (1,2)L
+######
+#Dd A#
+#dd A#
+#BACc#
+#bCcB#
+#CcAb#
+######
+action: (2,4)L
+######
+#Dd A#
+#ddA #
+#BACc#
+#bCcB#
+#CcAb#
+######
+action: (2,3)U
+######
+#DdAA#
+#dd  #
+#BACc#
+#bCcB#
+#CcAb#
+######
+action: (3,3)U
+######
+#DdAA#
+#ddCc#
+#BA  #
+#bCcB#
+#CcAb#
+######
+action: (4,4)U
+######
+#DdAA#
+#ddCc#
+#BA B#
+#bCcb#
 #CcA #
 ######
 action: (5,3)R
 ######
-#BADd#
-#b dd#
-#CcAB#
-#ACcb#
+#DdAA#
+#ddCc#
+#BA B#
+#bCcb#
 #Cc A#
 ######
 action: (5,1)R
 ######
-#BADd#
-#b dd#
-#CcAB#
-#ACcb#
-# CcA#
-######
-action: (4,1)D
-######
-#BADd#
-#b dd#
-#CcAB#
-# Ccb#
-#ACcA#
-######
-action: (4,2)L
-######
-#BADd#
-#b dd#
-#CcAB#
-#Cc b#
-#ACcA#
-######
-action: (3,3)D
-######
-#BADd#
-#b dd#
-#Cc B#
-#CcAb#
-#ACcA#
-######
-action: (3,1)R
-######
-#BADd#
-#b dd#
-# CcB#
-#CcAb#
-#ACcA#
-######
-action: (1,1)D
-######
-# ADd#
-#B dd#
-#bCcB#
-#CcAb#
-#ACcA#
-######
-action: (1,2)L
-######
-#A Dd#
-#B dd#
-#bCcB#
-#CcAb#
-#ACcA#
-######
-action: (1,3)L
-######
-#ADd #
-#Bdd #
-#bCcB#
-#CcAb#
-#ACcA#
-######
-action: (3,4)U
-######
-#ADd #
-#BddB#
+#DdAA#
+#ddCc#
+#BA B#
 #bCcb#
-#CcA #
-#ACcA#
-######
-action: (2,4)U
-######
-#ADdB#
-#Bddb#
-#bCc #
-#CcA #
-#ACcA#
-######
-action: (4,3)R
-######
-#ADdB#
-#Bddb#
-#bCc #
-#Cc A#
-#ACcA#
-######
-action: (4,1)R
-######
-#ADdB#
-#Bddb#
-#bCc #
 # CcA#
-#ACcA#
-######
-action: (5,1)U
-######
-#ADdB#
-#Bddb#
-#bCc #
-#ACcA#
-# CcA#
-######
-action: (5,2)L
-######
-#ADdB#
-#Bddb#
-#bCc #
-#ACcA#
-#Cc A#
-######
-action: (5,4)L
-######
-#ADdB#
-#Bddb#
-#bCc #
-#ACcA#
-#CcA #
-######
-action: (4,4)D
-######
-#ADdB#
-#Bddb#
-#bCc #
-#ACc #
-#CcAA#
-######
-action: (4,2)R
-######
-#ADdB#
-#Bddb#
-#bCc #
-#A Cc#
-#CcAA#
-######
-action: (3,2)R
-######
-#ADdB#
-#Bddb#
-#b Cc#
-#A Cc#
-#CcAA#
-######
-action: (4,1)R
-######
-#ADdB#
-#Bddb#
-#b Cc#
-# ACc#
-#CcAA#
-######
-action: (4,2)U
-######
-#ADdB#
-#Bddb#
-#bACc#
-#  Cc#
-#CcAA#
-######
-action: (5,1)U
-######
-#ADdB#
-#Bddb#
-#bACc#
-#CcCc#
-#  AA#
-######
-action: (5,3)L
-######
-#ADdB#
-#Bddb#
-#bACc#
-#CcCc#
-# A A#
-######
-action: (5,2)L
-######
-#ADdB#
-#Bddb#
-#bACc#
-#CcCc#
-#A  A#
-######
-action: (5,4)L
-######
-#ADdB#
-#Bddb#
-#bACc#
-#CcCc#
-#A A #
-######
-action: (5,3)L
-######
-#ADdB#
-#Bddb#
-#bACc#
-#CcCc#
-#AA  #
-######
-action: (4,3)D
-######
-#ADdB#
-#Bddb#
-#bACc#
-#Cc  #
-#AACc#
-######
-action: (4,1)R
-######
-#ADdB#
-#Bddb#
-#bACc#
-# Cc #
-#AACc#
-######
-action: (4,2)R
-######
-#ADdB#
-#Bddb#
-#bACc#
-#  Cc#
-#AACc#
-######
-action: (5,1)U
-######
-#ADdB#
-#Bddb#
-#bACc#
-#A Cc#
-# ACc#
-######
-action: (4,1)R
-######
-#ADdB#
-#Bddb#
-#bACc#
-# ACc#
-# ACc#
-######
-action: (2,1)D
-######
-#ADdB#
-# ddb#
-#BACc#
-#bACc#
-# ACc#
 ######
 action: (3,1)D
 ######
-#ADdB#
-# ddb#
+#DdAA#
+#ddCc#
+# A B#
+#BCcb#
+#bCcA#
+######
+action: (3,2)R
+######
+#DdAA#
+#ddCc#
+#  AB#
+#BCcb#
+#bCcA#
+######
+action: (1,1)D
+######
+#  AA#
+#DdCc#
+#ddAB#
+#BCcb#
+#bCcA#
+######
+action: (1,3)L
+######
+# A A#
+#DdCc#
+#ddAB#
+#BCcb#
+#bCcA#
+######
+action: (1,2)L
+######
+#A  A#
+#DdCc#
+#ddAB#
+#BCcb#
+#bCcA#
+######
+action: (1,4)L
+######
+#A A #
+#DdCc#
+#ddAB#
+#BCcb#
+#bCcA#
+######
+action: (1,3)L
+######
+#AA  #
+#DdCc#
+#ddAB#
+#BCcb#
+#bCcA#
+######
+action: (2,3)U
+######
+#AACc#
+#Dd  #
+#ddAB#
+#BCcb#
+#bCcA#
+######
+action: (3,3)U
+######
+#AACc#
+#DdA #
+#dd B#
+#BCcb#
+#bCcA#
+######
+action: (2,3)R
+######
+#AACc#
+#Dd A#
+#dd B#
+#BCcb#
+#bCcA#
+######
+action: (2,1)R
+######
+#AACc#
+# DdA#
+# ddB#
+#BCcb#
+#bCcA#
+######
+action: (1,1)D
+######
 # ACc#
-#BACc#
-#bACc#
+#ADdA#
+# ddB#
+#BCcb#
+#bCcA#
 ######
-action: (3,2)L
+action: (2,1)D
 ######
-#ADdB#
-# ddb#
+# ACc#
+# DdA#
+#AddB#
+#BCcb#
+#bCcA#
+######
+action: (1,2)L
+######
 #A Cc#
-#BACc#
-#bACc#
+# DdA#
+#AddB#
+#BCcb#
+#bCcA#
 ######
-action: (3,1)U
+action: (1,1)D
 ######
-#ADdB#
-#Addb#
 #  Cc#
-#BACc#
-#bACc#
+#ADdA#
+#AddB#
+#BCcb#
+#bCcA#
 ######
-action: (4,2)U
+action: (1,3)L
 ######
+# Cc #
+#ADdA#
+#AddB#
+#BCcb#
+#bCcA#
+######
+action: (1,2)L
+######
+#Cc  #
+#ADdA#
+#AddB#
+#BCcb#
+#bCcA#
+######
+action: (2,4)U
+######
+#Cc A#
+#ADd #
+#AddB#
+#BCcb#
+#bCcA#
+######
+action: (1,4)L
+######
+#CcA #
+#ADd #
+#AddB#
+#BCcb#
+#bCcA#
+######
+action: (3,4)U
+######
+#CcA #
 #ADdB#
 #Addb#
-# ACc#
-#B Cc#
-#bACc#
+#BCc #
+#bCcA#
 ######
-action: (5,2)U
+action: (2,4)U
 ######
-#ADdB#
-#Addb#
-# ACc#
-#BACc#
+#CcAB#
+#ADdb#
+#Add #
+#BCc #
+#bCcA#
+######
+action: (5,4)U
+######
+#CcAB#
+#ADdb#
+#Add #
+#BCcA#
+#bCc #
+######
+action: (4,4)U
+######
+#CcAB#
+#ADdb#
+#AddA#
+#BCc #
+#bCc #
+######
+action: (5,2)R
+######
+#CcAB#
+#ADdb#
+#AddA#
+#BCc #
 #b Cc#
+######
+action: (4,2)R
+######
+#CcAB#
+#ADdb#
+#AddA#
+#B Cc#
+#b Cc#
+######
+action: (4,1)R
+######
+#CcAB#
+#ADdb#
+#AddA#
+# BCc#
+# bCc#
+######
+action: (3,1)D
+######
+#CcAB#
+#ADdb#
+# ddA#
+#ABCc#
+# bCc#
+######
+action: (4,1)D
+######
+#CcAB#
+#ADdb#
+# ddA#
+# BCc#
+#AbCc#
+######
+action: (2,1)D
+######
+#CcAB#
+# Ddb#
+#AddA#
+# BCc#
+#AbCc#
+######
+action: (3,1)D
+######
+#CcAB#
+# Ddb#
+# ddA#
+#ABCc#
+#AbCc#
+######
+action: (2,2)L
+######
+#CcAB#
+#Dd b#
+#dd A#
+#ABCc#
+#AbCc#
+######
+action: (1,3)D
+######
+#Cc B#
+#DdAb#
+#dd A#
+#ABCc#
+#AbCc#
+######
+action: (3,4)L
+######
+#Cc B#
+#DdAb#
+#ddA #
+#ABCc#
+#AbCc#
+######
+action: (1,4)D
+######
+#Cc  #
+#DdAB#
+#ddAb#
+#ABCc#
+#AbCc#
+######
+action: (1,1)R
+######
+# Cc #
+#DdAB#
+#ddAb#
+#ABCc#
+#AbCc#
+######
+action: (1,2)R
+######
+#  Cc#
+#DdAB#
+#ddAb#
+#ABCc#
+#AbCc#
+######
+action: (2,1)U
+######
+#DdCc#
+#ddAB#
+#  Ab#
+#ABCc#
+#AbCc#
 ######
 action: (4,1)U
 ######
-#ADdB#
-#Addb#
-#BACc#
-#bACc#
+#DdCc#
+#ddAB#
+#A Ab#
+# BCc#
+#AbCc#
+######
+action: (4,2)U
+######
+#DdCc#
+#ddAB#
+#ABAb#
+# bCc#
+#A Cc#
+######
+action: (5,1)U
+######
+#DdCc#
+#ddAB#
+#ABAb#
+#AbCc#
 #  Cc#
 ######
 action: (5,3)L
 ######
-#ADdB#
-#Addb#
-#BACc#
-#bACc#
+#DdCc#
+#ddAB#
+#ABAb#
+#AbCc#
 # Cc #
 ######
 action: (5,2)L
 ######
-#ADdB#
-#Addb#
-#BACc#
-#bACc#
+#DdCc#
+#ddAB#
+#ABAb#
+#AbCc#
 #Cc  #
 ######
 action: (4,3)D
 ######
-#ADdB#
-#Addb#
-#BACc#
-#bA  #
+#DdCc#
+#ddAB#
+#ABAb#
+#Ab  #
 #CcCc#
 ######
-action: (4,2)R
+action: (2,4)D
 ######
-#ADdB#
-#Addb#
-#BACc#
-#b A #
+#DdCc#
+#ddA #
+#ABAB#
+#Ab b#
 #CcCc#
 ######
-action: (4,3)R
+action: (2,3)R
 ######
-#ADdB#
-#Addb#
-#BACc#
-#b  A#
+#DdCc#
+#dd A#
+#ABAB#
+#Ab b#
+#CcCc#
+######
+action: (3,3)U
+######
+#DdCc#
+#ddAA#
+#AB B#
+#Ab b#
+#CcCc#
+######
+action: (3,2)R
+######
+#DdCc#
+#ddAA#
+#A BB#
+#A bb#
+#CcCc#
+######
+action: (3,1)R
+######
+#DdCc#
+#ddAA#
+# ABB#
+#A bb#
 #CcCc#
 ######
 action: (3,2)D
 ######
-#ADdB#
-#Addb#
-#B Cc#
-#bA A#
+#DdCc#
+#ddAA#
+#  BB#
+#AAbb#
 #CcCc#
-######
-action: (3,3)L
-######
-#ADdB#
-#Addb#
-#BCc #
-#bA A#
-#CcCc#
-######
-action: (4,4)U
-######
-#ADdB#
-#Addb#
-#BCcA#
-#bA  #
-#CcCc#
-######
-action: (5,3)U
-######
-#ADdB#
-#Addb#
-#BCcA#
-#bACc#
-#Cc  #
-######
-action: (5,1)R
-######
-#ADdB#
-#Addb#
-#BCcA#
-#bACc#
-# Cc #
-######
-action: (5,2)R
-######
-#ADdB#
-#Addb#
-#BCcA#
-#bACc#
-#  Cc#
-######
-action: (4,2)D
-######
-#ADdB#
-#Addb#
-#BCcA#
-#b Cc#
-# ACc#
-######
-action: (3,1)D
-######
-#ADdB#
-#Addb#
-# CcA#
-#B Cc#
-#bACc#
-######
-action: (3,2)L
-######
-#ADdB#
-#Addb#
-#Cc A#
-#B Cc#
-#bACc#
-######
-action: (3,4)L
-######
-#ADdB#
-#Addb#
-#CcA #
-#B Cc#
-#bACc#
-######
-action: (4,3)L
-######
-#ADdB#
-#Addb#
-#CcA #
-#BCc #
-#bACc#
-######
-action: (1,4)D
-######
-#ADd #
-#AddB#
-#CcAb#
-#BCc #
-#bACc#
-######
-action: (2,4)D
-######
-#ADd #
-#Add #
-#CcAB#
-#BCcb#
-#bACc#
-######
-action: (1,2)R
-######
-#A Dd#
-#A dd#
-#CcAB#
-#BCcb#
-#bACc#
-######
-action: (2,1)R
-######
-#A Dd#
-# Add#
-#CcAB#
-#BCcb#
-#bACc#
-######
-action: (2,2)U
-######
-#AADd#
-#  dd#
-#CcAB#
-#BCcb#
-#bACc#
-######
-action: (3,1)U
-######
-#AADd#
-#Ccdd#
-#  AB#
-#BCcb#
-#bACc#
-######
-action: (4,1)U
-######
-#AADd#
-#Ccdd#
-#B AB#
-#bCcb#
-# ACc#
-######
-action: (5,2)L
-######
-#AADd#
-#Ccdd#
-#B AB#
-#bCcb#
-#A Cc#
-######
-action: (5,3)L
-######
-#AADd#
-#Ccdd#
-#B AB#
-#bCcb#
-#ACc #
-######
-action: (3,3)L
-######
-#AADd#
-#Ccdd#
-#BA B#
-#bCcb#
-#ACc #
-######
-action: (3,4)D
-######
-#AADd#
-#Ccdd#
-#BA  #
-#bCcB#
-#ACcb#
-######
-action: (1,3)D
-######
-#AA  #
-#CcDd#
-#BAdd#
-#bCcB#
-#ACcb#
-######
-action: (1,2)R
-######
-#A A #
-#CcDd#
-#BAdd#
-#bCcB#
-#ACcb#
-######
-action: (1,3)R
-######
-#A  A#
-#CcDd#
-#BAdd#
-#bCcB#
-#ACcb#
-######
-action: (1,1)R
-######
-# A A#
-#CcDd#
-#BAdd#
-#bCcB#
-#ACcb#
-######
-action: (1,2)R
-######
-#  AA#
-#CcDd#
-#BAdd#
-#bCcB#
-#ACcb#
-######
-action: (2,1)U
-######
-#CcAA#
-#  Dd#
-#BAdd#
-#bCcB#
-#ACcb#
-######
-action: (3,2)U
-######
-#CcAA#
-# ADd#
-#B dd#
-#bCcB#
-#ACcb#
-######
-action: (2,2)L
-######
-#CcAA#
-#A Dd#
-#B dd#
-#bCcB#
-#ACcb#
-######
-action: (2,3)L
-######
-#CcAA#
-#ADd #
-#Bdd #
-#bCcB#
-#ACcb#
-######
-action: (1,4)D
-######
-#CcA #
-#ADdA#
-#Bdd #
-#bCcB#
-#ACcb#
-######
-action: (2,4)D
-######
-#CcA #
-#ADd #
-#BddA#
-#bCcB#
-#ACcb#
-######
-action: (1,3)R
-######
-#Cc A#
-#ADd #
-#BddA#
-#bCcB#
-#ACcb#
-######
-action: (1,4)D
-######
-#Cc  #
-#ADdA#
-#BddA#
-#bCcB#
-#ACcb#
-######
-action: (1,1)R
-######
-# Cc #
-#ADdA#
-#BddA#
-#bCcB#
-#ACcb#
-######
-action: (1,2)R
-######
-#  Cc#
-#ADdA#
-#BddA#
-#bCcB#
-#ACcb#
-######
-action: (2,1)U
-######
-#A Cc#
-# DdA#
-#BddA#
-#bCcB#
-#ACcb#
-######
-action: (1,1)R
-######
-# ACc#
-# DdA#
-#BddA#
-#bCcB#
-#ACcb#
-######
-action: (3,1)U
-######
-# ACc#
-#BDdA#
-#bddA#
-# CcB#
-#ACcb#
-######
-action: (2,1)U
-######
-#BACc#
-#bDdA#
-# ddA#
-# CcB#
-#ACcb#
-######
-action: (5,1)U
-######
-#BACc#
-#bDdA#
-# ddA#
-#ACcB#
-# Ccb#
-######
-action: (4,1)U
-######
-#BACc#
-#bDdA#
-#AddA#
-# CcB#
-# Ccb#
-######
-action: (4,2)L
-######
-#BACc#
-#bDdA#
-#AddA#
-#Cc B#
-# Ccb#
-######
-action: (5,2)L
-######
-#BACc#
-#bDdA#
-#AddA#
-#Cc B#
-#Cc b#
-######
-action: (4,4)L
-######
-#BACc#
-#bDdA#
-#AddA#
-#CcB #
-#Ccb #
-######
-action: (3,4)D
-######
-#BACc#
-#bDdA#
-#Add #
-#CcBA#
-#Ccb #
-######
-action: (4,4)D
-######
-#BACc#
-#bDdA#
-#Add #
-#CcB #
-#CcbA#
-######
-action: (2,4)D
-######
-#BACc#
-#bDd #
-#AddA#
-#CcB #
-#CcbA#
-######
-action: (3,4)D
-######
-#BACc#
-#bDd #
-#Add #
-#CcBA#
-#CcbA#
-######
-action: (2,2)R
-######
-#BACc#
-#b Dd#
-#A dd#
-#CcBA#
-#CcbA#
-######
-action: (3,1)R
-######
-#BACc#
-#b Dd#
-# Add#
-#CcBA#
-#CcbA#
-######
-action: (1,2)D
-######
-#B Cc#
-#bADd#
-# Add#
-#CcBA#
-#CcbA#
 ######
 action: (1,1)D
 ######
 #  Cc#
-#BADd#
-#bAdd#
-#CcBA#
-#CcbA#
+#DdAA#
+#ddBB#
+#AAbb#
+#CcCc#
 ######
 action: (1,3)L
 ######
 # Cc #
-#BADd#
-#bAdd#
-#CcBA#
-#CcbA#
+#DdAA#
+#ddBB#
+#AAbb#
+#CcCc#
 ######
 action: (1,2)L
 ######
 #Cc  #
-#BADd#
-#bAdd#
-#CcBA#
-#CcbA#
+#DdAA#
+#ddBB#
+#AAbb#
+#CcCc#
 ######
 action: (2,3)U
 ######
-#CcDd#
-#BAdd#
-#bA  #
-#CcBA#
-#CcbA#
+#CcA #
+#Dd A#
+#ddBB#
+#AAbb#
+#CcCc#
 ######
-action: (4,4)U
+action: (2,4)U
 ######
-#CcDd#
-#BAdd#
-#bA A#
-#CcB #
-#CcbA#
+#CcAA#
+#Dd  #
+#ddBB#
+#AAbb#
+#CcCc#
 ######
-action: (4,3)U
+action: (3,4)U
 ######
-#CcDd#
-#BAdd#
-#bABA#
-#Ccb #
-#Cc A#
+#CcAA#
+#Dd B#
+#ddBb#
+#AAb #
+#CcCc#
 ######
-action: (5,4)U
+action: (3,3)U
 ######
-#CcDd#
-#BAdd#
-#bABA#
-#CcbA#
+#CcAA#
+#DdBB#
+#ddbb#
+#AA  #
+#CcCc#
+######
+action: (5,3)U
+######
+#CcAA#
+#DdBB#
+#ddbb#
+#AACc#
 #Cc  #
 ######
 action: (5,1)R
 ######
-#CcDd#
-#BAdd#
-#bABA#
-#CcbA#
+#CcAA#
+#DdBB#
+#ddbb#
+#AACc#
 # Cc #
 ######
 action: (5,2)R
 ######
-#CcDd#
-#BAdd#
-#bABA#
-#CcbA#
+#CcAA#
+#DdBB#
+#ddbb#
+#AACc#
 #  Cc#
+######
+action: (4,2)D
+######
+#CcAA#
+#DdBB#
+#ddbb#
+#A Cc#
+# ACc#
 ######
 action: (4,1)D
 ######
-#CcDd#
-#BAdd#
-#bABA#
-#  bA#
-#CcCc#
+#CcAA#
+#DdBB#
+#ddbb#
+#  Cc#
+#AACc#
 ######
 action: (2,1)D
 ######
-#CcDd#
-# Add#
-#BABA#
-#b bA#
-#CcCc#
+#CcAA#
+#  BB#
+#Ddbb#
+#ddCc#
+#AACc#
 ######
-action: (2,2)L
+action: (1,1)D
 ######
-#CcDd#
-#A dd#
-#BABA#
-#b bA#
-#CcCc#
+#  AA#
+#CcBB#
+#Ddbb#
+#ddCc#
+#AACc#
 ######
-action: (3,2)U
+action: (1,3)L
 ######
-#CcDd#
-#AAdd#
-#B BA#
-#b bA#
-#CcCc#
+# A A#
+#CcBB#
+#Ddbb#
+#ddCc#
+#AACc#
+######
+action: (1,2)L
+######
+#A  A#
+#CcBB#
+#Ddbb#
+#ddCc#
+#AACc#
+######
+action: (1,4)L
+######
+#A A #
+#CcBB#
+#Ddbb#
+#ddCc#
+#AACc#
+######
+action: (1,3)L
+######
+#AA  #
+#CcBB#
+#Ddbb#
+#ddCc#
+#AACc#
+######
+action: (2,3)U
+######
+#AAB #
+#CcbB#
+#Dd b#
+#ddCc#
+#AACc#
+######
+action: (2,4)U
+######
+#AABB#
+#Ccbb#
+#Dd  #
+#ddCc#
+#AACc#
+######
+action: (4,3)U
+######
+#AABB#
+#Ccbb#
+#DdCc#
+#dd  #
+#AACc#
+######
+action: (5,3)U
+######
+#AABB#
+#Ccbb#
+#DdCc#
+#ddCc#
+#AA  #
+######
+action: (5,2)R
+######
+#AABB#
+#Ccbb#
+#DdCc#
+#ddCc#
+#A A #
+######
+action: (5,3)R
+######
+#AABB#
+#Ccbb#
+#DdCc#
+#ddCc#
+#A  A#
+######
+action: (5,1)R
+######
+#AABB#
+#Ccbb#
+#DdCc#
+#ddCc#
+# A A#
+######
+action: (5,2)R
+######
+#AABB#
+#Ccbb#
+#DdCc#
+#ddCc#
+#  AA#
+######
+action: (3,1)D
+######
+#AABB#
+#Ccbb#
+#  Cc#
+#DdCc#
+#ddAA#
 ######
 action: (3,3)L
 ######
-#CcDd#
-#AAdd#
-#BB A#
-#bb A#
-#CcCc#
-######
-action: (3,4)L
-######
-#CcDd#
-#AAdd#
-#BBA #
-#bb A#
-#CcCc#
-######
-action: (3,3)D
-######
-#CcDd#
-#AAdd#
-#BB  #
-#bbAA#
-#CcCc#
-######
-action: (1,3)D
-######
-#Cc  #
-#AADd#
-#BBdd#
-#bbAA#
-#CcCc#
-######
-action: (1,1)R
-######
+#AABB#
+#Ccbb#
 # Cc #
-#AADd#
-#BBdd#
-#bbAA#
-#CcCc#
+#DdCc#
+#ddAA#
 ######
-action: (1,2)R
+action: (3,2)L
 ######
-#  Cc#
-#AADd#
-#BBdd#
-#bbAA#
-#CcCc#
-######
-action: (2,2)U
-######
-# ACc#
-#A Dd#
-#BBdd#
-#bbAA#
-#CcCc#
-######
-action: (2,1)U
-######
-#AACc#
-#  Dd#
-#BBdd#
-#bbAA#
-#CcCc#
-######
-action: (3,2)U
-######
-#AACc#
-# BDd#
-#Bbdd#
-#b AA#
-#CcCc#
-######
-action: (3,1)U
-######
-#AACc#
-#BBDd#
-#bbdd#
-#  AA#
-#CcCc#
-######
-action: (5,1)U
-######
-#AACc#
-#BBDd#
-#bbdd#
-#CcAA#
-#  Cc#
-######
-action: (5,3)L
-######
-#AACc#
-#BBDd#
-#bbdd#
-#CcAA#
-# Cc #
-######
-action: (5,2)L
-######
-#AACc#
-#BBDd#
-#bbdd#
-#CcAA#
+#AABB#
+#Ccbb#
 #Cc  #
+#DdCc#
+#ddAA#
 ######
-action: (4,4)D
+action: (4,3)U
 ######
-#AACc#
-#BBDd#
-#bbdd#
-#CcA #
-#Cc A#
-######
-action: (4,3)D
-######
-#AACc#
-#BBDd#
-#bbdd#
-#Cc  #
-#CcAA#
-######
-action: (2,3)D
-######
-#AACc#
-#BB  #
-#bbDd#
-#Ccdd#
-#CcAA#
-######
-action: (1,3)D
-######
-#AA  #
-#BBCc#
-#bbDd#
-#Ccdd#
-#CcAA#
-######
-action: (1,2)R
-######
-#A A #
-#BBCc#
-#bbDd#
-#Ccdd#
-#CcAA#
-######
-action: (1,3)R
-######
-#A  A#
-#BBCc#
-#bbDd#
-#Ccdd#
-#CcAA#
-######
-action: (1,1)R
-######
-# A A#
-#BBCc#
-#bbDd#
-#Ccdd#
-#CcAA#
-######
-action: (1,2)R
-######
-#  AA#
-#BBCc#
-#bbDd#
-#Ccdd#
-#CcAA#
-######
-action: (2,1)U
-######
-#B AA#
-#bBCc#
-# bDd#
-#Ccdd#
-#CcAA#
-######
-action: (2,2)U
-######
-#BBAA#
-#bbCc#
-#  Dd#
-#Ccdd#
-#CcAA#
-######
-action: (4,1)U
-######
-#BBAA#
-#bbCc#
-#CcDd#
-#  dd#
-#CcAA#
-######
-action: (5,1)U
-######
-#BBAA#
-#bbCc#
-#CcDd#
-#Ccdd#
-#  AA#
-######
-action: (5,3)L
-######
-#BBAA#
-#bbCc#
-#CcDd#
-#Ccdd#
-# A A#
-######
-action: (5,2)L
-######
-#BBAA#
-#bbCc#
-#CcDd#
-#Ccdd#
-#A  A#
-######
-action: (5,4)L
-######
-#BBAA#
-#bbCc#
-#CcDd#
-#Ccdd#
-#A A #
-######
-action: (5,3)L
-######
-#BBAA#
-#bbCc#
-#CcDd#
-#Ccdd#
-#AA  #
-######
-action: (3,3)D
-######
-#BBAA#
-#bbCc#
-#Cc  #
-#CcDd#
-#AAdd#
-######
-action: (3,1)R
-######
-#BBAA#
-#bbCc#
-# Cc #
-#CcDd#
-#AAdd#
-######
-action: (3,2)R
-######
-#BBAA#
-#bbCc#
-#  Cc#
-#CcDd#
-#AAdd#
-######
-action: (4,1)U
-######
-#BBAA#
-#bbCc#
+#AABB#
+#Ccbb#
 #CcCc#
-#  Dd#
-#AAdd#
+#Dd  #
+#ddAA#
 ######
-action: (5,2)U
+action: (5,3)U
 ######
-#BBAA#
-#bbCc#
+#AABB#
+#Ccbb#
 #CcCc#
-# ADd#
-#A dd#
+#DdA #
+#dd A#
 ######
-action: (4,2)L
+action: (4,3)R
 ######
-#BBAA#
-#bbCc#
+#AABB#
+#Ccbb#
 #CcCc#
-#A Dd#
-#A dd#
+#Dd A#
+#dd A#
 ######
-action: (4,3)L
+action: (4,1)R
 ######
-#BBAA#
-#bbCc#
+#AABB#
+#Ccbb#
 #CcCc#
-#ADd #
-#Add #
+# DdA#
+# ddA#
 ######
 Number of moves: 158
-Number of vertices examined: 118685
-27.8235 [s]
+Number of vertices examined: 118607
+3.76775 [s]
 
 Level 55
 Sequence of moves: 
@@ -2241,31 +2241,31 @@ Sequence of moves:
 # Ccb#
 # ACc#
 ######
+action: (5,2)L
+######
+#AAAB#
+#DdBb#
+#ddbB#
+# Ccb#
+#A Cc#
+######
+action: (5,3)L
+######
+#AAAB#
+#DdBb#
+#ddbB#
+# Ccb#
+#ACc #
+######
 action: (4,2)L
 ######
 #AAAB#
 #DdBb#
 #ddbB#
 #Cc b#
-# ACc#
-######
-action: (5,2)L
-######
-#AAAB#
-#DdBb#
-#ddbB#
-#Cc b#
-#A Cc#
+#ACc #
 ######
 action: (2,3)D
-######
-#AAAB#
-#Dd b#
-#ddBB#
-#Ccbb#
-#A Cc#
-######
-action: (5,3)L
 ######
 #AAAB#
 #Dd b#
@@ -2281,31 +2281,31 @@ action: (3,4)D
 #CcbB#
 #ACcb#
 ######
-action: (1,3)D
+action: (1,4)D
 ######
-#AA B#
-#DdAb#
-#ddB #
+#AAA #
+#Dd B#
+#ddBb#
 #CcbB#
 #ACcb#
 ######
-action: (1,4)D
+action: (1,3)R
 ######
-#AA  #
-#DdAB#
+#AA A#
+#Dd B#
 #ddBb#
 #CcbB#
 #ACcb#
 ######
 action: (1,2)R
 ######
-#A A #
-#DdAB#
+#A AA#
+#Dd B#
 #ddBb#
 #CcbB#
 #ACcb#
 ######
-action: (1,3)R
+action: (1,3)D
 ######
 #A  A#
 #DdAB#
@@ -2513,15 +2513,15 @@ action: (3,3)D
 #CcAB#
 #ACcb#
 ######
-action: (1,3)D
+action: (1,4)D
 ######
-#AA B#
-#DdBb#
-#ddb #
+#AAB #
+#DdbB#
+#dd b#
 #CcAB#
 #ACcb#
 ######
-action: (1,4)D
+action: (1,3)D
 ######
 #AA  #
 #DdBB#
@@ -2681,23 +2681,23 @@ action: (4,3)U
 #Cc B#
 #CcAb#
 ######
+action: (5,3)U
+######
+#AAB #
+#DdbB#
+#ddAb#
+#CcAB#
+#Cc b#
+######
 action: (2,4)U
 ######
 #AABB#
 #Ddbb#
 #ddA #
-#Cc B#
-#CcAb#
+#CcAB#
+#Cc b#
 ######
 action: (4,4)U
-######
-#AABB#
-#Ddbb#
-#ddAB#
-#Cc b#
-#CcA #
-######
-action: (5,3)U
 ######
 #AABB#
 #Ddbb#
@@ -2961,15 +2961,15 @@ action: (4,2)U
 #b Cc#
 #A Cc#
 ######
-action: (4,3)L
+action: (5,3)L
 ######
 #DdAA#
 #ddBB#
 #BAbb#
-#bCc #
-#A Cc#
+#b Cc#
+#ACc #
 ######
-action: (5,3)L
+action: (4,3)L
 ######
 #DdAA#
 #ddBB#
@@ -3409,15 +3409,15 @@ action: (4,1)U
 #bAAB#
 # Ccb#
 ######
-action: (2,4)U
-######
-#ACcB#
-#ADdb#
-#Bdd #
-#bAAB#
-# Ccb#
-######
 action: (5,2)L
+######
+#ACc #
+#ADdB#
+#Bddb#
+#bAAB#
+#Cc b#
+######
+action: (2,4)U
 ######
 #ACcB#
 #ADdb#
@@ -3674,10 +3674,10 @@ action: (4,3)L
 #Add #
 ######
 Number of moves: 179
-Number of vertices examined: 133551
-32.394 [s]
+Number of vertices examined: 133561
+4.61528 [s]
 
 Level 48
 Number of vertices examined: 24489
-5.88425 [s]
+0.786541 [s]
 

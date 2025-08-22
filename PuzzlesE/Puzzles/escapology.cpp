@@ -11,6 +11,7 @@ constexpr auto PUZ_GOAL = '.';
 constexpr auto PUZ_BLUE = '!';
 
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr string_view dirs = "urdl";
 
 struct puz_game
 {
@@ -77,7 +78,6 @@ struct puz_state
 
 bool puz_state::make_move(int i)
 {
-    string dirs = "lrud";
     char dir = dirs[i];
     bool can_move = false;
     Position os = offset[i];

@@ -19,7 +19,7 @@ move: rdL
 #####
 Number of moves: 2
 Number of vertices examined: 4
-0.00338961 [s]
+0.0009453 [s]
 
 Level 2
 Sequence of moves: 
@@ -46,31 +46,31 @@ move: D
 # *.  #
 #  *  #
 #######
-move: lU
+move: rdrruuL
 #######
-#*  # #
-#@. $ #
+#.  # #
+#$.$@ #
 #   $ #
 # *.  #
 #  *  #
 #######
-move: rrddrruL
+move: rddllullU
 #######
 #*  # #
-# . $ #
+#@.$  #
+#   $ #
+# *.  #
+#  *  #
+#######
+move: rdrdrruL
+#######
+#*  # #
+# .$  #
 #  $@ #
 # *.  #
 #  *  #
 #######
-move: ruL
-#######
-#*  # #
-# .$@ #
-#  $  #
-# *.  #
-#  *  #
-#######
-move: L
+move: uL
 #######
 #*  # #
 # *@  #
@@ -87,7 +87,7 @@ move: D
 #  *  #
 #######
 Number of moves: 7
-Number of vertices examined: 70
-0.0306518 [s]
+Number of vertices examined: 63
+0.0059712 [s]
 
 Level 100

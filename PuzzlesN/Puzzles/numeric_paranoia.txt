@@ -1,72 +1,72 @@
 Level 7X5 1
-Sequence of moves: vvvv<^<v<<<<^^^^>vvv>>^>>^^<v<^<vv
+Sequence of moves: vv<v>v<<<<<<^^^^>vvv>>>^<^>>^<<<vv
 Number of moves: 34
-Number of vertices examined: 1402
-0.0311507 [s]
+Number of vertices examined: 8527
+0.0436212 [s]
 
 Level 7X5 2
-Sequence of moves: >^<^^^>vv>^^>vvv<v>>^>v>^^<^>^<<vv
+Sequence of moves: >^<^>>>v<v>>^>v>^^<^>^<<<<<<v>>>>v
 Number of moves: 34
-Number of vertices examined: 6063
-0.0831243 [s]
+Number of vertices examined: 8924
+0.0431305 [s]
 
 Level 7X5 3
-Sequence of moves: v>^^^>vvvv<<<^<<^^>v>^>^<<<<vvvv>>
+Sequence of moves: v>^^<^>>vvvv<<<^<<^>>^^<v<^<vvvv>>
 Number of moves: 34
-Number of vertices examined: 15093
-0.194947 [s]
+Number of vertices examined: 25608
+0.123875 [s]
 
 Level 7X5 4
-Sequence of moves: vv>^^^<^>>vv>v<v>>^>v>^^<^>^<<<v>v
+Sequence of moves: vv>>^<^>>vv>^>v>^^<^>^<<<<<<v>>>>v
 Number of moves: 34
-Number of vertices examined: 3072
-0.0406191 [s]
+Number of vertices examined: 461
+0.0029438 [s]
 
 Level 7X5 5
 Sequence of moves: <<v<^<<<v>>v>v<<^<vv>>>>>>^^^<vv<^
 Number of moves: 34
-Number of vertices examined: 1880
-0.0260789 [s]
+Number of vertices examined: 11612
+0.053282 [s]
 
 Level 7X5 6
 Sequence of moves: ^>vv<<^^^^>>>>vvv>^^^>vvvv<<<^^^<<
 Number of moves: 34
-Number of vertices examined: 3465
-0.04625 [s]
+Number of vertices examined: 2074
+0.0097016 [s]
 
 Level 7X5 7
-Sequence of moves: ^^^^<vv<v>v<<^<<^^>v>^>^<<<<vvvv>>
+Sequence of moves: <^>^<^>^<<vvvv<^<<^>>^^<v<^<vvvv>>
 Number of moves: 34
-Number of vertices examined: 4040
-0.0523933 [s]
+Number of vertices examined: 15087
+0.0972402 [s]
 
 Level 7X5 8
 Sequence of moves: <^>^<<vvvv>>>>^>v>^^<^>^<<<v>v<v<<
 Number of moves: 34
-Number of vertices examined: 553
-0.00901963 [s]
+Number of vertices examined: 1656
+0.0090734 [s]
 
 Level 8X6 1
-Sequence of moves: ^^>^^>vvv<v>>^^^^^<<<vv<v<^^>^<<<v>v<v>v<v>>>^<
+Sequence of moves: ^^>^>vv<v>>^^^^^<v<^<vv<v<^<^>>^<<<vvv>v<v>>>^<
 Number of moves: 47
-Number of vertices examined: 24899
-0.334738 [s]
+Number of vertices examined: 64271
+0.345269 [s]
 
 Level 8X6 2
 Sequence of moves: ^>v>>>>^>v>^^<<^>>^^<v<^<<<<<v>>>>vvv<<^>^<<<v>
 Number of moves: 47
-Number of vertices examined: 25706
-0.346699 [s]
+Number of vertices examined: 2548
+0.0124915 [s]
 
 Level 8X6 3
-Sequence of moves: v<^<v<^^^<^>>>v<v>>^^^<<<<<v<^<vv>>v>vv<^<^<vv>
+Sequence of moves: v<^<v<^^>^<<^>>>vv>^^^<<<<<<<vv>^>vv>vv<^<^<vv>
 Number of moves: 47
-Number of vertices examined: 453796
-8.1992 [s]
+Number of vertices examined: 702839
+4.43214 [s]
 
 Level 8X6 4
-Sequence of moves: ^^>>>>vvvvv<<<<<<<^^>v>>>>>^<^>^<<vv<<^<<^^>>v<
+Sequence of moves: ^<^>>>>>vvv<v>v<<<<<<<^^>v>>>>^^>^<<vv<<^<<^^>v
 Number of moves: 47
-Number of vertices examined: 124671
-2.36058 [s]
+Number of vertices examined: 14723
+0.0843741 [s]
 

@@ -2,101 +2,96 @@ Level 1
 Sequence of moves: rrrdrrrurrr
 Number of moves: 11
 Number of vertices examined: 12
-0.0124705 [s]
+0.0014683 [s]
 
 Level 2
-Sequence of moves: rrrddddluullddru
+Sequence of moves: rrrddlllddrrrull
 Number of moves: 16
-Number of vertices examined: 33
-0.00402161 [s]
+Number of vertices examined: 28
+0.001589 [s]
 
 Level 3
-Sequence of moves: drurdruulurrurrddulddrrdlllu
+Sequence of moves: drurdruulurrurdruddldrrdlllu
 Number of moves: 28
-Number of vertices examined: 89
-0.0220351 [s]
+Number of vertices examined: 488
+0.0366204 [s]
 
 Level 4
-Sequence of moves: rrdrurrdruulddludlulldl
+Sequence of moves: rrlrrrdlrrrluurdllldlll
 Number of moves: 23
-Number of vertices examined: 62
-0.013606 [s]
+Number of vertices examined: 68
+0.0049509 [s]
 
 Level 5
-Sequence of moves: rrrrdrrurdrdrrulurrdddllllulldlulllddluudddrlrruur
+Sequence of moves: rrrrdrrurdrrurrdldrdlluldlulldlulllldddrlrrullurrr
 Number of moves: 50
-Number of vertices examined: 146
-0.0522506 [s]
+Number of vertices examined: 469
+0.0475346 [s]
 
 Level 6
-Sequence of moves: rrrrrddrruurdrurddlduldlllluuuullll
+Sequence of moves: rrrrdddrrrrrurllurrulllddlluulullll
 Number of moves: 35
-Number of vertices examined: 78
-0.0235958 [s]
+Number of vertices examined: 86
+0.0092562 [s]
 
 Level 7
-Sequence of moves: ddddluuuuuldddddluuurrullldlrdddlluruluuuurdduuurddrurrrd
+Sequence of moves: ddlldrrdlllllluurdrrulullurrdrrrlrullrrulllllrulrurdrrrrd
 Number of moves: 57
-Number of vertices examined: 8105
-2.97821 [s]
+Number of vertices examined: 748
+0.117237 [s]
 
 Level 8
-Sequence of moves: rulldluldluuuurrddlrrrruurdldrdd
+Sequence of moves: rulldlllurrulluurrddrrruduurdddd
 Number of moves: 32
-Number of vertices examined: 191
-0.0546244 [s]
+Number of vertices examined: 101
+0.0104639 [s]
 
 Level 9
-Sequence of moves: rrurdruuruuldllduluudruduuurddr
+Sequence of moves: rrurdruuruuldlldulurlrulruurddr
 Number of moves: 31
-Number of vertices examined: 895
-0.21277 [s]
+Number of vertices examined: 815
+0.0674231 [s]
 
 Level 10
-Sequence of moves: druduulrllddrluulddulduuulurlurdddrrruluuuluurrdddduuurdddrruluuullllld
+Sequence of moves: llrulrrrlrddudllrlllurlllllldrdllluulrulddrdlllllrulluurrddurdruullllld
 Number of moves: 71
-Number of vertices examined: 2619
-0.755136 [s]
+Number of vertices examined: 38752
+6.93946 [s]
 
 Level 11
-Sequence of moves: rrrrrrddrrulurrddddddlurulullluulllrlllddurdld
+Sequence of moves: rrrrrrdrurrdldrdddldruulululdluulllrlllddurdld
 Number of moves: 46
-Number of vertices examined: 174
-0.0690627 [s]
+Number of vertices examined: 1437
+0.223867 [s]
 
 Level 12
-Sequence of moves: lluuuudulddudddluuduuuduuudurdurdurdddddduuuuuur
+Sequence of moves: lullldrrruullldurulrlurlurlurlrrdddrduluruduulrr
 Number of moves: 48
-Number of vertices examined: 427
-0.139743 [s]
+Number of vertices examined: 96
+0.0161158 [s]
 
 Level 13
-Sequence of moves: rrrldluuurdrddrdddlllurrlrrrdruuluruuulddluuludullldd
+Sequence of moves: ruddrrrdddlllurrlrrrdruulurullllrlurrrrulllulrdlluldd
 Number of moves: 53
-Number of vertices examined: 10225
-3.96266 [s]
+Number of vertices examined: 230
+0.045689 [s]
 
 Level 15
-Sequence of moves: rddrrrulrrdrrddluldllllllllluurdurrurrdldrrrrrururdr
+Sequence of moves: dlddrrrurdlluulllddlurrrddrrrruuulrrrrdllddrrullurrr
 Number of moves: 52
-Number of vertices examined: 1810
-0.944439 [s]
+Number of vertices examined: 862
+0.103573 [s]
 
 Level 16
-Sequence of moves: dddddddluuduuullddluuurrrullllruulldddrdduuldddrrrru
+Sequence of moves: dlllddddluluulrluuurrddlrddllddrrrrrddrulurulurulldd
 Number of moves: 52
-Number of vertices examined: 309
-0.11725 [s]
+Number of vertices examined: 10363
+1.85789 [s]
 
 Level 17
-Sequence of moves: ldluurrrrdddruuuullludluduulddudldddluduuudurulldddddrdurdrurdruurdduuu
+Sequence of moves: lllllurudddldrdrrrrrulllllurrrrrrldrruulurullllllllurrddrrulurlurdrddrd
 Number of moves: 71
-Number of vertices examined: 1115
-0.823377 [s]
+Number of vertices examined: 340644
+45.9475 [s]
 
 Level 19
-Sequence of moves: rrdrdddudddluuuldddluruluuurdurrurdddruurdduddruuuluurrullldrrd
-Number of moves: 63
-Number of vertices examined: 498324
-239.222 [s]
-

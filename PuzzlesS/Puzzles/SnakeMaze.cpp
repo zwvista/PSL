@@ -32,9 +32,9 @@ constexpr auto PUZ_SNAKE_SIZE = 5;
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-const string_view dirs = "^>v<";
-const string_view space_str = "     ";
-const string_view snake_str = "12345";
+constexpr string_view dirs = "^>v<";
+constexpr string_view space_str = "     ";
+constexpr string_view snake_str = "12345";
 
 struct puz_hint
 {

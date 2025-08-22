@@ -23,8 +23,7 @@ constexpr auto PUZ_BALL = 'O';
 constexpr auto PUZ_BLOCK = '#';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
-const string_view dirs = "^>v<";
+constexpr string_view dirs = "^>v<";
 
 struct puz_game
 {

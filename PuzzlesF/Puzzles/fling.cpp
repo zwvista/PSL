@@ -13,6 +13,7 @@ namespace puzzles::fling{
 constexpr auto PUZ_BALL = '@';
 
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr string_view dirs = "urdl";
 
 struct puz_game
 {
@@ -73,7 +74,6 @@ struct puz_state
 
 bool puz_state::make_move(const Position& p, int i)
 {
-    static string_view dirs = "lrud";
     Position os = offset[i];
     vector<Position> moved_balls;
 

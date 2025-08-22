@@ -99,7 +99,7 @@ struct puz_state2 : puz_state_base
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    static string_view dirs = "lrud";
+    static string_view dirs = "urdl";
     for (int i = 0; i < 4; ++i) {
         Position p = m_man + offset[i];
         char ch = cells(p);
@@ -118,7 +118,7 @@ puz_state::puz_state(const puz_state2& x2)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    static string_view dirs = "LRUD";
+    static string_view dirs = "URDL";
     auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
     for (const puz_state2& s : smoves)
         for (int i = 0; i < 4; ++i) {

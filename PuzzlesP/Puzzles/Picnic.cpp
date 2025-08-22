@@ -31,8 +31,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_BLANKET = 'B';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
-const string_view dirs = "^>v<";
+constexpr string_view dirs = "^>v<";
 
 struct puz_game
 {
