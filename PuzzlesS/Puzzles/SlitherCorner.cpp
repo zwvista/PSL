@@ -47,12 +47,7 @@ constexpr array<Position, 4> offset = Position::Directions4;
             cell(0,0)
     dot(1,0)         dot(1,1)
 */
-constexpr Position offset2[] = {
-    {0, 0},         // nw
-    {0, 1},         // ne
-    {1, 0},         // sw
-    {1, 1},         // se
-};
+constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
 
 struct puz_game
 {

@@ -29,6 +29,7 @@ struct Position :
     static const std::array<Position, 4> Directions4;
     static const std::array<Position, 8> Directions8;
     static const std::array<Position, 4> WallsOffset4;
+    static const std::array<Position, 4> Square2x2Offset;
 };
 
 inline constexpr Position Position::North{-1,  0};
@@ -64,6 +65,13 @@ inline constexpr std::array<Position, 4> Position::WallsOffset4{
     Position::East,
     Position::South,
     Position::Zero, // West
+};
+
+inline constexpr std::array<Position, 4> Position::Square2x2Offset{
+    Position::Zero,        // 2*2 nw
+    Position::East,        // 2*2 ne
+    Position::South,       // 2*2 sw
+    Position::SouthEast,   // 2*2 se
 };
 
 Position parse_position(const std::string& str);

@@ -37,12 +37,7 @@ constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-constexpr Position offset2[] = {
-    {0, 0},        // 2*2 nw
-    {0, 1},        // 2*2 ne
-    {1, 0},        // 2*2 sw
-    {1, 1},        // 2*2 se
-};
+constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
 
 struct puz_game
 {

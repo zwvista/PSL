@@ -28,12 +28,7 @@ constexpr auto PUZ_OASIS = 'S';
 constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-constexpr Position offset2[] = {
-    {0, 0},
-    {0, 1},
-    {1, 0},
-    {1, 1},
-};
+constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
 
 // 4. Dunes cannot touch each other horizontally or vertically.
 // 5. No area of desert of 2x2 should be empty of Dunes.

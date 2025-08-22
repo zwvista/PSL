@@ -26,12 +26,7 @@ constexpr auto PUZ_CROSS = '+';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-constexpr Position offset3[] = {
-    {0, 0},        // 2*2 nw
-    {0, 1},        // 2*2 ne
-    {1, 0},        // 2*2 sw
-    {1, 1},        // 2*2 se
-};
+constexpr array<Position, 4> offset3 = Position::Square2x2Offset;
 
 // top-left and bottom-right
 using puz_box = pair<Position, Position>;

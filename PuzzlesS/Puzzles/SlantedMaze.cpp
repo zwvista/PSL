@@ -31,13 +31,7 @@ constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_TOUCHED = 1;
 constexpr auto PUZ_UNTOUCHED = 0;
 
-constexpr Position offset[] = {
-    {0, 0},    // nw
-    {0, 1},    // ne
-    {1, 1},    // se
-    {1, 0},    // sw
-};
-
+constexpr array<Position, 4> offset = Position::Square2x2Offset;
 constexpr Position offset2[] = {
     {-1, -1},    // nw
     {-1, 1},        // ne
