@@ -28,12 +28,7 @@ constexpr auto PUZ_NEGATIVE = '-';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_UNKNOWN = 9999;
 
-constexpr Position offset[] = {
-    {0, 1},
-    {1, 0},
-    {0, -1},
-    {-1, 0},
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 using puz_chars = vector<char>;
 const puz_chars all_chars = {PUZ_POSITIVE, PUZ_NEGATIVE, PUZ_EMPTY};

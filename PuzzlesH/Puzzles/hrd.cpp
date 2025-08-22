@@ -7,12 +7,7 @@ namespace puzzles::hrd{
 
 enum EBrickType {bt1X1, bt2X1, bt1X2, bt2X2};
 
-constexpr Position offset[] = {
-    {0, -1},
-    {0, 1},
-    {-1, 0},
-    {1, 0},
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 using brick_map = map<Position, EBrickType>;
 using brick_pair = pair<const Position, EBrickType>;

@@ -16,12 +16,7 @@ constexpr auto PUZ_GLASS = '!';
 constexpr auto PUZ_COLORED = 'o';
 constexpr auto PUZ_SPACE = ' ';
 
-constexpr Position offset[] = {
-    {1, 0},
-    {0, 1},
-    {-1, 0},
-    {0, -1},
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_game
 {

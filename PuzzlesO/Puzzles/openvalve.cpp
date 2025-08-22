@@ -13,12 +13,8 @@ constexpr auto PUZ_PIPE_I = 'I';        // "─","│"
 constexpr auto PUZ_PIPE_3 = '3';        // "├","┤","┬","┴"
 constexpr auto PUZ_PIPE_4 = '4';        // "┼"
 
-constexpr Position offset[] = {
-    {0, -1},
-    {0, 1},
-    {-1, 0},
-    {1, 0},
-};
+constexpr array<Position, 4> offset = Position::Directions4;
+
 const string dirs = "wensewsn";
 const string pipes = "LI34";
 constexpr int pipe_offset[] = {0, 4, 6, 10, 11};

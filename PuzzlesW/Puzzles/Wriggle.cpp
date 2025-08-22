@@ -12,12 +12,7 @@ constexpr auto PUZ_BOX = '#';
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_GOAL = '.';
 
-constexpr Position offset[] = {
-    {0, -1},
-    {0, 1},
-    {-1, 0},
-    {1, 0},
-};
+constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_game
 {
