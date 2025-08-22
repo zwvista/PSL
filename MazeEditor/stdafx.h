@@ -51,6 +51,7 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <array>
 #include <boost/signals2.hpp>
 #include <boost/range/algorithm.hpp>
 #include <boost/range/algorithm_ext.hpp>
