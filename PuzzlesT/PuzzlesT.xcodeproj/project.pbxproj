@@ -534,7 +534,6 @@
 /* Begin XCConfigurationList section */
 		8CA23EBF1EA9233C0055D6B1 /* Build configuration list for PBXProject "PuzzlesT" */ = {
 			isa = XCConfigurationList;
-			baseConfigurationReference = ../BoostSettings.xcconfig; /* BoostSettings.xcconfig */;
 			buildConfigurations = (
 				8CA23EC91EA9233C0055D6B1 /* Debug */,
 				8CA23ECA1EA9233C0055D6B1 /* Release */,
@@ -544,7 +543,6 @@
 		};
 		8CA23ECB1EA9233C0055D6B1 /* Build configuration list for PBXNativeTarget "PuzzlesT" */ = {
 			isa = XCConfigurationList;
-			baseConfigurationReference = ../BoostSettings.xcconfig; /* BoostSettings.xcconfig */;
 			buildConfigurations = (
 				8CA23ECC1EA9233C0055D6B1 /* Debug */,
 				8CA23ECD1EA9233C0055D6B1 /* Release */,
