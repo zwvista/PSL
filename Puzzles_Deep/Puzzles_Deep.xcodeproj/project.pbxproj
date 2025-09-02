@@ -335,7 +335,6 @@
 		};
 		8CA23ECC1EA9233C0055D6B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D5994542E66AC4B00BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				DEAD_CODE_STRIPPING = YES;
@@ -345,7 +344,6 @@
 		};
 		8CA23ECD1EA9233C0055D6B1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D5994542E66AC4B00BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				DEAD_CODE_STRIPPING = YES;

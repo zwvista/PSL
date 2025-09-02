@@ -24,6 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7D59946F2E66F2F800BBE136 /* BoostSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BoostSettings.xcconfig; path = ../BoostSettings.xcconfig; sourceTree = SOURCE_ROOT; };
 		8CA23EC41EA9233C0055D6B1 /* CopyCProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CopyCProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F181EA925F20055D6B1 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
@@ -45,6 +46,7 @@
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
+				7D59946F2E66F2F800BBE136 /* BoostSettings.xcconfig */,
 				8CD36D981EBF214000F02FF8 /* CopyCProject.cpp */,
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
 				8CA23F181EA925F20055D6B1 /* stdafx.h */,
@@ -131,6 +133,7 @@
 /* Begin XCBuildConfiguration section */
 		8CA23EC91EA9233C0055D6B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D59946F2E66F2F800BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -191,6 +194,7 @@
 		};
 		8CA23ECA1EA9233C0055D6B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D59946F2E66F2F800BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;

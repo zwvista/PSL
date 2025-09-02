@@ -31,6 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7D5994612E66F22100BBE136 /* BoostSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BoostSettings.xcconfig; path = ../BoostSettings.xcconfig; sourceTree = SOURCE_ROOT; };
 		8C5F129B2DE378AD00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F129C2DE378AD00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8CA23EC41EA9233C0055D6B1 /* PuzzlesK */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesK; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +88,7 @@
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
+				7D5994612E66F22100BBE136 /* BoostSettings.xcconfig */,
 				8CA23F1B1EA926F60055D6B1 /* PSL */,
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
@@ -232,6 +234,7 @@
 /* Begin XCBuildConfiguration section */
 		8CA23EC91EA9233C0055D6B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D5994612E66F22100BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -292,6 +295,7 @@
 		};
 		8CA23ECA1EA9233C0055D6B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D5994612E66F22100BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;

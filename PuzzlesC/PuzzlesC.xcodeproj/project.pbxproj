@@ -48,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7D5994592E66F19400BBE136 /* BoostSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BoostSettings.xcconfig; path = ../BoostSettings.xcconfig; sourceTree = SOURCE_ROOT; };
 		8C002FA02E5761E80052FA07 /* CastlePatrol2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CastlePatrol2.cpp; sourceTree = "<group>"; };
 		8C002FA12E5761E80052FA07 /* CastlePatrol2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CastlePatrol2.txt; sourceTree = "<group>"; };
 		8C002FA22E5761E80052FA07 /* ColorMaze.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ColorMaze.cpp; sourceTree = "<group>"; };
@@ -156,6 +157,7 @@
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
+				7D5994592E66F19400BBE136 /* BoostSettings.xcconfig */,
 				8CA23F1B1EA926F60055D6B1 /* PSL */,
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
@@ -370,6 +372,7 @@
 /* Begin XCBuildConfiguration section */
 		8CA23EC91EA9233C0055D6B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D5994592E66F19400BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -430,6 +433,7 @@
 		};
 		8CA23ECA1EA9233C0055D6B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D5994592E66F19400BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;

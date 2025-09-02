@@ -43,6 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7D5994582E66F18600BBE136 /* BoostSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BoostSettings.xcconfig; path = ../BoostSettings.xcconfig; sourceTree = SOURCE_ROOT; };
 		8C5F128B2DE377CE00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F128C2DE377CE00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C6854311FF000D500C592FD /* Bridges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridges.h; sourceTree = "<group>"; };
@@ -140,6 +141,7 @@
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
+				7D5994582E66F18600BBE136 /* BoostSettings.xcconfig */,
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
 				8CA23EC51EA9233C0055D6B1 /* Products */,
 				8CA23F1B1EA926F60055D6B1 /* PSL */,
@@ -338,6 +340,7 @@
 /* Begin XCBuildConfiguration section */
 		8CA23EC91EA9233C0055D6B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D5994582E66F18600BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -398,6 +401,7 @@
 		};
 		8CA23ECA1EA9233C0055D6B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D5994582E66F18600BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;

@@ -52,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7D5994682E66F28600BBE136 /* BoostSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BoostSettings.xcconfig; path = ../BoostSettings.xcconfig; sourceTree = SOURCE_ROOT; };
 		8C269F3D1F66809100489ADC /* Snake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Snake.cpp; sourceTree = "<group>"; };
 		8C269F3E1F66809100489ADC /* Snake.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Snake.txt; sourceTree = "<group>"; };
 		8C269F3F1F66809100489ADC /* Snake.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Snake.xml; sourceTree = "<group>"; };
@@ -170,6 +171,7 @@
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
+				7D5994682E66F28600BBE136 /* BoostSettings.xcconfig */,
 				8CA23F1B1EA926F60055D6B1 /* PSL */,
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
@@ -398,6 +400,7 @@
 /* Begin XCBuildConfiguration section */
 		8CA23EC91EA9233C0055D6B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D5994682E66F28600BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -458,6 +461,7 @@
 		};
 		8CA23ECA1EA9233C0055D6B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D5994682E66F28600BBE136 /* BoostSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
