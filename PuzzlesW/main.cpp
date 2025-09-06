@@ -33,7 +33,7 @@ int main(int argc, char **argv)
         else if (str == "a3") solve_puz_WallSentinels();
         else if (str == "a4") solve_puz_Warehouse();
         else if (str == "a5") solve_puz_WaterConnect();
-        else if (str == "a5") solve_puz_WaterSort();
+        else if (str == "a6") solve_puz_WaterSort();
         else if (str == "i1") solve_puz_WildlifePark();
         else if (str == "i2") solve_puz_WishSandwich();
         else if (str == "r") solve_puz_Wriggle();
