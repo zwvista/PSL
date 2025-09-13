@@ -441,9 +441,9 @@ void CMazeEditorView::OnEditPaste()
 void CMazeEditorView::OnMazeResized()
 {
     CString str;
-    str.Format(_T("%d"), cols());
-    m_pEditHeight->SetEditText(str);
     str.Format(_T("%d"), rows());
+    m_pEditHeight->SetEditText(str);
+    str.Format(_T("%d"), cols());
     m_pEditWidth->SetEditText(str);
 }
 
