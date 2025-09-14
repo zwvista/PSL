@@ -8,7 +8,7 @@ B C B C A A
 B a C a C b 
 Number of moves: 8
 Number of vertices examined: 12
-0.0011222 [s]
+0.0031694 [s]
 
 Level 2
 Sequence of moves: 
@@ -20,5 +20,23 @@ A B A C C B
 A A C B B c 
 Number of moves: 5
 Number of vertices examined: 6
-0.0002692 [s]
+0.0027091 [s]
+
+Level 400
+Sequence of moves: 
+C C a C C B B A A B B a 
+C C B C A A A B A c B B 
+C a C B A B B B C A C A 
+B B B C B C C C A A A A 
+A C A C B A A B B c B C 
+B B B A B C A A C A C C 
+B c B A A C C C A A B B 
+B A C b A C B A C B A C 
+c B C A C a B A C B A b 
+A B C A B B C C B C A A 
+A A A B C A C B B C C b 
+A A A B C b A C B B C C 
+Number of moves: 27
+Number of vertices examined: 30029
+0.95358 [s]
 
