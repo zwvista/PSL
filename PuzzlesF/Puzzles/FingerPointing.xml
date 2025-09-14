@@ -9,15 +9,15 @@
 <levels>
   <level id="1">
     <![CDATA[
-B3  `
+O3  `
    1`
-4  B`
+4  O`
   2 `
     ]]>
   </level>
   <level id="2">
     <![CDATA[
-B5 B`
+O5 O`
    1`
     `
   5 `
@@ -25,11 +25,24 @@ B5 B`
   </level>
   <level id="36">
     <![CDATA[
-B5  B`
-  B4 `
+O5  O`
+  O4 `
      `
-B    `
-3  4B`
+O    `
+3  4O`
+    ]]>
+  </level>
+  <level id="281">
+    <![CDATA[
+  O   7  `
+     O  O`
+AO   8   `
+   AO    `
+       O `
+ O  3O  5`
+  3     O`
+O  O  O  `
+   9  5  `
     ]]>
   </level>
 </levels>

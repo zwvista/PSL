@@ -19,7 +19,7 @@
 namespace puzzles::FingerPointing{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_BLOCK = 'B';
+constexpr auto PUZ_BLOCK = 'O';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 constexpr string_view dirs = "^>v<";
@@ -80,9 +80,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_cells.push_back(PUZ_BLOCK);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
+            if (ch != PUZ_BLOCK && ch != PUZ_SPACE)
+                m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
             m_cells.push_back(ch);
-            if (isdigit(ch))
-                m_pos2num[{r, c}] = ch - '0';
         }
         m_cells.push_back(PUZ_BLOCK);
     }
@@ -187,8 +187,8 @@ void puz_state::gen_children(list<puz_state>& children) const
     auto& [_1, move_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
-            return kv1.second.size() < kv2.second.size();
-        });
+        return kv1.second.size() < kv2.second.size();
+    });
     for (int n : move_ids)
         if (children.push_back(*this); !children.back().make_move(n))
             children.pop_back();
@@ -198,7 +198,12 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c)
-            out << cells({r, c}) << ' ';
+            if (auto it = m_game->m_pos2num.find({r, c}); it != m_game->m_pos2num.end())
+                out << format("{:2} ", it->second);
+            else if (char ch = cells({r, c}); ch != PUZ_SPACE)
+                out << format(" {} ", ch);
+            else
+                out << " . ";
         println(out);
     }
     return out;
