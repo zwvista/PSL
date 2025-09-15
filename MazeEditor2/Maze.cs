@@ -115,11 +115,8 @@ namespace MazeEditor2
         public char? GetObject(Position p) =>
             pos2obj.TryGetValue(p, out var ch) ? ch : null;
 
-        public void SetObject(Position p, char ch)
-        {
+        public void SetObject(Position p, char ch) =>
             pos2obj[p] = ch;
-            CurObj = ch;
-        }
 
         public ReactiveCommand<Unit, Unit> FillAll { get; set; }
         public ReactiveCommand<Unit, Unit> FillBorderCells { get; set; }

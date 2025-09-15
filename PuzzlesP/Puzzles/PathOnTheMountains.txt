@@ -11,7 +11,7 @@ O- -   -O
 O- - -  O-  
 Number of moves: 2
 Number of vertices examined: 3
-0.0014344 [s]
+0.0009144 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,5 +26,30 @@ O-  O- - -
  - - - - -O 
 Number of moves: 1
 Number of vertices examined: 2
-0.0005594 [s]
+0.0005929 [s]
+
+Level 300
+Sequence of moves: 
+ -O  - - - - - -O  -O 
+| | |           | | | 
+   -O O- - - -        
+|     |       | | | | 
+  O- -   - - -O  -O   
+| |     |           | 
+   - -O O- - - - - -  
+|     |               
+  O-     - - -O  - -O 
+| | | | |     | |   | 
+    O-  O-  O-    O-  
+| |       | |   | |   
+   -O  -O    - -O  -O 
+|   | | | |         | 
+O-          O-  O-    
+  | | | | | | | | | | 
+ -O  -O  -O           
+|           | | | | | 
+O- - - - - -  O-  O-  
+Number of moves: 9
+Number of vertices examined: 13
+0.0050755 [s]
 
