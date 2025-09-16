@@ -88,7 +88,7 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(Position p_basket, int n);
-    bool make_move2(Position p_basket, int n);
+    void make_move2(Position p_basket, int n);
     int find_matches(bool init);
     bool is_interconnected() const;
 
@@ -133,10 +133,10 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p_basket, perm_ids[0]) ? 1 : 0;
+                return make_move2(p_basket, perm_ids[0]), 1;
             }
     }
-    return 2;
+    return is_interconnected() ? 2 : 0;
 }
 
 struct puz_state2 : Position
@@ -170,7 +170,7 @@ bool puz_state::is_interconnected() const
     return smoves.size() == boost::count_if(m_cells, is_park);
 }
 
-bool puz_state::make_move2(Position p_basket, int n)
+void puz_state::make_move2(Position p_basket, int n)
 {
     auto& [ch_dir, p_blanket] = m_game->m_pos2perms.at(p_basket)[n];
     m_pos2ch[p_basket] = ch_dir;
@@ -181,7 +181,6 @@ bool puz_state::make_move2(Position p_basket, int n)
 
     ++m_distance;
     m_matches.erase(p_basket);
-    return is_interconnected();
 }
 
 bool puz_state::make_move(Position p_basket, int n)
