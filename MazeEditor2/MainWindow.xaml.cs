@@ -66,7 +66,7 @@ namespace MazeEditor2
                     var horizontalLine = new Line
                     {
                         Stroke = hasWall ? Brushes.Brown : Brushes.Black,
-                        StrokeThickness = hasWall ? 4 : 2,
+                        StrokeThickness = hasWall ? 8 : 2,
                         X1 = startX + c * cellSize,
                         X2 = startX + (c + 1) * cellSize,
                         Y1 = startY + r * cellSize,
