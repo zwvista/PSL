@@ -66,14 +66,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, n] : m_pos2num) {
         auto& perms = m_pos2perms[p];
         for (int i = 0; i < 4; ++i) {
-            auto& os = offset[i];
             auto p2 = p;
-            for (int j = 0; j < n; ++j) {
-                if (cells(p2 += os) != PUZ_SPACE)
-                    goto next;
-            }
-            perms.emplace_back(dirs[i], p2);
-        next:;
+            if (auto& os = offset[i]; [&] {
+                for (int j = 0; j < n; ++j)
+                    if (cells(p2 += os) != PUZ_SPACE)
+                        return false;
+                return true;
+            }())
+                perms.emplace_back(dirs[i], p2);
         }
     }
 }
@@ -221,7 +221,7 @@ ostream& puz_state::dump(ostream& out) const
     println(out);
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c) {
-            char ch = cells({ r, c });
+            char ch = cells({r, c});
             out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
         }
         println(out);
