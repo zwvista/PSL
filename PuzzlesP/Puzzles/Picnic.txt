@@ -11,7 +11,7 @@ B . B .
 . . . . 
 Number of moves: 2
 Number of vertices examined: 3
-0.0011967 [s]
+0.0031853 [s]
 
 Level 36
 Sequence of moves: 
@@ -28,5 +28,32 @@ B . . B .
 . B . . B 
 Number of moves: 4
 Number of vertices examined: 5
-0.0026933 [s]
+0.0024654 [s]
+
+Level 300
+Sequence of moves: 
+. . 1v. 4>. . . . 9v
+. . . 6v. . . . . . 
+. . 7>. 3<. . . . . 
+3>. . . . . . . . . 
+. . . . 4^. . . . 2<
+. . . . 3^. 5^6<. . 
+1v. . . . . . . 3^. 
+3^. 3^. . 4>. 6^3<. 
+4>8^. . . . . . . 3<
+1>. 3^. . 4^6^2^. 4<
+
+. B . . B . B . B . 
+. . B . . . . B . . 
+. B . . B . . . . B 
+. . . B . . B . B . 
+B . B . . . . B . . 
+. B . . . B . . . . 
+. . B . . . . . . . 
+B . . B . B . B . B 
+. . . . B . B . . . 
+. B . . . B . . . B 
+Number of moves: 6
+Number of vertices examined: 11
+0.0150836 [s]
 
