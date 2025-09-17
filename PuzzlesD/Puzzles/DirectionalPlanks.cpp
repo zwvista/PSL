@@ -18,6 +18,8 @@
 namespace puzzles::DirectionalPlanks{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_QM = '?';
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
@@ -32,13 +34,18 @@ const vector<vector<Position>> planks_offset = {
     {{0, 0}, {0, 1}, {0, 2}},
 };
 
-using puz_piece = pair<Position, int>;
+struct puz_piece
+{
+    Position p_elem_0;
+    int plank_index = 0;
+};
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, pair<int, vector<puz_piece>>> m_pos2info;
+    map<Position, int> m_pos2hint;
+    map<Position, vector<puz_piece>> m_pos2pieces;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -53,8 +60,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
-            if (char ch = str[c]; ch != ' ')
-                m_pos2info[{r, c}].first = ch - '0';
+            if (char ch = str[c]; ch != PUZ_SPACE)
+                m_pos2hint[{r, c}] = ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0';
     }
 
     for (int r = 0; r < m_sidelen; ++r)
@@ -68,11 +75,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         rng.clear();
                         break;
                     }
-                    if (m_pos2info.contains(p2))
+                    if (m_pos2hint.contains(p2))
                         rng.push_back(p2);
                 }
                 if (rng.size() == 1)
-                    m_pos2info.at(rng[0]).second.emplace_back(p, i);
+                    m_pos2pieces[rng[0]].emplace_back(p, i);
             }
         }
 }
@@ -93,6 +100,7 @@ struct puz_state
     void make_move2(const Position& p, int n);
     bool check_move_planks() const;
     int find_matches(bool init);
+    int get_directions(const Position& p, int index) const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -104,7 +112,7 @@ struct puz_state
 
     const puz_game* m_game;
     map<Position, vector<int>> m_matches;
-    map<Position, puz_piece> m_pos2pieces;
+    map<Position, puz_piece> m_pos2piece;
     string m_cells;
     unsigned int m_distance = 0;
     char m_ch = 'a';
@@ -113,8 +121,8 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
 {
-    for (auto& [p, info] : g.m_pos2info)
-        for (int i = 0; i < info.second.size(); ++i)
+    for (auto& [p, pieces] : g.m_pos2pieces)
+        for (int i = 0; i < pieces.size(); ++i)
             m_matches[p].push_back(i);
     find_matches(true);
 }
@@ -122,7 +130,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, piece_ids] : m_matches) {
-        auto& [num, pieces] = m_game->m_pos2info.at(p);
+        auto& pieces = m_game->m_pos2pieces.at(p);
 
         boost::remove_erase_if(piece_ids, [&](int id) {
             auto& [p2, index] = pieces[id];
@@ -143,25 +151,33 @@ int puz_state::find_matches(bool init)
     return check_move_planks() ? 2 : 0;
 }
 
+int puz_state::get_directions(const Position& p, int index) const
+{
+    auto& rng = planks_offset[index];
+    char ch = cells(p + rng[0]);
+    int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
+        auto p2 = p + os;
+        return acc + (boost::algorithm::all_of(rng, [&](const Position& os2) {
+            auto p3 = p2 + os2;
+            if (!is_valid(p3))
+                return false;
+            char ch2 = cells(p3);
+            return ch2 == PUZ_SPACE || ch == ch2;
+            }) ? 1 : 0);
+        });
+    return n;
+}
+
 // 2. Each plank contains one number and the number tells you how many
 // directions the Plank can move, when the board is completed.
 bool puz_state::check_move_planks() const
 {
-    for (auto& [pn, piece] : m_pos2pieces) {
-        int num = m_game->m_pos2info.at(pn).first;
+    for (auto& [pn, piece] : m_pos2piece) {
+        int num = m_game->m_pos2hint.at(pn);
+        if (num == PUZ_UNKNOWN)
+            continue;
         auto& [p, index] = piece;
-        auto& rng = planks_offset[index];
-        char ch = cells(p + rng[0]);
-        int n = boost::accumulate(offset, 0, [&](int acc, const Position& os) {
-            auto p2 = p + os; 
-            return acc + (boost::algorithm::all_of(rng, [&](const Position& os2) {
-                auto p3 = p2 + os2;
-                if (!is_valid(p3))
-                    return false;
-                char ch2 = cells(p3);
-                return ch2 == PUZ_SPACE || ch == ch2;
-            }) ? 1 : 0);
-        });
+        int n = get_directions(p, index);
         if (m_matches.empty() && n != num || n < num)
             return false;
     }
@@ -170,10 +186,10 @@ bool puz_state::check_move_planks() const
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& [p2, index] = m_game->m_pos2info.at(p).second[n];
+    auto& [p2, index] = m_game->m_pos2pieces.at(p)[n];
     for (auto& os : planks_offset[index])
         cells(p2 + os) = m_ch;
-    m_pos2pieces[p] = {p2, index};
+    m_pos2piece[p] = {p2, index};
 
     ++m_ch, ++m_distance;
     m_matches.erase(p);
@@ -218,10 +234,12 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen()) break;
             char ch = cells(p);
             out << ch;
-            if (auto it = m_game->m_pos2info.find(p); it != m_game->m_pos2info.end())
-                out << it->second.first;
-            else
+            if (auto it = m_pos2piece.find(p); it == m_pos2piece.end())
                 out << ' ';
+            else {
+                auto& [p2, index] = it->second;
+                out << get_directions(p2, index);
+            }
         }
         println(out);
     }
