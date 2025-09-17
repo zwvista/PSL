@@ -331,21 +331,27 @@ bool puz_state::check_loop() const
     
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
+        set<int> visited_area_ids;
+        int start_end_count = 0;
         for (int n = -1;;) {
             rng.erase(p2);
+            visited_area_ids.insert(m_game->m_pos2area.at(p2));
             auto& lineseg = dots(p2)[0];
+            if (boost::algorithm::any_of_equal(linesegs_all_start_end, lineseg))
+                ++start_end_count;
             for (int i = 0; i < 4; ++i)
                 // proceed only if the line segment does not revisit the previous position
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
                     p2 += offset[n = i];
                     break;
                 }
-            if (p2 == p)
-                // loop is not allowed
-                return false;
             if (!rng.contains(p2))
                 break;
         }
+        // 2. Each tunnel starts in the garden and ends in a different garden,
+        // and can pass through other gardens.
+        if (start_end_count == 2 && visited_area_ids.size() == 1)
+            return false;
     }
     return true;
 }
