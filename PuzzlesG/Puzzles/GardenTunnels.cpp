@@ -400,7 +400,10 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; ; ++c) {
             out << ' ';
             if (c == sidelen()) break;
-            out << (m_game->m_horz_walls.contains({r, c}) ? "---" : "   ");
+            Position p(r, c);
+            out << (m_game->m_horz_walls.contains(p) ?
+                r < sidelen() && is_lineseg_on(dots(p)[0], 0) ? "-+-" : "---" :
+                r < sidelen() && is_lineseg_on(dots(p)[0], 0) ? " I " : "   ");
         }
         println(out);
         if (r == sidelen()) break;
@@ -419,10 +422,13 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical lines
-            out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
+            out << (m_game->m_vert_walls.contains(p) ?
+                c < sidelen() && is_lineseg_on(dots(p)[0], 3) ? '+' : '|' :
+                c < sidelen() && is_lineseg_on(dots(p)[0], 3) ? '=' : ' ');
             if (c == sidelen()) break;
             out << (is_lineseg_on(dots(p)[0], 3) ? '=' : ' ');
-            out << ' ';
+            out << (is_lineseg_on(dots(p)[0], 3) || is_lineseg_on(dots(p)[0], 1) ? '=' :
+                is_lineseg_on(dots(p)[0], 0) || is_lineseg_on(dots(p)[0], 2) ? 'I' : ' ');
             out << (is_lineseg_on(dots(p)[0], 1) ? '=' : ' ');
         }
         println(out);
