@@ -11,7 +11,7 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 4
 Number of vertices examined: 10
-0.0004335 [s]
+0.0007582 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,7 +26,7 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 3
 Number of vertices examined: 9
-0.0002737 [s]
+0.0004188 [s]
 
 Level 11
 Sequence of moves: 
@@ -41,7 +41,52 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 2
 Number of vertices examined: 4
-0.000173 [s]
+0.0005136 [s]
+
+Level 12
+Sequence of moves: 
+ -- -- -- --
+|a1|b0 b |c1|
+       --   
+|a |b |d0|c |
+    --      
+|a |  |d |c |
+ --       --
+|     |d |  |
+ -- -- -- --
+Number of moves: 3
+Number of vertices examined: 5
+0.0002215 [s]
+
+Level 13
+Sequence of moves: 
+ -- -- -- --
+|a0|b1 b |  |
+    --      
+|a  a |b |  |
+ -- -- --   
+|c2 c  c |  |
+ -- -- --   
+|           |
+ -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.0002736 [s]
+
+Level 14
+Sequence of moves: 
+ -- -- -- --
+|a1 a  a |  |
+ -- -- --   
+|b1 b  b |  |
+ -- -- --   
+|c2 c  c |  |
+ -- -- --   
+|           |
+ -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.0001207 [s]
 
 Level 36
 Sequence of moves: 
@@ -58,5 +103,26 @@ Sequence of moves:
  -- -- -- -- --
 Number of moves: 6
 Number of vertices examined: 18
-0.0004179 [s]
+0.0003613 [s]
+
+Level 170
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|     |l1 l |  |j  j |
+ -- -- --    --    --
+|k2 k |  |l |m |j0|e |
+ --       --    --   
+|  |k |  |m0 m |i |e |
+ -- -- -- -- --      
+|a |h |f |  |i0 i |e0|
+          -- -- -- --
+|a |h |f  f1|d  d0 d |
+       -- -- -- -- --
+|a1|h0|  |c  c2 c |  |
+ -- -- -- -- -- -- --
+|g  g  g1|  |b  b  b1|
+ -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 610
+0.007599 [s]
 

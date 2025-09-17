@@ -163,8 +163,8 @@ int puz_state::get_directions(const Position& p, int index) const
                 return false;
             char ch2 = cells(p3);
             return ch2 == PUZ_SPACE || ch == ch2;
-            }) ? 1 : 0);
-        });
+        }) ? 1 : 0);
+    });
     return n;
 }
 
