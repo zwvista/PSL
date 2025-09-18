@@ -122,9 +122,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             // save all goal states as permutations
             // A goal state is a line starting from N to N
             for (auto& perms = m_pos2perms[p]; auto& spath : spaths) {
-                int n = perms.size();
                 auto& perm = spath.back();
-                for (auto& p2 : perm)
+                for (int n = perms.size(); auto& p2 : perm)
                     m_pos2perminfo[p2].emplace_back(p, n);
                 perms.push_back(perm);
             }
