@@ -121,16 +121,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found)
             // save all goal states as permutations
             // A goal state is a line starting from N to N
-            for (auto& perms = m_pos2perms[p]; auto& spath : spaths)
-                perms.push_back(spath.back());
+            for (auto& perms = m_pos2perms[p]; auto& spath : spaths) {
+                int n = perms.size();
+                auto& perm = spath.back();
+                for (auto& p2 : perm)
+                    m_pos2perminfo[p2].emplace_back(p, n);
+                perms.push_back(perm);
+            }
     }
-
-    for (auto& [p, perms] : m_pos2perms)
-        for (int i = 0; i < perms.size(); ++i) {
-            auto& perm = perms[i];
-            for (auto& p2 : perm)
-                m_pos2perminfo[p2].emplace_back(p, i);
-        }
 }
 
 struct puz_state
