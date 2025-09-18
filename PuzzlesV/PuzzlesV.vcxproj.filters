@@ -19,7 +19,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Puzzles\Venice.txt" />
+    <Text Include="Puzzles\Venice.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -43,10 +45,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\Venice.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Puzzles\Venice.xml" />
+    <Xml Include="Puzzles\Venice.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
