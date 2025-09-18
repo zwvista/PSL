@@ -70,25 +70,27 @@ struct puz_piece
 struct puz_game
 {
     string m_id;
-    int m_sidelen;
+    Position m_size;
     string m_cells;
     vector<puz_piece> m_pieces;
     map<Position, vector<int>> m_pos2piece_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    int rows() const { return m_size.first; }
+    int cols() const { return m_size.second; }
     bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
-    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size())
+, m_size(strs.size(), strs[0].length())
 {
     m_cells = boost::accumulate(strs, string());
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c) {
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             for (int i = 0; i < tetrominoes.size(); ++i)
                 for (auto& t : tetrominoes[i]) {
@@ -123,12 +125,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 struct puz_state
 {
     puz_state(const puz_game& g);
-    int sidelen() const {return m_game->m_sidelen;}
+    int rows() const { return m_game->rows(); }
+    int cols() const { return m_game->cols(); }
     bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
-    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i);
     void make_move2(int i);
@@ -153,7 +156,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+: m_cells(g.rows() * g.cols(), PUZ_SPACE), m_game(&g)
 , m_matches(g.m_pos2piece_ids)
 {
     find_matches(true);
@@ -224,15 +227,15 @@ ostream& puz_state::dump(ostream& out) const
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines
-        for (int c = 0; c < sidelen(); ++c)
+        for (int c = 0; c < cols(); ++c)
             out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
         println(out);
-        if (r == sidelen()) break;
+        if (r == rows()) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
-            if (c == sidelen()) break;
+            if (c == cols()) break;
             //out << cells(p);
             out << m_game->cells(p);
         }

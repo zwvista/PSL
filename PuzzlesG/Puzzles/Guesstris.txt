@@ -11,7 +11,7 @@ Sequence of moves:
  - - - -
 Number of moves: 1
 Number of vertices examined: 2
-0.000476 [s]
+0.0011056 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,5 +26,74 @@ Sequence of moves:
  - - - -
 Number of moves: 1
 Number of vertices examined: 2
-0.0002805 [s]
+0.0002119 [s]
+
+Level 36
+Sequence of moves: 
+ - - - - - -
+|T S| |  S| |
+   -     -  
+| |T|C|T|  T|
+         -  
+| |S| | |T|C|
+ -     -   -
+|   |D|  C| |
+ - - - -    
+|   |S  | | |
+         -  
+|C S|  C|S T|
+ - - - - - -
+Number of moves: 5
+Number of vertices examined: 12
+0.0006011 [s]
+
+Level 72
+Sequence of moves: 
+ - - - - - - - -
+| |T S  |S|D  | |
+   -   -   -    
+|T C| |  T  | |C|
+ -   - - - -    
+|T| |S  | |T|S|S|
+   -   -     -  
+|   |D| |S|   | |
+   -       -   -
+|S|T| |S|D  |C| |
+ -   -   - - -  
+|  S  |  D|S|T  |
+ - - - - -   -  
+|  S   C|  T  |S|
+ - - - - - - - -
+Number of moves: 7
+Number of vertices examined: 11
+0.0009068 [s]
+
+Level 300
+Sequence of moves: 
+ - - - - - - - - - - - -
+|  C D|  T D| |C     T|T|
+ - -   -   -   - - - -  
+|C  | | | |D|T D|  S|D  |
+   - -   -     -   - -  
+|D| |  S|   | |  D|  C| |
+       - -   - - -   - -
+| |D|D|  S|T|  S| |D|  C|
+ -   -     -   -     -  
+|D|C  |C  |D  | | | |T|D|
+   - - - - - -     -    
+|T  |D  |C S|  S|T|   | |
+   -   -       -   -   -
+| |S  | |   |D| |C| |D| |
+ - - -   - - -   -   -  
+|S C|  D|S|D   C|  D T|C|
+       -   - - - - - -  
+|   |S| |D  |C  |S  |  D|
+ - - -   -     -     - -
+|  S|T D  | | | |C  |   |
+     - - - -     - -    
+|  C|  T   C|D|D C  |S C|
+ - - - - - - - - - - - -
+Number of moves: 11
+Number of vertices examined: 27
+0.0028631 [s]
 

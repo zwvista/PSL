@@ -16,7 +16,7 @@ int main(int argc, char **argv)
         println("e: Gems");
         println("u: Guesstris");
         getline(cin, str);
-        if (str.empty()) solve_puz_GardenTunnels();
+        if (str.empty()) solve_puz_Guesstris();
         else if (str == "a1") solve_puz_Galaxies();
         else if (str == "a2") solve_puz_Gardener();
         else if (str == "a3") solve_puz_GardenTunnels();

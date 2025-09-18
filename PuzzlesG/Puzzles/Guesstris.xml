@@ -25,5 +25,41 @@ S C `
  CS `
     ]]>
   </level>
+  <level id="36">
+    <![CDATA[
+TS  S `
+ TCT T`
+ S  TC`
+  D C `
+  S   `
+CS CST`
+    ]]>
+  </level>
+  <level id="72">
+    <![CDATA[
+ TS SD  `
+TC  T  C`
+T S  TSS`
+  D S   `
+ST SD C `
+ S  DST `
+ S C T S`
+    ]]>
+  </level>
+  <level id="300">
+    <![CDATA[
+ CD TD C  TT`
+C    DTD SD `
+D  S    D C `
+ DD ST S D C`
+DC C D    TD`
+T D CS ST   `
+ S    D C D `
+SC DSD C DTC`
+  S D C S  D`
+ STD    C   `
+ C T CDDC SC`
+    ]]>
+  </level>
 </levels>
 </puzzle>
