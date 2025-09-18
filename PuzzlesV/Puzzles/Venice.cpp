@@ -73,7 +73,7 @@ struct puz_state
     bool make_move_hint(const Position& p, const vector<int>& perm);
     bool make_move_hint2(const Position& p, const vector<int>& perm);
     bool make_move_hint3(const Position& p, const vector<int>& perm, int i, bool stopped);
-    void make_move_canal(const Position& p) { cells(p) = PUZ_CANAL; }
+    bool make_move_space(const Position& p, int i);
     int find_matches(bool init);
     bool is_interconnected() const;
     bool is_valid_square(const Position& p) const;
@@ -258,6 +258,13 @@ bool puz_state::make_move_hint(const Position& p, const vector<int>& perm)
     return m == 2;
 }
 
+bool puz_state::make_move_space(const Position& p, int i)
+{
+    cells(p) = i == 0 ? PUZ_CANAL : PUZ_EMPTY;
+    m_distance = 1;
+    return i == 0 ? is_valid_square(p) : is_interconnected();
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_matches.empty()) {
@@ -272,7 +279,10 @@ void puz_state::gen_children(list<puz_state>& children) const
     } else {
         int i = m_cells.find(PUZ_SPACE);
         children.push_back(*this);
-        children.back().make_move_canal({i / sidelen(), i % sidelen()});
+        Position p(i / sidelen(), i % sidelen());
+        for (int j = 0; j < 2; ++j)
+            if (children.push_back(*this); !children.back().make_move_space(p, j))
+                children.pop_back();
     }
 }
 
