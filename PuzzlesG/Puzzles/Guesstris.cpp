@@ -108,16 +108,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         // 2. Each Tetromino contains two different symbols.
                         // 3. Tetrominoes of the same shape have the same couple of symbols inside
                         // them, although not necessarily in the same positions.
-                        if (symbols.size() == 2) {
-                            set<char> symbols2(symbols.begin(), symbols.end());
-                            if (symbols2.size() == 2) {
+                        if (symbols.size() == 2)
+                            if (set<char> symbols2(symbols.begin(), symbols.end());
+                                symbols2.size() == 2) {
                                 int n = m_pieces.size();
-                                boost::sort(symbols);
                                 m_pieces.emplace_back(i, rng, symbols2);
                                 for (auto& p2 : rng)
                                     m_pos2piece_ids[p2].push_back(n);
                             }
-                        }
                     }();
         }
 }
