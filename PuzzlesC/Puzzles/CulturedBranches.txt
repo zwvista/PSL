@@ -6,7 +6,7 @@ Sequence of moves:
  v < - B
 Number of moves: 1
 Number of vertices examined: 2
-0.0012955 [s]
+0.0027065 [s]
 
 Level 2
 Sequence of moves: 
@@ -16,7 +16,7 @@ Sequence of moves:
  < A - >
 Number of moves: 3
 Number of vertices examined: 12
-0.0018576 [s]
+0.0016569 [s]
 
 Level 36
 Sequence of moves: 
@@ -28,5 +28,6 @@ Sequence of moves:
  v v < - - B
 Number of moves: 2
 Number of vertices examined: 5
-0.102757 [s]
+0.0817558 [s]
 
+Level 300
