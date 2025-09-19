@@ -7,7 +7,7 @@ O O . O .
 >3> > O . 
 Number of moves: 3
 Number of vertices examined: 5
-0.0037784 [s]
+0.0013044 [s]
 
 Level 2
 Sequence of moves: 
@@ -18,7 +18,7 @@ O . . . O0
 . . . . . 
 Number of moves: 3
 Number of vertices examined: 5
-0.0024258 [s]
+0.0001614 [s]
 
 Level 36
 Sequence of moves: 
@@ -30,5 +30,22 @@ Sequence of moves:
 >1O . . O <1
 Number of moves: 6
 Number of vertices examined: 22
-0.0120742 [s]
+0.0003493 [s]
+
+Level 72
+Sequence of moves: 
+. . v1v1>?O O 
+v?. O O O0v2^ 
+v . . . v?v ^ 
+O . . . O O ^ 
+O0. . . O O ^ 
+. . . . ^ ^ ^5
+. . . . ^2^2. 
+Number of moves: 5
+Number of vertices examined: 21
+0.0030516 [s]
+
+Level 300
+Number of vertices examined: 5291
+0.146148 [s]
 
