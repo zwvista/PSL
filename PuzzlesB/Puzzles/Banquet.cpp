@@ -79,7 +79,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int i = 0; i < 4; ++i) {
             auto& os = offset[i];
             vector<Position> rng(1, p);
-            Position p2 = p + os;
+            auto p2 = p + os;
             for (int j = 1;; ++j, p2 += os) {
                 if (cells(p2) != PUZ_SPACE)
                     break;
@@ -152,7 +152,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, path_ids[0]), 1;
             }
     }
-    return !is_goal_state() || check_tables() ? 2 : 0;
+    return check_tables() ? 2 : 0;
 }
 
 struct puz_state2 : Position
@@ -180,6 +180,16 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 // 5. Banquets can't be L-shaped but can be more than one table wide.
 bool puz_state::check_tables() const
 {
+    auto f = [&](const Position& p) {
+        return boost::algorithm::any_of(m_matches, [&](const pair<const Position, vector<int>>& kv) {
+            auto& [p2, path_ids] = kv;
+            auto& paths = m_game->m_pos2paths.at(p2);
+            return boost::algorithm::any_of(path_ids, [&](int id) {
+                return paths[id].m_p_goal == p;
+            });
+        });
+    };
+
     set<Position> rng;
     for (int r = 1; r < sidelen(); ++r)
         for (int c = 1; c < sidelen(); ++c)
@@ -188,25 +198,34 @@ bool puz_state::check_tables() const
 
     while (!rng.empty()) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, *rng.begin()});
-        if (smoves.size() == 1)
-            return false;
-        int r1 = boost::min_element(smoves, [&](const puz_state2& p1, const puz_state2& p2) {
-            return p1.first < p2.first;
-        })->first;
-        int c1 = boost::min_element(smoves, [&](const puz_state2& p1, const puz_state2& p2) {
-            return p1.second < p2.second;
-        })->second;
-        int r2 = boost::max_element(smoves, [&](const puz_state2& p1, const puz_state2& p2) {
-            return p1.first < p2.first;
-        })->first;
-        int c2 = boost::max_element(smoves, [&](const puz_state2& p1, const puz_state2& p2) {
-            return p1.second < p2.second;
-        })->second;
-        int h = r2 - r1 + 1, w = c2 - c1 + 1, area = h * w;
-        if (smoves.size() != area)
-            return false;
-        for (auto& p2 : smoves)
-            rng.erase(p2);
+        if (smoves.size() == 1) {
+            if (auto& p = smoves.front();
+                !boost::algorithm::any_of(offset, [&](const Position& os) {
+                auto p2 = p + os;
+                return cells(p2) == PUZ_SPACE && f(p2);
+            }))
+                return false;
+        } else {
+            int r1 = boost::min_element(smoves, [&](const puz_state2& p1, const puz_state2& p2) {
+                return p1.first < p2.first;
+            })->first;
+            int c1 = boost::min_element(smoves, [&](const puz_state2& p1, const puz_state2& p2) {
+                return p1.second < p2.second;
+            })->second;
+            int r2 = boost::max_element(smoves, [&](const puz_state2& p1, const puz_state2& p2) {
+                return p1.first < p2.first;
+            })->first;
+            int c2 = boost::max_element(smoves, [&](const puz_state2& p1, const puz_state2& p2) {
+                return p1.second < p2.second;
+            })->second;
+            for (int r = r1; r <= r2; ++r)
+                for (int c = c1; c <= c2; ++c)
+                    if (Position p(r, c);
+                        !boost::algorithm::any_of_equal(smoves, p) && !f(p))
+                        return false;
+        }
+        for (auto& p : smoves)
+            rng.erase(p);
     }
     return true;
 }
