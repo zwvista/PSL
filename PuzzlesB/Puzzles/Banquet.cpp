@@ -76,6 +76,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, n] : m_pos2num) {
         if (n == 0) continue;
         auto& paths = m_pos2paths[p];
+        if (n == PUZ_UNKNOWN)
+            paths.push_back({PUZ_TABLE, {}, p});
         for (int i = 0; i < 4; ++i) {
             auto& os = offset[i];
             vector<Position> rng(1, p);
@@ -139,9 +141,9 @@ int puz_state::find_matches(bool init)
         auto& paths = m_game->m_pos2paths.at(p);
         boost::remove_erase_if(path_ids, [&](int id) {
             auto& [_1, rng, p_goal] = paths[id];
-            return !boost::algorithm::all_of(rng, [&](const Position& p2) {
+            return !rng.empty() && (!boost::algorithm::all_of(rng, [&](const Position& p2) {
                 return cells(p2) == PUZ_SPACE || p2 == p;
-            }) || cells(p_goal) != PUZ_SPACE;
+            }) || cells(p_goal) != PUZ_SPACE);
         });
 
         if (!init)
@@ -204,7 +206,8 @@ bool puz_state::check_tables() const
             if (auto& p = smoves.front();
                 !boost::algorithm::any_of(offset, [&](const Position& os) {
                 auto p2 = p + os;
-                return cells(p2) == PUZ_SPACE && f(p2);
+                char ch = cells(p2);
+                return (ch == PUZ_SPACE || ch == PUZ_TABLE) && f(p2);
             }))
                 return false;
         } else {
