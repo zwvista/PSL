@@ -19,7 +19,7 @@ Sequence of moves:
  --- --- --- --- 
 Number of moves: 4
 Number of vertices examined: 30
-0.0013916 [s]
+0.008165 [s]
 
 Level 2
 Sequence of moves: 
@@ -42,5 +42,14 @@ Sequence of moves:
  --- --- --- --- 
 Number of moves: 5
 Number of vertices examined: 10
-0.0009224 [s]
+0.003451 [s]
 
+Level 36
+Number of vertices examined: 181
+0.106313 [s]
+
+Level 72
+Number of vertices examined: 69690
+59.9 [s]
+
+Level 300
