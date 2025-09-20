@@ -12,7 +12,7 @@
     Description
     1. The board represents a map of the Countryside, divided in Fields.
     2. The object is to have a walk around the Countryside, passing through
-       each Field just the once.
+       each Field just once.
     3. the number on the Field tells you how many tiles you should go through it.
     4. A Field with no number can be passed through in any number of tiles,
        at least one.
@@ -156,8 +156,6 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            int area_id = m_game->m_pos2area.at(p);
-            bool has_single_cell = m_game->m_areas[area_id].second.size() == 1;
             for (int lineseg : linesegs_all)
                 if ([&]{
                     set<int> area_ids;
@@ -168,10 +166,8 @@ puz_state::puz_state(const puz_game& g)
                         // A line segment cannot go beyond the boundaries of the board
                         if (!is_valid(p2))
                             return false;
-                        area_ids.insert(m_game->m_pos2area.at(p2));
                     }
-                    // 2. You can enter (and exit) the room only once.
-                    return has_single_cell || area_ids.contains(area_id);
+                    return true;
                 }())
                     dt.push_back(lineseg);
         }

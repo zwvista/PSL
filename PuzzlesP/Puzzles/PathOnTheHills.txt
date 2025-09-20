@@ -17,9 +17,9 @@ Sequence of moves:
 |  = = =|= = =  |
 |       |       |
  --- --- --- --- 
-Number of moves: 4
-Number of vertices examined: 30
-0.008165 [s]
+Number of moves: 8
+Number of vertices examined: 154
+0.045772 [s]
 
 Level 2
 Sequence of moves: 
@@ -40,16 +40,39 @@ Sequence of moves:
 |  = = = = = =  |
 |               |
  --- --- --- --- 
-Number of moves: 5
-Number of vertices examined: 10
-0.003451 [s]
+Number of moves: 8
+Number of vertices examined: 16
+0.003896 [s]
 
 Level 36
-Number of vertices examined: 181
-0.106313 [s]
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|1          |2  |1  |2  |
+|           |  =|= =|=  |
+|           | I |   | I |
+ --- ---                 
+|4      |   | I |   | I |
+|  = = =|= =|=  |   |   |
+| I     |   |   |   | I |
+         --- --- --- --- 
+| I     |2  |4        I |
+|  = = =|=  |  = = = =  |
+|       | I | I         |
+                 --- --- 
+|       | I | I |       |
+|       |   |  =|= = =  |
+|       | I |   |     I |
+ --- --- --- --- --- --- 
+|         I |3  |2    I |
+|  = = = =  |  =|= = =  |
+| I         | I |       |
+ --- --- ---     ---     
+|2I     |     I     |   |
+|  = = =|= = =      |   |
+|       |           |   |
+ --- --- --- --- --- --- 
+Number of moves: 23
+Number of vertices examined: 178
+0.106024 [s]
 
 Level 72
-Number of vertices examined: 69690
-59.9 [s]
-
-Level 300
