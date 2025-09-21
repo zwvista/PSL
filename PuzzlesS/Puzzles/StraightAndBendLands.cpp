@@ -175,16 +175,14 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_dots(g.m_dot_count), m_game(&g)
+: m_dots(g.m_dot_count, {lineseg_off}), m_game(&g)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (g.m_trees.contains(p)) {
-                dt = {lineseg_off};
+            if (g.m_trees.contains(p))
                 continue;
-            }
             for (int lineseg : linesegs_all)
                 if ([&]{
                     for (int i = 0; i < 4; ++i) {

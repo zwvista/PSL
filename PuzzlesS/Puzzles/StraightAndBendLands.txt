@@ -21,9 +21,9 @@ Sequence of moves:
 | O= = =|=O= =  | T |
 |       |       |   |
  --- --- --- --- --- 
-Number of moves: 3
-Number of vertices examined: 4
-0.0016213 [s]
+Number of moves: 4
+Number of vertices examined: 7
+0.0015427 [s]
 
 Level 2
 Sequence of moves: 
@@ -50,9 +50,91 @@ Sequence of moves:
  --- --- --- --- --- 
 Number of moves: 3
 Number of vertices examined: 4
-0.0009937 [s]
+0.0009388 [s]
 
 Level 36
-Number of vertices examined: 1
-0.0018326 [s]
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|           |               |
+| T   O= = =|=O   T   O= =  |
+|     I     | I       I   I |
+             ---     --- --- 
+|     I     | I |   | I | I |
+|  = =O     |   | T | O | O |
+| I         | I |   | I | I |
+ ---             ---         
+| I |       | I     | I | I |
+|   | T   T | O= = =|=  | O |
+| I |       |       |   | I |
+     --- ---     --- ---     
+| I |       |   |   |   | I |
+| O | O= =O | T | O=|=  | O |
+| I | I   I |   | I | I | I |
+ --- --- --- ---         --- 
+| I   I   I |     I | I   I |
+|           |  = =O |     O |
+| I   I   I | I     | I   I |
+         --- ---     --- --- 
+| I   I | I   I |   | I   I |
+| O= =O | O   O | O=|=O     |
+|       | I   I | I |     I |
+             --- ---         
+|       | I | I   I |     I |
+| T   T |  =|=O   O=|= = =O |
+|       |   |       |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 5
+Number of vertices examined: 8
+0.0054425 [s]
+
+Level 400
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- --- --- --- 
+|           |               |               |
+|  = =O= = =|= = =     = =O=|=    T   O= =  |
+| I         |     I   I     | I       I   I |
+ --- --- --- --- --- --- --- ---     --- --- 
+| I         |     I | I |     I |   | I   I |
+|     T     | T     | O | T    =|= =|=O     |
+| I         |     I | I |       |   |     I |
+                                 --- --- --- 
+| I         |     I | I |       |       | I |
+|  = =O= =O=|=      |  =|= = =O=|=    O=|=  |
+|           | I   I |   |       | I   I |   |
+                                     ---     
+|           | I   I |   |       | I | I     |
+|     T     |       | T |     T |   | O   T |
+|           | I   I |   |       | I | I     |
+     --- ---             --- --- --- --- --- 
+|   |         I   I |   |   |   | I   I     |
+|  =|= = = = =O    =|=O=|=  |   | O    = =  |
+| I |               |   | I |   | I       I |
+ --- --- --- --- --- ---         --- ---     
+| I                       I |     I     | I |
+|     T   T           T   O |     O   T | O |
+| I                       I |     I     | I |
+                         --- ---             
+| I                     | I     | I     | I |
+| O        = =O= = = = =|=    T |      =|=  |
+| I       I             |       | I   I |   |
+                                 --- --- --- 
+| I       I             |         I   I |   |
+|  = =    O    = =O= = =|= = =O         | T |
+|     I   I   I         |     I   I   I |   |
+                         --- ---     ---     
+|     I   I   I               I | I | I     |
+| T   O    = =     = =    T    =|=  |  = =O |
+|     I           I   I         |   |     I |
+                                     ---     
+|     I           I   I         |       | I |
+|  = =        T   O   O    = = =|=    T |   |
+| I               I   I   I     | I     | I |
+                                             
+| I               I   I   I     | I     | I |
+|  = =O= = = =O= =     = =    T | O= = =|=  |
+|                               |       |   |
+ --- --- --- --- --- --- --- --- --- --- --- 
+Number of moves: 14
+Number of vertices examined: 31
+0.0191654 [s]
 
