@@ -104,8 +104,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     auto f = [&](int area_id, char ch) {
-        if (ch != PUZ_SPACE)
-            m_area2num[area_id] = ch - '0';
+        m_area2num[area_id] = ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
     };
     for (int i = 0; i < m_sidelen; ++i) {
         f(i, strs[i * 2 + 1][m_sidelen * 2 + 1]);
@@ -200,7 +199,8 @@ int puz_state::find_matches(bool init)
             return cells(p1) != PUZ_SPACE || cells(p2) != PUZ_SPACE ||
                 !boost::algorithm::all_of(area2num, [&](const pair<const int, int>& kv) {
                     auto& [area_id, num] = kv;
-                    return num <= m_area2num[area_id];
+                    int num2 = m_area2num[area_id];
+                    return num2 == PUZ_UNKNOWN || num <= num2;
                 });
         });
 
@@ -221,7 +221,8 @@ void puz_state::make_move2(int n)
     char ch = p1.first == p2.first ? PUZ_HORZ_STITCH : PUZ_VERT_STITCH;
     cells(p1) = cells(p2) = ch;
     for (auto& [area_id, num] : area2num)
-        if ((m_area2num[area_id] -= num) == 0)
+        if (int& num2 = m_area2num[area_id];
+            num2 != PUZ_UNKNOWN && (num2 -= num) == 0)
             ++m_distance, m_matches.erase(area_id);
 }
 
