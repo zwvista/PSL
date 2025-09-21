@@ -157,7 +157,9 @@ struct puz_state
     }
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
     bool make_move(int n);
     void make_move2(int n);
     int find_matches(bool init);
@@ -182,11 +184,10 @@ puz_state::puz_state(const puz_game& g)
     , m_game(&g)
     , m_area2num(g.m_area2num)
 {
-    for (int i = 0; i < g.m_stitches.size(); ++i) {
-        auto& [_1, _2, area2num] = g.m_stitches[i];
-        for (auto& [area_id, _3] : area2num)
-            m_matches[area_id].push_back(i);
-    }
+    for (int i = 0; i < g.m_stitches.size(); ++i)
+        for (auto& [area_id, _1] : g.m_stitches[i].m_area2num)
+            if (g.m_area2num.at(area_id) != PUZ_UNKNOWN)
+                m_matches[area_id].push_back(i);
 
     find_matches(true);
 }
@@ -250,13 +251,6 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](int area_id) {
-        //int sum = m_game->m_area2num.at(area_id);
-        //if (auto it = m_game->m_area2num.find(area_id); it == m_game->m_area2num.end())
-        //    out << "  ";
-        //else {
-        //    int sum = it->second;
-        //    out << (area_id < sidelen() ? format("{:<2}", sum) : format("{:2}", sum));
-        //}
         auto& rng = m_game->m_areas[area_id];
         int sum = boost::accumulate(rng, 0, [&](int acc, const Position& p) {
             return acc + (cells(p) == PUZ_SPACE ? 0 : 1);
