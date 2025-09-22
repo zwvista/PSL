@@ -222,16 +222,23 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::check_loop() const
 {
-    set<Position> rng;
+    set<Position> rng, rngOff;
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (dt.size() == 1 && dt[0] != lineseg_off)
-                rng.insert(p);
+            if (dt.size() == 1)
+                (dt[0] != lineseg_off ? rng : rngOff).insert(p);
         }
 
-    // 3. the number on the Field tells you how many tiles you should go through it.
+    // 6. Two adjacent empty tiles cannot be in two different Fields.
+    for (auto& p : rngOff)
+        for (int area_id1 = m_game->m_pos2area.at(p); auto& os : offset)
+            if (auto p2 = p + os; rngOff.contains(p2))
+                if (int area_id2 = m_game->m_pos2area.at(p2); area_id1 != area_id2)
+                    return false;
+
+    // 3. the number on a Field tells you how many tiles you should go through it.
     // 4. A Field with no number can be passed through in any number of tiles,
     // at least one.
     map<int, int> area2num;
