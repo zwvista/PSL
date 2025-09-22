@@ -1,0 +1,77 @@
+-- 100 LG 自动化脚本（基于相对坐标 + 窗口截图）
+tell application "100 LG" to activate
+delay 2
+
+-- 创建截图文件夹
+set screenshotDir to (path to desktop as text) & "100LG_Screenshots:"
+do shell script "mkdir -p " & quoted form of POSIX path of screenshotDir
+
+-- 计算相对坐标偏移量
+set windowX to 608
+set windowY to 31
+set firstButtonX to 630
+set firstButtonY to 236
+set backButtonX to 667
+set backButtonY to 821
+
+-- 计算相对偏移
+set buttonOffsetX to firstButtonX - windowX -- 630 - 608 = 22
+set buttonOffsetY to firstButtonY - windowY -- 236 - 31 = 205
+set backOffsetX to backButtonX - windowX -- 667 - 608 = 59
+set backOffsetY to backButtonY - windowY -- 821 - 31 = 790
+
+-- 按钮布局参数
+set buttonSpacing to 93
+set buttonsPerRow to 6
+
+repeat with levelNumber from 1 to 36
+	-- 获取当前窗口位置和大小
+	tell application "System Events"
+		tell process "100 LG"
+			set currentWindowPos to position of window 1
+			set currentWindowSize to size of window 1
+			set currentWindowX to item 1 of currentWindowPos
+			set currentWindowY to item 2 of currentWindowPos
+			set windowWidth to item 1 of currentWindowSize
+			set windowHeight to item 2 of currentWindowSize
+		end tell
+	end tell
+	
+	-- 计算当前按钮的绝对坐标
+	set row to (levelNumber - 1) div buttonsPerRow
+	set col to (levelNumber - 1) mod buttonsPerRow
+	
+	set buttonX to currentWindowX + buttonOffsetX + (col * buttonSpacing)
+	set buttonY to currentWindowY + buttonOffsetY + (row * buttonSpacing)
+	
+	-- 点击关卡按钮
+	tell application "System Events"
+		click at {buttonX, buttonY}
+	end tell
+	
+	log "点击关卡 " & levelNumber & " 坐标: [" & buttonX & ", " & buttonY & "]"
+	
+	-- 等待进入游戏画面
+	delay 3
+	
+	-- 窗口截图（只截取应用程序窗口）
+	set screenshotPath to screenshotDir & "Level_" & (text -2 thru -1 of ("0" & levelNumber)) & ".png"
+	do shell script "screencapture -x -R " & currentWindowX & "," & currentWindowY & "," & windowWidth & "," & windowHeight & " " & quoted form of POSIX path of screenshotPath
+	
+	-- 计算Back按钮的绝对坐标
+	set backX to currentWindowX + backOffsetX
+	set backY to currentWindowY + backOffsetY
+	
+	-- 点击Back按钮返回
+	tell application "System Events"
+		click at {backX, backY}
+	end tell
+	
+	log "点击Back按钮坐标: [" & backX & ", " & backY & "]"
+	
+	-- 等待返回选关画面
+	delay 2
+end repeat
+
+-- 完成提示
+display notification "所有36个关卡处理完成！" with title "100 LG 自动化" sound name "Glass"
