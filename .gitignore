@@ -21,3 +21,4 @@ Default/
 .settings/
 *Test.txt
 *Test.xml
+__pycache__
