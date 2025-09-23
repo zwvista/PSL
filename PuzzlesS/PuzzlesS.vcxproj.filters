@@ -46,9 +46,6 @@
     <Text Include="Puzzles\SlantedMaze.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\SlitherLink2.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\Sentinels.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -138,9 +135,6 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\SlantedMaze.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\SlitherLink2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\Sentinels.cpp">

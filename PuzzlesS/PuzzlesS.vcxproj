@@ -169,7 +169,6 @@
     <Text Include="Puzzles\SlantedMaze.txt" />
     <Text Include="Puzzles\SlitherCorner.txt" />
     <Text Include="Puzzles\SlitherLink.txt" />
-    <Text Include="Puzzles\SlitherLink2.txt" />
     <Text Include="Puzzles\Snail.txt" />
     <Text Include="Puzzles\SnakeMaze.txt" />
     <Text Include="Puzzles\Snakeomino.txt" />
@@ -209,7 +208,6 @@
     <ClCompile Include="Puzzles\SlantedMaze.cpp" />
     <ClCompile Include="Puzzles\SlitherCorner.cpp" />
     <ClCompile Include="Puzzles\SlitherLink.cpp" />
-    <ClCompile Include="Puzzles\SlitherLink2.cpp" />
     <ClCompile Include="Puzzles\Snail.cpp" />
     <ClCompile Include="Puzzles\SnakeMaze.cpp" />
     <ClCompile Include="Puzzles\Snakeomino.cpp" />
