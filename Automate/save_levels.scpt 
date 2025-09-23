@@ -1,0 +1,93 @@
+-- 100 LG 自动化脚本（优化版）
+tell application "100 LG" to activate
+delay 3
+
+-- 创建截图文件夹（改进路径处理）
+set desktopPath to path to desktop as text
+set screenshotDir to desktopPath & "100LG_Screenshots"
+try
+    do shell script "mkdir -p " & quoted form of POSIX path of screenshotDir
+on error
+    display dialog "无法创建截图文件夹" with icon stop
+    return
+end try
+
+-- 等待应用程序完全启动
+delay 2
+
+-- 验证应用程序是否运行
+tell application "System Events"
+    if not (exists process "100 LG") then
+        display dialog "100 LG 应用程序未找到" with icon stop
+        return
+    end if
+end tell
+
+-- 主循环
+repeat with levelNumber from 1 to 36
+    try
+        -- 获取窗口信息（增加错误处理）
+        tell application "System Events"
+            tell process "100 LG"
+                if not (exists window 1) then
+                    display dialog "未找到游戏窗口" with icon stop
+                    return
+                end if
+                
+                set {windowX, windowY} to position of window 1
+                set {windowWidth, windowHeight} to size of window 1
+            end tell
+        end tell
+        
+        -- 计算按钮位置（基于相对坐标）
+        set row to (levelNumber - 1) div 6
+        set col to (levelNumber - 1) mod 6
+        
+        -- 按钮位置参数（可能需要根据实际调整）
+        set baseButtonX to windowX + 22
+        set baseButtonY to windowY + 205
+        set buttonSpacing to 93
+        
+        set buttonX to baseButtonX + (col * buttonSpacing)
+        set buttonY to baseButtonY + (row * buttonSpacing)
+        
+        -- 点击关卡按钮
+        tell application "System Events"
+            click at {buttonX, buttonY}
+        end tell
+        
+        log "点击关卡 " & levelNumber & " - 坐标: [" & buttonX & ", " & buttonY & "]"
+        
+        -- 等待加载（可调整延迟时间）
+        delay 3.5
+        
+        -- 截图（改进文件命名）
+        set levelStr to text -2 thru -1 of ("0" & levelNumber)
+        set screenshotPath to screenshotDir & ":Level_" & levelStr & ".png"
+        set posixPath to quoted form of POSIX path of screenshotPath
+        
+        do shell script "screencapture -x -l$(osascript -e 'tell app \"100 LG\" to id of window 1') " & posixPath
+        
+        -- 点击返回按钮
+        set backX to windowX + 59
+        set backY to windowY + 790
+        
+        tell application "System Events"
+            click at {backX, backY}
+        end tell
+        
+        log "返回主菜单 - 坐标: [" & backX & ", " & backY & "]"
+        
+        -- 等待返回完成
+        delay 2.5
+        
+    on error errMsg
+        log "处理关卡 " & levelNumber & " 时出错: " & errMsg
+        display dialog "关卡 " & levelNumber & " 处理失败: " & errMsg
+        exit repeat
+    end try
+end repeat
+
+-- 完成通知
+display notification "已完成所有36个关卡的截图！" with title "100 LG 自动化完成" sound name "Glass"
+log "自动化任务完成！截图保存在桌面上的 100LG_Screenshots 文件夹中"
