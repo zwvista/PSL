@@ -1,49 +1,5 @@
 from PIL import Image
 
-def process_pixel_line_results(results, threshold=50):
-    """
-    筛选像素块结果，只保留重复次数超过阈值的，并返回它们的起始X坐标和长度。
-
-    参数:
-    results (list): analyze_pixel_line_and_store 函数返回的 PixelStreak 对象列表。
-    threshold (int): 重复次数的最低门槛。
-
-    返回:
-    list: 一个包含元组的列表，每个元组的格式为 (起始X坐标, 长度)。
-    """
-    if results is None:
-        return []
-
-    processed_list = []
-    for streak in results:
-        # 筛选：检查重复次数是否超过门槛
-        if streak.count >= threshold:
-            # 添加到结果列表，格式为 (起始X坐标, 长度)
-            processed_list.append((streak.position[0], streak.count))
-
-    return processed_list
-
-def process_pixel_column_results(results, threshold=50):
-    """
-    筛选像素列块结果，只保留重复次数超过阈值的，并返回它们的起始Y坐标和长度。
-
-    参数:
-    results (list): analyze_pixel_column_and_store 函数返回的 PixelStreak 对象列表。
-    threshold (int): 重复次数的最低门槛。
-
-    返回:
-    list: 一个包含元组的列表，每个元组的格式为 (起始Y坐标, 长度)。
-    """
-    if results is None:
-        return []
-
-    processed_list = []
-    for streak in results:
-        if streak.count >= threshold:
-            processed_list.append((streak.position[1], streak.count))
-    return processed_list
-
-
 def get_combined_pixel_colors(image_path, line_results, column_results, offset_x=10, offset_y=10):
     """
     根据行和列的分析结果，结合偏移量，提取原始图像中指定位置的像素颜色。

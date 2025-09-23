@@ -1,6 +1,7 @@
-from analyze_pixel import process_pixel_line_results, process_pixel_column_results, get_combined_pixel_colors, compress_colors_to_codes, \
+from analyze_image import get_combined_pixel_colors, compress_colors_to_codes, \
     create_grid_string
-from common import analyze_pixel_line_and_store, analyze_pixel_column_and_store
+from common import analyze_pixel_line_and_store, analyze_pixel_column_and_store, process_pixel_line_results, \
+    process_pixel_column_results
 
 # --- 主程序 ---
 if __name__ == "__main__":
