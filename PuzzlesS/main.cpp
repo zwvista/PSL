@@ -8,7 +8,6 @@ extern void solve_puz_Skyscrapers();
 extern void solve_puz_SlantedMaze();
 extern void solve_puz_SlitherCorner();
 extern void solve_puz_SlitherLink();
-extern void solve_puz_SlitherLink2();
 extern void solve_puz_Snail();
 extern void solve_puz_Snake();
 extern void solve_puz_SnakeIslands();
@@ -38,7 +37,6 @@ int main(int argc, char **argv)
         println("l1: Slanted Maze");
         println("l2: SlitherCorner");
         println("l3: SlitherLink");
-        println("l4: SlitherLink2");
         println("n1: Snail");
         println("n2: Snake");
         println("n3: Snake Islands");
@@ -65,7 +63,6 @@ int main(int argc, char **argv)
         else if (str == "l1") solve_puz_SlantedMaze();
         else if (str == "l2") solve_puz_SlitherCorner();
         else if (str == "l3") solve_puz_SlitherLink();
-        else if (str == "l4") solve_puz_SlitherLink2();
         else if (str == "n1") solve_puz_Snail();
         else if (str == "n2") solve_puz_Snake();
         else if (str == "n3") solve_puz_SnakeIslands();
