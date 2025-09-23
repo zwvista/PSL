@@ -23,5 +23,41 @@
      `
     ]]>
   </level>
+  <level id="2">
+    <![CDATA[
+ S   `
+ 8  S`
+  SSS`
+  5  `
+  S  `
+    ]]>
+  </level>
+  <level id="3">
+    <![CDATA[
+  5  `
+    S`
+S3 S3`
+ S   `
+2    `
+    ]]>
+  </level>
+  <level id="4">
+    <![CDATA[
+SSS  `
+ S 2 `
+   SS`
+ S   `
+4  S4`
+    ]]>
+  </level>
+  <level id="5">
+    <![CDATA[
+   S `
+9   6`
+    S`
+     `
+     `
+    ]]>
+  </level>
 </levels>
 </puzzle>
