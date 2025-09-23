@@ -13,7 +13,6 @@ namespace MazeEditor2
 {
     public enum MazeMovement
     {
-        None,
         Up,
         Down,
         Left,
@@ -34,6 +33,14 @@ namespace MazeEditor2
             MazeMovement.Down => Position.Down,
             MazeMovement.Left => Position.Left,
             MazeMovement.Right => Position.Right,
+            _ => Position.Zero
+        };
+        public Position BackOffset => CurMovement switch
+        {
+            MazeMovement.Up => Position.Down,
+            MazeMovement.Down => Position.Up,
+            MazeMovement.Left => Position.Right,
+            MazeMovement.Right => Position.Left,
             _ => Position.Zero
         };
 

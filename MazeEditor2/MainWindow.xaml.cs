@@ -286,6 +286,11 @@ namespace MazeEditor2
                     maze.MoveSelectedPosition(maze.CurOffset);
                     e.Handled = true;
                     break;
+                case Key.Back:
+                    maze.SetObject(maze.SelectedPosition, ' ');
+                    maze.MoveSelectedPosition(maze.BackOffset);
+                    e.Handled = true;
+                    break;
             }
         }
 
