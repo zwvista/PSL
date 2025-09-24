@@ -1,3 +1,6 @@
+from common import analyze_pixel_line_and_store, analyze_pixel_column_and_store, report_analysis_results, \
+    process_pixel_line_results, process_pixel_column_results, to_hex_char
+
 import cv2
 import pytesseract
 import easyocr
@@ -27,7 +30,8 @@ def recognize_digits(image_path, line_list, column_list):
             # 裁剪感兴趣区域(ROI)
             roi = img[y:y+h, x:x+w]
 
-            text = reader.readtext(roi)[0][1]
+            output = reader.readtext(roi)
+            text = ' ' if not output else output[0][1]
 
             # # 图像预处理（可选但推荐）
             # gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
@@ -39,8 +43,9 @@ def recognize_digits(image_path, line_list, column_list):
             # text = pytesseract.image_to_string(thresh, config=custom_config).strip()
             # # text = pytesseract.image_to_string(roi, config=custom_config).strip()
 
+            text = to_hex_char(text)
             # 将识别的结果添加到当前行的结果列表中
-            row_result.append(text if text else ' ')  # 如果没有识别出内容则返回 ' '
+            row_result.append(text)
 
         # 将当前行的结果添加到最终结果列表中
         result.append(row_result)
@@ -71,3 +76,37 @@ def format_digit_matrix(matrix):
     # 合并为多行字符串
     result = '\n'.join(lines)
     return result
+
+def get_level_str_from_image(image_path):
+    stored_line_results = analyze_pixel_line_and_store(image_path, y_coord=210, start_x=0, end_x=1180)
+    processed_line_list = process_pixel_line_results(stored_line_results)
+    # print(processed_line_list)
+    # print("\n" + "="*50 + "\n")
+    stored_column_results = analyze_pixel_column_and_store(image_path, x_coord=10, start_y=200, end_y=1380)
+    processed_column_list = process_pixel_column_results(stored_column_results)
+    # print(processed_column_list)
+    digits_matrix = recognize_digits(image_path, processed_line_list, processed_column_list)
+    # print(digits_matrix)
+    level_str = format_digit_matrix(digits_matrix)
+    return level_str
+
+
+def main():
+    level_image_path = ""
+    for i in range(1, 3):
+        # 图像信息
+        image_path = f'{level_image_path}Level_{i:03d}.png'
+        print("正在处理图片 " + image_path)
+        level_str = get_level_str_from_image(image_path)
+        node = f"""  <level id="{i}">
+    <![CDATA[
+{level_str}
+    ]]>
+  </level>
+"""
+        with open(f"Levels.txt", "a") as text_file:
+            text_file.write(node)
+
+# --- 主程序 ---
+if __name__ == "__main__":
+    main()
