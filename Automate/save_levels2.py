@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-100 LG 自动化截图脚本 - 使用精确UI路径点击按钮
+100 LG 自动化截图脚本 - 使用高效的递归查找
 """
 
 import time
@@ -99,67 +99,163 @@ def take_window_screenshot(window_info, level_number, screenshot_dir):
         return False
 
 
-def click_level_button(level_number):
-    """点击关卡按钮（使用精确UI路径）"""
-    # 计算在当前页面的按钮索引 (1-36)
-    button_index = ((level_number - 1) % 36) + 1
-
+def find_button_by_description(description):
+    """查找具有指定description的按钮"""
     try:
         script = f'''
         tell application "System Events"
             tell process "100 LG"
-                click static text 1 of button {button_index} of group 2 of group 1 of group 1 of group 1 of group 1 of group 1 of group 1 of group 2 of group 2 of window 1
+                tell window 1
+                    set foundButton to my findButtonByDescription(it, "{description}")
+                    if foundButton is not missing value then
+                        return "found"
+                    else
+                        return "not_found"
+                    end if
+                end tell
             end tell
         end tell
+
+        on findButtonByDescription(targetUIElement, desc)
+            tell application "System Events"
+                -- 首先，在当前层级直接查找按钮
+                try
+                    set targetButtons to (buttons of targetUIElement whose description is desc)
+                    if (count of targetButtons) > 0 then
+                        return first item of targetButtons
+                    end if
+                on error
+                    -- 如果找不到按钮，继续
+                end try
+
+                -- 如果当前层级没有，则递归查找子 groups
+                try
+                    set childGroups to (groups of targetUIElement)
+                    repeat with aGroup in childGroups
+                        set foundButton to my findButtonByDescription(aGroup, desc)
+                        if foundButton is not missing value then
+                            return foundButton
+                        end if
+                    end repeat
+                on error
+                    -- 如果没有子元素，继续
+                end try
+            end tell
+
+            return missing value
+        end findButtonByDescription
         '''
 
-        subprocess.run(['osascript', '-e', script], check=True)
-        print(f"✓ 点击关卡按钮 {level_number:03d} (按钮索引: {button_index})")
-        return True
+        result = subprocess.run(['osascript', '-e', script],
+                                capture_output=True, text=True, check=True)
+
+        return result.stdout.strip() == "found"
 
     except subprocess.CalledProcessError as e:
-        print(f"✗ 点击关卡按钮 {level_number:03d} 失败: {e}")
+        print(f"查找按钮 '{description}' 时出错: {e}")
         return False
+
+
+def click_button_by_description(description, button_type="按钮"):
+    """查找并点击具有指定description的按钮"""
+    try:
+        script = f'''
+        tell application "System Events"
+            tell process "100 LG"
+                tell window 1
+                    set foundButton to my findButtonByDescription(it, "{description}")
+                    if foundButton is not missing value then
+                        click foundButton
+                        return "clicked"
+                    else
+                        return "not_found"
+                    end if
+                end tell
+            end tell
+        end tell
+
+        on findButtonByDescription(targetUIElement, desc)
+            tell application "System Events"
+                -- 首先，在当前层级直接查找按钮
+                try
+                    set targetButtons to (buttons of targetUIElement whose description is desc)
+                    if (count of targetButtons) > 0 then
+                        return first item of targetButtons
+                    end if
+                on error
+                    -- 如果找不到按钮，继续
+                end try
+
+                -- 如果当前层级没有，则递归查找子 groups
+                try
+                    set childGroups to (groups of targetUIElement)
+                    repeat with aGroup in childGroups
+                        set foundButton to my findButtonByDescription(aGroup, desc)
+                        if foundButton is not missing value then
+                            return foundButton
+                        end if
+                    end repeat
+                on error
+                    -- 如果没有子元素，继续
+                end try
+            end tell
+
+            return missing value
+        end findButtonByDescription
+        '''
+
+        result = subprocess.run(['osascript', '-e', script],
+                                capture_output=True, text=True, check=True)
+
+        output = result.stdout.strip()
+        if output == "clicked":
+            print(f"✓ 点击{button_type}按钮: '{description}'")
+            return True
+        elif output == "not_found":
+            print(f"✗ 未找到{button_type}按钮: '{description}'")
+            return False
+        else:
+            print(f"? 未知结果: {output}")
+            return False
+
+    except subprocess.CalledProcessError as e:
+        print(f"点击{button_type}按钮 '{description}' 时出错: {e}")
+        return False
+
+
+def click_level_button(level_number):
+    """点击关卡数字按钮"""
+    return click_button_by_description(str(level_number), "关卡")
 
 
 def click_more_button():
-    """点击More按钮（使用精确UI路径）"""
-    try:
-        script = '''
-        tell application "System Events"
-            tell process "100 LG"
-                click static text 1 of button 1 of group 3 of group 1 of group 1 of group 1 of group 1 of group 1 of group 1 of group 2 of group 2 of window 1
-            end tell
-        end tell
-        '''
-
-        subprocess.run(['osascript', '-e', script], check=True)
-        print("✓ 点击More按钮")
-        return True
-
-    except subprocess.CalledProcessError as e:
-        print(f"✗ 点击More按钮失败: {e}")
-        return False
+    """点击More按钮"""
+    return click_button_by_description("More", "More")
 
 
 def click_back_button():
-    """点击Back按钮（使用精确UI路径）"""
-    try:
-        script = '''
-        tell application "System Events"
-            tell process "100 LG"
-                click button 1 of group 5 of group 1 of group 1 of group 1 of group 1 of group 1 of group 1 of group 2 of group 2 of window 1
-            end tell
-        end tell
-        '''
+    """点击Back按钮"""
+    return click_button_by_description("back", "Back")
 
-        subprocess.run(['osascript', '-e', script], check=True)
-        print("✓ 点击Back按钮")
-        return True
 
-    except subprocess.CalledProcessError as e:
-        print(f"✗ 点击Back按钮失败: {e}")
-        return False
+def test_button_finding():
+    """测试按钮查找功能"""
+    print("测试按钮查找功能...")
+    test_buttons = [
+        ("1", "关卡1"),
+        ("36", "关卡36"),
+        ("More", "More"),
+        ("back", "Back")
+    ]
+
+    results = []
+    for desc, name in test_buttons:
+        found = find_button_by_description(desc)
+        results.append((desc, name, found))
+        status = "✓" if found else "✗"
+        print(f"{status} 找到{name}: '{desc}'")
+
+    return all(found for _, _, found in results)
 
 
 def navigate_to_page(target_page):
@@ -170,10 +266,9 @@ def navigate_to_page(target_page):
 
     print(f"导航到第{target_page + 1}页...")
 
-    # 从当前页翻到目标页
     for page in range(target_page):
         if click_more_button():
-            time.sleep(2)  # 等待翻页
+            time.sleep(2)
         else:
             print(f"第{page + 1}次翻页失败")
             return False
@@ -185,35 +280,25 @@ def navigate_to_page(target_page):
 def process_level_range(start_page, end_level, window_info, screenshot_dir):
     """
     处理指定范围的关卡
-
-    参数:
-    - start_page: 起始页面 (0-12)，0表示第一页
-    - end_level: 结束关卡号 (如400)
-    - window_info: 窗口信息
-    - screenshot_dir: 截图目录
     """
-    # 计算起始关卡号
     start_level = start_page * 36 + 1
     if start_level > end_level:
         print(f"起始关卡{start_level}大于结束关卡{end_level}，无需处理")
-        return
+        return start_level - 1
 
     print(f"处理范围: 第{start_page + 1}页 关卡{start_level:03d} - 关卡{end_level:03d}")
 
-    # 导航到起始页面
     if not navigate_to_page(start_page):
         print("导航到起始页面失败，停止处理")
-        return
+        return start_level - 1
 
     current_level = start_level
     current_page = start_page
 
     while current_level <= end_level:
-        # 检查是否需要翻页
         level_in_page = ((current_level - 1) % 36) + 1
 
         if level_in_page == 1 and current_level > start_level:
-            # 需要翻页
             current_page += 1
             if click_more_button():
                 time.sleep(2)
@@ -223,7 +308,6 @@ def process_level_range(start_page, end_level, window_info, screenshot_dir):
 
         print(f"\n[第{current_page + 1}页] 处理关卡 {current_level:03d} (位置{level_in_page}/36)")
 
-        # 处理当前关卡
         try:
             # 点击关卡按钮
             if not click_level_button(current_level):
@@ -261,23 +345,19 @@ def process_level_range(start_page, end_level, window_info, screenshot_dir):
 
 def main():
     """主函数"""
-    print("=== 100 LG 自动化截图脚本 (精确UI路径版) ===")
+    print("=== 100 LG 自动化截图脚本 ===")
 
-    # 安全检查
     pyautogui.FAILSAFE = True
     pyautogui.PAUSE = 0.2
 
-    # 激活应用程序
     print("激活100 LG应用程序...")
     if not activate_100lg():
         return
 
-    # 创建截图目录
     screenshot_dir = create_screenshot_dir()
     if not screenshot_dir:
         return
 
-    # 获取窗口信息（主要用于截图）
     print("获取窗口信息...")
     window_info = get_window_info()
     if not window_info:
@@ -286,16 +366,18 @@ def main():
     print(f"窗口位置: [{window_info['x']}, {window_info['y']}]")
     print(f"窗口大小: {window_info['width']}x{window_info['height']}")
 
-    # 配置处理参数
-    START_PAGE = 1  # 起始页面: 0=第一页, 1=第二页, 等等
-    END_LEVEL = 50  # 结束关卡号
+    # 测试按钮查找
+    if not test_button_finding():
+        print("警告: 部分按钮查找测试失败，可能影响自动化执行")
+
+    # 配置参数
+    START_PAGE = 0
+    END_LEVEL = 400
 
     print(f"\n配置参数:")
     print(f"起始页面: 第{START_PAGE + 1}页 (从关卡{START_PAGE * 36 + 1:03d}开始)")
     print(f"结束关卡: 第{END_LEVEL:03d}关")
-    print(f"截图目录: {screenshot_dir}")
 
-    # 执行处理
     print("\n开始处理...")
     print("=" * 50)
 
