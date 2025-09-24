@@ -1,5 +1,6 @@
 import cv2
 import pytesseract
+import easyocr
 
 def recognize_digits(image_path, line_list, column_list):
     """
@@ -19,22 +20,24 @@ def recognize_digits(image_path, line_list, column_list):
     # 存储识别结果
     result = []
 
+    reader = easyocr.Reader(['en'])  # 初始化，只加载英文模型
     for row_idx, (y, h) in enumerate(column_list):
         row_result = []
         for col_idx, (x, w) in enumerate(line_list):
             # 裁剪感兴趣区域(ROI)
             roi = img[y:y+h, x:x+w]
 
-            # 图像预处理（可选但推荐）
-            gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-            gray = cv2.convertScaleAbs(gray, alpha=1.5, beta=0)
-            _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            text = reader.readtext(roi)[0][1]
 
-            # 使用 Tesseract 识别文字，这里我们假设只识别数字
-            custom_config = r'--oem 3 --psm 6 outputbase digits'
-            text = pytesseract.image_to_string(thresh, config=custom_config).strip()
-            # text = pytesseract.image_to_string(roi, config=custom_config).strip()
-
+            # # 图像预处理（可选但推荐）
+            # gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+            # gray = cv2.convertScaleAbs(gray, alpha=1.5, beta=0)
+            # _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            #
+            # # 使用 Tesseract 识别文字，这里我们假设只识别数字
+            # custom_config = r'--oem 3 --psm 6 outputbase digits'
+            # text = pytesseract.image_to_string(thresh, config=custom_config).strip()
+            # # text = pytesseract.image_to_string(roi, config=custom_config).strip()
 
             # 将识别的结果添加到当前行的结果列表中
             row_result.append(text if text else ' ')  # 如果没有识别出内容则返回 ' '
