@@ -26,13 +26,14 @@ def recognize_digits(image_path, line_list, column_list):
             roi = img[y:y+h, x:x+w]
 
             # 图像预处理（可选但推荐）
-            # gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-            # _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+            gray = cv2.convertScaleAbs(gray, alpha=1.5, beta=0)
+            _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
             # 使用 Tesseract 识别文字，这里我们假设只识别数字
             custom_config = r'--oem 3 --psm 6 outputbase digits'
-            # text = pytesseract.image_to_string(thresh, config=custom_config).strip()
-            text = pytesseract.image_to_string(roi, config=custom_config).strip()
+            text = pytesseract.image_to_string(thresh, config=custom_config).strip()
+            # text = pytesseract.image_to_string(roi, config=custom_config).strip()
 
 
             # 将识别的结果添加到当前行的结果列表中
