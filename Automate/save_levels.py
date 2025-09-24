@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-100 LG 自动化截图脚本 - 分页控制版本
+100 LG 自动化截图脚本 - 坐标点击版本
 """
 
 import time
@@ -156,16 +156,23 @@ def click_at_position(x, y, description="位置"):
         return False
 
 
-def navigate_to_page(window_info, target_page):
-    """导航到指定页面"""
-    if target_page == 0:
-        print("已在第一页，无需导航")
+def navigate_to_level(window_info, start_level):
+    """导航到起始关卡所在的页面"""
+    if start_level <= 1:
+        print("从第一页开始，无需导航")
         return True
 
-    print(f"导航到第{target_page + 1}页...")
+    # 计算起始关卡所在的页面 (0-based)
+    start_page = (start_level - 1) // 36
 
-    # 从当前页翻到目标页
-    for page in range(target_page):
+    if start_page == 0:
+        print("从第一页开始，无需导航")
+        return True
+
+    print(f"导航到第{start_page + 1}页 (关卡{start_level:03d}所在页面)...")
+
+    # 从第一页翻到目标页
+    for page in range(start_page):
         more_x, more_y = calculate_more_button_position(window_info)
         if click_at_position(more_x, more_y, f"More(第{page + 1}次翻页)"):
             time.sleep(2)  # 等待翻页
@@ -180,35 +187,33 @@ def navigate_to_page(window_info, target_page):
             print(f"第{page + 1}次翻页失败")
             return False
 
-    print(f"成功导航到第{target_page + 1}页")
+    print(f"成功导航到第{start_page + 1}页")
     return True
 
 
-def process_level_range(start_page, end_level, window_info, screenshot_dir):
+def process_level_range(start_level, end_level, window_info, screenshot_dir):
     """
     处理指定范围的关卡
 
     参数:
-    - start_page: 起始页面 (0-12)，0表示第一页
-    - end_level: 结束关卡号 (如400)
+    - start_level: 起始关卡号 (从1开始)
+    - end_level: 结束关卡号
     - window_info: 窗口信息
     - screenshot_dir: 截图目录
     """
-    # 计算起始关卡号
-    start_level = start_page * 36 + 1
     if start_level > end_level:
-        print(f"起始关卡{start_level}大于结束关卡{end_level}，无需处理")
+        print(f"起始关卡{start_level:03d}大于结束关卡{end_level:03d}，无需处理")
         return
 
-    print(f"处理范围: 第{start_page + 1}页 关卡{start_level:03d} - 关卡{end_level:03d}")
+    print(f"处理范围: 关卡{start_level:03d} - 关卡{end_level:03d}")
 
-    # 导航到起始页面
-    if not navigate_to_page(window_info, start_page):
+    # 导航到起始关卡所在的页面
+    if not navigate_to_level(window_info, start_level):
         print("导航到起始页面失败")
         return
 
     current_level = start_level
-    current_page = start_page
+    current_page = (start_level - 1) // 36  # 当前页面 (0-based)
 
     while current_level <= end_level:
         # 检查是否需要翻页
@@ -262,12 +267,13 @@ def process_level_range(start_page, end_level, window_info, screenshot_dir):
 
         current_level += 1
 
-    print(f"\n关卡范围处理完成: {start_level:03d} - {min(current_level - 1, end_level):03d}")
+    completed_level = min(current_level - 1, end_level)
+    print(f"\n关卡范围处理完成: {start_level:03d} - {completed_level:03d}")
 
 
 def main():
     """主函数"""
-    print("=== 100 LG 自动化截图脚本 (分页控制版) ===")
+    print("=== 100 LG 自动化截图脚本 (坐标点击版) ===")
 
     # 安全检查
     pyautogui.FAILSAFE = True
@@ -293,11 +299,11 @@ def main():
     print(f"窗口大小: {window_info['width']}x{window_info['height']}")
 
     # 配置处理参数
-    START_PAGE = 1  # 起始页面: 0=第一页, 1=第二页, 等等
-    END_LEVEL = 41  # 结束关卡号
+    START_LEVEL = 1  # 起始关卡: 从1开始
+    END_LEVEL = 400  # 结束关卡号
 
     print(f"\n配置参数:")
-    print(f"起始页面: 第{START_PAGE + 1}页 (从关卡{START_PAGE * 36 + 1:03d}开始)")
+    print(f"起始关卡: 第{START_LEVEL:03d}关")
     print(f"结束关卡: 第{END_LEVEL:03d}关")
     print(f"截图目录: {screenshot_dir}")
 
@@ -305,7 +311,7 @@ def main():
     print("\n开始处理...")
     print("=" * 50)
 
-    process_level_range(START_PAGE, END_LEVEL, window_info, screenshot_dir)
+    process_level_range(START_LEVEL, END_LEVEL, window_info, screenshot_dir)
 
     print("=" * 50)
     print("=== 自动化完成 ===")
