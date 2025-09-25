@@ -1,5 +1,5 @@
-from common import analyze_pixel_line_and_store, analyze_pixel_column_and_store, process_pixel_line_results, \
-    process_pixel_column_results, report_analysis_results
+from common import analyze_pixel_line_and_store, analyze_pixel_column_and_store, process_pixel_long_results, \
+    report_analysis_results
 from PIL import Image
 
 def get_combined_pixel_colors(image_path, line_results, column_results, offset_x=10, offset_y=10):
@@ -168,14 +168,14 @@ if __name__ == "__main__":
 
     stored_line_results = analyze_pixel_line_and_store(image_path, y_coord=300, start_x=0, end_x=1180)
     report_analysis_results(stored_line_results)
-    processed_line_list = process_pixel_line_results(stored_line_results)
+    processed_line_list = process_pixel_long_results(stored_line_results, is_line=True)
     print(processed_line_list)
 
     print("\n" + "="*50 + "\n")
 
     stored_column_results = analyze_pixel_column_and_store(image_path, x_coord=100, start_y=200, end_y=1380)
     report_analysis_results(stored_column_results)
-    processed_column_list = process_pixel_column_results(stored_column_results)
+    processed_column_list = process_pixel_long_results(stored_column_results, is_line=False)
     print(processed_column_list)
 
     print("\n" + "="*50 + "\n")

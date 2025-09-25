@@ -174,16 +174,19 @@ def report_analysis_results(results):
     print("--- 报告结束 ---")
 
 
-def process_pixel_line_results(results, threshold=50):
+def process_pixel_long_results(results, is_line, threshold=50):
     """
     筛选像素块结果，只保留重复次数超过阈值的，并返回它们的起始X坐标和长度。
 
     参数:
     results (list): analyze_pixel_line_and_store 函数返回的 PixelStreak 对象列表。
+    is_line: True 表示处理行，False 表示处理行
     threshold (int): 重复次数的最低门槛。
 
     返回:
-    list: 一个包含元组的列表，每个元组的格式为 (起始X坐标, 长度)。
+    list: 一个包含元组的列表，每个元组的格式为
+    is_line 为True时 (起始X坐标, 长度)
+    is_line False时 (起始Y坐标, 长度)。
     """
     if results is None:
         return []
@@ -192,29 +195,10 @@ def process_pixel_line_results(results, threshold=50):
     for streak in results:
         # 筛选：检查重复次数是否超过门槛
         if streak.count >= threshold:
+            position = streak.position[0 if is_line else 1]
             # 添加到结果列表，格式为 (起始X坐标, 长度)
-            processed_list.append((streak.position[0], streak.count))
+            processed_list.append((position, streak.count))
 
-    return processed_list
-
-def process_pixel_column_results(results, threshold=50):
-    """
-    筛选像素列块结果，只保留重复次数超过阈值的，并返回它们的起始Y坐标和长度。
-
-    参数:
-    results (list): analyze_pixel_column_and_store 函数返回的 PixelStreak 对象列表。
-    threshold (int): 重复次数的最低门槛。
-
-    返回:
-    list: 一个包含元组的列表，每个元组的格式为 (起始Y坐标, 长度)。
-    """
-    if results is None:
-        return []
-
-    processed_list = []
-    for streak in results:
-        if streak.count >= threshold:
-            processed_list.append((streak.position[1], streak.count))
     return processed_list
 
 def to_hex_char(s):
@@ -234,3 +218,38 @@ def to_hex_char(s):
             return s  # 超出范围则返回原字符串
     except ValueError:
         return s  # 非数字字符串也返回原值
+
+def process_pixel_short_results(results, is_line, threshold=10):
+    """
+    筛选像素块结果，只保留连续一段重复次数低于阈值的，并返回它们的起始X坐标和长度。
+
+    参数:
+    results (list): analyze_pixel_line_and_store 函数返回的 PixelStreak 对象列表。
+    is_line: True 表示处理行，False 表示处理行
+    threshold (int): 重复次数的最低门槛。
+
+    返回:
+    list: 一个包含元组的列表，每个元组的格式为
+    is_line 为True时 (起始X坐标, 长度)
+    is_line False时 (起始Y坐标, 长度)。
+    """
+    if results is None:
+        return []
+
+    processed_list = []
+    count = 0
+    position = None
+    for streak in results:
+        # 筛选：检查重复次数是否超过门槛
+        if streak.count <= threshold:
+            # 添加到结果列表，格式为 (起始X坐标, 长度)
+            count += streak.count
+            if not position:
+                position = streak.position[0 if is_line else 1]
+        else:
+            processed_list.append((position, count))
+            count = 0
+            position = None
+
+    processed_list.append((position, count))
+    return processed_list

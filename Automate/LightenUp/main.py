@@ -1,5 +1,5 @@
 from common import analyze_pixel_line_and_store, analyze_pixel_column_and_store, report_analysis_results, \
-    process_pixel_line_results, process_pixel_column_results
+    process_pixel_long_results
 
 import cv2
 import pytesseract
@@ -38,7 +38,7 @@ def recognize_digits(image_path, line_list, column_list):
 
     return result
 
-def recognize_block(image_path, line_list, column_list):
+def recognize_blocks(image_path, line_list, column_list):
     result = set()
     try:
         with Image.open(image_path) as img:
@@ -72,15 +72,15 @@ def format_digit_matrix(matrix, blocks):
 
 def get_level_str_from_image(image_path):
     stored_line_results = analyze_pixel_line_and_store(image_path, y_coord=210, start_x=0, end_x=1180, tweak=tweak_color)
-    processed_line_list = process_pixel_line_results(stored_line_results)
+    processed_line_list = process_pixel_long_results(stored_line_results, is_line=True)
     # print(processed_line_list)
     # print("\n" + "="*50 + "\n")
     stored_column_results = analyze_pixel_column_and_store(image_path, x_coord=10, start_y=200, end_y=1380, tweak=tweak_color)
-    processed_column_list = process_pixel_column_results(stored_column_results)
+    processed_column_list = process_pixel_long_results(stored_column_results, is_line=False)
     # print(processed_column_list)
     digits_matrix = recognize_digits(image_path, processed_line_list, processed_column_list)
     # print(digits_matrix)
-    blocks = recognize_block(image_path, processed_line_list, processed_column_list)
+    blocks = recognize_blocks(image_path, processed_line_list, processed_column_list)
     level_str = format_digit_matrix(digits_matrix, blocks)
     return level_str
 
