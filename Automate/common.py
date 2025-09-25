@@ -18,7 +18,7 @@ class PixelStreak:
         return f"PixelStreak(position={self.position}, color={self.color}, count={self.count})"
 
 
-def analyze_pixel_line_and_store(image_path, y_coord, start_x, end_x):
+def analyze_pixel_line_and_store(image_path, y_coord, start_x, end_x, tweak = None):
     """
     分析图像中指定的一行像素，并将连续的像素块信息存储到 PixelStreak 对象列表中。
 
@@ -48,6 +48,8 @@ def analyze_pixel_line_and_store(image_path, y_coord, start_x, end_x):
 
             for x in range(start_x, end_x + 1):
                 current_pixel_color = pixels[x, y_coord]
+                if tweak:
+                    current_pixel_color = tweak(current_pixel_color)
 
                 if current_streak_color is None:
                     current_streak_color = current_pixel_color
@@ -82,7 +84,7 @@ def analyze_pixel_line_and_store(image_path, y_coord, start_x, end_x):
         return None
 
 
-def analyze_pixel_column_and_store(image_path, x_coord, start_y, end_y):
+def analyze_pixel_column_and_store(image_path, x_coord, start_y, end_y, tweak = None):
     """
     分析图像中指定的一列像素，并将连续的像素块信息存储到 PixelStreak 对象列表中。
 
@@ -112,6 +114,8 @@ def analyze_pixel_column_and_store(image_path, x_coord, start_y, end_y):
 
             for y in range(start_y, end_y + 1):
                 current_pixel_color = pixels[x_coord, y]
+                if tweak:
+                    current_pixel_color = tweak(current_pixel_color)
 
                 if current_streak_color is None:
                     current_streak_color = current_pixel_color
