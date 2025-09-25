@@ -46,7 +46,7 @@ def recognize_block(image_path, line_list, column_list):
             for row_idx, (y, h) in enumerate(column_list):
                 for col_idx, (x, w) in enumerate(line_list):
                     color = pixels[x + 20, y + 20]
-                    if color == (255, 255, 255, 255):
+                    if tweak_color(color) == white:
                         result.add((row_idx, col_idx))
         return result
 
