@@ -1,3 +1,5 @@
+import cv2
+import easyocr
 from PIL import Image
 
 
@@ -18,7 +20,13 @@ class PixelStreak:
         return f"PixelStreak(position={self.position}, color={self.color}, count={self.count})"
 
 
-def analyze_pixel_line_and_store(image_path, y_coord, start_x, end_x, tweak = None):
+def analyze_horizontal_line(
+        image_path: str,
+        y_coord: int,
+        start_x: int,
+        end_x: int,
+        tweak=None
+) -> list[PixelStreak]:
     """
     分析图像中指定的一行像素，并将连续的像素块信息存储到 PixelStreak 对象列表中。
 
@@ -84,7 +92,13 @@ def analyze_pixel_line_and_store(image_path, y_coord, start_x, end_x, tweak = No
         return None
 
 
-def analyze_pixel_column_and_store(image_path, x_coord, start_y, end_y, tweak = None):
+def analyze_vertical_line(
+        image_path: str,
+        x_coord: int,
+        start_y: int,
+        end_y: int,
+        tweak=None
+) -> list[PixelStreak]:
     """
     分析图像中指定的一列像素，并将连续的像素块信息存储到 PixelStreak 对象列表中。
 
@@ -150,7 +164,7 @@ def analyze_pixel_column_and_store(image_path, x_coord, start_y, end_y, tweak = 
         return None
 
 
-def report_analysis_results(results):
+def report_analysis_results(results: list[PixelStreak]) -> None:
     """
     打印分析结果列表。
 
@@ -174,19 +188,19 @@ def report_analysis_results(results):
     print("--- 报告结束 ---")
 
 
-def process_pixel_long_results(results, is_line, threshold=50):
+def process_pixel_long_results(results: list[PixelStreak], is_horizontal: bool, threshold: int = 50) -> list[tuple[int, int]]:
     """
     筛选像素块结果，只保留重复次数超过阈值的，并返回它们的起始X坐标和长度。
 
     参数:
-    results (list): analyze_pixel_line_and_store 函数返回的 PixelStreak 对象列表。
-    is_line: True 表示处理行，False 表示处理行
+    results (list): analyze_horizontal_line 函数返回的 PixelStreak 对象列表。
+    is_horizontal: True 表示处理行，False 表示处理行
     threshold (int): 重复次数的最低门槛。
 
     返回:
     list: 一个包含元组的列表，每个元组的格式为
-    is_line 为True时 (起始X坐标, 长度)
-    is_line False时 (起始Y坐标, 长度)。
+    is_horizontal 为True时 (起始X坐标, 长度)
+    is_horizontal False时 (起始Y坐标, 长度)。
     """
     if results is None:
         return []
@@ -195,13 +209,97 @@ def process_pixel_long_results(results, is_line, threshold=50):
     for streak in results:
         # 筛选：检查重复次数是否超过门槛
         if streak.count >= threshold:
-            position = streak.position[0 if is_line else 1]
+            position = streak.position[0 if is_horizontal else 1]
             # 添加到结果列表，格式为 (起始X坐标, 长度)
             processed_list.append((position, streak.count))
 
     return processed_list
 
-def to_hex_char(s):
+
+def process_pixel_short_results(results: list[PixelStreak], is_horizontal: bool, threshold: int = 10) -> list[tuple[int, int]]:
+    """
+    筛选像素块结果，只保留连续一段重复次数低于阈值的，并返回它们的起始X坐标和长度。
+
+    参数:
+    results (list): analyze_horizontal_line 函数返回的 PixelStreak 对象列表。
+    is_horizontal: True 表示处理行，False 表示处理行
+    threshold (int): 重复次数的最低门槛。
+
+    返回:
+    list: 一个包含元组的列表，每个元组的格式为
+    is_horizontal 为True时 (起始X坐标, 长度)
+    is_horizontal False时 (起始Y坐标, 长度)。
+    """
+    if results is None:
+        return []
+
+    processed_list = []
+    count = 0
+    position = None
+    for streak in results:
+        # 筛选：检查重复次数是否超过门槛
+        if streak.count <= threshold:
+            # 添加到结果列表，格式为 (起始X坐标, 长度)
+            count += streak.count
+            if not position:
+                position = streak.position[0 if is_horizontal else 1]
+        else:
+            processed_list.append((position, count))
+            count = 0
+            position = None
+
+    processed_list.append((position, count))
+    return processed_list
+
+
+def recognize_digits(image_path: str, line_list: list[tuple[int, int]], column_list: list[tuple[int, int]]) -> list[list[str]]:
+    """
+    读取图片中多个区域的数字，不进行图像预处理。
+
+    参数:
+        image_path: 图片路径
+        line_list: [(x1, w1), (x2, w2), ...] 水平列（x坐标和宽度）
+        column_list: [(y1, h1), (y2, h2), ...] 垂直行（y坐标和高度）
+
+    返回:
+        二维列表，每个元素是识别出的字符或空格
+    """
+    # 读取图像
+    img = cv2.imread(image_path)
+
+    # 存储识别结果
+    result = []
+
+    reader = easyocr.Reader(['en'])  # 初始化，只加载英文模型
+    for row_idx, (y, h) in enumerate(column_list):
+        row_result = []
+        for col_idx, (x, w) in enumerate(line_list):
+            # 裁剪感兴趣区域(ROI)
+            roi = img[y:y + h, x:x + w]
+
+            output = reader.readtext(roi)
+            text = ' ' if not output else output[0][1]
+
+            # # 图像预处理（可选但推荐）
+            # gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+            # gray = cv2.convertScaleAbs(gray, alpha=1.5, beta=0)
+            # _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            #
+            # # 使用 Tesseract 识别文字，这里我们假设只识别数字
+            # custom_config = r'--oem 3 --psm 6 outputbase digits'
+            # text = pytesseract.image_to_string(thresh, config=custom_config).strip()
+            # # text = pytesseract.image_to_string(roi, config=custom_config).strip()
+
+            # 将识别的结果添加到当前行的结果列表中
+            row_result.append(text)
+
+        # 将当前行的结果添加到最终结果列表中
+        result.append(row_result)
+
+    return result
+
+
+def to_hex_char(s: str) -> str:
     """
     将表示 0~15 的数字字符串转换为对应的十六进制字符（大写）
     空格保持不变
@@ -219,37 +317,12 @@ def to_hex_char(s):
     except ValueError:
         return s  # 非数字字符串也返回原值
 
-def process_pixel_short_results(results, is_line, threshold=10):
-    """
-    筛选像素块结果，只保留连续一段重复次数低于阈值的，并返回它们的起始X坐标和长度。
 
-    参数:
-    results (list): analyze_pixel_line_and_store 函数返回的 PixelStreak 对象列表。
-    is_line: True 表示处理行，False 表示处理行
-    threshold (int): 重复次数的最低门槛。
+def level_node_string(level: int, level_str: str) -> str:
+    return f"""  <level id="{level}">
+    <![CDATA[
+{level_str}
+    ]]>
+  </level>
+"""
 
-    返回:
-    list: 一个包含元组的列表，每个元组的格式为
-    is_line 为True时 (起始X坐标, 长度)
-    is_line False时 (起始Y坐标, 长度)。
-    """
-    if results is None:
-        return []
-
-    processed_list = []
-    count = 0
-    position = None
-    for streak in results:
-        # 筛选：检查重复次数是否超过门槛
-        if streak.count <= threshold:
-            # 添加到结果列表，格式为 (起始X坐标, 长度)
-            count += streak.count
-            if not position:
-                position = streak.position[0 if is_line else 1]
-        else:
-            processed_list.append((position, count))
-            count = 0
-            position = None
-
-    processed_list.append((position, count))
-    return processed_list

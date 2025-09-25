@@ -1,4 +1,4 @@
-from common import analyze_pixel_line_and_store, analyze_pixel_column_and_store, process_pixel_long_results, \
+from common import analyze_horizontal_line, analyze_vertical_line, process_pixel_long_results, \
     report_analysis_results
 from PIL import Image
 
@@ -166,16 +166,16 @@ if __name__ == "__main__":
     # 图像信息
     image_path = 'Level_01.png'
 
-    stored_line_results = analyze_pixel_line_and_store(image_path, y_coord=300, start_x=0, end_x=1180)
-    report_analysis_results(stored_line_results)
-    processed_line_list = process_pixel_long_results(stored_line_results, is_line=True)
+    horizontal_line_results = analyze_horizontal_line(image_path, y_coord=300, start_x=0, end_x=1180)
+    report_analysis_results(horizontal_line_results)
+    processed_line_list = process_pixel_long_results(horizontal_line_results, is_horizontal=True)
     print(processed_line_list)
 
     print("\n" + "="*50 + "\n")
 
-    stored_column_results = analyze_pixel_column_and_store(image_path, x_coord=100, start_y=200, end_y=1380)
-    report_analysis_results(stored_column_results)
-    processed_column_list = process_pixel_long_results(stored_column_results, is_line=False)
+    vertical_line_results = analyze_vertical_line(image_path, x_coord=100, start_y=200, end_y=1380)
+    report_analysis_results(vertical_line_results)
+    processed_column_list = process_pixel_long_results(vertical_line_results, is_horizontal=False)
     print(processed_column_list)
 
     print("\n" + "="*50 + "\n")

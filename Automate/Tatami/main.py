@@ -1,52 +1,21 @@
-from common import analyze_pixel_line_and_store, analyze_pixel_column_and_store, report_analysis_results, \
-    process_pixel_long_results, process_pixel_short_results
+from common import analyze_horizontal_line, analyze_vertical_line, report_analysis_results, \
+    process_pixel_long_results, process_pixel_short_results, recognize_digits, level_node_string
 
-import cv2
-import pytesseract
-import easyocr
-from PIL import Image
-
-
-def recognize_digits(image_path, line_list, column_list):
-    img = cv2.imread(image_path)
-
-    # 存储识别结果
-    result = []
-
-    reader = easyocr.Reader(['en'])  # 初始化，只加载英文模型
-    for row_idx, (y, h) in enumerate(column_list):
-        row_result = []
-        for col_idx, (x, w) in enumerate(line_list):
-            # 裁剪感兴趣区域(ROI)
-            roi = img[y:y+h, x:x+w]
-            # 1. 放大 2 倍（关键！）
-            roi_large = cv2.resize(roi, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
-
-            output = reader.readtext(roi_large)
-            text = ' ' if not output else output[0][1]
-
-            # 将识别的结果添加到当前行的结果列表中
-            row_result.append(text)
-
-        # 将当前行的结果添加到最终结果列表中
-        result.append(row_result)
-
-    return result
 
 def recognize_walls(image_path, line_list, column_list):
     row_walls = set()
     col_walls = set()
     try:
         for col_idx, (x, w) in enumerate(line_list):
-            stored_column_results = analyze_pixel_column_and_store(image_path, x_coord=x+10, start_y=200, end_y=1380)
-            processed_column_grid = process_pixel_short_results(stored_column_results, is_line=False)
+            vertical_line_results = analyze_vertical_line(image_path, x_coord=x+10, start_y=200, end_y=1380)
+            processed_column_grid = process_pixel_short_results(vertical_line_results, is_horizontal=False)
             for row_idx, (y, h) in enumerate(processed_column_grid):
                 if row_idx == 0 or row_idx == len(processed_column_grid) - 1 or h > 4:
                     row_walls.add((row_idx, col_idx))
 
         for row_idx, (y, h) in enumerate(column_list):
-            stored_line_results = analyze_pixel_line_and_store(image_path, y_coord=y+10, start_x=0, end_x=1180)
-            processed_line_grid = process_pixel_short_results(stored_line_results, is_line=True)
+            horizontal_line_results = analyze_horizontal_line(image_path, y_coord=y+10, start_x=0, end_x=1180)
+            processed_line_grid = process_pixel_short_results(horizontal_line_results, is_horizontal=True)
             for col_idx, (x, w) in enumerate(processed_line_grid):
                 if col_idx == 0 or col_idx == len(processed_line_grid) - 1 or w > 4:
                     col_walls.add((row_idx, col_idx))
@@ -90,10 +59,10 @@ def format_digit_matrix(matrix, walls):
     return result
 
 def get_level_str_from_image(image_path):
-    stored_line_results = analyze_pixel_line_and_store(image_path, y_coord=210, start_x=0, end_x=1180)
-    processed_line_list = process_pixel_long_results(stored_line_results, is_line=True)
-    stored_column_results = analyze_pixel_column_and_store(image_path, x_coord=10, start_y=200, end_y=1380)
-    processed_column_list = process_pixel_long_results(stored_column_results, is_line=False)
+    horizontal_line_results = analyze_horizontal_line(image_path, y_coord=210, start_x=0, end_x=1180)
+    processed_line_list = process_pixel_long_results(horizontal_line_results, is_horizontal=True)
+    vertical_line_results = analyze_vertical_line(image_path, x_coord=10, start_y=200, end_y=1380)
+    processed_column_list = process_pixel_long_results(vertical_line_results, is_horizontal=False)
     digits_matrix = recognize_digits(image_path, processed_line_list, processed_column_list)
     walls = recognize_walls(image_path, processed_line_list, processed_column_list)
     level_str = format_digit_matrix(digits_matrix, walls)
@@ -107,12 +76,7 @@ def main():
         image_path = f'{level_image_path}Level_{i:03d}.png'
         print("正在处理图片 " + image_path)
         level_str = get_level_str_from_image(image_path)
-        node = f"""  <level id="{i}">
-    <![CDATA[
-{level_str}
-    ]]>
-  </level>
-"""
+        node = level_node_string(i, level_str)
         with open(f"Levels.txt", "a") as text_file:
             text_file.write(node)
 
