@@ -41,14 +41,14 @@ def recognize_walls(image_path, line_list, column_list):
             stored_column_results = analyze_pixel_column_and_store(image_path, x_coord=x+10, start_y=200, end_y=1380)
             processed_column_grid = process_pixel_short_results(stored_column_results, is_line=False)
             for row_idx, (y, h) in enumerate(processed_column_grid):
-                if row_idx == 0 or row_idx == len(processed_column_grid) - 1 or h > 5:
+                if row_idx == 0 or row_idx == len(processed_column_grid) - 1 or h > 4:
                     row_walls.add((row_idx, col_idx))
 
         for row_idx, (y, h) in enumerate(column_list):
             stored_line_results = analyze_pixel_line_and_store(image_path, y_coord=y+10, start_x=0, end_x=1180)
             processed_line_grid = process_pixel_short_results(stored_line_results, is_line=True)
             for col_idx, (x, w) in enumerate(processed_line_grid):
-                if col_idx == 0 or col_idx == len(processed_line_grid) - 1 or w > 5:
+                if col_idx == 0 or col_idx == len(processed_line_grid) - 1 or w > 4:
                     col_walls.add((row_idx, col_idx))
 
         return row_walls, col_walls
@@ -102,7 +102,7 @@ def get_level_str_from_image(image_path):
 
 def main():
     level_image_path = "/Users/zwvista/Documents/Programs/Games/100LG/Tatami/"
-    for i in range(200, 201):
+    for i in range(1, 201):
         # 图像信息
         image_path = f'{level_image_path}Level_{i:03d}.png'
         print("正在处理图片 " + image_path)
