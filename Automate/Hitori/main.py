@@ -5,6 +5,32 @@ import cv2
 import pytesseract
 import easyocr
 
+
+def recognize_digit_from_roi(reader, roi):
+    """
+    从一个小 ROI 中识别数字（适用于最小 95px）
+    """
+    # 1. 放大 2 倍（关键！）
+    roi_large = cv2.resize(roi, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+
+    # # 2. （可选）增强对比度（如果背景/文字对比弱）
+    # gray = cv2.cvtColor(roi_large, cv2.COLOR_BGR2GRAY)
+    # clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    # enhanced = clahe.apply(gray)
+    # enhanced = cv2.cvtColor(enhanced, cv2.COLOR_GRAY2BGR)  # 转回 3 通道
+    #
+    # # 3. OCR 识别
+    # result = reader.readtext(
+    #     enhanced,
+    #     allowlist='0123456789',  # 只识别数字
+    #     low_text=0.1,  # 降低阈值，提高敏感度
+    #     text_threshold=0.3
+    # )
+
+    result = reader.readtext(roi_large)
+
+    return result[0][1] if result else ' '
+
 def recognize_digits(image_path, line_list, column_list):
     """
     读取图片中多个区域的数字，不进行图像预处理。
@@ -30,19 +56,7 @@ def recognize_digits(image_path, line_list, column_list):
             # 裁剪感兴趣区域(ROI)
             roi = img[y:y+h, x:x+w]
 
-            output = reader.readtext(roi)
-            text = ' ' if not output else output[0][1]
-
-            # # 图像预处理（可选但推荐）
-            # gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-            # gray = cv2.convertScaleAbs(gray, alpha=1.5, beta=0)
-            # _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-            #
-            # # 使用 Tesseract 识别文字，这里我们假设只识别数字
-            # custom_config = r'--oem 3 --psm 6 outputbase digits'
-            # text = pytesseract.image_to_string(thresh, config=custom_config).strip()
-            # # text = pytesseract.image_to_string(roi, config=custom_config).strip()
-
+            text = recognize_digit_from_roi(reader, roi)
             text = to_hex_char(text)
             # 将识别的结果添加到当前行的结果列表中
             row_result.append(text)
@@ -92,8 +106,8 @@ def get_level_str_from_image(image_path):
 
 
 def main():
-    level_image_path = ""
-    for i in range(1, 3):
+    level_image_path = "/Users/zwvista/Documents/Programs/Games/100LG/Hitori/"
+    for i in range(73, 74):
         # 图像信息
         image_path = f'{level_image_path}Level_{i:03d}.png'
         print("正在处理图片 " + image_path)
