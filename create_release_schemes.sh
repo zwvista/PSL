@@ -12,8 +12,8 @@ find . -name "Puzzles*.xcscheme" -not -name "*_Release.xcscheme" | while read fi
     cp "$file" "$new_file"
     
     # 在新文件中替换 buildConfiguration 设置
-    sed -i '' 's/<LaunchAction[^>]*buildConfiguration = "Debug"/<LaunchAction buildConfiguration = "Release"/g' "$new_file"
-    sed -i '' 's/<LaunchAction[^>]*buildConfiguration="Debug"/<LaunchAction buildConfiguration="Release"/g' "$new_file"
+    sed -i '' 's/buildConfiguration = "Debug"/buildConfiguration = "Release"/g' "$new_file"
+    sed -i '' 's/buildConfiguration="Debug"/buildConfiguration="Release"/g' "$new_file"
         
     echo "已完成: $new_file"
     echo "---"
