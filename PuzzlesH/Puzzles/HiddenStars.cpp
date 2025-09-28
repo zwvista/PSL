@@ -12,7 +12,7 @@
     1. In the board you have to find hidden stars.
     2. Each star is pointed at by at least one Arrow and each Arrow points
        to at least one star.
-    3. The number on the borders tell you how many Stars there on that row
+    3. The number on the borders tell you how many Stars there are on that row
        or column.
 
     Variant
