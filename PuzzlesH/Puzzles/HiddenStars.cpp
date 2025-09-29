@@ -16,7 +16,7 @@
        or column.
 
     Variant
-    4. Some levels have a variation of these rules: Stars must be pointed
+    4. Some levels have a variation of these rules: Stars must be pointed to
        by exactly one Arrow and Arrows must point to exactly one Star.
 */
 
