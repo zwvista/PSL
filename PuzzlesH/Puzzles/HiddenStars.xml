@@ -5,7 +5,7 @@
 1. In the board you have to find hidden stars.
 2. Each star is pointed at by at least one Arrow and each Arrow points to at least one star.
 3. The number on the borders tell you how many Stars there on that row or column.  Variant
-4. The "many-to-many" rule is replaced by a one-to-one rule. Every star is uniquely paired with one arrow.
+4. Some levels have a variation of these rules: Stars must be pointed by one and only one Arrow.
   ]]>
 </help>
 <levels>
