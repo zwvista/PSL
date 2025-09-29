@@ -17,7 +17,7 @@
 
     Variant
     4. Some levels have a variation of these rules: Stars must be pointed
-       by one and only one Arrow.
+       by exactly one Arrow and Arrows must point to exactly one Star.
 */
 
 namespace puzzles::HiddenStars{
@@ -33,7 +33,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    bool m_only_one_arrow;
+    bool m_exactly_one;
     map<Position, int> m_pos2arrow;
     vector<int> m_star_counts_rows, m_star_counts_cols;
     int m_star_total_count;
@@ -45,7 +45,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() - 1)
-    , m_only_one_arrow(level.attribute("OnlyOneArrow").as_int() != 0)
+    , m_exactly_one(level.attribute("ExactlyOne").as_int() != 0)
     , m_star_counts_rows(m_sidelen)
     , m_star_counts_cols(m_sidelen)
 {
@@ -176,12 +176,12 @@ bool puz_state::make_move(const Position& p)
     };
 
     for (auto& a : m_grp_arrows)
-        f(a, !m_game->m_only_one_arrow);
+        f(a, !m_game->m_exactly_one);
     f(m_grp_rows[p.first], false);
     f(m_grp_cols[p.second], false);
 
     return m_grp_rows.is_valid() && m_grp_cols.is_valid() &&
-        (!m_game->m_only_one_arrow || m_grp_arrows.is_valid());
+        (!m_game->m_exactly_one || m_grp_arrows.is_valid());
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
