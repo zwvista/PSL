@@ -55,7 +55,7 @@
 		8C689D342E08BF6200A2BCCC /* Banquet.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Banquet.xml; sourceTree = "<group>"; };
 		8C884F712E2D2BF9005310E2 /* BlockEscape.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = BlockEscape.txt; sourceTree = "<group>"; };
 		8C884F722E2D2BF9005310E2 /* BlockEscape.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BlockEscape.xml; sourceTree = "<group>"; };
-		8CA23EC41EA9233C0055D6B1 /* PuzzlesB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesB; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CA23EC41EA9233C0055D6B1 /* PuzzlesB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = PuzzlesB; path = /Users/zwvista/Documents/Programs/Games/PSL/PuzzlesB/build/Debug/PuzzlesB; sourceTree = "<absolute>"; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F181EA925F20055D6B1 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
@@ -142,22 +142,13 @@
 			isa = PBXGroup;
 			children = (
 				7D5994582E66F18600BBE136 /* BoostSettings.xcconfig */,
-				8CA23ECE1EA924380055D6B1 /* main.cpp */,
-				8CA23EC51EA9233C0055D6B1 /* Products */,
 				8CA23F1B1EA926F60055D6B1 /* PSL */,
-				8CA23ECF1EA924380055D6B1 /* Puzzles */,
-				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
+				8CA23ECE1EA924380055D6B1 /* main.cpp */,
 				8CA23F181EA925F20055D6B1 /* stdafx.h */,
+				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
 				8CA23F191EA925F20055D6B1 /* targetver.h */,
+				8CA23ECF1EA924380055D6B1 /* Puzzles */,
 			);
-			sourceTree = "<group>";
-		};
-		8CA23EC51EA9233C0055D6B1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8CA23EC41EA9233C0055D6B1 /* PuzzlesB */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
@@ -297,7 +288,7 @@
 				Base,
 			);
 			mainGroup = 8CA23EBB1EA9233C0055D6B1;
-			productRefGroup = 8CA23EC51EA9233C0055D6B1 /* Products */;
+			productRefGroup = 8CA23EBB1EA9233C0055D6B1;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
