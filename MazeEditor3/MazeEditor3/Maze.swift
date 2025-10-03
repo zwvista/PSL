@@ -172,7 +172,7 @@ class Maze: NSObject {
         }
         set {
             clearAll()
-            let strs = newValue.components(separatedBy: "`\n").filter{$0 != ""}
+            let strs = newValue.split { $0.isNewline || $0 == "`" }.map(String.init)
             if hasWall {
                 size = Position(strs.count / 2, strs[0].count / 2)
                 for r in 0...height {
