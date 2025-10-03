@@ -49,6 +49,8 @@ using puz_hint = vector<int>;
 
 puz_hint compute_hint(const vector<int>& filled)
 {
+    if (filled.empty())
+        return {0};
     vector<int> hint;
     for (int j = 0; j < filled.size(); ++j)
         if (j == 0 || filled[j] - filled[j - 1] != 1)
@@ -146,7 +148,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     // A cell with a 0 means all its surrounding cells are empty.
-    for (int n : {0, PUZ_UNKNOWN})
+    // A question mark can be 0.
+    // for (int n : {0, PUZ_UNKNOWN})
+    // A question mark cannot be 0, although the game rules didn't say that.
+    for (int n : {0})
         if (auto it = m_hint2perms.find({n}); it != m_hint2perms.end())
             it->second.emplace_back(8, PUZ_EMPTY);
 }

@@ -31,6 +31,8 @@ using puz_hint = vector<int>;
 
 puz_hint compute_hint(const vector<int>& filled)
 {
+    if (filled.empty())
+        return {0};
     vector<int> hint;
     for (int j = 0; j < filled.size(); ++j)
         if (j == 0 || filled[j] - filled[j - 1] != 1)
