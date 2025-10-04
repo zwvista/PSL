@@ -9,6 +9,8 @@ namespace puzzles::Bridges{
 struct puz_generator
 {
     int m_sidelen;
+    // key: the position of the island
+    // value.elem: the numbers of the bridges connected to the island
     map<Position, vector<int>> m_pos2nums;
     vector<Position> m_islands;
     string m_cells;
@@ -35,6 +37,7 @@ puz_generator::puz_generator(int n)
         m_cells.push_back(PUZ_BOUNDARY);
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    // add the first island
     int i = rand() % (n * n);
     Position p(i / n + 1, i % n + 1);
     add_island(p);
@@ -42,6 +45,7 @@ puz_generator::puz_generator(int n)
 
 void puz_generator::gen_bridge()
 {
+    // randomly select an island
     auto p = m_islands[rand() % m_islands.size()];
     auto& nums = m_pos2nums.at(p);
 
@@ -62,17 +66,21 @@ void puz_generator::gen_bridge()
             if (cells(p2) == PUZ_ISLAND)
                 rng.push_back(p2);
         }
+        // randomly select the number of bridges to add
         num = rng.empty() ? 0 : (rand() % 5 + 1) / 2;
         if (num == 0) continue;
         char ch = is_horz ? num == 1 ? PUZ_HORZ_1 : PUZ_HORZ_2 :
             num == 1 ? PUZ_VERT_1 : PUZ_VERT_2;
         auto p3 = rng[rand() % rng.size()];
+        // add the other island if not exists
         if (cells(p3) == PUZ_SPACE)
             add_island(p3);
+        // set the number of bridges for the other island
         m_pos2nums.at(p3)[(i + 2) % 4] = num;
         for (auto p2 = p + os; p2 != p3; p2 += os)
             cells(p2) = ch;
     }
+    // remove the island since no more bridges can be added
     boost::remove_erase(m_islands, p);
 }
 
