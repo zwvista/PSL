@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C1274622E923346005A89E8 /* Bridges.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C12745C2E923346005A89E8 /* Bridges.cpp */; };
+		8C1274632E923346005A89E8 /* BridgesGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C12745F2E923346005A89E8 /* BridgesGen.cpp */; };
 		8C689D152E07740000A2BCCC /* Branches2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D132E07740000A2BCCC /* Branches2.cpp */; };
 		8C689D352E08BF6200A2BCCC /* Banquet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D322E08BF6200A2BCCC /* Banquet.cpp */; };
 		8C74121F2DE25A7600E23098 /* BentBridges.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95804A3A2544CA720022AF35 /* BentBridges.cpp */; };
@@ -24,8 +26,6 @@
 		8CA23FDE1EB479280055D6B1 /* BoxItAround.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FC51EB479280055D6B1 /* BoxItAround.cpp */; };
 		8CA23FDF1EB479280055D6B1 /* BoxItUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FC81EB479280055D6B1 /* BoxItUp.cpp */; };
 		8CA23FE01EB479280055D6B1 /* Branches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FCB1EB479280055D6B1 /* Branches.cpp */; };
-		8CA23FE11EB479280055D6B1 /* Bridges.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FCE1EB479280055D6B1 /* Bridges.cpp */; };
-		8CA23FE21EB479280055D6B1 /* BridgesGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FD11EB479280055D6B1 /* BridgesGen.cpp */; };
 		8CA23FE31EB479280055D6B1 /* BusySeas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FD21EB479280055D6B1 /* BusySeas.cpp */; };
 		8CA23FE41EB479280055D6B1 /* BWTapa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23FD51EB479280055D6B1 /* BWTapa.cpp */; };
 /* End PBXBuildFile section */
@@ -44,10 +44,14 @@
 
 /* Begin PBXFileReference section */
 		7D5994582E66F18600BBE136 /* BoostSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BoostSettings.xcconfig; path = ../BoostSettings.xcconfig; sourceTree = SOURCE_ROOT; };
+		8C12745B2E923346005A89E8 /* Bridges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridges.h; sourceTree = "<group>"; };
+		8C12745C2E923346005A89E8 /* Bridges.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Bridges.cpp; sourceTree = "<group>"; };
+		8C12745D2E923346005A89E8 /* Bridges.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bridges.txt; sourceTree = "<group>"; };
+		8C12745E2E923346005A89E8 /* Bridges.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Bridges.xml; sourceTree = "<group>"; };
+		8C12745F2E923346005A89E8 /* BridgesGen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BridgesGen.cpp; sourceTree = "<group>"; };
+		8C1274602E923346005A89E8 /* BridgesGen.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BridgesGen.xml; sourceTree = "<group>"; };
 		8C5F128B2DE377CE00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F128C2DE377CE00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
-		8C6854311FF000D500C592FD /* Bridges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridges.h; sourceTree = "<group>"; };
-		8C6854351FF1FAB600C592FD /* BridgesGen.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BridgesGen.xml; sourceTree = "<group>"; };
 		8C689D132E07740000A2BCCC /* Branches2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Branches2.cpp; sourceTree = "<group>"; };
 		8C689D142E07740000A2BCCC /* Branches2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Branches2.txt; sourceTree = "<group>"; };
 		8C689D322E08BF6200A2BCCC /* Banquet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Banquet.cpp; sourceTree = "<group>"; };
@@ -111,10 +115,6 @@
 		8CA23FCB1EB479280055D6B1 /* Branches.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Branches.cpp; sourceTree = "<group>"; };
 		8CA23FCC1EB479280055D6B1 /* Branches.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Branches.txt; sourceTree = "<group>"; };
 		8CA23FCD1EB479280055D6B1 /* Branches.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Branches.xml; sourceTree = "<group>"; };
-		8CA23FCE1EB479280055D6B1 /* Bridges.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bridges.cpp; sourceTree = "<group>"; };
-		8CA23FCF1EB479280055D6B1 /* Bridges.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bridges.txt; sourceTree = "<group>"; };
-		8CA23FD01EB479280055D6B1 /* Bridges.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Bridges.xml; sourceTree = "<group>"; };
-		8CA23FD11EB479280055D6B1 /* BridgesGen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BridgesGen.cpp; sourceTree = "<group>"; };
 		8CA23FD21EB479280055D6B1 /* BusySeas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BusySeas.cpp; sourceTree = "<group>"; };
 		8CA23FD31EB479280055D6B1 /* BusySeas.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BusySeas.txt; sourceTree = "<group>"; };
 		8CA23FD41EB479280055D6B1 /* BusySeas.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BusySeas.xml; sourceTree = "<group>"; };
@@ -138,6 +138,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C1274612E923346005A89E8 /* Bridges */ = {
+			isa = PBXGroup;
+			children = (
+				8C12745B2E923346005A89E8 /* Bridges.h */,
+				8C12745C2E923346005A89E8 /* Bridges.cpp */,
+				8C12745D2E923346005A89E8 /* Bridges.txt */,
+				8C12745E2E923346005A89E8 /* Bridges.xml */,
+				8C12745F2E923346005A89E8 /* BridgesGen.cpp */,
+				8C1274602E923346005A89E8 /* BridgesGen.xml */,
+			);
+			path = Bridges;
+			sourceTree = "<group>";
+		};
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
@@ -195,12 +208,7 @@
 				8CA23FCD1EB479280055D6B1 /* Branches.xml */,
 				8C689D132E07740000A2BCCC /* Branches2.cpp */,
 				8C689D142E07740000A2BCCC /* Branches2.txt */,
-				8C6854311FF000D500C592FD /* Bridges.h */,
-				8CA23FCE1EB479280055D6B1 /* Bridges.cpp */,
-				8CA23FCF1EB479280055D6B1 /* Bridges.txt */,
-				8CA23FD01EB479280055D6B1 /* Bridges.xml */,
-				8CA23FD11EB479280055D6B1 /* BridgesGen.cpp */,
-				8C6854351FF1FAB600C592FD /* BridgesGen.xml */,
+				8C1274612E923346005A89E8 /* Bridges */,
 				8CA23FD21EB479280055D6B1 /* BusySeas.cpp */,
 				8CA23FD31EB479280055D6B1 /* BusySeas.txt */,
 				8CA23FD41EB479280055D6B1 /* BusySeas.xml */,
@@ -313,10 +321,10 @@
 				8C74121F2DE25A7600E23098 /* BentBridges.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA23FDD1EB479280055D6B1 /* BoxItAgain.cpp in Sources */,
-				8CA23FE11EB479280055D6B1 /* Bridges.cpp in Sources */,
-				8CA23FE21EB479280055D6B1 /* BridgesGen.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				8CA23FDB1EB479280055D6B1 /* BootyIsland.cpp in Sources */,
+				8C1274622E923346005A89E8 /* Bridges.cpp in Sources */,
+				8C1274632E923346005A89E8 /* BridgesGen.cpp in Sources */,
 				8C689D152E07740000A2BCCC /* Branches2.cpp in Sources */,
 				8CA23FDF1EB479280055D6B1 /* BoxItUp.cpp in Sources */,
 				8CA23FE41EB479280055D6B1 /* BWTapa.cpp in Sources */,
