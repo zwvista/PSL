@@ -7,7 +7,7 @@ C = D . =
 B . = = A 
 Number of moves: 2
 Number of vertices examined: 3
-0.0020847 [s]
+0.002613 [s]
 
 Level 2
 Sequence of moves: 
@@ -18,7 +18,7 @@ C = . . A
 D . D = = 
 Number of moves: 2
 Number of vertices examined: 3
-0.0013791 [s]
+0.002612 [s]
 
 Level 3
 Sequence of moves: 
@@ -29,7 +29,7 @@ B . = C .
 B . B = = 
 Number of moves: 1
 Number of vertices examined: 2
-0.0010947 [s]
+0.00227 [s]
 
 Level 4
 Sequence of moves: 
@@ -41,7 +41,7 @@ B . B = C =
 . = = C . C 
 Number of moves: 1
 Number of vertices examined: 2
-0.0039164 [s]
+0.006566 [s]
 
 Level 5
 Sequence of moves: 
@@ -53,7 +53,7 @@ A = = . C .
 . A . = . C 
 Number of moves: 4
 Number of vertices examined: 5
-0.0040736 [s]
+0.006588 [s]
 
 Level 6
 Sequence of moves: 
@@ -65,7 +65,7 @@ Sequence of moves:
 = = C . C = 
 Number of moves: 3
 Number of vertices examined: 4
-0.0035716 [s]
+0.004281 [s]
 
 Level 7
 Sequence of moves: 
@@ -77,7 +77,7 @@ A . = = . D
 = = D . D . 
 Number of moves: 3
 Number of vertices examined: 4
-0.0041128 [s]
+0.004608 [s]
 
 Level 8
 Sequence of moves: 
@@ -89,7 +89,7 @@ B = A . = =
 . = . A . A 
 Number of moves: 2
 Number of vertices examined: 3
-0.0052873 [s]
+0.004451 [s]
 
 Level 9
 Sequence of moves: 
@@ -101,7 +101,7 @@ A = = . . .
 = = . C . . 
 Number of moves: 5
 Number of vertices examined: 6
-0.0072015 [s]
+0.00832 [s]
 
 Level 10
 Sequence of moves: 
@@ -113,7 +113,7 @@ A . = . . C
 . . A = = . 
 Number of moves: 5
 Number of vertices examined: 6
-0.0049973 [s]
+0.005682 [s]
 
 Level 11
 Sequence of moves: 
@@ -125,7 +125,7 @@ Sequence of moves:
 B . = . . = 
 Number of moves: 5
 Number of vertices examined: 9
-0.0079969 [s]
+0.008485 [s]
 
 Level 12
 Sequence of moves: 
@@ -137,7 +137,7 @@ D . D = = .
 . . . A = = 
 Number of moves: 3
 Number of vertices examined: 4
-0.0048449 [s]
+0.004935 [s]
 
 Level 13
 Sequence of moves: 
@@ -150,7 +150,7 @@ E . E = . = D
 E . = . = . . 
 Number of moves: 7
 Number of vertices examined: 9
-0.0121456 [s]
+0.013071 [s]
 
 Level 14
 Sequence of moves: 
@@ -163,7 +163,7 @@ E . = = . . B
 E . = = . C = 
 Number of moves: 5
 Number of vertices examined: 7
-0.0144829 [s]
+0.015088 [s]
 
 Level 15
 Sequence of moves: 
@@ -176,7 +176,7 @@ B = . = . D =
 = = . . E . E 
 Number of moves: 1
 Number of vertices examined: 2
-0.0095828 [s]
+0.010141 [s]
 
 Level 16
 Sequence of moves: 
@@ -189,7 +189,7 @@ A . A = = . E
 A . = . . D . 
 Number of moves: 2
 Number of vertices examined: 3
-0.0058281 [s]
+0.00562 [s]
 
 Level 17
 Sequence of moves: 
@@ -202,7 +202,7 @@ B . = . A = .
 . . D . D = . 
 Number of moves: 4
 Number of vertices examined: 5
-0.0101075 [s]
+0.010543 [s]
 
 Level 18
 Sequence of moves: 
@@ -215,7 +215,7 @@ C . C = = B =
 . A . A = . . 
 Number of moves: 5
 Number of vertices examined: 6
-0.0101526 [s]
+0.010513 [s]
 
 Level 19
 Sequence of moves: 
@@ -228,7 +228,7 @@ D = . = = . F
 A . . = = . F 
 Number of moves: 6
 Number of vertices examined: 7
-0.0166971 [s]
+0.017495 [s]
 
 Level 20
 Sequence of moves: 
@@ -241,7 +241,7 @@ A = . . = . .
 D . D = = . B 
 Number of moves: 8
 Number of vertices examined: 11
-0.0147559 [s]
+0.015664 [s]
 
 Level 21
 Sequence of moves: 
@@ -254,7 +254,7 @@ B . = . F = =
 B = . C . . C 
 Number of moves: 5
 Number of vertices examined: 6
-0.0073686 [s]
+0.00793 [s]
 
 Level 22
 Sequence of moves: 
@@ -267,7 +267,949 @@ E . E = = . .
 . = = F . = = 
 Number of moves: 1
 Number of vertices examined: 2
-0.0094604 [s]
+0.009358 [s]
+
+Level 23
+Sequence of moves: 
+. C = = . . = = 
+C = B . . = . E 
+. = . . . = . . 
+= . = . = F = = 
+= D = B = . F . 
+. = . = . = = . 
+A = . = . . G = 
+. A . A = = . = 
+Number of moves: 7
+Number of vertices examined: 9
+0.02504 [s]
+
+Level 24
+Sequence of moves: 
+. F = = A . A = 
+F = D . = = . = 
+. = . = B . = . 
+= . . = . . = . 
+= D = B . = . E 
+. . = . B = . . 
+. D . = = E . . 
+. = = C . = = . 
+Number of moves: 4
+Number of vertices examined: 5
+0.016371 [s]
+
+Level 25
+Sequence of moves: 
+A . . . = . B . 
+= = . A = . . B 
+. . = . . = . . 
+. D = . A = . = 
+. = . = = B . = 
+. = . . E = = F 
+= . = . = F . . 
+= C = E = . . F 
+Number of moves: 5
+Number of vertices examined: 6
+0.018165 [s]
+
+Level 26
+Sequence of moves: 
+= = . C = = B . 
+. D = = D . = . 
+D . . . . D = . 
+. = = . = = F = 
+= . . = . . . = 
+= . A = F = = . 
+G = = G = . . . 
+. G . . = . E . 
+Number of moves: 11
+Number of vertices examined: 14
+0.026557 [s]
+
+Level 27
+Sequence of moves: 
+= G G . = = . . 
+= . = = C . = . 
+. = C . . C = E 
+F = . C = = D = 
+= . . = . . . = 
+= . C = D = = . 
+. = = . = . . A 
+B . . B = . A . 
+Number of moves: 8
+Number of vertices examined: 11
+0.01941 [s]
+
+Level 28
+Sequence of moves: 
+. = . = A . . A 
+C = D = . . = = 
+. . = . . = . E 
+= C = A . = E . 
+= . C = = . E E 
+. = = . B = = . 
+. . F = . . B = 
+F . . = . . . = 
+Number of moves: 5
+Number of vertices examined: 6
+0.014519 [s]
+
+Level 29
+Sequence of moves: 
+. C = . D . = . 
+C . = . . D = E 
+= = . D = = . . 
+. . = = E . . . 
+A = B . = = . . 
+. = . B . B = = 
+= F = = B . B . 
+= . F . = = . B 
+Number of moves: 10
+Number of vertices examined: 11
+0.022389 [s]
+
+Level 30
+Sequence of moves: 
+. D . = = B . B 
+D = = E . = = . 
+= . A = . . . = 
+= . . = . . E = 
+. = . A = E = . 
+G = . . = . = F 
+. G = = C = . . 
+= = C . . = F . 
+Number of moves: 7
+Number of vertices examined: 8
+0.015665 [s]
+
+Level 31
+Sequence of moves: 
+= A = = B . = C 
+= . . A = B = . 
+E = = . = . . = 
+. . E = . . . = 
+. . . = B = = D 
+. = = . = . D . 
+= . F . = D . . 
+= . . F . = = D 
+Number of moves: 4
+Number of vertices examined: 5
+0.014445 [s]
+
+Level 32
+Sequence of moves: 
+C . . = = . . . 
+= C = F . = . A 
+= . = . . = A . 
+B = E = = . = = 
+. = . E . E . . 
+. . = = . . = = 
+B = . . = = . D 
+. = . G . . = = 
+Number of moves: 8
+Number of vertices examined: 12
+0.044099 [s]
+
+Level 33
+Sequence of moves: 
+= = . D = A . = 
+. . = . = . A = 
+= . = D . = = . 
+= F . = = . . . 
+. = = B . = = G 
+B . B . = . . = 
+= = . . = C . = 
+E . = = . . . . 
+Number of moves: 5
+Number of vertices examined: 7
+0.025178 [s]
+
+Level 34
+Sequence of moves: 
+= . = . . = . G 
+= E = . . = . . 
+. = F . . . = = 
+. = . F = = . B 
+C . = = D . = . 
+= = . A = D = B 
+. A . . = . D = 
+. . = = . . . = 
+Number of moves: 8
+Number of vertices examined: 21
+0.038941 [s]
+
+Level 35
+Sequence of moves: 
+G . . . = D . = = 
+= = . G = . = . . 
+B . = = . D = H . 
+. = . . = = H . . 
+B = A = . F = . = 
+= . . = F . = H = 
+= A = . = = . = . 
+. . = E . . E = C 
+= = . . . = = C . 
+Number of moves: 2
+Number of vertices examined: 3
+0.021822 [s]
+
+Level 36
+Sequence of moves: 
+= = C . = . B = A 
+G . = . = . . = . 
+. G = . C = = I = 
+. = D = = . . . = 
+G = . . . = I = H 
+= . . D . = . = . 
+= D . = = . = F = 
+. = = E . . = . = 
+E . E . = = . F . 
+Number of moves: 10
+Number of vertices examined: 14
+0.03688 [s]
+
+Level 37
+Sequence of moves: 
+. D . = = H . H = 
+D . = . G = = . = 
+. . = . . . G = . 
+= = . = = . . = . 
+. . E . . = = F . 
+= = . = = . A = = 
+. B = . . = . A . 
+. . = . C = . . . 
+= = . C . . = = A 
+Number of moves: 11
+Number of vertices examined: 34
+0.137678 [s]
+
+Level 38
+Sequence of moves: 
+= . . = = G . . = 
+= . . H . = = G = 
+F = . . = A . = . 
+. = . . = . . = B 
+. F = = . A = . . 
+. = . . = . = B . 
+F = D . = . A = = 
+= . = = E = = C . 
+= E . . . . . = = 
+Number of moves: 12
+Number of vertices examined: 48
+0.134242 [s]
+
+Level 39
+Sequence of moves: 
+. A . = = H . H . 
+. = = E . = = . H 
+= E . . = F . = = 
+= . . . = . . F . 
+. . = = . = = . F 
+= = . C . C . = . 
+. B = = . . . = F 
+B = . G = . = . = 
+. = . . = C = D = 
+Number of moves: 7
+Number of vertices examined: 10
+0.0376 [s]
+
+Level 40
+Sequence of moves: 
+. C = = . F . F . 
+C = E . = . F . F 
+. = . E = F = = . 
+C . = = . = . A = 
+= = . D . = A . = 
+. . D . = . = . A 
+= = . D = . = . . 
+B . = = . H . = . 
+= = G . = = . = A 
+Number of moves: 8
+Number of vertices examined: 9
+0.037335 [s]
+
+Level 41
+Sequence of moves: 
+= = F . = . D D . 
+. . = F = . . = = 
+. B = . F = = . . 
+. . . = = A . A . 
+B = = . . = = . . 
+= . H = . . E = = 
+= . . = . = = C . 
+G = = E . . E = C 
+. . G = = . . = . 
+Number of moves: 10
+Number of vertices examined: 13
+0.0416 [s]
+
+Level 42
+Sequence of moves: 
+. D = = . E = . = 
+D = . . E . = F = 
+. = . E = = B = . 
+. D = = B . . = H 
+= = B . . = = . . 
+. . = . . B . = = 
+A . = B . = = . G 
+. A . = = . C = . 
+A = = . C . . = G 
+Number of moves: 10
+Number of vertices examined: 15
+0.035713 [s]
+
+Level 43
+Sequence of moves: 
+= . = = . . = . H 
+= . D . = A = . . 
+. = = . = . A = = 
+. E . = B = = G . 
+= = E = . B . = G 
+. . = . = . B = . 
+F . = . = B . . = 
+F = C C . = . . = 
+. = . . C = . . B 
+Number of moves: 11
+Number of vertices examined: 15
+0.053876 [s]
+
+Level 44
+Sequence of moves: 
+. H = E . = . F . 
+. . = . . = F = = 
+= = I = . . = . . 
+. . . = . E = . . 
+= = . I = = . D . 
+. . = = . . . . = 
+. G . . = = . . = 
+. . = = A . = = B 
+= = . C = = . . . 
+Number of moves: 14
+Number of vertices examined: 51
+0.19358 [s]
+
+Level 45
+Sequence of moves: 
+= . . D = = E . . 
+= D = = G . = E = 
+. = G . . G = . = 
+B = . . = = . = . 
+. B = = . . . = F 
+= = H . H . = . . 
+. . = = . H = F . 
+A . . A = = C = F 
+. A = = C . . = . 
+Number of moves: 11
+Number of vertices examined: 16
+0.033721 [s]
+
+Level 46
+Sequence of moves: 
+. = = . A . . = = 
+H . H = . . = . F 
+. . . = . A = F . 
+= H . H = = F . F 
+= . H = . . = = . 
+C = . = . . B . = 
+. = . H = = . . = 
+. C = = D . = = G 
+= = . E = = . G . 
+Number of moves: 10
+Number of vertices examined: 14
+0.042209 [s]
+
+Level 47
+Sequence of moves: 
+. = = . . D . = . = 
+I . . = . . D = A = 
+= = . = D = = F = . 
+. G = . = . F . = E 
+. . = H = . = = . = 
+. = . . . = . . C = 
+G = . . . = . = = . 
+= . . . = . = . . J 
+= . H . = B = . J . 
+H . = = B . . = = . 
+Number of moves: 17
+Number of vertices examined: 44
+0.233919 [s]
+
+Level 48
+Sequence of moves: 
+= . . = . . = = . B 
+= J . = E = D . = . 
+H = = . . = . . = B 
+. . . = = A = . D = 
+H = = . . . = . . = 
+= I . = A . . = = C 
+= . . = . = = C . . 
+G = I . = . F = . . 
+. = . . = . . = . C 
+. . = = . . F . = = 
+Number of moves: 8
+Number of vertices examined: 11
+0.073189 [s]
+
+Level 49
+Sequence of moves: 
+. . . . = . I = = . 
+= A . . = . = B . . 
+= . = = . I = . = = 
+D = . . = = . = . C 
+. = G . . . . = . . 
+. D = . = . = . = = 
+. . = G = . = . H . 
+= = . = . = J = = H 
+. E . = . = . . J = 
+. = = . F . = = . = 
+Number of moves: 13
+Number of vertices examined: 21
+0.106527 [s]
+
+Level 50
+Sequence of moves: 
+. . A = = D . D = = 
+A . = D . . = = . H 
+. . = . = = B . = = 
+= = . = . . = = . E 
+. G . = . E . . . . 
+. = = . = = . = = . 
+= F . . F . = . . = 
+= . . = = . = . I = 
+. = = . C = J = = . 
+. . C . . = . . J . 
+Number of moves: 9
+Number of vertices examined: 13
+0.091058 [s]
+
+Level 51
+Sequence of moves: 
+. = E . = . . = . B 
+G = . E = . F = . . 
+. . = . E = = . . B 
+= . = . . . . = . = 
+= G . = = . E = B = 
+. = = . . = = . = D 
+I . . . = . A . = . 
+= = I . = . = = . D 
+. J = = . = . . = = 
+= = H . . = . . C . 
+Number of moves: 15
+Number of vertices examined: 33
+0.191979 [s]
+
+Level 52
+Sequence of moves: 
+= . C . = = A . . A 
+= . . = . A . A = = 
+. = . = A . = = . D 
+E = C . = = . . . . 
+. . = = . . . . = = 
+= = . . = . . = . . 
+J . = . = D . = G = 
+. . = H . = = . . = 
+. J . = = . I = = B 
+. = = F . = = . . . 
+Number of moves: 14
+Number of vertices examined: 29
+0.169342 [s]
+
+Level 53
+Sequence of moves: 
+. F . . = . . C = = 
+= = . . = C = = D . 
+. J = = . = . . = D 
+. = I . . = . . = . 
+. = . = = H . . . = 
+. J = . . = = . . = 
+. . = . = . . = = B 
+= = G . = B . . . . 
+A . = = B . = = . . 
+. A . A = = . E = = 
+Number of moves: 16
+Number of vertices examined: 83
+0.326633 [s]
+
+Level 54
+Sequence of moves: 
+. H = = . K = = E . 
+. = B . = = . . = . 
+. = . . . . . B = E 
+= C = = . . = = . = 
+= . C . = = . . . = 
+. . = = . D = = G . 
+= = . D . = . . = = 
+A . = = . = F . F . 
+. = . I = . = = . . 
+A = . . = . . J = = 
+Number of moves: 16
+Number of vertices examined: 26
+0.119849 [s]
+
+Level 55
+Sequence of moves: 
+. E = = . . . = = . 
+. = J . . = = . . B 
+. = . = = . . = = . 
+= . = . . F . . F = 
+= . = F . = = . . = 
+H . . = = . I = = D 
+= H . . H = = . . . 
+= . . = = C . = = . 
+. = = . C . = . . = 
+. . G = = . = A . = 
+Number of moves: 13
+Number of vertices examined: 46
+0.232883 [s]
+
+Level 56
+Sequence of moves: 
+. . . = = F = . E = 
+I = = F . . = E . = 
+= . . = = . . = = . 
+= . = A . = = . . . 
+. G = . = . . C . C 
+= = . . = . C . . C 
+J . = = . = = C = = 
+= = . . . . D = B . 
+. H = = . D . = . B 
+= = D . . = = B . . 
+Number of moves: 12
+Number of vertices examined: 18
+0.099955 [s]
+
+Level 57
+Sequence of moves: 
+D . . = A . A = = . 
+= = . = . = = F . . 
+. E = . = I . = = . 
+. . = J = . . . I = 
+E = . = . = = . . = 
+. = . = H . . = = . 
+= . . . . = = . . B 
+= . H = = . . = B . 
+. = = . . C . = . . 
+G . . = = C . . = = 
+Number of moves: 15
+Number of vertices examined: 22
+0.10613 [s]
+
+Level 58
+Sequence of moves: 
+. . = = . = = B . B 
+. = . . . . G = = . 
+E = . . G = = I . = 
+= . = . = . . . . = 
+= D = . = . . = = . 
+. = F = . . = . . . 
+. = . = . I = . . C 
+. . = . = = . C = = 
+. A = . . J = = . . 
+= = . . = = . . . H 
+Number of moves: 13
+Number of vertices examined: 50
+0.282097 [s]
+
+Level 59
+Sequence of moves: 
+. H . = = B = . C . . 
+H = = . . . = . . = . 
+= G . = . = . . . = C 
+= . G = B = . = = . = 
+. = . . = . = . J . = 
+A = . . = E = . = = . 
+= . = = E . . = . . . 
+= . . . = = E = . I . 
+F . = = . . = . = = I 
+= = . . D . = . . K = 
+D . D . = = . K . . = 
+Number of moves: 13
+Number of vertices examined: 24
+0.166806 [s]
+
+Level 60
+Sequence of moves: 
+J . . . = . = = . . . 
+. = = J = G . . = I = 
+= . . = . = . G = . = 
+= A . = . = . . . = C 
+. . = . B . = = G = . 
+= . = . . = . . = C . 
+= A . = . = F . = . = 
+E = A = . B = = . C = 
+. = . . = = . . = = . 
+E . = = . . = D . . . 
+= = H . H . = . D . D 
+Number of moves: 12
+Number of vertices examined: 19
+0.112376 [s]
+
+Level 61
+Sequence of moves: 
+. K . = = . A . = = . 
+. = = C . = . = F . . 
+= C . . C = . = . . . 
+= . . = = . = . = = . 
+. = = H . . = E . . = 
+. . . = . . H = = E = 
+= = B = . = = . . = . 
+. D = . = I . I . = . 
+D . = J = . . . = . . 
+= = . . . = I . = G . 
+J . . . J = . I . = = 
+Number of moves: 16
+Number of vertices examined: 25
+0.152103 [s]
+
+Level 62
+Sequence of moves: 
+. E = = J . = = I . . 
+E = . . = . J . = = I 
+. = . F = J = = H . = 
+= . = = . = . . . . = 
+= . D . D = . H = = . 
+. = = . . . = = . A . 
+B . . = . . . D = = . 
+= = B = . . = = . G = 
+. K = . = = . C = . = 
+K . = L . . = . = . G 
+. K . = = . = C C = = 
+Number of moves: 9
+Number of vertices examined: 15
+0.101614 [s]
+
+Level 63
+Sequence of moves: 
+. . = = . B . . B = = 
+F = . . = . . = = D . 
+. = J . = B . . . = D 
+= . J = . = = B . = . 
+= J . = H H . = = . . 
+. = = . . . = . . = = 
+H . . . . H = . = . . 
+= = . . = = . I = . = 
+G . = = . A = = . C = 
+= = A . . = . E = = E 
+. A . . . = . . . . . 
+Number of moves: 18
+Number of vertices examined: 48
+0.263786 [s]
+
+Level 64
+Sequence of moves: 
+. H H . H = = F . F = 
+H H . H = . D = = . = 
+H . . . = . . D . = . 
+. . = = D . . . . = . 
+= = . G = = D = = . A 
+. . . = . . = I . = = 
+G . G = . J = . . . I 
+. . = J . = C = . . = 
+. . = . . = . = . . = 
+. = B = = . = E = = E 
+G = . B . . = . E . . 
+Number of moves: 17
+Number of vertices examined: 23
+0.093499 [s]
+
+Level 65
+Sequence of moves: 
+H . . H . = = . F = = 
+. = . . H . H = = . J 
+. = . . . . = I . = = 
+= . = = . . = . = . . 
+= A . . = = I . = . D 
+C = = . A . = = . . . 
+. . . = . = . B = D = 
+. . . = . = . . = . = 
+C = = . = G = = . = G 
+= . E . = . G . . = . 
+= . . . E = = . . . . 
+Number of moves: 16
+Number of vertices examined: 185
+1.0126 [s]
+
+Level 66
+Sequence of moves: 
+= . . = = A . . . A A 
+= B . . . = = . . A . 
+. = . . B . . = . . A 
+I = . . . . . = . . A 
+. I = = . = = . . = = 
+= = . . = . . = = . C 
+. . J . = . . H . = = 
+J . = = . . . = = F . 
+= = . H . . = . E = = 
+. . = = H . = E = . . 
+D . . D = = . . = . G 
+Number of moves: 22
+Number of vertices examined: 165
+0.713488 [s]
+
+Level 67
+Sequence of moves: 
+= = A . = . G . G = = 
+F . = A = . . = = . . 
+= F = . A = = C . . C 
+= . . = = . . = . C . 
+. = = . . . . = . . . 
+. J . = = . = . = = . 
+. = = . D . = . . . = 
+= . E = . = . = = H = 
+= . . = . = . . B = B 
+. = = . . . = B . = . 
+I . I = = D = . . . . 
+Number of moves: 18
+Number of vertices examined: 608
+4.06945 [s]
+
+Level 68
+Sequence of moves: 
+= = H . H = I . . = = 
+. J = = . = . . = C . 
+. . . J = . . . = . . 
+= = . . = . = = . = C 
+. A = = . = . . D = . 
+. = E . . = . = = F = 
+. = . = = . = . . . = 
+. . = . . . = . = = . 
+A . = K = = . = B . . 
+. A . = . . . = . B . 
+A . . = G . . G = = . 
+Number of moves: 15
+Number of vertices examined: 30
+0.235149 [s]
+
+Level 69
+Sequence of moves: 
+. E . . = . = = . . C 
+= = . . = . . L = = . 
+G . = = . = L = . I = 
+= . . . G = . = . . = 
+= . . = = . = . = . . 
+. = = J . . = K = . I 
+D . . = J = . . K = = 
+. . . = . = . . = . H 
+D = = B = . = . = . . 
+= B . . = A = K . = = 
+= . = = . . . = = . F 
+Number of moves: 16
+Number of vertices examined: 41
+0.243781 [s]
+
+Level 70
+Sequence of moves: 
+= = C . . . . = = . A 
+J . = = . . = F . = . 
+. = C . . . = . . = . 
+. = . . = = . = = A . 
+= . = = . . D . D = = 
+= B . . = = . = = . H 
+B . = = . G = . . H . 
+. = G . . . = . = = H 
+. = . . = = . = . . = 
+= . = = . . I = . . = 
+= I . . . = = . E . . 
+Number of moves: 19
+Number of vertices examined: 101
+0.721832 [s]
+
+Level 71
+Sequence of moves: 
+= . E = . . C = = . . . 
+= E . = . = = H . = . L 
+. = = . = H . . . = . . 
+. . J . = . H = = . = = 
+. J = = . = = G . . . G 
+= = B . . . . = = . . . 
+. . = . . = . . . = = . 
+= . = . B = . = = . . . 
+= . . = = . = F . = = . 
+. = K . . K = . = . . = 
+A = . . = = . F = . . = 
+. . = = . I = = . D . D 
+Number of moves: 26
+Number of vertices examined: 416
+2.5821 [s]
+
+Level 72
+Sequence of moves: 
+. . . . F . = = H . = = 
+F = = . = = . E = = . D 
+= . . = . . . = . . . . 
+= . . = . E . = . D = = 
+. . C . = = . . = = . . 
+. . = = . . = = . . . = 
+= = I . . = M . = = B = 
+K . = = . = . . . . = J 
+. = . . = G = = M . = . 
+K = . N = . . . = = . . 
+= A = = . G = = . L = J 
+= . . A = = . L . . = . 
+Number of moves: 20
+Number of vertices examined: 170
+1.17565 [s]
+
+Level 73
+Sequence of moves: 
+= . . = = A . = = . . . 
+= . E . E = = . . = . D 
+. = . = = . . . L = . . 
+C = . . . = . . = . = = 
+. C = = E = . L = . . . 
+= = . H = . = = F = . = 
+. H . . = F . . . = J = 
+= . . = I = . . = K = K 
+= . H = . = . . = . = . 
+B = = . I . = = . . . . 
+. . . = . = . . = = K . 
+. B . = . = G . G . = = 
+Number of moves: 26
+Number of vertices examined: 55
+0.401101 [s]
+
+Level 74
+Sequence of moves: 
+D . D . = = . K = . F . 
+. D . = . . K . = . . = 
+= = D = . K = = F . F = 
+. . = . . = . J = . = E 
+= . = K . = J . = F = . 
+= H . = = J . . . = B = 
+. = = . M = = . J = . = 
+L . . = . . . = = I = C 
+. L . = M = = I . . = . 
+L = = . = I . I = = C . 
+= . A . = . . = . G = = 
+= . = = . . I = . . G . 
+Number of moves: 18
+Number of vertices examined: 46
+0.297975 [s]
+
+Level 75
+Sequence of moves: 
+. . . = = . B . . B . . 
+= . = . A = = . = = . . 
+= H = . . A . = . . = = 
+. = E = = . . = K = G . 
+J = . . . = = . . = . . 
+. J = . = . . = . . = . 
+. . = E = F . = . . = . 
+= = . = . . = . = = . . 
+. . D = . F = I . . = . 
+D . . D = = L = = I = G 
+. . = = . . . . . = . = 
+= = . L . . L . . = C = 
+Number of moves: 26
+Number of vertices examined: 93
+0.857739 [s]
+
+Level 76
+Sequence of moves: 
+L . = D . D . D = . . = 
+. . = . . D . . = B . = 
+L . L = = . = = . = = . 
+. . = . . = . . C . . C 
+. L = . . = . . . . = = 
+= = E = . J = . = = K . 
+. E . = . . = . C . = . 
+. . . . = = . = = . = . 
+. = . = . . . H . = . = 
+E = E = . = = . H = I = 
+= . = . = G . = = . . I 
+= F = A = . . . . = = . 
+Number of moves: 28
+Number of vertices examined: 90
+0.692935 [s]
+
+Level 77
+Sequence of moves: 
+. = = L . . . . . . L . 
+. F . = = . = = . L . L 
+. = = B . = . . = . . . 
+. . . = . = J . = . = = 
+F . . = . . = = . = K . 
+. F . F = = . . . = . . 
+. . = = . . E . = D = K 
+= = C . = = . . = . = . 
+C . . C . . = = . . . = 
+= = . . = = . . = = D = 
+G . = = . H = I . . = . 
+= = . . . . = . . . = A 
+Number of moves: 23
+Number of vertices examined: 161
+1.54156 [s]
+
+Level 78
+Sequence of moves: 
+. . K = = L . = = . = B 
+K . = . . = = . . D = . 
+. . = . C . . = . = . . 
+K . K = = . C = D = . = 
+. = = A . = = A = . . = 
+= . . = . . . . = . = F 
+= . J = . . = = B . = . 
+. . = . = = . . = = . . 
+. J = . . . . = . . = . 
+= = . = . . G = I . = . 
+. . H = . . = . . = . = 
+H = = G . . = . I = E = 
+Number of moves: 25
+Number of vertices examined: 65
+0.523747 [s]
+
+Level 79
+Sequence of moves: 
+B . B . = . = = . . H = 
+. . B . = . . . = = . = 
+. . = = . = . = . E = . 
+= = A . . = K = . . = . 
+D . = = . A = . = = . . 
+= . . . = . = . . J = . 
+= . . . = . . = = . = G 
+. = = D . = = . . . . = 
+. . C = = . L = = . . = 
+. = = . . . = F . = = . 
+= . L . . . = . = . . . 
+= . . . = = . . = . . I 
+Number of moves: 25
+Number of vertices examined: 561
+6.55623 [s]
+
+Level 80
+Sequence of moves: 
+. . . G = = . . . B = = 
+. . = = . . = . B = D . 
+= = . I . . = . . = . . 
+. C = . . = H = = . . D 
+= . = . . = . . . = . . 
+= . C = = . = = H = . . 
+. = = J . . . . = . = . 
+L . L = . . J . = . = D 
+= = . = . . J = . . A = 
+. K = . = = . = . . . = 
+. . = E . . = F = = . . 
+K . . = = . = . F . = = 
+Number of moves: 22
+Number of vertices examined: 95
+0.978462 [s]
+
+Level 81
+Sequence of moves: 
+. = = . . = . E . E . E 
+. . A = F = . . E . . . 
+A . . = . . = = . = = . 
+= = . . = = . C = . D = 
+G . = = . . = . = . . = 
+. = . . I . = . . = = . 
+G = . I . I . = = . . . 
+. . = = . = = . . = = M 
+. = . . = . H . . . . = 
+G = . B = . . = = . H = 
+= B . = L = = J . = = . 
+= . B = . . . = = . K . 
+Number of moves: 20
+Number of vertices examined: 124
+0.922259 [s]
 
 Level 82
 Sequence of moves: 
@@ -285,5 +1227,5 @@ C = . . . = . . = = A .
 . = . = = . . . K . = = 
 Number of moves: 26
 Number of vertices examined: 139
-1.36944 [s]
+1.49481 [s]
 
