@@ -16,6 +16,9 @@
     <Filter Include="Puzzles">
       <UniqueIdentifier>{70d1df74-0bb4-40d6-b6ef-b82136c4fe7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Puzzles\Bridges">
+      <UniqueIdentifier>{b42968d4-942a-4b97-a5b5-cb9550bb42b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -41,9 +44,6 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\Branches.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\Bridges.txt">
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\BootyIsland.txt">
@@ -73,6 +73,9 @@
     <Text Include="Puzzles\BlockEscape.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Bridges\Bridges.txt">
+      <Filter>Puzzles\Bridges</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -81,11 +84,11 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Puzzles\Bridges.h">
-      <Filter>Puzzles</Filter>
-    </ClInclude>
     <ClInclude Include="Puzzles\BentBridges.h">
       <Filter>Puzzles</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzles\Bridges\Bridges.h">
+      <Filter>Puzzles\Bridges</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +119,6 @@
     <ClCompile Include="Puzzles\Branches.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\Bridges.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\BootyIsland.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -137,9 +137,6 @@
     <ClCompile Include="..\PSL\pugixml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\BridgesGen.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzles\BentBridges.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
@@ -148,6 +145,12 @@
     </ClCompile>
     <ClCompile Include="Puzzles\Banquet.cpp">
       <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Bridges\BridgesGen.cpp">
+      <Filter>Puzzles\Bridges</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Bridges\Bridges.cpp">
+      <Filter>Puzzles\Bridges</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,9 +175,6 @@
     <Xml Include="Puzzles\Branches.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\Bridges.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\BootyIsland.xml">
       <Filter>Puzzles</Filter>
     </Xml>
@@ -190,9 +190,6 @@
     <Xml Include="Puzzles\BoxItAgain.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\BridgesGen.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
     <Xml Include="Puzzles\BentBridges.xml">
       <Filter>Puzzles</Filter>
     </Xml>
@@ -201,6 +198,12 @@
     </Xml>
     <Xml Include="Puzzles\BlockEscape.xml">
       <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Bridges\Bridges.xml">
+      <Filter>Puzzles\Bridges</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Bridges\BridgesGen.xml">
+      <Filter>Puzzles\Bridges</Filter>
     </Xml>
   </ItemGroup>
 </Project>

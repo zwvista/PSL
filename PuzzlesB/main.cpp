@@ -2,7 +2,7 @@
 
 #include "PSLhelper.h"
 #include "Puzzles/BentBridges.h"
-#include "Puzzles/Bridges.h"
+#include "Puzzles/Bridges/Bridges.h"
 
 extern void solve_puz_Banquet();
 extern void solve_puz_BalancedTapas();

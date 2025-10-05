@@ -14,7 +14,7 @@ struct puz_generator
     map<Position, vector<int>> m_pos2nums;
     vector<Position> m_islands;
     string m_cells;
-    char cells(const Position& p) const { return m_cells.at(p.first * m_sidelen + p.second); }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 
     puz_generator(int n);
@@ -126,12 +126,12 @@ bool is_valid_Bridges(const string& s)
 void save_new_Bridges(const string& id, const string& s)
 {
     xml_document doc;
-    doc.load_file("Puzzles/BridgesGen.xml");
+    doc.load_file("Puzzles/Bridges/BridgesGen.xml");
     auto levels = doc.child("puzzle").child("levels");
     auto level = levels.append_child("level");
     level.append_attribute("id") = id.c_str();
     level.append_child(node_cdata).set_value(s.c_str());
-    doc.save_file("Puzzles/BridgesGen.xml");
+    doc.save_file("Puzzles/Bridges/BridgesGen.xml");
 }
 
 void gen_puz_Bridges()
