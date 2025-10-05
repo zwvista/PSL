@@ -16,6 +16,9 @@
     <Filter Include="Puzzles">
       <UniqueIdentifier>{70d1df74-0bb4-40d6-b6ef-b82136c4fe7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Puzzles\HiddenPath">
+      <UniqueIdentifier>{44cc3bdb-a508-4434-9c53-e614b82cd1d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -32,9 +35,6 @@
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\hrd_ida.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\HiddenPath.txt">
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\HiddenStars.txt">
@@ -61,6 +61,9 @@
     <Text Include="Puzzles\Hexotris.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\HiddenPath\HiddenPath.txt">
+      <Filter>Puzzles\HiddenPath</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -68,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzles\HiddenPath\HiddenPath.h">
+      <Filter>Puzzles\HiddenPath</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -88,9 +94,6 @@
     </ClCompile>
     <ClCompile Include="..\PSL\Position.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\HiddenPath.cpp">
-      <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\HiddenStars.cpp">
       <Filter>Puzzles</Filter>
@@ -119,6 +122,12 @@
     <ClCompile Include="Puzzles\Hexotris.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\HiddenPath\HiddenPath.cpp">
+      <Filter>Puzzles\HiddenPath</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\HiddenPath\HiddenPathGen.cpp">
+      <Filter>Puzzles\HiddenPath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\hexrotation.xml">
@@ -128,9 +137,6 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\hrd.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\HiddenPath.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\HiddenStars.xml">
@@ -156,6 +162,12 @@
     </Xml>
     <Xml Include="Puzzles\Hexotris.xml">
       <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\HiddenPath\HiddenPath.xml">
+      <Filter>Puzzles\HiddenPath</Filter>
+    </Xml>
+    <Xml Include="Puzzles\HiddenPath\HiddenPathGen.xml">
+      <Filter>Puzzles\HiddenPath</Filter>
     </Xml>
   </ItemGroup>
 </Project>

@@ -1,11 +1,13 @@
 #include "stdafx.h"
 
+#include "PSLhelper.h"
+#include "Puzzles/HiddenPath/HiddenPath.h"
+
 extern void solve_puz_Hedgehog();
 extern void solve_puz_HeliumAndIron();
 extern void solve_puz_Hexotris();
 extern void solve_puz_hexrotation();
 extern void solve_puz_HiddenClouds();
-extern void solve_puz_HiddenPath();
 extern void solve_puz_HiddenStars();
 extern void solve_puz_Hidoku();
 extern void solve_puz_Hitori();
@@ -37,6 +39,7 @@ int main(int argc, char **argv)
         else if (str == "e4") solve_puz_hexrotation();
         else if (str == "i1") solve_puz_HiddenClouds();
         else if (str == "i2") solve_puz_HiddenPath();
+        else if (str == "i2g") gen_puz_HiddenPath();
         else if (str == "i3") solve_puz_HiddenStars();
         else if (str == "i4") solve_puz_Hidoku();
         else if (str == "i5") solve_puz_Hitori();

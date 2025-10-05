@@ -167,7 +167,7 @@
     <Text Include="Puzzles\hexrotation.txt" />
     <Text Include="Puzzles\hexrotation_ida.txt" />
     <Text Include="Puzzles\HiddenClouds.txt" />
-    <Text Include="Puzzles\HiddenPath.txt" />
+    <Text Include="Puzzles\HiddenPath\HiddenPath.txt" />
     <Text Include="Puzzles\HiddenStars.txt" />
     <Text Include="Puzzles\Hidoku.txt" />
     <Text Include="Puzzles\Hitori.txt" />
@@ -178,6 +178,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Puzzles\HiddenPath\HiddenPath.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -195,7 +196,8 @@
     <ClCompile Include="Puzzles\Hexotris.cpp" />
     <ClCompile Include="Puzzles\hexrotation.cpp" />
     <ClCompile Include="Puzzles\HiddenClouds.cpp" />
-    <ClCompile Include="Puzzles\HiddenPath.cpp" />
+    <ClCompile Include="Puzzles\HiddenPath\HiddenPath.cpp" />
+    <ClCompile Include="Puzzles\HiddenPath\HiddenPathGen.cpp" />
     <ClCompile Include="Puzzles\HiddenStars.cpp" />
     <ClCompile Include="Puzzles\Hidoku.cpp" />
     <ClCompile Include="Puzzles\Hitori.cpp" />
@@ -217,7 +219,8 @@
     <Xml Include="Puzzles\Hexotris.xml" />
     <Xml Include="Puzzles\hexrotation.xml" />
     <Xml Include="Puzzles\HiddenClouds.xml" />
-    <Xml Include="Puzzles\HiddenPath.xml" />
+    <Xml Include="Puzzles\HiddenPath\HiddenPath.xml" />
+    <Xml Include="Puzzles\HiddenPath\HiddenPathGen.xml" />
     <Xml Include="Puzzles\HiddenStars.xml" />
     <Xml Include="Puzzles\Hidoku.xml" />
     <Xml Include="Puzzles\Hitori.xml" />
