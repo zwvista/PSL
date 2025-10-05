@@ -8,6 +8,7 @@ namespace puzzles::HiddenPath{
 
 // key: direction, value: step
 using puz_move = pair<int, int>;
+constexpr puz_move PUZ_UNKNOWN_MOVE{8, -1};
 
 struct puz_generator
 {
@@ -16,6 +17,7 @@ struct puz_generator
     vector<puz_move> m_moves;
     vector<vector<puz_move>> m_valid_moves;
     Position m_start_p, m_end_p;
+    bool m_solved = false;
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
@@ -25,7 +27,8 @@ struct puz_generator
     vector<puz_move>& valid_moves(const Position& p) { return m_valid_moves[index(p)]; }
 
     puz_generator(int n);
-    void gen_puzzle();
+    void gen_puzzle() { gen_move(1, m_start_p); }
+    void gen_move(int n, Position p);
     string to_string();
 };
 
@@ -33,7 +36,7 @@ puz_generator::puz_generator(int n)
     : m_sidelen(n)
     , m_max_num(n * n)
     , m_cells(m_max_num, PUZ_UNKNOWN)
-    , m_moves(m_max_num, {8, -1})
+    , m_moves(m_max_num, PUZ_UNKNOWN_MOVE)
     , m_valid_moves(m_max_num)
 {
     int start_n = 0, end_n = m_max_num - 1;
@@ -54,30 +57,34 @@ puz_generator::puz_generator(int n)
             for (int i = 0; i < offset.size(); ++i) {
                 auto& os = offset[i];
                 auto p2 = p + os;
-                for (int j = 1; is_valid(p2) && p2 != m_start_p && p2 != m_end_p; p2 += os, ++j)
+                for (int j = 1; is_valid(p2) && p2 != m_start_p; p2 += os, ++j)
                     mv.emplace_back(i, j);
             }
             boost::random_shuffle(mv);
         }
 }
 
-void puz_generator::gen_puzzle()
+void puz_generator::gen_move(int n, Position p)
 {
-    auto p = m_start_p;
-    for (int n = 1; n < m_max_num; ++n) {
-        for (auto& mv : valid_moves(p)) {
-            auto& [dir, step] = mv;
-            auto& os = offset[dir];
-            auto p2 = p;
-            for (int i = 0; i < step; ++i)
-                p2 += os;
-            if (cells(p2) == PUZ_UNKNOWN ||
-                n == m_max_num - 1 && cells(p2) == m_max_num) {
+    for (auto& mv : valid_moves(p)) {
+        auto& [dir, step] = mv;
+        auto& os = offset[dir];
+        auto p2 = p;
+        for (int i = 0; i < step; ++i)
+            p2 += os;
+        if (n == m_max_num - 1 && cells(p2) == m_max_num) {
+            m_solved = true;
+            moves(p) = mv;
+            return;
+        }
+        if (cells(p2) == PUZ_UNKNOWN) {
+            cells(p2) = n + 1;
+            gen_move(n + 1, p2);
+            if (m_solved) {
                 moves(p) = mv;
-                cells(p2) = n + 1;
-                p = p2;
-                break;
+                return;
             }
+            cells(p2) = PUZ_UNKNOWN;
         }
     }
 }
@@ -133,15 +140,17 @@ void gen_puz_HiddenPath()
     using namespace puzzles::HiddenPath;
 
     for (int i = 4; i <= 4; ++i)
-        for (int j = 1; j <= 1; ++j) {
+        for (int j = 1; j <= 8; ++j) {
             string s;
             do {
                 for (;;) {
                     puz_generator g(i);
                     g.gen_puzzle();
-                    s = g.to_string();
-                    print("{}", s);
-                    break;
+                    if (g.m_solved) {
+                        s = g.to_string();
+                        print("{}", s);
+                        break;
+                    }
                 }
             } while(!is_valid_HiddenPath(s));
             stringstream ss;
