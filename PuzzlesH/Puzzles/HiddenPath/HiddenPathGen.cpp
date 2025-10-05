@@ -6,99 +6,96 @@
 
 namespace puzzles::HiddenPath{
 
+// key: direction, value: step
+using puz_move = pair<int, int>;
+
 struct puz_generator
 {
-    int m_sidelen;
-    vector<int> m_nums, m_dirs;
+    int m_sidelen, m_max_num;
     vector<int> m_cells;
+    vector<puz_move> m_moves;
+    vector<vector<puz_move>> m_valid_moves;
+    Position m_start_p, m_end_p;
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
     int index(const Position& p) const { return p.first * m_sidelen + p.second; }
-    int dirs(const Position& p) const { return m_dirs[index(p)]; }
-    int cells(const Position& p) const { return m_cells[index(p)]; }
     int& cells(const Position& p) { return m_cells[index(p)]; }
+    puz_move& moves(const Position& p) { return m_moves[index(p)]; }
+    vector<puz_move>& valid_moves(const Position& p) { return m_valid_moves[index(p)]; }
 
     puz_generator(int n);
-    void gen_bridge();
+    void gen_puzzle();
     string to_string();
 };
 
 puz_generator::puz_generator(int n)
-    : m_sidelen(n + 2)
+    : m_sidelen(n)
+    , m_max_num(n * n)
+    , m_cells(m_max_num, PUZ_UNKNOWN)
+    , m_moves(m_max_num, {8, -1})
+    , m_valid_moves(m_max_num)
 {
-//     m_cells.append(m_sidelen, PUZ_BOUNDARY);
-//     for (int r = 1; r < m_sidelen - 1; ++r) {
-//         m_cells.push_back(PUZ_BOUNDARY);
-//         m_cells.append(m_sidelen - 2, PUZ_SPACE);
-//         m_cells.push_back(PUZ_BOUNDARY);
-//     }
-//     m_cells.append(m_sidelen, PUZ_BOUNDARY);
-//     // add the first island
-//     int i = rand() % (n * n);
-//     Position p(i / n + 1, i % n + 1);
-//     add_island(p);
+    int start_n = 0, end_n = m_max_num - 1;
+    // start and end can be randomized
+//     do {
+//         start_n = rand() % m_max_num;
+//         end_n = rand() % m_max_num;
+//     } while (start_n == end_n);
+    m_start_p = {start_n / n, start_n % n}, m_end_p = {end_n / n, end_n % n};
+    cells(m_start_p) = 1, cells(m_end_p) = m_max_num;
+
+    for (int r = 0; r < n; ++r)
+        for (int c = 0; c < n; ++c) {
+            Position p(r, c);
+            if (p == m_end_p)
+                continue;
+            auto& mv = valid_moves(p);
+            for (int i = 0; i < offset.size(); ++i) {
+                auto& os = offset[i];
+                auto p2 = p + os;
+                for (int j = 1; is_valid(p2) && p2 != m_start_p && p2 != m_end_p; p2 += os, ++j)
+                    mv.emplace_back(i, j);
+            }
+            boost::random_shuffle(mv);
+        }
 }
 
-void puz_generator::gen_bridge()
+void puz_generator::gen_puzzle()
 {
-//     // randomly select an island
-//     auto p = m_islands[rand() % m_islands.size()];
-//     auto& nums = m_pos2nums.at(p);
-// 
-//     for (int i = 0; i < 4; ++i) {
-//         bool is_horz = i % 2 == 1;
-//         auto& os = offset[i];
-//         int& num = nums[i];
-//         if (num != -1) break;
-//         vector<Position> rng;
-//         {
-//             auto p2 = p + os;
-//             for (; cells(p2) == PUZ_SPACE; p2 += os)
-//                 // Islands should not be adjacent to each other.
-//                 if (boost::algorithm::none_of(offset, [&](const Position& os2) {
-//                     return cells(p2 + os2) == PUZ_ISLAND;
-//                 }))
-//                     rng.push_back(p2);
-//             if (cells(p2) == PUZ_ISLAND)
-//                 rng.push_back(p2);
-//         }
-//         // randomly select the number of bridges to add
-//         num = rng.empty() ? 0 : (rand() % 5 + 1) / 2;
-//         if (num == 0) continue;
-//         char ch = is_horz ? num == 1 ? PUZ_HORZ_1 : PUZ_HORZ_2 :
-//             num == 1 ? PUZ_VERT_1 : PUZ_VERT_2;
-//         auto p3 = rng[rand() % rng.size()];
-//         // add the other island if not exists
-//         if (cells(p3) == PUZ_SPACE)
-//             add_island(p3);
-//         // set the number of bridges for the other island
-//         m_pos2nums.at(p3)[(i + 2) % 4] = num;
-//         for (auto p2 = p + os; p2 != p3; p2 += os)
-//             cells(p2) = ch;
-//     }
-//     // remove the island since no more bridges can be added
-//     boost::remove_erase(m_islands, p);
+    auto p = m_start_p;
+    for (int n = 1; n < m_max_num; ++n) {
+        for (auto& mv : valid_moves(p)) {
+            auto& [dir, step] = mv;
+            auto& os = offset[dir];
+            auto p2 = p;
+            for (int i = 0; i < step; ++i)
+                p2 += os;
+            if (cells(p2) == PUZ_UNKNOWN ||
+                n == m_max_num - 1 && cells(p2) == m_max_num) {
+                moves(p) = mv;
+                cells(p2) = n + 1;
+                p = p2;
+                break;
+            }
+        }
+    }
 }
 
 string puz_generator::to_string()
 {
-    //auto f = [&](const Position& p) {
-    //    auto& nums = m_pos2nums.at(p);
-    //    return boost::accumulate(nums, 0, [](int acc, int n) {
-    //        return acc + (n > 0 ? n : 0);
-    //    });
-    //};
-
     stringstream ss;
-    //ss << endl;
-     //for (int r = 1; r < m_sidelen - 1; r++) {
-     //    for (int c = 1; c < m_sidelen - 1; c++) {
-     //        Position p(r, c);
-     //        ss << (cells(p) != PUZ_ISLAND ? ' ' : char(f(p) + '0'));
-     //    }s
-     //    ss << '`' << endl;
-     //}
+    ss << endl;
+    for (int r = 0; r < m_sidelen; r++) {
+        for (int c = 0; c < m_sidelen; c++) {
+            Position p(r, c);
+            auto& [dir, _1] = moves(p);
+            auto s = p == m_start_p || p == m_end_p ? format("{:02d}", cells(p)) : "  ";
+            //auto s = format("{:02d}", cells(p));
+            ss << s << char(dir + '0');
+        }
+        ss << '`' << endl;
+    }
     return ss.str();
 }
 
@@ -135,25 +132,20 @@ void gen_puz_HiddenPath()
 {
     using namespace puzzles::HiddenPath;
 
-    for (int i = 6; i <= 8; ++i)
-        for (int j = 0; j < 8; ++j) {
+    for (int i = 4; i <= 4; ++i)
+        for (int j = 1; j <= 1; ++j) {
             string s;
             do {
                 for (;;) {
                     puz_generator g(i);
-                    //do
-                    //    g.gen_bridge();
-                    //while (!g.m_islands.empty());
-                    //int k = i * i / 3 + (rand() % 5 - 2);
-                    //if (g.m_pos2nums.size() >= k) {
-                    //    s = g.to_string();
-                    //    print("{}", s);
-                    //    break;
-                    //}
+                    g.gen_puzzle();
+                    s = g.to_string();
+                    print("{}", s);
+                    break;
                 }
             } while(!is_valid_HiddenPath(s));
             stringstream ss;
-            print(ss, "{}-{}", i, j + 1);
+            print(ss, "{}-{}", i, j);
             save_new_HiddenPath(ss.str(), s);
         }
 }

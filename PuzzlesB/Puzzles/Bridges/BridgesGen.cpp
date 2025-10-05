@@ -23,7 +23,7 @@ struct puz_generator
         m_islands.push_back(p);
         m_pos2nums[p] = {-1, -1, -1, -1};
     }
-    void gen_bridge();
+    void gen_puzzle();
     string to_string();
 };
 
@@ -43,45 +43,47 @@ puz_generator::puz_generator(int n)
     add_island(p);
 }
 
-void puz_generator::gen_bridge()
+void puz_generator::gen_puzzle()
 {
-    // randomly select an island
-    auto p = m_islands[rand() % m_islands.size()];
-    auto& nums = m_pos2nums.at(p);
+    do {
+        // randomly select an island
+        auto p = m_islands[rand() % m_islands.size()];
+        auto& nums = m_pos2nums.at(p);
 
-    for (int i = 0; i < 4; ++i) {
-        bool is_horz = i % 2 == 1;
-        auto& os = offset[i];
-        int& num = nums[i];
-        if (num != -1) break;
-        vector<Position> rng;
-        {
-            auto p2 = p + os;
-            for (; cells(p2) == PUZ_SPACE; p2 += os)
-                // Islands should not be adjacent to each other.
-                if (boost::algorithm::none_of(offset, [&](const Position& os2) {
-                    return cells(p2 + os2) == PUZ_ISLAND;
-                }))
+        for (int i = 0; i < 4; ++i) {
+            bool is_horz = i % 2 == 1;
+            auto& os = offset[i];
+            int& num = nums[i];
+            if (num != -1) break;
+            vector<Position> rng;
+            {
+                auto p2 = p + os;
+                for (; cells(p2) == PUZ_SPACE; p2 += os)
+                    // Islands should not be adjacent to each other.
+                    if (boost::algorithm::none_of(offset, [&](const Position& os2) {
+                        return cells(p2 + os2) == PUZ_ISLAND;
+                        }))
+                        rng.push_back(p2);
+                if (cells(p2) == PUZ_ISLAND)
                     rng.push_back(p2);
-            if (cells(p2) == PUZ_ISLAND)
-                rng.push_back(p2);
+            }
+            // randomly select the number of bridges to add
+            num = rng.empty() ? 0 : (rand() % 5 + 1) / 2;
+            if (num == 0) continue;
+            char ch = is_horz ? num == 1 ? PUZ_HORZ_1 : PUZ_HORZ_2 :
+                num == 1 ? PUZ_VERT_1 : PUZ_VERT_2;
+            auto p3 = rng[rand() % rng.size()];
+            // add the other island if not exists
+            if (cells(p3) == PUZ_SPACE)
+                add_island(p3);
+            // set the number of bridges for the other island
+            m_pos2nums.at(p3)[(i + 2) % 4] = num;
+            for (auto p2 = p + os; p2 != p3; p2 += os)
+                cells(p2) = ch;
         }
-        // randomly select the number of bridges to add
-        num = rng.empty() ? 0 : (rand() % 5 + 1) / 2;
-        if (num == 0) continue;
-        char ch = is_horz ? num == 1 ? PUZ_HORZ_1 : PUZ_HORZ_2 :
-            num == 1 ? PUZ_VERT_1 : PUZ_VERT_2;
-        auto p3 = rng[rand() % rng.size()];
-        // add the other island if not exists
-        if (cells(p3) == PUZ_SPACE)
-            add_island(p3);
-        // set the number of bridges for the other island
-        m_pos2nums.at(p3)[(i + 2) % 4] = num;
-        for (auto p2 = p + os; p2 != p3; p2 += os)
-            cells(p2) = ch;
-    }
-    // remove the island since no more bridges can be added
-    boost::remove_erase(m_islands, p);
+        // remove the island since no more bridges can be added
+        boost::remove_erase(m_islands, p);
+    } while (!m_islands.empty());
 }
 
 string puz_generator::to_string()
@@ -139,14 +141,12 @@ void gen_puz_Bridges()
     using namespace puzzles::Bridges;
 
     for (int i = 6; i <= 8; ++i)
-        for (int j = 0; j < 8; ++j) {
+        for (int j = 1; j <= 8; ++j) {
             string s;
             do {
                 for (;;) {
                     puz_generator g(i);
-                    do
-                        g.gen_bridge();
-                    while (!g.m_islands.empty());
+                    g.gen_puzzle();
                     int k = i * i / 3 + (rand() % 5 - 2);
                     if (g.m_pos2nums.size() >= k) {
                         s = g.to_string();
@@ -156,7 +156,7 @@ void gen_puz_Bridges()
                 }
             } while(!is_valid_Bridges(s));
             stringstream ss;
-            print(ss, "{}-{}", i, j + 1);
+            print(ss, "{}-{}", i, j);
             save_new_Bridges(ss.str(), s);
         }
 }
