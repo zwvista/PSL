@@ -143,18 +143,16 @@ void gen_puz_Bridges()
     for (int i = 6; i <= 8; ++i)
         for (int j = 1; j <= 8; ++j) {
             string s;
-            do {
-                for (;;) {
-                    puz_generator g(i);
-                    g.gen_puzzle();
-                    int k = i * i / 3 + (rand() % 5 - 2);
-                    if (g.m_pos2nums.size() >= k) {
-                        s = g.to_string();
+            for (;;) {
+                puz_generator g(i);
+                g.gen_puzzle();
+                if (int k = i * i / 3 + (rand() % 5 - 2);
+                    g.m_pos2nums.size() >= k)
+                    if (s = g.to_string(); is_valid_Bridges(s)) {
                         print("{}", s);
                         break;
                     }
-                }
-            } while(!is_valid_Bridges(s));
+            }
             stringstream ss;
             print(ss, "{}-{}", i, j);
             save_new_Bridges(ss.str(), s);
