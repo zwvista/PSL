@@ -38,7 +38,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            int n = stoi(string(str.substr(c * 3, 3)));
+            auto s = str.substr(c * 3, 3);
+            int n = s == "   " ? 0 : stoi(string(s));
             m_cells.push_back(n);
             if (n != 0)
                 m_num2pos[n] = p;
