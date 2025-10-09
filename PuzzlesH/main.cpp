@@ -32,7 +32,7 @@ int main(int argc, char **argv)
         println("o2: hopover");
         println("r: hrd");
         getline(cin, str);
-        if (str.empty()) solve_puz_Hidoku();
+        if (str.empty()) solve_puz_HolidayIsland();
         else if (str == "e1") solve_puz_Hedgehog();
         else if (str == "e2") solve_puz_HeliumAndIron();
         else if (str == "e3") solve_puz_Hexotris();
