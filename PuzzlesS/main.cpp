@@ -54,7 +54,7 @@ int main(int argc, char **argv)
         println("u2: sumscrapers");
         println("u3: SuspendedGravity");
         getline(cin, str);
-        if (str.empty()) solve_puz_SheepAndWolves();
+        if (str.empty()) solve_puz_Snail();
         else if (str == "e") solve_puz_Sentinels();
         else if (str == "h1") solve_puz_SheepAndWolves();
         else if (str == "h2") solve_puz_ShopAndGas();
