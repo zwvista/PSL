@@ -6,7 +6,7 @@ yRRR
 YYry
 Number of moves: 1
 Number of vertices examined: 2
-0.00440925 [s]
+0.000689 [s]
 
 Level 2
 Sequence of moves: 
@@ -16,18 +16,428 @@ RRyY
 YRRR
 Number of moves: 1
 Number of vertices examined: 2
-0.00206504 [s]
+3.6e-05 [s]
 
 Level 3
 Sequence of moves: 
-RRYYR
+RRYR
+YRRY
+Ryry
+YRRY
+Number of moves: 3
+Number of vertices examined: 5
+7.6e-05 [s]
+
+Level 4
+Sequence of moves: 
+RrRyR
+YYYrY
 RYrYY
-YRyRr
-Rryry
-YRYRY
+ryRYr
+YRRYY
 Number of moves: 1
 Number of vertices examined: 2
-0.00148453 [s]
+4e-05 [s]
+
+Level 5
+Sequence of moves: 
+RYrYY
+YryYy
+YyRRr
+RYRyY
+RRRyR
+Number of moves: 1
+Number of vertices examined: 2
+3.8e-05 [s]
+
+Level 6
+Sequence of moves: 
+YrYYR
+yrYYy
+rYYYr
+RyrrR
+RRyRY
+Number of moves: 1
+Number of vertices examined: 2
+4.7e-05 [s]
+
+Level 7
+Sequence of moves: 
+RYYrYy
+yryRRR
+RYRryR
+RyrYRY
+rYYyrY
+yrRyRR
+Number of moves: 1
+Number of vertices examined: 2
+6.6e-05 [s]
+
+Level 8
+Sequence of moves: 
+YYYrRR
+YYYRYR
+YRrRyy
+rYYYrR
+yRrRyY
+YYYrYR
+Number of moves: 1
+Number of vertices examined: 2
+4.2e-05 [s]
+
+Level 9
+Sequence of moves: 
+YrRYYR
+YYYrrY
+RYryYR
+RYRYYy
+yRRrYr
+rYyYRR
+Number of moves: 1
+Number of vertices examined: 2
+4.3e-05 [s]
+
+Level 10
+Sequence of moves: 
+RyRRyR
+rYYYRR
+yRRyyR
+RyRrry
+YRryYY
+YYyrYR
+Number of moves: 1
+Number of vertices examined: 2
+0.00025 [s]
+
+Level 11
+Sequence of moves: 
+YRyRRY
+YYyrRR
+yRRRYR
+RYYyrY
+RYrYRY
+YrYYYR
+Number of moves: 1
+Number of vertices examined: 2
+0.000119 [s]
+
+Level 12
+Sequence of moves: 
+YYYrrR
+rRryRY
+RYYryY
+YYyRYr
+rRRyYR
+RRryrY
+Number of moves: 1
+Number of vertices examined: 2
+0.000153 [s]
+
+Level 13
+Sequence of moves: 
+RyrRYr
+rRRyRY
+yRryYY
+yRyYrY
+Yyrryr
+rYyRRR
+Number of moves: 2
+Number of vertices examined: 3
+0.000225 [s]
+
+Level 14
+Sequence of moves: 
+RYyryr
+YRRyRY
+YyRYRY
+RrRyRY
+RYYryr
+YRrYYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000119 [s]
+
+Level 15
+Sequence of moves: 
+RRYYRy
+YRYYyr
+YYYrYr
+rrRyYr
+RRYYry
+YrYYYr
+Number of moves: 1
+Number of vertices examined: 2
+0.000128 [s]
+
+Level 16
+Sequence of moves: 
+rRYRYYY
+yRrYYYr
+YRrYrRy
+YyRyyrY
+rYyrryY
+RRyRyRR
+YYyrYYY
+Number of moves: 2
+Number of vertices examined: 3
+0.000285 [s]
+
+Level 17
+Sequence of moves: 
+YrRrYYY
+rYyyryR
+ryRyrRR
+YRRyyRy
+YRYRyrR
+yRRrYyY
+ryRRRYr
+Number of moves: 4
+Number of vertices examined: 5
+0.0004 [s]
+
+Level 18
+Sequence of moves: 
+RYrrYyY
+YryYrrY
+YyrRYYY
+rYryYYr
+YYYRyrr
+RryrrYy
+YYryYyR
+Number of moves: 1
+Number of vertices examined: 2
+0.000184 [s]
+
+Level 19
+Sequence of moves: 
+RRYrryY
+YrYyyRr
+rYyRYry
+YrrrYrY
+YrYyRyr
+yYYrYRY
+rrYrYYy
+Number of moves: 1
+Number of vertices examined: 2
+0.000149 [s]
+
+Level 20
+Sequence of moves: 
+RyYrYyY
+RrRyYRy
+RyYrYRr
+YRRyrrY
+RyyrYYR
+RrYRYrR
+RyRrRyY
+Number of moves: 1
+Number of vertices examined: 2
+0.000126 [s]
+
+Level 21
+Sequence of moves: 
+YRryrRY
+YyrYYRy
+RRyRyrR
+yrRRyYR
+YRRyrRr
+yYrYRyy
+rYyyrRR
+Number of moves: 1
+Number of vertices examined: 2
+0.000121 [s]
+
+Level 22
+Sequence of moves: 
+yRrRyYr
+RYYYrYY
+RRRYYrY
+yyyRYyy
+RrYRyRr
+YRyrrRy
+RRrYYrY
+Number of moves: 1
+Number of vertices examined: 2
+0.000108 [s]
+
+Level 23
+Sequence of moves: 
+RYRryRY
+RrYYyRY
+yyYrrYr
+RrRyYrY
+RyYrRYY
+YrRYYRY
+YYYRRyr
+Number of moves: 1
+Number of vertices examined: 2
+9.7e-05 [s]
+
+Level 24
+Sequence of moves: 
+RYyrRyR
+yRRRyRr
+RYyRRyy
+YrRYyRY
+rYyyrRy
+YyrrRyR
+rryYYRR
+Number of moves: 1
+Number of vertices examined: 2
+0.00013 [s]
+
+Level 25
+Sequence of moves: 
+YrYYrYR
+YRryYyr
+rYyYrrY
+yyrRyRr
+rryYRYR
+RRyRyRr
+YrYYrYy
+Number of moves: 2
+Number of vertices examined: 3
+0.000159 [s]
+
+Level 26
+Sequence of moves: 
+yRRrYYYR
+YryrYrYY
+YRYryyRR
+ryYYRrry
+yRrryyYr
+YRRYYrYR
+RyyYRRRy
+RrryRRRy
+Number of moves: 1
+Number of vertices examined: 2
+0.00015 [s]
+
+Level 27
+Sequence of moves: 
+rRyRRYYR
+yYYryRYy
+rYyYrYyR
+RrRyRyrR
+rYyyRyYR
+yYRrYrYy
+rrRYyrRR
+RyRRYrYy
+Number of moves: 1
+Number of vertices examined: 2
+0.000165 [s]
+
+Level 28
+Sequence of moves: 
+YryrYRYR
+YYrYYrYY
+rYrYRyrR
+YYrYYYRY
+YryRYRyr
+rRrYYYrY
+YyRRRyrY
+RrYYyrRR
+Number of moves: 1
+Number of vertices examined: 2
+0.000106 [s]
+
+Level 29
+Sequence of moves: 
+RRYyYRyR
+RyrRYRrR
+ryRRryYy
+yYrryRrR
+rryYyRyR
+yyrYyrYR
+YyRRryYY
+YRYRyRrY
+Number of moves: 2
+Number of vertices examined: 3
+0.000276 [s]
+
+Level 30
+Sequence of moves: 
+YRyryryY
+YYrYyRRR
+RyryRRRy
+RrRYyyrr
+yYYrrRYR
+Yrryyyry
+YyRRYRYR
+rYYRyrRR
+Number of moves: 1
+Number of vertices examined: 2
+0.000191 [s]
+
+Level 31
+Sequence of moves: 
+rYYyryYR
+yryRRRYR
+ryRrYryY
+RyryyRrR
+RyyRrYyy
+yrRyYRrr
+RyRrryRY
+YrYYRRYy
+Number of moves: 1
+Number of vertices examined: 2
+0.000212 [s]
+
+Level 32
+Sequence of moves: 
+rYYYRyrR
+YrYyYRYY
+YYRryryY
+rRRyYRYr
+RyRrryry
+yryyryrR
+RYyRRyYR
+YYYryrYR
+Number of moves: 1
+Number of vertices examined: 2
+0.000142 [s]
+
+Level 33
+Sequence of moves: 
+YRrYYyrY
+YYYrRRyY
+YYrRyRrY
+rrryRYYr
+yyRYryYY
+YryYrRyR
+YRYryRrY
+rYrYYrYy
+Number of moves: 1
+Number of vertices examined: 2
+0.00014 [s]
+
+Level 34
+Sequence of moves: 
+yrYYyrRY
+RryYyryR
+RyYrRYRy
+rrRyryrR
+yryyYrYy
+yyYrRRyR
+rRryRryR
+RYrYYyrY
+Number of moves: 3
+Number of vertices examined: 6
+0.00048 [s]
+
+Level 35
+Sequence of moves: 
+YrYYyrrR
+RyYRRyYR
+yrRryRrY
+yRyYyryy
+yRRYyRRR
+ryryRyRR
+RyRrRyrR
+YRyRyryy
+Number of moves: 1
+Number of vertices examined: 2
+0.000195 [s]
 
 Level 36
 Sequence of moves: 
@@ -41,7 +451,1991 @@ rYYYrrry
 YYYrRyYr
 Number of moves: 1
 Number of vertices examined: 2
-0.00267264 [s]
+0.000212 [s]
+
+Level 37
+Sequence of moves: 
+rYYyRRyR
+ryYyRyRY
+yYRryRyr
+rryrYRRy
+YRYrYyry
+RYyyrrRy
+YyrRRyyr
+RRRyYrYY
+Number of moves: 1
+Number of vertices examined: 2
+0.00019 [s]
+
+Level 38
+Sequence of moves: 
+RrYYYrRyR
+RyRrryyYR
+yrRRyRRRy
+RyyryyyrR
+RRYyRrRyy
+YRYrYyyrR
+YrryRrryR
+rYYyryRYY
+YrYrYYRRY
+Number of moves: 3
+Number of vertices examined: 4
+0.000259 [s]
+
+Level 39
+Sequence of moves: 
+yrRYYrYYY
+RRYYryYrY
+YYryRrrYR
+rRyrYYyry
+YYRryryRR
+ryYyRRyrR
+RyRRyRryy
+yryRRyyRR
+RRyRRYrRY
+Number of moves: 1
+Number of vertices examined: 2
+0.00012 [s]
+
+Level 40
+Sequence of moves: 
+rYRYrYrYY
+YYRryyYrY
+RryRyryYY
+YyrYYrYRr
+rRRyRrRyR
+yyRrryRYR
+YryYyrYrY
+RRyRyryYy
+RYRRRyRRr
+Number of moves: 2
+Number of vertices examined: 3
+0.000174 [s]
+
+Level 41
+Sequence of moves: 
+rYYyrRYYY
+RyrrRyYRR
+YRryrrryY
+ryrYYYrYr
+yRyYyryyy
+YRyrrRYrr
+RrRYRyrYR
+RyyRrRyYR
+YRyryYyRy
+Number of moves: 1
+Number of vertices examined: 2
+0.00017 [s]
+
+Level 42
+Sequence of moves: 
+YRyRRryRY
+yrYrYyRYy
+rRyRryryR
+YyryyYrRR
+YyYRYryRr
+RyrryrYYy
+rRrYrryYr
+yRrYYyrRR
+yryyryRRR
+Number of moves: 1
+Number of vertices examined: 2
+0.000175 [s]
+
+Level 43
+Sequence of moves: 
+YrYyRrRyY
+YyYrYyyrR
+rYRyRrRyr
+ryrryyRYy
+yRyyRrYyR
+RRYYrYYrR
+RryyrrYyy
+yYrrYyRrR
+rYYYrrRYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000199 [s]
+
+Level 44
+Sequence of moves: 
+YYryyRrRy
+RyrrRyRRr
+yrRYyrYyY
+RRyyyrYrY
+yyRYrRyYY
+rRyryYrRr
+RryryrRyR
+yRRRyYYrY
+YyryrYYrY
+Number of moves: 4
+Number of vertices examined: 5
+0.000327 [s]
+
+Level 45
+Sequence of moves: 
+yYRRyRRyy
+rrRyryyRR
+YYrRyrRRy
+yYyryRYrR
+RrYyYrryR
+RRyrryYyr
+RrrYYrrYY
+yyRyYRyRR
+RRrYYrYYR
+Number of moves: 1
+Number of vertices examined: 2
+0.000172 [s]
+
+Level 46
+Sequence of moves: 
+YRyrrYrYY
+RrRyYrYRR
+ryyYrYyrY
+YyRyrrRyr
+ryRrRyrYY
+yrYryYryy
+RRyryYYRY
+ryYyrrryr
+RRrYYrYYr
+Number of moves: 5
+Number of vertices examined: 13
+0.000647 [s]
+
+Level 47
+Sequence of moves: 
+YRRYYrYrR
+yRyRyRRYY
+RRRyRyyYr
+RyRYrYryY
+rryRrYrRY
+yYRryrYry
+rYyYRrYYR
+RrryryYYr
+RYRyrRryR
+Number of moves: 1
+Number of vertices examined: 2
+0.00013 [s]
+
+Level 48
+Sequence of moves: 
+yyrRYyRRR
+rRryryrRr
+yRRYyrRyY
+yRyrYyyrY
+RyryyYrYY
+rRYRRyrYr
+YryryRrRy
+yRRRyYyrR
+ryYyrrYYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000176 [s]
+
+Level 49
+Sequence of moves: 
+yyyRRRyyY
+RrYryrRry
+RRyrYryYr
+RRrYrYrRY
+yyryryyYr
+RrYyYRrry
+RyRrRyyYr
+rYryYRrRy
+yrYYrYYrY
+Number of moves: 1
+Number of vertices examined: 2
+0.096054 [s]
+
+Level 50
+Sequence of moves: 
+YyRRyrRyR
+RrRYyRYYR
+RRyrrYYYr
+yrYyryrrY
+YyRrRYYrY
+rrryyrryy
+RyYrYyYrr
+YRYYRrYYR
+RYYYryRrR
+Number of moves: 1
+Number of vertices examined: 2
+0.000115 [s]
+
+Level 51
+Sequence of moves: 
+RyRrrYYYr
+RrYyYrryR
+RYYrryRRr
+yrrYyryyy
+yYyRrRyrY
+ryYyrYYyr
+RYrRryrYR
+RryRyRRRy
+yyRRrYYYr
+Number of moves: 1
+Number of vertices examined: 2
+0.000186 [s]
+
+Level 52
+Sequence of moves: 
+yRRryrYYY
+RryRyRRRy
+rRyryyryr
+yyRYRRyRY
+YrYyyryRy
+YrRYyRyYy
+ryYrryrrR
+yrRRyYRYR
+RYyrRrYYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000114 [s]
+
+Level 53
+Sequence of moves: 
+ryyYryYYr
+yRRryRYRY
+RYyrRRyrR
+ryyYrRryY
+yrRryyYrr
+YyYrRrYRy
+RRyyRrRyY
+yRrRyyyrr
+RryYYrYYy
+Number of moves: 11
+Number of vertices examined: 35
+0.001858 [s]
+
+Level 54
+Sequence of moves: 
+RYRyRryRR
+ryRRYyRRy
+YrRyRyRyR
+YyYrRyrRr
+YrrYRrYyY
+rYryyyrrY
+YRRyRrYYY
+RRyrYRyrr
+YrRyRRYRY
+Number of moves: 1
+Number of vertices examined: 2
+8.7e-05 [s]
+
+Level 55
+Sequence of moves: 
+YRyrRryRR
+YrYYyrYRY
+ryYrrryYR
+YrrYYYryy
+YRyYYrRyR
+yrrryryrr
+RyyYrRRyR
+RRRyryYry
+RRRyYYrYy
+Number of moves: 1
+Number of vertices examined: 2
+0.000118 [s]
+
+Level 56
+Sequence of moves: 
+YYRRYrYyR
+RryRYryRR
+YRyrYRyRY
+RYRyRYrRY
+yYryryyyr
+RrRYYrYrY
+RRyrRryYY
+YrYyRRryR
+YyrYRyRRY
+Number of moves: 1
+Number of vertices examined: 2
+0.000117 [s]
+
+Level 57
+Sequence of moves: 
+RYRYRyrYy
+YRYyRRYrr
+YYrryrrYr
+rrYyYrYyr
+yYRryyYRy
+RryyRYYyr
+RYrrryrrR
+RYryYrRYy
+yyYrrYYYr
+Number of moves: 1
+Number of vertices examined: 2
+0.000124 [s]
+
+Level 58
+Sequence of moves: 
+RyRRyrYYY
+yyrYyRRry
+RyRyrRYyR
+RRyRyyrRR
+yryryRYyy
+RYRRyYYrR
+YyryRrYyR
+RrRyyRrry
+yYyrYRyYR
+Number of moves: 1
+Number of vertices examined: 2
+9.2e-05 [s]
+
+Level 59
+Sequence of moves: 
+YYrYrYyYr
+RRRyyrYRy
+rRyYRyYrr
+yYrRryrYy
+rryyrRyRY
+RYRYyyRrr
+yyyrrryyY
+RYrYyRRRy
+rryRryRYR
+Number of moves: 1
+Number of vertices examined: 2
+0.000163 [s]
+
+Level 60
+Sequence of moves: 
+ryRRyRryy
+RYYrYyRRR
+yRYYyrYyR
+rYryrRyrR
+yyrYrrRyy
+RryrYYryR
+RrYYyrYYR
+RRRyrryrR
+yyryYRRYy
+Number of moves: 1
+Number of vertices examined: 2
+0.000141 [s]
+
+Level 61
+Sequence of moves: 
+RRyRrYYyr
+RRyRyRyRR
+RRyRRryRy
+yyryyYrrR
+rYYYryrYr
+yryRRYrYY
+YryRrRyYY
+YYryyyrrY
+ryYRryRYr
+Number of moves: 1
+Number of vertices examined: 2
+9.9e-05 [s]
+
+Level 62
+Sequence of moves: 
+RRyrYyYrY
+YryyrrRyR
+YYrRYRRry
+rYryyryYr
+YyrrRyRRY
+YryyYrYyY
+rYRrYyrrr
+YRryRrYyY
+YYRyRRyrY
+Number of moves: 2
+Number of vertices examined: 3
+0.000155 [s]
+
+Level 63
+Sequence of moves: 
+yrRrYrYRY
+YYrYyryRR
+RYrYRRRyY
+RyyyryRRr
+yrRRyRRyy
+yryrRryRy
+RYryYyrRY
+ryYYRYRRr
+RYYrYrYyy
+Number of moves: 1
+Number of vertices examined: 2
+0.000139 [s]
+
+Level 64
+Sequence of moves: 
+yRRrYyrYY
+rYyyrRRyy
+YyRrYRyrR
+yrRRyryRR
+ryyRryRrR
+YrryrYryy
+rYyYrYrYY
+YYYrYryYr
+rYyrRryrY
+Number of moves: 1
+Number of vertices examined: 2
+0.000118 [s]
+
+Level 65
+Sequence of moves: 
+RYyRryRYR
+ryRYryrrr
+YyRryRYYY
+yrRrYryYY
+YyyrYyrRr
+rRyYrrYyy
+YYRrYyRRR
+YRRyrryRR
+YyrYYYrRy
+Number of moves: 1
+Number of vertices examined: 2
+0.000154 [s]
+
+Level 66
+Sequence of moves: 
+rYYyrYyRRR
+yrRryRrRyR
+RYyrYyRRry
+RyRRyyryyR
+rYRyrRyYRR
+yrrRyyrrRy
+yRyyrRyYYr
+YYrRyYrYYR
+rYyRyRryRy
+yRRryRRryR
+Number of moves: 1
+Number of vertices examined: 2
+0.000188 [s]
+
+Level 67
+Sequence of moves: 
+YYRryRYYRR
+RrrYRYrYYY
+ryyyrYyYrR
+RrRYyRrrYy
+yyYrrYyRrr
+YYryyyrYyR
+rYYrYRyYrR
+yrrryryryy
+rYYyRrYRYR
+YYYrRyrYRY
+Number of moves: 1
+Number of vertices examined: 2
+0.000163 [s]
+
+Level 68
+Sequence of moves: 
+RRRyRRYYRR
+RRyryrYYyr
+RryYRryrRy
+yyryrYryRR
+YRRYrYryYy
+yrrRyyYrYr
+RYyYrrYryR
+RyrRyyYrRR
+RYYrYYryRy
+yrRryRrYYR
+Number of moves: 3
+Number of vertices examined: 4
+0.000262 [s]
+
+Level 69
+Sequence of moves: 
+YRRYrRyYRR
+RRRyyrrYyy
+ryyYRyYRRR
+yYrrRyrRyR
+rRyRrYyyrR
+RRyryRrRyy
+RRryyryRRR
+yyrYrRYryY
+RRRyYYryRR
+RYyrYYrYRY
+Number of moves: 1
+Number of vertices examined: 2
+0.000154 [s]
+
+Level 70
+Sequence of moves: 
+yyrrRyrrRy
+RYRyrrYYrY
+RyrYyYrYyr
+RryYryyYrY
+yyRryrrryY
+rRyyrRyRYY
+yrRryyryrr
+YYyryRrRyY
+rYrryYyryr
+YYryryRRYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000232 [s]
+
+Level 71
+Sequence of moves: 
+yrYYRrYyyr
+rRYyryRrRy
+yYryyrRyyR
+rrYrRryRRY
+YYrYyrYyrr
+ryrrRyrYYy
+YrYyyrYyrr
+YYyrrryrYY
+RrYyYrYYrY
+RyrrYyrRRy
+Number of moves: 6
+Number of vertices examined: 9
+0.000556 [s]
+
+Level 72
+Sequence of moves: 
+YYryRRryYy
+yRYrYRyrYR
+rrYyYRyryR
+YyRrryyRrR
+yrRRYrRyyy
+YyyryyryrR
+rYYyrRRYry
+yrrrYyyrYR
+YYRyRryRyR
+ryYyrYrYYR
+Number of moves: 3
+Number of vertices examined: 4
+0.000193 [s]
+
+Level 73
+Sequence of moves: 
+RYryRrryrY
+YYyrrYyYrY
+rryRyYYryY
+yYyrryyRrr
+YrrYRRryYy
+yYrYryYRrR
+RyrrYryRRR
+RryYYrrYyy
+RyrrryYyrR
+yrYyyRRRyR
+Number of moves: 5
+Number of vertices examined: 6
+0.000333 [s]
+
+Level 74
+Sequence of moves: 
+rYyrRyrYYY
+YYYrRyryrY
+RYyRRYYyrY
+yRryyryryr
+ryyYRRYRYR
+RyRrRyrrrY
+RryyyrYyYr
+yYRRYryrrY
+YRryYYRyYY
+YYrYrYrYYR
+Number of moves: 3
+Number of vertices examined: 4
+0.000225 [s]
+
+Level 75
+Sequence of moves: 
+RrYYYrRYRR
+yYrYryYyrY
+RyrYyrRryY
+RRyrYryYYr
+yRRryYrRyR
+RRYyrRryrr
+yyrYYyRyRY
+RrYyRryrYY
+RYYrRrYRyY
+rrYyYrRRyr
+Number of moves: 1
+Number of vertices examined: 2
+9.7e-05 [s]
+
+Level 76
+Sequence of moves: 
+YRRrYyRRYR
+YryrRryYry
+RYYryRYrYR
+yYryRryYYr
+RyrrryrRYY
+rrYYYRYYrr
+YYyryryrYY
+YYyRyRRyRR
+rRrYryryYY
+RyRRryRyRr
+Number of moves: 1
+Number of vertices examined: 2
+0.000124 [s]
+
+Level 77
+Sequence of moves: 
+YYRRYRRyrr
+YYRRYyRRYR
+rRYyYrryYY
+yyrrrYYrYy
+rRYYyryRrr
+yyyrRyRrYy
+yRRyRyRyrR
+rRryYyRRyR
+yyRryrYryy
+YRyryYRyRR
+Number of moves: 1
+Number of vertices examined: 2
+0.000145 [s]
+
+Level 78
+Sequence of moves: 
+rYyrYyRRRy
+YYRRYrrRyY
+yyyrrRyYrr
+RrYyYrrYyy
+RYyrrYyRrR
+rRrYyYrRyY
+YyryRrryRR
+YrrYYYrRYY
+YYyrYYyrRY
+rRRyYYrYyy
+Number of moves: 1
+Number of vertices examined: 2
+0.000141 [s]
+
+Level 79
+Sequence of moves: 
+RYYRRyRyRR
+RyyRrRyyRR
+RRrYyYRrRy
+yyYrrrYyyr
+YYYrYRyrRR
+rrYyYrRYYr
+YYrrRyYyrY
+YryyYrRYyY
+rRRyYRyrRY
+YRryRYRYRr
+Number of moves: 1
+Number of vertices examined: 2
+9.1e-05 [s]
+
+Level 80
+Sequence of moves: 
+RYrYyRrRyY
+RRyryYyRYY
+yRRYYrrRyr
+rRryrYRYry
+yyRYYyrRyR
+RryrrRyYyr
+RYrYyYrRyR
+ryrRryYYrY
+yYrYYrYrYY
+YRyYYrYRRR
+Number of moves: 1
+Number of vertices examined: 2
+0.00011 [s]
+
+Level 81
+Sequence of moves: 
+YrYYYrYYrY
+yYRryryrRY
+RryyYrYYrY
+RYrRryrYyr
+yyRRrYyRRr
+rryyyrrRyR
+yYrRRyyYry
+YryRRrYyYr
+RRyRyrRryR
+RRYyRryyYr
+Number of moves: 1
+Number of vertices examined: 2
+0.000127 [s]
+
+Level 82
+Sequence of moves: 
+YYyRRRyRYR
+rYYyryRyrR
+yRrRyRrRyy
+YryryryYyr
+RYyRYrrRyR
+rRrYrYyRry
+RYyryryyyr
+yrYRRrYRrY
+YYrYRyrYRY
+rYYyrRyRRR
+Number of moves: 1
+Number of vertices examined: 2
+0.000151 [s]
+
+Level 83
+Sequence of moves: 
+yYrYRyrRRy
+RRyRRyYyrR
+RRryyrYrYy
+yyyrrRyrRR
+RrYYyrryyR
+ryrRrYRRRy
+YyrRryRyyr
+YryyYRyRYY
+yRYRyryYrY
+ryRRYRRyry
+Number of moves: 6
+Number of vertices examined: 12
+0.000495 [s]
+
+Level 84
+Sequence of moves: 
+rYYYrYyryR
+RYyRRRyRYR
+yrrryyrrRy
+rYyYRRYYrr
+YYrRyyrrYY
+YryYrRyYYr
+yrYYyrYRYy
+rrYYrryyrR
+RyrrRyrRyR
+rYYrYRYRYr
+Number of moves: 1
+Number of vertices examined: 2
+0.000157 [s]
+
+Level 85
+Sequence of moves: 
+rRRyRRRyYR
+YyyrYyRrrY
+yrRRyrYYyr
+yyYrRYyryr
+rRYyRyrRyR
+RyrRrYrYry
+rRyryryYYr
+yRRRyrRryR
+YYryRyYyrY
+YRRyYrYrYY
+Number of moves: 7
+Number of vertices examined: 8
+0.000419 [s]
+
+Level 86
+Sequence of moves: 
+YRRyrYRRyR
+ryRryYrryR
+YYRrYrYyrr
+RyyrYYrYYy
+yrYyRryRrY
+RyrRryYryy
+ryYyRyYYRR
+YYrryrrYyR
+YryrYYyrrr
+RRyRRyrYYy
+Number of moves: 1
+Number of vertices examined: 2
+0.000153 [s]
+
+Level 87
+Sequence of moves: 
+ryrRRYRRry
+rYyYrryYyr
+yRYRYyYrRY
+rrryryRyry
+YyRYrRRyYR
+YrYyYryrYr
+yRyrrYYYrR
+ryYyrYrYry
+rRryrYYryY
+RrYYyrYRRr
+Number of moves: 1
+Number of vertices examined: 2
+0.000219 [s]
+
+Level 88
+Sequence of moves: 
+RRyRyRrRyY
+RyRrRyyyrY
+yRryYRRyRR
+yryYryyRrR
+yrRRYrYrYY
+ryyryRyrYr
+yRRYyrrYRY
+RyyrrYryRY
+RRryYYrRYr
+YYrYrYyrYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000173 [s]
+
+Level 89
+Sequence of moves: 
+RyRRYYryrY
+yRRryYrYrR
+rRyYYRyyry
+yyrRryYRyR
+RryYrRyrRR
+ryrYyYrRyR
+YYryrRyyry
+YYRryyrYRY
+YryYyrRyrR
+RYyrRRYryR
+Number of moves: 1
+Number of vertices examined: 2
+0.000189 [s]
+
+Level 90
+Sequence of moves: 
+RyrRYYYrYy
+yYrYRryRRy
+RyRryyRrYr
+rryyRyRyYR
+YyRrRyryrR
+YrYyyRYRyy
+RYRYYryrrR
+RyryrrRyYy
+yrrRyyYrRR
+RYyrYRYRyR
+Number of moves: 3
+Number of vertices examined: 4
+0.000211 [s]
+
+Level 91
+Sequence of moves: 
+YrYYYryyRY
+YYrRyRrRyR
+rYyYrYyRYy
+yrrryYrRyR
+RYyRrYyyrr
+yRrRyRrYyY
+ryyYryyRrY
+RRryRyRRyY
+RRyRRryYRr
+YRrYyYrYYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000138 [s]
+
+Level 92
+Sequence of moves: 
+YYRrYYyRRr
+YyrRryrRyR
+rRryRrYyrY
+yyYryyYrRY
+rYYyRryyyr
+ryYrRyRRRy
+yrRryRyRRR
+YyyryYyryR
+rYYYrRrYYR
+YYRrYyrYRy
+Number of moves: 1
+Number of vertices examined: 2
+0.000122 [s]
+
+Level 93
+Sequence of moves: 
+YYrYrYyrYY
+rYYyrYYryY
+yyrrRYyYrY
+rrYYyrryrr
+YyrRrYyYrR
+RrYRyrRryY
+yyyrYryyRR
+RrRyyRrRyY
+YyrRryyRRY
+RyRRyRYRyR
+Number of moves: 1
+Number of vertices examined: 2
+0.000277 [s]
+
+Level 94
+Sequence of moves: 
+yrYYYryrRyr
+RRYYrYyrRRy
+YYrYrYRYyRY
+rYYryyryryy
+RryRyRRyRrr
+RyrryyyryRR
+yrYyrRrYRrY
+yrRryyryryy
+rYyyRrRYYRR
+YYrRyRyryRR
+YYrYrYyrYYR
+Number of moves: 5
+Number of vertices examined: 6
+0.000456 [s]
+
+Level 95
+Sequence of moves: 
+YrRyrYYRrYY
+RyyryYryyyr
+YYRRyrYRRry
+ryrryyYryYR
+YrYyRrryRrR
+yyYrYyYrYyy
+rrryRrYYYrR
+yyyrYyyrrry
+YrRyRrrYyYr
+ryRRRyYRrYY
+yRRRyRRRyYR
+Number of moves: 1
+Number of vertices examined: 2
+0.000251 [s]
+
+Level 96
+Sequence of moves: 
+rrYYYryyrYR
+YyrYyryRyyY
+YrRyrYyRRry
+YyrRryRrRyr
+rYyyRRryYYR
+yYrRYyrRYyy
+RryYrYyyrrR
+RyrRYyrrRyY
+RyRyrRRyYrR
+yyRryyyrRyR
+RryRyRRrYYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000307 [s]
+
+Level 97
+Sequence of moves: 
+RrYyyrYyrYY
+ryrRRyYrYYY
+yYRyRrYRyrr
+RRyryYrryYy
+yrRyRyYYrrR
+YyRrRyRrYyR
+rryyyrYyRrR
+YyRrRyRYryy
+YYryYyrYrYR
+ryRrRyRryRR
+YryRRryrYRY
+Number of moves: 1
+Number of vertices examined: 2
+0.000158 [s]
+
+Level 98
+Sequence of moves: 
+YRYryYryRRY
+RryRyRyYYry
+RRyyrYrYyYr
+yyryryrrrYr
+YrRyRRryyYr
+ryrryRyrRry
+YYyRyryYyrR
+YYyryyYrrRy
+Yrryrrryyyr
+rYYYRyYRrYY
+YrRyRyRRYYR
+Number of moves: 9
+Number of vertices examined: 100
+0.004638 [s]
+
+Level 99
+Sequence of moves: 
+yRRyyRRRyRR
+YRRyrRryYyr
+YrryyyRyRRR
+ryyrrRyrRry
+yYrYYrRyyYr
+rrYyryYyryR
+yYrrYrYyRrY
+rryRYrrrYRy
+YYYryryyyrR
+rYYyryYRRyR
+YRryRrRyRRR
+Number of moves: 1
+Number of vertices examined: 2
+0.000311 [s]
+
+Level 100
+Sequence of moves: 
+RRyRrRyYRRY
+RryYyrYryYy
+YRyrrryyRrR
+YyrYRYRyryR
+rRYyryRrRyy
+yrrryYyryrR
+YrYYrRyryYR
+YyryYyrYrYy
+rYrYYYrYrrr
+yRRryrRyRYy
+RRyRrYyryYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000328 [s]
+
+Level 101
+Sequence of moves: 
+YrYyyrrryRr
+RyRRrYyYrYy
+yRrRyYryyrY
+RryYyrRyrRy
+yyrrRyrRryr
+ryYyRrYyYrR
+YYRryryrYRR
+RryrYyyRyyy
+YRryrRryrrr
+ryyYryrYYRR
+YrYRYrYYYry
+Number of moves: 10
+Number of vertices examined: 14
+0.000678 [s]
+
+Level 102
+Sequence of moves: 
+rYRyRYrYRyR
+RyRRryYyryR
+YRyryrRryRY
+yryYyrRryRy
+RRryryYyrRr
+RyrYrRYyryY
+yYRrYrrrYyY
+RryryryyRrr
+RYYryyrrYyY
+yYryrRRyRRR
+RRYYryYRyRR
+Number of moves: 11
+Number of vertices examined: 34
+0.0013 [s]
+
+Level 103
+Sequence of moves: 
+yrRryryrYYy
+YYyrRyryYrY
+rYrYYyryrYy
+yyRrryRRyRr
+RryyYryrRyR
+yRRryRrryyr
+rYyRrYYyrry
+ryrryyrRRyr
+YrYyrrYyRRY
+yYrYRyRryyY
+YYryrYYrYRR
+Number of moves: 5
+Number of vertices examined: 6
+0.000438 [s]
+
+Level 104
+Sequence of moves: 
+yRryyrYYrYR
+RYryrrryrYr
+RrryyYrryYY
+RYyrYYyryry
+yyrYyYryyrY
+rRryrrryryr
+yYrryYRRyRY
+RryryyyryrR
+RyRRyrryyry
+yyryrYYRryR
+RRryYrYyrYR
+Number of moves: 6
+Number of vertices examined: 32
+0.003224 [s]
+
+Level 105
+Sequence of moves: 
+RyrRyrYryYR
+rYyyryRRryy
+YYYrRyryRrr
+rryrryyyRYy
+RyrrYrRryyY
+ryyYrYyRRry
+yRrYryrRRyr
+rYyyrrryyyr
+YrYRyYyrRry
+YYyrRryRRyR
+ryrRYYryYyr
+Number of moves: 11
+Number of vertices examined: 26
+0.001807 [s]
+
+Level 106
+Sequence of moves: 
+rYyyrRryYyr
+yRrRyYRRRyY
+RYyRRRYrrry
+yrRryrRYyyr
+ryyyrYyYrYy
+RyrRYYrRyRY
+YRyrrYyyrRY
+YrYYyrrRYyr
+rYyYrYyRrry
+YyrRryrYYrY
+rYyRRyRYrYy
+Number of moves: 1
+Number of vertices examined: 2
+0.000226 [s]
+
+Level 107
+Sequence of moves: 
+yRyrRryYYrr
+yRyRYyRRRyY
+YRryyyryyrY
+ryrRRyYrYRY
+YYRRyrYryrr
+RryryYrrryY
+yyryRyYyRYr
+RyRYryYryyY
+RryRYryryrY
+yYyryrRrYRR
+rRRyYrYyrRR
+Number of moves: 1
+Number of vertices examined: 2
+0.000181 [s]
+
+Level 108
+Sequence of moves: 
+rYyrRRyyRRR
+YryYyrRryYR
+yYRrryYYrry
+YRryYyryYyr
+ryRrrYRyRrR
+YryRyRYryry
+RYYryryrRyR
+YyrYrRRyRyr
+RrryRyRrRyR
+YYYrRryYyry
+RRyRyRrYYYr
+Number of moves: 8
+Number of vertices examined: 9
+0.000716 [s]
+
+Level 109
+Sequence of moves: 
+rRyrYRyrRyR
+YryYyrryYrr
+yyRrRyrYYrY
+YrryrRRYyrY
+rYrYYryrryy
+YyyryryyYrr
+yRRRYYyrRRy
+rRRyryRryyY
+yRryrryyYrY
+yyyRyRyRYYr
+YRRYyrYyrRR
+Number of moves: 2
+Number of vertices examined: 3
+0.000343 [s]
+
+Level 110
+Sequence of moves: 
+RYyryyyrYYR
+yYrRyrRRyRY
+RyrYrRyrrYY
+RrryyryyYrr
+yYYrYyyrYyy
+RrRyrrRyrrY
+yyrYryyryRr
+RRrYyrYYRry
+RRyrRYYyryY
+RRyRyrryRRr
+yyyrRYYryYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000334 [s]
+
+Level 111
+Sequence of moves: 
+rYyYrrYYYrR
+yRrRyRrRyyR
+YyyrryyYrRy
+yRYyyRrRyyR
+rRyrYryYryR
+YRRYyrRyrRR
+RyyrryRrRyy
+yryRyrryyrY
+RYyrYyYrYYr
+RYryrYyRRry
+YYYrrRyrRyY
+Number of moves: 7
+Number of vertices examined: 12
+0.000763 [s]
+
+Level 112
+Sequence of moves: 
+rYyryryyRRR
+yRRYRRyrRRy
+YRryryRYryY
+yyryryryyRr
+rRyryYyRrry
+yrRryRrYyYr
+yyyrRryrrry
+rrYyyrYYRyr
+YyrrrYyyryR
+YYYrYrrRyYR
+YYyryYrYRry
+Number of moves: 2
+Number of vertices examined: 3
+0.000373 [s]
+
+Level 113
+Sequence of moves: 
+YyrRRyYyRRr
+rYyyrrYryYY
+YRyrYyRRyrY
+RryRryRyrYY
+yyRRRYrYYYr
+RyRyrryrrry
+RyrRyRYrYYY
+RryyYryyyrr
+yRYrYyrrRyY
+RryRryRyRRY
+RyrYYRrYYRR
+Number of moves: 3
+Number of vertices examined: 4
+0.000352 [s]
+
+Level 114
+Sequence of moves: 
+yrYYryRrRyR
+RRYYrYRyYrY
+RRryyyRrRyR
+RyyrrryyYry
+yRrryYrryYR
+ryYYrYyRryR
+RRryyrYYyrr
+RRyyRYyRrRy
+yyrrryrYyrY
+rRyyrYYYryr
+RrYYyrYYRRY
+Number of moves: 7
+Number of vertices examined: 9
+0.000316 [s]
+
+Level 115
+Sequence of moves: 
+YyryYryrRRy
+YYrYYrYYyrY
+yrrryyrYRyr
+ryyyRyRyrRY
+RRRyRyrryYY
+yRyrrRyYRry
+RRyRyYrrYyR
+ryyYrYYyrYR
+YYrRRyrYYyr
+YRyRRryRrry
+RRyRyRRRyYR
+Number of moves: 1
+Number of vertices examined: 2
+0.000168 [s]
+
+Level 116
+Sequence of moves: 
+YYrYRryYryy
+YrrYyyrRyRR
+YyyrryRYrrR
+rRrYYyrRyrY
+yyYryryrYyy
+rrYyRrryrRr
+YRryryYYryR
+YyyrrRyryRY
+rryRyyyRrRy
+YyRrrYryYyr
+YyryYrYrYYR
+Number of moves: 5
+Number of vertices examined: 7
+0.000651 [s]
+
+Level 117
+Sequence of moves: 
+RRyRyrrYrYy
+RyRRRyyyRRr
+yyryYyryRrY
+RryYryRrYyY
+yYrryryYYrr
+rRyryryryRy
+yyYryrYRryR
+YRRyryryryr
+rrryYyrYYRR
+yyyRRryRyry
+RRrYyYrRRyY
+Number of moves: 8
+Number of vertices examined: 12
+0.000774 [s]
+
+Level 118
+Sequence of moves: 
+YRyRRrYYyrY
+YRyRRryyrYR
+yrrryyrrRyy
+ryYYrRyyRrR
+RYryyRrRyyR
+YyYrRryyrrr
+yrRryyyryyy
+rYyRrRyRyRR
+YyryRyryRRR
+RyRRYyrRryY
+RryrYryyyrY
+Number of moves: 1
+Number of vertices examined: 2
+0.000237 [s]
+
+Level 119
+Sequence of moves: 
+RryYyrYYyrR
+yRRryyRrRyR
+Yyryrrryyyr
+rrRYyryrRyY
+yYyryryRRry
+rRyYryRrRyY
+YyrRryryyyr
+RyyRrYYrYyr
+yrryYryrrry
+RyyrrRyrYyY
+RRYyRRryrYY
+Number of moves: 17
+Number of vertices examined: 724
+0.043598 [s]
+
+Level 120
+Sequence of moves: 
+rRRyRRRyrRY
+YyryYyrrYYY
+yryyRrYryrR
+yRRrYrYrYYr
+rRRyrRyyryY
+ryrRYyryYrY
+YYyryRRRyry
+YrYRyrrryrr
+rYryryYyryY
+YrYyrYYYryR
+yryrRrYrYRY
+Number of moves: 1
+Number of vertices examined: 2
+0.00031 [s]
+
+Level 121
+Sequence of moves: 
+YRRYyRRryRR
+RRryRryYyrY
+ryRrRyrRRyr
+YryyyrRyrYy
+YYrryyrRyrR
+YyryrRyyRYy
+rrryyrrrYyr
+yYyrYYyrrYy
+YrYyRrryyrr
+YyrRrYYYrYy
+rRyRRyrRyRR
+Number of moves: 11
+Number of vertices examined: 151
+0.00554 [s]
+
+Level 122
+Sequence of moves: 
+YyryrRryYrY
+rryRRyryrrr
+yrYryRyrYyY
+YryyyRyyyrY
+ryrRryYRRyY
+yRRRyrryRrr
+RRyryRyrYRR
+yrRyyRRyrry
+ryYRryryYyr
+YrryyYryYrR
+yRRRyRyrRyR
+Number of moves: 1
+Number of vertices examined: 2
+0.000331 [s]
+
+Level 123
+Sequence of moves: 
+rRyrryRyRrY
+yYRYyrYryYR
+YryyryyRrYY
+yYryRRryyYr
+ryrrRyYRrry
+YrrYyrYryYR
+ryyyryYrrYY
+yRrRyyryYYr
+RryryrRryrY
+RyYryRyrRry
+RRRyrRYyryR
+Number of moves: 13
+Number of vertices examined: 14
+0.000515 [s]
+
+Level 124
+Sequence of moves: 
+YyRRYyRRryr
+RryyrRryYrY
+YRyRYYyryry
+RrRyYrYRYry
+YyRyryYyryr
+RrryyyrRryR
+yYYrryyryYR
+RRyyrrryrry
+RyRryyrYryY
+yRRRYrYyRRR
+RyRryYYryYR
+Number of moves: 7
+Number of vertices examined: 41
+0.001723 [s]
+
+Level 125
+Sequence of moves: 
+rrYyYryYYry
+RyRrRyrYYRr
+rYyyrRRyrrY
+yrrYyyrryyy
+RYyrrYyyRYR
+yrrryRryryr
+rYyyRyyyrrR
+YyryrRyryYy
+YrRyrRyrrRy
+rRyryyrYRyR
+YryYYrYyYrR
+Number of moves: 11
+Number of vertices examined: 18
+0.001071 [s]
+
+Level 126
+Sequence of moves: 
+yYYrYyYrYYRR
+RRRYryryYYry
+yyryyYrRyYyr
+RryRRRyRrRyr
+RRyryrRyRyrr
+rYYYRyyRRyYy
+yyryrryYyrYy
+rrRyRyYrYyRr
+RYYRyrryrrry
+yYyryYyrRRyY
+rRRyYrryyryr
+YRRyryrYYyrY
+Number of moves: 1
+Number of vertices examined: 2
+0.000266 [s]
+
+Level 127
+Sequence of moves: 
+RrYyRrYYrYYy
+ryrRryRYryRY
+YyRRRyryyRRy
+yyyryyyRrryR
+YrryyrrYyyrr
+ryryrRRyrrYR
+yRRryyyryYry
+RryYyryryyYr
+rYyYrRyRRyRy
+yrrRyyryrryR
+RRyRrRyRyRyr
+RrYYyrRYyryR
+Number of moves: 19
+Number of vertices examined: 6337
+0.437546 [s]
+
+Level 128
+Sequence of moves: 
+RRyRYryRRyrR
+YyRrYyRYrYYR
+rRryYyryrrYy
+yyRrryrRYYyr
+rRyYrryyrYrR
+YyrYyYrRryrY
+YRyrrRyYrryr
+rrRyyRrYyYrY
+YyryRyyyryYy
+rYyYRryrRyrR
+yrrryryrrryR
+YRrYYYrYyrYY
+Number of moves: 5
+Number of vertices examined: 7
+0.000639 [s]
+
+Level 129
+Sequence of moves: 
+YYyrYYrYrYYR
+yrYryYryYrYR
+ryRRrYrrYYrY
+RyRyrryyrrry
+RRyrRYyryyYr
+yrYyyryRrYYy
+ryRrryrYryrR
+YYryrYYYRryR
+Yyyryrrryyyr
+rrRyYryyRYRy
+YyrRryYRryrR
+YrYyYrYYyrRR
+Number of moves: 6
+Number of vertices examined: 7
+0.000758 [s]
+
+Level 130
+Sequence of moves: 
+YryYRRyyryRR
+RYryyRrRyyRR
+RyRRryyrYRyR
+yRRRyrrryrRy
+rRyryRyYrrYY
+yYryyRrryyrY
+rYYRryyYRRyr
+YrRYyRYYyrrY
+YRyrrryrRYyr
+yYryYRrYYyrY
+rYRYrYyYrYRY
+yRRRyRrRyrYR
+Number of moves: 1
+Number of vertices examined: 2
+0.00023 [s]
+
+Level 131
+Sequence of moves: 
+RYyRRryryYyr
+yyyrYYrYrrYY
+YrrYYyrYryrr
+ryrrrYrrryyY
+YYRRyryYyrYY
+yYyryRyrRryY
+YrYyyrrRyYrr
+ryrrRyyYryrR
+yrYrYrYYYrYy
+RYyryrRryryr
+RYryYyryYrYR
+RYRyrRyRryrR
+Number of moves: 9
+Number of vertices examined: 18
+0.001083 [s]
+
+Level 132
+Sequence of moves: 
+RRyrYrYryRrR
+RYrYYrYryryY
+yyrYryRyrrYr
+RrYYYrryRYYY
+yrYryrYyrrry
+rYYYryyryryY
+rYryrYryYYrr
+YyYrrYRYryRy
+YrRYyrrRyRRR
+YyyrrYyryryR
+rrrYYRryrRYY
+YRRyRYryYyrY
+Number of moves: 1
+Number of vertices examined: 2
+0.000412 [s]
+
+Level 133
+Sequence of moves: 
+YRYrYyyryRYR
+RRRyYrYYrYyY
+RyyRrRyyrRry
+yrrryrryRyyR
+RyyryyyryrYR
+rYYyrYYryRyy
+yyrrRyrryyrR
+YryyrrRyrRyR
+rRryyyryYyrr
+YyYrrYyyrRyy
+YYRRyrRryRRR
+rRyRyRrYYYrY
+Number of moves: 5
+Number of vertices examined: 8
+0.00091 [s]
+
+Level 134
+Sequence of moves: 
+YRryRRRyRRyR
+rYyRryRyyRRR
+YrYryyRrRyyy
+YYyrrryyyrrr
+RYryyyrrryRY
+RrYYRryryRry
+yyyrRRyryryY
+rrryyYryyyrr
+YyYrryRyrRyy
+RrRyyrYYyrrr
+YyYryryrRyRR
+RyRRyrrYYYry
+Number of moves: 3
+Number of vertices examined: 4
+0.000458 [s]
+
+Level 135
+Sequence of moves: 
+RrRyyRrRyYrY
+yyRRRyyryYyr
+RYryyYrYyRrR
+ryyyrrryrRRy
+yrrryYrYyyrR
+RRyrrRyrrryR
+YRryyYrYyYry
+RyRyrRYYrYyR
+YrryyYryyrrR
+RYyrrryrrYyy
+YYYryYRryRrR
+rYYrrYyrYYRR
+Number of moves: 1
+Number of vertices examined: 2
+0.000301 [s]
+
+Level 136
+Sequence of moves: 
+RRrYYYrRyRRR
+RryYyryyyrRY
+yyYryyrRrYYy
+rrryrRRyyrrr
+RRryyyrryrYR
+yyyrYrYrrYYY
+RryryrryYyry
+rYYRryyrryRR
+yYryRryryrYr
+YrRyryyrYYYr
+yYRRyYryrYRy
+rRyrYrYYyRRR
+Number of moves: 20
+Number of vertices examined: 56
+0.00289 [s]
+
+Level 137
+Sequence of moves: 
+RyrYYRRyrRry
+ryryRRyRRyyR
+RyRRyrrRyRYr
+yryrryyyrRyY
+YryyryrRYyry
+ryRRryyRryRy
+YRRyyryYyRrr
+YyyrrRyrrRyR
+rrryyrRyryYy
+yyYrryYyrrry
+rYYYryrryRyr
+rRRyryYYrYYY
+Number of moves: 19
+Number of vertices examined: 43
+0.002332 [s]
+
+Level 138
+Sequence of moves: 
+YrYYyrYYRrYY
+rYyYrYRyryrY
+yyrrryrRryry
+rYyYrYyryYYr
+RrryyryRyryR
+YyyrRryyyryR
+YYryyYrRRyRy
+ryrRRyRyryRy
+RrryyyrryyRr
+YyyRRryRRryR
+yRRRyyRrRyRy
+RyRRYYryYyrR
+Number of moves: 1
+Number of vertices examined: 2
+0.000402 [s]
+
+Level 139
+Sequence of moves: 
+RYryrYYyryRR
+RYyrYRRryryY
+rryryRrYYYrr
+YRyRryryryry
+YYryYryyryrY
+YyryRryrrryY
+rrRyyryryrRr
+RyyrRyrryRRy
+Rryyryryyyry
+yRRrYyRRRyyR
+YRRyRryRyRYr
+RyryYrYYRRyr
+Number of moves: 1
+Number of vertices examined: 2
+0.000664 [s]
+
+Level 140
+Sequence of moves: 
+YYrRyRRryYRR
+RRyrrRyYrRRy
+RRYyyrrYRyrY
+YYyrryyyrRyr
+yYrRyrYryryY
+rryyyrYrRYYr
+yYRryRryYyrY
+yyrRrYyrrryY
+rryyyrrryryr
+yYrryyyrYRYY
+RYYRrYYyryrY
+YYrYyyrrryYY
+Number of moves: 6
+Number of vertices examined: 9
+0.000507 [s]
+
+Level 141
+Sequence of moves: 
+YyrRryryYrYY
+YrrYYyRrryYY
+rYyrYrYRYrrr
+yYryrYyrYrYY
+ryryYyryYyrY
+RryryRryryrr
+RrYryYyrRRyY
+yrYyrrryyrYr
+RyryryRyRYyy
+RRRyRRRyRyrR
+YRyryRyrRryR
+YyRRRyYryYrY
+Number of moves: 1
+Number of vertices examined: 2
+0.000249 [s]
+
+Level 142
+Sequence of moves: 
+YYYryrRrYYYr
+YYryryyyrYYR
+rRryYRrYryYy
+yryrRryryrrr
+RyYryYYrYryR
+rRyyrrryryrR
+yRrrYRRyrYYy
+RryyyryRYrYr
+yyrRRyyryYyr
+rYyyrrRyrrry
+RryrRyrRRyYY
+RYYryYryrYYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000537 [s]
+
+Level 143
+Sequence of moves: 
+YYryYrYryRYR
+rRyRryRyRRyR
+yyYrYyryRyrY
+rRyRrYyyrRyY
+yRrYyRrryrRr
+RyyRrryYYrRy
+RrryyYrYYyry
+yRyrrYYYrryY
+yryyyrrryYYr
+RyrrRyyyrrRy
+RYYryRrRyyrY
+YYyryYYrRRyY
+Number of moves: 11
+Number of vertices examined: 27
+0.000899 [s]
+
+Level 144
+Sequence of moves: 
+yYrYYrYrYrYR
+YrYyrYYrYYyr
+ryrrryryYYry
+rYyRYyRrryrY
+yYyryryyyrRY
+RrryRyrrRyyr
+ryryryRyrryR
+YYRRyrRyYRrr
+yYyryryrryYy
+rrYyYrYyYrrY
+YyrrryRrYYYr
+YYYryRRyRrYY
+Number of moves: 1
+Number of vertices examined: 2
+0.000574 [s]
+
+Level 145
+Sequence of moves: 
+RRRyYrryYYry
+yYRryRyrYRRr
+RRRyRryryrYy
+ryyyryYrryyR
+yrrryrryYRrr
+YryrYYyrrYyY
+RryryYrRyyrY
+ryYyrrYyYRRy
+rYrYyyrryyrR
+yYRyRryRrryR
+YryryRRyyrYr
+YrRyRRyRrYyy
+Number of moves: 3
+Number of vertices examined: 4
+0.000593 [s]
+
+Level 146
+Sequence of moves: 
+RRyRYryYyrYY
+rRryyryryryR
+YyyRrrYRyRRy
+YryRyyRyryrR
+YYyrryrryYYr
+rRryRyYrYrYr
+YyRRyrrryyry
+RryYYrYyryrR
+yRRryyYrRRyy
+rRyyrrryyryr
+YyRrYyYrrRyR
+YYrYYrYYryrR
+Number of moves: 5
+Number of vertices examined: 9
+0.000999 [s]
+
+Level 147
+Sequence of moves: 
+RrYyYrRyryyY
+yyrYYyRyyrYr
+RRYYrryrrRyY
+RryryrYryrRY
+yrRrYyyrYyrr
+RyRyrRryrYYy
+RRYyRRyrYyYr
+yrYryryryrrr
+RrYyRYyrrRyY
+RyRrRyryYyrr
+yYyRyrRYrRRy
+RYYryYrYYrYY
+Number of moves: 9
+Number of vertices examined: 29
+0.001121 [s]
+
+Level 148
+Sequence of moves: 
+YRYrYYrYRyRR
+RryyyrRRyryY
+RyRyryRrYyRr
+yRryryyyryry
+RyRryRyrRyry
+RryyyrRryryR
+RyrrryryyryR
+yYryyyrYRryR
+yyYrRyYrRyry
+RryrRryrRyRY
+RYYrYyyryyRR
+RYryYRryRryR
+Number of moves: 4
+Number of vertices examined: 6
+0.000805 [s]
+
+Level 149
+Sequence of moves: 
+rYYyryrYyrYr
+RyRRyryYrryR
+yrrryrRryyRY
+ryyYrryyyRRr
+RRYrYyrryYrY
+rryrrryYrYyY
+yYrYyrYyyrrr
+ryYyrryRryyY
+YrryyyrRRyrr
+rryrryyRryyY
+YrYyRrryyrRY
+YyrYYyrYrYyR
+Number of moves: 6
+Number of vertices examined: 26
+0.001278 [s]
+
+Level 150
+Sequence of moves: 
+yrRryRyrYYRR
+rYYYrRryyrYR
+ryryryryrrYY
+yYrYyYryyYrY
+rryrrRyrrYyR
+yrryRrryyYrR
+YrYyRyRyrrRy
+yyryyyryyyrY
+rryrRYyrRYyr
+YrYryrrRyrrY
+YYrYYyrRRyRY
+YyryRyryYrYy
+Number of moves: 10
+Number of vertices examined: 695
+0.041994 [s]
+
+Level 151
+Sequence of moves: 
+yYryRrRyyRRR
+YrYYryryYyrY
+yYryyyrRryyy
+rYYrrYyryrrr
+RryryrryYryy
+RYyrRyrYryRR
+yYryyryyYryR
+RRRyrRyryRRr
+yRryRRryryyy
+RYyrryryRyrR
+YYyryYryyrRR
+rRyrYRyrYYrY
+Number of moves: 7
+Number of vertices examined: 27
+0.001873 [s]
+
+Level 152
+Sequence of moves: 
+YyRrRyYryryy
+yrRRyrYRyrRR
+ryyrYyrrryRR
+yRryryYyryRR
+rRyYryrrryyy
+yrRyYrYYyrry
+YyRrryYrYyyr
+rryyyrryrryR
+YYrryYyrYyyr
+YrYyYrryrrry
+RYYrryRYryYY
+RryRyRRRyYrY
+Number of moves: 15
+Number of vertices examined: 2102
+0.169881 [s]
+
+Level 153
+Sequence of moves: 
+YYRrYYYrYYRR
+yRyryryRyrRY
+RRRyRyRRRyrr
+RyryryRyrYyy
+ryyyryRRYyyr
+yRRryryRyrrR
+RRyrYyRrryRR
+yYryryRyYyry
+RyrYryyyrYyy
+RrYYyrRryrrr
+YryryrRryryY
+YyRRryYyrRyR
+Number of moves: 14
+Number of vertices examined: 124
+0.00707 [s]
+
+Level 154
+Sequence of moves: 
+yYyrRRyyRyRR
+YrYyyrrRyyrR
+ryRrryyRrYyy
+yRRryrrryrrR
+RyyryryyYryR
+RYryyYrryYRR
+YyYrryryrryy
+yrrryRryyyrr
+rryyyryRryRR
+yRrRyYRRyRry
+RyRRryrRyRyR
+RRryyyryyRRY
+Number of moves: 10
+Number of vertices examined: 31
+0.002361 [s]
+
+Level 155
+Sequence of moves: 
+RrYyRrRyrRYY
+RyYrryyrYyrY
+RrryYrRyyryr
+yyYrYyrryRYY
+yryyYrRyRryR
+RyrrryyryyrR
+RYryRryRryRy
+RyrYyyrryyrr
+yryyrYyyrryY
+rryrRyrrRyRY
+YrRYYrRyyRRr
+YyRrYyRrYYrY
+Number of moves: 16
+Number of vertices examined: 23726
+1.53366 [s]
+
+Level 156
+Sequence of moves: 
+RrRyRYRYRyRR
+yrYryYyrYRyr
+ryYyrrryYrrY
+RRryyyryryYy
+RRyRyrRryrYY
+yrRRyryyyrRr
+YyryryrRYyry
+ryYyrRyrrYyR
+yrrryryryRrr
+YYYrrYYyrRyy
+rYYyryryyyrR
+YRyrRyRRyrYY
+Number of moves: 7
+Number of vertices examined: 13
+0.001544 [s]
 
 Level 157
 Sequence of moves: 
@@ -59,5 +2453,5 @@ RyRryrYryrYY
 YRyRryRYYrYr
 Number of moves: 2
 Number of vertices examined: 3
-0.010021 [s]
+0.000576 [s]
 
