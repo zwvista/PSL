@@ -28,7 +28,7 @@
 namespace puzzles::Nurikabe{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_GARDEN = '.';
 constexpr auto PUZ_ONE = '1';
 constexpr auto PUZ_WALL = 'W';
 constexpr auto PUZ_BOUNDARY = '`';
@@ -198,7 +198,7 @@ int puz_state::find_matches(bool init)
             auto& perm = perms[id];
             return !boost::algorithm::all_of(perm, [&](const Position& p2) {
                 char ch2 = cells(p2);
-                return (p == p2 || ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY) &&
+                return (p == p2 || ch2 == PUZ_SPACE || ch2 == PUZ_GARDEN) &&
                     boost::algorithm::all_of(offset, [&](const Position& os2) {
                         auto p3 = p2 + os2;
                         char ch3 = cells(p3);
@@ -226,7 +226,7 @@ void puz_state::check_spaces()
             cells(p) = PUZ_WALL;
             it = m_space2hints.erase(it);
         } else {
-            if (h.size() == 1 && cells(p) == PUZ_EMPTY) {
+            if (h.size() == 1 && cells(p) == PUZ_GARDEN) {
                 // Cells that can be reached by only one garden
                 auto& p2 = *h.begin();
                 auto& perms = m_game->m_pos2garden.at(p2).m_perms;
@@ -285,7 +285,7 @@ bool puz_state::check_2x2()
                 }
             if (rng1.size() == 4) return false;
             if (rng1.size() == 3 && rng2.size() == 1)
-                cells(rng2[0]) = PUZ_EMPTY;
+                cells(rng2[0]) = PUZ_GARDEN;
         }
     return true;
 }
@@ -309,7 +309,7 @@ void puz_state::make_move2(const Position& p, int n)
             }
         }
 
-    for(auto& [p2, h] : m_space2hints)
+    for(auto& [_1, h] : m_space2hints)
         h.erase(p);
     check_spaces();
 
