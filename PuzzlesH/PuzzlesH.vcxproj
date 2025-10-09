@@ -202,6 +202,7 @@
     <ClCompile Include="Puzzles\Hidoku.cpp" />
     <ClCompile Include="Puzzles\Hitori.cpp" />
     <ClCompile Include="Puzzles\HolidayIsland.cpp" />
+    <ClCompile Include="Puzzles\HolidayIsland2.cpp" />
     <ClCompile Include="Puzzles\hopover.cpp" />
     <ClCompile Include="Puzzles\hrd.cpp" />
     <ClCompile Include="stdafx.cpp">

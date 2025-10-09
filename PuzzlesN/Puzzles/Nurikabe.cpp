@@ -52,6 +52,10 @@ struct puz_game
     int m_sidelen;
     // key: position of the number (hint)
     map<Position, puz_garden> m_pos2garden;
+    // key: each space tile
+    // value.elem: position of the number from which a garden
+    //             containing that space tile can be formed
+    map<Position, set<Position>> m_space2hints;
     string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -102,16 +106,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
         m_cells.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c)
-            if (char ch = str[c - 1]; ch == PUZ_SPACE)
+        for (int c = 1; c < m_sidelen - 1; ++c) {
+            Position p(r, c);
+            if (char ch = str[c - 1]; ch == PUZ_SPACE) {
                 m_cells.push_back(PUZ_SPACE);
-            else {
-                int n = ch - '0';
-                Position p(r, c);
-                auto& garden = m_pos2garden[p];
-                garden.m_num = n;
-                m_cells.push_back(garden.m_name = n == 1 ? PUZ_ONE : ch_g++);
+                m_space2hints[p];
+            } else {
+                auto& [name, num, _1] = m_pos2garden[{r, c}];
+                num = ch - '0';
+                m_cells.push_back(name = num == 1 ? PUZ_ONE : ch_g++);
             }
+        }
         m_cells.push_back(PUZ_BOUNDARY);
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
@@ -127,8 +132,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
                 // save all goal states as permutations
                 // A goal state is a garden formed from the number
-                for (auto& spath : spaths)
-                    perms.push_back(spath.back());
+                for (auto& spath : spaths) {
+                    auto& s = spath.back();
+                    perms.push_back(s);
+                    for (auto& p2 : s)
+                        if (p2 != p)
+                            m_space2hints[p2].insert(p);
+                }
         }
     }
 }
@@ -143,8 +153,9 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
-    bool make_move2(Position p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
+    void check_spaces();
     bool is_interconnected() const;
     bool check_2x2();
 
@@ -158,14 +169,15 @@ struct puz_state
 
     const puz_game* m_game;
     string m_cells;
-    // key: the position of the hint
-    // value: index into the permutations (forms) of the garden
+    map<Position, set<Position>> m_space2hints;
+    // key: position of the hint
+    // value.elem: index of the permutations (forms) of the garden
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_cells)
+    : m_game(&g), m_cells(g.m_cells), m_space2hints(g.m_space2hints)
 {
     for (auto& [p, garden] : g.m_pos2garden) {
         auto& perm_ids = m_matches[p];
@@ -173,78 +185,58 @@ puz_state::puz_state(const puz_game& g)
         boost::iota(perm_ids, 0);
     }
 
+    check_spaces();
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    // key: a space tile
-    // value.elem: position of the number from which a garden
-    //             containing that space tile can be formed
-    map<Position, set<Position>> space2hints;
-    for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            char ch = cells(p);
-            if (ch == PUZ_SPACE || ch == PUZ_EMPTY)
-                space2hints[p];
-        }
-
     for (auto& [p, perm_ids] : m_matches) {
         auto& perms = m_game->m_pos2garden.at(p).m_perms;
         // remove any path if it contains a tile which belongs to another garden
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return boost::algorithm::any_of(perms[id], [&](const Position& p2) {
-                char ch = cells(p2);
-                return p != p2 && ch != PUZ_SPACE && ch != PUZ_EMPTY;
+            auto& perm = perms[id];
+            return !boost::algorithm::all_of(perm, [&](const Position& p2) {
+                char ch2 = cells(p2);
+                return (p == p2 || ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY) &&
+                    boost::algorithm::all_of(offset, [&](const Position& os2) {
+                        auto p3 = p2 + os2;
+                        char ch3 = cells(p3);
+                        return perm.contains(p3) || ch3 == PUZ_SPACE ||
+                            ch3 == PUZ_BOUNDARY || ch3 == PUZ_WALL;
+                    });
             });
         });
-        for (int id : perm_ids)
-            for (auto& p2 : perms[id])
-                if (p2 != p)
-                    space2hints.at(p2).insert(p);
-
         if (!init)
             switch(perm_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids.front()) ? 1 : 0;
+                return make_move2(p, perm_ids.front()), 1;
             }
     }
-    bool changed = false;
-    for (auto& [p, h] : space2hints) {
-        if (!h.empty()) continue;
-        // Cells that cannot be reached by any garden can be nothing but a wall
-        char& ch = cells(p);
-        if (ch == PUZ_EMPTY)
-            return false;
-        ch = PUZ_WALL;
-        changed = true;
-    }
-    if (changed) {
-        if (!check_2x2()) return 0;
-        for (auto& [p, h] : space2hints) {
-            if (h.size() != 1) continue;
-            char ch = cells(p);
-            if (ch == PUZ_SPACE) continue;
-            // Cells that can be reached by only one garden
-            auto& p2 = *h.begin();
-            auto& perms = m_game->m_pos2garden.at(p2).m_perms;
-            // remove any permutation that does not contain the empty tile
-            boost::remove_erase_if(m_matches.at(p2), [&](int id) {
-                return boost::algorithm::none_of_equal(perms[id], p);
-            });
+    return check_2x2() && is_interconnected() ? 2 : 0;
+}
+
+void puz_state::check_spaces()
+{
+    for(auto it = m_space2hints.begin(); it != m_space2hints.end();)
+        if (auto& [p, h] = *it; h.empty()) {
+            // Cells that cannot be reached by any garden can be nothing but a wall
+            cells(p) = PUZ_WALL;
+            it = m_space2hints.erase(it);
+        } else {
+            if (h.size() == 1 && cells(p) == PUZ_EMPTY) {
+                // Cells that can be reached by only one garden
+                auto& p2 = *h.begin();
+                auto& perms = m_game->m_pos2garden.at(p2).m_perms;
+                // remove any permutation that does not contain the empty tile
+                boost::remove_erase_if(m_matches.at(p2), [&](int id) {
+                    return boost::algorithm::none_of_equal(perms[id], p);
+                });
+            }
+            ++it;
         }
-        if (!init) {
-            for (auto& [p, perm_ids] : m_matches)
-                if (perm_ids.size() == 1)
-                    return make_move2(p, perm_ids.front()) ? 1 : 0;
-            if (!is_interconnected())
-                return 0;
-        }
-    }
-    return 2;
 }
 
 struct puz_state3 : Position
@@ -303,31 +295,37 @@ bool puz_state::check_2x2()
     return true;
 }
 
-bool puz_state::make_move2(Position p, int n)
+void puz_state::make_move2(const Position& p, int n)
 {
     auto& garden = m_game->m_pos2garden.at(p);
     auto& perm = garden.m_perms[n];
 
-    for (auto& p2 : perm)
+    for (auto& p2 : perm) {
         cells(p2) = garden.m_name;
+        m_space2hints.erase(p2);
+    }
     for (auto& p2 : perm)
         // Gardens are separated by a wall.
-        for (auto& os : offset)
-            switch(char& ch2 = cells(p2 + os)) {
-            case PUZ_SPACE: ch2 = PUZ_WALL; break;
-            case PUZ_EMPTY: return false;
+        for (auto& os : offset) {
+            auto p3 = p2 + os;
+            if (char& ch2 = cells(p3); ch2 == PUZ_SPACE) {
+                ch2 = PUZ_WALL;
+                m_space2hints.erase(p3);
             }
+        }
+
+    for(auto& [p2, h] : m_space2hints)
+        h.erase(p);
+    check_spaces();
+
     ++m_distance;
     m_matches.erase(p);
-
-    return check_2x2() && is_interconnected();
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move2(p, n))
-        return false;
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
