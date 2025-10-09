@@ -241,39 +241,34 @@ void puz_state::check_spaces()
 
 struct puz_state3 : Position
 {
-    puz_state3(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+    puz_state3(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state3>& children) const;
 
-    const set<Position>* m_rng;
+    const puz_state* m_state;
 };
+
+inline bool is_wall(char ch) { return ch == PUZ_SPACE || ch == PUZ_WALL; }
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
-    for (auto& os : offset) {
-        auto p2 = *this + os;
-        if (m_rng->contains(p2)) {
+    for (auto& os : offset)
+        if (auto p2 = *this + os;
+            is_wall(m_state->cells(p2))) {
             children.push_back(*this);
             children.back().make_move(p2);
         }
-    }
 }
 
-// All wall tiles on the board must be connected horizontally or vertically.
+// 5. All wall tiles on the board must be connected horizontally or vertically.
 bool puz_state::is_interconnected() const
 {
-    set<Position> a;
-    for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            char ch = cells(p);
-            if (ch == PUZ_SPACE || ch == PUZ_WALL)
-                a.insert(p);
-        }
-
-    auto smoves = puz_move_generator<puz_state3>::gen_moves(a);
-    return smoves.size() == a.size();
+    int i = boost::find_if(m_cells, is_wall) - m_cells.begin();
+    auto smoves = puz_move_generator<puz_state3>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return smoves.size() == boost::count_if(m_cells, is_wall);
 }
 
 // The wall can't form 2*2 squares.
@@ -349,13 +344,11 @@ ostream& puz_state::dump(ostream& out) const
             char ch = cells(p);
             if (ch == PUZ_WALL)
                 out << PUZ_WALL << ' ';
-            else {
-                auto it = m_game->m_pos2garden.find(p);
-                if (it == m_game->m_pos2garden.end())
-                    out << ". ";
-                else
-                    out << format("{:<2}", it->second.m_num);
-            }
+            else if (auto it = m_game->m_pos2garden.find(p);
+                it == m_game->m_pos2garden.end())
+                out << ". ";
+            else
+                out << format("{:<2}", it->second.m_num);
         }
         println(out);
     }
