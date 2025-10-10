@@ -70,6 +70,9 @@
     <Text Include="Puzzles\NumberConnect.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Nurikabe2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -132,6 +135,9 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\NumberConnect.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Nurikabe2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>

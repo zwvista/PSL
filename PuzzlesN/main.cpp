@@ -14,6 +14,7 @@ extern void solve_puz_NumberPath2();
 extern void solve_puz_NumberLink();
 extern void solve_puz_numeric_paranoia();
 extern void solve_puz_Nurikabe();
+extern void solve_puz_Nurikabe2();
 
 int main(int argc, char **argv)
 {
@@ -33,8 +34,9 @@ int main(int argc, char **argv)
         println("u6: NumberLink");
         println("u7: numeric_paranoia");
         println("u8: Nurikabe");
+        println("u82: Nurikabe 2");
         getline(cin, str);
-        if (str.empty()) solve_puz_Nurikabe();
+        if (str.empty()) solve_puz_Nurikabe2();
         else if (str == "e1") solve_puz_Neighbours();
         else if (str == "e2") solve_puz_NewCarpenterSquare();
         else if (str == "o1") solve_puz_Nooks();
@@ -49,6 +51,7 @@ int main(int argc, char **argv)
         else if (str == "u6") solve_puz_NumberLink();
         else if (str == "u7") solve_puz_numeric_paranoia();
         else if (str == "u8") solve_puz_Nurikabe();
+        else if (str == "u82") solve_puz_Nurikabe2();
     }
     return 0;
 }

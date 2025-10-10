@@ -232,7 +232,7 @@ void puz_state::make_move2(const Position& p, int n)
 
     for (auto& p2 : perm)
         if (char& ch2 = cells(p2); ch2 == PUZ_SPACE) {
-            cells(p2) = PUZ_EMPTY;
+            ch2 = PUZ_EMPTY;
             m_space2hints.erase(p2);
         }
     for (auto& p2 : perm)
