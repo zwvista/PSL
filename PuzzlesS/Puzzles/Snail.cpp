@@ -36,6 +36,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_cells;
+    char m_max_num;
     vector<Position> m_snail_path;
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions forming the area
@@ -67,8 +68,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_area2range[m_sidelen + c].push_back(p);
         }
     }
+    m_max_num = max('3', *boost::max_element(m_cells));
 
-    auto perm = string(m_sidelen - 3, PUZ_EMPTY).append("123");
+    string perm(m_sidelen - (m_max_num - '0'), PUZ_EMPTY);
+    for (char ch = '1'; ch <= m_max_num; ++ch)
+        perm += ch;
     do
         m_perms.push_back(perm);
     while (boost::next_permutation(perm));
@@ -165,7 +169,7 @@ int puz_state::check_snail()
 {
     int n = 2;
     // The first number to write after entering in the top left is a 1
-    char last_ch = '3';
+    char last_ch = m_game->m_max_num;
     vector<Position> path;
     int sz = sidelen() * sidelen();
     for (int i = 0; i <= sz; ++i) {
@@ -177,7 +181,7 @@ int puz_state::check_snail()
         else if (ch != PUZ_EMPTY) {
             // Find possible numbers between last_ch and ch
             string mid;
-            for (int j = last_ch - '1'; (j = (j + 1) % 3) != ch - '1';)
+            for (int j = last_ch - '1'; (j = (j + 1) % (m_game->m_max_num - '0')) != ch - '1';)
                 mid.push_back(j + '1');
 
             // pruning
