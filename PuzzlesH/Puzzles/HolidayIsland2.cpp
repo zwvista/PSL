@@ -47,20 +47,19 @@ struct puz_game
 struct puz_state2 : set<Position>
 {
     puz_state2(const puz_game* game, int num, const Position& p)
-        : m_game(game), m_num(num), m_p(p) {}
+        : m_game(game), m_num(num) {make_move(p);}
 
-    bool is_goal_state() const { return size() == m_num; }
+    bool is_goal_state() const { return size() == m_num + 1; }
     void make_move(const Position& p) { insert(p); }
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
     int m_num;
-    Position m_p;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
-    auto f = [&] (const Position& p) {
+    for (auto& p : *this)
         for (auto& os : offset) {
             // 5. A camper can walk from his Tent,
             // by moving horizontally or vertically.A camper can't cross water or 
@@ -72,12 +71,6 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 children.back().make_move(p2);
             }
         }
-    };
-    if (empty())
-        f(m_p);
-    else
-        for (auto& p : *this)
-            f(p);
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -111,7 +104,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 auto& s = spath.back();
                 perms.push_back(s);
                 for (auto& p2 : s)
-                    m_space2hints[p2].insert(p);
+                    if (p2 != p)
+                        m_space2hints[p2].insert(p);
             }
     }
 }
@@ -169,13 +163,11 @@ int puz_state::find_matches(bool init)
             auto& perm = perms[id];
             return !boost::algorithm::all_of(perm, [&](const Position& p2) {
                 char ch2 = cells(p2);
-                return ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY &&
+                return (p == p2 || ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY) &&
                     boost::algorithm::all_of(offset, [&](const Position& os2) {
                         auto p3 = p2 + os2;
-                        char ch3 = cells(p3);
-                        return perm.contains(p3) || ch3 == PUZ_SPACE ||
-                            ch3 == PUZ_WATER || ch3 == PUZ_TENT;
-                    });;
+                        return perm.contains(p3) || cells(p3) != PUZ_EMPTY;
+                    });
             });
         });
 
@@ -213,7 +205,7 @@ struct puz_state3 : Position
     const puz_state* m_state;
 };
 
-inline bool is_island(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY || ch == PUZ_TENT; }
+inline bool is_island(char ch) { return ch != PUZ_WATER; }
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
@@ -238,10 +230,11 @@ void puz_state::make_move2(const Position& p, int n)
 {
     auto& perm = m_game->m_pos2perms.at(p)[n];
 
-    for (auto& p2 : perm) {
-        cells(p2) = PUZ_EMPTY;
-        m_space2hints.erase(p2);
-    }
+    for (auto& p2 : perm)
+        if (char& ch2 = cells(p2); ch2 == PUZ_SPACE) {
+            cells(p2) = PUZ_EMPTY;
+            m_space2hints.erase(p2);
+        }
     for (auto& p2 : perm)
         for (auto& os : offset) {
             auto p3 = p2 + os;
