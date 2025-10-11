@@ -17,6 +17,7 @@
        there, including the tile itself.
     4. The resulting maze should be a single one-tile path connected horizontally or vertically
        where there are no 2x2 areas of the same type (hedge or path).
+    5. No area in the maze can have the characteristics of a Nook without a number in it.
 */
 
 namespace puzzles::Nooks{
@@ -29,9 +30,7 @@ constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_QM = '?';
 constexpr auto PUZ_UNKNOWN = -1;
 
-
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
 
 struct puz_move
@@ -77,7 +76,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, num] : m_pos2num) {
         auto& moves = m_pos2moves[p];
         for (int i = 0; i < 4; ++i) {
-            auto& os = offset[i];
             set<Position> hedges, empties;
             // 2. a Nook is a dead end, one tile wide, with a number in it.
             for (int j = 0; j < 4; ++j)
@@ -86,11 +84,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         hedges.insert(p2);
             // 3. a Nook contains a number that shows you how many tiles can be seen
             // in a straight line from there, including the tile itself.
+            auto& os = offset[i];
             for (auto p2 = p + os; cells(p2) != PUZ_BOUNDARY; p2 += os) {
                 empties.insert(p2);
-                if (int sz = empties.size(); num == PUZ_UNKNOWN || sz == num - 1)
+                if (int sz = empties.size(); num == PUZ_UNKNOWN || sz == num - 1) {
+                    if (auto p3 = p2 + os; cells(p3) != PUZ_BOUNDARY)
+                        hedges.insert(p3);
                     moves.push_back({i, hedges, empties});
-                else if (num != PUZ_UNKNOWN && sz >= num)
+                } else if (num != PUZ_UNKNOWN && sz >= num)
                     break;
             }
         }
@@ -193,12 +194,14 @@ struct puz_state2 : Position
     const puz_state* m_state;
 };
 
-inline bool is_maze(char ch) { return ch != PUZ_HEDGE && ch != PUZ_BOUNDARY; }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset)
-        if (auto p2 = *this + os; is_maze(m_state->cells(p2))) {
+        switch (auto p2 = *this + os; m_state->cells(p2)) {
+        case PUZ_NOOK:
+        case PUZ_SPACE:
+        case PUZ_EMPTY:
             children.push_back(*this);
             children.back().make_move(p2);
         }
@@ -207,6 +210,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 // 4. The resulting maze should be a single one-tile path connected horizontally or vertically
 bool puz_state::is_interconnected() const
 {
+    auto is_maze = [](char ch) {
+        return ch == PUZ_NOOK || ch == PUZ_EMPTY;
+    };
     int i = m_cells.find(PUZ_NOOK);
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
         {this, {i / sidelen(), i % sidelen()}});
