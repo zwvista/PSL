@@ -26,6 +26,9 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_NOOK = 'N';
 constexpr auto PUZ_HEDGE = '=';
 constexpr auto PUZ_BOUNDARY = '`';
+constexpr auto PUZ_QM = '?';
+constexpr auto PUZ_UNKNOWN = -1;
+
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
@@ -64,7 +67,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_cells.push_back(PUZ_SPACE);
             else {
                 m_cells.push_back(PUZ_NOOK);
-                m_pos2num[p] = ch - '0';
+                m_pos2num[p] = ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0';
             }
         }
         m_cells.push_back(PUZ_BOUNDARY);
@@ -75,16 +78,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& moves = m_pos2moves[p];
         for (int i = 0; i < 4; ++i) {
             auto& os = offset[i];
-            if (set<Position> hedges, empties; [&] {
-                for (int j = 0; j < 4; ++j)
-                    if (j != i)
-                        if (auto p2 = p + offset[j]; cells(p2) != PUZ_BOUNDARY)
-                            hedges.insert(p2);
-                for (auto p2 = p + os; cells(p2) != PUZ_BOUNDARY && empties.size() < num - 1; p2 += os)
-                    empties.insert(p2);
-                return empties.size() == num - 1;
-            }())
-                moves.push_back({i, hedges, empties});
+            set<Position> hedges, empties;
+            // 2. a Nook is a dead end, one tile wide, with a number in it.
+            for (int j = 0; j < 4; ++j)
+                if (j != i)
+                    if (auto p2 = p + offset[j]; cells(p2) != PUZ_BOUNDARY)
+                        hedges.insert(p2);
+            // 3. a Nook contains a number that shows you how many tiles can be seen
+            // in a straight line from there, including the tile itself.
+            for (auto p2 = p + os; cells(p2) != PUZ_BOUNDARY; p2 += os) {
+                empties.insert(p2);
+                if (int sz = empties.size(); num == PUZ_UNKNOWN || sz == num - 1)
+                    moves.push_back({i, hedges, empties});
+                else if (num != PUZ_UNKNOWN && sz >= num)
+                    break;
+            }
         }
     }
 
