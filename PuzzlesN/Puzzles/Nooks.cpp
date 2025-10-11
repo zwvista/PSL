@@ -88,9 +88,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (auto p2 = p + os; cells(p2) != PUZ_BOUNDARY; p2 += os) {
                 empties.insert(p2);
                 if (int sz = empties.size(); num == PUZ_UNKNOWN || sz == num - 1) {
-                    if (auto p3 = p2 + os; cells(p3) != PUZ_BOUNDARY)
+                    auto p3 = p2 + os;
+                    bool b = cells(p3) != PUZ_BOUNDARY;
+                    if (b)
                         hedges.insert(p3);
                     moves.push_back({i, hedges, empties});
+                    if (b)
+                        hedges.erase(p3);
                 } else if (num != PUZ_UNKNOWN && sz >= num)
                     break;
             }
@@ -164,12 +168,12 @@ int puz_state::find_matches(bool init)
         auto& moves = m_game->m_pos2moves.at(p);
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& [_1, hedges, empties] = moves[id];
-            return boost::algorithm::any_of(hedges, [&](const Position& p2) {
+            return !boost::algorithm::all_of(hedges, [&](const Position& p2) {
                 char ch = cells(p2);
-                return ch != PUZ_SPACE && ch != PUZ_HEDGE;
-            }) || boost::algorithm::any_of(empties, [&](const Position& p2) {
+                return ch == PUZ_SPACE || ch == PUZ_HEDGE;
+            }) || !boost::algorithm::all_of(empties, [&](const Position& p2) {
                 char ch = cells(p2);
-                return ch != PUZ_SPACE && ch != PUZ_EMPTY && ch != PUZ_NOOK;
+                return ch == PUZ_SPACE || ch == PUZ_EMPTY || ch == PUZ_NOOK;
             });
         });
 
