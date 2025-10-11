@@ -112,7 +112,7 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches_hint) < tie(x.m_cells, x.m_matches_hint);
+        return tie(m_cells, m_matches_hint, m_matches_square) < tie(x.m_cells, x.m_matches_hint, x.m_matches_square);
     }
     bool make_move_hint(const Position& p, int n);
     void make_move_hint2(const Position& p, int n);
