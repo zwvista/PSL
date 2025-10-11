@@ -227,7 +227,7 @@ struct puz_state3 : Position
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset)
-        switch (auto p2 = *this + os;  m_state->cells(p2)) {
+        switch (auto p2 = *this + os; m_state->cells(p2)) {
         case PUZ_WALL:
         case PUZ_SPACE:
             children.push_back(*this);

@@ -199,7 +199,7 @@ struct puz_state3 : Position
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset)
-        switch (auto p2 = *this + os;  m_state->cells(p2)) {
+        switch (auto p2 = *this + os; m_state->cells(p2)) {
         case PUZ_SPACE:
         case PUZ_EMPTY:
         case PUZ_TENT:
@@ -228,9 +228,13 @@ void puz_state::make_move2(const Position& p, int n)
         cells(p) = PUZ_WATER, ++m_distance, m_matches.erase(p);
     else {
         auto& [_1, area, waters] = m_game->m_moves[n];
-        for (auto& p2 : area)
-            if (char& ch2 = cells(p2); ch2 == PUZ_SPACE)
-                cells(p2) = PUZ_EMPTY, ++m_distance, m_matches.erase(p2);
+        for (auto& p2 : area) {
+            char& ch2 = cells(p2);
+            if (ch2 != PUZ_EMPTY)
+                ++m_distance, m_matches.erase(p2);
+            if (ch2 == PUZ_SPACE)
+                ch2 = PUZ_EMPTY;
+        }
         for (auto& p2 : waters)
             if (char& ch2 = cells(p2); ch2 == PUZ_SPACE)
                 ch2 = PUZ_WATER, ++m_distance, m_matches.erase(p2);
