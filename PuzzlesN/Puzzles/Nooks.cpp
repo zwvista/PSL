@@ -121,6 +121,7 @@ struct puz_state
     int find_matches(bool init);
     bool is_interconnected() const;
     bool check_square();
+    bool check_nooks() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -180,7 +181,7 @@ int puz_state::find_matches(bool init)
                 return make_move_hint2(p, move_ids[0]), 1;
             }
     }
-    return init || check_square() ? 2 : 0;
+    return init || check_square() && check_nooks() ? 2 : 0;
 }
 
 struct puz_state2 : Position
@@ -246,6 +247,24 @@ bool puz_state::check_square()
     return is_interconnected();
 }
 
+// 5. No area in the maze can have the characteristics of a Nook without a number in it.
+bool puz_state::check_nooks() const
+{
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            if (cells(p) != PUZ_EMPTY)
+                continue;
+            int cnt = 0;
+            for (auto& os : offset)
+                if (char ch = cells(p + os); ch == PUZ_HEDGE || ch == PUZ_BOUNDARY)
+                    ++cnt;
+            if (cnt == 3)
+                return false;
+        }
+    return true;
+}
+
 void puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& [_1, hedges, empties] = m_game->m_pos2moves.at(p)[n];
@@ -281,7 +300,7 @@ bool puz_state::make_move_square(const Position& p, int n)
 {
     m_distance = 0;
     make_move_square2(p, n);
-    return is_interconnected();
+    return check_square() && check_nooks();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
