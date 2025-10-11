@@ -332,13 +332,24 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    auto f = [&](const Position& p) {
+        int cnt = 1;
+        for (auto& os : offset)
+            for (auto p2 = p + os; cells(p2) == PUZ_EMPTY || cells(p2) == PUZ_NOOK; p2 += os)
+                ++cnt;
+        return cnt;
+    };
     for (int r = 1; r < sidelen() - 1; ++r) {
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            if (char ch = cells(p); ch == PUZ_NOOK)
-                out << ch << m_game->m_pos2num.at(p);
-            else
+            if (char ch = cells(p); ch != PUZ_NOOK)
                 out << ch << ch;
+            else {
+                int n = m_game->m_pos2num.at(p);
+                if (n == PUZ_UNKNOWN)
+                    n = f(p);
+                out << ch << n;
+            }
             out << ' ';
         }
         println(out);
