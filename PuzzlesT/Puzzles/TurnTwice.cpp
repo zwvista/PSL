@@ -66,27 +66,26 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_cells.append(m_sidelen, PUZ_WALL);
 
-    Position os0;
+    auto &os0 = Position::Zero;
     int sz = m_signposts.size();
-    for (int i = 0; i < sz; ++i) {
+    for (int i = 0; i < sz - 1; ++i) {
         auto p1 = m_signposts[i];
         for (int j = i + 1; j < sz; ++j) {
             auto p2 = m_signposts[j];
             int sz2 = p1.first == p2.first || p1.second == p2.second ? 1 : 2;
-            for (int k = 0; k < sz2; ++k) {
-                vector<Position> path;
-                for (auto p = p1;;) {
-                    Position os1(sign(p2.first - p.first), 0);
-                    Position os2(0, sign(p2.second - p.second));
-                    Position os = k == 0 && os1 != os0 || k == 1 && os2 == os0 ? os1 : os2;
-                    p += os;
-                    if (p == p2) break;
-                    if (cells(p) != PUZ_SPACE) goto next_k;
-                    path.push_back(p);
-                }
-                m_paths.push_back(path);
-            next_k:;
-            }
+            for (int k = 0; k < sz2; ++k)
+                if (vector<Position> path; [&] {
+                    for (auto p = p1;;) {
+                        Position os1(sign(p2.first - p.first), 0);
+                        Position os2(0, sign(p2.second - p.second));
+                        Position os = k == 0 && os1 != os0 || k == 1 && os2 == os0 ? os1 : os2;
+                        p += os;
+                        if (p == p2) return true;
+                        if (cells(p) != PUZ_SPACE) return false;
+                        path.push_back(p);
+                    }
+                }())
+                    m_paths.push_back(path);
         }
     }
 }
