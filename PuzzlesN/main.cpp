@@ -34,7 +34,7 @@ int main(int argc, char **argv)
         println("u7: numeric_paranoia");
         println("u8: Nurikabe");
         getline(cin, str);
-        if (str.empty()) solve_puz_NumberPath();
+        if (str.empty()) solve_puz_NoughtsAndCrosses();
         else if (str == "e1") solve_puz_Neighbours();
         else if (str == "e2") solve_puz_NewCarpenterSquare();
         else if (str == "o1") solve_puz_Nooks();
