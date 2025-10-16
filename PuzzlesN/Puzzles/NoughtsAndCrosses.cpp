@@ -145,9 +145,22 @@ bool puz_state::make_move(const Position& p, char ch)
         &m_grp_rows[p.first],
         &m_grp_cols[p.second]
     };
-    for (puz_area* a : areas)
-        for (auto& p2 : m_game->m_area_pos[a->first])
-            remove_pair(p2, ch);
+    for (puz_area* a : areas) {
+        auto& rng = m_game->m_area_pos[a->first];
+        auto f = [&]{
+            for (auto& p2 : rng)
+                remove_pair(p2, ch);
+        };
+        if (ch != PUZ_EMPTY)
+            f();
+        else {
+            int n = boost::count_if(rng, [&](const Position& p2) {
+                return cells(p2) == PUZ_EMPTY;
+            });
+            if (n == sidelen() - m_game->m_num)
+                f();
+        }
+    }
 
     return boost::algorithm::none_of(m_pos2nums, [](const pair<const Position, puz_numbers>& kv) {
         return kv.second.empty();
