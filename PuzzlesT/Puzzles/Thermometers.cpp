@@ -66,8 +66,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 int d = bulbs.find(ch);
                 if (d == -1) continue;
                 int n = m_thermometer_info.size();
-                m_thermometer_info.emplace_back();
-                auto& info = m_thermometer_info.back();
+                auto& info = m_thermometer_info.emplace_back();
                 auto& os = offset[d];
                 for (auto p2 = p;; p2 += os) {
                     m_pos2thermometer[p2] = n;
