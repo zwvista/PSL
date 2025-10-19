@@ -1546,3 +1546,352 @@ Number of vertices examined: 503570
 521.007 [s]
 
 Level 117
+Sequence of moves: 
+M M M M M M M M M 
+M S M S M S M S M 
+M S S S M S S S M 
+M M M S M M S M M 
+M S S S S M S S M 
+M M M S M M S M M 
+M S S S S S S S M 
+M M M S M S M S M 
+S S S S M M M M M 
+Number of moves: 48
+Number of vertices examined: 1389765
+3269.2 [s]
+
+Level 118
+Sequence of moves: 
+S S S S S S S S S 
+S M M M M M M M S 
+S M S S S M S M M 
+S S S M S S S S M 
+S M M M M S M M M 
+S S S S M S S S M 
+M S M S M S M S M 
+M S M S M S M S M 
+M M M M M M M M M 
+Number of moves: 45
+Number of vertices examined: 88734
+88.0519 [s]
+
+Level 119
+Sequence of moves: 
+S S S M M M M M S 
+S M M M S M S M S 
+S M S S S M S M S 
+S M S M M M S M S 
+S M S S M S S M S 
+S M M S M S M M S 
+S M S S S S S M S 
+S M S M M M M M S 
+S S S S S S S S S 
+Number of moves: 45
+Number of vertices examined: 96932
+88.0536 [s]
+
+Level 120
+Sequence of moves: 
+M S S S S S S S S S 
+M M M M M M S M M S 
+M S S M S S S S M S 
+M M S M M M M S M M 
+M S S S S S S S S M 
+M M M M M M S M M M 
+M S S S S S S S S M 
+M S M S M S M S M M 
+M S M S M S M S S M 
+M M M M M M M M M M 
+Number of moves: 53
+Number of vertices examined: 584
+0.734559 [s]
+
+Level 121
+Sequence of moves: 
+S S S S S S S S S M 
+S M M S M M S M S M 
+S S M S S M M M S M 
+S M M M M M S S S M 
+S M S M S M S M M M 
+S S S S S M M M S M 
+S M M M M M S M S M 
+S S M S M S S M S M 
+S M M S M M S M S M 
+S S S S S S S S S M 
+Number of moves: 62
+Number of vertices examined: 360716
+465.084 [s]
+
+Level 122
+Sequence of moves: 
+S S S S S S S S S S 
+S M M M S M S M S M 
+S S S M S M S M S M 
+S M S M S M S M S M 
+S M M M M M M M M M 
+S S S M S M S S S M 
+S M S S S M M M S M 
+S M M M M M S M S M 
+S M S M S M S M S M 
+S S S S S S S S S M 
+Number of moves: 58
+Number of vertices examined: 4241
+4.54519 [s]
+
+Level 123
+Sequence of moves: 
+S M M M M M M M M M 
+S M S M S M S S S M 
+S M S M S M S M M M 
+S M S M S S S S S M 
+S M S M S M M M M M 
+S M S M S S S S S M 
+S M S S S M M M S M 
+S M S M S S S M S M 
+S M S M M M M M M M 
+S S S S S S S S S S 
+Number of moves: 51
+Number of vertices examined: 304
+0.332984 [s]
+
+Level 124
+Sequence of moves: 
+M M M M M M M M M M 
+M S S S M S S S M S 
+M M S M M S M M M S 
+M S S S M S S M S S 
+M M M S M S M M M S 
+M S S S M S M S M S 
+M M M S S S S S S S 
+M S S S M S M S M S 
+M S M S M S M S M S 
+M M M M M M M M M S 
+Number of moves: 59
+Number of vertices examined: 4254
+6.10882 [s]
+
+Level 125
+Sequence of moves: 
+M S S S S S S S S S 
+M M M M M M S M S M 
+M S S S S S S M S M 
+M M M M S M M M M M 
+M S S M S S S S S M 
+M M S S S M S M M M 
+M S S M S M S S S M 
+M M S M S M S M S M 
+M S S M S M S M S M 
+M M M M M M M M M M 
+Number of moves: 54
+Number of vertices examined: 2332
+2.64141 [s]
+
+Level 126
+Sequence of moves: 
+S S S S S S S S S S 
+S M S M S M S M M S 
+S M M M S M S S M S 
+S S S M S M S M M M 
+S M M M M M M M S M 
+S M S M S S S S S M 
+S S S M M S M M M M 
+S M M M S S S M S M 
+S S S S S M S S S M 
+M M M M M M M M M M 
+Number of moves: 55
+Number of vertices examined: 253955
+298.848 [s]
+
+Level 127
+Sequence of moves: 
+S S S S S S S S S S 
+M M M M M M M M M S 
+M S S M S S M S M S 
+M M S M M S M S M S 
+M S S M S S S S S S 
+M M S M M M M S M S 
+M S S S S S S S M S 
+M S M S M M S M M S 
+M S M S M S S S M S 
+M M M M M M M M M M 
+Number of moves: 51
+Number of vertices examined: 5253
+5.66215 [s]
+
+Level 128
+Sequence of moves: 
+M S S S S S S S S S 
+M M S M M M M M M S 
+M S S S S M S S M S 
+M M S M M M S M M S 
+M S S S S S S S M S 
+M M S M M M S M M M 
+M S S S M S S S S M 
+M M S M M M S M S M 
+M S S S M S S M S M 
+M M M M M M M M M M 
+Number of moves: 50
+Number of vertices examined: 944
+1.10979 [s]
+
+Level 129
+Sequence of moves: 
+M M M S S S S S S S 
+M S S S M S M S M S 
+M M M M M S M M M S 
+M S M S S S M S S S 
+M S S S M S M M M S 
+M S M S M S M S S S 
+M S M S M M M M M S 
+M M M M M S S M S S 
+M S M S M M S M M S 
+S S S S S S S S S S 
+Number of moves: 58
+Number of vertices examined: 5800
+7.02648 [s]
+
+Level 130
+Sequence of moves: 
+M M M M M M M M M M 
+M S S S S S M S S M 
+M M M M M S M S M M 
+M S M S M S M S S M 
+M S S S M S M S M M 
+M S M S M S M S S M 
+M M M S M S S S M M 
+M S S S S S M S S M 
+M M M M S M M M M M 
+S S S S S S S S S M 
+Number of moves: 55
+Number of vertices examined: 6814661
+8296.82 [s]
+
+Level 131
+Sequence of moves: 
+S M M M M M M M M M 
+S M S S S M S M S M 
+S M S M M M S S S M 
+S M S M S M S M M M 
+S S S S S S S S S M 
+S M M M S M M M M M 
+S S S M S S S S S M 
+S M S M M S M S M M 
+S M S S M S M S S M 
+S M M M M M M M M M 
+Number of moves: 53
+Number of vertices examined: 475549
+562.586 [s]
+
+Level 132
+Sequence of moves: 
+M M M M M M M M M S 
+M S M S M S M S S S 
+M S S S S S M M M S 
+M S M M M S S M S S 
+M M M S M M S M M S 
+M S S S S M S S M S 
+M M M M S M M S S S 
+M S S S S S S S M S 
+M S M S M M M M M S 
+M M M M M S S S S S 
+Number of moves: 60
+Number of vertices examined: 11037989
+13953.8 [s]
+
+Level 133
+Sequence of moves: 
+M M M M M M M M M M 
+M S S M S S S M S M 
+M M S M M S M M S M 
+M S S S S S S M S M 
+M M M M M M S S S M 
+M S S S S S S M M M 
+M M M M M M S S S M 
+M S S S S S S M S M 
+M M M M M M S M M M 
+M S S S S S S S S M 
+Number of moves: 56
+Number of vertices examined: 15503760
+19451.2 [s]
+
+Level 134
+Sequence of moves: 
+M M M M M M M M M S 
+M S S M S S M S M S 
+M M S M M S M S S S 
+M S S S S S S S M S 
+M M M S M S M S M S 
+M S S S M S M S M S 
+M M M M M S M M M S 
+M S S S S S M S S S 
+M S M S M S M S M S 
+M M M M M M M M M S 
+Number of moves: 55
+Number of vertices examined: 107517
+127.625 [s]
+
+Level 135
+Sequence of moves: 
+S S S S S S S S S S 
+S M S M S M M S M M 
+S M S M S M S S S M 
+S M M M S M M S M M 
+S M S S S S M S S M 
+M M M S M M M S M M 
+M S S S S M S S S M 
+M M S M S M S M S M 
+M S S M S M S M S M 
+M M M M M M M M M M 
+Number of moves: 58
+Number of vertices examined: 14384
+15.9882 [s]
+
+Level 136
+Sequence of moves: 
+M M M M M M M M M M 
+M S S S M S S M S M 
+M M M S M M S M S M 
+M S S S S M S M S M 
+M M S M S S S S S M 
+S M M M M M S M M M 
+S M S S S S S S S M 
+S M S M S M S M M M 
+S M M M M M S S S M 
+S S S S S S S M M M 
+Number of moves: 57
+Number of vertices examined: 331795
+405.562 [s]
+
+Level 137
+Sequence of moves: 
+M M M M M M M M M S 
+M S M S M S M S M S 
+M S M S M S M S M S 
+M S S S S S S S M S 
+M S M M M S M S S S 
+M S M S M M M M M S 
+M M M S M S M S M S 
+M S S S S S S S M S 
+M M M M M M M S M S 
+M S S S S S S S S S 
+Number of moves: 55
+Number of vertices examined: 47997
+62.0579 [s]
+
+Level 138
+Sequence of moves: 
+S M M M M M M M M M 
+S M S M S S S S S M 
+S M S M S M M M M M 
+S S S M S M S M S M 
+S M M M S S S S S M 
+S S S S S M S M M M 
+S M S M M M S S S M 
+S M S M S S S M M M 
+S M S M S M S S S M 
+M M M M M M M M M M 
+Number of moves: 61
+Number of vertices examined: 576891
+715.433 [s]
+
+Level 139
