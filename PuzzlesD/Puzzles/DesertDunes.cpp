@@ -149,12 +149,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, perm_ids] : m_matches) {
-        string chars;
-        for (auto& os : offset2)
-            chars.push_back(cells(p + os));
-
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, perms2x2[id], [](char ch1, char ch2) {
+            return !boost::equal(offset2, perms2x2[id], [&](const Position& os, char ch2) {
+                char ch1 = cells(p + os);
                 return ch1 == PUZ_SPACE || ch1 == ch2 ||
                     ch1 == PUZ_OASIS && ch2 == PUZ_EMPTY;
             });

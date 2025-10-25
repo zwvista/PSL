@@ -162,8 +162,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Puzzles\Neighbours.txt" />
-    <Text Include="Puzzles\Neighbours2.txt" />
-    <Text Include="Puzzles\Neighbours3.txt" />
     <Text Include="Puzzles\NewCarpenterSquare.txt" />
     <Text Include="Puzzles\Nooks.txt" />
     <Text Include="Puzzles\NorthPoleFishing.txt" />
@@ -216,8 +214,6 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Neighbours.xml" />
-    <Xml Include="Puzzles\Neighbours2.xml" />
-    <Xml Include="Puzzles\Neighbours3.xml" />
     <Xml Include="Puzzles\NewCarpenterSquare.xml" />
     <Xml Include="Puzzles\Nooks.xml" />
     <Xml Include="Puzzles\NorthPoleFishing.xml" />

@@ -28,12 +28,6 @@
     <Text Include="Puzzles\NumberLink.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\Neighbours2.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
-    <Text Include="Puzzles\Neighbours3.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\Nurikabe.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -143,12 +137,6 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\NumberLink.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\Neighbours2.xml">
-      <Filter>Puzzles</Filter>
-    </Xml>
-    <Xml Include="Puzzles\Neighbours3.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Nurikabe.xml">

@@ -119,13 +119,10 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, perm_ids] : m_matches) {
-        vector<char> chars;
-        for (auto& os : offset2)
-            chars.push_back(cells(p + os));
-
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = m_game->m_perms[id];
-            return !boost::equal(chars, perm, [&](char ch1, char ch2) {
+            return !boost::equal(offset2, perm, [&](const Position& os, char ch2) {
+                char ch1 = cells(p + os);
                 return ch1 == PUZ_SPACE || ch1 == ch2 || ch1 == PUZ_BOUNDARY && ch2 == PUZ_EMPTY ||
                     ch1 == PUZ_NUM && isdigit(ch2) || isdigit(ch1) && ch2 == PUZ_NUM;
             }) ||
