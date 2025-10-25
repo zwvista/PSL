@@ -107,13 +107,10 @@ int puz_state::find_matches(bool init)
     for (auto& [area_id, perm_ids] : m_matches) {
         bool is_food = area_id < sidelen() * 2;
         auto& perms = is_food ? m_game->m_perms_food : m_game->m_perms_drink;
-
-        string chars;
-        for (auto& p : m_game->m_area2range[area_id])
-            chars.push_back(is_food ? food(p) : drinks(p));
-
+        auto& range = m_game->m_area2range[area_id];
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
+            return !boost::equal(range, perms[id], [&](const Position& p, char ch2) {
+                char ch1 = is_food ? food(p) : drinks(p);
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             });
         });

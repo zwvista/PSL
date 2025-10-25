@@ -148,12 +148,12 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [i, perm_ids] : m_matches) {
-        string chars;
-        for (auto& p2 : m_game->m_area2range.at(i))
-            chars.push_back(cells(p2));
-
+        auto& perms = m_game->m_perms;
+        auto& range = m_game->m_area2range.at(i);
         boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(chars, m_game->m_perms[id].m_perm, [&](char ch1, char ch2) {
+            auto& perm = perms[id].m_perm;
+            return !boost::equal(range, perm, [&](const Position& p, char ch2) {
+                char ch1 = cells(p);
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             });
         });

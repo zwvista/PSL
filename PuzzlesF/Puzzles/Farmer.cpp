@@ -151,14 +151,10 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [i, perm_ids] : m_matches) {
         auto& area = m_game->m_areas[i];
-
-        string chars;
-        for (auto& p : area)
-            chars.push_back(cells(p));
-
         boost::remove_erase_if(perm_ids, [&](int j) {
             auto& perm = m_game->m_perms[j];
-            if (!boost::equal(chars, perm, [](char ch1, char ch2) {
+            if (!boost::equal(area, perm, [&](const Position& p, char ch2) {
+                char ch1 = cells(p);
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             }))
                 return true;

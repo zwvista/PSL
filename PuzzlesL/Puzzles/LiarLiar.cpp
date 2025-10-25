@@ -203,14 +203,10 @@ int puz_state::find_matches(bool init)
         int sz2 = rng.size();
         auto& o2 = m_game->m_size2perminfo.at(sz2);
         auto& perms = o2.m_perms;
-
-        string chars;
-        for (auto& p : rng)
-            chars.push_back(cells(p));
-
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
-            if (!boost::equal(chars, perm, [](char ch1, char ch2) {
+            if (!boost::equal(rng, perm, [&](const Position& p, char ch2) {
+                char ch1 = cells(p);
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             }))
                 return true;

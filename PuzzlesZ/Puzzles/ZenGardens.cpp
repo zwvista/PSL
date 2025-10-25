@@ -204,13 +204,9 @@ int puz_state::find_matches(bool init)
         if (area_id < m_game->garden_count()) {
             auto& garden = m_game->m_gardens[area_id];
             auto& perms = m_game->m_num2gardenperms.at(garden.size());
-
-            string chars;
-            for (auto& p : garden)
-                chars.push_back(cells(p));
-            
             boost::remove_erase_if(perm_ids, [&](int id) {
-                return !boost::equal(chars, perms[id], [](char ch1, char ch2) {
+                return !boost::equal(garden, perms[id], [&](const Position& p, char ch2) {
+                    char ch1 = cells(p);
                     return ch1 == PUZ_STONE || ch1 == ch2;
                 });
             });
