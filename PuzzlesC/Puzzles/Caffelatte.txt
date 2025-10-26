@@ -11,7 +11,7 @@ B---C---M
   C---B  
 Number of moves: 6
 Number of vertices examined: 11
-0.002565 [s]
+0.001346 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,5 +26,191 @@ B       M
         M
 Number of moves: 4
 Number of vertices examined: 5
-0.000381 [s]
+0.000197 [s]
 
+Level 3
+Sequence of moves: 
+    M   B
+    |   |
+    |   |
+    |   |
+M---M---C
+        |
+        |
+        |
+    B---B
+Number of moves: 6
+Number of vertices examined: 11
+0.000429 [s]
+
+Level 4
+Number of vertices examined: 3
+0.00012 [s]
+
+Level 5
+Sequence of moves: 
+  B-----C
+        |
+C-----B |
+|       |
+|       M
+|        
+|        
+|        
+M        
+Number of moves: 4
+Number of vertices examined: 5
+0.000228 [s]
+
+Level 6
+Number of vertices examined: 4
+0.000154 [s]
+
+Level 7
+Sequence of moves: 
+  B        
+  |        
+  |        
+  |        
+  B---C---M
+  |   |    
+  |   |    
+  |   |    
+  B   |    
+      |    
+M-----M    
+Number of moves: 6
+Number of vertices examined: 11
+0.000424 [s]
+
+Level 8
+Number of vertices examined: 5
+0.000232 [s]
+
+Level 9
+Number of vertices examined: 5
+0.000269 [s]
+
+Level 10
+Sequence of moves: 
+  B---B    
+  |        
+M |        
+| |        
+| |        
+| |        
+| C-------M
+|         |
+|         |
+|         |
+C-----B   M
+Number of moves: 6
+Number of vertices examined: 7
+0.000321 [s]
+
+Level 11
+Number of vertices examined: 9
+0.000441 [s]
+
+Level 12
+Sequence of moves: 
+M          
+|          
+| C-------B
+| |       |
+| |       |
+| |       |
+C |       B
+| |        
+| M---M    
+|          
+B          
+Number of moves: 6
+Number of vertices examined: 9
+0.000436 [s]
+
+Level 13
+Sequence of moves: 
+B---------C
+|         |
+| C-----B |
+| |       |
+| |       |
+| |       |
+| |   M---M
+| |        
+| M        
+|          
+B          
+Number of moves: 6
+Number of vertices examined: 7
+0.000345 [s]
+
+Level 14
+Number of vertices examined: 5
+0.000277 [s]
+
+Level 15
+Number of vertices examined: 5
+0.000298 [s]
+
+Level 16
+Sequence of moves: 
+      B---B
+          |
+M         |
+|         |
+| B---B   C
+|     |   |
+|     |   |
+|     |   |
+M-----C   |
+          |
+  M-------M
+Number of moves: 8
+Number of vertices examined: 13
+0.000649 [s]
+
+Level 17
+Number of vertices examined: 5
+0.000237 [s]
+
+Level 18
+Number of vertices examined: 8
+0.000452 [s]
+
+Level 19
+Sequence of moves: 
+M          
+|          
+|         B
+|         |
+C---M     |
+|         |
+|         |
+|         |
+B---B     |
+          |
+  M-------C
+Number of moves: 6
+Number of vertices examined: 9
+0.000409 [s]
+
+Level 20
+Sequence of moves: 
+M   B---B  
+|   |      
+|   | M---C
+|   |     |
+|   C---M |
+|   |     |
+C   |     B
+|   |      
+|   |      
+|   |      
+B   M      
+Number of moves: 8
+Number of vertices examined: 11
+0.000601 [s]
+
+Level 21
