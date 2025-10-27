@@ -38,24 +38,18 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size() * 2 + 1)
+, m_sidelen(strs.size() + 2)
 {
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
-    for (int r = 1; ; ++r) {
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
         m_cells.push_back(PUZ_BOUNDARY);
-        for (int c = 1; ; ++c) {
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
             m_cells.push_back(ch);
             if (ch != PUZ_SPACE)
-                m_pos2dirs[{r * 2 - 1, c * 2 - 1}];
-            if (c == m_sidelen / 2) break;
-            m_cells.push_back(PUZ_SPACE);
+                m_pos2dirs[{r, c}];
         }
-        m_cells.push_back(PUZ_BOUNDARY);
-        if (r == m_sidelen / 2) break;
-        m_cells.push_back(PUZ_BOUNDARY);
-        m_cells.append(m_sidelen - 2, PUZ_SPACE);
         m_cells.push_back(PUZ_BOUNDARY);
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
