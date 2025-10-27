@@ -190,7 +190,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return a1->first.size() < a2->first.size();
     });
     for (auto& p : a.first)
-        if (children.push_back(*this); !children.back().make_move(p))
+        if (!children.emplace_back(*this).make_move(p))
             children.pop_back();
 }
 

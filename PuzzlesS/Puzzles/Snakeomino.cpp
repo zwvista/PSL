@@ -400,7 +400,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             return kv1.second.size() < kv2.second.size();
         });
         for (int n : move_ids)
-            if (children.push_back(*this); !children.back().make_move_hint(p, n))
+            if (!children.emplace_back(*this).make_move_hint(p, n))
                 children.pop_back();
     } else {
         // 7. every cell in the board is part of a snake.
@@ -426,7 +426,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                         snakes.push_back(v);
                 }
                 for (auto& snake : snakes)
-                    if (children.push_back(*this); !children.back().make_move_hidden(num, snake))
+                    if (!children.emplace_back(*this).make_move_hidden(num, snake))
                         children.pop_back();
             }
         }

@@ -191,7 +191,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second.size() < kv2.second.size();
     });
     for (auto& [p, vert] : infos)
-        if (children.push_back(*this); !children.back().make_move(p, n, vert))
+        if (!children.emplace_back(*this).make_move(p, n, vert))
             children.pop_back();
 }
 

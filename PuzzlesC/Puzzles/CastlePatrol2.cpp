@@ -150,7 +150,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 // 3. Areas of the same type cannot share an edge.
                 return !contains(p3) && ch3 == m_area->m_ch;
             }))
-                if (children.push_back(*this); !children.back().make_move(p2))
+                if (!children.emplace_back(*this).make_move(p2))
                     children.pop_back();
         }
 }
@@ -290,7 +290,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second.size() < kv2.second.size();
     });
     for (int n : move_ids)
-        if (children.push_back(*this); !children.back().make_move(n))
+        if (!children.emplace_back(*this).make_move(n))
             children.pop_back();
 }
 

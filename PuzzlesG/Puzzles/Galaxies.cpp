@@ -242,7 +242,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     for (char ch : m_next)
         for (auto& p : m_galaxies.at(ch).m_outer)
-            if (children.push_back(*this); !children.back().make_move(ch, p))
+            if (!children.emplace_back(*this).make_move(ch, p))
                 children.pop_back();
 }
 

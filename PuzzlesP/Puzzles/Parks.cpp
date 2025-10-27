@@ -262,7 +262,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto& a = m_groups.get_best_candidate_area();
     for (auto& p : a.first)
-        if (children.push_back(*this); !children.back().make_move(p))
+        if (!children.emplace_back(*this).make_move(p))
             children.pop_back();
 }
 

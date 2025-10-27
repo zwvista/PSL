@@ -223,7 +223,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return a1->second < a2->second;
     });
     for (auto& p : area.first)
-        if (children.push_back(*this); !children.back().make_move(p))
+        if (!children.emplace_back(*this).make_move(p))
             children.pop_back();
 }
 

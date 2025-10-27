@@ -243,7 +243,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
 
     for (char ch : chars)
-        if (children.push_back(*this); !children.back().make_move(p, ch))
+        if (!children.emplace_back(*this).make_move(p, ch))
             children.pop_back();
 }
 

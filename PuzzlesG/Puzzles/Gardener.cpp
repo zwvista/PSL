@@ -295,7 +295,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     int sz = m_game->m_fb_info[m_fb_index].m_perms.size();
     for (int i = 0; i < sz; ++i)
-        if (children.push_back(*this); !children.back().make_move(i))
+        if (!children.emplace_back(*this).make_move(i))
             children.pop_back();
 }
 

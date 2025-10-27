@@ -110,7 +110,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int i = 0; i < 4; ++i)
         if (auto p2 = m_p + offset[i]; m_area.contains(p2))
-            if (children.push_back(*this); !children.back().make_move(i, p2))
+            if (!children.emplace_back(*this).make_move(i, p2))
                 children.pop_back();
 }
 

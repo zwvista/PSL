@@ -143,7 +143,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     for (const Position& p : curs)
         for (int i = 0; i < 8; ++i)
             if ((dir(p) & (1 << i)) && cells(p + offset[i]) != '0')
-                if (children.push_back(*this); !children.back().make_move(p, i))
+                if (!children.emplace_back(*this).make_move(p, i))
                     children.pop_back();
 }
 

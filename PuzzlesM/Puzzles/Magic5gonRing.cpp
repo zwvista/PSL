@@ -114,7 +114,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         int n2 = total();
         if (n2 != 0 && n != n2) continue;
         for (int i = 0; i < perms.size(); ++i)
-            if (children.push_back(*this); !children.back().make_move(i, n))
+            if (!children.emplace_back(*this).make_move(i, n))
                 children.pop_back();
     }
 }

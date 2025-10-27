@@ -281,7 +281,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     for (int i = 0; i < 4; ++i) {
         int movable = m_split ? 2 : 1;
         for (int n = 0; n < movable; ++n)
-            if (children.push_back(*this); !children.back().make_move(n, i))
+            if (!children.emplace_back(*this).make_move(n, i))
                 children.pop_back();
     }
 }

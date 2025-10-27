@@ -232,7 +232,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     Position p(n / sidelen(), n % sidelen());
     auto& dt = dots(p);
     for (int i = 0; i < dt.size(); ++i)
-        if (children.push_back(*this); !children.back().make_move(p, i))
+        if (!children.emplace_back(*this).make_move(p, i))
             children.pop_back();
 }
 

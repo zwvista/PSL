@@ -214,7 +214,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     for (auto& [p, block] : m_pos2block)
         for (int n = 0; n < 4; ++n)
-            if (children.push_back(*this); !children.back().make_move(p, n))
+            if (!children.emplace_back(*this).make_move(p, n))
                 children.pop_back();
 }
 

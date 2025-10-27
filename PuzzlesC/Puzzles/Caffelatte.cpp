@@ -184,20 +184,20 @@ void puz_state::make_move2(const map<Position, vector<int>>& matches, const Posi
             cells(p3) = ch;
     };
     
-    if (matches == m_matches_cup2milk) {
+    if (&matches == &m_matches_cup2milk) {
         auto& [i, p2] = m_game->m_cup2milklinks.at(p)[n];
         f(p, i, p2);
         m_distance += 2;
-        m_obj2cup[p] = p, m_obj2cup[p2] = p;
+        m_obj2cup[p] = m_obj2cup[p2] = p;
         m_last_cup = p;
         m_matches_cup2milk.erase(p), m_matches_milk.erase(p2);
-    } else if (matches == m_matches_cup2bean) {
+    } else if (&matches == &m_matches_cup2bean) {
         auto& [i, p2] = m_game->m_cup2beanlinks.at(p)[n];
         f(p, i, p2);
         m_distance += 2;
-        m_obj2cup[p] = p, m_obj2cup[p2] = p;
+        m_obj2cup[p] = m_obj2cup[p2] = p;
         m_matches_cup2bean.erase(p), m_matches_bean.erase(p2);
-    } else if (matches == m_matches_milk) {
+    } else if (&matches == &m_matches_milk) {
         auto& [i, p2] = m_game->m_milk2links.at(p)[n];
         f(p, i, p2);
         ++m_distance;
@@ -233,11 +233,11 @@ void puz_state::gen_children(list<puz_state>& children) const
             });
 
             for (int n : perm_ids)
-                if (children.push_back(*this); !children.back().make_move(m_matches_cup2milk, p, n))
+                if (!children.emplace_back(*this).make_move(children.back().m_matches_cup2milk, p, n))
                     children.pop_back();
         } else {
             for (int n : m_matches_cup2bean.at(m_last_cup))
-                if (children.push_back(*this); !children.back().make_move(m_matches_cup2bean, m_last_cup, n))
+                if (!children.emplace_back(*this).make_move(children.back().m_matches_cup2bean, m_last_cup, n))
                     children.pop_back();
         }
     else if (sz1 = m_matches_milk.size(), sz2 = m_matches_bean.size();
@@ -248,7 +248,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             boost::remove_erase_if(perm_ids, [&](int id) {
                 auto& [i, p2] = links[id];
                 return !m_obj2cup.contains(p2);
-                });
+            });
         }
         auto& [p, perm_ids] = *boost::min_element(matches, [](
             const pair<const Position, vector<int>>& kv1,
@@ -257,7 +257,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         });
 
         for (int n : perm_ids)
-            if (children.push_back(*this); !children.back().make_move(m_matches_milk, p, n))
+            if (!children.emplace_back(*this).make_move(children.back().m_matches_milk, p, n))
                 children.pop_back();
     } else
         for (auto& [p, perm_ids] : m_matches_bean) {
@@ -266,7 +266,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 auto& [i, p2] = links[n];
                 if (auto it = m_obj2cup.find(p2);
                     it != m_obj2cup.end() && it->second == m_last_cup)
-                    if (children.push_back(*this); !children.back().make_move(m_matches_bean, p, n))
+                    if (!children.emplace_back(*this).make_move(children.back().m_matches_bean, p, n))
                         children.pop_back();
             }
         }

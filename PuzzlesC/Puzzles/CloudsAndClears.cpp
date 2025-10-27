@@ -124,7 +124,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                     int num = it->second;
                     auto& perms = m_game->m_num2perms.at(num);
                     for (int i = 0; i < perms.size(); ++i)
-                        if (children.push_back(*this); !children.back().make_move(p2, num, i))
+                        if (!children.emplace_back(*this).make_move(p2, num, i))
                             children.pop_back();
                 }
 }
@@ -261,7 +261,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second.size() < kv2.second.size();
     });
     for (auto& move_id : move_ids)
-        if (children.push_back(*this); !children.back().make_move(move_id))
+        if (!children.emplace_back(*this).make_move(move_id))
             children.pop_back();
 }
 

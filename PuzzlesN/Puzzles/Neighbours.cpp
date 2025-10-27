@@ -201,7 +201,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
     if (area.m_ready) return;
     for (auto& p : area.m_outer)
-        if (children.push_back(*this); !children.back().make_move(id, p))
+        if (!children.emplace_back(*this).make_move(id, p))
             children.pop_back();
 }
 

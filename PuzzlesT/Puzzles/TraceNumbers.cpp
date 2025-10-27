@@ -213,7 +213,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second.size() < kv2.second.size();
     });
     for (auto& info : infos)
-        if (children.push_back(*this); !children.back().make_move(info.first, info.second))
+        if (!children.emplace_back(*this).make_move(info.first, info.second))
             children.pop_back();
 }
 

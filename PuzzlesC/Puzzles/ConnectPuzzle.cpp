@@ -111,7 +111,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             if (char ch = m_game->cells(p2);
                 p2 == m_line->m_end ||
                 ch == PUZ_SPACE && boost::algorithm::none_of_equal(*this, p2))
-                if (children.push_back(*this); !children.back().make_move(p2))
+                if (!children.emplace_back(*this).make_move(p2))
                     children.pop_back();
 }
 
@@ -237,7 +237,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second.size() < kv2.second.size();
     });
     for (auto& move_id : move_ids)
-        if (children.push_back(*this); !children.back().make_move(move_id))
+        if (!children.emplace_back(*this).make_move(move_id))
             children.pop_back();
 }
 

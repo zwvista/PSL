@@ -248,7 +248,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         char num2 = cells(p2)[0];
         if (num2 == PUZ_SPACE ||
             num2 == num1 && boost::algorithm::none_of_equal(m_link, p2))
-            if (children.push_back(*this); !children.back().make_move(i))
+            if (!children.emplace_back(*this).make_move(i))
                 children.pop_back();
     }
 }

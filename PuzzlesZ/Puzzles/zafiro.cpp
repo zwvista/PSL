@@ -162,7 +162,7 @@ void puz_state::click(const Position& p)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int i = 0; i < 4; ++i)
-        if (children.push_back(*this); !children.back().make_move(i))
+        if (!children.emplace_back(*this).make_move(i))
             children.pop_back();
     for (const Position& p : m_game->m_glasses) {
         if (cells(p) != PUZ_GLASS) continue;

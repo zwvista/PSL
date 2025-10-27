@@ -150,7 +150,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     auto f = [&](const Position& p) {
         for (int n : m_stone2move_ids.at(p))
-            if (children.push_back(*this); !children.back().make_move(p, n))
+            if (!children.emplace_back(*this).make_move(p, n))
                 children.pop_back();
     };
     // 2. You can start at any stone and pick it up (just to click on it and it will be numbered

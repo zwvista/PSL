@@ -226,7 +226,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     auto& [p, is_vert] = kv;
 
     for (char ch : str)
-        if (children.push_back(*this); !children.back().make_move(p, is_vert, ch))
+        if (!children.emplace_back(*this).make_move(p, is_vert, ch))
             children.pop_back();
 }
 

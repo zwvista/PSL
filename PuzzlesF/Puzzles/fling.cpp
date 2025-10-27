@@ -105,7 +105,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     for (const Position& p : m_balls)
         for (int i = 0; i < 4; i++)
-            if (children.push_back(*this); !children.back().make_move(p, i))
+            if (!children.emplace_back(*this).make_move(p, i))
                 children.pop_back();
 }
 

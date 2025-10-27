@@ -187,7 +187,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
 
     for (auto& p : path)
-        if (children.push_back(*this); !children.back().make_move(p))
+        if (!children.emplace_back(*this).make_move(p))
             children.pop_back();
 }
 

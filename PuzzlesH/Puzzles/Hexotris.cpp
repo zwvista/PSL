@@ -88,7 +88,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
             // An adjacent tile cannot be occupied by the region
             // if it is a space tile and has not been occupied by the region and
             if ((ch2 == PUZ_SPACE || p2 == *m_p2) && !contains(p2))
-                if (children.push_back(*this); !children.back().make_move(p2))
+                if (!children.emplace_back(*this).make_move(p2))
                     children.pop_back();
         }
 }
@@ -227,7 +227,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second.size() < kv2.second.size();
     });
     for (auto& n : v)
-        if (children.push_back(*this); !children.back().make_move(n))
+        if (!children.emplace_back(*this).make_move(n))
             children.pop_back();
 }
 

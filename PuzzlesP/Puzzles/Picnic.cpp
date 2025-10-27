@@ -201,7 +201,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
 
     for (int n : perm_ids)
-        if (children.push_back(*this); !children.back().make_move(p_basket, n))
+        if (!children.emplace_back(*this).make_move(p_basket, n))
             children.pop_back();
 }
 

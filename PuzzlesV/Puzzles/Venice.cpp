@@ -274,14 +274,14 @@ void puz_state::gen_children(list<puz_state>& children) const
             return kv1.second.size() < kv2.second.size();
         });
         for (auto& perm : perms)
-            if (children.push_back(*this); !children.back().make_move_hint(p, perm))
+            if (!children.emplace_back(*this).make_move_hint(p, perm))
                 children.pop_back();
     } else {
         int i = m_cells.find(PUZ_SPACE);
         children.push_back(*this);
         Position p(i / sidelen(), i % sidelen());
         for (int j = 0; j < 2; ++j)
-            if (children.push_back(*this); !children.back().make_move_space(p, j))
+            if (!children.emplace_back(*this).make_move_space(p, j))
                 children.pop_back();
     }
 }

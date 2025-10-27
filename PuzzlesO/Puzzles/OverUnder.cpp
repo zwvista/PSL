@@ -75,7 +75,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
             auto p2 = p + os;
             char ch2 = m_game->cells(p2);
             if (ch2 != PUZ_SPACE && p2 != *m_p2 || contains(p2)) continue;
-            if (children.push_back(*this); !children.back().make_move(p2))
+            if (!children.emplace_back(*this).make_move(p2))
                 children.pop_back();
         }
 }
@@ -195,7 +195,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second.size() < kv2.second.size();
     });
     for (auto& [p, p2, n] : v)
-        if (children.push_back(*this); !children.back().make_move(p, p2, n))
+        if (!children.emplace_back(*this).make_move(p, p2, n))
             children.pop_back();
 }
 

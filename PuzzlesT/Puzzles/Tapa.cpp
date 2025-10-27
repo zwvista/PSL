@@ -349,7 +349,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         });
 
         for (int n : perm_ids)
-            if (children.push_back(*this); !children.back().make_move_hint(p, n))
+            if (!children.emplace_back(*this).make_move_hint(p, n))
                 children.pop_back();
     } else {
         int n = m_cells.find(PUZ_SPACE);
@@ -357,7 +357,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             return;
         Position p(n / sidelen(), n % sidelen());
         for (char ch : {PUZ_FILLED, PUZ_EMPTY})
-            if (children.push_back(*this); !children.back().make_move_space(p, ch))
+            if (!children.emplace_back(*this).make_move_space(p, ch))
                 children.pop_back();
     }
 }

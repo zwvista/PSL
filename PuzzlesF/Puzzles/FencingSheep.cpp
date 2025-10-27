@@ -308,7 +308,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     if (sz == 1) return;
     Position p(i / sidelen(), i % sidelen());
     for (int n = 0; n < sz; ++n)
-        if (children.push_back(*this); !children.back().make_move(p, n))
+        if (!children.emplace_back(*this).make_move(p, n))
             children.pop_back();
 }
 

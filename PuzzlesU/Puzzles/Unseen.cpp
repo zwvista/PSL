@@ -76,7 +76,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
         for (auto& os : offset) {
             auto p2 = p + os;
             if (contains(p2) || m_game->cells(p2) != PUZ_SPACE) continue;
-            if (children.push_back(*this); !children.back().make_move(p2))
+            if (!children.emplace_back(*this).make_move(p2))
                 children.pop_back();
         }
 }
@@ -202,7 +202,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second.size() < kv2.second.size();
     });
     for (int n : region_ids)
-        if (children.push_back(*this); !children.back().make_move(p, n))
+        if (!children.emplace_back(*this).make_move(p, n))
             children.pop_back();
 }
 

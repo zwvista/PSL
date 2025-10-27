@@ -119,7 +119,7 @@ bool puz_state::make_move(int i)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int i = 0; i < 4; i++)
-        if (children.push_back(*this); !children.back().make_move(i))
+        if (!children.emplace_back(*this).make_move(i))
             children.pop_back();
 }
 

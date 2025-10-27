@@ -237,7 +237,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second.size() < kv2.second.size();
     });
     for (int n : perm_ids)
-        if (children.push_back(*this); !children.back().make_move(area_id, n))
+        if (!children.emplace_back(*this).make_move(area_id, n))
             children.pop_back();
 }
 

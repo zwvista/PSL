@@ -242,7 +242,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     });
 
     for (int n : perms)
-        if (children.push_back(*this); !children.back().make_move(n))
+        if (!children.emplace_back(*this).make_move(n))
             children.pop_back();
 }
 
