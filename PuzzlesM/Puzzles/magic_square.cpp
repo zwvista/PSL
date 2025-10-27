@@ -76,8 +76,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         for (int c1 = 0; c1 < rcmax; ++c1)
             for (int r2 = r1; r2 < rcmax; ++ r2)
                 for (int c2 = r1 == r2 ? c1 + 1 : 0; c2 < rcmax; ++c2) {
-                    children.push_back(*this);
-                    children.back().make_move(r1, c1, r2, c2);
+                    children.emplace_back(*this).make_move(r1, c1, r2, c2);
                 }
 }
 

@@ -117,8 +117,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 Position p3 = p2 + offset[i];
                 if (is_valid(p2) && cells(p2) == PUZ_PEG &&
                     is_valid(p3) && cells(p3) == PUZ_SPACE) {
-                        children.push_back(*this);
-                        children.back().make_move(p1, p2, p3);
+                        children.emplace_back(*this).make_move(p1, p2, p3);
                 }
             }
         }

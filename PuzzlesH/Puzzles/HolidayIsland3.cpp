@@ -128,8 +128,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
             auto p2 = p + os;
             if (char ch2 = m_state->cells(p2); 
                 ch2 == PUZ_SPACE && !contains(p2)) {
-                children.push_back(*this);
-                children.back().make_move(p2);
+                children.emplace_back(*this).make_move(p2);
             }
         }
 }
@@ -196,8 +195,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
         case PUZ_SPACE:
         case PUZ_EMPTY:
         case PUZ_TENT:
-            children.push_back(*this);
-            children.back().make_move(p2);
+            children.emplace_back(*this).make_move(p2);
         }
 }
 

@@ -90,8 +90,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                     can_move = true;
             }
             if (can_move) {
-                children.push_back(*this);
-                children.back().make_move(i, j);
+                children.emplace_back(*this).make_move(i, j);
             }
         }
     }

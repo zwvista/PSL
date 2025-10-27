@@ -152,8 +152,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (auto& os : offset) {
         auto p = *this + os;
         if (m_area->contains(p)) {
-            children.push_back(*this);
-            children.back().make_move(p);
+            children.emplace_back(*this).make_move(p);
         }
     }
 }

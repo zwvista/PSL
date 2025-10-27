@@ -140,8 +140,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p = *this + os;
         char ch = m_state->cells(p);
         if (ch != PUZ_BOUNDARY && ch != PUZ_DUNE) {
-            children.push_back(*this);
-            children.back().make_move(p);
+            children.emplace_back(*this).make_move(p);
         }
     }
 }

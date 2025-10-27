@@ -128,8 +128,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     for (int i = 0; i < m_quantities.size(); i++)
         for (int j = 0; j < m_quantities.size(); j++) {
             if (i == j) continue;
-            children.push_back(*this);
-            children.back().make_move(i, j);
+            children.emplace_back(*this).make_move(i, j);
         }
 }
 

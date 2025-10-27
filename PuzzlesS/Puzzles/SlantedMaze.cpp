@@ -204,8 +204,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (int i = 0; i < 4; ++i)
         if ((i + 2) % 4 != m_last_dir &&
             m_state->cells(*this + offset[i]) == slants[i]) {
-            children.push_back(*this);
-            children.back().make_move(i, *this + offset2[i]);
+            children.emplace_back(*this).make_move(i, *this + offset2[i]);
         }
 }
 

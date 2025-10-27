@@ -108,8 +108,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 Position p2 = p1 + offset[i];
                 Position p3 = p2 + offset[i];
                 if (cells(p2) == PUZ_PEG && cells(p3) == PUZ_HOLE) {
-                        children.push_back(*this);
-                        children.back().make_move(p1, p2, p3);
+                        children.emplace_back(*this).make_move(p1, p2, p3);
                 }
             }
         }

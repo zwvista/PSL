@@ -217,14 +217,12 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         if (is_horz && ch == PUZ_HORZ || !is_horz && ch == PUZ_VERT) {
             while (m_state->cells(p2) != PUZ_ISLAND)
                 p2 += os;
-            children.push_back(*this);
-            children.back().make_move(p2);
+            children.emplace_back(*this).make_move(p2);
         } else if (m_state->m_matches.contains(*this) && ch == PUZ_SPACE) {
             while (m_state->cells(p2) == PUZ_SPACE)
                 p2 += os;
             if (m_state->cells(p2) == PUZ_ISLAND) {
-                children.push_back(*this);
-                children.back().make_move(p2);
+                children.emplace_back(*this).make_move(p2);
             }
         }
     }

@@ -104,8 +104,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
             return !m_can_share_edge && m_state->contains(p3) ||
                 p3 != m_area->m_start && game().cells(p3) == m_area->m_ch;
         })) {
-            children.push_back(*this);
-            children.back().make_move(p2);
+            children.emplace_back(*this).make_move(p2);
         }
 }
 

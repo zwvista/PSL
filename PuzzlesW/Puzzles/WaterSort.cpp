@@ -122,8 +122,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             auto& tube2 = m_tubes[j];
             if (i == j || tube2.water_size() == rows()) continue;
             if (!tube2.empty() && tube1.front().back() != tube2.front().back()) continue; // cannot pour if colors do not match
-            children.push_back(*this);
-            children.back().make_move(i, j);
+            children.emplace_back(*this).make_move(i, j);
         }
     }
 }

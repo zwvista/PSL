@@ -76,8 +76,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
             // An adjacent tile can be occupied by the piece
             // if it is a space tile and has not been occupied by the piece
             if (ch2 == PUZ_SPACE && !contains(p2)) {
-                children.push_back(*this);
-                children.back().make_move(p2);
+                children.emplace_back(*this).make_move(p2);
             }
         }
 }

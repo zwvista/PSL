@@ -97,8 +97,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE ||
                 p2 > m_p && is_goal_number(ch2,
                     m_turn_count + (m_last_dir == -1 || m_last_dir == i ? 0 : 1))) {
-                children.push_back(*this);
-                children.back().make_move(i, p2);
+                children.emplace_back(*this).make_move(i, p2);
             }
     }
 }

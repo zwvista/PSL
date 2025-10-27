@@ -191,20 +191,17 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     int sz = m_digits.size();
     if (m_index == sz) {
-        children.push_back(*this);
-        children.back().make_move(m_operator);
+        children.emplace_back(*this).make_move(m_operator);
         auto& [op_to, remove_count, add_count] = op2op.at(m_operator);
         if (remove_count <= m_remove_count && add_count <= m_add_count) {
-            children.push_back(*this);
-            children.back().make_move(op_to);
+            children.emplace_back(*this).make_move(op_to);
         }
     } else if (m_index < sz) {
         int digit_from = m_digits[m_index];
         for (int digit_to = 0; digit_to < 10; ++digit_to) {
             auto& [remove_count, add_count] = m_game->m_digit2digit[digit_from * 10 + digit_to];
             if (remove_count <= m_remove_count && add_count <= m_add_count) {
-                children.push_back(*this);
-                children.back().make_move(digit_to);
+                children.emplace_back(*this).make_move(digit_to);
             }
         }
     }

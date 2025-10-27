@@ -188,8 +188,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         for (int j = 0; j < 2; j++)
             for (int k = 0; k < 4; k++)
                 if (can_move(i, j, k)) {
-                    children.push_back(*this);
-                    children.back().make_move(i, j, k);
+                    children.emplace_back(*this).make_move(i, j, k);
                 }
 }
 

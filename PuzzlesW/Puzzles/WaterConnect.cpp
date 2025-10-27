@@ -248,8 +248,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             auto p2 = *this + offset[i];
             if (!g.is_valid(p2))
                 p2 = g.m_warp2warp.at({*this, 1 << i});
-            children.push_back(*this);
-            children.back().make_move(p2);
+            children.emplace_back(*this).make_move(p2);
         }
 }
 

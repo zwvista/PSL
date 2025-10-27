@@ -77,8 +77,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     auto& os = offset[dirs(m_p)];
     for (auto p = m_p + os; is_valid(p); p += os)
         if (found && p == it->second || !found && cells(p) == PUZ_UNKNOWN) {
-            children.push_back(*this);
-            children.back().make_move(p, n);
+            children.emplace_back(*this).make_move(p, n);
             if (found) break;
         }
 }

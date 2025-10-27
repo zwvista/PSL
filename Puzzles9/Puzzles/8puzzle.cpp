@@ -80,8 +80,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     for (int i = 0; i < 4; ++i) {
         Position p = m_space + offset[i];
         if (is_valid(p)) {
-            children.push_back(*this);
-            children.back().make_move(p, dirs[i]);
+            children.emplace_back(*this).make_move(p, dirs[i]);
         }
     }
 }

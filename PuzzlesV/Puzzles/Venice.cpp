@@ -192,8 +192,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         switch (auto p = *this + os; m_state->cells(p)) {
         case PUZ_SPACE:
         case PUZ_CANAL:
-            children.push_back(*this);
-            children.back().make_move(p);
+            children.emplace_back(*this).make_move(p);
         }
 }
 

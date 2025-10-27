@@ -90,8 +90,7 @@ struct puz_state
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (const Position& p : m_game->m_clickable) {
-        children.push_back(*this);
-        children.back().click(p);
+        children.emplace_back(*this).click(p);
     }
 }
 

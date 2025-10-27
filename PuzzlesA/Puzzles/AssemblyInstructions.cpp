@@ -79,8 +79,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                         return !rng2.contains(p);
                     });
             })) {
-                children.push_back(*this);
-                children.back().make_move(rng);
+                children.emplace_back(*this).make_move(rng);
             }
         }
 }

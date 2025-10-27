@@ -104,8 +104,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         Position p = m_man + offset[i];
         char ch = cells(p);
         if (ch == PUZ_FLOOR || ch == PUZ_GOAL) {
-            children.push_back(*this);
-            children.back().make_move(p, dirs[i]);
+            children.emplace_back(*this).make_move(p, dirs[i]);
         }
     }
 }

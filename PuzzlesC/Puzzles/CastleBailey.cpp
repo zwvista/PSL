@@ -154,8 +154,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         switch(auto p2 = *this + os; m_state->cells(p2)) {
         case PUZ_SPACE:
         case PUZ_EMPTY:
-            children.push_back(*this);
-            children.back().make_move(p2);
+            children.emplace_back(*this).make_move(p2);
         }
 }
 

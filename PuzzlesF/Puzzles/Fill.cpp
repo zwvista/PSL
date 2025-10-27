@@ -90,8 +90,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset)
         if (auto p2 = *this + os; m_state->m_area.contains(p2)) {
-            children.push_back(*this);
-            children.back().make_move(p2);
+            children.emplace_back(*this).make_move(p2);
         }
 }
 

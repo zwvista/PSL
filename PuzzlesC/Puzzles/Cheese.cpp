@@ -130,8 +130,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     for (int i = 0; i < 4; i++) {
         auto p = m_p + offset[i];
         if (m_game->is_valid(p) && m_game->cells(p) != PUZ_BLOCK) {
-            children.push_back(*this);
-            children.back().make_move(i);
+            children.emplace_back(*this).make_move(i);
         }
     }
 }

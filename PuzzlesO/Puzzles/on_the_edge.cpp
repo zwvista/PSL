@@ -123,14 +123,12 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     map<Position, Position>::const_iterator it = m_game->m_teleporters.find(m_block);
     if (it != m_game->m_teleporters.end() && cells(it->second) != PUZ_HOLE) {
-        children.push_back(*this);
-        children.back().m_block = it->second;
+        children.emplace_back(*this).m_block = it->second;
     }
     for (int i = 0; i < 4; ++i) {
         Position p = m_block + offset[i];
         if (is_valid(p) && cells(p) != PUZ_HOLE) {
-            children.push_back(*this);
-            children.back().m_block = p;
+            children.emplace_back(*this).m_block = p;
         }
     }
 }

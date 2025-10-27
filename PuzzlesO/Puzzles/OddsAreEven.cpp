@@ -77,8 +77,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
         char ch = walls.at(p_wall);
         if (ch == PUZ_SPACE) {
-            children.push_back(*this);
-            children.back().make_move(p);
+            children.emplace_back(*this).make_move(p);
         }
     }
 }

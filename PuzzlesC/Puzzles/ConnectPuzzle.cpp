@@ -87,8 +87,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
         if (auto p2 = *this + os;
             game().is_valid(p2) && boost::algorithm::none_of_equal(*m_state, p2))
             if (char ch = game().cells(p2); ch == PUZ_SPACE || p2 == m_line->m_end) {
-                children.push_back(*this);
-                children.back().make_move(p2);
+                children.emplace_back(*this).make_move(p2);
             }
 }
 

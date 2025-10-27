@@ -138,8 +138,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             if (cells(p) != PUZ_NONE) {
-                children.push_back(*this);
-                children.back().click(p);
+                children.emplace_back(*this).click(p);
             }
         }
 }

@@ -177,8 +177,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     auto f = [&](const vector<int>& indexes) {
         for (int i : indexes) {
-            children.push_back(*this);
-            children.back().make_move(m_state->m_game->m_bridges[i].m_p2);
+            children.emplace_back(*this).make_move(m_state->m_game->m_bridges[i].m_p2);
         }
     };
     f(m_state->m_matches.at(*this));

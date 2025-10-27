@@ -65,8 +65,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
         for (auto& os : offset) {
             auto p2 = p + os;
             if (!contains(p2) && m_game->cells(p2) == PUZ_SPACE) {
-                children.push_back(*this);
-                children.back().make_move(p2);
+                children.emplace_back(*this).make_move(p2);
             }
         }
 }
@@ -219,8 +218,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     } else {
         int i = m_cells.find(PUZ_SPACE);
         Position p(i / sidelen(), i % sidelen());
-        children.push_back(*this);
-        children.back().make_move_pond(p);
+        children.emplace_back(*this).make_move_pond(p);
     }
 }
 

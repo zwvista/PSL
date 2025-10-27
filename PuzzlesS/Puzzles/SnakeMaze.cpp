@@ -94,8 +94,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 auto p3 = p2 + os;
                 return p3 != p && is_self(p3);
             })) {
-                children.push_back(*this);
-                children.back().make_move(n, p2);
+                children.emplace_back(*this).make_move(n, p2);
             }
     };
     auto& [n, p] = *begin();

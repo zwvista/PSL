@@ -155,8 +155,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         offset_vec.push_back(-1);
 
     for (int i : offset_vec) {
-        children.push_back(*this);
-        children.back().make_move(p, dir, i);
+        children.emplace_back(*this).make_move(p, dir, i);
     }
 }
 

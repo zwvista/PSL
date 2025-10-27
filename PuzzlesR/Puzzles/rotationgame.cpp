@@ -43,8 +43,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     static const char* moves = "AFBEHCGD";
     for (int i = 0; i < 8; ++i) {
-        children.push_back(*this);
-        children.back().make_rotation(i / 2, i % 2 == 0, moves[i]);
+        children.emplace_back(*this).make_rotation(i / 2, i % 2 == 0, moves[i]);
     }
 }
 

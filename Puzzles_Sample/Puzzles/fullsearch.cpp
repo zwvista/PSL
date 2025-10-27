@@ -83,8 +83,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         auto p = m_p + offset[i];
         char ch = cells(p);
         if (ch == PUZ_SPACE || ch == PUZ_GOAL) {
-            children.push_back(*this);
-            children.back().make_move(i);
+            children.emplace_back(*this).make_move(i);
         }
     }
 }

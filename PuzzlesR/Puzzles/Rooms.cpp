@@ -205,8 +205,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (int i = 0; i < 4; ++i)
         if (m_state->get_door_status(*this, i) != PUZ_DOOR_CLOSED) {
-            children.push_back(*this);
-            children.back().make_move(*this + offset[i]);
+            children.emplace_back(*this).make_move(*this + offset[i]);
         }
 }
 

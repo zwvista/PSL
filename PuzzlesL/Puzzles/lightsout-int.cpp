@@ -98,8 +98,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int r = 0; r < rows(); ++r)
         for (int c = 0; c < cols(); ++c) {
-            children.push_back(*this);
-            children.back().click(Position(r, c));
+            children.emplace_back(*this).click(Position(r, c));
         }
 }
 

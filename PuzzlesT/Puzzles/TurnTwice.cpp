@@ -136,8 +136,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset) {
         if (auto p = *this + os; is_not_wall(m_state->cells(p))) {
-            children.push_back(*this);
-            children.back().make_move(p);
+            children.emplace_back(*this).make_move(p);
         }
     }
 }

@@ -169,8 +169,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
         auto p = *this + offset[i];
         char ch = m_state->m_game->cells(p);
         auto f = [&] {
-            children.push_back(*this);
-            children.back().make_move(p);
+            children.emplace_back(*this).make_move(p);
         };
         if (ch == PUZ_SPACE) {
             if (boost::algorithm::all_of(dts, [&](int dt) {
@@ -271,8 +270,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p = *this + offset[i];
         char ch = m_state->m_game->cells(p);
         if (ch == PUZ_SPACE || ch == m_ch) {
-            children.push_back(*this);
-            children.back().make_move(p);
+            children.emplace_back(*this).make_move(p);
         }
     }
 }

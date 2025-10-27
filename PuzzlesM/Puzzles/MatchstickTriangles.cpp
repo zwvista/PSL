@@ -193,21 +193,18 @@ void puz_state::gen_children(list<puz_state>& children) const
     switch(m_game->m_action) {
     case PUZ_REMOVE:
         for (auto& m : m_matchsticks) {
-            children.push_back(*this);
-            children.back().make_move_remove(m);
+            children.emplace_back(*this).make_move_remove(m);
         }
         break;
     case PUZ_ADD:
         for (auto& m : m_possible_matchsticks) {
-            children.push_back(*this);
-            children.back().make_move_add(m);
+            children.emplace_back(*this).make_move_add(m);
         }
         break;
     case PUZ_MOVE:
         for (auto& m1 : m_matchsticks)
             for (auto& m2 : m_possible_matchsticks) {
-                children.push_back(*this);
-                children.back().make_move_move(m1, m2);
+                children.emplace_back(*this).make_move_move(m1, m2);
             }
         break;
     }

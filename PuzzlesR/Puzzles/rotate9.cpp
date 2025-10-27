@@ -93,14 +93,12 @@ void puz_state::gen_children(list<puz_state>& children) const
     // rotate rows
     for (int r = 0; r < rows(); ++r)
         for (int n = 1; n < cols(); ++n) {
-            children.push_back(*this);
-            children.back().rotate_row(r, n);
+            children.emplace_back(*this).rotate_row(r, n);
         }
     // rotate cols
     for (int c = 0; c < cols(); ++c)
         for (int n = 1; n < rows(); ++n) {
-            children.push_back(*this);
-            children.back().rotate_col(c, n);
+            children.emplace_back(*this).rotate_col(c, n);
         }
 }
 

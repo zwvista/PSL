@@ -184,8 +184,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (auto& os : offset)
         if (auto p2 = *this + os;
             m_state->is_valid(p2) && m_state->cells(p2) == PUZ_ISLAND) {
-            children.push_back(*this);
-            children.back().make_move(p2);
+            children.emplace_back(*this).make_move(p2);
         }
 }
 
@@ -261,8 +260,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                                     return false;
                         return true;
                     }()) {
-                        children.push_back(*this);
-                        children.back().make_move3(p, {p, {r, c}});
+                        children.emplace_back(*this).make_move3(p, {p, {r, c}});
                     }
         }
 }

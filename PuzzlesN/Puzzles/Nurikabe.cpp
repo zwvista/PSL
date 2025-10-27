@@ -96,8 +96,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 // Gardens are separated by a wall. They cannot touch each other orthogonally.
                 return !contains(p3) && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY;
             })) {
-                children.push_back(*this);
-                children.back().make_move(p2);
+                children.emplace_back(*this).make_move(p2);
             }
         }
 }
@@ -230,8 +229,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
         switch (auto p2 = *this + os; m_state->cells(p2)) {
         case PUZ_WALL:
         case PUZ_SPACE:
-            children.push_back(*this);
-            children.back().make_move(p2);
+            children.emplace_back(*this).make_move(p2);
         }
 }
 

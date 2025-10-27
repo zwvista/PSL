@@ -207,8 +207,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p2 = *this + offset[i * 2];
         char ch = m_state->cells(p2);
         if (ch == PUZ_SPACE || ch == PUZ_FILLED) {
-            children.push_back(*this);
-            children.back().make_move(p2);
+            children.emplace_back(*this).make_move(p2);
         }
     }
 }
@@ -228,8 +227,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
     for (int i = 0; i < 4; ++i) {
         auto p2 = *this + offset[i * 2];
         if (m_rng->contains(p2)) {
-            children.push_back(*this);
-            children.back().make_move(p2);
+            children.emplace_back(*this).make_move(p2);
         }
     }
 }
