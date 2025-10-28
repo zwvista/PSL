@@ -82,9 +82,8 @@ void puz_state::gen_children(list<puz_state>& children) const
     for (int i = 0; i < 4; i++) {
         auto p = m_p + offset[i];
         char ch = cells(p);
-        if (ch == PUZ_SPACE || ch == PUZ_GOAL) {
+        if (ch == PUZ_SPACE || ch == PUZ_GOAL)
             children.emplace_back(*this).make_move(i);
-        }
     }
 }
 

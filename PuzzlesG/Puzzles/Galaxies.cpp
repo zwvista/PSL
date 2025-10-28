@@ -152,9 +152,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         return;
     for (auto& os : offset) {
         auto p2 = *this + os;
-        if (m_state->cells(p2) != PUZ_BOUNDARY) {
+        if (m_state->cells(p2) != PUZ_BOUNDARY)
             children.emplace_back(*this).make_move(p2);
-        }
     }
 }
 

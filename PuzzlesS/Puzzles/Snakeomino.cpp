@@ -81,9 +81,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                 boost::algorithm::none_of(offset, [&](const Position& os2) {
                 auto p3 = p2 + os2;
                 return p3 != p && is_self(p3);
-            })) {
+            }))
                 children.emplace_back(*this).make_move(p2, at_front);
-            }
         }
     };
     // 3. A cell with a circle must be at one of the ends of a snake. A snake may contain one
@@ -128,9 +127,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const
                 boost::algorithm::none_of(offset, [&](const Position& os2) {
                 auto p3 = p2 + os2;
                 return p3 != p && is_self(p3);
-            })) {
+            }))
                 children.emplace_back(*this).make_move(ch, p2, at_front);
-            }
         }
     };
     // 3. A cell with a circle must be at one of the ends of a snake. A snake may contain one
@@ -335,9 +333,8 @@ struct puz_state4 : Position
 void puz_state4::gen_children(list<puz_state4>& children) const
 {
     for (auto& os : offset)
-        if (auto p2 = *this + os; m_state->cells(p2) == PUZ_SPACE) {
+        if (auto p2 = *this + os; m_state->cells(p2) == PUZ_SPACE)
             children.emplace_back(*this).make_move(p2);
-        }
 }
 
 struct puz_state5 : vector<Position>
@@ -369,9 +366,8 @@ void puz_state5::gen_children(list<puz_state5>& children) const {
                 boost::algorithm::none_of(offset, [&](const Position& os2) {
                 auto p3 = p2 + os2;
                 return p3 != p && is_self(p3) || m_state->cells(p3) == m_num;
-            })) {
+            }))
                 children.emplace_back(*this).make_move(p2, at_front);
-            }
         }
     };
     if (size() > 1)

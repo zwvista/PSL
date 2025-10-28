@@ -176,9 +176,8 @@ struct puz_state2 : Position
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     auto f = [&](const vector<int>& indexes) {
-        for (int i : indexes) {
+        for (int i : indexes)
             children.emplace_back(*this).make_move(m_state->m_game->m_bridges[i].m_p2);
-        }
     };
     f(m_state->m_matches.at(*this));
     f(m_state->m_moves.at(*this));

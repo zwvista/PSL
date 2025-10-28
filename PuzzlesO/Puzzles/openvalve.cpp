@@ -154,9 +154,8 @@ void puz_state::gen_children(list<puz_state>& children) const
     if (offset_vec.empty())
         offset_vec.push_back(-1);
 
-    for (int i : offset_vec) {
+    for (int i : offset_vec)
         children.emplace_back(*this).make_move(p, dir, i);
-    }
 }
 
 unsigned int puz_state::get_heuristic() const

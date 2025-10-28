@@ -58,9 +58,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p = *this + offset[i * 2];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
-        if (!walls.contains(p_wall)) {
+        if (!walls.contains(p_wall))
             children.emplace_back(*this).make_move(p);
-        }
     }
 }
 
@@ -203,9 +202,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (int i = 0; i < 4; ++i)
         if (auto p2 = *this + offset[i * 2];
-            m_state->is_valid(p2) && m_state->cells(p2) != PUZ_EMPTY) {
+            m_state->is_valid(p2) && m_state->cells(p2) != PUZ_EMPTY)
             children.emplace_back(*this).make_move(p2);
-        }
 }
 
 // 4. All the plants must be connected horizontally or vertically.

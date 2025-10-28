@@ -116,9 +116,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (auto& os : offset) {
         auto p = *this + os;
         char ch = m_state->cells(p);
-        if (ch != PUZ_BOUNDARY && ch != PUZ_WATER) {
+        if (ch != PUZ_BOUNDARY && ch != PUZ_WATER)
             children.emplace_back(*this).make_move(p);
-        }
     }
 }
 
@@ -227,9 +226,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset) {
         auto p = *this + os;
-        if (m_area->contains(p)) {
+        if (m_area->contains(p))
             children.emplace_back(*this).make_move(p);
-        }
     }
 }
 

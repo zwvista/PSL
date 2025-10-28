@@ -200,9 +200,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     char ch = m_state->cells(first);
     if (ch == m_info->m_food_name || ch == PUZ_MUSHROOM || second && ch == PUZ_SPACE) return;
-    if (!second && m_state->is_teleport(first)) {
+    if (!second && m_state->is_teleport(first))
         children.emplace_back(*this).make_move(m_state->get_teleport(first).second, true);
-    } else
+    else
         for (int i = 0; i < 4; ++i) {
             auto p = first + offset[i];
             auto p_wall = first + offset2[i];
@@ -210,9 +210,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             if (walls.contains(p_wall)) continue;
             ch = m_state->cells(p);
             if (ch == m_info->m_food_name || ch == PUZ_MUSHROOM || ch == PUZ_SPACE &&
-                (!m_state->is_teleport(p) || m_state->cells(m_state->get_teleport(p).second) == PUZ_SPACE)) {
+                (!m_state->is_teleport(p) || m_state->cells(m_state->get_teleport(p).second) == PUZ_SPACE))
                 children.emplace_back(*this).make_move(p, false);
-            }
         }
 }
 
@@ -238,9 +237,9 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 {
     char ch = m_state->cells(first);
     if (ch == PUZ_HOLE) return;
-    if (!second && m_state->is_teleport(first)) {
+    if (!second && m_state->is_teleport(first))
         children.emplace_back(*this).make_move(m_state->get_teleport(first).second, true);
-    } else
+    else
         for (int i = 0; i < 4; ++i) {
             auto p = first + offset[i];
             auto p_wall = first + offset2[i];
@@ -249,9 +248,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const
             ch = m_state->cells(p);
             if (ch == PUZ_HOLE || ch == m_info->m_food_name || ch == PUZ_MUSHROOM ||
                 m_state->is_teleport(p) && p != m_last_teleport &&
-                m_state->cells(m_state->get_teleport(p).second) == PUZ_SPACE) {
+                m_state->cells(m_state->get_teleport(p).second) == PUZ_SPACE)
                 children.emplace_back(*this).make_move(p, false);
-            }
         }
 }
 
@@ -279,18 +277,17 @@ struct puz_state4 : pair<Position, bool>
 void puz_state4::gen_children(list<puz_state4>& children) const
 {
     if (second && first != m_info->m_bunny) return;
-    if (!second && m_state->is_teleport(first)) {
+    if (!second && m_state->is_teleport(first))
         children.emplace_back(*this).make_move(m_state->get_teleport(first).second, true);
-    } else
+    else
         for (int i = 0; i < 4; ++i) {
             auto p = first + offset[i];
             auto p_wall = first + offset2[i];
             auto& walls = i % 2 == 0 ? m_state->m_game->m_horz_walls : m_state->m_game->m_vert_walls;
             if (walls.contains(p_wall)) continue;
             if (p == *m_dest && !m_state->is_teleport(p) || m_state->cells(p) == PUZ_SPACE &&
-                (!m_state->is_teleport(p) || m_state->get_teleport(p).second == *m_dest)) {
+                (!m_state->is_teleport(p) || m_state->get_teleport(p).second == *m_dest))
                 children.emplace_back(*this).make_move(p, false);
-            }
         }
 }
 

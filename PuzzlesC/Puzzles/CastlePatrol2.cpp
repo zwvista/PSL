@@ -103,9 +103,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const
             auto p3 = p2 + os2;
             return !m_can_share_edge && m_state->contains(p3) ||
                 p3 != m_area->m_start && game().cells(p3) == m_area->m_ch;
-        })) {
+        }))
             children.emplace_back(*this).make_move(p2);
-        }
 }
 
 bool puz_state2::make_move(const Position& p)

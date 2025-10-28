@@ -73,9 +73,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
-        if (!walls.contains(p_wall)) {
+        if (!walls.contains(p_wall))
             children.emplace_back(*this).make_move(p);
-        }
     }
 }
 
@@ -227,9 +226,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset) {
         auto p = *this + os;
-        if (m_area->contains(p)) {
+        if (m_area->contains(p))
             children.emplace_back(*this).make_move(p);
-        }
     }
 }
 

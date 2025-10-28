@@ -114,9 +114,8 @@ void puz_state::make_move(int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int i = 0; i < 4; i++)
-        if (auto p = m_ball + offset[i]; cells(p) != PUZ_BLOCK) {
+        if (auto p = m_ball + offset[i]; cells(p) != PUZ_BLOCK)
             children.emplace_back(*this).make_move(i);
-        }
 }
 
 ostream& puz_state::dump(ostream& out) const

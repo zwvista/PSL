@@ -96,9 +96,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             m_game->is_valid(p2) && boost::algorithm::none_of_equal(*this, p2))
             if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE ||
                 p2 > m_p && is_goal_number(ch2,
-                    m_turn_count + (m_last_dir == -1 || m_last_dir == i ? 0 : 1))) {
+                    m_turn_count + (m_last_dir == -1 || m_last_dir == i ? 0 : 1)))
                 children.emplace_back(*this).make_move(i, p2);
-            }
     }
 }
 

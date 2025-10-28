@@ -117,9 +117,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             if (auto p2 = p + os;
                 m_game->is_valid(p2) && !m_rng.contains(p2) &&
                 !(m_is_cloud ? m_empties : m_clouds).contains(p2))
-                if (auto it = m_game->m_pos2num.find(p2); it == m_game->m_pos2num.end()) {
+                if (auto it = m_game->m_pos2num.find(p2); it == m_game->m_pos2num.end())
                     children.emplace_back(*this).make_move(p2, -1, -1);
-                } else {
+                else {
                     int num = it->second;
                     auto& perms = m_game->m_num2perms.at(num);
                     for (int i = 0; i < perms.size(); ++i)

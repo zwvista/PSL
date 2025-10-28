@@ -221,9 +221,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         } else if (m_state->m_matches.contains(*this) && ch == PUZ_SPACE) {
             while (m_state->cells(p2) == PUZ_SPACE)
                 p2 += os;
-            if (m_state->cells(p2) == PUZ_ISLAND) {
+            if (m_state->cells(p2) == PUZ_ISLAND)
                 children.emplace_back(*this).make_move(p2);
-            }
         }
     }
 }

@@ -74,9 +74,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
             // other Tents.
             auto p2 = p + os;
             if (char ch2 = m_game->cells(p2); 
-                ch2 == PUZ_SPACE && !contains(p2)) {
+                ch2 == PUZ_SPACE && !contains(p2))
                 children.emplace_back(*this).make_move(p2);
-            }
         }
 }
 

@@ -198,9 +198,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (int i = 0; i < 4; ++i) {
         auto p2 = *this + offset[i * 2];
         char ch = m_state->cells(p2);
-        if (ch == PUZ_SPACE || boost::algorithm::any_of_equal(m_color, ch)) {
+        if (ch == PUZ_SPACE || boost::algorithm::any_of_equal(m_color, ch))
             children.emplace_back(*this).make_move(p2);
-        }
     }
 }
 

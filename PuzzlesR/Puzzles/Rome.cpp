@@ -64,9 +64,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
-        if (!walls.contains(p_wall)) {
+        if (!walls.contains(p_wall))
             children.emplace_back(*this).make_move(p);
-        }
     }
 }
 
@@ -209,9 +208,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const
         return;
     auto& os = offset[tool_dirs.find(ch)];
     auto p2 = *this + os;
-    if (m_state->is_valid(p2)) {
+    if (m_state->is_valid(p2))
         children.emplace_back(*this).make_move(p2);
-    }
 }
 
 bool puz_state::check_lead_to_rome()

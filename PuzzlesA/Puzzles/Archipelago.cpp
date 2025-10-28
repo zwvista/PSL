@@ -183,9 +183,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset)
         if (auto p2 = *this + os;
-            m_state->is_valid(p2) && m_state->cells(p2) == PUZ_ISLAND) {
+            m_state->is_valid(p2) && m_state->cells(p2) == PUZ_ISLAND)
             children.emplace_back(*this).make_move(p2);
-        }
 }
 
 // 3. Islands can only touch each other diagonally and by touching they
@@ -259,9 +258,8 @@ void puz_state::gen_children(list<puz_state>& children) const
                                 if (cells({r2, c2}) != PUZ_SPACE)
                                     return false;
                         return true;
-                    }()) {
+                    }())
                         children.emplace_back(*this).make_move3(p, {p, {r, c}});
-                    }
         }
 }
 

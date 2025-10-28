@@ -95,9 +95,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 // no adjacent tile to it belongs to another garden, because
                 // Gardens are separated by a wall. They cannot touch each other orthogonally.
                 return !contains(p3) && ch3 != PUZ_SPACE && ch3 != PUZ_BOUNDARY;
-            })) {
+            }))
                 children.emplace_back(*this).make_move(p2);
-            }
         }
 }
 

@@ -72,9 +72,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (auto& p = back(); auto& os : offset)
         if (auto p2 = p + os; 
             m_game->is_valid(p2) && boost::algorithm::none_of_equal(*this, p2))
-            if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE || ch2 == m_char + 1) {
+            if (char ch2 = m_game->cells(p2); ch2 == PUZ_SPACE || ch2 == m_char + 1)
                 children.emplace_back(*this).make_move(p2);
-            }
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)

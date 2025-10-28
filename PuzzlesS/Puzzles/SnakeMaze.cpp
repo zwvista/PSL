@@ -93,9 +93,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 boost::algorithm::none_of(offset, [&](const Position& os) {
                 auto p3 = p2 + os;
                 return p3 != p && is_self(p3);
-            })) {
+            }))
                 children.emplace_back(*this).make_move(n, p2);
-            }
     };
     auto& [n, p] = *begin();
     if (n > 1)

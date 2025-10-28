@@ -116,9 +116,8 @@ inline bool is_unshaded(char ch) { return ch != PUZ_SHADED && ch != PUZ_BOUNDARY
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset)
-        if (auto p2 = *this + os; is_unshaded(m_state->cells(p2))) {
+        if (auto p2 = *this + os; is_unshaded(m_state->cells(p2)))
             children.emplace_back(*this).make_move(p2);
-        }
 }
 
 // 3. All the un-shaded squares must form a single continuous area.

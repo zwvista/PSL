@@ -269,9 +269,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             continue;
         auto p = *this + offset[i];
         char ch = m_state->m_game->cells(p);
-        if (ch == PUZ_SPACE || ch == m_ch) {
+        if (ch == PUZ_SPACE || ch == m_ch)
             children.emplace_back(*this).make_move(p);
-        }
     }
 }
 

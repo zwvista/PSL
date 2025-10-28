@@ -86,9 +86,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             m_op_walls_type != OP_WALLS_TYPE::GT && ch == op_walls_lt[i] ||
             m_op_walls_type == OP_WALLS_TYPE::GT && ch == op_walls_gt2[i] ||
             m_op_walls_type == OP_WALLS_TYPE::LT && ch == op_walls_lt2[i] ||
-            m_op_walls_type == OP_WALLS_TYPE::NOT_LINE && ch == PUZ_SPACE) {
+            m_op_walls_type == OP_WALLS_TYPE::NOT_LINE && ch == PUZ_SPACE)
             children.emplace_back(*this).make_move(p);
-        }
     }
 }
 

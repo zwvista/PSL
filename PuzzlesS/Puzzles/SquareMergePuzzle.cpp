@@ -105,9 +105,8 @@ void puz_state::gen_children(list<puz_state>& children) const
     for (int r = 0; r < sidelen() - 1; ++r)
         for (int c = 0; c < sidelen() - 1; ++c) {
             Position p(r, c);
-            for (int i = 0; i < 2; ++i) {
+            for (int i = 0; i < 2; ++i)
                 children.emplace_back(*this).make_move(p, i == 1);
-            }
     }
 }
 

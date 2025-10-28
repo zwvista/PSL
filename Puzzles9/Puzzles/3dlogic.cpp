@@ -171,9 +171,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         Position3d p(m_curpos.first, m_curpos.second + os);
         if (!is_valid(p)) continue;
         char ch = cells(p);
-        if (ch == PUZ_SPACE) {
+        if (ch == PUZ_SPACE)
             children.emplace_back(*this).make_move(p);
-        } else if (islower(ch)) {
+        else if (islower(ch)) {
             int i = ch - 'a';
             const Position3d& link1 = (*m_links)[i].first;
             const Position3d& link2 = (*m_links)[i].second;
@@ -264,9 +264,8 @@ for_break:
         for (const Position& os : offset) {
             Position3d p(link1.first, link1.second + os);
             if (is_valid(p) && cells(p) == PUZ_SPACE &&
-                connects_all[connects_indexes[p2i(p)]][i] == 3) {
+                connects_all[connects_indexes[p2i(p)]][i] == 3)
                 children.emplace_back(*this).make_move(i, is_link1, p);
-            }
         }
         break;
     }

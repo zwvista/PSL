@@ -172,9 +172,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset)
         if (auto p = *this + os;
-            m_state->cells(p) == PUZ_TABLE && !m_state->m_matches.contains(p)) {
+            m_state->cells(p) == PUZ_TABLE && !m_state->m_matches.contains(p))
             children.emplace_back(*this).make_move(p);
-        }
 }
 
 // 4. Banquets cannot touch each other horizontally or vertically

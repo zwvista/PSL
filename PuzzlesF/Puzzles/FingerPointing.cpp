@@ -63,9 +63,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                 boost::algorithm::none_of(offset, [&](const Position& os) {
                 auto it = find(p2 + os);
                 return it != end() && it->second == i;
-            })) {
+            }))
                 children.emplace_back(*this).make_move(p2, i);
-            }
         }
 }
 

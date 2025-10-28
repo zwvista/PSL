@@ -121,9 +121,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (int i = 0; i < 4; ++i) {
         Position p = m_monkey + offset[i];
-        if (cells(p) == PUZ_SPACE) {
+        if (cells(p) == PUZ_SPACE)
             children.emplace_back(*this).make_move(p, dirs[i]);
-        }
     }
 }
 

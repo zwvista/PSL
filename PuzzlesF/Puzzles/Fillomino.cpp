@@ -164,9 +164,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? m_state->m_horz_walls : m_state->m_vert_walls;
-        if (walls.at(p_wall) != PUZ_WALL_ON && m_state->cells(p) == m_num) {
+        if (walls.at(p_wall) != PUZ_WALL_ON && m_state->cells(p) == m_num)
             children.emplace_back(*this).make_move(p);
-        }
     }
 }
 

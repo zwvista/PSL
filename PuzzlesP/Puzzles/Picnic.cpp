@@ -155,9 +155,8 @@ inline bool is_park(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY; }
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset)
-        if (auto p = *this + os; is_park(m_state->cells(p))) {
+        if (auto p = *this + os; is_park(m_state->cells(p)))
             children.emplace_back(*this).make_move(p);
-        }
 }
 
 // 5. Also the remaining park should be accessible to everyone, so empty grass

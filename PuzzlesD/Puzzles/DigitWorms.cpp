@@ -63,9 +63,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p = *this + offset[i * 2];
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
-        if (!walls.contains(p_wall)) {
+        if (!walls.contains(p_wall))
             children.emplace_back(*this).make_move(p);
-        }
     }
 }
 
@@ -86,9 +85,8 @@ struct puz_state3 : vector<Position>
 void puz_state3::gen_children(list<puz_state3>& children) const {
     for (int i = 0; i < 4; ++i) {
         auto p2 = back() + offset[i * 2];
-        if (boost::algorithm::none_of_equal(*this, p2) && m_area->contains(p2)) {
+        if (boost::algorithm::none_of_equal(*this, p2) && m_area->contains(p2))
             children.emplace_back(*this).make_move(p2);
-        }
     }
 }
 

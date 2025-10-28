@@ -78,9 +78,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                     boost::algorithm::all_of(*this, [&](const set<Position>& rng2) {
                         return !rng2.contains(p);
                     });
-            })) {
+            }))
                 children.emplace_back(*this).make_move(rng);
-            }
         }
 }
 

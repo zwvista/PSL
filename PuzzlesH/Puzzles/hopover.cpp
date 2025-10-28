@@ -89,9 +89,8 @@ void puz_state::gen_children(list<puz_state>& children) const
                 if (n2 == PUZ_SPACE)
                     can_move = true;
             }
-            if (can_move) {
+            if (can_move)
                 children.emplace_back(*this).make_move(i, j);
-            }
         }
     }
 }

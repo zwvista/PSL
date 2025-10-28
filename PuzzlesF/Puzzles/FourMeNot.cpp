@@ -98,9 +98,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& os : offset) {
         auto p2 = *this + os;
-        if (m_rng->contains(p2)) {
+        if (m_rng->contains(p2))
             children.emplace_back(*this).make_move(p2);
-        }
     }
 }
 
