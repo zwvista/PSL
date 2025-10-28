@@ -1895,7 +1895,7 @@ L L B B B       L`
                  `
 B   L       B L  `
                  `
-  B L B          `
+  B L L     L   B`
     ]]>
   </level>
   <level id="112">
@@ -1916,7 +1916,7 @@ L   B   L B B B  `
                  `
 L     L     B   B`
                  `
-B L B            `
+B L B         L B`
     ]]>
   </level>
   <level id="113">
@@ -1937,7 +1937,7 @@ L   L     L B B L`
                  `
 L B L     L   B L`
                  `
-B B     L        `
+B B     L       B`
     ]]>
   </level>
   <level id="114">
@@ -1958,7 +1958,7 @@ L B   B   L L B B`
                  `
 L   L L   B      `
                  `
-B B B L   B      `
+B B B L   B B B  `
     ]]>
   </level>
   <level id="115">
@@ -1979,7 +1979,7 @@ B B B     L B L B`
                  `
 L   B   L       B`
                  `
-L     B B B      `
+L     B B L B B L`
     ]]>
   </level>
   <level id="116">
@@ -2000,7 +2000,7 @@ B       B L L   L`
                  `
 B   B   L       B`
                  `
-L   B   L B      `
+L   B   L L B L B`
     ]]>
   </level>
   <level id="117">
@@ -2021,7 +2021,7 @@ B L B L B     L  `
                  `
 B   L   L B      `
                  `
-  B B B          `
+  B L B   L B B L`
     ]]>
   </level>
   <level id="118">
@@ -2042,7 +2042,7 @@ B     B       L L`
                  `
   L B       B    `
                  `
-B L L   B   B    `
+B L L   B   L B  `
     ]]>
   </level>
   <level id="119">
@@ -2063,7 +2063,7 @@ B L L L L     B B`
                  `
   B   B     L   B`
                  `
-L   B     B      `
+L   B     B     L`
     ]]>
   </level>
   <level id="120">
@@ -2084,7 +2084,7 @@ L   L L B       L`
                  `
         L   B   B`
                  `
-B   B B          `
+B   B B       L  `
     ]]>
   </level>
   <level id="121">
@@ -2105,7 +2105,7 @@ B B   B   L L   L`
                  `
   L B     L B    `
                  `
-L L              `
+L L     B B     B`
     ]]>
   </level>
   <level id="122">
@@ -2126,7 +2126,7 @@ B     B          `
                  `
 L     L   B B    `
                  `
-B L     L B B    `
+B L     L B L L B`
     ]]>
   </level>
   <level id="123">
@@ -2147,7 +2147,7 @@ B L L L   L L   B`
                  `
         B B   L B`
                  `
-  L B            `
+  L B   L B L   B`
     ]]>
   </level>
   <level id="124">
@@ -2168,7 +2168,7 @@ L L B L B L L B L`
                  `
     L     L     B`
                  `
-B B   B          `
+B B   B   L L   B`
     ]]>
   </level>
   <level id="125">
@@ -2189,7 +2189,7 @@ B B B   L B L L B`
                  `
 L L   B     B   B`
                  `
-  B B B          `
+  B B L     L   L`
     ]]>
   </level>
   <level id="126">
@@ -2210,7 +2210,7 @@ B       L   B   L`
                  `
         B L     L`
                  `
-  B B            `
+  B L   B     L B`
     ]]>
   </level>
   <level id="127">
@@ -2231,7 +2231,7 @@ L               B`
                  `
 L B B   L   B L  `
                  `
-    L            `
+    L           B`
     ]]>
   </level>
   <level id="128">
@@ -2252,7 +2252,7 @@ B       L B B   L`
                  `
     B   B B L L B`
                  `
-L L   L          `
+L L   L     B    `
     ]]>
   </level>
   <level id="129">
@@ -2273,7 +2273,7 @@ L L L L   B   L B`
                  `
         B     L L`
                  `
-L   B B B B      `
+L   B B L B   L B`
     ]]>
   </level>
   <level id="130">
@@ -2294,7 +2294,7 @@ L B   L B L B L  `
                  `
 B L B L B       L`
                  `
-    B   B        `
+    B   L B   L B`
     ]]>
   </level>
   <level id="131">
@@ -2315,7 +2315,7 @@ B   L L   B L L  `
                  `
 B B   L   L B L  `
                  `
-L   L B          `
+L   L B B B     L`
     ]]>
   </level>
   <level id="132">
@@ -2336,7 +2336,7 @@ B B L B B L B L  `
                  `
 L L     L   B   L`
                  `
-  L              `
+  L             B`
     ]]>
   </level>
   <level id="133">
@@ -2357,7 +2357,7 @@ B   L B L     L B`
                  `
 L L   B L B L B  `
                  `
-B L L B          `
+B L L B L   B L B`
     ]]>
   </level>
   <level id="134">
@@ -2378,7 +2378,7 @@ B L     B   B    `
                  `
   B L B       L  `
                  `
-L L L   B        `
+L L L   B B L B  `
     ]]>
   </level>
   <level id="135">
@@ -2399,7 +2399,7 @@ B       L B   B  `
                  `
 L L B L   B   L  `
                  `
-B     B          `
+B     B       L B`
     ]]>
   </level>
   <level id="136">
@@ -2420,7 +2420,7 @@ L L B B L   B L  `
                  `
     B   L       B`
                  `
-  B B B          `
+  B B L L   B B L`
     ]]>
   </level>
   <level id="137">
@@ -2441,7 +2441,7 @@ L B L L B   L    `
                  `
     B       B L  `
                  `
-  B   B          `
+  B   L     L L B`
     ]]>
   </level>
   <level id="138">
@@ -2462,7 +2462,7 @@ B   L         L  `
                  `
 L B   B   B L   B`
                  `
-B L     B        `
+B L     B     B L`
     ]]>
   </level>
   <level id="139">
@@ -2483,7 +2483,7 @@ L     B B       L`
                  `
         B B L    `
                  `
-L B L B L        `
+L B L B L       L`
     ]]>
   </level>
   <level id="140">
@@ -2504,7 +2504,7 @@ B L         L   B`
                  `
         L   L   B`
                  `
-L B L            `
+L B L   B B   B L`
     ]]>
   </level>
   <level id="141">
@@ -2525,7 +2525,7 @@ L   B L L   B B L`
                  `
 L B     L B B L  `
                  `
-  B   L   B      `
+  B   L   L B L B`
     ]]>
   </level>
   <level id="142">
@@ -2546,7 +2546,7 @@ B L L B     B L B`
                  `
 B           B L  `
                  `
-L B L B B        `
+L B L B B   L B L`
     ]]>
   </level>
   <level id="143">
@@ -2567,7 +2567,7 @@ L L B L B   L    `
                  `
         L B L   B`
                  `
-B   L   B        `
+B   L   L   B L B`
     ]]>
   </level>
   <level id="144">
@@ -2588,7 +2588,7 @@ L   B B L B B B L`
                  `
 B B       L      `
                  `
-B                `
+L   L   B B L   B`
     ]]>
   </level>
   <level id="145">
@@ -2609,7 +2609,7 @@ L B B   L L     B`
                  `
 B   B     L L    `
                  `
-B L L   B        `
+B L L   B B   L L`
     ]]>
   </level>
   <level id="146">
@@ -2630,7 +2630,7 @@ B L   L L L   B L`
                  `
   L B B B       L`
                  `
-B   L   B        `
+B   L   L   L B B`
     ]]>
   </level>
   <level id="147">
@@ -2651,7 +2651,7 @@ B     B   L     B`
                  `
   B L           L`
                  `
-L L B            `
+L L B     L L   B`
     ]]>
   </level>
   <level id="148">
@@ -2672,7 +2672,7 @@ L   L     B B   L`
                  `
     B L L B B L  `
                  `
-B B   L          `
+B B   L     L   B`
     ]]>
   </level>
   <level id="149">
@@ -2693,7 +2693,7 @@ B L B   L B     L`
                  `
     B B L B B   L`
                  `
-L   L            `
+L   L     B L L B`
     ]]>
   </level>
   <level id="150">
@@ -2714,7 +2714,7 @@ L     L   B B   B`
                  `
 L             L L`
                  `
-B L L B L        `
+B L L B L   B B  `
     ]]>
   </level>
   <level id="151">
@@ -2733,11 +2733,11 @@ B   L B       B   L`
                    `
 L     L L L L     B`
                    `
-  B                `
+  B         B L L  `
                    `
+B L B   B         L`
                    `
-                   `
-                   `
+    L B     L B   L`
     ]]>
   </level>
   <level id="152">
@@ -2758,9 +2758,9 @@ B L L   B B L   B  `
                    `
 B     L B B B B    `
                    `
+L B       B   L L  `
                    `
-                   `
-                   `
+B     L   L L B   L`
     ]]>
   </level>
   <level id="153">
@@ -2779,37 +2779,14 @@ B   B     L L B   L`
                    `
     L B   L   B L B`
                    `
-  B L B B B B      `
+  B L B B L B   L  `
                    `
+    B   L   B   B B`
                    `
-                   `
-                   `
+L     L           L`
     ]]>
   </level>
   <level id="154">
-    <![CDATA[
-B B     B   L      `
-                   `
-      B           L`
-                   `
-  L B B   L B     B`
-                   `
-        L   B L   L`
-                   `
-    L     L   L    `
-                   `
-    B     B   B L  `
-                   `
-    L   B     L B  `
-                   `
-  B   B            `
-                   `
-                   `
-                   `
-                   `
-    ]]>
-  </level>
-  <level id="155">
     <![CDATA[
 B B     B   L      `
                    `
@@ -2832,6 +2809,29 @@ B B     B   L      `
 L B L B B   L B   B`
     ]]>
   </level>
+  <level id="155">
+    <![CDATA[
+B     L   B     L  `
+                   `
+  L   L   B     L L`
+                   `
+  B   B B L   B   B`
+                   `
+B   L L     B L B  `
+                   `
+L   B L L L     B B`
+                   `
+      L   B   B    `
+                   `
+B       L   B      `
+                   `
+B   L   B     L    `
+                   `
+L   L     L     B  `
+                   `
+B L B L B   B   L L`
+    ]]>
+  </level>
   <level id="156">
     <![CDATA[
 B L B     L   B B  `
@@ -2848,11 +2848,11 @@ B   B       L   L  `
                    `
   B L   L     B L B`
                    `
-L     B B          `
+L     B B       L L`
                    `
+  B B   L   B      `
                    `
-                   `
-                   `
+  L   B L L L B B B`
     ]]>
   </level>
   <level id="157">
@@ -2871,11 +2871,11 @@ B B     B L   B L  `
                    `
 L   L   B L   L    `
                    `
-L B L     B        `
+L B L     B     B L`
                    `
+L   B   B L     L  `
                    `
-                   `
-                   `
+    B   L   B   B  `
     ]]>
   </level>
   <level id="158">
@@ -2894,11 +2894,11 @@ L     B L       B  `
                    `
 B   B     B B L   B`
                    `
-B   L L L L   B B  `
+B   L L L L   B L L`
                    `
+    L   B   L L B  `
                    `
-                   `
-                   `
+L L B B           L`
     ]]>
   </level>
   <level id="159">
@@ -2917,11 +2917,11 @@ L B     B L L      `
                    `
 L L   B     L   L B`
                    `
-B     B   B B      `
+B     B   B L      `
                    `
+L   B L B L B     L`
                    `
-                   `
-                   `
+B     B L   L B    `
     ]]>
   </level>
   <level id="160">
@@ -2940,11 +2940,11 @@ L   B L   B   L B  `
                    `
   B   B B          `
                    `
-    L     B        `
+    L     L       L`
                    `
+  L B B     L L L B`
                    `
-                   `
-                   `
+  L     B L B L   B`
     ]]>
   </level>
   <level id="161">
@@ -2963,11 +2963,11 @@ B   L         L L B`
                    `
 L L L L     L   B B`
                    `
-B     L B          `
+B     L B         L`
                    `
+    B   L   B B L  `
                    `
-                   `
-                   `
+L B   B B L     B  `
     ]]>
   </level>
   <level id="162">
@@ -2986,11 +2986,11 @@ L   B     L        `
                    `
   B   L L     B L  `
                    `
-    B         B    `
+    B         L L B`
                    `
+  L   B B L   B L  `
                    `
-                   `
-                   `
+L     B   B L B B  `
     ]]>
   </level>
   <level id="163">
@@ -3011,9 +3011,9 @@ L     L   L L B L L`
                    `
 B         B B      `
                    `
+B   L     L   B   B`
                    `
-                   `
-                   `
+B   L B       L L B`
     ]]>
   </level>
   <level id="164">
@@ -3032,37 +3032,14 @@ L B   L     B     L`
                    `
         B   L      `
                    `
-B   L B B          `
+B   L B L     B B  `
                    `
+L   L   L B     L B`
                    `
-                   `
-                   `
+B   B L           B`
     ]]>
   </level>
   <level id="165">
-    <![CDATA[
-B L B       L   B  `
-                   `
-L B     L B       L`
-                   `
-B     B B   B      `
-                   `
-      L B   L   L  `
-                   `
-  L L   L L   B    `
-                   `
-B     L L   B   B B`
-                   `
-    L L L   B      `
-                   `
-  B B              `
-                   `
-                   `
-                   `
-                   `
-    ]]>
-  </level>
-  <level id="166">
     <![CDATA[
 B L B       L   B  `
                    `
@@ -3085,6 +3062,29 @@ B         L L B B L`
 L B   B   B B     L`
     ]]>
   </level>
+  <level id="166">
+    <![CDATA[
+  L   L B   B     L`
+                   `
+B     B     L   L  `
+                   `
+  B B L   L   L B B`
+                   `
+L L B L     L   L  `
+                   `
+  B   B   B B B   B`
+                   `
+        L   B L B L`
+                   `
+      L   B B     L`
+                   `
+      L       L   B`
+                   `
+  B         L   B  `
+                   `
+  L L B   L B L   B`
+    ]]>
+  </level>
   <level id="167">
     <![CDATA[
 L                 B`
@@ -3101,11 +3101,11 @@ B L B             L`
                    `
   B B   L   B   L  `
                    `
-L L   B   B B      `
+L L   B   L L B    `
                    `
+    L     B        `
                    `
-                   `
-                   `
+B   L B B L B   L B`
     ]]>
   </level>
   <level id="168">
@@ -3124,11 +3124,11 @@ L L B   B B L B L  `
                    `
 L B B       B   L  `
                    `
-L L                `
+L L             L B`
                    `
+  B L   L   B      `
                    `
-                   `
-                   `
+B B L B   L       B`
     ]]>
   </level>
   <level id="169">
@@ -3147,11 +3147,11 @@ B L B L     L L   B`
                    `
       L B   B L B L`
                    `
-    B     B B      `
+    B     L B     B`
                    `
+L B L L           B`
                    `
-                   `
-                   `
+B L     B     B   L`
     ]]>
   </level>
   <level id="170">
@@ -3170,11 +3170,11 @@ B     L   B   L B B`
                    `
 B                 B`
                    `
-L   B L   B B B    `
+L   B L   B L B L L`
                    `
+    L   B   L L   B`
                    `
-                   `
-                   `
+  B   L   B L L   B`
     ]]>
   </level>
   <level id="171">
@@ -3193,11 +3193,11 @@ L L       L L B L  `
                    `
 B     B   L L L B  `
                    `
-  L       B B      `
+  L       B B   L  `
                    `
+B   L   B B   L    `
                    `
-                   `
-                   `
+L L     B   B L B L`
     ]]>
   </level>
   <level id="172">
@@ -3216,11 +3216,11 @@ B B     L B B B   L`
                    `
         L B   L L B`
                    `
-  B   L B          `
+  B   L B       L B`
                    `
+B   B L L   L L   B`
                    `
-                   `
-                   `
+L L B B L B     L  `
     ]]>
   </level>
   <level id="173">
@@ -3239,11 +3239,11 @@ B L   B   L        `
                    `
   B           L L  `
                    `
-      B   B        `
+      L   L B   B B`
                    `
+L                  `
                    `
-                   `
-                   `
+B L L B   B L B   L`
     ]]>
   </level>
   <level id="174">
@@ -3262,11 +3262,11 @@ L     B   L B   L B`
                    `
             B      `
                    `
-      B     B      `
+      B     L      `
                    `
+L B B   L L     B L`
                    `
-                   `
-                   `
+  B     L B L B   B`
     ]]>
   </level>
   <level id="175">
@@ -3285,11 +3285,11 @@ L L B B B   B L   L`
                    `
 B L   L   L L     B`
                    `
-B B     B B        `
+B B     L B   L   B`
                    `
+  L     B L   L    `
                    `
-                   `
-                   `
+L   L B L B L B L B`
     ]]>
   </level>
   <level id="176">
@@ -3308,11 +3308,11 @@ L   B       B   L L`
                    `
     L     B     B  `
                    `
-B     L     B   B  `
+B     L     B   L  `
                    `
+B L     L         B`
                    `
-                   `
-                   `
+L L   B B B   L B  `
     ]]>
   </level>
   <level id="177">
@@ -3331,11 +3331,11 @@ B   L   L L     B  `
                    `
       B           L`
                    `
-L     B B   B      `
+L     B B   L   L  `
                    `
+B   L B L     B   L`
                    `
-                   `
-                   `
+B   L L   L   B B B`
     ]]>
   </level>
   <level id="178">
@@ -3356,9 +3356,9 @@ B B   L B   B L    `
                    `
     B B       B    `
                    `
+L L L L     B     L`
                    `
-                   `
-                   `
+B   L B   L L B B L`
     ]]>
   </level>
   <level id="179">
@@ -3377,11 +3377,11 @@ L   B L         B  `
                    `
       B   L B L L  `
                    `
-          B        `
+          B     B  `
                    `
+L   L L B     L L  `
                    `
-                   `
-                   `
+B B B             B`
     ]]>
   </level>
   <level id="180">
@@ -3400,11 +3400,11 @@ L   L B B L   L   B`
                    `
 L L   B L   B   B L`
                    `
-B L B L   B B B B  `
+B L B L   L B B L  `
                    `
+        L L       B`
                    `
-                   `
-                   `
+B   L B B B     L  `
     ]]>
   </level>
   <level id="181">
@@ -3425,9 +3425,9 @@ B   L     L L   B L`
                    `
       L L   B      `
                    `
+L B         L   B L`
                    `
-                   `
-                   `
+B   L B           B`
     ]]>
   </level>
   <level id="182">
@@ -3446,11 +3446,11 @@ B       L B     B L`
                    `
 B L       L   B    `
                    `
-      B B B   B    `
+      B B B   L B  `
                    `
+  L     L L       L`
                    `
-                   `
-                   `
+  B B L B   L   L B`
     ]]>
   </level>
   <level id="183">
@@ -3469,11 +3469,11 @@ B     B   L        `
                    `
     B   L   L   L  `
                    `
-B   L           B  `
+B   L           L  `
                    `
+  B L B B   B   B B`
                    `
-                   `
-                   `
+L B         L B L B`
     ]]>
   </level>
   <level id="184">
@@ -3492,11 +3492,11 @@ B L     L     B   L`
                    `
     B   B L L   B  `
                    `
-L B     L B B B    `
+L B     L B L B L B`
                    `
+L   L B         L  `
                    `
-                   `
-                   `
+B B L L   L   B B  `
     ]]>
   </level>
   <level id="185">
@@ -3515,11 +3515,11 @@ L   B         B   B`
                    `
   B L   B B L B   B`
                    `
-L   B       B B    `
+L   B       L L    `
                    `
+B   B L L   B B   L`
                    `
-                   `
-                   `
+B     L B L B L L  `
     ]]>
   </level>
   <level id="186">
@@ -3538,11 +3538,11 @@ B     B L B        `
                    `
 L B L     B   L   L`
                    `
-B   L L       B    `
+B   L L       L   B`
                    `
+B B L   B B L     L`
                    `
-                   `
-                   `
+L     B L     B L B`
     ]]>
   </level>
   <level id="187">
@@ -3561,11 +3561,11 @@ L B L       B B L L`
                    `
 L     B   L B   B L`
                    `
-L     B   L     B  `
+L     B   L     B L`
                    `
+L   B       L   B  `
                    `
-                   `
-                   `
+      B   L L   B B`
     ]]>
   </level>
   <level id="188">
@@ -3584,11 +3584,11 @@ L L   L     B B L  `
                    `
   L L L B     L L B`
                    `
-  B       B B B    `
+  B       B B L B  `
                    `
+B   L     L   B    `
                    `
-                   `
-                   `
+L B   B B L L     L`
     ]]>
   </level>
   <level id="189">
@@ -3607,11 +3607,11 @@ B L L     L       B`
                    `
 L         B B B    `
                    `
-B B B   L   B      `
+B B B   L   L      `
                    `
+  B       L B     L`
                    `
-                   `
-                   `
+L L L B B   L L    `
     ]]>
   </level>
   <level id="190">
@@ -3632,9 +3632,9 @@ B L     B B   B   L`
                    `
 B L     B          `
                    `
+  B   L         B L`
                    `
-                   `
-                   `
+L L     L     B   B`
     ]]>
   </level>
   <level id="191">
@@ -3653,11 +3653,11 @@ L L L   B L B L    `
                    `
   B   B   L   B    `
                    `
-  B     L B        `
+  B     L B     B L`
                    `
+B     L     L   B  `
                    `
-                   `
-                   `
+      B B     L L  `
     ]]>
   </level>
   <level id="192">
@@ -3678,9 +3678,9 @@ L L L   B L B L    `
                    `
 L     B B          `
                    `
+L           B      `
                    `
-                   `
-                   `
+B L L   B   B   L L`
     ]]>
   </level>
   <level id="193">
@@ -3699,11 +3699,11 @@ L L         B   L  `
                    `
 L B   L B         B`
                    `
-      B B   B      `
+      B B   L B L L`
                    `
+B L B L           B`
                    `
-                   `
-                   `
+L B L B B L   L   B`
     ]]>
   </level>
   <level id="194">
@@ -3722,11 +3722,11 @@ L   B     L     L B`
                    `
           L     B  `
                    `
-B L     B     B    `
+B L     B     L   L`
                    `
+      B B L B L   B`
                    `
-                   `
-                   `
+L B   L L         B`
     ]]>
   </level>
   <level id="195">
@@ -3745,11 +3745,11 @@ B L L B B L L   B  `
                    `
 L     L B L   B   B`
                    `
-L B L   L B   B    `
+L B L   L B   L    `
                    `
+B   L L B   B L   L`
                    `
-                   `
-                   `
+    L   B L        `
     ]]>
   </level>
   <level id="196">
@@ -3768,11 +3768,11 @@ L L B L       L L L`
                    `
 B L     B B L B    `
                    `
-B           B      `
+B           L   B  `
                    `
+      B L     L   B`
                    `
-                   `
-                   `
+L B B L   L B   L  `
     ]]>
   </level>
   <level id="197">
@@ -3791,11 +3791,11 @@ B B B   B         B`
                    `
   L   B   L B B B  `
                    `
-L B L L B   B      `
+L B L L L   B      `
                    `
+  L B L B B L      `
                    `
-                   `
-                   `
+  B   L   B   L L  `
     ]]>
   </level>
   <level id="198">
@@ -3814,11 +3814,11 @@ L B   B B     B L  `
                    `
       L   L L      `
                    `
-B   L L B   B      `
+B   L L L   B   B L`
                    `
+B   L   B         L`
                    `
-                   `
-                   `
+      B     L   B  `
     ]]>
   </level>
   <level id="199">
@@ -3837,11 +3837,11 @@ B   L L L L     L B`
                    `
   B B   L         B`
                    `
-  L L   B   B      `
+  L L   B   L   L B`
                    `
+L L   B   L   B B  `
                    `
-                   `
-                   `
+  B B     L B L B L`
     ]]>
   </level>
   <level id="200">
@@ -3860,11 +3860,11 @@ L   B   L     B   L`
                    `
 L B   L   B     B B`
                    `
-  L   L     B B    `
+  L   L     B L    `
                    `
+B       L L       B`
                    `
-                   `
-                   `
+B   L B B L   B L L`
     ]]>
   </level>
 </levels>
