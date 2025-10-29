@@ -54,7 +54,7 @@ struct puz_game
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
-struct puz_state2 : map<Position, set<Position>>
+struct puz_state2 : set<pair<Position, Position>>
 {
     puz_state2(const puz_game* g, const Position& p)
         : m_game(g), m_pos2dirs{{p, {0, 1, 2, 3}}} {}
@@ -102,7 +102,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                     default:
                         return used_pos2dirs[p].push_back(i), false;
                     }
-            }() && !m_pos2dirs.contains(p2) && !(contains(p) && at(p).contains(p2)))
+            }() && !m_pos2dirs.contains(p2) && !contains({p, p2}))
                 used_pos2dirs[p].push_back(i),
                 children.emplace_back(*this).make_move(p, i, p2, {path, ch_path}, used_pos2dirs);
         }
@@ -112,7 +112,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 void puz_state2::make_move(const Position& p, int i, const Position& p2,
     const puz_path& path, const map<Position, vector<int>>& used_pos2dirs)
 {
-    (*this)[p].insert(p2);
+    emplace(p, p2);
     for (auto& [p3, dirs] : used_pos2dirs)
         for (int j : dirs)
             boost::remove_erase(m_pos2dirs[p3], j);
@@ -159,15 +159,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (s.empty() || !s.m_need_milk) // s.size() should be even
                 continue;
             set<Position> objects{p};
-            for (auto& [_1, rng] : s)
-                for (auto& p2 : rng)
-                    objects.insert(p2);
+            for (auto& [_1, p2] : s)
+                objects.insert(p2);
             int n = m_moves.size();
             m_moves.emplace_back(p, objects, s.m_paths);
             m_pos2move_ids[p].push_back(n);
-            for (auto& [_1, rng] : s)
-                for (auto& p2 : rng)
-                    m_pos2move_ids[p2].push_back(n);
+            for (auto& [_1, p2] : s)
+                m_pos2move_ids[p2].push_back(n);
         }
     }
 }
