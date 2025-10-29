@@ -29,26 +29,94 @@ constexpr auto PUZ_VERT = '|';
 constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-    
-using puz_link = pair<int, Position>;
+
+using puz_links = map<Position, set<Position>>;
+struct puz_move
+{
+    Position m_cup;
+    puz_links m_links;
+    vector<vector<Position>> m_paths;
+};
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    set<Position> m_objects;
-    map<Position, vector<puz_link>> m_cup2milklinks, m_cup2beanlinks, m_milk2links, m_bean2links;
+    vector<puz_move> m_moves;
+    map<Position, vector<int>> m_pos2move_ids;
     string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
+struct puz_state2 : puz_links
+{
+    puz_state2(const puz_game* g, const Position& p)
+        : m_game(g), m_pos2dirs{{p, {0, 1, 2, 3}}} {}
+
+    void make_move(const Position& p, int i, const Position& p2,
+        const vector<Position>& path, const map<Position, vector<int>>& used_pos2dirs);
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_game* m_game;
+    bool m_need_milk = true;
+    map<Position, vector<int>> m_pos2dirs;
+    vector<vector<Position>> m_paths;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (auto& [p, dirs] : m_pos2dirs) {
+        // 4. When linking multiple beans and cows, you can also link cows to cows and
+        //    beans to beans, other than linking them to the cup.
+        if (char ch = m_game->cells(p);
+            m_need_milk && ch == PUZ_BEAN ||
+            !m_need_milk && ch == PUZ_MILK) continue;
+        map<Position, vector<int>> used_pos2dirs;
+        for (int i : dirs) {
+            vector<Position> path;
+            auto& os = offset[i];
+            used_pos2dirs[p].push_back(i);
+            if (auto p2 = p + os; [&] {
+                for (;; p2 += os)
+                    switch (m_game->cells(p2)) {
+                    case PUZ_SPACE:
+                        path.push_back(p2);
+                            break;
+                    case PUZ_MILK:
+                        return m_need_milk;
+                    case PUZ_BEAN:
+                        return !m_need_milk;
+                    default:
+                        return false;
+                    }
+            }() && !m_pos2dirs.contains(p2) && !(contains(p) && at(p).contains(p2)))
+                children.emplace_back(*this).make_move(p, i, p2, path, used_pos2dirs);
+        }
+    }
+}
+
+void puz_state2::make_move(const Position& p, int i, const Position& p2,
+    const vector<Position>& path, const map<Position, vector<int>>& used_pos2dirs)
+{
+    (*this)[p].insert(p2);
+    for (auto& [p3, dirs] : used_pos2dirs)
+        for (int j : dirs)
+            boost::remove_erase(m_pos2dirs[p3], j);
+    vector<int> v{0, 1, 2, 3};
+    boost::remove_erase(v, (i + 2) % 4);
+    m_pos2dirs.emplace(p2, v);
+    m_paths.push_back(path);
+    m_need_milk = !m_need_milk;
+}
+
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() * 2 + 1)
 {
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    vector<Position> cups;
     for (int r = 1; ; ++r) {
         string_view str = strs[r - 1];
         m_cells.push_back(PUZ_BOUNDARY);
@@ -56,8 +124,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             char ch = str[c - 1];
             m_cells.push_back(ch);
             Position p(r * 2 - 1, c * 2 - 1);
-            if (ch != PUZ_SPACE)
-                m_objects.insert(p);
+            if (ch == PUZ_CUP)
+                cups.push_back(p);
             if (c == m_sidelen / 2) break;
             m_cells.push_back(PUZ_SPACE);
         }
@@ -69,22 +137,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
-    for (auto& p : m_objects) {
-        char ch = cells(p);
-        for (int i = 0; i < 4; ++i) {
-            auto& os = offset[i];
-            for (auto p2 = p + os; ; p2 += os)
-                if (char ch2 = cells(p2); ch2 != PUZ_SPACE) {
-                    if (ch == PUZ_CUP && ch2 == PUZ_MILK)
-                        m_cup2milklinks[p].emplace_back(i, p2);
-                    else if (ch == PUZ_CUP && ch2 == PUZ_BEAN)
-                        m_cup2beanlinks[p].emplace_back(i, p2);
-                    else if (ch == PUZ_MILK && (ch2 == PUZ_CUP || ch2 == PUZ_MILK))
-                        m_milk2links[p].emplace_back(i, p2);
-                    else if (ch == PUZ_BEAN && (ch2 == PUZ_CUP || ch2 == PUZ_BEAN))
-                        m_bean2links[p].emplace_back(i, p2);
-                    break;
-                }
+    for (auto& p : cups) {
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
+        for (auto& s: smoves) {
+            // 3. To each cup there must be linked an equal number of beans and cows. At
+            //    least one of each.
+            if (s.empty() || !s.m_need_milk) continue;
+            int n = m_moves.size();
+            m_moves.emplace_back(p, s, s.m_paths);
+            for (auto& [p2, _1] : s)
+                m_pos2move_ids[p2].push_back(n);
         }
     }
 }
@@ -96,126 +158,75 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches_cup2milk, m_matches_cup2bean, m_matches_milk, m_matches_bean) <
-            tie(x.m_cells, x.m_matches_cup2milk, x.m_matches_cup2bean, x.m_matches_milk, x.m_matches_bean);
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(const map<Position, vector<int>>& matches, const Position& p, int n);
-    void make_move2(const map<Position, vector<int>>& matches, const Position& p, int n);
+    bool make_move(int n);
+    void make_move2(int n);
     int find_matches(bool init);
     bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {
-        return m_matches_cup2milk.size() + m_matches_cup2bean.size() + m_matches_milk.size() + m_matches_bean.size();
-    }
+    unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
     string m_cells;
-    // key: the position of the object
-    // value.elem: the id of link that connects the object at this position
-    map<Position, vector<int>> m_matches_cup2milk, m_matches_cup2bean, m_matches_milk, m_matches_bean;
-    map<Position, Position> m_obj2cup;
-    Position m_last_cup;
+    map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_cells), m_game(&g)
+    : m_cells(g.m_cells), m_game(&g), m_matches(g.m_pos2move_ids)
 {
-    if (g.m_cup2milklinks.size() != g.m_cup2beanlinks.size() ||
-        g.m_milk2links.size() != g.m_bean2links.size())
-        return;
-    
-    auto f = [&](const map<Position, vector<puz_link>>& pos2links, map<Position, vector<int>>& matches) {
-        for (auto& [p, links] : pos2links) {
-            auto& perm_ids = matches[p];
-            perm_ids.resize(links.size());
-            boost::iota(perm_ids, 0);
-        }
-    };
-    f(g.m_cup2milklinks, m_matches_cup2milk);
-    f(g.m_cup2beanlinks, m_matches_cup2bean);
-    f(g.m_milk2links, m_matches_milk);
-    f(g.m_bean2links, m_matches_bean);
-
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& matches: {m_matches_cup2milk, m_matches_cup2bean, m_matches_milk, m_matches_bean})
-        for (auto& [p, perm_ids2] : matches) {
-            auto& perm_ids = const_cast<vector<int>&>(perm_ids2);
-            auto& links =
-                (matches == m_matches_cup2milk ? m_game->m_cup2milklinks :
-                matches == m_matches_cup2bean ? m_game->m_cup2beanlinks :
-                matches == m_matches_milk ? m_game->m_milk2links :
-                m_game->m_bean2links).at(p);
-
-            boost::remove_erase_if(perm_ids, [&](int id) {
-                auto& [i, p2] = links[id];
-                auto& os = offset[i];
-                for(auto p3 = p + os; p3 != p2; p3 += os)
-                    if (cells(p3) != PUZ_SPACE)
-                        return true;
-                return false;
+    for (auto& [_1, move_ids] : m_matches) {
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [_2, _3, paths] = m_game->m_moves[id];
+            // 2. Links must be straight lines, not crossing each other.
+            return !boost::algorithm::all_of(paths, [&](const vector<Position>& path) {
+                return boost::algorithm::all_of(path, [&](const Position& p2) {
+                    return cells(p2) == PUZ_SPACE;
+                });
             });
-
-            if (!init)
-                switch(perm_ids.size()) {
-                case 0:
-                    return 0;
-                }
-        }
+        });
+        if (!init)
+            switch(move_ids.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(move_ids[0]), 1;
+            }
+    }
     return 2;
 }
 
-void puz_state::make_move2(const map<Position, vector<int>>& matches, const Position& p, int n)
+void puz_state::make_move2(int n)
 {
-    auto f = [&](const Position& p, int i, const Position& p2) {
-        auto& os = offset[i];
-        char ch = i % 2 == 1 ? PUZ_HORZ : PUZ_VERT;
-        for (auto p3 = p + os; p3 != p2; p3 += os)
-            cells(p3) = ch;
-    };
-    
-    if (&matches == &m_matches_cup2milk) {
-        auto& [i, p2] = m_game->m_cup2milklinks.at(p)[n];
-        f(p, i, p2);
-        m_distance += 2;
-        m_obj2cup[p] = m_obj2cup[p2] = p;
-        m_last_cup = p;
-        m_matches_cup2milk.erase(p), m_matches_milk.erase(p2);
-    } else if (&matches == &m_matches_cup2bean) {
-        auto& [i, p2] = m_game->m_cup2beanlinks.at(p)[n];
-        f(p, i, p2);
-        m_distance += 2;
-        m_obj2cup[p] = m_obj2cup[p2] = p;
-        m_matches_cup2bean.erase(p), m_matches_bean.erase(p2);
-    } else if (&matches == &m_matches_milk) {
-        auto& [i, p2] = m_game->m_milk2links.at(p)[n];
-        f(p, i, p2);
-        ++m_distance;
-        m_obj2cup[p] = m_last_cup = m_obj2cup.at(p2);
-        m_matches_milk.erase(p);
-    } else {
-        auto& [i, p2] = m_game->m_bean2links.at(p)[n];
-        f(p, i, p2);
-        ++m_distance;
-        m_obj2cup[p] = m_obj2cup.at(p2);
-        m_matches_bean.erase(p);
+    auto& [cup, links, paths] = m_game->m_moves[n];
+    for (auto& path : paths) {
+        auto os = path[1] - path[0];
+        char ch = os == offset[1] || os == offset[3] ? PUZ_HORZ : PUZ_VERT;
+        for (auto& p : path)
+            cells(p) = ch;
     }
+    ++m_distance, m_matches.erase(cup);
+    for (auto& [_1, rng] : links)
+        for (auto& p : rng)
+            ++m_distance, m_matches.erase(p);
 }
 
-bool puz_state::make_move(const map<Position, vector<int>>& matches, const Position& p, int n)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    make_move2(matches, p, n);
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -223,53 +234,14 @@ bool puz_state::make_move(const map<Position, vector<int>>& matches, const Posit
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if (int sz1 = m_matches_cup2milk.size(), sz2 = m_matches_cup2bean.size();
-        sz1 != 0 || sz2 != 0)
-        if (sz1 == sz2) {
-            auto& [p, perm_ids] = *boost::min_element(m_matches_cup2milk, [](
-                const pair<const Position, vector<int>>& kv1,
-                const pair<const Position, vector<int>>& kv2) {
-                return kv1.second.size() < kv2.second.size();
-            });
-
-            for (int n : perm_ids)
-                if (!children.emplace_back(*this).make_move(children.back().m_matches_cup2milk, p, n))
-                    children.pop_back();
-        } else {
-            for (int n : m_matches_cup2bean.at(m_last_cup))
-                if (!children.emplace_back(*this).make_move(children.back().m_matches_cup2bean, m_last_cup, n))
-                    children.pop_back();
-        }
-    else if (sz1 = m_matches_milk.size(), sz2 = m_matches_bean.size();
-        sz1 == sz2) {
-        auto matches = m_matches_milk;
-        for (auto& [p, perm_ids] : matches) {
-            auto& links = m_game->m_milk2links.at(p);
-            boost::remove_erase_if(perm_ids, [&](int id) {
-                auto& [i, p2] = links[id];
-                return !m_obj2cup.contains(p2);
-            });
-        }
-        auto& [p, perm_ids] = *boost::min_element(matches, [](
-            const pair<const Position, vector<int>>& kv1,
-            const pair<const Position, vector<int>>& kv2) {
-            return kv1.second.size() < kv2.second.size();
-        });
-
-        for (int n : perm_ids)
-            if (!children.emplace_back(*this).make_move(children.back().m_matches_milk, p, n))
-                children.pop_back();
-    } else
-        for (auto& [p, perm_ids] : m_matches_bean) {
-            auto& links = m_game->m_bean2links.at(p);
-            for (int n : perm_ids) {
-                auto& [i, p2] = links[n];
-                if (auto it = m_obj2cup.find(p2);
-                    it != m_obj2cup.end() && it->second == m_last_cup)
-                    if (!children.emplace_back(*this).make_move(children.back().m_matches_bean, p, n))
-                        children.pop_back();
-            }
-        }
+    auto& [_1, move_ids] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (int n : move_ids)
+        if (!children.emplace_back(*this).make_move(n))
+            children.pop_back();
 }
 
 ostream& puz_state::dump(ostream& out) const

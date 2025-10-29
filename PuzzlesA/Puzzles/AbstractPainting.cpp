@@ -30,7 +30,7 @@ struct puz_region
     map<int, int> m_rc2count;
 };
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;
