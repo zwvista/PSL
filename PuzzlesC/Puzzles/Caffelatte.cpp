@@ -60,7 +60,7 @@ struct puz_state2 : set<pair<Position, Position>>
         : m_game(g), m_pos2dirs{{p, {0, 1, 2, 3}}} {}
 
     void make_move(const Position& p, int i, const Position& p2,
-        const puz_path& path, const map<Position, vector<int>>& used_pos2dirs);
+        const vector<Position>& path, const map<Position, vector<int>>& used_pos2dirs);
     void gen_children(list<puz_state2>& children) const;
 
     const puz_game* m_game;
@@ -80,7 +80,6 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         map<Position, vector<int>> used_pos2dirs;
         for (int i : dirs) {
             vector<Position> path;
-            char ch_path = i % 2 == 0 ? PUZ_VERT : PUZ_HORZ;
             auto& os = offset[i];
             if (auto p2 = p + os; [&] {
                 for (;; p2 += os)
@@ -104,13 +103,13 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                     }
             }() && !m_pos2dirs.contains(p2) && !contains({p, p2}))
                 used_pos2dirs[p].push_back(i),
-                children.emplace_back(*this).make_move(p, i, p2, {path, ch_path}, used_pos2dirs);
+                children.emplace_back(*this).make_move(p, i, p2, path, used_pos2dirs);
         }
     }
 }
 
 void puz_state2::make_move(const Position& p, int i, const Position& p2,
-    const puz_path& path, const map<Position, vector<int>>& used_pos2dirs)
+    const vector<Position>& path, const map<Position, vector<int>>& used_pos2dirs)
 {
     emplace(p, p2);
     for (auto& [p3, dirs] : used_pos2dirs)
@@ -119,7 +118,8 @@ void puz_state2::make_move(const Position& p, int i, const Position& p2,
     vector<int> v{0, 1, 2, 3};
     boost::remove_erase(v, (i + 2) % 4);
     m_pos2dirs.emplace(p2, v);
-    m_paths.push_back(path);
+    char ch_path = i % 2 == 0 ? PUZ_VERT : PUZ_HORZ;
+    m_paths.emplace_back(path, ch_path);
     m_need_milk = !m_need_milk;
 }
 
