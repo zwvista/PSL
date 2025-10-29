@@ -77,7 +77,6 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         for (int i : dirs) {
             vector<Position> path;
             auto& os = offset[i];
-            used_pos2dirs[p].push_back(i);
             if (auto p2 = p + os; [&] {
                 for (;; p2 += os)
                     switch (m_game->cells(p2)) {
@@ -89,9 +88,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                     case PUZ_BEAN:
                         return !m_need_milk;
                     default:
-                        return false;
+                        return used_pos2dirs[p].push_back(i), false;
                     }
             }() && !m_pos2dirs.contains(p2) && !(contains(p) && at(p).contains(p2)))
+                used_pos2dirs[p].push_back(i),
                 children.emplace_back(*this).make_move(p, i, p2, path, used_pos2dirs);
         }
     }
@@ -126,6 +126,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r * 2 - 1, c * 2 - 1);
             if (ch == PUZ_CUP)
                 cups.push_back(p);
+            if (ch != PUZ_SPACE)
+                m_pos2move_ids[p];
             if (c == m_sidelen / 2) break;
             m_cells.push_back(PUZ_SPACE);
         }
@@ -145,8 +147,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (s.empty() || !s.m_need_milk) continue;
             int n = m_moves.size();
             m_moves.emplace_back(p, s, s.m_paths);
-            for (auto& [p2, _1] : s)
-                m_pos2move_ids[p2].push_back(n);
+            m_pos2move_ids[p].push_back(n);
+            for (auto& [_1, rng] : s)
+                for (auto& p2 : rng)
+                    m_pos2move_ids[p2].push_back(n);
         }
     }
 }
