@@ -31,11 +31,16 @@ constexpr auto PUZ_BOUNDARY = '`';
 constexpr array<Position, 4> offset = Position::Directions4;
 
 using puz_links = map<Position, set<Position>>;
+struct puz_path
+{
+    vector<Position> m_path;
+    char m_ch_path = ' ';
+};
 struct puz_move
 {
     Position m_cup;
     puz_links m_links;
-    vector<vector<Position>> m_paths;
+    vector<puz_path> m_paths;
 };
 
 struct puz_game
@@ -56,13 +61,13 @@ struct puz_state2 : puz_links
         : m_game(g), m_pos2dirs{{p, {0, 1, 2, 3}}} {}
 
     void make_move(const Position& p, int i, const Position& p2,
-        const vector<Position>& path, const map<Position, vector<int>>& used_pos2dirs);
+        const puz_path& path, const map<Position, vector<int>>& used_pos2dirs);
     void gen_children(list<puz_state2>& children) const;
 
     const puz_game* m_game;
     bool m_need_milk = true;
     map<Position, vector<int>> m_pos2dirs;
-    vector<vector<Position>> m_paths;
+    vector<puz_path> m_paths;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -76,6 +81,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         map<Position, vector<int>> used_pos2dirs;
         for (int i : dirs) {
             vector<Position> path;
+            char ch_path = i == 0 || i == 2 ? PUZ_VERT : PUZ_HORZ;
             auto& os = offset[i];
             if (auto p2 = p + os; [&] {
                 for (;; p2 += os)
@@ -92,13 +98,13 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                     }
             }() && !m_pos2dirs.contains(p2) && !(contains(p) && at(p).contains(p2)))
                 used_pos2dirs[p].push_back(i),
-                children.emplace_back(*this).make_move(p, i, p2, path, used_pos2dirs);
+                children.emplace_back(*this).make_move(p, i, p2, {path, ch_path}, used_pos2dirs);
         }
     }
 }
 
 void puz_state2::make_move(const Position& p, int i, const Position& p2,
-    const vector<Position>& path, const map<Position, vector<int>>& used_pos2dirs)
+    const puz_path& path, const map<Position, vector<int>>& used_pos2dirs)
 {
     (*this)[p].insert(p2);
     for (auto& [p3, dirs] : used_pos2dirs)
@@ -195,8 +201,8 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& [_2, _3, paths] = m_game->m_moves[id];
             // 2. Links must be straight lines, not crossing each other.
-            return !boost::algorithm::all_of(paths, [&](const vector<Position>& path) {
-                return boost::algorithm::all_of(path, [&](const Position& p2) {
+            return !boost::algorithm::all_of(paths, [&](const puz_path& o) {
+                return boost::algorithm::all_of(o.m_path, [&](const Position& p2) {
                     return cells(p2) == PUZ_SPACE;
                 });
             });
@@ -215,9 +221,7 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int n)
 {
     auto& [cup, links, paths] = m_game->m_moves[n];
-    for (auto& path : paths) {
-        auto os = path[1] - path[0];
-        char ch = os == offset[1] || os == offset[3] ? PUZ_HORZ : PUZ_VERT;
+    for (auto& [path, ch] : paths) {
         for (auto& p : path)
             cells(p) = ch;
     }
