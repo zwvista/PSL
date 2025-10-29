@@ -87,8 +87,13 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                 for (;; p2 += os)
                     switch (m_game->cells(p2)) {
                     case PUZ_SPACE:
+                        // 2. Links must be straight lines, not crossing each other.
+                        if (boost::algorithm::any_of(m_paths, [&](const puz_path& o) {
+                            return boost::algorithm::any_of_equal(o.m_path, p2);
+                        }))
+                            return used_pos2dirs[p].push_back(i), false;
                         path.push_back(p2);
-                            break;
+                        break;
                     case PUZ_MILK:
                         return m_need_milk;
                     case PUZ_BEAN:
@@ -199,11 +204,15 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
-            auto& [_2, _3, paths] = m_game->m_moves[id];
+            auto& [_2, links, paths] = m_game->m_moves[id];
             // 2. Links must be straight lines, not crossing each other.
             return !boost::algorithm::all_of(paths, [&](const puz_path& o) {
                 return boost::algorithm::all_of(o.m_path, [&](const Position& p2) {
                     return cells(p2) == PUZ_SPACE;
+                });
+            }) || !boost::algorithm::all_of(links, [&](const pair<const Position, set<Position>>& kv) {
+                return boost::algorithm::all_of(kv.second, [&](const Position& p2) {
+                    return m_matches.contains(p2);
                 });
             });
         });
@@ -221,10 +230,9 @@ int puz_state::find_matches(bool init)
 void puz_state::make_move2(int n)
 {
     auto& [cup, links, paths] = m_game->m_moves[n];
-    for (auto& [path, ch] : paths) {
+    for (auto& [path, ch] : paths)
         for (auto& p : path)
             cells(p) = ch;
-    }
     ++m_distance, m_matches.erase(cup);
     for (auto& [_1, rng] : links)
         for (auto& p : rng)
