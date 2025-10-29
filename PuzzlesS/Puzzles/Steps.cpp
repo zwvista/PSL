@@ -158,8 +158,8 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [area_id, perm_ids] : m_matches) {
         auto& area = m_game->m_areas[area_id];
-        int area_size = area.size();
-        auto& perms = m_game->m_size2perms.at(area_size);
+        int sz = area.size();
+        auto& perms = m_game->m_size2perms.at(sz);
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
             if (!boost::equal(area, perm, [&](const Position& p, char ch2) {
@@ -167,26 +167,49 @@ int puz_state::find_matches(bool init)
                 return ch1 == PUZ_SPACE || ch1 == ch2;
             }))
                 return true;
-            auto& pn = area[perm.find(char(area_size + '0'))];
             // 3. The number of empty squares between any pair of numbers
             // in the same row or column, must equal the difference between those numbers.
-            for (auto& os : offset) {
-                int n = 0;
-                bool hasSpace = false;
-                for (auto p2 = pn + os; is_valid(p2); p2 += os) {
-                    int area_id2 = m_game->m_pos2area.at(p2);
-                    int sz2 = m_game->m_areas[area_id2].size();
-                    if (char ch = cells(p2); ch == PUZ_SPACE || ch == PUZ_EMPTY) {
-                        ++n;
-                        if (ch == PUZ_SPACE && area_id2 != area_id)
-                            hasSpace = true;
-                    } else if (abs(area_size - sz2) == n || hasSpace)
-                        break;
-                    else
+            auto& pn = area[perm.find(char(sz < 10 ? sz + '0' : sz - 10 + 'A'))];
+            for (auto& p : area)
+                if (p == pn)
+                    for (auto& os : offset) {
+                        int n = 0;
+                        for (auto p2 = p + os; is_valid(p2); p2 += os) {
+                            int area_id2 = m_game->m_pos2area.at(p2);
+                            int sz2 = m_game->m_areas[area_id2].size();
+                            if (char ch = cells(p2);
+                                ch == PUZ_EMPTY || ch == PUZ_SPACE && area_id2 == area_id)
+                                ++n;
+                            else if (ch == PUZ_SPACE || abs(sz - sz2) == n)
+                                break;
+                            else
+                                return true;
+                        }
+                    }
+                else {
+                    vector<int> szs(4), ns(4, -1);
+                    for (int i = 0; i < 4; ++i) {
+                        auto& os = offset[i];
+                        int n = 0;
+                        for (auto p2 = p + os; is_valid(p2); p2 += os) {
+                            int area_id2 = m_game->m_pos2area.at(p2);
+                            szs[i] = m_game->m_areas[area_id2].size();
+                            if (p2 == pn)
+                                break;
+                            else if (char ch = cells(p2);
+                                ch == PUZ_EMPTY || ch == PUZ_SPACE && area_id2 == area_id)
+                                ++n;
+                            else {
+                                if (ch != PUZ_SPACE)
+                                    ns[i] = n;
+                                break;
+                            }
+                        }
+                    }
+                    if (ns[0] != -1 && ns[2] != -1 && ns[0] + ns[2] + 1 != abs(szs[0] - szs[2]) ||
+                        ns[1] != -1 && ns[3] != -1 && ns[1] + ns[3] + 1 != abs(szs[1] - szs[3]))
                         return true;
-
                 }
-            }
             return false;
         });
 
