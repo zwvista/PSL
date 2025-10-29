@@ -80,7 +80,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         map<Position, vector<int>> used_pos2dirs;
         for (int i : dirs) {
             vector<Position> path;
-            char ch_path = i == 0 || i == 2 ? PUZ_VERT : PUZ_HORZ;
+            char ch_path = i % 2 == 0 ? PUZ_VERT : PUZ_HORZ;
             auto& os = offset[i];
             if (auto p2 = p + os; [&] {
                 for (;; p2 += os)
@@ -91,8 +91,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                             return boost::algorithm::any_of_equal(o.m_path, p2);
                         }))
                             return used_pos2dirs[p].push_back(i), false;
-                        path.push_back(p2);
-                        break;
+                        else {
+                            path.push_back(p2);
+                            break;
+                        }
                     case PUZ_MILK:
                         return m_need_milk;
                     case PUZ_BEAN:
@@ -154,7 +156,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (auto& s: smoves) {
             // 3. To each cup there must be linked an equal number of beans and cows. At
             //    least one of each.
-            if (s.empty() || !s.m_need_milk) continue;
+            if (s.empty() || !s.m_need_milk) // s.size() should be even
+                continue;
             set<Position> objects{p};
             for (auto& [_1, rng] : s)
                 for (auto& p2 : rng)
