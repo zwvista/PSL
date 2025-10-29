@@ -30,7 +30,6 @@ constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-using puz_links = map<Position, set<Position>>;
 struct puz_path
 {
     vector<Position> m_path;
@@ -39,7 +38,7 @@ struct puz_path
 struct puz_move
 {
     Position m_cup;
-    puz_links m_links;
+    set<Position> m_objects;
     vector<puz_path> m_paths;
 };
 
@@ -55,7 +54,7 @@ struct puz_game
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
-struct puz_state2 : puz_links
+struct puz_state2 : map<Position, set<Position>>
 {
     puz_state2(const puz_game* g, const Position& p)
         : m_game(g), m_pos2dirs{{p, {0, 1, 2, 3}}} {}
@@ -156,8 +155,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             // 3. To each cup there must be linked an equal number of beans and cows. At
             //    least one of each.
             if (s.empty() || !s.m_need_milk) continue;
+            set<Position> objects{p};
+            for (auto& [_1, rng] : s)
+                for (auto& p2 : rng)
+                    objects.insert(p2);
             int n = m_moves.size();
-            m_moves.emplace_back(p, s, s.m_paths);
+            m_moves.emplace_back(p, objects, s.m_paths);
             m_pos2move_ids[p].push_back(n);
             for (auto& [_1, rng] : s)
                 for (auto& p2 : rng)
@@ -204,16 +207,14 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
-            auto& [_2, links, paths] = m_game->m_moves[id];
+            auto& [_2, objects, paths] = m_game->m_moves[id];
             // 2. Links must be straight lines, not crossing each other.
             return !boost::algorithm::all_of(paths, [&](const puz_path& o) {
                 return boost::algorithm::all_of(o.m_path, [&](const Position& p2) {
                     return cells(p2) == PUZ_SPACE;
                 });
-            }) || !boost::algorithm::all_of(links, [&](const pair<const Position, set<Position>>& kv) {
-                return boost::algorithm::all_of(kv.second, [&](const Position& p2) {
-                    return m_matches.contains(p2);
-                });
+            }) || !boost::algorithm::all_of(objects, [&](const Position& p2) {
+                return m_matches.contains(p2);
             });
         });
         if (!init)
@@ -229,14 +230,12 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& [cup, links, paths] = m_game->m_moves[n];
+    auto& [_1, objects, paths] = m_game->m_moves[n];
     for (auto& [path, ch] : paths)
         for (auto& p : path)
             cells(p) = ch;
-    ++m_distance, m_matches.erase(cup);
-    for (auto& [_1, rng] : links)
-        for (auto& p : rng)
-            ++m_distance, m_matches.erase(p);
+    for (auto& p : objects)
+        ++m_distance, m_matches.erase(p);
 }
 
 bool puz_state::make_move(int n)
