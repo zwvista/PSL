@@ -33,14 +33,19 @@ constexpr array<Position, 4> offset = Position::Directions4;
 using puz_chars = vector<char>;
 const puz_chars all_chars = {PUZ_POSITIVE, PUZ_NEGATIVE, PUZ_EMPTY};
 
+struct puz_hint
+{
+    int m_positive, m_negative;
+};
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     int m_rect_count;
-    vector<vector<Position>> m_area_info;
+    vector<vector<Position>> m_areas;
     map<Position, int> m_pos2rect;
-    vector<array<int, 2>> m_num_poles_rows, m_num_poles_cols;
+    vector<puz_hint> m_hints;
     string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -51,9 +56,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() - 2)
     , m_rect_count(m_sidelen * m_sidelen / 2)
-    , m_area_info(m_rect_count + m_sidelen + m_sidelen)
-    , m_num_poles_rows(m_sidelen)
-    , m_num_poles_cols(m_sidelen)
+    , m_areas(m_rect_count + m_sidelen * 2)
+    , m_hints(m_sidelen * 2)
 {
     m_cells = boost::accumulate(strs, string());
     for (int r = 0, n = 0; r < m_sidelen + 2; ++r) {
@@ -70,15 +74,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     auto p = ch == PUZ_HORZ ? Position(r, c + d) : Position(r + d, c);
                     m_pos2rect[p] = n;
                     for (int i : {n, m_rect_count + p.first, m_rect_count + m_sidelen + p.second})
-                        m_area_info[i].push_back(p);
+                        m_areas[i].push_back(p);
                 }
                 ++n;
                 break;
             default:
-                if ((c >= m_sidelen) != (r >= m_sidelen))
-                    (c >= m_sidelen ? m_num_poles_rows[r][c - m_sidelen] :
-                    m_num_poles_cols[c][r - m_sidelen]) =
-                    ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
+                if ((c >= m_sidelen) != (r >= m_sidelen)) {
+                    bool is_row = c >= m_sidelen;
+                    auto& hint = m_hints[is_row ? r : c + m_sidelen];
+                    ((is_row ? c : r) == m_sidelen ? hint.m_positive : hint.m_negative) =
+                        ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
+                }
                 break;
             }
     }
@@ -86,30 +92,28 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
 struct puz_counts
 {
+    // the number of remaining times that the key char can be used in the area
+    // the number of times that the key char has been used in the area
     int m_remaining, m_used;
 };
 
-// first: the index of the area
-// second.key : all chars used to fill a position
-// second.first : the number of remaining times that the key char can be used in the area
-// second.second : the number of times that the key char has been used in the area
 struct puz_area
 {
-    puz_area(int index, int num_positive, int num_negative, int num_all)
+    puz_area(int index, int positive, int negative, int total)
         : m_index(index)
         , m_ch2counts{
-            {PUZ_POSITIVE, {num_positive, 0}},
-            {PUZ_NEGATIVE, {num_negative, 0}},
+            {PUZ_POSITIVE, {positive, 0}},
+            {PUZ_NEGATIVE, {negative, 0}},
             {PUZ_EMPTY, {
-            num_positive == PUZ_UNKNOWN || num_negative == PUZ_UNKNOWN ? PUZ_UNKNOWN :
-            num_all - num_positive - num_negative, 0}}
+            positive == PUZ_UNKNOWN || negative == PUZ_UNKNOWN ? PUZ_UNKNOWN :
+            total - positive - negative, 0}}
         } {}
     bool fill_cell(const Position& p, char ch) {
         auto& [remaining, used] = m_ch2counts.at(ch);
         ++used;
         return remaining == PUZ_UNKNOWN || --remaining >= 0;
     }
-    int cant_use(char ch) const { return m_ch2counts.at(ch).m_remaining == 0; }
+    bool cant_use(char ch) const { return m_ch2counts.at(ch).m_remaining == 0; }
     bool is_ready() const {
         auto f = [&](char ch) {
             int n = m_ch2counts.at(ch).m_remaining;
@@ -118,7 +122,9 @@ struct puz_area
         return f(PUZ_POSITIVE) && f(PUZ_NEGATIVE);
     }
 
+    // the index of the area
     int m_index;
+    // key : all chars used to fill a position
     map<char, puz_counts> m_ch2counts;
 };
 
@@ -145,7 +151,7 @@ struct puz_state
     bool make_move2(const Position& p, char ch);
     void check_area(const puz_area& a, char ch) {
         if (a.cant_use(ch))
-            for (auto& p : m_game->m_area_info[a.m_index])
+            for (auto& p : m_game->m_areas[a.m_index])
                 remove_pair(p, ch);
     }
     // remove the possibility of filling the position p with char ch
@@ -164,8 +170,7 @@ struct puz_state
 
     const puz_game* m_game;
     string m_cells;
-    puz_group m_grp_rows;
-    puz_group m_grp_cols;
+    puz_group m_groups;
     map<Position, puz_chars> m_pos2chars;
 };
 
@@ -180,17 +185,11 @@ puz_state::puz_state(const puz_game& g)
             else
                 m_pos2chars[p] = all_chars;
 
-    for (int i = 0; i < sidelen(); i++) {
-        auto& np = g.m_num_poles_rows[i];
-        m_grp_rows.emplace_back(i + g.m_rect_count, np[0], np[1], sidelen());
+    for (int i = 0; i < sidelen() * 2; i++) {
+        auto& [positive, negative] = g.m_hints[i];
+        auto& a = m_groups.emplace_back(i + g.m_rect_count, positive, negative, sidelen());
         for (char ch : all_chars)
-            check_area(m_grp_rows.back(), ch);
-    }
-    for (int i = 0; i < sidelen(); i++) {
-        auto& np = g.m_num_poles_cols[i];
-        m_grp_cols.emplace_back(i + g.m_rect_count + sidelen(), np[0], np[1], sidelen());
-        for (char ch : all_chars)
-            check_area(m_grp_cols.back(), ch);
+            check_area(a, ch);
     }
 }
 
@@ -200,7 +199,7 @@ bool puz_state::make_move(const Position& p, char ch)
         return false;
 
     // The rectangle should be handled within one move
-    auto rng = m_game->m_area_info.at(m_game->m_pos2rect.at(p));
+    auto rng = m_game->m_areas.at(m_game->m_pos2rect.at(p));
     boost::remove_erase(rng, p);
     auto& p2 = rng[0];
 
@@ -217,7 +216,7 @@ bool puz_state::make_move2(const Position& p, char ch)
     cells(p) = ch;
     m_pos2chars.erase(p);
 
-    for (auto a : {&m_grp_rows[p.first], &m_grp_cols[p.second]}) {
+    for (auto a : {&m_groups[p.first], &m_groups[p.second + sidelen()]}) {
         if (!a->fill_cell(p, ch))
             return false;
         check_area(*a, ch);
@@ -231,7 +230,7 @@ bool puz_state::make_move2(const Position& p, char ch)
 
     return boost::algorithm::none_of(m_pos2chars, [](const pair<const Position, puz_chars>& kv) {
         return kv.second.empty();
-    }) && (!is_goal_state() || m_grp_rows.is_ready() && m_grp_cols.is_ready());
+    }) && (!is_goal_state() || m_groups.is_ready());
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -259,8 +258,7 @@ ostream& puz_state::dump(ostream& out) const
             else {
                 bool is_row = c >= sidelen();
                 out <<
-                    (is_row ? m_grp_rows : m_grp_cols)
-                    [is_row ? r : c].m_ch2counts.at
+                    m_groups[is_row ? r : c + sidelen()].m_ch2counts.at
                     ((is_row ? c : r) == sidelen() ?
                     PUZ_POSITIVE : PUZ_NEGATIVE).m_used;
             }
