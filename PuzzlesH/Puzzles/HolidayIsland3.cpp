@@ -56,15 +56,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_cells.push_back(PUZ_SPACE);
             } else {
                 m_cells.push_back(PUZ_TENT);
-                m_pos2num[p] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                int n = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                m_pos2num[p] = n;
+                m_num2rng[n].push_back(p);
             }
         }
         m_cells.push_back(PUZ_WATER);
     }
     m_cells.append(m_sidelen, PUZ_WATER);
-
-    for (auto& [p, num] : m_pos2num)
-        m_num2rng[num].push_back(p);
 }
 
 using puz_move = pair<set<Position>, set<Position>>; // area, waters
@@ -76,18 +75,22 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+        return tie(m_cells, m_matches, m_num2rng) < tie(x.m_cells, x.m_matches, x.m_num2rng);
     }
     bool make_move(const Position& p, const puz_move& move);
     void make_move2(const Position& p, const puz_move& move);
+    void find_moves();
     int find_matches(bool init);
     bool is_interconnected() const;
-    void find_moves();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const { 
+        return boost::accumulate(m_num2rng, 0, [](int acc, const pair<const int, vector<Position>>& kv) {
+            return acc + kv.second.size();
+        }) + m_matches.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -96,10 +99,11 @@ struct puz_state
     string m_cells;
     map<Position, vector<puz_move>> m_matches;
     unsigned int m_distance = 0;
+    map<int, vector<Position>> m_num2rng;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_game(&g), m_cells(g.m_cells)
+    : m_game(&g), m_cells(g.m_cells), m_num2rng(g.m_num2rng)
 {
     find_moves();
     find_matches(true);
@@ -134,7 +138,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
 
 void puz_state::find_moves()
 {
-    for (auto& [p, num] : m_game->m_pos2num) {
+    if (m_num2rng.empty())
+        return;
+    auto& [num, rng] = *m_num2rng.begin();
+    for (auto& p : rng) {
         puz_state2 sstart(this, num, p);
         list<list<puz_state2>> spaths;
         if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
@@ -149,6 +156,7 @@ void puz_state::find_moves()
                                 waters.insert(p3);
             }
     }
+    m_num2rng.erase(num);
 }
 
 int puz_state::find_matches(bool init)
@@ -230,11 +238,15 @@ bool puz_state::make_move(const Position& p, const puz_move& move)
     make_move2(p, move);
     int m;
     while ((m = find_matches(false)) == 1);
+    if (m == 2 && m_matches.empty())
+        find_moves();
     return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
+    if (m_matches.empty())
+        return;
     auto& [p, moves] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<puz_move>>& kv1,
         const pair<const Position, vector<puz_move>>& kv2) {
