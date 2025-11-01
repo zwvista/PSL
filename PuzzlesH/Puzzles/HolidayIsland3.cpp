@@ -81,7 +81,7 @@ struct puz_state
     void make_move2(const Position& p, const puz_move& move);
     void find_moves();
     int find_matches(bool init);
-    bool is_interconnected() const;
+    bool check_interconnected();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -138,8 +138,6 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
 
 void puz_state::find_moves()
 {
-    if (m_num2rng.empty())
-        return;
     auto& [num, rng] = *m_num2rng.begin();
     for (auto& p : rng) {
         puz_state2 sstart(this, num, p);
@@ -181,43 +179,51 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, moves.front()), 1;
             }
     }
-    return is_interconnected() ? 2 : 0;
+    return check_interconnected() ? 2 : 0;
 }
 
 struct puz_state3 : Position
 {
-    puz_state3(const puz_state* s, const Position& p)
-        : m_state(s) { make_move(p); }
+    puz_state3(set<Position>* a, const Position& p)
+        : m_area(a) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state3>& children) const;
 
-    const puz_state* m_state;
+    const set<Position>* m_area;
 };
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset)
-        switch (auto p2 = *this + os; m_state->cells(p2)) {
-        case PUZ_SPACE:
-        case PUZ_EMPTY:
-        case PUZ_TENT:
+        if (auto p2 = *this + os; m_area->contains(p2))
             children.emplace_back(*this).make_move(p2);
-        }
 }
 
 // 4. There is only one, continuous island.
-bool puz_state::is_interconnected() const
+bool puz_state::check_interconnected()
 {
     auto is_island = [](char ch) {
         return ch == PUZ_TENT || ch == PUZ_EMPTY;
     };
+    set<Position> area;
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            if (char ch = cells(p); is_island(ch) || ch == PUZ_SPACE)
+                area.insert(p);
+        }
     int i = boost::find_if(m_cells, is_island) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state3>::gen_moves(
-        {this, {i / sidelen(), i % sidelen()}});
-    return boost::count_if(smoves, [&](const Position& p) {
-        return is_island(cells(p));
-    }) == boost::count_if(m_cells, is_island);
+        {&area, {i / sidelen(), i % sidelen()}});
+    for (auto& p : smoves)
+        area.erase(p);
+    for (auto& p : area)
+        if (char& ch = cells(p); ch == PUZ_SPACE)
+            ch = PUZ_WATER;
+        else
+            return false;
+    return true;
 }
 
 void puz_state::make_move2(const Position& p, const puz_move& move)
@@ -238,15 +244,14 @@ bool puz_state::make_move(const Position& p, const puz_move& move)
     make_move2(p, move);
     int m;
     while ((m = find_matches(false)) == 1);
-    if (m == 2 && m_matches.empty())
-        find_moves();
+    if (m == 2 && !m_num2rng.empty() && m_matches.empty())
+        if (find_moves(); m_matches.empty())
+            return false;
     return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if (m_matches.empty())
-        return;
     auto& [p, moves] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<puz_move>>& kv1,
         const pair<const Position, vector<puz_move>>& kv2) {
