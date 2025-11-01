@@ -125,21 +125,21 @@ struct puz_state2 : set<Position>
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
     for (auto& p : *this)
-        for (auto& os : offset) {
+        for (auto& os : offset)
             // 5. A camper can walk from his Tent,
             // by moving horizontally or vertically.A camper can't cross water or 
             // other Tents.
-            auto p2 = p + os;
-            if (char ch2 = m_state->cells(p2); 
-                ch2 == PUZ_SPACE && !contains(p2))
-                children.emplace_back(*this).make_move(p2);
-        }
+            if (auto p2 = p + os; !contains(p2))
+                if (char ch2 = m_state->cells(p2);
+                    ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY)
+                    children.emplace_back(*this).make_move(p2);
 }
 
 void puz_state::find_moves()
 {
     auto& [num, rng] = *m_num2rng.begin();
     for (auto& p : rng) {
+        m_matches[p];
         puz_state2 sstart(this, num, p);
         list<list<puz_state2>> spaths;
         if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
@@ -184,7 +184,7 @@ int puz_state::find_matches(bool init)
 
 struct puz_state3 : Position
 {
-    puz_state3(set<Position>* a, const Position& p)
+    puz_state3(const set<Position>* a, const Position& p)
         : m_area(a) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
@@ -203,17 +203,14 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 // 4. There is only one, continuous island.
 bool puz_state::check_interconnected()
 {
-    auto is_island = [](char ch) {
-        return ch == PUZ_TENT || ch == PUZ_EMPTY;
-    };
     set<Position> area;
     for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            if (char ch = cells(p); is_island(ch) || ch == PUZ_SPACE)
+        for (int c = 1; c < sidelen() - 1; ++c)
+            if (Position p(r, c); cells(p) != PUZ_WATER)
                 area.insert(p);
-        }
-    int i = boost::find_if(m_cells, is_island) - m_cells.begin();
+    int i = boost::find_if(m_cells, [](char ch) {
+        return ch == PUZ_TENT || ch == PUZ_EMPTY;
+    }) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state3>::gen_moves(
         {&area, {i / sidelen(), i % sidelen()}});
     for (auto& p : smoves)
