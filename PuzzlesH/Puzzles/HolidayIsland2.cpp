@@ -133,7 +133,7 @@ struct puz_state
     bool make_move(const Position& p, int n);
     void make_move2(const Position& p, int n);
     int find_matches(bool init);
-    bool is_interconnected() const;
+    bool check_interconnected();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -180,43 +180,48 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, perm_ids.front()), 1;
             }
     }
-    return is_interconnected() ? 2 : 0;
+    return check_interconnected() ? 2 : 0;
 }
 
 struct puz_state3 : Position
 {
-    puz_state3(const puz_state* s, const Position& p)
-        : m_state(s) { make_move(p); }
+    puz_state3(const set<Position>* a, const Position& p)
+        : m_area(a) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state3>& children) const;
 
-    const puz_state* m_state;
+    const set<Position>* m_area;
 };
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset)
-        switch (auto p2 = *this + os; m_state->cells(p2)) {
-        case PUZ_SPACE:
-        case PUZ_EMPTY:
-        case PUZ_TENT:
+        if (auto p2 = *this + os; m_area->contains(p2))
             children.emplace_back(*this).make_move(p2);
-        }
 }
 
 // 4. There is only one, continuous island.
-bool puz_state::is_interconnected() const
+bool puz_state::check_interconnected()
 {
-    auto is_island = [](char ch) {
+    set<Position> area;
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c)
+            if (Position p(r, c); cells(p) != PUZ_WATER)
+                area.insert(p);
+    int i = boost::find_if(m_cells, [](char ch) {
         return ch == PUZ_TENT || ch == PUZ_EMPTY;
-    };
-    int i = boost::find_if(m_cells, is_island) - m_cells.begin();
+    }) - m_cells.begin();
     auto smoves = puz_move_generator<puz_state3>::gen_moves(
-        {this, {i / sidelen(), i % sidelen()}});
-    return boost::count_if(smoves, [&](const Position& p) {
-        return is_island(cells(p));
-    }) == boost::count_if(m_cells, is_island);
+        {&area, {i / sidelen(), i % sidelen()}});
+    for (auto& p : smoves)
+        area.erase(p);
+    for (auto& p : area)
+        if (char& ch = cells(p); ch == PUZ_SPACE)
+            ch = PUZ_WATER;
+        else
+            return false;
+    return true;
 }
 
 void puz_state::make_move2(const Position& p, int n)
