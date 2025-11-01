@@ -106,7 +106,6 @@ puz_state::puz_state(const puz_game& g)
     : m_game(&g), m_cells(g.m_cells), m_num2rng(g.m_num2rng)
 {
     find_moves();
-    find_matches(true);
 }
 
 struct puz_state2 : set<Position>
@@ -115,13 +114,24 @@ struct puz_state2 : set<Position>
         : m_state(state), m_num(num) {make_move(p);}
 
     bool is_goal_state() const { return size() == m_num + 1; }
-    void make_move(const Position& p) { insert(p); }
+    bool make_move(const Position& p);
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_state* m_state;
     int m_num;
 };
+
+bool puz_state2::make_move(const Position& p)
+{
+    insert(p);
+    return !is_goal_state() || boost::algorithm::all_of(*this, [&](const Position& p2) {
+        return boost::algorithm::all_of(offset, [&](const Position& os) {
+            auto p3 = p2 + os;
+            return contains(p3) || m_state->cells(p3) != PUZ_EMPTY;
+        });
+    });
+}
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
     for (auto& p : *this)
@@ -132,7 +142,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
             if (auto p2 = p + os; !contains(p2))
                 if (char ch2 = m_state->cells(p2);
                     ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY)
-                    children.emplace_back(*this).make_move(p2);
+                    if (!children.emplace_back(*this).make_move(p2))
+                        children.pop_back();
 }
 
 void puz_state::find_moves()
@@ -155,6 +166,7 @@ void puz_state::find_moves()
             }
     }
     m_num2rng.erase(num);
+    find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
