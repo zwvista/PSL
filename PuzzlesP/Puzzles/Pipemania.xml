@@ -5,6 +5,7 @@
 1. The former contractor for your present client left the work unfinished. In order not to waste what has bee done, you should complete the pipe loop, using the pieces available.
 2. Complete the board using all the tiles and form a single closed loop.
 3. The loop can cross itself.
+4. please note “a single closed loop" means that assuming the flow is straight even when the pipe crosses itself, i.e. following the pipe in straight lines (not turning at crossings).
   ]]>
 </help>
 <levels>

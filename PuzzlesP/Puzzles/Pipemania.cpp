@@ -15,6 +15,9 @@
        loop, using the pieces available.
     2. Complete the board using all the tiles and form a single closed loop.
     3. The loop can cross itself.
+    4. please note “a single closed loop" means that assuming the flow is straight
+       even when the pipe crosses itself, i.e. following the pipe in straight lines
+       (not turning at crossings).
 */
 
 namespace puzzles::Pipemania{
@@ -179,6 +182,9 @@ bool puz_state::check_loop() const
                 rng.erase(p2);
             for (int i = 0; i < 4; ++i)
                 // proceed only if the line segment does not revisit the previous position
+                // 4. please note “a single closed loop" means that assuming the flow is straight
+                //    even when the pipe crosses itself, i.e. following the pipe in straight lines
+                //    (not turning at crossings).
                 if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n && (lineseg != lineseg_cross || i == n)) {
                     if (lineseg == lineseg_cross)
                         rng[p2] = i % 2 == 0 ? 10 : 5;
