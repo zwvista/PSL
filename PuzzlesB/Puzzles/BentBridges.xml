@@ -7,6 +7,9 @@
 3. The number on the island tells you how many bridges connect to that island.
 4. A bridge can turn once by 90 degrees between islands.
 5. Bridges cannot cross each other.
+VARIANTS
+6. Crossing: bridges can cross each other, but cannot turn at the intersection.
+7. Magnetic: islands with the same number cannot have a bridge between themselves.
   ]]>
 </help>
 <levels>
@@ -100,7 +103,7 @@
 1    `
     ]]>
   </level>
-  <level id="11">
+  <level id="11" GameType="Crossings">
     <![CDATA[
 23  2`
     3`
@@ -109,7 +112,7 @@
 11 1 `
     ]]>
   </level>
-  <level id="12">
+  <level id="12" GameType="Crossings">
     <![CDATA[
 11   `
  4 32`
@@ -118,7 +121,7 @@
  1  2`
     ]]>
   </level>
-  <level id="13">
+  <level id="13" GameType="Crossings">
     <![CDATA[
  1 31`
      `
@@ -127,7 +130,7 @@
 1 23 `
     ]]>
   </level>
-  <level id="14">
+  <level id="14" GameType="Crossings">
     <![CDATA[
 1    `
 1  1 `
@@ -136,7 +139,7 @@
 1  3 `
     ]]>
   </level>
-  <level id="15">
+  <level id="15" GameType="Crossings">
     <![CDATA[
   33 `
 14  3`
@@ -145,7 +148,7 @@
 11   `
     ]]>
   </level>
-  <level id="16">
+  <level id="16" GameType="Crossings">
     <![CDATA[
  2 1 `
  4 31`
@@ -154,7 +157,7 @@
 2    `
     ]]>
   </level>
-  <level id="17">
+  <level id="17" GameType="Crossings">
     <![CDATA[
  21 1`
  3  2`
@@ -163,7 +166,7 @@
 2   2`
     ]]>
   </level>
-  <level id="18">
+  <level id="18" GameType="Crossings">
     <![CDATA[
    31`
  1  2`
@@ -172,7 +175,7 @@
 1  3 `
     ]]>
   </level>
-  <level id="19">
+  <level id="19" GameType="Crossings">
     <![CDATA[
 1   2`
  4  2`
@@ -181,7 +184,7 @@
 2   1`
     ]]>
   </level>
-  <level id="20">
+  <level id="20" GameType="Crossings">
     <![CDATA[
 13 2 `
      `
@@ -190,7 +193,7 @@
 13  1`
     ]]>
   </level>
-  <level id="21">
+  <level id="21" GameType="Magnetic">
     <![CDATA[
   22 `
 3   3`
@@ -199,7 +202,7 @@
 12 3 `
     ]]>
   </level>
-  <level id="22">
+  <level id="22" GameType="Magnetic">
     <![CDATA[
 2  11`
   3 2`
@@ -208,7 +211,7 @@
 2 3  `
     ]]>
   </level>
-  <level id="23">
+  <level id="23" GameType="Magnetic">
     <![CDATA[
 1   1`
     2`
@@ -217,7 +220,7 @@
 23 2 `
     ]]>
   </level>
-  <level id="24">
+  <level id="24" GameType="Magnetic">
     <![CDATA[
 1 2  `
  1 23`
@@ -226,7 +229,7 @@
  2   `
     ]]>
   </level>
-  <level id="25">
+  <level id="25" GameType="Magnetic">
     <![CDATA[
     2`
 2  3 `
@@ -235,7 +238,7 @@
     1`
     ]]>
   </level>
-  <level id="26">
+  <level id="26" GameType="Magnetic">
     <![CDATA[
  2 11`
  34  `
@@ -244,7 +247,7 @@
 2   2`
     ]]>
   </level>
-  <level id="27">
+  <level id="27" GameType="Magnetic">
     <![CDATA[
  2 2 `
     3`
@@ -253,7 +256,7 @@
 1   2`
     ]]>
   </level>
-  <level id="28">
+  <level id="28" GameType="Magnetic">
     <![CDATA[
 2 11 `
      `
@@ -262,7 +265,7 @@
 2  3 `
     ]]>
   </level>
-  <level id="29">
+  <level id="29" GameType="Magnetic">
     <![CDATA[
    11`
 24  2`
@@ -271,7 +274,7 @@
   23 `
     ]]>
   </level>
-  <level id="30">
+  <level id="30" GameType="Magnetic">
     <![CDATA[
  32  `
 1  4 `
@@ -430,7 +433,7 @@
  2 21 `
     ]]>
   </level>
-  <level id="46">
+  <level id="46" GameType="Crossings">
     <![CDATA[
 23 2 1`
       `
@@ -440,7 +443,7 @@
 21 13 `
     ]]>
   </level>
-  <level id="47">
+  <level id="47" GameType="Crossings">
     <![CDATA[
  3   1`
 24  4 `
@@ -450,7 +453,7 @@
 1  1  `
     ]]>
   </level>
-  <level id="48">
+  <level id="48" GameType="Crossings">
     <![CDATA[
 1  3  `
 3    3`
@@ -460,7 +463,7 @@
 11   1`
     ]]>
   </level>
-  <level id="49">
+  <level id="49" GameType="Crossings">
     <![CDATA[
 2   1 `
 2   33`
@@ -470,7 +473,7 @@
 13  2 `
     ]]>
   </level>
-  <level id="50">
+  <level id="50" GameType="Crossings">
     <![CDATA[
 12 21 `
       `
@@ -480,7 +483,7 @@
     31`
     ]]>
   </level>
-  <level id="51">
+  <level id="51" GameType="Crossings">
     <![CDATA[
    3 1`
 1   1 `
@@ -490,7 +493,7 @@
    2 2`
     ]]>
   </level>
-  <level id="52">
+  <level id="52" GameType="Crossings">
     <![CDATA[
   3 2 `
  2 4  `
@@ -500,7 +503,7 @@
 22  22`
     ]]>
   </level>
-  <level id="53">
+  <level id="53" GameType="Crossings">
     <![CDATA[
 2    1`
 12    `
@@ -510,7 +513,7 @@
 2 1  1`
     ]]>
   </level>
-  <level id="54">
+  <level id="54" GameType="Crossings">
     <![CDATA[
 12 31 `
 3     `
@@ -520,7 +523,7 @@
 23   1`
     ]]>
   </level>
-  <level id="55">
+  <level id="55" GameType="Crossings">
     <![CDATA[
  2 23 `
 22 4 3`
@@ -530,7 +533,7 @@
 1   1 `
     ]]>
   </level>
-  <level id="56">
+  <level id="56" GameType="Crossings">
     <![CDATA[
  33 2 `
 34  12`
@@ -540,7 +543,7 @@
 1   31`
     ]]>
   </level>
-  <level id="57">
+  <level id="57" GameType="Crossings">
     <![CDATA[
 1  2 2`
  4  32`
@@ -550,7 +553,7 @@
 12 1 2`
     ]]>
   </level>
-  <level id="58">
+  <level id="58" GameType="Crossings">
     <![CDATA[
   1 11`
 1 4 3 `
@@ -560,7 +563,7 @@
 2    2`
     ]]>
   </level>
-  <level id="59">
+  <level id="59" GameType="Crossings">
     <![CDATA[
 1 23  `
 1 3  3`
@@ -570,7 +573,7 @@
 1    2`
     ]]>
   </level>
-  <level id="60">
+  <level id="60" GameType="Crossings">
     <![CDATA[
  11  1`
 2    1`
@@ -580,7 +583,7 @@
 123 32`
     ]]>
   </level>
-  <level id="61">
+  <level id="61" GameType="Magnetic">
     <![CDATA[
 23    `
      2`
@@ -590,7 +593,7 @@
 2 3 11`
     ]]>
   </level>
-  <level id="62">
+  <level id="62" GameType="Magnetic">
     <![CDATA[
    2 1`
  2   1`
@@ -600,7 +603,7 @@
 2   2 `
     ]]>
   </level>
-  <level id="63">
+  <level id="63" GameType="Magnetic">
     <![CDATA[
  2    `
  3   1`
@@ -610,7 +613,7 @@
  3213 `
     ]]>
   </level>
-  <level id="64">
+  <level id="64" GameType="Magnetic">
     <![CDATA[
 2   1 `
  43431`
@@ -620,7 +623,7 @@
  2 1 1`
     ]]>
   </level>
-  <level id="65">
+  <level id="65" GameType="Magnetic">
     <![CDATA[
 1 23 2`
 24    `
@@ -630,7 +633,7 @@
     3 `
     ]]>
   </level>
-  <level id="66">
+  <level id="66" GameType="Magnetic">
     <![CDATA[
 11   2`
     23`
@@ -640,7 +643,7 @@
  3  2 `
     ]]>
   </level>
-  <level id="67">
+  <level id="67" GameType="Magnetic">
     <![CDATA[
 1 3   `
   2 1 `
@@ -650,7 +653,7 @@
 1 2   `
     ]]>
   </level>
-  <level id="68">
+  <level id="68" GameType="Magnetic">
     <![CDATA[
   2 11`
 13  3 `
@@ -660,7 +663,7 @@
  32   `
     ]]>
   </level>
-  <level id="69">
+  <level id="69" GameType="Magnetic">
     <![CDATA[
 2113 2`
      1`
@@ -670,7 +673,7 @@
      2`
     ]]>
   </level>
-  <level id="70">
+  <level id="70" GameType="Magnetic">
     <![CDATA[
 1     `
     2 `
@@ -680,7 +683,7 @@
 1 3 2 `
     ]]>
   </level>
-  <level id="71">
+  <level id="71" GameType="Magnetic">
     <![CDATA[
   12  `
 2  32 `
@@ -690,7 +693,7 @@
      2`
     ]]>
   </level>
-  <level id="72">
+  <level id="72" GameType="Magnetic">
     <![CDATA[
   1 2 `
  2 4 3`
@@ -700,7 +703,7 @@
 1     `
     ]]>
   </level>
-  <level id="73">
+  <level id="73" GameType="Magnetic">
     <![CDATA[
 232  1`
  2 3  `
@@ -710,7 +713,7 @@
  2   2`
     ]]>
   </level>
-  <level id="74">
+  <level id="74" GameType="Magnetic">
     <![CDATA[
 11    `
 23   3`
@@ -720,7 +723,7 @@
 2    2`
     ]]>
   </level>
-  <level id="75">
+  <level id="75" GameType="Magnetic">
     <![CDATA[
  3    `
 2    2`
@@ -950,7 +953,7 @@
   1    `
     ]]>
   </level>
-  <level id="96">
+  <level id="96" GameType="Crossings">
     <![CDATA[
 2    11`
 3    13`
@@ -961,7 +964,7 @@
 123    `
     ]]>
   </level>
-  <level id="97">
+  <level id="97" GameType="Crossings">
     <![CDATA[
 2  3   `
  2  13 `
@@ -972,7 +975,7 @@
    1231`
     ]]>
   </level>
-  <level id="98">
+  <level id="98" GameType="Crossings">
     <![CDATA[
 2 1 12 `
        `
@@ -983,7 +986,7 @@
 1 123  `
     ]]>
   </level>
-  <level id="99">
+  <level id="99" GameType="Crossings">
     <![CDATA[
 21 2 1 `
    2 1 `
@@ -994,7 +997,7 @@
   3231 `
     ]]>
   </level>
-  <level id="100">
+  <level id="100" GameType="Crossings">
     <![CDATA[
    3   `
 3  1  3`
@@ -1005,7 +1008,7 @@
  3    2`
     ]]>
   </level>
-  <level id="101">
+  <level id="101" GameType="Crossings">
     <![CDATA[
 12  332`
       3`
@@ -1016,7 +1019,7 @@
  1    1`
     ]]>
   </level>
-  <level id="102">
+  <level id="102" GameType="Crossings">
     <![CDATA[
   3  11`
  3     `
@@ -1027,7 +1030,7 @@
 1      `
     ]]>
   </level>
-  <level id="103">
+  <level id="103" GameType="Crossings">
     <![CDATA[
      12`
  23  1 `
@@ -1038,7 +1041,7 @@
 122 321`
     ]]>
   </level>
-  <level id="104">
+  <level id="104" GameType="Crossings">
     <![CDATA[
     1 2`
 23  4 3`
@@ -1049,7 +1052,7 @@
 11   31`
     ]]>
   </level>
-  <level id="105">
+  <level id="105" GameType="Crossings">
     <![CDATA[
  2 21 1`
 32 4  1`
@@ -1060,7 +1063,7 @@
 1    32`
     ]]>
   </level>
-  <level id="106">
+  <level id="106" GameType="Crossings">
     <![CDATA[
  33  1 `
    4 2 `
@@ -1071,7 +1074,7 @@
 11 1  1`
     ]]>
   </level>
-  <level id="107">
+  <level id="107" GameType="Crossings">
     <![CDATA[
 13     `
   43  2`
@@ -1082,7 +1085,7 @@
 13 1 21`
     ]]>
   </level>
-  <level id="108">
+  <level id="108" GameType="Crossings">
     <![CDATA[
  2 1  2`
       3`
@@ -1093,7 +1096,7 @@
 22     `
     ]]>
   </level>
-  <level id="109">
+  <level id="109" GameType="Crossings">
     <![CDATA[
 1   12 `
   4 43 `
@@ -1104,7 +1107,7 @@
 2   112`
     ]]>
   </level>
-  <level id="110">
+  <level id="110" GameType="Crossings">
     <![CDATA[
     131`
 2   2  `
@@ -1115,7 +1118,7 @@
    1 32`
     ]]>
   </level>
-  <level id="111">
+  <level id="111" GameType="Crossings">
     <![CDATA[
 1     1`
        `
@@ -1126,7 +1129,7 @@
  1   11`
     ]]>
   </level>
-  <level id="112">
+  <level id="112" GameType="Crossings">
     <![CDATA[
  2 1   `
 22 4 32`
@@ -1137,7 +1140,7 @@
 22 2   `
     ]]>
   </level>
-  <level id="113">
+  <level id="113" GameType="Crossings">
     <![CDATA[
 2    1 `
        `
@@ -1148,7 +1151,7 @@
     1 2`
     ]]>
   </level>
-  <level id="114">
+  <level id="114" GameType="Crossings">
     <![CDATA[
       1`
 1    1 `
@@ -1159,7 +1162,7 @@
 2 3 3 1`
     ]]>
   </level>
-  <level id="115">
+  <level id="115" GameType="Crossings">
     <![CDATA[
 231    `
 3    3 `
@@ -1170,7 +1173,7 @@
  1  3  `
     ]]>
   </level>
-  <level id="116">
+  <level id="116" GameType="Magnetic">
     <![CDATA[
 1    1 `
 11     `
@@ -1181,7 +1184,7 @@
  1  2 2`
     ]]>
   </level>
-  <level id="117">
+  <level id="117" GameType="Magnetic">
     <![CDATA[
  3  32 `
 1   223`
@@ -1192,7 +1195,7 @@
 2 23 2 `
     ]]>
   </level>
-  <level id="118">
+  <level id="118" GameType="Magnetic">
     <![CDATA[
      21`
 2   321`
@@ -1203,7 +1206,7 @@
 2      `
     ]]>
   </level>
-  <level id="119">
+  <level id="119" GameType="Magnetic">
     <![CDATA[
     2 1`
 2  3 2 `
@@ -1214,7 +1217,7 @@
   21 2 `
     ]]>
   </level>
-  <level id="120">
+  <level id="120" GameType="Magnetic">
     <![CDATA[
 1 223  `
   3  42`
@@ -1225,7 +1228,7 @@
  122 11`
     ]]>
   </level>
-  <level id="121">
+  <level id="121" GameType="Magnetic">
     <![CDATA[
 21   2 `
    3  3`
@@ -1236,7 +1239,7 @@
 23 232 `
     ]]>
   </level>
-  <level id="122">
+  <level id="122" GameType="Magnetic">
     <![CDATA[
 1   13 `
  2   42`
@@ -1247,7 +1250,7 @@
 1      `
     ]]>
   </level>
-  <level id="123">
+  <level id="123" GameType="Magnetic">
     <![CDATA[
 1  2   `
  2    1`
@@ -1258,7 +1261,7 @@
 12  3  `
     ]]>
   </level>
-  <level id="124">
+  <level id="124" GameType="Magnetic">
     <![CDATA[
 1     2`
 13     `
@@ -1269,7 +1272,7 @@
 231  1 `
     ]]>
   </level>
-  <level id="125">
+  <level id="125" GameType="Magnetic">
     <![CDATA[
 12    2`
   3   1`
@@ -1280,7 +1283,7 @@
    2 11`
     ]]>
   </level>
-  <level id="126">
+  <level id="126" GameType="Magnetic">
     <![CDATA[
  1 1   `
 1     3`
@@ -1291,7 +1294,7 @@
  31 23 `
     ]]>
   </level>
-  <level id="127">
+  <level id="127" GameType="Magnetic">
     <![CDATA[
 23   2 `
   2    `
@@ -1302,7 +1305,7 @@
   3   1`
     ]]>
   </level>
-  <level id="128">
+  <level id="128" GameType="Magnetic">
     <![CDATA[
 1 3  32`
     2  `
@@ -1313,7 +1316,7 @@
    13 2`
     ]]>
   </level>
-  <level id="129">
+  <level id="129" GameType="Magnetic">
     <![CDATA[
    211 `
 2 3  3 `
@@ -1324,7 +1327,7 @@
  12   2`
     ]]>
   </level>
-  <level id="130">
+  <level id="130" GameType="Magnetic">
     <![CDATA[
 212  32`
   43 43`
@@ -1335,7 +1338,7 @@
   1   2`
     ]]>
   </level>
-  <level id="131">
+  <level id="131" GameType="Magnetic">
     <![CDATA[
 2   1  `
    32 1`
@@ -1346,7 +1349,7 @@
     32 `
     ]]>
   </level>
-  <level id="132">
+  <level id="132" GameType="Magnetic">
     <![CDATA[
 2 2   2`
 1  3   `
@@ -1357,7 +1360,7 @@
 12   32`
     ]]>
   </level>
-  <level id="133">
+  <level id="133" GameType="Magnetic">
     <![CDATA[
 231 1  `
 1  2 3 `
@@ -1368,7 +1371,7 @@
    3 12`
     ]]>
   </level>
-  <level id="134">
+  <level id="134" GameType="Magnetic">
     <![CDATA[
 2   12 `
  32    `
@@ -1379,7 +1382,7 @@
 1    1 `
     ]]>
   </level>
-  <level id="135">
+  <level id="135" GameType="Magnetic">
     <![CDATA[
  2 2 1 `
 3      `
@@ -1630,7 +1633,7 @@
    1  3 `
     ]]>
   </level>
-  <level id="156">
+  <level id="156" GameType="Crossings">
     <![CDATA[
  3 13 3 `
 12  4   `
@@ -1642,7 +1645,7 @@
  1 3 2  `
     ]]>
   </level>
-  <level id="157">
+  <level id="157" GameType="Crossings">
     <![CDATA[
    1   1`
 1 2     `
@@ -1654,7 +1657,7 @@
 2111  22`
     ]]>
   </level>
-  <level id="158">
+  <level id="158" GameType="Crossings">
     <![CDATA[
       12`
 12    3 `
@@ -1666,7 +1669,7 @@
 1       `
     ]]>
   </level>
-  <level id="159">
+  <level id="159" GameType="Crossings">
     <![CDATA[
 1     32`
 134   4 `
@@ -1678,7 +1681,7 @@
   2   11`
     ]]>
   </level>
-  <level id="160">
+  <level id="160" GameType="Crossings">
     <![CDATA[
      231`
 33 2  42`
@@ -1690,7 +1693,7 @@
 2  11   `
     ]]>
   </level>
-  <level id="161">
+  <level id="161" GameType="Crossings">
     <![CDATA[
 11   322`
  2   4 3`
@@ -1702,7 +1705,7 @@
 223  2 1`
     ]]>
   </level>
-  <level id="162">
+  <level id="162" GameType="Crossings">
     <![CDATA[
 22 2323 `
       3 `
@@ -1714,7 +1717,7 @@
 23  1311`
     ]]>
   </level>
-  <level id="163">
+  <level id="163" GameType="Crossings">
     <![CDATA[
       2 `
  2     3`
@@ -1726,7 +1729,7 @@
 121   1 `
     ]]>
   </level>
-  <level id="164">
+  <level id="164" GameType="Crossings">
     <![CDATA[
  3      `
 333  3 2`
@@ -1738,7 +1741,7 @@
 1       `
     ]]>
   </level>
-  <level id="165">
+  <level id="165" GameType="Crossings">
     <![CDATA[
 1     12`
 1  34 33`
@@ -1750,7 +1753,7 @@
 1  1    `
     ]]>
   </level>
-  <level id="166">
+  <level id="166" GameType="Crossings">
     <![CDATA[
 13 13 3 `
 1 2     `
@@ -1762,7 +1765,7 @@
 21 21  1`
     ]]>
   </level>
-  <level id="167">
+  <level id="167" GameType="Crossings">
     <![CDATA[
  1    3 `
  1  2 2 `
@@ -1774,7 +1777,7 @@
 11  3 22`
     ]]>
   </level>
-  <level id="168">
+  <level id="168" GameType="Crossings">
     <![CDATA[
 121 1  2`
 3  4    `
@@ -1786,7 +1789,7 @@
  2     1`
     ]]>
   </level>
-  <level id="169">
+  <level id="169" GameType="Crossings">
     <![CDATA[
  2 133 1`
      2  `
@@ -1798,7 +1801,7 @@
 1       `
     ]]>
   </level>
-  <level id="170">
+  <level id="170" GameType="Crossings">
     <![CDATA[
       31`
 1433 3  `
@@ -1810,7 +1813,7 @@
 1       `
     ]]>
   </level>
-  <level id="171">
+  <level id="171" GameType="Crossings">
     <![CDATA[
   3     `
 2    31 `
@@ -1822,7 +1825,7 @@
     11  `
     ]]>
   </level>
-  <level id="172">
+  <level id="172" GameType="Crossings">
     <![CDATA[
 1 3 1 12`
   3   1 `
@@ -1834,7 +1837,7 @@
 133   3 `
     ]]>
   </level>
-  <level id="173">
+  <level id="173" GameType="Crossings">
     <![CDATA[
 2 32   2`
 3      3`
@@ -1846,7 +1849,7 @@
   3   1 `
     ]]>
   </level>
-  <level id="174">
+  <level id="174" GameType="Crossings">
     <![CDATA[
  1   222`
  1    11`
@@ -1858,7 +1861,7 @@
 13      `
     ]]>
   </level>
-  <level id="175">
+  <level id="175" GameType="Crossings">
     <![CDATA[
    1  3 `
 3 1 1 21`
@@ -1870,7 +1873,7 @@
  2      `
     ]]>
   </level>
-  <level id="176">
+  <level id="176" GameType="Magnetic">
     <![CDATA[
    23   `
 2 1   42`
@@ -1882,7 +1885,7 @@
 12 113  `
     ]]>
   </level>
-  <level id="177">
+  <level id="177" GameType="Magnetic">
     <![CDATA[
 2    2  `
 3      3`
@@ -1894,7 +1897,7 @@
  1     2`
     ]]>
   </level>
-  <level id="178">
+  <level id="178" GameType="Magnetic">
     <![CDATA[
  3    1 `
 2   2 1 `
@@ -1906,7 +1909,7 @@
      2 1`
     ]]>
   </level>
-  <level id="179">
+  <level id="179" GameType="Magnetic">
     <![CDATA[
  1 1 3  `
 23   211`
@@ -1918,7 +1921,7 @@
 1 3   2 `
     ]]>
   </level>
-  <level id="180">
+  <level id="180" GameType="Magnetic">
     <![CDATA[
  1     2`
 1 1 3  1`
@@ -1930,7 +1933,7 @@
 13  2   `
     ]]>
   </level>
-  <level id="181">
+  <level id="181" GameType="Magnetic">
     <![CDATA[
        2`
  1     3`
@@ -1942,7 +1945,7 @@
 1 131 3 `
     ]]>
   </level>
-  <level id="182">
+  <level id="182" GameType="Magnetic">
     <![CDATA[
 12  3   `
 1   2  1`
@@ -1954,7 +1957,7 @@
  2     1`
     ]]>
   </level>
-  <level id="183">
+  <level id="183" GameType="Magnetic">
     <![CDATA[
  1      `
       11`
@@ -1966,7 +1969,7 @@
 21    3 `
     ]]>
   </level>
-  <level id="184">
+  <level id="184" GameType="Magnetic">
     <![CDATA[
 1   3 2 `
  4 2    `
@@ -1978,7 +1981,7 @@
 211  12 `
     ]]>
   </level>
-  <level id="185">
+  <level id="185" GameType="Magnetic">
     <![CDATA[
  2  2  1`
 32  1 3 `
@@ -1990,7 +1993,7 @@
 12      `
     ]]>
   </level>
-  <level id="186">
+  <level id="186" GameType="Magnetic">
     <![CDATA[
 2 1 1  1`
       43`
@@ -2002,7 +2005,7 @@
   3     `
     ]]>
   </level>
-  <level id="187">
+  <level id="187" GameType="Magnetic">
     <![CDATA[
 23      `
 1   1  2`
@@ -2014,7 +2017,7 @@
    3 2  `
     ]]>
   </level>
-  <level id="188">
+  <level id="188" GameType="Magnetic">
     <![CDATA[
  2   23 `
 3  1  42`
@@ -2026,7 +2029,7 @@
 11   12 `
     ]]>
   </level>
-  <level id="189">
+  <level id="189" GameType="Magnetic">
     <![CDATA[
  11   31`
  1      `
@@ -2038,7 +2041,7 @@
  2    3 `
     ]]>
   </level>
-  <level id="190">
+  <level id="190" GameType="Magnetic">
     <![CDATA[
  21     `
 1  32  2`
@@ -2050,7 +2053,7 @@
 1    12 `
     ]]>
   </level>
-  <level id="191">
+  <level id="191" GameType="Magnetic">
     <![CDATA[
 2       `
 34  3 2 `
@@ -2062,7 +2065,7 @@
 1      1`
     ]]>
   </level>
-  <level id="192">
+  <level id="192" GameType="Magnetic">
     <![CDATA[
   12 3  `
 23     1`
@@ -2074,7 +2077,7 @@
 1 3 1 12`
     ]]>
   </level>
-  <level id="193">
+  <level id="193" GameType="Magnetic">
     <![CDATA[
  22    1`
 34     1`
@@ -2086,7 +2089,7 @@
 11 2    `
     ]]>
   </level>
-  <level id="194">
+  <level id="194" GameType="Magnetic">
     <![CDATA[
  2      `
  3    1 `
@@ -2098,7 +2101,7 @@
       31`
     ]]>
   </level>
-  <level id="195">
+  <level id="195" GameType="Magnetic">
     <![CDATA[
 1   3   `
    2  12`
@@ -2370,7 +2373,7 @@
  22 1   1`
     ]]>
   </level>
-  <level id="216">
+  <level id="216" GameType="Magnetic">
     <![CDATA[
      1  1`
 3 23   13`
@@ -2383,7 +2386,7 @@
 23  2   1`
     ]]>
   </level>
-  <level id="217">
+  <level id="217" GameType="Magnetic">
     <![CDATA[
   2 2    `
 3      32`
@@ -2396,7 +2399,7 @@
 13  12 32`
     ]]>
   </level>
-  <level id="218">
+  <level id="218" GameType="Magnetic">
     <![CDATA[
 1        `
   3  2 32`
@@ -2409,7 +2412,7 @@
 11 3     `
     ]]>
   </level>
-  <level id="219">
+  <level id="219" GameType="Magnetic">
     <![CDATA[
   2   12 `
 3    2 1 `
@@ -2422,7 +2425,7 @@
 211323211`
     ]]>
   </level>
-  <level id="220">
+  <level id="220" GameType="Magnetic">
     <![CDATA[
 112   22 `
 3 4      `
@@ -2435,7 +2438,7 @@
   1 23 12`
     ]]>
   </level>
-  <level id="221">
+  <level id="221" GameType="Magnetic">
     <![CDATA[
 1  3  21 `
  2  22312`
@@ -2448,7 +2451,7 @@
 11   3   `
     ]]>
   </level>
-  <level id="222">
+  <level id="222" GameType="Magnetic">
     <![CDATA[
  22321  2`
 343 1  31`
@@ -2461,7 +2464,7 @@
  11 2   1`
     ]]>
   </level>
-  <level id="223">
+  <level id="223" GameType="Magnetic">
     <![CDATA[
 11   1  1`
 24      2`
@@ -2474,7 +2477,7 @@
 11     21`
     ]]>
   </level>
-  <level id="224">
+  <level id="224" GameType="Magnetic">
     <![CDATA[
 113  2 3 `
  1       `
@@ -2487,7 +2490,7 @@
 2      12`
     ]]>
   </level>
-  <level id="225">
+  <level id="225" GameType="Magnetic">
     <![CDATA[
  2 11  2 `
         3`
@@ -2500,7 +2503,7 @@
    3 22  `
     ]]>
   </level>
-  <level id="226">
+  <level id="226" GameType="Magnetic">
     <![CDATA[
 2        `
 1   12 21`
@@ -2513,7 +2516,7 @@
  1  2 3  `
     ]]>
   </level>
-  <level id="227">
+  <level id="227" GameType="Magnetic">
     <![CDATA[
  1      2`
 13    3 1`
@@ -2526,7 +2529,7 @@
 132   2  `
     ]]>
   </level>
-  <level id="228">
+  <level id="228" GameType="Magnetic">
     <![CDATA[
 21   1 12`
  123 3  3`
@@ -2539,7 +2542,7 @@
 21  2  2 `
     ]]>
   </level>
-  <level id="229">
+  <level id="229" GameType="Magnetic">
     <![CDATA[
   2321121`
  1 4     `
@@ -2552,7 +2555,7 @@
   3  2 2 `
     ]]>
   </level>
-  <level id="230">
+  <level id="230" GameType="Magnetic">
     <![CDATA[
  11   23 `
 2     242`
@@ -2565,7 +2568,7 @@
  12 1 31 `
     ]]>
   </level>
-  <level id="231">
+  <level id="231" GameType="Magnetic">
     <![CDATA[
  2 13  12`
  3 2 1 2 `
@@ -2578,7 +2581,7 @@
  2  1  21`
     ]]>
   </level>
-  <level id="232">
+  <level id="232" GameType="Magnetic">
     <![CDATA[
  2  32 1 `
 1 1     2`
@@ -2591,7 +2594,7 @@
 1 2  2  1`
     ]]>
   </level>
-  <level id="233">
+  <level id="233" GameType="Magnetic">
     <![CDATA[
 1  11   1`
      2323`
@@ -2604,7 +2607,7 @@
  2       `
     ]]>
   </level>
-  <level id="234">
+  <level id="234" GameType="Magnetic">
     <![CDATA[
  23  2 31`
 3        `
@@ -2617,7 +2620,7 @@
 1   1   1`
     ]]>
   </level>
-  <level id="235">
+  <level id="235" GameType="Magnetic">
     <![CDATA[
 2    1  1`
  3       `
@@ -2980,7 +2983,7 @@
    1 21   `
     ]]>
   </level>
-  <level id="261">
+  <level id="261" GameType="Magnetic">
     <![CDATA[
  1 232   1`
   4  22   `
@@ -2994,7 +2997,7 @@
 2  2 3  2 `
     ]]>
   </level>
-  <level id="262">
+  <level id="262" GameType="Magnetic">
     <![CDATA[
  2   1 2  `
  1 3 2 423`
@@ -3008,7 +3011,7 @@
     1   31`
     ]]>
   </level>
-  <level id="263">
+  <level id="263" GameType="Magnetic">
     <![CDATA[
 23   2 1 2`
           `
@@ -3022,7 +3025,7 @@
 2  2 3  2 `
     ]]>
   </level>
-  <level id="264">
+  <level id="264" GameType="Magnetic">
     <![CDATA[
  1  2 112 `
 2342  43  `
@@ -3036,7 +3039,7 @@
 1   1 1232`
     ]]>
   </level>
-  <level id="265">
+  <level id="265" GameType="Magnetic">
     <![CDATA[
 23 2121  1`
 32      32`
@@ -3050,7 +3053,7 @@
  2  2 1  1`
     ]]>
   </level>
-  <level id="266">
+  <level id="266" GameType="Magnetic">
     <![CDATA[
   1 23 121`
 3     4   `
@@ -3064,7 +3067,7 @@
    3     2`
     ]]>
   </level>
-  <level id="267">
+  <level id="267" GameType="Magnetic">
     <![CDATA[
 1 2  2 1  `
 2    3   3`
@@ -3078,7 +3081,7 @@
 1      3  `
     ]]>
   </level>
-  <level id="268">
+  <level id="268" GameType="Magnetic">
     <![CDATA[
 11  23    `
 2   22  11`
@@ -3092,7 +3095,7 @@
        232`
     ]]>
   </level>
-  <level id="269">
+  <level id="269" GameType="Magnetic">
     <![CDATA[
  21  13  1`
 1 23 1    `
@@ -3106,7 +3109,7 @@
  2    13 2`
     ]]>
   </level>
-  <level id="270">
+  <level id="270" GameType="Magnetic">
     <![CDATA[
 1    2  21`
 2  32 4 3 `
@@ -3120,7 +3123,7 @@
  3  1  2 1`
     ]]>
   </level>
-  <level id="271">
+  <level id="271" GameType="Magnetic">
     <![CDATA[
  22 3   2 `
 34     4  `
@@ -3134,7 +3137,7 @@
  1   21 21`
     ]]>
   </level>
-  <level id="272">
+  <level id="272" GameType="Magnetic">
     <![CDATA[
 23        `
  41     3 `
@@ -3148,7 +3151,7 @@
  1 3  2   `
     ]]>
   </level>
-  <level id="273">
+  <level id="273" GameType="Magnetic">
     <![CDATA[
 2 23  2   `
  11 2 4 2 `
@@ -3162,7 +3165,7 @@
  12 1   21`
     ]]>
   </level>
-  <level id="274">
+  <level id="274" GameType="Magnetic">
     <![CDATA[
 21  32 31 `
 3      1  `
@@ -3176,7 +3179,7 @@
 1         `
     ]]>
   </level>
-  <level id="275">
+  <level id="275" GameType="Magnetic">
     <![CDATA[
 1 23  1 1 `
   34    31`
@@ -3190,7 +3193,7 @@
  32  2  31`
     ]]>
   </level>
-  <level id="276">
+  <level id="276" GameType="Magnetic">
     <![CDATA[
  3 2   321`
 1   4 34  `
@@ -3204,7 +3207,7 @@
 11  123   `
     ]]>
   </level>
-  <level id="277">
+  <level id="277" GameType="Magnetic">
     <![CDATA[
 13     2 1`
 1   1  3 1`
@@ -3218,7 +3221,7 @@
    2     2`
     ]]>
   </level>
-  <level id="278">
+  <level id="278" GameType="Magnetic">
     <![CDATA[
 1 1113    `
 1  322  31`
@@ -3232,7 +3235,7 @@
  2     1 2`
     ]]>
   </level>
-  <level id="279">
+  <level id="279" GameType="Magnetic">
     <![CDATA[
 23     1 2`
     1     `
@@ -3246,7 +3249,7 @@
 1    3  21`
     ]]>
   </level>
-  <level id="280">
+  <level id="280" GameType="Magnetic">
     <![CDATA[
  12  1  2 `
 12    24 3`
@@ -3260,7 +3263,7 @@
  3  1   2 `
     ]]>
   </level>
-  <level id="281">
+  <level id="281" GameType="Magnetic">
     <![CDATA[
 12321  211`
     43 4  `
@@ -3274,7 +3277,7 @@
 23 2 32  1`
     ]]>
   </level>
-  <level id="282">
+  <level id="282" GameType="Magnetic">
     <![CDATA[
 2    2 132`
 13 3    23`
@@ -3288,7 +3291,7 @@
 2 31    12`
     ]]>
   </level>
-  <level id="283">
+  <level id="283" GameType="Magnetic">
     <![CDATA[
 13      1 `
 1    3   2`
@@ -3302,7 +3305,7 @@
   2  2   2`
     ]]>
   </level>
-  <level id="284">
+  <level id="284" GameType="Magnetic">
     <![CDATA[
 2 1 1   11`
 3432    13`
@@ -3316,7 +3319,7 @@
 12 2     1`
     ]]>
   </level>
-  <level id="285">
+  <level id="285" GameType="Magnetic">
     <![CDATA[
  1  1   21`
 123    431`
@@ -3330,7 +3333,7 @@
 11    12 1`
     ]]>
   </level>
-  <level id="286">
+  <level id="286" GameType="Magnetic">
     <![CDATA[
 1     3   `
 1    2   2`
@@ -3344,7 +3347,7 @@
  1  3 2 11`
     ]]>
   </level>
-  <level id="287">
+  <level id="287" GameType="Magnetic">
     <![CDATA[
 11  232 3 `
 2    2   2`
@@ -3358,7 +3361,7 @@
 11  2  132`
     ]]>
   </level>
-  <level id="288">
+  <level id="288" GameType="Magnetic">
     <![CDATA[
 11   32 12`
     2 4   `
@@ -3372,7 +3375,7 @@
     2 2211`
     ]]>
   </level>
-  <level id="289">
+  <level id="289" GameType="Magnetic">
     <![CDATA[
  1112   21`
   2 4 3  1`
@@ -3386,7 +3389,7 @@
  3        `
     ]]>
   </level>
-  <level id="290">
+  <level id="290" GameType="Magnetic">
     <![CDATA[
 2 1     21`
 1342    3 `
@@ -3400,7 +3403,7 @@
  21  3 21 `
     ]]>
   </level>
-  <level id="291">
+  <level id="291" GameType="Magnetic">
     <![CDATA[
         3 `
  3    12  `
@@ -3414,7 +3417,7 @@
 23   2  21`
     ]]>
   </level>
-  <level id="292">
+  <level id="292" GameType="Magnetic">
     <![CDATA[
 1    2    `
 1   4   21`
@@ -3428,7 +3431,7 @@
 1 1  1  11`
     ]]>
   </level>
-  <level id="293">
+  <level id="293" GameType="Magnetic">
     <![CDATA[
   32    31`
 234       `
@@ -3442,7 +3445,7 @@
 12  2  1 1`
     ]]>
   </level>
-  <level id="294">
+  <level id="294" GameType="Magnetic">
     <![CDATA[
  211    2 `
 23232   31`
@@ -3456,7 +3459,7 @@
 12  1   3 `
     ]]>
   </level>
-  <level id="295">
+  <level id="295" GameType="Magnetic">
     <![CDATA[
     2 2 2 `
 24 2 1    `
@@ -3470,7 +3473,7 @@
 2       32`
     ]]>
   </level>
-  <level id="296">
+  <level id="296" GameType="Magnetic">
     <![CDATA[
 21      12`
 3   3     `
@@ -3484,7 +3487,7 @@
 2 1  1 21 `
     ]]>
   </level>
-  <level id="297">
+  <level id="297" GameType="Magnetic">
     <![CDATA[
 112  21 1 `
   4     3 `
@@ -3498,7 +3501,7 @@
    232  11`
     ]]>
   </level>
-  <level id="298">
+  <level id="298" GameType="Magnetic">
     <![CDATA[
 2   12 321`
 11      3 `
@@ -3512,7 +3515,7 @@
  1 2  2  1`
     ]]>
   </level>
-  <level id="299">
+  <level id="299" GameType="Magnetic">
     <![CDATA[
 212   111 `
 3   34 312`
@@ -3526,7 +3529,7 @@
 2 1   2  1`
     ]]>
   </level>
-  <level id="300">
+  <level id="300" GameType="Magnetic">
     <![CDATA[
    3    2 `
 1 4   1 4 `

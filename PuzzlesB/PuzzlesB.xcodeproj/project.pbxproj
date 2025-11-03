@@ -122,7 +122,6 @@
 		8CA23FD71EB479280055D6B1 /* BWTapa.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BWTapa.xml; sourceTree = "<group>"; };
 		8CB721BC2EAAD592001B25C5 /* PuzzlesB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = PuzzlesB; path = /Users/zwvista/Documents/Programs/Games/PSL/PuzzlesB/build/Debug/PuzzlesB; sourceTree = "<absolute>"; };
 		95804A382544CA720022AF35 /* BentBridges.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = BentBridges.txt; sourceTree = "<group>"; };
-		95804A392544CA720022AF35 /* BentBridges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BentBridges.h; sourceTree = "<group>"; };
 		95804A3A2544CA720022AF35 /* BentBridges.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BentBridges.cpp; sourceTree = "<group>"; };
 		95804A3B2544CA720022AF35 /* BentBridges.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BentBridges.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,7 +175,6 @@
 				8CA23FB31EB479280055D6B1 /* BattleShips.cpp */,
 				8CA23FB41EB479280055D6B1 /* BattleShips.txt */,
 				8CA23FB51EB479280055D6B1 /* BattleShips.xml */,
-				95804A392544CA720022AF35 /* BentBridges.h */,
 				95804A3A2544CA720022AF35 /* BentBridges.cpp */,
 				95804A382544CA720022AF35 /* BentBridges.txt */,
 				95804A3B2544CA720022AF35 /* BentBridges.xml */,
