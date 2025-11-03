@@ -84,9 +84,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Puzzles\BentBridges.h">
-      <Filter>Puzzles</Filter>
-    </ClInclude>
     <ClInclude Include="Puzzles\Bridges\Bridges.h">
       <Filter>Puzzles\Bridges</Filter>
     </ClInclude>

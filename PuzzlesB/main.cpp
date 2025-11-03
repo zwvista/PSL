@@ -1,12 +1,12 @@
 #include "stdafx.h"
 
 #include "PSLhelper.h"
-#include "Puzzles/BentBridges.h"
 #include "Puzzles/Bridges/Bridges.h"
 
 extern void solve_puz_Banquet();
 extern void solve_puz_BalancedTapas();
 extern void solve_puz_BattleShips();
+extern void solve_puz_BentBridges();
 extern void solve_puz_bloxorz();
 extern void solve_puz_BootyIsland();
 extern void solve_puz_BotanicalPark();

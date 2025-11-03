@@ -2,9 +2,30 @@
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
-#include "BentBridges.h"
+
+/*
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/BentBridges
+
+    Summary
+    One turn at most
+
+    Description
+    1. Connect all the islands together with bridges.
+    2. You should be able to go from any island to any other island in the end.
+    3. The number on the island tells you how many bridges connect to that island.
+    4. A bridge can turn once by 90 degrees between islands.
+    5. Bridges cannot cross each other.
+*/
 
 namespace puzzles::BentBridges{
+    
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ISLAND = 'N';
+constexpr auto PUZ_BRIDGE = '.';
+constexpr auto PUZ_HORZ = '-';
+constexpr auto PUZ_VERT = '|';
+
+constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_bridge {
     vector<pair<Position, char>> m_rng;
