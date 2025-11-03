@@ -170,7 +170,7 @@ bool puz_state::check_loop() const
     while (!rng.empty()) {
         auto it = boost::find_if(rng, [&](auto& kv) {
             return kv.second != lineseg_cross;
-            });
+        });
         if (it == rng.end()) return true;
         auto p = it->first, p2 = p;
         for (int n = -1;;) {
