@@ -42,6 +42,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
+    string m_game_type;
     map<Position, int> m_pos2num;
     string m_cells;
     vector<puz_bridge> m_bridges;
@@ -54,6 +55,7 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
+, m_game_type(level.attribute("GameType").as_string(""))
 {
     int sz = strs.size();
     m_sidelen = sz * 2 - 1;
@@ -79,9 +81,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p1, n1] : m_pos2num)
         for (auto& [p2, n2] : m_pos2num) {
             if (p1 >= p2) continue;
+            // 7. Magnetic: islands with the same number cannot have a bridge between themselves.
+            if (m_game_type == "Magnetic" && n1 == n2)
+                continue;
             puz_bridge b;
 
-            auto f = [&, p1 = p1, p2 = p2](const Position& p3, const Position& p4, const Position& os, char ch_hv) {
+            auto f = [&](const Position& p3, const Position& p4, const Position& os, char ch_hv) {
                 if (p1 == p3)
                     b.m_rng.clear();
                 for (auto p = p3; p != p4;) {
@@ -161,24 +166,29 @@ int puz_state::find_matches(bool init)
 {
     int n = 2;
     for (auto& [p, bridge_ids] : m_matches) {
-        auto f = [&](int id) {
-            auto& b = m_game->m_bridges[id];
+        auto f = [&](const puz_bridge& b, int id) {
             boost::remove_erase(m_matches[b.m_p1], id);
             boost::remove_erase(m_matches[b.m_p2], id);
             n = 1;
         };
 
         for (int id : bridge_ids)
-            if (boost::algorithm::any_of(m_game->m_bridges[id].m_rng, [&](const pair<Position, char>& kv) {
-                return cells(kv.first) != PUZ_SPACE;
+            if (auto& b = m_game->m_bridges[id];
+                boost::algorithm::any_of(b.m_rng, [&](const pair<Position, char>& kv) {
+                auto& p2 = kv.first;
+                // 6. Crossing: bridges can cross each other, but cannot turn at the intersection.
+                return cells(p2) != PUZ_SPACE && !(m_game->m_game_type == "Crossings" && 
+                p2.first % 2 == 0 && p2.second % 2 == 0 && p2 != b.m_p_bent);
             }))
-                f(id);
+                f(b, id);
 
         if (!init) {
             int sz = bridge_ids.size(), sz2 = m_moves[p].size(), sz3 = m_game->m_pos2num.at(p);
             if (sz2 == sz3)
-                while (!bridge_ids.empty())
-                    f(bridge_ids[0]);
+                while (!bridge_ids.empty()) {
+                    int id = bridge_ids.front();
+                    f(m_game->m_bridges[id], id);
+                }
             else if (sz + sz2 < sz3)
                 return 0;
         }
