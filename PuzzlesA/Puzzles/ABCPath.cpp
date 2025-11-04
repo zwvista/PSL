@@ -19,7 +19,7 @@ constexpr auto PUZ_SPACE = ' ';
 
 constexpr array<Position, 8> offset = Position::Directions8;
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;

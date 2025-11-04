@@ -54,7 +54,7 @@ const puz_ship_info ship_info[] = {
     {{"<+++>", "^+++v"}, {".......", ".     .", "......."}},
 };
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;

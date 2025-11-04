@@ -33,7 +33,7 @@ struct puz_numbers : set<char>
     }
 };
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;

@@ -67,7 +67,7 @@ struct puz_area_info
     vector<vector<pair<int, int>>> m_perms;
 };
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;

@@ -34,7 +34,7 @@ struct puz_water
     map<int, int> m_area2num;
 };
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;

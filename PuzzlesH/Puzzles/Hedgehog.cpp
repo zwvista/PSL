@@ -110,7 +110,7 @@ enum class puz_game_type
     ENCHANTED_FOREST,
 };
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;

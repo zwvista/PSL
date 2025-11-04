@@ -36,7 +36,7 @@ struct puz_area_info
     vector<string> m_perms;
 };
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;

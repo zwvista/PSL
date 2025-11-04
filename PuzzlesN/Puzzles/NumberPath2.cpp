@@ -18,7 +18,7 @@ namespace puzzles::NumberPath2{
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;

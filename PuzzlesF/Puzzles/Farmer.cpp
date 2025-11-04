@@ -24,7 +24,7 @@ constexpr array<Position, 4> offset = Position::Directions4;
 
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
-struct puz_game    
+struct puz_game
 {
     string m_id;
     int m_sidelen;
