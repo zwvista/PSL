@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7D2AD5F32E93B1EB00917317 /* HiddenPathGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D2AD5F02E93B1EB00917317 /* HiddenPathGen.cpp */; };
-		7D2AD5F42E93B1EB00917317 /* HiddenPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D2AD5ED2E93B1EB00917317 /* HiddenPath.cpp */; };
 		8C689C842DF6482600A2BCCC /* HiddenClouds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C812DF6482600A2BCCC /* HiddenClouds.cpp */; };
 		8C689D122E05134F00A2BCCC /* Hexotris.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D0F2E05134F00A2BCCC /* Hexotris.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
@@ -26,6 +24,8 @@
 		8CA240641EB47A180055D6B1 /* hrd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240591EB47A180055D6B1 /* hrd.cpp */; };
 		8CB722322EAFA01A001B25C5 /* HolidayIsland3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB722312EAFA01A001B25C5 /* HolidayIsland3.cpp */; };
 		8CB722332EAFA01A001B25C5 /* HolidayIsland2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB722302EAFA01A001B25C5 /* HolidayIsland2.cpp */; };
+		8CB722402EBA006E001B25C5 /* HiddenPathGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB7223E2EBA006E001B25C5 /* HiddenPathGen.cpp */; };
+		8CB722412EBA006E001B25C5 /* HiddenPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB7223B2EBA006E001B25C5 /* HiddenPath.cpp */; };
 		958FA645232CB1C100205831 /* HeliumAndIron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA643232CB1C100205831 /* HeliumAndIron.cpp */; };
 /* End PBXBuildFile section */
 
@@ -42,12 +42,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7D2AD5EC2E93B1EB00917317 /* HiddenPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiddenPath.h; sourceTree = "<group>"; };
-		7D2AD5ED2E93B1EB00917317 /* HiddenPath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HiddenPath.cpp; sourceTree = "<group>"; };
-		7D2AD5EE2E93B1EB00917317 /* HiddenPath.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = HiddenPath.txt; sourceTree = "<group>"; };
-		7D2AD5EF2E93B1EB00917317 /* HiddenPath.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HiddenPath.xml; sourceTree = "<group>"; };
-		7D2AD5F02E93B1EB00917317 /* HiddenPathGen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HiddenPathGen.cpp; sourceTree = "<group>"; };
-		7D2AD5F12E93B1EB00917317 /* HiddenPathGen.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HiddenPathGen.xml; sourceTree = "<group>"; };
 		7D59945E2E66F1FC00BBE136 /* BoostSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BoostSettings.xcconfig; path = ../BoostSettings.xcconfig; sourceTree = SOURCE_ROOT; };
 		8C5F12972DE3789100BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12982DE3789100BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
@@ -111,6 +105,11 @@
 		8CA2405B1EB47A180055D6B1 /* hrd.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = hrd.xml; sourceTree = "<group>"; };
 		8CB722302EAFA01A001B25C5 /* HolidayIsland2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HolidayIsland2.cpp; sourceTree = "<group>"; };
 		8CB722312EAFA01A001B25C5 /* HolidayIsland3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HolidayIsland3.cpp; sourceTree = "<group>"; };
+		8CB7223B2EBA006E001B25C5 /* HiddenPath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HiddenPath.cpp; sourceTree = "<group>"; };
+		8CB7223C2EBA006E001B25C5 /* HiddenPath.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = HiddenPath.txt; sourceTree = "<group>"; };
+		8CB7223D2EBA006E001B25C5 /* HiddenPath.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HiddenPath.xml; sourceTree = "<group>"; };
+		8CB7223E2EBA006E001B25C5 /* HiddenPathGen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HiddenPathGen.cpp; sourceTree = "<group>"; };
+		8CB7223F2EBA006E001B25C5 /* HiddenPathGen.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HiddenPathGen.xml; sourceTree = "<group>"; };
 		958FA642232CB1C100205831 /* HeliumAndIron.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HeliumAndIron.xml; sourceTree = "<group>"; };
 		958FA643232CB1C100205831 /* HeliumAndIron.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeliumAndIron.cpp; sourceTree = "<group>"; };
 		958FA644232CB1C100205831 /* HeliumAndIron.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeliumAndIron.txt; sourceTree = "<group>"; };
@@ -127,19 +126,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7D2AD5F22E93B1EB00917317 /* HiddenPath */ = {
-			isa = PBXGroup;
-			children = (
-				7D2AD5EC2E93B1EB00917317 /* HiddenPath.h */,
-				7D2AD5ED2E93B1EB00917317 /* HiddenPath.cpp */,
-				7D2AD5EE2E93B1EB00917317 /* HiddenPath.txt */,
-				7D2AD5EF2E93B1EB00917317 /* HiddenPath.xml */,
-				7D2AD5F02E93B1EB00917317 /* HiddenPathGen.cpp */,
-				7D2AD5F12E93B1EB00917317 /* HiddenPathGen.xml */,
-			);
-			path = HiddenPath;
-			sourceTree = "<group>";
-		};
 		8CA23EBB1EA9233C0055D6B1 = {
 			isa = PBXGroup;
 			children = (
@@ -181,7 +167,11 @@
 				8C689C812DF6482600A2BCCC /* HiddenClouds.cpp */,
 				8C689C822DF6482600A2BCCC /* HiddenClouds.txt */,
 				8C689C832DF6482600A2BCCC /* HiddenClouds.xml */,
-				7D2AD5F22E93B1EB00917317 /* HiddenPath */,
+				8CB7223B2EBA006E001B25C5 /* HiddenPath.cpp */,
+				8CB7223C2EBA006E001B25C5 /* HiddenPath.txt */,
+				8CB7223D2EBA006E001B25C5 /* HiddenPath.xml */,
+				8CB7223E2EBA006E001B25C5 /* HiddenPathGen.cpp */,
+				8CB7223F2EBA006E001B25C5 /* HiddenPathGen.xml */,
 				8CA240491EB47A180055D6B1 /* HiddenStars.cpp */,
 				8CA2404A1EB47A180055D6B1 /* HiddenStars.txt */,
 				8CA2404B1EB47A180055D6B1 /* HiddenStars.xml */,
@@ -315,9 +305,9 @@
 				8CB722332EAFA01A001B25C5 /* HolidayIsland2.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				958FA645232CB1C100205831 /* HeliumAndIron.cpp in Sources */,
-				7D2AD5F32E93B1EB00917317 /* HiddenPathGen.cpp in Sources */,
-				7D2AD5F42E93B1EB00917317 /* HiddenPath.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
+				8CB722402EBA006E001B25C5 /* HiddenPathGen.cpp in Sources */,
+				8CB722412EBA006E001B25C5 /* HiddenPath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
