@@ -46,7 +46,7 @@ struct puz_game
     map<Position, int> m_pos2num;
     string m_cells;
     vector<puz_bridge> m_bridges;
-    map<Position, vector<int>> m_pos2indexes;
+    map<Position, vector<int>> m_pos2bridge_ids;
     int m_bridge_count = 0;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -98,9 +98,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         return false;
                 }
                 if (p2 == p4) {
-                    int sz = m_bridges.size();
-                    m_pos2indexes[b.m_p1 = p1].push_back(sz);
-                    m_pos2indexes[b.m_p2 = p2].push_back(sz);
+                    int n = m_bridges.size();
+                    m_pos2bridge_ids[b.m_p1 = p1].push_back(n);
+                    m_pos2bridge_ids[b.m_p2 = p2].push_back(n);
                     b.m_is_bent = p1 != p3;
                     b.m_p_bent = b.m_is_bent ? p3 : Position(-1, -1);
                     m_bridges.push_back(b);
@@ -131,7 +131,7 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
-    bool make_move2(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
     bool is_interconnected() const;
 
@@ -155,10 +155,10 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_cells), m_matches(g.m_pos2indexes)
+: m_game(&g), m_cells(g.m_cells), m_matches(g.m_pos2bridge_ids)
 {
-    for (auto& [k, v] : g.m_pos2indexes)
-        m_moves[k];
+    for (auto& [p, _1] : g.m_pos2bridge_ids)
+        m_moves[p];
     find_matches(true);
 }
 
@@ -193,7 +193,7 @@ int puz_state::find_matches(bool init)
                 return 0;
         }
     }
-    return n;
+    return n != 2 ? n: is_interconnected() ? 2 : 0;
 }
 
 struct puz_state2 : Position
@@ -210,9 +210,14 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    auto f = [&](const vector<int>& indexes) {
-        for (int i : indexes)
-            children.emplace_back(*this).make_move(m_state->m_game->m_bridges[i].m_p2);
+    auto f = [&](const vector<int>& ids) {
+        for (int id : ids) {
+            auto& b = m_state->m_game->m_bridges[id];
+            if (b.m_p1 == *this)
+                children.emplace_back(*this).make_move(b.m_p2);
+            else if (b.m_p2 == *this)
+                children.emplace_back(*this).make_move(b.m_p1);
+        }
     };
     f(m_state->m_matches.at(*this));
     f(m_state->m_moves.at(*this));
@@ -221,10 +226,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 bool puz_state::is_interconnected() const
 {
     auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
-    return smoves.size() == m_game->m_pos2indexes.size();
+    return smoves.size() == m_game->m_pos2bridge_ids.size();
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(const Position& p, int n)
 {
     auto& b = m_game->m_bridges[n];
     for (auto& [p2, ch] : b.m_rng)
@@ -235,8 +240,6 @@ bool puz_state::make_move2(const Position& p, int n)
     boost::remove_erase(m_matches[b.m_p2], n);
     m_moves[b.m_p2].push_back(n);
     m_distance += 2;
-
-    return is_interconnected();
 }
 
 bool puz_state::make_move(const Position& p, int n)
