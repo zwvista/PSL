@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "PSLhelper.h"
-#include "Puzzles/Bridges/Bridges.h"
 
 extern void solve_puz_Banquet();
 extern void solve_puz_BalancedTapas();
@@ -15,6 +14,8 @@ extern void solve_puz_BoxItAround();
 extern void solve_puz_BoxItUp();
 extern void solve_puz_Branches();
 extern void solve_puz_Branches2();
+extern void solve_puz_Bridges();
+extern void gen_puz_Bridges();
 extern void solve_puz_BusySeas();
 extern void solve_puz_BWTapa();
 

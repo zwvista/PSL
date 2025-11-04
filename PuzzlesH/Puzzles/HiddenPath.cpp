@@ -1,12 +1,29 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "solve_puzzle.h"
-#include "HiddenPath.h"
 
+/*
+    iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path
+
+    Summary
+    Jump once on every tile, following the arrows
+
+    Description
+    Starting at the tile number 1, reach the last tile by jumping from tile to tile.
+    1. When jumping from a tile, you have to follow the direction of the arrow and
+       land on a tile in that direction
+    2. Although you have to follow the direction of the arrow, you can land on any
+       tile in that direction, not just the one next to the current tile.
+    3. The goal is to jump on every tile, only once and reach the last tile.
+*/
 
 namespace puzzles::HiddenPath{
 
-struct puz_game    
+constexpr auto PUZ_UNKNOWN = 0;
+
+constexpr array<Position, 8> offset = Position::Directions8;
+
+struct puz_game
 {
     string m_id;
     int m_sidelen;

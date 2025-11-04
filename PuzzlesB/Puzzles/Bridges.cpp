@@ -2,9 +2,36 @@
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
 #include "solve_puzzle.h"
-#include "Bridges.h"
+
+/*
+    iOS Game: 100 Logic Games/Puzzle Set 7/Bridges
+
+    Summary
+    Enough Sudoku, let's build!
+
+    Description
+    1. The board represents a Sea with some islands on it.
+    2. You must connect all the islands with Bridges, making sure every
+       island is connected to each other with a Bridges path.
+    3. The number on each island tells you how many Bridges are touching
+       that island.
+    4. Bridges can only run horizontally or vertically and can't cross
+       each other.
+    5. Lastly, you can connect two islands with either one or two Bridges
+       (or none, of course)
+*/
 
 namespace puzzles::Bridges{
+
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_ISLAND = 'N';
+constexpr auto PUZ_HORZ_1 = '-';
+constexpr auto PUZ_VERT_1 = '|';
+constexpr auto PUZ_HORZ_2 = '=';
+constexpr auto PUZ_VERT_2 = 'H';
+constexpr auto PUZ_BOUNDARY = '`';
+
+constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_game
 {

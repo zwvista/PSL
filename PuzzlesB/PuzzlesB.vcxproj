@@ -176,13 +176,12 @@
     <Text Include="Puzzles\BoxItUp.txt" />
     <Text Include="Puzzles\Branches.txt" />
     <Text Include="Puzzles\Branches2.txt" />
-    <Text Include="Puzzles\Bridges\Bridges.txt" />
+    <Text Include="Puzzles\Bridges.txt" />
     <Text Include="Puzzles\BusySeas.txt" />
     <Text Include="Puzzles\BWTapa.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Puzzles\Bridges\Bridges.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -207,8 +206,8 @@
     <ClCompile Include="Puzzles\BoxItUp.cpp" />
     <ClCompile Include="Puzzles\Branches.cpp" />
     <ClCompile Include="Puzzles\Branches2.cpp" />
-    <ClCompile Include="Puzzles\Bridges\Bridges.cpp" />
-    <ClCompile Include="Puzzles\Bridges\BridgesGen.cpp" />
+    <ClCompile Include="Puzzles\Bridges.cpp" />
+    <ClCompile Include="Puzzles\BridgesGen.cpp" />
     <ClCompile Include="Puzzles\BusySeas.cpp" />
     <ClCompile Include="Puzzles\BWTapa.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -232,8 +231,8 @@
     <Xml Include="Puzzles\BoxItAround.xml" />
     <Xml Include="Puzzles\BoxItUp.xml" />
     <Xml Include="Puzzles\Branches.xml" />
-    <Xml Include="Puzzles\Bridges\Bridges.xml" />
-    <Xml Include="Puzzles\Bridges\BridgesGen.xml" />
+    <Xml Include="Puzzles\Bridges.xml" />
+    <Xml Include="Puzzles\BridgesGen.xml" />
     <Xml Include="Puzzles\BusySeas.xml" />
     <Xml Include="Puzzles\BWTapa.xml" />
   </ItemGroup>

@@ -1,12 +1,13 @@
 #include "stdafx.h"
 
 #include "PSLhelper.h"
-#include "Puzzles/HiddenPath/HiddenPath.h"
 
 extern void solve_puz_Hedgehog();
 extern void solve_puz_HeliumAndIron();
 extern void solve_puz_Hexotris();
 extern void solve_puz_hexrotation();
+extern void solve_puz_HiddenPath();
+extern void gen_puz_HiddenPath();
 extern void solve_puz_HiddenClouds();
 extern void solve_puz_HiddenStars();
 extern void solve_puz_Hidoku();
