@@ -201,6 +201,7 @@
     <ClCompile Include="Puzzles\NumberCrossing.cpp" />
     <ClCompile Include="Puzzles\NumberCrosswords.cpp" />
     <ClCompile Include="Puzzles\NumberLink.cpp" />
+    <ClCompile Include="Puzzles\NumberLink2.cpp" />
     <ClCompile Include="Puzzles\NumberPath.cpp" />
     <ClCompile Include="Puzzles\NumberPath2.cpp" />
     <ClCompile Include="Puzzles\numeric_paranoia.cpp" />

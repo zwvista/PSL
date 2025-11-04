@@ -4,9 +4,9 @@ Sequence of moves:
 |   | | | | | 
  -       -    
   | | |     | 
- -   -  B  -  
+ -   -  O  -  
 |         |   
- - -  B B  -  
+ - -  O O  -  
     |       | 
  - -   -   -  
 |     | | |   
@@ -15,17 +15,17 @@ Sequence of moves:
  -   -   - -  
 Number of moves: 0
 Number of vertices examined: 1
-0.00179069 [s]
+0.000627 [s]
 
 Level 2
 Sequence of moves: 
- -  B  -   -  
+ -  O  -   -  
 | |   | | | | 
    -     -    
 |   | |     | 
- -   -  B  -  
+ -   -  O  -  
   |       |   
-B  -   -   -  
+O  -   -   -  
     | | |   | 
  - -       -  
 |     | | |   
@@ -34,34 +34,34 @@ B  -   -   -
  -   -   - -  
 Number of moves: 0
 Number of vertices examined: 1
-0.000975805 [s]
+0.0002738 [s]
 
 Level 3
 Sequence of moves: 
- -   -  B  -  
+ -   -  O  -  
 | | | |   | | 
    -     -    
 |     | |   | 
  - -   -   -  
     |     |   
- - -   - -  B 
+ - -   - -  O 
 |     |       
- -  B  - - -  
+ -  O  - - -  
   |         | 
  -   -   -    
 |   | | | | | 
  - -   -   -  
 Number of moves: 0
 Number of vertices examined: 1
-0.00114166 [s]
+0.0007738 [s]
 
 Level 4
 Sequence of moves: 
  - -   -   -  
 |   | | | | | 
-  B  -        
+  O  -        
 |       | | | 
- - -  B  -    
+ - -  O  -    
     |       | 
  -     - - -  
 | | | |       
@@ -72,34 +72,34 @@ S  -   - -  S
  - - - - - -  
 Number of moves: 5
 Number of vertices examined: 11
-0.00378663 [s]
+0.0015213 [s]
 
 Level 45
 Sequence of moves: 
- -  S  - - - - - - -  B 
+ -  S  - - - - - - -  O 
 | |                 |   
    - -   - - - - -   -  
 |     | |         |   | 
- - -     - -  B B  -    
+ - -     - -  O O  -    
     | |     |       | | 
- -       - -  B  - -    
+ -       - -  O  - -    
 | | | | |       |     | 
-   -   -  B  - -   -    
+   -   -  O  - -   -    
 |           |     | | | 
  - - - - -   - -        
           |     | | | | 
- - - - -    B B      -  
+ - - - -    O O      -  
 |       | |     | |     
  - - -     - -   -   -  
       | |     |     | | 
- - - -     -   -  B     
+ - - -     -   -  O     
 |       | | |   |   | | 
- - -  B      - -  B     
+ - -  O      - -  O     
     |   | |         | | 
  -   -     - - - - -    
 | |   | |             | 
 S  - -   - - - - - - -  
 Number of moves: 16
 Number of vertices examined: 31
-0.0250433 [s]
+0.0123868 [s]
 

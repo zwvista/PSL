@@ -128,6 +128,9 @@
     <ClCompile Include="Puzzles\NumberConnect.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\NumberLink2.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\numeric_paranoia.xml">

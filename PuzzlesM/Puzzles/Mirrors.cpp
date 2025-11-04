@@ -28,8 +28,8 @@ namespace puzzles::Mirrors{
 
 constexpr auto PUZ_LINE_OFF = '0';
 constexpr auto PUZ_LINE_ON = '1';
-constexpr auto PUZ_BLOCK = "B ";
-constexpr auto PUZ_SPOT = "S ";
+constexpr auto PUZ_BLOCK = 'O';
+constexpr auto PUZ_SPOT = 'S';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -71,14 +71,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
-            auto s = str.substr(2 * c, 2);
             Position p(r, c);
-            if (s == PUZ_SPOT)
+            if (char ch = str[c]; ch == PUZ_SPOT)
                 m_spots.insert(p);
-            else if (s != "  ")
-                m_pos2lineseg[{r, c}] =
-                    s == PUZ_BLOCK ? lineseg_off :
-                    (1 << (s[0] - '0')) | (1 << (s[1] - '0'));
+            else if (ch != ' ')
+                m_pos2lineseg[p] = ch == PUZ_BLOCK ? lineseg_off :
+                    isdigit(ch) ? ch - '0' : ch - 'A' + 10;
         }
     }
 }
@@ -243,9 +241,12 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            out << (m_game->m_spots.contains(p) ? PUZ_SPOT :
-                dt[0] == lineseg_off ? PUZ_BLOCK :
-                is_lineseg_on(dt[0], 1) ? " -" : "  ");
+            if (m_game->m_spots.contains(p))
+                out << PUZ_SPOT << ' ';
+            else if (dt[0] == lineseg_off)
+                out << PUZ_BLOCK << ' ';
+            else
+                out << (is_lineseg_on(dt[0], 1) ? " -" : "  ");
         }
         println(out);
         if (r == sidelen() - 1) break;
