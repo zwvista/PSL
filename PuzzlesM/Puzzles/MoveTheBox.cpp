@@ -168,8 +168,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                 if (ch == ch2 || ch == PUZ_SPACE && n == 2) return;
                 if (ch == PUZ_SPACE) // n == 1
                     p = p2, n = 3;
-                children.push_back(*this);
-                if (!children.back().make_move(p, n))
+                if (!children.emplace_back(*this).make_move(p, n))
                     children.pop_back();
             };
             if (r < rows() - 1)

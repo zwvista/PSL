@@ -99,13 +99,11 @@ void puz_state::gen_children(list<puz_state>& children) const
 {
     for (int n = 0; n < 2; ++n)
         for (int dir = 0; dir < 4; ++dir)
-            for (int step = 1; ; ++step) {
-                children.push_back(step == 1 ? *this : children.back());
-                if (!children.back().make_move(n, dir, step)) {
+            for (int step = 1; ; ++step)
+                if (!children.emplace_back(step == 1 ? *this : children.back()).make_move(n, dir, step)) {
                     children.pop_back();
                     break;
                 }
-            }
 }
 
 ostream& puz_state::dump(ostream& out) const

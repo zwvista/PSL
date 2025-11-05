@@ -326,11 +326,9 @@ void puz_state::gen_children(list<puz_state>& children) const
                 auto& [ch2, ranges] = *s.m_matches.begin();
                 for (auto& rng2 : ranges)
                     rng.insert(rng2.begin(), rng2.end());
-                for (int i = 0; i < ranges.size(); ++i) {
-                    children.push_back(s);
-                    if (!children.back().make_move_hidden(ch2, i))
+                for (int i = 0; i < ranges.size(); ++i)
+                    if (!children.emplace_back(s).make_move_hidden(ch2, i))
                         children.pop_back();
-                }
             }
 
         // pruning

@@ -97,8 +97,7 @@ void puz_state::gen_children(list<puz_state>& children) const
     for (auto& os : offset) {
         auto p = m_p + os;
         if (!is_valid(p) || cells(p) != PUZ_SPACE) continue;
-        children.push_back(*this);
-        if (!children.back().make_move(p))
+        if (!children.emplace_back(*this).make_move(p))
             children.pop_back();
     }
 }
