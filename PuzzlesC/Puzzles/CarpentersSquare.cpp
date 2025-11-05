@@ -230,7 +230,7 @@ int puz_state::adjust_area(bool init)
                         if (t.hint_type() == tool_hint_type::ARM_END &&
                             (t.dir() + 2) % 4 == d2) {
                             a1.push_back(p3);
-                            arm_lens.push_back(++j);
+                            arm_lens.push_back(j);
                         }
                     }
                     if (a1.empty()) continue;
