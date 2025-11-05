@@ -55,7 +55,12 @@ const vector<int> linesegs_all_post = {
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
+constexpr Position offset2[] = {
+    {0, 0},        // o
+    {0, 1},        // e
+    {1, 1},        // se
+    {1, 0},        // s
+};
 
 struct puz_game
 {
