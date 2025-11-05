@@ -30,7 +30,12 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_WALL = 'W';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr array<Position, 4> offset = Position::Square2x2Offset;
+constexpr Position offset[] = {
+    {0, 0},    // nw
+    {0, 1},    // ne
+    {1, 1},    // se
+    {1, 0},    // sw
+};
 
 constexpr array<Position, 4> offset2 = Position::Directions4;
 

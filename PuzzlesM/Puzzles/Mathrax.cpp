@@ -31,7 +31,12 @@ constexpr auto PUZ_DIV = '/';
 constexpr auto PUZ_EVEN = 'E';
 constexpr auto PUZ_ODD = 'O';
 
-constexpr array<Position, 4> offset = Position::Square2x2Offset;
+constexpr Position offset[] = {
+    {0, 0},    // nw
+    {0, 1},    // ne
+    {1, 1},    // se
+    {1, 0},    // sw
+};
 
 struct puz_area_diag_info
 {
