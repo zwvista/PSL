@@ -71,7 +71,7 @@ S 9 A S`
  C 5 9 `
   3 6  `
   O6   `
-  O 6  `
+  O C  `
  A    5`
 S   S  `
     ]]>
@@ -91,11 +91,11 @@ S   S  `
     <![CDATA[
         `
  3 55 9 `
-  6  O  `
+  C  O  `
  A   O  `
  A 3  A `
  A      `
-   55 6 `
+   55 C `
         `
     ]]>
   </level>
@@ -107,7 +107,7 @@ S   S  `
  A O 5  `
  A    A `
      A  `
- 6    6 `
+ 6    C `
         `
     ]]>
   </level>
@@ -115,7 +115,7 @@ S   S  `
     <![CDATA[
         `
  3 55 9 `
-  6  6  `
+  C  6  `
  A 39 A `
   O     `
   O  9  `
@@ -129,7 +129,7 @@ S   S  `
 5       `
   3 O6  `
    9O A `
-5  66  5`
+5  6C  5`
   C  5  `
  A    A `
         `
@@ -142,7 +142,7 @@ S   S  `
   5  5  `
  A OO A `
  A 6   5`
-  9  6  `
+  9  C  `
         `
 S      S`
     ]]>
@@ -165,7 +165,7 @@ S      S`
  A 55 9 `
   5  6  `
 S5 39   `
-   6O   `
+   CO   `
 5 A  9 S`
  3      `
     O   `
@@ -265,7 +265,7 @@ S  OO  A `
   <level id="22">
     <![CDATA[
           `
- C 555  6 `
+ 6 555  6 `
     55 A O`
  A O  3 A `
 O  O 9O A `
@@ -366,7 +366,7 @@ S  O  3 O `
   55  555  `
   5 O 5 5  `
    9O  3   `
-O   C 9 A O`
+O   6 9 A O`
   AA OO AA `
  A  A CO A `
  A     O A `
@@ -396,7 +396,7 @@ O   C 9 A O`
       5  6 `
  AAA    A O`
   AA OO  A `
-    A 6OO  `
+    A COO  `
  AAA       `
     O A  A `
  A 9O  C A `
@@ -424,14 +424,14 @@ S          `
     <![CDATA[
     S   O  `
  3    A   S`
-  COOO  3  `
+  9OOO  3  `
    6   3  5`
-5   5 6    `
- AA  C  5  `
+5   5 C    `
+ AA  6  5  `
  AA C OO  5`
  A C   C A `
   A OO  3  `
- 6 O  55 C `
+ 6 O  55 6 `
            `
     ]]>
   </level>
@@ -454,7 +454,7 @@ S          `
     <![CDATA[
            `
  3 5     9 `
-  C   OOO  `
+  9   OOO  `
  A 5 OOOO  `
 5   9    A `
    A 5    S`
@@ -551,7 +551,7 @@ S           `
 S5555     A `
       A  C  `
 5  6    9 55`
-5 O 6  OO   `
+5 O C  OO   `
   OO 96   O `
  A OOO 55   `
    O6 55 AA `
@@ -567,7 +567,7 @@ S5555     A `
  O  55  O 9 `
   A   O  A  `
  A 9O   AA  `
-5 A 6  C  O `
+5 A C  C  O `
    A 3C     `
  A   C3   A `
  AA 6 O  O  `
