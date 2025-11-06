@@ -48,9 +48,11 @@ const vector<int> linesegs_all_inside = {
     // „© „Ÿ „ 
     0, 15, 10, 5,
 };
+// 5. Lines can cross each other except posts(dots).
+// 6. Not all posts must be used.
 const vector<int> linesegs_all_post = {
     // „© „¢  „Ÿ  „¡  „£  „   „¤
-    15, 12, 10, 6, 9, 5, 3,
+    0, 15, 12, 10, 6, 9, 5, 3,
 };
 
 constexpr array<Position, 4> offset = Position::Directions4;

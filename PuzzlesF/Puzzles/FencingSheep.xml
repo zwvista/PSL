@@ -2,11 +2,12 @@
 <puzzle>
 <help>
   <![CDATA[
-1. At the last game of Wildlife Football, Lemurs accused Giraffes of cheating, Monkeys ran away with the coin after the toss and Lions ate the ball.
-2. So you're given the task to raise some fencing between the different species, while spirits cool down.
-3. Fences should encompass at least one animal of a certain species, and all animals of a certain species must be in the same enclosure.
-4. There can't be empty enclosures.
-5. Where three or four fences meet, a fence post is put in place. On the Park all posts are already marked with a dot.
+1. Divide the field in enclosures, so that sheep are separated from wolves.
+2. Each enclosure must contain either sheep or wolves (but not both) and must not be empty.
+3. The lines (fencing) of the enclosures start and end on the edges of the grid.
+4. Lines only turn at posts (dots).
+5. Lines can cross each other except posts (dots).
+6. Not all posts must be used.
   ]]>
 </help>
 <levels>
