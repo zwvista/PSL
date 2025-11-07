@@ -18,6 +18,8 @@ PuzzlesB/Puzzles/Banquet.cpp
 	iOS Game: 100 Logic Games 3/Puzzle Set 2/Banquet
 PuzzlesB/Puzzles/BattleShips.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 1/Battle Ships
+PuzzlesB/Puzzles/BentBridges.cpp
+	iOS Game: 100 Logic Games 3/Puzzle Set 1/BentBridges
 PuzzlesB/Puzzles/BootyIsland.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 13/Booty Island
 PuzzlesB/Puzzles/BotanicalPark.cpp
@@ -32,6 +34,10 @@ PuzzlesB/Puzzles/Branches.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 2/Branches
 PuzzlesB/Puzzles/Branches2.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 2/Branches
+PuzzlesB/Puzzles/Bridges.cpp
+	iOS Game: 100 Logic Games/Puzzle Set 7/Bridges
+PuzzlesB/Puzzles/BridgesGen.cpp
+	iOS Game: 100 Logic Games/Puzzle Set 7/Bridges
 PuzzlesB/Puzzles/BusySeas.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 14/Busy Seas
 PuzzlesB/Puzzles/BWTapa.cpp
@@ -138,6 +144,10 @@ PuzzlesH/Puzzles/Hexotris.cpp
 	iOS Game: 100 Logic Games 3/Puzzle Set 4/Hexotris
 PuzzlesH/Puzzles/HiddenClouds.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 7/Hidden Clouds
+PuzzlesH/Puzzles/HiddenPath.cpp
+	iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path
+PuzzlesH/Puzzles/HiddenPathGen.cpp
+	iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path
 PuzzlesH/Puzzles/HiddenStars.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 2/Hidden Stars
 PuzzlesH/Puzzles/Hidoku.cpp
@@ -235,6 +245,8 @@ PuzzlesN/Puzzles/NumberCrossing.cpp
 PuzzlesN/Puzzles/NumberCrosswords.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 1/Number Crosswords
 PuzzlesN/Puzzles/NumberLink.cpp
+	iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink
+PuzzlesN/Puzzles/NumberLink2.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink
 PuzzlesN/Puzzles/NumberPath.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 15/Number Path

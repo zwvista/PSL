@@ -6,10 +6,7 @@ Puzzles9/Puzzles/15pegs.cpp
 Puzzles9/Puzzles/3dlogic.cpp
 Puzzles9/Puzzles/8puzzle.cpp
 PuzzlesA/Puzzles/ABCPath.cpp
-PuzzlesB/Puzzles/BentBridges.cpp
 PuzzlesB/Puzzles/bloxorz.cpp
-PuzzlesB/Puzzles/Bridges/Bridges.cpp
-PuzzlesB/Puzzles/Bridges/BridgesGen.cpp
 PuzzlesC/Puzzles/Cheese.cpp
 PuzzlesC/Puzzles/ColorMaze.cpp
 PuzzlesC/Puzzles/ConnectPuzzle.cpp
@@ -17,8 +14,6 @@ PuzzlesE/Puzzles/escapology.cpp
 PuzzlesF/Puzzles/Fill.cpp
 PuzzlesF/Puzzles/fling.cpp
 PuzzlesH/Puzzles/hexrotation.cpp
-PuzzlesH/Puzzles/HiddenPath/HiddenPath.cpp
-PuzzlesH/Puzzles/HiddenPath/HiddenPathGen.cpp
 PuzzlesH/Puzzles/hopover.cpp
 PuzzlesH/Puzzles/hrd.cpp
 PuzzlesI/Puzzles/icedin.cpp
