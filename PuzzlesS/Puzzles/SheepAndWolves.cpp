@@ -297,7 +297,7 @@ int puz_state::check_dots(bool init)
             char& ch2 = cells(p + offset2[i * 2 + 1]);
             bool is_on = is_lineseg_on(lineseg, i);
             auto f = [=](char& chA, char& chB) {
-                // If the line segment is on,
+                // If the line segment is off,
                 // the two adjacent cells bordering it must belong to the same group
                 // Otherwise, they must belong to the two different groups
                 chA = !is_on ? chB :

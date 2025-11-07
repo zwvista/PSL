@@ -44,15 +44,17 @@ const vector<vector<int>> linesegs_all_border = {
     {7, 5}, // „¥ „ 
     {13, 5}, // „§ „ 
 };
+// 4. Lines only turn at posts(dots).
 const vector<int> linesegs_all_inside = {
     // „© „Ÿ „ 
     0, 15, 10, 5,
 };
+// 4. Lines only turn at posts(dots).
 // 5. Lines can cross each other except posts(dots).
 // 6. Not all posts must be used.
 const vector<int> linesegs_all_post = {
-    // „© „¢  „Ÿ  „¡  „£  „   „¤
-    0, 15, 12, 10, 6, 9, 5, 3,
+    // „¢  „Ÿ  „¡  „£  „   „¤
+    0, 12, 10, 6, 9, 5, 3,
 };
 
 constexpr array<Position, 4> offset = Position::Directions4;
@@ -80,7 +82,7 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() / 2 + 1)
-    , m_dot_count(m_sidelen* m_sidelen)
+    , m_dot_count(m_sidelen * m_sidelen)
 {
     for (int r = 0;; ++r) {
         string_view str_h = strs[r * 2];
@@ -153,9 +155,8 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state3 : Position
 {
-    puz_state3(puz_state& state, char ch, const Position& p_start) : m_state(&state), m_ch(ch) {
-        make_move(p_start);
-    }
+    puz_state3(puz_state* s, char ch, const Position& p)
+        : m_state(s), m_ch(ch) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state3>& children) const;
@@ -167,21 +168,23 @@ struct puz_state3 : Position
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (int i = 0; i < 4; ++i) {
-        auto p_dots = *this + offset2[i];
+        auto p_dot = *this + offset2[i];
         int d = (i + 1) % 4;
-        auto& dts = m_state->dots(p_dots);
-        if (boost::algorithm::all_of(dts, [&](int dt) {
-            return is_lineseg_on(dt, d);
+        auto& dt = m_state->dots(p_dot);
+        if (boost::algorithm::all_of(dt, [&](int lineseg) {
+            return is_lineseg_on(lineseg, d);
         }))
             continue;
         auto p = *this + offset[i];
         char ch = m_state->m_game->cells(p);
+        // If the animals in the two adjacent cells are different,
+        // there must be a line segment between them.
         if (ch != PUZ_SPACE && ch != m_ch)
-            boost::remove_erase_if(dts, [=](int lineseg) {
+            boost::remove_erase_if(dt, [=](int lineseg) {
                 return !is_lineseg_on(lineseg, d);
             });
-        else if (boost::algorithm::all_of(dts, [&](int dt) {
-            return !is_lineseg_on(dt, d);
+        else if (boost::algorithm::all_of(dt, [&](int lineseg) {
+            return !is_lineseg_on(lineseg, d);
         }))
             children.emplace_back(*this).make_move(p);
     }
@@ -192,7 +195,7 @@ void puz_state::check_interconnected()
     auto rng = m_game->m_chars_rng;
     while (!rng.empty()) {
         auto& p = *rng.begin();
-        auto smoves = puz_move_generator<puz_state3>::gen_moves({ *this, m_game->cells(p), p });
+        auto smoves = puz_move_generator<puz_state3>::gen_moves({this, m_game->cells(p), p});
         for (auto& p : smoves)
             rng.erase(p);
     }
@@ -245,13 +248,14 @@ int puz_state::check_dots(bool init)
     }
 }
 
-struct puz_state2 : Position
+struct puz_state2 : pair<Position, bool>
 {
-    puz_state2(const puz_state& state, const char ch, const Position& p_start) : m_state(&state), m_ch(ch) {
-        make_move(p_start);
-    }
+    puz_state2(const puz_state* s, char ch, const Position& p)
+        : m_state(s), m_ch(ch) { make_move(p, true); }
 
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p, bool finished) {
+        static_cast<Position&>(first) = p, second = finished;
+    }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
@@ -261,16 +265,17 @@ struct puz_state2 : Position
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (int i = 0; i < 4; ++i) {
-        auto p_dots = *this + offset2[i];
+        auto p_dot = first + offset2[i];
         int d = (i + 1) % 4;
-        if (boost::algorithm::all_of(m_state->dots(p_dots), [&](int dt) {
-            return is_lineseg_on(dt, d);
+        if (boost::algorithm::all_of(m_state->dots(p_dot), [&](int lineseg) {
+            return is_lineseg_on(lineseg, d);
         }))
             continue;
-        auto p = *this + offset[i];
-        char ch = m_state->m_game->cells(p);
-        if (ch == PUZ_SPACE || ch == m_ch)
-            children.emplace_back(*this).make_move(p);
+        bool finished = boost::algorithm::all_of(m_state->dots(p_dot), [&](int lineseg) {
+            return !is_lineseg_on(lineseg, d);
+        });
+        auto p = first + offset[i];
+        children.emplace_back(*this).make_move(p, finished);
     }
 }
 
@@ -280,10 +285,19 @@ bool puz_state::is_interconnected() const
     auto rng = m_game->m_chars_rng;
     while (!rng.empty()) {
         auto& p = *rng.begin();
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, m_game->cells(p), p});
-        for (auto& p : smoves) {
-            rng.erase(p);
-            rng_all.insert(p);
+        char ch = m_game->cells(p);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, ch, p});
+        bool finished = boost::algorithm::all_of(smoves, [&](const puz_state2& s) {
+            return s.second;
+        });
+        for (auto& kv : smoves) {
+            auto& p2 = kv.first;
+            if (finished)
+                if (char ch2 = m_game->cells(p2);
+                    ch2 != PUZ_SPACE && ch2 != ch)
+                    return false;
+            rng_all.insert(p2);
+            rng.erase(p2);
         }
     }
     return rng_all.size() == (sidelen() - 1) * (sidelen() - 1);
@@ -292,7 +306,7 @@ bool puz_state::is_interconnected() const
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 1;
-    dots(p) = { dots(p)[n] };
+    dots(p) = {dots(p)[n]};
     int m = check_dots(false);
     return m != 0 && is_interconnected();
 }
@@ -322,15 +336,17 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0;; ++c) {
             Position p(r, c);
             out << (m_game->m_posts.contains(p) ? PUZ_POST : ' ');
-            if (c == sidelen() - 1) break; 
-            out << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
+            if (c == sidelen() - 1) break;
+            auto& dt = dots(p);
+            out << (!dt.empty() && is_lineseg_on(dt[0], 1) ? '-' : ' ');
         }
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical lines
-            out << (is_lineseg_on(dots(p)[0], 2) ? '|' : ' ');
+            auto& dt = dots(p);
+            out << (!dt.empty() && is_lineseg_on(dt[0], 2) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             out << m_game->cells(p);
         }
