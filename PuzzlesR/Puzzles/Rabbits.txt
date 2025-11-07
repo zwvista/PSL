@@ -7,7 +7,4418 @@ TR222
 01TR1
 Number of moves: 1
 Number of vertices examined: 2
-0.0006292 [s]
+0.000814 [s]
+
+Level 2
+Sequence of moves: 
+T.1R.
+2RT..
+.2R2T
+RT.11
+10.TR
+Number of moves: 2
+Number of vertices examined: 4
+0.000168 [s]
+
+Level 3
+Sequence of moves: 
+R2T..
+TR2.2
+0T2.R
+.1RT1
+...RT
+Number of moves: 2
+Number of vertices examined: 4
+0.000152 [s]
+
+Level 4
+Sequence of moves: 
+T2.1R
+.R.T1
+1TR..
+R.T11
+2.1RT
+Number of moves: 4
+Number of vertices examined: 8
+0.000278 [s]
+
+Level 5
+Sequence of moves: 
+R.T..
+T2R12
+1R2T.
+0T.2R
+.12RT
+Number of moves: 1
+Number of vertices examined: 2
+7.5e-05 [s]
+
+Level 6
+Sequence of moves: 
+.2RT.
+.R.2T
+0T2R.
+T..2R
+R1T.1
+Number of moves: 3
+Number of vertices examined: 5
+0.000145 [s]
+
+Level 7
+Sequence of moves: 
+R2T1.
+2.2RT
+TR.2.
+12RT.
+.T21R
+Number of moves: 1
+Number of vertices examined: 2
+7.4e-05 [s]
+
+Level 8
+Sequence of moves: 
+R..T.
+2RT1.
+T2..R
+.22RT
+0TR.1
+Number of moves: 4
+Number of vertices examined: 9
+0.000327 [s]
+
+Level 9
+Sequence of moves: 
+T2R.1
+2R2T.
+.2.RT
+.1T.R
+RT01.
+Number of moves: 4
+Number of vertices examined: 5
+0.000138 [s]
+
+Level 10
+Sequence of moves: 
+2R.T.
+RT1.1
+T12.R
+1.R.T
+..TR1
+Number of moves: 5
+Number of vertices examined: 9
+0.000218 [s]
+
+Level 11
+Sequence of moves: 
+..T21R
+R1.2T.
+1T2R22
+.R.T.1
+T2.1R2
+.2R.2T
+Number of moves: 3
+Number of vertices examined: 4
+0.000199 [s]
+
+Level 12
+Sequence of moves: 
+..1T2R
+T.R2.2
+1T2.R2
+.22R2T
+2RT...
+R212T0
+Number of moves: 2
+Number of vertices examined: 3
+0.00013 [s]
+
+Level 13
+Sequence of moves: 
+R121T1
+10.T.R
+.TR222
+T22R..
+12.2RT
+1RT.1.
+Number of moves: 3
+Number of vertices examined: 4
+0.000159 [s]
+
+Level 14
+Sequence of moves: 
+1.2.RT
+T12R2.
+.TR2.2
+...1TR
+2R2T01
+R2T0..
+Number of moves: 3
+Number of vertices examined: 5
+0.000165 [s]
+
+Level 15
+Sequence of moves: 
+1R1T1.
+T..2.R
+2...RT
+.T.R21
+R1T1.0
+21R.T0
+Number of moves: 3
+Number of vertices examined: 5
+0.000177 [s]
+
+Level 16
+Sequence of moves: 
+0T2R.1
+T2R22.
+R2...T
+.1T2R2
+.R.T.1
+.1.0TR
+Number of moves: 2
+Number of vertices examined: 3
+0.00012 [s]
+
+Level 17
+Sequence of moves: 
+TR1..2
+.1T.1R
+.22R1T
+.2R2T0
+11.TR.
+RT10..
+Number of moves: 1
+Number of vertices examined: 2
+9.1e-05 [s]
+
+Level 18
+Sequence of moves: 
+0.T.1R
+T2R.12
+2R2.T.
+...TR2
+R222.T
+1T2R.1
+Number of moves: 5
+Number of vertices examined: 7
+0.00041 [s]
+
+Level 19
+Sequence of moves: 
+RT001.
+....RT
+2RT0.1
+.2RT1.
+T22R.2
+0.1.TR
+Number of moves: 2
+Number of vertices examined: 3
+0.000228 [s]
+
+Level 20
+Sequence of moves: 
+1R2T1.
+T.R22.
+22.R2T
+.T2.R.
+R12.T1
+.0T.1R
+Number of moves: 2
+Number of vertices examined: 3
+0.000178 [s]
+
+Level 21
+Sequence of moves: 
+..0.TR
+21.R2T
+RT.110
+11T2R1
+TR....
+12RT1.
+Number of moves: 1
+Number of vertices examined: 2
+0.000119 [s]
+
+Level 22
+Sequence of moves: 
+1R2T1.
+T.R..1
+2222RT
+.1TR22
+1T...R
+R1..T1
+Number of moves: 2
+Number of vertices examined: 3
+0.000154 [s]
+
+Level 23
+Sequence of moves: 
+1T2.R1
+22R.2T
+.R2T..
+R2.2T1
+T.2..R
+0.TR.2
+Number of moves: 3
+Number of vertices examined: 6
+0.000244 [s]
+
+Level 24
+Sequence of moves: 
+R..1T1
+2RT01.
+1T.12R
+1.1TR.
+T.R.22
+112R2T
+Number of moves: 3
+Number of vertices examined: 4
+0.000173 [s]
+
+Level 25
+Sequence of moves: 
+0.T2R1
+T12R..
+1TR.21
+R22.T0
+.R22.T
+.1.T.R
+Number of moves: 5
+Number of vertices examined: 6
+0.000255 [s]
+
+Level 26
+Sequence of moves: 
+T.2.1R
+21R2T1
+.T2.R.
+.2.R2T
+R22T..
+2RT..0
+Number of moves: 3
+Number of vertices examined: 6
+0.000252 [s]
+
+Level 27
+Sequence of moves: 
+.12R.T
+R12T..
+T1R..2
+.0T1R2
+.T.1.R
+1R11T1
+Number of moves: 1
+Number of vertices examined: 2
+0.000112 [s]
+
+Level 28
+Sequence of moves: 
+01T1.R
+TR2.2.
+2.RT1.
+2222RT
+R.2.T.
+1T.R11
+Number of moves: 3
+Number of vertices examined: 4
+0.000177 [s]
+
+Level 29
+Sequence of moves: 
+1.R2T1
+T.222R
+1.T2R2
+.T1R.2
+.R.T.1
+R2.1.T
+Number of moves: 2
+Number of vertices examined: 3
+0.000155 [s]
+
+Level 30
+Sequence of moves: 
+.R..T.
+1.0TR2
+R2T1.1
+1T22.R
+T12R..
+1.R22T
+Number of moves: 2
+Number of vertices examined: 3
+0.00014 [s]
+
+Level 31
+Sequence of moves: 
+.1.R2T
+.T1.R.
+R.T..1
+1..1TR
+TR22.2
+.2RT0.
+Number of moves: 5
+Number of vertices examined: 15
+0.000572 [s]
+
+Level 32
+Sequence of moves: 
+..TR.2
+..1.TR
+122.RT
+1R.T.0
+T2R1..
+RT1.1.
+Number of moves: 5
+Number of vertices examined: 8
+0.000343 [s]
+
+Level 33
+Sequence of moves: 
+1.TR.1
+.2R2.T
+R.22T1
+TR2...
+01.TR2
+.T2..R
+Number of moves: 4
+Number of vertices examined: 7
+0.000269 [s]
+
+Level 34
+Sequence of moves: 
+0TR.2.
+T.2R21
+...2RT
+11..TR
+R.2T0.
+2RT.01
+Number of moves: 4
+Number of vertices examined: 5
+0.000352 [s]
+
+Level 35
+Sequence of moves: 
+1RT.1.
+T2..R.
+22R1T0
+R2.T..
+..2R1T
+1T...R
+Number of moves: 7
+Number of vertices examined: 14
+0.000424 [s]
+
+Level 36
+Sequence of moves: 
+2.2RT0
+2.R..T
+.T.2.R
+R2.T.1
+TR2..2
+0.T1R2
+Number of moves: 5
+Number of vertices examined: 9
+0.000269 [s]
+
+Level 37
+Sequence of moves: 
+RT..0.
+1..1TR
+T.2R.2
+.2RT..
+.R..2T
+.1T1R1
+Number of moves: 3
+Number of vertices examined: 8
+0.000293 [s]
+
+Level 38
+Sequence of moves: 
+2.RT..
+1.TR.1
+R.1..T
+1T.2R2
+.1..TR
+TR1.12
+Number of moves: 2
+Number of vertices examined: 11
+0.000324 [s]
+
+Level 39
+Sequence of moves: 
+R2T.0.
+.11T1R
+.R.2.T
+1T2R..
+..R.T0
+T1.2R.
+Number of moves: 5
+Number of vertices examined: 8
+0.000247 [s]
+
+Level 40
+Sequence of moves: 
+..RT0.
+10.1TR
+RT1...
+T22.R2
+..TR22
+.R.2.T
+Number of moves: 5
+Number of vertices examined: 8
+0.000224 [s]
+
+Level 41
+Sequence of moves: 
+2R.T.0.
+..1R.T.
+R2T10.1
+...1T.R
+222.R2T
+.TR...1
+T122.R1
+Number of moves: 5
+Number of vertices examined: 9
+0.000427 [s]
+
+Level 42
+Sequence of moves: 
+.T1R.21
+1R1.2.T
+..T...R
+0.1TR22
+T2.1.R2
+R22..T.
+.2R.T0.
+Number of moves: 5
+Number of vertices examined: 9
+0.000394 [s]
+
+Level 43
+Sequence of moves: 
+.TR.1.2
+.1.T1.R
+TR.2...
+1..1TR2
+2222RT1
+R..2..T
+1.TR.1.
+Number of moves: 6
+Number of vertices examined: 12
+0.000487 [s]
+
+Level 44
+Sequence of moves: 
+2R.T...
+R.1.2T1
+.T1...R
+1.T.R.2
+T12.2R2
+1.2R22T
+.1R2T.0
+Number of moves: 4
+Number of vertices examined: 8
+0.000333 [s]
+
+Level 45
+Sequence of moves: 
+R2..2T0
+...2R2T
+.1TR2..
+2R2T..1
+T.R1...
+0...TR2
+.T2..2R
+Number of moves: 5
+Number of vertices examined: 17
+0.000641 [s]
+
+Level 46
+Sequence of moves: 
+..1.T.R
+.2RT1.1
+22.2.RT
+R.T...0
+2R122T.
+T...R1.
+0T.R2.1
+Number of moves: 3
+Number of vertices examined: 5
+0.000264 [s]
+
+Level 47
+Sequence of moves: 
+.22R2T0
+1.2.R2T
+1R.T...
+T2R.2..
+1.T.2R2
+RT0..11
+1..0T.R
+Number of moves: 6
+Number of vertices examined: 11
+0.000517 [s]
+
+Level 48
+Sequence of moves: 
+1R2..T1
+..1T1.R
+01.1TR2
+.TR.2..
+0.TR...
+T..2R2.
+R.122.T
+Number of moves: 5
+Number of vertices examined: 14
+0.000556 [s]
+
+Level 49
+Sequence of moves: 
+2R.T1..
+..0.1TR
+R2T1.1.
+1T.R2.2
+T.2.R.2
+.1R22.T
+..1.TR1
+Number of moves: 1
+Number of vertices examined: 3
+0.000195 [s]
+
+Level 50
+Sequence of moves: 
+1.0TR.2
+R1T.1.1
+.T....R
+2R22T1.
+T.2R..2
+1.22.RT
+.2R.1T0
+Number of moves: 2
+Number of vertices examined: 3
+0.00014 [s]
+
+Level 51
+Sequence of moves: 
+1T....R
+R2T10..
+.2.RT..
+T2..R22
+.2.2.RT
+.2RT.10
+1R2..T0
+Number of moves: 4
+Number of vertices examined: 5
+0.00023 [s]
+
+Level 52
+Sequence of moves: 
+..T2.1R
+2R2.T.1
+222R2T1
+R2..2.T
+2.RT...
+T....R1
+0T21R2.
+Number of moves: 8
+Number of vertices examined: 11
+0.000366 [s]
+
+Level 53
+Sequence of moves: 
+.0.TR2.
+.T1R22.
+.1T..R2
+..R2.T.
+....T1R
+R.2..1T
+TR2.1.1
+Number of moves: 6
+Number of vertices examined: 28
+0.001154 [s]
+
+Level 54
+Sequence of moves: 
+2..R.2T
+..T2.R.
+R122T..
+1TR2.22
+.R2T1..
+.22.RT.
+T..1.1R
+Number of moves: 8
+Number of vertices examined: 17
+0.000654 [s]
+
+Level 55
+Sequence of moves: 
+R2.1T..
+T2..R2.
+011T.R.
+..R222T
+..T.2.R
+.R122T.
+0T.R.12
+Number of moves: 8
+Number of vertices examined: 28
+0.000958 [s]
+
+Level 56
+Sequence of moves: 
+.R2T1..
+...R21T
+T2.2..R
+2222RT1
+.2R2T..
+RT..0..
+.0T21R.
+Number of moves: 4
+Number of vertices examined: 5
+0.000184 [s]
+
+Level 57
+Sequence of moves: 
+1R...2T
+T....R2
+222R1T.
+.2R.T.1
+1T.2R..
+R1T.10.
+.00T2.R
+Number of moves: 1
+Number of vertices examined: 2
+0.000107 [s]
+
+Level 58
+Sequence of moves: 
+R..T...
+T2..2R1
+1R.2..T
+..T.22R
+0T2.R..
+.1.RT1.
+.1R2.T1
+Number of moves: 6
+Number of vertices examined: 46
+0.001409 [s]
+
+Level 59
+Sequence of moves: 
+T2..2R2
+R.T01..
+2R...T.
+...TR.2
+.T2.2.R
+2.R2T0.
+2..R1.T
+Number of moves: 9
+Number of vertices examined: 20
+0.000566 [s]
+
+Level 60
+Sequence of moves: 
+2..R.1T
+.10.T.R
+R.T.101
+2.R.2T.
+2R2T11.
+.T..R..
+T1..2R.
+Number of moves: 4
+Number of vertices examined: 6
+0.000237 [s]
+
+Level 61
+Sequence of moves: 
+.1.0.T.R
+..RT..0.
+2R22T1.1
+...R.2.T
+222.2RT0
+.1T2.2R1
+RT0....0
+T112R22.
+Number of moves: 3
+Number of vertices examined: 5
+0.000227 [s]
+
+Level 62
+Sequence of moves: 
+R1T01.1.
+1T...1R1
+.22.RT..
+22..2R2T
+..1T...R
+.2R2.2T.
+T2.R2.12
+1R2.T.0.
+Number of moves: 9
+Number of vertices examined: 26
+0.001142 [s]
+
+Level 63
+Sequence of moves: 
+2R..1T.1
+R2.T.1..
+.101T.R2
+T.12222R
+..T2R22.
+.2.2.RT.
+.TR2.21.
+11.R...T
+Number of moves: 7
+Number of vertices examined: 56
+0.002126 [s]
+
+Level 64
+Sequence of moves: 
+1222.R2T
+T..R..2.
+.2R2.T.1
+.R2T1.1.
+1.T1..R.
+2...R.T1
+.T1..1.R
+R.1.T.01
+Number of moves: 8
+Number of vertices examined: 56
+0.001809 [s]
+
+Level 65
+Sequence of moves: 
+R.1.2.T0
+....R2.T
+2RT.1..1
+2..RT.11
+.TR21222
+1.1T1R2.
+T1..1.R.
+.....T2R
+Number of moves: 4
+Number of vertices examined: 8
+0.00037 [s]
+
+Level 66
+Sequence of moves: 
+.01..TR1
+T12R.22.
+R.2.T.1.
+1TR2....
+.22.R2T0
+2R..2.1T
+...T.R.2
+1.T122.R
+Number of moves: 7
+Number of vertices examined: 12
+0.000407 [s]
+
+Level 67
+Sequence of moves: 
+R221..1T
+2.R1.2T1
+11.T12R.
+T..2.22R
+..2RT.11
+1RT.1.1.
+.T1..R..
+...2RT1.
+Number of moves: 7
+Number of vertices examined: 22
+0.000729 [s]
+
+Level 68
+Sequence of moves: 
+.T...2.R
+2..1R.T.
+R...T.1.
+11.T12R2
+11T21R22
+T2R2...2
+...R122T
+1R.21T10
+Number of moves: 7
+Number of vertices examined: 12
+0.000416 [s]
+
+Level 69
+Sequence of moves: 
+R.T.1...
+..2..RT0
+.22.R2.T
+.110T..R
+22RT.1..
+2R22.T.1
+.T2R.1..
+T1221.R2
+Number of moves: 7
+Number of vertices examined: 16
+0.000494 [s]
+
+Level 70
+Sequence of moves: 
+R.12.2T0
+T...22R.
+1.12R..T
+....TR..
+.1TR122.
+1R2T.1.1
+0TR1.22.
+...0.T2R
+Number of moves: 7
+Number of vertices examined: 15
+0.00059 [s]
+
+Level 71
+Sequence of moves: 
+...R.2T0
+T12..R2.
+10..1TR1
+...2R.2T
+R.2T....
+.TR12..2
+..T1...R
+2R1.T...
+Number of moves: 8
+Number of vertices examined: 21
+0.000653 [s]
+
+Level 72
+Sequence of moves: 
+RT.0.0..
+.RT.1..1
+2221RT..
+T....22R
+0.1T.R2.
+..11T.R2
+..R212T.
+.2.R..1T
+Number of moves: 6
+Number of vertices examined: 40
+0.00123 [s]
+
+Level 73
+Sequence of moves: 
+..0T.2.R
+R.T.....
+212.R2T.
+1TR.2.2.
+...1TR..
+222R.22T
+.R..1T.0
+T22.11R.
+Number of moves: 7
+Number of vertices examined: 22
+0.000732 [s]
+
+Level 74
+Sequence of moves: 
+1T..2R..
+..12RT1.
+R.T..0.0
+..11T.R1
+TR2.1...
+12.R...T
+.2RT..11
+..1.0.TR
+Number of moves: 8
+Number of vertices examined: 30
+0.000943 [s]
+
+Level 75
+Sequence of moves: 
+T1R..2..
+2.2.1R2T
+1T2...R.
+R2..T...
+1.T.R..2
+...01.TR
+2R1T1.0.
+...R2T.1
+Number of moves: 6
+Number of vertices examined: 11
+0.000329 [s]
+
+Level 76
+Sequence of moves: 
+...1R.2T
+.1.01T.R
+2R2.T..1
+R..T0...
+T...1R2.
+0T2..2R2
+..R2.2T.
+00TR.2.2
+Number of moves: 4
+Number of vertices examined: 8
+0.000358 [s]
+
+Level 77
+Sequence of moves: 
+1.T..12R
+1.1T..R.
+.2R2T.1.
+..22R1T.
+.R.22T0.
+1T222R.2
+R.222..T
+T1.R.2.1
+Number of moves: 4
+Number of vertices examined: 11
+0.000367 [s]
+
+Level 78
+Sequence of moves: 
+.1R.T..1
+T.21.2R2
+.0T..R.2
+...01T.R
+R..T.01.
+.11R2..T
+.T12R12.
+2R..2.T0
+Number of moves: 8
+Number of vertices examined: 16
+0.000492 [s]
+
+Level 79
+Sequence of moves: 
+..1.T1.R
+..R2..2T
+.1.R.T..
+R12T...0
+1T...R2.
+.1T.2.R.
+221.R2T.
+TR11.211
+Number of moves: 11
+Number of vertices examined: 22
+0.000599 [s]
+
+Level 80
+Sequence of moves: 
+2R.21T1.
+..0.T.R1
+1.TR....
+2.R2222T
+.T22.R22
+R..T1.1.
+T1.1.2.R
+1...R2T1
+Number of moves: 6
+Number of vertices examined: 12
+0.000357 [s]
+
+Level 81
+Sequence of moves: 
+22...R1T
+R2..2.T1
+22..RT1.
+.R.1T...
+22RT.0.1
+T2.R....
+.1T2..2R
+.T.21.R2
+Number of moves: 6
+Number of vertices examined: 12
+0.000425 [s]
+
+Level 82
+Sequence of moves: 
+1.T12.2R
+...TR.2.
+R..2.T..
+T2.R2..2
+..1.T.R.
+.R....T1
+.2.2.R1T
+.TR2.2.1
+Number of moves: 8
+Number of vertices examined: 36
+0.000882 [s]
+
+Level 83
+Sequence of moves: 
+.0..T.1R
+1.R22T..
+.1.R22T.
+0T..22R2
+TR2.2...
+R.2T.1..
+1.T.2R..
+..1.R2.T
+Number of moves: 7
+Number of vertices examined: 24
+0.000497 [s]
+
+Level 84
+Sequence of moves: 
+..0..T2R
+....TR2.
+T2.R..2.
+2R.2222T
+11T...R1
+RT.1.1..
+.0.TR22.
+..R.2.T0
+Number of moves: 8
+Number of vertices examined: 29
+0.000576 [s]
+
+Level 85
+Sequence of moves: 
+..1T1R.2
+.1R2T...
+T..R22.2
+R1.22.T.
+.0T.2.R2
+.T...22R
+.R1.2..T
+2..2RT.0
+Number of moves: 5
+Number of vertices examined: 17
+0.000439 [s]
+
+Level 86
+Sequence of moves: 
+TR...2.2
+1T12.R.2
+R.T...0.
+.1.R..T1
+..R2T11.
+...T..R2
+..10.T.R
+.1.1R.2T
+Number of moves: 5
+Number of vertices examined: 30
+0.000622 [s]
+
+Level 87
+Sequence of moves: 
+..2R2T.0
+T1...R..
+R.2....T
+1TR..2..
+.1T.R2..
+.R1..2T1
+...1T2.R
+1.0T.2R2
+Number of moves: 10
+Number of vertices examined: 41
+0.000925 [s]
+
+Level 88
+Sequence of moves: 
+.R2212T0
+1.R...2T
+..2RT...
+T.222R.2
+...T..2R
+.1T1R..2
+1T1.22R2
+R11.2T..
+Number of moves: 4
+Number of vertices examined: 6
+0.000185 [s]
+
+Level 89
+Sequence of moves: 
+T.12R221
+.1.R.22T
+.0T..22R
+.T2..2R.
+.1.T2R..
+2R2..2T.
+R.2.2T.1
+2.R.T.0.
+Number of moves: 7
+Number of vertices examined: 14
+0.00034 [s]
+
+Level 90
+Sequence of moves: 
+....T2.R
+T2.R.2..
+2R.T.1.1
+R2..2.T.
+1.T12R2.
+.T2.2.R.
+2.R.2T.1
+.1..R1.T
+Number of moves: 10
+Number of vertices examined: 244
+0.00424 [s]
+
+Level 91
+Sequence of moves: 
+..1T21R.1
+..R.2.2.T
+T1..2...R
+..1.10TR2
+.12.RT...
+1T2..R...
+R222T.01.
+2.2R.2.T1
+.RT..1.0.
+Number of moves: 6
+Number of vertices examined: 13
+0.000343 [s]
+
+Level 92
+Sequence of moves: 
+RT0.0...0
+...1.22RT
+....T.R.2
+11.T2R2.2
+1.T2R2.2.
+.R..222T1
+T..22..1R
+122R22T.1
+.2R.2T.0.
+Number of moves: 9
+Number of vertices examined: 20
+0.00072 [s]
+
+Level 93
+Sequence of moves: 
+.2.2R221T
+T2.R22..2
+2R.....T1
+.T.2.2R2.
+.0T.2R..2
+2.R2T.1..
+.0..0T2R.
+R...1.T.1
+.0.T.1.2R
+Number of moves: 8
+Number of vertices examined: 16
+0.000458 [s]
+
+Level 94
+Sequence of moves: 
+RT..10.1.
+.1T22..R2
+2.2R2T..1
+....11T.R
+T.2.2R22.
+...2R.2T.
+12R2T...1
+.R.2.22.T
+.1.T1.R1.
+Number of moves: 8
+Number of vertices examined: 18
+0.000544 [s]
+
+Level 95
+Sequence of moves: 
+TR21....1
+.22..R.1T
+.T..2...R
+..R.2..T1
+10.T221R.
+212R.T.11
+.0T2R1.22
+R1..2.T.1
+1.0.T.R..
+Number of moves: 11
+Number of vertices examined: 38
+0.001081 [s]
+
+Level 96
+Sequence of moves: 
+1..T2R2.1
+1.T2R2...
+RT11....0
+2R.2T..1.
+T222.22R1
+.2R2...2T
+.2221.RT.
+.2.R1T.0.
+.1...0T.R
+Number of moves: 4
+Number of vertices examined: 8
+0.000268 [s]
+
+Level 97
+Sequence of moves: 
+R....T.0.
+22222R1T0
+T.R2.....
+1R2.2...T
+...1.1TR2
+01TR2.2..
+.T1.R2..2
+.0.T2.R2.
+...0T22.R
+Number of moves: 3
+Number of vertices examined: 4
+0.000133 [s]
+
+Level 98
+Sequence of moves: 
+..0TR1...
+1R1..1T.1
+.T122..1R
+0....TR.2
+11.RT1.0.
+T.1..R..2
+R...1..T.
+.0T2...R2
+2.R....2T
+Number of moves: 6
+Number of vertices examined: 11
+0.000274 [s]
+
+Level 99
+Sequence of moves: 
+1T.1.1.2R
+.1T1..2R2
+R..1T....
+22RT.....
+22.22.R2T
+TR.22...1
+..2.R1T..
+1..R2T.1.
+1222.R1T0
+Number of moves: 10
+Number of vertices examined: 60
+0.001305 [s]
+
+Level 100
+Sequence of moves: 
+10T..22R1
+R.2..22.T
+....0..TR
+.1R2T..0.
+.T2R22212
+1..T..R.2
+T.2..R2..
+1R..2T1.1
+1..1R1T..
+Number of moves: 10
+Number of vertices examined: 43
+0.000976 [s]
+
+Level 101
+Sequence of moves: 
+..T.2..1R
+T2.2R.212
+2R2...2T.
+.2....R2T
+R.2..T1..
+22.R2.T.0
+22R2T1...
+.T.....R.
+.01T1R.21
+Number of moves: 10
+Number of vertices examined: 49
+0.001124 [s]
+
+Level 102
+Sequence of moves: 
+0.TR122..
+T....R2.1
+.2R2T.1..
+1..TR.2.1
+..2..2R.T
+.R..2T..1
+...0.0.TR
+1.....TR.
+RT1.1..1.
+Number of moves: 7
+Number of vertices examined: 151
+0.003157 [s]
+
+Level 103
+Sequence of moves: 
+1T.2.R...
+..1R2T.1.
+.2...1.RT
+....R.T.1
+R..22.2T.
+1.T2.1.1R
+...T2.R.2
+2R.1T0.0.
+T2R.....2
+Number of moves: 9
+Number of vertices examined: 59
+0.001478 [s]
+
+Level 104
+Sequence of moves: 
+1T..2R..1
+R2.T.1.1.
+2..2RT0..
+T..R....1
+.RT1..0..
+1.R.....T
+....1.T2R
+0.1.T.2R.
+....1.RT1
+Number of moves: 6
+Number of vertices examined: 37
+0.000939 [s]
+
+Level 105
+Sequence of moves: 
+1.R..1T..
+T.22..2R1
+2.22.1R.T
+RT11....1
+1...0T2.R
+.R..T...1
+.1TR2....
+...T2R..2
+..1.R.2T.
+Number of moves: 7
+Number of vertices examined: 67
+0.001571 [s]
+
+Level 106
+Sequence of moves: 
+1.R.1.2T1
+..TR...2.
+0.0.T..2R
+TR.2.....
+1.0.1TR22
+R....2T1.
+22..22.RT
+...T2R..1
+.T.1R2...
+Number of moves: 6
+Number of vertices examined: 19
+0.000518 [s]
+
+Level 107
+Sequence of moves: 
+..0T1R.2.
+..T....R.
+2.2..2RT0
+R..2..T..
+2..R.2.1T
+.TR2.2..2
+11..T2.1R
+.R..2T0..
+T..2R1.1.
+Number of moves: 10
+Number of vertices examined: 154
+0.003537 [s]
+
+Level 108
+Sequence of moves: 
+1T2.22R..
+.R..22.1T
+2...R..T.
+R222T11..
+2....RT..
+T2R.121..
+0.TR.2..2
+.....T1R.
+.1.T1..2R
+Number of moves: 8
+Number of vertices examined: 17
+0.000646 [s]
+
+Level 109
+Sequence of moves: 
+.1.R2.2T1
+RT0......
+.1T.2..2R
+T2..R1...
+.2R.2T.1.
+12...R..T
+..1.T2R2.
+1R..1.T.0
+..1T.21R.
+Number of moves: 7
+Number of vertices examined: 23
+0.000772 [s]
+
+Level 110
+Sequence of moves: 
+1.T.1..R1
+R.2.....T
+1.11TR222
+T..22.R2.
+.1R2..2T1
+...R2.T0.
+0T2.....R
+..1TR...2
+1R...T0..
+Number of moves: 9
+Number of vertices examined: 26
+0.000784 [s]
+
+Level 111
+Sequence of moves: 
+1.0.T1R2.
+R....T1..
+T1.2.2.R2
+.T.2.R.2.
+.1T2R2.2.
+....1.T2R
+...R...T.
+1R2T....1
+..R1.2.1T
+Number of moves: 6
+Number of vertices examined: 148
+0.003359 [s]
+
+Level 112
+Sequence of moves: 
+1.....1TR
+R22.T0.1.
+1....TR.2
+..R.2...T
+11.TR2..1
+.RT1..1..
+T2.R22..1
+.1....TR.
+0T1..R1..
+Number of moves: 12
+Number of vertices examined: 406
+0.009106 [s]
+
+Level 113
+Sequence of moves: 
+1..TR2.2.
+R1T1..0..
+..2..2.RT
+T1R2...22
+..22.RT.1
+.....TR22
+.T..2.2.R
+.2.R2..T.
+1R..T0..1
+Number of moves: 8
+Number of vertices examined: 63
+0.001404 [s]
+
+Level 114
+Sequence of moves: 
+.2.R1T.1.
+1R22T..1.
+T2..2.R.1
+..R2..2.T
+RT1.1....
+.0..11T2R
+.01T.2.R.
+..T.2R.2.
+.1..R..T1
+Number of moves: 5
+Number of vertices examined: 58
+0.001409 [s]
+
+Level 115
+Sequence of moves: 
+..0...TR1
+.1....R.T
+RT.1...1.
+T.1R..2.2
+...1.T..R
+.R1T.1...
+.1.0TR2..
+..T.R2...
+1.R.2.2T.
+Number of moves: 8
+Number of vertices examined: 84
+0.001986 [s]
+
+Level 116
+Sequence of moves: 
+1.R2.T01.
+..T.R2..1
+11.22R.2T
+.T.222.2R
+TR......2
+.10.T..R.
+R2.2..1T.
+.2.R1.T0.
+...T.2R.2
+Number of moves: 4
+Number of vertices examined: 83
+0.002192 [s]
+
+Level 117
+Sequence of moves: 
+..1R2.T1.
+.0T.R..2.
+....2.R2T
+RT1....11
+.2R2T0...
+.R2T.....
+T.2..1.2R
+.1...T.R2
+.....R.T.
+Number of moves: 8
+Number of vertices examined: 28
+0.000854 [s]
+
+Level 118
+Sequence of moves: 
+1....T2R1
+.R1T0..1.
+.2.2..RT.
+...R.2.1T
+R2T....01
+.T22.R2.2
+2.R.T....
+..2.R.T.1
+T...22.1R
+Number of moves: 12
+Number of vertices examined: 45
+0.00111 [s]
+
+Level 119
+Sequence of moves: 
+RT.00.01.
+.R..T.0..
+....1T.R.
+.2R..2.T1
+..1T2R...
+.1T2R.1..
+..0..1T1R
+T.....R..
+1..R2.21T
+Number of moves: 7
+Number of vertices examined: 16
+0.000511 [s]
+
+Level 120
+Sequence of moves: 
+.01...TR.
+..R.2T1.0
+1.TR...2.
+2..2R2.T.
+R...2..1T
+T......1R
+0T12.R..2
+1R.T1.1.1
+.10.T2R.2
+Number of moves: 9
+Number of vertices examined: 52
+0.001279 [s]
+
+Level 121
+Sequence of moves: 
+.R..2T0.0
+2...R2.1T
+...0TR..2
+..T...1.R
+R2...2.T1
+.TR..2...
+..1T...R2
+...R..T1.
+T122.2R.2
+Number of moves: 9
+Number of vertices examined: 49
+0.001368 [s]
+
+Level 122
+Sequence of moves: 
+T.2..1.2R
+2...RT0..
+..1T.2.R.
+R..2T.0..
+.TR....22
+2222.RT..
+.2..1.R.T
+2R2....T0
+..TR1.2..
+Number of moves: 12
+Number of vertices examined: 119
+0.002433 [s]
+
+Level 123
+Sequence of moves: 
+2R1..T0..
+R....2T..
+1T.2.R.1.
+.1...2RT1
+....T2.2R
+2.1R.222T
+..T.2..R1
+..1TR222.
+T.R1.....
+Number of moves: 10
+Number of vertices examined: 35
+0.000901 [s]
+
+Level 124
+Sequence of moves: 
+T...2R1.2
+2...R.T..
+..1.22RT.
+...0T..2R
+.R.T...1.
+RT0..1...
+..TR.....
+2.R2.2..T
+.0...T2R1
+Number of moves: 7
+Number of vertices examined: 93
+0.002156 [s]
+
+Level 125
+Sequence of moves: 
+1.2RT....
+.T2..2R1.
+T2R..2...
+..2..R2T0
+R..2.2.2T
+..1...TR2
+2R.T..0..
+..101T..R
+1.T.R..2.
+Number of moves: 8
+Number of vertices examined: 18
+0.000659 [s]
+
+Level 126
+Sequence of moves: 
+1T.1...R1
+2R2T0..1.
+..2R.T0..
+....1RT.0
+.2R.T....
+.2..R...T
+R.22222T1
+.1T....1R
+T...2.R.2
+Number of moves: 8
+Number of vertices examined: 12
+0.000363 [s]
+
+Level 127
+Sequence of moves: 
+.1R...2T.
+.T2..2R..
+1RT......
+.212.RT.0
+T..R2...1
+...2RT..0
+2..2..1RT
+R..T.0.1.
+1..0T...R
+Number of moves: 10
+Number of vertices examined: 187
+0.003998 [s]
+
+Level 128
+Sequence of moves: 
+.T2..21.R
+..R..2T0.
+R22.T....
+.RT0..1..
+.1.T.R...
+2..R2T..1
+...2R1.T.
+2......RT
+T2..2.R2.
+Number of moves: 7
+Number of vertices examined: 22
+0.000627 [s]
+
+Level 129
+Sequence of moves: 
+.RT0.0..1
+.1.0..T2R
+RT1.....1
+.0.T..2R.
+..22RT..1
+..R2.22.T
+T..R2.2.1
+....T.R.1
+1..2.R2T.
+Number of moves: 7
+Number of vertices examined: 59
+0.001338 [s]
+
+Level 130
+Sequence of moves: 
+0...1T22R
+T.1...2R.
+1T..2.R.2
+.2.2R.T..
+R2T....1.
+22R2.2.T.
+....TR..2
+..2R1.1.T
+2R.T....0
+Number of moves: 12
+Number of vertices examined: 240
+0.005219 [s]
+
+Level 131
+Sequence of moves: 
+.RT...1..
+..1.T1R..
+.T222.2R.
+R1.2.T..0
+2.222R2.T
+...R...T1
+T1.....1R
+..1TR.2.2
+.1R.2.T..
+Number of moves: 9
+Number of vertices examined: 52
+0.001279 [s]
+
+Level 132
+Sequence of moves: 
+.R1.T....
+...T21R.2
+.1T2R.2.2
+...R2T...
+T..2.2.2R
+1...1.TR2
+.TR2.2..2
+R.....1.T
+2....R.T0
+Number of moves: 8
+Number of vertices examined: 16
+0.00072 [s]
+
+Level 133
+Sequence of moves: 
+2.R.2T.1.
+21..R2T.1
+.T2.2.2.R
+R......2T
+1...T22R.
+T...1.R.1
+.R.T...1.
+0.TR.22..
+.....R2T0
+Number of moves: 9
+Number of vertices examined: 328
+0.007011 [s]
+
+Level 134
+Sequence of moves: 
+.1T.1...R
+..R1.222T
+1R2T.....
+T...1.2R1
+.1..T.R..
+R..2..T..
+.T2R.2.2.
+2....R1T0
+21.2RT...
+Number of moves: 11
+Number of vertices examined: 962
+0.020347 [s]
+
+Level 135
+Sequence of moves: 
+R.T1..1..
+.0..1TR.2
+.T222R2.2
+.22R2..T.
+.R2.2.T1.
+T..2...2R
+1...2.1RT
+...TR....
+1.R1T..1.
+Number of moves: 10
+Number of vertices examined: 58
+0.001479 [s]
+
+Level 136
+Sequence of moves: 
+.RT0....0
+..2.2R21T
+T.....2.R
+..R1..2T1
+2.2.RT...
+.1.0T.R2.
+...T..2R.
+RT.1.....
+.1.R..T..
+Number of moves: 11
+Number of vertices examined: 36
+0.000785 [s]
+
+Level 137
+Sequence of moves: 
+R.....1T.
+.0.0..TR1
+1..T2R2..
+T..R....1
+0.T2..R..
+..22R.2.T
+.T...2.2R
+.R2.2T...
+.2R2T0..1
+Number of moves: 11
+Number of vertices examined: 296
+0.006352 [s]
+
+Level 138
+Sequence of moves: 
+0.0...TR.
+TR...2..2
+11T122.2R
+..1TR2..2
+.....R2.T
+1T..22R2.
+..2RT1...
+R.22.T.1.
+..R...2T.
+Number of moves: 11
+Number of vertices examined: 171
+0.003709 [s]
+
+Level 139
+Sequence of moves: 
+0.1.T.R1.
+...R...T1
+TR.2...2.
+.1...1TR2
+1TR2.....
+..T2.2..R
+..0T2R...
+2...RT0..
+R...2...T
+Number of moves: 7
+Number of vertices examined: 34
+0.000811 [s]
+
+Level 140
+Sequence of moves: 
+...TR.1..
+R.12....T
+2..22RT.1
+...RT..0.
+......RT1
+.0T.1..R.
+1T2....2R
+T2R..2...
+1R.2.T..1
+Number of moves: 9
+Number of vertices examined: 50
+0.00109 [s]
+
+Level 141
+Sequence of moves: 
+.T.1...R.
+2.2.R.2T1
+....T.2.R
+..1.0TR..
+..R1...1T
+R.2T.1...
+2RT1..1.0
+...R.2T..
+T2...R.1.
+Number of moves: 7
+Number of vertices examined: 350
+0.007215 [s]
+
+Level 142
+Sequence of moves: 
+1.T1.2R.2
+R.2...2T.
+1T......R
+T2...R..2
+.R2..2..T
+..R.T..10
+1...RT...
+..1T21.R1
+1..R2.T..
+Number of moves: 10
+Number of vertices examined: 217
+0.004238 [s]
+
+Level 143
+Sequence of moves: 
+..1T..1R.
+2.R....T.
+1.T..R1.1
+R2..1..1T
+T.1.....R
+1R.2T..0.
+1..R.2T..
+.T....R.2
+...2RT1..
+Number of moves: 11
+Number of vertices examined: 294
+0.006545 [s]
+
+Level 144
+Sequence of moves: 
+2..RT1..1
+.1.....TR
+.2..2RT1.
+R.T...1..
+T2..2.R.2
+....1T2R.
+.R2T..1..
+0TR.2.2.2
+...1R...T
+Number of moves: 11
+Number of vertices examined: 2509
+0.050957 [s]
+
+Level 145
+Sequence of moves: 
+.RT0.....
+..1.1TR..
+.TR..2..2
+1.1...T2R
+R.......T
+T.2.22.R1
+.0.TR2...
+1...2R.T.
+...RT.0..
+Number of moves: 10
+Number of vertices examined: 2214
+0.040646 [s]
+
+Level 146
+Sequence of moves: 
+..T2.2.R1
+1..2.RT1.
+TR22.2..1
+.2.R....T
+2.RT.....
+222.RT1..
+...0T1R.2
+.T2.....R
+R.....2T1
+Number of moves: 8
+Number of vertices examined: 37
+0.000975 [s]
+
+Level 147
+Sequence of moves: 
+.R1.2..T0
+2...R.2.T
+..0.T2R2.
+.T...2.R.
+..0T1R...
+R.T...1..
+.1.R.2T.1
+..1..T.2R
+T1R2.....
+Number of moves: 8
+Number of vertices examined: 451
+0.008867 [s]
+
+Level 148
+Sequence of moves: 
+R.2..T0..
+2.RT0....
+.T...R1.2
+2R....T..
+.1T..22R2
+.......TR
+.2.RT..0.
+T..2R....
+1.1.2.R1T
+Number of moves: 8
+Number of vertices examined: 368
+0.007611 [s]
+
+Level 149
+Sequence of moves: 
+2R..1..1T
+.2.R.1.T.
+RT....1..
+.0T2..R22
+..1.T1..R
+.....T.R2
+1..TR2.2.
+..R1.2T..
+T1...R1..
+Number of moves: 10
+Number of vertices examined: 302
+0.005872 [s]
+
+Level 150
+Sequence of moves: 
+TR1.1.2..
+..TR.2.1.
+1...TR..2
+R.2.2T10.
+......1TR
+.2..R...T
+.T222.R..
+.0....TR1
+..RT.0.1.
+Number of moves: 10
+Number of vertices examined: 167
+0.003402 [s]
+
+Level 151
+Sequence of moves: 
+..T1.R..2
+.1.T.2R..
+....0.TR.
+22R2T..1.
+R....2.T.
+TR2....1.
+.1..1T..R
+0T2R....2
+...2R.1.T
+Number of moves: 10
+Number of vertices examined: 50
+0.001279 [s]
+
+Level 152
+Sequence of moves: 
+R..1T....
+2R...2.T.
+...T2R2.1
+22R2.2..T
+.T2...2.R
+1.T...R..
+T1.2R.2.2
+.1.R.T...
+...1.0TR2
+Number of moves: 9
+Number of vertices examined: 410
+0.007582 [s]
+
+Level 153
+Sequence of moves: 
+2RT..0..1
+R......T.
+......TR2
+2.R1.T1..
+...T...2R
+2.2R1.2.T
+....T.R.1
+T..2R22..
+0T.2.R2..
+Number of moves: 7
+Number of vertices examined: 166
+0.003557 [s]
+
+Level 154
+Sequence of moves: 
+T2...R.1.
+2.R..T..1
+.RT0...0.
+.2..R..T.
+...T.1..R
+R2.2T..1.
+.....0TR2
+...R1.2.T
+1T1...R..
+Number of moves: 7
+Number of vertices examined: 64
+0.00144 [s]
+
+Level 155
+Sequence of moves: 
+R.1..1T..
+2RT.....1
+.T.....1R
+2.2R1.2.T
+..R.T0...
+....2.RT0
+.1.2RT1..
+...T2R.2.
+T..1...R.
+Number of moves: 10
+Number of vertices examined: 726
+0.013847 [s]
+
+Level 156
+Sequence of moves: 
+T..1R....
+1..T2R2..
+..2RT..0.
+.0..0..TR
+.TR....2.
+.1T....R2
+..1...R2T
+2R....T..
+R2.2.T0.0
+Number of moves: 6
+Number of vertices examined: 12
+0.000363 [s]
+
+Level 157
+Sequence of moves: 
+..0T1R.2.
+0T.2...R.
+....T2.2R
+T.1R.2...
+2R.22.T1.
+..12R..T.
+R2T..1.0.
+2.R.2...T
+.....TR.1
+Number of moves: 10
+Number of vertices examined: 476
+0.008875 [s]
+
+Level 158
+Sequence of moves: 
+1.T1..R2.
+..2.RT...
+R22.2222T
+.R2.T...1
+1..T1...R
+..22.RT..
+T.22...R2
+0TR2.2.2.
+.1.R1..T.
+Number of moves: 9
+Number of vertices examined: 363
+0.007979 [s]
+
+Level 159
+Sequence of moves: 
+.1T2.2.R2
+...RT.0..
+.....RT..
+...T.2R.2
+...0.T..R
+.R.....2T
+1TR...2.1
+R.2....T.
+T.2.R.21.
+Number of moves: 9
+Number of vertices examined: 728
+0.013391 [s]
+
+Level 160
+Sequence of moves: 
+.0.T.2.1R
+..2R22.T.
+RT.1....1
+T....R...
+1R2..2T1.
+....1T2R.
+..R.....T
+0.T2R.221
+...1T.R..
+Number of moves: 10
+Number of vertices examined: 376
+0.007351 [s]
+
+Level 161
+Number of vertices examined: 5
+0.000229 [s]
+
+Level 162
+Sequence of moves: 
+..T...2.R.
+.R.....T.0
+1221.1R2.T
+.1.TR.2222
+T..R.....2
+R222..2.T.
+...1.T.R12
+1...TR....
+.T..12...R
+.1R2.2T..1
+Number of moves: 12
+Number of vertices examined: 281
+0.006699 [s]
+
+Level 163
+Sequence of moves: 
+T.R2....1.
+.2.R..1.T.
+..T.....R1
+2..22R.12T
+.R12.2.T..
+...T..1R.2
+.T1.2...2R
+....R2T1..
+R1..2T...1
+..0.T1R...
+Number of moves: 13
+Number of vertices examined: 5346
+0.121409 [s]
+
+Level 164
+Sequence of moves: 
+.1T..R...1
+1R.1...1T.
+T22.R2..2.
+22R...1..T
+....T..1R2
+R...1.1T..
+..1...TR2-48
+.T..1..2.R
+..1T..R.22
+...R1T.1..
+Number of moves: 10
+Number of vertices examined: 351
+0.008383 [s]
+
+Level 165
+Sequence of moves: 
+T1.R....1.
+...1.TR1.2
+2..2R2.T..
+R..2...2T.
+1...T2.R22
+.0.T1R..2.
+.TR...2.2-48
+...0..T.2R
+.R...2..2T
+1.T.1..2R.
+Number of moves: 13
+Number of vertices examined: 582
+0.013714 [s]
+
+Level 166
+Number of vertices examined: 1454
+0.035303 [s]
+
+Level 167
+Number of vertices examined: 711
+0.018029 [s]
+
+Level 168
+Sequence of moves: 
+2.R2..222T
+2..RT0....
+.T2...R..2
+..T...22R2
+..0T2.22.R
+2R......T1
+..0..T2R1.
+22..R2T1.1
+R..1...T..
+T.1.2R1...
+Number of moves: 8
+Number of vertices examined: 59
+0.001548 [s]
+
+Level 169
+Sequence of moves: 
+R.2T1.0.0.
+.1...R.T..
+....1T1R.2
+.0....T2.R
+2.2R2...T.
+T12.R.....
+.TR....22-48
+1R......2T
+....T.2.R1
+..T2.1R.2.
+Number of moves: 12
+Number of vertices examined: 150
+0.003845 [s]
+
+Level 170
+Sequence of moves: 
+..2..2.RT.
+00.T.R1..2
+..2R.2T...
+T.....2..R
+RT1..1..1.
+2R2..T.1..
+..R2...T.-48
+....T1R.22
+..2.2...RT
+1.T2R.2..1
+Number of moves: 11
+Number of vertices examined: 445
+0.010522 [s]
+
+Level 171
+Number of vertices examined: 1
+4.7e-05 [s]
+
+Level 172
+Sequence of moves: 
+1.R1..1.T1
+T1.....2.R
+...T.R...2
+1...0.T2R2
+R.2.T.....
+..2..2.R2T
+..2.RT...-48
+2.2..1RT1.
+.T2R2.2..1
+2RT1......
+Number of moves: 11
+Number of vertices examined: 1228
+0.029192 [s]
+
+Level 173
+Number of vertices examined: 24
+0.000907 [s]
+
+Level 174
+Number of vertices examined: 307
+0.0067 [s]
+
+Level 175
+Sequence of moves: 
+..2.R.T0.0
+...R2....T
+.1....1TR2
+T........R
+.2R2T1..1.
+.R2T......
+.2..1R2.T-48
+1..0.TR.12
+.T2...2R.2
+R1T.0.....
+Number of moves: 12
+Number of vertices examined: 125
+0.003316 [s]
+
+Level 176
+Sequence of moves: 
+T1R1..1...
+R.....T..1
+.T2.12R.1.
+2R2.T..0..
+2.2.2R.T.1
+...T2222.R
+1.TR2..21.
+...2R2..T.
+2...2..R2T
+..0.1T2.R1
+Number of moves: 10
+Number of vertices examined: 317
+0.008072 [s]
+
+Level 177
+Sequence of moves: 
+2..22..R2T
+..T2R1...2
+R..2.T0...
+..1.1.T..R
+1T.22R2.22
+.2.R..2T..
+2R..T....-48
+T2.21.2.R2
+1...1.R.T.
+.2RT0..0..
+Number of moves: 9
+Number of vertices examined: 37
+0.001075 [s]
+
+Level 178
+Sequence of moves: 
+22.R22T0..
+..T..R2...
+..1....TR.
+R2......T0
+222.R2..1T
+22R..T1..1
+.R.T.0.1.-48
+T22.2.2R.2
+....T1..1R
+0T2...R2.2
+Number of moves: 12
+Number of vertices examined: 25
+0.000817 [s]
+
+Level 179
+Number of vertices examined: 72
+0.001614 [s]
+
+Level 180
+Sequence of moves: 
+R.1T0.0..1
+1T......2R
+T2..1..R22
+.R.2T0..1.
+..T.....R.
+..22R.T...
+...R..222T
+.2R2.T..1.
+..2..2RT1.
+1..2.R.1T.
+Number of moves: 10
+Number of vertices examined: 167
+0.003877 [s]
+
+Level 181
+Number of vertices examined: 72
+0.00192 [s]
+
+Level 182
+Sequence of moves: 
+.2R.T1.0.1
+1.T2.....R
+....2.RT0.
+2.12R22.1T
+R...2.2.T.
+T....R2..1
+...R.T1..-48
+.1.1.0T.R.
+1R.T......
+.T..2.1R2.
+Number of moves: 11
+Number of vertices examined: 216
+0.005328 [s]
+
+Level 183
+Number of vertices examined: 1288
+0.029205 [s]
+
+Level 184
+Number of vertices examined: 68
+0.001802 [s]
+
+Level 185
+Sequence of moves: 
+2R1.1.1..T
+.....0T2.R
+...T...R2.
+...RT.1...
+1.0...1TR2
+R.T1....1.
+..2.RT...-48
+222222R.T.
+T....R.1..
+0TR..2...2
+Number of moves: 8
+Number of vertices examined: 47
+0.001339 [s]
+
+Level 186
+Sequence of moves: 
+..1.1T.R2.
+....2...RT
+....2R.T.1
+.0.TR.1.2.
+R.2.22T0..
+1T2R222.22
+.2R.T....-48
+.1T.1.R...
+T.....2..R
+1R.2..2.T1
+Number of moves: 11
+Number of vertices examined: 40
+0.001079 [s]
+
+Level 187
+Sequence of moves: 
+.T2R......
+..R....T.1
+T222R1.2..
+...T2...R2
+.....T.22R
+.22..R1.T.
+..T.22.R.-48
+R2...2T.0.
+2R1.2....T
+.1..T2R2..
+Number of moves: 11
+Number of vertices examined: 283
+0.00677 [s]
+
+Level 188
+Sequence of moves: 
+R....1..2T
+.0...TR2..
+2.R..2T...
+T..1..1R.2
+.12..R.T..
+.T......R.
+.1.T....2R
+..2RT.0...
+..T.R..1..
+1R.22...T.
+Number of moves: 13
+Number of vertices examined: 2593
+0.055791 [s]
+
+Level 189
+Sequence of moves: 
+..2.R..T..
+2.R.....2T
+...T...2R.
+.T222.1R22
+.....T..2R
+...2.RT...
+R.T1.1..1-48
+.1..T.R...
+...R1..2T1
+TR.2.22.1.
+Number of moves: 11
+Number of vertices examined: 485
+0.011626 [s]
+
+Level 190
+Sequence of moves: 
+T2...R....
+2R.2.T....
+.1...0T1.R
+2...2.R1T.
+...2R.2T.1
+.2.2..2.RT
+R..2T...1-48
+..TR..2.2.
+22RT...1..
+.T..1.2R2.
+Number of moves: 11
+Number of vertices examined: 188
+0.004457 [s]
+
+Level 191
+Sequence of moves: 
+.R2T.1.0..
+.1.1T.R...
+..R2..2T..
+...R..T...
+0T222R.2.2
+T.222...1R
+2.222..RT-48
+..T2R...2.
+2.......RT
+R1...T0...
+Number of moves: 10
+Number of vertices examined: 81
+0.002239 [s]
+
+Level 192
+Sequence of moves: 
+2R..1..21T
+..1....RT.
+1.T1..1.R2
+..1..0T.2R
+..RT.0....
+.2.2..RT1.
+...RT.1..-48
+RT.1.....1
+.1..RT..1.
+T....R....
+Number of moves: 10
+Number of vertices examined: 1568
+0.034389 [s]
+
+Level 193
+Sequence of moves: 
+R.2.T0...1
+2.21RT....
+.....1.1TR
+.0.T.2R...
+..2..RT...
+.TR...1.2.
+..T....R2-48
+.R.2.2.T..
+2..R.21.2T
+T2.2....R1
+Number of moves: 10
+Number of vertices examined: 111
+0.002438 [s]
+
+Level 194
+Sequence of moves: 
+..1T.1..R1
+22.R..1..T
+R2......T1
+.R....1T0.
+22.2RT....
+..2.2RT...
+22R2T.1.0.
+..T....2.R
+T.1....R1.
+0T....R2.2
+Number of moves: 12
+Number of vertices examined: 4891
+0.107854 [s]
+
+Level 195
+Sequence of moves: 
+..T..2R...
+..1T.R....
+0...1.T2R.
+T22.R2....
+22R..T..1.
+.R.2.....T
+1T2.2.1R2-48
+R.22T0.1..
+..2R...T1.
+.....0.0TR
+Number of moves: 8
+Number of vertices examined: 147
+0.003375 [s]
+
+Level 196
+Sequence of moves: 
+2RT..0....
+..1T...1R2
+....1..T.R
+2..2..1R.T
+2.R2.1T.1.
+2.22RT....
+R...T1...-48
+T..2.R2.2.
+...R.2.2T.
+0T22..R...
+Number of moves: 10
+Number of vertices examined: 478
+0.012309 [s]
+
+Level 197
+Sequence of moves: 
+..1R....2T
+1.T...1.R.
+..R2.1T1..
+R.2T1.1...
+T......R2.
+.R2.2T1...
+1.2.R..T.-48
+.T2.2R..22
+...0T...2R
+1.2..2R.T1
+Number of moves: 8
+Number of vertices examined: 259
+0.00588 [s]
+
+Level 198
+Sequence of moves: 
+...1.R..T.
+..1T12R222
+.1R.T.....
+.T...2..R.
+1...1T.R2.
+R.2...2T.1
+T...2...2R
+.RT1.....1
+1..2R.T0..
+..1R....2T
+Number of moves: 13
+Number of vertices examined: 2862
+0.064604 [s]
+
+Level 199
+Sequence of moves: 
+1....T2.R.
+...2R2...T
+RT....1..1
+T...22R...
+12.R2222T.
+..T.222R.2
+.2R2T...0.
+.R...22T..
+..1T1R.1.2
+0....1T..R
+Number of moves: 10
+Number of vertices examined: 618
+0.015005 [s]
+
+Level 200
+Sequence of moves: 
+..2R2...T.
+.R.2....2T
+.2.2RT0...
+0T....1.R2
+.....R1T..
+..R222T...
+T1....R22-48
+R...T1..1.
+.0T2...R.2
+...T..2.2R
+Number of moves: 13
+Number of vertices examined: 210
+0.004913 [s]
+
+Level 201
+Sequence of moves: 
+R..2.T1....
+1...T2R.222
+.T1R2.....2
+.1.TR.2..2.
+..T12...2.R
+2R2.22.T...
+T2R.2....22
+......TR.22
+....2....RT
+1.2.2..2RT0
+..2.2R.2T..
+Number of moves: 13
+Number of vertices examined: 54
+0.001928 [s]
+
+Level 202
+Sequence of moves: 
+2..2.R2.T0.
+.0T2...1R.2
+...R..2..T.
+R.2T0......
+.1R.T......
+.T.1R.2..22
+1....TR.222
+.1..1..T..R
+2....1...RT
+TR..2....2.
+0....0TR.2.
+Number of moves: 12
+Number of vertices examined: 57
+0.002 [s]
+
+Level 203
+Sequence of moves: 
+R.T1.1.....
+1...T...2.R
+.T2...1.R1.
+2.R222..2T.
+T..R..1.2.2
+...22RT0...
+.1.T2.R.22.
+.....T..2R.
+.R2.2.2T..1
+.2.1..2RT..
+..2.R..21.T
+Number of moves: 12
+Number of vertices examined: 3268
+0.076819 [s]
+
+Level 204
+Sequence of moves: 
+2.1.R2T...1
+2..1.2R2.T.
+..T..2.21.R
+1.1T.R2....
+..2..2.RT.1
+1TR........
+R.2.2T.11..
+......1TR..
+2.2R.....2T
+T.22...12R1
+1R22T.1....
+Number of moves: 11
+Number of vertices examined: 4247
+0.11194 [s]
+
+Level 205
+Sequence of moves: 
+2R2..T.0...
+..R1..1T0.1
+....0.TR...
+....T222.2R
+.1.TR22...2
+...2..R.1.T
+RT....1....
+.01.....TR1
+..T2.R2..2.
+T.1R..2....
+1..2.22.RT0
+Number of moves: 12
+Number of vertices examined: 1144
+0.030235 [s]
+
+Level 206
+Sequence of moves: 
+0T...2..R.2
+T.R2....2..
+.1..TR..2..
+R2222T0....
+.....0.1T1R
+.2.2R....T1
+1.T.2..R.2.
+......0T1R.
+.2.R2.T...1
+.R..2.21..T
+1.0T..R.1.1
+Number of moves: 10
+Number of vertices examined: 62
+0.001777 [s]
+
+Level 207
+Sequence of moves: 
+R.2T0.....1
+1...T..1R1.
+.....11.1TR
+.1R2.2.1T..
+.....R.T..1
+.T22.2R2...
+1..1..T21R2
+.2..2.1R..T
+.2.R.T..0.0
+..T2R..2...
+TR1.2......
+Number of moves: 12
+Number of vertices examined: 847
+0.023895 [s]
+
+Level 208
+Sequence of moves: 
+1.2R.12.2.T
+T.2.2.R...2
+1TR...2....
+..T..12.R..
+.1...T2.22R
+...2R.2.T..
+1..T..2.1R.
+..0...TR.22
+2R..2..2.T.
+22..2R1T..1
+R.11T1.0...
+Number of moves: 15
+Number of vertices examined: 90
+0.002772 [s]
+
+Level 209
+Sequence of moves: 
+1R1....T.1.
+...T..2R1..
+.2...2R.T1.
+T2.2..22.R.
+.T...R2222.
+.0T...22R2.
+...RT..1..1
+..1......TR
+2.R22T...0.
+....R1...1T
+R1.22.T11..
+Number of moves: 12
+Number of vertices examined: 5774
+0.152589 [s]
+
+Level 210
+Sequence of moves: 
+1.01.TR..2.
+RT..0.1.0..
+...1T2.1.R.
+.1TR..2..2.
+..222R..T..
+TR2222..2..
+......1T.2R
+...2R.T.1..
+122222.2R2T
+..R22..2.T0
+..1T...R.1.
+Number of moves: 13
+Number of vertices examined: 78
+0.002532 [s]
+
+Level 211
+Sequence of moves: 
+....0.T1..R
+1....22.R.T
+.R.1.22T..0
+..0T1.R2...
+0.T2.22R...
+.....R2.2T.
+0T22.22..R1
+...RT....1.
+T.22R22.2.1
+R.......T1.
+2.R2.T1.0.0
+Number of moves: 15
+Number of vertices examined: 184
+0.004878 [s]
+
+Level 212
+Sequence of moves: 
+T.1...1..R.
+1..T.R...22
+...R2.1T...
+.0T..2.R.22
+..R2...2T.1
+..22R2T....
+1T....2.R22
+R22222.22T.
+..1.T2...1R
+2222.2R22.T
+.R...T1.1..
+Number of moves: 14
+Number of vertices examined: 1657
+0.047112 [s]
+
+Level 213
+Sequence of moves: 
+..1.T2.1R.2
+....2R...T.
+R....2.T1.1
+22RT.1..1..
+...1.T...2R
+1....0..TR2
+TR.....2.2.
+.T.2R.....2
+00TR.1...2.
+...22.R...T
+..0...TR1.1
+Number of moves: 14
+Number of vertices examined: 110
+0.002647 [s]
+
+Level 214
+Sequence of moves: 
+.1.R.2...2T
+2..22R.T0..
+...2R..2T..
+R.122.T..1.
+.0T...2.22R
+T.R2..2....
+0T..2.R....
+..11.T2R222
+.1.T..22.R.
+.R..2....T1
+0..0T.2.R..
+Number of moves: 12
+Number of vertices examined: 516
+0.014557 [s]
+
+Level 215
+Sequence of moves: 
+2..2R..1.1T
+..1.2.R..T.
+.1TR2.2..2.
+.R..21T0..1
+1.1..T...R.
+.2R.T1..0..
+R222....T11
+T.......R..
+0....1.T22R
+.T2..R.22..
+.0.T.2.R...
+Number of moves: 6
+Number of vertices examined: 125
+0.003928 [s]
+
+Level 216
+Sequence of moves: 
+..1T2R..1.1
+.222R22..2T
+...R...1T..
+T.22.2R...2
+2R22.T.0...
+R...T0...1.
+2.R2...T...
+.1T.......R
+....00T2.R2
+22.2..1.RT.
+.T.21..R2.2
+Number of moves: 13
+Number of vertices examined: 26
+0.001071 [s]
+
+Level 217
+Sequence of moves: 
+T1..1..R1.1
+RT..0.1..0.
+.R..T.....0
+...2R.2.T..
+2....1..R.T
+....2.RT.0.
+..0..0...TR
+...1.T.1.R2
+1.T..R.....
+.2.R22T.1..
+.2RT......1
+Number of moves: 14
+Number of vertices examined: 762
+0.018897 [s]
+
+Level 218
+Sequence of moves: 
+..0..T..2R2
+....0.0TR.2
+R2T.....1..
+...R1.T1.1.
+2.R2T1.....
+.1.T....2.R
+T.....R2..2
+.......R2T.
+.R2.2222T.1
+....2R22..T
+0T.1R.22..1
+Number of moves: 15
+Number of vertices examined: 837
+0.021117 [s]
+
+Level 219
+Sequence of moves: 
+0T.2.2...1R
+..1.R..T...
+0...T2.R2.2
+T2.2.2R22.2
+..1R..2.2.T
+.1T2.R...1.
+.....T2.R.1
+2R22.....T.
+R.22....T1.
+.2R..1T1..0
+1.1T1.1.1R.
+Number of moves: 16
+Number of vertices examined: 10302
+0.288006 [s]
+
+Level 220
+Sequence of moves: 
+2R.1....1.T
+....TR....2
+22..RT.10..
+R....1..T.1
+1.T1...R2..
+.1...00TR2.
+..1...T.2.R
+1..T2...2R2
+...R.1...T.
+T2R2......2
+0T22..R.2.2
+Number of moves: 12
+Number of vertices examined: 909
+0.022094 [s]
+
+Level 221
+Sequence of moves: 
+..1T.1R.2.1
+2R..1....T.
+.1...T..2R1
+R..2T11....
+......TR22.
+22R2..1...T
+1T22R...2..
+T..R2....2.
+0.T2..1.R.2
+..0.....T.R
+...22R.T0..
+Number of moves: 13
+Number of vertices examined: 1046
+0.030097 [s]
+
+Level 222
+Sequence of moves: 
+.1....T22R1
+..1..T22R..
+R..1......T
+T......R..2
+.2R.1..T...
+0.T...R.2..
+.R1T.1.....
+...1TR2....
+.T.R.2.....
+0.0...1.1TR
+...2R2..T.1
+Number of moves: 14
+Number of vertices examined: 16075
+0.4127 [s]
+
+Level 223
+Sequence of moves: 
+T1...R.....
+1....T2.2R2
+.T.2....R2.
+2R.2.1.1.T.
+.1..T...2.R
+....R..T..1
+.....1.RT..
+...R2..21.T
+R.T1.0.....
+1.1T2.R2...
+..R1..T...0
+Number of moves: 11
+Number of vertices examined: 1520
+0.036703 [s]
+
+Level 224
+Sequence of moves: 
+.T.R.....2.
+2R1T0......
+..T...2.1R2
+..1.T2R....
+...0..T.1.R
+..2..R.1.T.
+R....2..T0.
+2.R.22.T1..
+2...R2...1T
+T2..22.R2..
+..1..T..R..
+Number of moves: 11
+Number of vertices examined: 223
+0.005677 [s]
+
+Level 225
+Sequence of moves: 
+1.R1T......
+..1T2R.12..
+...R...T..0
+1......R2T.
+.T2...1.2R.
+.2.2R.T....
+T.2...R2...
+2.....2.R.T
+..T2.....2R
+2R...T.....
+R2..2.2.T1.
+Number of moves: 15
+Number of vertices examined: 8939
+0.218617 [s]
+
+Level 226
+Sequence of moves: 
+....2.2..RT
+.2.R.T.0..1
+1.....R.2T.
+...T.R2.2..
+T2..2...R..
+..0...1T2.R
+R.....T...1
+2RT.1......
+2.2.R2.2T.1
+.T.....R.1.
+..R1T...0.1
+Number of moves: 11
+Number of vertices examined: 968
+0.023286 [s]
+
+Level 227
+Sequence of moves: 
+1..22.2RT.1
+...2R.2.2T.
+.0T2.1R.222
+.T.R2......
+.2R2T0....1
+...T...2..R
+...0.T..R22
+.2...R....T
+T....2...R1
+R.....T1..0
+2R2..2.T...
+Number of moves: 12
+Number of vertices examined: 82
+0.001923 [s]
+
+Level 228
+Sequence of moves: 
+2R.T1....0.
+.T....R...1
+2.2R2.2221T
+......2R.T.
+R.2...T11..
+..R..1.T..1
+2.2.RT.0...
+..T.....R22
+T11.2.1..2R
+....TR..222
+0.0.....TR.
+Number of moves: 11
+Number of vertices examined: 3873
+0.101249 [s]
+
+Level 229
+Sequence of moves: 
+..T.2....R2
+..222R..T..
+......0T2.R
+..2R..T1..1
+RT..1......
+.222R.2.2T.
+T2R.2.....2
+...T.2..R..
+.R...T1..0.
+.22.2.R.2.T
+....T.2R2..
+Number of moves: 11
+Number of vertices examined: 2766
+0.062929 [s]
+
+Level 230
+Sequence of moves: 
+0T2.2..1.R2
+.R..2T.00..
+....1..T..R
+T2..2..R...
+1..TR...1.2
+R..222.2T1.
+...22.2.RT1
+22R2T.11...
+2..2.2R22.T
+...2.RT....
+.1TR.2.....
+Number of moves: 12
+Number of vertices examined: 326
+0.009442 [s]
+
+Level 231
+Sequence of moves: 
+...2....R2T
+1..R.2.T1..
+.1R2.2.2T1.
+T.2..R.2...
+.0.1T2.2.R.
+..T...1R..2
+.T1.22.2.2R
+R.1......T.
+2R.T.....0.
+2..1R.T1...
+..0..TR...2
+Number of moves: 13
+Number of vertices examined: 1418
+0.037636 [s]
+
+Level 232
+Sequence of moves: 
+....RT...1.
+..T....R...
+.22.2R1T.1.
+.R..2.T0...
+1T....R.22.
+R.2T1......
+T1......2R.
+1....2..R2T
+..2R....T.1
+..R22.2.1T.
+0.1.T.....R
+Number of moves: 12
+Number of vertices examined: 34112
+0.852465 [s]
+
+Level 233
+Sequence of moves: 
+...0T1R...2
+.1RT1...0..
+1.....1.TR2
+RT..1......
+T2.R2...2.2
+...2....RT.
+....R.2T1..
+.1....T..1R
+1R..2T0...1
+.......R..T
+0.T..R.2...
+Number of moves: 10
+Number of vertices examined: 276
+0.006711 [s]
+
+Level 234
+Sequence of moves: 
+0..0T.22..R
+...T..R..1.
+.TR2..22...
+1...2.2R.T.
+..22RT....1
+.....1.T.R.
+.RT1....1..
+1....221R2T
+.2.R.22.T.0
+T....R.1.2.
+R2.2..T.0..
+Number of moves: 13
+Number of vertices examined: 12415
+0.318255 [s]
+
+Level 235
+Sequence of moves: 
+T..R2.....2
+...1....0TR
+...2R2T....
+......R.T..
+...T.R2..2.
+.0...1.T2R2
+1.0.1T2R2..
+.T....2.R2.
+2R.1T0....1
+R.T..0.....
+.2R1..2.2.T
+Number of moves: 13
+Number of vertices examined: 311
+0.007834 [s]
+
+Level 236
+Sequence of moves: 
+.1.....T.R2
+TR2...1....
+R2.1..T....
+...T2.2...R
+.TR2.1....2
+..T22.R..2.
+2..2R..2..T
+...R..2.T1.
+2......2RT.
+...1.T2R2..
+1.0.TR..2..
+Number of moves: 11
+Number of vertices examined: 5941
+0.146854 [s]
+
+Level 237
+Sequence of moves: 
+0....0TR.2.
+..2.R.2...T
+1R2.2T....1
+.TR.....1..
+.0.T222..R2
+1.2R.22.T..
+T.2..2R..2.
+..T.2R..2..
+...1..1T.2R
+2....22.RT1
+R...T......
+Number of moves: 10
+Number of vertices examined: 366
+0.009275 [s]
+
+Level 238
+Sequence of moves: 
+.1...T....R
+0..T.22.2R2
+..1..2R.2.T
+TR...22.2.1
+.1.1T...R..
+1.TR222.2..
+.2R..2.1T.0
+2.2.R22T.1.
+..1...TR...
+2....R1..T.
+RT1.....0..
+Number of moves: 14
+Number of vertices examined: 1367
+0.039647 [s]
+
+Level 239
+Sequence of moves: 
+T...1...R..
+.22..R.1T.1
+.R2...T..0.
+.1....1..TR
+.22RT1....1
+2.2.R..T0..
+1..T2.R2...
+..2....R..T
+..R..T..0.0
+..T.2.221R.
+RT0..0.1...
+Number of moves: 13
+Number of vertices examined: 286
+0.007897 [s]
+
+Level 240
+Sequence of moves: 
+.1.2.2R1T0.
+......1T2.R
+R.T....1.0.
+1TR21......
+....T2.R2.2
+...R2....T.
+T.222R...2.
+1........RT
+....RT1.1.0
+0..1..T.R2.
+.R2T...1...
+Number of moves: 14
+Number of vertices examined: 3140
+0.080575 [s]
+
+Level 241
+Sequence of moves: 
+.0TR1......
+...T..2..2R
+T..1.R...22
+1...0T2..R.
+.......2R2T
+...1.1.RT.0
+R.2.T.1....
+....R.2T..0
+.T....R..2.
+2R.1..T.0..
+.2R.2..1.T.
+Number of moves: 12
+Number of vertices examined: 14149
+0.336134 [s]
+
+Level 242
+Sequence of moves: 
+1.T.2.R.2..
+R.2...2..T.
+1..1.0T...R
+..R.......T
+T22R......1
+1R2..T..1..
+.T22....R..
+..22R...T.0
+0..T2....R.
+....T..R.2.
+..2..R1T0..
+Number of moves: 12
+Number of vertices examined: 3067
+0.075643 [s]
+
+Level 243
+Sequence of moves: 
+2..R...2..T
+......2RT.1
+.......T2R2
+..RT...0...
+...0T2R...2
+RT1....0...
+.....RT.1..
+..T.22..2.R
+.R...2...T1
+...0.T..R..
+T2..R.1....
+Number of moves: 13
+Number of vertices examined: 429
+0.00983 [s]
+
+Level 244
+Sequence of moves: 
+.T...1.R2..
+22.R...22.T
+..0.T.R22..
+.1T.....R..
+2R2...2T..1
+R2..2...2T.
+2.R..T.....
+T..2..2..R.
+...TR2..22.
+.2...RT....
+.....1.0T2R
+Number of moves: 15
+Number of vertices examined: 33
+0.001291 [s]
+
+Level 245
+Sequence of moves: 
+.T22R1.....
+....1TR2...
+1.R2.2..T.0
+1..R.2..2.T
+...1TR.....
+.RT......1.
+T2.2.222R2.
+1..T.2.R2..
+....0..T.R.
+.......0.TR
+R....2T.1..
+Number of moves: 14
+Number of vertices examined: 3898
+0.086645 [s]
+
+Level 246
+Sequence of moves: 
+.2RT....1.1
+R222.T.0...
+....0..T.2R
+.R.2.2....T
+T2.2...R2.1
+..1.T...R..
+..T2...22R1
+.2.2.R.22T.
+...R2.T....
+.T.2R2.22..
+1..222R2T..
+Number of moves: 13
+Number of vertices examined: 645
+0.018309 [s]
+
+Level 247
+Sequence of moves: 
+0T2.2.2.2R2
+T.R.....2..
+.1...T..2.R
+2.2.R22T.1.
+...T.2..R..
+2.2..R...2T
+2....2.RT1.
+..T..2R2...
+R2.2.....T.
+2R..22T1...
+22.RT...0..
+Number of moves: 12
+Number of vertices examined: 374
+0.009211 [s]
+
+Level 248
+Sequence of moves: 
+.1T1....2.R
+....0TR.2.2
+0..0TR..2..
+.R2.2.T....
+..R...1T.0.
+...1.2..RT1
+...T2...2R.
+T..R.......
+2.22R...2.T
+..222..RT..
+RT..1..1.1.
+Number of moves: 13
+Number of vertices examined: 433
+0.013212 [s]
+
+Level 249
+Sequence of moves: 
+...2R2..T..
+1T.R.......
+...T.2..2R.
+.2..2..2RT.
+.1T1.R2.21.
+....22R.2.T
+R.2.22T1...
+.2R.T...1..
+T...1.....R
+.1...T.R212
+1R2....T1..
+Number of moves: 13
+Number of vertices examined: 18626
+0.478089 [s]
+
+Level 250
+Sequence of moves: 
+2.R1.2.2.1T
+..1...TR2..
+.0.T.2..R1.
+........1TR
+R..2....T..
+1...T2R..2.
+.T.2.R.2..2
+22.2RT.....
+.R...1.T...
+T22R2.....2
+..T2.1...R.
+Number of moves: 10
+Number of vertices examined: 14074
+0.312445 [s]
+
+Level 251
+Sequence of moves: 
+.1R..22.T.1
+T.2.R22..2.
+...T2.R1...
+....T22...R
+...2.R2T...
+..2..22.R.T
+1T2R.2222..
+R.2..2T....
+1.T..2.R2..
+...1.T.22R.
+2R....1.2T0
+Number of moves: 16
+Number of vertices examined: 74
+0.00255 [s]
+
+Level 252
+Sequence of moves: 
+0T22.R.....
+T.22.2..R.1
+..R.2...T..
+2.2R.....1T
+2RT....0..1
+..0......TR
+R....T.0...
+..0TR1...2.
+.1.....T1R2
+..0.T.R2...
+1.....TR...
+Number of moves: 10
+Number of vertices examined: 1707
+0.03352 [s]
+
+Level 253
+Sequence of moves: 
+0.....1..TR
+T1.1.1.R2.2
+..1.RT1....
+.......T2R2
+R.1T1......
+..1....1R2T
+1T....R.2..
+.R...2..T1.
+.2..2RT0..0
+..TR.2.....
+..R2T....1.
+Number of moves: 13
+Number of vertices examined: 45305
+1.08026 [s]
+
+Level 254
+Sequence of moves: 
+T.2....R1.2
+.....TR2..2
+1...T222.R2
+..R.....1T.
+R.22.2.T...
+..TR.......
+1T12...1..R
+...TR2....2
+.R......T..
+...0..T1R..
+.2...R1.2.T
+Number of moves: 11
+Number of vertices examined: 15527
+0.411353 [s]
+
+Level 255
+Sequence of moves: 
+.1.T2R2.2..
+......R..T1
+..0...T.R.2
+.R..2T0....
+..T2R....2.
+....T1...2R
+1.R....T...
+T2.....R222
+2....1..2RT
+RT.......1.
+.12R...2T..
+Number of moves: 14
+Number of vertices examined: 774
+0.017686 [s]
+
+Level 256
+Sequence of moves: 
+R...1..T1..
+.....1T2R2.
+..T..R.2.2.
+..2....RT..
+TR2..2.2.21
+..R.1.....T
+...0T.....R
+0..T2....R2
+.T.2R......
+.0...TR2.22
+..2R.1...T.
+Number of moves: 13
+Number of vertices examined: 800
+0.018613 [s]
+
+Level 257
+Sequence of moves: 
+.22R.1T..1.
+....0T2.2R.
+....T..1.2R
+.22.2R2..T1
+.R.......1T
+.2R2...T..0
+.T2.222R2..
+..T2R......
+...T222.R..
+R1..2222T0.
+T.1.2.R....
+Number of moves: 11
+Number of vertices examined: 1552
+0.038809 [s]
+
+Level 258
+Sequence of moves: 
+1R....2T1..
+T2.2..2.R.1
+....T.2R2..
+R2T1.0.....
+.....T222R1
+.2.R......T
+...T.2R....
+.2R.2.2..T1
+.2..R.T.1..
+.22.2R1.T.1
+.T........R
+Number of moves: 11
+Number of vertices examined: 2918
+0.070189 [s]
+
+Level 259
+Sequence of moves: 
+........TR1
+....22R.2T.
+..1..R.T.0.
+.0.T2..R..1
+..T2...2R..
+RT1.......0
+T2.R.......
+.2.2RT..1..
+.R2.T......
+12R211.22.T
+......T2..R
+Number of moves: 9
+Number of vertices examined: 1106
+0.027607 [s]
+
+Level 260
+Sequence of moves: 
+...22..R.T.
+..T.R...1.1
+.1222R22.2T
+1...T.R2...
+.TR2.2.....
+....0T22.R2
+R222..22T..
+2R....T....
+T2.R..1...2
+.......TR.2
+...T1....2R
+Number of moves: 13
+Number of vertices examined: 146
+0.003724 [s]
+
+Level 261
+Sequence of moves: 
+..R..1T....
+...1.T...R2
+.R2....2T..
+T22.R.2..22
+1T2.......R
+..2...R.2T.
+...1T.22R.2
+1.TR..22..2
+..1...2R..T
+.0.T.R222..
+R...1.2T..0
+Number of moves: 14
+Number of vertices examined: 7656
+0.196241 [s]
+
+Level 262
+Sequence of moves: 
+....T.1..2R
+..R.2...T..
+.T2.....2R.
+..T...1.R..
+2...R..T1..
+R.1..11..T.
+T2.....R..2
+.21R2T.....
+.R..22T1...
+0..T2R.....
+..1..2R..1T
+Number of moves: 12
+Number of vertices examined: 82798
+1.92591 [s]
+
+Level 263
+Sequence of moves: 
+.1...R22T.1
+.T.1..2R...
+...T1.22R..
+.2R2T.....1
+TR.22.2....
+..T...R....
+..1R..2..T1
+2..2RT1....
+......T22.R
+.......T2R2
+R..2......T
+Number of moves: 14
+Number of vertices examined: 12962
+0.327232 [s]
+
+Level 264
+Sequence of moves: 
+T2.....2R2.
+.R..T......
+.1.T2..222R
+RT.1..0....
+.0T....R...
+...R2.T.1..
+.....01T.R.
+..R22T.0...
+......R.T1.
+....2R2...T
+....R.2..T0
+Number of moves: 11
+Number of vertices examined: 392
+0.008241 [s]
+
+Level 265
+Sequence of moves: 
+.R.T1.1.0..
+.....2R.T..
+R2...22T1.1
+..T2.R.....
+.T2..2....R
+.....2.R..T
+.....T222R.
+2.2R2.T....
+T...R..2...
+....T..2R..
+1.R..1.2.T0
+Number of moves: 14
+Number of vertices examined: 52844
+1.2474 [s]
+
+Level 266
+Sequence of moves: 
+R2....T1...
+..T.1.2R.2.
+.......1T2R
+.R..T0....1
+22R22T.....
+1T.R222222.
+T........R.
+1...22R.2T.
+...T...2R1.
+....2R.T...
+.1.1R...2.T
+Number of moves: 10
+Number of vertices examined: 11130
+0.27241 [s]
+
+Level 267
+Sequence of moves: 
+0T..2...2.R
+T...2R..2.2
+2R.T.....0.
+........RT.
+R..2...T1..
+2..222R.T..
+22R22T.....
+...R.1T.0..
+.1T2R......
+2..22.1..RT
+.1..T1.R.2.
+Number of moves: 10
+Number of vertices examined: 1984
+0.049392 [s]
+
+Level 268
+Sequence of moves: 
+.2.....2R1T
+.2..R..22T.
+.2.R2.T....
+..0..T2R...
+..T..R....2
+T2...2R..2.
+1......T..R
+...1T22.2R2
+.R.T0......
+1TR..221..2
+R.......T..
+Number of moves: 15
+Number of vertices examined: 10699
+0.246429 [s]
+
+Level 269
+Sequence of moves: 
+..R.......T
+..T.R.....2
+R.122...2T.
+....1.T22R2
+.2.RT......
+T.1..1..R2.
+.....T.R2..
+1R1T0......
+.T...2R22..
+.....R..T..
+..0....T1.R
+Number of moves: 11
+Number of vertices examined: 4466
+0.103936 [s]
+
+Level 270
+Sequence of moves: 
+....0T2R...
+T.2....2..R
+......RT..1
+....1.2..RT
+22R.T......
+....R.T..1.
+R...2....T.
+2R.T1.....0
+1T..2...R1.
+2.2R2..1T..
+..T22R..1..
+Number of moves: 12
+Number of vertices examined: 259
+0.006243 [s]
+
+Level 271
+Sequence of moves: 
+..0T.1....R
+2R...T..0..
+R.......T..
+.1T2.2..2R2
+1T.2.R1.2..
+T.2R1...2.2
+..R2.2T....
+.1.....2RT.
+....T2R22.2
+...2.2.R2.T
+...2R2.T.0.
+Number of moves: 10
+Number of vertices examined: 2091
+0.050037 [s]
+
+Level 272
+Sequence of moves: 
+1.T2.R2....
+.T2.1.R....
+2R22..2.T..
+2.2RT...1..
+..R..2...T0
+..2.R2.T1..
+.......R..T
+....1.T22R2
+R.2.2T0....
+1..T...2R.2
+T.........R
+Number of moves: 12
+Number of vertices examined: 9793
+0.234333 [s]
+
+Level 273
+Sequence of moves: 
+222RT0.....
+2R2....2T..
+...2...R2T.
+..R...T...0
+1T.2.1..2R.
+R.2.2..222T
+.0.T.1..2.R
+..2.R..T...
+.....TR.222
+T....2.1R..
+0.T..R.....
+Number of moves: 17
+Number of vertices examined: 957
+0.022768 [s]
+
+Level 274
+Sequence of moves: 
+2R.....1T0.
+R......T...
+T......2.1R
+.2R.....2T.
+01T.R..2222
+........R.T
+0T.....22R.
+...R21T..1.
+.....TR2...
+..0T.22R2..
+...0TR.....
+Number of moves: 12
+Number of vertices examined: 3652
+0.088579 [s]
+
+Level 275
+Sequence of moves: 
+...T..R.22.
+R.....2T..0
+T.1R....2..
+....T1..2R.
+..12RT.....
+.1T..2..R..
+1.2..R...2T
+.R2222.2T..
+.2R...T.0..
+..22.2.R.T1
+.T.2......R
+Number of moves: 12
+Number of vertices examined: 10313
+0.255945 [s]
+
+Level 276
+Sequence of moves: 
+.....R2.2.T
+....RT.0...
+.T....R...2
+.RT.1....0.
+2.R1..T....
+......0..TR
+R22.T0.....
+.......TR.2
+2......RT..
+..1T1...1R.
+T2.R.....22
+Number of moves: 12
+Number of vertices examined: 3469
+0.075953 [s]
+
+Level 277
+Sequence of moves: 
+.....1..TR.
+...R...1.T1
+T..2......R
+R......T...
+...T.R.22.2
+2R21.2T..0.
+2.R.T...1..
+2...R.222.T
+.T....R.2..
+..1.1T..R.1
+.0T1..2R2..
+Number of moves: 10
+Number of vertices examined: 1858
+0.044386 [s]
+
+Level 278
+Sequence of moves: 
+2.....1R..T
+...TR2.2.2.
+..0..1..TR.
+.2.2.RT.1..
+R.T.1......
+...R.T.11..
+..1..0...TR
+1....0.TR1.
+TR.2.......
+.T.2..R....
+..R2T..0...
+Number of moves: 13
+Number of vertices examined: 5995
+0.14633 [s]
+
+Level 279
+Sequence of moves: 
+R...1.1.T.1
+....T....2R
+1..TR....2.
+..1.2...R2T
+...1..TR22.
+.0TR2...22.
+1T....2..R.
+.R2..T..1..
+.22222RT1..
+2.R......T.
+T.22.R...1.
+Number of moves: 12
+Number of vertices examined: 10961
+0.281329 [s]
+
+Level 280
+Sequence of moves: 
+....R...T.1
+..T.......R
+.R..2T0....
+....22.R2.T
+........RT0
+.2RT1....1.
+...2.R.T1..
+R222T.0....
+...R..T..1.
+1T....2.2R.
+T.2...R....
+Number of moves: 14
+Number of vertices examined: 72
+0.00199 [s]
+
+Level 281
+Sequence of moves: 
+.........T2R
+.....0..T2R.
+.R...T......
+...T22...R.2
+T2R.....2...
+1T2R22......
+R......T....
+2.2..R..2.T.
+..T.R2....1.
+2..222R2.2.T
+..0.T2.R....
+......T2R2..
+Number of moves: 14
+Number of vertices examined: 28594
+0.760566 [s]
+
+Level 282
+Sequence of moves: 
+.......R1.T.
+.2R..2.2T...
+.R...2.T1.1.
+..1.T.1.R...
+T2......2.R.
+..2..R...T..
+...1RT0....1
+..1.1.T.2..R
+...T..2.2R2.
+...2..R....T
+R.T...1.....
+.T1R..2.2.21
+Number of moves: 11
+Number of vertices examined: 4641
+0.133136 [s]
+
+Level 283
+Sequence of moves: 
+...1.2.R..2T
+.1RT0......1
+T....2.....R
+1T...2...1R2
+...RT1......
+R2.222.T....
+....R2T0....
+.....R..T...
+..2....1RT..
+2RT..1......
+.....TR.2...
+..1...2.2RT1
+Number of moves: 15
+Number of vertices examined: 59356
+1.54765 [s]
+
+Level 284
+Sequence of moves: 
+...2RT0....1
+..0...T....R
+.....R...1T.
+T2.R2222...2
+2R..T.1.....
+.T12.222.1R2
+2....2.R.T..
+R......T0...
+........TR..
+..T..22.R2.2
+..R2.......T
+...T.2R..2..
+Number of moves: 12
+Number of vertices examined: 1251
+0.03486 [s]
+
+Level 285
+Sequence of moves: 
+R.....12T1..
+1....T.2R2..
+..1.T2.2.R..
+....2..R..1T
+1.........TR
+.TR....2.22.
+..10..T...R.
+...TR..2..2.
+T..R.2.2.222
+......RT....
+..T2.R.1...2
+.R.......T1.
+Number of moves: 15
+Number of vertices examined: 3975
+0.094674 [s]
+
+Level 286
+Sequence of moves: 
+0.T1.R......
+...T22..R...
+1..2R2...2T.
+...R....T..0
+T..222.R.2..
+2.R222.2.2.T
+R...T...0...
+....01T..2.R
+2R22.T1.0...
+.....0.T1R..
+.T....R.....
+.0....1..TR2
+Number of moves: 13
+Number of vertices examined: 389
+0.011128 [s]
+
+Level 287
+Sequence of moves: 
+..1.T1..R..2
+.........T2R
+.0....0T2R..
+R....T.1....
+2.R.2...T...
+..T......2R.
+2.1..2.R12T.
+.T.2R2.2.2.2
+.R....T.....
+2.....R....T
+T2.R.222.2..
+...T2R2..2..
+Number of moves: 13
+Number of vertices examined: 3840
+0.099462 [s]
+
+Level 288
+Sequence of moves: 
+.R...1T0....
+.....T...R..
+0T...2...2R.
+...R.....T.0
+..R2...T0...
+.0T2R222..2.
+T..2.R.2..2.
+R......2.1.T
+...T...2...R
+..1....RT.1.
+2..1.2R22.T.
+....T2..R.1.
+Number of moves: 14
+Number of vertices examined: 5502
+0.135069 [s]
+
+Level 289
+Sequence of moves: 
+..T1R.2..2..
+...T2R..1...
+..1.T222.R2.
+1R...T.1...0
+T2R.........
+.T22..R2....
+1.....1.T.R1
+..2....R2..T
+R122..2T.1.1
+..2R....2.T.
+......2.RT0.
+..1...T1...R
+Number of moves: 13
+Number of vertices examined: 47436
+1.28728 [s]
+
+Level 290
+Sequence of moves: 
+......T1.2R2
+.......T.R.2
+.......1T..R
+2..R....2..T
+R........T.0
+..T2R.....2.
+1...1TR22...
+..RT........
+...0T..R....
+.T2.1..2R1..
+.R....2...T0
+T22..R.22...
+Number of moves: 18
+Number of vertices examined: 128069
+3.03462 [s]
+
+Level 291
+Sequence of moves: 
+..T.....1.R.
+.....RT....0
+RT10..1...1.
+.R...T.0....
+...T.1...R2.
+...R...1T..0
+....1...R..T
+.....0.T..2R
+2222..R.22T.
+.2R2....2T..
+....T.2R2..2
+T.2.R1.2.1..
+Number of moves: 14
+Number of vertices examined: 4027
+0.109409 [s]
+
+Level 292
+Sequence of moves: 
+.R.2....T0..
+0........T.R
+T2.2R...2...
+..0.TR2.....
+...R.2.T1...
+R2.T........
+..T1..R..2..
+.22..222.R1T
+.22.1222R2T.
+.....T....R.
+.....0TR..2.
+.TR.........
+Number of moves: 14
+Number of vertices examined: 124525
+3.19808 [s]
+
+Level 293
+Sequence of moves: 
+..22R..2.2T1
+...R....T.1.
+.....0TR...2
+.....T.2.2R2
+..R2...T1...
+RT.........1
+T.2.2......R
+..T2.2R.2222
+.R.2T.......
+...212...R.T
+...T.R2.....
+...1.2..RT1.
+Number of moves: 16
+Number of vertices examined: 24005
+0.56879 [s]
+
+Level 294
+Sequence of moves: 
+.R..2..2.T..
+1......RT1..
+..T.22R222.2
+.2R2222T..0.
+....R....2T.
+.2.RT.......
+.T..1......R
+.....2..22RT
+0.1T.2..R2..
+T....R......
+1.1..T...R..
+R....1T0....
+Number of moves: 13
+Number of vertices examined: 2222
+0.051264 [s]
+
+Level 295
+Sequence of moves: 
+..1.2R2.T...
+..T.R2.....2
+R.2T..1.1...
+..1..TR.....
+..R.2.T.1.1.
+2...2..2RT..
+T...2......R
+..2RT...1...
+0T....1...R2
+.2..1..R2.T.
+..1....T.R.2
+.R.2....2..T
+Number of moves: 15
+Number of vertices examined: 95886
+2.37358 [s]
+
+Level 296
+Sequence of moves: 
+...T2......R
+R222...T....
+.2R2.T0.....
+.R...2T1....
+........T.R2
+.....R..2..T
+.2.R.2.2.T.0
+T....2.R2...
+0T222222R2..
+.0T222R2....
+...2R2.2.2T.
+....T222.R..
+Number of moves: 13
+Number of vertices examined: 152
+0.004787 [s]
+
+Level 297
+Sequence of moves: 
+22.2R...2.1T
+.2.R....2T..
+.R2.2..T....
+.....1.2R2T.
+R2.2..T.....
+.....T2..R.2
+1...TR2.....
+....122RT...
+.TR2.222.2.2
+..T...R.1...
+T11..22...2R
+...T.222.2R2
+Number of moves: 14
+Number of vertices examined: 13704
+0.409169 [s]
+
+Level 298
+Sequence of moves: 
+2...R.1....T
+....1..TR1.2
+.........TR2
+1..T.....R..
+...22R1..2T.
+......T2.2.R
+.1.2222RT...
+1.TR..2...1.
+..1.T.R.....
+RT..0...0...
+..R..T......
+TR22.12.....
+Number of moves: 15
+Number of vertices examined: 23278
+0.588335 [s]
+
+Level 299
+Sequence of moves: 
+.0.T...1.R2.
+.........2RT
+...22.R.1T..
+1.R22.2..1T.
+T..R.......2
+R.2....T.0..
+1....T2...1R
+.T.2R...1...
+1...TR.2...2
+.....1TR...2
+.R..1.1.T...
+..T2....R..2
+Number of moves: 16
+Number of vertices examined: 120784
+3.01592 [s]
 
 Level 300
 Sequence of moves: 
@@ -25,5 +4436,5 @@ R2..22T.1...
 ........RT..
 Number of moves: 13
 Number of vertices examined: 13559
-0.8692 [s]
+0.360022 [s]
 
