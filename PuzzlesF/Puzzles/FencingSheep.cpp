@@ -34,6 +34,8 @@ constexpr auto PUZ_WOLF = 'W';
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
 constexpr int lineseg_off = 0;
+// 3. The lines (fencing) of the enclosures start and end on the edges of the
+//     grid.
 const vector<vector<int>> linesegs_all_border = {
     {6}, // „¡
     {12}, // „¢
@@ -296,6 +298,8 @@ bool puz_state::is_interconnected() const
         });
         for (auto& kv : smoves) {
             auto& p2 = kv.first;
+            // 1. Divide the field in enclosures, so that sheep are separated from wolves.
+            // 2. Each enclosure must contain either sheep or wolves (but not both)
             if (finished)
                 if (char ch2 = m_game->cells(p2);
                     ch2 != PUZ_SPACE && ch2 != ch)
@@ -304,6 +308,7 @@ bool puz_state::is_interconnected() const
             rng.erase(p2);
         }
     }
+    // 2. Each enclosure must not be empty.
     return rng_all.size() == (sidelen() - 1) * (sidelen() - 1);
 }
 
