@@ -238,7 +238,7 @@ int puz_state::check_dots(bool init)
                     });
                 if (is_square && !m_game->m_pos2info.contains(p2))
                     boost::remove_erase(dt, lineseg_off);
-                if (!init && dt.empty())
+                if (!init && dt2.empty())
                     return 0;
             }
             m_finished.insert(kv);

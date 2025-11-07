@@ -233,7 +233,7 @@ int puz_state::check_dots(bool init)
                 boost::remove_erase_if(dt2, [=](int lineseg2) {
                     return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
                 });
-                if (!init && dt.empty())
+                if (!init && dt2.empty())
                     return 0;
             }
             m_finished.insert(kv);

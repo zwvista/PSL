@@ -206,6 +206,10 @@ int puz_state::check_dots(bool init)
     int n = 2;
     for (;;) {
         check_interconnected();
+        if (boost::algorithm::any_of(m_dots, [&](const vector<int>& dt) {
+            return dt.empty();
+        }))
+            return 0;
 
         set<pair<Position, int>> newly_finished;
         for (int r = 0; r < sidelen(); ++r)
@@ -239,7 +243,7 @@ int puz_state::check_dots(bool init)
                 boost::remove_erase_if(dt2, [=](int lineseg2) {
                     return is_lineseg_on(lineseg2, (i + 2) % 4) != is_lineseg_on(lineseg, i);
                 });
-                if (!init && dt.empty())
+                if (!init && dt2.empty())
                     return 0;
             }
             m_finished.insert(kv);
@@ -337,16 +341,14 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             out << (m_game->m_posts.contains(p) ? PUZ_POST : ' ');
             if (c == sidelen() - 1) break;
-            auto& dt = dots(p);
-            out << (!dt.empty() && is_lineseg_on(dt[0], 1) ? '-' : ' ');
+            out << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical lines
-            auto& dt = dots(p);
-            out << (!dt.empty() && is_lineseg_on(dt[0], 2) ? '|' : ' ');
+            out << (is_lineseg_on(dots(p)[0], 2) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             out << m_game->cells(p);
         }
