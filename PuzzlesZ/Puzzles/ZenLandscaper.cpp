@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games/Puzzle Set 15/ZenLandscaper
+    iOS Game: 100 Logic Games/Puzzle Set 15/Zen Landscaper
 
     Summary
     Variety and Balance
