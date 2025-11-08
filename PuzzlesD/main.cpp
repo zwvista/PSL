@@ -20,7 +20,7 @@ int main(int argc, char **argv)
         println("i5: Disconnect Four");
         println("o: Domino");
         getline(cin, str);
-        if (str.empty()) solve_puz_DirectionalPlanks();
+        if (str.empty()) solve_puz_DigitWorms();
         else if (str == "e") solve_puz_DesertDunes();
         else if (str == "i1") solve_puz_DigitalBattleships();
         else if (str == "i2") solve_puz_DigitalPath();
