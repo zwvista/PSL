@@ -73,9 +73,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    // Each number in a tile tells you on how many of its four sides
-    // are touched by the path. Empty tiles can have any number of sides
-    // touched by that path.
+    // 2. The number in a cell tells you how many tiles the path turn by 90
+    //    degrees around it.
+    // 3. Note that around 0s that can be a line but it just don't won't turn.
     auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
     for (int i = 0; i <= 4; ++i) {
         auto& perms = m_num2perms[i];
@@ -105,11 +105,12 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots);
     }
-    bool make_move(const Position& p, int n);
-    bool make_move2(const Position& p, int n);
+    bool make_move_hint(const Position& p, int n);
+    bool make_move_hint2(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
+    bool make_move_dot(const Position& p, int n);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -176,7 +177,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids.front()) ? 1 : 0;
+                return make_move_hint2(p, perm_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -227,7 +228,7 @@ int puz_state::check_dots(bool init)
     }
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+bool puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
     for (int i = 0; i < 4; ++i) {
@@ -251,8 +252,6 @@ bool puz_state::check_loop() const
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (dt.size() != 1 && m_matches.empty())
-                return false;
             if (dt.size() == 1 && dt[0] != lineseg_off)
                 rng.insert(p);
         }
@@ -282,10 +281,10 @@ bool puz_state::check_loop() const
     return true;
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move_hint(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move2(p, n))
+    if (!make_move_hint2(p, n))
         return false;
     for (;;) {
         int m;
@@ -300,17 +299,41 @@ bool puz_state::make_move(const Position& p, int n)
     }
 }
 
+bool puz_state::make_move_dot(const Position& p, int n)
+{
+    m_distance = 0;
+    auto& dt = dots(p);
+    dt = {dt[n]};
+    int m = check_dots(false);
+    return m == 1 ? check_loop() : m == 2;
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, perm_ids] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
+    if (!m_matches.empty()) {
+        auto& [p, perm_ids] = *boost::min_element(m_matches, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
+                return kv1.second.size() < kv2.second.size();
+            });
 
-    for (int n : perm_ids)
-        if (!children.emplace_back(*this).make_move(p, n))
-            children.pop_back();
+        for (int n : perm_ids)
+            if (!children.emplace_back(*this).make_move_hint(p, n))
+                children.pop_back();
+    } else {
+        int i = boost::min_element(m_dots, [&](const puz_dot& dt1, const puz_dot& dt2) {
+            auto f = [](const puz_dot& dt) {
+                int sz = dt.size();
+                return sz == 1 ? 100 : sz;
+            };
+            return f(dt1) < f(dt2);
+        }) - m_dots.begin();
+        auto& dt = m_dots[i];
+        Position p(i / sidelen(), i % sidelen());
+        for (int n = 0; n < dt.size(); ++n)
+            if (!children.emplace_back(*this).make_move_dot(p, n))
+                children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
