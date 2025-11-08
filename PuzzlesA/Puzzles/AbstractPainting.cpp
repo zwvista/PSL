@@ -21,7 +21,6 @@ constexpr auto PUZ_PAINTING = 'P';
 constexpr auto PUZ_SPACE = '.';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 struct puz_region
@@ -90,11 +89,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     auto f = [&](int rc, char ch) {
         if (ch != ' ')
-            m_painting_counts[rc] = ch - '0';
+            m_painting_counts[rc] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
     };
     for (int i = 0; i < m_sidelen; ++i) {
         f(i, strs[i * 2 + 1][m_sidelen * 2 + 1]);
-        f(i + m_sidelen, strs[m_sidelen * 2 + 1][i * 2]);
+        f(i + m_sidelen, strs[m_sidelen * 2 + 1][i * 2 + 1]);
     }
 
     for (int n = 0; !rng.empty(); ++n) {
