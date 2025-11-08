@@ -25,7 +25,7 @@
     <Text Include="Puzzles\strimko.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\sumscrapers.txt">
+    <Text Include="Puzzles\Sumscrapers.txt">
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\SlitherLink.txt">
@@ -116,7 +116,7 @@
     <ClCompile Include="Puzzles\strimko.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\sumscrapers.cpp">
+    <ClCompile Include="Puzzles\Sumscrapers.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\SlitherLink.cpp">
@@ -193,7 +193,7 @@
     <Xml Include="Puzzles\strimko.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\sumscrapers.xml">
+    <Xml Include="Puzzles\Sumscrapers.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\SlitherLink.xml">
