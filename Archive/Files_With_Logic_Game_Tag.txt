@@ -19,7 +19,7 @@ PuzzlesB/Puzzles/Banquet.cpp
 PuzzlesB/Puzzles/BattleShips.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 1/Battle Ships
 PuzzlesB/Puzzles/BentBridges.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 1/BentBridges
+	iOS Game: 100 Logic Games 3/Puzzle Set 1/Bent Bridges
 PuzzlesB/Puzzles/BootyIsland.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 13/Booty Island
 PuzzlesB/Puzzles/BotanicalPark.cpp
@@ -205,7 +205,7 @@ PuzzlesL/Puzzles/Loopy.cpp
 PuzzlesM/Puzzles/Magnets.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 2/Magnets
 PuzzlesM/Puzzles/MaketheDifference.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 4/Make the Difference
+	iOS Game: 100 Logic Games 3/Puzzle Set 4/Make the Difference
 PuzzlesM/Puzzles/Masyu.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 3/Masyu
 PuzzlesM/Puzzles/Mathrax.cpp
@@ -437,6 +437,6 @@ PuzzlesY/Puzzles/YouTurnMeOn.cpp
 PuzzlesZ/Puzzles/ZenGardens.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 3/Zen Gardens
 PuzzlesZ/Puzzles/ZenLandscaper.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 15/ZenLandscaper
+	iOS Game: 100 Logic Games/Puzzle Set 15/Zen Landscaper
 PuzzlesZ/Puzzles/ZenSolitaire.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 2/Zen Solitaire
