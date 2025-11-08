@@ -73,7 +73,7 @@
     <Text Include="Puzzles\MixedTatamis.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\MaketheDifference.txt">
+    <Text Include="Puzzles\MakeTheDifference.txt">
       <Filter>Puzzles</Filter>
     </Text>
     <Text Include="Puzzles\MineSlither.txt">
@@ -158,7 +158,7 @@
     <ClCompile Include="Puzzles\MixedTatamis.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzles\MaketheDifference.cpp">
+    <ClCompile Include="Puzzles\MakeTheDifference.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\MineSlither.cpp">
@@ -229,7 +229,7 @@
     <Xml Include="Puzzles\MixedTatamis.xml">
       <Filter>Puzzles</Filter>
     </Xml>
-    <Xml Include="Puzzles\MaketheDifference.xml">
+    <Xml Include="Puzzles\MakeTheDifference.xml">
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\MineSlither.xml">
