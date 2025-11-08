@@ -94,7 +94,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (ch == PUZ_SPACE)
                 m_cells.push_back(PUZ_SPACE);
             else {
-                int n = ch - '0';
+                int n = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
                 Position p(r, c);
                 m_pos2num[p] = n;
                 m_cells.push_back(ch_r++);
@@ -207,7 +207,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 1;; ++r) {
         // draw horizontal lines
         for (int c = 1; c < sidelen() - 1; ++c)
-            out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
+            out << (f({r, c}, {r - 1, c}) ? " --" : "   ");
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 1;; ++c) {
@@ -216,9 +216,9 @@ ostream& puz_state::dump(ostream& out) const
             out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == sidelen() - 1) break;
             if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-                out << ' ';
+                out << "  ";
             else
-                out << it->second;
+                out << format("{:2}", it->second);;
         }
         println(out);
     }

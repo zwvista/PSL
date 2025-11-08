@@ -31,7 +31,7 @@
 		8CA241621EB47AEC0055D6B1 /* sokoban.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2414D1EB47AEC0055D6B1 /* sokoban.cpp */; };
 		8CA241631EB47AEC0055D6B1 /* Square100.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241501EB47AEC0055D6B1 /* Square100.cpp */; };
 		8CA241641EB47AEC0055D6B1 /* strimko.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241531EB47AEC0055D6B1 /* strimko.cpp */; };
-		8CA241651EB47AEC0055D6B1 /* sumscrapers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241561EB47AEC0055D6B1 /* sumscrapers.cpp */; };
+		8CA241651EB47AEC0055D6B1 /* Sumscrapers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241561EB47AEC0055D6B1 /* Sumscrapers.cpp */; };
 		958FA638232BE15B00205831 /* Steps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA634232BE15B00205831 /* Steps.cpp */; };
 		958FA639232BE15B00205831 /* Stacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA637232BE15B00205831 /* Stacks.cpp */; };
 		95E37B1F233BDDA20054284F /* StraightAndTurn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E37B1E233BDDA10054284F /* StraightAndTurn.cpp */; };
@@ -137,9 +137,9 @@
 		8CA241531EB47AEC0055D6B1 /* strimko.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strimko.cpp; sourceTree = "<group>"; };
 		8CA241541EB47AEC0055D6B1 /* strimko.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = strimko.txt; sourceTree = "<group>"; };
 		8CA241551EB47AEC0055D6B1 /* strimko.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = strimko.xml; sourceTree = "<group>"; };
-		8CA241561EB47AEC0055D6B1 /* sumscrapers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sumscrapers.cpp; sourceTree = "<group>"; };
-		8CA241571EB47AEC0055D6B1 /* sumscrapers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sumscrapers.txt; sourceTree = "<group>"; };
-		8CA241581EB47AEC0055D6B1 /* sumscrapers.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sumscrapers.xml; sourceTree = "<group>"; };
+		8CA241561EB47AEC0055D6B1 /* Sumscrapers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sumscrapers.cpp; sourceTree = "<group>"; };
+		8CA241571EB47AEC0055D6B1 /* Sumscrapers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Sumscrapers.txt; sourceTree = "<group>"; };
+		8CA241581EB47AEC0055D6B1 /* Sumscrapers.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Sumscrapers.xml; sourceTree = "<group>"; };
 		958FA632232BE15B00205831 /* Stacks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Stacks.txt; sourceTree = "<group>"; };
 		958FA633232BE15B00205831 /* Stacks.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Stacks.xml; sourceTree = "<group>"; };
 		958FA634232BE15B00205831 /* Steps.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Steps.cpp; sourceTree = "<group>"; };
@@ -256,9 +256,9 @@
 				95E37B2123420D470054284F /* Sukrokuro.cpp */,
 				95E37B2223420D470054284F /* Sukrokuro.txt */,
 				95E37B2023420D470054284F /* Sukrokuro.xml */,
-				8CA241561EB47AEC0055D6B1 /* sumscrapers.cpp */,
-				8CA241571EB47AEC0055D6B1 /* sumscrapers.txt */,
-				8CA241581EB47AEC0055D6B1 /* sumscrapers.xml */,
+				8CA241561EB47AEC0055D6B1 /* Sumscrapers.cpp */,
+				8CA241571EB47AEC0055D6B1 /* Sumscrapers.txt */,
+				8CA241581EB47AEC0055D6B1 /* Sumscrapers.xml */,
 				8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */,
 				8C689C7E2DEEB75500A2BCCC /* SuspendedGravity.txt */,
 				8C689C7F2DEEB75500A2BCCC /* SuspendedGravity.xml */,
@@ -375,7 +375,7 @@
 				95E37B1F233BDDA20054284F /* StraightAndTurn.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8C689CDD2E003BFC00A2BCCC /* SlitherCorner.cpp in Sources */,
-				8CA241651EB47AEC0055D6B1 /* sumscrapers.cpp in Sources */,
+				8CA241651EB47AEC0055D6B1 /* Sumscrapers.cpp in Sources */,
 				958FA639232BE15B00205831 /* Stacks.cpp in Sources */,
 				8C94E0B32E17A63B00382560 /* Snakeomino.cpp in Sources */,
 				8C94E0B42E17A63B00382560 /* SnakeMaze.cpp in Sources */,
