@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games 2/Puzzle Set 2/FlowerBeds
+    iOS Game: 100 Logic Games 2/Puzzle Set 2/Flower Beds
 
     Summary
     Reverse Gardener

@@ -4,7 +4,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games/Puzzle Set 3/SuspendedGravity
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/Suspended Gravity
 
     Summary
     Falling Blocks

@@ -22,7 +22,7 @@ extern void solve_puz_StraightAndBendLands();
 extern void solve_puz_StraightAndTurn();
 extern void solve_puz_strimko();
 extern void solve_puz_Sukrokuro();
-extern void solve_puz_sumscrapers();
+extern void solve_puz_Sumscrapers();
 extern void solve_puz_SuspendedGravity();
 
 int main(int argc, char **argv)
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
         println("t4: Straight and Turn");
         println("t5: strimko");
         println("u1: Sukrokuro");
-        println("u2: sumscrapers");
+        println("u2: Sumscrapers");
         println("u3: SuspendedGravity");
         getline(cin, str);
         if (str.empty()) solve_puz_SlitherLink();
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
         else if (str == "t4") solve_puz_StraightAndTurn();
         else if (str == "t5") solve_puz_strimko();
         else if (str == "u1") solve_puz_Sukrokuro();
-        else if (str == "u2") solve_puz_sumscrapers();
+        else if (str == "u2") solve_puz_Sumscrapers();
         else if (str == "u3") solve_puz_SuspendedGravity();
     }
     return 0;

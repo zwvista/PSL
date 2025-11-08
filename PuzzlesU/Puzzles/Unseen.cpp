@@ -5,7 +5,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games/Puzzle Set 4/Unseen
+    iOS Game: 100 Logic Games 3/Puzzle Set 4/Unseen
 
     Summary
     Round the corner

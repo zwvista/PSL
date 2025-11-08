@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games 4/Puzzle Set 1/FlowerOMino
+    iOS Game: 100 Logic Games 4/Puzzle Set 1/Flower-O-Mino
 
     Summary
     Don't tread On flowers, Often.

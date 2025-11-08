@@ -3,7 +3,7 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games 2/Puzzle Set 5/TetrominoPegs
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Tetromino Pegs
 
     Summary
     Stuck in Tetris

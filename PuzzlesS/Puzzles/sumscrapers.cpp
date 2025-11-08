@@ -19,7 +19,7 @@
     5. Each row and column can't have similar Skyscrapers.
 */
 
-namespace puzzles::sumscrapers{
+namespace puzzles::Sumscrapers{
 
 constexpr auto PUZ_SPACE = 0;
 
@@ -187,9 +187,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_sumscrapers()
+void solve_puz_Sumscrapers()
 {
-    using namespace puzzles::sumscrapers;
+    using namespace puzzles::Sumscrapers;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/sumscrapers.xml", "Puzzles/sumscrapers.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/Sumscrapers.xml", "Puzzles/Sumscrapers.txt", solution_format::GOAL_STATE_ONLY);
 }
