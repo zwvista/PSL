@@ -14,7 +14,7 @@
        the Rectangle itself.
 */
 
-namespace puzzles::MaketheDifference{
+namespace puzzles::MakeTheDifference{
 
 constexpr auto PUZ_SPACE = ' ';
 
@@ -204,9 +204,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_MaketheDifference()
+void solve_puz_MakeTheDifference()
 {
-    using namespace puzzles::MaketheDifference;
+    using namespace puzzles::MakeTheDifference;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/MaketheDifference.xml", "Puzzles/MaketheDifference.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/MakeTheDifference.xml", "Puzzles/MakeTheDifference.txt", solution_format::GOAL_STATE_ONLY);
 }

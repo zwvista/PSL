@@ -3,7 +3,7 @@
 extern void solve_puz_magic_square();
 extern void solve_puz_Magic5gonRing();
 extern void solve_puz_Magnets();
-extern void solve_puz_MaketheDifference();
+extern void solve_puz_MakeTheDifference();
 extern void solve_puz_Masyu();
 extern void solve_puz_MatchstickEquation();
 extern void solve_puz_MatchstickSquares();
@@ -48,11 +48,11 @@ int main(int argc, char **argv)
         println("o3: Mosaik");
         println("o4: Move the Box");
         getline(cin, str);
-        if (str.empty()) solve_puz_Mirrors();
+        if (str.empty()) solve_puz_MakeTheDifference();
         else if (str == "ag1") solve_puz_magic_square();
         else if (str == "ag2") solve_puz_Magic5gonRing();
         else if (str == "ag3") solve_puz_Magnets();
-        else if (str == "ak") solve_puz_MaketheDifference();
+        else if (str == "ak") solve_puz_MakeTheDifference();
         else if (str == "as") solve_puz_Masyu();
         else if (str == "at1") solve_puz_MatchstickEquation();
         else if (str == "at2") solve_puz_MatchstickSquares();
