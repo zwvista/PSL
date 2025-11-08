@@ -111,11 +111,11 @@ PuzzlesF/Puzzles/FingerPointing.cpp
 PuzzlesF/Puzzles/FloorPlan.cpp
 	iOS Game: 100 Logic Games 3/Puzzle Set 1/Floor Plan
 PuzzlesF/Puzzles/FlowerBeds.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 2/FlowerBeds
+	iOS Game: 100 Logic Games 2/Puzzle Set 2/Flower Beds
 PuzzlesF/Puzzles/FlowerbedShrubs.cpp
 	iOS Game: 100 Logic Games 3/Puzzle Set 2/Flowerbed Shrubs
 PuzzlesF/Puzzles/FlowerOMino.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 1/FlowerOMino
+	iOS Game: 100 Logic Games 4/Puzzle Set 1/Flower-O-Mino
 PuzzlesF/Puzzles/FourMeNot.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 9/Four-Me-Not
 PuzzlesF/Puzzles/FreePlanks.cpp
@@ -204,7 +204,7 @@ PuzzlesL/Puzzles/Loopy.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 5/Loopy
 PuzzlesM/Puzzles/Magnets.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 2/Magnets
-PuzzlesM/Puzzles/MaketheDifference.cpp
+PuzzlesM/Puzzles/MakeTheDifference.cpp
 	iOS Game: 100 Logic Games 3/Puzzle Set 4/Make the Difference
 PuzzlesM/Puzzles/Masyu.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 3/Masyu
@@ -311,7 +311,7 @@ PuzzlesR/Puzzles/Rabbits.cpp
 PuzzlesR/Puzzles/RippleEffect.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 5/Ripple Effect
 PuzzlesR/Puzzles/RobotCrosswords.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 13/RobotCrosswords
+	iOS Game: 100 Logic Games/Puzzle Set 13/Robot Crosswords
 PuzzlesR/Puzzles/RobotFences.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 13/Robot Fences
 PuzzlesR/Puzzles/Rome.cpp
@@ -358,10 +358,10 @@ PuzzlesS/Puzzles/StraightAndTurn.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 7/Straight and Turn
 PuzzlesS/Puzzles/Sukrokuro.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 4/Sukrokuro
-PuzzlesS/Puzzles/sumscrapers.cpp
+PuzzlesS/Puzzles/Sumscrapers.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 6/Sumscrapers
 PuzzlesS/Puzzles/SuspendedGravity.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 3/SuspendedGravity
+	iOS Game: 100 Logic Games 3/Puzzle Set 1/Suspended Gravity
 PuzzlesT/Puzzles/Tapa.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 9/Tapa
 PuzzlesT/Puzzles/TapaIslands.cpp
@@ -383,7 +383,7 @@ PuzzlesT/Puzzles/TennerGrid.cpp
 PuzzlesT/Puzzles/Tents.cpp
 	iOS Game: 100 Logic Games/Puzzle Set 1/Tents
 PuzzlesT/Puzzles/TetrominoPegs.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 5/TetrominoPegs
+	iOS Game: 100 Logic Games 2/Puzzle Set 5/Tetromino Pegs
 PuzzlesT/Puzzles/TheCityRises.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 7/The City Rises
 PuzzlesT/Puzzles/TheMagicNumber.cpp
@@ -413,7 +413,7 @@ PuzzlesU/Puzzles/Underground.cpp
 PuzzlesU/Puzzles/UnreliableHints.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 5/Unreliable hints
 PuzzlesU/Puzzles/Unseen.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 4/Unseen
+	iOS Game: 100 Logic Games 3/Puzzle Set 4/Unseen
 PuzzlesV/Puzzles/Venice.cpp
 	iOS Game: 100 Logic Games 3/Puzzle Set 2/Venice
 PuzzlesW/Puzzles/WallHints.cpp
