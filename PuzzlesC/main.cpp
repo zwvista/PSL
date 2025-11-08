@@ -48,14 +48,14 @@ int main(int argc, char **argv)
         println("u1: Cultured Branches");
         println("u2: Culture Trip");
         getline(cin, str);
-        if (str.empty()) solve_puz_CarpentersSquare();
+        if (str.empty()) solve_puz_CastlePatrol();
         else if (str == "a1") solve_puz_Caffelatte();
         else if (str == "a2") solve_puz_Calcudoku();
         else if (str == "a3") solve_puz_CarpentersSquare();
         else if (str == "a4") solve_puz_CarpentersWall();
         else if (str == "a5") solve_puz_CastleBailey();
         else if (str == "a6") solve_puz_CastlePatrol();
-        else if (str == "a62") solve_puz_CastlePatrol();
+        else if (str == "a62") solve_puz_CastlePatrol2();
         else if (str == "h1") solve_puz_Cheese();
         else if (str == "h2") solve_puz_Chocolate();
         else if (str == "l1") solve_puz_CleaningPath();
