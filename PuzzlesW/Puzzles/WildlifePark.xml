@@ -12,4242 +12,4242 @@
 <levels>
   <level id="1">
     <![CDATA[
- - -O- - - `
+ - -x- - - `
 |A        |`
-    O      `
+    x      `
 |  B   C D|`
-      O   O`
+      x   x`
 |A B   C  |`
            `
 |  B B B  |`
-O          `
+x          `
 |  B B    |`
- - - - -O- `
+ - - - -x- `
     ]]>
   </level>
   <level id="2">
     <![CDATA[
- - -O- - - `
+ - -x- - - `
 |  A   B B|`
-O          `
+x          `
 |C     B  |`
-  O   O    `
+  x   x    `
 |      B  |`
            `
 |C D   D  |`
-O          `
+x          `
 |  D   B B|`
- - - -O- - `
+ - - -x- - `
     ]]>
   </level>
   <level id="3">
     <![CDATA[
- - - -O- - `
+ - - -x- - `
 |A   A B  |`
-      O    `
+      x    `
 |A     C  |`
-O O   O   O`
+x x   x   x`
 |  D E    |`
-          O`
+          x`
 |      E E|`
-  O        `
+  x        `
 |F   E    |`
- -O- - - - `
+ -x- - - - `
     ]]>
   </level>
   <level id="4">
     <![CDATA[
- - -O- - - `
+ - -x- - - `
 |A A B    |`
-O O O      `
+x x x      `
 |    C    |`
-  O       O`
+  x       x`
 |D B   B  |`
-  O        `
+  x        `
 |      E  |`
-O   O      `
+x   x      `
 |F   E    |`
- - -O- - - `
+ - -x- - - `
     ]]>
   </level>
   <level id="5">
     <![CDATA[
- -O- -O- - `
+ -x- -x- - `
 |A   B   C|`
-      O   O`
+      x   x`
 |  A B D  |`
-O O   O   O`
+x x   x   x`
 |         |`
            `
 |    B E  |`
-    O O    `
+    x x    `
 |F   G    |`
- -O- -O- - `
+ -x- -x- - `
     ]]>
   </level>
   <level id="6">
     <![CDATA[
- - - - -O- `
+ - - - -x- `
 |  A   A B|`
            `
 |    B B B|`
-    O      `
+    x      `
 |    B C B|`
-O   O     O`
+x   x     x`
 |      C  |`
            `
 |  D   C  |`
- - -O- - - `
+ - -x- - - `
     ]]>
   </level>
   <level id="7">
     <![CDATA[
  - - - - - `
 |A   A    |`
-O       O O`
+x       x x`
 |B B      |`
-O O O      `
+x x x      `
 |C     D E|`
-    O      `
+    x      `
 |C C      |`
            `
 |    C    |`
- - - -O- - `
+ - - -x- - `
     ]]>
   </level>
   <level id="8">
     <![CDATA[
- -O-O-O-O- `
+ -x-x-x-x- `
 |A     B  |`
            `
 |  C   B D|`
-O O O O O O`
+x x x x x x`
 |      E E|`
            `
 |F F G E  |`
-O          `
+x          `
 |      E  |`
- - - -O- - `
+ - - -x- - `
     ]]>
   </level>
   <level id="9">
     <![CDATA[
- - -O-O- - `
+ - -x-x- - `
 |  A B   C|`
            `
 |  B B B  |`
-    O      `
+    x      `
 |  A      |`
            `
 |  C C D C|`
-    O     O`
+    x     x`
 |A   D    |`
- - -O- - - `
+ - -x- - - `
     ]]>
   </level>
   <level id="10">
     <![CDATA[
- - - - -O- `
+ - - - -x- `
 |A A      |`
-O          `
+x          `
 |  A B    |`
-      O    `
+      x    `
 |  A      |`
-      O    `
+      x    `
 |B   B   C|`
-O         O`
+x         x`
 |  D   D D|`
  - - - - - `
     ]]>
   </level>
   <level id="11">
     <![CDATA[
- - - -O- -O- `
+ - - -x- -x- `
 |      A   B|`
              `
 |C C A      |`
-    O O O   O`
+    x x x   x`
 |  C   D   E|`
-O   O        `
+x   x        `
 |    F   B E|`
-    O     O O`
+    x     x x`
 |G D D   D  |`
-O            `
+x            `
 |    D     H|`
- - - - -O- - `
+ - - - -x- - `
     ]]>
   </level>
   <level id="12">
     <![CDATA[
- -O- -O- - - `
+ -x- -x- - - `
 |A     B   B|`
-      O     O`
+      x     x`
 |  C A D    |`
-            O`
+            x`
 |A A     D  |`
-      O O    `
+      x x    `
 |A E E   F  |`
-O O   O      `
+x x   x      `
 |  E   G    |`
              `
 |  H   E    |`
- - -O- -O-O- `
+ - -x- -x-x- `
     ]]>
   </level>
   <level id="13">
     <![CDATA[
- -O- -O- - - `
+ -x- -x- - - `
 |A B   C   C|`
-        O    `
+        x    `
 |      B   C|`
-    O O     O`
+    x x     x`
 |A   D E    |`
-O     O   O O`
+x     x   x x`
 |    F E    |`
-O            `
+x            `
 |           |`
              `
 |G       H H|`
- -O- -O-O- - `
+ -x- -x-x- - `
     ]]>
   </level>
   <level id="14">
     <![CDATA[
- - -O- - -O- `
+ - -x- - -x- `
 |  A        |`
-    O        `
+    x        `
 |A     B C  |`
-O O          `
+x x          `
 |D   E   B  |`
-    O        `
+    x        `
 |  D   E E  |`
-O   O       O`
+x   x       x`
 |F D F E    |`
-            O`
+            x`
 |      F F F|`
  - - - - - - `
     ]]>
   </level>
   <level id="15">
     <![CDATA[
- - -O- - -O- `
+ - -x- - -x- `
 |  A B     C|`
-O O          `
+x x          `
 |D B B C B  |`
-      O      `
+      x      `
 |        C  |`
-O O O O     O`
+x x x x     x`
 |E E        |`
-O   O        `
+x   x        `
 |  F G H G  |`
-O            `
+x            `
 |        G  |`
- - - - - -O- `
+ - - - - -x- `
     ]]>
   </level>
   <level id="16">
     <![CDATA[
- - - - -O- - `
+ - - - -x- - `
 |  A A   B B|`
-O       O   O`
+x       x   x`
 |  C   D    |`
-    O     O  `
+    x     x  `
 |  E   D D  |`
-    O   O    `
+    x   x    `
 |      F    |`
-        O    `
+        x    `
 |  E     G H|`
-O O         O`
+x x         x`
 |F     I    |`
- - - -O-O- - `
+ - - -x-x- - `
     ]]>
   </level>
   <level id="17">
     <![CDATA[
- - -O-O- -O- `
+ - -x-x- -x- `
 |A       B  |`
              `
 |  A   C   D|`
-O O     O O O`
+x x     x x x`
 |E   C      |`
-      O      `
+      x      `
 |E       F  |`
-O O O O      `
+x x x x      `
 |  G       H|`
-      O O    `
+      x x    `
 |  I I   I H|`
- - - - - -O- `
+ - - - - -x- `
     ]]>
   </level>
   <level id="18">
     <![CDATA[
- - - -O- - - `
+ - - -x- - - `
 |          A|`
              `
 |      A A  |`
-O   O       O`
+x   x       x`
 |  B     C  |`
-  O     O O O`
+  x     x x x`
 |D       E F|`
-  O          `
+  x          `
 |  G C     F|`
-O   O     O O`
+x   x     x x`
 |G   H   H  |`
- - -O- - - - `
+ - -x- - - - `
     ]]>
   </level>
   <level id="19">
     <![CDATA[
- - -O- -O-O- `
+ - -x- -x-x- `
 |A     B C  |`
-      O      `
+      x      `
 |  A A C C  |`
              `
 |      C   D|`
-O   O   O O O`
+x   x   x x x`
 |  A     E  |`
-    O        `
+    x        `
 |  F F     G|`
-      O O   O`
+      x x   x`
 |  F   H H  |`
- - - -O- - - `
+ - - -x- - - `
     ]]>
   </level>
   <level id="20">
     <![CDATA[
- - - -O- - - `
+ - - -x- - - `
 |    A B    |`
              `
 |  A   B C  |`
-O O   O      `
+x x   x      `
 |  D   C C B|`
-      O     O`
+      x     x`
 |  D E E    |`
-  O          `
+  x          `
 |F   E E C C|`
-O           O`
+x           x`
 |  E        |`
  - - - - - - `
     ]]>
   </level>
   <level id="21">
     <![CDATA[
- - - -O-O- - `
+ - - -x-x- - `
 |A     B    |`
-O            `
+x            `
 |    B   B  |`
-    O        `
+    x        `
 |C   C     D|`
-    O       O`
+    x       x`
 |    B B    |`
-O   O   O    `
+x   x   x    `
 |E       F F|`
              `
 |  E E   F F|`
- - - -O- - - `
+ - - -x- - - `
     ]]>
   </level>
   <level id="22">
     <![CDATA[
- - - -O-O- - `
+ - - -x-x- - `
 |  A   B    |`
-O   O        `
+x   x        `
 |  C     B  |`
-    O   O    `
+    x   x    `
 |  D     E  |`
-O O O   O    `
+x x x   x    `
 |      D F  |`
-            O`
+            x`
 |G F F F    |`
-            O`
+            x`
 |    G F H H|`
- - - -O-O- - `
+ - - -x-x- - `
     ]]>
   </level>
   <level id="23">
     <![CDATA[
- - - -O- - - `
+ - - -x- - - `
 |      A   A|`
-          O O`
+          x x`
 |  B B      |`
-O         O  `
+x         x  `
 |  B C      |`
-    O        `
+    x        `
 |  D     C  |`
-O   O O O    `
+x   x x x    `
 |  E   F    |`
-    O   O    `
+    x   x    `
 |  E   G H  |`
- - -O- -O- - `
+ - -x- -x- - `
     ]]>
   </level>
   <level id="24">
     <![CDATA[
- -O-O- - -O- `
+ -x-x- - -x- `
 |        A B|`
-    O     O  `
+    x     x  `
 |  C D     B|`
              `
 |E C     B  |`
-      O O    `
+      x x    `
 |    F      |`
-    O     O  `
+    x     x  `
 |           |`
-O O   O     O`
+x x   x     x`
 |G G     H H|`
- - - -O- - - `
+ - - -x- - - `
     ]]>
   </level>
   <level id="25">
     <![CDATA[
- -O- -O-O- - `
+ -x- -x-x- - `
 |  A        |`
              `
 |B B     C C|`
              `
 |  A   D C C|`
-  O   O O    `
+  x   x x    `
 |      E C C|`
-        O    `
+        x    `
 |      F C  |`
-O   O        `
+x   x        `
 |      F    |`
- - - - - -O- `
+ - - - - -x- `
     ]]>
   </level>
   <level id="26">
     <![CDATA[
- - - -O- - - `
+ - - -x- - - `
 |A A     B  |`
-O     O O    `
+x     x x    `
 |    C   D  |`
              `
 |  E   D D  |`
-    O O   O O`
+    x x   x x`
 |      D   F|`
-O     O O O O`
+x     x x x x`
 |    G H H  |`
-        O    `
+        x    `
 |      G I  |`
- - -O- -O- - `
+ - -x- -x- - `
     ]]>
   </level>
   <level id="27">
     <![CDATA[
- -O-O-O- - - `
+ -x-x-x- - - `
 |A B C   D  |`
              `
 |A   C D D  |`
-    O       O`
+    x       x`
 |        D  |`
-O   O   O    `
+x   x   x    `
 |        D  |`
              `
 |  E E   F F|`
              `
 |      F F  |`
- - -O- - - - `
+ - -x- - - - `
     ]]>
   </level>
   <level id="28">
     <![CDATA[
- - - -O-O- - `
+ - - -x-x- - `
 |      A    |`
              `
 |B C     A  |`
-O            `
+x            `
 |  C   A D  |`
-O   O   O   O`
+x   x   x   x`
 |E C A A F  |`
-    O   O   O`
+    x   x   x`
 |      G F G|`
-    O        `
+    x        `
 |           |`
- -O- - - - - `
+ -x- - - - - `
     ]]>
   </level>
   <level id="29">
     <![CDATA[
- - -O- -O- - `
+ - -x- -x- - `
 |      A B  |`
-    O O O    `
+    x x x    `
 |  C   D    |`
-      O   O  `
+      x   x  `
 |C E     F B|`
-          O O`
+          x x`
 |C     E   G|`
-      O O    `
+      x x    `
 |  E H     G|`
-O O          `
+x x          `
 |        H  |`
- - - - - -O- `
+ - - - - -x- `
     ]]>
   </level>
   <level id="30">
     <![CDATA[
- - -O- - -O- `
+ - -x- - -x- `
 |  A B B   C|`
-    O   O    `
+    x   x    `
 |    B      |`
-O   O       O`
+x   x       x`
 |    D      |`
-      O O O  `
+      x x x  `
 |E E       F|`
              `
 |  E G G F F|`
              `
 |        F F|`
- - - -O-O- - `
+ - - -x-x- - `
     ]]>
   </level>
   <level id="31">
     <![CDATA[
- -O- -O-O- - `
+ -x- -x-x- - `
 |A     B C  |`
-          O O`
+          x x`
 |    B B    |`
-          O  `
+          x  `
 |    D     E|`
-      O     O`
+      x     x`
 |    F      |`
-          O O`
+          x x`
 |A          |`
              `
 |    D   G H|`
- - -O-O-O-O- `
+ - -x-x-x-x- `
     ]]>
   </level>
   <level id="32">
     <![CDATA[
- - - - -O- - `
+ - - - -x- - `
 |A     A B  |`
              `
 |A A     B  |`
-      O     O`
+      x     x`
 |  C A      |`
-O O          `
+x x          `
 |      C    |`
-  O     O O  `
+  x     x x  `
 |  D     E  |`
-      O O    `
+      x x    `
 |F       G  |`
- -O- - -O- - `
+ -x- - -x- - `
     ]]>
   </level>
   <level id="33">
     <![CDATA[
- - - - - -O- `
+ - - - - -x- `
 |  A        |`
-        O    `
+        x    `
 |A B        |`
-O   O        `
+x   x        `
 |  B     C  |`
              `
 |B D   C C  |`
-      O     O`
+      x     x`
 |  B   E    |`
-    O O     O`
+    x x     x`
 |    F F   F|`
- - -O- - - - `
+ - -x- - - - `
     ]]>
   </level>
   <level id="34">
     <![CDATA[
- - - -O- -O- `
+ - - -x- -x- `
 |    A   B C|`
-O     O O O  `
+x     x x x  `
 |  D D D    |`
-O         O O`
+x         x x`
 |E     F    |`
-O   O O      `
+x   x x      `
 |  G   G    |`
-        O    `
+        x    `
 |  H G H    |`
              `
 |      H   I|`
- -O- - - -O- `
+ -x- - - -x- `
     ]]>
   </level>
   <level id="35">
     <![CDATA[
- -O- -O- - - `
+ -x- -x- - - `
 |        A  |`
              `
 |  B       A|`
-    O       O`
+    x       x`
 |C B   A    |`
-    O O   O  `
+    x x   x  `
 |C   D   E  |`
-    O O O    `
+    x x x    `
 |  F   G   H|`
-O   O   O    `
+x   x   x    `
 |F       I  |`
- - -O- - -O- `
+ - -x- - -x- `
     ]]>
   </level>
   <level id="36">
     <![CDATA[
- - -O-O- -O- `
+ - -x-x- -x- `
 |A          |`
              `
 |  A     B B|`
-        O    `
+        x    `
 |A A C D    |`
-    O O     O`
+    x x     x`
 |  E       F|`
-O           O`
+x           x`
 |      G   H|`
-    O   O    `
+    x   x    `
 |  G   G    |`
- -O- - -O- - `
+ -x- - -x- - `
     ]]>
   </level>
   <level id="37">
     <![CDATA[
- - -O-O- - - `
+ - -x-x- - - `
 |  A B   C  |`
-      O     O`
+      x     x`
 |  A       D|`
-      O O   O`
+      x x   x`
 |A B       E|`
-O       O O O`
+x       x x x`
 |B     F G H|`
-O     O      `
+x     x      `
 |  I I      |`
-      O      `
+      x      `
 |           |`
- - - -O- - - `
+ - - -x- - - `
     ]]>
   </level>
   <level id="38">
     <![CDATA[
- - -O- - - - `
+ - -x- - - - `
 |  A   B B  |`
-            O`
+            x`
 |A A A      |`
-        O    `
+        x    `
 |      B   C|`
-O   O   O   O`
+x   x   x   x`
 |D     E   F|`
              `
 |    D   F  |`
              `
 |          F|`
- - -O- -O- - `
+ - -x- -x- - `
     ]]>
   </level>
   <level id="39">
     <![CDATA[
- -O- - - - - `
+ -x- - - - - `
 |           |`
-            O`
+            x`
 |  A   B B C|`
-O   O        `
+x   x        `
 |  D B      |`
-    O O      `
+    x x      `
 |  E F G G  |`
-O           O`
+x           x`
 |E     G    |`
-    O O      `
+    x x      `
 |        H G|`
- - -O- - -O- `
+ - -x- - -x- `
     ]]>
   </level>
   <level id="40">
     <![CDATA[
- - -O- - - - `
+ - -x- - - - `
 |  A     B  |`
-O   O   O   O`
+x   x   x   x`
 |  A     C  |`
-    O       O`
+    x       x`
 |D D C E C  |`
-O O O        `
+x x x        `
 |           |`
-    O        `
+    x        `
 |  F     G G|`
-      O O   O`
+      x x   x`
 |  H H I    |`
- - - -O- - - `
+ - - -x- - - `
     ]]>
   </level>
   <level id="41">
     <![CDATA[
- - -O- - - -O- `
+ - -x- - - -x- `
 |      A   A  |`
-        O      `
+        x      `
 |B A   C D   D|`
                `
 |            D|`
-O     O       O`
+x     x       x`
 |        E    |`
-      O O      `
+      x x      `
 |    F   E C  |`
-    O       O O`
+    x       x x`
 |             |`
-    O     O    `
+    x     x    `
 |F G     H I I|`
- -O-O- - -O- - `
+ -x-x- - -x- - `
     ]]>
   </level>
   <level id="42">
     <![CDATA[
- - - - -O- -O- `
+ - - - -x- -x- `
 |             |`
                `
 |  A B C     D|`
-    O O   O   O`
+    x x   x   x`
 |          E E|`
-O   O     O   O`
+x   x     x   x`
 |      F G H  |`
-O       O O    `
+x       x x    `
 |  A   F I J  |`
-        O      `
+        x      `
 |  K          |`
-    O       O  `
+    x       x  `
 |K       I I H|`
- - -O- - - -O- `
+ - -x- - - -x- `
     ]]>
   </level>
   <level id="43">
     <![CDATA[
- - -O- -O-O- - `
+ - -x- -x-x- - `
 |A       B    |`
                `
 |A C C B   D  |`
-            O O`
+            x x`
 |      C   B E|`
-O   O O     O  `
+x   x x     x  `
 |F F G        |`
-    O O   O    `
+    x x   x    `
 |  H     I    |`
-O   O O O O   O`
+x   x x x x   x`
 |  H J     K  |`
-              O`
+              x`
 |          L  |`
- -O- -O- - - - `
+ -x- -x- - - - `
     ]]>
   </level>
   <level id="44">
     <![CDATA[
- -O- - - - -O- `
+ -x- - - - -x- `
 |      A   A  |`
-  O            `
+  x            `
 |    B   C A  |`
-        O      `
+        x      `
 |D       C    |`
-O   O         O`
+x   x         x`
 |E     C   F  |`
-  O O O O O    `
+  x x x x x    `
 |      G   F  |`
-O              `
+x              `
 |  H I   J F  |`
-    O O O O    `
+    x x x x    `
 |    K   L    |`
- -O- -O- - -O- `
+ -x- -x- - -x- `
     ]]>
   </level>
   <level id="45">
     <![CDATA[
- -O-O- -O- -O- `
+ -x-x- -x- -x- `
 |      A B    |`
                `
 |          C  |`
-      O       O`
+      x       x`
 |D E         F|`
-  O       O    `
+  x       x    `
 |      B G    |`
-O O       O   O`
+x x       x   x`
 |    G G     H|`
-    O     O   O`
+    x     x   x`
 |  I   I   J  |`
                `
 |K K I        |`
- - -O-O- - -O- `
+ - -x-x- - -x- `
     ]]>
   </level>
   <level id="46">
     <![CDATA[
- - -O-O-O- - - `
+ - -x-x-x- - - `
 |A           B|`
-O         O   O`
+x         x   x`
 |  C C     D  |`
-    O          `
+    x          `
 |    E   D    |`
-        O      `
+        x      `
 |  F     D D D|`
-O O O O O O    `
+x x x x x x    `
 |  F   G      |`
-      O O     O`
+      x x     x`
 |    H I J K  |`
-O       O      `
+x       x      `
 |      I      |`
- - - - -O- - - `
+ - - - -x- - - `
     ]]>
   </level>
   <level id="47">
     <![CDATA[
- - -O- -O- - - `
+ - -x- -x- - - `
 |      A      |`
-    O          `
+    x          `
 |B   C        |`
-O O   O     O  `
+x x   x     x  `
 |  D   D A   E|`
-        O O    `
+        x x    `
 |D F          |`
-O           O O`
+x           x x`
 |    G F   G  |`
                `
 |  F   G G   H|`
-O         O   O`
+x         x   x`
 |            I|`
- - - -O- - - - `
+ - - -x- - - - `
     ]]>
   </level>
   <level id="48">
     <![CDATA[
- - - - -O-O- - `
+ - - - -x-x- - `
 |    A     B  |`
-    O         O`
+    x         x`
 |            C|`
-              O`
+              x`
 |      D      |`
-O         O    `
+x         x    `
 |D   E D F    |`
-        O      `
+        x      `
 |  E   E   G  |`
-  O   O     O  `
+  x   x     x  `
 |  H         F|`
-O O O O   O   O`
+x x x x   x   x`
 |  I J J   K K|`
- - -O- - -O- - `
+ - -x- - -x- - `
     ]]>
   </level>
   <level id="49">
     <![CDATA[
- - - -O- -O- - `
+ - - -x- -x- - `
 |  A     B C  |`
-          O    `
+          x    `
 |          D  |`
-      O O      `
+      x x      `
 |        D C  |`
-O   O   O O   O`
+x   x   x x   x`
 |E E F G      |`
-O O O O   O    `
+x x x x   x    `
 |        H C I|`
-    O O   O    `
+    x x   x    `
 |J   K L      |`
                `
 |          I  |`
- -O- -O-O- - - `
+ -x- -x-x- - - `
     ]]>
   </level>
   <level id="50">
     <![CDATA[
- - -O- - - - - `
+ - -x- - - - - `
 |A     B B   B|`
-              O`
+              x`
 |      C C B  |`
-O O            `
+x x            `
 |  D   C C C  |`
-    O     O   O`
+    x     x   x`
 |D         E  |`
                `
 |  F F   G    |`
-    O O O O O  `
+    x x x x x  `
 |             |`
                `
 |    D H   I  |`
- - - -O-O- -O- `
+ - - -x-x- -x- `
     ]]>
   </level>
   <level id="51">
     <![CDATA[
- - -O- -O- - - `
+ - -x- -x- - - `
 |  A   B      |`
-O       O      `
+x       x      `
 |      B     C|`
-            O O`
+            x x`
 |D         E  |`
-O   O O        `
+x   x x        `
 |F   G       E|`
-    O          `
+    x          `
 |F         H  |`
-            O O`
+            x x`
 |F F   I     G|`
-    O          `
+    x          `
 |F F I        |`
- - -O- - -O- - `
+ - -x- - -x- - `
     ]]>
   </level>
   <level id="52">
     <![CDATA[
- -O- -O- - - - `
+ -x- -x- - - - `
 |            A|`
-      O        `
+      x        `
 |  B   C   D  |`
-  O O   O     O`
+  x x   x     x`
 |E   F        |`
-O O       O   O`
+x x       x   x`
 |  F   C C   G|`
                `
 |             |`
-    O   O   O  `
+    x   x   x  `
 |H I I F   J  |`
-O           O O`
+x           x x`
 |  I       K  |`
- - - -O-O-O- - `
+ - - -x-x-x- - `
     ]]>
   </level>
   <level id="53">
     <![CDATA[
- - - - -O- - - `
+ - - - -x- - - `
 |    A        |`
-              O`
+              x`
 |  A B       C|`
-          O   O`
+          x   x`
 |        D    |`
-O   O         O`
+x   x         x`
 |          E  |`
-        O      `
+        x      `
 |F       G    |`
-O       O O    `
+x       x x    `
 |  F H H   I  |`
-    O   O O   O`
+    x   x x   x`
 |J       K    |`
- - - -O-O- - - `
+ - - -x-x- - - `
     ]]>
   </level>
   <level id="54">
     <![CDATA[
- - -O- - -O- - `
+ - -x- - -x- - `
 |A            |`
-              O`
+              x`
 |A B   B C   D|`
-            O  `
+            x  `
 |  B B        |`
-        O   O O`
+        x   x x`
 |  A     E   F|`
-      O O O O  `
+      x x x x  `
 |          G  |`
-O O       O    `
+x x       x    `
 |H H   I J    |`
-    O       O  `
+    x       x  `
 |      J   J  |`
- - -O- - - -O- `
+ - -x- - - -x- `
     ]]>
   </level>
   <level id="55">
     <![CDATA[
- - - - - - -O- `
+ - - - - - -x- `
 |  A   A      |`
                `
 |  B   C      |`
-O     O O      `
+x     x x      `
 |B B     D    |`
-O             O`
+x             x`
 |        E D  |`
-  O O       O O`
+  x x       x x`
 |      F      |`
-      O O      `
+      x x      `
 |G   H   I    |`
-    O          `
+    x          `
 |    H   J    |`
- - -O-O- -O- - `
+ - -x-x- -x- - `
     ]]>
   </level>
   <level id="56">
     <![CDATA[
- -O- - - -O- - `
+ -x- - - -x- - `
 |A B          |`
                `
 |    B B B C  |`
-O O            `
+x x            `
 |    D        |`
-  O   O O      `
+  x   x x      `
 |  D   E E    |`
-    O     O   O`
+    x     x   x`
 |  F E        |`
-        O     O`
+        x     x`
 |  E   G G H  |`
-          O    `
+          x    `
 |  F       I  |`
- - -O-O- -O- - `
+ - -x-x- -x- - `
     ]]>
   </level>
   <level id="57">
     <![CDATA[
- -O-O- - - -O- `
+ -x-x- - - -x- `
 |    A        |`
-          O    `
+          x    `
 |B     C      |`
-        O     O`
+        x     x`
 |B     D   E  |`
-O   O O O O    `
+x   x x x x    `
 |    F       G|`
-    O   O      `
+    x   x      `
 |  H       I  |`
-    O         O`
+    x         x`
 |  J   F      |`
-O         O   O`
+x         x   x`
 |      K     L|`
- - -O- - -O- - `
+ - -x- - -x- - `
     ]]>
   </level>
   <level id="58">
     <![CDATA[
- - -O- -O- -O- `
+ - -x- -x- -x- `
 |      A   B  |`
-    O   O O    `
+    x   x x    `
 |C     D     E|`
-  O   O O   O O`
+  x   x x   x x`
 |          F  |`
-O O            `
+x x            `
 |  G H   F I  |`
                `
 |J G     F F  |`
-    O O        `
+    x x        `
 |      K   I  |`
-O O            `
+x x            `
 |             |`
- - - - -O- -O- `
+ - - - -x- -x- `
     ]]>
   </level>
   <level id="59">
     <![CDATA[
- -O- - - -O- - `
+ -x- - - -x- - `
 |A B       C  |`
-          O    `
+          x    `
 |        D D  |`
-O   O          `
+x   x          `
 |E           C|`
-    O   O     O`
+    x   x     x`
 |             |`
-O O O O   O O  `
+x x x x   x x  `
 |F G   G H   I|`
-  O       O    `
+  x       x    `
 |  J       K  |`
-      O   O O O`
+      x   x x x`
 |            L|`
- - - - -O-O- - `
+ - - - -x-x- - `
     ]]>
   </level>
   <level id="60">
     <![CDATA[
- - - - -O- - - `
+ - - - -x- - - `
 |    A     B  |`
-      O O      `
+      x x      `
 |    C   B B  |`
-O           O O`
+x           x x`
 |    D        |`
-    O O        `
+    x x        `
 |  E   F      |`
-      O   O    `
+      x   x    `
 |          F G|`
-O              `
+x              `
 |  E H   G    |`
-O   O O        `
+x   x x        `
 |    I F      |`
- - - -O- -O- - `
+ - - -x- -x- - `
     ]]>
   </level>
   <level id="61">
     <![CDATA[
- -O-O- - - - - `
+ -x-x- - - - - `
 |A            |`
                `
 |  B     C C  |`
-O O       O    `
+x x       x    `
 |    D   B E  |`
-    O     O   O`
+    x     x   x`
 |  F     D    |`
-    O     O   O`
+    x     x   x`
 |  G     H I  |`
-O O   O   O    `
+x x   x   x    `
 |J   G   G I  |`
-      O        `
+      x        `
 |    J        |`
- - - -O- - - - `
+ - - -x- - - - `
     ]]>
   </level>
   <level id="62">
     <![CDATA[
- - -O- - -O- - `
+ - -x- - -x- - `
 |  A   B   C  |`
-        O O O O`
+        x x x x`
 |        D    |`
-        O      `
+        x      `
 |  A   E F    |`
-        O     O`
+        x     x`
 |        F F  |`
-O         O    `
+x         x    `
 |        G H  |`
-    O O        `
+    x x        `
 |  I I I G G  |`
-        O      `
+        x      `
 |          H  |`
- - - - -O- - - `
+ - - - -x- - - `
     ]]>
   </level>
   <level id="63">
     <![CDATA[
- - - - - - -O- `
+ - - - - - -x- `
 |    A       B|`
                `
 |  A C C      |`
-O   O     O   O`
+x   x     x   x`
 |  D     C    |`
-    O   O O    `
+    x   x x    `
 |      E     F|`
-O   O   O     O`
+x   x   x     x`
 |    G G      |`
-      O        `
+      x        `
 |            H|`
-          O    `
+          x    `
 |    I I      |`
- - - - -O-O- - `
+ - - - -x-x- - `
     ]]>
   </level>
   <level id="64">
     <![CDATA[
- - - -O- - - - `
+ - - -x- - - - `
 |             |`
-O           O O`
+x           x x`
 |  A B     C  |`
-      O O   O  `
+      x x   x  `
 |D           E|`
-O              `
+x              `
 |    F     E  |`
-    O          `
+    x          `
 |      G     E|`
                `
 |  H G   H    |`
-O              `
+x              `
 |          G  |`
- - - - -O- -O- `
+ - - - -x- -x- `
     ]]>
   </level>
   <level id="65">
     <![CDATA[
- - - -O- -O- - `
+ - - -x- -x- - `
 |  A       B  |`
                `
 |  C     B    |`
-        O     O`
+        x     x`
 |A   C   B B  |`
-O   O          `
+x   x          `
 |    D        |`
-    O O O      `
+    x x x      `
 |E F          |`
-    O O O     O`
+    x x x     x`
 |      G   H  |`
-      O       O`
+      x       x`
 |    I J      |`
- -O- -O- - - - `
+ -x- -x- - - - `
     ]]>
   </level>
   <level id="66">
     <![CDATA[
- -O- - -O- - - `
+ -x- - -x- - - `
 |A B          |`
-    O O O      `
+    x x x      `
 |      C D C  |`
                `
 |  E          |`
-O O   O O   O O`
+x x   x x   x x`
 |F   E G H C  |`
-    O          `
+    x          `
 |             |`
-O O     O      `
+x x     x      `
 |  I     H J  |`
-    O         O`
+    x         x`
 |            J|`
- - -O- - - - - `
+ - -x- - - - - `
     ]]>
   </level>
   <level id="67">
     <![CDATA[
- -O- - - -O- - `
+ -x- - - -x- - `
 |        A    |`
-          O    `
+          x    `
 |          B  |`
-      O        `
+      x        `
 |  C     D    |`
-      O        `
+      x        `
 |  E     F    |`
-O   O O       O`
+x   x x       x`
 |  E   F      |`
-      O   O    `
+      x   x    `
 |  E G   F H  |`
-              O`
+              x`
 |             |`
- - - -O- - - - `
+ - - -x- - - - `
     ]]>
   </level>
   <level id="68">
     <![CDATA[
- -O- - -O- -O- `
+ -x- - -x- -x- `
 |A     B   C  |`
-  O O          `
+  x x          `
 |  D     B   E|`
-      O     O O`
+      x     x x`
 |    F        |`
-  O   O        `
+  x   x        `
 |             |`
-O O O O       O`
+x x x x       x`
 |G   H I     J|`
-          O   O`
+          x   x`
 |  H          |`
-          O    `
+          x    `
 |        K    |`
- -O- - -O- - - `
+ -x- - -x- - - `
     ]]>
   </level>
   <level id="69">
     <![CDATA[
- - -O- -O- -O- `
+ - -x- -x- -x- `
 |A   B     C  |`
                `
 |      B   B  |`
-      O       O`
+      x       x`
 |  D       E  |`
-O O       O    `
+x x       x    `
 |    F     G  |`
-    O     O   O`
+    x     x   x`
 |  H          |`
-O         O   O`
+x         x   x`
 |  F     I    |`
-O   O O     O  `
+x   x x     x  `
 |  J         K|`
- - -O- - - -O- `
+ - -x- - - -x- `
     ]]>
   </level>
   <level id="70">
     <![CDATA[
- -O- - -O- - - `
+ -x- - -x- - - `
 |  A          |`
-  O O   O      `
+  x x   x      `
 |    B   C D  |`
-              O`
+              x`
 |E   F B      |`
-O O   O   O    `
+x x   x   x    `
 |          D  |`
-          O    `
+          x    `
 |G   H     D  |`
-  O   O        `
+  x   x        `
 |    H     I  |`
                `
 |      I      |`
- -O-O- - - -O- `
+ -x-x- - - -x- `
     ]]>
   </level>
   <level id="71">
     <![CDATA[
- - - - - -O-O- - `
+ - - - - -x-x- - `
 |            A  |`
-                O`
+                x`
 |B   C B   D   E|`
-O   O   O     O  `
+x   x   x     x  `
 |  F   C G      |`
-        O        `
+        x        `
 |      F G   E  |`
-        O O      `
+        x x      `
 |  F   H   D    |`
-O   O     O O   O`
+x   x     x x   x`
 |  F     I     J|`
-        O   O   O`
+        x   x   x`
 |  K     L     M|`
-      O   O O   O`
+      x   x x   x`
 |K         N N  |`
- - - -O- -O- - - `
+ - - -x- -x- - - `
     ]]>
   </level>
   <level id="72">
     <![CDATA[
- - -O- - - - - - `
+ - -x- - - - - - `
 |A A B   B B B B|`
-    O           O`
+    x           x`
 |  C B D B E E E|`
-O     O O O   O O`
+x     x x x   x x`
 |C C C   F C C G|`
-O     O       O  `
+x     x       x  `
 |H H C I   F F  |`
-        O O   O  `
+        x x   x  `
 |H C C I J K K G|`
-    O O O       O`
+    x x x       x`
 |H H L M J J K K|`
-    O            `
+    x            `
 |  N   M J J J K|`
-    O O O        `
+    x x x        `
 |  N   O   J K K|`
- -O-O- - -O-O- - `
+ -x-x- - -x-x- - `
     ]]>
   </level>
   <level id="73">
     <![CDATA[
- -O- - - - -O-O- `
+ -x- - - - -x-x- `
 |A B   B        |`
                  `
 |      B        |`
-    O     O      `
+    x     x      `
 |  C   C   D E  |`
-          O O O O`
+          x x x x`
 |    C C C      |`
-    O            `
+    x            `
 |A F C G   G   H|`
-O     O O   O   O`
+x     x x   x   x`
 |      I     J  |`
-      O         O`
+      x         x`
 |  K       L L  |`
-O     O          `
+x     x          `
 |               |`
- - - - -O- -O- - `
+ - - - -x- -x- - `
     ]]>
   </level>
   <level id="74">
     <![CDATA[
- - -O-O- -O-O- - `
+ - -x-x- -x-x- - `
 |        A   B  |`
-          O     O`
+          x     x`
 |C C D          |`
-                O`
+                x`
 |  C C     E F  |`
                  `
 |          F    |`
-O   O   O O O    `
+x   x   x x x    `
 |      G H   I F|`
-O O         O    `
+x x         x    `
 |J K            |`
-      O     O   O`
+      x     x   x`
 |  J     G   I  |`
-O               O`
+x               x`
 |            L  |`
- - - -O- - - - - `
+ - - -x- - - - - `
     ]]>
   </level>
   <level id="75">
     <![CDATA[
- - - -O- - - - - `
+ - - -x- - - - - `
 |A A A          |`
-      O         O`
+      x         x`
 |  A B   C C    |`
-          O O O  `
+          x x x  `
 |            D E|`
-    O O       O O`
+    x x       x x`
 |A F            |`
-O       O       O`
+x       x       x`
 |    G B G   H  |`
-    O     O O    `
+    x     x x    `
 |  I G     J    |`
-O   O       O    `
+x   x       x    `
 |      K       L|`
-          O     O`
+          x     x`
 |  I         M  |`
- - -O- - -O-O- - `
+ - -x- - -x-x- - `
     ]]>
   </level>
   <level id="76">
     <![CDATA[
- - -O-O- - - - - `
+ - -x-x- - - - - `
 |A   B C C C C C|`
-    O           O`
+    x           x`
 |A D B B C E C E|`
-O         O      `
+x         x      `
 |D D B B B E E E|`
-        O       O`
+        x       x`
 |D D B F   E   G|`
-    O     O O O O`
+    x     x x x x`
 |  D   F F H H I|`
-O   O            `
+x   x            `
 |J J K F H H I I|`
-    O     O O    `
+    x     x x    `
 |J L F F   M M I|`
-O         O   O O`
+x         x   x x`
 |L L F     N N N|`
- - -O- - -O- - - `
+ - -x- - -x- - - `
     ]]>
   </level>
   <level id="77">
     <![CDATA[
- - - -O- -O- -O- `
+ - - -x- -x- -x- `
 |  A A   B C    |`
-      O O        `
+      x x        `
 |  D A         E|`
-            O   O`
+            x   x`
 |        F      |`
-    O     O      `
+    x     x      `
 |          C   G|`
-O   O   O     O  `
+x   x   x     x  `
 |      H I      |`
-O   O   O     O  `
+x   x   x     x  `
 |    J   I      |`
-    O     O O    `
+    x     x x    `
 |K              |`
-  O       O     O`
+  x       x     x`
 |    L J M N   O|`
- -O- -O-O-O-O- - `
+ -x- -x-x-x-x- - `
     ]]>
   </level>
   <level id="78">
     <![CDATA[
- - - -O- - -O- - `
+ - - -x- - -x- - `
 |A   A B       C|`
-O     O   O O O O`
+x     x   x x x x`
 |  D     E   F G|`
-    O            `
+    x            `
 |  D E   H      |`
-        O   O O O`
+        x   x x x`
 |      I     J  |`
-    O O          `
+    x x          `
 |    K   I   L  |`
-O     O O O     O`
+x     x x x     x`
 |      M H     J|`
-                O`
+                x`
 |  N            |`
-O     O     O    `
+x     x     x    `
 |        O     P|`
- - -O-O- - -O-O- `
+ - -x-x- - -x-x- `
     ]]>
   </level>
   <level id="79">
     <![CDATA[
- -O- - -O- - - - `
+ -x- - -x- - - - `
 |    A          |`
-                O`
+                x`
 |B A B     A C  |`
                  `
 |          C    |`
-    O   O        `
+    x   x        `
 |  D     E E    |`
-      O O        `
+      x x        `
 |      F G      |`
-O O   O O O   O  `
+x x   x x x   x  `
 |    H H I      |`
-      O         O`
+      x         x`
 |  J       K K  |`
-O     O          `
+x     x          `
 |      L   K K  |`
- - -O- -O-O- - - `
+ - -x- -x-x- - - `
     ]]>
   </level>
   <level id="80">
     <![CDATA[
- - - -O- - - - - `
+ - - -x- - - - - `
 |A         B    |`
-O     O   O      `
+x     x   x      `
 |C              |`
-O       O       O`
+x       x       x`
 |      C D      |`
-O   O   O   O   O`
+x   x   x   x   x`
 |  E F         G|`
-  O O         O O`
+  x x         x x`
 |  H       I I  |`
-      O          `
+      x          `
 |  J   K   K   L|`
-      O          `
+      x          `
 |J H     K      |`
-O         O   O O`
+x         x   x x`
 |  H   M   N    |`
- - - -O- -O- - - `
+ - - -x- -x- - - `
     ]]>
   </level>
   <level id="81">
     <![CDATA[
- - -O- -O-O- -O- `
+ - -x- -x-x- -x- `
 |A       B   C  |`
-O         O      `
+x         x      `
 |      D   E   F|`
-      O O O O    `
+      x x x x    `
 |      D G E    |`
-  O O     O O O O`
+  x x     x x x x`
 |H I       J    |`
-O                `
+x                `
 |      K     L  |`
-    O   O        `
+    x   x        `
 |               |`
-            O    `
+            x    `
 |    M K     N N|`
-O       O        `
+x       x        `
 |              N|`
- - -O- - - -O- - `
+ - -x- - - -x- - `
     ]]>
   </level>
   <level id="82">
     <![CDATA[
- - - - - - -O- - `
+ - - - - - -x- - `
 |    A       B  |`
-O       O   O   O`
+x       x   x   x`
 |C       D      |`
-O               O`
+x               x`
 |    E     A    |`
-  O     O        `
+  x     x        `
 |F E            |`
-O O     O        `
+x x     x        `
 |      G H   I  |`
-        O O O    `
+        x x x    `
 |  J   K     I  |`
-O   O O         O`
+x   x x         x`
 |    H     L   L|`
-          O      `
+          x      `
 |            M  |`
- - -O-O- - - -O- `
+ - -x-x- - - -x- `
     ]]>
   </level>
   <level id="83">
     <![CDATA[
- -O- - - -O- - - `
+ -x- - - -x- - - `
 |  A            |`
                  `
 |      B     C  |`
-O O O         O O`
+x x x         x x`
 |D           E  |`
-O     O   O O    `
+x     x   x x    `
 |    F     G   H|`
-O O O O     O O  `
+x x x x     x x  `
 |    I     J    |`
-    O   O        `
+    x   x        `
 |  K   L     M  |`
-    O   O O O O  `
+    x   x x x x  `
 |K   L   N     H|`
-      O   O   O O`
+      x   x   x x`
 |      O       P|`
- -O- -O- -O- - - `
+ -x- -x- -x- - - `
     ]]>
   </level>
   <level id="84">
     <![CDATA[
- -O- - - -O- - - `
+ -x- - - -x- - - `
 |  A            |`
-  O       O      `
+  x       x      `
 |B C   D D   E  |`
-O O O O O        `
+x x x x x        `
 |F G G   H   E  |`
-    O            `
+    x            `
 |  F       H   E|`
-O O O     O O   O`
+x x x     x x   x`
 |I   J K L   E  |`
                  `
 |    K          |`
-    O           O`
+    x           x`
 |      K     M  |`
-O O O     O      `
+x x x     x      `
 |  N L         O|`
- - -O- - -O- - - `
+ - -x- - -x- - - `
     ]]>
   </level>
   <level id="85">
     <![CDATA[
- - - - - -O- - - `
+ - - - - -x- - - `
 |A       A B    |`
                  `
 |    C       D  |`
-O O O O O       O`
+x x x x x       x`
 |E     F   D    |`
-O       O   O    `
+x       x   x    `
 |G   C       H  |`
-O   O           O`
+x   x           x`
 |        I      |`
-        O O     O`
+        x x     x`
 |  F J     K    |`
-O     O     O    `
+x     x     x    `
 |  J     K   L  |`
-      O     O    `
+      x     x    `
 |J       M   L  |`
- - - -O- - -O- - `
+ - - -x- - -x- - `
     ]]>
   </level>
   <level id="86">
     <![CDATA[
- - - - -O- -O- - `
+ - - - -x- -x- - `
 |          A B  |`
-                O`
+                x`
 |C   D         E|`
-    O     O O    `
+    x     x x    `
 |        D E    |`
-O               O`
+x               x`
 |  F F          |`
-O O O O O       O`
+x x x x x       x`
 |        G   H  |`
-      O O O O    `
+      x x x x    `
 |I   J   G K    |`
-O   O     O      `
+x   x     x      `
 |            L  |`
                  `
 |M         N    |`
- - -O- - - -O- - `
+ - -x- - - -x- - `
     ]]>
   </level>
   <level id="87">
     <![CDATA[
- - - - -O- - - - `
+ - - - -x- - - - `
 |    A   B      |`
-O       O   O    `
+x       x   x    `
 |        C      |`
-      O O O     O`
+      x x x     x`
 |  D E E   F    |`
-      O   O     O`
+      x   x     x`
 |D   D          |`
-O O       O     O`
+x x       x     x`
 |G         H I  |`
-  O O            `
+  x x            `
 |  J   K       L|`
-O         O   O O`
+x         x   x x`
 |      H   M I  |`
-O   O            `
+x   x            `
 |  N            |`
- - -O- -O-O- - - `
+ - -x- -x-x- - - `
     ]]>
   </level>
   <level id="88">
     <![CDATA[
- - -O-O- -O- - - `
+ - -x-x- -x- - - `
 |  A     B C    |`
-O   O O         O`
+x   x x         x`
 |    D E        |`
-O     O   O   O O`
+x     x   x   x x`
 |F   G     H    |`
-  O       O      `
+  x       x      `
 |        I      |`
-O O           O O`
+x x           x x`
 |  J            |`
-O     O O O      `
+x     x x x      `
 |        K   K  |`
-          O      `
+          x      `
 |L M           N|`
-            O O O`
+            x x x`
 |          O O  |`
- -O- -O- - -O- - `
+ -x- -x- - -x- - `
     ]]>
   </level>
   <level id="89">
     <![CDATA[
- -O- -O-O-O- - - `
+ -x- -x-x-x- - - `
 |               |`
-                O`
+                x`
 |  A     B B C D|`
-  O O         O  `
+  x x         x  `
 |E   F   G   B  |`
-O             O O`
+x             x x`
 |          B H  |`
-      O O        `
+      x x        `
 |  F I   J B B H|`
-      O   O O    `
+      x   x x    `
 |F F            |`
                  `
 |  I     K      |`
-                O`
+                x`
 |          J    |`
- -O- -O- - -O- - `
+ -x- -x- - -x- - `
     ]]>
   </level>
   <level id="90">
     <![CDATA[
- - - -O- - - -O- `
+ - - -x- - - -x- `
 |A   A     B    |`
                  `
 |  C       B D  |`
-O O   O          `
+x x   x          `
 |E              |`
-    O   O     O O`
+    x   x     x x`
 |      C   B F  |`
-O O     O       O`
+x x     x       x`
 |    G         H|`
-  O     O        `
+  x     x        `
 |I       F J F  |`
-O     O     O O  `
+x     x     x x  `
 |K           L H|`
-            O    `
+            x    `
 |K     J        |`
- - -O- -O- - - - `
+ - -x- -x- - - - `
     ]]>
   </level>
   <level id="91">
     <![CDATA[
- - - -O- -O-O- - `
+ - - -x- -x-x- - `
 |    A B   C D  |`
-O   O O   O O    `
+x   x x   x x    `
 |            E  |`
-            O O O`
+            x x x`
 |F   G H I      |`
-O O O   O   O    `
+x x x   x   x    `
 |  J           K|`
-        O   O O  `
+        x   x x  `
 |    J H   L M  |`
-        O   O   O`
+        x   x   x`
 |  J            |`
-    O   O       O`
+    x   x       x`
 |        N   E  |`
-O                `
+x                `
 |  O            |`
- - - -O-O- - - - `
+ - - -x-x- - - - `
     ]]>
   </level>
   <level id="92">
     <![CDATA[
- -O- - -O- -O- - `
+ -x- - -x- -x- - `
 |        A     B|`
-  O     O   O   O`
+  x     x   x   x`
 |  C D   E A    |`
-          O      `
+          x      `
 |F       E G    |`
-  O O   O O      `
+  x x   x x      `
 |      C H      |`
-O           O   O`
+x           x   x`
 |  I   H   J J  |`
-    O   O O      `
+    x   x x      `
 |  K   L   J   J|`
-O                `
+x                `
 |    K     M J  |`
-    O            `
+    x            `
 |  N           J|`
- -O-O- -O-O- - - `
+ -x-x- -x-x- - - `
     ]]>
   </level>
   <level id="93">
     <![CDATA[
- - -O-O-O- -O- - `
+ - -x-x-x- -x- - `
 |    A     B    |`
-          O O    `
+          x x    `
 |  C       D D  |`
                  `
 |  A   E     F  |`
-    O O O        `
+    x x x        `
 |        G      |`
-O   O O O     O O`
+x   x x x     x x`
 |H              |`
-O   O   O        `
+x   x   x        `
 |    I J   K    |`
-    O O O   O   O`
+    x x x   x   x`
 |L     M D      |`
-O     O O        `
+x     x x        `
 |N     O        |`
- - -O- - - -O- - `
+ - -x- - - -x- - `
     ]]>
   </level>
   <level id="94">
     <![CDATA[
- - -O- - - -O-O- `
+ - -x- - - -x-x- `
 |    A          |`
-    O     O O    `
+    x     x x    `
 |  B   A   C D E|`
-          O O    `
+          x x    `
 |  B   F        |`
-      O       O  `
+      x       x  `
 |  B   G        |`
-        O O     O`
+        x x     x`
 |  H         I  |`
-O O   O O       O`
+x x   x x       x`
 |        H     J|`
-    O O   O     O`
+    x x   x     x`
 |  K L       M  |`
                  `
 |        N      |`
- - -O-O- -O- - - `
+ - -x-x- -x- - - `
     ]]>
   </level>
   <level id="95">
     <![CDATA[
- - -O- - - - - - `
+ - -x- - - - - - `
 |      A A   A  |`
-O               O`
+x               x`
 |  B     A   C  |`
-      O     O    `
+      x     x    `
 |  D B       E  |`
-      O     O    `
+      x     x    `
 |  D     E      |`
-    O   O   O    `
+    x   x   x    `
 |  D     F      |`
-O       O       O`
+x       x       x`
 |      G     H  |`
-      O O        `
+      x x        `
 |  I     F   J  |`
-O       O O     O`
+x       x x     x`
 |K              |`
- - - -O- - - - - `
+ - - -x- - - - - `
     ]]>
   </level>
   <level id="96">
     <![CDATA[
- - - -O- - -O- - `
+ - - -x- - -x- - `
 |               |`
-O       O        `
+x       x        `
 |  A            |`
-        O O      `
+        x x      `
 |    B   C D E  |`
-  O   O          `
+  x   x          `
 |      F        |`
-  O     O O O    `
+  x     x x x    `
 |    G   H      |`
-    O   O O      `
+    x   x x      `
 |  I     J     D|`
-      O         O`
+      x         x`
 |            K  |`
-O   O O     O   O`
+x   x x     x   x`
 |L   M   N      |`
- - -O-O- - - - - `
+ - -x-x- - - - - `
     ]]>
   </level>
   <level id="97">
     <![CDATA[
- -O- - - - - - - `
+ -x- - - - - - - `
 |              A|`
-    O     O O   O`
+    x     x x   x`
 |B       C     D|`
-            O    `
+            x    `
 |  B E     F   D|`
-        O       O`
+        x       x`
 |      E        |`
-          O      `
+          x      `
 |    G E     H  |`
-O O   O O     O  `
+x x   x x     x  `
 |    G       I  |`
-                O`
+                x`
 |J       K      |`
-O O O     O O    `
+x x x     x x    `
 |  L     M      |`
- - -O- - - - -O- `
+ - -x- - - - -x- `
     ]]>
   </level>
   <level id="98">
     <![CDATA[
- - - -O-O-O-O- - `
+ - - -x-x-x-x- - `
 |        A B C  |`
-          O O   O`
+          x x   x`
 |  D E   E B F  |`
-          O      `
+          x      `
 |      E G      |`
-O O O O          `
+x x x x          `
 |  H       G F  |`
-            O    `
+            x    `
 |        I      |`
-  O     O   O   O`
+  x     x   x   x`
 |          J    |`
-O                `
+x                `
 |    K     I J  |`
-      O          `
+      x          `
 |    L   I   J  |`
- - - - -O-O- - - `
+ - - - -x-x- - - `
     ]]>
   </level>
   <level id="99">
     <![CDATA[
- - -O-O- - - - - `
+ - -x-x- - - - - `
 |      A        |`
-                O`
+                x`
 |  B            |`
-O   O       O    `
+x   x       x    `
 |C     D E D    |`
-O         O O    `
+x         x x    `
 |        E F G  |`
-    O            `
+    x            `
 |  H H          |`
-O       O O   O  `
+x       x x   x  `
 |        H      |`
-              O O`
+              x x`
 |  I I     I J  |`
-    O       O    `
+    x       x    `
 |    K          |`
- - -O- - - -O- - `
+ - -x- - - -x- - `
     ]]>
   </level>
   <level id="100">
     <![CDATA[
- - - -O- -O- -O- `
+ - - -x- -x- -x- `
 |    A       B  |`
-O                `
+x                `
 |  C   D     E  |`
-O     O O        `
+x     x x        `
 |F     G H   B  |`
-  O              `
+  x              `
 |               |`
-  O       O O   O`
+  x       x x   x`
 |      H   I J  |`
-O   O O   O O    `
+x   x x   x x    `
 |          K K  |`
-O                `
+x                `
 |  L   M   K K  |`
-      O     O    `
+      x     x    `
 |N         O    |`
- -O- -O- - -O- - `
+ -x- -x- - -x- - `
     ]]>
   </level>
   <level id="101">
     <![CDATA[
- - -O- - - - - - `
+ - -x- - - - - - `
 |          A    |`
-O       O       O`
+x       x       x`
 |    B     C   D|`
-  O O O       O O`
+  x x x       x x`
 |E         A    |`
-          O      `
+          x      `
 |        F G    |`
-          O   O O`
+          x   x x`
 |  H         I  |`
-  O   O       O  `
+  x   x       x  `
 |  J            |`
-O                `
+x                `
 |    K   L   M  |`
-      O          `
+      x          `
 |          K    |`
- - - -O- -O- -O- `
+ - - -x- -x- -x- `
     ]]>
   </level>
   <level id="102">
     <![CDATA[
- - -O-O-O- - -O- `
+ - -x-x-x- - -x- `
 |    A   B      |`
-            O    `
+            x    `
 |               |`
-  O   O          `
+  x   x          `
 |      C     D E|`
-          O O    `
+          x x    `
 |  F G          |`
-O O   O O       O`
+x x   x x       x`
 |          H   I|`
-    O O   O O    `
+    x x   x x    `
 |    J   K L    |`
-O   O     O O   O`
+x   x     x x   x`
 |M N            |`
-          O      `
+          x      `
 |            O  |`
- - - -O-O- - - - `
+ - - -x-x- - - - `
     ]]>
   </level>
   <level id="103">
     <![CDATA[
- - - -O-O-O-O- - `
+ - - -x-x-x-x- - `
 |               |`
                  `
 |            A  |`
-    O         O O`
+    x         x x`
 |    B   C   D E|`
-          O   O O`
+          x   x x`
 |F       G   H  |`
-O O O     O      `
+x x x     x      `
 |               |`
-            O    `
+            x    `
 |    B I D      |`
-          O     O`
+          x     x`
 |J              |`
-    O O   O      `
+    x x   x      `
 |      K     L  |`
- -O- - - -O- - - `
+ -x- - - -x- - - `
     ]]>
   </level>
   <level id="104">
     <![CDATA[
- - - -O- - -O- - `
+ - - -x- - -x- - `
 |              A|`
-O O         O   O`
+x x         x   x`
 |        B     C|`
-            O    `
+            x    `
 |    B D        |`
-      O     O   O`
+      x     x   x`
 |    E F        |`
-  O   O O        `
+  x   x x        `
 |  G   F     H  |`
-  O O            `
+  x x            `
 |I         H J  |`
-O O O            `
+x x x            `
 |      K     H  |`
-        O       O`
+        x       x`
 |L M            |`
- -O-O- -O- - - - `
+ -x-x- -x- - - - `
     ]]>
   </level>
   <level id="105">
     <![CDATA[
- -O- -O-O- - -O- `
+ -x- -x-x- - -x- `
 |A   B C   D D E|`
                  `
 |A   B C C D E E|`
-O   O O          `
+x   x x          `
 |  A F F   D D E|`
-    O O O        `
+    x x x        `
 |G G H D D D E  |`
-            O   O`
+            x   x`
 |  H H H D I I I|`
-O O O     O      `
+x x x     x      `
 |J J   H H K K  |`
-O         O     O`
+x         x     x`
 |L L L L H M K K|`
-          O      `
+          x      `
 |L L L   H K K  |`
- - - -O- -O- - - `
+ - - -x- -x- - - `
     ]]>
   </level>
   <level id="106">
     <![CDATA[
- -O-O- - -O-O- - `
+ -x-x- - -x-x- - `
 |A   B         C|`
-O   O O          `
+x   x x          `
 |D   E          |`
-O O              `
+x x              `
 |F           G  |`
-      O O        `
+      x x        `
 |    H   I   C  |`
-O O O     O   O O`
+x x x     x   x x`
 |J       K      |`
-O   O O O        `
+x   x x x        `
 |      L   K    |`
                  `
 |    J     M   N|`
-  O       O      `
+  x       x      `
 |O              |`
- -O- - - - -O-O- `
+ -x- - - - -x-x- `
     ]]>
   </level>
   <level id="107">
     <![CDATA[
- - - -O-O- - - - `
+ - - -x-x- - - - `
 |      A        |`
-O       O        `
+x       x        `
 |  B       C D  |`
-      O O     O O`
+      x x     x x`
 |  E            |`
-  O O O O        `
+  x x x x        `
 |  F   G H   D  |`
-        O        `
+        x        `
 |    I   J      |`
-O O O   O       O`
+x x x   x       x`
 |      K       L|`
-    O     O O O  `
+    x     x x x  `
 |    M     N    |`
                  `
 |               |`
- -O- - -O- -O- - `
+ -x- - -x- -x- - `
     ]]>
   </level>
   <level id="108">
     <![CDATA[
- - - - - - -O-O- `
+ - - - - - -x-x- `
 |            A B|`
-O     O     O O  `
+x     x     x x  `
 |  C   D        |`
-              O O`
+              x x`
 |  E         F  |`
-O O              `
+x x              `
 |            G  |`
-  O   O O O O    `
+  x   x x x x    `
 |H   I          |`
-O       O        `
+x       x        `
 |    J          |`
-O       O       O`
+x       x       x`
 |    K   K L    |`
-  O              `
+  x              `
 |M              |`
- -O- - -O- - -O- `
+ -x- - -x- - -x- `
     ]]>
   </level>
   <level id="109">
     <![CDATA[
- -O- -O-O- -O- - `
+ -x- -x-x- -x- - `
 |      A   B C  |`
-  O   O O   O   O`
+  x   x x   x   x`
 |D   E     F   G|`
-O   O     O     O`
+x   x     x     x`
 |  H           I|`
-    O   O O   O  `
+    x   x x   x  `
 |  D J   K F    |`
-O     O     O O O`
+x     x     x x x`
 |               |`
-O   O O   O      `
+x   x x   x      `
 |        L      |`
-          O      `
+          x      `
 |  M   M   N    |`
                  `
 |  O            |`
- - -O- - - -O- - `
+ - -x- - - -x- - `
     ]]>
   </level>
   <level id="110">
     <![CDATA[
- - -O- -O-O-O- - `
+ - -x- -x-x-x- - `
 |    A     B C  |`
-    O   O   O    `
+    x   x   x    `
 |D   E   F   C  |`
                  `
 |    G          |`
-        O O     O`
+        x x     x`
 |        F      |`
-O O     O O O    `
+x x     x x x    `
 |G              |`
-O   O            `
+x   x            `
 |    H     I J  |`
-O           O   O`
+x           x   x`
 |K   L   M     N|`
-      O O        `
+      x x        `
 |               |`
- - - - -O-O- - - `
+ - - - -x-x- - - `
     ]]>
   </level>
   <level id="111">
     <![CDATA[
- -O-O- - -O- -O- - `
+ -x-x- - -x- -x- - `
 |                 |`
                    `
 |A   B   C   D    |`
-O     O            `
+x     x            `
 |    E   F C   C  |`
-O                  `
+x                  `
 |      F          |`
-    O O     O   O  `
+    x x     x   x  `
 |G   G G F   C    |`
-        O   O      `
+        x   x      `
 |  H G G          |`
-O       O          `
+x       x          `
 |      H I   J    |`
-    O O           O`
+    x x           x`
 |    K     J L L  |`
-      O            `
+      x            `
 |  M   I   J     L|`
- -O- -O-O- - -O- - `
+ -x- -x-x- - -x- - `
     ]]>
   </level>
   <level id="112">
     <![CDATA[
- - -O- - -O- -O- - `
+ - -x- - -x- -x- - `
 |        A     B  |`
-      O       O   O`
+      x       x   x`
 |            C    |`
-        O   O O    `
+        x   x x    `
 |  D D E   F   G  |`
-    O         O   O`
+    x         x   x`
 |          F H    |`
-O   O              `
+x   x              `
 |                 |`
-        O O   O   O`
+        x x   x   x`
 |  I     J       K|`
-O             O    `
+x             x    `
 |      J L   K H  |`
-O O       O        `
+x x       x        `
 |M N     L     K  |`
-O         O        `
+x         x        `
 |  N   N N        |`
- - - - - - -O- - - `
+ - - - - - -x- - - `
     ]]>
   </level>
   <level id="113">
     <![CDATA[
- - - -O- - -O- - - `
+ - - -x- - -x- - - `
 |A                |`
-O     O     O      `
+x     x     x      `
 |    B B C   D D  |`
-  O O       O     O`
+  x x       x     x`
 |    B         E  |`
-        O          `
+        x          `
 |F       G B      |`
-  O O       O     O`
+  x x       x     x`
 |      H          |`
-O O     O     O O  `
+x x     x     x x  `
 |I                |`
-O         O        `
+x         x        `
 |      J   J   K  |`
-      O O          `
+      x x          `
 |L M M M     N    |`
-O       O       O  `
+x       x       x  `
 |  M M     O      |`
- - - - -O- - - -O- `
+ - - - -x- - - -x- `
     ]]>
   </level>
   <level id="114">
     <![CDATA[
- - - -O-O- - -O- - `
+ - - -x-x- - -x- - `
 |    A     B     C|`
-              O    `
+              x    `
 |  D A D   E      |`
-O O                `
+x x                `
 |F         B B    |`
-        O         O`
+        x         x`
 |      G G   E    |`
-O   O O     O      `
+x   x x     x      `
 |H   H     G   I  |`
-      O     O      `
+      x     x      `
 |  H J     K   E  |`
-          O     O O`
+          x     x x`
 |H                |`
-      O     O      `
+      x     x      `
 |  H L L J       M|`
-O         O O      `
+x         x x      `
 |        L        |`
- - - - - - - -O- - `
+ - - - - - - -x- - `
     ]]>
   </level>
   <level id="115">
     <![CDATA[
- - - - - -O- - -O- `
+ - - - - -x- - -x- `
 |A A A       B    |`
-O                  `
+x                  `
 |  C   A   A   D  |`
                    `
 |  C   E   B   D  |`
-    O     O        `
+    x     x        `
 |  C         B D  |`
-    O O            `
+    x x            `
 |  C   B          |`
-O       O   O     O`
+x       x   x     x`
 |    F            |`
-        O       O  `
+        x       x  `
 |      G G H I    |`
-O O         O      `
+x x         x      `
 |J             K  |`
-    O              `
+    x              `
 |  J     K   K    |`
- - - -O-O- - - - - `
+ - - -x-x- - - - - `
     ]]>
   </level>
   <level id="116">
     <![CDATA[
- - - -O- - -O-O- - `
+ - - -x- - -x-x- - `
 |        A     B  |`
-              O   O`
+              x   x`
 |C       D        |`
-O     O       O   O`
+x     x       x   x`
 |E   F D D     G  |`
-  O O   O   O      `
+  x x   x   x      `
 |        H   I    |`
-            O     O`
+            x     x`
 |    J F   K   K  |`
-      O O          `
+      x x          `
 |    J L       M  |`
-O O       O   O   O`
+x x       x   x   x`
 |          L      |`
-  O O              `
+  x x              `
 |N   L O   M M   M|`
-O         O        `
+x         x        `
 |                 |`
- - - - - -O- - - - `
+ - - - - -x- - - - `
     ]]>
   </level>
   <level id="117">
     <![CDATA[
- - - - -O- - - -O- `
+ - - - -x- - - -x- `
 |                 |`
-      O O          `
+      x x          `
 |  A   B C C     D|`
-O               O O`
+x               x x`
 |  E     C B   F F|`
-O     O            `
+x     x            `
 |  E       B      |`
-            O     O`
+            x     x`
 |G       H       I|`
-      O     O O O  `
+      x     x x x  `
 |          H      |`
-      O       O    `
+      x       x    `
 |    J J   K      |`
-O                 O`
+x                 x`
 |  L   J H H     M|`
-O O                `
+x x                `
 |N             K  |`
- -O- -O- -O- - -O- `
+ -x- -x- -x- - -x- `
     ]]>
   </level>
   <level id="118">
     <![CDATA[
- - -O- - -O-O- - - `
+ - -x- - -x-x- - - `
 |  A       B     C|`
-O   O       O      `
+x   x       x      `
 |    A D   B E    |`
-O     O O         O`
+x     x x         x`
 |F A   G H   E C  |`
-          O O O    `
+          x x x    `
 |F   F   H I   C  |`
-    O     O        `
+    x     x        `
 |          J      |`
-O O O O     O   O O`
+x x x x     x   x x`
 |      J       K  |`
                    `
 |  L         K M M|`
-  O O   O O        `
+  x x   x x        `
 |N     O   P K K  |`
                    `
 |                 |`
- - -O- - - -O- -O- `
+ - -x- - - -x- -x- `
     ]]>
   </level>
   <level id="119">
     <![CDATA[
- - -O- - - -O- - - `
+ - -x- - - -x- - - `
 |  A   B B       C|`
-O   O       O     O`
+x   x       x     x`
 |  D E         F  |`
-    O   O O O     O`
+    x   x x x     x`
 |  G         H   I|`
-              O    `
+              x    `
 |          J      |`
-    O O   O        `
+    x x   x        `
 |  K   K         I|`
-O O     O          `
+x x     x          `
 |L   B       M I  |`
-            O     O`
+            x     x`
 |        H H      |`
-O O     O         O`
+x x     x         x`
 |N   K         O  |`
-O   O              `
+x   x              `
 |    P            |`
- - - -O-O-O- - - - `
+ - - -x-x-x- - - - `
     ]]>
   </level>
   <level id="120">
     <![CDATA[
- - - - -O- -O- - - `
+ - - - -x- -x- - - `
 |                 |`
                    `
 |    A         B C|`
-    O     O O     O`
+    x     x x     x`
 |  D D   E E     B|`
-        O         O`
+        x         x`
 |  F     E   E    |`
-O   O         O    `
+x   x         x    `
 |  G G   D     B  |`
-          O O      `
+          x x      `
 |  D     D   H    |`
-    O   O          `
+    x   x          `
 |  G I           H|`
-    O O O       O  `
+    x x x       x  `
 |G G     J K L    |`
-          O       O`
+          x       x`
 |  G M            |`
- - -O-O-O- - - - - `
+ - -x-x-x- - - - - `
     ]]>
   </level>
   <level id="121">
     <![CDATA[
- - -O- -O-O- -O- - `
+ - -x- -x-x- -x- - `
 |A         B      |`
-O                  `
+x                  `
 |  C       D   E  |`
-O     O   O O      `
+x     x   x x      `
 |F     D       E  |`
-  O                `
+  x                `
 |              E  |`
-          O        `
+          x        `
 |  G F     H     E|`
-      O O       O O`
+      x x       x x`
 |  F       I I   J|`
-O                  `
+x                  `
 |  K     H        |`
-    O   O   O     O`
+    x   x   x     x`
 |    L   M   N    |`
-    O              `
+    x              `
 |  O         N    |`
- -O- -O-O-O- - - - `
+ -x- -x-x-x- - - - `
     ]]>
   </level>
   <level id="122">
     <![CDATA[
- - -O- - - -O- - - `
+ - -x- - - -x- - - `
 |          A B    |`
-            O      `
+            x      `
 |        C A   C  |`
-      O            `
+      x            `
 |  D C            |`
-    O O           O`
+    x x           x`
 |  D   E         F|`
-    O     O O      `
+    x     x x      `
 |          G F    |`
-O   O             O`
+x   x             x`
 |  H I J       F  |`
-O     O   O        `
+x     x   x        `
 |                 |`
-      O     O     O`
+      x     x     x`
 |  K K           L|`
-O           O     O`
+x           x     x`
 |      K   M      |`
- - - - -O- - - - - `
+ - - - -x- - - - - `
     ]]>
   </level>
   <level id="123">
     <![CDATA[
- - - -O- - -O- - - `
+ - - -x- - -x- - - `
 |A             B  |`
-          O O      `
+          x x      `
 |    C     D   B  |`
-    O             O`
+    x             x`
 |        E     F  |`
-O             O   O`
+x             x   x`
 |      G          |`
-O         O        `
+x         x        `
 |H   I            |`
-    O   O O   O    `
+    x   x x   x    `
 |          J     K|`
-O   O     O     O  `
+x   x     x     x  `
 |    L   M M      |`
-            O O    `
+            x x    `
 |  L I            |`
-      O O   O     O`
+      x x   x     x`
 |          N   O  |`
- - - -O- - -O- - - `
+ - - -x- - -x- - - `
     ]]>
   </level>
   <level id="124">
     <![CDATA[
- - - - -O-O- -O- - `
+ - - - -x-x- -x- - `
 |          A      |`
                    `
 |  B   C   A     D|`
-                O  `
+                x  `
 |    B B   B A    |`
-O O O     O       O`
+x x x     x       x`
 |  E E   F        |`
-      O       O   O`
+      x       x   x`
 |  E     F     G  |`
-      O O O O O    `
+      x x x x x    `
 |H   I     J      |`
-    O         O    `
+    x         x    `
 |  H   I K   L    |`
-O O     O   O      `
+x x     x   x      `
 |      M K        |`
-    O   O   O      `
+    x   x   x      `
 |N   C         O  |`
- - -O- - - - -O- - `
+ - -x- - - - -x- - `
     ]]>
   </level>
   <level id="125">
     <![CDATA[
- - - - -O- -O- - - `
+ - - - -x- -x- - - `
 |A       B     C  |`
                    `
 |  A A   B        |`
-    O   O   O     O`
+    x   x   x     x`
 |  D E     F F   G|`
-  O O     O   O    `
+  x x     x   x    `
 |    E   E F      |`
-O     O       O    `
+x     x       x    `
 |H             I  |`
-O                  `
+x                  `
 |  J     F I   G  |`
-        O O     O O`
+        x x     x x`
 |  H   K   I      |`
                    `
 |  J   H   K   L L|`
-      O            `
+      x            `
 |                 |`
- - - -O- -O- - -O- `
+ - - -x- -x- - -x- `
     ]]>
   </level>
   <level id="126">
     <![CDATA[
- - - -O- -O-O- -O- `
+ - - -x- -x-x- -x- `
 |    A B     C   D|`
-      O   O        `
+      x   x        `
 |  E     F        |`
-    O O       O O O`
+    x x       x x x`
 |  E   G       C H|`
-            O      `
+            x      `
 |      E          |`
-O     O O     O   O`
+x     x x     x   x`
 |            I J  |`
-O O     O         O`
+x x     x         x`
 |    K            |`
-            O      `
+            x      `
 |  L L K M        |`
-      O O          `
+      x x          `
 |    L     I I N  |`
-            O      `
+            x      `
 |      O          |`
- - -O- -O- -O- - - `
+ - -x- -x- -x- - - `
     ]]>
   </level>
   <level id="127">
     <![CDATA[
- - - - -O- -O- - - `
+ - - - -x- -x- - - `
 |    A   B        |`
-O       O   O      `
+x       x   x      `
 |          B   C  |`
-    O              `
+    x              `
 |    D E     F    |`
-              O   O`
+              x   x`
 |  D              |`
-          O O      `
+          x x      `
 |G D     H H I    |`
-        O O   O    `
+        x x   x    `
 |  G         I    |`
-O O       O   O    `
+x x       x   x    `
 |    D J       K  |`
-    O O     O O    `
+    x x     x x    `
 |  L     J M     N|`
-O     O           O`
+x     x           x`
 |O               K|`
- - - -O- - -O- - - `
+ - - -x- - -x- - - `
     ]]>
   </level>
   <level id="128">
     <![CDATA[
- - - -O-O- - - - - `
+ - - -x-x- - - - - `
 |  A              |`
-O                 O`
+x                 x`
 |    B       C C  |`
-        O O O O    `
+        x x x x    `
 |        D D   E  |`
-  O   O         O O`
+  x   x         x x`
 |        D D F    |`
-  O                `
+  x                `
 |      G     F H  |`
-          O     O O`
+          x     x x`
 |I         J   F  |`
-O         O O O    `
+x         x x x    `
 |      D     K    |`
-    O O     O     O`
+    x x     x     x`
 |  L L         M  |`
                    `
 |N     K   K      |`
- - -O-O- - - - - - `
+ - -x-x- - - - - - `
     ]]>
   </level>
   <level id="129">
     <![CDATA[
- - -O-O- - - - -O- `
+ - -x-x- - - - -x- `
 |              A B|`
-        O          `
+        x          `
 |  C         D    |`
-          O     O O`
+          x     x x`
 |  E C         A  |`
-      O            `
+      x            `
 |      F       D  |`
-O O                `
+x x                `
 |        F   G    |`
-O               O O`
+x               x x`
 |H H   G     I I J|`
-          O     O O`
+          x     x x`
 |              I  |`
-    O   O          `
+    x   x          `
 |    F   I   I   K|`
-O                  `
+x                  `
 |            L I  |`
- - - - - - - -O-O- `
+ - - - - - - -x-x- `
     ]]>
   </level>
   <level id="130">
     <![CDATA[
- - -O- - - - - -O- `
+ - -x- - - - - -x- `
 |          A      |`
-    O   O          `
+    x   x          `
 |  B              |`
-            O O    `
+            x x    `
 |  B   C   D A    |`
-          O        `
+          x        `
 |      B     D    |`
-    O O O O        `
+    x x x x        `
 |E   F     G   H  |`
-O O   O           O`
+x x   x           x`
 |I       G        |`
-O     O     O     O`
+x     x     x     x`
 |    J     G K    |`
-      O     O     O`
+      x     x     x`
 |  J L   M   N N N|`
-            O      `
+            x      `
 |    J            |`
- - - -O- - -O- - - `
+ - - -x- - -x- - - `
     ]]>
   </level>
   <level id="131">
     <![CDATA[
- - - -O- - - - -O- `
+ - - -x- - - - -x- `
 |A         B     C|`
-O   O O       O    `
+x   x x       x    `
 |      D          |`
-O   O       O      `
+x   x       x      `
 |  E   F       G  |`
-                O O`
+                x x`
 |      D       H I|`
-        O O O O   O`
+        x x x x   x`
 |  J              |`
-O       O          `
+x       x          `
 |    F   J     K  |`
-O               O O`
+x               x x`
 |                L|`
-    O              `
+    x              `
 |    M     L L N  |`
-        O O        `
+        x x        `
 |O                |`
- - -O- - -O- - - - `
+ - -x- - -x- - - - `
     ]]>
   </level>
   <level id="132">
     <![CDATA[
- - - -O- - - - -O- `
+ - - -x- - - - -x- `
 |                A|`
-O     O            `
+x     x            `
 |  B B     C      |`
-              O   O`
+              x   x`
 |    B            |`
-              O    `
+              x    `
 |        C D     E|`
-    O       O      `
+    x       x      `
 |F   F       G    |`
-O     O     O     O`
+x     x     x     x`
 |    H D I        |`
-O O   O           O`
+x x   x           x`
 |          I     J|`
                    `
 |K L I   G        |`
-O                  `
+x                  `
 |              M  |`
- - -O-O- - -O- -O- `
+ - -x-x- - -x- -x- `
     ]]>
   </level>
   <level id="133">
     <![CDATA[
- - -O- -O- -O- - - `
+ - -x- -x- -x- - - `
 |    A            |`
-O       O          `
+x       x          `
 |B     C   D   D  |`
-    O O           O`
+    x x           x`
 |  E           F  |`
-O O O       O      `
+x x x       x      `
 |G   H I       D  |`
-  O   O     O      `
+  x   x     x      `
 |    J            |`
                    `
 |      K L     F  |`
-    O O            `
+    x x            `
 |          K      |`
-O     O         O O`
+x     x         x x`
 |  M N   K   L O O|`
-            O      `
+            x      `
 |                 |`
- - - -O- - -O- - - `
+ - - -x- - -x- - - `
     ]]>
   </level>
   <level id="134">
     <![CDATA[
- - - - - -O- -O- - `
+ - - - - -x- -x- - `
 |    A       B    |`
-O                  `
+x                  `
 |    C         D  |`
-  O     O   O      `
+  x     x   x      `
 |            E    |`
-        O         O`
+        x         x`
 |        C   D    |`
-O                  `
+x                  `
 |F G       E      |`
-      O         O  `
+      x         x  `
 |      C   H      |`
-      O O O        `
+      x x x        `
 |    I J   H      |`
-O O   O       O   O`
+x x   x       x   x`
 |K I     L        |`
-            O      `
+            x      `
 |          M     N|`
- - - -O-O- -O- - - `
+ - - -x-x- -x- - - `
     ]]>
   </level>
   <level id="135">
     <![CDATA[
- - - - -O- - - - - `
+ - - - -x- - - - - `
 |            A    |`
-        O         O`
+        x         x`
 |  B B            |`
-        O O        `
+        x x        `
 |  C C   D E   F  |`
-O     O O O   O    `
+x     x x x   x    `
 |      G   E   F  |`
-O O   O         O O`
+x x   x         x x`
 |      G   H H    |`
-      O O          `
+      x x          `
 |    I I J        |`
-            O     O`
+            x     x`
 |              J  |`
-      O            `
+      x            `
 |K K   J   L   M  |`
-        O     O   O`
+        x     x   x`
 |    N           O|`
- - -O- -O- - -O- - `
+ - -x- -x- - -x- - `
     ]]>
   </level>
   <level id="136">
     <![CDATA[
- -O- - -O- -O- - - `
+ -x- - -x- -x- - - `
 |A   B     C     D|`
-        O   O   O O`
+        x   x   x x`
 |      E          |`
-O         O O      `
+x         x x      `
 |F       G H I    |`
-    O O         O  `
+    x x         x  `
 |                 |`
-          O O      `
+          x x      `
 |  J F         K  |`
-      O            `
+      x            `
 |    J J   L   I  |`
-            O O    `
+            x x    `
 |    J            |`
                    `
 |    L J   M      |`
-  O         O     O`
+  x         x     x`
 |            N    |`
- -O- - - - -O-O- - `
+ -x- - - - -x-x- - `
     ]]>
   </level>
   <level id="137">
     <![CDATA[
- - -O- - - -O-O- - `
+ - -x- - - -x-x- - `
 |            A    |`
-                  O`
+                  x`
 |  B   C       D  |`
-O         O        `
+x         x        `
 |                 |`
-O     O     O      `
+x     x     x      `
 |  E F     G   H  |`
-          O O   O O`
+          x x   x x`
 |  E              |`
-    O O            `
+    x x            `
 |  E   I H        |`
-        O     O    `
+        x     x    `
 |E I   I     J    |`
                    `
 |  I   K       L  |`
-      O            `
+      x            `
 |      J          |`
- - -O-O- - -O- - - `
+ - -x-x- - -x- - - `
     ]]>
   </level>
   <level id="138">
     <![CDATA[
- -O- - -O- - - -O- `
+ -x- - -x- - - -x- `
 |                 |`
-  O                `
+  x                `
 |  A B   B   C D  |`
-      O            `
+      x            `
 |            D    |`
-            O      `
+            x      `
 |E           D    |`
-    O   O         O`
+    x   x         x`
 |    F   G        |`
-O O     O     O    `
+x x     x     x    `
 |H   A         I  |`
-        O          `
+        x          `
 |        J G   K  |`
-    O       O O   O`
+    x       x x   x`
 |      F     L    |`
-        O          `
+        x          `
 |  M              |`
- -O- - -O-O- -O- - `
+ -x- - -x-x- -x- - `
     ]]>
   </level>
   <level id="139">
     <![CDATA[
- -O- - -O- - - -O- `
+ -x- - -x- - - -x- `
 |              A B|`
-        O          `
+        x          `
 |    C D          |`
-      O O     O O O`
+      x x     x x x`
 |E       F   B   G|`
-O           O   O  `
+x           x   x  `
 |      F       H  |`
-                O O`
+                x x`
 |        C F   I  |`
-O O       O   O    `
+x x       x   x    `
 |  C J   K        |`
-          O       O`
+          x       x`
 |          L H    |`
-      O O O       O`
+      x x x       x`
 |      M         N|`
-O O                `
+x x                `
 |  O   P          |`
- - -O- -O- -O-O- - `
+ - -x- -x- -x-x- - `
     ]]>
   </level>
   <level id="140">
     <![CDATA[
- - -O- -O-O- - - - `
+ - -x- -x-x- - - - `
 |                A|`
-          O       O`
+          x       x`
 |  B     C        |`
-      O       O O  `
+      x       x x  `
 |    B     D      |`
-  O         O      `
+  x         x      `
 |    E         F  |`
-    O              `
+    x              `
 |G                |`
-          O   O    `
+          x   x    `
 |              H  |`
-  O     O     O O O`
+  x     x     x x x`
 |    I           J|`
-O     O     O      `
+x     x     x      `
 |        H     K  |`
-                O O`
+                x x`
 |L             M  |`
- - -O- - - - - - - `
+ - -x- - - - - - - `
     ]]>
   </level>
   <level id="141">
     <![CDATA[
- - -O-O- - -O- - - `
+ - -x-x- - -x- - - `
 |  A       B   C  |`
-            O     O`
+            x     x`
 |            D   E|`
-    O     O O O    `
+    x     x x x    `
 |  F G H   G I    |`
-              O    `
+              x    `
 |A         I      |`
-    O O           O`
+    x x           x`
 |    J     G   K  |`
-        O     O O O`
+        x     x x x`
 |  J             L|`
-  O O       O      `
+  x x       x      `
 |              J  |`
-O   O       O      `
+x   x       x      `
 |      M   N      |`
-                O O`
+                x x`
 |O         P      |`
- -O- -O- - -O- - - `
+ -x- -x- - -x- - - `
     ]]>
   </level>
   <level id="142">
     <![CDATA[
- - - - -O-O- - - - `
+ - - - -x-x- - - - `
 |    A   B C      |`
-    O O     O O   O`
+    x x     x x   x`
 |    D       E    |`
-      O O   O O    `
+      x x   x x    `
 |  F           G  |`
                    `
 |        H H      |`
-    O O   O     O  `
+    x x   x     x  `
 |  F     I   J K  |`
-          O        `
+          x        `
 |                 |`
-O     O O     O   O`
+x     x x     x   x`
 |    L   L        |`
-              O    `
+              x    `
 |F L   L M   N N  |`
-            O     O`
+            x     x`
 |                 |`
- -O- - - - -O- - - `
+ -x- - - - -x- - - `
     ]]>
   </level>
   <level id="143">
     <![CDATA[
- - - -O-O- - - - - `
+ - - -x-x- - - - - `
 |              A  |`
-            O   O O`
+            x   x x`
 |  B B            |`
-            O      `
+            x      `
 |  C         D   E|`
-O O                `
+x x                `
 |  F   D   G      |`
-            O   O O`
+            x   x x`
 |  C           G  |`
-        O          `
+        x          `
 |      F D        |`
-    O     O       O`
+    x     x       x`
 |            H    |`
-      O         O  `
+      x         x  `
 |    I   J        |`
                    `
 |                K|`
- -O-O- - - - -O- - `
+ -x-x- - - - -x- - `
     ]]>
   </level>
   <level id="144">
     <![CDATA[
- - - -O-O-O- - - - `
+ - - -x-x-x- - - - `
 |                A|`
-O                 O`
+x                 x`
 |    B       C A  |`
-      O   O        `
+      x   x        `
 |  D              |`
-    O     O O O   O`
+    x     x x x   x`
 |E     F G        |`
-O   O   O          `
+x   x   x          `
 |  H   I J     J  |`
-O O                `
+x x                `
 |                 |`
-    O O   O       O`
+    x x   x       x`
 |            K L  |`
-          O        `
+          x        `
 |  M N N K     K  |`
                    `
 |              K  |`
- - -O- - - -O- - - `
+ - -x- - - -x- - - `
     ]]>
   </level>
   <level id="145">
     <![CDATA[
- - - -O- - -O- - - `
+ - - -x- - -x- - - `
 |      A          |`
                    `
 |  B           C  |`
-          O O     O`
+          x x     x`
 |  D B       E    |`
-                  O`
+                  x`
 |        E        |`
-O O       O       O`
+x x       x       x`
 |  F D     G   H  |`
-          O   O   O`
+          x   x   x`
 |          I      |`
-      O O         O`
+      x x         x`
 |  J   J I K   L  |`
-O       O   O O O O`
+x       x   x x x x`
 |  M J   K   N    |`
                    `
 |                O|`
- - - - - -O-O-O- - `
+ - - - - -x-x-x- - `
     ]]>
   </level>
   <level id="146">
     <![CDATA[
- - -O- -O- - - -O- `
+ - -x- -x- - - -x- `
 |          A      |`
-        O          `
+        x          `
 |  B   C       D  |`
-            O     O`
+            x     x`
 |  E   B     F    |`
-          O        `
+          x        `
 |  B   B          |`
-              O    `
+              x    `
 |      C       G  |`
-    O O     O O   O`
+    x x     x x   x`
 |    B H   C     I|`
-O O       O O     O`
+x x       x x     x`
 |J         K   L  |`
-  O   O     O      `
+  x   x     x      `
 |  M   N          |`
-      O   O O      `
+      x   x x      `
 |          O      |`
- - - - -O-O-O- - - `
+ - - - -x-x-x- - - `
     ]]>
   </level>
   <level id="147">
     <![CDATA[
- -O- - -O- - -O- - `
+ -x- - -x- - -x- - `
 |A                |`
-  O                `
+  x                `
 |    B   C D D E E|`
-O O O O            `
+x x x x            `
 |        C D D    |`
-              O    `
+              x    `
 |  F   C     D    |`
-        O          `
+        x          `
 |      G   D      |`
-O   O           O  `
+x   x           x  `
 |H F   I       J  |`
-    O O   O        `
+    x x   x        `
 |    K   L M      |`
-O   O       O O   O`
+x   x       x x   x`
 |  L L            |`
-                  O`
+                  x`
 |          N      |`
- - - - -O-O- - - - `
+ - - - -x-x- - - - `
     ]]>
   </level>
   <level id="148">
     <![CDATA[
- - - - - - -O- - - `
+ - - - - - -x- - - `
 |                 |`
-O                  `
+x                  `
 |    A B A        |`
-    O           O  `
+    x           x  `
 |C           A    |`
-            O      `
+            x      `
 |  A   D       E  |`
-O O O O O          `
+x x x x x          `
 |        F        |`
-                O O`
+                x x`
 |  G         H    |`
-            O      `
+            x      `
 |  I           J  |`
-O   O   O          `
+x   x   x          `
 |            J    |`
-    O              `
+    x              `
 |K   L D     F    |`
- - -O-O- -O- -O- - `
+ - -x-x- -x- -x- - `
     ]]>
   </level>
   <level id="149">
     <![CDATA[
- - -O-O- - -O- - - `
+ - -x-x- - -x- - - `
 |                 |`
                    `
 |  A B       C D  |`
-          O O      `
+          x x      `
 |          A      |`
-O   O     O O     O`
+x   x     x x     x`
 |            E    |`
-      O       O O O`
+      x       x x x`
 |  F G H   I   J  |`
-O         O        `
+x         x        `
 |                 |`
-    O O           O`
+    x x           x`
 |K       L        |`
-  O       O        `
+  x       x        `
 |      M     N O  |`
-O                 O`
+x                 x`
 |  M             O|`
- - -O- - -O- - - - `
+ - -x- - -x- - - - `
     ]]>
   </level>
   <level id="150">
     <![CDATA[
- - - -O- - - - - - `
+ - - -x- - - - - - `
 |          A      |`
-      O O O       O`
+      x x x       x`
 |B             C  |`
-O O               O`
+x x               x`
 |  D E     F   G  |`
-            O   O O`
+            x   x x`
 |  D     E        |`
-O         O O      `
+x         x x      `
 |  H           I  |`
-            O      `
+            x      `
 |        J        |`
-      O            `
+      x            `
 |  H K J     I I  |`
-      O O   O O   O`
+      x x   x x   x`
 |  K   L   M   N  |`
-        O O        `
+        x x        `
 |            O    |`
- - -O- - -O- - -O- `
+ - -x- - -x- - -x- `
     ]]>
   </level>
   <level id="151">
     <![CDATA[
- - - - -O- -O-O- - - `
+ - - - -x- -x-x- - - `
 |      A            |`
-O     O O            `
+x     x x            `
 |  B   C   D       E|`
-O     O           O  `
+x     x           x  `
 |  B     F       G  |`
-              O O O  `
+              x x x  `
 |          H        |`
-O     O O O       O O`
+x     x x x       x x`
 |  I J     K   L    |`
-    O O       O O    `
+    x x       x x    `
 |                L  |`
-            O   O   O`
+            x   x   x`
 |M                 N|`
-O       O       O    `
+x       x       x    `
 |            H      |`
-  O   O             O`
+  x   x             x`
 |K         L       O|`
-O               O   O`
+x               x   x`
 |  P   J           Q|`
- - -O- -O- - -O-O- - `
+ - -x- -x- - -x-x- - `
     ]]>
   </level>
   <level id="152">
     <![CDATA[
- - -O- - -O- - -O-O- `
+ - -x- - -x- - -x-x- `
 |  A         B      |`
-          O          `
+          x          `
 |  C                |`
-      O     O        `
+      x     x        `
 |  A   D E     F    |`
-O     O     O   O    `
+x     x     x   x    `
 |G               H  |`
-O O         O        `
+x x         x        `
 |      I     H   I I|`
-            O     O O`
+            x     x x`
 |J   J J   E        |`
-    O     O     O    `
+    x     x     x    `
 |          K        |`
-O O       O   O     O`
+x x       x   x     x`
 |        L G   M   N|`
-          O     O    `
+          x     x    `
 |  L L             N|`
-                O   O`
+                x   x`
 |O         P     Q  |`
- - - - -O- -O-O- - - `
+ - - - -x- -x-x- - - `
     ]]>
   </level>
   <level id="153">
     <![CDATA[
- -O- - - - - -O-O- - `
+ -x- - - - - -x-x- - `
 |        A     B    |`
-                    O`
+                    x`
 |        C         D|`
-      O     O   O    `
+      x     x   x    `
 |E C E       F   G  |`
-            O O O    `
+            x x x    `
 |        H C A      |`
-O O O     O          `
+x x x     x          `
 |I               J  |`
-O                    `
+x                    `
 |      K       A    |`
-    O     O     O    `
+    x     x     x    `
 |L   H       J A    |`
-    O O             O`
+    x x             x`
 |  L   M            |`
-        O           O`
+        x           x`
 |  L         J   N  |`
-O           O   O    `
+x           x   x    `
 |    O K         P  |`
- - - -O- -O-O- - - - `
+ - - -x- -x-x- - - - `
     ]]>
   </level>
   <level id="154">
     <![CDATA[
- - -O- -O-O- -O- - - `
+ - -x- -x-x- -x- - - `
 |  A       B        |`
-O                    `
+x                    `
 |              C    |`
-O         O O        `
+x         x x        `
 |  D D E     B   C  |`
-            O   O    `
+            x   x    `
 |F         F        |`
-  O O   O   O   O    `
+  x x   x   x   x    `
 |  D     G     H    |`
-O               O O O`
+x               x x x`
 |      I       J    |`
-    O     O O   O   O`
+    x     x x   x   x`
 |  I           K    |`
-            O        `
+            x        `
 |      K   L        |`
-O O O     O O O      `
+x x x     x x x      `
 |M   K         N O  |`
-O O   O         O    `
+x x   x         x    `
 |P         L     Q  |`
- - - -O- - - -O-O- - `
+ - - -x- - - -x-x- - `
     ]]>
   </level>
   <level id="155">
     <![CDATA[
- - -O- -O- - - -O- - `
+ - -x- -x- - - -x- - `
 |  A B     C        |`
-          O     O    `
+          x     x    `
 |    A         D E  |`
-      O         O    `
+      x         x    `
 |  A A           E  |`
-O O   O             O`
+x x   x             x`
 |      F     G      |`
-          O   O      `
+          x   x      `
 |H     E F          |`
-    O   O            `
+    x   x            `
 |      I         J K|`
-O O     O   O        `
+x x     x   x        `
 |          L G K   K|`
-            O O     O`
+            x x     x`
 |    M L N   O      |`
-O   O O   O O       O`
+x   x x   x x       x`
 |        N M     J  |`
                      `
 |  P   M         O  |`
- - -O- - - - -O- - - `
+ - -x- - - - -x- - - `
     ]]>
   </level>
   <level id="156">
     <![CDATA[
- - - -O- -O- -O-O- - `
+ - - -x- -x- -x-x- - `
 |A                 B|`
-                O   O`
+                x   x`
 |    C   C   D   E  |`
-O               O    `
+x               x    `
 |        F       F  |`
-  O O O     O   O    `
+  x x x     x   x    `
 |  G     C          |`
-        O   O       O`
+        x   x       x`
 |        H   I J    |`
-O   O   O   O   O    `
+x   x   x   x   x    `
 |K     K L         M|`
-        O O O       O`
+        x x x       x`
 |  N         I      |`
-O O                  `
+x x                  `
 |  N O   H       P  |`
-        O O O O O    `
+        x x x x x    `
 |  O           Q M  |`
-                    O`
+                    x`
 |                   |`
- - -O- - - -O- - - - `
+ - -x- - - -x- - - - `
     ]]>
   </level>
   <level id="157">
     <![CDATA[
- - -O- - -O- - -O- - `
+ - -x- - -x- - -x- - `
 |              A   B|`
-O         O     O    `
+x         x     x    `
 |    C   D   E A    |`
-      O O O   O     O`
+      x x x   x     x`
 |      F     G H   H|`
-O         O   O     O`
+x         x   x     x`
 |  I   J F   K   L  |`
-          O O O O    `
+          x x x x    `
 |    J     M N O L  |`
-          O   O      `
+          x   x      `
 |                   |`
-    O               O`
+    x               x`
 |                  P|`
-    O       O        `
+    x       x        `
 |      I P M   O    |`
-      O       O O O O`
+      x       x x x x`
 |  Q Q           G  |`
                      `
 |I       P         A|`
- -O- - -O-O- - - -O- `
+ -x- - -x-x- - - -x- `
     ]]>
   </level>
   <level id="158">
     <![CDATA[
- - - -O-O- -O-O- - - `
+ - - -x-x- -x-x- - - `
 |A     B C   D   E  |`
-        O O O O     O`
+        x x x x     x`
 |  A   B   F     E  |`
-          O          `
+          x          `
 |    B   G          |`
-O O   O       O     O`
+x x   x       x     x`
 |  B B   H   F      |`
-    O       O        `
+    x       x        `
 |  I   H J H   K    |`
-O         O          `
+x         x          `
 |    I         L    |`
-      O       O   O  `
+      x       x   x  `
 |  I I     J   J    |`
-    O         O O    `
+    x         x x    `
 |G G J   M M        |`
                      `
 |  G G J M M M   N O|`
-      O              `
+      x              `
 |            N     O|`
- - - -O- - -O- -O- - `
+ - - -x- - -x- -x- - `
     ]]>
   </level>
   <level id="159">
     <![CDATA[
- - - - -O- - -O- -O- `
+ - - - -x- - -x- -x- `
 |    A       B      |`
-        O            `
+        x            `
 |    A   B C     D  |`
-O           O   O O  `
+x           x   x x  `
 |  A A E   C F     G|`
-    O   O           O`
+    x   x           x`
 |H     E         I  |`
-    O   O       O   O`
+    x   x       x   x`
 |  J                |`
-  O         O O O    `
+  x         x x x    `
 |    K   L     M   M|`
-        O     O O    `
+        x     x x    `
 |      K   J   N    |`
-O                   O`
+x                   x`
 |    L     L     O  |`
-O   O O       O O   O`
+x   x x       x x   x`
 |H       P P   Q Q  |`
-              O      `
+              x      `
 |  P                |`
- -O- - - - - -O- - - `
+ -x- - - - - -x- - - `
     ]]>
   </level>
   <level id="160">
     <![CDATA[
- - - - -O-O- - -O- - `
+ - - - -x-x- - -x- - `
 |            A   B B|`
-O               O    `
+x               x    `
 |      C       D    |`
-  O     O     O      `
+  x     x     x      `
 |  E   F F G   H D  |`
-    O         O   O O`
+    x         x   x x`
 |    C   F G        |`
-O     O         O    `
+x     x         x    `
 |  I         F     H|`
-  O           O   O O`
+  x           x   x x`
 |                J  |`
-        O O O O O    `
+        x x x x x    `
 |  K K   L       J  |`
                      `
 |      M     N   J  |`
-O             O      `
+x             x      `
 |  O   L M       P J|`
-      O              `
+      x              `
 |            P      |`
- - - -O- - -O- -O- - `
+ - - -x- - -x- -x- - `
     ]]>
   </level>
   <level id="161">
     <![CDATA[
- - -O-O- - - - -O- - `
+ - -x-x- - - - -x- - `
 |                A  |`
-                    O`
+                    x`
 |  B     B   C D    |`
-        O O   O O    `
+        x x   x x    `
 |  E   F         G  |`
-O O O     O       O O`
+x x x     x       x x`
 |        H   C G    |`
-              O      `
+              x      `
 |    H       I      |`
-    O     O          `
+    x     x          `
 |J       B     K   L|`
-O O O       O     O  `
+x x x       x     x  `
 |M N N   H          |`
-      O       O O O  `
+      x       x x x  `
 |  N     B     O    |`
-                    O`
+                    x`
 |          N     P  |`
-O   O         O O    `
+x   x         x x    `
 |L             Q    |`
- - - -O-O- - -O-O- - `
+ - - -x-x- - -x-x- - `
     ]]>
   </level>
   <level id="162">
     <![CDATA[
- - -O- -O- -O- - -O- `
+ - -x- -x- -x- - -x- `
 |    A   B          |`
-        O O          `
+        x x          `
 |    C           D  |`
-      O O            `
+      x x            `
 |  C E         D   F|`
-O O               O O`
+x x               x x`
 |          E     G  |`
-      O           O  `
+      x           x  `
 |          G        |`
-        O O          `
+        x x          `
 |H H   I   J        |`
-      O     O       O`
+      x     x       x`
 |    D J   J     K  |`
-O     O     O        `
+x     x     x        `
 |      L J          |`
-O               O    `
+x               x    `
 |              M   N|`
-                    O`
+                    x`
 |O P             Q  |`
- -O-O-O-O- - -O- - - `
+ -x-x-x-x- - -x- - - `
     ]]>
   </level>
   <level id="163">
     <![CDATA[
- - - - -O- - -O-O- - `
+ - - - -x- - -x-x- - `
 |      A   B   C    |`
-        O            `
+        x            `
 |  A D A         E  |`
-O O       O O        `
+x x       x x        `
 |          F        |`
-        O O     O   O`
+        x x     x   x`
 |  D G              |`
-                  O  `
+                  x  `
 |      H     I F   J|`
-O     O   O       O  `
+x     x   x       x  `
 |      H H K   F    |`
-    O                `
+    x                `
 |                   |`
-    O     O O        `
+    x     x x        `
 |  I   K            |`
-O O     O         O O`
+x x     x         x x`
 |L           M   I  |`
-O                    `
+x                    `
 |  N               O|`
- - -O- - -O- - - - - `
+ - -x- - -x- - - - - `
     ]]>
   </level>
   <level id="164">
     <![CDATA[
- - -O- -O- -O- -O-O- `
+ - -x- -x- -x- -x-x- `
 |      A   B C     D|`
-O       O   O     O O`
+x       x   x     x x`
 |E     F   G        |`
-  O   O     O     O  `
+  x   x     x     x  `
 |  H           I    |`
                      `
 |            J   J  |`
-    O   O O     O    `
+    x   x x     x    `
 |  K           G L  |`
-O O         O        `
+x x         x        `
 |M       K G        |`
-O O     O O       O O`
+x x     x x       x x`
 |      M     N N    |`
-      O         O    `
+      x         x    `
 |I O       N   N    |`
-  O                  `
+  x                  `
 |    P P F   N Q    |`
-        O            `
+        x            `
 |                Q  |`
- -O- - -O- -O- - - - `
+ -x- - -x- -x- - - - `
     ]]>
   </level>
   <level id="165">
     <![CDATA[
- -O- - -O- -O- - - - `
+ -x- - -x- -x- - - - `
 |            A      |`
-            O     O O`
+            x     x x`
 |B   C   D E       F|`
-O   O O   O          `
+x   x x   x          `
 |        G   H      |`
-O               O   O`
+x               x   x`
 |  I                |`
-      O       O O    `
+      x       x x    `
 |    I E J     H   K|`
-      O       O     O`
+      x       x     x`
 |    L J   J   M    |`
-      O O           O`
+      x x           x`
 |  N L N            |`
-        O       O    `
+        x       x    `
 |  N       O D      |`
-          O O        `
+          x x        `
 |    P       D D Q  |`
-O                    `
+x                    `
 |                  D|`
- - -O- -O- - - - -O- `
+ - -x- -x- - - - -x- `
     ]]>
   </level>
   <level id="166">
     <![CDATA[
- - -O-O- -O- - -O- - `
+ - -x-x- -x- - -x- - `
 |    A         B    |`
-O   O O       O      `
+x   x x       x      `
 |  C D   E          |`
-    O                `
+    x                `
 |F   D              |`
-    O     O O       O`
+    x     x x       x`
 |      G G H   I J  |`
-O O     O            `
+x x     x            `
 |                  I|`
-        O       O    `
+        x       x    `
 |  K L   H M   M    |`
-            O O     O`
+            x x     x`
 |                   |`
-O     O O     O     O`
+x     x x     x     x`
 |    N           D  |`
-  O                  `
+  x                  `
 |      L   H       O|`
-          O          `
+          x          `
 |P             Q    |`
- - -O- - -O- - -O- - `
+ - -x- - -x- - -x- - `
     ]]>
   </level>
   <level id="167">
     <![CDATA[
- - - - - - -O- - - - `
+ - - - - - -x- - - - `
 |      A         B  |`
-          O O        `
+          x x        `
 |  C   C   D     E  |`
-O O     O O         O`
+x x     x x         x`
 |F C C   G H D   E  |`
-        O O   O O   O`
+        x x   x x   x`
 |  F   F   H        |`
-O       O            `
+x       x            `
 |  F I   J   K   L  |`
-        O O         O`
+        x x         x`
 |      M            |`
-O             O      `
+x             x      `
 |  N   I   H   N L  |`
-          O O        `
+          x x        `
 |  N     M          |`
-      O       O     O`
+      x       x     x`
 |        K     O L  |`
-      O              `
+      x              `
 |N                  |`
- - -O- - - - -O- - - `
+ - -x- - - - -x- - - `
     ]]>
   </level>
   <level id="168">
     <![CDATA[
- - -O- - -O- - -O- - `
+ - -x- - -x- - -x- - `
 |      A            |`
-    O     O         O`
+    x     x         x`
 |B           C      |`
-O     O     O O      `
+x     x     x x      `
 |  D     E   C   F G|`
-            O        `
+            x        `
 |  H     E          |`
-O   O         O     O`
+x   x         x     x`
 |    I         J    |`
-    O     O   O      `
+    x     x   x      `
 |      K         G  |`
                      `
 |      I K J        |`
-O     O     O        `
+x     x     x        `
 |  L             M  |`
-O     O       O     O`
+x     x       x     x`
 |  N     L   O      |`
-O   O O   O   O   O O`
+x   x x   x   x   x x`
 |      P         H Q|`
- - - - -O-O- -O- -O- `
+ - - - -x-x- -x- -x- `
     ]]>
   </level>
   <level id="169">
     <![CDATA[
- - - - -O-O-O-O- -O- `
+ - - - -x-x-x-x- -x- `
 |          A   B    |`
-          O       O  `
+          x       x  `
 |    C   D       E D|`
-O     O   O       O  `
+x     x   x       x  `
 |      F            |`
-    O             O O`
+    x             x x`
 |G     D   H     H  |`
-          O O        `
+          x x        `
 |  F       I   J    |`
-                    O`
+                    x`
 |      I F   K      |`
-O O O                `
+x x x                `
 |    F              |`
-      O       O   O  `
+      x       x   x  `
 |L         M        |`
-O       O           O`
+x       x           x`
 |    N   I   M O    |`
-O         O          `
+x         x          `
 |    P              |`
- - - - - -O-O- - - - `
+ - - - - -x-x- - - - `
     ]]>
   </level>
   <level id="170">
     <![CDATA[
- - -O- - - - - -O-O- `
+ - -x- - - - - -x-x- `
 |        A          |`
                      `
 |          B A C    |`
-        O            `
+        x            `
 |  D     A     A    |`
-    O         O      `
+    x         x      `
 |      B           E|`
-O       O   O O     O`
+x       x   x x     x`
 |  D       F   G    |`
-    O       O   O    `
+    x       x   x    `
 |      F   H   I    |`
-          O O       O`
+          x x       x`
 |              G    |`
-  O       O          `
+  x       x          `
 |                I  |`
-            O        `
+            x        `
 |    J J K          |`
-    O   O       O    `
+    x   x       x    `
 |L M       N   O    |`
- -O- - -O- -O- - -O- `
+ -x- - -x- -x- - -x- `
     ]]>
   </level>
   <level id="171">
     <![CDATA[
- - - - -O-O- - - - - `
+ - - - -x-x- - - - - `
 |    A             B|`
-O       O O     O    `
+x       x x     x    `
 |        C          |`
-    O   O   O        `
+    x   x   x        `
 |    D   E   F   G  |`
-        O O O   O O O`
+        x x x   x x x`
 |  D H       I      |`
-          O       O  `
+          x       x  `
 |        J       C  |`
-      O O   O O      `
+      x x   x x      `
 |D               K  |`
-O O                  `
+x x                  `
 |  L M   N L     C  |`
-      O       O O O O`
+      x       x x x x`
 |              O   I|`
-        O   O O O   O`
+        x   x x x   x`
 |M P           K K K|`
-O       O            `
+x       x            `
 |        Q          |`
- - - - -O-O- - - - - `
+ - - - -x-x- - - - - `
     ]]>
   </level>
   <level id="172">
     <![CDATA[
- - -O-O- - - -O- - - `
+ - -x-x- - - -x- - - `
 |A                 B|`
-          O   O     O`
+          x   x     x`
 |  C     D E F      |`
-O       O            `
+x       x            `
 |                C  |`
-O   O   O           O`
+x   x   x           x`
 |G     H            |`
-              O O O O`
+              x x x x`
 |        D I        |`
-O O   O              `
+x x   x              `
 |  J H           K  |`
-          O O O      `
+          x x x      `
 |  J       L        |`
-O O   O     O        `
+x x   x     x        `
 |        L       M  |`
-      O         O   O`
+      x         x   x`
 |  N   L L L O      |`
-        O O          `
+        x x          `
 |  P     Q          |`
- - - - -O-O- -O- - - `
+ - - - -x-x- -x- - - `
     ]]>
   </level>
   <level id="173">
     <![CDATA[
- - -O- -O- - -O-O- - `
+ - -x- -x- - -x-x- - `
 |  A             B  |`
-    O             O O`
+    x             x x`
 |    C             D|`
-      O   O          `
+      x   x          `
 |  E   F D   G G    |`
-  O     O           O`
+  x     x           x`
 |                  H|`
-O           O O   O O`
+x           x x   x x`
 |I             J    |`
-O O O O              `
+x x x x              `
 |    K K   G        |`
-      O O           O`
+      x x           x`
 |        L     M G  |`
-            O        `
+            x        `
 |N       O          |`
-O O           O      `
+x x           x      `
 |  O F   P     Q M  |`
-        O O O        `
+        x x x        `
 |                   |`
- - - - -O-O- - - -O- `
+ - - - -x-x- - - -x- `
     ]]>
   </level>
   <level id="174">
     <![CDATA[
- -O- - -O- - - - -O- `
+ -x- - -x- - - - -x- `
 |            A      |`
-    O                `
+    x                `
 |  B             C  |`
-    O         O O O O`
+    x         x x x x`
 |      D E     F   G|`
                      `
 |  H           I    |`
-    O   O O         O`
+    x   x x         x`
 |          D F      |`
-    O       O   O    `
+    x       x   x    `
 |    E     J     J  |`
-O     O O            `
+x     x x            `
 |    K     L   J    |`
-O         O   O O   O`
+x         x   x x   x`
 |    M   M   L   N  |`
-    O                `
+    x                `
 |O       C          |`
-              O      `
+              x      `
 |                   |`
- - - -O- - - - -O- - `
+ - - -x- - - - -x- - `
     ]]>
   </level>
   <level id="175">
     <![CDATA[
- - - - -O- -O- - - - `
+ - - - -x- -x- - - - `
 |        A          |`
-        O   O        `
+        x   x        `
 |  B C C   D   E E  |`
-O       O   O        `
+x       x   x        `
 |      C       F    |`
-O           O     O  `
+x           x     x  `
 |G       H       I  |`
-O     O   O     O   O`
+x     x   x     x   x`
 |          F J      |`
-      O     O   O   O`
+      x     x   x   x`
 |  K   H C   J      |`
-O     O     O   O   O`
+x     x     x   x   x`
 |  J K     C L     M|`
-    O O              `
+    x x              `
 |  N O O       P    |`
-O O       O     O    `
+x x       x     x    `
 |Q   O     B        |`
-            O        `
+            x        `
 |          O        |`
- -O- - -O- -O- - - - `
+ -x- - -x- -x- - - - `
     ]]>
   </level>
   <level id="176">
     <![CDATA[
- - - - - - -O- -O-O- `
+ - - - - - -x- -x-x- `
 |                   |`
-O   O                `
+x   x                `
 |      A B     C    |`
-    O     O          `
+    x     x          `
 |  D         E C C  |`
-              O O    `
+              x x    `
 |  D   F       G H  |`
-O         O   O O   O`
+x         x   x x   x`
 |        A         I|`
-O     O              `
+x     x              `
 |    J     K L   M  |`
-    O       O O O   O`
+    x       x x x   x`
 |N     J   O        |`
-                    O`
+                    x`
 |            O      |`
-O O   O   O O        `
+x x   x   x x        `
 |F   P P       M Q  |`
-              O      `
+              x      `
 |                   |`
- - -O- - -O- - - - - `
+ - -x- - -x- - - - - `
     ]]>
   </level>
   <level id="177">
     <![CDATA[
- -O-O- -O- - - - - - `
+ -x-x- -x- - - - - - `
 |      A            |`
                      `
 |    A       B C    |`
-            O O      `
+            x x      `
 |D     E     F   B  |`
-  O     O O         O`
+  x     x x         x`
 |      E     C      |`
-    O       O O      `
+    x       x x      `
 |                C  |`
-O   O O              `
+x   x x              `
 |      G   H I H C  |`
-      O O           O`
+      x x           x`
 |  J   K I H H      |`
-          O         O`
+          x         x`
 |          K H K    |`
-O   O O         O    `
+x   x x         x    `
 |  L M N K     K O  |`
-              O      `
+              x      `
 |                   |`
- - - -O- - - -O- - - `
+ - - -x- - - -x- - - `
     ]]>
   </level>
   <level id="178">
     <![CDATA[
- - - - -O-O- - - - - `
+ - - - -x-x- - - - - `
 |      A            |`
-O O     O O          `
+x x     x x          `
 |  B     C   D D D  |`
                      `
 |E                  |`
-    O O           O O`
+    x x           x x`
 |    F   G H     I  |`
-  O   O     O        `
+  x   x     x        `
 |              I    |`
-O O   O O O          `
+x x   x x x          `
 |J   F           I  |`
-        O           O`
+        x           x`
 |  K     L   M N    |`
-            O   O    `
+            x   x    `
 |                O N|`
-    O O O       O    `
+    x x x       x    `
 |      C            |`
-O           O       O`
+x           x       x`
 |  C P         O    |`
- - -O- - - -O- - - - `
+ - -x- - - -x- - - - `
     ]]>
   </level>
   <level id="179">
     <![CDATA[
- - -O- -O- - -O-O- - `
+ - -x- -x- - -x-x- - `
 |                   |`
                      `
 |    A         B   C|`
-        O     O O O O`
+        x     x x x x`
 |  A   D   E F G    |`
-      O       O   O  `
+      x       x   x  `
 |  H             I J|`
-                  O  `
+                  x  `
 |        F H        |`
-  O           O      `
+  x           x      `
 |              K    |`
-O     O     O O O    `
+x     x     x x x    `
 |  L   H M   N      |`
-O   O       O     O O`
+x   x       x     x x`
 |  O       M        |`
-O O O   O            `
+x x x   x            `
 |  N M   N       P  |`
-    O O              `
+    x x              `
 |  Q     E       J  |`
- - - -O- - -O-O- -O- `
+ - - -x- - -x-x- -x- `
     ]]>
   </level>
   <level id="180">
     <![CDATA[
- -O- - -O-O- - - - - `
+ -x- - -x-x- - - - - `
 |      A     B      |`
-                    O`
+                    x`
 |    C C       D    |`
-      O       O   O  `
+      x       x   x  `
 |        E          |`
-  O O O           O  `
+  x x x           x  `
 |  F   E   E        |`
-    O       O        `
+    x       x        `
 |  B       E   G    |`
-O       O            `
+x       x            `
 |H   I              |`
-    O O   O   O     O`
+    x x   x   x     x`
 |  H     E   G   J  |`
-O O           O O    `
+x x           x x    `
 |    K         L    |`
-      O     O O     O`
+      x     x x     x`
 |M   N N O         P|`
-O O O                `
+x x x                `
 |  Q                |`
- - -O- - - - - -O- - `
+ - -x- - - - - -x- - `
     ]]>
   </level>
   <level id="181">
     <![CDATA[
- - -O- - - -O-O- - - `
+ - -x- - - -x-x- - - `
 |                   |`
-        O   O       O`
+        x   x       x`
 |  A       B C D    |`
-    O     O          `
+    x     x          `
 |  E           C    |`
-O     O   O O   O    `
+x     x   x x   x    `
 |        F          |`
-                O   O`
+                x   x`
 |  G             H  |`
-    O O         O O  `
+    x x         x x  `
 |  G     I I J J K  |`
-        O       O    `
+        x       x    `
 |    L   I       M  |`
-    O       O        `
+    x       x        `
 |    N           J  |`
-O     O   O O        `
+x     x   x x        `
 |    O     P     M  |`
-      O         O    `
+      x         x    `
 |  Q           N    |`
- -O- -O-O- - - -O- - `
+ -x- -x-x- - - -x- - `
     ]]>
   </level>
   <level id="182">
     <![CDATA[
- - - -O-O- -O- - - - `
+ - - -x-x- -x- - - - `
 |A     B C   D      |`
-      O O O O       O`
+      x x x x       x`
 |  E               F|`
-    O O             O`
+    x x             x`
 |          G     H  |`
                      `
 |    E     I        |`
-O       O   O O      `
+x       x   x x      `
 |      J I       F  |`
-O       O O          `
+x       x x          `
 |          K        |`
-    O O   O   O      `
+    x x   x   x      `
 |  L   D M       N  |`
-O         O          `
+x         x          `
 |      M       O    |`
-      O     O     O  `
+      x     x     x  `
 |  D P P P          |`
-                    O`
+                    x`
 |                   |`
- - -O- - - - - -O- - `
+ - -x- - - - - -x- - `
     ]]>
   </level>
   <level id="183">
     <![CDATA[
- - -O- - -O-O- - - - `
+ - -x- - -x-x- - - - `
 |        A B        |`
-    O     O O        `
+    x     x x        `
 |  C D   E     F    |`
-      O O     O     O`
+      x x     x     x`
 |              F F  |`
-O   O   O       O    `
+x   x   x       x    `
 |    D             G|`
-O   O     O     O    `
+x   x     x     x    `
 |  H       I   J    |`
-  O O   O           O`
+  x x   x           x`
 |    K     L        |`
-          O O        `
+          x x        `
 |          M L     J|`
-                  O O`
+                  x x`
 |E   M N       L   O|`
-            O O   O  `
+            x x   x  `
 |          P        |`
-    O O   O          `
+    x x   x          `
 |      Q            |`
- - - -O- - - - -O- - `
+ - - -x- - - - -x- - `
     ]]>
   </level>
   <level id="184">
     <![CDATA[
- - - - -O-O- - - - - `
+ - - - -x-x- - - - - `
 |                   |`
-        O O          `
+        x x          `
 |  A   B C   D D    |`
-        O O   O     O`
+        x x   x     x`
 |  E       F        |`
-O   O O   O          `
+x   x x   x          `
 |        G          |`
-O       O O     O    `
+x       x x     x    `
 |    E     H I     I|`
-                O    `
+                x    `
 |J   K           L  |`
-    O O              `
+    x x              `
 |      A            |`
-            O     O O`
+            x     x x`
 |          K M   N  |`
-O     O O     O O    `
+x     x x     x x    `
 |      A       O N  |`
-        O     O      `
+        x     x      `
 |  P       Q M      |`
- - -O- - - -O-O- - - `
+ - -x- - - -x-x- - - `
     ]]>
   </level>
   <level id="185">
     <![CDATA[
- - -O- - - - - -O- - `
+ - -x- - - - - -x- - `
 |A               B  |`
-            O        `
+            x        `
 |              C    |`
-O       O O         O`
+x       x x         x`
 |  D   E   F        |`
-      O     O        `
+      x     x        `
 |      G         H H|`
-O     O O       O O O`
+x     x x       x x x`
 |              I    |`
-    O                `
+    x                `
 |      J   E   E K L|`
-O       O         O O`
+x       x         x x`
 |  M N              |`
-  O O     O       O  `
+  x x     x       x  `
 |              O   K|`
-                    O`
+                    x`
 |  P P P       I    |`
-              O      `
+              x      `
 |          J        |`
- - - - - -O- -O- - - `
+ - - - - -x- -x- - - `
     ]]>
   </level>
   <level id="186">
     <![CDATA[
- - -O- - -O- -O- - - `
+ - -x- - -x- -x- - - `
 |A   B     A        |`
-    O     O   O      `
+    x     x   x      `
 |                C  |`
-O     O             O`
+x     x             x`
 |        D   E F    |`
-            O        `
+            x        `
 |  G     E D     H  |`
-    O       O       O`
+    x       x       x`
 |                   |`
-O   O                `
+x   x                `
 |    I D I       F  |`
-  O       O O   O    `
+  x       x x   x    `
 |J         K        |`
-  O             O O O`
+  x             x x x`
 |    L       M   E N|`
-        O   O        `
+        x   x        `
 |        O O        |`
-O O       O O   O    `
+x x       x x   x    `
 |    P     Q     C  |`
- - - -O- -O-O-O- -O- `
+ - - -x- -x-x-x- -x- `
     ]]>
   </level>
   <level id="187">
     <![CDATA[
- - - -O-O-O- -O- -O- `
+ - - -x-x-x- -x- -x- `
 |    A     B   C    |`
                      `
 |  D   E   F     G  |`
-O O   O     O O     O`
+x x   x     x x     x`
 |H                  |`
-      O O            `
+      x x            `
 |    I J   J K   L  |`
-O O     O       O   O`
+x x     x       x   x`
 |  D                |`
-    O   O            `
+    x   x            `
 |  M N   N   C   K  |`
-O   O       O O      `
+x   x       x x      `
 |      N            |`
-              O      `
+              x      `
 |  O   P   L        |`
                      `
 |    O     N   L    |`
-        O           O`
+        x           x`
 |  P               Q|`
- -O- - -O- - -O- - - `
+ -x- - -x- - -x- - - `
     ]]>
   </level>
   <level id="188">
     <![CDATA[
- - - -O- - - - - - - `
+ - - -x- - - - - - - `
 |    A              |`
-      O     O       O`
+      x     x       x`
 |  A     B   C      |`
-        O   O        `
+        x   x        `
 |  D A           E  |`
-O O         O   O    `
+x x         x   x    `
 |        F   A      |`
-        O     O O   O`
+        x     x x   x`
 |    D     G        |`
-O       O            `
+x       x            `
 |H     D I       J  |`
-O     O         O    `
+x     x         x    `
 |              K    |`
-          O O   O    `
+          x x   x    `
 |L         M K     E|`
-O O       O O   O    `
+x x       x x   x    `
 |  N O   N   P   Q  |`
-      O       O     O`
+      x       x     x`
 |                   |`
- - - -O- - - -O- - - `
+ - - -x- - - -x- - - `
     ]]>
   </level>
   <level id="189">
     <![CDATA[
- -O- - - - -O-O- - - `
+ -x- - - - -x-x- - - `
 |    A             B|`
-                O   O`
+                x   x`
 |C     D           E|`
-    O     O O        `
+    x     x x        `
 |    D           F  |`
-      O           O O`
+      x           x x`
 |  G   H   I     B  |`
-O     O     O        `
+x     x     x        `
 |    J J       F   B|`
-          O O   O    `
+          x x   x    `
 |    J       K   K  |`
-O   O       O     O O`
+x   x       x     x x`
 |    J J   I L   K  |`
-      O   O O O      `
+      x   x x x      `
 |                   |`
-        O     O      `
+        x     x      `
 |  M N     O     P  |`
-    O   O   O        `
+    x   x   x        `
 |  M       Q     P  |`
- - -O- - - - -O-O- - `
+ - -x- - - - -x-x- - `
     ]]>
   </level>
   <level id="190">
     <![CDATA[
- -O- -O- -O- - -O- - `
+ -x- -x- -x- - -x- - `
 |    A         B    |`
-              O O    `
+              x x    `
 |  C     D       E E|`
-        O   O        `
+        x   x        `
 |          F   G E  |`
-        O            `
+        x            `
 |    H              |`
-O   O     O   O     O`
+x   x     x   x     x`
 |          I   G    |`
-    O   O       O    `
+    x   x       x    `
 |  D   J I J        |`
-    O       O        `
+    x       x        `
 |K               L  |`
-O   O         O      `
+x   x         x      `
 |                   |`
-    O         O     O`
+    x         x     x`
 |  D     M N O   P  |`
-    O     O O O      `
+    x     x x x      `
 |      Q            |`
- - -O- - - -O-O- - - `
+ - -x- - - -x-x- - - `
     ]]>
   </level>
   <level id="191">
     <![CDATA[
- - -O-O- - - - -O- - `
+ - -x-x- - - - -x- - `
 |        A          |`
-              O O    `
+              x x    `
 |  B C     A   D D E|`
                      `
 |      F            |`
-O O     O     O O    `
+x x     x     x x    `
 |  G           H    |`
-    O   O O          `
+    x   x x          `
 |      F         I  |`
-              O   O O`
+              x   x x`
 |J J       K H   L  |`
-O O       O O O      `
+x x       x x x      `
 |        M M D      |`
-  O   O     O     O O`
+  x   x     x     x x`
 |    N O       P    |`
-    O O              `
+    x x              `
 |O Q R   R     D D  |`
-    O     O          `
+    x     x          `
 |    F             G|`
- - -O- -O-O- - -O-O- `
+ - -x- -x-x- - -x-x- `
     ]]>
   </level>
   <level id="192">
     <![CDATA[
- -O- - -O- - - - - - `
+ -x- - -x- - - - - - `
 |                   |`
-          O         O`
+          x         x`
 |  A A         B B  |`
-            O   O    `
+            x   x    `
 |    A   C   D      |`
-              O O    `
+              x x    `
 |        E       F G|`
-O   O     O          `
+x   x     x          `
 |H   I       F   G  |`
-O     O     O     O O`
+x     x     x     x x`
 |        J   F      |`
-      O O            `
+      x x            `
 |I   K   L         M|`
-        O       O O  `
+        x       x x  `
 |    N   L          |`
-O O     O O O       O`
+x x     x x x       x`
 |O     P   P N P    |`
-      O              `
+      x              `
 |    N   Q          |`
- - -O-O- -O- - -O- - `
+ - -x-x- -x- - -x- - `
     ]]>
   </level>
   <level id="193">
     <![CDATA[
- - - -O- -O- - - - - `
+ - - -x- -x- - - - - `
 |                A  |`
-              O      `
+              x      `
 |  B   C     D   E  |`
-O O           O   O O`
+x x           x   x x`
 |          F   E    |`
-    O         O      `
+    x         x      `
 |          D        |`
-        O O          `
+        x x          `
 |    G     F   H H I|`
-        O         O  `
+        x         x  `
 |J                  |`
-    O             O O`
+    x             x x`
 |          K        |`
-O     O O O     O    `
+x     x x x     x    `
 |                  L|`
-    O   O O          `
+    x   x x          `
 |M N N   O   L G G  |`
-          O         O`
+          x         x`
 |                   |`
- - - -O- -O- - - - - `
+ - - -x- -x- - - - - `
     ]]>
   </level>
   <level id="194">
     <![CDATA[
- - - - - -O- -O- - - `
+ - - - - -x- -x- - - `
 |                  A|`
-O O                  `
+x x                  `
 |    B C C          |`
-        O O       O O`
+        x x       x x`
 |  B       D   E    |`
-            O O     O`
+            x x     x`
 |  F       D     G  |`
-      O              `
+      x              `
 |  H   D   I       J|`
-      O       O O    `
+      x       x x    `
 |      H     I K    |`
-        O     O   O O`
+        x     x   x x`
 |    H   I       L  |`
-O O O     O          `
+x x x     x          `
 |              M L  |`
-O   O                `
+x   x                `
 |  N   M   O   L    |`
                      `
 |                   |`
- - - -O- -O- - - -O- `
+ - - -x- -x- - - -x- `
     ]]>
   </level>
   <level id="195">
     <![CDATA[
- - -O- - -O- -O- -O- `
+ - -x- - -x- -x- -x- `
 |    A              |`
-        O O          `
+        x x          `
 |    B     C D   E  |`
-            O O      `
+            x x      `
 |  F       G   H E  |`
-O     O O O O        `
+x     x x x x        `
 |      F   I        |`
-              O O   O`
+              x x   x`
 |  F F             J|`
-      O   O   O      `
+      x   x   x      `
 |  F             K  |`
-O         O O O O   O`
+x         x x x x   x`
 |  F     L M N      |`
-    O         O   O O`
+    x         x   x x`
 |        M       I  |`
-O         O          `
+x         x          `
 |                   |`
-      O         O    `
+      x         x    `
 |  O     P         Q|`
- - -O- - - -O- - -O- `
+ - -x- - - -x- - -x- `
     ]]>
   </level>
   <level id="196">
     <![CDATA[
- - -O- -O- -O-O- - - `
+ - -x- -x- -x-x- - - `
 |            A      |`
-            O        `
+            x        `
 |  B   C   D A      |`
-          O   O      `
+          x   x      `
 |  E   B     D   F  |`
-    O O O           O`
+    x x x           x`
 |  E         G      |`
-O           O O      `
+x           x x      `
 |          H     G  |`
-O     O     O     O O`
+x     x     x     x x`
 |  F F           I  |`
-          O     O    `
+          x     x    `
 |    J       I      |`
-O                    `
+x                    `
 |                K  |`
-    O   O O          `
+    x   x x          `
 |L   M N   N     K  |`
-O             O      `
+x             x      `
 |              O    |`
- - - - - -O-O- - - - `
+ - - - - -x-x- - - - `
     ]]>
   </level>
   <level id="197">
     <![CDATA[
- - - -O-O- - -O- - - `
+ - - -x-x- - -x- - - `
 |                   |`
-    O                `
+    x                `
 |A         B   C    |`
-                    O`
+                    x`
 |  D B           E F|`
-          O       O O`
+          x       x x`
 |      B   G       H|`
-  O O       O O O   O`
+  x x       x x x   x`
 |  I       F F J   J|`
-O     O       O O   O`
+x     x       x x   x`
 |      I G G        |`
-O   O   O     O      `
+x   x   x     x      `
 |  K                |`
-O             O   O  `
+x             x   x  `
 |L   L G G M        |`
-      O       O      `
+      x       x      `
 |  M L         N   O|`
-O             O     O`
+x             x     x`
 |            P     Q|`
- - - - -O- - -O- - - `
+ - - - -x- - -x- - - `
     ]]>
   </level>
   <level id="198">
     <![CDATA[
- - - - - -O-O-O- -O- `
+ - - - - -x-x-x- -x- `
 |          A        |`
-          O          `
+          x          `
 |B   C   C       D D|`
-O O     O O          `
+x x     x x          `
 |  E       F     G  |`
-    O       O        `
+    x       x        `
 |    H     I        |`
-O   O   O   O O     O`
+x   x   x   x x     x`
 |            J      |`
-              O     O`
+              x     x`
 |  F     K J L      |`
-        O            `
+        x            `
 |            J      |`
-O   O   O O O       O`
+x   x   x x x       x`
 |  K             M  |`
-          O     O O  `
+          x     x x  `
 |  N         O     P|`
                      `
 |  N   Q            |`
- - - -O-O- - - -O- - `
+ - - -x-x- - - -x- - `
     ]]>
   </level>
   <level id="199">
     <![CDATA[
- - - -O- - - - - - - `
+ - - -x- - - - - - - `
 |                A  |`
-O       O           O`
+x       x           x`
 |  B       C C   D  |`
-        O       O    `
+        x       x    `
 |    E   C C     C  |`
-    O             O O`
+    x             x x`
 |    E   F F F C C  |`
-O   O O         O    `
+x   x x         x    `
 |      G   F        |`
-                    O`
+                    x`
 |  H G         I    |`
-          O O        `
+          x x        `
 |          G J   K  |`
-      O              `
+      x              `
 |  L             I  |`
-O     O       O      `
+x     x       x      `
 |          M        |`
-    O         O     O`
+    x         x     x`
 |  N             O  |`
- -O- -O-O- -O- - - - `
+ -x- -x-x- -x- - - - `
     ]]>
   </level>
   <level id="200">
     <![CDATA[
- - -O- -O- -O-O-O-O- `
+ - -x- -x- -x-x-x-x- `
 |    A           B  |`
-                  O  `
+                  x  `
 |          C     D E|`
-      O             O`
+      x             x`
 |  F                |`
-      O     O   O   O`
+      x     x   x   x`
 |G   F F H   C I   J|`
-O O     O O     O    `
+x x     x x     x    `
 |  F   F K          |`
-                  O O`
+                  x x`
 |  F                |`
-      O   O          `
+      x   x          `
 |    L         K    |`
-                O O  `
+                x x  `
 |  M     N          |`
-O             O      `
+x             x      `
 |    O       N   P  |`
-      O O     O      `
+      x x     x      `
 |            O   Q  |`
- -O- -O- - - -O- -O- `
+ -x- -x- - - -x- -x- `
     ]]>
   </level>
 </levels>
