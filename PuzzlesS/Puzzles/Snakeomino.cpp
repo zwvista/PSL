@@ -123,7 +123,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const
         for (auto& os : offset) {
             auto p2 = p + os;
             if (char ch = m_game->cells(p2);
-                !is_self(p2) && (ch == PUZ_SPACE || ch == m_num) &&
+                !is_self(p2) && (m_num == PUZ_SPACE && ch != PUZ_BOUNDARY ||
+                ch == PUZ_SPACE || ch == m_num) &&
                 boost::algorithm::none_of(offset, [&](const Position& os2) {
                 auto p3 = p2 + os2;
                 return p3 != p && is_self(p3);
