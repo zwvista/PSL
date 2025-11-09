@@ -347,7 +347,7 @@ PuzzlesS/Puzzles/SnakeMaze.cpp
 PuzzlesS/Puzzles/Snakeomino.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 4/Snake-omino
 PuzzlesS/Puzzles/Square100.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 10/Square100
+	iOS Game: 100 Logic Games/Puzzle Set 10/Square 100
 PuzzlesS/Puzzles/Stacks.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 7/Stacks
 PuzzlesS/Puzzles/Steps.cpp
