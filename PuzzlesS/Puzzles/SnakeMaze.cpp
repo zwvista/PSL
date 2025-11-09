@@ -136,16 +136,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         if (n != 0) continue;
         // 6. Arrows block snake sight and also block other arrows hints.
         // 5. Arrows with zero mean that there is no Snake in that direction.
-        for (auto p2 = p + os; cells(p2) == PUZ_SPACE; p2 += os)
-            cells(p2) = PUZ_EMPTY;
+        for (auto p2 = p + os; ; p2 += os)
+            if (char& ch = cells(p2); !(ch == PUZ_SPACE || ch == PUZ_EMPTY))
+                break;
+            else if (ch == PUZ_SPACE)
+                ch = PUZ_EMPTY;
     }
     for (auto& [p, hint] : m_pos2hint) {
         auto& [n, _1, os] = hint;
         if (n == 0) continue;
         // 6. Arrows block snake sight and also block other arrows hints.
         vector<Position> rng;
-        for (auto p2 = p + os; cells(p2) == PUZ_SPACE; p2 += os)
-            rng.push_back(p2);
+        for (auto p2 = p + os; ; p2 += os)
+            if (char& ch = cells(p2); !(ch == PUZ_SPACE || ch == PUZ_EMPTY))
+                break;
+            else if (ch == PUZ_SPACE)
+                rng.push_back(p2);
         for (auto it = rng.begin(); it != rng.end(); ++it) {
             set<Position> empties2(rng.begin(), it);
             puz_state2 sstart(this, n, *it, empties2);
@@ -171,8 +177,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     for (auto p2 = p0 + os2; cells(p2) == PUZ_SPACE; p2 += os2)
                         empties.insert(p2);
 
-                    int n2 = m_moves.size();
-                    m_moves.emplace_back(snake, empties);
+                    int n2 = boost::find_if(m_moves, [&](const puz_move& move) {
+                        return move.m_snake == snake && move.m_empties == empties;
+                    }) - m_moves.begin();
+                    if (n2 == m_moves.size())
+                        m_moves.emplace_back(snake, empties);
                     m_pos2move_ids[p].push_back(n2);
                 }
         }
