@@ -314,8 +314,8 @@ void puz_state::gen_children(list<puz_state>& children) const
         auto& [p, perm_ids] = *boost::min_element(m_matches, [](
             const pair<const Position, vector<int>>& kv1,
             const pair<const Position, vector<int>>& kv2) {
-                return kv1.second.size() < kv2.second.size();
-            });
+            return kv1.second.size() < kv2.second.size();
+        });
 
         for (int n : perm_ids)
             if (!children.emplace_back(*this).make_move_hint(p, n))
