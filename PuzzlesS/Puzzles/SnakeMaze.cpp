@@ -157,29 +157,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     vector<Position> snake;
                     for (auto& [_1, p2] : spath.back())
                         snake.push_back(p2);
-                    if (int n2 = boost::find_if(m_moves, [&](const puz_move& move) {
-                        return move.m_snake == snake;
-                    }) - m_moves.begin(); n2 != m_moves.size())
-                        m_pos2move_ids[p].push_back(n2);
-                    else {
-                        auto empties = empties2;
-                        // 3. A snake cannot touch another snake horizontally or vertically.
-                        for (auto& p2 : snake)
-                            for (auto& os2 : offset)
-                                if (auto p3 = p2 + os2;
-                                    cells(p3) == PUZ_SPACE &&
-                                    boost::algorithm::none_of_equal(snake, p3))
-                                    empties.insert(p3);
-                        // 2. A snake cannot see another snake or it would attack it. A snake sees straight in the
-                        // direction 2-1, that is to say it sees in front of the number 1.
-                        auto &p0 = snake[0], &p1 = snake[1], os2 = p0 - p1;
-                        for (auto p2 = p0 + os2; cells(p2) == PUZ_SPACE; p2 += os2)
-                            empties.insert(p2);
+                    auto empties = empties2;
+                    // 3. A snake cannot touch another snake horizontally or vertically.
+                    for (auto& p2 : snake)
+                        for (auto& os2 : offset)
+                            if (auto p3 = p2 + os2;
+                                cells(p3) == PUZ_SPACE &&
+                                boost::algorithm::none_of_equal(snake, p3))
+                                empties.insert(p3);
+                    // 2. A snake cannot see another snake or it would attack it. A snake sees straight in the
+                    // direction 2-1, that is to say it sees in front of the number 1.
+                    auto &p0 = snake[0], &p1 = snake[1], os2 = p0 - p1;
+                    for (auto p2 = p0 + os2; cells(p2) == PUZ_SPACE; p2 += os2)
+                        empties.insert(p2);
 
-                        n2 = m_moves.size();
-                        m_moves.emplace_back(snake, empties);
-                        m_pos2move_ids[p].push_back(n2);
-                    }
+                    int n2 = m_moves.size();
+                    m_moves.emplace_back(snake, empties);
+                    m_pos2move_ids[p].push_back(n2);
                 }
         }
     }
