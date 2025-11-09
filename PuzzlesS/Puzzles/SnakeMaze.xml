@@ -1237,7 +1237,7 @@ BB  BB            `
     <![CDATA[
 BB    BB    0>    `
     2>            `
-7v        BB  0>  `
+1v        BB  0>  `
   3v  0>  0>      `
       BB      0<5^`
 4v1>              `
@@ -1523,7 +1523,7 @@ BB      0<  1>    `
     <![CDATA[
   BB    4>      2<`
             BB    `
-7vBB    BB        `
+1vBB    BB        `
                   `
   1v  0^1v  BB  BB`
                   `
@@ -1550,7 +1550,7 @@ BB        0^    3^`
 3>          BB  BB`
                   `
     BB    0<  0>  `
-0>    7v2^        `
+0>    1v2^        `
           5^0>  0v`
   3^  5>          `
         BB        `
@@ -1748,7 +1748,7 @@ BB  5<  BB          `
     BB    2v        `
     BB      5<  0^3v`
   0<    BB  5>      `
-  BB  7<      4>    `
+  BB  1<      4>    `
         3<      5<  `
 0v                  `
     1<      4^  BB  `
@@ -1768,7 +1768,7 @@ BB  5<  BB          `
     0>  0<  BB   ^0^`
         BB  0v      `
   5>      1^      5<`
-  7<  BB    0>      `
+  1<  BB    0>      `
     ]]>
   </level>
   <level id="156">
@@ -1796,7 +1796,7 @@ BB  5<  BB          `
 0>  0<        2>    `
   BB    2>  BB    BB`
       3<      BB    `
-  0^      7<    0<  `
+  0^      1<    0<  `
     ]]>
   </level>
   <level id="158">
@@ -1835,7 +1835,7 @@ BB  BB  5^  0<    4^`
   0>    1^  BB  5^  `
               BB  5v`
   BB  0v            `
-          5v  7<  BB`
+          5v  1<  BB`
 0>    BB        5<  `
           BB        `
   BB  5<    0>  1>  `
@@ -1860,7 +1860,7 @@ BB      BB  0^0^  1<`
 BB    0>      5>    `
     5>        3<    `
 0v    BBBB          `
-    0^          7<  `
+    0^          1<  `
       BB  BB  0>  0^`
 0^2^      1>        `
       0v      BB  0v`
@@ -1878,7 +1878,7 @@ BB0^      BB  5v    `
     0>  BB  BB    0<`
 5v2^      BB        `
       1v0^    2^BB  `
-3>        BB      7<`
+3>        BB      1<`
     BB  BB    0>    `
   BB    5>  BB    0<`
     ]]>
@@ -1908,7 +1908,7 @@ BB          0>  0>  `
       0<0^    2>    `
             BB    BB`
   BB  BB  0v  BB    `
-      5<        7<  `
+      5<        1<  `
     ]]>
   </level>
   <level id="166">
@@ -1917,7 +1917,7 @@ BB          0>  0>  `
               0^  0<`
 2>  BB3^    BB      `
                 2^  `
-  BB7v  BB          `
+  BB1v  BB          `
         5v  5<  BBBB`
   0>  BB            `
       BB    BB  4>  `
@@ -1932,7 +1932,7 @@ BB          0>  0>  `
   3>            BB  `
 BB  0v1>    BB  BB  `
         BB2>      BB`
-1vBB          7<    `
+1vBB          1<    `
     BB  BB  5>      `
   0^        4<    BB`
         2v5>        `
@@ -1973,7 +1973,7 @@ BB              BB  `
               0v    `
 0^    2<4v      0^  `
           0<        `
-    7v0^  BB  0<  5v`
+    1v0^  BB  0<  5v`
 0^                  `
     BB    0^  3<BB  `
           4>        `
@@ -2032,7 +2032,7 @@ BB5v      0<        `
             2>      `
   3<BB  5>        BB`
       0>    BB0v    `
-  7<  BB  2v      BB`
+  1<  BB  2v      BB`
         0<          `
   0^        BB   ^  `
     ]]>
@@ -2207,7 +2207,7 @@ BB  0>      BB      `
   </level>
   <level id="187">
     <![CDATA[
-          5<    7>  `
+          5<    1>  `
 BB    BB  2>        `
     0^      4<  BB  `
 BB  BB  BB          `
@@ -2266,7 +2266,7 @@ BBBB  BB  0^  BB    `
     BB    4v        `
 BB  BB      0^  0^0v`
                     `
-BB  1>  BB  7>  BB  `
+BB  1>  BB  1>  BB  `
                   5<`
   3^  BB  BB  BB    `
 1^      BB        BB`
@@ -2333,7 +2333,7 @@ BB              BB  `
   </level>
   <level id="196">
     <![CDATA[
-BB  BB  7>    3v  1v`
+BB  BB  1>    3v  1v`
           5<        `
 BB    0^  5v  BBBB  `
                     `
@@ -2375,7 +2375,7 @@ BB  BB              `
   </level>
   <level id="199">
     <![CDATA[
-  0v  7>        0>  `
+  0v  1>        0>  `
                     `
   BB1>      5^  3^  `
         BB        3<`
