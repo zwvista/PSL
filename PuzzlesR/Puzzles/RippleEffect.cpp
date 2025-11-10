@@ -85,7 +85,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
             if (ch != ' ')
-                m_start[{r, c}] = ch - '0';
+                m_start[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
             rng.insert(p);
         }
     }
