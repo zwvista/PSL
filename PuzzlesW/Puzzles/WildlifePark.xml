@@ -3013,15 +3013,15 @@ x     x           x  `
 x     x x x       x x`
 |  I J     K   L    |`
     x x       x x    `
-|                L  |`
+|                M  |`
             x   x   x`
-|M                 N|`
+|N                 O|`
 x       x       x    `
-|            O      |`
+|            P      |`
   x   x             x`
-|P         L       Q|`
+|Q         L       R|`
 x               x   x`
-|  R   J           S|`
+|  S   J           T|`
  - -x- -x- - -x-x- - `
     ]]>
   </level>
@@ -3092,11 +3092,11 @@ x               x x x`
     x     x x   x   x`
 |  K           M    |`
             x        `
-|      M   N        |`
+|      N   O        |`
 x x x     x x x      `
-|O   M         P Q  |`
+|P   N         Q R  |`
 x x   x         x    `
-|R         N     S  |`
+|S         O     T  |`
  - - -x- - - -x-x- - `
     ]]>
   </level>
@@ -3142,9 +3142,9 @@ x   x   x   x   x    `
         x x x       x`
 |  O         I      |`
 x x                  `
-|  O P   H       Q  |`
+|  O P   Q       R  |`
         x x x x x    `
-|  P           R S  |`
+|  P           S T  |`
                     x`
 |                   |`
  - -x- - - -x- - - - `
@@ -3169,9 +3169,9 @@ x         x   x     x`
     x       x        `
 |      I Q M   O    |`
       x       x x x x`
-|  R R           G  |`
+|  R R           S  |`
                      `
-|I       Q         S|`
+|I       Q         T|`
  -x- - -x-x- - - -x- `
     ]]>
   </level>
@@ -3519,9 +3519,9 @@ x x                  `
       x       x x x x`
 |              P   Q|`
         x   x x x   x`
-|N R           L L L|`
+|N R           S S S|`
 x       x            `
-|        S          |`
+|        T          |`
  - - - -x-x- - - - - `
     ]]>
   </level>
@@ -3613,15 +3613,15 @@ x           x     x  `
 x     x   x     x   x`
 |          F J      |`
       x     x   x   x`
-|  K   H C   J      |`
+|  K   H L   J      |`
 x     x     x   x   x`
-|  L K     C M     N|`
+|  M K     L N     O|`
     x x              `
-|  O P P       Q    |`
+|  P Q Q       R    |`
 x x       x     x    `
-|R   P     S        |`
+|S   Q     T        |`
             x        `
-|          P        |`
+|          Q        |`
  -x- - -x- -x- - - - `
     ]]>
   </level>
@@ -3721,7 +3721,7 @@ x   x       x     x x`
 x x x   x            `
 |  P M   N       Q  |`
     x x              `
-|  R     E       S  |`
+|  R     S       T  |`
  - - -x- - -x-x- -x- `
     ]]>
   </level>
@@ -3878,25 +3878,25 @@ x       x         x x`
   <level id="186">
     <![CDATA[
  - -x- - -x- -x- - - `
-|A   B     A        |`
+|A   B     C        |`
     x     x   x      `
-|                C  |`
+|                D  |`
 x     x             x`
-|        D   E F    |`
+|        E   F G    |`
             x        `
-|  G     E D     H  |`
+|  H     F E     I  |`
     x       x       x`
 |                   |`
 x   x                `
-|    I D I       F  |`
+|    J E J       G  |`
   x       x x   x    `
-|J         K        |`
+|K         L        |`
   x             x x x`
-|    L       M   N O|`
+|    M       N   O P|`
         x   x        `
-|        P P        |`
+|        Q Q        |`
 x x       x x   x    `
-|    Q     R     S  |`
+|    R     S     T  |`
  - - -x- -x-x-x- -x- `
     ]]>
   </level>
@@ -4019,9 +4019,9 @@ x x       x x x      `
   x   x     x     x x`
 |    N O       P    |`
     x x              `
-|O Q R   R     M M  |`
+|Q R S   S     M M  |`
     x     x          `
-|    S             T|`
+|    T             U|`
  - -x- -x-x- - -x-x- `
     ]]>
   </level>
