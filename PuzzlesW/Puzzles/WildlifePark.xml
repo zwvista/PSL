@@ -3019,9 +3019,9 @@ x     x x x       x x`
 x       x       x    `
 |            O      |`
   x   x             x`
-|K         L       P|`
+|P         L       Q|`
 x               x   x`
-|  Q   J           R|`
+|  R   J           S|`
  - -x- -x- - -x-x- - `
     ]]>
   </level>
@@ -3042,11 +3042,11 @@ x x         x        `
     x     x     x    `
 |          L        |`
 x x       x   x     x`
-|        M G   N   O|`
+|        M N   O   P|`
           x     x    `
-|  M M             O|`
+|  M M             P|`
                 x   x`
-|P         Q     R  |`
+|Q         R     S  |`
  - - - -x- -x-x- - - `
     ]]>
   </level>
@@ -3086,17 +3086,17 @@ x         x x        `
             x   x    `
 |F         G        |`
   x x   x   x   x    `
-|  D     H     I    |`
+|  H     I     J    |`
 x               x x x`
-|      J       K    |`
+|      K       L    |`
     x     x x   x   x`
-|  J           L    |`
+|  K           M    |`
             x        `
-|      L   M        |`
+|      M   N        |`
 x x x     x x x      `
-|N   L         O P  |`
+|O   M         P Q  |`
 x x   x         x    `
-|Q         M     R  |`
+|R         N     S  |`
  - - -x- - - -x-x- - `
     ]]>
   </level>
@@ -3144,7 +3144,7 @@ x   x   x   x   x    `
 x x                  `
 |  O P   H       Q  |`
         x x x x x    `
-|  P           R N  |`
+|  P           R S  |`
                     x`
 |                   |`
  - -x- - - -x- - - - `
@@ -3171,7 +3171,7 @@ x         x   x     x`
       x       x x x x`
 |  R R           G  |`
                      `
-|I       Q         A|`
+|I       Q         S|`
  -x- - -x-x- - - -x- `
     ]]>
   </level>
@@ -3263,15 +3263,15 @@ x x x     x       x x`
               x      `
 |    H       I      |`
     x     x          `
-|J       B     K   L|`
+|J       K     L   M|`
 x x x       x     x  `
-|M N N   H          |`
+|N O O   H          |`
       x       x x x  `
-|  N     B     O    |`
+|  O     K     P    |`
                     x`
-|          N     P  |`
+|          O     Q  |`
 x   x         x x    `
-|Q             R    |`
+|R             S    |`
  - - -x-x- - -x-x- - `
     ]]>
   </level>
@@ -3344,9 +3344,9 @@ x x     x x       x x`
       x         x    `
 |O P       N   N    |`
   x                  `
-|    Q Q F   N R    |`
+|    Q Q R   N S    |`
         x            `
-|                R  |`
+|                S  |`
  -x- - -x- -x- - - - `
     ]]>
   </level>
@@ -3446,7 +3446,7 @@ x     x     x        `
 x     x       x     x`
 |  N     O   P      |`
 x   x x   x   x   x x`
-|      Q         H R|`
+|      Q         R S|`
  - - - -x-x- -x- -x- `
     ]]>
   </level>
@@ -3511,17 +3511,17 @@ x       x x     x    `
         x x x   x x x`
 |  D H       I      |`
           x       x  `
-|        J       C  |`
+|        J       K  |`
       x x   x x      `
-|D               K  |`
+|D               L  |`
 x x                  `
-|  L M   N L     C  |`
+|  M N   O M     K  |`
       x       x x x x`
-|              O   P|`
+|              P   Q|`
         x   x x x   x`
-|M Q           K K K|`
+|N R           L L L|`
 x       x            `
-|        R          |`
+|        S          |`
  - - - -x-x- - - - - `
     ]]>
   </level>
@@ -3569,7 +3569,7 @@ x x x x              `
             x        `
 |O       P          |`
 x x           x      `
-|  P F   Q     R N  |`
+|  P Q   R     S N  |`
         x x x        `
 |                   |`
  - - - -x-x- - - -x- `
@@ -3615,13 +3615,13 @@ x     x   x     x   x`
       x     x   x   x`
 |  K   H C   J      |`
 x     x     x   x   x`
-|  J K     C L     M|`
+|  L K     C M     N|`
     x x              `
-|  N O O       P    |`
+|  O P P       Q    |`
 x x       x     x    `
-|Q   O     R        |`
+|R   P     S        |`
             x        `
-|          O        |`
+|          P        |`
  -x- - -x- -x- - - - `
     ]]>
   </level>
@@ -3721,7 +3721,7 @@ x   x       x     x x`
 x x x   x            `
 |  P M   N       Q  |`
     x x              `
-|  R     E       J  |`
+|  R     E       S  |`
  - - -x- - -x-x- -x- `
     ]]>
   </level>
@@ -3815,13 +3815,13 @@ x   x     x     x    `
   x x   x           x`
 |    K     L        |`
           x x        `
-|          M L     J|`
+|          M N     J|`
                   x x`
-|N   M O       L   P|`
+|O   M P       N   Q|`
             x x   x  `
-|          Q        |`
+|          R        |`
     x x   x          `
-|      R            |`
+|      S            |`
  - - -x- - - - -x- - `
     ]]>
   </level>
@@ -3896,7 +3896,7 @@ x   x                `
         x   x        `
 |        P P        |`
 x x       x x   x    `
-|    Q     R     C  |`
+|    Q     R     S  |`
  - - -x- -x-x-x- -x- `
     ]]>
   </level>
@@ -3971,7 +3971,7 @@ x   x       x     x x`
         x     x      `
 |  N O     P     Q  |`
     x   x   x        `
-|  N       R     Q  |`
+|  N       R     S  |`
  - -x- - - - -x-x- - `
     ]]>
   </level>
@@ -4015,13 +4015,13 @@ x x     x     x x    `
               x   x x`
 |I I       J G   K  |`
 x x       x x x      `
-|        L L D      |`
+|        L L M      |`
   x   x     x     x x`
-|    M N       O    |`
+|    N O       P    |`
     x x              `
-|N P Q   Q     D D  |`
+|O Q R   R     M M  |`
     x     x          `
-|    R             S|`
+|    S             T|`
  - -x- -x-x- - -x-x- `
     ]]>
   </level>
@@ -4111,17 +4111,17 @@ x   x                `
 x     x x x x        `
 |      F   I        |`
               x x   x`
-|  F F             J|`
+|  F J             K|`
       x   x   x      `
-|  F             K  |`
+|  F             L  |`
 x         x x x x   x`
-|  F     L M N      |`
+|  J     M N O      |`
     x         x   x x`
-|        M       O  |`
+|        N       P  |`
 x         x          `
 |                   |`
       x         x    `
-|  P     Q         R|`
+|  Q     R         S|`
  - -x- - - -x- - -x- `
     ]]>
   </level>
