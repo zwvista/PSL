@@ -11,7 +11,7 @@ Sequence of moves:
  - - - -
 Number of moves: 5
 Number of vertices examined: 7
-0.00634 [s]
+0.002462 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,7 +26,562 @@ Sequence of moves:
  - - - -
 Number of moves: 6
 Number of vertices examined: 7
-0.004145 [s]
+0.001597 [s]
+
+Level 3
+Sequence of moves: 
+ - - - -
+|>|> v <|
+   - - -
+|^ v|< v|
+ -   - -
+|R|<|v|<|
+ - -    
+|> ^ <|^|
+ - - - -
+Number of moves: 5
+Number of vertices examined: 8
+0.004106 [s]
+
+Level 4
+Sequence of moves: 
+ - - - -
+|>|v|> v|
+ -     -
+|^ >|^|R|
+ - -   -
+|^|^|<|v|
+ - - -  
+|^|> ^ <|
+ - - - -
+Number of moves: 4
+Number of vertices examined: 5
+0.000981 [s]
+
+Level 5
+Sequence of moves: 
+ - - - -
+|> v <|<|
+ - - - -
+|R|< v|<|
+ -   - -
+|^ >|v ^|
+ - - -  
+|^ <|<|<|
+ - - - -
+Number of moves: 5
+Number of vertices examined: 6
+0.001885 [s]
+
+Level 6
+Sequence of moves: 
+ - - - -
+|v|<|> v|
+     - -
+|>|v|> v|
+ -     -
+|^ >|^|R|
+ - - - -
+|> ^|> ^|
+ - - - -
+Number of moves: 6
+Number of vertices examined: 8
+0.001364 [s]
+
+Level 7
+Sequence of moves: 
+ - - - -
+|R|<|<|<|
+ -     -
+|^ v|^|v|
+ - - -  
+|^ <|^|<|
+   - -  
+|>|^|> ^|
+ - - - -
+Number of moves: 5
+Number of vertices examined: 7
+0.003689 [s]
+
+Level 8
+Sequence of moves: 
+ - - - -
+|v >|> v|
+ -   -  
+|R|<|<|<|
+ - -    
+|>|>|^|^|
+     - -
+|^|^ <|^|
+ - - - -
+Number of moves: 5
+Number of vertices examined: 10
+0.003362 [s]
+
+Level 9
+Sequence of moves: 
+ - - - -
+|> v|>|v|
+ - -   -
+|^ v|v|v|
+ -   - -
+|v|>|v|R|
+   -   -
+|> ^|> ^|
+ - - - -
+Number of moves: 5
+Number of vertices examined: 11
+0.002622 [s]
+
+Level 10
+Sequence of moves: 
+ - - - -
+|>|>|>|R|
+   -   -
+|^|< ^|v|
+ -   -  
+|>|v|^ <|
+ - -   -
+|^ >|>|^|
+ - - - -
+Number of moves: 6
+Number of vertices examined: 7
+0.00266 [s]
+
+Level 11
+Sequence of moves: 
+ - - - - -
+|>|v >|> v|
+       -  
+|v|< ^|v|<|
+ - - -   -
+|> v|R|< ^|
+ - - - - -
+|v > ^ <|v|
+ - - - -  
+|> ^ <|^ <|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 12
+0.00581 [s]
+
+Level 12
+Sequence of moves: 
+ - - - - -
+|v >|v|< v|
+ - -   - -
+|v <|<|v|<|
+   -     -
+|>|R|^|< ^|
+   - - - -
+|^|^ <|<|v|
+ - - - -  
+|^ < >|^ <|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 16
+0.0103 [s]
+
+Level 13
+Sequence of moves: 
+ - - - - -
+|>|> v <|v|
+ - - -    
+|v ^|R|^|<|
+   - - -  
+|>|> ^ <|^|
+ - - - - -
+|^|v ^|^ <|
+ -   -   -
+|^|>|^|>|^|
+ - - - - -
+Number of moves: 7
+Number of vertices examined: 8
+0.003594 [s]
+
+Level 14
+Sequence of moves: 
+ - - - - -
+|v <|<|v <|
+   -   - -
+|>|> v|< v|
+ - - - - -
+|> v|> v <|
+ - - - - -
+|> v|v|> v|
+   -   -  
+|^|>|>|R|<|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 17
+0.009507 [s]
+
+Level 15
+Sequence of moves: 
+ - - - - -
+|v >|R|v|<|
+ -   -    
+|>|^|^ <|^|
+   -   - -
+|^|<|>|^ <|
+ -   - - -
+|^|> ^|^|^|
+ - - - - -
+|^|^ <|> ^|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 19
+0.006669 [s]
+
+Level 16
+Sequence of moves: 
+ - - - - -
+|>|> v|v|v|
+ -   - - -
+|^|<|> v|R|
+     - - -
+|>|^|v >|^|
+ - - -   -
+|^ < >|^ <|
+ - - - - -
+|> ^|< > ^|
+ - - - - -
+Number of moves: 9
+Number of vertices examined: 27
+0.008822 [s]
+
+Level 17
+Sequence of moves: 
+ - - - - -
+|v >|v|v <|
+ -     - -
+|>|^|>|v|v|
+ - - -   -
+|v|>|^ >|R|
+   - - - -
+|>|^ v|> ^|
+       - -
+|^|< >|> ^|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 14
+0.0237 [s]
+
+Level 18
+Sequence of moves: 
+ - - - - -
+|v <|<|v <|
+   - - - -
+|>|v|v < ^|
+ -   - - -
+|v|>|v <|v|
+ - - - -  
+|> v < ^|<|
+ - - - -  
+|R|<|< ^|^|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 18
+0.007386 [s]
+
+Level 19
+Sequence of moves: 
+ - - - - -
+|v|v|v <|<|
+ - - - - -
+|> v < ^|<|
+ - - - - -
+|>|R|^ < v|
+   - - - -
+|^ <|v|<|<|
+ - -   - -
+|> ^ <|< ^|
+ - - - - -
+Number of moves: 7
+Number of vertices examined: 12
+0.00444 [s]
+
+Level 20
+Sequence of moves: 
+ - - - - -
+|v <|R|v|<|
+ -   -    
+|v|>|^ <|^|
+       - -
+|>|^|>|^ <|
+ - - - - -
+|v >|^|> ^|
+ -     - -
+|>|^|<|^ <|
+ - - - - -
+Number of moves: 7
+Number of vertices examined: 11
+0.009379 [s]
+
+Level 21
+Sequence of moves: 
+ - - - - -
+|v|v >|v <|
+   -   -  
+|>|v|<|v|^|
+ -   - - -
+|v|>|v >|v|
+   - -   -
+|>|R|<|<|v|
+   - -    
+|^ <|<|^|<|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 10
+0.0045 [s]
+
+Level 22
+Sequence of moves: 
+ - - - - -
+|>|>|R|> v|
+ -   - -  
+|^|< ^|<|<|
+   - - -  
+|>|^ <|>|^|
+ -       -
+|^|v >|^ <|
+ - - - - -
+|^ >|>|> ^|
+ - - - - -
+Number of moves: 9
+Number of vertices examined: 25
+0.009713 [s]
+
+Level 23
+Sequence of moves: 
+ - - - - -
+|v|>|>|R|v|
+       - -
+|>|^|<|> v|
+   -     -
+|^|>|^|<|<|
+ -   -   -
+|^|^ <|^|^|
+ - - - -  
+|^ <|< ^|<|
+ - - - - -
+Number of moves: 9
+Number of vertices examined: 13
+0.006027 [s]
+
+Level 24
+Sequence of moves: 
+ - - - - -
+|v|> v|< v|
+   - - - -
+|>|v|<|v <|
+ -       -
+|^|>|v|>|v|
+   -   - -
+|v|^|>|v|R|
+         -
+|>|>|^|> ^|
+ - - - - -
+Number of moves: 10
+Number of vertices examined: 20
+0.006853 [s]
+
+Level 25
+Sequence of moves: 
+ - - - - -
+|v|> v <|<|
+   - - - -
+|>|>|R|v <|
+   - - -  
+|^|>|^ <|^|
+ -   - - -
+|^|^ < v|<|
+   - - - -
+|>|^|^|< ^|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 14
+0.009053 [s]
+
+Level 26
+Sequence of moves: 
+ - - - - -
+|v|v|< > v|
+ - - - - -
+|> v <|v|<|
+ - - -    
+|v|v ^|>|v|
+ - -     -
+|v <|<|<|v|
+   -   -  
+|>|R|>|^ <|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 16
+0.009988 [s]
+
+Level 27
+Sequence of moves: 
+ - - - - -
+|v <|<|v|<|
+ - -     -
+|> v ^|< ^|
+ - - - - -
+|R|<|^ <|<|
+ - -   - -
+|^ <|v|<|^|
+ - - -    
+|^ <|<|^|<|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 15
+0.00678 [s]
+
+Level 28
+Sequence of moves: 
+ - - - - -
+|v|> v|v|v|
+ - - -   -
+|v|< >|>|v|
+ - -   - -
+|> v|^ v|<|
+ - - - -  
+|^|> v|> v|
+     -   -
+|>|^|>|^|R|
+ - - - - -
+Number of moves: 10
+Number of vertices examined: 26
+0.009949 [s]
+
+Level 29
+Sequence of moves: 
+ - - - - -
+|v <|>|v|<|
+ - -     -
+|v ^|v|<|v|
+ - -   -  
+|R|v|<|<|<|
+ -     - -
+|^|<|^|< v|
+     -   -
+|>|^ >|^|<|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 11
+0.015866 [s]
+
+Level 30
+Sequence of moves: 
+ - - - - -
+|>|> v <|<|
+ - - - - -
+|v|v|> v <|
+     - - -
+|>|>|v >|v|
+ - - - - -
+|>|>|>|v <|
+   - -   -
+|^|>|^ >|R|
+ - - - - -
+Number of moves: 9
+Number of vertices examined: 18
+0.005813 [s]
+
+Level 31
+Sequence of moves: 
+ - - - - - -
+|>|>|> v|< v|
+ - - - -   -
+|^ > v <|^|v|
+ - - - - -  
+|>|>|>|R|^ <|
+     - - - -
+|^|v ^ <|<|<|
+ - - - -    
+|^|> ^|^ >|^|
+ -   - - - -
+|^|<|^|^ <|^|
+ - - - - - -
+Number of moves: 12
+Number of vertices examined: 44
+0.02582 [s]
+
+Level 32
+Sequence of moves: 
+ - - - - - -
+|> v|v <|v <|
+   - - - - -
+|^|> v <|v ^|
+ - - -     -
+|>|R|<|^|<|^|
+   - - - -  
+|^ <|^ <|v <|
+ - - - - - -
+|> ^ <|v|< ^|
+ - - -   - -
+|^ <|^|< > ^|
+ - - - - - -
+Number of moves: 12
+Number of vertices examined: 23
+0.020318 [s]
+
+Level 33
+Sequence of moves: 
+ - - - - - -
+|> v|> v|<|<|
+ - -   - -  
+|v <|<|v >|^|
+ - - -     -
+|v|R|<|<|^|<|
+   - - - -  
+|> ^ <|^ <|^|
+ - - - - - -
+|^|>|^|<|^ <|
+ -         -
+|^|^|>|^|>|^|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 17
+0.010123 [s]
+
+Level 34
+Sequence of moves: 
+ - - - - - -
+|v <|<|<|v|<|
+   - - - - -
+|>|R|< v|<|^|
+   - - - - -
+|^|< ^|<|v|<|
+ - - -      
+|v ^ <|v|<|^|
+ -   - - - -
+|v|>|^ <|>|^|
+   - -     -
+|> ^ <|>|^ <|
+ - - - - - -
+Number of moves: 9
+Number of vertices examined: 111
+0.216451 [s]
+
+Level 35
+Sequence of moves: 
+ - - - - - -
+|v|<|v|v|v|<|
+     - -   -
+|>|v|< v|< ^|
+ -   - - - -
+|v|>|v|< ^|<|
+   -   -    
+|>|>|>|R|v|^|
+   -   - - -
+|^|>|^ <|<|v|
+ -   - - -  
+|^|^ <|<|^ <|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 22
+0.018395 [s]
 
 Level 36
 Sequence of moves: 
@@ -45,32 +600,2058 @@ Sequence of moves:
  - - - - - -
 Number of moves: 10
 Number of vertices examined: 23
-0.032665 [s]
+0.013235 [s]
 
-Level 200
+Level 37
 Sequence of moves: 
- - - - - - - - - - -
-|>|>|v|> v|v >|> v <|
- -     - - - - - - -
-|^ v|> ^|v|> ^|v < ^|
- - - - - -   - -   -
-|^|v ^ < >|v|v|>|>|v|
-   - - - - -   - - -
-|>|> v ^ <|v|> ^|< v|
- - - - - -   - -   -
-|v < >|v|v|>|v >|>|R|
- -   - - - - -   - -
-|v|^|v|<|v < >|^ <|^|
-   -     - - - - - -
-|>|v|>|v|> v ^ <|>|^|
-     - - - - - -    
-|^|>|>|R|<|v ^|< ^|<|
- - - - -       - - -
-|> v|>|^|^|< >|v|> ^|
-   -       - -   -  
-|^|>|^|>|>|> ^|> ^|<|
- - - - - - - - - - -
-Number of moves: 31
-Number of vertices examined: 2989
-14.975 [s]
+ - - - - - -
+|> v <|v|<|<|
+ - - -   - -
+|v|<|v|<|v|<|
+ -   - -    
+|> v|R|<|<|v|
+   - - - - -
+|^|> ^ <|<|<|
+ - - - -   -
+|^ >|^ >|^|<|
+ - - - - -  
+|> ^ <|^ <|^|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 41
+0.027991 [s]
 
+Level 38
+Sequence of moves: 
+ - - - - - -
+|v|v <|v|<|v|
+   - -     -
+|>|> v|<|^|v|
+ - -        
+|v|R|<|>|v|<|
+   - -   - -
+|> ^ <|^|> v|
+ - - - - -  
+|^ <|^ <|v|<|
+   - - -    
+|>|^ <|^ <|^|
+ - - - - - -
+Number of moves: 12
+Number of vertices examined: 26
+0.015691 [s]
+
+Level 39
+Sequence of moves: 
+ - - - - - -
+|> v <|<|<|v|
+   - - -    
+|^|>|R|v|^|<|
+ -   -      
+|^|^|<|<|>|^|
+   -   - - -
+|>|^|^|<|v|^|
+ - -       -
+|^|>|>|^|<|^|
+     - -    
+|>|^ <|> ^|<|
+ - - - - - -
+Number of moves: 10
+Number of vertices examined: 19
+0.023102 [s]
+
+Level 40
+Sequence of moves: 
+ - - - - - -
+|v <|v|<|<|v|
+   -   -   -
+|>|R|<|v|^|<|
+   -     -  
+|^|<|^|<|v|^|
+ -   -     -
+|> ^|>|^|>|^|
+ - -   -   -
+|> ^|^|<|^ <|
+ - - -   - -
+|^ <|^|^|<|^|
+ - - - - - -
+Number of moves: 9
+Number of vertices examined: 32
+0.035437 [s]
+
+Level 41
+Sequence of moves: 
+ - - - - - -
+|> v <|v|>|v|
+ - - -     -
+|v|< v|>|v <|
+   - -   - -
+|>|v <|<|< ^|
+ -   -     -
+|>|>|R|^|v|v|
+ - - - - -  
+|> ^ < v|v|<|
+ - - - -   -
+|^ <|^ <|< ^|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 19
+0.017315 [s]
+
+Level 42
+Sequence of moves: 
+ - - - - - -
+|v|> v <|v <|
+ -   - - -  
+|>|^|R|v|<|^|
+   - -     -
+|^ v|^ <|^|v|
+ -   - - -  
+|^|<|v|<|^|<|
+ - -   - - -
+|>|^|< ^|<|<|
+     - -    
+|^|>|^|^ >|^|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 33
+0.022933 [s]
+
+Level 43
+Sequence of moves: 
+ - - - - - -
+|v|> v <|>|v|
+     - -    
+|>|^|R|< v|<|
+   - -   - -
+|^|< >|^|< v|
+ -   - - - -
+|>|^|< >|^|<|
+   - - - -  
+|^|> ^ <|>|^|
+ - - - - - -
+|^|^|^|> ^ <|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 39
+0.031337 [s]
+
+Level 44
+Sequence of moves: 
+ - - - - - -
+|v <|<|<|v|<|
+   - -      
+|>|v <|v|<|v|
+ - -   - - -
+|v <|^|<|^|<|
+   - -      
+|>|R|> ^|v|^|
+   - -     -
+|^|^|<|v|<|v|
+ -     - -  
+|^|>|^|<|^ <|
+ - - - - - -
+Number of moves: 12
+Number of vertices examined: 23
+0.021908 [s]
+
+Level 45
+Sequence of moves: 
+ - - - - - -
+|v|< v|<|<|<|
+ - - - - -  
+|v|>|v|^|<|^|
+     -   - -
+|>|v <|<|^|<|
+   -   -    
+|^|R|^|<|<|v|
+ - - - - - -
+|>|^ v|^|<|v|
+   -        
+|^ <|<|<|^|<|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 23
+0.024121 [s]
+
+Level 46
+Sequence of moves: 
+ - - - - - -
+|> v <|<|v|<|
+ - - - -    
+|v|> v ^|<|^|
+   - -   - -
+|>|v <|<|v <|
+   -   - -  
+|^|R|> ^|<|^|
+ - - - - - -
+|^ <|^|<|>|^|
+ - -   - - -
+|> ^|<|<|<|^|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 29
+0.02261 [s]
+
+Level 47
+Sequence of moves: 
+ - - - - - -
+|> v|v <|v <|
+ - -   - - -
+|^ >|>|v|<|v|
+ - - -   - -
+|^|^ v|<|v|<|
+   -   -    
+|> v|>|R|<|v|
+ - - - -   -
+|^ > v <|^|v|
+ - - - - -  
+|^ >|>|> ^ <|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 31
+0.025691 [s]
+
+Level 48
+Sequence of moves: 
+ - - - - - -
+|>|v|v <|> v|
+       - -  
+|v|<|>|v <|<|
+ -   - - - -
+|v|>|v|> v|v|
+       -   -
+|>|^|>|R|<|v|
+   -   - -  
+|^|>|^|>|^|<|
+ -   - -   -
+|>|^|< ^|<|<|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 26
+0.017715 [s]
+
+Level 49
+Sequence of moves: 
+ - - - - - -
+|v|v|< v|<|v|
+   -   - -  
+|>|v|^|<|^ <|
+     -   - -
+|^|>|R|^|<|<|
+ -   - -   -
+|>|^ <|<|v ^|
+   - -   - -
+|^ <|<|^|<|<|
+ - - - - -  
+|^|< ^|<|<|^|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 25
+0.017919 [s]
+
+Level 50
+Sequence of moves: 
+ - - - - - -
+|v <|v <|v|v|
+   - - -   -
+|>|>|R|< >|v|
+   - - - - -
+|^|> ^ <|<|<|
+ - - - - -  
+|v > ^|^|>|^|
+ - - - - - -
+|>|^ <|^|<|^|
+   - - -    
+|^ <|^ <|^|<|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 221
+0.232463 [s]
+
+Level 51
+Sequence of moves: 
+ - - - - - - -
+|v|v|< >|v <|<|
+ - -   - -   -
+|v|v ^|<|<|> ^|
+ - - - -   - -
+|> v <|<|^ v|<|
+ - -     - - -
+|^|R|^|^|^ <|<|
+ - - - - - - -
+|^ <|>|^ <|<|<|
+ - - - - - -  
+|> ^ <|<|^ <|v|
+ - - - - - - -
+|^|< ^|^ <|^ <|
+ - - - - - - -
+Number of moves: 11
+Number of vertices examined: 24
+0.033633 [s]
+
+Level 52
+Sequence of moves: 
+ - - - - - - -
+|> v <|<|v <|<|
+   - -   -   -
+|^|R|<|^|<|^|<|
+ - - - - - -  
+|> ^|<|^|<|>|v|
+ -     -   - -
+|^|<|^|> v|<|<|
+ - - - - - - -
+|>|^|^|<|<|< ^|
+   - -   - - -
+|^ <|>|^|<|^|<|
+ - - - -   - -
+|> ^ <|^|^ >|^|
+ - - - - - - -
+Number of moves: 14
+Number of vertices examined: 93
+0.165938 [s]
+
+Level 53
+Sequence of moves: 
+ - - - - - - -
+|v|v|v|<|<|<|v|
+   -     -   -
+|>|R|<|v|<|^|<|
+   - - -   - -
+|^ <|^ <|^|>|^|
+ - - - - - -  
+|> ^|v|^ v <|<|
+ - -   - - - -
+|^ <|>|^ <|<|^|
+       - - - -
+|v >|^|v|<|v|<|
+ - - -       -
+|> ^|<|<|^|<|^|
+ - - - - - - -
+Number of moves: 19
+Number of vertices examined: 1723
+4.73438 [s]
+
+Level 54
+Sequence of moves: 
+ - - - - - - -
+|> v|v|v <|v|<|
+   - - - -   -
+|^|>|v <|^|<|v|
+ -     - -    
+|>|^|>|R|^|^|<|
+   - - -      
+|^|>|>|^|<|>|^|
+ -   -   - - -
+|^|<|^|<|<|v ^|
+     - - - -  
+|v|^|<|^ <|<|<|
+   - - -     -
+|>|> ^ <|>|> ^|
+ - - - - - - -
+Number of moves: 16
+Number of vertices examined: 50
+0.08205 [s]
+
+Level 55
+Sequence of moves: 
+ - - - - - - -
+|v|v|< >|> v <|
+       - - - -
+|>|>|v|> v <|<|
+ - - - - - - -
+|v|v|R|<|< > v|
+ -   -     - -
+|v|>|^|^|^|<|<|
+       - -   -
+|>|^|<|<|<|v|<|
+     - -   -  
+|^|<|>|> ^|v ^|
+ - -   - - - -
+|>|>|^ <|^ <|^|
+ - - - - - - -
+Number of moves: 19
+Number of vertices examined: 1210
+1.22405 [s]
+
+Level 56
+Sequence of moves: 
+ - - - - - - -
+|v|> v|v <|> v|
+     - - -   -
+|>|^|R|<|^|<|<|
+   - -     - -
+|^|> ^ v|<|^|<|
+ - - - - -    
+|> ^ <|<|<|<|^|
+ - - - -   - -
+|^|^|^|<|>|v <|
+ - - - - - - -
+|^ v <|<|<|<|^|
+ - - - -   - -
+|^|< ^ >|>|^ <|
+ - - - - - - -
+Number of moves: 14
+Number of vertices examined: 27
+0.027015 [s]
+
+Level 57
+Sequence of moves: 
+ - - - - - - -
+|v >|>|v|v <|v|
+ - - - - -    
+|>|^|v|>|R|^|<|
+ -       - -  
+|v >|>|^|^ <|^|
+ - -   - - - -
+|>|^ <|^|>|^|<|
+ - - - - -    
+|> ^|v ^|^|<|^|
+ - - - - - - -
+|^ < > v|^|v <|
+ - - - - - - -
+|> ^ <|> ^ <|<|
+ - - - - - - -
+Number of moves: 17
+Number of vertices examined: 363
+0.336245 [s]
+
+Level 58
+Sequence of moves: 
+ - - - - - - -
+|>|>|>|v|<|> v|
+   - - -   -  
+|^|>|>|v >|v|<|
+ - -   - -   -
+|^|^ v|>|v|>|v|
+   - - - -   -
+|v|>|>|>|R|<|v|
+   - -   -    
+|>|^|< ^|<|^|<|
+ -   - -   -  
+|v|>|^|v ^ >|^|
+   - - - - - -
+|> ^|^ <|> ^ <|
+ - - - - - - -
+Number of moves: 17
+Number of vertices examined: 92
+0.109126 [s]
+
+Level 59
+Sequence of moves: 
+ - - - - - - -
+|>|v >|>|>|v <|
+ - -   - - - -
+|v >|^ <|R|<|v|
+ - - - - - -  
+|>|^ >|v|> ^ <|
+ - - -   - - -
+|^ >|^ >|^|<|v|
+ - - - - -    
+|> ^|^|v >|^|<|
+ - - - - - -  
+|^|<|v >|^|> ^|
+ - - -   - - -
+|>|^ >|^|>|^ <|
+ - - - - - - -
+Number of moves: 17
+Number of vertices examined: 165
+0.613863 [s]
+
+Level 60
+Sequence of moves: 
+ - - - - - - -
+|v <|v|< v|<|<|
+ - - -   - - -
+|> v <|^|<|^|v|
+   - - - -    
+|^|>|R|<|^|v|<|
+ -   -       -
+|^|< ^|^|<|<|v|
+   - - - - -  
+|>|v ^ <|<|^ <|
+ - - - - - - -
+|^|>|> ^|<|^|<|
+ - - - - - - -
+|> ^|^|<|^ <|<|
+ - - - - - - -
+Number of moves: 15
+Number of vertices examined: 26
+0.032734 [s]
+
+Level 61
+Sequence of moves: 
+ - - - - - - -
+|>|>|v <|>|R|<|
+ - - -   - -  
+|> v|>|> ^|>|^|
+ - -   - -   -
+|^ >|^ <|<|^|<|
+ - - - - - -  
+|^ >|> ^ v|>|^|
+ - - - -   - -
+|v|R|>|v|<|^ <|
+   - - - - - -
+|>|^ v|<|<|>|^|
+   -   -     -
+|^ <|< >|^|<|<|
+ - - - - - - -
+Number of moves: 14
+Number of vertices examined: 29
+0.035096 [s]
+
+Level 62
+Sequence of moves: 
+ - - - - - - -
+|v|>|v|>|v <|<|
+       - - - -
+|>|^|>|R|<|^|<|
+   -   - -    
+|^|>|^|> v <|^|
+ -   - - - - -
+|>|^ <|<|<|<|<|
+   - - -      
+|^|^|< >|^|>|v|
+ - -   - - - -
+|^ >|^|>|^|v <|
+ - - -   - - -
+|> ^|< ^|^ <|^|
+ - - - - - - -
+Number of moves: 19
+Number of vertices examined: 69
+0.173347 [s]
+
+Level 63
+Sequence of moves: 
+ - - - - - - -
+|v|<|v <|<|v <|
+ -   - - - -  
+|> v|>|v|v|<|^|
+ - - - -   - -
+|v >|v <|<|v|v|
+ - - -   -    
+|v|>|R|^|<|<|<|
+     - -   - -
+|>|^|^ <|v|<|<|
+   - -   - -  
+|^ <|^|v|<|v ^|
+ - - - -   - -
+|^|> ^ <|^|<|^|
+ - - - - - - -
+Number of moves: 15
+Number of vertices examined: 26
+0.059964 [s]
+
+Level 64
+Sequence of moves: 
+ - - - - - - -
+|v|< > v|< > v|
+ - - - - - - -
+|> v|<|>|>|v|<|
+ - -   -   -  
+|v >|> v|v|v|v|
+ - - - -     -
+|>|v >|R|<|<|v|
+     - - -    
+|v|<|> ^ <|^|<|
+ - - - - - - -
+|>|> ^|>|^ <|<|
+   - -   - -  
+|^|^|^ <|^|^|^|
+ - - - - - - -
+Number of moves: 16
+Number of vertices examined: 22
+0.03227 [s]
+
+Level 65
+Sequence of moves: 
+ - - - - - - -
+|v >|v|>|v|<|<|
+ -     -     -
+|>|^|>|R|<|>|v|
+   -   - - - -
+|^|>|^|^ <|<|<|
+ -   - - - - -
+|^|^ v|>|> ^|^|
+ - - -   -   -
+|^|^|>|^ <|< v|
+ - - - - - - -
+|v|^|< >|>|^ <|
+ - - - -   - -
+|> ^|^ >|^ <|^|
+ - - - - - - -
+Number of moves: 16
+Number of vertices examined: 41
+0.096583 [s]
+
+Level 66
+Sequence of moves: 
+ - - - - - - -
+|>|v <|v >|v|<|
+     -   - -  
+|v|>|v|<|v|> v|
+ - -   -   - -
+|v|v|<|^ <|v <|
+       - - - -
+|>|>|>|>|v < ^|
+ - - -   -   -
+|v >|R|<|>|>|v|
+ -   -     -  
+|>|^|>|v|<|v|<|
+   - - -     -
+|^ <|<|<|^|< ^|
+ - - - - - - -
+Number of moves: 17
+Number of vertices examined: 33
+0.021509 [s]
+
+Level 67
+Sequence of moves: 
+ - - - - - - -
+|> v|<|>|> v|<|
+ - -     - -  
+|v|> v|^ <|>|v|
+   - - -   - -
+|>|R|<|<|v|<|<|
+   - - - - - -
+|^|^|<|<|<|<|^|
+ - -   - -   -
+|^ >|^|>|^|>|v|
+ - - -   - - -
+|>|^ >|^ <|v|<|
+   -   - -    
+|^ <|<|> ^ <|^|
+ - - - - - - -
+Number of moves: 16
+Number of vertices examined: 80
+0.137291 [s]
+
+Level 68
+Sequence of moves: 
+ - - - - - - -
+|v|> v|>|v|<|<|
+     - -      
+|>|^|R|v|<|>|v|
+   - -   -   -
+|^ <|<|<|v|^ v|
+ - -   -   - -
+|>|^ >|^ <|<|<|
+   - - - -   -
+|^ <|^|<|<|v|<|
+ - -   - - - -
+|^|^|>|^|^|v|^|
+ - -   - -   -
+|^ <|<|^ <|<|<|
+ - - - - - - -
+Number of moves: 16
+Number of vertices examined: 37
+0.061508 [s]
+
+Level 69
+Sequence of moves: 
+ - - - - - - -
+|v|<|v|<|v|>|v|
+ -     - -   -
+|v|v|<|v <|<|<|
+ - - - - - -  
+|v|R|^ < v|<|v|
+   - - - - - -
+|> ^ <|^|< ^|<|
+ - - -   - -  
+|^ <|^|<|^ <|^|
+   - - - - - -
+|v|^ <|^ <|^|v|
+   - - - - -  
+|>|> ^ <|<|^ <|
+ - - - - - - -
+Number of moves: 13
+Number of vertices examined: 26
+0.05994 [s]
+
+Level 70
+Sequence of moves: 
+ - - - - - - -
+|v <|<|> v <|<|
+ - - - - - - -
+|v|R|<|v|< ^|<|
+   - -   -    
+|>|^|^ <|<|v|^|
+   - - -   -  
+|^ <|>|> v|<|v|
+ - -   - - - -
+|v ^|<|^|v >|v|
+ - - - - - - -
+|v|^|v|<|<|v <|
+ - -   -   -  
+|> ^ <|> ^|<|^|
+ - - - - - - -
+Number of moves: 16
+Number of vertices examined: 338
+0.592906 [s]
+
+Level 71
+Sequence of moves: 
+ - - - - - - -
+|v >|>|> v|> v|
+ -     - - -  
+|v|^|<|^ >|v|<|
+   - -   -   -
+|>|>|v|v|v|<|v|
+   -   - - -  
+|^|v|>|v|v|v|<|
+ -   -   -    
+|^ >|^ >|R|<|^|
+ - - - - -   -
+|^|v >|v|^ >|^|
+ - -     - - -
+|>|>|^|> ^ <|<|
+ - - - - - - -
+Number of moves: 15
+Number of vertices examined: 134
+0.087607 [s]
+
+Level 72
+Sequence of moves: 
+ - - - - - - -
+|>|>|>|v|<|<|<|
+ -   -     -  
+|>|^|R|<|>|>|^|
+ - - -   -   -
+|>|> ^|> ^|^|^|
+   -   - -    
+|^|v|<|^|<|<|<|
+ -   -     - -
+|^ <|^|<|^|^ <|
+ - - - - - - -
+|v|^|v|^|<|^|^|
+ - -   - - - -
+|> ^ <|<|<|<|<|
+ - - - - - - -
+Number of moves: 16
+Number of vertices examined: 205
+0.62478 [s]
+
+Level 73
+Sequence of moves: 
+ - - - - - - -
+|v|v <|<|< > v|
+ -   - - - - -
+|v|>|v <|>|v|<|
+ - - - - -   -
+|v|v < ^|v|< ^|
+     - -   - -
+|>|>|R|^|<|^ <|
+ - - -   -   -
+|v ^ <|<|<|>|^|
+   - -   - -  
+|>|> ^|>|^ <|v|
+ - - - - - -  
+|^|> ^ <|<|<|<|
+ - - - - - - -
+Number of moves: 17
+Number of vertices examined: 144
+0.208996 [s]
+
+Level 74
+Sequence of moves: 
+ - - - - - - -
+|>|v|> v <|<|<|
+       - - -  
+|v|>|^|v >|^|^|
+ - - -       -
+|> ^ v|< ^|<|^|
+ - - - - - -  
+|>|v|R|^ >|^|v|
+     - - - -  
+|^|> ^|<|^|^|<|
+ - - - - -   -
+|v < >|^ <|> v|
+ - - - - -   -
+|>|> ^|<|<|<|<|
+ - - - - - - -
+Number of moves: 16
+Number of vertices examined: 162
+0.238587 [s]
+
+Level 75
+Sequence of moves: 
+ - - - - - - -
+|>|v|>|>|v|>|v|
+ -   -   -    
+|^ >|>|^ v|v|<|
+ - - - - -    
+|^ > v|>|v|<|^|
+ - - -   -   -
+|>|^ >|^|R|^|^|
+   - - - - - -
+|v ^|v|^|<|> ^|
+ - -   -      
+|v ^|< >|^|< v|
+   - -   - - -
+|>|> ^|^|> ^ <|
+ - - - - - - -
+Number of moves: 16
+Number of vertices examined: 179
+0.254386 [s]
+
+Level 76
+Sequence of moves: 
+ - - - - - - -
+|>|> v <|v|v|<|
+   - - - -   -
+|v|> v <|v|<|^|
+ -   - -      
+|v|^|R|<|<|^|v|
+ - - -     -  
+|>|^ >|^|^|v|<|
+   - - - -   -
+|^ <|v|^ <|<|^|
+   -   - -   -
+|v|^ <|>|v|^|<|
+ - -   -   - -
+|> ^|>|>|>|>|^|
+ - - - - - - -
+Number of moves: 16
+Number of vertices examined: 53
+0.108624 [s]
+
+Level 77
+Sequence of moves: 
+ - - - - - - -
+|>|v|v|<|<|< v|
+   - -   -   -
+|v|v|> v ^|>|v|
+ - - - - - -  
+|v|v <|v|< v|<|
+   -       -  
+|>|R|^|<|^|<|^|
+   - - - -   -
+|^|^ <|v|<|v|^|
+ - - -   - -  
+|v >|^|<|<|<|v|
+ -   -   -    
+|>|^ <|>|>|^|<|
+ - - - - - - -
+Number of moves: 17
+Number of vertices examined: 245
+0.48262 [s]
+
+Level 78
+Sequence of moves: 
+ - - - - - - -
+|>|> v <|<|<|<|
+ - - - -   - -
+|v|>|>|v|v ^|v|
+   - -   - -  
+|> ^|R|<|v|<|<|
+ - - -     -  
+|^ v|>|^|<|<|^|
+ - -   -   - -
+|^ >|^ <|>|^ <|
+ - - - -     -
+|^|^|>|^|^|>|^|
+ - -   - - - -
+|>|^|<|<|^|^ <|
+ - - - - - - -
+Number of moves: 15
+Number of vertices examined: 163
+0.238866 [s]
+
+Level 79
+Sequence of moves: 
+ - - - - - - -
+|v|> v|>|v <|v|
+ - - - - - - -
+|> v|>|v|v <|v|
+ - - - - -    
+|v <|v >|R|^|<|
+ - - -   -    
+|>|v|>|^ <|>|^|
+     - - - - -
+|v|< ^|>|^ v|^|
+ -   - -   - -
+|>|>|^|^|<|> v|
+ - - - - -   -
+|> ^|>|>|^ <|<|
+ - - - - - - -
+Number of moves: 15
+Number of vertices examined: 387
+0.398764 [s]
+
+Level 80
+Sequence of moves: 
+ - - - - - - -
+|> v <|>|v|> v|
+ - - -   - -  
+|v <|>|v|<|<|<|
+   -     - -  
+|>|R|<|<|<|<|^|
+ - -   - - - -
+|>|v ^|>|v|^|<|
+ - - - -     -
+|> v ^|v|<|<|^|
+ - - - - - -  
+|v <|^|<|>|^|v|
+   - - -   -  
+|>|>|^|<|^ <|<|
+ - - - - - - -
+Number of moves: 17
+Number of vertices examined: 132
+0.303752 [s]
+
+Level 81
+Sequence of moves: 
+ - - - - - - - -
+|>|>|> v <|<|<|v|
+   - - - - - -  
+|^|>|v|v|v|<|v|<|
+ -     -        
+|>|^|>|R|<|^|<|^|
+   -   -   - - -
+|^|^|^|>|^|<|^|^|
+ - -     -      
+|^|^|<|^ <|^|<|<|
+ - - - - -   - -
+|^ >|^|<|^|v|<|<|
+ - - -   - - - -
+|v ^|>|^|^ <|>|^|
+ - -   - - - - -
+|> ^|<|<|^ <|<|^|
+ - - - - - - - -
+Number of moves: 20
+Number of vertices examined: 41
+0.059082 [s]
+
+Level 82
+Sequence of moves: 
+ - - - - - - - -
+|> v|>|v <|<|<|<|
+ - - - - - - -  
+|v|v|v|>|v|v|<|v|
+ - -         - -
+|v >|>|v|<|<|<|<|
+ - - -   - - - -
+|> ^|R|<|<|<|v|<|
+   - -   - -    
+|v|> v|^|v|^ <|v|
+ -   - -   - - -
+|>|^|> ^ <|<|^|v|
+   - - - - - -  
+|^|> ^ <|v <|v|<|
+ - - - - - - -  
+|^|^|<|<|<|<|<|^|
+ - - - - - - - -
+Number of moves: 20
+Number of vertices examined: 36
+0.060248 [s]
+
+Level 83
+Sequence of moves: 
+ - - - - - - - -
+|>|v|> v <|v <|v|
+ -   - - - - -  
+|v|>|v <|^ <|^ <|
+   -   -     - -
+|> ^|>|R|v >|^|<|
+ - -   - - -    
+|v >|^|<|<|v|<|^|
+ -   -     - - -
+|>|^|> ^|v|<|>|^|
+   - - - -     -
+|^|>|^ <|v|^|^|<|
+ -     -   - -  
+|^|^|>|^ <|^|<|v|
+ - - - - - -   -
+|>|> ^|<|<|<|^|<|
+ - - - - - - - -
+Number of moves: 19
+Number of vertices examined: 35
+0.056935 [s]
+
+Level 84
+Sequence of moves: 
+ - - - - - - - -
+|> v|< v|>|> v <|
+ -         - - -
+|v|<|^ >|^|v|< ^|
+   - - -     -  
+|>|v|> v|v|<|<|v|
+     - - - - - -
+|^|>|^ >|R|^|v <|
+ -   - - -   - -
+|^ <|>|v ^|<|< ^|
+ - -     - - -  
+|^|>|^|>|> ^ <|v|
+ -   - - - -   -
+|>|^|>|v ^ <|v|<|
+   - - - - - -  
+|^|^ < >|>|^ <|^|
+ - - - - - - - -
+Number of moves: 22
+Number of vertices examined: 196
+0.221566 [s]
+
+Level 85
+Sequence of moves: 
+ - - - - - - - -
+|v >|> v <|v <|<|
+ - - - - - - - -
+|>|> v|>|> v <|v|
+   - - - - - -  
+|^|v >|>|R|<|<|<|
+ - -     - -   -
+|^ >|^|^|^ >|^|<|
+ - - - - -   -  
+|^|> ^|^|^|<|>|^|
+ - - - - - -   -
+|>|^|<|^|>|^ < v|
+     - - - - - -
+|^|>|^|> ^ <|^|<|
+ - - - - - - -  
+|>|^ >|^|^|^|>|^|
+ - - - - - - - -
+Number of moves: 19
+Number of vertices examined: 32
+0.070483 [s]
+
+Level 86
+Sequence of moves: 
+ - - - - - - - -
+|v|> v|>|v|> v <|
+ -   - -   - - -
+|v|^|>|^ >|v|<|v|
+   - - - -     -
+|>|v|v|>|R|<|^|v|
+       - -   - -
+|^|>|> ^|<|^|< v|
+ - - - -   -   -
+|^ >|>|>|^|> ^|<|
+ - - - - - - -  
+|v ^ <|>|>|>|^|^|
+ -   -       - -
+|v|>|^ <|^|v|>|^|
+ - - - - - - - -
+|> ^|> ^ <|>|^ <|
+ - - - - - - - -
+Number of moves: 21
+Number of vertices examined: 111
+0.190538 [s]
+
+Level 87
+Sequence of moves: 
+ - - - - - - - -
+|v|v|v|v <|<|v <|
+ - - - - - - -  
+|v|v <|<|<|^ v|^|
+ -   - - - -   -
+|v|>|R|> ^|<|<|^|
+   - -       -  
+|> ^ <|v <|> ^|<|
+ - - - - -   - -
+|^|> ^ <|<|v|<|^|
+ - - - -   - - -
+|^|^|<|^|^|< ^|<|
+ - -       - - -
+|>|v|^|>|>|^ <|^|
+   - - - - - - -
+|^|> ^|> ^ <|^ <|
+ - - - - - - - -
+Number of moves: 17
+Number of vertices examined: 35
+0.095034 [s]
+
+Level 88
+Sequence of moves: 
+ - - - - - - - -
+|>|v <|> v <|<|v|
+     - - - - -  
+|v|>|v|<|<|v|<|<|
+ - - -   - - -  
+|> v <|v|v|<|> ^|
+ - - - -     - -
+|>|>|R|<|<|> ^|<|
+ - - - - -   -  
+|> ^|^ <|<|v|<|^|
+ - - -     -   -
+|^ <|^|>|^|<|^|^|
+   - - - - - - -
+|>|> ^ v|< v ^|^|
+ - -   - - - - -
+|^|^|<|<|^ <|<|<|
+ - - - - - - - -
+Number of moves: 19
+Number of vertices examined: 47
+0.052493 [s]
+
+Level 89
+Sequence of moves: 
+ - - - - - - - -
+|> v|<|v|v <|v|v|
+ - -     -   -  
+|v >|v|<|v|^|<|<|
+ - - - - - -   -
+|v <|> v|v|<|v ^|
+   - -     - - -
+|>|v|v|<|<|v <|<|
+     - - - - - -
+|^|>|R|<|<|< ^|v|
+ -   - -   - -  
+|>|^|>|^ >|^|^ <|
+     - - - - - -
+|^|<|^ <|^|^ <|<|
+ - - - - - - -  
+|> ^|<|^ <|^|> ^|
+ - - - - - - - -
+Number of moves: 20
+Number of vertices examined: 43
+0.12167 [s]
+
+Level 90
+Sequence of moves: 
+ - - - - - - - -
+|v|v|>|v|v <|<|v|
+ - - - - - -    
+|v >|>|v <|<|v|<|
+ - - - - - - -  
+|v|>|>|R|<|v <|^|
+     - -   -   -
+|>|^|v >|^|<|^|<|
+   -     - - -  
+|^ <|< ^|<|<|<|v|
+ - - - -   - - -
+|>|> ^ <|^ v|<|<|
+   - - - - -    
+|^|>|^|^ <|<|>|^|
+ - - - - - - - -
+|>|>|>|^|^ <|<|^|
+ - - - - - - - -
+Number of moves: 19
+Number of vertices examined: 63
+0.171554 [s]
+
+Level 91
+Sequence of moves: 
+ - - - - - - - -
+|v|v|<|v|< >|v <|
+ - -   -   -   -
+|v|> v|v|v|^ >|v|
+     - - - - - -
+|>|^|v|>|v|<|v <|
+   -   -   - - -
+|^ <|>|R|<|^ <|v|
+ - - - -   - -  
+|>|^|^ >|^|<|^ <|
+   - - - -   - -
+|^|<|>|^|^|^|<|^|
+ - -   -   - - -
+|v ^ <|<|v <|^ <|
+ - - -   - - - -
+|> ^ <|^|< ^|<|^|
+ - - - - - - - -
+Number of moves: 19
+Number of vertices examined: 1188
+1.3 [s]
+
+Level 92
+Sequence of moves: 
+ - - - - - - - -
+|v|v <|>|v|v|< v|
+     -   -   - -
+|>|>|v|v <|<|^ <|
+ - -   -   -    
+|v|^ >|R|^|>|> v|
+   - - - -   - -
+|>|^ v|^|^ < v|<|
+     - - - - - -
+|^|<|<|^ <|^|< v|
+ -     - -     -
+|^|>|^|^|^|v|^|<|
+ - - -   -   -  
+|> ^ <|>|^|<|>|v|
+ - - -   - - - -
+|^|> ^|<|>|^ <|<|
+ - - - - - - - -
+Number of moves: 20
+Number of vertices examined: 456
+1.40939 [s]
+
+Level 93
+Sequence of moves: 
+ - - - - - - - -
+|>|v|> v <|<|> v|
+       - -   -  
+|v|>|^|v ^|>|v|<|
+ -   - -   -   -
+|>|^|>|R|<|<|< ^|
+   -   - - -   -
+|^|<|^ <|^ <|>|^|
+ -   - -   - - -
+|> ^|>|^|>|^|<|^|
+ - -   - -     -
+|^|< ^|<|^|<|^|<|
+   - - - - - - -
+|v >|> ^|<|<|v|^|
+ - - - - - - - -
+|> ^ <|<|<|^ <|<|
+ - - - - - - - -
+Number of moves: 20
+Number of vertices examined: 356
+0.472255 [s]
+
+Level 94
+Sequence of moves: 
+ - - - - - - - -
+|v >|v >|v <|<|<|
+ - - - -   - -  
+|> ^ v <|>|v <|^|
+ - - - - - -   -
+|v|>|v|R|v <|^|<|
+       - - - - -
+|>|^|>|^ <|^ <|<|
+ - - - - - - - -
+|^|v|>|^|^ <|v|^|
+ - -   - - -   -
+|>|>|^|^|<|^ <|<|
+ - -     - - - -
+|> ^|<|v|^|<|v ^|
+ - - -   -   - -
+|^|<|^|< >|^|<|^|
+ - - - - - - - -
+Number of moves: 18
+Number of vertices examined: 31
+0.062726 [s]
+
+Level 95
+Sequence of moves: 
+ - - - - - - - -
+|> v <|> v <|<|v|
+ - -   - - - -  
+|v|<|^|v <|<|^|<|
+     - - - - -  
+|>|v >|R|<|<|<|^|
+ - -   - - -   -
+|v >|^|>|^ >|> v|
+ - - -   - - - -
+|v|>|^|^ <|^ v|<|
+   -   - - - -  
+|> ^|<|> ^|<|v|^|
+ - -   -   -    
+|^|<|>|^|<|<|<|v|
+ - - - - - - - -
+|>|> ^|> ^ <|^ <|
+ - - - - - - - -
+Number of moves: 22
+Number of vertices examined: 1516
+2.74261 [s]
+
+Level 96
+Sequence of moves: 
+ - - - - - - - -
+|>|> v|v <|>|v|<|
+   -   - - -   -
+|^|v|<|>|v <|<|^|
+   - -   - - -  
+|v <|^ v <|<|< v|
+ - - - - - - - -
+|v|<|v <|v|v|< v|
+ -   - - - -   -
+|> v|R|<|<|<|^|<|
+ - - -   -   -  
+|v|> ^|^|<|^|^ v|
+   - - - -   - -
+|>|^ <|^ <|v|^|<|
+   - - - - - -  
+|^ <|<|<|<|<|> ^|
+ - - - - - - - -
+Number of moves: 22
+Number of vertices examined: 379
+0.417347 [s]
+
+Level 97
+Sequence of moves: 
+ - - - - - - - -
+|> v <|<|>|v <|v|
+ - - - -   - -  
+|v <|>|^ v|<|<|<|
+ -     -       -
+|v|>|v <|<|>|^|<|
+     -   - - -  
+|>|^|R|^|<|<|<|v|
+ - - - - - - - -
+|>|>|^|^|v|<|<|v|
+ -   - - -   - -
+|>|^|<|^ <|v|<|v|
+ - - - - - -   -
+|^ >|^ >|v|<|^|<|
+ - - -   -      
+|^|^ <|<|<|>|>|^|
+ - - - - - - - -
+Number of moves: 19
+Number of vertices examined: 33
+0.061054 [s]
+
+Level 98
+Sequence of moves: 
+ - - - - - - - -
+|v <|v|> v <|>|v|
+   -     - -    
+|>|v|>|^|> v|v|<|
+       - -   -  
+|^|>|^|R|<|<|v|^|
+ - - - -       -
+|^|>|v|> ^|^|<|^|
+   -   - - -   -
+|>|>|> ^|>|^|^|^|
+ - - - - - - - -
+|^|v|^|>|^ >|v|^|
+ -   -   -   - -
+|^ >|^|<|>|v|>|^|
+ - -       -    
+|^ >|>|^|<|<|^|<|
+ - - - - - - - -
+Number of moves: 19
+Number of vertices examined: 118
+0.192396 [s]
+
+Level 99
+Sequence of moves: 
+ - - - - - - - -
+|>|>|> v|> v|<|v|
+ -     - -   - -
+|>|v|^|>|v|<|> v|
+   - - -   -   -
+|v|> v|^ >|v|<|v|
+ - - - - -      
+|>|v|>|v|R|<|^|<|
+ -   - - - - -  
+|v|>|v >|^ <|>|^|
+     -     -   -
+|>|^|>|^|>|^ <|^|
+   -   - - - - -
+|^|<|^|> ^ <|v|<|
+ -   - - - -    
+|> ^|> ^|> ^ <|^|
+ - - - - - - - -
+Number of moves: 19
+Number of vertices examined: 637
+2.2746 [s]
+
+Level 100
+Sequence of moves: 
+ - - - - - - - -
+|v|>|>|> v <|< v|
+       - - - - -
+|>|v|<|<|v|v ^ <|
+ - -   - - - - -
+|^ >|v|v <|v >|v|
+ -   - -   - - -
+|v|v|v <|^|> v|v|
+ - - - - -   - -
+|v|> v|R|v|<|v <|
+ - - - -     - -
+|v|>|> ^ <|^|<|^|
+   - - - - - -  
+|> ^|^|<|^|<|v|<|
+ -   - - -     -
+|^|<|>|^ <|^|<|^|
+ - - - - - - - -
+Number of moves: 19
+Number of vertices examined: 38
+0.048723 [s]
+
+Level 101
+Sequence of moves: 
+ - - - - - - - -
+|v|< v|> v <|<|v|
+   -     - -    
+|>|>|>|^|>|v ^|<|
+ -   - -   - -  
+|>|v|<|>|v <|<|^|
+ - - - - -   - -
+|>|>|v >|R|^|< v|
+   - -   - -   -
+|^ <|>|^ <|v|^|<|
+   -   - -   -  
+|v|>|^ <|^ <|> ^|
+ -   - - -   - -
+|>|^ v|^|^|>|^ <|
+   - - - - - - -
+|^|^ >|>|^ >|> ^|
+ - - - - - - - -
+Number of moves: 20
+Number of vertices examined: 89
+0.106898 [s]
+
+Level 102
+Sequence of moves: 
+ - - - - - - - -
+|v < >|v|v|<|<|v|
+ - - - -   -   -
+|v|> v|<|<|<|^|<|
+     -   - - -  
+|>|^|v ^|v|<|<|^|
+   - - -     - -
+|^|v|R|^ <|^|<|<|
+ -   - - - - - -
+|>|> ^ <|v|<|<|<|
+ - - - - -   - -
+|> ^|<|^|<|v ^|^|
+ - - - - - - -  
+|^|^ <|v ^ <|v|<|
+ - - - - - -   -
+|>|>|^|< > ^|<|<|
+ - - - - - - - -
+Number of moves: 22
+Number of vertices examined: 97
+0.229981 [s]
+
+Level 103
+Sequence of moves: 
+ - - - - - - - -
+|>|> v|< >|v <|<|
+   - -   - - - -
+|v|v|v|^|v|> v ^|
+ - -       - -  
+|v|<|>|v|> ^|v|<|
+       - -     -
+|>|v|<|<|<|<|<|v|
+ -   - - - - - -
+|^ >|R|<|^ <|<|<|
+ - - -   - - - -
+|^|^ <|>|>|^ <|<|
+   - - -        
+|v >|^|^ <|>|v|v|
+ - - - - - - - -
+|>|> ^ <|^ <|<|<|
+ - - - - - - - -
+Number of moves: 23
+Number of vertices examined: 63
+0.254358 [s]
+
+Level 104
+Sequence of moves: 
+ - - - - - - - -
+|>|> v <|<|< > v|
+ - - -     -   -
+|v <|<|^|>|^|^|v|
+   -   - - - -  
+|>|v|v|v <|<|v|<|
+ -   - - - -    
+|v|>|R|< v|^ <|^|
+     -   - - - -
+|>|^|>|^|<|^|<|v|
+   -   - - - - -
+|^ <|<|>|^|<|^|<|
+ - -           -
+|^|<|^|v|<|^|<|<|
+ -   -   - - -  
+|> ^|^ <|^ <|> ^|
+ - - - - - - - -
+Number of moves: 18
+Number of vertices examined: 163
+0.402481 [s]
+
+Level 105
+Sequence of moves: 
+ - - - - - - - -
+|>|>|v <|<|<|<|<|
+   -   - - - - -
+|^|>|>|v|v|<|<|v|
+ -   - -     -  
+|>|^|v|R|<|>|^|<|
+   -   - - - -  
+|^|>|> ^|<|^ >|^|
+ - - -     -   -
+|^ >|^|<|v|<|<|^|
+ - - - - -   - -
+|> ^|^|v|v|v >|^|
+ - - -     - - -
+|^|^|<|<|<|<|^|<|
+ - - - - - - -  
+|^|>|^|^ >|^ >|^|
+ - - - - - - - -
+Number of moves: 20
+Number of vertices examined: 117
+0.441347 [s]
+
+Level 106
+Sequence of moves: 
+ - - - - - - - -
+|> v|>|v <|<|< v|
+ - - -   - - - -
+|v|> v|>|v <|<|<|
+   -   - - - - -
+|>|v|<|v <|v <|v|
+ -   - - - - -  
+|v|<|v < ^|<|^ <|
+     - - -   - -
+|>|>|R|^ v >|v|<|
+   - - - - -   -
+|^ <|v|^ <|<|<|^|
+ - -   - - - -  
+|>|^|<|v|<|^|<|v|
+       - - -    
+|^|<|^|< ^|<|^|<|
+ - - - - - - - -
+Number of moves: 22
+Number of vertices examined: 49
+0.097521 [s]
+
+Level 107
+Sequence of moves: 
+ - - - - - - - -
+|v|v|v < >|v <|v|
+   - - - - - -  
+|>|> v|^ <|<|v|<|
+   - - - - -    
+|^|>|R|^ <|v|<|^|
+ -   - - -   - -
+|^ <|^|<|^ <|v <|
+ - -     - - -  
+|v|>|>|^|<|>|v|^|
+     -         -
+|>|^|<|>|^|v|<|v|
+   -   - -      
+|^ <|^|^|^ <|^|<|
+ - - - - - -    
+|>|> ^|^ <|^|>|^|
+ - - - - - - - -
+Number of moves: 21
+Number of vertices examined: 125
+0.143006 [s]
+
+Level 108
+Sequence of moves: 
+ - - - - - - - -
+|>|v|> v <|v <|v|
+ -     - - - -  
+|^ >|^|>|v < ^|<|
+ - - - - - - - -
+|v < ^ >|R|>|^|<|
+ - - - - -   -  
+|>|>|>|^ >|v <|^|
+       -   -   -
+|^|^|<|<|<|v|^|v|
+ - - - - -   -  
+|^|v|^ >|^ <|<|<|
+   - - - - - - -
+|v >|^|^ <|^ <|^|
+ - - - - - - - -
+|> ^|<|> ^ <|<|<|
+ - - - - - - - -
+Number of moves: 21
+Number of vertices examined: 1784
+8.18629 [s]
+
+Level 109
+Sequence of moves: 
+ - - - - - - - -
+|v|> v|v <|v <|v|
+   - - - - - -  
+|>|^|> v ^ <|^ <|
+ -   - - - - - -
+|> v|v <|v|<|>|^|
+ - - - -   -   -
+|^ v|R|v|< >|^ <|
+ - - -     - - -
+|^|> ^ <|^|< >|^|
+ - - - - - - - -
+|^|<|v|> ^|^ <|<|
+ -     - - - -  
+|> ^|<|^ <|^|> ^|
+ - - - - - - - -
+|>|> ^ <|^|<|^ <|
+ - - - - - - - -
+Number of moves: 22
+Number of vertices examined: 167
+0.292465 [s]
+
+Level 110
+Sequence of moves: 
+ - - - - - - - -
+|>|v >|> v|>|v|<|
+   - -   -      
+|^|>|^|<|>|v|<|^|
+ -         -   -
+|^|^|<|^|v <|^|<|
+ - - - - -   -  
+|^|>|v >|R|^|<|^|
+   - -   - -   -
+|>|>|>|^|> ^|>|^|
+ - -   -   -    
+|v|>|^|^|< v|^|<|
+   - - - - -   -
+|> ^|>|^|^ <|v|^|
+ - - - - - - - -
+|>|> ^ <|> ^ <|<|
+ - - - - - - - -
+Number of moves: 19
+Number of vertices examined: 583
+1.08173 [s]
+
+Level 111
+Sequence of moves: 
+ - - - - - - - - -
+|v >|>|v <|<|<|>|v|
+ - - - -   - -   -
+|v >|v <|>|v|<|< v|
+ - - - - -   -   -
+|> ^ v|v|v|< >|^|<|
+ - - -       - - -
+|^|^|R|<|<|^|<|>|^|
+   - - -   - -    
+|>|> ^ <|^|v < ^|<|
+ - - - - - - - - -
+|> ^|<|v|^|<|^|<|v|
+ - - - - -   - -  
+|^|>|^ <|v|^|<|^|<|
+ -   - -   - - - -
+|>|^|> ^|<|>|^|<|v|
+ - - -     -   -  
+|^ >|^|<|^|< >|^ <|
+ - - - - - - - - -
+Number of moves: 25
+Number of vertices examined: 171
+1.63645 [s]
+
+Level 112
+Sequence of moves: 
+ - - - - - - - - -
+|v|<|v|<|v|> v <|<|
+       - - - - - -
+|>|v|<|<|> v|v ^ <|
+ -       -   - - -
+|^ >|>|>|v|<|v|<|v|
+ - - - -   -   -  
+|>|v|>|R|<|^|<|<|<|
+ -     -     - - -
+|>|>|^|>|^|>|^|^|<|
+     -   -   - - -
+|^|<|>|^ v|<|<|^ <|
+ -       - -   - -
+|>|^|^|<|<|v|>|^ <|
+   - - - - - - -  
+|^|<|<|<|v <|v|<|v|
+ -   -   - - - - -
+|> ^|> ^|<|<|<|^ <|
+ - - - - - - - - -
+Number of moves: 26
+Number of vertices examined: 74
+0.286839 [s]
+
+Level 113
+Sequence of moves: 
+ - - - - - - - - -
+|v >|v|>|v <|v <|<|
+ - -     -   - - -
+|v >|>|v|<|^|<|> v|
+ -   -   - -   -  
+|v|^|R|<|<|<|^ v|<|
+   - -   -   - -  
+|> ^|<|^|<|^|<|<|^|
+ - -   -   - -   -
+|^ >|^|>|^|<|>|^ v|
+ - - - - -     - -
+|> ^|<|^ >|^|< ^|<|
+ - - - -     - - -
+|^ <|>|^|<|>|^|^|<|
+ -     - - - - -  
+|^|>|^|<|v|<|>|>|^|
+ - - -   -       -
+|>|^ <|>|>|>|^|<|^|
+ - - - - - - - - -
+Number of moves: 26
+Number of vertices examined: 2858
+5.22077 [s]
+
+Level 114
+Sequence of moves: 
+ - - - - - - - - -
+|> v|v <|<|v|>|v <|
+ - - - - -     - -
+|v|v|>|v|v|<|v|v|<|
+ - -     - -     -
+|v|< v|<|v <|<|>|v|
+ - - - - - - - - -
+|v|v|<|v <|^ >|v|<|
+       - - -   - -
+|>|>|v|<|v|^|<|> v|
+ - -   - - - - -  
+|>|^|>|R|v|^ < v|<|
+ - - - - - - - - -
+|v|>|> ^ <|v|<|v|^|
+   - - - - -      
+|> ^|^|>|^ <|^|<|v|
+ - - - - - - - -  
+|^ >|>|^ <|^ <|<|<|
+ - - - - - - - - -
+Number of moves: 25
+Number of vertices examined: 47
+0.114608 [s]
+
+Level 115
+Sequence of moves: 
+ - - - - - - - - -
+|>|v|v|>|v|> v <|v|
+ -   - - - - - -  
+|>|>|>|v|>|v <|v|<|
+ - -     - - -    
+|v >|v|>|>|v <|<|^|
+ -   -   - - - - -
+|>|^|v|^|v|R|v|<|^|
+   -   -   -   -  
+|^|^|>|v|> ^|<|^|<|
+ -       - -   - -
+|^|<|^|>|^|^|^|<|^|
+ -   - - - - - - -
+|>|>|^|>|> ^|^|< ^|
+     - - - - - - -
+|^|v|>|> ^|v ^|^|<|
+ - - - - - - - - -
+|>|>|> ^|>|>|>|> ^|
+ - - - - - - - - -
+Number of moves: 26
+Number of vertices examined: 1602
+3.44113 [s]
+
+Level 116
+Sequence of moves: 
+ - - - - - - - - -
+|v|> v <|> v <|v|<|
+   - - - - - -   -
+|>|v|<|v|<|<|^ <|^|
+ -   - - - - - -  
+|>|>|R|<|v <|v|< v|
+ -   -   - -   - -
+|^ <|^|^|< ^|<|v <|
+ - - - - - - - - -
+|> ^|^ <|^ <|< >|v|
+ - - - - - - - - -
+|>|^|> ^|^|<|^|^ v|
+   - - - - - - - -
+|^|>|^|^|<|<|<|v <|
+ -   - - -     - -
+|^|^ <|>|^|v|^|<|<|
+ - - - - - -      
+|^|> ^ <|<|<|>|>|^|
+ - - - - - - - - -
+Number of moves: 27
+Number of vertices examined: 92
+0.20963 [s]
+
+Level 117
+Sequence of moves: 
+ - - - - - - - - -
+|v >|v|>|v <|> v <|
+ -     - - - - - -
+|>|^|>|v|>|v <|<|v|
+   - - -   - - - -
+|^ v|>|>|v|<|v|<|v|
+ - -   - - - - -  
+|^ >|v|>|R|v < ^|<|
+ - - - - - - -    
+|v >|>|^|^|<|^|>|^|
+ -     - -   - - -
+|>|^|<|>|^|v >|v ^|
+ - -   - - - -   -
+|>|^ v|> ^ < v|<|^|
+   - - - - - - - -
+|^|<|> ^ v|^ <|< v|
+ -   -   - -     -
+|^|> ^|<|<|^|>|^|<|
+ - - - - - - - - -
+Number of moves: 21
+Number of vertices examined: 76
+0.465472 [s]
+
+Level 118
+Sequence of moves: 
+ - - - - - - - - -
+|v <|>|v|> v <|<|v|
+ - -   - - - - -  
+|>|v|<|> v|<|<|v|<|
+   - - -   - - - -
+|v <|>|v|< ^|<|>|v|
+ - - - - - - -    
+|v|>|>|>|R|<|<|<|<|
+   - - - -   -   -
+|> ^|>|^ <|^|<|^|<|
+ - - - - - - - -  
+|^|> ^|>|^|^ <|> ^|
+ - - -   - - - - -
+|^|< ^|^|<|^ <|^ <|
+ -   - - - - - - -
+|>|>|> ^|<|>|^ >|^|
+ - - -     - -   -
+|> ^ <|<|^ >|^|<|<|
+ - - - - - - - - -
+Number of moves: 27
+Number of vertices examined: 1050
+1.81939 [s]
+
+Level 119
+Sequence of moves: 
+ - - - - - - - - -
+|v|> v|v|<|<|<|<|v|
+   - - - - - - - -
+|>|v|v|> v|<|v <|v|
+     - -     - -  
+|^|>|v|R|<|^|< v|<|
+ -     - - -   -  
+|v|^|>|^ <|^|^|<|^|
+   - - - -       -
+|>|>|^|> ^|<|>|^|^|
+         - - - - -
+|^|^|>|v|<|^|^|^|<|
+ - - -     - - -  
+|^|^|<|<|v|^ >|v|^|
+ - -   - - - - - -
+|v > ^|v >|>|>|>|^|
+ - - - - - - - - -
+|> ^|>|>|^|^|^ <|<|
+ - - - - - - - - -
+Number of moves: 26
+Number of vertices examined: 9357
+20.684 [s]
+
+Level 120
+Sequence of moves: 
+ - - - - - - - - -
+|v >|v|<|> v|<|<|<|
+ - - -   -   - - -
+|>|^ v|>|v|<|v|<|^|
+ - - - -       - -
+|v|> v|R|<|^|< ^|<|
+     - -   - - -  
+|>|^|>|>|^|>|v <|^|
+ - - -       - - -
+|>|^ v|^|>|^|>|>|^|
+   - - - - -   - -
+|^ <|>|^ <|^|<|^|<|
+ - - - - - - - -  
+|> ^ v|^|^ <|^ <|^|
+ - - - - - - - - -
+|^|< >|>|v ^ <|^ <|
+     -     - -   -
+|>|^|<|<|>|> ^|>|^|
+ - - - - - - - - -
+Number of moves: 26
+Number of vertices examined: 1129
+3.59457 [s]
+
+Level 121
+Number of vertices examined: 1185
+1.21123 [s]
+
+Level 122
+Number of vertices examined: 61697
+79.4731 [s]
+
+Level 123
+Sequence of moves: 
+ - - - - - - - - -
+|> v|<|v <|<|<|<|v|
+ - - - - -   - -  
+|v <|v|v|v|^|v|<|<|
+   -   - -   -   -
+|>|v|<|v|> v|>|v ^|
+ -   -   - - - - -
+|v|>|v|>|v|v|v|< ^|
+   -   - -        
+|>|^|> ^|R|<|<|> v|
+ - - - - -     - -
+|^|>|^|>|^|^|^|<|<|
+ - - -   - - -    
+|>|>|>|^|^|<|v|v|^|
+ -     - -     - -
+|v ^|<|>|>|^|<|>|^|
+ - -     - -     -
+|> ^|^|^|>|> ^|<|<|
+ - - - - - - - - -
+Number of moves: 21
+Number of vertices examined: 290
+0.726325 [s]
+
+Level 124
+Sequence of moves: 
+ - - - - - - - - -
+|>|> v <|v|<|<|<|v|
+   - - -     -   -
+|^|v|<|v|<|^|<|^|v|
+     - - -     - -
+|v|>|R|<|v >|^|v <|
+ - - -   - - - -  
+|v|> ^ v|<|^ <|<|^|
+   - - - - - -   -
+|> ^ <|> v|<|>|^|<|
+ - - - -   -   - -
+|^|> ^ v|< ^|v|<|<|
+ - - -   - - - - -
+|> ^ <|<|<|v <|^|^|
+ - - - -   - - -  
+|^ v <|v|^|< v|<|v|
+ - - - - - - - -  
+|^ <|^ <|<|^ <|^|<|
+ - - - - - - - - -
+Number of moves: 24
+Number of vertices examined: 2699
+6.68641 [s]
+
+Level 125
+Sequence of moves: 
+ - - - - - - - - -
+|>|v|<|v|<|< > v|<|
+ -       - - - - -
+|^ >|v|<|v|<|v <|v|
+ - - - -     -   -
+|v|>|R|<|<|^|<|^|<|
+   - - -   - - -  
+|>|^|^ <|^|<|<|>|^|
+     - -   - -   -
+|^|>|>|^|>|^|>|^ <|
+ - -   - - - - - -
+|>|^|^|<|^|<|v ^|v|
+   -   - - -   -  
+|^ <|v|^|<|<|<|<|<|
+ - -   -   - - - -
+|^|^|<|v ^|<|<|^ <|
+ - - - - - - - - -
+|^|> ^ <|<|^ <|<|^|
+ - - - - - - - - -
+Number of moves: 21
+Number of vertices examined: 77
+0.268405 [s]
+
+Level 126
+Sequence of moves: 
+ - - - - - - - - -
+|v < >|>|> v|v <|<|
+ - - - -   - - -  
+|>|v >|v|^|> v|^ v|
+ - - -   - -   - -
+|v >|^ >|>|R|<|^ <|
+ -   - -   -   - -
+|>|^|^ <|^ <|^|>|^|
+   - -   - - -    
+|^|> ^|>|>|^ <|^|<|
+ - - - - - - - - -
+|> ^|> ^|^|>|v|<|^|
+ -   - - -   - - -
+|^|v|^|>|^|^|>|>|^|
+ - - -   - -   - -
+|^|<|^|^|v >|v|^|^|
+ -   - - - - - - -
+|> ^|^|^ >|^|> ^ <|
+ - - - - - - - - -
+Number of moves: 24
+Number of vertices examined: 279
+0.60407 [s]
+
+Level 127
+Number of vertices examined: 39292
+80.5053 [s]
+
+Level 128
+Number of vertices examined: 1012
+0.919671 [s]
+
+Level 129
+Sequence of moves: 
+ - - - - - - - - -
+|>|>|v <|v <|<|<|v|
+ -     - - - -    
+|v|<|>|v|<|v <|^|<|
+ - - - -   -      
+|>|v <|v|v|<|>|>|^|
+ -   -   - - - - -
+|^ >|v|<|v <|<|v <|
+ - -   - - - - -  
+|> v|>|R|v <|^ <|^|
+   - - - -   - - -
+|^|> ^|v|<|^|<|^|<|
+ - - -     -   -  
+|^|^|^ <|>|^|^|<|^|
+   - -     -     -
+|v >|v|>|^|<|v|>|^|
+ - -   - - - - - -
+|> ^|> ^ <|^ <|<|<|
+ - - - - - - - - -
+Number of moves: 23
+Number of vertices examined: 93
+0.38375 [s]
+
+Level 130
+Sequence of moves: 
+ - - - - - - - - -
+|v <|< >|v|>|v|<|v|
+   - - - -        
+|>|> v|v|<|<|<|^|<|
+ - - - -   - -    
+|v|v <|v > ^|<|>|^|
+ - - - - - - - - -
+|v|> v|<|^ v|<|<|^|
+ - -   - -     - -
+|v|v|<|v <|<|v|<|<|
+     - -   -   - -
+|>|>|R|v|^|<|>|v|v|
+ -   - - - - - -  
+|^ <|<|<|<|^|<|v|<|
+ - -   - - - - - -
+|> ^|v|<|^ <|v|<|<|
+ -   -   - -   -  
+|^|<|<|^|<|^ < >|^|
+ - - - - - - - - -
+Number of moves: 27
+Number of vertices examined: 3365
+3.74371 [s]
+
+Level 131
+Sequence of moves: 
+ - - - - - - - - -
+|v|>|>|v < >|>|v|<|
+     - - - - - -  
+|>|^ <|> v|>|>|>|v|
+ -   -   - -     -
+|v|v|^ <|v|v ^|v|<|
+ - - - -     - -  
+|v <|v <|<|<|v <|v|
+ -   - - - - - - -
+|v|>|> v ^ <|<|v|<|
+     - - - - - -  
+|>|^|R|<|>|v|<|> v|
+   - - - - - - - -
+|^|>|v ^ <|<|v <|v|
+ -   -   -   - - -
+|^|<|>|>|v ^|>|v <|
+ -   - - - - - - -
+|>|^|> ^|>|^ <|< ^|
+ - - - - - - - - -
+Number of moves: 27
+Number of vertices examined: 146
+0.71456 [s]
+
+Level 132
+Sequence of moves: 
+ - - - - - - - - -
+|v|< v|<|v|>|v <|v|
+   - - - -   - - -
+|>|v|<|v <|v <|v <|
+ -     - - - - - -
+|v|>|v|<|v|<|>|v <|
+ -     - -   - - -
+|v|<|>|v <|^ >|> v|
+ - - - - - - - -  
+|>|v|v <|v|^|<|<|<|
+   - - -   -   -  
+|v|v|R|^|<|<|^|>|^|
+ - - -   - - -   -
+|v|> ^|> v <|v|<|<|
+ - - - - - -   - -
+|v ^ <|<|<|^|< > ^|
+   - - - - - - - -
+|>|> ^ <|<|<|^|<|^|
+ - - - - - - - - -
+Number of moves: 23
+Number of vertices examined: 53
+0.401834 [s]
+
+Level 133

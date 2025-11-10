@@ -24,7 +24,7 @@ int main(int argc, char **argv)
         println("o6: rotation game");
         println("u: Run in a Loop");
         getline(cin, str);
-        if (str.empty()) solve_puz_RobotCrosswords();
+        if (str.empty()) solve_puz_Rome();
         else if (str == "a") solve_puz_Rabbits();
         else if (str == "i") solve_puz_RippleEffect();
         else if (str == "o1") solve_puz_RobotCrosswords();
