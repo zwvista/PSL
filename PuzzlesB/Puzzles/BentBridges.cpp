@@ -31,6 +31,13 @@ constexpr auto PUZ_VERT = '|';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
+enum class puz_game_type
+{
+    NORMAL,
+    CROSSINGS,
+    MAGNETIC,
+};
+
 struct puz_bridge {
     vector<pair<Position, char>> m_rng;
     Position m_p1, m_p2;
@@ -42,7 +49,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_game_type;
+    puz_game_type m_game_type;
     map<Position, int> m_pos2num;
     string m_cells;
     vector<puz_bridge> m_bridges;
@@ -55,8 +62,13 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_game_type(level.attribute("GameType").as_string(""))
 {
+    string game_type = level.attribute("GameType").as_string("");
+    m_game_type =
+        game_type == "Crossing" ? puz_game_type::CROSSINGS :
+        game_type == "Magnetic" ? puz_game_type::MAGNETIC :
+        puz_game_type::NORMAL;
+
     int sz = strs.size();
     m_sidelen = sz * 2 - 1;
     for (int r = 0; r < sz; ++r) {
@@ -82,7 +94,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (auto& [p2, n2] : m_pos2num) {
             if (p1 >= p2) continue;
             // 7. Magnetic: islands with the same number cannot have a bridge between themselves.
-            if (m_game_type == "Magnetic" && n1 == n2)
+            if (m_game_type == puz_game_type::MAGNETIC && n1 == n2)
                 continue;
             puz_bridge b;
 
@@ -177,7 +189,7 @@ int puz_state::find_matches(bool init)
                 boost::algorithm::any_of(b.m_rng, [&](const pair<Position, char>& kv) {
                 auto& p2 = kv.first;
                 // 6. Crossing: bridges can cross each other, but cannot turn at the intersection.
-                return cells(p2) != PUZ_SPACE && !(m_game->m_game_type == "Crossings" && 
+                return cells(p2) != PUZ_SPACE && !(m_game->m_game_type == puz_game_type::CROSSINGS &&
                 p2.first % 2 == 0 && p2.second % 2 == 0 && p2 != b.m_p_bent);
             }))
                 f(b, id);
