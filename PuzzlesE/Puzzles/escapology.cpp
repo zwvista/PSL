@@ -30,7 +30,7 @@ struct puz_game
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
-    , m_size(Position(strs.size() + 2, strs[0].length() + 2))
+    , m_size(strs.size() + 2, strs[0].length() + 2)
 {
     m_cells = string(rows() * cols(), PUZ_SPACE);
     fill(m_cells.begin(), m_cells.begin() + cols(), PUZ_STONE);
@@ -63,7 +63,8 @@ struct puz_state
 
     // solve_puzzle interface
     bool is_goal_state() const {return m_balls == m_game->m_goals;}
-    void gen_children(list<puz_state>& children) const;
+    void gen_childr
+    en(list<puz_state>& children) const;
     unsigned int get_heuristic() const;
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {if(m_move) out << m_move;}

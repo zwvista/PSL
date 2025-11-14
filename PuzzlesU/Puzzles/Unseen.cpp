@@ -41,7 +41,7 @@ struct puz_move
 struct puz_game
 {
     string m_id;
-    int m_sidelen;
+    Position m_size;
     // key: position of the number (hint)
     map<Position, puz_region> m_pos2region;
     vector<puz_move> m_moves;
@@ -49,8 +49,10 @@ struct puz_game
     string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
+    int rows() const {return m_size.first;}
+    int cols() const {return m_size.second;}
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
 };
 
 struct puz_state2 : set<Position>
@@ -87,14 +89,14 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size() + 2)
+, m_size(strs.size() + 2, strs[0].length() + 2)
 {
     char ch_r = 'a';
-    m_cells.append(m_sidelen, PUZ_BOUNDARY);
-    for (int r = 1; r < m_sidelen - 1; ++r) {
+    m_cells.append(cols(), PUZ_BOUNDARY);
+    for (int r = 1; r < rows() - 1; ++r) {
         string_view str = strs[r - 1];
         m_cells.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
+        for (int c = 1; c < cols() - 1; ++c) {
             Position p(r, c);
             if (char ch = str[c - 1]; ch != PUZ_SPACE)
                 m_cells.push_back(ch_r),
@@ -105,7 +107,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
         m_cells.push_back(PUZ_BOUNDARY);
     }
-    m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(cols(), PUZ_BOUNDARY);
 
     for (auto& [p, region] : m_pos2region) {
         auto& [name, num] = region;
@@ -127,9 +129,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 struct puz_state
 {
     puz_state(const puz_game& g);
-    int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    int rows() const {return m_game->rows();}
+    int cols() const {return m_game->cols();}
+    char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * cols() + p.second]; }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
@@ -212,15 +215,15 @@ ostream& puz_state::dump(ostream& out) const
     };
     for (int r = 1;; ++r) {
         // draw horizontal lines
-        for (int c = 1; c < sidelen() - 1; ++c)
+        for (int c = 1; c < cols() - 1; ++c)
             out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
         println(out);
-        if (r == sidelen() - 1) break;
+        if (r == rows() - 1) break;
         for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
-            if (c == sidelen() - 1) break;
+            if (c == cols() - 1) break;
             if (auto it = m_game->m_pos2region.find(p); it == m_game->m_pos2region.end())
                 out << ' ';
             else
