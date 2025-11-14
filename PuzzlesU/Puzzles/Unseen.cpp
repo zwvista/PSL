@@ -56,11 +56,8 @@ struct puz_game
 struct puz_state2 : set<Position>
 {
     puz_state2(const puz_game* game, const Position& p, int num)
-        : m_game(game), m_p(p), m_num(num) {
-        make_move(p);
-    }
+        : m_game(game), m_p(p), m_num(num) { make_move(p); }
 
-    bool is_goal_state() const { return m_invisible == m_num; }
     bool make_move(const Position& p) {
         insert(p);
         int n = 1;
@@ -97,12 +94,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
         m_cells.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c)
+        for (int c = 1; c < m_sidelen - 1; ++c) {
+            Position p(r, c);
             if (char ch = str[c - 1]; ch != PUZ_SPACE)
                 m_cells.push_back(ch_r),
-                m_pos2region[{r, c}] = {ch_r++, ch - '0'};
+                m_pos2region[p] = {ch_r++, ch - '0'};
             else
                 m_cells.push_back(PUZ_SPACE);
+            m_pos2move_ids[p];
+        }
         m_cells.push_back(PUZ_BOUNDARY);
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
@@ -111,15 +111,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& [name, num] = region;
         puz_state2 sstart(this, p, num);
         list<list<puz_state2>> spaths;
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, true, true, false>::find_solution(sstart, spaths); found)
-            for (auto& spath : spaths) {
-                auto& s = spath.back();
-                int n = m_moves.size();
-                auto& [name2, p_hint, area] = m_moves.emplace_back();
-                name2 = name, p_hint = p, area = s;
-                for (auto& p2 : s)
-                    m_pos2move_ids[p2].push_back(n);
-            }
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, num});
+        for (auto& s : smoves) {
+            if (s.m_invisible != num)
+                continue;
+            int n = m_moves.size();
+            auto& [name2, p_hint, area] = m_moves.emplace_back();
+            name2 = name, p_hint = p, area = s;
+            for (auto& p2 : s)
+                m_pos2move_ids[p2].push_back(n);
+        }
     }
 }
 
