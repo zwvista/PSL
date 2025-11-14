@@ -29,8 +29,13 @@ struct puz_region
     char m_name;
     // 'eye' (a number) in the region
     int m_num;
-    // all permutations (forms) of the region
-    vector<set<Position>> m_perms;
+};
+
+struct puz_move
+{
+    char m_name;
+    Position m_p_hint;
+    set<Position> m_region;
 };
 
 struct puz_game
@@ -39,6 +44,8 @@ struct puz_game
     int m_sidelen;
     // key: position of the number (hint)
     map<Position, puz_region> m_pos2region;
+    vector<puz_move> m_moves;
+    map<Position, vector<int>> m_pos2move_ids;
     string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -90,23 +97,29 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
         m_cells.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            if (char ch = str[c - 1]; ch != ' ')
+        for (int c = 1; c < m_sidelen - 1; ++c)
+            if (char ch = str[c - 1]; ch != PUZ_SPACE)
                 m_cells.push_back(ch_r),
-                m_pos2region[{r, c}] = {ch_r++, ch - '0', {}};
+                m_pos2region[{r, c}] = {ch_r++, ch - '0'};
             else
                 m_cells.push_back(PUZ_SPACE);
-        }
         m_cells.push_back(PUZ_BOUNDARY);
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [p, region] : m_pos2region) {
-        puz_state2 sstart(this, p, region.m_num);
+        auto& [name, num] = region;
+        puz_state2 sstart(this, p, num);
         list<list<puz_state2>> spaths;
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
-            for (auto& spath : spaths)
-                region.m_perms.push_back(spath.back());
+        if (auto [found, _1] = puz_solver_bfs<puz_state2, true, true, false>::find_solution(sstart, spaths); found)
+            for (auto& spath : spaths) {
+                auto& s = spath.back();
+                int n = m_moves.size();
+                auto& [name2, p_hint, area] = m_moves.emplace_back();
+                name2 = name, p_hint = p, area = s;
+                for (auto& p2 : s)
+                    m_pos2move_ids[p2].push_back(n);
+            }
     }
 }
 
@@ -119,8 +132,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move(int n);
+    void make_move2(int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -133,62 +146,47 @@ struct puz_state
 
     const puz_game* m_game;
     string m_cells;
-    // key: the position of the number
-    // value.elem: the index of the permutations
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g)
-, m_cells(g.m_cells)
+    : m_game(&g), m_cells(g.m_cells), m_matches(g.m_pos2move_ids)
 {
-    for (auto& [p, region] : m_game->m_pos2region) {
-        auto& perm_ids = m_matches[p];
-        perm_ids.resize(region.m_perms.size());
-        boost::iota(perm_ids, 0);
-    }
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    set<Position> rng;
-    for (auto& [p, perm_ids] : m_matches) {
-        auto& [ch, num, perms] = m_game->m_pos2region.at(p);
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            return boost::algorithm::any_of(perms[id], [&](const Position& p2) {
-                char ch2 = cells(p2);
-                return ch2 != PUZ_SPACE && ch2 != ch;
+    for (auto& [_1, move_ids] : m_matches) {
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [_1, p_hint, area] = m_game->m_moves[id];
+            return !boost::algorithm::all_of(area, [&](const Position& p2) {
+                return p_hint == p2 || cells(p2) == PUZ_SPACE;
             });
         });
         if (!init)
-            switch (perm_ids.size()) {
+            switch (move_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids.front()), 1;
+                return make_move2(move_ids.front()), 1;
             }
-        for (int id : perm_ids) {
-            auto& perm = perms[id];
-            rng.insert(perm.begin(), perm.end());
-        }
     }
-    return rng.size() == boost::count(m_cells, PUZ_SPACE) + m_matches.size() ? 2 : 0;
+    return 2;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(int n)
 {
-    auto& [ch, num, perms] = m_game->m_pos2region.at(p);
-    for (auto& p2 : perms[n])
-        cells(p2) = ch;
-    m_matches.erase(p), ++m_distance;
+    auto& [name, _1, area] = m_game->m_moves[n];
+    for (auto& p2 : area)
+        cells(p2) = name, m_matches.erase(p2), ++m_distance;
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -196,13 +194,13 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, region_ids] = *boost::min_element(m_matches, [](
+    auto& [_1, move_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : region_ids)
-        if (!children.emplace_back(*this).make_move(p, n))
+    for (int n : move_ids)
+        if (!children.emplace_back(*this).make_move(n))
             children.pop_back();
 }
 
