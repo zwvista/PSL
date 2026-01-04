@@ -9,8 +9,8 @@
     ...ever heard of it ?
 
     Description
-    1. Each row and column contains two Slices of Bread and a number of Pieces of
-       Ham, which is given in the top right corner.
+    1. Each row and column contains two Slices of Bread and N-3 Pieces of Pieces of Ham
+       (N being the board size). i.e. a board side 6, will have 3 Pieces of Ham.
     2. A number at the edge indicates how many Pieces of Ham you managed to put
        between the two Slices of Bread in that row or column.
 */
@@ -49,8 +49,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_area2range[m_sidelen + c].push_back(p);
         }
 
-    // 1. Each row and column contains two Slices of Bread and a number of Pieces of
-    // Ham, which is given in the top right corner.
+    // 1. Each row and column contains two Slices of Bread and N-3 Pieces of Pieces of Ham
+    //    (N being the board size). i.e. a board side 6, will have 3 Pieces of Ham.
     auto perm = string(m_sidelen, PUZ_HAM);
     perm[0] = PUZ_EMPTY, perm[1] = perm[2] = PUZ_BREAD;
     auto begin = perm.begin(), end = prev(perm.end());
