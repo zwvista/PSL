@@ -82,7 +82,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_cells.push_back(PUZ_SPACE);
             else {
                 m_cells.push_back(PUZ_CAMPER);
-                m_pos2num[{r, c}] = ch - '0';
+                m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
             }
         m_cells.push_back(PUZ_BOUNDARY);
     }
