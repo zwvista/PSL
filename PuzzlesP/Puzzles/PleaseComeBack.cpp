@@ -18,6 +18,7 @@
 namespace puzzles::PleaseComeBack{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_BLOCK = 'B';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -43,6 +44,7 @@ struct puz_game
     set<Position> m_horz_walls, m_vert_walls;
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
+    set<Position> m_blocks;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -89,7 +91,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (str_v[c * 2] == '|')
                 m_vert_walls.insert(p);
             if (c == m_sidelen) break;
-            rng.insert(p);
+            if (str_v[c * 2 + 1] != ' ')
+                m_blocks.insert(p);
+            else
+                rng.insert(p);
         }
     }
 
@@ -140,19 +145,25 @@ puz_state::puz_state(const puz_game& g)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            for (int lineseg : linesegs_all)
-                if ([&]{
-                    for (int i = 0; i < 4; ++i) {
-                        if (!is_lineseg_on(lineseg, i))
-                            continue;
-                        auto p2 = p + offset[i];
-                        // A line segment cannot go beyond the boundaries of the board
-                        if (!is_valid(p2))
-                            return false;
-                    }
-                    return true;
-                }())
-                    dt.push_back(lineseg);
+            if (g.m_blocks.contains(p)) {
+                for (int i = 0; i < 4; ++i)
+                    m_finished.emplace(p, i);
+                dt.push_back(lineseg_off);
+            } else
+                for (int lineseg : linesegs_all)
+                    if ([&]{
+                        for (int i = 0; i < 4; ++i) {
+                            if (!is_lineseg_on(lineseg, i))
+                                continue;
+                            auto p2 = p + offset[i];
+                            // A line segment cannot go beyond the boundaries of the board
+                            // or cover any block cell
+                            if (!is_valid(p2) || g.m_blocks.contains(p2))
+                                return false;
+                        }
+                        return true;
+                    }())
+                        dt.push_back(lineseg);
         }
 
     check_dots(true);
@@ -307,7 +318,7 @@ ostream& puz_state::dump(ostream& out) const
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
             out << (is_lineseg_on(dots(p)[0], 3) ? '=' : ' ');
-            out << ' ';
+            out << char(!m_game->m_blocks.contains(p) ? ' ' : PUZ_BLOCK);
             out << (is_lineseg_on(dots(p)[0], 1) ? '=' : ' ');
         }
         println(out);

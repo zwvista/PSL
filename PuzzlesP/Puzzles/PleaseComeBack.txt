@@ -19,5 +19,32 @@ Sequence of moves:
  --- --- --- --- 
 Number of moves: 5
 Number of vertices examined: 10
-0.0010294 [s]
+0.000625 [s]
+
+Level 6
+Sequence of moves: 
+ --- --- --- --- --- 
+|       |   |       |
+|  = = =|= =|= = =  |
+| I     |   |     I |
+     ---     ---     
+| I |   |   |   | I |
+|  =|= =|=  | B |   |
+|   |   | I |   | I |
+         --- ---     
+|   |   | I |     I |
+|  =|=  |  =|=      |
+| I | I |   | I   I |
+ --- ---     --- --- 
+| I   I |   | I   I |
+|      =|= =|=      |
+| I     |   |     I |
+         ---         
+| I     |         I |
+|  = = =|= = = = =  |
+|       |           |
+ --- --- --- --- --- 
+Number of moves: 7
+Number of vertices examined: 15
+0.001223 [s]
 
