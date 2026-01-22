@@ -235,8 +235,9 @@ bool puz_state::check_loop() const
     // in that region.
     map<int, int> area2num;
     for (auto& p : rng)
-        if (is_lineseg_turn(dots(p)[0]))
-            area2num[m_game->m_pos2area.at(p)]++;
+        if (int& n = area2num[m_game->m_pos2area.at(p)];
+            is_lineseg_turn(dots(p)[0]))
+            n++;
     if (is_goal_state() && area2num.size() != m_game->m_areas.size())
         return false;
     for (auto& [id, num] : area2num) {
