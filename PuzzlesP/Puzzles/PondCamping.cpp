@@ -19,7 +19,7 @@ namespace puzzles::PondCamping{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
-constexpr auto PUZ_POND = '=';
+constexpr auto PUZ_FOREST = '=';
 constexpr auto PUZ_CAMPER = 'C';
 constexpr auto PUZ_BOUNDARY = '`';
 
@@ -28,7 +28,7 @@ constexpr array<Position, 4> offset = Position::Directions4;
 struct puz_hike
 {
     set<Position> m_empties;
-    set<Position> m_ponds;
+    set<Position> m_forests;
 };
 
 struct puz_game
@@ -95,13 +95,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             // save all goal states as permutations
             auto& hikes = m_pos2hikes[p];
             for (auto& spath : spaths) {
-                auto& [empties, ponds] = hikes.emplace_back();
+                auto& [empties, forests] = hikes.emplace_back();
                 empties = spath.back();
                 for (auto& p2 : empties)
                     for (auto& os : offset) {
                         auto p3 = p2 + os;
                         if (!empties.contains(p3) && cells(p3) == PUZ_SPACE)
-                            ponds.insert(p3);
+                            forests.insert(p3);
                     }
                 empties.erase(p);
             }
@@ -120,7 +120,7 @@ struct puz_state
     }
     bool make_move_hike(const Position& p, int n);
     void make_move_hike2(const Position& p, int n);
-    void make_move_pond(const Position& p) { cells(p) = PUZ_POND; }
+    void make_move_pond(const Position& p) { cells(p) = PUZ_FOREST; }
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -156,13 +156,13 @@ int puz_state::find_matches(bool init)
     for (auto& [p, hike_ids] : m_matches) {
         auto& hikes = m_game->m_pos2hikes.at(p);
         boost::remove_erase_if(hike_ids, [&](int id) {
-            auto& [empties, ponds] = hikes[id];
+            auto& [empties, forests] = hikes[id];
             return boost::algorithm::any_of(empties, [&](const Position& p2) {
                 char ch = cells(p2);
                 return !(ch == PUZ_SPACE || ch == PUZ_EMPTY);
-            }) || boost::algorithm::any_of(ponds, [&](const Position& p2) {
+            }) || boost::algorithm::any_of(forests, [&](const Position& p2) {
                 char ch = cells(p2);
-                return !(ch == PUZ_SPACE || ch == PUZ_POND);
+                return !(ch == PUZ_SPACE || ch == PUZ_FOREST);
             });
         });
 
@@ -179,16 +179,16 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move_hike2(const Position& p, int n)
 {
-    auto& [empties, ponds] = m_game->m_pos2hikes.at(p)[n];
+    auto& [empties, forests] = m_game->m_pos2hikes.at(p)[n];
     for (auto& p2 : empties) {
         char& ch = cells(p2);
         if (ch == PUZ_SPACE)
             ch = PUZ_EMPTY, ++m_distance;
     }
-    for (auto& p2 : ponds) {
+    for (auto& p2 : forests) {
         char& ch = cells(p2);
         if (ch == PUZ_SPACE)
-            ch = PUZ_POND, ++m_distance;
+            ch = PUZ_FOREST, ++m_distance;
     }
     ++m_distance;
     m_matches.erase(p);
