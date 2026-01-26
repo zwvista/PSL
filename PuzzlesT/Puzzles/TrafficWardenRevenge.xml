@@ -1944,7 +1944,7 @@ G2R4G2R3        R7`
 R7      R4    R5  `
                   `
 G4              R3`
-      G(    R5    `
+      GW    R5    `
   G2RB            `
           R3      `
             G4  R3`
@@ -1972,7 +1972,7 @@ RB                `
       G2  G4      `
 GW  R3  GW    RB  `
 R7        R5    GW`
-      G(    G2    `
+      GW    G2    `
         RBG2      `
     R5            `
           R6    R1`
@@ -1988,7 +1988,7 @@ GW              RB`
   G4        RB    `
       R3  RB      `
         RB        `
-  R3    R5  GW     `
+  R3    R5  GW    `
     ]]>
   </level>
   <level id="170">
@@ -1997,7 +1997,7 @@ GW              RB`
 R3              G2`
     R3            `
 R4      RB        `
-  G(W  R3    R5R3  `
+  GW  R3    R5R3  `
 R7  G4            `
                   `
             RB    `
@@ -2035,12 +2035,12 @@ R5        R5      `
         RB    R3  `
   RB  R3          `
 GW  RB    RB    RB`
-  G(W      G2      `
-    G(      G4RB  `
-      G(          `
+  GW      G2      `
+    GW      G4RB  `
+      GW          `
 R3      G4  G4    `
                 R4`
-    R5  G4    GW   `
+    R5  G4    GW  `
     ]]>
   </level>
   <level id="174">
@@ -2061,12 +2061,12 @@ R3RBR5      R3    `
     GW    R5      `
   G2    R4        `
     R3RB        R3`
-R3          G2GW =  `
+R3          G2GW  `
                   `
   G2RB    GW      `
               R5R5`
-  G(W    R3  RB    `
-    G4R3      GW   `
+  GW    R3  RB    `
+    G4R3      GW  `
     ]]>
   </level>
   <level id="176">
@@ -2077,7 +2077,7 @@ RB        GW    G4`
 G2RB        RB    `
               RB  `
 RB    R3R3        `
-      G(        RB`
+      GW        RB`
       R3          `
   R4    R5R7  RB  `
     ]]>
@@ -2100,11 +2100,11 @@ R7          R5    `
     R3      R3  RB`
 G2        GW      `
       R3GW  R5    `
-  G(W    RB        `
+  GW    RB        `
     RB            `
       G4      G2G4`
 RB    G2  R3      `
-    G(      GWG2  `
+    GW      GWG2  `
 R5    R3          `
     ]]>
   </level>
@@ -2114,7 +2114,7 @@ R5    R3          `
 RB        R3      `
     RB  R5      RB`
           RB      `
-R3  G2        GW=  `
+R3  G2        GW  `
   R3    R3        `
       R3  G2GW  R3`
               G2R4`
@@ -2128,7 +2128,7 @@ R3  G2        GW=  `
         R3        `
 RBRB      RB      `
     R3            `
-  G(W      R5GW    `
+  GW      R5GW    `
   RB            G4`
       R4          `
 R5        R5  RB  `
@@ -2144,7 +2144,7 @@ G2  R3            `
           R3  R3  `
 R3R3    R5      R6`
                   `
-    G4    GW     R3`
+    G4    GW    R3`
     ]]>
   </level>
   <level id="182">
@@ -2157,7 +2157,7 @@ RB      G4        `
     RB  G2    RB  `
                 R3`
 G6  R3            `
-        G4    GW   `
+        G4    GW  `
     ]]>
   </level>
   <level id="183">
@@ -2165,7 +2165,7 @@ G6  R3            `
   RBGW      RB  R5`
                   `
       GW  G4      `
-    G(W      RB    `
+    GW      RB    `
     G4      GWR3  `
           G2  G2  `
   R4  G2    RBRB  `
@@ -2191,7 +2191,7 @@ R4    G2      GW  `
               R4  `
       RB          `
 R3        R3    R5`
-    G(W            `
+    GW            `
 R4    R3  R3      `
   R3          R3  `
         RB        `
