@@ -414,18 +414,18 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             auto& dt = dots(p);
             if (auto it = m_game->m_pos2light.find(p); it == m_game->m_pos2light.end())
-                out << "..";
+                out << "...";
             else {
                 auto& [kind, sum] = it->second;
-                out << kind << sum;
+                out << format("{}{:2}", kind, sum);
             }
-            out << (is_lineseg_on(dt[0], 1) ? '=' : ' ');
+            out << (is_lineseg_on(dt[0], 1) ? "===" : "   ");
         }
         println(out);
         if (r == sidelen() - 1) break;
         for (int c = 0; c < sidelen(); ++c)
             // draw vertical lines
-            out << (is_lineseg_on(dots({r, c})[0], 2) ? "|| " : "   ");
+            out << (is_lineseg_on(dots({r, c})[0], 2) ? "| |   " : "      ");
         println(out);
     }
     return out;
