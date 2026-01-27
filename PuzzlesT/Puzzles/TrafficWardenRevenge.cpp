@@ -374,6 +374,18 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    auto f = [&](const Position& p) {
+        int n = 0;
+        auto& dt = dots(p);
+        for (int i = 0; i < 4; i++) {
+            if (!is_lineseg_on(dt[0], i)) continue;
+            auto& os = offset[i];
+            ++n;
+            for (auto p2 = p + os; is_lineseg_on(dots(p2)[0], i); p2 += os)
+                ++n;
+        }
+        return n;
+    };
     for (int r = 0;; ++r) {
         // draw horizontal lines
         for (int c = 0; c < sidelen(); ++c) {
@@ -383,7 +395,8 @@ ostream& puz_state::dump(ostream& out) const
                 out << "...";
             else {
                 auto& [kind, sum] = it->second;
-                out << format("{}{:2}", kind, sum);
+                int sum2 = sum == PUZ_UNKNOWN || sum == PUZ_UNKNOWN_10 ? f(p) : sum;
+                out << format("{}{:2}", kind, sum2);
             }
             out << (is_lineseg_on(dt[0], 1) ? "===" : "   ");
         }
