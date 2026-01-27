@@ -108,10 +108,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto& [kind, sum] = light;
         auto& paths = m_pos2paths[p];
         vector<vector<int>> perms;
-        int sum2 = sum - 2;
-        for (int n1 = 0; n1 <= sum2; ++n1)
-            for (int n2 = 0; n2 <= sum2; ++n2)
-                if (n1 + n2 == sum2)
+        int nMax = min(sum, m_sidelen - 1);
+        for (int n1 = 1; n1 <= nMax; ++n1)
+            for (int n2 = 1; n2 <= nMax; ++n2)
+                if (n1 + n2 == sum)
                     perms.push_back({n1, n2});
         auto& linesegs_all2 =
             kind == PUZ_GREEN ? linesegs_all_green :
@@ -132,23 +132,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         lss_straight[i] = dir % 2 == 0 ? 5 : 10;
                         auto& os = offset[dir];
                         auto p2 = p + os;
-                        for (int j = 1; j <= n; ++j, p2 += os) {
+                        for (int j = 1;; ++j, p2 += os) {
                             if (!is_valid(p2))
                                 return false;
+                            if (j == n) {
+                                if (auto it = m_pos2light.find(p2);
+                                    it != m_pos2light.end() &&
+                                    it->second.m_kind == PUZ_GREEN)
+                                    return false;
+                                rng_turn[i] = p2;
+                                break;
+                            }
                             if (auto it = m_pos2light.find(p2);
                                 it != m_pos2light.end() &&
                                 it->second.m_kind == PUZ_RED)
                                 return false;
                             rng2D_straight[i].push_back(p2);
                         }
-                        if (is_valid(p2)) {
-                            if (auto it = m_pos2light.find(p2);
-                                it != m_pos2light.end() &&
-                                it->second.m_kind == PUZ_GREEN)
-                                return false;
-                            rng_turn[i] = p2;
-                        } else if (rng2D_straight[i].size() < 2)
-                            return false;
                     }
                     return true;
                 }())

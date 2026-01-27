@@ -90,18 +90,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         // 2. Green light means the road that extends from there is of equal length
         // in both directions.
         // 3. Red light means they are not.
-        if (sum == PUZ_UNKNOWN) {
-            for (int n1 = 0; n1 <= m_sidelen - 2; ++n1)
-                for (int n2 = 0; n2 <= m_sidelen - 2; ++n2)
-                    if ((n1 == n2) == (kind == PUZ_GREEN))
-                        perms.push_back({n1, n2});
-        } else {
-            int sum2 = sum - 2;
-            for (int n1 = 0; n1 <= sum2; ++n1)
-                for (int n2 = 0; n2 <= sum2; ++n2)
-                    if (n1 + n2 == sum2 && (n1 == n2) == (kind == PUZ_GREEN))
-                        perms.push_back({n1, n2});
-        }
+        int nMax = sum == PUZ_UNKNOWN ? m_sidelen - 1 : min(sum, m_sidelen - 1);
+        for (int n1 = 1; n1 <= nMax; ++n1)
+            for (int n2 = 1; n2 <= nMax; ++n2)
+                if ((sum == PUZ_UNKNOWN || n1 + n2 == sum) && (n1 == n2) == (kind == PUZ_GREEN))
+                    perms.push_back({n1, n2});
         for (int lineseg : linesegs_all) {
             vector<int> dirs;
             for (int i = 0; i < 4; ++i)
@@ -117,15 +110,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         lss_straight[i] = dir % 2 == 0 ? 5 : 10;
                         auto& os = offset[dir];
                         auto p2 = p + os;
-                        for (int j = 1; j <= n; ++j, p2 += os) {
+                        for (int j = 1;; ++j, p2 += os) {
                             if (!is_valid(p2))
                                 return false;
+                            if (j == n) {
+                                rng_turn[i] = p2;
+                                break;
+                            }
                             rng2D_straight[i].push_back(p2);
                         }
-                        if (is_valid(p2))
-                            rng_turn[i] = p2;
-                        else if (rng2D_straight[i].size() < 2)
-                            return false;
                     }
                     return true;
                 }())
