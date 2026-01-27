@@ -23,6 +23,7 @@ namespace puzzles::TrafficWardenRevenge{
 constexpr auto PUZ_GREEN = 'G';
 constexpr auto PUZ_RED = 'R';
 constexpr int PUZ_UNKNOWN = -1;
+constexpr int PUZ_UNKNOWN_10 = -2;
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -81,7 +82,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             if (auto s = str.substr(c * 2, 2); s != "  ")
-                m_pos2light[{r, c}] = {s[0], isdigit(s[1]) ? s[1] - '0' : PUZ_UNKNOWN};
+                // R1 and B1 is impossible. They represent a number between 10 and 19.
+                m_pos2light[{r, c}] = {s[0], s[1] == '1' ? PUZ_UNKNOWN_10 : isdigit(s[1]) ? s[1] - '0' : PUZ_UNKNOWN};
     }
     for (auto& [p, light] : m_pos2light) {
         auto& [kind, sum] = light;
@@ -90,10 +92,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         // 2. Green light means the road that extends from there is of equal length
         // in both directions.
         // 3. Red light means they are not.
-        int nMax = sum == PUZ_UNKNOWN ? m_sidelen - 1 : min(sum, m_sidelen - 1);
+        int nMax = sum == PUZ_UNKNOWN || sum == PUZ_UNKNOWN_10 ? m_sidelen - 1 : min(sum, m_sidelen - 1);
         for (int n1 = 1; n1 <= nMax; ++n1)
             for (int n2 = 1; n2 <= nMax; ++n2)
-                if ((sum == PUZ_UNKNOWN || n1 + n2 == sum) && (n1 == n2) == (kind == PUZ_GREEN))
+                if ((sum == PUZ_UNKNOWN || sum == PUZ_UNKNOWN_10 && n1 + n2 >= 10 || n1 + n2 == sum) && (n1 == n2) == (kind == PUZ_GREEN))
                     perms.push_back({n1, n2});
         for (int lineseg : linesegs_all) {
             vector<int> dirs;
