@@ -11,7 +11,7 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 2
 Number of vertices examined: 3
-0.0004069 [s]
+0.001 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,7 +26,7008 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 2
 Number of vertices examined: 3
-0.0001802 [s]
+0.0001 [s]
+
+Level 3
+Sequence of moves: 
+ -- -- -- --
+|= |A  A4|= |
+ --    -- --
+|B |A |= |D |
+    -- --   
+|B2|= |D  D3|
+    -- -- --
+|B |C1 C  C |
+ -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.000185 [s]
+
+Level 4
+Sequence of moves: 
+ -- -- -- --
+|= |D  D3|= |
+ --    -- --
+|C |D |= |A3|
+    -- --   
+|C |B  B2|A |
+       --   
+|C1|B |= |A |
+ -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+8e-05 [s]
+
+Level 5
+Sequence of moves: 
+ -- -- -- --
+|= |C  C3|= |
+ --    -- --
+|D |C |= |B |
+    -- --   
+|D  D2|A |B |
+ -- --      
+|= |A2 A |B2|
+ -- -- -- --
+Number of moves: 2
+Number of vertices examined: 4
+9e-05 [s]
+
+Level 6
+Sequence of moves: 
+ -- -- -- --
+|= |D |= |A2|
+ --    --   
+|C |D  D3|A |
+    -- --   
+|C |= |B |A |
+    --    --
+|C2|B  B2|= |
+ -- -- -- --
+Number of moves: 2
+Number of vertices examined: 4
+0.000128 [s]
+
+Level 7
+Sequence of moves: 
+ -- -- -- --
+|B |= |A  A3|
+    -- --   
+|B  B2|= |A |
+ -- -- -- --
+|C  C1|D |= |
+    --    --
+|C |= |D3 D |
+ -- -- -- --
+Number of moves: 3
+Number of vertices examined: 5
+7.6e-05 [s]
+
+Level 8
+Sequence of moves: 
+ -- -- -- --
+|= |B |= |D |
+ --    --   
+|A |B4|D2 D |
+       -- --
+|A |B |= |C |
+    -- --   
+|A2|= |C  C2|
+ -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+5.2e-05 [s]
+
+Level 9
+Sequence of moves: 
+ -- -- -- --
+|B  B2|D2|= |
+    --    --
+|B |= |D  D |
+ -- -- -- --
+|= |C3 C  C |
+ -- -- -- --
+|A2 A  A |= |
+ -- -- -- --
+Number of moves: 3
+Number of vertices examined: 7
+0.000107 [s]
+
+Level 10
+Sequence of moves: 
+ -- -- -- --
+|= |C |= |B |
+ --    --   
+|A |C  C3|B |
+    -- --   
+|A |D |= |B3|
+       -- --
+|A1|D2 D |= |
+ -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+7.9e-05 [s]
+
+Level 11
+Sequence of moves: 
+ -- -- -- -- --
+|= |D |= |F |= |
+ --    --    --
+|C |D |F3 F |E |
+       -- --   
+|C |D3|= |E  E3|
+    -- -- -- --
+|C2|A4 A |= |B |
+ --    -- --   
+|= |A |= |B  B2|
+ -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.000108 [s]
+
+Level 12
+Sequence of moves: 
+ -- -- -- -- --
+|= |D  D2 D |E |
+ -- -- -- --   
+|F |= |C  C |E0|
+    -- --      
+|F |G |= |C2|E |
+       -- -- --
+|F2|G2|B  B1|A0|
+ --       --   
+|. |G |B |A  A |
+ -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 9
+0.000247 [s]
+
+Level 13
+Sequence of moves: 
+ -- -- -- -- --
+|F  F |G2|D  D1|
+    --    --   
+|F2|= |G |= |D |
+ -- --    -- --
+|= |E |G |C |B |
+ --    --      
+|A2|E3 E |C |B0|
+    -- --      
+|A  A |= |C2|B |
+ -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 7
+0.000193 [s]
+
+Level 14
+Sequence of moves: 
+ -- -- -- -- --
+|B  B1|= |A  A2|
+    -- --    --
+|B |D  D2|A |= |
+ --    -- -- --
+|C |D |= |F2|E2|
+    -- --      
+|C |G |F  F |E |
+       -- --   
+|C0|G  G1|= |E |
+ -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 19
+0.000275 [s]
+
+Level 15
+Sequence of moves: 
+ -- -- -- -- --
+|= |E |= |A |= |
+ --    --    --
+|E3 E |F |A  A3|
+ -- --    -- --
+|= |D |F2|= |B2|
+ --       --   
+|D  D2|F |B  B |
+ -- -- -- -- --
+|= |C  C2 C |= |
+ -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 31
+0.00046 [s]
+
+Level 16
+Sequence of moves: 
+ -- -- -- -- --
+|= |A4|= |B3 B |
+ --    -- --   
+|D |A  A |= |B |
+    -- -- -- --
+|D |= |C  C5|= |
+    --    -- --
+|D2|E2|C |= |F |
+ --    -- --   
+|E  E |= |F3 F |
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+5.7e-05 [s]
+
+Level 17
+Sequence of moves: 
+ -- -- -- -- --
+|= |F2 F  F |A |
+ -- -- -- --   
+|E |= |G  G2|A0|
+    -- --      
+|E3 E |= |G |A |
+ -- -- -- -- --
+|D  D1|C |B0 B |
+ --       --   
+|= |D |C  C1|B |
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 55
+0.000788 [s]
+
+Level 18
+Sequence of moves: 
+ -- -- -- -- --
+|A2 A  A |= |C |
+ -- -- -- --   
+|= |B4 B |C  C2|
+ -- --    -- --
+|F |= |B |= |D3|
+    -- -- --   
+|F  F4|= |D  D |
+ -- -- -- -- --
+|= |E  E  E3|= |
+ -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 4
+0.00013 [s]
+
+Level 19
+Sequence of moves: 
+ -- -- -- -- --
+|F  F1|D0 D |C |
+    --    --   
+|F |E |D |B |C |
+ --    --      
+|= |E  E2|B |C1|
+ -- -- --    --
+|G3 G |= |B2|= |
+    -- -- -- --
+|G |= |A  A3 A |
+ -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 5
+0.000139 [s]
+
+Level 20
+Sequence of moves: 
+ -- -- -- -- --
+|G  G2 G |= |D |
+ -- -- -- --   
+|F  F |= |E |D |
+ --    --      
+|. |F1|E  E2|D1|
+ -- -- -- -- --
+|B  B |C0 C  C |
+ --    -- -- --
+|= |B1|A0 A  A |
+ -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 12
+0.000293 [s]
+
+Level 21
+Sequence of moves: 
+ -- -- -- -- --
+|F  F |= |E2 E |
+ --    --    --
+|= |F3|D |E |= |
+ -- --    -- --
+|B |= |D3 D |C3|
+    -- -- --   
+|B  B4|= |C  C |
+ -- -- -- -- --
+|= |A  A3 A |= |
+ -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 7
+0.000262 [s]
+
+Level 22
+Sequence of moves: 
+ -- -- -- -- --
+|= |C  C |= |D |
+ --    -- --   
+|B |C3|= |E |D1|
+    -- --      
+|B1 B |F |E |D |
+ -- --       --
+|G1 G |F |E2|A0|
+    --    --   
+|G |= |F2|A  A |
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 7
+0.000351 [s]
+
+Level 23
+Sequence of moves: 
+ -- -- -- -- --
+|= |B  B |= |F |
+ -- --    --   
+|A4|= |B4|F2 F |
+    -- -- -- --
+|A  A |= |E |= |
+ -- -- --    --
+|= |C |D2|E3 E |
+ --       -- --
+|C1 C |D  D |= |
+ -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 4
+7.6e-05 [s]
+
+Level 24
+Sequence of moves: 
+ -- -- -- -- --
+|= |B |F |= |G |
+ --       --   
+|A |B |F |G1 G |
+          -- --
+|A |B1|F2|E  E |
+    -- -- --   
+|A2|D2|= |C |E0|
+ --    --    --
+|= |D  D |C  C1|
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 9
+0.000191 [s]
+
+Level 25
+Sequence of moves: 
+ -- -- -- -- --
+|. |B3|= |C3 C |
+ --    -- --   
+|A |B  B |= |C |
+    -- -- -- --
+|A |= |D |F |= |
+    --       --
+|A2|D1 D |F  F3|
+ -- -- -- -- --
+|= |E  E2 E |= |
+ -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 4
+0.000202 [s]
+
+Level 26
+Sequence of moves: 
+ -- -- -- -- --
+|F2 F  F |E2|A |
+ -- -- --      
+|= |G |= |E |A0|
+ --    --      
+|G2 G |C |E |A |
+ -- --    -- --
+|B  B |C |= |D |
+    --    --   
+|B1|= |C3|D1 D |
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 10
+0.000199 [s]
+
+Level 27
+Sequence of moves: 
+ -- -- -- -- --
+|B  B |= |E  E |
+ --    -- --   
+|A |B1|D3|= |E3|
+    --    -- --
+|A0|C0|D  D |= |
+       -- -- --
+|A |C  C |F  F2|
+ -- -- --    --
+|G  G  G0|F |= |
+ -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 17
+0.000257 [s]
+
+Level 28
+Sequence of moves: 
+ -- -- -- -- --
+|= |A |= |E |= |
+ --    --    --
+|A3 A |E2 E |F |
+ -- -- -- --   
+|= |B4 B |F2 F |
+ -- --    -- --
+|C |= |B |= |D |
+    -- -- --   
+|C  C3|= |D  D2|
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 12
+0.000225 [s]
+
+Level 29
+Sequence of moves: 
+ -- -- -- -- --
+|= |B  B  B2|A |
+ -- -- -- --   
+|D |= |C2|A  A1|
+    --    -- --
+|D3|E |C |= |F1|
+          --   
+|D |E2|C |F  F |
+ --    -- -- --
+|= |E |G  G0 G |
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 6
+0.000136 [s]
+
+Level 30
+Sequence of moves: 
+ -- -- -- -- --
+|= |C  C4|= |D |
+ --    -- --   
+|E |C |= |D  D3|
+    -- -- -- --
+|E2|= |A  A |= |
+    --    -- --
+|E |F2|A5|= |B |
+ --    -- --   
+|F  F |= |B3 B |
+ -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+6.8e-05 [s]
+
+Level 31
+Sequence of moves: 
+ -- -- -- -- --
+|. |B |C  C |E |
+ --       --   
+|= |B2|C1|F2|E1|
+ --    --      
+|A |B |= |F |E |
+    -- --    --
+|A |D1 D |F |= |
+       -- -- --
+|A1|D |G1 G  G |
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 17
+0.000365 [s]
+
+Level 32
+Sequence of moves: 
+ -- -- -- -- --
+|= |A3 A  A |= |
+ -- -- -- -- --
+|F |= |B3 B  B |
+    -- -- -- --
+|F  F3|= |C  C |
+ -- -- -- --   
+|E  E  E2|D2|C2|
+ -- -- --    --
+|. |= |D  D |= |
+ -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 10
+0.000283 [s]
+
+Level 33
+Sequence of moves: 
+ -- -- -- -- --
+|D  D |= |F2 F |
+    -- -- --   
+|D3|= |E |= |F |
+ -- --    -- --
+|= |C |E3 E |B |
+ --    -- --   
+|C  C3|A2|B  B1|
+ -- --    -- --
+|. |= |A  A |= |
+ -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 7
+0.000331 [s]
+
+Level 34
+Sequence of moves: 
+ -- -- -- -- --
+|= |D  D4|= |F |
+ --    -- --   
+|C |D |= |F  F3|
+    -- -- -- --
+|C |= |B |= |E |
+    --    --   
+|C3|B  B3|E2 E |
+ -- -- -- -- --
+|= |A  A  A2|= |
+ -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 8
+0.00017 [s]
+
+Level 35
+Sequence of moves: 
+ -- -- -- -- --
+|= |F  F2|A1 A |
+ --    -- --   
+|G |F |= |E2|A |
+    -- --    --
+|G  G2|E  E |= |
+ -- -- -- -- --
+|= |C1 C  C |D |
+ -- -- -- --   
+|B1 B  B |D  D1|
+ -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 8
+0.000235 [s]
+
+Level 36
+Sequence of moves: 
+ -- -- -- -- --
+|= |D |A  A1 A |
+ --    -- -- --
+|E |D  D2|B2|= |
+    -- --    --
+|E3 E |= |B |C1|
+ -- -- --      
+|F1|= |G2|B |C |
+    --    --   
+|F  F |G  G |C |
+ -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 10
+0.000216 [s]
+
+Level 37
+Sequence of moves: 
+ -- -- -- -- --
+|F  F |= |E3|= |
+ --    --    --
+|= |F2|E  E |D |
+ -- -- -- --   
+|B  B4|= |C |D |
+    -- --      
+|B |= |A |C |D2|
+ -- --       --
+|= |A3 A |C2|= |
+ -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.000167 [s]
+
+Level 38
+Sequence of moves: 
+ -- -- -- -- --
+|= |E  E |= |B |
+ -- --    --   
+|D  D |E3|B2 B |
+ --    -- -- --
+|= |D4|= |A |= |
+ -- -- --    --
+|F2|= |C3|A  A3|
+    --    -- --
+|F  F |C  C |= |
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 13
+0.000284 [s]
+
+Level 39
+Sequence of moves: 
+ -- -- -- -- --
+|B  B2|A  A  A1|
+    -- -- -- --
+|B |= |C4 C |= |
+ -- --    -- --
+|= |F4|C |= |D4|
+ --    -- --   
+|F  F |= |D  D |
+ -- -- -- -- --
+|= |E  E3 E |= |
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 7
+0.000132 [s]
+
+Level 40
+Sequence of moves: 
+ -- -- -- -- --
+|B  B  B2|= |A |
+ -- -- -- --   
+|= |C  C3 C |A |
+ -- -- -- --   
+|G |= |D  D2|A1|
+    --    -- --
+|G2|F |D |= |E1|
+       -- --   
+|G |F  F1|E  E |
+ -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 11
+0.000271 [s]
+
+Level 41
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |H |= |D  D |= |
+ --    --    -- --
+|I |H  H3|D3|= |C |
+    -- -- -- --   
+|I  I3|= |E |B |C3|
+ -- -- --         
+|= |F3|E  E2|B3|C |
+ --    -- --    --
+|G |F  F |= |B |= |
+    -- -- -- -- --
+|G  G2|= |A  A  A3|
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 9
+0.00023 [s]
+
+Level 42
+Sequence of moves: 
+ -- -- -- -- -- --
+|I  I2|= |G |A  A1|
+    -- --       --
+|I |J |F |G |A |B2|
+ --          --   
+|= |J1|F |G3|= |B |
+ --       -- --   
+|H2|J |F3|= |C4|B |
+    -- -- --    --
+|H  H |= |C  C |= |
+ -- -- -- -- -- --
+|E  E1 E |D1 D  D |
+ -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 13
+0.000371 [s]
+
+Level 43
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |E3|= |D3 D |= |
+ --    --    -- --
+|F2|E  E |D |= |A |
+    -- -- -- --   
+|F  F |= |C  C3|A4|
+ -- -- --    --   
+|G2 G  G |C |= |A |
+ -- -- -- -- -- --
+|= |H2 H  H |B |= |
+ -- -- -- --    --
+|I  I  I2|= |B3 B |
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 50
+0.000787 [s]
+
+Level 44
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |G  G  G2|= |F |
+ -- -- -- -- --   
+|H  H4|I  I1|E |F |
+ --    --         
+|= |H |= |I |E |F2|
+ -- -- -- --    --
+|A |= |D  D4|E3|= |
+    -- --    -- --
+|A |C  C |D |= |B3|
+    --    -- --   
+|A3|= |C3|= |B  B |
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 10
+0.000356 [s]
+
+Level 45
+Sequence of moves: 
+ -- -- -- -- -- --
+|B |F |G2 G  G |= |
+       -- -- -- --
+|B1|F1 F |I |= |H3|
+    -- --    --   
+|B |= |E |I1 I |H |
+ -- --    -- --   
+|C0|D |E |J  J2|H |
+          --    --
+|C |D2|E3|= |J |= |
+       -- -- -- --
+|C |D |= |A  A  A3|
+ -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 6
+0.000382 [s]
+
+Level 46
+Sequence of moves: 
+ -- -- -- -- -- --
+|F  F1|= |E2|D  D |
+ --    --    --   
+|G2|F |E  E |C |D1|
+    -- -- --    --
+|G  G |= |H3|C1|= |
+ -- -- --       --
+|I1|= |H  H |C |B |
+    -- -- -- --   
+|I |J  J2|= |B3 B |
+       -- -- -- --
+|I |J |A  A  A2|= |
+ -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 20
+0.000713 [s]
+
+Level 47
+Sequence of moves: 
+ -- -- -- -- -- --
+|H  H3|= |I |F  F2|
+    -- --       --
+|H |= |I2 I |F |= |
+ -- -- -- -- -- --
+|= |G  G  G4|= |E |
+ -- -- -- -- --   
+|A |B2 B |= |D |E |
+    --    --      
+|A |= |B |D3 D |E2|
+    -- -- -- -- --
+|A2|C  C2 C |= |. |
+ -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 77
+0.00172 [s]
+
+Level 48
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |H3 H |= |A  A |
+ -- --    -- --   
+|G  G |H |. |B2|A2|
+ --    -- --    --
+|= |G3|= |I3|B |= |
+ -- -- --       --
+|F3 F  F |I |B |C2|
+ -- -- --    --   
+|E  E2|= |I |= |C |
+    -- -- -- --   
+|E |= |D  D3 D |C |
+ -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 6
+0.0003 [s]
+
+Level 49
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |B  B |= |G |H |
+ -- --    --      
+|A4|= |B4|G2 G |H1|
+    -- -- -- --   
+|A  A |= |F |= |H |
+ -- -- --    -- --
+|= |C  C2|F3|I  I3|
+ -- --       --   
+|D  D2|C |F |= |I |
+ --    -- -- -- --
+|= |D |E2 E  E |= |
+ -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 8
+0.000215 [s]
+
+Level 50
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |G4|= |D |= |B1|
+ --    --    --   
+|H3|G |D  D3|B  B |
+       -- -- -- --
+|H |G |= |C  C1|A0|
+    -- -- --      
+|H |= |I3|E0|C |A |
+ -- --       --   
+|= |I  I |E |F0|A |
+ -- -- --       --
+|J  J  J1|E |F  F |
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 11
+0.000458 [s]
+
+Level 51
+Sequence of moves: 
+ -- -- -- -- -- --
+|A1|J |= |I2|= |G1|
+       --    --   
+|A |J2 J |I  I |G |
+    -- -- -- --   
+|A |= |H  H  H2|G |
+ -- -- -- -- -- --
+|B |C |= |F2 F  F |
+       -- -- -- --
+|B1|C4 C |= |E  E |
+    -- -- -- --   
+|B |= |D  D2 D |E1|
+ -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 59
+0.001623 [s]
+
+Level 52
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |G2 G  G |D |C |
+ -- -- -- --      
+|F  F |= |D  D2|C |
+ --    -- -- --   
+|= |F4|E  E2|= |C1|
+ -- -- --    -- --
+|H |= |I |E |B  B1|
+    --    --    --
+|H3 H |I  I1|B |A0|
+ -- -- -- -- --   
+|= |J1 J  J |A  A |
+ -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 38
+0.000881 [s]
+
+Level 53
+Sequence of moves: 
+ -- -- -- -- -- --
+|. |D |B2 B |A  A2|
+ --       --    --
+|C2|D2|B |= |A |= |
+       -- -- -- --
+|C |D |= |G |H3 H |
+    -- --    --   
+|C |= |G4 G |= |H |
+ -- -- -- -- -- --
+|= |F  F3 F |I |= |
+ -- -- -- --    --
+|E  E  E2|= |I3 I |
+ -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 47
+0.001277 [s]
+
+Level 54
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |F3|= |G  G |A0|
+ --    -- --      
+|F  F |E |= |G2|A |
+ -- --    -- --   
+|D |= |E3 E |H1|A |
+    -- -- --    --
+|D  D1|C |I1|H  H |
+ -- --       -- --
+|B |C1 C |I  I |= |
+    -- -- -- -- --
+|B1 B |= |J2 J  J |
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 98
+0.00169 [s]
+
+Level 55
+Sequence of moves: 
+ -- -- -- -- -- --
+|A |= |B |J |= |I1|
+    --       --   
+|A3|B2 B |J1 J |I |
+    -- -- -- --   
+|A |= |E2|H0 H |I |
+ -- --    --    --
+|= |D |E  E |H |G |
+ --    -- -- --   
+|C |D4 D |= |F |G |
+    -- -- --      
+|C  C2|= |F2 F |G0|
+ -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 7
+0.000171 [s]
+
+Level 56
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |B4|= |A  A  A2|
+ --    -- -- -- --
+|C |B |D  D  D4|= |
+       -- -- -- --
+|C |B |= |G |= |E3|
+    -- --    --   
+|C3|= |H |G  G3|E |
+ -- --    -- --   
+|= |F2|H |= |I |E |
+ --       --    --
+|F  F |H3|I  I2|= |
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 12
+0.000268 [s]
+
+Level 57
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |A  A  A3|= |D2|
+ -- -- -- -- --   
+|B4 B |= |E3|D  D |
+    -- --    -- --
+|B |= |F4|E  E |= |
+ -- --    -- -- --
+|= |G |F  F |= |I |
+ --    -- -- --   
+|C |G3 G |= |I  I4|
+    -- -- -- -- --
+|C1 C |H2 H  H |= |
+ -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 9
+0.000232 [s]
+
+Level 58
+Sequence of moves: 
+ -- -- -- -- -- --
+|H0 H  H |B |= |A3|
+ -- -- --    --   
+|I  I  I1|B2 B |A |
+ -- -- -- -- --   
+|= |J  J2|C1|= |A |
+ -- --       -- --
+|F |= |J |C |D2|= |
+    -- --       --
+|F  F3|G |C |D  D |
+ -- --    -- -- --
+|= |G1 G |E  E0 E |
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 8
+0.000197 [s]
+
+Level 59
+Sequence of moves: 
+ -- -- -- -- -- --
+|F |= |B2 B  B |C |
+    -- -- -- --   
+|F1 F |G2|= |D |C1|
+ -- --    --      
+|H |G  G |J2|D3|C |
+    -- --       --
+|H2|= |I |J |D |= |
+    --       -- --
+|H |I1 I |J |= |E2|
+ -- -- -- -- --   
+|= |A1 A  A |E  E |
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 219
+0.003985 [s]
+
+Level 60
+Sequence of moves: 
+ -- -- -- -- -- --
+|H |= |F3|= |E |= |
+    --    --    --
+|H  H2|F  F |E3 E |
+ -- -- -- -- -- --
+|= |G |= |D  D |= |
+ --    -- --    --
+|I2|G3|A |= |D3|C |
+          -- --   
+|I |G |A |B |C2 C |
+    --       -- --
+|I |= |A3|B2 B |= |
+ -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 8
+0.000389 [s]
+
+Level 61
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |E |= |B |= |A |
+ --    --    --   
+|D |E3|F |B  B3|A3|
+          -- --   
+|D |E |F3 F |= |A |
+    -- -- -- -- --
+|D3|= |I |= |G4|= |
+ -- --    --    --
+|= |C |I2 I |G  G |
+ --    -- -- -- --
+|C2 C |H  H  H1|= |
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 56
+0.001062 [s]
+
+Level 62
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |D |= |B |= |A2|
+ --    --    --   
+|D  D3|C |B3 B |A |
+ -- --    -- --   
+|= |C  C3|= |F |A |
+ -- -- -- --    --
+|G  G  G2|F  F3|= |
+ -- -- -- -- -- --
+|= |H3 H  H |= |E |
+ -- -- -- -- --   
+|I  I  I2|= |E3 E |
+ -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 18
+0.000654 [s]
+
+Level 63
+Sequence of moves: 
+ -- -- -- -- -- --
+|A  A  A1|B |C1 C |
+ -- -- --       --
+|= |H |B1 B |C |= |
+ --    -- -- -- --
+|G |H2|I2|= |E  E |
+          --    --
+|G |H |I |D1|E3|= |
+    --       -- --
+|G3|= |I |D  D |F |
+ -- -- -- -- --   
+|= |J2 J  J |F1 F |
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 291
+0.004861 [s]
+
+Level 64
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |D  D |= |H  H2|
+ --    -- --    --
+|E |D3|= |G |H |= |
+    -- --    -- --
+|E2 E |C |G2 G |I |
+ -- --    -- --   
+|= |F1|C  C1|J1|I2|
+ --    -- --      
+|A |F  F |B |J |I |
+    -- --       --
+|A1 A |B0 B |J |= |
+ -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 91
+0.001832 [s]
+
+Level 65
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |E  E2|= |F  F |
+ --    -- -- --   
+|C |E |D  D3 D |F1|
+    -- -- -- -- --
+|C |B |= |H4|= |G2|
+       --    --   
+|C1|B |I |H |G  G |
+ --          -- --
+|A |B1|I2|H |= |J2|
+    --    -- --   
+|A  A0|I |= |J  J |
+ -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 8
+0.000306 [s]
+
+Level 66
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |F3 F  F |= |H |
+ -- -- -- -- --   
+|E3 E |= |G |H2 H |
+ --    --    -- --
+|= |E |D |G2 G |= |
+ -- --    -- -- --
+|I3 I |D |C  C |B |
+    --    --      
+|I |= |D3|= |C2|B |
+ -- -- -- -- --   
+|= |A  A  A4|= |B2|
+ -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.000226 [s]
+
+Level 67
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |I |H  H  H1|= |
+ --    -- -- -- --
+|J |I  I1|G  G2 G |
+    -- -- -- -- --
+|J  J2|F  F  F2|= |
+ -- -- -- -- -- --
+|= |B  B |= |C |E |
+ --    -- --      
+|A |B3|= |D |C1|E1|
+    -- --         
+|A1 A |D  D2|C |E |
+ -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 42
+0.001165 [s]
+
+Level 68
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |J  J |= |B2|A0|
+ -- --    --      
+|I  I |J3|C3|B |A |
+ --    --         
+|= |I3|= |C |B |A |
+ -- -- --    -- --
+|H2 H |G |C |= |E |
+    --    -- --   
+|H |= |G2 G |D |E |
+ -- -- -- --      
+|F  F  F1|D1 D |E1|
+ -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 20
+0.000366 [s]
+
+Level 69
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |C3|= |B1|A0 A |
+ --    --    --   
+|D |C |F |B  B |A |
+          -- -- --
+|D2|C |F2 F |I2 I |
+    -- -- --    --
+|D |= |H |= |I |J |
+ -- --    -- --   
+|E1|H  H3|G |= |J1|
+    -- --    --   
+|E  E |= |G3 G |J |
+ -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 64
+0.001317 [s]
+
+Level 70
+Sequence of moves: 
+ -- -- -- -- -- --
+|= |F  F |= |B  B2|
+ -- --    --    --
+|G3 G |F3|C3|B |= |
+ --    --    -- --
+|= |G |= |C |. |A |
+ -- -- --    --   
+|H  H1|E2|C |= |A |
+    --    -- --   
+|H |I1|E  E |D3|A3|
+ --    -- --    --
+|I  I |= |D  D |= |
+ -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 21
+0.000489 [s]
+
+Level 71
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |J |= |K |= |E  E |
+ --    --    -- --   
+|J3 J |I |K  K4|= |E3|
+ -- --    -- -- -- --
+|= |L3|I |= |G3|H |= |
+ --       --       --
+|C |L |I3|F |G |H3 H |
+       --       -- --
+|C |L |= |F |G |= |D |
+    -- --    -- --   
+|C3|= |B4|F4|= |D  D2|
+ -- --    -- -- -- --
+|= |B  B |= |A  A  A2|
+ -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 101
+0.002192 [s]
+
+Level 72
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|A0 A  A |K |= |M |= |
+ -- -- --    --    --
+|B0|C0 C |K2|L |M  M3|
+    --          -- --
+|B  B |C |K |L3 L |= |
+ -- -- -- -- -- -- --
+|D2 D  D |= |G |= |E4|
+ -- -- -- --    --   
+|= |I2|J  J |G3 G |E |
+ --       -- -- --   
+|I  I |J2|= |F |= |E |
+ -- -- -- --    -- --
+|= |H  H  H2|F3 F |= |
+ -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 8
+0.000312 [s]
+
+Level 73
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|B |= |E  E3 E |= |H |
+    -- -- -- -- --   
+|B |D |= |G  G3 G |H |
+       -- -- -- --   
+|B2|D3 D |F3 F |= |H3|
+ -- -- --    -- -- --
+|= |C |= |F |I4 I |= |
+ --    -- --    -- --
+|A |C3 C |= |I |. |K |
+    -- -- -- -- --   
+|A  A2|J3 J |= |K  K3|
+ -- --    -- -- -- --
+|. |= |J |L  L  L2|= |
+ -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 40
+0.002265 [s]
+
+Level 74
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|G |= |M  M  M2|K |= |
+    -- -- -- --    --
+|G |N  N |L |= |K2|J1|
+    --       --      
+|G2|= |N2|L  L2|K |J |
+ -- -- -- -- -- --   
+|B |D  D3 D |= |I |J |
+    -- -- -- --    --
+|B0 B |E1|= |F |I  I2|
+ -- --    --    -- --
+|C  C0|E  E |F2|H1|= |
+    -- -- --       --
+|C |A0 A  A |F |H  H |
+ -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 298
+0.005099 [s]
+
+Level 75
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |K3|= |J |= |C  C |
+ --    --    -- --   
+|L3|K |I |J |D |= |C3|
+                -- --
+|L |K |I |J3|D |B |= |
+    --    --       --
+|L |= |I4|= |D4|B |A2|
+ -- -- -- -- --      
+|= |H4|= |F3|= |B3|A |
+ --    --    -- --   
+|G2|H  H |F  F |. |A |
+    -- -- -- -- -- --
+|G  G |= |E  E2 E |= |
+ -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 126
+0.004457 [s]
+
+Level 76
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |B  B4|= |D |C  C |
+ --    -- --    --   
+|E |B |= |A |D  D2|C1|
+    -- --    -- -- --
+|E |= |A  A5|= |L |= |
+    -- -- -- --    --
+|E3|H |= |G2|F1|L |K2|
+ --    --            
+|= |H3|I |G |F |L2|K |
+ --             --   
+|J |H |I2|G |F |M |K |
+    --    -- --    --
+|J  J1|I |= |M2 M |= |
+ -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 36
+0.00093 [s]
+
+Level 77
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|C |D2 D  D |= |K3 K |
+    -- -- -- --    --
+|C |= |E |L  L2|K |= |
+    --       -- -- --
+|C2|B |E |L |I |= |J |
+ --       --    --   
+|= |B |E3|= |I3|J3 J |
+ --    -- --    -- --
+|A |B3|= |F2|I |= |M |
+    -- --    -- --   
+|A1|G2 G |F  F |M2 M |
+       -- -- -- -- --
+|A |G |= |H  H  H2|= |
+ -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 126
+0.003358 [s]
+
+Level 78
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|N  N2|M |L  L  L1|A |
+    --    -- -- --   
+|N |= |M  M2|= |K |A |
+ -- -- -- -- --      
+|= |F3 F  F |K1 K |A0|
+ -- -- -- -- -- -- --
+|E  E2 E |= |G  G  G1|
+ -- -- -- -- -- -- --
+|D1|B0 B |H |J  J  J1|
+    --       -- -- --
+|D  D |B |H3 H |= |I |
+ -- -- -- -- -- --   
+|= |C  C  C2|= |I2 I |
+ -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 267
+0.007834 [s]
+
+Level 79
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|E2 E |D  D2|C1 C |A0|
+    -- --    --      
+|E |= |F3|D |= |C |A |
+ -- --    -- -- --   
+|= |H |F |= |J |B |A |
+ --       --       --
+|G1|H3|F |J2 J |B  B1|
+       -- -- -- -- --
+|G |H |= |N |K  K1|= |
+    -- --       -- --
+|G |I0|N1 N |K |L  L2|
+ --    -- -- -- --   
+|I  I |M  M  M1|= |L |
+ -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 122
+0.002805 [s]
+
+Level 80
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |A4 A |= |H |I  I |
+ --    -- --       --
+|B |A |= |G3|H |I2|= |
+    -- --       -- --
+|B |= |D |G |H3|= |J3|
+    --       -- --   
+|B2|C1|D |G |= |J  J |
+ --       -- -- -- --
+|C  C |D3|L2|K  K  K2|
+ -- -- --    -- -- --
+|E2 E |= |L  L |= |M |
+    -- -- -- -- --   
+|E |= |F2 F  F |M  M1|
+ -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 58
+0.001158 [s]
+
+Level 81
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |C4 C |= |L |= |K |
+ -- --    --    --   
+|B4|= |C |L  L3|K  K1|
+    -- -- -- -- -- --
+|B  B |= |D4|= |J3 J |
+ -- -- --    -- --   
+|= |E  E4|D  D |= |J |
+ -- --    -- -- -- --
+|A |= |E |= |H4 H |= |
+    -- -- --    -- --
+|A |F3 F  F |H |= |G |
+    -- -- -- -- --   
+|A3|= |I  I  I1|G  G2|
+ -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 36
+0.000855 [s]
+
+Level 82
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |E3|= |B  B3 B |= |
+ --    -- -- -- -- --
+|E  E |F2 F |= |C1|D |
+ -- -- --    --      
+|= |G  G3|F |H2|C |D2|
+ -- --    --         
+|I3|= |G |H  H |C |D |
+    -- -- -- -- -- --
+|I  I |= |K |= |L3|= |
+ -- -- --    --    --
+|J1 J  J |K |M2|L  L |
+ -- -- --       -- --
+|A  A0 A |K2|M  M |= |
+ -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 10
+0.000745 [s]
+
+Level 83
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|I  I |= |K |= |F |A0|
+ --    --    --      
+|J2|I1|H |K3 K |F2|A |
+    --    -- --      
+|J |H  H3|= |E |F |A |
+    -- -- --    -- --
+|J |= |G  G2|E |= |C |
+ -- -- --       --   
+|= |L3|M0|G |E2|D1|C1|
+ --       -- --      
+|L  L |M  M |D  D |C |
+ -- -- -- -- -- -- --
+|= |N1 N  N |B  B  B0|
+ -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 70
+0.002089 [s]
+
+Level 84
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |J3|= |I3 I |= |B2|
+ --    -- --    --   
+|L |J  J |= |I |B  B |
+    -- -- -- -- -- --
+|L  L2|K |H  H4 H |= |
+ -- --    -- -- -- --
+|= |K  K3|= |D |= |A |
+ -- -- -- --    --   
+|C |= |E4 E |D  D3|A |
+    -- --    -- --   
+|C4 C |= |E |= |F2|A3|
+ -- -- -- -- --    --
+|= |G  G2 G |F  F |= |
+ -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 11
+0.00052 [s]
+
+Level 85
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|A  A1 A |F2 F |= |D |
+ -- -- --    -- --   
+|B2|= |G2|F |= |E |D |
+    --    -- --      
+|B |H3|G  G |I2|E4|D2|
+       -- --       --
+|B |H |= |J2|I |E |= |
+ --    --       -- --
+|= |H |J  J |I |= |C |
+ -- -- -- -- -- --   
+|K  K3 K |= |M  M |C |
+ -- -- -- --    --   
+|= |L2 L  L |M3|= |C3|
+ -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 31
+0.000764 [s]
+
+Level 86
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |M  M |= |G  G |= |
+ -- --    --    -- --
+|L3|K |M2|H |G4|= |F |
+       --    -- --   
+|L |K  K1|H |= |F4 F |
+    -- --    -- -- --
+|L |= |J |H2|D |= |E2|
+ -- --    --    --   
+|= |I |J1|A2|D3 D |E |
+ --          -- --   
+|I  I2|J |A  A |= |E |
+ -- -- -- -- -- -- --
+|C  C1 C |= |B2 B  B |
+ -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 40
+0.001074 [s]
+
+Level 87
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|H  H |I1 I |J2 J |= |
+    -- --    --    --
+|H1|K  K1|I |= |J |L2|
+ -- --    -- -- --   
+|= |F |K |M2 M |N0|L |
+ --    --    --      
+|G1|F |= |M |N  N |L |
+       -- -- -- -- --
+|G |F2|E |D  D  D2|= |
+    --    -- -- -- --
+|G |C |E3 E |= |A  A |
+ --    -- -- -- --   
+|C1 C |= |B  B  B2|A2|
+ -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 10
+0.000727 [s]
+
+Level 88
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |F  F1 F |L2|M2|= |
+ -- -- -- --       --
+|E2 E |C |J |L |M  M |
+ --             -- --
+|= |E |C |J |L |= |K |
+ -- --       -- --   
+|D  D3|C1|J1|= |I |K |
+ --    -- -- --      
+|= |D |= |G |I3 I |K1|
+ -- -- --    -- -- --
+|B  B  B3|G  G3|= |H |
+ -- -- -- -- -- --   
+|= |A  A2 A |= |H2 H |
+ -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 30
+0.00098 [s]
+
+Level 89
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |C2|D1 D  D |= |J |
+ --    -- -- -- --   
+|B |C  C |I  I |J2 J |
+    -- --    -- -- --
+|B |= |G |I0|H  H |= |
+    --    -- --    --
+|B2|E1|G |L |= |H2|K2|
+ --          -- --   
+|E  E |G1|L  L2|M2|K |
+ -- -- -- -- --      
+|A |F1 F  F |= |M |K |
+    -- -- -- --    --
+|A0 A |N  N  N1|M |= |
+ -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 299
+0.005862 [s]
+
+Level 90
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|A1|B1 B |K1 K |L3 L |
+    --       --    --
+|A  A |B |K |= |L |= |
+ -- -- -- -- -- -- --
+|= |E |= |J  J |= |M3|
+ --    --    -- --   
+|C |E |F3|J4|. |M  M |
+          -- -- -- --
+|C2|E3|F |= |G |= |I |
+    --    --    --   
+|C |= |F |G2 G |I2 I |
+ -- -- -- -- -- -- --
+|D1 D  D |H  H1 H |= |
+ -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 18
+0.000672 [s]
+
+Level 91
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|F  F |B2 B  B |= |C2|
+ --    -- -- -- --   
+|M |F1|= |A  A |D |C |
+    -- --    --      
+|M |K  K2|A1|D1 D |C |
+       -- -- -- -- --
+|M1|K |= |J2|E  E1|= |
+ -- -- --    --    --
+|= |L3 L |J  J |E |H |
+ -- --    -- -- --   
+|N |= |L |I |= |H2 H |
+    -- --    -- -- --
+|N  N2|I  I1|G1 G  G |
+ -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 398
+0.008127 [s]
+
+Level 92
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |F |N  N |M  M |= |
+ --    --    --    --
+|A |F |E |N0|L |M1|H |
+          --    --   
+|A |F2|E |L  L0|G2|H2|
+    --    -- --      
+|A2|= |E2|D |I |G |H |
+ -- -- --          --
+|B1|C |= |D |I |G |= |
+       --       -- --
+|B |C3 C |D1|I1|= |J2|
+    -- -- -- -- --   
+|B |= |K  K  K1|J  J |
+ -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 88
+0.001754 [s]
+
+Level 93
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |F |= |G |= |E3 E |
+ --    --    --    --
+|A3|F3|I |G3|H |E |= |
+                -- --
+|A |F |I |G |H3|= |B |
+    --    --    --   
+|A |= |I3|= |H |D |B |
+ -- -- -- -- --      
+|= |K  K3 K |J0|D2|B3|
+ -- -- -- --       --
+|L  L2 L |J  J |D |= |
+ -- -- -- -- -- -- --
+|= |M1 M  M |C  C  C1|
+ -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 45
+0.001239 [s]
+
+Level 94
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|H  H3|= |B  B1|D |A |
+    -- --    --      
+|H |= |G |B |C3|D1|A |
+ -- --    --         
+|= |J |G  G3|C |D |A0|
+ --    -- --    -- --
+|K2|J  J4|= |C |= |F |
+    -- -- -- -- --   
+|K  K |= |I |= |F  F3|
+ -- -- --    -- -- --
+|M1 M |L |I  I5|= |E |
+ --       -- -- --   
+|= |M |L  L2|= |E2 E |
+ -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 21
+0.000875 [s]
+
+Level 95
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |H  H  H3|= |I |= |
+ -- -- -- -- --    --
+|A4|= |G3 G  G |I  I2|
+    -- -- -- -- -- --
+|A |F  F  F3|= |J |B |
+    -- -- -- --      
+|A |= |E  E3 E |J |B0|
+ -- -- -- -- --      
+|= |C3 C |= |K2|J2|B |
+ -- --    --    -- --
+|D  D2|C |L |K |= |M |
+    -- --       --   
+|D |= |L  L2|K |M  M1|
+ -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 73
+0.001617 [s]
+
+Level 96
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |G3|H |= |B2 B  B |
+ --       -- -- -- --
+|J |G |H2 H |C1 C |= |
+       -- --    -- --
+|J |G |= |I2|C |A  A |
+    -- --    -- --   
+|J3|= |I  I |D  D2|A2|
+ -- -- -- -- --    --
+|= |K  K  K3|F1|D |= |
+ -- -- -- --    -- --
+|L  L |= |M |F |= |E2|
+ --    --       --   
+|. |L2|M1 M |F |E  E |
+ -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 677
+0.011944 [s]
+
+Level 97
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|K |= |G |A0 A |C |= |
+    --    --       --
+|K |J3|G  G1|A |C |B2|
+       -- -- --      
+|K2|J |L1 L  L |C2|B |
+ --    -- -- -- --   
+|= |J |= |H  H4|= |B |
+ -- -- -- --    -- --
+|M  M |I |= |H |F  F |
+ --       -- -- --   
+|= |M2|I  I4|= |E |F2|
+ -- -- -- -- --    --
+|D2 D  D |= |E  E3|= |
+ -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 26
+0.001283 [s]
+
+Level 98
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |D2 D |= |A  A  A3|
+ -- --    -- -- -- --
+|G |E |D |C |= |B |= |
+       --    --    --
+|G |E0|F1|C2 C |B  B2|
+          -- -- -- --
+|G1|E |F  F |H1 H  H |
+ -- -- -- -- -- -- --
+|L  L |= |J3|= |M |I0|
+ --    --    --      
+|K |L1|J  J |M1 M |I |
+    -- -- -- -- --   
+|K  K1|= |N  N  N1|I |
+ -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 155
+0.003389 [s]
+
+Level 99
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |I |= |C3 C  C |= |
+ --    -- -- -- -- --
+|J3|I  I4|= |B  B3|A3|
+    -- -- --    --   
+|J  J |= |G |B |= |A |
+ -- -- --    -- --   
+|K2|= |H |G |= |D4|A |
+    --       --    --
+|K |L3|H4|G4|D  D |= |
+          -- -- -- --
+|K |L |H |= |F |= |E2|
+ --    -- --    --   
+|= |L |= |F3 F |E  E |
+ -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 25
+0.000732 [s]
+
+Level 100
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|= |H |= |C |= |B |A |
+ --    --    --      
+|I |H  H3|C  C3|B |A |
+    -- -- -- --      
+|I2|= |G  G3|= |B3|A0|
+    -- --    -- -- --
+|I |J4 J |G |F |= |D |
+ -- --    --    --   
+|L |= |J |= |F4 F |D |
+    -- -- -- -- --   
+|L |M |= |K3 K |= |D2|
+       --    -- -- --
+|L1|M  M2|K |E  E1 E |
+ -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 279
+0.005635 [s]
+
+Level 101
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |G  G  G3|= |B4 B |= |
+ -- -- -- -- --    -- --
+|H |= |O3 O  O |B |= |A |
+    -- -- -- -- -- --   
+|H |P  P |= |Q |= |C |A |
+       -- --    --      
+|H2|P3|N |Q2 Q |D1|C3|A3|
+ -- --    -- --       --
+|I |= |N  N2|. |D |C |= |
+    -- -- -- --    -- --
+|I2|J3|= |M  M |D |F |E2|
+       -- --    --      
+|I |J |K1 K |M1|F  F1|E |
+ --       -- -- -- --   
+|= |J |K |L1 L  L |= |E |
+ -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 996
+0.020138 [s]
+
+Level 102
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P |= |N |M  M  M1|K2|= |
+    --    -- -- --    --
+|P  P2|N3|= |R |K  K |J |
+ -- --    --    -- --   
+|O |= |N |Q |R  R3|= |J |
+    -- --    -- -- --   
+|O  O2|Q2 Q |= |H3 H |J2|
+ -- -- -- -- --    -- --
+|D |= |C  C |F |H |I0 I |
+    --    --    -- --   
+|D |B |C1|F3 F |= |L |I |
+       -- -- -- --    --
+|D1|B  B2|= |E |G |L2 L |
+ -- -- -- --       -- --
+|A0 A  A |E  E1|G2 G |= |
+ -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 13
+0.000979 [s]
+
+Level 103
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |F  F3|= |H |E  E2|= |
+ --    -- --       -- --
+|I |F |G3 G |H2|E |= |D |
+    --    --    -- --   
+|I3|= |G |= |H |J2|D  D3|
+    -- -- -- --    -- --
+|I |L  L  L2|J  J |= |C |
+ -- -- -- -- -- -- --   
+|= |K  K4 K |= |N |B |C |
+ -- -- -- -- --         
+|M |= |O3|= |Q |N |B |C1|
+    --    --          --
+|M2|P2|O  O |Q4|N2|B1|A1|
+       -- --    -- --   
+|M |P  P |= |Q |= |A  A |
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 89
+0.002084 [s]
+
+Level 104
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |K  K2 K |M1 M |N1 N |
+ -- -- -- -- --       --
+|J |= |I |L2|= |M |N |= |
+    --       -- -- -- --
+|J  J2|I3|L  L |F  F |H |
+ -- --    -- --    --   
+|B0 B |I |= |G3|F0|H2 H |
+    -- -- --    -- -- --
+|B |O1|= |P2|G  G |= |D |
+ --    --    -- -- --   
+|Q1|O  O |P |E |= |C |D |
+    -- --       --      
+|Q |R1 R |P |E  E1|C3|D2|
+    --    -- -- --    --
+|Q |= |R |A  A  A0|C |= |
+ -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 30
+0.001565 [s]
+
+Level 105
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |F4|= |C  C4|= |A  A |
+ --    -- --    -- --   
+|G3|F  F |= |C |D5|= |A2|
+    -- -- -- --    -- --
+|G  G |= |I |= |D |B  B3|
+ -- -- --    --    --   
+|H2|= |J |I4 I |D |= |B |
+    --    -- -- -- -- --
+|H  H |J3|= |N |= |E3|= |
+ -- --    --    --    --
+|= |L2|J |M2|N  N3|E  E |
+ --    --    -- -- -- --
+|K |L  L |M  M |= |P  P2|
+    -- -- -- -- -- --   
+|K2 K |= |O3 O  O |= |P |
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 28
+0.001176 [s]
+
+Level 106
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |K  K |= |I3|. |H |= |
+ --    -- --    --    --
+|. |K3|= |I  I |H  H2|G |
+    -- -- -- -- -- --   
+|.7|J  J3|= |F |= |G2 G |
+    --    --    -- -- --
+|. |L2|J |D4|F3|M |E  E |
+ --    --          --   
+|L  L |= |D |F |M3|O |E0|
+ -- -- --    --       --
+|A |= |B |D |= |M |O  O1|
+    --    -- -- -- -- --
+|A |B3 B |= |N3|= |P2|= |
+    -- -- --    --    --
+|A1|C  C1 C |N  N |P  P |
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 109
+0.005288 [s]
+
+Level 107
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |B  B4|= |A |= |N3|= |
+ --    -- --    --    --
+|C2|B |= |A  A4|O3|N  N |
+    -- -- -- --    -- --
+|C |= |D4|= |M3|O |= |P |
+    --    --       --   
+|C |E |D |L |M |O |P2 P |
+ --             -- -- --
+|F |E3|D |L3|M |= |I |= |
+       --    -- --    --
+|F |E |= |L |= |I  I4|J1|
+    -- -- -- -- -- --   
+|F2|= |H  H  H5|= |K2|J |
+ -- -- -- -- -- --      
+|= |G3 G  G |= |K  K |J |
+ -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 22
+0.00065 [s]
+
+Level 108
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|Q |= |E |= |A  A  A2|B1|
+    --    -- -- -- --   
+|Q  Q2|E3 E |= |I |C2|B |
+ -- -- -- -- --         
+|= |P  P2|L |I  I2|C |B |
+ -- --       -- --    --
+|O3 O |P |L |= |H |C |= |
+ --    --    --    -- --
+|N |O |= |L2|J |H |= |D |
+    -- -- --       --   
+|N2|= |K4|J  J2|H2|F |D |
+    --    -- -- --      
+|N |M |K  K |= |G |F2|D3|
+ --    -- -- --       --
+|= |M3 M |= |G  G2|F |= |
+ -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 162
+0.004334 [s]
+
+Level 109
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |O  O3|= |B3|A  A  A1|
+ -- --    --    -- -- --
+|P3|= |O |Q3|B |= |D  D |
+    -- --       --    --
+|P  P |N |Q |B |E |D1|C1|
+ -- --       --    --   
+|M |= |N |Q |= |E3 E |C |
+    --    -- -- -- --   
+|M3|. |N2|= |H  H |= |C |
+    -- -- -- --    -- --
+|M |= |K1|J |= |H4|F  F2|
+ -- --       -- -- --   
+|= |L2|K |J2|I2 I |= |F |
+ --             -- -- --
+|L  L |K |J |I |G  G  G1|
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 344
+0.012088 [s]
+
+Level 110
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|C |= |K  K |Q |= |R3 R |
+    -- --       --    --
+|C2|J2|= |K2|Q1 Q |R |= |
+       -- -- -- -- -- --
+|C |J  J |G |P  P |= |M |
+ -- -- --    --    --   
+|= |I |H |G  G0|P1|N2|M |
+ --       -- -- --      
+|B |I2|H  H1|E |L |N |M3|
+       -- --          --
+|B |I |= |E2 E |L0|N |= |
+    -- -- -- --    -- --
+|B1|A |D |= |F |L |O  O |
+ --       --    --    --
+|A0 A |D2 D |F1 F |O2|= |
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 971
+0.017945 [s]
+
+Level 111
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |B  B |= |D  D |= |F |
+ --    -- -- --    --   
+|C |B4|= |A5|= |D4|E |F2|
+    -- --    -- --      
+|C3|= |A  A |G |= |E4|F |
+    -- -- --    --    --
+|C |N |= |H2|G  G3|E |= |
+ --    --    -- -- -- --
+|= |N3 N |H |= |I4|= |K |
+ -- -- --    --    --   
+|O2 O  O |H |M |I |K3 K |
+ -- -- -- --       -- --
+|P  P |= |M2 M |I |= |J |
+ --    -- -- -- -- --   
+|= |P2|L  L2 L |= |J2 J |
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 54
+0.001795 [s]
+
+Level 112
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|B  B |C |R  R  R1|= |P |
+ --       -- -- -- --   
+|A0|B0|C  C0|S1|Q  Q1|P1|
+    -- -- --    --      
+|A |E  E1|D |S  S |Q |P |
+       --    -- -- -- --
+|A |E |D  D0|M2|= |O  O |
+ -- -- -- --    --    --
+|G |= |I2|M  M |N2|O1|J |
+    --    -- --    --   
+|G  G2|I |= |L2|N  N |J |
+ -- --    --    -- --   
+|= |F |I |L  L |= |K2|J1|
+ --    -- -- -- --    --
+|F1 F |H0 H  H |K  K |= |
+ -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 9322
+0.169795 [s]
+
+Level 113
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |Q |= |P3|= |A  A  A2|
+ --    --    -- -- -- --
+|Q3 Q |P  P |O  O |= |B2|
+ -- -- -- --    -- --   
+|= |K |= |N |O3|= |D3|B |
+ --    --    -- --      
+|J |K |L1|N1 N |H |D |B |
+          -- --       --
+|J |K3|L  L |H  H1|D |= |
+    -- -- -- -- -- -- --
+|J3|= |M3 M |E  E  E1|C1|
+ -- --    -- -- -- --   
+|= |I |M |= |G |= |F1|C |
+ --    -- --    --      
+|I  I3|= |G3 G |F  F |C |
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 199
+0.004751 [s]
+
+Level 114
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|C1|= |I2|J  J  J1|= |K |
+    --    -- -- -- --   
+|C |H3|I  I |O  O1|N |K2|
+       -- -- --         
+|C |H  H |= |P2|O |N |K |
+ -- -- -- --    --    --
+|B |= |D |P  P |= |N3|= |
+    --    -- -- -- -- --
+|B |D1 D |G |Q1|M  M2|L1|
+    -- --          --   
+|B1|A0|G0 G |Q |M |L  L |
+ --    -- --    -- -- --
+|A  A |F  F |Q |= |S1 S |
+ -- -- --    -- -- --   
+|E  E  E0|F0|R1 R  R |S |
+ -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 470
+0.011782 [s]
+
+Level 115
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |P |= |J |= |H |= |G |
+ --    --    --    --   
+|P  P3|O |J  J3|H |F |G |
+ -- --    -- --         
+|= |Q |O2|= |I |H3|F |G1|
+ --       --    --    --
+|Q1 Q |O |K1|I |= |F3|E |
+ -- -- --       -- --   
+|N  N |K  K |I2|D |= |E |
+    -- -- -- --    --   
+|N2|= |L2|B  B2|D2 D |E1|
+ -- --       -- -- -- --
+|= |M2|L |B |= |C2 C  C |
+ --       -- -- -- -- --
+|M  M |L |= |A  A  A3|= |
+ -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 36
+0.002005 [s]
+
+Level 116
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|C  C  C2|= |A  A4 A |= |
+ -- -- -- -- -- -- -- --
+|= |D5 D  D |= |L |= |M |
+ -- -- -- -- --    --   
+|E3|= |G |= |L  L3|M3 M |
+    --    -- -- -- -- --
+|E |F |G |K  K4 K |= |N |
+          -- -- -- --   
+|E |F3|G4|= |J |= |N  N2|
+ --    -- --    -- -- --
+|= |F |= |J4 J |P  P |B |
+ -- -- -- -- -- --      
+|H2 H |I |= |O3 O |P2|B |
+ --       -- --    --   
+|= |H |I3 I |= |O |= |B1|
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 215
+0.005292 [s]
+
+Level 117
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |P |= |A4 A |= |H |= |
+ --    --    -- --    --
+|P3 P |O4|A |= |G |H  H3|
+ -- --    -- --    -- --
+|= |O  O |= |G5 G |= |I |
+ -- -- -- -- -- -- --   
+|N  N |= |E  E |= |F |I1|
+    -- -- --    --      
+|N4|= |J |= |E4|F3 F |I |
+ -- --    -- -- -- -- --
+|= |J  J5|M |D  D |= |B |
+ -- -- --    --    --   
+|K2|= |L |M2 M |D1|C2|B |
+    --    -- -- --      
+|K  K |L2 L |= |C  C |B1|
+ -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 28
+0.001163 [s]
+
+Level 118
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |E  E |F2|= |G2|J  J |
+ -- --       --    --   
+|B  B3|E2|F |H2|G |I3|J1|
+ --    --             --
+|= |B |= |F |H |G |I |= |
+ -- -- -- --    --    --
+|A3|C3 C  C |H |= |I |K |
+    -- -- -- -- -- --   
+|A |= |D2|= |M  M4|= |K2|
+    --    -- --    --   
+|A |D  D |L2 L |M |N3|K |
+ -- -- -- --    --    --
+|= |P  P  P2|L |= |N  N |
+ -- -- -- -- -- -- -- --
+|Q  Q  Q2|= |O  O  O3|= |
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 88
+0.002614 [s]
+
+Level 119
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |N |= |P  P3 P |= |L |
+ --    -- -- -- -- --   
+|M |N |O  O4 O |= |L3 L |
+       -- -- -- -- -- --
+|M3|N4|= |J |= |K  K |= |
+    -- --    --    -- --
+|M |= |J  J4|I |K5|= |B |
+ -- -- -- --    -- --   
+|= |G |= |H |I |= |C |B |
+ --    --       --      
+|F |G5|H2 H |I2|C  C3|B2|
+       -- -- -- -- -- --
+|F |G |= |D  D  D3|= |A |
+    -- -- -- -- -- --   
+|F2|= |E  E  E3|= |A  A2|
+ -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 12
+0.000768 [s]
+
+Level 120
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |Q2 Q  Q |M  M |N1|H |
+ -- -- -- --    --      
+|P3|= |R  R1|M0|L |N |H |
+    -- --    --         
+|P |S  S1|R |O1|L |N |H0|
+       -- --       -- --
+|P |S |E |O  O |L2|= |G |
+ -- --    -- -- -- --   
+|= |C |E1|= |K |= |I |G |
+ --       --    --      
+|B |C |E |D |K3 K |I2|G1|
+       --    -- --    --
+|B |C1|D2 D |= |J1|I |F |
+    -- -- -- --    --   
+|B1|A  A0 A |J  J |F  F0|
+ -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 369
+0.007902 [s]
+
+Level 121
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|. |Q |= |O |= |B |= |A |
+ --    --    --    --   
+|Q2 Q |P |O  O3|B  B2|A |
+ -- --    -- -- -- --   
+|= |P3 P |= |D  D  D2|A1|
+ -- -- -- -- -- -- -- --
+|N  N2 N |F  F |= |C  C1|
+ -- -- --    -- --    --
+|M  M |= |F5|= |G3|C |E0|
+ --    -- -- --    --   
+|= |M2|J3|= |K |G  G |E |
+ -- --    --    -- --   
+|L |J  J |K  K3|= |I |E |
+    -- -- -- -- --    --
+|L2 L |= |H  H  H2|I1 I |
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 45
+0.001269 [s]
+
+Level 122
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |D  D |= |Q  Q |P  P1|
+ --    -- -- --    --   
+|C |D3|= |E  E2|Q1|O |P |
+    -- -- --    --    --
+|C2 C |H  H2|E |O  O2|= |
+ -- --    -- -- -- -- --
+|= |F |H |= |L3|= |M |N |
+ --    -- --    --      
+|A3|F2 F |L  L |K |M |N |
+    -- -- -- --         
+|A |= |G4|= |K  K3|M2|N1|
+    --    -- -- -- -- --
+|A |B3|G  G |= |I |= |J |
+ --    -- -- --    --   
+|= |B  B |= |I3 I |J  J1|
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 6566
+0.130356 [s]
+
+Level 123
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |H2|I |B  B3|= |A2|= |
+ --          -- --    --
+|J |H |I1|B |= |C2|A  A |
+          -- --    -- --
+|J3|H |I |= |G |C |D2 D |
+    -- -- --          --
+|J |= |M |K1|G2|C |D |= |
+ -- --          -- -- --
+|= |M3 M |K |G |L |= |E3|
+ -- -- --    --    --   
+|Q |= |N1|K |L1 L |E  E |
+    --    -- -- -- -- --
+|Q3 Q |N  N |O2 O |= |F1|
+ -- -- -- -- --    --   
+|= |P  P2 P |= |O |F  F |
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 2024
+0.038694 [s]
+
+Level 124
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|Q  Q |M  M  M1|= |J  J |
+ --    -- -- -- -- --   
+|R1|Q1|P |L  L  L2|K1|J1|
+    --    -- -- --    --
+|R |= |P  P3|= |K  K |I |
+    -- -- -- -- -- --   
+|R |. |H |= |N  N |O1|I |
+ -- --    --    --      
+|A0 A |H |G |N2|O  O |I1|
+ --          -- -- -- --
+|B1|A |H2|G |F |= |E |= |
+    -- --       --    --
+|B  B |= |G3|F  F1|E  E3|
+ -- -- -- -- -- -- -- --
+|C  C2 C |= |D  D2 D |= |
+ -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 513
+0.027908 [s]
+
+Level 125
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |G  G  G3|= |J  J2 J |
+ -- -- -- -- -- -- -- --
+|F  F |= |I  I4 I |= |K3|
+    -- -- -- -- -- --   
+|F4|= |H  H4 H |= |K  K |
+ -- -- -- -- -- -- -- --
+|= |D |= |O2 O |M |= |L1|
+ --    --    --    --   
+|E2|D |N |O |= |M  M4|L |
+          -- -- -- --   
+|E |D3|N1 N |P3|= |Q |L |
+    -- -- --    --    --
+|E |A0 A  A |P  P |Q1 Q |
+ -- -- -- -- -- -- -- --
+|= |B2 B  B |= |C1 C  C |
+ -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 11
+0.000812 [s]
+
+Level 126
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |A4 A |= |F3 F  F |= |
+ -- --    -- -- -- -- --
+|B3|= |A |C5|= |G3 G |H3|
+    -- --    -- --      
+|B |D |= |C  C |= |G |H |
+       -- -- -- -- --   
+|B |D5|M  M |= |I |= |H |
+ --    --    --    -- --
+|= |D |= |M3|N |I  I5|= |
+ -- -- -- --    -- -- --
+|E |= |L  L |N3|= |P |J1|
+    --    --    --      
+|E  E3|L3|= |N |O |P1|J |
+ -- -- -- -- --         
+|= |K2 K  K |O  O1|P |J |
+ -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 13
+0.000616 [s]
+
+Level 127
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |B  B  B1|J2 J |= |K |
+ -- -- -- -- --    --   
+|C2 C  C |I1 I |J |L |K2|
+ -- -- -- --    --      
+|D2|= |H  H |I |= |L4|K |
+    -- --    -- --    --
+|D |E  E3|H2|N  N3|L |= |
+    --    -- --    -- --
+|D |. |E |= |O3|N |= |M3|
+ -- -- -- --    -- --   
+|= |G3|= |P4|O |= |M  M |
+ --    --       -- -- --
+|F |G  G |P |O |Q  Q |A |
+    -- --    --    --   
+|F2 F |= |P |= |Q2|A0 A |
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 275
+0.009535 [s]
+
+Level 128
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |D3|= |E3|= |G |M |= |
+ --    --    --       --
+|C |D |F |E |G2 G |M  M2|
+             -- -- -- --
+|C |D |F2|E |= |J |= |L |
+    --    -- --    --   
+|C3|= |F |H2|J3 J |K |L |
+ -- -- --    -- --      
+|= |B |I |H  H |= |K4|L2|
+ --       -- -- --    --
+|A |B |I |= |N |O3|K |= |
+          --       -- --
+|A |B2|I1|N2 N |O |= |Q |
+    -- -- -- --    --   
+|A1|P  P  P1|= |O |Q2 Q |
+ -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 547
+0.016697 [s]
+
+Level 129
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P |= |M4|= |N3|= |L2|A0|
+    --    --    --      
+|P |O |M |N  N |L  L |A |
+          -- -- -- --   
+|P2|O3|M |= |Q |= |K |A |
+ --    -- --    --    --
+|= |O |= |Q4 Q |I |K2 K |
+ -- -- -- -- --    -- --
+|B  B5 B |= |J |I |= |G |
+ -- -- -- --       --   
+|= |D3|= |E4|J2|I2|H1|G |
+ --    --       --      
+|C |D  D |E |J |H  H |G1|
+    -- --    -- -- -- --
+|C2 C |= |E |= |F  F  F1|
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 14
+0.000537 [s]
+
+Level 130
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |K |= |D  D  D2|= |C |
+ --    -- -- -- -- --   
+|L2|K |J2 J |B  B |C  C2|
+          -- --    -- --
+|L |K3|J |= |I |B1|= |A2|
+    -- -- --    -- --   
+|L |= |M  M |I  I1|A  A |
+ -- --    -- -- -- -- --
+|P  P3|M4|= |H  H |= |E |
+ --    -- --    -- --   
+|= |P |= |N4|H2|G2 G |E1|
+ -- -- --    -- --      
+|Q2 Q |O |N  N |= |G |E |
+    --    -- -- -- -- --
+|Q |= |O  O3|= |F  F2 F |
+ -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 665
+0.020451 [s]
+
+Level 131
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |E |= |F |= |H  H2 H |
+ --    --    -- -- -- --
+|E  E3|G2|F4 F |= |J |A |
+ -- --    -- -- --      
+|= |D |G |= |I4 I |J |A0|
+ --       --    --      
+|C |D |G |K |I |= |J2|A |
+       --    -- -- -- --
+|C2|D1|K3 K |= |M  M |Q |
+    -- -- -- --    --   
+|C |O  O |= |L4|M2|Q1 Q |
+ -- --    --    -- -- --
+|= |B |O2|N |L  L |= |P |
+ --    --    -- -- --   
+|B2 B |= |N3 N |= |P  P2|
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 1416
+0.03654 [s]
+
+Level 132
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |P  P2|= |N  N  N2|= |
+ -- --    -- -- -- -- --
+|C  C |P |O  O |M  M  M3|
+    -- -- --    -- -- --
+|C3|= |B |= |O4|= |L |= |
+ -- --    -- -- --    --
+|= |B  B4|H4|= |I |L3 L |
+ -- -- --    --    -- --
+|A4 A |= |H |G |I |= |K |
+    -- --          --   
+|A |= |D |H |G |I4|K  K2|
+ -- --    --    -- -- --
+|= |D4 D |= |G3|= |J2|= |
+ -- -- -- -- -- --    --
+|E  E  E1|F  F2 F |J  J |
+ -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 262
+0.009164 [s]
+
+Level 133
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |I  I  I3|= |A  A  A2|
+ -- -- -- -- -- -- -- --
+|K3 K  K |= |B5 B |= |C3|
+ -- -- -- --    -- --   
+|= |J  J  J3|B |= |C  C |
+ -- -- -- -- -- -- -- --
+|O |= |M3 M |= |D4|= |E |
+    --    -- --    --   
+|O3 O |M |= |L3|D |E2 E |
+ -- -- -- --       -- --
+|= |N  N |L  L |D |= |F2|
+ -- --    -- -- -- --   
+|P3|= |N4|= |G  G3 G |F |
+    -- -- -- -- -- --   
+|P  P |= |H  H  H3|= |F |
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 95
+0.002145 [s]
+
+Level 134
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|D |= |C |= |B  B  B2|A2|
+    --    -- -- -- --   
+|D2 D |C5|F  F  F3|= |A |
+ -- --    -- -- -- --   
+|H |= |C |= |E  E  E2|A |
+    -- -- -- -- -- -- --
+|H |G |= |M  M |N  N2|= |
+       -- --       -- --
+|H2|G3 G |K2|M3|N |= |O3|
+ -- -- --    -- -- --   
+|= |I3|= |K |= |L |P |O |
+ --    --    --         
+|J |I  I |K |L1 L |P2|O |
+    -- -- -- -- --    --
+|J  J2|= |Q  Q1 Q |P |= |
+ -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 31
+0.00089 [s]
+
+Level 135
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|F |= |D |= |C |L |K  K2|
+    --    --          --
+|F |E3|D  D3|C |L2|K |= |
+       -- --       -- --
+|F2|E  E |= |C2|L |= |M |
+ -- -- -- -- -- -- --   
+|= |G2|= |B  B |= |N4|M3|
+ --    --    -- --      
+|I |G |H2|B5|= |O |N |M |
+          -- --       --
+|I2|G |H |= |O3 O |N |= |
+    --    -- -- -- -- --
+|I |J |H |P  P  P2|= |Q |
+ --    -- -- -- -- --   
+|= |J1 J |A  A0 A |Q2 Q |
+ -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 22
+0.001186 [s]
+
+Level 136
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |M |= |J  J3|= |I |= |
+ --    --    -- --    --
+|L |M3 M |J |= |H |I |C |
+    -- -- -- --         
+|L  L3|= |K2|G |H |I3|C |
+ -- -- --          --   
+|= |N3|K  K |G |H4|= |C2|
+ --    -- --    -- -- --
+|N  N |= |O3|G3|= |A  A4|
+ -- -- --    -- --    --
+|= |P3|O  O |= |E |A |= |
+ --    -- -- --    -- --
+|F |P  P |= |E4 E |= |B2|
+    -- -- -- -- -- --   
+|F2 F |= |D  D  D2|B  B |
+ -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 55
+0.002069 [s]
+
+Level 137
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|E  E |= |D |= |I |= |G1|
+ --    --    --    --   
+|= |E2|F3|D4|I3 I |G  G |
+ -- --       -- -- -- --
+|C  C |F |D |= |H  H  H3|
+ --       -- -- -- -- --
+|= |C2|F |= |L |= |J3|= |
+ -- -- -- --    --    --
+|A  A |= |L5 L |M |J  J |
+ --    -- -- --    -- --
+|= |A3|N3|= |M2 M |K |= |
+ -- --    -- -- --    --
+|O  O2|N |P  P |K  K2|B |
+ --       --    -- --   
+|= |O |N |= |P3|= |B2 B |
+ -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 182
+0.003886 [s]
+
+Level 138
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |I3|= |B  B4|= |A  A3|
+ --    --    -- --    --
+|J |I |K |B |= |C |A |= |
+          -- --    -- --
+|J3|I |K3|= |C4 C |= |D3|
+    --    -- -- -- --   
+|J |= |K |L  L3 L |D  D |
+ -- -- -- -- -- -- -- --
+|= |H  H |= |M |= |O |= |
+ --    -- --    --    --
+|F2|H4|G  G |M |N2|O3 O |
+    --    --       -- --
+|F |= |G3|= |M4|N  N |= |
+    -- -- -- -- -- -- --
+|F |E3 E  E |= |P2 P  P |
+ -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 203
+0.004823 [s]
+
+Level 139
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |G |= |H3|= |A  A3 A |
+ --    --    -- -- -- --
+|G3 G |I2|H  H |= |B3|= |
+ -- --    -- -- --    --
+|= |L |I  I |J1|D |B  B |
+ --    -- --       -- --
+|E |L |K2|= |J |D  D3|= |
+          --    -- -- --
+|E2|L2|K  K |J |O |= |C |
+    -- -- -- --    --   
+|E |= |M2|= |O3 O |Q |C |
+ -- --    -- -- --      
+|F0|M  M |N |= |P |Q2|C3|
+    -- --    --       --
+|F  F |N  N2|P  P1|Q |= |
+ -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 304
+0.009054 [s]
+
+Level 140
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |C3 C |= |E  E3|J3|= |
+ --    -- --    --    --
+|D |C |= |F3|E |= |J |K |
+    -- --    -- --      
+|D  D2|G3|F |= |L |J |K |
+ -- --       --    --   
+|= |G  G |F |I3|L3|= |K3|
+ -- -- -- --       -- --
+|A  A |= |I  I |L |N |= |
+    -- -- -- -- --    --
+|A4|= |H4|= |P |N  N3|M |
+ -- --    --    -- --   
+|= |B2|H |P3 P |= |M  M3|
+ --       -- -- -- -- --
+|B  B |H |= |O  O  O3|= |
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 95
+0.003456 [s]
+
+Level 141
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |L3|= |H2 H |= |G |= |
+ --    -- --    --    --
+|L  L |M3 M |H |G  G2|A |
+ -- --    -- -- -- --   
+|= |O |M |= |F  F  F3|A3|
+ --    -- -- -- -- --   
+|N2|O3|= |I |= |E |= |A |
+       --    --    -- --
+|N |O |I4 I |D |E |C |= |
+    -- -- --          --
+|N |= |P2|= |D3|E3|C |B1|
+ -- --    --    --      
+|Q0|P  P |J1|D |= |C3|B |
+    -- --    -- -- --   
+|Q  Q |J  J |K1 K  K |B |
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 76
+0.002073 [s]
+
+Level 142
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |I |= |D2 D |= |A  A3|
+ --    -- --    -- --   
+|J |I  I3|G2|D |E2|= |A |
+    -- --    --    -- --
+|J3|= |G  G |E  E |F |= |
+    -- -- -- -- --    --
+|J |K4|= |M  M |N |F |B |
+ --    --    --         
+|= |K |L |M1|N1 N |F3|B3|
+ --       -- -- -- --   
+|O |K |L2 L |= |H |= |B |
+    -- -- -- --    -- --
+|O2|= |P1|Q  Q |H |C2|= |
+    --       --       --
+|O |P  P |Q2|= |H3|C  C |
+ -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 189
+0.00486 [s]
+
+Level 143
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |G  G1 G |O  O2|= |P1|
+ -- -- -- -- --    --   
+|F |I  I  I1|H |O |P  P |
+    -- -- --    -- -- --
+|F |= |E |H2 H |= |Q3 Q |
+    --    -- -- -- --   
+|F2|E  E3|= |J |K |= |Q |
+ -- -- -- --       -- --
+|A3|= |D3 D |J2|K4 K |= |
+    -- --       -- -- --
+|A |C  C |D |J |= |M2|N |
+    --    -- -- --      
+|A |= |C3|= |L2|M  M |N2|
+ -- -- -- --    -- --   
+|= |B  B3 B |L  L |= |N |
+ -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 34
+0.002184 [s]
+
+Level 144
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|L |= |K |J |= |G3|= |F |
+    --       --    --   
+|L2|N |K |J  J2|G  G |F3|
+          -- -- -- --   
+|L |N3|K3|= |I3 I |= |F |
+ --    -- --    -- -- --
+|= |N |= |H |I |= |D4|= |
+ -- -- --    -- --    --
+|M1 M |O3|H  H3|C |D  D |
+ --       -- --    -- --
+|P1|M |O  O |= |C  C3|= |
+    -- -- -- -- -- -- --
+|P |Q2 Q |= |B  B  B2|A1|
+    --    -- -- -- --   
+|P |= |Q |E1 E  E |A  A |
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 1262
+0.038073 [s]
+
+Level 145
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|G |= |H |= |B4 B |= |D |
+    --    --    -- --   
+|G1 G |H3 H |B |= |C4|D |
+ -- -- -- -- -- --      
+|F  F1|= |E3|= |C  C |D1|
+    -- --    -- -- -- --
+|F |M1|L |E  E |I |= |P |
+ --       -- --    --   
+|M  M |L  L3|= |I3 I |P |
+ -- -- -- -- -- -- --   
+|= |K |= |Q |J  J2|= |P2|
+ --    --       -- -- --
+|A |K3 K |Q |J |N1|O2 O |
+    -- --    --    --   
+|A  A2|= |Q2|N  N |= |O |
+ -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 807
+0.020582 [s]
+
+Level 146
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |A  A  A4|= |O  O |= |
+ -- -- -- -- -- --    --
+|C |= |B2|= |G  G |O2|N |
+    --    -- --    --   
+|C  C3|B  B |F |G3|N2 N |
+ -- -- -- --    -- -- --
+|= |D4 D |F2 F |= |M |= |
+ -- --    -- -- --    --
+|E |= |D |= |K3|L |M |P3|
+    -- -- --            
+|E  E4|= |K  K |L3|M3|P |
+ -- -- -- -- --    --   
+|= |H4 H  H |= |L |= |P |
+ -- -- -- -- -- -- -- --
+|I  I  I2|= |J4 J  J |= |
+ -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 12
+0.000669 [s]
+
+Level 147
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |F  F2 F |= |H |= |K |
+ -- -- -- -- --    --   
+|G2 G |E0 E |H2 H |K1 K |
+ --    --    -- -- -- --
+|= |G |D |E |J3 J |. |L1|
+ -- --    -- --    --   
+|C |D1 D |I3|= |J |= |L |
+    -- --    -- -- --   
+|C3 C |= |I  I |= |M3|L |
+ -- -- -- -- -- --    --
+|= |B  B |O  O1|N2|M  M |
+ --    --    --    -- --
+|A1|B3|= |O |N  N |P2|= |
+    -- -- -- -- --    --
+|A  A |Q  Q2 Q |= |P  P |
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 16
+0.001109 [s]
+
+Level 148
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |A  A4 A |= |C4|= |D2|
+ -- -- -- -- --    --   
+|E |= |B3|= |C  C |D  D |
+    --    -- -- -- -- --
+|E  E3|B  B |= |G3|= |H |
+ -- -- -- -- --    --   
+|= |F  F2 F |L |G |I |H2|
+ -- -- -- --            
+|O |= |M2 M |L |G |I |H |
+    -- --       --    --
+|O  O4|= |M |L3|= |I4|= |
+ -- -- -- -- -- -- -- --
+|= |N  N  N4|= |J4|= |K |
+ -- -- -- -- --    --   
+|P  P  P2|= |J  J |K  K2|
+ -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 232
+0.00524 [s]
+
+Level 149
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |N3|= |C  C4|= |B |= |
+ --    --    -- --    --
+|N  N |P |C |= |B  B4|A3|
+ -- --    -- -- -- --   
+|= |O |P3|= |K |= |A  A |
+ --       --    -- -- --
+|O2 O |P |J |K4|G |= |D2|
+ -- -- --          --   
+|= |L |= |J |K |G |D  D |
+ --    --    --    -- --
+|M3|L  L3|J3|= |G4|= |E |
+    -- -- -- -- -- --   
+|M  M |= |I3 I  I |F |E |
+ -- -- -- -- -- --      
+|= |H  H  H3|= |F  F2|E1|
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 20
+0.00081 [s]
+
+Level 150
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|= |M  M2|= |B  B4|= |A1|
+ -- --    --    -- --   
+|N  N3|M |L3|B |= |C4|A |
+ --    --    -- --      
+|= |N |L  L |= |C  C |A |
+ -- -- -- -- -- -- -- --
+|O2|= |Q |= |K3 K |= |G |
+    --    -- --    --   
+|O |P2|Q4|J  J |K |G  G2|
+          --    -- -- --
+|O |P |Q |= |J2|I |= |E |
+ --    -- -- --    --   
+|D |P |= |H |I  I2|F2|E |
+    -- --    -- --      
+|D0 D |H3 H |= |F  F |E1|
+ -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 143
+0.00509 [s]
+
+Level 151
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |Q4|= |T |= |U2|A  A  A0|
+ --    --    --    -- -- --
+|P |Q |T3 T |U  U |S |B  B1|
+       -- -- -- --       --
+|P |Q |= |V3 V |= |S3|B |C2|
+    -- -- --    --    --   
+|P3|= |N |= |V |R |S |= |C |
+ -- --    -- --    -- --   
+|= |O4|N4 N |R3 R |= |G3|C |
+ --    -- -- -- -- --    --
+|L |O  O |= |J |= |F |G |= |
+    -- -- --    --       --
+|L2|= |M1|I |J3 J |F |G |E1|
+    --       -- --    --   
+|L |M  M |I  I2|= |F3|E  E |
+ -- -- -- -- -- -- -- -- --
+|K  K  K0|H  H  H1|D  D  D0|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 15
+0.001702 [s]
+
+Level 152
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |K |= |O  O  O3|= |Q  Q |
+ --    -- -- -- -- --    --
+|H |K |L |= |N  N |P3|Q1|R |
+          --    --    --   
+|H2|K2|L  L3|N2|= |P  P |R1|
+    -- -- -- -- -- -- --   
+|H |F |= |M  M3 M |S |= |R |
+ --    -- -- -- --    -- --
+|= |F3|G3 G |= |I |S2|T1 T |
+ --       -- --          --
+|E3|F |G |= |B |I |S |T |V |
+    -- -- --       -- --   
+|E |= |C  C |B |I3|= |U2|V |
+    -- --       -- --      
+|E |D  D2|C2|B3|= |J2|U |V1|
+ --    -- -- -- --       --
+|= |D |A  A0 A |J  J |U |= |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 788
+0.020385 [s]
+
+Level 153
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |A  A |= |J |K  K |= |L |
+ -- --    --    --    --   
+|B |= |A4|J2 J |= |K2|L2 L |
+    -- -- -- -- -- -- -- --
+|B4 B |= |I3 I |M  M  M3|= |
+ -- -- -- --    -- -- -- --
+|= |D  D4|= |I |O2|N1|= |Q |
+ -- --    -- --       --   
+|C3 C |D |F4|= |O |N |R |Q |
+ --    --    --            
+|E2|C |= |F |P3|O |N |R3|Q3|
+    -- --       -- --    --
+|E |= |G |F |P |= |U |R |= |
+    --    --    --    -- --
+|E |G3 G |= |P |S1|U |= |T2|
+ -- -- -- -- --       --   
+|= |H2 H  H |S  S |U2|T  T |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 39
+0.001631 [s]
+
+Level 154
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |N3|= |P3 P |= |S3|= |A2|
+ --    -- --    --    --   
+|N  N |O |= |P |S  S |T2|A |
+ -- --    -- -- -- --      
+|= |O3 O |Q  Q4|= |R |T |A |
+ -- -- --    -- --       --
+|J3 J |M3|Q |= |R3 R |T |= |
+ --       -- -- -- -- -- --
+|= |J |M |= |I4 I |= |B  B4|
+ -- --    --    -- -- --   
+|K3|= |M |H |I |= |D5|= |B |
+    -- --    -- --    -- --
+|K |L |= |H2 H |E3|D  D |= |
+       -- -- --    -- -- --
+|K |L3|G  G |F |E  E |= |C |
+ --       --    -- -- --   
+|= |L |G2|= |F2 F |= |C  C3|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 2354
+0.064746 [s]
+
+Level 155
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |O2 O |= |A4|= |B  B |= |
+ -- --    --    -- --    --
+|N3 N |O |P2|A  A |= |B3|F |
+    -- --    -- -- -- --   
+|N |= |M |P  P |= |C  C3|F |
+ -- --    -- -- -- --      
+|= |Q3|M  M2|D2 D |= |C |F1|
+ --    -- -- --    -- -- --
+|R2|Q |= |K  K3|D |E  E3 E |
+       --    -- -- -- -- --
+|R |Q |S |K |= |J3|= |G3|= |
+    --    -- --    --    --
+|R |S3 S |= |L3|J |I |G  G |
+ -- -- -- --          -- --
+|= |U |= |T2|L |J |I |= |H1|
+ --    --       --    --   
+|U  U2|T  T |L |= |I3|H  H |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 492
+0.01678 [s]
+
+Level 156
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|U1 U  U |S |R  R2 R |= |M |
+ -- -- --    -- -- -- --   
+|T |= |W2|S0 S |Q |= |L |M1|
+    --    -- --    --      
+|T |V |W  W |Q  Q1|N2|L |M |
+       -- -- -- --       --
+|T2|V3|= |F |H |N  N |L2|C0|
+ --    --       -- -- --   
+|= |V |D |F |H |= |G2 G |C |
+ -- --          -- --      
+|A3|D2 D |F1|H2|I2|J1|G |C |
+    -- -- -- --       -- --
+|A |= |E4 E |= |I |J |= |O1|
+    -- --    --       --   
+|A |B |= |E |K |I |J |P |O |
+ --    -- --    -- --      
+|= |B4 B |= |K  K2|P  P1|O |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 44
+0.00202 [s]
+
+Level 157
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |Q4|= |N  N3|= |D  D2 D |
+ --    -- --    -- -- -- --
+|R |Q  Q |= |N |O3|= |E1 E |
+    -- -- -- --    -- --   
+|R1|P |= |K |O  O |F  F1|E |
+       --    -- -- --    --
+|R |P  P2|K |= |L  L |F |A |
+ -- -- --    -- --    --   
+|S  S3|= |K4|J |= |L2|A  A0|
+ --    -- --    -- -- -- --
+|= |S |T  T4|J |M  M2 M |B0|
+ -- --    --    -- -- --   
+|U3|= |T |= |J4|= |H1 H |B |
+    -- -- -- -- -- --      
+|U  U |= |I  I3|G  G |H |B |
+ -- -- -- --       -- -- --
+|V  V2 V |= |I |G1|C0 C  C |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 579
+0.032816 [s]
+
+Level 158
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |D |P  P  P2|= |U  U |= |
+ --    -- -- -- -- --    --
+|C |D3 D |= |O4 O |= |U3|T |
+    -- -- -- --    -- --   
+|C  C3|= |N  N |O |S  S |T |
+ -- -- -- --    -- --      
+|= |B  B |= |N5|= |R |S2|T1|
+ -- --    -- -- --    -- --
+|A4 A |B4|E4|= |L |R2|= |Q |
+ --    --    --       --   
+|= |A |= |E |L3 L |R |Q  Q2|
+ -- -- --    -- -- -- -- --
+|F3|= |H |E |= |K  K |= |J |
+    --    -- -- --    --   
+|F  F |H  H2|M  M2|K2|I |J |
+ -- -- -- -- --    --      
+|= |G  G  G2|= |M |I1 I |J1|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 156
+0.004659 [s]
+
+Level 159
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |H2|J2|N  N |O4|= |T2|S |
+ --       --       --      
+|H  H |J |= |N2|O |T  T |S |
+ -- --    -- --    -- --   
+|= |G |J |I5|= |O |= |U2|S1|
+ --    --    -- -- --    --
+|D |G2|= |I  I |= |V |U |= |
+       -- -- -- --       --
+|D |G |F |= |M |V  V2|U |R |
+    --    --    -- -- --   
+|D2|F2 F |K2|M  M1|P1 P |R |
+ -- -- --    -- -- --      
+|= |E |K  K |L2 L |= |P |R1|
+ --    -- -- --    -- -- --
+|C |E  E3|= |B |L |Q  Q1 Q |
+    -- -- --    -- -- -- --
+|C2 C |= |B3 B |= |A  A  A1|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 1428
+0.058828 [s]
+
+Level 160
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |M3|K  K  K2|= |I  I3|= |
+ --    -- -- -- --    -- --
+|N3|M  M |= |J4 J |I |H  H3|
+    -- -- -- --    --    --
+|N  N |= |L  L4|J |= |H |= |
+ -- -- -- --    -- -- -- --
+|= |P2|Q |= |L |= |F  F  F3|
+ --       -- -- -- -- -- --
+|P  P |Q |O  O |G |E  E1 E |
+ -- --    --       -- -- --
+|= |S |Q4|= |O3|G  G3|= |D |
+ --    -- -- -- -- -- --   
+|S  S3|= |U |= |C |= |D3 D |
+ -- -- --    --    -- -- --
+|= |R |T |U3 U |C3 C |= |B |
+ --       -- -- -- -- --   
+|R1 R |T1 T |A  A0 A |B  B1|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 1465
+0.048056 [s]
+
+Level 161
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |E |= |N  N |= |S3 S  S |
+ --    -- --    -- -- -- --
+|D1|E3 E |= |N3|R3|= |T |= |
+    -- -- -- --    --    --
+|D  D |J |M |R  R |T3 T |U |
+ -- --       -- -- -- --   
+|C |J1 J |M4|= |O4|= |U3 U |
+    -- --    --    -- -- --
+|C |I |= |M |L |O  O |= |Q |
+       -- --    -- -- --   
+|C1|I |H |= |L |= |P  P |Q |
+ --       --    -- --      
+|= |I3|H |G |L4|K |= |P3|Q2|
+ -- --       --    -- -- --
+|A |= |H4|G |= |K  K3|B1|= |
+    -- --    -- -- --    --
+|A3 A |= |G3|F  F  F1|B  B |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 107
+0.00697 [s]
+
+Level 162
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |S  S |= |J  J |= |H |= |
+ --    -- -- --    --    --
+|R2|S3|= |L4|= |J3|I |H  H3|
+    -- --    -- --    -- --
+|R  R |U |L |K |I  I3|= |C |
+ -- --          -- -- --   
+|= |T |U2|L |K  K3|= |B |C2|
+ --       -- -- -- --      
+|T2 T |U |= |M |= |D |B4|C |
+ -- -- -- --    --       --
+|= |Q  Q3 Q |M2|E1|D3|B |= |
+ -- -- -- --          -- --
+|O |= |P2 P |M |E |D |= |A |
+    -- --    --    -- --   
+|O  O4|= |P |G |E |F2 F |A |
+ -- -- -- --    --    --   
+|= |N  N  N2|G0 G |F |= |A3|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 185
+0.007875 [s]
+
+Level 163
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|B |= |A3 A  A |= |D  D  D2|
+    -- -- -- -- -- -- -- --
+|B3|C  C3|= |I  I3 I |H2|= |
+    --    -- -- -- --    --
+|B |= |C |J3|= |N |H  H |G |
+ -- -- --    --    -- --   
+|= |L4 L |J  J |N2 N |= |G |
+ --    -- -- -- -- -- --   
+|M |L |= |K4|= |P  P |F |G2|
+    -- --    --    --    --
+|M2|= |K  K |O3|P3|= |F  F3|
+    -- -- --    -- -- -- --
+|M |S |= |Q1|O |= |U |= |E |
+ --    --       --    --   
+|S  S3|Q  Q |O |T |U4 U |E |
+ -- -- -- -- --    -- --   
+|= |R  R  R2|= |T3 T |= |E2|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 13556
+0.283581 [s]
+
+Level 164
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |K  K3 K |= |A  A3 A |= |
+ -- -- -- -- -- -- -- -- --
+|T |= |J  J  J4|= |D3 D |B2|
+    -- -- -- -- -- --      
+|T  T3|= |L2 L |I |= |D |B |
+ -- -- --    --    -- --   
+|S  S |P |L |= |I5 I |= |B |
+ --       -- -- -- -- -- --
+|= |S2|P2 P |H  H |= |C  C4|
+ -- -- -- --    -- -- --   
+|R |= |O |= |H5|= |E5|= |C |
+    --    -- -- --    -- --
+|R3|Q |O |M4|= |E  E |F3|= |
+             -- -- --    --
+|R |Q3|O3|M |N3 N |= |F  F |
+ --    --    --    -- -- --
+|= |Q |= |M |= |N |G  G1 G |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 90
+0.003559 [s]
+
+Level 165
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |F4|= |G3 G |= |J3|= |K |
+ --    -- --    --    --   
+|E |F  F |= |G |M |J |L4|K2|
+    -- -- -- --            
+|E |= |H  H4|M  M2|J |L |K |
+    -- --    -- -- --    --
+|E3|D |= |H |= |N2|= |L |= |
+ --    -- -- --    -- -- --
+|= |D3|I1 I |N  N |S |= |V |
+ --       -- -- --    --   
+|C |D |I |O  O1|S  S2|R |V |
+    -- -- --    -- --      
+|C  C2|A  A0|O |Q2|R2 R |V2|
+ -- --    -- --    -- -- --
+|= |B |A |P1|= |Q  Q |= |U |
+ --    --    -- -- -- --   
+|B1 B |P  P |T  T1 T |U1 U |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 460
+0.015432 [s]
+
+Level 166
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|L  L2 L |= |G  G3|= |F  F |
+ -- -- -- -- --    --    --
+|K  K |= |I |= |G |E |F2|= |
+    -- --    -- --    -- --
+|K3|= |J |I  I4|H |E  E2|C |
+ -- --    -- --    -- --   
+|= |J  J4|= |H  H2|= |B4|C |
+ -- -- -- -- -- -- --      
+|M |O  O1|N1 N |D  D2|B |C2|
+    --       --    --    --
+|M |P |O |N |Q |D |= |B |= |
+       -- --    -- -- -- --
+|M1|P1|= |U |Q0|R  R4|= |T |
+ --    --          -- --   
+|A0|P |U  U1|Q |R |= |S |T2|
+    -- -- -- -- -- --      
+|A  A |V  V1 V |= |S  S3|T |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 461
+0.011196 [s]
+
+Level 167
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|C |E |= |F3 F |N |= |M  M2|
+       -- --       -- --   
+|C |E |D4|= |F |N1 N |O |M |
+          -- -- -- --    --
+|C1|E1|D  D |= |J2 J |O2|= |
+ -- -- -- -- -- --       --
+|= |H |= |I4 I |= |J |O |L |
+ --    --    -- -- -- --   
+|B |H  H3|I |= |K  K |= |L |
+    -- -- -- -- --    --   
+|B |= |P  P2|Q  Q1|K3|S |L2|
+    --    -- --    --    --
+|B2|G2|P |= |U |Q |T2|S  S2|
+ --    -- --    --    -- --
+|A |G  G |U  U1|T  T |= |V |
+    -- -- -- -- -- -- --   
+|A1 A |= |R  R2 R |= |V  V2|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 1901
+0.069105 [s]
+
+Level 168
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|N  N1 N |R1 R |S1 S |= |T2|
+ -- -- -- --       -- --   
+|M |= |Q3 Q |R |S |U1|T  T |
+    -- --    -- --    -- --
+|M2 M |. |Q |= |V2|U  U |= |
+ -- -- -- -- --    -- -- --
+|K2|= |J |= |V  V |W  W1 W |
+    --    -- -- -- -- -- --
+|K  K |J |L  L |O2|P1 P |B0|
+ -- --       --       --   
+|= |E |J2|L2|= |O |P |B  B |
+ --    -- -- --    -- -- --
+|F1|E |A  A0|C |O |= |I  I |
+          --    -- -- --   
+|F |E1|A |C2 C |G  G3|H |I1|
+    -- -- -- --    --    --
+|F |D  D  D1|= |G |= |H1 H |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 449
+0.020396 [s]
+
+Level 169
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |O |= |M3|= |C |= |B |A |
+ --    --    --    --      
+|N |O |M  M |L |C  C3|B |A0|
+       -- --    -- --      
+|N3|O4|= |P |L  L3|= |B3|A |
+    -- --    -- -- -- -- --
+|N |= |P  P3|= |K |H |= |F |
+ -- -- -- -- --       --   
+|= |Q  Q3|R |J |K |H |E |F2|
+ -- --                     
+|S  S3|Q |R |J |K2|H2|E |F |
+ --    --       -- --    --
+|= |S |= |R1|J3|= |D2|E3|= |
+ -- -- -- -- -- --    -- --
+|T3 T  T |U2|= |I2|D |= |G2|
+ -- -- --    --       --   
+|. |= |U  U |I  I |D |G  G |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 427
+0.020229 [s]
+
+Level 170
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |V |= |T  T |= |Q2|A0 A |
+ --    --    -- --    --   
+|U |V3 V |T3|= |P |Q  Q |A |
+    -- -- -- --    -- -- --
+|U2|= |R  R  R3|P4 P |= |F |
+    -- -- -- -- -- -- --   
+|U |S3 S |= |N  N |= |F2 F |
+ -- --    -- --    -- -- --
+|M  M |S |O1 O |N2|E  E2 E |
+ --    -- --    -- -- -- --
+|I |M2|= |L3|O |J |= |C  C |
+    -- --    --    -- --   
+|I1|= |L  L |J  J1|D |= |C2|
+    -- -- -- -- --    -- --
+|I |H |= |K  K2 K |D4|B  B |
+ --    -- -- -- --    --   
+|H2 H |G  G  G2|= |D |= |B2|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 2556
+0.081502 [s]
+
+Level 171
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |C |= |E  E3 E |= |F2 F |
+ --    -- -- -- -- --    --
+|B |C |D4 D  D |= |G |F |= |
+       -- -- -- --    -- --
+|B |C4|= |I |= |H3|G  G3|J |
+    -- --    --    -- --   
+|B3|= |A |I  I3|H |= |K |J2|
+ -- --    -- --    --      
+|= |A  A5|= |P |H |L2|K3|J |
+ -- -- -- --    --       --
+|R |= |Q3 Q |P2 P |L |K |= |
+    -- --    -- --    -- --
+|R3|S  S |Q |= |M |L |= |O |
+       -- -- --    -- --   
+|R |S2|= |T  T3|M2 M |O2 O |
+ -- -- -- --    -- -- -- --
+|= |U2 U  U |T |= |N1 N  N |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 315
+0.010596 [s]
+
+Level 172
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |Q  Q3|= |J |= |H |= |G |
+ -- --    --    --    --   
+|R |= |Q |P |J |I |H |F |G |
+    -- --                  
+|R3 R |P  P2|J2|I3|H3|F |G2|
+ -- -- -- -- --    --    --
+|= |S3|= |N2 N |I |= |F4|= |
+ --    -- --    -- -- -- --
+|S  S |O  O3|N |= |E |= |D |
+ -- --    -- -- --    --   
+|= |T2|O |= |L2|E3 E |D  D3|
+ --    -- --    -- -- -- --
+|U |T |= |K |L |C  C |= |A |
+       --          -- --   
+|U1|T |M1|K3|L |C2|= |A  A3|
+    --       -- -- -- -- --
+|U |M  M |K |= |B  B3 B |= |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 2683
+0.120084 [s]
+
+Level 173
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |T  T3|= |R |= |J3 J |= |
+ -- --    --    -- --    --
+|F4|= |T |R  R3|L3|= |J |I |
+    -- -- -- --    -- --   
+|F |U  U |= |S |L  L |K0|I1|
+    --    --    -- --      
+|F |= |U4|S  S2|= |M2|K |I |
+ -- -- -- -- -- --       --
+|= |B |= |N  N2|M  M |K |G0|
+ --    -- --    -- -- --   
+|C |B5 B |= |N |O |= |Q |G |
+    -- -- -- --    --      
+|C3 C |= |D |O2 O |P |Q1|G |
+ -- -- --    -- --       --
+|= |A |D4 D |= |P  P3|Q |H1|
+ --    -- -- -- -- -- --   
+|A2 A |= |E3 E  E |= |H  H |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 90
+0.004037 [s]
+
+Level 174
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |H |= |F4|= |O3 O |= |P |
+ --    --    -- --    --   
+|C |H  H3|F  F |= |O |N |P2|
+    -- -- -- -- -- --      
+|C |= |G  G |= |I2 I |N |P |
+    --    -- -- --       --
+|C2|B |G3|= |K  K4|I |N2|= |
+ --    -- --    -- -- -- --
+|B2 B |L2 L |K |= |J  J  J4|
+ -- -- --    -- -- -- -- --
+|= |M  M3|L |= |R |= |S |= |
+ --    -- -- --    --    --
+|A |M |= |Q  Q |R3|U |S3|T2|
+    -- -- --               
+|A |= |D |= |Q3|R |U |S |T |
+    --    -- -- --    --   
+|A2|D3 D |E  E1 E |U2|= |T |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 96
+0.005029 [s]
+
+Level 175
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |C3 C |= |F  F4|= |L |K |
+ -- --    --    -- --      
+|E |D1|C |G4|F |= |L  L2|K |
+       --    -- -- -- --   
+|E2|D |= |G |= |I |H0 H |K0|
+       --    --    --    --
+|E |D |T |G |J2|I  I2|H |O |
+ -- --    --    -- -- --   
+|= |T3 T |= |J |M0|N0|O  O1|
+ -- -- -- --          -- --
+|W |S  S |U |J |M |N |P |= |
+    --       --          --
+|W2 W |S0|U2 U |M |N |P1 P |
+ -- -- -- -- -- -- -- -- --
+|V |= |R  R |= |Q |B |A  A |
+    -- --    --       --   
+|V2 V |= |R3|Q  Q1|B  B0|A0|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 15
+0.000798 [s]
+
+Level 176
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |J  J |= |T  T3|= |V |= |
+ -- --    -- --    --    --
+|K |= |J4|I |= |T |U |V  V2|
+    -- --    -- --    -- --
+|K4 K |= |I |G |H |U1 U |R |
+ -- -- --          -- --   
+|= |L  L |I3|G |H0 H |S1|R |
+ -- --    --    -- --      
+|N2 N |L2|D |G1|F |S  S |R1|
+ --    --    --    -- -- --
+|= |N |D  D1|F2 F |= |O |= |
+ -- -- -- -- -- -- --    --
+|M  M3|= |C |= |E |Q |O  O3|
+    -- --    --       -- --
+|M |B  B |C  C2|E1|Q2|= |P1|
+ --    -- -- --       --   
+|= |B2|A  A0 A |E |Q |P  P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 69
+0.004418 [s]
+
+Level 177
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |Q3 Q |= |O |= |N3|= |J1|
+ -- --    --    --    --   
+|R  R |Q |P |O |N  N |J  J |
+ --    --       -- -- -- --
+|= |R3|= |P4|O4|= |K3 K |C |
+ -- -- --    -- -- --      
+|S  S1|U |P |= |G |= |K |C |
+ --       -- --    -- --   
+|T1|S |U |= |H |G  G5|= |C1|
+    --    --    -- -- -- --
+|T  T |U3|H  H3|= |E |B  B |
+ -- -- -- -- -- --    --   
+|= |M |= |I3|F  F |E  E2|B1|
+ --    --    --    -- -- --
+|L |M  M3|I |= |F3|= |A  A |
+    -- --    -- -- -- --   
+|L2 L |= |I |D  D3 D |= |A2|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 298
+0.007212 [s]
+
+Level 178
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |F4 F |= |J3|= |T |A0 A |
+ --    -- --    --    --   
+|G2|F |= |I |J |U |T  T2|A |
+    -- --          -- -- --
+|G |= |H |I4|J |U2 U |= |V1|
+    --       -- -- -- --   
+|G |E |H4|I |= |S3|R |V  V |
+ --       -- --       -- --
+|E2 E |H |= |S  S |R  R0|M |
+ -- -- -- -- -- -- -- --   
+|= |C |= |L  L4|= |P |M  M1|
+ --    -- --    --    -- --
+|B |C |K  K3|L |P3 P |= |N1|
+       --    -- -- -- --   
+|B |C3|= |K |= |Q |= |O |N |
+    -- -- -- --    --      
+|B1|D  D1 D |Q  Q2|O  O2|N |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 5563
+0.158877 [s]
+
+Level 179
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |G  G  G2|S |= |P  P |= |
+ -- -- -- --    -- --    --
+|A3 A |= |F |S |R |O |P2|N |
+    -- --             --   
+|A |B1|C1|F2|S2|R |O  O1|N |
+ --          --    -- --   
+|= |B |C |F |= |R3|Q |= |N2|
+ --       -- -- --    -- --
+|D2|B |C |T  T2|= |Q3 Q |L |
+    -- -- --    -- -- --   
+|D |E1 E |U1|T |V |= |M3|L1|
+    --       --    --      
+|D |= |E |U  U |V3 V |M |L |
+ -- -- -- -- -- -- --    --
+|H  H |I  I |= |J |= |M |= |
+ --    --    --    -- -- --
+|= |H3|= |I2|J  J2|K2 K  K |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 7364
+0.208576 [s]
+
+Level 180
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |J1|F  F  F1|C2|B  B  B2|
+ --    -- -- --    -- -- --
+|K1|J |L |= |E |C |= |D |= |
+          --       --    --
+|K |J |L2|I3|E3|C |H |D |A |
+    --          --         
+|K |V |L |I |E |= |H |D3|A3|
+ --    --    -- --    --   
+|V  V2|= |I |= |G2|H3|= |A |
+ -- -- -- -- --    -- -- --
+|= |U |S3 S  S |G  G |N |= |
+ --    -- -- -- -- --    --
+|U  U1|R |= |P  P2 P |N |M2|
+ -- --    -- -- -- --      
+|T  T1|R |Q  Q2|O |= |N4|M |
+    --    --       -- --   
+|T |= |R3|= |Q |O2 O |= |M |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 402
+0.018837 [s]
+
+Level 181
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |Q2 Q  Q |= |S1 S |M  M1|
+ -- -- -- -- -- --    --   
+|O  O |R  R |T2 T |S |U1|M |
+ --    --       -- --    --
+|= |O3|= |R1|T |= |W |U |= |
+ -- -- -- -- -- --       --
+|H  H |P2 P  P |V |W |U |N |
+ --    -- -- --       --   
+|G |H2|= |L |V  V2|W1|N2 N |
+    -- --    -- -- -- -- --
+|G  G0|I |L2|= |B  B  B3|= |
+ -- --       -- -- -- -- --
+|A |F |I2|L |J |K |= |D2|C1|
+          --       --      
+|A |F |I |J1 J |K2 K |D |C |
+       -- -- -- -- --      
+|A0|F1|= |E  E  E2|= |D |C |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 275
+0.008525 [s]
+
+Level 182
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|E  E0|J  J2|S |= |U3|= |V |
+ --       --    --    --   
+|F1|E |J |= |S2 S |U  U |V2|
+    -- -- -- -- -- -- --   
+|F |G |= |I |K2|T2 T |= |V |
+       --          -- -- --
+|F |G4|I  I3|K |T |R  R |Q |
+ --    -- --    --    --   
+|= |G |= |H4|K |= |R2|P |Q |
+ -- -- --    -- -- --      
+|. |= |H  H |= |L |O |P |Q1|
+ -- -- -- -- --          --
+|B  B |= |D |L2 L |O |P2|= |
+    -- --    -- --    -- --
+|B2|A |C2|D2 D |M1|O1|= |N2|
+ --       -- --    -- --   
+|A0 A |C  C |= |M  M |N  N |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 270
+0.010627 [s]
+
+Level 183
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |U |= |S |= |R2|O2 O |= |
+ --    --    --       -- --
+|U3 U |T |S |R  R |O |= |N |
+ -- --       -- -- -- --   
+|= |T  T3|S3|= |P  P3|N  N2|
+ -- -- -- -- --    -- -- --
+|L  L |= |K2|Q2|P |= |M2 M |
+ --    --       -- --    --
+|= |L4|J |K |Q |= |G4|M |I1|
+ -- --          --    --   
+|C |= |J4|K |Q |G  G |= |I |
+    --    -- -- -- -- --   
+|C  C3|J |= |E |= |F  F |I |
+ -- -- -- --    --    -- --
+|= |A |= |B |E2|D |F2|H1 H |
+ --    --          -- --   
+|A2 A |B2 B |E |D2 D |= |H |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 3914
+0.102211 [s]
+
+Level 184
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |B |= |D |= |G  G |= |I |
+ --    --    -- --    --   
+|A3|B |C3|D |E2 E |G2|H2|I |
+             --    --      
+|A |B3|C |D4|= |E |H  H |I1|
+    --    -- -- -- -- -- --
+|A |= |C |= |F  F  F5|= |J |
+ -- -- -- -- -- -- -- --   
+|= |Q  Q |R3|= |S |= |J3 J |
+ --    --    --    -- -- --
+|P |Q4|= |R |S2 S |K3|= |M |
+    -- --    -- --    --   
+|P |= |T |R |U |K  K |M2 M |
+    --    --    -- -- -- --
+|P3|T  T2|U2 U |= |L3|= |N1|
+ -- -- -- -- -- --    --   
+|= |O  O  O2|= |L  L |N  N |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 2304
+0.058557 [s]
+
+Level 185
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |P |= |I3 I  I |= |A  A3|
+ --    -- -- -- -- -- --   
+|P  P3|H3 H  H |= |D |= |A |
+ -- -- -- -- -- --    -- --
+|= |O  O3|= |N |D  D4|C |= |
+ -- --    --    -- --    --
+|Q4 Q |O |N2 N |= |C  C4|B |
+ --    -- -- -- -- -- --   
+|= |Q |= |M  M1|L |= |B  B3|
+ -- -- --    --    -- -- --
+|U |= |R |M |L3 L |E1|G |= |
+    --    -- -- --       --
+|U3|T |R4 R |= |K2|E |G1|F1|
+       -- -- --            
+|U |T |= |S2|K  K |E |G |F |
+ --    --    -- -- -- --   
+|= |T3|S  S |= |J  J1 J |F |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 137
+0.004576 [s]
+
+Level 186
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|O2|= |N |= |B |= |A  A  A3|
+    --    --    -- -- -- --
+|O  O |N  N3|B4 B |= |C4|= |
+ -- -- -- -- -- -- --    --
+|= |P4|= |M  M3|= |C  C |D |
+ --    -- --    -- -- --   
+|U |P  P |= |M |L3|= |D  D3|
+    -- -- -- --    -- -- --
+|U  U2|= |K  K |L  L |E1|= |
+ -- -- -- --    -- --    --
+|T  T  T3|= |K5|= |J1|E |F2|
+ -- -- -- -- -- --         
+|= |S4 S  S |= |I |J |E |F |
+ -- -- -- -- --       --   
+|R |= |Q  Q1|I2 I |J |H1|F |
+    --    -- -- -- --    --
+|R  R2|Q |G0 G  G |H  H |= |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 23
+0.001035 [s]
+
+Level 187
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|T  T |= |O |= |Q |R1|E  E |
+ --    --    --       --   
+|U |T2|S |O3|Q1 Q |R  R |E0|
+    --       -- -- -- -- --
+|U2|= |S3|O |P2 P  P |= |D |
+    --    -- -- -- -- --   
+|U |V |S |= |N3 N |= |H3|D |
+ --    -- --    -- --      
+|= |V3 V |W2|N |M2|H  H |D1|
+ -- -- --    --    -- -- --
+|G |= |F |W |= |M |= |I2|C1|
+    --       --    --      
+|G  G2|F |W |L |M |I  I |C |
+ -- --    --    -- -- --   
+|A  A0|F1|L1 L |K |= |J |C |
+    -- -- -- --    --    --
+|A |B0 B  B |K  K1|J  J2|= |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 13523
+0.523031 [s]
+
+Level 188
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |S2 S |P  P |= |B  B |= |
+ -- --    --    --    -- --
+|R3 R |S |= |P2|C3|B4|= |A4|
+    -- -- -- --    -- --   
+|R |= |T2|Q |C  C |= |A  A |
+ -- --       -- -- -- -- --
+|= |T  T |Q3 Q |= |E  E |= |
+ -- -- -- -- -- --    -- --
+|U  U  U2|= |D4 D |E4|F  F |
+ -- -- -- -- --    --    --
+|O  O  O1|L |= |D |= |F3|G2|
+ -- -- --    -- -- -- --   
+|= |M |L  L3|J  J2|I |= |G |
+ --    -- --    --    --   
+|N |M  M3|= |J |I  I2|H |G |
+    -- -- -- -- -- --    --
+|N  N2|= |K  K2 K |H  H2|= |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 470
+0.017651 [s]
+
+Level 189
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |K  K4|= |I  I  I3|= |J |
+ --    -- -- -- -- -- --   
+|L |K |= |M  M |= |H |J  J2|
+    -- --    -- --    -- --
+|L3|= |R |M4|= |G |H3 H |= |
+    --    -- --    -- -- --
+|L |Q |R2 R |O |G |= |E |F |
+ --    -- --       --      
+|= |Q2 Q |O  O2|G4|D4|E |F1|
+ -- -- -- -- -- --         
+|P  P  P4|= |N |= |D |E2|F |
+ -- -- -- --    --    -- --
+|= |T3|= |S |N3|C |D |= |B2|
+ --    --          -- --   
+|T  T |U2|S3|N |C |= |B  B |
+ -- --       --    -- -- --
+|= |U  U |S |= |C3|A  A  A1|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 66
+0.005162 [s]
+
+Level 190
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|N  N2|K  K2 K |= |F1 F  F |
+ --    -- -- -- -- -- -- --
+|= |N |= |J  J3|G2 G |D0|C1|
+ -- -- -- --    --         
+|O3 O |M  M |J |= |G |D |C |
+ --    --    -- -- --      
+|P |O |= |M3|= |I |E |D |C |
+    -- -- -- --       -- --
+|P |= |L3 L  L |I |E  E2|= |
+    -- -- -- --    -- -- --
+|P2|Q1 Q |H  H0|I3|= |B  B |
+ -- --       -- -- --    --
+|= |S |Q |H |U1 U |V2|B2|A |
+ --    -- --    --    --   
+|R |S  S2|T |U |= |V  V |A0|
+    -- --    -- -- -- --   
+|R  R2|= |T1 T |W  W  W1|A |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 514
+0.024486 [s]
+
+Level 191
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |B  B  B3|= |M  M |N1 N |
+ -- -- -- -- -- --       --
+|I  I |= |G3|H4|= |M3|N |= |
+ --    --       -- -- -- --
+|= |I4|J |G |H  H |= |P2|O1|
+ -- --       -- -- --      
+|F |= |J |G |= |R2|S2|P |O |
+    --    -- --            
+|F3 F |J3|= |R  R |S |P |O |
+ -- -- -- -- -- --    -- --
+|= |L  L3|T  T3|U |S |= |Q1|
+ --    --    --    -- --   
+|E |L |= |T |= |U1|V0|Q  Q |
+    -- -- -- --       -- --
+|E2|= |K3 K  K |U |V  V |A |
+    -- -- -- -- -- -- --   
+|E |D  D1 D |C  C0 C |A  A0|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 140
+0.006961 [s]
+
+Level 192
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|O |P1 P  P |R2 R  R |= |S |
+    -- -- -- -- -- -- --   
+|O  O2|= |Q2 Q  Q |= |S  S3|
+ -- -- -- -- -- -- -- -- --
+|= |N3|T  T  T2|. |U  U4|= |
+ --    -- -- -- --    -- --
+|M3|N  N |= |L2 L |U |= |A4|
+    -- -- -- --    -- --   
+|M  M |= |J  J |L |= |A  A |
+ -- -- --    -- -- -- -- --
+|= |I |K2|J3|= |C  C5|= |B2|
+ --       -- -- --    --   
+|H |I |K  K |F |= |C |B  B |
+       -- --    -- -- -- --
+|H2|I3|= |G |F3 F |= |E |= |
+    -- --    -- -- --    --
+|H |= |G  G2|D  D1 D |E2 E |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 542
+0.025185 [s]
+
+Level 193
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |C2 C  C |= |A  A  A4|= |
+ -- -- -- -- -- -- -- -- --
+|D |E1 E  E |B |= |Q |= |R |
+    -- -- --    --    --   
+|D3|G  G |= |B  B4|Q3|P |R3|
+    --    -- -- --         
+|D |= |G2|J3|= |S2|Q |P |R |
+ -- -- --    --    --    --
+|= |F |J  J |S  S |= |P3|= |
+ --    -- -- -- -- -- -- --
+|F4 F |= |L2 L  L |O  O3 O |
+ -- -- -- -- -- -- -- -- --
+|= |H1|K  K |= |N  N4|= |T |
+ --       -- --    -- --   
+|H  H |K3|= |M |N |= |T  T2|
+ -- -- -- --    -- -- -- --
+|I0 I  I |M3 M |= |U  U2 U |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 121
+0.005071 [s]
+
+Level 194
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|I1|H  H |F  F2|E  E |= |A |
+    --    --       -- --   
+|I |T |H2|= |F |E1|D |B2|A2|
+       -- -- -- --         
+|I |T |= |G5|= |D  D2|B |A |
+ --    --    -- -- --    --
+|= |T2|S |G  G |= |K |B |= |
+ -- --    -- -- --    -- --
+|U2|S  S3|= |J4 J |K2 K |C1|
+    -- -- -- --    -- --   
+|U  U |= |V |= |J |= |L2|C |
+ -- -- --    -- -- --      
+|Q  Q |R |V3 V |N |L  L |C |
+    --    -- --    -- -- --
+|Q2|= |R2 R |O1|N2 N |= |M |
+ -- -- -- --    -- -- --   
+|= |P  P2 P |O  O |= |M2 M |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 33065
+1.20066 [s]
+
+Level 195
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |U |H  H  H2|= |K  K |L |
+ --    -- -- -- --    --   
+|T |U  U3|= |G |I |K2|= |L |
+    -- -- --       -- --   
+|T |= |R  R3|G4|I2 I |J |L2|
+    --    --    -- --    --
+|T3|S |R |= |G |= |J  J4|= |
+ --    -- -- -- -- -- -- --
+|= |S3 S |Q |= |F  F |= |E |
+ -- -- --    --    -- --   
+|O |= |Q4 Q |M4|F4|D |E  E2|
+    -- -- --    --    -- --
+|O4 O |= |M  M |= |D2|C  C |
+ -- -- -- -- -- --       --
+|= |N  N  N4|= |A |D |C0|B |
+ -- -- -- -- --    -- --   
+|P  P  P2|= |A  A4|= |B1 B |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 107
+0.003519 [s]
+
+Level 196
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |D  D3 D |= |B  B  B4|= |
+ -- -- -- -- -- -- -- -- --
+|C  C |= |E  E |= |J |= |K |
+    -- --    -- --    --   
+|C4|= |F |E5|= |I |J2 J |K2|
+ -- --    -- --    -- --   
+|= |G3|F3|= |M |I2|N  N |K |
+ --       --          -- --
+|H |G |F |M  M3|I |N2|= |U |
+       -- -- -- -- -- --   
+|H |G |O2|= |L  L4|= |R4|U1|
+    --    --    -- --      
+|H2|= |O  O |L |= |R  R |U |
+ -- -- -- -- -- -- -- -- --
+|P  P  P1|Q |= |S4 S |= |T |
+ -- -- --    --    -- --   
+|A  A  A0|Q  Q1|S |= |T2 T |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 207
+0.007081 [s]
+
+Level 197
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |P |= |U  U |= |T2|A  A0|
+ --    -- --    --    --   
+|P  P3|O |= |U4|S |T  T |A |
+ -- --    -- --    -- -- --
+|= |L3|O4 O |= |S  S4|= |B3|
+ --    -- -- -- -- -- --   
+|M3|L |= |Q1|R  R |= |B  B |
+       --    --    -- -- --
+|M |L |N |Q  Q |R2|C  C3|= |
+    --    -- -- --    -- --
+|M |= |N2 N |H  H |C |= |D |
+ -- -- -- --    -- -- --   
+|= |I  I3 I |H1|= |F3|D  D3|
+ -- -- -- -- -- --    -- --
+|J  J  J3|= |G |F  F |= |E |
+ -- -- -- --    -- -- --   
+|= |K2 K  K |G  G2|= |E2 E |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 389
+0.014185 [s]
+
+Level 198
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |M3 M  M |= |J3|= |B |= |
+ -- -- -- -- --    --    --
+|N3 N  N |= |K |J |F3|B |A |
+ -- -- -- --               
+|= |P  P |L |K4|J |F |B3|A3|
+ --    --       --    --   
+|O |P3|= |L4|K |= |F |= |A |
+    -- --    -- -- -- -- --
+|O |= |Q |L |= |C  C5 C |= |
+    --    -- -- -- -- -- --
+|O3|Q3 Q |= |G5 G |= |D  D |
+ -- -- -- --    -- --    --
+|= |R  R3 R |G |= |H3|D4|= |
+ -- -- -- -- -- --    -- --
+|T  T |= |S2|= |I2|H |= |E |
+ --    --    --       --   
+|= |T3|S  S |I  I |H |E  E2|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 1535
+0.036741 [s]
+
+Level 199
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |P |= |M  M |= |E  E2|D |
+ --    -- --    -- --      
+|P3 P |O |L |M2|H |= |E |D |
+ -- --       --    -- --   
+|Q |= |O |L |I |H  H2|F0|D0|
+    --          -- --    --
+|Q  Q1|O3|L0|I  I0|G |F  F |
+ -- -- -- -- -- --    -- --
+|K  K |= |T |J  J0|G  G0|C |
+ --    --    --    -- --   
+|N1|K1|R1|T  T2|J |X1|B |C |
+    --    -- -- --         
+|N |S1|R |U1|= |W |X |B |C0|
+             --          --
+|N |S |R |U  U |W |X |B0|A |
+ --    -- -- --    -- --   
+|= |S |V  V0 V |W2|= |A  A1|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 311
+0.009607 [s]
+
+Level 200
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|= |U2|= |S3|= |C  C3|= |A2|
+ --    --    --    -- --   
+|V2|U  U |S |T3|C |D |A  A |
+    -- --       --    -- --
+|V  V |Q |S |T |= |D |= |B2|
+ -- --    --    --    --   
+|H |= |Q |= |T |O |D2|P |B |
+    --    -- --    --      
+|H |G |Q3|R2 R |O |P1 P |B |
+       --    --    -- -- --
+|H2|G |= |R |J |O1|M  M |= |
+ --    -- --    --    -- --
+|= |G3|E |J1 J |K |M3|= |N |
+ -- --    -- --    -- --   
+|F  F2|E |= |I |K1|= |L |N2|
+ --       --       --      
+|= |F |E2|I1 I |K |L2 L |N |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 2599
+0.086295 [s]
+
+Level 201
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |N4|= |O  O |= |I  I  I4|= |
+ --    -- --    -- -- -- -- --
+|M |N |P  P3|O3|Q |= |L |= |J |
+       --    --    --    --   
+|M |N |= |P |= |Q4 Q |L2 L |J2|
+    -- -- -- -- -- -- -- --   
+|M3|= |R |S  S |= |V |K0 K |J |
+ -- --    --    --    --    --
+|= |H |R  R2|S3|U |V  V1|K |T1|
+ --    -- -- --    -- -- --   
+|A3|H3 H |E |= |U |W1 W |T  T |
+    -- --    --       -- -- --
+|A  A |= |E |F2|U3|W |= |Z |= |
+ -- -- --       -- -- --    --
+|= |B2 B |E2|F |= |X2|Z  Z3|Y |
+ -- --    --    --    -- --   
+|C  C2|B |D |F |X  X |= |Y2 Y |
+ --    --    -- -- -- -- -- --
+|= |C |D0 D |G0 G  G |[  [  [1|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 113
+0.005586 [s]
+
+Level 202
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |Q |= |R |= |J |= |H  H3 H |
+ --    --    --    -- -- -- --
+|Q  Q3|P |R3 R |J  J3|= |G |= |
+ -- --    -- -- -- -- --    --
+|= |O |P3 P |= |I  I  I3|G3|F |
+ --    -- -- -- -- -- --      
+|N |O2 O |= |L |= |E  E |G |F3|
+    -- -- --    -- --    --   
+|N |M  M1|K4|L5 L |= |E3|= |F |
+       --    -- -- -- -- -- --
+|N2|M |= |K  K |= |A  A  A6|= |
+ -- -- -- -- -- -- -- -- -- --
+|= |S4 S |= |X  X |= |B4|= |C |
+ -- --    -- --    --    --   
+|T3 T |S |V4 V |X3|Y |B |C3 C |
+ --    --    -- --       -- --
+|= |T |= |V |= |W |Y2|B |= |D2|
+ -- -- -- -- --       -- --   
+|U  U3 U |= |W2 W |Y |= |D  D |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 21
+0.001118 [s]
+
+Level 203
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |Y  Y |= |T3 T |= |Q |= |P |
+ -- --    -- --    --    --   
+|X3 X |Y2|S4|= |T |W |Q |O |P |
+    -- --    -- --            
+|X |= |S  S |V |W  W2|Q3|O3|P2|
+ -- -- -- --    -- -- --    --
+|= |R |= |U |V3|= |G |= |O |= |
+ --    --       --    -- -- --
+|C |R4 R |U3|V |F |G |H  H4 H |
+    -- --    --       -- -- --
+|C |= |I3|U |= |F4|G4|= |N |= |
+    --    -- --    -- --    --
+|C3|I  I |= |E4|F |= |K4|N2|M |
+ -- -- -- --    -- --         
+|= |B |= |D |E |= |K  K |N |M |
+ --    --       -- -- -- --   
+|A2|B3 B |D4|E |J4 J |= |L |M2|
+    -- --    --    -- --    --
+|A  A |= |D |= |J |= |L3 L |= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 3521
+0.148484 [s]
+
+Level 204
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |A3 A |= |C  C  C3|= |Y |= |
+ -- --    -- -- -- -- --    --
+|G  G2|A |B |= |X  X2|W |Y |V |
+    -- --    --    --         
+|G |F |= |B |Q |X |= |W3|Y3|V |
+ --    --       -- --    --   
+|= |F |D3|B4|Q1 Q |Z2|W |= |V2|
+ --       -- -- --    -- -- --
+|E |F2|D |= |P  P |Z  Z |T  T3|
+    --    -- --    -- -- --   
+|E  E2|D |L3 L |P3|= |U4|= |T |
+ -- -- -- --    -- --    -- --
+|= |H3|= |K |L |= |N |U  U |= |
+ --    --    -- --    -- -- --
+|I |H |J3|K |= |N5 N |= |S |R |
+             -- -- -- --      
+|I2|H |J |K3|M4 M |= |S  S2|R1|
+    --    --    -- -- -- --   
+|I |= |J |= |M |= |O  O  O2|R |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 142
+0.005983 [s]
+
+Level 205
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |Y2 Y |X  X |= |P  P |= |M |
+ --    --    -- --    -- --   
+|Z2|Y |= |X3|= |O |P3|= |M  M3|
+    -- -- -- --    -- -- -- --
+|Z |W  W3 W |R4|O3 O |N |= |L |
+    -- -- --    -- --    --   
+|Z |= |T |= |R |= |Q |N3|K |L2|
+ -- --    --    --            
+|U  U2|T2|S |R |Q  Q1|N |K |L |
+    --       -- -- -- --    --
+|U |V1|T |S |= |H  H4|= |K4|= |
+ --    --    --    -- -- -- --
+|= |V  V |S2|D |H |= |G |= |I3|
+ -- -- -- --    -- --    --   
+|B  B |C |. |D |= |G4 G |J |I |
+    --    --    -- -- --      
+|B3|= |C1 C |D3|E1 E  E |J |I |
+ -- -- -- -- -- -- -- --    --
+|= |A  A3 A |= |F  F1 F |J2|= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 1414
+0.064367 [s]
+
+Level 206
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|Z  Z |= |U  U3|= |P |Q1 Q  Q |
+ --    --    -- --    -- -- --
+|= |Z2|W3|U |T  T3|P3 P |= |R2|
+ -- --    -- --    -- -- --   
+|Y2 Y |W |= |V |T |= |S |R  R |
+    --    --    -- --    -- --
+|Y |= |W |V3 V |= |O |S2 S |= |
+ -- -- -- -- -- --    -- -- --
+|X3 X |. |G |= |O4 O |N  N  N2|
+    -- --    -- -- -- -- -- --
+|X |= |G  G3|A5|= |I |= |L |M |
+ -- -- -- --    --    --      
+|= |F  F |= |A |I  I3|H |L |M |
+ --    -- --    -- --         
+|E |F4|= |C |A |= |H2 H |L1|M1|
+    -- --    -- -- -- -- -- --
+|E  E2|D |C |= |B |J2 J  J |= |
+ -- --       --    -- -- -- --
+|= |D  D2|C3|B3 B |= |K2 K  K |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 31
+0.002557 [s]
+
+Level 207
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|H  H2 H |= |N  N  N2|= |P  P |
+ -- -- -- -- -- -- -- -- --   
+|= |G |J  J  J1|M2|O2 O  O |P1|
+ --    -- -- --    -- -- -- --
+|F |G |I0 I  I |M  M |= |V  V |
+       -- -- -- -- -- --    --
+|F2|G2|K1 K  K |= |T  T3|V1|. |
+    -- -- -- -- -- --    -- --
+|F |= |L  L3|S  S2 S |T |U  U |
+ -- --    -- -- -- -- --    --
+|E  E |L |= |R |= |[ |= |U1|X |
+    -- -- --    --    -- --   
+|E2|D |= |R4 R |[3 [ |\3 \ |X1|
+ --    -- -- -- -- --    --   
+|= |D2|Q2 Q |= |Z |= |\ |= |X |
+ --    --    --    -- -- -- --
+|C |D |B |Q |Y |Z  Z3|W  W2|A |
+    --    --    -- --    --   
+|C  C1|B  B0|Y  Y2|= |W |A0 A |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 23
+Number of vertices examined: 19804
+0.583725 [s]
+
+Level 208
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |E  E3 E |= |R3 R |T |= |U |
+ -- -- -- -- --    --    --   
+|A4|= |S  S  S3|R |= |T3 T |U2|
+    -- -- -- -- -- -- -- --   
+|A  A |= |O  O |= |Q5 Q |= |U |
+ -- -- -- --    --    -- -- --
+|= |C  C |= |O4|N |Q |= |V  V |
+ --    -- -- --    -- --    --
+|B2|C4|= |K4|= |N |= |P |V4|= |
+    -- --    --    --    -- --
+|B  B |H3|K |L |N3|M |P4|= |X |
+ -- --          --       --   
+|= |G |H |K |L1 L |M |P |X3 X |
+ --       -- -- --    -- -- --
+|D |G |H |= |I3 I |M3|= |W |= |
+       -- -- --    -- --    --
+|D2|G3|= |F |= |I |= |Y3|W  W3|
+    -- --    -- -- --    -- --
+|D |= |F  F4|J  J  J2|Y  Y |= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 1839
+0.116609 [s]
+
+Level 209
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |S |= |Q  Q |= |D  D3|= |A3|
+ --    -- --    --    -- --   
+|R3|S3|T3|= |Q3|E |D |= |A  A |
+          -- --    -- -- -- --
+|R |S |T  T |P |E  E2|B4|= |G |
+    -- -- --    -- --    --   
+|R |= |U |= |P |= |B  B |F3|G |
+ -- --    --    -- -- --      
+|= |U  U4|O |P3|C  C5|= |F |G2|
+ -- -- --    --    -- --    --
+|V3|= |X |O |= |C |= |H2|F |= |
+    --       -- -- --    -- --
+|V  V |X2|O3|J |= |I |H  H |N |
+ -- --    --    --    -- --   
+|= |W1|X |= |J |K3|I2 I |N2 N |
+ --    -- --       -- -- -- --
+|Y1|W  W |Z2|J4|K |L2 L |= |M |
+    -- --    --    --    --   
+|Y  Y |Z  Z |= |K |= |L |M1 M |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 144
+0.00556 [s]
+
+Level 210
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |Q |= |U2|= |V |= |X  X2 X |
+ --    --    --    -- -- -- --
+|Q2 Q |T2|U  U |V4 V |= |Y  Y2|
+ -- --    -- -- -- -- -- --   
+|P |T  T |R  R1|= |W5 W |= |Y |
+    -- -- --    -- --    -- --
+|P1|= |S  S2|R |M |= |W |Z  Z2|
+    -- --    --    -- -- --   
+|P |O  O |S |N2|M4 M |= |[2|Z |
+ -- --    --    -- -- --    --
+|D  D |O3|= |N  N |= |J |[ |= |
+ --    -- -- -- -- --       --
+|B |D1|= |L  L3|K  K |J |[ |I |
+    -- --    -- --       --   
+|B1 B |C |L |E |F |K2|J2|I  I2|
+ -- --    --       -- -- -- --
+|= |C3 C |= |E1|F |= |G |= |H |
+ -- -- -- --       --    --   
+|A1 A  A |. |E |F1|G2 G |H  H1|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 21
+Number of vertices examined: 867
+0.055276 [s]
+
+Level 211
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |C |= |B  B4|= |K  K |= |H |
+ --    -- --    -- --    --   
+|A3|C3|P |= |B |J4 J |K2|G3|H2|
+          -- --    -- --      
+|A |C |P |N4|= |J |= |I |G |H |
+    --       -- -- --       --
+|A |= |P3|N  N |= |Q |I3|G |= |
+ -- -- -- -- -- --       -- --
+|= |O  O |= |S  S |Q4|I |= |D |
+ -- --    --    --    -- --   
+|V  V3|O3|W |S4|= |Q |= |D  D4|
+ --    --    -- -- -- -- -- --
+|= |V |W2 W |= |T2 T |R |= |E2|
+ -- -- -- -- --    --    --   
+|Z |= |X  X1|U |T |R3 R |E  E |
+    -- --       -- -- -- -- --
+|Z3|Y  Y2|X |U  U2|= |L2|= |F1|
+    --    -- -- -- --    --   
+|Z |= |Y |M  M  M0|L  L |F  F |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 516
+0.020352 [s]
+
+Level 212
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|W |X2 X |= |Y  Y |= |A4|= |B |
+       -- --    -- --    --   
+|W2|X |. |Z |Y3|= |A  A |C2|B2|
+    -- --    -- -- -- --      
+|W |= |Z  Z2|G1|F4|= |E2|C |B |
+ -- -- -- --       --       --
+|= |V3 V  V |G |F |E  E |C |= |
+ -- -- -- --       -- -- -- --
+|U  U  U3|= |G |F |= |J  J |D1|
+ -- -- -- -- -- -- -- --      
+|= |S  S |H  H4|= |I  I |J1|D |
+ -- --    --    --    -- --   
+|R |= |S4|= |H |O |I4|= |K |D |
+    -- -- -- --    -- --    --
+|R |T3|= |P4|= |O |= |M |K  K2|
+       --    --    --    -- --
+|R3|T |Q |P  P |O3|N2|M |= |L1|
+ --       -- -- --       --   
+|= |T |Q  Q2|= |N  N |M3|L  L |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 253
+0.014821 [s]
+
+Level 213
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |S |= |P |Q  Q |= |D  D |B |
+ --    --       -- --    --   
+|R |S |T |P |Q2|= |C |D1|B1 B |
+             -- --    -- -- --
+|R2|S3|T2|P1|L1|E2|C  C4|= |A |
+    --    --       -- -- --   
+|R |= |T |L  L |E  E |= |G |A |
+ -- -- -- -- -- -- -- --      
+|U2 U |V |= |M  M3|F1 F |G3|A1|
+    --    --    -- --       --
+|U |= |V3 V |M |= |N3|F |G |H2|
+ -- -- -- -- -- --    -- --   
+|W  W4|= |X3|= |O |N  N |= |H |
+    -- --    --    -- -- --   
+|W |= |Y3|X |[ |O3 O |= |K |H |
+ -- --          -- -- --    --
+|= |Z2|Y |X |[ |J  J |K3 K |= |
+ --       --       -- -- -- --
+|Z  Z |Y |= |[2|J1|= |I  I2 I |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 26
+0.002029 [s]
+
+Level 214
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |B  B |= |I  I3 I |= |Q2 Q |
+ -- --    -- -- -- -- --    --
+|A3 A |B3|J2 J |= |K2|O |Q |= |
+ --    -- --    --       -- --
+|= |A |= |M |J |L3|K |O2 O |P3|
+ -- -- --    --       -- --   
+|C2|D2 D |M2 M |L |K |= |P  P |
+    --    -- --    -- -- -- --
+|C  C |D |N |= |L |R  R  R3|= |
+ -- -- --    -- -- -- -- -- --
+|= |E4|= |N4 N |= |T  T4|= |S2|
+ --    -- -- -- --    -- --   
+|F3|E  E |= |X |Y |T |= |U4|S |
+    -- -- --       -- --      
+|F |= |H  H |X |Y2|= |U  U |S |
+    --    --       -- -- -- --
+|F |G |H3|= |X2|Y |W  W3|= |V |
+ --    -- -- -- --    -- --   
+|= |G  G2|Z  Z1 Z |W |= |V  V2|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 1268
+0.040035 [s]
+
+Level 215
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|. |= |C  C |= |G  G2 G |H  H2|
+ -- --    -- -- -- -- --    --
+|= |B3|C4|= |F4 F  F |= |H |= |
+ --    -- -- -- -- -- -- -- --
+|B  B |= |E  E |L |= |I2 I |J |
+ -- -- --    --    -- --      
+|A |D  D |E2|L2 L |K1 K |I |J |
+       -- -- -- --    -- --   
+|A |D2|S  S |= |P |K |M1 M |J1|
+    --    -- --    -- --    --
+|A2|= |S2|R |P  P1|N  N1|M |O1|
+ -- -- --    -- --    -- --   
+|= |[3 [ |R  R1|Q2|N |T2|= |O |
+ -- --    -- --    --    --   
+|Z2 Z |[ |= |Q  Q |= |T |U |O |
+    -- -- -- -- -- --       --
+|Z |= |X  X3|W  W2 W |T |U2 U |
+ -- -- --    -- -- -- -- -- --
+|Y  Y  Y1|X |= |. |V  V  V1|= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 2538
+0.085777 [s]
+
+Level 216
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|C  C2 C |= |E |= |K  K  K2|. |
+ -- -- -- --    -- -- -- -- --
+|= |D  D3 D |E3 E |= |J2 J  J |
+ -- -- -- -- -- -- -- -- -- --
+|B  B2 B |= |Q2 Q |O  O2 O |= |
+ -- -- -- --    -- -- -- -- --
+|A  A  A0|R2|Q |= |P3|M  M |I |
+ -- -- --    -- --    --      
+|Z  Z2 Z |R  R |P  P |= |M2|I3|
+ -- -- -- -- -- -- -- -- --   
+|= |Y |= |X2|= |S |= |L |= |I |
+ --    --    --    --    -- --
+|[ |Y  Y2|X |U2|S |N |L  L4|= |
+    -- --             -- -- --
+|[  [2|V2|X |U |S3|N  N1|G |H |
+ -- --    --    -- -- --      
+|W |= |V  V |U |= |F |G1 G |H |
+    -- -- -- -- --    -- --   
+|W  W2|= |T  T  T2|F  F2|= |H2|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 2361
+0.093743 [s]
+
+Level 217
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|O |= |N3|= |L  L  L1|I  I2|H |
+    --    -- -- -- -- --      
+|O  O2|N |M  M3 M |R |= |I |H |
+ -- --    -- -- --    -- --   
+|= |P1|N |= |Q3|= |R |J2|= |H1|
+ --    -- --    --       -- --
+|U |P  P |T |Q  Q |R2|J |G |C |
+    -- --    -- -- --         
+|U  U2|T  T3|= |S  S3|J |G |C |
+ -- -- -- -- --    -- --      
+|= |X3 X |= |V |S |= |F |G1|C1|
+ --    -- --    -- --    -- --
+|W1|X |= |V5 V |= |E |F3 F |= |
+    -- -- -- -- --    -- -- --
+|W  W |Z  Z |= |K |E  E3|= |B2|
+ -- -- --    --    -- -- --   
+|Y2 Y |= |Z3|K3 K |D  D1|B  B |
+ --    -- -- -- --    -- -- --
+|= |Y |[2 [  [ |= |D |A  A0 A |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 1467
+0.058352 [s]
+
+Level 218
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |Y |X  X |= |J |I |= |C |= |
+ --    --    --       --    --
+|Y3 Y |= |X3|J2 J |I3|D |C3|A3|
+ -- -- -- -- -- --            
+|= |W  W |= |O4|= |I |D3|C |A |
+ --    -- --    -- --    --   
+|Q |W4|= |O  O |N |= |D |= |A |
+    -- -- -- --    -- -- -- --
+|Q2 Q |P |= |N  N4|B4 B  B |= |
+ -- --    -- -- -- -- -- -- --
+|= |R2|P2|T  T |= |M3|= |E4 E |
+ --          -- --    --    --
+|S3|R |P |T3|= |L |M  M |E |= |
+       -- -- --    -- -- -- --
+|S |R |U2 U |L4 L |= |G |= |H |
+    --    -- -- -- --    --   
+|S |= |U |= |K |= |G  G4|H2 H |
+ -- -- -- --    -- -- -- -- --
+|= |V3 V  V |K3 K |= |F  F  F1|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 1400
+0.034726 [s]
+
+Level 219
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |G  G3|= |D  D |= |B3|= |A2|
+ --    -- -- --    --    --   
+|H |G |= |E |= |D3|C2|B  B |A |
+    -- --    -- --    -- --   
+|H2 H |F |E  E4|C  C |= |R |A |
+ -- --    -- -- -- -- --    --
+|= |I2|F  F3|= |L |Q2|R  R3|= |
+ --    -- -- --       -- -- --
+|J2|I |= |K2|L2 L |Q  Q |= |V |
+       --    -- -- -- -- --   
+|J |I |M1|K |= |S3|= |U |W2|V |
+    --       --    --         
+|J |M  M |K |T |S |U1 U |W |V3|
+ -- -- -- --       -- --    --
+|= |O2 O  O |T |S |Y  Y2|W |= |
+ -- -- -- --    --    -- -- --
+|N3 N  N |= |T4|= |Y |= |X  X3|
+ -- -- -- -- -- -- -- --    --
+|= |P  P3 P |= |Z  Z  Z3|X |= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 87
+0.005171 [s]
+
+Level 220
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |B |= |G  G |= |N |= |O3|= |
+ --    --    -- --    --    --
+|A |B |F |G3|= |I |N2|P3|O |Q2|
+          -- --               
+|A3|B3|F2 F |I3 I |N |P |O |Q |
+    -- -- -- -- -- --    --   
+|A |= |E |= |H |= |S |P |= |Q |
+ -- --    --    --    -- -- --
+|= |C4|E |H3 H |R3|S |= |V  V |
+ --       -- --       --    --
+|D3|C |E4|= |T |R |S3|U |V3|= |
+       -- --       --    -- --
+|D |C |= |M |T3|R |= |U2 U |Y2|
+    -- --       -- -- -- --   
+|D |= |J2|M |T |= |X  X3 X |Y |
+ -- --       -- -- -- -- --   
+|= |K2|J |M3|= |W  W  W4|= |Y |
+ --       -- -- -- -- -- -- --
+|K  K |J |L2 L  L |= |Z  Z  Z2|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 160
+0.006539 [s]
+
+Level 221
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |W |= |I4 I |= |J |= |F  F3|
+ --    -- --    --    --    --
+|V |W4 W |= |I |K |J |G |F |= |
+    -- -- -- --          -- --
+|V3 V |= |X4|= |K |J3|G |= |D |
+ -- -- --    --    --    --   
+|= |Y |X  X |U |K4|= |G3|E |D3|
+ --    -- --    -- -- --      
+|O |Y3 Y |= |U3|= |H  H |E4|D |
+    -- -- --    --    --    --
+|O |= |T  T |U |N2|H3|= |E |= |
+    -- --    --    -- -- -- --
+|O3|S4|= |T3|M |N  N |B |= |A |
+ --    -- --    -- --    --   
+|= |S |R  R |M  M2|= |B  B4|A |
+ --    --    -- -- -- -- --   
+|P |S |= |R3|= |L3 L |C2|= |A4|
+    -- -- -- -- --       -- --
+|P1 P |Q3 Q  Q |= |L |C  C |= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 1114
+0.0329 [s]
+
+Level 222
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |M  M  M3|= |Q  Q |= |R2 R |
+ -- -- -- -- -- --    -- --   
+|N  N3|= |K |O4 O |Q3|S  S3|R |
+    -- --    --    -- --    --
+|N |= |L4|K |= |O |= |U |S |= |
+ -- --       -- -- --    -- --
+|P  P3|L |K2|J |= |H |U |= |V |
+    --    --    --       --   
+|P |= |L |J  J2|I2|H |U2|T |V |
+ -- -- -- -- --       --      
+|= |D |= |F |I  I |H2|T2 T |V3|
+ --    --    -- -- -- -- -- --
+|B |D4|C |F3|= |G  G |= |W |= |
+             --    -- --    --
+|B |D |C |F |E |G3|= |Y3|W3 W |
+    --    --    -- --    -- --
+|B3|= |C3|= |E  E3|Z |Y |= |X1|
+ -- -- -- -- -- --       --   
+|= |A  A4 A |= |Z  Z2|Y |X  X |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 410
+0.023686 [s]
+
+Level 223
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |G |= |E  E  E3|= |C |= |A |
+ --    -- -- -- -- --    --   
+|H |G  G4|= |D  D  D3|C |B3|A2|
+    -- -- -- -- -- --         
+|H  H3|= |F  F4 F |= |C4|B |A |
+ -- -- -- -- -- -- -- --    --
+|= |Y2|S  S2|= |N |M |= |B |= |
+ --    --    --       -- -- --
+|X |Y  Y |S |R4|N2|M2|K  K3|I2|
+    -- -- --             --   
+|X |= |Z2 Z |R |N |M |K |= |I |
+    --    --    -- -- -- --   
+|X3|W |Z |= |R |= |O4|= |J |I |
+ --    -- -- -- --    --    --
+|= |W  W3|T |= |O  O |P3|J  J3|
+ -- -- --    -- -- --    -- --
+|V |= |U |T4 T |= |P  P |= |L1|
+    --    -- -- -- -- -- --   
+|V2 V |U  U2|= |Q  Q  Q2|L  L |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 123
+0.006029 [s]
+
+Level 224
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |A |= |H  H |F3 F |= |D2|C |
+ --    --    --    -- --      
+|A3 A |I |H2|= |F |G |E2|D |C0|
+ -- --    -- -- --            
+|B2|= |I3 I |L |= |G2|E |D |C |
+    -- -- --    --       -- --
+|B |J2|= |K2|L3 L |G |E |= |Q |
+       --    -- -- -- -- --   
+|B |J  J |K |= |U |= |R |Q  Q2|
+ -- -- --    --    --    -- --
+|= |P  P |K |V2|U  U3|R2|= |T |
+ -- --    --    -- --    --   
+|M |= |P3|V  V |= |Y |R |S |T |
+    -- -- -- -- --    --      
+|M  M4|= |W2 W |Y  Y2|S1 S |T2|
+ -- -- -- --    -- -- -- -- --
+|= |O  O3 O |W |= |X  X2 X |= |
+ -- -- -- -- -- -- -- -- -- --
+|N  N2 N |= |Z2 Z  Z |[1 [  [ |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 21
+Number of vertices examined: 1353
+0.038903 [s]
+
+Level 225
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |M  M  M3|= |L  L |= |A4|= |
+ -- -- -- -- --    -- --    --
+|P |= |N4 N  N |L3|= |A  A |C |
+    -- -- -- -- -- -- -- --   
+|P |R |= |O3|= |J  J3|B1|= |C2|
+       --    -- --       --   
+|P3|R |Q3|O  O |= |J |B  B |C |
+ --       -- -- -- -- -- -- --
+|= |R3|Q |S  S2|K  K2 K |H |D2|
+ -- --    --    -- -- --      
+|T  T3|Q |= |S |= |G |H1 H |D |
+ --    -- -- -- --    -- --   
+|= |T |= |U2 U |V3|G3 G |= |D |
+ -- -- --    --    -- -- -- --
+|Y  Y |Z3|U |V  V |= |I |E |= |
+ --       -- -- -- --       --
+|= |Y2|Z  Z |= |W |I  I2|E2 E |
+ -- -- -- -- --    -- -- -- --
+|X2 X  X |= |W  W3|= |F1 F  F |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 3729
+0.189251 [s]
+
+Level 226
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |G3|= |H |= |Q  Q |= |U |= |
+ --    --    --    -- --    --
+|F2|G  G |H |J |Q3|R |U  U3|T |
+    -- --       --    -- --   
+|F  F |= |H4|J |= |R3|= |T2 T |
+ -- -- -- --    --    -- -- --
+|D  D2|E3|= |J3|I |R |S1 S  S |
+ --       -- --    -- -- -- --
+|= |D |E  E |I3 I |= |V  V3|W |
+ -- -- -- -- -- -- --    --   
+|B |= |L |= |K4|= |P |V |= |W1|
+    --    --    --    -- --   
+|B |C |L |M |K |P  P4|= |X3|W |
+                -- -- --    --
+|B3|C3|L3|M |K |= |N1|Z |X |Y1|
+ --    --    -- --            
+|= |C |= |M4|= |O3|N |Z2|X |Y |
+ -- -- -- -- --          --   
+|A3 A  A |= |O  O |N |Z |= |Y |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 138
+0.008158 [s]
+
+Level 227
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |U  U |= |Q |= |P  P |= |N |
+ --    -- --    -- --    --   
+|V |U4|= |T |Q  Q4|= |P3|O2|N2|
+    -- --    -- -- -- --      
+|V3|= |W3|T3|= |K  K5|O  O |N |
+    --       -- --    -- -- --
+|V |W  W |T |S4|= |K |= |M3|= |
+ -- -- -- --    -- -- --    --
+|= |Y |= |S  S |R |= |L4|M  M |
+ --    -- -- --    --    -- --
+|X2|Y |Z2|= |R3 R |F |L  L |= |
+          -- -- --    -- -- --
+|X |Y3|Z  Z |E  E1|F3 F |= |A |
+    -- -- --    -- -- -- --   
+|X |= |J |I |E |= |D |= |B3|A |
+ -- --       -- --    --      
+|H |J2 J |I0 I |D  D2|C1|B |A3|
+    -- -- -- -- -- --       --
+|H  H1|= |G  G1 G |C  C |B |= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 421
+0.022206 [s]
+
+Level 228
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |B  B  B3|= |D |A |Y |. |Z |
+ -- -- -- -- --          --   
+|E |= |C3 C  C |D2|A |Y |= |Z |
+    -- -- -- --          --   
+|E4 E |= |F3 F |D |A0|Y1|X2|Z1|
+ -- -- -- --    -- -- --    --
+|= |G  G |= |F |= |R3|X  X |W |
+ -- --    -- -- --    -- --   
+|H  H |G4|J  J |R  R |= |W1 W |
+ --    -- --    -- -- -- -- --
+|= |H4|= |I4|J3|= |S3 S  S |U2|
+ -- -- --    -- -- -- -- --   
+|K |= |I  I |= |T  T  T3|= |U |
+    -- -- -- -- -- -- -- --   
+|K  K4|= |N |O  O2 O |V  V3|U |
+ -- -- --    -- -- -- --    --
+|= |L |M2|N  N3|= |P |= |V |= |
+ --       -- -- --    -- -- --
+|L1 L |M  M |= |P  P3|Q  Q2 Q |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 22
+Number of vertices examined: 3452
+0.108647 [s]
+
+Level 229
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |U |= |V |= |X3 X  X |= |Y |
+ --    --    -- -- -- -- --   
+|U  U3|V  V2|W2 W |= |Z |Y  Y2|
+ -- -- -- -- --    --    -- --
+|= |R |T  T1 T |W |Z3 Z |= |E |
+ --    -- -- -- -- -- -- --   
+|O3|R3 R |= |S  S  S3|= |F4|E2|
+    -- -- -- -- -- -- --      
+|O |= |P |Q4 Q  Q |= |G |F |E |
+    --    -- -- -- --       --
+|O |P  P2|= |K |= |G  G4|F |= |
+ -- -- -- --    -- -- -- -- --
+|= |N1 N |K2 K |H3|= |D3|= |A4|
+ --    -- -- --    --    --   
+|M |N |J  J1 J |H  H |D  D |A |
+    -- -- -- -- -- -- -- --   
+|M  M2|= |I  I2|C |= |B |= |A |
+ -- -- --    --    --    -- --
+|L1 L  L |I |= |C  C2|B3 B |= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 21
+Number of vertices examined: 2043
+0.076736 [s]
+
+Level 230
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|A2 A |= |H  H  H2|= |I  I2 I |
+    -- -- -- -- -- -- -- -- --
+|A |B3 B |. |G3 G  G |= |J  J1|
+ --    -- -- -- -- -- -- --   
+|= |B |= |E |= |F1 F |K2 K |J |
+ -- -- --    -- --       -- --
+|C  C |D |E |L2 L |F |K |= |Q |
+    --          -- -- -- --   
+|C3|= |D |E2|L |= |P  P4 P |Q |
+ -- --    -- -- -- -- -- --   
+|= |N |D2|M1|S  S |= |X |= |Q2|
+ --    --       -- --    -- --
+|O |N4|M  M |S2|R1|W |X3|Z  Z2|
+       -- -- --          --   
+|O |N |= |T3|R  R |W3|X |= |Z |
+    -- --    -- --    -- -- --
+|O2|= |T  T |V |= |W |Y1 Y  Y |
+ -- -- -- --    -- -- -- -- --
+|U  U  U2|= |V  V3|= |[  [1 [ |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 39691
+1.49775 [s]
+
+Level 231
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |I |= |U  U |= |V4|= |W  W |
+ --    -- --    --    -- --   
+|H |I |L  L2|U2|T |V  V |= |W3|
+       --    --    -- -- -- --
+|H2|I4|= |L |K2|T3|= |X1|Y2|= |
+    -- -- --       --       --
+|H |= |J  J |K |T |X  X |Y |Q |
+ -- --    --    -- -- --      
+|G  G |J4|= |K |= |S  S |Y |Q |
+ --    -- -- -- --    -- --   
+|= |G3|= |A  A5 A |S2|= |R3|Q2|
+ -- -- -- -- -- -- -- --    --
+|B  B4 B |= |C3|= |O |R  R |= |
+ -- -- -- --    --    -- -- --
+|E  E3|= |D |C |N |O3|= |P4 P |
+    -- --             -- --   
+|E |= |F3|D3|C |N3|O |M |= |P |
+ -- --       --    --    -- --
+|= |F  F |D |= |N |= |M4 M |= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 59
+0.003022 [s]
+
+Level 232
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |S |= |N |= |J4 J  J |= |I |
+ --    --    -- -- -- -- --   
+|R |S |P |N |O3|= |L |= |H |I |
+                --    --      
+|R |S2|P3|N3|O |K |L |G |H |I2|
+    --    --                --
+|R1|Q2|P |= |O |K |L3|G4|H4|= |
+ --    -- -- --    --    -- --
+|Q  Q |= |T  T3|K2|= |G |= |A4|
+ -- -- --    -- -- -- -- --   
+|= |U3|V2|T |= |M2|F |= |A  A |
+ --       -- --       -- -- --
+|W |U |V  V |Y |M |F |D  D4|= |
+       -- --             -- --
+|W3|U |= |Z |Y3|M |F2|D |= |C |
+    -- --       -- -- -- --   
+|W |= |X3|Z |Y |= |E |= |C  C3|
+ -- --       -- --    -- -- --
+|= |X  X |Z2|= |E  E3|B  B  B1|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 153
+0.005946 [s]
+
+Level 233
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |Q3 Q |= |O3 O  O |= |M3|= |
+ -- --    -- -- -- -- --    --
+|T  T |Q |N  N  N2|= |L |M  M |
+ --    -- -- -- -- --    -- --
+|= |T4|= |P  P4|K  K |L  L4|= |
+ -- -- -- --    --    -- -- --
+|V |= |U |= |P |= |K4|= |E3|D2|
+    --    -- -- -- -- --      
+|V |X |U  U5|= |H |= |E  E |D |
+       -- -- --    -- -- --   
+|V3|X |= |R |S |H  H5|= |F3|D |
+ --    --       -- -- --    --
+|= |X3|W |R |S2|= |I |G2|F |= |
+ -- --          --          --
+|Y |W  W2|R2|S |I  I1|G |F |A |
+    -- -- -- -- -- --    --   
+|Y2|= |Z2|= |J  J1 J |G |= |A |
+    --    -- -- -- -- -- --   
+|Y |Z  Z |C  C  C1|B  B  B1|A2|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 154
+0.011292 [s]
+
+Level 234
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|W  W |= |V3|= |P3|= |R4 R |= |
+ --    --    --    --    -- --
+|= |W3|V  V |X3|P  P |R |= |T |
+ -- -- -- --    -- -- -- --   
+|N |= |Y3|= |X |= |O |= |S |T |
+    --    --    --    --      
+|N  N3|Y  Y |X |Q |O |S3 S |T2|
+ -- -- -- -- --       -- -- --
+|= |I |= |M  M |Q2|O4|= |U3 U |
+ --    -- --       -- --    --
+|H |I  I4|= |M3|Q |= |J |U |= |
+    -- -- -- -- -- --    -- --
+|H3 H |= |A |= |E |J4 J |= |L |
+ -- -- --    --    -- -- --   
+|= |D  D |A |E3 E |= |K  K3|L2|
+ --    --    -- -- -- --      
+|C1|D3|= |A5|= |F  F4|= |K |L |
+    -- -- -- --    -- -- -- --
+|C  C |B  B2 B |F |= |G  G2 G |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 407
+0.017521 [s]
+
+Level 235
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |G  G3 G |= |E3 E |= |. |B |
+ -- -- -- -- -- --    -- --   
+|I3 I |= |H3 H |= |E |C  C2|B1|
+    -- --    -- -- --    --   
+|I |J |M |H |N |F  F |C |= |B |
+ --       --       -- -- -- --
+|= |J2|M |N1 N |F2|= |D2 D |A |
+ --       -- -- -- --    --   
+|K |J |M2|= |Q  Q3 Q |D |A  A0|
+    -- -- -- -- -- -- -- -- --
+|K |= |P  P3|= |V  V  V2|Y  Y |
+    -- --    -- -- -- --    --
+|K3|O |R |P |U3 U  U |= |Y2|= |
+ --       -- -- -- -- -- -- --
+|= |O3|R  R1|S |= |X3 X  X |Z1|
+ --    -- --    -- -- -- --   
+|L1|O |= |S2 S |W  W |= |[2|Z |
+    -- -- -- --    -- --      
+|L  L |T  T  T1|W3|= |[  [ |Z |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 22
+Number of vertices examined: 341297
+11.8163 [s]
+
+Level 236
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|J  J  J2|= |I |= |E3 E |= |A2|
+ -- -- -- --    --    -- --   
+|= |L  L1|N |I  I3|E |= |B4|A |
+ -- --       -- -- -- --      
+|K3|M1|L |N  N2|= |H  H |B |A |
+       -- -- -- --    --    --
+|K |M  M |O2 O  O |H4|= |B |= |
+    -- -- -- -- -- -- -- -- --
+|K |= |[ |= |P3 P |= |D  D4 D |
+ -- --    --    -- -- -- -- --
+|= |Y |[ |W |P |= |Q3|= |F |C |
+ --          -- --    --      
+|Y3 Y |[2|W2 W |T2|Q |R |F2|C0|
+ -- -- -- -- --               
+|= |Z  Z |= |V |T |Q |R2|F |C |
+ --    -- --       --    -- --
+|X |Z3|= |V  V2|T |S |R |= |G |
+    -- -- -- -- --    -- --   
+|X1 X |U  U  U2|= |S1 S |G1 G |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 6004
+0.205547 [s]
+
+Level 237
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |R4|= |W |= |X |= |Z  Z |= |
+ --    --    --    -- --    --
+|S2|R |W3 W |V |X3|Y  Y |Z2|B3|
+       -- --          -- --   
+|S |R |= |T |V |X |Y2|= |B  B |
+    -- --       -- -- -- -- --
+|S |= |T2 T |V2|= |E  E |= |D |
+ -- -- -- -- -- -- --    --   
+|U  U3|Q  Q1 Q |P |= |E4|C1|D |
+    -- -- -- --    -- --      
+|U |= |N |= |O |P3 P |C  C |D2|
+ -- --    --    -- -- -- -- --
+|= |K4|N3|M |O3|= |F  F  F4|= |
+ --             -- -- -- -- --
+|L |K |N |M3|O |I |= |G |= |A |
+       --    --    --    --   
+|L2|K |= |M |= |I |H |G  G3|A |
+    -- -- -- --       -- --   
+|L |= |J  J3 J |I3|H2 H |= |A3|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 139
+0.009028 [s]
+
+Level 238
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|I  I2|= |A  A3 A |= |E  E |= |
+    -- -- -- -- -- --    -- --
+|I |= |H |= |B2 B |C2|E2|D |W |
+ -- --    -- --       --      
+|J2|H  H4|G4|= |B |C |D1 D |W |
+    -- --    -- --    -- --   
+|J |= |G  G |K3|F1|C |= |V |W2|
+    -- -- --       -- --    --
+|J |M5|= |K  K |F  F |V3 V |= |
+ --    -- -- -- -- -- -- -- --
+|= |M  M |= |L  L4|= |U |= |X |
+ -- -- -- -- --    --    --   
+|N  N |= |O5|= |L |T3|U |Y |X3|
+    -- --    -- --            
+|N4|= |O  O |P2|= |T |U3|Y3|X |
+ -- -- -- --    --    --    --
+|= |Q3|= |R |P |S |T |= |Y |= |
+ --    --          -- -- -- --
+|Q  Q |R  R1|P |S1 S |Z2 Z  Z |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 154
+0.005931 [s]
+
+Level 239
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|Y  Y3 Y |= |R  R4|= |S3|= |T2|
+ -- -- -- -- --    --    --   
+|= |X |= |Z |= |R |Q |S  S |T |
+ --    --    -- --    -- --   
+|W |X3 X |Z4 Z |= |Q  Q4|= |T |
+    -- -- -- -- -- -- -- -- --
+|W  W2|= |U  U1|N |= |O3 O |P2|
+ -- -- -- --       -- --      
+|. |V  V2 V |U |N  N3|L2|O |P |
+ -- -- -- -- -- -- --    --   
+|= |H |= |I |M  M2|= |L |= |P |
+ --    --    --    --    -- --
+|E |H2 H |I3|= |M |K2|L |J |= |
+    -- --    -- --    --    --
+|E |F2 F |I |G  G4|K |C |J2 J |
+    --    --    --       -- --
+|E3|= |F |= |G |= |K |C0 C |A0|
+ -- -- -- -- -- -- -- -- --   
+|= |D  D4 D |= |B  B  B2|A  A |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 2552
+0.107266 [s]
+
+Level 240
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |F  F |= |D2|C  C2|= |A  A |
+ -- --    --    --    -- --   
+|G  G |F2|D  D |= |C |B  B1|A1|
+ --    -- -- -- -- -- --    --
+|H |G2|E2 E |S2 S |R1|Q |B |J |
+    --    --    --       --   
+|H2|= |E |= |S |R  R |Q2|J  J0|
+    -- -- -- -- -- --    -- --
+|H |I  I2|U2 U  U |= |Q |K |L |
+ --    -- -- -- -- -- --      
+|= |I |V  V  V1|T  T |= |K |L |
+ -- -- -- -- --    -- --      
+|W  W  W2|Z |= |T3|P1|O2|K1|L1|
+ -- -- --    -- --       -- --
+|X |= |Z3 Z |[3|P  P |O |M1|= |
+    -- -- --    -- --       --
+|X1|Y |= |\ |[  [ |= |O |M  M |
+       --    -- -- -- -- -- --
+|X |Y2 Y |\  \2|= |N  N  N2|. |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 24
+Number of vertices examined: 43539
+1.16721 [s]
+
+Level 241
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |G3 G  G |= |D |= |B  B |= |
+ -- -- -- -- --    -- --    --
+|H2 H |= |E  E |D  D3|= |B3|A3|
+    -- -- --    -- -- -- --   
+|H |I  I2|= |E4|F3 F |C  C3|A |
+ -- --    -- --    --    --   
+|J2 J |I |M |= |F |= |C |= |A |
+    -- --    -- -- -- -- -- --
+|J |= |L3|M4 M |= |R  R5 R |= |
+ -- --    -- -- -- -- -- -- --
+|= |N |L  L |= |S4 S |= |X |Z |
+ --    -- -- -- --    --      
+|K3|N4|= |O1|T  T |S |W |X |Z |
+       --    --    --         
+|K |N |P2|O  O |T3|= |W3|X2|Z1|
+    --    -- -- -- --    -- --
+|K |= |P  P |U1|= |V |W |= |Y |
+ -- -- -- --    --    -- --   
+|= |Q  Q  Q2|U  U |V  V2|Y1 Y |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 113
+0.005115 [s]
+
+Level 242
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |W |U  U  U1|R2|= |Q2|A0 A |
+ --    -- -- --    --    --   
+|X2|W  W3|= |T |R  R |Q  Q |A |
+    -- -- --    -- -- -- -- --
+|X |= |V  V2|T2|= |S2|= |P3 P |
+    -- --       --    --    --
+|X |Y  Y2|V |T |S  S |O |P |= |
+ -- --    -- -- -- --    -- --
+|[ |= |Y |Z1|N  N |O  O3|= |B4|
+    -- --       -- -- -- --   
+|[  [2|Z  Z |N2|= |M |= |B  B |
+ -- -- -- -- -- --    -- -- --
+|= |J |= |I |= |L |M3 M |C |= |
+ --    --    --    -- --    --
+|K3|J  J3|I |L  L3|= |E2|C  C2|
+    -- --    -- -- --    -- --
+|K  K |= |I3|G  G0|F1|E |= |D1|
+ -- -- -- --    --       --   
+|= |H  H  H2|G |F  F |E |D  D |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 860
+0.046017 [s]
+
+Level 243
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |M  M  M3|L  L2|= |A  A  A2|
+ -- -- -- -- --    -- -- -- --
+|S |= |P |= |O |L |K |= |B1 B |
+    --    --    --    -- --   
+|S  S2|P  P3|O |= |K3|H2 H |B |
+ -- -- -- --    --       -- --
+|V1 V |T3|= |O4|N2|K |H |= |G2|
+ --       -- --    -- -- --   
+|= |V |T  T |= |N  N |F |G  G |
+ -- -- -- -- -- -- --    -- --
+|U  U4|= |R |Q  Q  Q2|F  F2|= |
+    -- --    -- -- -- -- -- --
+|U |= |X4|R  R3|= |I  I |= |E |
+ -- --    -- -- -- --    --   
+|= |Y4|X  X |= |J4 J |I2|D |E3|
+ --    -- -- --    -- --      
+|Z |Y  Y |= |W4|J |= |D2 D |E |
+    -- -- --    -- -- -- -- --
+|Z  Z2|= |W  W |= |C  C  C3|= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 991
+0.048949 [s]
+
+Level 244
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|O  O1 O |P |= |Q  Q4|W  W1 W |
+ -- -- --    -- --    -- -- --
+|= |M3|P2 P |R |= |Q |= |V  V2|
+ --    -- --    -- -- -- --   
+|M  M |= |R3 R |Y |= |U5 U |V |
+ -- -- -- -- --    -- --    --
+|= |N |L  L3|S1|Y |X |= |U |= |
+ --    --             -- -- --
+|N  N3|= |L |S |Y2|X  X3|= |Z |
+ -- -- -- --    -- -- -- --   
+|= |A5 A |= |S |T  T2 T |Z2 Z |
+ -- --    -- -- -- -- -- -- --
+|B |= |A |F3 F |= |G |= |I |K |
+    -- -- --    --    --      
+|B4 B |= |E3|F |G2 G |I2 I |K2|
+ -- -- --    -- -- -- -- --   
+|= |C |E  E |= |H2 H  H |= |K |
+ --    -- -- -- -- -- -- -- --
+|C2 C |= |D  D  D2|J2 J  J |= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 56
+0.002819 [s]
+
+Level 245
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|Y  Y |= |N  N |M  M2|= |C  C |
+    -- -- --    --    -- --   
+|Y3|= |Z4|. |N3|= |M |L |= |C3|
+ -- --    -- -- -- --    -- --
+|= |X |Z  Z |= |K |L2 L |B |= |
+ --    -- -- --    -- --    --
+|W |X4|= |U |V2|K  K2|B  B3|A2|
+       --       -- -- -- --   
+|W |X |T |U3|V  V |. |= |D2|A |
+    --       -- -- -- --      
+|W3|= |T |U |= |O |E0|. |D |A |
+ -- --    -- --       --    --
+|= |S |T3|= |O  O2|E |F |D |= |
+ --    -- -- -- --       -- --
+|R |S3 S |P  P3|J |E |F1 F |G2|
+    -- --    --    -- -- --   
+|R  R3|= |P |= |J1 J |H1|= |G |
+ -- -- -- -- -- -- --    --   
+|= |Q  Q  Q2|I  I1 I |H  H |G |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 185
+0.013816 [s]
+
+Level 246
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |H  H2 H |G1|= |F  F2|= |A2|
+ -- -- -- --    -- --    --   
+|S |= |O3 O |G |I3 I |F |A  A |
+    -- --          -- -- -- --
+|S |R4|= |O |G |I |= |J3|= |B2|
+       -- -- -- -- --    --   
+|S3|R  R |= |P4|= |L |J  J |B |
+ -- -- -- --    --    -- --   
+|= |T |= |P  P |Q3|L4|= |K3|B |
+ --    -- -- --       --    --
+|T3 T |U4 U |= |Q |L |K  K |= |
+ -- --    -- --    -- -- -- --
+|= |V3|U |= |Y |Q |= |M3|= |C |
+ --    -- --    -- --    --   
+|W |V |= |Y  Y4|N  N3|M  M |C4|
+       -- -- --    -- -- --   
+|W2|V |X  X |= |N |= |D |= |C |
+    --    -- -- -- --    -- --
+|W |= |X4|= |E  E  E3|D3 D |= |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 879
+0.039624 [s]
+
+Level 247
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |G |= |F |= |D2 D  D |E1|A0|
+ --    --    -- -- -- --      
+|H |G |F  F3|C  C |= |J |E |A |
+       -- --    -- --         
+|H |G4|= |B4|C3|I1 I |J |E |A |
+    -- --    -- --       -- --
+|H3|= |B  B |= |S |I |J3|= |L |
+ -- -- -- -- --    -- -- --   
+|= |K  K4|= |O |S  S3|= |M4|L2|
+ -- --    --    -- -- --      
+|X |= |K |O  O4|= |R |Q4|M |L |
+    -- -- -- -- --          --
+|X |Y3 Y |= |P1|R2 R |Q |M |= |
+       -- --    -- --    -- --
+|X3|Y |= |V3|P |U3|= |Q |= |N |
+ -- -- --          -- -- --   
+|= |W |V  V |P |U  U |= |T3|N2|
+ --    -- -- -- -- -- --      
+|W2 W |= |Z2 Z  Z |= |T  T |N |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 140
+0.006027 [s]
+
+Level 248
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |S |= |P4|= |E  E |= |A  A2|
+ --    --    -- --    -- --   
+|R |S |Q |P  P |= |E3|B  B3|A |
+          -- -- -- -- --    --
+|R3|S3|Q  Q3|= |D  D |= |B |= |
+    -- -- -- -- --    -- -- --
+|R |= |T4|= |J4 J |D4|C2 C  C |
+ -- --    -- --    -- -- -- --
+|= |U |T  T |= |J |= |F3 F  F |
+ --    -- -- -- -- -- -- -- --
+|X |U4 U |= |I  I5 I |= |G4|= |
+    -- -- -- -- -- -- --    --
+|X  X3|= |K  K  K4|= |G  G |H2|
+ -- -- -- -- -- -- -- -- --   
+|= |W  W4|= |L3 L |N3 N |= |H |
+ -- --    --    -- --    --   
+|Y |= |W |V2|L |= |M |N |O2|H |
+    -- --    -- --    --    --
+|Y  Y2|V  V |= |M3 M |= |O  O |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 75
+0.00577 [s]
+
+Level 249
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |F |= |G3|= |T3|= |U3 U |= |
+ --    --    --    --    -- --
+|E |F |G  G |S |T  T |U |= |V3|
+       -- --    -- -- -- --   
+|E3|F4|= |M |S3 S |= |X |W4|V |
+    -- --    -- -- --         
+|E |= |K |M2|= |Y3|X  X2|W |V |
+ -- --       --    -- --    --
+|= |I4|K |M |N |Y  Y |= |W |= |
+ --       --    -- -- -- -- --
+|J3|I |K3|N3 N |= |H  H5|= |B4|
+       -- -- -- --    -- --   
+|J |I |= |Q |= |O3|H |= |B  B |
+    -- --    --    -- -- -- --
+|J |= |P |Q |R |O |= |A  A |= |
+ -- --             --    -- --
+|= |L2|P3|Q3|R2|O |D2|A5|= |C |
+ --       --    --    -- --   
+|L  L |P |= |R |D  D |= |C3 C |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 680
+0.029823 [s]
+
+Level 250
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|= |W3|= |U3 U |= |B  B |= |A |
+ --    --    -- -- --    --   
+|V |W  W |U |= |J |= |B4|A2 A |
+    -- -- -- --    -- -- -- --
+|V3 V |= |Y |N |J  J5|= |C3|= |
+ -- -- --       -- -- --    --
+|= |X2 X |Y1|N |= |K |I |C  C |
+ -- --          --       -- --
+|R  R |X |Y |N3|K  K2|I |= |D1|
+    -- -- -- -- -- --    --   
+|R3|= |T2 T |= |L |= |I4|D  D |
+ -- -- --    --    -- -- -- --
+|= |S3 S |T |M |L  L4|= |E  E3|
+ --    -- --    -- -- --    --
+|Q |S |= |P3|M3 M |= |G5|E |= |
+    -- --    -- -- --    -- --
+|Q  Q2|O |P  P |= |G  G |= |F3|
+ -- --    -- -- -- -- -- --   
+|= |O  O3|= |H3 H  H |= |F  F |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 524
+0.021922 [s]
+
+Level 251
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |X |= |W1 W  W |[ |= |_  _ |` |
+ --    -- -- -- --    --    --   
+|X  X3|V  V |U |[  [2|\2|_2|= |`2|
+ -- -- --       -- --    -- --   
+|= |K |= |V3|U |= |Z |\  \ |^ |` |
+ --    -- --    --    -- --    --
+|K  K3|J |= |U3|T |Z3|= |Y |^ |= |
+ -- --    -- --       --       --
+|= |I |J  J4|= |T |Z |]3|Y |^2|E |
+ --    -- -- --    --       --   
+|H3|I3 I |= |M |T4|= |] |Y2|E  E2|
+    -- -- --    -- --    -- -- --
+|H |= |L3|M4 M |= |S |] |= |D |= |
+    --    -- -- --    -- --    --
+|H |Q |L  L |= |N |S3 S |C |D  D2|
+ --    -- -- --    -- --    -- --
+|= |Q4 Q |= |N  N4|= |F2|C |B  B |
+ -- -- -- -- -- -- --          --
+|P3 P |= |O  O2 O |G1|F |C2|B0|A |
+ --    -- -- -- --       -- --   
+|= |P |R  R1 R |G  G |F |= |A  A1|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 531696
+19.8911 [s]
+
+Level 252
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|S  S3|= |T2 T  T |P  P |F  F |= |
+    -- -- -- -- -- --    --    --
+|S |= |R  R |= |V |= |P2|M |F1|E |
+ -- -- --    --    -- --    --   
+|= |U  U5|R4|V  V2|O |= |M |E  E2|
+ -- --    -- -- --    --    -- --
+|W |= |U |= |Q |O  O3|L |M3|= |D |
+    -- -- --    -- --    -- --   
+|W  W4|= |Y |Q  Q3|= |L4|= |J |D |
+ -- -- --    -- -- --    --      
+|Z |= |X2|Y3|= |N4 N |L |J  J2|D2|
+    --       -- --    -- -- -- --
+|Z  Z2|X |Y |]2|^ |N |= |H  H |= |
+ -- --    --       -- -- --    --
+|= |\ |X |]  ] |^1|= |G  G |H2|A |
+ --    -- -- --    -- --    --   
+|[3|\3 \ |= |_ |^ |I |= |G4|A  A1|
+    -- -- --    --    -- -- -- --
+|[  [ |= |_  _2|K0|I  I3|= |B  B2|
+ -- -- -- -- --    -- -- -- --   
+|= |`  `  `2|K  K |C  C2 C |= |B |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 1012
+0.079091 [s]
+
+Level 253
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |I |= |C  C  C4|= |Q  Q  Q3|= |
+ --    -- -- -- -- -- -- -- -- --
+|H3|I4 I |= |D2|= |P4 P  P |= |R |
+    -- -- --    -- -- -- -- --   
+|H  H |= |J3|D  D |O |= |S |R  R3|
+ -- -- --    -- --    --    -- --
+|= |M  M3|J  J |O2 O |N4|S3|= |L |
+ -- --    -- -- -- --       --   
+|U  U |M |= |V  V |= |N |S |L  L1|
+    -- -- -- --    --    -- -- --
+|U2|= |T  T3 T |V2|W |N |= |K1 K |
+ -- -- -- -- -- --    -- -- --   
+|^  ^ |= |X3 X  X |W3|= |F  F4|K |
+    -- -- -- -- --    --    -- --
+|^3|]  ]4|= |[ |= |W |G |F |= |E |
+ --    -- --    -- --    -- --   
+|= |] |= |[3 [ |Y2|G  G3|= |E  E3|
+ -- -- -- -- --    -- -- -- -- --
+|_  _ |\  \2|Y  Y |= |A  A |= |B |
+ --       -- -- -- -- --    --   
+|. |_1|\ |= |Z3 Z  Z |= |A4|B1 B |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 25
+Number of vertices examined: 6226
+0.197546 [s]
+
+Level 254
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |G |= |A |= |B4 B |= |I4 I |= |
+ --    --    --    -- --    -- --
+|V |G  G3|A |D |B |= |H |I |= |J |
+    -- --       -- --    -- --   
+|V  V3|= |A3|D2|= |C2|H |= |K |J |
+ -- -- -- --    --       --      
+|= |W |E  E1|D |F2|C |H3|M |K4|J3|
+ --    --    --       --       --
+|X |W  W2|E |F  F |C |L1|M3|K |= |
+    -- -- -- -- -- --       -- --
+|X  X2|= |Y3|= |Q |L  L |M |= |O |
+ -- -- --    --    -- -- -- --   
+|_ |Z3 Z |Y  Y |Q2|= |N3|= |O  O3|
+    --    -- --    --    -- -- --
+|_  _1|Z |= |[3|Q |P2|N  N |R |S |
+ -- -- -- --    --    -- --      
+|= |^ |= |[  [ |P  P |= |R1 R |S1|
+ --    -- -- -- -- -- -- -- --   
+|` |^  ^4|= |]  ]2 ] |U1 U  U |S |
+    -- -- -- -- -- -- -- -- -- --
+|`  `2|= |\3 \  \ |= |T  T2 T |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 24
+Number of vertices examined: 759
+0.035561 [s]
+
+Level 255
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |E4|= |G |= |H2|= |A  A4|= |C |
+ --    --    --    -- --    --   
+|F3|E |G3 G |I3|H |K |= |A |B4|C2|
+       -- --          -- --      
+|F |E |= |I  I |H |K  K4|= |B |C |
+    -- -- -- -- -- -- -- --    --
+|F |= |P |= |J  J4|= |L |M3|B |= |
+ -- --    -- --    --       -- --
+|= |Y |P  P5|= |J |L2 L |M |= |N |
+ --    -- -- -- -- -- --    --   
+|Z3|Y  Y4|= |Q |= |O3|= |M |N3 N |
+    -- -- --    --    -- -- -- --
+|Z |= |_ |] |Q |O  O |S  S3|= |W |
+    --          -- -- --    --   
+|Z |^ |_ |] |Q5|= |R |= |S |W2 W |
+ --          -- --    -- -- -- --
+|= |^ |_2|]2|= |R  R4|T  T |= |V |
+ --    -- -- -- -- --    -- --   
+|[1|^3|= |\ |X |= |D |T3|= |U |V |
+    -- --       --    -- --      
+|[  [ |\1 \ |X2 X |D  D1|U2 U |V1|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 424
+0.016008 [s]
+
+Level 256
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |C |B  B  B1|= |A5|= |_  _2|= |
+ --    -- -- -- --    -- --    --
+|F |C  C2|D2 D  D |A |^  ^ |_ |`1|
+    -- -- -- -- --    --    --   
+|F3|= |E2 E  E |= |A |= |^2|`  ` |
+    -- -- -- -- -- -- -- -- -- --
+|F |H |G  G1 G |J |= |[4 [  [ |] |
+ --    -- -- --    -- -- -- --   
+|= |H  H4|= |J4 J |O |= |\ |= |] |
+ -- -- -- -- -- --    --    --   
+|I  I |= |K4|= |N3|O3 O |\  \3|]1|
+ --    --    --    -- -- -- -- --
+|= |I3|L3|K |T |N  N |= |Q |= |R |
+ -- --          -- -- --    --   
+|M  M2|L |K |T2 T |= |P2|Q3|R2 R |
+ --       -- -- -- --       -- --
+|= |M |L |= |S  S3|P  P |Q |= |Z |
+ -- -- -- --    -- -- -- -- --   
+|V  V3|= |U4|S |= |X1 X  X |Y |Z1|
+    -- --    -- -- -- -- --      
+|V |= |U  U |= |W2 W  W |Y  Y1|Z |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 21
+Number of vertices examined: 103
+0.004974 [s]
+
+Level 257
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |K3|= |J  J |= |H |= |C  C3|= |
+ --    -- --    --    --    -- --
+|L3|K |M2 M |J2|I |H |G2|C |= |D |
+          -- --          -- --   
+|L |K |M |= |I3 I |H3|G |B0|E |D2|
+    -- -- -- -- -- --            
+|L |= |N3|O3|= |S3|= |G |B |E1|D |
+ -- --       --    -- --       --
+|= |N  N |O |T |S |^  ^ |B |E |F1|
+ -- -- --          --    -- --   
+|Q |= |P |O |T3|S |= |^2|]2|F  F |
+    --    --    -- -- --    -- --
+|Q  Q3|P2|= |T |V |_  _ |]  ] |= |
+ -- --    -- --    --    -- -- --
+|= |R |P |U3|= |V1 V |_3|= |` |\ |
+ --    --    -- -- -- -- --      
+|R  R2|U  U |W  W  W3|= |`  `3|\ |
+ -- -- -- -- -- -- -- -- -- --   
+|= |A |= |Y |= |X2|[3 [  [ |= |\3|
+ --    --    --    -- -- -- -- --
+|A2 A |Y  Y2|X  X |= |Z  Z  Z3|= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 21
+Number of vertices examined: 43695
+2.15833 [s]
+
+Level 258
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |K  K |= |T  T |= |U |= |X  X1|
+ -- --    -- --    --    -- --   
+|A |= |K3|J  J |T2|V |U4|W2 W |X |
+    -- --    -- --       --    --
+|A4|B  B4|J3|= |Q |V3|U |= |W |Z |
+    --    -- --       -- -- --   
+|A |= |B |= |I |Q |V |= |[  [ |Z1|
+ -- -- -- --       -- -- --      
+|= |E4|= |I4 I |Q2|= |Y  Y |[2|Z |
+ --    -- -- -- -- --    -- -- --
+|E  E |H  H |= |P  P |Y4|= |] |= |
+ -- -- --    -- --    -- --    --
+|= |G |F |H3|O3|= |P5|= |\ |]3|^2|
+ --       --    -- -- --         
+|C3|G2|F |= |O |N |= |R3|\3|] |^ |
+          --       --       --   
+|C |G |F1|M2|O |N |R  R |\ |= |^ |
+    -- --    --    -- -- -- -- --
+|C |= |D |M  M |N3|= |S2 S |_  _ |
+ -- --    -- -- -- -- --       --
+|= |D3 D |= |L3 L  L |= |S |_2|= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 21
+Number of vertices examined: 115
+0.009503 [s]
+
+Level 259
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|G |= |K2 K |= |P  P  P4|= |Q |= |
+    --    -- -- -- -- -- --    --
+|G2|J2|K |L3 L |= |O |= |R |Q  Q3|
+       --    -- --    --    -- --
+|G |J  J |L |= |O4 O |R  R4|= |S |
+ -- -- -- -- -- -- -- -- -- --   
+|= |I4|= |M |N |= |U  U |= |T |S2|
+ --    --       -- --    --      
+|H3|I |M  M2|N |V2 V |U3|Y |T |S |
+       -- --    --    --       --
+|H |I |= |E2|N2|X |V |= |Y |T4|= |
+    -- --    --    -- --    -- --
+|H |= |D |E  E |X  X1|W3|Y3|= |\ |
+ -- --    -- -- -- --    -- --   
+|= |C |D4 D |= |Z3|= |W  W |[3|\ |
+ --    -- -- --    -- -- --      
+|B |C  C4|= |F |Z  Z |= |[  [ |\2|
+    -- -- --    -- -- -- -- -- --
+|B3 B |= |F4 F |]  ] |^3|= |_2 _ |
+ -- -- -- -- --    --    --    --
+|= |A  A  A3|= |]2|= |^  ^ |_ |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 23
+Number of vertices examined: 7939
+0.237108 [s]
+
+Level 260
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |Q  Q |= |O  O |= |J  J3|= |C |
+ -- --    --    -- -- --    --   
+|P  P |Q2|N |O4|= |I  I |J |K3|C2|
+    -- --    -- -- --    --      
+|P3|= |N4 N |= |M5|= |I5|= |K |C |
+ -- -- -- -- --    -- -- --    --
+|= |R  R4|= |M  M |L |= |H |K |= |
+ --    -- -- -- --    --    -- --
+|S2|R |. |U4|= |W |L2|G |H3 H |A |
+    -- --    --          -- --   
+|S |= |U  U |W  W2|L |G  G3|= |A |
+    -- -- -- -- -- -- -- -- --   
+|S |T |= |\ |= |V  V3|= |F |B2|A3|
+ --    --    -- --    --       --
+|T3 T |\  \3|Y3|= |V |X2|F2|B |= |
+ -- -- -- --    -- --          --
+|= |]3|= |^ |Y |Z3|X  X |F |B |D |
+ --    --          -- -- -- --   
+|]  ] |^1 ^ |Y |Z |= |[ |= |D  D2|
+ -- -- -- -- --    --    -- -- --
+|= |_  _2 _ |= |Z |[2 [ |E  E1 E |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 380
+0.027729 [s]
+
+Level 261
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|V2|= |U2|Q  Q1|= |P3 P  P |= |G |
+    --    --    -- -- -- -- --   
+|V |W |U  U |Q |R |= |T  T |H |G |
+       -- -- --    --    --      
+|V |W  W2|= |R4 R |S2|T1|I2|H3|G2|
+ -- -- -- -- -- --    --       --
+|= |X  X4 X |= |M |S  S |I |H |= |
+ -- -- -- -- --    -- --    -- --
+|Y |= |Z  Z |L |M |= |J |I |= |F |
+    --    --       --    -- --   
+|Y3 Y |Z3|= |L |M2|K |J |= |F3 F |
+ -- -- -- --    --       -- -- --
+|= |\ |= |[4|L3|K1 K |J2|C |D1 D |
+ --    --    -- -- -- --    --   
+|]2|\3 \ |[ |= |N  N3|C  C3|= |D |
+    -- --    -- --    -- -- -- --
+|] |= |^ |[ |a3|= |N |= |B |E  E1|
+    --    --    -- -- --    --   
+|] |_1|^2|= |a  a |O  O2|B1 B |E |
+ --       -- -- -- --    -- -- --
+|_  _ |^ |`2 `  ` |= |O |A0 A  A |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 23
+Number of vertices examined: 6007
+0.362445 [s]
+
+Level 262
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |M  M3 M |= |Q  Q |= |W3|= |X |
+ -- -- -- -- --    -- --    --   
+|K |= |N3 N  N |Q3|= |V |W  W |X2|
+    -- -- -- -- -- --    -- --   
+|K4 K |= |P  P2 P |R4|V  V4|= |X |
+ -- -- -- -- -- --    -- -- -- --
+|= |L |O3 O |= |R  R |= |Z3|Y  Y3|
+ --       -- -- -- -- --       --
+|L2 L |O |= |S |= |U2|[2|Z |Y |= |
+ -- -- -- --    --          -- --
+|= |G  G |F |S |T |U |[ |Z |= |\4|
+ -- --                   -- --   
+|H  H4|G2|F4|S4|T |U |[ |= |\  \ |
+ --    --    --    -- -- -- -- --
+|= |H |= |F |= |T3|= |]  ]3|= |^2|
+ -- -- -- -- -- -- --    -- --   
+|J |= |E5|= |B  B  B5|] |A0|_2|^ |
+    --    -- -- -- -- --         
+|J |I2|E  E |= |C3|= |D1|A |_ |^ |
+       -- -- --    --          --
+|J2|I  I |= |C  C |D  D |A |_ |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 297
+0.015833 [s]
+
+Level 263
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |A4 A |= |G |= |H |= |M  M |= |
+ --    -- --    --    --    -- --
+|B3|A |= |E |G  G3|H  H3|M3|= |^ |
+    -- --    -- -- -- -- -- --   
+|B |= |C |E4 E |= |I2|= |] |^3 ^ |
+    --    -- -- --    --    -- --
+|B |D |C4|= |J2|I  I |Z |] |= |\2|
+ --       --    -- --       --   
+|= |D4|C |K |J  J |Z  Z2|]2|[ |\ |
+ --    --    -- -- -- -- --      
+|F |D |= |K4|= |X |= |_  _2|[ |\ |
+    -- --    --    --    --    --
+|F3|= |L3|K |N |X |Y |_ |= |[4|= |
+    --    --          -- -- -- --
+|F |L  L |= |N3|X3|Y  Y2|T |= |V |
+ -- -- -- --    -- -- --    --   
+|= |P  P3 P |N |= |W |= |T |V  V3|
+ -- -- -- -- -- --    --    -- --
+|Q  Q |= |O  O  O3|W2 W |T4|= |U |
+ --    -- -- -- -- -- -- -- --   
+|= |Q3|R  R  R2|= |S  S1 S |U1 U |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 167305
+6.54162 [s]
+
+Level 264
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |R2 R |P  P |= |F  F  F3|= |G |
+ --    -- --    -- -- -- -- --   
+|T |R |S3|= |P2|Q |= |K |E |G1 G |
+    --    -- --    --       -- --
+|T2|= |S |O |Q2 Q |L2|K |E  E1|A |
+    --       -- --       -- --   
+|T |U |S |O  O1|L  L |K2|= |D |A |
+ --    -- -- -- -- -- -- --      
+|U3 U |= |V4 V |= |J  J |D  D2|A0|
+ -- -- -- --    -- --    -- -- --
+|= |X4 X |= |V |W4|= |J3|= |B2 B |
+ -- --    -- --    -- -- -- --   
+|Y3|= |X |[ |= |W  W |I |C  C2|B |
+    -- --    -- -- --    --    --
+|Y |Z2|[2 [ |]3|= |\2|I  I1|C |= |
+       -- --    --    -- -- -- --
+|Y |Z |`1 ` |] |^2|\  \ |= |H  H3|
+ --       --       -- -- -- --   
+|= |Z |` |= |] |^  ^ |M  M1 M |H |
+ -- -- -- -- -- -- -- -- -- -- --
+|a  a1 a |_  _  _2|= |N2 N  N |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 21
+Number of vertices examined: 13798
+0.718707 [s]
+
+Level 265
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |B |= |C  C4|= |T3|= |S |= |D |
+ --    -- --    --    --    --   
+|A3|B4 B |= |C |U |T  T |S |I |D |
+    -- -- -- --    -- --         
+|A  A |= |F |= |U3|= |R |S2|I1|D1|
+ -- -- --    --    --    --    --
+|= |E3 E |F4 F |U |Q |R1 R |I |J1|
+ -- --    -- -- --    -- -- --   
+|G  G |E |= |V  V |Q  Q1|N |J  J |
+    -- -- --    -- -- --    -- --
+|G3|= |H3 H |V2|= |[ |O2|N |= |K |
+ -- --    -- -- --          --   
+|= |^ |H |= |W2|[  [1|O |N2|M |K2|
+ --    -- --    -- --    --      
+|_3|^  ^3|W  W |Z  Z |O |= |M |K |
+    -- -- -- -- --    -- --    --
+|_ |= |] |= |X4|= |Z2|= |P2|M3|= |
+    --    --    -- -- --    -- --
+|_ |` |]  ]3|X |Y3 Y  Y |P  P |L1|
+ --    -- --    -- -- -- -- --   
+|= |`  `3|= |X |= |\1 \  \ |L  L |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 22
+Number of vertices examined: 31456
+1.16806 [s]
+
+Level 266
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|E2|= |I4 I |= |L  L |= |R |S0 S |
+    --    -- -- --    --    --   
+|E |J |I |= |K  K4|L3|M2|R1 R |S |
+       -- -- --    --    -- -- --
+|E |J4|= |N  N3|K |= |M  M |Q  Q |
+ --    -- --    -- -- -- -- --   
+|= |J |O  O4|N |= |P  P  P4|= |Q1|
+ -- --    -- -- -- -- -- -- -- --
+|F4|= |O |= |T |W  W3 W |= |\ |B0|
+    -- -- --    -- -- -- --      
+|F  F |= |T4 T |= |V |[ |^ |\3|B |
+ -- -- -- -- -- --               
+|= |G4 G |= |U |V2 V |[ |^ |\ |B |
+ -- --    --    -- --       -- --
+|A |= |G |U  U3|= |X |[1|^2|= |` |
+    -- -- -- -- --    -- -- --   
+|A |H  H3 H |= |X  X4|= |] |`  `2|
+    -- -- -- -- -- -- --    -- --
+|A4|= |D2 D  D |Y1|= |Z |] |= |_ |
+ -- -- -- -- --    --       --   
+|= |C  C2 C |Y  Y |Z2 Z |]2|_1 _ |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 373
+0.023927 [s]
+
+Level 267
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |W |= |Y |= |D  D  D3|= |A  A3|
+ --    --    -- -- -- -- --    --
+|V |W3 W |Y |G  G |= |C  C4|A |= |
+    -- --    --    -- --    -- --
+|V |= |X |Y3|= |G4|E5|= |C |= |B3|
+    --    -- -- --    -- -- --   
+|V2|U |X2 X |Z |= |E |F4 F |B  B |
+ --    -- --    --    --    -- --
+|U3 U |= |Z4 Z |N |E |= |F |= |H3|
+ -- -- -- -- --    -- -- -- --   
+|= |T |\ |= |[2|N2|= |I3|= |H  H |
+ --       --       --    -- -- --
+|S |T |\2|] |[ |N |R |I |M |= |J |
+                --          --   
+|S3|T2|\ |]3|[ |R2 R |I |M |J  J2|
+    -- --    -- -- -- --    -- --
+|S |= |_ |] |= |Q |= |O |M3|= |K1|
+ -- --    -- --    --    -- --   
+|= |_3 _ |= |^2|Q |P1|O1 O |L1|K |
+ -- -- -- --          -- --      
+|`  `1 ` |^  ^ |Q2|P  P |L  L |K |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 753
+0.042329 [s]
+
+Level 268
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |P |= |A  A4|E2 E  E |= |H |B |
+ --    -- --    -- -- -- --      
+|P  P2|D |= |A |= |F |K |G |H |B |
+ -- --    -- -- --               
+|O  O |D  D4|= |F2 F |K0|G3|H2|B0|
+ --    -- -- -- -- --       -- --
+|Q2|O2|= |N4|R  R |L |K |G |= |I1|
+    -- --    --       -- -- --   
+|Q |= |N  N |= |R2|L2 L |= |J |I |
+    -- -- -- -- -- -- -- --      
+|Q |W |= |U  U3 U |S3|= |J4 J |I |
+ --    -- -- -- --    -- -- -- --
+|= |W  W4|V2|T |= |S |M  M2|= |Y2|
+ -- -- --       --       -- --   
+|X2|= |V  V |T  T1|S |M |Z2 Z |Y |
+    -- -- -- -- -- -- --    --   
+|X  X |` |= |\2 \ |= |^ |Z |= |Y |
+ -- --    --    -- --    -- -- --
+|a  a |`  `1|\ |]  ] |^1|[1 [  [ |
+ --    -- -- -- --       -- -- --
+|= |a1|_  _  _1|= |]2|^ |C0 C  C |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 221
+0.012126 [s]
+
+Level 269
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |I  I3 I |= |J  J2 J |Z1 Z  Z |
+ -- -- -- -- -- -- -- -- -- -- --
+|H  H |= |K  K |= |X |Y3 Y |= |_ |
+ --    -- --    --    --    --   
+|F |H3|G |M |K3|L2|X2|= |Y |_2 _ |
+    --       --       -- -- -- --
+|F2|= |G |M |L  L |X |W |= |` |= |
+    --       -- -- --    --    --
+|F |D |G2|M1|= |O3|W  W3|V |`2|a |
+ --    -- -- --    -- --         
+|= |D  D3|N2 N |O |= |V2 V |` |a1|
+ -- -- --    --    -- -- -- --   
+|E2 E |= |N |P2|O |R4|U2 U  U |a |
+    -- -- --    --    -- -- -- --
+|E |Q  Q  Q3|P |= |R |= |[2|= |\2|
+ -- -- -- --    --    --    --   
+|A |= |B |= |P |S |R |[  [ |] |\ |
+    --    -- --    -- -- --      
+|A2|B3 B |C |S  S2|= |^  ^1|]2|\ |
+    -- --    -- -- -- --       --
+|A |= |C  C2|T  T  T1|. |^ |] |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 25
+Number of vertices examined: 97111
+5.81299 [s]
+
+Level 270
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |B  B3|= |F |= |V3 V  V |W  W1|
+ -- --    --    -- -- -- --    --
+|A |= |B |F2 F |U3|= |[ |= |W |X |
+    -- -- -- --    --    -- --   
+|A |G  G2 G |U  U |Z3|[3|\3|X1 X |
+    -- -- -- -- --          -- --
+|A4|= |E  E |= |] |Z |[ |\ |= |Y2|
+ -- -- --    --       --    --   
+|= |C5|= |E4|R3|]3|Z |= |\ |^1|Y |
+ --    -- --       -- -- --      
+|D2|C  C |= |R |] |= |_ |^  ^ |Y |
+    -- -- --    -- --    -- -- --
+|D |= |K |S |R |= |_3 _ |`2 ` |= |
+    --       -- -- -- --    -- --
+|D |K2 K |S  S2|T2 T  T |` |= |P |
+ -- -- -- -- -- -- -- -- -- --   
+|I |= |L |= |J4 J |= |Q3 Q  Q |P |
+    --    --    -- -- -- -- --   
+|I  I2|L2 L |J |= |N3 N  N |= |P3|
+ -- -- -- -- -- -- -- -- -- -- --
+|= |H2 H  H |= |M2 M  M |O  O1 O |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 316
+0.018668 [s]
+
+Level 271
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |A4|= |C3 C |= |D  D4|= |V2|= |
+ --    -- --    -- --    --    --
+|B3|A  A |= |C |E |= |D |V  V |X |
+    -- -- -- --    -- -- -- --   
+|B  B |= |F  F4|E  E4|= |W  W3|X2|
+ -- -- -- --    -- -- --    --   
+|= |G3 G |= |F |= |I5 I |W |= |X |
+ -- --    -- -- -- --    -- -- --
+|H  H3|G |K  K4 K |= |I |= |Y4|Z |
+    -- -- -- -- -- -- -- --      
+|H |= |L  L3 L |= |T4|= |Y  Y |Z0|
+ -- -- -- -- -- --    -- -- --   
+|= |J  J |= |S |T  T |[3|= |\ |Z |
+ --    -- --    -- --    --    --
+|O |J5|= |M2|S |= |U |[ |]3|\  \2|
+    -- --       --          -- --
+|O |= |N2|M |S2|R |U |[ |] |= |_ |
+    --       --       --    --   
+|O3|N  N |M |R  R2|U2|= |] |^ |_1|
+ -- -- -- -- -- -- -- -- --      
+|= |P  P  P2|= |Q  Q2 Q |^1 ^ |_ |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 955
+0.031736 [s]
+
+Level 272
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |P2|S  S1 S |_ |= |X  X1|V |= |
+ --    -- -- --    --    --    --
+|Q1|P  P |= |^ |_2 _ |X |W |V |U3|
+    -- -- --    -- -- --         
+|Q  Q |R  R2|^2 ^ |= |`1|W1|V2|U |
+ -- -- --    -- -- --       --   
+|M2 M |= |R |]  ] |`  ` |W |= |U |
+ --    -- --    -- -- -- -- -- --
+|= |M |K  K |]2|= |a  a2 a |Y |= |
+ -- -- --    -- -- -- -- --    --
+|L  L  L3|K2|= |\3 \  \ |= |Y4|T |
+ -- -- -- -- -- -- -- -- --      
+|= |F |= |J |I  I |[2 [  [ |Y |T2|
+ --    --    --    -- -- -- --   
+|C |F |E |J2|H |I3|= |Z3 Z |= |T |
+                -- --    -- -- --
+|C |F3|E |J |H |= |G |Z |N  N |O |
+    --    --    --    --    --   
+|C2|= |E3|= |H2|G  G4|= |N2|O1 O |
+ -- -- -- -- -- -- -- -- -- -- --
+|B1 B  B |D2 D  D |= |A  A  A3|= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 22
+Number of vertices examined: 2281
+0.100944 [s]
+
+Level 273
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |W |= |Q  Q4|= |A4 A |= |C  C |
+ --    -- --    -- --    --    --
+|X |W4 W |= |Q |P |= |A |B4|C3|= |
+    -- -- -- --    -- --    -- --
+|X  X3|= |U |= |P4|E2|= |B |= |D |
+ -- -- --    --       --    --   
+|= |Y |U  U4|R2|P |E  E |B |D2 D |
+ --    -- --    -- -- -- -- -- --
+|Z |Y3|= |V |R |= |F  F |= |N2 N |
+       --       --    -- -- --   
+|Z |Y |V  V2|R |S4|F4|= |M |= |N |
+    -- -- -- --    -- --    -- --
+|Z3|= |[3|= |S  S |= |M4 M |O |L |
+ -- --    -- -- -- -- -- --      
+|= |^4|[  [ |\ |= |T2 T |O  O2|L0|
+ --    -- --    --    -- -- --   
+|^  ^ |= |] |\2 \ |T |K |= |H |L |
+ -- -- --    -- -- --    --    --
+|= |_ |]  ]2|= |I |K2 K |G |H2 H |
+ --    -- -- --    -- --    -- --
+|_  _1|J  J  J1|I  I2|= |G  G3|= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 25
+Number of vertices examined: 426
+0.015809 [s]
+
+Level 274
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |V3|= |Y  Y  Y3|= |_ |= |^2 ^ |
+ --    -- -- -- -- --    --    --
+|U3|V |W  W |= |Z  Z4|_  _3|^ |= |
+          -- -- --    -- -- -- --
+|U |V |W2|X  X3|= |Z |= |]  ]  ]2|
+    -- -- --    -- -- -- -- -- --
+|U |= |P4 P |X |[  [3 [ |\2 \  \ |
+ -- -- --    -- -- -- -- -- -- --
+|= |O |= |P |= |Q |= |S4|= |T3|= |
+ --    -- -- --    --    --    --
+|O  O4|N |= |Q4 Q |R |S |T  T |E |
+ -- --    -- -- --       -- --   
+|= |L |N4 N |= |R  R3|S |= |D |E2|
+ --    -- -- -- -- -- -- --      
+|M1|L2|= |H  H5|= |G |= |F |D |E |
+       -- --    --    --       --
+|M |L |J |= |H |I |G |F  F3|D2|= |
+    --    -- --       -- -- -- --
+|M |J2 J |K2|= |I2|G2|. |= |B  B3|
+ -- -- --    --    -- -- --    --
+|A  A  A0|K  K |I |C  C  C1|B |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 23
+Number of vertices examined: 10413
+0.47956 [s]
+
+Level 275
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |O  O |= |K4|= |L3 L  L |D  D2|
+ -- --    --    -- -- -- --    --
+|P  P3|O2|N |K  K |= |M |= |D |= |
+    -- --    -- -- --    -- -- --
+|P |= |N  N4|= |S |M  M2|C  C4 C |
+ -- -- -- -- --    -- -- -- -- --
+|= |T |= |R  R |S2|V |E |= |A |= |
+ --    --    --          --    --
+|T  T3|Q1|R3|= |S |V2|E  E2|A |B1|
+ -- --    -- -- --    -- --      
+|Y  Y |Q  Q |U2 U |V |= |F1|A2|B |
+    -- -- -- --    -- --    --   
+|Y2|= |W  W  W3|U |= |X |F |G1|B |
+ -- -- -- -- -- -- --          --
+|= |] |= |\ |= |Z |X  X3|F |G  G |
+ --    --    --    -- -- -- -- --
+|` |]  ]4|\  \2|Z  Z3|= |H  H |= |
+    -- -- -- -- -- -- --    -- --
+|`  `3|= |^2 ^ |= |[ |I1|H3|= |J |
+ -- -- -- --    --       -- --   
+|= |_  _  _2|^ |[  [1|I  I |J2 J |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 23
+Number of vertices examined: 4594
+0.202369 [s]
+
+Level 276
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |U  U |= |W2|= |X |= |^  ^ |= |
+ -- --    --    --    -- --    --
+|T  T3|U3|W  W |X3 X |_  _2|^3|] |
+ --    -- -- -- -- -- --    --   
+|= |T |= |V2 V |Y3|= |[1|_ |= |] |
+ -- -- --    --    --    -- --   
+|S  S3 S |V |= |Y  Y |[  [ |\ |]3|
+ -- -- -- -- -- -- -- -- --    --
+|M  M |= |P |Q3|= |Z4 Z |\3 \ |= |
+ --    --       -- --    -- -- --
+|= |M3|P2 P |Q  Q |= |Z |= |B |A |
+ -- -- -- -- -- -- -- -- --      
+|K3|= |O3|= |R  R3|D |= |B  B3|A1|
+    --    --    --    -- -- --   
+|K  K |O  O |R |= |D  D5|= |C2|A |
+ -- -- -- -- -- -- -- -- --    --
+|= |L3|= |N2|= |I4|= |E |C  C |G |
+ --    --    --    --    -- --   
+|L  L |N  N |I  I |H2|E2|= |G1 G |
+ -- -- -- -- -- --       -- -- --
+|= |J  J  J2|= |H  H |E |F1 F  F |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 15486
+0.801465 [s]
+
+Level 277
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |H  H |= |J |= |I |b |`  `3|= |
+ -- --    --    --       --    --
+|G  G |H2|J2 J |K |I |b |= |` |_ |
+ --    -- -- --          -- --   
+|= |G2|L  L |K  K2|I1|b1|a |= |_ |
+ -- -- --    -- -- -- --    --   
+|B |A  A |L1|= |O |V2|a  a3|^ |_2|
+    --    -- --       -- --    --
+|B1|C1|A0|M |O  O1|V  V |= |^3|Z |
+       --    -- -- -- -- --      
+|B |C |N |M  M1|U2|= |X |Y2|^ |Z |
+ --       -- --    --       --   
+|D |C |N  N1|= |U |T |X2|Y |= |Z1|
+    -- -- -- --             -- --
+|D2|= |P  P  P4|U |T |X |Y |[3 [ |
+    -- -- -- -- --    -- --    --
+|D |F3|= |R |= |Q |T2|= |\2|[ |= |
+ --    --    --    -- --    -- --
+|= |F  F |R2|S |Q  Q1|W1|\ |= |]2|
+ -- -- --       -- --       --   
+|E1 E  E |R |S  S1|W  W |\ |]  ] |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 28
+Number of vertices examined: 558405
+25.1838 [s]
+
+Level 278
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |N3|= |K |= |A  A  A3|B1 B |C2|
+ --    --    -- -- -- -- --      
+|O3|N  N |K |J |= |H |= |I |B |C |
+    -- --       --    --    --   
+|O |= |P2|K3|J |H3 H |I2 I |= |C |
+    --    --    -- -- -- -- -- --
+|O |P  P |= |J5|= |G  G  G2|E |= |
+ -- -- -- -- -- -- -- -- --    --
+|= |Q4 Q  Q |= |M4|= |F  F |E |D3|
+ -- -- -- -- --    -- --         
+|R3 R |= |S3|M  M |L  L4|F1|E3|D |
+ --    --    -- --    -- -- --   
+|= |R |U |S  S |= |L |= |] |= |D |
+ -- --    -- -- -- -- --    -- --
+|T |U3 U |= |Z3|Y |= |\ |]  ]4|= |
+    -- -- --       --    -- -- --
+|T3 T |= |Z  Z |Y |[ |\4 \ |= |_ |
+ -- -- -- -- --       -- -- --   
+|= |V4 V  V |= |Y3|[3 [ |= |^ |_ |
+ -- -- -- -- -- -- -- -- --      
+|W  W2 W |= |X3 X  X |= |^3 ^ |_2|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 88
+0.010551 [s]
+
+Level 279
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |J3|= |I |= |G |= |C4 C |= |D |
+ --    --    --    -- --    --   
+|K3|J |L4|I  I3|G  G3|= |C |D1 D |
+          -- -- -- -- -- -- -- --
+|K |J |L |= |H  H  H3|B |= |E2 E |
+    --    -- -- -- --    -- --   
+|K |= |L |R |= |Q |= |B |F3 F |E |
+ -- -- --    --    --    --    --
+|= |M4|= |R |S3|Q |P3|B5|= |F |= |
+ --    --             -- -- -- --
+|N3|M |T |R3|S |Q3|P |= |A  A  A5|
+          --    --    -- -- -- --
+|N |M |T1 T |S |= |P |[3|= |] |= |
+    -- -- -- -- -- --    --    --
+|N |= |U |X |= |Y3 Y |[ |_ |]3|^ |
+ -- --       -- --               
+|= |O |U |X  X3|= |Y |[ |_ |] |^2|
+ --       -- -- -- -- --    --   
+|O3 O |U2|= |V1|Z2 Z |= |_3|= |^ |
+ -- -- -- --    --    -- -- -- --
+|= |W  W2 W |V  V |Z |\2 \  \ |. |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 103
+0.004159 [s]
+
+Level 280
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |^ |= |O  O3 O |= |L4|= |M3 M |
+ --    -- -- -- -- --    -- --   
+|J |^3|] |` |= |N4 N |L  L |= |M |
+             -- --    -- -- -- --
+|J |^ |] |`  `3|= |N |= |P4 P |= |
+    --    -- -- -- -- --    -- --
+|J3|= |]3|= |_ |\  \2|Z |P |Q  Q1|
+ -- -- -- --    --       -- --   
+|= |H  H2|_3 _ |= |\ |Z3|= |R |Q |
+ --    -- -- -- -- --    --    --
+|I |H |G  G |= |[  [4|Z |Y |R  R1|
+    -- --    -- --    --    -- --
+|I  I3|= |G2|K3|= |[ |= |Y3 Y |S2|
+ -- -- -- --    -- -- -- -- --   
+|= |E |F  F |K |W2 W |X4|= |S  S |
+ --    --       --       -- -- --
+|A |E1 E |F1|K |V |W |X |T  T |= |
+    -- -- -- --    --    --    --
+|A2|C2 C  C |= |V |= |X |= |T3|B |
+    -- -- -- --    -- -- -- --   
+|A |= |D2 D  D |V2|U  U  U2|B  B1|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 22
+Number of vertices examined: 21013
+1.53138 [s]
+
+Level 281
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |I2 I |= |D3 D |= |N  N |= |P |
+ -- --    -- --    --    -- --   
+|H  H |I |F  F2|D |M |N3|= |R |P |
+    -- -- --    --    -- --      
+|H3|= |G  G3|F |= |M  M3|O |R |P2|
+ -- --    -- -- -- -- --       --
+|= |J |G |= |E5 E |= |O  O3|R3|= |
+ --    -- --    -- -- -- -- -- --
+|J4 J |= |K4|E |= |U  U4|= |S |Q1|
+ -- -- --    -- --    -- --      
+|= |L |\ |K |= |W4|U |T  T2|S |Q |
+ --          --    -- --         
+|L  L2|\ |K |X |W |= |V3|T |S1|Q |
+ -- --    --       --    -- -- --
+|= |]3|\3|= |X4|W |V  V |= |C  C2|
+ --    -- --    -- -- -- --    --
+|^2|] |= |_ |X |= |Y4|= |B |C |= |
+       --    -- --    --    -- --
+|^ |] |_  _3|= |Y  Y |Z3|B  B3|A2|
+    -- -- -- -- -- --    -- --   
+|^ |= |[  [3 [ |= |Z  Z |= |A  A |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 336
+0.018454 [s]
+
+Level 282
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |K |= |P  P  P3|= |R |= |[ |= |
+ --    -- -- -- -- --    --    --
+|I |K  K4|= |O2|Q  Q1|R |W3|[3|Z |
+    -- -- --    --               
+|I2|= |J  J |O  O |Q |R3|W |[ |Z |
+    --    -- -- -- -- --    --   
+|I |H |J4|= |M |= |S3|= |W |= |Z2|
+ --    -- --    --    -- -- -- --
+|H  H3|= |L3|M3|T3|S |V2 V |X2 X |
+ -- -- --                -- --   
+|= |F |L  L |M |T |S |V |= |Y2|X |
+ --    -- -- --    -- -- --    --
+|G2|F |= |N2|= |T |= |U4 U |Y |= |
+       --    -- -- -- --       --
+|G |F2|D |N |]2 ] |` |= |U |Y |B |
+    --       --       -- -- --   
+|G |D1 D |N |\ |] |` |_4|= |B  B3|
+ -- -- -- --    --       -- -- --
+|= |E  E2 E |\2|= |`3|_  _ |= |A |
+ -- -- -- --    -- -- -- -- --   
+|C  C  C2|= |\ |^2 ^  ^ |= |A  A2|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 1532940
+110.172 [s]
+
+Level 283
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |S3|= |O |= |I  I3|K3|= |M3|= |
+ --    --    -- --       --    --
+|U |S  S |O  O4|= |I |K |L |M  M |
+    -- -- -- -- -- --       -- --
+|U |= |R  R4|= |J4|= |K |L |= |N1|
+    -- --    --    -- --    --   
+|U2|T |= |R |J  J |H |= |L4|N  N |
+ --    -- -- -- --    -- -- -- --
+|W |T |Q |= |P |= |H  H5|= |G  G |
+          --    -- -- -- -- --   
+|W |T3|Q  Q2|P4 P |= |D3|E3|= |G3|
+    -- -- -- -- -- --       -- --
+|W2|= |V3|Z  Z |= |D  D |E |F2|= |
+ -- --       -- -- -- --       --
+|= |V  V |Z2|= |[4|= |C |E |F  F |
+ -- -- -- -- --    --    -- -- --
+|X  X4|= |\ |[  [ |^ |C |= |B  B3|
+    -- --    -- --       -- --   
+|X |= |Y |\2|= |^  ^2|C3|A |= |B |
+ -- --       -- -- -- --    -- --
+|= |Y3 Y |\ |]2 ]  ] |= |A  A4|= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 21
+Number of vertices examined: 4499
+0.210212 [s]
+
+Level 284
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |L3 L |= |K |= |B3 B |C2 C |= |
+ --    -- --    -- --    --    --
+|N |L |= |M |K |D  D3|B |= |C |E2|
+    -- --       --    -- -- --   
+|N  N2|M2 M |K3|F2|D |= |G  G |E |
+ -- -- -- -- --    -- -- --      
+|= |P  P |J |= |F |= |H |= |G3|E |
+ --    --    --    --    -- -- --
+|O2|P2|= |J  J3|F |H4 H |I4 I |= |
+    -- -- -- -- -- -- --    -- --
+|O  O |Q  Q2|= |V |= |W |I |= |] |
+ -- -- --    --    --    -- --   
+|U |= |S3|Q |R3|V3 V |W2|= |]4 ] |
+    --    --    -- --    -- -- --
+|U  U1|S |R  R |= |^ |W |\ |= |_2|
+ -- --    -- -- --    --    --   
+|T  T |S |= |Y4 Y |^  ^2|\ |` |_ |
+ --    -- -- --    -- --         
+|A |T1|= |X |= |Y |= |Z1|\2|`2|_ |
+    -- --    -- -- --    --    --
+|A  A0|X  X3|[  [2 [ |Z  Z |` |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 25
+Number of vertices examined: 2732
+0.131461 [s]
+
+Level 285
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |Q |= |P4 P  P |= |S  S3|= |U |
+ --    -- -- -- -- -- --    --   
+|Q  Q3|O |= |X |= |T  T3|S |U2 U |
+ -- --    --    -- --    -- -- --
+|= |R2|O |X  X2|W  W2|T |= |] |= |
+ --       -- --    -- -- --    --
+|R  R |O3|V3 V |W |= |^ |\3|]3 ] |
+ -- -- --    -- -- --       -- --
+|= |H |= |V |= |Y4|^  ^2|\  \ |= |
+ --    -- -- --    -- -- -- -- --
+|E |H  H4|= |Y  Y |= |[  [ |= |_ |
+    -- -- -- -- -- --    -- --   
+|E |= |D  D5|= |Z3 Z |[3|= |_4 _ |
+    --    -- --    -- -- -- -- --
+|E3|F3|D |= |N |Z |= |M3 M |= |B |
+ --    -- --    -- -- --    --   
+|= |F |= |I4|N3 N |L  L |M |C |B |
+ --    --    -- -- --    --      
+|G |F |J |I  I |= |K |L1|C  C1|B2|
+    --    -- -- --    -- -- -- --
+|G1 G |J2 J |= |K  K2|A  A  A1|= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 2164
+0.152422 [s]
+
+Level 286
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |E  E4|= |H4 H  H |= |P2 P  P |
+ --    -- -- -- -- -- -- -- -- --
+|F3|E |= |D |= |O |= |Q  Q  Q5|= |
+    -- --    --    -- -- -- -- --
+|F |= |G2|D |I |O  O4|= |U |= |R |
+    --          -- -- --    --   
+|F |G  G |D3|I3 I |= |V4|U |S3|R |
+ -- -- -- -- -- -- --            
+|= |C  C |J  J3|= |W |V |U3|S |R3|
+ --    --    -- --       --    --
+|A |C2|= |J |= |W4 W |V |= |S |= |
+    -- -- -- -- -- -- -- -- -- --
+|A  A2|B5 B  B |= |Y |= |X  X3|T1|
+ -- -- -- -- -- --    -- --      
+|= |K4|= |N |= |Y  Y3|Z |= |X |T |
+ --    --    -- -- --    -- --   
+|L2|K |N  N3|\  \  \2|Z3 Z |^ |T |
+       -- -- -- -- -- -- --    --
+|L |K |= |M |= |[  [  [3|= |^  ^1|
+    -- --    -- -- -- -- -- -- --
+|L |= |M3 M |]  ]  ]2|= |_  _2 _ |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 21
+Number of vertices examined: 760
+0.02699 [s]
+
+Level 287
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |C4 C  C |= |H  H3|= |G |= |F2|
+ -- -- -- -- --    -- --    --   
+|B |= |K |= |J |H |= |I4|G  G3|F |
+    --    --    -- --    -- --   
+|B3|D |K3|O |J  J3|N |I |= |L3|F |
+             -- --       --    --
+|B |D3|K |O |= |M3|N3|I |L  L |= |
+ --    --    --       -- -- -- --
+|= |D |= |O4|P |M |N |= |R |= |Q |
+ -- -- -- --       -- --    --   
+|A  A5 A |= |P |M |= |S |R3 R |Q2|
+ -- -- -- --    -- --    -- --   
+|= |E3|= |V |P3|= |T |S4|= |\ |Q |
+ --    --    -- --       --    --
+|Z |E  E |V  V2|W2|T3|S |]4|\  \2|
+    -- -- -- --       --    -- --
+|Z  Z3|= |Y3|W  W |T |= |]  ] |= |
+ -- -- --    -- -- -- -- -- -- --
+|= |[ |Y  Y |= |U  U |_ |= |^  ^3|
+ --    -- -- -- --       --    --
+|[  [2|= |X  X  X2|U1|_2 _ |^ |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 535
+0.019676 [s]
+
+Level 288
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |Y |= |W |= |T |= |Q |= |O  O2|
+ --    --    --    --    -- --   
+|Y3 Y |W  W3|T3 T |S |Q4 Q |= |O |
+ -- -- -- -- -- --    -- -- -- --
+|= |Z |= |V |= |R |S |= |N |P  P1|
+ --    --    --       --    --   
+|[3|Z |X |V |U |R |S2|M3|N2 N |P |
+                   --    -- -- --
+|[ |Z3|X3|V3|U4|R2|M  M |= |I2|H |
+    --    --    -- -- -- --      
+|[ |= |X |= |U |= |J |= |G |I |H0|
+ -- -- -- -- -- --    --         
+|= |\5 \  \ |= |K4|J |E |G |I |H |
+ -- -- -- -- --             -- --
+|]  ]  ]4|= |K  K |J2|E |G4|= |F |
+ -- -- -- -- -- -- --    -- --   
+|= |_ |= |L4 L |= |B |E3|= |F  F2|
+ --    --    -- --    -- -- -- --
+|^2|_3 _ |L |= |B4 B |= |D  D  D3|
+    -- -- -- -- -- -- -- -- -- --
+|^  ^ |= |A  A  A3|= |C3 C  C |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 23
+Number of vertices examined: 879
+0.062053 [s]
+
+Level 289
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |]4|= |\ |= |D4 D |= |F  F |= |
+ --    --    --    -- --    -- --
+|^3|] |\  \3|Q3|D |= |E |F4|= |A4|
+       -- --    -- --    -- --   
+|^ |] |= |Z |Q |= |G3|E3|= |A  A |
+    -- --       --       -- -- --
+|^ |= |Y |Z |Q |G  G |E |H  H |= |
+ -- --       -- -- -- --    -- --
+|= |[ |Y |Z3|= |O4|= |I3|H4|= |B2|
+ --       -- --    --    -- --   
+|[  [3|Y3|= |O  O |P3|I |= |J3|B |
+ -- -- -- -- -- --       --      
+|= |U  U |T |= |R |P |I |J  J |B |
+ -- --       --       -- -- -- --
+|V  V3|U2|T |S |R |P |= |L |= |K2|
+ --    --          -- --    --   
+|= |V |= |T3|S |R3|= |M |L  L3|K |
+ -- -- -- --    -- --    -- --   
+|W  W |X3 X |S3|= |C |M4 M |= |K |
+ --    --    -- --    -- -- -- --
+|= |W3|= |X |= |C  C4|= |N  N  N2|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 123
+0.009834 [s]
+
+Level 290
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |A4 A  A |= |] |\  \3 \ |= |_ |
+ -- -- -- -- --    -- -- -- --   
+|B |= |S |= |]4 ] |= |[ |= |^3|_ |
+    --    -- -- -- --    --      
+|B2|R |S4 S |= |W |[  [3|Z |^ |_2|
+       -- -- --    -- --       --
+|B |R2|= |T |W  W3|= |Z3 Z |^ |= |
+ --    --    -- -- -- -- -- -- --
+|P |R |Q |T  T3|= |V  V |= |`2|Y2|
+    --    -- -- --    -- --      
+|P  P1|Q3 Q |= |C4|V3|U |`  ` |Y |
+ -- -- -- -- --    --    -- --   
+|= |N |= |D  D4|C |U1 U |= |X |Y |
+ --    --    --    -- -- --    --
+|O |N  N3|D |= |C |K  K |X  X3|= |
+    -- -- -- -- -- --    -- -- --
+|O2|= |L |= |E4|= |G |K0|H |= |J |
+    --    --    --    --    --   
+|O |M |L3|E  E |F |G2|H2 H |J2 J |
+ --       -- --       -- -- -- --
+|M  M1|L |= |F2 F |G |= |I  I  I1|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 22
+Number of vertices examined: 3025
+0.185597 [s]
+
+Level 291
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |J2 J |= |Q  Q2|U |= |V |= |T |
+ -- --    --    --    --    --   
+|I  I |J |L2|Q |= |U  U3|V  V3|T |
+    -- --    -- -- -- -- -- --   
+|I3|= |K |L  L |P3|= |S |= |X |T1|
+ -- --    -- --    --    --    --
+|= |H4|K3|= |M1|P |O |S |W3|X  X2|
+ --       --                -- --
+|G |H |K |M  M |P |O4|S3|W  W |= |
+       -- -- -- --    -- -- -- --
+|G3|H |= |N2 N |= |O |= |Y3|= |Z3|
+    -- -- --    -- -- --    --   
+|G |= |F  F4|N |R |= |[4|Y  Y |Z |
+ -- --    -- --    --    -- --   
+|= |B |F |= |R  R3|[  [ |= |] |Z |
+ --    -- -- -- -- -- -- --    --
+|A |B |= |D  D  D4|= |\2|]3 ] |= |
+       -- -- -- -- --    -- -- --
+|A |B4|C |= |E  E2|\  \ |= |^  ^3|
+    --    -- --    -- -- -- --   
+|A2|= |C  C4|= |E |_  _2 _ |= |^ |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 26
+Number of vertices examined: 35706
+1.26927 [s]
+
+Level 292
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |W  W  W3|= |\  \3 \ |] |= |^ |
+ -- -- -- -- -- -- -- --    --   
+|V  V4|= |X  X4|= |[ |= |] |^  ^2|
+    -- --    -- --    --    -- --
+|V |= |S |X |. |Y4|[3 [ |]4|= |A3|
+ -- --    -- --    -- -- -- --   
+|= |T3|S |= |Y  Y |= |Z4|= |A  A |
+ --       -- -- -- --    -- -- --
+|T  T |S4|U5 U |= |Z  Z |D |= |B2|
+ -- -- --    -- -- -- --    --   
+|= |R |= |U |= |I |= |D  D4|B  B |
+ --    -- -- --    -- -- -- -- --
+|P3|R4 R |= |K |I  I5|= |C4 C |= |
+    -- -- --    -- -- --    -- --
+|P  P |= |L |K |= |J |G2|C |= |E |
+ -- -- --       --       -- --   
+|= |Q3 Q |L4|K4|J1 J |G |= |F3|E3|
+ --    --    -- -- --    --      
+|O |Q |= |L |= |N  N |G |H2|F |E |
+    -- -- -- --    -- --       --
+|O  O1|M  M2 M |N2|= |H  H |F |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 130
+0.007276 [s]
+
+Level 293
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|R |= |C  C3 C |D1|B2|= |A  A  A3|
+    -- -- -- --       -- -- -- --
+|R  R3|= |E3|= |D |B  B |= |F4|= |
+ -- -- --    --    -- -- --    --
+|= |^ |E  E |T |D |J2 J  J |F |G2|
+ --    -- --    -- -- -- --      
+|] |^3|= |U2|T1|Q1 Q  Q |= |F |G |
+       --       -- -- -- -- --   
+|] |^ |U  U |T |S  S1 S |H5|= |G |
+    -- -- -- -- -- -- --    -- --
+|]3|= |_ |= |V  V3 V |= |H |I2 I |
+ -- --    -- -- -- -- --    --   
+|= |\ |_4 _ |= |W  W2|K4|H |= |I |
+ --    -- -- --    --    -- -- --
+|`2|\  \3|= |X |W |= |K |= |O  O |
+    -- -- --    -- --    -- --   
+|`  ` |[  [ |X  X3|L4|K |P |= |O3|
+ -- --    -- -- --    --    -- --
+|= |Z |[2|Y |= |L  L |= |P3 P |N |
+ --    --    -- -- -- -- -- --   
+|Z2 Z |= |Y3 Y |= |M2 M  M |N  N0|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 272
+0.009308 [s]
+
+Level 294
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |K |= |M |= |Q3 Q |= |U  U |= |
+ --    --    --    -- -- --    --
+|K  K3|L3|M3|P2|Q |= |S4 S |U2|T |
+ -- --          -- -- --    --   
+|= |J |L |M |P  P |R |= |S |T1 T |
+ --       -- -- --    -- -- -- --
+|G |J |L |= |O |= |R  R5|= |V  V1|
+       -- --    -- -- -- -- --   
+|G3|J3|= |I |O3|N |= |X3 X  X |V |
+    -- --          -- -- -- -- --
+|G |= |H |I |O |N4|W  W |= |Y  Y2|
+ -- --       --       -- -- --   
+|= |F |H |I4|= |N |W3|= |Z  Z4|Y |
+ --       -- -- -- -- -- --    --
+|F3 F |H4|= |E |= |[2|\  \3|Z |= |
+ -- -- -- --    --    --    -- --
+|= |B |= |E  E5|D |[  [ |\ |= |_ |
+ --    -- -- --    -- -- -- --   
+|A2|B4 B |= |D3 D |= |^2|= |_3 _ |
+    -- -- -- -- -- --    -- -- --
+|A  A |= |C  C2 C |^  ^ |]  ]  ]1|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 68
+0.006103 [s]
+
+Level 295
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |L  L4|= |J  J4 J |= |Y |= |Z |
+ --    -- -- -- -- -- --    --   
+|M |L |= |K |= |Q |= |Y3 Y |Z  Z2|
+    -- --    --    -- -- -- -- --
+|M |= |N |K |Q3 Q |X  X3 X |= |[ |
+    --       -- -- -- -- -- --   
+|M3|O |N4|K5|= |W3 W |= |\  \4|[1|
+ --       -- --    -- -- --      
+|= |O4|N |= |V |W |= |_ |= |\ |[ |
+ --    -- --    -- --    -- -- --
+|P3|O |= |R |V  V3|_  _4|^ |= |]1|
+    -- --    -- -- -- --    --   
+|P |= |S |R  R4|= |E |= |^  ^3|] |
+    --    -- -- --    -- -- --   
+|P |T3|S  S4|= |E  E4|D  D3 D |] |
+ --    -- -- -- -- -- -- -- -- --
+|= |T |= |U |G |= |F2|= |B |= |A |
+ --    --       --    --    --   
+|I |T |U2 U |G  G2|F |C |B  B3|A |
+    -- -- -- -- --       -- --   
+|I2 I |= |H  H1 H |F |C  C2|= |A2|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 8267
+0.344141 [s]
+
+Level 296
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |S |= |T |= |V  V |F4|= |D3|= |
+ --    --    --    --    --    --
+|S  S3|R |T |U |V3|= |F |D  D |C |
+ -- --          -- --    -- --   
+|= |M |R3|T3|U3|= |H |F |= |E3|C1|
+ --       --    --    -- --      
+|L |M |R |= |U |W2|H |= |E  E |C |
+       -- -- --       -- -- -- --
+|L |M3|= |X3 X |W |H4|G  G2|= |B |
+    -- -- --       -- --    --   
+|L3|= |K |= |X |W |= |Y |G |] |B |
+ -- --    -- -- -- --    --      
+|= |J |K  K4|I  I0|[ |Y2 Y |]1|B1|
+ --    -- --    --    -- --    --
+|J4 J |= |P |I |[  [3|= |^2|] |_1|
+ -- -- --    -- -- -- --    --   
+|= |N  N |P  P3|= |Z |^  ^ |` |_ |
+ --    -- -- -- --    -- --      
+|A |N3|= |O |= |Z  Z3|= |`1 ` |_ |
+    -- --    -- -- -- -- -- -- --
+|A1 A |O2 O |Q1 Q  Q |\2 \  \ |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 516
+0.042593 [s]
+
+Level 297
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |N  N |= |\ |= |a |= |`3 ` |W |
+ --    -- --    --    --    --   
+|M2|N3|= |\3 \ |]2|a2 a |` |= |W |
+    -- -- -- --    -- -- -- --   
+|M |L |[  [ |]  ] |_  _ |= |V |W1|
+       --    -- -- --    --    --
+|M |L0 L |[2|= |^4|= |_3|X |V  V3|
+ -- -- -- -- --    -- --    -- --
+|= |O  O2|Z |Y |^  ^ |= |X3 X |= |
+ -- --          -- -- -- -- -- --
+|J |= |O |Z1|Y  Y2|= |U  U3 U |T |
+    -- --    -- -- -- -- -- --   
+|J |K  K1|Z |P1|Q3 Q  Q |= |S |T |
+       -- --    -- -- -- --      
+|J3|K |I2|= |P  P |R1|= |S2 S |T2|
+ -- --    -- -- --    -- -- -- --
+|= |I  I |H  H |R  R |G3 G  G |= |
+ -- -- --    -- -- -- -- -- -- --
+|A  A |B |H3|= |E  E  E2|= |D  D2|
+    --    -- -- -- -- -- -- --   
+|A1|B1 B |= |F  F  F2|C1 C  C |D |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 22
+Number of vertices examined: 10890
+0.482828 [s]
+
+Level 298
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |F  F  F1|B1 B |= |C3 C  C |= |
+ -- -- -- -- --    -- -- -- -- --
+|G  G3|E  E  E1|B |I |J2|= |D2 D |
+ --    -- -- -- --       -- --   
+|= |G |= |H  H3|I2 I |J |K  K2|D |
+ -- -- -- --    -- --    --    --
+|M4 M  M |= |H |= |L2|J |= |K |N |
+ -- -- -- -- -- --    -- -- --   
+|= |U  U  U3|T  T |L  L |O  O |N1|
+ -- -- -- -- --    -- -- --      
+|R |= |S  S |= |T3|= |P3|= |O2|N |
+    --    -- -- -- --    -- -- --
+|R |Q4|S4|= |V  V3|P  P |Z  Z3|= |
+       -- -- --    -- -- --    --
+|R3|Q |= |W |Y |V |= |\3|= |Z |[2|
+ --    --       -- --    -- --   
+|= |Q |W2 W |Y1 Y |] |\  \ |^ |[ |
+ -- -- -- -- -- --    -- --      
+|A |= |X3 X |= |]  ]3|= |^  ^1|[ |
+    -- --    -- -- -- -- -- -- --
+|A3 A |= |X |`  `  `1|_  _2 _ |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 24
+Number of vertices examined: 1177
+0.070306 [s]
+
+Level 299
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|= |]3|= |^ |= |A  A4|= |J  J |= |
+ --    --    --    -- -- --    --
+|]  ] |\ |^  ^3|A |= |K  K3|J2|I2|
+ -- --    -- -- -- --    -- --   
+|= |\4 \ |= |W3|= |L3|K |= |M |I |
+ -- -- -- --    --    -- --      
+|X  X4|= |V |W |P |L  L |N |M3|I |
+ --    --          -- --       --
+|= |X |Y4|V4|W |P  P3|= |N4|M |= |
+ -- --       -- -- -- --    -- --
+|U |= |Y |V |= |S3|= |O |N |= |B |
+    --    -- --    --    -- --   
+|U |Z3|Y |= |R |S  S |O |= |B  B4|
+       -- --    -- --    -- -- --
+|U3|Z |= |T |R |= |Q |O4|D |= |C2|
+ --    --       --    --    --   
+|= |Z |T  T3|R4|Q  Q2|= |D4 D |C |
+ -- -- -- -- -- -- -- -- -- --   
+|[  [3|= |H |= |F  F  F4|= |E3|C |
+    -- --    -- -- -- -- --    --
+|[ |= |H3 H |G  G2 G |= |E  E |= |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 547
+0.036439 [s]
 
 Level 300
 Sequence of moves: 
@@ -55,5 +7056,5 @@ Sequence of moves:
  -- -- -- -- -- -- -- -- -- -- --
 Number of moves: 22
 Number of vertices examined: 673
-0.0331223 [s]
+0.025216 [s]
 
