@@ -27,6 +27,7 @@ constexpr auto PUZ_HEDGE = '.';
 constexpr array<Position, 4> offset = Position::Directions4;
 constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
 
+// 2. A Flowerbed is an area of 3 cells, containing one flower.
 const vector<vector<Position>> flowerbeds_offset = {
     // L
     {{0, 0}, {0, 1}, {1, 0}},
@@ -160,6 +161,7 @@ int puz_state::find_matches(bool init)
     return check_2x2() ? 2 : 0;
 }
 
+// 3. A Pond is an area of any size without flower.
 void puz_state::make_move_pond()
 {
     vector<Position> rng;
@@ -243,8 +245,9 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    // No lines between Ponds and Hedges
     auto g = [](char ch) {
-        return ch == PUZ_POND || ch == PUZ_HEDGE ? PUZ_POND : ch;
+        return ch == PUZ_HEDGE ? PUZ_POND : ch;
     };
     auto f = [&](const Position& p1, const Position& p2) {
         return !is_valid(p1) || !is_valid(p2) || g(cells(p1)) != g(cells(p2));
