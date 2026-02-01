@@ -131,37 +131,22 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, piece_ids] : m_matches) {
-//        auto& [num, pieces] = m_game->m_pos2info.at(p);
-//
-        boost::remove_erase_if(piece_ids, [&](int id) {
-//            auto& [p2, i, j] = pieces[id];
-//            auto& [flowerbed, shrubs, num2perms] = m_game->m_flowerbed_shrubs[i];
-//            auto& perm = num2perms.at(num)[j];
-//
-//            if (boost::algorithm::any_of(flowerbed, [&](const Position& os) {
-//                char ch = cells(p2 + os);
-//                return ch != PUZ_SPACE && ch != PUZ_POND;
-//            }))
-//                return true;
-//
-//            for (int i = 0; i < shrubs.size(); ++i) {
-//                auto p3 = p2 + shrubs[i];
-//                if (!is_valid(p3)) continue;
-//                char ch = cells(p3), ch2 = perm[i];
-//                if (ch2 == PUZ_POND && ch == PUZ_HEDGE ||
-//                    ch2 == PUZ_HEDGE && ch != PUZ_SPACE && ch != ch2)
-//                    return true;
-//            }
-            return false;
+    for (auto& [p, flowerbed_ids] : m_matches) {
+        boost::remove_erase_if(flowerbed_ids, [&](int id) {
+            auto& [tl, index] = m_game->m_flowerbeds[id];
+            auto& fb_offset = flowerbeds_offset[index];
+            return boost::algorithm::any_of(fb_offset, [&](const Position& os) {
+                char ch = cells(tl + os);
+                return ch != PUZ_SPACE;
+            });
         });
 
         if (!init)
-            switch (piece_ids.size()) {
+            switch (flowerbed_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, piece_ids[0]), 1;
+                return make_move2(p, flowerbed_ids[0]), 1;
             }
     }
     return 2;
@@ -169,24 +154,10 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, int n)
 {
-//    auto& [num, pieces] = m_game->m_pos2info.at(p);
-//    auto& [p2, i, j] = pieces[n];
-//    auto& [flowerbed, shrubs, num2perms] = m_game->m_flowerbed_shrubs[i];
-//    auto& perm = num2perms.at(num)[j];
-//    for (auto& os : flowerbed)
-//        cells(p2 + os) = m_ch;
-//    for (int i = 0; i < shrubs.size(); ++i) {
-//        auto p3 = p2 + shrubs[i];
-//        if (!is_valid(p3)) continue;
-//        char& ch = cells(p3), ch2 = perm[i];
-//        if (ch == PUZ_SPACE && (ch = ch2) == PUZ_HEDGE)
-//            for (auto& os : offset) {
-//                auto p4 = p3 + os;
-//                if (is_valid(p4) && cells(p4) == PUZ_SPACE)
-//                    cells(p4) = PUZ_POND;
-//            }
-//    }
-
+    auto& [tl, index] = m_game->m_flowerbeds[n];
+    auto& fb_offset = flowerbeds_offset[index];
+    for (auto& os : fb_offset)
+        cells(tl + os) = m_ch;
     ++m_ch, ++m_distance;
     m_matches.erase(p);
 }
