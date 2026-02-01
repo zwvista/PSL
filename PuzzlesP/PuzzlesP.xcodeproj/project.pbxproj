@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C1ACFD92F2F1E89004832E2 /* PondsAndFlowerbeds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C1ACFD62F2F1E89004832E2 /* PondsAndFlowerbeds.cpp */; };
 		8C689CD62E003B5700A2BCCC /* PathOnTheHills.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CCA2E003B5700A2BCCC /* PathOnTheHills.cpp */; };
 		8C689CD72E003B5700A2BCCC /* PathOnTheMountains.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CCD2E003B5700A2BCCC /* PathOnTheMountains.cpp */; };
 		8C689CD82E003B5700A2BCCC /* PondCamping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CD32E003B5700A2BCCC /* PondCamping.cpp */; };
@@ -53,6 +54,9 @@
 
 /* Begin PBXFileReference section */
 		7D5994662E66F26500BBE136 /* BoostSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BoostSettings.xcconfig; path = ../BoostSettings.xcconfig; sourceTree = SOURCE_ROOT; };
+		8C1ACFD62F2F1E89004832E2 /* PondsAndFlowerbeds.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PondsAndFlowerbeds.cpp; sourceTree = "<group>"; };
+		8C1ACFD72F2F1E89004832E2 /* PondsAndFlowerbeds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = PondsAndFlowerbeds.txt; sourceTree = "<group>"; };
+		8C1ACFD82F2F1E89004832E2 /* PondsAndFlowerbeds.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PondsAndFlowerbeds.xml; sourceTree = "<group>"; };
 		8C5F12A52DE378DA00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12A62DE378DA00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C689CCA2E003B5700A2BCCC /* PathOnTheHills.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PathOnTheHills.cpp; sourceTree = "<group>"; };
@@ -260,6 +264,9 @@
 				8C689CD32E003B5700A2BCCC /* PondCamping.cpp */,
 				8C689CD42E003B5700A2BCCC /* PondCamping.txt */,
 				8C689CD52E003B5700A2BCCC /* PondCamping.xml */,
+				8C1ACFD62F2F1E89004832E2 /* PondsAndFlowerbeds.cpp */,
+				8C1ACFD72F2F1E89004832E2 /* PondsAndFlowerbeds.txt */,
+				8C1ACFD82F2F1E89004832E2 /* PondsAndFlowerbeds.xml */,
 				95E37B292344BDD70054284F /* PouringWater.cpp */,
 				95E37B2A2344BDD70054284F /* PouringWater.txt */,
 				95E37B282344BDD70054284F /* PouringWater.xml */,
@@ -385,6 +392,7 @@
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA241171EB47AC40055D6B1 /* Planks.cpp in Sources */,
 				95D7B5F7231D7351001E005C /* PlugItIn.cpp in Sources */,
+				8C1ACFD92F2F1E89004832E2 /* PondsAndFlowerbeds.cpp in Sources */,
 				8CA241101EB47AC40055D6B1 /* Parks.cpp in Sources */,
 				8CA2410E1EB47AC40055D6B1 /* ParkingLot.cpp in Sources */,
 				8CA2411A1EB47AC40055D6B1 /* PuzzleRetreat.cpp in Sources */,

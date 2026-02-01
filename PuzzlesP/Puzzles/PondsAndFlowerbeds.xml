@@ -2,9 +2,11 @@
 <puzzle>
 <help>
   <![CDATA[
-1. Divide the board in Flowerbeds of exactly three tiles. Each Flowerbed contains a number.
-2. Single tiles left outside Flowerbeds are Shrubs. Shrubs cannot touch each other orthogonally.
-3. The number on each Flowerbed tells you how many Shrubs are adjacent to it.
+1. The aim is to locate some Flowerbeds and Ponds in the field.
+2. A Flowerbed is an area of 3 cells, containing one flower.
+3. A Pond is an area of any size without flower.
+4. Each 2x2 area must contain at least a Hedge or a Pond.
+5. Hedges when presents, are given in light green.
   ]]>
 </help>
 <levels>
