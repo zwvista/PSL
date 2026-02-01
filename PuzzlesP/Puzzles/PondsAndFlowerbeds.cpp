@@ -20,11 +20,12 @@
 namespace puzzles::PondsAndFlowerbeds{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_FLOWER = 'F';
+constexpr auto PUZ_FLOWER = '*';
 constexpr auto PUZ_POND = '=';
 constexpr auto PUZ_HEDGE = '.';
 
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
 
 const vector<vector<Position>> flowerbeds_offset = {
     // L
@@ -43,7 +44,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    set<Position> m_flowers;
+    set<Position> m_flowers, m_hedges;
     // elem.first: top-left position of the flowerbed
     // elem.second: index of the flowerbed
     vector<pair<Position, int>> m_flowerbeds;
@@ -62,8 +63,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
-            if (char ch = str[c]; ch != ' ')
-                m_flowers.emplace(r, c);
+            switch (char ch = str[c]) {
+            case PUZ_FLOWER: m_flowers.emplace(r, c); break;
+            case PUZ_HEDGE: m_hedges.emplace(r, c); break;
+            }
     }
 
     for (int r = 0; r < m_sidelen; ++r)
@@ -74,7 +77,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if (vector<Position> rng; [&] {
                     for (auto& os : fb_offset) {
                         auto p2 = p + os;
-                        if (!is_valid(p2))
+                        if (!is_valid(p2) || m_hedges.contains(p2))
                             return false;
                         if (m_flowers.contains(p2))
                             rng.push_back(p2);
@@ -101,9 +104,11 @@ struct puz_state
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move_flower(const Position& p, int n);
+    void make_move_flower2(const Position& p, int n);
     int find_matches(bool init);
+    void make_move_pond();
+    bool check_2x2();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -126,6 +131,8 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_matches(g.m_pos2flowerbed_ids)
 {
+    for (auto& p : g.m_hedges)
+        cells(p) = PUZ_HEDGE;
     find_matches(true);
 }
 
@@ -146,13 +153,64 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, flowerbed_ids[0]), 1;
+                return make_move_flower2(p, flowerbed_ids[0]), 1;
             }
     }
-    return 2;
+    make_move_pond();
+    return check_2x2() ? 2 : 0;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move_pond()
+{
+    vector<Position> rng;
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0;  c < sidelen(); ++c)
+            if (Position p(r, c); cells(p) == PUZ_SPACE)
+                rng.push_back(p);
+    boost::remove_erase_if(rng, [&](const Position& p) {
+        return boost::algorithm::any_of(m_matches, [&](const pair<const Position, vector<int>>& kv) {
+            return boost::algorithm::any_of(kv.second, [&](int id) {
+                auto& [tl, index] = m_game->m_flowerbeds[id];
+                auto& fb_offset = flowerbeds_offset[index];
+                return boost::algorithm::any_of(fb_offset, [&](const Position& os) {
+                    return tl + os == p;
+                });
+            });
+        });
+    });
+    for (auto& p : rng)
+        cells(p) = PUZ_POND;
+}
+
+// 4. Each 2x2 area must contain at least a Hedge or a Pond.
+bool puz_state::check_2x2()
+{
+    for (int r = 0; r < sidelen() - 1; ++r)
+        for (int c = 0; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            if (vector<Position> rng1, rng2; ![&] {
+                for (auto& os : offset2)
+                    switch(auto p2 = p + os; cells(p2)) {
+                    case PUZ_POND: return true;
+                    case PUZ_HEDGE: return true;
+                    case PUZ_SPACE: rng2.push_back(p2); break;
+                    default: rng1.push_back(p2); break;
+                    }
+                if (rng1.size() == 4) return false;
+                if (boost::algorithm::all_of(rng2, [&](auto& p2) {
+                    return m_game->m_flowers.contains(p2);
+                }))
+                    return false;
+                if (rng1.size() == 3 && rng2.size() == 1)
+                    cells(rng2[0]) = PUZ_POND;
+                return true;
+            }())
+                return false;
+        }
+    return true;
+}
+
+void puz_state::make_move_flower2(const Position& p, int n)
 {
     auto& [tl, index] = m_game->m_flowerbeds[n];
     auto& fb_offset = flowerbeds_offset[index];
@@ -162,10 +220,10 @@ void puz_state::make_move2(const Position& p, int n)
     m_matches.erase(p);
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move_flower(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    make_move_flower2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -179,7 +237,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         return kv1.second.size() < kv2.second.size();
     });
     for (int n : piece_ids)
-        if (!children.emplace_back(*this).make_move(p, n))
+        if (!children.emplace_back(*this).make_move_flower(p, n))
             children.pop_back();
 }
 
@@ -199,7 +257,7 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == sidelen()) break;
-            out << cells(p) << (m_game->m_flowers.contains(p) ? PUZ_FLOWER : ' ');
+            out << cells(p) << (m_game->m_flowers.contains(p) ? '*' : ' ');
         }
         println(out);
     }

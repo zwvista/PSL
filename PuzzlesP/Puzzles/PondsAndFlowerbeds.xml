@@ -12,10 +12,21 @@
 <levels>
   <level id="1">
     <![CDATA[
- F  `
+ *  `
     `
-  F `
-F F `
+  * `
+* * `
+    ]]>
+  </level>
+  <level id="72">
+    <![CDATA[
+ *    *`
+    * .`
+*      `
+ **  * `
+  *  * `
+      *`
+ * . * `
     ]]>
   </level>
 </levels>

@@ -1,0 +1,36 @@
+Level 1
+Sequence of moves: 
+ -- -- -- --
+|C  C* C |= |
+ -- -- -- --
+|B |= |D  D |
+          --
+|B |= |D*|= |
+    -- -- --
+|B*|A  A* A |
+ -- -- -- --
+Number of moves: 4
+Number of vertices examined: 6
+0.001619 [s]
+
+Level 72
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|J |H* H  H |A  A  A*|
+    -- -- -- -- -- --
+|J |= |E |= |K*|= |. |
+          --    -- --
+|J*|= |E |K  K |L  L |
+ -- --    -- --    --
+|I  I*|E*|=  = |L*|= |
+    -- -- -- -- -- --
+|I |= |F*|D  D  D*|B |
+ --       -- -- --   
+|G |= |F |= |C |= |B*|
+    --    --    --   
+|G  G*|F |. |C  C*|B |
+ -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 56
+0.019416 [s]
+
