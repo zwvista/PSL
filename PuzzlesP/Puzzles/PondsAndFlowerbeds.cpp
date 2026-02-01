@@ -243,8 +243,11 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    auto g = [](char ch) {
+        return ch == PUZ_POND || ch == PUZ_HEDGE ? PUZ_POND : ch;
+    };
     auto f = [&](const Position& p1, const Position& p2) {
-        return !is_valid(p1) || !is_valid(p2) || cells(p1) != cells(p2);
+        return !is_valid(p1) || !is_valid(p2) || g(cells(p1)) != g(cells(p2));
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines

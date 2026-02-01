@@ -11,14 +11,14 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 4
 Number of vertices examined: 6
-0.001619 [s]
+0.000445 [s]
 
 Level 72
 Sequence of moves: 
  -- -- -- -- -- -- --
 |J |H* H  H |A  A  A*|
     -- -- -- -- -- --
-|J |= |E |= |K*|= |. |
+|J |= |E |= |K*|=  . |
           --    -- --
 |J*|= |E |K  K |L  L |
  -- --    -- --    --
@@ -27,10 +27,10 @@ Sequence of moves:
 |I |= |F*|D  D  D*|B |
  --       -- -- --   
 |G |= |F |= |C |= |B*|
-    --    --    --   
+    --          --   
 |G  G*|F |. |C  C*|B |
  -- -- -- -- -- -- --
 Number of moves: 12
 Number of vertices examined: 56
-0.019416 [s]
+0.001453 [s]
 
