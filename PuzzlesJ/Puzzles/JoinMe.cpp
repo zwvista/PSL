@@ -101,12 +101,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
 
-    auto f = [&](int area_id, char ch) {
-        m_area2num[area_id] = ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
+    auto f = [&](int area_id, string_view s) {
+        m_area2num[area_id] = s == "  " ? PUZ_UNKNOWN : stoi(string(s));
     };
     for (int i = 0; i < m_sidelen; ++i) {
-        f(i, strs[i * 2 + 1][m_sidelen * 2 + 1]);
-        f(i + m_sidelen, strs[m_sidelen * 2 + 1][i * 2 + 1]);
+        f(i, strs[i * 2 + 1].substr(m_sidelen * 2 + 1, 2));
+        f(i + m_sidelen, strs[m_sidelen * 2 + 1].substr(i * 2 + 1, 2));
     }
 
     for (int n = m_areas.size(); !rng.empty(); ++n) {
@@ -253,7 +253,7 @@ ostream& puz_state::dump(ostream& out) const
         int sum = boost::accumulate(rng, 0, [&](int acc, const Position& p) {
             return acc + (cells(p) == PUZ_SPACE ? 0 : 1);
         });
-        out << (area_id < sidelen() ? format("{:<2}", sum) : format("{:2}", sum));
+        out << format("{:2}", sum);
     };
     for (int r = 0;; ++r) {
         // draw horizontal lines
