@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Divide the board in Flowerbeds of exactly three tiles. Each Flowerbed contains a number.
+2. Single tiles left outside Flowerbeds are Shrubs. Shrubs cannot touch each other orthogonally.
+3. The number on each Flowerbed tells you how many Shrubs are adjacent to it.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+    `
+ 4  `
+   2`
+22  `
+    ]]>
+  </level>
+  <level id="2">
+    <![CDATA[
+  4 `
+    `
+2  3`
+   1`
+    ]]>
+  </level>
+  <level id="300">
+    <![CDATA[
+     3 3   `
+  4      3 `
+34    5 3 2`
+   33      `
+      3 3  `
+ 4 2    3  `
+        3  `
+  3  1 1 2 `
+33 330     `
+  3   3   2`
+    2   3  `
+    ]]>
+  </level>
+</levels>
+</puzzle>
