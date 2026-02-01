@@ -240,7 +240,9 @@ bool puz_state::check_loop() const
     if (is_goal_state() && area2num.size() != m_game->m_areas.size())
         return false;
     for (auto& [id, num] : area2num)
-        if (is_goal_state() && num != 4 || num > 4)
+        if (boost::algorithm::all_of(m_game->m_areas[id], [&](const Position& p) {
+            return rng.contains(p);
+        }) && num != 4 || num > 4)
             return false;
     
     bool has_branch = false;
