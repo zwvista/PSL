@@ -249,7 +249,7 @@
  5 3 3 3 4   `
     ]]>
   </level>
-  <level id="16" Stitches="1">
+  <level id="16" Stitches="4">
     <![CDATA[
  - - - - -   `
 | |   |   | 5`
@@ -265,7 +265,7 @@
  5 5 4 5 5   `
     ]]>
   </level>
-  <level id="17" Stitches="1">
+  <level id="17" Stitches="4">
     <![CDATA[
  - - - - -   `
 | |     | | 5`
@@ -281,7 +281,7 @@
  5 5 4 5 5   `
     ]]>
   </level>
-  <level id="18" Stitches="1">
+  <level id="18" Stitches="4">
     <![CDATA[
  - - - - -   `
 | |     | | 5`
@@ -297,7 +297,7 @@
  5 5 5 5 4   `
     ]]>
   </level>
-  <level id="19" Stitches="1">
+  <level id="19" Stitches="4">
     <![CDATA[
  - - - - -   `
 | | |   | | 5`
@@ -313,7 +313,7 @@
  5   5 5 4   `
     ]]>
   </level>
-  <level id="20" Stitches="1">
+  <level id="20" Stitches="4">
     <![CDATA[
  - - - - -   `
 | |     | | 5`
@@ -869,7 +869,7 @@
  4 5 3 6 4 2   `
     ]]>
   </level>
-  <level id="51" Stitches="1">
+  <level id="51" Stitches="4">
     <![CDATA[
  - - - - - -   `
 |     |   | | 3`
@@ -887,7 +887,7 @@
  3 5 2   5 4   `
     ]]>
   </level>
-  <level id="52" Stitches="1">
+  <level id="52" Stitches="4">
     <![CDATA[
  - - - - - -   `
 | |     |   | 6`
@@ -905,7 +905,7 @@
  5 6 5 4 6     `
     ]]>
   </level>
-  <level id="53" Stitches="1">
+  <level id="53" Stitches="4">
     <![CDATA[
  - - - - - -   `
 |     |   | | 4`
@@ -923,7 +923,7 @@
  3 3 5 5       `
     ]]>
   </level>
-  <level id="54" Stitches="1">
+  <level id="54" Stitches="4">
     <![CDATA[
  - - - - - -   `
 |     |   | | 6`
@@ -941,7 +941,7 @@
  6   4 5   6   `
     ]]>
   </level>
-  <level id="55" Stitches="1">
+  <level id="55" Stitches="4">
     <![CDATA[
  - - - - - -   `
 |   |     | | 3`
@@ -959,7 +959,7 @@
  3 3 4 6   4   `
     ]]>
   </level>
-  <level id="56" Stitches="1">
+  <level id="56" Stitches="4">
     <![CDATA[
  - - - - - -   `
 | |   |   | | 4`
@@ -977,7 +977,7 @@
    3 3 5 4 4   `
     ]]>
   </level>
-  <level id="57" Stitches="1">
+  <level id="57" Stitches="4">
     <![CDATA[
  - - - - - -   `
 | |         | 6`
@@ -995,7 +995,7 @@
  6 6 5   6 6   `
     ]]>
   </level>
-  <level id="58" Stitches="1">
+  <level id="58" Stitches="4">
     <![CDATA[
  - - - - - -   `
 |   |     | | 2`
@@ -1013,7 +1013,7 @@
  3 5 6   4 4   `
     ]]>
   </level>
-  <level id="59" Stitches="1">
+  <level id="59" Stitches="4">
     <![CDATA[
  - - - - - -   `
 |   |       | 4`
@@ -1031,7 +1031,7 @@
  3 5 6 6 6 6   `
     ]]>
   </level>
-  <level id="60" Stitches="1">
+  <level id="60" Stitches="4">
     <![CDATA[
  - - - - - -   `
 |   |     | | 3`
@@ -1649,7 +1649,7 @@
  4   5 7   5 6   `
     ]]>
   </level>
-  <level id="91" Stitches="1">
+  <level id="91" Stitches="4">
     <![CDATA[
  - - - - - - -   `
 |   |       | | 1`
@@ -1669,7 +1669,7 @@
  3 5 5 3 4 6 6   `
     ]]>
   </level>
-  <level id="92" Stitches="1">
+  <level id="92" Stitches="4">
     <![CDATA[
  - - - - - - -   `
 |   |   |   | | 7`
@@ -1689,7 +1689,7 @@
  6 5 6 5   4 1   `
     ]]>
   </level>
-  <level id="93" Stitches="1">
+  <level id="93" Stitches="4">
     <![CDATA[
  - - - - - - -   `
 |   |   |     |  `
@@ -1709,7 +1709,7 @@
    7 5   5 4     `
     ]]>
   </level>
-  <level id="94" Stitches="1">
+  <level id="94" Stitches="4">
     <![CDATA[
  - - - - - - -   `
 | |   |     | |  `
@@ -1729,7 +1729,7 @@
  6 5 5 7 6 7     `
     ]]>
   </level>
-  <level id="95" Stitches="1">
+  <level id="95" Stitches="4">
     <![CDATA[
  - - - - - - -   `
 |   |       | | 3`
@@ -1749,7 +1749,7 @@
  4       2 4     `
     ]]>
   </level>
-  <level id="96" Stitches="1">
+  <level id="96" Stitches="4">
     <![CDATA[
  - - - - - - -   `
 | |   |     | | 4`
@@ -1769,7 +1769,7 @@
  4 6 4   5 5 4   `
     ]]>
   </level>
-  <level id="97" Stitches="1">
+  <level id="97" Stitches="4">
     <![CDATA[
  - - - - - - -   `
 |   |       | | 2`
@@ -1789,7 +1789,7 @@
  5 3 1 5         `
     ]]>
   </level>
-  <level id="98" Stitches="1">
+  <level id="98" Stitches="4">
     <![CDATA[
  - - - - - - -   `
 |   |         | 6`
@@ -1809,7 +1809,7 @@
  7 6 5   3   5   `
     ]]>
   </level>
-  <level id="99" Stitches="1">
+  <level id="99" Stitches="4">
     <![CDATA[
  - - - - - - -   `
 |   | |     | |  `
@@ -1829,7 +1829,7 @@
  3 4 6   2 7 5   `
     ]]>
   </level>
-  <level id="100" Stitches="1">
+  <level id="100" Stitches="4">
     <![CDATA[
  - - - - - - -   `
 |       |   | | 4`
@@ -2509,7 +2509,7 @@
  7   5 2 6 5 4 3   `
     ]]>
   </level>
-  <level id="131" Stitches="1">
+  <level id="131" Stitches="4">
     <![CDATA[
  - - - - - - - -   `
 |   |   |       |  `
@@ -2531,7 +2531,7 @@
  5 4 6   4 5   5   `
     ]]>
   </level>
-  <level id="132" Stitches="1">
+  <level id="132" Stitches="4">
     <![CDATA[
  - - - - - - - -   `
 | |     |       | 6`
@@ -2553,7 +2553,7 @@
  6   8 3 6 5       `
     ]]>
   </level>
-  <level id="133" Stitches="1">
+  <level id="133" Stitches="4">
     <![CDATA[
  - - - - - - - -   `
 |   |       |   | 6`
@@ -2575,7 +2575,7 @@
  7 6   5 6   5 3   `
     ]]>
   </level>
-  <level id="134" Stitches="1">
+  <level id="134" Stitches="4">
     <![CDATA[
  - - - - - - - -   `
 | | |   |     | | 4`
@@ -2597,7 +2597,7 @@
  4 5   6 2 6       `
     ]]>
   </level>
-  <level id="135" Stitches="1">
+  <level id="135" Stitches="4">
     <![CDATA[
  - - - - - - - -   `
 | |             | 3`
@@ -2619,7 +2619,7 @@
    7 5   4   4 5   `
     ]]>
   </level>
-  <level id="136" Stitches="1">
+  <level id="136" Stitches="4">
     <![CDATA[
  - - - - - - - -   `
 |     |       | | 3`
@@ -2641,7 +2641,7 @@
    5     6 4   8   `
     ]]>
   </level>
-  <level id="137" Stitches="1">
+  <level id="137" Stitches="4">
     <![CDATA[
  - - - - - - - -   `
 |     | |       |  `
@@ -2663,7 +2663,7 @@
  6 6   7   6 3 2   `
     ]]>
   </level>
-  <level id="138" Stitches="1">
+  <level id="138" Stitches="4">
     <![CDATA[
  - - - - - - - -   `
 | |       |     |  `
@@ -2685,7 +2685,7 @@
  4   5 3 5   5 5   `
     ]]>
   </level>
-  <level id="139" Stitches="1">
+  <level id="139" Stitches="4">
     <![CDATA[
  - - - - - - - -   `
 |   |   |     | | 3`
@@ -2707,7 +2707,7 @@
    7 6 6 1 4 4 2   `
     ]]>
   </level>
-  <level id="140" Stitches="1">
+  <level id="140" Stitches="4">
     <![CDATA[
  - - - - - - - -   `
 | |             | 6`
@@ -3545,7 +3545,7 @@
  8     7 8   7 8     `
     ]]>
   </level>
-  <level id="175" Stitches="1">
+  <level id="175" Stitches="4">
     <![CDATA[
  - - - - - - - - -   `
 | |   | | |   |   | 8`
@@ -4469,7 +4469,7 @@
  3 5 4 7 4   8 5 7 4   `
     ]]>
   </level>
-  <level id="211" Stitches="1">
+  <level id="211" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |       | |         |  `
@@ -4495,7 +4495,7 @@
  3 7 6 4 4     7 5 5   `
     ]]>
   </level>
-  <level id="212" Stitches="1">
+  <level id="212" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |       |         | 8`
@@ -4521,7 +4521,7 @@
  5   7   6 5 5   8 9   `
     ]]>
   </level>
-  <level id="213" Stitches="1">
+  <level id="213" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |   |         | | 2`
@@ -4547,7 +4547,7 @@
  6 8 5   5 3   9   7   `
     ]]>
   </level>
-  <level id="214" Stitches="1">
+  <level id="214" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |     |   | | |   | 7`
@@ -4573,7 +4573,7 @@
    6 6  10 3    10 5   `
     ]]>
   </level>
-  <level id="215" Stitches="1">
+  <level id="215" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |   |           |  `
@@ -4599,7 +4599,7 @@
  7       7 6 6   8 8   `
     ]]>
   </level>
-  <level id="216" Stitches="1">
+  <level id="216" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |     |       |  `
@@ -4625,7 +4625,7 @@
  7   6   7   810   9   `
     ]]>
   </level>
-  <level id="217" Stitches="1">
+  <level id="217" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   | |     |       | 5`
@@ -4651,7 +4651,7 @@
  9     3 8 8 7 7 6     `
     ]]>
   </level>
-  <level id="218" Stitches="1">
+  <level id="218" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |       |   |   | |  `
@@ -4677,7 +4677,7 @@
    6 3 5 6 3   8   7   `
     ]]>
   </level>
-  <level id="219" Stitches="1">
+  <level id="219" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |     |   |   | | 5`
@@ -4703,7 +4703,7 @@
    6 5 7 7 6 9 9   8   `
     ]]>
   </level>
-  <level id="220" Stitches="1">
+  <level id="220" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |       |   | | 7`
@@ -5509,7 +5509,7 @@
  4   7   6 5     9     `
     ]]>
   </level>
-  <level id="251" Stitches="1">
+  <level id="251" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |   | |       | 8`
@@ -5535,7 +5535,7 @@
    6       510 810 8   `
     ]]>
   </level>
-  <level id="252" Stitches="1">
+  <level id="252" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |   |   |     | | 7`
@@ -5561,7 +5561,7 @@
    6   7 8 8 9 6 8     `
     ]]>
   </level>
-  <level id="253" Stitches="1">
+  <level id="253" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |     |         |  `
@@ -5587,7 +5587,7 @@
  6     9 8 5 8 4 8 4   `
     ]]>
   </level>
-  <level id="254" Stitches="1">
+  <level id="254" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |       |   |     | 6`
@@ -5613,7 +5613,7 @@
  7 7   8 7   7 8 9 9   `
     ]]>
   </level>
-  <level id="255" Stitches="1">
+  <level id="255" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |   |         | | 3`
@@ -5639,7 +5639,7 @@
  6   7 7 5   6 8       `
     ]]>
   </level>
-  <level id="256" Stitches="1">
+  <level id="256" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |     | |         | 8`
@@ -5665,7 +5665,7 @@
  6 6   3   7 5   5 4   `
     ]]>
   </level>
-  <level id="257" Stitches="1">
+  <level id="257" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |   |   |   | | 7`
@@ -5691,7 +5691,7 @@
  7 7   7 4 8 6 4   7   `
     ]]>
   </level>
-  <level id="258" Stitches="1">
+  <level id="258" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |               |  `
@@ -5717,7 +5717,7 @@
  9   7 6 5   810   8   `
     ]]>
   </level>
-  <level id="259" Stitches="1">
+  <level id="259" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |       |       | 8`
@@ -5743,7 +5743,7 @@
    410   4 8 9   810   `
     ]]>
   </level>
-  <level id="260" Stitches="1">
+  <level id="260" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | | |           |   |  `
@@ -6549,7 +6549,7 @@
  5   4   4 8   6       `
     ]]>
   </level>
-  <level id="291" Stitches="1">
+  <level id="291" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |   |       | | 4`
@@ -6575,7 +6575,7 @@
    6   2   4 8 8   8   `
     ]]>
   </level>
-  <level id="292" Stitches="1">
+  <level id="292" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |     |   |       |  `
@@ -6601,7 +6601,7 @@
    9 7 8 7 9     7 8   `
     ]]>
   </level>
-  <level id="293" Stitches="1">
+  <level id="293" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |     |     | | | 6`
@@ -6627,7 +6627,7 @@
    6 7 3 6 6   2 7     `
     ]]>
   </level>
-  <level id="294" Stitches="1">
+  <level id="294" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |   |           | 3`
@@ -6653,7 +6653,7 @@
  7 8     4 4 7     7   `
     ]]>
   </level>
-  <level id="295" Stitches="1">
+  <level id="295" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |     |     |   | 6`
@@ -6679,7 +6679,7 @@
  9 9   7 6 6 2 6 6 8   `
     ]]>
   </level>
-  <level id="296" Stitches="1">
+  <level id="296" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |       |           |  `
@@ -6705,7 +6705,7 @@
  4 8   8   9   8 7 3   `
     ]]>
   </level>
-  <level id="297" Stitches="1">
+  <level id="297" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |       |   |     | | 6`
@@ -6731,7 +6731,7 @@
  3   8 7   7 8 6 6 7   `
     ]]>
   </level>
-  <level id="298" Stitches="1">
+  <level id="298" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |       | |   | | | 5`
@@ -6757,7 +6757,7 @@
  6 9 5   4   8 8 9 5   `
     ]]>
   </level>
-  <level id="299" Stitches="1">
+  <level id="299" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |       |   |   | | 4`
@@ -6783,7 +6783,7 @@
  5 7 6   4 5   7 6     `
     ]]>
   </level>
-  <level id="300" Stitches="1">
+  <level id="300" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |     |   |         | 9`
@@ -8759,7 +8759,7 @@
    8   2 7 5 7   5 4   `
     ]]>
   </level>
-  <level id="376" Stitches="1">
+  <level id="376" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |     | |         | | 2`
@@ -8785,7 +8785,7 @@
    7 3 5 6 5 4 8   5   `
     ]]>
   </level>
-  <level id="377" Stitches="1">
+  <level id="377" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |     |     | |  `
@@ -8811,7 +8811,7 @@
  3 3 8       7 9 8 6   `
     ]]>
   </level>
-  <level id="378" Stitches="1">
+  <level id="378" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |         |         |  `
@@ -8837,7 +8837,7 @@
    7 6 7 2 4 8   7 5   `
     ]]>
   </level>
-  <level id="379" Stitches="1">
+  <level id="379" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |   |         | 3`
@@ -8863,7 +8863,7 @@
  7         4 5 8 7     `
     ]]>
   </level>
-  <level id="380" Stitches="1">
+  <level id="380" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | | |   | | |       | 6`
@@ -8889,7 +8889,7 @@
      6 7   5 7 5       `
     ]]>
   </level>
-  <level id="381" Stitches="1">
+  <level id="381" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |           | | | 7`
@@ -8915,7 +8915,7 @@
  8       3 6 5 5 7     `
     ]]>
   </level>
-  <level id="382" Stitches="1">
+  <level id="382" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |   | | | |   | 6`
@@ -8941,7 +8941,7 @@
        5 5 6   9       `
     ]]>
   </level>
-  <level id="383" Stitches="1">
+  <level id="383" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |     |   |       | 9`
@@ -8967,7 +8967,7 @@
  4 6 6 8     9 7       `
     ]]>
   </level>
-  <level id="384" Stitches="1">
+  <level id="384" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |   |   |       | 6`
@@ -8993,7 +8993,7 @@
  7 6 8 2 4    10 8     `
     ]]>
   </level>
-  <level id="385" Stitches="1">
+  <level id="385" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |     |     |   | | 9`
@@ -9019,7 +9019,7 @@
    6 610 6   5 8 6     `
     ]]>
   </level>
-  <level id="386" Stitches="1">
+  <level id="386" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |   |         | 5`
@@ -9045,7 +9045,7 @@
  9   8   7 3 9 6       `
     ]]>
   </level>
-  <level id="387" Stitches="1">
+  <level id="387" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |       | |       | 8`
@@ -9071,7 +9071,7 @@
  7 7     5 8   4 6 5   `
     ]]>
   </level>
-  <level id="388" Stitches="1">
+  <level id="388" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |       | |       | | 6`
@@ -9097,7 +9097,7 @@
  8   7 3 6 8 4 6       `
     ]]>
   </level>
-  <level id="389" Stitches="1">
+  <level id="389" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |     |     |     | | 7`
@@ -9123,7 +9123,7 @@
    6 7   8 9 7   7 8   `
     ]]>
   </level>
-  <level id="390" Stitches="1">
+  <level id="390" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |     |   | |     | 7`
@@ -9149,7 +9149,7 @@
    7 5   7   6   8     `
     ]]>
   </level>
-  <level id="391" Stitches="1">
+  <level id="391" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |     |       |   |  `
@@ -9175,7 +9175,7 @@
    7 4 7    10 8       `
     ]]>
   </level>
-  <level id="392" Stitches="1">
+  <level id="392" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |             |  `
@@ -9201,7 +9201,7 @@
    6 6 5   3 9 8       `
     ]]>
   </level>
-  <level id="393" Stitches="1">
+  <level id="393" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |       | |       | 9`
@@ -9227,7 +9227,7 @@
  6       2   8  10 6   `
     ]]>
   </level>
-  <level id="394" Stitches="1">
+  <level id="394" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |         |       | 6`
@@ -9253,7 +9253,7 @@
  6 6 4   9 7       9   `
     ]]>
   </level>
-  <level id="395" Stitches="1">
+  <level id="395" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |       |     | | 9`
@@ -9279,7 +9279,7 @@
  9 9 6     8 3    10   `
     ]]>
   </level>
-  <level id="396" Stitches="1">
+  <level id="396" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |   |     | | | 7`
@@ -9305,7 +9305,7 @@
  7   3   4 7 6     5   `
     ]]>
   </level>
-  <level id="397" Stitches="1">
+  <level id="397" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |     |     | |  `
@@ -9331,7 +9331,7 @@
  8 8     6   5 6 8     `
     ]]>
   </level>
-  <level id="398" Stitches="1">
+  <level id="398" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 | |   |           | | 6`
@@ -9357,7 +9357,7 @@
  6 6     9 8 8 7 8     `
     ]]>
   </level>
-  <level id="399" Stitches="1">
+  <level id="399" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |   |   |   |       | 5`
@@ -9383,7 +9383,7 @@
   10 7     4 5 9 8     `
     ]]>
   </level>
-  <level id="400" Stitches="1">
+  <level id="400" Stitches="4">
     <![CDATA[
  - - - - - - - - - -   `
 |     |     |       | 6`
