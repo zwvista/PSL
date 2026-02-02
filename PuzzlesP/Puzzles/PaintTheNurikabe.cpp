@@ -51,10 +51,10 @@ struct puz_state2 : Position
 {
     puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
         : m_horz_walls(&horz_walls), m_vert_walls(&vert_walls) {
-        make_move(p_start);
+        make_move_hint(p_start);
     }
 
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void make_move_hint(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const set<Position> *m_horz_walls, *m_vert_walls;
@@ -67,7 +67,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p_wall = *this + offset2[i];
         auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
         if (!walls.contains(p_wall))
-            children.emplace_back(*this).make_move(p);
+            children.emplace_back(*this).make_move_hint(p);
     }
 }
 
@@ -128,9 +128,12 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-    bool make_move(const Position& p, int n);
-    bool make_move2(const Position& p, int n);
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
+    bool make_move_hint(const Position& p, int n);
+    bool make_move_hint2(const Position& p, int n);
+    bool make_move_area(int n, char ch);
     int find_matches(bool init);
     bool is_interconnected() const;
     bool check_2x2();
@@ -138,7 +141,9 @@ struct puz_state
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const {
+        return m_matches.size() + m_painted_areas.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -148,17 +153,20 @@ struct puz_state
     // key: the position of the number
     // value.elem: the index of the permutation
     map<Position, vector<int>> m_matches;
+    set<int> m_painted_areas;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_cells), m_game(&g)
+: m_game(&g), m_cells(g.m_cells)
 {
     for (auto& [p, n] : g.m_pos2num) {
         auto& perm_ids = m_matches[p];
         perm_ids.resize(g.m_num2perms[n].size());
         boost::iota(perm_ids, 0);
     }
+    for (int i = 0; i < g.m_areas.size(); ++i)
+        m_painted_areas.insert(i);
 
     find_matches(true);
 }
@@ -194,7 +202,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids.front()) ? 1 : 0;
+                return make_move_hint2(p, perm_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -202,9 +210,9 @@ int puz_state::find_matches(bool init)
 
 struct puz_state3 : Position
 {
-    puz_state3(const puz_state& s, const Position& p) : m_state(&s) { make_move(p); }
+    puz_state3(const puz_state& s, const Position& p) : m_state(&s) { make_move_hint(p); }
 
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void make_move_hint(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state3>& children) const;
 
     const puz_state* m_state;
@@ -216,7 +224,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
         switch (auto p2 = *this + os; m_state->cells(p2)) {
         case PUZ_SPACE:
         case PUZ_PAINTED:
-            children.emplace_back(*this).make_move(p2);
+            children.emplace_back(*this).make_move_hint(p2);
         }
 }
 
@@ -248,7 +256,9 @@ bool puz_state::check_2x2()
                 return false;
             auto f = [&](const Position& p, char ch) {
                 for (auto& p2 : m_game->m_areas[m_game->m_pos2area.at(p)])
-                    cells(p2) = ch;
+                    if (cells(p2) = ch;
+                        m_painted_areas.erase(m_game->m_pos2area.at(p2)))
+                        ++m_distance;
             };
             if (rngPainted.size() == 3 && rngSpace.size() == 1)
                 f(rngSpace[0], PUZ_EMPTY);
@@ -258,7 +268,7 @@ bool puz_state::check_2x2()
     return true;
 }
 
-bool puz_state::make_move2(const Position& p, int n)
+bool puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& perm = m_game->m_num2perms[m_game->m_pos2num.at(p)][n];
 
@@ -267,44 +277,56 @@ bool puz_state::make_move2(const Position& p, int n)
         auto p2 = p + offset[k];
         if (m_game->m_pos2area.contains(p2))
             area2dirs[m_game->m_pos2area.at(p2)].push_back(k);
-        char& ch = cells(p2);
-        if (ch == PUZ_SPACE)
+        if (char& ch = cells(p2); ch == PUZ_SPACE)
             ch = perm[k];
     }
     for (auto& [area_id, dirs] : area2dirs) {
-        int k = dirs[0];
-        for (auto& p2 : m_game->m_areas[area_id]) {
-            char& ch = cells(p2);
-            if (ch == PUZ_SPACE)
+        for (int k = dirs[0]; auto& p2 : m_game->m_areas[area_id])
+            if (char& ch = cells(p2); ch == PUZ_SPACE)
                 ch = perm[k];
-        }
+        if (m_painted_areas.erase(area_id))
+            ++m_distance;
     }
 
-    ++m_distance;
-    m_matches.erase(p);
+    ++m_distance, m_matches.erase(p);
     return check_2x2() && is_interconnected();
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move_hint(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move2(p, n))
+    if (!make_move_hint2(p, n))
         return false;
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
+bool puz_state::make_move_area(int n, char ch)
+{
+    for (auto& p2 : m_game->m_areas[n])
+        cells(p2) = ch;
+    m_distance = 1, m_painted_areas.erase(n);
+    return check_2x2() && is_interconnected();
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, perm_ids] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1, 
-        const pair<const Position, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (int n : perm_ids)
-        if (!children.emplace_back(*this).make_move(p, n))
-            children.pop_back();
+    if (!m_matches.empty()) {
+        auto& [p, perm_ids] = *boost::min_element(m_matches, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        for (int n : perm_ids)
+            if (!children.emplace_back(*this).make_move_hint(p, n))
+                children.pop_back();
+    } else {
+        for (int n : m_painted_areas)
+            for (char ch : {PUZ_PAINTED, PUZ_EMPTY})
+                if (!children.emplace_back(*this).make_move_area(n, ch))
+                    children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
