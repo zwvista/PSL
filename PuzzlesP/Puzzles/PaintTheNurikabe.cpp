@@ -322,10 +322,10 @@ void puz_state::gen_children(list<puz_state>& children) const
             if (!children.emplace_back(*this).make_move_hint(p, n))
                 children.pop_back();
     } else {
-        for (int n : m_painted_areas)
-            for (char ch : {PUZ_PAINTED, PUZ_EMPTY})
-                if (!children.emplace_back(*this).make_move_area(n, ch))
-                    children.pop_back();
+        int n = *m_painted_areas.begin();
+        for (char ch : {PUZ_PAINTED, PUZ_EMPTY})
+            if (!children.emplace_back(*this).make_move_area(n, ch))
+                children.pop_back();
     }
 }
 
