@@ -11,7 +11,7 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 1
 Number of vertices examined: 2
-0.0192598 [s]
+0.000952 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,7 +26,7 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 1
 Number of vertices examined: 2
-0.0130555 [s]
+0.00039 [s]
 
 Level 3
 Sequence of moves: 
@@ -41,7 +41,555 @@ Sequence of moves:
  -- -- -- --
 Number of moves: 1
 Number of vertices examined: 2
-0.0101243 [s]
+0.000376 [s]
+
+Level 4
+Sequence of moves: 
+ -- -- -- -- --
+|P1 P2|.3|P2 P1|
+ -- -- --    --
+|.2|P |P |P |. |
+ --    -- --   
+|. |P |. |P1|. |
+ -- -- -- -- --
+|P |P |P2|.  .0|
+    --    --   
+|P1|. |P  P |.1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001221 [s]
+
+Level 5
+Number of vertices examined: 1
+0.000917 [s]
+
+Level 6
+Sequence of moves: 
+ -- -- -- -- --
+|.1|P |. |P |.2|
+    -- --    --
+|.2|P  P |P3|P |
+ -- -- -- --   
+|P  P |.2|. |P1|
+ -- -- -- -- --
+|.3|P |. |P |. |
+ -- -- -- -- --
+|P1 P3 P2|P3 P1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001273 [s]
+
+Level 7
+Sequence of moves: 
+ -- -- -- -- --
+|.  . |.1|P1|.1|
+    --         
+|.2|P |.3|P |.2|
+ --    --    --
+|P2|P3|P |P3|P2|
+    --    --   
+|P |. |P2|. |P1|
+ -- -- --    --
+|P2 P2 P |.1 .1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001413 [s]
+
+Level 8
+Sequence of moves: 
+ -- -- -- -- --
+|P  P2|.3|P1|.2|
+ --    --    --
+|. |P2|P3|P |P2|
+    -- -- --   
+|.0|. |P |.3|P |
+ -- --    --   
+|.1|P  P3|.2|P2|
+ -- -- --    --
+|.0 .2|P1|. |P1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001682 [s]
+
+Level 9
+Sequence of moves: 
+ -- -- -- -- --
+|.0 .1|. |P1|.1|
+ -- --       --
+|. |P |.2|P |. |
+       -- --   
+|.1|P2|. |P |.2|
+    -- --    --
+|.1|P  P2|P3|P2|
+ --    -- --   
+|.1|P |.2 .2|P1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001534 [s]
+
+Level 10
+Number of vertices examined: 1
+0.00138 [s]
+
+Level 11
+Sequence of moves: 
+ -- -- -- -- --
+|.1|.1|P  P2|.2|
+ --    -- -- --
+|P |.1 . |P  P1|
+ -- -- --    --
+|P2|. |P2|P2|. |
+    --    -- --
+|P3 P2|P |.3|.0|
+ -- --    --   
+|P1|. |P2|P |.1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001701 [s]
+
+Level 12
+Sequence of moves: 
+ -- -- -- -- --
+|.2|P1|.  .1|.0|
+ --    -- --   
+|P  P |P3|P |.1|
+ -- --    -- --
+|.1|. |P |.3 .0|
+    --    -- --
+|. |P1|P3|P |. |
+    -- --      
+|. |.  .2|P1|.1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001255 [s]
+
+Level 13
+Sequence of moves: 
+ -- -- -- -- --
+|.2|P |.3|P  P2|
+ --    -- -- --
+|P |P3|P |. |P |
+    -- -- --   
+|P |.4|P |  |P |
+    --    --   
+|P |P3|P2|. |P |
+ -- -- --    --
+|. |P |. |.0|. |
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.000987 [s]
+
+Level 14
+Sequence of moves: 
+ -- -- -- -- --
+|P1 P3|P  P3|P |
+ --    --    --
+|. |P2|.4|P |.2|
+ -- -- -- --   
+|P1 P |P  P2|.1|
+ -- -- -- -- --
+|.  .3|P |.3 . |
+ -- --    --   
+|P1 P |P  P1|.1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001568 [s]
+
+Level 15
+Sequence of moves: 
+ -- -- -- -- --
+|P1|. |P2|P |.1|
+    --    --   
+|P |P2 P |.  .0|
+    -- -- -- --
+|P2|. | 2|P |.1|
+ -- -- --    --
+|P2 P1|. |P |. |
+ -- --    -- --
+|.1|. |.0|.  .0|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001165 [s]
+
+Level 16
+Sequence of moves: 
+ -- -- -- -- --
+|.  . |P |.  .0|
+ -- --    -- --
+|.1|P |P4 P |.1|
+    -- -- --   
+|.  .3|P |.3 . |
+ -- --    -- --
+|P  P |P3 P |. |
+ -- -- -- --   
+|.1 .1 . |.1 .0|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.000891 [s]
+
+Level 17
+Sequence of moves: 
+ -- -- -- -- --
+|. |P1|. |P2 P1|
+ --    -- -- --
+|. |P |P  P3|. |
+ -- -- -- -- --
+|.1|P1|. |P  P |
+ -- --    -- --
+|.0|.  .2|P |.3|
+    -- --    --
+|. |P  P |P3 P1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001009 [s]
+
+Level 18
+Sequence of moves: 
+ -- -- -- -- --
+|.2|P  P2|P3 P1|
+ -- -- --    --
+|P1 P3|. |P |.2|
+ --       --   
+|. |P2|. |P2|.1|
+    -- --      
+|.1|P |P2 P |. |
+       -- -- --
+|.1|P |.  .1 .0|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001474 [s]
+
+Level 19
+Sequence of moves: 
+ -- -- -- -- --
+|P1 P2 P3|P  P |
+ -- -- -- --   
+|.  . |P |. |P2|
+ -- --    -- --
+|P |P2 P4|P  P |
+    -- -- --   
+|P1|. |P1|. |P1|
+ -- -- -- -- --
+|.1 .0|.  .0 .1|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001567 [s]
+
+Level 20
+Sequence of moves: 
+ -- -- -- -- --
+|P1|. |.1|. |. |
+    -- -- --   
+|P |P2 P3|P1|. |
+ -- --    -- --
+|.  . |P2|. |. |
+    -- -- --   
+|. |P |P3|P |. |
+ -- -- -- -- --
+|.0 .1|. |.  .0|
+ -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.000983 [s]
+
+Level 21
+Sequence of moves: 
+ -- -- -- -- -- --
+|P  P |P |P2 P |.1|
+ -- -- -- -- --   
+|.3|P |.3 . |P |. |
+ --    -- --    --
+|P1|P  P2|P3 P | 2|
+ -- -- -- -- -- --
+|. |P2|.4|P |.3|P |
+ -- -- -- -- -- --
+|P2 P |P |P2|. |P |
+    --    --    --
+|P1|. |P |.2|.0 . |
+ -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.002643 [s]
+
+Level 22
+Sequence of moves: 
+ -- -- -- -- -- --
+|P |P |.2|P1|. |P1|
+    --    -- -- --
+|P |.3 . |P |P2 P3|
+    -- --    -- --
+|P2|P  P2|P3|. |P1|
+ -- -- --    -- --
+|.3|P |.3|P |P2|. |
+ -- --    --    --
+|P1 P |. |.2|P  P1|
+ -- -- --    -- --
+|.2|P2 P1|. |P |.2|
+ -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.003313 [s]
+
+Level 23
+Sequence of moves: 
+ -- -- -- -- -- --
+|.1|P |. |P |     |
+    -- -- -- -- --
+|. |P  P | 3|. |P |
+ -- -- -- --    --
+|P1|.2 . |P |. |.1|
+       --    -- --
+|P |. |P |P3 P |.2|
+ -- -- -- -- -- --
+|P | 2|P |. |P3 P |
+    --    -- -- --
+|P |. |P2|P  P2|.2|
+ -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.002111 [s]
+
+Level 24
+Sequence of moves: 
+ -- -- -- -- -- --
+|P1|P2 P |P2 P |.1|
+ -- --    -- -- --
+|. |.3|P2|. |.1 .1|
+ -- -- -- --    --
+|P1 P |P3 P |. |P1|
+ -- -- -- -- -- --
+|. |P2|. |P3 P2 P |
+    -- -- -- -- --
+|.1|P3|P  P3|. |P1|
+ -- -- -- -- -- --
+|.1|P |.3|P |P1|.2|
+ -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.004733 [s]
+
+Level 25
+Sequence of moves: 
+ -- -- -- -- -- --
+|.1 . |P1 P |.1|.1|
+ -- -- --       --
+|P |.1 . |P2|.3|P |
+       -- -- --   
+|P2|. |P2 P  P |P2|
+ -- -- -- -- -- --
+|P3 P  P |.3|P |.2|
+ -- -- --         
+|P2|.3|P1|. |P1|. |
+    -- -- -- -- --
+|P1|.1 .  .0|.  .0|
+ -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.00433 [s]
+
+Level 26
+Sequence of moves: 
+ -- -- -- -- -- --
+|.1 .1|P |P2 P  P |
+ --       -- -- --
+|P |. |P2|. |P |.3|
+    -- -- -- -- --
+|P |P  P4|P  P4 P |
+    --    -- -- --
+|P |.4|P |.3|P |.2|
+ -- -- --         
+|P2 P  P3|. |P |. |
+ -- -- --    -- --
+|.1 .2|P |. |.1 .0|
+ -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.00279 [s]
+
+Level 27
+Sequence of moves: 
+ -- -- -- -- -- --
+|P |. |P |.  . |.0|
+    -- -- -- --   
+|P3 P |P4 P  P1|. |
+ -- -- -- -- -- --
+|P |.4|P |.3 . |P1|
+ -- -- -- -- -- --
+|.2|P2 P  P3|P  P3|
+    -- -- -- --   
+|. |P |.4|P |.4|P |
+ -- -- -- -- -- --
+|P1|P3 P |P3 P  P2|
+ -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.002796 [s]
+
+Level 28
+Sequence of moves: 
+ -- -- -- -- -- --
+|.1 .1|. |P |P  P1|
+ -- -- --    -- --
+|P2 P |.3|P |.3 . |
+ -- -- -- -- -- --
+|P2|.4|P  P |P  P1|
+    -- -- --    --
+|P |P  P |. |P2|.2|
+ -- -- -- -- --   
+|P |.3 . |P |P |. |
+ -- -- -- --    --
+|P  P  P |.3|P2 P1|
+ -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.002623 [s]
+
+Level 29
+Sequence of moves: 
+ -- -- -- -- -- --
+|P1 P |P3|P  P3 P1|
+ -- --    -- -- --
+|.  .3|P |.4|P2|. |
+ -- -- -- -- --   
+|P  P |P4 P2 P |. |
+    -- -- -- -- --
+|P |.3|P |.  .2 . |
+ --       -- -- --
+|.1|. |P |P2 P |.1|
+    -- -- -- -- --
+|.1|P1 P2|.  .  .0|
+ -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.00285 [s]
+
+Level 30
+Sequence of moves: 
+ -- -- -- -- -- --
+|P1|. |P |.3|P2|P1|
+    -- -- --    --
+|P |P2 P3|P |P |. |
+ -- -- --    -- --
+|P |.  . |P |.4|P1|
+ -- -- --    --   
+|.2|P1 P |P3|P |P2|
+    -- -- -- -- --
+|.0|. |P2|. |P2|.2|
+ -- --    --    --
+|.1|P |P  P2|P |. |
+ -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.002921 [s]
+
+Level 31
+Sequence of moves: 
+ -- -- -- -- -- --
+|. |.  .1|P |P |.1|
+    -- --    -- --
+|. |P1|. |P |.  .1|
+       --    -- --
+|.2|P |P2|P3|. |P1|
+ -- -- -- -- -- --
+|P |  |. |P |  |P |
+ -- -- --    --   
+|. |P |P2|P3|. |P |
+ --    --       --
+|P  P |. |P |.1|. |
+ -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 5
+0.003369 [s]
+
+Level 32
+Sequence of moves: 
+ -- -- -- -- -- --
+|P |P  P3|P |P  P |
+    -- -- -- -- --
+|P2|. |P |. |P |.3|
+ -- --    -- -- --
+|P3|P |P  P |P  P |
+ -- -- -- -- -- --
+|P |. |P2|.4|P |. |
+    -- -- -- --   
+|P |P2 P  P |. |. |
+ -- -- -- -- -- --
+|.  .1|.2|P  P1|. |
+ -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001921 [s]
+
+Level 33
+Sequence of moves: 
+ -- -- -- -- -- --
+|P  P |. |P |.  .0|
+ --    --    -- --
+|.2|P |P |P3|P |. |
+    -- -- -- -- --
+|.  . |P |.4|P |. |
+ -- --    --    --
+|P |P2|P4|P |P  P |
+ -- --    -- -- --
+|P2|. |P |.  .3|P |
+    -- -- -- -- --
+|P2 P |.3|P1 P |  |
+ -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001785 [s]
+
+Level 34
+Sequence of moves: 
+ -- -- -- -- -- --
+|P |.1|. |P  P |. |
+       -- -- -- --
+|P |.3|P |. |P3 P |
+ -- -- -- --    --
+|  |P |P3|P3|P |. |
+ --    -- -- -- --
+|. |P |. |P |.4|P |
+    -- --    --   
+|.1|P  P |P |P |P |
+ -- -- -- --    --
+|. |.2|P |. |P |. |
+ -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.00287 [s]
+
+Level 35
+Sequence of moves: 
+ -- -- -- -- -- --
+|.1|P |. |.2|P |.2|
+          --    --
+|. |P2|. |P |P |P |
+    --       -- --
+|. |P |. |P |.  .1|
+ -- -- -- -- -- --
+|P2 P |P  P  P |.1|
+ -- -- -- -- --   
+|P2|. |P2|. |P1|. |
+    --    -- -- --
+|P  P2|P  P |.  . |
+ -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 6
+0.003141 [s]
 
 Level 36
 Sequence of moves: 
@@ -60,5 +608,3384 @@ Sequence of moves:
  -- -- -- -- -- --
 Number of moves: 2
 Number of vertices examined: 3
-0.0563946 [s]
+0.002255 [s]
+
+Level 37
+Sequence of moves: 
+ -- -- -- -- -- --
+|P |. |P2 P  P2|P1|
+       -- -- -- --
+|P |.3|P |.  .  .1|
+ -- -- -- -- -- --
+|P  P |P  P |P |.1|
+ -- --    --      
+|P |. |P2|.4|P |.2|
+ --    -- -- -- --
+|. |. |P  P |P |P1|
+    -- -- --    --
+|.1|P  P2|.3|P |. |
+ -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.002555 [s]
+
+Level 38
+Sequence of moves: 
+ -- -- -- -- -- --
+|. |P  P2|.  . |. |
+    --    -- --   
+|. |. |P |P |P1|.1|
+ -- -- -- -- -- --
+|.1|P |.4|P |. |. |
+    -- -- -- --   
+|. |P  P3|P  P |. |
+ -- -- -- -- --   
+|.  .3|P2|. |P |. |
+ -- --    -- -- --
+|P  P |P |P2|P3 P1|
+ -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.001843 [s]
+
+Level 39
+Number of vertices examined: 1
+0.001575 [s]
+
+Level 40
+Sequence of moves: 
+ -- -- -- -- -- --
+|P2|P2 P |. |. |.1|
+    -- -- --    --
+|P |.4|P |P |.3|P1|
+ -- --    -- --   
+|  |P |P |.4|P  P2|
+    -- -- -- -- --
+|  |. |P  P  P2|. |
+ -- -- -- -- -- --
+|P  P |. |P2|.  .0|
+ -- -- --    -- --
+|.1 . |. |P2 P |.1|
+ -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.002511 [s]
+
+Level 41
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|. |.  .0|. |.0 .  . |
+    --    -- -- -- --
+|. |P |. |P |. |P |.1|
+ -- -- --            
+|P  P  P2|P |.3|P |.2|
+ -- -- -- -- --    --
+|.2 .  . |P  P |P |P |
+ -- -- --    -- -- --
+|P |.3|P |P2|. |P |. |
+    --    -- --      
+|P  P |P3|. |P1 P |. |
+ -- -- -- -- -- --   
+|.  . |P2|P |.  .1|.0|
+ -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.002804 [s]
+
+Level 42
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|.  .2|P |. |P1|. |. |
+    -- -- --    --   
+|. |P |P  P |P3|P |. |
+ --    -- -- -- --   
+|P |P3|. |P2|. |P |.1|
+ --          --    --
+|.2|P |.2|P |. |P |.1|
+    --    --    --   
+|. |P2|. |P |. |.2|.0|
+ --    --    -- -- --
+|.1|P |. |P2 P |P |.1|
+    -- -- -- --    --
+|.0 . |.  .  .2|P |.1|
+ -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.003772 [s]
+
+Level 43
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|.0 .1|.1|P  P |.  .1|
+    -- -- -- -- -- --
+|.2|P |.  . |P |P  P |
+ --    --       -- --
+|P |P  P |.3|P |.  .2|
+    -- -- --    -- --
+|P |.  . |P |P3|P |P1|
+ -- -- --    -- -- --
+|P  P |P  P |. |P |. |
+ -- -- -- -- --    --
+|.3|P2|. |P  P3|P |. |
+ -- -- -- -- -- --   
+|P1 P  P1|. |P |. |.0|
+ -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.003401 [s]
+
+Level 44
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|.1|P |P  P  P |P3|P |
+       -- -- --    --
+|.2|P |.4|P1|. |P |. |
+ -- -- -- -- -- -- --
+|P |P |P |. |P |P4|P1|
+ --    -- -- --    --
+|.2|P |. |  |. |P |. |
+    -- --    -- -- --
+|. |.3|P |  |     |  |
+ -- --    -- -- -- --
+|P  P |P2|. |  |. |P |
+ -- -- --    -- -- --
+|.2|P1|.  .1|P |.1 . |
+ -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.003797 [s]
+
+Level 45
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|. |.1 . |P1|. |  |  |
+ -- -- --    --    --
+|P  P3|P |P |     |P |
+ --    --    -- -- --
+|. |P |. |P |. |P | 2|
+ -- -- -- -- --    --
+|P |P3|P  P |.2|P1|. |
+ -- -- -- --    --   
+|. |.2 . | 2|. |.  .0|
+ -- -- -- -- -- -- --
+|. |P  P |P  P |P |.2|
+    -- -- -- -- -- --
+|.0 .1|.  .1|. |P  P1|
+ -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.005702 [s]
+
+Level 46
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P |P |  |  |  |.  .1|
+ --    -- -- -- -- --
+|.2|P |     |  |P  P2|
+    -- -- --    -- --
+|.  . |P  P |  |. |P |
+ -- -- --    --      
+|. |P1|.4|P |  |. |P |
+ --    -- -- -- -- --
+|. |P |P |  |P |.  . |
+    --    -- -- -- --
+|.  . |P2|. |P3|P |P |
+ -- -- -- --    -- --
+|. |P1 P |P2|P2|.  .1|
+ -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.003664 [s]
+
+Level 47
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|. |P2|P |P |P |.  . |
+ --    --    --    --
+|. |P |.4|P |. |. |P1|
+ -- -- --    -- -- --
+|P  P  P |P |P |.3|P |
+ -- -- -- --    --   
+|P1|.4|P |. |P |P |P |
+ -- --          -- --
+|.2|P |P |. |P |. |P |
+ -- -- -- -- -- -- --
+|. |P |. |P  P |P  P3|
+ -- -- -- -- -- --   
+|P | 2|. |P1|.2|. |P |
+ -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.002704 [s]
+
+Level 48
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|. |P |.3|P |  |P |P2|
+ -- -- -- --    --   
+|.2|P2|P |  |  |. |P |
+ -- --    -- -- -- --
+|P |.4|P |  |P |P2|. |
+    -- --    --    --
+|P2 P2|. |  |. |P | 2|
+ -- -- -- -- -- -- --
+|. |P  P |P  P |.4|P |
+    -- -- -- -- --   
+|. |     |. |. |P |P |
+    -- -- -- --    --
+|.1|P  P  P2|P2 P2|.2|
+ -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.003851 [s]
+
+Level 49
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P1 P2|.3|P  P |.1|.1|
+ -- -- --    -- -- --
+|.3|P  P |P |. |. |P |
+ -- --    -- --      
+|P1|. |P2|. |P |. |P |
+ -- -- -- -- -- --   
+|P2 P  P |P  P  P |P3|
+ -- -- -- -- -- -- --
+|.2|. |P |.4|P |. |P |
+ --       -- -- --   
+|P |. |P3 P |     |P |
+    -- -- -- --    --
+|P |P  P |.  . |  |  |
+ -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.003239 [s]
+
+Level 50
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|. |P |. |.1 . |P1 P |
+ --    -- --    --   
+|P |P3|. |P1|. |. |P |
+ -- --    -- -- -- --
+|. |P |. |P2|P |  |  |
+ --    -- -- -- --   
+|P  P |P |.  . |P |  |
+ -- --    -- --    --
+|.2|P |P  P |. |P2|. |
+       -- -- -- -- --
+|. |P |. |P  P  P2|. |
+ --    -- -- -- --   
+|P |P2|.  .1|.  . |.0|
+ -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.002849 [s]
+
+Level 51
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|.1|P |. |P |. |.1 . |
+       --    -- --   
+|. |P2|P  P |P  P |.1|
+ -- -- -- -- -- -- --
+|.  . | 2|.  . |P1|. |
+ -- -- -- -- -- -- --
+|. |P  P  P |.2 . |P |
+ -- -- -- -- -- -- --
+|P1 P |. |P |P  P  P2|
+ -- --       -- -- --
+|.3|P |.3|P |.4|P |.3|
+ --    -- -- -- -- --
+|P1 P |P |P  P |P  P |
+ -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 7
+0.00489 [s]
+
+Level 52
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|. |. |. |P1 P |.1 . |
+ --    -- --    -- --
+|P1|.3|P |. |P |. |P |
+    --       -- --   
+|P |P |P |. |P |P  P |
+    --    --    -- --
+|P2|.4|P |. |P1|. |  |
+ -- -- -- -- -- --   
+|P3 P |P  P |. |     |
+    -- --    -- -- --
+|P |.  . |P | 2|P |. |
+ --    -- -- --      
+|P1|.2|P  P |. |P |.1|
+ -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 8
+0.003751 [s]
+
+Level 53
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P |. |P2 P |.  . |P |
+    --    -- -- --   
+|P2|. |P |.4|P |P |P3|
+       -- --    --   
+|P |. |P3 P |P |. |P |
+ --    -- -- -- -- --
+|  |. |P |. |P  P2|P |
+ -- --    -- -- --   
+|P  P |P  P2|P |. |P |
+ --    -- -- --      
+|. |P |.  . |P |. |P2|
+ -- -- -- -- -- -- --
+|.  .2|P  P2|P3 P |P |
+ -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.002853 [s]
+
+Level 54
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P  P2|. |.2|P  P1|.1|
+ --       -- -- --   
+|.3|P |.3|P  P |.  . |
+ -- -- -- -- -- -- --
+|P |P4 P  P |. |P |. |
+ -- -- -- -- --    --
+|.2|P |.3|P  P |P |P |
+    -- -- -- -- -- --
+|. |.  . |. |P |.3 .1|
+ -- -- --       -- --
+|. |P  P |. |P |P |. |
+    -- -- --    --   
+|.0|. |P  P2|P |. |.0|
+ -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 5
+0.003637 [s]
+
+Level 55
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P1 P  P |P |.3|P |.1|
+ -- -- -- -- -- -- --
+|. |P |. |P  P  P |.2|
+ -- -- -- -- -- -- --
+|P  P4|P |P |.3 .3|P |
+ --    --    -- -- --
+|. |P |.4|P |P  P  P |
+ -- -- -- -- -- -- --
+|P  P |P2|P3|. |P |. |
+ -- -- --    -- --   
+|  |.  . |P  P |.  . |
+ -- -- -- -- -- -- --
+|P  P1|.1 . |P2 P2 P |
+ -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.003462 [s]
+
+Level 56
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P |P3 P | 3|P  P |  |
+ --    -- -- -- --   
+|. |P |. |P |  |     |
+ -- -- -- -- -- -- --
+|     |P |.  . |  |  |
+ -- --    -- -- -- --
+|P |. |P |P  P |P |P |
+    -- --    --    --
+|P  P |.3|P |. |P |.3|
+ -- -- -- -- -- -- --
+|  |.  . |P  P |  |P |
+ -- -- -- --    --   
+|P  P  P |.3|P |. |P1|
+ -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.001686 [s]
+
+Level 57
+Number of vertices examined: 7
+0.004442 [s]
+
+Level 58
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|.  .0|. |P |.2|.  . |
+ -- -- --    --    --
+|P |. |P |P |P |. |P1|
+ -- -- -- --    -- --
+|     |P |. |P |  |P |
+    --    -- -- --   
+|  |  |P |P  P |  |P |
+ -- -- --    -- -- --
+|. |P |.4|P |. |P | 3|
+ --    -- -- -- -- --
+|P  P |P  P  P |  |P |
+ -- -- -- -- --      
+|.2|P |.  .1|. |  |P |
+ -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001829 [s]
+
+Level 59
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|.  . |     |  |P |. |
+    -- -- -- -- --   
+|. |P2 P |P  P |. |.0|
+ -- -- --    -- -- --
+|P  P |. |P |.4|P |. |
+ --    -- -- -- --   
+|.2|P |P  P |P |  |. |
+    --    -- -- -- --
+|.0 .3|P |.3 . |P  P |
+ -- -- -- -- -- -- --
+|.2|P |  |P  P |P |.3|
+ --    -- -- -- -- --
+|P |P |. |P1|.3|P  P |
+ -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.002431 [s]
+
+Level 60
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P2 P |P |P3 P |.  .1|
+ -- -- -- -- -- -- --
+|P2|. |. |P |.3 . |P |
+ -- --       -- -- --
+|P |P |. |P |P  P |P2|
+    -- --    -- -- --
+|P |. |P |P |. |P2|.3|
+ -- --    --       --
+|     |P |.3|. |P |P |
+ -- -- -- --       --
+|  |. |P |P |. |P |. |
+       -- -- -- -- --
+|  |.  . |P2|P2 P  P1|
+ -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.002755 [s]
+
+Level 61
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P  P |P3|P2|P |     |
+    -- -- -- -- -- --
+|P |. |P |. |P2|.  . |
+ -- --          -- --
+|P3|P |P |. |P |  |  |
+ -- -- --    -- -- --
+|P2|.  . |. |P |  |P |
+ -- -- -- --         
+|P |P  P |P |P |  |P |
+    --    --    --   
+|P |. |P |.3|P |. |P |
+ -- -- -- -- --    --
+|.  .  .1|. |. |.0|. |
+ -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 6
+0.002336 [s]
+
+Level 62
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P |. |P |.3|P |.  . |
+    --    -- -- -- --
+|P2|P  P |P |P  P1|. |
+ -- -- -- --    --   
+|. |. |P |.4|P |. |. |
+ -- --    -- -- -- --
+|P2 P |P |P |P  P |. |
+    -- -- -- --      
+|P |.  . |P |.4|P |. |
+ --    --    -- -- --
+|  |. |P1|P |P |P  P2|
+ -- -- -- --    -- --
+|P  P |.2|. |P |. |P |
+ -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.002108 [s]
+
+Level 63
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P |P  P1|.3|P  P3|P |
+ -- -- -- -- -- -- --
+|.3|P |. |P |. |P |. |
+ --    -- --         
+|P |P |     |. |P |. |
+    -- -- -- -- -- --
+|P |.  . |     |     |
+ -- -- -- -- -- -- --
+|  |. |P |P |. |     |
+ --    --       -- --
+|  |. |.3|P |. |.  . |
+    -- -- -- -- -- --
+|     |P |P  P |P2|P1|
+ -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 5
+0.003137 [s]
+
+Level 64
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|.  .  . |P1|. |  |  |
+ -- -- --    --    --
+|P  P  P |P |. |  |P |
+ -- -- -- -- -- -- --
+|.3|P |.4|P3|P  P |.2|
+ -- -- -- -- -- --   
+|P |P  P  P |. |P |. |
+    -- -- -- --    --
+|P |.  . |  |P |P4|P |
+ -- -- --    -- -- --
+|. |P |. |  |. |P |. |
+ -- -- -- -- --    --
+|P  P3|P  P |. |P2 P |
+ -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.001931 [s]
+
+Level 65
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P |. |  |P  P  P |.1|
+    -- -- -- -- --   
+|P  P |P |.  . |.  .1|
+ -- --    -- -- -- --
+|P2|.3|P |P  P1|. |P |
+    -- -- -- -- -- --
+|P |.  . |P |.  . |  |
+ --    --    -- --   
+|P |. |P |P3 P |  |  |
+    --    -- -- --   
+|P2|P |P2|. |  |  |  |
+ -- -- -- --       --
+|.2|P1|. |     |     |
+ -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 6
+0.004189 [s]
+
+Level 66
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|. |.  . |P  P |     |
+ -- --    --    --   
+|P1 P |. |.3|P1|. |  |
+ -- -- -- -- -- -- --
+|. |P  P |P |. |  |  |
+ --    --    -- -- --
+|. |P |.4|P |  |  |  |
+ -- -- -- -- --    --
+|P  P  P1|. |P |     |
+ -- -- -- -- -- -- --
+|.3|P |. |P |.3 . |  |
+ --    -- -- -- --   
+|P |P  P |  |P  P |  |
+ -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.002022 [s]
+
+Level 67
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P |P |.  . |P |P  P |
+ --    -- -- -- -- --
+|.3|P |.3|P |.4|P |.3|
+ -- -- -- -- --    --
+|P |  |P |P  P |P |P |
+ --       -- -- -- --
+|  |  |P |.2|.  . |P2|
+ -- --       -- --   
+|.  . |P |. |P  P |P |
+ -- -- -- -- -- -- --
+|.1|P  P |  |  |  |  |
+    -- --            
+|.  . |  |  |  |  |  |
+ -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 5
+0.003405 [s]
+
+Level 68
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P2 P |  |  |. |P |. |
+ -- -- -- -- -- -- --
+|P |.  . |P |P  P3|P |
+ -- --       -- -- --
+|. |P |.3|P |.  . |. |
+ -- -- -- -- -- --   
+|P  P |P2|P |P |P |.1|
+ -- -- --    -- -- --
+|P |. |. |P |.4|P2|. |
+    -- -- -- --    --
+|P3|P  P |P |P  P |. |
+ -- -- --    -- --   
+|P |.  . |P1|. |.1 . |
+ -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.0027 [s]
+
+Level 69
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P  P |P  P |P  P |P2|
+    --    --    --   
+|P |.4|P |. |P |. |P |
+ -- -- -- -- --      
+|P |P  P  P |. |. |P |
+ -- -- -- -- -- -- --
+|.3|P |. |P3|P |P  P |
+ --    --    -- -- --
+|P  P |P |P3|.  .3|P |
+ -- -- -- --    -- --
+|.2|P |. |P |. |P |  |
+       -- -- --      
+|. |P |P2|P3 P |P |  |
+ -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.002322 [s]
+
+Level 70
+Sequence of moves: 
+ -- -- -- -- -- -- --
+|P |P  P |. |P  P2|P2|
+    -- --    -- -- --
+|P |. |P2|. |P |. |P |
+    -- -- -- -- --   
+|P |P  P3|P  P3|P |P |
+ -- -- -- -- -- -- --
+|.2|P |. |P |.4|P |. |
+    -- --    -- -- --
+|. |. |P |P  P |. |P |
+    --    -- -- --   
+|. |P  P3|. |P | 3|P |
+ -- -- --    -- -- --
+|.0 . |P |.  .2|P |  |
+ -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.002817 [s]
+
+Level 71
+Number of vertices examined: 5
+0.004344 [s]
+
+Level 72
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|  |  |     |  |. |P  P |
+    -- -- --    -- -- --
+|  |P  P |P |  |P  P |.3|
+ -- -- --    -- -- -- --
+|P |.3 . |P |  |.  . |P |
+ -- -- -- -- -- -- --   
+|. |P |.  .3|P  P |P  P |
+ --    -- -- -- -- -- --
+|P |P |P  P2|P |. |P |. |
+    --    --          --
+|P |. |P |.4|P |. |P  P1|
+ -- -- -- -- -- -- -- --
+|P2|P  P |P  P4|P  P |. |
+ -- -- -- -- -- -- -- --
+|.1 . |P1|.3|P1|. |P2 P |
+ -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.00534 [s]
+
+Level 73
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|     |P |P1|. |P |.3|P |
+ -- -- -- -- -- -- --   
+|. |P |.3 . |. |P  P |P |
+ --    -- -- -- -- -- --
+|P |P4|P  P |P  P |.3|. |
+ -- -- -- -- -- -- -- --
+|. |P |. |P |.4|P3|P |  |
+    -- -- -- --    -- --
+|.0 . |P |. |P |P |. |P |
+ -- --    --    -- -- --
+|. |P |P4 P |P3|. |P |.3|
+ -- -- -- -- -- -- -- --
+|.  . |P |.4|P2 P |P |P |
+ -- --    -- -- --    --
+|P | 2|P |P |. |. |P |.2|
+ -- -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.004506 [s]
+
+Level 74
+Number of vertices examined: 5
+0.004621 [s]
+
+Level 75
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P2 P |  |P | 3|P  P |  |
+ -- -- -- -- -- -- -- --
+|P |. |  |  |P |.  . |P |
+ -- --    -- -- -- -- --
+|     |  |  |. |P |.2 . |
+ -- -- --    -- -- -- --
+|. |     |  |P  P3 P |P |
+    -- -- -- -- -- -- --
+|. |P |P  P |. |.  . |P2|
+    -- -- -- -- -- -- --
+|.1|.  . |P3 P |P  P |P3|
+ -- -- -- -- -- -- -- --
+|P1|P |P  P |. |.  . |P |
+ --    -- -- -- -- -- --
+|. |P |. |  |P  P |.1|.1|
+ -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 6
+0.00539 [s]
+
+Level 76
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|.  . |.1 .  .0|.  . |P |
+ --    -- -- -- -- --   
+|P |. |P  P |. |P |P  P3|
+ -- -- -- -- --    -- --
+|P  P |. |P |P |P3|. |P |
+ --          -- -- --   
+|. |P |.2|P |.3|P  P |P |
+ -- --    --    -- --   
+|P  P2|. |P |. |P |.3|P |
+    -- -- --    -- -- --
+|P |. |P |. |.2|P |. |P |
+ -- -- --    -- --      
+|P  P |P3|. |P |  |. |P2|
+    --    --    -- -- --
+|P |.3|P |P |P2|. |P  P |
+ -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 8
+0.006049 [s]
+
+Level 77
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P |P | 2|P |P |.2|P  P |
+    -- -- -- --    -- --
+|P1|. |.  . |  |. |P |.3|
+ -- -- -- -- -- -- -- --
+|. |P  P2 P |  |     |P |
+    -- -- -- -- -- -- --
+|.  . |.  . |  |.  . |. |
+ -- -- -- -- -- -- -- --
+|  |        |P  P3|P |P2|
+ -- -- -- -- --    --   
+|P  P  P |.  . |P |. |P |
+ -- -- -- -- -- --    --
+|P |.4|P  P |P |.3 . |. |
+    -- -- --    -- -- --
+|P |P  P |. |P |P  P1|.1|
+ -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 7
+0.005307 [s]
+
+Level 78
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P  P |P |  |P  P |P2|.1|
+ -- --    -- -- -- --   
+|P |.4|P |.  . |. |P |. |
+ -- -- -- --    -- -- --
+|.3|P  P |P |.3|P1|.  . |
+ -- -- -- -- --    -- --
+|P  P2|. |P  P |P |     |
+ -- --       --    -- --
+|.  . |. |P |.4|P |. |P |
+ -- --    -- -- --      
+|P |P2|. |P  P |P |.3|P |
+ --    -- -- --    -- --
+|. |P |     |. |P |P |. |
+    -- -- -- -- -- -- --
+|.0|.  . |P  P |.3|P  P |
+ -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.003996 [s]
+
+Level 79
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P |P |.3|P |  |     |P |
+ -- -- -- -- -- -- --   
+|.2|P |P |        |  |P |
+    -- -- -- -- -- -- --
+|. |. |. |  |. |P  P |.3|
+ -- --          -- -- --
+|P2 P1|. |  |.  . |P  P |
+    -- -- -- -- -- -- --
+|P |. |  |  |  |     |. |
+ -- --    -- -- -- --   
+|P  P |  |  |  |P  P |. |
+ --    --    -- -- --   
+|. |P1|. |  |. |P |. |.1|
+    -- -- -- --    -- --
+|. |.  . |P  P |P3|P  P |
+ -- -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.002706 [s]
+
+Level 80
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P  P3 P |  |. |P |.  . |
+ -- -- -- -- -- -- -- --
+|. |P |. |  |P |P4 P |P |
+ -- -- -- -- --    --   
+|.  .1|. |  |. |P |.4|P |
+ -- -- -- -- -- -- -- --
+|P1|. |P |     |. |P1|. |
+    -- -- -- -- -- -- --
+|P  P |P |. |P |. |P  P |
+ -- --             -- --
+|. |. |P |.2|P |. |P |.3|
+    -- --    -- --    --
+|.2|P1|.3|. |P |P  P |P |
+ --    -- --    -- -- --
+|P |P |P  P |P |.3|P |. |
+ -- -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.003604 [s]
+
+Level 81
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P |.1 . |. |.1|.2|P  P1|
+ --    -- -- -- -- -- --
+|P2|. |P2 P  P |P  P |. |
+    -- -- -- -- -- -- --
+|P2|P2 P |. |  |. |P  P |
+ -- -- -- --    --    --
+|. |. |  |P |  |  |P |.3|
+    -- -- -- --    -- --
+|. |P |P |.4|P |  |  |P |
+ -- -- -- --    -- --   
+|P |P |. |P  P |     |P |
+ --       -- -- --    --
+|.3|P |.1|.  . |  |  |  |
+ -- --    -- --    --   
+|P  P |. |P  P |  |  |  |
+ -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.004613 [s]
+
+Level 82
+Number of vertices examined: 6
+0.005177 [s]
+
+Level 83
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|     |P |P |.1 . |. |.0|
+ -- -- --    -- -- --   
+|P |P |.4|P |. |P  P |. |
+ -- -- -- -- -- -- -- --
+| 2|. |P |P  P2|P |.4|P |
+ -- -- -- -- -- -- -- --
+|P |P |. |P1|. |  |P |P |
+ --    -- -- -- -- --   
+|.3|P |P |.4|P |  |. |P1|
+ -- -- -- -- --    -- --
+|P  P |. |P |. |  |  |. |
+ --    -- -- -- -- --   
+|. |P |P |P |P |. |P |. |
+    --    --       -- --
+|.  . |P |.3|P |. |P2 P |
+ -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 6
+0.004737 [s]
+
+Level 84
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|.  .1 . |.  . |.  .1|P |
+ -- -- --    -- -- -- --
+|.1|P |P |. |P |P |. |P |
+    --    -- -- -- -- --
+|.  . |P2 P |     |P | 3|
+ -- -- -- --    -- -- --
+|. |P |.  . |  |.  . |P |
+ -- -- -- -- -- -- --   
+|.1|P  P |  |P  P  P |P |
+    -- -- -- -- -- -- --
+|. |     |.  . |P2|. |P |
+ -- -- -- --       --   
+|P  P  P |P |. |P3|P2|P |
+ -- -- -- -- -- -- -- --
+|. |.1 . |     |P |.  .1|
+ -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 9
+0.00594 [s]
+
+Level 85
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P |     |     |P  P  P |
+ -- -- -- -- -- -- -- --
+|.2|P |. |P |  |P |. |P1|
+    -- --          -- --
+|.0|. |P  P |  |P  P |.3|
+ -- -- -- -- -- -- -- --
+|.2|P |.2|. |     |. |P |
+ --       -- -- -- --   
+|P  P |. |P |. |P  P |P |
+ -- -- --    --    -- --
+|  |     |P  P |P |.4|P |
+    -- -- -- -- -- -- --
+|  |  |     |  |  |P  P |
+ --       --    -- -- --
+|     |  |  |  |        |
+ -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.00309 [s]
+
+Level 86
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|.  .  .2|P1 P  P2|. |.0|
+ -- -- -- -- -- -- --   
+|     |P |. |. |P |P |. |
+ --    -- --    -- -- --
+|. |  |  |P |. |  |.  . |
+    -- -- -- -- -- --   
+|.1|P  P |  |P  P  P |.2|
+ --    -- -- -- -- -- --
+|. |P |.  . |.  .3|P  P |
+ -- -- -- -- -- --    --
+|. |P3|P2 P |  |P |P |. |
+ --    -- -- -- -- -- --
+|P2|P |.  . |  |  |.  .1|
+    -- -- --       -- --
+|P |. |P1 P |  |     |P |
+ -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 6
+0.004468 [s]
+
+Level 87
+Number of vertices examined: 5
+0.005216 [s]
+
+Level 88
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|. |P  P |P  P2|P  P1|. |
+    --    -- -- -- --   
+|.  . |P |.  .  . |. |. |
+ -- -- -- -- -- -- --   
+|P |P2 P  P1|. |P  P |. |
+    -- -- -- -- -- -- --
+|P |. |P |.3 . |  |     |
+ -- --    -- -- -- -- --
+|P |P  P |P  P |P  P |P |
+    -- -- -- --    --   
+|P |.2|.2 . |. |P |.4|P2|
+       -- --    -- -- --
+|P1|. |P  P |. |P  P |P |
+ --    --    -- -- --   
+|. |. |. |P |     |. |P |
+ -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 6
+0.004461 [s]
+
+Level 89
+Number of vertices examined: 4
+0.004423 [s]
+
+Level 90
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P |P |P |. |.1|P |P |P |
+ --    -- --    --    --
+|.2|P |.4|P |. |. |P |.3|
+    -- -- -- -- -- -- --
+|. |P |P  P |.2|P  P |P1|
+       --       -- -- --
+|.1|P |.4|P |.  . |P |. |
+ -- -- -- -- -- -- -- --
+|. |  |P |. |P1 P |P3 P |
+    -- -- -- -- -- -- --
+|. |  |. |P |. |  |. |P |
+ -- -- -- -- -- --    --
+|P2 P  P3|P3|P  P |.  .2|
+ -- -- -- -- -- -- -- --
+|P |. |P |. |.2|P  P |P |
+ -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 7
+0.006128 [s]
+
+Level 91
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+| 2|P  P |.3|P |. |.  .0|
+ -- -- -- --       -- --
+|P | 3|. |P |P |. |P |.2|
+ -- -- -- -- -- --    --
+|. |P |P |. |  |P  P |P |
+       -- -- -- -- -- --
+|. |P |. |.2|P |. |P |. |
+ -- -- -- --    --    --
+|P |P3|P3 P |P4|P  P4|P |
+    -- -- -- -- -- -- --
+|P |. |P |. |P2|. |P |. |
+ -- --    -- --    -- --
+|P |. |P |P  P |. |P  P |
+       -- -- --    -- --
+|P |.1|.1 .2|P |. |P |.2|
+ -- -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.004474 [s]
+
+Level 92
+Number of vertices examined: 1
+0.001076 [s]
+
+Level 93
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|P  P | 3|P  P2|. |P |. |
+ -- -- -- -- --       --
+|.1 . |P |. |P |. |P3|P |
+ -- -- -- --    -- -- --
+|. |P |  |P  P3|P  P |. |
+ -- -- -- -- -- -- -- --
+|P |.  . |. |.2|. |     |
+    -- -- -- -- -- -- --
+|P2 P |  |  |P |     |  |
+ -- -- -- -- -- -- -- --
+|.2|.2|.  . |  |  |P |. |
+ -- -- -- -- -- -- -- --
+|P  P |P |P2 P |. |. |.0|
+ -- -- -- -- -- -- --   
+|P1|.2|. |.2|P  P |P |. |
+ -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 9
+0.007816 [s]
+
+Level 94
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|. |P |P  P |P  P  P3|P |
+    -- -- -- -- -- -- --
+|.  . |.2|P |.  . |P |. |
+ -- -- -- -- -- -- -- --
+|.2|P |. |     |  |P  P2|
+ -- -- -- -- -- -- -- --
+|P  P4|P |P  P |P |. |P1|
+ -- -- --    --    -- --
+|. |P |. |P |.4|P |P |. |
+ -- -- -- -- -- --    --
+|P  P |. |  |P |. |P |.1|
+ -- -- -- -- -- -- --   
+|.3|P  P |P |. |P |P |.1|
+ -- -- -- --    -- -- --
+|P  P |.3|P1|.1|. |P |.1|
+ -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.004809 [s]
+
+Level 95
+Number of vertices examined: 1
+3.9e-05 [s]
+
+Level 96
+Number of vertices examined: 1
+0.003067 [s]
+
+Level 97
+Number of vertices examined: 6
+0.003497 [s]
+
+Level 98
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|.0 . |P |P3|P2 P |  |P |
+ -- -- -- -- -- -- -- --
+|. |P |. |P |. |. |P |.2|
+ -- -- -- -- -- -- --   
+|P |  |P |P  P2|P  P |. |
+ -- -- -- -- -- -- -- --
+|.3|P |.4|P |.  . |P  P1|
+ --    --    --    -- --
+|P |P |P |P |P |. |. |.2|
+    --    --    -- -- --
+|P |. |P |. |P |P | 2|P |
+ -- -- --    -- -- --   
+|.3|P |  |. |P |.3|. |P1|
+ --    -- -- -- -- -- --
+|P  P |        |P  P |.2|
+ -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 5
+0.005158 [s]
+
+Level 99
+Sequence of moves: 
+ -- -- -- -- -- -- -- --
+|. | 2|P |     |P |.1 .1|
+ -- -- -- -- -- -- -- --
+|. |P |.4|P |  |.  . |P |
+    -- -- -- -- -- --   
+|. |P  P |. |P |P |P3|P2|
+ -- -- --    -- --    --
+|P  P |. |. |P2|. |P2|. |
+ --    -- -- -- -- -- --
+|.2|P |P  P |P3 P |P2|.2|
+    -- -- -- -- -- -- --
+|.1|P |.3 . |. |  |. |P |
+ -- -- -- -- -- -- -- --
+|.1|P  P |P |. |P |P  P3|
+    -- -- --       -- --
+|. |.  . |P |.2|P |. |P |
+ -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 9
+0.008594 [s]
+
+Level 100
+Number of vertices examined: 4
+0.004739 [s]
+
+Level 101
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|.1|P1|.2 .  . |P |     |  |
+ -- -- -- -- --    -- -- --
+|. |P  P  P | 2|P |. |P |  |
+    -- -- -- -- --       --
+|. |P |.  . |.  . |. |P |  |
+ -- --    -- -- -- -- -- --
+|P |. |. |P |P2 P |.1|.3|P |
+    -- -- -- -- -- -- --   
+|P3 P |P3 P |.2 . |. |P |P |
+ -- -- -- -- -- -- -- -- --
+|P |. |P |.2|. |P  P |  |  |
+    --       -- -- --    --
+|P |  |P |. |P |     |  |  |
+ -- -- -- --    -- -- -- --
+|P |. |P2 P |P |.  . |P  P |
+    -- -- -- -- -- -- --   
+|P2|P |.  . |P2 P |P |.3|P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 14
+0.013101 [s]
+
+Level 102
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|.2|P |P |. |P |P2 P |P2 P |
+ -- --          -- -- -- --
+|P1|. |P |.3|P |. |  |. |  |
+ -- --    -- -- --    --   
+|P  P |P4|P  P  P |  |     |
+ -- -- -- -- -- --    -- --
+|P |.3|P |.3|P |. |  |. |. |
+    --    --       -- --   
+|P1|. |P |. |P2|. |P  P1|. |
+ --    -- -- --    -- -- --
+|.  .1|. |P  P |. |.  .2|P |
+ -- -- -- -- -- -- -- --   
+|P  P  P |.4|P  P |P2|. |P |
+ -- -- -- -- -- --    -- --
+|P |. |P  P | 3|. |P |P  P |
+ -- --    -- -- -- -- --   
+|.1 . |P1|. |P |.  .  .2|P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.00789 [s]
+
+Level 103
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P2|P |.3|P |. |P |. |P |. |
+    -- -- -- -- -- -- -- --
+|P |. |P |P  P |P4 P  P3|P2|
+ -- --    -- -- -- -- --   
+|  |  |P |.  . |P |.  . |P1|
+ -- -- -- -- -- --    -- --
+|P |        |  |  |. |P |.2|
+    -- -- --       --    --
+|P |.  . |  |  |     |P |. |
+ -- -- --    -- -- -- -- --
+|P2|P3|P |  |  |  |. |P2|. |
+ --    -- -- --          --
+|.2|P |.4|P  P |  |. |P |. |
+ -- -- -- -- -- -- -- --   
+|.  . |P  P |. |P  P |P |.1|
+ -- -- -- -- -- -- -- --   
+|P1|P2|P |.  . |.  .1|. |. |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 6
+0.00706 [s]
+
+Level 104
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P  P |P1|. |P1|.2 . |. |.0|
+ -- -- -- -- -- --    --   
+|.3|P |.4|P |P |P |. |P |. |
+ --    --    -- -- --    --
+|P |P  P |P |. |P  P2|P4|P |
+ -- -- --    --    --    --
+|.2|. |. |P |. |P2|. |P |. |
+ -- -- -- --    -- -- --   
+|P2 P |  |. |. |P |  |.  .1|
+ -- -- --    -- --    -- --
+|P |.4|P |. |P  P |  |P  P1|
+ -- --    -- -- -- -- -- --
+|. |P1|P |P |P |. |     |. |
+ -- -- -- --    -- -- --   
+|.  . |P |.4|P |  |     |. |
+ -- -- -- -- --    -- --   
+|. |P1 P3 P |  |  |     |. |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.007156 [s]
+
+Level 105
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|.2|P |P  P | 2|P |.  .  .0|
+ --    --    -- -- -- -- --
+|P |P |. |P1|.  . |P  P |. |
+ --    -- -- -- --    --   
+|.2|P |P |. |P |. |P |. |. |
+    -- --       -- -- -- --
+|.1|P |. |.2|P |P  P |P2|. |
+ --    -- --    -- -- -- --
+|. |P |P  P |P |. |.2|P  P1|
+    -- -- -- -- --       --
+|.  . |  |  |  |P |. |P |. |
+ -- -- -- --       -- -- --
+|  |     |  |  |P |P  P  P |
+    -- -- -- --    -- -- --
+|  |P  P |  |  |P |.2|. |  |
+ -- --    --    --    -- --
+|P |.3|P |  |  |  |. |P  P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.00771 [s]
+
+Level 106
+Number of vertices examined: 7
+0.013284 [s]
+
+Level 107
+Number of vertices examined: 1
+0.002752 [s]
+
+Level 108
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P2 P |. |. |P1 P |.3|P2 P |
+ -- --    -- -- -- -- -- --
+|P2|.  .1|P |. |  |P |P |.3|
+    -- -- -- --    -- -- --
+|P |P |. |P  P |  |. |P  P1|
+ --          -- --    -- --
+|.3|P |. |P1|. |  |.  . |. |
+ -- -- -- -- -- -- -- -- --
+|P  P |.  . |  |     |     |
+    -- -- -- -- --    -- --
+|P |. |P |. |     |  |. |P |
+ -- -- -- -- -- -- -- --   
+|P  P |P3|P  P |P  P |P3|P2|
+ -- -- -- -- --    --    --
+|.2|P |.4|P |. |P |.4|P1|. |
+       -- -- -- -- -- -- --
+|. |P  P1|. |P1 P  P |.  . |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.007287 [s]
+
+Level 109
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P1|.  .2|P |. |P1|. |P |P |
+    -- --    --    --    --
+|P |P |P  P4|P  P4|P  P |.2|
+ -- -- -- -- -- -- -- -- --
+|P |.2 . |P |.4|P |. |. |.0|
+ --    -- -- -- -- -- --   
+|P |. |P  P |P |. |P1 P |. |
+    -- -- -- -- -- -- -- --
+|P  P |.  . |P |.2 . |P |P1|
+ -- -- -- --    -- --    --
+|P |.  . |P  P |P |P |P3|.3|
+ -- -- -- -- --    -- -- --
+|P3 P2|P  P3|. |P |.3|P |P |
+ -- -- -- -- -- -- -- -- --
+|P |.  . |P  P |.3|.  . |P2|
+ -- --    -- -- --    --   
+|P  P |. |. |P  P |. |P |P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 1
+Number of vertices examined: 2
+0.007686 [s]
+
+Level 110
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|.1 . |P1 P  P |P |.3|P |. |
+ -- -- -- -- --    --      
+|P  P |. |.2 . |P |P  P3|. |
+ --    -- --       -- -- --
+|. |P3|P  P |. |P2|.4|P  P |
+ -- -- -- -- -- -- --    --
+|. |P2|. |P3|P  P |P |P |. |
+ -- -- --    -- -- -- --   
+|P  P |P  P |.4|P |. |P |. |
+ --    -- -- -- -- --    --
+|. |P |. |P  P3 P |P  P |P |
+ -- -- -- -- -- -- -- --   
+|P2|P |P2|.3|P |.3 .  .3|P |
+    -- --       -- -- -- --
+|P |.3|P |. |P |P2 P  P |. |
+ --       --    -- -- -- --
+|.  . |P2 P |P |.  . |.  .0|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.008047 [s]
+
+Level 111
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|.2|P2|P |P  P |.2|.  .  . |
+ -- -- -- -- -- -- -- -- --
+|P  P |.  . |P3 P |P |P  P2|
+ --    -- -- -- --    -- --
+|. |P |. |P |P |.3|P |. |P |
+ -- -- --    -- -- --      
+|P  P3|P  P |. |.  . |. |P |
+ -- -- -- -- -- -- -- -- --
+|.  .  . |  |P  P3|P |     |
+ -- -- -- -- -- -- -- -- --
+|P1|. |P |P |. |P |.  . |P |
+ -- -- -- -- -- -- -- --   
+|P |.  . | 3|P |P  P |. |P1|
+    -- -- -- -- -- --    --
+|P2|P |  |P |  |  |  |.  .1|
+ -- --       --       -- --
+|.2|P |  |P |     |  |P |. |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 6
+0.0077 [s]
+
+Level 112
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|.1|P |  |P |P2 P  P |P |P2|
+ -- --       -- -- -- --   
+|.2|P |  |P |. |P |.  . |P |
+ --    -- --       -- -- --
+|P  P |. |P |.2|P3|P  P |P |
+ -- -- -- -- -- -- -- --   
+|. | 2|P  P |. |P |. |.3|P |
+ -- -- -- --          -- --
+|P |. |  |.  . |P |. |P |  |
+    --    -- -- -- -- -- --
+|P2|P |  |     |     |     |
+ -- -- -- -- -- --    --   
+|. |  |. |P |. |  |  |  |  |
+ --             -- -- -- --
+|     |. |P1|. |     |P |. |
+ -- -- -- -- --    -- -- --
+|        |.  . |  |.  .  .0|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 8
+0.007451 [s]
+
+Level 113
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|     |  |. |P |. |. |.  . |
+    --    --       -- -- --
+|  |     |P |P |. |P2 P |.1|
+ -- -- -- -- -- -- -- --   
+|. |P |. |P2|.  . |P |.  . |
+ --    -- -- -- --    -- --
+|P  P |P |P4|P  P |P3|P3|P |
+ -- -- --    --    --    --
+|. |P1|. |P |. |P |. |P |. |
+    --       -- -- -- -- --
+|.  . |. |P |     |P  P  P |
+ -- --    -- -- -- -- -- --
+|P  P |. |P |.  . |.  .3|P |
+ -- -- --       -- -- -- --
+|  |  |. |P |.3|P  P |P |P |
+ --    -- -- --    -- --   
+|     |P  P |P2|P |.  .2|P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 6
+0.006008 [s]
+
+Level 114
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|.2|P |. |P |P |.3|P |.  . |
+ -- -- -- --    -- -- --   
+|P  P |P |.4|P  P3|P  P |. |
+ -- -- -- -- -- -- -- -- --
+|  |     |P |. |P |.  . |. |
+    -- --    --    -- -- --
+|  |  |. |P2|P |P |P |P3 P1|
+ -- -- -- -- --    -- -- --
+|  |  |.  . |. |P |. |P |. |
+ -- -- -- -- -- -- --    --
+|. |P |. |P |P |P  P |P  P |
+ --    -- --    -- -- -- --
+|P |P  P |. |P |.  .3|P |. |
+    -- --       -- --    --
+|P |. |P1|. |P |P  P2|P |  |
+ -- -- -- -- -- -- -- --   
+|.1 . |. |P  P2|.  . |     |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 8
+0.007765 [s]
+
+Level 115
+Number of vertices examined: 9
+0.008146 [s]
+
+Level 116
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P |. |P |P |P  P  P1|.2 . |
+    --    -- -- -- -- -- --
+|P |P |P |.3|.2 .  . |P  P1|
+ -- -- -- -- -- -- -- -- --
+|P1|.3|P |P  P |P3|P |  |. |
+ --       -- --    -- -- --
+|. |. |P |.  . |P |. |P |P |
+ -- -- -- -- -- -- --    --
+|. |P |P3|P  P  P |P  P |.2|
+    -- -- -- -- -- -- -- --
+|.1|P |.3 . |. |  |  |.  . |
+ --    -- --    --    -- --
+|. |P |P |P |. |P |     |P |
+ -- -- -- -- -- -- -- --   
+|P |. |.3|P |P1|.4|P |. |P1|
+    -- --    -- --       --
+|P |P2 P |P2|. |P1|P |. |. |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 9
+0.012141 [s]
+
+Level 117
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|     |  |  |P  P3|P |. |P |
+ -- -- -- -- -- -- -- --   
+|P |. |P  P |.4|P |. |P2|P2|
+ -- -- -- -- -- -- -- -- --
+|.3|P1|. |P |P  P |. |P |. |
+ -- -- --    -- -- -- -- --
+|P  P  P3|P2|. |P  P  P |P |
+ -- -- -- -- -- -- -- -- --
+|P2|. |P |.3|. |.  . |P |.3|
+ -- -- -- -- -- -- --    --
+|P2|P |P  P  P |P  P |P |P |
+ -- -- -- -- -- -- -- --   
+|. |P |. |. |P |.3|.  . |P |
+ --    -- -- -- -- -- -- --
+|P |P |.3|P |  |P  P |P  P3|
+ --    --       --    -- --
+|.2|P |P |P |  |. |P |. |P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.007249 [s]
+
+Level 118
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P2 P |P  P2|.3|P |P  P |. |
+    -- -- -- --    -- -- --
+|P |. |. |P |P |P |.4|P  P |
+ -- -- --    -- -- --    --
+|  |     |P |. |P  P |P |.3|
+ -- -- --    -- -- -- -- --
+|P |P |  |P |     |  |  |P |
+ --    -- -- -- -- -- -- --
+|.3|P |     |  |. |P  P |  |
+ -- --    -- -- -- -- --   
+|P |P |  |P  P |.2 . |  |  |
+ --    -- -- -- -- --    --
+|.3|P |.  . |.2|P  P |     |
+ -- -- -- --    -- -- -- --
+|P |     |P |. |. |P |. |  |
+    --       --    --      
+|P |  |  |P  P |. | 1|. |  |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.006256 [s]
+
+Level 119
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|     |.  .2|P |.  . |P |.2|
+    -- -- --    -- --    --
+|  |P  P  P |P  P |  |P |P |
+ -- -- -- -- -- -- --    --
+|     |. |P |.  . |. |P |. |
+ -- -- --    -- -- -- -- --
+|     |P  P |P1|. |P  P |P2|
+ -- -- -- -- -- -- -- -- --
+|P  P |.3|.  .3|P |. |. |P2|
+ -- -- -- -- -- -- --    --
+|. |P  P |P |P  P  P |. |P |
+       -- -- -- -- -- -- --
+|. |P |. |P2|. |P |.4|P  P |
+ -- -- --    -- -- -- -- --
+|P1 P  P |P |P  P |P |  |  |
+ -- -- --    -- -- -- --   
+|.1|.  . |P1|.2 .  .2|P |  |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.006971 [s]
+
+Level 120
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|  |P |.  . |P |. |P |. |P |
+    -- -- --    --    -- --
+|  |.  . |P |P  P |P  P | 3|
+ -- -- --    -- -- -- -- --
+|     |P |P3|.4|P |. |. |P |
+ -- -- -- -- --    -- --   
+|P |. |. |P  P |P3|P |P  P |
+ -- --    -- -- --    -- --
+|P2 P |. |P |. |. |P |. | 2|
+ --    --    --    -- -- --
+|. |P |. |P  P |. |P  P |P |
+ -- --    -- --    -- -- --
+|P1|.3|.  . |P2|.2|P |.3|P |
+    -- -- --    --       --
+|P |P  P |  |P |. |P |. | 2|
+ --    --    --    --    --
+|. |P |. |     |. |P |.2|P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 13
+0.010846 [s]
+
+Level 121
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P |  |P  P2|.3|P |P | 3|P |
+ -- -- -- -- -- -- -- -- --
+|.2|. |.3|P |P |P |.3|P |. |
+ -- -- -- -- --    --      
+|P2|P |P2|P3|. |P |. |P |. |
+    -- -- -- -- -- -- -- --
+|P1|.  . |P |P |P |. |.2|.0|
+ -- -- --    -- --    --   
+|.3|P |. |P |.4|P2|. |P |. |
+ -- -- -- -- -- -- -- -- --
+|P |  |P  P |P |P |  |  |  |
+ -- -- -- -- -- -- -- -- --
+|. |. |P |.4|P |. |P |. |P |
+ -- -- -- -- --    -- --   
+|P2 P |P  P |  |. |.2|P2|P |
+ -- -- -- -- -- -- -- -- --
+|P |.3|P |. |P |P1|. |P1|.2|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.011569 [s]
+
+Level 122
+Number of vertices examined: 1
+0.000461 [s]
+
+Level 123
+Number of vertices examined: 1
+0.002282 [s]
+
+Level 124
+Number of vertices examined: 3
+0.006348 [s]
+
+Level 125
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|  |P |.  . |. |P |. |P |P |
+ -- -- -- -- -- -- --    --
+|P |.3|P2 P  P |P4 P |P |.3|
+ -- -- -- -- --    -- -- --
+|  |. |P |.2 . |P |. |P |P |
+    -- -- -- -- -- --    --
+|  |     |. |P | 2|. |P |. |
+ -- -- -- -- -- -- -- --   
+|  |.  . |P1|.  . |P |.3|.1|
+ -- -- --    -- -- -- -- --
+|  |P  P |P  P |. | 2|P  P1|
+    --    -- -- -- --    --
+|  |. |P |. |P |P |. |P |. |
+ -- -- --    --    -- -- --
+|. |P |P2|.2|. |P |P2|P  P2|
+    -- -- -- -- -- -- -- --
+|.0|. |.2|P |P  P |.2|. |P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 8
+0.008111 [s]
+
+Level 126
+Number of vertices examined: 5
+0.009796 [s]
+
+Level 127
+Number of vertices examined: 3
+0.008571 [s]
+
+Level 128
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P  P |P3|P2 P  P |P2|. |  |
+ -- -- -- -- -- --         
+|. |.2|P2|. |P |.3|P2|. |  |
+ -- -- -- --    -- -- -- --
+|P |. |P |. |P |. |P |P |P |
+ -- -- -- -- -- -- -- --   
+|  |  |  |P  P |P  P |.4|P |
+ --    -- -- -- --    -- --
+|. |  |.  .3|P |. |P |P  P |
+ -- -- -- -- -- -- -- -- --
+|P1|. |P |P  P4|P  P2|. |P2|
+ -- --    --    -- -- -- --
+|P3|P  P |. |P |. |. |P |P3|
+    -- -- -- -- -- -- -- --
+|P |.4|P |. |P | 3|P |. |P1|
+    -- -- -- -- -- -- -- --
+|P |P |. |.0 . |P |     |. |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.009032 [s]
+
+Level 129
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P |. |P |P |P |. |. |P  P2|
+          -- -- -- -- -- --
+|P |.3|P |.3|P3|P  P2|. |P |
+ -- -- --    -- -- -- -- --
+|P |P |P3|.2|P |. |P2|.2|P |
+    -- -- -- --    --      
+|P |.4|P |. |P |.3|P1|. |P |
+    -- -- -- -- -- -- -- --
+|P |P |P3 P3|P |P |. |P  P2|
+ --    -- -- -- --    -- --
+|. |P |. |P |. |. |. |P |.2|
+ -- -- -- -- --    --      
+|     |P |P3|P |. |  |P |. |
+ -- -- -- --    -- -- -- --
+|  |. |P1|.4|P |P  P |  |P |
+    -- -- -- -- -- -- -- --
+|  |.  . |P |P2|.2|. |P | 2|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.009902 [s]
+
+Level 130
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|.0 . |. |P |. |P |P2 P  P |
+    -- --    -- -- -- -- --
+|. |P  P |P |P |P2|. |P |.2|
+ -- -- -- --    -- -- -- --
+|.  . |P |.3|P |.4|P |.  . |
+ -- --       -- -- -- -- --
+|. |P1|P |. |  |P  P |.3|P |
+ -- -- -- --    -- -- -- --
+|P |. |  |. |  |  |  |P |P3|
+ -- -- --    -- -- -- --   
+|P2|. |P |. |P  P |.  . |P |
+    -- -- -- -- -- -- -- --
+|P |P  P4|P |. |.3|P |     |
+ -- -- -- -- -- -- -- -- --
+|P1|. |P |. |P1|P  P |. |  |
+ -- -- -- -- -- -- -- -- --
+|.2|P |P  P |.3|P |. |P1 P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 6
+0.008642 [s]
+
+Level 131
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P  P3|P |P |.2|P1|. |. |P |
+ --    -- -- -- -- -- --   
+|. |P |. |P |.2|P | 2|P |P |
+ -- --          -- --    --
+|P  P |.3|P |. |P1|. |P |.3|
+ -- -- -- -- -- -- -- -- --
+|. |P  P2|P |P |.4|P |  |P |
+ -- -- --    -- -- -- -- --
+|P  P |. |P |. |P |.2 . |  |
+    -- -- -- -- -- -- -- --
+|P |.4|P2 P |P  P |. |P |  |
+ -- --    -- -- -- -- -- --
+|P |P |P |.  .2|P |P  P |. |
+ -- -- -- -- -- -- -- -- --
+|.2|P |. |P |. |P |.4|P  P |
+ -- -- -- -- --    -- -- --
+|.0 . |. | 2|P |P |P  P |.2|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.008819 [s]
+
+Level 132
+Number of vertices examined: 6
+0.00795 [s]
+
+Level 133
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P2|P2 P |.3|P |P |P3|P |P |
+ -- -- -- --    --    --   
+|P |. |P |P |P |. |P |. |P |
+ --       -- --    -- -- --
+|P |.3|P |.3 . |.2|P |. |P2|
+    -- -- -- -- --    -- --
+|P3|P |P |P |P |P2|P  P |P3|
+ -- --    -- -- -- -- --   
+|P1|. |P |.3|P |.2 . |. |P |
+ -- -- --    -- -- -- -- --
+|. |P |P3|. |P |. |P |. |P1|
+ -- -- -- --    -- -- -- --
+|P |. |P3|P |P |P |P3|. |. |
+ -- --    -- -- --    -- --
+| 3|P |P |. |.2|. |P |P  P |
+ -- -- --    -- -- -- -- --
+|P |  |.  . |P1 P |P |.3|P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.010375 [s]
+
+Level 134
+Number of vertices examined: 1
+0.00053 [s]
+
+Level 135
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|.  . |.0|. |        |P  P |
+ -- --    -- -- -- -- -- --
+|P  P |. |P  P |  |  |P |.2|
+ -- -- --    -- --         
+|  |  |  |P |. |  |  |P |. |
+ -- --    -- --    -- -- --
+|  |     |  |  |  |P |. |P1|
+    -- -- --    --         
+|  |P |     |  |  |P |. |P |
+ --    -- -- -- -- -- -- --
+|. |P2|. |P |. |P |.4|P  P |
+ -- -- --    -- -- -- -- --
+|P2|P |P |P3 P |P  P |.4|P |
+ -- -- -- -- -- -- -- --   
+|P2|. | 2|. |. |. |  |P  P |
+ --    -- -- --    -- -- --
+|P |.2|P  P2|P1|. |  |  |  |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 9
+0.012717 [s]
+
+Level 136
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|. | 2|P |. |P |. |P |P  P |
+ -- -- -- -- -- -- -- --   
+|. |P |.3|P |P4|P |.2|. |P |
+ -- -- -- --    --    -- --
+|.2|P |.2 . |P |.  . |P | 2|
+ --    -- -- -- -- -- -- --
+|P |P3|P |P  P |P |P  P2|. |
+    -- -- --    --    -- --
+|P |.3|P |. |P |.4|P |.4|P |
+ --    -- -- -- -- -- -- --
+|P |.3|P  P |  |P |  |P |  |
+ -- -- -- --    -- -- -- --
+|  |P |.  . |  |  |P |. |P |
+    -- -- -- -- -- -- --   
+|  |. |P1 P |P  P |.3|P |P3|
+ -- -- -- --    -- -- -- --
+|  |P |.2|. |P |.  .0 . |P |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 7
+0.011179 [s]
+
+Level 137
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|P1|P |P3 P |P3|P |P  P |P |
+ -- -- -- --    -- -- -- --
+|.2|. |P |. |P |. |.2 .2|.2|
+ -- --    -- -- -- -- -- --
+|P | 2|P |     |P |P2|P |P |
+ -- -- -- -- -- -- --    --
+|.  . |. |. |P |.  . |P2|.3|
+ -- -- -- -- -- -- -- -- --
+|P |P | 2|P |P3|P3|P |P |P |
+ -- -- --    -- -- --    --
+|.2|.  . |P |. |P |. |P |.3|
+ -- -- -- -- --          --
+|P1|P |P  P4|P |P |. |P2|P |
+ -- -- -- -- -- -- -- -- --
+|.3|P2|. |P |.3|P |.2|. |P |
+ --    -- -- --    -- -- --
+|P  P3|P2 P |. |P |P1|.1|. |
+ -- -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.010964 [s]
+
+Level 138
+Number of vertices examined: 5
+0.008654 [s]
+
+Level 139
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- --
+|.2|P1 P | 3|P |. |P  P |. |
+ -- -- -- -- -- -- -- --   
+|P |. |. |P |. |P1|.4|P |.1|
+ -- -- -- -- -- -- --    --
+|P |P  P  P |. |P |P  P |. |
+ -- -- -- -- --    -- -- --
+|P2|.3|. |P  P |P |.4|P |. |
+    -- -- -- -- -- -- -- --
+|P |P  P |P2|. |P  P |. |.0|
+ -- -- -- -- -- -- -- --   
+|. |. |P2|.4|P  P2|. |P |. |
+ -- -- -- -- -- -- --    --
+| 2|P  P |P |. |.2 . |P |. |
+ -- -- -- -- -- -- -- -- --
+|P |.  .2|P |P  P |P |P |P1|
+ -- -- -- -- -- -- -- -- --
+|P  P |. |.2|P1|.2|.1|.  .1|
+ -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 13
+0.016504 [s]
+
+Level 140
+Number of vertices examined: 1
+0.000979 [s]
+
+Level 141
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|.2|P |P1|.2|P |P |P3 P |P3|P |
+ -- -- -- -- -- -- -- --    --
+|P  P |.2|. |.2|.3|P |. |P |. |
+ -- -- -- -- -- -- --    -- --
+|. |  |. |P  P |P | 3|. |  |  |
+    -- --    -- -- -- -- -- --
+|. |P  P |P |. |  |P |. |P |P |
+ -- -- -- --    -- -- -- --   
+|P  P |.4|P2|. |  |P |P |.3|P |
+ -- -- -- -- -- -- -- -- -- --
+|. |P |P |P  P1|.  .3|P |. |P |
+    -- -- -- -- -- --    --   
+|.0 . |. |P |.3|P  P |P2|.3|P |
+ -- -- -- -- -- -- -- -- -- --
+|. |P |P  P |. |.2|. |. |P |.3|
+ -- -- -- -- -- -- -- -- -- --
+|.2|P |.4|P |P3|P2|P3 P |P |P |
+ --    -- -- -- -- -- -- --   
+|P |P |P1|. |P |. |P |. |.2|P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.01654 [s]
+
+Level 142
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|P1|. |P |P  P  P |.3|P  P |P |
+ -- -- -- -- -- -- -- -- --   
+|P2|. |.3|P |. |P |P |  |. |P |
+ --    -- -- --    --    -- --
+|P2|. |P  P |P |P2|. |  |P |.3|
+ -- -- -- --    -- -- -- -- --
+|P |P |P |.3|P |. |P1 P |. |P1|
+ -- -- --    --    --    -- --
+|P |.3|P |. |P |.2|. |P |P |P3|
+       -- --    -- -- -- --   
+|P1|. |  |P |P3|P |P  P |. |P |
+ -- -- -- -- --    -- -- -- --
+|.3|P |  |.  . |P |. |P3 P |P |
+ -- -- -- -- -- -- -- -- --   
+|P  P |. |P |     |P  P |. |P2|
+ -- -- --    -- -- -- --    --
+| 2|. | 2|P |.  . |  |.  . |P |
+ --    -- --    -- -- -- -- --
+|P |.2|P |. |.1|P1|P  P |.  .1|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 16
+0.023768 [s]
+
+Level 143
+Number of vertices examined: 4
+0.009945 [s]
+
+Level 144
+Number of vertices examined: 46
+0.071342 [s]
+
+Level 145
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|. |.1 . |P1|P |.  .1|P |P |. |
+    -- -- --    -- -- -- -- --
+|. |P |. |. |P  P2|. |  |.  .1|
+ --    -- -- -- --    -- -- --
+|. |P |.3|P |. |P |. |P  P |P2|
+ -- -- --    --    -- -- --   
+|P |P  P |P3|. |P |P  P |.4|P |
+    -- -- -- -- -- -- -- -- --
+|P |.3 . |P |P |P |. |  |P |  |
+ -- -- --    --    -- -- --   
+|P  P |  |P |.4|P |P  P |     |
+    --    -- -- -- -- -- -- --
+|P1|. |  |  |P |. |P |.4|P |. |
+ -- -- -- -- -- -- -- -- -- --
+|. |P |P |. |  |     |P  P |P |
+    -- --    -- -- -- -- --   
+|. | 2|. |.2|P |. |P |. |. |P2|
+    --    --    -- --    -- --
+|. |P |. |P  P3|P  P2|. |P1 P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 6
+0.011037 [s]
+
+Level 146
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|. |.0|.  . |P |.3|P |. |P  P |
+ --    -- -- -- -- -- -- -- --
+|P |. |P |  |P  P |  |P  P3|. |
+ -- -- -- -- -- -- -- -- --   
+|P  P |.  .  . |  |P |. |P |. |
+ -- -- -- -- -- --    --    --
+|P |.4|P1|. |P |  |P |P |P |P |
+ -- -- -- --    -- --    --   
+|P |P |P  P |P3|. |.2|P |. |P2|
+    -- -- -- -- --    -- -- --
+|P2|. |P |. |P  P1|. |  |  |P |
+ -- --    -- -- -- -- --    --
+|P |P |P4|P  P |. |P |. |  |P |
+ -- -- -- -- -- -- -- -- -- --
+|.  . |P |.  . |P  P3 P |P | 3|
+ -- --    -- -- -- -- -- -- --
+|     |P |P  P |.  . |P |. |P |
+ --    -- -- -- -- --    -- --
+|  |  |. |P |.3|P  P |P |P2 P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 8
+0.009915 [s]
+
+Level 147
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|P |.3|P |.3|P |.  .  . | 2|P |
+ -- --    --    -- -- -- -- --
+|P  P |P |P |P2|. |P  P2|P |. |
+ -- -- -- -- -- -- -- --      
+|. | 2|. |.  . |.  .1|. |P |.1|
+    -- -- -- -- -- -- -- -- --
+|. |P |P  P |P  P2|. |P  P |. |
+ -- -- -- -- -- -- -- -- -- --
+|P |P |.3 . |. |P |.2 . | 2|. |
+ -- -- -- -- -- -- -- -- --   
+|.3|P |P |P2 P2|. |P  P |P |. |
+ -- --    -- -- -- -- -- -- --
+|P |. |P |. |P  P  P |. |P |P1|
+ -- -- --    -- -- -- --    --
+|P |P  P |.  .3|P |. |. |P |.2|
+    -- -- -- -- -- --    -- --
+|P1|. |P3 P |P  P |P2|. |P |. |
+ -- -- -- -- -- -- -- -- -- --
+|.2|P  P |. |. |.2|P  P2 P3|P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 8
+0.016428 [s]
+
+Level 148
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|.1|P1|.3|P |P | 2|. |.1 . |. |
+ -- -- -- -- -- --    -- -- --
+|. |P |P  P |. |P |.3|P |. |P1|
+ --    -- -- -- -- -- -- -- --
+|. |P |. |. |P |P |P |P  P  P |
+ -- -- -- -- --    -- -- -- --
+|P |P  P |P2|.3|P |.  . |P2|.3|
+ -- -- -- -- -- --    -- -- --
+| 2|. |.3|P |. |P2|. |P  P |P |
+ -- -- -- -- --    --    -- --
+|P  P2|P |. |. |P  P |P |. |P |
+ -- -- --    -- -- -- -- --   
+|.1|. |. |. |P |P |. |  |. |P |
+ -- -- -- --    -- -- --    --
+|.2|P  P2|P |P3|.4|P |P |.1|. |
+ -- -- -- -- -- -- --       --
+|P | 3|. |.2|P |P |. |P |. |P |
+ -- -- -- -- -- --    -- --   
+|  |P  P |. |P |.2|.1|P  P2|P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.014376 [s]
+
+Level 149
+Number of vertices examined: 1
+0.004988 [s]
+
+Level 150
+Number of vertices examined: 1
+0.004617 [s]
+
+Level 151
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|P |.3|P |. |     |     |P |.1|
+    -- -- -- -- -- -- -- --   
+|P |P |P4|P  P |. |.  . |.  . |
+ -- -- -- -- --    -- -- -- --
+|P1|. |P2|. |P2|. |P1|P |P2 P1|
+ --    --          --    -- --
+|. |. |P |.2|P2|. |. |P |. |.2|
+ -- --    --    -- -- -- -- --
+|. |P |P |. |P |. |P2 P | 3|P |
+    -- -- -- -- -- -- -- -- --
+|.1|. |P |. |P3|P2 P |. |P |. |
+ -- --    -- -- --    -- -- --
+|P  P |P |P2 P |. |P |P  P |P2|
+ -- -- -- -- -- -- -- -- -- --
+|.  .  . |. |P2|.3|P |.  . |P1|
+ -- -- -- -- -- --    -- -- --
+|P2|P |P3|P |P |P3 P |P |P |. |
+    --    -- -- -- -- -- -- --
+|P |.3|P |.  . |P |.2|.2|P1|.1|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 14
+0.026573 [s]
+
+Level 152
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|  |P | 3|P  P |P |P2|.3|P2|P |
+ -- -- -- -- -- -- -- -- -- --
+|  |  |P |. |P |. |P |P2|P |. |
+ -- -- -- -- -- -- -- -- -- --
+|P |. |P1|. |.  . |P |.3|. |  |
+ -- -- --    -- -- -- -- --   
+|.2|P |. |.2|P  P |P4|P |. |  |
+ -- -- -- -- -- --    --    --
+|.2|P |  |P  P |.4|P |. |. |P |
+ -- -- -- -- -- -- -- -- -- --
+|P  P3|.  . |P |P |P  P2|P  P2|
+ -- -- -- --    -- -- -- -- --
+|. |P |P |. |P |.4|P |. |P |.3|
+ -- -- -- -- -- --    -- -- --
+|P  P |. |P  P |P |P3|P |P  P |
+ -- --    -- -- -- -- -- -- --
+|.3|P |. |P1|.3|P |. |P |. |P |
+ --    -- -- -- -- -- -- --   
+|P |P2|.1|. |. |.1 . |P2|P2|P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.018236 [s]
+
+Level 153
+Number of vertices examined: 2
+0.007239 [s]
+
+Level 154
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|P |P2 P  P |P2 P |. |. |P2 P |
+    -- -- -- -- -- -- -- -- --
+|P2|.3|. |P |. |P |P | 2|P |.2|
+ -- -- -- -- -- -- -- --    --
+|P |P |P |P3|P  P3|.  . |P |. |
+ -- --    -- -- -- -- -- -- --
+|.  .2|P |.3 .3|P |. |P | 4|P |
+ -- -- -- -- -- --    -- -- --
+|P |. |. |P |P |  |.  . |P | 2|
+ -- -- -- -- -- -- -- -- -- --
+|P |P  P2 P2|.4|P  P | 2|. |. |
+ -- -- -- -- -- -- -- -- -- --
+|.1 . |. |. |P |P |. |P |P |  |
+ -- -- -- --    -- -- -- -- --
+|. |P  P |. |P |.4|P |.3 .3|P |
+    -- --    -- -- -- -- -- --
+|.1 . |P |. |P  P |P4|P |P1|. |
+ -- -- -- -- -- --    -- --   
+|P |P  P3|P |  |. |P |. |. |. |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.014179 [s]
+
+Level 155
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|.2|P |. |P1 P |P3 P |. |P  P |
+ -- -- -- -- -- -- -- -- -- --
+|P  P |.  .  . |P |. | 2|P |.3|
+ -- -- -- -- --       -- -- --
+|. |P |P |P2|P2|P |. |P |. |P |
+       -- -- -- -- -- --    --
+|. |P |.3 . |. |P |     |. |P |
+ -- -- -- -- -- -- -- -- -- --
+|P2 P |P  P |P  P3|. |P  P |P3|
+ -- -- -- -- -- -- -- -- -- --
+|P |. |.  . |. |P |P  P |. |P1|
+ --    -- -- --    -- -- -- --
+|P |. |P | 2|P |P |.4|P |  |. |
+    --    --    -- -- -- -- --
+|P |. |P |. |P |. |P |. |  |  |
+ -- --    -- -- -- --    -- --
+|. |.2|P |. |P |P |P |. |P |P |
+ -- -- --       --    -- --   
+|P |P2|P2|.2|P |.3|P |P |.3|P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.010826 [s]
+
+Level 156
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|.2|P1|. |P2|P | 2|. |P |. |P |
+ -- -- --    -- -- -- -- -- --
+|P |P  P |P |. |P |. |P3|P |P3|
+ -- -- -- -- -- -- --    --   
+|. |P1|. |.  . |P2 P |P |. |P1|
+    -- -- -- -- -- -- -- -- --
+|. |. |P |P2|.  . |. |P |P |. |
+ -- -- -- -- -- -- --    -- --
+|P1|P |.3|P |. |P |. |P |.  . |
+ -- -- -- -- --    -- -- -- --
+|.3|P |. |P  P |P |P |P3 P |P |
+ -- -- --    -- --    -- -- --
+|P |P3 P |P |.3 . |P |.4|P |.2|
+    -- -- -- -- --    -- --   
+|P |. |P |. |P |P |P4|P2|P3|. |
+ -- --    --    -- -- -- -- --
+|  |P |P3|. |P |. |P |.4|P |.2|
+ -- --       -- --    -- -- --
+|P |.3|P |. |P  P2|P |P2|P |P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.014658 [s]
+
+Level 157
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|P |P  P2|P  P2|P |P |P1|.1|. |
+ -- -- -- -- -- -- -- -- -- --
+|P2|. |. |P |. |. | 2|. |. |P1|
+ -- -- -- -- --    --    -- --
+|P2|P  P |P3|P |. |P |. |P  P |
+ -- -- -- --    -- -- -- -- --
+|. |. |P |.4|P |     |P |.4|P |
+ -- -- -- -- -- -- -- -- -- --
+|P1|. |  |P |. |     |P  P |P |
+ -- -- -- -- -- -- -- -- --   
+|P |  |.  . |P1|. |  |.  . |P |
+ -- -- -- --    --    -- -- --
+|.3|P  P |. |P |  |  |  |P |.3|
+ -- -- -- -- -- -- -- --    --
+|P |P |.3|P1|.  . |  |  |P |P |
+ --    -- -- -- --    -- -- --
+|. |P |.3|P  P  P |  |P |.4|P1|
+ -- -- -- -- -- -- --    -- --
+|     |P |P |.2|.1 . |P |P |. |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 8
+0.01601 [s]
+
+Level 158
+Number of vertices examined: 4
+0.011129 [s]
+
+Level 159
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|P |.2|.1|P1|.3|P2 P  P |P2|. |
+ -- -- -- -- -- -- -- --    --
+|P  P |. |P |P |P3|. |. |P |P1|
+ -- -- -- -- -- -- -- --    --
+|P |. |.  . |.2|P |P  P3|P |.2|
+    -- -- -- --    -- -- -- --
+|P |     |P |. |P |. |P |. |. |
+ -- -- --    -- -- --    -- --
+|.3|P |. |P |     |P |P |  |  |
+ --    -- -- -- -- -- -- -- --
+|P |P |P | 4|P |. |P2|. |P |  |
+ -- -- -- -- -- --    -- -- --
+|. |P |. |P | 3|P  P |P2|.3|P |
+    --    -- -- -- -- -- --   
+|.2|P1|. |P |. |P |.4|P |. |P1|
+ -- -- -- -- -- -- -- -- -- --
+|P1|. |P1|.4|P |  |P |P |P |.2|
+ -- -- -- --    -- -- -- --   
+|P2|P |P |P |P |. |.1|.1|.  . |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 13
+0.022602 [s]
+
+Level 160
+Number of vertices examined: 9
+0.018178 [s]
+
+Level 161
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|P2|P |P |P |. |.2|P1|P |.2|.0|
+ -- -- --       -- --    --   
+|P2|.  .3|P |. |P |. |P |P |. |
+    -- -- -- --       --    --
+|P |. |P |  |P  P2|. |. |P |P |
+ -- -- -- -- -- -- -- -- -- --
+|P  P |P3|.  . |. |P |P  P |.3|
+ -- -- -- -- -- --    -- -- --
+|P |. |P3|P |. |P1|P |. |. |P |
+ -- -- -- -- -- -- -- -- --   
+|P3 P |P3|.4|P |.4|P |. |P  P |
+    -- -- --    -- -- -- -- --
+|P |. |P |P |P |P  P  P |P |.3|
+ -- --    -- -- -- -- -- -- --
+|. |P |P2|. |     |.  . |P |P |
+ -- -- -- -- -- -- -- --    --
+|.0 . |.  . |P |P |P |  |P |. |
+    -- -- --    --    -- -- --
+|. |P |  |  |P |.3|P |. |P2 P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.012114 [s]
+
+Level 162
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|.2|P |. |. |P |     |P |.2|P |
+ -- -- --    -- -- --    -- --
+|P |P |P2|.2|. |P |. |P |.2|P |
+ -- -- -- -- -- -- -- -- -- --
+|P |.4|P |P |P2 P4|P |P2|.2|P2|
+ -- -- --    -- -- -- --    --
+|P  P |. |P |.3|P |. |. |. |P2|
+ -- -- -- -- -- -- -- -- --   
+|P |. |. |P |. |P3|P2|P |P |P3|
+    -- --       -- --    -- --
+|P |. |P |P |. |P |. |P |. |P2|
+ -- -- -- -- -- -- -- -- -- --
+|P3 P |P3|.  .1|P |P |     |P |
+ -- -- -- --       -- -- -- --
+|P |.3|P2|P |. |P |.3|P |.  . |
+ -- -- -- -- -- -- -- -- -- --
+|P2|. |. |  |P |P3|. |P  P |P |
+ -- -- -- -- --       -- --   
+|P1|. |P1|P |. |P |. |P |.3|P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.015893 [s]
+
+Level 163
+Number of vertices examined: 10
+0.014018 [s]
+
+Level 164
+Number of vertices examined: 1
+0.004643 [s]
+
+Level 165
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|. |P1|P  P |P |  |.  . |P  P |
+    -- -- -- -- -- -- -- -- --
+|. |.  . |P |.4|P  P  P |P |.3|
+ -- -- --    -- -- -- -- -- --
+|. |P  P |P |P |. |.3|P |. |P |
+    --    -- --    -- -- -- --
+|.0|. |P |.4|P |. |P |. | 1|P |
+ -- -- -- -- -- --    -- -- --
+|. |P |  |P |.  . |P |  |. |  |
+ -- -- -- -- -- -- -- --    --
+|P1|P3|. |. |P1|P |  |  |. |  |
+ -- -- -- -- --    -- -- -- --
+|. |P |P |P |.4|P |. |  |  |  |
+ -- -- -- -- --    -- -- -- --
+|P |P3|.3|P |P |P |P1|. |  |  |
+ -- -- -- -- -- -- -- -- --   
+|. |P |.  .2|. |P |. |. |P |  |
+ -- -- -- -- -- -- -- -- -- --
+|P |P3 P |P2|P | 3|P  P1|.3|P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 5
+0.010337 [s]
+
+Level 166
+Number of vertices examined: 8
+0.012177 [s]
+
+Level 167
+Number of vertices examined: 9
+0.017946 [s]
+
+Level 168
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|P |P2|.2|. |P |P |.2|. |P |  |
+ --    --    -- -- -- -- -- --
+|. |P3|P |. |. |P |P  P1|.4|P |
+ -- -- -- -- -- -- -- -- --   
+|P1 P |. | 2|P  P3|.3|. |P |P |
+ --       -- -- -- -- -- -- --
+|.3|P |. |P |. |P |P2|. |P |. |
+ -- -- --    -- -- -- -- -- --
+|P1 P |. |P |P |. |P |P | 3|P |
+ -- --    -- -- -- -- -- -- --
+|. |  |. |P |.4|P |.3|. |. |. |
+ -- -- -- -- --    -- --    --
+|  |P |P3|P  P |P4|P  P |. |P1|
+    --    -- -- -- -- -- -- --
+|  |. |P |. |. |P |. |P |. |P |
+ -- -- -- -- -- -- -- -- -- --
+|  |P |. |P  P  P |.3|P3 P | 3|
+ -- -- -- -- -- -- -- -- -- --
+|P |.2|.0 . |. |P  P |P |. |P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 6
+0.013759 [s]
+
+Level 169
+Number of vertices examined: 1
+0.002384 [s]
+
+Level 170
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|.0|.1|.1|P |.  . |P |P1|.  . |
+    -- -- -- -- --    -- -- --
+|. |P |. |P  P |  |P |.4|P | 2|
+ --       -- -- -- -- -- -- --
+|. |P |.  . |     |  |P |.4|P |
+ --    -- -- -- --    -- -- --
+|P |P4|P |P  P |  |  |  |P |P |
+ -- -- -- -- -- -- -- --    --
+|.3|P |.  . |.3|P |  |. |P |.3|
+ -- -- -- -- -- -- --    -- --
+|P |     |P |P1|. |P |. |P |P |
+ -- -- -- -- -- --    --    --
+|  |  |.  .2|. |P |P3|P |P |. |
+ --    -- --    -- -- -- --   
+|P |  |P  P |.2|.2|. |P |.  . |
+ -- -- -- -- -- -- --    -- --
+|.2|P |. |.3|P |P  P |P |P1|. |
+ -- -- -- -- -- -- -- -- -- --
+|.0 .2|P |P  P2|. |P1|.2|.  . |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 12
+0.025716 [s]
+
+Level 171
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|.1|P2|P  P |P |.2 . |. |.  . |
+    -- -- -- -- -- --    -- --
+|. |P |.2|.  . |P1 P |. |P1|. |
+ -- --    -- -- -- -- -- -- --
+|  |  |. |P |P |.4|P3|P  P |P |
+ -- -- --    -- --    -- -- --
+|     |. |P |.3|P |P |. |P |.2|
+ -- -- -- -- --    -- --      
+|     |P |P3|. |P2|. |P2 P |.1|
+ -- -- --       -- -- -- -- --
+|P |. |. |P |. |P3|P |P |. |. |
+    -- -- -- -- -- -- -- -- --
+|P |P |.3|P  P |P |. |P |     |
+ -- -- -- -- --    -- -- --   
+|.2|P  P |  |. |P |.  .3|P |  |
+    -- -- -- -- -- -- -- -- --
+|. |  |  |  |. |P1|. |P |P |. |
+ --          -- -- -- -- -- --
+|     |  |  |P |.3|P  P |.  .0|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 7
+0.015867 [s]
+
+Level 172
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|.2|P |  |  |  |P |P |P |.1|. |
+ -- -- -- -- -- --    --    --
+|P |P2|. |P  P |.4|P |. |. |P |
+    --    -- -- -- -- -- -- --
+|P |. |. |  |. |P1|P  P1|.3|P |
+ -- -- -- -- -- -- -- -- -- --
+|P  P2|. |P |P2|. |P2|. |P |  |
+ --       --    -- -- --    --
+|.2|P |. |. |P |P |P4|P  P |. |
+ -- -- -- -- -- --    -- -- --
+|.  . |. |P |P |. |P |. |P  P |
+    -- -- -- -- -- -- -- -- --
+|. |P2|P  P3|.4|P  P |.1|.  .2|
+ -- -- -- -- -- -- --    -- --
+|. |P |. |P  P | 3|.  .1|P  P |
+ --    -- -- -- -- -- -- -- --
+|P  P |P |P |. |P |P |. |P |.3|
+ -- -- --    -- --    --    --
+|. |P |.3|P  P |. |P |  |P |P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.01079 [s]
+
+Level 173
+Number of vertices examined: 1
+0.004915 [s]
+
+Level 174
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|.2|P1|. |P |. | 2|P | 3|P |  |
+ --    --    -- -- -- -- -- --
+|P |P |. |P |. |P |. |P |  |  |
+ --    -- -- --       -- --   
+|. |P |P  P3|P |P |.2|.2|. |  |
+ -- -- -- -- -- -- -- -- -- --
+|P |P |.  .1|. |. |P  P |P |  |
+ --    -- -- -- -- -- --    --
+|.3|P |P |. |P |P1|.3|. |P2|. |
+ -- -- -- -- -- -- -- -- -- --
+|P |     |P |P3|. |P |.3|P |.2|
+ -- -- -- -- -- -- -- -- -- --
+|P |. |P |. |P2 P  P |P |P |P |
+       -- -- -- -- -- -- -- --
+|P1|. |. |.1 . |.3|P |. |.2|P2|
+ -- -- -- -- -- --    --      
+|. |P |P |P |  |P |P |P |. |P |
+    -- -- -- -- -- -- -- --   
+|. |. |P1|.2 . |P |.3|P2 P |P |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 25
+0.054697 [s]
+
+Level 175
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|.  . |.  . |     |  |. |. |.0|
+ -- -- -- -- -- --       --   
+|.2|P  P |.2|P |. |  |. |P |.2|
+ -- -- --          -- --    --
+|P  P |.  . |P |.3|P |P |P |P |
+ -- -- -- -- -- -- --    -- --
+|. |P3 P |P |. |P |.3|P |.3|. |
+ -- -- --    --       -- -- --
+|. |P |. |P  P |P |. |P3 P |  |
+       -- -- -- -- -- -- --   
+|. |P  P |P3|. |  |. |P |. |  |
+ -- -- --                -- --
+|P  P3|. |P |. |  |. |P1|. |  |
+ -- -- -- -- -- -- -- --    --
+|. |P  P |. |     |P |. |. |  |
+    -- -- -- -- -- -- -- -- --
+|. |.3|P  P  P |. |P2 P |     |
+    -- -- -- -- -- -- -- -- --
+|. |P1 P |. |P2 P |.  . |     |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 12
+0.012384 [s]
+
+Level 176
+Number of vertices examined: 9
+0.011542 [s]
+
+Level 177
+Number of vertices examined: 1
+0.004934 [s]
+
+Level 178
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|. |. | 2|P |. |.1|P1|. |P |. |
+ -- -- -- -- -- --    --    --
+|P1|. |P |.4|P |.2|P |. |P3|P |
+ -- -- -- --       -- -- -- --
+|P |     |P |P |. |  |  |P |.3|
+ -- -- -- -- -- -- -- -- -- --
+|.3|P |. |P |. |     |  |P  P1|
+ --    -- -- -- -- -- -- -- --
+|P |P |P |P3|P2 P |. |P |.3|. |
+ -- -- -- -- -- -- -- -- -- --
+|P |.4|P |. |. |.3|P  P |P |  |
+ -- -- -- -- -- -- -- -- -- --
+|P |P2|P |P |P |P2|.  . |P |  |
+    -- -- -- -- -- -- -- --   
+|P |. |P |.2 .3|P |P1|.1|. |  |
+ --    -- -- -- -- -- -- -- --
+|P2|. |P |.3|P |.3|.2|. |P |  |
+ -- -- -- -- -- -- -- --    --
+|P2|P | 3|P |P  P |P1|. |P |  |
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.018605 [s]
+
+Level 179
+Number of vertices examined: 10
+0.020879 [s]
+
+Level 180
+Number of vertices examined: 6
+0.011775 [s]
+
+Level 181
+Number of vertices examined: 1
+0.008204 [s]
+
+Level 182
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|.0 . |.2|P |  |.  .2|P |. |.0 . |
+ -- -- -- --    -- -- -- --    --
+|.1|P |P1|. |  |. |P2|P |P2|. |P |
+ -- -- -- -- -- -- -- --    --   
+|. |  |. |P |P  P  P |. |P |P |P |
+ -- -- -- -- -- -- -- -- --    --
+|. |  |P  P3|. |P |.4|P |. |P |. |
+ -- -- --       -- -- --    -- --
+|P1|P |.4|P |. |  |P |P |.  . |P1|
+ -- -- -- -- --    --    -- --   
+|.2|. |P |P  P |  |. |P3|P |P |P |
+ -- -- --    -- --    -- --    --
+|P |P2|. |P |. |P |. |P |. |P2|. |
+ --       -- --    -- -- -- -- --
+|.2|P |. |. |P |P2|. | 3|P  P |P1|
+ -- -- -- -- -- -- -- -- -- -- --
+|. |P |P |P  P |.  . |P |. |.  .2|
+ -- --    --    -- -- -- -- -- --
+|P1|.4|P |. |P |.2|P  P3|P |P |P |
+ -- -- -- -- --    -- -- -- -- --
+|P |P2 P |P |P2|.2|P |.2|.  .1|. |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 13
+0.032017 [s]
+
+Level 183
+Number of vertices examined: 9
+0.016927 [s]
+
+Level 184
+Number of vertices examined: 37
+0.08458 [s]
+
+Level 185
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|P |P  P |.3|P  P1|. |P |.2|P  P2|
+    -- -- --    -- -- --    -- --
+|P2|. |P  P |P |. |  |P |. |.3|P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |P  P |. |  |P  P |.4|P  P |  |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |.4|P2|P  P |.  . |P1|. | 2|. |
+ -- -- -- -- -- -- -- -- -- -- --
+|  |P |.  . |P  P | 3|P |P |P  P |
+ -- -- -- -- -- -- -- -- --    --
+|  |P |.3|P1|.  . |P |.  .3|P |. |
+ -- -- -- -- -- -- -- -- -- -- --
+|     |P  P3|. |P |     |P  P3|P2|
+ -- -- -- --    -- -- -- -- --   
+|. |P |.4|P1|. |  |     |  |. |P1|
+    -- -- -- -- -- -- -- -- -- --
+|. |P2 P |. |P2|P  P |. |P  P |. |
+ -- -- --    -- -- --    -- -- --
+|P |.3 . |. |P2|. |P |.2 . |P |. |
+ -- -- -- --    -- -- -- -- --   
+|  |P  P |  |P |P | 3|P |. |.1|.0|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.018842 [s]
+
+Level 186
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|. |P |     |P |. |P  P |.  .0|. |
+ --    -- --       -- -- -- -- --
+|P  P3|.  . |P |. |P |.4|P |. |P |
+ -- -- -- -- -- -- -- --    -- --
+|. |P |P |P2|P4|P |P  P |P |P |  |
+ --    -- -- -- -- -- -- -- -- --
+|P |P |.  . |P |. |P |. |.  .2|. |
+ -- -- -- --    --    -- -- -- --
+|.3|P  P |P3|P |P |P  P |  |P |. |
+ -- -- --    -- -- -- -- -- -- --
+|P  P |. |P |. |.3|P |.4|P |. |.0|
+ -- -- -- -- -- --    --    --   
+|P |. |P  P |  |P  P |P |P |P |. |
+       -- --    -- -- --    -- --
+|P |.  .2|. |     |  |. |P |. |  |
+ -- -- -- -- -- -- --    -- --   
+|.  . |P2 P |     |  |. |     |  |
+ -- -- -- --    -- --    -- -- --
+|P1|. |P |. |  |  |P |. |P |P |. |
+ -- -- -- -- --       --    --   
+|P  P |P3 P1|. |  |P |.2|P1|.2|. |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 7
+0.015487 [s]
+
+Level 187
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|P  P2|. |P2 P1|.  . |. |. |.1|.1|
+ -- -- -- -- -- -- -- -- -- -- --
+|. |P |P |P |. |P |. |P1|P  P |P |
+ --    -- -- -- -- -- -- -- -- --
+|P |P3|.3|. |P | 3|.  . |.3|P |.3|
+ -- -- --    -- -- -- -- --    --
+|. |P  P |. |  |P |P |P |P2|P |P |
+ -- -- -- --    -- -- -- -- -- --
+|P |.4|P |. |  |P |.4|P |. |P |. |
+ -- --    -- -- -- -- -- -- -- --
+|P  P |P4|P |     |P  P |P  P3|P2|
+ -- -- -- -- -- -- -- -- -- -- --
+|P |. |P |. |P |. |P |.4|P |. |P |
+    -- --          -- --    -- --
+|P |. |P |.2|P1|. |  |P |P |P |. |
+ -- -- -- -- -- -- -- -- -- -- --
+|. |.1 .  . |. |  |  |. |.2 . |.0|
+ -- -- -- -- -- -- -- -- -- --   
+|P1|P  P2|P |  |     |. |P  P |. |
+ -- -- --    -- -- -- -- -- --   
+|.1|.  .2|P |     |  |P  P |.2|.0|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 10
+0.023548 [s]
+
+Level 188
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|.1|. |P |.3|P |. |P |.2 .1|P  P |
+ -- --    -- -- -- -- -- -- -- --
+|P1|P |P |P  P |P |P  P |.  . |P2|
+ --    -- -- -- -- -- -- -- -- --
+|. |P |. |P |.3|P2|. |P |.3|P  P3|
+ -- --       -- --       -- -- --
+|P |.  . |P |. |P2|. |P |P |. |P |
+    -- -- -- -- -- -- --    -- --
+|P |P  P | 4|P |P |.  .3|P |  |  |
+ --    -- -- --    -- -- --      
+|.3|P |. |P |. |P |.2|P  P |  |  |
+ -- --    -- -- --    -- -- -- --
+|P |  |. |P  P  P |. |.  .2|. |  |
+ --    -- -- -- -- -- -- -- -- --
+|  |  |.  . |P |.3 .2|P |P  P |  |
+ -- -- -- -- -- -- --    -- -- --
+|        |     |P |P |P |.3|P |. |
+ -- -- -- -- --    --    --    --
+|. |P  P |P |. |P2|.3|P |. |P |P |
+    -- --       --    --    -- --
+|.0|.  .2|P |. |P1|. |. |.1|P |.2|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.016518 [s]
+
+Level 189
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|P  P3|P1|. |. |. |P |P2|.2|P |P |
+ -- -- --    -- -- -- -- --    --
+|. |P |. |.2|P2 P1|. |P |.2|P |.3|
+ --    -- -- -- -- -- -- -- -- --
+|P |P |P |P |P |. |P | 3|. |P |P |
+    --    --       -- -- --    --
+|P1|. |P |. |P |.2|. |P |P |P |.2|
+ -- -- -- -- -- -- -- -- --      
+|.2|P |.4|P |P |P |P |P3|.4|P2|. |
+    -- --    -- -- -- -- -- -- --
+|. |P  P |P |.4|P |. |P |P |P3|P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |.3|. |P |P |P3 P |  |.  .3|P |
+    -- --    -- -- --    -- -- --
+|P |P3 P |P |.3 . |  |  |  |P |P3|
+ -- -- -- -- -- --    -- -- -- --
+|. |P |.2 . |P |  |  |     |. |P2|
+ --    -- -- -- -- -- -- -- -- --
+|  |P |. |P1|.2|. |P |.  . |P |P |
+ -- -- --    -- --    -- --    --
+|     |  |P |. |P |P3|P  P |P |.2|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 6
+0.020215 [s]
+
+Level 190
+Number of vertices examined: 18
+0.039374 [s]
+
+Level 191
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|.2|P1|. |.1|P1|. |P  P |. |P |.2|
+ -- -- -- -- -- -- -- -- --    --
+|P2|P  P |. |P  P |. | 3|P |P |P |
+ -- -- -- -- -- -- -- -- -- --   
+|P |. |P |.2|. |P  P |P |. |.2|P |
+ -- -- -- -- -- -- -- -- --      
+|P |P3 P3|P  P |P |.3|. |P |. |P |
+ -- -- -- -- --    -- --    -- --
+|. |P |. |P |. |P |P2 P |P |P  P3|
+          -- -- -- -- -- -- -- --
+|.1|P |. | 3|P |. |.2|. |P2|. |P |
+ -- -- -- -- -- -- -- --    --   
+|. |P3 P  P |.3|.2|P  P |P |P  P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |P3|. |P |P  P |.4|P |. |     |
+ -- -- --    -- -- -- -- -- -- --
+|. |P |P |P3|. |P |P |P |  |     |
+ --    -- --    -- --    -- -- --
+|P  P |. |P |.2|. |. |P |. |P |  |
+ -- -- --    -- -- -- --    --   
+|. |.2|P1|P3|P  P |P |.2|.0|. |  |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 6
+0.021893 [s]
+
+Level 192
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|. |.2|P1|P |.3|P |.  .  . |.2|P |
+ -- -- -- -- --    -- -- -- --   
+|  |P |. | 2|P  P |  |P |. |P  P |
+    -- -- -- -- -- -- -- -- -- --
+|     |  |. |. |P |.  . |P  P |.3|
+ -- -- -- -- -- -- -- -- -- -- --
+|P |. |P |P  P |P4 P |P  P |. |P |
+       -- -- -- -- -- -- --    --
+|P |. |.3|P |. |P |. |.3|P |. |  |
+ -- -- -- -- -- -- -- -- -- -- --
+|. |.1|P1|. |P1|P |P  P2|P |P  P |
+ --       -- -- -- -- -- -- -- --
+|P |. |P2|P |.4|P2|.  . |P |.2|. |
+ -- -- -- -- -- -- -- -- -- -- --
+| 3|P |. |  |P |P |. |P  P2|. |P1|
+ -- -- -- -- -- -- -- -- -- -- --
+|P |. |  |P |. |P2|.2|. |.3|P |P3|
+ -- -- -- --    -- -- -- -- -- --
+|P  P |  |. |. |P  P2|P |P |. |P2|
+ -- -- -- -- -- -- -- -- -- --   
+|P |.3|P  P1|.2|P |.  . | 2|P |P |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 26
+0.04651 [s]
+
+Level 193
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|.1 . |     |P |  |  |P |.1 .2|P1|
+ -- -- -- --          -- -- -- --
+|P |. |  |. |P |  |  |  |. |P  P |
+ -- -- --    -- -- -- -- -- -- --
+|P3 P |P |. |P1|. |P  P |.3|P |.2|
+ -- -- -- -- --    --    -- -- --
+|P1|. |P2|. |. |. |. |P |P  P |. |
+ -- --       -- --    -- -- -- --
+|.  .2|P |. |P  P |.3|P1|. |P  P |
+ -- --    --    -- -- --    -- --
+|  |P |P |  |P |. |P |. |. |.  . |
+ -- -- --    -- --    -- -- -- --
+|P |     |  |  |P  P |P3 P  P |.1|
+ -- -- -- -- -- -- -- -- -- --   
+|.3|P |P |P  P |  |. |P |. |P |. |
+ --    --    --    --       -- --
+|P |P |.4|P |. |  |P |P |.2|. |  |
+    -- -- --    -- -- -- -- -- --
+|P |. |P  P |. |P |.4|P2 P  P |  |
+ -- -- -- -- --    -- -- -- --   
+|. |.0 .1|. |P |P3 P |.2|. |     |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 8
+0.02535 [s]
+
+Level 194
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|.  .  . |P1 P |. |P1|.2|P |P2 P |
+ -- -- -- -- -- -- -- --    --   
+|     |  |. |P |P2|P |. |P |.4|P |
+ -- -- -- -- -- --       -- -- --
+|. |. |P  P  P3|.4|P |. |. |P |  |
+ --    -- -- -- -- -- -- -- --   
+|P1|.3|P |. |P  P2|.3|P1|P  P |  |
+ -- --    -- -- -- -- -- -- -- --
+|P2 P |P3 P |. |P |. |. |  |     |
+ -- -- -- -- --       --    -- --
+|.  . |. |P |. |P |.2|P |  |P  P |
+ -- --          -- -- -- -- -- --
+|  |P |.3|P |. |  |. |  |. | 2|. |
+    -- -- -- -- -- -- -- -- -- --
+|  |  |P |P |P1|. |  |P |P3 P |. |
+ -- -- --    -- -- -- -- -- -- --
+|P |.  . |P |.  . |P |. |P |.  .0|
+    -- --    -- --    -- -- -- --
+|P |P |  |P |     |P |P3|P  P2|. |
+ -- -- -- -- -- -- --    -- -- --
+|.1 .1|. |  |  |.  . |P |. |P  P |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 17
+0.031221 [s]
+
+Level 195
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|P1 P |P |P  P |P2 P2|. |. |P2|P |
+ -- --    -- -- -- --    --    --
+|.2|. |P |.4|P2|. |P |.3|P |P |. |
+ -- -- -- -- -- -- -- --    --   
+|P  P | 3|P |P4|P |P |P2|P |. |.1|
+ -- -- -- --    -- -- -- -- -- --
+|. |P |.  . |P |.2 .  .3|P |. |P1|
+ -- -- -- -- -- -- -- -- -- --   
+|P |.4|P |. |P2|. |P2|P |  |P |P2|
+ -- -- -- --    -- -- --    -- --
+|P  P2|P  P |P |P  P |. |  |.  .1|
+ -- -- -- -- -- -- -- -- -- -- --
+|  |. |P |. |P |. |P |P2 P |P |. |
+       -- --          -- -- -- --
+|  |. |P2 P |P |.3|P |. |. |P3 P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |P |.3|.2|P |P  P |P |P3 P |. |
+    -- --       -- -- -- -- -- --
+|P |. |P |. |P |. |P |.4|P |. |P |
+ -- -- -- -- -- -- -- --    -- --
+|.2|P1|P  P |P3 P |. |P1 P |P  P2|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 11
+0.028926 [s]
+
+Level 196
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|. |P1|P |P |.3|P |P |.3|P |. |P |
+ -- --    -- --    -- --    -- --
+|. |. |P |. |P |P |. |P  P |P  P2|
+    -- --    -- --    -- -- -- --
+|. |P |  |. |  |. |. |.  .3|P |.2|
+ -- --    -- -- -- -- -- -- -- --
+|P1|. |  |P  P |P2|. |P  P |  |. |
+ -- -- -- -- --    -- -- -- -- --
+|P3 P |. |.1 . |P |  |P |. |P |P2|
+ -- -- -- -- -- -- --    -- --   
+|P |. |P |. |P  P |. |P |P |. |P2|
+    --       --    -- --    -- --
+|P |P  P |.  . |P |.1 . |P2 P |P |
+ -- -- -- -- -- --    -- -- -- --
+|  |. |P  P |. |. |.2|P |. |P |.2|
+ -- -- --    -- -- --          --
+|  |  |. |P2|P  P3 P |P |. |P |.1|
+ --    -- -- -- -- -- -- -- --   
+|  |  |P |. |. |P |. |P |  |P |. |
+    --       -- -- --    --    --
+|  |. |P1|. |P  P |P |P2|. |P1|. |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 14
+0.019069 [s]
+
+Level 197
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|P  P |. |P  P |P |P | 3|P |.1|. |
+ -- --       --    -- -- --    --
+|P |.3|. |P |. |P |. |P |.3|. |P |
+    -- -- -- -- -- -- -- -- -- --
+|P |P |P |P3|P |.3|P1 P |P |P |  |
+ -- -- -- -- -- -- -- -- --    --
+|P |. |P |.3 . |.  . |P2|. |P |. |
+    -- -- -- -- -- -- -- -- --   
+|P |P3|P |P  P |P |P  P3|P |P2|.2|
+ --    -- -- --    -- --    -- --
+|. |P |. |P |.3|P2|. |. |P2|. |P1|
+    -- --       -- -- -- -- --   
+|. |P  P |P |. |P |P  P |P3 P |P |
+ -- --    -- -- -- -- -- -- --   
+|.0 . |P |. |P |.4|P |.  . |. |P |
+ -- -- -- -- -- -- -- -- -- -- --
+|.2|P |  |     |P |P |     |P  P2|
+ --    -- -- -- --    -- -- -- --
+|P |P2|.  . |P |. |P2|.  . |P |.3|
+ -- -- -- --    -- -- -- --    --
+|. |.2|P  P2|P |P  P2|. |P1|P |P |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 6
+0.019018 [s]
+
+Level 198
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|.2|P |P  P |P |. |P2 P2|P  P |P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P1|. |P |.3|.  . |P |. |P |. |P2|
+ -- --    -- -- -- -- -- -- -- --
+|P  P3|P |P |P  P |P4|P  P4|P |P3|
+ -- -- -- --    --    -- -- --   
+|. |P |.  . |P |. |P |.3|P |. |P |
+ --    -- -- -- -- -- -- -- --   
+|P |P3|P |P |P4|P |P |.2 . |  |P |
+ -- -- -- --    -- -- -- -- -- --
+|P |.4|P |. |P |. |P |P |. |P |. |
+ -- -- -- -- --       -- -- --   
+|. |P1 P |P  P |. |P1|.4|P1|. |.1|
+ -- --    -- -- -- -- -- -- -- --
+|.  . |P |. | 3|P |. |P |P4|P |P |
+ -- -- --    -- -- -- --    -- --
+|P2|P  P |. |P |. |P |.4|P |. |P2|
+    -- -- -- -- --    -- -- --   
+|P2|. |P |.3|P  P |P |P  P3|P |P |
+ -- -- -- -- --    --    -- -- --
+|P2|P  P |P |. |P |. |P |.3|P |. |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.018801 [s]
+
+Level 199
+Number of vertices examined: 10
+0.020298 [s]
+
+Level 200
+Number of vertices examined: 1
+0.009215 [s]
+
+Level 201
+Number of vertices examined: 8
+0.022783 [s]
+
+Level 202
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|. |     |P |P |. |P1|P  P2|P3|P |
+ -- -- -- -- -- -- -- -- -- -- --
+|.1|P |. |.2|.  . |. |P |. |P |. |
+       -- -- -- -- -- -- -- -- --
+|.2|P |P |P3|P  P |. |P3|P  P |. |
+ -- -- -- -- -- -- --    --    --
+|P |P |.4|P |.4|P |P |P |. |P3|P |
+ --    -- -- -- --    -- -- -- --
+|. |P |P |P  P |. |P |.3|. |P1|.2|
+ -- -- -- -- -- -- -- -- -- -- --
+|P |P3|.  . |P  P3|P |P3|P |. |. |
+ --    -- -- -- -- -- -- -- -- --
+|. |P |. |P |. |P |. |P |.  . |P |
+ --    --    --    -- -- -- -- --
+| 2|P |P |P3|P |P |     |     |  |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |. |P |. |. |P |. |. |.  . |  |
+ -- -- -- -- -- -- -- -- -- -- --
+|. |P  P3|P |P |P3|P |.3|P |.2|P |
+    -- -- --    -- -- --         
+|.0|.  . |. |P |.3|P |P  P |. |P |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 12
+0.028333 [s]
+
+Level 203
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|. |P1|P |  |P |P2 P2|. |P |P |P2|
+ -- -- -- -- -- -- -- -- -- -- --
+|.  .  .3|P |. |.3|P |. |. |. |P2|
+ -- -- -- --    -- -- -- -- -- --
+|. |P |P  P |.3|P |P |P |P2|P2|P |
+ -- -- -- -- --    -- -- -- -- --
+|P |P3|. |P  P |P |.4|P2|. |.3|P |
+ -- -- -- -- -- -- --    -- -- --
+|. |P3|P |. |P |.4|P |P |P |P  P |
+    -- -- -- -- -- -- --    -- --
+|. |P |.4|P2|P |P2|.  . |P |. |P |
+ -- -- -- -- -- --    -- -- --   
+|P  P  P |P |. |P |. |P2|P2|.2|P |
+ -- -- -- --       -- -- -- -- --
+|.3|P |. |P |.3|P |P |P |. |.2|P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P  P |. |P  P1|. |.3|P |  |P |.2|
+ -- -- -- -- -- -- --    --      
+|. |P |P  P |. |P |P3|P |. |P1|. |
+    -- -- -- -- --    --    -- --
+|.0|. |. |.1|.0 . |P |. |. |.  . |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 16
+0.031012 [s]
+
+Level 204
+Number of vertices examined: 1
+0.004266 [s]
+
+Level 205
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|P |.3|P |.2|.1|.  .0|.  . |. |P |
+    -- -- -- -- -- -- -- --    --
+|P |P | 4|P |P |P2|. |P  P |. | 2|
+ -- -- -- -- -- -- -- -- -- -- --
+|P |.3|P |. |. |P |P |. |P |  |P |
+ -- --    -- -- --    -- -- -- --
+|P |. |P | 2|P |. |P |P |.4|P |. |
+ --    -- --    --    -- -- -- --
+|P2|.3|P |. |P1|. |P |. |P1|P |P |
+ -- -- -- -- -- -- -- -- --    --
+|P |P2|P2|.  . |P |.3|P |. |P2|.3|
+    -- -- -- -- --    -- --    --
+|P |. |. |  |P  P |. |P  P |P |P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |P |  |P |.  . |.2|P |.4|P |. |
+ --    -- -- -- -- --    --      
+|.3|P |. |P2 P |P |P3|P  P |P |. |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |  |  |. |. |.2|P |. |. |P |P |
+    -- -- -- --    -- -- -- --   
+|P |  |  |  |P |. |  |  |P |.3|P |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 9
+0.023162 [s]
+
+Level 206
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|P2 P1|. |.  .2|P  P |.2 . |.2|P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |.  . |P |P2|P |.4|P |P  P |P |
+    -- --    -- -- -- -- -- -- --
+|P |P2|. |P |. |P  P |P |. |P |.2|
+ -- -- -- --    -- --    -- -- --
+|. |P |. |P |. |.  . |P |. |. |. |
+ --    -- -- -- -- -- -- -- --   
+|P |P |P2|.3|P  P |. |P2|P |P1|. |
+    --       -- -- -- --    -- --
+|P |.4|P |.3|P |. |P |.4|P |. |P |
+ -- -- -- -- -- -- -- -- -- --   
+|P  P |P |P3|P  P |P  P3|P  P |P |
+ --    --    -- -- -- -- -- -- --
+|.3|P |. |P |. |P |. |P |. |P |.3|
+ -- -- -- -- -- -- -- -- -- -- --
+|P2|P  P |P  P |P4|P2 P |P |.4|P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |. |. |P |.4|P |. |. |. |P  P |
+ -- -- --    -- -- -- -- -- -- --
+|P  P |. |P2|P |P3 P | 2|P  P |.2|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 3
+Number of vertices examined: 4
+0.018491 [s]
+
+Level 207
+Number of vertices examined: 1
+0.004854 [s]
+
+Level 208
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|. |P1|P  P2|P2|.  .2|P |P |P2|P2|
+    -- -- -- -- -- -- --    -- --
+|. |.2|P |. |P2|. |P |.3|P |. |P |
+ -- -- -- --    --       -- --   
+|P1|. |P | 3|P |P |P |. |P  P |P |
+ --    -- -- -- -- -- --    -- --
+|P |.2 . |P |. |.2|. |. |P |.4|P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |P3 P |P |P  P2|. |P |P |P2|P |
+ -- -- --    -- -- -- -- -- --   
+|.3|P |. |P |.4|P |.1 . |P |. |P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |. |P  P |P  P |. |P  P3|P |P |
+ -- -- -- -- --       -- -- --   
+|P |P |.4|P2|. |P |.3|P |. |. |P |
+ -- -- -- -- -- -- -- -- --    --
+|.2|P |P |P3|P  P |P |P |P |. |P2|
+    -- -- -- -- -- --    -- --   
+|. |P |. |. |.3|P |. |P |.4|P |P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P  P3|P2|P2|P  P |     |P |.3|P |
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 7
+0.026329 [s]
+
+Level 209
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- --
+|.2|P  P |P |P2|P |. |P |P |. |P |
+ -- -- -- -- -- --    --    -- --
+|P  P |. |P |.4|P |. |. |P |P | 2|
+ -- --    -- -- -- -- --    -- --
+|.3|P2|. |P |P2|P |P |P |P |.3|. |
+ -- -- -- -- --    -- -- -- -- --
+|P  P |P |P |. |P2|.3 .3|P  P |P2|
+ -- -- -- -- -- -- -- -- -- -- --
+|. |P |.4|P2|. |P |P |P |. |. |P2|
+ --    --    --    -- -- -- --   
+|  |P |P |P  P |P |.  . |P1 P |P |
+ -- -- -- -- -- -- -- -- -- -- --
+|P |. |P |. |P2|.4|P |.  . |P |.3|
+    -- -- -- -- -- -- -- -- -- --
+|P  P |.3|P1|P  P |     |P |P3|P |
+ -- -- -- -- -- -- -- --    -- --
+|.2|. |.  . |  |  |  |  |P |.3 . |
+ -- -- -- --    -- -- -- -- -- --
+|P1 P |P3|P |  |.  . |P |. |P |. |
+ -- --    -- -- -- -- -- --      
+|.1|. |P |. |  |P  P |P3 P |P2|.1|
+ -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 10
+0.027428 [s]
+
+Level 210
+Number of vertices examined: 3
+0.015878 [s]
+
+Level 211
+Number of vertices examined: 1
+0.008045 [s]
+
+Level 212
+Number of vertices examined: 1
+7.1e-05 [s]
+
+Level 213
+Number of vertices examined: 7
+0.023631 [s]
+
+Level 214
+Number of vertices examined: 11
+0.035867 [s]
+
+Level 215
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- -- --
+|P  P3|P |.  . |P1|.2|P1 P |.2|.1|P |
+ --    -- -- -- -- -- -- -- --      
+|. |P |. |P1|.2|P |. |. |P  P |. |P |
+ -- -- -- --    --    -- -- -- -- --
+|P |P |. |P |. |P |.2|P |. |P |P  P |
+ --    -- -- --    -- -- -- -- -- --
+|.3|P3|P |P4|P |P |. |P3 P1|.3|. | 2|
+ -- -- --    -- -- -- -- -- -- -- --
+|P |P |. |P |. |  |P  P |. |P |. |P |
+ -- -- -- -- -- -- -- -- -- -- -- --
+|. |P  P |P |  |P |.3|.1 . |P  P3|P2|
+ -- -- --       -- -- -- -- -- -- --
+|. |P |.4|P |  |P |P |. |P |. |P |. |
+    -- -- -- --    --    -- -- -- --
+|.  . |P  P2|. |P |. |.1|P |P |P4|P |
+ -- -- -- -- -- -- -- -- -- --    --
+|.2|P |P |. |P |P4 P |.2|P |. |P |. |
+ -- -- -- -- -- -- -- --    -- -- --
+|P |P |.4|P |. |P |.  . |P |P | 4|P |
+ -- -- -- -- --    -- -- -- -- -- --
+|P |. |P  P  P |P |P  P |  |. |P |. |
+ -- -- -- -- -- -- -- -- -- --    --
+|P2 P |. |P |.3|P |.2|.  . |P |P3|P |
+ -- -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 12
+0.03625 [s]
+
+Level 216
+Number of vertices examined: 1
+0.00412 [s]
+
+Level 217
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- -- --
+|.1|P |  |  |     |P  P3|P  P1|.  . |
+    --       -- -- -- -- -- -- -- --
+|. |  |  |  |  |P |. |P |. |. |P |. |
+    -- -- -- -- -- --    -- --    --
+|. |  |P |P  P |.3|P |P |  |P |P |.1|
+ -- --    -- --    -- -- -- -- -- --
+|  |  |P |. |.2 . |. |.2|P |.4|P |.1|
+    -- -- -- -- -- --    -- -- --   
+|  |.  .2|. |P |P  P |. |P  P |  |. |
+ -- -- -- -- -- -- -- --    --    --
+|. |P |P2|P |.4|P |.  . |P2|. |  |P |
+ --    --    --    -- -- -- -- -- --
+|P  P3|. |P |P |P |P  P |P4|P  P |.3|
+ -- --    -- -- -- -- -- -- -- -- --
+|. |P |.2|. |P |. |P2|. |P |. |P  P |
+ --    --       -- -- --    -- --   
+|P |P |P |.3|P |P |P3 P |P |P |. |P |
+ -- -- -- -- -- -- -- -- -- --    --
+|.2|P |. |P |P |. |. |.3|P |.  . |  |
+       -- --    -- -- -- -- -- --   
+|. |P |P |. |P |P |P |P |.4|P |. |  |
+ -- -- -- -- --    -- -- -- -- --   
+|P  P2|.  .0|. |P |.3|P |P  P  P |  |
+ -- -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 8
+0.020848 [s]
+
+Level 218
+Number of vertices examined: 12
+0.046292 [s]
+
+Level 219
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- -- --
+|P  P |P |P3|P2|P |P |P |. |P  P |.2|
+ -- -- -- -- -- -- --       -- -- --
+|P2|.3|. |P |. |P |.4|P |.2|. |P  P |
+ -- --    -- -- -- -- -- --    -- --
+|P |P |. |P |P |P  P |  |P |. |P |.2|
+ -- -- --    -- -- -- -- -- --    --
+|P |.3|P |P2|.3 . |P |. |P |  |P |. |
+ -- -- -- -- -- -- --    -- -- -- --
+|P2|. |P1|. |P  P |P3|.2|.2|. |.3|P |
+ -- -- -- -- -- -- -- -- -- -- --   
+|P2|. |. |. |.2 . |P |P  P |P  P2|P3|
+ -- -- -- -- -- --    -- -- -- -- --
+|P  P |P |P  P2|P |P3|.  . |. |. |P |
+ -- --    -- -- -- -- -- -- -- -- --
+|P1|.4|P2|. |.  . |P2|. |P  P2|P |.3|
+ -- -- -- -- -- -- -- -- -- -- -- --
+|. |P |P |. |P  P |P |P |P |.3|P |P |
+    -- -- -- -- --    -- -- -- -- --
+|.2|P |. |P  P |.3|P2|.4|P |.  . |P |
+ -- -- -- -- -- -- -- --    -- -- --
+|P |P |P  P |.  . |P3|P |P4|P  P |.3|
+ -- -- -- -- -- -- -- -- -- -- -- --
+|. |.1 .2|P  P |P |P2|. |P |. |P  P |
+ -- -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 27
+0.088892 [s]
+
+Level 220
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- -- -- --
+|.1|. |.2|P  P |P  P |  |P |P |.2|P |
+ -- -- -- -- -- -- -- -- --    --   
+|P1|. |P |P |. |P |.4|P |.4|P |.2|P |
+ -- --    -- -- -- -- -- -- -- -- --
+|P2|P  P |.3|. |.2|P |. |P2|P |.3|P |
+ -- -- -- -- --    -- -- -- -- -- --
+|.2|.2|.2|P |P |. |     |P |. |P  P2|
+ -- -- -- -- -- -- -- --    -- -- --
+|P |P |. |P |.  .1|P |. |P |  |P |. |
+ -- -- --    -- -- -- -- -- -- --   
+|. |P3 P |P3|P |. |P |P  P |. |P1|. |
+    -- -- --          -- -- -- -- --
+|.1|P2|. |. |P |. |P |.4|P |P |.3|P1|
+ --    -- -- -- -- -- -- -- -- -- --
+|. |P |P3|P |P |.3|P3 P |P |.3 . |P |
+ -- -- -- --    -- -- -- -- -- -- --
+|P |. |P2|. |P |P |P |. |  |P |P  P2|
+    -- -- -- -- -- -- -- -- -- -- --
+|P |P |P |P |.4|P |. |P2|P |.  . |.2|
+ --    --    -- -- --    -- -- -- --
+|.2|P1|. |P  P |P  P |P3|. |P | 3|P |
+ -- -- -- -- -- -- -- -- -- -- -- --
+|.  . |. |.1 .  .1|. |P |P | 3|P |  |
+ -- -- -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 15
+0.04348 [s]
 
