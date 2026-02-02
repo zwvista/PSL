@@ -202,37 +202,33 @@ int puz_state::find_matches(bool init)
 
 struct puz_state3 : Position
 {
-    puz_state3(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+    puz_state3(const puz_state& s, const Position& p) : m_state(&s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state3>& children) const;
 
-    const set<Position>* m_rng;
+    const puz_state* m_state;
 };
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
-    for (auto& os : offset) {
-        auto p2 = *this + os;
-        if (m_rng->contains(p2))
+    for (auto& os : offset)
+        switch (auto p2 = *this + os; m_state->cells(p2)) {
+        case PUZ_SPACE:
+        case PUZ_PAINTED:
             children.emplace_back(*this).make_move(p2);
-    }
+        }
 }
 
 // 3. The painted tiles form an orthogonally continuous area.
 bool puz_state::is_interconnected() const
 {
-    set<Position> a;
-    for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            char ch = cells(p);
-            if (ch == PUZ_SPACE || ch == PUZ_PAINTED)
-                a.insert(p);
-        }
-
-    auto smoves = puz_move_generator<puz_state3>::gen_moves(a);
-    return smoves.size() == a.size();
+    int i = m_cells.find(PUZ_PAINTED);
+    auto smoves = puz_move_generator<puz_state3>::gen_moves(
+        {*this, {i / sidelen(), i % sidelen()}});
+    return boost::count_if(smoves, [&](const Position& p) {
+        return cells(p) == PUZ_PAINTED;
+    }) == boost::count(m_cells, PUZ_PAINTED);
 }
 
 // There can't be any 2*2 area of the same color(painted or empty).
@@ -243,7 +239,7 @@ bool puz_state::check_2x2()
             Position p(r, c);
             vector<Position> rngPainted, rngSpace, rngEmpty;
             for (auto& os : offset3)
-                switch(auto p2 = p + os; cells(p2)) {
+                switch (auto p2 = p + os; cells(p2)) {
                 case PUZ_PAINTED: rngPainted.push_back(p2); break;
                 case PUZ_SPACE: rngSpace.push_back(p2); break;
                 case PUZ_EMPTY: rngEmpty.push_back(p2); break;

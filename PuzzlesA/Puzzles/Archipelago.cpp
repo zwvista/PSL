@@ -169,9 +169,7 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s, const Position& p_start) : m_state(&s) {
-        make_move(p_start);
-    }
+    puz_state2(const puz_state& s, const Position& p) : m_state(&s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
