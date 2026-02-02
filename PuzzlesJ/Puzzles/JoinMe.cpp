@@ -106,7 +106,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     };
     for (int i = 0; i < m_sidelen; ++i) {
         f(i, strs[i * 2 + 1].substr(m_sidelen * 2 + 1, 2));
-        f(i + m_sidelen, strs[m_sidelen * 2 + 1].substr(i * 2 + 1, 2));
+        f(i + m_sidelen, strs[m_sidelen * 2 + 1].substr(i * 2, 2));
     }
 
     for (int n = m_areas.size(); !rng.empty(); ++n) {
