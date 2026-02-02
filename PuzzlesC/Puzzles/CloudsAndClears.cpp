@@ -136,7 +136,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c)
             if (char ch = str[c]; ch != PUZ_SPACE)
-                m_pos2num[{r, c}] = ch - '0';
+                m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
     }
 
     for (auto& [_1, num] : m_pos2num) {
