@@ -115,8 +115,6 @@
 		8CA23FF11EB4793B0055D6B1 /* Clouds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clouds.cpp; sourceTree = "<group>"; };
 		8CA23FF21EB4793B0055D6B1 /* Clouds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Clouds.txt; sourceTree = "<group>"; };
 		8CA23FF31EB4793B0055D6B1 /* Clouds.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Clouds.xml; sourceTree = "<group>"; };
-		8CA23FF41EB4793B0055D6B1 /* Clouds2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Clouds2.txt; sourceTree = "<group>"; };
-		8CA23FF51EB4793B0055D6B1 /* Clouds2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Clouds2.xml; sourceTree = "<group>"; };
 		8CA23FF61EB4793B0055D6B1 /* Consecutives.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Consecutives.cpp; sourceTree = "<group>"; };
 		8CA23FF71EB4793B0055D6B1 /* Consecutives.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Consecutives.txt; sourceTree = "<group>"; };
 		8CA23FF81EB4793B0055D6B1 /* Consecutives.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Consecutives.xml; sourceTree = "<group>"; };
@@ -211,8 +209,6 @@
 				8CA23FF11EB4793B0055D6B1 /* Clouds.cpp */,
 				8CA23FF21EB4793B0055D6B1 /* Clouds.txt */,
 				8CA23FF31EB4793B0055D6B1 /* Clouds.xml */,
-				8CA23FF41EB4793B0055D6B1 /* Clouds2.txt */,
-				8CA23FF51EB4793B0055D6B1 /* Clouds2.xml */,
 				8CDAF80C2E1D496900ED90A3 /* CloudsAndClears.cpp */,
 				8CDAF80D2E1D496900ED90A3 /* CloudsAndClears.txt */,
 				8CDAF80E2E1D496900ED90A3 /* CloudsAndClears.xml */,
