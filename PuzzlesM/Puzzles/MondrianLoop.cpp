@@ -40,6 +40,8 @@ struct puz_game
     map<Position, int> m_pos2num;
     vector<puz_box> m_boxes;
     map<Position, vector<int>> m_pos2boxids;
+    // boxes without hint
+    vector<int> m_none_boxids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -71,16 +73,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                                     int num = it->second;
                                     rng.push_back(p);
                                     // 2. Each rectangle/square can contain only one number, which represents
-                                    // its area, but it can also contain none. 
-                                    if (rng.size() > 1 || num != PUZ_UNKNOWN && num != h * w)
+                                    // its area.
+                                    if (rng.size() > 1 || !(num == PUZ_UNKNOWN || num == h * w))
                                         return false;
                                 }
                             }
-                        return rng.size() == 1;
+                        // 2. but it can also contain none.
+                        return true;
                     }()) {
                         int n = m_boxes.size();
                         m_boxes.emplace_back(tl, br);
-                        m_pos2boxids[rng.front()].push_back(n);
+                        if (rng.empty())
+                            m_none_boxids.push_back(n);
+                        else
+                            m_pos2boxids[rng[0]].push_back(n);
                     }
                 }
 }
@@ -97,15 +103,22 @@ struct puz_state
     bool operator<(const puz_state& x) const { 
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches); 
     }
-    bool make_move(int n);
-    void make_move2(int n);
+    bool make_move_hint(int n);
+    void make_move_box(int n);
+    bool make_move_none(int n);
     int find_matches(bool init);
     bool check_mondrian_loop();
+    void check_none_boxids();
+    bool is_invalid_box(int id);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const {
+        return m_matches.size() + boost::accumulate(m_used_boxes, 0, [](int acc, const pair<const int, vector<int>>& kv){
+            return acc + 2 - kv.second.size();
+        });
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -115,7 +128,10 @@ struct puz_state
     // key: the position of the number
     // value.elem: the index of the box
     map<Position, vector<int>> m_matches;
-    vector<puz_box> m_used_boxes;
+    vector<int> m_none_boxids;
+    // key: id of the box
+    // value.elem: id of a neighboring box
+    map<int, vector<int>> m_used_boxes;
     unsigned int m_distance = 0;
     char m_ch = 'a';
 };
@@ -124,40 +140,16 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_matches(g.m_pos2boxids)
+, m_none_boxids(g.m_none_boxids)
 {
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    auto f = [&](const Position& p) {
-        if (!is_valid(p)) return false;
-        char ch = cells(p);
-        return ch != PUZ_SPACE && ch != PUZ_EMPTY;
-    };
-
     for (auto& [p, box_ids] : m_matches) {
         boost::remove_erase_if(box_ids, [&](int id) {
-            auto& [tl, br] = m_game->m_boxes[id];
-            auto& [r1, c1] = tl;
-            auto& [r2, c2] = br;
-            for (int r = r1; r <= r2; ++r)
-                for (int c = c1; c <= c2; ++c)
-                    if (cells({r, c}) != PUZ_SPACE)
-                        return true;
-            // 3. The rectangles/squares can't touch each other with their sides
-            // (they can't share a side), 
-            for (int r = r1; r <= r2; ++r) {
-                Position p1(r, c1 - 1), p2(r, c2 + 1);
-                if (f(p1) || f(p2))
-                    return true;
-            }
-            for (int c = c1; c <= c2; ++c) {
-                Position p1(r1 - 1, c), p2(r2 + 1, c);
-                if (f(p1) || f(p2))
-                    return true;
-            }
-            return false;
+            return is_invalid_box(id);
         });
 
         if (!init)
@@ -165,13 +157,50 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(box_ids[0]), 1;
+                return make_move_box(box_ids[0]), 1;
             }
     }
+    check_none_boxids();
     return check_mondrian_loop() ? 2 : 0;
 }
 
-void puz_state::make_move2(int n)
+bool puz_state::is_invalid_box(int id)
+{
+    auto f = [&](const Position& p) {
+        if (!is_valid(p)) return false;
+        char ch = cells(p);
+        return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+    };
+    auto& [tl, br] = m_game->m_boxes[id];
+    auto& [r1, c1] = tl;
+    auto& [r2, c2] = br;
+    for (int r = r1; r <= r2; ++r)
+        for (int c = c1; c <= c2; ++c)
+            if (cells({r, c}) != PUZ_SPACE)
+                return true;
+    // 3. The rectangles/squares can't touch each other with their sides
+    // (they can't share a side).
+    for (int r = r1; r <= r2; ++r) {
+        Position p1(r, c1 - 1), p2(r, c2 + 1);
+        if (f(p1) || f(p2))
+            return true;
+    }
+    for (int c = c1; c <= c2; ++c) {
+        Position p1(r1 - 1, c), p2(r2 + 1, c);
+        if (f(p1) || f(p2))
+            return true;
+    }
+    return false;
+}
+
+void puz_state::check_none_boxids()
+{
+    boost::remove_erase_if(m_none_boxids, [&](int id) {
+        return is_invalid_box(id);
+    });
+}
+
+void puz_state::make_move_box(int n)
 {
     auto& [tl, br] = m_game->m_boxes[n];
     auto& [r1, c1] = tl;
@@ -192,32 +221,38 @@ void puz_state::make_move2(int n)
     for (int c = c1; c <= c2; ++c)
         f({r1 - 1, c}), f({r2 + 1, c});
     ++m_ch;
-    m_used_boxes.push_back({tl, br});
+    m_used_boxes[n];
 }
 
-bool puz_state::make_move(int n)
+bool puz_state::make_move_hint(int n)
 {
     m_distance = 0;
-    make_move2(n);
+    make_move_box(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
+}
+
+bool puz_state::make_move_none(int n)
+{
+    m_distance = 0;
+    make_move_box(n);
+    boost::remove_erase(m_none_boxids, n);
+    check_none_boxids();
+    return check_mondrian_loop();
 }
 
 // 3. The rectangles/squares have to form a loop by
 // connecting with their corners.
 bool puz_state::check_mondrian_loop()
 {
-    vector<int> boxids(m_used_boxes.size());
-    boost::iota(boxids, 0);
-    map<int, vector<int>> id2ids;
-    bool is_goal = is_goal_state();
+    vector<int> used_boxids;
+    for (auto& [i, _1] : m_used_boxes)
+        used_boxids.push_back(i);
 
-    // A cycle graph where every vertex has a degree of 2 is simply a cycle.
-    // In a cycle graph, every vertex is connected to exactly two other vertices,
-    // forming a closed loop or circuit. 
-    for (int i : boxids) {
-        auto& [tl, br] = m_used_boxes[i];
+    auto h = get_heuristic();
+    for (auto& [i, boxids] : m_used_boxes) {
+        auto& [tl, br] = m_game->m_boxes[i];
         auto& [r1, c1] = tl;
         auto& [r2, c2] = br;
         vector<Position> v = {
@@ -231,9 +266,10 @@ bool puz_state::check_mondrian_loop()
         });
         if (v.empty())
             return false;
-        auto boxids2 = boxids;
-        boost::remove_erase_if(boxids2, [&](int j) {
-            auto& box = m_used_boxes[j];
+
+        boxids = used_boxids;
+        boost::remove_erase_if(boxids, [&](int j) {
+            auto& box = m_game->m_boxes[j];
             return boost::algorithm::all_of(v, [&](const Position & p) {
                 auto& [r, c] = p;
                 auto& [tl2, br2] = box;
@@ -242,31 +278,43 @@ bool puz_state::check_mondrian_loop()
                 return !(r >= r_1 && r <= r_2 && c >= c_1 && c <= c_2);
             });
         });
-        if (int n = boxids2.size(); is_goal && n != 2 || n > 2)
+        if (boxids.size() > 2)
             return false;
-        if (is_goal)
-            id2ids[i] = boxids2;
     }
-    if (is_goal) {
+    auto h2 = get_heuristic();
+    m_distance += h - h2;
+
+    // A cycle graph where every vertex has a degree of 2 is simply a cycle.
+    // In a cycle graph, every vertex is connected to exactly two other vertices,
+    // forming a closed loop or circuit.
+    map<int, vector<int>> id2ids;
+    for (auto& [id, boxids] : m_used_boxes)
+        if (boxids.size() == 2)
+            id2ids[id] = boxids;
+
+    if (is_goal_state())
         replace(m_cells.begin(), m_cells.end(), PUZ_SPACE, PUZ_EMPTY);
 
-        while (!id2ids.empty()) {
-            auto kv = *id2ids.begin(), kv2 = kv;
-            for (int n = -1;;) {
-                auto& [id, ids] = kv2;
-                id2ids.erase(id);
-                for (int id2: ids)
-                    // proceed only if the next box is not the previous one
-                    if (id2 != n) {
-                        n = id2;
-                        break;
-                    }
-                if (kv2 == kv)
-                    // we have a loop here,
-                    // and we are supposed to have exhausted the boxes
-                    return true;
-                if (!id2ids.contains(id))
-                    return false;
+    bool has_branch = false;
+    while (!id2ids.empty()) {
+        int id = id2ids.begin()->first, id2 = id;
+        for (int n = -1;;) {
+            auto ids = id2ids[id2];
+            id2ids.erase(id2);
+            for (int id3: ids)
+                // proceed only if the next box is not the previous one
+                if (id3 != n) {
+                    n = id2;
+                    id2 = id3;
+                    break;
+                }
+            if (id2 == id)
+                // we have a loop here,
+                // and we are supposed to have exhausted the boxes
+                return !has_branch && id2ids.empty();
+            if (!id2ids.contains(id2)) {
+                has_branch = true;
+                break;
             }
         }
     }
@@ -275,14 +323,20 @@ bool puz_state::check_mondrian_loop()
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, box_ids] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (int n : box_ids)
-        if (!children.emplace_back(*this).make_move(n))
-            children.pop_back();
+    if (!m_matches.empty()) {
+        auto& [p, box_ids] = *boost::min_element(m_matches, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        for (int n : box_ids)
+            if (!children.emplace_back(*this).make_move_hint(n))
+                children.pop_back();
+    } else {
+        for (int n : m_none_boxids)
+            if (!children.emplace_back(*this).make_move_none(n))
+                children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
