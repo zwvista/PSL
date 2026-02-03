@@ -208,10 +208,16 @@ bool puz_state::make_move(int n)
 // connecting with their corners.
 bool puz_state::check_mondrian_loop()
 {
+    vector<int> boxids(m_used_boxes.size());
+    boost::iota(boxids, 0);
+    map<int, vector<int>> id2ids;
+    bool is_goal = is_goal_state();
+
     // A cycle graph where every vertex has a degree of 2 is simply a cycle.
     // In a cycle graph, every vertex is connected to exactly two other vertices,
     // forming a closed loop or circuit. 
-    for (auto& [tl, br] : m_used_boxes) {
+    for (int i : boxids) {
+        auto& [tl, br] = m_used_boxes[i];
         auto& [r1, c1] = tl;
         auto& [r2, c2] = br;
         vector<Position> v = {
@@ -220,21 +226,50 @@ bool puz_state::check_mondrian_loop()
             {r2 + 1, c1 - 1},
             {r2 + 1, c2 + 1},
         };
-        if (boost::algorithm::any_of(v, [&](const Position& p) {
-            return is_valid(p) && cells(p) == PUZ_EMPTY;
-        }))
+        boost::remove_erase_if(v, [&](const Position& p) {
+            return !is_valid(p) || cells(p) == PUZ_EMPTY;
+        });
+        if (v.empty())
             return false;
-        int n = boost::count_if(v, [&](const Position & p) {
-            return boost::algorithm::any_of(m_used_boxes, [&](const puz_box& box) {
+        auto boxids2 = boxids;
+        boost::remove_erase_if(boxids2, [&](int j) {
+            auto& box = m_used_boxes[j];
+            return boost::algorithm::all_of(v, [&](const Position & p) {
+                auto& [r, c] = p;
                 auto& [tl2, br2] = box;
-                return tl2 == p || br2 == p;
+                auto& [r_1, c_1] = tl2;
+                auto& [r_2, c_2] = br2;
+                return !(r >= r_1 && r <= r_2 && c >= c_1 && c <= c_2);
             });
         });
-        if (is_goal_state() && n != 2 || n > 2)
+        if (int n = boxids2.size(); is_goal && n != 2 || n > 2)
             return false;
+        if (is_goal)
+            id2ids[i] = boxids2;
     }
-    if (is_goal_state())
+    if (is_goal) {
         replace(m_cells.begin(), m_cells.end(), PUZ_SPACE, PUZ_EMPTY);
+
+        while (!id2ids.empty()) {
+            auto kv = *id2ids.begin(), kv2 = kv;
+            for (int n = -1;;) {
+                auto& [id, ids] = kv2;
+                id2ids.erase(id);
+                for (int id2: ids)
+                    // proceed only if the next box is not the previous one
+                    if (id2 != n) {
+                        n = id2;
+                        break;
+                    }
+                if (kv2 == kv)
+                    // we have a loop here,
+                    // and we are supposed to have exhausted the boxes
+                    return true;
+                if (!id2ids.contains(id))
+                    return false;
+            }
+        }
+    }
     return true;
 }
 
