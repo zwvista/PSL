@@ -30,8 +30,12 @@ constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-// top-left and bottom-right
-using puz_box = pair<Position, Position>;
+struct puz_box
+{
+    // top-left and bottom-right
+    pair<Position, Position> m_box;
+    vector<Position> m_neighbors;
+};
 
 struct puz_game
 {
@@ -44,6 +48,9 @@ struct puz_game
     vector<int> m_none_boxids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -82,7 +89,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         return true;
                     }()) {
                         int n = m_boxes.size();
-                        m_boxes.emplace_back(tl, br);
+                        vector<Position> v = {
+                            {r1 - 1, c1 - 1},
+                            {r1 - 1, c2 + 1},
+                            {r2 + 1, c1 - 1},
+                            {r2 + 1, c2 + 1},
+                        };
+                        boost::remove_erase_if(v, [&](const Position& p) {
+                            return !is_valid(p);
+                        });
+                        m_boxes.push_back({{tl, br}, v});
                         if (rng.empty())
                             m_none_boxids.push_back(n);
                         else
@@ -90,6 +106,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     }
                 }
 }
+
+struct puz_used_box
+{
+    int m_boxid;
+    vector<int> m_neighbor_boxids;
+};
 
 struct puz_state
 {
@@ -120,8 +142,8 @@ struct puz_state
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_matches.size() + boost::accumulate(m_used_boxes, 0, [](int acc, const pair<const int, vector<int>>& kv){
-            return acc + 2 - kv.second.size();
+        return m_matches.size() + boost::accumulate(m_ch2used_box, 0, [](int acc, const pair<const char, puz_used_box>& kv){
+            return acc + 2 - kv.second.m_neighbor_boxids.size();
         });
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
@@ -136,7 +158,7 @@ struct puz_state
     vector<int> m_none_boxids;
     // key: id of the box
     // value.elem: id of a neighboring box
-    map<int, vector<int>> m_used_boxes;
+    map<char, puz_used_box> m_ch2used_box;
     unsigned int m_distance = 0;
     char m_ch = 'a';
 };
@@ -171,7 +193,7 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::is_invalid_box(int id)
 {
-    auto& [tl, br] = m_game->m_boxes[id];
+    auto& [tl, br] = m_game->m_boxes[id].m_box;
     auto& [r1, c1] = tl;
     auto& [r2, c2] = br;
     for (int r = r1; r <= r2; ++r)
@@ -202,7 +224,7 @@ void puz_state::check_none_boxids()
 
 void puz_state::make_move_box(int n)
 {
-    auto& [tl, br] = m_game->m_boxes[n];
+    auto& [tl, br] = m_game->m_boxes[n].m_box;
     auto& [r1, c1] = tl;
     auto& [r2, c2] = br;
     // 3. The rectangles/squares can't touch each other with their sides
@@ -220,8 +242,7 @@ void puz_state::make_move_box(int n)
         f({r, c1 - 1}), f({r, c2 + 1});
     for (int c = c1; c <= c2; ++c)
         f({r1 - 1, c}), f({r2 + 1, c});
-    ++m_ch;
-    m_used_boxes[n];
+    m_ch2used_box[m_ch++] = {n, {}};
 }
 
 bool puz_state::make_move_hint(int n)
@@ -247,20 +268,14 @@ bool puz_state::make_move_none(int n)
 bool puz_state::check_mondrian_loop()
 {
     vector<int> used_boxids;
-    for (auto& [i, _1] : m_used_boxes)
-        used_boxids.push_back(i);
+    for (auto& [_1, used_box] : m_ch2used_box) {
+        used_boxids.push_back(used_box.m_boxid);
+    }
 
     auto h = get_heuristic();
-    for (auto& [i, boxids] : m_used_boxes) {
-        auto& [tl, br] = m_game->m_boxes[i];
-        auto& [r1, c1] = tl;
-        auto& [r2, c2] = br;
-        vector<Position> v = {
-            {r1 - 1, c1 - 1},
-            {r1 - 1, c2 + 1},
-            {r2 + 1, c1 - 1},
-            {r2 + 1, c2 + 1},
-        };
+    for (auto& [_1, used_box] : m_ch2used_box) {
+        auto& [id, boxids] = used_box;
+        auto v = m_game->m_boxes[id].m_neighbors;
         boost::remove_erase_if(v, [&](const Position& p) {
             return !is_valid(p) || cells(p) == PUZ_EMPTY;
         });
@@ -269,7 +284,7 @@ bool puz_state::check_mondrian_loop()
 
         boxids = used_boxids;
         boost::remove_erase_if(boxids, [&](int j) {
-            auto& box = m_game->m_boxes[j];
+            auto& box = m_game->m_boxes[j].m_box;
             return boost::algorithm::all_of(v, [&](const Position & p) {
                 auto& [r, c] = p;
                 auto& [tl2, br2] = box;
@@ -288,9 +303,11 @@ bool puz_state::check_mondrian_loop()
     // In a cycle graph, every vertex is connected to exactly two other vertices,
     // forming a closed loop or circuit.
     map<int, vector<int>> id2ids;
-    for (auto& [id, boxids] : m_used_boxes)
+    for (auto& [_1, used_box] : m_ch2used_box) {
+        auto& [id, boxids] = used_box;
         if (boxids.size() == 2)
             id2ids[id] = boxids;
+    }
 
     if (is_goal_state())
         replace(m_cells.begin(), m_cells.end(), PUZ_SPACE, PUZ_EMPTY);
@@ -335,17 +352,13 @@ void puz_state::gen_children(list<puz_state>& children) const
     } else {
         auto boxids = m_none_boxids;
         boost::remove_erase_if(boxids, [&](int i) {
-            auto& [tl, br] = m_game->m_boxes[i];
-            auto& [r1, c1] = tl;
-            auto& [r2, c2] = br;
-            vector<Position> v = {
-                {r1 - 1, c1 - 1},
-                {r1 - 1, c2 + 1},
-                {r2 + 1, c1 - 1},
-                {r2 + 1, c2 + 1},
-            };
+            auto v = m_game->m_boxes[i].m_neighbors;
             return boost::algorithm::none_of(v, [&](const Position& p) {
-                return is_box(p);
+                char ch = cells(p);
+                if (ch == PUZ_SPACE || ch == PUZ_EMPTY)
+                    return false;
+                auto& [id, boxids] = m_ch2used_box.at(ch);
+                return boxids.size() < 2;
             });
         });
         for (int n : boxids)
