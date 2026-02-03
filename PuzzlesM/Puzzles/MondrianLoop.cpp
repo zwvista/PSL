@@ -110,6 +110,11 @@ struct puz_state
     bool check_mondrian_loop();
     void check_none_boxids();
     bool is_invalid_box(int id);
+    bool is_box(const Position& p) const {
+        if (!is_valid(p)) return false;
+        char ch = cells(p);
+        return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+    }
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -166,11 +171,6 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::is_invalid_box(int id)
 {
-    auto f = [&](const Position& p) {
-        if (!is_valid(p)) return false;
-        char ch = cells(p);
-        return ch != PUZ_SPACE && ch != PUZ_EMPTY;
-    };
     auto& [tl, br] = m_game->m_boxes[id];
     auto& [r1, c1] = tl;
     auto& [r2, c2] = br;
@@ -182,12 +182,12 @@ bool puz_state::is_invalid_box(int id)
     // (they can't share a side).
     for (int r = r1; r <= r2; ++r) {
         Position p1(r, c1 - 1), p2(r, c2 + 1);
-        if (f(p1) || f(p2))
+        if (is_box(p1) || is_box(p2))
             return true;
     }
     for (int c = c1; c <= c2; ++c) {
         Position p1(r1 - 1, c), p2(r2 + 1, c);
-        if (f(p1) || f(p2))
+        if (is_box(p1) || is_box(p2))
             return true;
     }
     return false;
@@ -333,7 +333,22 @@ void puz_state::gen_children(list<puz_state>& children) const
             if (!children.emplace_back(*this).make_move_hint(n))
                 children.pop_back();
     } else {
-        for (int n : m_none_boxids)
+        auto boxids = m_none_boxids;
+        boost::remove_erase_if(boxids, [&](int i) {
+            auto& [tl, br] = m_game->m_boxes[i];
+            auto& [r1, c1] = tl;
+            auto& [r2, c2] = br;
+            vector<Position> v = {
+                {r1 - 1, c1 - 1},
+                {r1 - 1, c2 + 1},
+                {r2 + 1, c1 - 1},
+                {r2 + 1, c2 + 1},
+            };
+            return boost::algorithm::none_of(v, [&](const Position& p) {
+                return is_box(p);
+            });
+        });
+        for (int n : boxids)
             if (!children.emplace_back(*this).make_move_none(n))
                 children.pop_back();
     }
