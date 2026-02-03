@@ -11,5 +11,1647 @@ Sequence of moves:
  - - - -
 Number of moves: 3
 Number of vertices examined: 6
-0.0014702 [s]
+0.000644 [s]
+
+Level 2
+Sequence of moves: 
+ - - - -
+| |1|   |
+ - - - -
+|1| |2  |
+ - - - -
+| | |   |
+        
+| |O|   |
+ - - - -
+Number of moves: 3
+Number of vertices examined: 4
+6.2e-05 [s]
+
+Level 3
+Sequence of moves: 
+ - - - -
+| |  2| |
+ - - - -
+| |   | |
+        
+|O|   |2|
+ - - - -
+| |O  | |
+ - - - -
+Number of moves: 4
+Number of vertices examined: 9
+0.000106 [s]
+
+Level 4
+Number of vertices examined: 1
+1.1e-05 [s]
+
+Level 5
+Number of vertices examined: 2
+2.2e-05 [s]
+
+Level 6
+Number of vertices examined: 1
+1e-05 [s]
+
+Level 7
+Number of vertices examined: 1
+1.4e-05 [s]
+
+Level 8
+Number of vertices examined: 1
+1e-05 [s]
+
+Level 9
+Sequence of moves: 
+ - - - -
+|   |1| |
+ - - - -
+|2  | |O|
+ - - - -
+|   | | |
+        
+|   |O| |
+ - - - -
+Number of moves: 4
+Number of vertices examined: 5
+9e-05 [s]
+
+Level 10
+Number of vertices examined: 2
+2.1e-05 [s]
+
+Level 11
+Number of vertices examined: 11
+0.000138 [s]
+
+Level 12
+Number of vertices examined: 4
+4.4e-05 [s]
+
+Level 13
+Number of vertices examined: 4
+4.1e-05 [s]
+
+Level 14
+Number of vertices examined: 2
+2.2e-05 [s]
+
+Level 15
+Number of vertices examined: 1
+1.5e-05 [s]
+
+Level 16
+Number of vertices examined: 3
+2.7e-05 [s]
+
+Level 17
+Number of vertices examined: 2
+2e-05 [s]
+
+Level 18
+Number of vertices examined: 3
+3e-05 [s]
+
+Level 19
+Number of vertices examined: 5
+4.9e-05 [s]
+
+Level 20
+Number of vertices examined: 1
+1e-05 [s]
+
+Level 21
+Number of vertices examined: 2
+2.2e-05 [s]
+
+Level 22
+Number of vertices examined: 2
+1.9e-05 [s]
+
+Level 23
+Number of vertices examined: 5
+5.5e-05 [s]
+
+Level 24
+Number of vertices examined: 2
+1.8e-05 [s]
+
+Level 25
+Number of vertices examined: 5
+4.6e-05 [s]
+
+Level 26
+Number of vertices examined: 7
+6.4e-05 [s]
+
+Level 27
+Sequence of moves: 
+ - - - - -
+|     | | |
+          
+|     |2| |
+ - - - - -
+|    3| |1|
+ - - - - -
+|     |2| |
+          
+|     | | |
+ - - - - -
+Number of moves: 3
+Number of vertices examined: 4
+5.7e-05 [s]
+
+Level 28
+Number of vertices examined: 5
+4.6e-05 [s]
+
+Level 29
+Number of vertices examined: 2
+2e-05 [s]
+
+Level 30
+Number of vertices examined: 3
+2.4e-05 [s]
+
+Level 31
+Number of vertices examined: 3
+3e-05 [s]
+
+Level 32
+Number of vertices examined: 4
+3.5e-05 [s]
+
+Level 33
+Number of vertices examined: 2
+2.2e-05 [s]
+
+Level 34
+Number of vertices examined: 3
+3.4e-05 [s]
+
+Level 35
+Number of vertices examined: 3
+4.6e-05 [s]
+
+Level 36
+Number of vertices examined: 2
+2.2e-05 [s]
+
+Level 37
+Number of vertices examined: 6
+5.5e-05 [s]
+
+Level 38
+Number of vertices examined: 3
+3.3e-05 [s]
+
+Level 39
+Number of vertices examined: 6
+5.4e-05 [s]
+
+Level 40
+Number of vertices examined: 8
+8.7e-05 [s]
+
+Level 41
+Number of vertices examined: 4
+5.7e-05 [s]
+
+Level 42
+Number of vertices examined: 2
+2.6e-05 [s]
+
+Level 43
+Number of vertices examined: 5
+6.8e-05 [s]
+
+Level 44
+Number of vertices examined: 4
+4e-05 [s]
+
+Level 45
+Number of vertices examined: 3
+4.3e-05 [s]
+
+Level 46
+Number of vertices examined: 4
+4.2e-05 [s]
+
+Level 47
+Number of vertices examined: 11
+0.000137 [s]
+
+Level 48
+Number of vertices examined: 6
+7.8e-05 [s]
+
+Level 49
+Number of vertices examined: 7
+7.3e-05 [s]
+
+Level 50
+Number of vertices examined: 5
+6.1e-05 [s]
+
+Level 51
+Number of vertices examined: 9
+0.000142 [s]
+
+Level 52
+Number of vertices examined: 8
+7.4e-05 [s]
+
+Level 53
+Number of vertices examined: 24
+0.000244 [s]
+
+Level 54
+Number of vertices examined: 6
+7.5e-05 [s]
+
+Level 55
+Number of vertices examined: 5
+6.4e-05 [s]
+
+Level 56
+Number of vertices examined: 5
+5.2e-05 [s]
+
+Level 57
+Number of vertices examined: 2
+2.2e-05 [s]
+
+Level 58
+Number of vertices examined: 9
+8.9e-05 [s]
+
+Level 59
+Number of vertices examined: 5
+5.4e-05 [s]
+
+Level 60
+Number of vertices examined: 8
+8.6e-05 [s]
+
+Level 61
+Number of vertices examined: 4
+5.1e-05 [s]
+
+Level 62
+Number of vertices examined: 3
+4.2e-05 [s]
+
+Level 63
+Number of vertices examined: 6
+6.7e-05 [s]
+
+Level 64
+Number of vertices examined: 6
+6.3e-05 [s]
+
+Level 65
+Number of vertices examined: 6
+6.5e-05 [s]
+
+Level 66
+Number of vertices examined: 5
+8.4e-05 [s]
+
+Level 67
+Number of vertices examined: 9
+9.8e-05 [s]
+
+Level 68
+Number of vertices examined: 8
+7e-05 [s]
+
+Level 69
+Number of vertices examined: 8
+7.3e-05 [s]
+
+Level 70
+Number of vertices examined: 13
+0.000118 [s]
+
+Level 71
+Number of vertices examined: 3
+3e-05 [s]
+
+Level 72
+Number of vertices examined: 6
+5.5e-05 [s]
+
+Level 73
+Number of vertices examined: 3
+3.4e-05 [s]
+
+Level 74
+Number of vertices examined: 8
+7.4e-05 [s]
+
+Level 75
+Number of vertices examined: 8
+7.3e-05 [s]
+
+Level 76
+Number of vertices examined: 7
+7.1e-05 [s]
+
+Level 77
+Number of vertices examined: 3
+4e-05 [s]
+
+Level 78
+Number of vertices examined: 2
+2.2e-05 [s]
+
+Level 79
+Number of vertices examined: 6
+6.2e-05 [s]
+
+Level 80
+Number of vertices examined: 6
+6.1e-05 [s]
+
+Level 81
+Number of vertices examined: 21
+0.000223 [s]
+
+Level 82
+Number of vertices examined: 14
+0.000142 [s]
+
+Level 83
+Number of vertices examined: 2
+2.2e-05 [s]
+
+Level 84
+Number of vertices examined: 4
+4.7e-05 [s]
+
+Level 85
+Number of vertices examined: 3
+4.1e-05 [s]
+
+Level 86
+Number of vertices examined: 10
+0.000148 [s]
+
+Level 87
+Number of vertices examined: 4
+5.6e-05 [s]
+
+Level 88
+Number of vertices examined: 1
+1.6e-05 [s]
+
+Level 89
+Number of vertices examined: 8
+8.3e-05 [s]
+
+Level 90
+Number of vertices examined: 1
+1.5e-05 [s]
+
+Level 91
+Number of vertices examined: 26
+0.000324 [s]
+
+Level 92
+Number of vertices examined: 8
+9.9e-05 [s]
+
+Level 93
+Number of vertices examined: 4
+4.6e-05 [s]
+
+Level 94
+Number of vertices examined: 5
+5.1e-05 [s]
+
+Level 95
+Number of vertices examined: 11
+0.000119 [s]
+
+Level 96
+Number of vertices examined: 8
+0.000104 [s]
+
+Level 97
+Number of vertices examined: 16
+0.000146 [s]
+
+Level 98
+Number of vertices examined: 3
+3.3e-05 [s]
+
+Level 99
+Number of vertices examined: 4
+4.9e-05 [s]
+
+Level 100
+Number of vertices examined: 1
+1.8e-05 [s]
+
+Level 101
+Number of vertices examined: 1
+1.7e-05 [s]
+
+Level 102
+Number of vertices examined: 1
+1.8e-05 [s]
+
+Level 103
+Number of vertices examined: 7
+6.9e-05 [s]
+
+Level 104
+Number of vertices examined: 10
+0.000101 [s]
+
+Level 105
+Number of vertices examined: 8
+8.6e-05 [s]
+
+Level 106
+Number of vertices examined: 8
+0.000103 [s]
+
+Level 107
+Number of vertices examined: 40
+0.000356 [s]
+
+Level 108
+Number of vertices examined: 6
+7.9e-05 [s]
+
+Level 109
+Number of vertices examined: 9
+0.000123 [s]
+
+Level 110
+Number of vertices examined: 8
+0.000128 [s]
+
+Level 111
+Number of vertices examined: 18
+0.000213 [s]
+
+Level 112
+Number of vertices examined: 13
+0.00013 [s]
+
+Level 113
+Number of vertices examined: 18
+0.000175 [s]
+
+Level 114
+Number of vertices examined: 14
+0.000279 [s]
+
+Level 115
+Number of vertices examined: 5
+0.000485 [s]
+
+Level 116
+Number of vertices examined: 10
+0.000173 [s]
+
+Level 117
+Number of vertices examined: 32
+0.000503 [s]
+
+Level 118
+Number of vertices examined: 6
+7.2e-05 [s]
+
+Level 119
+Number of vertices examined: 8
+0.000112 [s]
+
+Level 120
+Number of vertices examined: 11
+0.000161 [s]
+
+Level 121
+Number of vertices examined: 4
+7.1e-05 [s]
+
+Level 122
+Number of vertices examined: 11
+0.000154 [s]
+
+Level 123
+Number of vertices examined: 12
+0.00017 [s]
+
+Level 124
+Number of vertices examined: 15
+0.000187 [s]
+
+Level 125
+Number of vertices examined: 9
+0.000128 [s]
+
+Level 126
+Number of vertices examined: 1
+2.2e-05 [s]
+
+Level 127
+Number of vertices examined: 4
+4.2e-05 [s]
+
+Level 128
+Number of vertices examined: 7
+6.4e-05 [s]
+
+Level 129
+Number of vertices examined: 21
+0.000204 [s]
+
+Level 130
+Number of vertices examined: 5
+7.4e-05 [s]
+
+Level 131
+Number of vertices examined: 5
+6.7e-05 [s]
+
+Level 132
+Number of vertices examined: 19
+0.000227 [s]
+
+Level 133
+Number of vertices examined: 5
+7.5e-05 [s]
+
+Level 134
+Number of vertices examined: 6
+9.3e-05 [s]
+
+Level 135
+Number of vertices examined: 4
+4.6e-05 [s]
+
+Level 136
+Number of vertices examined: 7
+0.000121 [s]
+
+Level 137
+Number of vertices examined: 7
+8.4e-05 [s]
+
+Level 138
+Number of vertices examined: 5
+8.3e-05 [s]
+
+Level 139
+Number of vertices examined: 8
+0.000105 [s]
+
+Level 140
+Number of vertices examined: 4
+0.000124 [s]
+
+Level 141
+Number of vertices examined: 3
+5e-05 [s]
+
+Level 142
+Number of vertices examined: 13
+0.000201 [s]
+
+Level 143
+Number of vertices examined: 2
+4.7e-05 [s]
+
+Level 144
+Number of vertices examined: 7
+9.2e-05 [s]
+
+Level 145
+Number of vertices examined: 3
+4.4e-05 [s]
+
+Level 146
+Number of vertices examined: 15
+0.000185 [s]
+
+Level 147
+Number of vertices examined: 25
+0.000245 [s]
+
+Level 148
+Number of vertices examined: 7
+0.000101 [s]
+
+Level 149
+Number of vertices examined: 5
+0.0001 [s]
+
+Level 150
+Number of vertices examined: 8
+0.000107 [s]
+
+Level 151
+Number of vertices examined: 5
+7.9e-05 [s]
+
+Level 152
+Number of vertices examined: 2
+3.4e-05 [s]
+
+Level 153
+Number of vertices examined: 6
+7e-05 [s]
+
+Level 154
+Number of vertices examined: 16
+0.000156 [s]
+
+Level 155
+Number of vertices examined: 39
+0.000669 [s]
+
+Level 156
+Number of vertices examined: 13
+0.000216 [s]
+
+Level 157
+Number of vertices examined: 22
+0.000297 [s]
+
+Level 158
+Number of vertices examined: 27
+0.000356 [s]
+
+Level 159
+Number of vertices examined: 16
+0.000186 [s]
+
+Level 160
+Number of vertices examined: 11
+0.000188 [s]
+
+Level 161
+Number of vertices examined: 7
+9.5e-05 [s]
+
+Level 162
+Number of vertices examined: 2
+4.5e-05 [s]
+
+Level 163
+Number of vertices examined: 31
+0.000577 [s]
+
+Level 164
+Number of vertices examined: 23
+0.000325 [s]
+
+Level 165
+Number of vertices examined: 1
+2.8e-05 [s]
+
+Level 166
+Number of vertices examined: 8
+0.000119 [s]
+
+Level 167
+Number of vertices examined: 6
+8.5e-05 [s]
+
+Level 168
+Number of vertices examined: 19
+0.00024 [s]
+
+Level 169
+Number of vertices examined: 14
+0.000151 [s]
+
+Level 170
+Number of vertices examined: 10
+0.000117 [s]
+
+Level 171
+Number of vertices examined: 15
+0.000185 [s]
+
+Level 172
+Number of vertices examined: 14
+0.000189 [s]
+
+Level 173
+Number of vertices examined: 12
+0.000172 [s]
+
+Level 174
+Number of vertices examined: 27
+0.00035 [s]
+
+Level 175
+Number of vertices examined: 11
+0.000132 [s]
+
+Level 176
+Number of vertices examined: 25
+0.000276 [s]
+
+Level 177
+Number of vertices examined: 4
+6.4e-05 [s]
+
+Level 178
+Number of vertices examined: 4
+6.1e-05 [s]
+
+Level 179
+Number of vertices examined: 11
+0.000135 [s]
+
+Level 180
+Number of vertices examined: 9
+0.000117 [s]
+
+Level 181
+Number of vertices examined: 6
+0.000107 [s]
+
+Level 182
+Number of vertices examined: 4
+0.000105 [s]
+
+Level 183
+Number of vertices examined: 116
+0.001502 [s]
+
+Level 184
+Number of vertices examined: 4
+7.4e-05 [s]
+
+Level 185
+Number of vertices examined: 3
+4e-05 [s]
+
+Level 186
+Number of vertices examined: 5
+0.000246 [s]
+
+Level 187
+Number of vertices examined: 9
+0.000154 [s]
+
+Level 188
+Number of vertices examined: 31
+0.000522 [s]
+
+Level 189
+Number of vertices examined: 11
+0.000169 [s]
+
+Level 190
+Number of vertices examined: 6
+8.2e-05 [s]
+
+Level 191
+Number of vertices examined: 3
+4.9e-05 [s]
+
+Level 192
+Number of vertices examined: 7
+8.8e-05 [s]
+
+Level 193
+Number of vertices examined: 25
+0.000255 [s]
+
+Level 194
+Number of vertices examined: 15
+0.000191 [s]
+
+Level 195
+Number of vertices examined: 12
+0.000121 [s]
+
+Level 196
+Number of vertices examined: 32
+0.000324 [s]
+
+Level 197
+Number of vertices examined: 8
+8.9e-05 [s]
+
+Level 198
+Number of vertices examined: 2
+3.8e-05 [s]
+
+Level 199
+Number of vertices examined: 32
+0.000462 [s]
+
+Level 200
+Number of vertices examined: 2
+3e-05 [s]
+
+Level 201
+Number of vertices examined: 7
+0.000146 [s]
+
+Level 202
+Number of vertices examined: 35
+0.00036 [s]
+
+Level 203
+Number of vertices examined: 172
+0.002285 [s]
+
+Level 204
+Number of vertices examined: 56
+0.000628 [s]
+
+Level 205
+Number of vertices examined: 5
+9.7e-05 [s]
+
+Level 206
+Number of vertices examined: 8
+0.000136 [s]
+
+Level 207
+Number of vertices examined: 8
+0.000137 [s]
+
+Level 208
+Number of vertices examined: 19
+0.000287 [s]
+
+Level 209
+Number of vertices examined: 9
+0.000154 [s]
+
+Level 210
+Number of vertices examined: 15
+0.000168 [s]
+
+Level 211
+Number of vertices examined: 94
+0.00123 [s]
+
+Level 212
+Number of vertices examined: 8
+0.000128 [s]
+
+Level 213
+Number of vertices examined: 9
+0.000228 [s]
+
+Level 214
+Number of vertices examined: 12
+0.000138 [s]
+
+Level 215
+Number of vertices examined: 13
+0.000197 [s]
+
+Level 216
+Number of vertices examined: 12
+0.000227 [s]
+
+Level 217
+Number of vertices examined: 3
+5.8e-05 [s]
+
+Level 218
+Number of vertices examined: 13
+0.000224 [s]
+
+Level 219
+Number of vertices examined: 7
+9.5e-05 [s]
+
+Level 220
+Number of vertices examined: 3
+5.6e-05 [s]
+
+Level 221
+Number of vertices examined: 22
+0.00029 [s]
+
+Level 222
+Number of vertices examined: 7
+0.000163 [s]
+
+Level 223
+Number of vertices examined: 2
+4.6e-05 [s]
+
+Level 224
+Number of vertices examined: 15
+0.000252 [s]
+
+Level 225
+Number of vertices examined: 12
+0.000151 [s]
+
+Level 226
+Number of vertices examined: 12
+0.000261 [s]
+
+Level 227
+Number of vertices examined: 16
+0.000267 [s]
+
+Level 228
+Number of vertices examined: 50
+0.000936 [s]
+
+Level 229
+Number of vertices examined: 1
+5.1e-05 [s]
+
+Level 230
+Number of vertices examined: 4
+8.7e-05 [s]
+
+Level 231
+Number of vertices examined: 5
+0.000114 [s]
+
+Level 232
+Number of vertices examined: 248
+0.006132 [s]
+
+Level 233
+Number of vertices examined: 4
+8.9e-05 [s]
+
+Level 234
+Number of vertices examined: 20
+0.000359 [s]
+
+Level 235
+Number of vertices examined: 5
+0.000163 [s]
+
+Level 236
+Number of vertices examined: 35
+0.000657 [s]
+
+Level 237
+Number of vertices examined: 27
+0.000408 [s]
+
+Level 238
+Number of vertices examined: 56
+0.001028 [s]
+
+Level 239
+Number of vertices examined: 536
+0.006708 [s]
+
+Level 240
+Number of vertices examined: 2
+4.6e-05 [s]
+
+Level 241
+Number of vertices examined: 5
+8.6e-05 [s]
+
+Level 242
+Number of vertices examined: 9
+0.000117 [s]
+
+Level 243
+Number of vertices examined: 18
+0.000234 [s]
+
+Level 244
+Number of vertices examined: 5
+8.4e-05 [s]
+
+Level 245
+Number of vertices examined: 30
+0.00039 [s]
+
+Level 246
+Number of vertices examined: 7
+0.000128 [s]
+
+Level 247
+Number of vertices examined: 17
+0.000291 [s]
+
+Level 248
+Number of vertices examined: 5
+0.000104 [s]
+
+Level 249
+Number of vertices examined: 4
+9.3e-05 [s]
+
+Level 250
+Number of vertices examined: 12
+0.000246 [s]
+
+Level 251
+Number of vertices examined: 12
+0.000139 [s]
+
+Level 252
+Number of vertices examined: 18
+0.000266 [s]
+
+Level 253
+Number of vertices examined: 38
+0.000451 [s]
+
+Level 254
+Number of vertices examined: 8
+0.000167 [s]
+
+Level 255
+Number of vertices examined: 10
+0.00017 [s]
+
+Level 256
+Number of vertices examined: 58
+0.000623 [s]
+
+Level 257
+Number of vertices examined: 22
+0.00038 [s]
+
+Level 258
+Number of vertices examined: 27
+0.000327 [s]
+
+Level 259
+Number of vertices examined: 37
+0.000751 [s]
+
+Level 260
+Number of vertices examined: 42
+0.000807 [s]
+
+Level 261
+Number of vertices examined: 28
+0.000433 [s]
+
+Level 262
+Number of vertices examined: 21
+0.000333 [s]
+
+Level 263
+Number of vertices examined: 51
+0.001081 [s]
+
+Level 264
+Number of vertices examined: 28
+0.00055 [s]
+
+Level 265
+Number of vertices examined: 5
+0.000128 [s]
+
+Level 266
+Number of vertices examined: 13
+0.000299 [s]
+
+Level 267
+Number of vertices examined: 10
+0.000155 [s]
+
+Level 268
+Number of vertices examined: 82
+0.001628 [s]
+
+Level 269
+Number of vertices examined: 31
+0.000642 [s]
+
+Level 270
+Number of vertices examined: 19
+0.000298 [s]
+
+Level 271
+Number of vertices examined: 31
+0.000639 [s]
+
+Level 272
+Number of vertices examined: 21
+0.000285 [s]
+
+Level 273
+Number of vertices examined: 52
+0.000885 [s]
+
+Level 274
+Number of vertices examined: 18
+0.000219 [s]
+
+Level 275
+Number of vertices examined: 10
+0.0001 [s]
+
+Level 276
+Number of vertices examined: 5
+7.5e-05 [s]
+
+Level 277
+Number of vertices examined: 11
+0.000256 [s]
+
+Level 278
+Number of vertices examined: 3
+0.000102 [s]
+
+Level 279
+Number of vertices examined: 18
+0.000442 [s]
+
+Level 280
+Number of vertices examined: 23
+0.000439 [s]
+
+Level 281
+Number of vertices examined: 19
+0.000375 [s]
+
+Level 282
+Number of vertices examined: 2
+9.8e-05 [s]
+
+Level 283
+Number of vertices examined: 53
+0.000924 [s]
+
+Level 284
+Number of vertices examined: 45
+0.001084 [s]
+
+Level 285
+Number of vertices examined: 17
+0.000535 [s]
+
+Level 286
+Number of vertices examined: 7
+0.000141 [s]
+
+Level 287
+Number of vertices examined: 11
+0.000227 [s]
+
+Level 288
+Number of vertices examined: 2
+7e-05 [s]
+
+Level 289
+Number of vertices examined: 17
+0.000219 [s]
+
+Level 290
+Number of vertices examined: 6
+0.000153 [s]
+
+Level 291
+Number of vertices examined: 32
+0.000903 [s]
+
+Level 292
+Number of vertices examined: 49
+0.001421 [s]
+
+Level 293
+Number of vertices examined: 41
+0.000693 [s]
+
+Level 294
+Number of vertices examined: 87
+0.001656 [s]
+
+Level 295
+Number of vertices examined: 24
+0.000385 [s]
+
+Level 296
+Number of vertices examined: 6
+0.000133 [s]
+
+Level 297
+Number of vertices examined: 146
+0.002058 [s]
+
+Level 298
+Number of vertices examined: 10
+0.000153 [s]
+
+Level 299
+Number of vertices examined: 29
+0.000438 [s]
+
+Level 300
+Number of vertices examined: 19
+0.000501 [s]
+
+Level 301
+Number of vertices examined: 49
+0.001115 [s]
+
+Level 302
+Number of vertices examined: 5
+0.000152 [s]
+
+Level 303
+Number of vertices examined: 5
+0.000243 [s]
+
+Level 304
+Number of vertices examined: 41
+0.000663 [s]
+
+Level 305
+Number of vertices examined: 4
+0.00017 [s]
+
+Level 306
+Number of vertices examined: 80
+0.001418 [s]
+
+Level 307
+Number of vertices examined: 40
+0.000945 [s]
+
+Level 308
+Number of vertices examined: 9
+0.000146 [s]
+
+Level 309
+Number of vertices examined: 34
+0.000775 [s]
+
+Level 310
+Number of vertices examined: 27
+0.00049 [s]
+
+Level 311
+Number of vertices examined: 7
+0.000221 [s]
+
+Level 312
+Number of vertices examined: 12
+0.000169 [s]
+
+Level 313
+Number of vertices examined: 3
+8.6e-05 [s]
+
+Level 314
+Number of vertices examined: 101
+0.002508 [s]
+
+Level 315
+Number of vertices examined: 39
+0.000861 [s]
+
+Level 316
+Number of vertices examined: 34
+0.000868 [s]
+
+Level 317
+Number of vertices examined: 39
+0.000837 [s]
+
+Level 318
+Number of vertices examined: 8
+0.000123 [s]
+
+Level 319
+Number of vertices examined: 24
+0.000783 [s]
+
+Level 320
+Number of vertices examined: 4
+0.000107 [s]
+
+Level 321
+Number of vertices examined: 180
+0.002075 [s]
+
+Level 322
+Number of vertices examined: 9
+0.000361 [s]
+
+Level 323
+Number of vertices examined: 16
+0.000806 [s]
+
+Level 324
+Number of vertices examined: 205
+0.003329 [s]
+
+Level 325
+Number of vertices examined: 5
+0.000235 [s]
+
+Level 326
+Number of vertices examined: 14
+0.000204 [s]
+
+Level 327
+Number of vertices examined: 4
+0.000212 [s]
+
+Level 328
+Number of vertices examined: 19
+0.000277 [s]
+
+Level 329
+Number of vertices examined: 13
+0.000363 [s]
+
+Level 330
+Number of vertices examined: 10
+0.000349 [s]
+
+Level 331
+Number of vertices examined: 11
+0.000159 [s]
+
+Level 332
+Number of vertices examined: 3
+0.000126 [s]
+
+Level 333
+Number of vertices examined: 12
+0.000302 [s]
+
+Level 334
+Number of vertices examined: 114
+0.00275 [s]
+
+Level 335
+Number of vertices examined: 52
+0.000798 [s]
+
+Level 336
+Number of vertices examined: 14
+0.000316 [s]
+
+Level 337
+Number of vertices examined: 7
+0.000218 [s]
+
+Level 338
+Number of vertices examined: 10
+0.000262 [s]
+
+Level 339
+Number of vertices examined: 77
+0.001134 [s]
+
+Level 340
+Number of vertices examined: 7
+0.000113 [s]
+
+Level 341
+Number of vertices examined: 8
+0.00017 [s]
+
+Level 342
+Number of vertices examined: 75
+0.000964 [s]
+
+Level 343
+Number of vertices examined: 22
+0.000436 [s]
+
+Level 344
+Number of vertices examined: 10
+0.000312 [s]
+
+Level 345
+Number of vertices examined: 6
+0.000125 [s]
+
+Level 346
+Number of vertices examined: 59
+0.000769 [s]
+
+Level 347
+Number of vertices examined: 36
+0.000635 [s]
+
+Level 348
+Number of vertices examined: 47
+0.001297 [s]
+
+Level 349
+Number of vertices examined: 51
+0.001129 [s]
+
+Level 350
+Number of vertices examined: 63
+0.001454 [s]
+
+Level 351
+Number of vertices examined: 23
+0.000644 [s]
+
+Level 352
+Number of vertices examined: 4
+0.000141 [s]
+
+Level 353
+Number of vertices examined: 22
+0.000444 [s]
+
+Level 354
+Number of vertices examined: 131
+0.00401 [s]
+
+Level 355
+Number of vertices examined: 334
+0.009052 [s]
+
+Level 356
+Number of vertices examined: 31
+0.000876 [s]
+
+Level 357
+Number of vertices examined: 42
+0.001312 [s]
+
+Level 358
+Number of vertices examined: 1380
+0.048515 [s]
+
+Level 359
+Number of vertices examined: 25
+0.000835 [s]
+
+Level 360
+Number of vertices examined: 6
+0.000223 [s]
+
+Level 361
+Number of vertices examined: 7
+0.000195 [s]
+
+Level 362
+Number of vertices examined: 28
+0.000782 [s]
+
+Level 363
+Number of vertices examined: 6
+0.000215 [s]
+
+Level 364
+Number of vertices examined: 8
+0.00021 [s]
+
+Level 365
+Number of vertices examined: 13
+0.000579 [s]
+
+Level 366
+Number of vertices examined: 35
+0.000753 [s]
+
+Level 367
+Number of vertices examined: 56
+0.001133 [s]
+
+Level 368
+Number of vertices examined: 116
+0.00311 [s]
+
+Level 369
+Number of vertices examined: 17
+0.000731 [s]
+
+Level 370
+Number of vertices examined: 97
+0.001645 [s]
+
+Level 371
+Number of vertices examined: 8
+0.00047 [s]
+
+Level 372
+Number of vertices examined: 28
+0.000533 [s]
+
+Level 373
+Number of vertices examined: 2
+6.3e-05 [s]
+
+Level 374
+Number of vertices examined: 13
+0.000272 [s]
+
+Level 375
+Number of vertices examined: 3
+0.000115 [s]
+
+Level 376
+Number of vertices examined: 18
+0.000425 [s]
+
+Level 377
+Number of vertices examined: 1
+2.1e-05 [s]
+
+Level 378
+Number of vertices examined: 3
+0.000187 [s]
+
+Level 379
+Number of vertices examined: 125
+0.002198 [s]
+
+Level 380
+Number of vertices examined: 16
+0.000204 [s]
+
+Level 381
+Number of vertices examined: 12
+0.000217 [s]
+
+Level 382
+Number of vertices examined: 11
+0.000299 [s]
+
+Level 383
+Number of vertices examined: 26
+0.000721 [s]
+
+Level 384
+Number of vertices examined: 9
+0.00027 [s]
+
+Level 385
+Number of vertices examined: 362
+0.007452 [s]
+
+Level 386
+Number of vertices examined: 25
+0.000923 [s]
+
+Level 387
+Number of vertices examined: 114
+0.003014 [s]
+
+Level 388
+Number of vertices examined: 22
+0.000524 [s]
+
+Level 389
+Number of vertices examined: 7
+0.000166 [s]
+
+Level 390
+Number of vertices examined: 119
+0.005501 [s]
+
+Level 391
+Number of vertices examined: 3
+0.000126 [s]
+
+Level 392
+Number of vertices examined: 39
+0.001172 [s]
+
+Level 393
+Number of vertices examined: 2
+8.9e-05 [s]
+
+Level 394
+Number of vertices examined: 33
+0.000801 [s]
+
+Level 395
+Number of vertices examined: 17
+0.000506 [s]
+
+Level 396
+Number of vertices examined: 27
+0.000639 [s]
+
+Level 397
+Number of vertices examined: 24
+0.00037 [s]
+
+Level 398
+Number of vertices examined: 25
+0.000779 [s]
+
+Level 399
+Number of vertices examined: 62
+0.001103 [s]
+
+Level 400
+Number of vertices examined: 8
+0.000351 [s]
 
