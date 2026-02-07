@@ -300,6 +300,8 @@ PuzzlesP/Puzzles/Pointing.cpp
 	iOS Game: 100 Logic Games 3/Puzzle Set 2/Pointing
 PuzzlesP/Puzzles/PondCamping.cpp
 	iOS Game: 100 Logic Games 3/Puzzle Set 5/Pond camping
+PuzzlesP/Puzzles/PondsAndFlowerbeds.cpp
+	iOS Game: 100 Logic Games 2/Puzzle Set 3/Ponds and Flowerbeds
 PuzzlesP/Puzzles/PouringWater.cpp
 	iOS Game: 100 Logic Games 2/Puzzle Set 3/Pouring Water
 PuzzlesP/Puzzles/PowerGrid.cpp
