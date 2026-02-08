@@ -3,16 +3,17 @@
 #include "solve_puzzle.h"
 
 /*
-    iOS Game: 100 Logic Games/Puzzle Set 6/TheGreyLabyrinth
+    iOS Game: 100 Logic Games 4/Puzzle Set 3/The Grey Labyrinth
 
     Summary
-    Just TheGreyLabyrinth?
+    Maze Curator
 
     Description
-    1. The goal is to detect the TheGreyLabyrinth directions that reside outside the board.
-    2. Each Arrow points to at least one number inside the board.
-    3. The numbers tell you how many TheGreyLabyrinth point at them.
-    4. There is one arrow for each tile outside the board.
+    1. Find the walls that divide the board in a Labyrinth.
+    2. The Labyrinth must have these rules:
+    3. Walls can't touch each other orthogonally.
+    4. From any location, there must only be one route to the treasure.
+    5. You must follow the arrows, where present.
 */
 
 namespace puzzles::TheGreyLabyrinth{
