@@ -159,12 +159,19 @@ bool puz_state::make_move(const Position& p, char ch)
     } else {
         // 3. Walls can't touch each other orthogonally.
         for (auto& p2 : m_pos2next[p]) {
-            cells(p2) = PUZ_EMPTY;
-            ++m_distance;
+            if (char& ch = cells(p2); ch == PUZ_SPACE)
+                ch = PUZ_EMPTY, ++m_distance;
             boost::remove_erase(m_pos2prev[p2], p);
         }
+        for (auto& p2 : m_pos2prev[p]) {
+            auto& next = m_pos2next[p2];
+            if (next.size() == 1)
+                return false;
+            boost::remove_erase(next, p);
+        }
         m_pos2next.erase(p);
-        return is_interconnected();
+        bool b = is_interconnected();
+        return b;
     }
 }
 
@@ -175,16 +182,19 @@ void puz_state::gen_children(list<puz_state>& children) const
         const pair<const Position, vector<Position>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    if (!children.emplace_back(*this).make_move(p, PUZ_WALL))
-        children.pop_back();
+    if (cells(p) == PUZ_SPACE)
+        if (!children.emplace_back(*this).make_move(p, PUZ_WALL))
+            children.pop_back();
     // 4. From any location, there must only be one route to the treasure.
     if (next.size() > 2) {
         for (auto& p2 : next)
-            if (!children.emplace_back(*this).make_move(p2, PUZ_WALL))
-                children.pop_back();
+            if (cells(p2) == PUZ_SPACE)
+                if (!children.emplace_back(*this).make_move(p2, PUZ_WALL))
+                    children.pop_back();
     } else {
-        if (!children.emplace_back(*this).make_move(p, PUZ_EMPTY))
-            children.pop_back();
+        if (cells(p) == PUZ_SPACE)
+            if (!children.emplace_back(*this).make_move(p, PUZ_EMPTY))
+                children.pop_back();
     }
 }
 

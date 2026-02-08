@@ -1,4 +1,1 @@
 Level 1
-Number of vertices examined: 6
-0.009575 [s]
-
