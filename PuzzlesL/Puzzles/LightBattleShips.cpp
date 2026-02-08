@@ -95,7 +95,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 break;
             default:
                 m_cells.push_back(PUZ_LIGHT);
-                    m_pos2light[p] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                m_pos2light[p] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
                 break;
             };
         }

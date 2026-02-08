@@ -34,7 +34,7 @@ struct puz_game
     string m_cells;
     Position m_treasure;
     map<Position, vector<Position>> m_pos2rng;
-    map<Position, Position> m_pos2pos;
+    map<Position, Position> m_arrow2pos;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -61,22 +61,25 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 {
                     auto& os = offset[dirs.find(ch)];
                     auto p2 = p + os;
-                    m_pos2pos[p] = p2;
+                    m_arrow2pos[p] = p2;
                     m_pos2rng[p].push_back(p2);
                 }
                 break;
             }
-    for (auto& [p, rng] : m_pos2rng) {
-        if (!rng.empty())
-            continue;
-        for (auto& os : offset) {
-            auto p2 = p + os;
-            if (auto it = m_pos2pos.find(p2); it == m_pos2pos.end())
-                rng.push_back(p2);
-            else if (it->second != p)
-                rng.push_back(p2);
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c) {
+            Position p(r, c);
+            auto& rng = m_pos2rng[p];
+            if (!rng.empty())
+                continue;
+            for (auto& os : offset) {
+                auto p2 = p + os;
+                auto it = m_arrow2pos.find(p2);
+                if (bool is_arrow = it != m_arrow2pos.end();
+                    is_arrow && it->second != p || !is_arrow && is_valid(p2))
+                    rng.push_back(p2);
+            }
         }
-    }
 }
 
 struct puz_state

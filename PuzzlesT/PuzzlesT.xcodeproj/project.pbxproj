@@ -32,6 +32,7 @@
 		8CA241A31EB47AFC0055D6B1 /* TurnTwice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2418C1EB47AFC0055D6B1 /* TurnTwice.cpp */; };
 		8CA241A41EB47AFC0055D6B1 /* turnz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2418F1EB47AFC0055D6B1 /* turnz.cpp */; };
 		8CA241A51EB47AFC0055D6B1 /* twinballs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241941EB47AFC0055D6B1 /* twinballs.cpp */; };
+		8CF1800A2F38A9B5000F1F7D /* TheGreyLabyrinth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF180072F38A9B5000F1F7D /* TheGreyLabyrinth.cpp */; };
 		958FA63D232BF25100205831 /* TopArrow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA63A232BF25100205831 /* TopArrow.cpp */; };
 		958FA641232C78BE00205831 /* TheCityRises.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA63E232C78BE00205831 /* TheCityRises.cpp */; };
 		95D7B5E12315788F001E005C /* TetrominoPegs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5DF2315788F001E005C /* TetrominoPegs.cpp */; };
@@ -141,6 +142,9 @@
 		8CA241931EB47AFC0055D6B1 /* twinballs_ida.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = twinballs_ida.txt; sourceTree = "<group>"; };
 		8CA241941EB47AFC0055D6B1 /* twinballs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = twinballs.cpp; sourceTree = "<group>"; };
 		8CA241951EB47AFC0055D6B1 /* twinballs.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = twinballs.xml; sourceTree = "<group>"; };
+		8CF180072F38A9B5000F1F7D /* TheGreyLabyrinth.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TheGreyLabyrinth.cpp; sourceTree = "<group>"; };
+		8CF180082F38A9B5000F1F7D /* TheGreyLabyrinth.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TheGreyLabyrinth.txt; sourceTree = "<group>"; };
+		8CF180092F38A9B5000F1F7D /* TheGreyLabyrinth.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TheGreyLabyrinth.xml; sourceTree = "<group>"; };
 		958FA63A232BF25100205831 /* TopArrow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TopArrow.cpp; sourceTree = "<group>"; };
 		958FA63B232BF25100205831 /* TopArrow.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TopArrow.xml; sourceTree = "<group>"; };
 		958FA63C232BF25100205831 /* TopArrow.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TopArrow.txt; sourceTree = "<group>"; };
@@ -229,6 +233,9 @@
 				958FA63E232C78BE00205831 /* TheCityRises.cpp */,
 				958FA640232C78BE00205831 /* TheCityRises.txt */,
 				958FA63F232C78BE00205831 /* TheCityRises.xml */,
+				8CF180072F38A9B5000F1F7D /* TheGreyLabyrinth.cpp */,
+				8CF180082F38A9B5000F1F7D /* TheGreyLabyrinth.txt */,
+				8CF180092F38A9B5000F1F7D /* TheGreyLabyrinth.xml */,
 				8C689CDE2E003C8200A2BCCC /* TheMagicNumber.cpp */,
 				8C689CDF2E003C8200A2BCCC /* TheMagicNumber.txt */,
 				8C689CE02E003C8200A2BCCC /* TheMagicNumber.xml */,
@@ -369,6 +376,7 @@
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA241A01EB47AFC0055D6B1 /* TheOddBrick.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
+				8CF1800A2F38A9B5000F1F7D /* TheGreyLabyrinth.cpp in Sources */,
 				8CA241A51EB47AFC0055D6B1 /* twinballs.cpp in Sources */,
 				95D7B5E12315788F001E005C /* TetrominoPegs.cpp in Sources */,
 				8CA241A41EB47AFC0055D6B1 /* turnz.cpp in Sources */,

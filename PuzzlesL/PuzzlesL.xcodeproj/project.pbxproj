@@ -110,6 +110,8 @@
 		8CA2409A1EB47A710055D6B1 /* Loopy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Loopy.cpp; sourceTree = "<group>"; };
 		8CA2409B1EB47A710055D6B1 /* Loopy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Loopy.txt; sourceTree = "<group>"; };
 		8CA2409C1EB47A710055D6B1 /* Loopy.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Loopy.xml; sourceTree = "<group>"; };
+		8CF180032F38A97A000F1F7D /* LightConnect2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LightConnect2.txt; sourceTree = "<group>"; };
+		8CF180042F38A97A000F1F7D /* LightConnect2.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LightConnect2.xml; sourceTree = "<group>"; };
 		958FA64E2331319900205831 /* LiarLiar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LiarLiar.txt; sourceTree = "<group>"; };
 		958FA64F2331319900205831 /* LiarLiar.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LiarLiar.xml; sourceTree = "<group>"; };
 		958FA6502331319900205831 /* LiarLiar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LiarLiar.cpp; sourceTree = "<group>"; };
@@ -177,6 +179,8 @@
 				8C689D602E166B3100A2BCCC /* LightConnect.cpp */,
 				8C689D612E166B3100A2BCCC /* LightConnect.txt */,
 				8C689D622E166B3100A2BCCC /* LightConnect.xml */,
+				8CF180032F38A97A000F1F7D /* LightConnect2.txt */,
+				8CF180042F38A97A000F1F7D /* LightConnect2.xml */,
 				8CA240821EB47A710055D6B1 /* LightenUp.cpp */,
 				8CA240831EB47A710055D6B1 /* LightenUp.txt */,
 				8CA240841EB47A710055D6B1 /* LightenUp.xml */,
