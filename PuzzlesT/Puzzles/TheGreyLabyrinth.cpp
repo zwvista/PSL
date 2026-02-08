@@ -50,8 +50,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 {
     m_cells = boost::accumulate(strs, string());
     for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c)
-            switch (Position p(r, c); char ch = cells(p)) {
+        for (int c = 0; c < m_sidelen; ++c) {
+            Position p(r, c);
+            switch (char ch = cells(p)) {
             case PUZ_TRESURE:
                 m_treasure = p;
                 m_pos2next[p].push_back(p);
@@ -68,6 +69,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 }
                 break;
             }
+        }
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
@@ -135,8 +137,7 @@ struct puz_state2 : Position
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
     for (auto& p : m_state->m_pos2prev.at(*this))
-        if (p != *this)
-            children.emplace_back(*this).make_move(p);
+        children.emplace_back(*this).make_move(p);
 }
 
 // 4. From any location, there must only be one route to the treasure.
@@ -170,6 +171,12 @@ bool puz_state::make_move(const Position& p, char ch)
             boost::remove_erase(next, p);
         }
         m_pos2next.erase(p);
+        if (boost::algorithm::any_of(m_pos2next, [&](const auto& kv) {
+            return boost::algorithm::all_of(kv.second, [&](const Position& p2) {
+                return m_game->m_arrow2pos.contains(p2);
+            });
+        }))
+            return false;
         bool b = is_interconnected();
         return b;
     }
