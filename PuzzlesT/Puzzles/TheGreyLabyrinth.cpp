@@ -18,97 +18,73 @@
 
 namespace puzzles::TheGreyLabyrinth{
 
-constexpr auto PUZ_CORNER = 100;
-constexpr auto PUZ_BORDER = 99;
+constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_TRESURE = 'T';
+constexpr auto PUZ_WALL = 'W';
 
-constexpr array<Position, 8> offset = Position::Directions8;
+constexpr array<Position, 4> offset = Position::Directions4;
 
-// all possible TheGreyLabyrinth that may point to a number
-struct puz_arrow
-{
-    // elem: the position of the arrow
-    vector<Position> m_range;
-    // elem: the direction of the arrow
-    vector<int> m_dirs;
-    // elem: all permutations of the directions of the TheGreyLabyrinth
-    vector<vector<int>> m_perms;
-};
+const string_view dirs = "^>v<";
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    vector<int> m_cells;
-    map<Position, puz_arrow> m_pos2TheGreyLabyrinth;
+    string m_cells;
+    Position m_treasure;
+    map<Position, vector<Position>> m_pos2rng;
+    map<Position, Position> m_pos2pos;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size() + 2)
+, m_sidelen(strs.size())
 {
-    m_cells.push_back(PUZ_CORNER);
-    m_cells.insert(m_cells.end(), m_sidelen - 2, PUZ_BORDER);
-    m_cells.push_back(PUZ_CORNER);
-    for (int r = 1; r < m_sidelen - 1; ++r) {
-        string_view str = strs[r - 1];
-        m_cells.push_back(PUZ_BORDER);
-        for (int c = 1; c < m_sidelen - 1; ++c)
-            m_cells.push_back(str[c - 1] - '0');
-        m_cells.push_back(PUZ_BORDER);
-    }
-    m_cells.push_back(PUZ_CORNER);
-    m_cells.insert(m_cells.end(), m_sidelen - 2, PUZ_BORDER);
-    m_cells.push_back(PUZ_CORNER);
-
-    for (int r = 1; r < m_sidelen - 1; ++r)
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            Position p(r, c);
-            int n = cells(p);
-            auto& arrow = m_pos2TheGreyLabyrinth[p];
-
-            for (int i = 0; i < 8; ++i) {
-                auto& os = offset[i];
-                for (auto p2 = p + os;; p2 += os) {
-                    int n2 = cells(p2);
-                    if (n2 == PUZ_BORDER) {
-                        arrow.m_range.push_back(p2);
-                        arrow.m_dirs.push_back((i + 4) % 8);
-                        break;
-                    }
-                    if (n2 == PUZ_CORNER)
-                        break;
+    m_cells = boost::accumulate(strs, string());
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c)
+            switch (Position p(r, c); char ch = cells(p)) {
+            case PUZ_TRESURE:
+                m_treasure = p;
+                m_pos2rng[p].push_back(p);
+                break;
+            case PUZ_SPACE:
+                break;
+            default:
+                {
+                    auto& os = offset[dirs.find(ch)];
+                    auto p2 = p + os;
+                    m_pos2pos[p] = p2;
+                    m_pos2rng[p].push_back(p2);
                 }
+                break;
             }
-
-            int sz = arrow.m_range.size();
-            vector<int> perm(sz);
-
-            vector<int> indicators;
-            indicators.insert(indicators.end(), sz - n, 0);
-            indicators.insert(indicators.end(), n, 1);
-            do {
-                for (int i = 0; i < sz; ++i) {
-                    int d = arrow.m_dirs[i];
-                    // a positive or 0 direction means the arrow is supposed to
-                    // point to the number, and a negative direction means
-                    // the arrow is not supposed to point to the number
-                    perm[i] = indicators[i] == 1 ? d : ~d;
-                }
-                    
-                arrow.m_perms.push_back(perm);
-            } while(boost::next_permutation(indicators));
+    for (auto& [p, rng] : m_pos2rng) {
+        if (!rng.empty())
+            continue;
+        for (auto& os : offset) {
+            auto p2 = p + os;
+            if (auto it = m_pos2pos.find(p2); it == m_pos2pos.end())
+                rng.push_back(p2);
+            else if (it->second != p)
+                rng.push_back(p2);
         }
+    }
 }
 
 struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
     bool make_move(const Position& p, int n);
     void make_move2(const Position& p, int n);
@@ -123,7 +99,7 @@ struct puz_state
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
-    vector<int> m_cells;
+    string m_cells;
     // key: the position of the number
     // value.elem: the index of the permutation
     map<Position, vector<int>> m_matches;
@@ -136,11 +112,11 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_cells), m_game(&g)
 {
-    for (auto& [p, TheGreyLabyrinth] : g.m_pos2TheGreyLabyrinth) {
-        auto& perm_ids = m_matches[p];
-        perm_ids.resize(TheGreyLabyrinth.m_perms.size());
-        boost::iota(perm_ids, 0);
-    }
+    //for (auto& [p, TheGreyLabyrinth] : g.m_pos2TheGreyLabyrinth) {
+    //    auto& perm_ids = m_matches[p];
+    //    perm_ids.resize(TheGreyLabyrinth.m_perms.size());
+    //    boost::iota(perm_ids, 0);
+    //}
 
     // compute the possible directions of the TheGreyLabyrinth
     // that reside outside the board
@@ -164,22 +140,22 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, perm_ids] : m_matches) {
-        auto& arrow = m_game->m_pos2TheGreyLabyrinth.at(p);
-        vector<set<int>> arrow_dirs;
-        for (auto& p2 : arrow.m_range)
-            arrow_dirs.push_back(m_arrow_dirs.at(p2));
+        //auto& arrow = m_game->m_pos2TheGreyLabyrinth.at(p);
+        //vector<set<int>> arrow_dirs;
+        //for (auto& p2 : arrow.m_range)
+        //    arrow_dirs.push_back(m_arrow_dirs.at(p2));
 
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(arrow_dirs, arrow.m_perms[id], [](const set<int>& dirs, int n2) {
-                // a positive or 0 direction means the arrow is supposed to
-                // point to the number, so it should be contained
-                return n2 >= 0 && dirs.contains(n2)
-                    // a negative direction means the arrow is not supposed
-                    // to point to the number, so it should not be the only
-                    // possible direction
-                    || n2 < 0 && (dirs.size() > 1 || !dirs.contains(~n2));
-            });
-        });
+        //boost::remove_erase_if(perm_ids, [&](int id) {
+        //    return !boost::equal(arrow_dirs, arrow.m_perms[id], [](const set<int>& dirs, int n2) {
+        //        // a positive or 0 direction means the arrow is supposed to
+        //        // point to the number, so it should be contained
+        //        return n2 >= 0 && dirs.contains(n2)
+        //            // a negative direction means the arrow is not supposed
+        //            // to point to the number, so it should not be the only
+        //            // possible direction
+        //            || n2 < 0 && (dirs.size() > 1 || !dirs.contains(~n2));
+        //    });
+        //});
 
         if (!init)
             switch(perm_ids.size()) {
@@ -194,18 +170,18 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& arrow = m_game->m_pos2TheGreyLabyrinth.at(p);
-    auto& perm = arrow.m_perms[n];
+    //auto& arrow = m_game->m_pos2TheGreyLabyrinth.at(p);
+    //auto& perm = arrow.m_perms[n];
 
-    for (int k = 0; k < perm.size(); ++k) {
-        const auto& p2 = arrow.m_range[k];
-        int& n1 = cells(p2);
-        int n2 = perm[k];
-        if (n2 >= 0)
-            m_arrow_dirs[p2] = {n1 = n2};
-        else
-            m_arrow_dirs[p2].erase(~n2);
-    }
+    //for (int k = 0; k < perm.size(); ++k) {
+    //    const auto& p2 = arrow.m_range[k];
+    //    int& n1 = cells(p2);
+    //    int n2 = perm[k];
+    //    if (n2 >= 0)
+    //        m_arrow_dirs[p2] = {n1 = n2};
+    //    else
+    //        m_arrow_dirs[p2].erase(~n2);
+    //}
 
     ++m_distance;
     m_matches.erase(p);
@@ -235,13 +211,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c) {
-            int n = cells({r, c});
-            if (n == PUZ_CORNER)
-                out << "  ";
-            else
-                out << format("{:<2}", n);
-        }
+        for (int c = 0; c < sidelen(); ++c)
+            out << cells({r, c}) << ' ';
         println(out);
     }
     return out;

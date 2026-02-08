@@ -58,7 +58,7 @@ int main(int argc, char **argv)
         println("u3: turnz");
         println("w: twinballs");
         getline(cin, str);
-        if (str.empty()) solve_puz_TrafficWardenRevenge();
+        if (str.empty()) solve_puz_TheGreyLabyrinth();
         else if (str == "a1") solve_puz_Tapa();
         else if (str == "a2") solve_puz_TapaIslands();
         else if (str == "a3") solve_puz_TapAlike();
