@@ -189,19 +189,18 @@ void puz_state::gen_children(list<puz_state>& children) const
         const pair<const Position, vector<Position>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    if (cells(p) == PUZ_SPACE)
-        if (!children.emplace_back(*this).make_move(p, PUZ_WALL))
-            children.pop_back();
+    auto f = [&](const Position& p2, char ch) {
+        if (cells(p2) == PUZ_SPACE)
+            if (!children.emplace_back(*this).make_move(p2, ch))
+                children.pop_back();
+    };
+    f(p, PUZ_WALL);
     // 4. From any location, there must only be one route to the treasure.
     if (next.size() > 2) {
         for (auto& p2 : next)
-            if (cells(p2) == PUZ_SPACE)
-                if (!children.emplace_back(*this).make_move(p2, PUZ_WALL))
-                    children.pop_back();
+            f(p2, PUZ_WALL);
     } else {
-        if (cells(p) == PUZ_SPACE)
-            if (!children.emplace_back(*this).make_move(p, PUZ_EMPTY))
-                children.pop_back();
+        f(p, PUZ_EMPTY);
     }
 }
 
