@@ -19,7 +19,7 @@ Sequence of moves:
  --- --- --- --- 
 Number of moves: 1
 Number of vertices examined: 3
-0.0004316 [s]
+0.000361 [s]
 
 Level 2
 Sequence of moves: 
@@ -42,6 +42,3550 @@ Sequence of moves:
  --- --- --- --- 
 Number of moves: 5
 Number of vertices examined: 9
-0.0005248 [s]
+0.000483 [s]
 
-Level 200
+Level 3
+Sequence of moves: 
+ --- --- --- --- 
+|       |       |
+| M= = =|=T     |
+| I     | I     |
+ --- --- --- --- 
+| I |   | I     |
+| T | T=|=M   T |
+| I | I |       |
+ --- --- --- --- 
+| I | I         |
+|   |  = =M   T |
+| I |     I     |
+     --- --- --- 
+| I     | I     |
+| M= =M=|=T     |
+|       |       |
+ --- --- --- --- 
+Number of moves: 8
+Number of vertices examined: 20
+0.000972 [s]
+
+Level 4
+Sequence of moves: 
+ --- --- --- --- 
+|   |       |   |
+| M | M= =  | M |
+|   | I   I |   |
+         ---     
+|   | I | I     |
+|  =|=  |  = =T |
+| I |   |     I |
+     ---     --- 
+| I     |   | I |
+| T= =  | M | M |
+|     I |   | I |
+ --- --- ---     
+|     I       I |
+| T    = = = =M |
+|               |
+ --- --- --- --- 
+Number of moves: 3
+Number of vertices examined: 6
+0.000305 [s]
+
+Level 5
+Sequence of moves: 
+ --- --- --- --- 
+|       |       |
+|     M=|= = =T |
+|     I |     I |
+ --- --- ---     
+|     I |   | I |
+|  = =T | T | T |
+| I     |   | I |
+             --- 
+| I     |     I |
+| T= =T |  = =M |
+|     I | I     |
+         --- --- 
+|     I   I     |
+| M   T= =    M |
+|               |
+ --- --- --- --- 
+Number of moves: 4
+Number of vertices examined: 8
+0.000379 [s]
+
+Level 6
+Sequence of moves: 
+ --- --- --- --- --- 
+|   |           |   |
+| M=|= = =T= =T | T |
+| I |         I |   |
+ --- ---             
+| I     |     I |   |
+|  = =  | M    =|=  |
+|     I |       | I |
+         --- ---     
+|     I |         I |
+| M   T | M= = = =M |
+|     I | I         |
+         --- --- --- 
+|     I | I |   |   |
+|  = =  | T=|=M=|=T |
+| I     |   |   | I |
+ --- --- --- ---     
+| I |   |   |     I |
+| M=|=T=|=M=|=T= =T |
+|   |   |   |       |
+ --- --- --- --- --- 
+Number of moves: 13
+Number of vertices examined: 67
+0.004468 [s]
+
+Level 7
+Sequence of moves: 
+ --- --- --- --- --- 
+|                   |
+| T= =T= =T       M |
+| I       I         |
+         --- --- --- 
+| I     | I     |   |
+|  = =T |     M=|=T |
+|     I | I   I | I |
+                     
+|     I | I   I | I |
+| T= =  |  = =M | T |
+| I     |       | I |
+ --- --- --- ---     
+| I     |   |   | I |
+|  = =M | T=|=M | T |
+|     I | I | I | I |
+             ---     
+|     I | I | I   I |
+|     M=|=T | T= =  |
+|       |   |       |
+ --- --- --- --- --- 
+Number of moves: 13
+Number of vertices examined: 73
+0.004859 [s]
+
+Level 8
+Sequence of moves: 
+ --- --- --- --- --- 
+|       |   |       |
+| M   T=|=M | M= =  |
+|     I | I | I   I |
+             ---     
+|     I | I | I | I |
+|  = =  |   |   |   |
+| I     | I | I | I |
+                 --- 
+| I     | I | I | I |
+|     M | M=|=T | T |
+| I     |   |   | I |
+         --- --- --- 
+| I     |         I |
+|  = =T | T   M= =M |
+|     I |     I     |
+         --- ---     
+|     I       I |   |
+| M    = =T= =T | T |
+|               |   |
+ --- --- --- --- --- 
+Number of moves: 7
+Number of vertices examined: 13
+0.000734 [s]
+
+Level 9
+Sequence of moves: 
+ --- --- --- --- --- 
+|   |   |           |
+| T=|=M | M= =M= =M |
+| I | I | I       I |
+                     
+| I | I | I       I |
+|   |   |      = =M |
+| I | I | I   I     |
+         --- --- --- 
+| I | I | I | I     |
+| T | M=|=T | T   M |
+| I |   |   | I     |
+     ---     --- --- 
+| I     |   | I |   |
+| T= =  | M | M=|=  |
+|     I |   |   | I |
+         --- ---     
+|     I           I |
+| M   T= = = =T= =T |
+|                   |
+ --- --- --- --- --- 
+Number of moves: 7
+Number of vertices examined: 13
+0.000966 [s]
+
+Level 10
+Sequence of moves: 
+ --- --- --- --- --- 
+|   |   |       |   |
+|  =|=M=|=T= =T=|=M |
+| I |   |       | I |
+     ---     --- --- 
+| I     |   |     I |
+| T= =T | M |  = =T |
+|     I |   | I     |
+         --- --- --- 
+|     I |     I |   |
+| T= =T | M= =  | M |
+| I     | I     |   |
+ --- ---     ---     
+| I     | I |       |
+| M= =M | M=|=T= =T |
+|     I |   |     I |
+ --- --- --- --- --- 
+|     I |   |   | I |
+| M   T=|=M=|=T=|=M |
+|       |   |   |   |
+ --- --- --- --- --- 
+Number of moves: 10
+Number of vertices examined: 44
+0.002708 [s]
+
+Level 11
+Sequence of moves: 
+ --- --- --- --- --- 
+|           |       |
+| M= = = =M |  = =T |
+| I       I | I   I |
+ --- --- ---         
+| I     | I | I   I |
+| T= =T | T |       |
+|     I | I | I   I |
+         ---     --- 
+|     I | I | I | I |
+|  = =T | M=|=T | M |
+| I     |   |   | I |
+     --- --- ---     
+| I |       |   | I |
+| T=|=M= = =|=T=|=M |
+|   |       |   |   |
+ ---     ---         
+|       |       |   |
+|     T |     M |   |
+|       |       |   |
+ --- --- --- --- --- 
+Number of moves: 14
+Number of vertices examined: 59
+0.003549 [s]
+
+Level 12
+Sequence of moves: 
+ --- --- --- --- --- 
+|       |   |       |
+| M= = =|=T=|= = =  |
+| I     |   |     I |
+     --- ---         
+| I |       |     I |
+| M | M   T=|=      |
+| I |     I | I   I |
+     --- ---         
+| I |     I | I   I |
+|   |  = =M | M= =  |
+| I | I     |       |
+ ---     ---         
+| I | I |   |       |
+| T | M=|=T | T   T |
+| I |   | I |       |
+     ---             
+| I       I |       |
+|  = = = =T | T     |
+|           |       |
+ --- --- --- --- --- 
+Number of moves: 11
+Number of vertices examined: 57
+0.003623 [s]
+
+Level 13
+Sequence of moves: 
+ --- --- --- --- --- 
+|   |   |           |
+| T=|=M=|= = = = =T |
+| I |   |         I |
+         --- --- --- 
+| I |   |         I |
+| T | T |  = =M= =  |
+| I |   | I         |
+     --- --- ---     
+| I |   | I     |   |
+| T | M=|=T   M | T |
+| I | I |       |   |
+ --- --- --- ---     
+| I | I         |   |
+| M | T= =T= =  | T |
+| I |         I |   |
+                 --- 
+| I |         I     |
+|  =|= = =T= =T     |
+|   |               |
+ --- --- --- --- --- 
+Number of moves: 11
+Number of vertices examined: 40
+0.002576 [s]
+
+Level 14
+Sequence of moves: 
+ --- --- --- --- --- 
+|           |   |   |
+| T= =T= = =|=M=|=T |
+| I         |   | I |
+ --- ---     --- --- 
+| I     |   |     I |
+| M= =M | M |  = =  |
+|     I |   | I     |
+ ---             --- 
+|   | I |   | I |   |
+| M |   | M | M=|=T |
+|   | I |   |   | I |
+         --- --- --- 
+|   | I |       | I |
+| T=|=  | M    =|=M |
+| I |   |     I |   |
+ --- ---             
+| I |         I |   |
+| M=|=T= = = =T | T |
+|   |           |   |
+ --- --- --- --- --- 
+Number of moves: 7
+Number of vertices examined: 52
+0.003242 [s]
+
+Level 15
+Sequence of moves: 
+ --- --- --- --- --- 
+|       |           |
+| T     |      = =M |
+|       |     I   I |
+         --- ---     
+|           | I | I |
+| M= = = = =|=T | M |
+| I         |   | I |
+ --- --- --- ---     
+| I     |       | I |
+| T= = =|=M   T |   |
+|       | I     | I |
+ --- --- --- --- --- 
+|         I |     I |
+| T= =T= =  | T= =T |
+| I         | I     |
+             --- --- 
+| I         | I     |
+| T= = = = =|=M     |
+|           |       |
+ --- --- --- --- --- 
+Number of moves: 13
+Number of vertices examined: 84
+0.005172 [s]
+
+Level 16
+Sequence of moves: 
+ --- --- --- --- --- 
+|       |       |   |
+|     T | M   M | T |
+|       |       |   |
+                     
+|       |       |   |
+| M= = =|=T= = =|=M |
+| I     |       | I |
+ --- --- --- ---     
+| I |       |   | I |
+| T=|=M   T |   |   |
+|   | I     |   | I |
+ --- --- ---         
+|     I |   |   | I |
+| T= =T | M=|=T |   |
+| I     | I | I | I |
+             ---     
+| I     | I | I   I |
+|  = = =|=M | M= =  |
+|       |   |       |
+ --- --- --- --- --- 
+Number of moves: 3
+Number of vertices examined: 5
+0.000414 [s]
+
+Level 17
+Sequence of moves: 
+ --- --- --- --- --- 
+|   |           |   |
+| T | M= = = =  | M |
+|   | I       I |   |
+     --- --- ---     
+|   | I |   | I     |
+| M=|=T | M | T= =T |
+| I |   |   |     I |
+             ---     
+| I |   |   |   | I |
+| M | M | T=|=  |   |
+| I |   | I | I | I |
+     ---         --- 
+| I |     I | I | I |
+|  =|=    T | M | M |
+|   | I   I | I | I |
+ ---         --- --- 
+|     I   I | I   I |
+| M    = =T | T= =  |
+|           |       |
+ --- --- --- --- --- 
+Number of moves: 10
+Number of vertices examined: 11
+0.000734 [s]
+
+Level 18
+Sequence of moves: 
+ --- --- --- --- --- 
+|                   |
+|     T= = = =    M |
+|     I       I     |
+                 --- 
+|     I       I |   |
+| T= =T   M     | T |
+| I           I |   |
+             ---     
+| I         | I     |
+| T= =T     | M     |
+|     I     | I     |
+         ---         
+|     I |     I     |
+|  = =T | T   M= =M |
+| I     |         I |
+ --- ---             
+| I |   |         I |
+| M=|=T=|= = =M= =M |
+|   |   |           |
+ --- --- --- --- --- 
+Number of moves: 6
+Number of vertices examined: 17
+0.001271 [s]
+
+Level 19
+Sequence of moves: 
+ --- --- --- --- --- 
+|   |   |       |   |
+| T=|=M |  = =T |   |
+| I | I | I   I |   |
+     --- --- ---     
+| I | I | I | I     |
+| T |   | M | M= =  |
+| I | I | I |     I |
+         --- --- --- 
+| I | I   I |     I |
+|   |  = =T | M   T |
+| I |       |     I |
+ --- --- ---         
+| I |             I |
+| M=|=T= =T= =T   T |
+|   |         I   I |
+                     
+|   |         I   I |
+| T |     M    = =T |
+|   |               |
+ --- --- --- --- --- 
+Number of moves: 13
+Number of vertices examined: 35
+0.00202 [s]
+
+Level 20
+Sequence of moves: 
+ --- --- --- --- --- 
+|           |       |
+| T    = = =|=T= =  |
+|     I     |     I |
+         --- ---     
+|     I |       | I |
+|  = =M |  = = =|=T |
+| I     | I     |   |
+ --- ---         --- 
+| I |   | I     |   |
+| T | M | M   M=|=T |
+| I |   | I   I | I |
+ ---             --- 
+| I |   | I   I | I |
+| M=|=T | M= =  | M |
+|   | I |       | I |
+     --- --- --- --- 
+|   | I     |     I |
+| T | M= =M=|=T= =  |
+|   |       |       |
+ --- --- --- --- --- 
+Number of moves: 16
+Number of vertices examined: 98
+0.006347 [s]
+
+Level 21
+Sequence of moves: 
+ --- --- --- --- --- 
+|       |   |   |   |
+| T   M=|=T | M=|=  |
+|     I | I | I | I |
+ ---                 
+|   | I | I | I | I |
+| T=|=M | T=|=  |   |
+| I |   |   |   | I |
+ --- --- ---         
+| I |   |   |   | I |
+| M=|=T=|=M | T |   |
+|   |   | I |   | I |
+ --- ---     ---     
+|   |   | I |     I |
+| M=|=T=|=M | T= =T |
+| I |   |   | I     |
+     --- ---         
+| I |         I     |
+|  =|=T= = = =      |
+|   |               |
+ --- --- --- --- --- 
+Number of moves: 12
+Number of vertices examined: 35
+0.002211 [s]
+
+Level 22
+Sequence of moves: 
+ --- --- --- --- --- 
+|       |   |       |
+|     M | M=|=T= =  |
+|       | I |     I |
+             ---     
+|       | I     | I |
+| T= =  |  = =M |   |
+| I   I |     I | I |
+     --- --- --- --- 
+| I | I     | I | I |
+| T |      =|=T |   |
+| I | I   I |   | I |
+                     
+| I | I   I |   | I |
+| T |  = =M | M | M |
+| I |       |   | I |
+     --- --- ---     
+| I             | I |
+| T= =T= = = = =|=  |
+|               |   |
+ --- --- --- --- --- 
+Number of moves: 12
+Number of vertices examined: 78
+0.005202 [s]
+
+Level 23
+Sequence of moves: 
+ --- --- --- --- --- 
+|           |       |
+| T   M= =M=|=T   M |
+|     I     | I     |
+ --- --- --- --- --- 
+|     I     | I     |
+| T= =      | M   T |
+| I         | I     |
+         --- --- --- 
+| I     |     I     |
+|       |  = =T     |
+| I     | I         |
+                     
+| I     | I         |
+| T= =T | T= =T= =  |
+|     I |         I |
+         --- ---     
+|     I |       | I |
+| M    =|=M= = =|=T |
+|       |       |   |
+ --- --- --- --- --- 
+Number of moves: 10
+Number of vertices examined: 16
+0.001057 [s]
+
+Level 24
+Sequence of moves: 
+ --- --- --- --- --- 
+|                   |
+|     M   M   T= =T |
+|             I   I |
+                     
+|             I   I |
+|  = = = = = =      |
+| I               I |
+ ---                 
+| I |             I |
+| M | M   M   M     |
+| I |             I |
+     ---             
+| I |   |         I |
+|   | M=|= = =    T |
+| I | I |     I   I |
+     --- ---         
+| I | I     | I   I |
+| M=|=T   M | T= =  |
+|   |       |       |
+ --- --- --- --- --- 
+Number of moves: 2
+Number of vertices examined: 5
+0.000422 [s]
+
+Level 25
+Sequence of moves: 
+ --- --- --- --- --- 
+|                   |
+| M       M   M     |
+|                   |
+                     
+|                   |
+|  = = = = = = = =  |
+| I               I |
+     --- --- ---     
+| I |   |       | I |
+| T=|=M | M= = =|=T |
+|   | I | I     |   |
+ ---     --- --- --- 
+|   | I | I         |
+|  =|=M | T= =T= =T |
+| I |   |         I |
+     --- --- --- --- 
+| I         |     I |
+| T= = = =T=|= = =M |
+|           |       |
+ --- --- --- --- --- 
+Number of moves: 14
+Number of vertices examined: 64
+0.003674 [s]
+
+Level 26
+Sequence of moves: 
+ --- --- --- --- --- 
+|           |       |
+| T    = =M |  = =T |
+|     I   I | I   I |
+                     
+|     I   I | I   I |
+| M= =      |     T |
+| I       I | I   I |
+             --- --- 
+| I       I   I | I |
+| M   T   M= =  | M |
+| I             | I |
+ --- --- --- ---     
+| I |       |   | I |
+| T=|=M   T | T=|=M |
+|   | I     | I |   |
+         ---         
+|   | I |     I |   |
+|   |  =|= = =  | T |
+|   |   |       |   |
+ --- --- --- --- --- 
+Number of moves: 7
+Number of vertices examined: 23
+0.001343 [s]
+
+Level 27
+Sequence of moves: 
+ --- --- --- --- --- 
+|           |       |
+|     M   T=|= = =  |
+|         I |     I |
+ --- --- ---         
+|         I |     I |
+| T   T   M |  = =M |
+|         I | I     |
+ ---         --- --- 
+|   |     I | I |   |
+|  =|=M= =  | T=|=M |
+| I |       |   | I |
+     --- ---     --- 
+| I     |   |   | I |
+| T    =|=M |   | T |
+| I   I | I |   | I |
+             ---     
+| I   I | I |     I |
+| T= =  |  =|=T= =  |
+|       |   |       |
+ --- --- --- --- --- 
+Number of moves: 15
+Number of vertices examined: 74
+0.004741 [s]
+
+Level 28
+Sequence of moves: 
+ --- --- --- --- --- 
+|       |       |   |
+| T= =T |  = =M=|=T |
+| I   I | I     | I |
+ ---         --- --- 
+| I | I | I |   | I |
+| M |  =|=M |   | M |
+| I |   |   |   | I |
+     --- ---         
+| I |   |       | I |
+|   | M | M   T=|=M |
+| I |   |     I |   |
+         ---     --- 
+| I |       | I |   |
+|  =|=T   M | T=|=M |
+|   | I     |   | I |
+             ---     
+|   | I     |     I |
+|   |  = = =|= = =  |
+|   |       |       |
+ --- --- --- --- --- 
+Number of moves: 10
+Number of vertices examined: 30
+0.002046 [s]
+
+Level 29
+Sequence of moves: 
+ --- --- --- --- --- 
+|   |       |   |   |
+| M |  = =M |  =|=T |
+|   | I   I | I | I |
+     --- ---     --- 
+|     I | I | I | I |
+| T= =T | T=|=M |   |
+| I     |   |   | I |
+                     
+| I     |   |   | I |
+| T     | M | T | M |
+| I     |   |   | I |
+         --- --- --- 
+| I     |       | I |
+| T    =|=M= =M | T |
+| I   I |     I | I |
+         ---         
+| I   I     | I | I |
+| T= =    M | M=|=  |
+|           |   |   |
+ --- --- --- --- --- 
+Number of moves: 7
+Number of vertices examined: 29
+0.001743 [s]
+
+Level 30
+Sequence of moves: 
+ --- --- --- --- --- 
+|               |   |
+|      = =M= = =|=T |
+|     I         | I |
+ ---         ---     
+|   | I     |     I |
+| T | M= =M |  = =  |
+|   |     I | I     |
+     --- --- --- --- 
+|   |     I | I     |
+| M=|= = =T | M= =  |
+| I |       |     I |
+ --- --- --- --- --- 
+| I |   |   |   | I |
+|   | T | T=|=M | T |
+| I |   | I | I | I |
+             --- --- 
+| I |   | I | I | I |
+| T=|=M=|=  | T=|=M |
+|   |   |   |   |   |
+ --- --- --- --- --- 
+Number of moves: 15
+Number of vertices examined: 158
+0.00975 [s]
+
+Level 31
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|               |   |   |
+|      = =T= =T | T |   |
+|     I       I |   |   |
+         --- ---         
+|     I |     I |   |   |
+| M   T |  = =M | M=|=  |
+|     I | I     | I | I |
+ --- ---     --- ---     
+|   | I | I |     I | I |
+| M | M | M=|= = =T | T |
+|   | I |   |       | I |
+         --- --- --- --- 
+|   | I |   |   |   | I |
+|  =|=M | M=|=T=|=M | M |
+| I |   | I |   | I | I |
+     ---         --- --- 
+| I     | I |   | I   I |
+|     M |   |   |       |
+| I     | I |   | I   I |
+         ---             
+| I       I |   | I   I |
+| T= =T= =T | M | T= =  |
+|           |   |       |
+ --- --- --- --- --- --- 
+Number of moves: 18
+Number of vertices examined: 145
+0.012031 [s]
+
+Level 32
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|                       |
+| T    = = = =M= =    T |
+|     I           I     |
+         --- ---         
+|     I |   |   | I     |
+|  = =M |   |   |  = =M |
+| I     |   |   |     I |
+     ---         ---     
+| I |       |       | I |
+| M=|= = =T |  = =T=|=M |
+|   |     I | I     |   |
+ ---         --- ---     
+|         I | I     |   |
+| T= = = =  | M   T |   |
+| I         | I     |   |
+ --- --- --- --- --- --- 
+| I     |     I |       |
+| M= =M |     T=|= = =M |
+|     I |       |     I |
+         --- --- --- --- 
+|     I     |   |   | I |
+| T   M= =M=|=T=|=M=|=T |
+|           |   |   |   |
+ --- --- --- --- --- --- 
+Number of moves: 20
+Number of vertices examined: 229
+0.018225 [s]
+
+Level 33
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|               |       |
+| T   M= =M= = =|=T     |
+|     I         | I     |
+ --- --- ---     --- --- 
+|     I     |   | I |   |
+| T= =    M | T | M=|=T |
+| I         |   |   | I |
+     --- --- ---     --- 
+| I |           |   | I |
+|  =|= = =M   T | T |   |
+|   |     I     |   | I |
+ ---         --- ---     
+|   |     I |   |   | I |
+| T=|=M= =  |  =|=T=|=M |
+| I |       | I |   |   |
+ --- --- ---     ---     
+| I |   |   | I     |   |
+| M=|=T | T | M= =M | T |
+|   | I |   |     I |   |
+     ---     ---     --- 
+|   | I     |   | I     |
+|   |  = =M=|=T=|=M   T |
+|   |       |   |       |
+ --- --- --- --- --- --- 
+Number of moves: 10
+Number of vertices examined: 36
+0.003541 [s]
+
+Level 34
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|   |       |   |       |
+| M=|= = =T | M=|=T     |
+| I |     I | I | I     |
+     --- ---     --- --- 
+| I |   | I   I | I     |
+| M=|=T | M= =M | M   T |
+|   | I |       | I     |
+ ---     --- --- --- --- 
+|   | I     |     I |   |
+|  =|=      | M   T | T |
+| I |       |     I |   |
+     --- --- ---         
+| I |   |       | I |   |
+| M | M=|= = =T | T=|=  |
+| I | I |     I |   | I |
+ ---             ---     
+| I | I |     I     | I |
+| T | M | T= =    M | M |
+| I | I | I         | I |
+                     --- 
+| I | I | I           I |
+| T=|=  |  = = = = = =  |
+|   |   |               |
+ --- --- --- --- --- --- 
+Number of moves: 15
+Number of vertices examined: 173
+0.016223 [s]
+
+Level 35
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|                       |
+|  = =M= =M= = = =M   T |
+| I               I     |
+ --- --- --- ---     --- 
+| I     |       | I |   |
+| T= =T |     M |  =|=T |
+|     I |       |   | I |
+ ---     ---     ---     
+|   | I |   |   |   | I |
+| M | T | M=|=T | T |   |
+|   | I | I | I |   | I |
+     ---     ---     --- 
+|   | I | I | I       I |
+| T=|=M | M |  = =M     |
+| I |   | I |     I   I |
+ ---                     
+| I |   | I |     I   I |
+| M |   | M | T         |
+| I |   | I |     I   I |
+     --- ---             
+| I |     I |     I   I |
+| M=|=T= =T |     M= =  |
+|   |       |           |
+ --- --- --- --- --- --- 
+Number of moves: 13
+Number of vertices examined: 28
+0.002589 [s]
+
+Level 36
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|   |   |   |           |
+|  =|=M=|=  | T   M= =  |
+| I |   | I |     I   I |
+     ---     --- --- --- 
+| I |   | I       I | I |
+|   | T |  = = = =T | T |
+| I |   |           | I |
+         --- --- ---     
+| I |   |       |     I |
+| T | M=|= = =T |       |
+| I | I |     I |     I |
+     --- --- ---         
+| I   I     | I |     I |
+|  = =T   M | M | M   T |
+|           | I |     I |
+ --- --- ---             
+|           | I |     I |
+|  = =T= = =|=M |  = =T |
+| I         |   | I     |
+             ---         
+| I         |   | I     |
+| T= =T= = =|=M=|=T   M |
+|           |   |       |
+ --- --- --- --- --- --- 
+Number of moves: 14
+Number of vertices examined: 118
+0.01017 [s]
+
+Level 37
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|               |       |
+| T   M= = = = =|=T     |
+|     I         | I     |
+             --- --- --- 
+|     I     |   | I     |
+| M= =M   T |  =|=M   T |
+| I         | I |       |
+     --- ---     ---     
+| I |   |   | I     |   |
+|   | T=|=M | T   M |   |
+| I | I | I | I     |   |
+ ---                 --- 
+| I   I | I | I     |   |
+|  = =T | M |  = = =|=M |
+|       | I |       | I |
+             --- ---     
+|       | I |       | I |
+| M   M | M |  = =T |   |
+|       | I | I   I | I |
+     ---             --- 
+|   |     I | I   I   I |
+| M |     M=|=    T= =T |
+|   |       |           |
+ --- --- --- --- --- --- 
+Number of moves: 12
+Number of vertices examined: 31
+0.002972 [s]
+
+Level 38
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|       |       |       |
+|     T=|=M= =M |     M |
+|     I |     I |       |
+ --- --- ---         --- 
+|     I |   | I |   |   |
+| M= =M | M | M=|=T=|=  |
+| I     |   |   |   | I |
+     ---     --- ---     
+| I |   |   |         I |
+|   | M=|=T | M= =M   M |
+| I | I | I | I   I   I |
+ --- ---                 
+| I   I | I | I   I   I |
+| T= =T |   |     M= =M |
+|       | I | I         |
+ --- ---     --- --- --- 
+|         I | I         |
+|     T= =  |  = =T   M |
+|     I     |     I     |
+         ---             
+|     I |   |     I     |
+| M    =|=M=|=T= =T     |
+|       |   |           |
+ --- --- --- --- --- --- 
+Number of moves: 18
+Number of vertices examined: 138
+0.011848 [s]
+
+Level 39
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|   |   |   |   |       |
+|   | M=|=T=|=M | M= =M |
+|   | I |   | I | I   I |
+                 ---     
+|   | I |   | I | I | I |
+| T=|=M | M | M |   | M |
+| I |   |   | I | I | I |
+ ---     --- ---         
+| I |   |     I   I | I |
+| M | T | M   T= =  |   |
+| I |   |           | I |
+     --- --- --- ---     
+| I |   |       |     I |
+|   | M=|= = =  | T   M |
+| I | I |     I |     I |
+                 ---     
+| I | I |     I     | I |
+| M |   | M   T= = =|=M |
+| I | I |           |   |
+ --- --- ---         --- 
+| I   I     |           |
+|  = =T     | M       M |
+|           |           |
+ --- --- --- --- --- --- 
+Number of moves: 12
+Number of vertices examined: 34
+0.003108 [s]
+
+Level 40
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|               |   |   |
+|     M= =M= =M | M=|=  |
+|     I       I | I | I |
+                 ---     
+|     I       I | I | I |
+| T   M        =|=T | T |
+|     I         |   | I |
+         --- --- --- --- 
+|     I |             I |
+| M= =M | M= =M= = = =M |
+| I     | I             |
+                 --- --- 
+| I     | I     |   |   |
+|       |  = =M | M | T |
+| I     |     I |   |   |
+ --- --- ---             
+| I         | I |   |   |
+| T= =T     | M=|=T=|=  |
+|     I     |   |   | I |
+             --- ---     
+|     I     |   |   | I |
+| M   T= =T=|=M=|=T=|=M |
+|           |   |   |   |
+ --- --- --- --- --- --- 
+Number of moves: 16
+Number of vertices examined: 45
+0.003905 [s]
+
+Level 41
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|       |   |           |
+| T    =|=  | T    = =M |
+|     I | I |     I   I |
+ --- ---     --- ---     
+|     I | I     | I | I |
+|     M |  = =  | T | M |
+|     I |     I | I | I |
+ --- ---     ---     --- 
+|   | I |   | I   I | I |
+| M=|=T | M | T= =  | T |
+| I |   |   |       | I |
+     --- --- --- --- --- 
+| I |   |       |     I |
+| M | T=|=M   T |     M |
+| I | I | I     |     I |
+     ---         --- --- 
+| I   I | I         | I |
+| M     |      = =M | T |
+| I   I | I   I   I | I |
+                 --- --- 
+| I   I | I   I | I | I |
+| M= =  |  = =M | T=|=M |
+|       |       |   |   |
+ --- --- --- --- --- --- 
+Number of moves: 20
+Number of vertices examined: 604
+0.051397 [s]
+
+Level 42
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|       |       |   |   |
+|     M=|=T   M | M=|=T |
+|     I | I     | I | I |
+ --- --- --- ---     --- 
+|   | I | I     | I | I |
+|  =|=T | M     | M | M |
+| I |   | I     | I | I |
+     --- --- --- --- --- 
+| I |     I |   | I | I |
+| M |     T=|=M |   |   |
+| I |       | I | I | I |
+     --- --- ---         
+| I |       | I   I | I |
+| M=|=T= =  | T= =  |   |
+|   |     I |       | I |
+ --- ---     --- ---     
+|       | I |   |   | I |
+| M= =M=|=T |   | M=|=T |
+| I     |   |   | I |   |
+         ---     ---     
+| I         |     I |   |
+|  = =M= =M=|= = =T | M |
+|           |       |   |
+ --- --- --- --- --- --- 
+Number of moves: 25
+Number of vertices examined: 641
+0.054583 [s]
+
+Level 43
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|                   |   |
+|     M= = = =M   T | M |
+|     I       I     |   |
+ ---     --- --- ---     
+|   | I |   | I |       |
+|  =|=M | M=|=T | T= =  |
+| I |   | I |   | I   I |
+     --- --- ---         
+| I     | I       I   I |
+|     M |  = =T= =T   T |
+| I     |             I |
+         --- --- ---     
+| I     |   |   |   | I |
+| T= =T | T=|=M | M=|=  |
+|     I | I | I | I |   |
+         --- ---     --- 
+|     I | I | I | I |   |
+| T= =  | M | T |  =|=T |
+| I     | I | I |   | I |
+     --- --- --- ---     
+| I |   | I | I     | I |
+| T=|=M=|=T |  = =M=|=  |
+|   |   |   |       |   |
+ --- --- --- --- --- --- 
+Number of moves: 19
+Number of vertices examined: 1183
+0.101474 [s]
+
+Level 44
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|               |       |
+|  = =M   T     | M= =  |
+| I   I         | I   I |
+                 ---     
+| I   I         | I | I |
+| M   M= = = =M | T | M |
+| I           I | I | I |
+         ---     ---     
+| I     |   | I   I | I |
+| M= = =|=T | M= =  | M |
+|       | I |       | I |
+ --- --- ---             
+|         I |       | I |
+| T   T   M |     T |   |
+|         I |       | I |
+ --- --- --- --- ---     
+|       | I |       | I |
+|  = =M=|=T | T= =T |   |
+| I     |   | I   I | I |
+ --- --- ---     ---     
+| I           I | I   I |
+| T= = = = = =  | M= =  |
+|               |       |
+ --- --- --- --- --- --- 
+Number of moves: 17
+Number of vertices examined: 199
+0.017276 [s]
+
+Level 45
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|   |       |   |   |   |
+| M |  = =M | M=|=T=|=M |
+|   | I   I | I |   | I |
+                 ---     
+|   | I   I | I |     I |
+| T=|=      |   |  = =M |
+| I |     I | I | I     |
+     ---     ---     --- 
+| I |   | I | I | I |   |
+| T |   |  =|=T | M=|=T |
+| I |   |   |   |   | I |
+ ---     --- --- ---     
+| I |       |   |     I |
+|   | T= =T=|=M=|=T   T |
+| I | I     |   | I   I |
+     ---                 
+| I   I |   |   | I   I |
+|       | M |   | T     |
+| I   I |   |   | I   I |
+             ---         
+| I   I |   |     I   I |
+|  = =M | M | M   T= =  |
+|       |   |           |
+ --- --- --- --- --- --- 
+Number of moves: 21
+Number of vertices examined: 436
+0.033833 [s]
+
+Level 46
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|           |           |
+| M   T= =  |  = =M   T |
+|     I   I | I   I     |
+                         
+|     I   I | I   I     |
+| T= =     =|=M    = =  |
+| I         |         I |
+     --- --- --- --- --- 
+| I |   |       |     I |
+|  =|=M | T     | M     |
+|   | I |       |     I |
+ ---     ---     ---     
+|   | I |   |       | I |
+| M |   | T=|= = =M |   |
+|   | I | I |     I | I |
+     ---     ---         
+|     I | I |   | I | I |
+| T= =  | T=|=M |  =|=T |
+| I     |   | I |   |   |
+ --- --- --- --- --- --- 
+| I         | I         |
+|  = = = =M=|=T   M   M |
+|           |           |
+ --- --- --- --- --- --- 
+Number of moves: 12
+Number of vertices examined: 148
+0.013061 [s]
+
+Level 47
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|   |           |       |
+|   |  = =T   M | M= =  |
+|   | I   I     | I   I |
+         --- ---         
+|   | I | I       I   I |
+| M=|=T |  = =M= =    M |
+| I |   |             I |
+     --- --- ---         
+| I |   |       |     I |
+| M | T |     T=|=M= =  |
+| I |   |     I |       |
+         ---     --- --- 
+| I |       | I |       |
+| M |  = =M |  =|=M= =M |
+| I | I   I |   |     I |
+     --- --- --- ---     
+| I | I | I     |   | I |
+| M=|=T |  = =T=|=  |   |
+|   |   |       | I | I |
+         --- ---     --- 
+|   |           | I | I |
+| T |           | M=|=T |
+|   |           |   |   |
+ --- --- --- --- --- --- 
+Number of moves: 19
+Number of vertices examined: 298
+0.024772 [s]
+
+Level 48
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|   |           |       |
+|  =|=M= = = =  |  = =T |
+| I |         I | I   I |
+     --- --- --- ---     
+| I     |   | I | I | I |
+| T= =  | M=|=T | M |   |
+|     I | I |   | I | I |
+         --- ---         
+|     I | I |     I | I |
+| M   T | T=|=M= =  |   |
+|     I |   |       | I |
+ ---         --- ---     
+|   | I |   |         I |
+| M=|=T |   | T= =    T |
+| I |   |   | I   I   I |
+     --- --- ---         
+| I           I | I   I |
+| M= =M   T   M |  = =T |
+|     I       I |       |
+                         
+|     I       I |       |
+|      = =M= =  | M     |
+|               |       |
+ --- --- --- --- --- --- 
+Number of moves: 15
+Number of vertices examined: 93
+0.007632 [s]
+
+Level 49
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|           |       |   |
+| M= =M= =M | T= =  | M |
+| I       I | I   I |   |
+     ---     --- ---     
+| I |   | I   I | I |   |
+|  =|=T |       | M=|=T |
+|   | I | I   I |   | I |
+ ---             --- --- 
+|   | I | I   I |     I |
+|  =|=  |  = =M |     M |
+| I |   |       |     I |
+     --- --- --- --- --- 
+| I |       |       | I |
+|   | M= =  |  = =M | T |
+| I | I   I | I   I | I |
+     --- --- --- --- --- 
+| I | I | I   I | I | I |
+| M=|=T | T= =T | T | M |
+|   |   |       | I | I |
+         --- ---     --- 
+|   |   |         I   I |
+|   | M | M   M   T= =  |
+|   |   |               |
+ --- --- --- --- --- --- 
+Number of moves: 20
+Number of vertices examined: 263
+0.020491 [s]
+
+Level 50
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|   |           |       |
+| M=|=T= = = = =|=M   T |
+| I |           | I     |
+ --- --- --- ---         
+| I |           | I     |
+| T=|=M= =      |  = =  |
+|   |     I     |     I |
+ --- ---                 
+|   |   | I     |     I |
+| M=|=T=|=M   T | T   M |
+| I |   |       |     I |
+ --- ---     ---         
+| I |   |   |   |     I |
+|  =|=T |   | T=|=M= =M |
+|   | I |   | I |       |
+     --- ---     --- --- 
+|   | I |     I         |
+| M | M |     T       M |
+|   | I |     I         |
+ --- ---                 
+|     I |     I         |
+| T    =|= = =T   M     |
+|       |               |
+ --- --- --- --- --- --- 
+Number of moves: 17
+Number of vertices examined: 367
+0.056478 [s]
+
+Level 51
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|   |           |       |
+| T | T= =    T=|=M     |
+|   | I   I   I | I     |
+     ---             --- 
+|     I | I   I | I |   |
+|  = =  |  = =T | M |   |
+| I     |       | I |   |
+         --- --- ---     
+| I     |   |     I |   |
+| M= =  | M |     T | M |
+|     I |   |     I |   |
+     ---     --- ---     
+|   | I |       | I |   |
+| T | T |  = =T | M=|=T |
+|   | I | I   I |   | I |
+ ---                 --- 
+|   | I | I   I |   | I |
+| M=|=  | T     |   | M |
+| I |   | I   I |   | I |
+     --- ---     --- --- 
+| I       I | I       I |
+|  = = = =M |  = = = =  |
+|           |           |
+ --- --- --- --- --- --- 
+Number of moves: 14
+Number of vertices examined: 99
+0.009813 [s]
+
+Level 52
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|       |   |           |
+|  = =M | M=|=     = =T |
+| I   I | I | I   I   I |
+                         
+| I   I | I | I   I   I |
+| M     | M | T= =T     |
+| I   I | I |         I |
+ --- ---     ---     --- 
+| I | I | I |   |   | I |
+|   | T=|=M |   |   |   |
+| I |   |   |   |   | I |
+         ---     ---     
+| I |   |   |       | I |
+| T |   | T | T= = =|=M |
+| I |   |   | I     |   |
+ --- ---     ---         
+| I     |     I |   |   |
+|  = =M | T     | M |   |
+|     I |     I |   |   |
+ --- ---                 
+|     I |     I |   |   |
+|     T=|= = =M |   | T |
+|       |       |   |   |
+ --- --- --- --- --- --- 
+Number of moves: 20
+Number of vertices examined: 709
+0.082091 [s]
+
+Level 53
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|               |       |
+|         T    =|=    M |
+|             I | I     |
+ --- ---             --- 
+|   |   |     I | I |   |
+| M=|=T=|= = =M |  =|=  |
+| I |   |       |   | I |
+ --- ---         ---     
+| I     |           | I |
+|     M |     T   T | T |
+| I     |           | I |
+ --- --- --- --- ---     
+| I         |   |     I |
+|     M   T=|=M | T= =  |
+| I       I | I | I     |
+                 --- --- 
+| I       I | I   I     |
+| T= = = =T |      = =M |
+|           | I       I |
+         ---             
+|       |     I       I |
+| M     | T    = = = =  |
+|       |               |
+ --- --- --- --- --- --- 
+Number of moves: 11
+Number of vertices examined: 87
+0.009492 [s]
+
+Level 54
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|                       |
+|  = =T   M    = =T   M |
+| I   I       I   I     |
+ ---                     
+| I | I       I   I     |
+| M |  = = = =T   T= =T |
+| I |                 I |
+     --- ---             
+| I |       |         I |
+|  =|= = =T | M   T= =  |
+|   |     I |     I     |
+ ---         --- --- --- 
+|         I |   | I     |
+| T= =T= =  |   | M   T |
+| I         |   | I     |
+         ---     --- --- 
+| I     |       | I     |
+|  = =T |     M=|=T     |
+|     I |     I |       |
+         --- ---         
+|     I       I |       |
+|      = = = =T | M     |
+|               |       |
+ --- --- --- --- --- --- 
+Number of moves: 10
+Number of vertices examined: 13
+0.003459 [s]
+
+Level 55
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|           |           |
+| T   M= =M |  = = = =T |
+|     I   I | I       I |
+                         
+|     I   I | I       I |
+| M= =    M=|=    M     |
+| I         |         I |
+         --- --- --- --- 
+| I     |   |   |     I |
+|       | M=|=  |  = =M |
+| I     | I | I | I     |
+         ---     ---     
+| I     | I | I | I |   |
+| M= = =|=T |   |   | T |
+|       |   | I | I |   |
+         ---         --- 
+|       |     I | I |   |
+|     T | T= =  | T=|=  |
+|       | I     |   | I |
+ --- --- --- --- ---     
+|         I           I |
+|     T    = =M= =M= =M |
+|                       |
+ --- --- --- --- --- --- 
+Number of moves: 12
+Number of vertices examined: 118
+0.016783 [s]
+
+Level 56
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|       |               |
+| M= =M |  = = = =T   M |
+| I   I | I       I     |
+     --- --- ---         
+| I | I | I |   | I     |
+|   | T | M=|=T | T   M |
+| I | I |   | I | I     |
+     --- ---             
+| I | I     | I | I     |
+| M | M= =M=|=  |       |
+| I |       |   | I     |
+     --- --- ---         
+| I         |     I     |
+| M= = = =M |  = =    M |
+|         I | I         |
+ --- --- --- --- --- --- 
+|         I | I |       |
+|  = =T= =T | M=|= = =  |
+| I         |   |     I |
+ --- --- --- --- ---     
+| I |       |       | I |
+| M=|= = =T=|=M= = =|=T |
+|   |       |       |   |
+ --- --- --- --- --- --- 
+Number of moves: 27
+Number of vertices examined: 639
+0.095467 [s]
+
+Level 57
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|       |               |
+|     M |     T= =    M |
+|       |     I   I     |
+         ---         --- 
+|           | I   I |   |
+|  = =T     |      =|=  |
+| I   I     | I     | I |
+ --- --- ---             
+| I | I |     I     | I |
+| M | M=|= = =    M | M |
+| I |   |           | I |
+ --- --- --- --- --- --- 
+| I     |       |     I |
+|     M | M     | T= =T |
+| I     |       | I     |
+     --- ---             
+| I |       |   | I     |
+| T | M= =M=|=  | T= =  |
+| I | I     | I |     I |
+ ---     ---     --- --- 
+| I   I |     I |     I |
+| M= =  | M   T=|= = =M |
+|       |       |       |
+ --- --- --- --- --- --- 
+Number of moves: 12
+Number of vertices examined: 64
+0.006383 [s]
+
+Level 58
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|                   |   |
+| M= =M= =M= = = =M | M |
+| I               I |   |
+     --- ---             
+| I |   |   |     I |   |
+| M=|=T=|=M |     M=|=T |
+|   |   | I |       | I |
+ ---         --- ---     
+|   |   | I |   |     I |
+| M |   |  =|=  | T= =  |
+|   |   |   | I | I     |
+     --- ---     --- --- 
+|             I | I     |
+|  = = = = = =T |  = =  |
+| I             |     I |
+ --- --- --- --- ---     
+| I |       |       | I |
+| M | M= =  |  = =M | M |
+| I | I   I | I   I | I |
+ --- ---     --- ---     
+| I   I | I | I | I | I |
+|  = =T |  =|=T | T=|=  |
+|       |   |   |   |   |
+ --- --- --- --- --- --- 
+Number of moves: 26
+Number of vertices examined: 1977
+0.18192 [s]
+
+Level 59
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|       |               |
+| T   M=|= = =T   M   M |
+|     I |     I         |
+ --- ---                 
+|     I |     I         |
+|  = =  | T= =T    = =T |
+| I     | I       I   I |
+                         
+| I     | I       I   I |
+|     M |  = =T= =    T |
+| I     |             I |
+         --- --- --- --- 
+| I         |   |   | I |
+|  = = = =T | M=|=T=|=M |
+|         I | I |   |   |
+                 --- --- 
+|         I | I         |
+| M   T= =  |  = =M= =M |
+|     I     |         I |
+         --- --- ---     
+|     I |       |   | I |
+| M    =|= = =M=|=T=|=  |
+|       |       |   |   |
+ --- --- --- --- --- --- 
+Number of moves: 15
+Number of vertices examined: 110
+0.009071 [s]
+
+Level 60
+Sequence of moves: 
+ --- --- --- --- --- --- 
+|       |               |
+| T   M=|=T= =T= = = =  |
+|     I |             I |
+ --- --- --- --- --- --- 
+|     I     |         I |
+|  = =    M | M= =M= =M |
+| I         | I         |
+             --- ---     
+| I         | I     |   |
+| T= =T= =  |  = =T | T |
+|         I |     I |   |
+ --- ---     --- --- --- 
+|   |   | I |     I     |
+| T=|=M=|=T | M= =      |
+| I |   |   | I         |
+     --- ---         --- 
+| I         | I     |   |
+|  = =T   M |  = =M=|=T |
+|     I     |       | I |
+             --- ---     
+|     I               I |
+|      = = = = = =T= =  |
+|                       |
+ --- --- --- --- --- --- 
+Number of moves: 13
+Number of vertices examined: 31
+0.002687 [s]
+
+Level 61
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|           |               |
+| T       T |  = = = =    T |
+|           | I       I     |
+     --- ---                 
+|   |       | I       I     |
+| M=|=T= =T |     T    = =M |
+| I |     I | I           I |
+ --- ---     ---             
+| I     | I   I |         I |
+| T     |  = =T | M= = = =  |
+| I     |       | I         |
+ --- --- --- --- --- --- --- 
+| I |       |     I |       |
+| M=|=T= =T | T= =  |  = =M |
+|   |     I | I     | I   I |
+     --- --- --- ---         
+|   |     I | I |   | I   I |
+| T | T   M | M | T=|=    M |
+|   |     I | I | I |     I |
+ --- --- ---                 
+|         I | I | I |     I |
+| T= = = =  |  =|=T | M= =  |
+| I         |   |   | I     |
+     --- --- --- ---         
+| I |       |   |     I     |
+| T=|= = =M=|=T=|= = =    T |
+|   |       |   |           |
+ --- --- --- --- --- --- --- 
+Number of moves: 22
+Number of vertices examined: 277
+0.030786 [s]
+
+Level 62
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|           |       |       |
+|      = =M=|= = =T=|=M   T |
+|     I     |       | I     |
+ ---         --- --- --- --- 
+|   | I     |   |     I |   |
+|   | M= = =|=  |     T | M |
+|   |       | I |     I |   |
+     --- ---     --- ---     
+|           | I     | I |   |
+| T    = =M | T= =  | M=|=T |
+|     I   I |     I |   | I |
+             --- ---     --- 
+|     I   I       I |   | I |
+|  = =        T     | T |   |
+| I       I       I |   | I |
+ ---                 ---     
+| I |     I       I |     I |
+| T | T   M= = = =  |  = =M |
+| I |               | I     |
+ --- ---         --- --- --- 
+| I     |       |     I |   |
+|  = =M | T     | M   T=|=M |
+|     I |       |       | I |
+     --- --- --- --- --- --- 
+|   | I         |   |     I |
+|   | T= = = =T=|=M=|=T= =T |
+|   |           |   |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 19
+Number of vertices examined: 1684
+0.201697 [s]
+
+Level 63
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|   |           |           |
+|  =|=T= =    M | M= =M= =M |
+| I |     I     | I       I |
+     --- --- ---         --- 
+| I |   | I |   | I     | I |
+|   |   | M=|=T=|=    T |   |
+| I |   |   |   |       | I |
+                 --- ---     
+| I |   |   |   |         I |
+| M=|=  | T |   |     T= =  |
+|   | I |   |   |     I     |
+ ---     --- --- ---         
+|     I |       |   | I     |
+|  = =T |  = = =|=  | T     |
+| I     | I     | I | I     |
+ --- ---                     
+| I     | I     | I | I     |
+| M   T | T   M |   | T= =T |
+| I     | I     | I |     I |
+ --- ---             ---     
+| I     | I     | I |   | I |
+|  = =T |  = =T | M=|=T | T |
+|     I |     I |   | I | I |
+     --- --- --- --- --- --- 
+|   | I       I |     I   I |
+|   |  = =M= =  |     M= =  |
+|   |           |           |
+ --- --- --- --- --- --- --- 
+Number of moves: 29
+Number of vertices examined: 7658
+0.802805 [s]
+
+Level 64
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|       |   |       |       |
+| M   T=|=M=|=T= =T | M= =  |
+|     I |   |     I | I   I |
+         --- --- ---         
+|     I |         I | I   I |
+|  = =  | M= = = =  |     M |
+| I     | I         | I   I |
+ --- ---     --- --- ---     
+| I |     I |   |     I | I |
+|   |      =|=T |     T |   |
+| I |       | I |     I | I |
+     --- ---     ---         
+| I |   |     I |   | I | I |
+| M=|=T |     T=|=M |   |   |
+|   | I |       | I | I | I |
+         --- ---             
+|   | I |       | I | I | I |
+|   | T=|=M= =  | M=|=T |   |
+|   |   |     I |   |   | I |
+ --- --- --- --- --- --- --- 
+|       |   | I |       | I |
+|  = =T=|=M=|=T | T   M=|=T |
+| I     |   |   |     I |   |
+         --- --- --- ---     
+| I     |           | I |   |
+| T= = =|= = = = =M=|=T |   |
+|       |           |   |   |
+ --- --- --- --- --- --- --- 
+Number of moves: 40
+Number of vertices examined: 192700
+23.0317 [s]
+
+Level 65
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|       |       |   |       |
+|     T=|=M= =M=|=  | M= =  |
+|     I |       | I | I   I |
+ --- --- --- ---             
+|     I     |   | I | I   I |
+|  = =M     |  =|=T | M   M |
+| I         | I |   | I   I |
+                 ---         
+| I         | I       I   I |
+| M= =      |     T         |
+|     I     | I       I   I |
+ --- --- ---                 
+|     I     | I       I   I |
+| T= =T   M | M= =M= =      |
+| I         |             I |
+     --- --- --- ---         
+| I |           |   |     I |
+|   | T= =      | T=|= = =  |
+| I | I   I     | I |       |
+     --- --- ---     --- --- 
+| I | I | I     | I         |
+| T=|=M | M   T |  = = = =T |
+|   |   | I     |         I |
+ ---             --- --- --- 
+|       | I               I |
+|     T | M= =M= = = =M= =  |
+|       |                   |
+ --- --- --- --- --- --- --- 
+Number of moves: 25
+Number of vertices examined: 1155
+0.133807 [s]
+
+Level 66
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|       |   |   |   |       |
+|     M=|=T=|=M | M=|= = =T |
+|     I |   | I | I |     I |
+ --- ---     --- --- --- --- 
+|   | I |   | I   I |     I |
+| M=|=T |   |     T | M= =M |
+| I |   |   | I   I | I     |
+         ---                 
+| I |   |     I   I | I     |
+| M |   | M    = =T |  = =M |
+| I |   |           |     I |
+ --- --- --- --- --- --- --- 
+| I |       |       |     I |
+| T |  = =M=|=T   M |  = =T |
+| I | I     | I     | I     |
+     --- --- --- --- --- --- 
+| I | I |   | I     | I     |
+| T | T |   | M     | M   T |
+| I | I |   | I     | I     |
+ ---         --- --- --- --- 
+| I | I |   | I     | I     |
+|   |   | M=|=T   M |  = =T |
+| I | I | I |       |     I |
+         --- --- --- ---     
+| I | I | I |           | I |
+| M=|=T | T=|=M= = = = =|=  |
+|   |   |   |           |   |
+ --- --- --- --- --- --- --- 
+Number of moves: 34
+Number of vertices examined: 99412
+12.2821 [s]
+
+Level 67
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|           |   |   |       |
+| M= = = =M | M=|=T |  = =T |
+| I       I | I | I | I   I |
+         --- --- --- --- --- 
+| I     | I   I | I   I | I |
+| M     |     T |  = =M | M |
+| I     | I   I |       | I |
+                 --- --- --- 
+| I     | I   I |   |     I |
+| M= =  |  = =T | M | T     |
+|     I |       |   |     I |
+ --- ---     ---     --- --- 
+|     I |   |   |       | I |
+| M     |   | M |  = =  | T |
+|     I |   |   | I   I | I |
+         ---     --- ---     
+|     I     |     I | I | I |
+| T= =    M |  = =T | M |   |
+| I         | I     | I | I |
+ --- --- ---     ---         
+| I |       | I |   | I | I |
+|   | T= =  | T=|=M |  =|=T |
+| I | I   I |   | I |   |   |
+     ---     --- --- --- --- 
+| I   I | I       I         |
+|  = =M |  = = = =T         |
+|       |                   |
+ --- --- --- --- --- --- --- 
+Number of moves: 28
+Number of vertices examined: 29761
+3.57064 [s]
+
+Level 68
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|   |   |   |       |       |
+| M=|=T=|=M | M   T=|=M     |
+| I |   | I |     I | I     |
+ --- ---             --- --- 
+| I |   | I |     I | I     |
+| T | T=|=  |       | T= =T |
+| I | I |   |     I |     I |
+     --- --- --- --- ---     
+| I | I     |     I |   | I |
+|   | M     | M= =M |   | T |
+| I | I     | I     |   | I |
+ --- --- ---     ---     --- 
+| I | I |     I |       | I |
+| M | T=|=M= =  | M     | M |
+| I |   |       |       | I |
+     --- --- ---             
+| I |   |       |       | I |
+|   | M | T= =  |  = =T |   |
+| I |   | I   I | I   I | I |
+ ---     ---         --- --- 
+| I     | I | I | I | I | I |
+|  = =T | M |   |   | M=|=T |
+|     I | I | I | I |   |   |
+         ---     --- ---     
+|     I   I | I | I     |   |
+|      = =T |  =|=M   T |   |
+|           |   |       |   |
+ --- --- --- --- --- --- --- 
+Number of moves: 31
+Number of vertices examined: 13834
+1.69572 [s]
+
+Level 69
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|   |   |   |   |           |
+| T=|=M=|=  | M=|=T= =      |
+| I |   | I | I |     I     |
+ --- ---     --- ---         
+| I     | I   I     | I     |
+|  = =M | T= =      | T= =T |
+|     I |           |     I |
+ --- --- --- --- --- --- --- 
+|     I     |   |         I |
+| T= =      | M |  = = = =M |
+| I         |   | I         |
+         ---                 
+| I     |   |   | I         |
+|       | M=|=T=|=M   T     |
+| I     | I |   |           |
+     ---     --- --- --- --- 
+| I |     I |           |   |
+|   | M= =  |  = = = =T | T |
+| I | I     | I       I |   |
+ ---         --- ---         
+| I | I       I |   | I |   |
+| M |  = = = =M | T | T=|=M |
+| I |           |   |   | I |
+     --- --- ---     --- --- 
+| I |   |   |   |   |     I |
+|  =|=T=|=M=|=T=|=M=|=T= =  |
+|   |   |   |   |   |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 28
+Number of vertices examined: 5033
+0.584674 [s]
+
+Level 70
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|   |       |   |   |       |
+| M | M   T=|=M=|=T=|=M     |
+|   |     I |   |   | I     |
+     --- --- ---     --- --- 
+|       | I     |   | I     |
+|  = =T |  = =M |   | T= =  |
+| I   I |     I |   |     I |
+ --- ---         --- ---     
+| I | I |     I     |   | I |
+| M |   |      = =  | M=|=T |
+| I | I |         I | I |   |
+ ---     --- ---     --- --- 
+| I | I |       | I | I     |
+| T | M=|=T   M |   | T= =  |
+| I |   | I     | I |     I |
+ --- --- --- --- ---     --- 
+| I |     I |     I |   | I |
+|   |     M=|=T= =  | M | M |
+| I |       |       |   | I |
+     --- --- --- --- ---     
+| I     |   |       |     I |
+|  = =M |   | T= =T |  = =M |
+|     I |   | I   I | I     |
+     ---     --- ---         
+|   | I     | I | I   I     |
+| T | T= = =|=M | M= =    T |
+|   |       |   |           |
+ --- --- --- --- --- --- --- 
+Number of moves: 36
+Number of vertices examined: 19351
+2.1567 [s]
+
+Level 71
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|   |       |               |
+|  =|=M   T |  = =        M |
+| I | I     | I   I         |
+         --- --- --- --- --- 
+| I | I |     I | I         |
+|   | M=|=T= =  |     T     |
+| I |   |       | I         |
+     --- --- --- --- --- --- 
+| I |             I |   |   |
+| T |  = =M= = = =  | M=|=  |
+| I | I             | I | I |
+                 --- ---     
+| I | I         |     I | I |
+|   | M= =    T |  = =T | T |
+| I |     I     | I     | I |
+ --- --- --- --- --- ---     
+| I |     I |     I |     I |
+| M | M   T=|= = =M |  = =  |
+| I |       |       | I     |
+     --- --- --- --- --- --- 
+| I |   |   |       | I     |
+| M=|=  | T |     M | M= =  |
+|   | I |   |       |     I |
+                             
+|   | I |   |       |     I |
+| T | T=|=M=|= = =T=|= = =M |
+|   |   |   |       |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 21
+Number of vertices examined: 7720
+0.878044 [s]
+
+Level 72
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|                       |   |
+|     M        = = = =T=|=M |
+|             I         | I |
+                     --- --- 
+|             I     |     I |
+| T= = = = = =T   M | T= =T |
+| I                 | I     |
+ --- --- --- --- ---         
+| I     |           | I     |
+| M   T |  = = = =  |  = =  |
+| I     | I       I |     I |
+ --- ---     ---             
+| I |     I |   | I |     I |
+| T |  = =  | T=|=M | T= =T |
+| I | I     | I |   | I     |
+         --- --- --- --- --- 
+| I | I |     I |     I |   |
+|   |   | T   M | T   M=|=T |
+| I | I |     I |       | I |
+                 --- --- --- 
+| I | I |     I     |   | I |
+|   |   |  = =M    =|=T | M |
+| I | I | I       I | I | I |
+     ---                 --- 
+| I   I | I       I | I   I |
+|  = =T | M= =M= =M |  = =T |
+|       |           |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 20
+Number of vertices examined: 639
+0.07403 [s]
+
+Level 73
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|           |       |       |
+| T= =    M | T= =T | T= =  |
+| I   I     | I   I | I   I |
+         ---         --- --- 
+| I   I |     I   I | I | I |
+|     T |  = =     =|=M | M |
+| I   I | I         |   | I |
+ --- ---     --- ---     --- 
+| I | I | I |   |   |   | I |
+| M | M | T=|=M=|=T | T | T |
+| I | I |   |   | I |   | I |
+     --- --- --- --- ---     
+| I | I |         I |     I |
+|   | T=|= = = = =M | M     |
+| I |   |           |     I |
+ ---     --- --- ---         
+| I |   |           |     I |
+| T | M |  = = = =  |       |
+| I |   | I       I |     I |
+ --- ---                     
+| I     | I       I |     I |
+|  = =  | M= =    M |  = =T |
+|     I |     I   I | I     |
+         --- ---             
+|     I |     I | I | I     |
+| T   M=|= = =T | M=|=T   M |
+|       |       |   |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 27
+Number of vertices examined: 260
+0.026582 [s]
+
+Level 74
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|       |   |   |           |
+| T    =|=T=|=M=|=T       M |
+|     I |   |   | I         |
+             ---             
+|     I |   |     I         |
+| M= =  | M | T= =     = =T |
+| I     |   | I       I   I |
+         ---             --- 
+| I     |   | I       I | I |
+|  = =M=|=T |  = = = =T | M |
+|       | I |           | I |
+ --- --- --- --- --- --- --- 
+|         I |   |         I |
+| T   T     |   | T= = = =  |
+|         I |   | I         |
+                 --- --- --- 
+|         I |     I |   |   |
+|  = =M     | T   M | T | M |
+| I   I   I |     I |   |   |
+             --- ---         
+| I   I   I |     I |   |   |
+| M    = =M | M   T=|=M=|=  |
+| I         |       |   | I |
+     --- --- --- --- ---     
+| I |       |       |     I |
+| M=|=T= =T=|= = =M=|= = =T |
+|   |       |       |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 19
+Number of vertices examined: 161
+0.017478 [s]
+
+Level 75
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|       |                   |
+| T= =  |  = = = = = =M   T |
+| I   I | I           I     |
+ ---             --- --- --- 
+| I | I | I     |     I     |
+| M |   | M= =  |     T= =  |
+| I | I |     I |         I |
+ ---                         
+| I | I |     I |         I |
+| T | T=|= = =M | M   M     |
+| I |   |       |         I |
+ --- --- --- ---             
+| I     |       |         I |
+| M   T |  = =M=|= = = = =  |
+| I     | I     |           |
+ --- --- --- --- --- --- --- 
+| I     | I             |   |
+| T= =  | T= =T= =T= =T | T |
+|     I |             I |   |
+ --- --- --- --- --- ---     
+|     I |   |       | I     |
+| T   M=|=T=|=M   T | M= =  |
+|       |   | I     |     I |
+                     --- --- 
+|       |   | I     |     I |
+| T     | M |  = = =|= = =T |
+|       |   |       |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 22
+Number of vertices examined: 968
+0.119305 [s]
+
+Level 76
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|   |                   |   |
+| M |  = =M= = = =M   T | T |
+|   | I           I     |   |
+     --- --- --- --- ---     
+|     I |         I |       |
+|  = =T | M    = =T |  = =M |
+| I     |     I     | I   I |
+ --- --- --- --- --- --- --- 
+| I |       | I |     I | I |
+| M=|= = =T | M | M   T | T |
+|   |     I | I |     I | I |
+ --- --- --- --- --- --- --- 
+|         I | I     | I | I |
+|  = = = =M | T= =  | M |   |
+| I         |     I | I | I |
+     --- --- --- --- ---     
+| I |           | I | I | I |
+|   |  = = = =T | M=|=T | M |
+| I | I       I |   |   | I |
+ ---         ---     ---     
+| I | I     | I |   |     I |
+| T |     M | M | T | M= =M |
+| I | I     | I |   | I     |
+     ---         --- --- --- 
+| I | I |   | I     | I     |
+|  =|=M |   |  = = =|=T   M |
+|   |   |   |       |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 29
+Number of vertices examined: 501
+0.053401 [s]
+
+Level 77
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|           |       |       |
+| T= = = =  | T   M=|=T   M |
+| I       I |     I | I     |
+     ---     --- ---         
+| I |   | I       I | I     |
+|  =|=M | T= = = =  |  = =T |
+|   | I |           |     I |
+ ---     --- --- ---         
+|     I |       |         I |
+|  = =  | T= =  | M   T= =  |
+| I     | I   I |     I     |
+ --- ---         ---         
+| I |     I   I     | I     |
+| T | M       T     | T= =T |
+| I |     I   I     |     I |
+ ---             ---         
+| I |     I   I |         I |
+|   |  = =T     | M   T= =T |
+| I | I       I |     I     |
+         --- --- ---         
+| I | I |     I     | I     |
+| M |   | T         |  = =  |
+| I | I |     I     |     I |
+ --- --- ---                 
+| I | I     | I     |     I |
+| T=|=M   T | M= = =|= = =T |
+|   |       |       |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 14
+Number of vertices examined: 134
+0.015053 [s]
+
+Level 78
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|   |   |   |   |   |       |
+| T=|=M=|=T |  =|=T=|=M     |
+| I |   | I | I |   | I     |
+ ---     ---     ---         
+| I |   | I   I |     I     |
+|   | T | M= =  |  = =    T |
+| I |   |       | I         |
+     --- --- ---     --- --- 
+| I     |   |     I |       |
+| M= = =|=T | M= =  |  = =M |
+|       | I | I     | I   I |
+ --- --- --- --- --- --- --- 
+|         I | I       I | I |
+| M= =      |     T= =T | T |
+| I   I   I | I   I     | I |
+                     --- --- 
+| I   I   I | I   I |     I |
+|      = =M | T= =  |  = =M |
+| I         |       | I     |
+     --- --- --- --- --- --- 
+| I |       |   |   | I     |
+| M | M   T=|=M=|=T | T= =T |
+| I |     I |   | I |     I |
+                 ---         
+| I |     I |   | I |     I |
+| M=|=T= =  | T | M=|= = =T |
+|   |       |   |   |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 24
+Number of vertices examined: 5339
+0.573408 [s]
+
+Level 79
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|       |   |               |
+| M= =  | T | T= = = =      |
+| I   I |   | I       I     |
+ ---                     --- 
+| I | I |   | I       I |   |
+| T |   | M=|=    M   T=|=  |
+| I | I | I |           | I |
+ ---         --- --- ---     
+| I | I | I         |     I |
+|   | M | M= = = =  |  = =M |
+| I | I |         I | I     |
+     --- --- ---     --- --- 
+| I | I |   |   | I | I     |
+|   | T=|=M=|=T=|=M | T= =T |
+| I |   |   |   |   |     I |
+         --- --- --- ---     
+| I |   |       |   |   | I |
+| M | M | T   M=|=T=|=  |   |
+| I |   |     I |   | I | I |
+ --- --- --- ---         --- 
+| I |       | I |   | I   I |
+|   | M= =  |   | M | M   M |
+| I | I   I | I |   | I   I |
+                 ---         
+| I | I   I | I     | I   I |
+| T=|=M    =|=T   M |  = =M |
+|   |       |       |       |
+ --- --- --- --- --- --- --- 
+Number of moves: 25
+Number of vertices examined: 3388
+0.388644 [s]
+
+Level 80
+Sequence of moves: 
+ --- --- --- --- --- --- --- 
+|       |       |       |   |
+| T= =  |  = =T | M   T=|=  |
+| I   I | I   I |     I | I |
+                 --- ---     
+| I   I | I   I |   | I | I |
+| T     |       |  =|=M |   |
+| I   I | I   I | I |   | I |
+             ---             
+| I   I | I | I | I |   | I |
+|       | T | M | T | T |   |
+| I   I | I | I | I |   | I |
+ --- ---     --- --- ---     
+| I | I | I | I | I     | I |
+|   | M=|=T | T=|=M   T |   |
+| I |   |   |   |       | I |
+         ---     --- ---     
+| I |   |       |         I |
+| M | T | M     | M= =      |
+| I |   |       | I   I   I |
+     --- ---                 
+| I         |   | I   I   I |
+|  = =      | M |     M= =M |
+|     I     |   | I         |
+             --- --- ---     
+|     I     |     I     |   |
+| T   M= = =|= = =T   M | T |
+|           |           |   |
+ --- --- --- --- --- --- --- 
+Number of moves: 20
+Number of vertices examined: 231
+0.027439 [s]
+
+Level 81
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|                   |       |   |
+| M= = = = = = = =  |  = = =|=T |
+| I               I | I     | I |
+     --- --- --- ---     --- --- 
+| I |   |   |     I | I |     I |
+|   | M=|=T |  = =T |   | M= =  |
+| I | I | I | I     | I | I     |
+ --- --- --- --- ---     --- --- 
+| I   I | I | I       I | I |   |
+| T= =  | M | M= =M= =  | T=|=M |
+|       | I |           |   | I |
+ --- --- --- --- --- --- --- --- 
+|       | I     |             I |
+| M= =M=|=T   M |  = = = = = =  |
+| I     |       | I             |
+         --- ---     --- --- --- 
+| I     |         I |           |
+|       | T= =T= =T | M   T= =  |
+| I     | I         |     I   I |
+     --- --- --- --- --- ---     
+| I |     I               I | I |
+| M |      = =M= =M= = = =  | T |
+| I |                       | I |
+     --- --- --- --- ---     --- 
+| I         |   |       |   | I |
+| M= =M     | M=|= = =  |   | M |
+|     I     | I |     I |   | I |
+     --- --- --- ---     ---     
+|   | I       I     | I     | I |
+| T | T= = = =      |  = =T=|=  |
+|   |               |       |   |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 46
+Number of vertices examined: 1043819
+164.452 [s]
+
+Level 82
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|   |           |   |           |
+|   | M= = = =M | M=|= = =T     |
+|   | I       I | I |     I     |
+     --- ---     --- --- --- --- 
+|   | I     | I | I     | I     |
+| M=|=T   M |   |     M | M= =  |
+| I |       | I | I     |     I |
+ --- --- ---             ---     
+| I     |     I | I     |   | I |
+|  = =T |  = =M | T= =  | T | M |
+|     I | I     |     I |   | I |
+ --- --- --- --- --- ---     --- 
+|   | I | I |       | I |   | I |
+|   |   |   | M   T=|=M |  =|=T |
+|   | I | I |     I |   | I |   |
+             --- --- ---         
+|   | I | I |     I     | I |   |
+| T=|=M | T | T    = =  | M | M |
+| I |   | I |         I | I |   |
+ --- --- ---             --- --- 
+| I     | I           I | I     |
+| M   T | M= =M= = = =M |  = =  |
+| I     |               |     I |
+ --- --- --- --- --- ---         
+| I     |           |         I |
+|  = =T | T       T |     T= =T |
+|     I |           |     I     |
+                                 
+|     I |           |     I     |
+|      =|=M= = = = =|= = =T   M |
+|       |           |           |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 31
+Number of vertices examined: 15038
+2.2556 [s]
+
+Level 83
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |           |           |
+| T   M=|=T= = = =  | T= =T   M |
+|     I |         I | I   I     |
+                     ---         
+|     I |         I | I | I     |
+| M= =  |      = =T | M |  = =T |
+| I     |     I     | I |     I |
+ --- ---         ---     --- --- 
+| I |   |     I |   | I |   | I |
+| T | T |  = =T | T=|=M |   | M |
+| I |   | I     | I |   |   | I |
+             --- --- ---     --- 
+| I |   | I |     I |   |     I |
+|  =|=M | T=|= = =M |  =|= = =T |
+|   | I |   |       | I |       |
+ ---     --- --- ---     --- --- 
+|     I     |   |   | I     |   |
+|           |  =|=T | M= = =|=T |
+|     I     | I | I |       | I |
+ --- --- ---     --- --- ---     
+|     I |     I | I     |     I |
+| T= =T |       | M= = =|=T     |
+| I     |     I |       | I   I |
+                 --- ---         
+| I     |     I     |     I   I |
+| T= =T | T   M= =M |     T   T |
+|     I |         I |     I   I |
+ --- ---             ---         
+|     I           I     | I   I |
+| T    = = = =M= =      | T= =T |
+|                       |       |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 39
+Number of vertices examined: 15566
+2.1878 [s]
+
+Level 84
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|                               |
+| M   T= =     = = = =    M     |
+|     I   I   I       I         |
+ --- ---         ---     --- --- 
+|     I | I   I |   | I |       |
+|  = =  |  = =T |  =|=T |  = =T |
+| I     |       | I |   | I   I |
+                     ---         
+| I     |       | I |     I   I |
+| M   T | M     | M | T= =      |
+| I     |       | I | I       I |
+         --- ---     --- ---     
+| I         |     I   I |   | I |
+|  = = = =  | M= =M   M | M=|=T |
+|         I | I       I | I |   |
+ --- ---                 --- --- 
+|       | I | I       I | I     |
+| M= =  |   |  = =M= =M | T= =  |
+| I   I | I |           |     I |
+     ---     --- --- --- --- --- 
+| I | I | I |   |       |     I |
+| M | T=|=  |   | M= =M | T     |
+| I |   |   |   | I   I |     I |
+     --- ---         --- ---     
+| I         |   | I | I     | I |
+| M   T   M=|=T=|=M | T   T=|=M |
+| I       I |   |   | I   I |   |
+                             --- 
+| I       I |   |   | I   I     |
+|  = = = =  |   | T | T= =T     |
+|           |   |   |           |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 24
+Number of vertices examined: 3131
+0.435143 [s]
+
+Level 85
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|   |           |   |           |
+| M=|= = =T= = =|=M=|=T= =T     |
+| I |           |   |     I     |
+     ---     ---     ---         
+| I     |   |   |       | I     |
+| M= =M |   |   | T     | T= =  |
+|     I |   |   |       |     I |
+         ---     --- ---         
+|     I     |   |       |     I |
+| M= =      | T=|= = =M | M     |
+| I         | I |     I |     I |
+     --- --- --- --- --- ---     
+| I |   |     I |   | I     | I |
+|  =|=T=|= = =M | T | T   M |   |
+|   |   |       |   | I     | I |
+ --- --- --- ---     --- ---     
+|   |                 I |     I |
+| T | M= = = =M= = = =  |     T |
+|   | I                 |     I |
+     --- --- --- --- --- --- --- 
+|   | I     |   |       |     I |
+| M=|=T     |  =|=M= =  | T   M |
+| I |       | I |     I |     I |
+ --- --- ---     --- --- --- --- 
+| I |       | I |     I |     I |
+| T=|=      | T |  = =T | T= =  |
+|   | I     | I | I     | I     |
+                         --- --- 
+|   | I     | I | I     | I     |
+| M | M= = =|=T | T= =T=|=M   T |
+|   |       |   |       |       |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 36
+Number of vertices examined: 16292
+2.34998 [s]
+
+Level 86
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |       |   |           |
+| T   M=|=T= = =|=M | M   T= =  |
+|     I |       | I |     I   I |
+         --- ---                 
+|     I |       | I |     I   I |
+| M= =M | T     |  =|=T= =T     |
+| I     |       |   |         I |
+ --- ---     --- --- --- ---     
+| I     |   |       |       | I |
+|  = =T=|=M=|=T   M | M    =|=T |
+|       |   | I     |     I |   |
+ --- --- --- --- ---     --- --- 
+|       |     I     |   | I |   |
+| T= =  |      = =M | M | M=|=T |
+| I   I |         I |   |   | I |
+         --- --- --- --- --- --- 
+| I   I           I |       | I |
+| T    = =T= =T= =  |  = =T | M |
+| I                 | I   I | I |
+             --- --- --- ---     
+| I         |         I | I | I |
+|     M     |           | M | M |
+| I         |         I | I | I |
+ --- --- --- ---     ---     --- 
+| I     |       |   | I | I | I |
+| M= =  |  = =T | T |   |  =|=T |
+|     I | I   I |   | I |   |   |
+                 ---     ---     
+|     I | I   I |     I     |   |
+| T    =|=T   T=|= = =M   T |   |
+|       |       |           |   |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 30
+Number of vertices examined: 1205
+0.197301 [s]
+
+Level 87
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|                   |           |
+| M    = =T= =      | T= =    M |
+|     I       I     | I   I     |
+         ---     --- ---         
+|     I |   | I |     I | I     |
+|       | T | T=|=M= =M |  = =T |
+|     I |   |   |       |     I |
+ --- ---     --- --- --- ---     
+|     I |       |           | I |
+| T   M | M= = =|=    M     |   |
+|     I | I     | I         | I |
+ --- --- --- ---             --- 
+|     I | I     | I         | I |
+| T= =  | T     |  = =T= =T | M |
+| I     | I     |         I | I |
+ --- --- --- --- --- --- --- --- 
+| I     | I |       |     I | I |
+|     T | M=|=T   M | T     | T |
+| I     |   | I     |     I | I |
+             --- ---             
+| I     |   | I |         I | I |
+|  = =M |   |   |  = = = =  | T |
+|     I |   | I | I         | I |
+ --- --- ---         --- ---     
+|     I |     I | I |         I |
+| M   T |  = =M | M=|=        T |
+|     I | I     |   | I       I |
+ --- ---                         
+|     I   I     |   | I       I |
+|      = =M   T | T | T= = = =T |
+|               |   |           |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 28
+Number of vertices examined: 2445
+0.359954 [s]
+
+Level 88
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|   |   |           |   |       |
+| M | M=|=    T= =  | T |  = =T |
+|   | I | I   I   I |   | I   I |
+                         --- --- 
+|   | I | I   I   I |     I | I |
+| T=|=  | T= =    T=|= = =M |   |
+| I |   |           |       | I |
+     --- --- --- --- ---         
+| I |   |       |       |   | I |
+|   | M | T   M=|=T= =  | T | M |
+| I |   |     I |     I |   | I |
+ ---     ---     ---     --- --- 
+| I |   |   | I |   | I       I |
+| M=|=T=|=M |   |   |  = = = =  |
+|   |   | I | I |   |           |
+ --- ---     ---     --- ---     
+|         I | I |       |   |   |
+|  = =M= =M |   | M= =M=|=  |   |
+| I         | I | I     | I |   |
+ --- ---         ---         --- 
+| I |   |   | I   I |   | I     |
+| T=|=  | T | T= =  | T |  = =T |
+|   | I |   |       |   |     I |
+         --- --- --- ---         
+|   | I                 |     I |
+| M | M= =M= = = =      |  = =  |
+|   |             I     | I     |
+ ---                             
+|                 I     | I     |
+|     T       T   M= =M=|=T   M |
+|                       |       |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 25
+Number of vertices examined: 745
+0.109583 [s]
+
+Level 89
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |   |       |           |
+| T   M=|=  | M= =  |  = =T= =  |
+|     I | I | I   I | I       I |
+ --- ---     ---         ---     
+|     I | I   I | I | I |   | I |
+|  = =T | T= =T |  =|=T |  =|=T |
+| I     |       |   |   | I |   |
+         --- --- --- ---     --- 
+| I     |               | I     |
+| T= =  | T   M= = = =  | M   T |
+|     I |     I       I | I     |
+ --- ---         ---         --- 
+|   | I       I |   | I | I |   |
+|   | M= =M= =  |   |   | M=|=  |
+|   |           |   | I |   | I |
+     --- --- ---     --- ---     
+|               |   | I |     I |
+|  = = = = = = =|= =|=  | M   T |
+| I             |   |   |     I |
+         --- ---         --- --- 
+| I     |   |   |   |   |     I |
+| T   M | T=|=  | M | T | M= =  |
+| I     | I | I |   |   | I     |
+     --- ---     --- --- --- --- 
+| I |     I | I |       | I     |
+|  =|=M= =  | M |  = =M | T= =T |
+|   |       | I | I   I |     I |
+     --- --- ---                 
+|       |     I | I   I |     I |
+|     M |     T=|=     =|=T= =T |
+|       |       |       |       |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 28
+Number of vertices examined: 39653
+6.21997 [s]
+
+Level 90
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|   |       |   |   |       |   |
+|   |  = = =|=M |   | M   M |   |
+|   | I     | I |   |       |   |
+             ---                 
+|   | I     | I |   |       |   |
+| M=|=T   M | T=|=M=|=T= = =|=M |
+| I |       |   |   |       | I |
+ --- --- --- --- --- --- --- --- 
+| I |       |   |       |     I |
+| T=|=M     | T=|=M   T | T= =T |
+|   | I     | I | I     | I     |
+ --- --- ---         ---         
+|     I |   | I | I |     I     |
+| T= =  |   |   |  =|= = =      |
+| I     |   | I |   |           |
+ --- ---         --- --- --- --- 
+| I     |   | I         |       |
+| M= = =|=T | T= = = = =|=M= =M |
+|       | I |           |     I |
+ --- --- ---     --- --- ---     
+|   |     I |   |   |       | I |
+|  =|= = =M |   | M=|=T   M | M |
+| I |       |   | I | I     | I |
+     --- --- ---     --- --- --- 
+| I     |         I | I |     I |
+| T   M | M= = = =  | M | T= =  |
+| I     | I         | I | I     |
+ --- ---         --- --- --- --- 
+| I       I     |     I | I     |
+|  = = = =      | M   T=|=M     |
+|               |       |       |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 39
+Number of vertices examined: 156682
+23.8541 [s]
+
+Level 91
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |       |       |   |   |
+| M   T=|=M= =  | T= =  | M=|=T |
+|     I |     I | I   I | I | I |
+ ---                     --- --- 
+|   | I |     I | I   I | I | I |
+|  =|=T | T   M=|=      | T |   |
+| I |   |       |     I | I | I |
+     --- --- --- --- --- ---     
+| I |               | I | I | I |
+| M=|= = = = =T= =  | M | M |   |
+|   |             I | I | I | I |
+ --- --- ---         ---         
+|           |     I | I | I | I |
+| T    = = =|= = =T | T=|=  | M |
+|     I     |       |   |   | I |
+         --- --- --- --- ---     
+|     I |       |   |   |     I |
+| M= =  |     T=|=M | T=|= = =  |
+| I     |     I | I | I |       |
+     ---             --- --- --- 
+| I |   |     I | I | I     |   |
+|  =|=  | M     |   | M= = =|=T |
+|   | I |     I | I |       | I |
+ ---                 --- --- --- 
+|     I |     I | I           I |
+| T= =T |       | M= =    T     |
+| I     |     I |     I       I |
+ --- ---                         
+| I |         I |     I       I |
+| M=|=T= = = =T | T    = = = =  |
+|   |           |               |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 38
+Number of vertices examined: 169132
+25.0314 [s]
+
+Level 92
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |                       |
+| T   M=|=T= = = = = = = =    M |
+|     I |                 I     |
+ --- --- --- --- --- ---         
+|     I     |           | I     |
+| T= =    M | T= =    M |  = =  |
+| I         | I   I     |     I |
+         ---         --- ---     
+| I     |   | I   I |       | I |
+|  = = =|=M |     T | T   M=|=T |
+|       | I | I   I |     I |   |
+ --- ---             --- --- --- 
+|       | I | I   I |   | I     |
+|  = = =|=  |       | T | T   M |
+| I     |   | I   I |   | I     |
+         ---     ---             
+| I     |   | I | I     | I     |
+| T= =T | T | T | M     |     M |
+|     I |   | I | I     | I     |
+ --- ---     --- --- ---         
+|     I |     I | I |     I     |
+| T   M | M= =  | T |      = =  |
+|     I | I     | I |         I |
+ --- ---     ---     --- --- --- 
+|     I | I |     I |   |   | I |
+| M   T |   |  = =  | T=|=M | M |
+|     I | I | I     | I | I | I |
+             --- --- --- --- --- 
+|     I | I | I       I | I   I |
+|      =|=M | M= = = =M |  = =T |
+|       |   |           |       |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 33
+Number of vertices examined: 5157
+0.803861 [s]
+
+Level 93
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |   |       |   |       |
+| M   T=|=M=|=T   M | M=|=T= =  |
+|     I |   | I     | I |     I |
+ --- ---     --- ---     --- --- 
+|   | I |   | I     | I |   | I |
+| T=|=M | T | M   T |   | M | M |
+| I |   |   | I     | I |   | I |
+     --- --- --- --- ---         
+| I     |   | I       I |   | I |
+|  = =T=|=M |  = = = =T | T=|=M |
+|       | I |           | I |   |
+ --- --- --- --- --- --- --- --- 
+|   |   | I         |   | I     |
+| T=|=M |  = = = =T=|=M | M   T |
+| I | I |           | I | I     |
+ ---     --- --- --- --- --- --- 
+| I | I |             I | I     |
+|   |  =|= = =T= = = =T | T= =T |
+| I |   |               |     I |
+     --- --- --- --- ---         
+| I     |   |           |     I |
+|     T | M=|=T= =T   M |       |
+| I     | I |     I     |     I |
+                     ---         
+| I     | I |     I |         I |
+|  = =M |   |     T | M    = =T |
+|     I | I |     I |     I     |
+         --- --- ---             
+|     I | I     | I |     I     |
+| T    =|=T   M | M=|= = =    M |
+|       |       |   |           |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 30
+Number of vertices examined: 1549
+0.248311 [s]
+
+Level 94
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |       |   |   |       |
+|     M=|=      |  =|=T=|=M   T |
+|     I | I     | I |   | I     |
+                                 
+|     I | I     | I |   | I     |
+| T     | T   M | M | M | M= =  |
+|     I | I     | I |   |     I |
+         --- --- --- --- ---     
+|     I | I     | I     |   | I |
+| T     |  = =M=|=T   M | T=|=M |
+|     I |       |       | I |   |
+         --- --- --- --- --- --- 
+|     I |   |           | I |   |
+|     M |  =|= = = = =  | M=|=  |
+|     I | I |         I |   | I |
+ --- ---     --- ---     ---     
+|     I | I         | I     | I |
+| M     | T= =      |  = =M | T |
+|     I |     I     |     I | I |
+ ---             ---         --- 
+|   | I |     I |   |     I | I |
+|  =|=T | M     |  =|= = =M | M |
+| I |   |     I | I |       | I |
+                         --- --- 
+| I |   |     I | I |   |     I |
+|   | M |  = =  |   | T | T= =  |
+| I |   | I     | I |   | I     |
+     --- --- ---     --- --- --- 
+| I |   | I     | I |     I     |
+| M=|=T=|=M   T | T=|=M= =    T |
+|   |   |       |   |           |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 28
+Number of vertices examined: 2485
+0.379449 [s]
+
+Level 95
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |   |           |   |   |
+|  = =M | T=|=M   T     | M | T |
+| I   I | I | I         |   |   |
+         --- --- --- ---         
+| I   I   I | I |           |   |
+|      = =M |   |  = = = = =|=M |
+| I         | I | I         | I |
+ --- --- ---             --- --- 
+| I |       | I | I     |   | I |
+| T=|=M   T | T | T= =T | M=|=T |
+|   | I     | I |     I | I |   |
+ --- --- --- ---             --- 
+|     I |     I |     I | I     |
+| T= =  | M= =  | T= =T |  = =  |
+| I     | I     | I     |     I |
+             ---         --- --- 
+| I     | I |   | I     |   | I |
+|  = =T |   | T | T= =  |  =|=T |
+|     I | I |   |     I | I |   |
+         ---                 --- 
+|     I | I |   |     I | I     |
+|  = =T | T=|=M=|= = =T | M= =  |
+| I     |   |   |       |     I |
+ --- --- --- --- --- --- ---     
+| I |   |       |           | I |
+| M | M |  = =T=|=M    = =M | M |
+| I |   | I     | I   I   I | I |
+ ---     --- ---         ---     
+| I     | I     | I   I | I | I |
+|  = =T=|=M   T |  = =M | T=|=  |
+|       |       |       |   |   |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 41
+Number of vertices examined: 21853
+2.8739 [s]
+
+Level 96
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|   |               |           |
+| T | M   M   T= =  | T= = = =T |
+|   |         I   I | I       I |
+                 --- ---         
+|   |         I | I | I |     I |
+| M=|=T= = = =  | M | M | T= =T |
+| I |           | I | I | I     |
+ --- --- --- ---     ---     --- 
+| I             | I | I | I |   |
+|  = =T= =T   M |  =|=T |  =|=  |
+|         I     |   |   |   | I |
+ --- --- --- --- --- --- ---     
+|       | I |           |   | I |
+|     M | M=|=          | T=|=M |
+|       |   | I         | I |   |
+     --- ---             --- --- 
+|   |         I         | I |   |
+|  =|= = = = =    T     |   | M |
+| I |                   | I |   |
+ --- --- --- ---                 
+| I |   |   |   |       | I |   |
+| T=|=  |  =|=T |     T | M=|=T |
+|   | I | I | I |       |   | I |
+ ---         --- --- --- ---     
+|   | I | I | I |   |       | I |
+| T=|=M | M | M=|=T=|=M   T |   |
+| I |   | I |   |   | I     | I |
+     --- --- ---     --- ---     
+| I |   | I     |   | I       I |
+|  =|=M=|=T   M | M |  = = = =  |
+|   |   |       |   |           |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 38
+Number of vertices examined: 41710
+5.83419 [s]
+
+Level 97
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |   |           |       |
+| M= = =|=T |  = = = =  | M     |
+| I     | I | I       I |       |
+ --- --- ---                     
+| I |   | I   I       I |       |
+| T=|=M |  = =M    = =M | T= =T |
+|   | I |         I     | I   I |
+     --- --- ---     ---         
+|   | I |       | I |   | I   I |
+| M | T | T= =T=|=M |  =|=T     |
+|   | I | I     |   | I |     I |
+ ---             ---     --- --- 
+|   | I | I         | I |     I |
+|  =|=  |         M | M | M= =  |
+| I |   | I         | I | I     |
+                 ---         --- 
+| I |   | I     |     I | I |   |
+|   | M | T= =  | M= =M |  =|=T |
+| I |   |     I | I     |   | I |
+     --- ---     --- --- ---     
+| I         | I   I |       | I |
+| M= =M     | T= =  | T   M=|=  |
+|     I     |       |     I |   |
+     --- --- --- --- ---     --- 
+|   | I |               | I     |
+| T |   | T= = = = = =T |  = =M |
+|   | I | I           I |     I |
+         ---     --- --- ---     
+|   | I | I |   |     I |   | I |
+| T | T=|=M | M | T   M=|=T=|=  |
+|   |   |   |   |       |   |   |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 31
+Number of vertices examined: 2202
+0.314766 [s]
+
+Level 98
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|           |       |           |
+|  = =T= =  | M   T=|=M= =    T |
+| I       I |     I |     I     |
+ ---         --- --- --- --- --- 
+| I |     I     | I     | I     |
+| M | M   T= =  |     T |  = =T |
+| I |         I | I     |     I |
+ --- ---                         
+| I     |     I | I     |     I |
+| T= =  | M   T |  = =  | T= =  |
+|     I |     I |     I | I     |
+                                 
+|     I |     I |     I | I     |
+| M   T | M     | M= =M |  = =  |
+|     I |     I | I     |     I |
+ --- ---             ---         
+|     I |     I | I |   |     I |
+| M     |      =|=M |  =|= = =T |
+|     I |       |   | I |       |
+         --- --- ---     --- --- 
+|     I |   |       | I |       |
+|      =|= =|=M= =  | M=|=T= =  |
+|       |   |     I |   |     I |
+             --- --- --- --- --- 
+|       |   |   | I     |   | I |
+| M   M |   |  =|=T   M |  =|=M |
+|       |   | I |       | I |   |
+     ---         --- ---         
+|   |       | I         | I |   |
+| M | T     | M= = = = =|=T | T |
+|   |       |           |   |   |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 26
+Number of vertices examined: 1121
+0.172106 [s]
+
+Level 99
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |           |           |
+| M   T=|=M= = = =M |  = =T   M |
+|     I |         I | I   I     |
+                 --- ---     --- 
+|     I |       | I | I | I |   |
+|  = =  |     T | T | M |  =|=  |
+| I     |       | I | I |   | I |
+     --- --- ---         ---     
+| I |           | I | I     | I |
+|   | T       T |  =|=M   T | M |
+| I |           |   |       | I |
+     ---         --- --- ---     
+| I     |       |           | I |
+| T= = =|= = =M | M   T= =T=|=  |
+|       |     I |     I     |   |
+         --- ---                 
+|       |     I |     I     |   |
+|     M |       | M   T     | T |
+|       |     I |     I     |   |
+ --- ---         ---     --- --- 
+|             I     | I |       |
+|  = = = = = =T   M |   |  = =T |
+| I                 | I | I   I |
+ --- --- --- --- --- ---     --- 
+| I     |   |   |   | I | I | I |
+| M   T | M=|=T=|=M | M=|=  |   |
+| I     | I |   | I |   |   | I |
+     --- ---         --- ---     
+| I |     I |   | I |       | I |
+|  =|= = =T | M |  =|= = =T=|=M |
+|   |       |   |   |       |   |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 25
+Number of vertices examined: 2634
+0.406243 [s]
+
+Level 100
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|       |       |               |
+| T= = =|=M   T |  = =T= = = =  |
+| I     | I     | I           I |
+ --- --- --- ---     --- ---     
+| I     | I       I |       | I |
+|  = =  | T= =T= =  | M= =  | T |
+|     I |           | I   I | I |
+ ---         ---     --- ---     
+|   | I |   |   |   | I | I   I |
+| M | M |   | M | M |   | T= =  |
+|   | I |   |   |   | I |       |
+         ---     ---     --- --- 
+|   | I |           | I |   |   |
+| T=|=  | T= = = =  | T=|=  | T |
+| I |   | I       I |   | I |   |
+ --- ---             ---         
+| I     | I       I |   | I |   |
+| M   T | T   M     | T=|=M | T |
+| I     | I       I | I |   |   |
+ --- ---     ---     --- ---     
+| I     | I |   | I | I         |
+|  = =T |  =|=  |   |  = =M= =  |
+|     I |   | I | I |         I |
+         ---         --- --- --- 
+|     I |     I | I           I |
+|      =|= = =M |     M   T= =T |
+|       |       | I       I     |
+                                 
+|       |       | I       I     |
+| M     | T     |  = =T= =    M |
+|       |       |               |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 24
+Number of vertices examined: 1626
+0.232156 [s]
+
+Level 101
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|                               |
+| T= = = =T   M    = =T   T= =T |
+| I       I       I   I   I   I |
+                                 
+| I       I       I   I   I   I |
+|         T= = = =     = =T     |
+| I                           I |
+     --- --- --- --- --- --- --- 
+| I |       |   |       |   | I |
+| T=|= = =  |  =|=M= =  | M |   |
+|   |     I | I |     I |   | I |
+     ---         --- ---         
+|       | I | I |     I |   | I |
+| M     | M | T |  = =T | T=|=M |
+|       | I | I | I     | I |   |
+ --- ---     ---         ---     
+|       | I | I | I     | I |   |
+|  = =T=|=  | M | T= =  | M | T |
+| I     |   | I |     I | I |   |
+     --- --- --- --- --- --- --- 
+| I |   |     I |   | I | I |   |
+| T=|=M | M   T | T=|=M | T=|=  |
+|   | I |     I | I |   |   | I |
+ ---     --- --- ---     ---     
+|     I       I | I |   |     I |
+| M= =     = =  |   | T |  = =M |
+| I       I     | I |   | I     |
+             ---     ---         
+| I       I |     I       I     |
+|  = = = =M |      = =M= =    T |
+|           |                   |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 34
+Number of vertices examined: 7084
+1.02938 [s]
+
+Level 102
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|   |   |       |   |       |   |
+| M=|=T=|=M= = =|=T | M   T=|=M |
+| I |   |       | I |     I | I |
+ --- --- --- --- --- --- ---     
+| I     |   |   | I |   | I | I |
+| T= = =|=  | M | M=|=T=|=M |   |
+|       | I |   |   |   |   | I |
+ --- ---         --- --- --- --- 
+|   |     I |   |           | I |
+|  =|=M= =M | T=|=M= = = = =|=T |
+| I |       | I |           |   |
+     --- --- --- --- --- ---     
+| I |       | I |           |   |
+|   |  = = =|=M | M       M | M |
+| I | I     |   |           |   |
+                             --- 
+| I | I     |   |               |
+| T | T= =  | T |  = = = =    M |
+| I |     I |   | I       I     |
+     ---     ---                 
+| I     | I       I       I     |
+| T= =  | T= =T= =    M    = =T |
+|     I |                     I |
+ --- --- --- --- --- ---         
+|     I |   |   |   |   |     I |
+| M= =M | M | M=|=T=|=  |       |
+| I     |   | I |   | I |     I |
+ --- ---                         
+| I |   |   | I |   | I |     I |
+| T=|=M=|=T=|=  | M | M=|= = =T |
+|   |   |   |   |   |   |       |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 28
+Number of vertices examined: 10381
+1.59722 [s]
+
+Level 103
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|           |       |       |   |
+|     T= = =|= = =M | M   T=|=M |
+|     I     |     I |     I | I |
+                             --- 
+|     I     |     I |     I | I |
+| T= =T   M |  = =  |  = =  | T |
+| I         | I     | I     | I |
+                         ---     
+| I         | I     | I |     I |
+| T= = = =  | M= =M |   | M     |
+|         I |     I | I |     I |
+             ---         --- --- 
+|         I     | I | I |   | I |
+| M   M    = =  |   |   | T |   |
+|             I | I | I |   | I |
+                     ---         
+|             I | I   I     | I |
+| M   T= =T   T |  = =M     |   |
+|     I   I   I |           | I |
+                 --- --- ---     
+|     I   I   I |             I |
+|  = =T   T= =  |         M= =  |
+| I             |         I     |
+         --- ---                 
+| I     |       |         I     |
+|     M |  = = =|=    T   M     |
+| I     | I     | I       I     |
+ --- ---                         
+| I |     I     | I       I     |
+| M=|= = =T   M |  = =M= =    T |
+|   |           |               |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 19
+Number of vertices examined: 85
+0.013884 [s]
+
+Level 104
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|   |   |           |       |   |
+|   | M | T    = =M | T= = =|=M |
+|   |   |     I   I | I     | I |
+                 --- --- --- --- 
+|   |   |     I | I | I |     I |
+| M | T=|= = =  | T=|=M | T= =T |
+|   | I |       |   |   | I     |
+     --- --- --- --- ---         
+|   | I     |   |         I     |
+| T=|=M   T |  =|= = =     = =  |
+| I |       | I |     I       I |
+ ---     ---                     
+| I |   |   | I |     I       I |
+| M |   | T=|=M | M    = = = =T |
+| I |   | I |   |               |
+     ---     --- --- --- --- --- 
+| I |   | I         |   |   |   |
+|  =|=  |  = = = = =|=M |  =|=M |
+|   | I |           | I | I | I |
+ ---     --- --- ---         --- 
+|     I     |       | I | I | I |
+| M        =|=M= =  | M=|=T | T |
+|     I   I |     I |   |   | I |
+             --- --- --- --- --- 
+|     I   I     | I     |     I |
+| M   T   T   M | T   M |  = =M |
+|     I   I     | I     | I     |
+                 --- ---         
+|     I   I     | I       I     |
+|      = =T     |  = = = =    T |
+|               |               |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 31
+Number of vertices examined: 13220
+1.96984 [s]
+
+Level 105
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|   |   |       |           |   |
+| T=|=  |     M |     T    =|=T |
+| I | I |       |         I | I |
+             ---             --- 
+| I | I |   |             I | I |
+|   | M=|=T=|=M= = = = = =  | M |
+| I |   |   |               | I |
+         --- --- --- --- --- --- 
+| I |   |       |           | I |
+| T | T |  = =T |  = =M   T |   |
+| I |   | I   I | I   I     | I |
+     --- ---     ---     ---     
+| I     | I | I   I | I |     I |
+|  = =T | M |       |   | M   T |
+|     I | I | I   I | I |     I |
+     ---                 --- --- 
+|   | I   I | I   I | I     | I |
+| M | M= =  |  = =T |       | M |
+|   |       |       | I     | I |
+ --- ---     --- --- --- --- --- 
+|   |   |   |   |     I |     I |
+| T=|=  | T |  =|= = =T | M   T |
+| I | I |   | I |       |     I |
+         ---         --- --- --- 
+| I | I       I |   |   |   | I |
+|   |  = = = =M | M |  =|=T |   |
+| I |           |   | I | I | I |
+     --- --- --- ---     ---     
+| I         |         I | I   I |
+|  = = = =T=|= = =M= =  | M= =  |
+|           |           |       |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 31
+Number of vertices examined: 13317
+1.97015 [s]
+
+Level 106
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|                   |   |       |
+|  = = = = = = = =  | T |  = =M |
+| I               I |   | I   I |
+ --- --- --- ---         --- --- 
+| I     |   |   | I |   | I | I |
+| T= =  | T |  =|=M | M=|=T | T |
+|     I |   | I |   | I |   | I |
+                 --- ---     --- 
+|     I |   | I |   | I |   | I |
+| M     |   | T | T | T | M | M |
+|     I |   | I |   | I |   | I |
+ --- ---     ---         ---     
+|   | I |     I |   | I     | I |
+|  =|=M | M= =M | M=|=      |   |
+| I |   | I     | I |       | I |
+     --- --- --- ---     ---     
+| I     | I       I |   |   | I |
+|     M | T= = = =  | M | T |   |
+| I     |           |   |   | I |
+                     ---     --- 
+| I     |           |       | I |
+|  = =  |     M   M |  = =M |   |
+|     I |           | I   I | I |
+         --- --- --- ---         
+|     I |             I | I | I |
+|  = =T |  = = = =      |   |   |
+| I     | I       I   I | I | I |
+ --- ---                         
+| I |     I       I   I | I | I |
+| M=|=T= =    M   T= =  |  =|=T |
+|   |                   |   |   |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 25
+Number of vertices examined: 16100
+2.46659 [s]
+
+Level 107
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|           |           |       |
+| M    = = =|=M= = = = =|=T   M |
+|     I     |           | I     |
+         ---     --- --- --- --- 
+|     I |   |   |   |     I     |
+| T= =  |   | T | M | T   M= =  |
+| I     |   |   |   |         I |
+ --- ---     ---     --- --- --- 
+| I     |       |   |       | I |
+|  = =  | T   M=|=  | M= = =|=T |
+|     I |     I | I | I     |   |
+ ---                 --- --- --- 
+|   | I |     I | I | I |       |
+| M |   | M= =  | T | T |  = =M |
+|   | I | I     | I | I | I   I |
+         ---     --- ---     --- 
+|   | I | I |   | I | I   I | I |
+| T=|=M | T |   |   |  = =M |   |
+| I |   | I |   | I |       | I |
+ --- ---     ---     --- ---     
+| I |     I |   | I     |     I |
+| M | M    =|=  |  = =M | T= =T |
+| I |       | I |     I | I     |
+ --- --- ---     --- --- --- --- 
+| I |   |   | I     | I | I     |
+| T=|=M | M |  = =M |   |  = =M |
+|   | I |   |     I | I |     I |
+     ---     --- ---     ---     
+|   | I           I | I     | I |
+| M |  = = = =T= =  | T= = =|=  |
+|   |               |       |   |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 33
+Number of vertices examined: 8126
+1.18172 [s]
+
+Level 108
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|   |   |   |           |   |   |
+| M=|=T=|=M |  = =T   M | M=|=T |
+| I |   | I | I   I     | I | I |
+     ---         --- ---     --- 
+| I |   | I | I | I |     I | I |
+|  =|=T | M=|=  | M | T   M |   |
+|   | I |   |   | I |     I | I |
+ --- --- --- ---     --- ---     
+|     I         | I     | I | I |
+| T   M         |  = = =|=T |   |
+|     I         |       |   | I |
+ --- --- --- --- --- --- ---     
+|     I |   |       |       | I |
+|  = =T |  =|=M= =  |  = =T=|=M |
+| I     | I |     I | I     |   |
+             --- --- --- --- --- 
+| I     | I     | I | I         |
+|     M |     M | T | M= =    T |
+| I     | I     | I |     I     |
+                     --- --- --- 
+| I     | I     | I     | I     |
+|  = =T |  = =T |     M | T   M |
+|     I |     I | I     | I     |
+         --- ---     --- --- --- 
+|     I |     I | I |   | I     |
+|  = =  | T     |  =|=M |  = =M |
+| I     |     I |   | I |     I |
+     ---                 ---     
+| I |         I |   | I |   | I |
+| T=|=M= = = =  |   |  =|=T=|=  |
+|   |           |   |   |   |   |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 33
+Number of vertices examined: 22502
+3.28572 [s]
+
+Level 109
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|           |       |           |
+|          =|=T   M | M   T= =T |
+|         I | I     |     I   I |
+     --- --- --- ---         --- 
+|   |   | I | I     |     I | I |
+| M | T=|=M |     T | T= =  |   |
+|   | I |   | I     | I     | I |
+ --- --- ---     ---             
+|   | I     | I |     I     | I |
+| M=|=    T |   |           | M |
+| I |       | I |     I     | I |
+     --- ---             ---     
+| I     |     I |     I |     I |
+|  = =  | M= =  | M   T |  = =  |
+|     I | I     |     I | I     |
+             ---         --- --- 
+|     I | I |   |     I | I |   |
+|  = =M | M | M=|= = =  | T=|=M |
+| I     | I | I |       |   | I |
+         ---     --- --- ---     
+| I     | I | I |   |       | I |
+| M= =  | T=|=  | M=|=T= =  |   |
+|     I |   |   | I |     I | I |
+ --- --- --- ---     ---     --- 
+|     I |   |   | I     | I   I |
+|  = =T |  =|=T |  = =  | T= =  |
+| I     | I | I |     I |       |
+             --- --- --- --- --- 
+| I     | I | I     | I         |
+| T= = =|=M | M= = =|=T       M |
+|       |   |       |           |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 35
+Number of vertices examined: 63582
+9.35493 [s]
+
+Level 110
+Sequence of moves: 
+ --- --- --- --- --- --- --- --- 
+|           |   |       |   |   |
+| T= = = = =|=M=|=T   M | T | M |
+| I         |   | I     |   |   |
+ --- --- ---     --- ---         
+| I |       |   | I |   |   |   |
+| M=|= = =T | T | M=|=T=|=M=|=T |
+|   |     I |   |   |   |   | I |
+ --- ---     ---     --- ---     
+|   |   | I |   |   |       | I |
+|  =|=T |  =|=M | T | M= = =|=  |
+| I | I |   | I |   | I     |   |
+                 --- --- --- --- 
+| I | I |   | I |     I |   |   |
+|   |   | M |   | M     | T | M |
+| I | I |   | I |     I |   |   |
+         ---     ---             
+| I | I     | I     | I |   |   |
+|   | T= =  |  = =M | T=|=M=|=T |
+| I |     I |     I |   |   | I |
+     ---             --- --- --- 
+| I     | I |     I |       | I |
+| M   T |  =|= = =M |  = =T=|=M |
+| I     |   |       | I     |   |
+ --- ---     --- --- --- ---     
+| I     |   |       | I     |   |
+| T= =  | M |  = =T |     T | T |
+|     I |   | I   I | I     |   |
+         ---     ---     ---     
+|     I       I | I   I |       |
+| M   T= =T= =T |  = =M |       |
+|               |       |       |
+ --- --- --- --- --- --- --- --- 
+Number of moves: 21
+Number of vertices examined: 352
+0.054039 [s]
+
+Level 111
