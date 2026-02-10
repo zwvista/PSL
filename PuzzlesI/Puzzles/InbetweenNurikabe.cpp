@@ -109,7 +109,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (ch == PUZ_SPACE)
                 m_cells.push_back(PUZ_SPACE);
             else {
-                int n = ch - '0';
+                int n = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
                 Position p(r, c);
                 m_pos2num[p] = n;
                 m_cells.push_back(ch_g++);
