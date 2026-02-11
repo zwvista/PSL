@@ -22,7 +22,7 @@ int main(int argc, char **argv)
         println("r2: Arrows");
         println("s: Assembly Instructions");
         getline(cin, str);
-        if (str.empty()) solve_puz_AbstractPainting();
+        if (str.empty()) solve_puz_AbstractMirrorPainting();
         else if (str == "b1") solve_puz_Abc();
         else if (str == "b2") solve_puz_ABCPath();
         else if (str == "b3") solve_puz_AbstractMirrorPainting();
