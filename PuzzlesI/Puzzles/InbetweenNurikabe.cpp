@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -56,9 +55,6 @@ struct puz_state2 : set<Position>
     puz_state2(const puz_game* game, int num1, int num2, const Position& p, const Position& p2)
         : m_game(game), m_num1(num1), m_num2(num2), m_p2(&p2) { make_move(p); }
 
-    bool is_goal_state() const { 
-        return size() > m_num1 && size() < m_num2;
-    }
     bool make_move(const Position& p) {
         insert(p);
         // cannot go too far away
@@ -67,7 +63,6 @@ struct puz_state2 : set<Position>
         });
     }
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
     int m_num1, m_num2;
@@ -75,6 +70,8 @@ struct puz_state2 : set<Position>
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
+    if (size() == m_num2)
+        return;
     for (auto& p : *this)
         for (auto& os : offset) {
             // Gardens extend horizontally or vertically
@@ -127,19 +124,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             // cannot make a pairing with a tile too far away
             if (manhattan_distance(p, p2) + 1 > n4 - 1) continue;
             auto kv3 = pair{p, p2};
-            puz_state2 sstart(this, n3, n4, p, p2);
-            list<list<puz_state2>> spaths;
+            auto smoves = puz_move_generator<puz_state2>::gen_moves(
+                {this, n3, n4, p, p2});
             // Gardens can have any form.
-            if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found) {
-                // save all goal states as permutations
-                // A goal state is a garden formed from two numbers
-                auto& [name, num1, num2, perms] = m_pair2garden[kv3];
-                name = cells(p);
-                num1 = n3;
-                num2 = n4;
-                for (auto& spath : spaths)
-                    perms.push_back(spath.back());
-            }
+            for (auto& spath: smoves)
+                if (spath.size() > n3 && spath.contains(p2)) {
+                    // save all goal states as permutations
+                    // A goal state is a garden formed from two numbers
+                    auto& [name, num1, num2, perms] = m_pair2garden[kv3];
+                    name = cells(p);
+                    num1 = n3;
+                    num2 = n4;
+                    perms.push_back(spath);
+                }
         }
 }
 
