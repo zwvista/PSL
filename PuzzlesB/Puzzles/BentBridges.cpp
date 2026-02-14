@@ -16,7 +16,7 @@
     4. A bridge can turn once by 90 degrees between islands.
     5. Bridges cannot cross each other.
 
-    VARIANTS
+    Variants
     6. Crossing: bridges can cross each other, but cannot turn at the intersection.
     7. Magnetic: islands with the same number cannot have a bridge between themselves.
 */

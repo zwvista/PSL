@@ -1,444 +1,460 @@
 PuzzlesA/Puzzles/Abc.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 1/Abc
+    iOS Game: 100 Logic Games/Puzzle Set 1/Abc
 PuzzlesA/Puzzles/AbstractMirrorPainting.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 4/Abstract Mirror Painting
+    iOS Game: 100 Logic Games 4/Puzzle Set 4/Abstract Mirror Painting
 PuzzlesA/Puzzles/AbstractPainting.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 16/Abstract Painting
+    iOS Game: 100 Logic Games/Puzzle Set 16/Abstract Painting
 PuzzlesA/Puzzles/ADifferentFarmer.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 4/A Different Farmer
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/A Different Farmer
 PuzzlesA/Puzzles/Archipelago.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 8/Archipelago
+    iOS Game: 100 Logic Games/Puzzle Set 8/Archipelago
 PuzzlesA/Puzzles/Arrows.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 6/Arrows
+    iOS Game: 100 Logic Games/Puzzle Set 6/Arrows
 PuzzlesA/Puzzles/AssemblyInstructions.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 4/Assembly Instructions
+    iOS Game: 100 Logic Games 4/Puzzle Set 4/Assembly Instructions
 PuzzlesB/Puzzles/BalancedTapas.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 10/Balanced Tapas
+    iOS Game: 100 Logic Games/Puzzle Set 10/Balanced Tapas
 PuzzlesB/Puzzles/Banquet.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 2/Banquet
+    iOS Game: 100 Logic Games 3/Puzzle Set 2/Banquet
 PuzzlesB/Puzzles/BattleShips.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 1/Battle Ships
+    iOS Game: 100 Logic Games/Puzzle Set 1/Battle Ships
+        Has Variants
 PuzzlesB/Puzzles/BentBridges.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 1/Bent Bridges
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/Bent Bridges
+        Has Variants
 PuzzlesB/Puzzles/BootyIsland.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 13/Booty Island
+    iOS Game: 100 Logic Games/Puzzle Set 13/Booty Island
 PuzzlesB/Puzzles/BotanicalPark.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 12/Botanical Park
+    iOS Game: 100 Logic Games/Puzzle Set 12/Botanical Park
+        Has Variants
 PuzzlesB/Puzzles/BoxItAgain.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 15/Box It Again
+    iOS Game: 100 Logic Games/Puzzle Set 15/Box It Again
 PuzzlesB/Puzzles/BoxItAround.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 8/Box It Around
+    iOS Game: 100 Logic Games/Puzzle Set 8/Box It Around
 PuzzlesB/Puzzles/BoxItUp.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 5/Box It Up
+    iOS Game: 100 Logic Games/Puzzle Set 5/Box It Up
 PuzzlesB/Puzzles/Branches.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 2/Branches
+    iOS Game: 100 Logic Games/Puzzle Set 2/Branches
 PuzzlesB/Puzzles/Branches2.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 2/Branches
+    iOS Game: 100 Logic Games/Puzzle Set 2/Branches
 PuzzlesB/Puzzles/Bridges.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 7/Bridges
+    iOS Game: 100 Logic Games/Puzzle Set 7/Bridges
 PuzzlesB/Puzzles/BridgesGen.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 7/Bridges
+    iOS Game: 100 Logic Games/Puzzle Set 7/Bridges
 PuzzlesB/Puzzles/BusySeas.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 14/Busy Seas
+    iOS Game: 100 Logic Games/Puzzle Set 14/Busy Seas
 PuzzlesB/Puzzles/BWTapa.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 9/B&W Tapa
+    iOS Game: 100 Logic Games/Puzzle Set 9/B&W Tapa
 PuzzlesC/Puzzles/Caffelatte.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 7/Caffelatte
+    iOS Game: 100 Logic Games 2/Puzzle Set 7/Caffelatte
 PuzzlesC/Puzzles/Calcudoku.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 4/Calcudoku
+    iOS Game: 100 Logic Games/Puzzle Set 4/Calcudoku
 PuzzlesC/Puzzles/CarpentersSquare.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 16/Carpenter's Square
+    iOS Game: 100 Logic Games/Puzzle Set 16/Carpenter's Square
 PuzzlesC/Puzzles/CarpentersWall.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 12/Carpenter's Wall
+    iOS Game: 100 Logic Games/Puzzle Set 12/Carpenter's Wall
 PuzzlesC/Puzzles/CastleBailey.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 13/Castle Bailey
+    iOS Game: 100 Logic Games/Puzzle Set 13/Castle Bailey
 PuzzlesC/Puzzles/CastlePatrol.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 4/Castle Patrol
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Castle Patrol
 PuzzlesC/Puzzles/CastlePatrol2.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 4/Castle Patrol
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Castle Patrol
 PuzzlesC/Puzzles/Chocolate.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 6/Chocolate
+    iOS Game: 100 Logic Games 2/Puzzle Set 6/Chocolate
 PuzzlesC/Puzzles/CleaningPath.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 1/Cleaning Path
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/Cleaning Path
 PuzzlesC/Puzzles/Clouds.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 5/Clouds
+    iOS Game: 100 Logic Games/Puzzle Set 5/Clouds
 PuzzlesC/Puzzles/CloudsAndClears.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 3/Clouds and Clears
+    iOS Game: 100 Logic Games 4/Puzzle Set 3/Clouds and Clears
 PuzzlesC/Puzzles/CoffeeAndSugar.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 17/Coffee And Sugar
+    iOS Game: 100 Logic Games/Puzzle Set 17/Coffee And Sugar
+        Has Variants
 PuzzlesC/Puzzles/Consecutives.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 7/Consecutives
+    iOS Game: 100 Logic Games/Puzzle Set 7/Consecutives
 PuzzlesC/Puzzles/CrossroadBlocks.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 4/Crossroad Blocks
+    iOS Game: 100 Logic Games 3/Puzzle Set 4/Crossroad Blocks
 PuzzlesC/Puzzles/CrossroadsX.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 5/Crossroads X
+    iOS Game: 100 Logic Games 3/Puzzle Set 5/Crossroads X
 PuzzlesC/Puzzles/CrosstownTraffic.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 3/Crosstown Traffic
+    iOS Game: 100 Logic Games 2/Puzzle Set 3/Crosstown Traffic
 PuzzlesC/Puzzles/CulturedBranches.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 3/Cultured Branches
+    iOS Game: 100 Logic Games 3/Puzzle Set 3/Cultured Branches
 PuzzlesC/Puzzles/CultureTrip.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 1/Culture Trip
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Culture Trip
 PuzzlesD/Puzzles/DesertDunes.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 17/Desert Dunes
+    iOS Game: 100 Logic Games/Puzzle Set 17/Desert Dunes
 PuzzlesD/Puzzles/DigitalBattleShips.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 13/Digital Battle Ships
+    iOS Game: 100 Logic Games/Puzzle Set 13/Digital Battle Ships
+        Has Variants
 PuzzlesD/Puzzles/DigitalPath.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 2/Digital Path
+    iOS Game: 100 Logic Games 2/Puzzle Set 2/Digital Path
 PuzzlesD/Puzzles/DigitWorms.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 1/Digit Worms
+    iOS Game: 100 Logic Games 4/Puzzle Set 1/Digit Worms
 PuzzlesD/Puzzles/DirectionalPlanks.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 5/Directional Planks
+    iOS Game: 100 Logic Games 3/Puzzle Set 5/Directional Planks
 PuzzlesD/Puzzles/DisconnectFour.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 11/Disconnect Four
+    iOS Game: 100 Logic Games/Puzzle Set 11/Disconnect Four
 PuzzlesD/Puzzles/Domino.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 5/Domino
+    iOS Game: 100 Logic Games/Puzzle Set 5/Domino
 PuzzlesF/Puzzles/Farmer.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 2/Farmer
+    iOS Game: 100 Logic Games 2/Puzzle Set 2/Farmer
 PuzzlesF/Puzzles/FenceItUp.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 7/Fence It Up
+    iOS Game: 100 Logic Games/Puzzle Set 7/Fence It Up
 PuzzlesF/Puzzles/FenceLits.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 12/FenceLits
+    iOS Game: 100 Logic Games/Puzzle Set 12/FenceLits
 PuzzlesF/Puzzles/FenceSentinels.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 12/Fence Sentinels
+    iOS Game: 100 Logic Games/Puzzle Set 12/Fence Sentinels
+        Has Variants
 PuzzlesF/Puzzles/FencingSheep.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 5/Fencing Sheep
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Fencing Sheep
 PuzzlesF/Puzzles/Fields.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 1/Fields
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Fields
 PuzzlesF/Puzzles/Fillomino.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 3/Fillomino
+    iOS Game: 100 Logic Games/Puzzle Set 3/Fillomino
 PuzzlesF/Puzzles/FingerPointing.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 5/Finger Pointing
+    iOS Game: 100 Logic Games 3/Puzzle Set 5/Finger Pointing
 PuzzlesF/Puzzles/FloorPlan.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 1/Floor Plan
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/Floor Plan
 PuzzlesF/Puzzles/FlowerBeds.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 2/Flower Beds
+    iOS Game: 100 Logic Games 2/Puzzle Set 2/Flower Beds
 PuzzlesF/Puzzles/FlowerbedShrubs.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 2/Flowerbed Shrubs
+    iOS Game: 100 Logic Games 3/Puzzle Set 2/Flowerbed Shrubs
 PuzzlesF/Puzzles/FlowerOMino.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 1/Flower-O-Mino
+    iOS Game: 100 Logic Games 4/Puzzle Set 1/Flower-O-Mino
 PuzzlesF/Puzzles/FourMeNot.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 9/Four-Me-Not
+    iOS Game: 100 Logic Games/Puzzle Set 9/Four-Me-Not
 PuzzlesF/Puzzles/FreePlanks.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 6/Free Planks
+    iOS Game: 100 Logic Games 2/Puzzle Set 6/Free Planks
 PuzzlesF/Puzzles/FunnyNumbers.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 2/Funny Numbers
+    iOS Game: 100 Logic Games 4/Puzzle Set 2/Funny Numbers
 PuzzlesF/Puzzles/FussyWaiter.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 15/Fussy Waiter
+    iOS Game: 100 Logic Games/Puzzle Set 15/Fussy Waiter
 PuzzlesF/Puzzles/Futoshiki.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 2/Futoshiki
+    iOS Game: 100 Logic Games/Puzzle Set 2/Futoshiki
 PuzzlesG/Puzzles/Galaxies.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 4/Galaxies
+    iOS Game: 100 Logic Games/Puzzle Set 4/Galaxies
 PuzzlesG/Puzzles/Gardener.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 7/Gardener
+    iOS Game: 100 Logic Games/Puzzle Set 7/Gardener
 PuzzlesG/Puzzles/GardenTunnels.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 4/Garden Tunnels
+    iOS Game: 100 Logic Games 3/Puzzle Set 4/Garden Tunnels
 PuzzlesG/Puzzles/Gems.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 1/Gems
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Gems
 PuzzlesG/Puzzles/Guesstris.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 3/Guesstris
+    iOS Game: 100 Logic Games 3/Puzzle Set 3/Guesstris
 PuzzlesH/Puzzles/Hedgehog.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 1/Hedgehog Back Garden
+    iOS Game: 100 Logic Games/Puzzle Set 1/Hedgehog Back Garden
+        Has Variants
 PuzzlesH/Puzzles/HeliumAndIron.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 2/Helium And Iron
+    iOS Game: 100 Logic Games 2/Puzzle Set 2/Helium And Iron
 PuzzlesH/Puzzles/Hexotris.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 4/Hexotris
+    iOS Game: 100 Logic Games 3/Puzzle Set 4/Hexotris
 PuzzlesH/Puzzles/HiddenClouds.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 7/Hidden Clouds
+    iOS Game: 100 Logic Games 2/Puzzle Set 7/Hidden Clouds
 PuzzlesH/Puzzles/HiddenPath.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path
+    iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path
 PuzzlesH/Puzzles/HiddenPathGen.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path
+    iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path
 PuzzlesH/Puzzles/HiddenStars.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 2/Hidden Stars
+    iOS Game: 100 Logic Games/Puzzle Set 2/Hidden Stars
+        Has Variants
 PuzzlesH/Puzzles/Hidoku.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 4/Hidoku
+    iOS Game: 100 Logic Games/Puzzle Set 4/Hidoku
 PuzzlesH/Puzzles/Hitori.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 2/Hitori
+    iOS Game: 100 Logic Games/Puzzle Set 2/Hitori
 PuzzlesH/Puzzles/HolidayIsland.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island
+    iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island
 PuzzlesH/Puzzles/HolidayIsland2.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island
+    iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island
 PuzzlesH/Puzzles/HolidayIsland3.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island
+    iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island
 PuzzlesI/Puzzles/InbetweenNurikabe.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 4/Inbetween Nurikabe
+    iOS Game: 100 Logic Games 3/Puzzle Set 4/Inbetween Nurikabe
 PuzzlesI/Puzzles/InbetweenSumscrapers.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 6/Inbetween Sumscrapers
+    iOS Game: 100 Logic Games 2/Puzzle Set 6/Inbetween Sumscrapers
 PuzzlesI/Puzzles/InsaneTatamis.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 5/Insane Tatamis
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Insane Tatamis
 PuzzlesI/Puzzles/IslandConnections.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 5/Island Connections
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Island Connections
 PuzzlesJ/Puzzles/JoinMe.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 2/Join Me!
+    iOS Game: 100 Logic Games 4/Puzzle Set 2/Join Me!
 PuzzlesK/Puzzles/Kakurasu.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 8/Kakurasu
+    iOS Game: 100 Logic Games/Puzzle Set 8/Kakurasu
 PuzzlesK/Puzzles/Kakuro.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 4/Kakuro
+    iOS Game: 100 Logic Games/Puzzle Set 4/Kakuro
 PuzzlesK/Puzzles/Knightoku.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 8/Knightoku
+    iOS Game: 100 Logic Games/Puzzle Set 8/Knightoku
 PuzzlesK/Puzzles/Kropki.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 6/Kropki
+    iOS Game: 100 Logic Games/Puzzle Set 6/Kropki
+        Has Variants
 PuzzlesL/Puzzles/LakesAndMeadows.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 5/Lakes and Meadows
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Lakes and Meadows
 PuzzlesL/Puzzles/Landscaper.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 4/Landscaper
+    iOS Game: 100 Logic Games/Puzzle Set 4/Landscaper
 PuzzlesL/Puzzles/Landscapes.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 16/Landscapes
+    iOS Game: 100 Logic Games/Puzzle Set 16/Landscapes
 PuzzlesL/Puzzles/LiarLiar.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 2/Liar Liar
+    iOS Game: 100 Logic Games 2/Puzzle Set 2/Liar Liar
 PuzzlesL/Puzzles/LightBattleShips.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 13/Light Battle Ships
+    iOS Game: 100 Logic Games/Puzzle Set 13/Light Battle Ships
+        Has Variants
 PuzzlesL/Puzzles/LightenUp.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 2/Lighten Up
+    iOS Game: 100 Logic Games/Puzzle Set 2/Lighten Up
 PuzzlesL/Puzzles/LightenUpGen.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 2/Lighten Up
+    iOS Game: 100 Logic Games/Puzzle Set 2/Lighten Up
 PuzzlesL/Puzzles/Lighthouses.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 9/Lighthouses
+    iOS Game: 100 Logic Games/Puzzle Set 9/Lighthouses
 PuzzlesL/Puzzles/LineSweeper.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 4/LineSweeper
+    iOS Game: 100 Logic Games/Puzzle Set 4/LineSweeper
 PuzzlesL/Puzzles/Lits.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 12/Lits
+    iOS Game: 100 Logic Games/Puzzle Set 12/Lits
 PuzzlesL/Puzzles/LoopAndBlocks.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 7/Loop and Blocks
+    iOS Game: 100 Logic Games 2/Puzzle Set 7/Loop and Blocks
 PuzzlesL/Puzzles/Loopy.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 5/Loopy
+    iOS Game: 100 Logic Games/Puzzle Set 5/Loopy
 PuzzlesM/Puzzles/Magnets.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 2/Magnets
+    iOS Game: 100 Logic Games/Puzzle Set 2/Magnets
 PuzzlesM/Puzzles/MakeTheDifference.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 4/Make the Difference
+    iOS Game: 100 Logic Games 3/Puzzle Set 4/Make the Difference
 PuzzlesM/Puzzles/Masyu.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 3/Masyu
+    iOS Game: 100 Logic Games/Puzzle Set 3/Masyu
 PuzzlesM/Puzzles/Mathrax.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 6/Mathrax
+    iOS Game: 100 Logic Games/Puzzle Set 6/Mathrax
 PuzzlesM/Puzzles/MineShips.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 8/Mine Ships
+    iOS Game: 100 Logic Games/Puzzle Set 8/Mine Ships
 PuzzlesM/Puzzles/MineSlither.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 3/MineSlither
+    iOS Game: 100 Logic Games 4/Puzzle Set 3/MineSlither
 PuzzlesM/Puzzles/Minesweeper.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 6/Minesweeper
+    iOS Game: 100 Logic Games/Puzzle Set 6/Minesweeper
 PuzzlesM/Puzzles/MiniLits.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 14/Mini-Lits
+    iOS Game: 100 Logic Games/Puzzle Set 14/Mini-Lits
 PuzzlesM/Puzzles/Mirrors.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 10/Mirrors
+    iOS Game: 100 Logic Games/Puzzle Set 10/Mirrors
+        Has Variants
 PuzzlesM/Puzzles/MirrorsExtended.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 4/Mirrors, extended
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Mirrors, extended
 PuzzlesM/Puzzles/MixedTatamis.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 4/Mixed Tatamis
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Mixed Tatamis
 PuzzlesM/Puzzles/MondrianLoop.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 2/Mondrian Loop
+    iOS Game: 100 Logic Games 4/Puzzle Set 2/Mondrian Loop
 PuzzlesM/Puzzles/MoreOrLess.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 7/More Or Less
+    iOS Game: 100 Logic Games/Puzzle Set 7/More Or Less
 PuzzlesM/Puzzles/Mosaik.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 4/Mosaik
+    iOS Game: 100 Logic Games/Puzzle Set 4/Mosaik
 PuzzlesN/Puzzles/Neighbours.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 8/Neighbours
+    iOS Game: 100 Logic Games/Puzzle Set 8/Neighbours
 PuzzlesN/Puzzles/NewCarpenterSquare.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 3/New Carpenter Square
+    iOS Game: 100 Logic Games 3/Puzzle Set 3/New Carpenter Square
 PuzzlesN/Puzzles/Nooks.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 17/Nooks
+    iOS Game: 100 Logic Games/Puzzle Set 17/Nooks
 PuzzlesN/Puzzles/NorthPoleFishing.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 14/North Pole Fishing
+    iOS Game: 100 Logic Games/Puzzle Set 14/North Pole Fishing
 PuzzlesN/Puzzles/NoughtsAndCrosses.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 16/Noughts & Crosses
+    iOS Game: 100 Logic Games/Puzzle Set 16/Noughts & Crosses
 PuzzlesN/Puzzles/NumberCrossing.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 17/Number Crossing
+    iOS Game: 100 Logic Games/Puzzle Set 17/Number Crossing
 PuzzlesN/Puzzles/NumberCrosswords.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 1/Number Crosswords
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Number Crosswords
 PuzzlesN/Puzzles/NumberLink.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink
+    iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink
+        Has Variants
 PuzzlesN/Puzzles/NumberLink2.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink
+    iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink
+        Has Variants
 PuzzlesN/Puzzles/NumberPath.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 15/Number Path
+    iOS Game: 100 Logic Games/Puzzle Set 15/Number Path
 PuzzlesN/Puzzles/NumberPath2.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 15/Number Path
+    iOS Game: 100 Logic Games/Puzzle Set 15/Number Path
 PuzzlesN/Puzzles/Nurikabe.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 1/Nurikabe
+    iOS Game: 100 Logic Games/Puzzle Set 1/Nurikabe
 PuzzlesO/Puzzles/OddsAreEven.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 7/Odds Are Even
+    iOS Game: 100 Logic Games/Puzzle Set 7/Odds Are Even
 PuzzlesO/Puzzles/OneUpOrDown.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 1/One Up or Down
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/One Up or Down
 PuzzlesO/Puzzles/OnlyBends.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 1/Only Bends
+    iOS Game: 100 Logic Games 4/Puzzle Set 1/Only Bends
 PuzzlesO/Puzzles/OnlyStraights.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 4/Only Straights
+    iOS Game: 100 Logic Games 4/Puzzle Set 4/Only Straights
 PuzzlesO/Puzzles/Orchards.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 11/Orchards
+    iOS Game: 100 Logic Games/Puzzle Set 11/Orchards
 PuzzlesO/Puzzles/OverUnder.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 15/Over Under
+    iOS Game: 100 Logic Games/Puzzle Set 15/Over Under
 PuzzlesP/Puzzles/PaintTheNurikabe.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 16/Paint The Nurikabe
+    iOS Game: 100 Logic Games/Puzzle Set 16/Paint The Nurikabe
 PuzzlesP/Puzzles/Pairakabe.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 12/Pairakabe
+    iOS Game: 100 Logic Games/Puzzle Set 12/Pairakabe
 PuzzlesP/Puzzles/ParkingLot.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 11/Parking Lot
+    iOS Game: 100 Logic Games/Puzzle Set 11/Parking Lot
 PuzzlesP/Puzzles/ParkLakes.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 15/Park Lakes
+    iOS Game: 100 Logic Games/Puzzle Set 15/Park Lakes
 PuzzlesP/Puzzles/Parks.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 1/Parks
+    iOS Game: 100 Logic Games/Puzzle Set 1/Parks
 PuzzlesP/Puzzles/Parks2.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 1/Parks
+    iOS Game: 100 Logic Games/Puzzle Set 1/Parks
 PuzzlesP/Puzzles/Pata.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 9/Pata
+    iOS Game: 100 Logic Games/Puzzle Set 9/Pata
 PuzzlesP/Puzzles/PathOnTheHills.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 2/Path on the Hills
+    iOS Game: 100 Logic Games 3/Puzzle Set 2/Path on the Hills
 PuzzlesP/Puzzles/PathOnTheMountains.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 5/Path on the Mountains
+    iOS Game: 100 Logic Games 3/Puzzle Set 5/Path on the Mountains
 PuzzlesP/Puzzles/Picnic.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 1/Picnic
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/Picnic
 PuzzlesP/Puzzles/Pipemania.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 5/Pipemania
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Pipemania
 PuzzlesP/Puzzles/Planets.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 1/Planets
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Planets
 PuzzlesP/Puzzles/Planks.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 16/Planks
+    iOS Game: 100 Logic Games/Puzzle Set 16/Planks
 PuzzlesP/Puzzles/PleaseComeBack.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 1/Please come back
+    iOS Game: 100 Logic Games 4/Puzzle Set 1/Please come back
 PuzzlesP/Puzzles/PlugItIn.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 6/Plug it in
+    iOS Game: 100 Logic Games 2/Puzzle Set 6/Plug it in
 PuzzlesP/Puzzles/Pointing.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 2/Pointing
+    iOS Game: 100 Logic Games 3/Puzzle Set 2/Pointing
 PuzzlesP/Puzzles/PondCamping.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 5/Pond camping
+    iOS Game: 100 Logic Games 3/Puzzle Set 5/Pond camping
 PuzzlesP/Puzzles/PondsAndFlowerbeds.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 3/Ponds and Flowerbeds
+    iOS Game: 100 Logic Games 2/Puzzle Set 3/Ponds and Flowerbeds
 PuzzlesP/Puzzles/PouringWater.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 3/Pouring Water
+    iOS Game: 100 Logic Games 2/Puzzle Set 3/Pouring Water
 PuzzlesP/Puzzles/PowerGrid.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 14/Power Grid
+    iOS Game: 100 Logic Games/Puzzle Set 14/Power Grid
+        Has Variants
 PuzzlesP/Puzzles/ProductSentinels.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 11/Product Sentinels
+    iOS Game: 100 Logic Games/Puzzle Set 11/Product Sentinels
 PuzzlesR/Puzzles/Rabbits.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 3/Rabbits
+    iOS Game: 100 Logic Games 3/Puzzle Set 3/Rabbits
 PuzzlesR/Puzzles/RippleEffect.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 5/Ripple Effect
+    iOS Game: 100 Logic Games/Puzzle Set 5/Ripple Effect
 PuzzlesR/Puzzles/RobotCrosswords.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 13/Robot Crosswords
+    iOS Game: 100 Logic Games/Puzzle Set 13/Robot Crosswords
 PuzzlesR/Puzzles/RobotFences.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 13/Robot Fences
+    iOS Game: 100 Logic Games/Puzzle Set 13/Robot Fences
 PuzzlesR/Puzzles/Rome.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 2/Rome
+    iOS Game: 100 Logic Games 2/Puzzle Set 2/Rome
 PuzzlesR/Puzzles/Rooms.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 5/Rooms
+    iOS Game: 100 Logic Games/Puzzle Set 5/Rooms
 PuzzlesR/Puzzles/RunInALoop.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 3/Run in a Loop
+    iOS Game: 100 Logic Games 2/Puzzle Set 3/Run in a Loop
 PuzzlesS/Puzzles/Sentinels.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 3/Sentinels
+    iOS Game: 100 Logic Games/Puzzle Set 3/Sentinels
 PuzzlesS/Puzzles/SheepAndWolves.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 12/Sheep & Wolves
+    iOS Game: 100 Logic Games/Puzzle Set 12/Sheep & Wolves
 PuzzlesS/Puzzles/ShopAndGas.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 10/Shop & Gas
+    iOS Game: 100 Logic Games/Puzzle Set 10/Shop & Gas
 PuzzlesS/Puzzles/Skydoku.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 9/Skydoku
+    iOS Game: 100 Logic Games/Puzzle Set 9/Skydoku
 PuzzlesS/Puzzles/Skyscrapers.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 1/Skyscrapers
+    iOS Game: 100 Logic Games/Puzzle Set 1/Skyscrapers
 PuzzlesS/Puzzles/SlantedMaze.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 6/Slanted Maze
+    iOS Game: 100 Logic Games/Puzzle Set 6/Slanted Maze
 PuzzlesS/Puzzles/SlitherCorner.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 2/SlitherCorner
+    iOS Game: 100 Logic Games 4/Puzzle Set 2/SlitherCorner
 PuzzlesS/Puzzles/SlitherLink.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 3/SlitherLink
+    iOS Game: 100 Logic Games/Puzzle Set 3/SlitherLink
 PuzzlesS/Puzzles/Snail.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 14/Snail
+    iOS Game: 100 Logic Games/Puzzle Set 14/Snail
 PuzzlesS/Puzzles/Snake.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 16/Snake
+    iOS Game: 100 Logic Games/Puzzle Set 16/Snake
 PuzzlesS/Puzzles/SnakeIslands.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 3/Snake Islands
+    iOS Game: 100 Logic Games 3/Puzzle Set 3/Snake Islands
 PuzzlesS/Puzzles/SnakeMaze.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 7/Snake Maze
+    iOS Game: 100 Logic Games 2/Puzzle Set 7/Snake Maze
 PuzzlesS/Puzzles/Snakeomino.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 4/Snake-omino
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Snake-omino
 PuzzlesS/Puzzles/Square100.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 10/Square 100
+    iOS Game: 100 Logic Games/Puzzle Set 10/Square 100
 PuzzlesS/Puzzles/Stacks.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 7/Stacks
+    iOS Game: 100 Logic Games 2/Puzzle Set 7/Stacks
 PuzzlesS/Puzzles/Steps.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 6/Steps
+    iOS Game: 100 Logic Games 2/Puzzle Set 6/Steps
 PuzzlesS/Puzzles/StraightAndBendLands.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 3/Straight and Bend Lands
+    iOS Game: 100 Logic Games 4/Puzzle Set 3/Straight and Bend Lands
 PuzzlesS/Puzzles/StraightAndTurn.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 7/Straight and Turn
+    iOS Game: 100 Logic Games 2/Puzzle Set 7/Straight and Turn
 PuzzlesS/Puzzles/Sukrokuro.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 4/Sukrokuro
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Sukrokuro
 PuzzlesS/Puzzles/Sumscrapers.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 6/Sumscrapers
+    iOS Game: 100 Logic Games/Puzzle Set 6/Sumscrapers
 PuzzlesS/Puzzles/SuspendedGravity.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 1/Suspended Gravity
+    iOS Game: 100 Logic Games 3/Puzzle Set 1/Suspended Gravity
 PuzzlesT/Puzzles/Tapa.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 9/Tapa
+    iOS Game: 100 Logic Games/Puzzle Set 9/Tapa
 PuzzlesT/Puzzles/TapaIslands.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 9/Tapa Islands
+    iOS Game: 100 Logic Games/Puzzle Set 9/Tapa Islands
 PuzzlesT/Puzzles/TapAlike.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 10/Tap-Alike
+    iOS Game: 100 Logic Games/Puzzle Set 10/Tap-Alike
 PuzzlesT/Puzzles/TapARow.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 10/Tap-A-Row
+    iOS Game: 100 Logic Games/Puzzle Set 10/Tap-A-Row
 PuzzlesT/Puzzles/TapDifferently.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 10/Tap Differently
+    iOS Game: 100 Logic Games/Puzzle Set 10/Tap Differently
 PuzzlesT/Puzzles/Tatami.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 2/Tatami
+    iOS Game: 100 Logic Games/Puzzle Set 2/Tatami
 PuzzlesT/Puzzles/Tatamino.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 13/Tatamino
+    iOS Game: 100 Logic Games/Puzzle Set 13/Tatamino
 PuzzlesT/Puzzles/Tatamino2.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 13/Tatamino
+    iOS Game: 100 Logic Games/Puzzle Set 13/Tatamino
 PuzzlesT/Puzzles/TennerGrid.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 7/TennerGrid
+    iOS Game: 100 Logic Games/Puzzle Set 7/TennerGrid
 PuzzlesT/Puzzles/Tents.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 1/Tents
+    iOS Game: 100 Logic Games/Puzzle Set 1/Tents
 PuzzlesT/Puzzles/TetrominoPegs.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 5/Tetromino Pegs
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Tetromino Pegs
 PuzzlesT/Puzzles/TheCityRises.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 7/The City Rises
+    iOS Game: 100 Logic Games 2/Puzzle Set 7/The City Rises
+PuzzlesT/Puzzles/TheGreyLabyrinth.cpp
+    iOS Game: 100 Logic Games 4/Puzzle Set 3/The Grey Labyrinth
 PuzzlesT/Puzzles/TheMagicNumber.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 3/The Magic Number
+    iOS Game: 100 Logic Games 4/Puzzle Set 3/The Magic Number
 PuzzlesT/Puzzles/TheOddBrick.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 14/The Odd Brick
+    iOS Game: 100 Logic Games/Puzzle Set 14/The Odd Brick
 PuzzlesT/Puzzles/Thermometers.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 14/Thermometers
+    iOS Game: 100 Logic Games/Puzzle Set 14/Thermometers
 PuzzlesT/Puzzles/TierraDelFuego.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 11/Tierra Del Fuego
+    iOS Game: 100 Logic Games/Puzzle Set 11/Tierra Del Fuego
 PuzzlesT/Puzzles/TopArrow.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 3/Top Arrow
+    iOS Game: 100 Logic Games 2/Puzzle Set 3/Top Arrow
 PuzzlesT/Puzzles/TraceNumbers.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 1/Trace Numbers
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Trace Numbers
 PuzzlesT/Puzzles/TrafficWarden.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 2/Traffic Warden
+    iOS Game: 100 Logic Games 4/Puzzle Set 2/Traffic Warden
 PuzzlesT/Puzzles/TrafficWardenRevenge.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 3/Traffic Warden Revenge
+    iOS Game: 100 Logic Games 4/Puzzle Set 3/Traffic Warden Revenge
 PuzzlesT/Puzzles/Trebuchet.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 6/Trebuchet
+    iOS Game: 100 Logic Games 2/Puzzle Set 6/Trebuchet
 PuzzlesT/Puzzles/TurnMeUp.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 2/Turn me up
+    iOS Game: 100 Logic Games 3/Puzzle Set 2/Turn me up
 PuzzlesT/Puzzles/TurnTwice.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 15/Turn Twice
+    iOS Game: 100 Logic Games/Puzzle Set 15/Turn Twice
 PuzzlesU/Puzzles/Underground.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 2/Underground
+    iOS Game: 100 Logic Games 3/Puzzle Set 2/Underground
 PuzzlesU/Puzzles/UnreliableHints.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 5/Unreliable hints
+    iOS Game: 100 Logic Games 2/Puzzle Set 5/Unreliable hints
 PuzzlesU/Puzzles/Unseen.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 4/Unseen
+    iOS Game: 100 Logic Games 3/Puzzle Set 4/Unseen
 PuzzlesV/Puzzles/Venice.cpp
-	iOS Game: 100 Logic Games 3/Puzzle Set 2/Venice
+    iOS Game: 100 Logic Games 3/Puzzle Set 2/Venice
 PuzzlesW/Puzzles/WallHints.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 4/Wall Hints
+    iOS Game: 100 Logic Games 2/Puzzle Set 4/Wall Hints
 PuzzlesW/Puzzles/Walls.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 5/Walls
+    iOS Game: 100 Logic Games/Puzzle Set 5/Walls
 PuzzlesW/Puzzles/Walls2.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 5/Walls
+    iOS Game: 100 Logic Games/Puzzle Set 5/Walls
 PuzzlesW/Puzzles/WallSentinels.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 11/Wall Sentinels
+    iOS Game: 100 Logic Games/Puzzle Set 11/Wall Sentinels
 PuzzlesW/Puzzles/Warehouse.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 8/Warehouse
+    iOS Game: 100 Logic Games 2/Puzzle Set 8/Warehouse
 PuzzlesW/Puzzles/WildlifePark.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 1/Wildlife Park
+    iOS Game: 100 Logic Games 2/Puzzle Set 1/Wildlife Park
 PuzzlesW/Puzzles/WishSandwich.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 3/Wish Sandwich
+    iOS Game: 100 Logic Games 2/Puzzle Set 3/Wish Sandwich
 PuzzlesY/Puzzles/Yalooniq.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 6/Yalooniq
+    iOS Game: 100 Logic Games/Puzzle Set 6/Yalooniq
 PuzzlesY/Puzzles/YouTurnMeOn.cpp
-	iOS Game: 100 Logic Games 4/Puzzle Set 3/You Turn me on
+    iOS Game: 100 Logic Games 4/Puzzle Set 3/You Turn me on
 PuzzlesZ/Puzzles/ZenGardens.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 3/Zen Gardens
+    iOS Game: 100 Logic Games 2/Puzzle Set 3/Zen Gardens
 PuzzlesZ/Puzzles/ZenLandscaper.cpp
-	iOS Game: 100 Logic Games/Puzzle Set 15/Zen Landscaper
+    iOS Game: 100 Logic Games/Puzzle Set 15/Zen Landscaper
 PuzzlesZ/Puzzles/ZenSolitaire.cpp
-	iOS Game: 100 Logic Games 2/Puzzle Set 2/Zen Solitaire
+    iOS Game: 100 Logic Games 2/Puzzle Set 2/Zen Solitaire
