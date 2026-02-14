@@ -40,7 +40,7 @@ int main(int argc, char **argv)
         println("u: Busy Seas");
         println("w: B&W Tapa");
         getline(cin, str);
-        if (str.empty()) solve_puz_BWTapa();
+        if (str.empty()) solve_puz_BalancedTapas();
         else if (str == "a1") solve_puz_Banquet();
         else if (str == "a2") solve_puz_BalancedTapas();
         else if (str == "a3") solve_puz_BattleShips();
