@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Status Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        h1:first-of-type {
+            margin-top: 0;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .summary {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .summary-item {
+            display: inline-block;
+            margin-right: 30px;
+            padding: 8px 15px;
+            background-color: #ecf0f1;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        .variant-yes {
+            color: #e74c3c;
+            font-size: 1.2em;
+            text-align: center;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        .status-solved {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status-partly {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .status-unsolved {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status-no-solutions {
+            background-color: #e2e3e5;
+            color: #383d41;
+            border: 1px solid #d6d8db;
+        }
+        .status-no-file {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .file-path {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        .puzzle-info {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .footer {
+            text-align: right;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Puzzle Status Report</h1>
+    
+    <div class="summary">
+        <span class="summary-item">📊 总计: 274 个文件</span>
+        <span class="summary-item">✅ 包含标签: 223 个</span>
+        <span class="summary-item">❌ 不包含标签: 51 个</span>
+    </div>
+
+    <h2>📋 Files With Logic Game Tag</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>游戏名</th>
+                <th>文件路径</th>
+                <th>游戏信息</th>
+                <th>变体</th>
+                <th>状态</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Abc</strong></td>
+                <td class="file-path">PuzzlesA/Puzzles/Abc.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 1/Abc</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>AbstractMirrorPainting</strong></td>
+                <td class="file-path">PuzzlesA/Puzzles/AbstractMirrorPainting.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 4/Abstract Mirror Painting</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (6, 7, 8, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400)</span></td>
+            </tr>
+            <tr>
+                <td><strong>AbstractPainting</strong></td>
+                <td class="file-path">PuzzlesA/Puzzles/AbstractPainting.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 16/Abstract Painting</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>ADifferentFarmer</strong></td>
+                <td class="file-path">PuzzlesA/Puzzles/ADifferentFarmer.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 4/A Different Farmer</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Archipelago</strong></td>
+                <td class="file-path">PuzzlesA/Puzzles/Archipelago.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 8/Archipelago</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Arrows</strong></td>
+                <td class="file-path">PuzzlesA/Puzzles/Arrows.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 6/Arrows</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>AssemblyInstructions</strong></td>
+                <td class="file-path">PuzzlesA/Puzzles/AssemblyInstructions.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 4/Assembly Instructions</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>BalancedTapas</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BalancedTapas.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 10/Balanced Tapas</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (49)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Banquet</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/Banquet.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 2/Banquet</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (6, 26, 37, 42, 47, 49, 58, 60, 62, 65, 68, 70, 71, 75, 86, 92, 93, 99, 101, 102, 103, 106, 107, 108, 109, 111, 113, 115, 117, 118, 123, 124, 126, 127, 130, 132, 133, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 168, 169, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 194, 195, 197, 198, 199, 201, 202, 203, 204, 205, 206, 207, 209, 210, 211, 212, 213, 214, 215, 216, 217, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299)</span></td>
+            </tr>
+            <tr>
+                <td><strong>BattleShips</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BattleShips.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 1/Battle Ships</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>BentBridges</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BentBridges.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 1/Bent Bridges</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>BootyIsland</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BootyIsland.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 13/Booty Island</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>BotanicalPark</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BotanicalPark.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 12/Botanical Park</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>BoxItAgain</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BoxItAgain.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 15/Box It Again</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>BoxItAround</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BoxItAround.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 8/Box It Around</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>BoxItUp</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BoxItUp.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 5/Box It Up</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Branches</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/Branches.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 2/Branches</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Branches2</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/Branches2.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 2/Branches</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Bridges</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/Bridges.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 7/Bridges</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>BridgesGen</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BridgesGen.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 7/Bridges</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-no-file">❓ 无解决方案文件</span></td>
+            </tr>
+            <tr>
+                <td><strong>BusySeas</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BusySeas.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 14/Busy Seas</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>BWTapa</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/BWTapa.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 9/B&W Tapa</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (23, 29)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Caffelatte</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/Caffelatte.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 7/Caffelatte</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Calcudoku</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/Calcudoku.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 4/Calcudoku</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CarpentersSquare</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CarpentersSquare.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 16/Carpenter's Square</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (97)</span></td>
+            </tr>
+            <tr>
+                <td><strong>CarpentersWall</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CarpentersWall.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 12/Carpenter's Wall</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CastleBailey</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CastleBailey.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 13/Castle Bailey</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CastlePatrol</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CastlePatrol.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 4/Castle Patrol</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CastlePatrol2</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CastlePatrol2.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 4/Castle Patrol</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Chocolate</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/Chocolate.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 6/Chocolate</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CleaningPath</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CleaningPath.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 1/Cleaning Path</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Clouds</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/Clouds.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 5/Clouds</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CloudsAndClears</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CloudsAndClears.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 3/Clouds and Clears</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CoffeeAndSugar</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CoffeeAndSugar.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 17/Coffee And Sugar</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Consecutives</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/Consecutives.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 7/Consecutives</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CrossroadBlocks</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CrossroadBlocks.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 4/Crossroad Blocks</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CrossroadsX</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CrossroadsX.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 5/Crossroads X</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CrosstownTraffic</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CrosstownTraffic.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 3/Crosstown Traffic</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>CulturedBranches</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CulturedBranches.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 3/Cultured Branches</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (300)</span></td>
+            </tr>
+            <tr>
+                <td><strong>CultureTrip</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/CultureTrip.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 1/Culture Trip</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (111)</span></td>
+            </tr>
+            <tr>
+                <td><strong>DesertDunes</strong></td>
+                <td class="file-path">PuzzlesD/Puzzles/DesertDunes.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 17/Desert Dunes</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (154)</span></td>
+            </tr>
+            <tr>
+                <td><strong>DigitalBattleShips</strong></td>
+                <td class="file-path">PuzzlesD/Puzzles/DigitalBattleShips.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 13/Digital Battle Ships</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>DigitalPath</strong></td>
+                <td class="file-path">PuzzlesD/Puzzles/DigitalPath.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 2/Digital Path</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>DigitWorms</strong></td>
+                <td class="file-path">PuzzlesD/Puzzles/DigitWorms.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 1/Digit Worms</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>DirectionalPlanks</strong></td>
+                <td class="file-path">PuzzlesD/Puzzles/DirectionalPlanks.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 5/Directional Planks</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (82, 83, 85, 87, 88, 89, 90, 92, 93, 95, 96, 97, 98, 99, 100, 101, 103, 106, 107, 109, 110, 112, 113, 114, 116, 119, 122, 126, 133, 136, 137, 138, 139)</span></td>
+            </tr>
+            <tr>
+                <td><strong>DisconnectFour</strong></td>
+                <td class="file-path">PuzzlesD/Puzzles/DisconnectFour.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 11/Disconnect Four</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Domino</strong></td>
+                <td class="file-path">PuzzlesD/Puzzles/Domino.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 5/Domino</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Farmer</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/Farmer.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 2/Farmer</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>FenceItUp</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FenceItUp.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 7/Fence It Up</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>FenceLits</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FenceLits.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 12/FenceLits</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (14, 21)</span></td>
+            </tr>
+            <tr>
+                <td><strong>FenceSentinels</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FenceSentinels.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 12/Fence Sentinels</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (75)</span></td>
+            </tr>
+            <tr>
+                <td><strong>FencingSheep</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FencingSheep.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 5/Fencing Sheep</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (50, 55, 58, 60, 62, 64, 72, 78, 82, 191, 192, 194, 199)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Fields</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/Fields.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 1/Fields</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (140)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Fillomino</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/Fillomino.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 3/Fillomino</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (43)</span></td>
+            </tr>
+            <tr>
+                <td><strong>FingerPointing</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FingerPointing.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 5/Finger Pointing</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (281)</span></td>
+            </tr>
+            <tr>
+                <td><strong>FloorPlan</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FloorPlan.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 1/Floor Plan</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>FlowerBeds</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FlowerBeds.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 2/Flower Beds</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>FlowerbedShrubs</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FlowerbedShrubs.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 2/Flowerbed Shrubs</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>FlowerOMino</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FlowerOMino.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 1/Flower-O-Mino</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>FourMeNot</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FourMeNot.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 9/Four-Me-Not</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>FreePlanks</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FreePlanks.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 6/Free Planks</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>FunnyNumbers</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FunnyNumbers.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 2/Funny Numbers</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (73, 78, 85, 91, 100, 234)</span></td>
+            </tr>
+            <tr>
+                <td><strong>FussyWaiter</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/FussyWaiter.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 15/Fussy Waiter</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Futoshiki</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/Futoshiki.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 2/Futoshiki</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Galaxies</strong></td>
+                <td class="file-path">PuzzlesG/Puzzles/Galaxies.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 4/Galaxies</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Gardener</strong></td>
+                <td class="file-path">PuzzlesG/Puzzles/Gardener.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 7/Gardener</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (25, 35)</span></td>
+            </tr>
+            <tr>
+                <td><strong>GardenTunnels</strong></td>
+                <td class="file-path">PuzzlesG/Puzzles/GardenTunnels.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 4/Garden Tunnels</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Gems</strong></td>
+                <td class="file-path">PuzzlesG/Puzzles/Gems.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 1/Gems</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Guesstris</strong></td>
+                <td class="file-path">PuzzlesG/Puzzles/Guesstris.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 3/Guesstris</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Hedgehog</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/Hedgehog.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 1/Hedgehog Back Garden</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>HeliumAndIron</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/HeliumAndIron.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 2/Helium And Iron</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Hexotris</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/Hexotris.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 4/Hexotris</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>HiddenClouds</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/HiddenClouds.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 7/Hidden Clouds</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (33, 38, 40, 50, 53, 60, 62, 64, 65, 67, 71, 73, 74, 77, 79, 82, 84, 85, 86, 91, 92, 93, 95, 96, 98, 99, 100, 102, 104, 105, 107, 108, 109, 110, 112, 113, 114, 115, 116, 117, 118, 119, 120, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 142, 143, 144, 145, 146, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 170, 171, 172, 173, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 197, 199, 200)</span></td>
+            </tr>
+            <tr>
+                <td><strong>HiddenPath</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/HiddenPath.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>HiddenPathGen</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/HiddenPathGen.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-no-file">❓ 无解决方案文件</span></td>
+            </tr>
+            <tr>
+                <td><strong>HiddenStars</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/HiddenStars.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 2/Hidden Stars</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Hidoku</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/Hidoku.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 4/Hidoku</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Hitori</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/Hitori.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 2/Hitori</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (71)</span></td>
+            </tr>
+            <tr>
+                <td><strong>HolidayIsland</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/HolidayIsland.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>HolidayIsland2</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/HolidayIsland2.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-no-file">❓ 无解决方案文件</span></td>
+            </tr>
+            <tr>
+                <td><strong>HolidayIsland3</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/HolidayIsland3.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-no-file">❓ 无解决方案文件</span></td>
+            </tr>
+            <tr>
+                <td><strong>InbetweenNurikabe</strong></td>
+                <td class="file-path">PuzzlesI/Puzzles/InbetweenNurikabe.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 4/Inbetween Nurikabe</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (104, 171, 181, 199)</span></td>
+            </tr>
+            <tr>
+                <td><strong>InbetweenSumscrapers</strong></td>
+                <td class="file-path">PuzzlesI/Puzzles/InbetweenSumscrapers.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 6/Inbetween Sumscrapers</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (134)</span></td>
+            </tr>
+            <tr>
+                <td><strong>InsaneTatamis</strong></td>
+                <td class="file-path">PuzzlesI/Puzzles/InsaneTatamis.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 5/Insane Tatamis</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (138)</span></td>
+            </tr>
+            <tr>
+                <td><strong>IslandConnections</strong></td>
+                <td class="file-path">PuzzlesI/Puzzles/IslandConnections.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 5/Island Connections</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (74, 93, 99, 125, 190)</span></td>
+            </tr>
+            <tr>
+                <td><strong>JoinMe</strong></td>
+                <td class="file-path">PuzzlesJ/Puzzles/JoinMe.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 2/Join Me!</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Kakurasu</strong></td>
+                <td class="file-path">PuzzlesK/Puzzles/Kakurasu.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 8/Kakurasu</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Kakuro</strong></td>
+                <td class="file-path">PuzzlesK/Puzzles/Kakuro.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 4/Kakuro</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Knightoku</strong></td>
+                <td class="file-path">PuzzlesK/Puzzles/Knightoku.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 8/Knightoku</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Kropki</strong></td>
+                <td class="file-path">PuzzlesK/Puzzles/Kropki.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 6/Kropki</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>LakesAndMeadows</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/LakesAndMeadows.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 5/Lakes and Meadows</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Landscaper</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/Landscaper.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 4/Landscaper</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Landscapes</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/Landscapes.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 16/Landscapes</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>LiarLiar</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/LiarLiar.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 2/Liar Liar</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (112, 121)</span></td>
+            </tr>
+            <tr>
+                <td><strong>LightBattleShips</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/LightBattleShips.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 13/Light Battle Ships</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (64, 95)</span></td>
+            </tr>
+            <tr>
+                <td><strong>LightenUp</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/LightenUp.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 2/Lighten Up</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>LightenUpGen</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/LightenUpGen.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 2/Lighten Up</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-no-file">❓ 无解决方案文件</span></td>
+            </tr>
+            <tr>
+                <td><strong>Lighthouses</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/Lighthouses.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 9/Lighthouses</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>LineSweeper</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/LineSweeper.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 4/LineSweeper</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Lits</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/Lits.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 12/Lits</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>LoopAndBlocks</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/LoopAndBlocks.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 7/Loop and Blocks</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (3)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Loopy</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/Loopy.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 5/Loopy</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Magnets</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/Magnets.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 2/Magnets</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (48)</span></td>
+            </tr>
+            <tr>
+                <td><strong>MakeTheDifference</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MakeTheDifference.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 4/Make the Difference</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (117)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Masyu</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/Masyu.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 3/Masyu</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Mathrax</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/Mathrax.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 6/Mathrax</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>MineShips</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MineShips.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 8/Mine Ships</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (65)</span></td>
+            </tr>
+            <tr>
+                <td><strong>MineSlither</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MineSlither.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 3/MineSlither</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Minesweeper</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/Minesweeper.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 6/Minesweeper</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>MiniLits</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MiniLits.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 14/Mini-Lits</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Mirrors</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/Mirrors.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 10/Mirrors</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (30)</span></td>
+            </tr>
+            <tr>
+                <td><strong>MirrorsExtended</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MirrorsExtended.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 4/Mirrors, extended</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-no-solutions">📄 无有效解决方案</span></td>
+            </tr>
+            <tr>
+                <td><strong>MixedTatamis</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MixedTatamis.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 4/Mixed Tatamis</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>MondrianLoop</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MondrianLoop.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 2/Mondrian Loop</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (182)</span></td>
+            </tr>
+            <tr>
+                <td><strong>MoreOrLess</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MoreOrLess.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 7/More Or Less</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Mosaik</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/Mosaik.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 4/Mosaik</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Neighbours</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/Neighbours.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 8/Neighbours</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (60, 61, 64, 66, 71, 72, 74, 75, 78, 80, 81, 97, 100, 102, 103, 104, 105, 106, 109, 111, 113, 115, 116, 117, 118, 121, 123)</span></td>
+            </tr>
+            <tr>
+                <td><strong>NewCarpenterSquare</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NewCarpenterSquare.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 3/New Carpenter Square</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (51, 58, 68, 70, 75, 77, 82, 83, 84, 93, 97, 99, 101, 104, 105, 114, 115, 116, 118, 119, 127, 151, 153, 154, 158, 162, 166, 167, 168, 176, 177, 184, 188, 192, 198, 204, 208, 216, 224, 246, 248, 249, 250, 253, 254, 255, 259, 262, 266, 267, 268, 270, 280, 283, 290)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Nooks</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/Nooks.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 17/Nooks</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (169, 174, 176, 184, 188, 189, 191, 192, 200)</span></td>
+            </tr>
+            <tr>
+                <td><strong>NorthPoleFishing</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NorthPoleFishing.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 14/North Pole Fishing</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>NoughtsAndCrosses</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NoughtsAndCrosses.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 16/Noughts & Crosses</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>NumberCrossing</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NumberCrossing.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 17/Number Crossing</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (101, 102, 106, 107, 108, 109, 110, 111, 114, 116, 120, 123, 125, 128, 131, 132, 134, 135, 136, 137, 139, 177)</span></td>
+            </tr>
+            <tr>
+                <td><strong>NumberCrosswords</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NumberCrosswords.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 1/Number Crosswords</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (35, 36, 41, 42, 43, 48, 49, 51, 52, 54, 55, 56, 57, 65, 66, 68, 71, 72, 73, 77, 81, 83, 84, 85, 87, 89, 94, 95, 96, 98, 99, 100, 101, 104, 106, 108)</span></td>
+            </tr>
+            <tr>
+                <td><strong>NumberLink</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NumberLink.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (71, 127)</span></td>
+            </tr>
+            <tr>
+                <td><strong>NumberLink2</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NumberLink2.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-no-file">❓ 无解决方案文件</span></td>
+            </tr>
+            <tr>
+                <td><strong>NumberPath</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NumberPath.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 15/Number Path</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (74)</span></td>
+            </tr>
+            <tr>
+                <td><strong>NumberPath2</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NumberPath2.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 15/Number Path</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (74)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Nurikabe</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/Nurikabe.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 1/Nurikabe</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>OddsAreEven</strong></td>
+                <td class="file-path">PuzzlesO/Puzzles/OddsAreEven.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 7/Odds Are Even</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>OneUpOrDown</strong></td>
+                <td class="file-path">PuzzlesO/Puzzles/OneUpOrDown.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 1/One Up or Down</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>OnlyBends</strong></td>
+                <td class="file-path">PuzzlesO/Puzzles/OnlyBends.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 1/Only Bends</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>OnlyStraights</strong></td>
+                <td class="file-path">PuzzlesO/Puzzles/OnlyStraights.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 4/Only Straights</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (400)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Orchards</strong></td>
+                <td class="file-path">PuzzlesO/Puzzles/Orchards.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 11/Orchards</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>OverUnder</strong></td>
+                <td class="file-path">PuzzlesO/Puzzles/OverUnder.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 15/Over Under</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>PaintTheNurikabe</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PaintTheNurikabe.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 16/Paint The Nurikabe</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Pairakabe</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/Pairakabe.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 12/Pairakabe</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>ParkingLot</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/ParkingLot.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 11/Parking Lot</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>ParkLakes</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/ParkLakes.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 15/Park Lakes</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (86, 99)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Parks</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/Parks.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 1/Parks</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Parks2</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/Parks2.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 1/Parks</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Pata</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/Pata.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 9/Pata</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (35)</span></td>
+            </tr>
+            <tr>
+                <td><strong>PathOnTheHills</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PathOnTheHills.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 2/Path on the Hills</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (300)</span></td>
+            </tr>
+            <tr>
+                <td><strong>PathOnTheMountains</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PathOnTheMountains.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 5/Path on the Mountains</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Picnic</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/Picnic.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 1/Picnic</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Pipemania</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/Pipemania.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 5/Pipemania</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Planets</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/Planets.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 1/Planets</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Planks</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/Planks.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 16/Planks</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>PleaseComeBack</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PleaseComeBack.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 1/Please come back</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>PlugItIn</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PlugItIn.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 6/Plug it in</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Pointing</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/Pointing.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 2/Pointing</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>PondCamping</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PondCamping.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 5/Pond camping</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>PondsAndFlowerbeds</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PondsAndFlowerbeds.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 3/Ponds and Flowerbeds</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>PouringWater</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PouringWater.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 3/Pouring Water</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (147)</span></td>
+            </tr>
+            <tr>
+                <td><strong>PowerGrid</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PowerGrid.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 14/Power Grid</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>ProductSentinels</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/ProductSentinels.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 11/Product Sentinels</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Rabbits</strong></td>
+                <td class="file-path">PuzzlesR/Puzzles/Rabbits.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 3/Rabbits</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (161, 166, 167, 171, 173, 174, 179, 181, 183, 184)</span></td>
+            </tr>
+            <tr>
+                <td><strong>RippleEffect</strong></td>
+                <td class="file-path">PuzzlesR/Puzzles/RippleEffect.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 5/Ripple Effect</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>RobotCrosswords</strong></td>
+                <td class="file-path">PuzzlesR/Puzzles/RobotCrosswords.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 13/Robot Crosswords</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (76, 80, 90, 191)</span></td>
+            </tr>
+            <tr>
+                <td><strong>RobotFences</strong></td>
+                <td class="file-path">PuzzlesR/Puzzles/RobotFences.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 13/Robot Fences</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (105)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Rome</strong></td>
+                <td class="file-path">PuzzlesR/Puzzles/Rome.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 2/Rome</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (143)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Rooms</strong></td>
+                <td class="file-path">PuzzlesR/Puzzles/Rooms.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 5/Rooms</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>RunInALoop</strong></td>
+                <td class="file-path">PuzzlesR/Puzzles/RunInALoop.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 3/Run in a Loop</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Sentinels</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Sentinels.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 3/Sentinels</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>SheepAndWolves</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/SheepAndWolves.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 12/Sheep & Wolves</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>ShopAndGas</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/ShopAndGas.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 10/Shop & Gas</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Skydoku</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Skydoku.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 9/Skydoku</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Skyscrapers</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Skyscrapers.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 1/Skyscrapers</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>SlantedMaze</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/SlantedMaze.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 6/Slanted Maze</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>SlitherCorner</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/SlitherCorner.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 2/SlitherCorner</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (367)</span></td>
+            </tr>
+            <tr>
+                <td><strong>SlitherLink</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/SlitherLink.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 3/SlitherLink</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Snail</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Snail.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 14/Snail</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Snake</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Snake.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 16/Snake</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (49, 208)</span></td>
+            </tr>
+            <tr>
+                <td><strong>SnakeIslands</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/SnakeIslands.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 3/Snake Islands</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-no-solutions">📄 无有效解决方案</span></td>
+            </tr>
+            <tr>
+                <td><strong>SnakeMaze</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/SnakeMaze.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 7/Snake Maze</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Snakeomino</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Snakeomino.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 4/Snake-omino</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (3, 6, 14, 15, 16, 17, 19, 21, 23, 25, 27, 28, 29, 34, 37, 38, 41, 42, 43, 44, 45, 46, 47, 50, 52, 53, 54, 58, 60, 64, 65, 66, 67, 69, 70, 71, 73, 74, 75, 76, 77, 79, 80, 81, 82, 83, 84, 85, 86, 87, 89, 91, 92, 94, 95, 96, 97, 98, 103, 106, 109, 111, 112, 114, 115, 116, 117, 118, 120, 121, 125, 127, 128, 129, 130, 132, 135, 136, 137, 138, 139, 140, 143, 145)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Square100</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Square100.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 10/Square 100</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Stacks</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Stacks.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 7/Stacks</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Steps</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Steps.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 6/Steps</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>StraightAndBendLands</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/StraightAndBendLands.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 3/Straight and Bend Lands</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>StraightAndTurn</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/StraightAndTurn.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 7/Straight and Turn</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Sukrokuro</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Sukrokuro.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 4/Sukrokuro</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Sumscrapers</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/Sumscrapers.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 6/Sumscrapers</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>SuspendedGravity</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/SuspendedGravity.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 1/Suspended Gravity</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Tapa</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/Tapa.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 9/Tapa</td>
+                <td class="variant-yes"><span class="variant-yes">⭕️</span></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TapaIslands</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TapaIslands.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 9/Tapa Islands</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (11, 17)</span></td>
+            </tr>
+            <tr>
+                <td><strong>TapAlike</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TapAlike.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 10/Tap-Alike</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TapARow</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TapARow.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 10/Tap-A-Row</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (42)</span></td>
+            </tr>
+            <tr>
+                <td><strong>TapDifferently</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TapDifferently.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 10/Tap Differently</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Tatami</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/Tatami.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 2/Tatami</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Tatamino</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/Tatamino.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 13/Tatamino</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 23, 24, 26)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Tatamino2</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/Tatamino2.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 13/Tatamino</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TennerGrid</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TennerGrid.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 7/TennerGrid</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Tents</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/Tents.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 1/Tents</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TetrominoPegs</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TetrominoPegs.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 5/Tetromino Pegs</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TheCityRises</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TheCityRises.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 7/The City Rises</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TheGreyLabyrinth</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TheGreyLabyrinth.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 3/The Grey Labyrinth</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (1)</span></td>
+            </tr>
+            <tr>
+                <td><strong>TheMagicNumber</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TheMagicNumber.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 3/The Magic Number</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TheOddBrick</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TheOddBrick.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 14/The Odd Brick</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Thermometers</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/Thermometers.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 14/Thermometers</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TierraDelFuego</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TierraDelFuego.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 11/Tierra Del Fuego</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TopArrow</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TopArrow.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 3/Top Arrow</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TraceNumbers</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TraceNumbers.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 1/Trace Numbers</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (99)</span></td>
+            </tr>
+            <tr>
+                <td><strong>TrafficWarden</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TrafficWarden.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 2/Traffic Warden</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TrafficWardenRevenge</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TrafficWardenRevenge.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 3/Traffic Warden Revenge</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Trebuchet</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/Trebuchet.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 6/Trebuchet</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TurnMeUp</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TurnMeUp.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 2/Turn me up</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-partly">⚠️ 部分解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>TurnTwice</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/TurnTwice.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 15/Turn Twice</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Underground</strong></td>
+                <td class="file-path">PuzzlesU/Puzzles/Underground.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 2/Underground</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>UnreliableHints</strong></td>
+                <td class="file-path">PuzzlesU/Puzzles/UnreliableHints.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 5/Unreliable hints</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Unseen</strong></td>
+                <td class="file-path">PuzzlesU/Puzzles/Unseen.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 4/Unseen</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Venice</strong></td>
+                <td class="file-path">PuzzlesV/Puzzles/Venice.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 3/Puzzle Set 2/Venice</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-unsolved">❌ 未解决 (235, 239)</span></td>
+            </tr>
+            <tr>
+                <td><strong>WallHints</strong></td>
+                <td class="file-path">PuzzlesW/Puzzles/WallHints.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 4/Wall Hints</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Walls</strong></td>
+                <td class="file-path">PuzzlesW/Puzzles/Walls.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 5/Walls</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Walls2</strong></td>
+                <td class="file-path">PuzzlesW/Puzzles/Walls2.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 5/Walls</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>WallSentinels</strong></td>
+                <td class="file-path">PuzzlesW/Puzzles/WallSentinels.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 11/Wall Sentinels</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Warehouse</strong></td>
+                <td class="file-path">PuzzlesW/Puzzles/Warehouse.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 8/Warehouse</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>WildlifePark</strong></td>
+                <td class="file-path">PuzzlesW/Puzzles/WildlifePark.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 1/Wildlife Park</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>WishSandwich</strong></td>
+                <td class="file-path">PuzzlesW/Puzzles/WishSandwich.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 3/Wish Sandwich</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>Yalooniq</strong></td>
+                <td class="file-path">PuzzlesY/Puzzles/Yalooniq.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 6/Yalooniq</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>YouTurnMeOn</strong></td>
+                <td class="file-path">PuzzlesY/Puzzles/YouTurnMeOn.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 4/Puzzle Set 3/You Turn me on</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>ZenGardens</strong></td>
+                <td class="file-path">PuzzlesZ/Puzzles/ZenGardens.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 3/Zen Gardens</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>ZenLandscaper</strong></td>
+                <td class="file-path">PuzzlesZ/Puzzles/ZenLandscaper.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games/Puzzle Set 15/Zen Landscaper</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+            <tr>
+                <td><strong>ZenSolitaire</strong></td>
+                <td class="file-path">PuzzlesZ/Puzzles/ZenSolitaire.cpp</td>
+                <td class="puzzle-info">iOS Game: 100 Logic Games 2/Puzzle Set 2/Zen Solitaire</td>
+                <td class="variant-yes"></td>
+                <td><span class="status-badge status-solved">✓ 已解决</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>📋 Files Without Logic Game Tag</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>游戏名</th>
+                <th>文件路径</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>15pegs</strong></td>
+                <td class="file-path">Puzzles9/Puzzles/15pegs.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>3dlogic</strong></td>
+                <td class="file-path">Puzzles9/Puzzles/3dlogic.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>8puzzle</strong></td>
+                <td class="file-path">Puzzles9/Puzzles/8puzzle.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>ABCPath</strong></td>
+                <td class="file-path">PuzzlesA/Puzzles/ABCPath.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>bloxorz</strong></td>
+                <td class="file-path">PuzzlesB/Puzzles/bloxorz.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>Cheese</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/Cheese.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>ColorMaze</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/ColorMaze.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>ConnectPuzzle</strong></td>
+                <td class="file-path">PuzzlesC/Puzzles/ConnectPuzzle.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>escapology</strong></td>
+                <td class="file-path">PuzzlesE/Puzzles/escapology.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>Fill</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/Fill.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>fling</strong></td>
+                <td class="file-path">PuzzlesF/Puzzles/fling.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>fullsearch</strong></td>
+                <td class="file-path">Puzzles_Sample/Puzzles/fullsearch.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>hexrotation</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/hexrotation.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>hopover</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/hopover.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>hrd</strong></td>
+                <td class="file-path">PuzzlesH/Puzzles/hrd.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>icedin</strong></td>
+                <td class="file-path">PuzzlesI/Puzzles/icedin.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>LightConnect</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/LightConnect.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>lightsout-int</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/lightsout-int.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>lightsout</strong></td>
+                <td class="file-path">PuzzlesL/Puzzles/lightsout.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>Magic5gonRing</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/Magic5gonRing.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>magic_square</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/magic_square.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>MatchstickEquation</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MatchstickEquation.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>MatchstickSquares</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MatchstickSquares.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>MatchstickTriangles</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MatchstickTriangles.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>mazecat</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/mazecat.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>MoveTheBox</strong></td>
+                <td class="file-path">PuzzlesM/Puzzles/MoveTheBox.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>mummymaze</strong></td>
+                <td class="file-path">Puzzles_Deep/Puzzles/mummymaze.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>NumberChain</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NumberChain.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>NumberConnect</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/NumberConnect.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>numeric_paranoia</strong></td>
+                <td class="file-path">PuzzlesN/Puzzles/numeric_paranoia.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>on_the_edge</strong></td>
+                <td class="file-path">PuzzlesO/Puzzles/on_the_edge.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>openvalve</strong></td>
+                <td class="file-path">PuzzlesO/Puzzles/openvalve.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>Patchmania</strong></td>
+                <td class="file-path">Puzzles_Deep/Puzzles/Patchmania.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>pathfind</strong></td>
+                <td class="file-path">Puzzles_Sample/Puzzles/pathfind.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>patternpuzzle</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/patternpuzzle.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>pegsolitary</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/pegsolitary.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>Pharaoh</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/Pharaoh.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>PourWater</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PourWater.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>PuzzleRetreat</strong></td>
+                <td class="file-path">PuzzlesP/Puzzles/PuzzleRetreat.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>rotate9</strong></td>
+                <td class="file-path">PuzzlesR/Puzzles/rotate9.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>rotationgame</strong></td>
+                <td class="file-path">PuzzlesR/Puzzles/rotationgame.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>sokoban</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/sokoban.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>SquareMergePuzzle</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/SquareMergePuzzle.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>strimko</strong></td>
+                <td class="file-path">PuzzlesS/Puzzles/strimko.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>turnz</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/turnz.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>twinballs</strong></td>
+                <td class="file-path">PuzzlesT/Puzzles/twinballs.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>WaterConnect</strong></td>
+                <td class="file-path">PuzzlesW/Puzzles/WaterConnect.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>WaterSort</strong></td>
+                <td class="file-path">PuzzlesW/Puzzles/WaterSort.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>Wriggle</strong></td>
+                <td class="file-path">PuzzlesW/Puzzles/Wriggle.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>zafiro</strong></td>
+                <td class="file-path">PuzzlesZ/Puzzles/zafiro.cpp</td>
+            </tr>
+            <tr>
+                <td><strong>zgj</strong></td>
+                <td class="file-path">PuzzlesZ/Puzzles/zgj.cpp</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="summary">
+        <h3>📊 状态统计 (包含标签的文件)</h3>
+        <span class="summary-item">✅ 已解决: 129</span>
+        <span class="summary-item">⚠️ 部分解决: 29</span>
+        <span class="summary-item">❌ 未解决: 57</span>
+        <span class="summary-item">📄 无有效解决方案: 2</span>
+        <span class="summary-item">❓ 无解决方案文件: 6</span>
+    </div>
+    
+    <div class="footer">
+        生成时间: 2026-02-15 18:58:36
+    </div>
+</body>
+</html>
