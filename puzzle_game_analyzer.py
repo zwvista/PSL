@@ -9,20 +9,25 @@ Puzzle Game Status Analyzer (puzzle_game_analyzer.py)
 1.文件扫描：自动扫描符合条件的C++文件
 2.信息提取：解析游戏系列、谜题集、游戏标题
 3.状态分析：5种游戏状态（已解决、部分解决、未解决、无有效解决方案、无解决方案文件）
-4.变体检测：识别包含Variant/Variation的文件
+4.变体检测：识别包含Variant/Variation的文件，显示为绿色标签"有变体"
 5.有效游戏判断：排除以数字结尾或以Gen结尾的文件，支持白名单
 6.特殊标题检测：找出游戏名与标题不匹配的情况
 7.iOS实现检测：检查对应Swift目录是否存在
 8.Android实现检测：检查对应XML文件是否存在
 9.Automator实现检测：检查对应自动截图目录是否存在
-10.HTML报告：美观的表格展示，包含详细的统计信息
+10.脚本生成：为iOS和Android项目生成拷贝XML的shell脚本
+11.HTML报告：美观的表格展示，包含详细的统计信息
 
 生成的HTML报告包含
 1.总体统计：文件总数、包含标签数、不包含标签数、有效游戏总数
 2.第一部分表格：包含标签的文件，11列详细信息
-3.第二部分表格：不包含标签的文件，5列基本信息
-4.特殊标题表格：列出所有游戏名与标题不匹配的情况
+3.第二部分表格：不包含标签的文件，5列基本信息（不含Automator列）
+4.特殊标题表格：列出所有游戏名与标题不匹配的情况（不含平台列）
 5.白名单列表：显示每部分中找到的白名单游戏
+
+生成的脚本
+1.iOS版本：在../LogicPuzzlesSwift目录生成copy_puzzle_xml.sh，拷贝XML到Puzzles子目录
+2.Android版本：在../LogicPuzzlesAndroid目录生成copy_puzzle_xml.sh，拷贝XML到assets/xml目录
 """
 
 import os
@@ -342,6 +347,134 @@ def get_group_name(file_path):
     if parts:
         return parts[0]
     return file_path
+
+def generate_swift_copy_script(files_with_tag):
+    """
+    生成Swift版本的拷贝XML文件的shell脚本
+    对于所有iOS实现存在的游戏，生成拷贝命令
+    根据cpp文件的路径构建对应的XML源文件路径
+    目标: LogicPuzzlesSwift/Puzzles/游戏名/游戏名.xml
+    """
+    script_lines = [
+        "#!/bin/bash",
+        "# 自动生成的Swift拷贝XML脚本",
+        "# 生成时间: " + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        "",
+        "echo \"开始拷贝XML文件到Swift项目...\"",
+        ""
+    ]
+    
+    copy_count = 0
+    
+    for item in files_with_tag:
+        path = item[0]  # 相对路径，例如: "PuzzlesA/Puzzles/AbstractPainting.cpp"
+        filename = os.path.basename(path)
+        puzzle_name = os.path.splitext(filename)[0]
+        
+        # 只处理有效游戏名
+        if not is_valid_game_name(filename):
+            continue
+        
+        # 检查iOS实现是否存在
+        swift_exists, _ = check_swift_implementation(puzzle_name)
+        if not swift_exists:
+            continue
+        
+        # 从cpp路径构建XML源文件路径
+        # 例如: "PuzzlesA/Puzzles/AbstractPainting.cpp" 
+        # 转换为: "../PSL/PuzzlesA/Puzzles/AbstractPainting.xml"
+        
+        # 获取目录部分
+        dir_path = os.path.dirname(path)  # 例如: "PuzzlesA/Puzzles"
+        
+        # 构建源文件路径: ../PSL/ + dir_path + / + puzzle_name + .xml
+        source_file = f"../PSL/{dir_path}/{puzzle_name}.xml"
+        
+        # 目标文件: LogicPuzzlesSwift/Puzzles/游戏名/游戏名.xml
+        target_dir = f"LogicPuzzlesSwift/Puzzles/{puzzle_name}"
+        target_file = f"{target_dir}/{puzzle_name}.xml"
+        
+        # 添加拷贝命令
+        script_lines.append(f"# 拷贝 {puzzle_name} (来自: {dir_path})")
+        script_lines.append(f"mkdir -p {target_dir}")
+        script_lines.append(f"if [ -f \"{source_file}\" ]; then")
+        script_lines.append(f"    cp \"{source_file}\" \"{target_file}\"")
+        script_lines.append(f"    echo \"✓ 已拷贝到Swift: {puzzle_name}\"")
+        script_lines.append(f"else")
+        script_lines.append(f"    echo \"❌ 源文件不存在: {source_file}\"")
+        script_lines.append(f"fi")
+        script_lines.append("")
+        
+        copy_count += 1
+    
+    script_lines.append(f"echo \"\\nSwift拷贝完成，共处理 {copy_count} 个游戏\"")
+    script_lines.append("")
+    
+    return "\n".join(script_lines), copy_count
+
+def generate_android_copy_script(files_with_tag):
+    """
+    生成Android版本的拷贝XML文件的shell脚本
+    对于所有Android实现存在的游戏，生成拷贝命令
+    根据cpp文件的路径构建对应的XML源文件路径
+    目标: app/src/main/assets/xml/游戏名.xml
+    """
+    script_lines = [
+        "#!/bin/bash",
+        "# 自动生成的Android拷贝XML脚本",
+        "# 生成时间: " + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        "",
+        "echo \"开始拷贝XML文件到Android项目...\"",
+        ""
+    ]
+    
+    copy_count = 0
+    
+    for item in files_with_tag:
+        path = item[0]  # 相对路径，例如: "PuzzlesA/Puzzles/AbstractPainting.cpp"
+        filename = os.path.basename(path)
+        puzzle_name = os.path.splitext(filename)[0]
+        
+        # 只处理有效游戏名
+        if not is_valid_game_name(filename):
+            continue
+        
+        # 检查Android实现是否存在
+        android_exists, _ = check_android_implementation(puzzle_name)
+        if not android_exists:
+            continue
+        
+        # 从cpp路径构建XML源文件路径
+        # 例如: "PuzzlesA/Puzzles/AbstractPainting.cpp" 
+        # 转换为: "../PSL/PuzzlesA/Puzzles/AbstractPainting.xml"
+        
+        # 获取目录部分
+        dir_path = os.path.dirname(path)  # 例如: "PuzzlesA/Puzzles"
+        
+        # 构建源文件路径: ../PSL/ + dir_path + / + puzzle_name + .xml
+        source_file = f"../PSL/{dir_path}/{puzzle_name}.xml"
+        
+        # 目标文件: app/src/main/assets/xml/游戏名.xml
+        target_dir = "app/src/main/assets/xml"
+        target_file = f"{target_dir}/{puzzle_name}.xml"
+        
+        # 添加拷贝命令
+        script_lines.append(f"# 拷贝 {puzzle_name} (来自: {dir_path})")
+        script_lines.append(f"mkdir -p {target_dir}")
+        script_lines.append(f"if [ -f \"{source_file}\" ]; then")
+        script_lines.append(f"    cp \"{source_file}\" \"{target_file}\"")
+        script_lines.append(f"    echo \"✓ 已拷贝到Android: {puzzle_name}\"")
+        script_lines.append(f"else")
+        script_lines.append(f"    echo \"❌ 源文件不存在: {source_file}\"")
+        script_lines.append(f"fi")
+        script_lines.append("")
+        
+        copy_count += 1
+    
+    script_lines.append(f"echo \"\\nAndroid拷贝完成，共处理 {copy_count} 个游戏\"")
+    script_lines.append("")
+    
+    return "\n".join(script_lines), copy_count
 
 def generate_html(files_with_tag, files_without_tag, valid_games_count):
     """生成HTML报告"""
@@ -767,7 +900,7 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         filename = os.path.basename(path)
         valid_status_cell = get_game_valid_status(filename)
         
-        # 变体列 - 改为类似状态列的样式
+        # 变体列 - 类似状态列的样式
         if has_variant:
             variant_cell = '<span class="variant-badge">✓ 有变体</span>'
         else:
@@ -821,7 +954,7 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
     </table>
 """
     
-    # 特殊游戏标题表格 - 移除iOS、Android和Automator列
+    # 特殊游戏标题表格 - 只保留三列
     if special_titles:
         html += f"""
     <h3>⭐ 特殊游戏标题 (格式化后的Name ≠ Game Title)</h3>
@@ -867,8 +1000,6 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
     swift_missing_in_without = 0
     android_exists_in_without = 0
     android_missing_in_without = 0
-    automator_exists_in_without = 0
-    automator_missing_in_without = 0
     
     for path in files_without_tag:
         filename = os.path.basename(path)
@@ -886,12 +1017,6 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
                 android_exists_in_without += 1
             else:
                 android_missing_in_without += 1
-            
-            automator_exists, _ = check_automator_implementation(puzzle_name)
-            if automator_exists:
-                automator_exists_in_without += 1
-            else:
-                automator_missing_in_without += 1
         
         # 检查白名单
         name_without_ext = os.path.splitext(filename)[0]
@@ -909,8 +1034,6 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
             <span class="stat-item swift-no">🍎 iOS缺失: {swift_missing_in_without}</span>
             <span class="stat-item android-yes">🤖 Android实现: {android_exists_in_without}</span>
             <span class="stat-item android-no">🤖 Android缺失: {android_missing_in_without}</span>
-            <span class="stat-item automator-yes">⚡️ Automator: {automator_exists_in_without}</span>
-            <span class="stat-item automator-no">⚡️ Automator缺失: {automator_missing_in_without}</span>
         </div>
 """
     
@@ -933,7 +1056,6 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
                 <th>有效状态</th>
                 <th>iOS</th>
                 <th>Android</th>
-                <th>Automator</th>
             </tr>
         </thead>
         <tbody>
@@ -947,7 +1069,6 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         valid_status_cell = get_game_valid_status(filename)
         _, swift_cell = check_swift_implementation(puzzle_name)
         _, android_cell = check_android_implementation(puzzle_name)
-        _, automator_cell = check_automator_implementation(puzzle_name)
         
         html += f"""            <tr>
                 <td><strong>{puzzle_name}</strong></td>
@@ -955,7 +1076,6 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
                 <td class="valid-status-cell">{valid_status_cell}</td>
                 <td class="swift-cell">{swift_cell}</td>
                 <td class="android-cell">{android_cell}</td>
-                <td class="automator-cell">{automator_cell}</td>
             </tr>
 """
     
@@ -970,133 +1090,6 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
 """
     
     return html
-
-def generate_copy_xml_script(files_with_tag):
-    """
-    生成拷贝XML文件的shell脚本
-    对于所有iOS实现存在的游戏，生成拷贝命令
-    根据cpp文件的路径构建对应的XML源文件路径
-    """
-    script_lines = [
-        "#!/bin/bash",
-        "# 自动生成的拷贝XML脚本",
-        "# 生成时间: " + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        "",
-        "echo \"开始拷贝XML文件...\"",
-        ""
-    ]
-    
-    copy_count = 0
-    
-    for item in files_with_tag:
-        path = item[0]  # 相对路径，例如: "PuzzlesA/Puzzles/AbstractMirrorPainting.cpp"
-        filename = os.path.basename(path)
-        puzzle_name = os.path.splitext(filename)[0]
-        
-        # 只处理有效游戏名
-        if not is_valid_game_name(filename):
-            continue
-        
-        # 检查iOS实现是否存在
-        swift_exists, _ = check_swift_implementation(puzzle_name)
-        if not swift_exists:
-            continue
-        
-        # 从cpp路径构建XML源文件路径
-        # 例如: "PuzzlesA/Puzzles/AbstractMirrorPainting.cpp" 
-        # 转换为: "../PSL/PuzzlesA/Puzzles/AbstractMirrorPainting.xml"
-        
-        # 获取目录部分
-        dir_path = os.path.dirname(path)  # 例如: "PuzzlesA/Puzzles"
-        
-        # 构建源文件路径: ../PSL/ + dir_path + / + puzzle_name + .xml
-        source_file = f"../PSL/{dir_path}/{puzzle_name}.xml"
-        
-        # 目标文件: LogicPuzzlesSwift/Puzzles/游戏名/游戏名.xml
-        target_dir = f"LogicPuzzlesSwift/Puzzles/{puzzle_name}"
-        target_file = f"{target_dir}/{puzzle_name}.xml"
-        
-        # 添加拷贝命令
-        script_lines.append(f"# 拷贝 {puzzle_name} (来自: {dir_path})")
-        script_lines.append(f"mkdir -p {target_dir}")
-        script_lines.append(f"if [ -f \"{source_file}\" ]; then")
-        script_lines.append(f"    cp \"{source_file}\" \"{target_file}\"")
-        script_lines.append(f"    echo \"✓ 已拷贝: {puzzle_name}\"")
-        script_lines.append(f"else")
-        script_lines.append(f"    echo \"❌ 源文件不存在: {source_file}\"")
-        script_lines.append(f"fi")
-        script_lines.append("")
-        
-        copy_count += 1
-    
-    script_lines.append(f"echo \"\\n拷贝完成，共处理 {copy_count} 个游戏\"")
-    script_lines.append("")
-    
-    return "\n".join(script_lines), copy_count
-
-def generate_android_copy_xml_script(files_with_tag):
-    """
-    生成Android版本的拷贝XML文件的shell脚本
-    对于所有Android实现存在的游戏，生成拷贝命令
-    根据cpp文件的路径构建对应的XML源文件路径
-    目标: app/src/main/assets/xml/游戏名.xml
-    """
-    script_lines = [
-        "#!/bin/bash",
-        "# 自动生成的Android拷贝XML脚本",
-        "# 生成时间: " + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        "",
-        "echo \"开始拷贝XML文件到Android项目...\"",
-        ""
-    ]
-    
-    copy_count = 0
-    
-    for item in files_with_tag:
-        path = item[0]  # 相对路径，例如: "PuzzlesA/Puzzles/AbstractPainting.cpp"
-        filename = os.path.basename(path)
-        puzzle_name = os.path.splitext(filename)[0]
-        
-        # 只处理有效游戏名
-        if not is_valid_game_name(filename):
-            continue
-        
-        # 检查Android实现是否存在
-        android_exists, _ = check_android_implementation(puzzle_name)
-        if not android_exists:
-            continue
-        
-        # 从cpp路径构建XML源文件路径
-        # 例如: "PuzzlesA/Puzzles/AbstractPainting.cpp" 
-        # 转换为: "../PSL/PuzzlesA/Puzzles/AbstractPainting.xml"
-        
-        # 获取目录部分
-        dir_path = os.path.dirname(path)  # 例如: "PuzzlesA/Puzzles"
-        
-        # 构建源文件路径: ../PSL/ + dir_path + / + puzzle_name + .xml
-        source_file = f"../PSL/{dir_path}/{puzzle_name}.xml"
-        
-        # 目标文件: app/src/main/assets/xml/游戏名.xml
-        target_dir = "app/src/main/assets/xml"
-        target_file = f"{target_dir}/{puzzle_name}.xml"
-        
-        # 添加拷贝命令
-        script_lines.append(f"# 拷贝 {puzzle_name} (来自: {dir_path})")
-        script_lines.append(f"mkdir -p {target_dir}")
-        script_lines.append(f"if [ -f \"{source_file}\" ]; then")
-        script_lines.append(f"    cp \"{source_file}\" \"{target_file}\"")
-        script_lines.append(f"    echo \"✓ 已拷贝到Android: {puzzle_name}\"")
-        script_lines.append(f"else")
-        script_lines.append(f"    echo \"❌ 源文件不存在: {source_file}\"")
-        script_lines.append(f"fi")
-        script_lines.append("")
-        
-        copy_count += 1
-    
-    script_lines.append(f"echo \"\\nAndroid拷贝完成，共处理 {copy_count} 个游戏\"")
-    script_lines.append("")
-    
-    return "\n".join(script_lines), copy_count
 
 def main():
     """主函数"""
@@ -1161,7 +1154,7 @@ def main():
     
     # 生成Swift版本的拷贝XML脚本
     print("\n正在生成Swift版本拷贝XML脚本...")
-    script_content, swift_copy_count = generate_copy_xml_script(files_with_tag)
+    swift_script_content, swift_copy_count = generate_swift_copy_script(files_with_tag)
     
     # 写入shell脚本到 ../LogicPuzzlesSwift 目录
     swift_script_path = os.path.join("..", "LogicPuzzlesSwift", "copy_puzzle_xml.sh")
@@ -1170,7 +1163,7 @@ def main():
     os.makedirs(os.path.dirname(swift_script_path), exist_ok=True)
     
     with open(swift_script_path, 'w', encoding='utf-8') as f:
-        f.write(script_content)
+        f.write(swift_script_content)
     
     # 设置执行权限
     os.chmod(swift_script_path, 0o755)
@@ -1180,7 +1173,7 @@ def main():
     
     # 生成Android版本的拷贝XML脚本
     print("\n正在生成Android版本拷贝XML脚本...")
-    android_script_content, android_copy_count = generate_android_copy_xml_script(files_with_tag)
+    android_script_content, android_copy_count = generate_android_copy_script(files_with_tag)
     
     # 写入shell脚本到 ../LogicPuzzlesAndroid 目录
     android_script_path = os.path.join("..", "LogicPuzzlesAndroid", "copy_puzzle_xml.sh")
