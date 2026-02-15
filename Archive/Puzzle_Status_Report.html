@@ -44,6 +44,28 @@
             background-color: #27ae60;
             color: white;
         }
+        .status-summary {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+        }
+        .status-summary h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        .status-summary .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .status-summary .stat-item {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.95em;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -138,10 +160,22 @@
         <span class="summary-item">📊 总计: 274 个文件</span>
         <span class="summary-item">✅ 包含标签: 223 个</span>
         <span class="summary-item">❌ 不包含标签: 51 个</span>
-        <span class="summary-item valid-games">🎮 有效游戏: 260 个</span>
+        <span class="summary-item valid-games">🎮 有效游戏总数: 261 个</span>
     </div>
 
     <h2>📋 Files With Logic Game Tag</h2>
+    <div class="status-summary">
+        <h3>📊 状态统计</h3>
+        <div class="stats">
+            <span class="stat-item status-solved">✅ 已解决: 129</span>
+            <span class="stat-item status-partly">⚠️ 部分解决: 29</span>
+            <span class="stat-item status-unsolved">❌ 未解决: 57</span>
+            <span class="stat-item status-no-solutions">📄 无有效解决方案: 2</span>
+            <span class="stat-item status-no-file">❓ 无解决方案文件: 6</span>
+            <span class="stat-item valid-games">🎮 有效游戏: 210</span>
+        </div>
+    </div>
+    
     <table>
         <thead>
             <tr>
@@ -2614,6 +2648,14 @@
     </table>
 
     <h2>📋 Files Without Logic Game Tag</h2>
+    <div class="status-summary">
+        <h3>📊 统计信息</h3>
+        <div class="stats">
+            <span class="stat-item">📄 文件总数: 51</span>
+            <span class="stat-item valid-games">🎮 有效游戏: 51</span>
+        </div>
+    </div>
+    
     <table>
         <thead>
             <tr>
@@ -2779,7 +2821,7 @@
                 <td class="group-name">PuzzlesP</td>
             </tr>
             <tr>
-                <td><strong>rotate9</strong></td>
+                <td><strong>rotate9_</strong></td>
                 <td class="group-name">PuzzlesR</td>
             </tr>
             <tr>
@@ -2829,17 +2871,8 @@
         </tbody>
     </table>
     
-    <div class="summary">
-        <h3>📊 状态统计 (包含标签的文件)</h3>
-        <span class="summary-item">✅ 已解决: 129</span>
-        <span class="summary-item">⚠️ 部分解决: 29</span>
-        <span class="summary-item">❌ 未解决: 57</span>
-        <span class="summary-item">📄 无有效解决方案: 2</span>
-        <span class="summary-item">❓ 无解决方案文件: 6</span>
-    </div>
-    
     <div class="footer">
-        生成时间: 2026-02-15 19:54:08
+        生成时间: 2026-02-15 20:05:40
     </div>
 </body>
 </html>

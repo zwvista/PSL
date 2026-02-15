@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Puzzle Game Status Analyzer
+Puzzle Game Status Analyzer (puzzle_game_analyzer.py)
 分析C++游戏文件，提取游戏信息并生成HTML状态报告
 """
 
@@ -67,16 +67,16 @@ def file_contains_variant(file_path):
 def parse_game_info(line):
     """
     解析游戏信息行
-    返回: (game_set, puzzle_set, game_title, max_level)
+    返回: (game_set, puzzle_set, game_title)
     如果无法解析，相应字段返回 None
     """
     if not line:
-        return None, None, None, None
+        return None, None, None
     
     # 移除 "iOS Game: 100 Logic Games" 前缀
     prefix = "iOS Game: 100 Logic Games"
     if not line.startswith(prefix):
-        return None, None, None, None
+        return None, None, None
     
     remaining = line[len(prefix):].strip()
     
@@ -109,7 +109,7 @@ def parse_game_info(line):
     # 剩余部分就是 Game Title
     game_title = remaining if remaining else None
     
-    return game_set, puzzle_set, game_title, None
+    return game_set, puzzle_set, game_title
 
 def check_numbers_continuous(numbers):
     """检查数字列表是否连续（从小到大排序后）"""
@@ -280,6 +280,28 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
             background-color: #27ae60;
             color: white;
         }}
+        .status-summary {{
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+        }}
+        .status-summary h3 {{
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }}
+        .status-summary .stats {{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }}
+        .status-summary .stat-item {{
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.95em;
+        }}
         table {{
             width: 100%;
             border-collapse: collapse;
@@ -374,13 +396,42 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         <span class="summary-item">📊 总计: {len(files_with_tag) + len(files_without_tag)} 个文件</span>
         <span class="summary-item">✅ 包含标签: {len(files_with_tag)} 个</span>
         <span class="summary-item">❌ 不包含标签: {len(files_without_tag)} 个</span>
-        <span class="summary-item valid-games">🎮 有效游戏: {valid_games_count} 个</span>
+        <span class="summary-item valid-games">🎮 有效游戏总数: {valid_games_count} 个</span>
     </div>
 """
     
     # 第一部分：包含标签的文件
     html += f"""
     <h2>📋 Files With Logic Game Tag</h2>
+"""
+    
+    # 统计信息（第一部分）
+    solved_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "Solved")
+    partly_solved_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "Partly Solved")
+    unsolved_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "Unsolved")
+    no_solutions_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "No Solutions")
+    no_solution_file_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "No Solution File")
+    
+    # 计算第一部分中的有效游戏数量
+    valid_in_tag = 0
+    for item in files_with_tag:
+        path = item[0]  # 第一个元素是文件路径
+        filename = os.path.basename(path)
+        if is_valid_game_name(filename):
+            valid_in_tag += 1
+    
+    html += f"""    <div class="status-summary">
+        <h3>📊 状态统计</h3>
+        <div class="stats">
+            <span class="stat-item status-solved">✅ 已解决: {solved_count}</span>
+            <span class="stat-item status-partly">⚠️ 部分解决: {partly_solved_count}</span>
+            <span class="stat-item status-unsolved">❌ 未解决: {unsolved_count}</span>
+            <span class="stat-item status-no-solutions">📄 无有效解决方案: {no_solutions_count}</span>
+            <span class="stat-item status-no-file">❓ 无解决方案文件: {no_solution_file_count}</span>
+            <span class="stat-item valid-games">🎮 有效游戏: {valid_in_tag}</span>
+        </div>
+    </div>
+    
     <table>
         <thead>
             <tr>
@@ -406,7 +457,7 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         group_name = get_group_name(path)
         
         # 解析游戏信息
-        game_set, puzzle_set, game_title, _ = parse_game_info(line)
+        game_set, puzzle_set, game_title = parse_game_info(line)
         
         # 变体列
         variant_cell = '<span class="variant-yes">⭕️</span>' if has_variant else ''
@@ -451,6 +502,19 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
     # 第二部分：不包含标签的文件
     html += f"""
     <h2>📋 Files Without Logic Game Tag</h2>
+"""
+    
+    # 统计信息（第二部分）
+    valid_in_without = sum(1 for path in files_without_tag if is_valid_game_name(os.path.basename(path)))
+    
+    html += f"""    <div class="status-summary">
+        <h3>📊 统计信息</h3>
+        <div class="stats">
+            <span class="stat-item">📄 文件总数: {len(files_without_tag)}</span>
+            <span class="stat-item valid-games">🎮 有效游戏: {valid_in_without}</span>
+        </div>
+    </div>
+    
     <table>
         <thead>
             <tr>
@@ -471,24 +535,8 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
             </tr>
 """
     
-    # 统计信息
-    solved_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "Solved")
-    partly_solved_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "Partly Solved")
-    unsolved_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "Unsolved")
-    no_solutions_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "No Solutions")
-    no_solution_file_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "No Solution File")
-    
     html += f"""        </tbody>
     </table>
-    
-    <div class="summary">
-        <h3>📊 状态统计 (包含标签的文件)</h3>
-        <span class="summary-item">✅ 已解决: {solved_count}</span>
-        <span class="summary-item">⚠️ 部分解决: {partly_solved_count}</span>
-        <span class="summary-item">❌ 未解决: {unsolved_count}</span>
-        <span class="summary-item">📄 无有效解决方案: {no_solutions_count}</span>
-        <span class="summary-item">❓ 无解决方案文件: {no_solution_file_count}</span>
-    </div>
     
     <div class="footer">
         生成时间: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
@@ -545,7 +593,7 @@ def main():
             files_without_tag.append(relative_path)
     
     print(f"文件扫描完成，共处理 {file_count} 个文件")
-    print(f"有效游戏名数量: {len(valid_games)} 个")
+    print(f"有效游戏名总数: {len(valid_games)} 个")
     
     # 生成HTML报告
     print(f"正在生成HTML报告...")
@@ -558,7 +606,7 @@ def main():
     print(f"HTML报告已生成: {OUTPUT_HTML}")
     print(f"包含目标字符串: {len(files_with_tag)} 个文件")
     print(f"不包含目标字符串: {len(files_without_tag)} 个文件")
-    print(f"有效游戏名: {len(valid_games)} 个")
+    print(f"有效游戏名总数: {len(valid_games)} 个")
 
 if __name__ == "__main__":
     main()
