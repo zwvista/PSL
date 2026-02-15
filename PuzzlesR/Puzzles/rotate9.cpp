@@ -2,7 +2,7 @@
 #include "astar_solver.h"
 #include "solve_puzzle.h"
 
-namespace puzzles::rotate9_{
+namespace puzzles::rotate9{
 
 struct puz_game
 {
@@ -125,9 +125,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_rotate9_()
+void solve_puz_rotate9()
 {
-    using namespace puzzles::rotate9_;
+    using namespace puzzles::rotate9;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state, false>>(
-        "Puzzles/rotate9_.xml", "Puzzles/rotate9_.txt");
+        "Puzzles/rotate9.xml", "Puzzles/rotate9.txt");
 }

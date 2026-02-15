@@ -4,6 +4,22 @@
 """
 Puzzle Game Status Analyzer (puzzle_game_analyzer.py)
 分析C++游戏文件，提取游戏信息并生成HTML状态报告
+
+最终版本功能总结
+1.文件扫描：自动扫描符合条件的C++文件
+2.信息提取：解析游戏系列、谜题集、游戏标题
+3.状态分析：5种游戏状态（已解决、部分解决、未解决、无有效解决方案、无解决方案文件）
+4.变体检测：识别包含Variant/Variation的文件
+5.有效游戏判断：排除以数字结尾或以Gen结尾的文件，支持白名单
+6.特殊标题检测：找出游戏名与标题不匹配的情况
+7.HTML报告：美观的表格展示，包含详细的统计信息
+
+生成的HTML报告包含
+1.总体统计：文件总数、包含标签数、不包含标签数、有效游戏总数
+2.第一部分表格：包含标签的文件，10列详细信息
+3.第二部分表格：不包含标签的文件，3列基本信息
+4.特殊标题表格：列出所有游戏名与标题不匹配的情况
+5.白名单列表：显示每部分中找到的白名单游戏
 """
 
 import os
@@ -16,6 +32,9 @@ SEARCH_STRING = "iOS Game: 100 Logic Games"
 VARIANT_PATTERN = re.compile(r'Variant|Variation')  # 搜索 Variant 或 Variation
 OUTPUT_DIR = "Archive"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "Puzzle_Status_Report.html")
+
+# 白名单：虽然是数字结尾，但视为有效游戏
+WHITELIST_NAMES = {"Square100", "rotate9"}
 
 def find_files():
     """生成器：逐个产生符合条件的文件"""
@@ -31,8 +50,13 @@ def is_valid_game_name(filename):
     """
     判断是否为有效游戏名
     有效游戏名：不以数字结尾，不以Gen结尾（大小写不敏感）
+    但有白名单例外：Square100 和 rotate9 视为有效游戏
     """
     name_without_ext = os.path.splitext(filename)[0]
+    
+    # 检查白名单
+    if name_without_ext in WHITELIST_NAMES:
+        return True
     
     # 检查是否以Gen结尾（不区分大小写）
     if name_without_ext.lower().endswith('gen'):
@@ -43,6 +67,46 @@ def is_valid_game_name(filename):
         return False
     
     return True
+
+def get_game_valid_status(filename):
+    """
+    获取游戏有效状态标识
+    返回: 对应的HTML标记
+    """
+    name_without_ext = os.path.splitext(filename)[0]
+    
+    # 检查白名单
+    if name_without_ext in WHITELIST_NAMES:
+        return '<span class="whitelist-mark">⭕️</span>'
+    
+    # 检查是否以Gen结尾（不区分大小写）
+    if name_without_ext.lower().endswith('gen'):
+        return '<span class="invalid-mark">❌</span>'
+    
+    # 检查是否以数字结尾
+    if re.search(r'\d+$', name_without_ext):
+        return '<span class="invalid-mark">❌</span>'
+    
+    return ''
+
+def format_game_name(name):
+    """
+    在每个大写字母前插入空格（首字母除外）
+    例如: "BattleShips" -> "Battle Ships"
+         "ADifferentFarmer" -> "A Different Farmer"
+         "Square100" -> "Square100"（数字前不插入空格）
+    """
+    if not name:
+        return name
+    
+    result = []
+    for i, char in enumerate(name):
+        # 如果不是第一个字符，且当前字符是大写字母
+        if i > 0 and char.isupper():
+            result.append(' ')
+        result.append(char)
+    
+    return ''.join(result)
 
 def file_contains_string(file_path, search_string):
     """检查文件是否包含目标字符串，并返回匹配行（去除前导空格）"""
@@ -261,6 +325,11 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
             margin-top: 30px;
             margin-bottom: 15px;
         }}
+        h3 {{
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }}
         .summary {{
             background-color: white;
             padding: 15px;
@@ -278,6 +347,14 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         }}
         .valid-games {{
             background-color: #27ae60;
+            color: white;
+        }}
+        .special-games {{
+            background-color: #f39c12;
+            color: white;
+        }}
+        .whitelist-games {{
+            background-color: #8e44ad;
             color: white;
         }}
         .status-summary {{
@@ -301,6 +378,22 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.95em;
+        }}
+        .whitelist-list {{
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f3e5f5;
+            border-radius: 8px;
+            font-size: 0.95em;
+        }}
+        .whitelist-item {{
+            display: inline-block;
+            margin-right: 10px;
+            padding: 2px 8px;
+            background-color: #8e44ad;
+            color: white;
+            border-radius: 12px;
+            font-size: 0.9em;
         }}
         table {{
             width: 100%;
@@ -326,6 +419,16 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
             background-color: #f8f9fa;
         }}
         .variant-yes {{
+            color: #e74c3c;
+            font-size: 1.2em;
+            text-align: center;
+        }}
+        .whitelist-mark {{
+            color: #27ae60;
+            font-size: 1.2em;
+            text-align: center;
+        }}
+        .invalid-mark {{
             color: #e74c3c;
             font-size: 1.2em;
             text-align: center;
@@ -379,6 +482,25 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
             text-align: center;
             font-family: 'Courier New', monospace;
         }}
+        .name-cell {{
+            font-weight: 600;
+        }}
+        .title-cell {{
+            font-style: italic;
+        }}
+        .formatted-cell {{
+            color: #7f8c8d;
+        }}
+        .valid-status-cell {{
+            text-align: center;
+            font-size: 1.1em;
+        }}
+        .special-row {{
+            background-color: #fff9e6;
+        }}
+        .special-row:hover {{
+            background-color: #fff2d9;
+        }}
         .footer {{
             text-align: right;
             color: #7f8c8d;
@@ -412,13 +534,34 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
     no_solutions_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "No Solutions")
     no_solution_file_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "No Solution File")
     
-    # 计算第一部分中的有效游戏数量
+    # 计算第一部分中的有效游戏数量和白名单游戏
     valid_in_tag = 0
+    whitelist_in_tag = []  # 存储白名单游戏名
+    special_titles = []  # 存储特殊游戏标题的信息 (name, title, formatted_name)
+    
     for item in files_with_tag:
-        path = item[0]  # 第一个元素是文件路径
+        path = item[0]
+        line = item[1]
         filename = os.path.basename(path)
+        
+        # 检查白名单
+        name_without_ext = os.path.splitext(filename)[0]
+        if name_without_ext in WHITELIST_NAMES:
+            whitelist_in_tag.append(name_without_ext)
+        
         if is_valid_game_name(filename):
             valid_in_tag += 1
+            
+            # 解析游戏信息获取Game Title
+            _, _, game_title = parse_game_info(line)
+            
+            if game_title:
+                puzzle_name = os.path.splitext(filename)[0]
+                formatted_name = format_game_name(puzzle_name)
+                
+                # 判断是否为特殊标题：只有当格式化后的Name与Game Title完全相同时才不是特殊标题
+                if formatted_name != game_title:
+                    special_titles.append((puzzle_name, game_title, formatted_name))
     
     html += f"""    <div class="status-summary">
         <h3>📊 状态统计</h3>
@@ -429,8 +572,20 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
             <span class="stat-item status-no-solutions">📄 无有效解决方案: {no_solutions_count}</span>
             <span class="stat-item status-no-file">❓ 无解决方案文件: {no_solution_file_count}</span>
             <span class="stat-item valid-games">🎮 有效游戏: {valid_in_tag}</span>
+            <span class="stat-item special-games">⭐ 特殊标题: {len(special_titles)}</span>
         </div>
-    </div>
+"""
+    
+    # 添加白名单游戏列表
+    if whitelist_in_tag:
+        whitelist_in_tag.sort()
+        whitelist_items = ''.join([f'<span class="whitelist-item">{name}</span>' for name in whitelist_in_tag])
+        html += f"""        <div class="whitelist-list">
+            <strong>⭕️ 白名单游戏:</strong> {whitelist_items}
+        </div>
+"""
+    
+    html += """    </div>
     
     <table>
         <thead>
@@ -441,6 +596,7 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
                 <th>Game Set</th>
                 <th>Puzzle Set</th>
                 <th>Game Title</th>
+                <th>有效状态</th>
                 <th>关卡数</th>
                 <th>变体</th>
                 <th>状态</th>
@@ -458,6 +614,10 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         
         # 解析游戏信息
         game_set, puzzle_set, game_title = parse_game_info(line)
+        
+        # 获取游戏有效状态标识
+        filename = os.path.basename(path)
+        valid_status_cell = get_game_valid_status(filename)
         
         # 变体列
         variant_cell = '<span class="variant-yes">⭕️</span>' if has_variant else ''
@@ -483,12 +643,13 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         game_title_cell = game_title if game_title else '<span class="error-x">❌</span>'
         
         html += f"""            <tr>
-                <td><strong>{puzzle_name}</strong></td>
+                <td class="name-cell"><strong>{puzzle_name}</strong></td>
                 <td class="group-name">{group_name}</td>
                 <td class="puzzle-info">{line}</td>
                 <td class="numeric-cell">{game_set_cell}</td>
                 <td class="numeric-cell">{puzzle_set_cell}</td>
-                <td>{game_title_cell}</td>
+                <td class="title-cell">{game_title_cell}</td>
+                <td class="valid-status-cell">{valid_status_cell}</td>
                 <td class="numeric-cell">{level_cell}</td>
                 <td class="variant-yes">{variant_cell}</td>
                 <td><span class="status-badge {status_class}">{status_text}</span></td>
@@ -499,13 +660,58 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
     </table>
 """
     
+    # 特殊游戏标题表格
+    if special_titles:
+        html += f"""
+    <h3>⭐ 特殊游戏标题 (格式化后的Name ≠ Game Title)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>游戏名 (Name)</th>
+                <th>游戏标题 (Title)</th>
+                <th>格式化后的Name</th>
+            </tr>
+        </thead>
+        <tbody>
+"""
+        
+        # 按游戏名排序
+        for name, title, formatted_name in sorted(special_titles, key=lambda x: x[0].lower()):
+            html += f"""            <tr class="special-row">
+                <td class="name-cell"><strong>{name}</strong></td>
+                <td class="title-cell">{title}</td>
+                <td class="formatted-cell">{formatted_name}</td>
+            </tr>
+"""
+        
+        html += """        </tbody>
+    </table>
+"""
+    else:
+        html += """
+    <div class="status-summary">
+        <p>✨ 没有发现特殊游戏标题，所有格式化后的Name都与Game Title匹配。</p>
+    </div>
+"""
+    
     # 第二部分：不包含标签的文件
     html += f"""
     <h2>📋 Files Without Logic Game Tag</h2>
 """
     
     # 统计信息（第二部分）
-    valid_in_without = sum(1 for path in files_without_tag if is_valid_game_name(os.path.basename(path)))
+    valid_in_without = 0
+    whitelist_in_without = []  # 存储白名单游戏名
+    
+    for path in files_without_tag:
+        filename = os.path.basename(path)
+        if is_valid_game_name(filename):
+            valid_in_without += 1
+        
+        # 检查白名单
+        name_without_ext = os.path.splitext(filename)[0]
+        if name_without_ext in WHITELIST_NAMES:
+            whitelist_in_without.append(name_without_ext)
     
     html += f"""    <div class="status-summary">
         <h3>📊 统计信息</h3>
@@ -513,13 +719,25 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
             <span class="stat-item">📄 文件总数: {len(files_without_tag)}</span>
             <span class="stat-item valid-games">🎮 有效游戏: {valid_in_without}</span>
         </div>
-    </div>
+"""
+    
+    # 添加白名单游戏列表
+    if whitelist_in_without:
+        whitelist_in_without.sort()
+        whitelist_items = ''.join([f'<span class="whitelist-item">{name}</span>' for name in whitelist_in_without])
+        html += f"""        <div class="whitelist-list">
+            <strong>⭕️ 白名单游戏:</strong> {whitelist_items}
+        </div>
+"""
+    
+    html += """    </div>
     
     <table>
         <thead>
             <tr>
                 <th>游戏名</th>
                 <th>组名</th>
+                <th>有效状态</th>
             </tr>
         </thead>
         <tbody>
@@ -529,9 +747,13 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
     for path in sorted(files_without_tag, key=lambda x: os.path.basename(x).lower()):
         puzzle_name = os.path.splitext(os.path.basename(path))[0]
         group_name = get_group_name(path)
+        filename = os.path.basename(path)
+        valid_status_cell = get_game_valid_status(filename)
+        
         html += f"""            <tr>
                 <td><strong>{puzzle_name}</strong></td>
                 <td class="group-name">{group_name}</td>
+                <td class="valid-status-cell">{valid_status_cell}</td>
             </tr>
 """
     
