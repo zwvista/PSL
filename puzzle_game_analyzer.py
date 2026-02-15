@@ -591,8 +591,6 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         <thead>
             <tr>
                 <th>游戏名</th>
-                <th>组名</th>
-                <th>游戏信息</th>
                 <th>Game Set</th>
                 <th>Puzzle Set</th>
                 <th>Game Title</th>
@@ -610,7 +608,6 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         path, line, has_variant, game_status, unsolved_levels, max_level = item
         
         puzzle_name = os.path.splitext(os.path.basename(path))[0]
-        group_name = get_group_name(path)
         
         # 解析游戏信息
         game_set, puzzle_set, game_title = parse_game_info(line)
@@ -644,8 +641,6 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         
         html += f"""            <tr>
                 <td class="name-cell"><strong>{puzzle_name}</strong></td>
-                <td class="group-name">{group_name}</td>
-                <td class="puzzle-info">{line}</td>
                 <td class="numeric-cell">{game_set_cell}</td>
                 <td class="numeric-cell">{puzzle_set_cell}</td>
                 <td class="title-cell">{game_title_cell}</td>
