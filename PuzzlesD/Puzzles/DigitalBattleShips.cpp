@@ -405,14 +405,15 @@ void puz_state::gen_children(list<puz_state>& children) const
         });
 
     if (kv_ship_ptr != nullptr && (kv_area_ptr == nullptr ||
-        kv_ship_ptr->second.size() < kv_area_ptr->second.second.size()))
+        kv_ship_ptr->second.size() < kv_area_ptr->second.second.size())) {
         for (auto& [p, vert] : kv_ship_ptr->second)
             if (!children.emplace_back(*this).make_move_ship(p, kv_ship_ptr->first, vert))
                 children.pop_back();
-    else
+    } else {
         for (int i = 0; i < kv_area_ptr->second.second.size(); ++i)
             if (!children.emplace_back(*this).make_move_area(kv_area_ptr->first, i))
                 children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const

@@ -72,6 +72,7 @@ PuzzlesC/Puzzles/CoffeeAndSugar.cpp
         Has Variants
 PuzzlesC/Puzzles/Consecutives.cpp
     iOS Game: 100 Logic Games/Puzzle Set 7/Consecutives
+        Has Variants
 PuzzlesC/Puzzles/CrossroadBlocks.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 4/Crossroad Blocks
 PuzzlesC/Puzzles/CrossroadsX.cpp
@@ -112,6 +113,7 @@ PuzzlesF/Puzzles/Fields.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 1/Fields
 PuzzlesF/Puzzles/Fillomino.cpp
     iOS Game: 100 Logic Games/Puzzle Set 3/Fillomino
+        Has Variants
 PuzzlesF/Puzzles/FingerPointing.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 5/Finger Pointing
 PuzzlesF/Puzzles/FloorPlan.cpp
@@ -132,6 +134,7 @@ PuzzlesF/Puzzles/FussyWaiter.cpp
     iOS Game: 100 Logic Games/Puzzle Set 15/Fussy Waiter
 PuzzlesF/Puzzles/Futoshiki.cpp
     iOS Game: 100 Logic Games/Puzzle Set 2/Futoshiki
+        Has Variants
 PuzzlesG/Puzzles/Galaxies.cpp
     iOS Game: 100 Logic Games/Puzzle Set 4/Galaxies
 PuzzlesG/Puzzles/Gardener.cpp
@@ -184,6 +187,7 @@ PuzzlesK/Puzzles/Kakuro.cpp
     iOS Game: 100 Logic Games/Puzzle Set 4/Kakuro
 PuzzlesK/Puzzles/Knightoku.cpp
     iOS Game: 100 Logic Games/Puzzle Set 8/Knightoku
+        Has Variants
 PuzzlesK/Puzzles/Kropki.cpp
     iOS Game: 100 Logic Games/Puzzle Set 6/Kropki
         Has Variants
@@ -239,6 +243,7 @@ PuzzlesM/Puzzles/MondrianLoop.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 2/Mondrian Loop
 PuzzlesM/Puzzles/MoreOrLess.cpp
     iOS Game: 100 Logic Games/Puzzle Set 7/More Or Less
+        Has Variants
 PuzzlesM/Puzzles/Mosaik.cpp
     iOS Game: 100 Logic Games/Puzzle Set 4/Mosaik
 PuzzlesN/Puzzles/Neighbours.cpp
@@ -269,6 +274,7 @@ PuzzlesN/Puzzles/Nurikabe.cpp
     iOS Game: 100 Logic Games/Puzzle Set 1/Nurikabe
 PuzzlesO/Puzzles/OddsAreEven.cpp
     iOS Game: 100 Logic Games/Puzzle Set 7/Odds Are Even
+        Has Variants
 PuzzlesO/Puzzles/OneUpOrDown.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 1/One Up or Down
 PuzzlesO/Puzzles/OnlyBends.cpp
@@ -380,6 +386,7 @@ PuzzlesS/Puzzles/SuspendedGravity.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 1/Suspended Gravity
 PuzzlesT/Puzzles/Tapa.cpp
     iOS Game: 100 Logic Games/Puzzle Set 9/Tapa
+        Has Variants
 PuzzlesT/Puzzles/TapaIslands.cpp
     iOS Game: 100 Logic Games/Puzzle Set 9/Tapa Islands
 PuzzlesT/Puzzles/TapAlike.cpp
