@@ -12,12 +12,15 @@ Puzzle Game Status Analyzer (puzzle_game_analyzer.py)
 4.变体检测：识别包含Variant/Variation的文件
 5.有效游戏判断：排除以数字结尾或以Gen结尾的文件，支持白名单
 6.特殊标题检测：找出游戏名与标题不匹配的情况
-7.HTML报告：美观的表格展示，包含详细的统计信息
+7.iOS实现检测：检查对应Swift目录是否存在
+8.Android实现检测：检查对应XML文件是否存在
+9.Automator实现检测：检查对应自动截图目录是否存在
+10.HTML报告：美观的表格展示，包含详细的统计信息
 
 生成的HTML报告包含
 1.总体统计：文件总数、包含标签数、不包含标签数、有效游戏总数
-2.第一部分表格：包含标签的文件，10列详细信息
-3.第二部分表格：不包含标签的文件，3列基本信息
+2.第一部分表格：包含标签的文件，11列详细信息
+3.第二部分表格：不包含标签的文件，5列基本信息
 4.特殊标题表格：列出所有游戏名与标题不匹配的情况
 5.白名单列表：显示每部分中找到的白名单游戏
 """
@@ -32,6 +35,15 @@ SEARCH_STRING = "iOS Game: 100 Logic Games"
 VARIANT_PATTERN = re.compile(r'Variant|Variation')  # 搜索 Variant 或 Variation
 OUTPUT_DIR = "Archive"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "Puzzle_Status_Report.html")
+
+# Swift Puzzles 目录
+SWIFT_PUZZLES_DIR = "../LogicPuzzlesSwift/LogicPuzzlesSwift/Puzzles"
+
+# Android XML 文件路径
+ANDROID_XML_PATH = "../LogicPuzzlesAndroid/app/src/main/assets/xml/{}.xml"
+
+# Automator 自动截图目录
+AUTOMATOR_PUZZLES_DIR = "../LogicPuzzlesAutomator/Puzzles"
 
 # 白名单：虽然是数字结尾，但视为有效游戏
 WHITELIST_NAMES = {"Square100", "rotate9"}
@@ -88,6 +100,60 @@ def get_game_valid_status(filename):
         return '<span class="invalid-mark">❌</span>'
     
     return ''
+
+def check_swift_implementation(puzzle_name):
+    """
+    检查是否存在Swift实现（检查目录是否存在）
+    返回: (bool, HTML标记)
+    """
+    # 只对有效游戏名进行检查
+    if not is_valid_game_name(puzzle_name + ".cpp"):
+        return False, ''
+    
+    # 构建Swift目录路径
+    swift_dir = os.path.join(SWIFT_PUZZLES_DIR, puzzle_name)
+    
+    # 检查目录是否存在
+    if os.path.exists(swift_dir) and os.path.isdir(swift_dir):
+        return True, '<span class="swift-yes">✓</span>'
+    else:
+        return False, '<span class="swift-no">❌</span>'
+
+def check_android_implementation(puzzle_name):
+    """
+    检查是否存在Android实现（检查XML文件是否存在）
+    返回: (bool, HTML标记)
+    """
+    # 只对有效游戏名进行检查
+    if not is_valid_game_name(puzzle_name + ".cpp"):
+        return False, ''
+    
+    # 构建Android XML文件路径
+    android_xml_file = ANDROID_XML_PATH.format(puzzle_name)
+    
+    # 检查XML文件是否存在
+    if os.path.exists(android_xml_file) and os.path.isfile(android_xml_file):
+        return True, '<span class="android-yes">✓</span>'
+    else:
+        return False, '<span class="android-no">❌</span>'
+
+def check_automator_implementation(puzzle_name):
+    """
+    检查是否存在Automator自动截图实现（检查目录是否存在）
+    返回: (bool, HTML标记)
+    """
+    # 只对有效游戏名进行检查
+    if not is_valid_game_name(puzzle_name + ".cpp"):
+        return False, ''
+    
+    # 构建Automator目录路径
+    automator_dir = os.path.join(AUTOMATOR_PUZZLES_DIR, puzzle_name)
+    
+    # 检查目录是否存在
+    if os.path.exists(automator_dir) and os.path.isdir(automator_dir):
+        return True, '<span class="automator-yes">✓</span>'
+    else:
+        return False, '<span class="automator-no">❌</span>'
 
 def format_game_name(name):
     """
@@ -418,9 +484,50 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         tr:hover {{
             background-color: #f8f9fa;
         }}
-        .variant-yes {{
+        .variant-badge {{
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }}
+        .swift-yes {{
+            color: #27ae60;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+        }}
+        .swift-no {{
             color: #e74c3c;
             font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+        }}
+        .android-yes {{
+            color: #27ae60;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+        }}
+        .android-no {{
+            color: #e74c3c;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+        }}
+        .automator-yes {{
+            color: #27ae60;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+        }}
+        .automator-no {{
+            color: #e74c3c;
+            font-size: 1.2em;
+            font-weight: bold;
             text-align: center;
         }}
         .whitelist-mark {{
@@ -563,6 +670,39 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
                 if formatted_name != game_title:
                     special_titles.append((puzzle_name, game_title, formatted_name))
     
+    # 计算iOS、Android和Automator实现统计
+    swift_exists_count = 0
+    swift_missing_count = 0
+    android_exists_count = 0
+    android_missing_count = 0
+    automator_exists_count = 0
+    automator_missing_count = 0
+    
+    for item in files_with_tag:
+        path = item[0]
+        filename = os.path.basename(path)
+        puzzle_name = os.path.splitext(filename)[0]
+        
+        # 只对有效游戏名进行统计
+        if is_valid_game_name(filename):
+            swift_exists, _ = check_swift_implementation(puzzle_name)
+            if swift_exists:
+                swift_exists_count += 1
+            else:
+                swift_missing_count += 1
+            
+            android_exists, _ = check_android_implementation(puzzle_name)
+            if android_exists:
+                android_exists_count += 1
+            else:
+                android_missing_count += 1
+            
+            automator_exists, _ = check_automator_implementation(puzzle_name)
+            if automator_exists:
+                automator_exists_count += 1
+            else:
+                automator_missing_count += 1
+    
     html += f"""    <div class="status-summary">
         <h3>📊 状态统计</h3>
         <div class="stats">
@@ -573,6 +713,14 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
             <span class="stat-item status-no-file">❓ 无解决方案文件: {no_solution_file_count}</span>
             <span class="stat-item valid-games">🎮 有效游戏: {valid_in_tag}</span>
             <span class="stat-item special-games">⭐ 特殊标题: {len(special_titles)}</span>
+        </div>
+        <div class="stats" style="margin-top: 10px;">
+            <span class="stat-item swift-yes">🍎 iOS实现: {swift_exists_count}</span>
+            <span class="stat-item swift-no">🍎 iOS缺失: {swift_missing_count}</span>
+            <span class="stat-item android-yes">🤖 Android实现: {android_exists_count}</span>
+            <span class="stat-item android-no">🤖 Android缺失: {android_missing_count}</span>
+            <span class="stat-item automator-yes">⚡️ Automator: {automator_exists_count}</span>
+            <span class="stat-item automator-no">⚡️ Automator缺失: {automator_missing_count}</span>
         </div>
 """
     
@@ -597,6 +745,9 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
                 <th>有效状态</th>
                 <th>关卡数</th>
                 <th>变体</th>
+                <th>iOS</th>
+                <th>Android</th>
+                <th>Automator</th>
                 <th>状态</th>
             </tr>
         </thead>
@@ -616,8 +767,20 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         filename = os.path.basename(path)
         valid_status_cell = get_game_valid_status(filename)
         
-        # 变体列
-        variant_cell = '<span class="variant-yes">⭕️</span>' if has_variant else ''
+        # 变体列 - 改为类似状态列的样式
+        if has_variant:
+            variant_cell = '<span class="variant-badge">✓ 有变体</span>'
+        else:
+            variant_cell = ''
+        
+        # iOS实现列
+        _, swift_cell = check_swift_implementation(puzzle_name)
+        
+        # Android实现列
+        _, android_cell = check_android_implementation(puzzle_name)
+        
+        # Automator实现列
+        _, automator_cell = check_automator_implementation(puzzle_name)
         
         # 状态列
         status_text = status_display.get(game_status, game_status)
@@ -646,7 +809,10 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
                 <td class="title-cell">{game_title_cell}</td>
                 <td class="valid-status-cell">{valid_status_cell}</td>
                 <td class="numeric-cell">{level_cell}</td>
-                <td class="variant-yes">{variant_cell}</td>
+                <td class="variant-cell">{variant_cell}</td>
+                <td class="swift-cell">{swift_cell}</td>
+                <td class="android-cell">{android_cell}</td>
+                <td class="automator-cell">{automator_cell}</td>
                 <td><span class="status-badge {status_class}">{status_text}</span></td>
             </tr>
 """
@@ -655,7 +821,7 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
     </table>
 """
     
-    # 特殊游戏标题表格
+    # 特殊游戏标题表格 - 移除iOS、Android和Automator列
     if special_titles:
         html += f"""
     <h3>⭐ 特殊游戏标题 (格式化后的Name ≠ Game Title)</h3>
@@ -697,11 +863,35 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
     # 统计信息（第二部分）
     valid_in_without = 0
     whitelist_in_without = []  # 存储白名单游戏名
+    swift_exists_in_without = 0
+    swift_missing_in_without = 0
+    android_exists_in_without = 0
+    android_missing_in_without = 0
+    automator_exists_in_without = 0
+    automator_missing_in_without = 0
     
     for path in files_without_tag:
         filename = os.path.basename(path)
         if is_valid_game_name(filename):
             valid_in_without += 1
+            puzzle_name = os.path.splitext(filename)[0]
+            swift_exists, _ = check_swift_implementation(puzzle_name)
+            if swift_exists:
+                swift_exists_in_without += 1
+            else:
+                swift_missing_in_without += 1
+            
+            android_exists, _ = check_android_implementation(puzzle_name)
+            if android_exists:
+                android_exists_in_without += 1
+            else:
+                android_missing_in_without += 1
+            
+            automator_exists, _ = check_automator_implementation(puzzle_name)
+            if automator_exists:
+                automator_exists_in_without += 1
+            else:
+                automator_missing_in_without += 1
         
         # 检查白名单
         name_without_ext = os.path.splitext(filename)[0]
@@ -713,6 +903,14 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         <div class="stats">
             <span class="stat-item">📄 文件总数: {len(files_without_tag)}</span>
             <span class="stat-item valid-games">🎮 有效游戏: {valid_in_without}</span>
+        </div>
+        <div class="stats" style="margin-top: 10px;">
+            <span class="stat-item swift-yes">🍎 iOS实现: {swift_exists_in_without}</span>
+            <span class="stat-item swift-no">🍎 iOS缺失: {swift_missing_in_without}</span>
+            <span class="stat-item android-yes">🤖 Android实现: {android_exists_in_without}</span>
+            <span class="stat-item android-no">🤖 Android缺失: {android_missing_in_without}</span>
+            <span class="stat-item automator-yes">⚡️ Automator: {automator_exists_in_without}</span>
+            <span class="stat-item automator-no">⚡️ Automator缺失: {automator_missing_in_without}</span>
         </div>
 """
     
@@ -733,6 +931,9 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
                 <th>游戏名</th>
                 <th>组名</th>
                 <th>有效状态</th>
+                <th>iOS</th>
+                <th>Android</th>
+                <th>Automator</th>
             </tr>
         </thead>
         <tbody>
@@ -744,11 +945,17 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         group_name = get_group_name(path)
         filename = os.path.basename(path)
         valid_status_cell = get_game_valid_status(filename)
+        _, swift_cell = check_swift_implementation(puzzle_name)
+        _, android_cell = check_android_implementation(puzzle_name)
+        _, automator_cell = check_automator_implementation(puzzle_name)
         
         html += f"""            <tr>
                 <td><strong>{puzzle_name}</strong></td>
                 <td class="group-name">{group_name}</td>
                 <td class="valid-status-cell">{valid_status_cell}</td>
+                <td class="swift-cell">{swift_cell}</td>
+                <td class="android-cell">{android_cell}</td>
+                <td class="automator-cell">{automator_cell}</td>
             </tr>
 """
     
@@ -763,6 +970,133 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
 """
     
     return html
+
+def generate_copy_xml_script(files_with_tag):
+    """
+    生成拷贝XML文件的shell脚本
+    对于所有iOS实现存在的游戏，生成拷贝命令
+    根据cpp文件的路径构建对应的XML源文件路径
+    """
+    script_lines = [
+        "#!/bin/bash",
+        "# 自动生成的拷贝XML脚本",
+        "# 生成时间: " + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        "",
+        "echo \"开始拷贝XML文件...\"",
+        ""
+    ]
+    
+    copy_count = 0
+    
+    for item in files_with_tag:
+        path = item[0]  # 相对路径，例如: "PuzzlesA/Puzzles/AbstractMirrorPainting.cpp"
+        filename = os.path.basename(path)
+        puzzle_name = os.path.splitext(filename)[0]
+        
+        # 只处理有效游戏名
+        if not is_valid_game_name(filename):
+            continue
+        
+        # 检查iOS实现是否存在
+        swift_exists, _ = check_swift_implementation(puzzle_name)
+        if not swift_exists:
+            continue
+        
+        # 从cpp路径构建XML源文件路径
+        # 例如: "PuzzlesA/Puzzles/AbstractMirrorPainting.cpp" 
+        # 转换为: "../PSL/PuzzlesA/Puzzles/AbstractMirrorPainting.xml"
+        
+        # 获取目录部分
+        dir_path = os.path.dirname(path)  # 例如: "PuzzlesA/Puzzles"
+        
+        # 构建源文件路径: ../PSL/ + dir_path + / + puzzle_name + .xml
+        source_file = f"../PSL/{dir_path}/{puzzle_name}.xml"
+        
+        # 目标文件: LogicPuzzlesSwift/Puzzles/游戏名/游戏名.xml
+        target_dir = f"LogicPuzzlesSwift/Puzzles/{puzzle_name}"
+        target_file = f"{target_dir}/{puzzle_name}.xml"
+        
+        # 添加拷贝命令
+        script_lines.append(f"# 拷贝 {puzzle_name} (来自: {dir_path})")
+        script_lines.append(f"mkdir -p {target_dir}")
+        script_lines.append(f"if [ -f \"{source_file}\" ]; then")
+        script_lines.append(f"    cp \"{source_file}\" \"{target_file}\"")
+        script_lines.append(f"    echo \"✓ 已拷贝: {puzzle_name}\"")
+        script_lines.append(f"else")
+        script_lines.append(f"    echo \"❌ 源文件不存在: {source_file}\"")
+        script_lines.append(f"fi")
+        script_lines.append("")
+        
+        copy_count += 1
+    
+    script_lines.append(f"echo \"\\n拷贝完成，共处理 {copy_count} 个游戏\"")
+    script_lines.append("")
+    
+    return "\n".join(script_lines), copy_count
+
+def generate_android_copy_xml_script(files_with_tag):
+    """
+    生成Android版本的拷贝XML文件的shell脚本
+    对于所有Android实现存在的游戏，生成拷贝命令
+    根据cpp文件的路径构建对应的XML源文件路径
+    目标: app/src/main/assets/xml/游戏名.xml
+    """
+    script_lines = [
+        "#!/bin/bash",
+        "# 自动生成的Android拷贝XML脚本",
+        "# 生成时间: " + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        "",
+        "echo \"开始拷贝XML文件到Android项目...\"",
+        ""
+    ]
+    
+    copy_count = 0
+    
+    for item in files_with_tag:
+        path = item[0]  # 相对路径，例如: "PuzzlesA/Puzzles/AbstractPainting.cpp"
+        filename = os.path.basename(path)
+        puzzle_name = os.path.splitext(filename)[0]
+        
+        # 只处理有效游戏名
+        if not is_valid_game_name(filename):
+            continue
+        
+        # 检查Android实现是否存在
+        android_exists, _ = check_android_implementation(puzzle_name)
+        if not android_exists:
+            continue
+        
+        # 从cpp路径构建XML源文件路径
+        # 例如: "PuzzlesA/Puzzles/AbstractPainting.cpp" 
+        # 转换为: "../PSL/PuzzlesA/Puzzles/AbstractPainting.xml"
+        
+        # 获取目录部分
+        dir_path = os.path.dirname(path)  # 例如: "PuzzlesA/Puzzles"
+        
+        # 构建源文件路径: ../PSL/ + dir_path + / + puzzle_name + .xml
+        source_file = f"../PSL/{dir_path}/{puzzle_name}.xml"
+        
+        # 目标文件: app/src/main/assets/xml/游戏名.xml
+        target_dir = "app/src/main/assets/xml"
+        target_file = f"{target_dir}/{puzzle_name}.xml"
+        
+        # 添加拷贝命令
+        script_lines.append(f"# 拷贝 {puzzle_name} (来自: {dir_path})")
+        script_lines.append(f"mkdir -p {target_dir}")
+        script_lines.append(f"if [ -f \"{source_file}\" ]; then")
+        script_lines.append(f"    cp \"{source_file}\" \"{target_file}\"")
+        script_lines.append(f"    echo \"✓ 已拷贝到Android: {puzzle_name}\"")
+        script_lines.append(f"else")
+        script_lines.append(f"    echo \"❌ 源文件不存在: {source_file}\"")
+        script_lines.append(f"fi")
+        script_lines.append("")
+        
+        copy_count += 1
+    
+    script_lines.append(f"echo \"\\nAndroid拷贝完成，共处理 {copy_count} 个游戏\"")
+    script_lines.append("")
+    
+    return "\n".join(script_lines), copy_count
 
 def main():
     """主函数"""
@@ -824,6 +1158,44 @@ def main():
     print(f"包含目标字符串: {len(files_with_tag)} 个文件")
     print(f"不包含目标字符串: {len(files_without_tag)} 个文件")
     print(f"有效游戏名总数: {len(valid_games)} 个")
+    
+    # 生成Swift版本的拷贝XML脚本
+    print("\n正在生成Swift版本拷贝XML脚本...")
+    script_content, swift_copy_count = generate_copy_xml_script(files_with_tag)
+    
+    # 写入shell脚本到 ../LogicPuzzlesSwift 目录
+    swift_script_path = os.path.join("..", "LogicPuzzlesSwift", "copy_puzzle_xml.sh")
+    
+    # 确保目标目录存在
+    os.makedirs(os.path.dirname(swift_script_path), exist_ok=True)
+    
+    with open(swift_script_path, 'w', encoding='utf-8') as f:
+        f.write(script_content)
+    
+    # 设置执行权限
+    os.chmod(swift_script_path, 0o755)
+    
+    print(f"Swift版本脚本已生成: {swift_script_path}")
+    print(f"共找到 {swift_copy_count} 个需要拷贝XML的游戏 (iOS实现)")
+    
+    # 生成Android版本的拷贝XML脚本
+    print("\n正在生成Android版本拷贝XML脚本...")
+    android_script_content, android_copy_count = generate_android_copy_xml_script(files_with_tag)
+    
+    # 写入shell脚本到 ../LogicPuzzlesAndroid 目录
+    android_script_path = os.path.join("..", "LogicPuzzlesAndroid", "copy_puzzle_xml.sh")
+    
+    # 确保目标目录存在
+    os.makedirs(os.path.dirname(android_script_path), exist_ok=True)
+    
+    with open(android_script_path, 'w', encoding='utf-8') as f:
+        f.write(android_script_content)
+    
+    # 设置执行权限
+    os.chmod(android_script_path, 0o755)
+    
+    print(f"Android版本脚本已生成: {android_script_path}")
+    print(f"共找到 {android_copy_count} 个需要拷贝XML的游戏 (Android实现)")
 
 if __name__ == "__main__":
     main()
