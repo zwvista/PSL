@@ -16,7 +16,7 @@ int main(int argc, char **argv)
         println("n3: Insane Tatamis");
         println("s: Island Connections");
         getline(cin, str);
-        if (str.empty()) solve_puz_InbetweenNurikabe();
+        if (str.empty()) solve_puz_IslandConnections();
         else if (str == "c") solve_puz_icedin();
         else if (str == "n1") solve_puz_InbetweenNurikabe();
         else if (str == "n2") solve_puz_InbetweenSumscrapers();
