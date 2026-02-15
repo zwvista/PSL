@@ -7,7 +7,7 @@ TR222
 01TR1
 Number of moves: 1
 Number of vertices examined: 2
-0.000814 [s]
+0.000817 [s]
 
 Level 2
 Sequence of moves: 
@@ -18,7 +18,7 @@ RT.11
 10.TR
 Number of moves: 2
 Number of vertices examined: 4
-0.000168 [s]
+8.9e-05 [s]
 
 Level 3
 Sequence of moves: 
@@ -29,7 +29,7 @@ TR2.2
 ...RT
 Number of moves: 2
 Number of vertices examined: 4
-0.000152 [s]
+9.4e-05 [s]
 
 Level 4
 Sequence of moves: 
@@ -40,7 +40,7 @@ R.T11
 2.1RT
 Number of moves: 4
 Number of vertices examined: 8
-0.000278 [s]
+0.00016 [s]
 
 Level 5
 Sequence of moves: 
@@ -51,7 +51,7 @@ T2R12
 .12RT
 Number of moves: 1
 Number of vertices examined: 2
-7.5e-05 [s]
+5.2e-05 [s]
 
 Level 6
 Sequence of moves: 
@@ -62,7 +62,7 @@ T..2R
 R1T.1
 Number of moves: 3
 Number of vertices examined: 5
-0.000145 [s]
+9.1e-05 [s]
 
 Level 7
 Sequence of moves: 
@@ -73,7 +73,7 @@ TR.2.
 .T21R
 Number of moves: 1
 Number of vertices examined: 2
-7.4e-05 [s]
+4.7e-05 [s]
 
 Level 8
 Sequence of moves: 
@@ -84,7 +84,7 @@ T2..R
 0TR.1
 Number of moves: 4
 Number of vertices examined: 9
-0.000327 [s]
+0.000174 [s]
 
 Level 9
 Sequence of moves: 
@@ -95,7 +95,7 @@ T2R.1
 RT01.
 Number of moves: 4
 Number of vertices examined: 5
-0.000138 [s]
+8.6e-05 [s]
 
 Level 10
 Sequence of moves: 
@@ -106,7 +106,7 @@ T12.R
 ..TR1
 Number of moves: 5
 Number of vertices examined: 9
-0.000218 [s]
+0.000142 [s]
 
 Level 11
 Sequence of moves: 
@@ -118,7 +118,7 @@ T2.1R2
 .2R.2T
 Number of moves: 3
 Number of vertices examined: 4
-0.000199 [s]
+0.000101 [s]
 
 Level 12
 Sequence of moves: 
@@ -130,7 +130,7 @@ T.R2.2
 R212T0
 Number of moves: 2
 Number of vertices examined: 3
-0.00013 [s]
+8.2e-05 [s]
 
 Level 13
 Sequence of moves: 
@@ -142,7 +142,7 @@ T22R..
 1RT.1.
 Number of moves: 3
 Number of vertices examined: 4
-0.000159 [s]
+9.8e-05 [s]
 
 Level 14
 Sequence of moves: 
@@ -154,7 +154,7 @@ T12R2.
 R2T0..
 Number of moves: 3
 Number of vertices examined: 5
-0.000165 [s]
+0.000108 [s]
 
 Level 15
 Sequence of moves: 
@@ -166,7 +166,7 @@ R1T1.0
 21R.T0
 Number of moves: 3
 Number of vertices examined: 5
-0.000177 [s]
+0.000117 [s]
 
 Level 16
 Sequence of moves: 
@@ -178,7 +178,7 @@ R2...T
 .1.0TR
 Number of moves: 2
 Number of vertices examined: 3
-0.00012 [s]
+0.000151 [s]
 
 Level 17
 Sequence of moves: 
@@ -190,7 +190,7 @@ TR1..2
 RT10..
 Number of moves: 1
 Number of vertices examined: 2
-9.1e-05 [s]
+6.3e-05 [s]
 
 Level 18
 Sequence of moves: 
@@ -202,7 +202,7 @@ R222.T
 1T2R.1
 Number of moves: 5
 Number of vertices examined: 7
-0.00041 [s]
+0.000151 [s]
 
 Level 19
 Sequence of moves: 
@@ -214,7 +214,7 @@ T22R.2
 0.1.TR
 Number of moves: 2
 Number of vertices examined: 3
-0.000228 [s]
+7.3e-05 [s]
 
 Level 20
 Sequence of moves: 
@@ -226,7 +226,7 @@ R12.T1
 .0T.1R
 Number of moves: 2
 Number of vertices examined: 3
-0.000178 [s]
+8.6e-05 [s]
 
 Level 21
 Sequence of moves: 
@@ -238,7 +238,7 @@ TR....
 12RT1.
 Number of moves: 1
 Number of vertices examined: 2
-0.000119 [s]
+6.1e-05 [s]
 
 Level 22
 Sequence of moves: 
@@ -250,7 +250,7 @@ T.R..1
 R1..T1
 Number of moves: 2
 Number of vertices examined: 3
-0.000154 [s]
+7.7e-05 [s]
 
 Level 23
 Sequence of moves: 
@@ -262,7 +262,7 @@ T.2..R
 0.TR.2
 Number of moves: 3
 Number of vertices examined: 6
-0.000244 [s]
+0.000189 [s]
 
 Level 24
 Sequence of moves: 
@@ -274,7 +274,7 @@ T.R.22
 112R2T
 Number of moves: 3
 Number of vertices examined: 4
-0.000173 [s]
+9.3e-05 [s]
 
 Level 25
 Sequence of moves: 
@@ -286,7 +286,7 @@ R22.T0
 .1.T.R
 Number of moves: 5
 Number of vertices examined: 6
-0.000255 [s]
+0.00013 [s]
 
 Level 26
 Sequence of moves: 
@@ -298,7 +298,7 @@ R22T..
 2RT..0
 Number of moves: 3
 Number of vertices examined: 6
-0.000252 [s]
+0.000123 [s]
 
 Level 27
 Sequence of moves: 
@@ -310,7 +310,7 @@ T1R..2
 1R11T1
 Number of moves: 1
 Number of vertices examined: 2
-0.000112 [s]
+5.5e-05 [s]
 
 Level 28
 Sequence of moves: 
@@ -322,7 +322,7 @@ R.2.T.
 1T.R11
 Number of moves: 3
 Number of vertices examined: 4
-0.000177 [s]
+8.6e-05 [s]
 
 Level 29
 Sequence of moves: 
@@ -334,7 +334,7 @@ T.222R
 R2.1.T
 Number of moves: 2
 Number of vertices examined: 3
-0.000155 [s]
+7.7e-05 [s]
 
 Level 30
 Sequence of moves: 
@@ -346,7 +346,7 @@ T12R..
 1.R22T
 Number of moves: 2
 Number of vertices examined: 3
-0.00014 [s]
+6.8e-05 [s]
 
 Level 31
 Sequence of moves: 
@@ -358,7 +358,7 @@ TR22.2
 .2RT0.
 Number of moves: 5
 Number of vertices examined: 15
-0.000572 [s]
+0.00027 [s]
 
 Level 32
 Sequence of moves: 
@@ -370,7 +370,7 @@ T2R1..
 RT1.1.
 Number of moves: 5
 Number of vertices examined: 8
-0.000343 [s]
+0.000157 [s]
 
 Level 33
 Sequence of moves: 
@@ -382,7 +382,7 @@ TR2...
 .T2..R
 Number of moves: 4
 Number of vertices examined: 7
-0.000269 [s]
+0.00013 [s]
 
 Level 34
 Sequence of moves: 
@@ -394,7 +394,7 @@ R.2T0.
 2RT.01
 Number of moves: 4
 Number of vertices examined: 5
-0.000352 [s]
+0.000104 [s]
 
 Level 35
 Sequence of moves: 
@@ -406,7 +406,7 @@ R2.T..
 1T...R
 Number of moves: 7
 Number of vertices examined: 14
-0.000424 [s]
+0.000242 [s]
 
 Level 36
 Sequence of moves: 
@@ -418,7 +418,7 @@ TR2..2
 0.T1R2
 Number of moves: 5
 Number of vertices examined: 9
-0.000269 [s]
+0.000166 [s]
 
 Level 37
 Sequence of moves: 
@@ -430,7 +430,7 @@ T.2R.2
 .1T1R1
 Number of moves: 3
 Number of vertices examined: 8
-0.000293 [s]
+0.000184 [s]
 
 Level 38
 Sequence of moves: 
@@ -442,7 +442,7 @@ R.1..T
 TR1.12
 Number of moves: 2
 Number of vertices examined: 11
-0.000324 [s]
+0.000204 [s]
 
 Level 39
 Sequence of moves: 
@@ -454,7 +454,7 @@ R2T.0.
 T1.2R.
 Number of moves: 5
 Number of vertices examined: 8
-0.000247 [s]
+0.000153 [s]
 
 Level 40
 Sequence of moves: 
@@ -466,7 +466,7 @@ T22.R2
 .R.2.T
 Number of moves: 5
 Number of vertices examined: 8
-0.000224 [s]
+0.00014 [s]
 
 Level 41
 Sequence of moves: 
@@ -479,7 +479,7 @@ R2T10.1
 T122.R1
 Number of moves: 5
 Number of vertices examined: 9
-0.000427 [s]
+0.000331 [s]
 
 Level 42
 Sequence of moves: 
@@ -492,7 +492,7 @@ R22..T.
 .2R.T0.
 Number of moves: 5
 Number of vertices examined: 9
-0.000394 [s]
+0.000392 [s]
 
 Level 43
 Sequence of moves: 
@@ -505,7 +505,7 @@ R..2..T
 1.TR.1.
 Number of moves: 6
 Number of vertices examined: 12
-0.000487 [s]
+0.000482 [s]
 
 Level 44
 Sequence of moves: 
@@ -531,7 +531,7 @@ T.R1...
 .T2..2R
 Number of moves: 5
 Number of vertices examined: 17
-0.000641 [s]
+0.000631 [s]
 
 Level 46
 Sequence of moves: 
@@ -544,7 +544,7 @@ T...R1.
 0T.R2.1
 Number of moves: 3
 Number of vertices examined: 5
-0.000264 [s]
+0.00022 [s]
 
 Level 47
 Sequence of moves: 
@@ -557,7 +557,7 @@ RT0..11
 1..0T.R
 Number of moves: 6
 Number of vertices examined: 11
-0.000517 [s]
+0.000366 [s]
 
 Level 48
 Sequence of moves: 
@@ -570,7 +570,7 @@ T..2R2.
 R.122.T
 Number of moves: 5
 Number of vertices examined: 14
-0.000556 [s]
+0.000441 [s]
 
 Level 49
 Sequence of moves: 
@@ -583,7 +583,7 @@ T.2.R.2
 ..1.TR1
 Number of moves: 1
 Number of vertices examined: 3
-0.000195 [s]
+0.000186 [s]
 
 Level 50
 Sequence of moves: 
@@ -596,7 +596,7 @@ T.2R..2
 .2R.1T0
 Number of moves: 2
 Number of vertices examined: 3
-0.00014 [s]
+0.000212 [s]
 
 Level 51
 Sequence of moves: 
@@ -609,7 +609,7 @@ T2..R22
 1R2..T0
 Number of moves: 4
 Number of vertices examined: 5
-0.00023 [s]
+0.000153 [s]
 
 Level 52
 Sequence of moves: 
@@ -622,7 +622,7 @@ T....R1
 0T21R2.
 Number of moves: 8
 Number of vertices examined: 11
-0.000366 [s]
+0.00023 [s]
 
 Level 53
 Sequence of moves: 
@@ -635,7 +635,7 @@ R.2..1T
 TR2.1.1
 Number of moves: 6
 Number of vertices examined: 28
-0.001154 [s]
+0.000635 [s]
 
 Level 54
 Sequence of moves: 
@@ -648,7 +648,7 @@ R122T..
 T..1.1R
 Number of moves: 8
 Number of vertices examined: 17
-0.000654 [s]
+0.000391 [s]
 
 Level 55
 Sequence of moves: 
@@ -661,7 +661,7 @@ T2..R2.
 0T.R.12
 Number of moves: 8
 Number of vertices examined: 28
-0.000958 [s]
+0.00054 [s]
 
 Level 56
 Sequence of moves: 
@@ -674,7 +674,7 @@ RT..0..
 .0T21R.
 Number of moves: 4
 Number of vertices examined: 5
-0.000184 [s]
+0.000122 [s]
 
 Level 57
 Sequence of moves: 
@@ -687,7 +687,7 @@ R1T.10.
 .00T2.R
 Number of moves: 1
 Number of vertices examined: 2
-0.000107 [s]
+6.9e-05 [s]
 
 Level 58
 Sequence of moves: 
@@ -700,7 +700,7 @@ T2..2R1
 .1R2.T1
 Number of moves: 6
 Number of vertices examined: 46
-0.001409 [s]
+0.000878 [s]
 
 Level 59
 Sequence of moves: 
@@ -713,7 +713,7 @@ R.T01..
 2..R1.T
 Number of moves: 9
 Number of vertices examined: 20
-0.000566 [s]
+0.00036 [s]
 
 Level 60
 Sequence of moves: 
@@ -726,7 +726,7 @@ R.T.101
 T1..2R.
 Number of moves: 4
 Number of vertices examined: 6
-0.000237 [s]
+0.000177 [s]
 
 Level 61
 Sequence of moves: 
@@ -740,7 +740,7 @@ RT0....0
 T112R22.
 Number of moves: 3
 Number of vertices examined: 5
-0.000227 [s]
+0.000155 [s]
 
 Level 62
 Sequence of moves: 
@@ -754,7 +754,7 @@ T2.R2.12
 1R2.T.0.
 Number of moves: 9
 Number of vertices examined: 26
-0.001142 [s]
+0.000557 [s]
 
 Level 63
 Sequence of moves: 
@@ -768,7 +768,7 @@ T.12222R
 11.R...T
 Number of moves: 7
 Number of vertices examined: 56
-0.002126 [s]
+0.001303 [s]
 
 Level 64
 Sequence of moves: 
@@ -782,7 +782,7 @@ T..R..2.
 R.1.T.01
 Number of moves: 8
 Number of vertices examined: 56
-0.001809 [s]
+0.001258 [s]
 
 Level 65
 Sequence of moves: 
@@ -796,7 +796,7 @@ T1..1.R.
 .....T2R
 Number of moves: 4
 Number of vertices examined: 8
-0.00037 [s]
+0.000268 [s]
 
 Level 66
 Sequence of moves: 
@@ -810,7 +810,7 @@ R.2.T.1.
 1.T122.R
 Number of moves: 7
 Number of vertices examined: 12
-0.000407 [s]
+0.000284 [s]
 
 Level 67
 Sequence of moves: 
@@ -824,7 +824,7 @@ T..2.22R
 ...2RT1.
 Number of moves: 7
 Number of vertices examined: 22
-0.000729 [s]
+0.000514 [s]
 
 Level 68
 Sequence of moves: 
@@ -838,7 +838,7 @@ T2R2...2
 1R.21T10
 Number of moves: 7
 Number of vertices examined: 12
-0.000416 [s]
+0.000297 [s]
 
 Level 69
 Sequence of moves: 
@@ -852,7 +852,7 @@ R.T.1...
 T1221.R2
 Number of moves: 7
 Number of vertices examined: 16
-0.000494 [s]
+0.000352 [s]
 
 Level 70
 Sequence of moves: 
@@ -866,7 +866,7 @@ T...22R.
 ...0.T2R
 Number of moves: 7
 Number of vertices examined: 15
-0.00059 [s]
+0.000418 [s]
 
 Level 71
 Sequence of moves: 
@@ -880,7 +880,7 @@ R.2T....
 2R1.T...
 Number of moves: 8
 Number of vertices examined: 21
-0.000653 [s]
+0.000452 [s]
 
 Level 72
 Sequence of moves: 
@@ -894,7 +894,7 @@ T....22R
 .2.R..1T
 Number of moves: 6
 Number of vertices examined: 40
-0.00123 [s]
+0.000854 [s]
 
 Level 73
 Sequence of moves: 
@@ -908,7 +908,7 @@ R.T.....
 T22.11R.
 Number of moves: 7
 Number of vertices examined: 22
-0.000732 [s]
+0.000502 [s]
 
 Level 74
 Sequence of moves: 
@@ -922,7 +922,7 @@ TR2.1...
 ..1.0.TR
 Number of moves: 8
 Number of vertices examined: 30
-0.000943 [s]
+0.000687 [s]
 
 Level 75
 Sequence of moves: 
@@ -936,7 +936,7 @@ R2..T...
 ...R2T.1
 Number of moves: 6
 Number of vertices examined: 11
-0.000329 [s]
+0.000264 [s]
 
 Level 76
 Sequence of moves: 
@@ -950,7 +950,7 @@ T...1R2.
 00TR.2.2
 Number of moves: 4
 Number of vertices examined: 8
-0.000358 [s]
+0.000193 [s]
 
 Level 77
 Sequence of moves: 
@@ -964,7 +964,7 @@ R.222..T
 T1.R.2.1
 Number of moves: 4
 Number of vertices examined: 11
-0.000367 [s]
+0.000264 [s]
 
 Level 78
 Sequence of moves: 
@@ -978,7 +978,7 @@ R..T.01.
 2R..2.T0
 Number of moves: 8
 Number of vertices examined: 16
-0.000492 [s]
+0.000363 [s]
 
 Level 79
 Sequence of moves: 
@@ -992,7 +992,7 @@ R12T...0
 TR11.211
 Number of moves: 11
 Number of vertices examined: 22
-0.000599 [s]
+0.000447 [s]
 
 Level 80
 Sequence of moves: 
@@ -1006,7 +1006,7 @@ T1.1.2.R
 1...R2T1
 Number of moves: 6
 Number of vertices examined: 12
-0.000357 [s]
+0.000284 [s]
 
 Level 81
 Sequence of moves: 
@@ -1020,7 +1020,7 @@ T2.R....
 .T.21.R2
 Number of moves: 6
 Number of vertices examined: 12
-0.000425 [s]
+0.000344 [s]
 
 Level 82
 Sequence of moves: 
@@ -1034,7 +1034,7 @@ T2.R2..2
 .TR2.2.1
 Number of moves: 8
 Number of vertices examined: 36
-0.000882 [s]
+0.000861 [s]
 
 Level 83
 Sequence of moves: 
@@ -1048,7 +1048,7 @@ R.2T.1..
 ..1.R2.T
 Number of moves: 7
 Number of vertices examined: 24
-0.000497 [s]
+0.000496 [s]
 
 Level 84
 Sequence of moves: 
@@ -1062,7 +1062,7 @@ RT.1.1..
 ..R.2.T0
 Number of moves: 8
 Number of vertices examined: 29
-0.000576 [s]
+0.000566 [s]
 
 Level 85
 Sequence of moves: 
@@ -1076,7 +1076,7 @@ R1.22.T.
 2..2RT.0
 Number of moves: 5
 Number of vertices examined: 17
-0.000439 [s]
+0.000433 [s]
 
 Level 86
 Sequence of moves: 
@@ -1090,7 +1090,7 @@ R.T...0.
 .1.1R.2T
 Number of moves: 5
 Number of vertices examined: 30
-0.000622 [s]
+0.000605 [s]
 
 Level 87
 Sequence of moves: 
@@ -1104,7 +1104,7 @@ R.2....T
 1.0T.2R2
 Number of moves: 10
 Number of vertices examined: 41
-0.000925 [s]
+0.000883 [s]
 
 Level 88
 Sequence of moves: 
@@ -1118,7 +1118,7 @@ T.222R.2
 R11.2T..
 Number of moves: 4
 Number of vertices examined: 6
-0.000185 [s]
+0.00018 [s]
 
 Level 89
 Sequence of moves: 
@@ -1132,7 +1132,7 @@ R.2.2T.1
 2.R.T.0.
 Number of moves: 7
 Number of vertices examined: 14
-0.00034 [s]
+0.000334 [s]
 
 Level 90
 Sequence of moves: 
@@ -1146,7 +1146,7 @@ R2..2.T.
 .1..R1.T
 Number of moves: 10
 Number of vertices examined: 244
-0.00424 [s]
+0.004236 [s]
 
 Level 91
 Sequence of moves: 
@@ -1161,7 +1161,7 @@ R222T.01.
 .RT..1.0.
 Number of moves: 6
 Number of vertices examined: 13
-0.000343 [s]
+0.000348 [s]
 
 Level 92
 Sequence of moves: 
@@ -1176,7 +1176,7 @@ T..22..1R
 .2R.2T.0.
 Number of moves: 9
 Number of vertices examined: 20
-0.00072 [s]
+0.000594 [s]
 
 Level 93
 Sequence of moves: 
@@ -1191,7 +1191,7 @@ R...1.T.1
 .0.T.1.2R
 Number of moves: 8
 Number of vertices examined: 16
-0.000458 [s]
+0.000527 [s]
 
 Level 94
 Sequence of moves: 
@@ -1206,7 +1206,7 @@ T.2.2R22.
 .1.T1.R1.
 Number of moves: 8
 Number of vertices examined: 18
-0.000544 [s]
+0.000638 [s]
 
 Level 95
 Sequence of moves: 
@@ -1221,7 +1221,7 @@ R1..2.T.1
 1.0.T.R..
 Number of moves: 11
 Number of vertices examined: 38
-0.001081 [s]
+0.000985 [s]
 
 Level 96
 Sequence of moves: 
@@ -1236,7 +1236,7 @@ T222.22R1
 .1...0T.R
 Number of moves: 4
 Number of vertices examined: 8
-0.000268 [s]
+0.000253 [s]
 
 Level 97
 Sequence of moves: 
@@ -1251,7 +1251,7 @@ T.R2.....
 ...0T22.R
 Number of moves: 3
 Number of vertices examined: 4
-0.000133 [s]
+0.000127 [s]
 
 Level 98
 Sequence of moves: 
@@ -1281,7 +1281,7 @@ TR.22...1
 1222.R1T0
 Number of moves: 10
 Number of vertices examined: 60
-0.001305 [s]
+0.001297 [s]
 
 Level 100
 Sequence of moves: 
@@ -1296,7 +1296,7 @@ T.2..R2..
 1..1R1T..
 Number of moves: 10
 Number of vertices examined: 43
-0.000976 [s]
+0.000967 [s]
 
 Level 101
 Sequence of moves: 
@@ -1311,7 +1311,7 @@ R.2..T1..
 .01T1R.21
 Number of moves: 10
 Number of vertices examined: 49
-0.001124 [s]
+0.001128 [s]
 
 Level 102
 Sequence of moves: 
@@ -1326,7 +1326,7 @@ T....R2.1
 RT1.1..1.
 Number of moves: 7
 Number of vertices examined: 151
-0.003157 [s]
+0.003149 [s]
 
 Level 103
 Sequence of moves: 
@@ -1341,7 +1341,7 @@ R..22.2T.
 T2R.....2
 Number of moves: 9
 Number of vertices examined: 59
-0.001478 [s]
+0.00151 [s]
 
 Level 104
 Sequence of moves: 
@@ -1356,7 +1356,7 @@ T..R....1
 ....1.RT1
 Number of moves: 6
 Number of vertices examined: 37
-0.000939 [s]
+0.000922 [s]
 
 Level 105
 Sequence of moves: 
@@ -1371,7 +1371,7 @@ RT11....1
 ..1.R.2T.
 Number of moves: 7
 Number of vertices examined: 67
-0.001571 [s]
+0.001582 [s]
 
 Level 106
 Sequence of moves: 
@@ -1386,7 +1386,7 @@ R....2T1.
 .T.1R2...
 Number of moves: 6
 Number of vertices examined: 19
-0.000518 [s]
+0.000511 [s]
 
 Level 107
 Sequence of moves: 
@@ -1401,7 +1401,7 @@ R..2..T..
 T..2R1.1.
 Number of moves: 10
 Number of vertices examined: 154
-0.003537 [s]
+0.003488 [s]
 
 Level 108
 Sequence of moves: 
@@ -1416,7 +1416,7 @@ T2R.121..
 .1.T1..2R
 Number of moves: 8
 Number of vertices examined: 17
-0.000646 [s]
+0.000515 [s]
 
 Level 109
 Sequence of moves: 
@@ -1431,7 +1431,7 @@ T2..R1...
 ..1T.21R.
 Number of moves: 7
 Number of vertices examined: 23
-0.000772 [s]
+0.000672 [s]
 
 Level 110
 Sequence of moves: 
@@ -1446,7 +1446,7 @@ T..22.R2.
 1R...T0..
 Number of moves: 9
 Number of vertices examined: 26
-0.000784 [s]
+0.000678 [s]
 
 Level 111
 Sequence of moves: 
@@ -1461,7 +1461,7 @@ T1.2.2.R2
 ..R1.2.1T
 Number of moves: 6
 Number of vertices examined: 148
-0.003359 [s]
+0.003324 [s]
 
 Level 112
 Sequence of moves: 
@@ -1476,7 +1476,7 @@ T2.R22..1
 0T1..R1..
 Number of moves: 12
 Number of vertices examined: 406
-0.009106 [s]
+0.009217 [s]
 
 Level 113
 Sequence of moves: 
@@ -1491,7 +1491,7 @@ T1R2...22
 1R..T0..1
 Number of moves: 8
 Number of vertices examined: 63
-0.001404 [s]
+0.001472 [s]
 
 Level 114
 Sequence of moves: 
@@ -1506,7 +1506,7 @@ RT1.1....
 .1..R..T1
 Number of moves: 5
 Number of vertices examined: 58
-0.001409 [s]
+0.001442 [s]
 
 Level 115
 Sequence of moves: 
@@ -1521,7 +1521,7 @@ T.1R..2.2
 1.R.2.2T.
 Number of moves: 8
 Number of vertices examined: 84
-0.001986 [s]
+0.001973 [s]
 
 Level 116
 Sequence of moves: 
@@ -1536,7 +1536,7 @@ R2.2..1T.
 ...T.2R.2
 Number of moves: 4
 Number of vertices examined: 83
-0.002192 [s]
+0.002013 [s]
 
 Level 117
 Sequence of moves: 
@@ -1551,7 +1551,7 @@ T.2..1.2R
 .....R.T.
 Number of moves: 8
 Number of vertices examined: 28
-0.000854 [s]
+0.000722 [s]
 
 Level 118
 Sequence of moves: 
@@ -1566,7 +1566,7 @@ R2T....01
 T...22.1R
 Number of moves: 12
 Number of vertices examined: 45
-0.00111 [s]
+0.001148 [s]
 
 Level 119
 Sequence of moves: 
@@ -1581,7 +1581,7 @@ T.....R..
 1..R2.21T
 Number of moves: 7
 Number of vertices examined: 16
-0.000511 [s]
+0.000545 [s]
 
 Level 120
 Sequence of moves: 
@@ -1596,7 +1596,7 @@ T......1R
 .10.T2R.2
 Number of moves: 9
 Number of vertices examined: 52
-0.001279 [s]
+0.001298 [s]
 
 Level 121
 Sequence of moves: 
@@ -1611,7 +1611,7 @@ R2...2.T1
 T122.2R.2
 Number of moves: 9
 Number of vertices examined: 49
-0.001368 [s]
+0.001144 [s]
 
 Level 122
 Sequence of moves: 
@@ -1626,7 +1626,7 @@ R..2T.0..
 ..TR1.2..
 Number of moves: 12
 Number of vertices examined: 119
-0.002433 [s]
+0.002374 [s]
 
 Level 123
 Sequence of moves: 
@@ -1641,7 +1641,7 @@ R....2T..
 T.R1.....
 Number of moves: 10
 Number of vertices examined: 35
-0.000901 [s]
+0.000888 [s]
 
 Level 124
 Sequence of moves: 
@@ -1656,7 +1656,7 @@ RT0..1...
 .0...T2R1
 Number of moves: 7
 Number of vertices examined: 93
-0.002156 [s]
+0.001956 [s]
 
 Level 125
 Sequence of moves: 
@@ -1671,7 +1671,7 @@ R..2.2.2T
 1.T.R..2.
 Number of moves: 8
 Number of vertices examined: 18
-0.000659 [s]
+0.000605 [s]
 
 Level 126
 Sequence of moves: 
@@ -1686,7 +1686,7 @@ R.22222T1
 T...2.R.2
 Number of moves: 8
 Number of vertices examined: 12
-0.000363 [s]
+0.000321 [s]
 
 Level 127
 Sequence of moves: 
@@ -1701,7 +1701,7 @@ R..T.0.1.
 1..0T...R
 Number of moves: 10
 Number of vertices examined: 187
-0.003998 [s]
+0.004242 [s]
 
 Level 128
 Sequence of moves: 
@@ -1716,7 +1716,7 @@ R22.T....
 T2..2.R2.
 Number of moves: 7
 Number of vertices examined: 22
-0.000627 [s]
+0.000729 [s]
 
 Level 129
 Sequence of moves: 
@@ -1731,7 +1731,7 @@ T..R2.2.1
 1..2.R2T.
 Number of moves: 7
 Number of vertices examined: 59
-0.001338 [s]
+0.001482 [s]
 
 Level 130
 Sequence of moves: 
@@ -1746,7 +1746,7 @@ R2T....1.
 2R.T....0
 Number of moves: 12
 Number of vertices examined: 240
-0.005219 [s]
+0.005389 [s]
 
 Level 131
 Sequence of moves: 
@@ -1761,7 +1761,7 @@ T1.....1R
 .1R.2.T..
 Number of moves: 9
 Number of vertices examined: 52
-0.001279 [s]
+0.001394 [s]
 
 Level 132
 Sequence of moves: 
@@ -1776,7 +1776,7 @@ R.....1.T
 2....R.T0
 Number of moves: 8
 Number of vertices examined: 16
-0.00072 [s]
+0.000746 [s]
 
 Level 133
 Sequence of moves: 
@@ -1791,7 +1791,7 @@ T...1.R.1
 .....R2T0
 Number of moves: 9
 Number of vertices examined: 328
-0.007011 [s]
+0.006834 [s]
 
 Level 134
 Sequence of moves: 
@@ -1806,7 +1806,7 @@ R..2..T..
 21.2RT...
 Number of moves: 11
 Number of vertices examined: 962
-0.020347 [s]
+0.02075 [s]
 
 Level 135
 Sequence of moves: 
@@ -1821,7 +1821,7 @@ T..2...2R
 1.R1T..1.
 Number of moves: 10
 Number of vertices examined: 58
-0.001479 [s]
+0.00152 [s]
 
 Level 136
 Sequence of moves: 
@@ -1836,7 +1836,7 @@ RT.1.....
 .1.R..T..
 Number of moves: 11
 Number of vertices examined: 36
-0.000785 [s]
+0.000768 [s]
 
 Level 137
 Sequence of moves: 
@@ -1851,7 +1851,7 @@ T..R....1
 .2R2T0..1
 Number of moves: 11
 Number of vertices examined: 296
-0.006352 [s]
+0.006056 [s]
 
 Level 138
 Sequence of moves: 
@@ -1866,7 +1866,7 @@ R.22.T.1.
 ..R...2T.
 Number of moves: 11
 Number of vertices examined: 171
-0.003709 [s]
+0.003734 [s]
 
 Level 139
 Sequence of moves: 
@@ -1881,7 +1881,7 @@ TR.2...2.
 R...2...T
 Number of moves: 7
 Number of vertices examined: 34
-0.000811 [s]
+0.000831 [s]
 
 Level 140
 Sequence of moves: 
@@ -1896,7 +1896,7 @@ T2R..2...
 1R.2.T..1
 Number of moves: 9
 Number of vertices examined: 50
-0.00109 [s]
+0.001104 [s]
 
 Level 141
 Sequence of moves: 
@@ -1911,7 +1911,7 @@ R.2T.1...
 T2...R.1.
 Number of moves: 7
 Number of vertices examined: 350
-0.007215 [s]
+0.007355 [s]
 
 Level 142
 Sequence of moves: 
@@ -1926,7 +1926,7 @@ T2...R..2
 1..R2.T..
 Number of moves: 10
 Number of vertices examined: 217
-0.004238 [s]
+0.004182 [s]
 
 Level 143
 Sequence of moves: 
@@ -1941,7 +1941,7 @@ T.1.....R
 ...2RT1..
 Number of moves: 11
 Number of vertices examined: 294
-0.006545 [s]
+0.005834 [s]
 
 Level 144
 Sequence of moves: 
@@ -1956,7 +1956,7 @@ T2..2.R.2
 ...1R...T
 Number of moves: 11
 Number of vertices examined: 2509
-0.050957 [s]
+0.05016 [s]
 
 Level 145
 Sequence of moves: 
@@ -1971,7 +1971,7 @@ T.2.22.R1
 ...RT.0..
 Number of moves: 10
 Number of vertices examined: 2214
-0.040646 [s]
+0.039575 [s]
 
 Level 146
 Sequence of moves: 
@@ -1986,7 +1986,7 @@ TR22.2..1
 R.....2T1
 Number of moves: 8
 Number of vertices examined: 37
-0.000975 [s]
+0.000941 [s]
 
 Level 147
 Sequence of moves: 
@@ -2001,7 +2001,7 @@ R.T...1..
 T1R2.....
 Number of moves: 8
 Number of vertices examined: 451
-0.008867 [s]
+0.008679 [s]
 
 Level 148
 Sequence of moves: 
@@ -2016,7 +2016,7 @@ T..2R....
 1.1.2.R1T
 Number of moves: 8
 Number of vertices examined: 368
-0.007611 [s]
+0.007644 [s]
 
 Level 149
 Sequence of moves: 
@@ -2031,7 +2031,7 @@ RT....1..
 T1...R1..
 Number of moves: 10
 Number of vertices examined: 302
-0.005872 [s]
+0.006101 [s]
 
 Level 150
 Sequence of moves: 
@@ -2046,7 +2046,7 @@ R.2.2T10.
 ..RT.0.1.
 Number of moves: 10
 Number of vertices examined: 167
-0.003402 [s]
+0.00351 [s]
 
 Level 151
 Sequence of moves: 
@@ -2061,7 +2061,7 @@ TR2....1.
 ...2R.1.T
 Number of moves: 10
 Number of vertices examined: 50
-0.001279 [s]
+0.001415 [s]
 
 Level 152
 Sequence of moves: 
@@ -2076,7 +2076,7 @@ T1.2R.2.2
 ...1.0TR2
 Number of moves: 9
 Number of vertices examined: 410
-0.007582 [s]
+0.007856 [s]
 
 Level 153
 Sequence of moves: 
@@ -2091,7 +2091,7 @@ T..2R22..
 0T.2.R2..
 Number of moves: 7
 Number of vertices examined: 166
-0.003557 [s]
+0.003627 [s]
 
 Level 154
 Sequence of moves: 
@@ -2106,7 +2106,7 @@ R2.2T..1.
 1T1...R..
 Number of moves: 7
 Number of vertices examined: 64
-0.00144 [s]
+0.001293 [s]
 
 Level 155
 Sequence of moves: 
@@ -2121,7 +2121,7 @@ R.1..1T..
 T..1...R.
 Number of moves: 10
 Number of vertices examined: 726
-0.013847 [s]
+0.013439 [s]
 
 Level 156
 Sequence of moves: 
@@ -2136,7 +2136,7 @@ T..1R....
 R2.2.T0.0
 Number of moves: 6
 Number of vertices examined: 12
-0.000363 [s]
+0.000371 [s]
 
 Level 157
 Sequence of moves: 
@@ -2151,7 +2151,7 @@ R2T..1.0.
 .....TR.1
 Number of moves: 10
 Number of vertices examined: 476
-0.008875 [s]
+0.008722 [s]
 
 Level 158
 Sequence of moves: 
@@ -2166,7 +2166,7 @@ T.22...R2
 .1.R1..T.
 Number of moves: 9
 Number of vertices examined: 363
-0.007979 [s]
+0.007975 [s]
 
 Level 159
 Sequence of moves: 
@@ -2181,7 +2181,7 @@ R.2....T.
 T.2.R.21.
 Number of moves: 9
 Number of vertices examined: 728
-0.013391 [s]
+0.012979 [s]
 
 Level 160
 Sequence of moves: 
@@ -2196,11 +2196,23 @@ T....R...
 ...1T.R..
 Number of moves: 10
 Number of vertices examined: 376
-0.007351 [s]
+0.007305 [s]
 
 Level 161
-Number of vertices examined: 5
-0.000229 [s]
+Sequence of moves: 
+..RT.1..0.
+1R22.22T.0
+...2.R22T.
+0.1.T2R...
+...R2.T..0
+T..2R.122.
+2....2..RT
+.T2......R
+1.T..2.R22
+R...2T....
+Number of moves: 9
+Number of vertices examined: 28
+0.001001 [s]
 
 Level 162
 Sequence of moves: 
@@ -2216,7 +2228,7 @@ R222..2.T.
 .1R2.2T..1
 Number of moves: 12
 Number of vertices examined: 281
-0.006699 [s]
+0.006593 [s]
 
 Level 163
 Sequence of moves: 
@@ -2232,7 +2244,7 @@ R1..2T...1
 ..0.T1R...
 Number of moves: 13
 Number of vertices examined: 5346
-0.121409 [s]
+0.119178 [s]
 
 Level 164
 Sequence of moves: 
@@ -2248,7 +2260,7 @@ R...1.1T..
 ...R1T.1..
 Number of moves: 10
 Number of vertices examined: 351
-0.008383 [s]
+0.008535 [s]
 
 Level 165
 Sequence of moves: 
@@ -2264,15 +2276,39 @@ R..2...2T.
 1.T.1..2R.
 Number of moves: 13
 Number of vertices examined: 582
-0.013714 [s]
+0.01355 [s]
 
 Level 166
-Number of vertices examined: 1454
-0.035303 [s]
+Sequence of moves: 
+.R...2T...
+1T....R2.1
+1.1T.R22..
+R....2...T
+2.R21T1...
+21.RT....1
+2.2.2..RT1
+.....0.TR.
+T..2R.2...
+0.T.2...2R
+Number of moves: 13
+Number of vertices examined: 1175
+0.028779 [s]
 
 Level 167
-Number of vertices examined: 711
-0.018029 [s]
+Sequence of moves: 
+1T1.R22..1
+R2T.1...1.
+...1.R.2.T
+...T222R..
+..1..T22R2
+...2..RT..
+T2..2.21.R
+1R2...2.T1
+.2R2T.....
+.2.R1.T..1
+Number of moves: 9
+Number of vertices examined: 265
+0.006529 [s]
 
 Level 168
 Sequence of moves: 
@@ -2288,7 +2324,7 @@ R..1...T..
 T.1.2R1...
 Number of moves: 8
 Number of vertices examined: 59
-0.001548 [s]
+0.001455 [s]
 
 Level 169
 Sequence of moves: 
@@ -2304,7 +2340,7 @@ T12.R.....
 ..T2.1R.2.
 Number of moves: 12
 Number of vertices examined: 150
-0.003845 [s]
+0.003769 [s]
 
 Level 170
 Sequence of moves: 
@@ -2320,11 +2356,23 @@ RT1..1..1.
 1.T2R.2..1
 Number of moves: 11
 Number of vertices examined: 445
-0.010522 [s]
+0.009871 [s]
 
 Level 171
-Number of vertices examined: 1
-4.7e-05 [s]
+Sequence of moves: 
+.2..R.2..T
+....T...2R
+0...0T..R2
+T2R1....2.
+R22T0..0.1
+.R.....T..
+.222.2R2T1
+.22..RT...
+1T2R.2..1.
+.0T2.2.R..
+Number of moves: 6
+Number of vertices examined: 22
+0.000673 [s]
 
 Level 172
 Sequence of moves: 
@@ -2340,15 +2388,39 @@ R.2.T.....
 2RT1......
 Number of moves: 11
 Number of vertices examined: 1228
-0.029192 [s]
+0.027695 [s]
 
 Level 173
-Number of vertices examined: 24
-0.000907 [s]
+Sequence of moves: 
+0T..R.2...
+...0T..R1.
+1R2T......
+..2R...2T0
+..221.RT..
+.2R..T10..
+...2.R...T
+T.2.12..R2
+.1T..2..2R
+R.1...T...
+Number of moves: 10
+Number of vertices examined: 271
+0.00642 [s]
 
 Level 174
-Number of vertices examined: 307
-0.0067 [s]
+Sequence of moves: 
+2.R1.1T.1.
+..1T2.22R1
+....1T2R..
+2R2.....2T
+.T2.R.....
+R..2T..1.1
+1.T......R
+T..2.2R..2
+.1.2.R.2T1
+1.1R1.2T0.
+Number of moves: 11
+Number of vertices examined: 319
+0.007913 [s]
 
 Level 175
 Sequence of moves: 
@@ -2364,7 +2436,7 @@ T........R
 R1T.0.....
 Number of moves: 12
 Number of vertices examined: 125
-0.003316 [s]
+0.003215 [s]
 
 Level 176
 Sequence of moves: 
@@ -2380,7 +2452,7 @@ R.....T..1
 ..0.1T2.R1
 Number of moves: 10
 Number of vertices examined: 317
-0.008072 [s]
+0.007904 [s]
 
 Level 177
 Sequence of moves: 
@@ -2396,7 +2468,7 @@ T2.21.2.R2
 .2RT0..0..
 Number of moves: 9
 Number of vertices examined: 37
-0.001075 [s]
+0.001055 [s]
 
 Level 178
 Sequence of moves: 
@@ -2412,11 +2484,23 @@ T22.2.2R.2
 0T2...R2.2
 Number of moves: 12
 Number of vertices examined: 25
-0.000817 [s]
+0.000824 [s]
 
 Level 179
-Number of vertices examined: 72
-0.001614 [s]
+Sequence of moves: 
+0.0T.2R2..
+T..2.R.2..
+2RT.0.1..1
+.T.....R1.
+..2R1..2T.
+R.22...T..
+.0..T221.R
+..R.2T1.1.
+.1..R1...T
+1.1...T1R.
+Number of moves: 13
+Number of vertices examined: 38
+0.001214 [s]
 
 Level 180
 Sequence of moves: 
@@ -2432,11 +2516,23 @@ T2..1..R22
 1..2.R.1T.
 Number of moves: 10
 Number of vertices examined: 167
-0.003877 [s]
+0.00383 [s]
 
 Level 181
-Number of vertices examined: 72
-0.00192 [s]
+Sequence of moves: 
+.0..0..TR2
+.T1.1....R
+...T..R..2
+R.12T.1...
+TR...1.2..
+.2.R.T1..1
+.....R...T
+12...22RT0
+..T2R222..
+1.R.2.T1..
+Number of moves: 9
+Number of vertices examined: 588
+0.014139 [s]
 
 Level 182
 Sequence of moves: 
@@ -2452,15 +2548,39 @@ T....R2..1
 .T..2.1R2.
 Number of moves: 11
 Number of vertices examined: 216
-0.005328 [s]
+0.005263 [s]
 
 Level 183
-Number of vertices examined: 1288
-0.029205 [s]
+Sequence of moves: 
+T.1.R1....
+2RT.1..0..
+.2R1.T....
+...T22R1..
+...1...T1R
+.T...R....
+2....2.RT1
+R.22.2T1..
+...R.2.22T
+.0..T...R1
+Number of moves: 8
+Number of vertices examined: 1504
+0.032368 [s]
 
 Level 184
-Number of vertices examined: 68
-0.001802 [s]
+Sequence of moves: 
+....0T1R.2
+.R..T..1..
+0.0T22...R
+..T.R.1..2
+T.222R....
+2.R22.1.T.
+2..22...RT
+.2.R2.T1.0
+R..22..T1.
+.T.22.R..1
+Number of moves: 12
+Number of vertices examined: 27
+0.00081 [s]
 
 Level 185
 Sequence of moves: 
@@ -2476,7 +2596,7 @@ T....R.1..
 0TR..2...2
 Number of moves: 8
 Number of vertices examined: 47
-0.001339 [s]
+0.001307 [s]
 
 Level 186
 Sequence of moves: 
@@ -2492,7 +2612,7 @@ T.....2..R
 1R.2..2.T1
 Number of moves: 11
 Number of vertices examined: 40
-0.001079 [s]
+0.001154 [s]
 
 Level 187
 Sequence of moves: 
@@ -2508,7 +2628,7 @@ R2...2T.0.
 .1..T2R2..
 Number of moves: 11
 Number of vertices examined: 283
-0.00677 [s]
+0.00654 [s]
 
 Level 188
 Sequence of moves: 
@@ -2524,7 +2644,7 @@ T..1..1R.2
 1R.22...T.
 Number of moves: 13
 Number of vertices examined: 2593
-0.055791 [s]
+0.05585 [s]
 
 Level 189
 Sequence of moves: 
@@ -2540,7 +2660,7 @@ R.T1.1..1-48
 TR.2.22.1.
 Number of moves: 11
 Number of vertices examined: 485
-0.011626 [s]
+0.011397 [s]
 
 Level 190
 Sequence of moves: 
@@ -2556,7 +2676,7 @@ R..2T...1-48
 .T..1.2R2.
 Number of moves: 11
 Number of vertices examined: 188
-0.004457 [s]
+0.004583 [s]
 
 Level 191
 Sequence of moves: 
@@ -2572,7 +2692,7 @@ T.222...1R
 R1...T0...
 Number of moves: 10
 Number of vertices examined: 81
-0.002239 [s]
+0.0022 [s]
 
 Level 192
 Sequence of moves: 
@@ -2588,7 +2708,7 @@ RT.1.....1
 T....R....
 Number of moves: 10
 Number of vertices examined: 1568
-0.034389 [s]
+0.034436 [s]
 
 Level 193
 Sequence of moves: 
@@ -2604,7 +2724,7 @@ R.2.T0...1
 T2.2....R1
 Number of moves: 10
 Number of vertices examined: 111
-0.002438 [s]
+0.002484 [s]
 
 Level 194
 Sequence of moves: 
@@ -2620,7 +2740,7 @@ T.1....R1.
 0T....R2.2
 Number of moves: 12
 Number of vertices examined: 4891
-0.107854 [s]
+0.104742 [s]
 
 Level 195
 Sequence of moves: 
@@ -2636,7 +2756,7 @@ R.22T0.1..
 .....0.0TR
 Number of moves: 8
 Number of vertices examined: 147
-0.003375 [s]
+0.00322 [s]
 
 Level 196
 Sequence of moves: 
@@ -2652,7 +2772,7 @@ T..2.R2.2.
 0T22..R...
 Number of moves: 10
 Number of vertices examined: 478
-0.012309 [s]
+0.011838 [s]
 
 Level 197
 Sequence of moves: 
@@ -2668,7 +2788,7 @@ T......R2.
 1.2..2R.T1
 Number of moves: 8
 Number of vertices examined: 259
-0.00588 [s]
+0.006154 [s]
 
 Level 198
 Sequence of moves: 
@@ -2684,7 +2804,7 @@ T...2...2R
 ..1R....2T
 Number of moves: 13
 Number of vertices examined: 2862
-0.064604 [s]
+0.062811 [s]
 
 Level 199
 Sequence of moves: 
@@ -2700,7 +2820,7 @@ T...22R...
 0....1T..R
 Number of moves: 10
 Number of vertices examined: 618
-0.015005 [s]
+0.015588 [s]
 
 Level 200
 Sequence of moves: 
@@ -2716,7 +2836,7 @@ R...T1..1.
 ...T..2.2R
 Number of moves: 13
 Number of vertices examined: 210
-0.004913 [s]
+0.005003 [s]
 
 Level 201
 Sequence of moves: 
@@ -2733,7 +2853,7 @@ T2R.2....22
 ..2.2R.2T..
 Number of moves: 13
 Number of vertices examined: 54
-0.001928 [s]
+0.001739 [s]
 
 Level 202
 Sequence of moves: 
@@ -2750,7 +2870,7 @@ TR..2....2.
 0....0TR.2.
 Number of moves: 12
 Number of vertices examined: 57
-0.002 [s]
+0.001739 [s]
 
 Level 203
 Sequence of moves: 
@@ -2767,7 +2887,7 @@ T..R..1.2.2
 ..2.R..21.T
 Number of moves: 12
 Number of vertices examined: 3268
-0.076819 [s]
+0.074024 [s]
 
 Level 204
 Sequence of moves: 
@@ -2784,7 +2904,7 @@ T.22...12R1
 1R22T.1....
 Number of moves: 11
 Number of vertices examined: 4247
-0.11194 [s]
+0.111905 [s]
 
 Level 205
 Sequence of moves: 
@@ -2801,7 +2921,7 @@ T.1R..2....
 1..2.22.RT0
 Number of moves: 12
 Number of vertices examined: 1144
-0.030235 [s]
+0.029935 [s]
 
 Level 206
 Sequence of moves: 
@@ -2818,7 +2938,7 @@ R2222T0....
 1.0T..R.1.1
 Number of moves: 10
 Number of vertices examined: 62
-0.001777 [s]
+0.001782 [s]
 
 Level 207
 Sequence of moves: 
@@ -2835,7 +2955,7 @@ R.2T0.....1
 TR1.2......
 Number of moves: 12
 Number of vertices examined: 847
-0.023895 [s]
+0.023272 [s]
 
 Level 208
 Sequence of moves: 
@@ -2852,7 +2972,7 @@ T.2.2.R...2
 R.11T1.0...
 Number of moves: 15
 Number of vertices examined: 90
-0.002772 [s]
+0.002635 [s]
 
 Level 209
 Sequence of moves: 
@@ -2869,7 +2989,7 @@ T2.2..22.R.
 R1.22.T11..
 Number of moves: 12
 Number of vertices examined: 5774
-0.152589 [s]
+0.152058 [s]
 
 Level 210
 Sequence of moves: 
@@ -2886,7 +3006,7 @@ TR2222..2..
 ..1T...R.1.
 Number of moves: 13
 Number of vertices examined: 78
-0.002532 [s]
+0.002722 [s]
 
 Level 211
 Sequence of moves: 
@@ -2903,7 +3023,7 @@ R.......T1.
 2.R2.T1.0.0
 Number of moves: 15
 Number of vertices examined: 184
-0.004878 [s]
+0.004637 [s]
 
 Level 212
 Sequence of moves: 
@@ -2920,7 +3040,7 @@ R22222.22T.
 .R...T1.1..
 Number of moves: 14
 Number of vertices examined: 1657
-0.047112 [s]
+0.045751 [s]
 
 Level 213
 Sequence of moves: 
@@ -2937,7 +3057,7 @@ TR.....2.2.
 ..0...TR1.1
 Number of moves: 14
 Number of vertices examined: 110
-0.002647 [s]
+0.002649 [s]
 
 Level 214
 Sequence of moves: 
@@ -2954,7 +3074,7 @@ T.R2..2....
 0..0T.2.R..
 Number of moves: 12
 Number of vertices examined: 516
-0.014557 [s]
+0.014378 [s]
 
 Level 215
 Sequence of moves: 
@@ -2971,7 +3091,7 @@ T.......R..
 .0.T.2.R...
 Number of moves: 6
 Number of vertices examined: 125
-0.003928 [s]
+0.004315 [s]
 
 Level 216
 Sequence of moves: 
@@ -2988,7 +3108,7 @@ R...T0...1.
 .T.21..R2.2
 Number of moves: 13
 Number of vertices examined: 26
-0.001071 [s]
+0.001108 [s]
 
 Level 217
 Sequence of moves: 
@@ -3005,7 +3125,7 @@ RT..0.1..0.
 .2RT......1
 Number of moves: 14
 Number of vertices examined: 762
-0.018897 [s]
+0.018544 [s]
 
 Level 218
 Sequence of moves: 
@@ -3022,7 +3142,7 @@ T.....R2..2
 0T.1R.22..1
 Number of moves: 15
 Number of vertices examined: 837
-0.021117 [s]
+0.020187 [s]
 
 Level 219
 Sequence of moves: 
@@ -3039,7 +3159,7 @@ R.22....T1.
 1.1T1.1.1R.
 Number of moves: 16
 Number of vertices examined: 10302
-0.288006 [s]
+0.279317 [s]
 
 Level 220
 Sequence of moves: 
@@ -3056,7 +3176,7 @@ T2R2......2
 0T22..R.2.2
 Number of moves: 12
 Number of vertices examined: 909
-0.022094 [s]
+0.020428 [s]
 
 Level 221
 Sequence of moves: 
@@ -3073,7 +3193,7 @@ T..R2....2.
 ...22R.T0..
 Number of moves: 13
 Number of vertices examined: 1046
-0.030097 [s]
+0.026315 [s]
 
 Level 222
 Sequence of moves: 
@@ -3090,7 +3210,7 @@ T......R..2
 ...2R2..T.1
 Number of moves: 14
 Number of vertices examined: 16075
-0.4127 [s]
+0.3962 [s]
 
 Level 223
 Sequence of moves: 
@@ -3107,7 +3227,7 @@ R.T1.0.....
 ..R1..T...0
 Number of moves: 11
 Number of vertices examined: 1520
-0.036703 [s]
+0.035065 [s]
 
 Level 224
 Sequence of moves: 
@@ -3124,7 +3244,7 @@ T2..22.R2..
 ..1..T..R..
 Number of moves: 11
 Number of vertices examined: 223
-0.005677 [s]
+0.005273 [s]
 
 Level 225
 Sequence of moves: 
@@ -3141,7 +3261,7 @@ T.2...R2...
 R2..2.2.T1.
 Number of moves: 15
 Number of vertices examined: 8939
-0.218617 [s]
+0.209021 [s]
 
 Level 226
 Sequence of moves: 
@@ -3158,7 +3278,7 @@ R.....T...1
 ..R1T...0.1
 Number of moves: 11
 Number of vertices examined: 968
-0.023286 [s]
+0.022516 [s]
 
 Level 227
 Sequence of moves: 
@@ -3175,7 +3295,7 @@ R.....T1..0
 2R2..2.T...
 Number of moves: 12
 Number of vertices examined: 82
-0.001923 [s]
+0.001934 [s]
 
 Level 228
 Sequence of moves: 
@@ -3192,7 +3312,7 @@ T11.2.1..2R
 0.0.....TR.
 Number of moves: 11
 Number of vertices examined: 3873
-0.101249 [s]
+0.094706 [s]
 
 Level 229
 Sequence of moves: 
@@ -3209,7 +3329,7 @@ T2R.2.....2
 ....T.2R2..
 Number of moves: 11
 Number of vertices examined: 2766
-0.062929 [s]
+0.060166 [s]
 
 Level 230
 Sequence of moves: 
@@ -3226,7 +3346,7 @@ R..222.2T1.
 .1TR.2.....
 Number of moves: 12
 Number of vertices examined: 326
-0.009442 [s]
+0.009266 [s]
 
 Level 231
 Sequence of moves: 
@@ -3243,7 +3363,7 @@ R.1......T.
 ..0..TR...2
 Number of moves: 13
 Number of vertices examined: 1418
-0.037636 [s]
+0.03647 [s]
 
 Level 232
 Sequence of moves: 
@@ -3260,7 +3380,7 @@ T1......2R.
 0.1.T.....R
 Number of moves: 12
 Number of vertices examined: 34112
-0.852465 [s]
+0.824609 [s]
 
 Level 233
 Sequence of moves: 
@@ -3277,7 +3397,7 @@ T2.R2...2.2
 0.T..R.2...
 Number of moves: 10
 Number of vertices examined: 276
-0.006711 [s]
+0.00665 [s]
 
 Level 234
 Sequence of moves: 
@@ -3294,7 +3414,7 @@ T....R.1.2.
 R2.2..T.0..
 Number of moves: 13
 Number of vertices examined: 12415
-0.318255 [s]
+0.311465 [s]
 
 Level 235
 Sequence of moves: 
@@ -3311,7 +3431,7 @@ R.T..0.....
 .2R1..2.2.T
 Number of moves: 13
 Number of vertices examined: 311
-0.007834 [s]
+0.007711 [s]
 
 Level 236
 Sequence of moves: 
@@ -3328,7 +3448,7 @@ R2.1..T....
 1.0.TR..2..
 Number of moves: 11
 Number of vertices examined: 5941
-0.146854 [s]
+0.144376 [s]
 
 Level 237
 Sequence of moves: 
@@ -3345,7 +3465,7 @@ T.2..2R..2.
 R...T......
 Number of moves: 10
 Number of vertices examined: 366
-0.009275 [s]
+0.009309 [s]
 
 Level 238
 Sequence of moves: 
@@ -3362,7 +3482,7 @@ TR...22.2.1
 RT1.....0..
 Number of moves: 14
 Number of vertices examined: 1367
-0.039647 [s]
+0.03787 [s]
 
 Level 239
 Sequence of moves: 
@@ -3379,7 +3499,7 @@ T...1...R..
 RT0..0.1...
 Number of moves: 13
 Number of vertices examined: 286
-0.007897 [s]
+0.007765 [s]
 
 Level 240
 Sequence of moves: 
@@ -3396,7 +3516,7 @@ T.222R...2.
 .R2T...1...
 Number of moves: 14
 Number of vertices examined: 3140
-0.080575 [s]
+0.079312 [s]
 
 Level 241
 Sequence of moves: 
@@ -3413,7 +3533,7 @@ R.2.T.1....
 .2R.2..1.T.
 Number of moves: 12
 Number of vertices examined: 14149
-0.336134 [s]
+0.331493 [s]
 
 Level 242
 Sequence of moves: 
@@ -3430,7 +3550,7 @@ T22R......1
 ..2..R1T0..
 Number of moves: 12
 Number of vertices examined: 3067
-0.075643 [s]
+0.074048 [s]
 
 Level 243
 Sequence of moves: 
@@ -3447,7 +3567,7 @@ RT1....0...
 T2..R.1....
 Number of moves: 13
 Number of vertices examined: 429
-0.00983 [s]
+0.009215 [s]
 
 Level 244
 Sequence of moves: 
@@ -3464,7 +3584,7 @@ T..2..2..R.
 .....1.0T2R
 Number of moves: 15
 Number of vertices examined: 33
-0.001291 [s]
+0.001229 [s]
 
 Level 245
 Sequence of moves: 
@@ -3481,7 +3601,7 @@ T2.2.222R2.
 R....2T.1..
 Number of moves: 14
 Number of vertices examined: 3898
-0.086645 [s]
+0.082478 [s]
 
 Level 246
 Sequence of moves: 
@@ -3498,7 +3618,7 @@ T2.2...R2.1
 1..222R2T..
 Number of moves: 13
 Number of vertices examined: 645
-0.018309 [s]
+0.016704 [s]
 
 Level 247
 Sequence of moves: 
@@ -3515,7 +3635,7 @@ R2.2.....T.
 22.RT...0..
 Number of moves: 12
 Number of vertices examined: 374
-0.009211 [s]
+0.009017 [s]
 
 Level 248
 Sequence of moves: 
@@ -3532,7 +3652,7 @@ T..R.......
 RT..1..1.1.
 Number of moves: 13
 Number of vertices examined: 433
-0.013212 [s]
+0.012304 [s]
 
 Level 249
 Sequence of moves: 
@@ -3549,7 +3669,7 @@ T...1.....R
 1R2....T1..
 Number of moves: 13
 Number of vertices examined: 18626
-0.478089 [s]
+0.467866 [s]
 
 Level 250
 Sequence of moves: 
@@ -3566,7 +3686,7 @@ T22R2.....2
 ..T2.1...R.
 Number of moves: 10
 Number of vertices examined: 14074
-0.312445 [s]
+0.310848 [s]
 
 Level 251
 Sequence of moves: 
@@ -3583,7 +3703,7 @@ R.2..2T....
 2R....1.2T0
 Number of moves: 16
 Number of vertices examined: 74
-0.00255 [s]
+0.002183 [s]
 
 Level 252
 Sequence of moves: 
@@ -3600,7 +3720,7 @@ R....T.0...
 1.....TR...
 Number of moves: 10
 Number of vertices examined: 1707
-0.03352 [s]
+0.033352 [s]
 
 Level 253
 Sequence of moves: 
@@ -3617,7 +3737,7 @@ R.1T1......
 ..R2T....1.
 Number of moves: 13
 Number of vertices examined: 45305
-1.08026 [s]
+1.06522 [s]
 
 Level 254
 Sequence of moves: 
@@ -3634,7 +3754,7 @@ R.22.2.T...
 .2...R1.2.T
 Number of moves: 11
 Number of vertices examined: 15527
-0.411353 [s]
+0.407576 [s]
 
 Level 255
 Sequence of moves: 
@@ -3651,7 +3771,7 @@ RT.......1.
 .12R...2T..
 Number of moves: 14
 Number of vertices examined: 774
-0.017686 [s]
+0.016392 [s]
 
 Level 256
 Sequence of moves: 
@@ -3668,7 +3788,7 @@ TR2..2.2.21
 ..2R.1...T.
 Number of moves: 13
 Number of vertices examined: 800
-0.018613 [s]
+0.01847 [s]
 
 Level 257
 Sequence of moves: 
@@ -3685,7 +3805,7 @@ R1..2222T0.
 T.1.2.R....
 Number of moves: 11
 Number of vertices examined: 1552
-0.038809 [s]
+0.036575 [s]
 
 Level 258
 Sequence of moves: 
@@ -3702,7 +3822,7 @@ R2T1.0.....
 .T........R
 Number of moves: 11
 Number of vertices examined: 2918
-0.070189 [s]
+0.067341 [s]
 
 Level 259
 Sequence of moves: 
@@ -3719,7 +3839,7 @@ T2.R.......
 ......T2..R
 Number of moves: 9
 Number of vertices examined: 1106
-0.027607 [s]
+0.027166 [s]
 
 Level 260
 Sequence of moves: 
@@ -3736,7 +3856,7 @@ T2.R..1...2
 ...T1....2R
 Number of moves: 13
 Number of vertices examined: 146
-0.003724 [s]
+0.00392 [s]
 
 Level 261
 Sequence of moves: 
@@ -3753,7 +3873,7 @@ T22.R.2..22
 R...1.2T..0
 Number of moves: 14
 Number of vertices examined: 7656
-0.196241 [s]
+0.189126 [s]
 
 Level 262
 Sequence of moves: 
@@ -3770,7 +3890,7 @@ T2.....R..2
 ..1..2R..1T
 Number of moves: 12
 Number of vertices examined: 82798
-1.92591 [s]
+1.87352 [s]
 
 Level 263
 Sequence of moves: 
@@ -3787,7 +3907,7 @@ TR.22.2....
 R..2......T
 Number of moves: 14
 Number of vertices examined: 12962
-0.327232 [s]
+0.316559 [s]
 
 Level 264
 Sequence of moves: 
@@ -3804,7 +3924,7 @@ RT.1..0....
 ....R.2..T0
 Number of moves: 11
 Number of vertices examined: 392
-0.008241 [s]
+0.008118 [s]
 
 Level 265
 Sequence of moves: 
@@ -3821,7 +3941,7 @@ T...R..2...
 1.R..1.2.T0
 Number of moves: 14
 Number of vertices examined: 52844
-1.2474 [s]
+1.18721 [s]
 
 Level 266
 Sequence of moves: 
@@ -3838,7 +3958,7 @@ T........R.
 .1.1R...2.T
 Number of moves: 10
 Number of vertices examined: 11130
-0.27241 [s]
+0.257632 [s]
 
 Level 267
 Sequence of moves: 
@@ -3855,7 +3975,7 @@ R..2...T1..
 .1..T1.R.2.
 Number of moves: 10
 Number of vertices examined: 1984
-0.049392 [s]
+0.045085 [s]
 
 Level 268
 Sequence of moves: 
@@ -3872,7 +3992,7 @@ T2...2R..2.
 R.......T..
 Number of moves: 15
 Number of vertices examined: 10699
-0.246429 [s]
+0.237847 [s]
 
 Level 269
 Sequence of moves: 
@@ -3889,7 +4009,7 @@ T.1..1..R2.
 ..0....T1.R
 Number of moves: 11
 Number of vertices examined: 4466
-0.103936 [s]
+0.099337 [s]
 
 Level 270
 Sequence of moves: 
@@ -3906,7 +4026,7 @@ R...2....T.
 ..T22R..1..
 Number of moves: 12
 Number of vertices examined: 259
-0.006243 [s]
+0.00611 [s]
 
 Level 271
 Sequence of moves: 
@@ -3923,7 +4043,7 @@ T.2R1...2.2
 ...2R2.T.0.
 Number of moves: 10
 Number of vertices examined: 2091
-0.050037 [s]
+0.04907 [s]
 
 Level 272
 Sequence of moves: 
@@ -3940,7 +4060,7 @@ R.2.2T0....
 T.........R
 Number of moves: 12
 Number of vertices examined: 9793
-0.234333 [s]
+0.228708 [s]
 
 Level 273
 Sequence of moves: 
@@ -3957,7 +4077,7 @@ T....2.1R..
 0.T..R.....
 Number of moves: 17
 Number of vertices examined: 957
-0.022768 [s]
+0.022106 [s]
 
 Level 274
 Sequence of moves: 
@@ -3974,7 +4094,7 @@ T......2.1R
 ...0TR.....
 Number of moves: 12
 Number of vertices examined: 3652
-0.088579 [s]
+0.085499 [s]
 
 Level 275
 Sequence of moves: 
@@ -3991,7 +4111,7 @@ T.1R....2..
 .T.2......R
 Number of moves: 12
 Number of vertices examined: 10313
-0.255945 [s]
+0.243395 [s]
 
 Level 276
 Sequence of moves: 
@@ -4008,7 +4128,7 @@ R22.T0.....
 T2.R.....22
 Number of moves: 12
 Number of vertices examined: 3469
-0.075953 [s]
+0.072068 [s]
 
 Level 277
 Sequence of moves: 
@@ -4025,7 +4145,7 @@ R......T...
 .0T1..2R2..
 Number of moves: 10
 Number of vertices examined: 1858
-0.044386 [s]
+0.040943 [s]
 
 Level 278
 Sequence of moves: 
@@ -4042,7 +4162,7 @@ TR.2.......
 ..R2T..0...
 Number of moves: 13
 Number of vertices examined: 5995
-0.14633 [s]
+0.139664 [s]
 
 Level 279
 Sequence of moves: 
@@ -4059,7 +4179,7 @@ R...1.1.T.1
 T.22.R...1.
 Number of moves: 12
 Number of vertices examined: 10961
-0.281329 [s]
+0.258564 [s]
 
 Level 280
 Sequence of moves: 
@@ -4076,7 +4196,7 @@ R222T.0....
 T.2...R....
 Number of moves: 14
 Number of vertices examined: 72
-0.00199 [s]
+0.001823 [s]
 
 Level 281
 Sequence of moves: 
@@ -4094,7 +4214,7 @@ R......T....
 ......T2R2..
 Number of moves: 14
 Number of vertices examined: 28594
-0.760566 [s]
+0.69131 [s]
 
 Level 282
 Sequence of moves: 
@@ -4112,7 +4232,7 @@ R.T...1.....
 .T1R..2.2.21
 Number of moves: 11
 Number of vertices examined: 4641
-0.133136 [s]
+0.124406 [s]
 
 Level 283
 Sequence of moves: 
@@ -4130,7 +4250,7 @@ R2.222.T....
 ..1...2.2RT1
 Number of moves: 15
 Number of vertices examined: 59356
-1.54765 [s]
+1.48446 [s]
 
 Level 284
 Sequence of moves: 
@@ -4148,7 +4268,7 @@ R......T0...
 ...T.2R..2..
 Number of moves: 12
 Number of vertices examined: 1251
-0.03486 [s]
+0.031818 [s]
 
 Level 285
 Sequence of moves: 
@@ -4166,7 +4286,7 @@ T..R.2.2.222
 .R.......T1.
 Number of moves: 15
 Number of vertices examined: 3975
-0.094674 [s]
+0.089866 [s]
 
 Level 286
 Sequence of moves: 
@@ -4184,7 +4304,7 @@ R...T...0...
 .0....1..TR2
 Number of moves: 13
 Number of vertices examined: 389
-0.011128 [s]
+0.010735 [s]
 
 Level 287
 Sequence of moves: 
@@ -4202,7 +4322,7 @@ T2.R.222.2..
 ...T2R2..2..
 Number of moves: 13
 Number of vertices examined: 3840
-0.099462 [s]
+0.093294 [s]
 
 Level 288
 Sequence of moves: 
@@ -4220,7 +4340,7 @@ R......2.1.T
 ....T2..R.1.
 Number of moves: 14
 Number of vertices examined: 5502
-0.135069 [s]
+0.131162 [s]
 
 Level 289
 Sequence of moves: 
@@ -4238,7 +4358,7 @@ R122..2T.1.1
 ..1...T1...R
 Number of moves: 13
 Number of vertices examined: 47436
-1.28728 [s]
+1.25198 [s]
 
 Level 290
 Sequence of moves: 
@@ -4256,7 +4376,7 @@ R........T.0
 T22..R.22...
 Number of moves: 18
 Number of vertices examined: 128069
-3.03462 [s]
+2.89258 [s]
 
 Level 291
 Sequence of moves: 
@@ -4274,7 +4394,7 @@ RT10..1...1.
 T.2.R1.2.1..
 Number of moves: 14
 Number of vertices examined: 4027
-0.109409 [s]
+0.106313 [s]
 
 Level 292
 Sequence of moves: 
@@ -4292,7 +4412,7 @@ R2.T........
 .TR.........
 Number of moves: 14
 Number of vertices examined: 124525
-3.19808 [s]
+3.05592 [s]
 
 Level 293
 Sequence of moves: 
@@ -4310,7 +4430,7 @@ T.2.2......R
 ...1.2..RT1.
 Number of moves: 16
 Number of vertices examined: 24005
-0.56879 [s]
+0.532735 [s]
 
 Level 294
 Sequence of moves: 
@@ -4328,7 +4448,7 @@ T....R......
 R....1T0....
 Number of moves: 13
 Number of vertices examined: 2222
-0.051264 [s]
+0.047863 [s]
 
 Level 295
 Sequence of moves: 
@@ -4346,7 +4466,7 @@ T...2......R
 .R.2....2..T
 Number of moves: 15
 Number of vertices examined: 95886
-2.37358 [s]
+2.26905 [s]
 
 Level 296
 Sequence of moves: 
@@ -4364,7 +4484,7 @@ T....2.R2...
 ....T222.R..
 Number of moves: 13
 Number of vertices examined: 152
-0.004787 [s]
+0.004684 [s]
 
 Level 297
 Sequence of moves: 
@@ -4382,7 +4502,7 @@ T11..22...2R
 ...T.222.2R2
 Number of moves: 14
 Number of vertices examined: 13704
-0.409169 [s]
+0.388147 [s]
 
 Level 298
 Sequence of moves: 
@@ -4400,7 +4520,7 @@ RT..0...0...
 TR22.12.....
 Number of moves: 15
 Number of vertices examined: 23278
-0.588335 [s]
+0.573005 [s]
 
 Level 299
 Sequence of moves: 
@@ -4418,7 +4538,7 @@ R.2....T.0..
 ..T2....R..2
 Number of moves: 16
 Number of vertices examined: 120784
-3.01592 [s]
+2.96075 [s]
 
 Level 300
 Sequence of moves: 
@@ -4436,5 +4556,5 @@ R2..22T.1...
 ........RT..
 Number of moves: 13
 Number of vertices examined: 13559
-0.360022 [s]
+0.354629 [s]
 
