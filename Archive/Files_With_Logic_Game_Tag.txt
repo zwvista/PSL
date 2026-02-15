@@ -2,6 +2,7 @@ PuzzlesA/Puzzles/Abc.cpp
     iOS Game: 100 Logic Games/Puzzle Set 1/Abc
 PuzzlesA/Puzzles/AbstractMirrorPainting.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 4/Abstract Mirror Painting
+        Unsolved Levels: 6, 7, 8, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400
 PuzzlesA/Puzzles/AbstractPainting.cpp
     iOS Game: 100 Logic Games/Puzzle Set 16/Abstract Painting
 PuzzlesA/Puzzles/ADifferentFarmer.cpp
@@ -14,8 +15,10 @@ PuzzlesA/Puzzles/AssemblyInstructions.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 4/Assembly Instructions
 PuzzlesB/Puzzles/BalancedTapas.cpp
     iOS Game: 100 Logic Games/Puzzle Set 10/Balanced Tapas
+        Unsolved Levels: 49
 PuzzlesB/Puzzles/Banquet.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 2/Banquet
+        Unsolved Levels: 6, 26, 37, 42, 47, 49, 58, 60, 62, 65, 68, 70, 71, 75, 86, 92, 93, 99, 101, 102, 103, 106, 107, 108, 109, 111, 113, 115, 117, 118, 123, 124, 126, 127, 130, 132, 133, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 168, 169, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 194, 195, 197, 198, 199, 201, 202, 203, 204, 205, 206, 207, 209, 210, 211, 212, 213, 214, 215, 216, 217, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299
 PuzzlesB/Puzzles/BattleShips.cpp
     iOS Game: 100 Logic Games/Puzzle Set 1/Battle Ships
         Has Variants
@@ -41,16 +44,19 @@ PuzzlesB/Puzzles/Bridges.cpp
     iOS Game: 100 Logic Games/Puzzle Set 7/Bridges
 PuzzlesB/Puzzles/BridgesGen.cpp
     iOS Game: 100 Logic Games/Puzzle Set 7/Bridges
+        No Solution File
 PuzzlesB/Puzzles/BusySeas.cpp
     iOS Game: 100 Logic Games/Puzzle Set 14/Busy Seas
 PuzzlesB/Puzzles/BWTapa.cpp
     iOS Game: 100 Logic Games/Puzzle Set 9/B&W Tapa
+        Unsolved Levels: 23, 29
 PuzzlesC/Puzzles/Caffelatte.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 7/Caffelatte
 PuzzlesC/Puzzles/Calcudoku.cpp
     iOS Game: 100 Logic Games/Puzzle Set 4/Calcudoku
 PuzzlesC/Puzzles/CarpentersSquare.cpp
     iOS Game: 100 Logic Games/Puzzle Set 16/Carpenter's Square
+        Unsolved Levels: 97
 PuzzlesC/Puzzles/CarpentersWall.cpp
     iOS Game: 100 Logic Games/Puzzle Set 12/Carpenter's Wall
 PuzzlesC/Puzzles/CastleBailey.cpp
@@ -81,10 +87,13 @@ PuzzlesC/Puzzles/CrosstownTraffic.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 3/Crosstown Traffic
 PuzzlesC/Puzzles/CulturedBranches.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 3/Cultured Branches
+        Unsolved Levels: 300
 PuzzlesC/Puzzles/CultureTrip.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 1/Culture Trip
+        Unsolved Levels: 111
 PuzzlesD/Puzzles/DesertDunes.cpp
     iOS Game: 100 Logic Games/Puzzle Set 17/Desert Dunes
+        Unsolved Levels: 154
 PuzzlesD/Puzzles/DigitalBattleShips.cpp
     iOS Game: 100 Logic Games/Puzzle Set 13/Digital Battle Ships
         Has Variants
@@ -94,6 +103,7 @@ PuzzlesD/Puzzles/DigitWorms.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 1/Digit Worms
 PuzzlesD/Puzzles/DirectionalPlanks.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 5/Directional Planks
+        Unsolved Levels: 82, 83, 85, 87, 88, 89, 90, 92, 93, 95, 96, 97, 98, 99, 100, 101, 103, 106, 107, 109, 110, 112, 113, 114, 116, 119, 122, 126, 133, 136, 137, 138, 139
 PuzzlesD/Puzzles/DisconnectFour.cpp
     iOS Game: 100 Logic Games/Puzzle Set 11/Disconnect Four
 PuzzlesD/Puzzles/Domino.cpp
@@ -104,18 +114,24 @@ PuzzlesF/Puzzles/FenceItUp.cpp
     iOS Game: 100 Logic Games/Puzzle Set 7/Fence It Up
 PuzzlesF/Puzzles/FenceLits.cpp
     iOS Game: 100 Logic Games/Puzzle Set 12/FenceLits
+        Unsolved Levels: 14, 21
 PuzzlesF/Puzzles/FenceSentinels.cpp
     iOS Game: 100 Logic Games/Puzzle Set 12/Fence Sentinels
         Has Variants
+        Unsolved Levels: 75
 PuzzlesF/Puzzles/FencingSheep.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 5/Fencing Sheep
+        Unsolved Levels: 50, 55, 58, 60, 62, 64, 72, 78, 82, 191, 192, 194, 199
 PuzzlesF/Puzzles/Fields.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 1/Fields
+        Unsolved Levels: 140
 PuzzlesF/Puzzles/Fillomino.cpp
     iOS Game: 100 Logic Games/Puzzle Set 3/Fillomino
         Has Variants
+        Unsolved Levels: 43
 PuzzlesF/Puzzles/FingerPointing.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 5/Finger Pointing
+        Unsolved Levels: 281
 PuzzlesF/Puzzles/FloorPlan.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 1/Floor Plan
 PuzzlesF/Puzzles/FlowerBeds.cpp
@@ -130,6 +146,7 @@ PuzzlesF/Puzzles/FreePlanks.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 6/Free Planks
 PuzzlesF/Puzzles/FunnyNumbers.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 2/Funny Numbers
+        Unsolved Levels: 73, 78, 85, 91, 100, 234
 PuzzlesF/Puzzles/FussyWaiter.cpp
     iOS Game: 100 Logic Games/Puzzle Set 15/Fussy Waiter
 PuzzlesF/Puzzles/Futoshiki.cpp
@@ -139,6 +156,7 @@ PuzzlesG/Puzzles/Galaxies.cpp
     iOS Game: 100 Logic Games/Puzzle Set 4/Galaxies
 PuzzlesG/Puzzles/Gardener.cpp
     iOS Game: 100 Logic Games/Puzzle Set 7/Gardener
+        Unsolved Levels: 25, 35
 PuzzlesG/Puzzles/GardenTunnels.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 4/Garden Tunnels
 PuzzlesG/Puzzles/Gems.cpp
@@ -154,10 +172,12 @@ PuzzlesH/Puzzles/Hexotris.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 4/Hexotris
 PuzzlesH/Puzzles/HiddenClouds.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 7/Hidden Clouds
+        Unsolved Levels: 33, 38, 40, 50, 53, 60, 62, 64, 65, 67, 71, 73, 74, 77, 79, 82, 84, 85, 86, 91, 92, 93, 95, 96, 98, 99, 100, 102, 104, 105, 107, 108, 109, 110, 112, 113, 114, 115, 116, 117, 118, 119, 120, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 142, 143, 144, 145, 146, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 170, 171, 172, 173, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 197, 199, 200
 PuzzlesH/Puzzles/HiddenPath.cpp
     iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path
 PuzzlesH/Puzzles/HiddenPathGen.cpp
     iOS Game: 100 Logic Games/Puzzle Set 3/Hidden Path
+        No Solution File
 PuzzlesH/Puzzles/HiddenStars.cpp
     iOS Game: 100 Logic Games/Puzzle Set 2/Hidden Stars
         Has Variants
@@ -165,20 +185,27 @@ PuzzlesH/Puzzles/Hidoku.cpp
     iOS Game: 100 Logic Games/Puzzle Set 4/Hidoku
 PuzzlesH/Puzzles/Hitori.cpp
     iOS Game: 100 Logic Games/Puzzle Set 2/Hitori
+        Unsolved Levels: 71
 PuzzlesH/Puzzles/HolidayIsland.cpp
     iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island
 PuzzlesH/Puzzles/HolidayIsland2.cpp
     iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island
+        No Solution File
 PuzzlesH/Puzzles/HolidayIsland3.cpp
     iOS Game: 100 Logic Games/Puzzle Set 11/Holiday Island
+        No Solution File
 PuzzlesI/Puzzles/InbetweenNurikabe.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 4/Inbetween Nurikabe
+        Unsolved Levels: 104, 171, 181, 199
 PuzzlesI/Puzzles/InbetweenSumscrapers.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 6/Inbetween Sumscrapers
+        Unsolved Levels: 134
 PuzzlesI/Puzzles/InsaneTatamis.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 5/Insane Tatamis
+        Unsolved Levels: 138
 PuzzlesI/Puzzles/IslandConnections.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 5/Island Connections
+        Unsolved Levels: 74, 93, 99, 125, 190
 PuzzlesJ/Puzzles/JoinMe.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 2/Join Me!
 PuzzlesK/Puzzles/Kakurasu.cpp
@@ -199,13 +226,16 @@ PuzzlesL/Puzzles/Landscapes.cpp
     iOS Game: 100 Logic Games/Puzzle Set 16/Landscapes
 PuzzlesL/Puzzles/LiarLiar.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 2/Liar Liar
+        Unsolved Levels: 112, 121
 PuzzlesL/Puzzles/LightBattleShips.cpp
     iOS Game: 100 Logic Games/Puzzle Set 13/Light Battle Ships
         Has Variants
+        Unsolved Levels: 64, 95
 PuzzlesL/Puzzles/LightenUp.cpp
     iOS Game: 100 Logic Games/Puzzle Set 2/Lighten Up
 PuzzlesL/Puzzles/LightenUpGen.cpp
     iOS Game: 100 Logic Games/Puzzle Set 2/Lighten Up
+        No Solution File
 PuzzlesL/Puzzles/Lighthouses.cpp
     iOS Game: 100 Logic Games/Puzzle Set 9/Lighthouses
 PuzzlesL/Puzzles/LineSweeper.cpp
@@ -214,18 +244,22 @@ PuzzlesL/Puzzles/Lits.cpp
     iOS Game: 100 Logic Games/Puzzle Set 12/Lits
 PuzzlesL/Puzzles/LoopAndBlocks.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 7/Loop and Blocks
+        Unsolved Levels: 3
 PuzzlesL/Puzzles/Loopy.cpp
     iOS Game: 100 Logic Games/Puzzle Set 5/Loopy
 PuzzlesM/Puzzles/Magnets.cpp
     iOS Game: 100 Logic Games/Puzzle Set 2/Magnets
+        Unsolved Levels: 48
 PuzzlesM/Puzzles/MakeTheDifference.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 4/Make the Difference
+        Unsolved Levels: 117
 PuzzlesM/Puzzles/Masyu.cpp
     iOS Game: 100 Logic Games/Puzzle Set 3/Masyu
 PuzzlesM/Puzzles/Mathrax.cpp
     iOS Game: 100 Logic Games/Puzzle Set 6/Mathrax
 PuzzlesM/Puzzles/MineShips.cpp
     iOS Game: 100 Logic Games/Puzzle Set 8/Mine Ships
+        Unsolved Levels: 65
 PuzzlesM/Puzzles/MineSlither.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 3/MineSlither
 PuzzlesM/Puzzles/Minesweeper.cpp
@@ -235,12 +269,14 @@ PuzzlesM/Puzzles/MiniLits.cpp
 PuzzlesM/Puzzles/Mirrors.cpp
     iOS Game: 100 Logic Games/Puzzle Set 10/Mirrors
         Has Variants
+        Unsolved Levels: 30
 PuzzlesM/Puzzles/MirrorsExtended.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 4/Mirrors, extended
 PuzzlesM/Puzzles/MixedTatamis.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 4/Mixed Tatamis
 PuzzlesM/Puzzles/MondrianLoop.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 2/Mondrian Loop
+        Unsolved Levels: 182
 PuzzlesM/Puzzles/MoreOrLess.cpp
     iOS Game: 100 Logic Games/Puzzle Set 7/More Or Less
         Has Variants
@@ -248,28 +284,37 @@ PuzzlesM/Puzzles/Mosaik.cpp
     iOS Game: 100 Logic Games/Puzzle Set 4/Mosaik
 PuzzlesN/Puzzles/Neighbours.cpp
     iOS Game: 100 Logic Games/Puzzle Set 8/Neighbours
+        Unsolved Levels: 60, 61, 64, 66, 71, 72, 74, 75, 78, 80, 81, 97, 100, 102, 103, 104, 105, 106, 109, 111, 113, 115, 116, 117, 118, 121, 123
 PuzzlesN/Puzzles/NewCarpenterSquare.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 3/New Carpenter Square
+        Unsolved Levels: 51, 58, 68, 70, 75, 77, 82, 83, 84, 93, 97, 99, 101, 104, 105, 114, 115, 116, 118, 119, 127, 151, 153, 154, 158, 162, 166, 167, 168, 176, 177, 184, 188, 192, 198, 204, 208, 216, 224, 246, 248, 249, 250, 253, 254, 255, 259, 262, 266, 267, 268, 270, 280, 283, 290
 PuzzlesN/Puzzles/Nooks.cpp
     iOS Game: 100 Logic Games/Puzzle Set 17/Nooks
+        Unsolved Levels: 169, 174, 176, 184, 188, 189, 191, 192, 200
 PuzzlesN/Puzzles/NorthPoleFishing.cpp
     iOS Game: 100 Logic Games/Puzzle Set 14/North Pole Fishing
 PuzzlesN/Puzzles/NoughtsAndCrosses.cpp
     iOS Game: 100 Logic Games/Puzzle Set 16/Noughts & Crosses
 PuzzlesN/Puzzles/NumberCrossing.cpp
     iOS Game: 100 Logic Games/Puzzle Set 17/Number Crossing
+        Unsolved Levels: 101, 102, 106, 107, 108, 109, 110, 111, 114, 116, 120, 123, 125, 128, 131, 132, 134, 135, 136, 137, 139, 177
 PuzzlesN/Puzzles/NumberCrosswords.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 1/Number Crosswords
+        Unsolved Levels: 35, 36, 41, 42, 43, 48, 49, 51, 52, 54, 55, 56, 57, 65, 66, 68, 71, 72, 73, 77, 81, 83, 84, 85, 87, 89, 94, 95, 96, 98, 99, 100, 101, 104, 106, 108
 PuzzlesN/Puzzles/NumberLink.cpp
     iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink
         Has Variants
+        Unsolved Levels: 71, 127
 PuzzlesN/Puzzles/NumberLink2.cpp
     iOS Game: 100 Logic Games/Puzzle Set 3/NumberLink
         Has Variants
+        No Solution File
 PuzzlesN/Puzzles/NumberPath.cpp
     iOS Game: 100 Logic Games/Puzzle Set 15/Number Path
+        Unsolved Levels: 74
 PuzzlesN/Puzzles/NumberPath2.cpp
     iOS Game: 100 Logic Games/Puzzle Set 15/Number Path
+        Unsolved Levels: 74
 PuzzlesN/Puzzles/Nurikabe.cpp
     iOS Game: 100 Logic Games/Puzzle Set 1/Nurikabe
 PuzzlesO/Puzzles/OddsAreEven.cpp
@@ -281,6 +326,7 @@ PuzzlesO/Puzzles/OnlyBends.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 1/Only Bends
 PuzzlesO/Puzzles/OnlyStraights.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 4/Only Straights
+        Unsolved Levels: 400
 PuzzlesO/Puzzles/Orchards.cpp
     iOS Game: 100 Logic Games/Puzzle Set 11/Orchards
 PuzzlesO/Puzzles/OverUnder.cpp
@@ -293,14 +339,17 @@ PuzzlesP/Puzzles/ParkingLot.cpp
     iOS Game: 100 Logic Games/Puzzle Set 11/Parking Lot
 PuzzlesP/Puzzles/ParkLakes.cpp
     iOS Game: 100 Logic Games/Puzzle Set 15/Park Lakes
+        Unsolved Levels: 86, 99
 PuzzlesP/Puzzles/Parks.cpp
     iOS Game: 100 Logic Games/Puzzle Set 1/Parks
 PuzzlesP/Puzzles/Parks2.cpp
     iOS Game: 100 Logic Games/Puzzle Set 1/Parks
 PuzzlesP/Puzzles/Pata.cpp
     iOS Game: 100 Logic Games/Puzzle Set 9/Pata
+        Unsolved Levels: 35
 PuzzlesP/Puzzles/PathOnTheHills.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 2/Path on the Hills
+        Unsolved Levels: 300
 PuzzlesP/Puzzles/PathOnTheMountains.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 5/Path on the Mountains
 PuzzlesP/Puzzles/Picnic.cpp
@@ -323,6 +372,7 @@ PuzzlesP/Puzzles/PondsAndFlowerbeds.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 3/Ponds and Flowerbeds
 PuzzlesP/Puzzles/PouringWater.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 3/Pouring Water
+        Unsolved Levels: 147
 PuzzlesP/Puzzles/PowerGrid.cpp
     iOS Game: 100 Logic Games/Puzzle Set 14/Power Grid
         Has Variants
@@ -330,14 +380,18 @@ PuzzlesP/Puzzles/ProductSentinels.cpp
     iOS Game: 100 Logic Games/Puzzle Set 11/Product Sentinels
 PuzzlesR/Puzzles/Rabbits.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 3/Rabbits
+        Unsolved Levels: 161, 166, 167, 171, 173, 174, 179, 181, 183, 184
 PuzzlesR/Puzzles/RippleEffect.cpp
     iOS Game: 100 Logic Games/Puzzle Set 5/Ripple Effect
 PuzzlesR/Puzzles/RobotCrosswords.cpp
     iOS Game: 100 Logic Games/Puzzle Set 13/Robot Crosswords
+        Unsolved Levels: 76, 80, 90, 191
 PuzzlesR/Puzzles/RobotFences.cpp
     iOS Game: 100 Logic Games/Puzzle Set 13/Robot Fences
+        Unsolved Levels: 105
 PuzzlesR/Puzzles/Rome.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 2/Rome
+        Unsolved Levels: 143
 PuzzlesR/Puzzles/Rooms.cpp
     iOS Game: 100 Logic Games/Puzzle Set 5/Rooms
 PuzzlesR/Puzzles/RunInALoop.cpp
@@ -356,18 +410,21 @@ PuzzlesS/Puzzles/SlantedMaze.cpp
     iOS Game: 100 Logic Games/Puzzle Set 6/Slanted Maze
 PuzzlesS/Puzzles/SlitherCorner.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 2/SlitherCorner
+        Unsolved Levels: 367
 PuzzlesS/Puzzles/SlitherLink.cpp
     iOS Game: 100 Logic Games/Puzzle Set 3/SlitherLink
 PuzzlesS/Puzzles/Snail.cpp
     iOS Game: 100 Logic Games/Puzzle Set 14/Snail
 PuzzlesS/Puzzles/Snake.cpp
     iOS Game: 100 Logic Games/Puzzle Set 16/Snake
+        Unsolved Levels: 49, 208
 PuzzlesS/Puzzles/SnakeIslands.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 3/Snake Islands
 PuzzlesS/Puzzles/SnakeMaze.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 7/Snake Maze
 PuzzlesS/Puzzles/Snakeomino.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 4/Snake-omino
+        Unsolved Levels: 3, 6, 14, 15, 16, 17, 19, 21, 23, 25, 27, 28, 29, 34, 37, 38, 41, 42, 43, 44, 45, 46, 47, 50, 52, 53, 54, 58, 60, 64, 65, 66, 67, 69, 70, 71, 73, 74, 75, 76, 77, 79, 80, 81, 82, 83, 84, 85, 86, 87, 89, 91, 92, 94, 95, 96, 97, 98, 103, 106, 109, 111, 112, 114, 115, 116, 117, 118, 120, 121, 125, 127, 128, 129, 130, 132, 135, 136, 137, 138, 139, 140, 143, 145
 PuzzlesS/Puzzles/Square100.cpp
     iOS Game: 100 Logic Games/Puzzle Set 10/Square 100
 PuzzlesS/Puzzles/Stacks.cpp
@@ -389,16 +446,19 @@ PuzzlesT/Puzzles/Tapa.cpp
         Has Variants
 PuzzlesT/Puzzles/TapaIslands.cpp
     iOS Game: 100 Logic Games/Puzzle Set 9/Tapa Islands
+        Unsolved Levels: 11, 17
 PuzzlesT/Puzzles/TapAlike.cpp
     iOS Game: 100 Logic Games/Puzzle Set 10/Tap-Alike
 PuzzlesT/Puzzles/TapARow.cpp
     iOS Game: 100 Logic Games/Puzzle Set 10/Tap-A-Row
+        Unsolved Levels: 42
 PuzzlesT/Puzzles/TapDifferently.cpp
     iOS Game: 100 Logic Games/Puzzle Set 10/Tap Differently
 PuzzlesT/Puzzles/Tatami.cpp
     iOS Game: 100 Logic Games/Puzzle Set 2/Tatami
 PuzzlesT/Puzzles/Tatamino.cpp
     iOS Game: 100 Logic Games/Puzzle Set 13/Tatamino
+        Unsolved Levels: 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 23, 24, 26
 PuzzlesT/Puzzles/Tatamino2.cpp
     iOS Game: 100 Logic Games/Puzzle Set 13/Tatamino
 PuzzlesT/Puzzles/TennerGrid.cpp
@@ -411,6 +471,7 @@ PuzzlesT/Puzzles/TheCityRises.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 7/The City Rises
 PuzzlesT/Puzzles/TheGreyLabyrinth.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 3/The Grey Labyrinth
+        Unsolved Levels: 1
 PuzzlesT/Puzzles/TheMagicNumber.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 3/The Magic Number
 PuzzlesT/Puzzles/TheOddBrick.cpp
@@ -423,6 +484,7 @@ PuzzlesT/Puzzles/TopArrow.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 3/Top Arrow
 PuzzlesT/Puzzles/TraceNumbers.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 1/Trace Numbers
+        Unsolved Levels: 99
 PuzzlesT/Puzzles/TrafficWarden.cpp
     iOS Game: 100 Logic Games 4/Puzzle Set 2/Traffic Warden
 PuzzlesT/Puzzles/TrafficWardenRevenge.cpp
@@ -441,6 +503,7 @@ PuzzlesU/Puzzles/Unseen.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 4/Unseen
 PuzzlesV/Puzzles/Venice.cpp
     iOS Game: 100 Logic Games 3/Puzzle Set 2/Venice
+        Unsolved Levels: 235, 239
 PuzzlesW/Puzzles/WallHints.cpp
     iOS Game: 100 Logic Games 2/Puzzle Set 4/Wall Hints
 PuzzlesW/Puzzles/Walls.cpp
