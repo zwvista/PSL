@@ -48,7 +48,7 @@ int main(int argc, char **argv)
         println("o3: Mosaik");
         println("o4: Move the Box");
         getline(cin, str);
-        if (str.empty()) solve_puz_MakeTheDifference();
+        if (str.empty()) solve_puz_Mirrors();
         else if (str == "ag1") solve_puz_magic_square();
         else if (str == "ag2") solve_puz_Magic5gonRing();
         else if (str == "ag3") solve_puz_Magnets();
