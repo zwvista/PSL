@@ -262,7 +262,7 @@ def check_game_status(txt_file_path):
     检查游戏状态
     返回值：
         - ("Solved", [], max_level): 有txt文件且完全解决，所有关卡连续
-        - ("Partly Solved", [], max_level): 有txt文件且所有关卡都有解决方案，但关卡号不连续
+        - ("Partly Solved", unsolved_levels, max_level): 有txt文件且所有关卡都有解决方案，但关卡号不连续（返回缺失的关卡号）
         - ("Unsolved", unsolved_levels, max_level): 有txt文件但有关卡未解决
         - ("No Solutions", [], max_level): 有txt文件但没有可识别的关卡号（无法转换为整数）
         - ("No Solution File", [], None): 没有txt文件
@@ -278,7 +278,6 @@ def check_game_status(txt_file_path):
     
     solved_levels = []      # 已解决的关卡号（整数）
     unsolved_levels = []    # 未解决的关卡号（原始字符串）
-    all_levels = []         # 所有出现的关卡号（原始字符串）
     has_any_level = False   # 是否找到任何Level行
     max_level = None        # 最大关卡号
     
@@ -291,15 +290,14 @@ def check_game_status(txt_file_path):
             has_any_level = True
             # 提取关卡号（"Level "后面的内容）
             level_str = line[6:].strip()
-            all_levels.append(level_str)
             
-            # 尝试转换为整数，用于计算最大值
+            # 尝试转换为整数，用于计算最大值和连续性检查
             try:
                 level_num = int(level_str)
                 if max_level is None or level_num > max_level:
                     max_level = level_num
             except ValueError:
-                pass
+                level_num = None
             
             # 检查是否有下一行
             if i + 1 >= len(lines):
@@ -314,12 +312,8 @@ def check_game_status(txt_file_path):
                 i += 1  # 只增加1，因为下一行不是有效的Sequence行
             else:
                 # 这一对行是有效的，视为已解决
-                # 尝试将关卡号转换为整数，用于连续性检查
-                try:
-                    solved_levels.append(int(level_str))
-                except ValueError:
-                    # 如果无法转换为整数，忽略（不参与连续性检查）
-                    pass
+                if level_num is not None:
+                    solved_levels.append(level_num)
                 i += 2
         else:
             i += 1
@@ -336,7 +330,23 @@ def check_game_status(txt_file_path):
         return "No Solutions", [], max_level
     elif not check_numbers_continuous(solved_levels):
         # 所有关卡都有解决方案，但关卡号不连续
-        return "Partly Solved", [], max_level
+        # 找出缺失的关卡号
+        missing_levels = []
+        sorted_solved = sorted(solved_levels)
+        expected_level = 1
+        for level in sorted_solved:
+            while expected_level < level:
+                missing_levels.append(str(expected_level))
+                expected_level += 1
+            expected_level = level + 1
+        
+        # 检查最大关卡号之后的缺失
+        if max_level:
+            while expected_level <= max_level:
+                missing_levels.append(str(expected_level))
+                expected_level += 1
+        
+        return "Partly Solved", missing_levels, max_level
     else:
         return "Solved", [], max_level
 
@@ -923,6 +933,11 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         if game_status == "Unsolved" and unsolved_levels:
             levels_str = ", ".join(unsolved_levels)
             status_text = f"❌ 未解决 ({levels_str})"
+        
+        # 对于Partly Solved状态，添加缺失的关卡号
+        if game_status == "Partly Solved" and unsolved_levels:
+            levels_str = ", ".join(unsolved_levels)
+            status_text = f"⚠️ 部分解决 (缺失: {levels_str})"
         
         # 关卡数列
         if max_level is not None:
