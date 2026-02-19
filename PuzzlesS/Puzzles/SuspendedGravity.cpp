@@ -299,14 +299,12 @@ bool puz_state::check_gravity()
             if (area2areas.contains(i)) continue;
 
             int j = 0;
-            for (;; ++j) {
-                for (auto& [r, c] : stones) {
-                    Position p2(r + j + 1, c);
-                    if (!stones.contains(p2) && (!is_valid(p2) || cells(p2) == PUZ_STONE))
-                        goto cantfall;
-                }
-            }
-        cantfall:
+            for (;; ++j)
+                if (!boost::algorithm::all_of(stones, [&](auto& p) {
+                    auto p2 = p + Position(j + 1, 0);
+                    return stones.contains(p2) || is_valid(p2) && cells(p2) != PUZ_STONE;
+                }))
+                    break;
             if (j > 0) {
                 for (auto& p : stones)
                     cells(p) = PUZ_EMPTY;
@@ -334,11 +332,8 @@ bool puz_state::check_gravity()
         for (; r < rows() / 2; ++r)
             if (cells({r, c}) == PUZ_STONE)
                 return false;
-        bool hasStone = false;
         for (; r < rows(); ++r)
-            if (cells({r, c}) == PUZ_STONE)
-                hasStone = true;
-            else if (hasStone)
+            if (cells({r, c}) != PUZ_STONE)
                 return false;
     }
     m_cells = cellsTemp;
