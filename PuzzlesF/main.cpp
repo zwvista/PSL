@@ -44,7 +44,7 @@ int main(int argc, char **argv)
         println("u2: Fussy Waiter");
         println("u3: Futoshiki");
         getline(cin, str);
-        if (str.empty()) solve_puz_FenceLits();
+        if (str.empty()) solve_puz_FencingSheep();
         else if (str == "a") solve_puz_Farmer();
         else if (str == "e1") solve_puz_FenceItUp();
         else if (str == "e2") solve_puz_FenceLits();
