@@ -27,6 +27,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_TREE = 'T';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_TENT = 'E';
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr array<Position, 8> offset = Position::Directions8;
 
@@ -58,17 +59,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         string_view str = strs[r];
         for (int c = 0; c <= m_sidelen; ++c) {
             m_pos2trees[{r, c}];
-            switch(char ch = str[c]) {
-            case PUZ_SPACE:
-                m_cells.push_back(PUZ_EMPTY);
-                break;
-            case PUZ_TREE:
-                m_cells.push_back(PUZ_TREE);
-                trees.emplace_back(r, c);
-                break;
-            default:
-                (c == m_sidelen ? m_tent_counts_rows[r] : m_tent_counts_cols[c]) = ch - '0';
-                break;
+            if (char ch = str[c]; (r == m_sidelen) != (c == m_sidelen))
+                (c == m_sidelen ? m_tent_counts_rows[r] : m_tent_counts_cols[c]) =
+                    ch == PUZ_SPACE ? PUZ_UNKNOWN : ch - '0';
+            else {
+                m_cells.push_back(ch);
+                if (ch == PUZ_TREE)
+                    trees.emplace_back(r, c);
             }
         }
     }
