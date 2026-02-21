@@ -104,8 +104,9 @@ struct puz_state
         return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots);
     }
     bool make_move_hint(const Position& p, int n);
-    void make_move_hint2(const Position& p, int n);
+    bool make_move_hint2(const Position& p, int n);
     bool make_move_dot(const Position& p, int n);
+    bool make_move_shaded(const Position& p);
     int find_matches(bool init);
     int check_dots(bool init);
     bool check_loop() const;
@@ -189,7 +190,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move_hint2(p, perm_ids[0]), 1;
+                return make_move_hint2(p, perm_ids[0]) ? 1 : 0;
             }
     }
     return 2;
@@ -212,24 +213,6 @@ int puz_state::check_dots(bool init)
                         return !is_lineseg_on(lineseg, i);
                     })))
                         newly_finished.emplace(p, i);
-
-                if (dt.size() == 1 && [&] {
-                    for (int i = 0; i < 4; ++i)
-                        if (!m_finished.contains({p, i}))
-                            return true;
-                    return false;
-                }() && dt[0] == lineseg_off && !m_shaded.contains(p)) {
-                    m_shaded.insert(p);
-                    // 4. Two shaded cells can't touch orthogonally.
-                    for (int j = 0; j < 4; ++j)
-                        if (auto p2 = p + offset[j]; is_valid(p2)) {
-                            if (m_shaded.contains(p2))
-                                return 0;
-                            boost::remove_erase_if(dots(p2), [&](int lineseg2) {
-                                return is_lineseg_on(lineseg2, (j + 2) % 4);
-                            });
-                        }
-                }
             }
 
         if (newly_finished.empty())
@@ -258,19 +241,36 @@ int puz_state::check_dots(bool init)
     }
 }
 
-void puz_state::make_move_hint2(const Position& p, int n)
+// 4. Two shaded cells can't touch orthogonally.
+bool puz_state::make_move_shaded(const Position& p)
+{
+    m_shaded.insert(p);
+    for (int j = 0; j < 4; ++j)
+        if (auto p2 = p + offset[j]; is_valid(p2)) {
+            if (m_shaded.contains(p2))
+                return false;
+            boost::remove_erase_if(dots(p2), [&](int lineseg2) {
+                return is_lineseg_on(lineseg2, (j + 2) % 4);
+            });
+        }
+    return true;
+}
+
+bool puz_state::make_move_hint2(const Position& p, int n)
 {
     auto& o = m_game->m_pos2area.at(p);
     auto& perm = m_game->m_info2perms.at({o.m_num, o.size()})[n];
-    for (int i = 0; i < perm.size(); ++i) {
-        auto p2 = o.m_range[i];
-        if (perm[i] == PUZ_SHADED)
-            dots(p2) = {lineseg_off};
-        else
+    for (int i = 0; i < perm.size(); ++i)
+        if (auto p2 = o.m_range[i]; perm[i] == PUZ_NOT_SHADED)
             boost::remove_erase(dots(p2), lineseg_off);
-    }
+        else {
+            dots(p2) = {lineseg_off};
+            if (!make_move_shaded(p2))
+                return false;
+        }
     ++m_distance;
     m_matches.erase(p);
+    return true;
 }
 
 bool puz_state::check_loop() const
@@ -312,7 +312,8 @@ bool puz_state::check_loop() const
 bool puz_state::make_move_hint(const Position& p, int n)
 {
     m_distance = 0;
-    make_move_hint2(p, n);
+    if (!make_move_hint2(p, n))
+        return false;
     for (;;) {
         int m;
         while ((m = find_matches(false)) == 1);
@@ -330,7 +331,8 @@ bool puz_state::make_move_dot(const Position& p, int n)
 {
     m_distance = 0;
     auto& dt = dots(p);
-    dt = {dt[n]};
+    if (dt = {dt[n]}; dt[0] == lineseg_off)
+        make_move_shaded(p);
     int m = check_dots(false);
     return m == 1 ? check_loop() : m == 2;
 }
