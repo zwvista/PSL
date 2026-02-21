@@ -176,12 +176,14 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
             for (int k = 0; k < perm.size(); ++k)
-                if (perm[k] == PUZ_SHADED) {
-                    auto& p2 = o.m_range[k];
+                if (auto& p2 = o.m_range[k]; perm[k] == PUZ_SHADED) {
+                    if (init && m_game->m_pos2area.contains(p2))
+                        return true;
                     for (auto& os : offset)
                         if (auto p3 = p2 + os; m_shaded.contains(p3))
                             return true;
-                }
+                } else if (m_shaded.contains(p2))
+                    return true;
             return false;
         });
 
@@ -246,13 +248,8 @@ bool puz_state::make_move_shaded(const Position& p)
 {
     m_shaded.insert(p);
     for (int j = 0; j < 4; ++j)
-        if (auto p2 = p + offset[j]; is_valid(p2)) {
-            if (m_shaded.contains(p2))
-                return false;
-            boost::remove_erase_if(dots(p2), [&](int lineseg2) {
-                return is_lineseg_on(lineseg2, (j + 2) % 4);
-            });
-        }
+        if (auto p2 = p + offset[j]; m_shaded.contains(p2))
+            return false;
     return true;
 }
 
@@ -331,8 +328,8 @@ bool puz_state::make_move_dot(const Position& p, int n)
 {
     m_distance = 0;
     auto& dt = dots(p);
-    if (dt = {dt[n]}; dt[0] == lineseg_off)
-        make_move_shaded(p);
+    if (dt = {dt[n]}; dt[0] == lineseg_off && !make_move_shaded(p))
+        return false;
     int m = check_dots(false);
     return m == 1 ? check_loop() : m == 2;
 }
