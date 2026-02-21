@@ -258,13 +258,12 @@ bool puz_state::make_move_hint2(const Position& p, int n)
     auto& o = m_game->m_pos2area.at(p);
     auto& perm = m_game->m_info2perms.at({o.m_num, o.size()})[n];
     for (int i = 0; i < perm.size(); ++i)
-        if (auto p2 = o.m_range[i]; perm[i] == PUZ_NOT_SHADED)
-            boost::remove_erase(dots(p2), lineseg_off);
-        else {
+        if (auto p2 = o.m_range[i]; perm[i] == PUZ_SHADED) {
             dots(p2) = {lineseg_off};
             if (!make_move_shaded(p2))
                 return false;
-        }
+        } else if (!m_game->m_pos2area.contains(p2))
+            boost::remove_erase(dots(p2), lineseg_off);
     ++m_distance;
     m_matches.erase(p);
     return true;
