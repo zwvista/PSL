@@ -182,8 +182,13 @@ int puz_state::find_matches(bool init)
                     for (auto& os : offset)
                         if (auto p3 = p2 + os; m_shaded.contains(p3))
                             return true;
-                } else if (m_shaded.contains(p2))
-                    return true;
+                } else {
+                    if (m_shaded.contains(p2))
+                        return true;
+                    if (auto& dt = dots(p2);
+                        dt.size() == 1 && dt[0] == lineseg_off)
+                        return true;
+                }
             return false;
         });
 
