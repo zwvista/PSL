@@ -175,9 +175,11 @@ int puz_state::find_matches(bool init)
 
         boost::remove_erase_if(perm_ids, [&](int id) {
             auto& perm = perms[id];
-            for (int k = 0; k < perm.size(); ++k)
-                if (auto& p2 = o.m_range[k]; perm[k] == PUZ_SHADED) {
-                    if (init && m_game->m_pos2area.contains(p2))
+            for (int k = 0; k < perm.size(); ++k) {
+                auto& p2 = o.m_range[k];
+                if (bool isHint = m_game->m_pos2area.contains(p2);
+                    perm[k] == PUZ_SHADED) {
+                    if (isHint)
                         return true;
                     for (auto& os : offset)
                         if (auto p3 = p2 + os; m_shaded.contains(p3))
@@ -186,9 +188,10 @@ int puz_state::find_matches(bool init)
                     if (m_shaded.contains(p2))
                         return true;
                     if (auto& dt = dots(p2);
-                        dt.size() == 1 && dt[0] == lineseg_off)
+                        !isHint && dt.size() == 1 && dt[0] == lineseg_off)
                         return true;
                 }
+            }
             return false;
         });
 
