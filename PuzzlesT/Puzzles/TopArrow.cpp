@@ -224,7 +224,8 @@ bool puz_state::check_arrows() const
         if (chMax == PUZ_SPACE) continue;
         string chars;
         for (auto& p : info.m_rng)
-            chars.push_back(cells(p));
+            if (char ch = cells(p); tool_dirs.find(ch) == -1)
+                chars.push_back(ch);
         char chMax2 = *boost::max_element(chars);
         if (!(chMax == chMax2 && boost::count(chars, chMax2) == 1))
             return false;
