@@ -149,7 +149,9 @@ puz_state::puz_state(const puz_game& g)
             Position p(r, c);
             auto& dt = dots(p);
             auto& linesegs_all2 =
-                g.m_town2paths.contains(p) ? linesegs_all_town : linesegs_all;
+                g.m_town2paths.contains(p) ? linesegs_all_town :
+                r % 2 == 0 && c % 2 != 0 ? vector{10} :
+                r % 2 != 0 && c % 2 == 0 ? vector{5} :linesegs_all;
             for (int lineseg : linesegs_all2)
                 if ([&]{
                     for (int i = 0; i < 4; ++i)
