@@ -1153,3 +1153,16 @@ Number of vertices examined: 98
 0.001892 [s]
 
 Level 111
+Sequence of moves: 
+gD fF eA bC aG dB cE 
+aF eG bD fE cB gA dC 
+bE aA gB cG dF fC eD 
+fB cC dE aD bA eF gG 
+cA dD fG eB gC aE bF 
+eC gE cF dA fD bG aB 
+dG bB aC gF eE cD fA 
+Number of moves: 22
+Number of vertices examined: 1498397
+424.115 [s]
+
+Level 112
