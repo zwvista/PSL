@@ -13,7 +13,8 @@ enum class solution_format
 };
 
 template<typename T>
-concept puz_game_solve_puzzle = puz_game_load_xml<T> && requires(const T& t) {
+concept puz_game_solve_puzzle = requires(const vector<string>& strs, const xml_node& node, const T& t) {
+    T{ strs, node };
     { t.m_id } -> same_as<const string&>;
 };
 
@@ -44,13 +45,20 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
                   function<void(ostream&, const list<puz_state>&)> states_dumper = {},
                   function<void(ostream&, const list<list<puz_state>>&)> solutions_dumper = {})
 {
-    list<puz_game> games;
-
-    load_xml(games, fn_in);
+    xml_document doc;
+    doc.load_file(fn_in.c_str());
     ofstream out(fn_out);
 
-    for (const puz_game& game : games) {
+    for (xml_node v : doc.child("puzzle").child("levels").children()) {
         util::high_resolution_timer t;
+        string str = v.text().as_string();
+        vector<string> vstr;
+        boost::split(vstr, str, boost::is_any_of("`\r\n"), boost::token_compress_on);
+        if (!str.empty()) {
+            vstr.pop_back();
+            vstr.erase(vstr.begin());
+        }
+        puz_game game(vstr, v);
         puz_state sstart(game);
         list<list<puz_state>> spaths;
         //out << "Start state:" << endl << sstart << endl;
