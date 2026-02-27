@@ -49,21 +49,22 @@ void solve_puzzle(const string& fn_in, const string& fn_out,
     doc.load_file(fn_in.c_str());
     ofstream out(fn_out);
 
-    for (xml_node v : doc.child("puzzle").child("levels").children()) {
+    for (xml_node level : doc.child("puzzle").child("levels").children()) {
         util::high_resolution_timer t;
-        string str = v.text().as_string();
+        string id = level.attribute("id").value();
+        out << "Level " << id << endl;
+        cout << "Level " << id << endl;
+        string str = level.text().as_string();
         vector<string> vstr;
         boost::split(vstr, str, boost::is_any_of("`\r\n"), boost::token_compress_on);
         if (!str.empty()) {
             vstr.pop_back();
             vstr.erase(vstr.begin());
         }
-        puz_game game(vstr, v);
+        puz_game game(vstr, level);
         puz_state sstart(game);
         list<list<puz_state>> spaths;
         //out << "Start state:" << endl << sstart << endl;
-        out << "Level " << game.m_id << endl;
-        cout << "Level " << game.m_id << endl;
         const auto [found, vert_num] = puz_solver::find_solution(sstart, spaths);
         if (fmt == solution_format::CUSTOM_SOLUTIONS)
             solutions_dumper(out, spaths);
