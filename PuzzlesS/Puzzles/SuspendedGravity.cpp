@@ -332,8 +332,11 @@ bool puz_state::check_gravity()
         for (; r < rows() / 2; ++r)
             if (cells({r, c}) == PUZ_STONE)
                 return false;
+        bool hasStone = false;
         for (; r < rows(); ++r)
-            if (cells({r, c}) != PUZ_STONE)
+            if (cells({r, c}) == PUZ_STONE)
+                hasStone = true;
+            else if (hasStone)
                 return false;
     }
     m_cells = cellsTemp;
