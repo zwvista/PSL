@@ -2739,3 +2739,213 @@ Number of vertices examined: 212
 20.8667 [s]
 
 Level 201
+Sequence of moves: 
+= = . . . . = . 2 
+2 2 8 . = . . = . 
+. . = = 2 = . = = 
+= = = 4 . . 13. . 
+. 3 . . = = = 10. 
+= 1 = 2 = 8 . . = 
+= . = = = . = . . 
+. 7 . 5 = 1 = . . 
+= . . . . = = 7 . 
+Number of moves: 9
+Number of vertices examined: 505
+305.881 [s]
+
+Level 202
+Sequence of moves: 
+. . . 7 . = = . = 
+. . = . 5 . = 1 = 
+5 9 = = = . . = . 
+= . . 6 . = 5 = 2 
+= . = . 8 = . 3 . 
+6 . = = . = . = = 
+. 6 6 . . . 9 . = 
+. 2 7 . . = 1 2 . 
+= = . 7 = = . = = 
+Number of moves: 11
+Number of vertices examined: 8682
+5.17472 [s]
+
+Level 203
+Sequence of moves: 
+. = = = = = = = . 
+7 . 6 . 9 . . 8 . 
+= . . . 10. = . . 
+. = . = . 4 6 . = 
+. . 9 = = = . 8 . 
+= 3 = . 7 . = . 9 
+6 = . . = = . = . 
+. . . 8 . 8 . 7 . 
+= = = . 2 = . . . 
+Number of moves: 9
+Number of vertices examined: 1813
+6.38087 [s]
+
+Level 204
+Sequence of moves: 
+= . = = = = = . = 
+. 3 = . 1 = = 1 2 
+2 . = 1 = = . 3 . 
+= = . 4 . = 1 = . 
+1 = = . . = = = = 
+. 2 . 5 = . 10. 7 
+1 1 2 . 4 . = . . 
+= . = 1 4 . = 7 . 
+= = = = . 11. . . 
+Number of moves: 9
+Number of vertices examined: 29
+1.27606 [s]
+
+Level 205
+Sequence of moves: 
+. . = 2 . = . 2 = 
+3 = = . = . 3 . = 
+. 1 1 = = 1 = 3 . 
+= 2 . = = = . 5 . 
+= . = = 1 = . . 10
+. = = = . 2 = = . 
+2 = = . = . 9 . . 
+. 2 = 2 . 5 . 8 . 
+2 . 1 = = . . = . 
+Number of moves: 12
+Number of vertices examined: 216
+0.347922 [s]
+
+Level 206
+Sequence of moves: 
+= 2 . 1 1 = = = = 
+= . 3 = . = . = 1 
+= = . = 1 2 . 3 . 
+. 1 = . 2 = 2 = 2 
+8 = . 6 . = = 2 . 
+. 11. = 1 = 2 . = 
+. = . . = 5 . = = 
+. . = = . . = 2 2 
+. . . 11. . = . . 
+Number of moves: 9
+Number of vertices examined: 17
+3.27069 [s]
+
+Level 207
+Sequence of moves: 
+. 8 = . . = = . . 
+. . = . 4 = . = . 
+. . 12. = . . 8 . 
+. . . 13. 7 = . = 
+= 118 = 4 . . 7 . 
+. . = = = 3 . = . 
+= . 11. = = 6 = . 
+. 10. = = 3 . . = 
+. . . . . 7 = . = 
+Number of moves: 8
+Number of vertices examined: 8837
+60.6035 [s]
+
+Level 208
+Sequence of moves: 
+1 . = = . . = = . 
+1 = . = = 5 . . 5 
+. = 4 4 . = . 4 . 
+= 3 . . 8 . 7 = = 
+. 5 . = = . . . = 
+. 2 = = 1 = = 5 . 
+= = = = . 4 . = 1 
+= = 3 . 6 . = = = 
+. 4 . . = . 3 . = 
+Number of moves: 7
+Number of vertices examined: 56
+0.172147 [s]
+
+Level 209
+Sequence of moves: 
+= = = . . 7 . . . 
+= . 2 3 . = = = . 
+. = . = = 1 8 . = 
+. 3 4 . = . 9 . = 
+. 10. . = = . . = 
+7 . = 11. . . 9 . 
+. . . = = . 11= = 
+= 6 8 . . 13. 5 . 
+= . . 4 = . . = . 
+Number of moves: 10
+Number of vertices examined: 245
+44.4779 [s]
+
+Level 210
+Sequence of moves: 
+. . 5 . = 4 . . . 
+= = . 4 . 2 = = . 
+. = . = 3 . = 2 4 
+. 4 = = . = = . = 
+= . . = 1 = 3 . = 
+. 4 3 . = = . 6 . 
+= . = = . 2 = . . 
+1 1 = = 2 . = = = 
+. 3 . . = 1 = . 1 
+Number of moves: 11
+Number of vertices examined: 57
+0.028052 [s]
+
+Level 211
+Sequence of moves: 
+. 1 3 . . = = = = 
+= 1 . = = . = 1 = 
+. = = 3 . 2 1 . = 
+. = . . 3 = = 4 . 
+4 . = = = 2 . . = 
+. 2 = . . = = 3 = 
+3 = = 7 . . = . = 
+. = . . = = 2 4 . 
+. = 3 . 3 = . . = 
+Number of moves: 12
+Number of vertices examined: 172
+0.107706 [s]
+
+Level 212
+Sequence of moves: 
+. = . = . . = . . 
+1 5 . . 6 6 . . 6 
+= . = = . 1 = = . 
+3 . 9 . = 4 = = . 
+. = . = . . = . 5 
+= . . = 10. . 7 . 
+. . = . . = = = . 
+. 12. . = = 2 . 4 
+= . . = . 2 . 3 . 
+Number of moves: 8
+Number of vertices examined: 108
+82.2164 [s]
+
+Level 213
+Sequence of moves: 
+= = . . = 2 . . = 
+3 . 5 7 . = 7 2 = 
+. 5 . = . . . = . 
+. = . 11. = = . . 
+= = = . 9 = . . = 
+5 . . . = = . 8 . 
+. = = = 2 2 6 = . 
+2 2 . = . . = = 2 
+. 3 . = = = = . 1 
+Number of moves: 10
+Number of vertices examined: 353
+26.2253 [s]
+
+Level 214
+Sequence of moves: 
+. . . . . 14. . . 
+. 10. . = . = 4 = 
+10. = = . . 5 . = 
+2 . = = 3 = . 3 = 
+= = = 4 4 = = . = 
+4 = 5 . . = = 7 . 
+. = . 5 . . 9 . = 
+. . = = 7 = . . 5 
+4 . = . . . = . . 
+Number of moves: 8
+Number of vertices examined: 171
+37.6257 [s]
+
+Level 215
