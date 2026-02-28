@@ -117,7 +117,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == cols()) break;
             char ch = str_v[c * 2 + 1];
             if (ch != PUZ_SPACE)
-                m_pos2num[p] = ch - '0';
+                m_pos2num[p] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
             rng.insert(p);
         }
     }
@@ -336,7 +336,7 @@ bool puz_state::check_gravity()
         for (; r < rows(); ++r)
             if (cells({r, c}) == PUZ_STONE)
                 hasStone = true;
-            else if (hasStone)
+            else if (hasStone && is_goal_state())
                 return false;
     }
     m_cells = cellsTemp;
