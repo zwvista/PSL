@@ -94,7 +94,7 @@ struct puz_state
     unsigned int get_heuristic() const {
         return abs(m_square_count - m_game->m_square_count) * 4 + m_unused_count;
     }
-    unsigned int get_distance(const puz_state& child) const { return m_distance; }
+    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 

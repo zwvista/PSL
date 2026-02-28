@@ -165,7 +165,7 @@ struct puz_state
             return acc + kv.second.steps();
         }) + m_mushrooms.size();
     }
-    unsigned int get_distance(const puz_state& child) const { return m_distance; }
+    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out, const map<Position, char>& pos2dir, const puz_move& move) const;
     friend ostream& operator<<(ostream& out, const puz_state& state) {

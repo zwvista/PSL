@@ -86,7 +86,7 @@ struct puz_state
             return acc + m_game->m_pos2num.at(kv.first) + 1 - kv.second.m_inner.size();
         });
     }
-    unsigned int get_distance(const puz_state& child) const { return m_distance; }
+    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
