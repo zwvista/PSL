@@ -6,8 +6,7 @@
     iOS Game: 100 Logic Games/Puzzle Set 1/Tents
 
     Summary
-    Each camper wants to put his Tent under the shade of a Tree. But he also
-    wants his privacy!
+    Each camper wants his shade. But his privacy too!
 
     Description
     1. The board represents a camping field with many Trees. Campers want to set
@@ -17,8 +16,9 @@
        Tents near them, not even diagonally.
     3. The numbers on the borders tell you how many Tents there are in that row
        or column.
-    4. Finally, each Tree has at least one Tent touching it, horizontally or
-       vertically.
+    4. Finally, keep in mind these two rules:
+    5. Each Tree has at least one Tent touching it, horizontally or vertically.
+    6. There's the same exact number of Trees and Tents in the Camping Area.
 */
 
 namespace puzzles::Tents{
@@ -48,6 +48,7 @@ struct puz_game
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
+    int tree_count() const { return m_tree2tents.size(); }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -107,17 +108,18 @@ struct puz_area : pair<set<Position>, int>
     }
 };
 
-// all of the areas in the group
+// key: the key position of the group
+// value: all of the areas in the group
 struct puz_group : map<Position, puz_area>
 {
     puz_group() {}
     puz_group(const map<Position, vector<Position>>& tent2trees) {
         for (auto& [p, trees] : tent2trees)
-            (*this)[p] = {trees};
+            emplace(p, trees);
     }
     puz_group(const map<Position, int>& tent_counts) {
         for (auto& [p, cnt] : tent_counts)
-            (*this)[p] = {cnt};
+            emplace(p, cnt);
     }
     void add_cell(const Position& p, const Position& p2) {
         if (auto it = find(p); it != end())
@@ -149,16 +151,18 @@ struct puz_state
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p);
+    int tent_count() const { return boost::count(m_cells, PUZ_TENT); }
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
+        // 6. There's the same exact number of Trees and Tents in the Camping Area.
         return boost::accumulate(vector{&m_grp_trees, &m_grp_rows, &m_grp_cols}, 0, [&](int acc, const puz_group* grp) {
             return acc + boost::accumulate(*grp, 0, [&](int acc2, const pair<const Position, puz_area>& kv) {
                 return acc2 + kv.second.second;
             });
-        });
+        }) + m_game->tree_count() - tent_count();
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
@@ -174,8 +178,7 @@ struct puz_state
 
 // 3. The numbers on the borders tell you how many Tents there are in that row
 //    or column.
-// 4. Finally, each Tree has at least one Tent touching it, horizontally or
-//    vertically.
+// 5. Each Tree has at least one Tent touching it, horizontally or vertically.
 puz_state::puz_state(const puz_game& g)
     : m_cells(g.m_cells), m_game(&g)
     , m_grp_trees(g.m_tree2tents)
@@ -192,7 +195,9 @@ puz_state::puz_state(const puz_game& g)
 bool puz_state::make_move(const Position& p)
 {
     cells(p) = PUZ_TENT;
-    m_distance = 0;
+    m_distance = 1;
+    if (tent_count() > m_game->tree_count())
+        return false;
 
     auto grps_remove_cell = [&](const Position& p2) {
         for (auto& p3 : m_game->m_pos2trees.at(p2))
@@ -228,6 +233,8 @@ void puz_state::gen_children(list<puz_state>& children) const
         for (auto& [_1, a] : *grp)
             if (a.second > 0)
                 areas.push_back(&a);
+    if (areas.empty())
+        return;
 
     auto& a = **boost::min_element(areas, [](const puz_area* a1, const puz_area* a2) {
         return a1->first.size() < a2->first.size();
@@ -274,3 +281,4 @@ void solve_puz_Tents()
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
         "Puzzles/Tents.xml", "Puzzles/Tents.txt", solution_format::GOAL_STATE_ONLY);
 }
+
