@@ -69,6 +69,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_cells.pop_back();
 
+    // 1. The board represents a camping field with many Trees. Campers want to set
+    //    their Tent in the shade, horizontally or vertically adjacent to a Tree(not
+    //    diagonally).
     for (auto& [p, tents] : m_tree2tents)
         for (auto& os : offset)
             if (auto p2 = p + os;
