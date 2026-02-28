@@ -1526,3 +1526,411 @@ Number of vertices examined: 305
 4.44298 [s]
 
 Level 124
+Sequence of moves: 
+ ^ ^ < C - - > ^
+ | B - - - - > |
+ | < A - - - > |
+ | < - - - - - D
+ E - - - - > ^ |
+ v < - - - - F |
+ < - - - - A v v
+ < - - - F - - >
+Number of moves: 6
+Number of vertices examined: 1163
+20.2084 [s]
+
+Level 125
+Sequence of moves: 
+ ^ F ^ ^ ^ ^ ^ ^
+ | | F | | | | |
+ | | | | C | | |
+ | | | | v | | A
+ | | | D > | | |
+ | | | | ^ | A v
+ | v v v | B - >
+ E - > < F - - >
+Number of moves: 6
+Number of vertices examined: 62
+0.90826 [s]
+
+Level 126
+Sequence of moves: 
+ ^ B - - - - - >
+ C - - - - - - >
+ | < B - - - - >
+ | < - - D - > ^
+ | < - - - - - F
+ | < - E - > ^ v
+ v < - - - - A >
+ < - - - - A - >
+Number of moves: 6
+Number of vertices examined: 16
+0.522987 [s]
+
+Level 127
+Sequence of moves: 
+ A - - - - - > ^
+ < - - A - - > |
+ < - - - - - - C
+ < - - - - F > |
+ < - D - > v ^ |
+ < - - - - - E |
+ < B - - - > v v
+ < - - - F - - >
+Number of moves: 6
+Number of vertices examined: 454
+7.50469 [s]
+
+Level 128
+Sequence of moves: 
+ ^ ^ < E - - - >
+ | | ^ | ^ < D >
+ | | | | F > | ^
+ | | | | | ^ | B
+ | F | | | | | |
+ | | A | | | | |
+ | | | | | C | |
+ F v v v v v v v
+Number of moves: 6
+Number of vertices examined: 742
+59.5427 [s]
+
+Level 129
+Sequence of moves: 
+ < - - - - - - A
+ < - - A - - - >
+ ^ < - - - E - >
+ | ^ < - F - - >
+ | D - - - - - >
+ | v ^ < - - C >
+ | < A - - - - >
+ B - - - - - - >
+Number of moves: 6
+Number of vertices examined: 3224
+51.3067 [s]
+
+Level 130
+Sequence of moves: 
+ < - - - A ^ ^ ^
+ < - - - - B | |
+ < A - - > v | |
+ E - - - - > | |
+ < - E - - > | |
+ < - - - - - F |
+ < - - C - - > |
+ < - - - - - - D
+Number of moves: 6
+Number of vertices examined: 988
+10.5158 [s]
+
+Level 131
+Sequence of moves: 
+ < - C - > ^ ^ ^
+ ^ ^ | ^ < A | |
+ | | | | ^ | D |
+ | | | | | | | A
+ | | | F | | | |
+ | | | | B | | |
+ F | v v v v v |
+ < E - - - - > v
+Number of moves: 6
+Number of vertices examined: 191
+2.34943 [s]
+
+Level 132
+Sequence of moves: 
+ C - - - - - > ^
+ < - - - E ^ ^ |
+ < - - - - B | |
+ < E - - > v | |
+ < - - - - - A |
+ < - D - - > v |
+ < - - C - - > |
+ < - - - - - - F
+Number of moves: 6
+Number of vertices examined: 582
+7.92553 [s]
+
+Level 133
+Sequence of moves: 
+ ^ ^ ^ ^ ^ F ^ ^
+ E | | | | | | |
+ | | | | F | | |
+ | | A | | | | |
+ | A v | | | | |
+ | < - C v v | |
+ v < - - - - D |
+ < - - - - - - B
+Number of moves: 6
+Number of vertices examined: 1039
+7.48301 [s]
+
+Level 134
+Sequence of moves: 
+ < - - F - - - >
+ ^ D - - - - - >
+ A - - - - - - >
+ | < - - - D - >
+ | < E - - - > ^
+ | < - - - - - C
+ | < - - B > ^ v
+ v < - - - - F >
+Number of moves: 6
+Number of vertices examined: 349
+5.40202 [s]
+
+Level 135
+Sequence of moves: 
+ ^ < - D - - - >
+ | < A | ^ ^ ^ ^
+ E > | | | | | |
+ | B | | | | | |
+ | | | | | F | C
+ | | | | A > | |
+ | | | | | G | |
+ v v v v v v C v
+Number of moves: 7
+Number of vertices examined: 994
+6.20183 [s]
+
+Level 136
+Sequence of moves: 
+ ^ ^ < E - - - >
+ | | ^ | ^ < D >
+ | | | | C > | ^
+ | | | | | A | |
+ | | F | | | | |
+ | | | | | | | B
+ | C | | | | | |
+ C v v v v v v v
+Number of moves: 6
+Number of vertices examined: 1671
+38.9445 [s]
+
+Level 137
+Sequence of moves: 
+ C - - - > ^ ^ ^
+ | ^ ^ ^ < A | |
+ | | | | ^ | | A
+ | | | | B | | |
+ | | | | | | D |
+ | E | | | | | |
+ | v E | v v v |
+ v < - C - - > v
+Number of moves: 5
+Number of vertices examined: 44
+2.36264 [s]
+
+Level 138
+Sequence of moves: 
+ < - - - - - G ^
+ < - - - - G > |
+ C - - - - - > |
+ | ^ < - E - > |
+ v | < - - F < C
+ < D - - - - > |
+ B v E - - - > |
+ v < - A - - > v
+Number of moves: 7
+Number of vertices examined: 821
+4.61549 [s]
+
+Level 139
+Sequence of moves: 
+ < C < A - - > ^
+ B | ^ | ^ ^ ^ |
+ | | | v | | E |
+ v | | E | | | |
+ D | | | | | | G
+ | | A | | | v v
+ | | | | | F - >
+ v v v v H - - >
+Number of moves: 7
+Number of vertices examined: 4296
+28.3498 [s]
+
+Level 140
+Sequence of moves: 
+ ^ < - D > < B >
+ | ^ ^ | ^ ^ | C
+ B | | | | | | |
+ | | | | E | | |
+ | C | v v | v |
+ | | | < - A > |
+ v v D - > v ^ v
+ < - - - - - A >
+Number of moves: 5
+Number of vertices examined: 23
+0.877566 [s]
+
+Level 141
+Sequence of moves: 
+ ^ A - - - > ^ ^
+ | | B - - > | |
+ | | | ^ < - B |
+ | | | | ^ E | |
+ | | | | | | | C
+ | | | D | | | |
+ | | | | E | | |
+ C v v v v v v v
+Number of moves: 5
+Number of vertices examined: 534
+14.5405 [s]
+
+Level 142
+Sequence of moves: 
+ D ^ ^ ^ ^ ^ ^ ^
+ | | | | | | F |
+ | | B | | | | |
+ | D | | | | | |
+ | | | | E | | |
+ | | v | < D | |
+ | | < A > v v |
+ v v < - - - - C
+Number of moves: 6
+Number of vertices examined: 1040
+13.5238 [s]
+
+Level 143
+Sequence of moves: 
+ < - - - - - E >
+ ^ < - - - B | ^
+ | ^ < - D | | |
+ | C > ^ | | | |
+ C | ^ | | | | |
+ | | A | | | | |
+ | | | F | | | |
+ v v v v v v v C
+Number of moves: 6
+Number of vertices examined: 13
+1.09696 [s]
+
+Level 144
+Sequence of moves: 
+ ^ < - - - C > ^
+ | < - - - - - E
+ A - - - - - > |
+ | < - - - - C v
+ | E - - - - - >
+ | | B - - - - >
+ | | | < D - - >
+ v v v D - - - >
+Number of moves: 5
+Number of vertices examined: 17
+1.35581 [s]
+
+Level 145
+Sequence of moves: 
+ D - - - > ^ ^ ^
+ | ^ ^ ^ ^ | B |
+ | | | | | A | |
+ | | | | C | | |
+ | | | E | | | |
+ | E | v | | | |
+ v < B > v v | |
+ C - - - - > v B
+Number of moves: 5
+Number of vertices examined: 1301
+32.66 [s]
+
+Level 146
+Sequence of moves: 
+ ^ < - - - C - >
+ | < - - - - A ^
+ D - - - - - > |
+ | ^ < B - - > |
+ | F - - - - > |
+ v v ^ < - - - E
+ < - E - - - - >
+ < - - - F - - >
+Number of moves: 6
+Number of vertices examined: 1060
+35.8534 [s]
+
+Level 147
+Sequence of moves: 
+ ^ < - - - E ^ ^
+ | < - B ^ | | |
+ | A > | | v | |
+ | | ^ | | < D |
+ | | | | E > | |
+ | v | | | ^ | D
+ B > | | v | v |
+ v < C v < A > v
+Number of moves: 5
+Number of vertices examined: 313
+6.54556 [s]
+
+Level 148
+Sequence of moves: 
+ < D - - - - > ^
+ ^ v < - B - > |
+ D - - - - - > |
+ < - - F - - > |
+ < - - - - - - C
+ < - - - - - A |
+ < - - - - E | |
+ < - E - - > v v
+Number of moves: 6
+Number of vertices examined: 13
+0.429259 [s]
+
+Level 149
+Sequence of moves: 
+ ^ < - E - > ^ ^
+ | ^ ^ | ^ < A |
+ | | | | | F | |
+ | | | | | | | C
+ | | | | B | | |
+ | D | | | | | |
+ | < C | | | | |
+ A > v v v v v v
+Number of moves: 6
+Number of vertices examined: 1676
+12.9555 [s]
+
+Level 150
+Sequence of moves: 
+ < - D - - - - >
+ ^ < - - - B - >
+ C - - - - - > ^
+ | F - - - - > |
+ | | < - - - - F
+ | | < - - - A |
+ | | < - A - > v
+ v v < E - - - >
+Number of moves: 6
+Number of vertices examined: 2447
+35.0488 [s]
+
+Level 151
+Sequence of moves: 
+ ^ ^ C < - - G - >
+ B | | A - - - > ^
+ | | | | C - - > |
+ | F | v v ^ < - A
+ | ^ v ^ < C - > |
+ | | < H - - - > v
+ | G > v D > E - >
+ | | < - - - - - A
+ v v < - F > < E >
+Number of moves: 7
+Number of vertices examined: 1249
+33.8449 [s]
+
+Level 152
+Sequence of moves: 
+ < - - - A ^ C - >
+ A - > < - B - - >
+ | < D > ^ | ^ ^ ^
+ v ^ | ^ | | | C |
+ < E | G | | | v |
+ ^ v | | | v | < G
+ A > | | H < H > v
+ | F | | | < - E >
+ v v v v v E - - >
+Number of moves: 8
+Number of vertices examined: 298
+4.42595 [s]
+
+Level 153
