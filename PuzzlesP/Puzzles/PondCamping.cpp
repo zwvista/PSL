@@ -229,8 +229,7 @@ ostream& puz_state::dump(ostream& out) const
             if (auto it = m_game->m_pos2num.find(p); it != m_game->m_pos2num.end())
                 out << format("{:<2}", it->second);
             else
-                out << cells(p);
-            out << ' ';
+                out << cells(p) << ' ';
         }
         println(out);
     }
