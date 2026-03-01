@@ -103,26 +103,24 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (int i = 0; i < rooms.size(); ++i) {
         const auto& room = rooms[i];
-        auto& info = m_room2info[i];
-        auto& ps = info.first;
-        auto& perms = info.second;
+        auto& [rng, perms] = m_room2info[i];
 
         vector<int> perm;
         perm.resize(room.size());
         boost::iota(perm, 1);
 
         vector<Position> filled;
-        for (const auto& p : room) {
+        for (const auto& p : room)
             if (auto it = m_start.find(p); it != m_start.end()) {
                 filled.push_back(p);
-                boost::range::remove_erase(perm, it->second);
+                boost::remove_erase(perm, it->second);
             }
-        }
-        boost::set_difference(room, filled, back_inserter(ps));
-        for (int j = 0; j < ps.size(); ++j)
-            m_pos2info[ps[j]].second = j;
 
-        if (info.first.empty())
+        boost::set_difference(room, filled, back_inserter(rng));
+        for (int j = 0; j < rng.size(); ++j)
+            m_pos2info[rng[j]].second = j;
+
+        if (rng.empty())
             m_room2info.erase(i);
         else
             do
