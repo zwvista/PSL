@@ -52,9 +52,9 @@ struct puz_game
     char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
-struct puz_state3 : vector<Position>
+struct puz_state2 : vector<Position>
 {
-    puz_state3(const puz_game* game, const Position& p, char num)
+    puz_state2(const puz_game* game, const Position& p, char num)
         : m_game(game) { make_move(num, p, false); }
     bool is_self(const Position& p) const {
         return boost::algorithm::any_of_equal(*this, p);
@@ -65,13 +65,13 @@ struct puz_state3 : vector<Position>
             m_num = num;
         at_front ? (void)insert(begin(), p) : push_back(p);
     }
-    void gen_children(list<puz_state3>& children) const;
+    void gen_children(list<puz_state2>& children) const;
 
     const puz_game* m_game;
     char m_num = PUZ_SPACE;
 };
 
-void puz_state3::gen_children(list<puz_state3>& children) const
+void puz_state2::gen_children(list<puz_state2>& children) const
 {
     if (m_num != PUZ_SPACE && size() == m_num - '0')
         return;
@@ -124,7 +124,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto& [p, num] : m_pos2num) {
         auto& moves = m_pos2moves[p];
-        auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p, num});
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, num});
         for (auto& s : smoves) {
             if (s.size() == 1) continue;
             auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
@@ -260,27 +260,27 @@ bool puz_state::make_move_hint(const Position& p, int n)
     return m == 2;
 }
 
-struct puz_state4 : Position
+struct puz_state3 : Position
 {
-    puz_state4(const puz_state* s, const Position& p)
+    puz_state3(const puz_state* s, const Position& p)
         : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state4>& children) const;
+    void gen_children(list<puz_state3>& children) const;
 
     const puz_state* m_state;
 };
 
-void puz_state4::gen_children(list<puz_state4>& children) const
+void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset)
         if (auto p2 = *this + os; m_state->cells(p2) == PUZ_SPACE)
             children.emplace_back(*this).make_move(p2);
 }
 
-struct puz_state5 : vector<Position>
+struct puz_state4 : vector<Position>
 {
-    puz_state5(const puz_state* s, const Position& p, char num)
+    puz_state4(const puz_state* s, const Position& p, char num)
         : m_state(s), m_num(num) { make_move(p, false); }
     bool is_self(const Position& p) const {
         return boost::algorithm::any_of_equal(*this, p);
@@ -290,15 +290,15 @@ struct puz_state5 : vector<Position>
     void make_move(const Position& p, bool at_front) {
         at_front ? (void)insert(begin(), p) : push_back(p);
     }
-    void gen_children(list<puz_state5>& children) const;
-    unsigned int get_distance(const puz_state5& child) const { return 1; }
+    void gen_children(list<puz_state4>& children) const;
+    unsigned int get_distance(const puz_state4& child) const { return 1; }
 
     const puz_state* m_state;
     char m_num;
 };
 
 // 5. Two snakes of the same length must not be orthogonally adjacent.
-void puz_state5::gen_children(list<puz_state5>& children) const {
+void puz_state4::gen_children(list<puz_state4>& children) const {
     auto f = [&](const Position& p, bool at_front) {
         for (auto& os : offset) {
             auto p2 = p + os;
@@ -339,7 +339,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         // 7. every cell in the board is part of a snake.
         int i = m_cells.find(PUZ_SPACE);
         Position p(i / sidelen(), i % sidelen());
-        auto smoves = puz_move_generator<puz_state4>::gen_moves({this, p});
+        auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p});
         char num_max = smoves.size() + '0';
         // 2. A snake is a one-cell-wide path at least two cells long. 
         for (char num = '2'; num <= num_max; ++num) {
@@ -349,9 +349,9 @@ void puz_state::gen_children(list<puz_state>& children) const
             }))
                 continue;
             vector<vector<Position>> snakes;
-            puz_state5 sstart(this, p, num);
-            list<list<puz_state5>> spaths;
-            if (auto [found, _1] = puz_solver_bfs<puz_state5, false, false>::find_solution(sstart, spaths); found) {
+            puz_state4 sstart(this, p, num);
+            list<list<puz_state4>> spaths;
+            if (auto [found, _1] = puz_solver_bfs<puz_state4, false, false>::find_solution(sstart, spaths); found) {
                 for (auto& spath : spaths) {
                     auto& s = spath.back();
                     auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
