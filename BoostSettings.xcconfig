@@ -1,2 +1,2 @@
 BoostPath = /Users/zwvista/Documents/boost_1_90_0
-
+WARNING_CFLAGS = -Wno-logical-op-parentheses -Wno-comma

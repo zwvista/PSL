@@ -51,6 +51,7 @@
 		8C689D322E08BF6200A2BCCC /* Banquet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Banquet.cpp; sourceTree = "<group>"; };
 		8C689D332E08BF6200A2BCCC /* Banquet.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Banquet.txt; sourceTree = "<group>"; };
 		8C689D342E08BF6200A2BCCC /* Banquet.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Banquet.xml; sourceTree = "<group>"; };
+		8C705E082F54B91F00D9753B /* PuzzlesB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = PuzzlesB; path = /Users/zwvista/Documents/Programs/Games/PSL/PuzzlesB/build/Debug/PuzzlesB; sourceTree = "<absolute>"; };
 		8C884F712E2D2BF9005310E2 /* BlockEscape.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = BlockEscape.txt; sourceTree = "<group>"; };
 		8C884F722E2D2BF9005310E2 /* BlockEscape.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BlockEscape.xml; sourceTree = "<group>"; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -114,7 +115,6 @@
 		8CA23FD51EB479280055D6B1 /* BWTapa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BWTapa.cpp; sourceTree = "<group>"; };
 		8CA23FD61EB479280055D6B1 /* BWTapa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BWTapa.txt; sourceTree = "<group>"; };
 		8CA23FD71EB479280055D6B1 /* BWTapa.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BWTapa.xml; sourceTree = "<group>"; };
-		8CB721BC2EAAD592001B25C5 /* PuzzlesB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = PuzzlesB; path = /Users/zwvista/Documents/Programs/Games/PSL/PuzzlesB/build/Debug/PuzzlesB; sourceTree = "<absolute>"; };
 		8CB722342EBA0051001B25C5 /* Bridges.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Bridges.cpp; sourceTree = "<group>"; };
 		8CB722352EBA0051001B25C5 /* Bridges.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bridges.txt; sourceTree = "<group>"; };
 		8CB722362EBA0051001B25C5 /* Bridges.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Bridges.xml; sourceTree = "<group>"; };
@@ -255,7 +255,7 @@
 			);
 			name = PuzzlesB;
 			productName = PuzzlesM;
-			productReference = 8CB721BC2EAAD592001B25C5 /* PuzzlesB */;
+			productReference = 8C705E082F54B91F00D9753B /* PuzzlesB */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
