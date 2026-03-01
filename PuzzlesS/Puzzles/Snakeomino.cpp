@@ -124,9 +124,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto& [p, num] : m_pos2num) {
         auto& moves = m_pos2moves[p];
-        // 5. Two snakes of the same length must not be orthogonally adjacent.
-        auto f = [&](const vector<Position>& v, char num2) {
-            return boost::algorithm::none_of(moves, [&](const puz_move& move) {
+        auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p, num});
+        for (auto& s : smoves) {
+            if (s.size() == 1) continue;
+            auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
+            // 5. Two snakes of the same length must not be orthogonally adjacent.
+            if (char num2 = v.size() + '0'; boost::algorithm::none_of(moves, [&](const puz_move& move) {
                 return move.m_snake == v;
             }) && boost::algorithm::all_of(v, [&](const Position& p2) {
                 return boost::algorithm::all_of(offset, [&](const Position& os) {
@@ -134,14 +137,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     return boost::algorithm::any_of_equal(v, p3) ||
                         cells(p3) != num2;
                 });
-            });
-        };
-        auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p, num});
-        for (auto& s : smoves) {
-            if (s.size() == 1) continue;
-            auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
-            if (char num = v.size() + '0'; f(v, num))
-                moves.emplace_back(num, v);
+            }))
+                moves.emplace_back(num2, v);
         }
     }
 }
