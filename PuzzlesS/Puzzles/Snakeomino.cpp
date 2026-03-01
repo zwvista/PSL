@@ -82,6 +82,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const
             if (char ch = m_game->cells(p2);
                 !is_self(p2) && (m_num == PUZ_SPACE && ch != PUZ_BOUNDARY ||
                 ch == PUZ_SPACE || ch == m_num) &&
+                // 2. A snake is a one-cell-wide path at least two cells long. A snake cannot touch itself,
+                //    not even diagonally.
                 boost::algorithm::none_of(offset, [&](const Position& os2) {
                 auto p3 = p2 + os2;
                 return p3 != p && is_self(p3);
@@ -128,17 +130,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (auto& s : smoves) {
             if (s.size() == 1) continue;
             auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
-            // 5. Two snakes of the same length must not be orthogonally adjacent.
-            if (char num2 = v.size() + '0'; boost::algorithm::none_of(moves, [&](const puz_move& move) {
-                return move.m_snake == v;
-            }) && boost::algorithm::all_of(v, [&](const Position& p2) {
-                return boost::algorithm::all_of(offset, [&](const Position& os) {
-                    auto p3 = p2 + os;
-                    return boost::algorithm::any_of_equal(v, p3) ||
-                        cells(p3) != num2;
-                });
-            }))
-                moves.emplace_back(num2, v);
+            char num2 = v.size() + '0';
+            moves.emplace_back(num2, v);
         }
     }
 }
@@ -179,8 +172,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g)
-, m_cells(g.m_cells)
+: m_game(&g), m_cells(g.m_cells)
 {
     for (auto& [p, moves] : g.m_pos2moves) {
         auto& v = m_matches[p];
@@ -220,7 +212,12 @@ int puz_state::find_matches(bool init)
                 if (m_finished.contains(p2))
                     return true;
                 char ch = cells(p2);
-                return ch != PUZ_SPACE && ch != num;
+                return ch != PUZ_SPACE && ch != num ||
+                // 5. Two snakes of the same length must not be orthogonally adjacent.
+                boost::algorithm::any_of(offset, [&](const Position& os) {
+                    auto p3 = p2 + os;
+                    return boost::algorithm::none_of_equal(snake, p3) && cells(p3) == num;
+                });
             });
         });
 
