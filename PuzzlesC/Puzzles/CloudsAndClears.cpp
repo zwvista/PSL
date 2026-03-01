@@ -141,7 +141,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto& [_1, num] : m_pos2num) {
         auto& perms = m_num2perms[num];
-        if (!perms.empty())
+        if (!perms.empty() || num > 9)
             continue;
         auto perm = string(num, PUZ_EMPTY) + string(9 - num, PUZ_CLOUD);
         do
