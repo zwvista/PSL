@@ -180,7 +180,7 @@ void puz_state::apply_ripple_effect(const Position& p, int n)
             int i, j;
             tie(i, j) = m_game->m_pos2info.at(p2);
             boost::range::remove_erase_if(m_room2info.at(i).second, [=](const vector<int>& nums) {
-                return nums[j] == n;
+                return j < nums.size() && nums[j] == n;
             });
         }
     }
