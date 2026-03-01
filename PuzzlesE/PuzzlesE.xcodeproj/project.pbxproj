@@ -266,6 +266,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				WARNING_CFLAGS = "-Wno-logical-op-parentheses";
 			};
 			name = Debug;
 		};
@@ -320,6 +321,7 @@
 				HEADER_SEARCH_PATHS = $BoostPath;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				WARNING_CFLAGS = "-Wno-logical-op-parentheses";
 			};
 			name = Release;
 		};
