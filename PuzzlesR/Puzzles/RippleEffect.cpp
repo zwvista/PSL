@@ -97,7 +97,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int n = 0; !rng.empty(); ++n) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
         for (auto& room = rooms.emplace_back(); auto& p : smoves) {
-            m_pos2info[p].first = n;
+            if (!m_pos2num.contains(p))
+                m_pos2info[p].first = n;
             room.push_back(p);
             rng.erase(p);
         }
@@ -111,14 +112,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         perm.resize(room.size());
         boost::iota(perm, 1);
 
-        vector<Position> filled;
         for (const auto& p : room)
-            if (auto it = m_pos2num.find(p); it != m_pos2num.end()) {
-                filled.push_back(p);
+            if (auto it = m_pos2num.find(p); it == m_pos2num.end())
+                rng2.push_back(p);
+            else
                 boost::remove_erase(perm, it->second);
-            }
 
-        boost::set_difference(room, filled, back_inserter(rng2));
         for (int j = 0; j < rng2.size(); ++j)
             m_pos2info[rng2[j]].second = j;
 
@@ -177,8 +176,7 @@ void puz_state::apply_ripple_effect(const Position& p, int n)
             p2 += os;
             if (!is_valid(p2)) break;
             if (cells(p2) != 0) continue;
-            int i, j;
-            tie(i, j) = m_game->m_pos2info.at(p2);
+            auto& [i, j] = m_game->m_pos2info.at(p2);
             boost::range::remove_erase_if(m_room2info.at(i).second, [=](const vector<int>& nums) {
                 return j < nums.size() && nums[j] == n;
             });
