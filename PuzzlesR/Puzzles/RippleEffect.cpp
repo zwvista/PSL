@@ -32,7 +32,10 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_start;
+    map<Position, int> m_pos2num;
+    // key: the position
+    // value.first: index of the room
+    // value.second: index of the position
     map<Position, pair<int, int>> m_pos2info;
     map<int, puz_room_info> m_room2info;
     set<Position> m_horz_walls, m_vert_walls;
@@ -85,7 +88,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (c == m_sidelen) break;
             char ch = str_v[c * 2 + 1];
             if (ch != ' ')
-                m_start[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
             rng.insert(p);
         }
     }
@@ -93,17 +96,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     vector<vector<Position>> rooms;
     for (int n = 0; !rng.empty(); ++n) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
-        rooms.resize(n + 1);
-        for (auto& p : smoves) {
+        for (auto& room = rooms.emplace_back(); auto& p : smoves) {
             m_pos2info[p].first = n;
-            rooms[n].push_back(p);
+            room.push_back(p);
             rng.erase(p);
         }
     }
 
     for (int i = 0; i < rooms.size(); ++i) {
         const auto& room = rooms[i];
-        auto& [rng, perms] = m_room2info[i];
+        auto& [rng2, perms] = m_room2info[i];
 
         vector<int> perm;
         perm.resize(room.size());
@@ -111,16 +113,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
         vector<Position> filled;
         for (const auto& p : room)
-            if (auto it = m_start.find(p); it != m_start.end()) {
+            if (auto it = m_pos2num.find(p); it != m_pos2num.end()) {
                 filled.push_back(p);
                 boost::remove_erase(perm, it->second);
             }
 
-        boost::set_difference(room, filled, back_inserter(rng));
-        for (int j = 0; j < rng.size(); ++j)
-            m_pos2info[rng[j]].second = j;
+        boost::set_difference(room, filled, back_inserter(rng2));
+        for (int j = 0; j < rng2.size(); ++j)
+            m_pos2info[rng2[j]].second = j;
 
-        if (rng.empty())
+        if (rng2.empty())
             m_room2info.erase(i);
         else
             do
@@ -160,10 +162,10 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_sidelen * g.m_sidelen)
 , m_game(&g), m_room2info(g.m_room2info)
 {
-    for (auto& [p, n] : g.m_start)
+    for (auto& [p, n] : g.m_pos2num)
         cells(p) = n;
 
-    for (auto& [p, n] : g.m_start)
+    for (auto& [p, n] : g.m_pos2num)
         apply_ripple_effect(p, n);
 }
 
