@@ -223,29 +223,43 @@ int puz_state::check_dots(bool init)
 bool puz_state::check_loop() const
 {
     set<Position> rng;
+    map<Position, puz_dot> pos2dt;
     for (int r = 0; r < rows(); ++r)
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
-            if (dt.size() == 1 && dt[0] != lineseg_off)
+            if (dt.size() == 1)
                 rng.insert(p);
+            pos2dt[p] = dt;
         }
 
     // 2. The number on each region tells you how many turns the path does
     // in that region.
-    map<int, int> area2num;
-    for (auto& p : rng)
-        if (int& n = area2num[m_game->m_pos2area.at(p)];
-            is_lineseg_turn(dots(p)[0]))
-            n++;
-    if (is_goal_state() && area2num.size() != m_game->m_areas.size())
-        return false;
-    for (auto& [id, num] : area2num) {
-        int num2 = m_game->m_areas[id].first;
-        if (num2 != PUZ_UNKNOWN && (is_goal_state() && num != num2 || num > num2))
-            return false;
+    for (auto& [num2, area] : m_game->m_areas) {
+        if (num2 == PUZ_UNKNOWN) continue;
+        
+        int max_possible = 0;
+        int min_guaranteed = 0;
+
+        for (const auto& p : area) {
+            const auto& dt = pos2dt.at(p);
+            bool can_be_turn = boost::algorithm::any_of(dt, is_lineseg_turn);
+            bool can_be_straight = boost::algorithm::any_of(dt, [](int s){
+                return !is_lineseg_turn(s);
+            });
+
+            if (can_be_turn) max_possible++;
+            if (can_be_turn && !can_be_straight) min_guaranteed++;
+        }
+
+        // Prune if we can't possibly reach the target
+        if (max_possible < num2) return false;
+        // Prune if we have already exceeded the target
+        if (min_guaranteed > num2) return false;
+        // Final check
+        if (is_goal_state() && min_guaranteed != num2) return false;
     }
-    
+
     bool has_branch = false;
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
