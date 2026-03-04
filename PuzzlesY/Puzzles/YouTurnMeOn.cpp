@@ -223,41 +223,37 @@ int puz_state::check_dots(bool init)
 bool puz_state::check_loop() const
 {
     set<Position> rng;
-    map<Position, puz_dot> pos2dt;
     for (int r = 0; r < rows(); ++r)
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             if (dt.size() == 1)
                 rng.insert(p);
-            pos2dt[p] = dt;
         }
 
     // 2. The number on each region tells you how many turns the path does
     // in that region.
-    for (auto& [num2, area] : m_game->m_areas) {
-        if (num2 == PUZ_UNKNOWN) continue;
+    for (auto& [num_hint, area] : m_game->m_areas) {
+        if (num_hint == PUZ_UNKNOWN) continue;
         
         int max_possible = 0;
         int min_guaranteed = 0;
 
         for (const auto& p : area) {
-            const auto& dt = pos2dt.at(p);
+            const auto& dt = dots(p);
             bool can_be_turn = boost::algorithm::any_of(dt, is_lineseg_turn);
-            bool can_be_straight = boost::algorithm::any_of(dt, [](int s){
-                return !is_lineseg_turn(s);
-            });
+            bool must_be_turn = boost::algorithm::all_of(dt, is_lineseg_turn);
 
             if (can_be_turn) max_possible++;
-            if (can_be_turn && !can_be_straight) min_guaranteed++;
+            if (must_be_turn) min_guaranteed++;
         }
 
         // Prune if we can't possibly reach the target
-        if (max_possible < num2) return false;
+        if (max_possible < num_hint) return false;
         // Prune if we have already exceeded the target
-        if (min_guaranteed > num2) return false;
+        if (min_guaranteed > num_hint) return false;
         // Final check
-        if (is_goal_state() && min_guaranteed != num2) return false;
+        if (is_goal_state() && min_guaranteed != num_hint) return false;
     }
 
     bool has_branch = false;
