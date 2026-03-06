@@ -1,61 +1,1394 @@
 Level 1
 Sequence of moves: 
  - - - -
-|S S S|W|
+|R R R|W|
  -   -  
-|T|S|R|W|
+|T|R|S|W|
    -    
-|T|R R|W|
+|T|S S|W|
  -   - -
-|S|R|T T|
+|R|S|T T|
  - - - -
 Number of moves: 1
 Number of vertices examined: 2
-0.0050062 [s]
+0.00394 [s]
+
+Level 2
+Sequence of moves: 
+ - - - -
+|R R|T|R|
+ - - - -
+|S|W|S S|
+ -   -  
+|T|W W|S|
+   - - -
+|T|S|T|R|
+ - - - -
+Number of moves: 4
+Number of vertices examined: 5
+0.000165 [s]
+
+Level 3
+Sequence of moves: 
+ - - - -
+|W W|T T|
+ - - - -
+|R|S S|W|
+        
+|R|S S|W|
+   - -  
+|R R|W W|
+ - - - -
+Number of moves: 2
+Number of vertices examined: 3
+0.00014 [s]
 
 Level 4
 Sequence of moves: 
  - - - - -
-|S|T T T T|
+|R|T T T T|
    - - - -
-|S S|W W|S|
+|R R|W W|R|
    -   - -
-|S|R|W|T T|
+|R|S|W|T T|
  -   -    
-|R R|S|T T|
+|S S|R|T T|
  - - - - -
-|W|T|W|R|W|
+|W|T|W|S|W|
  - - - - -
 Number of moves: 5
 Number of vertices examined: 6
-0.00552845 [s]
+0.000184 [s]
 
-Level 300
+Level 5
 Sequence of moves: 
- - - - - - - - - - - -
-|W|R R|T|S|R|W|R|W W W|
- - - -   -   - - - - -
-|S S S|T T|R|T|S S|T|S|
- - - - - - - - - -   -
-|T|R|W W W|S|W|R|T T|W|
- -   - - - - - - - -  
-|R R|S|T T|R|T|S S S|W|
- - - - - - - - - - - -
-|W|T|W|R|S S|W|R|T|R|T|
- - - - - - - - - - - -
-|R|S S|T T|R|T|S|W W|S|
- - - -   -   -   -   -
-|T|W W|T|W|R|W|S S|W|R|
-   - - - - - - - - -  
-|T T|R R|S S|T|R R|T|R|
- - -   - - - - -   - -
-|W W|R|W|T|R|W|S|R|S|W|
- -   - - -   - - -   -
-|R|W|S S|R R|T T T|S|T|
- - - -   - - - - -   -
-|T T|R|S|W W W|R|W|S|W|
- - - - - - - - - - - -
-Number of moves: 58
-Number of vertices examined: 174
-0.0142607 [s]
+ - - - - -
+|R|S S|T|R|
+ -     -  
+|W|S S|R R|
+ - - - - -
+|T|R|T|W|T|
+ -   - -  
+|R R R|S|T|
+ - - - - -
+|T T T|W W|
+ - - - - -
+Number of moves: 6
+Number of vertices examined: 7
+0.000224 [s]
 
+Level 6
+Sequence of moves: 
+ - - - - -
+|S|R R|S S|
+       - -
+|S|R R|T|R|
+ - - - -  
+|T T|S|W|R|
+   -      
+|T|S S|W|R|
+   - -    
+|T|W|T|W|R|
+ - - - - -
+Number of moves: 3
+Number of vertices examined: 4
+0.000176 [s]
+
+Level 7
+Sequence of moves: 
+ - - - - -
+|T|W|T|R|T|
+   -     -
+|T|R|T|R R|
+     - - -
+|T|R|S S|W|
+ - - -    
+|W W|T|S|W|
+ - -   -  
+|T T T|W W|
+ - - - - -
+Number of moves: 4
+Number of vertices examined: 5
+0.000178 [s]
+
+Level 8
+Sequence of moves: 
+ - - - - -
+|S S|W|T T|
+   -   - -
+|S|R|W|W W|
+   - - - -
+|S|T|S|R R|
+ -   - - -
+|T T|W W|T|
+   -      
+|T|R|W W|T|
+ - - - - -
+Number of moves: 3
+Number of vertices examined: 4
+0.000153 [s]
+
+Level 9
+Sequence of moves: 
+ - - - - -
+|T|W|S S S|
+ - - - - -
+|S|R|T T|R|
+ -   - - -
+|T|R|W|S|W|
+ -   -    
+|S|R R|S|W|
+   - - - -
+|S|W W|T|R|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.000176 [s]
+
+Level 10
+Sequence of moves: 
+ - - - - -
+|S|W|T|S S|
+   -   - -
+|S|T T|R|W|
+ - - - -  
+|R R|W|S|W|
+     - - -
+|R R|T T|R|
+ - - -   -
+|W|S|W|T|W|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.000174 [s]
+
+Level 11
+Sequence of moves: 
+ - - - - -
+|T T|W W W|
+ - - - -  
+|R|S|R|S|W|
+   - -   -
+|R|W|W|S|R|
+   - - -  
+|R R|T T|R|
+ - - -    
+|S S S|T|R|
+ - - - - -
+Number of moves: 5
+Number of vertices examined: 6
+0.000172 [s]
+
+Level 12
+Sequence of moves: 
+ - - - - -
+|R R|S|T T|
+ - - - - -
+|S|T|W|R|W|
+     - -  
+|S|T T|S|W|
+   - - - -
+|S|R R R|T|
+   - - -  
+|S|W|R|T T|
+ - - - - -
+Number of moves: 7
+Number of vertices examined: 8
+0.000177 [s]
+
+Level 13
+Sequence of moves: 
+ - - - - -
+|R|T|S S|T|
+ - -   - -
+|W|S S|W|R|
+ - - -   -
+|T|R R|W W|
+   - -   -
+|T|S|T|W|R|
+ -   - -  
+|S S|R R R|
+ - - - - -
+Number of moves: 7
+Number of vertices examined: 8
+0.000182 [s]
+
+Level 14
+Sequence of moves: 
+ - - - - -
+|W|S S|T T|
+ -   - - -
+|S S|R|W|S|
+ - - -    
+|T|R R|W|S|
+   - - -  
+|T T|S|T|S|
+ - - -   -
+|R R R|T T|
+ - - - - -
+Number of moves: 3
+Number of vertices examined: 4
+0.000152 [s]
+
+Level 15
+Sequence of moves: 
+ - - - - -
+|R|T|W W|S|
+       -  
+|R|T|W|T|S|
+       - -
+|R|T|W|R|W|
+ -   -   -
+|S|T|S|R|T|
+ - - - -  
+|R R|W W|T|
+ - - - - -
+Number of moves: 5
+Number of vertices examined: 6
+0.00016 [s]
+
+Level 16
+Sequence of moves: 
+ - - - - -
+|W W|T|S S|
+   -   - -
+|W|S|T T|W|
+ - - - - -
+|T|R R|S S|
+   -   -  
+|T|S|R|T|S|
+ - - -    
+|W W W|T|S|
+ - - - - -
+Number of moves: 4
+Number of vertices examined: 5
+0.000159 [s]
+
+Level 17
+Sequence of moves: 
+ - - - - -
+|W W|S|W|T|
+   - - - -
+|W|R|T|R R|
+ - - - -  
+|T|S|W W|R|
+ -   -   -
+|W|S S|W|T|
+ - - - - -
+|T T T|R R|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 12
+0.000216 [s]
+
+Level 18
+Sequence of moves: 
+ - - - - -
+|T T|S|W|R|
+   - - - -
+|T|R R|T|S|
+ -   - - -
+|R R|S|W W|
+ - -   - -
+|S|T|S|T T|
+ - -     -
+|W|R|S|T|W|
+ - - - - -
+Number of moves: 5
+Number of vertices examined: 6
+0.000148 [s]
+
+Level 19
+Sequence of moves: 
+ - - - - -
+|W W|T|W|R|
+     -    
+|W W|S|W|R|
+ - -     -
+|R|T|S|W|T|
+   -   -  
+|R R|S|R|T|
+ - - - - -
+|T|W W W W|
+ - - - - -
+Number of moves: 4
+Number of vertices examined: 5
+0.000159 [s]
+
+Level 20
+Sequence of moves: 
+ - - - - -
+|T|S S S|T|
+ - - - -  
+|W|R|T|W|T|
+ -   - - -
+|T|R|S|R|S|
+ -   - - -
+|R R|W|W|T|
+ - - - - -
+|S S S|R R|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.000178 [s]
+
+Level 21
+Sequence of moves: 
+ - - - - -
+|R R|S|R|S|
+     - - -
+|R R|T T|W|
+ - - -    
+|T|W|S|T|W|
+     - -  
+|T|W|R R|W|
+ -   -    
+|R|W|R R|W|
+ - - - - -
+Number of moves: 4
+Number of vertices examined: 5
+0.00016 [s]
+
+Level 22
+Sequence of moves: 
+ - - - - -
+|W W W|S|R|
+ - -   - -
+|T T|W|T T|
+ -   - - -
+|S|T|R R|W|
+ - - - - -
+|R|W|S|T|S|
+   - -   -
+|R R|T T T|
+ - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.000189 [s]
+
+Level 23
+Sequence of moves: 
+ - - - - -
+|T|S|R|W|T|
+ -   -    
+|S S|W W|T|
+ -   - - -
+|W|S|T|S|R|
+   - -   -
+|W|R R|S S|
+     - - -
+|W|R R|W|R|
+ - - - - -
+Number of moves: 3
+Number of vertices examined: 4
+0.000147 [s]
+
+Level 24
+Sequence of moves: 
+ - - - - -
+|S S|R R R|
+ - - - - -
+|R|W|T|S S|
+ - - -    
+|S S|R|S S|
+ - - - - -
+|R|W W|T T|
+ -   -   -
+|S|W|T T|W|
+ - - - - -
+Number of moves: 6
+Number of vertices examined: 7
+0.00017 [s]
+
+Level 25
+Sequence of moves: 
+ - - - - -
+|T|R|S S S|
+ -   - - -
+|S|R|W W|T|
+   - - -  
+|S|T|S|T T|
+ - -   - -
+|W W|S|W W|
+   - - -  
+|W|R R R|W|
+ - - - - -
+Number of moves: 5
+Number of vertices examined: 6
+0.000168 [s]
+
+Level 26
+Sequence of moves: 
+ - - - - -
+|T T|S S|T|
+ -   -   -
+|R|T T|S|R|
+   - -   -
+|R|S|R|S|R|
+   - - -  
+|R|W|T T|R|
+ - - - - -
+|S S S S|R|
+ - - - - -
+Number of moves: 4
+Number of vertices examined: 5
+0.000155 [s]
+
+Level 27
+Sequence of moves: 
+ - - - - -
+|W|T|R|T|W|
+   - -   -
+|W|S|W|T|R|
+ - -     -
+|T T|W|T|W|
+ - - - - -
+|S|R|S S S|
+ - - - - -
+|T T T|R R|
+ - - - - -
+Number of moves: 7
+Number of vertices examined: 8
+0.000212 [s]
+
+Level 28
+Sequence of moves: 
+ - - - - -
+|R|S S S|W|
+   -   -  
+|R|T|S|R|W|
+ - - -   -
+|S|W|R R|S|
+ -   - - -
+|W W|T T T|
+ - - -   -
+|R|S S|T|W|
+ - - - - -
+Number of moves: 5
+Number of vertices examined: 6
+0.000208 [s]
+
+Level 29
+Sequence of moves: 
+ - - - - -
+|S|R R R|T|
+ -   - -  
+|T|R|S|W|T|
+ - - - -  
+|W W|T|R|T|
+ - - -    
+|T|R|S|R|T|
+   -     -
+|T|S S|R R|
+ - - - - -
+Number of moves: 6
+Number of vertices examined: 7
+0.000222 [s]
+
+Level 30
+Sequence of moves: 
+ - - - - -
+|T|R|W|T T|
+ -     - -
+|R R|W|S|R|
+ - - -   -
+|S|T T|S|R|
+ - - -   -
+|W W|R|S|T|
+ - - - -  
+|S|T|R R|T|
+ - - - - -
+Number of moves: 5
+Number of vertices examined: 6
+0.000191 [s]
+
+Level 31
+Sequence of moves: 
+ - - - - - -
+|R|W|R|S S|R|
+ - -   -    
+|T|S|R R|S|R|
+   - - -   -
+|T|W|T T|S|T|
+       - -  
+|T|W|T|R R|T|
+     - - -  
+|T|W|S|W W|T|
+ - - -      
+|R R R|W W|T|
+ - - - - - -
+Number of moves: 7
+Number of vertices examined: 13
+0.00037 [s]
+
+Level 32
+Sequence of moves: 
+ - - - - - -
+|R|W|T T|R|S|
+ -     -    
+|S|W|T|R R|S|
+   - - -    
+|S|R|S|W|R|S|
+     - - - -
+|S|R R|T T|W|
+ - - - - - -
+|T|W|S S S|R|
+ - -   - -  
+|R R|S|R R R|
+ - - - - - -
+Number of moves: 9
+Number of vertices examined: 10
+0.000329 [s]
+
+Level 33
+Sequence of moves: 
+ - - - - - -
+|S|W|S|R R R|
+ - - - - - -
+|R R|T T T T|
+ -   - - - -
+|T|R|S S|R|S|
+ - - -   -  
+|S|W W|S|W|S|
+ -   - - -  
+|R|W|R R|T|S|
+ -   - -    
+|S|W|T T T|S|
+ - - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.00031 [s]
+
+Level 34
+Sequence of moves: 
+ - - - - - -
+|R|S|T T|W|R|
+   - - -    
+|R|W|R|W|W|R|
+ - -   - - -
+|S S|R R|S|T|
+   -   - -  
+|S|T|R|T|W|T|
+ -   - - -  
+|T T|S S|R|T|
+ - - - - - -
+|W|R|W W W W|
+ - - - - - -
+Number of moves: 10
+Number of vertices examined: 11
+0.000328 [s]
+
+Level 35
+Sequence of moves: 
+ - - - - - -
+|R R R|T|S S|
+ - - -   -  
+|S S|T T T|S|
+ - - - - -  
+|R R R|S|R|S|
+ - -   -   -
+|T|S|R|T|R R|
+   - -   - -
+|T|W|T T|W|S|
+   -   - -  
+|T|S|T|S S S|
+ - - - - - -
+Number of moves: 5
+Number of vertices examined: 6
+0.000293 [s]
+
+Level 36
+Sequence of moves: 
+ - - - - - -
+|T|R R|S|R|W|
+ -     -   -
+|W|R R|T|R R|
+ - - -   - -
+|S|T|S|T T|W|
+   -   -   -
+|S|R|S|R|T|S|
+ - - -   -  
+|T T T|R R|S|
+   - - -   -
+|T|W|S S|R|T|
+ - - - - - -
+Number of moves: 4
+Number of vertices examined: 5
+0.000257 [s]
+
+Level 37
+Sequence of moves: 
+ - - - - - -
+|W|R|T|R|T|S|
+ - - -   -  
+|S S S|R|S S|
+ - - - - - -
+|W|T|W|T T|W|
+ - -   -   -
+|R|S|W|S|T|R|
+ - - -   -  
+|W|T|R|S|W|R|
+ - - - -   -
+|S S|W W W|S|
+ - - - - - -
+Number of moves: 10
+Number of vertices examined: 11
+0.000309 [s]
+
+Level 38
+Sequence of moves: 
+ - - - - - -
+|S|T|W W W|S|
+   - - -   -
+|S|R|S|T|W|R|
+   - -   - -
+|S|T T T|S|T|
+   - - -    
+|S|R|W W|S|T|
+ - - -   - -
+|W|T|S|W W|R|
+ - -   - - -
+|R R|S S|T T|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 19
+0.000423 [s]
+
+Level 39
+Sequence of moves: 
+ - - - - - -
+|S S S|T T|W|
+ - -   - -  
+|R|T|S|R|W W|
+ -   -   - -
+|W|T|W|R|T|S|
+ - - - -   -
+|S|R|S|T T|R|
+   - - -   -
+|S|T|W|R|T|W|
+   -   - -  
+|S|W W|S|W W|
+ - - - - - -
+Number of moves: 12
+Number of vertices examined: 13
+0.000353 [s]
+
+Level 40
+Sequence of moves: 
+ - - - - - -
+|S|W|R|T T|S|
+ -   -   - -
+|T|W|T T|R R|
+   - - -    
+|T|R R|W|R R|
+   - -   - -
+|T|S|T|W W|S|
+     - - - -
+|T|S S|R R|T|
+ - - - - -  
+|R|W W|T T T|
+ - - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.00035 [s]
+
+Level 41
+Sequence of moves: 
+ - - - - - -
+|W|T|S S S|T|
+   - - -   -
+|W|R|W|R|S|R|
+   - - - -  
+|W|S S|T T|R|
+ - - - - - -
+|T T|R R|S S|
+ - - -   - -
+|S S|W|R R|W|
+ - -   - - -
+|T|W W|T T T|
+ - - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.000246 [s]
+
+Level 42
+Sequence of moves: 
+ - - - - - -
+|R R R|T|R|W|
+ - - - -    
+|T|S|W W|R|W|
+ - - - - - -
+|W|R R|S|T T|
+ - - -   - -
+|S|T T|S S S|
+   - - - - -
+|S|W W W W|T|
+   - - - -  
+|S S|R R|T T|
+ - - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.000247 [s]
+
+Level 43
+Sequence of moves: 
+ - - - - - -
+|W|T T T|R R|
+   -   - -  
+|W|R|T|S|W|R|
+ -   -     -
+|T|R R|S|W|S|
+ -   - -   -
+|S|R|W|T|W|T|
+   - - -   -
+|S|T|S|R|W|S|
+ -   -   - -
+|W|T|R R|T|R|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 12
+0.000261 [s]
+
+Level 44
+Sequence of moves: 
+ - - - - - -
+|W W|R|W|R|T|
+ - -   - -  
+|T|S|R|S|T T|
+   - -   - -
+|T|W|T|S S|R|
+ - - - - - -
+|R|S|R R|T|W|
+ - - - -   -
+|W W W|S|T|S|
+ - -        
+|T|S|W|S|T|S|
+ - - - - - -
+Number of moves: 10
+Number of vertices examined: 11
+0.000238 [s]
+
+Level 45
+Sequence of moves: 
+ - - - - - -
+|T|S|T|S|T|S|
+   - - - -  
+|T|R R R R|S|
+   - - - - -
+|T|S|T|W|T T|
+     - -    
+|T|S|R|S|T T|
+ - - -   - -
+|W W|T|S|R R|
+   - - -    
+|W|R R|W|R R|
+ - - - - - -
+Number of moves: 6
+Number of vertices examined: 7
+0.000215 [s]
+
+Level 46
+Sequence of moves: 
+ - - - - - -
+|T|R R|S|R|W|
+   - - - - -
+|T T|W|W|T|S|
+   -   - - -
+|T|R|W|S|R R|
+ -   - - - -
+|R R|T T|W W|
+ -   - -    
+|S|R|S|R|W W|
+   - -   - -
+|S|T|W|R R|S|
+ - - - - - -
+Number of moves: 10
+Number of vertices examined: 11
+0.00037 [s]
+
+Level 47
+Sequence of moves: 
+ - - - - - -
+|S S S|W|S|W|
+ - -   - - -
+|R R|S|R|T T|
+   - -   - -
+|R|W|T|R|S S|
+     - -    
+|R|W W W|S S|
+ - - - - - -
+|T T|R|T T T|
+       - - -
+|T T|R R|S S|
+ - - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.000272 [s]
+
+Level 48
+Sequence of moves: 
+ - - - - - -
+|S S S S|W W|
+ - - - -   -
+|T T|R R|W|T|
+   - - - -  
+|T|W|W|S S|T|
+ - - -   -  
+|R|S|R|S|T T|
+ -   - - - -
+|W|S|T|W W|R|
+ - - -   - -
+|R R R|W|T T|
+ - - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.000251 [s]
+
+Level 49
+Sequence of moves: 
+ - - - - - -
+|T|S|T T|R R|
+ - - - -   -
+|R R R|S|R|S|
+   - - - -  
+|R|T T T T|S|
+ - - - - -  
+|W|S|R|S|R|S|
+   - - -   -
+|W|T|W|T|R R|
+   -   - - -
+|W|S|W W W|S|
+ - - - - - -
+Number of moves: 7
+Number of vertices examined: 8
+0.000309 [s]
+
+Level 50
+Sequence of moves: 
+ - - - - - -
+|W W W W|T T|
+ - - - - - -
+|T|R|T|S S|R|
+ -   -      
+|R R R|S S|R|
+ - - - - - -
+|S S|T T T T|
+   - - - - -
+|S|R R|S|R|W|
+       -   -
+|S|R R|W|R|T|
+ - - - - - -
+Number of moves: 7
+Number of vertices examined: 8
+0.000253 [s]
+
+Level 51
+Sequence of moves: 
+ - - - - - -
+|S|R|W|R R|W|
+     - - - -
+|S|R|S S|T|S|
+ - - - -   -
+|T T T|W|T T|
+ - - - - - -
+|S|R R|S|R R|
+   - -   -  
+|S S|W|S|W|R|
+ - - - -   -
+|W|T|R|T|W W|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 12
+0.00027 [s]
+
+Level 52
+Sequence of moves: 
+ - - - - - -
+|S S S|W W|R|
+ - - - -   -
+|R|T|R|T|W|T|
+ -   - - -  
+|S|T|S S|R|T|
+   - -     -
+|S|R|W|S|R|S|
+ - -   - -  
+|W|T|W|T T|S|
+ -   - - -  
+|S|T|R|S|W|S|
+ - - - - - -
+Number of moves: 12
+Number of vertices examined: 15
+0.000301 [s]
+
+Level 53
+Sequence of moves: 
+ - - - - - -
+|S|R|S|R|W|S|
+ -   - - - -
+|R R|W|T T|R|
+ - - - - - -
+|S|T|S|R|W|S|
+ - - - -   -
+|R R|W|T|W W|
+ - - - - - -
+|T T|S|R|S|R|
+ -   - - - -
+|S|T|W|T|W|T|
+ - - - - - -
+Number of moves: 17
+Number of vertices examined: 18
+0.000316 [s]
+
+Level 54
+Sequence of moves: 
+ - - - - - -
+|T|S|T T|R R|
+ -   - - - -
+|R|S S|W|S|W|
+   - - -    
+|R|T T|R|S|W|
+ - -   -   -
+|W|W|T|W|S|T|
+ - - - - - -
+|T|S S|R R|W|
+ - - - - - -
+|R|W W|T|S|T|
+ - - - - - -
+Number of moves: 14
+Number of vertices examined: 30
+0.000422 [s]
+
+Level 55
+Sequence of moves: 
+ - - - - - -
+|T T|S|R R|W|
+   -   - -  
+|T|W|S|W|T|W|
+ -   - -   -
+|R|W|T|R|T|S|
+ -   - - - -
+|S|W|S|W W|R|
+ - - - - -  
+|R|T|R R|S|R|
+ -   - -   -
+|W|T T|W|S S|
+ - - - - - -
+Number of moves: 12
+Number of vertices examined: 13
+0.000267 [s]
+
+Level 56
+Sequence of moves: 
+ - - - - - -
+|T|R R|W|T T|
+   - -     -
+|T|S|T|W|T|R|
+ -     - -  
+|S S|T|R|S|R|
+ - - -     -
+|W|R|W|R|S|T|
+ -   -     -
+|R R|S|R|S|R|
+ - -   - -  
+|T|S S|T T|R|
+ - - - - - -
+Number of moves: 8
+Number of vertices examined: 13
+0.000279 [s]
+
+Level 57
+Sequence of moves: 
+ - - - - - -
+|S|R R|W|S S|
+ -   - - - -
+|T|R|T T|R|W|
+   - - -   -
+|T|W|S|W|R|S|
+         - -
+|T|W|S|W|T|W|
+ - - - - - -
+|R R|T|R R|S|
+   - - - - -
+|R|S S|W|T T|
+ - - - - - -
+Number of moves: 12
+Number of vertices examined: 13
+0.000271 [s]
+
+Level 58
+Sequence of moves: 
+ - - - - - -
+|T|R|S S|T|S|
+ -   - - - -
+|S|R|W|R|W|R|
+ - -   -   -
+|T T|W|T|W|T|
+ - - - - - -
+|W|R R|S|R R|
+ - - - - - -
+|S S|T|W|T T|
+ - -   - - -
+|R R|T|S|R R|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 14
+0.000266 [s]
+
+Level 59
+Sequence of moves: 
+ - - - - - -
+|W|R R|S S S|
+ - - - - - -
+|S|T|W|T|W|T|
+ - - - - - -
+|R R|S|R|S|R|
+   - - - -  
+|R|T|W|T T|R|
+ - - - -    
+|S S|R|S|T|R|
+ - - - - - -
+|R|T|W W W|S|
+ - - - - - -
+Number of moves: 16
+Number of vertices examined: 17
+0.000312 [s]
+
+Level 60
+Sequence of moves: 
+ - - - - - -
+|T T|W|R|T|W|
+ - -   - - -
+|R R|W|W|S|R|
+ - - - -   -
+|T|S S|T|S|T|
+ - - - - -  
+|R|W|W|R|W|T|
+ -   - - -  
+|T|W|S|T|S|T|
+ - -   -   -
+|R|S S|W|S|R|
+ - - - - - -
+Number of moves: 14
+Number of vertices examined: 15
+0.000275 [s]
+
+Level 61
+Sequence of moves: 
+ - - - - - -
+|S|R R|T T T|
+   - -   - -
+|S S|T T|W|R|
+ - - - - - -
+|W|W|W|S S|T|
+ - - - - - -
+|S S|T|R|W|R|
+ - -        
+|R R|T|R|W|R|
+     - - - -
+|R R|W|S|T T|
+ - - - - - -
+Number of moves: 12
+Number of vertices examined: 13
+0.000279 [s]
+
+Level 62
+Sequence of moves: 
+ - - - - - -
+|S S|R|S|R R|
+     - - - -
+|S S|T T T T|
+   - -   - -
+|S|R R|T|S S|
+ - - - -   -
+|W|T|W|S S|R|
+ - -     -  
+|S S|W|S|R R|
+   - - - - -
+|S|T T T|W W|
+ - - - - - -
+Number of moves: 6
+Number of vertices examined: 7
+0.000249 [s]
+
+Level 63
+Sequence of moves: 
+ - - - - - -
+|W|T T|R R R|
+   - - - - -
+|W|S|W|S|T T|
+ - -   - -  
+|T|R|W|R R|T|
+ - - - -   -
+|S S|T T|R|S|
+     - -   -
+|S S|W|S|R|W|
+ -       - -
+|T|S|W|S S|T|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 12
+0.000274 [s]
+
+Level 64
+Sequence of moves: 
+ - - - - - -
+|S|R|S S|R|S|
+   -       -
+|S|T|S S|R|T|
+ -   - - - -
+|W|T|W W W|S|
+ - - - - -  
+|R|S S|R R|S|
+ - - - - - -
+|T T|W|T|W W|
+ - -     - -
+|R R|W|T T|S|
+ - - - - - -
+Number of moves: 10
+Number of vertices examined: 11
+0.000251 [s]
+
+Level 65
+Sequence of moves: 
+ - - - - - -
+|R|S|W|S S|T|
+     - - -  
+|R|S|T|R R|T|
+   -   - - -
+|R|T T|S S|W|
+     - - - -
+|R|T|W|R|T T|
+   -   - - -
+|R|S|W|S S S|
+ - - - - - -
+|T T T T T|R|
+ - - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.000245 [s]
+
+Level 66
+Sequence of moves: 
+ - - - - - -
+|W W|T|W|R|T|
+ - - - -   -
+|R R|S|R R|W|
+ - - - -    
+|W|T|W|T|R|W|
+   -     -  
+|W|S|W|T|W W|
+   - -   - -
+|W|T|R|T|R|S|
+ - -   - -  
+|S S|R|S S S|
+ - - - - - -
+Number of moves: 13
+Number of vertices examined: 14
+0.000288 [s]
+
+Level 67
+Sequence of moves: 
+ - - - - - -
+|S S S|R|T T|
+   - -   - -
+|S|R|T|R R|S|
+     - - - -
+|S|R|S S|T|W|
+ - - - - -  
+|W|T|W|R|W W|
+   - -   - -
+|W|R|S|R R|T|
+ - - -      
+|S|T T|R R|T|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 12
+0.000267 [s]
+
+Level 68
+Sequence of moves: 
+ - - - - - -
+|W W|S S|T|R|
+   - - -   -
+|W|T T|R|T T|
+ - - -     -
+|S|R|S|R|T|S|
+ - - -   - -
+|W|T T|R R|W|
+ -       - -
+|S|T T|R|T T|
+ -   - - - -
+|W|T|S S S S|
+ - - - - - -
+Number of moves: 8
+Number of vertices examined: 9
+0.000243 [s]
+
+Level 69
+Sequence of moves: 
+ - - - - - -
+|S|T|W|T T T|
+ - -   - - -
+|W|R|W|R|W|R|
+ - - - -   -
+|T|S|T|S|W|T|
+ -   - - -  
+|S S|R R R|T|
+ - - -   - -
+|R|T T|R|W W|
+   - - - -  
+|R|S S S|T|W|
+ - - - - - -
+Number of moves: 11
+Number of vertices examined: 14
+0.000277 [s]
+
+Level 70
+Sequence of moves: 
+ - - - - - -
+|T|R R|S|R|S|
+       -   -
+|T|R R|T|R R|
+   - -   - -
+|T|S S|T|W|S|
+       -   -
+|T|S S|R|W|T|
+ -   - - - -
+|R|S|W|T|S S|
+ - -   -    
+|W W W W|S S|
+ - - - - - -
+Number of moves: 7
+Number of vertices examined: 8
+0.000247 [s]
+
+Level 71
+Number of vertices examined: 2
+0.000221 [s]
+
+Level 72
+Sequence of moves: 
+ - - - - - - -
+|S|T|R|S S|T T|
+ -   -   -   -
+|T T|S S|W|T|S|
+ - - - -     -
+|S|W W|R|W|T|W|
+ - -   -   - -
+|T|R|W|T|W|S|R|
+ - - -     - -
+|S S S|T|W|T|W|
+ - -   - - - -
+|W|T|S|R|S|R R|
+   - - -      
+|W W W|T|S|R R|
+ - - - - - - -
+Number of moves: 13
+Number of vertices examined: 14
+0.000348 [s]
+
+Level 73
+Sequence of moves: 
+ - - - - - - -
+|W W|W|S S S|T|
+ -   - - - - -
+|R|W|T|R R R R|
+ - -   - - - -
+|S|T T|S S|T|W|
+ - -   - -    
+|R R|T|W W|T|W|
+ -   -   - -  
+|S|R R|W|R|S|W|
+ - - - - -    
+|W|T T|S S S|W|
+ - -   - - - -
+|S|R|T|R R R R|
+ - - - - - - -
+Number of moves: 13
+Number of vertices examined: 14
+0.000382 [s]
+
+Level 74
+Sequence of moves: 
+ - - - - - - -
+|T|R|W|W W|S|W|
+ -   -   - -  
+|S|R|S|W|T|R|W|
+   - - -   - -
+|S|T T|R|T T|S|
+   - -     -  
+|S|R R|R|T|S S|
+ -   -   - - -
+|T|R R R|W|R|T|
+   - - - - - -
+|T|W W|T|S S S|
+   -   - - - -
+|T|S|W W|R R|W|
+ - - - - - - -
+Number of moves: 12
+Number of vertices examined: 13
+0.00035 [s]
+
+Level 75
+Number of vertices examined: 11
+0.000307 [s]
+
+Level 76
+Sequence of moves: 
+ - - - - - - -
+|T T T|R R|W|T|
+   - -       -
+|T|W W|R R|W|S|
+ - - - - - - -
+|R|S S S S|T|R|
+   - - - -    
+|R|W W W|T T|R|
+ - - - - - - -
+|S|T T|S S|W W|
+   -       -  
+|S|T T|S S|T|W|
+     - - - -  
+|S|T T|W|R R|W|
+ - - - - - - -
+Number of moves: 10
+Number of vertices examined: 11
+0.000349 [s]
+
+Level 77
+Number of vertices examined: 1
+0.000242 [s]
+
+Level 78
+Number of vertices examined: 1
+0.000207 [s]
+
+Level 79
+Number of vertices examined: 1
+0.000205 [s]
+
+Level 80
+Number of vertices examined: 3
+0.000229 [s]
+
+Level 81
+Sequence of moves: 
+ - - - - - - -
+|T T T|R R|S S|
+ - - - - -    
+|W W|S S|W|S S|
+ - - - -   - -
+|T T T|R|W W W|
+ - - - - - - -
+|R|W W|S|T|S|T|
+   - - - - -  
+|R R R R R|W|T|
+ -   - - -    
+|W|R|W|S S|W|T|
+ - - - -   -  
+|S|T T T|S|R|T|
+ - - - - - - -
+Number of moves: 12
+Number of vertices examined: 14
+0.000364 [s]
+
+Level 82
