@@ -29,7 +29,6 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_pos2num;
     string m_cells;
     vector<puz_move> m_moves;
     map<Position, vector<int>> m_pos2move_ids;
@@ -105,7 +104,7 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
     bool make_move(int n);
     void make_move2(int n);
     int find_matches(bool init);
