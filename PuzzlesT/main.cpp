@@ -7,7 +7,6 @@ extern void solve_puz_TapARow();
 extern void solve_puz_TapDifferently();
 extern void solve_puz_Tatami();
 extern void solve_puz_Tatamino();
-extern void solve_puz_Tatamino2();
 extern void solve_puz_TennerGrid();
 extern void solve_puz_Tents();
 extern void solve_puz_TetrominoPegs();
@@ -38,7 +37,6 @@ int main(int argc, char **argv)
         println("a5: Tap Differently");
         println("a6: Tatami");
         println("a7: Tatamino");
-        println("a8: Tatamino2");
         println("e1: Tenner Grid");
         println("e2: Tents");
         println("e3: Tetromino Pegs");
@@ -58,7 +56,7 @@ int main(int argc, char **argv)
         println("u3: turnz");
         println("w: twinballs");
         getline(cin, str);
-        if (str.empty()) solve_puz_TapaIslands();
+        if (str.empty()) solve_puz_Tatamino();
         else if (str == "a1") solve_puz_Tapa();
         else if (str == "a2") solve_puz_TapaIslands();
         else if (str == "a3") solve_puz_TapAlike();
@@ -66,7 +64,6 @@ int main(int argc, char **argv)
         else if (str == "a5") solve_puz_TapDifferently();
         else if (str == "a6") solve_puz_Tatami();
         else if (str == "a7") solve_puz_Tatamino();
-        else if (str == "a8") solve_puz_Tatamino2();
         else if (str == "e1") solve_puz_TennerGrid();
         else if (str == "e2") solve_puz_Tents();
         else if (str == "e3") solve_puz_TetrominoPegs();

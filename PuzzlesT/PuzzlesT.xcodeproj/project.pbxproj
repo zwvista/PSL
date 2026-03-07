@@ -23,7 +23,6 @@
 		8CA2419A1EB47AFC0055D6B1 /* TapDifferently.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241721EB47AFC0055D6B1 /* TapDifferently.cpp */; };
 		8CA2419B1EB47AFC0055D6B1 /* Tatami.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241751EB47AFC0055D6B1 /* Tatami.cpp */; };
 		8CA2419C1EB47AFC0055D6B1 /* Tatamino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241781EB47AFC0055D6B1 /* Tatamino.cpp */; };
-		8CA2419D1EB47AFC0055D6B1 /* Tatamino2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2417B1EB47AFC0055D6B1 /* Tatamino2.cpp */; };
 		8CA2419E1EB47AFC0055D6B1 /* TennerGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2417D1EB47AFC0055D6B1 /* TennerGrid.cpp */; };
 		8CA2419F1EB47AFC0055D6B1 /* Tents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241801EB47AFC0055D6B1 /* Tents.cpp */; };
 		8CA241A01EB47AFC0055D6B1 /* TheOddBrick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA241831EB47AFC0055D6B1 /* TheOddBrick.cpp */; };
@@ -115,8 +114,6 @@
 		8CA241781EB47AFC0055D6B1 /* Tatamino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tatamino.cpp; sourceTree = "<group>"; };
 		8CA241791EB47AFC0055D6B1 /* Tatamino.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Tatamino.txt; sourceTree = "<group>"; };
 		8CA2417A1EB47AFC0055D6B1 /* Tatamino.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Tatamino.xml; sourceTree = "<group>"; };
-		8CA2417B1EB47AFC0055D6B1 /* Tatamino2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tatamino2.cpp; sourceTree = "<group>"; };
-		8CA2417C1EB47AFC0055D6B1 /* Tatamino2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Tatamino2.txt; sourceTree = "<group>"; };
 		8CA2417D1EB47AFC0055D6B1 /* TennerGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TennerGrid.cpp; sourceTree = "<group>"; };
 		8CA2417E1EB47AFC0055D6B1 /* TennerGrid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TennerGrid.txt; sourceTree = "<group>"; };
 		8CA2417F1EB47AFC0055D6B1 /* TennerGrid.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TennerGrid.xml; sourceTree = "<group>"; };
@@ -219,8 +216,6 @@
 				8CA241781EB47AFC0055D6B1 /* Tatamino.cpp */,
 				8CA241791EB47AFC0055D6B1 /* Tatamino.txt */,
 				8CA2417A1EB47AFC0055D6B1 /* Tatamino.xml */,
-				8CA2417B1EB47AFC0055D6B1 /* Tatamino2.cpp */,
-				8CA2417C1EB47AFC0055D6B1 /* Tatamino2.txt */,
 				8CA2417D1EB47AFC0055D6B1 /* TennerGrid.cpp */,
 				8CA2417E1EB47AFC0055D6B1 /* TennerGrid.txt */,
 				8CA2417F1EB47AFC0055D6B1 /* TennerGrid.xml */,
@@ -392,7 +387,6 @@
 				8CA241A31EB47AFC0055D6B1 /* TurnTwice.cpp in Sources */,
 				8CA2419E1EB47AFC0055D6B1 /* TennerGrid.cpp in Sources */,
 				8C689CE12E003C8200A2BCCC /* TheMagicNumber.cpp in Sources */,
-				8CA2419D1EB47AFC0055D6B1 /* Tatamino2.cpp in Sources */,
 				8CA241A11EB47AFC0055D6B1 /* Thermometers.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				958FA63D232BF25100205831 /* TopArrow.cpp in Sources */,
