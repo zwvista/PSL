@@ -204,8 +204,9 @@ int puz_state::find_matches(bool init)
     for (auto& [_1, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& move = m_game->m_moves[id];
+            int num = move.size();
             return boost::algorithm::any_of(move, [&](const Position& p2) {
-                int n = cells(p2), num = move.size();
+                int n = cells(p2);
                 return n != PUZ_UNKNOWN && n != num ||
                 boost::algorithm::any_of(offset, [&](const Position& os) {
                     auto p3 = p2 + os;
@@ -213,8 +214,16 @@ int puz_state::find_matches(bool init)
                         return false;
                     int m = cells(p3);
                     return m == num ||
-                    m_game->m_game_type == puz_game_type::CONSECUTIVE && abs(m - num) != 1 ||
                     m_game->m_game_type == puz_game_type::NON_CONSECUTIVE && abs(m - num) == 1;
+                });
+            }) || m_game->m_game_type == puz_game_type::CONSECUTIVE &&
+            boost::algorithm::none_of(move, [&](const Position& p2) {
+                return boost::algorithm::any_of(offset, [&](const Position& os) {
+                    auto p3 = p2 + os;
+                    if (boost::algorithm::any_of_equal(move, p3) || !is_valid(p3))
+                        return false;
+                    int m = cells(p3);
+                    return m == PUZ_UNKNOWN || abs(m - num) == 1;
                 });
             });
         });
