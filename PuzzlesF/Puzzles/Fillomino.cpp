@@ -230,23 +230,34 @@ int puz_state::find_matches(bool init)
 
 bool puz_state::check_consecutive() const
 {
-    auto f = [&](int id) {
-        auto& move = m_game->m_moves[id];
-        int num = move.size();
-        return boost::algorithm::any_of(move, [&](const Position& p) {
-            return boost::algorithm::any_of(offset, [&](const Position& os) {
-                auto p2 = p + os;
-                if (boost::algorithm::any_of_equal(move, p2) || !is_valid(p2))
-                    return false;
-                int m = cells(p2);
-                return m == PUZ_UNKNOWN || abs(m - num) == 1;
+    if (m_game->m_game_type == puz_game_type::CONSECUTIVE)
+        return boost::algorithm::any_of(m_finished_moves, [&](int id) {
+            auto& move = m_game->m_moves[id];
+            int num = move.size();
+            return boost::algorithm::any_of(move, [&](const Position& p) {
+                return boost::algorithm::any_of(offset, [&](const Position& os) {
+                    auto p2 = p + os;
+                    if (boost::algorithm::any_of_equal(move, p2) || !is_valid(p2))
+                        return false;
+                    int m = cells(p2);
+                    return m == PUZ_UNKNOWN || abs(m - num) == 1;
+                });
             });
         });
-    };
-    if (m_game->m_game_type == puz_game_type::CONSECUTIVE)
-        return boost::algorithm::any_of(m_finished_moves, f);
     if (m_game->m_game_type == puz_game_type::NON_CONSECUTIVE)
-        return boost::algorithm::none_of(m_finished_moves, f);
+        return boost::algorithm::none_of(m_finished_moves, [&](int id) {
+            auto& move = m_game->m_moves[id];
+            int num = move.size();
+            return boost::algorithm::any_of(move, [&](const Position& p) {
+                return boost::algorithm::any_of(offset, [&](const Position& os) {
+                    auto p2 = p + os;
+                    if (boost::algorithm::any_of_equal(move, p2) || !is_valid(p2))
+                        return false;
+                    int m = cells(p2);
+                    return m != PUZ_UNKNOWN && abs(m - num) == 1;
+                });
+            });
+        });
     return true;
 }
 
