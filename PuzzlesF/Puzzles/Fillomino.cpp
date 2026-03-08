@@ -85,14 +85,33 @@ void puz_state2::make_move(const Position &p)
     if (m_num == PUZ_UNKNOWN)
         m_num = m_game->cells(p);
     int sz = size();
-    m_is_valid = (m_num == PUZ_UNKNOWN || sz == m_num) &&
-    boost::algorithm::none_of(*this, [&](const Position& p2) {
+    m_is_valid = m_num == PUZ_UNKNOWN || sz == m_num;
+    if (m_game->m_game_type == puz_game_type::ALL_ODDS)
+        m_is_valid = m_is_valid && sz % 2 == 1;
+    else if(m_game->m_game_type == puz_game_type::ALL_EVENS)
+        m_is_valid = m_is_valid && sz % 2 == 0;
+    m_is_valid = m_is_valid && boost::algorithm::none_of(*this, [&](const Position& p2) {
         return boost::algorithm::any_of(offset, [&](const Position& os) {
             auto p3 = p2 + os;
             return m_game->is_valid(p3) && !contains(p3) &&
             m_game->cells(p3) == sz;
         });
     });
+    auto is_rect = [&] {
+        int r1 = m_game->m_sidelen, c1 = m_game->m_sidelen, r2 = 0, c2 = 0;
+        for (auto& p2 : *this) {
+            auto& [r, c] = p2;
+            if (r1 > r) r1 = r;
+            if (c1 > c) c1 = c;
+            if (r2 < r) r2 = r;
+            if (c2 < c) c2 = c;
+        }
+        return (r2 - r1 + 1) * (c2 - c1 + 1) == size();
+    };
+    if (m_game->m_game_type == puz_game_type::ONLY_RECTANGLES)
+        m_is_valid = m_is_valid && is_rect();
+    else if(m_game->m_game_type == puz_game_type::NO_RECTANGLES)
+        m_is_valid = m_is_valid && !is_rect();
 }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
