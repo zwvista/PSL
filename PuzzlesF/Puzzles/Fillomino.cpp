@@ -16,22 +16,22 @@
        tile. Areas marked with '2' will consist of two (horizontally or
        vertically) adjacent tiles. Tiles numbered '3' will appear in a group
        of three and so on.
-     3. Two areas with the same number can't be horizontally or vertically touching.
-     4. Lastly, please note that some areas can also be totally hidden at the start.
-        In the example you can see a '1' which wasn't hinted in the initial setup.
+    3. Two areas with the same number can't be horizontally or vertically touching.
+    4. Lastly, please note that some areas can also be totally hidden at the start.
+       In the example you can see a '1' which wasn't hinted in the initial setup.
 
     Variation
-     5. Fillomino has several variants.
-     6. No Rectangles: Areas can't form Rectangles.
-     7. Only Rectangles: Areas can ONLY form Rectangles.
-     8. Non Consecutive: Areas can't touch another area which has +1 or -1
-        as number (orthogonally).
-     9. Consecutive: Areas MUST touch another area which has +1 or -1
-        as number (orthogonally).
-     10.No Row or Column Repeats: Different areas with the same number
-        can't appear in the same column or row.
-     11.All Odds: There are only odd numbers on the board.
-     12.All Evens: There are only even numbers on the board.
+    5. Fillomino has several variants.
+    6. No Rectangles: Areas can't form Rectangles.
+    7. Only Rectangles: Areas can ONLY form Rectangles.
+    8. Non Consecutive: Areas can't touch another area which has +1 or -1
+       as number (orthogonally).
+    9. Consecutive: Areas MUST touch another area which has +1 or -1
+       as number (orthogonally).
+    10.No Row or Column Repeats: Different areas with the same number
+       can't appear in the same column or row.
+    11.All Odds: There are only odd numbers on the board.
+    12.All Evens: There are only even numbers on the board.
 */
 
 namespace puzzles::Fillomino{
@@ -90,6 +90,8 @@ void puz_state2::make_move(const Position &p)
     if (m_num == PUZ_UNKNOWN)
         m_num = m_game->cells(p);
     int sz = size();
+    // 1. The goal is to detect areas marked with the tile count of the area
+    //    itself.
     m_is_valid = m_num == PUZ_UNKNOWN || sz == m_num;
     // 11.All Odds: There are only odd numbers on the board.
     if (m_game->m_game_type == puz_game_type::ALL_ODDS)
@@ -217,6 +219,7 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& move = m_game->m_moves[id];
             int num = move.size();
+            // 3. Two areas with the same number can't be horizontally or vertically touching.
             return boost::algorithm::any_of(move, [&](const Position& p2) {
                 int n = cells(p2);
                 return n != PUZ_UNKNOWN && n != num ||
@@ -272,8 +275,32 @@ bool puz_state::check_game_type() const
                 });
             });
         });
-    if (m_game->m_game_type == puz_game_type::NO_ROW_OR_COLUMN_REPEATS)
-        return true;
+    // 10.No Row or Column Repeats: Different areas with the same number
+    //    can't appear in the same column or row.
+    if (m_game->m_game_type == puz_game_type::NO_ROW_OR_COLUMN_REPEATS) {
+        map<int, vector<set<int>>> num2rows2D, num2cols2D;
+        for (int id : m_finished_moves) {
+            auto& move = m_game->m_moves[id];
+            int num = move.size();
+            auto& rows = num2rows2D[num].emplace_back();
+            auto& cols = num2cols2D[num].emplace_back();
+            for (auto& p : move)
+                rows.insert(p.first), cols.insert(p.second);
+        }
+        auto f = [&](const pair<const int, vector<set<int>>>& kv) {
+            auto& v = kv.second;
+            int n1 = boost::accumulate(v, 0, [&](int acc, const set<int>& s) {
+                return acc + s.size();
+            });
+            int n2 = boost::accumulate(v, set<int>(), [&](set<int> acc, const set<int>& s) {
+                for (int m : s)
+                    acc.insert(m);
+                return acc;
+            }).size();
+            return n1 == n2;
+        };
+        return boost::algorithm::all_of(num2rows2D, f) && boost::algorithm::all_of(num2cols2D, f);
+    }
     return true;
 }
 
