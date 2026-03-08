@@ -35,6 +35,9 @@ struct puz_game
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
 
 struct puz_state2 : set<Position>
@@ -42,59 +45,60 @@ struct puz_state2 : set<Position>
     puz_state2(const puz_game* game, const Position& p, char num)
         : m_game(game), m_num(num) { make_move(p); }
 
-    void make_move(const Position& p) { insert(p); }
+    void make_move(const Position& p);
     void gen_children(list<puz_state2>& children) const;
 
     const puz_game* m_game;
     char m_num;
+    bool m_is_valid;
 };
+
+void puz_state2::make_move(const Position &p)
+{
+    insert(p);
+    if (m_num == PUZ_SPACE)
+        m_num = m_game->cells(p);
+    int sz = size();
+    m_is_valid = (m_num == PUZ_SPACE || sz == m_num - '0') &&
+    boost::algorithm::none_of(*this, [&](const Position& p2) {
+        return boost::algorithm::any_of(offset, [&](const Position& os) {
+            auto p3 = p2 + os;
+            return m_game->is_valid(p3) && !contains(p3) &&
+            m_game->cells(p3) - '0' == sz;
+        });
+    });
+}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& p : *this)
-        for (auto& os : offset)
-            if (auto p2 = p + os;
-                !contains(p2) && m_game->cells(p2) == m_num) {
-                children.emplace_back(*this).make_move(p2);
-                return;
-            }
-    if (size() >= m_num - '0')
+    int sz = size();
+    if (m_num == PUZ_SPACE && sz == 3 || sz == m_num - '0')
         return;
     for (auto& p : *this)
         for (auto& os : offset)
-            if (auto p2 = p + os;
-                !contains(p2) && m_game->cells(p2) == PUZ_SPACE)
-                children.emplace_back(*this).make_move(p2);
+            if (auto p2 = p + os; !contains(p2) && m_game->is_valid(p2))
+                if (char ch = m_game->cells(p2);
+                    ch == PUZ_SPACE || sz < ch - '0')
+                    children.emplace_back(*this).make_move(p2);
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size() + 2)
+, m_sidelen(strs.size())
 {
-    m_cells.append(m_sidelen, PUZ_BOUNDARY);
-    for (int r = 1; r < m_sidelen - 1; ++r) {
-        string_view str = strs[r - 1];
-        m_cells.push_back(PUZ_BOUNDARY);
-        for (int c = 1; c < m_sidelen - 1; ++c)
-            m_cells.push_back(str[c - 1]);
-        m_cells.push_back(PUZ_BOUNDARY);
-    }
-    m_cells.append(m_sidelen, PUZ_BOUNDARY);
-    for (int r = 1; r < m_sidelen - 1; ++r)
-        for (int c = 1; c < m_sidelen - 1; ++c) {
+    m_cells = boost::accumulate(strs, string());
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            for (char num = '1'; num <= '3'; ++num) {
-                if (!(ch == PUZ_SPACE || ch == num)) continue;
-                auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, num});
-                for (auto& s : smoves)
-                    if (s.size() == num - '0' && boost::algorithm::none_of_equal(m_moves, s)) {
-                        int n = m_moves.size();
-                        m_moves.push_back(s);
-                        for (auto& p : s)
-                            m_pos2move_ids[p].push_back(n);
-                    }
-            }
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, ch});
+            for (auto& s : smoves)
+                if (s.m_is_valid && boost::algorithm::none_of_equal(m_moves, s)) {
+                    int n = m_moves.size();
+                    m_moves.push_back(s);
+                    for (auto& p : s)
+                        m_pos2move_ids[p].push_back(n);
+                }
         }
 }
 
@@ -104,6 +108,9 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+    }
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
     bool make_move(int n);
     void make_move2(int n);
@@ -140,7 +147,7 @@ int puz_state::find_matches(bool init)
                 return ch != PUZ_SPACE && ch != num ||
                 boost::algorithm::any_of(offset, [&](const Position& os) {
                     auto p3 = p2 + os;
-                    return boost::algorithm::none_of_equal(move, p3) && cells(p3) == num;
+                    return boost::algorithm::none_of_equal(move, p3) && is_valid(p3) && cells(p3) == num;
                 });
             });
         });
@@ -191,19 +198,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](const Position& p1, const Position& p2) {
-        return cells(p1) != cells(p2);
+        return !is_valid(p1) || !is_valid(p2) || cells(p1) != cells(p2);
     };
-    for (int r = 1;; ++r) {
+    for (int r = 0;; ++r) {
         // draw horizontal lines
-        for (int c = 1; c < sidelen() - 1; ++c)
+        for (int c = 0; c < sidelen(); ++c)
             out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
         println(out);
-        if (r == sidelen() - 1) break;
-        for (int c = 1;; ++c) {
+        if (r == sidelen()) break;
+        for (int c = 0;; ++c) {
             Position p(r, c);
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
-            if (c == sidelen() - 1) break;
+            if (c == sidelen()) break;
             out << cells(p);
         }
         println(out);
