@@ -78,7 +78,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         for (auto& os : offset)
             if (auto p2 = p + os; !contains(p2) && m_game->is_valid(p2))
                 if (char ch = m_game->cells(p2);
-                    ch == PUZ_SPACE || sz < ch - '0')
+                    ch == PUZ_SPACE || sz < ch - '0' && (m_num == PUZ_SPACE || ch == m_num))
                     children.emplace_back(*this).make_move(p2);
 }
 
@@ -90,8 +90,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            char ch = cells(p);
-            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, ch});
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, cells(p)});
             for (auto& s : smoves)
                 if (s.m_is_valid && boost::algorithm::none_of_equal(m_moves, s)) {
                     int n = m_moves.size();
