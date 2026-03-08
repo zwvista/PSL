@@ -52,7 +52,10 @@ enum class puz_game_type
     ALL_EVENS,
 };
 
-using puz_move = set<Position>;
+struct puz_move {
+    int m_num;
+    set<Position> m_area, m_neighbors;
+};
 
 struct puz_game
 {
@@ -167,11 +170,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, cells(p)});
             for (auto& s : smoves)
-                if (s.m_is_valid && boost::algorithm::none_of_equal(m_moves, s)) {
+                if (s.m_is_valid && boost::algorithm::none_of(m_moves, [&](const puz_move& move) {
+                    return move.m_area == s;
+                })) {
                     int n = m_moves.size();
-                    m_moves.push_back(s);
-                    for (auto& p : s)
+                    auto& [num, area, neighbors] = m_moves.emplace_back();
+                    area = s, num = s.size();
+                    for (auto& p : s) {
                         m_pos2move_ids[p].push_back(n);
+                        for (auto& os : offset)
+                            if (auto p2 = p + os;
+                                is_valid(p2) && !s.contains(p2))
+                                neighbors.insert(p2);
+                    }
                 }
         }
 }
@@ -210,22 +221,20 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_cells)
 , m_matches(g.m_pos2move_ids)
 {
-    find_matches(false);
+    find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
-            auto& move = m_game->m_moves[id];
-            int num = move.size();
+            auto& [num, area, neighbors] = m_game->m_moves[id];
             // 3. Two areas with the same number can't be horizontally or vertically touching.
-            return boost::algorithm::any_of(move, [&](const Position& p2) {
+            return boost::algorithm::any_of(area, [&](const Position& p2) {
                 int n = cells(p2);
                 return n != PUZ_UNKNOWN && n != num ||
-                boost::algorithm::any_of(offset, [&](const Position& os) {
-                    auto p3 = p2 + os;
-                    return boost::algorithm::none_of_equal(move, p3) && is_valid(p3) && cells(p3) == num;
+                boost::algorithm::any_of(neighbors, [&](const Position& p3) {
+                    return cells(p3) == num;
                 });
             });
         });
@@ -247,32 +256,20 @@ bool puz_state::check_game_type() const
     //    as number (orthogonally).
     if (m_game->m_game_type == puz_game_type::CONSECUTIVE)
         return boost::algorithm::any_of(m_finished_moves, [&](int id) {
-            auto& move = m_game->m_moves[id];
-            int num = move.size();
-            return boost::algorithm::any_of(move, [&](const Position& p) {
-                return boost::algorithm::any_of(offset, [&](const Position& os) {
-                    auto p2 = p + os;
-                    if (boost::algorithm::any_of_equal(move, p2) || !is_valid(p2))
-                        return false;
-                    int m = cells(p2);
-                    return m == PUZ_UNKNOWN || abs(m - num) == 1;
-                });
+            auto& [num, _1, neighbors] = m_game->m_moves[id];
+            return boost::algorithm::any_of(neighbors, [&](const Position& p) {
+                int m = cells(p);
+                return m == PUZ_UNKNOWN || abs(m - num) == 1;
             });
         });
     // 9. Consecutive: Areas MUST touch another area which has +1 or -1
     //    as number (orthogonally).
     if (m_game->m_game_type == puz_game_type::NON_CONSECUTIVE)
         return boost::algorithm::none_of(m_finished_moves, [&](int id) {
-            auto& move = m_game->m_moves[id];
-            int num = move.size();
-            return boost::algorithm::any_of(move, [&](const Position& p) {
-                return boost::algorithm::any_of(offset, [&](const Position& os) {
-                    auto p2 = p + os;
-                    if (boost::algorithm::any_of_equal(move, p2) || !is_valid(p2))
-                        return false;
-                    int m = cells(p2);
-                    return m != PUZ_UNKNOWN && abs(m - num) == 1;
-                });
+            auto& [num, _1, neighbors] = m_game->m_moves[id];
+            return boost::algorithm::any_of(neighbors, [&](const Position& p) {
+                int m = cells(p);
+                return m != PUZ_UNKNOWN && abs(m - num) == 1;
             });
         });
     // 10.No Row or Column Repeats: Different areas with the same number
@@ -280,24 +277,21 @@ bool puz_state::check_game_type() const
     if (m_game->m_game_type == puz_game_type::NO_ROW_OR_COLUMN_REPEATS) {
         map<int, vector<set<int>>> num2rows2D, num2cols2D;
         for (int id : m_finished_moves) {
-            auto& move = m_game->m_moves[id];
-            int num = move.size();
+            auto& [num, area, _1] = m_game->m_moves[id];
             auto& rows = num2rows2D[num].emplace_back();
             auto& cols = num2cols2D[num].emplace_back();
-            for (auto& p : move)
+            for (auto& p : area)
                 rows.insert(p.first), cols.insert(p.second);
         }
         auto f = [&](const pair<const int, vector<set<int>>>& kv) {
-            auto& v = kv.second;
-            int n1 = boost::accumulate(v, 0, [&](int acc, const set<int>& s) {
-                return acc + s.size();
-            });
-            int n2 = boost::accumulate(v, set<int>(), [&](set<int> acc, const set<int>& s) {
+            int n = 0;
+            set<int> acc;
+            for (auto& s : kv.second) {
+                n += s.size();
                 for (int m : s)
                     acc.insert(m);
-                return acc;
-            }).size();
-            return n1 == n2;
+            }
+            return n == acc.size();
         };
         return boost::algorithm::all_of(num2rows2D, f) && boost::algorithm::all_of(num2cols2D, f);
     }
@@ -306,10 +300,9 @@ bool puz_state::check_game_type() const
 
 void puz_state::make_move2(int n)
 {
-    auto& move = m_game->m_moves[n];
-    int m = move.size();
-    for (auto& p : move) {
-        cells(p) = m;
+    auto& [num, area, _1] = m_game->m_moves[n];
+    for (auto& p : area) {
+        cells(p) = num;
         ++m_distance, m_matches.erase(p);
     }
     m_finished_moves.push_back(n);
