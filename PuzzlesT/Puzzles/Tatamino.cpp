@@ -23,7 +23,10 @@ constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-using puz_move = set<Position>;
+struct puz_move {
+    char m_num;
+    set<Position> m_area, m_neighbors;
+};
 
 struct puz_game
 {
@@ -92,11 +95,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, cells(p)});
             for (auto& s : smoves)
-                if (s.m_is_valid && boost::algorithm::none_of_equal(m_moves, s)) {
+                if (s.m_is_valid && boost::algorithm::none_of(m_moves, [&](const puz_move& move) {
+                    return move.m_area == s;
+                })) {
                     int n = m_moves.size();
-                    m_moves.push_back(s);
-                    for (auto& p : s)
+                    auto& [num, area, neighbors] = m_moves.emplace_back();
+                    area = s, num = s.size() + '0';
+                    for (auto& p : s) {
                         m_pos2move_ids[p].push_back(n);
+                        for (auto& os : offset)
+                            if (auto p2 = p + os;
+                                is_valid(p2) && !s.contains(p2))
+                                neighbors.insert(p2);
+                    }
                 }
         }
 }
@@ -133,20 +144,19 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_cells)
 , m_matches(g.m_pos2move_ids)
 {
-    find_matches(false);
+    find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
-            auto& move = m_game->m_moves[id];
-            return boost::algorithm::any_of(move, [&](const Position& p2) {
-                char ch = cells(p2), num = move.size() + '0';
+            auto& [num, area, neighbors] = m_game->m_moves[id];
+            return boost::algorithm::any_of(area, [&](const Position& p2) {
+                char ch = cells(p2);
                 return ch != PUZ_SPACE && ch != num ||
-                boost::algorithm::any_of(offset, [&](const Position& os) {
-                    auto p3 = p2 + os;
-                    return boost::algorithm::none_of_equal(move, p3) && is_valid(p3) && cells(p3) == num;
+                boost::algorithm::any_of(neighbors, [&](const Position& p3) {
+                    return cells(p3) == num;
                 });
             });
         });
@@ -164,10 +174,9 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& move = m_game->m_moves[n];
-    char ch = move.size() + '0';
-    for (auto& p : move) {
-        cells(p) = ch;
+    auto& [num, area, _1] = m_game->m_moves[n];
+    for (auto& p : area) {
+        cells(p) = num;
         ++m_distance, m_matches.erase(p);
     }
 }
