@@ -16,18 +16,22 @@
        tile. Areas marked with '2' will consist of two (horizontally or
        vertically) adjacent tiles. Tiles numbered '3' will appear in a group
        of three and so on.
-    3. Some areas can also be totally hidden at the start.
-    
+     3. Two areas with the same number can't be horizontally or vertically touching.
+     4. Lastly, please note that some areas can also be totally hidden at the start.
+        In the example you can see a '1' which wasn't hinted in the initial setup.
+
     Variation
-    4. Fillomino has several variants.
-    5. No Rectangles: Areas can't form Rectangles.
-    6. Only Rectangles: Areas can ONLY form Rectangles.
-    7. Non Consecutive: Areas can't touch another area which has +1 or -1
-       as number (orthogonally).
-    8. Consecutive: Areas MUST touch another area which has +1 or -1
-       as number (orthogonally).
-    9. All Odds: There are only odd numbers on the board.
-    10.All Evens: There are only even numbers on the board.
+     5. Fillomino has several variants.
+     6. No Rectangles: Areas can't form Rectangles.
+     7. Only Rectangles: Areas can ONLY form Rectangles.
+     8. Non Consecutive: Areas can't touch another area which has +1 or -1
+        as number (orthogonally).
+     9. Consecutive: Areas MUST touch another area which has +1 or -1
+        as number (orthogonally).
+     10.No Row or Column Repeats: Different areas with the same number
+        can't appear in the same column or row.
+     11.All Odds: There are only odd numbers on the board.
+     12.All Evens: There are only even numbers on the board.
 */
 
 namespace puzzles::Fillomino{
@@ -43,6 +47,7 @@ enum class puz_game_type
     ONLY_RECTANGLES,
     NON_CONSECUTIVE,
     CONSECUTIVE,
+    NO_ROW_OR_COLUMN_REPEATS,
     ALL_ODDS,
     ALL_EVENS,
 };
@@ -86,8 +91,10 @@ void puz_state2::make_move(const Position &p)
         m_num = m_game->cells(p);
     int sz = size();
     m_is_valid = m_num == PUZ_UNKNOWN || sz == m_num;
+    // 11.All Odds: There are only odd numbers on the board.
     if (m_game->m_game_type == puz_game_type::ALL_ODDS)
         m_is_valid = m_is_valid && sz % 2 == 1;
+    // 12.All Evens: There are only even numbers on the board.
     else if(m_game->m_game_type == puz_game_type::ALL_EVENS)
         m_is_valid = m_is_valid && sz % 2 == 0;
     m_is_valid = m_is_valid && boost::algorithm::none_of(*this, [&](const Position& p2) {
@@ -108,8 +115,10 @@ void puz_state2::make_move(const Position &p)
         }
         return (r2 - r1 + 1) * (c2 - c1 + 1) == size();
     };
+    // 6. No Rectangles: Areas can't form Rectangles.
     if (m_game->m_game_type == puz_game_type::ONLY_RECTANGLES)
         m_is_valid = m_is_valid && is_rect();
+    // 7. Only Rectangles: Areas can ONLY form Rectangles.
     else if (m_game->m_game_type == puz_game_type::NO_RECTANGLES)
         m_is_valid = m_is_valid && !is_rect();
 }
@@ -137,6 +146,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         game_type == "Only Rectangles" ? puz_game_type::ONLY_RECTANGLES :
         game_type == "Non Consecutive" ? puz_game_type::NON_CONSECUTIVE :
         game_type == "Consecutive" ? puz_game_type::CONSECUTIVE :
+        game_type == "No Row or Column Repeats" ? puz_game_type::NO_ROW_OR_COLUMN_REPEATS :
         game_type == "All Odds" ? puz_game_type::ALL_ODDS :
         game_type == "All Evens" ? puz_game_type::ALL_EVENS :
         puz_game_type::NORMAL;
@@ -177,7 +187,7 @@ struct puz_state
     bool make_move(int n);
     void make_move2(int n);
     int find_matches(bool init);
-    bool check_consecutive() const;
+    bool check_game_type() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -225,11 +235,13 @@ int puz_state::find_matches(bool init)
                 return make_move2(move_ids.front()), 1;
             }
     }
-    return check_consecutive() ? 2 : 0;
+    return check_game_type() ? 2 : 0;
 }
 
-bool puz_state::check_consecutive() const
+bool puz_state::check_game_type() const
 {
+    // 8. Non Consecutive: Areas can't touch another area which has +1 or -1
+    //    as number (orthogonally).
     if (m_game->m_game_type == puz_game_type::CONSECUTIVE)
         return boost::algorithm::any_of(m_finished_moves, [&](int id) {
             auto& move = m_game->m_moves[id];
@@ -244,6 +256,8 @@ bool puz_state::check_consecutive() const
                 });
             });
         });
+    // 9. Consecutive: Areas MUST touch another area which has +1 or -1
+    //    as number (orthogonally).
     if (m_game->m_game_type == puz_game_type::NON_CONSECUTIVE)
         return boost::algorithm::none_of(m_finished_moves, [&](int id) {
             auto& move = m_game->m_moves[id];
@@ -258,6 +272,8 @@ bool puz_state::check_consecutive() const
                 });
             });
         });
+    if (m_game->m_game_type == puz_game_type::NO_ROW_OR_COLUMN_REPEATS)
+        return true;
     return true;
 }
 
