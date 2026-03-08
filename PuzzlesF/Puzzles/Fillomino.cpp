@@ -232,10 +232,9 @@ int puz_state::find_matches(bool init)
             // 3. Two areas with the same number can't be horizontally or vertically touching.
             return boost::algorithm::any_of(area, [&](const Position& p2) {
                 int n = cells(p2);
-                return n != PUZ_UNKNOWN && n != num ||
-                boost::algorithm::any_of(neighbors, [&](const Position& p3) {
-                    return cells(p3) == num;
-                });
+                return n != PUZ_UNKNOWN && n != num;
+            }) || boost::algorithm::any_of(neighbors, [&](const Position& p2) {
+                return cells(p2) == num;
             });
         });
 
@@ -254,22 +253,22 @@ bool puz_state::check_game_type() const
 {
     // 8. Non Consecutive: Areas can't touch another area which has +1 or -1
     //    as number (orthogonally).
-    if (m_game->m_game_type == puz_game_type::CONSECUTIVE)
-        return boost::algorithm::any_of(m_finished_moves, [&](int id) {
-            auto& [num, _1, neighbors] = m_game->m_moves[id];
-            return boost::algorithm::any_of(neighbors, [&](const Position& p) {
-                int m = cells(p);
-                return m == PUZ_UNKNOWN || abs(m - num) == 1;
-            });
-        });
-    // 9. Consecutive: Areas MUST touch another area which has +1 or -1
-    //    as number (orthogonally).
     if (m_game->m_game_type == puz_game_type::NON_CONSECUTIVE)
         return boost::algorithm::none_of(m_finished_moves, [&](int id) {
             auto& [num, _1, neighbors] = m_game->m_moves[id];
             return boost::algorithm::any_of(neighbors, [&](const Position& p) {
                 int m = cells(p);
                 return m != PUZ_UNKNOWN && abs(m - num) == 1;
+            });
+        });
+    // 9. Consecutive: Areas MUST touch another area which has +1 or -1
+    //    as number (orthogonally).
+    if (m_game->m_game_type == puz_game_type::CONSECUTIVE)
+        return boost::algorithm::all_of(m_finished_moves, [&](int id) {
+            auto& [num, _1, neighbors] = m_game->m_moves[id];
+            return boost::algorithm::any_of(neighbors, [&](const Position& p) {
+                int m = cells(p);
+                return m == PUZ_UNKNOWN || abs(m - num) == 1;
             });
         });
     // 10.No Row or Column Repeats: Different areas with the same number
