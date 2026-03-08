@@ -110,7 +110,7 @@ void puz_state2::make_move(const Position &p)
     };
     if (m_game->m_game_type == puz_game_type::ONLY_RECTANGLES)
         m_is_valid = m_is_valid && is_rect();
-    else if(m_game->m_game_type == puz_game_type::NO_RECTANGLES)
+    else if (m_game->m_game_type == puz_game_type::NO_RECTANGLES)
         m_is_valid = m_is_valid && !is_rect();
 }
 
@@ -177,6 +177,7 @@ struct puz_state
     bool make_move(int n);
     void make_move2(int n);
     int find_matches(bool init);
+    bool check_consecutive() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -188,6 +189,7 @@ struct puz_state
 
     const puz_game* m_game;
     vector<int> m_cells;
+    vector<int> m_finished_moves;
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
@@ -210,20 +212,7 @@ int puz_state::find_matches(bool init)
                 return n != PUZ_UNKNOWN && n != num ||
                 boost::algorithm::any_of(offset, [&](const Position& os) {
                     auto p3 = p2 + os;
-                    if (boost::algorithm::any_of_equal(move, p3) || !is_valid(p3))
-                        return false;
-                    int m = cells(p3);
-                    return m == num ||
-                    m_game->m_game_type == puz_game_type::NON_CONSECUTIVE && abs(m - num) == 1;
-                });
-            }) || m_game->m_game_type == puz_game_type::CONSECUTIVE &&
-            boost::algorithm::none_of(move, [&](const Position& p2) {
-                return boost::algorithm::any_of(offset, [&](const Position& os) {
-                    auto p3 = p2 + os;
-                    if (boost::algorithm::any_of_equal(move, p3) || !is_valid(p3))
-                        return false;
-                    int m = cells(p3);
-                    return m == PUZ_UNKNOWN || abs(m - num) == 1;
+                    return boost::algorithm::none_of_equal(move, p3) && is_valid(p3) && cells(p3) == num;
                 });
             });
         });
@@ -236,7 +225,29 @@ int puz_state::find_matches(bool init)
                 return make_move2(move_ids.front()), 1;
             }
     }
-    return 2;
+    return check_consecutive() ? 2 : 0;
+}
+
+bool puz_state::check_consecutive() const
+{
+    auto f = [&](int id) {
+        auto& move = m_game->m_moves[id];
+        int num = move.size();
+        return boost::algorithm::any_of(move, [&](const Position& p) {
+            return boost::algorithm::any_of(offset, [&](const Position& os) {
+                auto p2 = p + os;
+                if (boost::algorithm::any_of_equal(move, p2) || !is_valid(p2))
+                    return false;
+                int m = cells(p2);
+                return m == PUZ_UNKNOWN || abs(m - num) == 1;
+            });
+        });
+    };
+    if (m_game->m_game_type == puz_game_type::CONSECUTIVE)
+        return boost::algorithm::any_of(m_finished_moves, f);
+    if (m_game->m_game_type == puz_game_type::NON_CONSECUTIVE)
+        return boost::algorithm::none_of(m_finished_moves, f);
+    return true;
 }
 
 void puz_state::make_move2(int n)
@@ -247,6 +258,7 @@ void puz_state::make_move2(int n)
         cells(p) = m;
         ++m_distance, m_matches.erase(p);
     }
+    m_finished_moves.push_back(n);
 }
 
 bool puz_state::make_move(int n)
