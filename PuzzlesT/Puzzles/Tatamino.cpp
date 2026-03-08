@@ -154,10 +154,9 @@ int puz_state::find_matches(bool init)
             auto& [num, area, neighbors] = m_game->m_moves[id];
             return boost::algorithm::any_of(area, [&](const Position& p2) {
                 char ch = cells(p2);
-                return ch != PUZ_SPACE && ch != num ||
-                boost::algorithm::any_of(neighbors, [&](const Position& p3) {
-                    return cells(p3) == num;
-                });
+                return ch != PUZ_SPACE && ch != num;
+            }) || boost::algorithm::any_of(neighbors, [&](const Position& p2) {
+                return cells(p2) == num;
             });
         });
 
