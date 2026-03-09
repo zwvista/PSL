@@ -196,7 +196,9 @@ struct puz_state
     }
     int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
     bool make_move(int n);
     void make_move2(int n);
     int find_matches(bool init);
