@@ -84,7 +84,7 @@ struct puz_state2 : set<Position>
 
     const puz_game* m_game;
     int m_num;
-    bool m_is_valid;
+    bool m_is_goal;
 };
 
 void puz_state2::make_move(const Position &p)
@@ -95,14 +95,14 @@ void puz_state2::make_move(const Position &p)
     int sz = size();
     // 1. The goal is to detect areas marked with the tile count of the area
     //    itself.
-    m_is_valid = m_num == PUZ_UNKNOWN || sz == m_num;
+    m_is_goal = m_num == PUZ_UNKNOWN || sz == m_num;
     // 11.All Odds: There are only odd numbers on the board.
     if (m_game->m_game_type == puz_game_type::ALL_ODDS)
-        m_is_valid = m_is_valid && sz % 2 == 1;
+        m_is_goal = m_is_goal && sz % 2 == 1;
     // 12.All Evens: There are only even numbers on the board.
     else if(m_game->m_game_type == puz_game_type::ALL_EVENS)
-        m_is_valid = m_is_valid && sz % 2 == 0;
-    m_is_valid = m_is_valid && boost::algorithm::none_of(*this, [&](const Position& p2) {
+        m_is_goal = m_is_goal && sz % 2 == 0;
+    m_is_goal = m_is_goal && boost::algorithm::none_of(*this, [&](const Position& p2) {
         return boost::algorithm::any_of(offset, [&](const Position& os) {
             auto p3 = p2 + os;
             return m_game->is_valid(p3) && !contains(p3) &&
@@ -122,10 +122,10 @@ void puz_state2::make_move(const Position &p)
     };
     // 6. No Rectangles: Areas can't form Rectangles.
     if (m_game->m_game_type == puz_game_type::ONLY_RECTANGLES)
-        m_is_valid = m_is_valid && is_rect();
+        m_is_goal = m_is_goal && is_rect();
     // 7. Only Rectangles: Areas can ONLY form Rectangles.
     else if (m_game->m_game_type == puz_game_type::NO_RECTANGLES)
-        m_is_valid = m_is_valid && !is_rect();
+        m_is_goal = m_is_goal && !is_rect();
 }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -170,7 +170,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, cells(p)});
             for (auto& s : smoves)
-                if (s.m_is_valid && boost::algorithm::none_of(m_moves, [&](const puz_move& move) {
+                if (s.m_is_goal && boost::algorithm::none_of(m_moves, [&](const puz_move& move) {
                     return move.m_area == s;
                 })) {
                     int n = m_moves.size();

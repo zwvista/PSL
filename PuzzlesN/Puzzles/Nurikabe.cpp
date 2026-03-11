@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -75,13 +74,14 @@ struct puz_state2 : set<Position>
     bool is_goal_state() const { return size() == m_num; }
     void make_move(const Position& p) { insert(p); }
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
     int m_num;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
+    if (is_goal_state())
+        return;
     for (auto& p : *this)
         for (auto& os : offset) {
             // Gardens extend horizontally or vertically
@@ -126,26 +126,26 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto& [p, garden] : m_pos2garden) {
         auto& [name, num] = garden;
-        puz_state2 sstart(this, num, p);
-        list<list<puz_state2>> spaths;
         // Gardens can have any form.
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
-            // save all goal states as permutations
-            // A goal state is a garden formed from the number
-            for (auto& spath : spaths) {
-                auto& s = spath.back();
-                int n = m_moves.size();
-                auto& [name2, p_hint, area, walls] = m_moves.emplace_back();
-                name2 = name, p_hint = p, area = s;
-                // Gardens are separated by a wall.
-                for (auto& p2 : s)
-                    for (auto& os : offset)
-                        if (auto p3 = p2 + os; !s.contains(p3))
-                            if (char ch3 = cells(p3); ch3 == PUZ_SPACE)
-                                walls.insert(p3);
-                for (auto& p2 : s)
-                    m_pos2move_ids[p2].push_back(n);
-            }
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, num, p});
+        // save all goal states as permutations
+        // A goal state is a garden formed from the number
+        for (auto& s : smoves) {
+            if (!s.is_goal_state() || boost::algorithm::any_of(m_moves, [&](const puz_move& move) {
+                return move.m_area == s;
+            })) continue;
+            int n = m_moves.size();
+            auto& [name2, p_hint, area, walls] = m_moves.emplace_back();
+            name2 = name, p_hint = p, area = s;
+            // Gardens are separated by a wall.
+            for (auto& p2 : s)
+                for (auto& os : offset)
+                    if (auto p3 = p2 + os; !s.contains(p3))
+                        if (char ch3 = cells(p3); ch3 == PUZ_SPACE)
+                            walls.insert(p3);
+            for (auto& p2 : s)
+                m_pos2move_ids[p2].push_back(n);
+        }
     }
 }
 
