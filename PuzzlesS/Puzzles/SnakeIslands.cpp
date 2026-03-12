@@ -245,13 +245,18 @@ int puz_state::find_matches(bool init)
     for (auto& [p, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
             if (id == PUZ_HIDDEN_GARDEN_ID)
-                return cells(p) != PUZ_SPACE;
-            
+                return cells(p) != PUZ_SPACE ||
+                !boost::algorithm::all_of(offset, [&](const Position& os) {
+                    char ch2 = cells(p + os);
+                    return ch2 == PUZ_SPACE || ch2 == PUZ_BOUNDARY || ch2 == PUZ_GARDEN || ch2 == PUZ_SNAKE;
+                });
             if (id < 0) {
-                int n = -1 - id;
-                // auto& move = m_game->
+                auto& move = m_game->m_snake_moves[-1 - id];
+                return !boost::algorithm::all_of(move, [&](const Position& p2) {
+                    char ch2 = cells(p2);
+                    return ch2 == PUZ_SPACE || ch2 == PUZ_BOUNDARY || ch2 == PUZ_SNAKE;
+                });
             }
-            
             auto& [_1, p_hint, area, snake] = m_game->m_garden_moves[id];
             return !boost::algorithm::all_of(area, [&](const Position& p2) {
                 char ch2 = cells(p2);
