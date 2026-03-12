@@ -162,7 +162,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 break;
             default:
                 auto& [name, num] = m_pos2garden[p];
-                num = ch - '0';
+                    num = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
                 m_cells.push_back(name = ch_g++);
             }
         m_cells.push_back(PUZ_BOUNDARY);
