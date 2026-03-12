@@ -32,6 +32,7 @@ namespace puzzles::SnakeIslands{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_GARDEN = '.';
+constexpr auto PUZ_HIDDEN = '*';
 constexpr auto PUZ_SNAKE = 'S';
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_HIDDEN_GARDEN_ID = 9999;
@@ -248,11 +249,12 @@ int puz_state::find_matches(bool init)
                 return cells(p) != PUZ_SPACE ||
                 !boost::algorithm::all_of(offset, [&](const Position& os) {
                     char ch2 = cells(p + os);
-                    return ch2 == PUZ_SPACE || ch2 == PUZ_BOUNDARY || ch2 == PUZ_GARDEN || ch2 == PUZ_SNAKE;
+                    return ch2 == PUZ_SPACE || ch2 == PUZ_BOUNDARY || ch2 == PUZ_GARDEN || ch2 == PUZ_HIDDEN || ch2 == PUZ_SNAKE;
                 });
             if (id < 0) {
                 auto& move = m_game->m_snake_moves[-1 - id];
-                return !boost::algorithm::all_of(move, [&](const Position& p2) {
+                return !m_matches.contains(move.front()) || !m_matches.contains(move.back()) ||
+                !boost::algorithm::all_of(move, [&](const Position& p2) {
                     char ch2 = cells(p2);
                     return ch2 == PUZ_SPACE || ch2 == PUZ_BOUNDARY || ch2 == PUZ_SNAKE;
                 });
@@ -263,7 +265,10 @@ int puz_state::find_matches(bool init)
                 return p_hint == p2 || ch2 == PUZ_SPACE || ch2 == PUZ_GARDEN;
             }) || !boost::algorithm::all_of(snake, [&](const Position& p2) {
                 char ch2 = cells(p2);
-                return ch2 == PUZ_SPACE || ch2 == PUZ_BOUNDARY || ch2 == PUZ_SNAKE;
+                return ch2 == PUZ_BOUNDARY || ch2 == PUZ_SNAKE || ch2 == PUZ_SPACE &&
+                boost::algorithm::any_of(m_matches.at(p2), [&](int id2) {
+                    return id2 < 0 && boost::algorithm::any_of_equal(m_game->m_snake_moves[-1 - id2], p2);
+                });
             });
         });
         if (!init)
@@ -331,7 +336,7 @@ bool puz_state::check_2x2()
 void puz_state::make_move2(Position p, int n)
 {
     if (n == PUZ_HIDDEN_GARDEN_ID)
-        cells(p) = PUZ_GARDEN, ++m_distance, m_matches.erase(p);
+        cells(p) = PUZ_HIDDEN, ++m_distance, m_matches.erase(p);
     else if (n < 0) {
         for (auto& move = m_game->m_snake_moves[-1 - n];
             auto& p2 : move)
