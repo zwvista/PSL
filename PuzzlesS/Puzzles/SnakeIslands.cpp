@@ -131,11 +131,9 @@ void puz_state3::gen_children(list<puz_state3>& children) const
     if (m_is_goal)
         return;
     for (auto& p = back(); auto& os : offset)
-        if (auto p2 = p + os; boost::algorithm::none_of_equal(*this, p2) &&
-            boost::algorithm::all_of(offset, [&](const Position& os2) {
-            auto p3 = p2 + os2;
-            return p3 == p || boost::algorithm::none_of_equal(*this, p3);
-        }))
+        if (auto p2 = p + os; boost::count_if(*this, [&](const Position& p3) {
+            return boost::algorithm::any_of_equal(offset, p2 - p3);
+        }) <= (m_game->cells(p2) == PUZ_SNAKE ? 2 : 1))
             if (char ch = m_game->cells(p2); ch == PUZ_SPACE ||
                 ch == PUZ_SNAKE && p2 > front())
                 children.emplace_back(*this).make_move(p2);
