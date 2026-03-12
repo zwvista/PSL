@@ -31,7 +31,7 @@
 namespace puzzles::SnakeIslands{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_EMPTY = '.';
+constexpr auto PUZ_GARDEN = '.';
 constexpr auto PUZ_SNAKE = 'S';
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_HIDDEN_GARDEN_ID = 9999;
@@ -131,9 +131,10 @@ void puz_state3::gen_children(list<puz_state3>& children) const
         return;
     for (auto& p = back(); auto& os : offset)
         if (auto p2 = p + os; boost::algorithm::none_of_equal(*this, p2) &&
-            boost::count_if(*this, [&](const Position& p3) {
-            return boost::algorithm::any_of_equal(offset, p2 - p3);
-        }) == 1)
+            boost::algorithm::all_of(offset, [&](const Position& os2) {
+            auto p3 = p2 + os2;
+            return p3 == p || boost::algorithm::none_of_equal(*this, p3);
+        }))
             if (char ch = m_game->cells(p2); ch == PUZ_SPACE ||
                 ch == PUZ_SNAKE && p2 > p)
                 children.emplace_back(*this).make_move(p2);
@@ -214,7 +215,7 @@ struct puz_state
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
     bool make_move(const Position& p, int n);
-    bool make_move2(Position p, int n);
+    void make_move2(Position p, int n);
     int find_matches(bool init);
     bool is_interconnected() const;
     bool check_2x2();
@@ -229,122 +230,78 @@ struct puz_state
 
     const puz_game* m_game;
     string m_cells;
-    // key: the position of the hint
-    // value: index into the permutations (forms) of the garden
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_cells)
+: m_game(&g), m_cells(g.m_cells), m_matches(g.m_pos2move_ids)
 {
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    // key: a space tile
-    // value.elem: position of the number from which a garden
-    //             containing that space tile can be formed
-    map<Position, set<Position>> space2hints;
-    for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            char ch = cells(p);
-            if (ch == PUZ_SPACE || ch == PUZ_EMPTY)
-                space2hints[p];
-        }
-
-    for (auto& [p, perm_ids] : m_matches) {
-//        auto& perms = m_game->m_pos2garden.at(p).m_perms;
-//        // remove any path if it contains a tile which belongs to another garden
-//        boost::remove_erase_if(perm_ids, [&](int id) {
-//            return boost::algorithm::any_of(perms[id], [&](const Position& p2) {
-//                char ch = cells(p2);
-//                return p != p2 && ch != PUZ_SPACE && ch != PUZ_EMPTY;
-//            });
-//        });
-//        for (int id : perm_ids)
-//            for (auto& p2 : perms[id])
-//                if (p2 != p)
-//                    space2hints.at(p2).insert(p);
-
+    for (auto& [p, move_ids] : m_matches) {
+        boost::remove_erase_if(move_ids, [&](int id) {
+            if (id == PUZ_HIDDEN_GARDEN_ID)
+                return cells(p) != PUZ_SPACE;
+            
+            if (id < 0) {
+                int n = -1 - id;
+                // auto& move = m_game->
+            }
+            
+            auto& [_1, p_hint, area, snake] = m_game->m_garden_moves[id];
+            return !boost::algorithm::all_of(area, [&](const Position& p2) {
+                char ch2 = cells(p2);
+                return p_hint == p2 || ch2 == PUZ_SPACE || ch2 == PUZ_GARDEN;
+            }) || !boost::algorithm::all_of(snake, [&](const Position& p2) {
+                char ch2 = cells(p2);
+                return ch2 == PUZ_SPACE || ch2 == PUZ_BOUNDARY || ch2 == PUZ_SNAKE;
+            });
+        });
         if (!init)
-            switch(perm_ids.size()) {
+            switch(move_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids.front()) ? 1 : 0;
+                return make_move2(p, move_ids.front()), 1;
             }
     }
-//    bool changed = false;
-//    for (auto& [p, h] : space2hints) {
-//        if (!h.empty()) continue;
-//        // Cells that cannot be reached by any garden can be nothing but a wall
-//        char& ch = cells(p);
-//        if (ch == PUZ_EMPTY)
-//            return false;
-//        ch = PUZ_SNAKE;
-//        changed = true;
-//    }
-//    if (changed) {
-//        if (!check_2x2()) return 0;
-//        for (auto& [p, h] : space2hints) {
-//            if (h.size() != 1) continue;
-//            char ch = cells(p);
-//            if (ch == PUZ_SPACE) continue;
-//            // Cells that can be reached by only one garden
-//            auto& p2 = *h.begin();
-//            auto& perms = m_game->m_pos2garden.at(p2).m_perms;
-//            // remove any permutation that does not contain the empty tile
-//            boost::remove_erase_if(m_matches.at(p2), [&](int id) {
-//                return boost::algorithm::none_of_equal(perms[id], p);
-//            });
-//        }
-//        if (!init) {
-//            for (auto& [p, perm_ids] : m_matches)
-//                if (perm_ids.size() == 1)
-//                    return make_move2(p, perm_ids.front()) ? 1 : 0;
-//            if (!is_interconnected())
-//                return 0;
-//        }
-//    }
-    return 2;
+    return check_2x2() && is_interconnected() ? 2 : 0;
 }
 
 struct puz_state4 : Position
 {
-    puz_state4(const set<Position>& rng) : m_rng(&rng) { make_move(*rng.begin()); }
+    puz_state4(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state4>& children) const;
 
-    const set<Position>* m_rng;
+    const puz_state* m_state;
 };
 
 void puz_state4::gen_children(list<puz_state4>& children) const
 {
-    for (auto& os : offset) {
-        auto p2 = *this + os;
-        if (m_rng->contains(p2))
+    for (auto& os : offset)
+        switch (auto p2 = *this + os; m_state->cells(p2)) {
+        case PUZ_SNAKE:
+        case PUZ_SPACE:
             children.emplace_back(*this).make_move(p2);
-    }
+        }
 }
 
 // All wall tiles on the board must be connected horizontally or vertically.
 bool puz_state::is_interconnected() const
 {
-    set<Position> a;
-    for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            char ch = cells(p);
-            if (ch == PUZ_SPACE || ch == PUZ_SNAKE)
-                a.insert(p);
-        }
-
-    auto smoves = puz_move_generator<puz_state4>::gen_moves(a);
-    return smoves.size() == a.size();
+    int i = m_cells.find(PUZ_SNAKE);
+    auto smoves = puz_move_generator<puz_state4>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return boost::count_if(smoves, [&](const Position& p) {
+        return cells(p) == PUZ_SNAKE;
+    }) == boost::count(m_cells, PUZ_SNAKE);
 }
 
 // The wall can't form 2*2 squares.
@@ -361,36 +318,34 @@ bool puz_state::check_2x2()
                 }
             if (rng1.size() == 4) return false;
             if (rng1.size() == 3 && rng2.size() == 1)
-                cells(rng2[0]) = PUZ_EMPTY;
+                cells(rng2[0]) = PUZ_GARDEN;
         }
     return true;
 }
 
-bool puz_state::make_move2(Position p, int n)
+void puz_state::make_move2(Position p, int n)
 {
-//    auto& garden = m_game->m_pos2garden.at(p);
-//    auto& perm = garden.m_perms[n];
-//
-//    for (auto& p2 : perm)
-//        cells(p2) = garden.m_name;
-//    for (auto& p2 : perm)
-//        // Gardens are separated by a wall.
-//        for (auto& os : offset)
-//            switch(char& ch2 = cells(p2 + os)) {
-//            case PUZ_SPACE: ch2 = PUZ_SNAKE; break;
-//            case PUZ_EMPTY: return false;
-//            }
-//    ++m_distance;
-//    m_matches.erase(p);
-
-    return check_2x2() && is_interconnected();
+    if (n == PUZ_HIDDEN_GARDEN_ID)
+        cells(p) = PUZ_GARDEN, ++m_distance, m_matches.erase(p);
+    else if (n < 0) {
+        for (auto& move = m_game->m_snake_moves[-1 - n];
+            auto& p2 : move)
+            if (char& ch2 = cells(p2); ch2 == PUZ_SPACE)
+                ch2 = PUZ_SNAKE, ++m_distance, m_matches.erase(p2);
+    } else {
+        auto& [name, _1, area, snake] = m_game->m_garden_moves[n];
+        for (auto& p2 : area)
+            cells(p2) = name, ++m_distance, m_matches.erase(p2);
+        for (auto& p2 : snake)
+            if (char& ch2 = cells(p2); ch2 == PUZ_SPACE)
+                ch2 = PUZ_SNAKE, ++m_distance, m_matches.erase(p2);
+    }
 }
 
 bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    if (!make_move2(p, n))
-        return false;
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -398,10 +353,12 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, perm_ids] = *boost::min_element(m_matches, [](auto& kv1, auto& kv2) {
+    auto& [p, move_ids] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : perm_ids)
+    for (int n : move_ids)
         if (!children.emplace_back(*this).make_move(p, n))
             children.pop_back();
 }
