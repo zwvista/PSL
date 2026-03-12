@@ -168,6 +168,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_cells.push_back(PUZ_BOUNDARY);
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    
+    set<Position> snake_all;
+    for (auto& p : m_head_tails) {
+        if (p == *m_head_tails.rbegin()) break;
+        auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p});
+        for (auto& s : smoves) {
+            if (!s.m_is_goal || boost::algorithm::any_of_equal(m_snake_moves, s)) continue;
+            int n = -1 - m_snake_moves.size();
+            m_snake_moves.push_back(s);
+            for (auto& p2 : s)
+                m_pos2move_ids[p2].push_back(n);
+            snake_all.insert_range(s);
+        }
+    }
 
     for (auto& [p, garden] : m_pos2garden) {
         auto& [name, num] = garden;
@@ -185,21 +199,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             // Gardens are separated by a wall.
             for (auto& p2 : s)
                 for (auto& os : offset)
-                    if (auto p3 = p2 + os; !s.contains(p3))
-                        if (char ch3 = cells(p3); ch3 == PUZ_SPACE || ch3 == PUZ_SNAKE)
-                            snake.insert(p3);
-            for (auto& p2 : s)
-                m_pos2move_ids[p2].push_back(n);
-        }
-    }
-    
-    for (auto& p : m_head_tails) {
-        if (p == *m_head_tails.rbegin()) break;
-        auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p});
-        for (auto& s : smoves) {
-            if (!s.m_is_goal || boost::algorithm::any_of_equal(m_snake_moves, s)) continue;
-            int n = -1 - m_snake_moves.size();
-            m_snake_moves.push_back(s);
+                    if (auto p3 = p2 + os; !s.contains(p3) && snake_all.contains(p3))
+                        snake.insert(p3);
             for (auto& p2 : s)
                 m_pos2move_ids[p2].push_back(n);
         }
@@ -243,11 +244,13 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
+    set<Position> snake_all;
     for (auto& [p, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
             if (id >= 0)
                 return false;
             auto& move = m_game->m_snake_moves[-1 - id];
+            snake_all.insert_range(move);
             return !boost::algorithm::all_of(move, [&](const Position& p2) {
                 if (!m_matches.contains(p2))
                     return false;
@@ -272,10 +275,8 @@ int puz_state::find_matches(bool init)
                 return p_hint == p2 || ch2 == PUZ_SPACE || ch2 == PUZ_GARDEN;
             }) || !boost::algorithm::all_of(snake, [&](const Position& p2) {
                 char ch2 = cells(p2);
-                return ch2 == PUZ_BOUNDARY || ch2 == PUZ_SNAKE || ch2 == PUZ_SPACE &&
-                boost::algorithm::any_of(m_matches.at(p2), [&](int id2) {
-                    return id2 < 0 && boost::algorithm::any_of_equal(m_game->m_snake_moves[-1 - id2], p2);
-                });
+                return ch2 == PUZ_BOUNDARY || ch2 == PUZ_SNAKE ||
+                ch2 == PUZ_SPACE && snake_all.contains(p2);
             });
         });
         if (!init)
