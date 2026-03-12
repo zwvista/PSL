@@ -137,7 +137,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
             return p3 == p || boost::algorithm::none_of_equal(*this, p3);
         }))
             if (char ch = m_game->cells(p2); ch == PUZ_SPACE ||
-                ch == PUZ_SNAKE && p2 > p)
+                ch == PUZ_SNAKE && p2 > front())
                 children.emplace_back(*this).make_move(p2);
 }
 
@@ -245,15 +245,15 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [p, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
-            if (id < 0) {
-                auto& move = m_game->m_snake_moves[-1 - id];
-                return !m_matches.contains(move.front()) || !m_matches.contains(move.back()) ||
-                !boost::algorithm::all_of(move, [&](const Position& p2) {
-                    char ch2 = cells(p2);
-                    return ch2 == PUZ_SPACE || ch2 == PUZ_BOUNDARY || ch2 == PUZ_SNAKE;
-                });
-            }
-            return false;
+            if (id >= 0)
+                return false;
+            auto& move = m_game->m_snake_moves[-1 - id];
+            return !boost::algorithm::all_of(move, [&](const Position& p2) {
+                if (!m_matches.contains(p2))
+                    return false;
+                char ch2 = cells(p2);
+                return ch2 == PUZ_SPACE || ch2 == PUZ_SNAKE;
+            });
         });
     }
     for (auto& [p, move_ids] : m_matches) {
