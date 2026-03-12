@@ -1,1 +1,34 @@
 Level 1
+Number of vertices examined: 1
+0.165406 [s]
+
+Level 2
+Sequence of moves: 
+. S S S S 
+. 8 . . S 
+. S S S S 
+. S 5 . . 
+. S S . . 
+Number of moves: 3
+Number of vertices examined: 5
+0.012311 [s]
+
+Level 3
+Number of vertices examined: 1
+0.00236 [s]
+
+Level 4
+Sequence of moves: 
+S S S S S 
+. S . 2 S 
+. S S S S 
+. S . . . 
+4 S S S 4 
+Number of moves: 1
+Number of vertices examined: 2
+0.002685 [s]
+
+Level 5
+Number of vertices examined: 2
+0.656748 [s]
+
