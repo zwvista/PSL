@@ -189,21 +189,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, num, p});
         // save all goal states as permutations
         // A goal state is a garden formed from the number
-        for (auto& s : smoves) {
-            if (!s.is_goal_state() || boost::algorithm::any_of(m_garden_moves, [&](const puz_garden_move& move) {
+        for (auto& s : smoves)
+            if (set<Position> snake;
+                s.is_goal_state() && boost::algorithm::none_of(m_garden_moves, [&](const puz_garden_move& move) {
                 return move.m_area == s;
-            })) continue;
-            int n = m_garden_moves.size();
-            auto& [name2, p_hint, area, snake] = m_garden_moves.emplace_back();
-            name2 = name, p_hint = p, area = s;
-            // Gardens are separated by a wall.
-            for (auto& p2 : s)
-                for (auto& os : offset)
-                    if (auto p3 = p2 + os; !s.contains(p3) && snake_all.contains(p3))
-                        snake.insert(p3);
-            for (auto& p2 : s)
-                m_pos2move_ids[p2].push_back(n);
-        }
+            }) && [&]{
+                // Gardens are separated by a wall.
+                for (auto& p2 : s)
+                    for (auto& os : offset)
+                        if (auto p3 = p2 + os; s.contains(p3) || cells(p3) == PUZ_BOUNDARY)
+                            continue;
+                        else if (!snake_all.contains(p3))
+                            return false;
+                        else
+                            snake.insert(p3);
+                return true;
+            }()) {
+                int n = m_garden_moves.size();
+                m_garden_moves.emplace_back(name, p, s, snake);
+                for (auto& p2 : s)
+                    m_pos2move_ids[p2].push_back(n);
+            }
     }
 }
 
@@ -275,8 +281,7 @@ int puz_state::find_matches(bool init)
                 return p_hint == p2 || ch2 == PUZ_SPACE || ch2 == PUZ_GARDEN;
             }) || !boost::algorithm::all_of(snake, [&](const Position& p2) {
                 char ch2 = cells(p2);
-                return ch2 == PUZ_BOUNDARY || ch2 == PUZ_SNAKE ||
-                ch2 == PUZ_SPACE && snake_all.contains(p2);
+                return ch2 == PUZ_SNAKE || ch2 == PUZ_SPACE && snake_all.contains(p2);
             });
         });
         if (!init)
