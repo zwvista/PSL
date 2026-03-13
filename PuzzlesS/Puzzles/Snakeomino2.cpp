@@ -140,21 +140,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
             auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
-            for (auto& s : smoves)
-                if (s.m_is_goal && boost::algorithm::none_of(m_moves, [&](const puz_move& move) {
-                    return move.m_snake == s;
-                })) {
-                    int n = m_moves.size();
-                    auto& [num, snake, neighbors] = m_moves.emplace_back();
-                    snake = s, num = s.size() + '0';
-                    for (auto& p : s) {
-                        m_pos2move_ids[p].push_back(n);
-                        for (auto& os : offset)
-                            if (auto p2 = p + os; cells(p2) != PUZ_BOUNDARY &&
-                                boost::algorithm::none_of_equal(s, p2))
-                                neighbors.insert(p2);
-                    }
+            for (auto& s : smoves) {
+                if (!s.m_is_goal) continue;
+                auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
+                if (boost::algorithm::any_of(m_moves, [&](const puz_move& move) {
+                    return move.m_snake == v;
+                })) continue;
+                int n = m_moves.size();
+                auto& [num, snake, neighbors] = m_moves.emplace_back();
+                snake = v, num = v.size() + '0';
+                for (auto& p : v) {
+                    m_pos2move_ids[p].push_back(n);
+                    for (auto& os : offset)
+                        if (auto p2 = p + os; cells(p2) != PUZ_BOUNDARY &&
+                            boost::algorithm::none_of_equal(s, p2))
+                            neighbors.insert(p2);
                 }
+            }
         }
 }
 

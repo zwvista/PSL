@@ -142,14 +142,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, num] : m_pos2num) {
         auto& moves = m_pos2moves[p];
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
-        for (auto& s : smoves)
-            if (s.m_is_goal && boost::algorithm::none_of(moves, [&](const puz_move& move) {
-                return move.m_snake == s;
-            })) {
-                auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
-                char num2 = v.size() + '0';
-                moves.emplace_back(num2, v);
-            }
+        for (auto& s : smoves) {
+            if (!s.m_is_goal) continue;
+            auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
+            if (boost::algorithm::any_of(moves, [&](const puz_move& move) {
+                return move.m_snake == v;
+            })) continue;
+            char num = v.size() + '0';
+            moves.emplace_back(num, v);
+        }
     }
 }
 
