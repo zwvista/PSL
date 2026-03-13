@@ -76,7 +76,9 @@ void puz_state2::make_move(const Position& p, bool at_front)
         m_num = m_game->cells(p);
     int sz = size();
     m_is_goal = sz > 1 && (m_num == PUZ_SPACE || sz == m_num - '0') &&
-    boost::algorithm::none_of(*this, [&](const Position& p2) {
+    boost::algorithm::all_of(*this, [&](const Position& p2) {
+        return m_game->hints(p2) != (p2 == front() || p2 == back() ? PUZ_NOT_END : PUZ_END);
+    }) && boost::algorithm::none_of(*this, [&](const Position& p2) {
         return boost::algorithm::any_of(offset, [&](const Position& os) {
             auto p3 = p2 + os;
             return boost::algorithm::none_of_equal(*this, p3) &&

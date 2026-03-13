@@ -54,28 +54,43 @@ struct puz_game
 
 struct puz_state2 : vector<Position>
 {
-    puz_state2(const puz_game* game, const Position& p, char num)
-        : m_game(game) { make_move(num, p, false); }
+    puz_state2(const puz_game* game, const Position& p)
+        : m_game(game) { make_move(p, false); }
     bool is_self(const Position& p) const {
         return boost::algorithm::any_of_equal(*this, p);
     }
 
-    void make_move(char num, const Position& p, bool at_front) {
-        if (m_num == PUZ_SPACE)
-            m_num = num;
-        at_front ? (void)insert(begin(), p) : push_back(p);
-    }
+    void make_move(const Position& p, bool at_front);
     void gen_children(list<puz_state2>& children) const;
 
     const puz_game* m_game;
     char m_num = PUZ_SPACE;
+    bool m_is_goal;
 };
+
+void puz_state2::make_move(const Position& p, bool at_front)
+{
+    at_front ? (void)insert(begin(), p) : push_back(p);
+    if (m_num == PUZ_SPACE)
+        m_num = m_game->cells(p);
+    int sz = size();
+    m_is_goal = sz > 1 && (m_num == PUZ_SPACE || sz == m_num - '0') &&
+    boost::algorithm::all_of(*this, [&](const Position& p2) {
+        return m_game->hints(p2) != (p2 == front() || p2 == back() ? PUZ_NOT_END : PUZ_END);
+    }) && boost::algorithm::none_of(*this, [&](const Position& p2) {
+        return boost::algorithm::any_of(offset, [&](const Position& os) {
+            auto p3 = p2 + os;
+            return boost::algorithm::none_of_equal(*this, p3) &&
+            m_game->cells(p3) - '0' == sz;
+        });
+    });
+}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    if (m_num != PUZ_SPACE && size() == m_num - '0')
+    int sz = size();
+    if (m_num == PUZ_SPACE && sz == 9 || sz > 1 && sz == m_num - '0')
         return;
-
     auto f = [&](const Position& p, bool at_front) {
         for (auto& os : offset) {
             auto p2 = p + os;
@@ -88,16 +103,16 @@ void puz_state2::gen_children(list<puz_state2>& children) const
                 auto p3 = p2 + os2;
                 return p3 != p && is_self(p3);
             }))
-                children.emplace_back(*this).make_move(ch, p2, at_front);
+                children.emplace_back(*this).make_move(p2, at_front);
         }
     };
     // 3. A cell with a circle must be at one of the ends of a snake. A snake may contain one
     // circled cell, two circled cells, or no circled cells at all.
     // 6. A cell with a cross cannot be an end of a snake.
     char ch_f = m_game->hints(front()), ch_b = m_game->hints(back());
-    if (size() > 1 && ch_f != PUZ_END && ch_b != PUZ_NOT_END)
+    if (sz > 1 && ch_f != PUZ_END && ch_b != PUZ_NOT_END)
         f(front(), true);
-    if (size() == 1 || ch_f != PUZ_NOT_END && ch_b != PUZ_END)
+    if (sz == 1 || ch_f != PUZ_NOT_END && ch_b != PUZ_END)
         f(back(), false);
 }
 
@@ -126,13 +141,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto& [p, num] : m_pos2num) {
         auto& moves = m_pos2moves[p];
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, num});
-        for (auto& s : smoves) {
-            if (s.size() == 1) continue;
-            auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
-            char num2 = v.size() + '0';
-            moves.emplace_back(num2, v);
-        }
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
+        for (auto& s : smoves)
+            if (s.m_is_goal && boost::algorithm::none_of(moves, [&](const puz_move& move) {
+                return move.m_snake == s;
+            })) {
+                auto v = s.front() < s.back() ? s : vector<Position>{s.rbegin(), s.rend()};
+                char num2 = v.size() + '0';
+                moves.emplace_back(num2, v);
+            }
     }
 }
 
