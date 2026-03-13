@@ -45,15 +45,15 @@ struct puz_game
 
 struct puz_state2 : set<Position>
 {
-    puz_state2(const puz_game* game, const Position& p, char num)
-        : m_game(game), m_num(num) { make_move(p); }
+    puz_state2(const puz_game* game, const Position& p)
+        : m_game(game) { make_move(p); }
 
     void make_move(const Position& p);
     void gen_children(list<puz_state2>& children) const;
 
     const puz_game* m_game;
-    char m_num;
-    bool m_is_valid;
+    char m_num = PUZ_SPACE;
+    bool m_is_goal;
 };
 
 void puz_state2::make_move(const Position &p)
@@ -62,7 +62,7 @@ void puz_state2::make_move(const Position &p)
     if (m_num == PUZ_SPACE)
         m_num = m_game->cells(p);
     int sz = size();
-    m_is_valid = (m_num == PUZ_SPACE || sz == m_num - '0') &&
+    m_is_goal = (m_num == PUZ_SPACE || sz == m_num - '0') &&
     boost::algorithm::none_of(*this, [&](const Position& p2) {
         return boost::algorithm::any_of(offset, [&](const Position& os) {
             auto p3 = p2 + os;
@@ -93,9 +93,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r)
         for (int c = 0; c < m_sidelen; ++c) {
             Position p(r, c);
-            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, cells(p)});
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
             for (auto& s : smoves)
-                if (s.m_is_valid && boost::algorithm::none_of(m_moves, [&](const puz_move& move) {
+                if (s.m_is_goal && boost::algorithm::none_of(m_moves, [&](const puz_move& move) {
                     return move.m_area == s;
                 })) {
                     int n = m_moves.size();
