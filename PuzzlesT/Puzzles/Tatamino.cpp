@@ -38,9 +38,6 @@ struct puz_game
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
-    bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
-    }
 };
 
 struct puz_state2 : set<Position>
@@ -66,8 +63,7 @@ void puz_state2::make_move(const Position &p)
     boost::algorithm::none_of(*this, [&](const Position& p2) {
         return boost::algorithm::any_of(offset, [&](const Position& os) {
             auto p3 = p2 + os;
-            return m_game->is_valid(p3) && !contains(p3) &&
-            m_game->cells(p3) - '0' == sz;
+            return !contains(p3) && m_game->cells(p3) - '0' == sz;
         });
     });
 }
@@ -79,19 +75,26 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         return;
     for (auto& p : *this)
         for (auto& os : offset)
-            if (auto p2 = p + os; !contains(p2) && m_game->is_valid(p2))
+            if (auto p2 = p + os; !contains(p2))
                 if (char ch = m_game->cells(p2);
-                    ch == PUZ_SPACE || sz < ch - '0' && (m_num == PUZ_SPACE || ch == m_num))
+                    ch == PUZ_SPACE || ch != PUZ_BOUNDARY &&
+                    sz < ch - '0' && (m_num == PUZ_SPACE || ch == m_num))
                     children.emplace_back(*this).make_move(p2);
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
-, m_sidelen(strs.size())
+, m_sidelen(strs.size() + 2)
 {
-    m_cells = boost::accumulate(strs, string());
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c) {
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    for (int r = 1; r < m_sidelen - 1; ++r) {
+        m_cells.push_back(PUZ_BOUNDARY);
+        m_cells.append(strs[r - 1]);
+        m_cells.push_back(PUZ_BOUNDARY);
+    }
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    for (int r = 1; r < m_sidelen - 1; ++r)
+        for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
             auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
             for (auto& s : smoves)
@@ -104,8 +107,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     for (auto& p : s) {
                         m_pos2move_ids[p].push_back(n);
                         for (auto& os : offset)
-                            if (auto p2 = p + os;
-                                is_valid(p2) && !s.contains(p2))
+                            if (auto p2 = p + os; !s.contains(p2))
                                 neighbors.insert(p2);
                     }
                 }
@@ -118,9 +120,6 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
-    }
     bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
     bool make_move(int n);
     void make_move2(int n);
@@ -205,19 +204,19 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](const Position& p1, const Position& p2) {
-        return !is_valid(p1) || !is_valid(p2) || cells(p1) != cells(p2);
+        return cells(p1) != cells(p2);
     };
-    for (int r = 0;; ++r) {
+    for (int r = 1;; ++r) {
         // draw horizontal lines
-        for (int c = 0; c < sidelen(); ++c)
+        for (int c = 1; c < sidelen() - 1; ++c)
             out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
         println(out);
-        if (r == sidelen()) break;
-        for (int c = 0;; ++c) {
+        if (r == sidelen() - 1) break;
+        for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
-            if (c == sidelen()) break;
+            if (c == sidelen() - 1) break;
             out << cells(p);
         }
         println(out);
