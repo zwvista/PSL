@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C269F401F66809100489ADC /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C269F3D1F66809100489ADC /* Snake.cpp */; };
 		8C3B8EF92E352DC200DB05CA /* SquareMergePuzzle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C3B8EF62E352DC200DB05CA /* SquareMergePuzzle.cpp */; };
+		8C6757EB2F64768000C66D49 /* Snakeomino2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C6757E92F64608400C66D49 /* Snakeomino2.cpp */; };
 		8C689C802DEEB75500A2BCCC /* SuspendedGravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */; };
 		8C689CDD2E003BFC00A2BCCC /* SlitherCorner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CDA2E003BFC00A2BCCC /* SlitherCorner.cpp */; };
 		8C689D0E2E04023200A2BCCC /* StraightAndBendLands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D0B2E04023200A2BCCC /* StraightAndBendLands.cpp */; };
@@ -60,6 +61,8 @@
 		8C3B8EF82E352DC200DB05CA /* SquareMergePuzzle.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SquareMergePuzzle.xml; sourceTree = "<group>"; };
 		8C5F12A92DE378EA00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12AA2DE378EA00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C6757E92F64608400C66D49 /* Snakeomino2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Snakeomino2.cpp; sourceTree = "<group>"; };
+		8C6757EA2F64609E00C66D49 /* Snakeomino2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Snakeomino2.txt; sourceTree = "<group>"; };
 		8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SuspendedGravity.cpp; sourceTree = "<group>"; };
 		8C689C7E2DEEB75500A2BCCC /* SuspendedGravity.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SuspendedGravity.txt; sourceTree = "<group>"; };
 		8C689C7F2DEEB75500A2BCCC /* SuspendedGravity.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SuspendedGravity.xml; sourceTree = "<group>"; };
@@ -229,6 +232,8 @@
 				8C94E0B02E17A63B00382560 /* Snakeomino.cpp */,
 				8C94E0B12E17A63B00382560 /* Snakeomino.txt */,
 				8C94E0B22E17A63B00382560 /* Snakeomino.xml */,
+				8C6757E92F64608400C66D49 /* Snakeomino2.cpp */,
+				8C6757EA2F64609E00C66D49 /* Snakeomino2.txt */,
 				8CA2414D1EB47AEC0055D6B1 /* sokoban.cpp */,
 				8CA2414E1EB47AEC0055D6B1 /* sokoban.txt */,
 				8CA2414F1EB47AEC0055D6B1 /* sokoban.xml */,
@@ -371,6 +376,7 @@
 				958FA638232BE15B00205831 /* Steps.cpp in Sources */,
 				8C3B8EF92E352DC200DB05CA /* SquareMergePuzzle.cpp in Sources */,
 				8CA2415C1EB47AEC0055D6B1 /* Skydoku.cpp in Sources */,
+				8C6757EB2F64768000C66D49 /* Snakeomino2.cpp in Sources */,
 				8CA2415D1EB47AEC0055D6B1 /* Skyscrapers.cpp in Sources */,
 				95E37B1F233BDDA20054284F /* StraightAndTurn.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
