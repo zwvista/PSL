@@ -130,10 +130,21 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 {
     if (m_is_goal)
         return;
+    // A snake is one cell wide.
+    // A snake CAN touch its body orthogonally.
+    // 6. The wall can't form 2x2 squares.
     for (auto& p = back(); auto& os : offset)
-        if (auto p2 = p + os; boost::count_if(*this, [&](const Position& p3) {
-            return boost::algorithm::any_of_equal(offset, p2 - p3);
-        }) <= (m_game->cells(p2) == PUZ_SNAKE ? 2 : 1))
+        if (auto p2 = p + os; boost::algorithm::none_of_equal(*this, p2) && [&]{
+            for (int dr = -1; dr <= 0; ++dr)
+                for (int dc = -1; dc <= 0; ++dc)
+                    if (auto p3 = p2 + Position(dr, dc);
+                        boost::algorithm::all_of(offset2, [&](const Position& os2) {
+                        auto p4 = p3 + os2;
+                        return p4 == p2 || boost::algorithm::any_of_equal(*this, p4);
+                    }))
+                        return false;
+            return true;
+        }())
             if (char ch = m_game->cells(p2); ch == PUZ_SPACE ||
                 ch == PUZ_SNAKE && p2 > front())
                 children.emplace_back(*this).make_move(p2);
@@ -160,7 +171,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 break;
             default:
                 auto& [name, num] = m_pos2garden[p];
-                    num = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                num = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
                 m_cells.push_back(name = ch_g++);
             }
         m_cells.push_back(PUZ_BOUNDARY);
