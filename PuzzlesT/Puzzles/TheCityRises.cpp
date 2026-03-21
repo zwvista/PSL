@@ -11,7 +11,7 @@
 
     Description
     1. The board represents a piece of land where a new town should be built.
-    2. Each area describes a section of land, where the town concil has decided
+    2. Each area describes a section of land, where the town council has decided
        to place as many city blocks as the number in it.
     3. Town blocks inside an area are horizontally or vertically contiguous.
     4. Blocks in different areas cannot touch horizontally or vertically.
