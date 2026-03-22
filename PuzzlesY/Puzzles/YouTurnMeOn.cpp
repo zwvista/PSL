@@ -233,8 +233,8 @@ bool puz_state::check_loop() const
 
     // 2. The number on each region tells you how many turns the path does
     // in that region.
-    for (auto& [num_hint, area] : m_game->m_areas) {
-        if (num_hint == PUZ_UNKNOWN) continue;
+    for (auto& [num, area] : m_game->m_areas) {
+        if (num == PUZ_UNKNOWN) continue;
         
         int max_possible = 0;
         int min_guaranteed = 0;
@@ -249,11 +249,11 @@ bool puz_state::check_loop() const
         }
 
         // Prune if we can't possibly reach the target
-        if (max_possible < num_hint) return false;
+        if (max_possible < num) return false;
         // Prune if we have already exceeded the target
-        if (min_guaranteed > num_hint) return false;
+        if (min_guaranteed > num) return false;
         // Final check
-        if (is_goal_state() && min_guaranteed != num_hint) return false;
+        if (is_goal_state() && min_guaranteed != num) return false;
     }
 
     bool has_branch = false;

@@ -239,17 +239,27 @@ bool puz_state::check_loop() const
     // 3. the number on a Field tells you how many tiles you should go through it.
     // 4. A Field with no number can be passed through in any number of tiles,
     // at least one.
-    map<int, int> area2num;
-    for (auto& p : rng)
-        area2num[m_game->m_pos2area.at(p)]++;
-    if (is_goal_state() && area2num.size() != m_game->m_areas.size())
-        return false;
-    for (auto& [id, num] : area2num) {
-        int num2 = m_game->m_areas[id].first;
-        if (num2 != PUZ_UNKNOWN && (is_goal_state() && num != num2 || num > num2))
-            return false;
+    for (auto& [num, area] : m_game->m_areas) {
+        int max_possible = 0;
+        int min_guaranteed = 0;
+
+        for (const auto& p : area) {
+            const auto& dt = dots(p);
+            bool must_be_on = dt[0] != lineseg_off;
+            bool can_be_on = must_be_on || dt.size() > 1;
+
+            if (can_be_on) max_possible++;
+            if (must_be_on) min_guaranteed++;
+        }
+
+        // Prune if we can't possibly reach the target
+        if (max_possible < (num == PUZ_UNKNOWN ? 1 : num)) return false;
+        // Prune if we have already exceeded the target
+        if (num != PUZ_UNKNOWN && min_guaranteed > num) return false;
+        // Final check
+        if (num != PUZ_UNKNOWN && is_goal_state() && min_guaranteed != num) return false;
     }
-    
+
     bool has_branch = false;
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
