@@ -133,10 +133,10 @@
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
 				8CA23EC51EA9233C0055D6B1 /* Products */,
 				8CA23F1B1EA926F60055D6B1 /* PSL */,
-				8CA23ECF1EA924380055D6B1 /* Puzzles */,
 				8CA23F181EA925F20055D6B1 /* stdafx.h */,
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
 				8CA23F191EA925F20055D6B1 /* targetver.h */,
+				8CA23ECF1EA924380055D6B1 /* Puzzles */,
 			);
 			sourceTree = "<group>";
 		};
