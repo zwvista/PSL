@@ -57,7 +57,6 @@ struct puz_game
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : set<Position>
