@@ -168,7 +168,7 @@ struct puz_state
     int find_matches(bool init);
     bool make_move_hidden(char num, const vector<Position>& snake);
     set<Position> get_spaces() const;
-    bool check_spaces(const set<Position> spaces) const;
+    bool check_spaces(const set<Position>& spaces) const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -210,7 +210,7 @@ set<Position> puz_state::get_spaces() const
     return spaces;
 }
 
-bool puz_state::check_spaces(const set<Position> spaces) const
+bool puz_state::check_spaces(const set<Position>& spaces) const
 {
     return boost::algorithm::all_of(spaces, [&](const Position& p) {
         return boost::algorithm::any_of(offset, [&](const Position& os) {
