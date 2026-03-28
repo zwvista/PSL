@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C002FA52E5761E80052FA07 /* ColorMaze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C002FA22E5761E80052FA07 /* ColorMaze.cpp */; };
 		8C3B8EF52E352C9000DB05CA /* ConnectPuzzle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C3B8EF22E352C9000DB05CA /* ConnectPuzzle.cpp */; };
+		8C65C6DC2F7771490023B135 /* CastlePatrol2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C65C6DB2F776CB80023B135 /* CastlePatrol2.cpp */; };
 		8C689C952E00375900A2BCCC /* CrossroadsX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C8F2E00375900A2BCCC /* CrossroadsX.cpp */; };
 		8C689C962E00375900A2BCCC /* CrossroadBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C8C2E00375900A2BCCC /* CrossroadBlocks.cpp */; };
 		8C689C972E00375900A2BCCC /* CrosstownTraffic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C922E00375900A2BCCC /* CrosstownTraffic.cpp */; };
@@ -57,6 +58,7 @@
 		8C5F128D2DE377ED00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F128E2DE377ED00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C65C6DB2F776CB80023B135 /* CastlePatrol2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CastlePatrol2.cpp; sourceTree = "<group>"; };
+		8C65C6DD2F77786A0023B135 /* CastlePatrol2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CastlePatrol2.txt; sourceTree = "<group>"; };
 		8C689C892E00375900A2BCCC /* CleaningPath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CleaningPath.cpp; sourceTree = "<group>"; };
 		8C689C8A2E00375900A2BCCC /* CleaningPath.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CleaningPath.txt; sourceTree = "<group>"; };
 		8C689C8B2E00375900A2BCCC /* CleaningPath.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CleaningPath.xml; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				958FA6752335D3F600205831 /* CastlePatrol.txt */,
 				958FA6742335D3F600205831 /* CastlePatrol.xml */,
 				8C65C6DB2F776CB80023B135 /* CastlePatrol2.cpp */,
+				8C65C6DD2F77786A0023B135 /* CastlePatrol2.txt */,
 				95214E6E212B9DB000EA7950 /* Cheese.cpp */,
 				95214E6F212B9DB000EA7950 /* Cheese.txt */,
 				95214E6D212B9DB000EA7950 /* Cheese.xml */,
@@ -341,6 +344,7 @@
 				95D7B5F3231D523F001E005C /* CultureTrip.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8C002FA52E5761E80052FA07 /* ColorMaze.cpp in Sources */,
+				8C65C6DC2F7771490023B135 /* CastlePatrol2.cpp in Sources */,
 				8C689C952E00375900A2BCCC /* CrossroadsX.cpp in Sources */,
 				8CDAF80F2E1D496900ED90A3 /* CloudsAndClears.cpp in Sources */,
 				8C689C962E00375900A2BCCC /* CrossroadBlocks.cpp in Sources */,
