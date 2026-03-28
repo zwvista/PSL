@@ -56,6 +56,7 @@
 		8C3B8EF42E352C9000DB05CA /* ConnectPuzzle.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ConnectPuzzle.xml; sourceTree = "<group>"; };
 		8C5F128D2DE377ED00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F128E2DE377ED00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C65C6DB2F776CB80023B135 /* CastlePatrol2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CastlePatrol2.cpp; sourceTree = "<group>"; };
 		8C689C892E00375900A2BCCC /* CleaningPath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CleaningPath.cpp; sourceTree = "<group>"; };
 		8C689C8A2E00375900A2BCCC /* CleaningPath.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CleaningPath.txt; sourceTree = "<group>"; };
 		8C689C8B2E00375900A2BCCC /* CleaningPath.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CleaningPath.xml; sourceTree = "<group>"; };
@@ -192,6 +193,7 @@
 				958FA6762335D3F600205831 /* CastlePatrol.cpp */,
 				958FA6752335D3F600205831 /* CastlePatrol.txt */,
 				958FA6742335D3F600205831 /* CastlePatrol.xml */,
+				8C65C6DB2F776CB80023B135 /* CastlePatrol2.cpp */,
 				95214E6E212B9DB000EA7950 /* Cheese.cpp */,
 				95214E6F212B9DB000EA7950 /* Cheese.txt */,
 				95214E6D212B9DB000EA7950 /* Cheese.xml */,

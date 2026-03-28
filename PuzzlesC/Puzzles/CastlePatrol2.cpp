@@ -16,7 +16,7 @@
     3. Areas of the same type cannot share an edge.
 */
 
-namespace puzzles::CastlePatrol{
+namespace puzzles::CastlePatrol2{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
@@ -44,10 +44,8 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    // key: position of the number (hint)
     map<Position, puz_hint> m_pos2hint;
-    vector<puz_move> m_moves;
-    map<Position, vector<int>> m_pos2move_ids;
+    map<Position, vector<puz_move>> m_pos2moves;
     string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -248,9 +246,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_CastlePatrol()
+void solve_puz_CastlePatrol2()
 {
-    using namespace puzzles::CastlePatrol;
+    using namespace puzzles::CastlePatrol2;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/CastlePatrol.xml", "Puzzles/CastlePatrol.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/CastlePatrol.xml", "Puzzles/CastlePatrol2.txt", solution_format::GOAL_STATE_ONLY);
 }

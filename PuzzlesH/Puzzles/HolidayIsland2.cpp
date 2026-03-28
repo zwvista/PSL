@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -60,13 +59,14 @@ struct puz_state2 : set<Position>
     bool is_goal_state() const { return size() == m_num + 1; }
     void make_move(const Position& p) { insert(p); }
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
     int m_num;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
+    if (is_goal_state())
+        return;
     for (auto& p : *this)
         for (auto& os : offset) {
             // 5. A camper can walk from his Tent,
@@ -102,21 +102,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_WATER);
 
     for (auto& [p, num] : m_pos2num) {
-        puz_state2 sstart(this, num, p);
-        list<list<puz_state2>> spaths;
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
-            for (auto& spath : spaths) {
-                auto& s = spath.back();
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, num, p});
+        for (auto& s : smoves)
+            if (s.is_goal_state() && boost::algorithm::none_of(m_moves, [&](const puz_move& move) {
+                return move.m_area == s;
+            })) {
                 int n = m_moves.size();
                 auto& [p_hint, area, waters] = m_moves.emplace_back();
                 p_hint = p, area = s;
-                for (auto& p2 : s)
-                    for (auto& os : offset)
-                        if (auto p3 = p2 + os; !s.contains(p3))
-                            if (char ch3 = cells(p3); ch3 == PUZ_SPACE)
-                                waters.insert(p3);
-                for (auto& p2 : s)
+                for (auto& p2 : s) {
                     m_pos2move_ids[p2].push_back(n);
+                    for (auto& os : offset)
+                        if (auto p3 = p2 + os;
+                            !s.contains(p3) && cells(p3) == PUZ_SPACE)
+                            waters.insert(p3);
+                }
             }
     }
 }
@@ -286,5 +286,5 @@ void solve_puz_HolidayIsland2()
 {
     using namespace puzzles::HolidayIsland2;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/HolidayIsland.xml", "Puzzles/HolidayIsland.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/HolidayIsland.xml", "Puzzles/HolidayIsland2.txt", solution_format::GOAL_STATE_ONLY);
 }

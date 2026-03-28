@@ -45,13 +45,14 @@
 		7D59945E2E66F1FC00BBE136 /* BoostSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BoostSettings.xcconfig; path = ../BoostSettings.xcconfig; sourceTree = SOURCE_ROOT; };
 		8C5F12972DE3789100BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12982DE3789100BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C65C6DA2F7767D40023B135 /* HolidayIsland2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = HolidayIsland2.txt; sourceTree = "<group>"; };
 		8C689C812DF6482600A2BCCC /* HiddenClouds.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HiddenClouds.cpp; sourceTree = "<group>"; };
 		8C689C822DF6482600A2BCCC /* HiddenClouds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = HiddenClouds.txt; sourceTree = "<group>"; };
 		8C689C832DF6482600A2BCCC /* HiddenClouds.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HiddenClouds.xml; sourceTree = "<group>"; };
 		8C689D0F2E05134F00A2BCCC /* Hexotris.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Hexotris.cpp; sourceTree = "<group>"; };
 		8C689D102E05134F00A2BCCC /* Hexotris.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hexotris.txt; sourceTree = "<group>"; };
 		8C689D112E05134F00A2BCCC /* Hexotris.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Hexotris.xml; sourceTree = "<group>"; };
-		8CA23EC41EA9233C0055D6B1 /* PuzzlesH */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PuzzlesH; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CA23EC41EA9233C0055D6B1 /* PuzzlesH */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = PuzzlesH; path = /Users/zwvista/Documents/Programs/Games/PSL/PuzzlesH/build/Debug/PuzzlesH; sourceTree = "<absolute>"; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8CA23F171EA925F20055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F181EA925F20055D6B1 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
@@ -131,21 +132,12 @@
 			children = (
 				7D59945E2E66F1FC00BBE136 /* BoostSettings.xcconfig */,
 				8CA23ECE1EA924380055D6B1 /* main.cpp */,
-				8CA23EC51EA9233C0055D6B1 /* Products */,
 				8CA23F1B1EA926F60055D6B1 /* PSL */,
 				8CA23F181EA925F20055D6B1 /* stdafx.h */,
 				8CA23F171EA925F20055D6B1 /* stdafx.cpp */,
 				8CA23F191EA925F20055D6B1 /* targetver.h */,
 				8CA23ECF1EA924380055D6B1 /* Puzzles */,
 			);
-			sourceTree = "<group>";
-		};
-		8CA23EC51EA9233C0055D6B1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8CA23EC41EA9233C0055D6B1 /* PuzzlesH */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
@@ -185,6 +177,7 @@
 				8CA240531EB47A180055D6B1 /* HolidayIsland.txt */,
 				8CA240541EB47A180055D6B1 /* HolidayIsland.xml */,
 				8CB722302EAFA01A001B25C5 /* HolidayIsland2.cpp */,
+				8C65C6DA2F7767D40023B135 /* HolidayIsland2.txt */,
 				8CB722312EAFA01A001B25C5 /* HolidayIsland3.cpp */,
 				8CA240551EB47A180055D6B1 /* hopover.cpp */,
 				8CA240561EB47A180055D6B1 /* hopover.txt */,
@@ -274,7 +267,7 @@
 				Base,
 			);
 			mainGroup = 8CA23EBB1EA9233C0055D6B1;
-			productRefGroup = 8CA23EC51EA9233C0055D6B1 /* Products */;
+			productRefGroup = 8CA23EBB1EA9233C0055D6B1;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
