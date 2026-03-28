@@ -613,3 +613,17 @@ Number of vertices examined: 29
 19.6938 [s]
 
 Level 47
+Sequence of moves: 
+W W W . 3 . W 3 
+. 3 . 4 . W . . 
+7 W . 6 W W . 10
+. . W . . W W . 
+. W . . W . . . 
+. . W 11. W . . 
+. W . W . . W . 
+7 . 9 . . . . 14
+Number of moves: 7
+Number of vertices examined: 537
+20880.5 [s]
+
+Level 48
