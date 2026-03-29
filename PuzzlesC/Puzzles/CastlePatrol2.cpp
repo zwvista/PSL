@@ -102,7 +102,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (ch1 != ' ') {
                 Position p(r, c);
                 int num = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
-                (num > 8 ? m_pos2hintBig : m_pos2hint)[p] = {ch2, num};
+                (num > 9 ? m_pos2hintBig : m_pos2hint)[p] = {ch2, num};
             }
         }
         m_cells.push_back(PUZ_BOUNDARY);
@@ -274,6 +274,8 @@ void puz_state::make_move2(const Position& p, int n)
     for (auto& p2 : neighbors)
         if (char& ch3 = cells(p2); ch3 == PUZ_SPACE)
             ch3 = ch2;
+    if (m_is_phase_big)
+        m_pos2movesBig.erase(p);
 }
 
 bool puz_state::make_move(const Position& p, int n)
