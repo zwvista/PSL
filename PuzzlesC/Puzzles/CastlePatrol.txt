@@ -2243,8 +2243,20 @@ Number of vertices examined: 3278
 17.8671 [s]
 
 Level 175
-Number of vertices examined: 1
-1.21428 [s]
+Sequence of moves:
+  W  W  W  W 6.  W  .  . 6.  W
+14W  W  W  W  .  W  .  W  W  W
+  .  W  .  .  .  W  .  .  W 8W
+ 2.  W  .  W  W  W  W10W  .  W
+  W  W  W 5.  .  .  W  W  .  W
+  W  . 2.  W  .  W  .  .  .  .
+  .  W  W  W  . 3W  W 9.  W  .
+ 2.  W  W12W  W  .  .  W 3W  .
+  W  W  W  .  .  .  .  .  .  W
+  . 2.  W 9.  W  W  W  W  W 7W
+Number of moves: 14
+Number of vertices examined: 5648
+240.722 [s]
 
 Level 176
 Sequence of moves: 
@@ -2263,8 +2275,20 @@ Number of vertices examined: 1313
 114.912 [s]
 
 Level 177
-Number of vertices examined: 1
-0.089074 [s]
+Sequence of moves:
+  W  W  .  W 3W  .  .  .  .10.
+  W  W  .  W  .  W 3W  . 4W  .
+11W  W 7.  .  .  W  .  W  W  .
+  W  W  .  W  W 5.  .  W  .  .
+  W  .  W 7W  W  W  .  .  W  W
+  W 4.  W  .  . 3.  W 7W  W  W
+  W  .  .  W  W  W  .  . 3.  W
+ 2.  W  W  .  W14W  W  W  W  .
+  .  W  W  . 4.  W  W  W  W  .
+  W  W 8W  W  .  W  W 5.  .  .
+Number of moves: 13
+Number of vertices examined: 882
+2.08455 [s]
 
 Level 178
 Sequence of moves: 
@@ -2491,8 +2515,20 @@ Number of vertices examined: 517
 4.35867 [s]
 
 Level 192
-Number of vertices examined: 1
-1.21985 [s]
+Sequence of moves:
+ 8W  W  W  W  .  .  .  .  W  W
+  W  W  W  W 9.  W  W  .  W  W
+  .10.  .  .  W  W  W  .  W 4.
+ 8W  W  W  .  .  W  W  . 9W  .
+  W  W  .  W  . 9W  W  .  W  .
+  W  W  . 2W  .  .  .  W  W  .
+  W  .  .  .10W  W  W  . 4.  W
+ 2.  W  .  W  W  W  W  .  W  W
+  .  W 7.  W  W 5.  W  .  W 8W
+  W 5W  W  .  .  .  .  W  W  W
+Number of moves: 12
+Number of vertices examined: 8035
+178.682 [s]
 
 Level 193
 Sequence of moves: 
