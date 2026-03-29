@@ -38,6 +38,9 @@ struct puz_move
     // empty or wall area
     char m_ch;
     set<Position> m_rng, m_neighbors;
+    bool operator<(const puz_move& x) const {
+        return tie(m_start, m_ch) < tie(x.m_start, x.m_ch);
+    }
 };
 
 struct puz_game
@@ -134,7 +137,7 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches, m_is_phase_big) < tie(x.m_cells, x.m_matches, x.m_is_phase_big);
+        return tie(m_cells, m_matches, m_pos2movesBig) < tie(x.m_cells, x.m_matches, x.m_pos2movesBig);
     }
     bool make_move(const Position& p, int n);
     void make_move2(const Position& p, int n);
