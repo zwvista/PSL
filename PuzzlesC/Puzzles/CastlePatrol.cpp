@@ -16,7 +16,7 @@
     3. Areas of the same type cannot share an edge.
 */
 
-namespace puzzles::CastlePatrol2{
+namespace puzzles::CastlePatrol{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
@@ -405,9 +405,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_CastlePatrol2()
+void solve_puz_CastlePatrol()
 {
-    using namespace puzzles::CastlePatrol2;
+    using namespace puzzles::CastlePatrol;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/CastlePatrol.xml", "Puzzles/CastlePatrol2.txt", solution_format::GOAL_STATE_ONLY);
+        "Puzzles/CastlePatrol.xml", "Puzzles/CastlePatrol.txt", solution_format::GOAL_STATE_ONLY);
 }
