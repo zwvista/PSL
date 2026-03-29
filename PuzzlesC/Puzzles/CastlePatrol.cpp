@@ -144,7 +144,7 @@ struct puz_state
     int find_matches(bool init);
     void make_move_big();
     bool check_spaces(set<Position>& spaces) const;
-    bool check_hints() const;
+    bool check_hints(bool check_empty, bool check_wall) const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -220,7 +220,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, move_ids[0]), 1;
             }
     }
-    return check_hints() && check_spaces(spaces) ? 2 : 0;
+    return check_hints(true, false) && check_hints(false, true) && check_hints(true, true) && check_spaces(spaces) ? 2 : 0;
 }
 
 struct puz_state3 : Position
@@ -287,7 +287,7 @@ void puz_state4::gen_children(list<puz_state4>& children) const
             children.emplace_back(*this).make_move(p2);
 }
 
-bool puz_state::check_hints() const
+bool puz_state::check_hints(bool check_empty, bool check_wall) const
 {
     set<Position> area;
     map<Position, int> pos2hint;
@@ -297,9 +297,13 @@ bool puz_state::check_hints() const
             case PUZ_SPACE:
             case PUZ_EMPTY2:
             case PUZ_WALL2:
+                if (!check_empty && ch == PUZ_EMPTY2 || !check_wall && ch == PUZ_WALL2)
+                    break;
                 area.insert(p);
                 break;
             default:
+                if (!check_empty && ch == PUZ_EMPTY || !check_wall && ch == PUZ_WALL)
+                    break;
                 if (m_is_phase_big) {
                     if (m_matches.contains(p))
                         area.insert(p), pos2hint[p] = m_game->m_pos2hintBig.at(p).second;
@@ -316,7 +320,7 @@ bool puz_state::check_hints() const
             auto it = pos2hint.find(p);
             return acc + (it == pos2hint.end() ? 0 : it->second);
         });
-        if (smoves.size() != num)
+        if (check_empty && check_wall && smoves.size() != num || smoves.size() < num)
             return false;
         for (auto& p : smoves)
             area.erase(p);
