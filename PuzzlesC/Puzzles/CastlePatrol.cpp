@@ -144,6 +144,7 @@ struct puz_state
     int find_matches(bool init);
     void make_move_big();
     bool check_spaces(set<Position>& spaces) const;
+    bool check_hints() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -219,7 +220,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, move_ids[0]), 1;
             }
     }
-    return check_spaces(spaces) ? 2 : 0;
+    return check_hints() && check_spaces(spaces) ? 2 : 0;
 }
 
 struct puz_state3 : Position
@@ -267,6 +268,62 @@ bool puz_state::check_spaces(set<Position>& spaces) const
     return false;
 }
 
+struct puz_state4 : Position
+{
+    puz_state4(const set<Position>* area)
+    : m_area(area) { make_move(*area->begin()); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state4>& children) const;
+
+    const set<Position>* m_area;
+};
+
+void puz_state4::gen_children(list<puz_state4>& children) const
+{
+    for (auto& os : offset)
+        if (auto p2 = *this + os;
+            m_area->contains(p2))
+            children.emplace_back(*this).make_move(p2);
+}
+
+bool puz_state::check_hints() const
+{
+    set<Position> area;
+    map<Position, int> pos2hint;
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c)
+            switch(Position p(r, c); char ch = cells(p)) {
+            case PUZ_SPACE:
+            case PUZ_EMPTY2:
+            case PUZ_WALL2:
+                area.insert(p);
+                break;
+            default:
+                if (m_is_phase_big) {
+                    if (m_matches.contains(p))
+                        area.insert(p), pos2hint[p] = m_game->m_pos2hintBig.at(p).second;
+                } else {
+                    if (m_matches.contains(p))
+                        area.insert(p), pos2hint[p] = m_game->m_pos2hint.at(p).second;
+                    else if (m_game->m_pos2hintBig.contains(p))
+                        area.insert(p), pos2hint[p] = m_game->m_pos2hintBig.at(p).second;
+                }
+            }
+    while (!area.empty()) {
+        auto smoves = puz_move_generator<puz_state4>::gen_moves({&area});
+        int num = boost::accumulate(smoves, 0, [&](int acc, const Position& p) {
+            auto it = pos2hint.find(p);
+            return acc + (it == pos2hint.end() ? 0 : it->second);
+        });
+        if (smoves.size() != num)
+            return false;
+        for (auto& p : smoves)
+            area.erase(p);
+    }
+    return true;
+}
+
 void puz_state::make_move2(const Position& p, int n)
 {
     auto& pos2moves = m_is_phase_big ? m_pos2movesBig : m_game->m_pos2moves;
@@ -290,12 +347,12 @@ bool puz_state::make_move(const Position& p, int n)
     return m == 2;
 }
 
-struct puz_state4 : set<Position>
+struct puz_state5 : set<Position>
 {
-    puz_state4(const puz_state* state, const Position& p, const puz_hint& hint);
+    puz_state5(const puz_state* state, const Position& p, const puz_hint& hint);
     void make_move(const Position& p);
 
-    void gen_children(list<puz_state4>& children) const;
+    void gen_children(list<puz_state5>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_state* m_state;
@@ -304,7 +361,7 @@ struct puz_state4 : set<Position>
     bool m_is_goal;
 };
 
-puz_state4::puz_state4(const puz_state* state, const Position& p, const puz_hint& hint)
+puz_state5::puz_state5(const puz_state* state, const Position& p, const puz_hint& hint)
 : m_state(state)
 , m_ch(hint.first)
 , m_ch2(hint.first == PUZ_EMPTY ? PUZ_EMPTY2 : PUZ_WALL2)
@@ -313,7 +370,7 @@ puz_state4::puz_state4(const puz_state* state, const Position& p, const puz_hint
     make_move(p);
 }
 
-void puz_state4::make_move(const Position &p)
+void puz_state5::make_move(const Position &p)
 {
     insert(p);
     m_is_goal = size() == m_num && boost::algorithm::none_of(*this, [&](const Position& p2) {
@@ -324,7 +381,7 @@ void puz_state4::make_move(const Position &p)
     });
 }
 
-void puz_state4::gen_children(list<puz_state4>& children) const {
+void puz_state5::gen_children(list<puz_state5>& children) const {
     if (size() == m_num)
         return;
     for (auto& p : *this)
@@ -349,7 +406,7 @@ void puz_state::make_move_big()
 {
     for (auto& [p, hint] : m_game->m_pos2hintBig) {
         // Areas can have any form.
-        auto smoves = puz_move_generator<puz_state4>::gen_moves({this, p, hint});
+        auto smoves = puz_move_generator<puz_state5>::gen_moves({this, p, hint});
         for (auto& s : smoves)
             // save all goal states as permutations
             // A goal state is a area formed from the number
