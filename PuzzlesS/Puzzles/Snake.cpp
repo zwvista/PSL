@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -157,6 +158,25 @@ int puz_state::find_matches(bool init)
     return 2;
 }
 
+struct puz_state2 : Position
+{
+    puz_state2(const puz_state* state)
+        : m_state(state) { make_move(state->m_game->m_head_tail[0]); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_state* m_state;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (auto& os : offset)
+        if (auto p2 = *this + os; m_state->is_valid(p2))
+            if (char ch = m_state->cells(p2); ch != PUZ_EMPTY)
+                children.emplace_back(*this).make_move(p2);
+}
+
 bool puz_state::make_move2(int i, int j)
 {
     auto& range = m_game->m_area2range[i];
@@ -189,7 +209,11 @@ bool puz_state::make_move2(int i, int j)
                 !b2 && (!b1 && n1 <= 2 && n2 <= 2 || b1 && n1 == 2 && n2 == 2)))
                 return false;
         }
-    return true;
+
+    auto smoves = puz_move_generator<puz_state2>::gen_moves({this});
+    return boost::count_if(smoves, [&](const Position& p) {
+        return cells(p) == PUZ_SNAKE;
+    }) == boost::count(m_cells, PUZ_SNAKE);
 }
 
 bool puz_state::make_move(int i, int j)
