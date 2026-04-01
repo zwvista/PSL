@@ -170,30 +170,27 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::check_snake()
 {
-    bool b1 = is_goal_state();
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             if (cells(p) != PUZ_SNAKE) continue;
-            bool b2 = p == m_game->m_head_tail[0] || p == m_game->m_head_tail[1];
-            int pieces = b2 ? 1 : 2;
-            int num_snake = 0, num_empty = 0;
+            int num_goal = p == m_game->m_head_tail[0] || p == m_game->m_head_tail[1] ? 1 : 2;
+            int num_cur = 0;
             vector<Position> rng;
             for (auto& os : offset) {
                 auto p2 = p + os;
                 if (!is_valid(p2)) continue;
                 switch (cells(p2)) {
-                case PUZ_SNAKE: ++num_snake; break;
-                case PUZ_EMPTY: ++num_empty; break;
+                case PUZ_SNAKE: ++num_cur; break;
                 case PUZ_SPACE: rng.push_back(p2); break;
                 }
             }
-            if (is_goal_state() && num_snake != pieces || num_snake > pieces || num_snake + rng.size() < pieces)
+            if (is_goal_state() && num_cur != num_goal || num_cur > num_goal || num_cur + rng.size() < num_goal)
                 return false;
-            if (num_snake == pieces)
+            if (num_cur == num_goal)
                 for (auto& p2 : rng)
                     cells(p2) = PUZ_EMPTY, ++m_distance;
-            if (num_snake < pieces && num_snake + rng.size() == pieces)
+            if (num_cur < num_goal && num_cur + rng.size() == num_goal)
                 for (auto& p2 : rng)
                     cells(p2) = PUZ_SNAKE, ++m_distance;
         }
