@@ -23,15 +23,14 @@ namespace puzzles::Snake{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_SNAKE = 'S';
-constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_game
 {
     string m_id;
-    int m_sidelen;
-    vector<int> m_area2piece_count;
+    int m_sidelen;   
+    map<int, int> m_area2piece_count;
     Position m_head_tail[2];
     // 1st dimension : the index of the area(rows and columns)
     // 2nd dimension : all the positions forming the area
@@ -47,10 +46,10 @@ struct puz_game
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     : m_id(level.attribute("id").value())
     , m_sidelen(strs.size() - 1)
-    , m_area2piece_count(m_sidelen * 2)
     , m_area2range(m_sidelen * 2)
     , m_cells(m_sidelen * m_sidelen, PUZ_SPACE)
 {
+    set<int> nums;
     for (int r = 0, n = 0; r <= m_sidelen; ++r) {
         string_view str = strs[r];
         for (int c = 0; c <= m_sidelen; c++) {
@@ -59,8 +58,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 cells(m_head_tail[n++] = p) = ch;
             else if (c == m_sidelen || r == m_sidelen) {
                 if (c == m_sidelen && r == m_sidelen) continue;
-                m_area2piece_count[c == m_sidelen ? r : c + m_sidelen]
-                = isdigit(ch) ? ch - '0' : PUZ_UNKNOWN;
+                if (!isdigit(ch)) continue;
+                int n = ch - '0';
+                nums.insert(n);
+                m_area2piece_count[c == m_sidelen ? r : c + m_sidelen] = n;
             }
         }
     }
@@ -71,13 +72,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_area2range[m_sidelen + c].push_back(p);
         }
 
-    auto& perms_unknown = m_num2perms[PUZ_UNKNOWN];
     for (int i = 0; i <= m_sidelen; ++i) {
+        if (!nums.contains(i)) continue;
         auto& perms = m_num2perms[i];
         auto perm = string(m_sidelen - i, PUZ_EMPTY) + string(i, PUZ_SNAKE);
         do {
             perms.push_back(perm);
-            perms_unknown.push_back(perm);
         } while (boost::next_permutation(perm));
     }
 }
@@ -94,43 +94,34 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
     }
-    bool make_move(int i, int j);
-    bool make_move2(int i, int j);
+    bool make_move_hint(int i, int j);
+    bool make_move_hint2(int i, int j);
     int find_matches(bool init);
-    bool dec(int& n) const { return n == PUZ_UNKNOWN ? false : (--n, true); }
+    bool check_snake();
+    bool make_move_space(const Position& p, char ch);
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const {
-        return boost::accumulate(m_area2piece_count, 0, [](int acc, int n) {
-            return acc + (n == PUZ_UNKNOWN ? 0 : n);
-        }) + m_matches.size();
-    }
+    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
     string m_cells;
-    vector<int> m_area2piece_count;
     map<int, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
     : m_cells(g.m_cells), m_game(&g)
-    , m_area2piece_count(g.m_area2piece_count)
 {
-    for (int i = 0; i < sidelen() * 2; ++i) {
+    for (auto& [i, n] : g.m_area2piece_count) {
         auto& perm_ids = m_matches[i];
-        perm_ids.resize(g.m_num2perms.at(m_area2piece_count[i]).size());
+        perm_ids.resize(g.m_num2perms.at(n).size());
         boost::iota(perm_ids, 0);
     }
-
-    for (auto& p : g.m_head_tail)
-        for (int i : {p.first, p.second + sidelen()})
-            dec(m_area2piece_count[i]);
 
     find_matches(true);
 }
@@ -139,7 +130,7 @@ int puz_state::find_matches(bool init)
 {
     for (auto& [area_id, perm_ids] : m_matches) {
         auto& range = m_game->m_area2range[area_id];
-        auto& perms = m_game->m_num2perms.at(m_game->m_area2piece_count[area_id]);
+        auto& perms = m_game->m_num2perms.at(m_game->m_area2piece_count.at(area_id));
         boost::remove_erase_if(perm_ids, [&](int id) {
             return !boost::equal(range, perms[id], [&](const Position& p, char ch2) {
                 char ch1 = cells(p);
@@ -152,7 +143,7 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(area_id, perm_ids.front()) ? 1 : 0;
+                return make_move_hint2(area_id, perm_ids.front()) ? 1 : 0;
             }
     }
     return 2;
@@ -161,9 +152,9 @@ int puz_state::find_matches(bool init)
 struct puz_state2 : Position
 {
     puz_state2(const puz_state* state)
-        : m_state(state) { make_move(state->m_game->m_head_tail[0]); }
+        : m_state(state) { make_move_hint(state->m_game->m_head_tail[0]); }
 
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void make_move_hint(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
@@ -174,40 +165,37 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (auto& os : offset)
         if (auto p2 = *this + os; m_state->is_valid(p2))
             if (char ch = m_state->cells(p2); ch != PUZ_EMPTY)
-                children.emplace_back(*this).make_move(p2);
+                children.emplace_back(*this).make_move_hint(p2);
 }
 
-bool puz_state::make_move2(int i, int j)
+bool puz_state::check_snake()
 {
-    auto& range = m_game->m_area2range[i];
-    auto& perm = m_game->m_num2perms.at(m_game->m_area2piece_count[i])[j];
-
-    for (int k = 0; k < perm.size(); ++k) {
-        auto& p = range[k];
-        if (char& ch = cells(p); ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE)
-            for (int i : {p.first, p.second + sidelen()})
-                if (dec(m_area2piece_count[i]))
-                    ++m_distance;
-    }
-    m_matches.erase(i); ++m_distance;
-    
     bool b1 = is_goal_state();
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
             if (cells(p) != PUZ_SNAKE) continue;
-            int n1 = boost::count_if(offset, [&](const Position& os) {
-                auto p2 = p + os;
-                return is_valid(p2) && cells(p2) == PUZ_SNAKE;
-            });
-            int n2 = boost::count_if(offset, [&](const Position& os) {
-                auto p2 = p + os;
-                return !is_valid(p2) || cells(p2) == PUZ_EMPTY;
-            });
             bool b2 = p == m_game->m_head_tail[0] || p == m_game->m_head_tail[1];
-            if (!(b2 && (!b1 && n1 <= 1 && n2 <= 3 || b1 && n1 == 1 && n2 == 3) ||
-                !b2 && (!b1 && n1 <= 2 && n2 <= 2 || b1 && n1 == 2 && n2 == 2)))
+            int pieces = b2 ? 1 : 2;
+            int num_snake = 0, num_empty = 0;
+            vector<Position> rng;
+            for (auto& os : offset) {
+                auto p2 = p + os;
+                if (!is_valid(p2)) continue;
+                switch (cells(p2)) {
+                case PUZ_SNAKE: ++num_snake; break;
+                case PUZ_EMPTY: ++num_empty; break;
+                case PUZ_SPACE: rng.push_back(p2); break;
+                }
+            }
+            if (is_goal_state() && num_snake != pieces || num_snake > pieces || num_snake + rng.size() < pieces)
                 return false;
+            if (num_snake == pieces)
+                for (auto& p2 : rng)
+                    cells(p2) = PUZ_EMPTY, ++m_distance;
+            if (num_snake < pieces && num_snake + rng.size() == pieces)
+                for (auto& p2 : rng)
+                    cells(p2) = PUZ_SNAKE, ++m_distance;
         }
 
     auto smoves = puz_move_generator<puz_state2>::gen_moves({this});
@@ -216,26 +204,55 @@ bool puz_state::make_move2(int i, int j)
     }) == boost::count(m_cells, PUZ_SNAKE);
 }
 
-bool puz_state::make_move(int i, int j)
+bool puz_state::make_move_hint2(int i, int j)
+{
+    auto& range = m_game->m_area2range[i];
+    auto& perm = m_game->m_num2perms.at(m_game->m_area2piece_count.at(i))[j];
+
+    for (int k = 0; k < perm.size(); ++k) {
+        auto& p = range[k];
+        if (char& ch = cells(p); ch == PUZ_SPACE && (ch = perm[k]) == PUZ_SNAKE)
+            ++m_distance;
+    }
+    m_matches.erase(i); ++m_distance;
+    return check_snake();
+}
+
+bool puz_state::make_move_hint(int i, int j)
 {
     m_distance = 0;
-    if (!make_move2(i, j))
+    if (!make_move_hint2(i, j))
         return false;
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
+bool puz_state::make_move_space(const Position &p, char ch)
+{
+    cells(p) = ch;
+    m_distance = 1;
+    return check_snake();
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [area_id, perm_ids] = *boost::min_element(m_matches, [](
-        const pair<const int, vector<int>>& kv1,
-        const pair<const int, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (int n : perm_ids)
-        if (!children.emplace_back(*this).make_move(area_id, n))
-            children.pop_back();
+    if (!m_matches.empty()) {
+        auto& [area_id, perm_ids] = *boost::min_element(m_matches, [](
+            const pair<const int, vector<int>>& kv1,
+            const pair<const int, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        for (int n : perm_ids)
+            if (!children.emplace_back(*this).make_move_hint(area_id, n))
+                children.pop_back();
+    } else {
+        int i = m_cells.find(PUZ_SPACE);
+        Position p(i / sidelen(), i % sidelen());
+        for (char ch : {PUZ_EMPTY, PUZ_SNAKE})
+            if (!children.emplace_back(*this).make_move_space(p, ch))
+                children.pop_back();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
