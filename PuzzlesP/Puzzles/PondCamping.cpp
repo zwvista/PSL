@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -47,20 +46,19 @@ struct puz_game
 struct puz_state2 : set<Position>
 {
     puz_state2(const puz_game* game, const Position& p, int num)
-        : m_game(game), m_num(num) {
-        make_move(p);
-    }
+        : m_game(game), m_num(num) { make_move(p); }
 
     bool is_goal_state() const { return size() == m_num + 1; }
     void make_move(const Position& p) { insert(p); }
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
     int m_num;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
+    if (is_goal_state())
+        return;
     for (auto& p : *this)
         for (auto& os : offset) {
             auto p2 = p + os;
@@ -89,14 +87,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [p, num] : m_pos2num) {
-        puz_state2 sstart(this, p, num);
-        list<list<puz_state2>> spaths;
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found) {
-            // save all goal states as permutations
-            auto& hikes = m_pos2hikes[p];
-            for (auto& spath : spaths) {
+        auto& hikes = m_pos2hikes[p];
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, num});
+        for (auto& s : smoves)
+            if (s.is_goal_state()) {
                 auto& [empties, forests] = hikes.emplace_back();
-                empties = spath.back();
+                empties = s;
                 for (auto& p2 : empties)
                     for (auto& os : offset) {
                         auto p3 = p2 + os;
@@ -105,7 +101,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     }
                 empties.erase(p);
             }
-        }
     }
 }
 
