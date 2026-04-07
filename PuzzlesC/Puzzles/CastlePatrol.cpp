@@ -38,6 +38,9 @@ struct puz_move
     // empty or wall area
     char m_ch;
     set<Position> m_rng, m_neighbors;
+    bool operator<(const puz_move& x) const {
+        return tie(m_start, m_ch) < tie(x.m_start, x.m_ch);
+    }
 };
 
 struct puz_game
@@ -134,7 +137,7 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches, m_hintsBig) < tie(x.m_cells, x.m_matches, x.m_hintsBig);
+        return tie(m_cells, m_matches, m_movesBig) < tie(x.m_cells, x.m_matches, x.m_movesBig);
     }
     bool make_move(const Position& p, int n);
     void make_move2(const Position& p, int n);
@@ -160,8 +163,7 @@ struct puz_state
     // key: the position of the number (hint)
     // value : the index of the move
     map<Position, vector<int>> m_matches;
-    vector<Position> m_hintsBig;
-    map<Position, vector<puz_move>> m_pos2movesBig;
+    vector<puz_move> m_movesBig;
     unsigned int m_distance = 0;
     bool m_is_phase_big = false;
 };
@@ -174,27 +176,13 @@ puz_state::puz_state(const puz_game& g)
         v.resize(moves.size());
         boost::iota(v, 0);
     }
-    for (auto& [p, _1] : g.m_pos2hintBig)
-        m_hintsBig.push_back(p);
-    boost::sort(m_hintsBig, [&](const Position& p1, const Position& p2) {
-        return tie(g.m_pos2hintBig.at(p1).second, p1) < tie(g.m_pos2hintBig.at(p2).second, p2);
-    });
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    set<Position> spaces;
-    for (int r = 1; r < sidelen() - 1; ++r)
-        for (int c = 1; c < sidelen() - 1; ++c) {
-            Position p(r, c);
-            if (char ch = cells(p);
-                ch == PUZ_SPACE || ch == PUZ_EMPTY2 || ch == PUZ_WALL2)
-                spaces.insert(p);
-        }
-    auto& pos2moves = m_is_phase_big ? m_pos2movesBig : m_game->m_pos2moves;
     for (auto& [p, move_ids] : m_matches) {
-        auto& moves = pos2moves.at(p);
+        auto& moves = m_is_phase_big ? m_movesBig : m_game->m_pos2moves.at(p);
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& [start, ch, rng, neighbors] = moves[id];
             char ch12 = ch == PUZ_EMPTY ? PUZ_EMPTY2 : PUZ_WALL2;
@@ -210,9 +198,6 @@ int puz_state::find_matches(bool init)
                 return ch3 == PUZ_SPACE || ch3 == ch21 || ch3 == ch22;
             });
         });
-        for (auto& [_1, _2, rng, _3] : moves)
-            for (auto& p2 : rng)
-                spaces.erase(p2);
         if (!init)
             switch(move_ids.size()) {
             case 0:
@@ -221,52 +206,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, move_ids[0]), 1;
             }
     }
-    return check_hints(true, false) && check_hints(false, true) && check_hints(true, true) && check_spaces(spaces) ? 2 : 0;
-}
-
-struct puz_state3 : Position
-{
-    puz_state3(const puz_state* state, const Position& p, const puz_hint& hint);
-
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state3>& children) const;
-
-    const puz_state* m_state;
-    Position m_p;
-    char m_ch2;
-    int m_num;
-};
-
-puz_state3::puz_state3(const puz_state* state, const Position& p, const puz_hint& hint)
-: m_state(state)
-, m_p(p)
-, m_ch2(hint.first == PUZ_EMPTY ? PUZ_EMPTY2 : PUZ_WALL2)
-, m_num(hint.second)
-{
-    make_move(p);
-}
-
-void puz_state3::gen_children(list<puz_state3>& children) const
-{
-    for (auto& os : offset)
-        if (auto p2 = *this + os;
-            manhattan_distance(p2, m_p) < m_num)
-            if (char ch = m_state->cells(p2);
-                ch == PUZ_SPACE || ch == m_ch2)
-                children.emplace_back(*this).make_move(p2);
-}
-
-bool puz_state::check_spaces(set<Position>& spaces) const
-{
-    if (spaces.empty()) return true;
-    for (auto& p : m_hintsBig) {
-        auto& hint = m_game->m_pos2hintBig.at(p);
-        auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p, hint});
-        for (auto& p2 : smoves)
-            spaces.erase(p2);
-        if (spaces.empty()) return true;
-    }
-    return false;
+    return check_hints(true, false) && check_hints(false, true) && check_hints(true, true) ? 2 : 0;
 }
 
 struct puz_state4 : Position
@@ -306,7 +246,7 @@ bool puz_state::check_hints(bool check_empty, bool check_wall) const
                 if (!check_empty && ch == PUZ_EMPTY || !check_wall && ch == PUZ_WALL)
                     break;
                 if (m_is_phase_big) {
-                    if (boost::algorithm::any_of_equal(m_hintsBig, p))
+                    if (m_matches.contains(p))
                         area.insert(p), pos2hint[p] = m_game->m_pos2hintBig.at(p).second;
                 } else {
                     if (m_matches.contains(p))
@@ -331,17 +271,19 @@ bool puz_state::check_hints(bool check_empty, bool check_wall) const
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& pos2moves = m_is_phase_big ? m_pos2movesBig : m_game->m_pos2moves;
-    auto& [_1, ch, rng, neighbors] = pos2moves.at(p)[n];
-    for (auto& p2 : rng)
+    auto& moves = m_is_phase_big ? m_movesBig : m_game->m_pos2moves.at(p);
+    auto& [_1, ch, rng, neighbors] = moves[n];
+    for (auto& p2 : rng) {
         cells(p2) = ch, ++m_distance;
+        if (m_is_phase_big)
+            m_matches.erase(p2);
+    }
     char ch2 = ch == PUZ_EMPTY ? PUZ_WALL2 : PUZ_EMPTY2;
     for (auto& p2 : neighbors)
         if (char& ch3 = cells(p2); ch3 == PUZ_SPACE)
             ch3 = ch2;
-    m_matches.erase(p);
-    if (m_is_phase_big)
-        m_pos2movesBig.erase(p), m_hintsBig.erase(m_hintsBig.begin());
+    if (!m_is_phase_big)
+        m_matches.erase(p);
 }
 
 bool puz_state::make_move(const Position& p, int n)
@@ -410,26 +352,33 @@ void puz_state5::gen_children(list<puz_state5>& children) const {
 
 void puz_state::make_move_big()
 {
-    auto& p = m_hintsBig[0];
-    auto& hint = m_game->m_pos2hintBig.at(p);
-    // Areas can have any form.
-    auto smoves = puz_move_generator<puz_state5>::gen_moves({this, p, hint});
-    auto& moves = m_pos2movesBig[p];
-    for (auto& s : smoves)
-        // save all goal states as permutations
-        // A goal state is a area formed from the number
-        if (s.m_is_goal) {
-            auto& [start, ch, rng, neighbors] = moves.emplace_back();
-            start = p, ch = hint.first, rng = s;
-            for (auto& p2 : s)
-                for (auto& os : offset)
-                    if (auto p3 = p2 + os;
-                        !s.contains(p3) && cells(p3) == PUZ_SPACE)
-                        neighbors.insert(p3);
-        }
-    auto& v = m_matches[p];
-    v.resize(moves.size());
-    boost::iota(v, 0);
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c)
+            switch(Position p(r, c); char ch = cells(p)) {
+            case PUZ_SPACE:
+            case PUZ_EMPTY2:
+            case PUZ_WALL2:
+                m_matches[p];
+            }
+    for (auto& [p, hint] : m_game->m_pos2hintBig) {
+        // Areas can have any form.
+        auto smoves = puz_move_generator<puz_state5>::gen_moves({this, p, hint});
+        for (auto& s : smoves)
+            // save all goal states as permutations
+            // A goal state is a area formed from the number
+            if (s.m_is_goal) {
+                int n = m_movesBig.size();
+                auto& [start, ch, rng, neighbors] = m_movesBig.emplace_back();
+                start = p, ch = hint.first, rng = s;
+                for (auto& p2 : s) {
+                    m_matches[p2].push_back(n);
+                    for (auto& os : offset)
+                        if (auto p3 = p2 + os;
+                            !s.contains(p3) && cells(p3) == PUZ_SPACE)
+                            neighbors.insert(p3);
+                }
+            }
+    }
     m_is_phase_big = true;
 }
 
@@ -444,7 +393,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         for (int n : move_ids)
             if (!children.emplace_back(*this).make_move(p, n))
                 children.pop_back();
-    } else if (!m_hintsBig.empty()) {
+    } else if (!m_is_phase_big) {
         children.emplace_back(*this).make_move_big();
     }
 }
