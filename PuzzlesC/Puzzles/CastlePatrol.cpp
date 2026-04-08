@@ -163,7 +163,7 @@ struct puz_state
     // key: the position of the number (hint)
     // value : the index of the move
     map<Position, vector<int>> m_matches;
-    vector<puz_move> m_movesBig;
+    shared_ptr<vector<puz_move>> m_movesBig;
     unsigned int m_distance = 0;
     bool m_is_phase_big = false;
 };
@@ -182,7 +182,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, move_ids] : m_matches) {
-        auto& moves = m_is_phase_big ? m_movesBig : m_game->m_pos2moves.at(p);
+        auto& moves = m_is_phase_big ? *m_movesBig : m_game->m_pos2moves.at(p);
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& [start, ch, rng, neighbors] = moves[id];
             char ch12 = ch == PUZ_EMPTY ? PUZ_EMPTY2 : PUZ_WALL2;
@@ -271,7 +271,7 @@ bool puz_state::check_hints(bool check_empty, bool check_wall) const
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& moves = m_is_phase_big ? m_movesBig : m_game->m_pos2moves.at(p);
+    auto& moves = m_is_phase_big ? *m_movesBig : m_game->m_pos2moves.at(p);
     auto& [_1, ch, rng, neighbors] = moves[n];
     for (auto& p2 : rng) {
         cells(p2) = ch, ++m_distance;
@@ -360,6 +360,7 @@ void puz_state::make_move_big()
             case PUZ_WALL2:
                 m_matches[p];
             }
+    m_movesBig = make_shared<vector<puz_move>>();
     for (auto& [p, hint] : m_game->m_pos2hintBig) {
         // Areas can have any form.
         auto smoves = puz_move_generator<puz_state5>::gen_moves({this, p, hint});
@@ -367,8 +368,8 @@ void puz_state::make_move_big()
             // save all goal states as permutations
             // A goal state is a area formed from the number
             if (s.m_is_goal) {
-                int n = m_movesBig.size();
-                auto& [start, ch, rng, neighbors] = m_movesBig.emplace_back();
+                int n = m_movesBig->size();
+                auto& [start, ch, rng, neighbors] = m_movesBig->emplace_back();
                 start = p, ch = hint.first, rng = s;
                 for (auto& p2 : s) {
                     m_matches[p2].push_back(n);
