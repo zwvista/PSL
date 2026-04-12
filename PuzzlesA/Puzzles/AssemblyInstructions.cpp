@@ -111,7 +111,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         vector<char> names;
         for (auto& p : rng)
             names.push_back(cells(p));
-        list<list<puz_state2>> spaths;
         // Areas can have any form.
         auto smoves = puz_move_generator<puz_state2>::gen_moves(sstart);
         // save all goal states as permutations
