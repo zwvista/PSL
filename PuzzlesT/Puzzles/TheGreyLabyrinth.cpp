@@ -19,108 +19,144 @@
 
 namespace puzzles::TheGreyLabyrinth{
 
+/*
+    Facts
+    6. A cell has a symbol in it. It can be a wall, the treasure, or it can be
+       an arrow pointing to one of its four neighbors.
+    7. A cell that an arrow points to cannot be a wall. It can only be an arrow cell
+       that does not point to that arrow.
+    8. A cell neighboring to two arrows, neither of which points to it, must be a wall.
+    9. An arrow cell neighboring to an arrow that doesn't point to it must point
+       to that arrow.
+    10.An arrow cell neighboring to the treasure must point to the treasure.
+    11.A cell neighbring to the treasure and an arrow not pointing to it must be a wall.
+    12.Any 2x2 area can only have one or two walls. It cannot have 0 walls, that is,
+       it can have two or three arrows.
+*/
+
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_EMPTY = '.';
-constexpr auto PUZ_TRESURE = 'T';
-constexpr auto PUZ_WALL = 'W';
+constexpr auto PUZ_TRESURE_CHAR = 'T';
+constexpr auto PUZ_WALL_CHAR = 'W';
+constexpr auto PUZ_TRESURE = 4;
+constexpr auto PUZ_WALL = 5;
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
 const string_view dirs = "^>v<";
 
+using puz_cell = vector<int>;
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    string m_cells;
+    vector<puz_cell> m_cells;
     Position m_treasure;
-    map<Position, vector<Position>> m_pos2next, m_pos2prev;
-    map<Position, Position> m_arrow2pos;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
     }
-    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size())
 {
-    m_cells = boost::accumulate(strs, string());
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c) {
-            Position p(r, c);
-            switch (char ch = cells(p)) {
-            case PUZ_TRESURE:
+    for (int r = 0; r < m_sidelen; ++r) {
+        string_view str = strs[r];
+        for (int c = 0; c < m_sidelen; ++c)
+            switch (Position p(r, c); char ch = str[c]) {
+            case PUZ_TRESURE_CHAR:
                 m_treasure = p;
-                m_pos2next[p].push_back(p);
+                m_cells.push_back({PUZ_TRESURE});
                 break;
             case PUZ_SPACE:
+                {
+                    vector<int> v = {PUZ_WALL};
+                    for (int i = 0; i < 4; ++i)
+                        if (auto p2 = p + offset[i]; is_valid(p2))
+                            v.push_back(i);
+                    m_cells.push_back(v);
+                }
                 break;
             default:
-                {
-                    // 5. You must follow the arrows, where present.
-                    auto& os = offset[dirs.find(ch)];
-                    auto p2 = p + os;
-                    m_arrow2pos[p] = p2;
-                    m_pos2next[p].push_back(p2);
-                }
+                m_cells.push_back({static_cast<int>(dirs.find(ch))});
                 break;
             }
-        }
-    for (int r = 0; r < m_sidelen; ++r)
-        for (int c = 0; c < m_sidelen; ++c) {
-            Position p(r, c);
-            if (auto& next = m_pos2next[p]; next.empty())
-                for (auto& os : offset) {
-                    auto p2 = p + os;
-                    auto it = m_arrow2pos.find(p2);
-                    if (bool is_arrow = it != m_arrow2pos.end();
-                        is_arrow && it->second != p || !is_arrow && is_valid(p2))
-                        next.push_back(p2);
-                }
-        }
-    for (auto& [p, next] : m_pos2next)
-        for (auto& p2 : next)
-            m_pos2prev[p2].push_back(p);
+    }
 }
 
 struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+    }
+    const puz_cell& cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    puz_cell& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(const Position& p, char ch);
     bool is_interconnected() const;
+    void check_arrows();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
+    unsigned int get_heuristic() const {
+        return boost::count_if(m_cells, [&](const puz_cell& cell) {
+            return cell.size() == 1;
+        });
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
-    string m_cells;
-    map<Position, vector<Position>> m_pos2next, m_pos2prev;
+    vector<puz_cell> m_cells;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_cells)
-, m_pos2next(g.m_pos2next)
-, m_pos2prev(g.m_pos2prev)
 {
-    for (auto it = m_pos2next.begin(); it != m_pos2next.end();)
-        if (cells(it->first) != PUZ_SPACE)
-            it = m_pos2next.erase(it);
-        else
-            ++it;
+    check_arrows();
+}
+
+void puz_state::check_arrows()
+{
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            auto& cl = cells(p);
+            if (cl.size() == 1) continue;
+            for (int i = 0; i < 4; ++i) {
+                auto p2 = p + offset[i];
+                if (!is_valid(p2)) continue;
+                auto& cl2 = cells(p2);
+                if (cl2.size() != 1) continue;
+                switch (int n = cl2[0]) {
+                case PUZ_WALL:
+                    boost::remove_erase(cl, PUZ_WALL);
+                    break;
+                case PUZ_TRESURE:
+                    boost::remove_erase_if(cl, [&](int n2) {
+                        return n2 != PUZ_WALL && n2 != i;
+                    });
+                    break;
+                default:
+                    if (auto p3 = p2 + offset[n]; p3 == p)
+                        boost::remove_erase_if(cl, [&](int n2) {
+                            return n2 == PUZ_WALL || n2 == i;
+                        });
+                    else
+                        boost::remove_erase_if(cl, [&](int n2) {
+                            return n2 != PUZ_WALL && n2 != i;
+                        });
+                }
+            }
+        }
 }
 
 struct puz_state2 : Position
@@ -136,81 +172,56 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& p : m_state->m_pos2prev.at(*this))
-        children.emplace_back(*this).make_move(p);
+//    for (auto& p : m_state->m_pos2prev.at(*this))
+//        children.emplace_back(*this).make_move(p);
 }
 
 // 4. From any location, there must only be one route to the treasure.
 bool puz_state::is_interconnected() const
 {
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(
-        {this, m_game->m_treasure});
-    return smoves.size() == boost::count_if(m_cells, [&](char ch) {
-        return ch != PUZ_WALL;
-    });
+//    auto smoves = puz_move_generator<puz_state2>::gen_moves(
+//        {this, m_game->m_treasure});
+//    return smoves.size() == boost::count_if(m_cells, [&](char ch) {
+//        return ch != PUZ_WALL;
+//    });
+    return true;
 }
 
 bool puz_state::make_move(const Position& p, char ch)
 {
     m_distance = 1;
-    cells(p) = ch;
-    if (ch == PUZ_EMPTY) {
-        m_pos2next.erase(p);
-        return true;
-    } else {
-        // 3. Walls can't touch each other orthogonally.
-        for (auto& p2 : m_pos2next[p]) {
-            if (char& ch = cells(p2); ch == PUZ_SPACE)
-                ch = PUZ_EMPTY, ++m_distance;
-            boost::remove_erase(m_pos2prev[p2], p);
-        }
-        for (auto& p2 : m_pos2prev[p]) {
-            auto& next = m_pos2next[p2];
-            if (next.size() == 1)
-                return false;
-            boost::remove_erase(next, p);
-        }
-        m_pos2next.erase(p);
-        if (boost::algorithm::any_of(m_pos2next, [&](const auto& kv) {
-            return boost::algorithm::all_of(kv.second, [&](const Position& p2) {
-                return m_game->m_arrow2pos.contains(p2);
-            });
-        }))
-            return false;
-        bool b = is_interconnected();
-        return b;
-    }
+    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, next] = *boost::max_element(m_pos2next, [](
-        const pair<const Position, vector<Position>>& kv1,
-        const pair<const Position, vector<Position>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    auto f = [&](const Position& p2, char ch) {
-        if (cells(p2) == PUZ_SPACE)
-            if (!children.emplace_back(*this).make_move(p2, ch))
-                children.pop_back();
-    };
-    f(p, PUZ_WALL);
-    // 4. From any location, there must only be one route to the treasure.
-    if (next.size() > 2) {
-        for (auto& p2 : next)
-            f(p2, PUZ_WALL);
-    } else {
-        f(p, PUZ_EMPTY);
-    }
+//    auto& [p, next] = *boost::max_element(m_pos2next, [](
+//        const pair<const Position, vector<Position>>& kv1,
+//        const pair<const Position, vector<Position>>& kv2) {
+//        return kv1.second.size() < kv2.second.size();
+//    });
+//    auto f = [&](const Position& p2, char ch) {
+//        if (cells(p2) == PUZ_SPACE)
+//            if (!children.emplace_back(*this).make_move(p2, ch))
+//                children.pop_back();
+//    };
+//    f(p, PUZ_WALL);
+//    // 4. From any location, there must only be one route to the treasure.
+//    if (next.size() > 2) {
+//        for (auto& p2 : next)
+//            f(p2, PUZ_WALL);
+//    } else {
+//        f(p, PUZ_EMPTY);
+//    }
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c)
-            out << cells({r, c}) << ' ';
-        println(out);
-    }
+//    for (int r = 0; r < sidelen(); ++r) {
+//        for (int c = 0; c < sidelen(); ++c)
+//            out << cells({r, c}) << ' ';
+//        println(out);
+//    }
     return out;
 }
 
