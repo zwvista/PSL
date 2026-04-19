@@ -107,7 +107,7 @@ struct puz_state
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         return boost::count_if(m_cells, [&](const puz_cell& cell) {
-            return cell.size() == 1;
+            return cell.size() != 1;
         });
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
@@ -212,9 +212,7 @@ bool puz_state::is_interconnected() const
 {
     auto smoves = puz_move_generator<puz_state2>::gen_moves({this});
     return smoves.size() == boost::count_if(m_cells, [&](const puz_cell& cl) {
-        return boost::algorithm::any_of(cl, [&](int n) {
-            return n != PUZ_WALL;
-        });
+        return boost::algorithm::none_of_equal(cl, PUZ_WALL);
     });
 }
 

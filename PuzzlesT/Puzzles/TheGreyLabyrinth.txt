@@ -1,4 +1,11 @@
 Level 1
+Sequence of moves: 
+> > v < < 
+^ W v W ^ 
+W > T < W 
+> ^ W ^ < 
+^ W > ^ W 
+Number of moves: 0
 Number of vertices examined: 1
-0.002698 [s]
+0.009619 [s]
 
