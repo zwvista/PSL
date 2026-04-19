@@ -41,6 +41,7 @@ constexpr auto PUZ_TRESURE = 4;
 constexpr auto PUZ_WALL = 5;
 
 constexpr array<Position, 4> offset = Position::Directions4;
+constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
 
 const string_view dirs = "^>v<";
 
@@ -72,13 +73,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_cells.push_back({PUZ_TRESURE});
                 break;
             case PUZ_SPACE:
-                {
+                m_cells.push_back([&]{
                     vector<int> v = {PUZ_WALL};
                     for (int i = 0; i < 4; ++i)
                         if (auto p2 = p + offset[i]; is_valid(p2))
                             v.push_back(i);
-                    m_cells.push_back(v);
-                }
+                    return v;
+                }());
                 break;
             default:
                 m_cells.push_back({static_cast<int>(dirs.find(ch))});
@@ -126,37 +127,60 @@ puz_state::puz_state(const puz_game& g)
 
 void puz_state::check_arrows()
 {
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            auto& cl = cells(p);
-            if (cl.size() == 1) continue;
-            for (int i = 0; i < 4; ++i) {
-                auto p2 = p + offset[i];
-                if (!is_valid(p2)) continue;
-                auto& cl2 = cells(p2);
-                if (cl2.size() != 1) continue;
-                switch (int n = cl2[0]) {
-                case PUZ_WALL:
-                    boost::remove_erase(cl, PUZ_WALL);
-                    break;
-                case PUZ_TRESURE:
-                    boost::remove_erase_if(cl, [&](int n2) {
-                        return n2 != PUZ_WALL && n2 != i;
-                    });
-                    break;
-                default:
-                    if (auto p3 = p2 + offset[n]; p3 == p)
-                        boost::remove_erase_if(cl, [&](int n2) {
-                            return n2 == PUZ_WALL || n2 == i;
-                        });
-                    else
-                        boost::remove_erase_if(cl, [&](int n2) {
-                            return n2 != PUZ_WALL && n2 != i;
-                        });
+    for (;;) {
+        bool finished = true;
+        for (int r = 0; r < sidelen(); ++r)
+            for (int c = 0; c < sidelen(); ++c) {
+                Position p(r, c);
+                auto& cl = cells(p);
+                int sz = cl.size();
+                if (sz == 1) continue;
+                for (int i = 0; i < 4; ++i) {
+                    auto p2 = p + offset[i];
+                    if (!is_valid(p2)) continue;
+                    auto& cl2 = cells(p2);
+                    if (cl2.size() != 1) continue;
+                    switch (int n = cl2[0]) {
+                        case PUZ_WALL:
+                            boost::remove_erase_if(cl, [&](int n2) {
+                                return n2 == PUZ_WALL || n2 == i;
+                            });
+                            break;
+                        case PUZ_TRESURE:
+                            boost::remove_erase_if(cl, [&](int n2) {
+                                return n2 != PUZ_WALL && n2 != i;
+                            });
+                            break;
+                        default:
+                            if (auto p3 = p2 + offset[n]; p3 == p)
+                                boost::remove_erase_if(cl, [&](int n2) {
+                                    return n2 == PUZ_WALL || n2 == i;
+                                });
+                            else
+                                boost::remove_erase_if(cl, [&](int n2) {
+                                    return n2 != PUZ_WALL && n2 != i;
+                                });
+                            break;
+                    }
                 }
+                if (sz != cl.size())
+                    finished = false;
             }
-        }
+        for (int r = 0; r < sidelen() - 1; ++r)
+            for (int c = 0; c < sidelen() - 1; ++c) {
+                Position p(r, c);
+                vector<Position> rng;
+                for (auto& os : offset2) {
+                    auto p2 = p + os;
+                    if (auto& cl = cells(p2); boost::algorithm::any_of_equal(cl, PUZ_WALL))
+                        rng.push_back(p2);
+                }
+                if (rng.size() == 1)
+                    if (auto& cl = cells(rng[0]); cl.size() > 1)
+                        cl = {PUZ_WALL}, finished = false;
+            }
+        if (finished) break;
+    }
 }
 
 struct puz_state2 : Position
