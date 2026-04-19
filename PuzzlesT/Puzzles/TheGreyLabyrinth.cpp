@@ -200,9 +200,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
         auto p = *this + os;
         if (!m_state->is_valid(p)) continue;
         auto& cl = m_state->cells(p);
-        if (boost::algorithm::any_of(cl, [&](int n) {
-            return n != PUZ_WALL;
-        }))
+        if (!(cl.size() == 1 && cl[0] == PUZ_WALL))
             children.emplace_back(*this).make_move(p);
     }
 }
@@ -211,9 +209,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 bool puz_state::is_interconnected() const
 {
     auto smoves = puz_move_generator<puz_state2>::gen_moves({this});
-    return smoves.size() == boost::count_if(m_cells, [&](const puz_cell& cl) {
-        return boost::algorithm::none_of_equal(cl, PUZ_WALL);
+    int n = boost::count_if(m_cells, [&](const puz_cell& cl) {
+        return !(cl.size() == 1 && cl[0] == PUZ_WALL);
     });
+    return smoves.size() == n;
 }
 
 bool puz_state::make_move(int i, int n)
