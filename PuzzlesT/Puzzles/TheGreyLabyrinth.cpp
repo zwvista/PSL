@@ -98,7 +98,7 @@ struct puz_state
     const puz_cell& cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     puz_cell& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
-    bool make_move(const Position& p, char ch);
+    bool make_move(int i, int n);
     bool is_interconnected() const;
     void check_arrows();
 
@@ -185,8 +185,8 @@ void puz_state::check_arrows()
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state* s, const Position& p)
-        : m_state(s) { make_move(p); }
+    puz_state2(const puz_state* s)
+        : m_state(s) { make_move(s->m_game->m_treasure); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -196,56 +196,69 @@ struct puz_state2 : Position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-//    for (auto& p : m_state->m_pos2prev.at(*this))
-//        children.emplace_back(*this).make_move(p);
+    for (auto& os : offset) {
+        auto p = *this + os;
+        if (!m_state->is_valid(p)) continue;
+        auto& cl = m_state->cells(p);
+        if (boost::algorithm::any_of(cl, [&](int n) {
+            return n != PUZ_WALL;
+        }))
+            children.emplace_back(*this).make_move(p);
+    }
 }
 
 // 4. From any location, there must only be one route to the treasure.
 bool puz_state::is_interconnected() const
 {
-//    auto smoves = puz_move_generator<puz_state2>::gen_moves(
-//        {this, m_game->m_treasure});
-//    return smoves.size() == boost::count_if(m_cells, [&](char ch) {
-//        return ch != PUZ_WALL;
-//    });
-    return true;
+    auto smoves = puz_move_generator<puz_state2>::gen_moves({this});
+    return smoves.size() == boost::count_if(m_cells, [&](const puz_cell& cl) {
+        return boost::algorithm::any_of(cl, [&](int n) {
+            return n != PUZ_WALL;
+        });
+    });
 }
 
-bool puz_state::make_move(const Position& p, char ch)
+bool puz_state::make_move(int i, int n)
 {
-    m_distance = 1;
-    return true;
+    auto h = get_heuristic();
+    m_cells[i] = {n};
+    check_arrows();
+    m_distance = h - get_heuristic();
+    return is_interconnected();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-//    auto& [p, next] = *boost::max_element(m_pos2next, [](
-//        const pair<const Position, vector<Position>>& kv1,
-//        const pair<const Position, vector<Position>>& kv2) {
-//        return kv1.second.size() < kv2.second.size();
-//    });
-//    auto f = [&](const Position& p2, char ch) {
-//        if (cells(p2) == PUZ_SPACE)
-//            if (!children.emplace_back(*this).make_move(p2, ch))
-//                children.pop_back();
-//    };
-//    f(p, PUZ_WALL);
-//    // 4. From any location, there must only be one route to the treasure.
-//    if (next.size() > 2) {
-//        for (auto& p2 : next)
-//            f(p2, PUZ_WALL);
-//    } else {
-//        f(p, PUZ_EMPTY);
-//    }
+    int i = boost::min_element(m_cells, [](const puz_cell& cl1, const puz_cell& cl2) {
+        auto f = [](const puz_cell& cl) {
+            int sz = cl.size();
+            return sz == 1 ? 100 : sz;
+        };
+        return f(cl1) < f(cl2);
+    }) - m_cells.begin();
+    auto& cl = m_cells[i];
+    for (int n : cl)
+        if (!children.emplace_back(*this).make_move(i, n))
+            children.pop_back();
 }
 
 ostream& puz_state::dump(ostream& out) const
 {
-//    for (int r = 0; r < sidelen(); ++r) {
-//        for (int c = 0; c < sidelen(); ++c)
-//            out << cells({r, c}) << ' ';
-//        println(out);
-//    }
+    for (int r = 0; r < sidelen(); ++r) {
+        for (int c = 0; c < sidelen(); ++c)
+            switch (int n = cells({r, c})[0]) {
+            case PUZ_WALL:
+                out << PUZ_WALL_CHAR << ' ';
+                break;
+            case PUZ_TRESURE:
+                out << PUZ_TRESURE_CHAR << ' ';
+                break;
+            default:
+                out << dirs[n] << ' ';
+                break;
+            }
+        println(out);
+    }
     return out;
 }
 
