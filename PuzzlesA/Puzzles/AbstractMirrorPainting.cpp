@@ -217,32 +217,30 @@ puz_state::puz_state(const puz_game& g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 , m_area2num(g.m_area2num)
 {
-//    for (int i = 0; i < g.m_moves.size(); ++i) {
-//        auto& [config, _1, _2] = g.m_moves[i];
-//        auto& [area_id1, area_id2, _3] = config;
-//        m_matches[area_id1].push_back(i);
-//        m_matches[area_id2].push_back(i);
-//    }
+    for (int i = 0; i < g.m_moves.size(); ++i) {
+        auto& [_1, _2, area_id1, area_id2, _3, _4] = g.m_moves[i];
+        m_matches[area_id1].push_back(i);
+        m_matches[area_id2].push_back(i);
+    }
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
-//        boost::remove_erase_if(move_ids, [&](int id) {
-//            auto& move = m_game->m_moves[id];
-//            auto& [config, painting, empties] = move;
-//            auto& [area_id1, area_id2, _2] = config;
-//            if (boost::algorithm::any_of(painting, [&](const Position& p) {
-//                return cells(p) != PUZ_SPACE;
-//            }) || boost::algorithm::any_of(empties, [&](const Position& p) {
-//                char ch = cells(p);
-//                return ch != PUZ_SPACE && ch != PUZ_EMPTY;
-//            }))
-//                return true;
-//            int sz = move.painting_size();
-//            return sz > m_area2num.at(area_id1) || sz > m_area2num.at(area_id2);
-//        });
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& move = m_game->m_moves[id];
+            auto& [_2, _3, area_id1, area_id2, painting, empties] = move;
+            if (boost::algorithm::any_of(painting, [&](const Position& p) {
+                return cells(p) != PUZ_SPACE;
+            }) || boost::algorithm::any_of(empties, [&](const Position& p) {
+                char ch = cells(p);
+                return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+            }))
+                return true;
+            int sz = move.painting_size();
+            return sz > m_area2num.at(area_id1) || sz > m_area2num.at(area_id2);
+        });
 
         if (!init)
             switch(move_ids.size()) {
@@ -257,18 +255,17 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int move_id)
 {
-//    auto& move = m_game->m_moves[move_id];
-//    auto& [config, painting, empties] = move;
-//    auto& [area_id1, area_id2, _1] = config;
-//    int sz = move.painting_size();
-//    for (auto& p : painting)
-//        cells(p) = PUZ_PAINTED;
-//    for (auto& p : empties)
-//        cells(p) = PUZ_EMPTY;
-//    for (int area_id : {area_id1, area_id2})
-//        if ((m_area2num[area_id] -= sz) == 0)
-//            m_matches.erase(area_id);
-//    m_distance += sz * 2;
+    auto& move = m_game->m_moves[move_id];
+    auto& [_1, _2, area_id1, area_id2, painting, empties] = move;
+    int sz = move.painting_size();
+    for (auto& p : painting)
+        cells(p) = PUZ_PAINTED;
+    for (auto& p : empties)
+        cells(p) = PUZ_EMPTY;
+    for (int area_id : {area_id1, area_id2})
+        if ((m_area2num[area_id] -= sz) == 0)
+            m_matches.erase(area_id);
+    m_distance += sz * 2;
 }
 
 bool puz_state::make_move(int move_id)
