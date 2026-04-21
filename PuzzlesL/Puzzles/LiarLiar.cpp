@@ -27,7 +27,6 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_MARKED = 'X';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 struct puz_hint

@@ -35,7 +35,6 @@ constexpr auto PUZ_COL_LINEC = '=';
 constexpr auto PUZ_CONSECUTIVE = '.';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 struct puz_pos_info

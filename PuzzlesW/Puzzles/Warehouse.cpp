@@ -25,7 +25,6 @@ constexpr auto PUZ_VERT = 'V';
 constexpr auto PUZ_CROSS = '+';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset3 = Position::Square2x2Offset;
 
 // top-left and bottom-right

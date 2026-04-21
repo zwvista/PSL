@@ -28,7 +28,6 @@ constexpr auto PUZ_HOLE = 'H';
 constexpr auto PUZ_PIECE_SIZE = 4;
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 struct puz_piece

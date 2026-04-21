@@ -27,9 +27,7 @@ constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_UNKNOWN = 5;
     
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
-
 constexpr array<Position, 4> offset3 = Position::Square2x2Offset;
 
 struct puz_game

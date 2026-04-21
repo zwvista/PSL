@@ -21,17 +21,15 @@ namespace puzzles::TheGreyLabyrinth{
 
 /*
     Facts
-    6. A cell has a symbol in it. It can be a wall, the treasure, or it can be
-       an arrow pointing to one of its four neighbors.
-    7. A cell that an arrow points to cannot be a wall. It can only be an arrow cell
+    6. A cell contains a symbol in it. The symbol can be a wall, the treasure, or
+       an arrow pointing to one of its neighbors, up, down, left or right.
+    7. A cell pointed by an arrow cannot be a wall cell. It can only contain an arrow
        that does not point to that arrow.
-    8. A cell neighboring to two arrows, neither of which points to it, must be a wall.
-    9. An arrow cell neighboring to an arrow that doesn't point to it must point
-       to that arrow.
-    10.An arrow cell neighboring to the treasure must point to the treasure.
-    11.A cell neighbring to the treasure and an arrow not pointing to it must be a wall.
-    12.Any 2x2 area can only have one or two walls. It cannot have 0 walls, that is,
-       it can have two or three arrows.
+    8. A cell neighboring to an arrow that doesn't point to it contains a wall,
+       or an arrow pointing to that arrow.
+    9. A cell neighboring to the treasure contains a wall or an arrow
+       pointing to the treasure.
+    10.Any 2x2 area contains one or two walls.
 */
 
 constexpr auto PUZ_SPACE = ' ';

@@ -21,7 +21,6 @@ namespace puzzles::InsaneTatamis{
 constexpr auto PUZ_SPACE = ' ';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
 
 // top-left and bottom-right

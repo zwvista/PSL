@@ -48,7 +48,6 @@ const vector<int> linesegs_all_turn = {
 };
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 struct puz_area

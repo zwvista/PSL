@@ -5,7 +5,6 @@
 namespace puzzles::SquareMergePuzzle{
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
 
 struct puz_game

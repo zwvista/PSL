@@ -24,7 +24,6 @@ constexpr auto PUZ_LEAF = 'L';
 constexpr auto PUZ_NOLEAF = 'S';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 constexpr Position offset3[] = {

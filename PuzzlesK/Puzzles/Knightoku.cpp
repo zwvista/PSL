@@ -30,7 +30,6 @@ constexpr auto PUZ_ROW_LINE = '|';
 constexpr auto PUZ_COL_LINE = '-';
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 constexpr Position offset_knight[] = {

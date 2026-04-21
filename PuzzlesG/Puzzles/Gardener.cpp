@@ -38,7 +38,6 @@ constexpr auto PUZ_FLOWER_COUNT_UNKNOWN = -1;
 bool is_empty(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY; }
 
 constexpr array<Position, 4> offset = Position::Directions4;
-
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 struct puz_fb_info
