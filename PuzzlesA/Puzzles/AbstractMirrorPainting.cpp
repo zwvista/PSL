@@ -252,12 +252,10 @@ int puz_state::find_matches(bool init)
             return sz > m_area2num.at(area_id1) || sz > m_area2num.at(area_id2);
         });
 
-        if (!init)
+        if (!init && m_area2num.at(area_id) != PUZ_UNKNOWN)
             switch(move_ids.size()) {
             case 0:
-                if (m_area2num.at(area_id) != PUZ_UNKNOWN)
-                    return 0;
-                break;
+                return 0;
             case 1:
                 return make_move2(move_ids[0]), 1;
             }
