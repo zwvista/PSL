@@ -290,10 +290,14 @@ bool puz_state::make_move(int move_id)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [_1, move_ids] = *boost::min_element(m_matches, [](
+    auto& [_1, move_ids] = *boost::min_element(m_matches, [&](
         const pair<const int, vector<int>>& kv1,
         const pair<const int, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
+        auto f = [&](const pair<const int, vector<int>>& kv) {
+            auto& [area_id, move_ids] = kv;
+            return m_area2num.at(area_id) == PUZ_UNKNOWN ? 100 : move_ids.size();
+        };
+        return f(kv1) < f(kv2);
     });
     for (auto& move_id : move_ids)
         if (!children.emplace_back(*this).make_move(move_id))
