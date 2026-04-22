@@ -50,7 +50,6 @@ struct puz_game
     vector<int> m_area2num;
     set<Position> m_horz_walls, m_vert_walls;
     vector<puz_move> m_moves;
-    map<int, int> m_area2move;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -208,7 +207,7 @@ struct puz_state
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         return boost::accumulate(m_area2num, 0, [](int acc, int num) {
-            return acc + num;
+            return acc + (num == PUZ_UNKNOWN ? 0 : num);
         });
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
@@ -237,7 +236,7 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [_1, move_ids] : m_matches) {
+    for (auto& [area_id, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& move = m_game->m_moves[id];
             auto& [_2, _3, area_id1, area_id2, painting, empties] = move;
@@ -255,7 +254,9 @@ int puz_state::find_matches(bool init)
         if (!init)
             switch(move_ids.size()) {
             case 0:
-                return 0;
+                if (m_area2num.at(area_id) != PUZ_UNKNOWN)
+                    return 0;
+                break;
             case 1:
                 return make_move2(move_ids[0]), 1;
             }
@@ -273,9 +274,9 @@ void puz_state::make_move2(int move_id)
     for (auto& p : empties)
         cells(p) = PUZ_EMPTY;
     for (int area_id : {area_id1, area_id2})
-        if ((m_area2num[area_id] -= sz) == 0)
-            m_matches.erase(area_id);
-    m_distance += sz * 2;
+        if (int& num = m_area2num[area_id]; num != PUZ_UNKNOWN)
+            if (m_distance += sz; (num -= sz) == 0)
+                m_matches.erase(area_id);
 }
 
 bool puz_state::make_move(int move_id)
