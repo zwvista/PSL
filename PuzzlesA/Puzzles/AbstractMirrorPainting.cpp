@@ -94,13 +94,14 @@ struct puz_state3 : pair<set<Position>, set<Position>>
 
     const puz_game* m_game;
     Position m_p1, m_p2;
+    bool m_is_horz_painting;
     int m_area_id1, m_area_id2;
     int m_num;
-    Position m_os;
 };
 
 puz_state3::puz_state3(const puz_game* game, const Position& p1, const Position& p2)
-: m_game(game), m_p1(p1), m_p2(p2), m_os(m_p2 - m_p1)
+: m_game(game), m_p1(p1), m_p2(p2)
+, m_is_horz_painting(p1.first == p2.first)
 , m_area_id1(game->m_pos2area.at(p1))
 , m_area_id2(game->m_pos2area.at(p2))
 , m_num(min(m_game->m_area2num.at(m_area_id1), m_game->m_area2num.at(m_area_id2)))
@@ -111,13 +112,17 @@ puz_state3::puz_state3(const puz_game* game, const Position& p1, const Position&
 void puz_state3::gen_children(list<puz_state3>& children) const {
     if (first.size() == m_num)
         return;
+    auto [r2, c2] = m_p2;
     for (auto& p1 : first)
-        for (auto& os : offset)
-            if (auto p3 = p1 + os, p4 = p3 + m_os;
+        for (auto& os : offset) {
+            auto p3 = p1 + os;
+            auto [dr, dc] = p3 - m_p1;
+            if (auto p4 = m_is_horz_painting ? Position(r2 + dr, c2 - dc) : Position(r2 - dr, c2 + dc);
                 m_game->is_valid(p3) && m_game->is_valid(p4) &&
                 m_game->m_pos2area.at(p3) == m_area_id1 &&
                 m_game->m_pos2area.at(p4) == m_area_id2)
                 children.emplace_back(*this).make_move(p3, p4);
+        }
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
