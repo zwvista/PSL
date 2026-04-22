@@ -23,6 +23,7 @@ namespace puzzles::AbstractMirrorPainting{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_PAINTED = 'P';
+constexpr auto PUZ_UNKNOWN = 999;
 
 constexpr array<Position, 4> offset = Position::Directions4;
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
@@ -158,16 +159,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             rng.erase(p);
         }
     }
-    for (m_area2num.resize(m_areas.size()); auto& [p, num] : m_pos2num)
+    m_area2num.resize(m_areas.size());
+    boost::fill(m_area2num, PUZ_UNKNOWN);
+    for (auto& [p, num] : m_pos2num)
         m_area2num[m_pos2area.at(p)] = num;
 
     for (int r1 = 0; r1 < m_sidelen; ++r1)
         for (int c1 = 0; c1 < m_sidelen; ++c1) {
             Position p1(r1, c1);
             int area_id1 = m_pos2area.at(p1);
+            if (m_area2num.at(area_id1) == 0) continue;
             for (auto& os : {offset[1], offset[2]})
                 if (auto p2 = p1 + os; is_valid(p2))
-                    if (int area_id2 = m_pos2area.at(p2); area_id1 != area_id2) {
+                    if (int area_id2 = m_pos2area.at(p2);
+                        area_id1 != area_id2 && m_area2num.at(area_id2) > 0) {
                         auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p1, p2});
                         for (auto& s : smoves) {
                             auto painting = s.painting();
