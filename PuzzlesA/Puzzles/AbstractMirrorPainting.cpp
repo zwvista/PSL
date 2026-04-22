@@ -201,6 +201,7 @@ struct puz_state
     bool make_move(int move_id);
     void make_move2(int move_id);
     int find_matches(bool init);
+    bool check_area() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -261,7 +262,21 @@ int puz_state::find_matches(bool init)
                 return make_move2(move_ids[0]), 1;
             }
     }
-    return 2;
+    return check_area() ? 2 : 0;
+}
+
+bool puz_state::check_area() const
+{
+    for (int i = 0; i < m_area2num.size(); ++i) {
+        int num = m_area2num[i];
+        if (num == PUZ_UNKNOWN) continue;
+        auto& area = m_game->m_areas[i];
+        if (num > boost::count_if(area, [&](const Position& p) {
+            return cells(p) == PUZ_SPACE;
+        }))
+            return false;
+    }
+    return true;
 }
 
 void puz_state::make_move2(int move_id)
