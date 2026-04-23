@@ -139,7 +139,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, perm_ids.front()), 1;
             }
     }
-    return check_oases() && is_interconnected() ? 2 : 0;
+    return is_interconnected() && check_oases() ? 2 : 0;
 }
 
 struct puz_state2 : Position
