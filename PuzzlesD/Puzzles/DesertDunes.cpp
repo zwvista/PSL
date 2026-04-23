@@ -87,6 +87,7 @@ struct puz_state
     void make_move2(const Position& p, int n);
     int find_matches(bool init);
     bool check_oases();
+    bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -138,7 +139,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, perm_ids.front()), 1;
             }
     }
-    return check_oases() ? 2 : 0;
+    return check_oases() && is_interconnected() ? 2 : 0;
 }
 
 struct puz_state2 : Position
@@ -186,6 +187,43 @@ bool puz_state::check_oases()
         m_pos2num[p] = max_possible;
     }
     return true;
+}
+
+struct puz_state3 : Position
+{
+    puz_state3(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state3>& children) const;
+
+    const puz_state* m_state;
+};
+
+inline bool is_among_dunes(char ch)
+{
+    return ch != PUZ_BOUNDARY && ch != PUZ_DUNE;
+}
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    for (auto& os : offset) {
+        auto p = *this + os;
+        if (char ch = m_state->cells(p); is_among_dunes(ch))
+            children.emplace_back(*this).make_move(p);
+    }
+}
+
+// 2. The desert among dunes (including oases) should be all connected
+//    horizontally or vertically.
+bool puz_state::is_interconnected() const
+{
+    int i = boost::find_if(m_cells, is_among_dunes) - m_cells.begin();
+    auto smoves = puz_move_generator<puz_state3>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return boost::count_if(smoves, [&](const Position& p) {
+        return is_among_dunes(cells(p));
+    }) == boost::count_if(m_cells, is_among_dunes);
 }
 
 bool puz_state::make_move(const Position& p, int n)
