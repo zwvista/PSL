@@ -119,31 +119,6 @@ puz_state::puz_state(const puz_game& g)
     find_matches(true);
 }
 
-struct puz_state2 : Position
-{
-    puz_state2(const puz_state& state, const Position& p_start)
-        : m_state(&state), m_p_start(&p_start) {
-        make_move(p_start);
-    }
-
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
-    void gen_children(list<puz_state2>& children) const;
-
-    const puz_state* m_state;
-    const Position* m_p_start;
-};
-
-void puz_state2::gen_children(list<puz_state2>& children) const
-{
-    if (*this != *m_p_start && m_state->cells(*this) == PUZ_OASIS) return;
-    for (auto& os : offset) {
-        auto p = *this + os;
-        char ch = m_state->cells(p);
-        if (ch != PUZ_BOUNDARY && ch != PUZ_DUNE)
-            children.emplace_back(*this).make_move(p);
-    }
-}
-
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, perm_ids] : m_matches) {
@@ -166,16 +141,49 @@ int puz_state::find_matches(bool init)
     return check_oases() ? 2 : 0;
 }
 
+struct puz_state2 : Position
+{
+    puz_state2(const puz_state* s, const Position& p, bool need_spaces)
+        : m_state(s), m_p(p), m_need_spaces(need_spaces) { make_move(p); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_state* m_state;
+    Position m_p;
+    bool m_need_spaces;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    if (*this != m_p && m_state->cells(*this) == PUZ_OASIS) return;
+    for (auto& os : offset) {
+        auto p = *this + os;
+        char ch = m_state->cells(p);
+        if (ch != PUZ_BOUNDARY && ch != PUZ_DUNE && (m_need_spaces || ch != PUZ_SPACE))
+            children.emplace_back(*this).make_move(p);
+    }
+}
+
 bool puz_state::check_oases()
 {
     for (auto& [p, num] : m_game->m_pos2num) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, p});
-        int num2 = boost::accumulate(smoves, 0, [&](int acc, const Position& p2) {
-            return acc + (cells(p2) == PUZ_OASIS ? 1 : 0);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, true});
+        int max_possible = boost::count_if(smoves, [&](const Position& p2) {
+            return cells(p2) == PUZ_OASIS;
         }) - 1;
-        if (num2 < num || m_matches.empty() && num2 > num)
-            return false;
-        m_pos2num[p] = num2;
+        auto smoves2 = puz_move_generator<puz_state2>::gen_moves({this, p, false});
+        int min_guaranteed = boost::count_if(smoves2, [&](const Position& p2) {
+            return cells(p2) == PUZ_OASIS;
+        }) - 1;
+
+        // Prune if we can't possibly reach the target
+        if (max_possible < num) return false;
+        // Prune if we have already exceeded the target
+        if (min_guaranteed > num) return false;
+        // Final check
+        if (is_goal_state() && min_guaranteed != num) return false;
+        m_pos2num[p] = max_possible;
     }
     return true;
 }
