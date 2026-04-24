@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -47,7 +46,6 @@ struct puz_state2 : map<Position, int>
     bool is_goal_state() const { return size() == m_num + 1; }
     void make_move(Position p, int i) { emplace(p, i); }
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
     int m_num;
@@ -55,12 +53,18 @@ struct puz_state2 : map<Position, int>
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
+    if (is_goal_state())
+        return;
     for (auto& [p, last_dir] : *this)
         for (int i = 0; i < 4; ++i) {
+            // 1. Two fingers pointing in the same direction can't be orthogonally adjacent.
             if (last_dir == (i + 2) % 4 || last_dir == i) continue;
-            if (auto p2 = p + offset[i];
-                !contains(p2) && m_game->cells(p2) == PUZ_SPACE &&
-                boost::algorithm::none_of(offset, [&](const Position& os) {
+            auto p2 = p + offset[i];
+            if (contains(p2)) continue;
+            char ch = m_game->cells(p2);
+            if (ch != PUZ_SPACE && ch != dirs[(i + 2) % 4]) continue;
+            // 1. Two fingers pointing in the same direction can't be orthogonally adjacent.
+            if (boost::algorithm::none_of(offset, [&](const Position& os) {
                 auto it = find(p2 + os);
                 return it != end() && it->second == i;
             }))
@@ -78,7 +82,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_cells.push_back(PUZ_BLOCK);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
-            if (ch != PUZ_BLOCK && ch != PUZ_SPACE)
+            if (ch != PUZ_BLOCK && ch != PUZ_SPACE && dirs.find(ch) == -1)
                 m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
             m_cells.push_back(ch);
         }
@@ -87,12 +91,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BLOCK);
 
     for (auto& [p, sum] : m_pos2num) {
-        puz_state2 sstart(this, p, sum);
-        list<list<puz_state2>> spaths;
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found)
-            for (auto& spath : spaths) {
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, sum});
+        for (auto& s : smoves)
+            if (s.is_goal_state()) {
                 puz_move move;
-                for (auto& [p2, i] : spath.back())
+                for (auto& [p2, i] : s)
                     if (p2 != p)
                         move[p2] = dirs[(i + 2) % 4];
                 int n = m_moves.size();
