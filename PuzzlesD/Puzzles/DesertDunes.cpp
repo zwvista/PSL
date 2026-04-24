@@ -239,9 +239,16 @@ void puz_state::make_move2(const Position& p, int n)
 {
     auto& perm = perms2x2[n];
     for (int i = 0; i < 4; ++i) {
-        char& ch = cells(p + offset2[i]);
-        if (ch == PUZ_SPACE)
-            ch = perm[i];
+        auto p2 = p + offset2[i];
+        char ch2 = perm[i];
+        if (char& ch = cells(p2); ch == PUZ_SPACE)
+            ch = ch2;
+        if (ch2 == PUZ_DUNE)
+            for (auto& os : offset) {
+                auto p3 = p2 + os;
+                if (char& ch3 = cells(p3); ch3 == PUZ_SPACE)
+                    ch3 = PUZ_EMPTY;
+            }
     }
     ++m_distance;
     m_matches.erase(p);
