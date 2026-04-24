@@ -18,7 +18,7 @@
 namespace puzzles::FingerPointing{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_BLOCK = 'O';
+constexpr auto PUZ_BLOCK = '@';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 constexpr string_view dirs = "^>v<";
