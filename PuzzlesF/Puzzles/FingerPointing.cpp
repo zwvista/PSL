@@ -95,11 +95,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (auto& s : smoves)
             if (s.is_goal_state()) {
                 puz_move move;
+                move[p] = PUZ_SPACE;
                 for (auto& [p2, i] : s)
                     if (p2 != p)
                         move[p2] = dirs[(i + 2) % 4];
                 int n = m_moves.size();
                 m_moves.push_back(move);
+                m_pos2move_id[p].push_back(n);
                 for (auto& [p2, ch] : move)
                     m_pos2move_id[p2].push_back(n);
             }
@@ -137,6 +139,7 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_cells), m_game(&g)
 , m_matches(g.m_pos2move_id)
 {
+    find_matches(false);
 }
 
 int puz_state::find_matches(bool init)
@@ -146,7 +149,7 @@ int puz_state::find_matches(bool init)
             auto& move = m_game->m_moves[id];
             return !boost::algorithm::all_of(move, [&](const pair<const Position, char>& kv) {
                 auto& [p2, ch2] = kv;
-                return cells(p2) == PUZ_SPACE &&
+                return ch2 == PUZ_SPACE || cells(p2) == PUZ_SPACE &&
                     boost::algorithm::none_of(offset, [&](const Position& os) {
                         return cells(p2 + os) == ch2;
                     });
@@ -168,7 +171,8 @@ void puz_state::make_move2(int i)
 {
     auto& move = m_game->m_moves[i];
     for (auto& [p, ch] : move) {
-        cells(p) = ch;
+        if (ch != PUZ_SPACE)
+            cells(p) = ch;
         ++m_distance;
         m_matches.erase(p);
     }
