@@ -139,6 +139,9 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_cells), m_game(&g)
 , m_matches(g.m_pos2move_id)
 {
+    for (auto& ch : m_cells)
+        if (dirs.find(ch) != -1)
+            ch = PUZ_SPACE;
     find_matches(false);
 }
 
