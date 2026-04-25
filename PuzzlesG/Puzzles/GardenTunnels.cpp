@@ -122,11 +122,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
         m_areas.push_back({num, {smoves.begin(), smoves.end()}});
 
+        if (num == PUZ_UNKNOWN) continue;
         int sz = smoves.size();
         auto& perms = m_config2perms[{num, sz}];
         if (!perms.empty()) continue;
         for (int i = 0; i <= sz; i++) {
-            if (num != PUZ_UNKNOWN && num != i) continue;
+            if (num != i) continue;
             // 3. The number in the garden tells you how many tunnels start/end in that
             // garden.
             auto perm = string(i, PUZ_START_END) + string(sz - i, PUZ_MIDDLE);
@@ -178,6 +179,7 @@ puz_state::puz_state(const puz_game& g)
 {
     for (int i = 0; i < g.m_areas.size(); ++i) {
         auto& [num, rng] = g.m_areas[i];
+        if (num == PUZ_UNKNOWN) continue;
         vector<int> perm_ids(g.m_config2perms.at({num, rng.size()}).size());
         boost::iota(perm_ids, 0);
         m_matches[i] = perm_ids;
@@ -383,7 +385,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             return f(dt1) < f(dt2);
         }) - m_dots.begin();
         auto& dt = m_dots[i];
-        Position p(i / sidelen(), i% sidelen());
+        Position p(i / sidelen(), i % sidelen());
         for (int n = 0; n < dt.size(); ++n)
             if (!children.emplace_back(*this).make_move_dot(p, n))
                 children.pop_back();
