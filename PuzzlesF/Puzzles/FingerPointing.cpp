@@ -145,7 +145,7 @@ puz_state::puz_state(const puz_game& g)
     for (auto& ch : m_cells)
         if (dirs.find(ch) != -1)
             ch = PUZ_SPACE;
-    find_matches(false);
+    find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
