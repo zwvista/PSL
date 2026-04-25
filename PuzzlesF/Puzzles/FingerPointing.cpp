@@ -19,6 +19,7 @@ namespace puzzles::FingerPointing{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_BLOCK = '@';
+constexpr auto PUZ_HINT = '.';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 constexpr string_view dirs = "^>v<";
@@ -82,9 +83,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         m_cells.push_back(PUZ_BLOCK);
         for (int c = 1; c < m_sidelen - 1; ++c) {
             char ch = str[c - 1];
-            if (ch != PUZ_BLOCK && ch != PUZ_SPACE && dirs.find(ch) == -1)
+            if (ch != PUZ_BLOCK && ch != PUZ_SPACE && dirs.find(ch) == -1) {
+                m_cells.push_back(PUZ_SPACE);
                 m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
-            m_cells.push_back(ch);
+            } else
+                m_cells.push_back(ch);
         }
         m_cells.push_back(PUZ_BLOCK);
     }
@@ -95,7 +98,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (auto& s : smoves)
             if (s.is_goal_state()) {
                 puz_move move;
-                move[p] = PUZ_SPACE;
+                move[p] = PUZ_HINT;
                 for (auto& [p2, i] : s)
                     if (p2 != p)
                         move[p2] = dirs[(i + 2) % 4];
@@ -152,7 +155,7 @@ int puz_state::find_matches(bool init)
             auto& move = m_game->m_moves[id];
             return !boost::algorithm::all_of(move, [&](const pair<const Position, char>& kv) {
                 auto& [p2, ch2] = kv;
-                return ch2 == PUZ_SPACE || cells(p2) == PUZ_SPACE &&
+                return cells(p2) == PUZ_SPACE &&
                     boost::algorithm::none_of(offset, [&](const Position& os) {
                         return cells(p2 + os) == ch2;
                     });
@@ -174,8 +177,7 @@ void puz_state::make_move2(int i)
 {
     auto& move = m_game->m_moves[i];
     for (auto& [p, ch] : move) {
-        if (ch != PUZ_SPACE)
-            cells(p) = ch;
+        cells(p) = ch;
         ++m_distance;
         m_matches.erase(p);
     }
