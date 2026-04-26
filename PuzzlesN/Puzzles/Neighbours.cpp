@@ -31,64 +31,110 @@ constexpr auto PUZ_UNKNOWN = 0;
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-struct puz_area_info
+struct puz_garden
 {
-    puz_area_info(const Position& p, int cnt)
-    : m_pHouse(p), m_neighbour_count(cnt) {}
-    Position m_pHouse;
-    int m_neighbour_count;
+    char m_name;
+    int m_num;
+};
+
+struct puz_move
+{
+    char m_name;
+    Position m_p_hint;
+    set<Position> m_area;
+    set<Position> m_neighbours;
 };
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_pos2num;
-    map<char, puz_area_info> m_id2info;
-    int m_cell_count_area;
+    int m_garden_size;
+    map<Position, puz_garden> m_pos2garden;
+    map<char, Position> m_name2hint;
+    vector<puz_move> m_moves;
+    map<Position, vector<int>> m_pos2move_ids;
+    string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int neighbour_count(char id) const { return m_id2info.at(id).m_neighbour_count; }
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
+
+struct puz_state2 : set<Position>
+{
+    puz_state2(const puz_game* game, const Position& p)
+        : m_game(game) {make_move(p);}
+
+    bool is_goal_state() const { return size() == m_game->m_garden_size; }
+    void make_move(const Position& p) { insert(p); }
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_game* m_game;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const {
+    if (is_goal_state())
+        return;
+    for (auto& p : *this)
+        for (auto& os : offset) {
+            auto p2 = p + os;
+            char ch2 = m_game->cells(p2);
+            if (ch2 == PUZ_SPACE && !contains(p2))
+                children.emplace_back(*this).make_move(p2);
+        }
+}
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    for (int r = 1, n = 0; r < m_sidelen - 1; ++r) {
+    char ch_g = 'a';
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
+        m_cells.push_back(PUZ_BOUNDARY);
         for (int c = 1; c < m_sidelen - 1; ++c) {
-            char ch = str[c - 1];
-            if (ch == PUZ_SPACE) continue;
-            char id = n++ + 'a';
-            int cnt = ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0';
             Position p(r, c);
-            m_pos2num[p] = cnt;
-            m_id2info.emplace(id, puz_area_info(p, cnt));
+            char ch = str[c - 1];
+            if (char ch = str[c - 1]; ch == PUZ_SPACE)
+                m_cells.push_back(PUZ_SPACE);
+            else {
+                char name = ch_g++;
+                m_cells.push_back(name);
+                int num = ch == PUZ_QM ? PUZ_UNKNOWN : ch - '0';
+                m_pos2garden[p] = {name, num};
+                m_name2hint[name] = p;
+            }
+        }
+        m_cells.push_back(PUZ_BOUNDARY);
+    }
+    m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    m_garden_size = (m_sidelen - 2) * (m_sidelen - 2) / m_pos2garden.size();
+
+    for (auto& [p, garden] : m_pos2garden) {
+        auto& [name, num] = garden;
+        // Gardens can have any form.
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
+        // save all goal states as permutations
+        // A goal state is a garden formed from the number
+        for (auto& s : smoves) {
+            if (!s.is_goal_state() || boost::algorithm::any_of(m_moves, [&](const puz_move& move) {
+                return move.m_area == s;
+            })) continue;
+            int n = m_moves.size();
+            auto& [name2, p_hint, area, neighbours] = m_moves.emplace_back();
+            name2 = name, p_hint = p, area = s;
+            // Gardens are separated by a wall.
+            for (auto& p2 : s)
+                for (auto& os : offset)
+                    if (auto p3 = p2 + os; !s.contains(p3))
+                        if (char ch3 = cells(p3); ch3 != PUZ_BOUNDARY)
+                            neighbours.insert(p3);
+            for (auto& p2 : s)
+                m_pos2move_ids[p2].push_back(n);
         }
     }
-    m_cell_count_area = (m_sidelen - 2) * (m_sidelen - 2) / m_id2info.size();
 }
-
-struct puz_area
-{
-    set<Position> m_inner, m_outer;
-    set<char> m_neighbours;
-    bool m_ready = false;
-
-    void add_cell(const Position& p, int cnt) {
-        m_inner.insert(p);
-        m_ready = m_inner.size() == cnt;
-    }
-    bool add_neighbour(char id, int cnt) {
-        m_neighbours.insert(id);
-        return cnt == PUZ_UNKNOWN || m_neighbours.size() <= cnt;
-    }
-
-    bool operator<(const puz_area& x) const {
-        return pair{m_ready, m_outer.size()} < pair{x.m_ready, x.m_outer.size()};
-    }
-};
 
 struct puz_state
 {
@@ -96,112 +142,109 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
-    bool make_move(char id, const Position& p);
-    bool make_move2(char id, Position p);
-    int adjust_area(bool init);
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
+    bool make_move(int n);
+    void make_move2(int n);
+    int find_matches(bool init);
+    bool check_neighbours() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
+    unsigned int get_heuristic() const { return m_matches.size(); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
     string m_cells;
-    map<char, puz_area> m_id2area;
+    map<Position, vector<int>> m_matches;
+    map<Position, int> m_finished;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE), m_game(&g)
+: m_game(&g), m_cells(g.m_cells), m_matches(g.m_pos2move_ids)
 {
-    for (int i = 0; i < sidelen(); ++i)
-        cells({i, 0}) = cells({i, sidelen() - 1}) =
-        cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
-
-    for (auto& [id, info] : g.m_id2info)
-        make_move2(id, info.m_pHouse);
-
-    adjust_area(true);
+    find_matches(true);
 }
 
-int puz_state::adjust_area(bool init)
+int puz_state::find_matches(bool init)
 {
-    for (auto& [id, area] : m_id2area) {
-        auto& outer = area.m_outer;
-        int nb_cnt = m_game->neighbour_count(id);
-        if (area.m_ready && outer.empty()) continue;
-
-        outer.clear();
-        for (auto& p : area.m_inner)
-            for (auto& os : offset) {
-                auto p2 = p + os;
-                char ch = cells(p2);
-                if (ch == PUZ_SPACE)
-                    outer.insert(p2);
-            }
-
+    for (auto& [_1, move_ids] : m_matches) {
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [_2, p_hint, area, _3] = m_game->m_moves[id];
+            return !boost::algorithm::all_of(area, [&](const Position& p2) {
+                char ch2 = cells(p2);
+                return p_hint == p2 || ch2 == PUZ_SPACE;
+            });
+        });
         if (!init)
-            switch(outer.size()) {
+            switch(move_ids.size()) {
             case 0:
-                return !area.m_ready ||
-                    nb_cnt != PUZ_UNKNOWN && area.m_neighbours.size() < nb_cnt ? 0 :
-                    1;
+                return 0;
             case 1:
-                if (!area.m_ready)
-                    return make_move2(id, *outer.begin()) ? 1 : 0;
-                break;
+                return make_move2(move_ids.front()), 1;
             }
     }
-    return 2;
+    return check_neighbours() ? 2 : 0;
 }
 
-bool puz_state::make_move2(char id, Position p)
+bool puz_state::check_neighbours() const
 {
-    auto& area = m_id2area[id];
-    cells(p) = id;
-    area.add_cell(p, m_game->m_cell_count_area);
-    ++m_distance;
+    for (auto& [p, n] : m_finished) {
+        int num = m_game->m_pos2garden.at(p).m_num;
+        auto& [_1, _2, _3, neighbours] = m_game->m_moves[n];
+        set<char> chars;
+        int n_spaces = 0;
+        for (auto& p2 : neighbours)
+            if (char ch = cells(p2); ch == PUZ_SPACE)
+                n_spaces++;
+            else
+                chars.insert(ch);
+        int min_guaranteed = chars.size();
+        int max_possible = min_guaranteed + n_spaces;
 
-    for (auto& os : offset) {
-        auto p2 = p + os;
-        char ch = cells(p2);
-        if (ch == PUZ_SPACE || ch == PUZ_BOUNDARY ||
-            ch == id || area.m_neighbours.contains(ch))
-            continue;
-
-        char id2 = ch;
-        auto& area2 = m_id2area.at(id2);
-        if (!area.add_neighbour(id2, m_game->neighbour_count(id)) ||
-            !area2.add_neighbour(id, m_game->neighbour_count(id2)))
-            return false;
+        // Prune if we can't possibly reach the target
+        if (max_possible < num) return false;
+        // Prune if we have already exceeded the target
+        if (min_guaranteed > num) return false;
+        // Final check
+        if (is_goal_state() && min_guaranteed != num) return false;
     }
     return true;
 }
 
-bool puz_state::make_move(char id, const Position& p)
+void puz_state::make_move2(int n)
+{
+    auto& [name, p_hint, area, _3] = m_game->m_moves[n];
+    for (auto& p2 : area) {
+        cells(p2) = name;
+        m_distance++, m_matches.erase(p2);
+    }
+    m_finished[p_hint] = n;
+}
+
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    if (!make_move2(id, p))
-        return false;
+    make_move2(n);
     int m;
-    while ((m = adjust_area(false)) == 1);
+    while ((m = find_matches(false)) == 1);
     return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [id, area] = *boost::min_element(m_id2area, [](
-        const pair<const char, puz_area>& kv1,
-        const pair<const char, puz_area>& kv2) {
-        return kv1.second < kv2.second;
+    auto& [_1, move_ids] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
     });
-    if (area.m_ready) return;
-    for (auto& p : area.m_outer)
-        if (!children.emplace_back(*this).make_move(id, p))
+    for (int n : move_ids)
+        if (!children.emplace_back(*this).make_move(n))
             children.pop_back();
 }
 
@@ -221,12 +264,17 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == sidelen() - 1) break;
-            char id = cells(p);
-            auto& info = m_game->m_id2info.at(id);
-            if (info.m_pHouse != p)
+            char ch = cells(p);
+            auto pHouse = m_game->m_name2hint.at(ch);
+            if (pHouse != p)
                 out << ' ';
-            else
-                out << m_id2area.at(id).m_neighbours.size();
+            else {
+                set<char> chars;
+                auto& [_1, _2, _3, neighbours] = m_game->m_moves[m_finished.at(pHouse)];
+                for (auto& p2 : neighbours)
+                    chars.insert(cells(p2));
+                out << chars.size();
+            }
         }
         println(out);
     }
@@ -240,8 +288,4 @@ void solve_puz_Neighbours()
     using namespace puzzles::Neighbours;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
         "Puzzles/Neighbours.xml", "Puzzles/Neighbours.txt", solution_format::GOAL_STATE_ONLY);
-    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Neighbours2.xml", "Puzzles/Neighbours2.txt", solution_format::GOAL_STATE_ONLY);
-    solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
-        "Puzzles/Neighbours3.xml", "Puzzles/Neighbours3.txt", solution_format::GOAL_STATE_ONLY);
 }
