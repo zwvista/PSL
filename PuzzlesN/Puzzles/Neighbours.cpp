@@ -196,6 +196,7 @@ bool puz_state::check_neighbours() const
 {
     for (auto& [p, n] : m_finished) {
         int num = m_game->m_pos2garden.at(p).m_num;
+        if (num == PUZ_UNKNOWN) continue;
         auto& [_1, _2, _3, neighbours] = m_game->m_moves[n];
         set<char> chars;
         int n_spaces = 0;
