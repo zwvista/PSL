@@ -33,12 +33,13 @@ struct puz_game
     string m_id;
     int m_sidelen;
     string m_cells;
-    // 1st dimension : the index of the area(rows and columns)
+    // 1st dimension : the index of the area
     // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
     // all permutations
     map<int, vector<string>> m_size2perms;
+    vector<Position> m_romes;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -91,6 +92,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_cells.push_back(ch);
             if (ch != PUZ_ROME)
                 rng.insert(p);
+            else
+                m_romes.push_back(p);
         }
     }
 
@@ -137,7 +140,7 @@ struct puz_state
     bool make_move(int i, int j);
     void make_move2(int i, int j);
     int find_matches(bool init);
-    bool check_lead_to_rome();
+    bool check_lead_to_rome() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -190,9 +193,8 @@ int puz_state::find_matches(bool init)
 
 struct puz_state3 : Position
 {
-    puz_state3(const puz_state& s, const Position& starting) : m_state(&s) {
-        make_move(starting);
-    }
+    puz_state3(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state3>& children) const;
@@ -202,33 +204,20 @@ struct puz_state3 : Position
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
-    char ch = m_state->cells(*this);
-    if (ch == PUZ_SPACE || ch == PUZ_ROME)
-        return;
-    auto& os = offset[tool_dirs.find(ch)];
-    auto p2 = *this + os;
-    if (m_state->is_valid(p2))
-        children.emplace_back(*this).make_move(p2);
+    for (int i = 0; i < 4; ++i)
+        if (auto p2 = *this + offset[i]; m_state->is_valid(p2))
+            if (char ch = m_state->cells(p2); ch == PUZ_SPACE || ch == tool_dirs[(i + 2) % 4])
+                children.emplace_back(*this).make_move(p2);
 }
 
-bool puz_state::check_lead_to_rome()
+bool puz_state::check_lead_to_rome() const
 {
     set<Position> rng;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            if (char ch = cells(p); ch != PUZ_SPACE && ch != PUZ_ROME)
-                rng.insert(p);
-        }
-    while (!rng.empty()) {
-        // find all tiles reachable from the first space tile
-        auto smoves = puz_move_generator<puz_state3>::gen_moves({*this, *rng.begin()});
-        if (char ch = cells(smoves.back()); ch != PUZ_SPACE && ch != PUZ_ROME)
-            return false;
-        for (auto& p : smoves)
-            rng.erase(p);
+    for (auto& p : m_game->m_romes) {
+        auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p});
+        rng.insert_range(smoves);
     }
-    return true;
+    return rng.size() == sidelen() * sidelen();
 }
 
 void puz_state::make_move2(int i, int j)
