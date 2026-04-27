@@ -188,7 +188,8 @@ int puz_state::find_matches(bool init)
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& [filled, emptied, _2] = m_game->m_moves[id];
             return !boost::algorithm::all_of(filled, [&](const Position& p2) {
-                return cells(p2) == PUZ_SPACE;
+                char ch2 = cells(p2);
+                return ch2 == PUZ_SPACE || ch2 == PUZ_WATER;
             }) || !boost::algorithm::all_of(emptied, [&](const Position& p2) {
                 char ch2 = cells(p2);
                 return ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY;
