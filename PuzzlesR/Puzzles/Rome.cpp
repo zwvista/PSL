@@ -28,6 +28,8 @@ constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 constexpr string_view tool_dirs = "^>v<";
 
+using puz_cell = vector<char>;
+
 struct puz_game
 {
     string m_id;
@@ -37,12 +39,11 @@ struct puz_game
     // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
-    // all permutations
-    map<int, vector<string>> m_size2perms;
     vector<Position> m_romes;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
@@ -105,90 +106,88 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             rng.erase(p);
         }
     }
-
-    for (auto& area : m_areas) {
-        int cnt = area.size();
-        auto& perms = m_size2perms[cnt];
-        if (!perms.empty()) continue;
-        vector<int> indexes(cnt);
-        string perm(cnt, ' ');
-        for (int i = 0; i < cnt;) {
-            set<int> s(indexes.begin(), indexes.end());
-            if (s.size() == cnt) {
-                for (int j = 0; j < cnt; ++j)
-                    perm[j] = tool_dirs[indexes[j]];
-                perms.push_back(perm);
-            }
-            for (i = 0; i < cnt && ++indexes[i] == 4; ++i)
-                indexes[i] = 0;
-        }
-    }
 }
 
 struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    const puz_cell& cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    puz_cell& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
-    }
-    bool make_move(int i, int j);
-    void make_move2(int i, int j);
-    int find_matches(bool init);
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool make_move(int i, char ch);
     bool check_lead_to_rome() const;
+    int check_arrows();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const {
+        return sidelen() * sidelen() - m_finished.size();
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
-    string m_cells;
-    map<int, vector<int>> m_matches;
+    vector<puz_cell> m_cells;
+    set<Position> m_finished;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_cells)
+: m_game(&g), m_cells(g.m_sidelen * g.m_sidelen)
 {
-    for (int i = 0; i < g.m_areas.size(); ++i) {
-        vector<int> perm_ids(g.m_size2perms.at(g.m_areas[i].size()).size());
-        boost::iota(perm_ids, 0);
-        m_matches[i] = perm_ids;
-    }
-
-    find_matches(true);
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            auto& cl = cells(p);
+            if (char ch = g.cells(p); ch != PUZ_SPACE)
+                cl.push_back(ch);
+            else
+                for (int i = 0; i < 4; ++i)
+                    if (auto p2 = p + offset[i]; is_valid(p2))
+                        cl.push_back(tool_dirs[i]);
+        }
+    m_finished.insert_range(m_game->m_romes);
+    check_arrows();
 }
 
-int puz_state::find_matches(bool init)
+int puz_state::check_arrows()
 {
-    for (auto& [area_id, perm_ids] : m_matches) {
-        auto& area = m_game->m_areas[area_id];
-        auto& perms = m_game->m_size2perms.at(area.size());
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            return !boost::equal(area, perms[id], [&](const Position& p, char ch2) {
-                char ch1 = cells(p);
-                return ch1 == PUZ_SPACE || ch1 == ch2;
-            });
-        });
-
-        if (!init)
-            switch(perm_ids.size()) {
-            case 0:
-                return 0;
-            case 1:
-                return make_move2(area_id, perm_ids.front()), 1;
+    int n = 2;
+    for (;;) {
+        set<Position> newly_finished;
+        for (int r = 0; r < sidelen(); ++r)
+            for (int c = 0; c < sidelen(); ++c) {
+                Position p(r, c);
+                if (m_finished.contains(p)) continue;
+                auto& cl = cells(p);
+                if (cl.size() != 1) continue;
+                newly_finished.insert(p);
             }
+        
+        if (newly_finished.empty())
+            return n;
+        
+        n = 1;
+        for (auto& p : newly_finished) {
+            char ch = cells(p)[0];
+            auto& area = m_game->m_areas[m_game->m_pos2area.at(p)];
+            for (auto& p2 : area)
+                if (p2 != p)
+                    if (auto& cl = cells(p2); cl.size() > 1)
+                        boost::remove_erase(cl, ch);
+            int d = tool_dirs.find(ch);
+            if (auto& cl = cells(p + offset[d]); cl.size() > 1)
+                boost::remove_erase(cl, tool_dirs[(d + 2) % 4]);
+        }
+        m_finished.insert_range(newly_finished);
+        m_distance += newly_finished.size();
     }
-    return check_lead_to_rome() ? 2 : 0;
 }
 
 struct puz_state3 : Position
@@ -206,7 +205,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (int i = 0; i < 4; ++i)
         if (auto p2 = *this + offset[i]; m_state->is_valid(p2))
-            if (char ch = m_state->cells(p2); ch == PUZ_SPACE || ch == tool_dirs[(i + 2) % 4])
+            if (auto& cl = m_state->cells(p2);
+                boost::algorithm::any_of_equal(cl, tool_dirs[(i + 2) % 4]))
                 children.emplace_back(*this).make_move(p2);
 }
 
@@ -220,36 +220,25 @@ bool puz_state::check_lead_to_rome() const
     return rng.size() == sidelen() * sidelen();
 }
 
-void puz_state::make_move2(int i, int j)
+bool puz_state::make_move(int i, char ch)
 {
-    auto& range = m_game->m_areas[i];
-    auto& perm = m_game->m_size2perms.at(range.size())[j];
-
-    for (int k = 0; k < perm.size(); ++k)
-        cells(range[k]) = perm[k];
-
-    ++m_distance;
-    m_matches.erase(i);
-}
-
-bool puz_state::make_move(int i, int j)
-{
-    m_distance = 0;
-    make_move2(i, j);
-    int m;
-    while ((m = find_matches(false)) == 1);
-    return m == 2;
+    m_distance = 1;
+    m_cells[i] = {ch};
+    return check_arrows(), check_lead_to_rome();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [area_id, perm_ids] = *boost::min_element(m_matches, [](
-        const pair<const int, vector<int>>& kv1, 
-        const pair<const int, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (int n : perm_ids)
-        if (!children.emplace_back(*this).make_move(area_id, n))
+    int i = boost::min_element(m_cells, [](const puz_cell& cl1, const puz_cell& cl2) {
+        auto f = [](const puz_cell& cl) {
+            int sz = cl.size();
+            return sz == 1 ? 100 : sz;
+        };
+        return f(cl1) < f(cl2);
+    }) - m_cells.begin();
+    auto& cl = m_cells[i];
+    for (int n : cl)
+        if (!children.emplace_back(*this).make_move(i, n))
             children.pop_back();
 }
 
@@ -266,7 +255,7 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
             if (c == sidelen()) break;
-            out << cells(p);
+            out << cells(p)[0];
         }
         println(out);
     }
