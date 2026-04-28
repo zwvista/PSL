@@ -120,7 +120,7 @@ struct puz_state
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i, char ch);
     bool check_lead_to_rome() const;
-    int check_arrows();
+    bool check_arrows();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -156,9 +156,8 @@ puz_state::puz_state(const puz_game& g)
     check_arrows();
 }
 
-int puz_state::check_arrows()
+bool puz_state::check_arrows()
 {
-    int n = 2;
     for (;;) {
         set<Position> newly_finished;
         for (int r = 0; r < sidelen(); ++r)
@@ -171,19 +170,31 @@ int puz_state::check_arrows()
             }
         
         if (newly_finished.empty())
-            return n;
-        
-        n = 1;
+            return true;
+
+        auto f = [&](const Position& p, char ch) {
+            auto& cl = cells(p);
+            if (cl.size() == 1) return true;
+            boost::remove_erase(cl, ch);
+            // 3. Arrows in an area should all be different, i.e. there can't be two
+            //    similar arrows in an area.
+            set<char> chars;
+            int n = 0;
+            auto& area = m_game->m_areas[m_game->m_pos2area.at(p)];
+            for (auto& p2 : area)
+                if (auto& cl2 = cells(p2); cl2.size() == 1)
+                    chars.insert(cl2[0]), n++;
+            return chars.size() == n;
+        };
         for (auto& p : newly_finished) {
             char ch = cells(p)[0];
             auto& area = m_game->m_areas[m_game->m_pos2area.at(p)];
             for (auto& p2 : area)
-                if (p2 != p)
-                    if (auto& cl = cells(p2); cl.size() > 1)
-                        boost::remove_erase(cl, ch);
-            int d = tool_dirs.find(ch);
-            if (auto& cl = cells(p + offset[d]); cl.size() > 1)
-                boost::remove_erase(cl, tool_dirs[(d + 2) % 4]);
+                if (p2 != p && !f(p2, ch))
+                    return false;
+            if (int d = tool_dirs.find(ch);
+                !f(p + offset[d], tool_dirs[(d + 2) % 4]))
+                return false;
         }
         m_finished.insert_range(newly_finished);
         m_distance += newly_finished.size();
@@ -210,6 +221,10 @@ void puz_state3::gen_children(list<puz_state3>& children) const
                 children.emplace_back(*this).make_move(p2);
 }
 
+// 1. All the roads lead to Rome.
+// 2. Hence you should fill the remaining spaces with arrows and in the
+//    end, starting at any tile and following the arrows, you should get
+//    at the Rome icon.
 bool puz_state::check_lead_to_rome() const
 {
     set<Position> rng;
@@ -224,7 +239,7 @@ bool puz_state::make_move(int i, char ch)
 {
     m_distance = 1;
     m_cells[i] = {ch};
-    return check_arrows(), check_lead_to_rome();
+    return check_arrows() && check_lead_to_rome();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -237,8 +252,8 @@ void puz_state::gen_children(list<puz_state>& children) const
         return f(cl1) < f(cl2);
     }) - m_cells.begin();
     auto& cl = m_cells[i];
-    for (int n : cl)
-        if (!children.emplace_back(*this).make_move(i, n))
+    for (char ch : cl)
+        if (!children.emplace_back(*this).make_move(i, ch))
             children.pop_back();
 }
 
