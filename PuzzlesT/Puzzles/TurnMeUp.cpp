@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -33,14 +32,16 @@ inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0
 
 constexpr int lineseg_off = 0;
 
+using puz_move = vector<Position>;
+
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     map<Position, char> m_pos2ch;
     string m_cells;
-    map<Position, vector<vector<Position>>> m_pos2perms;
-    map<Position, vector<pair<Position, int>>> m_pos2perminfo;
+    vector<puz_move> m_moves;
+    map<Position, vector<int>> m_pos2move_id;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
@@ -70,7 +71,6 @@ struct puz_state2 : vector<Position>
     }
     void make_move(int i, Position p2);
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
     Position m_p;
@@ -88,6 +88,8 @@ void puz_state2::make_move(int i, Position p2)
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
+    if (is_goal_state())
+        return;
     auto& p = back();
     for (int i = 0; i < 4; ++i) {
         if (m_last_dir == (i + 2) % 4) continue;
@@ -114,16 +116,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (auto& [p, ch] : m_pos2ch) {
-        puz_state2 sstart(this, p, ch);
-        list<list<puz_state2>> spaths;
-        if (auto [found, _1] = puz_solver_bfs<puz_state2, true, false, false>::find_solution(sstart, spaths); found)
-            // save all goal states as permutations
-            // A goal state is a line starting from N to N
-            for (auto& perms = m_pos2perms[p]; auto& spath : spaths) {
-                auto& perm = spath.back();
-                for (int n = perms.size(); auto& p2 : perm)
-                    m_pos2perminfo[p2].emplace_back(p, n);
-                perms.push_back(perm);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, ch});
+        for (auto& s : smoves)
+            if (s.is_goal_state()) {
+                int n = m_moves.size();
+                m_moves.push_back(s);
+                m_pos2move_id[p].push_back(n);
+                for (auto& p2 : s)
+                    m_pos2move_id[p2].push_back(n);
             }
     }
 }
@@ -137,8 +137,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots);
     }
-    bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move(int n);
+    void make_move2(int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -151,44 +151,44 @@ struct puz_state
 
     const puz_game* m_game;
     vector<int> m_dots;
-    map<Position, vector<pair<Position, int>>> m_matches;
+    map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_dots(g.m_sidelen * g.m_sidelen)
-, m_matches(g.m_pos2perminfo)
+, m_matches(g.m_pos2move_id)
 {
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, infos] : m_matches) {
-        boost::remove_erase_if(infos, [&](const pair<Position, int>& info) {
-            auto& perm = m_game->m_pos2perms.at(info.first)[info.second];
-            return !boost::algorithm::all_of(perm, [&](const Position& p2) {
-                return m_matches.contains(p2);
+    for (auto& [_1, move_ids] : m_matches) {
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& move = m_game->m_moves[id];
+            return !boost::algorithm::all_of(move, [&](const Position& p2) {
+                return dots(p2) == lineseg_off;
             });
         });
 
         if (!init)
-            switch(infos.size()) {
+            switch(move_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(infos[0].first, infos[0].second), 1;
+                return make_move2(move_ids.front()), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(int n)
 {
-    auto& perm = m_game->m_pos2perms.at(p)[n];
-    for (int i = 0, sz = perm.size(); i < sz; ++i) {
-        auto& p2 = perm[i];
+    auto& move = m_game->m_moves[n];
+    for (int i = 0, sz = move.size(); i < sz; ++i) {
+        auto& p2 = move[i];
         auto f = [&](const Position& p3) {
             int dir = boost::find(offset, p3 - p2) - offset.begin();
             dots(p2) |= 1 << dir;
@@ -196,16 +196,16 @@ void puz_state::make_move2(const Position& p, int n)
             m_matches.erase(p2), ++m_distance;
         };
         if (i < sz - 1)
-            f(perm[i + 1]);
+            f(move[i + 1]);
         if (i > 0)
-            f(perm[i - 1]);
+            f(move[i - 1]);
     }
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -213,13 +213,13 @@ bool puz_state::make_move(const Position& p, int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, infos] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<pair<Position, int>>>& kv1,
-        const pair<const Position, vector<pair<Position, int>>>& kv2) {
+    auto& [_1, move_ids] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (auto& info : infos)
-        if (!children.emplace_back(*this).make_move(info.first, info.second))
+    for (int n : move_ids)
+        if (!children.emplace_back(*this).make_move(n))
             children.pop_back();
 }
 
