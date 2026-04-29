@@ -105,12 +105,18 @@ struct puz_state
     bool make_move(int i, char ch);
     int check_magnets();
     bool check_hints();
+    unsigned int get_heuristic(vector<puz_hint> m_hints) const {
+        return boost::accumulate(m_hints, 0, [&](int acc, const puz_hint& h) {
+            return acc + (h.m_positive == PUZ_UNKNOWN ? 0 : h.m_positive) + (h.m_negative == PUZ_UNKNOWN ? 0 : h.m_negative);
+        });
+    }
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return sidelen() * sidelen() - m_finished.size();
+//        return sidelen() * sidelen() - m_finished.size() + get_heuristic(m_hints);
+        return get_heuristic(m_hints);
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
@@ -119,12 +125,14 @@ struct puz_state
     const puz_game* m_game;
     vector<puz_cell> m_cells;
     set<Position> m_finished;
+    vector<puz_hint> m_hints;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_sidelen * g.m_sidelen)
-, m_game(&g)
+: m_game(&g)
+, m_cells(g.m_sidelen * g.m_sidelen)
+, m_hints(g.m_hints)
 {
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
@@ -172,14 +180,16 @@ int puz_state::check_magnets()
                     }
         }
         m_finished.insert_range(newly_finished);
-        m_distance += newly_finished.size();
+//        m_distance += newly_finished.size();
     }
 }
 
 bool puz_state::check_hints()
 {
+    unsigned int h1 = get_heuristic(m_hints);
     for (int i = 0; i < sidelen() * 2; ++i) {
         auto& hint = m_game->m_hints[i];
+        auto& hint2 = m_hints[i];
         bool is_row = i < sidelen();
         for (int j = 0; j < 2; ++j) {
             bool is_positive = j == 0;
@@ -206,14 +216,17 @@ bool puz_state::check_hints()
                     if (auto& cl = cells(p); cl.size() > 1)
                         boost::remove_erase(cl, ch);
                 }
+            (is_positive ? hint2.m_positive : hint2.m_negative) = num - min_guaranteed;
         }
     }
+    m_distance += h1 - get_heuristic(m_hints);
     return true;
 }
 
 bool puz_state::make_move(int i, char ch)
 {
-    m_distance = 1;
+//    m_distance = 1;
+    m_distance = 0;
     m_cells[i] = {ch};
     for (;;) {
         int m = check_magnets();
@@ -225,12 +238,17 @@ bool puz_state::make_move(int i, char ch)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    int i = boost::min_element(m_cells, [](const puz_cell& cl1, const puz_cell& cl2) {
+    int i = boost::min_element(m_cells, [&](const puz_cell& cl1, const puz_cell& cl2) {
         auto f = [](const puz_cell& cl) {
             int sz = cl.size();
             return sz == 1 ? 100 : sz;
         };
-        return f(cl1) < f(cl2);
+        auto g = [&](const puz_cell& cl) {
+            int j = &cl - &m_cells[0];
+            int r = j / sidelen(), c = j % sidelen();
+            return (m_hints[r].m_positive == PUZ_UNKNOWN ? 1 : 0) + (m_hints[r].m_negative == PUZ_UNKNOWN ? 1 : 0) + (m_hints[c + sidelen()].m_positive == PUZ_UNKNOWN ? 1 : 0) + (m_hints[c + sidelen()].m_negative == PUZ_UNKNOWN ? 1 : 0);
+        };
+        return pair(f(cl1), g(cl1)) < pair(f(cl2), g(cl2));
     }) - m_cells.begin();
     auto& cl = m_cells[i];
     for (char ch : cl)
