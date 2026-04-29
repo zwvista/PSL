@@ -251,9 +251,7 @@ bool puz_state::check_loop() const
     if (is_goal_state() && area2num.size() != m_game->m_areas.size())
         return false;
     for (auto& [id, num] : area2num)
-        if (boost::algorithm::all_of(m_game->m_areas[id].second, [&](const Position& p) {
-            return rng.contains(p);
-        }) && num != 2 || num > 2)
+        if (num > 2)
             return false;
 
     // 3. the number on a Field tells you how many tiles you should go through it.
