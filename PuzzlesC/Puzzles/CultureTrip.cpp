@@ -190,7 +190,9 @@ int puz_state::find_matches(bool init)
         auto& area = m_game->m_areas[area_id];
 
         boost::remove_erase_if(visit_chars, [&](char ch2) {
-            return boost::algorithm::any_of(area, [&](const Position& p) {
+            return boost::algorithm::none_of(area, [&](const Position& p) {
+                return m_game->cells(p) == ch2;
+            }) || boost::algorithm::any_of(area, [&](const Position& p) {
                 char ch = m_game->cells(p);
                 if (ch == PUZ_SPACE) return false;
                 auto& dt = dots(p);
