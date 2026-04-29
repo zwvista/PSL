@@ -219,22 +219,36 @@ bool puz_state::check_loop() const
         }
 
     // 2. You can enter (and exit) the room only once.
-    map<int, int> area2num;
-    for (auto& p : rng) {
-        int area_id = m_game->m_pos2area.at(p);
-        int lineseg = dots(p)[0];
-        for (int i = 0; i < 4; ++i)
-            if (is_lineseg_on(lineseg, i)) {
-                int area_id2 = m_game->m_pos2area.at(p + offset[i]);
-                if (area_id != area_id2)
-                    area2num[area_id]++;
+    for (auto& area : m_game->m_areas) {
+        int num = 2;
+        int max_possible = 0;
+        int min_guaranteed = 0;
+
+        for (const auto& p : area) {
+            const auto& dt = dots(p);
+            int area_id1 = m_game->m_pos2area.at(p);
+            vector<int> v;
+            for (int lineseg : dt) {
+                int n = 0;
+                for (int i = 0; i < 4; ++i)
+                    if (is_lineseg_on(lineseg, i))
+                        if (int area_id2 = m_game->m_pos2area.at(p + offset[i]);
+                            area_id1 != area_id2)
+                            ++n;
+                v.push_back(n);
             }
+
+            max_possible += *boost::max_element(v);
+            min_guaranteed += *boost::min_element(v);
+        }
+
+        // Prune if we can't possibly reach the target
+        if (max_possible < num) return false;
+        // Prune if we have already exceeded the target
+        if (min_guaranteed > num) return false;
+        // Final check
+        if (is_goal_state() && min_guaranteed != num) return false;
     }
-    if (is_goal_state() && area2num.size() != m_game->m_areas.size())
-        return false;
-    for (auto& [id, num] : area2num)
-        if (is_goal_state() && num != 2 || num > 2)
-            return false;
 
     bool has_branch = false;
     while (!rng.empty()) {
