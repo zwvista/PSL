@@ -235,6 +235,27 @@ bool puz_state::check_loop() const
                 if (int area_id2 = m_game->m_pos2area.at(p2); area_id1 != area_id2)
                     return false;
 
+    // 2. The object is to have a walk around the Countryside, passing through
+    //    each Field just once.
+    map<int, int> area2num;
+    for (auto& p : rng) {
+        int area_id = m_game->m_pos2area.at(p);
+        int lineseg = dots(p)[0];
+        for (int i = 0; i < 4; ++i)
+            if (is_lineseg_on(lineseg, i)) {
+                int area_id2 = m_game->m_pos2area.at(p + offset[i]);
+                if (area_id != area_id2)
+                    area2num[area_id]++;
+            }
+    }
+    if (is_goal_state() && area2num.size() != m_game->m_areas.size())
+        return false;
+    for (auto& [id, num] : area2num)
+        if (boost::algorithm::all_of(m_game->m_areas[id].second, [&](const Position& p) {
+            return rng.contains(p);
+        }) && num != 2 || num > 2)
+            return false;
+
     // 3. the number on a Field tells you how many tiles you should go through it.
     // 4. A Field with no number can be passed through in any number of tiles,
     // at least one.
@@ -262,8 +283,7 @@ bool puz_state::check_loop() const
     bool has_branch = false;
     while (!rng.empty()) {
         auto p = *rng.begin(), p2 = p;
-        set<int> area_ids;
-        for (int n = -1, last_area_id = -1;;) {
+        for (int n = -1;;) {
             rng.erase(p2);
             auto& lineseg = dots(p2)[0];
             for (int i = 0; i < 4; ++i)
@@ -272,12 +292,6 @@ bool puz_state::check_loop() const
                     p2 += offset[n = i];
                     break;
                 }
-            int area_id = m_game->m_pos2area.at(p2);
-            if (!area_ids.contains(area_id))
-                area_ids.insert(area_id);
-            else if (last_area_id != area_id && area_ids.size() != m_game->m_areas.size())
-                return false;
-            last_area_id = area_id;
             if (p2 == p)
                 // we have a loop here,
                 // and we are supposed to have exhausted the line segments
@@ -296,6 +310,14 @@ bool puz_state::make_move_dot(const Position& p, int n)
     m_distance = 0;
     auto& dt = dots(p);
     dt = {dt[n]};
+    // 6. Two adjacent empty tiles cannot be in two different Fields.
+    if (dt[0] == lineseg_off)
+        for (int area_id1 = m_game->m_pos2area.at(p); auto& os : offset)
+            if (auto p2 = p + os; is_valid(p2))
+                if (int area_id2 = m_game->m_pos2area.at(p2); area_id1 != area_id2)
+                    if (auto& dt2 = dots(p2); dt2.size() > 1 && dt2[0] == lineseg_off)
+                        dt2.erase(dt2.begin());
+
     int m = check_dots(false);
     return m == 1 ? check_loop() : m == 2;
 }

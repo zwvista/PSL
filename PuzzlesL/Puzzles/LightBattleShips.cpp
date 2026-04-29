@@ -225,7 +225,8 @@ void puz_state::find_matches()
                         if (f(p2))
                             m_pos_matches[p].emplace_back(i, p2 + Position(-1, -1), vert);
                     }
-                } else
+                }
+            else
                 for (int r = 0; r < sidelen() - (!vert ? 0 : len - 1); ++r) {
                     if (!vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
                         return kv.first.first == r && kv.second < len;
