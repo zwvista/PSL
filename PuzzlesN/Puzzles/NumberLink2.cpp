@@ -31,6 +31,7 @@
 namespace puzzles::NumberLink2{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_LINE_OFF_MOVEID = -1;
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
@@ -118,11 +119,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells = boost::accumulate(strs, string());
     for (int r = 0; r < m_sidelen; ++r) {
         string_view str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c)
-            if (char ch = str[c]; ch != PUZ_SPACE) {
-                Position p(r, c);
+        for (int c = 0; c < m_sidelen; ++c) {
+            Position p(r, c);
+            if (char ch = str[c]; ch != PUZ_SPACE)
                 m_pos2num[p] = ch, m_num2rng[ch].push_back(p);
-            }
+            else if (m_no_board_fill)
+                m_pos2move_ids[p].push_back(PUZ_LINE_OFF_MOVEID);
+        }
     }
 
     for (auto& [p, num] : m_pos2num) {
@@ -153,8 +156,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots);
     }
-    bool make_move(int n);
-    void make_move2(int n);
+    bool make_move(const Position& p, int n);
+    void make_move2(const Position& p, int n);
     int find_matches(bool init);
 
     //solve_puzzle interface
@@ -181,11 +184,11 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [_1, move_ids] : m_matches) {
+    for (auto& [p, move_ids] : m_matches) {
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& [path, _2] = m_game->m_moves[id];
             return !boost::algorithm::all_of(path, [&](const Position& p2) {
-                return dots(p2) == lineseg_off;
+                return m_matches.contains(p2);
             });
         });
 
@@ -194,34 +197,38 @@ int puz_state::find_matches(bool init)
             case 0:
                 return 0;
             case 1:
-                return make_move2(move_ids.front()), 1;
+                return make_move2(p, move_ids.front()), 1;
             }
     }
     return 2;
 }
 
-void puz_state::make_move2(int n)
+void puz_state::make_move2(const Position& p, int n)
 {
-    auto& [path, _1] = m_game->m_moves[n];
-    for (int i = 0, sz = path.size(); i < sz; ++i) {
-        auto& p2 = path[i];
-        auto f = [&](const Position& p3) {
-            int dir = boost::find(offset, p3 - p2) - offset.begin();
-            dots(p2) |= 1 << dir;
-            dots(p3) |= 1 << (dir + 2) % 4;
-            m_matches.erase(p2), ++m_distance;
-        };
-        if (i < sz - 1)
-            f(path[i + 1]);
-        if (i > 0)
-            f(path[i - 1]);
+    if (n == PUZ_LINE_OFF_MOVEID) {
+        m_matches.erase(p), ++m_distance;
+    } else {
+        auto& [path, _1] = m_game->m_moves[n];
+        for (int i = 0, sz = path.size(); i < sz; ++i) {
+            auto& p2 = path[i];
+            auto f = [&](const Position& p3) {
+                int dir = boost::find(offset, p3 - p2) - offset.begin();
+                dots(p2) |= 1 << dir;
+                dots(p3) |= 1 << (dir + 2) % 4;
+                m_matches.erase(p2), ++m_distance;
+            };
+            if (i < sz - 1)
+                f(path[i + 1]);
+            if (i > 0)
+                f(path[i - 1]);
+        }
     }
 }
 
-bool puz_state::make_move(int n)
+bool puz_state::make_move(const Position& p, int n)
 {
     m_distance = 0;
-    make_move2(n);
+    make_move2(p, n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -229,13 +236,13 @@ bool puz_state::make_move(int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [_1, move_ids] = *boost::min_element(m_matches, [](
+    auto& [p, move_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
     for (int n : move_ids)
-        if (!children.emplace_back(*this).make_move(n))
+        if (!children.emplace_back(*this).make_move(p, n))
             children.pop_back();
 }
 
