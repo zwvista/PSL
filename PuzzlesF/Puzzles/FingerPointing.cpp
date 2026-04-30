@@ -33,7 +33,7 @@ struct puz_game
     string m_cells;
     map<Position, int> m_pos2num;
     vector<puz_move> m_moves;
-    map<Position, vector<int>> m_pos2move_id;
+    map<Position, vector<int>> m_pos2move_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
@@ -104,9 +104,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         move[p2] = dirs[(i + 2) % 4];
                 int n = m_moves.size();
                 m_moves.push_back(move);
-                m_pos2move_id[p].push_back(n);
+                m_pos2move_ids[p].push_back(n);
                 for (auto& [p2, ch] : move)
-                    m_pos2move_id[p2].push_back(n);
+                    m_pos2move_ids[p2].push_back(n);
             }
     }
 }
@@ -140,7 +140,7 @@ struct puz_state
 
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_cells), m_game(&g)
-, m_matches(g.m_pos2move_id)
+, m_matches(g.m_pos2move_ids)
 {
     for (auto& ch : m_cells)
         if (dirs.find(ch) != -1)
