@@ -155,7 +155,6 @@ struct puz_state
     // value.elem: the index of the box
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
-    char m_ch = 'a';
 };
 
 puz_state::puz_state(const puz_game& g)
