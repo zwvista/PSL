@@ -28,7 +28,7 @@ constexpr array<Position, 4> offset = Position::Directions4;
 
 using puz_rng2D = vector<set<Position>>;
 
-struct puz_area
+struct puz_move
 {
     vector<Position> m_rng_hints;
     vector<char> m_names;
@@ -41,8 +41,8 @@ struct puz_game
     int m_sidelen;
     map<Position, char> m_pos2letter;
     map<char, vector<Position>> m_letter2rng;
-    vector<puz_area> m_areas;
-    map<Position, vector<int>> m_pos2area_ids;
+    vector<puz_move> m_moves;
+    map<Position, vector<int>> m_pos2move_ids;
     string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -75,8 +75,8 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
                 // An adjacent tile can be occupied by the area
                 // if it is a space tile and has not been occupied by the area
                 return m_game->cells(p) == PUZ_SPACE &&
-                    boost::algorithm::all_of(*this, [&](const set<Position>& rng2) {
-                        return !rng2.contains(p);
+                    boost::algorithm::none_of(*this, [&](const set<Position>& rng2) {
+                        return rng2.contains(p);
                     });
             }))
                 children.emplace_back(*this).make_move(rng);
@@ -107,20 +107,19 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [letter, rng] : m_letter2rng) {
-        puz_state2 sstart(this, rng);
         vector<char> names;
         for (auto& p : rng)
             names.push_back(cells(p));
         // Areas can have any form.
-        auto smoves = puz_move_generator<puz_state2>::gen_moves(sstart);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, rng});
         // save all goal states as permutations
         // A goal state is an area formed from the letter(s)
         for (auto& rng2D : smoves) {
-            int n = m_areas.size();
-            m_areas.emplace_back(rng, names, rng2D);
+            int n = m_moves.size();
+            m_moves.emplace_back(rng, names, rng2D);
             for (auto& rng2 : rng2D)
                 for (auto& p2 : rng2)
-                    m_pos2area_ids[p2].push_back(n);
+                    m_pos2move_ids[p2].push_back(n);
         }
     }
 }
@@ -160,16 +159,16 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
-, m_matches(g.m_pos2area_ids)
+, m_matches(g.m_pos2move_ids)
 {
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [_1, area_ids] : m_matches) {
-        boost::remove_erase_if(area_ids, [&](int id) {
-            auto& [rng, _2, rng2D] = m_game->m_areas[id];
+    for (auto& [_1, move_ids] : m_matches) {
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [rng, _2, rng2D] = m_game->m_moves[id];
             return !boost::algorithm::all_of(rng2D, [&](const set<Position>& rng2) {
                 return boost::algorithm::all_of(rng2, [&](const Position& p2) {
                     return cells(p2) == PUZ_SPACE ||
@@ -179,11 +178,11 @@ int puz_state::find_matches(bool init)
         });
 
         if (!init)
-            switch(area_ids.size()) {
+            switch(move_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(area_ids[0]), 1;
+                return make_move2(move_ids[0]), 1;
             }
     }
     return 2;
@@ -191,7 +190,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int n)
 {
-    auto& [rng, names, rng2D] = m_game->m_areas[n];
+    auto& [rng, names, rng2D] = m_game->m_moves[n];
     for (int i = 0; i < names.size(); ++i) {
         auto& rng2 = rng2D[i];
         char ch2 = names[i];
@@ -211,12 +210,12 @@ bool puz_state::make_move(int n)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, area_ids] = *boost::min_element(m_matches, [](
+    auto& [p, move_ids] = *boost::min_element(m_matches, [](
         const pair<const Position, vector<int>>& kv1,
         const pair<const Position, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (int n : area_ids)
+    for (int n : move_ids)
         if (!children.emplace_back(*this).make_move(n))
             children.pop_back();
 }
