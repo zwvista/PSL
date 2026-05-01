@@ -19,7 +19,7 @@
        will have an L shape with the letter on the top left, etc.
 */
 
-namespace puzzles::AssemblyInstructions2{
+namespace puzzles::AssemblyInstructions{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_BOUNDARY = '`';
@@ -76,15 +76,12 @@ struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const {return m_game->m_sidelen;}
-    bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
-    }
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_pos2letters) < tie(x.m_cells, x.m_pos2letters);
     }
-    bool make_move(puz_move& move);
+    bool make_move(const puz_move& move);
     void gen_maps();
 
     //solve_puzzle interface
@@ -113,11 +110,11 @@ struct puz_state2 : vector<Position>
 {
     puz_state2(const puz_state* s, const vector<Position>& rng)
         : vector<Position>(rng.size()), m_state(s) { make_move(rng); }
-
     void make_move(const vector<Position>& rng) {
         for (int i = 0; i < rng.size(); ++i)
             (*this)[i] = rng[i];
     }
+
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
@@ -151,7 +148,7 @@ void puz_state::gen_maps()
     }
 }
 
-bool puz_state::make_move(puz_move& move)
+bool puz_state::make_move(const puz_move& move)
 {
     m_distance = 0;
     auto& [letter, _1, names, rng2D] = move;
@@ -170,6 +167,10 @@ struct puz_state3 : puz_rng2D
 {
     puz_state3(const puz_state* s, const vector<Position>& rng, const vector<Position>& rng2)
         : puz_rng2D(rng.size()), m_state(s), m_rng2(rng2) { make_move(rng); }
+    void make_move(const vector<Position>& rng) {
+        for (int i = 0; i < rng.size(); ++i)
+            (*this)[i].insert(rng[i]);
+    }
 
     bool is_goal_state() const {
         return boost::algorithm::all_of(m_rng2, [&](const Position& p) {
@@ -177,10 +178,6 @@ struct puz_state3 : puz_rng2D
                 return rng.contains(p);
             });
         });
-    }
-    void make_move(const vector<Position>& rng) {
-        for (int i = 0; i < rng.size(); ++i)
-            (*this)[i].insert(rng[i]);
     }
     void gen_children(list<puz_state3>& children) const;
 
@@ -194,11 +191,8 @@ void puz_state3::gen_children(list<puz_state3>& children) const {
         for (auto& os : offset) {
             vector<Position> rng;
             for (int i = 0; i < size(); ++i)
-                // Areas extend horizontally or vertically
                 rng.push_back(*next(at(i).begin(), j) + os);
             if (boost::algorithm::all_of(rng, [&](const Position& p) {
-                // An adjacent tile can be occupied by the area
-                // if it is a space tile and has not been occupied by the area
                 return m_state->cells(p) == PUZ_SPACE &&
                     boost::algorithm::none_of(*this, [&](const set<Position>& rng2) {
                         return rng2.contains(p);
@@ -247,7 +241,7 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     auto f = [&](const Position& p1, const Position& p2) {
-        return !is_valid(p1) || !is_valid(p2) || cells(p1) != cells(p2);
+        return cells(p1) != cells(p2);
     };
     for (int r = 1;; ++r) {
         // draw horizontal lines
@@ -272,9 +266,9 @@ ostream& puz_state::dump(ostream& out) const
 
 }
 
-void solve_puz_AssemblyInstructions2()
+void solve_puz_AssemblyInstructions()
 {
-    using namespace puzzles::AssemblyInstructions2;
+    using namespace puzzles::AssemblyInstructions;
     solve_puzzle<puz_game, puz_state, puz_solver_astar<puz_state>>(
         "Puzzles/AssemblyInstructions.xml", "Puzzles/AssemblyInstructions.txt", solution_format::GOAL_STATE_ONLY);
 }
