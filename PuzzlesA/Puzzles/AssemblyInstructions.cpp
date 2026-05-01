@@ -98,6 +98,7 @@ struct puz_state
     const puz_game* m_game;
     string m_cells;
     map<Position, set<char>> m_pos2letters;
+    map<char, int> m_letter2size;
     set<char> m_finished;
     unsigned int m_distance = 0;
 };
@@ -138,9 +139,11 @@ void puz_state::gen_maps()
 {
     for (auto& [_1, rng] : m_pos2letters)
         rng.clear();
+    m_letter2size.clear();
     for (auto& [letter, rng] : m_game->m_letter2rng) {
         if (m_finished.contains(letter)) continue;
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, rng});
+        m_letter2size[letter] = smoves.size();
         for (auto& v : smoves)
             for (auto& p : v)
                 if (cells(p) == PUZ_SPACE)
@@ -207,10 +210,16 @@ void puz_state3::gen_children(list<puz_state3>& children) const {
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, letters] = *boost::min_element(m_pos2letters, [](
+    auto& [p, letters] = *boost::min_element(m_pos2letters, [&](
         const pair<const Position, set<char>>& kv1,
         const pair<const Position, set<char>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
+        auto f = [&](const set<char>& letters) {
+            int sz_all = boost::accumulate(letters, 0, [&](int acc, char letter) {
+                return acc + m_letter2size.at(letter);
+            });
+            return pair(letters.size(), sz_all);
+        };
+        return f(kv1.second) < f(kv2.second);
     });
     vector<puz_move> moves;
     for (auto& letter : letters) {
