@@ -64,7 +64,6 @@ struct puz_state2 : set<Position>
 
     bool is_goal_state() const { return size() == m_hint->second; }
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
     const puz_hint* m_hint;
@@ -301,7 +300,6 @@ struct puz_state5 : set<Position>
     void make_move(const Position& p);
 
     void gen_children(list<puz_state5>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_state* m_state;
     char m_ch, m_ch2;

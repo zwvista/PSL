@@ -85,6 +85,7 @@ struct puz_state
     }
     bool make_move(const puz_move& move);
     void gen_maps();
+    bool check_hints(bool check_empty, bool check_wall) const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -163,6 +164,58 @@ void puz_state::gen_maps()
     }
 }
 
+struct puz_state4 : Position
+{
+    puz_state4(const set<Position>* area)
+    : m_area(area) { make_move(*area->begin()); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state4>& children) const;
+
+    const set<Position>* m_area;
+};
+
+void puz_state4::gen_children(list<puz_state4>& children) const
+{
+    for (auto& os : offset)
+        if (auto p2 = *this + os;
+            m_area->contains(p2))
+            children.emplace_back(*this).make_move(p2);
+}
+
+bool puz_state::check_hints(bool check_empty, bool check_wall) const
+{
+    set<Position> area;
+    map<Position, int> pos2hint;
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c)
+            switch(Position p(r, c); char ch = cells(p)) {
+            case PUZ_SPACE:
+            case PUZ_EMPTY2:
+            case PUZ_WALL2:
+                if (!check_empty && ch == PUZ_EMPTY2 || !check_wall && ch == PUZ_WALL2)
+                    break;
+                area.insert(p);
+                break;
+            default:
+                if (!check_empty && ch == PUZ_EMPTY || !check_wall && ch == PUZ_WALL)
+                    break;
+                area.insert(p);
+            }
+    while (!area.empty()) {
+        auto smoves = puz_move_generator<puz_state4>::gen_moves({&area});
+        int num = boost::accumulate(smoves, 0, [&](int acc, const Position& p) {
+            auto it = m_game->m_pos2hint_info.find(p);
+            return acc + (it == m_game->m_pos2hint_info.end() ? 0 : it->second.second);
+        });
+        if (check_empty && check_wall && smoves.size() != num || smoves.size() < num)
+            return false;
+        for (auto& p : smoves)
+            area.erase(p);
+    }
+    return true;
+}
+
 bool puz_state::make_move(const puz_move& move)
 {
     m_distance = 0;
@@ -179,7 +232,7 @@ bool puz_state::make_move(const puz_move& move)
     gen_maps();
     return boost::algorithm::none_of(m_pos2hints, [&](const pair<const Position, set<Position>>& kv) {
         return kv.second.empty();
-    });
+    }) && check_hints(true, false) && check_hints(false, true) && check_hints(true, true);
 }
 
 struct puz_state3 : set<Position>
