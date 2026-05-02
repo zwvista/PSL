@@ -1215,14 +1215,14 @@ b C  B  c`
   <level id="105">
     <![CDATA[
  BB ACC  `
-AAB a B  `
- aB   B  `
+AAB b B  `
+ cB   B  `
     BAA a`
  B  BCCC `
-  Ca  B A`
+  Cb  B A`
 a  CA a  `
  A   C   `
- A  C   a`
+ A  C   b`
     ]]>
   </level>
   <level id="106">
@@ -1253,15 +1253,15 @@ AA A BC  `
   </level>
   <level id="108">
     <![CDATA[
- C  a   B`
+ C  c   B`
 AAC    B `
-C BB A  a`
+C BB A  c`
  B    C A`
- Ba  B aA`
+ Ba  B bA`
 BBCC B C `
-  aA  AC `
-   A aCC `
-a  a   B `
+  bA  AC `
+   A bCC `
+c  B   B `
     ]]>
   </level>
   <level id="109">
@@ -1684,7 +1684,7 @@ a  aC BA `
     <![CDATA[
  a      B`
 B C   AA `
-   a C Aa`
+   a C Ac`
 AA     C `
   BB   CC`
  A A BB b`
@@ -1791,8 +1791,8 @@ b C A C  `
  c BA   C`
 CA B  b C`
 C   CC  A`
-  b    AA`
-b  C B B `
+  a    AA`
+a  C B B `
    AC CB `
 BCC      `
     ]]>
@@ -2248,18 +2248,18 @@ a   b BAb AA`
   </level>
   <level id="182">
     <![CDATA[
-  CCA A  Bc `
+  CCA A  Ba `
  BBC    c  B`
-AC AAc  BAB `
-AAc        C`
+AC AAC  BAB `
+AAC        C`
    AAB CCB C`
  CC  CBB BAA`
-B  c  cAA  c`
-C cCCC  ABB `
-CBBC  AcA AA`
-  c B    AAA`
- A  c A CC c`
-c   BB      `
+B  a  cAA  c`
+C aCCC  ABB `
+CBBC  ACA AA`
+  a B    AAA`
+ A  a A CC c`
+C   BB      `
     ]]>
   </level>
   <level id="183">
@@ -2312,18 +2312,18 @@ AB C BBA C C`
   </level>
   <level id="186">
     <![CDATA[
- B   AcABBC `
+ B   AbABBC `
  B AC CA   A`
-c  BaB  c AA`
+b  BaB  c AA`
  C B B A C  `
- CC  BAc cAc`
+ CC  BAb bAb`
 C  BB   A AC`
-  aBAACc    `
-cBB Ac   CC `
+  aBAACb    `
+cBB Ab   CC `
  ACCC B  CBB`
-B c   B   AA`
+B b   B   AA`
 B  C C  CC  `
-BAA C   c  a`
+BAA C   b  a`
     ]]>
   </level>
   <level id="187">
@@ -2344,18 +2344,18 @@ CC  b ABc c `
   </level>
   <level id="188">
     <![CDATA[
- A  a AaB CC`
- A   AA  C a`
-B  a  AACC  `
+ A  b AcB CC`
+ A   AA  C b`
+B  c  AACC  `
 CB  C B  AA `
   A CaBA  BB`
-a A BBa A CC`
-  a  BBa  A `
- BBB BCC   a`
+b A BBc A CC`
+  c  BBa  A `
+ BBB BCC   c`
  A C BCC    `
 AAA   C  aB `
   B  C  C BB`
-A BAC  BB Ba`
+A BAC  BB Bc`
     ]]>
   </level>
   <level id="189">
@@ -2584,17 +2584,17 @@ CCCB C AB A `
   </level>
   <level id="203">
     <![CDATA[
-AC c A c CB `
+AC b A b CB `
 AC  C CAA  B`
  B  BBCCAA  `
- Bc  BA  C C`
-cB  AAc  AAC`
+ Ba  BA  C C`
+cB  AAb  AAC`
   BA   A AC `
-C BA AA BBc `
- c ACB  A B `
-  AC cCBBBC `
+C BA AA BBa `
+ a ACB  A B `
+  AC aCBBBC `
 B  CC C  A  `
- AACA BC  c `
+ AACA BC  b `
 B    C CB A `
     ]]>
   </level>
@@ -2635,15 +2635,15 @@ BBAC ABB C c`
 CCC  C BAA  `
   ABa CBCCBB`
 AA C AA B C `
-Aa  B   aAAA`
+Ab  B   cAAA`
 A C   A     `
  BBCCCA  A  `
   B  BCC CB `
-C  aBB A C a`
+C  cBB A C a`
 B  AC BCA   `
 B A C  C    `
-BAA  a CB AC`
-B a a  a aA `
+BAA  b CB AC`
+B b c  a cA `
     ]]>
   </level>
   <level id="207">
@@ -2669,12 +2669,12 @@ AA    C  AAC`
  C BB CCCA  `
 B  cB CCAA  `
 CAA  B   CCC`
-CCBB  BBaA A`
+CCBB  BBcA A`
 CCC   AB  AA`
 A    b   C c`
 A   AAA  CC `
 bAAC BB A   `
- A  aC Aa C `
+ A  aC Ac C `
 b AB CbA  C `
     ]]>
   </level>
@@ -2716,11 +2716,11 @@ CC C aBB A  `
   AC Ca CA  `
 CC C    AAAA`
   C   aB AAA`
-b  A A b   C`
+b  A A c   C`
  A  BB BB C `
-BBb CC C   B`
+BBc CC C   B`
 A  A   C C B`
-bACBC  A   B`
+cACBC  A   B`
   CB bA CCAA`
  B B   A b  `
  B  A C A CC`
@@ -2936,18 +2936,18 @@ A B BACA C  `
   </level>
   <level id="225">
     <![CDATA[
-CCA  B C   b`
+CCA  B C   a`
 C AA A CC B `
   C CABC BBA`
   AA  c   B `
-b CAB ACC b `
+b CAB ACC a `
   CC  AABB C`
 C     BAAA b`
- B bBB  A CC`
+ B aBB  A CC`
    BB    A  `
 BABc  A   BB`
   B  CC BC c`
-Ac  A b  b  `
+Ac  A a  a  `
     ]]>
   </level>
   <level id="226">
@@ -3184,26 +3184,26 @@ CCC b  A b  `
  ACbAA  B Bc`
  A CCb CB   `
 CC A  CCA  B`
- CB C AA Bc `
+ CB C AA Ba `
    AA C  A A`
-BB B   cC C `
-BB Bc       `
+BB B   aC C `
+BB Ba       `
     ]]>
   </level>
   <level id="241">
     <![CDATA[
-B b AA  b C `
+B a AA  c C `
 A BA   BB   `
  A CC  B   C`
-C b bCC    A`
+C a aCC    A`
   CBBB  AAAA`
    C AC BBB `
- C  C C   Bb`
-AAABCB CB   `
-B  BBC CCC  `
+ C  C C   Ba`
+AAABCB Cb   `
+b  BBC CCC  `
   B    BAA B`
- C A   CC bB`
-BBb  B C A  `
+ C A   CC cB`
+BBa  B C A  `
     ]]>
   </level>
   <level id="242">
@@ -3256,18 +3256,18 @@ B   ABA bAC `
   </level>
   <level id="245">
     <![CDATA[
- BB   CB   b`
+ BB   Cb   c`
 AABAA C  B  `
  bCCC     B `
  AAA C AC   `
  b A Cb  CCC`
-  bC BAb C  `
+  bC BAc C  `
    CAAA  B  `
  C B B AAB  `
 BB BAA C  b `
 AA  CBBB C b`
   A CACCC   `
- b B A BA  C`
+ c B A BA  C`
     ]]>
   </level>
   <level id="246">
@@ -3304,18 +3304,18 @@ A BBB  BCCC `
   </level>
   <level id="248">
     <![CDATA[
-AA  C  C a b`
-  bA CC  C  `
-bA bB  B CbC`
-BB   Bb     `
- b b   B  C `
+AA  C  C a a`
+  cA CC  C  `
+cA cB  B CaC`
+BB   Bc     `
+ a c   B  C `
 B    CAB B B`
-b  CC  AC A `
-A     bA  b `
+c  CC  AC A `
+A     bA  c `
  BB b C C   `
-CC   b  b B `
+CC   c  b B `
   AAb B  C B`
-CCbAAB b  C `
+CCbAAB a  C `
     ]]>
   </level>
   <level id="249">
@@ -3560,18 +3560,18 @@ C  C B AAAA `
   </level>
   <level id="264">
     <![CDATA[
-b   BC B  AA`
+a   BC B  AA`
  BCC BCB    `
   b B CAC A `
    B    C   `
- b  C bB CC `
-AA A  BB  bC`
+ b  C cB CC `
+AA A  BB  aC`
 BA AAC C B  `
-b b  A  A  B`
+a b  A  A  B`
      B   B B`
- b AA   ACCC`
+ a AA   ACCC`
 BC    B BCCC`
- CC AABbBBCb`
+ CC AABcBBCa`
     ]]>
   </level>
   <level id="265">
@@ -3849,12 +3849,12 @@ AC aBA   b  `
   <level id="282">
     <![CDATA[
  C   B  A   `
-  B c b BCCC`
+  B c a BCCC`
     A    BCC`
 Ac B  C CC  `
- Ac  b B BBB`
+ Ac  a B BBB`
 A     B CBCC`
-  b  cAAA  b`
+  b  cAAA  a`
  b     A    `
     b   CCBB`
 B ACC Bc C  `
@@ -4152,17 +4152,17 @@ B B  CC BB  `
   </level>
   <level id="301">
     <![CDATA[
-  C   aAAAA `
+  C   bAAAA `
  A  BB A B C`
   C B  A BA `
-BB  A c  aBB`
- a   A  CC C`
-BB Ba   a C `
-   B BB    a`
- a A C C B  `
- AAAA   a   `
+BB  A c  CBB`
+ C   A  CC C`
+BB BC   C C `
+   B BB    C`
+ b A C C B  `
+ AAAA   b   `
 C     B    A`
- a B A  A   `
+ C B A  A   `
 BB Bc C C  A`
     ]]>
   </level>
@@ -4232,18 +4232,18 @@ BBB  A      `
   </level>
   <level id="306">
     <![CDATA[
- CCCc A  B  `
-AC c  A B  c`
- Cc    c B  `
+ CCCa A  B  `
+AC a  A B  c`
+ Cb    a B  `
  CC  C  B  A`
 A B B     AA`
-c  cB A CCCC`
-  C c  c BB `
+b  aB A CCCC`
+  C a  b BB `
             `
 BA AAB    AA`
-B A  B AAAc `
+B A  B AAAb `
    BB  CA  C`
-cB BcBB A C `
+cB BaBB A C `
     ]]>
   </level>
   <level id="307">
@@ -4264,12 +4264,12 @@ ABA  C BBB  `
   </level>
   <level id="308">
     <![CDATA[
-a     a  C  `
+a     b  C  `
  A Ba  C BBB`
-A B   a BC  `
+A B   b BC  `
   B   A B BB`
       A C   `
-a    AA   A `
+b    AA   A `
   BBB   A  A`
   BAAA BB c `
 B    ABBA  B`
@@ -4376,18 +4376,18 @@ BB  CACC  A `
   </level>
   <level id="315">
     <![CDATA[
- a C   aB   `
+ a C   cB   `
 C CC   BBB B`
  C    A  AB `
-  b CCb   Ba`
+  b CCb   Bc`
        CBAB `
  bACC C  A A`
 AAC    CC BB`
 B  BAA C  AA`
-aB Ba       `
- A AA a   C `
+aB Bc       `
+ A AA c   C `
 AA B   B   b`
-Ab B CC CC  `
+Aa B CC CC  `
     ]]>
   </level>
   <level id="316">
@@ -4712,9 +4712,9 @@ a  C    A c `
   </level>
   <level id="336">
     <![CDATA[
- AA BB B  bC`
+ AA BB B  aC`
 c A        C`
-Ac bBB   A  `
+Ac aBB   A  `
 A    B C C  `
  BBBBC CC   `
   AC C C B B`
@@ -4858,16 +4858,16 @@ A  CC B Ab  `
     <![CDATA[
 cBB  a B   c`
    CC AAA  A`
-  B  BAc  A `
+  B  BAb  A `
  Ba c   CA  `
- B C C c AB `
+ B C C b AB `
 AA     C BB `
 A c C C aB  `
 AAA  a      `
-A       c B `
+A       b B `
    BB B  B a`
 C    B a BCC`
-C c     B cC`
+C c     B bC`
     ]]>
   </level>
   <level id="346">
@@ -4921,17 +4921,17 @@ c        AAA`
   <level id="349">
     <![CDATA[
   a    B a  `
-    c  cB AA`
+    b  bB AA`
    B CC   A `
-A   A  C   c`
-A B  BA B c `
- c  c ABB  c`
+A   A  C   b`
+A B  BA B b `
+ b  b ABB  b`
   A  B BCCCC`
 B   C   A   `
  Ba CC   B  `
 BBBA  B     `
-aB AB B  c a`
-BBcA CBa    `
+aB AB B  b a`
+BBbA CBa    `
     ]]>
   </level>
   <level id="350">
@@ -5256,17 +5256,17 @@ b  A     C  `
   </level>
   <level id="370">
     <![CDATA[
-BA  AA a  c `
+BA  AA b  c `
  AA A      A`
-cAc      a A`
+cAc      b A`
    B  c    C`
- C  C B    a`
- CCC aBB B  `
- C  BBBa C B`
+ C  C B    b`
+ CCC bBB B  `
+ C  BBBb C B`
   AC  CB  A `
  B CC  BBC C`
-A B  a AA   `
-A  c  a B a `
+A B  b AA   `
+A  c  b B b `
     AC   A C`
     ]]>
   </level>
@@ -5385,17 +5385,17 @@ c   AA  AB  `
   <level id="378">
     <![CDATA[
   C  BBBA CC`
-  C a BBA C `
-a CB   CB  a`
+  C c BBA C `
+a CB   CB  c`
   A     B  B`
 CCA C      B`
  CA A    A  `
  B      BA  `
-   a BAB AA `
+   b BAB AA `
  C CCB Ba  B`
 B   BBAA   B`
    C    CCa `
-a  CBAa   CC`
+a  CBAb   CC`
     ]]>
   </level>
   <level id="379">
@@ -5432,18 +5432,18 @@ C B  B  C   `
   </level>
   <level id="381">
     <![CDATA[
- B b C  A bA`
-bBBB  AB A A`
- B  A A BBb `
-  CB C b B  `
-BA B  A B   `
-  b     C  B`
- BBCC B   A `
+ B b C  A cA`
+cBBB  AB A A`
+ B  A A BBc `
+  CB C c B  `
+bA B  A B   `
+  c     C  b`
+ BBCC b   A `
      BCC C  `
-CCCA   C B A`
-C B B b    A`
+CCCA   C b A`
+C b B c    A`
  C CB B   b `
- A   b b b  `
+ A   b b c  `
     ]]>
   </level>
   <level id="382">
@@ -5481,17 +5481,17 @@ A A A  BC  C`
   <level id="384">
     <![CDATA[
  A C b    B `
-A   BAAC b C`
+A   BAAC a C`
   b B   C AA`
 C AB    B  A`
  AABB   C B `
-CA    b  AA `
+CA    a  AA `
 CB bC   C  b`
-C  Cb b C   `
+C  Cb c C   `
   AC A  bCBA`
   b   CA C  `
          CCC`
- BB A bA    `
+ BB A cA    `
     ]]>
   </level>
   <level id="385">
