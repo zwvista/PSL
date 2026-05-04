@@ -3,6 +3,7 @@
 #include "PSLhelper.h"
 
 extern void solve_puz_Hedgehog();
+extern void solve_puz_HedgeMaze();
 extern void solve_puz_HeliumAndIron();
 extern void solve_puz_Hexotris();
 extern void solve_puz_hexrotation();
@@ -23,9 +24,10 @@ int main(int argc, char **argv)
     srand(time(0));
     for(string str; str.empty();) {
         println("e1: Hedgehog");
-        println("e2: Helium And Iron");
-        println("e3: Hexotris");
-        println("e4: hexrotation");
+        println("e2: Hedge Maze");
+        println("e3: Helium And Iron");
+        println("e4: Hexotris");
+        println("e5: hexrotation");
         println("i1: HiddenClouds");
         println("i2: HiddenPath");
         println("i3: HiddenStars");
@@ -37,11 +39,12 @@ int main(int argc, char **argv)
         println("o2: hopover");
         println("r: hrd");
         getline(cin, str);
-        if (str.empty()) solve_puz_HolidayIsland2();
+        if (str.empty()) solve_puz_HedgeMaze();
         else if (str == "e1") solve_puz_Hedgehog();
-        else if (str == "e2") solve_puz_HeliumAndIron();
-        else if (str == "e3") solve_puz_Hexotris();
-        else if (str == "e4") solve_puz_hexrotation();
+        else if (str == "e2") solve_puz_HedgeMaze();
+        else if (str == "e3") solve_puz_HeliumAndIron();
+        else if (str == "e4") solve_puz_Hexotris();
+        else if (str == "e5") solve_puz_hexrotation();
         else if (str == "i1") solve_puz_HiddenClouds();
         else if (str == "i2") solve_puz_HiddenPath();
         else if (str == "i2g") gen_puz_HiddenPath();
