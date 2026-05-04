@@ -49,7 +49,7 @@ struct puz_game
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
@@ -113,6 +113,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
         if (iconless)
             m_iconless_areas.insert(n);
+        else
+            for (auto& p : smoves)
+                if (char& ch = cells(p); ch == PUZ_SPACE)
+                    ch = PUZ_EMPTY;
     }
 }
 
@@ -126,8 +130,10 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
-    bool make_move(int i, int n);
+    bool make_move(int n, char ch);
+    void make_move2(int n, char ch);
     bool is_interconnected() const;
+    bool check_2x2();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -147,16 +153,80 @@ puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_cells)
 , m_iconless_areas(g.m_iconless_areas)
 {
+    check_2x2();
 }
 
-// 4. From any location, there must only be one route to the treasure.
-bool puz_state::is_interconnected() const
+// 4. On the board there can't be a 2x2 area all made of hedges or all without hedges (empty).
+// 5. Tiles with any icon count as empty and cannot be filled with hedges.
+bool puz_state::check_2x2()
 {
+    for (int r = 0; r < sidelen() - 1; ++r)
+        for (int c = 0; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            set<int> hedge_areas, icon_areas, empty_areas, space_areas;
+            for (auto& os : offset3) {
+                auto p2 = p + os;
+                int id = m_game->m_pos2area.at(p2);
+                char ch = cells(p2);
+                (ch == PUZ_HEDGE ? hedge_areas : !m_game->m_iconless_areas.contains(id) ? icon_areas : ch == PUZ_EMPTY ? empty_areas : space_areas).insert(id);
+            }
+            if (hedge_areas.empty() || icon_areas.empty() && empty_areas.empty()) {
+                if (space_areas.empty())
+                    return false;
+                if (space_areas.size() == 1) {
+                    char ch = hedge_areas.empty() ? PUZ_HEDGE : PUZ_EMPTY;
+                    int n = *space_areas.begin();
+                    make_move2(n, ch);
+                }
+            }
+        }
     return true;
 }
 
-bool puz_state::make_move(int i, int n)
+struct puz_state3 : Position
 {
+    puz_state3(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state3>& children) const;
+
+    const puz_state* m_state;
+};
+
+inline bool is_maze(char ch) { return ch != PUZ_HEDGE; }
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    for (int i = 0; i < 4; ++i)
+        if (auto p2 = *this + offset[i * 2];
+            m_state->is_valid(p2) && is_maze(m_state->cells(p2)))
+            children.emplace_back(*this).make_move(p2);
+}
+
+bool puz_state::is_interconnected() const
+{
+    int i = boost::find_if(m_cells, is_maze) - m_cells.begin();
+    auto smoves = puz_move_generator<puz_state3>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return boost::count_if(smoves, [&](const Position& p) {
+        return is_maze(cells(p));
+    }) == boost::count_if(m_cells, is_maze);
+}
+
+void puz_state::make_move2(int n, char ch)
+{
+    auto& area = m_game->m_areas[n];
+    for (auto& p : area)
+        cells(p) = ch;
+    m_iconless_areas.erase(n);
+    ++m_distance;
+}
+
+bool puz_state::make_move(int n, char ch)
+{
+    m_distance = 0;
+    make_move(n, ch);
     return true;
 }
 
@@ -177,21 +247,21 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-//    for (int r = 0; r < sidelen(); ++r) {
-//        for (int c = 0; c < sidelen(); ++c)
-//            switch (int n = cells({r, c})[0]) {
-//            case PUZ_WALL:
-//                out << PUZ_WALL_CHAR << ' ';
-//                break;
-//            case PUZ_TRESURE:
-//                out << PUZ_TRESURE_CHAR << ' ';
-//                break;
-//            default:
-//                out << dirs[n] << ' ';
-//                break;
-//            }
-//        println(out);
-//    }
+    for (int r = 0;; ++r) {
+        // draw horizontal lines
+        for (int c = 0; c < sidelen(); ++c)
+            out << (m_game->m_horz_walls.contains({r, c}) ? " -" : "  ");
+        println(out);
+        if (r == sidelen()) break;
+        for (int c = 0;; ++c) {
+            Position p(r, c);
+            // draw vertical lines
+            out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
+            if (c == sidelen()) break;
+            out << cells(p);
+        }
+        println(out);
+    }
     return out;
 }
 
