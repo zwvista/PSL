@@ -50,15 +50,13 @@ struct puz_game
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
-        : m_horz_walls(&horz_walls), m_vert_walls(&vert_walls) {
-        make_move(p_start);
-    }
+    puz_state2(const puz_game* game, const Position& p_start)
+        : m_game(game) { make_move(p_start); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position> *m_horz_walls, *m_vert_walls;
+    const puz_game* m_game;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -66,7 +64,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (int i = 0; i < 4; ++i) {
         auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
-        auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
+        auto& walls = i % 2 == 0 ? m_game->m_horz_walls : m_game->m_vert_walls;
         if (!walls.contains(p_wall))
             children.emplace_back(*this).make_move(p);
     }
@@ -100,7 +98,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (int n = 0; !rng.empty(); ++n) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, *rng.begin()});
         m_area_pos.emplace_back();
         for (auto& p : smoves) {
             m_pos2tatami[p] = n;

@@ -63,8 +63,7 @@ struct puz_state
 
     // solve_puzzle interface
     bool is_goal_state() const {return m_balls == m_game->m_goals;}
-    void gen_childr
-    en(list<puz_state>& children) const;
+    void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const;
     unsigned int get_distance(const puz_state& child) const {return 1;}
     void dump_move(ostream& out) const {if(m_move) out << m_move;}

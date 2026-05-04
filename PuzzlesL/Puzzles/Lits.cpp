@@ -69,21 +69,20 @@ struct puz_game
     map<Position, int> m_pos2area;
     int m_area_count;
     vector<vector<puz_piece>> m_pieces;
+    set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
-        : m_horz_walls(&horz_walls), m_vert_walls(&vert_walls) {
-        make_move(p_start);
-    }
+    puz_state2(const puz_game* game, const Position& p_start)
+        : m_game(game) { make_move(p_start); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position> *m_horz_walls, *m_vert_walls;
+    const puz_game* m_game;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -91,7 +90,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (int i = 0; i < 4; ++i) {
         auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
-        auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
+        auto& walls = i % 2 == 0 ? m_game->m_horz_walls : m_game->m_vert_walls;
         if (!walls.contains(p_wall))
             children.emplace_back(*this).make_move(p);
     }
@@ -101,27 +100,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() / 2)
 {
-    set<Position> horz_walls, vert_walls, rng;
+    set<Position> rng;
     for (int r = 0;; ++r) {
         // horizontal walls
         string_view str_h = strs[r * 2];
         for (int c = 0; c < m_sidelen; ++c)
             if (str_h[c * 2 + 1] == '-')
-                horz_walls.insert({r, c});
+                m_horz_walls.insert({r, c});
         if (r == m_sidelen) break;
         string_view str_v = strs[r * 2 + 1];
         for (int c = 0;; ++c) {
             Position p(r, c);
             // vertical walls
             if (str_v[c * 2] == '|')
-                vert_walls.insert(p);
+                m_vert_walls.insert(p);
             if (c == m_sidelen) break;
             rng.insert(p);
         }
     }
 
     for (m_area_count = 0; !rng.empty(); ++m_area_count) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({horz_walls, vert_walls, *rng.begin()});
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, *rng.begin()});
         for (auto& p : smoves) {
             m_pos2area[p] = m_area_count;
             rng.erase(p);

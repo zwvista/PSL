@@ -25,6 +25,7 @@ namespace puzzles::HedgeMaze{
 */
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_HEDGE = 'H';
 constexpr auto PUZ_GATE = 'G';
 constexpr auto PUZ_STEP = 'S';
@@ -44,7 +45,7 @@ struct puz_game
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
     vector<Position> m_gates;
-    vector<int> m_iconless_areas;
+    set<int> m_iconless_areas;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -53,15 +54,13 @@ struct puz_game
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& horz_walls, const set<Position>& vert_walls, const Position& p_start)
-        : m_horz_walls(&horz_walls), m_vert_walls(&vert_walls) {
-        make_move(p_start);
-    }
+    puz_state2(const puz_game* game, const Position& p_start)
+        : m_game(game) { make_move(p_start); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
-    const set<Position>* m_horz_walls, * m_vert_walls;
+    const puz_game* m_game;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
@@ -69,7 +68,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (int i = 0; i < 4; ++i) {
         auto p = *this + offset[i];
         auto p_wall = *this + offset2[i];
-        auto& walls = i % 2 == 0 ? *m_horz_walls : *m_vert_walls;
+        auto& walls = i % 2 == 0 ? m_game->m_horz_walls : m_game->m_vert_walls;
         if (!walls.contains(p_wall))
             children.emplace_back(*this).make_move(p);
     }
@@ -103,7 +102,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 
     for (int n = 0; !rng.empty(); ++n) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({m_horz_walls, m_vert_walls, *rng.begin()});
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, *rng.begin()});
         m_areas.emplace_back(smoves.begin(), smoves.end());
         bool iconless = true;
         for (auto& p : smoves) {
@@ -113,7 +112,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 iconless = false;
         }
         if (iconless)
-            m_iconless_areas.push_back(n);
+            m_iconless_areas.insert(n);
     }
 }
 
@@ -140,7 +139,7 @@ struct puz_state
 
     const puz_game* m_game;
     string m_cells;
-    vector<int> m_iconless_areas;
+    set<int> m_iconless_areas;
     unsigned int m_distance = 0;
 };
 
