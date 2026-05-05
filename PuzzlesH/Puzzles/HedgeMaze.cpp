@@ -195,15 +195,15 @@ struct puz_state3 : Position
     const puz_state* m_state;
 };
 
-inline bool is_maze(char ch) { return ch != PUZ_HEDGE; }
-
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (int i = 0; i < 4; ++i)
         if (auto p2 = *this + offset[i];
-            m_state->is_valid(p2) && is_maze(m_state->cells(p2)))
+            m_state->is_valid(p2) && m_state->cells(p2) != PUZ_HEDGE)
             children.emplace_back(*this).make_move(p2);
 }
+
+inline bool is_maze(char ch) { return ch != PUZ_SPACE && ch != PUZ_HEDGE; }
 
 bool puz_state::is_interconnected() const
 {
@@ -231,7 +231,7 @@ bool puz_state::check_branch() const
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if (char ch = cells(p); !(ch == PUZ_HEDGE || ch == PUZ_SPACE))
+            if (char ch = cells(p); is_maze(ch))
                 rng.insert(p);
         }
     while (!rng.empty()) {
