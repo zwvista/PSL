@@ -44,7 +44,7 @@ struct puz_game
     // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
-    vector<Position> m_gates;
+    vector<Position> m_gates, m_steps;
     set<int> m_iconless_areas;
     set<Position> m_horz_walls, m_vert_walls;
 
@@ -97,6 +97,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_cells.push_back(ch);
             if (ch == PUZ_GATE)
                 m_gates.push_back(p);
+            else if (ch == PUZ_STEP)
+                m_steps.push_back(p);
             rng.insert(p);
         }
     }
@@ -114,6 +116,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         if (iconless)
             m_iconless_areas.insert(n);
         else
+            // 5. Tiles with any icon count as empty and cannot be filled with hedges.
             for (auto& p : smoves)
                 if (char& ch = cells(p); ch == PUZ_SPACE)
                     ch = PUZ_EMPTY;
@@ -134,6 +137,8 @@ struct puz_state
     void make_move2(int n, char ch);
     bool is_interconnected() const;
     bool check_2x2();
+    bool check_branch() const;
+    bool check_path() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -199,7 +204,7 @@ inline bool is_maze(char ch) { return ch != PUZ_HEDGE; }
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (int i = 0; i < 4; ++i)
-        if (auto p2 = *this + offset[i * 2];
+        if (auto p2 = *this + offset[i];
             m_state->is_valid(p2) && is_maze(m_state->cells(p2)))
             children.emplace_back(*this).make_move(p2);
 }
@@ -223,26 +228,82 @@ void puz_state::make_move2(int n, char ch)
     ++m_distance;
 }
 
+// 2. The maze should be one tile wide. It can branch itself, but not close in a loop.
+bool puz_state::check_branch() const
+{
+    set<Position> rng;
+    for (int r = 0; r < sidelen(); ++r)
+        for (int c = 0; c < sidelen(); ++c) {
+            Position p(r, c);
+            if (char ch = cells(p); !(ch == PUZ_HEDGE || ch == PUZ_SPACE))
+                rng.insert(p);
+        }
+    while (!rng.empty()) {
+        set<Position> moves;
+        // https://stackoverflow.com/questions/78166176/how-can-i-write-an-inline-recursive-lambda-in-c
+        auto dfs = [&](this const auto &self, const Position& p, int n) {
+            if (!moves.insert(p).second)
+                return false;
+            for (int i = 0; i < 4; ++i) {
+                if (i == n) continue;
+                auto p2 = p + offset[i];
+                if (!is_valid(p2)) continue;
+                if (!self(p2, i))
+                    return false;
+            }
+            return true;
+        };
+        if (!dfs(*rng.begin(), -1))
+            return false;
+        for (auto& p : moves)
+            rng.erase(p);
+    }
+    return true;
+}
+
+// 3. There should be a path between the two gates. This path should pass on
+//    all the steps and not on any fountain.
+bool puz_state::check_path() const
+{
+    if (m_game->m_gates.size() != 2)
+        return false;
+    auto &gate1 = m_game->m_gates[0], &gate2 = m_game->m_gates[1];
+
+    set<Position> moves;
+    auto dfs = [&](this const auto &self, const Position& p, int n) {
+        if (char ch = cells(p); ch == PUZ_HEDGE || ch == PUZ_FOUNTAIN)
+            return false;
+        moves.insert(p);
+        if (p == gate2)
+            return true;
+        for (int i = 0; i < 4; ++i) {
+            if (i == n) continue;
+            auto p2 = p + offset[i];
+            if (!is_valid(p2)) continue;
+            if (self(p2, i))
+                return true;
+        }
+        moves.erase(p);
+        return false;
+    };
+    return dfs(gate1, -1) && boost::algorithm::all_of(m_game->m_steps, [&](const Position& p) {
+        return moves.contains(p);
+    });
+}
+
 bool puz_state::make_move(int n, char ch)
 {
     m_distance = 0;
-    make_move(n, ch);
-    return true;
+    make_move2(n, ch);
+    return check_2x2() && is_interconnected() && check_branch() && (!is_goal_state() || check_path());
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-//    int i = boost::min_element(m_cells, [](const puz_cell& cl1, const puz_cell& cl2) {
-//        auto f = [](const puz_cell& cl) {
-//            int sz = cl.size();
-//            return sz == 1 ? 100 : sz;
-//        };
-//        return f(cl1) < f(cl2);
-//    }) - m_cells.begin();
-//    auto& cl = m_cells[i];
-//    for (int n : cl)
-//        if (!children.emplace_back(*this).make_move(i, n))
-//            children.pop_back();
+    int n = *m_iconless_areas.begin();
+    for (char ch : {PUZ_HEDGE, PUZ_EMPTY})
+        if (!children.emplace_back(*this).make_move(n, ch))
+            children.pop_back();
 }
 
 ostream& puz_state::dump(ostream& out) const
