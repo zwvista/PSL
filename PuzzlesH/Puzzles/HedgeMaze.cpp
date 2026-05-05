@@ -20,10 +20,6 @@
 
 namespace puzzles::HedgeMaze{
 
-/*
-    Facts
-*/
-
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_HEDGE = 'H';
