@@ -247,8 +247,8 @@ bool puz_state::check_branch() const
             for (int i = 0; i < 4; ++i) {
                 if (i == n) continue;
                 auto p2 = p + offset[i];
-                if (!is_valid(p2)) continue;
-                if (!self(p2, i))
+                if (!rng.contains(p2)) continue;
+                if (!self(p2, (i + 2) % 4))
                     return false;
             }
             return true;
@@ -280,7 +280,7 @@ bool puz_state::check_path() const
             if (i == n) continue;
             auto p2 = p + offset[i];
             if (!is_valid(p2)) continue;
-            if (self(p2, i))
+            if (self(p2, (i + 2) % 4))
                 return true;
         }
         moves.erase(p);
