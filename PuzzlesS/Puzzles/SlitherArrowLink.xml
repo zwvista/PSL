@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. Draw a continuous, single, path that passes through each intersection (tile corner). Every symbol is inside the path.
+2. An arrow points to the longest stretch of tiles that can be seen from there. There can't be an equal long stretch of tiles from there, the one pointed to is at least one more tile long than the others.
+3. A double arrow sign is more complicated. It will always be in the middle between two stretches of equal length of tiles.
+4. So for example it could be in the 3rd (center) tile of a 5-tile long line. Or at the corner of a 3x3 L-shaped path.
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+    ]]>
+  </level>
+</levels>
+</puzzle>

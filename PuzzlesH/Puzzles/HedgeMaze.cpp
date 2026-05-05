@@ -7,7 +7,7 @@
     iOS Game: 100 Logic Games 2/Puzzle Set 6/Hedge Maze
 
     Summary
-    Maze Curator
+    Wendy ?
 
     Description
     1. Fill some of the empty areas with hedges, thus forming a maze.

@@ -2,11 +2,11 @@
 <puzzle>
 <help>
   <![CDATA[
-1.Fill some of the empty areas with hedges, thus forming a maze.
-2.The maze should be one tile wide. It can branch itself, but not close in a loop.
-3.There should be a path between the two gates. This path should pass on all the steps and not on any fountain.
-4.On the board there can't be a 2x2 area all made of hedges or all without hedges (empty).
-5.Tiles with any icon count as empty and cannot be filled with hedges.
+1. Fill some of the empty areas with hedges, thus forming a maze.
+2. The maze should be one tile wide. It can branch itself, but not close in a loop.
+3. There should be a path between the two gates. This path should pass on all the steps and not on any fountain.
+4. On the board there can't be a 2x2 area all made of hedges or all without hedges (empty).
+5. Tiles with any icon count as empty and cannot be filled with hedges.
   ]]>
 </help>
 <levels>
