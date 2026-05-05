@@ -296,7 +296,9 @@ bool puz_state::make_move(int n, char ch)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    int n = *m_iconless_areas.begin();
+    int n = *boost::max_element(m_iconless_areas, [&](int id1, int id2) {
+        return m_game->m_areas[id1].size() < m_game->m_areas[id2].size();
+    });
     for (char ch : {PUZ_HEDGE, PUZ_EMPTY})
         if (!children.emplace_back(*this).make_move(n, ch))
             children.pop_back();
