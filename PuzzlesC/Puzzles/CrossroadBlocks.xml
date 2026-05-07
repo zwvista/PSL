@@ -89,14 +89,14 @@ W3v         W3v`
       B1<      `
          B1v   `
                `
-      W7^      `
+      W1^      `
     ]]>
   </level>
   <level id="10">
     <![CDATA[
          W1vW  `
             W2v`
-      W7^      `
+      W1^      `
                `
                `
     ]]>
@@ -399,7 +399,7 @@ W4v               W4<`
          W1<         `
       W1<            `
             B3<      `
-                  W7^`
+                  W4^`
     ]]>
   </level>
   <level id="42">
@@ -520,7 +520,7 @@ W3>         B1^      `
                      `
    B0v         B1v   `
             B2^      `
-      W           W7^`
+      W           W4^`
     ]]>
   </level>
   <level id="53">
@@ -630,7 +630,7 @@ W3v            B2v   `
          W1<         `
    B1v               `
                      `
-         W1^   W  W7^`
+         W1^   W  W4^`
     ]]>
   </level>
   <level id="63">
@@ -916,7 +916,7 @@ W4v         W3v      `
          W0v         `
                B2^   `
          B2<         `
-               W4<W7^`
+               W4<W4^`
     ]]>
   </level>
   <level id="89">
@@ -1092,7 +1092,7 @@ W2v         B1v      `
 W2v                  `
       B2>            `
             B1^      `
-      W1<         W7^`
+      W1<         W4^`
     ]]>
   </level>
   <level id="105">

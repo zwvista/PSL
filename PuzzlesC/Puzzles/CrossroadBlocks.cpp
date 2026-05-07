@@ -29,6 +29,8 @@ constexpr auto PUZ_BLACK = 'B';
 constexpr auto PUZ_WHITE = 'W';
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_UNKNOWN = -1;
+constexpr auto PUZ_ROAD_OFF = '1';
+constexpr auto PUZ_ROAD_ON = '2';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -77,34 +79,42 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < m_sidelen; ++c) {
             auto s = str.substr(3 * c, 3);
             if (s != "   ") {
-                auto& info = m_pos2info[{r, c}];
-                info.m_is_black = s[0] == PUZ_BLACK;
-                info.m_num = s[1] == PUZ_SPACE ? PUZ_UNKNOWN : s[1] - '0';
-                info.m_dir = s[2];
+                auto& [is_black, num, dir_str, _1, _2] = m_pos2info[{r, c}];
+                is_black = s[0] == PUZ_BLACK;
+                num = s[1] == PUZ_SPACE ? PUZ_UNKNOWN : s[1] - '0';
+                dir_str = s[2];
             }
         }
     }
 
     for (auto& [p, info] : m_pos2info) {
-        auto& [is_black, num3, dir_str, rng, perms] = info;
-        if (num3 == PUZ_UNKNOWN)
+        auto& [is_black, num, dir_str, rng, perms] = info;
+        if (num == PUZ_UNKNOWN)
             continue;
         auto dir = hint_dirs.find(dir_str);
         auto& os = offset[dir];
-        for (auto p2 = p + os; is_valid(p2); p2 += os)
+        for (auto p2 = p + os; is_valid(p2) && !m_pos2info.contains(p2); p2 += os)
             rng.push_back(p2);
         boost::sort(rng);
         bool is_row = dir % 2 == 1;
-        int num = num3 == 0 ? 0 : num3 + 1, num2 = rng.size();
-        for (int k = 0; k <= (num == 0 ? 0 : num2 - num); ++k)
+
+        vector<string> road_perms;
+        int num2 = rng.size(), num3 = num2 - 1;
+        auto road_perm = string(num3 - num, PUZ_ROAD_OFF) + string(num, PUZ_ROAD_ON);
+        do
+            road_perms.push_back(road_perm);
+        while (boost::next_permutation(road_perm));
+
+        for (auto& road_perm : road_perms)
             for (int i = 0; i < (1 << num2); ++i) {
                 vector<int> perm;
                 for (int j = 0; j < num2; ++j) {
-                    bool is_not_road = num == 0 || j < k || j >= k + num;
-                    bool is_road_left = num != 0 && j == k;
-                    bool is_road_right = num != 0 && j == k + num - 1;
+                    bool is_not_road = j == 0 && road_perm[j] == PUZ_ROAD_OFF || j == num3 && road_perm[j - 1] == PUZ_ROAD_OFF || road_perm[j] == PUZ_ROAD_OFF && road_perm[j - 1] == PUZ_ROAD_OFF;
+                    bool is_road_left = (j == 0 || j < num3 && road_perm[j - 1] == PUZ_ROAD_OFF) && road_perm[j] == PUZ_ROAD_ON;
+                    bool is_road_right = (j == num3 || j > 0 && road_perm[j] == PUZ_ROAD_OFF) && road_perm[j - 1] == PUZ_ROAD_ON;
+                    bool is_road_middle = j > 0 && j < num3 && road_perm[j - 1] == PUZ_ROAD_ON && road_perm[j - 1] == PUZ_ROAD_ON;
                     bool is_on = (i & (1 << j)) != 0;
-                    if (num != 0 && j > k && j < k + num - 1 && is_on)
+                    if (is_road_middle && is_on)
                         goto next_perm;
                     perm.push_back(
                         is_not_road ? is_on ? lineseg_off : is_row ? 5 : 10 :
