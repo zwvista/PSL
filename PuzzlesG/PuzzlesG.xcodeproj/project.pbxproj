@@ -16,6 +16,7 @@
 		8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */; };
 		8CA2403D1EB479D40055D6B1 /* Galaxies.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240371EB479D40055D6B1 /* Galaxies.cpp */; };
 		8CA2403E1EB479D40055D6B1 /* Gardener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2403A1EB479D40055D6B1 /* Gardener.cpp */; };
+		8CAEAF182FAD4EF2003F40B8 /* GuessTheLabyrinth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEAF152FAD4EF2003F40B8 /* GuessTheLabyrinth.cpp */; };
 		95D7B5CC230C455C001E005C /* Gems.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5C9230C455C001E005C /* Gems.cpp */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,9 @@
 		8CA2403A1EB479D40055D6B1 /* Gardener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gardener.cpp; sourceTree = "<group>"; };
 		8CA2403B1EB479D40055D6B1 /* Gardener.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gardener.txt; sourceTree = "<group>"; };
 		8CA2403C1EB479D40055D6B1 /* Gardener.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Gardener.xml; sourceTree = "<group>"; };
+		8CAEAF152FAD4EF2003F40B8 /* GuessTheLabyrinth.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GuessTheLabyrinth.cpp; sourceTree = "<group>"; };
+		8CAEAF162FAD4EF2003F40B8 /* GuessTheLabyrinth.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = GuessTheLabyrinth.txt; sourceTree = "<group>"; };
+		8CAEAF172FAD4EF2003F40B8 /* GuessTheLabyrinth.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = GuessTheLabyrinth.xml; sourceTree = "<group>"; };
 		95D7B5C9230C455C001E005C /* Gems.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gems.cpp; sourceTree = "<group>"; };
 		95D7B5CA230C455C001E005C /* Gems.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gems.txt; sourceTree = "<group>"; };
 		95D7B5CB230C455C001E005C /* Gems.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Gems.xml; sourceTree = "<group>"; };
@@ -126,6 +130,9 @@
 				95D7B5C9230C455C001E005C /* Gems.cpp */,
 				95D7B5CA230C455C001E005C /* Gems.txt */,
 				95D7B5CB230C455C001E005C /* Gems.xml */,
+				8CAEAF152FAD4EF2003F40B8 /* GuessTheLabyrinth.cpp */,
+				8CAEAF162FAD4EF2003F40B8 /* GuessTheLabyrinth.txt */,
+				8CAEAF172FAD4EF2003F40B8 /* GuessTheLabyrinth.xml */,
 				8C689D192E0774A500A2BCCC /* Guesstris.cpp */,
 				8C689D1A2E0774A500A2BCCC /* Guesstris.txt */,
 				8C689D1B2E0774A500A2BCCC /* Guesstris.xml */,
@@ -225,6 +232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
+				8CAEAF182FAD4EF2003F40B8 /* GuessTheLabyrinth.cpp in Sources */,
 				8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,

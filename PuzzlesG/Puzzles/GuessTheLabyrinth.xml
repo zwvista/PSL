@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<puzzle>
+<help>
+  <![CDATA[
+1. There is a hidden Labyrinth in the board.
+2. The Labyrinth is a one-square wide path which doesn't branch out and that forms a closed loop
+3. The intersections where three lines meet are marked with a dot
+
+  ]]>
+</help>
+<levels>
+  <level id="1">
+    <![CDATA[
+    ]]>
+  </level>
+</levels>
+</puzzle>
