@@ -93,7 +93,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             continue;
         auto dir = hint_dirs.find(dir_str);
         auto& os = offset[dir];
-        for (auto p2 = p + os; is_valid(p2) && !m_pos2info.contains(p2); p2 += os)
+        for (auto p2 = p + os; is_valid(p2); p2 += os)
             rng.push_back(p2);
         boost::sort(rng);
         bool is_row = dir % 2 == 1;

@@ -11,7 +11,7 @@ W3> -- -- --
 W3> -- -- --   
 Number of moves: 1
 Number of vertices examined: 2
-0.000856 [s]
+0.001931 [s]
 
 Level 2
 Sequence of moves: 
@@ -26,7 +26,7 @@ W   -- --
  -- -- -- --   
 Number of moves: 7
 Number of vertices examined: 23
-0.002685 [s]
+0.012907 [s]
 
 Level 3
 Sequence of moves: 
@@ -41,7 +41,7 @@ W2^   B1^ --
 S   -- --   W2<
 Number of moves: 1
 Number of vertices examined: 2
-0.000325 [s]
+0.001321 [s]
 
 Level 4
 Sequence of moves: 
@@ -56,7 +56,7 @@ W3> -- -- --
 W2^ -- --   W2<
 Number of moves: 1
 Number of vertices examined: 2
-0.000256 [s]
+0.001279 [s]
 
 Level 5
 Sequence of moves: 
@@ -71,7 +71,7 @@ W2v -- --   W2<
  -- -- --   W2^
 Number of moves: 2
 Number of vertices examined: 4
-0.000445 [s]
+0.002282 [s]
 
 Level 6
 Sequence of moves: 
@@ -86,7 +86,7 @@ W1> --   B1v
  -- -- --   W3<
 Number of moves: 2
 Number of vertices examined: 3
-0.000341 [s]
+0.001662 [s]
 
 Level 7
 Sequence of moves: 
@@ -101,7 +101,7 @@ W3v -- --   W
  --    -- --   
 Number of moves: 2
 Number of vertices examined: 3
-0.000474 [s]
+0.002284 [s]
 
 Level 8
 Sequence of moves: 
@@ -116,7 +116,7 @@ Sequence of moves:
 W3^ -- --   W1^
 Number of moves: 2
 Number of vertices examined: 3
-0.000368 [s]
+0.001678 [s]
 
 Level 9
 Sequence of moves: 
@@ -131,7 +131,7 @@ W3v -- --   W3v
  --   W1^ --   
 Number of moves: 1
 Number of vertices examined: 2
-0.000255 [s]
+0.001118 [s]
 
 Level 10
 Sequence of moves: 
@@ -146,7 +146,7 @@ Sequence of moves:
  -- -- -- --   
 Number of moves: 7
 Number of vertices examined: 13
-0.001384 [s]
+0.006598 [s]
 
 Level 11
 Sequence of moves: 
@@ -161,7 +161,7 @@ Sequence of moves:
 W3^ -- --   W2<
 Number of moves: 1
 Number of vertices examined: 2
-0.000234 [s]
+0.001003 [s]
 
 Level 12
 Sequence of moves: 
@@ -176,7 +176,7 @@ W2> -- --   W2v
 W3> -- -- --   
 Number of moves: 2
 Number of vertices examined: 3
-0.00036 [s]
+0.001578 [s]
 
 Level 13
 Sequence of moves: 
@@ -191,7 +191,7 @@ W1> --   B1v
  -- -- --   W3<
 Number of moves: 1
 Number of vertices examined: 2
-0.000251 [s]
+0.001035 [s]
 
 Level 14
 Sequence of moves: 
@@ -206,7 +206,7 @@ Sequence of moves:
 W2> -- --   W3^
 Number of moves: 2
 Number of vertices examined: 3
-0.000328 [s]
+0.001417 [s]
 
 Level 15
 Sequence of moves: 
@@ -221,7 +221,7 @@ W2v -- --   W2v
 W3> -- -- --   
 Number of moves: 2
 Number of vertices examined: 3
-0.000311 [s]
+0.001397 [s]
 
 Level 16
 Sequence of moves: 
@@ -236,7 +236,7 @@ W  W   -- --
 W3> -- -- --   
 Number of moves: 3
 Number of vertices examined: 5
-0.000505 [s]
+0.002441 [s]
 
 Level 17
 Sequence of moves: 
@@ -251,7 +251,7 @@ W3> -- -- --
 W3> -- -- --   
 Number of moves: 1
 Number of vertices examined: 2
-0.000333 [s]
+0.000925 [s]
 
 Level 18
 Sequence of moves: 
@@ -266,7 +266,7 @@ W2vS   --
  -- -- -- --   
 Number of moves: 4
 Number of vertices examined: 7
-0.000874 [s]
+0.003826 [s]
 
 Level 19
 Sequence of moves: 
@@ -281,7 +281,7 @@ W2v --    --
  --   W1> --   
 Number of moves: 2
 Number of vertices examined: 3
-0.000332 [s]
+0.001376 [s]
 
 Level 20
 Sequence of moves: 
@@ -296,7 +296,7 @@ S     B2v --
  -- --    --   
 Number of moves: 2
 Number of vertices examined: 3
-0.000349 [s]
+0.001443 [s]
 
 Level 21
 Sequence of moves: 
@@ -313,7 +313,7 @@ W1v   B2^S  B1^
  -- --   W1> --   
 Number of moves: 4
 Number of vertices examined: 5
-0.000719 [s]
+0.003343 [s]
 
 Level 22
 Sequence of moves: 
@@ -330,6 +330,214 @@ W3v   B1v -- --
  --   W1^ -- --   
 Number of moves: 6
 Number of vertices examined: 9
-0.00125 [s]
+0.005582 [s]
 
 Level 23
+Sequence of moves: 
+W2> --   W1> --   
+   |  |     |  |  
+ --    -- --      
+|              |  
+   B  B  B   --   
+|           |     
+   B2> -- --   W1v
+|     |           
+ --    -- -- --   
+   |           |  
+W4> -- -- -- --   
+Number of moves: 2
+Number of vertices examined: 3
+0.002487 [s]
+
+Level 24
+Sequence of moves: 
+W3v -- -- --   W3<
+   |        |     
+ --   B1> --   W  
+|        |        
+   B2> --    --   
+|     |     |  |  
+ --      W1<      
+   |  |     |  |  
+ --    -- --      
+|              |  
+ -- -- -- -- --   
+Number of moves: 6
+Number of vertices examined: 11
+0.008359 [s]
+
+Level 25
+Sequence of moves: 
+ --   W2v -- --   
+|  |     |     |  
+       --   B1v   
+|  |  |        |  
+    --   B1< --   
+|           |     
+   B2^ -- --   W2<
+|     |           
+ --    -- -- --   
+   |           |  
+W4> -- -- -- --   
+Number of moves: 3
+Number of vertices examined: 5
+0.004358 [s]
+
+Level 26
+Sequence of moves: 
+W3v -- -- --   W3v
+   |        |     
+ --   S  B1< --   
+|              |  
+   B1> --   B1^   
+|     |  |     |  
+   B         --   
+|     |  |  |     
+ --          --   
+   |  |  |     |  
+W3> --    -- --   
+Number of moves: 6
+Number of vertices examined: 8
+0.005679 [s]
+
+Level 27
+Sequence of moves: 
+W1v -- -- --   W1v
+   |        |     
+ --   B1< --   S  
+|        |        
+ -- --    --   W3<
+      |     |     
+W1^ --   B1^ --   
+   |           |  
+S     B1>S   --   
+   |        |     
+S   -- -- --   S  
+Number of moves: 5
+Number of vertices examined: 10
+0.00682 [s]
+
+Level 28
+Number of vertices examined: 1
+0.000587 [s]
+
+Level 29
+Sequence of moves: 
+ --    -- --   W3<
+|  |  |     |     
+    --   B1v   S  
+|           |     
+    -- -- --   S  
+|  |              
+    -- --   W2<S  
+|        |        
+ --   B1< --   S  
+   |        |     
+W4^ -- -- --   W3<
+Number of moves: 5
+Number of vertices examined: 11
+0.006118 [s]
+
+Level 30
+Sequence of moves: 
+ --    -- -- --   
+|  |  |        |  
+    --   B1< --   
+|           |     
+   B1^ -- --   W2<
+|     |           
+ --    -- -- --   
+   |           |  
+W2> -- --   B1^   
+         |     |  
+S  W  W2^ -- --   
+Number of moves: 4
+Number of vertices examined: 8
+0.007716 [s]
+
+Level 31
+Sequence of moves: 
+W2> -- --   W1vW3v
+   |     |        
+ --    --   S  S  
+|     |           
+   S     S   --   
+|     |     |  |  
+   B2> -- --      
+|              |  
+ --   B  B  S     
+   |           |  
+W3^ -- -- -- --   
+Number of moves: 3
+Number of vertices examined: 5
+0.00436 [s]
+
+Level 32
+Sequence of moves: 
+W4> -- -- -- --   
+   |           |  
+ --    --   B2<   
+|     |  |     |  
+   B1>       --   
+|     |  |  |     
+   B      --   W1v
+|     |           
+ --    -- -- --   
+   |           |  
+W4> -- -- -- --   
+Number of moves: 4
+Number of vertices examined: 7
+0.004346 [s]
+
+Level 33
+Sequence of moves: 
+S  W1v -- --   W1v
+      |     |     
+ -- --   B2<   S  
+|           |     
+ --   B1^ --   S  
+   |     |        
+W1v --    -- --   
+      |        |  
+ -- --   B1^ --   
+|           |     
+ -- -- -- --   W4<
+Number of moves: 2
+Number of vertices examined: 3
+0.002593 [s]
+
+Level 34
+Sequence of moves: 
+ -- --   W2< --   
+|     |     |  |  
+ --    --         
+   |     |  |  |  
+ --   B1< --      
+|              |  
+   B1v --   B2^   
+|     |  |     |  
+    --       --   
+|  |     |  |     
+ --   W2^ --   W2<
+Number of moves: 3
+Number of vertices examined: 4
+0.002805 [s]
+
+Level 35
+Sequence of moves: 
+W2> -- --   W1vW  
+   |     |        
+ --    --    --   
+|     |     |  |  
+   B2v -- --      
+|              |  
+    --   S  S     
+|  |  |        |  
+       --   B1<   
+|  |     |     |  
+ --   W2^ -- --   
+Number of moves: 4
+Number of vertices examined: 7
+0.00716 [s]
+
+Level 36
