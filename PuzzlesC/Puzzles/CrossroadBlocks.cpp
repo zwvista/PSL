@@ -112,9 +112,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     bool is_not_road = j == 0 && road_perm[j] == PUZ_ROAD_OFF || j == num3 && road_perm[j - 1] == PUZ_ROAD_OFF || road_perm[j] == PUZ_ROAD_OFF && road_perm[j - 1] == PUZ_ROAD_OFF;
                     bool is_road_left = (j == 0 || j < num3 && road_perm[j - 1] == PUZ_ROAD_OFF) && road_perm[j] == PUZ_ROAD_ON;
                     bool is_road_right = (j == num3 || j > 0 && road_perm[j] == PUZ_ROAD_OFF) && road_perm[j - 1] == PUZ_ROAD_ON;
-                    bool is_road_middle = j > 0 && j < num3 && road_perm[j - 1] == PUZ_ROAD_ON && road_perm[j - 1] == PUZ_ROAD_ON;
                     bool is_on = (i & (1 << j)) != 0;
-                    if (is_road_middle && is_on)
+                    // only one option is left when the tile is in the middle of the road
+                    if (!is_not_road && !is_road_left && !is_road_right && is_on)
                         goto next_perm;
                     perm.push_back(
                         is_not_road ? is_on ? lineseg_off : is_row ? 5 : 10 :
