@@ -165,6 +165,7 @@
     <Text Include="Puzzles\Gardener.txt" />
     <Text Include="Puzzles\GardenTunnels.txt" />
     <Text Include="Puzzles\Gems.txt" />
+    <Text Include="Puzzles\GuessTheLabyrinth.txt" />
     <Text Include="Puzzles\Guesstris.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
@@ -185,6 +186,7 @@
     <ClCompile Include="Puzzles\Gardener.cpp" />
     <ClCompile Include="Puzzles\GardenTunnels.cpp" />
     <ClCompile Include="Puzzles\Gems.cpp" />
+    <ClCompile Include="Puzzles\GuessTheLabyrinth.cpp" />
     <ClCompile Include="Puzzles\Guesstris.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -198,6 +200,7 @@
     <Xml Include="Puzzles\Gardener.xml" />
     <Xml Include="Puzzles\GardenTunnels.xml" />
     <Xml Include="Puzzles\Gems.xml" />
+    <Xml Include="Puzzles\GuessTheLabyrinth.xml" />
     <Xml Include="Puzzles\Guesstris.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

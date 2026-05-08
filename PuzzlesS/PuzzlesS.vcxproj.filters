@@ -91,6 +91,12 @@
     <Text Include="Puzzles\SquareMergePuzzle.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\SlitherArrowLink.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\Snakeomino2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -185,6 +191,12 @@
     <ClCompile Include="Puzzles\SquareMergePuzzle.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\SlitherArrowLink.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\Snakeomino2.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\sokoban.xml">
@@ -257,6 +269,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\SquareMergePuzzle.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\SlitherArrowLink.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

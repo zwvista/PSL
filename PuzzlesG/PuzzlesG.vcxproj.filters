@@ -34,6 +34,9 @@
     <Text Include="Puzzles\Guesstris.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\GuessTheLabyrinth.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -71,6 +74,9 @@
     <ClCompile Include="Puzzles\Guesstris.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\GuessTheLabyrinth.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\Gardener.xml">
@@ -86,6 +92,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\Guesstris.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\GuessTheLabyrinth.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

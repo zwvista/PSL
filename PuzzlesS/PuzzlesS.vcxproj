@@ -167,6 +167,7 @@
     <Text Include="Puzzles\Skydoku.txt" />
     <Text Include="Puzzles\Skyscrapers.txt" />
     <Text Include="Puzzles\SlantedMaze.txt" />
+    <Text Include="Puzzles\SlitherArrowLink.txt" />
     <Text Include="Puzzles\SlitherCorner.txt" />
     <Text Include="Puzzles\SlitherLink.txt" />
     <Text Include="Puzzles\Snail.txt" />
@@ -174,6 +175,7 @@
     <Text Include="Puzzles\Snakeomino.txt" />
     <Text Include="Puzzles\Snake.txt" />
     <Text Include="Puzzles\SnakeIslands.txt" />
+    <Text Include="Puzzles\Snakeomino2.txt" />
     <Text Include="Puzzles\sokoban.txt" />
     <Text Include="Puzzles\Square100.txt" />
     <Text Include="Puzzles\SquareMergePuzzle.txt" />
@@ -206,6 +208,7 @@
     <ClCompile Include="Puzzles\Skydoku.cpp" />
     <ClCompile Include="Puzzles\Skyscrapers.cpp" />
     <ClCompile Include="Puzzles\SlantedMaze.cpp" />
+    <ClCompile Include="Puzzles\SlitherArrowLink.cpp" />
     <ClCompile Include="Puzzles\SlitherCorner.cpp" />
     <ClCompile Include="Puzzles\SlitherLink.cpp" />
     <ClCompile Include="Puzzles\Snail.cpp" />
@@ -213,6 +216,7 @@
     <ClCompile Include="Puzzles\Snakeomino.cpp" />
     <ClCompile Include="Puzzles\Snake.cpp" />
     <ClCompile Include="Puzzles\SnakeIslands.cpp" />
+    <ClCompile Include="Puzzles\Snakeomino2.cpp" />
     <ClCompile Include="Puzzles\sokoban.cpp" />
     <ClCompile Include="Puzzles\Square100.cpp" />
     <ClCompile Include="Puzzles\SquareMergePuzzle.cpp" />
@@ -238,6 +242,7 @@
     <Xml Include="Puzzles\Skydoku.xml" />
     <Xml Include="Puzzles\Skyscrapers.xml" />
     <Xml Include="Puzzles\SlantedMaze.xml" />
+    <Xml Include="Puzzles\SlitherArrowLink.xml" />
     <Xml Include="Puzzles\SlitherCorner.xml" />
     <Xml Include="Puzzles\SlitherLink.xml" />
     <Xml Include="Puzzles\Snail.xml" />

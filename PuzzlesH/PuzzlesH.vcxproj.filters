@@ -61,6 +61,12 @@
     <Text Include="Puzzles\HiddenPath.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\HedgeMaze.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
+    <Text Include="Puzzles\HolidayIsland2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -128,6 +134,9 @@
     <ClCompile Include="Puzzles\HiddenPathGen.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\HedgeMaze.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\hexrotation.xml">
@@ -167,6 +176,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\HiddenPathGen.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\HedgeMaze.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>
