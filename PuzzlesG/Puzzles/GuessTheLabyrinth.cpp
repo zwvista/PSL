@@ -27,13 +27,23 @@ constexpr auto PUZ_POST = 'O';
 inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0; }
 
 constexpr int lineseg_off = 0;
-const vector<int> linesegs_all_two = {
+const vector<vector<int>> linesegs_all_border = {
+    {6}, // Ñ°
+    {12}, // Ñ¢
+    {14, 10}, // Ñ¶ Ñü
+    {3}, // Ñ§
+    {9}, // Ñ£
+    {11, 10}, // Ñ® Ñü
+    {7, 5}, // Ñ• Ñ†
+    {13, 5}, // Ñß Ñ†
+};
+const vector<int> linesegs_all_inside = {
     // ┐  ─  ┌  ┘  │  └
-    12, 10, 6, 9, 5, 3,
+    lineseg_off, 12, 10, 6, 9, 5, 3, 1, 2, 4, 8
 };
 const vector<int> linesegs_all_post = {
     // ┴  ├  ┬  ┤
-    11, 7, 14, 13,
+    lineseg_off, 11, 7, 14, 13,
 };
 
 constexpr array<Position, 4> offset = Position::Directions4;
@@ -117,25 +127,18 @@ puz_state::puz_state(const puz_game& g)
     for (int r = 0; r < rows(); ++r)
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
-
             auto& dt = dots(p);
             if (r > 0 && c > 0 && r < rows() - 1 && c < cols() - 1)
-                dt.push_back(lineseg_off);
-            auto& linesegs_all = m_game->m_posts.contains(p) ? linesegs_all_post : linesegs_all_two;
-            for (int lineseg : linesegs_all)
-                if ([&]{
-                    for (int i = 0; i < 4; ++i) {
-                        if (!is_lineseg_on(lineseg, i))
-                            continue;
-                        auto p2 = p + offset[i];
-                        // A line segment cannot go beyond the boundaries of the board
-                        // or cover any number cell
-                        if (!is_valid(p2))
-                            return false;
-                    }
-                    return true;
-                }())
-                    dt.push_back(lineseg);
+                dt = g.m_posts.contains(p) ? linesegs_all_post : linesegs_all_inside;
+            else {
+                int n =
+                    r == 0 ? (c == 0 ? 0 : c == cols() - 1 ? 1 : 2) :
+                    r == rows() - 1 ? (c == 0 ? 3 : c == cols() - 1 ? 4 : 5) :
+                    c == 0 ? 6 : 7;
+                dt = linesegs_all_border[n];
+                if (dt.size() > 1)
+                    dt = {dt[g.m_posts.contains(p) ? 0 : 1]};
+            }
         }
 
     check_dots(true);
@@ -188,20 +191,21 @@ int puz_state::check_dots(bool init)
 
 bool puz_state::check_route() const
 {
-    set<Position> rng;
+    map<Position, vector<int>> pos2dirs;
     for (auto& p : m_game->m_all_positions) {
         int num = 2;
         int max_possible = 0;
         int min_guaranteed = 0;
+        vector<int> dirs;
         for (int i = 0; i < 4; ++i) {
             auto& dt = dots(p + offset2[i]);
             int d = (i + 1) % 4;
             if (boost::algorithm::any_of(dt, [&](int lineseg) {
-                return is_lineseg_on(lineseg, d);
+                return !is_lineseg_on(lineseg, d);
             })) max_possible++;
             if (boost::algorithm::all_of(dt, [&](int lineseg) {
-                return is_lineseg_on(lineseg, d);
-            })) min_guaranteed++;
+                return !is_lineseg_on(lineseg, d);
+            })) min_guaranteed++, dirs.push_back(i);
         }
         // Prune if we can't possibly reach the target
         if (max_possible < num) return false;
@@ -210,30 +214,31 @@ bool puz_state::check_route() const
         // Final check
         if (is_goal_state() && min_guaranteed != num) return false;
         if (min_guaranteed == num)
-            rng.insert(p);
+            pos2dirs[p] = dirs;
     }
 
-//    bool has_branch = false;
-//    while (!rng.empty()) {
-//        auto p = *rng.begin(), p2 = p;
-//        for (int n = -1;;) {
-//            rng.erase(p2);
-//            for (int i = 0; i < 4; ++i)
-//                // proceed only if the route does not revisit the previous position
-//                if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
-//                    p2 += offset[n = i];
-//                    break;
-//                }
-//            if (p2 == p)
-//                // we have a loop here,
-//                // and we are supposed to have exhausted the line segments
-//                return !has_branch && rng.empty();
-//            if (!rng.contains(p2)) {
-//                has_branch = true;
-//                break;
-//            }
-//        }
-//    }
+    bool has_branch = false;
+    while (!pos2dirs.empty()) {
+        auto p = pos2dirs.begin()->first, p2 = p;
+        for (int n = -1;;) {
+            auto dirs = pos2dirs.at(p2);
+            pos2dirs.erase(p2);
+            for (int i : dirs)
+                // proceed only if the route does not revisit the previous position
+                if ((i + 2) % 4 != n) {
+                    p2 += offset[n = i];
+                    break;
+                }
+            if (p2 == p)
+                // we have a loop here,
+                // and we are supposed to have exhausted the line segments
+                return !has_branch && pos2dirs.empty();
+            if (!pos2dirs.contains(p2)) {
+                has_branch = true;
+                break;
+            }
+        }
+    }
     return true;
 }
 
