@@ -38,22 +38,24 @@ constexpr array<Position, 8> offset = Position::Directions8;
 struct puz_game
 {
     string m_id;
-    int m_sidelen;
+    Position m_size;
     int m_dot_count;
     map<Position, int> m_pos2num;
     map<int, vector<vector<int>>> m_num2perms;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    int rows() const { return m_size.first; }
+    int cols() const { return m_size.second; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
-    : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size())
-    , m_dot_count(m_sidelen * m_sidelen)
+: m_id(level.attribute("id").value())
+, m_size(strs.size() / 2, strs[0].length() / 2)
+, m_dot_count(rows() * cols())
 {
-    for (int r = 0; r < m_sidelen; ++r) {
+    for (int r = 0; r < rows(); ++r) {
         string_view str = strs[r];
-        for (int c = 0; c < m_sidelen; ++c) {
+        for (int c = 0; c < cols(); ++c) {
             char ch = str[c];
             if (ch != ' ') {
                 int n = ch - '0';
@@ -140,12 +142,13 @@ using puz_dot = vector<int>;
 struct puz_state
 {
     puz_state(const puz_game& g);
-    int sidelen() const {return m_game->m_sidelen;}
+    int rows() const { return m_game->rows(); }
+    int cols() const { return m_game->cols(); }
     bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
+        return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
-    const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
-    puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
+    const puz_dot& dots(const Position& p) const { return m_dots[p.first * cols() + p.second]; }
+    puz_dot& dots(const Position& p) { return m_dots[p.first * cols() + p.second]; }
     bool operator<(const puz_state& x) const {
         return tie(m_matches, m_dots) < tie(x.m_matches, x.m_dots);
     }
@@ -176,8 +179,8 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_dots(g.m_dot_count, {lineseg_off}), m_game(&g)
 {
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             if (g.m_pos2num.contains(p))
                 continue;
@@ -245,8 +248,8 @@ int puz_state::check_dots(bool init)
     int n = 2;
     for (;;) {
         set<pair<Position, int>> newly_finished;
-        for (int r = 0; r < sidelen(); ++r)
-            for (int c = 0; c < sidelen(); ++c) {
+        for (int r = 0; r < rows(); ++r)
+            for (int c = 0; c < cols(); ++c) {
                 Position p(r, c);
                 const auto& dt = dots(p);
                 for (int i = 0; i < 4; ++i)
@@ -300,8 +303,8 @@ void puz_state::make_move_hint2(const Position& p, int n)
 bool puz_state::check_loop() const
 {
     set<Position> rng;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
+    for (int r = 0; r < rows(); ++r)
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto& dt = dots(p);
             if (dt.size() == 1 && dt[0] != lineseg_off)
@@ -380,7 +383,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             return f(dt1) < f(dt2);
         }) - m_dots.begin();
         auto& dt = m_dots[i];
-        Position p(i / sidelen(), i % sidelen());
+        Position p(i / cols(), i % cols());
         for (int n = 0; n < dt.size(); ++n)
             if (!children.emplace_back(*this).make_move_dot(p, n))
                 children.pop_back();
@@ -391,15 +394,15 @@ ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0;; ++r) {
         // draw horizontal lines
-        for (int c = 0; c < sidelen(); ++c) {
+        for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             auto it = m_game->m_pos2num.find(p);
             out << char(it == m_game->m_pos2num.end() ? ' ' : it->second + '0')
                 << (is_lineseg_on(dots(p)[0], 1) ? '-' : ' ');
         }
         println(out);
-        if (r == sidelen() - 1) break;
-        for (int c = 0; c < sidelen(); ++c)
+        if (r == rows() - 1) break;
+        for (int c = 0; c < cols(); ++c)
             // draw vertical lines
             out << (is_lineseg_on(dots({r, c})[0], 2) ? "| " : "  ");
         println(out);
