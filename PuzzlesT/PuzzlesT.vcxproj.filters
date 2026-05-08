@@ -64,9 +64,6 @@
     <Text Include="Puzzles\Tatami.txt">
       <Filter>Puzzles</Filter>
     </Text>
-    <Text Include="Puzzles\Tatamino2.txt">
-      <Filter>Puzzles</Filter>
-    </Text>
     <Text Include="Puzzles\TurnTwice.txt">
       <Filter>Puzzles</Filter>
     </Text>
@@ -156,9 +153,6 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\TheOddBrick.cpp">
-      <Filter>Puzzles</Filter>
-    </ClCompile>
-    <ClCompile Include="Puzzles\Tatamino2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\TurnTwice.cpp">

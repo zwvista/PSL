@@ -168,7 +168,6 @@
     <Text Include="Puzzles\TapARow.txt" />
     <Text Include="Puzzles\Tatami.txt" />
     <Text Include="Puzzles\Tatamino.txt" />
-    <Text Include="Puzzles\Tatamino2.txt" />
     <Text Include="Puzzles\TennerGrid.txt" />
     <Text Include="Puzzles\Tents.txt" />
     <Text Include="Puzzles\TetrominoPegs.txt" />
@@ -210,7 +209,6 @@
     <ClCompile Include="Puzzles\TapARow.cpp" />
     <ClCompile Include="Puzzles\Tatami.cpp" />
     <ClCompile Include="Puzzles\Tatamino.cpp" />
-    <ClCompile Include="Puzzles\Tatamino2.cpp" />
     <ClCompile Include="Puzzles\TennerGrid.cpp" />
     <ClCompile Include="Puzzles\Tents.cpp" />
     <ClCompile Include="Puzzles\TetrominoPegs.cpp" />
