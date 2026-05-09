@@ -36,22 +36,25 @@ constexpr auto PUZ_LEFT = '<';
 constexpr auto PUZ_RIGHT = '>';
 constexpr auto PUZ_MIDDLE = '+';
 constexpr auto PUZ_BOAT = 'o';
+constexpr auto PUZ_NOT_POS = Position(-1, -1);
 
 constexpr array<Position, 8> offset = Position::Directions8;
 
-struct puz_ship_info {
-    // symbols that represent the ship
-    string m_pieces[2];
-    // the area occupied by the ship
-    string m_area[3];
+const string ship_info[][2] = {
+    {"o", "o"},
+    {"<>", "^v"},
+    {"<+>", "^+v"},
+    {"<++>", "^++v"},
+    {"<+++>", "^+++v"},
 };
 
-const puz_ship_info ship_info[] = {
-    {{"o", "o"}, {"...", ". .", "..."}},
-    {{"<>", "^v"}, {"....", ".  .", "...."}},
-    {{"<+>", "^+v"}, {".....", ".   .", "....."}},
-    {{"<++>", "^++v"}, {"......", ".    .", "......"}},
-    {{"<+++>", "^+++v"}, {".......", ".     .", "......."}},
+struct puz_move
+{
+    int m_ship;
+    bool m_is_vert;
+    map<Position, char> m_pos2char;
+    set<Position> m_neighbors;
+    map<Position, int> m_light2count;
 };
 
 struct puz_game
@@ -60,17 +63,24 @@ struct puz_game
     int m_sidelen;
     bool m_has_supertanker;
     map<int, int> m_ship2num{{1, 4},{2, 3},{3, 2},{4, 1}};
-    map<Position, char> m_pos2piece;
-    map<Position, int> m_pos2light;
+    map<Position, char> m_pos2char;
+    map<Position, int> m_light2count;
     string m_cells;
+    vector<puz_move> m_moves;
+    map<Position, vector<int>> m_pos2move_ids, m_light2move_ids;
+    map<int, vector<int>> m_ship2move_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
-    : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size())
-    , m_has_supertanker(level.attribute("SuperTanker").as_int() == 1)
+: m_id(level.attribute("id").value())
+, m_sidelen(strs.size())
+, m_has_supertanker(level.attribute("SuperTanker").as_int() == 1)
 {
     if (m_has_supertanker)
         m_ship2num[5] = 1;
@@ -91,40 +101,65 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             case PUZ_RIGHT:
             case PUZ_MIDDLE:
                 m_cells.push_back(PUZ_SPACE);
-                m_pos2piece[p] = ch;
+                m_pos2char[p] = ch;
                 break;
             default:
                 m_cells.push_back(PUZ_LIGHT);
-                m_pos2light[p] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                m_light2count[p] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
                 break;
             };
         }
     }
-}
+    for (auto& [p, cnt] : m_light2count)
+        for (auto& os : offset)
+            if (auto p2 = p + os; is_valid(p2))
+                if (char& ch = cells(p2); ch == PUZ_SPACE)
+                    ch = PUZ_EMPTY;
 
-// key: the position of the ship piece
-// value.elem.0: the kind of the ship
-// value.elem.1: the position of the ship
-// value.elem.2: false if the ship is horizontal, true if vertical
-using puz_pos_match = map<Position, vector<tuple<int, Position, bool>>>;
-// key: the kind of the ship
-// value.elem.first: the position of the ship
-// value.elem.second: false if the ship is horizontal, true if vertical
-using puz_ship_match = map<int, vector<pair<Position, bool>>>;
+    for (const auto& [i, n] : m_ship2num)
+        for (int j = 0; j < 2; ++j) {
+            bool vert = j == 1;
+            if (i == 1 && vert)
+                continue;
+            auto& chars = ship_info[i - 1][j];
+            int len = chars.length();
+            for (int r = 0; r < m_sidelen - (!vert ? 0 : len - 1); ++r)
+                for (int c = 0; c < m_sidelen - (vert ? 0 : len - 1); ++c) {
+                    int n = m_moves.size();
+                    auto& [ship, is_vert, pos2char, neighbors, light2count] = m_moves.emplace_back();
+                    ship = i, is_vert = vert;
+                    for (int dr = -1; dr <= 1; ++dr)
+                        for (int dc = -1; dc <= len; ++dc)
+                            if (dr == 0 && dc >= 0 && dc < len) {
+                                int r2 = !vert ? r : r + dc, c2 = vert ? c : c + dc;
+                                pos2char[{r2, c2}] = chars[dc];
+                                for (auto& [p2, cnt] : m_light2count)
+                                    if (p2.first == r2 || p2.second == c2)
+                                        light2count[p2]++, m_light2move_ids[p2].push_back(n);
+                            } else if (Position p2(!vert ? r + dr : r + dc, vert ? c + dr : c + dc); is_valid(p2))
+                                neighbors.insert(p2);
+                    m_ship2move_ids[i].push_back(n);
+                    for (auto& [p2, ch] : m_pos2char)
+                        if (auto it = pos2char.find(p2);
+                            it != pos2char.end() && it->second == ch)
+                            m_pos2move_ids[p2].push_back(n);
+                }
+        }
+}
 
 struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
-    bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
-    }
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
-    bool make_move(const Position& p_piece, const Position& p, int n, bool vert);
-    void check_area();
-    void find_matches();
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_light_matches) < tie(x.m_cells, x.m_light_matches);
+    }
+    bool make_move(const Position& p, int n);
+    void make_move2(const Position& p, int n);
+    int find_matches(bool init);
+    void check_light();
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -132,179 +167,156 @@ struct puz_state
     unsigned int get_heuristic() const {
         return boost::accumulate(m_ship2num, 0, [](int acc, const pair<const int, int>& kv) {
             return acc + kv.second;
-        });
+        }) + m_pos_matches.size() + m_light_matches.size();
     }
-    unsigned int get_distance(const puz_state& child) const {return 1;}
+    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
     string m_cells;
+    map<Position, int> m_light2count;
     map<int, int> m_ship2num;
-    map<Position, char> m_pos2piece;
-    map<Position, int> m_pos2light;
-    puz_pos_match m_pos_matches;
-    puz_ship_match m_ship_matches;
+    map<Position, vector<int>> m_pos_matches, m_light_matches;
+    map<int, vector<int>> m_ship_matches;
+    unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_cells), m_game(&g)
-, m_ship2num(g.m_ship2num), m_pos2piece(g.m_pos2piece)
-, m_pos2light(g.m_pos2light)
+: m_game(&g), m_cells(g.m_cells)
+, m_light2count(g.m_light2count)
+, m_ship2num(g.m_ship2num)
+, m_pos_matches(g.m_pos2move_ids)
+, m_ship_matches(g.m_ship2move_ids)
+, m_light_matches(g.m_light2move_ids)
 {
-    // 3. Ships cannot touch Lighthouses. Not even diagonally.
-    for (auto& [p2, light] : g.m_pos2light)
-        for (auto& os : offset) {
-            auto p = p2 + os;
-            if (!is_valid(p)) continue;
-            char& ch = cells(p);
-            if (ch == PUZ_SPACE)
-                ch = PUZ_EMPTY;
-        }
-
-    check_area();
-    find_matches();
+    check_light();
+    find_matches(true);
 }
 
-void puz_state::check_area()
+void puz_state::check_light()
 {
-    auto f = [](char& ch) {
-        if (ch == PUZ_SPACE)
-            ch = PUZ_EMPTY;
-    };
-
-    for (auto& [p, light] : m_pos2light)
-        if (light == 0) {
+    for (auto it = m_light2count.begin(); it != m_light2count.end();)
+        if (auto [p, cnt] = *it; cnt != 0)
+            it++;
+        else {
             for (int r = 0; r < sidelen(); ++r)
-                f(cells({r, p.second}));
+                if (char& ch = cells({r, p.second}); ch == PUZ_SPACE)
+                    ch = PUZ_EMPTY;
             for (int c = 0; c < sidelen(); ++c)
-                f(cells({p.first, c}));
+                if (char& ch = cells({p.first, c}); ch == PUZ_SPACE)
+                    ch = PUZ_EMPTY;
+            it = m_light2count.erase(it);
+            m_light_matches.erase(p);
+            ++m_distance;
         }
 }
 
-void puz_state::find_matches()
+int puz_state::find_matches(bool init)
 {
-    m_pos_matches.clear();
-    m_ship_matches.clear();
-    for (const auto& [i, n] : m_ship2num) {
-        for (int j = 0; j < 2; ++j) {
-            bool vert = j == 1;
-            if (i == 1 && vert)
-                continue;
-
-            auto& s = ship_info[i - 1].m_pieces[j];
-            int len = s.length();
-
-            auto f = [&](Position p) {
-                auto os = vert ? Position(1, 0) : Position(0, 1);
-                for (char ch : s) {
-                    if (!is_valid(p) || cells(p) != PUZ_SPACE)
-                        return false;
-                    p += os;
+    auto f = [&](vector<int>& move_ids) {
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [ship, _1, pos2char, neighbors, light2count] = m_game->m_moves[id];
+            auto it = m_ship2num.find(ship);
+            return !(it != m_ship2num.end() && m_ship_matches.at(ship).size() >= it->second
+            && boost::algorithm::all_of(pos2char, [&](const pair<const Position, char>& kv) {
+                return cells(kv.first) == PUZ_SPACE;
+            }) && boost::algorithm::all_of(neighbors, [&](const Position& p2) {
+                char ch2 = cells(p2);
+                return ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY;
+            }) && boost::algorithm::all_of(light2count, [&](const pair<const Position, int>& kv) {
+                auto it = m_light2count.find(kv.first);
+                return it != m_light2count.end() && it->second >= kv.second;
+            }));
+        });
+    };
+    if (!m_pos_matches.empty())
+        for (auto& [p, move_ids] : m_pos_matches) {
+            f(move_ids);
+            if (!init)
+                switch(move_ids.size()) {
+                case 0:
+                    return 0;
+                case 1:
+                    return make_move2(p, move_ids[0]), 1;
                 }
-                return true;
-            };
-
-            if (!m_pos2piece.empty())
-                for (const auto& [p, ch] : m_pos2piece) {
-                    auto& [r, c] = p;
-                    if (!vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
-                        return kv.first.first == r && kv.second < len;
-                    }) || vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
-                        return kv.first.second == c && kv.second < len;
-                    }))
-                        continue;
-
-                    // 0
-                    // < + + >
-                    //       len-1
-                    for (int k = 0; k < len; ++k) {
-                        if (s[k] != ch)
-                            continue;
-                        auto p2 = p - (vert ? Position(k, 0) : Position(0, k));
-                        if (f(p2))
-                            m_pos_matches[p].emplace_back(i, p2 + Position(-1, -1), vert);
-                    }
+        }
+    else {
+        for (auto& [_1, move_ids] : m_ship_matches) {
+            f(move_ids);
+            if (!init)
+                switch(move_ids.size()) {
+                    case 0:
+                        return 0;
+                    case 1:
+                        return make_move2(PUZ_NOT_POS, move_ids[0]), 1;
                 }
-            else
-                for (int r = 0; r < sidelen() - (!vert ? 0 : len - 1); ++r) {
-                    if (!vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
-                        return kv.first.first == r && kv.second < len;
-                    }))
-                        continue;
-                    for (int c = 0; c < sidelen() - (vert ? 0 : len - 1); ++c) {
-                        if (vert && boost::algorithm::any_of(m_pos2light, [=](const pair<const Position, int>& kv) {
-                            return kv.first.second == c && kv.second < len;
-                        }))
-                            continue;
-                        Position p(r, c);
-                        if (f(p))
-                            m_ship_matches[i].emplace_back(p + Position(-1, -1), vert);
-                    }
+        }
+        for (auto& [_1, move_ids] : m_light_matches) {
+            f(move_ids);
+            if (!init)
+                switch(move_ids.size()) {
+                    case 0:
+                        return 0;
+                    case 1:
+                        return make_move2(PUZ_NOT_POS, move_ids[0]), 1;
                 }
         }
     }
+    return 2;
 }
 
-bool puz_state::make_move(const Position& p_piece, const Position& p, int n, bool vert)
+void puz_state::make_move2(const Position& p, int n)
 {
-    auto& info = ship_info[n - 1];
-    int len = info.m_pieces[0].length();
-    for (int r2 = 0; r2 < 3; ++r2)
-        for (int c2 = 0; c2 < len + 2; ++c2) {
-            auto p2 = p + Position(!vert ? r2 : c2, !vert ? c2 : r2);
-            if (!is_valid(p2)) continue;
-            char& ch = cells(p2);
-            char ch2 = info.m_area[r2][c2];
-            if (ch2 == ' ') {
-                ch = info.m_pieces[!vert ? 0 : 1][c2 - 1];
-                for (auto& [p3, light] : m_pos2light)
-                    if (p3.first == p2.first || p3.second == p2.second)
-                        --light;
-            } else if (ch == PUZ_SPACE)
-                ch = PUZ_EMPTY;
-        }
+    auto& [ship, _1, pos2char, neighbors, light2count] = m_game->m_moves[n];
+    for (auto& [p2, ch] : pos2char)
+        cells(p2) = ch;
+    for (auto& p2 : neighbors)
+        cells(p2) = PUZ_EMPTY;
+    for (auto& [p2, cnt] : light2count)
+        m_light2count.at(p2) -= cnt;
+    if (--m_ship2num.at(ship) == 0)
+        m_ship2num.erase(ship), m_ship_matches.erase(ship);
+    ++m_distance;
+    if (p != PUZ_NOT_POS)
+        m_pos_matches.erase(p), ++m_distance;
+    check_light();
+}
 
-
-    if (--m_ship2num[n] == 0)
-        m_ship2num.erase(n);
-    m_pos2piece.erase(p_piece);
-    check_area();
-    find_matches();
-
-    if (!m_pos2piece.empty())
-        return boost::algorithm::all_of(m_pos2piece, [&](const pair<const Position, char>& kv) {
-            return m_pos_matches.contains(kv.first);
-        });
-    else if (!is_goal_state())
-        return boost::algorithm::all_of(m_ship2num, [&](const pair<const int, int>& kv) {
-            return m_ship_matches[kv.first].size() >= kv.second;
-        });
-    else
-        return boost::algorithm::all_of(m_pos2light, [](const pair<const Position, int>& kv) {
-            return kv.second == 0;
-        });
+bool puz_state::make_move(const Position& p, int n)
+{
+    m_distance = 0;
+    make_move2(p, n);
+    int m;
+    while ((m = find_matches(false)) == 1);
+    return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if (!m_pos2piece.empty()) {
-        auto& [p_piece, infos] = *boost::min_element(m_pos_matches, [](
-            const puz_pos_match::value_type& kv1,
-            const puz_pos_match::value_type& kv2) {
+    if (!m_pos_matches.empty()) {
+        auto& [p, move_ids] = *boost::min_element(m_pos_matches, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (auto& [i, p, vert] : infos)
-            if (!children.emplace_back(*this).make_move(p_piece, p, i, vert))
+        for (int n : move_ids)
+            if (!children.emplace_back(*this).make_move(p, n))
                 children.pop_back();
     } else {
-        auto& [n, infos] = *boost::min_element(m_ship_matches, [](
-            const puz_ship_match::value_type& kv1,
-            const puz_ship_match::value_type& kv2) {
+        auto& [_1, move_ids1] = *boost::min_element(m_ship_matches, [](
+            const pair<const int, vector<int>>& kv1,
+            const pair<const int, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (auto& [p, vert] : infos)
-            if (!children.emplace_back(*this).make_move(p, p, n, vert))
+        auto& [_2, move_ids2] = *boost::min_element(m_light_matches, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        auto& move_ids = move_ids1.size() <= move_ids2.size() ? move_ids1 : move_ids2;
+        for (int n : move_ids)
+            if (!children.emplace_back(*this).make_move(PUZ_NOT_POS, n))
                 children.pop_back();
     }
 }
@@ -316,7 +328,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_LIGHT)
-                out << format("{:<2}", m_game->m_pos2light.at(p));
+                out << format("{:<2}", m_game->m_light2count.at(p));
             else
                 out << (ch == PUZ_SPACE ? PUZ_EMPTY : ch) << ' ';
         }
