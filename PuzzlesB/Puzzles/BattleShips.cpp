@@ -155,7 +155,6 @@ struct puz_state
     void make_move2(const Position& p, int n);
     int find_matches(bool init);
     void check_area();
-    bool check_matches() const;
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -206,18 +205,13 @@ void puz_state::check_area()
         }
 }
 
-bool puz_state::check_matches() const {
-    return boost::algorithm::all_of(m_ship2num, [&](const pair<const int, int>& kv) {
-        return m_ship_matches.at(kv.first).size() >= kv.second;
-    });
-}
-
 int puz_state::find_matches(bool init)
 {
     auto f = [&](vector<int>& move_ids) {
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& [ship, _1, pos2char, neighbors, area2count] = m_game->m_moves[id];
-            return !(m_ship2num.contains(ship)
+            auto it = m_ship2num.find(ship);
+            return !(it != m_ship2num.end() && m_ship_matches.at(ship).size() >= it->second
             && boost::algorithm::all_of(pos2char, [&](const pair<const Position, char>& kv) {
                 return cells(kv.first) == PUZ_SPACE;
             }) && boost::algorithm::all_of(neighbors, [&](const Position& p2) {
@@ -241,7 +235,7 @@ int puz_state::find_matches(bool init)
                 }
         }
     else {
-        for (auto& [i, move_ids] : m_ship_matches) {
+        for (auto& [_1, move_ids] : m_ship_matches) {
             f(move_ids);
             if (!init)
                 switch(move_ids.size()) {
@@ -251,7 +245,7 @@ int puz_state::find_matches(bool init)
                         return make_move2(PUZ_NOT_POS, move_ids[0]), 1;
                 }
         }
-        for (auto& [i, move_ids] : m_area_matches) {
+        for (auto& [_1, move_ids] : m_area_matches) {
             f(move_ids);
             if (!init)
                 switch(move_ids.size()) {
@@ -262,12 +256,12 @@ int puz_state::find_matches(bool init)
                 }
         }
     }
-    return check_matches() ? 2 : 0;
+    return 2;
 }
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& [ship, _2, pos2char, neighbors, area2count] = m_game->m_moves[n];
+    auto& [ship, _1, pos2char, neighbors, area2count] = m_game->m_moves[n];
     for (auto& [p2, ch] : pos2char)
         cells(p2) = ch;
     for (auto& p2 : neighbors)
