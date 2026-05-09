@@ -36,7 +36,6 @@ constexpr auto PUZ_LEFT = '<';
 constexpr auto PUZ_RIGHT = '>';
 constexpr auto PUZ_MIDDLE = '+';
 constexpr auto PUZ_BOAT = 'o';
-constexpr auto PUZ_NOT_POS = Position(-1, -1);
 
 const string ship_info[][2] = {
     {"o", "o"},
@@ -150,8 +149,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_area_matches) < tie(x.m_cells, x.m_area_matches);
     }
-    bool make_move(const Position& p, int n);
-    void make_move2(const Position& p, int n);
+    bool make_move(int n);
+    void make_move2(int n);
     int find_matches(bool init);
     void check_area();
 
@@ -223,14 +222,14 @@ int puz_state::find_matches(bool init)
         });
     };
     if (!m_pos_matches.empty())
-        for (auto& [p, move_ids] : m_pos_matches) {
+        for (auto& [_1, move_ids] : m_pos_matches) {
             f(move_ids);
             if (!init)
                 switch(move_ids.size()) {
                 case 0:
                     return 0;
                 case 1:
-                    return make_move2(p, move_ids[0]), 1;
+                    return make_move2(move_ids[0]), 1;
                 }
         }
     else {
@@ -241,7 +240,7 @@ int puz_state::find_matches(bool init)
                     case 0:
                         return 0;
                     case 1:
-                        return make_move2(PUZ_NOT_POS, move_ids[0]), 1;
+                        return make_move2(move_ids[0]), 1;
                 }
         }
         for (auto& [_1, move_ids] : m_area_matches) {
@@ -251,18 +250,21 @@ int puz_state::find_matches(bool init)
                     case 0:
                         return 0;
                     case 1:
-                        return make_move2(PUZ_NOT_POS, move_ids[0]), 1;
+                        return make_move2(move_ids[0]), 1;
                 }
         }
     }
     return 2;
 }
 
-void puz_state::make_move2(const Position& p, int n)
+void puz_state::make_move2(int n)
 {
     auto& [ship, _1, pos2char, neighbors, area2count] = m_game->m_moves[n];
-    for (auto& [p2, ch] : pos2char)
+    for (auto& [p2, ch] : pos2char) {
         cells(p2) = ch;
+        if (m_pos_matches.erase(p2))
+            ++m_distance;
+    }
     for (auto& p2 : neighbors)
         cells(p2) = PUZ_EMPTY;
     for (auto& [a, cnt] : area2count)
@@ -270,15 +272,13 @@ void puz_state::make_move2(const Position& p, int n)
     if (--m_ship2num.at(ship) == 0)
         m_ship2num.erase(ship), m_ship_matches.erase(ship);
     ++m_distance;
-    if (p != PUZ_NOT_POS)
-        m_pos_matches.erase(p), ++m_distance;
     check_area();
 }
 
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    make_move2(p, n);
+    make_move2(n);
     int m;
     while ((m = find_matches(false)) == 1);
     return m == 2;
@@ -287,13 +287,13 @@ bool puz_state::make_move(const Position& p, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_pos_matches.empty()) {
-        auto& [p, move_ids] = *boost::min_element(m_pos_matches, [](
+        auto& [_1, move_ids] = *boost::min_element(m_pos_matches, [](
             const pair<const Position, vector<int>>& kv1,
             const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
         for (int n : move_ids)
-            if (!children.emplace_back(*this).make_move(p, n))
+            if (!children.emplace_back(*this).make_move(n))
                 children.pop_back();
     } else {
         auto& [_1, move_ids1] = *boost::min_element(m_ship_matches, [](
@@ -308,7 +308,7 @@ void puz_state::gen_children(list<puz_state>& children) const
         });
         auto& move_ids = move_ids1.size() <= move_ids2.size() ? move_ids1 : move_ids2;
         for (int n : move_ids)
-            if (!children.emplace_back(*this).make_move(PUZ_NOT_POS, n))
+            if (!children.emplace_back(*this).make_move(n))
                 children.pop_back();
     }
 }
