@@ -123,26 +123,32 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             auto& chars = ship_info[i - 1][j];
             int len = chars.length();
             for (int r = 0; r < m_sidelen - (!vert ? 0 : len - 1); ++r)
-                for (int c = 0; c < m_sidelen - (vert ? 0 : len - 1); ++c) {
-                    int n = m_moves.size();
-                    auto& [ship, is_vert, pos2char, neighbors, light2count] = m_moves.emplace_back();
-                    ship = i, is_vert = vert;
-                    for (int dr = -1; dr <= 1; ++dr)
-                        for (int dc = -1; dc <= len; ++dc)
-                            if (dr == 0 && dc >= 0 && dc < len) {
-                                int r2 = !vert ? r : r + dc, c2 = vert ? c : c + dc;
-                                pos2char[{r2, c2}] = chars[dc];
-                                for (auto& [p2, cnt] : m_light2count)
-                                    if (p2.first == r2 || p2.second == c2)
-                                        light2count[p2]++, m_light2move_ids[p2].push_back(n);
-                            } else if (Position p2(!vert ? r + dr : r + dc, vert ? c + dr : c + dc); is_valid(p2))
-                                neighbors.insert(p2);
-                    m_ship2move_ids[i].push_back(n);
-                    for (auto& [p2, ch] : m_pos2char)
-                        if (auto it = pos2char.find(p2);
-                            it != pos2char.end() && it->second == ch)
-                            m_pos2move_ids[p2].push_back(n);
-                }
+                for (int c = 0; c < m_sidelen - (vert ? 0 : len - 1); ++c)
+                    if ([&]{
+                        for (int dc = 0; dc < len; ++dc)
+                            if (cells({!vert ? r : r + dc, vert ? c : c + dc}) != PUZ_SPACE)
+                                return false;
+                        return true;
+                    }()) {
+                        int n = m_moves.size();
+                        auto& [ship, is_vert, pos2char, neighbors, light2count] = m_moves.emplace_back();
+                        ship = i, is_vert = vert;
+                        for (int dr = -1; dr <= 1; ++dr)
+                            for (int dc = -1; dc <= len; ++dc)
+                                if (dr == 0 && dc >= 0 && dc < len) {
+                                    int r2 = !vert ? r : r + dc, c2 = vert ? c : c + dc;
+                                    pos2char[{r2, c2}] = chars[dc];
+                        for (auto& [p3, _1] : m_light2count)
+                            if (p3.first == r2 || p3.second == c2)
+                                light2count[p3]++, m_light2move_ids[p3].push_back(n);
+                        } else if (Position p2(!vert ? r + dr : r + dc, vert ? c + dr : c + dc); is_valid(p2))
+                            neighbors.insert(p2);
+                        m_ship2move_ids[i].push_back(n);
+                        for (auto& [p2, ch] : m_pos2char)
+                            if (auto it = pos2char.find(p2);
+                                it != pos2char.end() && it->second == ch)
+                                m_pos2move_ids[p2].push_back(n);
+                    }
         }
 }
 

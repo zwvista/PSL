@@ -31,6 +31,7 @@
 		8CA23F321EA927A80055D6B1 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F281EA926F60055D6B1 /* Position.cpp */; };
 		8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2B1EA926F60055D6B1 /* pugixml.cpp */; };
 		8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */; };
+		8CAEAF362FAFF3FA003F40B8 /* MineShips2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEAF352FAFF3F9003F40B8 /* MineShips2.cpp */; };
 		8CDAF8132E1D49F400ED90A3 /* MirrorsExtended.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CDAF8102E1D49F400ED90A3 /* MirrorsExtended.cpp */; };
 		958FA6212323CD1900205831 /* MixedTatamis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA61F2323CD1900205831 /* MixedTatamis.cpp */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		8C2964031FA4339E0017A812 /* Magic5gonRing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Magic5gonRing.cpp; sourceTree = "<group>"; };
 		8C2964041FA4339E0017A812 /* Magic5gonRing.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Magic5gonRing.txt; sourceTree = "<group>"; };
 		8C2964051FA4339F0017A812 /* Magic5gonRing.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Magic5gonRing.xml; sourceTree = "<group>"; };
+		8C499A272FB0020300C0BC27 /* MineShips2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = MineShips2.txt; sourceTree = "<group>"; };
 		8C5F129F2DE378BF00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12A02DE378BF00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C689CBA2E003A2600A2BCCC /* MakeTheDifference.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MakeTheDifference.cpp; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
 		8CA23F301EA926F60055D6B1 /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
 		8CA23F311EA926F60055D6B1 /* targetver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
+		8CAEAF352FAFF3F9003F40B8 /* MineShips2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MineShips2.cpp; sourceTree = "<group>"; };
 		8CDAF8102E1D49F400ED90A3 /* MirrorsExtended.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MirrorsExtended.cpp; sourceTree = "<group>"; };
 		8CDAF8112E1D49F400ED90A3 /* MirrorsExtended.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = MirrorsExtended.txt; sourceTree = "<group>"; };
 		8CDAF8122E1D49F400ED90A3 /* MirrorsExtended.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MirrorsExtended.xml; sourceTree = "<group>"; };
@@ -213,6 +216,8 @@
 				8CA23EEC1EA924380055D6B1 /* MineShips.cpp */,
 				8CA23EED1EA924380055D6B1 /* MineShips.txt */,
 				8CA23EEE1EA924380055D6B1 /* MineShips.xml */,
+				8CAEAF352FAFF3F9003F40B8 /* MineShips2.cpp */,
+				8C499A272FB0020300C0BC27 /* MineShips2.txt */,
 				8C689CBD2E003A2600A2BCCC /* MineSlither.cpp */,
 				8C689CBE2E003A2600A2BCCC /* MineSlither.txt */,
 				8C689CBF2E003A2600A2BCCC /* MineSlither.xml */,
@@ -344,6 +349,7 @@
 				8CA23F0D1EA924380055D6B1 /* mazecat.cpp in Sources */,
 				8C689CC02E003A2600A2BCCC /* MineSlither.cpp in Sources */,
 				8CDAF8132E1D49F400ED90A3 /* MirrorsExtended.cpp in Sources */,
+				8CAEAF362FAFF3FA003F40B8 /* MineShips2.cpp in Sources */,
 				8C689CC12E003A2600A2BCCC /* MakeTheDifference.cpp in Sources */,
 				8CA23F061EA924380055D6B1 /* Magnets.cpp in Sources */,
 				8CA23F121EA924380055D6B1 /* MoreOrLess.cpp in Sources */,
