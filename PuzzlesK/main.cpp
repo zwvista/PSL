@@ -14,7 +14,7 @@ int main(int argc, char **argv)
         println("n: Knightoku");
         println("r: Kropki");
         getline(cin, str);
-        if (str.empty()) solve_puz_Kakurasu();
+        if (str.empty()) solve_puz_Kakuro();
         else if (str == "a1") solve_puz_Kakurasu();
         else if (str == "a2") solve_puz_Kakuro();
         else if (str == "n") solve_puz_Knightoku();
