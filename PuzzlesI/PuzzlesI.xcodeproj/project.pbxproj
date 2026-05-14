@@ -14,6 +14,7 @@
 		8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2B1EA926F60055D6B1 /* pugixml.cpp */; };
 		8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F2F1EA926F60055D6B1 /* stdafx.cpp */; };
 		8CA240681EB47A300055D6B1 /* icedin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240651EB47A300055D6B1 /* icedin.cpp */; };
+		8CB4ACA12FB08DFD00EEB63F /* InbetweenSumscrapers2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4AC9F2FB08DFD00EEB63F /* InbetweenSumscrapers2.cpp */; };
 		958FA61D2323872D00205831 /* InsaneTatamis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA61B2323872D00205831 /* InsaneTatamis.cpp */; };
 		95D7B5EB2316E436001E005C /* IslandConnections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5E82316E436001E005C /* IslandConnections.cpp */; };
 		95D7B5FF2320144E001E005C /* InbetweenSumscrapers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95D7B5FD2320144D001E005C /* InbetweenSumscrapers.cpp */; };
@@ -67,6 +68,8 @@
 		8CA240651EB47A300055D6B1 /* icedin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = icedin.cpp; sourceTree = "<group>"; };
 		8CA240661EB47A300055D6B1 /* icedin.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = icedin.txt; sourceTree = "<group>"; };
 		8CA240671EB47A300055D6B1 /* icedin.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = icedin.xml; sourceTree = "<group>"; };
+		8CB4AC9F2FB08DFD00EEB63F /* InbetweenSumscrapers2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InbetweenSumscrapers2.cpp; sourceTree = "<group>"; };
+		8CB4ACA02FB08DFD00EEB63F /* InbetweenSumscrapers2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = InbetweenSumscrapers2.txt; sourceTree = "<group>"; };
 		958FA61A2323872D00205831 /* InsaneTatamis.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = InsaneTatamis.xml; sourceTree = "<group>"; };
 		958FA61B2323872D00205831 /* InsaneTatamis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InsaneTatamis.cpp; sourceTree = "<group>"; };
 		958FA61C2323872D00205831 /* InsaneTatamis.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InsaneTatamis.txt; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 				95D7B5FD2320144D001E005C /* InbetweenSumscrapers.cpp */,
 				95D7B5FE2320144D001E005C /* InbetweenSumscrapers.txt */,
 				95D7B5FC2320144D001E005C /* InbetweenSumscrapers.xml */,
+				8CB4AC9F2FB08DFD00EEB63F /* InbetweenSumscrapers2.cpp */,
+				8CB4ACA02FB08DFD00EEB63F /* InbetweenSumscrapers2.txt */,
 				958FA61B2323872D00205831 /* InsaneTatamis.cpp */,
 				958FA61C2323872D00205831 /* InsaneTatamis.txt */,
 				958FA61A2323872D00205831 /* InsaneTatamis.xml */,
@@ -229,6 +234,7 @@
 				95D7B5FF2320144E001E005C /* InbetweenSumscrapers.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
 				95D7B5EB2316E436001E005C /* IslandConnections.cpp in Sources */,
+				8CB4ACA12FB08DFD00EEB63F /* InbetweenSumscrapers2.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA23F341EA927B60055D6B1 /* stdafx.cpp in Sources */,
 				958FA61D2323872D00205831 /* InsaneTatamis.cpp in Sources */,
