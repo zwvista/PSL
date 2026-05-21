@@ -168,11 +168,9 @@ void puz_state::make_move2(int i, int j)
     auto& perm = (i < sidelen() * 2 ? m_game->m_perms_rc :
         m_game->m_ch2perms_around.at(cells(rng[0])))[j];
 
-    for (int k = 0; k < perm.size(); ++k) {
-        char& ch = cells(rng[k]);
-        if (ch == PUZ_SPACE)
+    for (int k = 0; k < perm.size(); ++k)
+        if (char& ch = cells(rng[k]); ch == PUZ_SPACE)
             ch = perm[k], ++m_distance;
-    }
 
     ++m_distance;
     m_matches.erase(i);
