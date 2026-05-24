@@ -120,6 +120,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         boost::sort(area);
     }
 
+    // 3. A number tells you how many Flowers you must plant in that Flowerbed.
+    //    A Flowerbed without number can have any quantity of Flowers.
     map<pair<int, int>, vector<string>> pair2perms;
     for (auto& [area, flower_cnt, perms2] : m_fb_info) {
         int pos_cnt = area.size();
@@ -139,10 +141,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     ps_flower.push_back(area[i]);
 
             if ([&]{
-                // no touching
+                // 4. Flowers can't be horizontally or vertically touching.
                 for (const auto& p1 : ps_flower)
                     for (const auto& p2 : ps_flower)
-                        if (boost::algorithm::any_of_equal(offset, p1 - p2))
+                        if (p2 > p1 && boost::algorithm::any_of_equal(offset, p1 - p2))
                             return false;
                 return true;
             }())
@@ -154,6 +156,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         return info1.m_perms.size() < info2.m_perms.size();
     });
 
+    // 6. Lastly, there must be enough balance in the Garden, so a straight
+    //    line (horizontally or vertically) of non-planted tiles can't span
+    //    for more than two Flowerbeds.
+    // 7. In other words, a straight path of empty space can't pass through
+    //    three or more Flowerbeds.
     auto f = [this](Position p, const Position& os) {
         int fb_last = -1;
         vector<vector<Position>> rng2D;
@@ -170,9 +177,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
         rng2D.push_back(rng);
 
-        int sz = rng2D.size();
-        if (sz < 3) return;
-        for (int i = 0; i < sz - 2; ++i) {
+        for (int i = 0; i < rng2D.size() - 2; ++i) {
             vector<Position> rng;
             rng.push_back(rng2D[i].back());
             rng.insert_range(rng.end(), rng2D[i + 1]);
@@ -268,6 +273,8 @@ bool puz_state::check_balance()
     bool balanced = true;
     int sz = m_balanced_ids.size();
     boost::remove_erase_if(m_balanced_ids, [&](int id) {
+        // No need to continue if unbalanced
+        if (!balanced) return false;
         auto& rng = m_game->m_balanced_ranges[id];
         int n_flower = 0, n_space = 0;
         for (auto& p : rng)
@@ -295,7 +302,7 @@ bool puz_state::make_move(int i)
         auto& p = area[k];
         if ((cells(p) = perm[k]) != PUZ_FLOWER) continue;
 
-        // no touching
+        // 4. Flowers can't be horizontally or vertically touching.
         for (auto& os : offset)
             if (cells(p + os) == PUZ_FLOWER)
                 return false;
