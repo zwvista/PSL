@@ -136,12 +136,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     //    A Flowerbed without number can have any quantity of Flowers.
     map<pair<int, int>, vector<string>> pair2perms;
     for (auto& [area, flower_cnt, moves] : m_fb_info) {
-        int pos_cnt = area.size();
-        auto& perms = pair2perms[{pos_cnt, flower_cnt}];
+        int area_sz = area.size();
+        auto& perms = pair2perms[{area_sz, flower_cnt}];
         if (perms.empty())
-            for (int i = 0; i <= pos_cnt; ++i) {
+            for (int i = 0; i <= area_sz; ++i) {
                 if (flower_cnt != PUZ_UNKNOWN && flower_cnt != i) continue;
-                auto perm = string(pos_cnt - i, PUZ_EMPTY) + string(i, PUZ_FLOWER);
+                auto perm = string(area_sz - i, PUZ_EMPTY) + string(i, PUZ_FLOWER);
                 do
                     perms.push_back(perm);
                 while (boost::next_permutation(perm));
