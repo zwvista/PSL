@@ -174,9 +174,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         if (sz < 3) return;
         for (int i = 0; i < sz - 2; ++i) {
             vector<Position> rng;
-            for (int j = i; j < i + 3; ++j)
-                for (auto& p2 : rng2D[j])
-                    rng.push_back(p2);
+            rng.push_back(rng2D[i].back());
+            rng.insert_range(rng.end(), rng2D[i + 1]);
+            rng.push_back(rng2D[i + 2].front());
             m_balanced_ranges.push_back(rng);
         }
     };
