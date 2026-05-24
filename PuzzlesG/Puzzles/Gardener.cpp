@@ -35,8 +35,6 @@ constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr auto PUZ_UNKNOWN = -1;
 
-bool is_empty(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY; }
-
 constexpr array<Position, 4> offset = Position::Directions4;
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
@@ -171,6 +169,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             p += os;
         }
         rng2D.push_back(rng);
+
         int sz = rng2D.size();
         if (sz < 3) return;
         for (int i = 0; i < sz - 2; ++i) {
@@ -196,13 +195,14 @@ struct puz_state
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(int i);
-    void count_unbalanced();
+    bool check_balance();
+    bool is_interconnected() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return m_game->m_fb_info.size() - m_fb_index + m_unbalanced; 
+        return m_game->m_fb_info.size() - m_fb_index + m_balanced_ids.size();
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
@@ -211,53 +211,26 @@ struct puz_state
     const puz_game* m_game;
     string m_cells;
     int m_fb_index = 0;
+    vector<int> m_balanced_ids;
     unsigned int m_distance = 0;
-    unsigned int m_unbalanced = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
+, m_balanced_ids(g.m_balanced_ranges.size())
 {
     for (int i = 0; i < sidelen(); ++i)
         cells({i, 0}) = cells({i, sidelen() - 1}) =
         cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
 
-    count_unbalanced();
-}
-
-void puz_state::count_unbalanced()
-{
-    auto f = [this](Position p, const Position& os) {
-        char ch_last = PUZ_BOUNDARY;
-        int fb_last = -1;
-        for (int i = 1, n = 0; i < sidelen(); ++i) {
-            char ch = cells(p);
-            if (is_empty(ch)) {
-                int fb = m_game->m_pos2fb.at(p);
-                if (fb != fb_last)
-                    ++n, fb_last = fb;
-            } else {
-                fb_last = -1;
-                if (n > 2)
-                    m_unbalanced += n - 2;
-                n = 0;
-            }
-            ch_last = ch;
-            p += os;
-        }
-    };
-
-    m_unbalanced = 0;
-    for (int i = 1; i < sidelen() - 1; ++i) {
-        f({i, 1}, {0, 1});        // e
-        f({1, i}, {1, 0});        // s
-    }
+    boost::iota(m_balanced_ids, 0);
 }
 
 struct puz_state3 : Position
 {
-    puz_state3(const puz_state& s);
+    puz_state3(const puz_state* s, const Position& p)
+        : m_state(s) { make_move(p); }
 
     int sidelen() const { return m_state->sidelen(); }
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
@@ -266,21 +239,51 @@ struct puz_state3 : Position
     const puz_state* m_state;
 };
 
-puz_state3::puz_state3(const puz_state& s)
-: m_state(&s)
-{
-    int i = boost::find_if(s.m_cells, [](char ch) {
-        return is_empty(ch);
-    }) - s.m_cells.begin();
-    make_move({i / sidelen(), i % sidelen()});
-}
-
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
     for (auto& os : offset)
-        if (auto p2 = *this + os;
-            is_empty(m_state->cells(p2)))
+        switch (auto p2 = *this + os; m_state->cells(p2)) {
+        case PUZ_SPACE:
+        case PUZ_EMPTY:
             children.emplace_back(*this).make_move(p2);
+            break;
+        }
+}
+
+// 5. All the remaining Garden space where there are no Flowers must be
+//    interconnected (horizontally or vertically), as he wants to be able
+//    to reach every part of the Garden without treading over Flowers.
+bool puz_state::is_interconnected() const
+{
+    int i = m_cells.find(PUZ_EMPTY);
+    auto smoves = puz_move_generator<puz_state3>::gen_moves(
+        {this, {i / sidelen(), i % sidelen()}});
+    return boost::count_if(smoves, [&](const Position& p) {
+        return cells(p) == PUZ_EMPTY;
+    }) == boost::count(m_cells, PUZ_EMPTY);
+}
+
+bool puz_state::check_balance()
+{
+    bool balanced = true;
+    int sz = m_balanced_ids.size();
+    boost::remove_erase_if(m_balanced_ids, [&](int id) {
+        auto& rng = m_game->m_balanced_ranges[id];
+        int n_flower = 0, n_space = 0;
+        for (auto& p : rng)
+            switch (cells(p)) {
+            case PUZ_FLOWER: n_flower++; break;
+            case PUZ_SPACE: n_space++; break;
+            }
+        // already balanced
+        if (n_flower > 0) return true;
+        // impossible to be balanced
+        if (n_flower == 0 && n_space == 0)
+            balanced = false;
+        return false;
+    });
+    m_distance += sz - m_balanced_ids.size();
+    return balanced;
 }
 
 bool puz_state::make_move(int i)
@@ -288,8 +291,6 @@ bool puz_state::make_move(int i)
     m_distance = 0;
     auto& [area, _1, perms] = m_game->m_fb_info[m_fb_index];
     auto& perm = perms[i];
-
-    auto ub = m_unbalanced;
     for (int k = 0; k < perm.size(); ++k) {
         auto& p = area[k];
         if ((cells(p) = perm[k]) != PUZ_FLOWER) continue;
@@ -300,16 +301,8 @@ bool puz_state::make_move(int i)
                 return false;
     }
 
-    // interconnected spaces
-    auto smoves = puz_move_generator<puz_state3>::gen_moves(*this);
-    if (smoves.size() != boost::count_if(m_cells, [](char ch) {
-        return is_empty(ch);
-    }))
-        return false;
-
-    count_unbalanced();
-    m_distance += ub - m_unbalanced + 1;
-    return ++m_fb_index != m_game->m_fb_info.size() || m_unbalanced == 0;
+    ++m_fb_index;
+    return check_balance() && is_interconnected();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
