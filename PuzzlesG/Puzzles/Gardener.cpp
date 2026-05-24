@@ -149,23 +149,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
         for (const auto& perm : perms) {
             auto& [flowers, empties] = moves.emplace_back();
-            for (int i = 0; i < perm.size(); ++i) {
-                auto& p = area[i];
-                if (perm[i] == PUZ_EMPTY)
-                    empties.insert(p);
-                else {
-                    flowers.insert(p);
-                    for (auto& os : offset)
-                        if (auto p2 = p + os; cells(p2) == PUZ_SPACE)
-                            empties.insert(p2);
-                }
-            }
+            for (int i = 0; i < perm.size(); ++i)
+                (perm[i] == PUZ_EMPTY ? empties : flowers).insert(area[i]);
             // 4. Flowers can't be horizontally or vertically touching.
             if (![&]{
-                for (const auto& p1 : flowers)
-                    for (const auto& p2 : flowers)
-                        if (p2 > p1 && boost::algorithm::any_of_equal(offset, p1 - p2))
+                for (const auto& p : flowers)
+                    for (auto& os : offset)
+                        if (auto p2 = p + os; flowers.contains(p2))
                             return false;
+                        else if (cells(p2) == PUZ_SPACE)
+                            empties.insert(p2);
                 return true;
             }())
                 moves.pop_back();
