@@ -54,11 +54,10 @@ struct puz_game
     map<Position, int> m_pos2fb;
     vector<puz_fb_info> m_fb_info;
     map<Position, int> m_pos2num;
-    string m_cells;
+    vector<vector<Position>> m_balanced_ranges;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
@@ -86,7 +85,6 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() / 2 + 2)
-, m_cells(m_sidelen * m_sidelen, PUZ_SPACE)
 {
     set<Position> rng;
     for (int r = 1;; ++r) {
@@ -158,9 +156,36 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         return info1.m_perms.size() < info2.m_perms.size();
     });
 
-    for (int i = 0; i < m_sidelen; ++i)
-        cells({i, 0}) = cells({i, m_sidelen - 1}) =
-        cells({0, i}) = cells({m_sidelen - 1, i}) = PUZ_BOUNDARY;
+    auto f = [this](Position p, const Position& os) {
+        int fb_last = -1;
+        vector<vector<Position>> rng2D;
+        vector<Position> rng;
+        for (int i = 1; i < m_sidelen - 1; ++i) {
+            int fb = m_pos2fb.at(p);
+            if (fb != fb_last) {
+                if (fb_last != -1)
+                    rng2D.push_back(rng), rng.clear();
+                fb_last = fb;
+            }
+            rng.push_back(p);
+            p += os;
+        }
+        rng2D.push_back(rng);
+        int sz = rng2D.size();
+        if (sz < 3) return;
+        for (int i = 0; i < sz - 2; ++i) {
+            vector<Position> rng;
+            for (int j = i; j < i + 3; ++j)
+                for (auto& p2 : rng2D[j])
+                    rng.push_back(p2);
+            m_balanced_ranges.push_back(rng);
+        }
+    };
+
+    for (int i = 1; i < m_sidelen - 1; ++i) {
+        f({i, 1}, {0, 1});        // e
+        f({1, i}, {1, 0});        // s
+    }
 }
 
 struct puz_state
@@ -191,8 +216,13 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_cells)
+: m_game(&g)
+, m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
 {
+    for (int i = 0; i < sidelen(); ++i)
+        cells({i, 0}) = cells({i, sidelen() - 1}) =
+        cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
+
     count_unbalanced();
 }
 
