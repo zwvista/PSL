@@ -33,7 +33,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_FLOWER = 'F';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr auto PUZ_FLOWER_COUNT_UNKNOWN = -1;
+constexpr auto PUZ_UNKNOWN = -1;
 
 bool is_empty(char ch) { return ch == PUZ_SPACE || ch == PUZ_EMPTY; }
 
@@ -42,8 +42,8 @@ constexpr array<Position, 4> offset2 = Position::WallsOffset4;
 
 struct puz_fb_info
 {
-    vector<Position> m_range;
-    int m_flower_count = PUZ_FLOWER_COUNT_UNKNOWN;
+    vector<Position> m_area;
+    int m_flower_count = PUZ_UNKNOWN;
     vector<string> m_perms;
 };
 
@@ -54,9 +54,11 @@ struct puz_game
     map<Position, int> m_pos2fb;
     vector<puz_fb_info> m_fb_info;
     map<Position, int> m_pos2num;
+    string m_cells;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
@@ -84,6 +86,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() / 2 + 2)
+, m_cells(m_sidelen * m_sidelen, PUZ_SPACE)
 {
     set<Position> rng;
     for (int r = 1;; ++r) {
@@ -110,25 +113,24 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int n = 0; !rng.empty(); ++n) {
         auto& p_start = *rng.begin();
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p_start});
-        m_fb_info.resize(n + 1);
+        auto& [area, flower_cnt, _1] = m_fb_info.emplace_back();
         if (auto it = m_pos2num.find(p_start); it != m_pos2num.end())
-            m_fb_info[n].m_flower_count = it->second;
+            flower_cnt = it->second;
         for (auto& p : smoves) {
-            m_fb_info[n].m_range.push_back(p);
+            area.push_back(p);
             m_pos2fb[p] = n;
             rng.erase(p);
         }
-        boost::sort(m_fb_info[n].m_range);
+        boost::sort(area);
     }
 
     map<pair<int, int>, vector<string>> pair2perms;
-    for (auto& info : m_fb_info) {
-        int pos_cnt = info.m_range.size();
-        int flower_cnt = info.m_flower_count;
+    for (auto& [area, flower_cnt, perms2] : m_fb_info) {
+        int pos_cnt = area.size();
         auto& perms = pair2perms[{pos_cnt, flower_cnt}];
         if (perms.empty())
             for (int i = 0; i <= pos_cnt; ++i) {
-                if (flower_cnt != PUZ_FLOWER_COUNT_UNKNOWN && flower_cnt != i) continue;
+                if (flower_cnt != PUZ_UNKNOWN && flower_cnt != i) continue;
                 auto perm = string(pos_cnt - i, PUZ_EMPTY) + string(i, PUZ_FLOWER);
                 do
                     perms.push_back(perm);
@@ -138,7 +140,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             vector<Position> ps_flower;
             for (int i = 0; i < perm.size(); ++i)
                 if (perm[i] == PUZ_FLOWER)
-                    ps_flower.push_back(info.m_range[i]);
+                    ps_flower.push_back(area[i]);
 
             if ([&]{
                 // no touching
@@ -148,13 +150,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             return false;
                 return true;
             }())
-                info.m_perms.push_back(perm);
+                perms2.push_back(perm);
         }
     }
 
     boost::sort(m_fb_info, [this](const puz_fb_info& info1, const puz_fb_info& info2) {
         return info1.m_perms.size() < info2.m_perms.size();
     });
+
+    for (int i = 0; i < m_sidelen; ++i)
+        cells({i, 0}) = cells({i, m_sidelen - 1}) =
+        cells({0, i}) = cells({m_sidelen - 1, i}) = PUZ_BOUNDARY;
 }
 
 struct puz_state
@@ -185,13 +191,8 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
-, m_game(&g)
+: m_game(&g), m_cells(g.m_cells)
 {
-    for (int i = 0; i < sidelen(); ++i)
-        cells({i, 0}) = cells({i, sidelen() - 1}) =
-        cells({0, i}) = cells({sidelen() - 1, i}) = PUZ_BOUNDARY;
-
     count_unbalanced();
 }
 
@@ -241,29 +242,26 @@ puz_state3::puz_state3(const puz_state& s)
     int i = boost::find_if(s.m_cells, [](char ch) {
         return is_empty(ch);
     }) - s.m_cells.begin();
-
     make_move({i / sidelen(), i % sidelen()});
 }
 
 void puz_state3::gen_children(list<puz_state3>& children) const
 {
-    for (auto& os : offset) {
-        auto p2 = *this + os;
-        if (is_empty(m_state->cells(p2)))
+    for (auto& os : offset)
+        if (auto p2 = *this + os;
+            is_empty(m_state->cells(p2)))
             children.emplace_back(*this).make_move(p2);
-    }
 }
 
 bool puz_state::make_move(int i)
 {
     m_distance = 0;
-    auto& info = m_game->m_fb_info[m_fb_index];
-    auto& range = info.m_range;
-    auto& perm = info.m_perms[i];
+    auto& [area, _1, perms] = m_game->m_fb_info[m_fb_index];
+    auto& perm = perms[i];
 
     auto ub = m_unbalanced;
     for (int k = 0; k < perm.size(); ++k) {
-        auto& p = range[k];
+        auto& p = area[k];
         if ((cells(p) = perm[k]) != PUZ_FLOWER) continue;
 
         // no touching
