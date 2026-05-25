@@ -18,7 +18,7 @@ int main(int argc, char **argv)
         println("u1: Guesstris");
         println("u2: Guess the Labyrinth");
         getline(cin, str);
-        if (str.empty()) solve_puz_Gardener();
+        if (str.empty()) solve_puz_GardenTunnels();
         else if (str == "a1") solve_puz_Galaxies();
         else if (str == "a2") solve_puz_Gardener();
         else if (str == "a3") solve_puz_GardenTunnels();

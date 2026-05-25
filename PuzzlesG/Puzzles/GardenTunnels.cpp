@@ -23,8 +23,6 @@ namespace puzzles::GardenTunnels{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_UNKNOWN = -1;
-constexpr auto PUZ_START_END = '0';
-constexpr auto PUZ_MIDDLE = '1';
 
 // n-e-s-w
 // 0 means line is off in this direction
@@ -36,18 +34,27 @@ const vector<int> linesegs_all = {
     // ╵(up) ╶(right) ╷(down) ╴(left) ─ │ 
     1, 2, 4, 8, 10, 5,
 };
-// All line segments for a house
 const vector<int> linesegs_all_start_end = {
     // ╵(up) ╶(right) ╷(down) ╴(left)
     1, 2, 4, 8,
 };
-const vector<int> linesegs_all_middle = {
-    // ─ │ 
-    10, 5,
+const vector<int> linesegs_horz = {
+    // ╶(right), ─, ╴(left)
+    2, 10, 8
+};
+const vector<int> linesegs_vert = {
+    // ╷(down), │ , ╵(up)
+    4, 5, 1
 };
 
 constexpr array<Position, 4> offset = Position::Directions4;
 constexpr array<Position, 4> offset2 = Position::WallsOffset4;
+
+struct puz_move
+{
+    vector<Position> m_rng;
+    bool m_is_vert;
+};
 
 struct puz_game
 {
@@ -56,11 +63,17 @@ struct puz_game
     int m_dot_count;
     set<Position> m_horz_walls, m_vert_walls;
     map<Position, int> m_pos2num;
+    // elem.first: area size
+    // elem.second: positions
     vector<pair<int, vector<Position>>> m_areas;
     map<Position, int> m_pos2area;
-    map<pair<int, int>, vector<string>> m_config2perms;
+    vector<puz_move> m_moves;
+    map<Position, vector<int>> m_pos2move_ids;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    bool is_valid(const Position& p) const {
+        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
+    }
 };
 
 struct puz_state2 : Position
@@ -86,9 +99,9 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
-    : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size() / 2)
-    , m_dot_count(m_sidelen * m_sidelen)
+: m_id(level.attribute("id").value())
+, m_sidelen(strs.size() / 2)
+, m_dot_count(m_sidelen * m_sidelen)
 {
     set<Position> rng;
     for (int r = 0;; ++r) {
@@ -121,21 +134,29 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 num = it->second;
         }
         m_areas.push_back({num, {smoves.begin(), smoves.end()}});
-
-        if (num == PUZ_UNKNOWN) continue;
-        int sz = smoves.size();
-        auto& perms = m_config2perms[{num, sz}];
-        if (!perms.empty()) continue;
-        for (int i = 0; i <= sz; i++) {
-            if (num != i) continue;
-            // 3. The number in the garden tells you how many tunnels start/end in that
-            // garden.
-            auto perm = string(i, PUZ_START_END) + string(sz - i, PUZ_MIDDLE);
-            do
-                perms.push_back(perm);
-            while (boost::next_permutation(perm));
-        }
     }
+
+    // 2. Each tunnel starts in the garden and ends in a different garden,
+    //    and can pass through other gardens.
+    // 4. The entire board must be filled with tunnels.
+    for (int r = 0; r < m_sidelen; ++r)
+        for (int c = 0; c < m_sidelen; ++c)
+            for (Position p(r, c); int d : {1, 2}) {
+                set area_ids{m_pos2area.at(p)};
+                vector rng{p};
+                bool is_vert = d == 2;
+                auto& os = offset[d];
+                for (auto p2 = p + os; is_valid(p2); p2 += os) {
+                    area_ids.insert(m_pos2area.at(p2));
+                    rng.push_back(p2);
+                    if (area_ids.size() > 1) {
+                        int n = m_moves.size();
+                        m_moves.emplace_back(rng, is_vert);
+                        for (auto& p3 : rng)
+                            m_pos2move_ids[p3].push_back(n);
+                    }
+                }
+            }
 }
 
 using puz_dot = vector<int>;
@@ -150,8 +171,8 @@ struct puz_state
     const puz_dot& dots(const Position& p) const { return m_dots[p.first * sidelen() + p.second]; }
     puz_dot& dots(const Position& p) { return m_dots[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_dots < x.m_dots; }
-    bool make_move_hint(int i, int n);
-    void make_move_hint2(int i, int n);
+    bool make_move(int n);
+    void make_move2(int n);
     bool make_move_dot(const Position& p, int n);
     int find_matches(bool init);
     int check_dots(bool init);
@@ -169,22 +190,15 @@ struct puz_state
 
     const puz_game* m_game;
     vector<puz_dot> m_dots;
-    map<int, vector<int>> m_matches;
+    map<Position, vector<int>> m_matches;
     set<pair<Position, int>> m_finished;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_dots(g.m_dot_count), m_game(&g)
+, m_matches(g.m_pos2move_ids)
 {
-    for (int i = 0; i < g.m_areas.size(); ++i) {
-        auto& [num, rng] = g.m_areas[i];
-        if (num == PUZ_UNKNOWN) continue;
-        vector<int> perm_ids(g.m_config2perms.at({num, rng.size()}).size());
-        boost::iota(perm_ids, 0);
-        m_matches[i] = perm_ids;
-    }
-
     for (int r = 0; r < sidelen(); ++r)
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
@@ -210,30 +224,22 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [area_id, perm_ids] : m_matches) {
-        auto& [num, rng] = m_game->m_areas[area_id];
-        auto& perms = m_game->m_config2perms.at({num, rng.size()});
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            auto& perm = perms[id];
-            for (int k = 0; k < rng.size(); ++k) {
-                char ch = perm[k];
-                auto& p = rng[k];
-                auto& linesegs_all2 =
-                    ch == PUZ_START_END ? linesegs_all_middle : linesegs_all_start_end;
-                if (boost::algorithm::all_of(dots(p), [&](int lineseg) {
-                    return boost::algorithm::any_of_equal(linesegs_all2, lineseg);
-                }))
+    for (auto& [_1, move_ids] : m_matches) {
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [rng, is_vert] = m_game->m_moves[id];
+            auto& linesegs = !is_vert ? linesegs_horz : linesegs_vert;
+            for (int i = 0, sz = rng.size(); i < sz; ++i)
+                if (boost::algorithm::none_of_equal(dots(rng[i]), linesegs[i == 0 ? 0 : i == sz - 1 ? 2 : 1]))
                     return true;
-            }
             return false;
         });
 
         if (!init)
-            switch (perm_ids.size()) {
+            switch (move_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move_hint2(area_id, perm_ids.front()), 1;
+                return make_move2(move_ids[0]), 1;
             }
     }
     return 2;
@@ -284,26 +290,21 @@ int puz_state::check_dots(bool init)
     }
 }
 
-void puz_state::make_move_hint2(int i, int n)
+void puz_state::make_move2(int n)
 {
-    auto& [num, rng] = m_game->m_areas[i];
-    auto& perm = m_game->m_config2perms.at({num, rng.size()})[n];
-    for (int k = 0; k < rng.size(); ++k) {
-        char ch = perm[k];
-        auto& p = rng[k];
-        auto& linesegs_all2 =
-            ch == PUZ_START_END ? linesegs_all_middle : linesegs_all_start_end;
-        for (int lineseg : linesegs_all2)
-            boost::remove_erase(dots(p), lineseg);
+    auto& [rng, is_vert] = m_game->m_moves[n];
+    auto& linesegs = !is_vert ? linesegs_horz : linesegs_vert;
+    for (int i = 0, sz = rng.size(); i < sz; ++i) {
+        auto& p = rng[i];
+        dots(p) = {linesegs[i == 0 ? 0 : i == sz - 1 ? 2 : 1]};
+        ++m_distance, m_matches.erase(p);
     }
-    ++m_distance;
-    m_matches.erase(i);
 }
 
-bool puz_state::make_move_hint(int i, int n)
+bool puz_state::make_move(int n)
 {
     m_distance = 0;
-    make_move_hint2(i, n);
+    make_move2(n);
     for (;;) {
         int m;
         while ((m = find_matches(false)) == 1);
@@ -319,77 +320,44 @@ bool puz_state::make_move_hint(int i, int n)
 
 bool puz_state::check_loop() const
 {
-    set<Position> rng;
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            auto& dt = dots(p);
-            if (dt.size() == 1)
-                rng.insert(p);
+    // 3. The number in the garden tells you how many tunnels start/end in that
+    //    garden.
+    auto f = [&](int lineseg) {
+        return boost::algorithm::any_of_equal(linesegs_all_start_end, lineseg);
+    };
+    for (auto& [num, rng] : m_game->m_areas) {
+        int max_possible = 0;
+        int min_guaranteed = 0;
+
+        for (const auto& p : rng) {
+            const auto& dt = dots(p);
+            bool can_be_start_end = boost::algorithm::any_of(dt, f);
+            bool must_be_start_end = boost::algorithm::all_of(dt, f);
+
+            if (can_be_start_end) max_possible++;
+            if (must_be_start_end) min_guaranteed++;
         }
-    
-    while (!rng.empty()) {
-        auto p = *rng.begin(), p2 = p;
-        set<int> visited_area_ids;
-        int start_end_count = 0;
-        for (int n = -1;;) {
-            rng.erase(p2);
-            visited_area_ids.insert(m_game->m_pos2area.at(p2));
-            auto& lineseg = dots(p2)[0];
-            if (boost::algorithm::any_of_equal(linesegs_all_start_end, lineseg))
-                ++start_end_count;
-            for (int i = 0; i < 4; ++i)
-                // proceed only if the line segment does not revisit the previous position
-                if (is_lineseg_on(lineseg, i) && (i + 2) % 4 != n) {
-                    p2 += offset[n = i];
-                    break;
-                }
-            if (!rng.contains(p2))
-                break;
-        }
-        // 2. Each tunnel starts in the garden and ends in a different garden,
-        // and can pass through other gardens.
-        if (start_end_count == 2 && visited_area_ids.size() == 1)
-            return false;
+
+        // Prune if we can't possibly reach the target
+        if (max_possible < num) return false;
+        // Prune if we have already exceeded the target
+        if (min_guaranteed > num) return false;
+        // Final check
+        if (is_goal_state() && min_guaranteed != num) return false;
     }
     return true;
 }
 
-bool puz_state::make_move_dot(const Position& p, int n)
-{
-    m_distance = 0;
-    auto& dt = dots(p);
-    dt = {dt[n]};
-    int m = check_dots(false);
-    return m == 1 ? check_loop() : m == 2;
-}
-
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if (!m_matches.empty()) {
-        auto& [i, perm_ids] = *boost::min_element(m_matches, [](
-            const pair<const int, vector<int>>& kv1,
-            const pair<const int, vector<int>>& kv2) {
-            return kv1.second.size() < kv2.second.size();
-        });
-
-        for (int n : perm_ids)
-            if (!children.emplace_back(*this).make_move_hint(i, n))
-                children.pop_back();
-    } else {
-        int i = boost::min_element(m_dots, [&](const puz_dot& dt1, const puz_dot& dt2) {
-            auto f = [](const puz_dot& dt) {
-                int sz = dt.size();
-                return sz == 1 ? 100 : sz;
-            };
-            return f(dt1) < f(dt2);
-        }) - m_dots.begin();
-        auto& dt = m_dots[i];
-        Position p(i / sidelen(), i % sidelen());
-        for (int n = 0; n < dt.size(); ++n)
-            if (!children.emplace_back(*this).make_move_dot(p, n))
-                children.pop_back();
-    }
+    auto& [_1, move_ids] = *boost::min_element(m_matches, [](
+        const pair<const Position, vector<int>>& kv1,
+        const pair<const Position, vector<int>>& kv2) {
+        return kv1.second.size() < kv2.second.size();
+    });
+    for (int n : move_ids)
+        if (!children.emplace_back(*this).make_move(n))
+            children.pop_back();
 }
 
 ostream& puz_state::dump(ostream& out) const
