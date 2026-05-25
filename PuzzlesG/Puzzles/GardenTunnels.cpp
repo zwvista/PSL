@@ -326,6 +326,7 @@ bool puz_state::check_loop() const
         return boost::algorithm::any_of_equal(linesegs_all_start_end, lineseg);
     };
     for (auto& [num, rng] : m_game->m_areas) {
+        if (num == PUZ_UNKNOWN) continue;
         int max_possible = 0;
         int min_guaranteed = 0;
 
