@@ -39,7 +39,7 @@ int main(int argc, char **argv)
         println("o2: hopover");
         println("r: hrd");
         getline(cin, str);
-        if (str.empty()) solve_puz_HedgeMaze();
+        if (str.empty()) solve_puz_HolidayIsland3();
         else if (str == "e1") solve_puz_Hedgehog();
         else if (str == "e2") solve_puz_HedgeMaze();
         else if (str == "e3") solve_puz_HeliumAndIron();

@@ -26,16 +26,6 @@ constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-using puz_rng2D = vector<set<Position>>;
-
-struct puz_move
-{
-    char letter;
-    vector<Position> m_rng_hints;
-    vector<char> m_names;
-    puz_rng2D m_rng2D;
-};
-
 struct puz_game
 {
     string m_id;
@@ -71,6 +61,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 }
+
+using puz_rng2D = vector<set<Position>>;
+
+struct puz_move
+{
+    char letter;
+    vector<Position> m_rng_hints;
+    vector<char> m_names;
+    puz_rng2D m_rng2D;
+};
 
 struct puz_state
 {
@@ -219,8 +219,8 @@ void puz_state::gen_children(list<puz_state>& children) const
     for (auto& letter : letters) {
         auto& rng = m_game->m_letter2rng.at(letter);
         vector<char> names;
-        for (auto& p : rng)
-            names.push_back(cells(p));
+        for (auto& p2 : rng)
+            names.push_back(cells(p2));
         vector<Position> rng2;
         if (letters.size() > 1)
             rng2 = {p};
