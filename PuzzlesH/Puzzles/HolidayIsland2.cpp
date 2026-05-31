@@ -27,7 +27,6 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_TENT = 'T';
 constexpr auto PUZ_WATER = 'W';
-constexpr auto PUZ_WATER_MOVE_ID = -1;
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
@@ -42,9 +41,8 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_pos2num;
-    vector<puz_move> m_moves;
-    map<Position, vector<int>> m_pos2move_ids;
+    map<Position, int> m_pos2num, m_pos2num_big;
+    map<Position, vector<puz_move>> m_pos2moves;
     string m_cells;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -91,10 +89,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p(r, c);
             if (char ch = str[c - 1]; ch == PUZ_SPACE) {
                 m_cells.push_back(PUZ_SPACE);
-                m_pos2move_ids[p].push_back(PUZ_WATER_MOVE_ID);
             } else {
                 m_cells.push_back(PUZ_TENT);
-                m_pos2num[p] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                int num = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                (num > 10 ? m_pos2num_big : m_pos2num)[p] = num;
             }
         }
         m_cells.push_back(PUZ_WATER);
@@ -104,19 +102,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, num] : m_pos2num) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, num, p});
         for (auto& s : smoves)
-            if (s.is_goal_state() && boost::algorithm::none_of(m_moves, [&](const puz_move& move) {
-                return move.m_area == s;
-            })) {
-                int n = m_moves.size();
-                auto& [p_hint, area, waters] = m_moves.emplace_back();
+            if (auto& moves = m_pos2moves[p]; s.is_goal_state()) {
+                auto& [p_hint, area, waters] = moves.emplace_back();
                 p_hint = p, area = s;
-                for (auto& p2 : s) {
-                    m_pos2move_ids[p2].push_back(n);
+                for (auto& p2 : s)
                     for (auto& os : offset)
                         if (auto p3 = p2 + os;
                             !s.contains(p3) && cells(p3) == PUZ_SPACE)
                             waters.insert(p3);
-                }
             }
     }
 }
@@ -128,17 +121,18 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+        return tie(m_cells, m_matches, m_moves_big) < tie(x.m_cells, x.m_matches, x.m_moves_big);
     }
     bool make_move(const Position& p, int n);
     void make_move2(const Position& p, int n);
     int find_matches(bool init);
+    void make_move_big();
     bool check_interconnected();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -146,23 +140,28 @@ struct puz_state
     const puz_game* m_game;
     string m_cells;
     map<Position, vector<int>> m_matches;
+    shared_ptr<vector<puz_move>> m_moves_big;
     unsigned int m_distance = 0;
+    bool m_is_phase_big = false;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_game(&g), m_cells(g.m_cells), m_matches(g.m_pos2move_ids)
+: m_game(&g), m_cells(g.m_cells)
 {
+    for (auto& [p, moves] : g.m_pos2moves) {
+        auto& v = m_matches[p];
+        v.resize(moves.size());
+        boost::iota(v, 0);
+    }
     find_matches(true);
 }
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, perm_ids] : m_matches) {
-        boost::remove_erase_if(perm_ids, [&](int id) {
-            if (id == PUZ_WATER_MOVE_ID)
-                return cells(p) != PUZ_SPACE;
-
-            auto& [p_hint, area, waters] = m_game->m_moves[id];
+    for (auto& [p, move_ids] : m_matches) {
+        auto& moves = m_is_phase_big ? *m_moves_big : m_game->m_pos2moves.at(p);
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [p_hint, area, waters] = moves[id];
             return !boost::algorithm::all_of(area, [&](const Position& p2) {
                 char ch2 = cells(p2);
                 return p_hint == p2 || ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY;
@@ -173,11 +172,11 @@ int puz_state::find_matches(bool init)
         });
 
         if (!init)
-            switch(perm_ids.size()) {
+            switch(move_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move2(p, perm_ids.front()), 1;
+                return make_move2(p, move_ids.front()), 1;
             }
     }
     return check_interconnected() ? 2 : 0;
@@ -226,21 +225,18 @@ bool puz_state::check_interconnected()
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    if (n == PUZ_WATER_MOVE_ID)
-        cells(p) = PUZ_WATER, ++m_distance, m_matches.erase(p);
-    else {
-        auto& [_1, area, waters] = m_game->m_moves[n];
-        for (auto& p2 : area) {
-            char& ch2 = cells(p2);
-            if (ch2 != PUZ_EMPTY)
-                ++m_distance, m_matches.erase(p2);
-            if (ch2 == PUZ_SPACE)
-                ch2 = PUZ_EMPTY;
-        }
-        for (auto& p2 : waters)
-            if (char& ch2 = cells(p2); ch2 == PUZ_SPACE)
-                ch2 = PUZ_WATER, ++m_distance, m_matches.erase(p2);
+    auto& moves = m_is_phase_big ? *m_moves_big : m_game->m_pos2moves.at(p);
+    auto& [_1, area, waters] = moves[n];
+    for (auto& p2 : area) {
+        char& ch2 = cells(p2);
+        if (ch2 != PUZ_EMPTY)
+            ++m_distance, m_matches.erase(p2);
+        if (ch2 == PUZ_SPACE)
+            ch2 = PUZ_EMPTY;
     }
+    for (auto& p2 : waters)
+        if (char& ch2 = cells(p2); ch2 == PUZ_SPACE)
+            ch2 = PUZ_WATER, ++m_distance, m_matches.erase(p2);
 }
 
 bool puz_state::make_move(const Position& p, int n)
@@ -252,16 +248,90 @@ bool puz_state::make_move(const Position& p, int n)
     return m == 2;
 }
 
+struct puz_state5 : set<Position>
+{
+    puz_state5(const puz_state* state, int num, const Position& p)
+        : m_state(state), m_num(num) { make_move(p); }
+    void make_move(const Position& p);
+
+    void gen_children(list<puz_state5>& children) const;
+
+    const puz_state* m_state;
+    int m_num;
+    bool m_is_goal;
+};
+
+void puz_state5::make_move(const Position &p)
+{
+    insert(p);
+    m_is_goal = size() == m_num + 1 && boost::algorithm::none_of(*this, [&](const Position& p2) {
+        return boost::algorithm::any_of(offset, [&](const Position& os) {
+            auto p3 = p2 + os;
+            if (contains(p3)) return false;
+            char ch = m_state->cells(p3);
+            return ch == PUZ_SPACE || ch == PUZ_EMPTY;
+        });
+    });
+}
+
+void puz_state5::gen_children(list<puz_state5>& children) const {
+    if (size() == m_num + 1)
+        return;
+    for (auto& p : *this)
+        for (auto& os : offset) {
+            // 5. A camper can walk from his Tent,
+            // by moving horizontally or vertically.A camper can't cross water or
+            // other Tents.
+            auto p2 = p + os;
+            if (char ch2 = m_state->cells(p2);
+                (ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY) && !contains(p2))
+                children.emplace_back(*this).make_move(p2);
+        }
+}
+
+void puz_state::make_move_big()
+{
+    for (int r = 1; r < sidelen() - 1; ++r)
+        for (int c = 1; c < sidelen() - 1; ++c)
+            if (Position p(r, c); cells(p) == PUZ_SPACE)
+                m_matches[p];
+    m_moves_big = make_shared<vector<puz_move>>();
+    for (auto& [p, num] : m_game->m_pos2num_big) {
+        // Areas can have any form.
+        auto smoves = puz_move_generator<puz_state5>::gen_moves({this, num, p});
+        for (auto& s : smoves)
+            // save all goal states as permutations
+            // A goal state is a area formed from the number
+            if (s.m_is_goal) {
+                int n = m_moves_big->size();
+                auto& [p_hint, area, waters] = m_moves_big->emplace_back();
+                p_hint = p, area = s;
+                for (auto& p2 : s) {
+                    m_matches[p2].push_back(n);
+                    for (auto& os : offset)
+                        if (auto p3 = p2 + os;
+                            !s.contains(p3) && cells(p3) == PUZ_SPACE)
+                            waters.insert(p3);
+                }
+            }
+    }
+    m_is_phase_big = true;
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, move_ids] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1,
-        const pair<const Position, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (int n : move_ids)
-        if (!children.emplace_back(*this).make_move(p, n))
-            children.pop_back();
+    if (!m_matches.empty()) {
+        auto& [p, move_ids] = *boost::min_element(m_matches, [](
+            const pair<const Position, vector<int>>& kv1,
+            const pair<const Position, vector<int>>& kv2) {
+            return kv1.second.size() < kv2.second.size();
+        });
+        for (int n : move_ids)
+            if (!children.emplace_back(*this).make_move(p, n))
+                children.pop_back();
+    } else if (!m_is_phase_big) {
+        children.emplace_back(*this).make_move_big();
+    }
 }
 
 ostream& puz_state::dump(ostream& out) const
@@ -270,8 +340,10 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             char ch = cells(p);
-            if (ch == PUZ_TENT)
-                out << format("{:<2}", m_game->m_pos2num.at(p));
+            if (auto it = m_game->m_pos2num.find(p); it != m_game->m_pos2num.end())
+                out << format("{:<2}", it->second);
+            else if (auto it = m_game->m_pos2num_big.find(p); it != m_game->m_pos2num_big.end())
+                out << format("{:<2}", it->second);
             else
                 out << (ch == PUZ_SPACE ? PUZ_WATER : ch) << ' ';
         }

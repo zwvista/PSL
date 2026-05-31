@@ -48,7 +48,7 @@ struct puz_game
     string m_id;
     int m_sidelen;
     // key: position of the number (hint)
-    map<Position, puz_hint> m_pos2hint, m_pos2hintBig;
+    map<Position, puz_hint> m_pos2hint, m_pos2hint_big;
     map<Position, vector<puz_move>> m_pos2moves;
     string m_cells;
 
@@ -104,7 +104,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (ch1 != ' ') {
                 Position p(r, c);
                 int num = isdigit(ch1) ? ch1 - '0' : ch1 - 'A' + 10;
-                (num > 10 ? m_pos2hintBig : m_pos2hint)[p] = {ch2, num};
+                (num > 10 ? m_pos2hint_big : m_pos2hint)[p] = {ch2, num};
             }
         }
         m_cells.push_back(PUZ_BOUNDARY);
@@ -136,7 +136,7 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches, m_movesBig) < tie(x.m_cells, x.m_matches, x.m_movesBig);
+        return tie(m_cells, m_matches, m_moves_big) < tie(x.m_cells, x.m_matches, x.m_moves_big);
     }
     bool make_move(const Position& p, int n);
     void make_move2(const Position& p, int n);
@@ -162,7 +162,7 @@ struct puz_state
     // key: the position of the number (hint)
     // value : the index of the move
     map<Position, vector<int>> m_matches;
-    shared_ptr<vector<puz_move>> m_movesBig;
+    shared_ptr<vector<puz_move>> m_moves_big;
     unsigned int m_distance = 0;
     bool m_is_phase_big = false;
 };
@@ -181,7 +181,7 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, move_ids] : m_matches) {
-        auto& moves = m_is_phase_big ? *m_movesBig : m_game->m_pos2moves.at(p);
+        auto& moves = m_is_phase_big ? *m_moves_big : m_game->m_pos2moves.at(p);
         boost::remove_erase_if(move_ids, [&](int id) {
             auto& [start, ch, rng, neighbors] = moves[id];
             char ch12 = ch == PUZ_EMPTY ? PUZ_EMPTY2 : PUZ_WALL2;
@@ -246,12 +246,12 @@ bool puz_state::check_hints(bool check_empty, bool check_wall) const
                     break;
                 if (m_is_phase_big) {
                     if (m_matches.contains(p))
-                        area.insert(p), pos2hint[p] = m_game->m_pos2hintBig.at(p).second;
+                        area.insert(p), pos2hint[p] = m_game->m_pos2hint_big.at(p).second;
                 } else {
                     if (m_matches.contains(p))
                         area.insert(p), pos2hint[p] = m_game->m_pos2hint.at(p).second;
-                    else if (m_game->m_pos2hintBig.contains(p))
-                        area.insert(p), pos2hint[p] = m_game->m_pos2hintBig.at(p).second;
+                    else if (m_game->m_pos2hint_big.contains(p))
+                        area.insert(p), pos2hint[p] = m_game->m_pos2hint_big.at(p).second;
                 }
             }
     while (!area.empty()) {
@@ -270,7 +270,7 @@ bool puz_state::check_hints(bool check_empty, bool check_wall) const
 
 void puz_state::make_move2(const Position& p, int n)
 {
-    auto& moves = m_is_phase_big ? *m_movesBig : m_game->m_pos2moves.at(p);
+    auto& moves = m_is_phase_big ? *m_moves_big : m_game->m_pos2moves.at(p);
     auto& [_1, ch, rng, neighbors] = moves[n];
     for (auto& p2 : rng) {
         cells(p2) = ch, ++m_distance;
@@ -358,16 +358,16 @@ void puz_state::make_move_big()
             case PUZ_WALL2:
                 m_matches[p];
             }
-    m_movesBig = make_shared<vector<puz_move>>();
-    for (auto& [p, hint] : m_game->m_pos2hintBig) {
+    m_moves_big = make_shared<vector<puz_move>>();
+    for (auto& [p, hint] : m_game->m_pos2hint_big) {
         // Areas can have any form.
         auto smoves = puz_move_generator<puz_state5>::gen_moves({this, p, hint});
         for (auto& s : smoves)
             // save all goal states as permutations
             // A goal state is a area formed from the number
             if (s.m_is_goal) {
-                int n = m_movesBig->size();
-                auto& [start, ch, rng, neighbors] = m_movesBig->emplace_back();
+                int n = m_moves_big->size();
+                auto& [start, ch, rng, neighbors] = m_moves_big->emplace_back();
                 start = p, ch = hint.first, rng = s;
                 for (auto& p2 : s) {
                     m_matches[p2].push_back(n);
@@ -405,7 +405,7 @@ ostream& puz_state::dump(ostream& out) const
             char ch = cells(p);
             if (auto it = m_game->m_pos2hint.find(p); it != m_game->m_pos2hint.end())
                 out << format("{:2}", it->second.second);
-            else if (auto it = m_game->m_pos2hintBig.find(p); it != m_game->m_pos2hintBig.end())
+            else if (auto it = m_game->m_pos2hint_big.find(p); it != m_game->m_pos2hint_big.end())
                 out << format("{:2}", it->second.second);
             else
                 out << "  ";
