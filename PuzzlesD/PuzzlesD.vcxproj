@@ -163,6 +163,7 @@
   <ItemGroup>
     <Text Include="Puzzles\DesertDunes.txt" />
     <Text Include="Puzzles\DigitalBattleShips.txt" />
+    <Text Include="Puzzles\DigitalBattleShips2.txt" />
     <Text Include="Puzzles\DigitalPath.txt" />
     <Text Include="Puzzles\DigitWorms.txt" />
     <Text Include="Puzzles\DirectionalPlanks.txt" />
@@ -185,6 +186,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzles\DesertDunes.cpp" />
     <ClCompile Include="Puzzles\DigitalBattleShips.cpp" />
+    <ClCompile Include="Puzzles\DigitalBattleShips2.cpp" />
     <ClCompile Include="Puzzles\DigitalPath.cpp" />
     <ClCompile Include="Puzzles\DigitWorms.cpp" />
     <ClCompile Include="Puzzles\DirectionalPlanks.cpp" />

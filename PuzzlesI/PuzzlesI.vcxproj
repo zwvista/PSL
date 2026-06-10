@@ -164,6 +164,7 @@
     <Text Include="Puzzles\icedin.txt" />
     <Text Include="Puzzles\InbetweenNurikabe.txt" />
     <Text Include="Puzzles\InbetweenSumscrapers.txt" />
+    <Text Include="Puzzles\InbetweenSumscrapers2.txt" />
     <Text Include="Puzzles\InsaneTatamis.txt" />
     <Text Include="Puzzles\IslandConnections.txt" />
     <Text Include="ReadMe.txt" />
@@ -184,6 +185,7 @@
     <ClCompile Include="Puzzles\icedin.cpp" />
     <ClCompile Include="Puzzles\InbetweenNurikabe.cpp" />
     <ClCompile Include="Puzzles\InbetweenSumscrapers.cpp" />
+    <ClCompile Include="Puzzles\InbetweenSumscrapers2.cpp" />
     <ClCompile Include="Puzzles\InsaneTatamis.cpp" />
     <ClCompile Include="Puzzles\IslandConnections.cpp" />
     <ClCompile Include="stdafx.cpp">

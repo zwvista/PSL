@@ -40,6 +40,9 @@
     <Text Include="Puzzles\DigitWorms.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\DigitalBattleShips2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -81,6 +84,9 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\DigitWorms.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\DigitalBattleShips2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>

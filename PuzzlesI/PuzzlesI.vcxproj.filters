@@ -34,6 +34,9 @@
     <Text Include="Puzzles\InbetweenNurikabe.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\InbetweenSumscrapers2.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -69,6 +72,9 @@
       <Filter>Puzzles</Filter>
     </ClCompile>
     <ClCompile Include="Puzzles\InbetweenNurikabe.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzles\InbetweenSumscrapers2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
   </ItemGroup>
