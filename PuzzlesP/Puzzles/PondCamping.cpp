@@ -20,12 +20,12 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_FOREST = '=';
 constexpr auto PUZ_CAMPER = 'C';
-constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
 struct puz_move
 {
+    Position m_p_hint;
     set<Position> m_empties;
     set<Position> m_forests;
 };
@@ -34,7 +34,7 @@ struct puz_game
 {
     string m_id;
     int m_sidelen;
-    map<Position, int> m_pos2num;
+    map<Position, int> m_pos2num, m_pos2num_big;
     string m_cells;
     // key: position of the number (hint)
     map<Position, vector<puz_move>> m_pos2moves;
@@ -60,45 +60,46 @@ void puz_state2::gen_children(list<puz_state2>& children) const {
     if (is_goal_state())
         return;
     for (auto& p : *this)
-        for (auto& os : offset) {
-            auto p2 = p + os;
-            if (!contains(p2) && m_game->cells(p2) == PUZ_SPACE)
+        for (auto& os : offset)
+            // 1. The numbers are Ponds.From each Pond you can have a hike of that many
+            //     tiles as the number marked on it.
+            if (auto p2 = p + os;
+                !contains(p2) && m_game->cells(p2) == PUZ_SPACE)
                 children.emplace_back(*this).make_move(p2);
-        }
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_FOREST);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         string_view str = strs[r - 1];
-        m_cells.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_FOREST);
         for (int c = 1; c < m_sidelen - 1; ++c)
             if (char ch = str[c - 1]; ch == PUZ_SPACE)
                 m_cells.push_back(PUZ_SPACE);
             else {
                 m_cells.push_back(PUZ_CAMPER);
-                m_pos2num[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                int num = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                (num > 10 ? m_pos2num_big : m_pos2num)[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
             }
-        m_cells.push_back(PUZ_BOUNDARY);
+        m_cells.push_back(PUZ_FOREST);
     }
-    m_cells.append(m_sidelen, PUZ_BOUNDARY);
+    m_cells.append(m_sidelen, PUZ_FOREST);
 
     for (auto& [p, num] : m_pos2num) {
         auto& moves = m_pos2moves[p];
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, num});
         for (auto& s : smoves)
             if (s.is_goal_state()) {
-                auto& [empties, forests] = moves.emplace_back();
-                empties = s;
-                for (auto& p2 : empties)
+                auto& [p_hint, empties, forests] = moves.emplace_back();
+                p_hint = p, (empties = s).erase(p);
+                for (auto& p2 : s)
                     for (auto& os : offset)
                         if (auto p3 = p2 + os;
-                            !empties.contains(p3) && cells(p3) == PUZ_SPACE)
+                            !s.contains(p3) && cells(p3) == PUZ_SPACE)
                             forests.insert(p3);
-                empties.erase(p);
             }
     }
 }
@@ -110,18 +111,19 @@ struct puz_state
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+        return tie(m_cells, m_matches, m_moves_big) < tie(x.m_cells, x.m_matches, x.m_moves_big);
     }
     bool make_move_hike(const Position& p, int n);
     void make_move_hike2(const Position& p, int n);
     void make_move_pond(const Position& p) { cells(p) = PUZ_FOREST; }
+    void make_move_big();
     int find_matches(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::count(m_cells, PUZ_SPACE) + m_matches.size();
+        return boost::count(m_cells, PUZ_SPACE) + m_matches.size() + (m_is_phase_big ? 0 : m_game->m_pos2num_big.size());
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
@@ -130,7 +132,9 @@ struct puz_state
     const puz_game* m_game;
     string m_cells;
     map<Position, vector<int>> m_matches;
+    shared_ptr<vector<puz_move>> m_moves_big;
     unsigned int m_distance = 0;
+    bool m_is_phase_big = false;
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -148,9 +152,9 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [p, move_ids] : m_matches) {
-        auto& moves = m_game->m_pos2moves.at(p);
+        auto& moves = m_is_phase_big ? *m_moves_big : m_game->m_pos2moves.at(p);
         boost::remove_erase_if(move_ids, [&](int id) {
-            auto& [empties, forests] = moves[id];
+            auto& [_1, empties, forests] = moves[id];
             return !boost::algorithm::all_of(empties, [&](const Position& p2) {
                 char ch = cells(p2);
                 return ch == PUZ_SPACE || ch == PUZ_EMPTY;
@@ -173,7 +177,7 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move_hike2(const Position& p, int n)
 {
-    auto& [empties, forests] = m_game->m_pos2moves.at(p)[n];
+    auto& [_1, empties, forests] = m_game->m_pos2moves.at(p)[n];
     for (auto& p2 : empties)
         if (char& ch = cells(p2); ch == PUZ_SPACE)
             ch = PUZ_EMPTY, ++m_distance;
@@ -193,6 +197,65 @@ bool puz_state::make_move_hike(const Position& p, int n)
     return m == 2;
 }
 
+struct puz_state5 : set<Position>
+{
+    puz_state5(const puz_state* state, int num, const Position& p)
+        : m_state(state), m_num(num) { make_move(p); }
+    void make_move(const Position& p);
+
+    void gen_children(list<puz_state5>& children) const;
+
+    const puz_state* m_state;
+    int m_num;
+    bool m_is_goal;
+};
+
+void puz_state5::make_move(const Position& p)
+{
+    insert(p);
+    m_is_goal = size() == m_num + 1 && boost::algorithm::none_of(*this, [&](const Position& p2) {
+        return boost::algorithm::any_of(offset, [&](const Position& os) {
+            auto p3 = p2 + os;
+            return !contains(p3) && m_state->cells(p3) == PUZ_EMPTY;
+        });
+    });
+}
+
+void puz_state5::gen_children(list<puz_state5>& children) const {
+    if (size() == m_num + 1)
+        return;
+    for (auto& p : *this)
+        for (auto& os : offset) {
+            // 1. The numbers are Ponds.From each Pond you can have a hike of that many
+            //     tiles as the number marked on it.
+            auto p2 = p + os;
+            if (char ch2 = m_state->cells(p2);
+                (ch2 == PUZ_SPACE || ch2 == PUZ_EMPTY) && !contains(p2))
+                children.emplace_back(*this).make_move(p2);
+        }
+}
+
+void puz_state::make_move_big()
+{
+    m_moves_big = make_shared<vector<puz_move>>();
+    for (auto& [p, num] : m_game->m_pos2num_big) {
+        m_matches[p];
+        auto smoves = puz_move_generator<puz_state5>::gen_moves({this, num, p});
+        for (auto& s : smoves)
+            if (s.m_is_goal) {
+                m_matches[p].push_back(m_moves_big->size());
+                auto& [p_hint, empties, forests] = m_moves_big->emplace_back();
+                p_hint = p, (empties = s).erase(p);
+                for (auto& p2 : s)
+                    for (auto& os : offset)
+                        if (auto p3 = p2 + os;
+                            !s.contains(p3) && cells(p3) == PUZ_SPACE)
+                            forests.insert(p3);
+            }
+    }
+    m_is_phase_big = true;
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_matches.empty()) {
@@ -204,6 +267,8 @@ void puz_state::gen_children(list<puz_state>& children) const
         for (int n : move_ids)
             if (!children.emplace_back(*this).make_move_hike(p, n))
                 children.pop_back();
+    } else if (!m_is_phase_big) {
+        children.emplace_back(*this).make_move_big();
     } else {
         int i = m_cells.find(PUZ_SPACE);
         Position p(i / sidelen(), i % sidelen());
@@ -217,6 +282,8 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 1; c < sidelen() - 1; ++c) {
             Position p(r, c);
             if (auto it = m_game->m_pos2num.find(p); it != m_game->m_pos2num.end())
+                out << format("{:<2}", it->second);
+            else if (auto it = m_game->m_pos2num_big.find(p); it != m_game->m_pos2num_big.end())
                 out << format("{:<2}", it->second);
             else
                 out << cells(p) << ' ';
