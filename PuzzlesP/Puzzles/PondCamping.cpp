@@ -24,7 +24,7 @@ constexpr auto PUZ_BOUNDARY = '`';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
-struct puz_hike
+struct puz_move
 {
     set<Position> m_empties;
     set<Position> m_forests;
@@ -37,7 +37,7 @@ struct puz_game
     map<Position, int> m_pos2num;
     string m_cells;
     // key: position of the number (hint)
-    map<Position, vector<puz_hike>> m_pos2hikes;
+    map<Position, vector<puz_move>> m_pos2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
@@ -87,18 +87,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_BOUNDARY);
 
     for (auto& [p, num] : m_pos2num) {
-        auto& hikes = m_pos2hikes[p];
+        auto& moves = m_pos2moves[p];
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, num});
         for (auto& s : smoves)
             if (s.is_goal_state()) {
-                auto& [empties, forests] = hikes.emplace_back();
+                auto& [empties, forests] = moves.emplace_back();
                 empties = s;
                 for (auto& p2 : empties)
-                    for (auto& os : offset) {
-                        auto p3 = p2 + os;
-                        if (!empties.contains(p3) && cells(p3) == PUZ_SPACE)
+                    for (auto& os : offset)
+                        if (auto p3 = p2 + os;
+                            !empties.contains(p3) && cells(p3) == PUZ_SPACE)
                             forests.insert(p3);
-                    }
                 empties.erase(p);
             }
     }
@@ -137,10 +136,10 @@ struct puz_state
 puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_cells), m_game(&g)
 {
-    for (auto& [p, hikes] : g.m_pos2hikes) {
-        auto& hike_ids = m_matches[p];
-        hike_ids.resize(hikes.size());
-        boost::iota(hike_ids, 0);
+    for (auto& [p, moves] : g.m_pos2moves) {
+        auto& move_ids = m_matches[p];
+        move_ids.resize(moves.size());
+        boost::iota(move_ids, 0);
     }
 
     find_matches(true);
@@ -148,25 +147,25 @@ puz_state::puz_state(const puz_game& g)
 
 int puz_state::find_matches(bool init)
 {
-    for (auto& [p, hike_ids] : m_matches) {
-        auto& hikes = m_game->m_pos2hikes.at(p);
-        boost::remove_erase_if(hike_ids, [&](int id) {
-            auto& [empties, forests] = hikes[id];
-            return boost::algorithm::any_of(empties, [&](const Position& p2) {
+    for (auto& [p, move_ids] : m_matches) {
+        auto& moves = m_game->m_pos2moves.at(p);
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [empties, forests] = moves[id];
+            return !boost::algorithm::all_of(empties, [&](const Position& p2) {
                 char ch = cells(p2);
-                return !(ch == PUZ_SPACE || ch == PUZ_EMPTY);
-            }) || boost::algorithm::any_of(forests, [&](const Position& p2) {
+                return ch == PUZ_SPACE || ch == PUZ_EMPTY;
+            }) || !boost::algorithm::all_of(forests, [&](const Position& p2) {
                 char ch = cells(p2);
-                return !(ch == PUZ_SPACE || ch == PUZ_FOREST);
+                return ch == PUZ_SPACE || ch == PUZ_FOREST;
             });
         });
 
         if (!init)
-            switch(hike_ids.size()) {
+            switch(move_ids.size()) {
             case 0:
                 return 0;
             case 1:
-                return make_move_hike2(p, hike_ids.front()), 1;
+                return make_move_hike2(p, move_ids.front()), 1;
             }
     }
     return 2;
@@ -174,17 +173,13 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move_hike2(const Position& p, int n)
 {
-    auto& [empties, forests] = m_game->m_pos2hikes.at(p)[n];
-    for (auto& p2 : empties) {
-        char& ch = cells(p2);
-        if (ch == PUZ_SPACE)
+    auto& [empties, forests] = m_game->m_pos2moves.at(p)[n];
+    for (auto& p2 : empties)
+        if (char& ch = cells(p2); ch == PUZ_SPACE)
             ch = PUZ_EMPTY, ++m_distance;
-    }
-    for (auto& p2 : forests) {
-        char& ch = cells(p2);
-        if (ch == PUZ_SPACE)
+    for (auto& p2 : forests)
+        if (char& ch = cells(p2); ch == PUZ_SPACE)
             ch = PUZ_FOREST, ++m_distance;
-    }
     ++m_distance;
     m_matches.erase(p);
 }
@@ -201,12 +196,12 @@ bool puz_state::make_move_hike(const Position& p, int n)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_matches.empty()) {
-        auto& [p, hike_ids] = *boost::min_element(m_matches, [](
+        auto& [p, move_ids] = *boost::min_element(m_matches, [](
             const pair<const Position, vector<int>>& kv1,
             const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (int n : hike_ids)
+        for (int n : move_ids)
             if (!children.emplace_back(*this).make_move_hike(p, n))
                 children.pop_back();
     } else {
