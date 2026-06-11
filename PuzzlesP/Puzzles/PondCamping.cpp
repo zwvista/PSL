@@ -115,7 +115,7 @@ struct puz_state
     }
     bool make_move_hike(const Position& p, int n);
     void make_move_hike2(const Position& p, int n);
-    void make_move_pond(const Position& p) { cells(p) = PUZ_FOREST; }
+    void make_move_forest();
     void make_move_big();
     int find_matches(bool init);
 
@@ -177,7 +177,8 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move_hike2(const Position& p, int n)
 {
-    auto& [_1, empties, forests] = m_game->m_pos2moves.at(p)[n];
+    auto& moves = m_is_phase_big ? *m_moves_big : m_game->m_pos2moves.at(p);
+    auto& [_1, empties, forests] = moves[n];
     for (auto& p2 : empties)
         if (char& ch = cells(p2); ch == PUZ_SPACE)
             ch = PUZ_EMPTY, ++m_distance;
@@ -256,6 +257,13 @@ void puz_state::make_move_big()
     m_is_phase_big = true;
 }
 
+void puz_state::make_move_forest()
+{
+    for (char& ch : m_cells)
+        if (ch == PUZ_SPACE)
+            ch = PUZ_FOREST, ++m_distance;
+}
+
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_matches.empty()) {
@@ -267,13 +275,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         for (int n : move_ids)
             if (!children.emplace_back(*this).make_move_hike(p, n))
                 children.pop_back();
-    } else if (!m_is_phase_big) {
-        children.emplace_back(*this).make_move_big();
-    } else {
-        int i = m_cells.find(PUZ_SPACE);
-        Position p(i / sidelen(), i % sidelen());
-        children.emplace_back(*this).make_move_pond(p);
-    }
+    } else
+        !m_is_phase_big ? children.emplace_back(*this).make_move_big() :
+        children.emplace_back(*this).make_move_forest();
 }
 
 ostream& puz_state::dump(ostream& out) const
