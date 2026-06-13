@@ -132,19 +132,13 @@ int puz_state::adjust_area(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s);
+    puz_state2(const puz_state* s): m_state(s) { make_move(s->m_starting);}
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
 };
-
-puz_state2::puz_state2(const puz_state& s)
-: m_state(&s)
-{
-    make_move(s.m_starting);
-}
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
@@ -187,7 +181,7 @@ void puz_state3::gen_children(list<puz_state3>& children) const
 bool puz_state::make_move2(const Position& p)
 {
     cells(m_starting = p) = PUZ_EMPTY;
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(this);
     vector<Position> rng_tent, rng_empty;
     for (const auto& p2 : smoves)
         (cells(p2) == PUZ_TENT ? rng_tent : rng_empty).push_back(p2);

@@ -210,8 +210,8 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s) : m_state(&s) {
-        make_move(s.m_game->m_pos2num.begin()->first);
+    puz_state2(const puz_state* s) : m_state(s) {
+        make_move(s->m_game->m_pos2num.begin()->first);
     }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
@@ -237,7 +237,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::is_interconnected() const
 {
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(this);
     return smoves.size() == m_game->m_pos2bridge_ids.size();
 }
 

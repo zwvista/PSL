@@ -77,8 +77,8 @@ struct puz_state
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s)
-        : m_state(&s) { make_move(*s.m_area.begin()); }
+    puz_state2(const puz_state* s)
+        : m_state(s) { make_move(*s->m_area.begin()); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -100,7 +100,7 @@ bool puz_state::make_move(int n, Position p2)
     cells(m_p) = PUZ_OBJECT;
     if (is_goal_state())
         return true;
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({*this});
+    auto smoves = puz_move_generator<puz_state2>::gen_moves({this});
     return smoves.size() == m_area.size();
 }
 

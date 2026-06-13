@@ -136,7 +136,7 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s, const Position& starting) : m_state(&s) {
+    puz_state2(const puz_state* s, const Position& starting) : m_state(s) {
         make_move(starting);
     }
 
@@ -187,7 +187,7 @@ bool puz_state::adjust_galaxies()
     set<set<char>> idss;
     while (!rng.empty()) {
         // find all tiles reachable from the first space tile
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, *rng.begin()});
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, *rng.begin()});
         vector<Position> rng2;
         set<char> ids1;
         for (auto& p : smoves) {

@@ -169,7 +169,7 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s, const Position& p) : m_state(&s) { make_move(p); }
+    puz_state2(const puz_state* s, const Position& p) : m_state(s) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -193,7 +193,7 @@ bool puz_state::is_interconnected() const
 {
     int i = m_cells.find(PUZ_ISLAND);
     auto smoves = puz_move_generator<puz_state2>::gen_moves(
-        {*this, {i / sidelen(), i % sidelen()}});
+        {this, {i / sidelen(), i % sidelen()}});
     return smoves.size() == boost::count(m_cells, PUZ_ISLAND);
 }
 

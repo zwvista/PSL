@@ -183,8 +183,8 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s, const Position& starting, const vector<char>& color)
-        : m_state(&s), m_color(color) { make_move(starting); }
+    puz_state2(const puz_state* s, const Position& starting, const vector<char>& color)
+        : m_state(s), m_color(color) { make_move(starting); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -253,7 +253,7 @@ bool puz_state::is_valid_move() const
         if (i == m_cells.size())
             return true;
         auto smoves = puz_move_generator<puz_state2>::gen_moves(
-            {*this, {i / sidelen(), i % sidelen()}, color});
+            {this, {i / sidelen(), i % sidelen()}, color});
         return boost::count_if(smoves, [&](const Position& p) {
             return boost::algorithm::any_of_equal(color, cells(p));
         }) == boost::count_if(m_cells, [&](char ch) {

@@ -19,7 +19,7 @@ namespace puzzles::PondCamping{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_FOREST = '=';
-constexpr auto PUZ_CAMPER = 'C';
+constexpr auto PUZ_POND = 'P';
 
 constexpr array<Position, 4> offset = Position::Directions4;
 
@@ -80,7 +80,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (char ch = str[c - 1]; ch == PUZ_SPACE)
                 m_cells.push_back(PUZ_SPACE);
             else {
-                m_cells.push_back(PUZ_CAMPER);
+                m_cells.push_back(PUZ_POND);
                 int num = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
                 (num > 10 ? m_pos2num_big : m_pos2num)[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
             }
@@ -118,6 +118,7 @@ struct puz_state
     void make_move_forest();
     void make_move_big();
     int find_matches(bool init);
+    bool check_ponds() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -172,7 +173,38 @@ int puz_state::find_matches(bool init)
                 return make_move_hike2(p, move_ids.front()), 1;
             }
     }
-    return 2;
+    return check_ponds() ? 2 : 0;
+}
+
+struct puz_state3 : Position
+{
+    puz_state3(const puz_state* s, const Position& p) : m_state(s) { make_move(p); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state3>& children) const;
+
+    const puz_state* m_state;
+};
+
+void puz_state3::gen_children(list<puz_state3>& children) const
+{
+    for (auto& os : offset) {
+        auto p2 = *this + os;
+        if (char ch = m_state->cells(p2); ch == PUZ_SPACE || ch == PUZ_EMPTY)
+            children.emplace_back(*this).make_move(p2);
+    }
+}
+
+bool puz_state::check_ponds() const
+{
+    if (!m_is_phase_big) {
+        for (auto& [p, num] : m_game->m_pos2num_big) {
+            auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p});
+            if (smoves.size() < num + 1)
+                return false;
+        }
+    }
+    return true;
 }
 
 void puz_state::make_move_hike2(const Position& p, int n)
