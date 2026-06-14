@@ -8,7 +8,7 @@ Puzzle Game Status Analyzer (puzzle_game_analyzer.py)
 最终版本功能总结
 1.文件扫描：自动扫描符合条件的C++文件
 2.信息提取：解析游戏系列、谜题集、游戏标题
-3.状态分析：5种游戏状态（已解决、部分解决、未解决、无有效解决方案、无解决方案文件）
+3.状态分析：5种游戏状态（已解决、部分解决、未解决、无有效解决方案、无解决方案文件），并显示超时关卡（>10秒）
 4.变体检测：识别包含Variant/Variation的文件，显示为绿色标签"有变体"
 5.有效游戏判断：排除以数字结尾或以Gen结尾的文件，支持白名单
 6.特殊标题检测：找出游戏名与标题不匹配的情况
@@ -257,27 +257,97 @@ def check_numbers_continuous(numbers):
             return False
     return True
 
-def check_game_status(txt_file_path):
+def check_timeout_levels(txt_file_path, timeout_seconds=10):
     """
-    检查游戏状态
-    返回值：
-        - ("Solved", [], max_level): 有txt文件且完全解决，所有关卡连续
-        - ("Partly Solved", unsolved_levels, max_level): 有txt文件且所有关卡都有解决方案，但关卡号不连续（返回缺失的关卡号）
-        - ("Unsolved", unsolved_levels, max_level): 有txt文件但有关卡未解决
-        - ("No Solutions", [], max_level): 有txt文件但没有可识别的关卡号（无法转换为整数）
-        - ("No Solution File", [], None): 没有txt文件
+    检查解决方案文件中解决时间超过指定秒数的关卡
+    返回: 超时关卡号列表
     """
+    timeout_levels = []
+    
     if not os.path.exists(txt_file_path):
-        return "No Solution File", [], None
+        return timeout_levels
     
     try:
         with open(txt_file_path, 'r', encoding='utf-8', errors='ignore') as f:
             lines = f.readlines()
     except Exception:
-        return "No Solution File", [], None  # 无法读取文件，视为没有解决方案文件
+        return timeout_levels
+    
+    i = 0
+    while i < len(lines):
+        line = lines[i].rstrip()
+        
+        # 检查是否是 "Level " 开头的行
+        if line.startswith("Level "):
+            # 提取关卡号
+            level_str = line[6:].strip()
+            
+            # 检查是否有下一行
+            if i + 1 >= len(lines):
+                i += 1
+                continue
+            
+            # 检查下一行是否以 "Sequence of moves" 开头
+            next_line = lines[i + 1].rstrip()
+            if next_line.startswith("Sequence of moves"):
+                # 这一关已解决，继续查找时间信息
+                # 时间信息通常在关卡的最后一行
+                j = i + 2
+                time_value = None
+                
+                # 查找时间行（格式如 "0.000317 [s]"）
+                while j < len(lines):
+                    time_line = lines[j].rstrip()
+                    # 检查是否是时间行（以数字开头，以[s]结尾）
+                    if time_line and re.match(r'^[\d\.]+', time_line) and time_line.endswith('[s]'):
+                        try:
+                            # 提取时间数值
+                            time_match = re.match(r'^([\d\.]+)', time_line)
+                            if time_match:
+                                time_value = float(time_match.group(1))
+                                break
+                        except ValueError:
+                            pass
+                    j += 1
+                
+                # 检查是否超时
+                if time_value is not None and time_value > timeout_seconds:
+                    try:
+                        level_num = int(level_str)
+                        timeout_levels.append(level_num)
+                    except ValueError:
+                        pass
+                
+                i = j + 1 if j < len(lines) else len(lines)
+            else:
+                i += 1
+        else:
+            i += 1
+    
+    return timeout_levels
+
+def check_game_status(txt_file_path):
+    """
+    检查游戏状态
+    返回值：
+        - ("Solved", [], max_level, timeout_levels): 有txt文件且完全解决，所有关卡连续
+        - ("Partly Solved", missing_levels, max_level, timeout_levels): 有txt文件且所有关卡都有解决方案，但关卡号不连续（返回缺失的关卡号）
+        - ("Unsolved", unsolved_levels, max_level, timeout_levels): 有txt文件但有关卡未解决
+        - ("No Solutions", [], max_level, []): 有txt文件但没有可识别的关卡号（无法转换为整数）
+        - ("No Solution File", [], None, []): 没有txt文件
+    """
+    if not os.path.exists(txt_file_path):
+        return "No Solution File", [], None, []
+    
+    try:
+        with open(txt_file_path, 'r', encoding='utf-8', errors='ignore') as f:
+            lines = f.readlines()
+    except Exception:
+        return "No Solution File", [], None, []  # 无法读取文件，视为没有解决方案文件
     
     solved_levels = []      # 已解决的关卡号（整数）
     unsolved_levels = []    # 未解决的关卡号（原始字符串）
+    timeout_levels = []     # 超时的关卡号
     has_any_level = False   # 是否找到任何Level行
     max_level = None        # 最大关卡号
     
@@ -314,20 +384,41 @@ def check_game_status(txt_file_path):
                 # 这一对行是有效的，视为已解决
                 if level_num is not None:
                     solved_levels.append(level_num)
+                    
+                    # 查找时间信息，检查是否超时
+                    j = i + 2
+                    time_value = None
+                    
+                    # 查找时间行（格式如 "0.000317 [s]"）
+                    while j < len(lines):
+                        time_line = lines[j].rstrip()
+                        # 检查是否是时间行（以数字开头，以[s]结尾）
+                        if time_line and re.match(r'^[\d\.]+', time_line) and time_line.endswith('[s]'):
+                            try:
+                                time_match = re.match(r'^([\d\.]+)', time_line)
+                                if time_match:
+                                    time_value = float(time_match.group(1))
+                                    if time_value > 10.0:  # 超过10秒视为超时
+                                        timeout_levels.append(level_num)
+                                    break
+                            except ValueError:
+                                pass
+                        j += 1
+                
                 i += 2
         else:
             i += 1
     
     # 如果没有找到任何Level行，视为No Solutions
     if not has_any_level:
-        return "No Solutions", [], max_level
+        return "No Solutions", [], max_level, []
     
     # 判断游戏状态
     if unsolved_levels:
-        return "Unsolved", unsolved_levels, max_level
+        return "Unsolved", unsolved_levels, max_level, timeout_levels
     elif not solved_levels:
         # 有Level行，但所有Level号都无法转换为整数
-        return "No Solutions", [], max_level
+        return "No Solutions", [], max_level, []
     elif not check_numbers_continuous(solved_levels):
         # 所有关卡都有解决方案，但关卡号不连续
         # 找出缺失的关卡号
@@ -346,9 +437,9 @@ def check_game_status(txt_file_path):
                 missing_levels.append(str(expected_level))
                 expected_level += 1
         
-        return "Partly Solved", missing_levels, max_level
+        return "Partly Solved", missing_levels, max_level, timeout_levels
     else:
-        return "Solved", [], max_level
+        return "Solved", [], max_level, timeout_levels
 
 def get_group_name(file_path):
     """从文件路径中提取组名（第一个斜杠之前的内容）"""
@@ -777,12 +868,12 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
     <h2>📋 Files With Logic Game Tag</h2>
 """
     
-    # 统计信息（第一部分）
-    solved_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "Solved")
-    partly_solved_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "Partly Solved")
-    unsolved_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "Unsolved")
-    no_solutions_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "No Solutions")
-    no_solution_file_count = sum(1 for _, _, _, status, _, _ in files_with_tag if status == "No Solution File")
+    # 统计信息（第一部分）- 修复：现在有7个元素
+    solved_count = sum(1 for _, _, _, status, _, _, _ in files_with_tag if status == "Solved")
+    partly_solved_count = sum(1 for _, _, _, status, _, _, _ in files_with_tag if status == "Partly Solved")
+    unsolved_count = sum(1 for _, _, _, status, _, _, _ in files_with_tag if status == "Unsolved")
+    no_solutions_count = sum(1 for _, _, _, status, _, _, _ in files_with_tag if status == "No Solutions")
+    no_solution_file_count = sum(1 for _, _, _, status, _, _, _ in files_with_tag if status == "No Solution File")
     
     # 计算第一部分中的有效游戏数量和白名单游戏
     valid_in_tag = 0
@@ -899,7 +990,10 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
     
     # 按游戏名排序（大小写不敏感）
     for item in sorted(files_with_tag, key=lambda x: os.path.basename(x[0]).lower()):
-        path, line, has_variant, game_status, unsolved_levels, max_level = item
+        path, line, has_variant, game_status, unsolved_levels, max_level, timeout_levels = item
+        
+        # 注意：这里需要更新files_with_tag的数据结构，增加timeout_levels字段
+        # 在main函数中也需要相应修改
         
         puzzle_name = os.path.splitext(os.path.basename(path))[0]
         
@@ -933,11 +1027,24 @@ def generate_html(files_with_tag, files_without_tag, valid_games_count):
         if game_status == "Unsolved" and unsolved_levels:
             levels_str = ", ".join(unsolved_levels)
             status_text = f"❌ 未解决 ({levels_str})"
+            # 如果有超时关卡，也添加
+            if timeout_levels:
+                timeout_str = ", ".join(map(str, timeout_levels))
+                status_text += f"<br><span style='font-size: 0.85em;'>⏱️ 超时: {timeout_str}</span>"
         
         # 对于Partly Solved状态，添加缺失的关卡号
-        if game_status == "Partly Solved" and unsolved_levels:
+        elif game_status == "Partly Solved" and unsolved_levels:
             levels_str = ", ".join(unsolved_levels)
             status_text = f"⚠️ 部分解决 (缺失: {levels_str})"
+            # 如果有超时关卡，也添加
+            if timeout_levels:
+                timeout_str = ", ".join(map(str, timeout_levels))
+                status_text += f"<br><span style='font-size: 0.85em;'>⏱️ 超时: {timeout_str}</span>"
+        
+        # 对于Solved状态，如果有超时关卡，显示超时信息
+        elif game_status == "Solved" and timeout_levels:
+            timeout_str = ", ".join(map(str, timeout_levels))
+            status_text = f"✓ 已解决<br><span style='font-size: 0.85em;'>⏱️ 超时: {timeout_str}</span>"
         
         # 关卡数列
         if max_level is not None:
@@ -1111,7 +1218,7 @@ def main():
     # 创建输出目录
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     
-    files_with_tag = []      # 存储 (相对路径, 匹配行, 是否有变体, 游戏状态, 未解决关卡列表, 最大关卡数)
+    files_with_tag = []      # 存储 (相对路径, 匹配行, 是否有变体, 游戏状态, 未解决/缺失关卡列表, 最大关卡数, 超时关卡列表)
     files_without_tag = []   # 存储 相对路径
     valid_games = set()      # 存储有效游戏名（去重）
     
@@ -1144,9 +1251,9 @@ def main():
             
             # 检查同名的txt文件，获取游戏状态
             txt_file_path = file_path.with_suffix('.txt')
-            game_status, unsolved_levels, max_level = check_game_status(txt_file_path)
+            game_status, unsolved_levels, max_level, timeout_levels = check_game_status(txt_file_path)
             
-            files_with_tag.append((relative_path, matching_line, has_variant, game_status, unsolved_levels, max_level))
+            files_with_tag.append((relative_path, matching_line, has_variant, game_status, unsolved_levels, max_level, timeout_levels))
         else:
             # 不包含目标字符串
             files_without_tag.append(relative_path)
