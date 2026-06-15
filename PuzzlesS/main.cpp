@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+extern void solve_puz_Scissors();
 extern void solve_puz_Sentinels();
 extern void solve_puz_SheepAndWolves();
 extern void solve_puz_ShopAndGas();
@@ -31,6 +32,7 @@ int main(int argc, char **argv)
 {
     srand(time(0));
     for(string str; str.empty();) {
+        println("c: Scissors");
         println("e: Sentinels");
         println("h1: Sheep & Wolves");
         println("h2: Shop & Gas");
@@ -59,7 +61,8 @@ int main(int argc, char **argv)
         println("u3: SuspendedGravity");
         getline(cin, str);
         if (str.empty()) solve_puz_Sukrokuro();
-        else if (str == "e") solve_puz_Snail();
+        else if (str == "c") solve_puz_Scissors();
+        else if (str == "e") solve_puz_Sentinels();
         else if (str == "h1") solve_puz_SheepAndWolves();
         else if (str == "h2") solve_puz_ShopAndGas();
         else if (str == "k1") solve_puz_Skydoku();

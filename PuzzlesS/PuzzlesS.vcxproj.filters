@@ -97,6 +97,9 @@
     <Text Include="Puzzles\Snakeomino2.txt">
       <Filter>Puzzles</Filter>
     </Text>
+    <Text Include="Puzzles\Scissors.txt">
+      <Filter>Puzzles</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -197,6 +200,9 @@
     <ClCompile Include="Puzzles\Snakeomino2.cpp">
       <Filter>Puzzles</Filter>
     </ClCompile>
+    <ClCompile Include="Puzzles\Scissors.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Puzzles\sokoban.xml">
@@ -272,6 +278,9 @@
       <Filter>Puzzles</Filter>
     </Xml>
     <Xml Include="Puzzles\SlitherArrowLink.xml">
+      <Filter>Puzzles</Filter>
+    </Xml>
+    <Xml Include="Puzzles\Scissors.xml">
       <Filter>Puzzles</Filter>
     </Xml>
   </ItemGroup>

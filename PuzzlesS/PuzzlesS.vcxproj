@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Puzzles\Scissors.txt" />
     <Text Include="Puzzles\Sentinels.txt" />
     <Text Include="Puzzles\SheepAndWolves.txt" />
     <Text Include="Puzzles\ShopAndGas.txt" />
@@ -202,6 +203,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzles\Scissors.cpp" />
     <ClCompile Include="Puzzles\Sentinels.cpp" />
     <ClCompile Include="Puzzles\SheepAndWolves.cpp" />
     <ClCompile Include="Puzzles\ShopAndGas.cpp" />
@@ -236,6 +238,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Puzzles\Scissors.xml" />
     <Xml Include="Puzzles\Sentinels.xml" />
     <Xml Include="Puzzles\SheepAndWolves.xml" />
     <Xml Include="Puzzles\ShopAndGas.xml" />
