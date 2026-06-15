@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C269F401F66809100489ADC /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C269F3D1F66809100489ADC /* Snake.cpp */; };
 		8C3B8EF92E352DC200DB05CA /* SquareMergePuzzle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C3B8EF62E352DC200DB05CA /* SquareMergePuzzle.cpp */; };
+		8C5FDCB32FE00B1400409939 /* Scissors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C5FDCB02FE00B1400409939 /* Scissors.cpp */; };
 		8C6757EB2F64768000C66D49 /* Snakeomino2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C6757E92F64608400C66D49 /* Snakeomino2.cpp */; };
 		8C689C802DEEB75500A2BCCC /* SuspendedGravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */; };
 		8C689CDD2E003BFC00A2BCCC /* SlitherCorner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CDA2E003BFC00A2BCCC /* SlitherCorner.cpp */; };
@@ -62,6 +63,9 @@
 		8C3B8EF82E352DC200DB05CA /* SquareMergePuzzle.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SquareMergePuzzle.xml; sourceTree = "<group>"; };
 		8C5F12A92DE378EA00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12AA2DE378EA00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
+		8C5FDCB02FE00B1400409939 /* Scissors.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scissors.cpp; sourceTree = "<group>"; };
+		8C5FDCB12FE00B1400409939 /* Scissors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Scissors.txt; sourceTree = "<group>"; };
+		8C5FDCB22FE00B1400409939 /* Scissors.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Scissors.xml; sourceTree = "<group>"; };
 		8C6757E92F64608400C66D49 /* Snakeomino2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Snakeomino2.cpp; sourceTree = "<group>"; };
 		8C6757EA2F64609E00C66D49 /* Snakeomino2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Snakeomino2.txt; sourceTree = "<group>"; };
 		8C689C7D2DEEB75500A2BCCC /* SuspendedGravity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SuspendedGravity.cpp; sourceTree = "<group>"; };
@@ -197,6 +201,9 @@
 		8CA23ECF1EA924380055D6B1 /* Puzzles */ = {
 			isa = PBXGroup;
 			children = (
+				8C5FDCB02FE00B1400409939 /* Scissors.cpp */,
+				8C5FDCB12FE00B1400409939 /* Scissors.txt */,
+				8C5FDCB22FE00B1400409939 /* Scissors.xml */,
 				8CA241331EB47AEC0055D6B1 /* Sentinels.cpp */,
 				8CA241341EB47AEC0055D6B1 /* Sentinels.txt */,
 				8CA241351EB47AEC0055D6B1 /* Sentinels.xml */,
@@ -391,6 +398,7 @@
 				8CA241651EB47AEC0055D6B1 /* Sumscrapers.cpp in Sources */,
 				958FA639232BE15B00205831 /* Stacks.cpp in Sources */,
 				8C94E0B32E17A63B00382560 /* Snakeomino.cpp in Sources */,
+				8C5FDCB32FE00B1400409939 /* Scissors.cpp in Sources */,
 				8C94E0B42E17A63B00382560 /* SnakeMaze.cpp in Sources */,
 				8CA2415E1EB47AEC0055D6B1 /* SlantedMaze.cpp in Sources */,
 				8C269F401F66809100489ADC /* Snake.cpp in Sources */,
