@@ -60,7 +60,7 @@ int main(int argc, char **argv)
         println("u2: Sumscrapers");
         println("u3: SuspendedGravity");
         getline(cin, str);
-        if (str.empty()) solve_puz_Sukrokuro();
+        if (str.empty()) solve_puz_Scissors();
         else if (str == "c") solve_puz_Scissors();
         else if (str == "e") solve_puz_Sentinels();
         else if (str == "h1") solve_puz_SheepAndWolves();
