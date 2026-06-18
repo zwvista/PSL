@@ -18,7 +18,8 @@ namespace puzzles::Scissors{
 
 constexpr auto PUZ_SPACE = ' ';
     
-constexpr array<Position, 8> offset = Position::Directions8;
+constexpr array<Position, 4> offset = Position::Directions4;
+constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
 
 struct puz_game
 {
@@ -27,6 +28,7 @@ struct puz_game
     string m_cells;
     map<Position, int> m_pos2num;
     char m_max_num = '1';
+    set<pair<Position, Position>> m_slashes;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -38,11 +40,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 0; r < m_sidelen; ++r) {
         string_view str = strs[r];
         for (int c = 0; c < m_sidelen; ++c) {
+            Position p(r, c);
             char ch = str[c];
             m_cells.push_back(ch);
             m_max_num = max(m_max_num, ch);
             if (ch != PUZ_SPACE)
-                m_pos2num[{r, c}] = ch - '0';
+                m_pos2num[p] = ch - '0';
+            else {
+                // front slash
+                m_slashes.emplace(p + offset2[0], p + offset2[3]);
+                // back slash
+                m_slashes.emplace(p + offset2[1], p + offset2[2]);
+            }
         }
     }
 }
