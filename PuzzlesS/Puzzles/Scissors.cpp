@@ -20,6 +20,15 @@ constexpr auto PUZ_SPACE = ' ';
     
 constexpr array<Position, 4> offset = Position::Directions4;
 constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
+constexpr array<Position, 4> offset3 = {
+    Position{-1, -1},
+    Position{-1, 1},
+    Position{1, -1},
+    Position{1, 1},
+};
+
+using puz_slash = pair<Position, Position>;
+using puz_move = vector<puz_slash>;
 
 struct puz_game
 {
@@ -28,7 +37,8 @@ struct puz_game
     string m_cells;
     map<Position, int> m_pos2num;
     char m_max_num = '1';
-    set<pair<Position, Position>> m_slashes;
+    set<puz_slash> m_slashes;
+    vector<puz_move> m_moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -53,6 +63,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_slashes.emplace(p + offset2[1], p + offset2[2]);
             }
         }
+    }
+
+    for (int i = 0; i <= m_sidelen; ++i) {
+        puz_move move;
+        auto f = [&](int r, int c) {
+            Position p0(r, c);
+            auto dfs = [&](this const auto& self, const Position& p1) {
+                for (auto& os : offset3) {
+                    auto p2 = p1 + os;
+                    if (!m_slashes.contains({min(p1, p2), max(p1, p2)})) continue;
+                    move.emplace_back(p1, p2);
+                    self(p2);
+                    move.pop_back();
+                }
+            };
+        };
+        f(0, i), f(0, m_sidelen), f(i, 0), f(i, m_sidelen);
     }
 }
 
