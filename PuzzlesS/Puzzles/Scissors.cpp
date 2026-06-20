@@ -92,6 +92,9 @@ struct puz_game
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    bool is_border_dot(const Position& p) const {
+        return p.first == 0 || p.second == 0 || p.first == m_sidelen || p.second == m_sidelen;
+    };
     pair<bool, int> check_move(const list<puz_state2>& smoves) const;
 };
 
@@ -119,9 +122,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_cut_count = n_num / (m_max_num - '0') - 1;
 
-    auto is_border = [&](const Position& p) {
-        return p.first == 0 || p.second == 0 || p.first == m_sidelen || p.second == m_sidelen;
-    };
     for (int i = 0; i <= m_sidelen; ++i) {
         auto f = [&](int r, int c) {
             Position p0(r, c);
@@ -143,7 +143,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 return false;
             };
             auto dfs = [&](this const auto& self, const Position& p1) {
-                if (p1 != p0 && is_border(p1)) {
+                if (p1 != p0 && is_border_dot(p1)) {
                     if (p1 > p0 && is_valid_cut())
                         m_moves.emplace_back(cut, slash_chars);
                     return;
@@ -235,21 +235,23 @@ bool puz_state::make_move(int n)
     boost::remove_erase(m_move_ids, n);
     boost::remove_erase_if(m_move_ids, [&](int n2) {
         auto& [_2, slash_chars2] = m_game->m_moves[n2];
-        return !boost::algorithm::all_of(slash_chars, [&](const puz_slash_char& slash_char) {
-            auto& [p2, ch2] = slash_char;
+        return !boost::algorithm::all_of(slash_chars2, [&](const puz_slash_char& slash_char2) {
+            auto& [p2, ch2] = slash_char2;
             char ch = cells(p2);
             return ch == PUZ_SPACE || ch == ch2;
         });
     });
     auto positions = m_positions;
+    vector<int> v;
     while (!positions.empty()) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves(&positions);
         auto [b, n] = m_game->check_move(smoves);
         if (!b) return false;
+        v.push_back(n);
         for (auto& s : smoves)
             positions.erase(s);
     }
-    return true;
+    return !is_goal_state() || boost::algorithm::all_of_equal(v, 1);
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
