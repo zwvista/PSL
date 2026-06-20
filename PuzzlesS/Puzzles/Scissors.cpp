@@ -38,6 +38,7 @@ using puz_slash = pair<Position, Position>;
 // second: 6 or 9 if the cell contains a front slash
 using puz_position = pair<Position, int>;
 using puz_slash_char = pair<Position, char>;
+using puz_move = vector<puz_slash_char>;
 
 void add_slash(set<puz_position>& positions, const Position& p, char ch)
 {
@@ -47,12 +48,6 @@ void add_slash(set<puz_position>& positions, const Position& p, char ch)
     else
         positions.emplace(p, 6), positions.emplace(p, 9);
 }
-
-struct puz_move
-{
-    vector<puz_slash> m_cut;
-    vector<puz_slash_char> m_slash_chars;
-};
 
 struct puz_state2 : puz_position
 {
@@ -126,11 +121,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         auto f = [&](int r, int c) {
             Position p0(r, c);
             vector<puz_slash> cut;
-            vector<pair<Position, char>> slash_chars;
+            puz_move move;
             set dots{p0};
             auto is_valid_cut = [&]{
                 auto positions = m_positions;
-                for (auto& [p, ch] : slash_chars)
+                for (auto& [p, ch] : move)
                     add_slash(positions, p, ch);
                 while (!positions.empty()) {
                     auto smoves = puz_move_generator<puz_state2>::gen_moves(&positions);
@@ -145,7 +140,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             auto dfs = [&](this const auto& self, const Position& p1) {
                 if (p1 != p0 && is_border_dot(p1)) {
                     if (p1 > p0 && is_valid_cut())
-                        m_moves.emplace_back(cut, slash_chars);
+                        m_moves.push_back(move);
                     return;
                 }
                 for (auto& os : offset3) {
@@ -157,11 +152,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     auto& [r1, c1] = p3;
                     auto& [r2, c2] = p4;
                     int r0 = min(r1, r2), c0 = min(c1, c2);
-                    slash_chars.emplace_back(Position(r0, c0), r0 == r1 && c0 == c1 ? PUZ_BACK_SLASH : PUZ_FRONT_SLASH);
+                    move.emplace_back(Position(r0, c0), r0 == r1 && c0 == c1 ? PUZ_BACK_SLASH : PUZ_FRONT_SLASH);
                     dots.insert(p2);
                     self(p2);
                     cut.pop_back();
-                    slash_chars.pop_back();
+                    move.pop_back();
                     dots.erase(p2);
                 }
             };
@@ -227,15 +222,13 @@ puz_state::puz_state(const puz_game& g)
 
 bool puz_state::make_move(int n)
 {
-    auto& [_1, slash_chars] = m_game->m_moves[n];
-    for (auto& [p, ch2] : slash_chars)
+    for (auto& [p, ch2] : m_game->m_moves[n])
         if (char& ch = cells(p); ch == PUZ_SPACE)
             add_slash(m_positions, p, ch = ch2);
     --m_remaing_cuts;
     boost::remove_erase(m_move_ids, n);
     boost::remove_erase_if(m_move_ids, [&](int n2) {
-        auto& [_2, slash_chars2] = m_game->m_moves[n2];
-        return !boost::algorithm::all_of(slash_chars2, [&](const puz_slash_char& slash_char2) {
+        return !boost::algorithm::all_of(m_game->m_moves[n2], [&](const puz_slash_char& slash_char2) {
             auto& [p2, ch2] = slash_char2;
             char ch = cells(p2);
             return ch == PUZ_SPACE || ch == ch2;
