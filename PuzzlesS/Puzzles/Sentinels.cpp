@@ -182,9 +182,9 @@ struct puz_state2 : Position
 puz_state2::puz_state2(const puz_state* s)
 : m_state(s)
 {
-    int i = boost::find_if(s.m_cells, [](char ch) {
+    int i = boost::find_if(s->m_cells, [](char ch) {
         return ch != PUZ_BOUNDARY && ch != PUZ_TOWER;
-    }) - s.m_cells.begin();
+    }) - s->m_cells.begin();
     make_move({i / sidelen(), i % sidelen()});
 }
 

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
+#include "bfs_move_gen.h"
 #include "solve_puzzle.h"
 
 /*
@@ -54,6 +55,7 @@ struct puz_game
     vector<puz_position> m_positions;
 
     puz_game(const vector<string>& strs, const xml_node& level);
+    char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : puz_position
@@ -119,7 +121,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     else
                         positions.emplace_back(p, 6), positions.emplace_back(p, 9);
                 }
-                return true;
+                auto smoves = puz_move_generator<puz_state2>::gen_moves(&positions);
+                vector<char> nums1, nums2;
+                for (auto& [p, n] : positions) {
+                    if (n != 15) continue;
+                    char ch = cells(p);
+                    if (ch == PUZ_SPACE) continue;
+                    (boost::algorithm::any_of(smoves, [&](const puz_state2& s) {
+                        return p == s.first;
+                    }) ? nums1 : nums2).push_back(ch);
+                }
+                auto g = [&](vector<char>& nums) {
+                    int sz = nums.size();
+                    if (sz != (m_max_num - '0'))
+                        return false;
+                    boost::sort(nums);
+                    for (int i = 0; i < sz; ++i)
+                        if (nums[i] != (i + '0'))
+                            return false;
+                    return true;
+                };
+                return g(nums1) || g(nums2);
             };
             auto dfs = [&](this const auto& self, const Position& p1) {
                 if (p1 != p0 && is_border(p1)) {
