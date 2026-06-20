@@ -112,6 +112,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             Position p0(r, c);
             vector<puz_slash> cut;
             vector<pair<Position, char>> slash_chars;
+            set dots{p0};
             auto is_valid_cut = [&]{
                 auto positions = m_positions;
                 for (auto& [p, ch] : slash_chars) {
@@ -137,7 +138,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         return false;
                     boost::sort(nums);
                     for (int i = 0; i < sz; ++i)
-                        if (nums[i] != (i + '0'))
+                        if (nums[i] != (i + '1'))
                             return false;
                     return true;
                 };
@@ -151,6 +152,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 }
                 for (auto& os : offset3) {
                     auto p2 = p1 + os;
+                    if (dots.contains(p2)) continue;
                     auto p3 = min(p1, p2), p4 = max(p1, p2);
                     if (!m_slashes.contains({p3, p4})) continue;
                     cut.emplace_back(p1, p2);
@@ -158,11 +160,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     auto& [r2, c2] = p4;
                     int r0 = min(r1, r2), c0 = min(c1, c2);
                     slash_chars.emplace_back(Position(r0, c0), r0 == r1 && c0 == c1 ? PUZ_BACK_SLASH : PUZ_FRONT_SLASH);
+                    dots.insert(p2);
                     self(p2);
                     cut.pop_back();
                     slash_chars.pop_back();
+                    dots.erase(p2);
                 }
             };
+            dfs(p0);
         };
         f(0, i), f(0, m_sidelen), f(i, 0), f(i, m_sidelen);
     }
