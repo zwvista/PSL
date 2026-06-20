@@ -17,6 +17,8 @@
 namespace puzzles::Scissors{
 
 constexpr auto PUZ_SPACE = ' ';
+constexpr auto PUZ_BACK_SLASH = '\\';
+constexpr auto PUZ_FRONT_SLASH = '/';
     
 constexpr array<Position, 4> offset = Position::Directions4;
 constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
@@ -28,17 +30,28 @@ constexpr array<Position, 4> offset3 = {
 };
 
 using puz_slash = pair<Position, Position>;
-using puz_move = vector<puz_slash>;
+
+// first: position of the cell/triangle
+// second: 15 if the cell contains no slash
+// second: 3 or 12 if the cell contains a back slash
+// second: 6 or 9 if the cell contains a front slash
+using puz_position = pair<Position, int>;
+
+struct puz_move
+{
+    vector<puz_slash> m_cut;
+    vector<pair<Position, char>> m_slash_chars;
+};
 
 struct puz_game
 {
     string m_id;
     int m_sidelen;
     string m_cells;
-    map<Position, int> m_pos2num;
     char m_max_num = '1';
     set<puz_slash> m_slashes;
     vector<puz_move> m_moves;
+    set<puz_position> m_positions;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
@@ -54,28 +67,53 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             char ch = str[c];
             m_cells.push_back(ch);
             m_max_num = max(m_max_num, ch);
-            if (ch != PUZ_SPACE)
-                m_pos2num[p] = ch - '0';
-            else {
-                // front slash
-                m_slashes.emplace(p + offset2[0], p + offset2[3]);
+            m_positions.emplace(p, 15);
+            if (ch == PUZ_SPACE) {
                 // back slash
+                m_slashes.emplace(p + offset2[0], p + offset2[3]);
+                // front slash
                 m_slashes.emplace(p + offset2[1], p + offset2[2]);
             }
         }
     }
 
+    auto is_border = [&](const Position& p) {
+        return p.first == 0 || p.second == 0 || p.first == m_sidelen || p.second == m_sidelen;
+    };
     for (int i = 0; i <= m_sidelen; ++i) {
-        puz_move move;
         auto f = [&](int r, int c) {
             Position p0(r, c);
+            vector<puz_slash> cut;
+            vector<pair<Position, char>> slash_chars;
+            auto is_valid_cut = [&]{
+                auto positions = m_positions;
+                for (auto& [p, ch] : slash_chars) {
+                    positions.erase({p, 15});
+                    if (ch == PUZ_BACK_SLASH)
+                        positions.emplace(p, 3), positions.emplace(p, 12);
+                    else
+                        positions.emplace(p, 6), positions.emplace(p, 9);
+                }
+                return true;
+            };
             auto dfs = [&](this const auto& self, const Position& p1) {
+                if (p1 != p0 && is_border(p1)) {
+                    if (p1 > p0 && is_valid_cut())
+                        m_moves.emplace_back(cut, slash_chars);
+                    return;
+                }
                 for (auto& os : offset3) {
                     auto p2 = p1 + os;
-                    if (!m_slashes.contains({min(p1, p2), max(p1, p2)})) continue;
-                    move.emplace_back(p1, p2);
+                    auto p3 = min(p1, p2), p4 = max(p1, p2);
+                    if (!m_slashes.contains({p3, p4})) continue;
+                    cut.emplace_back(p1, p2);
+                    auto& [r1, c1] = p3;
+                    auto& [r2, c2] = p4;
+                    int r0 = min(r1, r2), c0 = min(c1, c2);
+                    slash_chars.emplace_back(Position(r0, c0), r0 == r1 && c0 == c1 ? PUZ_BACK_SLASH : PUZ_FRONT_SLASH);
                     self(p2);
-                    move.pop_back();
+                    cut.pop_back();
+                    slash_chars.pop_back();
                 }
             };
         };
@@ -136,10 +174,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-                out << format("{:<2}", cells(p));
-            else
-                out << format("{:<2}", it->second);
+            out << format("{:<2}", cells(p));
         }
         println(out);
     }
