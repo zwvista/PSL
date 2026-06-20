@@ -37,11 +37,21 @@ using puz_slash = pair<Position, Position>;
 // second: 3 or 12 if the cell contains a back slash
 // second: 6 or 9 if the cell contains a front slash
 using puz_position = pair<Position, int>;
+using puz_slash_char = pair<Position, char>;
+
+void add_slash(set<puz_position>& positions, const Position& p, char ch)
+{
+    positions.erase(puz_position(p, 15));
+    if (ch == PUZ_BACK_SLASH)
+        positions.emplace(p, 3), positions.emplace(p, 12);
+    else
+        positions.emplace(p, 6), positions.emplace(p, 9);
+}
 
 struct puz_move
 {
     vector<puz_slash> m_cut;
-    vector<pair<Position, char>> m_slash_chars;
+    vector<puz_slash_char> m_slash_chars;
 };
 
 struct puz_state2 : puz_position
@@ -120,13 +130,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             set dots{p0};
             auto is_valid_cut = [&]{
                 auto positions = m_positions;
-                for (auto& [p, ch] : slash_chars) {
-                    positions.erase(puz_position(p, 15));
-                    if (ch == PUZ_BACK_SLASH)
-                        positions.emplace(p, 3), positions.emplace(p, 12);
-                    else
-                        positions.emplace(p, 6), positions.emplace(p, 9);
-                }
+                for (auto& [p, ch] : slash_chars)
+                    add_slash(positions, p, ch);
                 while (!positions.empty()) {
                     auto smoves = puz_move_generator<puz_state2>::gen_moves(&positions);
                     auto [b, n] = check_move(smoves);
@@ -192,45 +197,56 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_matches < x.m_matches; }
-    bool make_move(const Position& p, int n);
+    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool make_move(int n);
+    bool check_cuts() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_matches.size(); }
-    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
+    unsigned int get_heuristic() const { return m_remaing_cuts; }
+    unsigned int get_distance(const puz_state& child) const { return 1; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
     string m_cells;
-    // key: the position of the number
-    // value.elem: the index of the permutation
-    map<Position, vector<int>> m_matches;
-    unsigned int m_distance = 0;
+    vector<int> m_move_ids;
+    set<puz_position> m_positions;
+    int m_remaing_cuts;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_cells(g.m_cells), m_game(&g)
+: m_game(&g), m_cells(g.m_cells)
+, m_positions(g.m_positions)
+, m_remaing_cuts(g.m_cut_count)
+, m_move_ids(g.m_moves.size())
 {
+    boost::iota(m_move_ids, 0);
 }
 
-
-bool puz_state::make_move(const Position& p, int n)
+bool puz_state::make_move(int n)
 {
+    auto& [_1, slash_chars] = m_game->m_moves[n];
+    for (auto& [p, ch2] : slash_chars)
+        if (char& ch = cells(p); ch == PUZ_SPACE)
+            add_slash(m_positions, p, ch = ch2);
+    boost::remove_erase(m_move_ids, n);
+    boost::remove_erase_if(m_move_ids, [&](int n2) {
+        auto& [_2, slash_chars2] = m_game->m_moves[n2];
+        return !boost::algorithm::all_of(slash_chars, [&](const puz_slash_char& slash_char) {
+            auto& [p2, ch2] = slash_char;
+            char ch = cells(p2);
+            return ch == PUZ_SPACE || ch == ch2;
+        });
+    });
     return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, perm_ids] = *boost::min_element(m_matches, [](
-        const pair<const Position, vector<int>>& kv1, 
-        const pair<const Position, vector<int>>& kv2) {
-        return kv1.second.size() < kv2.second.size();
-    });
-    for (int n : perm_ids)
-        if (!children.emplace_back(*this).make_move(p, n))
+    for (int n : m_move_ids)
+        if (!children.emplace_back(*this).make_move(n))
             children.pop_back();
 }
 
