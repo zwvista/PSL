@@ -74,7 +74,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
     for (int i = 0; i < 4; ++i)
         if (second & (1 << i)) {
             auto p2 = first + offset[i];
-            int j = (i * 2) % 4;
+            int j = (i + 2) % 4;
             for (auto& kv : *m_positions)
                 if (auto& [p3, n] = kv; p3 == p2 && n & (1 << j)) {
                     children.emplace_back(*this).make_move(kv);
