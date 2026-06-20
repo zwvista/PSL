@@ -120,7 +120,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int i = 0; i <= m_sidelen; ++i) {
         auto f = [&](int r, int c) {
             Position p0(r, c);
-            vector<puz_slash> cut;
             puz_move move;
             set dots{p0};
             auto is_valid_cut = [&]{
@@ -148,14 +147,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     if (dots.contains(p2)) continue;
                     auto p3 = min(p1, p2), p4 = max(p1, p2);
                     if (!m_slashes.contains({p3, p4})) continue;
-                    cut.emplace_back(p1, p2);
                     auto& [r1, c1] = p3;
                     auto& [r2, c2] = p4;
                     int r0 = min(r1, r2), c0 = min(c1, c2);
                     move.emplace_back(Position(r0, c0), r0 == r1 && c0 == c1 ? PUZ_BACK_SLASH : PUZ_FRONT_SLASH);
                     dots.insert(p2);
                     self(p2);
-                    cut.pop_back();
                     move.pop_back();
                     dots.erase(p2);
                 }
