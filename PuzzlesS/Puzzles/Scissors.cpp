@@ -92,7 +92,7 @@ struct puz_game
 
     puz_game(const vector<string>& strs, const xml_node& level);
     char cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
-    pair<bool, int> check_move(const list<puz_state2>& smoves);
+    pair<bool, int> check_move(const list<puz_state2>& smoves) const;
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -171,7 +171,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-pair<bool, int> puz_game::check_move(const list<puz_state2>& smoves)
+pair<bool, int> puz_game::check_move(const list<puz_state2>& smoves) const
 {
     vector<char> nums;
     for (auto& s : smoves) {
@@ -231,6 +231,7 @@ bool puz_state::make_move(int n)
     for (auto& [p, ch2] : slash_chars)
         if (char& ch = cells(p); ch == PUZ_SPACE)
             add_slash(m_positions, p, ch = ch2);
+    --m_remaing_cuts;
     boost::remove_erase(m_move_ids, n);
     boost::remove_erase_if(m_move_ids, [&](int n2) {
         auto& [_2, slash_chars2] = m_game->m_moves[n2];
@@ -240,6 +241,14 @@ bool puz_state::make_move(int n)
             return ch == PUZ_SPACE || ch == ch2;
         });
     });
+    auto positions = m_positions;
+    while (!positions.empty()) {
+        auto smoves = puz_move_generator<puz_state2>::gen_moves(&positions);
+        auto [b, n] = m_game->check_move(smoves);
+        if (!b) return false;
+        for (auto& s : smoves)
+            positions.erase(s);
+    }
     return true;
 }
 
@@ -255,7 +264,8 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0; r < sidelen(); ++r) {
         for (int c = 0; c < sidelen(); ++c) {
             Position p(r, c);
-            out << format("{:<2}", cells(p));
+            char ch = cells(p);
+            out << format("{:<2}", (ch == PUZ_SPACE ? '.' : ch));
         }
         println(out);
     }
