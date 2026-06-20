@@ -178,8 +178,8 @@ bool puz_state::make_move2(const Position& p, int n)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s, set<Position>& dots, set<Position>& path, bool& has_loop)
-        : m_state(&s), m_dots(&dots), m_path(&path), m_has_loop(&has_loop) {
+    puz_state2(const puz_state* s, set<Position>& dots, set<Position>& path, bool& has_loop)
+        : m_state(s), m_dots(&dots), m_path(&path), m_has_loop(&has_loop) {
         make_move(-1, *dots.begin());
     }
 
@@ -222,7 +222,7 @@ bool puz_state::check_loop() const
     while (!dots.empty()) {
         bool has_loop = false;
         set<Position> path;
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, dots, path, has_loop});
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, dots, path, has_loop});
         if (has_loop)
             return false;
     }

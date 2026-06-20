@@ -98,10 +98,8 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& state, const set<Position>& spaces)
-        : m_state(&state), m_spaces(&spaces) {
-        make_move(*spaces.begin());
-    }
+    puz_state2(const puz_state* s, const set<Position>& spaces)
+        : m_state(s), m_spaces(&spaces) { make_move(*spaces.begin()); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -161,7 +159,7 @@ int puz_state::find_matches(bool init)
         }
 
     while (!spaces.empty()) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, spaces});
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, spaces});
         set<Position> spaces2;
         set<char> chars2;
         for (auto& p2 : smoves) {

@@ -157,8 +157,8 @@ set<Position> puz_state::get_area(char ch) const
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& a, const Position& p_start)
-        : m_area(&a) { make_move(p_start); }
+    puz_state2(const set<Position>* a, const Position& p)
+        : m_area(a) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -191,7 +191,7 @@ bool puz_state::check_board() const
 
         area3.insert(area4.begin(), area4.end());
         auto smoves = puz_move_generator<puz_state2>::gen_moves(
-            {area3, targets.empty() ? m_link.back() : targets[0]});
+            {&area3, targets.empty() ? m_link.back() : targets[0]});
         set<Position> area5(smoves.begin(), smoves.end()), area6, area7;
         boost::set_difference(area5, area, inserter(area6, area6.end()));
         // ALL the same numbers must be reachable by the same line

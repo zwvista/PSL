@@ -191,9 +191,8 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s) : m_state(&s) {
-        make_move({});
-    }
+    puz_state2(const puz_state* s)
+        : m_state(s) { make_move({}); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -231,7 +230,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
     m_matches.erase(p);
 
     // each Room must be reachable from the others
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(this);
     return smoves.size() == sidelen() * sidelen();
 }
 

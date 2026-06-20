@@ -195,7 +195,7 @@ bool puz_state::check_snake()
                     cells(p2) = PUZ_SNAKE, ++m_distance;
         }
 
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({this});
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(this);
     return boost::count_if(smoves, [&](const Position& p) {
         return cells(p) == PUZ_SNAKE;
     }) == boost::count(m_cells, PUZ_SNAKE);

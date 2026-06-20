@@ -206,7 +206,7 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 // 4. From any location, there must only be one route to the treasure.
 bool puz_state::is_interconnected() const
 {
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({this});
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(this);
     int n = boost::count_if(m_cells, [&](const puz_cell& cl) {
         return !(cl.size() == 1 && cl[0] == PUZ_WALL);
     });

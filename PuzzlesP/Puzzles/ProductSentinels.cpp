@@ -169,7 +169,7 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& s);
+    puz_state2(const puz_state* s);
 
     int sidelen() const { return m_state->sidelen(); }
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
@@ -178,12 +178,12 @@ struct puz_state2 : Position
     const puz_state* m_state;
 };
 
-puz_state2::puz_state2(const puz_state& s)
-: m_state(&s)
+puz_state2::puz_state2(const puz_state* s)
+: m_state(s)
 {
-    int i = boost::find_if(s.m_cells, [](char ch) {
+    int i = boost::find_if(s->m_cells, [](char ch) {
         return ch != PUZ_BOUNDARY && ch != PUZ_TOWER;
-    }) - s.m_cells.begin();
+    }) - s->m_cells.begin();
     make_move({i / sidelen(), i % sidelen()});
 }
 
@@ -228,7 +228,7 @@ bool puz_state::make_move2(const Position& p, const vector<int>& perm)
     m_matches.erase(p);
 
     // There must be a single continuous garden
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(*this);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(this);
     return smoves.size() == boost::count_if(m_cells, [](char ch) {
         return ch != PUZ_BOUNDARY && ch != PUZ_TOWER;
     });

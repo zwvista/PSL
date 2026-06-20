@@ -139,7 +139,7 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& a) : m_area(&a) { make_move(*a.begin()); }
+    puz_state2(const set<Position>* a) : m_area(a) { make_move(*a->begin()); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -204,7 +204,7 @@ bool puz_state::make_move2(const Position& p, int n)
 
     if (!is_goal_state()) return true;
 
-    auto smoves = puz_move_generator<puz_state2>::gen_moves(area);
+    auto smoves = puz_move_generator<puz_state2>::gen_moves(&area);
     return smoves.size() == area.size();
 }
 

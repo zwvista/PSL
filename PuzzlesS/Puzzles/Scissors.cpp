@@ -51,10 +51,35 @@ struct puz_game
     char m_max_num = '1';
     set<puz_slash> m_slashes;
     vector<puz_move> m_moves;
-    set<puz_position> m_positions;
+    vector<puz_position> m_positions;
 
     puz_game(const vector<string>& strs, const xml_node& level);
 };
+
+struct puz_state2 : puz_position
+{
+    puz_state2(const vector<puz_position>* positions)
+        : m_positions(positions) { make_move(positions->front()); }
+
+    void make_move(const puz_position& kv) { static_cast<puz_position&>(*this) = kv; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const vector<puz_position>* m_positions;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (int i = 0; i < 4; ++i)
+        if (second & (1 << i)) {
+            auto p2 = first + offset[i];
+            int j = (i * 2) % 4;
+            for (auto& kv : *m_positions)
+                if (auto& [p3, n] = kv; p3 == p2 && n & (1 << j)) {
+                    children.emplace_back(*this).make_move(kv);
+                    break;
+                }
+        }
+}
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
@@ -67,7 +92,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             char ch = str[c];
             m_cells.push_back(ch);
             m_max_num = max(m_max_num, ch);
-            m_positions.emplace(p, 15);
+            m_positions.emplace_back(p, 15);
             if (ch == PUZ_SPACE) {
                 // back slash
                 m_slashes.emplace(p + offset2[0], p + offset2[3]);
@@ -88,11 +113,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             auto is_valid_cut = [&]{
                 auto positions = m_positions;
                 for (auto& [p, ch] : slash_chars) {
-                    positions.erase({p, 15});
+                    boost::remove_erase(positions, puz_position(p, 15));
                     if (ch == PUZ_BACK_SLASH)
-                        positions.emplace(p, 3), positions.emplace(p, 12);
+                        positions.emplace_back(p, 3), positions.emplace_back(p, 12);
                     else
-                        positions.emplace(p, 6), positions.emplace(p, 9);
+                        positions.emplace_back(p, 6), positions.emplace_back(p, 9);
                 }
                 return true;
             };

@@ -252,9 +252,8 @@ int puz_state::check_dots(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state& state, char ch, const Position& p_start) : m_state(&state), m_ch(ch) {
-        make_move(p_start);
-    }
+    puz_state2(const puz_state* s, char ch, const Position& p)
+        : m_state(s), m_ch(ch) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -283,7 +282,7 @@ bool puz_state::is_interconnected() const
 {
     set<Position> rng_all;
     for (auto const& [ch, rng] : m_game->m_ch2rng) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves({*this, ch, *rng.begin()});
+        auto smoves = puz_move_generator<puz_state2>::gen_moves({this, ch, *rng.begin()});
         int cnt = boost::accumulate(smoves, 0, [&, ch = ch](int acc, const puz_state2& s) {
             return acc + (m_game->cells(s) == ch ? 1 : 0);
         });

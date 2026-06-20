@@ -183,8 +183,8 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state* s, const Position& starting, const vector<char>& color)
-        : m_state(s), m_color(color) { make_move(starting); }
+    puz_state2(const puz_state* s, const Position& p, const vector<char>& color)
+        : m_state(s), m_color(color) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;

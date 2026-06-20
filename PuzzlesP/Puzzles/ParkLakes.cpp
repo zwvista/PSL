@@ -193,8 +193,8 @@ int puz_state::find_matches(bool init)
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& a, const Position& p_start)
-        : m_area(&a) { make_move(p_start); }
+    puz_state2(const set<Position>* a, const Position& p)
+        : m_area(a) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -222,7 +222,7 @@ bool puz_state::is_interconnected() const
                 rng1.insert(p);
         }
 
-    auto smoves = puz_move_generator<puz_state2>::gen_moves({rng1, m_game->m_pos2hintinfo.begin()->first});
+    auto smoves = puz_move_generator<puz_state2>::gen_moves({&rng1, m_game->m_pos2hintinfo.begin()->first});
     set<Position> rng2(smoves.begin(), smoves.end()), rng3;
     boost::set_difference(rng1, rng2, inserter(rng3, rng3.end()));
     return boost::algorithm::all_of(rng3, [this](const Position& p) {

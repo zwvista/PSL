@@ -192,7 +192,7 @@ struct puz_state2 : Position
 puz_state2::puz_state2(const puz_state* s)
 : m_state(s)
 {
-    int i = s.m_cells.find(PUZ_ISLAND);
+    int i = s->m_cells.find(PUZ_ISLAND);
     make_move({i / sidelen(), i % sidelen()});
 }
 

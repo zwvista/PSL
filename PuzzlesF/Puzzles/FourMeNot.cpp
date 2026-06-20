@@ -84,9 +84,8 @@ struct puz_state
 
 struct puz_state2 : Position
 {
-    puz_state2(const set<Position>& rng) : m_rng(&rng) {
-        make_move(*rng.begin());
-    }
+    puz_state2(const set<Position>* rng)
+        : m_rng(rng) { make_move(*rng->begin()); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
@@ -116,7 +115,7 @@ puz_state::puz_state(const puz_game& g)
 
     int n = 0;
     while (!rng.empty()) {
-        auto smoves = puz_move_generator<puz_state2>::gen_moves(rng);
+        auto smoves = puz_move_generator<puz_state2>::gen_moves(&rng);
 
         auto& outer = m_num2outer[n++];
         for (auto& p : smoves) {

@@ -67,8 +67,8 @@ struct puz_game
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_game* game, const Position& p_start)
-        : m_game(game) { make_move(p_start); }
+    puz_state2(const puz_game* game, const Position& p)
+        : m_game(game) { make_move(p); }
 
     void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
     void gen_children(list<puz_state2>& children) const;
