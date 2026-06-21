@@ -21,7 +21,7 @@ namespace puzzles::Hexotris{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_region
 {

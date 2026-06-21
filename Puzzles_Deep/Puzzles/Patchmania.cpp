@@ -24,8 +24,8 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_HOLE = 'O';
 constexpr auto PUZ_MUSHROOM = 'm';
 
-constexpr array<Position, 4> offset = Position::Directions4;
-constexpr array<Position, 4> offset2 = Position::WallsOffset4;
+constexpr auto& offset = Position::Directions4;
+constexpr auto& offset2 = Position::WallsOffset4;
 
 constexpr string_view dirs = "^>v<o";
 

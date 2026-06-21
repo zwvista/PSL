@@ -21,8 +21,8 @@ namespace puzzles::DigitWorms{
 
 constexpr auto PUZ_SPACE = ' ';
 
-constexpr array<Position, 8> offset = Position::Directions8;
-constexpr array<Position, 4> offset2 = Position::WallsOffset4;
+constexpr auto& offset = Position::Directions8;
+constexpr auto& offset2 = Position::WallsOffset4;
 
 struct puz_moves
 {

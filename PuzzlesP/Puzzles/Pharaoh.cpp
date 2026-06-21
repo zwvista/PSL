@@ -12,7 +12,7 @@ namespace puzzles::Pharaoh{
 enum EBrickDir {mvUp, mvRight, mvDown, mvLeft};
 enum EBrickType {btRed, btBlue, btYellow};
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 constexpr string_view dirs = "URDL";
 
 using brick_map = map<Position, EBrickType>;

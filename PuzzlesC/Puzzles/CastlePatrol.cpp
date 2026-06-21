@@ -25,7 +25,7 @@ constexpr auto PUZ_WALL = 'W';
 constexpr auto PUZ_WALL2 = 'X';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 // first: empty or wall area
 // second: size of the area

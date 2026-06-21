@@ -29,7 +29,7 @@ constexpr auto PUZ_BRIDGE = '.';
 constexpr auto PUZ_HORZ = '-';
 constexpr auto PUZ_VERT = '|';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 enum class puz_game_type
 {

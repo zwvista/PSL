@@ -11,7 +11,7 @@ namespace puzzles::twinballs{
 
 enum EDir {mvLeft, mvRight, mvUp, mvDown};
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_game
 {

@@ -24,7 +24,7 @@ constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_SYMBOL1 = '1';
 constexpr auto PUZ_SYMBOL2 = '2';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_game
 {

@@ -20,7 +20,7 @@ constexpr auto PUZ_LINE_UNKNOWN = "01";
 constexpr auto PUZ_LINE_OFF = '0';
 constexpr auto PUZ_LINE_ON = '1';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 using puz_line_info = pair<Position, int>;
 const puz_line_info lines_info[] = {

@@ -10,7 +10,7 @@ constexpr auto PUZ_WALL = '#';
 constexpr auto PUZ_THORN = '!';
 constexpr auto PUZ_SPACE = ' ';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_game
 {

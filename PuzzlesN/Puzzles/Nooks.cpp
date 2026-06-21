@@ -30,8 +30,8 @@ constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_QM = '?';
 constexpr auto PUZ_UNKNOWN = -1;
 
-constexpr array<Position, 4> offset = Position::Directions4;
-constexpr array<Position, 4> offset2 = Position::Square2x2Offset;
+constexpr auto& offset = Position::Directions4;
+constexpr auto& offset2 = Position::Square2x2Offset;
 
 struct puz_move
 {

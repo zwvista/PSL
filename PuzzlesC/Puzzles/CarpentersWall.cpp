@@ -30,7 +30,7 @@ constexpr auto PUZ_WALL = 'W';
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_CORNER = 'O';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 const vector<vector<int>> tool_dirs2 = {
     {0, 1}, {0, 3}, {1, 2}, {2, 3}

@@ -37,8 +37,8 @@ enum class OP_WALLS_TYPE
     GT,
 };
 
-constexpr array<Position, 4> offset = Position::Directions4;
-constexpr array<Position, 4> offset2 = Position::WallsOffset4;
+constexpr auto& offset = Position::Directions4;
+constexpr auto& offset2 = Position::WallsOffset4;
 
 struct puz_pos_info
 {

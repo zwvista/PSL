@@ -14,7 +14,7 @@
 
 namespace puzzles::Pointing{
 
-constexpr array<Position, 8> offset = Position::Directions8;
+constexpr auto& offset = Position::Directions8;
 
 struct puz_game
 {

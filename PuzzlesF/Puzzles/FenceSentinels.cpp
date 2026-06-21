@@ -41,7 +41,7 @@ const vector<int> linesegs_all = {
     12, 10, 6, 9, 5, 3,
 };
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 /*
     cell(0,0)        cell(0,1)

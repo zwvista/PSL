@@ -33,7 +33,7 @@ namespace puzzles::NumberLink2{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_LINE_OFF_MOVEID = -1;
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 // n-e-s-w
 // 0 means line is off in this direction

@@ -25,7 +25,7 @@ constexpr auto PUZ_BOAT = 'T';
 constexpr auto PUZ_LIGHTHOUSE = 'L';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr array<Position, 8> offset = Position::Directions8;
+constexpr auto& offset = Position::Directions8;
 
 struct puz_game
 {

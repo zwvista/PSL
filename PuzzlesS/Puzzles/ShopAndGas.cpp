@@ -64,7 +64,7 @@ const vector<int> linesegs_all_shop = {
     5, 10,
 };
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_game
 {

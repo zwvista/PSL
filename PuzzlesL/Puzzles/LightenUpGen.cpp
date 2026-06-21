@@ -29,7 +29,7 @@ constexpr auto PUZ_UNLIT = '.';
 constexpr auto PUZ_LIT = '+';
 constexpr auto PUZ_NONHINT = 'w';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_generator
 {

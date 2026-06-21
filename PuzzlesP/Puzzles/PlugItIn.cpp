@@ -23,7 +23,7 @@ constexpr auto PUZ_HORZ = '-';
 constexpr auto PUZ_VERT = '|';
 constexpr auto PUZ_BOUNDARY = 'X';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_game
 {

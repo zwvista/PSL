@@ -29,7 +29,7 @@ constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_QM = '?';
 constexpr auto PUZ_UNKNOWN = 0;
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_garden
 {

@@ -42,7 +42,7 @@ const vector<int> linesegs_all3 = {
     14, 13, 11, 7, 15,
 };
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 constexpr Position offset2[] = {
     {0, 0},        // o

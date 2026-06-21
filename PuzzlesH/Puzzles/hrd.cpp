@@ -7,7 +7,7 @@ namespace puzzles::hrd{
 
 enum EBrickType {bt1X1, bt2X1, bt1X2, bt2X2};
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 constexpr string_view dirs = "URDL";
 
 using brick_map = map<Position, EBrickType>;

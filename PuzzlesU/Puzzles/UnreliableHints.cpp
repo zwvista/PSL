@@ -25,7 +25,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_SHADED = 'X';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 constexpr string_view tool_dirs = "^>v<";
 

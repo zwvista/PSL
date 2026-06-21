@@ -29,8 +29,8 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_TENT = 'E';
 constexpr auto PUZ_UNKNOWN = -1;
 
-constexpr array<Position, 4> offset = Position::Directions4;
-constexpr array<Position, 8> offset2 = Position::Directions8;
+constexpr auto& offset = Position::Directions4;
+constexpr auto& offset2 = Position::Directions8;
 
 struct puz_game
 {

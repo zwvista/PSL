@@ -19,7 +19,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_AREA = 'O';
 constexpr auto PUZ_OBJECT = '@';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 constexpr string_view dirs = "^>v<";
 
 struct puz_game

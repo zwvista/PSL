@@ -21,7 +21,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_FOREST = '=';
 constexpr auto PUZ_POND = 'P';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_move
 {

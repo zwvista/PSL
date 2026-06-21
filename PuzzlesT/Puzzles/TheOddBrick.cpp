@@ -21,8 +21,8 @@ namespace puzzles::TheOddBrick{
 
 constexpr auto PUZ_SPACE = ' ';
 
-constexpr array<Position, 4> offset = Position::Directions4;
-constexpr array<Position, 4> offset2 = Position::WallsOffset4;
+constexpr auto& offset = Position::Directions4;
+constexpr auto& offset2 = Position::WallsOffset4;
 
 struct puz_numbers : vector<char>
 {

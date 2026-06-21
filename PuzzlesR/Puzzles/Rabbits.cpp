@@ -24,7 +24,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_RABBIT = 'R';
 constexpr auto PUZ_TREE = 'T';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 // rabbit and tree
 struct puz_rt {

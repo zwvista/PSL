@@ -42,7 +42,7 @@ const vector<int> linesegs_all = {
 };
 constexpr string_view square_dirs = "^>v<";
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_square_info
 {

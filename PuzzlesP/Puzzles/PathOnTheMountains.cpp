@@ -40,7 +40,7 @@ const vector<int> linesegs_all_spot = {
     3, 6, 12, 9,
 };
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_path
 {

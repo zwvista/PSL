@@ -38,7 +38,7 @@ constexpr auto PUZ_LINE_ON = '1';
 
 const string lineseg_off = "0000";
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_game
 {

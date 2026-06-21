@@ -21,7 +21,7 @@ namespace puzzles::TetrominoPegs{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_PEG = '.';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 // 3. Tetrominoes may be rotated or mirrored.
 const vector<vector<vector<Position>>> tetrominoes = {

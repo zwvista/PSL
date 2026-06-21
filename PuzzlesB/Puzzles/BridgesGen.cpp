@@ -31,7 +31,7 @@ constexpr auto PUZ_HORZ_2 = '=';
 constexpr auto PUZ_VERT_2 = 'H';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_generator
 {

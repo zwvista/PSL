@@ -12,7 +12,7 @@ constexpr auto PUZ_BALL = '@';
 constexpr auto PUZ_GOAL = 'x';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_game
 {

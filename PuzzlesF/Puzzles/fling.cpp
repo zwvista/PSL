@@ -12,7 +12,7 @@ namespace puzzles::fling{
 
 constexpr auto PUZ_BALL = '@';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 constexpr string_view dirs = "urdl";
 
 struct puz_game

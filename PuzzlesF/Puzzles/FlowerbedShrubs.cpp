@@ -23,7 +23,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_SHRUB = '=';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 const vector<vector<Position>> flowerbeds_offset = {
     // L

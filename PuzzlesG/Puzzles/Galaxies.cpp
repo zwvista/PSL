@@ -29,7 +29,7 @@ constexpr auto PUZ_GALAXY_R = '>';
 constexpr auto PUZ_GALAXY_C = 'v';
 constexpr auto PUZ_GALAXY_RC = 'x';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_game
 {

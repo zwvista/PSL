@@ -13,7 +13,7 @@ enum EDir {mvLeft, mvRight, mvUp, mvDown};
 
 string_view moves = "lrud";
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_game
 {

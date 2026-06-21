@@ -27,8 +27,8 @@ constexpr auto PUZ_BLOCK = 'B';
 constexpr auto PUZ_BALLOON = 'H';
 constexpr auto PUZ_WEIGHT = 'W';
 
-constexpr array<Position, 4> offset = Position::Directions4;
-constexpr array<Position, 4> offset2 = Position::WallsOffset4;
+constexpr auto& offset = Position::Directions4;
+constexpr auto& offset2 = Position::WallsOffset4;
 
 struct puz_game
 {

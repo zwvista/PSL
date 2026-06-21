@@ -26,7 +26,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_NUM = 'N';
 constexpr auto PUZ_WATER = 'L';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_hint_perm
 {

@@ -35,7 +35,7 @@ const vector<int> linesegs_all = {
     12, 10, 6, 9, 5, 3,
 };
 
-constexpr array<Position, 8> offset = Position::Directions8;
+constexpr auto& offset = Position::Directions8;
 
 struct puz_game
 {

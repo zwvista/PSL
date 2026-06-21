@@ -20,7 +20,7 @@ namespace puzzles::Arrows{
 constexpr auto PUZ_CORNER = 100;
 constexpr auto PUZ_BORDER = 99;
 
-constexpr array<Position, 8> offset = Position::Directions8;
+constexpr auto& offset = Position::Directions8;
 
 // all possible arrows that may point to a number
 struct puz_arrow

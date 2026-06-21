@@ -23,7 +23,7 @@ constexpr auto PUZ_BLOCK_ON_ICE1 = 'c';
 
 enum EDir {mvLeft, mvRight, mvUp, mvDown};
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_game
 {

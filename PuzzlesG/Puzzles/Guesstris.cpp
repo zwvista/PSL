@@ -25,7 +25,7 @@ constexpr auto PUZ_TRIANGLE = 'T';
 constexpr auto PUZ_CIRCLE = 'C';
 constexpr auto PUZ_DIAMOND = 'D';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 // 5. Tetrominoes with the same symbols can be rotated or mirrored.
 const vector<vector<vector<Position>>> tetrominoes = {

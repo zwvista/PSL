@@ -38,7 +38,7 @@ inline bool is_lineseg_on(int lineseg, int d) { return (lineseg & (1 << d)) != 0
 
 constexpr int lineseg_off = 0;
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 struct puz_link
 {

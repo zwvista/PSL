@@ -24,7 +24,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_NUM = 'N';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 constexpr Position offset2[] = {
     {0, 0},         // o
     {-1, 0},       // n

@@ -12,7 +12,7 @@ constexpr auto PUZ_GOAL = '.';
 constexpr auto PUZ_BOX = '$';
 constexpr auto PUZ_BOX_GOAL = '*';
 
-constexpr array<Position, 4> offset = Position::Directions4;
+constexpr auto& offset = Position::Directions4;
 
 using group_map = unordered_map<char, vector<int> >;
 

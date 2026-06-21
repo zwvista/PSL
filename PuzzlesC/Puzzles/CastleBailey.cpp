@@ -36,7 +36,7 @@ constexpr Position offset[] = {
     {1, 1},    // se
     {1, 0},    // sw
 };
-constexpr array<Position, 4> offset2 = Position::Directions4;
+constexpr auto& offset2 = Position::Directions4;
 
 struct puz_game
 {
