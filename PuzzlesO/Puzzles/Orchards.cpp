@@ -25,8 +25,8 @@ namespace puzzles::Orchards{
 constexpr auto PUZ_TREE = 'T';
 constexpr auto PUZ_SPACE = '.';
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 struct puz_tree_info
 {

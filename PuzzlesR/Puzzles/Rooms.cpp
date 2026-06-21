@@ -29,7 +29,7 @@ constexpr auto PUZ_DOOR_UNKNOWN = '0';
 constexpr auto PUZ_DOOR_OPEN = '1';
 constexpr auto PUZ_DOOR_CLOSED = '2';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 constexpr Position door_offset[] = {
     {0, 0},        // n

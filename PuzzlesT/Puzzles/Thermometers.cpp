@@ -25,7 +25,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_SECTOR = '+';
 constexpr auto PUZ_END = 'o';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 constexpr string_view bulbs = "v<^>";
 

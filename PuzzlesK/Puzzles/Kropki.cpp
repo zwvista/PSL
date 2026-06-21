@@ -32,8 +32,8 @@ constexpr auto PUZ_BLACK = 'B';
 constexpr auto PUZ_WHITE = 'W';
 constexpr auto PUZ_NOT_BH = '.';
     
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 struct puz_game;
 struct puz_area

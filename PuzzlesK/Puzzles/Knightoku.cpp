@@ -29,8 +29,8 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_ROW_LINE = '|';
 constexpr auto PUZ_COL_LINE = '-';
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 constexpr Position offset_knight[] = {
     {-2, -1},    // nw

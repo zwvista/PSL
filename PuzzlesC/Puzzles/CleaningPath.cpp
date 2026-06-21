@@ -28,8 +28,8 @@ const vector<int> linesegs_all = {
     12, 10, 6, 9, 5, 3,
 };
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 struct puz_game
 {

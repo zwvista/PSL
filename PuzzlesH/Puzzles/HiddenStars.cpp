@@ -27,7 +27,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_ARROW = 'A';
 constexpr auto PUZ_STAR = 'S';
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 struct puz_game
 {

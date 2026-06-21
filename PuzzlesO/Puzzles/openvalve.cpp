@@ -13,7 +13,7 @@ constexpr auto PUZ_PIPE_I = 'I';        // "─","│"
 constexpr auto PUZ_PIPE_3 = '3';        // "├","┤","┬","┴"
 constexpr auto PUZ_PIPE_4 = '4';        // "┼"
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 const string dirs = "wensewsn";
 const string pipes = "LI34";

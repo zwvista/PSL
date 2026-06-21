@@ -28,7 +28,7 @@ constexpr auto PUZ_HORZ = '-';
 constexpr auto PUZ_VERT = '|';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 struct puz_path
 {

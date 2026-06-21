@@ -30,7 +30,7 @@ constexpr auto PUZ_HINT = 'H';
 constexpr auto PUZ_SNAKE = 'S';
 constexpr auto PUZ_SNAKE_SIZE = 5;
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 constexpr string_view dirs = "^>v<";
 constexpr string_view space_str = "     ";

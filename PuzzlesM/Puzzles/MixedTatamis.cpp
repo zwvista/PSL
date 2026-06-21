@@ -24,8 +24,8 @@ namespace puzzles::MixedTatamis{
 
 constexpr auto PUZ_SPACE = ' ';
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::Square2x2Offset;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::Square2x2Offset;
 
 struct puz_box
 {

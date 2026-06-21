@@ -22,8 +22,8 @@ namespace puzzles::MiniLits{
 
 constexpr auto PUZ_SPACE = '.'    ;
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 const vector<vector<Position>> triominos = {
     // L

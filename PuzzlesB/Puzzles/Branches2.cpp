@@ -24,7 +24,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_NUMBER = 'N';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 constexpr string_view str_branch = "|-|-^>v<";
 

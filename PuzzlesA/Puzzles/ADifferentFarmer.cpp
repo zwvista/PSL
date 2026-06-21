@@ -22,8 +22,8 @@ namespace puzzles::ADifferentFarmer{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 
-constexpr auto& offset = Position::Directions8;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions8;
+constexpr auto offset2 = Position::WallsOffset4;
 
 struct puz_game
 {

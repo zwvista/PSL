@@ -16,7 +16,7 @@ constexpr auto PUZ_GLASS = '!';
 constexpr auto PUZ_COLORED = 'o';
 constexpr auto PUZ_SPACE = ' ';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 constexpr string_view dirs = "urdl";
 
 struct puz_game

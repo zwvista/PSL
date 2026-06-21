@@ -30,7 +30,7 @@ const string RY = {PUZ_R_ADDED, PUZ_Y_ADDED};
 bool is_token_r(char ch) { return ch == PUZ_R_FIXED || ch == PUZ_R_ADDED; }
 bool is_token_y(char ch) { return ch == PUZ_Y_FIXED || ch == PUZ_Y_ADDED; }
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 struct puz_game
 {

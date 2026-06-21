@@ -21,7 +21,7 @@ namespace puzzles::HiddenPath{
 
 constexpr auto PUZ_UNKNOWN = 0;
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 struct puz_game
 {

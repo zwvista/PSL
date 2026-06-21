@@ -41,7 +41,7 @@ constexpr auto PUZ_NEST = 'S';
 constexpr auto PUZ_BLOCK = 'X';
 constexpr auto PUZ_MOUSE = 'M';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 constexpr string_view dirs = "urdl";
 
 struct puz_game

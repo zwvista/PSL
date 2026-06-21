@@ -26,9 +26,9 @@ constexpr auto PUZ_PAINTED = 'P';
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_UNKNOWN = 5;
     
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
-constexpr auto& offset3 = Position::Square2x2Offset;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
+constexpr auto offset3 = Position::Square2x2Offset;
 
 struct puz_game
 {

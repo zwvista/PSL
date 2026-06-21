@@ -23,8 +23,8 @@ constexpr auto PUZ_STONE = 'O';
 constexpr auto PUZ_LEAF = 'L';
 constexpr auto PUZ_NOLEAF = 'S';
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 constexpr Position offset3[] = {
     {0, 1},        // e

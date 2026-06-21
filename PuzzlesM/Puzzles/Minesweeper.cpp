@@ -21,7 +21,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_MINE = 'M';
 constexpr auto PUZ_BOUNDARY = '`';
     
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 struct puz_game
 {

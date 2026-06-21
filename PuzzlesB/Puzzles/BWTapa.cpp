@@ -25,7 +25,7 @@ constexpr auto PUZ_HINT = 'H';
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_UNKNOWN = -1;
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 using puz_hint = vector<int>;
 

@@ -50,7 +50,7 @@ const vector<int> linesegs_all_white = {
     5, 10,
 };
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 // first: the offset of the line segment
 // second: an integer that depicts the line segment

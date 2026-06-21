@@ -38,8 +38,8 @@ constexpr auto PUZ_WALL_CHAR = 'W';
 constexpr auto PUZ_TRESURE = 4;
 constexpr auto PUZ_WALL = 5;
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::Square2x2Offset;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::Square2x2Offset;
 
 const string_view dirs = "^>v<";
 

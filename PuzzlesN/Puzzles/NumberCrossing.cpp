@@ -22,7 +22,7 @@ namespace puzzles::NumberCrossing{
 constexpr auto PUZ_EMPTY = 0;
 constexpr auto PUZ_UNKNOWN = -1;
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 struct puz_game
 {

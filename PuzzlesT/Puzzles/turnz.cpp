@@ -36,7 +36,7 @@ constexpr auto PUZ_BREAK2 = '2';
 constexpr auto PUZ_BREAK1 = '1';
 constexpr auto PUZ_DEATH = 'x';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 struct puz_game
 {

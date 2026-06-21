@@ -29,7 +29,7 @@ namespace puzzles::Snail{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 struct puz_game
 {

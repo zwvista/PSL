@@ -27,7 +27,7 @@ namespace puzzles::FlowerOMino{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_HEDGE = '=';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 const vector<vector<Position>> tetrominoes = {
     // L

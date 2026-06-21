@@ -24,8 +24,8 @@ constexpr auto PUZ_FLOWER = '*';
 constexpr auto PUZ_POND = '=';
 constexpr auto PUZ_HEDGE = '.';
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::Square2x2Offset;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::Square2x2Offset;
 
 // 2. A Flowerbed is an area of 3 cells, containing one flower.
 const vector<vector<Position>> flowerbeds_offset = {

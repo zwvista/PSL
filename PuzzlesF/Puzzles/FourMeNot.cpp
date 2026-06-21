@@ -30,7 +30,7 @@ constexpr auto PUZ_BLOCK = 'B';
 
 bool is_flower(char ch) { return ch == PUZ_FIXED || ch == PUZ_ADDED; }
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 struct puz_game
 {

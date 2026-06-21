@@ -8,7 +8,7 @@
 
 namespace puzzles::numeric_paranoia{
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 constexpr string_view dirs = "^>v<";
 
 struct puz_game

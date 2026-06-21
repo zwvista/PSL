@@ -38,7 +38,7 @@ using puz_bridge = pair<vector<Position>,
     >;
 using puz_splitter = vector<Position>;
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 struct puz_game
 {

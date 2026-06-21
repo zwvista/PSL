@@ -21,8 +21,8 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_BACK_SLASH = '\\';
 constexpr auto PUZ_FRONT_SLASH = '/';
     
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::Square2x2Offset;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::Square2x2Offset;
 constexpr Position offset3[] = {
     {-1, -1},
     {-1, 1},

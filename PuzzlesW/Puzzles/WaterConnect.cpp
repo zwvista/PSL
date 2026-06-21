@@ -47,7 +47,7 @@ const vector<vector<int>> linesegs_all = {
     {11, 7, 14, 13},
 };
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 const map<char, set<char>> tree2waters = {
     // yellow + blue = green

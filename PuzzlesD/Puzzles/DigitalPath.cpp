@@ -25,9 +25,9 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_UNKNOWN = -1;
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
-constexpr auto& offset3 = Position::Square2x2Offset;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
+constexpr auto offset3 = Position::Square2x2Offset;
 
 struct puz_area
 {

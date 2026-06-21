@@ -20,8 +20,8 @@ namespace puzzles::Landscapes{
 
 constexpr auto PUZ_SPACE = ' ';
 
-constexpr auto& offset = Position::Directions8;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions8;
+constexpr auto offset2 = Position::WallsOffset4;
 
 struct puz_region
 {

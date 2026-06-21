@@ -37,8 +37,8 @@ const set<int> linesegs_turn = {
 };
 inline bool is_lineseg_turn(int lineseg) { return linesegs_turn.contains(lineseg); }
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 struct puz_game
 {

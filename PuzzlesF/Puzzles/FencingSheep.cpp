@@ -59,7 +59,7 @@ const vector<int> linesegs_all_post = {
     0, 12, 10, 6, 9, 5, 3,
 };
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 constexpr Position offset2[] = {
     {0, 0},        // o

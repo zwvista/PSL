@@ -38,7 +38,7 @@ namespace puzzles::Fillomino{
 
 constexpr auto PUZ_UNKNOWN = 0;
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 enum class puz_game_type
 {

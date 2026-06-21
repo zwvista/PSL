@@ -21,7 +21,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_BLOCK = '@';
 constexpr auto PUZ_HINT = '.';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 constexpr string_view dirs = "^>v<";
 
 using puz_move = map<Position, char>;

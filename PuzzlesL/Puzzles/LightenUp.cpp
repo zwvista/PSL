@@ -28,7 +28,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_UNLIT = '.';
 constexpr auto PUZ_LIT = '+';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 struct puz_game
 {

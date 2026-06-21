@@ -37,7 +37,7 @@ constexpr auto PUZ_RIGHT = '>';
 constexpr auto PUZ_MIDDLE = '+';
 constexpr auto PUZ_BOAT = 'o';
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 const string ship_info[][2] = {
     {"o", "o"},

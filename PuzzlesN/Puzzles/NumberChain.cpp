@@ -18,7 +18,7 @@ namespace puzzles::NumberChain{
 constexpr string_view PUZ_SPACE = "..";
 constexpr string_view PUZ_EMPTY = "xx";
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 struct puz_game
 {

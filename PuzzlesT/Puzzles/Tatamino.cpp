@@ -21,7 +21,7 @@ namespace puzzles::Tatamino{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 struct puz_move {
     char m_num;

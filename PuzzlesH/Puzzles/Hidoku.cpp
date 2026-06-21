@@ -18,7 +18,7 @@
 
 namespace puzzles::Hidoku{
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 struct puz_game
 {

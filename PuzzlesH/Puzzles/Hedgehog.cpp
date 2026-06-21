@@ -99,7 +99,7 @@ constexpr auto PUZ_BOULDER = -1;
 constexpr auto PUZ_BOULDER_STR = " OO";
 constexpr auto PUZ_FOREST_DEST = -1;
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 enum class puz_game_type
 {

@@ -20,8 +20,8 @@
 
 namespace puzzles::RippleEffect{
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 // first: the remaining positions in the room that should be filled
 // second: all permutations of the remaining numbers that should be used to fill the room

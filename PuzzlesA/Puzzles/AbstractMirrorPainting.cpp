@@ -25,8 +25,8 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_PAINTED = 'P';
 constexpr auto PUZ_UNKNOWN = 999;
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 struct puz_move
 {

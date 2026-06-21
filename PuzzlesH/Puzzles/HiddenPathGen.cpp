@@ -22,7 +22,7 @@ namespace puzzles::HiddenPath{
 
 constexpr auto PUZ_UNKNOWN = 0;
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 // key: direction, value: step
 using puz_move = pair<int, int>;

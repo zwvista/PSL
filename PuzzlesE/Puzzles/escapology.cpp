@@ -10,7 +10,7 @@ constexpr auto PUZ_BALL = '@';
 constexpr auto PUZ_GOAL = '.';
 constexpr auto PUZ_BLUE = '!';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 constexpr string_view dirs = "urdl";
 
 struct puz_game

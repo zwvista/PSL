@@ -22,7 +22,7 @@ namespace puzzles::TurnMeUp{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_QM = '?';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 // n-e-s-w
 // 0 means line is off in this direction

@@ -15,7 +15,7 @@ constexpr auto PUZ_NOENTRY = '#';
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_FOUND = '!';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 using Position3d = pair<int, Position>;
 using Position3dPair = pair<Position3d, Position3d>;

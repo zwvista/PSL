@@ -18,7 +18,7 @@ namespace puzzles::MakeTheDifference{
 
 constexpr auto PUZ_SPACE = ' ';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 // top-left and bottom-right
 using puz_box = pair<Position, Position>;

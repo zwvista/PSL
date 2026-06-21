@@ -26,7 +26,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_ISLAND = '.';
 constexpr auto PUZ_WATER = 'W';
 
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 struct puz_island_info
 {

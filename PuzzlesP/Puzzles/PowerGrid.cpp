@@ -29,7 +29,7 @@ constexpr auto PUZ_POST = 'P';
 
 constexpr auto PUZ_UNKNOWN = 0;
     
-constexpr auto& offset = Position::Directions8;
+constexpr auto offset = Position::Directions8;
 
 // first: the positions in the area (a row, column, or diagonal)
 // second: the length of the cables between the two Posts

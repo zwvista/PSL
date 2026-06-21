@@ -13,7 +13,7 @@ constexpr auto PUZ_PAINTED = '.';
 constexpr auto PUZ_BALL = 'O';
 constexpr auto PUZ_BLOCK = '#';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 constexpr string_view dirs = "^>v<";
 
 struct puz_game

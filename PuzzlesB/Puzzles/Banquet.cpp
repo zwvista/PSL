@@ -29,7 +29,7 @@ constexpr auto PUZ_TABLE = 'O';
 constexpr auto PUZ_QM = '?';
 constexpr auto PUZ_UNKNOWN = -1;
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 const string_view dirs = "^>v<";
 

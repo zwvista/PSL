@@ -24,8 +24,8 @@ constexpr auto PUZ_HORZ = 'H';
 constexpr auto PUZ_VERT = 'V';
 constexpr auto PUZ_CROSS = '+';
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset3 = Position::Square2x2Offset;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset3 = Position::Square2x2Offset;
 
 // top-left and bottom-right
 using puz_box = pair<Position, Position>;

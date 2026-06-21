@@ -31,7 +31,7 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_SIGNPOST = 'S';
 constexpr auto PUZ_WALL = 'W';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 struct puz_game
 {

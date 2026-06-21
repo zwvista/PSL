@@ -20,8 +20,8 @@ namespace puzzles::InsaneTatamis{
 
 constexpr auto PUZ_SPACE = ' ';
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::Square2x2Offset;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::Square2x2Offset;
 
 // top-left and bottom-right
 using puz_box = pair<Position, Position>;

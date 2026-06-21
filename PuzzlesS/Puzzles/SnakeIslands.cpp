@@ -37,8 +37,8 @@ constexpr auto PUZ_SNAKE = 'S';
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_HIDDEN_GARDEN_ID = 9999;
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::Square2x2Offset;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::Square2x2Offset;
 
 struct puz_garden
 {

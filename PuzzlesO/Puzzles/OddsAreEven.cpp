@@ -31,8 +31,8 @@ constexpr auto PUZ_COL_LINE = '-';
 constexpr auto PUZ_ODD = 'O';
 constexpr auto PUZ_EVEN = 'E';
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 struct puz_pos_info
 {

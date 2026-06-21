@@ -40,14 +40,14 @@ const set<int> linesegs_turn = {
 };
 inline bool is_lineseg_turn(int lineseg) { return linesegs_turn.contains(lineseg); }
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 /*
     dot(0,0)         dot(0,1)
             cell(0,0)
     dot(1,0)         dot(1,1)
 */
-constexpr auto& offset2 = Position::Square2x2Offset;
+constexpr auto offset2 = Position::Square2x2Offset;
 
 struct puz_game
 {

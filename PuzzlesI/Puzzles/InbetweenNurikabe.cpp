@@ -23,8 +23,8 @@ constexpr auto PUZ_EMPTY = '.';
 constexpr auto PUZ_WALL = 'W';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::Square2x2Offset;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::Square2x2Offset;
 
 struct puz_garden
 {

@@ -21,8 +21,8 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_SINGLE = '.';
 constexpr auto PUZ_BOUNDARY = '`';
 
-constexpr auto& offset = Position::Directions4;
-constexpr auto& offset2 = Position::WallsOffset4;
+constexpr auto offset = Position::Directions4;
+constexpr auto offset2 = Position::WallsOffset4;
 
 // first: a char used to represent the area: a, b, c...
 // second: the length of the perimeter of the area

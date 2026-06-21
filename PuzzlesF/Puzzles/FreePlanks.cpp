@@ -22,7 +22,7 @@ namespace puzzles::FreePlanks{
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_NAIL = 'N';
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 const vector<vector<Position>> planks_offset = {
     // L

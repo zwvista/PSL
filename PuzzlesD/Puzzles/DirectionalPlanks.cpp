@@ -21,7 +21,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_QM = '?';
 constexpr auto PUZ_UNKNOWN = -1;
 
-constexpr auto& offset = Position::Directions4;
+constexpr auto offset = Position::Directions4;
 
 const vector<vector<Position>> planks_offset = {
     // L
