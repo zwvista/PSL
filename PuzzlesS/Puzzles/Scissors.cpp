@@ -62,12 +62,13 @@ struct puz_state2 : puz_position
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
+    auto& [p, n] = static_cast<const puz_position&>(*this);
     for (int i = 0; i < 4; ++i)
-        if (second & (1 << i)) {
-            auto p2 = first + offset[i];
+        if (n & (1 << i)) {
+            auto p2 = p + offset[i];
             int j = (i + 2) % 4;
             for (auto& kv : *m_positions)
-                if (auto& [p3, n] = kv; p3 == p2 && n & (1 << j)) {
+                if (auto& [p3, n3] = kv; p3 == p2 && n3 & (1 << j)) {
                     children.emplace_back(*this).make_move(kv);
                     break;
                 }
@@ -90,7 +91,7 @@ struct puz_game
     bool is_border_dot(const Position& p) const {
         return p.first == 0 || p.second == 0 || p.first == m_sidelen || p.second == m_sidelen;
     };
-    pair<bool, int> check_move(const list<puz_state2>& smoves) const;
+    pair<bool, vector<Position>> check_move(const list<puz_state2>& smoves) const;
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -130,9 +131,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     add_slash(positions, p, ch);
                 while (!positions.empty()) {
                     auto smoves = puz_move_generator<puz_state2>::gen_moves(&positions);
-                    auto [b, n] = check_move(smoves);
+                    auto [b, rng] = check_move(smoves);
                     if (!b) return false;
-                    if (n == 1) return true;
+                    if (rng.size() == 1) return true;
                     for (auto& s : smoves)
                         positions.erase(s);
                 }
@@ -165,24 +166,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
 }
 
-pair<bool, int> puz_game::check_move(const list<puz_state2>& smoves) const
+pair<bool, vector<Position>> puz_game::check_move(const list<puz_state2>& smoves) const
 {
     vector<char> nums;
+    vector<Position> rng;
     for (auto& s : smoves) {
-        if (s.second != 15) continue;
-        char ch = cells(s.first);
+        auto& [p, n] = static_cast<const puz_position&>(s);
+        if (n != 15) continue;
+        char ch = cells(p);
         if (ch == PUZ_SPACE) continue;
+        if (ch == '1') rng.push_back(p);
         nums.push_back(ch);
     }
     int sz = nums.size(), max_num = m_max_num - '0';
     if (sz == 0 || sz % max_num != 0)
-        return {false, 0};
+        return {false, rng};
     int cnt = sz / max_num;
     boost::sort(nums);
     for (int i = 0; i < sz; ++i)
         if (nums[i] != (i / cnt + '1'))
-            return {false, 0};
-    return {true, cnt};
+            return {false, rng};
+    return {true, rng};
 }
 
 struct puz_state
@@ -237,9 +241,9 @@ bool puz_state::make_move(int n)
     vector<int> v;
     while (!positions.empty()) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves(&positions);
-        auto [b, n] = m_game->check_move(smoves);
+        auto [b, rng] = m_game->check_move(smoves);
         if (!b) return false;
-        v.push_back(n);
+        v.push_back(rng.size());
         for (auto& s : smoves)
             positions.erase(s);
     }
