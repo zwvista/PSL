@@ -118,6 +118,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     set<Position> border;
     for (int i = 0; i <= m_sidelen; ++i) {
         auto f = [&](int r, int c) {
+            if (r == m_sidelen && c == m_sidelen) return;
             Position p0(r, c);
             if (!border.insert(p0).second) return;
             puz_move move;
@@ -160,6 +161,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             };
             dfs(p0);
         };
+        // check all dots on the border
         f(0, i), f(m_sidelen, i), f(i, 0), f(i, m_sidelen);
     }
 }
