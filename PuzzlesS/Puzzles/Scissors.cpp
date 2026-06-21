@@ -117,9 +117,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_cut_count = n_num / (m_max_num - '0') - 1;
 
+    set<Position> border;
     for (int i = 0; i <= m_sidelen; ++i) {
         auto f = [&](int r, int c) {
             Position p0(r, c);
+            if (!border.insert(p0).second) return;
             puz_move move;
             set dots{p0};
             auto is_valid_cut = [&]{
@@ -159,7 +161,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             };
             dfs(p0);
         };
-        f(0, i), f(0, m_sidelen), f(i, 0), f(i, m_sidelen);
+        f(0, i), f(m_sidelen, i), f(i, 0), f(i, m_sidelen);
     }
 }
 
