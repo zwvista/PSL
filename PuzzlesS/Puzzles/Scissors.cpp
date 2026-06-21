@@ -134,11 +134,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     auto smoves = puz_move_generator<puz_state2>::gen_moves(&positions);
                     auto [b, n] = check_move(smoves);
                     if (!b) return false;
-                    if (n == 1) return true;
                     for (auto& s : smoves)
                         positions.erase(s);
                 }
-                return false;
+                return true;
             };
             auto dfs = [&](this const auto& self, const Position& p1) {
                 if (p1 != p0 && is_border_dot(p1)) {
