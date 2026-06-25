@@ -81,7 +81,7 @@ struct puz_game
     int m_sidelen;
     string m_cells;
     char m_max_num = '1';
-    int m_cut_count = 0;
+    int m_cuts_needed = 0;
     set<puz_slash> m_slashes;
     vector<puz_move> m_moves;
     set<puz_position> m_positions;
@@ -116,7 +116,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 ++n_num;
         }
     }
-    m_cut_count = n_num / (m_max_num - '0') - 1;
+    m_cuts_needed = n_num / (m_max_num - '0') - 1;
 
     set<Position> border;
     for (int i = 0; i <= m_sidelen; ++i) {
@@ -198,13 +198,13 @@ struct puz_state
         return tie(m_cells, m_move_ids) < tie(x.m_cells, x.m_move_ids);
     }
     bool make_move(int n);
-    bool check_cuts() const;
+    bool check_cuts();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_remaing_cuts; }
-    unsigned int get_distance(const puz_state& child) const { return 1; }
+    unsigned int get_heuristic() const { return m_cuts_needed; }
+    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
@@ -212,30 +212,35 @@ struct puz_state
     string m_cells;
     vector<int> m_move_ids;
     set<puz_position> m_positions;
-    int m_remaing_cuts;
+    int m_cuts_needed;
+    unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_cells)
 , m_positions(g.m_positions)
-, m_remaing_cuts(g.m_cut_count)
+, m_cuts_needed(g.m_cuts_needed)
 , m_move_ids(g.m_moves.size())
 {
     boost::iota(m_move_ids, 0);
 }
 
-bool puz_state::check_cuts() const
+bool puz_state::check_cuts()
 {
     auto positions = m_positions;
     vector<int> v;
+    int h = 0;
     while (!positions.empty()) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves(&positions);
         auto [b, n] = m_game->check_move(smoves);
         if (!b) return false;
+        h = max(h, n - 1);
         v.push_back(n);
         for (auto& s : smoves)
             positions.erase(s);
     }
+    m_distance = m_cuts_needed - h;
+    m_cuts_needed = h;
     return !is_goal_state() || boost::algorithm::all_of_equal(v, 1);
 }
 
@@ -244,12 +249,16 @@ bool puz_state::make_move(int n)
     for (auto& [p, ch2] : m_game->m_moves[n])
         if (char& ch = cells(p); ch == PUZ_SPACE)
             add_slash(m_positions, p, ch = ch2);
-    --m_remaing_cuts;
+    --m_cuts_needed;
     boost::remove_erase_if(m_move_ids, [&](int n2) {
-        return n2 <= n || !boost::algorithm::all_of(m_game->m_moves[n2], [&](const puz_slash_char& slash_char2) {
+        auto& move = m_game->m_moves[n2];
+        return n2 <= n || !boost::algorithm::all_of(move, [&](const puz_slash_char& slash_char2) {
             auto& [p2, ch2] = slash_char2;
             char ch = cells(p2);
             return ch == PUZ_SPACE || ch == ch2;
+        }) || boost::algorithm::all_of(move, [&](const puz_slash_char& slash_char2) {
+            auto& [p2, ch2] = slash_char2;
+            return cells(p2) == ch2;
         });
     });
     return check_cuts();
