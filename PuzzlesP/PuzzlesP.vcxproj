@@ -188,6 +188,7 @@
     <Text Include="Puzzles\PourWater.txt" />
     <Text Include="Puzzles\PowerGrid.txt" />
     <Text Include="Puzzles\ProductSentinels.txt" />
+    <Text Include="Puzzles\ProofOfQuilt.txt" />
     <Text Include="Puzzles\PuzzleRetreat_Everest.txt" />
     <Text Include="Puzzles\PuzzleRetreat_Morning.txt" />
     <Text Include="Puzzles\PuzzleRetreat_Welcome.txt" />
@@ -231,6 +232,7 @@
     <ClCompile Include="Puzzles\PourWater.cpp" />
     <ClCompile Include="Puzzles\PowerGrid.cpp" />
     <ClCompile Include="Puzzles\ProductSentinels.cpp" />
+    <ClCompile Include="Puzzles\ProofOfQuilt.cpp" />
     <ClCompile Include="Puzzles\PuzzleRetreat.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -266,6 +268,7 @@
     <Xml Include="Puzzles\PourWater.xml" />
     <Xml Include="Puzzles\PowerGrid.xml" />
     <Xml Include="Puzzles\ProductSentinels.xml" />
+    <Xml Include="Puzzles\ProofOfQuilt.xml" />
     <Xml Include="Puzzles\PuzzleRetreat_Everest.xml" />
     <Xml Include="Puzzles\PuzzleRetreat_Morning.xml" />
     <Xml Include="Puzzles\PuzzleRetreat_Welcome.xml">
