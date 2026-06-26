@@ -25,6 +25,7 @@ extern void solve_puz_PouringWater();
 extern void solve_puz_PourWater();
 extern void solve_puz_PowerGrid();
 extern void solve_puz_ProductSentinels();
+extern void solve_puz_ProofOfQuilt();
 extern void solve_puz_PuzzleRetreat();
 
 int main(int argc, char **argv)
@@ -55,7 +56,8 @@ int main(int argc, char **argv)
         println("o4: Pouring Water");
         println("o5: Pour Water");
         println("o6: Power Grid");
-        println("r: Product Sentinels");
+        println("r1: Product Sentinels");
+        println("r2: Proof of Quilt");
         println("u: Puzzle Retreat");
         getline(cin, str);
         if (str.empty()) solve_puz_PondCamping();
@@ -83,7 +85,8 @@ int main(int argc, char **argv)
         else if (str == "o4") solve_puz_PouringWater();
         else if (str == "o5") solve_puz_PourWater();
         else if (str == "o6") solve_puz_PowerGrid();
-        else if (str == "r") solve_puz_ProductSentinels();
+        else if (str == "r1") solve_puz_ProductSentinels();
+        else if (str == "r2") solve_puz_ProofOfQuilt();
         else if (str == "u") solve_puz_PuzzleRetreat();
     }
     return 0;
