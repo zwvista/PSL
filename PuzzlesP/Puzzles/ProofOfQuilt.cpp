@@ -7,12 +7,21 @@
     iOS Game: 100 Logic Games/Puzzle Set 8/Proof of Quilt
 
     Summary
-    Tailor's puzzle
+    Quilt the board, following the hints
 
     Description
-    1. Cut the board into patches.
-    2. Each patch should contain the numbers 1 to N exactly once (N being the highest number on the board).
-    3. Each patch should end on the border.
+     1. The goal is to place triangles in some cells in the end generating a pattern
+        similar to a Quilt.
+     2. The numbered tiles tell you how many triangles share an edge with it,
+        horizontally and vertically
+     3, For example, if a tile says 4, it has triangles all around it.
+     4. If a tile says 1, it has only one triangle somewhere.
+     5. Some tiles will remain blank and will form, along with the triangles, rectangles
+        and squares.
+     6. These can be tilted by 45 degrees.
+     7. Some other tiles are filled but contain no number. These and the hints are
+        the only tiles that can be completely filled.
+     8. Rectangles or squares can't touch orthogonally, but can touch diagonally
 */
 
 namespace puzzles::ProofOfQuilt{
