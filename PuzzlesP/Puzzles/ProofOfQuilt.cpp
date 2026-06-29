@@ -28,6 +28,11 @@ namespace puzzles::ProofOfQuilt{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_WHITE = 'W';
+constexpr auto PUZ_FILLED = 15;
+constexpr auto PUZ_UPPER_LEFT = 9;
+constexpr auto PUZ_UPPER_RIGHT = 3;
+constexpr auto PUZ_LOWER_LEFT = 12;
+constexpr auto PUZ_LOWER_RIGHT = 6;
 constexpr auto PUZ_UNKNOWN = -1;
     
 constexpr auto offset = Position::Directions4;
@@ -47,21 +52,37 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
-    m_cells.insert(m_cells.end(), m_sidelen, PUZ_UNKNOWN);
+    m_cells.insert(m_cells.end(), m_sidelen, PUZ_FILLED);
     for (int r = 1; r < m_sidelen - 1; ++r) {
-        m_cells.push_back(PUZ_UNKNOWN);
+        m_cells.push_back(PUZ_FILLED);
         string_view str = strs[r - 1];
         for (int c = 1; c < m_sidelen - 1; ++c)
             if (char ch = str[c - 1]; ch == PUZ_SPACE)
                 m_cells.push_back(PUZ_UNKNOWN);
             else {
-                m_cells.push_back(0);
+                m_cells.push_back(PUZ_FILLED);
                 if (ch != PUZ_WHITE)
                     m_pos2num[{r, c}] = ch - '0';
             }
-        m_cells.push_back(PUZ_UNKNOWN);
+        m_cells.push_back(PUZ_FILLED);
     }
-    m_cells.insert(m_cells.end(), m_sidelen, PUZ_UNKNOWN);
+    m_cells.insert(m_cells.end(), m_sidelen, PUZ_FILLED);
+
+    // Find all tilted quilts
+    // A tilted quilt has a circumscribed square
+    for (int i = 2; i <= m_sidelen; ++i) {
+        for (int r = 1; r <= m_sidelen - i + 1; ++r) {
+            for (int c = 1; c <= m_sidelen - i + 1; ++c) {
+                for (int j = 1; j <= i - 1; ++j) {
+                    int k = i - j;
+                    for (int dr = 0; dr < i; ++dr)
+                        for (int dc = 0; dc < i; ++dc) {
+
+                        }
+                }
+            }
+        }
+    }
 }
 
 struct puz_state
