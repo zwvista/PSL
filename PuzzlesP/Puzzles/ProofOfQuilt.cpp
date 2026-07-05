@@ -102,9 +102,9 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     //
     // Find all tilted quilts
     // A tilted quilt has a circumscribed square
-    for (int i = 2; i <= m_sidelen; ++i) {
-        puz_move pos2num;
-        for (int j = 1; j <= i - 1; ++j)
+    for (int i = 2; i <= m_sidelen; ++i)
+        for (int j = 1; j <= i - 1; ++j) {
+            puz_move pos2num;
             for (int k = i - j, dr = 0; dr < i; ++dr) {
                 int m1, m2, n1, n2;
                 if (dr < min(j, k))
@@ -114,7 +114,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 else if (dr < max(j, k))
                     m1 = dr - j, m2 = j + dr, n1 = PUZ_LOWER_LEFT, n2 = PUZ_UPPER_RIGHT;
                 else
-                    m1 = dr - j, m2 = i - 1 - dr + j, n1 = PUZ_LOWER_LEFT, n2 = PUZ_LOWER_RIGHT;
+                    m1 = dr - j, m2 = i - 1 - dr + max(j, k), n1 = PUZ_LOWER_LEFT, n2 = PUZ_LOWER_RIGHT;
                 for (int dc = 0; dc < i; ++dc) {
                     Position p(dr, dc);
                     if (dc == m1)
@@ -125,18 +125,18 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                         pos2num[p] = PUZ_BLANK;
                 }
             }
-        for (int r = 1; r <= m_sidelen - i + 1; ++r)
-            for (int c = 1; c <= m_sidelen - i + 1; ++c)
-                if (Position p(r, c);
-                    boost::algorithm::all_of(pos2num, [&](const pair<const Position, int>& kv) {
-                    return cells(p + kv.first) == PUZ_UNKNOWN;
-                })) {
-                    puz_move move;
-                    for (auto& [dp, n] : pos2num)
-                        move[p + dp] = n;
-                    m_moves.push_back(move);
-                }
-    }
+            for (int r = 1; r <= m_sidelen - i + 1; ++r)
+                for (int c = 1; c <= m_sidelen - i + 1; ++c)
+                    if (Position p(r, c);
+                        boost::algorithm::all_of(pos2num, [&](const pair<const Position, int>& kv) {
+                        return cells(p + kv.first) == PUZ_UNKNOWN;
+                    })) {
+                        puz_move move;
+                        for (auto& [dp, n] : pos2num)
+                            move[p + dp] = n;
+                        m_moves.push_back(move);
+                    }
+        }
 }
 
 struct puz_state
