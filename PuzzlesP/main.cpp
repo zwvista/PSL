@@ -60,7 +60,7 @@ int main(int argc, char **argv)
         println("r2: Proof of Quilt");
         println("u: Puzzle Retreat");
         getline(cin, str);
-        if (str.empty()) solve_puz_PondCamping();
+        if (str.empty()) solve_puz_ProofOfQuilt();
         else if (str == "ai1") solve_puz_PaintTheNurikabe();
         else if (str == "ai2") solve_puz_Pairakabe();
         else if (str == "ar1") solve_puz_ParkingLot();

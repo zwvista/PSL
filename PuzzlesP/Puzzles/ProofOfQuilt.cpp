@@ -28,14 +28,17 @@ namespace puzzles::ProofOfQuilt{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_WHITE = 'W';
-constexpr auto PUZ_FILLED = 15;
-constexpr auto PUZ_UPPER_LEFT = 9;
-constexpr auto PUZ_UPPER_RIGHT = 3;
-constexpr auto PUZ_LOWER_LEFT = 12;
-constexpr auto PUZ_LOWER_RIGHT = 6;
+constexpr auto PUZ_FILLED = 0;
+constexpr auto PUZ_BLANK = 15;
+constexpr auto PUZ_UPPER_LEFT = 6;
+constexpr auto PUZ_UPPER_RIGHT = 12;
+constexpr auto PUZ_LOWER_LEFT = 3;
+constexpr auto PUZ_LOWER_RIGHT = 9;
 constexpr auto PUZ_UNKNOWN = -1;
     
 constexpr auto offset = Position::Directions4;
+
+using puz_move = map<Position, int>;
 
 struct puz_game
 {
@@ -43,6 +46,7 @@ struct puz_game
     int m_sidelen;
     vector<int> m_cells;
     map<Position, int> m_pos2num;
+    vector<puz_move> m_moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
@@ -68,20 +72,70 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     }
     m_cells.insert(m_cells.end(), m_sidelen, PUZ_FILLED);
 
+    //    (j,k) = 1,4
+    //    06 12 .. .. ..
+    //    03 15 12 .. ..
+    //    .. 03 15 12 ..
+    //    .. .. 03 15 12
+    //    .. .. .. 03 09
+    //
+    //    (j,k) = 2,3
+    //    .. 06 12 .. ..
+    //    06 15 15 12 ..
+    //    03 15 15 15 12
+    //    .. 03 15 15 09
+    //    .. .. 03 09 ..
+    //
+    //    (j,k) = 3,2
+    //    .. .. 06 12 ..
+    //    .. 06 15 15 12
+    //    06 15 15 15 09
+    //    03 15 15 09 ..
+    //    .. 03 09 .. ..
+    //
+    //    (j,k) = 4,1
+    //    .. .. .. 06 12
+    //    .. .. 06 15 09
+    //    .. 06 15 09 ..
+    //    06 15 09 .. ..
+    //    03 09 .. .. ..
+    //
     // Find all tilted quilts
     // A tilted quilt has a circumscribed square
     for (int i = 2; i <= m_sidelen; ++i) {
-        for (int r = 1; r <= m_sidelen - i + 1; ++r) {
-            for (int c = 1; c <= m_sidelen - i + 1; ++c) {
-                for (int j = 1; j <= i - 1; ++j) {
-                    int k = i - j;
-                    for (int dr = 0; dr < i; ++dr)
-                        for (int dc = 0; dc < i; ++dc) {
-
-                        }
+        puz_move pos2num;
+        for (int j = 1; j <= i - 1; ++j)
+            for (int k = i - j, dr = 0; dr < i; ++dr) {
+                int m1, m2, n1, n2;
+                if (dr < min(j, k))
+                    m1 = j - 1 - dr, m2 = j + dr, n1 = PUZ_UPPER_LEFT, n2 = PUZ_UPPER_RIGHT;
+                else if (dr < j)
+                    m1 = j - 1 - dr, m2 = j + dr, n1 = PUZ_UPPER_LEFT, n2 = PUZ_LOWER_RIGHT;
+                else if (dr < max(j, k))
+                    m1 = dr - j, m2 = j + dr, n1 = PUZ_LOWER_LEFT, n2 = PUZ_UPPER_RIGHT;
+                else
+                    m1 = dr - j, m2 = i - 1 - dr + j, n1 = PUZ_LOWER_LEFT, n2 = PUZ_LOWER_RIGHT;
+                for (int dc = 0; dc < i; ++dc) {
+                    Position p(dr, dc);
+                    if (dc == m1)
+                        pos2num[p] = n1;
+                    else if (dc == m2)
+                        pos2num[p] = n2;
+                    else if (dc > m1 && dc < m2)
+                        pos2num[p] = PUZ_BLANK;
                 }
             }
-        }
+        for (int r = 1; r <= m_sidelen - i + 1; ++r)
+            for (int c = 1; c <= m_sidelen - i + 1; ++c)
+                if (Position p(r, c);
+                    boost::algorithm::all_of(pos2num, [&](const pair<const Position, int>& kv) {
+                    return cells(p + kv.first) == PUZ_UNKNOWN;
+                })) {
+                    puz_move move;
+                    for (auto& [dp, n] : pos2num)
+                        move[p + dp] = n;
+                    m_moves.push_back(move);
+                }
     }
 }
 
