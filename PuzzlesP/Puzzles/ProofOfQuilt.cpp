@@ -49,13 +49,14 @@ struct puz_game
     vector<puz_move> m_moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    int cells(const Position& p) const { return m_cells[p.first * m_sidelen + p.second]; }
+    int& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 : m_id(level.attribute("id").value())
 , m_sidelen(strs.size() + 2)
 {
+    vector<Position> zeros;
     m_cells.insert(m_cells.end(), m_sidelen, PUZ_FILLED);
     for (int r = 1; r < m_sidelen - 1; ++r) {
         m_cells.push_back(PUZ_FILLED);
@@ -65,12 +66,22 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_cells.push_back(PUZ_UNKNOWN);
             else {
                 m_cells.push_back(PUZ_FILLED);
-                if (ch != PUZ_WHITE)
-                    m_pos2num[{r, c}] = ch - '0';
+                if (ch != PUZ_WHITE) {
+                    Position p(r, c);
+                    if (int n = ch - '0'; n == 0)
+                        zeros.push_back(p);
+                    else
+                        m_pos2num[p] = n;
+                }
             }
         m_cells.push_back(PUZ_FILLED);
     }
     m_cells.insert(m_cells.end(), m_sidelen, PUZ_FILLED);
+
+    for (auto& p : zeros)
+        for (auto& os : offset)
+            if (int& n = cells(p + os); n == PUZ_UNKNOWN)
+                n = PUZ_BLANK;
 
     //    (j,k) = 1,4
     //    06 12 .. .. ..
@@ -149,12 +160,14 @@ struct puz_state
         return m_cells < x.m_cells;
     }
     bool make_move(int n);
-    bool check_cuts();
+    void check_board();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return m_cuts_needed; }
+    unsigned int get_heuristic() const {
+        return boost::count(m_cells, PUZ_UNKNOWN);
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
@@ -162,13 +175,19 @@ struct puz_state
     const puz_game* m_game;
     vector<int> m_cells;
     vector<int> m_move_ids;
-    int m_cuts_needed;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_cells)
+: m_game(&g), m_cells(g.m_cells), m_move_ids(g.m_moves.size())
 {
+    boost::iota(m_move_ids, 0);
+    check_board();
+}
+
+void puz_state::check_board()
+{
+    
 }
 
 bool puz_state::make_move(int n)
