@@ -190,10 +190,12 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return m_cells < x.m_cells;
     }
-    bool make_move_triangle(int n);
+    bool make_move_triangle(int quilt_id);
     bool make_move_hint(const Position& p, int perm_id);
-    bool make_move_quilt(int n);
+    bool make_move_quilt(int quilt_id);
+    void make_move_quilt2(int quilt_id);
     bool check_hints();
+    void check_quilts();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -235,10 +237,13 @@ bool puz_state::check_hints()
         auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
         boost::remove_erase_if(perm_ids, [&](int perm_id) {
             auto& perm = perms[perm_id];
-            for (int i = 0; i < 4; ++i)
-                if (char ch1 = cells(p + offset[i]), ch2 = perm[i];
-                   !(ch1 == PUZ_UNKNOWN || ch1 == PUZ_BOUNDARY && ch2 == PUZ_NON_TRIANGLE || ch1 == ch2))
+            for (int i = 0; i < 4; ++i) {
+                char ch = perm[i];
+                if (int n = cells(p + offset[i]);
+                    !(n == PUZ_UNKNOWN || n == PUZ_BOUNDARY && ch == PUZ_NON_TRIANGLE ||
+                      n == (ch == PUZ_NON_TRIANGLE ? PUZ_BLANK : triangles[i * 2 + (ch - PUZ_TRIANGLE1)])))
                     return true;
+            }
             return false;
         });
         if (perm_ids.empty())
@@ -247,8 +252,30 @@ bool puz_state::check_hints()
     return true;
 }
 
-bool puz_state::make_move_triangle(int n)
+void puz_state::check_quilts()
 {
+    boost::remove_erase_if(m_matches_quilt, [&](int quilt_id) {
+        auto& quilt = m_game->m_quilts[quilt_id];
+        return !boost::algorithm::all_of(quilt, [&](const pair<const Position, int>& kv) {
+            auto& [p, n2] = kv;
+            int n1 = cells(p);
+            return n1 == PUZ_UNKNOWN || n1 == n2;
+        });
+    });
+}
+
+void puz_state::make_move_quilt2(int quilt_id)
+{
+    auto& quilt = m_game->m_quilts[quilt_id];
+    for (auto& [p, n2] : quilt)
+        if (int& n = cells(p); n == PUZ_UNKNOWN)
+            n = n2;
+}
+
+bool puz_state::make_move_triangle(int quilt_id)
+{
+    make_move_quilt2(quilt_id);
+    boost::remove_erase(m_matches_quilt, quilt_id);
     return true;
 }
 
@@ -265,18 +292,31 @@ bool puz_state::make_move_hint(const Position& p, int perm_id)
     return true;
 }
 
-bool puz_state::make_move_quilt(int n)
+bool puz_state::make_move_quilt(int quilt_id)
 {
+    make_move_quilt2(quilt_id);
+    boost::remove_erase_if(m_matches_quilt, [&](int quilt_id2) {
+        return quilt_id2 <= quilt_id;
+    });
     return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    if (m_pos2triangle.empty()) {
-        for (int n : m_matches_quilt)
-            if (!children.emplace_back(*this).make_move_triangle(n))
+    if (!m_pos2triangle.empty()) {
+        auto quilt_ids = m_matches_quilt;
+        boost::remove_erase_if(quilt_ids, [&](int quilt_id) {
+            auto& quilt = m_game->m_quilts[quilt_id];
+            return !boost::algorithm::all_of(quilt, [&](const pair<const Position, int>& kv) {
+                auto& [p, n] = kv;
+                auto it = m_pos2triangle.find(p);
+                return it == m_pos2triangle.end() || it->second == n;
+            });
+        });
+        for (int quilt_id : quilt_ids)
+            if (!children.emplace_back(*this).make_move_triangle(quilt_id))
                 children.pop_back();
-    } else if (m_matches_hint.empty()) {
+    } else if (!m_matches_hint.empty()) {
         auto& [p, perm_ids] = *boost::min_element(m_matches_hint, [&](
             const pair<const Position, vector<int>>& kv1,
             const pair<const Position, vector<int>>& kv2) {
@@ -286,8 +326,8 @@ void puz_state::gen_children(list<puz_state>& children) const
             if (!children.emplace_back(*this).make_move_hint(p, perm_id))
                 children.pop_back();
     } else {
-        for (int n : m_matches_quilt)
-            if (!children.emplace_back(*this).make_move_quilt(n))
+        for (int quilt_id : m_matches_quilt)
+            if (!children.emplace_back(*this).make_move_quilt(quilt_id))
                 children.pop_back();
     }
 }
