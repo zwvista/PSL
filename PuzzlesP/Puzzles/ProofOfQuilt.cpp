@@ -191,9 +191,9 @@ struct puz_state
         return m_cells < x.m_cells;
     }
     bool make_move_triangle(int n);
-    bool make_move_hint(const Position& p, int n);
+    bool make_move_hint(const Position& p, int perm_id);
     bool make_move_quilt(int n);
-    void check_board();
+    bool check_hints();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -226,12 +226,25 @@ puz_state::puz_state(const puz_game& g)
         auto& v = m_matches_hint[p];
         boost::iota(v, 0);
     }
-    check_board();
+    check_hints();
 }
 
-void puz_state::check_board()
+bool puz_state::check_hints()
 {
-    
+    for (auto& [p, perm_ids] : m_matches_hint) {
+        auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
+        boost::remove_erase_if(perm_ids, [&](int perm_id) {
+            auto& perm = perms[perm_id];
+            for (int i = 0; i < 4; ++i)
+                if (char ch1 = cells(p + offset[i]), ch2 = perm[i];
+                   !(ch1 == PUZ_UNKNOWN || ch1 == PUZ_BOUNDARY && ch2 == PUZ_NON_TRIANGLE || ch1 == ch2))
+                    return true;
+            return false;
+        });
+        if (perm_ids.empty())
+            return false;
+    }
+    return true;
 }
 
 bool puz_state::make_move_triangle(int n)
@@ -239,9 +252,16 @@ bool puz_state::make_move_triangle(int n)
     return true;
 }
 
-bool puz_state::make_move_hint(const Position& p, int n)
+bool puz_state::make_move_hint(const Position& p, int perm_id)
 {
-    auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[n];
+    auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[perm_id];
+    for (int i = 0; i < 4; ++i) {
+        auto p2 = p + offset[i];
+        char ch = perm[i];
+        if (int& n = cells(p2); n == PUZ_UNKNOWN)
+            m_pos2triangle[p2] = n = ch == PUZ_NON_TRIANGLE ? PUZ_BLANK : triangles[i * 2 + (ch - PUZ_TRIANGLE1)];
+    }
+    m_matches_hint.erase(p);
     return true;
 }
 
@@ -257,13 +277,13 @@ void puz_state::gen_children(list<puz_state>& children) const
             if (!children.emplace_back(*this).make_move_triangle(n))
                 children.pop_back();
     } else if (m_matches_hint.empty()) {
-        auto& [p, v] = *boost::min_element(m_matches_hint, [&](
+        auto& [p, perm_ids] = *boost::min_element(m_matches_hint, [&](
             const pair<const Position, vector<int>>& kv1,
             const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
         });
-        for (int n : v)
-            if (!children.emplace_back(*this).make_move_hint(p, n))
+        for (int perm_id : perm_ids)
+            if (!children.emplace_back(*this).make_move_hint(p, perm_id))
                 children.pop_back();
     } else {
         for (int n : m_matches_quilt)
@@ -275,11 +295,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            char ch = cells(p);
-            out << format("{:<2}", (ch == PUZ_SPACE ? '.' : ch));
-        }
+        for (int c = 0; c < sidelen(); ++c)
+            out << format(" {:02}", cells({r, c}));
         println(out);
     }
     return out;
