@@ -341,6 +341,7 @@ void puz_state::check_blanks()
 
 bool puz_state::make_move_triangle(int quilt_id)
 {
+    auto h = get_heuristic();
     make_move_quilt2(quilt_id);
     boost::remove_erase(m_matches_quilt, quilt_id);
     for (auto it = m_pos2triangle.begin(); it != m_pos2triangle.end();)
@@ -348,11 +349,17 @@ bool puz_state::make_move_triangle(int quilt_id)
             it = m_pos2triangle.erase(it);
         else
             it++;
-    return true;
+    if (!check_hints())
+        return false;
+    check_quilts();
+    check_blanks();
+    m_distance = h - get_heuristic();
+    return check_rectangles();
 }
 
 bool puz_state::make_move_hint(const Position& p, int perm_id)
 {
+    auto h = get_heuristic();
     auto& perm = m_game->m_num2perms.at(m_game->m_pos2num.at(p))[perm_id];
     for (int i = 0; i < 4; ++i) {
         auto p2 = p + offset[i];
@@ -361,16 +368,25 @@ bool puz_state::make_move_hint(const Position& p, int perm_id)
             m_pos2triangle[p2] = n = ch == PUZ_NON_TRIANGLE ? PUZ_BLANK : triangles[i * 2 + (ch - PUZ_TRIANGLE1)], m_blanks.erase(p2);
     }
     m_matches_hint.erase(p);
-    return true;
+    if (!check_hints())
+        return false;
+    check_quilts();
+    check_blanks();
+    m_distance = h - get_heuristic();
+    return check_rectangles();
 }
 
 bool puz_state::make_move_quilt(int quilt_id)
 {
+    auto h = get_heuristic();
     make_move_quilt2(quilt_id);
     boost::remove_erase_if(m_matches_quilt, [&](int quilt_id2) {
         return quilt_id2 <= quilt_id;
     });
-    return true;
+    check_quilts();
+    check_blanks();
+    m_distance = h - get_heuristic();
+    return check_rectangles();
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
@@ -410,8 +426,8 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < sidelen(); ++r) {
-        for (int c = 0; c < sidelen(); ++c)
+    for (int r = 1; r < sidelen() - 1; ++r) {
+        for (int c = 1; c < sidelen() - 1; ++c)
             out << format(" {:02}", cells({r, c}));
         println(out);
     }
