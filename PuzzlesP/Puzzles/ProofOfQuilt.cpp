@@ -54,6 +54,7 @@ struct puz_game
     map<Position, int> m_pos2num;
     vector<puz_quilt> m_quilts;
     map<int, vector<string>> m_num2perms;
+    set<Position> m_blanks;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     int& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
@@ -68,19 +69,20 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (int r = 1; r < m_sidelen - 1; ++r) {
         m_cells.push_back(PUZ_BOUNDARY);
         string_view str = strs[r - 1];
-        for (int c = 1; c < m_sidelen - 1; ++c)
-            if (char ch = str[c - 1]; ch == PUZ_SPACE)
+        for (int c = 1; c < m_sidelen - 1; ++c) {
+            Position p(r, c);
+            if (char ch = str[c - 1]; ch == PUZ_SPACE) {
                 m_cells.push_back(PUZ_UNKNOWN);
-            else {
+                m_blanks.insert(p);
+            } else {
                 m_cells.push_back(PUZ_FILLED);
-                if (ch != PUZ_WHITE) {
-                    Position p(r, c);
+                if (ch != PUZ_WHITE)
                     if (int n = ch - '0'; n == 0)
                         zeros.push_back(p);
                     else
                         m_pos2num[p] = n;
-                }
             }
+        }
         m_cells.push_back(PUZ_BOUNDARY);
     }
     m_cells.insert(m_cells.end(), m_sidelen, PUZ_BOUNDARY);
@@ -196,6 +198,7 @@ struct puz_state
     void make_move_quilt2(int quilt_id);
     bool check_hints();
     void check_quilts();
+    bool check_rectangles() const;
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -212,6 +215,7 @@ struct puz_state
 
     const puz_game* m_game;
     vector<int> m_cells;
+    set<Position> m_blanks;
     map<Position, vector<int>> m_matches_hint;
     vector<int> m_matches_quilt;
     map<Position, int> m_pos2triangle;
@@ -219,7 +223,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_cells)
+: m_game(&g), m_cells(g.m_cells), m_blanks(g.m_blanks)
 , m_matches_quilt(g.m_quilts.size())
 {
     boost::iota(m_matches_quilt, 0);
@@ -269,13 +273,45 @@ void puz_state::make_move_quilt2(int quilt_id)
     auto& quilt = m_game->m_quilts[quilt_id];
     for (auto& [p, n2] : quilt)
         if (int& n = cells(p); n == PUZ_UNKNOWN)
-            n = n2;
+            if ((n = n2) == PUZ_BLANK)
+                m_blanks.erase(p);
+}
+
+struct puz_state2 : Position
+{
+    puz_state2(const puz_state* s, const Position& p) : m_state(s) { make_move(p); }
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_state* m_state;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    for (auto& os : offset)
+        switch (auto p2 = *this + os; m_state->cells(p2)) {
+        case PUZ_BLANK:
+        case PUZ_UNKNOWN:
+            children.emplace_back(*this).make_move(p2);
+            break;
+        }
+}
+
+bool puz_state::check_rectangles() const
+{
+    return true;
 }
 
 bool puz_state::make_move_triangle(int quilt_id)
 {
     make_move_quilt2(quilt_id);
     boost::remove_erase(m_matches_quilt, quilt_id);
+    for (auto it = m_pos2triangle.begin(); it != m_pos2triangle.end();)
+        if (cells(it->first) != PUZ_UNKNOWN)
+            it = m_pos2triangle.erase(it);
+        else
+            it++;
     return true;
 }
 
@@ -307,7 +343,11 @@ void puz_state::gen_children(list<puz_state>& children) const
         auto quilt_ids = m_matches_quilt;
         boost::remove_erase_if(quilt_ids, [&](int quilt_id) {
             auto& quilt = m_game->m_quilts[quilt_id];
-            return !boost::algorithm::all_of(quilt, [&](const pair<const Position, int>& kv) {
+            return boost::algorithm::none_of(quilt, [&](const pair<const Position, int>& kv) {
+                auto& [p, n] = kv;
+                auto it = m_pos2triangle.find(p);
+                return it != m_pos2triangle.end() && it->second == n;
+            }) || !boost::algorithm::all_of(quilt, [&](const pair<const Position, int>& kv) {
                 auto& [p, n] = kv;
                 auto it = m_pos2triangle.find(p);
                 return it == m_pos2triangle.end() || it->second == n;
