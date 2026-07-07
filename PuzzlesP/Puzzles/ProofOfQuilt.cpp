@@ -199,6 +199,7 @@ struct puz_state
     bool check_hints();
     void check_quilts();
     bool check_rectangles() const;
+    void check_blanks();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -304,10 +305,38 @@ bool puz_state::check_rectangles() const
     while (!blanks.empty()) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves(
             {this, *blanks.begin()});
+        if (boost::algorithm::all_of(smoves, [&](const puz_state2& s) {
+            return cells(s) == PUZ_BLANK;
+        })) {
+            int r1 = 99, c1 = 99, r2 = 0, c2 = 0;
+            for (auto& s : smoves) {
+                auto& [r, c] = static_cast<const Position&>(s);
+                r1 = min(r1, r);
+                c1 = min(c1, c);
+                r2 = max(r2, r);
+                c2 = max(c2, c);
+            }
+            int rs = r2 - r1 + 1, cs = c2 - c1 + 1;
+            if (rs * cs != smoves.size())
+                return false;
+        }
         for (auto& p : smoves)
             blanks.erase(p);
     }
     return true;
+}
+
+void puz_state::check_blanks()
+{
+    set<Position> rng;
+    for (int quilt_id : m_matches_quilt) {
+        auto& quilt = m_game->m_quilts[quilt_id];
+        for (auto& [p, n] : quilt)
+            rng.insert(p);
+    }
+    for (auto& p : m_blanks)
+        if (int& n = cells(p); n == PUZ_UNKNOWN && !rng.contains(p))
+            n = PUZ_BLANK;
 }
 
 bool puz_state::make_move_triangle(int quilt_id)
