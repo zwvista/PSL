@@ -230,6 +230,7 @@ puz_state::puz_state(const puz_game& g)
     for (auto& [p, n] : m_game->m_pos2num) {
         auto& perms = m_game->m_num2perms.at(n);
         auto& v = m_matches_hint[p];
+        v.resize(perms.size());
         boost::iota(v, 0);
     }
     check_hints();
@@ -273,8 +274,7 @@ void puz_state::make_move_quilt2(int quilt_id)
     auto& quilt = m_game->m_quilts[quilt_id];
     for (auto& [p, n2] : quilt)
         if (int& n = cells(p); n == PUZ_UNKNOWN)
-            if ((n = n2) == PUZ_BLANK)
-                m_blanks.erase(p);
+            n = n2, m_blanks.erase(p);
 }
 
 struct puz_state2 : Position
@@ -300,6 +300,13 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 
 bool puz_state::check_rectangles() const
 {
+    auto blanks = m_blanks;
+    while (!blanks.empty()) {
+        auto smoves = puz_move_generator<puz_state2>::gen_moves(
+            {this, *blanks.begin()});
+        for (auto& p : smoves)
+            blanks.erase(p);
+    }
     return true;
 }
 
@@ -322,7 +329,7 @@ bool puz_state::make_move_hint(const Position& p, int perm_id)
         auto p2 = p + offset[i];
         char ch = perm[i];
         if (int& n = cells(p2); n == PUZ_UNKNOWN)
-            m_pos2triangle[p2] = n = ch == PUZ_NON_TRIANGLE ? PUZ_BLANK : triangles[i * 2 + (ch - PUZ_TRIANGLE1)];
+            m_pos2triangle[p2] = n = ch == PUZ_NON_TRIANGLE ? PUZ_BLANK : triangles[i * 2 + (ch - PUZ_TRIANGLE1)], m_blanks.erase(p2);
     }
     m_matches_hint.erase(p);
     return true;
