@@ -1,68 +1,68 @@
 Level 1
 Sequence of moves: 
- 15 06 12 00 15
- 15 03 15 12 15
- 15 00 03 09 00
- 00 15 06 12 15
- 15 00 03 09 15
+. A B W . 
+. C . B . 
+. W C D W 
+W . A B . 
+. W C D . 
 Number of moves: 6
 Number of vertices examined: 10
-0.002678 [s]
+0.003252 [s]
 
 Level 2
 Number of vertices examined: 1
-0.000421 [s]
+0.000433 [s]
 
 Level 3
 Number of vertices examined: 1
-0.000597 [s]
+0.000656 [s]
 
 Level 4
 Sequence of moves: 
- 15 00 06 12 00
- 15 06 15 15 12
- 15 03 15 15 09
- 06 12 03 09 15
- 03 09 15 00 00
+. W A B W 
+. A . . B 
+. C . . D 
+A B C D . 
+C D . W W 
 Number of moves: 5
 Number of vertices examined: 10
-0.002604 [s]
+0.002658 [s]
 
 Level 5
 Number of vertices examined: 1
-0.000418 [s]
+0.000465 [s]
 
 Level 6
 Number of vertices examined: 1
-0.002284 [s]
+0.00247 [s]
 
 Level 7
 Number of vertices examined: 1
-0.00095 [s]
+0.000984 [s]
 
 Level 8
 Number of vertices examined: 1
-0.000691 [s]
+0.000993 [s]
 
 Level 9
 Number of vertices examined: 1
-0.001712 [s]
+0.002093 [s]
 
 Level 10
 Number of vertices examined: 1
-0.000916 [s]
+0.001039 [s]
 
 Level 11
 Sequence of moves: 
- 06 12 00 06 12 15 15
- 03 09 06 15 15 12 00
- 00 06 15 15 15 15 12
- 15 03 15 15 15 15 09
- 15 00 03 15 15 09 15
- 15 06 12 03 09 06 12
- 15 03 09 15 00 03 09
+A B W A B . . 
+C D A . . B W 
+W A . . . . B 
+. C . . . . D 
+. W C . . D . 
+. A B C D A B 
+. C D . W C D 
 Number of moves: 7
 Number of vertices examined: 14
-0.021746 [s]
+0.019001 [s]
 
 Level 12
