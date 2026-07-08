@@ -1,72 +1,68 @@
 Level 1
-Number of vertices examined: 12
-0.005475 [s]
+Sequence of moves: 
+ 15 06 12 00 15
+ 15 03 15 12 15
+ 15 00 03 09 00
+ 00 15 06 12 15
+ 15 00 03 09 15
+Number of moves: 6
+Number of vertices examined: 10
+0.002678 [s]
 
 Level 2
-Number of vertices examined: 14
-0.004898 [s]
+Number of vertices examined: 1
+0.000421 [s]
 
 Level 3
-Sequence of moves: 
- 15 00 06 12 00
- 06 12 03 09 15
- 03 09 15 06 12
- 15 06 12 03 09
- 00 03 09 15 00
-Number of moves: 8
-Number of vertices examined: 17
-0.005351 [s]
+Number of vertices examined: 1
+0.000597 [s]
 
 Level 4
 Sequence of moves: 
  15 00 06 12 00
- 06 12 03 09 06
- 03 09 06 12 15
+ 15 06 15 15 12
+ 15 03 15 15 09
  06 12 03 09 15
- 03 09 12 00 00
-Number of moves: 7
-Number of vertices examined: 17
-0.005058 [s]
+ 03 09 15 00 00
+Number of moves: 5
+Number of vertices examined: 10
+0.002604 [s]
 
 Level 5
-Number of vertices examined: 6
-0.001652 [s]
+Number of vertices examined: 1
+0.000418 [s]
 
 Level 6
-Sequence of moves: 
- 15 06 12 09 00 15
- 00 03 15 12 06 12
- 06 12 03 09 03 09
- 03 09 15 15 06 12
- 00 03 06 12 03 09
- 15 00 03 09 15 00
-Number of moves: 9
-Number of vertices examined: 152
-0.056106 [s]
+Number of vertices examined: 1
+0.002284 [s]
 
 Level 7
-Number of vertices examined: 37
-0.010298 [s]
+Number of vertices examined: 1
+0.00095 [s]
 
 Level 8
-Number of vertices examined: 9
-0.003295 [s]
+Number of vertices examined: 1
+0.000691 [s]
 
 Level 9
-Sequence of moves: 
- 06 12 00 15 00 15 00
- 03 09 12 15 00 06 12
- 06 12 06 12 15 03 09
- 03 09 03 15 12 15 15
- 06 12 15 03 15 12 00
- 03 15 12 00 03 15 12
- 15 03 09 15 15 03 09
-Number of moves: 9
-Number of vertices examined: 317
-0.171372 [s]
+Number of vertices examined: 1
+0.001712 [s]
 
 Level 10
-Number of vertices examined: 91
-0.037706 [s]
+Number of vertices examined: 1
+0.000916 [s]
 
 Level 11
+Sequence of moves: 
+ 06 12 00 06 12 15 15
+ 03 09 06 15 15 12 00
+ 00 06 15 15 15 15 12
+ 15 03 15 15 15 15 09
+ 15 00 03 15 15 09 15
+ 15 06 12 03 09 06 12
+ 15 03 09 15 00 03 09
+Number of moves: 7
+Number of vertices examined: 14
+0.021746 [s]
+
+Level 12

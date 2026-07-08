@@ -190,7 +190,7 @@ struct puz_state
     int cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     int& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const {
-        return m_cells < x.m_cells;
+        return tie(m_cells, m_pos2perm_ids, m_pos2triangle) < tie(x.m_cells, x.m_pos2perm_ids, x.m_pos2triangle);
     }
     bool make_move_triangle(int quilt_id);
     bool make_move_hint(const Position& p, int perm_id);
@@ -276,9 +276,11 @@ void puz_state::check_quilts()
 void puz_state::make_move_quilt2(int quilt_id)
 {
     auto& quilt = m_game->m_quilts[quilt_id];
-    for (auto& [p, n2] : quilt)
+    for (auto& [p, n2] : quilt) {
         if (int& n = cells(p); n == PUZ_UNKNOWN)
             n = n2, m_blanks.erase(p);
+        m_pos2triangle.erase(p);
+    }
 }
 
 struct puz_state2 : Position
@@ -361,7 +363,16 @@ bool puz_state::check_triangles()
             return it == m_pos2triangle.end() || it->second == n;
         });
     });
-    return !m_triangle_quilt_ids.empty();
+    return boost::algorithm::all_of(m_pos2triangle, [&](const pair<const Position, int>& kv) {
+        auto& [p, n] = kv;
+        return boost::algorithm::any_of(m_triangle_quilt_ids, [&](int quilt_id) {
+            auto& quilt = m_game->m_quilts[quilt_id];
+            return boost::algorithm::any_of(quilt, [&](const pair<const Position, int>& kv) {
+                auto& [p2, n2] = kv;
+                return p == p2 && n == n2;
+            });
+        });
+    });
 }
 
 bool puz_state::make_move_triangle(int quilt_id)
@@ -369,13 +380,6 @@ bool puz_state::make_move_triangle(int quilt_id)
     auto h = get_heuristic();
     make_move_quilt2(quilt_id);
     boost::remove_erase(m_quilt_ids, quilt_id);
-    for (auto it = m_pos2triangle.begin(); it != m_pos2triangle.end();)
-        if (cells(it->first) != PUZ_UNKNOWN)
-            it = m_pos2triangle.erase(it);
-        else
-            it++;
-    if (!check_hints())
-        return false;
     check_quilts();
     check_blanks();
     m_distance = h - get_heuristic();
