@@ -7,15 +7,22 @@ W . A B .
 . W C D . 
 Number of moves: 6
 Number of vertices examined: 10
-0.003252 [s]
+0.002807 [s]
 
 Level 2
-Number of vertices examined: 1
-0.000433 [s]
+Sequence of moves: 
+. W A B . 
+A B C D W 
+C D W A B 
+W A B C D 
+. C D . W 
+Number of moves: 9
+Number of vertices examined: 15
+0.003905 [s]
 
 Level 3
-Number of vertices examined: 1
-0.000656 [s]
+Number of vertices examined: 10
+0.003088 [s]
 
 Level 4
 Sequence of moves: 
@@ -26,31 +33,71 @@ A B C D .
 C D . W W 
 Number of moves: 5
 Number of vertices examined: 10
-0.002658 [s]
+0.003828 [s]
 
 Level 5
-Number of vertices examined: 1
-0.000465 [s]
+Sequence of moves: 
+A B . A B 
+C . B C D 
+W C . B . 
+A B C D W 
+C D W W . 
+Number of moves: 6
+Number of vertices examined: 9
+0.002765 [s]
 
 Level 6
-Number of vertices examined: 1
-0.00247 [s]
+Sequence of moves: 
+. . A B W . 
+W A . . B . 
+A . . . . B 
+C . . . . D 
+W C . . D . 
+. W C D . W 
+Number of moves: 5
+Number of vertices examined: 11
+0.012975 [s]
 
 Level 7
-Number of vertices examined: 1
-0.000984 [s]
+Sequence of moves: 
+A B W . A B 
+C . B . C D 
+W C D . W . 
+. W A B A B 
+A B C D C D 
+C D W . W . 
+Number of moves: 10
+Number of vertices examined: 31
+0.011518 [s]
 
 Level 8
-Number of vertices examined: 1
-0.000993 [s]
+Sequence of moves: 
+. W A B W . 
+W A . . B . 
+. C . . . B 
+W . C . . D 
+A B W C D W 
+C D . . . . 
+Number of moves: 6
+Number of vertices examined: 12
+0.004455 [s]
 
 Level 9
-Number of vertices examined: 1
-0.002093 [s]
+Sequence of moves: 
+A B W . W . W 
+C . B . W A B 
+. C . B . C D 
+A B C . B . . 
+C D . C . B W 
+. A B W C . B 
+. C D . . C D 
+Number of moves: 8
+Number of vertices examined: 79
+0.052212 [s]
 
 Level 10
-Number of vertices examined: 1
-0.001039 [s]
+Number of vertices examined: 37
+0.020517 [s]
 
 Level 11
 Sequence of moves: 
@@ -63,6 +110,6 @@ W A . . . . B
 . C D . W C D 
 Number of moves: 7
 Number of vertices examined: 14
-0.019001 [s]
+0.018493 [s]
 
 Level 12

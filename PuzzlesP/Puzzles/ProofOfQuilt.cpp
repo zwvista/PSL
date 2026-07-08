@@ -218,7 +218,7 @@ struct puz_state
     set<Position> m_blanks;
     map<Position, vector<int>> m_pos2perm_ids;
     vector<int> m_quilt_ids;
-    map<Position, int> m_pos2triangle;
+    map<Position, char> m_pos2triangle;
     vector<int> m_triangle_quilt_ids;
     unsigned int m_distance = 0;
 };
@@ -391,8 +391,12 @@ bool puz_state::make_move_hint(const Position& p, int perm_id)
     for (int i = 0; i < 4; ++i) {
         auto p2 = p + offset[i];
         char ch2 = perm[i];
-        if (char& ch = cells(p2); ch == PUZ_SPACE)
-            m_pos2triangle[p2] = ch = ch2 == PUZ_NON_TRIANGLE ? PUZ_BLANK : triangles[i * 2 + (ch2 - PUZ_TRIANGLE1)], m_blanks.erase(p2);
+        if (char& ch = cells(p2); ch == PUZ_SPACE) {
+            ch = ch2 == PUZ_NON_TRIANGLE ? PUZ_BLANK : triangles[i * 2 + (ch2 - PUZ_TRIANGLE1)];
+            m_blanks.erase(p2);
+            if (ch != PUZ_BLANK)
+                m_pos2triangle[p2] = ch;
+        }
     }
     m_pos2perm_ids.erase(p);
     if (!check_hints())
