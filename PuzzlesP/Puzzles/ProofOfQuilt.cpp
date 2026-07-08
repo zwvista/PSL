@@ -200,13 +200,14 @@ struct puz_state
     void check_quilts();
     bool check_rectangles() const;
     void check_blanks();
+    bool check_triangles();
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         return boost::count(m_cells, PUZ_UNKNOWN) + m_pos2triangle.size() +
-        boost::accumulate(m_matches_hint, 0, [&](int acc, const pair<const Position, vector<int>>& kv) {
+        boost::accumulate(m_pos2perm_ids, 0, [&](int acc, const pair<const Position, vector<int>>& kv) {
             return acc + kv.second.size() + 1;
         });
     }
@@ -217,20 +218,21 @@ struct puz_state
     const puz_game* m_game;
     vector<int> m_cells;
     set<Position> m_blanks;
-    map<Position, vector<int>> m_matches_hint;
-    vector<int> m_matches_quilt;
+    map<Position, vector<int>> m_pos2perm_ids;
+    vector<int> m_quilt_ids;
     map<Position, int> m_pos2triangle;
+    vector<int> m_triangle_quilt_ids;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g), m_cells(g.m_cells), m_blanks(g.m_blanks)
-, m_matches_quilt(g.m_quilts.size())
+, m_quilt_ids(g.m_quilts.size())
 {
-    boost::iota(m_matches_quilt, 0);
+    boost::iota(m_quilt_ids, 0);
     for (auto& [p, n] : m_game->m_pos2num) {
         auto& perms = m_game->m_num2perms.at(n);
-        auto& v = m_matches_hint[p];
+        auto& v = m_pos2perm_ids[p];
         v.resize(perms.size());
         boost::iota(v, 0);
     }
@@ -239,7 +241,7 @@ puz_state::puz_state(const puz_game& g)
 
 bool puz_state::check_hints()
 {
-    for (auto& [p, perm_ids] : m_matches_hint) {
+    for (auto& [p, perm_ids] : m_pos2perm_ids) {
         auto& perms = m_game->m_num2perms.at(m_game->m_pos2num.at(p));
         boost::remove_erase_if(perm_ids, [&](int perm_id) {
             auto& perm = perms[perm_id];
@@ -261,7 +263,7 @@ bool puz_state::check_hints()
 
 void puz_state::check_quilts()
 {
-    boost::remove_erase_if(m_matches_quilt, [&](int quilt_id) {
+    boost::remove_erase_if(m_quilt_ids, [&](int quilt_id) {
         auto& quilt = m_game->m_quilts[quilt_id];
         return !boost::algorithm::all_of(quilt, [&](const pair<const Position, int>& kv) {
             auto& [p, n2] = kv;
@@ -330,7 +332,7 @@ bool puz_state::check_rectangles() const
 void puz_state::check_blanks()
 {
     set<Position> rng;
-    for (int quilt_id : m_matches_quilt) {
+    for (int quilt_id : m_quilt_ids) {
         auto& quilt = m_game->m_quilts[quilt_id];
         for (auto& [p, n] : quilt)
             rng.insert(p);
@@ -340,11 +342,33 @@ void puz_state::check_blanks()
             n = PUZ_BLANK;
 }
 
+bool puz_state::check_triangles()
+{
+    if (m_pos2triangle.empty()) {
+        m_triangle_quilt_ids.clear();
+        return true;
+    }
+    m_triangle_quilt_ids = m_quilt_ids;
+    boost::remove_erase_if(m_triangle_quilt_ids, [&](int quilt_id) {
+        auto& quilt = m_game->m_quilts[quilt_id];
+        return boost::algorithm::none_of(quilt, [&](const pair<const Position, int>& kv) {
+            auto& [p, n] = kv;
+            auto it = m_pos2triangle.find(p);
+            return it != m_pos2triangle.end() && it->second == n;
+        }) || !boost::algorithm::all_of(quilt, [&](const pair<const Position, int>& kv) {
+            auto& [p, n] = kv;
+            auto it = m_pos2triangle.find(p);
+            return it == m_pos2triangle.end() || it->second == n;
+        });
+    });
+    return !m_triangle_quilt_ids.empty();
+}
+
 bool puz_state::make_move_triangle(int quilt_id)
 {
     auto h = get_heuristic();
     make_move_quilt2(quilt_id);
-    boost::remove_erase(m_matches_quilt, quilt_id);
+    boost::remove_erase(m_quilt_ids, quilt_id);
     for (auto it = m_pos2triangle.begin(); it != m_pos2triangle.end();)
         if (cells(it->first) != PUZ_UNKNOWN)
             it = m_pos2triangle.erase(it);
@@ -355,7 +379,7 @@ bool puz_state::make_move_triangle(int quilt_id)
     check_quilts();
     check_blanks();
     m_distance = h - get_heuristic();
-    return check_rectangles();
+    return check_triangles() && check_rectangles();
 }
 
 bool puz_state::make_move_hint(const Position& p, int perm_id)
@@ -368,20 +392,20 @@ bool puz_state::make_move_hint(const Position& p, int perm_id)
         if (int& n = cells(p2); n == PUZ_UNKNOWN)
             m_pos2triangle[p2] = n = ch == PUZ_NON_TRIANGLE ? PUZ_BLANK : triangles[i * 2 + (ch - PUZ_TRIANGLE1)], m_blanks.erase(p2);
     }
-    m_matches_hint.erase(p);
+    m_pos2perm_ids.erase(p);
     if (!check_hints())
         return false;
     check_quilts();
     check_blanks();
     m_distance = h - get_heuristic();
-    return check_rectangles();
+    return check_triangles() && check_rectangles();
 }
 
 bool puz_state::make_move_quilt(int quilt_id)
 {
     auto h = get_heuristic();
     make_move_quilt2(quilt_id);
-    boost::remove_erase_if(m_matches_quilt, [&](int quilt_id2) {
+    boost::remove_erase_if(m_quilt_ids, [&](int quilt_id2) {
         return quilt_id2 <= quilt_id;
     });
     check_quilts();
@@ -393,24 +417,11 @@ bool puz_state::make_move_quilt(int quilt_id)
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (!m_pos2triangle.empty()) {
-        auto quilt_ids = m_matches_quilt;
-        boost::remove_erase_if(quilt_ids, [&](int quilt_id) {
-            auto& quilt = m_game->m_quilts[quilt_id];
-            return boost::algorithm::none_of(quilt, [&](const pair<const Position, int>& kv) {
-                auto& [p, n] = kv;
-                auto it = m_pos2triangle.find(p);
-                return it != m_pos2triangle.end() && it->second == n;
-            }) || !boost::algorithm::all_of(quilt, [&](const pair<const Position, int>& kv) {
-                auto& [p, n] = kv;
-                auto it = m_pos2triangle.find(p);
-                return it == m_pos2triangle.end() || it->second == n;
-            });
-        });
-        for (int quilt_id : quilt_ids)
+        for (int quilt_id : m_triangle_quilt_ids)
             if (!children.emplace_back(*this).make_move_triangle(quilt_id))
                 children.pop_back();
-    } else if (!m_matches_hint.empty()) {
-        auto& [p, perm_ids] = *boost::min_element(m_matches_hint, [&](
+    } else if (!m_pos2perm_ids.empty()) {
+        auto& [p, perm_ids] = *boost::min_element(m_pos2perm_ids, [&](
             const pair<const Position, vector<int>>& kv1,
             const pair<const Position, vector<int>>& kv2) {
             return kv1.second.size() < kv2.second.size();
@@ -419,7 +430,7 @@ void puz_state::gen_children(list<puz_state>& children) const
             if (!children.emplace_back(*this).make_move_hint(p, perm_id))
                 children.pop_back();
     } else {
-        for (int quilt_id : m_matches_quilt)
+        for (int quilt_id : m_quilt_ids)
             if (!children.emplace_back(*this).make_move_quilt(quilt_id))
                 children.pop_back();
     }
