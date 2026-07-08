@@ -246,7 +246,8 @@ bool puz_state::check_hints()
             for (int i = 0; i < 4; ++i) {
                 char ch = perm[i];
                 if (int n = cells(p + offset[i]);
-                    !(n == PUZ_UNKNOWN || n == PUZ_BOUNDARY && ch == PUZ_NON_TRIANGLE ||
+                    !(n == PUZ_UNKNOWN ||
+                      (n == PUZ_BOUNDARY || n == PUZ_FILLED) && ch == PUZ_NON_TRIANGLE ||
                       n == (ch == PUZ_NON_TRIANGLE ? PUZ_BLANK : triangles[i * 2 + (ch - PUZ_TRIANGLE1)])))
                     return true;
             }
