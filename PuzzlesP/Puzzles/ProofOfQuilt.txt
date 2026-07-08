@@ -1,115 +1,115 @@
 Level 1
 Sequence of moves: 
-. A B W . 
+. A B 2 . 
 . C . B . 
-. W C D W 
+. 2 C D 1 
 W . A B . 
-. W C D . 
+. 1 C D . 
 Number of moves: 6
 Number of vertices examined: 10
-0.002807 [s]
+0.002744 [s]
 
 Level 2
 Sequence of moves: 
-. W A B . 
-A B C D W 
-C D W A B 
-W A B C D 
-. C D . W 
+. 2 A B . 
+A B C D 2 
+C D 4 A B 
+2 A B C D 
+. C D . 1 
 Number of moves: 9
 Number of vertices examined: 15
-0.003905 [s]
+0.003484 [s]
 
 Level 3
 Number of vertices examined: 10
-0.003088 [s]
+0.002888 [s]
 
 Level 4
 Sequence of moves: 
-. W A B W 
+. 2 A B 2 
 . A . . B 
 . C . . D 
 A B C D . 
-C D . W W 
+C D . 2 W 
 Number of moves: 5
 Number of vertices examined: 10
-0.003828 [s]
+0.002742 [s]
 
 Level 5
 Sequence of moves: 
 A B . A B 
 C . B C D 
-W C . B . 
-A B C D W 
-C D W W . 
+3 C . B . 
+A B C D 1 
+C D W 1 . 
 Number of moves: 6
 Number of vertices examined: 9
-0.002765 [s]
+0.001867 [s]
 
 Level 6
 Sequence of moves: 
-. . A B W . 
-W A . . B . 
+. . A B 2 . 
+2 A . . B . 
 A . . . . B 
 C . . . . D 
-W C . . D . 
-. W C D . W 
+2 C . . D . 
+. 2 C D . W 
 Number of moves: 5
 Number of vertices examined: 11
-0.012975 [s]
+0.011321 [s]
 
 Level 7
 Sequence of moves: 
-A B W . A B 
+A B 2 . A B 
 C . B . C D 
-W C D . W . 
-. W A B A B 
+2 C D . 2 . 
+. 3 A B A B 
 A B C D C D 
-C D W . W . 
+C D W . 1 . 
 Number of moves: 10
 Number of vertices examined: 31
-0.011518 [s]
+0.012657 [s]
 
 Level 8
 Sequence of moves: 
-. W A B W . 
-W A . . B . 
+. 2 A B W . 
+1 A . . B . 
 . C . . . B 
 W . C . . D 
-A B W C D W 
+A B 3 C D 2 
 C D . . . . 
 Number of moves: 6
 Number of vertices examined: 12
-0.004455 [s]
+0.004045 [s]
 
 Level 9
 Sequence of moves: 
-A B W . W . W 
-C . B . W A B 
+A B 2 . W . W 
+C . B . 1 A B 
 . C . B . C D 
 A B C . B . . 
-C D . C . B W 
-. A B W C . B 
+C D . C . B 2 
+. A B 3 C . B 
 . C D . . C D 
 Number of moves: 8
 Number of vertices examined: 79
-0.052212 [s]
+0.052332 [s]
 
 Level 10
 Number of vertices examined: 37
-0.020517 [s]
+0.020853 [s]
 
 Level 11
 Sequence of moves: 
-A B W A B . . 
-C D A . . B W 
+A B 3 A B . . 
+C D A . . B 2 
 W A . . . . B 
 . C . . . . D 
 . W C . . D . 
 . A B C D A B 
-. C D . W C D 
+. C D . 2 C D 
 Number of moves: 7
 Number of vertices examined: 14
-0.018493 [s]
+0.019107 [s]
 
 Level 12

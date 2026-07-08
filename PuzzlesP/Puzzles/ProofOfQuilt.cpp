@@ -445,8 +445,17 @@ void puz_state::gen_children(list<puz_state>& children) const
 ostream& puz_state::dump(ostream& out) const
 {
     for (int r = 1; r < sidelen() - 1; ++r) {
-        for (int c = 1; c < sidelen() - 1; ++c)
-            out << cells({r, c}) << ' ';
+        for (int c = 1; c < sidelen() - 1; ++c) {
+            Position p(r, c);
+            if (char ch = cells(p); ch != PUZ_WHITE)
+                out << ch;
+            else if (auto it = m_game->m_pos2num.find(p);
+                     it == m_game->m_pos2num.end())
+                out << ch;
+            else
+                out << it->second;
+            out << ' ';
+        }
         println(out);
     }
     return out;
