@@ -358,8 +358,8 @@ bool puz_state::check_triangles()
         auto& [p, ch] = kv;
         return boost::algorithm::any_of(m_triangle_quilt_ids, [&](int quilt_id) {
             auto& quilt = m_game->m_quilts[quilt_id];
-            return boost::algorithm::any_of(quilt, [&](const pair<const Position, char>& kv) {
-                auto& [p2, ch2] = kv;
+            return boost::algorithm::any_of(quilt, [&](const pair<const Position, char>& kv2) {
+                auto& [p2, ch2] = kv2;
                 return p == p2 && ch == ch2;
             });
         });
