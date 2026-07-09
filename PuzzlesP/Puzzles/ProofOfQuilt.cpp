@@ -74,11 +74,12 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 m_blanks.insert(p);
             } else {
                 m_cells.push_back(PUZ_WHITE);
-                if (ch != PUZ_WHITE)
-                    if (int n = ch - '0'; n == 0)
+                if (ch != PUZ_WHITE) {
+                    int n = ch - '0';
+                    m_pos2num[p] = n;
+                    if (n == 0)
                         zeros.push_back(p);
-                    else
-                        m_pos2num[p] = n;
+                }
             }
         }
         m_cells.push_back(PUZ_BOUNDARY);
@@ -91,6 +92,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 ch = PUZ_BLANK;
     
     for (auto& [p, n] : m_pos2num) {
+        if (n == 0) continue;
         auto& perms = m_num2perms[n];
         if (!perms.empty()) continue;
         vector<string> permsB;
@@ -114,33 +116,27 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         } while (boost::next_permutation(perm));
     }
 
-    //    (j,k) = 1,4
-    //    A B . . .
-    //    C . B . .
-    //    . C . B .
-    //    . . C . B
-    //    . . . C D
+    //    (j,k) = 1,1
+    //    A B
+    //    C D
     //
-    //    (j,k) = 2,3
-    //    . A B . .
-    //    A . . B .
-    //    C . . . B
-    //    . C . . D
-    //    . . C D .
+    //    (j,k) = 1,2    (j,k) = 2,1
+    //    A B .          . A B
+    //    C . B          A . D
+    //    . C D          C D .
     //
-    //    (j,k) = 3,2
-    //    . . A B .
-    //    . A . . B
-    //    A . . . D
-    //    C . . D .
-    //    . C D . .
+    //    (j,k) = 1,3    (j,k) = 2,2   (j,k) = 3,1
+    //    A B . .        . A B .       . . A B
+    //    C . B .        A . . B       . A . D
+    //    . C . B        C . . D       A . D .
+    //    . . C D        . C D .       C D . .
     //
-    //    (j,k) = 4,1
-    //    . . . A B
-    //    . . A . D
-    //    . A . D .
-    //    A . D . .
-    //    C D . . .
+    //    (j,k) = 1,4    (j,k) = 2,3   (j,k) = 3,2    (j,k) = 4,1
+    //    A B . . .      . A B . .     . . A B .      . . . A B
+    //    C . B . .      A . . B .     . A . . B      . . A . D
+    //    . C . B .      C . . . B     A . . . D      . A . D .
+    //    . . C . B      . C . . D     C . . D .      A . D . .
+    //    . . . C D      . . C D .     . C D . .      C D . . .
     //
     // Find all tilted quilts
     // A tilted quilt has a circumscribed square
@@ -152,11 +148,11 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 if (dr < min(j, k))
                     m1 = j - 1 - dr, m2 = j + dr, ch1 = PUZ_UPPER_LEFT, ch2 = PUZ_UPPER_RIGHT;
                 else if (dr < j)
-                    m1 = j - 1 - dr, m2 = j + dr, ch1 = PUZ_UPPER_LEFT, ch2 = PUZ_LOWER_RIGHT;
+                    m1 = j - 1 - dr, m2 = i - 1 - dr + k, ch1 = PUZ_UPPER_LEFT, ch2 = PUZ_LOWER_RIGHT;
                 else if (dr < max(j, k))
                     m1 = dr - j, m2 = j + dr, ch1 = PUZ_LOWER_LEFT, ch2 = PUZ_UPPER_RIGHT;
                 else
-                    m1 = dr - j, m2 = i - 1 - dr + max(j, k), ch1 = PUZ_LOWER_LEFT, ch2 = PUZ_LOWER_RIGHT;
+                    m1 = dr - j, m2 = i - 1 - dr + k, ch1 = PUZ_LOWER_LEFT, ch2 = PUZ_LOWER_RIGHT;
                 for (int dc = 0; dc < i; ++dc) {
                     Position p(dr, dc);
                     if (dc == m1)
@@ -229,6 +225,7 @@ puz_state::puz_state(const puz_game& g)
 {
     boost::iota(m_quilt_ids, 0);
     for (auto& [p, n] : m_game->m_pos2num) {
+        if (n == 0) continue;
         auto& perms = m_game->m_num2perms.at(n);
         auto& v = m_pos2perm_ids[p];
         v.resize(perms.size());

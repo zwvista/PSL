@@ -3,11 +3,11 @@ Sequence of moves:
 . A B 2 . 
 . C . B . 
 . 2 C D 1 
-W . A B . 
+0 . A B . 
 . 1 C D . 
 Number of moves: 6
 Number of vertices examined: 10
-0.002744 [s]
+0.003122 [s]
 
 Level 2
 Sequence of moves: 
@@ -18,22 +18,29 @@ C D 4 A B
 . C D . 1 
 Number of moves: 9
 Number of vertices examined: 15
-0.003484 [s]
+0.003527 [s]
 
 Level 3
-Number of vertices examined: 10
-0.002888 [s]
+Sequence of moves: 
+. 2 A B 1 
+. A . D . 
+A . D A B 
+C D A . D 
+1 . C D 2 
+Number of moves: 6
+Number of vertices examined: 12
+0.003643 [s]
 
 Level 4
 Sequence of moves: 
 . 2 A B 2 
 . A . . B 
-. C . . D 
-A B C D . 
-C D . 2 W 
-Number of moves: 5
-Number of vertices examined: 10
-0.002742 [s]
+A . . . D 
+C . . D . 
+. C D 2 0 
+Number of moves: 4
+Number of vertices examined: 8
+0.002237 [s]
 
 Level 5
 Sequence of moves: 
@@ -43,8 +50,8 @@ C . B C D
 A B C D 1 
 C D W 1 . 
 Number of moves: 6
-Number of vertices examined: 9
-0.001867 [s]
+Number of vertices examined: 10
+0.002043 [s]
 
 Level 6
 Sequence of moves: 
@@ -56,7 +63,7 @@ C . . . . D
 . 2 C D . W 
 Number of moves: 5
 Number of vertices examined: 11
-0.011321 [s]
+0.008228 [s]
 
 Level 7
 Sequence of moves: 
@@ -68,7 +75,7 @@ A B C D C D
 C D W . 1 . 
 Number of moves: 10
 Number of vertices examined: 31
-0.012657 [s]
+0.011917 [s]
 
 Level 8
 Sequence of moves: 
@@ -80,7 +87,7 @@ A B 3 C D 2
 C D . . . . 
 Number of moves: 6
 Number of vertices examined: 12
-0.004045 [s]
+0.004006 [s]
 
 Level 9
 Sequence of moves: 
@@ -92,12 +99,21 @@ C D . C . B 2
 . A B 3 C . B 
 . C D . . C D 
 Number of moves: 8
-Number of vertices examined: 79
-0.052332 [s]
+Number of vertices examined: 85
+0.05382 [s]
 
 Level 10
-Number of vertices examined: 37
-0.020853 [s]
+Sequence of moves: 
+A B . 2 A B . 
+C D 3 A . D . 
+. . A . D A B 
+2 A . D 3 C D 
+. C D W . A B 
+W A B A B C D 
+. C D C D . 1 
+Number of moves: 11
+Number of vertices examined: 23
+0.014612 [s]
 
 Level 11
 Sequence of moves: 
@@ -110,6 +126,6 @@ W A . . . . B
 . C D . 2 C D 
 Number of moves: 7
 Number of vertices examined: 14
-0.019107 [s]
+0.018788 [s]
 
 Level 12
