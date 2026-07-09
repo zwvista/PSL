@@ -193,7 +193,6 @@ struct puz_state
     bool check_hints();
     void check_quilts();
     bool check_rectangles() const;
-    void check_blanks();
     bool check_triangles();
 
     //solve_puzzle interface
@@ -231,7 +230,7 @@ puz_state::puz_state(const puz_game& g)
         v.resize(perms.size());
         boost::iota(v, 0);
     }
-    check_blanks();
+    check_quilts();
     check_hints();
 }
 
@@ -267,6 +266,15 @@ void puz_state::check_quilts()
             return ch1 == PUZ_SPACE || ch1 == ch2;
         });
     });
+    set<Position> rng;
+    for (int quilt_id : m_quilt_ids) {
+        auto& quilt = m_game->m_quilts[quilt_id];
+        for (auto& [p, ch] : quilt)
+            rng.insert(p);
+    }
+    for (auto& p : m_blanks)
+        if (char& ch = cells(p); ch == PUZ_SPACE && !rng.contains(p))
+            ch = PUZ_BLANK;
 }
 
 void puz_state::make_move_quilt2(int quilt_id)
@@ -327,19 +335,6 @@ bool puz_state::check_rectangles() const
     return true;
 }
 
-void puz_state::check_blanks()
-{
-    set<Position> rng;
-    for (int quilt_id : m_quilt_ids) {
-        auto& quilt = m_game->m_quilts[quilt_id];
-        for (auto& [p, ch] : quilt)
-            rng.insert(p);
-    }
-    for (auto& p : m_blanks)
-        if (char& ch = cells(p); ch == PUZ_SPACE && !rng.contains(p))
-            ch = PUZ_BLANK;
-}
-
 bool puz_state::check_triangles()
 {
     if (m_pos2triangle.empty()) {
@@ -377,7 +372,6 @@ bool puz_state::make_move_triangle(int quilt_id)
     make_move_quilt2(quilt_id);
     boost::remove_erase(m_quilt_ids, quilt_id);
     check_quilts();
-    check_blanks();
     if (!check_hints())
         return false;
     m_distance = h - get_heuristic();
@@ -400,7 +394,6 @@ bool puz_state::make_move_hint(const Position& p, int perm_id)
     }
     m_pos2perm_ids.erase(p);
     check_quilts();
-    check_blanks();
     if (!check_hints())
         return false;
     m_distance = h - get_heuristic();
@@ -415,7 +408,6 @@ bool puz_state::make_move_quilt(int quilt_id)
         return quilt_id2 <= quilt_id;
     });
     check_quilts();
-    check_blanks();
     m_distance = h - get_heuristic();
     return check_rectangles();
 }
