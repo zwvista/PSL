@@ -231,6 +231,7 @@ puz_state::puz_state(const puz_game& g)
         v.resize(perms.size());
         boost::iota(v, 0);
     }
+    check_blanks();
     check_hints();
 }
 
@@ -377,6 +378,8 @@ bool puz_state::make_move_triangle(int quilt_id)
     boost::remove_erase(m_quilt_ids, quilt_id);
     check_quilts();
     check_blanks();
+    if (!check_hints())
+        return false;
     m_distance = h - get_heuristic();
     return check_triangles() && check_rectangles();
 }
@@ -396,10 +399,10 @@ bool puz_state::make_move_hint(const Position& p, int perm_id)
         }
     }
     m_pos2perm_ids.erase(p);
-    if (!check_hints())
-        return false;
     check_quilts();
     check_blanks();
+    if (!check_hints())
+        return false;
     m_distance = h - get_heuristic();
     return check_triangles() && check_rectangles();
 }

@@ -6,8 +6,8 @@ Sequence of moves:
 0 . A B . 
 . 1 C D . 
 Number of moves: 6
-Number of vertices examined: 10
-0.003122 [s]
+Number of vertices examined: 7
+0.002692 [s]
 
 Level 2
 Sequence of moves: 
@@ -17,8 +17,8 @@ C D 4 A B
 2 A B C D 
 . C D . 1 
 Number of moves: 9
-Number of vertices examined: 15
-0.003527 [s]
+Number of vertices examined: 11
+0.003122 [s]
 
 Level 3
 Sequence of moves: 
@@ -29,7 +29,7 @@ C D A . D
 1 . C D 2 
 Number of moves: 6
 Number of vertices examined: 12
-0.003643 [s]
+0.003837 [s]
 
 Level 4
 Sequence of moves: 
@@ -39,8 +39,8 @@ A . . . D
 C . . D . 
 . C D 2 0 
 Number of moves: 4
-Number of vertices examined: 8
-0.002237 [s]
+Number of vertices examined: 7
+0.002067 [s]
 
 Level 5
 Sequence of moves: 
@@ -50,8 +50,8 @@ C . B C D
 A B C D 1 
 C D W 1 . 
 Number of moves: 6
-Number of vertices examined: 10
-0.002043 [s]
+Number of vertices examined: 7
+0.00153 [s]
 
 Level 6
 Sequence of moves: 
@@ -62,8 +62,8 @@ C . . . . D
 2 C . . D . 
 . 2 C D . W 
 Number of moves: 5
-Number of vertices examined: 11
-0.008228 [s]
+Number of vertices examined: 9
+0.004104 [s]
 
 Level 7
 Sequence of moves: 
@@ -74,8 +74,8 @@ C . B . C D
 A B C D C D 
 C D W . 1 . 
 Number of moves: 10
-Number of vertices examined: 31
-0.011917 [s]
+Number of vertices examined: 18
+0.006093 [s]
 
 Level 8
 Sequence of moves: 
@@ -86,8 +86,8 @@ W . C . . D
 A B 3 C D 2 
 C D . . . . 
 Number of moves: 6
-Number of vertices examined: 12
-0.004006 [s]
+Number of vertices examined: 7
+0.001911 [s]
 
 Level 9
 Sequence of moves: 
@@ -99,21 +99,21 @@ C D . C . B 2
 . A B 3 C . B 
 . C D . . C D 
 Number of moves: 8
-Number of vertices examined: 85
-0.05382 [s]
+Number of vertices examined: 19
+0.01292 [s]
 
 Level 10
 Sequence of moves: 
-A B . 2 A B . 
-C D 3 A . D . 
-. . A . D A B 
+. . . 2 A B . 
+A B 3 A . D . 
+C D A . D A B 
 2 A . D 3 C D 
 . C D W . A B 
 W A B A B C D 
 . C D C D . 1 
 Number of moves: 11
-Number of vertices examined: 23
-0.014612 [s]
+Number of vertices examined: 22
+0.009029 [s]
 
 Level 11
 Sequence of moves: 
@@ -126,6 +126,6 @@ W A . . . . B
 . C D . 2 C D 
 Number of moves: 7
 Number of vertices examined: 14
-0.018788 [s]
+0.009635 [s]
 
 Level 12
