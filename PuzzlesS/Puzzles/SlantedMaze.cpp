@@ -25,8 +25,8 @@ namespace puzzles::SlantedMaze{
 
 constexpr auto PUZ_UNKNOWN = 5;
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_SLASH = '/';
-constexpr auto PUZ_BACKSLASH = '\\';
+constexpr auto PUZ_FRONT_SLASH = '/';
+constexpr auto PUZ_BACK_SLASH = '\\';
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_TOUCHED = 1;
 constexpr auto PUZ_UNTOUCHED = 0;
@@ -80,8 +80,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             for (int j = 0; j < 4; ++j) {
                 char ch = slants[j];
                 perm[j] = indexes[j] == PUZ_TOUCHED ? ch :
-                        ch == PUZ_SLASH ? PUZ_BACKSLASH :
-                        PUZ_SLASH;
+                        ch == PUZ_FRONT_SLASH ? PUZ_BACK_SLASH :
+                        PUZ_FRONT_SLASH;
             }
             perms.push_back(perm);
             perms_unknown.push_back(perm);
@@ -139,7 +139,7 @@ int puz_state::find_matches(bool init)
         for (int i = 0; i < 4; ++i) {
             char ch = cells(p + offset[i]);
             if (ch == PUZ_BOUNDARY)
-                ch = slants[i] == PUZ_SLASH ? PUZ_BACKSLASH : PUZ_SLASH;
+                ch = slants[i] == PUZ_FRONT_SLASH ? PUZ_BACK_SLASH : PUZ_FRONT_SLASH;
             chars.push_back(ch);
         }
 

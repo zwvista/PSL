@@ -24,8 +24,8 @@ namespace puzzles::MirrorsExtended{
 
 constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_EMPTY = '.';
-constexpr auto PUZ_SLASH = '/';
-constexpr auto PUZ_BACKSLASH = '\\';
+constexpr auto PUZ_FRONT_SLASH = '/';
+constexpr auto PUZ_BACK_SLASH = '\\';
 
 constexpr auto offset = Position::Directions4;
 constexpr auto offset2 = Position::WallsOffset4;
@@ -35,6 +35,8 @@ struct puz_laser
     vector<Position> m_start_end;
     int m_number;
 };
+
+using puz_laser_tile = pair<Position, int>;
 
 struct puz_game
 {
@@ -46,6 +48,8 @@ struct puz_game
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
     map<char, puz_laser> m_letter2laser;
+    map<puz_laser_tile, puz_laser_tile> m_tile2tile;
+    map<int, set<char>> m_num2letters;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -97,7 +101,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             rng.insert(p);
         }
     }
-
+    
     for (int n = 0; !rng.empty(); ++n) {
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, *rng.begin()});
         m_areas.push_back({smoves.begin(), smoves.end()});
@@ -107,7 +111,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
     
-    auto f = [&](int r, int c) {
+    auto f = [&](int r, int c, int d) {
         Position p(r, c);
         string_view str = strs[r * 2];
         int c2 = c * 2 + (c == m_sidelen - 1 ? 1 : 0);
@@ -119,10 +123,21 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             auto& [v, n] = m_letter2laser[ch1];
             v.push_back(p);
             n = ch2 - '0';
+            m_tile2tile[{p, d}] = {p + offset[d], d};
+            m_num2letters[n].insert(ch1);
         }
     };
     for (int i = 0; i < m_sidelen; ++i)
-        f(0, i), f(m_sidelen - 1, i), f(i, 0), f(i, m_sidelen - 1);
+        f(0, i, 2), f(m_sidelen - 1, i, 0), f(i, 0, 1), f(i, m_sidelen - 1, 3);
+    for (auto& [_1, laser] : m_letter2laser)
+        boost::sort(laser.m_start_end);
+
+    for (int r = 1; r < m_sidelen - 1; ++r)
+        for (int c = 1; c < m_sidelen - 1; ++c) {
+            Position p(r, c);
+            for (int i = 0; i < 4; ++i)
+                m_tile2tile[{p, i}] = {p + offset[i], i};
+        }
 }
 
 struct puz_state
