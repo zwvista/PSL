@@ -1,0 +1,17 @@
+Level 2
+Sequence of moves: 
+..B3C2.......
+   - - - -  
+..|\ .|\ .|..
+     - - -  
+B3|.|. /|.|..
+     -      
+..|.|.|.|.|..
+   -   -    
+A1|. \|\ .|..
+   - - - -  
+....A1C2.....
+Number of moves: 1
+Number of vertices examined: 73
+0.011245 [s]
+

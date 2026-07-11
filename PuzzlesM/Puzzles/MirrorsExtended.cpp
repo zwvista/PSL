@@ -175,7 +175,7 @@ struct puz_state
         return boost::count(m_cells, PUZ_SPACE) +
         boost::accumulate(m_letter2num, 0, [&](int acc, const pair<const char, int>& kv) {
             return acc + kv.second * sidelen();
-        }) + (m_dots.empty() ? sidelen() : sidelen() - m_dots.size());
+        }) + (m_letter2num.empty() ? 0 : m_dots.empty() ? sidelen() : sidelen() - m_dots.size());
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
@@ -234,7 +234,7 @@ void puz_state::make_move_mirror(int n, char ch2)
     auto h = get_heuristic();
     for (int i = 0; i < n; ++i)
         cells(m_dots[i].first) = PUZ_EMPTY;
-    auto& p = m_dots[n].first;
+    auto& p = (m_current_dot = m_dots[n]).first;
     if (char& ch = cells(p); ch == PUZ_SPACE) {
         auto& area = m_game->m_areas[m_game->m_pos2area.at(p)];
         for (auto& p2 : area)
@@ -251,7 +251,6 @@ void puz_state::make_move_mirror(int n, char ch2)
             m_dot2dot[{p, i}] = {p + dp, d};
         }
     }
-    m_current_dot.first = p;
     m_letter2num.at(m_current_letter)--;
     m_dots.clear();
     m_distance = h - get_heuristic();
@@ -287,23 +286,31 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
+    auto g = [&](int r, int c) {
+        char ch = cells({r, c});
+        if (ch == PUZ_EMPTY || ch == PUZ_BOUNDARY)
+            out << PUZ_EMPTY << PUZ_EMPTY;
+        else
+            out << ch << m_game->m_letter2laser.at(ch).m_number;
+    };
     auto f = [&](int r) {
         for (int c = 0; c < sidelen(); ++c) {
-            char ch = cells({r, c});
-            out << ch;
-            if (ch == PUZ_EMPTY)
+            if (c == sidelen() - 1)
                 out << PUZ_EMPTY;
-            else
-                out << m_game->m_letter2laser.at(ch).m_number;
+            g(r, c);
         }
+        println(out);
     };
     f(0);
     for (int r = 1;; ++r) {
+        out << "  ";
         // draw horizontal lines
-        for (int c = 0; c < sidelen(); ++c)
+        for (int c = 1; c < sidelen() - 1; ++c)
             out << (m_game->m_horz_walls.contains({r, c}) ? " -" : "  ");
+        out << "  ";
         println(out);
         if (r == sidelen() - 1) break;
+        g(r, 0);
         for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vertical lines
@@ -311,6 +318,7 @@ ostream& puz_state::dump(ostream& out) const
             if (c == sidelen() - 1) break;
             out << cells(p);
         }
+        g(r, sidelen() - 1);
         println(out);
     }
     f(sidelen() - 1);
