@@ -95,16 +95,16 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         if (n == 0) continue;
         auto& perms = m_num2perms[n];
         if (!perms.empty()) continue;
-        vector<string> permsB;
+        vector<string> perms12;
         string s1(n, ' ');
         for (int i = 0; i < 1 << n; ++i) {
             for (int j = 0; j < n; ++j)
                 s1[j] = (i & 1 << j) == 0 ? PUZ_TRIANGLE1 : PUZ_TRIANGLE2;
-            permsB.push_back(s1);
+            perms12.push_back(s1);
         }
         auto perm = string(4 - n, '0') + string(n, '1');
         do {
-            for (auto& s1 : permsB) {
+            for (auto& s1 : perms12) {
                 string s2;
                 for (int i = 0, j = 0; i <= 4; ++i)
                     if (perm[i] == '0')
