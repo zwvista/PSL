@@ -36,7 +36,7 @@ struct puz_laser
     int m_number;
 };
 
-using puz_laser_tile = pair<Position, int>;
+using puz_laser_dot = pair<Position, int>;
 
 struct puz_game
 {
@@ -48,8 +48,8 @@ struct puz_game
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
     map<char, puz_laser> m_letter2laser;
-    map<puz_laser_tile, puz_laser_tile> m_tile2tile;
-    map<int, set<char>> m_num2letters;
+    map<puz_laser_dot, puz_laser_dot> m_dot2dot;
+    vector<char> m_laser_turns;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
@@ -123,21 +123,29 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             auto& [v, n] = m_letter2laser[ch1];
             v.push_back(p);
             n = ch2 - '0';
-            m_tile2tile[{p, d}] = {p + offset[d], d};
-            m_num2letters[n].insert(ch1);
+            m_dot2dot[{p, d}] = {p + offset[d], d};
         }
     };
     for (int i = 0; i < m_sidelen; ++i)
         f(0, i, 2), f(m_sidelen - 1, i, 0), f(i, 0, 1), f(i, m_sidelen - 1, 3);
-    for (auto& [_1, laser] : m_letter2laser)
-        boost::sort(laser.m_start_end);
 
     for (int r = 1; r < m_sidelen - 1; ++r)
         for (int c = 1; c < m_sidelen - 1; ++c) {
             Position p(r, c);
             for (int i = 0; i < 4; ++i)
-                m_tile2tile[{p, i}] = {p + offset[i], i};
+                m_dot2dot[{p, i}] = {p + offset[i], i};
         }
+
+    for (auto& [letter, laser] : m_letter2laser) {
+        m_laser_turns.push_back(letter);
+        boost::sort(laser.m_start_end);
+    }
+    boost::sort(m_laser_turns, [&](char letter1, char letter2) {
+        auto g = [&](char letter) {
+            return pair(m_letter2laser.at(letter).m_number, letter);
+        };
+        return g(letter1) < g(letter2);
+    });
 }
 
 struct puz_state
@@ -146,26 +154,38 @@ struct puz_state
     int sidelen() const {return m_game->m_sidelen;}
     char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_letter2num) < tie(x.m_cells, x.m_letter2num);
+    }
     bool make_move(int move_id);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
+    unsigned int get_heuristic() const {
+        return boost::count(m_cells, PUZ_SPACE) +
+        boost::accumulate(m_letter2num, 0, [&](int acc, const pair<const char, int>& kv) {
+            return acc + kv.second;
+        });
+    }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
     string m_cells;
+    map<char, int> m_letter2num;
+    char m_current_letter;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
 : m_game(&g)
 , m_cells(g.m_cells)
+, m_current_letter(g.m_laser_turns[0])
 {
+    for (auto& [letter, laser] : g.m_letter2laser)
+        m_letter2num[letter] = laser.m_number;
 }
 
 bool puz_state::make_move(int move_id)
