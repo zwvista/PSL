@@ -34,9 +34,9 @@ constexpr auto offset2 = Position::WallsOffset4;
 using puz_laser_dot = pair<Position, int>;
 constexpr puz_laser_dot mirror_dots[][4] = {
     // front slash '/'
-    { {{0, 1}, 0}, {{-1, 0}, 1}, {{0, -1}, 2}, {{1, 0}, 3} },
+    { {{0, 1}, 1}, {{-1, 0}, 0}, {{0, -1}, 3}, {{1, 0}, 2} },
     // back slash  '\'
-    { {{0, -1}, 0}, {{1, 0}, 1}, {{0, 1}, 2}, {{-1, 0}, 3} },
+    { {{0, -1}, 3}, {{1, 0}, 2}, {{0, 1}, 1}, {{-1, 0}, 0} },
 };
 
 struct puz_laser
@@ -164,8 +164,8 @@ struct puz_state
     bool operator<(const puz_state& x) const {
         return tie(m_cells, m_letter2num, m_dots) < tie(x.m_cells, x.m_letter2num, x.m_dots);
     }
-    void make_move_letter();
-    bool make_move_mirror(int n, char ch);
+    void make_move_laser();
+    void make_move_mirror(int n, char ch2);
     bool make_move_end();
 
     //solve_puzzle interface
@@ -187,14 +187,14 @@ struct puz_state
     map<char, int> m_letter2num;
     vector<puz_laser_dot> m_dots;
     char m_current_letter;
+    puz_laser_dot m_current_dot;
     unsigned int m_distance = 0;
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g)
-, m_cells(g.m_cells)
-,  m_dot2dot(g.m_dot2dot)
+: m_game(&g), m_cells(g.m_cells), m_dot2dot(g.m_dot2dot)
 , m_current_letter(g.m_laser_turns[0])
+, m_current_dot(g.m_letter2laser.at(m_current_letter).m_start_end[0])
 {
     for (auto& [letter, laser] : g.m_letter2laser)
         m_letter2num[letter] = laser.m_number;
@@ -203,11 +203,10 @@ puz_state::puz_state(const puz_game& g)
 inline bool is_slash_char(char ch) { return ch == PUZ_FRONT_SLASH || ch == PUZ_BACK_SLASH; }
 inline bool is_end_char(char ch) { return isupper(ch) || ch == PUZ_BOUNDARY; }
 
-void puz_state::make_move_letter()
+void puz_state::make_move_laser()
 {
     auto h = get_heuristic();
-    auto& [v, _1] = m_game->m_letter2laser.at(m_current_letter);
-    auto dt = v[0];
+    auto dt = m_current_dot;
     for (;;) {
         dt = m_dot2dot.at(dt);
         char ch = cells(dt.first);
@@ -220,9 +219,26 @@ void puz_state::make_move_letter()
     }
 }
 
-bool puz_state::make_move_mirror(int n, char ch)
+void puz_state::make_move_mirror(int n, char ch2)
 {
-    return true;
+    auto h = get_heuristic();
+    for (int i = 0; i < n; ++i)
+        cells(m_dots[i].first) = PUZ_EMPTY;
+    auto& p = m_dots[n].first;
+    if (char& ch = cells(p); ch == PUZ_SPACE) {
+        for (auto it = m_dot2dot.begin(); it != m_dot2dot.end();)
+            if (it->first == p)
+                it = m_dot2dot.erase(it);
+            else
+                it++;
+        auto& dots = mirror_dots[(ch = ch2) == PUZ_FRONT_SLASH ? 0 : 1];
+        for (int i = 0; i < 4; ++i) {
+            auto& [dp, d] = dots[i];
+            m_dot2dot[{p, i}] = {p + dp, d};
+        }
+    }
+    m_current_dot.first = p;
+    m_distance = h - get_heuristic();
 }
 
 bool puz_state::make_move_end()
@@ -233,7 +249,7 @@ bool puz_state::make_move_end()
 void puz_state::gen_children(list<puz_state>& children) const
 {
     if (m_dots.empty())
-        children.emplace_back(*this).make_move_letter();
+        children.emplace_back(*this).make_move_laser();
     else {
         int n = m_letter2num.at(m_current_letter);
         if (n == 0) {
@@ -246,8 +262,7 @@ void puz_state::gen_children(list<puz_state>& children) const
                     break;
                 auto v = is_slash_char(ch) ? vector{ch} : vector{PUZ_FRONT_SLASH, PUZ_BACK_SLASH};
                 for (char ch2 : v)
-                    if (!children.emplace_back(*this).make_move_mirror(i, ch2))
-                        children.pop_back();
+                    children.emplace_back(*this).make_move_mirror(i, ch2);
             }
     }
 }
