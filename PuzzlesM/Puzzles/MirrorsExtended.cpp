@@ -30,6 +30,12 @@ constexpr auto PUZ_BACKSLASH = '\\';
 constexpr auto offset = Position::Directions4;
 constexpr auto offset2 = Position::WallsOffset4;
 
+struct puz_laser
+{
+    vector<Position> m_start_end;
+    int m_number;
+};
+
 struct puz_game
 {
     string m_id;
@@ -39,12 +45,11 @@ struct puz_game
     // 2nd dimension : all the positions forming the area
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
+    map<char, puz_laser> m_letter2laser;
     set<Position> m_horz_walls, m_vert_walls;
 
     puz_game(const vector<string>& strs, const xml_node& level);
-    bool is_valid(const Position& p) const {
-        return p.first >= 0 && p.first < m_sidelen && p.second >= 0 && p.second < m_sidelen;
-    }
+    char& cells(const Position& p) { return m_cells[p.first * m_sidelen + p.second]; }
 };
 
 struct puz_state2 : Position
@@ -101,6 +106,23 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             rng.erase(p);
         }
     }
+    
+    auto f = [&](int r, int c) {
+        Position p(r, c);
+        string_view str = strs[r * 2];
+        int c2 = c * 2 + (c == m_sidelen - 1 ? 1 : 0);
+        char ch1 = str[c2], ch2 = str[c2 + 1];
+        if (ch1 == PUZ_SPACE)
+            cells(p) = PUZ_EMPTY;
+        else {
+            cells(p) = ch1;
+            auto& [v, n] = m_letter2laser[ch1];
+            v.push_back(p);
+            n = ch2 - '0';
+        }
+    };
+    for (int i = 0; i < m_sidelen; ++i)
+        f(0, i), f(m_sidelen - 1, i), f(i, 0), f(i, m_sidelen - 1);
 }
 
 struct puz_state
