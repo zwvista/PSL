@@ -226,8 +226,12 @@ void puz_state::make_move_mirror(int n, char ch2)
         cells(m_dots[i].first) = PUZ_EMPTY;
     auto& p = m_dots[n].first;
     if (char& ch = cells(p); ch == PUZ_SPACE) {
+        auto& area = m_game->m_areas[m_game->m_pos2area.at(p)];
+        for (auto& p2 : area)
+            cells(p2) = PUZ_EMPTY;
+
         for (auto it = m_dot2dot.begin(); it != m_dot2dot.end();)
-            if (it->first == p)
+            if (it->first.first == p)
                 it = m_dot2dot.erase(it);
             else
                 it++;
@@ -238,11 +242,24 @@ void puz_state::make_move_mirror(int n, char ch2)
         }
     }
     m_current_dot.first = p;
+    m_letter2num.at(m_current_letter)--;
+    m_dots.clear();
     m_distance = h - get_heuristic();
 }
 
 bool puz_state::make_move_end()
 {
+    auto h = get_heuristic();
+    auto& p = m_dots.back().first;
+    if (p != m_game->m_letter2laser.at(m_current_letter).m_start_end[1].first)
+        return false;
+    m_letter2num.erase(m_current_letter);
+    if (!m_letter2num.empty()) {
+        m_current_letter = *next(boost::find(m_game->m_laser_turns, m_current_letter));
+        m_current_dot = m_game->m_letter2laser.at(m_current_letter).m_start_end[0];
+    }
+    m_dots.clear();
+    m_distance = h - get_heuristic();
     return true;
 }
 
@@ -269,21 +286,33 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0;; ++r) {
+    auto f = [&](int r) {
+        for (int c = 0; c < sidelen(); ++c) {
+            char ch = cells({r, c});
+            out << ch;
+            if (ch == PUZ_EMPTY)
+                out << PUZ_EMPTY;
+            else
+                out << m_game->m_letter2laser.at(ch).m_number;
+        }
+    };
+    f(0);
+    for (int r = 1;; ++r) {
         // draw horizontal lines
         for (int c = 0; c < sidelen(); ++c)
             out << (m_game->m_horz_walls.contains({r, c}) ? " -" : "  ");
         println(out);
-        if (r == sidelen()) break;
-        for (int c = 0;; ++c) {
+        if (r == sidelen() - 1) break;
+        for (int c = 1;; ++c) {
             Position p(r, c);
             // draw vertical lines
             out << (m_game->m_vert_walls.contains(p) ? '|' : ' ');
-            if (c == sidelen()) break;
+            if (c == sidelen() - 1) break;
             out << cells(p);
         }
         println(out);
     }
+    f(sidelen() - 1);
     return out;
 }
 
