@@ -212,11 +212,9 @@ bool puz_state::make_move_laser()
         dt = m_dot2dot.at(dt);
         char ch = cells(dt.first);
         if (ch == PUZ_SPACE) {
-            if (num > 0)
-                m_dots.push_back(dt);
+            m_dots.push_back(dt);
         } else if (is_slash_char(ch)) {
-            if (num > 0)
-                m_dots.push_back(dt);
+            m_dots.push_back(dt);
             break;
         } else if (is_end_char(ch)) {
             if (num == 0)
@@ -226,7 +224,7 @@ bool puz_state::make_move_laser()
     }
     m_distance = h - get_heuristic();
     return !(m_dots.empty() || num == 0 &&
-    m_dots[0].first != m_game->m_letter2laser.at(m_current_letter).m_start_end[1].first);
+    m_dots.back().first != m_game->m_letter2laser.at(m_current_letter).m_start_end[1].first);
 }
 
 void puz_state::make_move_mirror(int n, char ch2)
@@ -259,6 +257,8 @@ void puz_state::make_move_mirror(int n, char ch2)
 void puz_state::make_move_end()
 {
     auto h = get_heuristic();
+    for (int i = 0; i < m_dots.size() - 1; ++i)
+        cells(m_dots[i].first) = PUZ_EMPTY;
     m_letter2num.erase(m_current_letter);
     if (!m_letter2num.empty()) {
         m_current_letter = *next(boost::find(m_game->m_laser_turns, m_current_letter));
