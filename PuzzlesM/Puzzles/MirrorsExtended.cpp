@@ -172,7 +172,7 @@ struct puz_state
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::count(m_cells, PUZ_SPACE) +
+        return boost::count(m_cells, PUZ_SPACE) + m_game->m_areas.size() - m_area2slash.size() +
         boost::accumulate(m_letter2num, 0, [&](int acc, const pair<const char, int>& kv) {
             return acc + kv.second * sidelen();
         }) + (m_letter2num.empty() ? 0 : m_dots.empty() ? sidelen() : sidelen() - m_dots.size());
@@ -184,6 +184,7 @@ struct puz_state
     const puz_game* m_game;
     string m_cells;
     map<puz_laser_dot, puz_laser_dot> m_dot2dot;
+    map<int, Position> m_area2slash;
     map<char, int> m_letter2num;
     vector<puz_laser_dot> m_dots;
     char m_current_letter;
@@ -234,8 +235,9 @@ void puz_state::make_move_mirror(int n, char ch2)
         cells(m_dots[i].first) = PUZ_EMPTY;
     auto& p = (m_current_dot = m_dots[n]).first;
     if (char& ch = cells(p); ch == PUZ_SPACE) {
-        auto& area = m_game->m_areas[m_game->m_pos2area.at(p)];
-        for (auto& p2 : area)
+        int n = m_game->m_pos2area.at(p);
+        m_area2slash[n] = p;
+        for (auto& p2 : m_game->m_areas[n])
             cells(p2) = PUZ_EMPTY;
 
         for (auto it = m_dot2dot.begin(); it != m_dot2dot.end();)
@@ -270,6 +272,8 @@ void puz_state::make_move_end()
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
+    if (m_letter2num.empty())
+        return;
     if (m_dots.empty()) {
         if (!children.emplace_back(*this).make_move_laser())
             children.pop_back();
