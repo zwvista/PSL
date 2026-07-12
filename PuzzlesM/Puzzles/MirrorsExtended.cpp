@@ -130,7 +130,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_dot2dot[{p, i}] = {p + offset[i], i};
             auto& [v, n] = m_letter2laser[ch1];
             v.emplace_back(p, i);
-            n = ch2 - '0';
+            n = isdigit(ch2) ? ch2 - '0' : ch2 - 'A' + 10;;
         }
     };
     for (int i = 0; i < m_sidelen; ++i)
