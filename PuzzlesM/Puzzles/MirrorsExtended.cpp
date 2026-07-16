@@ -32,11 +32,11 @@ constexpr auto offset = Position::Directions4;
 constexpr auto offset2 = Position::WallsOffset4;
 
 using puz_laser_dot = pair<Position, int>;
-constexpr puz_laser_dot mirror_dots[][4] = {
+constexpr int mirror_dirs[][4] = {
     // front slash '/'
-    { {{0, 1}, 1}, {{-1, 0}, 0}, {{0, -1}, 3}, {{1, 0}, 2} },
+    { 1, 0, 3, 2 },
     // back slash  '\'
-    { {{0, -1}, 3}, {{1, 0}, 2}, {{0, 1}, 1}, {{-1, 0}, 0} },
+    { 3, 2, 1, 0 },
 };
 
 struct puz_laser
@@ -232,10 +232,10 @@ void puz_state::make_move_mirror(int n, char ch2)
         for (auto& p2 : m_game->m_areas[n])
             cells(p2) = PUZ_EMPTY;
 
-        auto& dots = mirror_dots[(ch = ch2) == PUZ_FRONT_SLASH ? 0 : 1];
+        auto& dirs = mirror_dirs[(ch = ch2) == PUZ_FRONT_SLASH ? 0 : 1];
         for (int i = 0; i < 4; ++i) {
-            auto& [dp, d] = dots[i];
-            m_dot2dot[{p, i}] = {p + dp, d};
+            int d = dirs[i];
+            m_dot2dot[{p, i}] = {p + offset[d], d};
         }
     }
     m_letter2num.at(m_current_letter)--;
