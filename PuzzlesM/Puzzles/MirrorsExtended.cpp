@@ -55,7 +55,6 @@ struct puz_game
     vector<vector<Position>> m_areas;
     map<Position, int> m_pos2area;
     map<char, puz_laser> m_letter2laser;
-    map<puz_laser_dot, puz_laser_dot> m_dot2dot;
     vector<char> m_laser_turns;
     set<Position> m_horz_walls, m_vert_walls;
 
@@ -127,7 +126,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             cells(p) = PUZ_BOUNDARY;
         else {
             cells(p) = ch1;
-            m_dot2dot[{p, i}] = {p + offset[i], i};
             auto& [v, n] = m_letter2laser[ch1];
             v.emplace_back(p, i);
             n = isdigit(ch2) ? ch2 - '0' : ch2 - 'A' + 10;;
@@ -135,13 +133,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     };
     for (int i = 0; i < m_sidelen; ++i)
         f(0, i, 2), f(m_sidelen - 1, i, 0), f(i, 0, 1), f(i, m_sidelen - 1, 3);
-
-    for (int r = 1; r < m_sidelen - 1; ++r)
-        for (int c = 1; c < m_sidelen - 1; ++c) {
-            Position p(r, c);
-            for (int i = 0; i < 4; ++i)
-                m_dot2dot[{p, i}] = {p + offset[i], i};
-        }
 
     for (auto& [letter, laser] : m_letter2laser) {
         m_laser_turns.push_back(letter);
@@ -193,7 +184,7 @@ struct puz_state
 };
 
 puz_state::puz_state(const puz_game& g)
-: m_game(&g), m_cells(g.m_cells), m_dot2dot(g.m_dot2dot)
+: m_game(&g), m_cells(g.m_cells)
 , m_current_letter(g.m_laser_turns[0])
 , m_current_dot(g.m_letter2laser.at(m_current_letter).m_start_end[0])
 {
@@ -210,7 +201,8 @@ bool puz_state::make_move_laser()
     int num = m_letter2num.at(m_current_letter);
     auto dt = m_current_dot;
     for (;;) {
-        dt = m_dot2dot.at(dt);
+        auto it = m_dot2dot.find(dt);
+        dt = it != m_dot2dot.end() ? it->second : puz_laser_dot{dt.first + offset[dt.second], dt.second};
         char ch = cells(dt.first);
         if (ch == PUZ_SPACE) {
             m_dots.push_back(dt);
@@ -240,11 +232,6 @@ void puz_state::make_move_mirror(int n, char ch2)
         for (auto& p2 : m_game->m_areas[n])
             cells(p2) = PUZ_EMPTY;
 
-        for (auto it = m_dot2dot.begin(); it != m_dot2dot.end();)
-            if (it->first.first == p)
-                it = m_dot2dot.erase(it);
-            else
-                it++;
         auto& dots = mirror_dots[(ch = ch2) == PUZ_FRONT_SLASH ? 0 : 1];
         for (int i = 0; i < 4; ++i) {
             auto& [dp, d] = dots[i];
