@@ -117,7 +117,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         }
     }
     
-    auto f = [&](int r, int c, int i) {
+    auto f = [&](int r, int c, int d) {
         Position p(r, c);
         string_view str = strs[r * 2];
         int c2 = c * 2 + (c == m_sidelen - 1 ? 1 : 0);
@@ -127,7 +127,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         else {
             cells(p) = ch1;
             auto& [v, n] = m_letter2laser[ch1];
-            v.emplace_back(p, i);
+            v.emplace_back(p, d);
             n = isdigit(ch2) ? ch2 - '0' : ch2 - 'A' + 10;;
         }
     };

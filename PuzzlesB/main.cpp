@@ -6,6 +6,7 @@ extern void solve_puz_Banquet();
 extern void solve_puz_BalancedTapas();
 extern void solve_puz_BattleShips();
 extern void solve_puz_BentBridges();
+extern void solve_puz_BlackAndWhiteChocolate();
 extern void solve_puz_bloxorz();
 extern void solve_puz_BootyIsland();
 extern void solve_puz_BotanicalPark();
@@ -27,7 +28,8 @@ int main(int argc, char **argv)
         println("a2: Balanced Tapas");
         println("a3: Battle Ships");
         println("e: Bent Bridges");
-        println("l: bloxorz");
+        println("l1: Black and White Chocolate");
+        println("l2: bloxorz");
         println("o1: Booty Island");
         println("o2: Botanical Park");
         println("o3: Box It Again");
@@ -45,7 +47,8 @@ int main(int argc, char **argv)
         else if (str == "a2") solve_puz_BalancedTapas();
         else if (str == "a3") solve_puz_BattleShips();
         else if (str == "e") solve_puz_BentBridges();
-        else if (str == "l") solve_puz_bloxorz();
+        else if (str == "l1") solve_puz_BlackAndWhiteChocolate();
+        else if (str == "l2") solve_puz_bloxorz();
         else if (str == "o1") solve_puz_BootyIsland();
         else if (str == "o2") solve_puz_BotanicalPark();
         else if (str == "o3") solve_puz_BoxItAgain();

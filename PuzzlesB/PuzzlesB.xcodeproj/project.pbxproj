@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C689D152E07740000A2BCCC /* Branches2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D132E07740000A2BCCC /* Branches2.cpp */; };
 		8C689D352E08BF6200A2BCCC /* Banquet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689D322E08BF6200A2BCCC /* Banquet.cpp */; };
+		8C6F21FC300BE24C00404F22 /* BlackAndWhiteChocolate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C6F21F9300BE24C00404F22 /* BlackAndWhiteChocolate.cpp */; };
 		8C74121F2DE25A7600E23098 /* BentBridges.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95804A3A2544CA720022AF35 /* BentBridges.cpp */; };
 		8CA23F041EA924380055D6B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23ECE1EA924380055D6B1 /* main.cpp */; };
 		8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA23F171EA925F20055D6B1 /* stdafx.cpp */; };
@@ -52,6 +53,9 @@
 		8C689D322E08BF6200A2BCCC /* Banquet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Banquet.cpp; sourceTree = "<group>"; };
 		8C689D332E08BF6200A2BCCC /* Banquet.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Banquet.txt; sourceTree = "<group>"; };
 		8C689D342E08BF6200A2BCCC /* Banquet.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Banquet.xml; sourceTree = "<group>"; };
+		8C6F21F9300BE24C00404F22 /* BlackAndWhiteChocolate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BlackAndWhiteChocolate.cpp; sourceTree = "<group>"; };
+		8C6F21FA300BE24C00404F22 /* BlackAndWhiteChocolate.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = BlackAndWhiteChocolate.txt; sourceTree = "<group>"; };
+		8C6F21FB300BE24C00404F22 /* BlackAndWhiteChocolate.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BlackAndWhiteChocolate.xml; sourceTree = "<group>"; };
 		8C884F712E2D2BF9005310E2 /* BlockEscape.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = BlockEscape.txt; sourceTree = "<group>"; };
 		8C884F722E2D2BF9005310E2 /* BlockEscape.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BlockEscape.xml; sourceTree = "<group>"; };
 		8CA23ECE1EA924380055D6B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -172,6 +176,9 @@
 				95804A3A2544CA720022AF35 /* BentBridges.cpp */,
 				95804A382544CA720022AF35 /* BentBridges.txt */,
 				95804A3B2544CA720022AF35 /* BentBridges.xml */,
+				8C6F21F9300BE24C00404F22 /* BlackAndWhiteChocolate.cpp */,
+				8C6F21FA300BE24C00404F22 /* BlackAndWhiteChocolate.txt */,
+				8C6F21FB300BE24C00404F22 /* BlackAndWhiteChocolate.xml */,
 				8CA23FB61EB479280055D6B1 /* bloc.txt */,
 				8CA23FB71EB479280055D6B1 /* bloc.xml */,
 				8C884F712E2D2BF9005310E2 /* BlockEscape.txt */,
@@ -328,6 +335,7 @@
 				8CA23FD81EB479280055D6B1 /* BalancedTapas.cpp in Sources */,
 				8CA23FDE1EB479280055D6B1 /* BoxItAround.cpp in Sources */,
 				8CA23FE01EB479280055D6B1 /* Branches.cpp in Sources */,
+				8C6F21FC300BE24C00404F22 /* BlackAndWhiteChocolate.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
