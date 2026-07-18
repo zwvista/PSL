@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -72,7 +71,6 @@ struct puz_state2
     bool is_goal_state() const { return m_rng.size() == m_num; }
     bool make_move(const Position& p, int num, int perm_id);
     void gen_children(list<puz_state2>& children) const;
-    unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
     int m_num;
@@ -112,6 +110,8 @@ bool puz_state2::make_move(const Position& p, int num, int perm_id)
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
+    if (is_goal_state())
+        return;
     for (auto& p : m_rng)
         for (auto& os : offset)
             if (auto p2 = p + os;
@@ -152,16 +152,15 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, num] : m_pos2num)
         for (int i = 0; i < 2; ++i) {
             bool is_cloud = i == 0;
-            puz_state2 sstart(this, num, is_cloud, p);
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, num, is_cloud, p});
             list<list<puz_state2>> spaths;
-            if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
-                for (auto& spath : spaths) {
-                    auto& s = spath.back();
-                    int n = m_moves.size();
-                    m_moves.emplace_back(p, is_cloud, s.m_rng, s.m_clouds, s.m_empties);
-                    for (auto& p2 : s.m_rng)
-                        m_pos2move_ids[p2].push_back(n);
-                }
+            for (auto& s : smoves) {
+                if (!s.is_goal_state()) continue;
+                int n = m_moves.size();
+                m_moves.emplace_back(p, is_cloud, s.m_rng, s.m_clouds, s.m_empties);
+                for (auto& p2 : s.m_rng)
+                    m_pos2move_ids[p2].push_back(n);
+            }
         }
 }
 

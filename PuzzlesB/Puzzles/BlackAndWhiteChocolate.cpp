@@ -39,18 +39,6 @@ constexpr auto PUZ_CLOUD = 'C';
 
 constexpr auto offset = Position::Directions4;
 
-constexpr Position offset2[] = {
-    {0, 0},        // o
-    {-1, 0},       // n
-    {-1, 1},       // ne
-    {0, 1},        // e
-    {1, 1},        // se
-    {1, 0},        // s
-    {1, -1},       // sw
-    {0, -1},       // w
-    {-1, -1},      // nw
-};
-
 struct puz_move
 {
     Position m_p_num;
@@ -97,29 +85,6 @@ bool puz_state2::make_move(const Position& p, int num, int perm_id)
 {
     m_rng.insert(p);
     (m_is_cloud ? m_clouds : m_empties).erase(p);
-    if (perm_id != -1) {
-        auto& perm = m_game->m_num2perms.at(num)[perm_id];
-        for (int i = 0; i < 9; ++i) {
-            auto p2 = p + offset2[i];
-            bool is_cloud = perm[i] == PUZ_CLOUD;
-            if (!m_game->is_valid(p2))
-                if (is_cloud)
-                    continue;
-                else
-                    return false;
-            bool is_inside = m_rng.contains(p2);
-            if (is_inside && is_cloud != m_is_cloud ||
-                !is_inside && (is_cloud ? m_empties : m_clouds).contains(p2))
-                return false; // invalid move
-            if (!is_inside)
-                (is_cloud ? m_clouds : m_empties).insert(p2);
-        }
-    }
-    if (is_goal_state())
-        for (auto& p2 : m_rng)
-            for (auto& os : offset)
-                if (auto p3 = p2 + os; m_game->is_valid(p3) && !m_rng.contains(p3))
-                    (m_is_cloud ? m_empties : m_clouds).insert(p3);
     return true;
 }
 
