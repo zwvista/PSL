@@ -111,8 +111,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 
     for (auto& [p, region] : m_pos2region) {
         auto& [name, num] = region;
-        puz_state2 sstart(this, p, num);
-        list<list<puz_state2>> spaths;
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, num});
         for (auto& s : smoves) {
             if (s.m_invisible != num)

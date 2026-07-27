@@ -153,7 +153,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int i = 0; i < 2; ++i) {
             bool is_cloud = i == 0;
             auto smoves = puz_move_generator<puz_state2>::gen_moves({this, num, is_cloud, p});
-            list<list<puz_state2>> spaths;
             for (auto& s : smoves) {
                 if (!s.is_goal_state()) continue;
                 int n = m_moves.size();
