@@ -60,14 +60,8 @@ struct puz_state2 : set<Position>
     puz_state2(const puz_game* game, const Position& p, int num)
         : m_game(game), m_p(p), m_num(num) { make_move(p); }
 
-    bool make_move(const Position& p) {
-        insert(p);
-        int n = 1;
-        for (auto& os : offset)
-            for (auto p2 = m_p + os; contains(p2); p2 += os)
-                ++n;
-        return (m_invisible = size() - n) <= m_num;
-    }
+    bool is_goal_state() { return m_invisible == m_num; }
+    bool make_move(const Position& p);
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
@@ -76,6 +70,15 @@ struct puz_state2 : set<Position>
     int m_num;
     int m_invisible = 0;
 };
+
+bool puz_state2::make_move(const Position& p) {
+    insert(p);
+    int n = 1;
+    for (auto& os : offset)
+        for (auto p2 = m_p + os; contains(p2); p2 += os)
+            ++n;
+    return (m_invisible = size() - n) <= m_num;
+}
 
 void puz_state2::gen_children(list<puz_state2>& children) const {
     for (auto& p : *this)
@@ -112,15 +115,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& [p, region] : m_pos2region) {
         auto& [name, num] = region;
         auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p, num});
-        for (auto& s : smoves) {
-            if (s.m_invisible != num)
-                continue;
-            int n = m_moves.size();
-            auto& [name2, p_hint, area] = m_moves.emplace_back();
-            name2 = name, p_hint = p, area = s;
-            for (auto& p2 : s)
-                m_pos2move_ids[p2].push_back(n);
-        }
+        for (auto& s : smoves)
+            if (s.is_goal_state()) {
+                int n = m_moves.size();
+                auto& [name2, p_hint, area] = m_moves.emplace_back();
+                name2 = name, p_hint = p, area = s;
+                for (auto& p2 : s)
+                    m_pos2move_ids[p2].push_back(n);
+            }
     }
 }
 
