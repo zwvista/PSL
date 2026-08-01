@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "astar_solver.h"
 #include "bfs_move_gen.h"
-#include "bfs_solver.h"
 #include "solve_puzzle.h"
 
 /*
@@ -34,8 +33,9 @@
 namespace puzzles::BlackAndWhiteChocolate{
 
 constexpr auto PUZ_SPACE = ' ';
-constexpr auto PUZ_EMPTY = '.';
-constexpr auto PUZ_CLOUD = 'C';
+constexpr auto PUZ_BLACK = 'B';
+constexpr auto PUZ_WHITE = 'W';
+constexpr auto PUZ_UNKNOWN = -1;
 
 constexpr auto offset = Position::Directions4;
 
@@ -52,8 +52,7 @@ struct puz_game
     string m_id;
     Position m_size;
     string m_cells;
-    map<Position, int> m_pos2num;
-    map<int, vector<string>> m_num2perms;
+    vector<int> m_nums;
     vector<puz_move> m_moves;
     map<Position, vector<int>> m_pos2move_ids;
 
@@ -64,50 +63,47 @@ struct puz_game
         return p.first >= 0 && p.first < rows() && p.second >= 0 && p.second < cols();
     }
     char cells(const Position& p) const { return m_cells[p.first * cols() + p.second]; }
+    int nums(const Position& p) const { return m_nums[p.first * cols() + p.second]; }
 };
 
-struct puz_state2
+struct puz_state2 : set<Position>
 {
-    puz_state2(const puz_game* game, int num, bool is_cloud, const Position& p)
-        : m_game(game), m_num(num), m_is_cloud(is_cloud) { make_move(p, num, -1); }
-    bool operator<(const puz_state2& x) const {
-        return tie(m_rng, m_clouds, m_empties) < tie(x.m_rng, x.m_clouds, x.m_empties);
-    }
+    puz_state2(const puz_game* game, const Position& p)
+        : m_game(game), m_p(p) { make_move(p); }
 
-    bool is_goal_state() const { return m_rng.size() == m_num; }
-    bool make_move(const Position& p, int num, int perm_id);
+    bool is_goal_state() const {
+        return m_num == PUZ_UNKNOWN || size() == m_num;
+    }
+    bool make_move(const Position& p);
     void gen_children(list<puz_state2>& children) const;
     unsigned int get_distance(const puz_state2& child) const { return 1; }
 
     const puz_game* m_game;
-    int m_num;
-    bool m_is_cloud;
-    set<Position> m_rng, m_clouds, m_empties;
+    int m_num = PUZ_UNKNOWN;
+    Position m_p;
 };
 
-bool puz_state2::make_move(const Position& p, int num, int perm_id)
+bool puz_state2::make_move(const Position& p)
 {
-    m_rng.insert(p);
-    (m_is_cloud ? m_clouds : m_empties).erase(p);
+    char ch = m_game->cells(p);
+    int n = m_game->nums(p);
+    if (!(ch == PUZ_WHITE && (m_num == PUZ_UNKNOWN || m_num == n)))
+        return false;
+    insert(p);
+    m_num = n;
     return true;
 }
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
-    for (auto& p : m_rng)
+    if (size() == m_num)
+        return;
+    for (auto& p : *this)
         for (auto& os : offset)
             if (auto p2 = p + os;
-                m_game->is_valid(p2) && !m_rng.contains(p2) &&
-                !(m_is_cloud ? m_empties : m_clouds).contains(p2))
-                if (auto it = m_game->m_pos2num.find(p2); it == m_game->m_pos2num.end())
-                    children.emplace_back(*this).make_move(p2, -1, -1);
-                else {
-                    int num = it->second;
-                    auto& perms = m_game->m_num2perms.at(num);
-                    for (int i = 0; i < perms.size(); ++i)
-                        if (!children.emplace_back(*this).make_move(p2, num, i))
-                            children.pop_back();
-                }
+                m_game->is_valid(p2) && !contains(p2) && p2 > m_p)
+                if (!children.emplace_back(*this).make_move(p2))
+                    children.pop_back();
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
@@ -119,35 +115,17 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
         for (int c = 0; c < cols(); ++c) {
             char ch1 = str[c * 2], ch2 = str[c * 2 + 1];
             m_cells.push_back(ch1);
-            if (ch2 != PUZ_SPACE)
-                m_pos2num[{r, c}] = isdigit(ch2) ? ch2 - '0' : ch2 - 'A' + 10;
+            int n = ch2 == PUZ_SPACE ? PUZ_UNKNOWN : isdigit(ch2) ? ch2 - '0' : ch2 - 'A' + 10;
+            m_nums.push_back(n);
         }
     }
-
-    for (auto& [_1, num] : m_pos2num) {
-        auto& perms = m_num2perms[num];
-        if (!perms.empty() || num > 9)
-            continue;
-        auto perm = string(num, PUZ_EMPTY) + string(9 - num, PUZ_CLOUD);
-        do
-            perms.push_back(perm);
-        while (boost::next_permutation(perm));
-    }
-
-    for (auto& [p, num] : m_pos2num)
-        for (int i = 0; i < 2; ++i) {
-            bool is_cloud = i == 0;
-            puz_state2 sstart(this, num, is_cloud, p);
-            list<list<puz_state2>> spaths;
-            if (auto [found, _1] = puz_solver_bfs<puz_state2, false, false>::find_solution(sstart, spaths); found)
-                for (auto& spath : spaths) {
-                    auto& s = spath.back();
-                    int n = m_moves.size();
-                    m_moves.emplace_back(p, is_cloud, s.m_rng, s.m_clouds, s.m_empties);
-                    for (auto& p2 : s.m_rng)
-                        m_pos2move_ids[p2].push_back(n);
-                }
+    for (int r = 0; r < rows(); ++r) {
+        for (int c = 0; c < cols(); ++c) {
+            Position p(r, c);
+            if (cells(p) != PUZ_WHITE) continue;
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
         }
+    }
 }
 
 struct puz_state
@@ -193,19 +171,19 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
-        boost::remove_erase_if(move_ids, [&](int id) {
-            auto& [_2, is_cloud, rng, clouds, empties] = m_game->m_moves[id];
-            return boost::algorithm::any_of(rng, [&](const Position& p2) {
-                char ch = cells(p2);
-                return ch != PUZ_SPACE && ch != (is_cloud ? PUZ_CLOUD : PUZ_EMPTY);
-            }) || boost::algorithm::any_of(clouds, [&](const Position& p2) {
-                char ch = cells(p2);
-                return ch != PUZ_SPACE && ch != PUZ_CLOUD;
-            }) || boost::algorithm::any_of(empties, [&](const Position& p2) {
-                char ch = cells(p2);
-                return ch != PUZ_SPACE && ch != PUZ_EMPTY;
-            });
-        });
+//        boost::remove_erase_if(move_ids, [&](int id) {
+//            auto& [_2, is_cloud, rng, clouds, empties] = m_game->m_moves[id];
+//            return boost::algorithm::any_of(rng, [&](const Position& p2) {
+//                char ch = cells(p2);
+//                return ch != PUZ_SPACE && ch != (is_cloud ? PUZ_CLOUD : PUZ_EMPTY);
+//            }) || boost::algorithm::any_of(clouds, [&](const Position& p2) {
+//                char ch = cells(p2);
+//                return ch != PUZ_SPACE && ch != PUZ_CLOUD;
+//            }) || boost::algorithm::any_of(empties, [&](const Position& p2) {
+//                char ch = cells(p2);
+//                return ch != PUZ_SPACE && ch != PUZ_EMPTY;
+//            });
+//        });
 
         if (!init)
             switch(move_ids.size()) {
@@ -220,13 +198,13 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int move_id)
 {
-    auto& [_1, is_cloud, rng, clouds, empties] = m_game->m_moves[move_id];
-    for (auto& p2 : rng)
-        cells(p2) = is_cloud ? PUZ_CLOUD : PUZ_EMPTY, ++m_distance, m_matches.erase(p2);
-    for (auto& p2 : clouds)
-        cells(p2) = PUZ_CLOUD;
-    for (auto& p2 : empties)
-        cells(p2) = PUZ_EMPTY;
+//    auto& [_1, is_cloud, rng, clouds, empties] = m_game->m_moves[move_id];
+//    for (auto& p2 : rng)
+//        cells(p2) = is_cloud ? PUZ_CLOUD : PUZ_EMPTY, ++m_distance, m_matches.erase(p2);
+//    for (auto& p2 : clouds)
+//        cells(p2) = PUZ_CLOUD;
+//    for (auto& p2 : empties)
+//        cells(p2) = PUZ_EMPTY;
 }
 
 bool puz_state::make_move(int move_id)
@@ -256,10 +234,10 @@ ostream& puz_state::dump(ostream& out) const
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             out << cells(p);
-            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-                out << ". ";
-            else
-                out << it->second << ' ';
+//            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
+//                out << ". ";
+//            else
+//                out << it->second << ' ';
         }
         println(out);
     }
