@@ -41,10 +41,7 @@ constexpr auto offset = Position::Directions4;
 
 struct puz_move
 {
-    Position m_p_num;
-    bool m_is_cloud = false;
-    set<Position> m_rng;
-    set<Position> m_clouds, m_empties;
+    set<Position> m_white, m_black;
 };
 
 struct puz_game
@@ -85,12 +82,14 @@ struct puz_state2 : set<Position>
 
 bool puz_state2::make_move(const Position& p)
 {
-    char ch = m_game->cells(p);
+    if (m_game->cells(p) != PUZ_WHITE)
+        return false;
     int n = m_game->nums(p);
-    if (!(ch == PUZ_WHITE && (m_num == PUZ_UNKNOWN || m_num == n)))
+    if (!(m_num == PUZ_UNKNOWN || n == PUZ_UNKNOWN || m_num == n))
         return false;
     insert(p);
-    m_num = n;
+    if (m_num == PUZ_UNKNOWN && n != PUZ_UNKNOWN)
+        m_num = n;
     return true;
 }
 
@@ -119,13 +118,65 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             m_nums.push_back(n);
         }
     }
-    for (int r = 0; r < rows(); ++r) {
+    for (int r = 0; r < rows(); ++r)
         for (int c = 0; c < cols(); ++c) {
             Position p(r, c);
             if (cells(p) != PUZ_WHITE) continue;
             auto smoves = puz_move_generator<puz_state2>::gen_moves({this, p});
+            for (auto& s : smoves) {
+                if (!s.is_goal_state()) continue;
+                int r1 = 99, c1 = 99, r2 = 0, c2 = 0;
+                for (auto& p : s) {
+                    auto& [r, c] = p;
+                    r1 = min(r1, r);
+                    c1 = min(c1, c);
+                    r2 = max(r2, r);
+                    c2 = max(c2, c);
+                }
+                int rs = r2 - r1 + 1, cs = c2 - c1 + 1;
+                Position p1(r1, c1);
+                set<Position> rng;
+                for (auto& p : s)
+                    rng.insert(p - p1);
+                set<set<Position>> rng_set;
+                for (int i = 0; i < 4; ++i) {
+                    int rs2 = i % 2 == 0 ? rs : cs;
+                    int cs2 = i % 2 == 0 ? cs : rs;
+                    set<Position> rng2;
+                    if (i == 0)
+                        rng2 = rng;
+                    else
+                        for (auto& [r3, c3] : rng)
+                            rng2.insert(
+                                i == 1 ? Position(c3, rs - 1 - r3) :
+                                i == 2 ? Position(rs - 1 - r3, cs - 1 - c3) :
+                                Position(cs - 1 - c3, r3)
+                            );
+                    if (!rng_set.insert(rng2).second) continue;
+                    for (int r = r1 - rs2; r <= r2 + 1; ++r)
+                        for (int c = c1 - cs2; c <= c2 + 1; ++c) {
+                            Position p0(r, c);
+                            set<Position> rng3;
+                            for (auto& p : rng2)
+                                rng3.insert(p0 + p);
+                            if (boost::algorithm::all_of(rng3, [&](const Position& p) {
+                                return is_valid(p) && cells(p) == PUZ_BLACK;
+                            }) && boost::algorithm::any_of(rng3, [&](const Position& p) {
+                                return boost::algorithm::any_of(offset, [&](const Position& os) {
+                                    return s.contains(p + os);
+                                });
+                            })) {
+                                int n = m_moves.size();
+                                m_moves.emplace_back(s, rng3);
+                                for (auto& p2 : s)
+                                    m_pos2move_ids[p2].push_back(n);
+                                for (auto& p2 : rng3)
+                                    m_pos2move_ids[p2].push_back(n);
+                            }
+                        }
+                }
+            }
         }
-    }
 }
 
 struct puz_state
