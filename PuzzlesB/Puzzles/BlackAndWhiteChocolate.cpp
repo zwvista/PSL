@@ -209,6 +209,7 @@ struct puz_state
     string m_cells;
     map<Position, vector<int>> m_matches;
     unsigned int m_distance = 0;
+    char m_ch = 'a';
 };
 
 puz_state::puz_state(const puz_game& g)
@@ -222,19 +223,14 @@ puz_state::puz_state(const puz_game& g)
 int puz_state::find_matches(bool init)
 {
     for (auto& [_1, move_ids] : m_matches) {
-//        boost::remove_erase_if(move_ids, [&](int id) {
-//            auto& [_2, is_cloud, rng, clouds, empties] = m_game->m_moves[id];
-//            return boost::algorithm::any_of(rng, [&](const Position& p2) {
-//                char ch = cells(p2);
-//                return ch != PUZ_SPACE && ch != (is_cloud ? PUZ_CLOUD : PUZ_EMPTY);
-//            }) || boost::algorithm::any_of(clouds, [&](const Position& p2) {
-//                char ch = cells(p2);
-//                return ch != PUZ_SPACE && ch != PUZ_CLOUD;
-//            }) || boost::algorithm::any_of(empties, [&](const Position& p2) {
-//                char ch = cells(p2);
-//                return ch != PUZ_SPACE && ch != PUZ_EMPTY;
-//            });
-//        });
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [white, black] = m_game->m_moves[id];
+            return !boost::algorithm::all_of(white, [&](const Position& p2) {
+                return cells(p2) == PUZ_SPACE;
+            }) || !boost::algorithm::all_of(black, [&](const Position& p2) {
+                return cells(p2) == PUZ_SPACE;
+            });
+        });
 
         if (!init)
             switch(move_ids.size()) {
@@ -249,13 +245,12 @@ int puz_state::find_matches(bool init)
 
 void puz_state::make_move2(int move_id)
 {
-//    auto& [_1, is_cloud, rng, clouds, empties] = m_game->m_moves[move_id];
-//    for (auto& p2 : rng)
-//        cells(p2) = is_cloud ? PUZ_CLOUD : PUZ_EMPTY, ++m_distance, m_matches.erase(p2);
-//    for (auto& p2 : clouds)
-//        cells(p2) = PUZ_CLOUD;
-//    for (auto& p2 : empties)
-//        cells(p2) = PUZ_EMPTY;
+    auto& [white, black] = m_game->m_moves[move_id];
+    for (auto& p2 : white)
+        cells(p2) = m_ch, ++m_distance, m_matches.erase(p2);
+    for (auto& p2 : black)
+        cells(p2) = m_ch, ++m_distance, m_matches.erase(p2);
+    ++m_ch;
 }
 
 bool puz_state::make_move(int move_id)
@@ -281,14 +276,21 @@ void puz_state::gen_children(list<puz_state>& children) const
 
 ostream& puz_state::dump(ostream& out) const
 {
-    for (int r = 0; r < rows(); ++r) {
-        for (int c = 0; c < cols(); ++c) {
+    auto f = [&](const Position& p1, const Position& p2) {
+        return !is_valid(p1) || !is_valid(p2) || cells(p1) != cells(p2);
+    };
+    for (int r = 0;; ++r) {
+        // draw horizontal lines
+        for (int c = 0; c < cols(); ++c)
+            out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
+        println(out);
+        if (r == rows()) break;
+        for (int c = 0;; ++c) {
             Position p(r, c);
-            out << cells(p);
-//            if (auto it = m_game->m_pos2num.find(p); it == m_game->m_pos2num.end())
-//                out << ". ";
-//            else
-//                out << it->second << ' ';
+            // draw vertical lines
+            out << (f(p, {r, c - 1}) ? '|' : ' ');
+            if (c == cols()) break;
+            out << cells({r, c});
         }
         println(out);
     }
