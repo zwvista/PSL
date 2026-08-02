@@ -139,20 +139,30 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                 for (auto& p : s)
                     rng.insert(p - p1);
                 set<set<Position>> rng_set;
-                for (int i = 0; i < 4; ++i) {
+                for (int i = 0; i < 8; ++i) {
+                    set<Position> rng2;
+                    for (auto& [r3, c3] : rng)
+                        switch (i) {
+                        case 0: // 恒等（0°）
+                            rng2.emplace(r3, c3); break;
+                        case 1: // 顺时针 90°
+                            rng2.emplace(c3, rs - 1 - r3); break;
+                        case 2: // 顺时针 180°
+                            rng2.emplace(rs - 1 - r3, cs - 1 - c3); break;
+                        case 3: // 顺时针 270°
+                            rng2.emplace(cs - 1 - c3, r3); break;
+                        case 4: // 水平镜像（左右翻转）
+                            rng2.emplace(r3, cs - 1 - c3); break;
+                        case 5: // 水平镜像 + 顺时针 90°（或垂直镜像+270°）
+                            rng2.emplace(cs - 1 - c3, rs - 1 - r3); break;
+                        case 6: // 垂直镜像（上下翻转）
+                            rng2.emplace(rs - 1 - r3, c3); break;
+                        case 7: // 垂直镜像 + 顺时针 90°（或水平镜像+270°）
+                            rng2.emplace(c3, r3); break;
+                        }
+                    if (!rng_set.insert(rng2).second) continue;
                     int rs2 = i % 2 == 0 ? rs : cs;
                     int cs2 = i % 2 == 0 ? cs : rs;
-                    set<Position> rng2;
-                    if (i == 0)
-                        rng2 = rng;
-                    else
-                        for (auto& [r3, c3] : rng)
-                            rng2.insert(
-                                i == 1 ? Position(c3, rs - 1 - r3) :
-                                i == 2 ? Position(rs - 1 - r3, cs - 1 - c3) :
-                                Position(cs - 1 - c3, r3)
-                            );
-                    if (!rng_set.insert(rng2).second) continue;
                     for (int r = r1 - rs2; r <= r2 + 1; ++r)
                         for (int c = c1 - cs2; c <= c2 + 1; ++c) {
                             Position p0(r, c);
@@ -285,7 +295,7 @@ ostream& puz_state::dump(ostream& out) const
     for (int r = 0;; ++r) {
         // draw horizontal lines
         for (int c = 0; c < cols(); ++c)
-            out << (f({r, c}, {r - 1, c}) ? " -" : "  ");
+            out << (f({r, c}, {r - 1, c}) ? " --" : "   ");
         println(out);
         if (r == rows()) break;
         for (int c = 0;; ++c) {
@@ -293,7 +303,7 @@ ostream& puz_state::dump(ostream& out) const
             // draw vertical lines
             out << (f(p, {r, c - 1}) ? '|' : ' ');
             if (c == cols()) break;
-            out << cells({r, c});
+            out << cells(p) << m_game->cells(p);
         }
         println(out);
     }
