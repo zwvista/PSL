@@ -160,7 +160,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                             for (auto& p : rng2)
                                 rng3.insert(p0 + p);
                             if (boost::algorithm::all_of(rng3, [&](const Position& p) {
-                                return is_valid(p) && cells(p) == PUZ_BLACK;
+                                if (!(is_valid(p) && cells(p) == PUZ_BLACK))
+                                    return false;
+                                int n = nums(p);
+                                return n == PUZ_UNKNOWN || n == s.size();
                             }) && boost::algorithm::any_of(rng3, [&](const Position& p) {
                                 return boost::algorithm::any_of(offset, [&](const Position& os) {
                                     return s.contains(p + os);
