@@ -5004,3 +5004,3914 @@ Number of vertices examined: 20
 0.02458 [s]
 
 Level 228
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|jW jB|kB|mW|nW nB|tB tB tB|sB|
+             -- --            
+|jW jB|kW|mW mW|pB|tB tB tW|sW|
+       --    --             --
+|jW jB|mW mW|pW pB|tB tW tW|rW|
+                              
+|jW jB|mW mW|pW pB|tW tW tW|rW|
+ -- --    --    -- -- -- --   
+|aW|mB mB|oW|pW|vW vW|uW|rW rW|
+             --    --         
+|aB|mB mB|oB|qW|vB|uW uW|rB rB|
+ --    -- --                --
+|mB mB|lW lB|qB|vB|uB uB|rB|iW|
+ --          -- --    --      
+|eW|mB|lW lB|bW bB|uB|hW|rB|iB|
+    -- -- -- -- -- --    -- --
+|eB|dW dB|cW cB|fB fW|hB|gW gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 29
+498.357 [s]
+
+Level 229
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW|hW hW|iW iB|bW bB|cB|
+                -- -- -- --   
+|aB aB aB|hW hB hB|jB|kW kB|cW|
+ -- -- --                   --
+|eB eW|hW hW hW hB|jW|kW kB|lB|
+ -- -- --          --         
+|dW|mB mB|hW hB hB hB|kW kB|lW|
+          -- --    -- -- -- --
+|dB|mB mB mB mW|hB|wW wW wW|fB|
+ -- -- --       --    --      
+|rB rW|nW|mW mW|oW|wB|pW|wW|fW|
+                         -- --
+|rB rW|nB|mW mW|oB|wB|pB|vW vW|
+       -- -- -- --    --    --
+|rB rW|tW|sW sW sW|wB wB|vB|gW|
+ -- --             -- --      
+|qB qW|tB|sB sB sB|uW uB|vB|gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 13
+0.06642 [s]
+
+Level 230
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|qW|sB sB sB|rB rB rB rB|
+ -- --                        
+|qW qW qW|sW sW sW|rW rW rW rW|
+ --       -- -- -- -- -- -- --
+|pW|qB qB qB|oW oW oW oW|bW bB|
+       -- --                  
+|pB|qB|oB oB oB oW oW oW|bW bB|
+ -- --             -- --      
+|cB cW|oB oB oB oB|dW dB|bW bB|
+ -- -- -- -- -- -- -- -- -- --
+|eB eB eW eW eW|hW hW|iW iB|jW|
+             --       -- --   
+|eB eB eW eW|gB|hW hB hB|kW|jB|
+ --    -- --    -- --       --
+|fW|eB|gW gB gB gB gB|hB|kB|lW|
+    --          -- -- -- --   
+|fB|gW gW gW gW|mB mW|nB nW|lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 205
+22.3186 [s]
+
+Level 231
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|kW|lB lW|rB rB rB rB|mB|aW aB|
+    -- --    --    --         
+|kB|rW rB rB|bW|rB|qB|mW|aW aB|
+ --                   -- -- --
+|rW rW rW rB|bB|rB|qW|cB cB cB|
+ -- --    -- -- -- --         
+|nB nW|rW|sW sB sB|oB|cW cW cW|
+ -- --       -- --    -- -- --
+|rW rW rW|sW|tW tB|oW|fB fB|eW|
+ -- --    -- -- -- --         
+|vB vW|rW|uW uB|pW pB|fW fW|eB|
+       -- -- -- -- -- -- -- --
+|vB vW|wW wW|hW hB hB hB|iB|dW|
+                   -- --      
+|vB vW|wB wB|hW hB|iW iB iB|dB|
+ -- -- -- --             -- --
+|gB gW|hW hW hW hB|iW iW|jW jB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 13
+1.01791 [s]
+
+Level 232
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB aB aB aB|cB cB|eB eW|fB|
+                      -- --   
+|aW aW aB aB aB|cW cW|dB dB|fW|
+       -- --    -- --       --
+|aW aW|bB bW|aB|iW iB|dW dW|gB|
+       -- --    -- -- -- --   
+|aW aW aW aW aB|jB|oW|kW kB|gW|
+ -- -- -- -- --       -- -- --
+|rW rW|qW qW qW|jW|oW oB oB|hB|
+ --             -- -- -- --   
+|lW|rB|qW qB qB qB|nW nW nW|hW|
+             -- --          --
+|lB|rB|qW qB|nW nW nW nW nW nW|
+ -- -- --                     
+|mW|sB sW|qB|nB nB nB nB nB nB|
+          -- --          -- --
+|mB|sB sW|pB pW|nB nB nB|tW tB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 13
+0.089976 [s]
+
+Level 233
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB aB aB|bW bB|pW pB|qB|jB|
+    -- -- -- -- -- -- --      
+|aW|cW cW|dW dB|oW oW oW|qB|jW|
+          -- --             --
+|aW|cB cW cW cW|oB oB oB|qB qB|
+ --    -- -- -- -- -- -- --   
+|cB cB|kW kW kW kW|sB|rW rB|qB|
+    --    --          -- --   
+|cB|eW|kB|fW|kW kW|sB sB|qW qB|
+             -- --          --
+|cB|eB|kB|fB|sW sB sB sB|qW|tB|
+ -- --    --          --      
+|gW gW|kB kB|sW sW sW|qW qW|tW|
+                   --    -- --
+|gB gB|kB kB|sW sW|nW|qW|iW iW|
+ -- -- -- -- -- --            
+|hB hW|lB lW|mB mW|nB|qW|iB iB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 108
+12.8156 [s]
+
+Level 234
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW|bW bB|gW gB|cW cB|dB|
+          -- -- -- --         
+|aB aB aB|rW|sW sB|tB|cW cB|dW|
+ -- -- --    -- --    -- -- --
+|eW|rW rW rW rW rW|tW|qW qW|pB|
+                -- --         
+|eB|rW rB rB rB|qW qW qW qW|pB|
+ --       -- --       -- --   
+|hB|rW rB|mB mW|qB qW|pW pB pB|
+          -- --               
+|hW|rB rB|qB qB qB qW|pW pW pW|
+ -- --    -- --       -- -- --
+|iB iW|rB|uW uW|qB qB|nW nB nB|
+ -- --                   -- --
+|fW fW|rB|uB uB|qB qB|nW|lW lW|
+       -- -- -- -- -- --      
+|fB fB|kB kW|jB jW|oB oW|lB lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 34
+10.9105 [s]
+
+Level 235
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|dW dW dW|rB rW|nW nB|tW tB|uB|
+                -- -- -- --   
+|dB dB dW|rB rW|sW sW sW sW|uW|
+    -- --                   --
+|dB|pW pB|rB rW|sW sB sB sB sB|
+                --    -- -- --
+|dB|pW pB|rB rW|oB|sB|aW aW aW|
+ --       -- --    --         
+|eW|pW pB|oB oB oB|gW|aB aB aB|
+    -- --       --    -- -- --
+|eB|oW oB oB oB|qW|gB|bW bB|cB|
+ --                -- -- --   
+|oW oW oW oB oB|qB|fW fB|hB|cW|
+          -- -- -- -- --    --
+|oW oW oW|jW jB|iW iB|hW hB hB|
+ -- --    -- -- -- --    -- --
+|mB mW|oW oW|kB kW|hW hW|lW lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 17
+0.090372 [s]
+
+Level 236
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cW cW cW|dW dB|eW eB|fW fB|
+    -- -- -- -- -- -- -- -- --
+|cB|pW pB|oW oB|gW gB|iB iB iB|
+                -- --         
+|cB|pW pB|oW oB|nW nW|iW iW iW|
+    -- -- -- --       -- -- --
+|cB|qW qW qW|nW nW nW|jW|hW hB|
+                -- --    -- --
+|cB|qB qB qB|nB|mW mB|jW jB jB|
+ -- -- -- --    -- -- -- -- --
+|sB sB sB sW|nB nB|lW lW|kB kB|
+ --                   --    --
+|tB|sB sW sW|nB nB|lB|kW kB|aW|
+    -- --    -- --            
+|tW|rB rW|sW|uW uW|lB|kW kB|aB|
+ -- -- -- --       --    -- --
+|vB vW|wB wW|uB uB|kW kW|bW bB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 31
+0.023571 [s]
+
+Level 237
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|gW gB gB gB|qW qB|jW jB|bB|aB|
+                   -- --      
+|gW gW gB gB|qW qB|rW rB|bB|aW|
+       -- --                --
+|gW gW|hW hB|qW qB|rW rB|bW bW|
+ -- --       -- -- -- -- -- --
+|iB iW|hW hB|tW tB|uB uB uB|vB|
+       -- --                  
+|iB iW|sW sW|tW tB|uW uW uW|vW|
+                   -- -- -- --
+|iB iW|sB sB|tW tB|nW nW nW|kB|
+ -- -- -- -- -- --            
+|lW lW|cW cB|pB pB|nB nB nB|kW|
+    -- -- --       -- -- -- --
+|lB|mW mB mB|pW pW|oW oB|fW fB|
+       -- -- -- --            
+|lB|mW|eW eB|dW dB|oW oB|fW fB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 26
+0.036787 [s]
+
+Level 238
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW aW aW|gW gB|fB fW|dB|
+                      -- --   
+|aB aB aW aW aW|gW gB|jB jB|dW|
+       -- -- -- -- --    -- --
+|aB aB|bW bB|hW hB|iW|jB|eW eB|
+       -- -- -- --            
+|aB aB|pB|lW lB|mW|iB|jB|eW eB|
+    --    -- --    --    -- --
+|aB|pW pB pB pB|mB|jW jB jB jW|
+             -- --            
+|aB|pW pW pW|nW nW|jW jW jW jW|
+ -- -- -- --    -- -- -- -- --
+|oB oB oW|nB nB|kW kW kW kW kW|
+    --    -- --             --
+|oB|qW|oW oW oW|kB kW kB kW|cW|
+       -- -- --               
+|oB|qB|rW rB|kB kB kB kB kB|cB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 24
+0.764315 [s]
+
+Level 239
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW|bW bB|cW cB|dW|hB hW|fW fB|
+    -- -- -- --               
+|aB|eW eW eW|dW dW|hB hW|fW fB|
+ --             -- -- --      
+|eB eB eB eW|dB|gW gB|iB|fW fB|
+ -- --          -- --         
+|wW wW|eB eW|dB dB|iW iB|fW fB|
+             -- --    -- -- --
+|wB wB|eB eW|jB jW|iW|mW mB|kB|
+ -- --    -- -- -- --         
+|xB xW|eB|lW lB lB lB|mW mB|kW|
+       --    --    -- -- -- --
+|xB xW|lW lW|nW|lB|oW oB|pW pW|
+ -- -- --       -- -- --      
+|qB qB qW|lW|nB|sW sB|rW|pB pB|
+ -- --    -- --          -- --
+|tB tW|qW|uB uW|sW sB|rB|vW vB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 2
+Number of vertices examined: 3
+0.014369 [s]
+
+Level 240
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|pW|sB|tB|iW iB|bW bB|cB|
+ -- --          -- -- -- --   
+|pW pW pW|sW|tB tB tB tB tB|cW|
+          --       -- -- -- --
+|pB pB pB|oB|tW tW|dW dW dW|eB|
+    -- --    --          --   
+|pB|nW nB|oB oB|tW|dB dW|fW|eW|
+ --                         --
+|nW nW nB|oW oW|tW|dB dB|fB|gB|
+ --       --          -- --   
+|kW|nW nB nB|oW|tW|dB|jW jB|gW|
+          -- --    -- -- -- --
+|kB|nW nB|uB uW|tW|rW rB|qW qW|
+ -- -- --       -- -- --    --
+|lW|mW mW|uB uW|vW vB vB|qB|hW|
+                   -- --      
+|lB|mB mB|uB uW|vW|wW wB|qB|hB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 14
+0.52579 [s]
+
+Level 241
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|cB|bW bB|qB|nW nB|oW oB|
+          -- --    -- -- -- --
+|aW aB|cW|qB qB qB qB|rW rB|tB|
+       -- --          -- --   
+|aW aB|pW pW|qW qW qW qW|tW tB|
+ -- --    -- -- --    --      
+|dW|pB pB|xW xB xB|qW|sW|tW tB|
+    -- --    -- -- --         
+|dB|fW fB|xW|yW yW yW|sB|tW tB|
+ -- -- -- --       -- --      
+|eB eW|jW|yB yB yB|wW wW|tW tB|
+ -- --    -- -- --            
+|gB|iB|jB|lB|mB mW|wB wB|tW tB|
+       --    -- -- -- --    --
+|gW|iB iW|lW|vW vW vW vW|tW|uW|
+ -- --    -- --          --   
+|hB hW|iW|kB kW|vB vB vB vB|uB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 16
+0.336812 [s]
+
+Level 242
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|eW eW|dW dB|fB|iW iB|aB|cB|bB|
+                              
+|eB eB|dW dB|fW|iW iB|aW|cB|bW|
+ -- --       -- -- -- --    --
+|dW dW dW dB dB dB|jB jB|cW cW|
+ -- --       -- --       -- --
+|gB gB|dW dB|pW pB|jB jB jB jB|
+       -- --             --   
+|gW gW|sB sW|pW pB|jW jW|kW|jB|
+ -- --       -- -- --       --
+|rW|sB sB sW sW|qW qB|jW|kB|lW|
+                -- --    --   
+|rB|sB sB sW sW|tW tW|jW jW|lB|
+ -- --       --             --
+|hB hW|sB sW|uW|tB tB|jW jW|mW|
+                -- -- -- --   
+|hB hW|sB sW|uB|oW oB|nW nB|mB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 6
+0.554146 [s]
+
+Level 243
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|jW jW|tW tW|fW fB|qW qW|aW aB|
+          -- -- --       -- --
+|jB jB|tW|sW sW sW|qW qW qB qB|
+ -- --                        
+|gB gW|tB|sB sB sB|qW qB qB qB|
+ -- --    -- -- -- -- -- -- --
+|hW|tB tB|rW rW rW rW|pW pB|bW|
+    -- --                     
+|hB|rB rB rB rB rW rW|pW pB|bB|
+ --       -- --             --
+|iW|rB rB|kW kB|rW rW|pW pB|cW|
+                -- -- -- --   
+|iB|rB rB|kW kB|lW lW|oW oB|cB|
+ -- -- --          -- -- -- --
+|dW dW dW|kW kB|lB|mW mW mW|nW|
+          -- --               
+|dB dB dB|eB eW|lB|mB mB mB|nB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 74
+1.04854 [s]
+
+Level 244
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|eW eB|sB sB|fW fB|gW gB|lB lB|
+             -- -- -- --      
+|eW eB|sW sW|tB tB tB|hB|lW lW|
+       -- --             -- --
+|eW eB|wW|vW|tW tW tW|hW|kW|mW|
+ -- --       -- -- -- --      
+|iW iW|wW|vW vB vB|qB qB|kW|mB|
+          -- -- --          --
+|iB iB|wW wW|uW uB|qW qW|kW kB|
+ -- --             -- --      
+|dW|wB wB wB|uW uB|oW oB|kW kB|
+    -- --          -- -- --   
+|dB|aW aW|wB|uW uB|rB|nW nB|kB|
+ --       -- -- --            
+|cW|aW aB|bW bB|rW rB|nW nB|kB|
+          -- --    -- -- -- --
+|cB|aW aB aB aB|rW|pW pB|jW jB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 31
+0.030366 [s]
+
+Level 245
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|bW bW|hW hB|dW dB|cB cB|
+ -- --       -- -- -- --      
+|eW eW|bB bB|iB|jW jB|fB|cW cW|
+       -- --    -- --    -- --
+|eB eB|kW kB|iW|nW|lB|fW|gB gB|
+ -- -- -- -- --       --      
+|oW oW oW|nW nW nW|lW|wB|gW gW|
+                -- --    -- --
+|oB oB oB|nB nB|wW wB wB wB wB|
+ -- -- --    --          -- --
+|pB pB pW|nB|wW wW wW wW|rW rB|
+ -- --       -- -- -- -- -- --
+|qW qW|pW|nB|xW xW xW xW|uB|sW|
+ --    -- --       -- --      
+|mW|qB|vB vW|xB xW|uW uB uB|sB|
+       -- --             -- --
+|mB|qB|xB xB xB xB|uW uW|tW tB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 36
+0.033387 [s]
+
+Level 246
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|jW jB|mW mW|lB|kW kB|dW dW|cB|
+          --    -- -- --      
+|jW jB|mB|lW lB lB lB lB|dW|cW|
+ -- --                      --
+|pB pW|mB|lW lW lW lW lB|dW dB|
+       -- -- -- --    -- --   
+|pB pW|nB nB nB nW|lW|eW eB|dB|
+       --          -- -- --   
+|pB pW|oW|nB nB nW nW nW|dB dB|
+ -- --       --       -- -- --
+|qB qW|oB|nB|iW|nW nW|fW fB fB|
+       -- --    -- --    -- --
+|qB qW|rW rW|iB|gW gB|fW|bW bB|
+ -- --       -- -- -- -- -- --
+|sB sW|rW rB|hW hB|aW aW aW aW|
+             -- --            
+|sB sW|rW rB rB rB|aB aB aB aB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 33
+0.854278 [s]
+
+Level 247
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|rW rW rW|qW qW|dW dB|fW|aW aB|
+                -- --    -- --
+|rB rB rB|qW qB qB|eB|fW fB fB|
+ -- -- --    --       -- -- --
+|sW sW sW|qW|pW|qB|eW|gW|hW hW|
+          --       --       --
+|sW sW sW sW|pB|qB|jB|gW|hB|iW|
+ -- --       -- --            
+|tB tW|sB sB sB sB|jW|gW|hB|iB|
+                -- --    -- --
+|tB tW|sB sB sB|gW gW gW|kB kB|
+ -- -- -- -- --               
+|bW|uB uW|lB lW|gB gW gW|kW kW|
+          -- --       -- -- --
+|bB|uB uW|gB gB gB gW|mW mB|nW|
+ -- -- -- --          -- --   
+|cB cW|oB oW|gB gB gB gB gB|nB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 5
+Number of vertices examined: 22
+0.072249 [s]
+
+Level 248
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cB|aW aW|eW eB|fB fB|bW bB|
+          -- -- --       -- --
+|cW cB|aB|dW dB|pB|fW fW|mB|jB|
+          -- --    -- --      
+|cW cB|aB|kW kW|pB|lB lW|mB|jW|
+       --          -- --    --
+|cW cB|gW|kB kB|pB pB pB|mB mB|
+ -- --    -- --    -- --      
+|uB uW|gB|pW pB pB|oW oB|mW mW|
+       --          -- -- --   
+|uB uW|tW|pW pW pW pW|nW nB|mW|
+ -- --    --    -- --         
+|tW tW tW tW|pW|rW rW|nW nB|mW|
+                   -- -- -- --
+|tB tB tB tB|pW|rB|sW sB|hW hB|
+ -- --    -- --               
+|iB iW|tB|qB qW|rB|sW sB|hW hB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 12
+1.00802 [s]
+
+Level 249
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cB|jB jB|kB|aW aB|lW|dW dB|
+                -- --    -- --
+|cW cB|jW jW|kW|lW lW lW lB|eW|
+ -- -- -- -- --               
+|fW fW fW fW|mB|lW lB lB lB|eB|
+    -- -- --    --    -- -- --
+|fB|gW|hW hB|mW|nW|lB|pW pB|oW|
+       -- -- --    -- -- --   
+|fB|gB|uB|tW tB|nW nB|oW oW oW|
+    --    -- -- --            
+|fB|uW uB uB|sW sB|nB|oB oB oB|
+          -- -- -- -- -- --   
+|fB|uW uW|vW vB|rW rB|qW qB|oB|
+ -- -- --       -- -- -- -- --
+|iW iW|vW vW vB vB|bW bW bW bW|
+                              
+|iB iB|vW vW vB vB|bB bB bB bB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 14
+0.027076 [s]
+
+Level 250
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|oW oW oW|pB pB|nB nB|cW cB|aB|
+                      -- --   
+|oB oB oW|pB pB|nW nW|mW mW|aW|
+    -- --       -- --       --
+|oB|qW qB|pB pW pW|mW mW mW|dB|
+                         --   
+|oB|qW qB|pW pW pW|mB mB|lW|dW|
+ -- -- -- -- -- --          --
+|rW rW rW|sB sW|lB|mB mB|lW lW|
+                      --      
+|rB rB rB|sB sW|lB|mB|lW lW lW|
+ -- -- --          --    --   
+|hB hB hB|sB sW|lB lB lB|kW|lW|
+          -- --       --      
+|hW hW hW|gB gW|lB lB|iW|kB|lW|
+ -- -- -- -- -- --       -- --
+|bB bW|eB eW|fB fW|lB|iB|jW jB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 35
+6.00515 [s]
+
+Level 251
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW aW|jB|kW kB|lW lB|bB|
+       -- --    -- -- -- --   
+|aB aW|mW mB|jW|rB|oW oB|pW|bW|
+             --    -- --    --
+|aB aB|mW mB|rB rB rB rB|pB|cB|
+    --       --          --   
+|aB|nW|mW mB|sW|rW rW rW rW|cW|
+       -- --    --    -- -- --
+|aB|nB|sW sW sW sW|rW|qW qB|dW|
+ -- --    -- -- -- -- -- --   
+|eW eW|sB|vW|uW uB|wW wW|dW dW|
+ --          -- --            
+|fW|eB|sB|vW vB vB|wB wW|dB dB|
+          -- -- --          --
+|fB|eB|sB sB|wB wB wB wW|dB|gW|
+ -- --    -- -- -- -- -- --   
+|hB hW|sB|tW tB|xW xB|iW iB|gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 45
+4.62693 [s]
+
+Level 252
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|iW iW iW|aW aB|jB|kW kB|lB|bB|
+          -- --    -- --      
+|iB iB iB|rW rB|jW|oB|lW lB|bW|
+ -- -- --       --          --
+|qW qW qW|rW rB|sB|oB|lW lB lB|
+                            --
+|qB qB qB|rW rB|sW|oB|lW lW|mW|
+ -- -- -- -- -- --    -- --   
+|fW fB|cW cB|tW tB|oW oW oW|mB|
+ -- --       -- -- -- -- -- --
+|eB|cW cW cB cB|uB uB|pW pB|nW|
+                      -- --   
+|eW|cW cW cB cB|uW uW|xB|vB|nB|
+ -- --       -- -- --       --
+|dB dW|cW cB|gW gB|xW xB|vW|hW|
+ -- --       -- --    -- --   
+|cW cW cW cB cB cB|xW|wW wB|hB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 10
+0.013862 [s]
+
+Level 253
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|bW bB|cW cB|oW oW oW|dB|
+       -- -- -- --            
+|aW aB|eB|fW fB|rB|oW oW oW|dW|
+          -- --          -- --
+|aW aB|eW|sB|rW rB|oW oB|pW pB|
+ -- -- --                     
+|gW|sW sB sB|rW rB|oW oB|pW pB|
+          --    -- --    -- --
+|gB|sW sB|tW|rW|qW qB|oB oB oB|
+ --          -- -- --         
+|sW sW sB|tB|nB nB|kW|oB oB oB|
+    -- -- --          -- -- --
+|sW|uW uB uB|nW nW|kB|lB lB lB|
+ --       -- -- -- --         
+|uW uW uB|mW mW mW mW|lW lW lW|
+ -- -- --          -- -- -- --
+|hB hW|mB mB mB mB|iW iB|jW jB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 1276
+0.10968 [s]
+
+Level 254
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW|lW lB lB|mW|bB|qW qW|kW kB|
+          --                  
+|aB|lW lB|mW mW|bW|qW qW|kW kB|
+ --             -- --         
+|lW lW lB|mB mB|rW rB|qW|kW kB|
+ -- -- --    -- -- --    -- --
+|cB|nW|oW|mB|sW sW sW|qW qB|dB|
+          --          --      
+|cW|nW|oB|fW|sB sB sB|uB|qB|dW|
+ --    --    -- -- --       --
+|nW nW nW|fB|tW tB|uW uB|qB qB|
+          --                  
+|nB nB nB|pB|tW tB|uW uB|qB qB|
+ --    --             -- -- --
+|eW|nB|pW pB|tW tB|uW|jW jW|gW|
+          -- -- -- --         
+|eB|nB|pW|hW hB|iW iB|jB jB|gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 30
+0.141694 [s]
+
+Level 255
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW|fB|eW eW eW|dB|bW bB|aW aB|
+                   -- -- -- --
+|cB|fB|eB eB eB|dW|uW uW uW|gB|
+ --    -- -- -- --    -- --   
+|fW fB|vW vW vW vW|uW|oW oB|gW|
+                --          --
+|fW fB|vB vW vW|uW uW|oW oB|jB|
+    --       --       -- --   
+|fW|hW|vB vB|wW|uB uB uB|mB|jW|
+                   -- --    --
+|fW|hB|vB vB|wB|uB|lW lB|mW|kB|
+ -- --    -- --    -- -- --   
+|iB iW|vB|rW|uB uB|sB|nW nB|kW|
+ -- -- --    -- --    -- -- --
+|pW|qW qW|rB|sW sB sB sB sB sB|
+          --             -- --
+|pB|qB qB|sW sW sW sW sW|tW tB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 65
+0.170382 [s]
+
+Level 256
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB aB|iW iB|wB|jB jB jB|kB|
+    -- -- -- --               
+|aW|uW uB uB|wB wB|jW jW jW|kW|
+ --    -- --       -- -- -- --
+|cW|uW|vW|wW wB wB wB|lW lB|mB|
+    --             -- -- --   
+|cB|vW vW|wW wW wW|nW nB|oB|mW|
+ --             -- -- --    --
+|bW|vB vW|wW wW|xW xW xW|oW|pB|
+          -- --          --   
+|bB|vB vB|qW qB|xW xB xB xB|pW|
+ --    -- -- -- --    -- -- --
+|eB|vB|dW dB dB dB|xB|tB tB|sB|
+    --          -- --         
+|eW|dW dW dB dB|gW gB|tW tW|sW|
+ --          -- -- -- -- -- --
+|dW dW dW dB|fW fB|hW hB|rW rB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 22
+1.63828 [s]
+
+Level 257
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW|hB|iW iB|jW jB|bW bB|
+             -- -- -- -- -- --
+|aB aB aB|hW|nB nB nB|tW|lB|cB|
+ -- -- -- --       --         
+|dW|eW eW eW|nB nB|tW tW|lB|cW|
+          --    --          --
+|dB|eB eW|nW nB|oW|tB tB|lW lW|
+ --                   -- -- --
+|fW|eB eB|nW nB|oB|tB|sB|kW kB|
+       --    -- -- --         
+|fB|eB|nW nW|mB|pB pB|sW|kW kB|
+ -- --             -- --      
+|qW|nW nW nW|mW|pB|rW rB|kW kB|
+    -- -- -- --    -- -- -- --
+|qB|uW uB|vW vW|pW pW|yW yB|gW|
+ -- -- --    -- --            
+|wB wW|vB vB|xW xB|pW|yW yB|gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 9
+0.128245 [s]
+
+Level 258
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|kW kB kB kB kB kB|nB nW|iW iB|
+                -- -- --      
+|kW kW kW kB kB|mW mB|oW|iW iB|
+                         -- --
+|kW kW kW kB kB|mW mB|oW oW|eW|
+    -- -- -- -- -- --         
+|kW|jW|lW lB lB lB|oW oW oW|eB|
+             -- --       -- --
+|kW|jB|lW lB|pW|oB oB oB|fW fW|
+ -- --          --            
+|lW lW lW lB|pB|qW|oB oB|fB fB|
+ -- -- -- -- --       -- -- --
+|bB bW|rW rW rW|qB|oB|gW|cW cB|
+ -- --          -- --         
+|aW|rW rW rW rB rB rB|gB|cW cB|
+    -- --          -- --      
+|aB|dB dW|rB rB rB|hW hB|cW cB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 133
+4.17107 [s]
+
+Level 259
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|bW bB|cB cB cB|dW dB|eW eB|fB|
+                -- -- -- --   
+|bW bB|cW cW cW|jB|kW kB|pW|fW|
+ -- -- -- -- --    -- --    --
+|aW aB|gW gW|jB jB jB|qW|pW pB|
+ -- --                        
+|hW hW|gB gB|jW jW jW|qB|pW pB|
+       -- -- --    -- --      
+|hB hB|iW iW iW|jW|wB|uB|pW pB|
+ -- --    -- -- --            
+|iB iB iB|wW wB wB wB|uW|pW pB|
+ -- -- --    -- -- -- --      
+|lB|vB vW|wW|xW xB|sW sB|pW pB|
+             -- -- -- -- --   
+|lW|vB vW|wW wW|tW tB|rW rB|pB|
+ --       -- -- -- -- -- -- --
+|vB vB vW vW|mW mB|nW nB|oW oB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 189
+0.620031 [s]
+
+Level 260
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cB|dW dW dW|eB|wW|fW fB|gB|
+                      -- --   
+|cW cB|dB dB dB|eW|wW wB wB|gW|
+ -- -- -- -- -- -- -- -- -- --
+|hB hW|pW|xW xW xB xB xB|vW vW|
+          --    -- --         
+|hB hW|pB|qW|xW|yB yW|xB|vB vB|
+       --       -- -- -- -- --
+|hB hW|oW|qB|xW|uW uW uW uW|mW|
+          -- --               
+|hB hW|oB|rW rW|uB uB uB uB|mB|
+ -- -- --    -- -- -- -- -- --
+|iW iW iW|rB|sW sB|tW tW tW|nW|
+             -- --            
+|iB iB iB|rB|lW|tB tB tB tW|nB|
+ -- -- -- --       -- -- -- --
+|jB jW|kB kW|lB|tB|bW bB|aW aB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 52
+0.075769 [s]
+
+Level 261
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|sW sW sW|qW qW|rW rB|bB|
+ -- --       --       -- --   
+|sW sW sW sW|oB|qW qW qB qB|bW|
+                --          --
+|sB sB sB sB|oW|nB|qW qB qB|cB|
+ -- --       --    -- --      
+|uB uW|sB sB sB|nW|tB|pW|qB|cW|
+       -- -- -- --       -- --
+|uB uW|tW tB tB tB tB|pB|dW dB|
+                --    --      
+|uB uW|tW tW tB|lW|tB tB|dW dB|
+ -- --    -- --       -- -- --
+|vB vW|tW|mB mW|lB|tB|gB gB gB|
+ -- --    -- -- -- --         
+|fW|tW tW tW tW|kW kB|gW gW gW|
+    -- --    -- -- -- -- -- --
+|fB|eB eW|tW|hW hB|jW jB|iW iB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 18
+0.154235 [s]
+
+Level 262
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW|wW wB|vB|fW|dB dW|eB|
+                      -- --   
+|aB aB aB|wW wB|vW|fW fB fB|eW|
+ -- -- --       -- -- -- -- --
+|gW|hB hW|wW wB|uB|xB xB xB xW|
+    -- -- -- --    -- --      
+|gB|sW sW sW|uW uB uB uB|xB xW|
+ --    -- --                  
+|iW|sB|yW yB|uW uW uW uB|xW xW|
+       -- -- -- --    -- -- --
+|iB|sB|tB tB tW|pW|uW|mW mB|lW|
+ --    -- --       -- -- --   
+|jW|sB|rB rW|tW|pB|nW nB|lW lW|
+    --       -- -- -- --    --
+|jB|rB rB rW rW|oW oB|lB lB|kW|
+ -- --       -- -- -- --      
+|bB bW|rB rW|qW qB|cB cW|lB|kB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 42
+0.28167 [s]
+
+Level 263
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|kW kB kB kB kB|oB|jW jB|mW mW|
+                   -- --      
+|kW kW kB kB kB|oB oB|mW mW mW|
+             --             --
+|kW kW kW kB|oW oB oB|mB mB|nW|
+       -- --                  
+|kW kW|rW rB|oW oW oB|mB mB|nB|
+ -- --             -- --    --
+|lB lW|rW rB|oW oW|pW pW|mB|bB|
+       -- -- --       -- --   
+|lB lW|qW qW qW|oW|pB|aW|bW bB|
+ -- --          --          --
+|gW|iB|qW qW qW qW|pB|aB|bW|cW|
+       --          -- -- --   
+|gB|iB iW|qB qB qB qB|eW eB|cB|
+ -- --             -- -- -- --
+|hB hW|iW|qB qB qB|fW fB|dW dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 46
+19.4879 [s]
+
+Level 264
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|bW bB|cW cB|dB|rW rW|oB oB oB|
+       -- --                  
+|bW bB|kB kB|dW|rW rW|oW oW oW|
+ -- --    -- --       -- -- --
+|kW kW kB|lW lW|rW rB rB rB|sB|
+ --    --    -- --       --   
+|jW|kW|lB lB|eW|qW|rB rB|tW|sW|
+    -- -- --       -- --    --
+|jB|iB iW|mW|eB|qW|uW uB|tB|wW|
+ --          --    -- -- --   
+|gW|iB iW|mB|qW qW qW|vW|wW wW|
+          --       --         
+|gB|iB iW|qB qB qB|vW vW|wB wB|
+ -- -- -- --    --          --
+|fW|hB hW|pW|qB|nW|vB vB|wB|aW|
+                      -- --   
+|fB|hB hW|pB|qB|nB|vB|xW xB|aB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 65
+0.050039 [s]
+
+Level 265
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cW cW cW cW cW|bW bB|aW aB|
+                   -- -- -- --
+|cB cB cB cB cB cB|mB|iB iB iB|
+ -- -- -- -- -- --            
+|fB fB fW|mW mW mW mB|iW iW iW|
+ -- --    -- --       -- -- --
+|gB gW|fW|eW eW|mW mB mB mB|hW|
+ -- -- -- --       -- -- --   
+|dW dW dW dW|eB|mW|sW|nW nB|hB|
+                --    -- -- --
+|dB dB dB dB|eB|sW sW sW sW|oW|
+ -- -- -- -- --          --   
+|jW jW|lB lW|sB sB sB sB|tW|oB|
+ --    -- -- -- --    --    --
+|kW|jB|rW rW rW rW|sB|rB|tB|pW|
+       -- --       --    --   
+|kB|jB|qW qB|rW rB rB rB rB|pB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 32
+0.231371 [s]
+
+Level 266
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW aW aW aW|dW dB|eB|bB|
+                              
+|aB aB aB aB aB aB|dW dB|eB|bW|
+ -- -- -- -- -- -- -- --    --
+|hW|tW tW tW|gW gB|eB eB eB|cB|
+    --       -- --            
+|hB|uW|tB tW tW tW|eW eW eW|cW|
+ --       -- -- -- -- --    --
+|rB|uB|tB|sW sW|nW nW nW|eW|fB|
+    --                        
+|rW|tB tB|sB sW|nW nB nB|eW|fW|
+ --    --    -- -- --    -- --
+|qB|tB|sB sB|oW oB|lW|nB|iW iW|
+       -- -- -- --          --
+|qW|tB|pW pW pW pW|lB|nB|iB|jW|
+ -- --       -- -- -- --      
+|pB pB pB pB|mW mB|kW kB|iB|jB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 950
+56.885 [s]
+
+Level 267
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cW|vB vB|aW aB|pB pB|bW bB|
+    --    -- -- --            
+|cB|dW|vW|wW wB wB|pB pB|bW bB|
+             -- --    -- -- --
+|cB|dB|vW|wW|uW uW|pB|qW qB|rB|
+ -- -- -- --                  
+|iB|jB|uB uB uB uW|pB|qW qB|rW|
+       -- --          -- -- --
+|iW|jB jB jW|uB uW|pW pW pW pW|
+ -- --       -- -- -- --      
+|hW hW|jB jW jW|eW eB|sW|pW pW|
+          --    -- --    -- --
+|hB hB|jB|kW|jW|lW lW|sB|tW tW|
+ -- --                --      
+|fW|jB jB|kB|jW|lB lB|nW|tB tB|
+    -- -- --    -- --    -- --
+|fB|mB mW|jW jW|gW gB|nB|oW oB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 11
+0.065389 [s]
+
+Level 268
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW|eW eB|fW fB|lB lB|iW iB|gB|
+    -- -- -- --               
+|aB|uW|mW mB|nB|lB lB|iW iB|gW|
+ --    -- --          -- -- --
+|uW uW uW uW|nW|lB lW lW|hW hW|
+    -- -- -- --               
+|uB|vW vB|pW pW|lW lW lW|hB hB|
+    -- --    -- -- -- -- -- --
+|uB uB|pB pB|oW oB oB oB|qW qW|
+    -- -- --    --    --    --
+|uB|tW|oW oW oW|rW|oB|qW qW|sW|
+       -- --                  
+|uB|tB|kB kW|oW|rB|oB|qB qB|sB|
+ -- --       -- -- --    -- --
+|bW bW|kB kW|jW jW|qB qB|dW dW|
+                   -- --      
+|bB bB|kB kW|jB jB|cW cB|dB dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 187
+3.42418 [s]
+
+Level 269
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|mW mB mB mB mB|bB bB bB bB|aB|
+          --                  
+|mW mW mB|lW|mB|bW bW bW bW|aW|
+    -- --    -- -- -- -- -- --
+|mW|nW nB|lB|qW qW qW|rW rW|hB|
+    -- -- --                  
+|mW mW|oW oW|qB qB qW|rB rB|hW|
+ -- --          -- -- -- -- --
+|oB oB oB oW|qB|sW sB sB sB|iB|
+ -- --             -- -- --   
+|dW dW|oB oW|qB|sW|tW tB|pB|iW|
+       -- -- --    -- --    --
+|dB dB|fW|eW eW|sW|eB|pW pB|kB|
+ -- --          --            
+|cW cW|fB|eW eB eB eB|pW pB|kW|
+       --       -- --    -- --
+|cB cB|eW eW eB|gW gB|pW|jW jB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 17
+0.036751 [s]
+
+Level 270
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cB|iW iW iW|hW hB|pW pB|qB|
+                -- -- -- --   
+|cW cB|iW iW iW iW|oW|xW xW|qW|
+ -- --       -- --          --
+|dW dW|iB iB|jW jW|oB|xW xB xB|
+ --                -- --    --
+|eW|dB|iB iB|jB jB|nW|vW|xB|rW|
+             -- --       --   
+|eB|dB|iB iB|sW sB|nB|vW vW|rB|
+ -- -- --          --       --
+|fW|kW kW|iB|sW sB|vW vW vW|wW|
+    --    --                  
+|fB|lW|kB|tW|sW sB|vB vB vB|wB|
+ --          -- --       -- --
+|aW|lB|kB|tB|uW uW|vB vB|bW bB|
+    -- -- --    -- --         
+|aB|mB mW|uB uB|gB gW|vB|bW bB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 351
+18.754 [s]
+
+Level 271
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|mW mB|fW fB|nW|gB gB|bB|
+ -- --       -- --            
+|cW|mW mW mB mB|nW nW|gW gW|bW|
+                      -- -- --
+|cB|mW mW mB mB|nB nB|tB tB|hB|
+ -- --       --    --         
+|lB lW|mW mB|oW|nB|tW tB tB|hW|
+                --       -- --
+|lB lW|mW mB|oB|rW|tW tB|uB uB|
+ -- -- -- -- --             --
+|jB jW|pB pW|sW|rB|tW tB|uB|iW|
+       -- --    --            
+|jB jW|qW|sB sW|tW tW tB|uB|iB|
+             --       --    --
+|jB jW|qB|sB|uW|tW tW|uW uB uB|
+ -- -- -- --    -- --    -- --
+|dB dW|kB kW|uW uW uW uW|eW eB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 421
+1.36174 [s]
+
+Level 272
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|bW|aW aB aB aB|dW|eW eB|sW sB|
+          -- --    -- --      
+|bB|aW aB|fW fB|dW dB dB|sW sB|
+ --    -- -- -- -- -- --      
+|aW aW|gW gW|hW hB|cB|rB|sW sB|
+ -- --                   -- --
+|iB iW|gB gW|hW hB|cW|rB rB rB|
+ -- --    -- -- -- --         
+|jW|gB gB|nW nB|oB oB|rB rB rW|
+    -- -- -- --               
+|jB|pW pW pW pW|oW oW|rB rW rW|
+ --             -- --         
+|pB pB pB pB pW pW pW|rW rW rW|
+ -- -- --          -- -- --   
+|lB lB lW|pB pB pB|qW qW qW|rW|
+ -- --    -- -- --       -- --
+|kB kW|lW|tB tW|qB qB qB|mW mB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 15
+0.042425 [s]
+
+Level 273
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|iW iW iW|bW bB|oB oW|eB|
+ -- --    -- -- -- -- -- --   
+|iB iB iB|jW jW jW|kB|pB|nW|eW|
+ -- -- --       --          --
+|lB lW|jB jB jB|kW kB|pW|nW nB|
+ -- -- -- -- --    -- --      
+|vB|uB uW|tW tW|kW|mW mB|nW nB|
+    -- --       -- -- -- --   
+|vW|wW|tW tW tB|rW rB|qW qB|nB|
+ --    -- --    -- -- -- -- --
+|zW|wB|yW yW|tB tB|sW sW sW|dW|
+    --       --               
+|zW zW|yB yB|xW|tB|sB sB sB|dB|
+       -- --    -- -- -- -- --
+|zW zB zB zB|xB|hW hB|cW cW cW|
+ -- --    -- --               
+|fB fW|zB|gW gB|hW hB|cB cB cB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 92
+0.142013 [s]
+
+Level 274
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|oW oB|gB|fW fB|eW eB|dW dW|cB|
+          -- -- -- -- --      
+|oW oB|gW|hB|iW iB|jB jW|dW|cW|
+       --    -- --          --
+|oW oB|pB|hW|kB kB|jB jW|dW dB|
+          --       -- --      
+|oW oB|pW|kB kB kB kB kB|dW dB|
+ -- -- -- --             --   
+|nW nW nW nW|kW kW kW kW kW|dB|
+    -- -- -- --       -- --   
+|nB|qW qB qB qB|kW kW|lW|dB dB|
+       -- -- -- -- --    -- --
+|nB|qW|rW|sW sB|tW tB|lB|mW mW|
+                -- -- --    --
+|nB|qW|rB|sW sB|uW uW|mB mB|bW|
+    -- --             -- --   
+|nB|vW vB|sW sB|uB uB|aW aB|bB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 38
+0.03153 [s]
+
+Level 275
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|dW dB|eB eW|tB tB|rB rB|qB|aB|
+       -- --                  
+|dW dB|tW tB tB tB|rW rW|qB|aW|
+             --    -- --    --
+|dW dB|tW tW|uW|tB tB|qW qW|hW|
+ -- --          -- -- -- --   
+|vW|tW tW tW|uB|sW sB sB|hW hW|
+       -- -- --    -- --      
+|vB|tW|pW|kB kW|sW|hW hW hW hW|
+ -- --    -- -- --       -- --
+|wW wW|pB|lW|hB hB hB hB|fW fB|
+       --          -- -- -- --
+|wW wB wB|lB|hB hB|gW gW gW|bW|
+ --    -- --    --            
+|oW|wB|mB mW|hB|gB gB gB gW|bB|
+    -- -- -- --    -- -- -- --
+|oB|nB nW|iB iW|gB|jW jB|cW cB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 18
+0.122711 [s]
+
+Level 276
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB aB aB|hW hB|bW bB|mW|cB|
+    -- -- -- -- -- -- --      
+|aW|dW|eW eB|iB|jW jB|sW|mW|cW|
+       -- --    -- --       --
+|aW|dB|nW nW|iW|uB uB|sW|mW mB|
+ -- --       --    --         
+|fB fW|nB nW|uB uB|sW sW|mW mB|
+ -- --    --          -- --   
+|oB|nB nB|uW uB uB|sB|tW tB|mB|
+    -- --    -- --    -- --   
+|oW|uW uW uW|vW vB|sB sB sB|mB|
+ --       -- -- -- -- -- -- --
+|pB|uW uW|wW wB|rW rB|qB qB qB|
+    -- --       -- --         
+|pW|wW wW wW wB wB wB|qW qW qW|
+ -- --             -- -- -- --
+|kB kW|wW wW wB wB|lW lB|gW gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 72
+0.850128 [s]
+
+Level 277
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|mW mW mW mW|nW nB nB nB|aW aB|
+                   -- -- -- --
+|mB mB mB mB|nW nB|jW jW jW jW|
+ -- -- -- --                  
+|eW|pW pW pW|nW nW|jB jW jW jW|
+    -- --    -- --          --
+|eB|oW oB|pB pB pB|jB jB jW|kW|
+ --       -- -- --            
+|oW oW oB oB|iW iB|jB jB jB|kB|
+                         -- --
+|oW oW oB oB|iW iB|jB jB|gW gB|
+ -- -- -- --       -- --      
+|cB|lB lW|iW iW iB iB|hW|gW gB|
+                              
+|cW|lB lW|iW iW iB iB|hB|gW gB|
+ -- -- --    -- --    -- -- --
+|dB dW|iW iW|bW bB|iB iB|fW fB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 19
+0.053379 [s]
+
+Level 278
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW|dB dB dB|jB jB jB|bB|
+                              
+|aB aB aW|dW dW dW|jB jB jB|bW|
+    -- -- -- -- -- --       --
+|aB|gW gB|fB|eW eB|nB|jB jW jW|
+             -- --            
+|aB|gW gB|fW|oB|nB nB|jW jW jW|
+ -- -- -- --          --      
+|pB pB pW pW|oW|nB nB nB|jW jW|
+ --       -- --    -- -- -- --
+|cB|pB pW|nW nB nB|hW hW hW|iW|
+                              
+|cW|pB pW|nW nW nW|hB hB hB|iB|
+ --       --       -- -- -- --
+|pB pB pW pW|nW nW nW|lW lW|kW|
+    -- --       -- --         
+|pB|qB qW|pW|nW|mW mB|lB lB|kB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 115
+2.56508 [s]
+
+Level 279
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|qW qW|pW pW pW|cB cW|dB dW|eB|
+    --    -- -- -- -- -- --   
+|qB|gW|pW|rW rB|sB|fB fB fB|eW|
+          -- --    --       --
+|qB|gB|pW pW pW|sW|hB|fW fW fW|
+ -- --       -- --    -- -- --
+|pB|tB|pB pW|iB|mB|hW|oB|nW nB|
+                   --    -- --
+|pB|tW|pB pB|iB|mW|oB oB oB oW|
+    --    --    -- -- --      
+|pB pB pB|iW iB iB iB iB|oW oW|
+ -- -- --       -- -- -- --   
+|iW iW iW iW iB|kW kB|uW uW|oW|
+ -- -- --    -- -- --    -- --
+|aW|lB lW|iW|jW jB|bW|uB|vW vB|
+                              
+|aB|lB lW|iW|jW jB|bB|uB|vW vB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 20
+0.036172 [s]
+
+Level 280
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|gW gW|bW bB|cW cB|dW dB|
+          -- -- -- -- -- -- --
+|aW aB|gW|fW fB|eW eB|kW kB kB|
+          -- -- -- --    --   
+|aW aB|gB gB|hW hB|kW kW|lW|kB|
+          -- -- -- -- --    --
+|aW aB|gB|iW|sB|nW nB|oW|lB|mW|
+       --       -- --    --   
+|aW aB|jW|iB|sB sB|pW|oB|xW|mB|
+ -- --    --    --    --    --
+|qB qW|jB|sW sB|tW|pB|wB|xW xB|
+       --          --    --   
+|qB qW|sW sW sW|tB|wW wB wB|xB|
+       -- -- -- --          --
+|qB qW|rW rW rW|wW wW wB wB|uW|
+                      -- --   
+|qB qW|rB rB rB|wW wW|vB vW|uB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 1014
+0.043495 [s]
+
+Level 281
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|mW mB|eW eB|fW fB|qB qW|rW rB|
+       -- -- -- -- -- --      
+|mW mB|nB|oB oB|pB pB pB|rW rB|
+                              
+|mW mB|nB|oW oW|pW pW pW|rW rB|
+          -- -- -- -- -- -- --
+|mW mB|nW nW|jW jB|hW hW hW hW|
+       -- --          -- --   
+|mW mB|kW kB|jW jB|hB|gW gW|hW|
+ -- --                --      
+|lW lB|kW kB|jW jB|hB|iW|gB|hW|
+                            --
+|lW lB|kW kB|jW jB|hB|iB|gB|cW|
+       -- -- -- --    -- --   
+|lW lB|bB bB bB bW|hB hB hB|cB|
+       -- --       -- -- -- --
+|lW lB|aB aW|bB bW bW bW|dW dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 51
+0.139832 [s]
+
+Level 282
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|qW qB|hW hB|bW bB|aB aB aB aB|
+       -- --                  
+|qW qB|pB|mB|bW bB|aW aW aW aW|
+             -- -- -- -- -- --
+|qW qB|pW|mB mB mB mB|iB iW|kB|
+       --             -- --   
+|qW qB|rB|mW mW mB mB|jB|kB kB|
+          --    -- --         
+|qW qB|rW|sB|mW|nW nB|jW|kB kB|
+       --       -- -- --    --
+|qW qB|sW sB|mW mW|kW kB kB|cW|
+                              
+|qW qB|sW sB|mW mW|kW kW kW|cB|
+ -- --    -- -- -- --       --
+|tW tW|sW|oW oB|lW lB|kW kW kW|
+       -- -- -- -- -- -- -- --
+|tB tB|gW gB|fW fB|eW eB|dW dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 47
+0.48034 [s]
+
+Level 283
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB aB|mW|lW lB|hW hB|gW gB|
+    -- --    -- -- -- -- -- --
+|aW|mW mW mW|sB sB sB|tW tW|fB|
+ --    -- --                  
+|dW|mB|nW nB|sW sW sW|tW tB|fW|
+             -- -- --       --
+|dB|mB|nW nB|oW oB|uW|tW tB|eB|
+ --    -- --                  
+|mB mB|pW pB|oW oB|uW|tW tB|eW|
+ -- -- -- -- -- --    --    --
+|rB rB|qW qW qW|iB|uW uB|tB tB|
+                   --    -- --
+|rW rW|qW qB qB|iW|wB|uB|jW jW|
+ -- -- --    -- --          --
+|bW|cB cW|qB|wW wB wB|uB|jB|kW|
+                   -- --      
+|bB|cB cW|qB|wW wW|vW vB|jB|kB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 793
+0.263505 [s]
+
+Level 284
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|fW fB fB fB|tB|iW iB|aW aB|bB|
+    -- -- --          -- --   
+|fW|gW gW|tW tB|iW iB|hW hW|bW|
+                -- --    -- --
+|fW|gB gB|tW tB tB|hW hW|cW cB|
+ -- -- --    -- --       -- --
+|qB qW|tW tW|kW|hB hB hW|jW jW|
+ -- -- -- --    --            
+|pB pB pW|lW|kB|mW|hB hB|jB jB|
+ -- --       --       -- -- --
+|rB rW|pW|lB|nW|mB|hB|uW uW uW|
+ -- -- -- --    -- --         
+|sW sW|oB oW|nB|wW wB|uB uB uB|
+ --    -- -- -- -- -- -- -- --
+|dW|sB|yW yW yW yW|xW|vW vB vB|
+                         -- --
+|dB|sB|yB yB yB yB|xB|vW|eW eB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 7
+Number of vertices examined: 9
+0.010955 [s]
+
+Level 285
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|zW zW|yW|bW bB|aW aB|fB|gW gB|
+    --    -- -- -- --    -- --
+|zB|yW yW yW|cW cB|dB|fB fB fB|
+       -- --          --      
+|zB|yB|xW xB|cW cB|dW|hW|fW fW|
+ --    -- -- -- -- --    --   
+|vW|yB yB|wB wB|jW jB|hW hB|fW|
+       --    -- -- -- --      
+|vB|yB|wW wB|lW lB|iW iB|hB|fW|
+ -- --    -- -- -- -- -- -- --
+|uW|wW wW|nW nB|kW kB|eW eB|mB|
+    -- -- -- -- -- -- -- --   
+|uB|tW tW tW|qW qW qW|oW oW|mW|
+ --                --    -- --
+|tB tB tB tW|qB qW|rW|oB|pW pB|
+    -- -- --                  
+|tB|sB sW|qB qB qB|rB|oB|pW pB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 13
+0.054497 [s]
+
+Level 286
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|fW fW fW fW fW fW fW|qW|aW aB|
+                         -- --
+|fB fB fB fB fB fB fB|qW qW qB|
+ -- -- -- -- -- -- --         
+|gB gW|hW hW hW|iW iB|qW qB qB|
+                      -- --   
+|gB gW|hB hB hB|iW iB|pW pB|qB|
+       -- -- -- -- --       --
+|gB gW|kW kB|lW|jW jB|pW pB|dW|
+                              
+|gB gW|kW kB|lB|jW jB|pW pB|dB|
+ -- -- -- -- --       -- -- --
+|eB eW|jW jW jW jW jB jB jB jB|
+       -- -- --       -- -- --
+|eB eW|mW mB mB|jW jB|nW nB nB|
+ -- --    -- --          -- --
+|bB bW|mW|oW oB|jW jB|nW|cW cB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 19
+5.15403 [s]
+
+Level 287
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|iW iB|jW jB|kW kB|lW lB|
+       -- -- -- -- -- --      
+|aW aB|rW|uW uB|nB|mW mB|lW lB|
+ -- --                        
+|rB rW rW|uW uB|nW|mW mB|lW lB|
+       -- -- -- --       -- --
+|rB rB|tW tW|vW vB|mW mB|xB|qB|
+ -- --    --                  
+|sB sW|tB|oW|vW vB|mW mB|xB|qW|
+             -- -- -- --    --
+|sB sW|tB|oB|pW|wW wB wB|xB xB|
+ -- -- -- --       -- --      
+|bB|eB|fB fW|pB|wW|xW xB xB xB|
+       -- -- -- --    -- --   
+|bW|eB eW|xW xW xW xW|hW hB|xB|
+ -- --    -- --       -- -- --
+|cB cW|eW|dB dW|xW xW xW|gW gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 16
+0.7316 [s]
+
+Level 288
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|bW bB bB bB|aW aB|wB|sW|cW cB|
+       -- -- -- --       -- --
+|bW bB|fW|wW wB wB wB|sW sB sB|
+             -- -- -- -- -- --
+|bW bW|fB|wW|xW xB|qW qB|rW rB|
+ -- -- --    -- -- -- -- -- --
+|dW|eB eW|wW wW|uW uW uW uW|tB|
+    -- -- -- --               
+|dB|gW|iB iW|uB uB uB uB uW|tB|
+ --    -- -- -- -- --    --   
+|hW|gB|jW jW jW|vB vW|uB|tW tB|
+    --          -- -- --      
+|hB|jB jB jB jW jW|mB mW|tW tB|
+ --    -- -- -- -- -- --    --
+|jB jB|kB kW|nB nW|pW pW|tW|oW|
+ -- --                        
+|lB lW|kB kW|nB nW|pB pB|tW|oB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 1649
+0.713948 [s]
+
+Level 289
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|gW gB|hW hB|vB|iB iB iB|
+ -- -- -- -- -- --            
+|bW|jW jB|kW kB|vW vB|iW iW iW|
+                      -- -- --
+|bB|jW jB|kW kB|vW vB vB|uB|nB|
+ -- -- -- -- --    -- --      
+|cB cW|rB rW|vW vW|uW uB uB|nW|
+ -- --       -- --          --
+|sB sB|rB rW|uW uW uW uW uB uB|
+       -- --       -- --      
+|sB sB sW|uW uW uW|oB oW|uB uB|
+    --    -- -- -- -- -- --   
+|sB|lW|sW sW|tW tW tW|qB qW|uB|
+ --                   -- -- --
+|dW|lB|sW sW|tW tB tB tB|pW pB|
+    -- -- -- -- -- --         
+|dB|eB eW|fB fW|mB mW|tB|pW pB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 163
+149.334 [s]
+
+Level 290
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|eW eW eW eW eW eW|mW mB|bW bB|
+                   -- -- -- --
+|eB eB eB eB eB eB|lW lB lB|fW|
+ -- -- -- -- -- --    -- --   
+|cB cW|nB nW|gB gW|lW|fW fW fW|
+ -- --             --       --
+|sB sB|nB nW|gB gW|fW fW fW|hW|
+       -- -- -- --       --   
+|sW sW|rW|iB iW|fB fB fB|jW|hB|
+ -- --    -- --       --    --
+|oW|rW rW rW|fB fB fB|kW|jB|pW|
+                -- --    --   
+|oB|rW rW rB|fB|dW dW|kB|pW pW|
+ --          --       --    --
+|tW|rW rB rB rB|dB dB|pB pB|qW|
+    -- --       -- -- --      
+|tB|uB uW|rB rB rB|aW aB|pB|qB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 60
+0.177178 [s]
+
+Level 291
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|sW sB sB sB sB|rB|cW cB|aW aB|
+          --       -- -- -- --
+|sW sW sB|tW|sB|rW|wW wW|dB dB|
+    -- --    -- --            
+|sW|uW uB|tB|wW wW wW wW|dW dW|
+    -- -- --          -- -- --
+|sW sW|vW|wB wB wB wB|fW fB|eW|
+ -- --          -- -- -- --   
+|iB iW|vB|wB wB|qW qW|jB|gW|eB|
+ -- -- -- -- --    --       --
+|bW|pB|oW oW oW|qB|jW jB|gB|hW|
+       -- --             --   
+|bB|pB pB pW|oB|qB|jW jB jB|hB|
+ -- --          --          --
+|mB mW|pW pW|oB|jW jW jB jB|kW|
+       -- --          -- --   
+|mB mW|nB nW|oB|jW jW|lW lB|kB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 55
+0.027335 [s]
+
+Level 292
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW|oW oB oB oB|mW|lB|kW|bW bB|
+          -- --          -- --
+|aB|oW oB|mW mW mW|lB|kW kB kB|
+ --                   -- -- --
+|nW|oW oW|mB mW mW|lW lW|jW jB|
+    -- --       -- -- --      
+|nB|mB mB mB mW|iW iB|hW|jW jB|
+ -- --          -- --    -- --
+|gB gW|mB mB mB|hW hW hW hW hW|
+       -- -- --               
+|gB gW|eW eW eW|hB hB hB hB hB|
+                -- --    -- --
+|gB gW|eB eW eW|fW fB|hB|cW cB|
+                -- -- --      
+|gB gW|eB eB eW|dW dW dW|cW cB|
+                              
+|gB gW|eB eB eB|dB dB dB|cW cB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 12
+1.36389 [s]
+
+Level 293
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|oW oB|pB pB pB|yB|cW cB|bW bB|
+             --    -- -- -- --
+|oW oB|pW pB|yW yB yB yB|xB|aW|
+ -- --          -- -- --      
+|pW pW pW pB|yW|xB xB xB xB|aB|
+ -- --    --                --
+|qW qW|pW|yW yW|xW xW xW xW|gB|
+ --    -- -- -- -- -- --      
+|rW|qB|sW sB|tW tB|wW wB|xW|gW|
+             -- -- -- -- -- --
+|rB|qB|sW sB|hW|vW vB vB|iW iB|
+ -- -- -- --       -- -- -- --
+|dW|eB eW|lB|hB|vW|uW uB uB|jW|
+    -- --    -- --    --      
+|dB|lB lB lB lW|uW uW|nW|uB|jB|
+ -- --          -- --    -- --
+|fB fW|lW lW lW|mW mB|nB|kW kB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 55
+39.7515 [s]
+
+Level 294
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|jW jB jB jB jB|cW cB|aW aB|bB|
+    -- -- -- -- -- -- -- --   
+|jW|dW dB|kW|iW iB|fW fB|eB|bW|
+    -- --    -- -- -- --    --
+|jW|kW kW kW kW|lW lB|eW eB eB|
+                              
+|jW|kB kB kB kB|lW lB|eW eW eB|
+ -- --    -- -- -- -- --    --
+|mB mW|kB|yW yW yW|gW gB|eW|hW|
+ -- -- --    -- -- -- -- --   
+|nW|oB oW|yB|xW xB xB|uW uB|hB|
+    -- --          --       --
+|nB|qW qW|yB|xW xB|wW|uW uB|tB|
+ -- --                -- --   
+|pB pW|qB|yB|xW xB|wB|vW vB|tW|
+          --       -- -- -- --
+|pB pW|qB|xW xW xB|rW rB|sW sB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 70
+0.085996 [s]
+
+Level 295
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cB cB|mW mB|lB lW|hB hW|aB|
+    -- -- -- -- -- -- -- --   
+|cW|uW uW uW|qW qW|kW kB|gW|aW|
+ --    -- --    -- -- --    --
+|dW|uB|vW|qB qB|rW rB|jB|gW gB|
+          -- -- -- --    --   
+|dB|uB|vB|oB|pW pB|wB|jW|iB|gB|
+ --    --    -- --    --    --
+|eW|uB|oW oB oB|wW wB wB|iW|fW|
+    --       --          --   
+|eB|oW oW oB|wW wW wB wB|yW|fB|
+ -- --    --       -- --    --
+|nB nW|oW|sB|wW wW|yW yW yW yW|
+       --    -- --       -- --
+|nB nW|sW sB|yB yB yB yB|xW xB|
+          -- --    -- --      
+|nB nW|sW|tW tB|yB|bW bB|xW xB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 22238
+1.07799 [s]
+
+Level 296
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|rW rB|sW sW sW sW|pB pB|aW aB|
+          --             -- --
+|rW rB|sB|cW|sW sW|pW pW|oB|bW|
+             -- -- -- --      
+|rW rB|sB|cB|vW vW vW|oW oB|bB|
+          --                --
+|rW rB|sB sB|vB vB vB|oW oB|dW|
+             -- -- --    --   
+|rW rB|sB sB|wW wB|lW|oW|kW|dB|
+       -- -- -- --    --    --
+|rW rB|uW uB|xW xW|lB|fW|kB|eW|
+ -- -- -- --       --    --   
+|nW|tB tW|xB xB xW|fW fW|jB|eB|
+    -- -- --    --          --
+|nB|qB qB qW|xB|gW|fB fB|jW|iW|
+ -- --       --       -- --   
+|mB mW|qB qW qW|gB|fB|hW hB|iB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 2184
+0.527158 [s]
+
+Level 297
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cW cW cW|dB dW|nB nB nB nB|
+             -- -- --         
+|cB cB cB cB|iW|eW eB|nB nB nW|
+ -- -- -- --    -- --         
+|fB fW|gB gW|iW iB iB|nB nW nW|
+       -- -- -- -- --         
+|fB fW|hW|jB jW|kW kB|nW nW nW|
+                -- -- -- --   
+|fB fW|hB|jB jW|pB|vW vW|oW|nW|
+       -- -- --             --
+|fB fW|pW pB pB pB|vB vB|oB|mW|
+ -- --       -- -- -- -- --   
+|lB lW|pW pB|tB tB tB|uB uW|mB|
+ -- --                      --
+|pW pW pW pB|tW tW tW|uB uW|bW|
+    -- -- -- -- -- -- -- --   
+|pW|qW qB|rW rB|sW sB|aW aB|bB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 88
+0.098567 [s]
+
+Level 298
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|qW qB qB qB qB|eB|gB|aB aB aB|
+    -- --                     
+|qW|rW rB|qB qB|eW|gB|aW aW aW|
+    -- --    -- --    -- -- --
+|qW qW qW qB|gW gB gB gB gB|dB|
+       -- --                  
+|qW qW|hB hW|gW gW gW gB gB|dW|
+ -- -- -- --    -- --    -- --
+|fB|nW|gW gW gW|iW iW|gB|cW cB|
+       --             -- -- --
+|fW|nW nW|gW gW|iB iW|oW oB oB|
+ --       -- --    --       --
+|mB|nB nB|jW|iB iB|oW oW oB|kW|
+    --       -- -- -- -- --   
+|mW|pB|nB|jB|pW pW pW pW pW|kB|
+ --    -- --    -- --    -- --
+|pB pB pB pB pB|bB bW|pW|lW lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 27
+10700 [s]
+
+Level 299
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|hW hW hW hW|oW|pW pB|bB bB bB|
+                -- --         
+|hB hB hB hB|oW oW oB|bW bW bW|
+ -- -- -- -- --       -- -- --
+|iB iW iW iW|lB|oW oB oB|cW cB|
+       -- --    -- --    -- --
+|iB iW|kW kB|lW|nW nW|oB|qW|dW|
+             --       --      
+|iB iB|kW kB|nW nW nW nW|qW|dB|
+ -- -- -- --          --    --
+|jB jW|fW|nB nB nB nB|qW qW|rW|
+          --       --         
+|jB jW|fB|eW|nB nB|mB|qB qB|rB|
+       --    -- --       -- --
+|jB jW|gW|eB|mW mB mB|qB|aW aB|
+          --                  
+|jB jW|gB|mW mW mW mB|qB|aW aB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 77
+20.3718 [s]
+
+Level 300
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|nB nB nB nB nB nB|lB lB|
+ -- --                        
+|oW oW|nW nW nW nW nW nW|lW lW|
+ --    -- -- -- -- -- -- -- --
+|pW|oB oB|qB|gW gB|hB|mW mB|jW|
+    -- --    -- --    -- --   
+|pB|qW qB qB qB|hW hB hB hB|jB|
+ --                      -- --
+|qW qW qW qB qB|hW hW hW|iB iB|
+       -- -- -- -- -- --      
+|qW qW|sW sB|rW rB|kW kB|iW iW|
+ -- -- -- --       -- -- -- --
+|bB bW|tW|rW rW rB rB|cW cB|dB|
+                              
+|bB bW|tB|rW rW rB rB|cW cB|dW|
+       -- --       -- -- -- --
+|bB bW|uB uW|rW rB|fW fB|eW eB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 12
+0.585114 [s]
+
+Level 301
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|wW wB wB wB|tB tB tB|sW|aW aB|
+                         -- --
+|wW wW wB wB|tW tW tW|sW sW|fW|
+       -- -- -- -- --         
+|wW wW|xW xB|uB uB|sW sW sW|fB|
+ -- --                      --
+|vW vW|xW xB|uW uW|sB sB sB|bW|
+ --    -- -- -- -- --         
+|jW|vB vB|iW iB|rW rB|sB sB|bB|
+    -- -- -- --          -- --
+|jB|pW pW|qW qW|rW rB|sB|dW dB|
+ --    --    -- -- -- -- -- --
+|kW|pB|qB qB|lW lB|hW hW hW|cW|
+       -- -- -- --            
+|kB|pB|mW mW mW|nW|hB hB hB|cB|
+ -- --    -- --    -- -- -- --
+|mB mB mB|oW oB|nB|gW gB|eW eB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 220
+0.061898 [s]
+
+Level 302
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|eW eW eW|fW fB|kB|lB lB lB|mB|
+                              
+|eB eB eB|fW fB|kW|lB lB lB|mW|
+ -- -- --       --    -- -- --
+|gW gW gW|fW fB|lW lB|nW nB|oW|
+          -- --               
+|gW gB gB gB gB|lW lB|nW nB|oW|
+       -- -- --       -- --   
+|gW gB|hW hW hW|lW lW lW|oW oW|
+                              
+|gW gB|hB hB hB|lW lW lW|oB oB|
+ -- -- -- -- -- -- -- --    --
+|bW bW|dB dW|iW iW|jB jW|oB|cW|
+ --                           
+|aW|bB|dB dW|iB iB|jB jW|oB|cB|
+             -- --       -- --
+|aB|bB|dB dW|jB jB jB jW jW jW|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 14
+2.0873 [s]
+
+Level 303
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|sW sW|tW tB|eB eB|dW dB|
+          -- -- -- --    -- --
+|aW aB|sB|uW uB|vB|kB|eW eW|cB|
+                      -- --   
+|aW aB|sB|uW uB|vB|kW|fB fB|cW|
+       -- -- --    --       --
+|aW aB|qW qB|vW vB vB|fW fW|gB|
+ -- -- -- --       -- -- --   
+|hB hW|pW|vW vW vB|lW|bW bB|gW|
+ -- --    --    --    -- -- --
+|jW|pW pW pW|vW|mW|lB|oW oW oW|
+                   --         
+|jB|pW pW pB|vW|mB|oW oW oW oW|
+ -- --       -- --          --
+|iB iW|pB pB pB|oB oB oB oB|rW|
+             -- --            
+|iB iW|pB pB|nB nW|oB oB oB|rB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 63
+0.194355 [s]
+
+Level 304
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|bW bB bB bB|cW cB|dW dB|fW fB|
+       -- -- -- -- -- -- -- --
+|bW bB|aW aW aW aW aW|hW hB|eW|
+                              
+|bW bW|aB aB aB aB aB|hW hB|eB|
+ -- -- -- -- -- -- -- -- -- --
+|rB rW|nW nW nW nW|mW mB|vW vB|
+       --          -- --      
+|rB rW|sW|nB nB nB nB|oW|vW vB|
+          -- -- -- --         
+|rB rW|sB|qW qW|pB pW|oB|vW vB|
+       --    --       --      
+|rB rW|tW|qB|gW|pB pW|iW|vW vB|
+                         -- --
+|rB rW|tB|qB|gB|pB pW|iB|wW wB|
+ -- -- -- -- -- -- -- --      
+|uB uW|jB jW|kB kW|lB lW|wW wB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 24
+0.010793 [s]
+
+Level 305
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW|fW fB fB fB fB fB fB|eW|gB|
+       -- -- -- -- -- --      
+|aB|fW|mW mW mW|eW eW eW eW|gW|
+ --                         --
+|hW|fW|mB mB mW|eB eB eB eB|kW|
+                -- -- --      
+|hB|fW|mB mW mW|nW nB|iW|eB|kW|
+ --                      --   
+|jW|fW|mB mB mB|nW nB|iB|kW kW|
+       -- -- -- -- -- --      
+|jB|fW|lW lB|oB oW|pW pW|kB kB|
+ -- -- -- -- -- -- --       --
+|rW rW|uB uB uW|qB qW|pB|kB|bW|
+       -- --    -- --         
+|rB rB|vW vW|uW|sW sW|pB|kB|bB|
+ -- --       -- --    -- -- --
+|cB cW|vB vB|tB tW|sB sB|dW dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 13
+1.14288 [s]
+
+Level 306
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|eW eB|dW dB|fW fB|uW uW|gW gB|
+ -- -- -- --             -- --
+|hW hW hB hB|fW fB|uW uW uB|iW|
+             -- --            
+|hW hW hB hB|sW sW|uW uB uB|iB|
+                   --       --
+|hW hW hB hB|sW sW|tB|uB uB|jW|
+ -- -- -- --          -- --   
+|qW qW qW|sW sW sB|tW|kW kB|jB|
+                   -- -- -- --
+|qB qB qB|sB sB sB|rW rW rW|oW|
+ -- -- --       --       --   
+|aW aW aW|sB sB|rW rW rW|nW|oB|
+          -- --    -- --    --
+|aB aB aB|rB rB rB|pW pB|nB|mW|
+ -- -- -- --       -- -- --   
+|bB bW|cB cW|rB rB rB|lW lB|mB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 30
+0.040947 [s]
+
+Level 307
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|iW iB|jW jB|kW kB|sW|pW pB|oB|
+ -- -- -- -- -- --    -- --   
+|lW lW lW|qW qB qB|sW sW|tW|oW|
+             -- --          --
+|lB lB lB|qW|sW sW sW sW|tB|uB|
+ -- -- -- --          -- --   
+|mB mW|vB vB|sB sW sW|wW wW|uW|
+                   --       --
+|mB mW|vW vW|sB sB|xW|wW wB wB|
+       -- --                --
+|mB mW|sB sB sB sB|xB|wW wB|nW|
+ -- -- --       -- --         
+|cW|dB dW|sB sB|rW rW|wW wB|nB|
+    -- -- -- --    -- --    --
+|cB|bW bW bW|rB rB|gW gB|wB|eW|
+ -- --       -- -- -- -- --   
+|aB aW|bB bB bB|fW fB|hW hB|eB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 151
+2.10749 [s]
+
+Level 308
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|yW yB yB yB yB|aB|dB|cW cB|bB|
+    -- -- -- --       -- --   
+|yW|xW xB xB xB|aW|dB dB|eW|bW|
+                --          --
+|yW|xW xW xB xB xB|dW dW|eB|fB|
+          -- -- -- --    --   
+|yW|xW xW|tW tB|hW hB|dW|gB|fW|
+ -- --    -- -- -- -- --    --
+|iW iW|xW|uB|kW kB|jW jB|gW|lB|
+       --    -- -- -- -- --   
+|iB iB|uW uB uB|oW oB|lW lB lB|
+ -- --       -- -- --       --
+|vW vW|uW uW|wW wW wW|lW lW|mW|
+ --    -- --       -- -- --   
+|pW|vB vB|wB wB wB|qW qB qB|mB|
+    -- -- -- -- --       -- --
+|pB|rW rB|sB sW|qW qW qB|nW nB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 60
+9.9834 [s]
+
+Level 309
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|gW gW gW gW|hW hB|cW cB|dW dB|
+    -- -- -- -- -- -- -- -- --
+|gB|qW qB qB qB qB|sB|tB tB tB|
+                --    --      
+|gB|qW qW qB qB|sW sB sB|tB tW|
+          -- --               
+|gB|qW qW|rW|sW sW sB sB|tW tW|
+       --             -- --   
+|gB|qW|mW|rB|sW sW sB|jW jB|tW|
+ -- --    -- --    -- -- -- --
+|eW eW|mB|lB lW|sW|nW nB|oB|pB|
+ --    --       --            
+|aW|eB|iW|lB lW|kW|nW nB|oB|pW|
+                            --
+|aB|eB|iB|lB lW|kB|nW nB|oW oW|
+ -- -- -- -- -- --       -- --
+|bB bW|fB fW|nW nW nW nB nB nB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 179
+59.6333 [s]
+
+Level 310
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|kW kB|lB|cW cB|hW|gB|dB|
+ -- -- -- --    -- --         
+|mW mW mW mW|lW|hB hB hW|gB|dW|
+             -- -- -- --    --
+|mB mB mB mB|nB|iW iB|jB|gW gW|
+ -- -- -- --    -- --    -- --
+|oW oW oW oW|nW|sW sW|jW|fB fB|
+       -- -- --       --      
+|oB oW|rW rW rW|sW sB|vB|fW fW|
+                         -- --
+|oB oB|rB rB rB|sW sB|vB vB|eW|
+    -- -- -- --               
+|oB|qW qB|tW tW|sW sB|vB vW|eB|
+                            --
+|oB|qW qB|tB tW|sW sB|vW vW|bW|
+ -- -- --    -- --    --      
+|pB pW|tB tB|uW uB|sB sB|vW|bB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 34
+0.104225 [s]
+
+Level 311
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|nW nW nW nW|gB gW|tW tW|sW sB|
+    -- -- -- -- -- --    -- --
+|nB|mW mB|pW pB|qW qB|tW tW|rB|
+    -- -- -- --               
+|nB|oW oW oW oW|qW qB|tW tB|rW|
+       -- -- -- -- -- --    --
+|nB|oB|vW vB vB vB|uB uB|tB tB|
+          -- -- --    --    --
+|nB|oB|vW|uW uB uB uB|tB tB|eW|
+ --                -- -- --   
+|hW|oB|vW|uW uW uB|dW dW dW|eB|
+       --    -- --          --
+|hB|oB|uW uW|dB dB dB dW dW dW|
+ -- --    -- --          -- --
+|aW|kW|uW|iW iB|dB dB dB|cW cB|
+       -- -- -- -- -- -- -- --
+|aB|kB|jW jW jW jW jW|fW fW|bW|
+ -- --          -- --         
+|jB jB jB jB jB|lW lB|fB fB|bB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 26
+0.067905 [s]
+
+Level 312
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cB|jW jW jW jW jW|pB pW|bB|
+                --            
+|cW cB|jB jB jW|aW|jW|pB pW|bW|
+          -- --    --       --
+|cW cB|jB|kW kB|aB|lW|pB pW|uW|
+          -- -- --    -- --   
+|cW cB|jB jB|mW mW|lB|vW|uW uW|
+          --       --    --   
+|cW cB|jB|nW|mB mB|vW vW vW|uW|
+ -- --       -- --    -- --   
+|fB fW|jB|nB|vB vB vB|uW uW uW|
+ -- -- -- -- --    --       --
+|eW eW eW|oW|qW|vB|tB|uB uW|dW|
+                --            
+|eB eB eW|oB|qB|uB|tW|uB uB|dB|
+ --    -- -- --    --    -- --
+|gW|eB|rB rW|uB uB uB uB|iW iW|
+             -- -- -- --      
+|gB|eB|rB rW|sW sB|hB hW|iB iB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 14
+0.184513 [s]
+
+Level 313
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cB|dW|iB iW|bW bB|aB aB aB|
+                -- --         
+|cW cB|dB|iB iW|jB jB|aW aW aW|
+       -- -- --    -- -- -- --
+|cW cB|oW oB|jW jW|qB qB|kW kB|
+       -- -- -- -- --    -- --
+|cW cB|rW rB rB rB rB|qB qB|lW|
+          -- --    --         
+|cW cB|rW|mW mB|rB|pB|qW qW|lB|
+          -- --       --    --
+|cW cB|rW rW rW rB|pW|tB|qW qW|
+ -- --    -- -- -- --    -- --
+|eW eW|rW|fW fB|tW tB tB|uW uB|
+       -- -- --          -- --
+|eB eB|sW sW|tW tW tW tB tB tB|
+ -- -- --       -- -- -- -- --
+|gB gW|nW|sB|tW|vW vW vW|wW wB|
+ -- --                        
+|hB hW|nB|sB|tW|vB vB vB|wW wB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 23
+0.775699 [s]
+
+Level 314
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|wW wB wB wB wB|mW mB|lW|aW aB|
+             -- -- --    -- --
+|wW wW wB wB|nW nB|kW|lW lB lB|
+       -- -- -- --    -- -- --
+|wW wW|xW xB|iW iB|kW kB kB|oW|
+    -- -- -- -- -- -- -- --   
+|wW|rW rB|jW jB jB jB|pW pW|oB|
+ --             -- --       --
+|uW|rW rB|jW jB|bW bB|pB pW pW|
+                -- --         
+|uB|rW rB|jW jW|pB pB pB pW pW|
+ -- -- -- -- --       -- --   
+|tW|qW qW qW|pB pB pB|sW sW|pW|
+             -- -- --       --
+|tB|qW qW qB qB qB|hW|sB sB|cW|
+ --             --    -- --   
+|qW qW qW qB qB|gW|hB|eW eB|cB|
+ -- --             -- -- -- --
+|vB vW|qB qB qB|gB|fW fB|dW dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 6
+Number of vertices examined: 12
+0.09597 [s]
+
+Level 315
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|fW fW fW fW|aW aB|bW bB|hW hB|
+             -- -- -- -- -- --
+|fB fW fW fW|dW dB|gW gW gW|pB|
+       -- -- -- --            
+|fB fB|eW eW eW|gW gW gW gW|pB|
+          -- --          --   
+|fB fB|eB|iW|gB gB gB gB|pW pB|
+             --               
+|fB fB|eB|iB|jW|gB gB gB|pW pB|
+ -- --    --    -- -- --    --
+|kW kW|eB|lW|jB|tW|sB sW|pW|qW|
+ --    --    --    -- --      
+|mB|kB|nW|lB|uW|tB|rW rW|pW|qB|
+          --    --       -- --
+|mW|kB|nB|vW|uB|rW rW rW rW rW|
+ -- -- --    --             --
+|oB oB oW|vB|rB rB rB rB rB|wW|
+ -- --    -- --       -- --   
+|cB cW|oW|xB xW|rB rB|yW yB|wB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 4
+Number of vertices examined: 6
+0.461206 [s]
+
+Level 316
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|vW vB|cW cB|bW bB|aW aB|dB dB|
+       -- -- -- -- -- --      
+|vW vB|mW mW mW|kW kB kB|dW dW|
+                   -- -- -- --
+|vW vB|mW mW mW|kW|jW jW|fB|eW|
+             -- --            
+|vW vB|mB mB|lW lB|jB jB|fB|eB|
+             -- -- -- --    --
+|vW vB|mB mB|hW hB|gW gB|fW fW|
+ -- --       -- -- -- -- -- --
+|uW uW|mB mB|nW nB|iB|pB|oB oB|
+       -- --                  
+|uW uB uB uB|nW nB|iW|pB|oW oW|
+       -- -- -- -- --    -- --
+|uW uB|xW xW xW xW|yB|pW pW|qB|
+ -- --       -- --    -- --   
+|wB wW|xB xW|yW yB yB|sW sB|qW|
+ -- --             -- -- -- --
+|xB xB xB xB|yW yW|tW tB|rW rB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 27
+0.099518 [s]
+
+Level 317
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB aB aB aB|eW|dW dB|bW bB|
+             --               
+|aW aW aB aB|eW eW|dW dB|bW bB|
+       -- --    -- -- -- -- --
+|aW aW|gW gB|eB|fW fB|hW hB|iB|
+    -- -- --    -- -- -- --   
+|aW|qB qB qW|eB eB|jW jB jB|iW|
+ -- --       -- --       -- --
+|cB cW|qB qW qW|jW jW jB|kW kW|
+       -- -- -- -- -- --      
+|cB cW|rW rB|sW|tW tW tW|kB kB|
+                -- --    -- --
+|cB cW|rW rB|sB|uB uW|tB|mW mB|
+             -- -- --         
+|cB cW|rW rB|vW vW vW|tB|mW mB|
+       -- --             -- --
+|cB cW|oB oW|vB vB vB|tB|lW lW|
+             -- -- -- --      
+|cB cW|oB oW|pW pB|nB nW|lB lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 16
+0.039421 [s]
+
+Level 318
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|vW vW vW|nB nW|eW|fB fW|aW aB|
+          -- --    -- --      
+|vB vB vB|wB wB|eW eB eB|aW aB|
+ -- -- --       -- -- --      
+|yB yB yW|wW wW|xB|dW dB|aW aB|
+    --    -- --    -- -- -- --
+|yB|zW|yW yW yW|xB xB|cW cB|gB|
+       -- -- --    -- -- --   
+|yB|zB|{W {W|xW xB|kW kB|bW|gW|
+ -- --                      --
+|{B {B {B {W|xW xW|kW kB|bW bB|
+ -- --          --            
+|oW|pW|{B {W|xW|qW|kW kB|bW bB|
+       -- -- --    -- --      
+|oB|pB|sW|uW uW|qB|jW jB|bW bB|
+ -- --          -- -- -- --   
+|rW rW|sB|uW uB|mW mB|iW iB|bB|
+       -- --    -- -- -- -- --
+|rB rB|tB tW|uB uB|lW lB|hW hB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 17
+0.324128 [s]
+
+Level 319
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW aW|cW cB|dW dB|vB|tB|
+                   -- --      
+|aB aB aB aB|cW cB|wW|vW vB|tW|
+ -- -- -- -- -- --          --
+|bW bB bB bB bB|wW wW|vW vB vB|
+    -- -- -- --    --       --
+|bW|iW|jB jW|wB wB|vW vW vB|uW|
+       -- -- --    --         
+|bW|iB|zW zW zW|wB|xW|vW vB|uB|
+    --          --       -- --
+|bW|pW|zW zB zB zB|xB|vW|yW yB|
+ --    -- -- --    -- -- -- --
+|kW|pB|{W {B|qW|zB|mW mB|lW lW|
+    -- -- --    -- -- --      
+|kB|oW oW oW|qB|nW nB|fW|lB lB|
+ --          -- -- --    -- --
+|oW oW oB oB oB|hW hB|fB|eW eB|
+ -- -- -- --    -- -- --      
+|rB rW|sB sW|oB oB|gW gB|eW eB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 73
+0.028396 [s]
+
+Level 320
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW|dW dW|fB|mB|jW jB|kW kB|gB|
+                -- -- -- --   
+|aB|dB dB|fW|mB mB|oW oB|pB|gW|
+ -- -- -- --       -- --    --
+|bW bW|cB cW|mW mW|nW nW|pW|hB|
+       -- -- --          --   
+|bW bB bB|lW lW|mW|nW nB nB|hW|
+       --       -- -- --    --
+|bW bB|xW|lB lB|rW rB|sW|nB|qB|
+          -- -- -- --    --   
+|bW bB|xW xB|tW tB|uW|sB|zB|qW|
+ --          -- --    --    --
+|eW|bB|xW xB|yB yW|uB|zW zB zB|
+    -- --          --         
+|eB|wW wB|xB|yB yW|zW zW zB zB|
+ -- -- -- --             -- --
+|vW vW vW vW|yB yW|zW zW||W |W|
+ -- --       -- -- -- --      
+|iB iW|vB vB vB vB|{W {B||B |B|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 312
+0.025399 [s]
+
+Level 321
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|mW mB|sW sB|nW nB|bW bB|aW aB|
+ -- -- -- -- -- -- -- -- -- --
+|rB rW|tW|uB uB|vW vB|oW oB|cB|
+                              
+|rB rW|tB|uW uW|vW vB|oW oB|cW|
+       -- -- --       -- -- --
+|rB rW|wW wW wW|vW vB||W|zB|dB|
+ -- --          -- --         
+|xW xW|wB wB wB||W |W |W|zB|dW|
+       -- -- --       --    --
+|xW xB|pW pB||W |W |W|{W|zW zW|
+ --    -- --       --    -- --
+|gW|xB xB||B |B |W|{W {W {B|qB|
+    -- -- --                  
+|gB|fW|hB hW||B |B|{W {B {B|qW|
+ --    -- --       --    -- --
+|eW|fB|jB jW||B |B |B|{B|lW lB|
+    -- -- -- --    -- --      
+|eB|iB iW|kB kW||B|yW yB|lW lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 64
+3.8045 [s]
+
+Level 322
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW|eW eW eW|fB|gW gB|hW hB|iB|
+                -- -- -- --   
+|cB|eB eB eW|fW|mB mB|pB pW|iW|
+ --    -- -- --    --       --
+|dW|eB|oW oW|mW mW|pB pB pW|jB|
+             -- --            
+|dB|eB|oB oW|pB pB pB pW pW|jW|
+ -- --    -- -- --       -- --
+|kW|oB oB|nW nB nB|pW pW|lW lB|
+    -- --    --    -- --      
+|kB|nW nW nW|qW|nB|rW rB|lW lB|
+ --    -- --       -- -- -- --
+|bW|nW|sB sW|qB|nB nB|wW wB|vW|
+    --       -- -- -- -- --   
+|bB|tB|sB sW|xW xW xW xW xW|vB|
+ --    -- --             -- --
+|aW|tW|xB xB xB xB xB xW|{W {W|
+    -- --    -- -- -- --      
+|aB|uB uW|xB|yW yB|zW zB|{B {B|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 38
+0.020599 [s]
+
+Level 323
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|jW jB jB jB jB jB|bW bB|sW|cB|
+          --    -- -- --      
+|jW jW jB|aW|jB|hW hB|sW sW|cW|
+    -- --       -- --       --
+|jW|kW kB|aB|jB|sW sW sW sW|mB|
+    -- -- -- --          --   
+|jW jW jW|uB|sB sB sB sB|mW mB|
+    -- --          -- --      
+|jW|uW uB uB|sB sB|nW nW|mW mB|
+ --    --       -- --         
+|uW uW|iW|uB|sB|eW|dW|nB|mW mB|
+ --       -- --               
+|vW|uW|iB|tW tB|eB|dB|nB|mW mB|
+    -- -- -- -- -- -- --    --
+|vB|wW wW wW|qW qW|pW pW|mW|oW|
+ --                      --   
+|wB wB wB wW|qB qB|pW pB pB|oB|
+    -- -- -- -- -- --    -- --
+|wB|fW fB|rW rB|gW gB|pB|lW lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 683
+1.46577 [s]
+
+Level 324
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW|bW bB|fW fB|vB vB|wW|jB|
+    -- -- -- -- --    --      
+|aB|cW cW|eW eB|vW vB|wW wW|jW|
+       -- -- --             --
+|aB|cB|dW dB|nW|vW vB|wB wB|uB|
+ --                      --   
+|gW|cB|dW dB|nB|vW vB|wB|sW|uW|
+    -- -- -- --       --    --
+|gB|}W||W |W|zW|vW vW|sW sW|tB|
+ --             -- --         
+|kW|}B||B |W|zB|lW lB|sB sB|tB|
+    --    -- -- -- --    --   
+|kB||B |B|yW yB|pW pW|sB|tW tB|
+ -- -- -- -- --    -- --    --
+|hB hW|{B {W|xW|pB|qB qW|tW|mW|
+                   -- --      
+|hB hW|{B {W|xB|pB|oW oB|tW|mB|
+             -- --       -- --
+|hB hW|{B {W|rW rB|oW oB|iW iB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 52
+0.012005 [s]
+
+Level 325
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|jW|iB iW|hW hW|gW gB|dB|
+ -- --    -- -- --    -- --   
+|uW uB|jW jB jB|kB|hW hB hB|dW|
+       -- -- --    --    -- --
+|uW uB|oB|lW lB|kW|xW|hB|cW cB|
+          -- -- --    --      
+|uW uB|oW|sB|mW mB|xW xW|cW cB|
+       --    -- --            
+|uW uB|sB sB sB sB|xW xB|cW cB|
+                         -- --
+|uW uB|sW sW sW sW|xW xB xB|bB|
+ -- -- --    -- -- --    --   
+|vW vB vB|sW|tW tB tB|xB|nB|bW|
+    -- -- --    -- --       --
+|vW|wW wB wB|tW|rW rW|xB|nB nB|
+ --       -- --       --    --
+|wW wW wB|pW pW|rB rB|nW nB|eW|
+ -- -- --    -- -- --         
+|fB fW|pB pB|qW qB|nW nW nW|eB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 2170
+1.03716 [s]
+
+Level 326
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|gW gW gW gW|aW aB|cB cB|bW bB|
+       -- -- -- --            
+|gB gW|fW fB|dW dB|cW cW|bW bB|
+    -- -- -- -- -- -- -- -- --
+|gB|hW hB|iW iB|mW mB|lB lB|kB|
+    -- -- -- --               
+|gB gB|jW jB|uB|mW mB|lW lW|kW|
+    -- -- --    -- -- -- -- --
+|gB|nW nB|uW uB uB|vB vB vB vB|
+ --                           
+|oW|nW nB|uW uW uB|vW vW vW vW|
+    -- -- --       -- -- -- --
+|oB|qW qB qB|uW uB|yW yB|wW wB|
+ --       --    -- -- --      
+|qW qW qB|sW|uW|xW xB|zW|wW wB|
+ -- -- --    -- -- --         
+|pW pW pW|sB|tW tW tW|zB|wW wB|
+          -- --       -- -- --
+|pB pB pB|rW rB|tB tB tB|eW eB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 28
+0.007404 [s]
+
+Level 327
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|bW bB|xW xB xB xB|nW nB|mW mB|
+          -- -- -- -- -- -- --
+|bW bB|xW|yW yB|oW oB oB|lW lB|
+          -- --    -- --      
+|bW bB|xW|hW hB|oW|iW iB|lW lB|
+       -- -- -- -- -- -- -- --
+|bW bB|pW pB pB pB|sB sB sB|kB|
+             -- --            
+|bW bB|pW pB|jW jB|sW sW sW|kW|
+ -- --    -- -- -- -- -- -- --
+|aW|pW pW|qW qB|vB vB vB|tW tB|
+    -- -- -- --          -- --
+|aB|rW rW|dB|uW|vW vW vW|wW wW|
+ --    --       -- -- --      
+|cB|rB|dW dB|uW uB uB|wW wW wW|
+             -- -- --       --
+|cW|rB|dW dB dB dB|wB wB wB|gW|
+ -- --    -- -- -- --         
+|dW dW dW|eW eB|fB fW|wB wB|gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 21
+0.018859 [s]
+
+Level 328
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|kW kB|bW bB|{B {B {B||B|
+ -- -- -- -- -- -- --         
+|yW yB yB|lW lB|nB nW|{B {B||W|
+    -- -- -- -- -- --       --
+|yW|zW zB zB|mW mB|uB|{W {W {W|
+ --    --    -- --    --      
+|zW zW|qW|zB|oW oB|uB uB|{W {W|
+ -- --    -- -- --       -- --
+|pW pW|qB|iW iW iW|uB uW|cW cB|
+       --    -- --       -- --
+|pB pB|rW|iB|dW dB|uW uW uW|vW|
+ -- --             -- -- --   
+|sW sW|rB|iB|dW dB dB|tW tW|vB|
+ --    --          --    -- --
+|hW|sB sB|iB|dW dB|tB tB|wB|xW|
+    -- -- --       -- --      
+|hB|fB fW|dW dW dB|wW wB wB|xB|
+ -- -- -- --             -- --
+|gB gW|eB eW|dW dB|wW wW|jW jB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 15
+0.022333 [s]
+
+Level 329
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|dW dB|cB cW|bB bW|aW aW aW|eB|
+ -- -- -- -- -- -- --         
+|fW|iW iB|zW zW zB zB|aW aB|eW|
+    -- -- --       -- --    --
+|fB|jW jB|yW|zW zB|gW gB|aB aB|
+ --                         --
+|kW|jW jB|yW|zW zB|gW gB|aB|hW|
+             -- -- -- -- --   
+|kB|jW jB|yW yB yB yB|oW oB|hB|
+ --       -- -- -- -- -- -- --
+|jW jW jB jB|xW xB xB xB xB|pB|
+ --       --    --    -- --   
+|lB|jW jB|xW xW|sW|xB|qW qB|pW|
+          --       -- -- -- --
+|lW|jW jB|wW|xW|sB|rW rB|mW mB|
+ -- -- --       -- -- -- -- --
+|tB tB tW|wB|xW|nW nW nW nW nW|
+ -- --    -- --               
+|uB uW|tW|vB vW|nB nB nB nB nB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 18
+0.038939 [s]
+
+Level 330
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|vW vB vB|{W|cB cW|eB eB|aW aB|
+    -- --    -- -- --    -- --
+|vW||W |W|{W {B|dW dB|eW eW|fB|
+ --       --    -- -- -- --   
+||B |B |W |W|{B|zB zB|hB|uB|fW|
+ --       -- --             --
+|gW||B |B|zW zB zB zB|hW|uB|pB|
+    -- --          -- --      
+|gB|wW|zW zW zW zB|uW uB uB|pW|
+ --          -- --          --
+|iW|wB|zW zW|yW yW|uW uW uW|oB|
+    -- -- --    -- -- -- --   
+|iB|xW xW xW|yB|jW|kW|qW qB|oW|
+ --                   -- -- --
+|xB xB xB xW|yB|jB|kB|rB|nW nB|
+ -- --       -- -- --    -- --
+|bW bW|xB xW|sW sB|rW rB rB|lW|
+          -- -- --    -- --   
+|bB bB|xB|tW tB|rW rW|mB mW|lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 496
+142.259 [s]
+
+Level 331
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|pW pB pB pB pB pB|bW bB|aW aB|
+       -- -- -- -- -- -- -- --
+|pW pB|fW fB|rW rB|mB|kW kB|gB|
+    -- -- --                  
+|pW|qW qB|sW|rW rB|mW|kW kB|gW|
+                   -- -- -- --
+|pW|qW qB|sB|rW rB|lB lB|hW hB|
+    -- -- -- -- --            
+|pW pW|xW xB xB xB|lW lW|hW hB|
+ -- --          -- -- -- -- --
+|tW|xW xW xB xB|wB wB|iW iB|cB|
+          -- --    -- -- --   
+|tB|xW xW|wW wB wB|jW jB|cW cB|
+ -- -- --          -- --      
+|uB|wW wW wW wB wB|nW nB|cW cB|
+          -- -- -- -- --    --
+|uW|wW wW|vW vB vB vB vB|cW|dW|
+ -- -- --       -- -- -- --   
+|vW vW vW vW vB|oW oB|eW eB|dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 45
+348.762 [s]
+
+Level 332
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW|oB|xW xW xW|yW yB|cB|eW|dB|
+                              
+|aB|oB|xB xW xW|yW yB|cW|eW|dW|
+ --          -- -- -- --    --
+|oW oB|xB xB|wW wW|fW fB|eW eB|
+                -- -- --      
+|oW oB|xB xB|wB|vW vB|gW|eW eB|
+       -- --                  
+|oW oB|qW|sW|wB|vW vB|gB|eW eB|
+             -- -- -- --      
+|oW oB|qB|sB|tW tW|uW uB|eW eB|
+       -- --    --       --   
+|oW oB|rW rB|tB|uW uW uB uB|eB|
+    -- -- --    --       --   
+|oW|nW|pB pB|tB|hW|uW uB|jW|eB|
+       --    --    -- --    --
+|oW|nB|mW|pB pW|hB|bW bB|jB|iW|
+ -- --          -- -- -- --   
+|lB lW|mB|pB pW pW pW|kB kW|iB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 35
+0.031837 [s]
+
+Level 333
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|gW|hW|qW qW|fW fB|eB eW|aB aB|
+             -- -- -- --      
+|gB|hB|qW qW qW|pW pB|mB|aW aW|
+ -- --       -- -- --    -- --
+|qW qW qW qW|rW rW rW|mB mB mB|
+                            --
+|qB qB qB qB|rB rB rB|mW mW|nW|
+ -- --       -- -- -- --      
+|kB kW|qB qB qB|sB|iW iB|mW|nB|
+ -- --       --    -- --    --
+|jW jW|qB qB|sW sB sB|oW|mW|xB|
+       -- --             --   
+|jB jB|sW sW sW sB sB|oB|xW xB|
+ -- -- --             --      
+|bW|lB lW|sW sW sB sB sB|xW xB|
+                   -- --    --
+|bB|lB lW|sW sW sB|uW uB|xW|wW|
+ -- -- -- --    -- -- -- --   
+|cB cW|dB dW|sW|tW tB|vW vB|wB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 39
+0.181558 [s]
+
+Level 334
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|xW xW xW|vW vB vB vB|tB|aW aB|
+                         -- --
+|xB xB xB|vW vW vB vB|tW|qB qB|
+ -- -- --             --      
+|wB wB wW|vW vW vW vB|rW|qW qW|
+    --    -- -- -- --    -- --
+|wB|yW|wW wW wW wW|rW rW rW rW|
+       -- -- -- --            
+|wB|yB|uW uW uW uW|rB rB rB rB|
+    --             -- --    --
+|wB|uB uB uB uB uW|sB sW|rB|kW|
+ --    -- -- -- --       --   
+|fW|uB|cW|dW|bB bW|sB sW|oW|kB|
+    --       -- -- -- --    --
+|fB|gW|cB|dB|nW nW nW nW|oB|lW|
+ --    -- --             --   
+|eW|gB|iB iW|nW nB nB nB nB|lB|
+    -- -- -- --    -- -- -- --
+|eB|hW hB|jB jW|nB|pW pB|mW mB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 828
+2.52512 [s]
+
+Level 335
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|xW xB|yW yW yW|eW eB|aW aB|bB|
+                -- -- -- --   
+|xW xB|yB yW yW|wB|kW kB|cB|bW|
+             --    -- --    --
+|xW xB|yB yB|wW wB wB wB|cW|dB|
+                         --   
+|xW xB|yB yB|wW wW wW wB|oB|dW|
+       -- -- -- --    --    --
+|xW xB|gW|lW|rB rW|wW|oW oB oB|
+ -- --       -- -- --    --   
+|fB fW|gB|lB|qB qB|oW oW|mW|oB|
+ -- -- -- --          --    --
+|vB vB vB vW|qW qW|oW|pW|mB|hW|
+             -- -- --    --   
+|vB vB vW vW|tW|sB sW|pB|nW|hB|
+ -- --          -- -- --    --
+|uB uW|vW vW|tW tW tW tW|nB|tB|
+       -- -- -- --       --   
+|uB uW|iB iW|jB jW|tB tB tB tB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 2046
+11.2631 [s]
+
+Level 336
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|bW bB|hW hW hW hW|eW eB|cW cB|
+                -- -- -- -- --
+|bW bB|hB hW hW|lW lB|dB dW|fB|
+ -- --       -- -- -- -- --   
+|gW gW|hB hB|oW oB oB oB oB|fW|
+                      --    --
+|gB gB|hB hB|oW oW oB|pW|oB|qW|
+ -- --    --    -- --    --   
+|iW iW|hB|rW|oW|sW sB|pB|qW qW|
+ --    --       -- -- --    --
+|jW|iB|mW|rB|oW oW|tW|qB qB|uW|
+          -- -- --       --   
+|jB|iB|mB|{W {B {B|tB|qB|vW|uB|
+ -- -- --    --    -- --    --
+|kW kW|{W {W||W|{B|xW xB|vB|wW|
+       -- --    --       --   
+|kB kB|zW zB||B|xW xW xB xB|wB|
+ -- --       -- --       -- --
+|aB aW|zW zB|yB yW|xW xB|nW nB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 22
+0.536066 [s]
+
+Level 337
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|pW pB|gB gB|dB dW|cB cB cB|aB|
+          -- -- --            
+|pW pB|gB|fW fB|eB|cW cW cW|aW|
+          -- --    -- -- -- --
+|pW pB|gW gW|hW|eW|mB mW mW mW|
+       --       --          --
+|pW pB|jB|gW|hB|mB mB mB mW|kB|
+          -- -- -- -- -- --   
+|pW pB|jW|rW rB|qB|lB|iB|uW|kW|
+       --                   --
+|pW pB|oB|rW rB|qB|lW|iW|uW uB|
+          -- --    -- --      
+|pW pB|oB|qB qB qB qB qB|uW uB|
+ -- --    --             --   
+|oW oB oB oB|qW qW qW qW qW|uB|
+          -- -- --    -- -- --
+|oW oW oW|nW nW nW|qW|sW sB sB|
+    -- --                -- --
+|oW|bW bB|nB nB nB|qW|sW|tW tB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 153
+0.571889 [s]
+
+Level 338
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|uW uW|vW|tW tB|bB bB bB bB bB|
+                              
+|uB uB|vB|tW tB|bW bW bW bW bW|
+ -- -- --       -- -- -- -- --
+|yW yW yW|tW tB|dB|nW nB|cW cB|
+ -- --                   -- --
+|aW|zW|yB|tW tB|dW|nW nB|oW oW|
+                --            
+|aB|zB|yB|tW tB|qB|nW nB|oB oB|
+ -- --    -- --    -- -- -- --
+|eB eW|yB|wW|qW qB|pW pB|mW mB|
+ -- -- --                     
+|gW|xW xW|wB|qW qB|pW pB|mW mB|
+          --    --       -- --
+|gB|xW xB xB|qW|rW|pW pB|lW lW|
+ -- --    -- --             --
+|fB fW|xB|sW sB|rB|pW pB|lB|kW|
+       -- -- -- -- -- --      
+|fB fW|hW hB|iW iB|jW jB|lB|kB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 32
+0.189163 [s]
+
+Level 339
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW aW|dW dB|jB jB jB|kB|
+       --                     
+|aB aW|bW|aW|dW dB|jW jW jW|kW|
+          -- -- -- -- -- -- --
+|aB aB|bB|cW cB|eW eB|mW mB|lB|
+    -- -- -- -- -- -- -- --   
+|aB|fW fB|nW nB|rW|sW sB|oW|lW|
+    -- -- -- --    -- --    --
+|aB aB|vW vB vB|rW rW rB|oB|pB|
+ -- --    --             --   
+|vW vW vW|wW|vB|rW rB rB|pW pB|
+ -- -- --       -- --       --
+|uB uB uW|wB|vB|uW|xW|rB|pW|iW|
+    --    -- --       -- --   
+|uB|tW|uW uW uW uW|xB|qW qW|iB|
+       -- -- -- -- --       --
+|uB|tB|yW yB|zW zW zW|qB qB|hW|
+    --                -- --   
+|uB uB|yW yB|zB zB zB|gW gB|hB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 8
+Number of vertices examined: 45
+4.72824 [s]
+
+Level 340
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|vW vB vB vB vB|hB|aW aB|eB|bB|
+                   -- --      
+|vW vW vB vB vB|hW|eB eB eB|bW|
+       -- -- -- --    -- -- --
+|vW vW|uW uB|eW eB eB|fW|cW cB|
+                   --         
+|vW vW|uW uB|eW eW|gW|fB|cW cB|
+ -- --       --       -- -- --
+|mW|uW uW uB uB|eW|gB|jW jB|iW|
+    -- -- -- --    -- -- --   
+|mB|tW tB|qW qW|eW eW|rW rW|iB|
+ --             -- --       --
+|tW tW tB|qW qB qB|rW rW rW|kB|
+ --       --    --       --   
+|lW|tW tB tB|qB|rB rB rB|pB|kW|
+          -- --       --    --
+|lB|tW tB|sW sW|rB rB|pW pB pB|
+ -- -- --    -- -- --    -- --
+|dB dW|sB sB|nB nW|pW pW|oW oB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 1102
+0.936543 [s]
+
+Level 341
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|dW|cB|eW eB|fW fB|vW vB|wW wB|
+       -- --       -- --      
+|dB|cB|gW gB|fW fB|xW xW|wW wB|
+ --    -- -- -- --       -- --
+|cW cB cB|kW kW|xW xW xW xW|yW|
+             --               
+|cW cB cB|kB|lW|xB xB xB xB|yB|
+       --       --       -- --
+|cW cW|hW|kB|lB|mW|xB xB|zW zB|
+          -- --    -- -- -- --
+|cW cW|hB|nB nW|mB||W |W |W|uW|
+ -- -- -- -- -- --    -- --   
+|iB iW|jB|oB oW|pW||B|{W {W|uB|
+ -- --                      --
+|bW bW|jW|oB oW|pB||B|{B {B|tB|
+ --    -- -- -- --    -- --   
+|aW|bB|qW qW qW qW||B|rW rW|tW|
+                   --    -- --
+|aB|bB|qB qB qB qB|rB rB|sW sB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 14
+0.025254 [s]
+
+Level 342
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|oW oW oW|kW kB|gW gB|hB|aW aB|
+    -- -- -- -- -- --    -- --
+|oB|nW nW nW|lW|mB|fB|hW|fW fW|
+                      --    --
+|oB|nB nB nB|lW|mW|fB fB fW|eB|
+    -- -- --    -- -- -- --   
+|oB|lW lW lW lW lW|iW iW iW|eW|
+ --          -- --          --
+|pB|lB lW lW|qW qB|iW iB iB iB|
+                         -- --
+|pW|lB lB lB|qW qB|iW iB|bW bW|
+ --    -- -- -- -- --         
+|lB lB|xW xW xW|jW jB|iB|bB bB|
+          --    -- -- -- -- --
+|lB lB|xB|yW|xW|tW tB|sW sB|cB|
+ --          -- -- -- -- --   
+|rW|lB|xB|yB|vW vB|uW uB uB|cW|
+    --    -- -- --       -- --
+|rB|xB xB|wW wB|uW uW uB|dW dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 411
+9.03712 [s]
+
+Level 343
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|nW nW nW nW nW|iW iB|oW oB|pB|
+       -- --    -- -- -- --   
+|nB nB|sB sW|nW|tW|vW vW|wW|pW|
+    -- -- -- --       --    --
+|nB|rW rB|tW tW tW|vB|xB|wW wB|
+                              
+|nB|rW rB|tB tB tB|vB|xW|wW wB|
+    -- -- -- --    -- -- --   
+|nB|qW qB|mW mB|tB|uW uB uB|wB|
+                --    -- -- --
+|nB|qW qB|mW mB|lB|uW|kW kW|jW|
+ --       -- --    --         
+|hW|qW qB|lW lB lB lB|kB kB|jB|
+    -- --       -- -- -- -- --
+|hB|lW lW lW lB|dW dW dW dW|bB|
+ -- --    -- --       -- --   
+|gB gW|lW|eB eW|dB dW|cW cB|bW|
+       -- -- --       -- -- --
+|gB gW|fW fB|dB dB dB dB|aW aB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 624
+0.527669 [s]
+
+Level 344
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB aB aB aB aB|fW|eB eB|bB|
+          -- -- --            
+|aW aW aB|fW fW fW fW|eW eW|bW|
+    -- --             -- -- --
+|aW|cW|gW|fB fB fB fB|kW kW kW|
+             -- -- --       --
+|aW|cB|gB|fB|lW lW|kW kW kW|hB|
+    -- -- --          -- --   
+|aW|mW mB mB|lB lB|kB|jW jB|hW|
+ --       -- -- --    -- -- --
+|mW mW mB|nW|oW oW|kB kB|iW iB|
+ -- -- --                -- --
+|pB pB pW|nB|oB oB|kB kB|sB sB|
+ -- --    -- -- -- --         
+|qB qW|pW|vB vW|uW uW|kB|sW sW|
+ -- -- --             -- -- --
+|rW rW rW|vB vW|uW uB|wW wB|tW|
+          -- --       -- --   
+|rB rB rB|dB dW|uW uB uB uB|tB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 10
+0.030671 [s]
+
+Level 345
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|kW kB|iW iB|fW fB|{W|yW yB|tB|
+       -- -- -- --            
+|kW kB|jB jB jB|{W {W|yW yB|tB|
+                      -- --   
+|kW kB|jW jW jW|{B {B|zW zB|tB|
+ -- -- -- -- --    -- -- --   
+|lW lW lW|mW mB|{B|pW pB|tW tB|
+                -- -- --      
+|lB lB lB|mW mB|qW qB qB|tW tB|
+ -- -- -- -- --       --    --
+|nB nW|oW|qW qW qW qB|sW|tW|bW|
+             --               
+|nB nW|oB|qW|rW|qB qB|sB|tW|bB|
+       -- --    -- -- --    --
+|nB nW|gW|hW|rB|uW|xB xW|tW|aW|
+             --    -- -- --   
+|nB nW|gB|hB|vW|uB|wW wW wW|aB|
+ -- -- -- --    --       -- --
+|cB cW|dB dW|vB|wB wB wB|eW eB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 74
+0.369082 [s]
+
+Level 346
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|kW kW kW|jW|bW bB|cW cB|rW rB|
+             -- -- -- --      
+|kB kB kB|jW jB jB jB|lB|rW rB|
+ -- -- --       -- --    -- --
+|jW jW jW jW jB|aB|mB|lW|qB qB|
+ --    --             --    --
+|nW|jW|hW|jB jB|aW|mW|qW qW|pB|
+    --    --    -- -- -- --   
+|nB|tB|hB|iW|jB|oW oW oW oB|pW|
+ --    --    -- --          --
+|tB tB tW|iB|sW sB|oW oB oB oB|
+ --       -- -- -- -- -- -- --
+|eW|tW tW|xW xB|uW uB|vW vB|wW|
+    -- --       -- -- -- --   
+|eB|wB|xW xW xB xB|yW yB|wW wW|
+ --    --       -- -- --      
+|dW|wB wB|xW xB|wW wW wW wW wW|
+          -- --    -- -- -- --
+|dB|wB wB wB wB wB|gW gB|fW fB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 85
+0.074161 [s]
+
+Level 347
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|iW iW iW|jB|aW aB|cB cB|dW dB|
+             -- -- --         
+|iB iB iB|jW|kB|bB bW|cB|dW dB|
+ -- -- -- --    -- --    -- --
+|sW sB sB|wB|kW|lB|eB|cB cB|fW|
+    -- --    --               
+|sW|wW wB wB wB|lW|eW|cB cB|fB|
+ --             -- --       --
+|wW wW wW wB wB wB|tB|cW cW|gW|
+ --             --    --      
+|nW|wW wW wW wB|vB|tW|vB|cW|gB|
+    --    -- --    --       --
+|nB|mW|wW|vW vB vB vB vB|cW cW|
+ --    --          --         
+|oB|mB|vW vW vW vB|uW|vB|cW cW|
+    -- --    -- --    -- -- --
+|oW|qB qW|vW|xW xB|uB|hW hW hW|
+ -- -- --    -- -- --         
+|pB pW|vW vW vW|rB rW|hB hB hB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 9
+Number of vertices examined: 544
+16.993 [s]
+
+Level 348
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|dW dB dB|hW|iW iB|rW rB|aW aB|
+    -- --    -- --       -- --
+|dW|eW|fW|hW hB hB|rW rB|sB sB|
+ --       -- -- --            
+|gW|eB|fB||B|tW tB|rW rB|sW sW|
+    -- --    -- -- -- -- -- --
+|gB|oW||W |B |B|xW xW|wW wB|uW|
+ --          --       -- --   
+|jW|oB||W |W|{B|xB xB|vB vB|uB|
+    -- -- --    -- --       --
+|jB|nW nB|{W {B {B {B|vB vB vB|
+ -- -- --          --         
+|lW|yW yW|{W {W {W|vW vB vB vB|
+    --    -- -- --            
+|lB|kB|yB|zB zB zB|vW vW vW vB|
+ --                         --
+|bW|kW|yB|zW zW zW|vW vW vW|cW|
+    -- -- -- -- -- --         
+|bB|mB mW|pB pW|qB qW|vW vW|cB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 1938
+18.0469 [s]
+
+Level 349
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|wW wW wW|aW aB|cW cB|eB eW|dB|
+    -- -- -- -- -- -- -- --   
+|wB|xW xB|vW|hW hB|fW fB|dB dB|
+    -- --    -- -- -- --      
+|wB|vW vW vW vW|gW gB|dB dB dB|
+          -- -- -- --         
+|wB|vB vW|yB yB yB|iB|dW dW dW|
+ --                   --      
+|vB vB vW|yW yW yW|iW|nB|dW dW|
+ --       -- -- -- --    --   
+|bW|vB vB vB|pW pB|oW|nB|jB|dW|
+       -- -- -- --          --
+|bB|vB|qW qB qB|oW oW|nB|jW|kB|
+ -- --       --          --   
+|lB lW|qW qB|rW|oB oB|nB nB|kW|
+ -- --             --    -- --
+|sW|qW qW qB|rB|oB|nW nB|mW mB|
+    -- -- -- -- --       -- --
+|sB|tW tB|uW uB|nW nW nW nW nW|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 17
+0.367946 [s]
+
+Level 350
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|hW hB hB hB|iW iB|fW fB|eW eB|
+    -- --    -- -- -- --      
+|hW|dW dB|hB hB hB|jW|lW|eW eB|
+    -- -- -- -- --       -- --
+|hW hW|nW nW|uW|jW jW|lW lB|aB|
+ --       --       -- --      
+|gW|hW|nB|uW uW|jB|kW kB|lB|aW|
+                   -- -- -- --
+|gB|hW|nB|uB uW|jB jB|mW|wW wB|
+ -- -- --       -- --         
+|sW sW sW|uB uB|pW|oW|mB|wW wB|
+             --       -- -- --
+|sW sW sB|uB|vW|pB|oB|xW xW|yW|
+ --       --    -- --         
+|bW|sB sB|tW|vB|xB xB xB xW|yB|
+             -- -- --       --
+|bB|sB sB|tB|rW|zB zW|xB xW|{W|
+ -- -- -- --          -- --   
+|cB cW|qB qW|rB|zB zW||W |B|{B|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 36
+0.026684 [s]
+
+Level 351
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|eW eW eW eW|hB hB hB|jB jW|tB|
+                --    -- --   
+|eB eB eB eB|hW|iW|hB|uW uW|tB|
+ -- -- -- --       --    --   
+|lW|kW kW kW|hW|iB|uW uW|tW tB|
+                --            
+|lB|kB kB kB|hW hW|uB uB|tW tB|
+ -- -- -- -- -- --    --      
+|mB mB mB mW|gW|uB uB|nW|tW tB|
+                -- --         
+|mB mB mW mW|gW gW gW|nB|tW tB|
+ -- --       --       --      
+|aB aW|mW mW|fW|gB gB gB|tW tB|
+ -- -- -- --    -- --       --
+|cB cB cB cW|fB|oW oW|gB|tW|qW|
+             --       --      
+|cB cB cW cW|dW|oB oB|rW|tW|qB|
+ -- --          -- --    -- --
+|bB bW|cW cW|dB|pB pW|rB|sW sB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 15
+0.774331 [s]
+
+Level 352
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cW cW|dB dB dB dB dB dB|eB|
+                              
+|cB cB cW|dW dW dW dW dW dW|eW|
+    -- -- -- -- -- -- -- -- --
+|cB|sW sW sW|rW rW rW|kW kB kB|
+       -- --             -- --
+|cB|sB|uW uB|rB rB rB|kW|jW|aW|
+ --    -- -- -- -- -- --      
+|fW|sB|tW tB|vB vB vB|lW|jB|aB|
+                         -- --
+|fB|sB|tW tB|vW vW vW|lB|iW iW|
+ -- --       -- -- -- --      
+|gW|tW tW tB tB|pW|mW mB|iB iB|
+    -- -- -- --          -- --
+|gB|qW qB|oB oW|pB|mW mB|hW hB|
+ -- -- --       -- -- --      
+|oB oB oB oB oW oW oW oW|hW hB|
+ -- --             -- --      
+|bB bW|oB oB oW oW|nW nB|hW hB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 91
+0.984287 [s]
+
+Level 353
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|bW bB|pW pB|oW|eB eW|hB|
+       -- -- -- --    -- --   
+|aW aB|cW cB|rW|qW|oW oB oB|hB|
+ -- -- -- --       -- -- --   
+|fW fW fB fB|rW|qB|hB hB hB hB|
+                -- --         
+|fW fW fB fB|rW|iW iB|hW hW hW|
+ -- -- -- --    -- -- -- --   
+|dW|uW uW uW|rB|sB|tW tB|jW|hW|
+                              
+|dB|uW uW uB|rB|sW|tW tB|jB|hW|
+ -- --          -- -- -- --   
+|vB vW|uB uB|rB|xB xB|gW gW|hW|
+             --    --       --
+|vB vW|uB uB|xW xB|yW|gB gB|kB|
+ -- -- -- --    --    -- --   
+|wW wW wW|xW xW|zW|yB|mW mB|kW|
+          -- --    -- -- -- --
+|wB wB wB|{B {W|zB|nW nB|lW lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 10
+Number of vertices examined: 12
+0.133085 [s]
+
+Level 354
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|wW wB wB wB|eW eB|dW dB|
+ -- --    -- --    -- -- -- --
+|bW|xW|wW|yW yB|wB|tW|uW uB|cB|
+          -- -- --    -- --   
+|bB|xB|wW wW|tW tW tW tW|vB|cW|
+ -- -- -- --          --    --
+|fW|zB zW|tB tB tB tB|vW vB vB|
+    -- -- -- --    --         
+|fB|oW oW|nB nW|tB|vW vW vB vB|
+ --       -- -- --       -- --
+|oB oB oW|kW kW kW|vW vW|sW sW|
+ --                -- --    --
+|hW|oB oW|kW kB kB kB|qW|sB|rW|
+                -- --         
+|hB|oB oW|kW kB|mW mW|qB|sB|rB|
+ --    -- --          -- -- --
+|iW|oB|lB lW|kB|mB mW|pW pB pB|
+    -- -- -- --          -- --
+|iB|jB jW|mB mB mB mW|pW|gW gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 20
+Number of vertices examined: 498
+290.03 [s]
+
+Level 355
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|lW lB lB lB lB|dW dB|aB aW|bB|
+    -- -- -- -- -- -- -- --   
+|lW|mW|sW sB sB sB sB sB|pB|bW|
+                   -- --    --
+|lW|mB|sW sW sB sB|rW rB|pW|nW|
+    --             -- -- --   
+|lW|kW|sW sW sW sB|nW nW nW nW|
+ --       -- -- --          --
+|iW|kB|sW|uW uW uW|nB nW nW|eB|
+    --          --       --   
+|iB|tW|sW|uW uW|qW|nB nB|cW|eW|
+ --    --                   --
+|jW|tB|uW uW uW|qB|nB nB|cB|fB|
+    --          --    -- --   
+|jB|vB|uB uB uB|nB nB|fW fB fB|
+ --          -- -- --       --
+|wW|vW|uB uB|oW oB|fW fW fB|gW|
+    --                -- --   
+|wB|uB uB uB|oW oB|fW|hB hW|gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 2214
+40.1981 [s]
+
+Level 356
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|cW cW cW cW|dB|xW|wW wB|jW jB|
+                              
+|cB cB cB cB|dW|xW|wW wB|jW jB|
+ -- -- -- -- --    -- -- -- --
+|eW eW|fB fW|rB|xW xB xB xB|kB|
+       -- --    -- -- -- --   
+|eB eB|gW|rW rB rB|sW sB|tB|kW|
+ -- --             -- --    --
+|hB hW|gB|rW rW rB rB|tB tB|lB|
+       -- --       --    --   
+|hB hW|iB iW|rW rW|tW tB|uB|lW|
+ -- -- -- -- -- --    --    --
+|pW pW pW|qB qW|tW tW|vB|uW|vB|
+          -- --    --    --   
+|pW pB pB pB|vW|tW|vW vB vB vB|
+ -- -- --       --          --
+|nW|oB oW|pB|vW vW vW vB vB|bW|
+          -- --       -- --   
+|nB|oB oW|mW mB|vW vW|aW aB|bB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 739
+2.1767 [s]
+
+Level 357
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|hW hB|aW aB|cW cB|mW mW|dW dB|
+       -- -- -- --       -- --
+|hW hB|iB iB iB iB|mW mB mB|eW|
+                   --    --   
+|hW hB|iW iW iW iW|kB|mB|nB|eB|
+ -- -- -- -- -- --    --    --
+|sW sW sB sB|jW jB|kW|rB|nW|fB|
+             -- -- --    --   
+|sW sW sB sB|uW uW|lB|rB rB|fW|
+ -- -- -- --                --
+|tW|uB uB uB uB uW|lW|rB rB rB|
+       -- --       --         
+|tB|uB|vB vW|uB uW|oB|rW rW rW|
+ --    -- --          --      
+|qB|uB|pW|uW uW uW|oW|wW|rW rW|
+    --    -- -- -- --    --   
+|qW|wB|pB|wW wW wW wW wW wW|rW|
+ --    --          -- -- -- --
+|wB wB wB wB wB wB|gW gB|bW bB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 84
+192.386 [s]
+
+Level 358
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|xW xB xB xB|aB aW|qW qW|bW bB|
+    -- -- -- -- -- --    -- --
+|xW|wW wW wW|hB hW|rB|qW qB|cB|
+             -- --            
+|xW|wB wW wW|vW|gB|rB|qW qB|cW|
+ --    -- --          --    --
+|wB wB|vW vW vW|gW|rB|sW|qB qB|
+          --    --       -- --
+|wB wB|vB|iW|vW vW|rB|sW sB sB|
+ -- --       -- --    -- -- --
+|tB tW|vB|iB|uW uB|rW rW rW rW|
+ -- --    --       -- -- -- --
+|fW|vB vB vB|uW uB|pW|oW oB|mW|
+    -- --             -- --   
+|fB|dW dW|vB|uW uB|pW pB|nW|mB|
+ --       --       --       --
+|eW|dW dB|uW uW uB uB|pB|nB|lW|
+          -- -- -- -- -- --   
+|eB|dW dB dB dB|jW jB|kW kB|lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 20
+0.344577 [s]
+
+Level 359
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|iW iB iB iB|nW nB|tB tB|bW bB|
+    -- -- -- -- --       -- --
+|iW|mW mW mW mW|tB tB tW tW|uW|
+       -- -- --               
+|iW|mB|lW lB|sB|tB tB tW tW|uB|
+ --             --       -- --
+|jW|mB|lW lB|sW|rW|tW tW|vW vB|
+             --    -- -- -- --
+|jB|mB|lW lB|rW rW rW rW rW|hB|
+ --                      --   
+|kW|mB|lW lB|rW rB rB rW|gB|hW|
+    --       -- --          --
+|kB|lW lW lB lB|qW|rB rB|gB gB|
+ -- --       --       --      
+|oW oW|lW lB|pW|qB|rB|gW gB gB|
+ --    -- --    --          --
+|cW|oB|aW|dW|pB|rB rB|gW gW|fW|
+             -- --            
+|cB|oB|aB|dB|eW eB|rB|gW gW|fB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 202
+1.87657 [s]
+
+Level 360
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW aW aW|eW eB|bB bW|nW|
+                -- -- -- --   
+|aB aB aB aB aB|nW nW nW nW nW|
+ -- -- -- -- --       -- -- --
+|cB cW|nB nB nB nB nB|pW pW pW|
+ -- -- -- -- -- --          --
+|lW lW|mB mW|fW|gW|nB|pB pW|qW|
+ --                --    --   
+|dB|lB|mB mW|fB|gB|pB pB|rW|qB|
+       -- -- -- -- --       --
+|dW|lB|vW vW|wW wW wW|pB|rB|sW|
+ -- --       --       -- --   
+|jB jW|vW vW vW|wW wB|tW tB|sB|
+                --    -- -- --
+|jB jW|vW vB vB vB|wB wB|oW oB|
+ -- -- -- --          --      
+|hW hW|iB iW|vB vB|wB|kW|oW oB|
+                -- --         
+|hB hB|iB iW|vB|uW uB|kB|oW oB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 15
+Number of vertices examined: 50
+0.140971 [s]
+
+Level 361
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|dW dB|jB jB|kB|eW eB|gW|fW fB|
+                -- --    -- --
+|dW dB|jW jW|kB|hW hB|gW gB gB|
+       -- --    -- -- -- -- --
+|dW dB|oW|tW|kW kW|aB aB aB|cW|
+ -- --       -- --            
+|vB vW|oB|tW tW tW|aW aW aW|cB|
+       --          -- -- -- --
+|vB vW|tW tW tW tW|nB|mW mB|bW|
+          -- -- --            
+|vB vW|tB|uW uB|pB|nB|mW mB|bB|
+          -- --       -- -- --
+|vB vW|tB tB tB|pB|nW nW|lW lB|
+ -- --       --    -- -- -- --
+|sB sB|tB tB|pW pB|qB qB qB|rB|
+                              
+|sW sW|tB tB|pW pB|qW qW qW|rW|
+ -- -- -- --       -- -- -- --
+|pW pW pW pW pW pB pB pB|iW iB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 97
+25.7086 [s]
+
+Level 362
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW aW aW|bW bB|dW dB|eB|
+                -- -- -- --   
+|aB aB aB aB aB|pW|oW oB|cW|eW|
+ -- -- -- -- --    -- --    --
+|qB qB|pW pW pW pW|tB tB|cW cB|
+ --    -- --                  
+|lW|qB qB qW|pB pB|tW tW|cW cB|
+    --          -- -- -- --   
+|lB|nW|qW qW|pB|wW wB|vW vB|cB|
+ --       --                --
+|kW|nB|qW|rW|pB|wW wB|vW vB|fW|
+    -- --       -- -- -- --   
+|kB|mW|sW|rB|pB|uW uB uB|yB|fB|
+ --       -- --       --    --
+|hW|mB|sW sW|uW uW uB|yW yB yB|
+    -- --    -- -- --         
+|hB|iB iW|sB sB|xW|yW yW yB yB|
+ -- -- -- --             -- --
+|gB gW|jB jW|sB|xB|yW yW|zW zB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 207
+0.800894 [s]
+
+Level 363
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|sW sB sB sB sB|fW fB|rB rB|aB|
+             -- -- --         
+|sW sW sB sB|lW lB|rB rB rB|aW|
+       -- -- -- -- --       --
+|sW sW|yB|mW mB|nW nB|rW rW rW|
+    --    -- --       --      
+|sW|yW yB yB|xB|nW nB|cB|rW rW|
+ --             -- --    -- --
+|yW yW yB yB|xW|bW bB|cW|oB|pW|
+       --    -- -- -- --      
+|yW yW|wW|yB|uW uW|qW qB|oB|pB|
+    --    --       -- --    --
+|yW|vW|wB|uW uW uW uW|tW|oW oW|
+ --    --          --    -- --
+|hW|vB|uB uB uB uB|tW tW tW tW|
+    -- --       --          --
+|hB|gB gW|uB uB|tB tB tB tB|dW|
+ -- -- -- -- -- --    -- --   
+|iB iW|jB jW|kB kW|tB|eB eW|dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 29742
+10.3902 [s]
+
+Level 364
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|wW wW wW wW|jB jB jB|aB|eB eB|
+    --                        
+|wB|xW|wW wW|jW jW jW|aW|eW eW|
+       -- -- -- -- -- -- -- --
+|wB|xB|yW|lW lB|kW kB|fB fW|gW|
+    --    -- -- -- -- -- --   
+|wB wB|yB|mW|iW iB|hW hB hB|gW|
+       --             -- --   
+|wB wB|oW|mB|iW iB|hW|gW gW gW|
+ -- --    -- -- -- --         
+|uB uW|oB|pW pB|nW nB|gB gB gB|
+       -- -- -- -- --    -- --
+|uB uW|qW qB qB qB qB|gB|cB|bB|
+             -- -- --         
+|uB uW|qW qB|sW sW|tW|gB|cB|bW|
+ -- --                --    --
+|vB vW|qW qB|sB sB|tB|cW cB cB|
+ -- --    -- -- -- --    -- --
+|qW qW qW|rW rB|cW cW cW|dW dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 11
+Number of vertices examined: 22
+0.044406 [s]
+
+Level 365
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|{W {B|zB zB zB zB|aB|bB bW|cB|
+                      -- --   
+|{W {B|zW zW zW zW|aW|eB|fB|cW|
+       -- -- -- -- --       --
+|{W {B|rB rB rB rB rB|eW|fB fB|
+             --    -- --      
+|{W {B|rB rB|lW|rB|iW iB|fW fW|
+ -- --          -- -- -- --   
+|jW jB|rW rW|lB|kW kB|hW hB|fW|
+ -- --       -- -- -- -- -- --
+|sB sW|rW rW|nW nB|mW mB|gW gW|
+          -- -- -- -- --      
+|sB sW|rW|qW qB|pW pB|oW|gB gB|
+          -- -- -- --    -- --
+|sB sW|rW rW|uW uB|vW|oB|yW yB|
+ -- --    -- -- --    -- -- --
+|tW tW|rW|wW wB wB|vB|xW xW xW|
+       --       -- --         
+|tB tB|wW wW wB|dB dW|xB xB xB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 14
+Number of vertices examined: 155
+0.65286 [s]
+
+Level 366
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|fW fB|cW cB|dW dB|eW eB|aW aB|
+       -- -- -- -- -- -- -- --
+|fW fB|sW sB sB sB sB|qB|tB|bB|
+          -- -- -- --         
+|fW fB|sW|rW rB rB|vB|qW|tB|bW|
+             -- --    --    --
+|fW fB|sW|rW|vW vB vB vB|tB tB|
+          --       -- --      
+|fW fB|sW|vW vW vW|uW uB|tW tW|
+ -- -- -- -- -- --       --   
+|gB gW|nB nB nW|uW uW uB uB|tW|
+       -- --                  
+|gB gW|oB oW|nW|uW uW uB uB|tW|
+             --    -- --    --
+|gB gW|oB oW|mW|uW|iB iW|uB|lW|
+                --       --   
+|gB gW|oB oW|mB|iB iB iW iW|lB|
+ -- -- -- -- -- --       -- --
+|hB hW|pB pW|jB jW|iB iW|kW kB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 128
+4.11771 [s]
+
+Level 367
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|qW qB qB qB qB|sB|cW cB|fW fB|
+    -- --    --    -- --      
+|qW|rW rB|qB|sW sB sB|tB|fW fB|
+    -- --                -- --
+|qW qW qW qB|sW sW sB|tW|uW uW|
+    -- -- -- --    -- --      
+|qW|pW|gB gW|oW|sW|uW uW uW uW|
+ --    -- --    --          --
+|dW|pB|oB oB oW|uB uB uB uB|vW|
+    -- -- -- -- -- --         
+|dB|hW hW hW|wB wB wW|uB uB|vB|
+ --          -- --    -- -- --
+|eW|hW hW hB hB hB|wW|kW|nW nW|
+       -- --       --       --
+|eB|hW|iW iB|hB hB|kW kW|nB|mW|
+ -- --       --               
+|aW aW|iW iB|jW|hB|kB kW|nB|mB|
+       -- --    --       -- --
+|aB aB|bW bB|jB|kB kB kB|lW lB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 759
+0.166361 [s]
+
+Level 368
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|pW pB pB pB|nB|jW jB|kB|eB eB|
+                -- --         
+|pW pW pB pB|nW|mB|kW kB|eW eW|
+       -- -- --          -- --
+|pW pW|qW qW|mB mB|kW kB|fW fB|
+ -- --                --      
+|oB oW|qB qB|mB mB|kW|rW|fW fB|
+       -- --       --    -- --
+|oB oW|mW mB mB mB mB|rW rB rB|
+                   -- -- -- --
+|oB oW|mW mW mW mW|uW uB|vB vB|
+ -- --          --       --   
+|aB aW|mW mW mW|uW uW uB uB|vB|
+ -- --    -- -- --       --   
+|bW|iB|mW|lW lB|sW|uW uB|vW vB|
+       -- -- --    -- --    --
+|bB|iB iW|hW hW|sB|tB tW|vW|dW|
+ -- --          -- -- --      
+|cB cW|iW|hB hB|gB gW|vW vW|dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 76
+17.0787 [s]
+
+Level 369
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|xW xB xB xB xB|wB wB wB|aW aB|
+             --    -- -- -- --
+|xW xW xB xB|wW wB|vB vB vB|sB|
+       -- --    --    -- --   
+|xW xW|wW wW wW|vW vB|sW sB sB|
+    -- -- -- --             --
+|xW|oB oW|pB pW|vW vB|sW sW|mW|
+ -- -- -- -- --       -- --   
+|bB bW|vW vW vW vW vB|tW|nW|mB|
+       -- -- -- -- --       --
+|bB bW|dW dW dW|uW uB|tB|nB|lW|
+          -- --       -- --   
+|bB bW|dB|fW fB|uW uB|qB qW|lB|
+                -- --       --
+|bB bW|dB|fW fB|rW rB|qB qW|jW|
+ -- --    -- --               
+|cW cW|dB|gW gB|rW rB|qB qW|jB|
+       -- -- -- -- -- -- -- --
+|cB cB|eW eB|hW hB|iW iB|kW kB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 39
+99.9543 [s]
+
+Level 370
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|xW xW xW xW|cW cB|lW lB|kW|aB|
+    -- -- -- -- -- -- --      
+|xB|yW yW yW|zW|bW|mW mB|kW|aW|
+       -- --                --
+|xB|yB|zW zW zW|bB|mW mB|kB|jB|
+                -- -- --      
+|xB|yB|zB zB zB|wW wW wW|kB|jW|
+       -- --             -- --
+|xB|yB|{W {B|zB|wB wB wB|rW rW|
+ -- -- -- -- -- -- -- --      
+|nB||B |W|vW vW|qB qW|rB rB rW|
+          --    -- -- --    --
+|nW||B |W |W|vB|pW|oW oW|rB|eW|
+ --       --             --   
+||B |B |W|uW|vB|pB|oB oB|fW|eB|
+ --          -- -- -- --    --
+|sW||B |W|uB|tW tW|hB hW|fB|dW|
+    -- -- --    -- -- -- --   
+|sB|}B }W|tB tB|iW iB|gB gW|dB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 23
+Number of vertices examined: 17724
+1.47372 [s]
+
+Level 371
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW aW|bB bB bB|dW dB|eB|
+                      -- --   
+|aB aB aB aB|bW bW bW|sB|rB|eW|
+ -- -- -- -- -- -- --       --
+|fB|pW pW pB pB pB|qB|sW|rB|hB|
+                --    --      
+|fW|pW pW pB pB|mW|qW|uW|rB|hW|
+ --    -- -- --    --       --
+|mB|pW|mW mW mW mW|uW uW|rB rB|
+    --                        
+|mB mB mB mB mW mW|uW uW|rW rW|
+       -- -- --       -- --   
+|mB mB|jW jB|nW|mW|uW|oW oB|rW|
+    -- -- --    --    -- --   
+|mB|iW iB|kW|nB|uW uW uB|tW|rW|
+ -- -- --    --               
+|cW cW cW|kB|uB uB uB uB|tB|rW|
+          --       -- -- -- --
+|cB cB cB|uB uB uB|lW lB|gW gB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 16
+Number of vertices examined: 794
+9500.46 [s]
+
+Level 372
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|lW lW lW lW|eW eB|dW dB|cW cB|
+    --    -- -- -- -- -- -- --
+|lB|mW|lW|nW nB|uW uW uW uW|vW|
+          -- --               
+|lB|mB|lW lW|uB uB uB uB uW|vB|
+    --    --    -- -- -- -- --
+|lB lB lB|fW|uB|tW|wW wB|xW xB|
+    --       --    -- -- -- --
+|lB|oW|lB|fB|tW tW tW tW tW tW|
+ --    -- --                  
+|pW|oB|qW qB|tB tB tB tB tB tB|
+    -- -- -- --    -- -- -- --
+|pB|sW sB sB sB|tB|kW|jW jW jW|
+ --             --            
+|rB|sW sW sB sB sB|kB|jB jB jB|
+          -- --    -- -- -- --
+|rW|sW sW|bW bB|sB|iW iW|hW hB|
+ -- --    -- -- --            
+|gB gW|sW sW|aW aB|iB iB|hW hB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 462
+0.116982 [s]
+
+Level 373
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aB|pW|cB cB cB cB cB|dW dB|
+                         -- --
+|aW aB|pW|cW cW cW cW cW|eB eB|
+          -- -- -- -- --      
+|aW aB|pW|bW bB|mB|lB lB|eW eW|
+ -- --    -- --       -- -- --
+|pW pW pW|nW nB|mW|lB|oW oB|jB|
+          -- -- --    -- --   
+|pB pB pB pB|lB lB lB lB lB|jW|
+    -- -- --                --
+|pB|vW vW vW|lW lW lW lW lW|iB|
+          -- -- --    -- --   
+|pB|vB vW|rW rB|qW|lW|kW kB|iB|
+ --       -- --       -- --   
+|vB vB vB|sW sW|qB|lW lW|iW iB|
+ -- -- --       -- -- --    --
+|uW|tW tW|sW sB|gW gB|fW|iW|hW|
+                -- --         
+|uB|tB tB|sW sB sB sB|fB|iW|hB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 13
+Number of vertices examined: 54
+1.78932 [s]
+
+Level 374
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|iW iW iW|hW hB|gW gB|bB|aW aB|
+          -- -- -- --         
+|iB iB iB|oB|qW qW qW|bW|aW aB|
+ -- -- --             -- -- --
+|cW|dW|oW oB|qB qB qB|rB rB rB|
+             -- -- --       --
+|cB|dB|oW oB oB oB|rW rB rB|jW|
+ -- --          --            
+|lB lW|oW oW oW|rW rW rB rB|jB|
+       -- -- --          -- --
+|lB lW|nW|pB pW|rW rW rB|tW tW|
+ -- --    -- --       --    --
+|mB mW|nB|sW|rW rW rW|tW tW|uB|
+ -- -- --    -- -- --    --   
+|eW|kB kW|sB|vB vW|tB tB|zB|uW|
+    -- -- -- -- --    --    --
+|eB|wW wW|xB xW|tB tB|zW zB zB|
+ -- --    -- -- -- --    -- --
+|fB fW|wB wB|yW yB|zW zW|{W {B|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 168
+3.50945 [s]
+
+Level 375
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|wW wW wW|eB eW|fB|gW gB|aW aB|
+          -- --    -- -- -- --
+|wB wW wW|uW uW|fW|vB vB|tW|rW|
+       --       --    --      
+|wB wB|uW uW uW|vB vB|tW tW|rW|
+             --               
+|wB wB|uB uW|vW vB vB|tB tB|rW|
+ -- --                   --   
+|bW|uB uB uB|vW vW vW|tB|rW rW|
+    --       --       --    --
+|bB|hW|uB uB|qW|vW vW|rB rB|sW|
+ --    -- --    -- -- --      
+|cW|hB|pW pB|qB|mW|lB lW|rB|sB|
+    --       --             --
+|cB|iB|pW pB|oW|mB|lB lW|rB|jW|
+ --             --            
+|dW|iW|pW pB|oB|nW|lB lW|rB|jB|
+    --       --          -- --
+|dB|pW pW pB pB|nB|lB lW|kW kB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 18
+Number of vertices examined: 2455
+2.15781 [s]
+
+Level 376
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|aW aW aW|iW iW|eB eW|dB|bW bB|
+    --          -- --    -- --
+|aB|cW|aW|iW iB iB|dB dB dB dB|
+       -- -- --               
+|aB|cB|jW jW|kW|iB|dW dW dW dW|
+    --    --    -- --    -- --
+|aB aB|jB|lW|kB|mW mB|dW|fW fB|
+ -- --       -- -- -- -- -- --
+|oW oW|jB|lB|nW nB|xB xB|gW gB|
+       -- -- -- --            
+|oW oB|pW pB|oB oB|xB xB|gW gB|
+       -- --    --       -- --
+|oW oB oB oB oB|xW xB xB xB|yB|
+       -- -- --          --   
+|oW oW|rW rW|tW|xW xW xW|yW yB|
+ --                         --
+|hW|oW|rB rB|tB|xW xW xW|yW|vW|
+    -- -- -- -- -- -- -- --   
+|hB|qW qB|sW sB|uW uB|wW wB|vB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 12
+Number of vertices examined: 20
+1.48462 [s]
+
+Level 377
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|zW zW|iB iW|yW yW|bW bB|aW aB|
+    -- -- --    -- -- -- -- --
+|zB|yW yW yW yW|jW jB|kW kB|lW|
+             -- -- -- -- --   
+|zB|yB yW yW|tW tB|mW mB|lW lW|
+ --    -- --       -- --    --
+|yB yB|{W|tW tW tB tB|lB lB|nB|
+          --       -- --      
+|yB yB|{B|uW|tW tB|oB oB|lB|nW|
+ --    --                -- --
+|qW|yB yB|uB|tW tB|oW oW|pW pW|
+    --    -- -- -- -- --      
+|qB|xB|yB|vW vB vB vB|pB pB pW|
+ --    --    -- -- -- --      
+|rW|xB xW|vW|wW wB|fB fW|pB pW|
+             -- --          --
+|rB|xB xW|vW|cW cB|fB fW|pB|hW|
+ -- --    -- -- -- -- -- --   
+|sB sW|xW|dW dB|eW eB|gW gB|hB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 17
+Number of vertices examined: 1274
+12.3404 [s]
+
+Level 378
+Sequence of moves: 
+ -- -- -- -- -- -- -- -- -- --
+|fW fW fW|hW hB|iB|bW bB|aW aB|
+       -- -- --    -- -- -- --
+|fB fW|gW gW gW|iW|rB rB|kW kB|
+                --    --      
+|fB fB|gB gB gB|rW rW|uW|kW kB|
+    -- -- -- -- -- --         
+|fB|xW xW xW|uW uW uW uW|kW kB|
+ --    --                -- --
+|cW|xB|yW|xW|uB uB uB uB|oB|jB|
+          -- -- -- --         
+|cB|xB|yB|wW wB|vW vW|uB|oB|jW|
+ --    -- -- --    -- --    --
+|dW|xB xB|tW|vB vB|pW|oW oB oB|
+    -- --    -- --            
+|dB|sW sW|tB|sB|qW|pB|oW oW oB|
+ --       --       -- --    --
+|sW sW sB sB sB|qB|lW|nW|oW|eW|
+             -- --            
+|sW sW sB sB|mB mW|lB|nB|oW|eB|
+ -- -- -- -- -- -- -- -- -- --
+Number of moves: 19
+Number of vertices examined: 229
+7.24734 [s]
+
+Level 379
