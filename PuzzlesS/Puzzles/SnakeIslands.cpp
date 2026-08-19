@@ -182,14 +182,14 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     for (auto& p : m_head_tails) {
         if (p == *m_head_tails.rbegin()) break;
         auto smoves = puz_move_generator<puz_state3>::gen_moves({this, p});
-        for (auto& s : smoves) {
-            if (!s.m_is_goal || boost::algorithm::any_of_equal(m_snake_moves, s)) continue;
-            int n = -1 - m_snake_moves.size();
-            m_snake_moves.push_back(s);
-            for (auto& p2 : s)
-                m_pos2move_ids[p2].push_back(n);
-            snake_all.insert_range(s);
-        }
+        for (auto& s : smoves)
+            if (s.m_is_goal && boost::algorithm::none_of_equal(m_snake_moves, s)) {
+                int n = -1 - m_snake_moves.size();
+                m_snake_moves.push_back(s);
+                for (auto& p2 : s)
+                    m_pos2move_ids[p2].push_back(n);
+                snake_all.insert_range(s);
+            }
     }
 
     for (auto& [p, garden] : m_pos2garden) {
@@ -404,13 +404,11 @@ ostream& puz_state::dump(ostream& out) const
             char ch = cells(p);
             if (ch == PUZ_SNAKE)
                 out << PUZ_SNAKE << ' ';
-            else {
-                auto it = m_game->m_pos2garden.find(p);
-                if (it == m_game->m_pos2garden.end())
-                    out << ". ";
-                else
-                    out << format("{:<2}", it->second.m_num);
-            }
+            else if (auto it = m_game->m_pos2garden.find(p);
+                it == m_game->m_pos2garden.end())
+                out << ". ";
+            else
+                out << format("{:<2}", it->second.m_num);
         }
         println(out);
     }
