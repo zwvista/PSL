@@ -306,6 +306,9 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, move_ids.front()), 1;
             }
     }
+    for (auto& [p, move_ids] : m_matches)
+        if (double(move_ids.size()) / move_ids.capacity() < 0.75)
+            move_ids.shrink_to_fit();
     return check_2x2() && is_interconnected() ? 2 : 0;
 }
 
