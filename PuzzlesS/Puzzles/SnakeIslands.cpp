@@ -34,6 +34,7 @@ constexpr auto PUZ_SPACE = ' ';
 constexpr auto PUZ_GARDEN = '.';
 constexpr auto PUZ_HIDDEN = '*';
 constexpr auto PUZ_SNAKE = 'S';
+constexpr auto PUZ_SNAKE_END = 'O';
 constexpr auto PUZ_BOUNDARY = '`';
 constexpr auto PUZ_HIDDEN_GARDEN_ID = 9999;
 
@@ -265,13 +266,15 @@ int puz_state::find_matches(bool init)
             if (id >= 0)
                 return false;
             auto& move = m_game->m_snake_moves[-1 - id];
+            if (!boost::algorithm::all_of(move, [&](const Position& p2) {
+                if (m_matches.contains(p2))
+                    if (char ch2 = cells(p2); ch2 == PUZ_SPACE || ch2 == PUZ_SNAKE)
+                        return true;
+                return false;
+            }))
+                return true;
             snake_all.insert_range(move);
-            return !boost::algorithm::all_of(move, [&](const Position& p2) {
-                if (!m_matches.contains(p2))
-                    return false;
-                char ch2 = cells(p2);
-                return ch2 == PUZ_SPACE || ch2 == PUZ_SNAKE;
-            });
+            return false;
         });
     }
     for (auto& [p, move_ids] : m_matches) {
@@ -403,7 +406,7 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             char ch = cells(p);
             if (ch == PUZ_SNAKE)
-                out << PUZ_SNAKE << ' ';
+                out << (m_game->m_head_tails.contains(p) ? PUZ_SNAKE_END : PUZ_SNAKE) << ' ';
             else if (auto it = m_game->m_pos2garden.find(p);
                 it == m_game->m_pos2garden.end())
                 out << ". ";
