@@ -237,6 +237,12 @@ struct puz_state
     int find_matches(bool init);
     bool is_interconnected() const;
     bool check_2x2();
+    bool check_snake(const set<Position>& snake_all) const;
+    void shrink_matches() {
+        for (auto& [p, move_ids] : m_matches)
+            if (double(move_ids.size()) / move_ids.capacity() < 0.75)
+                move_ids.shrink_to_fit();
+    }
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -306,10 +312,7 @@ int puz_state::find_matches(bool init)
                 return make_move2(p, move_ids.front()), 1;
             }
     }
-    for (auto& [p, move_ids] : m_matches)
-        if (double(move_ids.size()) / move_ids.capacity() < 0.75)
-            move_ids.shrink_to_fit();
-    return check_2x2() && is_interconnected() ? 2 : 0;
+    return check_2x2() && check_snake(snake_all) && is_interconnected() ? (shrink_matches(), 2) : 0;
 }
 
 struct puz_state4 : Position
@@ -360,6 +363,14 @@ bool puz_state::check_2x2()
             if (rng1.size() == 3 && rng2.size() == 1)
                 cells(rng2[0]) = PUZ_GARDEN;
         }
+    return true;
+}
+
+bool puz_state::check_snake(const set<Position>& snake_all) const
+{
+    for (auto& [p, v] : m_matches)
+        if (cells(p) == PUZ_SNAKE && !snake_all.contains(p))
+            return false;
     return true;
 }
 
