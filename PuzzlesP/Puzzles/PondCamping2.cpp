@@ -128,7 +128,7 @@ void puz_state::make_move2(Position p)
     auto h = get_heuristic();
     for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
         auto& [inner, outer] = it->second;
-        if (!outer.erase(p)) continue;
+        if (!outer.erase(p)) { it++; continue; }
         inner.insert(p);
         cells(p) = PUZ_EMPTY;
         if (inner.size() < m_game->m_pos2num.at(it->first))
@@ -136,6 +136,9 @@ void puz_state::make_move2(Position p)
         else {
             for (auto& p2 : outer)
                 cells(p2) = PUZ_FOREST;
+            for (auto& os : offset)
+                if (char& ch = cells(p + os); ch == PUZ_SPACE)
+                    ch = PUZ_FOREST;
             it = m_pos2area.erase(it);
         }
     }
@@ -153,10 +156,13 @@ bool puz_state::make_move(Position p)
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [_1, area] = *boost::min_element(m_pos2area, [](
+    auto& [_1, area] = *boost::min_element(m_pos2area, [&](
         const pair<const Position, puz_area>& kv1,
         const pair<const Position, puz_area>& kv2) {
-        return kv1.second.m_outer.size() < kv2.second.m_outer.size();
+        auto f = [&](const pair<const Position, puz_area>& kv) {
+            return pair(kv.second.m_outer.size(), m_game->m_pos2num.at(kv.first));
+        };
+        return f(kv1) < f(kv2);
     });
     for (auto& p : area.m_outer)
         if (!children.emplace_back(*this).make_move(p))
