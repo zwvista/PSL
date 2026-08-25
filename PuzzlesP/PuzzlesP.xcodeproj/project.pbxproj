@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C19BD9B2FEF4FC9005EC605 /* ProofOfQuilt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C19BD992FEF4FC9005EC605 /* ProofOfQuilt.cpp */; };
 		8C1ACFD92F2F1E89004832E2 /* PondsAndFlowerbeds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C1ACFD62F2F1E89004832E2 /* PondsAndFlowerbeds.cpp */; };
+		8C34F024303E36F800B38425 /* PondCamping2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C34F022303E363D00B38425 /* PondCamping2.cpp */; };
 		8C689CD62E003B5700A2BCCC /* PathOnTheHills.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CCA2E003B5700A2BCCC /* PathOnTheHills.cpp */; };
 		8C689CD72E003B5700A2BCCC /* PathOnTheMountains.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CCD2E003B5700A2BCCC /* PathOnTheMountains.cpp */; };
 		8C689CD82E003B5700A2BCCC /* PondCamping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C689CD32E003B5700A2BCCC /* PondCamping.cpp */; };
@@ -61,6 +62,8 @@
 		8C1ACFD62F2F1E89004832E2 /* PondsAndFlowerbeds.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PondsAndFlowerbeds.cpp; sourceTree = "<group>"; };
 		8C1ACFD72F2F1E89004832E2 /* PondsAndFlowerbeds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = PondsAndFlowerbeds.txt; sourceTree = "<group>"; };
 		8C1ACFD82F2F1E89004832E2 /* PondsAndFlowerbeds.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PondsAndFlowerbeds.xml; sourceTree = "<group>"; };
+		8C34F022303E363D00B38425 /* PondCamping2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PondCamping2.cpp; sourceTree = "<group>"; };
+		8C34F023303E36D600B38425 /* PondCamping2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = PondCamping2.txt; sourceTree = "<group>"; };
 		8C5F12A52DE378DA00BB3341 /* PSLhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLhelper.h; sourceTree = "<group>"; };
 		8C5F12A62DE378DA00BB3341 /* solve_puzzle_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solve_puzzle_p.h; sourceTree = "<group>"; };
 		8C689CCA2E003B5700A2BCCC /* PathOnTheHills.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PathOnTheHills.cpp; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				8C689CD32E003B5700A2BCCC /* PondCamping.cpp */,
 				8C689CD42E003B5700A2BCCC /* PondCamping.txt */,
 				8C689CD52E003B5700A2BCCC /* PondCamping.xml */,
+				8C34F022303E363D00B38425 /* PondCamping2.cpp */,
+				8C34F023303E36D600B38425 /* PondCamping2.txt */,
 				8C1ACFD62F2F1E89004832E2 /* PondsAndFlowerbeds.cpp */,
 				8C1ACFD72F2F1E89004832E2 /* PondsAndFlowerbeds.txt */,
 				8C1ACFD82F2F1E89004832E2 /* PondsAndFlowerbeds.xml */,
@@ -407,6 +412,7 @@
 				8CA241121EB47AC40055D6B1 /* Pata.cpp in Sources */,
 				8CA2410F1EB47AC40055D6B1 /* ParkLakes.cpp in Sources */,
 				8CA23F041EA924380055D6B1 /* main.cpp in Sources */,
+				8C34F024303E36F800B38425 /* PondCamping2.cpp in Sources */,
 				8CA23F331EA927AF0055D6B1 /* pugixml.cpp in Sources */,
 				8CA241141EB47AC40055D6B1 /* patternpuzzle.cpp in Sources */,
 				8CA241111EB47AC40055D6B1 /* Parks2.cpp in Sources */,

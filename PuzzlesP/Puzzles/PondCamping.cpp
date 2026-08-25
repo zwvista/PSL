@@ -82,7 +82,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             else {
                 m_cells.push_back(PUZ_POND);
                 int num = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
-                (num > 10 ? m_pos2num_big : m_pos2num)[{r, c}] = isdigit(ch) ? ch - '0' : ch - 'A' + 10;
+                (num > 10 ? m_pos2num_big : m_pos2num)[{r, c}] = num;
             }
         m_cells.push_back(PUZ_FOREST);
     }

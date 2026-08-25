@@ -21,6 +21,7 @@ extern void solve_puz_PlugItIn();
 extern void solve_puz_Pointing();
 extern void solve_puz_PondsAndFlowerbeds();
 extern void solve_puz_PondCamping();
+extern void solve_puz_PondCamping2();
 extern void solve_puz_PouringWater();
 extern void solve_puz_PourWater();
 extern void solve_puz_PowerGrid();
@@ -53,6 +54,7 @@ int main(int argc, char **argv)
         println("o1: Pointing");
         println("o2: Ponds and Flowerbeds");
         println("o3: Pond camping");
+        println("o32: Pond camping 2");
         println("o4: Pouring Water");
         println("o5: Pour Water");
         println("o6: Power Grid");
@@ -60,7 +62,7 @@ int main(int argc, char **argv)
         println("r2: Proof of Quilt");
         println("u: Puzzle Retreat");
         getline(cin, str);
-        if (str.empty()) solve_puz_ProofOfQuilt();
+        if (str.empty()) solve_puz_PondCamping2();
         else if (str == "ai1") solve_puz_PaintTheNurikabe();
         else if (str == "ai2") solve_puz_Pairakabe();
         else if (str == "ar1") solve_puz_ParkingLot();
@@ -82,6 +84,7 @@ int main(int argc, char **argv)
         else if (str == "o1") solve_puz_Pointing();
         else if (str == "o2") solve_puz_PondsAndFlowerbeds();
         else if (str == "o3") solve_puz_PondCamping();
+        else if (str == "o32") solve_puz_PondCamping2();
         else if (str == "o4") solve_puz_PouringWater();
         else if (str == "o5") solve_puz_PourWater();
         else if (str == "o6") solve_puz_PowerGrid();
