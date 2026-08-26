@@ -131,7 +131,7 @@ void puz_state::make_move2(Position p)
         if (!outer.erase(p)) { it++; continue; }
         inner.insert(p);
         cells(p) = PUZ_EMPTY;
-        if (inner.size() < m_game->m_pos2num.at(it->first))
+        if (inner.size() <= m_game->m_pos2num.at(it->first))
             it++;
         else {
             for (auto& p2 : outer)
@@ -160,7 +160,8 @@ void puz_state::gen_children(list<puz_state>& children) const
         const pair<const Position, puz_area>& kv1,
         const pair<const Position, puz_area>& kv2) {
         auto f = [&](const pair<const Position, puz_area>& kv) {
-            return pair(kv.second.m_outer.size(), m_game->m_pos2num.at(kv.first));
+            auto& [inner, outer] = kv.second;
+            return pair(outer.size(), m_game->m_pos2num.at(kv.first) - inner.size());
         };
         return f(kv1) < f(kv2);
     });
