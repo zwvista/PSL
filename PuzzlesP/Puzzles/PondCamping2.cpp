@@ -77,7 +77,7 @@ struct puz_state
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
         return boost::accumulate(m_pos2area, 0, [&](int acc, const pair<const Position, puz_area>& kv) {
-            return acc + m_game->m_pos2num.at(kv.first) - kv.second.m_inner.size();
+            return acc + m_game->m_pos2num.at(kv.first) + 1 - kv.second.m_inner.size();
         });
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
@@ -104,33 +104,31 @@ bool puz_state::adjust_area(bool init)
         auto& [pnum, area] = *it;
         int num = m_game->m_pos2num.at(pnum);
         auto& [inner, outer] = area;
-        bool extending = false;
-        do {
+        for (bool extending = true; extending;) {
             extending = false;
             outer.clear();
             for (auto& p : inner)
                 for (auto& os : offset) {
                     auto p2 = p + os;
-                    if (char ch = cells(p2); !inner.contains(p2) && ch == PUZ_EMPTY)
-                        inner.insert(p2), extending = true;
-                    else if (ch == PUZ_SPACE)
+                    if (char ch = cells(p2); ch == PUZ_SPACE)
                         outer.insert(p2);
+                    else if (!inner.contains(p2) && ch == PUZ_EMPTY)
+                        inner.insert(p2), extending = true;
                 }
-        } while (extending);
+        }
 
-        if (!init) {
-            if (int sz = inner.size() - 1; sz > num)
-                return false;
-            else if (sz == num) {
-                for (auto& p : outer)
-                    cells(p) = PUZ_FOREST;
-                it = m_pos2area.erase(it);
-            }
-            else if (outer.empty())
-                return false;
-            else
-                it++;
-        } else
+        if (init)
+            it++;
+        else if (int sz = inner.size() - 1; sz > num)
+            return false;
+        else if (sz == num) {
+            for (auto& p : outer)
+                cells(p) = PUZ_FOREST;
+            it = m_pos2area.erase(it);
+        }
+        else if (outer.empty())
+            return false;
+        else
             it++;
     }
     return true;
@@ -169,8 +167,10 @@ ostream& puz_state::dump(ostream& out) const
             Position p(r, c);
             if (auto it = m_game->m_pos2num.find(p); it != m_game->m_pos2num.end())
                 out << format("{:<2}", it->second);
-            else
-                out << cells(p) << ' ';
+            else {
+                char ch = cells(p);
+                out << (ch == PUZ_SPACE ? PUZ_FOREST : ch) << ' ';
+            }
         }
         println(out);
     }
