@@ -101,11 +101,9 @@ bool puz_state::make_move(Position p)
         for (bool extending = true; extending;) {
             extending = false;
             for (auto& p2 : inner)
-                for (auto& os : offset) {
-                    auto p3 = p2 + os;
-                    if (char ch = cells(p3); ch == PUZ_EMPTY && !inner.contains(p3))
+                for (auto& os : offset)
+                    if (auto p3 = p2 + os; cells(p3) == PUZ_EMPTY && !inner.contains(p3))
                         inner.insert(p3), extending = true;
-                }
         }
         if (int sz = inner.size() - 1; sz > num)
             return false;
@@ -132,11 +130,9 @@ void puz_state::gen_children(list<puz_state>& children) const
         auto& outer = pos2outer[pnum];
         outer.clear();
         for (auto& p : inner)
-            for (auto& os : offset) {
-                auto p2 = p + os;
-                if (char ch = cells(p2); ch == PUZ_SPACE)
+            for (auto& os : offset)
+                if (auto p2 = p + os; cells(p2) == PUZ_SPACE)
                     outer.insert(p2);
-            }
     }
     auto& [pnum, _1] = *boost::min_element(m_pos2area, [&](
         const puz_pos2area::value_type& kv1,
