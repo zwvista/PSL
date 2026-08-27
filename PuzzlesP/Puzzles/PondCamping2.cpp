@@ -70,8 +70,7 @@ struct puz_state
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(Position p);
-    void make_move2(Position p);
-    int adjust_area(bool init);
+    bool adjust_area(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
@@ -99,59 +98,52 @@ puz_state::puz_state(const puz_game& g)
     adjust_area(true);
 }
 
-int puz_state::adjust_area(bool init)
+bool puz_state::adjust_area(bool init)
 {
-    for (auto& [pnum, area] : m_pos2area) {
-        int num = m_game->m_pos2num.at(pnum);
-        auto& outer = area.m_outer;
-        outer.clear();
-        for (auto& p : area.m_inner)
-            for (auto& os : offset) {
-                auto p2 = p + os;
-                if (cells(p2) == PUZ_SPACE)
-                    outer.insert(p2);
-            }
-
-        if (!init)
-            switch(outer.size()) {
-            case 0:
-                return 0;
-            case 1:
-                return make_move2(*outer.begin()), 1;
-            }
-    }
-    return 2;
-}
-
-void puz_state::make_move2(Position p)
-{
-    auto h = get_heuristic();
     for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
-        auto& [inner, outer] = it->second;
-        if (!outer.erase(p)) { it++; continue; }
-        inner.insert(p);
-        cells(p) = PUZ_EMPTY;
-        if (inner.size() <= m_game->m_pos2num.at(it->first))
+        auto& [pnum, area] = *it;
+        int num = m_game->m_pos2num.at(pnum);
+        auto& [inner, outer] = area;
+        bool extending = false;
+        do {
+            extending = false;
+            outer.clear();
+            for (auto& p : inner)
+                for (auto& os : offset) {
+                    auto p2 = p + os;
+                    if (char ch = cells(p2); !inner.contains(p2) && ch == PUZ_EMPTY)
+                        inner.insert(p2), extending = true;
+                    else if (ch == PUZ_SPACE)
+                        outer.insert(p2);
+                }
+        } while (extending);
+
+        if (!init) {
+            if (int sz = inner.size() - 1; sz > num)
+                return false;
+            else if (sz == num) {
+                for (auto& p : outer)
+                    cells(p) = PUZ_FOREST;
+                it = m_pos2area.erase(it);
+            }
+            else if (outer.empty())
+                return false;
+            else
+                it++;
+        } else
             it++;
-        else {
-            for (auto& p2 : outer)
-                cells(p2) = PUZ_FOREST;
-            for (auto& os : offset)
-                if (char& ch = cells(p + os); ch == PUZ_SPACE)
-                    ch = PUZ_FOREST;
-            it = m_pos2area.erase(it);
-        }
     }
-    m_distance = h - get_heuristic();
+    return true;
 }
 
 bool puz_state::make_move(Position p)
 {
-    m_distance = 0;
-    make_move2(p);
-    int m;
-    while ((m = adjust_area(false)) == 1);
-    return m == 2;
+    auto h = get_heuristic();
+    cells(p) = PUZ_EMPTY;
+    bool b = adjust_area(false);
+    if (b)
+        m_distance = h - get_heuristic();
+    return b;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
