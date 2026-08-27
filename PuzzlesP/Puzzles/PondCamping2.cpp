@@ -57,9 +57,6 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
 struct puz_area
 {
     set<Position> m_inner, m_outer;
-    bool operator<(const puz_area& x) const {
-        return m_outer.size() < x.m_outer.size();
-    }
 };
 
 struct puz_state
@@ -100,36 +97,20 @@ puz_state::puz_state(const puz_game& g)
 
 bool puz_state::adjust_area(bool init)
 {
-    for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
-        auto& [pnum, area] = *it;
+    for (auto& [pnum, area] : m_pos2area) {
         int num = m_game->m_pos2num.at(pnum);
         auto& [inner, outer] = area;
-        for (bool extending = true; extending;) {
-            extending = false;
-            outer.clear();
-            for (auto& p : inner)
-                for (auto& os : offset) {
-                    auto p2 = p + os;
-                    if (char ch = cells(p2); ch == PUZ_SPACE)
-                        outer.insert(p2);
-                    else if (!inner.contains(p2) && ch == PUZ_EMPTY)
-                        inner.insert(p2), extending = true;
-                }
-        }
+        outer.clear();
+        for (auto& p : inner)
+            for (auto& os : offset) {
+                auto p2 = p + os;
+                if (char ch = cells(p2); ch == PUZ_SPACE)
+                    outer.insert(p2);
+            }
 
-        if (init)
-            it++;
-        else if (int sz = inner.size() - 1; sz > num)
-            return false;
-        else if (sz == num) {
-            for (auto& p : outer)
-                cells(p) = PUZ_FOREST;
-            it = m_pos2area.erase(it);
-        }
-        else if (outer.empty())
-            return false;
-        else
-            it++;
+        if (!init)
+            if (outer.empty())
+                return false;
     }
     return true;
 }
@@ -138,6 +119,35 @@ bool puz_state::make_move(Position p)
 {
     auto h = get_heuristic();
     cells(p) = PUZ_EMPTY;
+
+    for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
+        auto& [pnum, area] = *it;
+        int num = m_game->m_pos2num.at(pnum);
+        auto& [inner, _1] = area;
+        for (bool extending = true; extending;) {
+            extending = false;
+            for (auto& p2 : inner)
+                for (auto& os : offset) {
+                    auto p3 = p2 + os;
+                    if (char ch = cells(p3); ch == PUZ_EMPTY && !inner.contains(p3))
+                        inner.insert(p3), extending = true;
+                }
+        }
+        if (int sz = inner.size() - 1; sz > num)
+            return false;
+        else if (sz == num) {
+            for (auto& p2 : inner)
+                for (auto& os : offset) {
+                    auto p3 = p2 + os;
+                    if (char ch = cells(p3); ch == PUZ_SPACE)
+                        ch = PUZ_FOREST;
+                }
+            it = m_pos2area.erase(it);
+        }
+        else
+            it++;
+    }
+
     bool b = adjust_area(false);
     if (b)
         m_distance = h - get_heuristic();
