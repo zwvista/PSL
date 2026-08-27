@@ -54,10 +54,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
     m_cells.append(m_sidelen, PUZ_FOREST);
 }
 
-struct puz_area
-{
-    set<Position> m_inner, m_outer;
-};
+using puz_pos2area = map<Position, set<Position>>;
 
 struct puz_state
 {
@@ -67,14 +64,13 @@ struct puz_state
     char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
     bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
     bool make_move(Position p);
-    bool adjust_area(bool init);
 
     //solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
     unsigned int get_heuristic() const {
-        return boost::accumulate(m_pos2area, 0, [&](int acc, const pair<const Position, puz_area>& kv) {
-            return acc + m_game->m_pos2num.at(kv.first) + 1 - kv.second.m_inner.size();
+        return boost::accumulate(m_pos2area, 0, [&](int acc, const puz_pos2area::value_type& kv) {
+            return acc + m_game->m_pos2num.at(kv.first) + 1 - kv.second.size();
         });
     }
     unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
@@ -83,7 +79,7 @@ struct puz_state
 
     const puz_game* m_game;
     string m_cells;
-    map<Position, puz_area> m_pos2area;
+    puz_pos2area m_pos2area;
     unsigned int m_distance = 0;
 };
 
@@ -91,28 +87,7 @@ puz_state::puz_state(const puz_game& g)
 : m_cells(g.m_cells), m_game(&g)
 {
     for (auto& [p, _1] : g.m_pos2num)
-        m_pos2area[p].m_inner.insert(p);
-    adjust_area(true);
-}
-
-bool puz_state::adjust_area(bool init)
-{
-    for (auto& [pnum, area] : m_pos2area) {
-        int num = m_game->m_pos2num.at(pnum);
-        auto& [inner, outer] = area;
-        outer.clear();
-        for (auto& p : inner)
-            for (auto& os : offset) {
-                auto p2 = p + os;
-                if (char ch = cells(p2); ch == PUZ_SPACE)
-                    outer.insert(p2);
-            }
-
-        if (!init)
-            if (outer.empty())
-                return false;
-    }
-    return true;
+        m_pos2area[p].insert(p);
 }
 
 bool puz_state::make_move(Position p)
@@ -121,9 +96,8 @@ bool puz_state::make_move(Position p)
     cells(p) = PUZ_EMPTY;
 
     for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
-        auto& [pnum, area] = *it;
+        auto& [pnum, inner] = *it;
         int num = m_game->m_pos2num.at(pnum);
-        auto& [inner, _1] = area;
         for (bool extending = true; extending;) {
             extending = false;
             for (auto& p2 : inner)
@@ -139,7 +113,7 @@ bool puz_state::make_move(Position p)
             for (auto& p2 : inner)
                 for (auto& os : offset) {
                     auto p3 = p2 + os;
-                    if (char ch = cells(p3); ch == PUZ_SPACE)
+                    if (char& ch = cells(p3); ch == PUZ_SPACE)
                         ch = PUZ_FOREST;
                 }
             it = m_pos2area.erase(it);
@@ -147,25 +121,34 @@ bool puz_state::make_move(Position p)
         else
             it++;
     }
-
-    bool b = adjust_area(false);
-    if (b)
-        m_distance = h - get_heuristic();
-    return b;
+    m_distance = h - get_heuristic();
+    return true;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [_1, area] = *boost::min_element(m_pos2area, [&](
-        const pair<const Position, puz_area>& kv1,
-        const pair<const Position, puz_area>& kv2) {
-        auto f = [&](const pair<const Position, puz_area>& kv) {
-            auto& [inner, outer] = kv.second;
-            return pair(outer.size(), m_game->m_pos2num.at(kv.first) - inner.size());
+    puz_pos2area pos2outer;
+    for (auto& [pnum, inner] : m_pos2area) {
+        auto& outer = pos2outer[pnum];
+        outer.clear();
+        for (auto& p : inner)
+            for (auto& os : offset) {
+                auto p2 = p + os;
+                if (char ch = cells(p2); ch == PUZ_SPACE)
+                    outer.insert(p2);
+            }
+    }
+    auto& [pnum, _1] = *boost::min_element(m_pos2area, [&](
+        const puz_pos2area::value_type& kv1,
+        const puz_pos2area::value_type& kv2) {
+            auto f = [&](const puz_pos2area::value_type& kv) {
+            auto& [pnum, inner] = kv;
+            auto& outer = pos2outer.at(pnum);
+            return pair(outer.size(), m_game->m_pos2num.at(pnum) - inner.size());
         };
         return f(kv1) < f(kv2);
     });
-    for (auto& p : area.m_outer)
+    for (auto& p : pos2outer.at(pnum))
         if (!children.emplace_back(*this).make_move(p))
             children.pop_back();
 }
