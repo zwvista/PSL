@@ -98,12 +98,15 @@ bool puz_state::make_move(Position p)
     for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
         auto& [pnum, inner] = *it;
         int num = m_game->m_pos2num.at(pnum);
-        for (bool extending = true; extending;) {
-            extending = false;
+        for (;;) {
+            set<Position> outer;
             for (auto& p2 : inner)
                 for (auto& os : offset)
                     if (auto p3 = p2 + os; cells(p3) == PUZ_EMPTY && !inner.contains(p3))
-                        inner.insert(p3), extending = true;
+                        outer.insert(p3);
+            if (outer.empty())
+                break;
+            inner.insert_range(outer);
         }
         if (int sz = inner.size() - 1; sz > num)
             return false;
@@ -115,7 +118,25 @@ bool puz_state::make_move(Position p)
                         ch = PUZ_FOREST;
                 }
             it = m_pos2area.erase(it);
-        }
+        } else if (auto area = inner; ![&]{
+            set<Position> outer;
+            for (;;) {
+                set<Position> outer;
+                for (auto& p2 : area)
+                    for (auto& os : offset) {
+                        auto p3 = p2 + os;
+                        if (char ch = cells(p3);
+                            (ch == PUZ_SPACE || ch == PUZ_EMPTY) && !area.contains(p3))
+                            outer.insert(p3);
+                    }
+                if (outer.empty())
+                    return false;
+                area.insert_range(outer);
+                if (area.size() > num)
+                    return true;
+            }
+        }())
+            return false;
         else
             it++;
     }
