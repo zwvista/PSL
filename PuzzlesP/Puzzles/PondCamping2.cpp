@@ -90,13 +90,45 @@ puz_state::puz_state(const puz_game& g)
         m_pos2area[p].insert(p);
 }
 
+struct puz_state2 : Position
+{
+    puz_state2(const puz_state* s, const set<Position>* inner, bool include_space)
+        : m_state(s), m_inner(inner), m_include_space(include_space) {}
+
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void gen_children(list<puz_state2>& children) const;
+
+    const puz_state* m_state;
+    const set<Position>* m_inner;
+    bool m_include_space;
+};
+
+void puz_state2::gen_children(list<puz_state2>& children) const
+{
+    auto f = [&](const Position& p) {
+        for (auto& os : offset) {
+            auto p2 = p + os;
+            if (char ch = m_state->cells(p2);
+                m_include_space && ch == PUZ_SPACE ||
+                ch == PUZ_EMPTY && !m_inner->contains(p2))
+                children.emplace_back(*this).make_move(p2);
+        }
+    };
+    if (*this == Position::Zero)
+        for (auto& p : *m_inner)
+            f(p);
+    else
+        f(*this);
+}
+
 bool puz_state::make_move(Position p)
 {
     auto h = get_heuristic();
     cells(p) = PUZ_EMPTY;
 
-    for (;;) {
-        bool ending = true;
+    for (bool changed = true; changed;) {
+        changed = false;
+
         for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
             auto& [pnum, inner] = *it;
             int num = m_game->m_pos2num.at(pnum);
@@ -108,49 +140,55 @@ bool puz_state::make_move(Position p)
                             ch = PUZ_FOREST;
                     }
             };
-            for (;;) {
-                set<Position> outer;
-                for (auto& p2 : inner)
-                    for (auto& os : offset)
-                        if (auto p3 = p2 + os; cells(p3) == PUZ_EMPTY && !inner.contains(p3))
-                            outer.insert(p3);
-                if (outer.empty())
-                    break;
-                inner.insert_range(outer);
-            }
+            // 1. 吸收周围已被标记为 PUZ_EMPTY 的邻居
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, &inner, false});
+            boost::remove_erase(smoves, Position::Zero);
+            inner.insert_range(smoves);
+
             if (int sz = inner.size() - 1; sz > num)
                 return false;
             else if (sz == num) {
                 f();
                 it = m_pos2area.erase(it);
             } else {
-                set<Position> area = inner, outer;
-                for (;;) {
-                    set<Position> outer;
-                    for (auto& p2 : area)
-                        for (auto& os : offset) {
-                            auto p3 = p2 + os;
-                            if (char ch = cells(p3);
-                                (ch == PUZ_SPACE || ch == PUZ_EMPTY) && !area.contains(p3))
-                                outer.insert(p3);
-                        }
-                    if (outer.empty())
-                        break;
-                    area.insert_range(outer);
-                }
-                if (int sz2 = area.size() - 1; sz2 < num)
+                // 2. 计算当前向外延伸的边界 (outer)
+                set<Position> outer;
+                for (auto& p2 : inner)
+                    for (auto& os : offset) {
+                        auto p3 = p2 + os;
+                        if (cells(p3) == PUZ_SPACE)
+                            outer.insert(p3);
+                    }
+                if (outer.empty())
                     return false;
-                else if (sz2 == num) {
-                    for (auto& p2 : area)
-                        if (char& ch = cells(p2); ch == PUZ_SPACE)
-                            ch = PUZ_EMPTY;
-                    inner = area, f();
-                    ending = false;
+                // 规则 A：唯一出口强行填充
+                if (outer.size() == 1) {
+                    auto& p2 = *outer.begin();
+                    cells(p2) = PUZ_EMPTY;
+                    inner.insert(p2);
+                    changed = true;
                 }
-                it++;
+
+//                // 3. 计算最大连通上限 (Flood Fill 可达的最大空间 area)
+//                auto smoves = puz_move_generator<puz_state2>::gen_moves({this, &inner, true});
+//                boost::remove_erase(smoves, Position::Zero);
+//                auto max_reachable = inner;
+//                max_reachable.insert_range(smoves);
+//                
+//                if (int sz2 = max_reachable.size() - 1; sz2 < num)
+//                    return false;
+//                else if (sz2 == num) {
+//                    // 规则 B：如果可达空间刚好等于所需空间 -> 全部置为 EMPTY
+//                    for (auto& p2 : smoves)
+//                        cells(p2) = PUZ_EMPTY;
+//                    inner = max_reachable, f();
+//                    it = m_pos2area.erase(it);
+//                    changed = true;
+//                }
+//                else
+                    it++;
             }
         }
-        if (ending) break;
     }
 
     m_distance = h - get_heuristic();
