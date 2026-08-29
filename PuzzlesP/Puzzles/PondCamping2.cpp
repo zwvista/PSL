@@ -92,19 +92,22 @@ puz_state::puz_state(const puz_game& g)
 
 struct puz_state2 : Position
 {
-    puz_state2(const puz_state* s, const set<Position>* inner, bool include_space)
-        : m_state(s), m_inner(inner), m_include_space(include_space) {}
+    puz_state2(const puz_state* s, const set<Position>* inner, bool include_space, int num)
+        : m_state(s), m_inner(inner), m_include_space(include_space), m_num(num), m_step(inner->size()) {}
 
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p; }
+    void make_move(const Position& p) { static_cast<Position&>(*this) = p, ++m_step; }
     void gen_children(list<puz_state2>& children) const;
 
     const puz_state* m_state;
     const set<Position>* m_inner;
     bool m_include_space;
+    int m_num, m_step;
 };
 
 void puz_state2::gen_children(list<puz_state2>& children) const
 {
+    if (m_step == m_num + 2)
+        return;
     auto f = [&](const Position& p) {
         for (auto& os : offset) {
             auto p2 = p + os;
@@ -129,6 +132,7 @@ bool puz_state::make_move(Position p)
     for (bool changed = true; changed;) {
         changed = false;
 
+        set<Position> all_reachable;
         for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
             auto& [pnum, inner] = *it;
             int num = m_game->m_pos2num.at(pnum);
@@ -141,8 +145,8 @@ bool puz_state::make_move(Position p)
                     }
             };
             // 1. 吸收周围已被标记为 PUZ_EMPTY 的邻居
-            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, &inner, false});
-            boost::remove_erase(smoves, Position::Zero);
+            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, &inner, false, num});
+            smoves.pop_front();
             inner.insert_range(smoves);
 
             if (int sz = inner.size() - 1; sz > num)
@@ -169,26 +173,36 @@ bool puz_state::make_move(Position p)
                     changed = true;
                 }
 
-//                // 3. 计算最大连通上限 (Flood Fill 可达的最大空间 area)
-//                auto smoves = puz_move_generator<puz_state2>::gen_moves({this, &inner, true});
-//                boost::remove_erase(smoves, Position::Zero);
-//                auto max_reachable = inner;
-//                max_reachable.insert_range(smoves);
-//                
-//                if (int sz2 = max_reachable.size() - 1; sz2 < num)
-//                    return false;
-//                else if (sz2 == num) {
-//                    // 规则 B：如果可达空间刚好等于所需空间 -> 全部置为 EMPTY
-//                    for (auto& p2 : smoves)
-//                        cells(p2) = PUZ_EMPTY;
-//                    inner = max_reachable, f();
-//                    it = m_pos2area.erase(it);
-//                    changed = true;
-//                }
-//                else
+                // 3. 计算最大连通上限 (Flood Fill 可达的最大空间 area)
+                auto smoves = puz_move_generator<puz_state2>::gen_moves({this, &inner, true, num});
+                smoves.pop_front();
+                auto max_reachable = inner;
+                max_reachable.insert_range(smoves);
+                for (auto& s : smoves)
+                    if (s.m_step < num  + 2)
+                        all_reachable.insert(s);
+                
+                if (int sz2 = max_reachable.size() - 1; sz2 < num)
+                    return false;
+                else if (sz2 == num) {
+                    // 规则 B：如果可达空间刚好等于所需空间 -> 全部置为 EMPTY
+                    for (auto& p2 : smoves)
+                        cells(p2) = PUZ_EMPTY;
+                    inner = max_reachable, f();
+                    it = m_pos2area.erase(it);
+                    changed = true;
+                }
+                else
                     it++;
             }
         }
+
+        for (int r = 1; r < sidelen() - 1; ++r)
+            for (int c = 1; c < sidelen() - 1; ++c) {
+                Position p(r, c);
+                if (char& ch = cells(p); ch == PUZ_SPACE && !all_reachable.contains(p))
+                    ch = PUZ_FOREST, changed = true;
+            }
     }
 
     m_distance = h - get_heuristic();
