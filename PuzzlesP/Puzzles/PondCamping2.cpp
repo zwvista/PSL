@@ -95,51 +95,64 @@ bool puz_state::make_move(Position p)
     auto h = get_heuristic();
     cells(p) = PUZ_EMPTY;
 
-    for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
-        auto& [pnum, inner] = *it;
-        int num = m_game->m_pos2num.at(pnum);
-        for (;;) {
-            set<Position> outer;
-            for (auto& p2 : inner)
-                for (auto& os : offset)
-                    if (auto p3 = p2 + os; cells(p3) == PUZ_EMPTY && !inner.contains(p3))
-                        outer.insert(p3);
-            if (outer.empty())
-                break;
-            inner.insert_range(outer);
-        }
-        if (int sz = inner.size() - 1; sz > num)
-            return false;
-        else if (sz == num) {
-            for (auto& p2 : inner)
-                for (auto& os : offset) {
-                    auto p3 = p2 + os;
-                    if (char& ch = cells(p3); ch == PUZ_SPACE)
-                        ch = PUZ_FOREST;
-                }
-            it = m_pos2area.erase(it);
-        } else if (auto area = inner; ![&]{
-            set<Position> outer;
-            for (;;) {
-                set<Position> outer;
-                for (auto& p2 : area)
+    for (;;) {
+        bool ending = true;
+        for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
+            auto& [pnum, inner] = *it;
+            int num = m_game->m_pos2num.at(pnum);
+            auto f = [&] {
+                for (auto& p2 : inner)
                     for (auto& os : offset) {
                         auto p3 = p2 + os;
-                        if (char ch = cells(p3);
-                            (ch == PUZ_SPACE || ch == PUZ_EMPTY) && !area.contains(p3))
-                            outer.insert(p3);
+                        if (char& ch = cells(p3); ch == PUZ_SPACE)
+                            ch = PUZ_FOREST;
                     }
+            };
+            for (;;) {
+                set<Position> outer;
+                for (auto& p2 : inner)
+                    for (auto& os : offset)
+                        if (auto p3 = p2 + os; cells(p3) == PUZ_EMPTY && !inner.contains(p3))
+                            outer.insert(p3);
                 if (outer.empty())
-                    return false;
-                area.insert_range(outer);
-                if (area.size() > num)
-                    return true;
+                    break;
+                inner.insert_range(outer);
             }
-        }())
-            return false;
-        else
-            it++;
+            if (int sz = inner.size() - 1; sz > num)
+                return false;
+            else if (sz == num) {
+                f();
+                it = m_pos2area.erase(it);
+            } else {
+                set<Position> area = inner, outer;
+                for (;;) {
+                    set<Position> outer;
+                    for (auto& p2 : area)
+                        for (auto& os : offset) {
+                            auto p3 = p2 + os;
+                            if (char ch = cells(p3);
+                                (ch == PUZ_SPACE || ch == PUZ_EMPTY) && !area.contains(p3))
+                                outer.insert(p3);
+                        }
+                    if (outer.empty())
+                        break;
+                    area.insert_range(outer);
+                }
+                if (int sz2 = area.size() - 1; sz2 < num)
+                    return false;
+                else if (sz2 == num) {
+                    for (auto& p2 : area)
+                        if (char& ch = cells(p2); ch == PUZ_SPACE)
+                            ch = PUZ_EMPTY;
+                    inner = area, f();
+                    ending = false;
+                }
+                it++;
+            }
+        }
+        if (ending) break;
     }
+
     m_distance = h - get_heuristic();
     return true;
 }
