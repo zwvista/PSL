@@ -90,40 +90,6 @@ puz_state::puz_state(const puz_game& g)
         m_pos2area[p].insert(p);
 }
 
-struct puz_state2 : Position
-{
-    puz_state2(const puz_state* s, const set<Position>* inner, bool include_space, int num)
-        : m_state(s), m_inner(inner), m_include_space(include_space), m_num(num), m_step(inner->size()) {}
-
-    void make_move(const Position& p) { static_cast<Position&>(*this) = p, ++m_step; }
-    void gen_children(list<puz_state2>& children) const;
-
-    const puz_state* m_state;
-    const set<Position>* m_inner;
-    bool m_include_space;
-    int m_num, m_step;
-};
-
-void puz_state2::gen_children(list<puz_state2>& children) const
-{
-    if (m_step == m_num + 2)
-        return;
-    auto f = [&](const Position& p) {
-        for (auto& os : offset) {
-            auto p2 = p + os;
-            if (char ch = m_state->cells(p2);
-                m_include_space && ch == PUZ_SPACE ||
-                ch == PUZ_EMPTY && !m_inner->contains(p2))
-                children.emplace_back(*this).make_move(p2);
-        }
-    };
-    if (*this == Position::Zero)
-        for (auto& p : *m_inner)
-            f(p);
-    else
-        f(*this);
-}
-
 bool puz_state::make_move(Position p)
 {
     auto h = get_heuristic();
@@ -133,10 +99,12 @@ bool puz_state::make_move(Position p)
         changed = false;
 
         set<Position> all_reachable;
+
         for (auto it = m_pos2area.begin(); it != m_pos2area.end();) {
             auto& [pnum, inner] = *it;
             int num = m_game->m_pos2num.at(pnum);
-            auto f = [&] {
+
+            auto mark_forest_around = [&] {
                 for (auto& p2 : inner)
                     for (auto& os : offset) {
                         auto p3 = p2 + os;
@@ -144,65 +112,118 @@ bool puz_state::make_move(Position p)
                             ch = PUZ_FOREST;
                     }
             };
-            // 1. 吸收周围已被标记为 PUZ_EMPTY 的邻居
-            auto smoves = puz_move_generator<puz_state2>::gen_moves({this, &inner, false, num});
-            smoves.pop_front();
-            inner.insert_range(smoves);
 
-            if (int sz = inner.size() - 1; sz > num)
-                return false;
-            else if (sz == num) {
-                f();
-                it = m_pos2area.erase(it);
-            } else {
-                // 2. 计算当前向外延伸的边界 (outer)
-                set<Position> outer;
-                for (auto& p2 : inner)
+            // 1. 轻量吸收周围已有的 PUZ_EMPTY 邻居
+            bool inner_expanded = true;
+            while (inner_expanded) {
+                inner_expanded = false;
+                vector<Position> to_add;
+                for (auto& p2 : inner) {
                     for (auto& os : offset) {
                         auto p3 = p2 + os;
-                        if (cells(p3) == PUZ_SPACE)
-                            outer.insert(p3);
+                        if (cells(p3) == PUZ_EMPTY && !inner.contains(p3)) {
+                            to_add.push_back(p3);
+                        }
                     }
-                if (outer.empty())
-                    return false;
-                // 规则 A：唯一出口强行填充
-                if (outer.size() == 1) {
-                    auto& p2 = *outer.begin();
-                    cells(p2) = PUZ_EMPTY;
-                    inner.insert(p2);
-                    changed = true;
+                }
+                if (!to_add.empty()) {
+                    inner.insert(to_add.begin(), to_add.end());
+                    inner_expanded = true;
+                }
+            }
+
+            int sz = inner.size() - 1;
+            if (sz > num)
+                return false; // 超过步数，剪枝
+            else if (sz == num) {
+                mark_forest_around();
+                it = m_pos2area.erase(it);
+                changed = true;
+                continue;
+            }
+
+            // 2. 计算当前向外延伸的边界 (outer)
+            set<Position> outer;
+            for (auto& p2 : inner)
+                for (auto& os : offset) {
+                    auto p3 = p2 + os;
+                    if (cells(p3) == PUZ_SPACE)
+                        outer.insert(p3);
                 }
 
-                // 3. 计算最大连通上限 (Flood Fill 可达的最大空间 area)
-                auto smoves = puz_move_generator<puz_state2>::gen_moves({this, &inner, true, num});
-                smoves.pop_front();
-                auto max_reachable = inner;
-                max_reachable.insert_range(smoves);
-                for (auto& s : smoves)
-                    if (s.m_step < num  + 2)
-                        all_reachable.insert(s);
-                
-                if (int sz2 = max_reachable.size() - 1; sz2 < num)
-                    return false;
-                else if (sz2 == num) {
-                    // 规则 B：如果可达空间刚好等于所需空间 -> 全部置为 EMPTY
-                    for (auto& p2 : smoves)
-                        cells(p2) = PUZ_EMPTY;
-                    inner = max_reachable, f();
-                    it = m_pos2area.erase(it);
-                    changed = true;
+            if (outer.empty())
+                return false; // 无路可走，剪枝
+
+            // 规则 A：唯一出口强行填充
+            if (outer.size() == 1) {
+                auto& p2 = *outer.begin();
+                cells(p2) = PUZ_EMPTY;
+                inner.insert(p2);
+                changed = true;
+            }
+
+            // 3. 计算最大连通上限 (用带距离制限的队列 BFS)
+            set<Position> max_reachable = inner;
+            map<Position, int> dist;
+            queue<Position> q;
+
+            for (auto& p2 : inner) {
+                dist[p2] = 0;
+                q.push(p2);
+            }
+
+            int rem = num + 1 - inner.size();
+            while (!q.empty()) {
+                auto curr = q.front();
+                q.pop();
+
+                int d = dist[curr];
+                if (d > rem) continue;
+
+                for (auto& os : offset) {
+                    auto next_p = curr + os;
+                    char ch = cells(next_p);
+                    if ((ch == PUZ_SPACE || ch == PUZ_EMPTY) && !dist.contains(next_p)) {
+                        dist[next_p] = d + 1;
+                        max_reachable.insert(next_p);
+                        q.push(next_p);
+                    }
                 }
-                else
-                    it++;
+            }
+
+            // 收集所有在步数限制内可达的格子
+            for (auto& [p_reach, d] : dist)
+                if (d <= rem)
+                    all_reachable.insert(p_reach);
+
+            int sz2 = max_reachable.size() - 1;
+            if (sz2 < num)
+                return false; // 可达空间不足，剪枝
+            else if (sz2 == num) {
+                // 规则 B：如果可达空间刚好等于所需空间 -> 全部置为 EMPTY
+                for (auto& p2 : max_reachable)
+                    if (cells(p2) == PUZ_SPACE)
+                        cells(p2) = PUZ_EMPTY;
+
+                inner = max_reachable;
+                mark_forest_around();
+                it = m_pos2area.erase(it);
+                changed = true;
+            } else {
+                it++;
             }
         }
 
-        for (int r = 1; r < sidelen() - 1; ++r)
+        // 4. 清理全图不可达的孤立空格
+        for (int r = 1; r < sidelen() - 1; ++r) {
             for (int c = 1; c < sidelen() - 1; ++c) {
-                Position p(r, c);
-                if (char& ch = cells(p); ch == PUZ_SPACE && !all_reachable.contains(p))
-                    ch = PUZ_FOREST, changed = true;
+                Position p_cell(r, c);
+                if (char& ch = cells(p_cell); ch == PUZ_SPACE && !all_reachable.contains(p_cell)) {
+                    ch = PUZ_FOREST;
+                    changed = true;
+                }
             }
+        }
     }
 
     m_distance = h - get_heuristic();
