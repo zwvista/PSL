@@ -2409,3 +2409,48 @@ Number of vertices examined: 40
 0.004953 [s]
 
 Level 179
+Sequence of moves: 
+. . = = = . . 7 . 
+3 = 2 . = . = . . 
+. 3 . 4 . 8 = = . 
+6 . = . = . 5 . 9 
+. = = = . . = 5 . 
+. = 2 = . 10. . . 
+. = . . = . = 6 6 
+. = 6 = = . 5 . . 
+= . . . . 7 . = = 
+Number of moves: 19
+Number of vertices examined: 5273231
+682.024 [s]
+
+Level 180
+Sequence of moves: 
+= . = . . . 5 1 . 
+8 . 6 . 9 = . 1 = 
+. = = = . . 6 = = 
+. = . 7 . . = . = 
+. . = . = . 6 1 = 
+7 . . 10. = . 2 . 
+. 7 = . = = 1 = 2 
+= = 3 . 4 . 1 = . 
+. 2 . 4 . 2 = = = 
+Number of moves: 14
+Number of vertices examined: 165
+0.091078 [s]
+
+Level 181
+Sequence of moves: 
+= 1 . 1 = . = = = 
+. = = = = 1 2 . . 
+4 . = . . = = 5 2 
+. = . . . 9 . . = 
+. 8 . 6 = 3 . = . 
+= = 7 = . = = . 3 
+= = . = 3 . . 4 . 
+. . 5 . 2 = = = = 
+= = . 3 . = . 2 . 
+Number of moves: 22
+Number of vertices examined: 26107
+2.41224 [s]
+
+Level 182
