@@ -17,7 +17,8 @@
     3. Gardens can have any form, extending horizontally and vertically but
        can't extend diagonally.
     4. The gardens are separated by a single, continuous wall. This means all
-       wall tiles on the board must be connected horizontally or vertically. There can't be isolated walls
+       wall tiles on the board must be connected horizontally or vertically.
+       There can't be isolated walls
     5. Additionally, not all the gardens in the puzzle may be numbered at the
        start. There could be some hidden gardens.
     6. The wall can't form 2x2 squares.

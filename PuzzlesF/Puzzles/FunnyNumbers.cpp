@@ -198,9 +198,9 @@ bool puz_state::make_move(const Position& p, char ch)
 
         auto nums2D_result = [&] {
             auto& input = nums2D;
-            vector<vector<int>> result_nums;
+            vector<vector<char>> result_nums;
             vector<puz_numbers> result(sz);
-            vector<int> path;
+            vector<char> path;
 
             function<void(int)> backtrack = [&](int index) {
                 if (index == input.size()) {

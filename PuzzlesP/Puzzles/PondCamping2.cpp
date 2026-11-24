@@ -162,68 +162,68 @@ bool puz_state::make_move(Position p)
                 changed = true;
             }
 
-            // 3. 计算最大连通上限 (用带距离制限的队列 BFS)
-            set<Position> max_reachable = inner;
-            map<Position, int> dist;
-            queue<Position> q;
-
-            for (auto& p2 : inner) {
-                dist[p2] = 0;
-                q.push(p2);
-            }
-
-            int rem = num + 1 - inner.size();
-            while (!q.empty()) {
-                auto curr = q.front();
-                q.pop();
-
-                int d = dist[curr];
-                if (d > rem) continue;
-
-                for (auto& os : offset) {
-                    auto next_p = curr + os;
-                    char ch = cells(next_p);
-                    if ((ch == PUZ_SPACE || ch == PUZ_EMPTY) && !dist.contains(next_p)) {
-                        dist[next_p] = d + 1;
-                        max_reachable.insert(next_p);
-                        q.push(next_p);
-                    }
-                }
-            }
-
-            // 收集所有在步数限制内可达的格子
-            for (auto& [p_reach, d] : dist)
-                if (d <= rem)
-                    all_reachable.insert(p_reach);
-
-            int sz2 = max_reachable.size() - 1;
-            if (sz2 < num)
-                return false; // 可达空间不足，剪枝
-            else if (sz2 == num) {
-                // 规则 B：如果可达空间刚好等于所需空间 -> 全部置为 EMPTY
-                for (auto& p2 : max_reachable)
-                    if (cells(p2) == PUZ_SPACE)
-                        cells(p2) = PUZ_EMPTY;
-
-                inner = max_reachable;
-                mark_forest_around();
-                it = m_pos2area.erase(it);
-                changed = true;
-            } else {
+//            // 3. 计算最大连通上限 (用带距离制限的队列 BFS)
+//            set<Position> max_reachable = inner;
+//            map<Position, int> dist;
+//            queue<Position> q;
+//
+//            for (auto& p2 : inner) {
+//                dist[p2] = 0;
+//                q.push(p2);
+//            }
+//
+//            int rem = num + 1 - inner.size();
+//            while (!q.empty()) {
+//                auto curr = q.front();
+//                q.pop();
+//
+//                int d = dist[curr];
+//                if (d > rem) continue;
+//
+//                for (auto& os : offset) {
+//                    auto next_p = curr + os;
+//                    char ch = cells(next_p);
+//                    if ((ch == PUZ_SPACE || ch == PUZ_EMPTY) && !dist.contains(next_p)) {
+//                        dist[next_p] = d + 1;
+//                        max_reachable.insert(next_p);
+//                        q.push(next_p);
+//                    }
+//                }
+//            }
+//
+//            // 收集所有在步数限制内可达的格子
+//            for (auto& [p_reach, d] : dist)
+//                if (d <= rem)
+//                    all_reachable.insert(p_reach);
+//
+//            int sz2 = max_reachable.size() - 1;
+//            if (sz2 < num)
+//                return false; // 可达空间不足，剪枝
+//            else if (sz2 == num) {
+//                // 规则 B：如果可达空间刚好等于所需空间 -> 全部置为 EMPTY
+//                for (auto& p2 : max_reachable)
+//                    if (cells(p2) == PUZ_SPACE)
+//                        cells(p2) = PUZ_EMPTY;
+//
+//                inner = max_reachable;
+//                mark_forest_around();
+//                it = m_pos2area.erase(it);
+//                changed = true;
+//            } else {
                 it++;
-            }
+//            }
         }
 
-        // 4. 清理全图不可达的孤立空格
-        for (int r = 1; r < sidelen() - 1; ++r) {
-            for (int c = 1; c < sidelen() - 1; ++c) {
-                Position p_cell(r, c);
-                if (char& ch = cells(p_cell); ch == PUZ_SPACE && !all_reachable.contains(p_cell)) {
-                    ch = PUZ_FOREST;
-                    changed = true;
-                }
-            }
-        }
+//        // 4. 清理全图不可达的孤立空格
+//        for (int r = 1; r < sidelen() - 1; ++r) {
+//            for (int c = 1; c < sidelen() - 1; ++c) {
+//                Position p_cell(r, c);
+//                if (char& ch = cells(p_cell); ch == PUZ_SPACE && !all_reachable.contains(p_cell)) {
+//                    ch = PUZ_FOREST;
+//                    changed = true;
+//                }
+//            }
+//        }
     }
 
     m_distance = h - get_heuristic();
