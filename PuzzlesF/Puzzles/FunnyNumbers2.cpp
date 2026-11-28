@@ -32,6 +32,12 @@ struct puz_numbers : set<char>
     }
 };
 
+struct puz_move
+{
+    vector<Position> m_rng;
+    vector<char> m_comb;
+};
+
 struct puz_game
 {
     string m_id;
@@ -43,7 +49,7 @@ struct puz_game
     set<Position> m_horz_walls, m_vert_walls;
     map<Position, puz_numbers> m_pos2nums;
     string m_cells;
-    map<int, vector<vector<char>>> m_area2result;
+    map<int, vector<puz_move>> m_area2moves;
 
     puz_game(const vector<string>& strs, const xml_node& level);
     bool is_valid(const Position& p) const {
@@ -76,10 +82,10 @@ void puz_state2::gen_children(list<puz_state2>& children) const
 }
 
 puz_game::puz_game(const vector<string>& strs, const xml_node& level)
-    : m_id(level.attribute("id").value())
-    , m_sidelen(strs.size() / 2 - 1)
-    , m_areas(m_sidelen * 2)
-    , m_cells(m_sidelen * m_sidelen, PUZ_SPACE)
+: m_id(level.attribute("id").value())
+, m_sidelen(strs.size() / 2 - 1)
+, m_areas(m_sidelen * 2)
+, m_cells(m_sidelen * m_sidelen, PUZ_SPACE)
 {
     set<Position> rng;
     for (int r = 0;; ++r) {
@@ -135,8 +141,8 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end())
                 it->second.erase(ch);
         }
-        auto& a = m_areas[m_pos2area.at(p)];
-        for (auto& p2 : a)
+        auto& area = m_areas[m_pos2area.at(p)];
+        for (auto& p2 : area)
             if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end())
                 it->second.erase(ch);
     }
@@ -151,14 +157,13 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             return ch == PUZ_SPACE ? false : (sum -= ch - '0', true);
         });
 
-        int sz = rng.size();
         vector<puz_numbers> nums2D;
         for (auto& p2 : rng)
             nums2D.push_back(m_pos2nums.at(p2));
 
-        m_area2result[i] = [&] {
+        auto combs = [&] {
             auto& input = nums2D;
-            vector<vector<char>> result;
+            vector<vector<char>> combs;
             vector<char> path;
 
             function<void(int)> backtrack = [&](int index) {
@@ -166,7 +171,7 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
                     if (boost::accumulate(path, 0, [&](int acc, char ch2) {
                         return acc + (ch2 - '0');
                     }) == sum)
-                        result.push_back(path);
+                        combs.push_back(path);
                     return;
                 }
 
@@ -178,8 +183,10 @@ puz_game::puz_game(const vector<string>& strs, const xml_node& level)
             };
 
             backtrack(0);
-            return result;
+            return combs;
         }();
+        for (auto& comb : combs)
+            m_area2moves[i].emplace_back(rng, comb);
     }
 }
 
@@ -187,132 +194,107 @@ struct puz_state
 {
     puz_state(const puz_game& g);
     int sidelen() const { return m_game->m_sidelen; }
+    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
+    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
+    bool operator<(const puz_state& x) const {
+        return tie(m_cells, m_matches) < tie(x.m_cells, x.m_matches);
+    }
     bool is_valid(const Position& p) const {
         return p.first >= 0 && p.first < sidelen() && p.second >= 0 && p.second < sidelen();
     }
-    char cells(const Position& p) const { return m_cells[p.first * sidelen() + p.second]; }
-    char& cells(const Position& p) { return m_cells[p.first * sidelen() + p.second]; }
-    bool operator<(const puz_state& x) const { return m_cells < x.m_cells; }
-    bool make_move(const Position& p, char ch);
+    bool make_move(int area_id, int move_id);
+    void make_move2(int area_id, int move_id);
+    int find_matches(bool init);
 
     // solve_puzzle interface
     bool is_goal_state() const { return get_heuristic() == 0; }
     void gen_children(list<puz_state>& children) const;
-    unsigned int get_heuristic() const { return boost::count(m_cells, PUZ_SPACE); }
-    unsigned int get_distance(const puz_state& child) const {return 1;}
+    unsigned int get_heuristic() const { return m_matches.size(); }
+    unsigned int get_distance(const puz_state& child) const { return child.m_distance; }
     void dump_move(ostream& out) const {}
     ostream& dump(ostream& out) const;
 
     const puz_game* m_game;
+    map<int, vector<int>> m_matches;
     string m_cells;
-    map<int, int> m_area2sum;
+    unsigned int m_distance = 0;
     map<Position, puz_numbers> m_pos2nums;
 };
 
 puz_state::puz_state(const puz_game& g)
-    : m_cells(g.m_sidelen * g.m_sidelen, PUZ_SPACE)
-    , m_game(&g)
+: m_game(&g), m_cells(g.m_cells), m_pos2nums(g.m_pos2nums)
 {
-    for (int r = 0; r < sidelen(); ++r)
-        for (int c = 0; c < sidelen(); ++c) {
-            Position p(r, c);
-            m_pos2nums[p] = puz_numbers(g.m_areas[g.m_pos2area.at(p)].size());
-        }
+    for (auto& [area_id, moves] : g.m_area2moves)
+        for (int i = 0; i < moves.size(); ++i)
+            m_matches[area_id].push_back(i);
 
-    for (int i = 0; i < sidelen() * 2; ++i)
-        m_area2sum[i] = g.m_area2num.at(i);
-
-    for (auto& [p, ch] : g.m_pos2num)
-        make_move(p, ch);
+    find_matches(true);
 }
 
-bool puz_state::make_move(const Position& p, char ch)
+int puz_state::find_matches(bool init)
 {
-    cells(p) = ch;
-    m_pos2nums.erase(p);
+    for (auto& [area_id, move_ids] : m_matches) {
+        auto& moves = m_game->m_area2moves.at(area_id);
 
-    auto f = [&](const Position& p2, char ch2) {
-        if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end()) {
-            it->second.erase(ch2);
-            return !it->second.empty();
-        }
-        return true;
-    };
-
-    for (auto& p2 : m_game->m_areas[m_game->m_pos2area.at(p)])
-        if (p2 != p && !f(p2, ch))
+        boost::remove_erase_if(move_ids, [&](int id) {
+            auto& [rng, comb] = moves[id];
+            for (int i = 0; i < rng.size(); ++i)
+                if (auto& nums = m_pos2nums.at(rng[i]); !nums.contains(comb[i]))
+                    return true;
             return false;
-
-    // 2. Same numbers can't touch each other horizontally or vertically across regions.
-    for (auto& os : offset)
-        if (auto p2 = p + os; is_valid(p2) && !f(p2, ch))
-            return false;
-
-    auto& [r, c] = p;
-    for (int area_id : {r, c + sidelen()}) {
-        int& sum = m_area2sum.at(area_id);
-        if (sum == PUZ_UNKNOWN) continue;
-        sum -= ch - '0';
-
-        auto rng = m_game->m_areas[area_id];
-        boost::remove_erase_if(rng, [&](const Position& p2) {
-            return cells(p2) != PUZ_SPACE;
         });
-        int sz = rng.size();
-        vector<puz_numbers> nums2D;
-        for (auto& p2 : rng)
-            nums2D.push_back(m_pos2nums.at(p2));
 
-        auto nums2D_result = [&] {
-            auto& input = nums2D;
-            vector<vector<char>> result_nums;
-            vector<puz_numbers> result(sz);
-            vector<char> path;
-
-            function<void(int)> backtrack = [&](int index) {
-                if (index == input.size()) {
-                    if (boost::accumulate(path, 0, [&](int acc, char ch2) {
-                        return acc + (ch2 - '0');
-                    }) == sum) {
-                        result_nums.push_back(path);
-                        for (int i = 0; i < sz; ++i)
-                            result[i].insert(path[i]);
-                    }
-                    return;
-                }
-
-                for (int num : input[index]) {
-                    path.push_back(num);
-                    backtrack(index + 1);
-                    path.pop_back();
-                }
-            };
-
-            backtrack(0);
-            return result;
-        }();
-
-        for (int i = 0; i < sz; ++i) {
-            set<int> s;
-            boost::set_difference(nums2D[i], nums2D_result[i], inserter(s, s.end()));
-            for (char ch2 : s)
-                if (!f(rng[i], ch2))
-                    return false;
-        }
+        if (!init)
+            switch (move_ids.size()) {
+            case 0:
+                return 0;
+            case 1:
+                return make_move2(area_id, move_ids[0]), 1;
+            }
     }
+    return 2;
+}
 
-    return true;
+void puz_state::make_move2(int area_id, int move_id)
+{
+    auto& [rng, comb] = m_game->m_area2moves.at(area_id)[move_id];
+    for (int i = 0; i < rng.size(); ++i) {
+        auto& p = rng[i];
+        char ch = comb[i];
+        cells(p) = ch;
+        m_pos2nums[p] = {ch};
+        for (auto& os : offset) {
+            auto p2 = p + os;
+            if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end())
+                it->second.erase(ch);
+        }
+        auto& area = m_game->m_areas[m_game->m_pos2area.at(p)];
+        for (auto& p2 : area)
+            if (auto it = m_pos2nums.find(p2); it != m_pos2nums.end())
+                it->second.erase(ch);
+    }
+    m_matches.erase(area_id);
+    ++m_distance;
+}
+
+bool puz_state::make_move(int area_id, int move_id)
+{
+    m_distance = 0;
+    make_move2(area_id, move_id);
+    int m;
+    while ((m = find_matches(false)) == 1);
+    return m == 2;
 }
 
 void puz_state::gen_children(list<puz_state>& children) const
 {
-    auto& [p, nums] = *boost::min_element(m_pos2nums, [](
-        const pair<const Position, puz_numbers>& kv1,
-        const pair<const Position, puz_numbers>& kv2) {
+    auto& [area_id, comb_ids] = *boost::min_element(m_matches, [](
+        const pair<int, vector<int>>& kv1,
+        const pair<int, vector<int>>& kv2) {
         return kv1.second.size() < kv2.second.size();
     });
-    for (char ch : nums)
-        if (!children.emplace_back(*this).make_move(p, ch))
+    for (int comb_id : comb_ids)
+        if (!children.emplace_back(*this).make_move(area_id, comb_id))
             children.pop_back();
 }
 
