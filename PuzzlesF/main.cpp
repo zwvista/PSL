@@ -17,6 +17,7 @@ extern void solve_puz_FlowerOMino();
 extern void solve_puz_FourMeNot();
 extern void solve_puz_FreePlanks();
 extern void solve_puz_FunnyNumbers();
+extern void solve_puz_FunnyNumbers2();
 extern void solve_puz_FussyWaiter();
 extern void solve_puz_Futoshiki();
 
@@ -40,11 +41,12 @@ int main(int argc, char **argv)
         println("l5: Flower-O-Mino");
         println("o: Four-Me-Not");
         println("r: Free Planks");
-        println("u1: Funny Numbers");
+        println("u11: Funny Numbers");
+        println("u12: Funny Numbers2");
         println("u2: Fussy Waiter");
         println("u3: Futoshiki");
         getline(cin, str);
-        if (str.empty()) solve_puz_FunnyNumbers();
+        if (str.empty()) solve_puz_FunnyNumbers2();
         else if (str == "a") solve_puz_Farmer();
         else if (str == "e1") solve_puz_FenceItUp();
         else if (str == "e2") solve_puz_FenceLits();
@@ -61,7 +63,8 @@ int main(int argc, char **argv)
         else if (str == "l5") solve_puz_FlowerOMino();
         else if (str == "o") solve_puz_FourMeNot();
         else if (str == "r") solve_puz_FreePlanks();
-        else if (str == "u1") solve_puz_FunnyNumbers();
+        else if (str == "u11") solve_puz_FunnyNumbers();
+        else if (str == "u12") solve_puz_FunnyNumbers2();
         else if (str == "u2") solve_puz_FussyWaiter();
         else if (str == "u3") solve_puz_Futoshiki();
     }

@@ -25,6 +25,7 @@
 		8CA240331EB479B90055D6B1 /* FourMeNot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240201EB479B90055D6B1 /* FourMeNot.cpp */; };
 		8CA240351EB479B90055D6B1 /* FussyWaiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA240281EB479B90055D6B1 /* FussyWaiter.cpp */; };
 		8CA240361EB479B90055D6B1 /* Futoshiki.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2402B1EB479B90055D6B1 /* Futoshiki.cpp */; };
+		8CEB84D030BA868B00ABC10D /* FunnyNumbers2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CEB84CE30BA868B00ABC10D /* FunnyNumbers2.cpp */; };
 		95406C5D255FA37F00C87A0D /* FloorPlan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95406C3D255FA27900C87A0D /* FloorPlan.cpp */; };
 		95406C5F255FA38D00C87A0D /* FencingSheep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95406C37255FA1B600C87A0D /* FencingSheep.cpp */; };
 		958FA6282327E62400205831 /* FlowerBeds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 958FA6242327E62300205831 /* FlowerBeds.cpp */; };
@@ -116,6 +117,8 @@
 		8CA2402B1EB479B90055D6B1 /* Futoshiki.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Futoshiki.cpp; sourceTree = "<group>"; };
 		8CA2402C1EB479B90055D6B1 /* Futoshiki.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Futoshiki.txt; sourceTree = "<group>"; };
 		8CA2402D1EB479B90055D6B1 /* Futoshiki.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Futoshiki.xml; sourceTree = "<group>"; };
+		8CEB84CE30BA868B00ABC10D /* FunnyNumbers2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FunnyNumbers2.cpp; sourceTree = "<group>"; };
+		8CEB84CF30BA868B00ABC10D /* FunnyNumbers2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FunnyNumbers2.txt; sourceTree = "<group>"; };
 		95406C36255FA1B600C87A0D /* FencingSheep.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FencingSheep.txt; sourceTree = "<group>"; };
 		95406C37255FA1B600C87A0D /* FencingSheep.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FencingSheep.cpp; sourceTree = "<group>"; };
 		95406C38255FA1B600C87A0D /* FencingSheep.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FencingSheep.xml; sourceTree = "<group>"; };
@@ -225,6 +228,8 @@
 				8C689D362E08C2E500A2BCCC /* FunnyNumbers.cpp */,
 				8C689D372E08C2E500A2BCCC /* FunnyNumbers.txt */,
 				8C689D382E08C2E500A2BCCC /* FunnyNumbers.xml */,
+				8CEB84CE30BA868B00ABC10D /* FunnyNumbers2.cpp */,
+				8CEB84CF30BA868B00ABC10D /* FunnyNumbers2.txt */,
 				8CA240281EB479B90055D6B1 /* FussyWaiter.cpp */,
 				8CA240291EB479B90055D6B1 /* FussyWaiter.txt */,
 				8CA2402A1EB479B90055D6B1 /* FussyWaiter.xml */,
@@ -329,6 +334,7 @@
 				958FA649232DE76E00205831 /* Fields.cpp in Sources */,
 				8CA23F1A1EA925F20055D6B1 /* stdafx.cpp in Sources */,
 				8C689CB52E00383900A2BCCC /* FlowerbedShrubs.cpp in Sources */,
+				8CEB84D030BA868B00ABC10D /* FunnyNumbers2.cpp in Sources */,
 				8CA240301EB479B90055D6B1 /* FenceSentinels.cpp in Sources */,
 				8CA2402F1EB479B90055D6B1 /* FenceLits.cpp in Sources */,
 				8CA2402E1EB479B90055D6B1 /* FenceItUp.cpp in Sources */,
